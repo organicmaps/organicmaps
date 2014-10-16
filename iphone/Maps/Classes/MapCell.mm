@@ -141,9 +141,9 @@
   self.arrowView.center = CGPointMake(self.width - [self minimumRightOffset] - 4, self.height / 2);
   self.arrowView.hidden = !self.parentMode;
 
-  [self.statusLabel sizeToFit];
+  [self.statusLabel sizeToIntegralFit];
   self.statusLabel.width = MAX(self.statusLabel.width, 60);
-  [self.sizeLabel sizeToFit];
+  [self.sizeLabel sizeToIntegralFit];
   self.statusLabel.frame = CGRectMake(self.width - [self rightOffset] - self.statusLabel.width, 14, self.statusLabel.width, 16);
   self.statusLabel.hidden = self.parentMode;
 
@@ -153,10 +153,11 @@
   self.sizeLabel.hidden = self.parentMode;
 
   CGFloat const rightLabelsMaxWidth = self.parentMode ? 10 : MAX(self.statusLabel.width, self.sizeLabel.width);
-  CGFloat const leftLabelsWith = self.width - [self leftOffset] - [self betweenSpace] - rightLabelsMaxWidth - [self rightOffset];
+  CGFloat const leftLabelsWidth = self.width - [self leftOffset] - [self betweenSpace] - rightLabelsMaxWidth - [self rightOffset];
 
-  self.titleLabel.frame = CGRectMake([self leftOffset], self.subtitleLabel.text == nil ? 19 : 10, leftLabelsWith, 20);
-  self.subtitleLabel.frame = CGRectMake([self leftOffset], self.titleLabel.maxY + 1, leftLabelsWith, 18);
+  CGFloat const titleLabelWidth = [self.titleLabel.text sizeWithDrawSize:CGSizeMake(1000, 20) font:self.titleLabel.font].width;
+  self.titleLabel.frame = CGRectMake([self leftOffset], self.subtitleLabel.text == nil ? 19 : 10, MIN(titleLabelWidth, leftLabelsWidth), 20);
+  self.subtitleLabel.frame = CGRectMake([self leftOffset], self.titleLabel.maxY + 1, leftLabelsWidth, 18);
   self.subtitleLabel.hidden = self.subtitleLabel.text == nil;
 
   self.routingImageView.center = CGPointMake(self.width - 25, self.height / 2 - 1);
@@ -171,7 +172,7 @@
     [self alignProgressView];
     [self setStatus:self.status options:self.options animated:NO];
   }
-  self.badgeView.minX = self.titleLabel.maxX + 4;
+  self.badgeView.minX = self.titleLabel.maxX + 3;
   self.badgeView.minY = self.titleLabel.minY - 5;
 
   self.separator.minX = self.titleLabel.minX;

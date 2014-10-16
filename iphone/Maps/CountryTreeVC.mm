@@ -39,7 +39,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-
   if (self.isMovingFromParentViewController)
   {
     if (self.tree.HasParent())
@@ -47,12 +46,6 @@
     else
       self.tree.ResetListener();
   }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  [self.tableView reloadData];
 }
 
 #define TOP_ROWS_COUNT 1

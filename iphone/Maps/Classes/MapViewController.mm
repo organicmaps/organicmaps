@@ -37,6 +37,7 @@
 #define ALERT_VIEW_BOOKMARKS 4
 #define ALERT_VIEW_DOWNLOADER 5
 #define ALERT_VIEW_PRO_VERSION_ROUTING 6
+#define ALERT_VIEW_ROUTING_DISCLAIMER 7
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
@@ -514,6 +515,8 @@
   [self.view addSubview:self.containerView];
 
   [self.view addSubview:self.bottomMenu];
+
+  [self showRoutingFeatureDialog];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -632,6 +635,18 @@
 }
 
 #pragma mark - ShowDialog callback
+
+- (void)showRoutingFeatureDialog
+{
+  int const outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+  bool isFirstRoutingRun = true;
+  (void)Settings::Get("IsFirstRoutingRun", isFirstRoutingRun);
+  if (GetPlatform().IsPro() && isFirstRoutingRun && outOfDateCount > 0)
+  {
+    [[[UIAlertView alloc] initWithTitle:L(@"routing_update_maps") message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
+    Settings::Set("IsFirstRoutingRun", false);
+  }
+}
 
 - (void)showDialogWithMessageID:(string const &)message
 {
@@ -802,14 +817,41 @@
 
 #pragma mark - Routing
 
+- (void)tryToBuildRoute
+{
+  if (GetPlatform().IsPro())
+  {
+    bool isDisclaimerApproved = false;
+    (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
+    if (isDisclaimerApproved)
+    {
+      [self.routeView updateDistance:nil withMetrics:nil];
+      [self.containerView.placePage showBuildingRoutingActivity:YES];
+      GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
+    }
+    else
+    {
+      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_disclaimer") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
+      alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
+      [alert show];
+    }
+  }
+  else
+  {
+    GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
+  }
+}
+
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
 {
+  [UIApplication sharedApplication].idleTimerDisabled = YES;
   [routeView hideFollowButton];
   GetFramework().FollowRoute();
 }
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView
 {
+  [UIApplication sharedApplication].idleTimerDisabled = NO;
   GetFramework().CloseRouting();
   [routeView setVisible:NO animated:YES];
 }
@@ -818,8 +860,7 @@
 
 - (void)placePageViewDidStartRouting:(PlacePageView *)placePage
 {
-  [placePage showBuildingRoutingActivity:YES];
-  GetFramework().BuildRoute([placePage pinPoint]);
+  [self tryToBuildRoute];
 }
 
 - (void)placePageView:(PlacePageView *)placePage willShareText:(NSString *)text point:(m2::PointD)point
@@ -910,7 +951,7 @@
     }
     else
     {
-      [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+      [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position") message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
     }
   }
   else if ([itemName isEqualToString:@"MoreApps"])
@@ -1016,6 +1057,14 @@
         [[Statistics instance] logProposalReason:@"Routing Menu" withAnswer:@"YES"];
       }
     }
+    case ALERT_VIEW_ROUTING_DISCLAIMER:
+    {
+      if (buttonIndex != alertView.cancelButtonIndex)
+      {
+        Settings::Set("IsDisclaimerApproved", true);
+        [self tryToBuildRoute];
+      }
+    }
     default:
       break;
   }
@@ -1039,7 +1088,15 @@
         [UIView animateWithDuration:0.3 animations:^{
           self.toolbarView.maxY = self.view.height;
           if (GetFramework().IsRoutingActive())
-            self.routeView.minY = 0;
+          {
+            if (self.searchView.state == SearchViewStateResults)
+              [self observeValueForKeyPath:@"state" ofObject:self.searchView change:nil context:nil];
+            else
+            {
+              self.routeView.alpha = 1;
+              self.routeView.minY = 0;
+            }
+          }
         }];
         break;
       }
@@ -1070,7 +1127,10 @@
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
           self.toolbarView.maxY = self.view.height;
           if (GetFramework().IsRoutingActive())
+          {
+            self.routeView.alpha = 1;
             self.routeView.minY = self.containerView.placePage.maxY - 20;
+          }
         } completion:^(BOOL finished) {}];
 
         break;
@@ -1079,6 +1139,7 @@
       {
         [UIView animateWithDuration:0.3 animations:^{
           self.toolbarView.minY = self.view.height;
+          self.routeView.alpha = 0;
         }];
       }
       break;

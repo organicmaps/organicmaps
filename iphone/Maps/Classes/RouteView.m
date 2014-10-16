@@ -40,26 +40,34 @@
 {
   self.distanceLabel.text = distance;
   self.metricsLabel.text = metrics.uppercaseString;
-  [self layoutSubviews];
+  [UIView animateWithDuration:0.2 animations:^{
+    [self layoutSubviews];
+  }];
 }
 
 #define BUTTON_HEIGHT 44
 
 - (void)layoutSubviews
 {
-  [self.distanceLabel sizeToFit];
-  [self.metricsLabel sizeToFit];
+  if (self.distanceLabel.text.length == 0)
+    self.distanceView.alpha = 0;
+  else
+  {
+    [self.distanceLabel sizeToIntegralFit];
+    [self.metricsLabel sizeToIntegralFit];
 
-  CGFloat const betweenOffset = 0;
-  self.wrapView.size = CGSizeMake(self.distanceLabel.width + betweenOffset + self.metricsLabel.width, 40);
-  self.wrapView.center = CGPointMake(self.wrapView.superview.width / 2, self.wrapView.superview.height / 2);
+    CGFloat const betweenOffset = 0;
+    self.wrapView.size = CGSizeMake(self.distanceLabel.width + betweenOffset + self.metricsLabel.width, 40);
+    self.wrapView.center = CGPointMake(self.wrapView.superview.width / 2, self.wrapView.superview.height / 2);
 
-  self.distanceLabel.minX = 0;
-  self.metricsLabel.minX = self.distanceLabel.minX + self.distanceLabel.width + betweenOffset;
-  self.distanceLabel.midY = self.wrapView.height / 2;
-  self.metricsLabel.maxY = self.distanceLabel.maxY - 4;
+    self.distanceLabel.minX = 0;
+    self.metricsLabel.minX = self.distanceLabel.minX + self.distanceLabel.width + betweenOffset;
+    self.distanceLabel.midY = self.wrapView.height / 2;
+    self.metricsLabel.maxY = self.distanceLabel.maxY - 4;
 
-  self.distanceView.size = CGSizeMake(self.wrapView.width + 24, BUTTON_HEIGHT);
+    self.distanceView.alpha = 1;
+    self.distanceView.size = CGSizeMake(self.wrapView.width + 24, BUTTON_HEIGHT);
+  }
 }
 
 - (void)didMoveToSuperview
@@ -138,7 +146,7 @@
   if (!_startButton)
   {
     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StartRoutingButton"]];
-    NSString * title = NSLocalizedString(@"routing_go", nil);
+    NSString * title = L(@"routing_go");
     UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + imageView.width + 40;
 

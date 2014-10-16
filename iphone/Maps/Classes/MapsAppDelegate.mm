@@ -146,6 +146,8 @@ void InitLocalizedStrings()
   else
     [notificationManager showDownloadMapAlertIfNeeded];
 
+  [UIApplication sharedApplication].applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
