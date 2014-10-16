@@ -24,7 +24,7 @@
 {
   [super viewDidLoad];
 
-  self.title = NSLocalizedString(@"settings_and_more", nil);
+  self.title = L(@"settings_and_more");
 
   self.deviceNames = @{@"x86_64" : @"Simulator",
                        @"i386" : @"Simulator",
@@ -68,15 +68,15 @@
                        @"iPad4,6" : @"iPad Mini 2nd gen. CDMA"};
 
   self.items = @[@{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings", nil), @"Icon" : @"IconAppSettings"},
-                                @{@"Id" : @"Help", @"Title" : NSLocalizedString(@"help", nil), @"Icon" : @"IconHelp"},
-                                @{@"Id" : @"ReportBug", @"Title" : NSLocalizedString(@"report_a_bug", nil), @"Icon" : @"IconReportABug"}]},
+                   @"Items" : @[@{@"Id" : @"Settings", @"Title" : L(@"settings"), @"Icon" : @"IconAppSettings"},
+                                @{@"Id" : @"Help", @"Title" : L(@"help"), @"Icon" : @"IconHelp"},
+                                @{@"Id" : @"ReportBug", @"Title" : L(@"report_a_bug"), @"Icon" : @"IconReportABug"}]},
                  @{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Community", @"Title" : NSLocalizedString(@"maps_me_community", nil), @"Icon" : @"IconSocial"},
-                                @{@"Id" : @"RateApp", @"Title" : NSLocalizedString(@"rate_the_app", nil), @"Icon" : @"IconRate"}]},
+                   @"Items" : @[@{@"Id" : @"Community", @"Title" : L(@"maps_me_community"), @"Icon" : @"IconSocial"},
+                                @{@"Id" : @"RateApp", @"Title" : L(@"rate_the_app"), @"Icon" : @"IconRate"}]},
                  @{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"About", @"Title" : NSLocalizedString(@"about_menu_title", nil), @"Icon" : @"IconAbout"},
-                                @{@"Id" : @"Copyright", @"Title" : NSLocalizedString(@"copyright", nil), @"Icon" : @"IconCopyright"}]}];
+                   @"Items" : @[@{@"Id" : @"About", @"Title" : L(@"about_menu_title"), @"Icon" : @"IconAbout"},
+                                @{@"Id" : @"Copyright", @"Title" : L(@"copyright"), @"Icon" : @"IconCopyright"}]}];
 }
 
 #pragma mark - TableView
@@ -161,15 +161,15 @@
 {
   NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
   NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:NSLocalizedString(@"help", nil)];
+  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:L(@"help")];
   aboutViewController.openInSafari = YES;
   [self.navigationController pushViewController:aboutViewController animated:YES];
 }
 
 - (void)about
 {
-  RichTextVC * vc = [[RichTextVC alloc] initWithText:NSLocalizedString(@"about_text", nil)];
-  vc.title = NSLocalizedString(@"about_menu_title", nil);
+  RichTextVC * vc = [[RichTextVC alloc] initWithText:L(@"about_text")];
+  vc.title = L(@"about_menu_title");
   [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -178,7 +178,7 @@
   string s; GetPlatform().GetReader("copyright.html")->ReadAsString(s);
   NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
   NSString * text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()]];
-  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"copyright", nil)];
+  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:L(@"copyright")];
   aboutViewController.openInSafari = YES;
   [self.navigationController pushViewController:aboutViewController animated:YES];
 }
@@ -218,8 +218,8 @@
   }
   else
   {
-    NSString * text = [NSString stringWithFormat:NSLocalizedString(@"email_error_body", nil), email];
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"email_error_title", nil) message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+    NSString * text = [NSString stringWithFormat:L(@"email_error_body"), email];
+    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title") message:text delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
   }
 }
 

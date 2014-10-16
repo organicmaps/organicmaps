@@ -1,8 +1,10 @@
+
 #import "ShareActionSheet.h"
 #import "Framework.h"
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "Statistics.h"
+#import "UIKitCategories.h"
 
 #include "../../search/result.hpp"
 
@@ -43,14 +45,14 @@
 
 - (void)showFromRect:(CGRect)rect
 {
-  UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+  UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:L(@"share") delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 
   if ([MFMessageComposeViewController canSendText])
-    [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
+    [as addButtonWithTitle:L(@"message")];
   if ([MFMailComposeViewController canSendMail] || [self canUseGmailApp])
-    [as addButtonWithTitle:NSLocalizedString(@"email", nil)];
-  [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
-  [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
+    [as addButtonWithTitle:L(@"email")];
+  [as addButtonWithTitle:L(@"copy_link")];
+  [as addButtonWithTitle:L(@"cancel")];
   [as setCancelButtonIndex:as.numberOfButtons - 1];
   [as showFromRect:rect inView:self.viewController.view animated:YES];
 }
@@ -63,11 +65,11 @@
   string const s = f.CodeGe0url(MercatorBounds::YToLat(self.info.gY), MercatorBounds::XToLon(self.info.gX), f.GetDrawScale(), [self.info.text UTF8String]);
   NSString * shortUrl = [NSString stringWithUTF8String:s.c_str()];
 
-  if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"email", nil)])
+  if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:L(@"email")])
     [self sendEmailWithUrl:shortUrl];
-  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"message", nil)])
+  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:L(@"message")])
     [self sendMessageWithUrl:[shortUrl substringWithRange:NSMakeRange(0, GE0_URL_LENGTH)]];
-  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"copy_link", nil)])
+  else if ([[as buttonTitleAtIndex:buttonIndex] isEqualToString:L(@"copy_link")])
     [UIPasteboard generalPasteboard].string = shortUrl;
 }
 
@@ -87,13 +89,13 @@
     search::AddressInfo info;
     GetFramework().GetAddressInfoForGlobalPoint(m2::PointD(self.info.gX, self.info.gY), info);
     NSString * nameAndAddress = [NSString stringWithUTF8String:info.FormatNameAndAddress().c_str()];
-    body = [NSString stringWithFormat:NSLocalizedString(@"my_position_share_email", nil), nameAndAddress, shortUrl, httpGe0Url];
-    subject = NSLocalizedString(@"my_position_share_email_subject", nil);
+    body = [NSString stringWithFormat:L(@"my_position_share_email"), nameAndAddress, shortUrl, httpGe0Url];
+    subject = L(@"my_position_share_email_subject");
   }
   else
   {
-    body = [NSString stringWithFormat:NSLocalizedString(@"bookmark_share_email", nil), self.info.text, shortUrl, httpGe0Url];
-    subject = NSLocalizedString(@"bookmark_share_email_subject", nil);
+    body = [NSString stringWithFormat:L(@"bookmark_share_email"), self.info.text, shortUrl, httpGe0Url];
+    subject = L(@"bookmark_share_email_subject");
   }
 
   if ([MFMailComposeViewController canSendMail])
@@ -118,9 +120,9 @@
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
   MFMessageComposeViewController * messageVC = [[MFMessageComposeViewController alloc] init];
   if (self.info.myPosition)
-    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl, httpGe0Url]];
+    [messageVC setBody:[NSString stringWithFormat:L(@"my_position_share_sms"), shortUrl, httpGe0Url]];
   else
-    [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"bookmark_share_sms", nil), shortUrl, httpGe0Url]];
+    [messageVC setBody:[NSString stringWithFormat:L(@"bookmark_share_sms"), shortUrl, httpGe0Url]];
   messageVC.messageComposeDelegate = self;
   [self.viewController presentModalViewController:messageVC animated:YES];
 }

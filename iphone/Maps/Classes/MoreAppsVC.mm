@@ -29,7 +29,7 @@ using namespace::storage;
 {
   [super viewDidLoad];
 
-  self.title = NSLocalizedString(@"more_apps_guides", nil);
+  self.title = L(@"more_apps_guides");
 
   guides::GuidesManager & manager = GetFramework().GetGuidesManager();
   NSString * JSONPath = [NSString stringWithUTF8String:manager.GetDataFileFullPath().c_str()];
@@ -58,8 +58,8 @@ using namespace::storage;
   self.guideRegions = [guideRegions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"Country" ascending:YES]]];
 
   TitleMWM = @"maps.me pro";
-  TitleGuides = NSLocalizedString(@"more_apps_guides", nil);
-  TitleAds = NSLocalizedString(@"more_apps_ads", nil);
+  TitleGuides = L(@"more_apps_guides");
+  TitleAds = L(@"more_apps_ads");
 
   [self updateData];
 

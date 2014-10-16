@@ -1,5 +1,7 @@
+
 #import "AddSetVC.h"
 #import "Framework.h"
+#import "UIKitCategories.h"
 
 #define TEXT_FIELD_TAG 666
 
@@ -12,7 +14,7 @@
   {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)];
-    self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
+    self.title = L(@"add_new_set");
   }
   return self;
 }
@@ -76,7 +78,7 @@
     f.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     f.delegate = self;
     f.textColor = cell.textLabel.textColor;
-    f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
+    f.placeholder = L(@"bookmark_set_name");
     f.autocapitalizationType = UITextAutocapitalizationTypeWords;
     f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
     f.tag = TEXT_FIELD_TAG;

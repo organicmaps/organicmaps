@@ -86,7 +86,7 @@
     _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_cancelButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
-    NSString * title = NSLocalizedString(@"cancel", nil);
+    NSString * title = L(@"cancel");
     CGFloat const titleWidth = [title sizeWithDrawSize:CGSizeMake(80, 25) font:_cancelButton.titleLabel.font].width + 2;
     _cancelButton.width = MAX(titleWidth, _cancelButton.width);
     [_cancelButton setTitle:title forState:UIControlStateNormal];

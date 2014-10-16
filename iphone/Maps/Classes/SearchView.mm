@@ -429,7 +429,7 @@ static void onSearchResultCallback(search::Results const & results)
       // Country in the viewport should be downloaded
       if (!f.IsCountryLoaded(f.GetViewportCenter()))
       {
-        secondSentence = [NSString stringWithFormat:NSLocalizedString(@"download_viewport_country_to_search", nil),
+        secondSentence = [NSString stringWithFormat:L(@"download_viewport_country_to_search"),
                           [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
       }
       else
@@ -439,12 +439,12 @@ static void onSearchResultCallback(search::Results const & results)
         if (lastLocation && !f.IsCountryLoaded(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude,
                                                                           lastLocation.coordinate.longitude)))
         {
-          secondSentence = [NSString stringWithFormat:NSLocalizedString(@"download_location_country", nil),
+          secondSentence = [NSString stringWithFormat:L(@"download_location_country"),
                             [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
         }
       }
 
-      NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), secondSentence];
+      NSString * message = [NSString stringWithFormat:@"%@. %@", L(@"no_search_results_found"), secondSentence];
       ToastView * toastView = [[ToastView alloc] initWithMessage:message];
       [toastView show];
     }
@@ -496,7 +496,7 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (void)showBuyProMessage
 {
-  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"search_available_in_pro_version") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
   [alert show];
 }
 
@@ -520,7 +520,7 @@ static void onSearchResultCallback(search::Results const & results)
       if (!customCell) // only for iOS 5
         customCell = [[SearchCategoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchCategoryCell className]];
 
-      customCell.titleLabel.text = NSLocalizedString(self.categoriesNames[indexPath.row], nil);
+      customCell.titleLabel.text = L(self.categoriesNames[indexPath.row]);
       NSString * iconName = [NSString stringWithFormat:@"CategoryIcon%@", [self.categoriesNames[indexPath.row] capitalizedString]];
       customCell.iconImageView.image = [UIImage imageNamed:iconName];
       cell = customCell;
@@ -532,7 +532,7 @@ static void onSearchResultCallback(search::Results const & results)
       if (!customCell) // only for iOS 5
         customCell = [[SearchShowOnMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchShowOnMapCell className]];
 
-      customCell.titleLabel.text = NSLocalizedString(@"search_on_map", nil);
+      customCell.titleLabel.text = L(@"search_on_map");
       cell = customCell;
       break;
     }
@@ -570,7 +570,7 @@ static void onSearchResultCallback(search::Results const & results)
       search::Result const & result = [self.wrapper resultWithPosition:position];
 
       customCell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
-      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
+      customCell.iconImageView.image = [UIImage imageNamed:@"SearchSpot"];
       cell = customCell;
       break;
     }
@@ -633,7 +633,7 @@ static void onSearchResultCallback(search::Results const & results)
     case CellTypeCategory:
     {
       [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
-      NSString * newQuery = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
+      NSString * newQuery = [L(self.categoriesNames[indexPath.row]) stringByAppendingString:@" "];
       self.searchBar.textField.text = newQuery;
       [self search:newQuery];
 
@@ -799,7 +799,7 @@ static void onSearchResultCallback(search::Results const & results)
     _emptyResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 60)];
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
     _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
-    _emptyResultLabel.text = NSLocalizedString(@"no_search_results_found", nil);
+    _emptyResultLabel.text = L(@"no_search_results_found");
     _emptyResultLabel.textColor = [UIColor whiteColor];
     _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;

@@ -65,9 +65,9 @@
     case location::EDenied:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
-                                                           message:NSLocalizedString(@"location_is_disabled_long_text", @"Location services are disabled by user alert - message")
+                                                           message:L(@"location_is_disabled_long_text")
                                                           delegate:nil
-                                                 cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are disabled by user alert - close alert button")
+                                                 cancelButtonTitle:L(@"ok")
                                                  otherButtonTitles:nil];
       [alert show];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
@@ -77,9 +77,9 @@
     case location::ENotSupported:
     {
       UIAlertView * alert = [[CustomAlertView alloc] initWithTitle:nil
-                                                           message:NSLocalizedString(@"device_doesnot_support_location_services", @"Location Services are not available on the device alert - message")
+                                                           message:L(@"device_doesnot_support_location_services")
                                                           delegate:nil
-                                                 cancelButtonTitle:NSLocalizedString(@"ok", @"Location Services are not available on the device alert - close alert button")
+                                                 cancelButtonTitle:L(@"ok")
                                                  otherButtonTitles:nil];
       [alert show];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
@@ -564,8 +564,6 @@
 
   if ((self = [super initWithCoder:coder]))
   {
-    self.title = NSLocalizedString(@"back", @"Back button in nav bar to show the map");
-
     Framework & f = GetFramework();
 
     typedef void (*UserMarkActivatedFnT)(id, SEL, UserMarkCopy *);
@@ -637,19 +635,19 @@
 
 - (void)showDialogWithMessageID:(string const &)message
 {
-  [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+  [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
 }
 
 - (void)showDownloaderDialogWithMessageID:(string const &)message
 {
-  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
   alertView.tag = ALERT_VIEW_DOWNLOADER;
   [alertView show];
 }
 
 - (void)showBuyProDialog
 {
-  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"routing_failed_buy_pro", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_failed_buy_pro") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
   alert.tag = ALERT_VIEW_PRO_VERSION_ROUTING;
   [alert show];
 }
@@ -730,7 +728,7 @@
     UIButton * clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
     [clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [clearButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [clearButton setTitle:NSLocalizedString(@"clear", nil) forState:UIControlStateNormal];
+    [clearButton setTitle:L(@"clear") forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearApiMode:) forControlEvents:UIControlEventTouchUpInside];
     clearButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     clearButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
@@ -793,7 +791,7 @@
     }
     else
     {
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"bookmarks_in_pro_version") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
       alert.tag = ALERT_VIEW_BOOKMARKS;
       [alert show];
     }
@@ -1185,10 +1183,10 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)showAppStoreRatingMenu
 {
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"App Store"
-                                                       message:NSLocalizedString(@"appStore_message", nil)
+                                                       message:L(@"appStore_message")
                                                       delegate:self
-                                             cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
-                                             otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil), nil];
+                                             cancelButtonTitle:L(@"no_thanks")
+                                             otherButtonTitles:L(@"ok"), L(@"remind_me_later"), nil];
   alertView.tag = ALERT_VIEW_APPSTORE;
   [alertView show];
 }
@@ -1196,10 +1194,10 @@ NSInteger compareAddress(id l, id r, void * context)
 - (void)showFacebookRatingMenu
 {
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Facebook"
-                                                       message:NSLocalizedString(@"share_on_facebook_text", nil)
+                                                       message:L(@"share_on_facebook_text")
                                                       delegate:self
-                                             cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
-                                             otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil),  nil];
+                                             cancelButtonTitle:L(@"no_thanks")
+                                             otherButtonTitles:L(@"ok"), L(@"remind_me_later"),  nil];
   alertView.tag = ALERT_VIEW_FACEBOOK;
   [alertView show];
 }

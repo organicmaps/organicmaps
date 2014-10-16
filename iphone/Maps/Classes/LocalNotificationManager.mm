@@ -59,8 +59,8 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
         [self markNotificationShowingForIndex:index];
 
         UILocalNotification * notification = [[UILocalNotification alloc] init];
-        notification.alertAction = NSLocalizedString(@"download", nil);
-        notification.alertBody = NSLocalizedString(@"download_map_notification", nil);
+        notification.alertAction = L(@"download");
+        notification.alertBody = L(@"download_map_notification");
         notification.soundName = UILocalNotificationDefaultSoundName;
         notification.userInfo = @{@"Action" : DOWNLOAD_MAP_ACTION_NAME, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
 
@@ -152,10 +152,10 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 //
 //    Framework & f = GetFramework();
 //    NSString * sizeString = [self sizeStringWithBytesCount:f.Storage().CountrySizeInBytes(self.countryIndex).second];
-//    NSString * downloadText = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"download", nil), sizeString];
+//    NSString * downloadText = [NSString stringWithFormat:@"%@ (%@)", L(@"download"), sizeString];
 //    std::string const name = f.GetCountryName(self.countryIndex);
-//    NSString * title = [NSString stringWithFormat:NSLocalizedString(@"download_country_ask", nil), [NSString stringWithUTF8String:name.c_str()]];
-//    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:downloadText, nil];
+//    NSString * title = [NSString stringWithFormat:L(@"download_country_ask"), [NSString stringWithUTF8String:name.c_str()]];
+//    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:downloadText, nil];
 //    [alertView show];
 //  }
 }
@@ -171,9 +171,9 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 //- (NSString *)sizeStringWithBytesCount:(size_t)size
 //{
 //  if (size > MB)
-//    return [NSString stringWithFormat:@"%ld %@", (size + 512 * 1024) / MB, NSLocalizedString(@"mb", nil)];
+//    return [NSString stringWithFormat:@"%ld %@", (size + 512 * 1024) / MB, L(@"mb")];
 //  else
-//    return [NSString stringWithFormat:@"%ld %@", (size + 1023) / 1024, NSLocalizedString(@"kb", nil)];
+//    return [NSString stringWithFormat:@"%ld %@", (size + 1023) / 1024, L(@"kb")];
 //}
 
 - (NSString *)flagStringForIndex:(TIndex)index

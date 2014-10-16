@@ -71,7 +71,7 @@
     _shareButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     [_shareButton setBackgroundImage:image forState:UIControlStateNormal];
     [_shareButton addTarget:self action:@selector(shareButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_shareButton setTitle:NSLocalizedString(@"share", nil) forState:UIControlStateNormal];
+    [_shareButton setTitle:L(@"share") forState:UIControlStateNormal];
     [_shareButton setTitleColor:[UIColor colorWithColorCode:@"179E4D"] forState:UIControlStateNormal];
     [_shareButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
   }

@@ -16,14 +16,14 @@
 {
   [super viewDidLoad];
 
-  self.title = NSLocalizedString(@"maps_me_community", nil);
+  self.title = L(@"maps_me_community");
 
   self.items = @[@{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Facebook", @"Title" : NSLocalizedString(@"like_on_facebook", nil), @"Icon" : @"IconFacebook"},
-                                @{@"Id" : @"Twitter", @"Title" : NSLocalizedString(@"follow_on_twitter", nil), @"Icon" : @"IconTwitter"},
-                                @{@"Id" : @"Subscribe", @"Title" : NSLocalizedString(@"subscribe_to_news", nil), @"Icon" : @"IconSubscribe"}]},
+                   @"Items" : @[@{@"Id" : @"Facebook", @"Title" : L(@"like_on_facebook"), @"Icon" : @"IconFacebook"},
+                                @{@"Id" : @"Twitter", @"Title" : L(@"follow_on_twitter"), @"Icon" : @"IconTwitter"},
+                                @{@"Id" : @"Subscribe", @"Title" : L(@"subscribe_to_news"), @"Icon" : @"IconSubscribe"}]},
                  @{@"Title" : @"",
-                   @"Items" : @[@{@"Id" : @"Contact", @"Title" : NSLocalizedString(@"contact_us", nil), @"Icon" : @"IconReportABug"}]}];
+                   @"Items" : @[@{@"Id" : @"Contact", @"Title" : L(@"contact_us"), @"Icon" : @"IconReportABug"}]}];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -89,7 +89,7 @@
 
 - (void)subscribe
 {
-  [self sendEmailWithText:NSLocalizedString(@"subscribe_me_body", nil) subject:NSLocalizedString(@"subscribe_me_subject", nil) toRecipient:@"subscribe@maps.me"];
+  [self sendEmailWithText:L(@"subscribe_me_body") subject:L(@"subscribe_me_subject") toRecipient:@"subscribe@maps.me"];
 }
 
 - (void)sendEmailWithText:(NSString *)text subject:(NSString *)subject toRecipient:(NSString *)email
@@ -105,8 +105,8 @@
   }
   else
   {
-    NSString * text = [NSString stringWithFormat:NSLocalizedString(@"email_error_body", nil), email];
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"email_error_title", nil) message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+    NSString * text = [NSString stringWithFormat:L(@"email_error_body"), email];
+    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title") message:text delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
   }
 }
 

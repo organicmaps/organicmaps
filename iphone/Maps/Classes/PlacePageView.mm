@@ -853,7 +853,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (NSString *)nonEmptyTitle:(string const &)name
 {
-  return name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
+  return name.empty() ? L(@"dropped_pin") : [NSString stringWithUTF8String:name.c_str()];
 }
 
 - (NSString *)newBookmarkName
@@ -869,7 +869,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     }
     else
     {
-      self.temporaryTitle = NSLocalizedString(@"my_position", nil);
+      self.temporaryTitle = L(@"my_position");
       return [self nonEmptyTitle:[self addressInfo].GetPinName()];
     }
   }
@@ -901,7 +901,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
         _title = [[self nonEmptyTitle:[self addressInfo].GetPinName()] capitalizedString];
     }
 
-    NSString * droppedPinTitle = NSLocalizedString(@"dropped_pin", nil);
+    NSString * droppedPinTitle = L(@"dropped_pin");
     if ([_title isEqualToString:droppedPinTitle])
       self.temporaryTitle = droppedPinTitle;
   }
@@ -954,7 +954,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
       std::string const & description = bookmark->GetDescription();
-      _bookmarkDescription = description.empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:description.c_str()];
+      _bookmarkDescription = description.empty() ? L(@"description") : [NSString stringWithUTF8String:description.c_str()];
     }
     else
     {
@@ -1079,7 +1079,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
   else
   {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"bookmarks_in_pro_version") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
     [alert show];
   }
 }

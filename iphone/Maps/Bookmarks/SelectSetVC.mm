@@ -19,7 +19,7 @@
   if (self)
   {
     m_bookmarkAndCategory = bookmarkAndCategory;
-    self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
+    self.title = L(@"bookmark_sets");
   }
   return self;
 }
@@ -52,7 +52,7 @@
   // Customize cell
   if (indexPath.section == 0)
   {
-    cell.textLabel.text = NSLocalizedString(@"add_new_set", @"Bookmark Sets dialog - Add New Set button");
+    cell.textLabel.text = L(@"add_new_set");
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   else

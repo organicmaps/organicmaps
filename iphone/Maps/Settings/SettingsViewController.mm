@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  self.title = NSLocalizedString(@"settings", nil);
+  self.title = L(@"settings");
   self.tableView.backgroundView = nil;
   self.tableView.backgroundColor = [UIColor applicationBackgroundColor];
 }
@@ -43,8 +43,8 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-    GetFramework().Invalidate(true);
+  [super viewWillDisappear:animated];
+  GetFramework().Invalidate(true);
 }
 
 #pragma mark - Table view data source
@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
     SelectableCell * customCell = (SelectableCell *)cell;
     customCell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    customCell.titleLabel.text = indexPath.row == 0 ? NSLocalizedString(@"kilometres", nil) : NSLocalizedString(@"miles", nil);
+    customCell.titleLabel.text = indexPath.row == 0 ? L(@"kilometres") : L(@"miles");
   }
   else if (indexPath.section == SectionStatistics)
   {
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, Section)
     bool on = true;
     (void)Settings::Get("StatisticsEnabled", on);
     customCell.switchButton.on = on;
-    customCell.titleLabel.text = NSLocalizedString(@"allow_statistics", nil);
+    customCell.titleLabel.text = L(@"allow_statistics");
     customCell.delegate = self;
   }
   else if (indexPath.section == SectionZoomButtons)
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSUInteger, Section)
     bool on = false;
     (void)Settings::Get("ZoomButtonsEnabled", on);
     customCell.switchButton.on = on;
-    customCell.titleLabel.text = NSLocalizedString(@"pref_zoom_title", nil);
+    customCell.titleLabel.text = L(@"pref_zoom_title");
     customCell.delegate = self;
   }
   else if (indexPath.section == SectionCalibration)
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSUInteger, Section)
     bool on = false;
     (void)Settings::Get("CompassCalibrationEnabled", on);
     customCell.switchButton.on = on;
-    customCell.titleLabel.text = NSLocalizedString(@"pref_calibration_title", nil);
+    customCell.titleLabel.text = L(@"pref_calibration_title");
     customCell.delegate = self;
   }
 
@@ -113,9 +113,9 @@ typedef NS_ENUM(NSUInteger, Section)
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
   if (section == SectionStatistics)
-    return NSLocalizedString(@"allow_statistics_hint", nil);
+    return L(@"allow_statistics_hint");
   else if (section == SectionZoomButtons)
-    return NSLocalizedString(@"pref_zoom_summary", nil);
+    return L(@"pref_zoom_summary");
   return nil;
 }
 
@@ -157,7 +157,7 @@ Settings::Units unitsForIndex(NSInteger index)
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
   if (section == SectionMetrics)
-    return NSLocalizedString(@"measurement_units", nil);
+    return L(@"measurement_units");
   else
     return nil;
 }

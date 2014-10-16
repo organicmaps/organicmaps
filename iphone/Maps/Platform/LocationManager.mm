@@ -16,7 +16,7 @@
   {
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
-    m_locationManager.purpose = NSLocalizedString(@"location_services_are_needed_desc", @"Location purpose text description");
+    m_locationManager.purpose = L(@"location_services_are_needed_desc");
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     [self refreshAccuracy];
     m_locationManager.headingFilter = 3.0;

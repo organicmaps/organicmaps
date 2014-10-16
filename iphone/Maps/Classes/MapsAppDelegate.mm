@@ -30,25 +30,25 @@ void InitLocalizedStrings()
 {
   Framework & f = GetFramework();
   // Texts on the map screen when map is not downloaded or is downloading
-  f.AddString("country_status_added_to_queue", [NSLocalizedString(@"country_status_added_to_queue", @"Message to display at the center of the screen when the country is added to the downloading queue") UTF8String]);
-  f.AddString("country_status_downloading", [NSLocalizedString(@"country_status_downloading", @"Message to display at the center of the screen when the country is downloading") UTF8String]);
-  f.AddString("country_status_download_routing", [NSLocalizedString(@"country_status_download_routing", @"") UTF8String]);
-  f.AddString("country_status_download", [NSLocalizedString(@"country_status_download", @"Button text for the button at the center of the screen when the country is not downloaded") UTF8String]);
-  f.AddString("country_status_download_failed", [NSLocalizedString(@"country_status_download_failed", @"Message to display at the center of the screen when the country download has failed") UTF8String]);
-  f.AddString("try_again", [NSLocalizedString(@"try_again", @"Button text for the button under the country_status_download_failed message") UTF8String]);
+  f.AddString("country_status_added_to_queue", [L(@"country_status_added_to_queue") UTF8String]);
+  f.AddString("country_status_downloading", [L(@"country_status_downloading") UTF8String]);
+  f.AddString("country_status_download_routing", [L(@"country_status_download_routing") UTF8String]);
+  f.AddString("country_status_download", [L(@"country_status_download") UTF8String]);
+  f.AddString("country_status_download_failed", [L(@"country_status_download_failed") UTF8String]);
+  f.AddString("try_again", [L(@"try_again") UTF8String]);
   // Default texts for bookmarks added in C++ code (by URL Scheme API)
-  f.AddString("dropped_pin", [NSLocalizedString(@"dropped_pin", nil) UTF8String]);
-  f.AddString("my_places", [NSLocalizedString(@"my_places", nil) UTF8String]);
-  f.AddString("my_position", [NSLocalizedString(@"my_position", nil) UTF8String]);
-  f.AddString("routes", [NSLocalizedString(@"routes", nil) UTF8String]);
+  f.AddString("dropped_pin", [L(@"dropped_pin") UTF8String]);
+  f.AddString("my_places", [L(@"my_places") UTF8String]);
+  f.AddString("my_position", [L(@"my_position") UTF8String]);
+  f.AddString("routes", [L(@"routes") UTF8String]);
 
-  f.AddString("routing_failed_unknown_my_position", [NSLocalizedString(@"routing_failed_unknown_my_position", nil) UTF8String]);
-  f.AddString("routing_failed_has_no_routing_file", [NSLocalizedString(@"routing_failed_has_no_routing_file", nil) UTF8String]);
-  f.AddString("routing_failed_start_point_not_found", [NSLocalizedString(@"routing_failed_start_point_not_found", nil) UTF8String]);
-  f.AddString("routing_failed_dst_point_not_found", [NSLocalizedString(@"routing_failed_dst_point_not_found", nil) UTF8String]);
-  f.AddString("routing_failed_cross_mwm_building", [NSLocalizedString(@"routing_failed_cross_mwm_building", nil) UTF8String]);
-  f.AddString("routing_failed_route_not_found", [NSLocalizedString(@"routing_failed_route_not_found", nil) UTF8String]);
-  f.AddString("routing_failed_internal_error", [NSLocalizedString(@"routing_failed_internal_error", nil) UTF8String]);
+  f.AddString("routing_failed_unknown_my_position", [L(@"routing_failed_unknown_my_position") UTF8String]);
+  f.AddString("routing_failed_has_no_routing_file", [L(@"routing_failed_has_no_routing_file") UTF8String]);
+  f.AddString("routing_failed_start_point_not_found", [L(@"routing_failed_start_point_not_found") UTF8String]);
+  f.AddString("routing_failed_dst_point_not_found", [L(@"routing_failed_dst_point_not_found") UTF8String]);
+  f.AddString("routing_failed_cross_mwm_building", [L(@"routing_failed_cross_mwm_building") UTF8String]);
+  f.AddString("routing_failed_route_not_found", [L(@"routing_failed_route_not_found") UTF8String]);
+  f.AddString("routing_failed_internal_error", [L(@"routing_failed_internal_error") UTF8String]);
 }
 
 @interface MapsAppDelegate()
@@ -330,7 +330,7 @@ void InitLocalizedStrings()
   if ([[dict objectForKey:@"Proposal"] isEqual:@"OpenGuides"])
   {
     self.lastGuidesUrl = [dict objectForKey:@"GuideUrl"];
-    UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:NSLocalizedString(@"later", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:L(@"later") otherButtonTitles:L(@"get_it_now"), nil];
     view.tag = NOTIFICATION_ALERT_VIEW_TAG;
     [view show];
   }
@@ -378,11 +378,11 @@ void InitLocalizedStrings()
 
 - (void)showLoadFileAlertIsSuccessful:(BOOL)successful
 {
-  m_loadingAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"load_kmz_title", nil)
+  m_loadingAlertView = [[UIAlertView alloc] initWithTitle:L(@"load_kmz_title")
                                                   message:
-                        (successful ? NSLocalizedString(@"load_kmz_successful", nil) : NSLocalizedString(@"load_kmz_failed", nil))
+                        (successful ? L(@"load_kmz_successful") : L(@"load_kmz_failed"))
                                                  delegate:nil
-                                        cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+                                        cancelButtonTitle:L(@"ok") otherButtonTitles:nil];
   m_loadingAlertView.delegate = self;
   [m_loadingAlertView show];
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(dismissAlert) userInfo:nil repeats:NO];

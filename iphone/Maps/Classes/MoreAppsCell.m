@@ -28,7 +28,7 @@
 
 - (void)setFree:(BOOL)free
 {
-  NSString * title = free ? NSLocalizedString(@"free", nil) : NSLocalizedString(@"buy", nil);
+  NSString * title = free ? L(@"free") : L(@"buy");
   title = [title uppercaseString];
   self.priceButton.width = [title sizeWithDrawSize:CGSizeMake(100, self.priceButton.height) font:self.priceButton.titleLabel.font].width + 18;
   [self.priceButton setTitle:title forState:UIControlStateNormal];

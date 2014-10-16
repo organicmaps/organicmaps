@@ -16,7 +16,7 @@
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    self.title = NSLocalizedString(@"bookmarks", @"Boormarks - dialog title");
+    self.title = L(@"bookmarks");
 
     self.tableView.allowsSelectionDuringEditing = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -49,8 +49,8 @@
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
     bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
-    label.text = showDetailedHint ? NSLocalizedString(@"bookmarks_usage_hint", nil)
-                                  : NSLocalizedString(@"bookmarks_usage_hint_import_only", nil);
+    label.text = showDetailedHint ? L(@"bookmarks_usage_hint")
+                                  : L(@"bookmarks_usage_hint_import_only");
     label.textAlignment = NSTextAlignmentCenter;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.numberOfLines = 0;
@@ -58,7 +58,7 @@
   }
   UILabel * label = [m_hint.subviews objectAtIndex:0];
   label.bounds = CGRectInset(rect, offset, offset);
-  [label sizeToFit];
+  [label sizeToIntegralFit];
   m_hint.bounds = CGRectMake(0, 0, rect.size.width, label.bounds.size.height + 2 * offset);
   label.center = CGPointMake(m_hint.bounds.size.width / 2, m_hint.bounds.size.height / 2);
 
@@ -193,7 +193,7 @@
     f.adjustsFontSizeToFitWidth = YES;
     f.text = cell.textLabel.text;
     f.textColor = cell.detailTextLabel.textColor;
-    f.placeholder = NSLocalizedString(@"bookmark_set_name", @"Add Bookmark Set dialog - hint when set name is empty");
+    f.placeholder = L(@"bookmark_set_name");
     f.font = [cell.textLabel.font fontWithSize:[cell.textLabel.font pointSize]];
     f.tag = TEXTFIELD_TAG;
     f.delegate = self;

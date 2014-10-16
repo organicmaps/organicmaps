@@ -15,7 +15,7 @@
 {
   [super viewDidLoad];
 
-  self.title = NSLocalizedString(@"name", nil);
+  self.title = L(@"name");
 
   BookmarkCategory const * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
@@ -24,7 +24,7 @@
   self.textField.returnKeyType = UIReturnKeyDone;
 
   if (!self.temporaryName)
-    self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+    self.textField.text = bookmark->GetName().empty() ? L(@"dropped_pin") : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
   self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
 

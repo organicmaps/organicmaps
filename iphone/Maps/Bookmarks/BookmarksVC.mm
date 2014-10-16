@@ -81,9 +81,9 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
   if (section == m_trackSection)
-    return NSLocalizedString(@"tracks", nil);
+    return L(@"tracks");
   if (section == m_bookmarkSection)
-    return NSLocalizedString(@"bookmarks", nil);
+    return L(@"bookmarks");
   return nil;
 }
 
@@ -104,7 +104,7 @@
       if (!cell)
       {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetNameCell"];
-        cell.textLabel.text = NSLocalizedString(@"name", nil);
+        cell.textLabel.text = L(@"name");
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         // Temporary, to init font and color
         cell.detailTextLabel.text = @"temp string";
@@ -138,7 +138,7 @@
       if (!cell)
       {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"];
-        cell.textLabel.text = NSLocalizedString(@"visible", nil);
+        cell.textLabel.text = L(@"visible");
         cell.accessoryView = [[UISwitch alloc] init];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
       }
@@ -158,7 +158,7 @@
     string dist;
     if (MeasurementUtils::FormatDistance(tr->GetLengthMeters(), dist))
       //Change Length before release!!!
-      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"length", nil), [NSString  stringWithUTF8String:dist.c_str()]];
+      cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), [NSString  stringWithUTF8String:dist.c_str()]];
     else
       cell.detailTextLabel.text = nil;
     const graphics::Color c = tr->GetMainColor();
@@ -206,7 +206,7 @@
     {
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BookmarksExportCell"];
       cell.textLabel.textAlignment = NSTextAlignmentCenter;
-      cell.textLabel.text = NSLocalizedString(@"share_by_email", nil);
+      cell.textLabel.text = L(@"share_by_email");
     }
   }
 
@@ -427,10 +427,10 @@
 {
   MFMailComposeViewController * mailVC = [[MFMailComposeViewController alloc] init];
   mailVC.mailComposeDelegate = self;
-  [mailVC setSubject:NSLocalizedString(@"share_bookmarks_email_subject", nil)];
+  [mailVC setSubject:L(@"share_bookmarks_email_subject")];
   NSData * myData = [[NSData alloc] initWithContentsOfFile:filePath];
   [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
-  [mailVC setMessageBody:[NSString stringWithFormat:NSLocalizedString(@"share_bookmarks_email_body", nil), catName] isHTML:NO];
+  [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
   [self presentModalViewController:mailVC animated:YES];
 }
 

@@ -1,6 +1,7 @@
 
 #import "BookmarkDescriptionVC.h"
 #import "Framework.h"
+#import "UIKitCategories.h"
 
 @interface BookmarkDescriptionVC ()
 
@@ -14,7 +15,7 @@
 {
   [super viewDidLoad];
 
-  self.title = NSLocalizedString(@"description", nil);
+  self.title = L(@"description");
 
   BookmarkCategory const * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);

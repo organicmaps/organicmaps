@@ -1,6 +1,7 @@
 
 #import "AccountManager.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "UIKitCategories.h"
 
 @interface AccountManager ()
 
@@ -54,7 +55,7 @@
 
 - (void)shareTextToFacebookWithCompletion:(CompletionBlock)block
 {
-  NSDictionary * parameters = @{@"message" : NSLocalizedString(@"maps_me_is_free_today_facebook_post_ios", nil),
+  NSDictionary * parameters = @{@"message" : L(@"maps_me_is_free_today_facebook_post_ios"),
                                 @"picture" : @"http://static.mapswithme.com/images/17th_august_promo.jpg",
                                 @"link" : @"http://maps.me/get?17aug"};
   [FBRequestConnection startWithGraphPath:@"me/feed" parameters:parameters HTTPMethod:@"POST" completionHandler:^(FBRequestConnection * connection, id result, NSError * error) {
