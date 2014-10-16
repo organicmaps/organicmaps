@@ -32,6 +32,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data
             android:host="*"
+            android:mimeType="*/*"
             android:pathPattern=".*\\.kmz"
             android:scheme="file"/>
       </intent-filter>
@@ -41,6 +42,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data
             android:host="*"
+            android:mimeType="*/*"
             android:pathPattern=".*\\.kml"
             android:scheme="file"/>
       </intent-filter>
