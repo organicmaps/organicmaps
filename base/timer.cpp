@@ -114,7 +114,8 @@ bool IsValid(tm const & t)
 {
   /// @todo Funny thing, but "00" month is accepted as valid in get_time function.
   /// Seems like a bug in the std library.
-  return (t.tm_mon >= 0 && t.tm_mon <= 11);
+  return (t.tm_mday >= 1 && t.tm_mday<= 31 &&
+          t.tm_mon >= 0 && t.tm_mon <= 11);
 }
 
 }
