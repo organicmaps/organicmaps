@@ -247,6 +247,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   @Override
   public boolean onTouchEvent(MotionEvent event)
   {
+    requestDisallowInterceptTouchEvent(false);
     mGestureDetector.onTouchEvent(event);
     return super.onTouchEvent(event);
   }
@@ -256,9 +257,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     switch (event.getAction())
     {
-    case MotionEvent.ACTION_UP:
-    case MotionEvent.ACTION_CANCEL:
-      break;
     case MotionEvent.ACTION_DOWN:
       mIsGestureHandled = false;
       mDownY = event.getRawY();
@@ -623,16 +621,36 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     bmkView.setOnClickListener(this);
 
     // Description of BMK
-    final WebView descritionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
+    final WebView descriptionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
     final String descriptionTxt = bmk.getBookmarkDescription();
 
     if (TextUtils.isEmpty(descriptionTxt))
-      UiUtils.hide(descritionWv);
+      UiUtils.hide(descriptionWv);
     else
     {
-      descritionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
-      descritionWv.setBackgroundColor(Color.TRANSPARENT);
-      UiUtils.show(descritionWv);
+      descriptionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
+      descriptionWv.setBackgroundColor(Color.TRANSPARENT);
+      descriptionWv.setOnTouchListener(new OnTouchListener()
+      {
+        @Override
+        public boolean onTouch(View v, MotionEvent event)
+        {
+          switch (event.getAction())
+          {
+          case MotionEvent.ACTION_DOWN:
+            MapInfoView.this.requestDisallowInterceptTouchEvent(true);
+            break;
+          case MotionEvent.ACTION_UP:
+            MapInfoView.this.requestDisallowInterceptTouchEvent(false);
+            break;
+          }
+
+          v.onTouchEvent(event);
+          return true;
+        }
+      });
+
+      UiUtils.show(descriptionWv);
     }
 
     mColorImage = (ImageView) bmkView.findViewById(R.id.color_image);
