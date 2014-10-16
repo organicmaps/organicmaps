@@ -1116,7 +1116,6 @@ public class MWMActivity extends NvEventQueueActivity
     {
       updateRoutingDistance();
       mRlRoutingBox.setVisibility(View.VISIBLE);
-      mInfoView.setState(State.HIDDEN);
     }
   }
 
@@ -1330,6 +1329,7 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mInfoView.setMapObject(sr);
           mInfoView.setState(State.PREVIEW_ONLY);
+          mPbRoutingProgress.setVisibility(View.GONE);
           mIvStartRouting.setVisibility(View.VISIBLE);
         }
       }
@@ -1561,8 +1561,7 @@ public class MWMActivity extends NvEventQueueActivity
           mRlRoutingBox.setVisibility(View.VISIBLE);
           mRlRoutingBox.bringToFront();
 
-          mInfoView.setState(State.HIDDEN);
-
+          hideInfoView();
           updateRoutingDistance();
         }
         else
