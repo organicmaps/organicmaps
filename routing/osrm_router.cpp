@@ -230,66 +230,64 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
   Route route(GetName());
   ResultCode code;
 
+  threads::MutexGuard guard(m_routeMutex);
+  UNUSED_VALUE(guard);
+
+  m_isReadyThread.clear();
+
+  m2::PointD startPt, finalPt;
   {
-    threads::MutexGuard guard(m_routeMutex);
-    UNUSED_VALUE(guard);
+    threads::MutexGuard params(m_paramsMutex);
+    UNUSED_VALUE(params);
 
-    m_isReadyThread.clear();
+    startPt = m_startPt;
+    finalPt = m_finalPt;
 
-    m2::PointD startPt, finalPt;
-    {
-      threads::MutexGuard params(m_paramsMutex);
-      UNUSED_VALUE(params);
+    if (m_isFinalChanged)
+      m_cachedFinalNodes.clear();
+    m_isFinalChanged = false;
 
-      startPt = m_startPt;
-      finalPt = m_finalPt;
-
-      if (m_isFinalChanged)
-        m_cachedFinalNodes.clear();
-      m_isFinalChanged = false;
-
-      m_requestCancel = false;
-    }
-
-    try
-    {
-      code = CalculateRouteImpl(startPt, finalPt, route);
-      switch (code)
-      {
-      case StartPointNotFound:
-        LOG(LWARNING, ("Can't find start point node"));
-        break;
-      case EndPointNotFound:
-        LOG(LWARNING, ("Can't find end point node"));
-        break;
-      case PointsInDifferentMWM:
-        LOG(LWARNING, ("Points are in different MWMs"));
-        break;
-      case RouteNotFound:
-        LOG(LWARNING, ("Route not found"));
-        break;
-      case RouteFileNotExist:
-        LOG(LWARNING, ("There are no routing file"));
-        break;
-
-      default:
-        break;
-      }
-    }
-    catch (Reader::Exception const & e)
-    {
-      LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
-      code = InternalError;
-
-      // Clear data while m_container is valid.
-      m_dataFacade.Clear();
-      m_mapping.Clear();
-
-      m_container.Close();
-    }
-
-    GetPlatform().RunOnGuiThread(bind(callback, route, code));
+    m_requestCancel = false;
   }
+
+  try
+  {
+    code = CalculateRouteImpl(startPt, finalPt, route);
+    switch (code)
+    {
+    case StartPointNotFound:
+      LOG(LWARNING, ("Can't find start point node"));
+      break;
+    case EndPointNotFound:
+      LOG(LWARNING, ("Can't find end point node"));
+      break;
+    case PointsInDifferentMWM:
+      LOG(LWARNING, ("Points are in different MWMs"));
+      break;
+    case RouteNotFound:
+      LOG(LWARNING, ("Route not found"));
+      break;
+    case RouteFileNotExist:
+      LOG(LWARNING, ("There are no routing file"));
+      break;
+
+    default:
+      break;
+    }
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
+    code = InternalError;
+
+    // Clear data while m_container is valid.
+    m_dataFacade.Clear();
+    m_mapping.Clear();
+
+    m_container.Close();
+  }
+
+  GetPlatform().RunOnGuiThread(bind(callback, route, code));
 }
 
 namespace
