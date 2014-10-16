@@ -32,6 +32,7 @@ SOURCES += \
     uri.cpp \
     zip_creator.cpp \
     file_name_utils.cpp \
+    varint_vector.cpp \
 
 HEADERS += \
     internal/xmlparser.hpp \
@@ -93,3 +94,4 @@ HEADERS += \
     file_name_utils.hpp \
     constants.hpp \
     matrix_traversal.hpp \
+    varint_vector.hpp \
