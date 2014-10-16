@@ -89,6 +89,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private ImageView mColorImage;
   // Gestures
   private GestureDetectorCompat mGestureDetector;
+  private boolean mIsGestureHandled;
   private float mDownY;
   private float mTouchSlop;
   // Data
@@ -209,13 +210,24 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
         if (isVertical && isInRange)
         {
-          if (distanceY > 0)
-            setState(State.PREVIEW_ONLY);
-          else
-            setState(State.FULL_PLACEPAGE);
+          if (!mIsGestureHandled)
+          {
+            if (distanceY > 0)
+            {
+              if (mCurrentState == State.FULL_PLACEPAGE)
+                setState(State.PREVIEW_ONLY);
+              else
+                setState(State.HIDDEN);
+            }
+            else
+              setState(State.FULL_PLACEPAGE);
+
+            mIsGestureHandled = true;
+          }
 
           return true;
         }
+
         return false;
       }
 
@@ -248,6 +260,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     case MotionEvent.ACTION_CANCEL:
       break;
     case MotionEvent.ACTION_DOWN:
+      mIsGestureHandled = false;
       mDownY = event.getRawY();
       break;
     case MotionEvent.ACTION_MOVE:
