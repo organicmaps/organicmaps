@@ -2,13 +2,12 @@
 #import <Foundation/Foundation.h>
 
 #define IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define DISPLAY_IS_4_INCH ([UIScreen mainScreen].bounds.size.height == 568.f)
 
 #define SYSTEM_VERSION_IS_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
-#define KEYBOARD_HEIGHT 216.f
-
 #define L(str) NSLocalizedString(str, nil)
+
+#define INTEGRAL(f) ([UIScreen mainScreen].scale == 1 ? floor(f) : f)
 
 @interface NSObject (Optimized)
 
@@ -42,6 +41,7 @@
 @property (nonatomic) CGSize size;
 
 + (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay damping:(double)dampingRatio initialVelocity:(double)springVelocity options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion;
+- (void)sizeToIntegralFit;
 
 @end
 

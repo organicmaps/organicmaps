@@ -85,9 +85,9 @@
   self.typeLabel.minY = 9;
 
   self.distanceLabel.width = 70;
-  [self.distanceLabel sizeToFit];
+  [self.distanceLabel sizeToIntegralFit];
   self.distanceLabel.maxX = self.width - RIGHT_SHIFT;
-  self.distanceLabel.maxY = self.height - 8.5;
+  self.distanceLabel.maxY = self.height - 8;
 
   self.titleLabel.size = [[self class] titleSizeWithTitle:self.titleLabel.text viewWidth:self.width typeSize:self.typeLabel.size];
   self.titleLabel.minX = LEFT_SHIFT;

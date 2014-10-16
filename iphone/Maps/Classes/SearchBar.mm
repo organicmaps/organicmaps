@@ -26,7 +26,7 @@
   [self.fieldBackgroundView addSubview:self.spotImageView];
   self.spotImageView.center = CGPointMake(14, self.fieldBackgroundView.height / 2 - 1);
   [self.fieldBackgroundView addSubview:self.activity];
-  self.activity.center = CGPointMake(self.spotImageView.center.x, self.spotImageView.center.y + 0.5);
+  self.activity.center = CGPointMake(self.spotImageView.center.x, self.spotImageView.center.y + INTEGRAL(0.5));
 
   [self.fieldBackgroundView addSubview:self.clearButton];
   self.clearButton.midY = self.fieldBackgroundView.height / 2;
@@ -113,7 +113,7 @@
   if (!_fieldBackgroundView)
   {
     UIImage * image = [[UIImage imageNamed:@"SearchFieldBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _fieldBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, 0, image.size.height)];
+    _fieldBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 27)];
     _fieldBackgroundView.image = image;
     _fieldBackgroundView.userInteractionEnabled = YES;
     _fieldBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

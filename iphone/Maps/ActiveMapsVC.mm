@@ -201,7 +201,7 @@
   else if (group == ActiveMapsLayout::TGroup::EUpToDate)
     label.text = L(@"downloader_uptodate_maps").uppercaseString;
 
-  [label sizeToFit];
+  [label sizeToIntegralFit];
   [view addSubview:label];
   label.minX = 13;
   label.maxY = view.height - 5;
@@ -209,7 +209,7 @@
   {
     BadgeView * badge = [[BadgeView alloc] init];
     badge.value = self.mapsLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
-    badge.center = CGPointMake(label.maxX + badge.width - 2, label.midY);
+    badge.center = CGPointMake(label.maxX + badge.width - 3, label.midY - INTEGRAL(0.5));
     [view addSubview:badge];
     self.outOfDateBadge = badge;
   }

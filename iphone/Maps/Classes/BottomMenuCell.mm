@@ -46,14 +46,14 @@
   self.separator.maxY = self.height;
 
   self.titleLabel.size = CGSizeMake(self.width - 70, self.height);
-  [self.titleLabel sizeToFit];
+  [self.titleLabel sizeToIntegralFit];
   self.titleLabel.minX = 53;
   self.titleLabel.midY = self.height / 2 - 2;
 
-  self.badgeView.minX = self.titleLabel.maxX + 4;
+  self.badgeView.minX = self.titleLabel.maxX + 3;
   self.badgeView.minY = self.titleLabel.minY - 5;
 
-  self.iconImageView.origin = CGPointMake(11, 4.5);
+  self.iconImageView.origin = CGPointMake(19, INTEGRAL(4.5));
 }
 
 - (UIImageView *)separator
@@ -71,7 +71,7 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 23, 41)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;

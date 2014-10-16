@@ -169,6 +169,13 @@
     [UIView animateWithDuration:(duration * dampingRatio) delay:delay options:options animations:animations completion:completion];
 }
 
+- (void)sizeToIntegralFit
+{
+  [self sizeToFit];
+  if ([UIScreen mainScreen].scale == 1)
+    self.frame = CGRectIntegral(self.frame);
+}
+
 @end
 
 
@@ -218,9 +225,15 @@
 - (CGSize)sizeWithDrawSize:(CGSize)size font:(UIFont *)font
 {
   if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)])
-    return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil].size;
+  {
+    CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil];
+    return [UIScreen mainScreen].scale == 1 ? CGRectIntegral(rect).size : rect.size;
+  }
   else
-    return [self sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+  {
+    CGSize size = [self sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+    return [UIScreen mainScreen].scale == 1 ? CGRectIntegral(CGRectMake(0, 0, size.width, size.height)).size : size;
+  }
 }
 
 @end

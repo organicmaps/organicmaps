@@ -301,7 +301,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)updateWebView
 {
-  [self.bookmarkDescriptionView sizeToFit];
+  [self.bookmarkDescriptionView sizeToIntegralFit];
   [self layoutSubviews];
 }
 
@@ -820,7 +820,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.routeButton.hidden = YES;
     self.routingActivity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.routingActivity.center = CGPointMake(self.routeButton.midX, self.routeButton.midY + 2);
+    self.routingActivity.center = CGPointMake(self.routeButton.midX, self.routeButton.midY + INTEGRAL(2.5));
     [self.routeButton.superview addSubview:self.routingActivity];
     [self.routingActivity startAnimating];
   }

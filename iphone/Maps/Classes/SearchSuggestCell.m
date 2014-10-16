@@ -45,7 +45,7 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 8.5, 0, 24)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, INTEGRAL(8.5), 0, 24)];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor whiteColor];
@@ -58,7 +58,7 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(17, 13, 18, 18)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(16, 12, 20, 20)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;

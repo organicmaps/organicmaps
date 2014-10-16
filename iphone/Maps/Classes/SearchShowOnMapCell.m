@@ -40,7 +40,7 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 8.5, 0, 24)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, INTEGRAL(8.5), 0, 24)];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor whiteColor];

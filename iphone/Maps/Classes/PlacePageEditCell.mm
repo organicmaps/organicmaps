@@ -47,7 +47,7 @@
 - (void)layoutSubviews
 {
   self.titleLabel.width = self.width - LEFT_SHIFT - RIGHT_SHIFT;
-  [self.titleLabel sizeToFit];
+  [self.titleLabel sizeToIntegralFit];
   self.titleLabel.origin = CGPointMake(LEFT_SHIFT, 10);
 
   self.selectedBackgroundView.frame = self.bounds;

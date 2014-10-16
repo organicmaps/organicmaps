@@ -110,13 +110,13 @@
 
 - (void)layoutSubviews
 {
-  [self.latitudeLabel sizeToFit];
-  [self.longitudeLabel sizeToFit];
+  [self.latitudeLabel sizeToIntegralFit];
+  [self.longitudeLabel sizeToIntegralFit];
   BOOL const shouldShowLocationViews = [[MapsAppDelegate theApp].m_locationManager enabledOnMap] && !self.myPositionMode;
   if (shouldShowLocationViews)
   {
     BOOL const headingAvailable = [CLLocationManager headingAvailable];
-    self.compassView.origin = CGPointMake(15 - (headingAvailable ? 0 : self.compassView.width + 17), 12.5);
+    self.compassView.origin = CGPointMake(15 - (headingAvailable ? 0 : self.compassView.width + 17), INTEGRAL(12.5));
     self.compassView.hidden = !headingAvailable;
 
     CGFloat const width = 134;
