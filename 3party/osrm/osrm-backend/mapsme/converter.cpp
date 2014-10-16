@@ -5,6 +5,7 @@
 
 #include "../../../../base/bits.hpp"
 #include "../../../../base/logging.hpp"
+#include "../../../../base/scope_guard.hpp"
 
 #include "../../../../coding/matrix_traversal.hpp"
 #include "../../../../coding/internal/file_data.hpp"
@@ -22,6 +23,30 @@
 namespace  mapsme
 {
 
+struct EdgeLess
+{
+  bool operator () (QueryEdge::EdgeData const & e1, QueryEdge::EdgeData const & e2) const
+  {
+
+    if (e1.distance != e2.distance)
+      return e1.distance < e2.distance;
+
+    if (e1.shortcut != e2.shortcut)
+      return e1.shortcut < e2.shortcut;
+
+    if (e1.forward != e2.forward)
+      return e1.forward < e2.forward;
+
+    if (e1.backward != e2.backward)
+      return e1.backward < e2.backward;
+
+    if (e1.id != e2.id)
+      return e1.id < e2.id;
+
+    return false;
+  }
+};
+
 void PrintStatus(bool b)
 {
   std::cout << (b ? "[Ok]" : "[Fail]") << std::endl;
@@ -34,29 +59,26 @@ string EdgeDataToString(QueryEdge::EdgeData const & d)
   return ss.str();
 }
 
-Converter::Converter()
-{
 
-}
 
-void Converter::run(const std::string & name)
+void GenerateRoutingIndex(const std::string & fPath)
 {
   ServerPaths server_paths;
 
-  server_paths["hsgrdata"] = boost::filesystem::path(name + ".hsgr");
-  server_paths["ramindex"] = boost::filesystem::path(name + ".ramIndex");
-  server_paths["fileindex"] = boost::filesystem::path(name + ".fileIndex");
-  server_paths["geometries"] = boost::filesystem::path(name + ".geometry");
-  server_paths["nodesdata"] = boost::filesystem::path(name + ".nodes");
-  server_paths["edgesdata"] = boost::filesystem::path(name + ".edges");
-  server_paths["namesdata"] = boost::filesystem::path(name + ".names");
-  server_paths["timestamp"] = boost::filesystem::path(name + ".timestamp");
+  server_paths["hsgrdata"] = boost::filesystem::path(fPath + ".hsgr");
+  server_paths["ramindex"] = boost::filesystem::path(fPath + ".ramIndex");
+  server_paths["fileindex"] = boost::filesystem::path(fPath + ".fileIndex");
+  server_paths["geometries"] = boost::filesystem::path(fPath + ".geometry");
+  server_paths["nodesdata"] = boost::filesystem::path(fPath + ".nodes");
+  server_paths["edgesdata"] = boost::filesystem::path(fPath + ".edges");
+  server_paths["namesdata"] = boost::filesystem::path(fPath + ".names");
+  server_paths["timestamp"] = boost::filesystem::path(fPath + ".timestamp");
 
-  std::cout << "Create internal data facade for file: " << name << "...";
+  std::cout << "Create internal data facade for file: " << fPath << "...";
   InternalDataFacade<QueryEdge::EdgeData> facade(server_paths);
   PrintStatus(true);
 
-  unsigned const nodeCount = facade.GetNumberOfNodes();
+  uint32_t const nodeCount = facade.GetNumberOfNodes();
 
   std::vector<uint64_t> edges;
   std::vector<uint32_t> edgesData;
@@ -69,7 +91,7 @@ void Converter::run(const std::string & name)
   typedef vector<EdgeInfoT> EdgeInfoVecT;
 
   uint64_t copiedEdges = 0, ignoredEdges = 0;
-  for (uint64_t node = 0; node < nodeCount; ++node)
+  for (uint32_t node = 0; node < nodeCount; ++node)
   {
     EdgeInfoVecT edgesInfo;
     for (auto edge : facade.GetAdjacentEdgeRange(node))
@@ -80,7 +102,7 @@ void Converter::run(const std::string & name)
       edgesInfo.push_back(EdgeInfoT(target, data));
     }
 
-    auto compareFn = [](EdgeInfoT const & a, EdgeInfoT const & b)
+    sort(edgesInfo.begin(), edgesInfo.end(), [](EdgeInfoT const & a, EdgeInfoT const & b)
     {
       if (a.first != b.first)
         return a.first < b.first;
@@ -89,14 +111,12 @@ void Converter::run(const std::string & name)
         return a.second.forward > b.second.forward;
 
       return a.second.id < b.second.id;
-    };
-
-    sort(edgesInfo.begin(), edgesInfo.end(), compareFn);
+    });
 
     uint64_t lastTarget = 0;
     for (auto edge : edgesInfo)
     {
-      uint64_t target = edge.first;
+      uint64_t const target = edge.first;
       auto const & data = edge.second;
 
       if (target < lastTarget)
@@ -107,14 +127,11 @@ void Converter::run(const std::string & name)
 
       auto addDataFn = [&](bool b)
       {
-        uint64_t e = TraverseMatrixInRowOrder<uint64_t>(nodeCount, node, target, b);
+        uint64_t const e = TraverseMatrixInRowOrder<uint64_t>(nodeCount, node, target, b);
 
         auto compressId = [&](uint64_t id)
         {
-          int id1 = id;
-          int id2 = node;
-
-          return bits::ZigZagEncode(id2 - id1);
+          return bits::ZigZagEncode(int64_t(node) - int64_t(id));
         };
 
         if (!edges.empty())
@@ -125,16 +142,16 @@ void Converter::run(const std::string & name)
           LOG(LWARNING, ("Invalid order of edges", e, edges.back(), nodeCount, node, target, b));
           CHECK(data.shortcut == shortcuts.back(), ());
 
-          auto last = edgesData.back();
+          auto const last = edgesData.back();
           if (data.distance <= last)
           {
             if (!edgeId.empty() && data.shortcut)
             {
               CHECK(shortcuts.back(), ());
-              auto oldId = node - bits::ZigZagDecode(edgeId.back());
+              unsigned oldId = node - bits::ZigZagDecode(edgeId.back());
 
               if (data.distance == last)
-                edgeId.back() = compressId(min(oldId, (uint64_t)data.id));
+                edgeId.back() = compressId(min(oldId, data.id));
               else
                 edgeId.back() = compressId(data.id);
             }
@@ -150,11 +167,8 @@ void Converter::run(const std::string & name)
         edgesData.push_back(data.distance);
         shortcuts.push_back(data.shortcut);
 
-        int id1 = data.id;
-        int id2 = node;
-
         if (data.shortcut)
-          edgeId.push_back(bits::ZigZagEncode(id2 - id1));
+          edgeId.push_back(compressId(data.id));
       };
 
       if (data.forward && data.backward)
@@ -184,7 +198,7 @@ void Converter::run(const std::string & name)
     builder.push_back(e);
   succinct::elias_fano matrix(&builder);
 
-  std::string fileName = name + "." + ROUTING_MATRIX_FILE_TAG;
+  std::string fileName = fPath + "." + ROUTING_MATRIX_FILE_TAG;
   std::ofstream fout(fileName, std::ios::binary);
   fout.write((const char*)&nodeCount, sizeof(nodeCount));
   succinct::mapper::freeze(matrix, fout);
@@ -192,33 +206,30 @@ void Converter::run(const std::string & name)
 
   std::cout << "--- Save edge data" << std::endl;
   succinct::elias_fano_compressed_list edgeVector(edgesData);
-  fileName = name + "." + ROUTING_EDGEDATA_FILE_TAG;
+  fileName = fPath + "." + ROUTING_EDGEDATA_FILE_TAG;
   succinct::mapper::freeze(edgeVector, fileName.c_str());
 
   succinct::elias_fano_compressed_list edgeIdVector(edgeId);
-  fileName = name + "." + ROUTING_EDGEID_FILE_TAG;
+  fileName = fPath + "." + ROUTING_EDGEID_FILE_TAG;
   succinct::mapper::freeze(edgeIdVector, fileName.c_str());
 
   std::cout << "--- Save edge shortcuts" << std::endl;
   succinct::rs_bit_vector shortcutsVector(shortcuts);
-  fileName = name + "." + ROUTING_SHORTCUTS_FILE_TAG;
+  fileName = fPath + "." + ROUTING_SHORTCUTS_FILE_TAG;
   succinct::mapper::freeze(shortcutsVector, fileName.c_str());
 
   if (edgeId.size() != shortcutsVector.num_ones())
     LOG(LCRITICAL, ("Invalid data"));
 
-  /// @todo Restore this checking. Now data facade depends on mwm libraries.
-
   std::cout << "--- Test packed data" << std::endl;
-  std::string fPath = name + ".mwm";
+  std::string path = fPath + ".test";
 
   {
-    FilesContainerW routingCont(fPath);
+    FilesContainerW routingCont(path);
 
     auto appendFile = [&] (string const & tag)
     {
-      string const fileName = name + "." + tag;
-      LOG(LINFO, ("Append file", fileName, "with tag", tag));
+      string const fileName = fPath + "." + tag;
       routingCont.Write(fileName, tag);
     };
 
@@ -230,9 +241,10 @@ void Converter::run(const std::string & name)
     routingCont.Finish();
   }
 
+  MY_SCOPE_GUARD(testFileGuard, bind(&my::DeleteFileX, cref(path)));
 
   FilesMappingContainer container;
-  container.Open(fPath);
+  container.Open(path);
   typedef routing::OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
   DataFacadeT facadeNew;
   facadeNew.Load(container);
@@ -246,12 +258,6 @@ void Converter::run(const std::string & name)
   std::cout << "Check edges data ...";
   bool error = false;
 
-  auto errorFn = [&](string const & s)
-  {
-    my::DeleteFileX(fPath);
-    LOG(LCRITICAL, (s));
-  };
-
   typedef vector<QueryEdge::EdgeData> EdgeDataT;
   assert(facade.GetNumberOfEdges() == facadeNew.GetNumberOfEdges());
   for (uint32_t i = 0; i < facade.GetNumberOfNodes(); ++i)
@@ -264,7 +270,7 @@ void Converter::run(const std::string & name)
     for (auto e : facade.GetAdjacentEdgeRange(i))
       edgesOsrm.push_back(EdgeOsrmT(facade.GetTarget(e), facade.GetEdgeData(e)));
 
-    auto edgeOsrmLess = [](EdgeOsrmT const & a, EdgeOsrmT const & b)
+    sort(edgesOsrm.begin(), edgesOsrm.end(), [](EdgeOsrmT const & a, EdgeOsrmT const & b)
     {
       if (a.first != b.first)
         return a.first < b.first;
@@ -279,8 +285,7 @@ void Converter::run(const std::string & name)
         return a.second.distance < b.second.distance;
 
       return a.second.id < b.second.id;
-    };
-    sort(edgesOsrm.begin(), edgesOsrm.end(), edgeOsrmLess);
+    });
 
     for (size_t k = 1; k < edgesOsrm.size();)
     {
@@ -330,7 +335,7 @@ void Converter::run(const std::string & name)
       sort(v2.begin(), v2.end(), EdgeLess());
 
       stringstream ss;
-      ss << "File name: " << name << std::endl;
+      ss << "File name: " << fPath << std::endl;
       ss << "Not equal edges count for node: " << i << std::endl;
       ss << "v1: " << v1.size() << " v2: " << v2.size() << std::endl;
       ss << "--- v1 ---" << std::endl;
@@ -338,7 +343,7 @@ void Converter::run(const std::string & name)
       ss << "--- v2 ---" << std::endl;
       printV(v2, ss);
 
-      errorFn(ss.str());
+      LOG(LCRITICAL, (ss.str()));
     }
 
     sort(v1.begin(), v1.end(), EdgeLess());
@@ -360,19 +365,12 @@ void Converter::run(const std::string & name)
         for (size_t j = 0; j < v1.size(); ++j)
           std::cout << EdgeDataToString(v1[j]) << " - " << EdgeDataToString(v2[j]) << std::endl;
 
-        stringstream ss;
-        ss << "File name: " << name << std::endl;
-        ss << "Node: " << i << std::endl;
-        ss << EdgeDataToString(d1) << ", " << EdgeDataToString(d2) << std::endl;
-
-        errorFn(ss.str());
+        LOG(LCRITICAL, ("File:", fPath, "Node:", i, EdgeDataToString(d1), EdgeDataToString(d2)));
       }
     }
 
   }
   PrintStatus(!error);
-
-  my::DeleteFileX(fPath);
 }
 
 }

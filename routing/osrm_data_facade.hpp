@@ -35,7 +35,7 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
   FilesMappingContainer::Handle m_handleShortcuts;
   FilesMappingContainer::Handle m_handleFanoMatrix;
 
-  unsigned m_numberOfNodes;
+  uint32_t m_numberOfNodes;
 
   template <class T> void ClearContainer(T & t)
   {
@@ -66,8 +66,8 @@ public:
     m_handleFanoMatrix.Assign(container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
 
-    m_numberOfNodes = *m_handleFanoMatrix.GetData<unsigned>();
-    succinct::mapper::map(m_matrix, m_handleFanoMatrix.GetData<char>() + sizeof(unsigned));
+    m_numberOfNodes = *m_handleFanoMatrix.GetData<uint32_t>();
+    succinct::mapper::map(m_matrix, m_handleFanoMatrix.GetData<char>() + sizeof(m_numberOfNodes));
   }
 
   void Clear()

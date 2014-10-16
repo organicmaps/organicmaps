@@ -22,8 +22,8 @@ int main(int argc, char **argv)
     return 0;
   }
 
-  mapsme::Converter conv;
-  conv.run(vm["input"].as<std::string>());
+
+  mapsme::GenerateRoutingIndex(vm["input"].as<std::string>());
 
   return 0;
 }
