@@ -299,9 +299,8 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 
     if (opt & TMapOptions::EMapOnly)
     {
-      string const fName = file.GetFileWithExt(TMapOptions::EMapOnly);
-      if (m_model.DeleteMap(fName))
-        InvalidateRect(GetCountryBounds(fName), true);
+      if (m_model.DeleteMap(file.GetFileWithExt(TMapOptions::EMapOnly)))
+        InvalidateRect(GetCountryBounds(file.GetFileWithoutExt()), true);
     }
 
     if (opt & TMapOptions::ECarRouting)
@@ -309,7 +308,6 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 
     m_storage.NotifyStatusChanged(index);
   }
-
 }
 
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)

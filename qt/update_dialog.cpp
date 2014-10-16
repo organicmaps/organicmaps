@@ -253,9 +253,12 @@ namespace qt
       switch (m_framework.GetCountryStatus(index))
       {
       case TStatus::ENotDownloaded:
-        size = st.CountrySizeInBytes(index, options);
-        if (size.second > 0)
+        if (st.CountriesCount(index) == 0)
+        {
+          size = st.CountrySizeInBytes(index, options);
+          ASSERT(size.second > 0, (index));
           statusString = tr("Click to download");
+        }
         rowColor = COLOR_NOTDOWNLOADED;
         break;
 
