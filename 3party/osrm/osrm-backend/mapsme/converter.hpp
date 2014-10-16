@@ -2,12 +2,17 @@
 
 #include <string>
 
-#include "../DataStructures/QueryEdge.h"
-
 namespace mapsme
 {
 
+class Converter
+{
+public:
+  Converter();
 
-void GenerateRoutingIndex(const std::string & fPath);
+  void run(const std::string & name);
+
+
+};
 
 }
