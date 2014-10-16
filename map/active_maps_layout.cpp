@@ -378,6 +378,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 
   if (newStatus == TStatus::EOnDisk)
   {
+    NotifyStatusChanged(group, position, oldStatus, item.m_status);
     if (group != TGroup::EUpToDate)
     {
       // Here we handle
@@ -395,8 +396,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
         NotifyOptionsChanged(group, position, item.m_options, requestOptions);
       }
 
-      NotifyStatusChanged(group, position, oldStatus, item.m_status);
-
       int newPosition = MoveItemToGroup(group, position, TGroup::EUpToDate);
       NotifyMove(group, position, TGroup::EUpToDate, newPosition);
     }
@@ -405,7 +404,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       // Here we handle
       // "Actual map without routing" -> "Actual map with routing"
       // "Actual map with routing" -> "Actual map without routing"
-	  TMapOptions requestOpt = item.m_downloadRequest;
+      TMapOptions requestOpt = item.m_downloadRequest;
       item.m_options = item.m_downloadRequest = options;
       NotifyOptionsChanged(group, position, item.m_options, requestOpt);
     }
