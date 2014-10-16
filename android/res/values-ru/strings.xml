@@ -419,7 +419,7 @@
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Загруженные</string>
+	<string name="downloader_downloaded">Загружено</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_maps">Загруженные карты</string>
 	<!-- My maps category -->

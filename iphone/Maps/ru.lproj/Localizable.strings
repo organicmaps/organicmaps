@@ -668,7 +668,7 @@
 "downloader_cancel_all" = "Отменить все";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Загруженные";
+"downloader_downloaded" = "Загружено";
 
 /* Downloaded maps category */
 "downloader_downloaded_maps" = "Загруженные карты";

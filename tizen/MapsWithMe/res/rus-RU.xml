@@ -124,7 +124,7 @@
 	<!-- Cancel all button text -->
 	<text id="IDS_DOWNLOADER_CANCEL_ALL">Отменить все</text>
 	<!-- Downloaded maps category -->
-	<text id="IDS_DOWNLOADER_DOWNLOADED">Загруженные</text>
+	<text id="IDS_DOWNLOADER_DOWNLOADED">Загружено</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Загруженные карты</text>
 	<!-- My maps category -->
