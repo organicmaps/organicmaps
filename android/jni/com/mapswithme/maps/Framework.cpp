@@ -1252,19 +1252,19 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass thiz)
   {
-    frm()->CloseRouting();
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::CloseRouting, frm()), false);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
   {
-    frm()->BuildRoute(MercatorBounds::FromLatLon(lat, lon));
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::BuildRoute, frm(), MercatorBounds::FromLatLon(lat, lon)), false);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass thiz)
   {
-    frm()->FollowRoute();
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::FollowRoute, frm()), false);
   }
 
   JNIEXPORT jobject JNICALL
