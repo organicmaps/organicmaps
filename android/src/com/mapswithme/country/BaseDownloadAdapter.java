@@ -360,9 +360,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         }
       });
 
+      // FIXME when only routing is downloaded, second size in returned array is incorrect and contains total map+routing size.
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, (int) sizes[0] * 100 / sizes[1] + "%", R.color.downloader_gray);
+      final int percent = (int) (sizes[0] * 100 / sizes[1]);
+      setHolderPercentText(holder, percent + "%");
+      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+      setHolderProgress(holder, percent);
       break;
 
     case MapStorage.ON_DISK_OUT_OF_DATE:
@@ -382,7 +386,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       bindCarRoutingIcon(holder, item);
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, mStatusOutdated, R.color.downloader_green);
+      setHolderPercentText(holder, mStatusOutdated);
+      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_green));
       break;
 
     case MapStorage.ON_DISK:
@@ -394,12 +399,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       sizes = getRemoteItemSizes(position);
       if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
       {
-        setHolderPercentString(holder, mMapOnly, R.color.downloader_gray);
+        setHolderPercentText(holder, mMapOnly);
+        setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
         setHolderSizeString(holder, 0, sizes[0]);
       }
       else
       {
-        setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
+        setHolderPercentText(holder, mStatusDownloaded);
+        setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
         setHolderSizeString(holder, 0, sizes[1]);
       }
       break;
@@ -426,9 +433,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, mStatusFailed, R.color.downloader_red);
+      setHolderPercentText(holder, mStatusFailed);
+      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_red));
       break;
-
 
     case MapStorage.IN_QUEUE:
       UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mProgressSlided);
@@ -448,7 +455,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
+      setHolderPercentText(holder, mActivity.getString(R.string.downloader_queued));
+      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
       break;
 
     case MapStorage.NOT_DOWNLOADED:
@@ -458,7 +466,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       sizes = getRemoteItemSizes(position);
       setHolderSizeString(holder, sizes[0], sizes[1]);
-      setHolderPercentString(holder, mStatusNotDownloaded, R.color.downloader_green);
+      setHolderPercentText(holder, mStatusNotDownloaded);
+      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_green));
       break;
 
     }
@@ -474,7 +483,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void startItemDownloading(final ViewHolder holder, final int position, int newOptions)
   {
-    setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
+    setHolderPercentText(holder, mActivity.getString(R.string.downloader_queued));
+    setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
     holder.mProgress.setVisibility(View.VISIBLE);
 
     ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
@@ -517,7 +527,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void startItemUpdating(final ViewHolder holder, int position, int options)
   {
-    setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
+    setHolderPercentText(holder, mActivity.getString(R.string.downloader_queued));
+    setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
 
     ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
         -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
@@ -620,12 +631,21 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.mSizeSlided.setText(text);
   }
 
-  private void setHolderPercentString(ViewHolder holder, String text, int color)
+  private void setHolderPercentText(ViewHolder holder, String text)
   {
     holder.mPercent.setText(text);
-    holder.mPercent.setTextColor(mActivity.getResources().getColor(color));
     holder.mPercentSlided.setText(text);
-    holder.mPercentSlided.setTextColor(mActivity.getResources().getColor(color));
+  }
+
+  private void setHolderPercentColor(ViewHolder holder, int color)
+  {
+    holder.mPercent.setTextColor(color);
+    holder.mPercentSlided.setTextColor(color);
+  }
+
+  private void setHolderProgress(ViewHolder holder, int percent)
+  {
+    holder.mProgressSlided.setProgress(percent);
   }
 
   protected void setItemName(int position, ViewHolder holder)
@@ -676,9 +696,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       if (holder != null && holder.mProgress != null)
       {
         final int percent = (int) (current * 100 / total);
-        holder.mProgressSlided.setProgress(percent);
-        holder.mPercent.setText(percent + "%");
-        holder.mPercentSlided.setText(percent + "%");
+        setHolderProgress(holder, percent);
+        setHolderPercentText(holder, percent + "%");
       }
     }
   }
