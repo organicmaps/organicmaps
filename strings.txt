@@ -5829,7 +5829,7 @@
     tags = ios,android,tizen
     comment = Downloaded maps category
     en = Downloaded
-    ru = Загруженные
+    ru = Загружено
     ja = ダウンロード済
     ko = 다운로드
     it = Scaricate
