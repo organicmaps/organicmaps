@@ -169,8 +169,8 @@ template <typename T> T GCD(T a, T b)
 
     if ((a & 0x1) != 0 && (b & 0x1) != 0)
     {
-      T minV = min(a, b);
-      T maxV = max(a, b);
+      T const minV = min(a, b);
+      T const maxV = max(a, b);
       a = (maxV - minV) >> 1;
       b = minV;
       continue;

@@ -22,7 +22,7 @@ void SrcPoint::TruncateFileName()
   m_fileName = p[1];
 }
 
-}
+} // namespace my
 
 string DebugPrint(my::SrcPoint const & srcPoint)
 {
