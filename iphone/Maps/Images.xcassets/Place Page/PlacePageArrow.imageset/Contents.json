@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "pp_arrow_mdpi.png"
+      "filename" : "Arrow.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "pp_arrow_xhdpi.png"
+      "filename" : "Arrow@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "pp_arrow_xxhdpi.png"
+      "filename" : "Arrow@3x.png"
     }
   ],
   "info" : {
