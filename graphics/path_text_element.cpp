@@ -77,9 +77,9 @@ namespace graphics
     drawTextImpl(m_glyphLayout, screen, m, false, false, desc, depth() + doffs++);
   }
 
-  void PathTextElement::setPivot(m2::PointD const & pivot)
+  void PathTextElement::setPivot(m2::PointD const & pivot, bool dirtyFlag)
   {
-    TextElement::setPivot(pivot);
+    TextElement::setPivot(pivot, dirtyFlag);
 
     m_glyphLayout.setPivot(pivot);
   }

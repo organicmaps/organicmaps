@@ -225,12 +225,12 @@ namespace graphics
     }
   }
 
-  void StraightTextElement::setPivot(m2::PointD const & pv)
+  void StraightTextElement::setPivot(m2::PointD const & pv, bool dirtyFlag)
   {
     m2::PointD oldPv = pivot();
     m2::PointD offs = pv - oldPv;
 
-    TextElement::setPivot(pv);
+    TextElement::setPivot(pv, dirtyFlag);
 
     for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);

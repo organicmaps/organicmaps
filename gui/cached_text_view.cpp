@@ -143,9 +143,9 @@ namespace gui
                                    position()));
   }
 
-  void CachedTextView::setPivot(m2::PointD const & pv)
+  void CachedTextView::setPivot(m2::PointD const & pv, bool dirtyFlag)
   {
-    Element::setPivot(pv);
+    Element::setPivot(pv, dirtyFlag);
 
     if (m_maskedLayout)
       m_maskedLayout->setPivot(pivot());

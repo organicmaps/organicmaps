@@ -53,7 +53,7 @@ namespace gui
 
     void setFont(EState state, graphics::FontDesc const & desc);
 
-    void setPivot(m2::PointD const & pv);
+    void setPivot(m2::PointD const & pv, bool dirtyFlag = true);
     //@}
 
   private:

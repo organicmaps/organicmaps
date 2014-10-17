@@ -67,7 +67,7 @@ namespace gui
     virtual m2::RectD GetBoundRect() const;
 
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    void setPivot(m2::PointD const & pv);
+    void setPivot(m2::PointD const & pv, bool dirtyFlag = true);
 
     void purge();
     void layout();

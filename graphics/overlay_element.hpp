@@ -89,7 +89,7 @@ namespace graphics
     virtual double priority() const;
 
     m2::PointD const & pivot() const;
-    virtual void setPivot(m2::PointD const & pv);
+    virtual void setPivot(m2::PointD const & pv, bool dirtyFlag = true);
 
     m2::PointD const point(EPosition pos) const;
 

@@ -195,10 +195,10 @@ namespace gui
     }
   }
 
-  void Button::setPivot(m2::PointD const & pv)
+  void Button::setPivot(m2::PointD const & pv, bool dirtyFlag)
   {
-    m_textView->setPivot(pv);
-    Element::setPivot(pv);
+    m_textView->setPivot(pv, dirtyFlag);
+    Element::setPivot(pv, dirtyFlag);
   }
 
   void Button::setFont(EState state, graphics::FontDesc const & font)

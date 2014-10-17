@@ -17,6 +17,7 @@
 #include "../indexer/mercator.hpp"
 
 #include "../platform/location.hpp"
+#include "../platform/settings.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
@@ -241,6 +242,9 @@ State::State(Params const & p)
 {
   m_locationAreaColor = p.m_locationAreaColor;
   m_framework = p.m_framework;
+  bool isBench = false;
+  if (Settings::Get("IsBenchmarking", isBench) && isBench)
+    m_modeInfo = UnknownPosition;
 
   setIsVisible(false);
 }
@@ -454,7 +458,7 @@ void State::update()
   if (isVisible() && IsModeHasPosition())
   {
     m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-    setPivot(pxPosition);
+    setPivot(pxPosition, false);
 
     if (m_animTask)
       static_cast<RotateAndFollowAnim *>(m_animTask.get())->Update();

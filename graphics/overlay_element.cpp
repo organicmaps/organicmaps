@@ -58,10 +58,11 @@ namespace graphics
     return m_pivot;
   }
 
-  void OverlayElement::setPivot(m2::PointD const & pivot)
+  void OverlayElement::setPivot(m2::PointD const & pivot, bool dirtyFlag)
   {
     m_pivot = pivot;
-    setIsDirtyLayout(true);
+    if (dirtyFlag)
+      setIsDirtyLayout(true);
   }
 
   graphics::EPosition OverlayElement::position() const

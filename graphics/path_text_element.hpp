@@ -33,7 +33,7 @@ namespace graphics
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
-    void setPivot(m2::PointD const & pivot);
+    void setPivot(m2::PointD const & pivot, bool dirtyFlag = true);
     void setTransformation(const math::Matrix<double, 3, 3> & m);
   };
 }
