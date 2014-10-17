@@ -128,21 +128,34 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
       mAbButton.setVisibility(View.GONE);
       return;
     }
-    if (ActiveCountryTree.isDownloadingActive())
+
+    updateMode();
+    switch (mMode)
     {
-      mMode = MODE_CANCEL_ALL;
+    case MODE_CANCEL_ALL:
       mAbButton.setText(getString(R.string.downloader_cancel_all));
       mAbButton.setTextColor(getResources().getColor(R.color.downloader_red));
       mAbButton.setVisibility(View.VISIBLE);
-    }
-    else if (ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE) > 0)
-    {
-      mMode = MODE_UPDATE_ALL;
+      break;
+    case MODE_UPDATE_ALL:
       mAbButton.setText(getString(R.string.downloader_update_all));
       mAbButton.setTextColor(getResources().getColor(R.color.downloader_green));
       mAbButton.setVisibility(View.VISIBLE);
+      break;
+    case MODE_NONE:
+      mAbButton.setVisibility(View.GONE);
+      break;
     }
-    invalidateOptionsMenu();
+  }
+
+  private void updateMode()
+  {
+    if (ActiveCountryTree.isDownloadingActive())
+      mMode = MODE_CANCEL_ALL;
+    else if (ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE) > 0)
+      mMode = MODE_UPDATE_ALL;
+    else
+      mMode = MODE_NONE;
   }
 
   @Override
