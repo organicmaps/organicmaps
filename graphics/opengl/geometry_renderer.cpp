@@ -376,8 +376,9 @@ namespace graphics
 
     void GeometryRenderer::ApplyBlitStates::perform()
     {
-      OGLCHECK(glDisable(GL_DEPTH_TEST));
-      OGLCHECK(glDepthMask(GL_FALSE));
+      OGLCHECK(glEnable(GL_DEPTH_TEST));
+      OGLCHECK(glDepthFunc(GL_LEQUAL));
+      OGLCHECK(glDepthMask(GL_TRUE));
 
       /// Applying program
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
