@@ -38,7 +38,11 @@ namespace graphics
 
     void RenderContext::setProgram(shared_ptr<Program> const & prg)
     {
-      m_program = prg;
+      if (m_program != prg)
+      {
+        m_program = prg;
+        m_program->riseChangedFlag();
+      }
     }
 
     ProgramManager * RenderContext::programManager()

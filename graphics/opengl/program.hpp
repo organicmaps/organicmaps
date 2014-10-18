@@ -36,6 +36,7 @@ namespace graphics
         } m_data;
         EDataType m_type;
         GLint m_handle;
+        bool m_changed = true;
       };
 
       struct Attribute
@@ -47,6 +48,7 @@ namespace graphics
         size_t m_stride;
       };
 
+      bool m_changed = true;
       GLuint m_handle;
 
       typedef map<ESemantic, Uniform> TUniforms;
@@ -93,6 +95,7 @@ namespace graphics
       void setStorage(Storage const & storage);
 
       void makeCurrent();
+      void riseChangedFlag();
     };
   }
 }

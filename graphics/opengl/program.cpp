@@ -106,7 +106,11 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EFloat;
-      f.m_data.m_floatVal[0] = v0;
+      if (f.m_data.m_floatVal[0] != v0)
+      {
+        f.m_data.m_floatVal[0] = v0;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, float v0, float v1)
@@ -116,8 +120,13 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EFloatVec2;
-      f.m_data.m_floatVal[0] = v0;
-      f.m_data.m_floatVal[1] = v1;
+      if (f.m_data.m_floatVal[0] != v0 ||
+          f.m_data.m_floatVal[1] != v1)
+      {
+        f.m_data.m_floatVal[0] = v0;
+        f.m_data.m_floatVal[1] = v1;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, float v0, float v1, float v2)
@@ -127,9 +136,15 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EFloatVec3;
-      f.m_data.m_floatVal[0] = v0;
-      f.m_data.m_floatVal[1] = v1;
-      f.m_data.m_floatVal[2] = v2;
+      if (f.m_data.m_floatVal[0] != v0 ||
+          f.m_data.m_floatVal[1] != v1 ||
+          f.m_data.m_floatVal[2] != v2)
+      {
+        f.m_data.m_floatVal[0] = v0;
+        f.m_data.m_floatVal[1] = v1;
+        f.m_data.m_floatVal[2] = v2;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, float v0, float v1, float v2, float v3)
@@ -139,10 +154,17 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EFloatVec4;
-      f.m_data.m_floatVal[0] = v0;
-      f.m_data.m_floatVal[1] = v1;
-      f.m_data.m_floatVal[2] = v2;
-      f.m_data.m_floatVal[3] = v3;
+      if (f.m_data.m_floatVal[0] != v0 ||
+          f.m_data.m_floatVal[1] != v1 ||
+          f.m_data.m_floatVal[2] != v2 ||
+          f.m_data.m_floatVal[3] != v3)
+      {
+        f.m_data.m_floatVal[0] = v0;
+        f.m_data.m_floatVal[1] = v1;
+        f.m_data.m_floatVal[2] = v2;
+        f.m_data.m_floatVal[3] = v3;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, int v0)
@@ -152,7 +174,11 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EInteger;
-      f.m_data.m_intVal[0] = v0;
+      if (f.m_data.m_intVal[0] != v0)
+      {
+        f.m_data.m_intVal[0] = v0;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, int v0, int v1)
@@ -162,8 +188,13 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EIntegerVec2;
-      f.m_data.m_intVal[0] = v0;
-      f.m_data.m_intVal[1] = v1;
+      if (f.m_data.m_intVal[0] != v0 ||
+          f.m_data.m_intVal[1] != v1)
+      {
+        f.m_data.m_intVal[0] = v0;
+        f.m_data.m_intVal[1] = v1;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, int v0, int v1, int v2)
@@ -173,9 +204,15 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EIntegerVec3;
-      f.m_data.m_intVal[0] = v0;
-      f.m_data.m_intVal[1] = v1;
-      f.m_data.m_intVal[2] = v2;
+      if (f.m_data.m_intVal[0] != v0 ||
+          f.m_data.m_intVal[1] != v1 ||
+          f.m_data.m_intVal[2] != v2)
+      {
+        f.m_data.m_intVal[0] = v0;
+        f.m_data.m_intVal[1] = v1;
+        f.m_data.m_intVal[2] = v2;
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, int v0, int v1, int v2, int v3)
@@ -185,10 +222,17 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = EIntegerVec4;
-      f.m_data.m_intVal[0] = v0;
-      f.m_data.m_intVal[1] = v1;
-      f.m_data.m_intVal[2] = v2;
-      f.m_data.m_intVal[3] = v3;
+      if (f.m_data.m_intVal[0] != v0 ||
+          f.m_data.m_intVal[1] != v1 ||
+          f.m_data.m_intVal[2] != v2 ||
+          f.m_data.m_intVal[3] != v3)
+      {
+        f.m_data.m_intVal[0] = v0;
+        f.m_data.m_intVal[1] = v1;
+        f.m_data.m_intVal[2] = v2;
+        f.m_data.m_intVal[3] = v3;
+        f.m_changed = true;
+      }
     }
 
     template <unsigned N>
@@ -201,7 +245,11 @@ namespace graphics
       Uniform & f = it->second;
 
       f.m_type = dt;
-      copy(&m(0, 0), &m(0, 0) + N * N, f.m_data.m_matVal);
+      if (!equal(&m(0, 0), &m(0, 0) + N * N, f.m_data.m_matVal))
+      {
+        copy(&m(0, 0), &m(0, 0) + N * N, f.m_data.m_matVal);
+        f.m_changed = true;
+      }
     }
 
     void Program::setParam(ESemantic sem, math::Matrix<float, 2, 2> const & m)
@@ -274,11 +322,14 @@ namespace graphics
     void Program::applyUniforms()
     {
       /// setting all uniforms
-      for (TUniforms::const_iterator it = m_uniforms.begin();
-           it != m_uniforms.end();
-           ++it)
+      typedef pair<ESemantic const, Uniform> TNode;
+      for (TNode & node : m_uniforms)
       {
-        Uniform const & u = it->second;
+        Uniform & u = node.second;
+        if (!u.m_changed)
+          continue;
+
+        u.m_changed = false;
 
         switch (u.m_type)
         {
@@ -354,7 +405,12 @@ namespace graphics
 
     void Program::makeCurrent()
     {
-      OGLCHECK(glUseProgramFn(m_handle));
+      if (m_changed)
+      {
+
+        OGLCHECK(glUseProgramFn(m_handle));
+        m_changed = false;
+      }
 
       m_storage.m_vertices->makeCurrent();
 
@@ -363,6 +419,11 @@ namespace graphics
       m_storage.m_indices->makeCurrent();
 
       applyUniforms();
+    }
+
+    void Program::riseChangedFlag()
+    {
+      m_changed = true;
     }
   }
 }
