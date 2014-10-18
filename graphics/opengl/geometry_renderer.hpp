@@ -46,8 +46,6 @@ namespace graphics
         size_t m_indicesCount;
         size_t m_indicesOffs;
         EPrimitives m_primitiveType;
-        VertexDecl * m_vertexDecl;
-        shared_ptr<Program> m_program;
 
         DrawGeometry();
         virtual bool isNeedAdditionalUniforms() const;
