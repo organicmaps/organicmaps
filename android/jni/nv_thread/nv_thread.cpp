@@ -42,45 +42,14 @@ void NVThreadInit(JavaVM* vm)
 JNIEnv* NVThreadGetCurrentJNIEnv()
 {
   return jni::GetEnv();
-
-//  JNIEnv* env = NULL;
-//  if (s_jniEnvKey)
-//  {
-//    env = (JNIEnv*)pthread_getspecific(s_jniEnvKey);
-//  }
-//  else
-//  {
-//    pthread_key_create(&s_jniEnvKey, NULL);
-//  }
-//
-//  if (!env)
-//  {
-//    // do we have a VM cached?
-//    if (!s_vm)
-//    {
-//      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error - could not find JVM!");
-//      return NULL;
-//    }
-//
-//    // Hmm - no env for this thread cached yet
-//    int error = s_vm->AttachCurrentThread(&env, NULL);
-//    __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "AttachCurrentThread: %d, 0x%p", error, env);
-//    if (error || !env)
-//    {
-//      __android_log_print(ANDROID_LOG_DEBUG, MODULE,  "Error - could not attach thread to JVM!");
-//      return NULL;
-//    }
-//
-//    pthread_setspecific(s_jniEnvKey, env);
-//  }
-//
-//  return env;
 }
+
+typedef void * (*StartRoutine)(void *);
 
 typedef struct NVThreadInitStruct
 {
   void* m_arg;
-  void *(*m_startRoutine)(void *);
+  StartRoutine m_startRoutine;
 } NVThreadInitStruct;
 
 // Implementations are in PThreadImpl.cpp
@@ -89,33 +58,33 @@ typedef struct NVThreadInitStruct
 void AndroidThreadAttachToJVM();
 void AndroidThreadDetachFromJVM();
 
-static void* NVThreadSpawnProc(void* arg)
+static void * NVThreadSpawnProc(void* arg)
 {
-  NVThreadInitStruct* init = (NVThreadInitStruct*)arg;
-  void *(*start_routine)(void *) = init->m_startRoutine;
-  void* data = init->m_arg;
-  void* ret;
+  NVThreadInitStruct * init = (NVThreadInitStruct *)arg;
+  StartRoutine startRoutine = init->m_startRoutine;
+  void * data = init->m_arg;
+  void * ret;
 
   free(arg);
 
   AndroidThreadAttachToJVM();
 
-  ret = start_routine(data);
+  ret = startRoutine(data);
 
   AndroidThreadDetachFromJVM();
 
   return ret;
 }
 
-int NVThreadSpawnJNIThread(pthread_t *thread, pthread_attr_t const * attr,
-    void *(*start_routine)(void *), void * arg)
+int NVThreadSpawnJNIThread(pthread_t * thread, pthread_attr_t const * attr,
+                           StartRoutine startRoutine, void * arg)
 {
-  if (!start_routine)
+  if (!startRoutine)
     return -1;
 
   NVThreadInitStruct * initData = new NVThreadInitStruct;
 
-  initData->m_startRoutine = start_routine;
+  initData->m_startRoutine = startRoutine;
   initData->m_arg = arg;
 
   int err = pthread_create(thread, attr, NVThreadSpawnProc, initData);

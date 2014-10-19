@@ -4,7 +4,7 @@
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIAï¿½ Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -41,10 +41,10 @@ public:
   void UnblockConsumer();
   void UnblockProducer();
   // Events are copied, so caller can reuse ev immediately
-  void Insert(const NVEvent* ev);
+  void Insert(NVEvent const * ev);
   // Waits until the event is consumed.  Returns whether the
   // consumer indicates handling the event or ignoring it
-  bool InsertBlocking(const NVEvent* ev);
+  bool InsertBlocking(NVEvent const * ev);
 
   // Returned event is valid only until the next call to
   // RemoveOldest or until a call to DoneWithEvent
@@ -60,7 +60,7 @@ public:
   void DoneWithEvent(bool ret);
 
 protected:
-  bool insert(const NVEvent* ev);
+  bool insert(NVEvent const * ev);
 
   enum { QUEUE_ELEMS = 256 };
   enum { QUEUE_MASK = 0x000000ff };
@@ -74,7 +74,7 @@ protected:
   NVEventSync     m_consumerSync;
 
   NVEvent m_events[QUEUE_ELEMS];
-  const NVEvent* m_blocker;
+  NVEvent const * m_blocker;
   enum BlockerState
   {
     NO_BLOCKER,
@@ -85,8 +85,5 @@ protected:
   BlockerState m_blockerState;
   bool m_blockerReturnVal;
 };
-
-
-
 
 #endif // #ifndef NV_EVENT_QUEUE

@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------------------
 // File:            libs\jni\nv_event\nv_event.h
-// Samples Version: NVIDIA Android Lifecycle samples 1_0beta 
+// Samples Version: NVIDIA Android Lifecycle samples 1_0beta
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
@@ -23,7 +23,6 @@
 #define _NV_EVENT_H
 #include <jni.h>
 #include <sys/types.h>
-//#include <EGL/egl.h>
 
 /** @file nv_event.h
 Contains a framework for event loop-based applications.  This library replaces
@@ -31,7 +30,7 @@ most or all of the normally-required JNI code for Android NDK applications,
 presenting the application developer with two callbacks into which they can
 write their application.  The framework runs in a natively-created thread,
 allowing the application to implement a classic "event loop and render" structure
-without having to return to Java code to avoid ANR warnings.  The library 
+without having to return to Java code to avoid ANR warnings.  The library
 includes support for input and system event passing as well as JNI initialization
 and exposes basic EGL functionality to native as well.  Put together, the library
 can form the basis of a simple interactive 3D application.  All applications that
@@ -49,7 +48,7 @@ typedef jobject NVEventPlatformAppHandle;
 
 #else // unknown platform
 
-typedef void* NVEventPlatformAppHandle;
+typedef void * NVEventPlatformAppHandle;
 
 #endif
 
@@ -124,7 +123,7 @@ typedef enum NVTouchEventType
   NV_TOUCHACTION_FORCE_32BITS = 0x7fffffff
 } NVTouchEventType;
 
-/** Multitouch event flags 
+/** Multitouch event flags
 */
 typedef enum NVMultiTouchEventType
 {
@@ -336,9 +335,9 @@ typedef struct NVEventMWM
   void * m_pFn;
 } NVEventMWM;
 
-/** All-encompassing event structure 
+/** All-encompassing event structure
 */
-typedef struct NVEvent 
+typedef struct NVEvent
 {
   /** The type of the event, which also indicates which m_data union holds the data */
   NVEventType m_type;
@@ -367,58 +366,58 @@ typedef struct NVEvent
 @param eventType The event type
 @return Returns a string containing a description of the event. Do not free or delete this memory.
 @see NVEvent */
-const char* NVEventGetEventStr(NVEventType eventType);
+const char * NVEventGetEventStr(NVEventType eventType);
 
 /** Returns the next pending event for the application to process.  Can return immediately if there
 is no event, or can wait a fixed number of milisecs (or "forever") if desired.
-The application should always pair calls to this function that return non-NULL events with calls 
+The application should always pair calls to this function that return non-NULL events with calls
 to NVEventDoneWithEvent()
-@param waitMSecs The maximum time (in milisecs) to wait for an event before returning "no event".  
+@param waitMSecs The maximum time (in milisecs) to wait for an event before returning "no event".
 	Pass NV_EVENT_WAIT_FOREVER to wait indefinitely for an event.  Note that NV_EVENT_WAIT_FOREVER
 	does not guarantee an event on return.  The function can still return on error or if the
-	app is exiting. Default is to return immediately, event or not. 
+	app is exiting. Default is to return immediately, event or not.
 @return Non-NULL pointer to a constant event structure if an event was pending, NULL if no event was
 	pending in the requested timeout period
-@see NVEvent 
-@see NVEventDoneWithEvent 
+@see NVEvent
+@see NVEventDoneWithEvent
 */
-const NVEvent* NVEventGetNextEvent(int waitMSecs = 0);
+const NVEvent * NVEventGetNextEvent(int waitMSecs = 0);
 
-/** Indicates that the application has finished handling the event returned from the last 
-call to NVEventGetNextEvent.  This function should always be called prior to the next call 
-to NVEventGetNextEvent.  If the current event is a blocking event, this call will unblock 
-the posting thread (normally in Java).  This is particularly important for application 
+/** Indicates that the application has finished handling the event returned from the last
+call to NVEventGetNextEvent.  This function should always be called prior to the next call
+to NVEventGetNextEvent.  If the current event is a blocking event, this call will unblock
+the posting thread (normally in Java).  This is particularly important for application
 lifecycle events like onPause, as calling this function indicates that the native code has
-completed the handling of the lifecycle callback.  Failure to call this function promptly 
+completed the handling of the lifecycle callback.  Failure to call this function promptly
 for all events can lead to Application Not Responding errors.
-@param handled The return value that should be passed back to Java for blocking events.  For non-blocking 
+@param handled The return value that should be passed back to Java for blocking events.  For non-blocking
 events, this parameter is discard.
-@see NVEvent 
-@see NVEventGetNextEvent 
+@see NVEvent
+@see NVEventGetNextEvent
 */
 void NVEventDoneWithEvent(bool handled);
 
-/** The app-supplied "callback" for initialization during JNI_OnLoad.  
+/** The app-supplied "callback" for initialization during JNI_OnLoad.
 Declares the application's pre-main initialization function.  Does not define the
 function.  <b>The app must define this in its own code</b>, even if the function is empty.
 JNI init code can be safely called from here, as it WILL be called from
 within a JNI function thread
-@parm argc Passes the number of command line arguments.  
-	This is currently unsupported and is always passed 0 
-@parm argv Passes the array of command line arguments.  
-	This is currently unsupported and is always passed NULL 
+@parm argc Passes the number of command line arguments.
+	This is currently unsupported and is always passed 0
+@parm argv Passes the array of command line arguments.
+	This is currently unsupported and is always passed NULL
 @return The function should return 0 on success and nonzero on failure.
 */
 extern int32_t NVEventAppInit(int32_t argc, char** argv);
 
-/** The app-supplied "callback" for running the application's main loop.  
+/** The app-supplied "callback" for running the application's main loop.
 Declares the application's main loop function.  Does not define the
 function.  <b>The app must define this in its own code</b>
-This function will be spawned in its own thread. 
-@parm argc Passes the number of command line arguments.  
-	This is currently unsupported and is always passed 0 
-@parm argv Passes the array of command line arguments.  
-	This is currently unsupported and is always passed NULL 
+This function will be spawned in its own thread.
+@parm argc Passes the number of command line arguments.
+	This is currently unsupported and is always passed 0
+@parm argv Passes the array of command line arguments.
+	This is currently unsupported and is always passed NULL
 @return The function should return 0 on success and nonzero on failure.
 */
 extern int32_t NVEventAppMain(int32_t argc, char** argv);
@@ -435,8 +434,8 @@ bool NVEventInitEGL();
 */
 bool NVEventCleanupEGL();
 
-/** Creates an EGLSurface for the current Android surface.  Will attempt to initialize 
- EGL and an EGLContext if not already done.  Fails if there is no valid Android surface 
+/** Creates an EGLSurface for the current Android surface.  Will attempt to initialize
+ EGL and an EGLContext if not already done.  Fails if there is no valid Android surface
  or if there is an EGL error.
 @return true on success, false on failure
 */
@@ -462,26 +461,26 @@ bool NVEventUnbindSurfaceAndContextEGL();
 @return true on success, false on failure
 */
 bool NVEventSwapBuffersEGL();
-    
+
 /** Accessor for the last EGL error
 @return the EGL error
 */
 int NVEventGetErrorEGL();
 
 /** Utility function: checks if EGl is completely ready to render, including
- initialization, surface creation and context/surface binding. 
+ initialization, surface creation and context/surface binding.
 @parm allocateIfNeeded If the parameter is false, then the function immediately returns if any
  part of the requirements have not already been satisfied.  If the parameter is
  true, then the function attempts to initialize any of the steps needed, failing
- and returning false only if a step cannot be completed at this time. 
+ and returning false only if a step cannot be completed at this time.
 @return The function returns true if EGL/GLES is ready to render/load content (i.e.
  a context and surface are bound) and false it not
 */
 bool NVEventReadyToRenderEGL(bool allocateIfNeeded);
 
-/** Convenience conditional function to determine if the app is between onCreate 
+/** Convenience conditional function to determine if the app is between onCreate
  and onDestroy callbacks (i.e. the app is in a running state).
-@return true if the application is between onCreate and onDestroy and false after 
+@return true if the application is between onCreate and onDestroy and false after
  an onDestroy event has been delivered.
 */
 bool NVEventStatusIsRunning();
@@ -499,33 +498,33 @@ bool NVEventStatusIsActive();
 */
 bool NVEventStatusIsFocused();
 
-/** Convenience conditional function to determine if the app has a surface and that surface 
+/** Convenience conditional function to determine if the app has a surface and that surface
  has non-zero area
-@return true if the app is between surfaceCreated and surfaceDestroyed callbacks and 
+@return true if the app is between surfaceCreated and surfaceDestroyed callbacks and
  the surface has non-zero pixel area (not 0x0 pixels)
 */
 bool NVEventStatusHasRealSurface();
 
-/** Convenience conditional function to determine if the app is in a fully-focused, visible 
+/** Convenience conditional function to determine if the app is in a fully-focused, visible
  state.  This is a logical "AND" of IsRunning, IsActive, IsFocused and HasRealSurface
-@return true if IsRunning, IsActive, IsFocused and HasRealSurface are all currently true, 
+@return true if IsRunning, IsActive, IsFocused and HasRealSurface are all currently true,
 false otherwise
 */
 bool NVEventStatusIsInteractable();
 
-/** Convenience conditional function to determine if the app has active EGL 
-@return true between successful calls to NVEventInitEGL and NVEventCleanupEGL, 
+/** Convenience conditional function to determine if the app has active EGL
+@return true between successful calls to NVEventInitEGL and NVEventCleanupEGL,
 false otherwise
 */
 bool NVEventStatusEGLInitialized();
 
-/** Convenience conditional function to determine if the app has an EGLSurface (need not be bound) 
+/** Convenience conditional function to determine if the app has an EGLSurface (need not be bound)
 @return true if the EGLSurface for the app is allocated, false otherwise
 */
 bool NVEventStatusEGLHasSurface();
 
-/** Convenience conditional function to determine if the app has an EGLSurface and EGLContext 
- and they are bound 
+/** Convenience conditional function to determine if the app has an EGLSurface and EGLContext
+ and they are bound
 @return true if the EGLSurface and EGLContext for the app are allocated and bound, false otherwise
 */
 bool NVEventStatusEGLIsBound();

@@ -4,7 +4,7 @@
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIAï¿½ Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,14 +33,14 @@
 #define NVPrevWrapped(index) (((index) - 1) & QUEUE_MASK)
 
 /* you must be inside a m_accessLock lock to invoke this! */
-static void unlockAll(NVEventSync* sem)
+static void unlockAll(NVEventSync * sem)
 {
   sem->m_block = false;
   pthread_cond_broadcast(&(sem->m_cond));
 }
 
 /* you must be inside mutex lock to invoke this! */
-static int32_t wait(NVEventSync* sem, pthread_mutex_t* mutex, int waitMS)
+static int32_t wait(NVEventSync * sem, pthread_mutex_t * mutex, int waitMS)
 {
   // TBD - spec is dodgy; do we definitely release the mutex even if
   // wait fails?
@@ -59,29 +59,29 @@ static int32_t wait(NVEventSync* sem, pthread_mutex_t* mutex, int waitMS)
   }
 }
 
-static void signal(NVEventSync* sem)
+static void signal(NVEventSync * sem)
 {
   pthread_cond_signal(&sem->m_cond);
 }
 
-static void broadcast(NVEventSync* sem)
+static void broadcast(NVEventSync * sem)
 {
   pthread_cond_broadcast(&sem->m_cond);
 }
 
-static void syncInit( NVEventSync* sync )
+static void syncInit(NVEventSync * sync)
 {
-  pthread_cond_init(&(sync->m_cond), NULL);
+  pthread_cond_init(&sync->m_cond, NULL);
   sync->m_block = true;
 }
 
-static void syncDestroy( NVEventSync* sync )
+static void syncDestroy(NVEventSync * sync)
 {
-  pthread_cond_destroy( &sync->m_cond );
+  pthread_cond_destroy(&sync->m_cond);
 }
 
 /* you must be inside a m_accessLock lock to invoke this! */
-bool NVEventQueue::insert(const NVEvent* ev)
+bool NVEventQueue::insert(NVEvent const * ev)
 {
   // Is the queue full?
   int32_t nextNext = NVNextWrapped(m_nextInsertIndex);
@@ -91,7 +91,7 @@ bool NVEventQueue::insert(const NVEvent* ev)
     return false;
   }
 
-  NVEvent* evDest = m_events + m_nextInsertIndex;
+  NVEvent * evDest = m_events + m_nextInsertIndex;
   memcpy(evDest, ev, sizeof(NVEvent));
 
   m_nextInsertIndex = nextNext;
@@ -102,7 +102,7 @@ void NVEventQueue::Init()
 {
   m_nextInsertIndex = 0;
   m_headIndex = 0;
-  pthread_mutex_init(&(m_accessLock), NULL);
+  pthread_mutex_init(&m_accessLock, NULL);
   syncInit(&m_consumerSync);
   syncInit(&m_blockerSync);
 
@@ -113,13 +113,13 @@ void NVEventQueue::Init()
 
 void NVEventQueue::Shutdown()
 {
-  pthread_mutex_destroy(&(m_accessLock));
+  pthread_mutex_destroy(&m_accessLock);
 
   // free everyone...
   unlockAll(&m_consumerSync);
   unlockAll(&m_blockerSync);
-  syncDestroy(&(m_consumerSync));
-  syncDestroy(&(m_blockerSync));
+  syncDestroy(&m_consumerSync);
+  syncDestroy(&m_blockerSync);
 }
 
 void NVEventQueue::Flush()
@@ -130,32 +130,32 @@ void NVEventQueue::Flush()
 
 void NVEventQueue::UnblockConsumer()
 {
-  unlockAll(&(m_consumerSync));
+  unlockAll(&m_consumerSync);
 }
 
 void NVEventQueue::UnblockProducer()
 {
-  unlockAll(&(m_blockerSync));
+  unlockAll(&m_blockerSync);
 }
 
 void NVEventQueue::Insert(const NVEvent* ev)
 {
-  pthread_mutex_lock(&(m_accessLock));
+  pthread_mutex_lock(&m_accessLock);
 
   // insert the event and unblock a waiter
   insert(ev);
   signal(&m_consumerSync);
-  pthread_mutex_unlock(&(m_accessLock));
+  pthread_mutex_unlock(&m_accessLock);
 }
 
 bool NVEventQueue::InsertBlocking(const NVEvent* ev)
 {
   // TBD - how to handle the destruction of these mutexes
 
-  pthread_mutex_lock(&(m_accessLock));
+  pthread_mutex_lock(&m_accessLock);
   while (m_blocker)
   {
-    if (wait(&(m_blockerSync), &(m_accessLock), NV_EVENT_WAIT_FOREVER))
+    if (wait(&m_blockerSync, &m_accessLock, NV_EVENT_WAIT_FOREVER))
       return false;
   }
     
@@ -168,7 +168,7 @@ bool NVEventQueue::InsertBlocking(const NVEvent* ev)
   m_blockerState = PENDING_BLOCKER;
 
   // Release the consumer, as we just posted a new event
-  signal(&(m_consumerSync));
+  signal(&m_consumerSync);
 
   // Loop on the condition variable until we find out that
   // there is a return value waiting for us.  Since only we
@@ -176,7 +176,7 @@ bool NVEventQueue::InsertBlocking(const NVEvent* ev)
   // else start to post a blocking event
   while (m_blockerState != RETURNED_BLOCKER)
   {
-    if (wait(&(m_blockerSync), &(m_accessLock), NV_EVENT_WAIT_FOREVER))
+    if (wait(&m_blockerSync, &m_accessLock, NV_EVENT_WAIT_FOREVER))
       return false;
   }
 
@@ -188,8 +188,8 @@ bool NVEventQueue::InsertBlocking(const NVEvent* ev)
     	
   // We've handled the event, so the producer can release the
   // next thread to potentially post a blocking event
-  signal(&(m_blockerSync));
-  pthread_mutex_unlock(&(m_accessLock));
+  signal(&m_blockerSync);
+  pthread_mutex_unlock(&m_accessLock);
 
   return handled;
 }
@@ -197,7 +197,7 @@ bool NVEventQueue::InsertBlocking(const NVEvent* ev)
 
 const NVEvent* NVEventQueue::RemoveOldest(int waitMSecs)
 {
-  pthread_mutex_lock(&(m_accessLock));
+  pthread_mutex_lock(&m_accessLock);
 
   // Hmm - the last event we got from RemoveOldest was a
   // blocker, and DoneWithEvent not called.
@@ -206,7 +206,7 @@ const NVEvent* NVEventQueue::RemoveOldest(int waitMSecs)
   {
     m_blockerReturnVal = false;
     m_blockerState = RETURNED_BLOCKER;
-    broadcast(&(m_blockerSync));
+    broadcast(&m_blockerSync);
   }
 
   // Blocker is waiting - return it
@@ -215,7 +215,7 @@ const NVEvent* NVEventQueue::RemoveOldest(int waitMSecs)
   {
     m_blockerState = PROCESSING_BLOCKER;
     const NVEvent* ev = m_blocker;
-    pthread_mutex_unlock(&(m_accessLock));
+    pthread_mutex_unlock(&m_accessLock);
 
     return ev;
   }
@@ -229,7 +229,7 @@ const NVEvent* NVEventQueue::RemoveOldest(int waitMSecs)
     else
     {
       // wait for the specified time
-      wait(&(m_consumerSync), &(m_accessLock), (unsigned)waitMSecs);
+      wait(&m_consumerSync, &m_accessLock, (unsigned)waitMSecs);
     }
 
     // check again after exiting cond waits, either we had a timeout
@@ -249,15 +249,15 @@ const NVEvent* NVEventQueue::RemoveOldest(int waitMSecs)
 
   {
     // One way or another, we have an event...
-    const NVEvent* ev = m_events + m_headIndex;
+    NVEvent const * ev = m_events + m_headIndex;
     m_headIndex = NVNextWrapped(m_headIndex);
 
-    pthread_mutex_unlock(&(m_accessLock));
+    pthread_mutex_unlock(&m_accessLock);
     return ev;
   }
 	
 no_event:
-  pthread_mutex_unlock(&(m_accessLock));
+  pthread_mutex_unlock(&m_accessLock);
   return NULL;
 }
 
@@ -265,12 +265,12 @@ void NVEventQueue::DoneWithEvent(bool ret)
 {
   // We only care about blockers for now.
   // All other events just NOP
-  pthread_mutex_lock(&(m_accessLock));
+  pthread_mutex_lock(&m_accessLock);
   if (m_blockerState == PROCESSING_BLOCKER)
   {
     m_blockerReturnVal = ret;
     m_blockerState = RETURNED_BLOCKER;
-    broadcast(&(m_blockerSync));
+    broadcast(&m_blockerSync);
   }
-  pthread_mutex_unlock(&(m_accessLock));
+  pthread_mutex_unlock(&m_accessLock);
 }

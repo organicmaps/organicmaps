@@ -1,10 +1,10 @@
 //----------------------------------------------------------------------------------
 // File:            libs\jni\nv_time\nv_time.h
-// Samples Version: NVIDIA Android Lifecycle samples 1_0beta 
+// Samples Version: NVIDIA Android Lifecycle samples 1_0beta
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIA® Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,10 +25,6 @@
 
 #include <stdlib.h>
 
-void NVTimeInit();
-
-void nvAcquireTimeExtension();
-bool nvValidTimeExtension();
 long nvGetSystemTime();
 
 #endif

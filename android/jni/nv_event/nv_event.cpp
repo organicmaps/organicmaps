@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------------------
 // File:            libs\jni\nv_event\nv_event.cpp
-// Samples Version: NVIDIA Android Lifecycle samples 1_0beta 
+// Samples Version: NVIDIA Android Lifecycle samples 1_0beta
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
@@ -39,12 +39,6 @@
 #include "nv_keycode_mapping.hpp"
 #include "nv_event_queue.hpp"
 
-// TODO TBD - this should be done in NVTimeInit(), but we use a different
-// class than most apps.  Need to clean this up, as it is fragile w.r.t.
-// changes in nv_time
-extern void nvAcquireTimeExtensionJNI(JNIEnv*, jobject);
-extern jlong nvGetSystemTimeJNI(JNIEnv*, jobject);
-
 #define CT_ASSERT(tag,cond) \
 enum { COMPILE_TIME_ASSERT__ ## tag = 1/(cond) }
 
@@ -77,27 +71,27 @@ enum
 static unsigned int s_appStatus = 0;
 
 static void ZeroAppFlags()
-{ 
+{
   s_appStatus = 0;
 }
 
 static void SetAppFlag(unsigned int status)
-{ 
+{
   s_appStatus |= status;
 }
 
 static void ClearAppFlag(unsigned int status)
-{ 
+{
   s_appStatus &= ~status;
 }
 
 static bool QueryAppFlag(unsigned int status)
-{ 
+{
   return (s_appStatus & status) ? true : false;
 }
 
 static bool QueryAppFlagsEqualMasked(unsigned int status, unsigned int mask)
-{ 
+{
   return ((s_appStatus & mask) == status) ? true : false;
 }
 
@@ -231,7 +225,7 @@ bool NVEventStatusIsFocused()
   return QueryAppFlag(NVEVENT_STATUS_FOCUSED);
 }
 
-// True when the app's SurfaceHolder points to a 
+// True when the app's SurfaceHolder points to a
 // valid, nonzero-sized window
 bool NVEventStatusHasRealSurface()
 {
@@ -441,7 +435,7 @@ bool NVEventSwapBuffersEGL()
   RESET_PROFILING();
   return true;
 }
-    
+
 int NVEventGetErrorEGL()
 {
   return s_GetErrorEGL.CallInt();
@@ -505,7 +499,7 @@ void NVEventOnRenderingInitialized()
 // Input event-related Java to Native callback functions
 
 
-static jboolean NVEventMultiTouchEvent(JNIEnv*  env, jobject  thiz, jint action, 
+static jboolean NVEventMultiTouchEvent(JNIEnv*  env, jobject  thiz, jint action,
 									   jboolean hasFirst, jboolean hasSecond, jint mx1, jint my1, jint mx2, jint my2)
 {
   {
@@ -521,7 +515,7 @@ static jboolean NVEventMultiTouchEvent(JNIEnv*  env, jobject  thiz, jint action,
       maskOnly |= 0x2;
 
     ev.m_type = NV_EVENT_MULTITOUCH;
-		
+
     if (actionOnly == NVEVENT_ACTION_UP)
     {
       ev.m_data.m_multi.m_action = NV_MULTITOUCH_UP;
@@ -784,8 +778,8 @@ static jboolean onDestroyNative(JNIEnv* env, jobject thiz)
   return JNI_TRUE;
 }
 
-static jboolean postUserEvent(JNIEnv* env, jobject thiz, 
-							  jint u0, jint u1, jint u2, jint u3, 
+static jboolean postUserEvent(JNIEnv* env, jobject thiz,
+							  jint u0, jint u1, jint u2, jint u3,
 							  jboolean blocking)
 {
   NVEvent ev;
@@ -915,7 +909,7 @@ void InitNVEvent(JavaVM* vm)
   jclass k;
   k = (env)->FindClass ("com/nvidia/devtech/NvEventQueueActivity");
   (env)->RegisterNatives(k, methods, dimof(methods));
-	
+
   s_InitEGL.QueryID(env, k);
   s_CleanupEGL.QueryID(env, k);
   s_CreateSurfaceEGL.QueryID(env, k);

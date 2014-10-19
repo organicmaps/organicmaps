@@ -5,18 +5,9 @@
  *      Author: siarheirachytski
  */
 
-#include <unistd.h>
-
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
 #include <jni.h>
 #include <android/log.h>
-#include <GLES/gl.h>
-#include "../../../nv_time/nv_time.hpp"
 #include "../../../nv_event/nv_event.hpp"
-#include "../../../nv_thread/nv_thread.hpp"
 #include "../../../../../base/logging.hpp"
 #include "../../../../../graphics/opengl/opengl.hpp"
 #include "Framework.hpp"
@@ -25,27 +16,11 @@
 #define MODULE "MapsWithMe"
 #define NVDEBUG(args...) __android_log_print(ANDROID_LOG_DEBUG, MODULE, ## args)
 
-static float s_aspect = 1.0f;
 static int32_t s_winWidth = 1;
 static int32_t s_winHeight = 1;
 static int32_t s_densityDpi = 1;
-static unsigned int s_swapCount = 0;
 
 static bool s_glesLoaded = false;
-static bool s_glesAutopaused = false;
-static bool shouldLoadState = true;
-
-static bool renderGameplay()
-{
-  g_framework->DrawFrame();
-
-  return true; //return true to update screen
-}
-
-static bool renderPauseScreen()
-{
-  return true;
-}
 
 bool SetupGLESResources()
 {
@@ -124,29 +99,7 @@ bool renderFrame(bool allocateIfNeeded)
       return false;
   }
 
-  // If we're not paused, "animate" the scene
-  if (!s_glesAutopaused)
-  {
-    // clock ticks, so animate something.
-  }
-
-  // For this simple app, we render the gameplay every time
-  // we render, even if it is paused.  When we are paused, the
-  /// gameplay is not animated and the pause "screen" is on top
   g_framework->DrawFrame();
-
-//    // If we're paused, draw the pause screen on top
-//    if (s_glesAutopaused)
-//        renderPauseScreen();
-
-//    NVEventSwapBuffersEGL();
-
-  // A debug printout every 256 frames so we can see when we're
-  // actively rendering and swapping
-  /*if (!(s_swapCount++ & 0x00ff))
-  {
-    NVDEBUG("Swap count is %d", s_swapCount);
-  }*/
 
   return true;
 }
@@ -156,20 +109,11 @@ bool renderFrame(bool allocateIfNeeded)
 // as listed in the docs)
 int32_t NVEventAppInit(int32_t argc, char** argv)
 {
-  /*if (!g_framework)
-  {
-    android::Platform::Instance().Initialize(env, apkPath, storagePath);
-    g_framework = new android::Framework(g_jvm);
-  }*/
-
-//  nv_shader_init();
-
   return 0;
 }
 
 int32_t NVEventAppMain(int32_t argc, char** argv)
 {
-  s_swapCount = 0;
   s_glesLoaded = false;
 
   NVDEBUG("Application entering main loop");
@@ -187,7 +131,7 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
                  ev->m_data.m_key.m_code,
                  (ev->m_data.m_key.m_action == NV_KEYACTION_DOWN) ? "down" : "up");
 
-          if ((ev->m_data.m_key.m_code == NV_KEYCODE_BACK)/* && !s_glesAutopaused*/)
+          if ((ev->m_data.m_key.m_code == NV_KEYCODE_BACK))
           {
             renderFrame(false);
             NVEventDoneWithEvent(true);
@@ -205,7 +149,6 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
           NVEventDoneWithEvent(false);
           break;
         case NV_EVENT_LONG_CLICK:
-
           break;
         case NV_EVENT_TOUCH:
           {
@@ -244,9 +187,6 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
           g_framework->NativeFramework()->Invalidate(true);
 
           NVDEBUG( "Surface create/resize event: %d x %d", s_winWidth, s_winHeight);
-
-          if ((s_winWidth > 0) && (s_winHeight > 0))
-            s_aspect = (float)s_winWidth / (float)s_winHeight;
           break;
 
         case NV_EVENT_SURFACE_DESTROYED:
