@@ -1,6 +1,8 @@
 #pragma once
 #include "assert.hpp"
 
+#include "assert.hpp"
+
 #include "../std/type_traits.hpp"
 
 
