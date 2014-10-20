@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MapsWithMeBaseActivity;
+import com.mapswithme.maps.base.MapsWithMeBaseFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
@@ -25,7 +25,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class BookmarkActivity extends MapsWithMeBaseActivity
+public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
 {
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";

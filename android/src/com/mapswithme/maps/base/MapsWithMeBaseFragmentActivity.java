@@ -1,18 +1,16 @@
 package com.mapswithme.maps.base;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.mapswithme.maps.MWMApplication;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class MapsWithMeBaseActivity extends FragmentActivity
+public class MapsWithMeBaseFragmentActivity extends FragmentActivity
 {
   @Override
   protected void onResume()
@@ -34,24 +32,18 @@ public class MapsWithMeBaseActivity extends FragmentActivity
     super.onStop();
   }
 
-  @SuppressLint("NewApi")
   @Override
   protected void onCreate(Bundle arg0)
   {
     super.onCreate(arg0);
 
-    if (Utils.apiEqualOrGreaterThan(11))
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
       final ActionBar bar = getActionBar();
       if (bar != null)
         bar.setDisplayHomeAsUpEnabled(true);
     }
-  }
-
-  public MWMApplication getMwmApplication()
-  {
-    return (MWMApplication) getApplication();
   }
 
   @Override

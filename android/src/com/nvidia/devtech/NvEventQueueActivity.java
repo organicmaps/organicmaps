@@ -10,11 +10,11 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MapsWithMeBaseActivity;
+import com.mapswithme.maps.base.MapsWithMeBaseFragmentActivity;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 
-public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity implements View.OnTouchListener
+public abstract class NvEventQueueActivity extends MapsWithMeBaseFragmentActivity implements View.OnTouchListener
 {
   private static final String TAG = "NvEventQueueActivity";
 

@@ -21,7 +21,7 @@ import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMmwRequest;
-import com.mapswithme.maps.base.MapsWithMeBaseActivity;
+import com.mapswithme.maps.base.MapsWithMeBaseFragmentActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
@@ -33,11 +33,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @SuppressLint("StringFormatMatches")
-public class DownloadResourcesActivity extends MapsWithMeBaseActivity
+public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
     implements LocationService.LocationListener, MapStorage.Listener
 {
   private static final String TAG = DownloadResourcesActivity.class.getName();

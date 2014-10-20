@@ -1,22 +1,20 @@
 package com.mapswithme.maps.base;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MWMApplication;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 /**
  * TODO use simple activity and {@link ListFragment} instead.
  */
-@SuppressLint("NewApi")
 public class MapsWithMeBaseListActivity extends ListActivity
 {
 
@@ -39,7 +37,7 @@ public class MapsWithMeBaseListActivity extends ListActivity
   {
     super.onCreate(savedInstanceState);
 
-    if (Utils.apiEqualOrGreaterThan(11))
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
       final ActionBar bar = getActionBar();
