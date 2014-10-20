@@ -228,6 +228,8 @@ private:
   bool m_hasPendingAnimation;
   m2::PointD m_pendingDstPos;
   double m_pendingAngle;
+  // When map has active animation, backgroung rendering pausing
+  // By this beetwen animations we wait some frames to release background rendering
   int m_idleFrames = 0;
 };
 

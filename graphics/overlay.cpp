@@ -233,16 +233,15 @@ void Overlay::merge(shared_ptr<OverlayStorage> const & infoLayer)
 void Overlay::clip(m2::RectI const & r)
 {
   vector<shared_ptr<OverlayElement> > v;
+  v.reserve(m_tree.GetSize());
   m_tree.ForEach(MakeBackInsertFunctor(v));
   m_tree.Clear();
 
   m2::RectD const rd(r);
   m2::AnyRectD ard(rd);
 
-  for (size_t i = 0; i < v.size(); ++i)
+  for (shared_ptr<OverlayElement> const & e : v)
   {
-    shared_ptr<OverlayElement> const & e = v[i];
-
     if (!e->isVisible())
       continue;
 

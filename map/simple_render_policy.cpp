@@ -78,7 +78,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   m_overlay->merge(storage);
 
-  math::Matrix<double, 3, 3> m = math::Identity<double, 3>();
+  math::Matrix<double, 3, 3> const m = math::Identity<double, 3>();
   m_overlay->forEach([&pScreen, &m](shared_ptr<graphics::OverlayElement> const & e)
   {
     e->draw(pScreen, m);

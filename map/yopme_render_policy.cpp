@@ -222,7 +222,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     pScreen->applySharpStates();
     pScreen->clear(m_bgColor, false);
 
-    math::Matrix<double, 3, 3> m = math::Identity<double, 3>();
+    math::Matrix<double, 3, 3> const m = math::Identity<double, 3>();
     drawOverlay->forEach([&pScreen, &m](shared_ptr<OverlayElement> const & e)
     {
       e->draw(pScreen, m);
