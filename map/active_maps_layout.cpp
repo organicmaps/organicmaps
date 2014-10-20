@@ -378,7 +378,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 
   if (newStatus == TStatus::EOnDisk)
   {
-    NotifyStatusChanged(group, position, oldStatus, item.m_status);
     if (group != TGroup::EUpToDate)
     {
       // Here we handle
@@ -408,6 +407,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       item.m_options = item.m_downloadRequest = options;
       NotifyOptionsChanged(group, position, item.m_options, requestOpt);
     }
+    NotifyStatusChanged(group, position, oldStatus, item.m_status);
   }
   else if (newStatus == TStatus::ENotDownloaded)
   {
