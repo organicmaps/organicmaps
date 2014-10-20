@@ -114,39 +114,39 @@
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Internet</text>
 	<!-- Update map suggestion -->
-	<text id="IDS_ROUTING_MAP_OUTDATED">Prosím aktualizujte mapu pro vytvoření trasy.</text>
+	<text id="IDS_ROUTING_MAP_OUTDATED">Pro funkci vytváření tras je nutné aktualizovat mapu.</text>
 	<!-- Update maps suggestion -->
-	<text id="IDS_ROUTING_UPDATE_MAPS">Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.</text>
+	<text id="IDS_ROUTING_UPDATE_MAPS">Nová verze MAPS.ME umožňuje vytvářet trasy z tvé aktuální polohy do cílového bodu. Chceš-li tuto funkci používat, aktualizuj mapy.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Aktualizovat vše</text>
 	<!-- Cancel all button text -->
 	<text id="IDS_DOWNLOADER_CANCEL_ALL">Zrušit vše</text>
 	<!-- Downloaded maps category -->
-	<text id="IDS_DOWNLOADER_DOWNLOADED">Staženo</text>
+	<text id="IDS_DOWNLOADER_DOWNLOADED">Stažené</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Stažené mapy</text>
 	<!-- My maps category -->
 	<text id="IDS_DOWNLOADER_MY_MAPS">Moje mapy</text>
 	<!-- Country queued for download -->
-	<text id="IDS_DOWNLOADER_QUEUED">zařazeno do fronty</text>
+	<text id="IDS_DOWNLOADER_QUEUED">ve frontě</text>
 	<!-- Disclaimer message -->
-	<text id="IDS_ROUTING_DISCLAIMER">Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!</text>
+	<text id="IDS_ROUTING_DISCLAIMER">Při vytváření tras v aplikaci MAPS.ME měj, prosím, na paměti následující:\n\n - Navrhované trasy lze brát jen jako doporučení.\n - Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n - Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\n  Cestuj bezpečně a ohleduplně. Šťastnou cestu!</text>
 	<!-- Outdated maps category -->
-	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Zastaralý</text>
+	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Zastaralé</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Aktuální</text>
 	<!-- Status of outdated country in the list -->
 	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Aktualizace</text>
 	<!-- Status of failed country in the list -->
-	<text id="IDS_DOWNLOADER_STATUS_FAILED">Nezdařilo se</text>
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">Selhalo</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Stáhnout Mapu + Směrování</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Stáhnout mapu + trasy</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Stáhnout Směrování</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Stáhnout trasy</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Smazat Směrování</text>
+	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Smazat trasy</text>
 	<!-- Context menu item for downloader. -->
-	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Stáhněte si mapu</text>
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Stáhnout mapu</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Jet!</text>
 	<!-- Item status in downloader. -->
@@ -154,11 +154,11 @@
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Mapa + trasy</text>
 	<!-- Item in context menu. -->
-	<text id="IDS_DOWNLOADER_DELETE_MAP">Vymazat mapu</text>
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Smazat mapu</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_UPDATE_MAP">Aktualizovat mapu</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Aktualizovat mapu + trasy</text>
 	<!-- Item in context menu. -->
-	<text id="IDS_DOWNLOADER_MAP_ONLY">Jenom mapa</text>
+	<text id="IDS_DOWNLOADER_MAP_ONLY">Pouze mapa</text>
 </string_table>

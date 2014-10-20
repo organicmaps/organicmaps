@@ -1225,7 +1225,7 @@
     de = Karte + Streckenführung herunterladen\n^ ^
     zh-Hans = 下载地图 + 路线\n^ ^
     zh-Hant = 下載地圖 + 佈置路線\n^ ^
-    cs = Stáhnout Mapu + Směrování\n^ ^
+    cs = Stáhnout mapu + trasy\n^ ^
     ar = تنزيل الخريطة + تحديد المسار\n^ ^
     ru = Скачать карту + маршруты\n^ ^
     uk = Завантажити карту + маршрути\n^ ^
@@ -1250,7 +1250,7 @@
     nl = Kaart downloaden\n^ ^
     zh-Hans = 下载地图\n^ ^
     zh-Hant = 下載地圖\n^ ^
-    cs = Stáhněte si mapu\n^ ^
+    cs = Stáhnout mapu\n^ ^
     ar = تحميل الخريطة\n^ ^
     hu = Térkép letöltése\n^ ^
     ru = Скачать карту\n^ ^
@@ -2406,7 +2406,7 @@
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
-    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.
     sk = Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
     de = Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
@@ -2432,7 +2432,7 @@
     en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when at least one bookmark is added
-    cs = V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.
     sk = V MAPS.ME môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.
     de = Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
@@ -5048,7 +5048,7 @@
     comment = text of notification
     en = MAPS.ME Pro is free today! Download now and tell your friends.
     ar = تطبيق MAPS.ME Pro مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.
-    cs = MAPS.ME Pro dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.
+    cs = MAPS.ME Pro je dnes zadarmo! Stáhni si ji nyní a dej vědět kamarádům.
     sk = MAPS.ME Pro dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.
     de = MAPS.ME Pro heute gratis! Jetzt runterladen & Freunde informieren
     es = ¡MAPS.ME Pro gratis hoy! Descárgalo ahora y dilo a tus amigos.
@@ -5203,7 +5203,7 @@
     tags = android
     comment = Message to display on 17th-18th august
     en = MAPS.ME is available with 80% discount at Google Play! Share the news on Facebook.
-    cs = MAPS.ME jsou dostupné na Google Play se slevou 80%! Sdílej tu zprávu na Facebooku.
+    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílej tu zprávu na Facebooku.
     sk = MAPS.ME sú dostupné na Google Play so zľavou 80 %! Zdieľajte túto správu na Facebooku.
     de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Neuigkeiten auf Facebook teilen.
     es = MAPS.ME disponible con un descuento del 80 % en Google Play! Comparte la noticia en Facebook.
@@ -5255,7 +5255,7 @@
     tags = android
     comment = Message for facebook post on 17th-18th august
     en = I’ve just got MAPS.ME offline maps with 80% discount on Google Play. It’s also available for free on iTunes. Don’t miss!
-    cs = Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80%. Jsou také dostupné zdarma na iTunes. Nezmeškej to!
+    cs = Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškej to!
     sk = Práve som získal(a) offline mapy MAPS.ME so zľavou 80% v Google Play. Sú tiež dostupné zadarmo v iTunes. Nepremeškajte to!
     de = Ich habe gerade die Offline-Karten MAPS.ME mit 80 % Rabatt auf Google Play bekommen. Es gibt sie auch kostenlos bei iTunes. Nicht verpassen!
     es = Acabo de comprar MAPS.ME, mapas sin conexión, en Google Play con un descuento del 80 %. También está disponible gratis en iTunes. ¡No te lo pierdas!
@@ -5281,7 +5281,7 @@
     tags = ios, android
     comment = Text in menu
     en = Settings & More
-    cs = Nastavení & další
+    cs = Nastavení a další
     sk = Nastavenia a viac
     de = Einstellungen & mehr
     es = Ajustes y más
@@ -5593,7 +5593,7 @@
     tags = ios, android
     comment = About text
     en = MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don't hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.
-    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi oceňujeme tvou podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!
+    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi si ceníme tvé podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!
     sk = MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :) \n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na  http://openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.
     de = MAPS.ME bietet die schnellsten Offline-Karten aller Städte in allen Ländern der Welt. Reisen Sie mit Vertrauen: wo immer Sie sind, MAPS.ME hilft Ihnen, sich selbst auf der Karte zu finden. Finden Sie das nächste Restaurant, ein Hotel, eine Bank, eine Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Markt\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nP. S. Wir nehmen die Kartendaten von OpenStreetMap, einem Mapping-Projekt ähnlich Wikipedia, bei welchem Benutzer Karten erstellen und bearbeiten können. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten MAPS.ME App Version.
     es = MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en http://openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.
@@ -5619,7 +5619,7 @@
     tags = ios
     comment = Alert text
     en = The email client has not been set up. Please configure it or use any other way to contact us at %@
-    cs = Emailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %@
+    cs = E-mailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %@
     sk = Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@
     de = Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %@
@@ -5645,7 +5645,7 @@
     tags = ios
     comment = Alert title
     en = Mail sending error
-    cs = Chyba při odesílání emailu
+    cs = Chyba při odesílání e-mailu
     sk = Chyba pri odosielaní emailu
     de = Fehler beim E-Mail-Versand
     es = Error de envío de correo
@@ -5739,7 +5739,7 @@
     da = Venligst opdatér kortet for at oprette en rute.
     nl = Werk de kaart bij om een route te maken.
     zh-Hant = 請更新地圖以創建一條路線。
-    cs = Prosím aktualizujte mapu pro vytvoření trasy.
+    cs = Pro funkci vytváření tras je nutné aktualizovat mapu.
     ar = يرجى تحديث الخريطة لإنشاء مسار.
     zh-Hans = 请更新地图以创建一条路线。
     uk = Будь ласка, оновіть карту, щоб прокласти маршрут.
@@ -5766,7 +5766,7 @@
     da = Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.
     nl = Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.
     zh-Hant = 使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。
-    cs = Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.
+    cs = Nová verze MAPS.ME umožňuje vytvářet trasy z tvé aktuální polohy do cílového bodu. Chceš-li tuto funkci používat, aktualizuj mapy.
     ar = إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.
     zh-Hans = 使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。
     uk = В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.
@@ -5838,7 +5838,7 @@
     de = Heruntergeladen
     nl = Gedownload
     zh-Hant = 已下載
-    cs = Staženo
+    cs = Stažené
     es = Descargados
     uk = Завантажено
     pl = Pobrane
@@ -5919,7 +5919,7 @@
     de =  in der Warteschlange
     nl = in de wachtrij
     zh-Hant = 已佇列
-    cs = zařazeno do fronty
+    cs = ve frontě
     es = En cola
     uk = в черзі
     pl = w kolejce
@@ -5954,7 +5954,7 @@
     de = Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!
     iw = כשאתם בונים מסלולים באמצעות אפליקציית MAPS.ME, שימו לב:\n\n  יש להתייחס למסלולים מוצעים כהמלצות בלבד.\n תנאי הדרך, חוקי התנועה והתמרורים נמצאים בעדיפות גבוהה יותר מאשר עצת הניווט.\n יתכן שהמפה אינה נכונה או \n    אינה מעודכנת, וקיימת אפשרות שהמסלולים לא ייבנו באופן הטוב ביותר.\n\n  נסיעה בטוחה ושמרו על עצמכם!\n\n
     zh-Hant = 在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！
-    cs = Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!
+    cs = Při vytváření tras v aplikaci MAPS.ME měj, prosím, na paměti následující:\n\n - Navrhované trasy lze brát jen jako doporučení.\n - Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n - Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\n  Cestuj bezpečně a ohleduplně. Šťastnou cestu!
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
     zh-Hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
     uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
@@ -5978,7 +5978,7 @@
     de = Veraltet
     iw = מיושן
     hu = Elavult
-    cs = Zastaralý
+    cs = Zastaralé
     nl = Verouderd
     ar = انتهت صلاحيته
     zh-Hans = 过时的
@@ -6061,7 +6061,7 @@
     nl = Mislukt
     fr = A échoué
     de = Fehlgeschlagen
-    cs = Nezdařilo se
+    cs = Selhalo
     da = Mislykkedes
     ar = فشل
     zh-Hans = 下载失败
@@ -6081,7 +6081,7 @@
     pl = Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!
     hu = Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!
     it = Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!
-    cs = Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!
+    cs = Plánování tras je k dispozici pouze v plné verzi MAPS.ME. Získej ji hned teď!
     ru = Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!
     sk = Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!
     fr = L'itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !
@@ -6117,7 +6117,7 @@
     fr = L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.
     zh-Hans = 当前地点未定。请明确地点以创建路线。
     zh-Hant = 當前地點未定。請明確地點以創建路線。
-    cs = Aktuální umístění je nedefinované. Chcete-li vytvořit trasu, zadejte prosím umístění.
+    cs = Aktuální poloha nebyla zatím zjištěna. Chceš-li naplánovat trasu, zadej prosím umístění.
     ar = الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.
     de = Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.
     da = Den nuværende placering er ikke defineret. Venligst angiv placering for at oprette en rute.
@@ -6135,7 +6135,7 @@
     pl = Aby stworzyć trasę, potrzebne są dodatkowe dane. Rozpocząć pobieranie?
     hu = Útvonaltervezéshez további adatok is szükségesek. Elkezded a letöltést?
     it = Ulteriori dati sono necessari per creare un percorso. Inizio a scaricarli?
-    cs = K vytvoření trasy jsou zapotřebí další data. Začít stahování?
+    cs = K vytvoření trasy jsou zapotřebí další data. Chceš je stáhnout nyní?
     ru = Для построения маршрута необходимы дополнительные данные. Перейти к загрузке?
     sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
     fr = Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?
@@ -6171,7 +6171,7 @@
     fr = Impossible de calculer l'itinéraire. Aucune route à proximité de votre point de départ.
     zh-Hans = 无法计算路线。没有在您起点附近的路。
     zh-Hant = 無法計算路線。沒有在您起點附近的路。
-    cs = Nelze vypočítat trasu. Poblíž Vašeho výchozího bodu nejsou žádné cesty.
+    cs = Trasu nelze vypočítat. Poblíž výchozího bodu nejsou žádné cesty.
     ar = لا يمكن حساب المسار. لا توجد طرق قرب نقطة البداية لديك.
     de = Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ausgangspunkt.
     da = Kan ikke beregne ruten. Ingen veje nær dit startpunkt.
@@ -6198,7 +6198,7 @@
     fr = Impossible de calculer l'itinéraire. Aucune route à proximité de votre destination.
     zh-Hans = 无法计算路线。没有在您终点附近的路。
     zh-Hant = 無法計算路線。沒有在您終點附近的路。
-    cs = Nelze vypočítat trasu. Poblíž Vašeho cílového bodu nejsou žádné cesty.
+    cs = Trasu nelze vypočítat. Poblíž cílového bodu nejsou žádné cesty.
     ar = لا يمكن حساب المسار. لا توجد طرق بالقرب من وجهتك المقصودة.
     de = Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ziel.
     da = Kan ikke beregne ruten. Ingen veje nær din destination.
@@ -6225,7 +6225,7 @@
     fr = Les itinéraires entièrement contenus sur une seule carte peuvent être créés.
     zh-Hans = 路程只能完全处在同一地图里时才能被创建。
     zh-Hant = 路程只能完全處在同一地圖裏時才能被創建。
-    cs = Lze vytvářet jen takové trasy, které jsou zcela leží na území jediné mapy.
+    cs = Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
     de = Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.
     da = Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort
@@ -6252,7 +6252,7 @@
     fr = Il n'existe aucun itinéraire entre l'origine et la destination choisies . Veuillez sélectionner un point de départ ou d'arrivée différent.
     zh-Hans = 找不到所选起点和终点间的路程。请选择不同的起点或终点。
     zh-Hant = 找不到所選起點和終點間的路程。請選擇不同的起點或終點。
-    cs = Mezi vybraným počátkem a cílem nebyla nalezena žádná trasa. Vyberte prosím jiný počáteční nebo koncový bod.
+    cs = Mezi zvoleným počátkem a cílem nebyla nalezena žádná trasa. Vyber, prosím, jiný počáteční nebo koncový bod.
     ar = لم يتم العثور على مسار بين المنشأ والوُجْهَة المحددة. الرجاء تحديد نقطة بداية أو نهاية مختلفة.
     de = Es wurde keine Route zwischen dem ausgewählten Ausgangspunkt und Ziel gefunden. Bitte wählen Sie einen anderen Start- oder Endpunkt.
     da = Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.
@@ -6279,7 +6279,7 @@
     fr = Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.
     zh-Hans = 出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。
     zh-Hant = 出現內部錯誤。請嘗試刪除并再次下載地圖。如果還有問題請聯系我們：support@maps.me。
-    cs = Došlo k vnitřní chybě. Zkuste prosím mapu vymazat a stáhnout znovu. Jestliže problém přetrvává, kontaktujte nás prosím na support@maps.me.
+    cs = Došlo k vnitřní chybě. Zkus prosím mapu smazat a znovu stáhnout. Jestliže problém přetrvává, kontaktuj nás na support@maps.me.
     ar = حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@maps.me.
     de = Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.
     da = Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@maps.me.
@@ -6306,7 +6306,7 @@
     de = Karte + Streckenführung herunterladen
     zh-Hans = 下载地图 + 路线
     zh-Hant = 下載地圖 + 佈置路線
-    cs = Stáhnout Mapu + Směrování
+    cs = Stáhnout mapu + trasy
     ar = تنزيل الخريطة + تحديد المسار
     ru = Скачать карту + маршруты
     uk = Завантажити карту + маршрути
@@ -6333,7 +6333,7 @@
     de = Streckenführung herunterladen
     zh-Hans = 下载路线
     zh-Hant = 下載路線
-    cs = Stáhnout Směrování
+    cs = Stáhnout trasy
     ar = تنزيل تحديد المسار
     ru = Скачать маршруты
     uk = Завантажити маршрути
@@ -6360,7 +6360,7 @@
     de = Streckenführung löschen
     zh-Hans = 删除路线
     zh-Hant = 刪除路線
-    cs = Smazat Směrování
+    cs = Smazat trasy
     ar = إزالة تحديد المسار
     ru = Удалить маршруты
     uk = Видалити маршрути
@@ -6386,7 +6386,7 @@
     nl = Kaart downloaden
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
-    cs = Stáhněte si mapu
+    cs = Stáhnout mapu
     ar = تحميل الخريطة
     hu = Térkép letöltése
     ru = Скачать карту
@@ -6495,7 +6495,7 @@
     fr = Supprimer carte
     zh-Hans = 删除地图
     zh-Hant = 刪除地圖
-    cs = Vymazat mapu
+    cs = Smazat mapu
     ar = حذف الخريطة
     de = Karte löschen
     da = Slet kort
@@ -6576,7 +6576,7 @@
     nl = Alleen de kaart
     fr = Carte uniquement
     de = Nur Karte
-    cs = Jenom mapa
+    cs = Pouze mapa
     da = Kun kort
     ar = الخريطة فقط
     zh-Hant = 只有地圖

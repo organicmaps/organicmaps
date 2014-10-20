@@ -96,9 +96,9 @@
 	<string name="country_status_added_to_queue">^\npřidáno do fronty stahování</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Stahování\n^\n^%</string>
-	<string name="country_status_download_routing">Stáhnout Mapu + Směrování\n^ ^</string>
+	<string name="country_status_download_routing">Stáhnout mapu + trasy\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Stáhněte si mapu\n^ ^</string>
+	<string name="country_status_download">Stáhnout mapu\n^ ^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Stahování\n^\nselhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
@@ -172,9 +172,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
+	<string name="bookmarks_usage_hint">Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
+	<string name="bookmarks_usage_hint_import_only">V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -365,7 +365,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Stáhni si mapu místa, kde právě jsi</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.</string>
+	<string name="pro_version_is_free_today">MAPS.ME Pro je dnes zadarmo! Stáhni si ji nyní a dej vědět kamarádům.</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today_android">Aplikace MAPS.ME je dostupná na Google Play se slevou 80 %! Stáhni si ji nyní a dej vědět kamarádům.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
@@ -377,13 +377,13 @@
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_ios">MAPS.ME je dnes zdarma! Sdílej tu zprávu na Facebooku.</string>
 	<!-- Message to display on 17th-18th august -->
-	<string name="maps_me_is_free_today_android">MAPS.ME jsou dostupné na Google Play se slevou 80%! Sdílej tu zprávu na Facebooku.</string>
+	<string name="maps_me_is_free_today_android">MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílej tu zprávu na Facebooku.</string>
 	<!-- Message for facebook post on 17th-18th august -->
 	<string name="maps_me_is_free_today_facebook_post_ios">Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěš si a získej tuto aplikaci ještě dnes, tato propagační akce brzy skončí!</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_android">Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80%. Jsou také dostupné zdarma na iTunes. Nezmeškej to!</string>
+	<string name="maps_me_is_free_today_facebook_post_android">Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškej to!</string>
 	<!-- Text in menu -->
-	<string name="settings_and_more">Nastavení &amp; další</string>
+	<string name="settings_and_more">Nastavení a další</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Komunita MAPS.ME</string>
 	<!-- Text in menu -->
@@ -407,65 +407,65 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi oceňujeme tvou podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!</string>
+	<string name="about_text">MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi si ceníme tvé podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!</string>
 	<!-- Alert text -->
-	<string name="email_error_body">Emailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %s</string>
+	<string name="email_error_body">E-mailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %s</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Chyba při odesílání emailu</string>
+	<string name="email_error_title">Chyba při odesílání e-mailu</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
 	<!-- Update map suggestion -->
-	<string name="routing_map_outdated">Prosím aktualizujte mapu pro vytvoření trasy.</string>
+	<string name="routing_map_outdated">Pro funkci vytváření tras je nutné aktualizovat mapu.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.</string>
+	<string name="routing_update_maps">Nová verze MAPS.ME umožňuje vytvářet trasy z tvé aktuální polohy do cílového bodu. Chceš-li tuto funkci používat, aktualizuj mapy.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Aktualizovat vše</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Zrušit vše</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded">Staženo</string>
+	<string name="downloader_downloaded">Stažené</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_maps">Stažené mapy</string>
 	<!-- My maps category -->
 	<string name="downloader_my_maps">Moje mapy</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">zařazeno do fronty</string>
+	<string name="downloader_queued">ve frontě</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!</string>
+	<string name="routing_disclaimer">Při vytváření tras v aplikaci MAPS.ME měj, prosím, na paměti následující:\n\n - Navrhované trasy lze brát jen jako doporučení.\n - Pravidla silničního provozu, aktuální podmínky na silnici a dopravní značení mají přednost před údaji z navigace.\n - Mapa může být nepřesná nebo zastaralá a navržené cesty nemusí být ideální.\n\n  Cestuj bezpečně a ohleduplně. Šťastnou cestu!</string>
 	<!-- Outdated maps category -->
-	<string name="downloader_outdated_maps">Zastaralý</string>
+	<string name="downloader_outdated_maps">Zastaralé</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktuální</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualizace</string>
 	<!-- Status of failed country in the list -->
-	<string name="downloader_status_failed">Nezdařilo se</string>
+	<string name="downloader_status_failed">Selhalo</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!</string>
+	<string name="routing_failed_buy_pro">Plánování tras je k dispozici pouze v plné verzi MAPS.ME. Získej ji hned teď!</string>
 	<!-- Show when user try build route, but we don't know where he -->
-	<string name="routing_failed_unknown_my_position">Aktuální umístění je nedefinované. Chcete-li vytvořit trasu, zadejte prosím umístění.</string>
+	<string name="routing_failed_unknown_my_position">Aktuální poloha nebyla zatím zjištěna. Chceš-li naplánovat trasu, zadej prosím umístění.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
-	<string name="routing_failed_has_no_routing_file">K vytvoření trasy jsou zapotřebí další data. Začít stahování?</string>
+	<string name="routing_failed_has_no_routing_file">K vytvoření trasy jsou zapotřebí další data. Chceš je stáhnout nyní?</string>
 	<!-- StartPointNotFound -->
-	<string name="routing_failed_start_point_not_found">Nelze vypočítat trasu. Poblíž Vašeho výchozího bodu nejsou žádné cesty.</string>
+	<string name="routing_failed_start_point_not_found">Trasu nelze vypočítat. Poblíž výchozího bodu nejsou žádné cesty.</string>
 	<!-- EndPointNotFound -->
-	<string name="routing_failed_dst_point_not_found">Nelze vypočítat trasu. Poblíž Vašeho cílového bodu nejsou žádné cesty.</string>
+	<string name="routing_failed_dst_point_not_found">Trasu nelze vypočítat. Poblíž cílového bodu nejsou žádné cesty.</string>
 	<!-- PointsInDifferentMWM -->
-	<string name="routing_failed_cross_mwm_building">Lze vytvářet jen takové trasy, které jsou zcela leží na území jediné mapy.</string>
+	<string name="routing_failed_cross_mwm_building">Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.</string>
 	<!-- RouteNotFound -->
-	<string name="routing_failed_route_not_found">Mezi vybraným počátkem a cílem nebyla nalezena žádná trasa. Vyberte prosím jiný počáteční nebo koncový bod.</string>
+	<string name="routing_failed_route_not_found">Mezi zvoleným počátkem a cílem nebyla nalezena žádná trasa. Vyber, prosím, jiný počáteční nebo koncový bod.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Došlo k vnitřní chybě. Zkuste prosím mapu vymazat a stáhnout znovu. Jestliže problém přetrvává, kontaktujte nás prosím na support@maps.me.</string>
+	<string name="routing_failed_internal_error">Došlo k vnitřní chybě. Zkus prosím mapu smazat a znovu stáhnout. Jestliže problém přetrvává, kontaktuj nás na support@maps.me.</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Stáhnout Mapu + Směrování</string>
+	<string name="downloader_download_map_and_routing">Stáhnout mapu + trasy</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Stáhnout Směrování</string>
+	<string name="downloader_download_routing">Stáhnout trasy</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Smazat Směrování</string>
+	<string name="downloader_delete_routing">Smazat trasy</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Stáhněte si mapu</string>
+	<string name="downloader_download_map">Stáhnout mapu</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Jet!</string>
 	<!-- Item status in downloader. -->
@@ -473,11 +473,11 @@
 	<!-- Item in context menu. -->
 	<string name="downloader_map_and_routing">Mapa + trasy</string>
 	<!-- Item in context menu. -->
-	<string name="downloader_delete_map">Vymazat mapu</string>
+	<string name="downloader_delete_map">Smazat mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Aktualizovat mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Aktualizovat mapu + trasy</string>
 	<!-- Item in context menu. -->
-	<string name="downloader_map_only">Jenom mapa</string>
+	<string name="downloader_map_only">Pouze mapa</string>
 </resources>
