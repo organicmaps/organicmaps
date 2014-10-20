@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
@@ -16,9 +17,6 @@ import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -146,8 +144,8 @@ public class WorkerService extends IntentService
     Statistics.INSTANCE.trackWifiConnected(isLocationValid);
     if (!isLocationValid)
     {
-      final Timer timer = new Timer();
-      timer.schedule(new TimerTask()
+      final Handler handler = new Handler();
+      handler.postDelayed(new Runnable()
       {
         @Override
         public void run()

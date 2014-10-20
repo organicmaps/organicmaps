@@ -1,6 +1,7 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.localytics.android.LocalyticsSession;
 import com.mapswithme.maps.MWMApplication;
@@ -28,9 +29,12 @@ public class LocalyticsEngine extends StatisticsEngine
   public void postEvent(Event event)
   {
     Utils.checkNotNull(event);
-    if (event.hasParams())
-      sLocalyticsSession.tagEvent(event.getName(), event.getParams());
-    else
-      sLocalyticsSession.tagEvent(event.getName());
+    if (!TextUtils.isEmpty(event.getName()))
+    {
+      if (event.hasParams())
+        sLocalyticsSession.tagEvent(event.getName(), event.getParams());
+      else
+        sLocalyticsSession.tagEvent(event.getName());
+    }
   }
 }
