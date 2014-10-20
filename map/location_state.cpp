@@ -83,7 +83,7 @@ public:
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
 
-    if (IsVisual())
+    if (IsVisual() && m_idleFrames > 0)
     {
       //Store new params even if animation is active but don't interrupt the current one.
       //New animation to the pending params will be made after all.
@@ -97,11 +97,13 @@ public:
 
   void Update()
   {
-    if (m_hasPendingAnimation)
+    if (m_hasPendingAnimation && m_idleFrames == 0)
     {
       m_hasPendingAnimation = false;
       SetParams(m_pendingDstPos, m_pendingAngle);
     }
+    else if (m_idleFrames > 0)
+      --m_idleFrames;
   }
 
   m2::PointD const & GetPositionForDraw()
@@ -111,6 +113,9 @@ public:
 
   virtual void OnStep(double ts)
   {
+    if (m_idleFrames > 0)
+      return;
+
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
     ASSERT(m_pxBindingAnim != nullptr, ());
@@ -122,6 +127,8 @@ public:
 
     if (updateViewPort)
       UpdateViewport();
+    else
+      m_idleFrames = 5;
   }
 
   virtual bool IsVisual() const
@@ -221,6 +228,7 @@ private:
   bool m_hasPendingAnimation;
   m2::PointD m_pendingDstPos;
   double m_pendingAngle;
+  int m_idleFrames = 0;
 };
 
 }

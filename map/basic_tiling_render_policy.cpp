@@ -57,7 +57,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
     m_resourceManager->updatePoolState();
   }
 
-  //CheckAnimationTransition();
+  CheckAnimationTransition();
 
   /// checking, whether we should add the CoverScreen command
 
