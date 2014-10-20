@@ -1002,7 +1002,7 @@
         dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::Later);
       }
 
-      return;
+      break;
     }
     case ALERT_VIEW_FACEBOOK:
     {
@@ -1023,7 +1023,7 @@
       {
         dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::Later);
       }
-      return;
+      break;
     }
     case ALERT_VIEW_BOOKMARKS:
     {
@@ -1036,6 +1036,7 @@
         [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
         [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
       }
+      break;
     }
     case ALERT_VIEW_DOWNLOADER:
     {
@@ -1044,6 +1045,7 @@
         CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
         [self.navigationController pushViewController:vc animated:YES];
       }
+      break;
     }
     case ALERT_VIEW_PRO_VERSION_ROUTING:
     {
@@ -1056,6 +1058,7 @@
         [[UIApplication sharedApplication] openProVersionFrom:@"ios_routing_alert"];
         [[Statistics instance] logProposalReason:@"Routing Menu" withAnswer:@"YES"];
       }
+      break;
     }
     case ALERT_VIEW_ROUTING_DISCLAIMER:
     {
@@ -1064,6 +1067,7 @@
         Settings::Set("IsDisclaimerApproved", true);
         [self tryToBuildRoute];
       }
+      break;
     }
     default:
       break;
