@@ -17,7 +17,7 @@ public:
 
 private:
   static void DrawCircle(graphics::Screen * pScreen, m2::PointD const & pt);
-  static void InsertOverlayCross(m2::PointD pivot, graphics::Overlay * overlay);
+  static void InsertOverlayCross(m2::PointD pivot, shared_ptr<graphics::OverlayStorage> const & overlayStorage);
 
   shared_ptr<Drawer> m_offscreenDrawer;
   bool m_drawApiPin;

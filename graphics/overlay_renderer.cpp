@@ -19,8 +19,7 @@ namespace graphics
   OverlayRenderer::OverlayRenderer(Params const & p)
     : TextRenderer(p),
       m_drawTexts(p.m_drawTexts),
-      m_drawSymbols(p.m_drawSymbols),
-      m_overlay(p.m_overlay)
+      m_drawSymbols(p.m_drawSymbols)
   {
   }
 
@@ -33,10 +32,10 @@ namespace graphics
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-    if (!m_overlay.get())
+    if (!m_overlayStorage.get())
       oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(oe);
+      m_overlayStorage->AddElement(oe);
   }
 
   void OverlayRenderer::drawSymbol(m2::PointD const & pt, string const & name, EPosition pos, int depth)
@@ -58,10 +57,10 @@ namespace graphics
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-    if (!m_overlay.get())
+    if (!m_overlayStorage.get())
       oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(oe);
+      m_overlayStorage->AddElement(oe);
   }
 
   void OverlayRenderer::drawCircle(m2::PointD const & pt,
@@ -86,10 +85,10 @@ namespace graphics
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-    if (!m_overlay.get())
+    if (!m_overlayStorage.get())
       oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(oe);
+      m_overlayStorage->AddElement(oe);
   }
 
   void OverlayRenderer::drawText(FontDesc const & fontDesc,
@@ -119,10 +118,10 @@ namespace graphics
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-    if (!m_overlay.get())
+    if (!m_overlayStorage.get())
       oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(oe);
+      m_overlayStorage->AddElement(oe);
   }
 
   void OverlayRenderer::drawTextEx(StraightTextElement::Params & params)
@@ -136,10 +135,10 @@ namespace graphics
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-    if (!m_overlay.get())
+    if (!m_overlayStorage.get())
       oe->draw(this, id);
     else
-      m_overlay->processOverlayElement(oe);
+      m_overlayStorage->AddElement(oe);
   }
 
   void OverlayRenderer::drawTextEx(FontDesc const & primaryFont,
@@ -200,10 +199,10 @@ namespace graphics
 
     math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
 
-    if (!m_overlay.get())
+    if (!m_overlayStorage.get())
       pte->draw(this, id);
     else
-      m_overlay->processOverlayElement(pte);
+      m_overlayStorage->AddElement(pte);
   }
 
   void OverlayRenderer::drawPathText(FontDesc const & fontDesc,
@@ -230,18 +229,13 @@ namespace graphics
                    depth);
   }
 
-  void OverlayRenderer::setOverlay(shared_ptr<Overlay> const & overlay)
+  void OverlayRenderer::setOverlay(const shared_ptr<OverlayStorage> & overlayStorage)
   {
-    m_overlay = overlay;
-  }
-
-  shared_ptr<Overlay> const & OverlayRenderer::overlay() const
-  {
-    return m_overlay;
+    m_overlayStorage = overlayStorage;
   }
 
   void OverlayRenderer::resetOverlay()
   {
-    m_overlay.reset();
+    m_overlayStorage.reset();
   }
 }

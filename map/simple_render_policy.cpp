@@ -55,17 +55,19 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   m_drawer.reset(CreateDrawer(p.m_useDefaultFB, p.m_primaryRC, ELargeStorage, ELargeTexture));
   InitCacheScreen();
   InitWindowsHandle(p.m_videoTimer, p.m_primaryRC);
+
+  m_overlay.reset(new graphics::Overlay());
 }
 
 void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
-  m_overlay.reset(new graphics::Overlay());
+  shared_ptr<graphics::OverlayStorage> storage(new graphics::OverlayStorage());
 
   Drawer * pDrawer = e->drawer();
   graphics::Screen * pScreen = pDrawer->screen();
 
-  pScreen->setOverlay(m_overlay);
+  pScreen->setOverlay(storage);
   pScreen->beginFrame();
   pScreen->clear(m_bgColor);
 
@@ -73,7 +75,14 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 
   pScreen->resetOverlay();
   pScreen->clear(graphics::Color::White(), false, 1.0, true);
-  m_overlay->draw(pScreen, math::Identity<double, 3>());
+
+  m_overlay->merge(storage);
+
+  math::Matrix<double, 3, 3> m = math::Identity<double, 3>();
+  m_overlay->forEach([&pScreen, &m](shared_ptr<graphics::OverlayElement> const & e)
+  {
+    e->draw(pScreen, m);
+  });
 
   pScreen->endFrame();
 }

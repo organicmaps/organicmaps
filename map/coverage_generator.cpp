@@ -415,14 +415,12 @@ void CoverageGenerator::MergeOverlay()
   m_coverageInfo.m_overlay->lock();
   m_coverageInfo.m_overlay->clear();
 
-  for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
-       it != m_coverageInfo.m_tiles.end();
-       ++it)
+  for (Tile const * tile : m_coverageInfo.m_tiles)
   {
-    Tiler::RectInfo const & ri = (*it)->m_rectInfo;
+    Tiler::RectInfo const & ri = tile->m_rectInfo;
     if (m_coverageInfo.m_tiler.isLeaf(ri))
-      m_coverageInfo.m_overlay->merge(*(*it)->m_overlay,
-                                      (*it)->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix());
+      m_coverageInfo.m_overlay->merge(tile->m_overlay,
+                                      tile->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix());
   }
 
   m_coverageInfo.m_overlay->unlock();
@@ -457,8 +455,8 @@ void CoverageGenerator::MergeSingleTile(Tiler::RectInfo const & rectInfo)
   if (tile != NULL && m_coverageInfo.m_tiler.isLeaf(rectInfo))
   {
     m_coverageInfo.m_overlay->lock();
-    m_coverageInfo.m_overlay->merge(*tile->m_overlay,
-                                     tile->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix());
+    m_coverageInfo.m_overlay->merge(tile->m_overlay,
+                                    tile->m_tileScreen.PtoGMatrix() * m_stateInfo.m_currentScreen.GtoPMatrix());
     m_coverageInfo.m_overlay->unlock();
   }
 }
@@ -678,7 +676,6 @@ CoverageGenerator::CoverageInfo::CoverageInfo(TileRenderer *tileRenderer)
   : m_tileRenderer(tileRenderer)
   , m_overlay(new graphics::Overlay())
 {
-  m_overlay->setCouldOverlap(false);
 }
 
 CoverageGenerator::CoverageInfo::~CoverageInfo()

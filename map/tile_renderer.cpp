@@ -183,8 +183,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   if (texturePool->IsCancelled())
     return;
 
-  shared_ptr<graphics::Overlay> tileOverlay(new graphics::Overlay());
-  tileOverlay->setCouldOverlap(true);
+  shared_ptr<graphics::OverlayStorage> tileOverlay(new graphics::OverlayStorage(m2::RectD(renderRect)));
 
   drawer->screen()->setOverlay(tileOverlay);
   drawer->beginFrame();
@@ -196,13 +195,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   m_renderFn(paintEvent, frameScreen, m2::RectD(renderRect), rectInfo.m_tileScale);
 
   drawer->endFrame();
-
   drawer->screen()->resetOverlay();
-
-  /// filter out the overlay elements that are out of the bound rect for the tile
-  if (!env.isCancelled())
-    tileOverlay->clip(renderRect);
-
   drawer->screen()->copyFramebufferToImage(tileTarget);
 
   if (!env.isCancelled())
@@ -226,7 +219,6 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                  tileOverlay,
                  frameScreen,
                  rectInfo,
-                 0,
                  paintEvent->isEmptyDrawing(),
                  sequenceID));
   }

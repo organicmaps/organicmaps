@@ -176,13 +176,13 @@ void YopmeRP::DrawCircle(Screen * pScreen, m2::PointD const & pt)
   }
 }
 
-void YopmeRP::InsertOverlayCross(m2::PointD pivot, Overlay * overlay)
+void YopmeRP::InsertOverlayCross(m2::PointD pivot, shared_ptr<OverlayStorage> const & overlayStorage)
 {
   OverlayElement::Params params;
   params.m_depth = ApiPinDepth;
   params.m_pivot = pivot;
   params.m_position = graphics::EPosCenter;
-  overlay->processOverlayElement(make_shared<CrossElement>(params));
+  overlayStorage->AddElement(make_shared<CrossElement>(params));
 }
 
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
@@ -195,8 +195,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
   ASSERT(width == GetDrawer()->screen()->width(), ());
   ASSERT(height == GetDrawer()->screen()->height(), ());
 
-  shared_ptr<Overlay> overlay(new Overlay());
-  overlay->setCouldOverlap(true);
+  shared_ptr<OverlayStorage> overlay(new OverlayStorage(m2::RectD(0, 0, width, height)));
 
   { // offscreen rendering
     m2::RectI renderRect(0, 0, width, height);
@@ -214,18 +213,20 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
     pScreen->resetOverlay();
 
-    overlay->clip(m2::RectI(0, 0, width, height));
-    shared_ptr<Overlay> drawOverlay(new Overlay());
-    drawOverlay->setCouldOverlap(false);
-
     if (m_drawApiPin)
-      InsertOverlayCross(m_apiPinPoint, drawOverlay.get());
+      InsertOverlayCross(m_apiPinPoint, overlay);
 
-    drawOverlay->merge(*overlay);
+    shared_ptr<Overlay> drawOverlay(new Overlay());
+    drawOverlay->merge(overlay);
 
     pScreen->applySharpStates();
     pScreen->clear(m_bgColor, false);
-    drawOverlay->draw(pScreen, math::Identity<double, 3>());
+
+    math::Matrix<double, 3, 3> m = math::Identity<double, 3>();
+    drawOverlay->forEach([&pScreen, &m](shared_ptr<OverlayElement> const & e)
+    {
+      e->draw(pScreen, m);
+    });
 
     pScreen->endFrame();
     pScreen->copyFramebufferToImage(renderTarget);

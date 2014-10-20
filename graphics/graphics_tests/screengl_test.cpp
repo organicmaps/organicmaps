@@ -1219,28 +1219,6 @@ namespace
     }
   };
 
-  struct TestDrawOverlappedSymbolWithText
-  {
-  public:
-    void DoDraw(shared_ptr<graphics::Screen> p)
-    {
-      p->setOverlay(make_shared<graphics::Overlay>());
-      p->overlay()->setCouldOverlap(false);
-
-      p->drawSymbol(m2::PointD(200, 200), "current-position", graphics::EPosUnder, graphics::maxDepth);
-      p->drawText(graphics::FontDesc(12), m2::PointD(200, 200), graphics::EPosAbove, "Test Text", graphics::maxDepth, true);
-
-      p->drawSymbol(m2::PointD(180, 200), "current-position", graphics::EPosUnder, graphics::maxDepth);
-      p->drawText(graphics::FontDesc(12), m2::PointD(180, 200), graphics::EPosAbove, "Test Text", graphics::maxDepth, true);
-
-      p->endFrame();
-      p->beginFrame();
-
-      p->overlay()->draw(p.get(), math::Identity<double, 3>());
-      p->resetOverlay();
-    }
-  };
-
   struct TestDrawAnyRect
   {
   public:
