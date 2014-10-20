@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -120,42 +122,35 @@ public class StoragePathManager
     return mItems.size() > 1;
   }
 
+  public ArrayList<StoragePathAdapter.StorageItem> getStorageItems()
+  {
+    return mItems;
+  }
+
+  public int getCurrentStorageIndex()
+  {
+    return mCurrentStorageIndex;
+  }
+
   public void updateExternalStorages()
   {
     ArrayList<String> paths = new ArrayList<String>();
 
     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
-    {
-      File[] files = MWMApplication.get().getExternalFilesDirs(null);
-      if (files != null)
-      {
-        File primaryStorageDir = MWMApplication.get().getExternalFilesDir(null);
-        for (File f : files)
-        {
-          // add only secondary dirs
-          if (f != null && !f.equals(primaryStorageDir))
-          {
-            Log.i(TAG, "Additional storage path: " + f.getPath());
-            paths.add(f.getPath());
-          }
-        }
-      }
-    }
+      parseKitkatStorages(paths);
+    else
+      parseStorages(paths);
 
-    // Do it even on KitKat due to some bugs with getExternalFilesDirs()
-    parseMountFiles(paths);
-
-    Map<Long, String> pathsSizesMap = new HashMap<Long, String>();
+    Map<Long, String> pathsSizesMap = new HashMap<>();
 
     // Add current path first!
     final String currentStorageDir = getWritableDirRoot();
     addStoragePathWithSize(currentStorageDir, pathsSizesMap);
-
     for (String path : paths)
       addStoragePathWithSize(path, pathsSizesMap);
     addStoragePathWithSize(Environment.getExternalStorageDirectory().getAbsolutePath(), pathsSizesMap);
 
-    mItems = new ArrayList<StoragePathAdapter.StorageItem>();
+    mItems = new ArrayList<>();
     mCurrentStorageIndex = -1;
     for (Map.Entry<Long, String> entry : pathsSizesMap.entrySet())
     {
@@ -172,17 +167,40 @@ public class StoragePathManager
     }
   }
 
-  public ArrayList<StoragePathAdapter.StorageItem> getStorageItems()
+  private static void parseKitkatStorages(List<String> paths)
   {
-    return mItems;
+    File primaryStorage = MWMApplication.get().getExternalFilesDir(null);
+    File[] storages = MWMApplication.get().getExternalFilesDirs(null);
+    if (storages != null)
+    {
+      for (File f : storages)
+      {
+        // add only secondary dirs
+        if (f != null && !f.equals(primaryStorage))
+        {
+          Log.i(TAG, "Additional storage path: " + f.getPath());
+          paths.add(f.getPath());
+        }
+      }
+    }
+
+    ArrayList<String> testStorages = new ArrayList<>();
+    parseStorages(testStorages);
+    final String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.PACKAGE_NAME, Constants.FILES_DIR);
+    for (String testStorage : testStorages)
+    {
+      if (isDirWritable(testStorage))
+        paths.add(testStorage);
+      else
+      {
+        testStorage += suffix;
+        if (isDirWritable(testStorage))
+          paths.add(testStorage);
+      }
+    }
   }
 
-  public int getCurrentStorageIndex()
-  {
-    return mCurrentStorageIndex;
-  }
-
-  private static void parseMountFiles(ArrayList<String> paths)
+  private static void parseStorages(ArrayList<String> paths)
   {
     parseMountFile("/etc/vold.conf", VOLD_MODE, paths);
     parseMountFile("/etc/vold.fstab", VOLD_MODE, paths);
@@ -215,7 +233,7 @@ public class StoragePathManager
   {
     ArrayList<String> pathes = new ArrayList<String>();
     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
-      parseMountFiles(pathes);
+      parseStorages(pathes);
 
     ArrayList<String> approvedPathes = new ArrayList<String>();
     for (String path : pathes)
@@ -462,8 +480,7 @@ public class StoragePathManager
         if (!MapStorage.nativeMoveFile(moveFile.getAbsolutePath(), fullNewPath + moveFile.getName()))
           copyFile(moveFile, new File(fullNewPath + moveFile.getName()));
       }
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       for (File moveFile : internalFiles)
         new File(fullNewPath + moveFile.getName()).delete();
@@ -559,13 +576,10 @@ public class StoragePathManager
       {
         final long size = getFreeBytesAtPath(path);
 
-        if (size > 0)
+        if (size > 0 && !sizesPaths.containsKey(size))
         {
-          if (!sizesPaths.containsKey(size))
-          {
-            Log.i(TAG, "Path added: " + path + ", size = " + size);
-            sizesPaths.put(size, path);
-          }
+          Log.i(TAG, "Path added: " + path + ", size = " + size);
+          sizesPaths.put(size, path);
         }
       }
     } catch (final IllegalArgumentException ex)
