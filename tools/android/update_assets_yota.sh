@@ -17,4 +17,3 @@ rm -rf $DST/resources-xhdpi
 rm -rf $DST/resources-xxhdpi
 ln -s $SRC/resources-yota $DST/resources-mdpi
 
-./update_flags.sh

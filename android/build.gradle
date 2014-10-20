@@ -76,7 +76,7 @@ android {
       buildConfigField 'String',  'PRO_URL',    '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       android.sourceSets.samsungPro.setRoot('flavors/pro')
-      android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     samsungLite {
@@ -85,7 +85,7 @@ android {
       buildConfigField 'String',  'PRO_URL',    '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.samsung"'
       android.sourceSets.samsungLite.setRoot('flavors/lite')
-      android.sourceSets.samsungLite.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.samsungLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     amazonPro {
@@ -95,6 +95,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       android.sourceSets.amazonPro.setRoot('flavors/pro')
       // Do not include guides assets for Amazon, they don't like GP apps ads
+      android.sourceSets.amazonPro.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     amazonLite {
@@ -104,6 +105,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps"'
       android.sourceSets.amazonLite.setRoot('flavors/lite')
       // Do not include guides assets for Amazon, they don't like GP apps ads
+      android.sourceSets.amazonLite.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     androidpitPro {
