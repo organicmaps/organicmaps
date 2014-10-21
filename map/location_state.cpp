@@ -192,6 +192,9 @@ private:
 
   bool OnStep(anim::Task * task, double ts)
   {
+    if (!task->IsReady() && !task->IsRunning())
+      return false;
+
     if (task->IsReady())
     {
       task->Start();
@@ -199,18 +202,12 @@ private:
     }
 
     if (task->IsRunning())
-    {
       task->OnStep(ts);
-      return true;
-    }
 
-    if (!task->IsEnded())
-    {
+    if (task->IsEnded())
       task->OnEnd(ts);
-      return true;
-    }
 
-    return false;
+    return true;
   }
 
 private:
