@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <root>
- <file width="512" height="256">
+ <file height="256" width="512">
   <symbol minX="0" maxX="71" minY="0" maxY="71" name="route_to"/>
   <symbol minX="71" maxX="106" minY="0" maxY="35" name="search-result-active"/>
   <symbol minX="106" maxX="139" minY="0" maxY="33" name="compass-image"/>
@@ -12,16 +12,16 @@
   <symbol minX="224" maxX="241" minY="0" maxY="31" name="placemark-purple"/>
   <symbol minX="241" maxX="258" minY="0" maxY="31" name="placemark-brown"/>
   <symbol minX="258" maxX="275" minY="0" maxY="31" name="placemark-blue"/>
-  <symbol minX="275" maxX="301" minY="0" maxY="29" name="current-position-compas"/>
-  <symbol minX="301" maxX="327" minY="0" maxY="29" name="current-routing-compas"/>
-  <symbol minX="327" maxX="350" minY="0" maxY="23" name="tennis"/>
-  <symbol minX="350" maxX="373" minY="0" maxY="23" name="tennis-borderless"/>
-  <symbol minX="373" maxX="396" minY="0" maxY="23" name="telephone"/>
-  <symbol minX="396" maxX="419" minY="0" maxY="23" name="parking_roof"/>
-  <symbol minX="419" maxX="442" minY="0" maxY="23" name="taxi"/>
-  <symbol minX="442" maxX="465" minY="0" maxY="23" name="synagogue"/>
-  <symbol minX="465" maxX="488" minY="0" maxY="23" name="peak-mini"/>
-  <symbol minX="488" maxX="511" minY="0" maxY="23" name="peak"/>
+  <symbol minX="275" maxX="301" minY="0" maxY="29" name="current-routing-compas"/>
+  <symbol minX="301" maxX="324" minY="0" maxY="27" name="current-position-compas"/>
+  <symbol minX="324" maxX="347" minY="0" maxY="23" name="tennis"/>
+  <symbol minX="347" maxX="370" minY="0" maxY="23" name="tennis-borderless"/>
+  <symbol minX="370" maxX="393" minY="0" maxY="23" name="telephone"/>
+  <symbol minX="393" maxX="416" minY="0" maxY="23" name="parking_roof"/>
+  <symbol minX="416" maxX="439" minY="0" maxY="23" name="taxi"/>
+  <symbol minX="439" maxX="462" minY="0" maxY="23" name="synagogue"/>
+  <symbol minX="462" maxX="485" minY="0" maxY="23" name="peak-mini"/>
+  <symbol minX="485" maxX="508" minY="0" maxY="23" name="peak"/>
   <symbol minX="0" maxX="23" minY="71" maxY="94" name="information-office"/>
   <symbol minX="23" maxX="46" minY="71" maxY="94" name="information"/>
   <symbol minX="46" maxX="69" minY="71" maxY="94" name="kindergarten"/>

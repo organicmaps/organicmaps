@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <root>
- <file height="256" width="512">
+ <file width="512" height="256">
   <symbol minX="0" maxX="71" minY="0" maxY="71" name="route_to"/>
   <symbol minX="71" maxX="106" minY="0" maxY="35" name="search-result-active"/>
   <symbol minX="106" maxX="139" minY="0" maxY="33" name="compass-image"/>
@@ -12,17 +12,17 @@
   <symbol minX="224" maxX="241" minY="0" maxY="31" name="placemark-green"/>
   <symbol minX="241" maxX="258" minY="0" maxY="31" name="placemark-pink"/>
   <symbol minX="258" maxX="275" minY="0" maxY="31" name="placemark-orange"/>
-  <symbol minX="275" maxX="301" minY="0" maxY="29" name="current-position-compas"/>
-  <symbol minX="301" maxX="327" minY="0" maxY="29" name="current-routing-compas"/>
-  <symbol minX="327" maxX="347" minY="0" maxY="20" name="taxi"/>
-  <symbol minX="347" maxX="367" minY="0" maxY="20" name="telephone"/>
-  <symbol minX="367" maxX="387" minY="0" maxY="20" name="parking_roof"/>
-  <symbol minX="387" maxX="407" minY="0" maxY="20" name="tennis-borderless"/>
-  <symbol minX="407" maxX="427" minY="0" maxY="20" name="peak-mini"/>
-  <symbol minX="427" maxX="447" minY="0" maxY="20" name="tennis"/>
-  <symbol minX="447" maxX="467" minY="0" maxY="20" name="peak"/>
-  <symbol minX="467" maxX="487" minY="0" maxY="20" name="petrolstation"/>
-  <symbol minX="487" maxX="507" minY="0" maxY="20" name="information-office"/>
+  <symbol minX="275" maxX="301" minY="0" maxY="29" name="current-routing-compas"/>
+  <symbol minX="301" maxX="324" minY="0" maxY="27" name="current-position-compas"/>
+  <symbol minX="324" maxX="344" minY="0" maxY="20" name="taxi"/>
+  <symbol minX="344" maxX="364" minY="0" maxY="20" name="telephone"/>
+  <symbol minX="364" maxX="384" minY="0" maxY="20" name="parking_roof"/>
+  <symbol minX="384" maxX="404" minY="0" maxY="20" name="tennis-borderless"/>
+  <symbol minX="404" maxX="424" minY="0" maxY="20" name="peak-mini"/>
+  <symbol minX="424" maxX="444" minY="0" maxY="20" name="tennis"/>
+  <symbol minX="444" maxX="464" minY="0" maxY="20" name="peak"/>
+  <symbol minX="464" maxX="484" minY="0" maxY="20" name="petrolstation"/>
+  <symbol minX="484" maxX="504" minY="0" maxY="20" name="information-office"/>
   <symbol minX="0" maxX="20" minY="71" maxY="91" name="information"/>
   <symbol minX="20" maxX="40" minY="71" maxY="91" name="kindergarten"/>
   <symbol minX="40" maxX="60" minY="71" maxY="91" name="kindergarten2"/>
