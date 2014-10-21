@@ -32,7 +32,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -108,7 +107,7 @@ public class MWMActivity extends NvEventQueueActivity
   private ImageView mIvStartRouting;
   private TextView mTvRoutingDistance;
   private RelativeLayout mRlRoutingBox;
-  private LinearLayout mLayoutRoutingGo;
+  private RelativeLayout mLayoutRoutingGo;
   private ProgressBar mPbRoutingProgress;
 
   private SearchController mSearchController;
@@ -838,7 +837,7 @@ public class MWMActivity extends NvEventQueueActivity
     mRlRoutingBox = (RelativeLayout) findViewById(R.id.rl__routing_box);
     mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
-    mLayoutRoutingGo = (LinearLayout) mRlRoutingBox.findViewById(R.id.ll__routing_go);
+    mLayoutRoutingGo = (RelativeLayout) mRlRoutingBox.findViewById(R.id.rl__routing_go);
     mLayoutRoutingGo.setOnClickListener(this);
     mTvRoutingDistance = (TextView) mRlRoutingBox.findViewById(R.id.tv__routing_distance);
   }
@@ -1022,7 +1021,7 @@ public class MWMActivity extends NvEventQueueActivity
     if (info != null)
     {
       final SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase());
-      builder.setSpan(new AbsoluteSizeSpan(32, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(34, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvRoutingDistance.setText(builder);
     }
@@ -1423,7 +1422,7 @@ public class MWMActivity extends NvEventQueueActivity
     case R.id.iv__routing_close:
       closeRouting();
       break;
-    case R.id.ll__routing_go:
+    case R.id.rl__routing_go:
       followRoute();
       break;
     default:
