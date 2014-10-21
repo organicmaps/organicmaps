@@ -1156,7 +1156,7 @@
     sv = Zooma till landet
 
   [country_status_added_to_queue]
-    en = ^\nis added\nto the downloading queue.
+    en = ^\nis added to the downloading queue.
     comment = Message to display at the center of the screen when the country is added to the downloading queue
     cs = ^\npřidáno do fronty stahování
     sk = ^\npridané do zoznamu sťahovania

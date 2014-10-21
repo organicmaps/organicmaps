@@ -100,7 +100,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom to the country</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nis added\nto the downloading queue.</string>
+	<string name="country_status_added_to_queue">^\nis added to the downloading queue.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Downloading\n^\n^%</string>
 	<string name="country_status_download_routing">Download Map + Routing\n^ ^</string>

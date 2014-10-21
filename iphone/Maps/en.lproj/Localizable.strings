@@ -151,7 +151,7 @@
 "zoom_to_country" = "Zoom to the country";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nis added\nto the downloading queue.";
+"country_status_added_to_queue" = "^\nis added to the downloading queue.";
 
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Downloading\n^\n^%";
