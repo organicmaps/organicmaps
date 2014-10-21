@@ -612,7 +612,7 @@ void State::CacheArrow(graphics::DisplayList * dl, const string & iconName)
 
 bool State::IsRotationActive() const
 {
-  return m_framework->GetNavigator().DoSupportRotation() && TestModeBit(m_modeInfo, KnownDirectionBit);
+  return m_framework->GetNavigator().DoSupportRotation() && IsDirectionKnown();
 }
 
 bool State::IsDirectionKnown() const
@@ -714,7 +714,6 @@ void State::StopCompassFollowing()
 
 void State::StopLocationFollow()
 {
-  StopCompassFollowing();
   if (GetMode() > NotFollow)
   {
     StopAllAnimations();

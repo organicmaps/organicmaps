@@ -4535,82 +4535,6 @@ cont {
   }
 }
 cont {
-  name: "area:highway-living_street"
-  element {
-    scale: 15
-    area {
-      color: 7829367
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 7829367
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 7829367
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 7829367
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 7829367
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-motorway"
-  element {
-    scale: 15
-    area {
-      color: 16746496
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16746496
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16746496
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16746496
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16746496
-      priority: 1368
-    }
-  }
-}
-cont {
   name: "area:highway-path"
   element {
     scale: 15
@@ -4722,158 +4646,6 @@ cont {
   }
 }
 cont {
-  name: "area:highway-primary"
-  element {
-    scale: 15
-    area {
-      color: 16772710
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16772710
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16772710
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16772710
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16772710
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-residential"
-  element {
-    scale: 15
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-secondary"
-  element {
-    scale: 15
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-service"
-  element {
-    scale: 15
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-}
-cont {
   name: "area:highway-steps"
   element {
     scale: 15
@@ -4907,120 +4679,6 @@ cont {
     scale: 19
     area {
       color: 14535867
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-tertiary"
-  element {
-    scale: 15
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16777096
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-trunk"
-  element {
-    scale: 15
-    area {
-      color: 16763972
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16763972
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16763972
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16763972
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16763972
-      priority: 1368
-    }
-  }
-}
-cont {
-  name: "area:highway-unclassified"
-  element {
-    scale: 15
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 17
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 18
-    area {
-      color: 16777215
-      priority: 1368
-    }
-  }
-  element {
-    scale: 19
-    area {
-      color: 16777215
       priority: 1368
     }
   }
@@ -47417,6 +47075,149 @@ cont {
 }
 cont {
   name: "route-ferry"
+  element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1158
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1158
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1352
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1387
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1450
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 7.0
+        dd: 5.0
+      }
+      priority: 1621
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1803
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1910
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1910
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1910
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "route-ferry-motorcar"
   element {
     scale: 10
     lines {
