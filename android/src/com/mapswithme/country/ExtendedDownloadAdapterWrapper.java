@@ -87,7 +87,7 @@ public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
     {
       final View view = getExtendedView(parent);
       holder.initFromView(view);
-      final int count = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE);
+      final int count = ActiveCountryTree.getOutOfDateCount();
       if (count > 0)
       {
         holder.tvCount.setVisibility(View.VISIBLE);

@@ -638,7 +638,7 @@
 
 - (void)showRoutingFeatureDialog
 {
-  int const outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+  int const outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   bool isFirstRoutingRun = true;
   (void)Settings::Get("IsFirstRoutingRun", isFirstRoutingRun);
   if (GetPlatform().IsPro() && isFirstRoutingRun && outOfDateCount > 0)

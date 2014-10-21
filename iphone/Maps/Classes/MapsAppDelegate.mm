@@ -146,7 +146,7 @@ void InitLocalizedStrings()
   else
     [notificationManager showDownloadMapAlertIfNeeded];
 
-  [UIApplication sharedApplication].applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+  [UIApplication sharedApplication].applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
 
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
@@ -436,7 +436,7 @@ void InitLocalizedStrings()
   if (status == storage::TStatus::EOnDisk && l.GetGuideInfo(group, position, info))
     [self showNotificationWithGuideInfo:info];
 
-  int const outOfDateCount = l.GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate);
+  int const outOfDateCount = l.GetOutOfDateCount();
   [[NSNotificationCenter defaultCenter] postNotificationName:MapsStatusChangedNotification object:nil userInfo:@{@"OutOfDate" : @(outOfDateCount)}];
 }
 

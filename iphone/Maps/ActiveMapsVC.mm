@@ -55,7 +55,7 @@
   UIBarButtonItem * item;
   if (self.mapsLayout.IsDownloadingActive())
     item = [[UIBarButtonItem alloc] initWithTitle:L(@"downloader_cancel_all") style:UIBarButtonItemStylePlain target:self action:@selector(cancelAllMaps:)];
-  else if (self.mapsLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate) > 0)
+  else if (self.mapsLayout.GetOutOfDateCount() > 0)
     item = [[UIBarButtonItem alloc] initWithTitle:L(@"downloader_update_all") style:UIBarButtonItemStylePlain target:self action:@selector(updateAllMaps:)];
 
   [self.navigationItem setRightBarButtonItem:item animated:YES];
@@ -208,7 +208,7 @@
   if (group == ActiveMapsLayout::TGroup::EOutOfDate)
   {
     BadgeView * badge = [[BadgeView alloc] init];
-    badge.value = self.mapsLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+    badge.value = self.mapsLayout.GetOutOfDateCount();
     badge.center = CGPointMake(label.maxX + badge.width - 3, label.midY - INTEGRAL(0.5));
     [view addSubview:badge];
     self.outOfDateBadge = badge;
@@ -335,7 +335,7 @@
   [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
   [cell setStatus:self.mapsLayout.GetCountryStatus(group, position) options:self.mapsLayout.GetCountryOptions(group, position) animated:YES];
 
-  self.outOfDateBadge.value = self.mapsLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+  self.outOfDateBadge.value = self.mapsLayout.GetOutOfDateCount();
 }
 
 - (void)countryOptionsChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group

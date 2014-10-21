@@ -213,7 +213,7 @@
     cell.titleLabel.text = L(@"downloader_downloaded_maps");
     cell.subtitleLabel.text = nil;
     cell.parentMode = YES;
-    cell.badgeView.value = self.tree.GetActiveMapLayout().GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
+    cell.badgeView.value = self.tree.GetActiveMapLayout().GetOutOfDateCount();
   }
   else
   {

@@ -167,7 +167,7 @@
   }
 
   if ([item[@"Id"] isEqualToString:@"Maps"])
-    cell.badgeView.value = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate);
+    cell.badgeView.value = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   else
     cell.badgeView.value = 0;
 

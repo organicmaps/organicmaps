@@ -152,7 +152,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
   {
     if (ActiveCountryTree.isDownloadingActive())
       mMode = MODE_CANCEL_ALL;
-    else if (ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE) > 0)
+    else if (ActiveCountryTree.getOutOfDateCount() > 0)
       mMode = MODE_UPDATE_ALL;
     else
       mMode = MODE_NONE;

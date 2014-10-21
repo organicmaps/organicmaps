@@ -37,7 +37,7 @@
   [self layoutButtons];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
-  [self updateMenuBadgeWithCount:GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate)];
+  [self updateMenuBadgeWithCount:GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount()];
   return self;
 }
 

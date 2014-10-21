@@ -10,6 +10,12 @@ using namespace storage_utils;
 extern "C"
 {
   JNIEXPORT jint JNICALL
+  Java_com_mapswithme_country_ActiveCountryTree_getOutOfDateCount(JNIEnv * env, jclass clazz)
+  {
+    return GetMapLayout().GetOutOfDateCount();
+  }
+
+  JNIEXPORT jint JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_getCountInGroup(JNIEnv * env, jclass clazz, jint group)
   {
     return GetMapLayout().GetCountInGroup(ToGroup(group));

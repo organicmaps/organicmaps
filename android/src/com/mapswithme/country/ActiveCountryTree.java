@@ -23,6 +23,7 @@ public class ActiveCountryTree
   public static final int GROUP_OUT_OF_DATE = 1;
   public static final int GROUP_UP_TO_DATE = 2;
 
+  public static native int getOutOfDateCount();
   public static native int getCountInGroup(int group);
 
   public static native int getCountryStatus(int group, int position);
