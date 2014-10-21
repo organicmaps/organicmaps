@@ -204,7 +204,7 @@ private:
       return true;
     }
 
-    if (task->IsEnded())
+    if (!task->IsEnded())
     {
       task->OnEnd(ts);
       return true;
