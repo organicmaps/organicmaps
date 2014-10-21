@@ -1,12 +1,12 @@
 #!/bin/bash
-set -x -u
+set -e -x -u
 
-SRC=../../data
-DST=$1
+SRC=$1
+DST=$2
 
 # Remove old links
-rm -rf $DST
-mkdir $DST
+rm -rf $DST || true
+mkdir $DST || true
 
 files=(copyright.html faq.html resources-ldpi resources-mdpi resources-hdpi resources-xhdpi resources-xxhdpi categories.txt classificator.txt
        types.txt fonts_blacklist.txt fonts_whitelist.txt languages.txt unicode_blocks.txt \ 
