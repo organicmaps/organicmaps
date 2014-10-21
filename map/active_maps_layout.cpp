@@ -133,6 +133,19 @@ void ActiveMapsLayout::CancelAll()
     st.DeleteFromDownloader(index);
 }
 
+int ActiveMapsLayout::GetOutOfDateCount() const
+{
+  int result = 0;
+  for (size_t i = m_split.first; i < m_split.second; ++i)
+  {
+    Item const & item = m_items[i];
+    if (item.m_status != TStatus::ENotDownloaded)
+      ++result;
+  }
+
+  return result;
+}
+
 int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
 {
   int result = 0;
@@ -423,6 +436,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
     {
       // "Actual of not map been deleted"
       // We not notify about options changed!
+      NotifyStatusChanged(group, position, oldStatus, item.m_status);
       DeleteFromGroup(group, position);
       NotifyDeletion(group, position);
     }

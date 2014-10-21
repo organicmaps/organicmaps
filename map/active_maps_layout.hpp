@@ -47,6 +47,8 @@ public:
   void UpdateAll();
   void CancelAll();
 
+  int GetOutOfDateCount() const;
+
   int GetCountInGroup(TGroup const & group) const;
   bool IsEmpty() const;
   string const & GetCountryName(TGroup const & group, int position) const;
