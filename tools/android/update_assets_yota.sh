@@ -1,11 +1,16 @@
-./update_assets_for_version.sh ../../android/MapsWithMeLite/assets
-./add_assets_mwm-ttf.sh ../../android/MapsWithMeLite/assets
+#!/bin/bash
+set -x -u
 
-./update_assets_for_version.sh ../../android/YoPme/assets
-./add_assets_mwm-ttf.sh ../../android/YoPme/assets
+# Pre-installed lite version apk should have a reference to mwm and ttf assets in the gradle file
+
+# Yota 1st generation
 
 SRC=../../../data
 DST=../../android/YoPme/assets
+
+./update_assets_for_version.sh $SRC $DST
+./add_assets_mwm-ttf.sh $DST
+
 
 rm -rf $DST/drules_proto.bin
 ln -s $SRC/drules_proto-bw.bin $DST/drules_proto.bin
@@ -17,3 +22,20 @@ rm -rf $DST/resources-xhdpi
 rm -rf $DST/resources-xxhdpi
 ln -s $SRC/resources-yota $DST/resources-mdpi
 
+# Yota 2nd generation
+
+DST=../../android/YoPme2/assets
+
+./update_assets_for_version.sh $SRC $DST
+./add_assets_mwm-ttf.sh $DST
+
+
+rm -rf $DST/drules_proto.bin
+ln -s $SRC/drules_proto-bw.bin $DST/drules_proto.bin
+
+rm -rf $DST/resources-ldpi
+rm -rf $DST/resources-mdpi
+rm -rf $DST/resources-hdpi
+rm -rf $DST/resources-xhdpi
+rm -rf $DST/resources-xxhdpi
+ln -s $SRC/resources-yota $DST/resources-mdpi
