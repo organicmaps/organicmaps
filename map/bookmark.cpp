@@ -128,6 +128,13 @@ void BookmarkCategory::DeleteBookmark(size_t index)
   ASSERT_LESS(index, c.GetUserMarkCount(), ());
   UserMark const * markForDelete = c.GetUserMark(index);
 
+  if (m_framework.GetBookmarkManager().IsUserMarkActive(markForDelete))
+  {
+    PinClickManager & clickManager = m_framework.GetBalloonManager();
+    clickManager.RemovePin();
+    clickManager.Dismiss();
+  }
+
   int animIndex = -1;
   for (size_t i = 0; i < m_anims.size(); ++i)
   {

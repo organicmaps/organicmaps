@@ -7,7 +7,6 @@ class Framework;
 class PaintEvent;
 namespace graphics { class Screen; }
 
-
 class BookmarkManager : private noncopyable
 {
   vector<BookmarkCategory *> m_categories;
@@ -62,6 +61,7 @@ public:
 
   void ActivateMark(UserMark const * mark, bool needAnim);
   bool UserMarkHasActive() const;
+  bool IsUserMarkActive(UserMark const * container) const;
   class TouchRectHolder
   {
   public:

@@ -287,9 +287,13 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 
 void BookmarkManager::DeleteBmCategory(CategoryIter i)
 {
-  m_selection.ActivateMark(0, false);
-
   BookmarkCategory * cat = *i;
+  if (m_selection.m_container == cat)
+  {
+    PinClickManager & clikManager = m_framework.GetBalloonManager();
+    clikManager.RemovePin();
+    clikManager.Dismiss();
+  }
 
   FileWriter::DeleteFileX(cat->GetFileName());
 
@@ -317,6 +321,15 @@ void BookmarkManager::ActivateMark(UserMark const * mark, bool needAnim)
 bool BookmarkManager::UserMarkHasActive() const
 {
   return m_selection.IsActive();
+}
+
+bool BookmarkManager::IsUserMarkActive(UserMark const * mark) const
+{
+  if (mark == nullptr)
+    return false;
+
+  return (m_selection.m_container == mark->GetContainer() &&
+          m_selection.m_ptOrg.EqualDxDy(mark->GetOrg(), 1.0E-4));
 }
 
 namespace

@@ -153,6 +153,7 @@ private:
   shared_ptr<anim::Task> m_animTask;
 
 private:
+  friend class BookmarkManager;
   UserMarkContainer const * m_container;
   m2::PointD m_ptOrg;
   Framework & m_fm;

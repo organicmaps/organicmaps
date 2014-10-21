@@ -333,7 +333,6 @@ bool SelectionContainer::IsActive() const
   return m_container != NULL;
 }
 
-
 void SelectionContainer::StartActivationAnim()
 {
   m_animTask.reset(new PinAnimation(m_fm));
