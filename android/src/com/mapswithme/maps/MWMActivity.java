@@ -1547,7 +1547,6 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        deactivatePopup();
         if (isSuccess)
         {
           ViewHelper.setAlpha(mLayoutRoutingGo, 1);
@@ -1562,6 +1561,7 @@ public class MWMActivity extends NvEventQueueActivity
           mRlRoutingBox.bringToFront();
 
           hideInfoView();
+          deactivatePopup();
           updateRoutingDistance();
         }
         else
