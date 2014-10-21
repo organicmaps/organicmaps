@@ -1,71 +1,71 @@
 <!DOCTYPE skin>
 <skin>
- <page height="256" width="512" file="symbols.png">
+ <page file="symbols.png" height="256" width="512">
   <symbolStyle name="route_to" id="1">
    <resourceStyle x="0" y="0" height="71" width="71"/>
   </symbolStyle>
   <symbolStyle name="search-result-active" id="2">
    <resourceStyle x="71" y="0" height="35" width="35"/>
   </symbolStyle>
-  <symbolStyle name="current-routing-compas" id="3">
-   <resourceStyle x="106" y="0" height="33" width="27"/>
+  <symbolStyle name="compass-image" id="3">
+   <resourceStyle x="106" y="0" height="33" width="33"/>
   </symbolStyle>
-  <symbolStyle name="current-position-compas" id="4">
-   <resourceStyle x="133" y="0" height="33" width="27"/>
+  <symbolStyle name="placemark-yellow" id="4">
+   <resourceStyle x="139" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="compass-image" id="5">
-   <resourceStyle x="160" y="0" height="33" width="33"/>
+  <symbolStyle name="placemark-red" id="5">
+   <resourceStyle x="156" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-yellow" id="6">
-   <resourceStyle x="193" y="0" height="31" width="17"/>
+  <symbolStyle name="placemark-blue" id="6">
+   <resourceStyle x="173" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-red" id="7">
-   <resourceStyle x="210" y="0" height="31" width="17"/>
+  <symbolStyle name="placemark-brown" id="7">
+   <resourceStyle x="190" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-blue" id="8">
-   <resourceStyle x="227" y="0" height="31" width="17"/>
+  <symbolStyle name="placemark-purple" id="8">
+   <resourceStyle x="207" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-brown" id="9">
-   <resourceStyle x="244" y="0" height="31" width="17"/>
+  <symbolStyle name="placemark-green" id="9">
+   <resourceStyle x="224" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-purple" id="10">
-   <resourceStyle x="261" y="0" height="31" width="17"/>
+  <symbolStyle name="placemark-pink" id="10">
+   <resourceStyle x="241" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-green" id="11">
-   <resourceStyle x="278" y="0" height="31" width="17"/>
+  <symbolStyle name="placemark-orange" id="11">
+   <resourceStyle x="258" y="0" height="31" width="17"/>
   </symbolStyle>
-  <symbolStyle name="placemark-pink" id="12">
-   <resourceStyle x="295" y="0" height="31" width="17"/>
+  <symbolStyle name="current-position-compas" id="12">
+   <resourceStyle x="275" y="0" height="29" width="26"/>
   </symbolStyle>
-  <symbolStyle name="placemark-orange" id="13">
-   <resourceStyle x="312" y="0" height="31" width="17"/>
+  <symbolStyle name="current-routing-compas" id="13">
+   <resourceStyle x="301" y="0" height="29" width="26"/>
   </symbolStyle>
   <symbolStyle name="taxi" id="14">
-   <resourceStyle x="329" y="0" height="20" width="20"/>
+   <resourceStyle x="327" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="telephone" id="15">
-   <resourceStyle x="349" y="0" height="20" width="20"/>
+   <resourceStyle x="347" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="parking_roof" id="16">
-   <resourceStyle x="369" y="0" height="20" width="20"/>
+   <resourceStyle x="367" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="tennis-borderless" id="17">
-   <resourceStyle x="389" y="0" height="20" width="20"/>
+   <resourceStyle x="387" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="peak-mini" id="18">
-   <resourceStyle x="409" y="0" height="20" width="20"/>
+   <resourceStyle x="407" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="tennis" id="19">
-   <resourceStyle x="429" y="0" height="20" width="20"/>
+   <resourceStyle x="427" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="peak" id="20">
-   <resourceStyle x="449" y="0" height="20" width="20"/>
+   <resourceStyle x="447" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="petrolstation" id="21">
-   <resourceStyle x="469" y="0" height="20" width="20"/>
+   <resourceStyle x="467" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="information-office" id="22">
-   <resourceStyle x="489" y="0" height="20" width="20"/>
+   <resourceStyle x="487" y="0" height="20" width="20"/>
   </symbolStyle>
   <symbolStyle name="information" id="23">
    <resourceStyle x="0" y="71" height="20" width="20"/>

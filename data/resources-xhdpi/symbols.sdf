@@ -4,16 +4,16 @@
   <symbol minX="0" maxX="138" minY="0" maxY="138" name="route_to"/>
   <symbol minX="138" maxX="204" minY="0" maxY="66" name="search-result-active"/>
   <symbol minX="204" maxX="265" minY="0" maxY="61" name="compass-image"/>
-  <symbol minX="265" maxX="312" minY="0" maxY="60" name="current-position-compas"/>
-  <symbol minX="312" maxX="359" minY="0" maxY="60" name="current-routing-compas"/>
-  <symbol minX="359" maxX="389" minY="0" maxY="58" name="placemark-yellow"/>
-  <symbol minX="389" maxX="419" minY="0" maxY="58" name="placemark-red"/>
-  <symbol minX="419" maxX="449" minY="0" maxY="58" name="placemark-orange"/>
-  <symbol minX="449" maxX="479" minY="0" maxY="58" name="placemark-pink"/>
-  <symbol minX="479" maxX="509" minY="0" maxY="58" name="placemark-green"/>
-  <symbol minX="509" maxX="539" minY="0" maxY="58" name="placemark-purple"/>
-  <symbol minX="539" maxX="569" minY="0" maxY="58" name="placemark-brown"/>
-  <symbol minX="569" maxX="599" minY="0" maxY="58" name="placemark-blue"/>
+  <symbol minX="265" maxX="295" minY="0" maxY="58" name="placemark-yellow"/>
+  <symbol minX="295" maxX="325" minY="0" maxY="58" name="placemark-red"/>
+  <symbol minX="325" maxX="355" minY="0" maxY="58" name="placemark-orange"/>
+  <symbol minX="355" maxX="385" minY="0" maxY="58" name="placemark-pink"/>
+  <symbol minX="385" maxX="415" minY="0" maxY="58" name="placemark-green"/>
+  <symbol minX="415" maxX="445" minY="0" maxY="58" name="placemark-purple"/>
+  <symbol minX="445" maxX="475" minY="0" maxY="58" name="placemark-brown"/>
+  <symbol minX="475" maxX="505" minY="0" maxY="58" name="placemark-blue"/>
+  <symbol minX="505" maxX="552" minY="0" maxY="54" name="current-position-compas"/>
+  <symbol minX="552" maxX="599" minY="0" maxY="54" name="current-routing-compas"/>
   <symbol minX="599" maxX="639" minY="0" maxY="40" name="tennis"/>
   <symbol minX="639" maxX="679" minY="0" maxY="40" name="tennis-borderless"/>
   <symbol minX="679" maxX="719" minY="0" maxY="40" name="telephone"/>

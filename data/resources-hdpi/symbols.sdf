@@ -12,9 +12,9 @@
   <symbol minX="323" maxX="347" minY="0" maxY="45" name="placemark-green"/>
   <symbol minX="347" maxX="371" minY="0" maxY="45" name="placemark-pink"/>
   <symbol minX="371" maxX="395" minY="0" maxY="45" name="placemark-orange"/>
-  <symbol minX="395" maxX="428" minY="0" maxY="42" name="current-position-compas"/>
-  <symbol minX="428" maxX="461" minY="0" maxY="42" name="current-routing-compas"/>
-  <symbol minX="461" maxX="489" minY="0" maxY="28" name="taxi"/>
+  <symbol minX="395" maxX="432" minY="0" maxY="42" name="current-position-compas"/>
+  <symbol minX="432" maxX="469" minY="0" maxY="42" name="current-routing-compas"/>
+  <symbol minX="469" maxX="497" minY="0" maxY="28" name="taxi"/>
   <symbol minX="0" maxX="28" minY="105" maxY="133" name="telephone"/>
   <symbol minX="28" maxX="56" minY="105" maxY="133" name="parking_roof"/>
   <symbol minX="56" maxX="84" minY="105" maxY="133" name="tennis-borderless"/>

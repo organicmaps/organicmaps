@@ -35,46 +35,46 @@
    <resourceStyle height="26" width="26" x="203" y="0"/>
   </symbolStyle>
   <symbolStyle id="12" name="current-position-compas">
-   <resourceStyle height="25" width="21" x="229" y="0"/>
+   <resourceStyle height="21" width="19" x="229" y="0"/>
   </symbolStyle>
   <symbolStyle id="13" name="current-routing-compas">
-   <resourceStyle height="25" width="21" x="250" y="0"/>
+   <resourceStyle height="21" width="19" x="248" y="0"/>
   </symbolStyle>
   <symbolStyle id="14" name="tennis">
-   <resourceStyle height="20" width="20" x="271" y="0"/>
+   <resourceStyle height="20" width="20" x="267" y="0"/>
   </symbolStyle>
   <symbolStyle id="15" name="tennis-borderless">
-   <resourceStyle height="20" width="20" x="291" y="0"/>
+   <resourceStyle height="20" width="20" x="287" y="0"/>
   </symbolStyle>
   <symbolStyle id="16" name="telephone">
-   <resourceStyle height="20" width="20" x="311" y="0"/>
+   <resourceStyle height="20" width="20" x="307" y="0"/>
   </symbolStyle>
   <symbolStyle id="17" name="parking_roof">
-   <resourceStyle height="20" width="20" x="331" y="0"/>
+   <resourceStyle height="20" width="20" x="327" y="0"/>
   </symbolStyle>
   <symbolStyle id="18" name="taxi">
-   <resourceStyle height="20" width="20" x="351" y="0"/>
+   <resourceStyle height="20" width="20" x="347" y="0"/>
   </symbolStyle>
   <symbolStyle id="19" name="synagogue">
-   <resourceStyle height="20" width="20" x="371" y="0"/>
+   <resourceStyle height="20" width="20" x="367" y="0"/>
   </symbolStyle>
   <symbolStyle id="20" name="peak-mini">
-   <resourceStyle height="20" width="20" x="391" y="0"/>
+   <resourceStyle height="20" width="20" x="387" y="0"/>
   </symbolStyle>
   <symbolStyle id="21" name="peak">
-   <resourceStyle height="20" width="20" x="411" y="0"/>
+   <resourceStyle height="20" width="20" x="407" y="0"/>
   </symbolStyle>
   <symbolStyle id="22" name="information-office">
-   <resourceStyle height="20" width="20" x="431" y="0"/>
+   <resourceStyle height="20" width="20" x="427" y="0"/>
   </symbolStyle>
   <symbolStyle id="23" name="information">
-   <resourceStyle height="20" width="20" x="451" y="0"/>
+   <resourceStyle height="20" width="20" x="447" y="0"/>
   </symbolStyle>
   <symbolStyle id="24" name="kindergarten">
-   <resourceStyle height="20" width="20" x="471" y="0"/>
+   <resourceStyle height="20" width="20" x="467" y="0"/>
   </symbolStyle>
   <symbolStyle id="25" name="kindergarten2">
-   <resourceStyle height="20" width="20" x="491" y="0"/>
+   <resourceStyle height="20" width="20" x="487" y="0"/>
   </symbolStyle>
   <symbolStyle id="26" name="kiosk">
    <resourceStyle height="20" width="20" x="0" y="54"/>

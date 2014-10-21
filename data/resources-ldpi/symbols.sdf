@@ -12,20 +12,20 @@
   <symbol minX="173" maxX="188" minY="0" maxY="27" name="placemark-brown"/>
   <symbol minX="188" maxX="203" minY="0" maxY="27" name="placemark-blue"/>
   <symbol minX="203" maxX="229" minY="0" maxY="26" name="compass-image"/>
-  <symbol minX="229" maxX="250" minY="0" maxY="25" name="current-position-compas"/>
-  <symbol minX="250" maxX="271" minY="0" maxY="25" name="current-routing-compas"/>
-  <symbol minX="271" maxX="291" minY="0" maxY="20" name="tennis"/>
-  <symbol minX="291" maxX="311" minY="0" maxY="20" name="tennis-borderless"/>
-  <symbol minX="311" maxX="331" minY="0" maxY="20" name="telephone"/>
-  <symbol minX="331" maxX="351" minY="0" maxY="20" name="parking_roof"/>
-  <symbol minX="351" maxX="371" minY="0" maxY="20" name="taxi"/>
-  <symbol minX="371" maxX="391" minY="0" maxY="20" name="synagogue"/>
-  <symbol minX="391" maxX="411" minY="0" maxY="20" name="peak-mini"/>
-  <symbol minX="411" maxX="431" minY="0" maxY="20" name="peak"/>
-  <symbol minX="431" maxX="451" minY="0" maxY="20" name="information-office"/>
-  <symbol minX="451" maxX="471" minY="0" maxY="20" name="information"/>
-  <symbol minX="471" maxX="491" minY="0" maxY="20" name="kindergarten"/>
-  <symbol minX="491" maxX="511" minY="0" maxY="20" name="kindergarten2"/>
+  <symbol minX="229" maxX="248" minY="0" maxY="21" name="current-position-compas"/>
+  <symbol minX="248" maxX="267" minY="0" maxY="21" name="current-routing-compas"/>
+  <symbol minX="267" maxX="287" minY="0" maxY="20" name="tennis"/>
+  <symbol minX="287" maxX="307" minY="0" maxY="20" name="tennis-borderless"/>
+  <symbol minX="307" maxX="327" minY="0" maxY="20" name="telephone"/>
+  <symbol minX="327" maxX="347" minY="0" maxY="20" name="parking_roof"/>
+  <symbol minX="347" maxX="367" minY="0" maxY="20" name="taxi"/>
+  <symbol minX="367" maxX="387" minY="0" maxY="20" name="synagogue"/>
+  <symbol minX="387" maxX="407" minY="0" maxY="20" name="peak-mini"/>
+  <symbol minX="407" maxX="427" minY="0" maxY="20" name="peak"/>
+  <symbol minX="427" maxX="447" minY="0" maxY="20" name="information-office"/>
+  <symbol minX="447" maxX="467" minY="0" maxY="20" name="information"/>
+  <symbol minX="467" maxX="487" minY="0" maxY="20" name="kindergarten"/>
+  <symbol minX="487" maxX="507" minY="0" maxY="20" name="kindergarten2"/>
   <symbol minX="0" maxX="20" minY="54" maxY="74" name="kiosk"/>
   <symbol minX="20" maxX="40" minY="54" maxY="74" name="library"/>
   <symbol minX="40" maxX="60" minY="54" maxY="74" name="man-made-halfpipe"/>

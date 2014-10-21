@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <skin>
- <page file="symbols.png" width="1024" height="512">
+ <page width="1024" file="symbols.png" height="512">
   <symbolStyle id="1" name="route_to">
    <resourceStyle x="0" y="0" width="138" height="138"/>
   </symbolStyle>
@@ -10,35 +10,35 @@
   <symbolStyle id="3" name="compass-image">
    <resourceStyle x="204" y="0" width="61" height="61"/>
   </symbolStyle>
-  <symbolStyle id="4" name="current-position-compas">
-   <resourceStyle x="265" y="0" width="47" height="60"/>
+  <symbolStyle id="4" name="placemark-yellow">
+   <resourceStyle x="265" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="5" name="current-routing-compas">
-   <resourceStyle x="312" y="0" width="47" height="60"/>
+  <symbolStyle id="5" name="placemark-red">
+   <resourceStyle x="295" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="6" name="placemark-yellow">
-   <resourceStyle x="359" y="0" width="30" height="58"/>
+  <symbolStyle id="6" name="placemark-orange">
+   <resourceStyle x="325" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="7" name="placemark-red">
-   <resourceStyle x="389" y="0" width="30" height="58"/>
+  <symbolStyle id="7" name="placemark-pink">
+   <resourceStyle x="355" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="8" name="placemark-orange">
-   <resourceStyle x="419" y="0" width="30" height="58"/>
+  <symbolStyle id="8" name="placemark-green">
+   <resourceStyle x="385" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="9" name="placemark-pink">
-   <resourceStyle x="449" y="0" width="30" height="58"/>
+  <symbolStyle id="9" name="placemark-purple">
+   <resourceStyle x="415" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="10" name="placemark-green">
-   <resourceStyle x="479" y="0" width="30" height="58"/>
+  <symbolStyle id="10" name="placemark-brown">
+   <resourceStyle x="445" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="11" name="placemark-purple">
-   <resourceStyle x="509" y="0" width="30" height="58"/>
+  <symbolStyle id="11" name="placemark-blue">
+   <resourceStyle x="475" y="0" width="30" height="58"/>
   </symbolStyle>
-  <symbolStyle id="12" name="placemark-brown">
-   <resourceStyle x="539" y="0" width="30" height="58"/>
+  <symbolStyle id="12" name="current-position-compas">
+   <resourceStyle x="505" y="0" width="47" height="54"/>
   </symbolStyle>
-  <symbolStyle id="13" name="placemark-blue">
-   <resourceStyle x="569" y="0" width="30" height="58"/>
+  <symbolStyle id="13" name="current-routing-compas">
+   <resourceStyle x="552" y="0" width="47" height="54"/>
   </symbolStyle>
   <symbolStyle id="14" name="tennis">
    <resourceStyle x="599" y="0" width="40" height="40"/>
