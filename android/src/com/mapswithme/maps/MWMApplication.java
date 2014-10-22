@@ -5,21 +5,17 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
-import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.country.ActiveCountryTree;
-import com.mapswithme.country.StorageOptions;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
@@ -149,7 +145,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init BookmarkManager (automatically loads bookmarks)
     if (hasBookmarks())
-      BookmarkManager.getBookmarkManager(getApplicationContext());
+      BookmarkManager.getBookmarkManager();
 
     WorkerService.startActionUpdateAds(this);
   }

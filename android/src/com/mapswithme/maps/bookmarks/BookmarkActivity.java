@@ -64,7 +64,7 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
     // (category index, bookmark index in category).
     final Point cab = ((ParcelablePoint) getIntent().getParcelableExtra(PIN)).getPoint();
 
-    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
+    mManager = BookmarkManager.getBookmarkManager();
     mPin = mManager.getBookmark(cab.x, cab.y);
     mCurrentCategoryId = mPin.getCategoryId();
 

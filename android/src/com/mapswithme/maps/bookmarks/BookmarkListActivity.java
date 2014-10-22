@@ -49,7 +49,7 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.bookmarks_list);
 
-    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
+    mManager = BookmarkManager.getBookmarkManager();
 
     // Initialize with passed edited set.
     final int setIndex = getIntent().getIntExtra(BookmarkActivity.PIN_SET, -1);

@@ -15,7 +15,7 @@ public abstract class AbstractBookmarkCategoryActivity extends MapsWithMeBaseLis
   {
     super.onCreate(savedInstanceState);
 
-    mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
+    mManager = BookmarkManager.getBookmarkManager();
   }
 
   @Override

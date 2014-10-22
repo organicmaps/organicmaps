@@ -1,17 +1,12 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.Context;
-
-
 public class BookmarkCategory
 {
   private final int mId;
   private String mName;
-  private final Context mContext;
 
-  BookmarkCategory(Context c, int id)
+  BookmarkCategory(int id)
   {
-    mContext = c;
     mId = id;
   }
 

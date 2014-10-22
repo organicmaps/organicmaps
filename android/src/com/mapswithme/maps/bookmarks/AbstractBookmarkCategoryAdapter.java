@@ -14,7 +14,7 @@ public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
   public AbstractBookmarkCategoryAdapter(Context context)
   {
     mContext = context;
-    mManager = BookmarkManager.getBookmarkManager(context);
+    mManager = BookmarkManager.getBookmarkManager();
   }
 
   protected Context getContext()

@@ -1,9 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.content.Context;
 import android.util.Pair;
 
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -12,26 +10,17 @@ import java.util.List;
 public class BookmarkManager
 {
   private static BookmarkManager sManager;
-  private List<Bookmark> mPins;
-  private List<BookmarkCategory> mPinSets;
-  private final Context mContext;
 
-  private BookmarkManager(Context context)
+  private BookmarkManager()
   {
-    mContext = context;
     loadBookmarks();
-  }
-
-  public static BookmarkManager getBookmarkManager(Context context)
-  {
-    if (sManager == null)
-      sManager = new BookmarkManager(context.getApplicationContext());
-    return sManager;
   }
 
   public static BookmarkManager getBookmarkManager()
   {
-    return getBookmarkManager(MWMApplication.get());
+    if (sManager == null)
+      sManager = new BookmarkManager();
+    return sManager;
   }
 
   private native void loadBookmarks();
@@ -65,7 +54,7 @@ public class BookmarkManager
   {
     if (id < getCategoriesCount())
     {
-      return new BookmarkCategory(mContext, id);
+      return new BookmarkCategory(id);
     }
     else
     {

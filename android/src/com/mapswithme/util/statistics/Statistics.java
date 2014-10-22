@@ -298,7 +298,7 @@ public enum Statistics
       mEventBuilder.setName(EventParam.PRO_STAT);
 
       // Number of sets
-      final BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
+      final BookmarkManager manager = BookmarkManager.getBookmarkManager();
       final int categoriesCount = manager.getCategoriesCount();
       if (categoriesCount > 0)
       {

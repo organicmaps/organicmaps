@@ -117,7 +117,7 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     @Override
     public boolean run(final MWMActivity target)
     {
-      final BookmarkManager bmkManager  = BookmarkManager.getBookmarkManager(target);
+      final BookmarkManager bmkManager  = BookmarkManager.getBookmarkManager();
       final int categoriesCount = bmkManager.getCategoriesCount();
 
       // find category
