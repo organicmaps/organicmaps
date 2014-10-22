@@ -1499,19 +1499,21 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
+    boolean result = false;
     // if vertical toolbar is visible - hide it and ignore touch
     if (mVerticalToolbar.getVisibility() == View.VISIBLE)
     {
       setVerticalToolbarVisible(false);
-      return true;
+      result = true;
     }
     if (mInfoView.getState() == State.FULL_PLACEPAGE)
     {
       deactivatePopup();
       hideInfoView();
-      return true;
+      result = true;
     }
-    return super.onTouch(view, event);
+    result |= super.onTouch(view, event);
+    return result;
   }
 
   @Override
