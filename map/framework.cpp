@@ -948,12 +948,7 @@ m2::PointD Framework::GetPixelCenter() const
 
 void Framework::StartDrag(DragEvent const & e)
 {
-  m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pt);
-#endif
-
-  m_navigator.StartDrag(pt, ElapsedSeconds());
+  m_navigator.StartDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
   m_informationDisplay.locationState()->DragStarted();
 
   if (m_renderPolicy)
@@ -962,13 +957,7 @@ void Framework::StartDrag(DragEvent const & e)
 
 void Framework::DoDrag(DragEvent const & e)
 {
-  m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
-
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pt);
-#endif
-
-  m_navigator.DoDrag(pt, ElapsedSeconds());
+  m_navigator.DoDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
 
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
@@ -976,13 +965,7 @@ void Framework::DoDrag(DragEvent const & e)
 
 void Framework::StopDrag(DragEvent const & e)
 {
-  m2::PointD const pt = m_navigator.ShiftPoint(e.Pos());
-
-  m_navigator.StopDrag(pt, ElapsedSeconds(), true);
-
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pt);
-#endif
+  m_navigator.StopDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds(), true);
   m_informationDisplay.locationState()->DragEnded();
 
   if (m_renderPolicy)
@@ -1066,11 +1049,6 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   pt2 = m_navigator.ShiftPoint(e.Pt2());
 
   m_informationDisplay.locationState()->CorrectScalePoint(pt1, pt2);
-
-#ifdef DRAW_TOUCH_POINTS
-  m_informationDisplay.setDebugPoint(0, pt1);
-  m_informationDisplay.setDebugPoint(1, pt2);
-#endif
 }
 
 bool Framework::CanRotate() const
