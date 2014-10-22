@@ -266,6 +266,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
   if ([self isActiveMapsIndexPath:indexPath])
   {
     ActiveMapsVC * vc = [[ActiveMapsVC alloc] init];
@@ -279,8 +280,6 @@
       MapCell * cell = [self cellAtPositionInNode:self.selectedPosition];
       UIActionSheet * actionSheet = [self actionSheetToPerformActionOnSelectedMap];
       [actionSheet showFromRect:cell.frame inView:cell.superview animated:YES];
-
-      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     else
     {

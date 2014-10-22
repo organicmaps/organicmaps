@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, DownloaderAction)
 
 using namespace storage;
 
-@interface DownloaderParentVC : UITableViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface DownloaderParentVC : UIViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (NSString *)formattedMapSize:(size_t)size;
 - (void)openGuideWithInfo:(guides::GuideInfo const &)info;
@@ -31,6 +31,8 @@ using namespace storage;
 - (BOOL)canDownloadSelectedMap;
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap;
 - (UIActionSheet *)actionSheetToPerformActionOnSelectedMap;
+
+@property (nonatomic) UITableView * tableView;
 
 @property (nonatomic) NSInteger selectedPosition;
 

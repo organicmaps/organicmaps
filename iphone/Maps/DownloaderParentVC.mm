@@ -12,19 +12,26 @@
 
 @implementation DownloaderParentVC
 
-- (id)init
-{
-  self = [super initWithStyle:UITableViewStyleGrouped];
-  return self;
-}
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
 
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  [self.view addSubview:self.tableView];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
+}
+
+- (UITableView *)tableView
+{
+  if (!_tableView) {
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  }
+  return _tableView;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -54,6 +61,11 @@
 - (size_t)selectedMapSizeWithOptions:(TMapOptions)options { return 0; }
 - (TStatus)selectedMapStatus { return TStatus::EUnknown; }
 - (TMapOptions)selectedMapOptions { return TMapOptions::EMapOnly; }
+
+#pragma mark - Virtual table view methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section { return 0; }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath { return nil; }
 
 #pragma mark - Public methods for successors
 
