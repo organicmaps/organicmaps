@@ -410,6 +410,8 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 
       int newPosition = MoveItemToGroup(group, position, TGroup::EUpToDate);
       NotifyMove(group, position, TGroup::EUpToDate, newPosition);
+      group = TGroup::EUpToDate;
+      position = newPosition;
     }
     else if (item.m_options != options)
     {
