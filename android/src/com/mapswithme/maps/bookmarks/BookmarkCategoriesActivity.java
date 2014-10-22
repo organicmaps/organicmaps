@@ -35,11 +35,8 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id)
       {
-        if (getAdapter().isActiveItem(position))
-        {
-          startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
-              .putExtra(BookmarkActivity.PIN_SET, position));
-        }
+        startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
+            .putExtra(BookmarkActivity.PIN_SET, position));
       }
     });
 
@@ -51,15 +48,10 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
                                   ContextMenuInfo menuInfo)
   {
     mSelectedPosition = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-    if (getAdapter().isActiveItem(mSelectedPosition))
-    {
-      getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
-      menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
+    getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
+    menu.setHeaderTitle(mManager.getCategoryById(mSelectedPosition).getName());
 
-      super.onCreateContextMenu(menu, v, menuInfo);
-    }
-    else
-      mSelectedPosition = -1;
+    super.onCreateContextMenu(menu, v, menuInfo);
   }
 
   @Override

@@ -22,11 +22,6 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   private final static int ITEM = 0;
   private final static int HELP = 1;
 
-  public boolean isActiveItem(int position)
-  {
-    return getItemViewType(position) != HELP;
-  }
-
   @Override
   public int getCount()
   {
@@ -43,6 +38,12 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   public int getViewTypeCount()
   {
     return 2;
+  }
+
+  @Override
+  public boolean isEnabled(int position)
+  {
+    return getItemViewType(position) != HELP;
   }
 
   @Override
