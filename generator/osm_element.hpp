@@ -311,13 +311,11 @@ class SecondPassParser : public BaseOSMParser
     }
   }
 
-  void EmitLine(FeatureBuilderT & ft, FeatureParams params, osm::Id id)
+  void EmitLine(FeatureBuilderT & ft, FeatureParams params, bool isCoastLine)
   {
-    if ((m_coastType != 0 && params.IsTypeExist(m_coastType)) ||
-        feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
+    if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
-      ft.SetOsmId(id);
       EmitFeatureBase(ft, params);
     }
   }
@@ -390,17 +388,18 @@ class SecondPassParser : public BaseOSMParser
       if (ft.GetPointsCount() < 2)
         return;
 
-      osm::Id const osmID = osm::Id::Way(id);
+      ft.SetOsmId(osm::Id::Way(id));
+      bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
-      ft.SetOsmId(osmID);
-      EmitArea(ft, params, [id, this] (FeatureBuilderT & ft)
+      EmitArea(ft, params, [&] (FeatureBuilderT & ft)
       {
+        isCoastLine = false;  // emit coastline feature only once
         multipolygon_holes_processor processor(id, this);
         m_holder.ForEachRelationByWay(id, processor);
         ft.SetAreaAddHoles(processor.GetHoles());
       });
 
-      EmitLine(ft, params, osmID);
+      EmitLine(ft, params, isCoastLine);
     }
     else if (p->name == "relation")
     {
