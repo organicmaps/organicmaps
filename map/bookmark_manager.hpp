@@ -3,12 +3,15 @@
 #include "user_mark_container.hpp"
 #include "user_mark_dl_cache.hpp"
 
+#include "../std/unique_ptr.hpp"
+
 class Framework;
 class PaintEvent;
 namespace graphics { class Screen; }
 
 class BookmarkManager : private noncopyable
 {
+  unique_ptr<BookmarkCategory> m_routeCategory;
   vector<BookmarkCategory *> m_categories;
   string m_lastCategoryUrl;
   string m_lastType;
@@ -82,6 +85,9 @@ public:
 
   void SetScreen(graphics::Screen * screen);
   void ResetScreen();
+
+  BookmarkCategory * GetRouteCategory();
+  void DeleteRouteCategory();
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;

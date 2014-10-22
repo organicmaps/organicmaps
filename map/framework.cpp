@@ -1902,20 +1902,9 @@ void Framework::FollowRoute()
   GetLocationState()->StartRouteFollow();
 }
 
-BookmarkCategory * Framework::FindCategory(string const & name)
-{
-  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
-  {
-    BookmarkCategory * p = m_bmManager.GetBmCategory(i);
-    if (p->GetName() == name)
-      return p;
-  }
-  return 0;
-}
-
 void Framework::RemoveRoute()
 {
-  GetRoutesCategory()->ClearTracks();
+  m_bmManager.DeleteRouteCategory();
 }
 
 void Framework::CloseRouting()
@@ -1928,8 +1917,6 @@ void Framework::CloseRouting()
 
 void Framework::InsertRoute(Route const & route)
 {
-  RemoveRoute();
-
   float const visScale = GetVisualScale();
 
   Track track(route.GetPoly());
@@ -1945,7 +1932,10 @@ void Framework::InsertRoute(Route const & route)
   track.AddOutline(outlines, ARRAY_SIZE(outlines));
   track.AddClosingSymbol(true, "route_from", graphics::EPosCenter, graphics::routingSymbolsDepth);
   track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
-  GetRoutesCategory()->AddTrack(track);
+
+  BookmarkCategory * cat = m_bmManager.GetRouteCategory();
+  cat->ClearTracks();
+  cat->AddTrack(track);
   Invalidate();
 }
 
@@ -2021,14 +2011,4 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
 void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const
 {
   m_routingSession.GetRouteFollowingInfo(info);
-}
-
-BookmarkCategory * Framework::GetRoutesCategory()
-{
-  string const name = m_stringsBundle.GetString("routes");
-  BookmarkCategory * cat = FindCategory(name);
-  if (cat == 0)
-    cat = m_bmManager.GetBmCategory(AddCategory(name));
-
-  return cat;
 }

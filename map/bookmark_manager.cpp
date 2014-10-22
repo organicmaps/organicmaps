@@ -152,6 +152,7 @@ void BookmarkManager::ClearItems()
 {
   for_each(m_categories.begin(), m_categories.end(), DeleteFunctor());
   m_categories.clear();
+  DeleteRouteCategory();
 }
 
 void BookmarkManager::LoadBookmarks()
@@ -254,10 +255,8 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 
   LazyMatrixCalc matrix(screen, m_lastScale);
 
-  // Update track's display lists.
-  for (size_t i = 0; i < m_categories.size(); ++i)
+  auto dlUpdateFn = [&matrix, &limitRect, this] (BookmarkCategory const * cat)
   {
-    BookmarkCategory const * cat = m_categories[i];
     if (cat->IsVisible())
     {
       for (size_t j = 0; j < cat->GetTracksCount(); ++j)
@@ -272,6 +271,13 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
           track->DeleteDisplayList();
       }
     }
+  };
+
+  // Update track's display lists.
+  for (size_t i = 0; i < m_categories.size(); ++i)
+  {
+    BookmarkCategory const * cat = m_categories[i];
+    dlUpdateFn(cat);
   }
 
   graphics::Screen * pScreen = e->drawer()->screen();
@@ -280,6 +286,11 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   PaintOverlayEvent event(e->drawer(), screen);
   for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
   for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
+  if (m_routeCategory != nullptr)
+  {
+    dlUpdateFn(m_routeCategory.get());
+    DrawCategory(m_routeCategory.get(), event);
+  }
   m_selection.Draw(event, m_cache);
 
   pScreen->endFrame();
@@ -439,15 +450,35 @@ void BookmarkManager::ResetScreen()
 {
   delete m_cache;
   m_cache = NULL;
+
+  auto dlDeleteFn = [] (BookmarkCategory const * cat)
+  {
+    for (size_t j = 0; j < cat->GetTracksCount(); ++j)
+      cat->GetTrack(j)->DeleteDisplayList();
+  };
+
   if (m_bmScreen)
   {
     // Delete display lists for all tracks
-    for (size_t i = 0; i < m_categories.size(); ++i)
-      for (size_t j = 0; j < m_categories[i]->GetTracksCount(); ++j)
-        m_categories[i]->GetTrack(j)->DeleteDisplayList();
+    for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
+    if (m_routeCategory != nullptr)
+      dlDeleteFn(m_routeCategory.get());
 
     m_bmScreen = 0;
   }
+}
+
+BookmarkCategory * BookmarkManager::GetRouteCategory()
+{
+  if (m_routeCategory == nullptr)
+    m_routeCategory.reset(new BookmarkCategory("routes", m_framework));
+
+  return m_routeCategory.get();
+}
+
+void BookmarkManager::DeleteRouteCategory()
+{
+  m_routeCategory.reset();
 }
 
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type) const

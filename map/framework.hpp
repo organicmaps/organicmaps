@@ -497,9 +497,6 @@ public:
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:
-  BookmarkCategory * GetRoutesCategory();
-  BookmarkCategory * FindCategory(string const & name);
-
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
