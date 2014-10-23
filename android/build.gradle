@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.12.2'
+    classpath propGradleAndroidPlugin
   }
 }
 
@@ -178,10 +178,14 @@ android {
     abortOnError false
   }
 
+  // version at the end of each built apk
   applicationVariants.all { variant ->
-    // version at the end of each built apk
-    def file = variant.outputFile
-    variant.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + "-" + getDate() + ".apk"))
+    variant.outputs.each { output ->
+      if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
+        def file = output.outputFile
+        output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + "-" + getDate() + ".apk"))
+      }
+    }
   }
 
   signingConfigs {
@@ -265,7 +269,7 @@ task ndkBuildClean(type:Exec, description: 'Clean native libraries') {
   commandLine NDK_BUILD, 'clean'
 }
 
-tasks.withType(Compile) { compileTask ->
+tasks.withType(JavaCompile) { compileTask ->
   if (compileTask.name.contains('Release') || compileTask.name.contains('Beta')) {
     compileTask.dependsOn ndkBuildRelease
   } else {

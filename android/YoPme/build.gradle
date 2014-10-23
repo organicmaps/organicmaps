@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.12.1'
+    classpath propGradleAndroidPlugin
   }
 }
 
@@ -29,7 +29,7 @@ task ndkBuildClean(type:Exec, description: 'Clean native libraries') {
   commandLine NDK_BUILD, 'clean'
 }
 
-tasks.withType(Compile) { compileTask -> compileTask.dependsOn ndkBuild }
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn ndkBuild }
 
 clean.dependsOn 'ndkBuildClean'
 

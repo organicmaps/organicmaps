@@ -9,7 +9,7 @@
 
   <uses-sdk
       android:minSdkVersion="7"
-      tools:node="replace"/>
+      tools:overrideLibrary="com.google.android.gms" />
 
   <uses-feature
       android:glEsVersion="0x00020000"
