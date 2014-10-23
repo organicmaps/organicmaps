@@ -6,12 +6,13 @@ dependencies {
 }
 
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    // properties are taken from the root android folder of the MAPS.ME project
+    compileSdkVersion Integer.parseInt(propTargetSdkVersion)
+    buildToolsVersion propBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion Integer.parseInt(project.ANDROID_BUILD_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        minSdkVersion Integer.parseInt(propMinSdkVersion)
+        targetSdkVersion Integer.parseInt(propTargetSdkVersion)
     }
 
     lintOptions {
