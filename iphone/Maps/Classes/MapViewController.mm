@@ -561,6 +561,11 @@
   }
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+  return NO;
+}
+
 - (id)initWithCoder:(NSCoder *)coder
 {
   NSLog(@"MapViewController initWithCoder Started");
