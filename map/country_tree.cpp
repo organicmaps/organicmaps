@@ -40,37 +40,68 @@ inline TIndex GetIndexParent(TIndex const & index)
   return parent;
 }
 
-CountryTree::CountryTree(Framework & framework)
-  : m_layout(framework)
+CountryTree::CountryTree()
 {
-  m_subscribeSlotID = GetStorage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
-                                             bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
+}
+
+CountryTree::CountryTree(Framework & framework)
+{
+  m_layout.reset(new ActiveMapsLayout(framework));
+  ConnectToCoreStorage();
+}
+
+CountryTree::CountryTree(CountryTree const & other)
+{
+  *this = other;
 }
 
 CountryTree::~CountryTree()
 {
-  GetStorage().Unsubscribe(m_subscribeSlotID);
+  if (IsValid())
+    GetStorage().Unsubscribe(m_subscribeSlotID);
+}
+
+CountryTree & CountryTree::operator=(CountryTree const & other)
+{
+  if (this == &other)
+    return *this;
+
+  m_levelItems = other.m_levelItems;
+  m_listener = other.m_listener;
+  m_layout = other.m_layout;
+  ConnectToCoreStorage();
+
+  return *this;
 }
 
 void CountryTree::Init(vector<string> const & maps)
 {
-  m_layout.Init(maps);
+  ASSERT(IsValid(), ());
+  m_layout->Init(maps);
 }
 
 void CountryTree::Clear()
 {
+  ASSERT(IsValid(), ());
   ResetRoot();
-  m_layout.Clear();
+  m_layout->Clear();
 }
 
 ActiveMapsLayout & CountryTree::GetActiveMapLayout()
 {
-  return m_layout;
+  ASSERT(IsValid(), ());
+  return *m_layout;
 }
 
 ActiveMapsLayout const & CountryTree::GetActiveMapLayout() const
 {
-  return m_layout;
+  ASSERT(IsValid(), ());
+  return *m_layout;
+}
+
+bool CountryTree::IsValid() const
+{
+  return m_layout != nullptr;
 }
 
 void CountryTree::SetDefaultRoot()
@@ -211,12 +242,23 @@ void CountryTree::ShowLeafOnMap(int position)
 
 Storage const & CountryTree::GetStorage() const
 {
-  return m_layout.GetStorage();
+  ASSERT(IsValid(), ());
+  return m_layout->GetStorage();
 }
 
 Storage & CountryTree::GetStorage()
 {
-  return m_layout.GetStorage();
+  ASSERT(IsValid(), ());
+  return m_layout->GetStorage();
+}
+
+void CountryTree::ConnectToCoreStorage()
+{
+  if (IsValid())
+  {
+    m_subscribeSlotID = GetStorage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
+                                               bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
+  }
 }
 
 TIndex const & CountryTree::GetCurrentRoot() const

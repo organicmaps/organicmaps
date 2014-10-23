@@ -9,6 +9,7 @@
 
 #include "../std/string.hpp"
 #include "../std/function.hpp"
+#include "../std/shared_ptr.hpp"
 
 class Framework;
 
@@ -26,8 +27,13 @@ public:
     virtual void ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes) = 0;
   };
 
+  CountryTree();
   CountryTree(Framework & framework);
+
+  CountryTree(CountryTree const & other);
   ~CountryTree();
+
+  CountryTree & operator=(CountryTree const & other);
 
   /// @param[in]  Sorted vector of current .mwm files.
   void Init(vector<string> const & maps);
@@ -35,6 +41,8 @@ public:
 
   ActiveMapsLayout & GetActiveMapLayout();
   ActiveMapsLayout const & GetActiveMapLayout() const;
+
+  bool IsValid() const;
 
   void SetDefaultRoot();
   void SetParentAsRoot();
@@ -72,6 +80,7 @@ public:
 private:
   Storage const & GetStorage() const;
   Storage & GetStorage();
+  void ConnectToCoreStorage();
 
 private:
   TIndex const & GetCurrentRoot() const;
@@ -84,7 +93,7 @@ private:
 
 private:
   int m_subscribeSlotID = 0;
-  mutable ActiveMapsLayout m_layout;
+  mutable shared_ptr<ActiveMapsLayout> m_layout;
 
   buffer_vector<TIndex, 16> m_levelItems;
 

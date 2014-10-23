@@ -10,6 +10,7 @@
 
 @implementation CountryTreeVC
 {
+  CountryTree m_tree;
   CountryTreeObserver * m_treeObserver;
 }
 
@@ -34,6 +35,12 @@
   self.tree.SetListener(m_treeObserver);
 
   return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  m_tree = CountryTree();
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -69,7 +76,10 @@
 
 - (CountryTree &)tree
 {
-  return GetFramework().GetCountryTree();
+  if (m_tree.IsValid())
+    return m_tree;
+  else
+    return GetFramework().GetCountryTree();
 }
 
 - (MapCell *)cellAtPositionInNode:(int)position
@@ -283,6 +293,7 @@
     }
     else
     {
+      m_tree = self.tree;
       CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:self.selectedPosition];
       [self.navigationController pushViewController:vc animated:YES];
     }
