@@ -28,7 +28,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,6 +36,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
@@ -76,7 +76,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   // Preview
   private final TextView mTitle;
   private final TextView mSubtitle;
-  private final CheckBox mIsBookmarked;
+  private final ToggleButton mIsBookmarked;
   private final ImageButton mEditBtn;
   private final LayoutInflater mInflater;
   private final View mArrow;
@@ -161,11 +161,11 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     // Preview
     mTitle = (TextView) mPreviewGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mPreviewGroup.findViewById(R.id.info_subtitle);
-    mIsBookmarked = (CheckBox) mPreviewGroup.findViewById(R.id.info_box_is_bookmarked);
-    mArrow = mPreviewGroup.findViewById(R.id.iv_arrow);
+    mIsBookmarked = (ToggleButton) mPreviewGroup.findViewById(R.id.info_box_is_bookmarked);
     // We don't want to use OnCheckedChangedListener because it gets called
     // if someone calls setChecked() from code. We need only user interaction.
     mIsBookmarked.setOnClickListener(this);
+    mArrow = mPreviewGroup.findViewById(R.id.iv_arrow);
     mEditBtn = (ImageButton) mPreviewGroup.findViewById(R.id.btn_edit_title);
 
     // Place Page

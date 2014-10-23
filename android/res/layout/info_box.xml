@@ -17,31 +17,30 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_top_panels"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingLeft="@dimen/margin_medium"
-        android:paddingRight="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small">
+        android:padding="@dimen/margin_tiny"
+        android:paddingBottom="0dp">
 
       <RelativeLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="1">
+          android:layout_weight="1"
+          android:paddingBottom="@dimen/margin_tiny_and_half"
+          android:paddingLeft="@dimen/margin_small_and_half"
+          android:paddingTop="@dimen/margin_tiny">
 
         <TextView
             android:id="@+id/info_title"
             style="@style/Holo.TextAppearance.Large.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_micro"
             android:fontFamily="@string/robotoLight"
-            android:paddingRight="@dimen/margin_large"
-            android:textColor="@color/text_info_box"/>
+            android:textColor="@color/text_info_box"
+            android:textSize="@dimen/ppp_title_text_size"/>
 
         <ImageButton
             android:id="@+id/btn_edit_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="-32dp"
             android:layout_toRightOf="@id/info_title"
             android:alpha="@dimen/alpha_edit_button"
             android:background="@android:color/transparent"
@@ -54,23 +53,22 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/info_title"
             android:fontFamily="@string/robotoLight"
-            android:paddingRight="5dp"
             android:textColor="@color/text_info_box"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/ppp_subtitle_text_size"/>
 
       </RelativeLayout>
 
       <FrameLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="@dimen/ppp_button_size"
+          android:layout_height="@dimen/ppp_button_size"
           android:layout_weight="0">
 
         <ImageView
             android:id="@+id/iv__start_routing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/ppp_button_size"
+            android:layout_height="@dimen/ppp_button_size"
             android:layout_gravity="center"
-            android:padding="@dimen/margin_small"
+            android:scaleType="center"
             android:src="@drawable/ic_drive"/>
 
         <ProgressBar
@@ -82,15 +80,13 @@
 
       </FrameLayout>
 
-      <CheckBox
+      <ToggleButton
           android:id="@+id/info_box_is_bookmarked"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_small"
-          android:layout_marginRight="-8dp"
+          style="@style/bookmarkToggleButton"
+          android:layout_width="@dimen/ppp_button_size"
+          android:layout_height="@dimen/ppp_button_size"
           android:layout_weight="0"
-          android:button="@drawable/ic_bookmarks_selector"
-          android:padding="@dimen/margin_small"/>
+          android:background="@drawable/ic_bookmarks_toggle_bg"/>
     </LinearLayout>
 
     <RelativeLayout
