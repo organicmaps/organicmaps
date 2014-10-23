@@ -171,6 +171,9 @@
   else
     cell.badgeView.value = 0;
 
+  if (indexPath.row == [self.items count] - 1)
+    cell.separator.hidden = YES;
+
   return cell;
 }
 

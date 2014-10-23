@@ -36,6 +36,11 @@
   return 50;
 }
 
+- (void)prepareForReuse
+{
+  self.separator.hidden = NO;
+}
+
 - (void)layoutSubviews
 {
   self.selectedBackgroundView.frame = self.bounds;

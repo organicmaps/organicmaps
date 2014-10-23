@@ -166,6 +166,7 @@
 
 - (void)layoutSubviews
 {
+  [super layoutSubviews];
   [self alignSubviews];
   if (!self.parentMode)
   {
