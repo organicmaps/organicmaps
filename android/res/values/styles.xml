@@ -48,8 +48,12 @@
   </style>
 
   <style name="infoItem" parent="@style/Holo.TextAppearance.Large.Light">
-    <item name="android:textSize">@dimen/sp_x_5</item>
-    <item name="android:layout_marginTop">@dimen/dp_x_1</item>
+    <item name="android:textSize">@dimen/ppp_title_text_size</item>
+    <item name="android:textColor">@color/text_info_box</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+  </style>
+
+  <style name="infoItemLight" parent="@style/infoItem">
     <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
   </style>
 

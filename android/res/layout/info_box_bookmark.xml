@@ -12,7 +12,6 @@
 
   <WebView
       android:id="@+id/info_box_bookmark_descr"
-      style="@style/infoItem"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"/>

@@ -41,6 +41,7 @@
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 
+  <dimen name="pp_height">51dp</dimen>
   <dimen name="pp_button_height">55dp</dimen>
   <dimen name="ppp_title_text_size">18sp</dimen>
   <dimen name="ppp_subtitle_text_size">13sp</dimen>
