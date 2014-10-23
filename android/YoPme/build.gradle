@@ -29,21 +29,9 @@ task ndkBuildClean(type:Exec, description: 'Clean native libraries') {
   commandLine NDK_BUILD, 'clean'
 }
 
-task copyNativeLibs(type: Copy, dependsOn: 'ndkBuild', description: 'Copying native libraries.') {
-  from(new File('libs')) { include '**/*.so' }
-  into new File(buildDir, 'native-libs')
-}
-
 tasks.withType(Compile) { compileTask -> compileTask.dependsOn ndkBuild }
-tasks.withType(Compile) { compileTask -> compileTask.dependsOn copyNativeLibs }
 
-clean.dependsOn 'cleanCopyNativeLibs'
 clean.dependsOn 'ndkBuildClean'
-
-tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
-  pkgTask.jniFolders = new HashSet<File>()
-  pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
-}
 
 def getVersionName() { propVersionName }
 def getApkName()     { propApkName }
@@ -90,6 +78,7 @@ android {
       java.srcDirs = ['src']
       res.srcDirs = ['res']
       assets.srcDirs = ['assets']
+      jniLibs.srcDirs = ['libs']
     }
   }
 

@@ -48,6 +48,7 @@ android {
     java.srcDirs = ['src']
     res.srcDirs = ['res']
     assets.srcDirs = ['assets']
+    jniLibs.srcDirs = ['libs']
   }
 
   productFlavors {
@@ -264,37 +265,12 @@ task ndkBuildClean(type:Exec, description: 'Clean native libraries') {
   commandLine NDK_BUILD, 'clean'
 }
 
-// This one is needed for clean task
-task copyNativeLibs(type:Copy, description: 'Copy native libraries') {
-  from(new File('libs')) { include '**/*.so' }
-  into new File(buildDir, 'native-libs')
-}
-
-// TODO: avoid copypaste and resolve tasks dependencies in more convenient way
-task copyNativeLibsRelease(type:Copy, dependsOn: ndkBuildRelease, description: 'Copy native libraries') {
-  from(new File('libs')) { include '**/*.so' }
-  into new File(buildDir, 'native-libs')
-}
-
-task copyNativeLibsDebug(type:Copy, dependsOn: ndkBuildDebug, description: 'Copy native libraries') {
-  from(new File('libs')) { include '**/*.so' }
-  into new File(buildDir, 'native-libs')
-}
-
 tasks.withType(Compile) { compileTask ->
   if (compileTask.name.contains('Release') || compileTask.name.contains('Beta')) {
-    compileTask.dependsOn copyNativeLibsRelease
+    compileTask.dependsOn ndkBuildRelease
   } else {
-    compileTask.dependsOn copyNativeLibsDebug
+    compileTask.dependsOn ndkBuildDebug
   }
 }
 
-clean.dependsOn 'cleanCopyNativeLibs'
 clean.dependsOn 'ndkBuildClean'
-
-tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
-  pkgTask.jniFolders = new HashSet<File>()
-  pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
-}
-
-//@} End of tasks needed to compile our NDK part
