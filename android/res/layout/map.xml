@@ -29,14 +29,13 @@
       android:layout_height="@dimen/routing_pp_height"
       android:layout_below="@id/search_box"
       android:background="@android:color/transparent"
-      android:padding="@dimen/margin_tiny">
+      android:padding="@dimen/margin_micro">
 
     <RelativeLayout
         android:id="@+id/rl__routing_go"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/routing_button_height"
         android:layout_centerVertical="true"
-        android:layout_marginRight="1dp"
         android:layout_toLeftOf="@+id/iv__routing_close"
         android:background="@drawable/ic_route_bg">
 
@@ -83,7 +82,7 @@
         android:background="@drawable/ic_route_bg"
         android:gravity="bottom"
         android:includeFontPadding="false"
-        android:paddingBottom="0dp"
+        android:paddingBottom="1dp"
         android:paddingLeft="10dp"
         android:paddingRight="9dp"/>
   </RelativeLayout>

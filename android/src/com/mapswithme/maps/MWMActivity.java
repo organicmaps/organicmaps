@@ -932,11 +932,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void alignControls()
   {
-    final View zoomPlusButton = findViewById(R.id.map_button_plus);
-    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) zoomPlusButton.getLayoutParams();
-    final int margin = (int) getResources().getDimension(R.dimen.zoom_margin);
-    final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
-    lp.setMargins(margin, marginTop, margin, margin);
   }
 
   /// @name From Location interface

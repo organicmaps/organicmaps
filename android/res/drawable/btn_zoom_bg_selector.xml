@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:enterFadeDuration="300"
+          android:exitFadeDuration="300"
+          tools:ignore="UnusedAttribute">
 
-    <item android:drawable="@drawable/ic_btn_zoom_bg_pressed" android:state_pressed="true"/>
-    <item android:drawable="@drawable/ic_btn_zoom_bg_normal"/>
+  <item android:drawable="@drawable/ic_btn_zoom_bg_pressed" android:state_pressed="true"/>
+  <item android:drawable="@drawable/ic_btn_zoom_bg_normal"/>
 
 </selector>

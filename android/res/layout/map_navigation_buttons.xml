@@ -3,7 +3,7 @@
     android:id="@+id/navigation_buttons_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical">
 
@@ -27,8 +27,8 @@
   <ImageButton
       android:id="@+id/map_button_plus"
       style="@style/Widget.MapButtonZoom"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="@dimen/zoom_buttom_size"
+      android:layout_height="@dimen/zoom_buttom_size"
       android:layout_alignParentRight="true"
       android:layout_below="@id/anchor_center"
       android:onClick="onPlusClicked"
@@ -37,8 +37,8 @@
   <ImageButton
       android:id="@+id/map_button_minus"
       style="@style/Widget.MapButtonZoom"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="@dimen/zoom_buttom_size"
+      android:layout_height="@dimen/zoom_buttom_size"
       android:layout_alignParentRight="true"
       android:layout_below="@+id/map_button_plus"
       android:onClick="onMinusClicked"

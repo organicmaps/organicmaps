@@ -36,10 +36,7 @@
 
   <dimen name="color_chooser_radius">24dp</dimen>
   <dimen name="dialog_max_height">320dp</dimen>
-  <dimen name="zoom_plus_top_margin">0dp</dimen>
-  <dimen name="zoom_margin">6dp</dimen>
-  <dimen name="zoom_margin_right">4dp</dimen>
-  <dimen name="map_controls_margin">7dp</dimen>
+  <dimen name="zoom_buttom_size">40dp</dimen>
   <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
@@ -55,8 +52,8 @@
   <dimen name="bg_downloader_size">16dp</dimen>
 
   <dimen name="routing_pp_height">55dp</dimen>
-  <dimen name="routing_button_height">47dp</dimen>
-  <dimen name="routing_button_width">47dp</dimen>
+  <dimen name="routing_button_height">51dp</dimen>
+  <dimen name="routing_button_width">51dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
 
 </resources>
