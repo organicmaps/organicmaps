@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "route_bg_hdpi.png"
+      "filename" : "route_bg_mdpi.9.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "route_bg_xhdpi.png"
+      "filename" : "route_bg_xhdpi.9.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "route_bg_xxhdpi.png"
+      "filename" : "route_bg_xxhdpi.9.png"
     }
   ],
   "info" : {
