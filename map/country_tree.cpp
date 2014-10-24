@@ -40,25 +40,15 @@ inline TIndex GetIndexParent(TIndex const & index)
   return parent;
 }
 
-CountryTree::CountryTree()
-{
-}
-
 CountryTree::CountryTree(Framework & framework)
 {
   m_layout.reset(new ActiveMapsLayout(framework));
   ConnectToCoreStorage();
 }
 
-CountryTree::CountryTree(CountryTree const & other)
-{
-  *this = other;
-}
-
 CountryTree::~CountryTree()
 {
-  if (IsValid())
-    GetStorage().Unsubscribe(m_subscribeSlotID);
+  DisconnectFromCoreStorage();
 }
 
 CountryTree & CountryTree::operator=(CountryTree const & other)
@@ -66,6 +56,7 @@ CountryTree & CountryTree::operator=(CountryTree const & other)
   if (this == &other)
     return *this;
 
+  DisconnectFromCoreStorage();
   m_levelItems = other.m_levelItems;
   m_listener = other.m_listener;
   m_layout = other.m_layout;
@@ -259,6 +250,12 @@ void CountryTree::ConnectToCoreStorage()
     m_subscribeSlotID = GetStorage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
                                                bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
   }
+}
+
+void CountryTree::DisconnectFromCoreStorage()
+{
+  if (IsValid())
+    GetStorage().Unsubscribe(m_subscribeSlotID);
 }
 
 TIndex const & CountryTree::GetCurrentRoot() const

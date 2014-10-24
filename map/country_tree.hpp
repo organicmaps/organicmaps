@@ -27,10 +27,10 @@ public:
     virtual void ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes) = 0;
   };
 
-  CountryTree();
-  CountryTree(Framework & framework);
+  CountryTree() = default;
+  explicit CountryTree(Framework & framework);
 
-  CountryTree(CountryTree const & other);
+  CountryTree(CountryTree const & other) = delete;
   ~CountryTree();
 
   CountryTree & operator=(CountryTree const & other);
@@ -81,6 +81,7 @@ private:
   Storage const & GetStorage() const;
   Storage & GetStorage();
   void ConnectToCoreStorage();
+  void DisconnectFromCoreStorage();
 
 private:
   TIndex const & GetCurrentRoot() const;
