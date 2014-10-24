@@ -57,7 +57,7 @@ string Platform::UniqueClientId() const
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  android::Platform::RunOnGuiThreadImpl(fn, true);
+  android::Platform::RunOnGuiThreadImpl(fn);
 }
 
 namespace android

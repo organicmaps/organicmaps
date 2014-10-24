@@ -76,7 +76,7 @@ namespace android
 
   void Framework::OnLocationUpdated(location::GpsInfo const & info)
   {
-    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info), false);
+    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info));
   }
 
   void Framework::OnCompassUpdated(location::CompassInfo const & info)
@@ -88,7 +88,7 @@ namespace android
     if (fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRASHOLD)
     {
       m_lastCompass = info.m_bearing;
-      Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info), false);
+      Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info));
     }
   }
 
@@ -1181,7 +1181,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
   {
-    frm()->CancelInteractiveSearch();
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::CancelInteractiveSearch, frm()));
   }
 
   JNIEXPORT void JNICALL
@@ -1252,19 +1252,19 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass thiz)
   {
-    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::CloseRouting, frm()), false);
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::CloseRouting, frm()));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
   {
-    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::BuildRoute, frm(), MercatorBounds::FromLatLon(lat, lon)), false);
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::BuildRoute, frm(), MercatorBounds::FromLatLon(lat, lon)));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass thiz)
   {
-    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::FollowRoute, frm()), false);
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::FollowRoute, frm()));
   }
 
   JNIEXPORT jobject JNICALL

@@ -24,7 +24,7 @@ namespace android
 
     bool HasAvailableSpaceForWriting(uint64_t size) const;
 
-    static void RunOnGuiThreadImpl(TFunctor const & fn, bool blocking);
+    static void RunOnGuiThreadImpl(TFunctor const & fn, bool blocking = false);
 
     static Platform & Instance();
   };
