@@ -1252,42 +1252,49 @@ size_t Framework::ShowAllSearchResults()
   FillSearchResultsMarks(results);
   m_fixedSearchResults = count;
 
-  // Setup viewport according to results.
-  m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
-  m2::PointD const center = viewport.Center();
-
-  double minDistance = numeric_limits<double>::max();
-  int minInd = -1;
-  for (size_t i = 0; i < count; ++i)
+  shared_ptr<State> state = GetLocationState();
+  if (state->GetMode() < location::State::Follow)
   {
-    Result const & r = results.GetResult(i);
-    if (r.HasPoint())
+    LOG(LINFO, ("UVR : Change viewport from search"));
+    // Setup viewport according to results.
+    m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
+    m2::PointD const center = viewport.Center();
+
+    double minDistance = numeric_limits<double>::max();
+    int minInd = -1;
+    for (size_t i = 0; i < count; ++i)
     {
-      double const dist = center.SquareLength(r.GetFeatureCenter());
-      if (dist < minDistance)
+      Result const & r = results.GetResult(i);
+      if (r.HasPoint())
       {
-        minDistance = dist;
-        minInd = static_cast<int>(i);
+        double const dist = center.SquareLength(r.GetFeatureCenter());
+        if (dist < minDistance)
+        {
+          minDistance = dist;
+          minInd = static_cast<int>(i);
+        }
       }
     }
-  }
 
-  if (minInd != -1)
-  {
-    m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
-    if (!viewport.IsPointInside(pt))
+    if (minInd != -1)
     {
-      viewport.SetSizesToIncludePoint(pt);
+      m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+      if (!viewport.IsPointInside(pt))
+      {
+        viewport.SetSizesToIncludePoint(pt);
 
-      ShowRectFixedAR(viewport);
-      StopLocationFollow();
+        ShowRectFixedAR(viewport);
+        StopLocationFollow();
+      }
+      else
+        minInd = -1;
     }
-    else
-      minInd = -1;
-  }
 
-  if (minInd == -1)
-    Invalidate();
+    if (minInd == -1)
+      Invalidate();
+  }
+  else
+    state->SetFixedZoom();
 
   return count;
 }

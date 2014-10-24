@@ -718,6 +718,12 @@ void State::StopLocationFollow()
   }
 }
 
+void State::SetFixedZoom()
+{
+  LOG(LINFO, ("UVR : SetFixedZoom"));
+  SetModeInfo(IncludeModeBit(m_modeInfo, FixedZoomBit));
+}
+
 void State::DragStarted()
 {
   m_dragModeInfo = m_modeInfo;
@@ -797,9 +803,12 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
 
   if (oldMode == PendingPosition && newMode == Follow)
   {
-    m2::PointD const size(m_errorRadius, m_errorRadius);
-    m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
-                                        scales::GetUpperComfortScale());
+    if (!TestModeBit(m_modeInfo, FixedZoomBit))
+    {
+      m2::PointD const size(m_errorRadius, m_errorRadius);
+      m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
+                                          scales::GetUpperComfortScale());
+    }
   }
   else if (newMode == RotateAndFollow)
   {
@@ -826,12 +835,12 @@ void State::AnimateFollow()
   if (!IsModeChangeViewport())
     return;
 
+  SetModeInfo(ExcludeModeBit(m_modeInfo, FixedZoomBit));
+
   if (!FollowCompass())
   {
     if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
-    {
       m_framework->SetViewportCenterAnimated(m_position);
-    }
   }
 }
 

@@ -77,6 +77,7 @@ namespace location
     void TurnOff();
     void StopCompassFollowing();
     void StopLocationFollow();
+    void SetFixedZoom();
 
     /// @name User input notification block
     //@{
@@ -150,6 +151,7 @@ namespace location
   private:
     // Mode bits
     // {
+    static uint16_t const FixedZoomBit = 0x20;
     static uint16_t const RoutingSessionBit = 0x40;
     static uint16_t const KnownDirectionBit = 0x80;
     // }

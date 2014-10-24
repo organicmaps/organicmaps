@@ -45,8 +45,23 @@ android::Framework * g_framework = 0;
 
 using namespace storage;
 
+namespace
+{
+
+::Framework * frm()
+{
+  return g_framework->NativeFramework();
+}
+
+}
+
 namespace android
 {
+  void ShowAllSearchResultsImpl()
+  {
+    frm()->ShowAllSearchResults();
+  }
+
   void Framework::CallRepaint() {}
 
   Framework::Framework()
@@ -452,7 +467,7 @@ namespace android
   void Framework::ShowAllSearchResults()
   {
     m_doLoadState = false;
-    m_work.ShowAllSearchResults();
+    Platform::RunOnGuiThreadImpl(bind(&ShowAllSearchResultsImpl), false);
   }
 
   /*
@@ -770,11 +785,6 @@ T const * CastMark(UserMark const * data)
  *            \\//
  *             \/
  */
-
-::Framework * frm()
-{
-  return g_framework->NativeFramework();
-}
 
 extern "C"
 {

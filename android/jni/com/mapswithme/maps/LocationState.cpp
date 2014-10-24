@@ -2,6 +2,8 @@
 
 #include "../core/jni_helper.hpp"
 
+#include "../platform/Platform.hpp"
+
 
 location::State * GetLocationState()
 {
@@ -13,7 +15,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_switchToNextMode(JNIEnv * env, jobject thiz)
   {
-    GetLocationState()->SwitchToNextMode();
+    android::Platform::RunOnGuiThreadImpl(bind(&location::State::SwitchToNextMode, GetLocationState()), false);
   }
 
   JNIEXPORT jint JNICALL
@@ -49,6 +51,6 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_invalidatePosition(JNIEnv * env, jobject thiz)
   {
-    GetLocationState()->InvalidatePosition();
+    android::Platform::RunOnGuiThreadImpl(bind(&location::State::InvalidatePosition, GetLocationState()), false);
   }
 }
