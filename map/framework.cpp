@@ -1904,7 +1904,7 @@ void Framework::FollowRoute()
 
 void Framework::RemoveRoute()
 {
-  m_bmManager.DeleteRouteCategory();
+  m_bmManager.ResetRouteTrack();
 }
 
 void Framework::CloseRouting()
@@ -1933,9 +1933,7 @@ void Framework::InsertRoute(Route const & route)
   track.AddClosingSymbol(true, "route_from", graphics::EPosCenter, graphics::routingSymbolsDepth);
   track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
 
-  BookmarkCategory * cat = m_bmManager.GetRouteCategory();
-  cat->ClearTracks();
-  cat->AddTrack(track);
+  m_bmManager.SetRouteTrack(track);
   Invalidate();
 }
 

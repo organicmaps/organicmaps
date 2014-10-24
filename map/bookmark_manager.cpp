@@ -150,9 +150,9 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEve
 
 void BookmarkManager::ClearItems()
 {
+  ResetRouteTrack();
   for_each(m_categories.begin(), m_categories.end(), DeleteFunctor());
   m_categories.clear();
-  DeleteRouteCategory();
 }
 
 void BookmarkManager::LoadBookmarks()
@@ -255,21 +255,23 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 
   LazyMatrixCalc matrix(screen, m_lastScale);
 
-  auto dlUpdateFn = [&matrix, &limitRect, this] (BookmarkCategory const * cat)
+  auto trackUpdateFn = [&matrix, &limitRect, this](Track const * track)
+  {
+    if (limitRect.IsIntersect(track->GetLimitRect()))
+    {
+      if (!track->HasDisplayList() || matrix.IsScaleChanged())
+        track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P());
+    }
+    else
+      track->DeleteDisplayList();
+  };
+
+  auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
   {
     if (cat->IsVisible())
     {
       for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-      {
-        Track const * track = cat->GetTrack(j);
-        if (limitRect.IsIntersect(track->GetLimitRect()))
-        {
-          if (!track->HasDisplayList() || matrix.IsScaleChanged())
-            track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P());
-        }
-        else
-          track->DeleteDisplayList();
-      }
+        trackUpdateFn(cat->GetTrack(j));
     }
   };
 
@@ -286,10 +288,11 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   PaintOverlayEvent event(e->drawer(), screen);
   for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
   for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
-  if (m_routeCategory != nullptr)
+  if (m_routeTrack != nullptr)
   {
-    dlUpdateFn(m_routeCategory.get());
-    DrawCategory(m_routeCategory.get(), event);
+    trackUpdateFn(m_routeTrack.get());
+    if (m_routeTrack->HasDisplayList())
+      m_routeTrack->Draw(pScreen, LazyMatrixCalc(screen, m_lastScale).GetFinalG2P());
   }
   m_selection.Draw(event, m_cache);
 
@@ -461,24 +464,21 @@ void BookmarkManager::ResetScreen()
   {
     // Delete display lists for all tracks
     for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
-    if (m_routeCategory != nullptr)
-      dlDeleteFn(m_routeCategory.get());
+    if (m_routeTrack != nullptr)
+      m_routeTrack->DeleteDisplayList();
 
     m_bmScreen = 0;
   }
 }
 
-BookmarkCategory * BookmarkManager::GetRouteCategory()
+void BookmarkManager::SetRouteTrack(Track & track)
 {
-  if (m_routeCategory == nullptr)
-    m_routeCategory.reset(new BookmarkCategory("routes", m_framework));
-
-  return m_routeCategory.get();
+  m_routeTrack.reset(track.CreatePersistent());
 }
 
-void BookmarkManager::DeleteRouteCategory()
+void BookmarkManager::ResetRouteTrack()
 {
-  m_routeCategory.reset();
+  m_routeTrack.reset();
 }
 
 UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type) const

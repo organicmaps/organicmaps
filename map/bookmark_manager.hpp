@@ -11,7 +11,7 @@ namespace graphics { class Screen; }
 
 class BookmarkManager : private noncopyable
 {
-  unique_ptr<BookmarkCategory> m_routeCategory;
+  unique_ptr<Track> m_routeTrack;
   vector<BookmarkCategory *> m_categories;
   string m_lastCategoryUrl;
   string m_lastType;
@@ -86,8 +86,8 @@ public:
   void SetScreen(graphics::Screen * screen);
   void ResetScreen();
 
-  BookmarkCategory * GetRouteCategory();
-  void DeleteRouteCategory();
+  void SetRouteTrack(Track & track);
+  void ResetRouteTrack();
 
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;
