@@ -720,7 +720,6 @@ void State::StopLocationFollow()
 
 void State::SetFixedZoom()
 {
-  LOG(LINFO, ("UVR : SetFixedZoom"));
   SetModeInfo(IncludeModeBit(m_modeInfo, FixedZoomBit));
 }
 

@@ -467,7 +467,7 @@ namespace android
   void Framework::ShowAllSearchResults()
   {
     m_doLoadState = false;
-    Platform::RunOnGuiThreadImpl(bind(&ShowAllSearchResultsImpl), false);
+    Platform::RunOnGuiThreadImpl(bind(&ShowAllSearchResultsImpl));
   }
 
   /*

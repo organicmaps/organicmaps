@@ -1255,7 +1255,6 @@ size_t Framework::ShowAllSearchResults()
   shared_ptr<State> state = GetLocationState();
   if (state->GetMode() < location::State::Follow)
   {
-    LOG(LINFO, ("UVR : Change viewport from search"));
     // Setup viewport according to results.
     m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
     m2::PointD const center = viewport.Center();
