@@ -3724,6 +3724,8 @@ line|z18-[hwtag=lit]::lit
 }
 */
 
+/* It looks ugly now in Vatican for example. */
+/*
 line|z15-[hwtag=private]::private
 {
   width: 2;
@@ -3732,6 +3734,7 @@ line|z15-[hwtag=private]::private
   dashes: 5,15;
   linecap: butt;
 }
+*/
 
 /* Do not draw railway and waterway tunnels */
 
