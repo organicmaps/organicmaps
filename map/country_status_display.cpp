@@ -346,16 +346,15 @@ void CountryStatusDisplay::SetContentForDownloadPropose()
   ASSERT(m_primaryButton->isVisible(), ());
   ASSERT(m_secondaryButton->isVisible(), ());
 
-  LocalAndRemoteSizeT mapOnlySize = m_activeMaps.GetCountrySize(m_countryIdx, TMapOptions::EMapOnly);
-  LocalAndRemoteSizeT withRouting = m_activeMaps.GetCountrySize(m_countryIdx, TMapOptions::EMapWithCarRouting);
+  LocalAndRemoteSizeT mapAndRoutingSize = m_activeMaps.GetRemoteCountrySizes(m_countryIdx);
 
   m_label->setText(m_displayMapName);
   uint64_t sizeToDownload;
   string units;
-  FormatMapSize(mapOnlySize.second, units, sizeToDownload);
+  FormatMapSize(mapAndRoutingSize.first, units, sizeToDownload);
   m_primaryButton->setText(FormatStatusMessage("country_status_download", &sizeToDownload, &units));
 
-  FormatMapSize(withRouting.second, units, sizeToDownload);
+  FormatMapSize(mapAndRoutingSize.first + mapAndRoutingSize.second, units, sizeToDownload);
   m_secondaryButton->setText(FormatStatusMessage("country_status_download_routing", &sizeToDownload, &units));
 }
 

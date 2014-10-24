@@ -38,8 +38,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   public CountryItem getItem(int position)
   {
-    return new CountryItem(CountryTree.getChildName(position), CountryTree.getLeafStatus(position),
-        CountryTree.getLeafOptions(position), !CountryTree.isLeaf(position));
+    return CountryTree.getChildItem(position);
   }
 
   @Override
@@ -76,19 +75,22 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   protected long[] getItemSizes(int position, int options)
   {
-    return CountryTree.getLeafSize(position, options);
+    return new long[] { CountryTree.getLeafSize(position, options, true),
+                        CountryTree.getLeafSize(position, options, false) };
   }
 
   @Override
   protected long[] getRemoteItemSizes(int position)
   {
-    return CountryTree.getRemoteLeafSizes(position);
+    long mapOnly = CountryTree.getLeafSize(position, StorageOptions.MAP_OPTION_MAP_ONLY, false);
+    return new long[] { mapOnly, mapOnly + CountryTree.getLeafSize(position, StorageOptions.MAP_OPTION_CAR_ROUTING, false) };
   }
 
   @Override
   protected long[] getDownloadableItemSizes(int position)
   {
-    return CountryTree.getDownloadableLeafSize(position);
+    return new long[] { CountryTree.getLeafSize(position, -1, true),
+                        CountryTree.getLeafSize(position, -1, false) };
   }
 
   @Override

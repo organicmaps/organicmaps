@@ -5,6 +5,7 @@
 #include "country_helper.hpp"
 
 using namespace storage_utils;
+using namespace storage;
 
 extern "C"
 {
@@ -44,28 +45,24 @@ extern "C"
     return GetTree().GetChildCount();
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_country_CountryTree_isLeaf(JNIEnv * env, jclass clazz, jint position)
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_country_CountryTree_getChildItem(JNIEnv * env, jclass clazz, jint position)
   {
-    return GetTree().IsLeaf(position);
-  }
+    CountryTree & tree = GetTree();
+    int corePosition = static_cast<int>(position);
+    jboolean isLeaf = tree.IsLeaf(corePosition) ? JNI_TRUE : JNI_FALSE;
+    jstring name = jni::ToJavaString(env, tree.GetChildName(corePosition));
+    jint status = isLeaf == JNI_TRUE ? static_cast<jint>(tree.GetLeafStatus(corePosition)) : 0;
+    jint options = isLeaf == JNI_TRUE ? static_cast<jint>(tree.GetLeafOptions(corePosition)) : 0;
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_country_CountryTree_getChildName(JNIEnv * env, jclass clazz, jint position)
-  {
-    return jni::ToJavaString(env, GetTree().GetChildName(position));
-  }
+    jclass createClass = env->FindClass("com/mapswithme/country/CountryItem");
+    ASSERT(createClass, ());
 
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_country_CountryTree_getLeafStatus(JNIEnv * env, jclass clazz, jint position)
-  {
-    return static_cast<jint>(GetTree().GetLeafStatus(position));
-  }
+    jmethodID createMethodId = env->GetMethodID(createClass, "<init>", "(Ljava/lang/String;IIZ)V");
+    ASSERT(methodId, ());
 
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_country_CountryTree_getLeafOptions(JNIEnv * env, jclass clazz, jint position)
-  {
-    return static_cast<jint>(GetTree().GetLeafOptions(position));
+    return env->NewObject(createClass, createMethodId,
+                          name, status, options, !isLeaf);
   }
 
   JNIEXPORT void JNICALL
@@ -110,22 +107,30 @@ extern "C"
     return NULL;
   }
 
-  JNIEXPORT jlongArray JNICALL
-  Java_com_mapswithme_country_CountryTree_getDownloadableLeafSize(JNIEnv * env, jclass clazz, jint position)
+  JNIEXPORT jlong JNICALL
+  Java_com_mapswithme_country_CountryTree_getLeafSize(JNIEnv * env, jclass clazz, jint position, jint options, jboolean isLocal)
   {
-    return ToArray(env, GetTree().GetDownloadableLeafSize(position));
-  }
+    CountryTree & tree = GetTree();
+    int pos = static_cast<int>(position);
+    int local = (isLocal == JNI_TRUE) ? true : false;
+    TMapOptions opt = ToOptions(options);
 
-  JNIEXPORT jlongArray JNICALL
-  Java_com_mapswithme_country_CountryTree_getLeafSize(JNIEnv * env, jclass clazz, jint position, jint options)
-  {
-    return ToArray(env, GetTree().GetLeafSize(position, ToOptions(options)));
-  }
+    if (options == -1 || local)
+    {
+      LocalAndRemoteSizeT sizes = options == -1 ? tree.GetDownloadableLeafSize(pos) : tree.GetLeafSize(pos, opt);
+      return local ? sizes.first : sizes.second;
+    }
 
-  JNIEXPORT jlongArray JNICALL
-  Java_com_mapswithme_country_CountryTree_getRemoteLeafSizes(JNIEnv * env, jclass clazz, jint position)
-  {
-    return ToArray(env, GetTree().GetRemoteLeafSizes(position));
+    LocalAndRemoteSizeT sizes = tree.GetRemoteLeafSizes(pos);
+    switch (opt)
+    {
+      case TMapOptions::EMapOnly:
+        return sizes.first;
+      case TMapOptions::ECarRouting:
+        return sizes.second;
+      default:
+        return sizes.first + sizes.second;
+    }
   }
 
   JNIEXPORT void JNICALL

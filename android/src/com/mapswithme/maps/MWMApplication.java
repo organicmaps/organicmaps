@@ -10,6 +10,7 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -64,7 +65,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
     if (newStatus == MapStorage.DOWNLOAD_FAILED)
-      Notifier.placeDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), ActiveCountryTree.getCountryName(group, position));
+    {
+      CountryItem item = ActiveCountryTree.getCountryItem(group, position);
+      Notifier.placeDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
+    }
   }
 
   @Override
@@ -73,12 +77,13 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   @Override
   public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
   {
-    if (ActiveCountryTree.getCountryStatus(group, position) != MapStorage.ON_DISK)
+    CountryItem item = ActiveCountryTree.getCountryItem(group, position);
+    if (item.getStatus() != MapStorage.ON_DISK)
       return;
 
     if (newOptions == requestOptions)
     {
-      Notifier.placeDownloadCompleted(ActiveCountryTree.getCoreIndex(group, position), ActiveCountryTree.getCountryName(group, position));
+      Notifier.placeDownloadCompleted(ActiveCountryTree.getCoreIndex(group, position), item.getName());
       tryNotifyGuideAvailable(group, position);
     }
   }

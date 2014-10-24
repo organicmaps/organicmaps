@@ -26,19 +26,10 @@ public class ActiveCountryTree
   public static native int getOutOfDateCount();
   public static native int getCountInGroup(int group);
 
-  public static native int getCountryStatus(int group, int position);
-
-  public static native String getCountryName(int group, int position);
-
-  public static native int getCountryOptions(int group, int position);
+  public static native CountryItem getCountryItem(int group, int position);
 
   // returns array of two elements : local and remote size.
-  public static native long[] getCountrySize(int group, int position, int options);
-
-  /// returns remote sizes for 2 options [map, map + route].
-  public static native long[] getRemoteCountrySizes(int group, int position);
-
-  public static native long[] getDownloadableCountrySize(int group, int position);
+  public static native long getCountrySize(int group, int position, int options, boolean isLocal);
 
   public static native void cancelDownloading(int group, int position);
 

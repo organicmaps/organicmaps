@@ -63,19 +63,22 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   protected long[] getItemSizes(int position, int options)
   {
-    return ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+    return new long[] { ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), options, true),
+                        ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), options, false)};
   }
 
   @Override
   protected long[] getRemoteItemSizes(int position)
   {
-    return ActiveCountryTree.getRemoteCountrySizes(getGroupByAbsPosition(position), getPositionInGroup(position));
+    long mapOnly = ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), StorageOptions.MAP_OPTION_MAP_ONLY, false);
+    return new long[] { mapOnly, mapOnly + ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), StorageOptions.MAP_OPTION_CAR_ROUTING, false)};
   }
 
   @Override
   protected long[] getDownloadableItemSizes(int position)
   {
-    return ActiveCountryTree.getDownloadableCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position));
+    return new long[] { ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), -1, true),
+                        ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), -1, false)};
   }
 
   @Override
@@ -95,10 +98,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
 
     final int group = getGroupByAbsPosition(position);
     final int positionInGroup = getPositionInGroup(position);
-    return new CountryItem(ActiveCountryTree.getCountryName(group, positionInGroup),
-        ActiveCountryTree.getCountryStatus(group, positionInGroup),
-        ActiveCountryTree.getCountryOptions(group, positionInGroup),
-        false);
+    return ActiveCountryTree.getCountryItem(group, positionInGroup);
   }
 
   @Override

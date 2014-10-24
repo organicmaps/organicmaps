@@ -6,6 +6,7 @@
 #include "country_helper.hpp"
 
 using namespace storage_utils;
+using namespace storage;
 
 extern "C"
 {
@@ -21,39 +22,52 @@ extern "C"
     return GetMapLayout().GetCountInGroup(ToGroup(group));
   }
 
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_country_ActiveCountryTree_getCountryStatus(JNIEnv * env, jclass clazz, jint group, jint position)
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_country_ActiveCountryTree_getCountryItem(JNIEnv * env, jclass clazz, jint group, jint position)
   {
-    return static_cast<jint>(GetMapLayout().GetCountryStatus(ToGroup(group), position));
+    ActiveMapsLayout & layout = GetMapLayout();
+    ActiveMapsLayout::TGroup coreGroup = ToGroup(group);
+    int corePosition = static_cast<int>(position);
+    jstring name = jni::ToJavaString(env, layout.GetCountryName(coreGroup, corePosition));
+    jint status = static_cast<jint>(layout.GetCountryStatus(coreGroup, corePosition));
+    jint options = static_cast<jint>(layout.GetCountryOptions(coreGroup, corePosition));
+
+    jclass createClass = env->FindClass("com/mapswithme/country/CountryItem");
+    ASSERT(createClass, ());
+
+    jmethodID createMethodId = env->GetMethodID(createClass, "<init>", "(Ljava/lang/String;IIZ)V");
+    ASSERT(methodId, ());
+
+    return env->NewObject(createClass, createMethodId,
+                          name, status, options, JNI_FALSE);
   }
 
-  JNIEXPORT jstring JNICALL Java_com_mapswithme_country_ActiveCountryTree_getCountryName(JNIEnv * env, jclass clazz, jint group, jint position)
+  JNIEXPORT jlong JNICALL
+  Java_com_mapswithme_country_ActiveCountryTree_getCountrySize(JNIEnv * env, jclass clazz, jint group, jint position, jint options, jboolean isLocal)
   {
-    return jni::ToJavaString(env, GetMapLayout().GetCountryName(ToGroup(group), position));
-  }
+    ActiveMapsLayout & layout = GetMapLayout();
+    ActiveMapsLayout::TGroup coreGroup = ToGroup(group);
+    int pos = static_cast<int>(position);
+    int local = (isLocal == JNI_TRUE) ? true : false;
+    TMapOptions opt = ToOptions(options);
 
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_country_ActiveCountryTree_getCountryOptions(JNIEnv * env, jclass clazz, jint group, jint position)
-  {
-    return static_cast<jint>(GetMapLayout().GetCountryOptions(ToGroup(group), position));
-  }
+    if (options == -1 || local)
+    {
+      LocalAndRemoteSizeT sizes = options == -1 ? layout.GetDownloadableCountrySize(coreGroup, pos)
+                                                : layout.GetCountrySize(coreGroup, pos, opt);
+      return local ? sizes.first : sizes.second;
+    }
 
-  JNIEXPORT jlongArray JNICALL
-  Java_com_mapswithme_country_ActiveCountryTree_getCountrySize(JNIEnv * env, jclass clazz, jint group, jint position, jint options)
-  {
-    return ToArray(env, GetMapLayout().GetCountrySize(ToGroup(group), position, ToOptions(options)));
-  }
-
-  JNIEXPORT jlongArray JNICALL
-  Java_com_mapswithme_country_ActiveCountryTree_getRemoteCountrySizes(JNIEnv * env, jclass clazz, jint group, jint position)
-  {
-    return ToArray(env, GetMapLayout().GetRemoteCountrySizes(ToGroup(group), position));
-  }
-
-  JNIEXPORT jlongArray JNICALL
-  Java_com_mapswithme_country_ActiveCountryTree_getDownloadableCountrySize(JNIEnv * env, jclass clazz, jint group, jint position)
-  {
-    return ToArray(env, GetMapLayout().GetDownloadableCountrySize(ToGroup(group), position));
+    LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(coreGroup, pos);
+    switch (opt)
+    {
+      case TMapOptions::EMapOnly:
+        return sizes.first;
+      case TMapOptions::ECarRouting:
+        return sizes.second;
+      default:
+        return sizes.first + sizes.second;
+    }
   }
 
   JNIEXPORT void JNICALL

@@ -246,7 +246,7 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const &
 {
   CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
   size_t const mapSize = c.GetRemoteSize(TMapOptions::EMapOnly);
-  return { mapSize, mapSize + c.GetRemoteSize(TMapOptions::ECarRouting) };
+  return { mapSize, c.GetRemoteSize(TMapOptions::ECarRouting) };
 }
 
 int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)

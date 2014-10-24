@@ -28,13 +28,7 @@ public class CountryTree
 
   public static native int getChildCount();
 
-  public static native boolean isLeaf(int position);
-
-  public static native String getChildName(int position);
-
-  public static native int getLeafStatus(int position);
-
-  public static native int getLeafOptions(int position);
+  public static native CountryItem getChildItem(int position);
 
   public static native void downloadCountry(int position, int options);
 
@@ -46,12 +40,7 @@ public class CountryTree
 
   public static native GuideInfo getLeafGuideInfo(int position);
 
-  public static native long[] getDownloadableLeafSize(int position);
-
-  public static native long[] getLeafSize(int position, int options);
-
-  /// returns remote sizes for 2 options [map, map + route].
-  public static native long[] getRemoteLeafSizes(int position);
+  public static native long getLeafSize(int position, int options, boolean isLocal);
 
   public static native void setListener(CountryTreeListener listener);
 
