@@ -63,22 +63,28 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   protected long[] getItemSizes(int position, int options)
   {
-    return new long[] { ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), options, true),
-                        ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), options, false)};
+    final int group = getGroupByAbsPosition(position);
+    final int pos = getPositionInGroup(position);
+    return new long[] { ActiveCountryTree.getCountrySize(group, pos, options, true),
+                        ActiveCountryTree.getCountrySize(group, pos, options, false)};
   }
 
   @Override
   protected long[] getRemoteItemSizes(int position)
   {
-    long mapOnly = ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), StorageOptions.MAP_OPTION_MAP_ONLY, false);
-    return new long[] { mapOnly, mapOnly + ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), StorageOptions.MAP_OPTION_CAR_ROUTING, false)};
+    final int group = getGroupByAbsPosition(position);
+    final int pos = getPositionInGroup(position);
+    long mapOnly = ActiveCountryTree.getCountrySize(group, pos, StorageOptions.MAP_OPTION_MAP_ONLY, false);
+    return new long[] { mapOnly, mapOnly + ActiveCountryTree.getCountrySize(group, pos, StorageOptions.MAP_OPTION_CAR_ROUTING, false)};
   }
 
   @Override
   protected long[] getDownloadableItemSizes(int position)
   {
-    return new long[] { ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), -1, true),
-                        ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), -1, false)};
+    final int group = getGroupByAbsPosition(position);
+    final int pos = getPositionInGroup(position);
+    return new long[] { ActiveCountryTree.getCountrySize(group, pos, -1, true),
+                        ActiveCountryTree.getCountrySize(group, pos, -1, false)};
   }
 
   @Override

@@ -50,10 +50,10 @@ extern "C"
   {
     CountryTree & tree = GetTree();
     int corePosition = static_cast<int>(position);
-    jboolean isLeaf = tree.IsLeaf(corePosition) ? JNI_TRUE : JNI_FALSE;
+    bool const isLeaf = tree.IsLeaf(corePosition);
     jstring name = jni::ToJavaString(env, tree.GetChildName(corePosition));
-    jint status = isLeaf == JNI_TRUE ? static_cast<jint>(tree.GetLeafStatus(corePosition)) : 0;
-    jint options = isLeaf == JNI_TRUE ? static_cast<jint>(tree.GetLeafOptions(corePosition)) : 0;
+    jint status = isLeaf ? static_cast<jint>(tree.GetLeafStatus(corePosition)) : 0;
+    jint options = isLeaf ? static_cast<jint>(tree.GetLeafOptions(corePosition)) : 0;
 
     jclass createClass = env->FindClass("com/mapswithme/country/CountryItem");
     ASSERT(createClass, ());
@@ -62,7 +62,7 @@ extern "C"
     ASSERT(methodId, ());
 
     return env->NewObject(createClass, createMethodId,
-                          name, status, options, !isLeaf);
+                          name, status, options, (!isLeaf) == true ? JNI_TRUE : JNI_FALSE);
   }
 
   JNIEXPORT void JNICALL
@@ -112,7 +112,7 @@ extern "C"
   {
     CountryTree & tree = GetTree();
     int pos = static_cast<int>(position);
-    int local = (isLocal == JNI_TRUE) ? true : false;
+    bool const local = (isLocal == JNI_TRUE) ? true : false;
     TMapOptions opt = ToOptions(options);
 
     if (options == -1 || local)
