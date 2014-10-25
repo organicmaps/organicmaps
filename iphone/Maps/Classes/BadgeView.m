@@ -13,7 +13,7 @@
   UIImage * image = [UIImage imageNamed:@"Badge"];
   CGFloat const textWidth = [@(value).stringValue sizeWithDrawSize:CGSizeMake(100, 20) font:font].width;
   CGFloat const offset = 4;
-  CGFloat const imageDiameter = 17;
+  CGFloat const imageDiameter = image.size.width;
 
   self.size = CGSizeMake(MAX(textWidth + 2 * offset, imageDiameter), imageDiameter);
   self.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(imageDiameter / 2, imageDiameter / 2, imageDiameter / 2, imageDiameter / 2)];

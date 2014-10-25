@@ -172,8 +172,7 @@
 - (void)sizeToIntegralFit
 {
   [self sizeToFit];
-  if ([UIScreen mainScreen].scale == 1)
-    self.frame = CGRectIntegral(self.frame);
+  self.frame = CGRectIntegral(self.frame);
 }
 
 @end

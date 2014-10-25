@@ -208,8 +208,8 @@
   if (group == ActiveMapsLayout::TGroup::EOutOfDate)
   {
     BadgeView * badge = [[BadgeView alloc] init];
-    badge.value = self.mapsLayout.GetOutOfDateCount();
-    badge.center = CGPointMake(label.maxX + badge.width - 3, label.midY - INTEGRAL(0.5));
+    badge.value = self.mapsLayout.GetOutOfDateCount() + 25;
+    badge.center = CGPointMake(label.maxX + badge.width - 3, label.midY - 1.0 / [UIScreen mainScreen].scale);
     [view addSubview:badge];
     self.outOfDateBadge = badge;
   }
