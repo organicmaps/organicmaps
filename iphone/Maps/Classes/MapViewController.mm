@@ -108,16 +108,22 @@
                            horizontalAccuracy:info.m_horizontalAccuracy
                            verticalAccuracy:info.m_verticalAccuracy];
 
-    if (frm.IsRoutingActive())
-    {
-      location::FollowingInfo res;
-      frm.GetRouteFollowingInfo(res);
+    [self updateRoutingInfo];
+  }
+}
 
-      if (res.IsValid())
-      {
-        [self.routeView updateDistance:[NSString stringWithUTF8String:res.m_distToTarget.c_str()]
-                           withMetrics:[NSString stringWithUTF8String:res.m_unitsSuffix.c_str()]];
-      }
+- (void)updateRoutingInfo
+{
+  Framework & frm = GetFramework();
+  if (frm.IsRoutingActive())
+  {
+    location::FollowingInfo res;
+    frm.GetRouteFollowingInfo(res);
+
+    if (res.IsValid())
+    {
+      [self.routeView updateDistance:[NSString stringWithUTF8String:res.m_distToTarget.c_str()]
+                         withMetrics:[NSString stringWithUTF8String:res.m_unitsSuffix.c_str()]];
     }
   }
 }
@@ -618,6 +624,7 @@
         [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
         [self performAfterDelay:0.3 block:^{
           [self.routeView setVisible:YES animated:YES];
+          [self updateRoutingInfo];
         }];
       }
       else
