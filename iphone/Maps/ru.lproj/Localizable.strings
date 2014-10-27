@@ -710,7 +710,7 @@
 "routing_failed_dst_point_not_found" = "Невозможно проложить маршрут. Нет дорог рядом с пунктом назначения.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Маршрут может быть проложен внутри карты только одного региона.";
+"routing_failed_cross_mwm_building" = "Маршрут может быть проложен только внутри карты одного региона.";
 
 /* RouteNotFound */
 "routing_failed_route_not_found" = "Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.";
