@@ -854,9 +854,14 @@
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView
 {
+  [self dismissRouting];
+}
+
+- (void)dismissRouting
+{
   [UIApplication sharedApplication].idleTimerDisabled = NO;
   GetFramework().CloseRouting();
-  [routeView setVisible:NO animated:YES];
+  [self.routeView setVisible:NO animated:YES];
 }
 
 #pragma mark - PlacePageViewDelegate
@@ -1065,10 +1070,13 @@
     }
     case ALERT_VIEW_ROUTING_DISCLAIMER:
     {
-      if (buttonIndex != alertView.cancelButtonIndex)
+      if (buttonIndex == alertView.cancelButtonIndex)
+      {
+        [self dismissRouting];
+      }
+      else
       {
         Settings::Set("IsDisclaimerApproved", true);
-        [self tryToBuildRoute];
       }
       break;
     }
