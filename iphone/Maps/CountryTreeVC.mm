@@ -41,6 +41,7 @@
 {
   [super viewWillAppear:animated];
   m_tree = CountryTree();
+  [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -335,11 +336,18 @@
 
 - (void)countryStatusChangedAtPositionInNode:(int)position
 {
-  MapCell * cell = [self cellAtPositionInNode:position];
-  TStatus const status = self.tree.GetLeafStatus(position);
-  TMapOptions const options = self.tree.GetLeafOptions(position);
-  [self configureSizeLabelOfMapCell:cell position:position status:status options:options];
-  [cell setStatus:self.tree.GetLeafStatus(position) options:options animated:YES];
+  if ([self activeMapsRowIsVisible])
+  {
+    [self.tableView reloadData];
+  }
+  else
+  {
+    MapCell * cell = [self cellAtPositionInNode:position];
+    TStatus const status = self.tree.GetLeafStatus(position);
+    TMapOptions const options = self.tree.GetLeafOptions(position);
+    [self configureSizeLabelOfMapCell:cell position:position status:status options:options];
+    [cell setStatus:self.tree.GetLeafStatus(position) options:options animated:YES];
+  }
 }
 
 - (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPositionInNode:(int)position
