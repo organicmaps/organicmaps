@@ -23,25 +23,32 @@
 namespace  mapsme
 {
 
+typedef pair<NodeID, QueryEdge::EdgeData> EdgeOsrmT;
+
 struct EdgeLess
 {
-  bool operator () (QueryEdge::EdgeData const & e1, QueryEdge::EdgeData const & e2) const
+  bool operator () (EdgeOsrmT const & e1, EdgeOsrmT const & e2) const
   {
+    if (e1.first != e2.first)
+      return e1.first < e2.first;
 
-    if (e1.distance != e2.distance)
-      return e1.distance < e2.distance;
+    QueryEdge::EdgeData const & d1 = e1.second;
+    QueryEdge::EdgeData const & d2 = e2.second;
 
-    if (e1.shortcut != e2.shortcut)
-      return e1.shortcut < e2.shortcut;
+    if (d1.distance != d2.distance)
+      return d1.distance < d2.distance;
 
-    if (e1.forward != e2.forward)
-      return e1.forward < e2.forward;
+    if (d1.shortcut != d2.shortcut)
+      return d1.shortcut < d2.shortcut;
 
-    if (e1.backward != e2.backward)
-      return e1.backward < e2.backward;
+    if (d1.forward != d2.forward)
+      return d1.forward < d2.forward;
 
-    if (e1.id != e2.id)
-      return e1.id < e2.id;
+    if (d1.backward != d2.backward)
+      return e1.second.backward < d2.backward;
+
+    if (d1.id != d2.id)
+      return d1.id < d2.id;
 
     return false;
   }
@@ -52,10 +59,11 @@ void PrintStatus(bool b)
   std::cout << (b ? "[Ok]" : "[Fail]") << std::endl;
 }
 
-string EdgeDataToString(QueryEdge::EdgeData const & d)
+string EdgeDataToString(EdgeOsrmT const & d)
 {
   stringstream ss;
-  ss << "[" << d.distance <<  ", " << d.shortcut << ", " << d.forward << ", " << d.backward << ", " << d.id << "]";
+  ss << "[" << d.first << ", " << d.second.distance <<  ", " << d.second.shortcut << ", " << d.second.forward << ", "
+     << d.second.backward << ", " << d.second.id << "]";
   return ss.str();
 }
 
@@ -262,10 +270,7 @@ void GenerateRoutingIndex(const std::string & fPath)
   assert(facade.GetNumberOfEdges() == facadeNew.GetNumberOfEdges());
   for (uint32_t i = 0; i < facade.GetNumberOfNodes(); ++i)
   {
-    EdgeDataT v1, v2;
-
     // get all edges from osrm datafacade and store just minimal weights for duplicates
-    typedef pair<NodeID, QueryEdge::EdgeData> EdgeOsrmT;
     vector<EdgeOsrmT> edgesOsrm;
     for (auto e : facade.GetAdjacentEdgeRange(i))
       edgesOsrm.push_back(EdgeOsrmT(facade.GetTarget(e), facade.GetEdgeData(e)));
@@ -275,16 +280,19 @@ void GenerateRoutingIndex(const std::string & fPath)
       if (a.first != b.first)
         return a.first < b.first;
 
-      if (a.second.forward != b.second.forward)
-        return a.second.forward < b.second.forward;
+      QueryEdge::EdgeData const & d1 = a.second;
+      QueryEdge::EdgeData const & d2 = b.second;
 
-      if (a.second.backward != b.second.backward)
-        return a.second.backward < b.second.backward;
+      if (d1.forward != d2.forward)
+        return d1.forward < d2.forward;
 
-      if (a.second.distance != b.second.distance)
-        return a.second.distance < b.second.distance;
+      if (d1.backward != d2.backward)
+        return d1.backward < d2.backward;
 
-      return a.second.id < b.second.id;
+      if (d1.distance != d2.distance)
+        return d1.distance < d2.distance;
+
+      return d1.id < d2.id;
     });
 
     for (size_t k = 1; k < edgesOsrm.size();)
@@ -306,26 +314,27 @@ void GenerateRoutingIndex(const std::string & fPath)
         edgesOsrm.erase(edgesOsrm.begin() + k);
     }
 
+    vector<EdgeOsrmT> v1, v2;
     for (auto e : edgesOsrm)
     {
       QueryEdge::EdgeData d = e.second;
       if (d.forward && d.backward)
       {
         d.backward = false;
-        v1.push_back(d);
+        v1.push_back(EdgeOsrmT(e.first, d));
         d.forward = false;
         d.backward = true;
       }
 
-      v1.push_back(d);
+      v1.push_back(EdgeOsrmT(e.first, d));
     }
 
     for (auto e : facadeNew.GetAdjacentEdgeRange(i))
-      v2.push_back(facadeNew.GetEdgeData(e, i));
+      v2.push_back(EdgeOsrmT(facadeNew.GetTarget(e), facadeNew.GetEdgeData(e, i)));
 
     if (v1.size() != v2.size())
     {
-      auto printV = [](EdgeDataT const & v, stringstream & ss)
+      auto printV = [](vector<EdgeOsrmT> const & v, stringstream & ss)
       {
         for (auto i : v)
           ss << EdgeDataToString(i) << std::endl;
@@ -352,10 +361,14 @@ void GenerateRoutingIndex(const std::string & fPath)
     // compare vectors
     for (size_t k = 0; k < v1.size(); ++k)
     {
-      QueryEdge::EdgeData const & d1 = v1[k];
-      QueryEdge::EdgeData const & d2 = v2[k];
+      EdgeOsrmT const & e1 = v1[k];
+      EdgeOsrmT const & e2 = v2[k];
 
-      if (d1.backward != d2.backward ||
+      QueryEdge::EdgeData const & d1 = e1.second;
+      QueryEdge::EdgeData const & d2 = e2.second;
+
+      if (e1.first != e2.first ||
+          d1.backward != d2.backward ||
           d1.forward != d2.forward ||
           d1.distance != d2.distance ||
           (d1.id != d2.id && (d1.shortcut || d2.shortcut)) ||
@@ -365,7 +378,7 @@ void GenerateRoutingIndex(const std::string & fPath)
         for (size_t j = 0; j < v1.size(); ++j)
           std::cout << EdgeDataToString(v1[j]) << " - " << EdgeDataToString(v2[j]) << std::endl;
 
-        LOG(LCRITICAL, ("File:", fPath, "Node:", i, EdgeDataToString(d1), EdgeDataToString(d2)));
+        LOG(LCRITICAL, ("File:", fPath, "Node:", i, EdgeDataToString(e1), EdgeDataToString(e2)));
       }
     }
 
