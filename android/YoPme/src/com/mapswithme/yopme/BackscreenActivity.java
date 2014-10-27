@@ -471,7 +471,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   {
     try
     {
-      return getPackageManager().getApplicationInfo(getPackageName(), 0).sourceDir;
+      return getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
     }
     catch (final NameNotFoundException e)
     {
@@ -493,13 +493,13 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.STORAGE_PATH, getPackageName(), folder));
+    return storagePath.concat(String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, folder));
   }
 
   private String getOBBGooglePath()
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.OBB_PATH, getPackageName()));
+    return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
   }
 
   private PoiPoint getLocation()

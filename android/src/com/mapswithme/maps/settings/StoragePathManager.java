@@ -186,7 +186,7 @@ public class StoragePathManager
 
     ArrayList<String> testStorages = new ArrayList<>();
     parseStorages(testStorages);
-    final String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.PACKAGE_NAME, Constants.FILES_DIR);
+    final String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
     for (String testStorage : testStorages)
     {
       if (isDirWritable(testStorage))

@@ -159,7 +159,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   {
     try
     {
-      return getPackageManager().getApplicationInfo(getPackageName(), 0).sourceDir;
+      return getPackageManager().getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
     } catch (final NameNotFoundException e)
     {
       Log.e(TAG, "Can't get apk path from PackageManager");
@@ -181,13 +181,13 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.STORAGE_PATH, getPackageName(), folder));
+    return storagePath.concat(String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, folder));
   }
 
   private String getOBBGooglePath()
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.OBB_PATH, getPackageName()));
+    return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
   }
 
   /// Check if we have free space on storage (writable path).

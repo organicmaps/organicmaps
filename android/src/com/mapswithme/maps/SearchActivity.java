@@ -138,7 +138,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     private final SearchActivity mContext;
     private final LayoutInflater mInflater;
     private final Resources mResources;
-    private final String mPackageName;
     private int mCount = -1;
     private int mResultID = 0;
 
@@ -148,7 +147,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
       mResources = mContext.getResources();
-      mPackageName = mContext.getApplicationContext().getPackageName();
     }
 
     private boolean doShowCategories()
@@ -253,7 +251,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     private String getCategoryName(String strID)
     {
-      final int id = mResources.getIdentifier(strID, "string", mPackageName);
+      final int id = mResources.getIdentifier(strID, "string", BuildConfig.APPLICATION_ID);
       if (id > 0)
       {
         return mContext.getString(id);

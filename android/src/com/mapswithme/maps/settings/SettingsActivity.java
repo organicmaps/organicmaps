@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.MailTo;
 import android.net.Uri;
 import android.os.Build;
@@ -324,7 +323,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "",
           "Android version : " + Build.VERSION.RELEASE + "\n" +
           "Device name : " + Build.MANUFACTURER + " " + Build.MODEL + "\n" +
-          "App version : " + BuildConfig.PACKAGE_NAME + " " + BuildConfig.VERSION_NAME + "\n" +
+          "App version : " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n" +
           "Locale : " + Locale.getDefault() + "\n\n"
       ));
       startActivity(intent);
@@ -351,18 +350,9 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     }
     else if (key.equals(getString(R.string.pref_about)))
     {
-      String versionStr = "";
-      try
-      {
-        versionStr = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-      } catch (final NameNotFoundException e)
-      {
-        e.printStackTrace();
-      }
-
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_ABOUT);
       showDialogWithData(getString(R.string.about_text),
-          String.format(getString(R.string.version), versionStr));
+          String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
     }
     else if (key.equals(getString(R.string.pref_storage_activity)))
     {
