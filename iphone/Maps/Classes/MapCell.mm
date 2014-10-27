@@ -133,44 +133,49 @@
 
 - (void)alignProgressView
 {
-  self.progressView.minX = self.progressMode ? self.width - [self rightOffset] + 2 : self.width;
+  self.progressView.minX = self.progressMode ? self.contentView.width - [self rightOffset] + 2 : self.contentView.width;
 }
 
 - (void)alignSubviews
 {
   self.progressView.hidden = self.parentMode || !self.progressMode;
-  self.progressView.midY = self.height / 2;
+  self.progressView.midY = self.contentView.height / 2;
 
-  self.arrowView.center = CGPointMake(self.width - [self minimumRightOffset] - 4, self.height / 2);
+  self.arrowView.center = CGPointMake(self.contentView.width - [self minimumRightOffset] - 4, self.contentView.height / 2);
   self.arrowView.hidden = !self.parentMode;
 
   [self.statusLabel sizeToIntegralFit];
   self.statusLabel.width = MAX(self.statusLabel.width, 60);
   [self.sizeLabel sizeToIntegralFit];
-  self.statusLabel.frame = CGRectMake(self.width - [self rightOffset] - self.statusLabel.width, 14, self.statusLabel.width, 16);
+  self.statusLabel.frame = CGRectMake(self.contentView.width - [self rightOffset] - self.statusLabel.width, 14, self.statusLabel.width, 16);
   self.statusLabel.hidden = self.parentMode;
 
   CGFloat const sizeLabelMinY = self.statusLabel.maxY;
-  self.sizeLabel.frame = CGRectMake(self.width - [self rightOffset] - self.sizeLabel.width, sizeLabelMinY, self.sizeLabel.width, 16);
+  self.sizeLabel.frame = CGRectMake(self.contentView.width - [self rightOffset] - self.sizeLabel.width, sizeLabelMinY, self.sizeLabel.width, 16);
   self.sizeLabel.textColor = [UIColor colorWithColorCode:@"999999"];
   self.sizeLabel.hidden = self.parentMode;
 
   CGFloat const rightLabelsMaxWidth = self.parentMode ? 10 : MAX(self.statusLabel.width, self.sizeLabel.width);
-  CGFloat const leftLabelsWidth = self.width - [self leftOffset] - [self betweenSpace] - rightLabelsMaxWidth - [self rightOffset];
+  CGFloat const leftLabelsWidth = self.contentView.width - [self leftOffset] - [self betweenSpace] - rightLabelsMaxWidth - [self rightOffset];
 
   CGFloat const titleLabelWidth = [self.titleLabel.text sizeWithDrawSize:CGSizeMake(1000, 20) font:self.titleLabel.font].width;
   self.titleLabel.frame = CGRectMake([self leftOffset], self.subtitleLabel.text == nil ? 19 : 10, MIN(titleLabelWidth, leftLabelsWidth), 20);
   self.subtitleLabel.frame = CGRectMake([self leftOffset], self.titleLabel.maxY + 1, leftLabelsWidth, 18);
   self.subtitleLabel.hidden = self.subtitleLabel.text == nil;
 
-  self.routingImageView.center = CGPointMake(self.width - 25, self.height / 2 - 1);
+  self.routingImageView.center = CGPointMake(self.contentView.width - 25, self.contentView.height / 2 - 1);
   self.routingImageView.alpha = [self shouldShowRoutingView];
 
-  self.separatorTop.frame = CGRectMake(0, 0, self.width, PIXEL);
+  self.separatorTop.frame = CGRectMake(0, 0, self.contentView.width, PIXEL);
   self.separatorTop.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
-  self.separatorBottom.frame = CGRectMake(0, self.height - PIXEL, self.width, PIXEL);
+  self.separatorBottom.frame = CGRectMake(0, self.contentView.height - PIXEL, self.contentView.width, PIXEL);
   self.separatorBottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin;
+
+  // On iOS6 and lower table view looks different, we won't show separators there.
+  if (SYSTEM_VERSION_IS_LESS_THAN(@"7.0")) {
+    self.separatorTop.alpha  = self.separator.alpha = self.separatorBottom.alpha = 0.0;
+  }
 }
 
 - (void)prepareForReuse
@@ -193,8 +198,8 @@
   self.badgeView.minY = self.titleLabel.minY - 5;
 
   self.separator.minX = self.titleLabel.minX;
-  self.separator.size = CGSizeMake(self.width - 2 * self.separator.minX, PIXEL);
-  self.separator.maxY = self.height;
+  self.separator.size = CGSizeMake(self.contentView.width - 2 * self.separator.minX, PIXEL);
+  self.separator.maxY = self.contentView.height;
 }
 
 

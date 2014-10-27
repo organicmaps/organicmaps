@@ -221,17 +221,17 @@
 
 @implementation NSString (Size)
 
-- (CGSize)sizeWithDrawSize:(CGSize)size font:(UIFont *)font
+- (CGSize)sizeWithDrawSize:(CGSize)drawSize font:(UIFont *)font
 {
   if ([self respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)])
   {
-    CGRect rect = [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil];
-    return [UIScreen mainScreen].scale == 1 ? CGRectIntegral(rect).size : rect.size;
+    CGRect rect = [self boundingRectWithSize:drawSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : font} context:nil];
+    return CGRectIntegral(rect).size;
   }
   else
   {
-    CGSize size = [self sizeWithFont:font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
-    return [UIScreen mainScreen].scale == 1 ? CGRectIntegral(CGRectMake(0, 0, size.width, size.height)).size : size;
+    CGSize size = [self sizeWithFont:font constrainedToSize:drawSize lineBreakMode:NSLineBreakByWordWrapping];
+    return CGRectIntegral(CGRectMake(0, 0, size.width, size.height)).size;
   }
 }
 
