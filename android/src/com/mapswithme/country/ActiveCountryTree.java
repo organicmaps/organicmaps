@@ -24,6 +24,7 @@ public class ActiveCountryTree
   public static final int GROUP_UP_TO_DATE = 2;
 
   public static native int getOutOfDateCount();
+
   public static native int getCountInGroup(int group);
 
   public static native CountryItem getCountryItem(int group, int position);
@@ -40,6 +41,7 @@ public class ActiveCountryTree
   public static native void downloadMap(int group, int position, int options);
 
   public static native void deleteMap(int group, int position, int options);
+
   public static native Index getCoreIndex(int group, int position);
 
   public static native void showOnMap(int group, int position);

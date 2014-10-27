@@ -36,7 +36,7 @@ extern "C"
     ASSERT(createClass, ());
 
     jmethodID createMethodId = env->GetMethodID(createClass, "<init>", "(Ljava/lang/String;IIZ)V");
-    ASSERT(methodId, ());
+    ASSERT(createMethodId, ());
 
     return env->NewObject(createClass, createMethodId,
                           name, status, options, JNI_FALSE);
