@@ -6208,7 +6208,7 @@
     comment = PointsInDifferentMWM
     en = Routes can only be created that are fully contained within a single map.
     tr = Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.
-    ru = Маршрут может быть проложен внутри карты только одного региона.
+    ru = Маршрут может быть проложен только внутри карты одного региона.
     uk = Маршрут бути прокладений всередині мапи тільки одного регіону.
     sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
     es = Solo se pueden crear rutas que estén totalmente incluidas en un mapa único.
