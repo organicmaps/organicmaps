@@ -626,6 +626,15 @@
           [self.routeView setVisible:YES animated:YES];
           [self updateRoutingInfo];
         }];
+
+        bool isDisclaimerApproved = false;
+        (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
+        if (!isDisclaimerApproved)
+        {
+          UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_disclaimer") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
+          alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
+          [alert show];
+        }
       }
       else
       {
@@ -831,27 +840,9 @@
 
 - (void)tryToBuildRoute
 {
-  if (GetPlatform().IsPro())
-  {
-    bool isDisclaimerApproved = false;
-    (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-    if (isDisclaimerApproved)
-    {
-      [self.routeView updateDistance:nil withMetrics:nil];
-      [self.containerView.placePage showBuildingRoutingActivity:YES];
-      GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
-    }
-    else
-    {
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_disclaimer") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
-      alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
-      [alert show];
-    }
-  }
-  else
-  {
-    GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
-  }
+  [self.routeView updateDistance:nil withMetrics:nil];
+  [self.containerView.placePage showBuildingRoutingActivity:YES];
+  GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
 }
 
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
