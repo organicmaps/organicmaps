@@ -436,13 +436,14 @@ void State::RemovePositionChangedListener(int slotID)
 
 void State::InvalidatePosition()
 {
-  m_afterPendingMode = GetMode();
-  if (m_afterPendingMode != UnknownPosition)
+  Mode currentMode = GetMode();
+  if (currentMode > PendingPosition)
   {
     SetModeInfo(ChangeMode(m_modeInfo, UnknownPosition));
     SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
+    m_afterPendingMode = currentMode;
   }
-  else
+  else if (currentMode == UnknownPosition)
     m_afterPendingMode = Follow;
 
   setIsVisible(false);
