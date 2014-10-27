@@ -44,6 +44,7 @@
             android:layout_toRightOf="@id/info_title"
             android:alpha="@dimen/alpha_edit_button"
             android:background="@android:color/transparent"
+            android:padding="@dimen/margin_tiny"
             android:src="@drawable/ic_place_page_edit_button"/>
 
         <TextView
