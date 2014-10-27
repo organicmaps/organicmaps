@@ -3,6 +3,7 @@ package com.mapswithme.util;
 public class Constants
 {
   public static final String STORAGE_PATH = "/Android/data/%s/%s/";
+  public static final String PACKAGE_STORAGES_PATH = "/Android/data/";
   public static final String OBB_PATH = "/Android/obb/%s/";
 
   public static final int KB = 1024;

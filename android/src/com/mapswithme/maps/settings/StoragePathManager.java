@@ -189,13 +189,30 @@ public class StoragePathManager
     final String suffix = String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
     for (String testStorage : testStorages)
     {
+      Log.i(TAG, "Test storage from config files : " + testStorage);
       if (isDirWritable(testStorage))
+      {
+        Log.i(TAG, "Found writable storage : " + testStorage);
         paths.add(testStorage);
+      }
       else
       {
-        testStorage += suffix;
-        if (isDirWritable(testStorage))
-          paths.add(testStorage);
+        File file = new File(testStorage + Constants.PACKAGE_STORAGES_PATH);
+        if (file.exists()) // if storage doesn't contain "./Android/data/" directory - it is not SD card, ignore it
+        {
+          testStorage += suffix;
+          file = new File(testStorage);
+          if (!file.exists()) // create directory for our package if it isn't created by any reason
+          {
+            Log.i(TAG, "Found sd card without directory for MWM package : " + testStorage);
+            file.mkdirs();
+          }
+          if (isDirWritable(testStorage))
+          {
+            Log.i(TAG, "Found writable storage : " + testStorage);
+            paths.add(testStorage);
+          }
+        }
       }
     }
   }
