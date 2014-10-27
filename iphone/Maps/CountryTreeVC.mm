@@ -153,14 +153,14 @@
   return self.tree.GetLeafOptions(self.selectedPosition);
 }
 
-- (void)performAction:(DownloaderAction)action
+- (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check
 {
   switch (action)
   {
     case DownloaderActionDownloadAll:
     case DownloaderActionDownloadMap:
     case DownloaderActionDownloadCarRouting:
-      if ([self canDownloadSelectedMap])
+      if (check == NO || [self canDownloadSelectedMap])
         self.tree.DownloadCountry(self.selectedPosition, self.selectedInActionSheetOptions);
       break;
 

@@ -146,14 +146,14 @@
   return self.mapsLayout.GetCountryOptions(self.selectedGroup, self.selectedPosition);
 }
 
-- (void)performAction:(DownloaderAction)action
+- (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check
 {
   switch (action)
   {
     case DownloaderActionDownloadAll:
     case DownloaderActionDownloadMap:
     case DownloaderActionDownloadCarRouting:
-      if ([self canDownloadSelectedMap])
+      if (check == NO || [self canDownloadSelectedMap])
         self.mapsLayout.DownloadMap(self.selectedGroup, self.selectedPosition, self.selectedInActionSheetOptions);
       break;
 

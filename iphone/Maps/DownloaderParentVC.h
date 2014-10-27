@@ -46,6 +46,6 @@ using namespace storage;
 - (size_t)selectedMapSizeWithOptions:(TMapOptions)options;
 - (TStatus)selectedMapStatus;
 - (TMapOptions)selectedMapOptions;
-- (void)performAction:(DownloaderAction)action;
+- (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check;
 
 @end

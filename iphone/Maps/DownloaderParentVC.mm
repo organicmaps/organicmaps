@@ -39,11 +39,11 @@
   if (buttonIndex != alertView.cancelButtonIndex)
   {
     if (self.selectedInActionSheetOptions == TMapOptions::EMapOnly)
-      [self performAction:DownloaderActionDownloadMap];
+      [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
     else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
-      [self performAction:DownloaderActionDownloadCarRouting];
+      [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
     else if (self.selectedInActionSheetOptions == TMapOptions::EMapWithCarRouting)
-      [self performAction:DownloaderActionDownloadAll];
+      [self performAction:DownloaderActionDownloadAll withSizeCheck:NO];
   }
 }
 
@@ -54,7 +54,7 @@
 
 #pragma mark - Virtual methods
 
-- (void)performAction:(DownloaderAction)action {}
+- (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check {}
 - (NSString *)parentTitle { return nil; }
 - (NSString *)selectedMapName { return nil; }
 - (NSString *)selectedMapGuideName { return nil; }
@@ -265,7 +265,7 @@
         break;
     }
 
-    [self performAction:action];
+    [self performAction:action withSizeCheck:YES];
   }
 }
 
