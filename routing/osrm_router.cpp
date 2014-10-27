@@ -171,13 +171,13 @@ public:
         {
           if (forward)
           {
-            cSeg.m_pointStart = seg.m_pointStart;
-            cSeg.m_pointEnd = s.m_pointStart;
+            cSeg.m_pointStart = s.m_pointEnd;
+            cSeg.m_pointEnd = seg.m_pointEnd;
           }
           else
           {
-            cSeg.m_pointEnd = seg.m_pointEnd;
-            cSeg.m_pointStart = s.m_pointEnd;
+            cSeg.m_pointEnd = seg.m_pointStart;
+            cSeg.m_pointStart = s.m_pointStart;
           }
         }
 
