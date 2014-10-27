@@ -86,8 +86,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_CountryTree_retryDownloading(JNIEnv * env, jclass clazz, jint position)
   {
-    // TODO uncomment when retry will be implemented
-//    GetTree().RetryDownloading(position);
+    GetTree().RetryDownloading(position);
   }
 
   JNIEXPORT void JNICALL

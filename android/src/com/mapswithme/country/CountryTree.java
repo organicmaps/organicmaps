@@ -36,6 +36,8 @@ public class CountryTree
 
   public static native void cancelDownloading(int position);
 
+  public static native void retryDownloading(int position);
+
   public static native void showLeafOnMap(int position);
 
   public static native GuideInfo getLeafGuideInfo(int position);

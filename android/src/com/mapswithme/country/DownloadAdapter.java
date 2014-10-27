@@ -73,13 +73,6 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   }
 
   @Override
-  protected long[] getItemSizes(int position, int options)
-  {
-    return new long[] { CountryTree.getLeafSize(position, options, true),
-                        CountryTree.getLeafSize(position, options, false) };
-  }
-
-  @Override
   protected long[] getRemoteItemSizes(int position)
   {
     long mapOnly = CountryTree.getLeafSize(position, StorageOptions.MAP_OPTION_MAP_ONLY, false);
@@ -103,6 +96,12 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   protected void cancelDownload(int position)
   {
     CountryTree.cancelDownloading(position);
+  }
+
+  @Override
+  protected void retryDownload(int position)
+  {
+    CountryTree.retryDownloading(position);
   }
 
   @Override

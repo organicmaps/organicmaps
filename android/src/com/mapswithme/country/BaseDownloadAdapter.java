@@ -118,16 +118,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected abstract void deleteCountry(int position, int options);
 
-  protected abstract long[] getItemSizes(int position, int options);
-
-  /// returns remote sizes for 2 options [map, map + route].
+  // returns remote sizes for 2 options [map, map + route].
   protected abstract long[] getRemoteItemSizes(int position);
 
+  // returns local and remote size for downloading items(DO NOT call that method for NOT_DOWNLOADED items).
   protected abstract long[] getDownloadableItemSizes(int position);
 
   protected abstract GuideInfo getGuideInfo(int position);
 
   protected abstract void cancelDownload(int position);
+
+  protected abstract void retryDownload(int position);
 
   protected abstract void setCountryListener();
 
@@ -195,6 +196,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         })
         .create()
         .show();
+  }
+
+  private void processFailed(ViewHolder holder, int position)
+  {
+    holder.mProgressSlided.setProgressColor(mActivity.getResources().getColor(R.color.downloader_blue));
+    holder.mProgressSlided.setDrawable(null);
+    retryDownload(position);
   }
 
   public void onResume(ListView listView)
@@ -418,9 +426,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          holder.mProgressSlided.setProgressColor(mActivity.getResources().getColor(R.color.downloader_blue));
-          holder.mProgressSlided.setDrawable(null);
-          downloadCountry(position, getItem(position).getOptions());
+          processFailed(holder, position);
         }
       };
       holder.mProgressSlided.setOnClickListener(listener);
@@ -730,7 +736,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     final int MENU_GUIDE = 8;
     final int MENU_DELETE_ROUTING = 9;
     final int MENU_DELETE = 10;
-
+    final int MENU_RETRY = 11;
 
     final int status = countryItem.getStatus();
     final String name = countryItem.getName();
@@ -779,6 +785,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         case MENU_UPDATE_MAP_AND_ROUTING:
           processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
           break;
+        case MENU_RETRY:
+          processFailed(holder, position);
+          break;
         }
 
         return true;
@@ -794,6 +803,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         {
           menu.setHeaderTitle(countryItem.getName());
 
+          final long[] remoteSizes = getRemoteItemSizes(position);
           if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
           {
             String titleDelete = mActivity.getString(R.string.downloader_delete_map);
@@ -811,8 +821,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
           if (status == MapStorage.ON_DISK && options == StorageOptions.MAP_OPTION_MAP_ONLY)
           {
-            String titleShow = mActivity.getString(R.string.downloader_download_routing);
-            // TODO add size
+            final String titleShow = mActivity.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1] - remoteSizes[0]);
             menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
@@ -823,19 +832,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
             switch (options)
             {
             case StorageOptions.MAP_OPTION_MAP_ONLY:
-              titleUpdate = mActivity.getString(R.string.downloader_update_map);
-              // TODO size
+              titleUpdate = mActivity.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[0]);
               menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
 
-              titleUpdate = mActivity.getString(R.string.downloader_download_routing);
+              titleUpdate = mActivity.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1]);
               menu.add(0, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
 
             case StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING:
-              titleUpdate = mActivity.getString(R.string.downloader_update_map);
-              // TODO size
+              titleUpdate = mActivity.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[1]);
               menu.add(0, MENU_UPDATE_MAP_AND_ROUTING, MENU_UPDATE_MAP_AND_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
@@ -859,19 +866,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
             break;
 
           case MapStorage.NOT_DOWNLOADED:
-            // TODO sizes
-            String title = mActivity.getString(R.string.downloader_download_map);
+            String title = mActivity.getString(R.string.downloader_download_map) + ", " + getSizeString(remoteSizes[0]);
             menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
-            title = mActivity.getString(R.string.downloader_download_map_and_routing);
+            title = mActivity.getString(R.string.downloader_download_map_and_routing) + ", " + getSizeString(remoteSizes[1]);
             menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
             break;
 
           case MapStorage.DOWNLOAD_FAILED:
             title = mActivity.getString(R.string.downloader_retry);
-            menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
+            menu.add(0, MENU_RETRY, MENU_DOWNLOAD, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
             title = mActivity.getString(R.string.downloader_download_map_and_routing);

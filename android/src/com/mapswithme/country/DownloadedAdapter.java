@@ -61,15 +61,6 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   }
 
   @Override
-  protected long[] getItemSizes(int position, int options)
-  {
-    final int group = getGroupByAbsPosition(position);
-    final int pos = getPositionInGroup(position);
-    return new long[] { ActiveCountryTree.getCountrySize(group, pos, options, true),
-                        ActiveCountryTree.getCountrySize(group, pos, options, false)};
-  }
-
-  @Override
   protected long[] getRemoteItemSizes(int position)
   {
     final int group = getGroupByAbsPosition(position);
@@ -224,6 +215,12 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   protected void cancelDownload(int position)
   {
     ActiveCountryTree.cancelDownloading(getGroupByAbsPosition(position), getPositionInGroup(position));
+  }
+
+  @Override
+  protected void retryDownload(int position)
+  {
+    ActiveCountryTree.retryDownloading(getGroupByAbsPosition(position), getPositionInGroup(position));
   }
 
   @Override
