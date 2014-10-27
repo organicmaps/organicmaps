@@ -12,7 +12,10 @@
 @property (nonatomic) UIImageView * arrowView;
 @property (nonatomic) BadgeView * badgeView;
 @property (nonatomic) UIImageView * routingImageView;
-@property (nonatomic) UIImageView * separator;
+
+@property (nonatomic) UIView *separatorTop;
+@property (nonatomic) UIView *separator;
+@property (nonatomic) UIView *separatorBottom;
 
 @property (nonatomic, readonly) BOOL progressMode;
 
@@ -24,7 +27,7 @@
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 
-  NSArray * subviews = @[self.titleLabel, self.subtitleLabel, self.statusLabel, self.sizeLabel, self.progressView, self.arrowView, self.badgeView, self.routingImageView, self.separator];
+  NSArray * subviews = @[self.titleLabel, self.subtitleLabel, self.statusLabel, self.sizeLabel, self.progressView, self.arrowView, self.badgeView, self.routingImageView, self.separator, self.separatorTop, self.separatorBottom];
   for (UIView * subview in subviews)
     [self.contentView addSubview:subview];
 
@@ -162,6 +165,19 @@
 
   self.routingImageView.center = CGPointMake(self.width - 25, self.height / 2 - 1);
   self.routingImageView.alpha = [self shouldShowRoutingView];
+
+  self.separatorTop.frame = CGRectMake(0, 0, self.width, PIXEL);
+  self.separatorTop.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+
+  self.separatorBottom.frame = CGRectMake(0, self.height - PIXEL, self.width, PIXEL);
+  self.separatorBottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin;
+}
+
+- (void)prepareForReuse
+{
+  self.separatorTop.hidden = YES;
+  self.separatorBottom.hidden = YES;
+  self.separator.hidden = NO;
 }
 
 - (void)layoutSubviews
@@ -177,8 +193,8 @@
   self.badgeView.minY = self.titleLabel.minY - 5;
 
   self.separator.minX = self.titleLabel.minX;
-  self.separator.size = CGSizeMake(self.width - 2 * self.separator.minX, 1);
-  self.separator.maxY = self.height + 0.5;
+  self.separator.size = CGSizeMake(self.width - 2 * self.separator.minX, PIXEL);
+  self.separator.maxY = self.height;
 }
 
 
@@ -306,15 +322,34 @@
   return _badgeView;
 }
 
-- (UIImageView *)separator
+- (UIView *)separatorTop
+{
+  if (!_separatorTop)
+  {
+    _separatorTop = [[UIView alloc] initWithFrame:CGRectZero];
+    _separatorTop.backgroundColor = [UIColor colorWithColorCode:@"cecece"];
+  }
+  return _separatorTop;
+}
+
+- (UIView *)separator
 {
   if (!_separator)
   {
-    UIImage * separatorImage = [[UIImage imageNamed:@"MapCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
-    _separator = [[UIImageView alloc] initWithFrame:CGRectZero];
-    _separator.image = separatorImage;
+    _separator = [[UIView alloc] initWithFrame:CGRectZero];
+    _separator.backgroundColor = [UIColor colorWithColorCode:@"cecece"];
   }
   return _separator;
+}
+
+- (UIView *)separatorBottom
+{
+  if (!_separatorBottom)
+  {
+    _separatorBottom = [[UIView alloc] initWithFrame:CGRectZero];
+    _separatorBottom.backgroundColor = [UIColor colorWithColorCode:@"cecece"];
+  }
+  return _separatorBottom;
 }
 
 @end

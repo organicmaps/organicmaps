@@ -224,17 +224,26 @@
     cell.subtitleLabel.text = nil;
     cell.parentMode = YES;
     cell.badgeView.value = self.tree.GetActiveMapLayout().GetOutOfDateCount();
+    cell.separatorTop.hidden = NO;
+    cell.separatorBottom.hidden = NO;
+    cell.separator.hidden = YES;
   }
   else
   {
     int const position = indexPath.row;
     bool const isLeaf = self.tree.IsLeaf(position);
+    NSInteger const numberOfRows = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+    BOOL const isLast = (indexPath.row == numberOfRows - 1);
+    BOOL const isFirst = (indexPath.row == 0);
 
     cell.titleLabel.text = [NSString stringWithUTF8String:self.tree.GetChildName(position).c_str()];
     cell.subtitleLabel.text = [self parentTitle];
     cell.delegate = self;
     cell.badgeView.value = 0;
     cell.parentMode = !isLeaf;
+    cell.separatorTop.hidden = !isFirst;
+    cell.separatorBottom.hidden = !isLast;
+    cell.separator.hidden = isLast;
     if (isLeaf)
     {
       TMapOptions const options = self.tree.GetLeafOptions(position);

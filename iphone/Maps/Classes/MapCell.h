@@ -23,6 +23,10 @@ using namespace storage;
 @property (nonatomic, readonly) UILabel * sizeLabel;
 @property (nonatomic, readonly) BadgeView * badgeView;
 
+@property (nonatomic, readonly) UIView *separatorTop;
+@property (nonatomic, readonly) UIView *separator;
+@property (nonatomic, readonly) UIView *separatorBottom;
+
 @property (nonatomic) BOOL parentMode;
 
 @property (nonatomic) TStatus status;

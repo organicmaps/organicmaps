@@ -8,6 +8,7 @@
 #define L(str) NSLocalizedString(str, nil)
 
 #define INTEGRAL(f) ([UIScreen mainScreen].scale == 1 ? floor(f) : f)
+#define PIXEL 1.0 / [UIScreen mainScreen].scale
 
 @interface NSObject (Optimized)
 

@@ -208,7 +208,7 @@
   if (group == ActiveMapsLayout::TGroup::EOutOfDate)
   {
     BadgeView * badge = [[BadgeView alloc] init];
-    badge.value = self.mapsLayout.GetOutOfDateCount() + 25;
+    badge.value = self.mapsLayout.GetOutOfDateCount();
     badge.center = CGPointMake(label.maxX + badge.width - 3, label.midY - 1.0 / [UIScreen mainScreen].scale);
     [view addSubview:badge];
     self.outOfDateBadge = badge;
@@ -251,12 +251,19 @@
   TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
   TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
 
+  NSInteger const numberOfRows = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+  BOOL const isLast = (indexPath.row == numberOfRows - 1);
+  BOOL const isFirst = (indexPath.row == 0);
+
   cell.titleLabel.text = [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(group, position).c_str()];
   cell.parentMode = NO;
   cell.status = status;
   cell.options = options;
   cell.delegate = self;
   cell.badgeView.value = 0;
+  cell.separatorTop.hidden = !isFirst;
+  cell.separatorBottom.hidden = !isLast;
+  cell.separator.hidden = isLast;
 
   if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
   {
@@ -266,6 +273,31 @@
   [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
 
   return cell;
+}
+
+- (void)updateAllCellsSeprators
+{
+  NSInteger numberOfSection = [self numberOfSectionsInTableView:self.tableView];
+  for (NSInteger section = 0; section < numberOfSection; section++)
+  {
+    NSInteger numberOfRows = [self tableView:self.tableView numberOfRowsInSection:section];
+    for (NSInteger row = 0; row < numberOfRows; row++)
+    {
+      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+      [self updateSeparatorsForCellAtIndexPath:indexPath];
+    }
+  }
+}
+
+- (void)updateSeparatorsForCellAtIndexPath:(NSIndexPath *)indexPath
+{
+  MapCell * cell = (MapCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+  NSInteger const numberOfRows = [self tableView:self.tableView numberOfRowsInSection:indexPath.section];
+  BOOL const isLast = (indexPath.row == numberOfRows - 1);
+  BOOL const isFirst = (indexPath.row == 0);
+  cell.separatorTop.hidden = !isFirst;
+  cell.separatorBottom.hidden = !isLast;
+  cell.separator.hidden = isLast;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -283,6 +315,7 @@
     TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
     self.mapsLayout.DeleteMap(group, position, options);
     [tableView setEditing:NO animated:YES];
+    [self updateAllCellsSeprators];
   }
 }
 
@@ -366,6 +399,7 @@
     NSIndexPath * newIndexPath = [NSIndexPath indexPathForRow:newPosition inSection:(NSInteger)newGroup];
     [self.tableView moveRowAtIndexPath:oldIndexPath toIndexPath:newIndexPath];
   }
+  [self updateAllCellsSeprators];
 }
 
 - (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
