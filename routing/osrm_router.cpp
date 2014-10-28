@@ -203,6 +203,11 @@ public:
   {
     CalculateOffset(node.m_seg, node.m_segPt, node.m_node.forward_node_id, node.m_node.forward_offset, true);
     CalculateOffset(node.m_seg, node.m_segPt, node.m_node.reverse_node_id, node.m_node.reverse_offset, false);
+
+    // need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
+    // and PhantomNode::GetReverseWeightPlusOffset
+    node.m_node.forward_weight = 0;
+    node.m_node.reverse_weight = 0;
   }
 
   void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId,
