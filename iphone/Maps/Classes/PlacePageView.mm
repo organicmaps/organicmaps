@@ -286,7 +286,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
-#define TITLE_LABEL_LEFT_OFFSET 20
+#define TITLE_LABEL_LEFT_OFFSET 12
 #define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 116
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -316,8 +316,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.bookmarkButton.midX = self.headerView.width - 23.5;
   self.routeButton.maxX = self.bookmarkButton.minX;
   self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
-
-  self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
   CGSize titleSize;
   CGSize typesSize;
   if ([self iPhoneInLandscape])
@@ -335,11 +333,18 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [self portraitTitleSize:&titleSize typesSize:&typesSize];
     self.titleLabel.size = titleSize;
-    self.titleLabel.minY = 24;
+    if ([self.types length])
+    {
+      self.titleLabel.minY = 24;
+    }
+    else
+    {
+      self.titleLabel.minY = 34;
+    }
     self.typeLabel.textAlignment = NSTextAlignmentLeft;
     self.typeLabel.size = typesSize;
     self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY);
-    self.bookmarkButton.midY = 36;
+    self.bookmarkButton.midY = 44;
   }
   self.routeButton.midY = self.bookmarkButton.midY - 1;
   self.routeButton.hidden = [self isMyPosition];
