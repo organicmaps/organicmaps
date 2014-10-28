@@ -189,6 +189,9 @@
     NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapOnly]];
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadMap toActionSheet:actionSheet];
+    size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
+    title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map_and_routing"), size];
+    [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }
 
   if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
