@@ -28,11 +28,6 @@
   [self addSubview:self.closeButton];
   [self addSubview:self.startButton];
 
-  CGFloat const originY = 20;
-  self.distanceView.minY = originY;
-  self.closeButton.minY = originY;
-  self.startButton.minY = originY;
-
   return self;
 }
 
@@ -45,7 +40,7 @@
   }];
 }
 
-#define BUTTON_HEIGHT 44
+#define BUTTON_HEIGHT 51
 
 - (void)layoutSubviews
 {
@@ -56,14 +51,15 @@
     [self.distanceLabel sizeToIntegralFit];
     [self.metricsLabel sizeToIntegralFit];
 
-    CGFloat const betweenOffset = 0;
+    CGFloat const betweenOffset = 2;
     self.wrapView.size = CGSizeMake(self.distanceLabel.width + betweenOffset + self.metricsLabel.width, 40);
     self.wrapView.center = CGPointMake(self.wrapView.superview.width / 2, self.wrapView.superview.height / 2);
+    self.wrapView.frame = CGRectIntegral(self.wrapView.frame);
 
     self.distanceLabel.minX = 0;
     self.metricsLabel.minX = self.distanceLabel.minX + self.distanceLabel.width + betweenOffset;
-    self.distanceLabel.midY = self.wrapView.height / 2;
-    self.metricsLabel.maxY = self.distanceLabel.maxY - 4;
+    self.distanceLabel.midY = self.wrapView.height / 2 ;
+    self.metricsLabel.maxY = self.distanceLabel.maxY - 5;
 
     self.distanceView.alpha = 1;
     self.distanceView.size = CGSizeMake(self.wrapView.width + 24, BUTTON_HEIGHT);
@@ -97,23 +93,25 @@
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated
 {
   _visible = visible;
+  CGFloat const offsetInnerY = 2;
   CGFloat const offsetInnerX = 3;
-  CGFloat const offsetBetweenX = 0;
-  CGFloat const offsetOuterX = 18;
+  CGFloat const originY = 20;
   [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    self.distanceView.minX = offsetInnerX - 1;
+    self.closeButton.maxX = self.width - (offsetInnerX - 1);
+    self.startButton.maxX = self.closeButton.minX + offsetInnerX;
     if (visible)
     {
       self.startButton.userInteractionEnabled = YES;
-      self.startButton.minY = self.closeButton.minY;
-      self.distanceView.minX = offsetInnerX;
-      self.closeButton.maxX = self.width - offsetInnerX;
-      self.startButton.maxX = self.closeButton.minX - offsetBetweenX;
+      self.startButton.minY = originY - offsetInnerY;
+      self.distanceView.minY = self.startButton.minY;
+      self.closeButton.minY = self.startButton.minY;
     }
     else
     {
-      self.distanceView.maxX = -offsetOuterX;
-      self.startButton.minX = self.width + offsetOuterX;
-      self.closeButton.maxX = self.startButton.maxX + offsetBetweenX;
+      self.startButton.maxY = -30;
+      self.distanceView.maxY = self.startButton.maxY;
+      self.closeButton.maxY = self.startButton.maxY;
     }
   } completion:nil];
 }
@@ -134,7 +132,8 @@
 
     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StopRoutingButton"]];
     [_closeButton addSubview:imageView];
-    imageView.center = CGPointMake(_closeButton.width / 2, _closeButton.height / 2);
+    imageView.center = CGPointMake(_closeButton.width / 2, _closeButton.height / 2 + 2);
+    imageView.frame = CGRectIntegral(imageView.frame);
 
     [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
@@ -145,21 +144,17 @@
 {
   if (!_startButton)
   {
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StartRoutingButton"]];
     NSString * title = L(@"routing_go");
-    UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-    CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + imageView.width + 40;
+    UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:19];
+    CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + 38;
 
     _startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, BUTTON_HEIGHT)];
     _startButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    UIImage * backgroundImage = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    UIImage * backgroundImage = [[UIImage imageNamed:@"StartRoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     [_startButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
 
-    [_startButton addSubview:imageView];
-    imageView.center = CGPointMake(_startButton.width - imageView.width - 4, _startButton.height / 2);
-
     _startButton.titleLabel.font = font;
-    _startButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, imageView.width + 8);
+    _startButton.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
     [_startButton setTitle:title forState:UIControlStateNormal];
     [_startButton setTitleColor:[UIColor colorWithColorCode:@"179E4D"] forState:UIControlStateNormal];
 
@@ -174,7 +169,7 @@
   {
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _distanceLabel.backgroundColor = [UIColor clearColor];
-    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:34];
+    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:34];
     _distanceLabel.textColor = [UIColor blackColor];
   }
   return _distanceLabel;
@@ -186,7 +181,7 @@
   {
     _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _metricsLabel.backgroundColor = [UIColor clearColor];
-    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:14];
+    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
     _metricsLabel.textColor = [UIColor blackColor];
   }
   return _metricsLabel;
