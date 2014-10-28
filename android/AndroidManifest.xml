@@ -8,7 +8,7 @@
     android:sharedUserLabel="@string/shared_user_label">
 
   <uses-sdk
-      android:minSdkVersion="7"
+      android:minSdkVersion="9"
       tools:overrideLibrary="com.google.android.gms, com.facebook.android"/>
 
   <uses-feature

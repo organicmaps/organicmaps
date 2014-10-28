@@ -151,15 +151,7 @@ ifneq ($(NDK_DEBUG),1)
 endif
 
 
-TARGET_PLATFORM := android-5
-
-ifeq ($(TARGET_ARCH_ABI), mips)
-  TARGET_PLATFORM := android-9
-else
-  ifeq ($(TARGET_ARCH_ABI), x86)
-    TARGET_PLATFORM := android-9
-  endif
-endif
+TARGET_PLATFORM := android-9
 
 LOCAL_HEADER_FILES := \
  	com/mapswithme/core/jni_helper.hpp \
@@ -207,7 +199,7 @@ LOCAL_SRC_FILES := \
 	nv_event/nv_event.cpp \
 	nv_time/nv_time.cpp \
 
-LOCAL_LDLIBS := -llog -lGLESv2
+LOCAL_LDLIBS := -llog -lGLESv2 -latomic
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 
