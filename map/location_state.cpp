@@ -352,6 +352,7 @@ void State::StartRouteFollow()
   m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
                                       scales::GetUpperComfortScale());
 
+  SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
   SetModeInfo(ChangeMode(m_modeInfo, IsRotationActive() ? RotateAndFollow : Follow));
 }
 
