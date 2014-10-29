@@ -53,8 +53,6 @@
 	<string>14130</string>
 	<key>MobileAppTrackerConversionKey</key>
 	<string>***REMOVED***</string>
-	<key>LocalyticsKey</key>
-	<string>6cb45a0efb680ff69c98159-6a322566-3282-11e4-a0d7-005cf8cbabd8</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>

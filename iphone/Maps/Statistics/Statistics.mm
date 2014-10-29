@@ -3,7 +3,6 @@
 #include "../../../platform/settings.hpp"
 #import "Flurry.h"
 #import "AppInfo.h"
-#import "LocalyticsSession.h"
 
 @implementation Statistics
 
@@ -14,9 +13,6 @@
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
     [Flurry setCrashReportingEnabled:YES];
     [Flurry setSessionReportsOnPauseEnabled:NO];
-
-    [[LocalyticsSession shared] integrateLocalytics:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"LocalyticsKey"] launchOptions:launchOptions];
-    [LocalyticsSession shared].enableHTTPS = YES;
   }
 }
 
@@ -36,10 +32,7 @@
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
   if (self.enabled)
-  {
     [Flurry logEvent:eventName withParameters:parameters];
-    [[LocalyticsSession shared] tagEvent:eventName attributes:parameters];
-  }
 }
 
 - (void)logEvent:(NSString *)eventName
@@ -70,45 +63,22 @@
 
 - (void)applicationWillResignActive
 {
-  [self closeLocalytics];
 }
 
 - (void)applicationWillTerminate
 {
-  [self closeLocalytics];
 }
 
 - (void)applicationDidEnterBackground
 {
-  [self closeLocalytics];
 }
 
 - (void)applicationWillEnterForeground
 {
-  [self resumeLocalytics];
 }
 
 - (void)applicationDidBecomeActive
 {
-  [self resumeLocalytics];
-}
-
-- (void)resumeLocalytics
-{
-  if (self.enabled)
-  {
-    [[LocalyticsSession shared] resume];
-    [[LocalyticsSession shared] upload];
-  }
-}
-
-- (void)closeLocalytics
-{
-  if (self.enabled)
-  {
-    [[LocalyticsSession shared] close];
-    [[LocalyticsSession shared] upload];
-  }
 }
 
 - (id)init
