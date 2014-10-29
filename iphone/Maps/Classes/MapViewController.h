@@ -41,7 +41,7 @@ namespace search { struct AddressInfo; }
 
 - (void)dismissPopover;
 
-@property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
+@property (nonatomic) UIView * zoomButtonsView;
 @property (nonatomic, strong) UIPopoverController * popoverVC;
 @property (nonatomic) BottomMenu * bottomMenu;
 @property (nonatomic, readonly) BOOL apiMode;

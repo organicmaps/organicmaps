@@ -94,12 +94,12 @@
 {
   _visible = visible;
   CGFloat const offsetInnerY = 2;
-  CGFloat const offsetInnerX = 3;
+  CGFloat const offsetInnerX = 2;
   CGFloat const originY = 20;
   [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.distanceView.minX = offsetInnerX - 1;
-    self.closeButton.maxX = self.width - (offsetInnerX - 1);
-    self.startButton.maxX = self.closeButton.minX + offsetInnerX;
+    self.distanceView.minX = offsetInnerX;
+    self.closeButton.maxX = self.width - offsetInnerX;
+    self.startButton.maxX = self.closeButton.minX;
     if (visible)
     {
       self.startButton.userInteractionEnabled = YES;
@@ -181,7 +181,7 @@
   {
     _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _metricsLabel.backgroundColor = [UIColor clearColor];
-    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
     _metricsLabel.textColor = [UIColor blackColor];
   }
   return _metricsLabel;
