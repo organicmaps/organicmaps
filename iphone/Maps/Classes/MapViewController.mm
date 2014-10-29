@@ -736,15 +736,16 @@
 - (UIButton *)zoomInButton
 {
 
-  UIFont * font = [UIFont fontWithName:@"HelveticaNeue" size:22];
+  UIFont * font = [UIFont fontWithName:@"HelveticaNeue" size:26];
 
   UIButton * zoomInButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
   zoomInButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
   UIImage * backgroundImage = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
   [zoomInButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
 
+  zoomInButton.alpha = 0.65;
   zoomInButton.titleLabel.font = font;
-  zoomInButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 2, 0);
+  zoomInButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 3, 0);
   [zoomInButton setTitle:@"+" forState:UIControlStateNormal];
   [zoomInButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
@@ -756,15 +757,16 @@
 - (UIButton *)zoomOutButton
 {
 
-  UIFont * font = [UIFont fontWithName:@"HelveticaNeue" size:22];
+  UIFont * font = [UIFont fontWithName:@"HelveticaNeue" size:26];
 
   UIButton * zoomOutButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
   zoomOutButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
   UIImage * backgroundImage = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
   [zoomOutButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
 
+  zoomOutButton.alpha = 0.65;
   zoomOutButton.titleLabel.font = font;
-  zoomOutButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 2, 0);
+  zoomOutButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 3, 0);
   [zoomOutButton setTitle:@"–" forState:UIControlStateNormal];
   [zoomOutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
