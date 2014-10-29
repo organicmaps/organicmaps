@@ -70,22 +70,24 @@ public:
     MwmValueBase * m_pValue;
   };
 
-  /// Add new mwm. Returns false, if mwm with given fileName already exists.
+  /// Add new map.
   /// @param[in]  fileName  File name (without full path) of country.
   /// @param[out] rect      Limit rect of country.
-  /// @return Map format version or -1 if not added
+  /// @return Map format version or -1 if not added (already exists).
   //@{
 protected:
   int AddImpl(string const & fileName, m2::RectD & rect);
 
 public:
   int Add(string const & fileName, m2::RectD & rect);
-  inline bool Add(string const & fileName)
+  //@}
+
+  /// Used in unit tests only.
+  inline void Add(string const & fileName)
   {
     m2::RectD dummy;
-    return (-1 != Add(fileName, dummy));
+    CHECK(Add(fileName, dummy), ());
   }
-  //@}
 
   /// @name Remove mwm.
   //@{

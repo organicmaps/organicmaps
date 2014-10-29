@@ -33,7 +33,7 @@ public:
 class Index : public MwmSet
 {
 protected:
-  /// @return mwm format version
+  /// @return mwm format version or -1 if file isn't suitable (greater version).
   virtual int GetInfo(string const & name, MwmInfo & info) const;
   virtual MwmValue * CreateValue(string const & name) const;
   virtual void UpdateMwmInfo(MwmId id);
@@ -59,8 +59,13 @@ public:
     string GetFileName() const;
   };
 
+  /// @return mwm format version or -1 if file isn't suitable (greater version).
+  int AddMap(string const & fileName, m2::RectD & rect);
+  /// @return mwm format version or
+  /// -1 if file isn't suitable (greater version).
+  /// -2 if file is busy now (delayed update).
+  int UpdateMap(string const & fileName, m2::RectD & rect);
   bool DeleteMap(string const & fileName);
-  bool UpdateMap(string const & fileName, m2::RectD & rect);
 
 private:
 

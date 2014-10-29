@@ -39,7 +39,7 @@ int FeaturesFetcher::AddMap(string const & file)
   try
   {
     m2::RectD r;
-    version = m_multiIndex.Add(file, r);
+    version = m_multiIndex.AddMap(file, r);
 
     if (version != -1)
       m_rect.Add(r);
@@ -66,7 +66,7 @@ bool FeaturesFetcher::DeleteMap(string const & file)
 
 bool FeaturesFetcher::UpdateMap(string const & file, m2::RectD & rect)
 {
-  return m_multiIndex.UpdateMap(file, rect);
+  return (m_multiIndex.UpdateMap(file, rect) >= 0);
 }
 
 void FeaturesFetcher::RemoveAll()

@@ -99,6 +99,27 @@ namespace
   }
 }
 
+int Index::AddMap(string const & fileName, m2::RectD & rect)
+{
+  if (GetPlatform().IsFileExistsByFullPath(GetFullPath(fileName + READY_FILE_EXTENSION)))
+  {
+    int const ret = UpdateMap(fileName, rect);
+    switch (ret)
+    {
+    case -1:
+      return -1;
+    case -2:
+      // Not dangerous, but it's strange when adding existing maps.
+      ASSERT(false, ());
+      return feature::DataHeader::v3;
+    default:
+      return ret;
+    }
+  }
+  else
+    return Add(fileName, rect);
+}
+
 bool Index::DeleteMap(string const & fileName)
 {
   threads::MutexGuard mutexGuard(m_lock);
@@ -111,7 +132,7 @@ bool Index::DeleteMap(string const & fileName)
   return true;
 }
 
-bool Index::UpdateMap(string const & fileName, m2::RectD & rect)
+int Index::UpdateMap(string const & fileName, m2::RectD & rect)
 {
   threads::MutexGuard mutexGuard(m_lock);
   UNUSED_VALUE(mutexGuard);
@@ -120,13 +141,11 @@ bool Index::UpdateMap(string const & fileName, m2::RectD & rect)
   if (id != INVALID_MWM_ID)
   {
     m_info[id].m_status = MwmInfo::STATUS_UPDATE;
-    return false;
+    return -2;
   }
 
   ReplaceFileWithReady(fileName);
-
-  (void)AddImpl(fileName, rect);
-  return true;
+  return AddImpl(fileName, rect);
 }
 
 void Index::UpdateMwmInfo(MwmId id)
