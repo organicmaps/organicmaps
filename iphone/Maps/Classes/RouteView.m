@@ -106,12 +106,18 @@
       self.startButton.minY = originY - offsetInnerY;
       self.distanceView.minY = self.startButton.minY;
       self.closeButton.minY = self.startButton.minY;
+      self.startButton.alpha = 1.0;
+      self.distanceView.alpha = 1.0;
+      self.closeButton.alpha = 1.0;
     }
     else
     {
       self.startButton.maxY = -30;
       self.distanceView.maxY = self.startButton.maxY;
       self.closeButton.maxY = self.startButton.maxY;
+      self.startButton.alpha = 0.0;
+      self.distanceView.alpha = 0.0;
+      self.closeButton.alpha = 0.0;
     }
   } completion:nil];
 }
