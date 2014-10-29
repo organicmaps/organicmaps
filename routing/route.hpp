@@ -14,6 +14,32 @@ namespace routing
 class Route
 {
 public:
+
+  enum TurnInstruction
+  {
+    NoTurn = 0,
+    GoStraight,
+    TurnRight,
+    TurnSharpRight,
+    TurnSlightRight,
+    TurnLeft,
+    TurnSharpLeft,
+    TurnSlightLeft,
+    UTurn,
+    HeadOn,
+    EnterRoundAbout,
+    LeaveRoundAbout,
+    StayOnRoundAbout,
+    StartAtEndOfStreet,
+    ReachedYourDestination,
+    EnterAgainstAllowedDirection,
+    LeaveAgainstAllowedDirection
+  };
+
+  // first value of piar is an number of point in polyline (number of segment + 1)
+  typedef pair<uint32_t, TurnInstruction> TurnItemT;
+  typedef vector<TurnItemT> TurnsT;
+
   explicit Route(string const & router) : m_router(router) {}
 
   template <class IterT>
@@ -32,6 +58,8 @@ public:
     m2::PolylineD(beg, end).Swap(m_poly);
     Update();
   }
+
+  void SetTurnInstructions(TurnsT & v);
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
@@ -87,6 +115,8 @@ private:
   vector<double> m_segDistance;
   /// Precalculated info for fast projection finding.
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
+
+  TurnsT m_turns;
 
   /// Cached result iterator for last MoveIterator query.
   mutable IterT m_current;

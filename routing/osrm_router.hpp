@@ -1,5 +1,6 @@
 #pragma once
 
+#include "route.hpp"
 #include "router.hpp"
 #include "osrm2feature_map.hpp"
 #include "osrm_data_facade.hpp"
@@ -11,6 +12,7 @@
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 
+namespace feature { class TypesHolder; }
 
 class Index;
 struct PhantomNode;
@@ -48,6 +50,10 @@ protected:
 
   void CalculateRouteAsync(ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route);
+
+  Route::TurnInstruction GetTurnInstruction(feature::TypesHolder const & ft1, feature::TypesHolder const & ft2,
+                                            m2::PointD const & p1, m2::PointD const & p, m2::PointD const & p2,
+                                            bool isStreetEqual) const;
 
 private:
   Index const * m_pIndex;

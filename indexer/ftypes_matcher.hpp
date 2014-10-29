@@ -34,6 +34,22 @@ public:
   static IsStreetChecker const & Instance();
 };
 
+class IsOneWayChecker : public BaseChecker
+{
+public:
+  IsOneWayChecker();
+
+  static IsOneWayChecker const & Instance();
+};
+
+class IsRoundAboutChecker : public BaseChecker
+{
+public:
+  IsRoundAboutChecker();
+
+  static IsRoundAboutChecker const & Instance();
+};
+
 class IsBuildingChecker : public BaseChecker
 {
 public:

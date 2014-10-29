@@ -1,14 +1,18 @@
 #include "osrm_router.hpp"
-#include "route.hpp"
 #include "vehicle_model.hpp"
 
+#include "../base/math.hpp"
+
+#include "../geometry/angles.hpp"
 #include "../geometry/distance.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 
+#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/mercator.hpp"
 #include "../indexer/index.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/mwm_version.hpp"
+#include "../indexer/search_string_utils.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -537,6 +541,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   ASSERT(segBegin.IsValid(), ());
   ASSERT(segEnd.IsValid(), ());
 
+  Route::TurnsT turns;
+
   vector<m2::PointD> points;
   for (auto i : osrm::irange<std::size_t>(0, rawRoute.unpacked_path_segments.size()))
   {
@@ -544,6 +550,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       return Cancelled;
 
     // Get all the coordinates for the computed route
+    m2::PointD p1, p;
+    feature::TypesHolder fTypePrev;
+    string namePrev;
+
     size_t const n = rawRoute.unpacked_path_segments[i].size();
     for (size_t j = 0; j < n; ++j)
     {
@@ -591,6 +601,34 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         if (j == n - 1 && k == endK - 1)
           endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
 
+
+        if (j > 0 && k == startK)
+        {
+          ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(startIdx)), 2, ());
+
+          m2::PointD const p2 = ft.GetPoint((seg.m_pointEnd > seg.m_pointStart) ? startIdx + 1 : startIdx - 1);
+
+          string name;
+          ft.GetName(FeatureType::DEFAULT_LANG, name);
+
+          string n1, n2;
+          search::GetStreetNameAsKey(namePrev, n1);
+          search::GetStreetNameAsKey(name, n2);
+
+          Route::TurnInstruction const t = GetTurnInstruction(fTypePrev, ft, p1, p, p2, (!n1.empty() && (n1 == n2)));
+
+          if (t != Route::NoTurn)
+            turns.push_back(Route::TurnItemT(points.size(), t));
+        }
+
+        if (k == endK - 1)
+        {
+          fTypePrev = feature::TypesHolder(ft);
+          ft.GetName(FeatureType::DEFAULT_LANG, namePrev);
+          p1 = ft.GetPoint((seg.m_pointEnd > seg.m_pointStart) ? (endIdx - 1) : (endIdx + 1));
+          p = ft.GetPoint(endIdx);
+        }
+
         if (seg.m_pointEnd > seg.m_pointStart)
         {
           for (auto idx = startIdx; idx <= endIdx; ++idx)
@@ -612,9 +650,60 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   if (points.size() < 2)
     return RouteNotFound;
 
+  // osrm multiple seconds to 10, so we need to divide it back
+  estimateTime /= 10;
+
   route.SetGeometry(points.begin(), points.end());
+  route.SetTurnInstructions(turns);
 
   return NoError;
+}
+
+Route::TurnInstruction OsrmRouter::GetTurnInstruction(feature::TypesHolder const & ft1, feature::TypesHolder const & ft2,
+                                                      m2::PointD const & p1, m2::PointD const & p, m2::PointD const & p2,
+                                                      bool isStreetEqual) const
+{
+  bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
+  bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
+
+  if (isRound1 && isRound2)
+    return Route::StayOnRoundAbout;
+
+  if (!isRound1 && isRound2)
+    return Route::EnterRoundAbout;
+
+  if (isRound1 && !isRound2)
+    return Route::LeaveRoundAbout;
+
+  if (isStreetEqual)
+    return Route::NoTurn;
+
+  double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
+  while (a < 0)
+    a += 360;
+
+  if (a >= 23 && a < 67)
+    return Route::TurnSharpRight;
+
+  if (a >= 67 && a < 113)
+    return Route::TurnRight;
+
+  if (a >= 113 && a < 158)
+    return Route::TurnSlightRight;
+
+  if (a >= 158 && a < 202)
+    return Route::GoStraight;
+
+  if (a >= 202 && a < 248)
+    return Route::TurnSlightLeft;
+
+  if (a >= 248 && a < 292)
+    return Route::TurnLeft;
+
+  if (a >= 292 && a < 336)
+    return Route::TurnSharpLeft;
+
+  return Route::UTurn;
 }
 
 IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,

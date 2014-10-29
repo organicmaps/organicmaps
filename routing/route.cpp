@@ -34,6 +34,12 @@ void Route::Swap(Route & rhs)
   m_segProj.swap(rhs.m_segProj);
   swap(m_current, rhs.m_current);
   swap(m_currentTime, rhs.m_currentTime);
+  swap(m_turns, rhs.m_turns);
+}
+
+void Route::SetTurnInstructions(TurnsT & v)
+{
+  swap(m_turns, v);
 }
 
 double Route::GetDistance() const
@@ -123,12 +129,10 @@ Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDist
 
 double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
 {
-  size_t const n = m_poly.GetSize();
-
   ASSERT(it1.IsValid() && it2.IsValid(), ());
   ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
-  ASSERT_LESS(it1.m_ind, n, ());
-  ASSERT_LESS(it2.m_ind, n, ());
+  ASSERT_LESS(it1.m_ind, m_poly.GetSize(), ());
+  ASSERT_LESS(it2.m_ind, m_poly.GetSize(), ());
 
   if (it1.m_ind == it2.m_ind)
     return MercatorBounds::DistanceOnEarth(it1.m_pt, it2.m_pt);

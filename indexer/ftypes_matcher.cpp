@@ -70,6 +70,30 @@ IsStreetChecker const & IsStreetChecker::Instance()
   return inst;
 }
 
+IsOneWayChecker::IsOneWayChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({ "hwtag", "oneway" }));
+}
+
+IsOneWayChecker const & IsOneWayChecker::Instance()
+{
+  static const IsOneWayChecker inst;
+  return inst;
+}
+
+IsRoundAboutChecker::IsRoundAboutChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({ "junction", "roundabout" }));
+}
+
+IsRoundAboutChecker const & IsRoundAboutChecker::Instance()
+{
+  static const IsRoundAboutChecker inst;
+  return inst;
+}
+
 IsBuildingChecker::IsBuildingChecker()
 {
   Classificator const & c = classif();
