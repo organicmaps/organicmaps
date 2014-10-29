@@ -634,7 +634,13 @@
         (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
         if (!isDisclaimerApproved)
         {
-          UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_disclaimer") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
+          NSString * title;
+          NSString * message;
+          if (SYSTEM_VERSION_IS_LESS_THAN(@"7.0"))
+            message = L(@"routing_disclaimer");
+          else
+            title = L(@"routing_disclaimer");
+          UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
           alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
           [alert show];
         }
