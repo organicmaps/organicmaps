@@ -99,7 +99,7 @@
   [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
     self.distanceView.minX = offsetInnerX;
     self.closeButton.maxX = self.width - offsetInnerX;
-    self.startButton.maxX = self.closeButton.minX;
+    self.startButton.maxX = self.closeButton.minX + 3;
     if (visible)
     {
       self.startButton.userInteractionEnabled = YES;
