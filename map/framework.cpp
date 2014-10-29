@@ -739,9 +739,8 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   bool const isCompassEnabled = my::Abs(ang::GetShortestDistance(m_navigator.Screen().GetAngle(), 0.0)) > my::DegToRad(3.0);
   bool const isCompasActionEnabled = m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction();
-  bool const isInRouting = IsRoutingActive();
 
-  m_informationDisplay.enableCompassArrow(!isInRouting && (isCompassEnabled || isCompasActionEnabled));
+  m_informationDisplay.enableCompassArrow(isCompassEnabled || isCompasActionEnabled);
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
   int const drawScale = GetDrawScale();
