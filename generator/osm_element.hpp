@@ -168,7 +168,7 @@ class SecondPassParser : public BaseOSMParser
     /// 1. "initial relation" process
     int operator() (uint64_t id)
     {
-      auto i = m_typeCache.find(id);
+      auto const i = m_typeCache.find(id);
       if (i != m_typeCache.end())
       {
         m_val->AddTypes(i->second.m_p, GetSkipBoundaryType(i->second.m_e));

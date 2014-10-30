@@ -242,10 +242,12 @@ namespace
 
     if (g == GEOM_LINE || g == GEOM_UNDEFINED)
     {
-      if (s1 == t) return true;
+      if (s1 == t)
+        return true;
 
       ftype::TruncValue(t, 1);
-      if (s2 == t) return true;
+      if (s2 == t)
+        return true;
     }
 
     return false;
@@ -272,7 +274,7 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
   Classificator const & c = classif();
 
-  TypesHolder types(f);
+  TypesHolder const types(f);
 
   if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()))
     if (!scales::IsGoodForLevel(level, f.GetLimitRect()))

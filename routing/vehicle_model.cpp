@@ -1,14 +1,19 @@
 #include "vehicle_model.hpp"
+
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
+
 #include "../base/macros.hpp"
+
 #include "../std/limits.hpp"
+#include "../std/initializer_list.hpp"
+
 
 namespace routing
 {
 
-VehicleModel::SpeedForType const s_carLimits[] = {
+initializer_list<VehicleModel::SpeedForType> const s_carLimits = {
   { {"highway", "motorway"},       90 },
   { {"highway", "trunk"},          85 },
   { {"highway", "motorway_link"},  75 },
@@ -36,15 +41,15 @@ VehicleModel::SpeedForType const s_carLimits[] = {
 
 
 CarModel::CarModel()
-  : VehicleModel(classif(), vector<VehicleModel::SpeedForType>(s_carLimits, s_carLimits + ARRAY_SIZE(s_carLimits)))
+  : VehicleModel(classif(), s_carLimits)
 {
 }
 
-VehicleModel::VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits) : m_maxSpeed(0)
+VehicleModel::VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits)
+  : m_maxSpeed(0),
+    m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" })),
+    m_ferryType(c.GetTypeByPath({ "route", "ferry", "motorcar" }))
 {
-  m_onewayType = c.GetTypeByPath({ "hwtag", "oneway" });
-  m_ferryType = c.GetTypeByPath({ "route", "ferry", "motorcar" });
-
   for (size_t i = 0; i < speedLimits.size(); ++i)
   {
     m_maxSpeed = max(m_maxSpeed, speedLimits[i].m_speed);
