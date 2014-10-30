@@ -9,6 +9,7 @@
 #include "../std/iostream.hpp"
 #include "../std/bitset.hpp"
 #include "../std/noncopyable.hpp"
+#include "../std/initializer_list.hpp"
 
 
 class ClassifObject;
@@ -184,10 +185,14 @@ public:
   /// Return type by path in classificator tree, for example
   /// path = ["natural", "caostline"].
   //@{
+private:
+  template <class IterT> uint32_t GetTypeByPathImpl(IterT beg, IterT end) const;
+public:
   /// @return 0 in case of nonexisting type
   uint32_t GetTypeByPathSafe(vector<string> const & path) const;
-  /// Shows ASSERT in case of nonexisting type
+  /// Invokes ASSERT in case of nonexisting type
   uint32_t GetTypeByPath(vector<string> const & path) const;
+  uint32_t GetTypeByPath(initializer_list<char const *> const & lst) const;
   //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }

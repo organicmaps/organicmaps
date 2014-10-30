@@ -8,6 +8,7 @@
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
+#include "../std/initializer_list.hpp"
 
 
 class FeatureBase;
@@ -58,15 +59,8 @@ namespace feature
     uint32_t m_type;
     uint8_t m_level;
 
-    typedef char const * StringT;
-    void SetType(StringT * beg, StringT * end);
-
   public:
-    /// Construct by classificator set name.
-    //@{
-    TypeSetChecker(StringT name) { SetType(&name, &name + 1); }
-    TypeSetChecker(StringT arr[], size_t n) { SetType(arr, arr + n); }
-    //@}
+    explicit TypeSetChecker(initializer_list<char const *> const & lst);
 
     bool IsEqual(uint32_t type) const;
     template <class IterT> bool IsEqualR(IterT beg, IterT end) const

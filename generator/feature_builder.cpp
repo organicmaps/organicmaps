@@ -243,8 +243,7 @@ void FeatureBuilder1::RemoveUselessNames()
   {
     using namespace feature;
 
-    char const * arr[] = { "boundary", "administrative" };
-    static TypeSetChecker checkBoundary(arr, ARRAY_SIZE(arr));
+    static TypeSetChecker checkBoundary({ "boundary", "administrative" });
 
     TypesHolder types(GetFeatureBase());
     if (types.RemoveIf(bind(&TypeSetChecker::IsEqual, cref(checkBoundary), _1)))

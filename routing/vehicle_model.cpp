@@ -42,13 +42,8 @@ CarModel::CarModel()
 
 VehicleModel::VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits) : m_maxSpeed(0)
 {
-  {
-    char const * arr2[] = { "hwtag", "oneway" };
-    m_onewayType = c.GetTypeByPath(vector<string>(arr2, arr2 + 2));
-
-    char const * arr3[] = { "route", "ferry", "motorcar" };
-    m_ferryType = c.GetTypeByPath(vector<string>(arr3, arr3 + 3));
-  }
+  m_onewayType = c.GetTypeByPath({ "hwtag", "oneway" });
+  m_ferryType = c.GetTypeByPath({ "route", "ferry", "motorcar" });
 
   for (size_t i = 0; i < speedLimits.size(); ++i)
   {

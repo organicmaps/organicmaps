@@ -420,10 +420,10 @@ pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules)
   return GetDrawableScaleRangeForRules(TypesHolder(f), rules);
 }
 
-void TypeSetChecker::SetType(StringT * beg, StringT * end)
+TypeSetChecker::TypeSetChecker(initializer_list<char const *> const & lst)
 {
-  m_type = classif().GetTypeByPath(vector<string>(beg, end));
-  m_level = distance(beg, end);
+  m_type = classif().GetTypeByPath(lst);
+  m_level = lst.size();
 }
 
 bool TypeSetChecker::IsEqual(uint32_t type) const

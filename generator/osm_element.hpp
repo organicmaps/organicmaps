@@ -154,8 +154,8 @@ class SecondPassParser : public BaseOSMParser
 
     ~type_processor()
     {
-      for (typename RelationCacheT::iterator i = m_typeCache.begin(); i != m_typeCache.end(); ++i)
-        delete i->second.m_e;
+      for (auto & r : m_typeCache)
+        delete r.second.m_e;
     }
 
     /// Start process new feature.
@@ -168,7 +168,7 @@ class SecondPassParser : public BaseOSMParser
     /// 1. "initial relation" process
     int operator() (uint64_t id)
     {
-      typename RelationCacheT::const_iterator i = m_typeCache.find(id);
+      auto i = m_typeCache.find(id);
       if (i != m_typeCache.end())
       {
         m_val->AddTypes(i->second.m_p, GetSkipBoundaryType(i->second.m_e));

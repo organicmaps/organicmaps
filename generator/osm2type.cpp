@@ -539,8 +539,7 @@ namespace ftype
 
   uint32_t GetBoundaryType2()
   {
-    char const * arr[] = { "boundary", "administrative" };
-    return classif().GetTypeByPath(vector<string>(arr, arr + 2));
+    return classif().GetTypeByPath({ "boundary", "administrative" });
   }
 
   bool IsValidTypes(FeatureParams const & params)

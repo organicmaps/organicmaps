@@ -7,6 +7,7 @@
 #include "../../std/string.hpp"
 #include "../../std/utility.hpp"
 #include "../../std/vector.hpp"
+#include "../../std/initializer_list.hpp"
 
 
 /// @name Declarations.
@@ -22,6 +23,7 @@ template <typename T> inline string DebugPrint(list<T> const & v);
 template <typename T> inline string DebugPrint(vector<T> const & v);
 template <typename T> inline string DebugPrint(set<T> const & v);
 template <typename U, typename V> inline string DebugPrint(map<U,V> const & v);
+template <typename T> inline string DebugPrint(initializer_list<T> const & v);
 //@}
 
 
@@ -92,6 +94,11 @@ template <typename T> inline string DebugPrint(set<T> const & v)
 }
 
 template <typename U, typename V> inline string DebugPrint(map<U,V> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+}
+
+template <typename T> inline string DebugPrint(initializer_list<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }

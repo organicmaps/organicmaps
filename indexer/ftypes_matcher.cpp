@@ -74,10 +74,8 @@ IsBuildingChecker::IsBuildingChecker()
 {
   Classificator const & c = classif();
 
-  char const * arr0[] = { "building" };
-  m_types.push_back(c.GetTypeByPath(vector<string>(arr0, arr0 + 1)));
-  char const * arr1[] = { "building", "address" };
-  m_types.push_back(c.GetTypeByPath(vector<string>(arr1, arr1 + 2)));
+  m_types.push_back(c.GetTypeByPath({ "building" }));
+  m_types.push_back(c.GetTypeByPath({ "building", "address" }));
 }
 
 IsLocalityChecker::IsLocalityChecker()
