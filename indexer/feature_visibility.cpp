@@ -104,7 +104,7 @@ namespace
     drule::KeysT & m_keys;
 
   public:
-    DrawRuleGetter(int scale, feature::EGeomType ft, drule::KeysT & keys)
+    DrawRuleGetter(int scale, EGeomType ft, drule::KeysT & keys)
       : m_scale(scale), m_ft(ft), m_keys(keys)
     {
     }
@@ -126,7 +126,7 @@ namespace
 pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
                             drule::KeysT & keys)
 {
-  feature::TypesHolder types(f);
+  TypesHolder types(f);
 
   ASSERT ( keys.empty(), () );
   Classificator const & c = classif();
@@ -232,11 +232,29 @@ namespace
       return false;
     }
   };
+
+  /// Add here all exception classificator types: needed for algorithms,
+  /// but don't have drawing rules.
+  bool TypeAlwaysExists(uint32_t t, EGeomType g = GEOM_UNDEFINED)
+  {
+    static const uint32_t s1 = classif().GetTypeByPath({ "junction", "roundabout" });
+    static const uint32_t s2 = classif().GetTypeByPath({ "hwtag" });
+
+    if (g == GEOM_LINE || g == GEOM_UNDEFINED)
+    {
+      if (s1 == t) return true;
+
+      ftype::TruncValue(t, 1);
+      if (s2 == t) return true;
+    }
+
+    return false;
+  }
 }
 
 bool IsDrawableAny(uint32_t type)
 {
-  return classif().GetObject(type)->IsDrawableAny();
+  return (TypeAlwaysExists(type) || classif().GetObject(type)->IsDrawableAny());
 }
 
 bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft)
@@ -254,9 +272,9 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
 {
   Classificator const & c = classif();
 
-  feature::TypesHolder types(f);
+  TypesHolder types(f);
 
-  if (types.GetGeoType() == feature::GEOM_AREA && !types.Has(c.GetCoastType()))
+  if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()))
     if (!scales::IsGoodForLevel(level, f.GetLimitRect()))
       return false;
 
@@ -270,16 +288,19 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
 
 namespace
 {
-  class CheckNonDrawableType
+  class IsNonDrawableType
   {
     Classificator & m_c;
     EGeomType m_type;
 
   public:
-    CheckNonDrawableType(EGeomType ft) : m_c(classif()), m_type(ft) {}
+    IsNonDrawableType(EGeomType ft) : m_c(classif()), m_type(ft) {}
 
     bool operator() (uint32_t t)
     {
+      if (TypeAlwaysExists(t, m_type))
+        return false;
+
       IsDrawableLikeChecker doCheck(m_type);
       if (m_c.ProcessObjects(t, doCheck))
         return false;
@@ -300,7 +321,7 @@ namespace
 
 bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType ft)
 {
-  types.erase(remove_if(types.begin(), types.end(), CheckNonDrawableType(ft)), types.end());
+  types.erase(remove_if(types.begin(), types.end(), IsNonDrawableType(ft)), types.end());
   return !types.empty();
 }
 
@@ -309,7 +330,7 @@ int GetMinDrawableScale(FeatureBase const & f)
   int const upBound = scales::GetUpperStyleScale();
 
   for (int level = 0; level <= upBound; ++level)
-    if (feature::IsDrawableForIndex(f, level))
+    if (IsDrawableForIndex(f, level))
       return level;
 
   return -1;
@@ -373,7 +394,7 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
 
 namespace
 {
-  bool IsDrawableForRules(feature::TypesHolder const & types, int level, int rules)
+  bool IsDrawableForRules(TypesHolder const & types, int level, int rules)
   {
     Classificator const & c = classif();
 
@@ -386,7 +407,7 @@ namespace
   }
 }
 
-pair<int, int> GetDrawableScaleRangeForRules(feature::TypesHolder const & types, int rules)
+pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules)
 {
   int const upBound = scales::GetUpperStyleScale();
   int lowL = -1;
@@ -432,4 +453,4 @@ bool TypeSetChecker::IsEqual(uint32_t type) const
   return (m_type == type);
 }
 
-}
+}   // namespace feature

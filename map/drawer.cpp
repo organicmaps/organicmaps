@@ -475,10 +475,8 @@ void Drawer::Draw(di::FeatureInfo const & fi)
 
   // draw road numbers
   if (isPath && !fi.m_styler.m_refText.empty() && m_level >= 12)
-  {
-    for (list<di::PathInfo>::const_iterator i = fi.m_pathes.begin(); i != fi.m_pathes.end(); ++i)
-      drawPathNumber(*i, fi.m_styler);
-  }
+    for (auto n : fi.m_pathes)
+      drawPathNumber(n, fi.m_styler);
 }
 
 int Drawer::ThreadSlot() const

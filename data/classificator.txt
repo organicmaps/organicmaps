@@ -336,6 +336,9 @@ world  +
     internet_access  +
         wlan  -
         {}
+    junction  +
+        roundabout  -
+        {}
     landuse  +
         allotments  -
         basin  -

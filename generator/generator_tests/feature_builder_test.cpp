@@ -25,7 +25,6 @@ UNIT_TEST(FBuilder_ManyTypes)
   classificator::Load();
 
   FeatureBuilder1 fb1;
-
   FeatureParams params;
 
   char const * arr1[][1] = {
@@ -40,13 +39,10 @@ UNIT_TEST(FBuilder_ManyTypes)
     { "place", "region" },
     { "place", "city" },
     { "place", "town" },
-    { "railway", "rail" },
-    { "hwtag", "oneway" },
   };
   AddTypes(params, arr2);
 
   params.FinishAddingTypes();
-
   params.AddHouseNumber("75");
   params.AddHouseName("Best House");
   params.name.AddString(0, "Name");
@@ -66,6 +62,42 @@ UNIT_TEST(FBuilder_ManyTypes)
 
   TEST(fb2.CheckValid(), ());
   TEST_EQUAL(fb1, fb2, ());
+  TEST_EQUAL(fb2.GetTypesCount(), 7, ());
+}
+
+UNIT_TEST(FBuilder_LineTypes)
+{
+  FeatureBuilder1 fb1;
+  FeatureParams params;
+
+  char const * arr2[][2] = {
+    { "railway", "rail" },
+    { "highway", "motorway" },
+    { "hwtag", "oneway" },
+    { "junction", "roundabout" },
+  };
+
+  AddTypes(params, arr2);
+  params.FinishAddingTypes();
+  fb1.SetParams(params);
+
+  fb1.AddPoint(m2::PointD(0, 0));
+  fb1.AddPoint(m2::PointD(1, 1));
+  fb1.SetLinear();
+
+  TEST(fb1.RemoveInvalidTypes(), ());
+  TEST(fb1.CheckValid(), ());
+
+  FeatureBuilder1::buffer_t buffer;
+  TEST(fb1.PreSerialize(), ());
+  fb1.Serialize(buffer);
+
+  FeatureBuilder1 fb2;
+  fb2.Deserialize(buffer);
+
+  TEST(fb2.CheckValid(), ());
+  TEST_EQUAL(fb1, fb2, ());
+  TEST_EQUAL(fb2.GetTypesCount(), 4, ());
 }
 
 UNIT_TEST(FVisibility_RemoveNoDrawableTypes)

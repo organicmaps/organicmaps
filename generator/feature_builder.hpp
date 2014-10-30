@@ -86,6 +86,7 @@ public:
 
   inline size_t GetPointsCount() const { return GetGeometry().size(); }
   inline size_t GetPolygonsCount() const { return m_polygons.size(); }
+  inline size_t GetTypesCount() const { return m_params.m_Types.size(); }
   //@}
 
   /// @name Iterate through polygons points.
