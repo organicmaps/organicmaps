@@ -85,6 +85,17 @@ namespace graphics
     dl->draw(this, m, holder);
   }
 
+  void DisplayListRenderer::clear(Color const & c, bool clearRT, float depth, bool clearDepth)
+  {
+    if (isCancelled())
+      return;
+
+    if (m_displayList)
+      m_displayList->clear(make_shared<ClearCommandCmd>(c, clearRT, depth, clearDepth));
+    else
+      base_t::clear(c, clearRT, depth, clearDepth);
+  }
+
   void DisplayListRenderer::drawGeometry(shared_ptr<gl::BaseTexture> const & texture,
                                          gl::Storage const & storage,
                                          size_t indicesCount,

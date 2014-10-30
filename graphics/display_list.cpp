@@ -87,6 +87,12 @@ namespace graphics
     m_parent->processCommand(cmd);
   }
 
+  void DisplayList::clear(shared_ptr<ClearCommandCmd> const & cmd)
+  {
+    cmd->setIsDebugging(m_isDebugging);
+    m_commands.push_back(cmd);
+  }
+
   void DisplayList::addCheckPoint()
   {
     static_cast<gl::Renderer*>(m_parent)->addCheckPoint();

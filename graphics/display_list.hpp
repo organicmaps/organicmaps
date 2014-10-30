@@ -23,6 +23,7 @@ namespace graphics
     typedef gl::GeometryRenderer::ApplyStates ApplyStatesCmd;
     typedef gl::GeometryRenderer::ApplySharpStates ApplySharpStatesCmd;
     typedef gl::GeometryRenderer::UploadData UploadDataCmd;
+    typedef gl::GeometryRenderer::ClearCommand ClearCommandCmd;
 
     list<shared_ptr<Command> > m_commands;
 
@@ -52,6 +53,7 @@ namespace graphics
     void freeTexture(shared_ptr<FreeTextureCmd> const & cmd);
     void freeStorage(shared_ptr<FreeStorageCmd> const & cmd);
     void uploadResources(shared_ptr<UploadDataCmd> const & cmd);
+    void clear(shared_ptr<ClearCommandCmd> const & cmd);
     void addCheckPoint();
 
     void draw(DisplayListRenderer * r,

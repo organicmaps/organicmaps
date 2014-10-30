@@ -24,6 +24,7 @@ namespace graphics
     typedef base_t::FreeTexture FreeTextureCmd;
     typedef base_t::FreeStorage FreeStorageCmd;
     typedef base_t::DiscardStorage DiscardStorageCmd;
+    typedef base_t::ClearCommand ClearCommandCmd;
 
     typedef gl::BaseTexture const * TextureRef;
     typedef pair<gl::BufferObject const *, gl::BufferObject const *> StorageRef;
@@ -56,6 +57,7 @@ namespace graphics
 
     /// Interceptable commands
     /// @{
+    void clear(Color const & c, bool clearRT = true, float depth = 1.0, bool clearDepth = true);
 
     /// draw geometry
     void drawGeometry(shared_ptr<gl::BaseTexture> const & texture,
