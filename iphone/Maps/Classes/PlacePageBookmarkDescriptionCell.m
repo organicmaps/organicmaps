@@ -64,7 +64,12 @@
 
 + (CGFloat)cellHeightWithWebViewHeight:(CGFloat)webViewHeight
 {
-  return webViewHeight - 5;
+  // @HACK This code should be rewritten. It is a release-hot-fix.
+  // Sometimes webViewHeight is too low for some html descriptions (should be investigated deeply)
+  CGFloat const h = webViewHeight - 5;
+  if (h < 0)
+    return 0;
+  return h;
 }
 
 + (CGFloat)cellHeightWithTextValue:(NSString *)text viewWidth:(CGFloat)viewWidth
