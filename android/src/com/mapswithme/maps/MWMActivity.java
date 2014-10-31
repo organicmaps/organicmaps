@@ -157,6 +157,12 @@ public class MWMActivity extends NvEventQueueActivity
     // Next we need to handle intent
   }
 
+  public static Intent createUpdateMapsIntent()
+  {
+    return new Intent(MWMApplication.get(), DownloadResourcesActivity.class)
+        .putExtra(DownloadResourcesActivity.EXTRA_UPDATE_COUNTRIES, true);
+  }
+
   private native void deactivatePopup();
 
   private void pauseLocation()
@@ -1667,6 +1673,16 @@ public class MWMActivity extends NvEventQueueActivity
       else
         Framework.nativeShowCountry(mIndex, false);
 
+      return true;
+    }
+  }
+
+  public static class UpdateCountryTask implements MapTask
+  {
+    @Override
+    public boolean run(MWMActivity target)
+    {
+      target.runDownloadActivity(true);
       return true;
     }
   }

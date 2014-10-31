@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage.Index;
@@ -40,9 +39,7 @@ public class Notifier
   {
     final String title = MWMApplication.get().getString(R.string.advise_update_maps);
 
-    // Intent to start DownloadUI
-    final Intent i = new Intent(MWMApplication.get(), DownloadActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0, i,
+    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0, MWMActivity.createUpdateMapsIntent(),
         PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = Notifier.getBuilder()

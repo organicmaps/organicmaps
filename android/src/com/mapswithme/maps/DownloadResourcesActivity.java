@@ -78,10 +78,12 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
       new MapsWithMeIntentProcessor(),
       new GoogleMapsIntentProcessor(),
       new OpenCountryTaskProcessor(),
+      new UpdateCountryProcessor()
   };
 
   public static final String EXTRA_COUNTRY_INDEX = ".extra.index";
   public static final String EXTRA_AUTODOWNLOAD_CONTRY = ".extra.autodownload";
+  public static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   private void setDownloadMessage(int bytesToDownload)
   {
@@ -731,6 +733,22 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
       if (autoDownload)
         Statistics.INSTANCE.trackDownloadCountryNotificationClicked();
       mMapTaskToForward = new MWMActivity.ShowCountryTask(index, autoDownload);
+      return true;
+    }
+  }
+
+  private class UpdateCountryProcessor implements IntentProcessor
+  {
+    @Override
+    public boolean isIntentSupported(Intent intent)
+    {
+      return intent.getBooleanExtra(EXTRA_UPDATE_COUNTRIES, false);
+    }
+
+    @Override
+    public boolean processIntent(Intent intent)
+    {
+      mMapTaskToForward = new MWMActivity.UpdateCountryTask();
       return true;
     }
   }

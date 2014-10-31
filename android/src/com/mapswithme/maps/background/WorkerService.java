@@ -30,9 +30,6 @@ public class WorkerService extends IntentService
   public static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
   public static final String ACTION_UPDATE_MENU_ADS = "com.mapswithme.maps.action.ads.update";
 
-  private static final String PROMO_SHOW_EVENT_NAME = "PromoShowAndroid";
-  private static final String PROMO_CLICK_EVENT_NAME = "PromoClickAndroid";
-
   private Logger mLogger = StubLogger.get();
   // = SimpleLogger.get("MWMWorkerService");
 
