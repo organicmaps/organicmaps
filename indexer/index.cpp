@@ -138,7 +138,7 @@ int Index::UpdateMap(string const & fileName, m2::RectD & rect)
   UNUSED_VALUE(mutexGuard);
 
   MwmId const id = GetIdByName(fileName);
-  if (id != INVALID_MWM_ID)
+  if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
   {
     m_info[id].m_status = MwmInfo::STATUS_UPDATE;
     return -2;
