@@ -1223,7 +1223,7 @@ extern "C"
   {
     jclass stringClass = jni::GetStringClass(env);
 
-    char const * exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION };
+    char const * exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION };
     jobjectArray resultArray = env->NewObjectArray(ARRAY_SIZE(exts), stringClass, NULL);
 
     for (size_t i = 0; i < ARRAY_SIZE(exts); ++i)
