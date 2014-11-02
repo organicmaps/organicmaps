@@ -56,6 +56,10 @@ extern "C"
     g_framework->OnLocationUpdated(info);
   }
 
+// Fixed optimization bug for x86 (reproduced on Asus ME302C).
+#pragma clang push_options
+#pragma clang optimize off
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeCompassUpdated(JNIEnv * env, jobject thiz,
       jlong time, jdouble magneticNorth, jdouble trueNorth, jdouble accuracy)
@@ -65,6 +69,8 @@ extern "C"
 
     g_framework->OnCompassUpdated(info);
   }
+
+#pragma clang pop_options
 
   JNIEXPORT jfloatArray JNICALL
   Java_com_mapswithme_maps_location_LocationService_nativeUpdateCompassSensor(
