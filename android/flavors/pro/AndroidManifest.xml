@@ -4,11 +4,6 @@
 
   <application>
 
-    <meta-data
-        android:name="LOCALYTICS_APP_KEY"
-        android:value="d0cada95008a426b1c0c1b1-70af74b2-376e-11e4-4b53-00a426b17dd8"
-        tools:replace="android:value"/>
-
     <activity android:name="com.mapswithme.maps.DownloadResourcesActivity">
 
       <intent-filter>

@@ -10,21 +10,19 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
-import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mobileapptracker.MobileAppTracker;
-
-
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +43,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   private MobileAppTracker mMobileAppTracker = null;
   private final Logger mLogger = StubLogger.get();
-//      SimpleLogger.get("MAT");
+  //      SimpleLogger.get("MAT");
 
   public MWMApplication()
   {

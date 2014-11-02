@@ -276,9 +276,6 @@ public enum Statistics
     flurryEngine.configure(null, null);
     mStatisticsEngines.add(flurryEngine);
 
-    final StatisticsEngine localyticsEngine = new LocalyticsEngine();
-    mStatisticsEngines.add(localyticsEngine);
-
     mEventBuilder = new EventBuilder();
   }
 
