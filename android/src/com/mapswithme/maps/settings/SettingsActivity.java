@@ -35,8 +35,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.Locale;
-
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
 {
   public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
@@ -319,13 +317,14 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     else if (key.equals(getString(R.string.pref_report_bug)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.REPORT_BUG);
-      final Intent intent = new Intent(Intent.ACTION_SENDTO);
-      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "",
-          "Android version : " + Build.VERSION.RELEASE + "\n" +
-          "Device name : " + Build.MANUFACTURER + " " + Build.MODEL + "\n" +
-          "App version : " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n" +
-          "Locale : " + Locale.getDefault() + "\n\n"
-      ));
+
+      final Intent intent = new Intent(Intent.ACTION_SEND);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"bugs@maps.me"});
+      intent.putExtra(Intent.EXTRA_SUBJECT, "[android] Bugreport from user");
+      intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
+      intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
+      intent.setType("message/rfc822");
       startActivity(intent);
     }
     else if (key.equals(getString(R.string.pref_like_fb)))

@@ -18,11 +18,16 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 
 import java.io.Closeable;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -225,6 +230,60 @@ public class Utils
 
     return Uri.parse(uriString);
   }
+
+  /**
+   * Stores logcat output of the application to a file on primary external storage.
+   *
+   * @return name of the logfile. May be null in case of error.
+   */
+  public static String saveLogToFile()
+  {
+    String fullName = MWMApplication.get().getDataStoragePath() + "log.txt";
+    File file = new File(fullName);
+    InputStreamReader reader = null;
+    FileWriter writer = null;
+    try
+    {
+      writer = new FileWriter(file);
+      writer.write("Android version: " + Build.VERSION.SDK_INT + "\n");
+      writer.write("Device: " + getDeviceModel() + "\n");
+      writer.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_CODE + "\n");
+      writer.write("Locale : " + Locale.getDefault() + "\n\n");
+
+      String cmd = "logcat -d -v time";
+      Process process = Runtime.getRuntime().exec(cmd);
+      reader = new InputStreamReader(process.getInputStream());
+      char[] buffer = new char[10000];
+      do
+      {
+        int n = reader.read(buffer, 0, buffer.length);
+        if (n == -1)
+          break;
+        writer.write(buffer, 0, n);
+      } while (true);
+
+      reader.close();
+      writer.close();
+    } catch (IOException e)
+    {
+      closeStream(writer);
+      closeStream(reader);
+
+      return null;
+    }
+
+    return fullName;
+  }
+
+  private static String getDeviceModel()
+  {
+    String model = Build.MODEL;
+    if (!model.startsWith(Build.MANUFACTURER))
+      model = Build.MANUFACTURER + " " + model;
+
+    return model;
+  }
+
 
   private Utils() {}
 }
