@@ -71,7 +71,6 @@ HEADERS += \
     text_shape.hpp \
     path_text_shape.hpp \
     path_symbol_shape.hpp \
-    common_structures.hpp \
     fribidi.hpp \
     text_layout.hpp \
     intrusive_vector.hpp \

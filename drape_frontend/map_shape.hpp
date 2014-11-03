@@ -14,26 +14,6 @@ namespace dp
 namespace df
 {
 
-/// Utils
-struct Point3D
-{
-  float m_x;
-  float m_y;
-  float m_z;
-
-  Point3D(float x, float y, float z)
-    : m_x(x)
-    , m_y(y)
-    , m_z(z)
-  {}
-
-  static Point3D From2D(m2::PointF const & src, float thirdComponent = 0)
-  {
-    return Point3D(src.x, src.y, thirdComponent);
-  }
-};
-///
-
 class MapShape
 {
 public:
