@@ -272,30 +272,36 @@ public final class UiUtils
     showIf(!TextUtils.isEmpty(text), tv);
   }
 
-  public static void showBuyProDialog(final Activity activity, String message)
+  public static void showBuyProDialog(final Activity activity, final String message)
   {
-    new AlertDialog.Builder(activity)
-        .setMessage(message)
-        .setCancelable(false)
-        .setPositiveButton(activity.getString(R.string.get_it_now), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            openAppInMarket(activity, BuildConfig.PRO_URL);
-          }
-        }).
-        setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-          }
-        })
-        .create()
-        .show();
+    activity.runOnUiThread(new Runnable() {
+      @Override
+      public void run()
+      {
+        new AlertDialog.Builder(activity)
+            .setMessage(message)
+            .setCancelable(false)
+            .setPositiveButton(activity.getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dlg, int which)
+              {
+                dlg.dismiss();
+                openAppInMarket(activity, BuildConfig.PRO_URL);
+              }
+            }).
+            setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dlg, int which)
+              {
+                dlg.dismiss();
+              }
+            })
+            .create()
+            .show();
+      }
+    });
   }
 
   public static void openAppInMarket(Activity activity, String marketUrl)

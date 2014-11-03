@@ -41,7 +41,6 @@ import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
-import com.mapswithme.maps.Framework.BuyProListener;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
 import com.mapswithme.maps.MapStorage.Index;
@@ -83,7 +82,7 @@ import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
-    OnClickListener, RoutingListener, BuyProListener
+    OnClickListener, RoutingListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -306,7 +305,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onBookmarksClicked(View v)
   {
     if (!MWMApplication.get().hasBookmarks())
-      showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
+      UiUtils.showBuyProDialog(this, getString(R.string.bookmarks_in_pro_version));
     else
       startActivity(new Intent(this, BookmarkCategoriesActivity.class));
   }
@@ -536,18 +535,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void showProVersionBanner(final String message)
-  {
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        UiUtils.showBuyProDialog(MWMActivity.this, message);
-      }
-    });
-  }
-
   private void checkBuyProDialog()
   {
     if (!BuildConfig.IS_PRO &&
@@ -577,9 +564,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onSearchClicked(View v)
   {
     if (!BuildConfig.IS_PRO)
-    {
-      showProVersionBanner(getString(R.string.search_available_in_pro_version));
-    }
+      UiUtils.showBuyProDialog(this, getString(R.string.search_available_in_pro_version));
     else if (!MapStorage.INSTANCE.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
       @Override
@@ -742,7 +727,6 @@ public class MWMActivity extends NvEventQueueActivity
     setUpRoutingBox();
 
     Framework.nativeSetRoutingListener(this);
-    Framework.nativeSetBuyProListener(this);
     Framework.nativeConnectBalloonListeners(this);
 
     final Intent intent = getIntent();
@@ -1451,7 +1435,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (!BuildConfig.IS_PRO)
     {
-      showProVersionBanner(getString(R.string.routing_failed_buy_pro));
+      UiUtils.showBuyProDialog(this, getString(R.string.routing_failed_buy_pro));
       return;
     }
     if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
@@ -1617,11 +1601,6 @@ public class MWMActivity extends NvEventQueueActivity
         }
       }
     });
-  }
-
-  public void onBuyPro()
-  {
-    showProVersionBanner(getString(R.string.routing_failed_buy_pro));
   }
 
   public interface MapTask extends Serializable

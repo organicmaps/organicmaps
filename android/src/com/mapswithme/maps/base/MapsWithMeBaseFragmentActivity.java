@@ -8,14 +8,18 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class MapsWithMeBaseFragmentActivity extends FragmentActivity
+public class MapsWithMeBaseFragmentActivity extends FragmentActivity implements Framework.BuyProListener
 {
   @Override
   protected void onResume()
   {
     super.onResume();
+    Framework.nativeSetBuyProListener(this);
   }
 
   @Override
@@ -60,4 +64,8 @@ public class MapsWithMeBaseFragmentActivity extends FragmentActivity
       return super.onOptionsItemSelected(item);
   }
 
+  public void onBuyPro()
+  {
+    UiUtils.showBuyProDialog(MapsWithMeBaseFragmentActivity.this, getString(R.string.routing_failed_buy_pro));
+  }
 }

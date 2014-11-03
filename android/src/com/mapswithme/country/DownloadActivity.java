@@ -243,4 +243,11 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
   {
     updateActionBar();
   }
+
+  @Override
+  public void onBuyPro()
+  {
+    super.onBuyPro();
+    getDownloadAdapter().notifyDataSetChanged();
+  }
 }

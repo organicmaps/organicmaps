@@ -9,14 +9,23 @@ import android.support.v4.app.ListFragment;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 /**
  * TODO use simple activity and {@link ListFragment} instead.
  */
-public class MapsWithMeBaseListActivity extends ListActivity
+public class MapsWithMeBaseListActivity extends ListActivity implements Framework.BuyProListener
 {
+
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+    Framework.nativeSetBuyProListener(this);
+  }
 
   @Override
   protected void onStart()
@@ -46,11 +55,6 @@ public class MapsWithMeBaseListActivity extends ListActivity
     }
   }
 
-  public MWMApplication getMwmApplication()
-  {
-    return (MWMApplication) getApplication();
-  }
-
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
@@ -66,4 +70,8 @@ public class MapsWithMeBaseListActivity extends ListActivity
       return super.onOptionsItemSelected(item);
   }
 
+  public void onBuyPro()
+  {
+    UiUtils.showBuyProDialog(MapsWithMeBaseListActivity.this, getString(R.string.routing_failed_buy_pro));
+  }
 }
