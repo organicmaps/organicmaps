@@ -161,12 +161,12 @@
 
 enum
 {
-   STBI_default = 0, // only used for req_comp
+  STBI_default = 0, // only used for req_comp
 
-   STBI_grey       = 1,
-   STBI_grey_alpha = 2,
-   STBI_rgb        = 3,
-   STBI_rgb_alpha  = 4,
+  STBI_grey       = 1,
+  STBI_grey_alpha = 2,
+  STBI_rgb        = 3,
+  STBI_rgb_alpha  = 4,
 };
 
 typedef unsigned char stbi_uc;
@@ -308,12 +308,12 @@ extern float *  stbi_hdr_load_from_file   (FILE *f,                  int *x, int
 // define new loaders
 typedef struct
 {
-   int       (*test_memory)(stbi_uc const *buffer, int len);
-   stbi_uc * (*load_from_memory)(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
-   #ifndef STBI_NO_STDIO
-   int       (*test_file)(FILE *f);
-   stbi_uc * (*load_from_file)(FILE *f, int *x, int *y, int *comp, int req_comp);
-   #endif
+  int       (*test_memory)(stbi_uc const *buffer, int len);
+  stbi_uc * (*load_from_memory)(stbi_uc const *buffer, int len, int *x, int *y, int *comp, int req_comp);
+#ifndef STBI_NO_STDIO
+  int       (*test_file)(FILE *f);
+  stbi_uc * (*load_from_file)(FILE *f, int *x, int *y, int *comp, int req_comp);
+#endif
 } stbi_loader;
 
 // register a loader by filling out the above structure (you must defined ALL functions)
