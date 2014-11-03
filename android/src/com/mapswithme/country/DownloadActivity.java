@@ -3,6 +3,7 @@ package com.mapswithme.country;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -67,9 +68,12 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
     inflater.inflate(R.menu.ab_downloader, menu);
 
     final MenuItem item = menu.findItem(R.id.item_update);
-    mAbButton = (TextView) item.getActionView();
-    mAbButton.setOnClickListener(this);
-    mAbButton.setVisibility(View.GONE);
+    mAbButton = (TextView) MenuItemCompat.getActionView(item);
+    if (mAbButton != null)
+    {
+      mAbButton.setOnClickListener(this);
+      mAbButton.setVisibility(View.GONE);
+    }
 
     updateActionBar();
     return true;
