@@ -910,6 +910,12 @@
 
 - (void)tryToBuildRoute
 {
+  if (!GetPlatform().HasRouting())
+  {
+    [self showBuyProDialog];
+    return;
+  }
+
   [self.routeView updateDistance:nil withMetrics:nil];
   [self.containerView.placePage showBuildingRoutingActivity:YES];
   GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
