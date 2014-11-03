@@ -81,3 +81,5 @@ HEADERS += \
     $$DRAPE_DIR/stipple_pen_resource.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
     $$DRAPE_DIR/texture_of_colors.hpp \
+    $$DRAPE_DIR/glsl_types.hpp \
+    $$DRAPE_DIR/glsl_func.hpp \
