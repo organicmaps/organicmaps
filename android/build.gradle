@@ -208,8 +208,8 @@ android {
     debug {
       applicationIdSuffix '.debug'   // Allows to install debug and release builds together
       versionNameSuffix '-debug'
-      jniDebugBuild true           // Enable jni debug build
-      zipAlign true
+      jniDebuggable true           // Enable jni debug build
+      zipAlignEnabled true
       android.sourceSets.debug.setRoot('flavors/debug')
     }
 
