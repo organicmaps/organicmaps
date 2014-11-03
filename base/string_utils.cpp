@@ -206,4 +206,20 @@ string to_string_dac(double d, int dac)
   return ss.str();
 }
 
+bool IsHTML(string const & utf8)
+{
+  string::const_iterator it = utf8.begin();
+  size_t ltCount = 0;
+  size_t gtCount = 0;
+  while (it != utf8.end())
+  {
+    UniChar const c = utf8::unchecked::next(it);
+    if (c == '<')
+      ++ltCount;
+    else if (c == '>')
+      ++gtCount;
+  }
+  return (ltCount > 0 && gtCount > 0);
 }
+
+} // namespace strings

@@ -511,3 +511,14 @@ UNIT_TEST(CountNormLowerSymbols)
     TEST_EQUAL(res, results[i], ());
   }
 }
+
+UNIT_TEST(IsHTML)
+{
+  using namespace strings;
+
+  TEST(IsHTML("<a href=\"link\">some link</a>"), ());
+  TEST(IsHTML("This is: ---> a <b>broken</b> html"), ());
+  TEST(!IsHTML("This is not html"), ());
+  TEST(!IsHTML("This is not html < too!"), ());
+  TEST(!IsHTML("I am > not html"), ());
+}

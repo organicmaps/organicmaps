@@ -255,6 +255,9 @@ string to_string_dac(double d, int dac);
 
 bool StartsWith(string const & s1, char const * s2);
 
+/// Try to guess if it's HTML or not. No guarantee.
+bool IsHTML(string const & utf8);
+
 /*
 template <typename ItT, typename DelimiterT>
 typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & delimiter)
