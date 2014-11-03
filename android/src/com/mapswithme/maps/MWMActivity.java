@@ -1449,7 +1449,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void buildRoute()
   {
-    if (BuildConfig.IS_PRO && !MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
+    if (!BuildConfig.IS_PRO)
+    {
+      showProVersionBanner(getString(R.string.routing_failed_buy_pro));
+      return;
+    }
+    if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
     {
       showRoutingDisclaimer();
       return;
@@ -1616,14 +1621,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onBuyPro()
   {
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        showProVersionBanner(getString(R.string.routing_failed_buy_pro));
-      }
-    });
+    showProVersionBanner(getString(R.string.routing_failed_buy_pro));
   }
 
   public interface MapTask extends Serializable
