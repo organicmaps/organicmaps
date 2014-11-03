@@ -8,10 +8,13 @@
 #import "PlacePageEditCell.h"
 #import "PlacePageShareCell.h"
 #import "PlacePageBookmarkDescriptionCell.h"
-#include "../../search/result.hpp"
 #import "ColorPickerView.h"
 #import "Statistics.h"
+
+#include "../../base/string_utils.hpp"
+#include "../../search/result.hpp"
 #include "../../std/shared_ptr.hpp"
+
 
 typedef NS_ENUM(NSUInteger, CellRow)
 {
@@ -47,6 +50,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) NSString * setName;
 
 @property (nonatomic) NSString * temporaryTitle;
+
+@property (nonatomic) bool isDescriptionHTML;
 
 @end
 
@@ -216,7 +221,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     PlacePageBookmarkDescriptionCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageBookmarkDescriptionCell className]];
     if (!cell) // only for iOS 5
       cell = [[PlacePageBookmarkDescriptionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageBookmarkDescriptionCell className]];
-    if ([self descriptionIsHTML])
+    if (self.isDescriptionHTML)
     {
       cell.webView.hidden = NO;
       cell.titleLabel.hidden = YES;
@@ -258,7 +263,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
   else if (row == CellRowBookmarkDescription)
   {
-    if ([self descriptionIsHTML])
+    if (self.isDescriptionHTML)
     {
       if (self.bookmarkDescriptionView.isLoading)
         return 0;
@@ -508,7 +513,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if ([self isBookmark])
   {
     fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
-    if ([self descriptionIsHTML])
+    if (self.isDescriptionHTML)
       fullHeight += [PlacePageBookmarkDescriptionCell cellHeightWithWebViewHeight:self.bookmarkDescriptionView.height];
     else
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.bookmarkDescription viewWidth:self.tableView.width];
@@ -580,24 +585,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     }];
     self.bookmarkButton.selected = [self isBookmark];
   }
-}
-
-- (BOOL)descriptionIsHTML
-{
-  NSString * description = self.bookmarkDescription;
-  NSInteger const length = [description length];
-
-  NSInteger openedCount = 0;
-  NSInteger closedCount = 0;
-  for (NSInteger i = 0; i < length; i++)
-  {
-    unichar const symbol = [description characterAtIndex:i];
-    if (symbol == '<')
-      openedCount++;
-    else if (symbol == '>')
-      closedCount++;
-  }
-  return openedCount == closedCount && openedCount != 0;
 }
 
 - (CGFloat)maxHeight
@@ -959,6 +946,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
       std::string const & description = bookmark->GetDescription();
       _bookmarkDescription = description.empty() ? L(@"description") : [NSString stringWithUTF8String:description.c_str()];
+      _isDescriptionHTML = strings::IsHTML(description);
     }
     else
     {
