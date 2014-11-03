@@ -1,49 +1,47 @@
 #include "area_shape.hpp"
-#include "common_structures.hpp"
 
+#include "../drape/glsl_types.hpp"
 #include "../drape/shader_def.hpp"
+#include "../drape/glstate.hpp"
+#include "../drape/batcher.hpp"
 #include "../drape/attribute_provider.hpp"
-#include "../drape/texture_of_colors.hpp"
 #include "../drape/texture_set_holder.hpp"
 
-#include "../std/bind.hpp"
+#include "../base/buffer_vector.hpp"
+#include "../base/logging.hpp"
+
+#include "../std/algorithm.hpp"
 
 namespace df
 {
 
-using glsl_types::vec2;
-using glsl_types::vec3;
-using glsl_types::vec4;
-
-AreaShape::AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams const & params)
-  : m_params(params)
+AreaShape::AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & params)
+  : m_vertexes(triangleList)
+  , m_params(params)
 {
-  m_vertexes.reserve(triangleList.size());
-
-#if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-  void (vector<Point3D>::* fn)(Point3D &&) =
-#else
-  void (vector<Point3D>::* fn)(Point3D const &) =
-#endif
-      &vector<Point3D>::push_back;
-
-  for_each(triangleList.begin(), triangleList.end(),
-           bind(fn, &m_vertexes, bind(&Point3D::From2D, _1, params.m_depth)));
 }
 
 void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  dp::GLState state(gpu::SOLID_AREA_PROGRAM, dp::GLState::GeometryLayer);
-
   dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect = region.GetTexRect();
-  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+  m2::PointF const colorPoint = region.GetTexRect().Center();
 
-  vector<vec3> colors(m_vertexes.size(), vec3(rect.RightTop(), texIndex));
+  dp::TextureSetHolder::TextureNode const & texNode = region.GetTextureNode();
 
-  state.SetTextureSet(region.GetTextureNode().m_textureSet);
+  buffer_vector<glsl::vec3, 128> colors;
+  colors.resize(m_vertexes.size(), glsl::vec3(colorPoint.x, colorPoint.y, texNode.GetOffset()));
+
+  buffer_vector<glsl::vec3, 128> geom;
+  colors.reserve(m_vertexes.size());
+  for_each(m_vertexes.begin(), m_vertexes.end(), [&geom, this] (m2::PointF const & vertex)
+  {
+    geom.push_back(glsl::vec3(vertex.x, vertex.y, m_params.m_depth));
+  });
+
+  dp::GLState state(gpu::SOLID_AREA_PROGRAM, dp::GLState::GeometryLayer);
+  state.SetTextureSet(texNode.m_textureSet);
 
   dp::AttributeProvider provider(2, m_vertexes.size());
   {
@@ -54,7 +52,7 @@ void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, info, dp::MakeStackRefPointer((void *)&m_vertexes[0]));
+    provider.InitStream(0, info, dp::MakeStackRefPointer((void *)&geom[0]));
   }
 
   {

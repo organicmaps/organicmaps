@@ -13,12 +13,14 @@
 
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/drules_include.hpp"
-#include "../std/algorithm.hpp"
 
 #include "../drape/color.hpp"
 #include "../drape/stipple_pen_resource.hpp"
 
 #include "../graphics/defines.hpp"
+
+#include "../std/algorithm.hpp"
+#include "../std/utility.hpp"
 
 namespace df
 {
@@ -262,11 +264,12 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
   AreaRuleProto const * areaRule = pRule->GetArea();
   if (areaRule)
   {
+    ASSERT(!m_triangles.empty(), ());
     AreaViewParams params;
     params.m_depth = depth;
     params.m_color = ToDrapeColor(areaRule->color());
 
-    AreaShape * shape = new AreaShape(m_triangles, params);
+    AreaShape * shape = new AreaShape(move(m_triangles), params);
     m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
   }
   else
