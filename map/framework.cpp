@@ -1865,11 +1865,7 @@ bool Framework::IsRoutingActive() const
 
 void Framework::BuildRoute(m2::PointD const & destination)
 {
-  if (!GetPlatform().HasRouting())
-  {
-    ShowBuyProDialog();
-    return;
-  }
+  ASSERT(GetPlatform().HasRouting(), ());
 
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
