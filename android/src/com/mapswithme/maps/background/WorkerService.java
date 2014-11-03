@@ -205,7 +205,7 @@ public class WorkerService extends IntentService
 
   private void updateMenuAds()
   {
-    AdsManager.updateMenuAds();
+    AdsManager.updateFeatures();
     final Intent broadcast = new Intent(ACTION_UPDATE_MENU_ADS);
     LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
   }

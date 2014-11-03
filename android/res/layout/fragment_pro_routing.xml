@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+  <WebView
+      android:id="@+id/wv__banner"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
+  <ImageButton
+      android:id="@+id/btn__close"
+      android:layout_width="22dp"
+      android:layout_height="22dp"
+      android:layout_alignParentRight="true"
+      android:layout_margin="@dimen/margin_small"
+      android:layout_marginTop="@dimen/margin_small"
+      android:background="@null"
+      android:src="@drawable/close"/>
+
+</RelativeLayout>

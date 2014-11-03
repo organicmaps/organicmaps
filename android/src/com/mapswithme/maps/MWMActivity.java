@@ -16,6 +16,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.text.SpannableStringBuilder;
@@ -40,6 +43,8 @@ import android.widget.Toast;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Ads.AdsManager;
+import com.mapswithme.maps.Ads.Banner;
+import com.mapswithme.maps.Ads.BannerDialogFragment;
 import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
@@ -242,6 +247,7 @@ public class MWMActivity extends NvEventQueueActivity
         checkFacebookDialog();
         checkBuyProDialog();
         checkUserMarkActivation();
+        checkShouldShowBanners();
       }
     });
 
@@ -1092,6 +1098,23 @@ public class MWMActivity extends NvEventQueueActivity
 
     MWMApplication.get().onMwmResume(this);
 
+  }
+
+  private void checkShouldShowBanners()
+  {
+    final Banner banner = AdsManager.getBannerToShow();
+    if (banner != null)
+    {
+      final DialogFragment fragment = new BannerDialogFragment();
+      fragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.MWMTheme_Dialog_DialogFragment);
+      final Bundle args = new Bundle();
+      args.putParcelable(BannerDialogFragment.EXTRA_BANNER, banner);
+      fragment.setArguments(args);
+      final FragmentManager fragmentManager = getSupportFragmentManager();
+      FragmentTransaction transaction = fragmentManager.beginTransaction();
+      transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+      transaction.add(android.R.id.content, fragment).addToBackStack(null).commit();
+    }
   }
 
   private void tryResumeRouting()

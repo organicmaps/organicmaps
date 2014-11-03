@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
@@ -31,6 +32,7 @@ import java.util.Locale;
 public class AdsManager
 {
   private static final String ROOT_MENU_ITEMS_KEY = "AppFeatureBottomMenuItems";
+  private static final String ROOT_BANNERS_KEY = "AppFeatureBanners";
   private static final String MENU_ITEMS_KEY = "Items";
   private static final String DEFAULT_KEY = "*";
   private static final String ID_KEY = "Id";
@@ -41,42 +43,63 @@ public class AdsManager
   private static final String WEB_URL_KEY = "WebURLs";
   private static final String CACHE_FILE = "menu_ads.json";
   private static final String ID_APP_PACKAGE = "AppPackage";
+  private static final String SHOW_LITE_KEY = "ShowInLite";
+  private static final String SHOW_PRO_KEY = "ShowInPro";
+  private static final String FG_TIME_KEY = "ForegroundTime";
+  private static final String LAUNCH_NUM_KEY = "LaunchNumber";
+  private static final String APP_VERSION_KEY = "AppVersion";
+  private static final String BANNER_URL_KEY = "Url";
 
   private static List<MenuAd> sMenuAds;
+  private static List<Banner> sBanners;
 
   public static List<MenuAd> getMenuAds()
   {
     return sMenuAds;
   }
 
-  public static void updateMenuAds()
+  public static List<Banner> getBanners()
   {
-    String menuAdsString;
+    return sBanners;
+  }
+
+  public static void updateFeatures()
+  {
+    String featuresString = null;
     if (ConnectionState.isConnected())
     {
-      menuAdsString = getJsonAdsFromServer();
-      cacheMenuAds(menuAdsString);
+      featuresString = getJsonAdsFromServer();
+      cacheFeatures(featuresString);
     }
-    else
-      menuAdsString = getCachedJsonString();
 
-    if (menuAdsString == null)
+    if (featuresString == null)
+      featuresString = getCachedJsonString();
+
+    if (featuresString == null)
       return;
 
-    final JSONObject menuAdsJson;
+    JSONObject featuresJson = null;
     try
     {
-      menuAdsJson = new JSONObject(menuAdsString);
-      sMenuAds = parseMenuAds(menuAdsJson);
+      featuresJson = new JSONObject(featuresString);
+      sMenuAds = parseMenuAds(featuresJson);
+    } catch (JSONException e)
+    {
+      e.printStackTrace();
+    }
+
+    try
+    {
+      sBanners = parseBanners(featuresJson);
     } catch (JSONException e)
     {
       e.printStackTrace();
     }
   }
 
-  private static void cacheMenuAds(String menuAdsString)
+  private static void cacheFeatures(String featuresString)
   {
-    if (menuAdsString == null)
+    if (featuresString == null)
       return;
 
     final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), CACHE_FILE);
@@ -84,7 +107,7 @@ public class AdsManager
     try
     {
       fileOutputStream = new FileOutputStream(cacheFile);
-      fileOutputStream.write(menuAdsString.getBytes());
+      fileOutputStream.write(featuresString.getBytes());
       fileOutputStream.close();
     } catch (IOException e)
     {
@@ -122,6 +145,9 @@ public class AdsManager
 
   private static List<MenuAd> parseMenuAds(JSONObject adsJson) throws JSONException
   {
+    if (adsJson == null)
+      return null;
+
     final List<MenuAd> ads = new ArrayList<>();
 
     final String countryCode = Locale.getDefault().getCountry();
@@ -151,6 +177,33 @@ public class AdsManager
     }
 
     return ads;
+  }
+
+  private static List<Banner> parseBanners(JSONObject rootJson) throws JSONException
+  {
+    if (rootJson == null)
+      return null;
+    final ArrayList<Banner> banners = new ArrayList<>();
+
+    final String countryCode = Locale.getDefault().getCountry();
+    final JSONArray featuresJson = getJsonObjectByKeyOrDefault(rootJson.getJSONObject(ROOT_BANNERS_KEY), countryCode).
+        getJSONArray(MENU_ITEMS_KEY);
+
+    for (int i = 0; i < featuresJson.length(); i++)
+    {
+      final JSONObject featureJson = featuresJson.getJSONObject(i);
+      final String url = featureJson.optString(BANNER_URL_KEY);
+      final boolean showLite = featureJson.optBoolean(SHOW_LITE_KEY, false);
+      final boolean showPro = featureJson.optBoolean(SHOW_PRO_KEY, false);
+      final int fgTime = featureJson.optInt(FG_TIME_KEY, 0);
+      final int launchNum = featureJson.optInt(LAUNCH_NUM_KEY, 0);
+      final int appVersion = featureJson.optInt(APP_VERSION_KEY, 0);
+      final String id = featureJson.optString(ID_KEY);
+
+      banners.add(new Banner(url, showLite, showPro, launchNum, fgTime, appVersion, id));
+    }
+
+    return banners;
   }
 
   /**
@@ -255,9 +308,9 @@ public class AdsManager
     HttpURLConnection connection = null;
     try
     {
-      final URL url = new URL(Constants.Url.MENU_ADS_JSON);
+      final URL url = new URL(Constants.Url.FEATURES_JSON);
       connection = (HttpURLConnection) url.openConnection();
-      final int timeout = 10000;
+      final int timeout = 30000;
       connection.setReadTimeout(timeout);
       connection.setConnectTimeout(timeout);
       connection.setRequestMethod("GET");
@@ -283,6 +336,34 @@ public class AdsManager
       Utils.closeStream(reader);
       if (connection != null)
         connection.disconnect();
+    }
+
+    return null;
+  }
+
+  private static boolean shouldShowBanner(Banner banner)
+  {
+    final MWMApplication application = MWMApplication.get();
+    return ((ConnectionState.isConnected()) &&
+        ((BuildConfig.IS_PRO && banner.getShowInPro()) || (!BuildConfig.IS_PRO && banner.getShowInLite())) &&
+        (BuildConfig.VERSION_CODE >= banner.getAppVersion()) &&
+        (application.nativeGetBoolean("ShouldShow" + banner.getId(), true)) &&
+        (application.getForegroundTime() >= banner.getFgTime()) &&
+        (application.getLaunchesNumber() >= banner.getLaunchNumber()));
+  }
+
+  public static Banner getBannerToShow()
+  {
+    if (sBanners == null || sBanners.isEmpty())
+      return null;
+
+    for (Banner banner : sBanners)
+    {
+      if (shouldShowBanner(banner))
+      {
+        MWMApplication.get().nativeSetBoolean("ShouldShow" + banner.getId(), false);
+        return banner;
+      }
     }
 
     return null;

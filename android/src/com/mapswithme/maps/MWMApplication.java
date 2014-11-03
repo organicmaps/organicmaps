@@ -32,6 +32,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private final static String TAG = "MWMApplication";
   private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
+  private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
 
   private static MWMApplication mSelf;
 
@@ -151,6 +152,8 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       BookmarkManager.getBookmarkManager();
 
     WorkerService.startActionUpdateAds(this);
+
+    updateLaunchNumbers();
   }
 
   public String getApkPath()
@@ -273,6 +276,16 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   {
     final File mwmDir = new File(getDataStoragePath());
     return !mwmDir.exists() || (System.currentTimeMillis() - mwmDir.lastModified() < TIME_DELTA);
+  }
+
+  private void updateLaunchNumbers()
+  {
+    nativeSetInt(LAUNCH_NUMBER_SETTING, nativeGetInt(LAUNCH_NUMBER_SETTING, 0) + 1);
+  }
+
+  public int getLaunchesNumber()
+  {
+    return nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
   }
 
   private void initMAT(Activity activity)

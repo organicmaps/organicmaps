@@ -101,6 +101,11 @@
     <item name="listPreferredItemPaddingRight">16dip</item>
   </style>
 
+  <style name="MWMTheme.Dialog.DialogFragment" parent="@android:style/Theme.Holo.Light" >
+    <item name="android:windowBackground">@null</item>
+    <item name="android:windowIsFloating">true</item>
+  </style>
+
   <style name="drawerSeparatorNoPadding">
     <item name="android:layout_height">1px</item>
     <item name="android:layout_width">match_parent</item>
