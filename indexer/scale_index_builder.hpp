@@ -18,6 +18,7 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/utility.hpp"
+#include "../std/unordered_set.hpp"
 
 
 class CellFeaturePair
@@ -49,50 +50,61 @@ STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
 template <class SorterT>
 class FeatureCoverer
 {
-  int GetGeometryScale() const
-  {
-    // Do not pass actual level. We should build index for the best geometry.
-    return FeatureType::BEST_GEOMETRY;
-    //return m_ScaleRange.second-1;
-  }
+  unordered_set<uint32_t> & m_skipped;
 
 public:
-  FeatureCoverer(uint32_t bucket,
+  FeatureCoverer(unordered_set<uint32_t> & skipped,
+                 uint32_t bucket,
                  int codingScale,
                  SorterT & sorter,
                  uint32_t & numFeatures)
-    : m_Sorter(sorter),
+    : m_skipped(skipped), m_Sorter(sorter),
       m_codingDepth(covering::GetCodingDepth(codingScale)),
       m_ScaleRange(ScaleIndexBase::ScaleRangeForBucket(bucket)),
       m_NumFeatures(numFeatures)
   {
+    ASSERT_LESS(m_ScaleRange.first, m_ScaleRange.second, ());
   }
 
   template <class TFeature>
   void operator() (TFeature const & f, uint32_t offset) const
   {
-    if (FeatureShouldBeIndexed(f))
+    if (FeatureShouldBeIndexed(f, offset))
     {
       vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
+      for (int64_t cell : cells)
+        m_Sorter.Add(CellFeaturePair(cell, offset));
 
-      for (vector<int64_t>::const_iterator it = cells.begin(); it != cells.end(); ++it)
-        m_Sorter.Add(CellFeaturePair(*it, offset));
       ++m_NumFeatures;
-      return;
     }
   }
 
+private:
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & f) const
+  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset) const
   {
-    if (f.IsEmptyGeometry(GetGeometryScale()))
-      return false;
+    // Do index features for the first visible interval only once.
+    // If the feature was skipped as empty for the suitable interval,
+    // it should be indexed in the next interval where geometry is not empty.
 
+    // This function invokes geometry reading for the needed scale.
+    if (f.IsEmptyGeometry(m_ScaleRange.second - 1))
+    {
+      m_skipped.insert(offset);
+      return false;
+    }
+
+    // This function assumes that geometry rect for the needed scale is already initialized.
     uint32_t const minScale = feature::GetMinDrawableScale(f);
-    return (m_ScaleRange.first <= minScale && minScale < m_ScaleRange.second);
+    if (m_ScaleRange.first <= minScale && minScale < m_ScaleRange.second)
+    {
+      (void) m_skipped.erase(offset);
+      return true;
+    }
+
+    return (minScale < m_ScaleRange.first && m_skipped.erase(offset) == 1);
   }
 
-private:
   SorterT & m_Sorter;
   int m_codingDepth;
   pair<uint32_t, uint32_t> m_ScaleRange;
@@ -125,13 +137,15 @@ inline void IndexScales(uint32_t bucketsCount,
 {
   // TODO: Make scale bucketing dynamic.
 
-  //typedef pair<int64_t, uint32_t> CellFeaturePair;
   STATIC_ASSERT(sizeof(CellFeaturePair) == 12);
+
+  unordered_set<uint32_t> skipped;
 
   VarSerialVectorWriter<WriterT> recordWriter(writer, bucketsCount);
   for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
   {
     LOG(LINFO, ("Building scale index for bucket:", bucket));
+
     uint32_t numFeatures = 0;
     {
       FileWriter cellsToFeaturesWriter(tmpFilePrefix + ".c2f.sorted");
@@ -140,10 +154,11 @@ inline void IndexScales(uint32_t bucketsCount,
       WriterFunctor<FileWriter> out(cellsToFeaturesWriter);
       SorterType sorter(1024*1024, tmpFilePrefix + ".c2f.tmp", out);
       featuresVector.ForEachOffset(
-            FeatureCoverer<SorterType>(bucket, codingScale, sorter, numFeatures));
+            FeatureCoverer<SorterType>(skipped, bucket, codingScale, sorter, numFeatures));
       // LOG(LINFO, ("Sorting..."));
       sorter.SortAndFinish();
     }
+
     // LOG(LINFO, ("Indexing..."));
     {
       FileReader reader(tmpFilePrefix + ".c2f.sorted");
@@ -155,9 +170,12 @@ inline void IndexScales(uint32_t bucketsCount,
       BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
                          RectId::DEPTH_LEVELS * 2 + 1);
     }
+
     FileWriter::DeleteFileX(tmpFilePrefix + ".c2f.sorted");
     // LOG(LINFO, ("Indexing done."));
     recordWriter.FinishRecord();
   }
+
+  CHECK(skipped.empty(), ());
   LOG(LINFO, ("All scale indexes done."));
 }
