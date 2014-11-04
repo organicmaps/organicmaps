@@ -31,7 +31,7 @@ UNIT_TEST(BuildIndexTest)
     FeaturesVector featuresVector(originalContainer, header);
 
     MemWriter<vector<char> > serialWriter(serialIndex);
-    indexer::BuildIndex(ScaleIndexBase::NUM_BUCKETS,
+    indexer::BuildIndex(ScaleIndexBase::GetBucketsCount(),
                         scales::GetUpperScale(),
                         featuresVector, serialWriter,
                         "build_index_test");

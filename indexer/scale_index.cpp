@@ -1,4 +1,19 @@
 #include "scale_index.hpp"
 
-uint32_t const ScaleIndexBase::kScaleBuckets[] = {
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+
+/// Using default one to one mapping.
+
+uint32_t ScaleIndexBase::GetBucketsCount()
+{
+  return 18;
+}
+
+uint32_t ScaleIndexBase::BucketByScale(uint32_t scale)
+{
+  return scale;
+}
+
+pair<uint32_t, uint32_t> ScaleIndexBase::ScaleRangeForBucket(uint32_t bucket)
+{
+  return make_pair(bucket, bucket + 1);
+}
