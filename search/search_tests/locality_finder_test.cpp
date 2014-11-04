@@ -33,11 +33,7 @@ UNIT_TEST(LocalityFinder)
 {
   Index index;
   m2::RectD rect;
-  if (!index.Add("World.mwm", rect))
-  {
-    LOG(LWARNING, ("MWM file not found"));
-    return;
-  }
+  TEST(index.Add("World.mwm", rect), ());
 
   search::LocalityFinder finder(&index);
   finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));

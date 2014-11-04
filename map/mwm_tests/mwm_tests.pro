@@ -23,3 +23,4 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   mwm_foreach_test.cpp \
   multithread_mwm_test.cpp \
+  mwm_index_test.cpp \

@@ -221,6 +221,12 @@ public:
   }
 
   template <typename FunctorT>
+  void ForEachTriangle(FunctorT f, int scale) const
+  {
+    ForEachTriangleRef(f, scale);
+  }
+
+  template <typename FunctorT>
   void ForEachTriangleExRef(FunctorT & f, int scale) const
   {
     f.StartPrimitive(m_triangles.size());

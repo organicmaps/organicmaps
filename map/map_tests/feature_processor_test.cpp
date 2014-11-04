@@ -1,15 +1,17 @@
-#include "../../base/SRC_FIRST.hpp"
-
 #include "../../testing/testing.hpp"
-#include "../../geometry/screenbase.hpp"
-#include "../../base/logging.hpp"
 
 #include "../feature_processor.hpp"
 #include "../geometry_processors.hpp"
 
+#include "../../geometry/screenbase.hpp"
+
+#include "../../base/logging.hpp"
+
+
+
 UNIT_TEST(PathPoints_ClipAsIntervals)
 {
-  m2::PointD pts[10] =
+  m2::PointD pts[] =
   {
     m2::PointD(0, 0),
     m2::PointD(10, 0),
@@ -42,14 +44,13 @@ UNIT_TEST(PathPoints_ClipAsIntervals)
 
   functor_t fun(p);
 
-  for (unsigned i = 0; i < 10; ++i)
+  for (size_t i = 0; i < ARRAY_SIZE(pts); ++i)
     fun(pts[i]);
 
-  fun.IsExist();
+  TEST(fun.IsExist(), ());
 
-  double res [2] = {5, 45};
-
-  TEST(std::equal(intervals.begin(), intervals.end(), res), ());
+  double res[] = { 5, 45 };
+  TEST(equal(intervals.begin(), intervals.end(), res), ());
 
   typedef gp::filter_screenpts_adapter<gp::cut_path_intervals> cut_functor_t;
 
@@ -61,7 +62,7 @@ UNIT_TEST(PathPoints_ClipAsIntervals)
 
   cut_functor_t cut_fun(cp);
 
-  for (unsigned i = 0; i < ARRAY_SIZE(pts); ++i)
+  for (size_t i = 0; i < ARRAY_SIZE(pts); ++i)
     cut_fun(CoordPointT(pts[i].x, pts[i].y));
 
   m2::PointD res1[] = {
@@ -73,12 +74,12 @@ UNIT_TEST(PathPoints_ClipAsIntervals)
     m2::PointD(25, 10)
   };
 
-  TEST(std::equal(res1, res1 + ARRAY_SIZE(res1), cut_fun.m_points.back().m_path.begin()), ());
+  TEST(equal(res1, res1 + ARRAY_SIZE(res1), cut_fun.m_points.back().m_path.begin()), ());
 }
 
 UNIT_TEST(PathPoints_DeadZoneClipping)
 {
-  m2::PointD pts[10] =
+  m2::PointD pts[] =
   {
     m2::PointD(0, 0),
     m2::PointD(10, 0),
@@ -104,14 +105,10 @@ UNIT_TEST(PathPoints_DeadZoneClipping)
   p.m_rect = &r;
   gp::path_points fun(p);
 
-  for (unsigned i = 0; i < 10; ++i)
+  for (size_t i = 0; i < ARRAY_SIZE(pts); ++i)
     fun(pts[i]);
 
-  fun.IsExist();
+  TEST(fun.IsExist(), ());
 
-//  int pathCount = fun.m_points.size();
-
-  di::PathInfo pi = fun.m_points.front();
-  vector<m2::PointD> pts1 = fun.m_points.front().m_path;
-//  LOG(LINFO, (pts1));
+  //LOG(LINFO, (fun.m_points.front().m_path));
 }
