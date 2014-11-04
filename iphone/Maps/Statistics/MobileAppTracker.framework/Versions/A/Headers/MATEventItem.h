@@ -62,7 +62,7 @@
  @param unitPrice unit price of the event item
  @param quantity quantity of the event item
  */
-+ (MATEventItem *)eventItemWithName:(NSString *)name unitPrice:(float)unitPrice quantity:(int)quantity;
++ (instancetype)eventItemWithName:(NSString *)name unitPrice:(float)unitPrice quantity:(int)quantity;
 
 /*!
  Method to create an event item.
@@ -71,7 +71,7 @@
  @param quantity quantity of the event item
  @param revenue revenue of the event item, to be used instead of (quantity * unitPrice)
  */
-+ (MATEventItem *)eventItemWithName:(NSString *)name unitPrice:(float)unitPrice quantity:(int)quantity revenue:(float)revenue;
++ (instancetype)eventItemWithName:(NSString *)name unitPrice:(float)unitPrice quantity:(int)quantity revenue:(float)revenue;
 
 /*!
  Method to create an event item.
@@ -82,12 +82,12 @@
  @param attribute4 an extra parameter that corresponds to attribute_sub4 property of the event item
  @param attribute5 an extra parameter that corresponds to attribute_sub5 property of the event item
  */
-+ (MATEventItem *)eventItemWithName:(NSString *)name
-                         attribute1:(NSString *)attribute1
-                         attribute2:(NSString *)attribute2
-                         attribute3:(NSString *)attribute3
-                         attribute4:(NSString *)attribute4
-                         attribute5:(NSString *)attribute5;
++ (instancetype)eventItemWithName:(NSString *)name
+                       attribute1:(NSString *)attribute1
+                       attribute2:(NSString *)attribute2
+                       attribute3:(NSString *)attribute3
+                       attribute4:(NSString *)attribute4
+                       attribute5:(NSString *)attribute5;
 
 /*!
  Method to create an event item.
@@ -101,10 +101,10 @@
  @param attribute4 an extra parameter that corresponds to attribute_sub4 property of the event item
  @param attribute5 an extra parameter that corresponds to attribute_sub5 property of the event item
  */
-+ (MATEventItem *)eventItemWithName:(NSString *)name unitPrice:(float)unitPrice quantity:(int)quantity revenue:(float)revenue
-                         attribute1:(NSString *)attribute1
-                         attribute2:(NSString *)attribute2
-                         attribute3:(NSString *)attribute3
-                         attribute4:(NSString *)attribute4
-                         attribute5:(NSString *)attribute5;
++ (instancetype)eventItemWithName:(NSString *)name unitPrice:(float)unitPrice quantity:(int)quantity revenue:(float)revenue
+                       attribute1:(NSString *)attribute1
+                       attribute2:(NSString *)attribute2
+                       attribute3:(NSString *)attribute3
+                       attribute4:(NSString *)attribute4
+                       attribute5:(NSString *)attribute5;
 @end

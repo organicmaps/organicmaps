@@ -1,0 +1,6 @@
+framework module MobileAppTracker {
+  umbrella header "MobileAppTracker.h"
+
+  export *
+  module * { export * }
+}
