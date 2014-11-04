@@ -284,7 +284,12 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
 
 - (NSString *)imageNameForMessage:(NSString *)messageName imageType:(NSString *)imageType idiom:(NSString *)idiom height:(NSInteger)height
 {
-  NSString * scaleString = [UIScreen mainScreen].scale == 2 ? @"@2x" : @"";
+  CGFloat const scale = [UIScreen mainScreen].scale;
+  NSString * scaleString = @"";
+  if (scale == 2)
+    scaleString = @"@2x";
+  else if (scale == 3)
+    scaleString = @"@3x";
   NSString * heightString = height ? [NSString stringWithFormat:@"%i", height] : @"";
   return [NSString stringWithFormat:@"%@_%@_%@%@%@.png", messageName, imageType, idiom, heightString, scaleString];
 }
@@ -304,8 +309,17 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   NSArray * languages = imageParameters[imageType][@"Languages"];
   // if message does not use localized text we should pass '*' instead of language name
   // then, message image must be in /all directory on server
-  if ([languages containsObject:[[NSLocale preferredLanguages] firstObject]])
-    return [[NSLocale preferredLanguages] firstObject];
+  NSString * messageLanguage = nil;
+  for (NSString * preferredLanguage in [NSLocale preferredLanguages])
+  {
+    if ([languages containsObject:preferredLanguage])
+    {
+      messageLanguage = preferredLanguage;
+      break;
+    }
+  }
+  if (messageLanguage)
+    return messageLanguage;
   if ([languages containsObject:@"*"])
     return @"all";
   return nil;
