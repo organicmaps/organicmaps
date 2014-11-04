@@ -76,11 +76,10 @@ public:
     m_intersect = m_rect.IsPointInside(p);
   }
 
-  void operator() (CoordPointT const & p)
+  void operator() (m2::PointD const & pt)
   {
     if (m_intersect) return;
 
-    m2::PointD pt(p.first, p.second);
     if (m_isPrev)
     {
       m2::PointD d1 = m_prev;

@@ -3,10 +3,9 @@
 
 #include "../geometry/rect2d.hpp"
 
-#include "../base/base.hpp"
-
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+
 
 class FeatureType;
 

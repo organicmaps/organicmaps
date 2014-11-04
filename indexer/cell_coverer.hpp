@@ -9,14 +9,14 @@
 
 template <typename BoundsT, typename CellIdT>
 inline void SplitRectCell(CellIdT id,
-                          CoordT minX, CoordT minY,
-                          CoordT maxX, CoordT maxY,
+                          double minX, double minY,
+                          double maxX, double maxY,
                           vector<CellIdT> & result)
 {
   for (int8_t i = 0; i < 4; ++i)
   {
     CellIdT child = id.Child(i);
-    CoordT minCellX, minCellY, maxCellX, maxCellY;
+    double minCellX, minCellY, maxCellX, maxCellY;
     CellIdConverter<BoundsT, CellIdT>::GetCellBounds(child, minCellX, minCellY, maxCellX, maxCellY);
     if (!((maxX < minCellX) || (minX > maxCellX) || (maxY < minCellY) || (minY > maxCellY)))
       result.push_back(child);
@@ -24,8 +24,8 @@ inline void SplitRectCell(CellIdT id,
 }
 
 template <typename BoundsT, typename CellIdT>
-inline void CoverRect(CoordT minX, CoordT minY,
-                      CoordT maxX, CoordT maxY,
+inline void CoverRect(double minX, double minY,
+                      double maxX, double maxY,
                       size_t cells_count, int maxDepth,
                       vector<CellIdT> & cells)
 {

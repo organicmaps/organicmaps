@@ -22,12 +22,12 @@ namespace serial
 
     inline m2::PointD U2D(m2::PointU const & p, uint32_t coordBits)
     {
-      CoordPointT const pt = PointU2PointD(p, coordBits);
-      ASSERT(MercatorBounds::minX <= pt.first && pt.first <= MercatorBounds::maxX, \
+      m2::PointD const pt = PointU2PointD(p, coordBits);
+      ASSERT(MercatorBounds::minX <= pt.x && pt.y <= MercatorBounds::maxX,
              (p, pt, coordBits));
-      ASSERT(MercatorBounds::minY <= pt.second && pt.second <= MercatorBounds::maxY, \
+      ASSERT(MercatorBounds::minY <= pt.x && pt.y <= MercatorBounds::maxY,
              (p, pt, coordBits));
-      return m2::PointD(pt.first, pt.second);
+      return pt;
     }
 
     inline m2::PointU GetMaxPoint(CodingParams const & params)

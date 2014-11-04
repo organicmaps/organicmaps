@@ -285,14 +285,12 @@ ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey,
 {
 }
 
-void ApplyLineFeature::operator ()(CoordPointT const & point)
+void ApplyLineFeature::operator() (m2::PointD const & point)
 {
-  m2::PointD const inputPt(point.first, point.second);
-
   if (m_spline.IsNull())
     m_spline.Reset(new m2::Spline());
 
-  m_spline->AddPoint(inputPt);
+  m_spline->AddPoint(point);
 }
 
 bool ApplyLineFeature::HasGeometry() const

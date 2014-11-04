@@ -54,15 +54,15 @@ namespace serial
   template <class TSink>
   void SavePoint(TSink & sink, m2::PointD const & pt, CodingParams const & cp)
   {
-    WriteVarUint(sink, EncodeDelta(PointD2PointU(pt.x, pt.y, cp.GetCoordBits()), cp.GetBasePoint()));
+    WriteVarUint(sink, EncodeDelta(PointD2PointU(pt, cp.GetCoordBits()), cp.GetBasePoint()));
   }
 
   template <class TSource>
   m2::PointD LoadPoint(TSource & src, CodingParams const & cp)
   {
-    CoordPointT const c = PointU2PointD(
+    m2::PointD const pt = PointU2PointD(
               DecodeDelta(ReadVarUint<uint64_t>(src), cp.GetBasePoint()), cp.GetCoordBits());
-    return m2::PointD(c.first, c.second);
+    return pt;
   }
 
   template <class TSink>

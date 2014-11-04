@@ -26,7 +26,7 @@ namespace serial
 
   void CodingParams::SetBasePoint(m2::PointD const & pt)
   {
-    m_BasePoint = PointD2PointU(pt.x, pt.y, m_CoordBits);
+    m_BasePoint = PointD2PointU(pt, m_CoordBits);
     m_BasePointUint64 = m2::PointUToUint64(m_BasePoint);
   }
 }

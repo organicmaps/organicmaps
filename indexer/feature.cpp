@@ -351,10 +351,8 @@ namespace
       m_dist = m_pt.Length(p);
     }
 
-    void operator() (CoordPointT const & p)
+    void operator() (m2::PointD const & pt)
     {
-      m2::PointD pt(p.first, p.second);
-
       if (m_hasPrev)
         m_dist = min(m_dist, GetDistance(m_prev, pt, m_pt));
       else

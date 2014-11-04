@@ -173,10 +173,9 @@ void LoaderImpl::ParseCommon()
 
   if (h & HEADER_HAS_POINT)
   {
-    CoordPointT const center = Int64ToPoint(
+    m_pF->m_center = Int64ToPoint(
           ReadVarInt<int64_t>(source) + GetDefCodingParams().GetBasePointInt64(), POINT_COORD_BITS);
 
-    m_pF->m_center = m2::PointD(center.first, center.second);
     m_pF->m_limitRect.Add(m_pF->m_center);
   }
 

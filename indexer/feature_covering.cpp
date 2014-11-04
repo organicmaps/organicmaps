@@ -6,12 +6,8 @@
 
 #include "../geometry/covering_utils.hpp"
 
-#include "../base/base.hpp"
-#include "../base/stl_add.hpp"
-
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
 #include "../std/vector.hpp"
+
 
 namespace
 {
@@ -98,23 +94,22 @@ public:
 
   typedef CellIdConverter<MercatorBounds, RectId> CellIdConverterType;
 
-  m2::PointD ConvertPoint(double x, double y)
+  m2::PointD ConvertPoint(m2::PointD const & p)
   {
-    m2::PointD pt(CellIdConverterType::XToCellIdX(x), CellIdConverterType::YToCellIdY(y));
+    m2::PointD const pt(CellIdConverterType::XToCellIdX(p.x),
+                        CellIdConverterType::YToCellIdY(p.y));
     m_rect.Add(pt);
     return pt;
   }
 
-  void operator() (pair<double, double> const & pt)
+  void operator() (m2::PointD const & pt)
   {
-    m_polyline.push_back(ConvertPoint(pt.first, pt.second));
+    m_polyline.push_back(ConvertPoint(pt));
   }
 
   void operator() (m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
   {
-    m_trg.push_back(Trg(ConvertPoint(a.x, a.y),
-                        ConvertPoint(b.x, b.y),
-                        ConvertPoint(c.x, c.y)));
+    m_trg.emplace_back(ConvertPoint(a), ConvertPoint(b), ConvertPoint(c));
   }
 };
 

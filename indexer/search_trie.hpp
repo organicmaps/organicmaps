@@ -55,7 +55,6 @@ typedef ::trie::reader::EmptyValueReader EdgeValueReader;
 
   inline serial::CodingParams GetCPForTrie(serial::CodingParams const & orig)
   {
-    CoordPointT const p = PointU2PointD(orig.GetBasePoint(), orig.GetCoordBits());
-    return serial::CodingParams(POINT_CODING_BITS, m2::PointD(p.first, p.second));
+    return serial::CodingParams(POINT_CODING_BITS, PointU2PointD(orig.GetBasePoint(), orig.GetCoordBits()));
   }
 }  // namespace search

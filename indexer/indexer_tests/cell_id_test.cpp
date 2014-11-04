@@ -42,12 +42,12 @@ UNIT_TEST(CellId_RandomRecode)
   PseudoRNG32 rng;
   for (size_t i = 0; i < 1000; ++i)
   {
-    uint32_t x = rng.Generate() % 2000;
-    uint32_t y = rng.Generate() % 1000;
-    pair<double, double> xy =
+    uint32_t const x = rng.Generate() % 2000;
+    uint32_t const y = rng.Generate() % 1000;
+    m2::PointD const pt =
         CellIdConverter<Bounds<0, 0, 2000, 1000>, CellIdT>::FromCellId(
             CellIdConverter<Bounds<0, 0, 2000, 1000>, CellIdT>::ToCellId(x, y));
-    TEST(fabs(xy.first  - x) < 0.0002, (x, y, xy));
-    TEST(fabs(xy.second - y) < 0.0001, (x, y, xy));
+    TEST(fabs(pt.x  - x) < 0.0002, (x, y, pt));
+    TEST(fabs(pt.y - y) < 0.0001, (x, y, pt));
   }
 }

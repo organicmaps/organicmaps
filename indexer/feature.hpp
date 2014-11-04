@@ -181,12 +181,12 @@ public:
     {
       // it's a point feature
       if (GetFeatureType() == feature::GEOM_POINT)
-        f(CoordPointT(m_center.x, m_center.y));
+        f(m_center);
     }
     else
     {
       for (size_t i = 0; i < m_points.size(); ++i)
-        f(CoordPointT(m_points[i].x, m_points[i].y));
+        f(m_points[i]);
     }
   }
 

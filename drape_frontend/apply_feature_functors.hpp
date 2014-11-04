@@ -48,7 +48,6 @@ public:
                     FeatureID const & id,
                     CaptionDescription const & captions);
 
-  void operator()(CoordPointT const & point);
   void operator()(m2::PointD const & point);
   void ProcessRule(Stylist::rule_wrapper_t const & rule);
   void Finish();
@@ -90,7 +89,7 @@ public:
                    CaptionDescription const & captions,
                    double currentScaleGtoP);
 
-  void operator ()(CoordPointT const & point);
+  void operator() (m2::PointD const & point);
   bool HasGeometry() const;
   void ProcessRule(Stylist::rule_wrapper_t const & rule);
   void Finish();

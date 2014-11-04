@@ -23,25 +23,25 @@ template <typename BoundsT, typename CellIdT>
 class CellIdConverter
 {
 public:
-  static CoordT XToCellIdX(CoordT x)
+  static double XToCellIdX(double x)
   {
     return (x - BoundsT::minX) / StepX();
   }
-  static CoordT YToCellIdY(CoordT y)
+  static double YToCellIdY(double y)
   {
     return (y - BoundsT::minY) / StepY();
   }
 
-  static CoordT CellIdXToX(CoordT x)
+  static double CellIdXToX(double  x)
   {
     return (x*StepX() + BoundsT::minX);
   }
-  static CoordT CellIdYToY(CoordT y)
+  static double CellIdYToY(double y)
   {
     return (y*StepY() + BoundsT::minY);
   }
 
-  static CellIdT ToCellId(CoordT x, CoordT y)
+  static CellIdT ToCellId(double x, double y)
   {
     uint32_t const ix = static_cast<uint32_t>(XToCellIdX(x));
     uint32_t const iy = static_cast<uint32_t>(YToCellIdY(y));
@@ -58,7 +58,7 @@ public:
     return id;
   }
 
-  static CellIdT Cover2PointsWithCell(CoordT x1, CoordT y1, CoordT x2, CoordT y2)
+  static CellIdT Cover2PointsWithCell(double x1, double y1, double x2, double y2)
   {
     CellIdT id1 = ToCellId(x1, y1);
     CellIdT id2 = ToCellId(x2, y2);
@@ -78,13 +78,14 @@ public:
     return id1;
   }
 
-  static CoordPointT FromCellId(CellIdT id)
+  static m2::PointD FromCellId(CellIdT id)
   {
     pair<uint32_t, uint32_t> const xy = id.XY();
-    return CoordPointT(CellIdXToX(xy.first), CellIdYToY(xy.second));
+    return m2::PointD(CellIdXToX(xy.first), CellIdYToY(xy.second));
   }
 
-  static void GetCellBounds(CellIdT id, CoordT & minX, CoordT &  minY, CoordT & maxX, CoordT & maxY)
+  static void GetCellBounds(CellIdT id,
+                            double & minX, double & minY, double & maxX, double & maxY)
   {
     pair<uint32_t, uint32_t> const xy = id.XY();
     uint32_t const r = id.Radius();
@@ -93,13 +94,14 @@ public:
     minY = (xy.second - r) * StepY() + BoundsT::minY;
     maxY = (xy.second + r) * StepY() + BoundsT::minY;
   }
+
 private:
-  inline static CoordT StepX()
+  inline static double StepX()
   {
-    return CoordT(BoundsT::maxX - BoundsT::minX) / CellIdT::MAX_COORD;
+    return double(BoundsT::maxX - BoundsT::minX) / CellIdT::MAX_COORD;
   }
-  inline static CoordT StepY()
+  inline static double StepY()
   {
-    return CoordT(BoundsT::maxY - BoundsT::minY) / CellIdT::MAX_COORD;
+    return double(BoundsT::maxY - BoundsT::minY) / CellIdT::MAX_COORD;
   }
 };

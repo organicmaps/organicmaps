@@ -196,9 +196,9 @@ class StreetCreator
   Street * m_street;
 public:
   StreetCreator(Street * st) : m_street(st) {}
-  void operator () (CoordPointT const & point) const
+  void operator () (m2::PointD const & pt) const
   {
-    m_street->m_points.push_back(m2::PointD(point.first, point.second));
+    m_street->m_points.push_back(pt);
   }
 };
 

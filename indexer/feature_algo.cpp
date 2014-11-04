@@ -27,12 +27,10 @@ class CalculateLineCenter
 public:
   CalculateLineCenter() : m_length(0.0) {}
 
-  void operator() (CoordPointT const & pt)
+  void operator() (m2::PointD const & pt)
   {
-    m2::PointD p(pt.first, pt.second);
-
-    m_length += (m_poly.empty() ? 0.0 : m_poly.back().m_p.Length(p));
-    m_poly.push_back(Value(p, m_length));
+    m_length += (m_poly.empty() ? 0.0 : m_poly.back().m_p.Length(pt));
+    m_poly.emplace_back(pt, m_length);
   }
 
   P GetCenter() const

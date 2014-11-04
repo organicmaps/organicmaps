@@ -42,11 +42,6 @@ namespace gp
 
     ScreenBase const * m_convertor;
 
-    static m2::PointD make_point(CoordPointT const & p)
-    {
-      return m2::PointD(p.first, p.second);
-    }
-
     m2::PointD g2p(m2::PointD const & pt) const
     {
       return m_convertor->GtoP(pt);
@@ -110,9 +105,9 @@ namespace gp
       TBase(p), m_exist(false), m_length(0)
     {}
 
-    void operator() (CoordPointT const & p)
+    void operator() (m2::PointD const & p)
     {
-      m2::PointD pt(this->convert_point(this->make_point(p)));
+      m2::PointD const pt(this->convert_point(p));
 
       if (m_exist)
         m_length += pt.Length(m_prevPt);
@@ -139,7 +134,7 @@ namespace gp
     {
     }
 
-    void operator() (CoordPointT const & p);
+    void operator() (m2::PointD const & pt);
 
     bool IsExist() const
     {
@@ -314,13 +309,13 @@ namespace gp
 
     filter_screenpts_adapter(params const & p)
       : TBase(p),
-      m_prev(numeric_limits<CoordT>::min(), numeric_limits<CoordT>::min()), m_center(0, 0)
+      m_prev(numeric_limits<double>::min(), numeric_limits<double>::min()), m_center(0, 0)
     {
     }
 
-    void operator() (CoordPointT const & p)
+    void operator() (m2::PointD const & p)
     {
-      m2::PointD pt = this->g2p(this->make_point(p));
+      m2::PointD const pt = this->g2p(p);
       if (!equal_scr_pts(m_prev, pt))
       {
         TBase::operator()(pt);

@@ -12,11 +12,9 @@ namespace gp
     m_convertor->GtoP(*p.m_rect, m_rect);
   }
 
-  void one_point::operator() (CoordPointT const & p)
+  void one_point::operator() (m2::PointD const & pt)
   {
     ASSERT ( !m_exist, ("point feature should have only one point") );
-
-    m2::PointD pt(make_point(p));
 
     if (m_rect->IsPointInside(pt))
     {
@@ -275,5 +273,4 @@ namespace gp
   {
     return !m_points.empty();
   }
-
 }

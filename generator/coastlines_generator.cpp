@@ -183,10 +183,9 @@ namespace
 
     void operator() (PointT const & p)
     {
-      CoordPointT const c = PointU2PointD(m2::PointU(
+      m_points.push_back(PointU2PointD(m2::PointU(
                                 static_cast<uint32_t>(p.x),
-                                static_cast<uint32_t>(p.y)), POINT_COORD_BITS);
-      m_points.push_back(m2::PointD(c.first, c.second));
+                                static_cast<uint32_t>(p.y)), POINT_COORD_BITS));
     }
 
     size_t GetPointsCount() const

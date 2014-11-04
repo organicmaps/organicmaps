@@ -50,7 +50,7 @@ namespace
       ft.ForEachGeometryPoint(*this);
       m_midLoc = m_midLoc / m_locCount;
 
-      uint64_t const pointAsInt64 = PointToInt64(m_midLoc.x, m_midLoc.y, m_coordBits);
+      uint64_t const pointAsInt64 = PointToInt64(m_midLoc, m_coordBits);
       int const minScale = feature::GetMinDrawableScale(ft.GetFeatureBase());
 
       /// May be invisible if it's small area object with [0-9] scales.

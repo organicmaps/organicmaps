@@ -23,7 +23,7 @@ public:
   void operator() (FeatureType const & ft)
   {
     bool res = false;
-    ft.ForEachPoint([&res] (CoordPointT const &) { res = true; }, m_scale);
+    ft.ForEachPoint([&res] (m2::PointD const &) { res = true; }, m_scale);
     ft.ForEachTriangle([&res] (m2::PointD const &, m2::PointD const &, m2::PointD const &) { res = true; }, m_scale);
 
     TEST(res, (ft, "Scale =", m_scale));

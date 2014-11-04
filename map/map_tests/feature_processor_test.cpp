@@ -63,7 +63,7 @@ UNIT_TEST(PathPoints_ClipAsIntervals)
   cut_functor_t cut_fun(cp);
 
   for (size_t i = 0; i < ARRAY_SIZE(pts); ++i)
-    cut_fun(CoordPointT(pts[i].x, pts[i].y));
+    cut_fun(pts[i]);
 
   m2::PointD res1[] = {
     m2::PointD(5, 10),
