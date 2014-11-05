@@ -122,7 +122,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"appcenter://package/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitPro.setRoot('flavors/pro')
-      android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     androidpitLite {
@@ -132,7 +132,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"appcenter://package/com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitLite.setRoot('flavors/lite')
-      android.sourceSets.androidpitLite.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.androidpitLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     slidemePro {
@@ -142,7 +142,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.slidemePro.setRoot('flavors/pro')
-      android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     slidemeLite {
@@ -162,7 +162,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexPro.setRoot('flavors/pro')
-      android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     yandexLite {
@@ -172,7 +172,7 @@ android {
       buildConfigField 'String',  'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexLite.setRoot('flavors/lite')
-      android.sourceSets.yandexLite.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.yandexLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     yotaLite {
