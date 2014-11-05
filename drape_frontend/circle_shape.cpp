@@ -1,11 +1,10 @@
 #include "circle_shape.hpp"
-#include "common_structures.hpp"
 
+#include "../drape/glsl_types.hpp"
 #include "../drape/batcher.hpp"
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/shader_def.hpp"
-#include "../drape/texture_of_colors.hpp"
 #include "../drape/texture_set_holder.hpp"
 
 #define BLOCK_X_OFFSET  0
@@ -20,14 +19,11 @@
 
 namespace df
 {
-  using glsl_types::vec2;
-  using glsl_types::vec3;
-  using glsl_types::vec4;
 
 namespace
 {
 
-void AddPoint(vector<float> & stream, size_t pointIndex, float x, float y, float z, float nX, float nY, vec3 const & color)
+void AddPoint(vector<float> & stream, size_t pointIndex, float x, float y, float z, float nX, float nY, glsl::vec3 const & color)
 {
   size_t startIndex = pointIndex * VERTEX_STRIDE;
   stream[startIndex + BLOCK_X_OFFSET] = x;
@@ -56,10 +52,7 @@ void CircleShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::T
   dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect = region.GetTexRect();
-  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
-
-  vec3 color(rect.RightTop(), texIndex);
+  glsl::vec3 color(glsl::ToVec2(region.GetTexRect().Center()), region.GetTextureNode().GetOffset());
 
   /// x, y, z floats on geompoint
   /// normal x, y on triangle forming normals
