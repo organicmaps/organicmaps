@@ -3,6 +3,7 @@
 #include "../coding/file_reader.hpp"
 #include "../platform/platform.hpp"
 
+#include "../drape/glsl_types.hpp"
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/overlay_tree.hpp"
@@ -29,9 +30,6 @@
 
 namespace df
 {
-using glsl_types::vec2;
-using glsl_types::vec3;
-using glsl_types::vec4;
 
 class DummyStippleElement : public MapShape
 {
@@ -56,7 +54,7 @@ public:
     m2::RectF const & rect = region.GetTexRect();
     float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-    uint32_t length = region.GetTemplateLength();
+    uint32_t length = region.GetMaskPixelLength();
     m2::PointF positions[4] =
     {
       m_base, m_base,
@@ -69,12 +67,12 @@ public:
       m2::PointF(0.0, 1.0), m2::PointF(0.0, -1.0)
     };
 
-    glsl_types::vec4 texCoord[4] =
+    glsl::vec4 texCoord[4] =
     {
-      glsl_types::vec4(rect.minX(), rect.minY(), texIndex, 0),
-      glsl_types::vec4(rect.minX(), rect.maxY(), texIndex, 0),
-      glsl_types::vec4(rect.maxX(), rect.minY(), texIndex, 0),
-      glsl_types::vec4(rect.maxX(), rect.maxY(), texIndex, 0)
+      glsl::vec4(rect.minX(), rect.minY(), texIndex, 0),
+      glsl::vec4(rect.minX(), rect.maxY(), texIndex, 0),
+      glsl::vec4(rect.maxX(), rect.minY(), texIndex, 0),
+      glsl::vec4(rect.maxX(), rect.maxY(), texIndex, 0)
     };
 
     dp::AttributeProvider provider(3, 4);
@@ -157,20 +155,20 @@ public:
     };
 
     bool drawEntireTexture = true;
-    glsl_types::vec4 texCoord[4];
+    glsl::vec4 texCoord[4];
     if (drawEntireTexture)
     {
-      texCoord[0] = glsl_types::vec4(m2::PointF(0.0f, 1.0f), texIndex, 0);
-      texCoord[1] = glsl_types::vec4(m2::PointF(0.0f, 0.0f), texIndex, 0);
-      texCoord[2] = glsl_types::vec4(m2::PointF(1.0f, 1.0f), texIndex, 0);
-      texCoord[3] = glsl_types::vec4(m2::PointF(1.0f, 0.0f), texIndex, 0);
+      texCoord[0] = glsl::vec4(0.0f, 1.0f, texIndex, 0);
+      texCoord[1] = glsl::vec4(0.0f, 0.0f, texIndex, 0);
+      texCoord[2] = glsl::vec4(1.0f, 1.0f, texIndex, 0);
+      texCoord[3] = glsl::vec4(1.0f, 0.0f, texIndex, 0);
     }
     else
     {
-      texCoord[0] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
-      texCoord[1] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
-      texCoord[2] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
-      texCoord[3] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
+      texCoord[0] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
+      texCoord[1] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
+      texCoord[2] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
+      texCoord[3] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
     }
 
     dp::AttributeProvider provider(3, 4);
@@ -280,7 +278,7 @@ public:
     m2::RectF const & rect = region.GetTexRect();
     float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-    vector<vec3> colors(4, vec3(rect.RightTop(), texIndex));
+    vector<glsl::vec3> colors(4, glsl::vec3(glsl::ToVec2(rect.RightTop()), texIndex));
 
     dp::AttributeProvider provider(3, 4);
     {
@@ -428,10 +426,11 @@ private:
     params.m_width = json_real_value(json_object_get(object, "width"));
     params.m_join = ParseJoin(json_object_get(object, "join"));
     params.m_cap = ParseCap(json_object_get(object, "cap"));
+    params.m_baseGtoPScale = 1.0;
 
     vector<m2::PointD> points;
     ParseGeometry(json_object_get(object, "geometry"), points);
-    return new LineShape(points, params, 1.0);
+    return new LineShape(points, params);
   }
 
   MapShape * CreateArea(json_t * object)
@@ -442,7 +441,7 @@ private:
     vector<m2::PointF> points;
     ParseGeometry(json_object_get(object, "geometry"), points);
 
-    return new AreaShape(points, params);
+    return new AreaShape(move(points), params);
   }
 
   MapShape * CreateDynSquare(json_t * object)
@@ -631,7 +630,8 @@ void TestingEngine::DrawImpl()
   params3.m_depth = -10.0f;
   params3.m_text = "√2+√3=?----+";
   params3.m_textFont = params.m_primaryTextFont;
-  PathTextShape sh3(path, params3, 1);
+  params3.m_baseGtoPScale = 1.0;
+  PathTextShape sh3(path, params3);
   //sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   PathSymbolViewParams params4;
@@ -640,7 +640,8 @@ void TestingEngine::DrawImpl()
   params4.m_step = 40.0f;
   params4.m_offset = 0.0f;
   params4.m_symbolName = "arrow";
-  PathSymbolShape sh4(path, params4, 10);
+  params4.m_baseGtoPScale = 10.0;
+  PathSymbolShape sh4(path, params4);
   //sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   DummyStippleElement e(m2::PointU(100, 900));
@@ -660,6 +661,7 @@ void TestingEngine::DrawImpl()
   params7.m_join = dp::LineJoin::RoundJoin;
   params7.m_cap = dp::LineCap::ButtCap;
   params7.m_pattern = key.m_pattern;
+  params7.m_baseGtoPScale = 1.0f / m_modelView.GetScale();
 
   vector<m2::PointD> points;
   points.push_back(m2::PointF(100.0f, 100.0f));
@@ -668,7 +670,7 @@ void TestingEngine::DrawImpl()
   points.push_back(m2::PointF(280.0f, 190.0f));
   points.push_back(m2::PointF(280.0f, 280.0f));
   points.push_back(m2::PointF(370.0f, 280.0f));
-  LineShape ls1(points, params7, 1.0f / m_modelView.GetScale());
+  LineShape ls1(points, params7);
   ls1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
