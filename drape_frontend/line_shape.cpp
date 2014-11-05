@@ -1,6 +1,7 @@
 #include "line_shape.hpp"
-#include "common_structures.hpp"
 
+#include "../drape/glsl_types.hpp"
+#include "../drape/glsl_func.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
@@ -13,408 +14,512 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
-#include "../std/numeric.hpp"
-
-using m2::PointF;
 
 namespace df
 {
 
-using glsl_types::vec2;
-using glsl_types::vec3;
-using glsl_types::vec4;
-using glsl_types::Quad4;
-
-/// Split angle v1-v2-v3 by bisector.
-void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
-              PointF & leftBisector, PointF & rightBisector, PointF & dx)
+namespace
 {
-  PointF const dif21 = v2 - v1;
-  PointF const dif32 = v3 - v2;
 
-  float const l1 = dif21.Length();
-  float const l2 = dif32.Length();
-  float const l3 = (v1 - v3).Length();
+class GeomHelper
+{
+public:
+  GeomHelper(glsl::vec2 const & prevPt,
+             glsl::vec2 const & curPt,
+             glsl::vec2 const & nextPt)
+    : m_prevPt(prevPt)
+    , m_currentPt(curPt)
+    , m_nextPt(nextPt)
+  {
+    Init(m_prevPt, m_currentPt, m_nextPt);
+  }
 
-  /// normal1 is normal from segment v2 - v1
-  /// normal2 is normal from segmeny v3 - v2
-  PointF normal1(-dif21.y / l1, dif21.x / l1);
-  PointF const normal2(-dif32.y / l2, dif32.x / l2);
+  void MoveNext(glsl::vec2 const & nextPt)
+  {
+    m_prevPt = m_currentPt;
+    m_currentPt = m_nextPt;
+    m_nextPt = nextPt;
+    Init(m_prevPt, m_currentPt, m_nextPt);
+  }
 
-  leftBisector = normal1 + normal2;
+  glsl::vec2 m_prevPt, m_currentPt, m_nextPt;
+  glsl::vec2 m_leftBisector, m_rightBisector;
+  float m_dx;
+  float m_aspect;
 
-  /// find cos(2a), where angle a is a half of v1-v2-v3 angle
-  float const cos2A = (l1 * l1 + l2 * l2 - l3 * l3) / (2.0f * l1 * l2);
-  float const sinA = sqrt((1.0f - cos2A) / 2.0f);
-  float const radius = R / sinA;
+private:
+  /// Split angle v1-v2-v3 by bisector.
+  void Init(glsl::vec2 const & v1, glsl::vec2 const & v2, glsl::vec2 const & v3)
+  {
+    glsl::vec2 const dif21 = v2 - v1;
+    glsl::vec2 const dif32 = v3 - v2;
 
-  leftBisector = (leftBisector * radius) / leftBisector.Length();
-  rightBisector = -leftBisector;
+    float const l1 = glsl::length(dif21);
+    float const l2 = glsl::length(dif32);
+    float const l3 = glsl::length(v1 - v3);
+    m_aspect = l1 / l2;
 
-  normal1 = normal1 * R;
-  dx = leftBisector - normal1;
+    /// normal1 is normal from segment v2 - v1
+    /// normal2 is normal from segmeny v3 - v2
+    glsl::vec2 const normal1(-dif21.y / l1, dif21.x / l1);
+    glsl::vec2 const normal2(-dif32.y / l2, dif32.x / l2);
 
-  float const sign = (m2::DotProduct(dif21, leftBisector) > 0.0f) ? 1.0f : -1.0f;
-  dx.x = 2.0f * sign * (dx.Length() / l1);
+    m_leftBisector = normal1 + normal2;
 
-  leftBisector += v2;
-  rightBisector += v2;
-}
+    /// find cos(2a), where angle a is a half of v1-v2-v3 angle
+    float const cos2A = (l1 * l1 + l2 * l2 - l3 * l3) / (2.0f * l1 * l2);
+    float const sinA = sqrt((1.0f - cos2A) / 2.0f);
 
-LineShape::LineShape(vector<m2::PointD> const & points,
-                     LineViewParams const & params, float const scaleGtoP)
+    m_leftBisector = m_leftBisector / (sinA * glsl::length(m_leftBisector));
+    m_rightBisector = -m_leftBisector;
+
+    float offsetLength = glsl::length(m_leftBisector - normal1);
+
+    float const sign = (glsl::dot(dif21, m_leftBisector) > 0.0f) ? 1.0f : -1.0f;
+    m_dx = sign * 2.0f * (offsetLength / l1);
+
+    m_leftBisector += v2;
+    m_rightBisector += v2;
+  }
+};
+
+class LineEnumerator
+{
+public:
+  explicit LineEnumerator(vector<m2::PointD> const & points, float GtoPScale, bool generateEndpoints)
+    : m_points(points)
+    , m_GtoPScale(GtoPScale)
+    , m_generateEndpoints(generateEndpoints)
+  {
+    ASSERT_GREATER(points.size(), 1, ());
+    if (generateEndpoints)
+      m_iterIndex = -1;
+  }
+
+  bool IsSolid() const
+  {
+    return m_isSolid;
+  }
+
+  int32_t GetTextureSet() const
+  {
+    ASSERT(m_colorRegion.IsValid(), ());
+    ASSERT(m_stippleRegion.IsValid(), ());
+    ASSERT(m_colorRegion.GetTextureNode().m_textureSet == m_stippleRegion.GetTextureNode().m_textureSet, ());
+    return m_colorRegion.GetTextureNode().m_textureSet;
+  }
+
+  void SetColorParams(dp::TextureSetHolder::ColorRegion const & color)
+  {
+    m_colorRegion = color;
+  }
+
+  glsl::vec3 GetColorItem() const
+  {
+    ASSERT(m_colorRegion.IsValid(), ());
+    m2::PointF const texCoord = m_colorRegion.GetTexRect().Center();
+    return glsl::vec3(texCoord.x, texCoord.y, m_colorRegion.GetTextureNode().GetOffset());
+  }
+
+  void SetMaskParams(dp::TextureSetHolder::StippleRegion const & stippleRegion, bool isSolid)
+  {
+    m_stippleRegion = stippleRegion;
+    m_isSolid = isSolid;
+  }
+
+  dp::TextureSetHolder::StippleRegion const & GetStippleMaskItem()
+  {
+    ASSERT(!IsSolid(), ());
+    ASSERT(m_stippleRegion.IsValid(), ());
+    return m_stippleRegion;
+  }
+
+  glsl::vec3 GetSolidMaskItem() const
+  {
+    ASSERT(IsSolid(), ());
+    ASSERT(m_stippleRegion.IsValid(), ());
+    m2::PointF const texCoord = m_stippleRegion.GetTexRect().Center();
+    return glsl::vec3(texCoord.x, texCoord.y, m_stippleRegion.GetTextureNode().GetOffset());
+  }
+
+  glsl::vec2 GetNextPoint()
+  {
+    ASSERT(HasPoint(), ());
+    glsl::vec2 result;
+    if (IsSolid())
+      GetNextSolid(result);
+    else
+      GetNextStipple(result);
+
+    return result;
+  }
+
+  bool HasPoint() const
+  {
+    int additionalSize = m_generateEndpoints ? 1 : 0;
+    return m_iterIndex < static_cast<int>(m_points.size() + additionalSize);
+  }
+
+private:
+  void GetNextSolid(glsl::vec2 & result)
+  {
+    if (GetGeneratedStart(result) || GetGeneratedEnd(result))
+      return;
+
+    result = glsl::ToVec2(m_points[m_iterIndex++]);
+  }
+
+  void GetNextStipple(glsl::vec2 & result)
+  {
+    if (GetGeneratedStart(result) || GetGeneratedEnd(result))
+      return;
+
+    if (m_iterIndex == 0)
+    {
+      result = glsl::ToVec2(m_points[m_iterIndex++]);
+      return;
+    }
+
+    m2::PointD const & currentPt = m_points[m_iterIndex];
+    m2::PointD const & prevPt = m_points[m_iterIndex - 1];
+    m2::PointD const segmentVector = currentPt - prevPt;
+
+    float const pixelLength = segmentVector.Length() * m_GtoPScale;
+    int const maskPixelLength = m_stippleRegion.GetMaskPixelLength();
+    int const patternPixelLength = m_stippleRegion.GetPatternPixelLength();
+
+    bool partialSegment = false;
+    int maxLength = maskPixelLength;
+    int pixelDiff = maskPixelLength - patternPixelLength;
+    int resetType = 0;
+    if (pixelLength > pixelDiff)
+    {
+      partialSegment = true;
+      maxLength = pixelDiff;
+      resetType = 1;
+    }
+    else if (pixelDiff == 0 && pixelLength > maskPixelLength)
+      partialSegment = true;
+
+    if (partialSegment)
+    {
+      int const numParts = static_cast<int>(ceilf(pixelLength / maxLength));
+      m2::PointD const singlePart = segmentVector / (float)numParts;
+
+      result = glsl::ToVec2(prevPt + singlePart * m_partGenerated);
+
+      m_partGenerated++;
+      if (resetType == 0 && m_partGenerated == numParts)
+      {
+        m_partGenerated = 0;
+        m_iterIndex++;
+      }
+      else if (resetType == 1 && m_partGenerated > numParts)
+      {
+        m_partGenerated = 1;
+        m_iterIndex++;
+      }
+    }
+    else
+      result = glsl::ToVec2(m_points[m_iterIndex++]);
+  }
+
+  bool GetGeneratedStart(glsl::vec2 & result)
+  {
+    if (m_iterIndex == -1)
+    {
+      ASSERT(m_generateEndpoints, ());
+      glsl::vec2 tmp = glsl::ToVec2(m_points[0]);
+      result = tmp + glsl::normalize(tmp - glsl::ToVec2(m_points[1]));
+      m_iterIndex = 0;
+      return true;
+    }
+
+    return false;
+  }
+
+  bool GetGeneratedEnd(glsl::vec2 & result)
+  {
+    if (m_iterIndex == static_cast<int>(m_points.size()))
+    {
+      ASSERT(m_generateEndpoints, ());
+      size_t size = m_points.size();
+      glsl::vec2 tmp = glsl::ToVec2(m_points[size - 1]);
+      result = tmp + glsl::normalize(tmp - glsl::ToVec2(m_points[size - 2]));
+      m_iterIndex++;
+      return true;
+    }
+
+    return false;
+  }
+
+private:
+  vector<m2::PointD> const & m_points;
+  int m_iterIndex = 0;
+
+  dp::TextureSetHolder::ColorRegion m_colorRegion;
+  dp::TextureSetHolder::StippleRegion m_stippleRegion;
+  bool m_isSolid = true;
+
+  float m_GtoPScale = 1.0f;
+  bool m_generateEndpoints = false;
+  int m_partGenerated = 1;
+};
+
+} // namespace
+
+LineShape::LineShape(m2::SharedSpline const & spline,
+                     LineViewParams const & params)
   : m_params(params)
-  , m_dpoints(points)
-  , m_scaleGtoP(scaleGtoP)
-  , m_counter(0)
-  , m_parts(1)
+  , m_spline(spline)
 {
-  ASSERT_GREATER(points.size(), 1, ());
-}
-
-bool LineShape::GetNext(m2::PointF & point) const
-{
-  int const size = m_dpoints.size();
-  if (!m_params.m_pattern.empty())
-  {
-    if (m_counter == 0)
-    {
-      point = m_dpoints[m_counter++];
-      return true;
-    }
-    if (m_counter < size)
-    {
-      PointF const pt = m_dpoints[m_counter] - m_dpoints[m_counter - 1];
-      float const length = pt.Length() * m_scaleGtoP;
-      if (length > m_templateLength - m_patternLength)
-      {
-        int const numParts = static_cast<int>(ceilf(length / (m_templateLength - m_patternLength)));
-        PointF const addition = pt / (float)numParts;
-        point = m_dpoints[m_counter - 1] + addition * m_parts;
-        m_parts++;
-        if (m_parts > numParts)
-        {
-          m_parts = 1;
-          m_counter++;
-        }
-        return true;
-      }
-      if (m_templateLength == m_patternLength && length > m_templateLength)
-      {
-        int const numParts = static_cast<int>(ceilf(length / m_templateLength));
-        PointF const addition = pt / (float)numParts;
-        point = m_dpoints[m_counter-1] + addition * m_parts;
-        m_parts++;
-        if (m_parts == numParts)
-        {
-          m_parts = 0;
-          m_counter++;
-        }
-        return true;
-      }
-      point = m_dpoints[m_counter++];
-      return true;
-    }
-    if (m_counter == size && m_params.m_cap != dp::ButtCap)
-    {
-      point = m_dpoints[size - 1] + (m_dpoints[size - 1] - m_dpoints[size - 2]).Normalize();
-      m_counter++;
-      return true;
-    }
-    return false;
-  }
-  else
-  {
-    if (m_counter < size)
-    {
-      point = m_dpoints[m_counter++];
-      return true;
-    }
-    if (m_counter == size && m_params.m_cap != dp::ButtCap)
-    {
-      point = m_dpoints[size - 1] + (m_dpoints[size - 1] - m_dpoints[size - 2]).Normalize();
-      m_counter++;
-      return true;
-    }
-    return false;
-  }
+  ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
 }
 
 void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  int textureOpacitySet;
-  m2::RectF rectOpacity;
-  float texIndexPattern;
-  vector<m2::PointF> points;
+  LineEnumerator enumerator(m_spline->GetPath(), m_params.m_baseGtoPScale, m_params.m_cap != dp::ButtCap);
+
+  dp::TextureSetHolder::ColorRegion colorRegion;
+  textures->GetColorRegion(dp::ColorKey(m_params.m_color.GetColorInInt()), colorRegion);
+  enumerator.SetColorParams(colorRegion);
+
+  dp::StipplePenKey maskKey;
   if (!m_params.m_pattern.empty())
-  {
-    dp::StipplePenKey key;
-    key.m_pattern = m_params.m_pattern;
-    dp::TextureSetHolder::StippleRegion region;
-    textures->GetStippleRegion(key, region);
-    m_patternLength = region.GetPatternLength();
-    m_templateLength = region.GetTemplateLength();
-
-    rectOpacity = m2::RectF(region.GetTexRect());
-    texIndexPattern = static_cast<float>(region.GetTextureNode().m_textureOffset);
-    textureOpacitySet = region.GetTextureNode().m_textureSet;
-  }
-
-  int const SIZE = 128;
-  int size = SIZE;
-  float const r = 1.0f;
-
-  int numVert = (size - 1) * 4;
-  vector<vec4> vertex(numVert);
-  vector<vec3> dxVals(numVert);
-  vector<vec4> centers(numVert);
-  vector<vec4> widthType(numVert);
-
-  PointF leftBisector, rightBisector, dx;
-
-  PointF v2;
-  if (m_params.m_cap != dp::ButtCap)
-    v2 = m_dpoints[0] + (m_dpoints[0] - m_dpoints[1]).Normalize();
+    maskKey = dp::StipplePenKey(m_params.m_pattern);
   else
-    GetNext(v2);
+    maskKey = dp::StipplePenKey::Solid();
 
-  PointF v3;
-  GetNext(v3);
-  PointF v1 = v2 * 2 - v3;
-
-  Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
+  dp::TextureSetHolder::StippleRegion maskRegion;
+  textures->GetStippleRegion(maskKey, maskRegion);
+  enumerator.SetMaskParams(maskRegion, m_params.m_pattern.empty());
 
   float const joinType = m_params.m_join == dp::RoundJoin ? 1 : 0;
+  float const capType = m_params.m_cap == dp::RoundCap ? -1 : 1;
   float const halfWidth = m_params.m_width / 2.0f;
   float const insetHalfWidth= 1.0f * halfWidth;
 
-  vertex[0] = vec4(v2, leftBisector);
-  vertex[1] = vec4(v2, rightBisector);
-  dxVals[0] = vec3(0.0f, -1.0f, m_params.m_depth);
-  dxVals[1] = vec3(0.0f, -1.0f, m_params.m_depth);
-  centers[0] = centers[1] = vec4(v2, v3);
+  int size = m_spline->GetPath().size();
+  if (m_params.m_cap != dp::ButtCap)
+    size += 2;
 
-  widthType[0] = widthType[2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
-  widthType[1] = widthType[3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
+  // We generate quad for each line segment
+  // For line with 3 point A -- B -- C, we will generate
+  // A1 --- AB1 BC1 --- C1
+  // |       |   |      |
+  // A2 --- AB2 BC2 --- C2
+  // By this segment count == points.size() - 1
+  int vertexCount = (size - 1) * 4;
+  vector<glsl::vec4> vertexArray;
+  vector<glsl::vec3> dxValsArray;
+  vector<glsl::vec4> centersArray;
+  vector<glsl::vec4> widthTypeArray;
+  vector<glsl::vec3> colorArray;
+  vector<glsl::vec3> maskArray;
 
-  //points in the middle
-  PointF nextPoint;
-  int i_counter = 0;
-  while (GetNext(nextPoint))
-  {
-    i_counter++;
-    if (i_counter == size - 1)
-    {
-      size += SIZE;
-      numVert = (size - 1) * 4;
-      vertex.resize(numVert);
-      dxVals.resize(numVert);
-      centers.resize(numVert);
-      widthType.resize(numVert);
-    }
-    v1 = v2;
-    v2 = v3;
-    v3 = nextPoint;
-    Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
-    float aspect = (v1-v2).Length() / (v2-v3).Length();
+  vertexArray.reserve(vertexCount);
+  dxValsArray.reserve(vertexCount);
+  centersArray.reserve(vertexCount);
+  widthTypeArray.reserve(vertexCount);
 
-    vertex[(i_counter-1) * 4 + 2] = vec4(v2, leftBisector);
-    vertex[(i_counter-1) * 4 + 3] = vec4(v2, rightBisector);
-    dxVals[(i_counter-1) * 4 + 2] = vec3(dx.x, 1.0f, m_params.m_depth);
-    dxVals[(i_counter-1) * 4 + 3] = vec3(-dx.x, 1.0f, m_params.m_depth);
-    centers[(i_counter-1) * 4 + 2] = centers[(i_counter-1) * 4 + 3] = vec4(v1, v2);
+  glsl::vec2 v2 = enumerator.GetNextPoint();
+  glsl::vec2 v3 = enumerator.GetNextPoint();
+  glsl::vec2 v1 = 2.0f * v2 - v3;
 
-    vertex[i_counter * 4 + 0] = vec4(v2, leftBisector);
-    vertex[i_counter * 4 + 1] = vec4(v2, rightBisector);
-    dxVals[i_counter * 4 + 0] = vec3(-dx.x * aspect, -1.0f, m_params.m_depth);
-    dxVals[i_counter * 4 + 1] = vec3(dx.x * aspect, -1.0f, m_params.m_depth);
-    centers[i_counter * 4] = centers[i_counter * 4 + 1] = vec4(v2, v3);
+  GeomHelper helper(v1, v2, v3);
 
-    widthType[(i_counter * 4) + 0] = widthType[(i_counter * 4) + 2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
-    widthType[(i_counter * 4) + 1] = widthType[(i_counter * 4) + 3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
-  }
-
-  size = i_counter + 2;
-  numVert = (size - 1) * 4;
-  vertex.resize(numVert);
-  dxVals.resize(numVert);
-  centers.resize(numVert);
-  widthType.resize(numVert);
-
-  //last points
-  v1 = v2;
-  v2 = v3;
-  v3 = v2 * 2 - v1;
-
-  Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
-  float const aspect = (v1-v2).Length() / (v2-v3).Length();
-
-  vertex[(size - 2) * 4 + 2] = vec4(v2, leftBisector);
-  vertex[(size - 2) * 4 + 3] = vec4(v2, rightBisector);
-  dxVals[(size - 2) * 4 + 2] = vec3(-dx.x * aspect, 1.0f, m_params.m_depth);
-  dxVals[(size - 2) * 4 + 3] = vec3(dx.x * aspect, 1.0f, m_params.m_depth);
-  widthType[(size - 2) * 4] = widthType[(size - 2) * 4 + 2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
-  widthType[(size - 2) * 4 + 1] = widthType[(size - 2) * 4 + 3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
-  centers[(size - 2) * 4 + 2] = centers[(size - 2) * 4 + 3] = vec4(v1, v2);
-
+  // Fill first two vertex of segment. A1 and A2
   if (m_params.m_cap != dp::ButtCap)
   {
-    float const type = m_params.m_cap == dp::RoundCap ? -1 : 1;
-    uint32_t const baseIdx = 4 * (size - 2);
-    widthType[0] = vec4(halfWidth, type, -1, insetHalfWidth);
-    widthType[1] = vec4(-halfWidth, type, -1, insetHalfWidth);
-    widthType[2] = vec4(halfWidth, type, -1, insetHalfWidth);
-    widthType[3] = vec4(-halfWidth, type, -1, insetHalfWidth);
-
-    widthType[baseIdx] = vec4(halfWidth, type, 1, insetHalfWidth);
-    widthType[baseIdx + 1] = vec4(-halfWidth, type, 1, insetHalfWidth);
-    widthType[baseIdx + 2] = vec4(halfWidth, type, 1, insetHalfWidth);
-    widthType[baseIdx + 3] = vec4(-halfWidth, type, 1, insetHalfWidth);
-
-    vertex[0].x = vertex[2].x;
-    vertex[0].y = vertex[2].y;
-    vertex[1].x = vertex[3].x;
-    vertex[1].y = vertex[3].y;
-    vertex[baseIdx + 2].x = vertex[baseIdx].x;
-    vertex[baseIdx + 2].y = vertex[baseIdx].y;
-    vertex[baseIdx + 3].x = vertex[baseIdx + 1].x;
-    vertex[baseIdx + 3].y = vertex[baseIdx + 1].y;
-  }
-  
-  Quad4 quad;
-  vector<Quad4> index;
-
-  dp::ColorKey key(m_params.m_color.GetColorInInt());
-  dp::TextureSetHolder::ColorRegion region;
-  textures->GetColorRegion(key, region);
-  m2::RectF const & rect = region.GetTexRect();
-  PointF const coordColor = rect.RightTop();
-  key.SetColor(dp::Color(127, 127, 127, 255).GetColorInInt());
-  textures->GetColorRegion(key, region);
-  m2::RectF const & outlineRect = region.GetTexRect();
-  PointF const coordOutline = outlineRect.RightTop();
-  float const texIndexColor = static_cast<float>(region.GetTextureNode().m_textureOffset);
-  int textureSet = region.GetTextureNode().m_textureSet;
-
-  vec4 temp = vec4(coordColor, coordOutline);
-  vector<Quad4> colors(numVert / 4, Quad4(temp, temp, temp, temp));
-
-  if (!m_params.m_pattern.empty())
-  {
-    textureSet = textureOpacitySet;
-    float const templateLength = (float)m_templateLength / (rectOpacity.maxX() - rectOpacity.minX());
-    float const patternLength = (float)m_patternLength / templateLength;
-    float const koef = halfWidth / m_scaleGtoP / 2.0f;
-    float patternStart = 0.0f;
-    for(int i = 1; i < size; ++i)
-    {
-      int const ind = (i-1) * 4;
-      PointF const beginPoint = PointF(vertex[ind].x, vertex[ind].y);
-      PointF const endPoint = PointF(vertex[ind + 2].x, vertex[ind + 2].y);
-      PointF const dif = endPoint - beginPoint;
-      float dx1 = dxVals[ind].x * koef;
-      float dx2 = dxVals[ind + 1].x * koef;
-      float dx3 = dxVals[ind + 2].x * koef;
-      float dx4 = dxVals[ind + 3].x * koef;
-      float const length = dif.Length() * m_scaleGtoP / templateLength / (fabs(dx1) + fabs(dx3) + 1.0);
-      float const f1 = fabs(dx1) * length;
-      float const length2 = (fabs(dx1) + 1.0) * length;
-
-      dx1 *= length;
-      dx2 *= length;
-      dx3 *= length;
-      dx4 *= length;
-
-      quad = Quad4(vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + dx1 + f1, rectOpacity.minY()),
-                   vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + dx2 + f1, rectOpacity.maxY()),
-                   vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + length2 + dx3, rectOpacity.minY()),
-                   vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + length2 + dx4, rectOpacity.maxY()));
-
-      patternStart += length2;
-      while (patternStart >= patternLength)
-        patternStart -= patternLength;
-      index.push_back(quad);
-    }
+    vertexArray.push_back(glsl::vec4(helper.m_nextPt, helper.m_leftBisector));
+    vertexArray.push_back(glsl::vec4(helper.m_nextPt, helper.m_rightBisector));
+    widthTypeArray.push_back(glsl::vec4(halfWidth, capType, -1, insetHalfWidth));
+    widthTypeArray.push_back(glsl::vec4(-halfWidth, capType, -1, insetHalfWidth));
   }
   else
   {
-    temp = vec4(texIndexColor, texIndexColor, coordColor);
-    index.resize(numVert / 4, Quad4(temp, temp, temp, temp));
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
+    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
+    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
   }
 
+  dxValsArray.push_back(glsl::vec3(0.0f, -1.0f, m_params.m_depth));
+  dxValsArray.push_back(glsl::vec3(0.0f, -1.0f, m_params.m_depth));
+  centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
+  centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
+
+  //points in the middle
+  while (enumerator.HasPoint())
+  {
+    helper.MoveNext(enumerator.GetNextPoint());
+    // In line like A -- AB BC -- C we fill AB points in this block
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
+    dxValsArray.push_back(glsl::vec3(helper.m_dx, 1.0f, m_params.m_depth));
+    dxValsArray.push_back(glsl::vec3(-helper.m_dx, 1.0f, m_params.m_depth));
+    centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
+    centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
+    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
+    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
+
+    // As AB and BC point calculation on the same source point B
+    // we also fill BC points
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
+    dxValsArray.push_back(glsl::vec3(-helper.m_dx * helper.m_aspect, -1.0f, m_params.m_depth));
+    dxValsArray.push_back(glsl::vec3(helper.m_dx * helper.m_aspect, -1.0f, m_params.m_depth));
+    centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
+    centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
+    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
+    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
+  }
+
+  // Here we fill last vertexes of last segment
+  v1 = helper.m_currentPt;
+  v2 = helper.m_nextPt;
+  v3 = 2.0f * v2 - v1;
+  helper = GeomHelper(v1, v2, v3);
+
+  if (m_params.m_cap !=dp::ButtCap)
+  {
+    vertexArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_leftBisector));
+    vertexArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_rightBisector));
+    widthTypeArray.push_back(glsl::vec4(halfWidth, capType, 1, insetHalfWidth));
+    widthTypeArray.push_back(glsl::vec4(-halfWidth, capType, 1, insetHalfWidth));
+  }
+  else
+  {
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
+    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
+    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
+    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
+  }
+
+  dxValsArray.push_back(glsl::vec3(-helper.m_dx * helper.m_aspect, 1.0f, m_params.m_depth));
+  dxValsArray.push_back(glsl::vec3(helper.m_dx * helper.m_aspect, 1.0f, m_params.m_depth));
+  centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
+  centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
+
+  ASSERT(vertexArray.size() == dxValsArray.size(), ());
+  ASSERT(vertexArray.size() == centersArray.size(), ());
+  ASSERT(vertexArray.size() == widthTypeArray.size(), ());
+  ASSERT(vertexArray.size() % 4 == 0, ());
+
+  colorArray.resize(vertexArray.size(), enumerator.GetColorItem());
+
+  if (!enumerator.IsSolid())
+  {
+    dp::TextureSetHolder::StippleRegion const & region = enumerator.GetStippleMaskItem();
+    float const stippleTexOffset = region.GetTextureNode().GetOffset();
+    m2::RectF const & stippleRect = region.GetTexRect();
+
+    float maskTexLength = region.GetMaskPixelLength() / stippleRect.SizeX();
+    float patternTexLength = region.GetPatternPixelLength() / maskTexLength;
+    float const dxFactor = halfWidth / (2.0f * m_params.m_baseGtoPScale);
+    float patternStart = 0.0f;
+    int quadCount = vertexArray.size() / 4;
+    for(int i = 0; i < quadCount; ++i)
+    {
+      int const baseIndex = i * 4;
+      float dx1 = dxValsArray[baseIndex + 0].x * dxFactor;
+      float dx2 = dxValsArray[baseIndex + 1].x * dxFactor;
+      float dx3 = dxValsArray[baseIndex + 2].x * dxFactor;
+      float dx4 = dxValsArray[baseIndex + 3].x * dxFactor;
+      float const lengthPx = glsl::length(vertexArray[baseIndex].xy() - vertexArray[baseIndex + 2].xy());
+      float const lengthTex = lengthPx * m_params.m_baseGtoPScale / (maskTexLength * (fabs(dx1) + fabs(dx3) + 1.0));
+      float const f1 = fabs(dx1) * lengthTex;
+      float const length2 = (fabs(dx1) + 1.0) * lengthTex;
+
+      dx1 *= lengthTex;
+      dx2 *= lengthTex;
+      dx3 *= lengthTex;
+      dx4 *= lengthTex;
+
+      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + dx1 + f1, stippleRect.minY(), stippleTexOffset));
+      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + dx2 + f1, stippleRect.maxY(), stippleTexOffset));
+      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + length2 + dx3, stippleRect.minY(), stippleTexOffset));
+      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + length2 + dx4, stippleRect.maxY(), stippleTexOffset));
+
+      patternStart += length2;
+      while (patternStart >= patternTexLength)
+        patternStart -= patternTexLength;
+    }
+  }
+  else
+    maskArray.resize(vertexArray.size(), enumerator.GetSolidMaskItem());
+
   dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetTextureSet(textureSet);
+  state.SetTextureSet(enumerator.GetTextureSet());
   state.SetBlending(dp::Blending(true));
 
-  dp::AttributeProvider provider(6, 4 * (size - 1));
+  dp::AttributeProvider provider(6, vertexArray.size());
 
   {
     dp::BindingInfo pos_dir(1);
     dp::BindingDecl & decl = pos_dir.GetBindingDecl(0);
-    decl.m_attributeName = "position";
+    decl.m_attributeName = "a_position";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer((void*)&vertex[0]));
+    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer((void*)vertexArray.data()));
   }
   {
     dp::BindingInfo deltas(1);
     dp::BindingDecl & decl = deltas.GetBindingDecl(0);
-    decl.m_attributeName = "deltas";
+    decl.m_attributeName = "a_deltas";
     decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(1, deltas, dp::MakeStackRefPointer((void*)&dxVals[0]));
+    provider.InitStream(1, deltas, dp::MakeStackRefPointer((void*)dxValsArray.data()));
   }
   {
     dp::BindingInfo width_type(1);
     dp::BindingDecl & decl = width_type.GetBindingDecl(0);
-    decl.m_attributeName = "width_type";
+    decl.m_attributeName = "a_width_type";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(2, width_type, dp::MakeStackRefPointer((void*)&widthType[0]));
+    provider.InitStream(2, width_type, dp::MakeStackRefPointer((void*)widthTypeArray.data()));
   }
   {
     dp::BindingInfo centres(1);
     dp::BindingDecl & decl = centres.GetBindingDecl(0);
-    decl.m_attributeName = "centres";
+    decl.m_attributeName = "a_centres";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(3, centres, dp::MakeStackRefPointer((void*)&centers[0]));
+    provider.InitStream(3, centres, dp::MakeStackRefPointer((void*)centersArray.data()));
   }
-
   {
-    dp::BindingInfo clr1(1);
-    dp::BindingDecl & decl = clr1.GetBindingDecl(0);
-    decl.m_attributeName = "colors";
-    decl.m_componentCount = 4;
+    dp::BindingInfo colorBinding(1);
+    dp::BindingDecl & decl = colorBinding.GetBindingDecl(0);
+    decl.m_attributeName = "a_color";
+    decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(4, clr1, dp::MakeStackRefPointer((void*)&colors[0]));
+    provider.InitStream(4, colorBinding, dp::MakeStackRefPointer((void*)colorArray.data()));
   }
 
   {
     dp::BindingInfo ind(1);
     dp::BindingDecl & decl = ind.GetBindingDecl(0);
-    decl.m_attributeName = "index_opacity";
-    decl.m_componentCount = 4;
+    decl.m_attributeName = "a_mask";
+    decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(5, ind, dp::MakeStackRefPointer((void*)&index[0]));
+    provider.InitStream(5, ind, dp::MakeStackRefPointer((void*)maskArray.data()));
   }
 
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);

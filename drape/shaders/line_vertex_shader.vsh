@@ -1,29 +1,27 @@
-attribute highp vec4 position;
-attribute highp vec4 deltas;
-attribute highp vec4 width_type;
-attribute highp vec4 centres;
-attribute lowp vec4 colors;
-attribute mediump vec4 index_opacity;
+attribute highp vec4 a_position;
+attribute highp vec4 a_deltas;
+attribute highp vec4 a_width_type;
+attribute highp vec4 a_centres;
+attribute lowp vec3 a_color;
+attribute lowp vec3 a_mask;
 
 varying highp float v_dx;
 varying highp vec4 v_radius;
-varying highp vec4 v_centres;
 varying highp vec2 v_type;
 
-varying lowp vec4 v_colors;
-varying lowp vec2 v_opacity;
-varying mediump vec2 v_index;
+varying lowp vec3 v_color;
+varying lowp vec3 v_mask;
 
 uniform highp mat4 modelView;
 uniform highp mat4 projection;
 
 void main(void)
 {
-  float r = abs(width_type.x);
-  vec2 dir = position.zw - position.xy;
+  float r = abs(a_width_type.x);
+  vec2 dir = a_position.zw - a_position.xy;
   float len = length(dir);
-  vec4 pos2 = vec4(position.xy, deltas.z, 1) * modelView;
-  vec4 direc = vec4(position.zw, deltas.z, 1) * modelView;
+  vec4 pos2 = vec4(a_position.xy, a_deltas.z, 1) * modelView;
+  vec4 direc = vec4(a_position.zw, a_deltas.z, 1) * modelView;
   dir = direc.xy - pos2.xy;
   float l2 = length(dir);
   dir = normalize(dir);
@@ -32,19 +30,16 @@ void main(void)
 
   gl_Position = pos2 * projection;
 
-  v_dx = (deltas.y + deltas.x * r / l2 * len);
-  v_radius.x = width_type.x;
+  v_dx = (a_deltas.y + a_deltas.x * r / l2 * len);
+  v_radius.x = a_width_type.x;
   v_radius.y = r;
-  v_radius.w = width_type.w;
-  vec2 centr1 = (vec4(centres.xy, 0, 1) * modelView).xy;
-  vec2 centr2 = (vec4(centres.zw, 0, 1) * modelView).xy;
+  v_radius.w = a_width_type.w;
+  vec2 centr1 = (vec4(a_centres.xy, 0, 1) * modelView).xy;
+  vec2 centr2 = (vec4(a_centres.zw, 0, 1) * modelView).xy;
   float len2 = length(centr1 - centr2);
   v_radius.z = len2;
-  v_centres.xy = centr1;
-  v_centres.zw = centr2;
-  v_type = width_type.yz;
+  v_type = a_width_type.yz;
 
-  v_colors = colors;
-  v_index = index_opacity.xy;
-  v_opacity = index_opacity.zw;
+  v_color = a_color;
+  v_mask = a_mask;
 }

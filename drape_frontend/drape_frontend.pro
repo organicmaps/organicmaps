@@ -37,7 +37,6 @@ SOURCES += \
     text_shape.cpp \
     path_text_shape.cpp \
     path_symbol_shape.cpp \
-    common_structures.cpp \
     text_layout.cpp \
 
 HEADERS += \

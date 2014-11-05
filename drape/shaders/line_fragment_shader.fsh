@@ -5,19 +5,16 @@
 #endif
 varying MAXPREC float v_dx;
 varying MAXPREC vec4 v_radius;
-varying MAXPREC vec4 v_centres;
 varying MAXPREC vec2 v_type;
 
-varying lowp vec4 v_colors;
-varying lowp vec2 v_opacity;
-varying mediump vec2 v_index;
+varying lowp vec3 v_color;
+varying lowp vec3 v_mask;
 
 ~getTexel~
 
 void sphere_join(MAXPREC float gip2, lowp vec4 baseColor, lowp vec4 outlineColor)
 {
   MAXPREC float r = v_radius.y;
-  gl_FragColor = baseColor;
   if (gip2 > v_radius.w * v_radius.w)
   {
     gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.y - sqrt(gip2)) / (v_radius.y - v_radius.w));
@@ -26,26 +23,22 @@ void sphere_join(MAXPREC float gip2, lowp vec4 baseColor, lowp vec4 outlineColor
   }
   else
   {
-    gl_FragColor = baseColor;
     if (v_type.x > 0.6)
     {
       if (abs(v_dx*v_radius.z) / 2.0 >= v_radius.z / 2.0 - r + v_radius.w)
         gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.z - abs(v_dx * v_radius.z)) / (r-v_radius.w));
-      else
-        gl_FragColor = baseColor;
     }
   }
 }
 
 void main(void)
 {
-  int textureIndex = int(v_index.x);
-  lowp float a = getTexel(int(v_index.y), v_opacity.xy).a;
-  lowp vec4 baseColor = getTexel(textureIndex, v_colors.xy) * a;
-  lowp vec4 outlineColor = getTexel(textureIndex, v_colors.zw) * a;
+  lowp float alfa = getTexel(int(v_mask.z), v_mask.xy).a;
+  lowp vec4 color = getTexel(int(v_color.z), v_color.xy) * alfa;
+  lowp vec4 outlineColor = vec4(0.0, 0.0, 0.0, 0.0);
   MAXPREC float r = v_radius.y;
   MAXPREC float dist = abs(v_radius.x);
-  gl_FragColor = baseColor;
+  gl_FragColor = color;
   if (v_type.x > 0.5)
   {
     MAXPREC float coord = (v_dx + 1.0) * v_radius.y / 2.0;
@@ -87,7 +80,6 @@ void main(void)
   }
   else
   {
-    gl_FragColor = baseColor;
     if (dist > v_radius.w)
       gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.y - dist) / (v_radius.y - v_radius.w));
 
@@ -100,7 +92,7 @@ void main(void)
         if(gip2 > v_radius.y * v_radius.y)
           discard;
         else
-          sphere_join(gip2, baseColor, outlineColor);
+          sphere_join(gip2, color, outlineColor);
       }
       else if (v_dx <= -1.0)
       {
@@ -109,7 +101,7 @@ void main(void)
         if(gip2 > v_radius.y * v_radius.y)
           discard;
         else
-          sphere_join(gip2, baseColor, outlineColor);
+          sphere_join(gip2, color, outlineColor);
       }
     }
   }

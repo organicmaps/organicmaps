@@ -17,7 +17,11 @@ namespace dp
 class StipplePenKey : public Texture::Key
 {
 public:
+  StipplePenKey() = default;
+  StipplePenKey(buffer_vector<uint8_t, 8> const pattern) : m_pattern(pattern) {}
   virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
+
+  static StipplePenKey const & Solid();
 
   buffer_vector<uint8_t, 8> m_pattern;
 };
@@ -69,8 +73,8 @@ public:
   }
 
   virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
-  uint32_t GetPixelLength() const { return m_pixelLength; }
-  uint32_t GetPatternLength() const { return m_patternLength; }
+  uint32_t GetMaskPixelLength() const { return m_pixelLength; }
+  uint32_t GetPatternPixelLength() const { return m_patternLength; }
 
 private:
   uint32_t m_pixelLength;

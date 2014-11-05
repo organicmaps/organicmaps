@@ -46,6 +46,7 @@ struct LineViewParams : CommonViewParams
   dp::LineCap m_cap;
   dp::LineJoin m_join;
   buffer_vector<uint8_t, 8> m_pattern;
+  float m_baseGtoPScale;
 };
 
 struct FontDecl

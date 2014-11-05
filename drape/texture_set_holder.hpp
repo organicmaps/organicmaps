@@ -24,6 +24,7 @@ public:
     TextureNode();
 
     bool IsValid() const;
+    inline float GetOffset() const{ return static_cast<float>(m_textureOffset); }
 
     int32_t m_width;
     int32_t m_height;
@@ -67,8 +68,8 @@ public:
   public:
     StippleRegion() : BaseRegion() {}
 
-    uint32_t GetTemplateLength() const;
-    uint32_t GetPatternLength() const;
+    uint32_t GetMaskPixelLength() const;
+    uint32_t GetPatternPixelLength() const;
   };
 
   class ColorRegion : public BaseRegion

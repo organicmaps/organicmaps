@@ -77,16 +77,16 @@ float TextureSetHolder::GlyphRegion::GetAdvance() const
   return static_cast<FontTexture::GlyphInfo const *>(m_info)->GetAdvance();
 }
 
-uint32_t TextureSetHolder::StippleRegion::GetTemplateLength() const
+uint32_t TextureSetHolder::StippleRegion::GetMaskPixelLength() const
 {
   ASSERT(m_info->GetType() == Texture::StipplePen, ());
-  return static_cast<StipplePenResourceInfo const *>(m_info)->GetPixelLength();
+  return static_cast<StipplePenResourceInfo const *>(m_info)->GetMaskPixelLength();
 }
 
-uint32_t TextureSetHolder::StippleRegion::GetPatternLength() const
+uint32_t TextureSetHolder::StippleRegion::GetPatternPixelLength() const
 {
   ASSERT(m_info->GetType() == Texture::StipplePen, ());
-  return static_cast<StipplePenResourceInfo const *>(m_info)->GetPatternLength();
+  return static_cast<StipplePenResourceInfo const *>(m_info)->GetPatternPixelLength();
 }
 
 } // namespace dp

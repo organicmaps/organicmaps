@@ -262,9 +262,8 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
   double const depth = rule.second;
 
   AreaRuleProto const * areaRule = pRule->GetArea();
-  if (areaRule)
+  if (areaRule && !m_triangles.empty())
   {
-    ASSERT(!m_triangles.empty(), ());
     AreaViewParams params;
     params.m_depth = depth;
     params.m_color = ToDrapeColor(areaRule->color());
@@ -349,7 +348,8 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       LineViewParams params;
       Extract(pLineRule, params);
       params.m_depth = depth;
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params, m_currentScaleGtoP)));
+      params.m_baseGtoPScale = m_currentScaleGtoP;
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline, params)));
     }
   }
 }

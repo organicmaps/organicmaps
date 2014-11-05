@@ -14,6 +14,12 @@ namespace dp
 uint32_t const MAX_STIPPLE_PEN_LENGTH = 254;
 uint32_t const COLUMN_WIDTH = MAX_STIPPLE_PEN_LENGTH + 1;
 
+StipplePenKey const & StipplePenKey::Solid()
+{
+  static StipplePenKey solidKey(buffer_vector<uint8_t, 8>((size_t)1, (uint8_t)1));
+  return solidKey;
+}
+
 StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
   : m_canvasSize(canvasSize)
   , m_currentColumn(0)
@@ -70,14 +76,14 @@ StipplePenHandle::StipplePenHandle(StipplePenKey const & info)
 void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
 {
   // encoding scheme
-  // 63 - 61 bits = size of pattern in range [1 : 8]
+  // 63 - 61 bits = size of pattern in range [0 : 8]
   // 60 - 53 bits = first value of pattern in range [1 : 128]
   // 52 - 45 bits = second value of pattern
   // ....
   // 0 - 5 bits = reserved
 
   uint32_t patternSize = pattern.size();
-  ASSERT(patternSize > 1, ());
+  ASSERT(patternSize >= 1, ());
   ASSERT(patternSize < 9, ());
 
   m_keyValue = patternSize - 1; // we code value 1 as 000 and value 8 as 111

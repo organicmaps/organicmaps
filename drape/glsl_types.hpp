@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../geometry/point2d.hpp"
+
 #include <glm_config.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -36,5 +38,20 @@ typedef vec4   Quad1;
 typedef mat4x2 Quad2;
 typedef mat4x3 Quad3;
 typedef mat4   Quad4;
+
+inline m2::PointF ToPoint(vec2 const & v)
+{
+  return m2::PointF(v.x, v.y);
+}
+
+inline vec2 ToVec2(m2::PointF const & pt)
+{
+  return glsl::vec2(pt.x, pt.y);
+}
+
+inline vec2 ToVec2(m2::PointD const & pt)
+{
+  return glsl::vec2(pt.x, pt.y);
+}
 
 }
