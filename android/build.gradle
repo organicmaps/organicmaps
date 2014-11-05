@@ -58,6 +58,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'true'
       buildConfigField 'String',  'PRO_URL',    '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.googlePro.setRoot('flavors/pro')
       android.sourceSets.googlePro.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -67,6 +68,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"market://details?id=com.mapswithme.maps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.googleLite.setRoot('flavors/lite')
       android.sourceSets.googleLite.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -76,6 +78,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'true'
       buildConfigField 'String',  'PRO_URL',    '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
       android.sourceSets.samsungPro.setRoot('flavors/pro')
       android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
@@ -85,6 +88,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.samsung"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
       android.sourceSets.samsungLite.setRoot('flavors/lite')
       android.sourceSets.samsungLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
@@ -94,6 +98,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'true'
       buildConfigField 'String',  'PRO_URL',    '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
       android.sourceSets.amazonPro.setRoot('flavors/pro')
       // Do not include guides assets for Amazon, they don't like GP apps ads
       android.sourceSets.amazonPro.assets.srcDirs = ['flavors/mwm-ttf-assets']
@@ -104,6 +109,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
       android.sourceSets.amazonLite.setRoot('flavors/lite')
       // Do not include guides assets for Amazon, they don't like GP apps ads
       android.sourceSets.amazonLite.assets.srcDirs = ['flavors/mwm-ttf-assets']
@@ -114,6 +120,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'true'
       buildConfigField 'String',  'PRO_URL',    '"appcenter://package/com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"appcenter://package/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitPro.setRoot('flavors/pro')
       android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -123,6 +130,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"appcenter://package/com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"appcenter://package/com.mapswithme.maps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitLite.setRoot('flavors/lite')
       android.sourceSets.androidpitLite.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -132,6 +140,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'true'
       buildConfigField 'String',  'PRO_URL',    '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
       buildConfigField 'String',  'REVIEW_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.slidemePro.setRoot('flavors/pro')
       android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -141,6 +150,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
       buildConfigField 'String',  'REVIEW_URL', '"sam://details?bundleId=943fe9dc-9799-11e2-8af8-1670ef61174f"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.slidemeLite.setRoot('flavors/lite')
       android.sourceSets.slidemeLite.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -150,6 +160,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'true'
       buildConfigField 'String',  'PRO_URL',    '"yastore://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexPro.setRoot('flavors/pro')
       android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -159,6 +170,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"yastore://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexLite.setRoot('flavors/lite')
       android.sourceSets.yandexLite.assets.srcDirs = ['flavors/guides-assets']
     }
@@ -168,6 +180,7 @@ android {
       buildConfigField 'boolean', 'IS_PRO',     'false'
       buildConfigField 'String',  'PRO_URL',    '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String',  'REVIEW_URL', '"market://details?id=com.mapswithme.maps"'
+      buildConfigField 'String', 'SUPPORT_MAIL', 'android@maps.me'
       android.sourceSets.yotaLite.setRoot('flavors/lite')
       android.sourceSets.yotaLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }

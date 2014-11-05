@@ -320,7 +320,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 
       final Intent intent = new Intent(Intent.ACTION_SEND);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"bugs@maps.me"});
+      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BuildConfig.SUPPORT_MAIL});
       intent.putExtra(Intent.EXTRA_SUBJECT, "[android] Bugreport from user");
       intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + Utils.saveLogToFile()));
       intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
