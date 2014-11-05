@@ -80,6 +80,7 @@ struct PathSymbolViewParams : CommonViewParams
   string m_symbolName;
   float m_offset;
   float m_step;
+  float m_baseGtoPScale;
 };
 
 } // namespace df

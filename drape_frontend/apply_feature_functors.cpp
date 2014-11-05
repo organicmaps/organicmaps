@@ -338,10 +338,11 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_depth = depth;
       params.m_symbolName = symRule.name();
       float const mainScale = df::VisualParams::Instance().GetVisualScale();
-      params.m_step = symRule.offset() * mainScale;
-      params.m_offset = symRule.step() * mainScale;
+      params.m_offset = symRule.offset() * mainScale;
+      params.m_step = symRule.step() * mainScale;
+      params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params, m_nextScaleGtoP)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params)));
     }
     else
     {

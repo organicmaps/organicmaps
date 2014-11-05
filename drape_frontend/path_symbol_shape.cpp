@@ -1,6 +1,8 @@
 #include "path_symbol_shape.hpp"
 #include "visual_params.hpp"
 
+#include "../drape/glsl_types.hpp"
+#include "../drape/glsl_func.hpp"
 #include "../drape/overlay_handle.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
@@ -11,135 +13,72 @@
 namespace df
 {
 
-using m2::PointF;
-using m2::Spline;
-using glsl_types::vec2;
-using glsl_types::vec4;
-
 int const VertexPerQuad = 4;
 
-class PathSymbolHandle : public dp::OverlayHandle
-{
-public:
-  static const uint8_t PositionAttributeID = 1;
-  PathSymbolHandle(m2::SharedSpline const & spl, PathSymbolViewParams const & params, int maxCount, float hw, float hh)
-    : OverlayHandle(FeatureID(), dp::Center, 0.0f),
-      m_params(params), m_spline(spl), m_scaleFactor(1.0f),
-      m_positions(maxCount * VertexPerQuad), m_maxCount(maxCount),
-      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh)
-  {
-    SetIsVisible(true);
-  }
-
-  virtual void Update(ScreenBase const & screen)
-  {
-    m_scaleFactor = screen.GetScale();
-
-    Spline::iterator itr = m_spline.CreateIterator();
-    itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
-
-    fill(m_positions.begin(), m_positions.end(), vec2(0.0f, 0.0f));
-    vec2 * it = &m_positions[0];
-
-    for (int i = 0; i < m_maxCount; ++i)
-    {
-      if (itr.BeginAgain())
-        break;
-      PointF const pos = itr.m_pos;
-      PointF const dir = itr.m_dir * m_symbolHalfWidth  * m_scaleFactor;
-      PointF const norm(-itr.m_dir.y * m_symbolHalfHeight * m_scaleFactor, itr.m_dir.x * m_symbolHalfHeight * m_scaleFactor);
-
-      *it = pos - dir + norm; it++;
-      *it = pos - dir - norm; it++;
-      *it = pos + dir + norm; it++;
-      *it = pos + dir - norm; it++;
-
-      itr.Step(m_params.m_step * m_scaleFactor);
-    }
-  }
-
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
-  {
-    rects.push_back(m2::RectF(0, 0, 0, 0));
-  }
-
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const
-  {
-    return m2::RectD(0, 0, 0, 0);
-  }
-
-  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
-  {
-    TOffsetNode const & node = GetOffsetNode(PositionAttributeID);
-    dp::MutateNode mutateNode;
-    mutateNode.m_region = node.second;
-    mutateNode.m_data = dp::MakeStackRefPointer<void>(&m_positions[0]);
-    mutator->AddMutation(node.first, mutateNode);
-  }
-
-private:
-  PathSymbolViewParams m_params;
-  m2::SharedSpline m_spline;
-  float m_scaleFactor;
-  mutable vector<vec2> m_positions;
-  int const m_maxCount;
-  float m_symbolHalfWidth;
-  float m_symbolHalfHeight;
-};
-
 PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
-                                 PathSymbolViewParams const & params,
-                                 float nextScaleGtoP)
+                                 PathSymbolViewParams const & params)
   : m_params(params)
   , m_spline(spline)
-  , m_nextScaleGtoP(nextScaleGtoP)
 {
 }
 
 void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  int maxCount = (m_spline->GetLength() * m_nextScaleGtoP - m_params.m_offset) / m_params.m_step + 1;
-  if (maxCount <= 0)
-    return;
+  buffer_vector<glsl::Quad3, 128> positions;
+  buffer_vector<glsl::Quad2, 128> normals;
+  buffer_vector<glsl::Quad3, 128> texCoord;
 
-  int const vertCnt = maxCount * VertexPerQuad;
-  vector<vec2> positions(vertCnt, vec2(0.0f, 0.0f));
-  vector<vec4> uvs(vertCnt);
-  vec4 * tc = &uvs[0];
   dp::TextureSetHolder::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
-
-  m2::RectF const & rect = region.GetTexRect();
-  float textureNum = (float)region.GetTextureNode().m_textureOffset;
   m2::PointU pixelSize;
   region.GetPixelSize(pixelSize);
+  double pToGScale = 1.0 / m_params.m_baseGtoPScale;
+  double halfW = pixelSize.x / 2.0f;
+  double halfH = pixelSize.y / 2.0f;
 
-  for(int i = 0; i < maxCount; ++i)
+  m2::Spline::iterator splineIter = m_spline.CreateIterator();
+  splineIter.Step(m_params.m_offset * pToGScale);
+  float step = m_params.m_step * pToGScale;
+  while (!splineIter.BeginAgain())
   {
-    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
-    tc++;
-    *tc = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
-    tc++;
-    *tc = vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
-    tc++;
-    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
-    tc++;
+    glsl::dvec2 pos = glsl::dvec2(splineIter.m_pos.x, splineIter.m_pos.y);
+    glsl::dvec2 n = pToGScale * halfH * glsl::dvec2(-splineIter.m_dir.y, splineIter.m_dir.x);
+    glsl::dvec2 d = pToGScale * halfW * glsl::dvec2(splineIter.m_dir.x, splineIter.m_dir.y);
+
+    positions.push_back(glsl::Quad3(glsl::vec3(pos - d + n, m_params.m_depth),
+                                    glsl::vec3(pos - d - n, m_params.m_depth),
+                                    glsl::vec3(pos + d + n, m_params.m_depth),
+                                    glsl::vec3(pos + d - n, m_params.m_depth)));
+    splineIter.Step(step);
   }
+
+  if (positions.empty())
+    return;
+
+  normals.resize(positions.size(), glsl::Quad2(0.0f, 0.0f, 0.0f, 0.0f,
+                                               0.0f, 0.0f, 0.0f, 0.0f));
+
+  m2::RectF const & rect = region.GetTexRect();
+  float const textureNum = region.GetTextureNode().GetOffset();
+  texCoord.resize(positions.size(), glsl::Quad3(glsl::vec3(rect.minX(), rect.maxY(), textureNum),
+                                                glsl::vec3(rect.minX(), rect.minY(), textureNum),
+                                                glsl::vec3(rect.maxX(), rect.maxY(), textureNum),
+                                                glsl::vec3(rect.maxX(), rect.minY(), textureNum)));
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::DynamicGeometry);
   state.SetTextureSet(region.GetTextureNode().m_textureSet);
   state.SetBlending(dp::Blending(true));
 
-  dp::AttributeProvider provider(3, vertCnt);
+  dp::AttributeProvider provider(3, positions.size() * VertexPerQuad);
   {
-    dp::BindingInfo position(1, PathSymbolHandle::PositionAttributeID);
+    dp::BindingInfo position(1/*, PathSymbolHandle::PositionAttributeID*/);
     dp::BindingDecl & decl = position.GetBindingDecl(0);
     decl.m_attributeName = "a_position";
-    decl.m_componentCount = 2;
+    decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, position, dp::MakeStackRefPointer(&positions[0]));
+    provider.InitStream(0, position, dp::MakeStackRefPointer(positions.data()));
   }
   {
     dp::BindingInfo normal(1);
@@ -149,21 +88,20 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, normal, dp::MakeStackRefPointer(&positions[0]));
+    provider.InitStream(1, normal, dp::MakeStackRefPointer(normals.data()));
   }
   {
     dp::BindingInfo texcoord(1);
     dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
     decl.m_attributeName = "a_texCoords";
-    decl.m_componentCount = 4;
+    decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(2, texcoord, dp::MakeStackRefPointer(&uvs[0]));
+    provider.InitStream(2, texcoord, dp::MakeStackRefPointer(texCoord.data()));
   }
 
-  dp::OverlayHandle * handle = new PathSymbolHandle(m_spline, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), VertexPerQuad);
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), VertexPerQuad);
 }
 
 }

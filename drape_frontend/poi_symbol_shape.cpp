@@ -34,10 +34,10 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
   float const texture = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
   float positions[] = {
-    m_pt.x, m_pt.y,
-    m_pt.x, m_pt.y,
-    m_pt.x, m_pt.y,
-    m_pt.x, m_pt.y
+    m_pt.x, m_pt.y, depth,
+    m_pt.x, m_pt.y, depth,
+    m_pt.x, m_pt.y, depth,
+    m_pt.x, m_pt.y, depth
   };
 
   float normals[] = {
@@ -48,10 +48,10 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
   };
 
   float uvs[] = {
-    texRect.minX(), texRect.maxY(), texture, depth,
-    texRect.minX(), texRect.minY(), texture, depth,
-    texRect.maxX(), texRect.maxY(), texture, depth,
-    texRect.maxX(), texRect.minY(), texture, depth
+    texRect.minX(), texRect.maxY(), texture,
+    texRect.minX(), texRect.minY(), texture,
+    texRect.maxX(), texRect.maxY(), texture,
+    texRect.maxX(), texRect.minY(), texture
   };
 
   dp::AttributeProvider provider(3, 4);
@@ -59,7 +59,7 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
     dp::BindingInfo position(1, 1);
     dp::BindingDecl & decl = position.GetBindingDecl(0);
     decl.m_attributeName = "a_position";
-    decl.m_componentCount = 2;
+    decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
@@ -79,7 +79,7 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
     dp::BindingInfo texcoord(1);
     dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
     decl.m_attributeName = "a_texCoords";
-    decl.m_componentCount = 4;
+    decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;

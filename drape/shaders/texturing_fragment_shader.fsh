@@ -1,10 +1,5 @@
-#ifdef GL_FRAGMENT_PRECISION_HIGH
-  #define MAXPREC highp
-#else
-  #define MAXPREC mediump
-#endif
 varying lowp vec2 v_texCoords;
-varying MAXPREC float v_textureIndex;
+varying lowp float v_textureIndex;
 
 ~getTexel~
 
