@@ -1,33 +1,33 @@
 #include "text_layout.hpp"
 
+#include "../drape/glsl_func.hpp"
+
+#include "../drape/overlay_handle.hpp"
+
 #include "../std/numeric.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
-#include "../std/algorithm.hpp"
 #include "../std/limits.hpp"
-
-using glsl_types::vec4;
-using glsl_types::Quad1;
-using glsl_types::Quad4;
 
 namespace
 {
-void FillColor(vector<Quad4> & colors,
+
+void FillColor(vector<glsl::Quad4> & colors,
                dp::TextureSetHolder::ColorRegion & region,
                dp::Color const & base, dp::Color const & outline,
                dp::RefPointer<dp::TextureSetHolder> textures)
-  {
+{
   dp::ColorKey key(base.GetColorInInt());
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect = region.GetTexRect();
+  m2::PointF const color = region.GetTexRect().Center();
   key.SetColor(outline.GetColorInInt());
   textures->GetColorRegion(key, region);
-  m2::RectF const & outlineRect = region.GetTexRect();
+  m2::PointF const mask = region.GetTexRect().Center();
 
-  vec4 clrs(rect.RightTop(), outlineRect.RightTop());
-  Quad4 f(clrs, clrs, clrs, clrs);
-  fill(colors.begin(), colors.end(), f);
-  }
+  glsl::vec4 clrs(color.x, color.y, mask.x, mask.y);
+  fill(colors.begin(), colors.end(), glsl::Quad4(clrs, clrs, clrs, clrs));
+}
+
 }
 
 namespace df
@@ -36,8 +36,8 @@ namespace df
 class StraightTextHandle : public dp::OverlayHandle
 {
 public:
-  StraightTextHandle(FeatureID const & id, m2::PointD const & pivot,
-                     m2::PointD const & pxSize, m2::PointD const & offset,
+  StraightTextHandle(FeatureID const & id, glsl::vec2 const & pivot,
+                     glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      double priority)
     : OverlayHandle(id, dp::LeftBottom, priority)
     , m_pivot(pivot)
@@ -48,8 +48,8 @@ public:
 
   m2::RectD GetPixelRect(ScreenBase const & screen) const
   {
-    m2::PointD const pivot = screen.GtoP(m_pivot) + m_offset;
-    return m2::RectD(pivot, pivot + m_size);
+    m2::PointD const pivot = screen.GtoP(m2::PointD(m_pivot.x, m_pivot.y)) + m2::PointD(m_offset.x, m_offset.y);
+    return m2::RectD(pivot, pivot + m2::PointD(m_size.x, m_size.y));
   }
 
   void GetPixelShape(ScreenBase const & screen, Rects & rects) const
@@ -58,9 +58,9 @@ public:
     rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
   }
 private:
-  m2::PointD m_pivot;
-  m2::PointD m_offset;
-  m2::PointD m_size;
+  glsl::vec2 m_pivot;
+  glsl::vec2 m_offset;
+  glsl::vec2 m_size;
 };
 
 namespace
@@ -99,30 +99,30 @@ TextLayout::TextLayout(strings::UniString const & string,
 #endif
 }
 
-dp::OverlayHandle * LayoutText(const FeatureID & featureID,
-                               m2::PointF const & pivot,
+dp::OverlayHandle * LayoutText(FeatureID const & featureID,
+                               glsl::vec2 const & pivot,
                                vector<TextLayout>::iterator & layoutIter,
-                               vector<m2::PointF>::iterator & pixelOffsetIter,
+                               vector<glsl::vec2>::iterator & pixelOffsetIter,
                                float depth,
-                               vector<glsl_types::Quad4> & positions,
-                               vector<glsl_types::Quad4> & texCoord,
-                               vector<glsl_types::Quad4> & color,
-                               vector<glsl_types::Quad1> & index,
+                               vector<glsl::Quad4> & positions,
+                               vector<glsl::Quad4> & texCoord,
+                               vector<glsl::Quad4> & color,
+                               vector<glsl::Quad1> & index,
                                dp::RefPointer<dp::TextureSetHolder> textures,
                                int count)
 {
-  STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
-  STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
+  STATIC_ASSERT(sizeof(glsl::vec4) == 4 * sizeof(float));
+  STATIC_ASSERT(sizeof(glsl::Quad4) == 4 * sizeof(glsl::vec4));
 
   dp::TextureSetHolder::ColorRegion region;
   FillColor(color, region, layoutIter->m_font.m_color, layoutIter->m_font.m_outlineColor, textures);
-  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
-  Quad1 f(texIndex, texIndex, texIndex, texIndex);
+  float texIndex = region.GetTextureNode().GetOffset();
+  glsl::Quad1 f(texIndex, texIndex, texIndex, texIndex);
   fill(index.begin(), index.end(), f);
 
   int counter = 0;
-  m2::PointD size(0.0, 0.0);
-  m2::PointF offset(numeric_limits<float>::max(), numeric_limits<float>::max());
+  glsl::vec2 size(0.0, 0.0);
+  glsl::vec2 offset(numeric_limits<float>::max(), numeric_limits<float>::max());
   float maxOffset = numeric_limits<float>::min();
   for (int j = 0; j < count; ++j)
   {
@@ -152,19 +152,19 @@ dp::OverlayHandle * LayoutText(const FeatureID & featureID,
       maxHeight = max((float)h, maxHeight);
       minHeight = min(yOffset, minHeight);
 
-      Quad4 & position = positions[counter++];
-      position.v[0] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset) + *pixelOffsetIter);
-      position.v[1] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset + h) + *pixelOffsetIter);
-      position.v[2] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset) + *pixelOffsetIter);
-      position.v[3] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset + h) + *pixelOffsetIter);
+      glsl::Quad4 & position = positions[counter++];
+      position[0] = glsl::vec4(pivot, glsl::vec2(glyphOffset + xOffset, yOffset) + *pixelOffsetIter);
+      position[1] = glsl::vec4(pivot, glsl::vec2(glyphOffset + xOffset, yOffset + h) + *pixelOffsetIter);
+      position[2] = glsl::vec4(pivot, glsl::vec2(glyphOffset + w + xOffset, yOffset) + *pixelOffsetIter);
+      position[3] = glsl::vec4(pivot, glsl::vec2(glyphOffset + w + xOffset, yOffset + h) + *pixelOffsetIter);
       glyphOffset += advance;
     }
     glyphOffset += w / 2.0f;
-    size.x = max(size.x, (double)glyphOffset);
+    size.x = max(size.x, glyphOffset);
     offset.x = min(offset.x, pixelOffsetIter->x);
     offset.y = min(offset.y, pixelOffsetIter->y + minHeight);
     maxOffset = max(maxOffset, pixelOffsetIter->y + minHeight);
-    size.y = max(size.y, (double)maxHeight);
+    size.y = max(size.y, maxHeight);
     ++layoutIter;
     ++pixelOffsetIter;
   }
@@ -173,13 +173,13 @@ dp::OverlayHandle * LayoutText(const FeatureID & featureID,
 }
 
 void TextLayout::InitPathText(float depth,
-                              vector<glsl_types::Quad4> & texCoord,
-                              vector<glsl_types::Quad4> & fontColor,
-                              vector<glsl_types::Quad1> & index,
+                              vector<glsl::Quad4> & texCoord,
+                              vector<glsl::Quad4> & fontColor,
+                              vector<glsl::Quad1> & index,
                               dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
-  STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
+  STATIC_ASSERT(sizeof(glsl::vec4) == 4 * sizeof(float));
+  STATIC_ASSERT(sizeof(glsl::Quad4) == 4 * sizeof(glsl::vec4));
 
   size_t glyphCount = GetGlyphCount();
   ASSERT(glyphCount <= texCoord.size(), ());
@@ -188,8 +188,8 @@ void TextLayout::InitPathText(float depth,
 
   dp::TextureSetHolder::ColorRegion region;
   FillColor(fontColor, region, m_font.m_color, m_font.m_outlineColor, textures);
-  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
-  Quad1 f(texIndex, texIndex, texIndex, texIndex);
+  float texIndex = region.GetTextureNode().GetOffset();
+  glsl::Quad1 f(texIndex, texIndex, texIndex, texIndex);
   fill(index.begin(), index.end(), f);
 
   for (size_t i = 0; i < glyphCount; ++i)
@@ -198,7 +198,7 @@ void TextLayout::InitPathText(float depth,
 
 void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
                                 float const scalePtoG,
-                                IntrusiveVector<glsl_types::vec2> & positions,
+                                IntrusiveVector<glsl::vec2> & positions,
                                 bool isForwardDirection,
                                 vector<m2::RectF> & rects,
                                 ScreenBase const & screen) const
@@ -226,14 +226,14 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
     advance *= scalePtoG;
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
-    m2::PointD pos = itr.m_pos;
+    glsl::vec2 pos = glsl::ToVec2(itr.m_pos);
     double cosa = 1.0;
 
-    m2::PointD dir;
-    m2::PointD posOffset;
+    glsl::vec2 dir;
+    glsl::vec2 posOffset;
     if (itr.GetLength() <= tentacleLength || itr.GetLength() >= itr.GetFullLength() - tentacleLength)
     {
-      dir = itr.m_avrDir.Normalize();
+      dir = glsl::normalize(glsl::ToVec2(itr.m_avrDir));
     }
     else
     {
@@ -241,37 +241,43 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
       leftTentacle.StepBack(tentacleLength);
       rightTentacle = itr;
       rightTentacle.Step(tentacleLength);
-      dir = (-leftTentacle.m_avrDir + rightTentacle.m_avrDir).Normalize();
-      cosa = m2::DotProduct(-leftTentacle.m_avrDir, rightTentacle.m_avrDir) / rightTentacle.m_avrDir.Length() / leftTentacle.m_avrDir.Length();
-      posOffset = (leftTentacle.m_pos + rightTentacle.m_pos) / 2.0;
-      pos = (posOffset + itr.m_pos) / 2.0;
+
+      glsl::vec2 const leftAvrDir = glsl::normalize(glsl::ToVec2(leftTentacle.m_avrDir));
+      glsl::vec2 const rightAvrDir = glsl::normalize(glsl::ToVec2(rightTentacle.m_avrDir));
+      dir = glsl::normalize(rightAvrDir - leftAvrDir);
+      cosa = glsl::dot(-leftAvrDir, leftAvrDir);
+
+      glsl::vec2 const leftPos(glsl::ToVec2(leftTentacle.m_pos));
+      glsl::vec2 const rightPos(glsl::ToVec2(rightTentacle.m_pos));
+      posOffset = (leftPos + rightPos) / 2.0f;
+      pos = (posOffset + glsl::ToVec2(itr.m_pos)) / 2.0f;
     }
 
-    itr.Step(advance + (1.0 - cosa) * advance * 0.7);
+    itr.Step(advance + (1.0 - cosa) * advance * 0.1);
     //ASSERT(!itr.BeginAgain(), ());
 
-    m2::PointD norm(-dir.y, dir.x);
+    glsl::vec2 norm(-dir.y, dir.x);
     dir *= halfWidth * scalePtoG;
     norm *= halfHeight * scalePtoG;
 
-    m2::PointD dirComponent;
+    glsl::vec2 dirComponent;
     if (isForwardDirection)
       dirComponent = dir * xOffset / halfWidth;
     else
-      dirComponent = dir * (2.0 * halfWidth - xOffset) / halfWidth;
+      dirComponent = dir * (2.0f * halfWidth - xOffset) / halfWidth;
 
-    m2::PointD const normalComponent = -norm * incSign * yOffset / halfHeight;
-    m2::PointD const pivot = dirComponent + normalComponent + pos;
+    glsl::vec2 const normalComponent = -norm * (float)incSign * yOffset / halfHeight;
+    glsl::vec2 const pivot = dirComponent + normalComponent + pos;
 
-    positions.PushBack(glsl_types::vec2(pivot - dir + norm));
-    positions.PushBack(glsl_types::vec2(pivot - dir - norm));
-    positions.PushBack(glsl_types::vec2(pivot + dir + norm));
-    positions.PushBack(glsl_types::vec2(pivot + dir - norm));
+    positions.PushBack(glsl::vec2(pivot - dir + norm));
+    positions.PushBack(glsl::vec2(pivot - dir - norm));
+    positions.PushBack(glsl::vec2(pivot + dir + norm));
+    positions.PushBack(glsl::vec2(pivot + dir - norm));
 
-    pos = screen.GtoP(pivot);
+    m2::PointF resPos = screen.GtoP(glsl::ToPoint(pivot));
     float maxDim = max(halfWidth, halfHeight);
     m2::PointF const maxDir(maxDim, maxDim);
-    rects[i] = m2::RectF(pos - maxDir, pos + maxDir);
+    rects[i] = m2::RectF(resPos - maxDir, resPos + maxDir);
   }
 }
 
@@ -298,17 +304,17 @@ float TextLayout::GetPixelHeight() const
 
 void TextLayout::GetTextureQuad(GlyphRegion const & region,
                                 float depth,
-                                Quad4 & quad) const
+                                glsl::Quad4 & quad) const
 {
   ASSERT(region.IsValid(), ());
 
   m2::RectF const & rect = region.GetTexRect();
   uint8_t needOutline = m_font.m_needOutline ? 1 : 0;
   float textureOffset = static_cast<float>((region.GetTextureNode().m_textureOffset << 1) + needOutline);
-  quad.v[0] = vec4(rect.minX(), rect.minY(), textureOffset, depth);
-  quad.v[1] = vec4(rect.minX(), rect.maxY(), textureOffset, depth);
-  quad.v[2] = vec4(rect.maxX(), rect.minY(), textureOffset, depth);
-  quad.v[3] = vec4(rect.maxX(), rect.maxY(), textureOffset, depth);
+  quad[0] = glsl::vec4(rect.minX(), rect.minY(), textureOffset, depth);
+  quad[1] = glsl::vec4(rect.minX(), rect.maxY(), textureOffset, depth);
+  quad[2] = glsl::vec4(rect.maxX(), rect.minY(), textureOffset, depth);
+  quad[3] = glsl::vec4(rect.maxX(), rect.maxY(), textureOffset, depth);
 }
 
 float TextLayout::AccumulateAdvance(double const & currentValue, GlyphRegion const & reg1) const

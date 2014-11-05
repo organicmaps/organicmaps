@@ -22,7 +22,6 @@
 #include "../std/vector.hpp"
 
 using m2::Spline;
-using glsl_types::vec2;
 
 namespace
 {
@@ -95,9 +94,9 @@ namespace
     void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
     {
       ASSERT(IsValid(), ());
-      uint32_t byteCount = 4 * m_layout->GetGlyphCount() * sizeof(glsl_types::vec2);
+      uint32_t byteCount = 4 * m_layout->GetGlyphCount() * sizeof(glsl::vec2);
       void * buffer = mutator->AllocateMutationBuffer(byteCount);
-      df::IntrusiveVector<glsl_types::vec2> positions(buffer, byteCount);
+      df::IntrusiveVector<glsl::vec2> positions(buffer, byteCount);
       // m_splineOffset set offset to Center of text.
       // By this we calc offset for start of text in mercator
       m_layout->LayoutPathText(m_begin, m_scalePtoG, positions, m_isForward, m_bboxes, screen);
@@ -138,10 +137,10 @@ namespace
                       float depth,
                       dp::RefPointer<dp::Batcher> batcher,
                       df::SharedTextLayout const & layout,
-                      vector<glsl_types::vec2> & positions,
-                      vector<glsl_types::Quad4> & texCoord,
-                      vector<glsl_types::Quad4> & fontColor,
-                      vector<glsl_types::Quad1> & index,
+                      vector<glsl::vec2> & positions,
+                      vector<glsl::Quad4> & texCoord,
+                      vector<glsl::Quad4> & fontColor,
+                      vector<glsl::Quad1> & index,
                       dp::RefPointer<dp::TextureSetHolder> textures)
   {
     ASSERT(!offsets.empty(), ());
@@ -205,11 +204,9 @@ namespace df
 {
 
 PathTextShape::PathTextShape(m2::SharedSpline const & spline,
-                             PathTextViewParams const & params,
-                             float const scaleGtoP)
+                             PathTextViewParams const & params)
   : m_spline(spline)
   , m_params(params)
-  , m_scaleGtoP(scaleGtoP)
 {
 }
 
@@ -231,10 +228,10 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   float const pathGlbLength = m_spline->GetLength();
 
   // on next readable scale m_scaleGtoP will be twice
-  if (textLength > pathGlbLength * 2 * m_scaleGtoP)
+  if (textLength > pathGlbLength * 2 * m_params.m_baseGtoPScale)
     return;
 
-  float const pathLength = m_scaleGtoP * m_spline->GetLength();
+  float const pathLength = m_params.m_baseGtoPScale * m_spline->GetLength();
 
   /// copied from old code
   /// @todo Choose best constant for minimal space.
@@ -242,13 +239,13 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   float const minPeriodSize = etalonEmpty + textLength;
   float const twoTextAndEmpty = minPeriodSize + textLength;
 
-  vector<glsl_types::vec2>  positions(glyphCount, vec2(0.0, 0.0));
-  vector<glsl_types::Quad4> texCoords(glyphCount);
-  vector<glsl_types::Quad4> fontColor(glyphCount);
-  vector<glsl_types::Quad1> index(glyphCount);
+  vector<glsl::vec2>  positions(glyphCount, glsl::vec2(0.0, 0.0));
+  vector<glsl::Quad4> texCoords(glyphCount);
+  vector<glsl::Quad4> fontColor(glyphCount);
+  vector<glsl::Quad1> index(glyphCount);
   buffer_vector<float, 32> offsets;
 
-  float const scalePtoG = 1.0f / m_scaleGtoP;
+  float const scalePtoG = 1.0f / m_params.m_baseGtoPScale;
 
   if (pathLength < twoTextAndEmpty)
   {

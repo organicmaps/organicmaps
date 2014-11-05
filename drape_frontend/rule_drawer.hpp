@@ -34,7 +34,6 @@ private:
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
   double m_currentScaleGtoP;
-  double m_nextScaleGtoP;
   set<string> m_coastlines;
 };
 

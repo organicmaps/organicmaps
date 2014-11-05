@@ -279,11 +279,9 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 
 ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey,
                                    FeatureID const & id, CaptionDescription const & captions,
-                                   double currentScaleGtoP,
-                                   double nextScaleGtoP)
+                                   double currentScaleGtoP)
   : TBase(context, tileKey, id, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
-  , m_nextScaleGtoP(nextScaleGtoP)
 {
 }
 
@@ -325,8 +323,9 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     params.m_depth = depth;
     params.m_text = m_captions.GetPathName();
     params.m_textFont = fontDecl;
+    params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_spline, params, m_currentScaleGtoP)));
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_spline, params)));
   }
 
   if (pLineRule != NULL)

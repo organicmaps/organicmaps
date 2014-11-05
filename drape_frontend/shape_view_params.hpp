@@ -72,6 +72,7 @@ struct PathTextViewParams : CommonViewParams
 {
   FontDecl m_textFont;
   string m_text;
+  float m_baseGtoPScale;
 };
 
 struct PathSymbolViewParams : CommonViewParams

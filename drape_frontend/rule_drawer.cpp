@@ -24,11 +24,6 @@ RuleDrawer::RuleDrawer(drawer_callback_fn const & fn, TileKey const & tileKey, E
   m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   m_geometryConvertor.SetFromRect(m2::AnyRectD(m_globalRect));
   m_currentScaleGtoP = 1.0f / m_geometryConvertor.GetScale();
-
-  int nextDrawScale = df::GetDrawTileScale(m_globalRect) + 1;
-  m2::RectD nextScaleRect = df::GetRectForDrawScale(nextDrawScale, m_globalRect.Center());
-  ScreenBase nextScaleScreen(m2::RectI(m_geometryConvertor.PixelRect()), m2::AnyRectD(nextScaleRect));
-  m_nextScaleGtoP = 1.0f / nextScaleScreen.GetScale();
 }
 
 void RuleDrawer::operator()(FeatureType const & f)
@@ -67,7 +62,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   {
     ApplyLineFeature apply(m_context, m_tileKey, f.GetID(),
                            s.GetCaptionDescription(),
-                           m_currentScaleGtoP, m_nextScaleGtoP);
+                           m_currentScaleGtoP);
     f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
 
     if (apply.HasGeometry())

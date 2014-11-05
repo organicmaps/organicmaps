@@ -1,55 +1,48 @@
 #include "text_shape.hpp"
-#include "common_structures.hpp"
 #include "text_layout.hpp"
 #include "fribidi.hpp"
 
+#include "../drape/glsl_types.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
 #include "../drape/texture_set_holder.hpp"
 
-#include "../base/math.hpp"
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
 
-#include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
-
-using m2::PointF;
 
 namespace df
 {
 
-using m2::PointF;
-
 namespace
 {
+
 float const TEXT_EXPAND_FACTOR = 1.3f;
 
-PointF GetShift(dp::Anchor anchor, float width, float height)
+glsl::vec2 GetShift(dp::Anchor anchor, float width, float height)
 {
   switch(anchor)
   {
-  case dp::Center:      return PointF(-width / 2.0f, height / 2.0f);
-  case dp::Left:        return PointF(0.0f, height / 2.0f);
-  case dp::Right:       return PointF(-width, height / 2.0f);
-  case dp::Top:         return PointF(-width / 2.0f, height);
-  case dp::Bottom:      return PointF(-width / 2.0f, 0);
-  case dp::LeftTop:     return PointF(0.0f, height);
-  case dp::RightTop:    return PointF(-width, height);
-  case dp::LeftBottom:  return PointF(0.0f, 0.0f);
-  case dp::RightBottom: return PointF(-width, 0.0f);
-  default:              return PointF(0.0f, 0.0f);
+  case dp::Center:      return glsl::vec2(-width / 2.0f, height / 2.0f);
+  case dp::Left:        return glsl::vec2(0.0f, height / 2.0f);
+  case dp::Right:       return glsl::vec2(-width, height / 2.0f);
+  case dp::Top:         return glsl::vec2(-width / 2.0f, height);
+  case dp::Bottom:      return glsl::vec2(-width / 2.0f, 0);
+  case dp::LeftTop:     return glsl::vec2(0.0f, height);
+  case dp::RightTop:    return glsl::vec2(-width, height);
+  case dp::LeftBottom:  return glsl::vec2(0.0f, 0.0f);
+  case dp::RightBottom: return glsl::vec2(-width, 0.0f);
+  default:              return glsl::vec2(0.0f, 0.0f);
   }
 }
 
 void BatchText(dp::RefPointer<dp::Batcher> batcher, int32_t textureSet,
-               vector<glsl_types::Quad4> const & positions,
-               vector<glsl_types::Quad4> const & texCoord,
-               vector<glsl_types::Quad4> const & color,
-               vector<glsl_types::Quad1> const & index,
+               vector<glsl::Quad4> const & positions,
+               vector<glsl::Quad4> const & texCoord,
+               vector<glsl::Quad4> const & color,
+               vector<glsl::Quad1> const & index,
                size_t glyphCount,
                dp::OverlayHandle * handle)
 {
@@ -255,30 +248,32 @@ void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<Te
     maxCount = max(maxCount, layouts[i].GetGlyphCount());
   }
 
-  PointF const anchorOffset = GetShift(m_params.m_anchor, maxLength, textHeight * TEXT_EXPAND_FACTOR);
+  glsl::vec2 const anchorOffset = GetShift(m_params.m_anchor, maxLength, textHeight * TEXT_EXPAND_FACTOR);
 
-  vector<glsl_types::Quad4> positions(symCount);
-  vector<glsl_types::Quad4> texCoord(symCount);
-  vector<glsl_types::Quad4> fontColor(symCount);
-  vector<glsl_types::Quad1> indexes(symCount);
+  vector<glsl::Quad4> positions(symCount);
+  vector<glsl::Quad4> texCoord(symCount);
+  vector<glsl::Quad4> fontColor(symCount);
+  vector<glsl::Quad1> indexes(symCount);
 
   float dy = (1.0f - TEXT_EXPAND_FACTOR) * heights[0];
-  vector<PointF> pixelOffset(count);
+  vector<glsl::vec2> pixelOffset(count);
   uint32_t delSymCount = 0;
   uint32_t lastIndex = 0;
   vector<TextLayout>::iterator it1;
-  vector<PointF>::iterator it2;
+  vector<glsl::vec2>::iterator it2;
+  glsl::vec2 pivot(m_basePoint.x, m_basePoint.y);
   for (int i = 0; i < count; ++i)
   {
     float const dx = (maxLength - lengths[i]) / 2.0f;
-    pixelOffset[i] = PointF(dx, dy) + anchorOffset + m_params.m_primaryOffset;
+    pixelOffset[i] = glsl::vec2(dx, dy) + anchorOffset + glsl::vec2(m_params.m_primaryOffset.x,
+                                                                    m_params.m_primaryOffset.y);
     dy -= heights[i] * TEXT_EXPAND_FACTOR;
     delSymCount += layouts[i].GetGlyphCount();
     if (i == delim)
     {
       it2 = pixelOffset.begin();
       it1 = layouts.begin();
-      dp::OverlayHandle * handle = LayoutText(m_params.m_featureID, m_basePoint,
+      dp::OverlayHandle * handle = LayoutText(m_params.m_featureID, pivot,
                                               it1, it2, m_params.m_depth,
                                               positions, texCoord, fontColor,
                                               indexes, textures, i + 1);
@@ -294,7 +289,7 @@ void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<Te
   }
   it2 = pixelOffset.begin() + lastIndex;
   it1 = layouts.begin() + lastIndex;
-  dp::OverlayHandle * handle = LayoutText(m_params.m_featureID, m_basePoint,
+  dp::OverlayHandle * handle = LayoutText(m_params.m_featureID, pivot,
                                           it1, it2, m_params.m_depth,
                                           positions, texCoord, fontColor, indexes,
                                           textures, count - lastIndex);
