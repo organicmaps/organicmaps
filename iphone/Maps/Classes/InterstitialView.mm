@@ -119,10 +119,15 @@
 
 - (void)show
 {
-  UIView * view = [self viewWindow];
+  UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
+  NavigationController * vc = (NavigationController *)window.rootViewController;
+  if (!IPAD && !UIInterfaceOrientationIsPortrait(vc.interfaceOrientation))
+    return;
+
   if (!IPAD)
     [self blockRotation:YES];
 
+  UIView * view = [self viewWindow];
   for (UIView * subview in view.subviews)
   {
     if ([subview isKindOfClass:[self class]])
