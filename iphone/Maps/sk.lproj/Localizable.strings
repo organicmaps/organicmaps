@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Zlyhalo";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!";
+"routing_failed_buy_pro" = "Smerovanie je k dispozícii len na MAPS.ME Pro. Získajte ho hneď teraz!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.";

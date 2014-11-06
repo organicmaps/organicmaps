@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Ошибка";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!";
+"routing_failed_buy_pro" = "Создание маршрутов возможно только в MAPS.ME Pro. Скачай сейчас!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Невозможно проложить маршрут. Не определено текущее местоположение.";

@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Başarısız";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!";
+"routing_failed_buy_pro" = "Yönlendirme yalnızca MAPS.ME pro'da mevcuttur. Hemen edinin!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.";

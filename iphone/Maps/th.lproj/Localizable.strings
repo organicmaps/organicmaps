@@ -695,7 +695,7 @@
 "downloader_status_failed" = "ล้มเหลว";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!";
+"routing_failed_buy_pro" = "การระบุเส้นทางสามารถทำได้เฉพาะใน MAPS.ME Pro รับมันตอนนี้เลย!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";

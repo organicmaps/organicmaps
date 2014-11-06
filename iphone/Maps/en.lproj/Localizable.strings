@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Failed";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Routing is only available in the full version of MAPS.ME. Get it right now!";
+"routing_failed_buy_pro" = "Routing is only available in MAPS.ME Pro. Get it right now!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Current location is undefined. Please specify location to create route.";

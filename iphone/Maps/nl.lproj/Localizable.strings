@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Mislukt";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!";
+"routing_failed_buy_pro" = "Routeplanning is enkel beschikbaar in MAPS.ME Pro. Verkrijg het nu meteen!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";

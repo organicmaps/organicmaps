@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Nieudane";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!";
+"routing_failed_buy_pro" = "Ustalanie tras jest dostępne tylko w MAPS.ME Pro. Pobierz je teraz!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Bieżąca lokalizacja nie została zdefiniowana. Aby utworzyć trasę, określ lokalizację.";

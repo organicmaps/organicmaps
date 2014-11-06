@@ -416,7 +416,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Mislukt</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!</string>
+	<string name="routing_failed_buy_pro">Routeplanning is enkel beschikbaar in MAPS.ME Pro. Verkrijg het nu meteen!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

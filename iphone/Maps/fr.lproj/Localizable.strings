@@ -695,7 +695,7 @@
 "downloader_status_failed" = "A échoué";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "L'itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !";
+"routing_failed_buy_pro" = "Le calcul d'itinéraire est seulement disponible avec MAPS.ME Pro. Achetez-le maintenant !";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.";

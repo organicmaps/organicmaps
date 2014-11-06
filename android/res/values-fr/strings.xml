@@ -447,7 +447,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">A échoué</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">L\&#39;itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !</string>
+	<string name="routing_failed_buy_pro">Le calcul d\&#39;itinéraire est seulement disponible avec MAPS.ME Pro. Achetez-le maintenant !</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">L\&#39;emplacement actuel n\&#39;est pas défini. Veuillez préciser l\&#39;emplacement pour créer l\&#39;itinéraire.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

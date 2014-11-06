@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Fallito";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!";
+"routing_failed_buy_pro" = "La funzione percorso è disponibile solo in MAPS.ME Pro. Prendila ora!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "La posizione attuale non è definita. Specifica la posizione per creare il percorso.";

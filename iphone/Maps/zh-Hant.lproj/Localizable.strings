@@ -695,7 +695,7 @@
 "downloader_status_failed" = "失敗";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "佈置路線只在MAPS.ME的完整版本中才有。现在就得到它吧！";
+"routing_failed_buy_pro" = "規劃路線只有在MAPS.ME專業版有。現在就獲得它！";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "當前地點未定。請明確地點以創建路線。";

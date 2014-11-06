@@ -695,7 +695,7 @@
 "downloader_status_failed" = "فشل";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "تحديد المسار متاح فقط من خلال الإصدار الكامل لتطبيق MAPS.ME. احصل عليه الآن!";
+"routing_failed_buy_pro" = "تحديد المسار متاح فقط من خلال MAPS.ME Pro. احصل عليه الآن!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.";

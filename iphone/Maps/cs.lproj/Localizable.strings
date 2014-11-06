@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Selhalo";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Plánování tras je k dispozici pouze v plné verzi MAPS.ME. Získej ji hned teď!";
+"routing_failed_buy_pro" = "Vytýčení tras funguje pouze v aplikaci MAPS.ME Pro. Získejte ji teď hned!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuální poloha nebyla zatím zjištěna. Chceš-li naplánovat trasu, zadej prosím umístění.";

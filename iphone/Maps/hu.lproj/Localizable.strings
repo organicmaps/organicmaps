@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Sikertelen";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!";
+"routing_failed_buy_pro" = "Az útvonaltervezés csak a MAPS.ME Pro-ban elérhető. Szerezd meg most!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.";

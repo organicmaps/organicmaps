@@ -695,7 +695,7 @@
 "downloader_status_failed" = "Misslyckades";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!";
+"routing_failed_buy_pro" = "Rutter är endast tillgängliga i MAPS.ME Pro. Hämta den redan nu!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.";

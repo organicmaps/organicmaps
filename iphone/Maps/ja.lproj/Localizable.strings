@@ -695,7 +695,7 @@
 "downloader_status_failed" = "失敗";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！";
+"routing_failed_buy_pro" = "ルーティングはMAPS.ME Proでのみ利用可能です。今すぐ入手！";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "現在地が設定されていません。ルートを作成するには現在地を設定してください。";
