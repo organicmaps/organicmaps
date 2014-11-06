@@ -3,10 +3,14 @@
 #include "stylist.hpp"
 #include "rule_drawer.hpp"
 
-#include "../base/scope_guard.hpp"
 #include "../map/feature_vec_model.hpp"
 
+#include "../indexer/scales.hpp"
+
+#include "../base/scope_guard.hpp"
+
 #include "../std/bind.hpp"
+
 
 namespace
 {
@@ -118,8 +122,8 @@ void TileInfo::CheckCanceled() const
 
 int TileInfo::GetZoomLevel() const
 {
-  int upperScale = scales::GetUpperScale();
-  return m_key.m_zoomLevel <= upperScale ? m_key.m_zoomLevel : upperScale;
+  int const upperScale = scales::GetUpperScale();
+  return (m_key.m_zoomLevel <= upperScale ? m_key.m_zoomLevel : upperScale);
 }
 
 } // namespace df

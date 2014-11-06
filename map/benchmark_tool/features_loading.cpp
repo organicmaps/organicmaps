@@ -1,11 +1,10 @@
-#include "../../base/SRC_FIRST.hpp"
-
 #include "api.hpp"
 
 #include "../feature_vec_model.hpp"
 
 #include "../../indexer/data_factory.hpp"
 #include "../../indexer/feature_visibility.hpp"
+#include "../../indexer/scales.hpp"
 
 #include "../../platform/platform.hpp"
 

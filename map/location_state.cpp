@@ -15,6 +15,7 @@
 #include "../gui/controller.hpp"
 
 #include "../indexer/mercator.hpp"
+#include "../indexer/scales.hpp"
 
 #include "../platform/location.hpp"
 #include "../platform/settings.hpp"

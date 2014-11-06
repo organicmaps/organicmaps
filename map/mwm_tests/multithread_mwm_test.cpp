@@ -2,6 +2,8 @@
 
 #include "../../map/feature_vec_model.hpp"
 
+#include "../../indexer/scales.hpp"
+
 #include "../../base/thread.hpp"
 
 

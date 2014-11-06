@@ -17,14 +17,21 @@
 
 #include "../../std/string.hpp"
 #include "../../std/algorithm.hpp"
-#include "../../std/iostream.hpp"
 
 
-typedef vector<pair<FeatureType, string> > feature_cont_t;
+namespace
+{
+
+typedef vector<uint32_t> feature_cont_t;
+
+bool IsDrawable(FeatureType const & f, int scale)
+{
+  // Feature that doesn't have any geometry for m_scale returns empty DebugString().
+  return (!f.IsEmptyGeometry(scale) && feature::IsDrawableForIndex(f, scale));
+}
 
 class AccumulatorBase
 {
-  mutable string m_dbgString;
   feature_cont_t & m_cont;
 
 protected:
@@ -32,29 +39,33 @@ protected:
 
   bool is_drawable(FeatureType const & f) const
   {
-    m_dbgString = f.DebugString(m_scale);
-    CHECK(m_dbgString == f.DebugString(m_scale), ());
+    // Looks strange, but it checks consistency.
+    TEST_EQUAL(f.DebugString(m_scale), f.DebugString(m_scale), ());
 
-    // Feature that doesn't have any geometry for m_scale returns empty DebugString().
-    return (!f.IsEmptyGeometry(m_scale) && feature::IsDrawableForIndex(f, m_scale));
+    return IsDrawable(f, m_scale);
   }
 
   void add(FeatureType const & f) const
   {
-    m_cont.push_back(make_pair(f, m_dbgString));
+    TEST(f.GetID().IsValid(), ());
+    m_cont.push_back(f.GetID().m_offset);
+  }
+
+  void add(FeatureType const &, uint32_t offset) const
+  {
+    m_cont.push_back(offset);
   }
 
 public:
-  AccumulatorBase(m2::RectD const & r, feature_cont_t & cont)
-    : m_cont(cont)
+  AccumulatorBase(int scale, feature_cont_t & cont)
+    : m_cont(cont), m_scale(scale)
   {
-    m_scale = scales::GetScaleLevel(r);
   }
 
   void operator() (FeatureType const & f) const
   {
-    if (is_drawable(f))
-      add(f);
+    TEST(is_drawable(f), ());
+    add(f);
   }
 };
 
@@ -150,22 +161,22 @@ class AccumulatorEtalon : public AccumulatorBase
   }
 
 public:
-  AccumulatorEtalon(m2::RectD const & r, feature_cont_t & cont)
-    : base_type(r, cont), m_rect(r)
+  AccumulatorEtalon(m2::RectD const & r, int scale, feature_cont_t & cont)
+    : base_type(scale, cont), m_rect(r)
   {
   }
 
-  void operator() (FeatureType const & f, uint64_t /*offset*/) const
+  void operator() (FeatureType const & f, uint64_t offset) const
   {
     if (is_drawable(f) && is_intersect(f))
-      add(f);
+      add(f, offset);
   }
 };
 
-// invoke this comparator to ensure that "sort" and "compare_sequence" use equal criterion
-struct compare_strings
+// Use this comparator for "sort" and "compare_sequence".
+struct FeatureIDCmp
 {
-  int compare(string const & r1, string const & r2) const
+  int compare(uint32_t r1, uint32_t r2) const
   {
     if (r1 < r2)
       return -1;
@@ -173,153 +184,126 @@ struct compare_strings
       return 1;
     return 0;
   }
-  template <class T>
-  int compare(T const & r1, T const & r2) const
-  {
-    return compare(r1.second, r2.second);
-  }
-  template <class T>
-  bool operator() (T const & r1, T const & r2) const
+  bool operator() (uint32_t r1, uint32_t r2) const
   {
     return (compare(r1, r2) == -1);
   }
 };
 
-template <class TAccumulator, class TSource>
-void for_each_in_rect(TSource & src, feature_cont_t & cont, m2::RectD const & rect)
-{
-  cont.clear();
-  TAccumulator acc(rect, cont);
-  src.ForEachFeature(rect, acc);
-  sort(cont.begin(), cont.end(), compare_strings());
-}
-
-class file_source_t
-{
-  ModelReaderPtr m_file;
-public:
-  file_source_t(ModelReaderPtr const & file) : m_file(file) {}
-
-  template <class ToDo>
-  void ForEachFeature(m2::RectD const & /*rect*/, ToDo toDo)
-  {
-    feature::ForEachFromDat(m_file, toDo);
-  }
-};
-
-/// "test" should contain all elements from etalon
+/// Check that "test" contains all elements from "etalon".
 template <class TCont, class TCompare>
 bool compare_sequence(TCont const & etalon, TCont const & test, TCompare comp, size_t & errInd)
 {
-  if (test.size() < etalon.size())
-    return false;
-
-  typedef typename TCont::const_iterator iter_t;
-
-  iter_t i1 = etalon.begin();
-  iter_t i2 = test.begin();
+  auto i1 = etalon.begin();
+  auto i2 = test.begin();
   while (i1 != etalon.end() && i2 != test.end())
   {
     switch (comp.compare(*i1, *i2))
     {
-    case 0:
+    case 0:   // equal
       ++i1;
       ++i2;
       break;
-    case -1:
+    case -1:  // present in etalon, but missing in test - error
       {
         errInd = distance(etalon.begin(), i1);
         return false;
       }
-    case 1:
+    case 1:   // present in test, but missing in etalon - actually it may be ok
       ++i2;
       break;
     }
+  }
+
+  if (i1 != etalon.end())
+  {
+    errInd = distance(etalon.begin(), i1);
+    return false;
   }
 
   return true;
 }
 
-namespace
+class FindOffset
 {
-  class FindOffset
+  int m_level;
+  uint32_t m_offset;
+
+public:
+  FindOffset(int level, uint32_t offset)
+    : m_level(level), m_offset(offset)
+  {}
+
+  void operator() (FeatureType const & f, uint64_t offset)
   {
-    int m_level;
-    pair<FeatureType, string> const & m_test;
-
-  public:
-    FindOffset(int level, pair<FeatureType, string> const & test)
-      : m_level(level), m_test(test)
-    {}
-
-    void operator() (FeatureType const & f, uint64_t offset)
+    if (offset == m_offset)
     {
-      string const s = f.DebugString(m_level);
-      if (s == m_test.second)
-      {
-        cout << s << endl << "Feature offset = " << offset << endl;
+      TEST(IsDrawable(f, m_level), ());
 
-        cout << "Feature classificator types:\n";
-
-        feature::TypesHolder types(f);
-        for (size_t i = 0; i < types.Size(); ++i)
-          cout << classif().GetFullObjectName(types[i]) << endl;
-      }
-    }
-  };
-
-  void RunTest(string const & file)
-  {
-    model::FeaturesFetcher src1;
-    src1.InitClassificator();
-    src1.AddMap(file);
-
-    vector<m2::RectD> rects;
-    rects.push_back(src1.GetWorldRect());
-
-    ModelReaderPtr reader = GetPlatform().GetReader(file);
-
-    while (!rects.empty())
-    {
-      m2::RectD r = rects.back();
-      rects.pop_back();
-
-      feature_cont_t v1, v2;
-      for_each_in_rect<AccumulatorBase>(src1, v1, r);
-
-      file_source_t src2(reader);
-      for_each_in_rect<AccumulatorEtalon>(src2, v2, r);
-
-      int const level = scales::GetScaleLevel(r);
-
-      size_t const emptyInd = size_t(-1);
-      size_t errInd = emptyInd;
-      if (!compare_sequence(v2, v1, compare_strings(), errInd))
-      {
-        if (errInd != emptyInd)
-          src2.ForEachFeature(r, FindOffset(level, v2[errInd]));
-
-        TEST(false, ("Failed for rect: ", r, "; Scale level = ", level, ". Etalon size = ", v2.size(), ". Index size = ", v1.size()));
-      }
-
-      if (!v2.empty() && (level < scales::GetUpperScale()))
-      {
-        m2::RectD r1, r2;
-        r.DivideByGreaterSize(r1, r2);
-        rects.push_back(r1);
-        rects.push_back(r2);
-      }
+      LOG(LINFO, ("Feature offset:", offset));
+      LOG(LINFO, ("Feature:", f));
     }
   }
+};
 
-  void RunTestForChoice(string const & fName)
+void RunTest(string const & file)
+{
+  model::FeaturesFetcher src1;
+  src1.InitClassificator();
+  src1.AddMap(file);
+
+  vector<m2::RectD> rects;
+  rects.push_back(src1.GetWorldRect());
+
+  ModelReaderPtr reader = GetPlatform().GetReader(file);
+
+  while (!rects.empty())
   {
-//    cout << "Run " << fName << "? (y/n)\n";
-//    char c;
-//    cin >> c;
-//    if (c == 'y')
-      RunTest(fName + DATA_FILE_EXTENSION);
+    m2::RectD const r = rects.back();
+    rects.pop_back();
+
+    int const scale = scales::GetScaleLevel(r);
+
+    feature_cont_t v1, v2;
+    {
+      AccumulatorBase acc(scale, v1);
+      src1.ForEachFeature(r, acc, scale);
+      sort(v1.begin(), v1.end(), FeatureIDCmp());
+    }
+    {
+      AccumulatorEtalon acc(r, scale, v2);
+      feature::ForEachFromDat(reader, acc);
+      sort(v2.begin(), v2.end(), FeatureIDCmp());
+    }
+
+    size_t const emptyInd = size_t(-1);
+    size_t errInd = emptyInd;
+    if (!compare_sequence(v2, v1, FeatureIDCmp(), errInd))
+    {
+      if (errInd != emptyInd)
+      {
+        FindOffset doFind(scale, v2[errInd]);
+        feature::ForEachFromDat(reader, doFind);
+      }
+
+      TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
+    }
+
+    if (!v2.empty() && (scale < scales::GetUpperScale()))
+    {
+      m2::RectD r1, r2;
+      r.DivideByGreaterSize(r1, r2);
+      rects.push_back(r1);
+      rects.push_back(r2);
+    }
   }
+}
+
+void RunTestForChoice(string const & fName)
+{
+  RunTest(fName + DATA_FILE_EXTENSION);
+}
+
 }
 
 UNIT_TEST(ForEach_QueryResults)
