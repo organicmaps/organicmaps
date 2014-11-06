@@ -361,7 +361,7 @@ public final class UiUtils
 
   public static void checkConnectionAndShowAlert(final Activity activity, final String message)
   {
-    if (!ConnectionState.isConnected(activity))
+    if (!ConnectionState.isConnected())
     {
       activity.runOnUiThread(new Runnable()
       {

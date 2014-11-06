@@ -52,7 +52,7 @@ public class AdsManager
   public static void updateMenuAds()
   {
     String menuAdsString;
-    if (ConnectionState.isConnected(MWMApplication.get()))
+    if (ConnectionState.isConnected())
     {
       menuAdsString = getJsonAdsFromServer();
       cacheMenuAds(menuAdsString);
@@ -162,7 +162,7 @@ public class AdsManager
    */
   private static Bitmap loadAdIcon(String urlString, String adId)
   {
-    if (!ConnectionState.isConnected(MWMApplication.get()))
+    if (!ConnectionState.isConnected())
       return loadCachedBitmap(adId);
 
     InputStream inputStream = null;

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.mapswithme.maps.MWMApplication;
+
 public class ConnectionState
 {
   public static final int NOT_CONNECTED = 0;
@@ -13,12 +15,12 @@ public class ConnectionState
   private static final String TYPE_WIFI = "WIFI";
   private static final String TYPE_MOBILE = "MOBILE";
 
-  private static int getState(Context c)
+  private static int getState()
   {
     boolean isWifiConnected = false;
     boolean isMobileConnected = false;
 
-    ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+    ConnectivityManager cm = (ConnectivityManager) MWMApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo[] netInfo = cm.getAllNetworkInfo();
     for (NetworkInfo ni : netInfo)
     {
@@ -37,18 +39,18 @@ public class ConnectionState
     return NOT_CONNECTED;
   }
 
-  public static boolean is3GConnected(Context c)
+  public static boolean is3GConnected()
   {
-    return (getState(c) & CONNECTED_BY_3G) == CONNECTED_BY_3G;
+    return (getState() & CONNECTED_BY_3G) == CONNECTED_BY_3G;
   }
 
-  public static boolean isWifiConnected(Context c)
+  public static boolean isWifiConnected()
   {
-    return (getState(c) & CONNECTED_BY_WIFI) == CONNECTED_BY_WIFI;
+    return (getState() & CONNECTED_BY_WIFI) == CONNECTED_BY_WIFI;
   }
 
-  public static boolean isConnected(Context c)
+  public static boolean isConnected()
   {
-    return getState(c) != NOT_CONNECTED;
+    return getState() != NOT_CONNECTED;
   }
 }

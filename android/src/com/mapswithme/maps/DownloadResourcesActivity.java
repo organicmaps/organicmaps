@@ -243,7 +243,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
       break;
 
     case ERR_DOWNLOAD_ERROR:
-      if (ConnectionState.isConnected(this))
+      if (ConnectionState.isConnected())
         id = R.string.download_has_failed;
       else
         id = R.string.no_internet_connection_detected;
@@ -386,7 +386,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
     {
       setAction(DOWNLOAD);
 
-      if (ConnectionState.isWifiConnected(this))
+      if (ConnectionState.isWifiConnected())
         onDownloadClicked(mButton);
     }
   }

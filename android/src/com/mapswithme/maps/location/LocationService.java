@@ -163,7 +163,7 @@ public enum LocationService implements
   private void startWifiLocationUpdate()
   {
     if (Statistics.INSTANCE.isStatisticsEnabled() &&
-        ConnectionState.isWifiConnected(MWMApplication.get()))
+        ConnectionState.isWifiConnected())
     {
       if (mWifiScanner == null)
         mWifiScanner = new WifiLocationScanner();
@@ -460,7 +460,7 @@ public enum LocationService implements
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB &&
             LocationManager.NETWORK_PROVIDER.equals(prov) &&
-            !ConnectionState.isConnected(MWMApplication.get()))
+            !ConnectionState.isConnected())
           continue;
 
         acceptedProviders.add(prov);

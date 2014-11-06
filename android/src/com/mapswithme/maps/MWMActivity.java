@@ -515,7 +515,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkFacebookDialog()
   {
-    if (ConnectionState.isConnected(this) &&
+    if (ConnectionState.isConnected() &&
         MWMApplication.get().shouldShowDialog(MWMApplication.FACEBOOK) &&
         !isChinaRegion())
     {
@@ -538,7 +538,7 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkBuyProDialog()
   {
     if (!BuildConfig.IS_PRO &&
-        (ConnectionState.isConnected(this)) &&
+        (ConnectionState.isConnected()) &&
         MWMApplication.get().shouldShowDialog(MWMApplication.BUYPRO))
     {
       showDialogImpl(MWMApplication.BUYPRO, R.string.pro_version_available,
