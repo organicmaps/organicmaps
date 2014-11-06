@@ -298,7 +298,7 @@ namespace
   public:
     IsNonDrawableType(EGeomType ft) : m_c(classif()), m_type(ft) {}
 
-    bool operator() (uint32_t t)
+    bool operator() (uint32_t t) const
     {
       if (TypeAlwaysExists(t, m_type))
         return false;

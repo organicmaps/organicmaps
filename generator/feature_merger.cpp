@@ -323,10 +323,11 @@ namespace feature
 class IsInvisibleFn
 {
   int m_lowScale, m_upScale;
+  bool m_leaveSpecialTypes;
 
 public:
-  IsInvisibleFn(int lowScale, int upScale)
-    : m_lowScale(lowScale), m_upScale(upScale)
+  IsInvisibleFn(int lowScale, int upScale, bool leaveSpecialTypes)
+    : m_lowScale(lowScale), m_upScale(upScale), m_leaveSpecialTypes(leaveSpecialTypes)
   {
   }
 
@@ -334,9 +335,18 @@ public:
   {
     pair<int, int> const range = feature::GetDrawableScaleRange(type);
 
-    // Actually it should not be equal to -1, but leave for safety reasons.
-    return (range.first == -1 ||
-            range.first > m_upScale || range.second < m_lowScale);
+    // We have feature types without any drawing rules.
+    // This case was processed before:
+    // - feature::TypeAlwaysExists;
+    // - FeatureBuilder::RemoveInvalidTypes;
+    // Don't delete them here.
+    if (m_leaveSpecialTypes && range.first == -1)
+    {
+      ASSERT(range.second == -1, ());
+      return false;
+    }
+
+    return (range.first == -1 || (range.first > m_upScale || range.second < m_lowScale));
   }
 };
 
@@ -344,7 +354,7 @@ bool PreprocessForWorldMap(FeatureBuilder1 & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
-  if (fb.RemoveTypesIf(IsInvisibleFn(0, upperScale)))
+  if (fb.RemoveTypesIf(IsInvisibleFn(0, upperScale, false)))
     return false;
 
   fb.RemoveNameIfInvisible(0, upperScale);
@@ -355,7 +365,8 @@ bool PreprocessForWorldMap(FeatureBuilder1 & fb)
 bool PreprocessForCountryMap(FeatureBuilder1 & fb)
 {
   if (fb.RemoveTypesIf(IsInvisibleFn(scales::GetUpperWorldScale() + 1,
-                                     scales::GetUpperStyleScale())))
+                                     scales::GetUpperStyleScale(),
+                                     true)))
   {
     return false;
   }
