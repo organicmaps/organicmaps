@@ -312,9 +312,11 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   NSString * messageLanguage = nil;
   for (NSString * preferredLanguage in [NSLocale preferredLanguages])
   {
-    if ([languages containsObject:preferredLanguage])
+    // We don't support country specific languages yet, so we strip country code.
+    NSString * cleanPreferredLanguage = [preferredLanguage substringToIndex:2];
+    if ([languages containsObject:cleanPreferredLanguage])
     {
-      messageLanguage = preferredLanguage;
+      messageLanguage = cleanPreferredLanguage;
       break;
     }
   }
