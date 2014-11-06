@@ -54,4 +54,4 @@ inline vec2 ToVec2(m2::PointD const & pt)
   return glsl::vec2(pt.x, pt.y);
 }
 
-}
+} // namespace glsl

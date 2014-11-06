@@ -20,4 +20,4 @@ using glm::scale;
 
 using glm::value_ptr;
 
-}
+} // namespace glsl

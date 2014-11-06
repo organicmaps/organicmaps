@@ -60,7 +60,7 @@ private:
     m_aspect = l1 / l2;
 
     /// normal1 is normal from segment v2 - v1
-    /// normal2 is normal from segmeny v3 - v2
+    /// normal2 is normal from segment v3 - v2
     glsl::vec2 const normal1(-dif21.y / l1, dif21.x / l1);
     glsl::vec2 const normal2(-dif32.y / l2, dif32.x / l2);
 
@@ -86,7 +86,7 @@ private:
 class LineEnumerator
 {
 public:
-  explicit LineEnumerator(vector<m2::PointD> const & points, float GtoPScale, bool generateEndpoints)
+  LineEnumerator(vector<m2::PointD> const & points, float GtoPScale, bool generateEndpoints)
     : m_points(points)
     , m_GtoPScale(GtoPScale)
     , m_generateEndpoints(generateEndpoints)
@@ -127,7 +127,7 @@ public:
     m_isSolid = isSolid;
   }
 
-  dp::TextureSetHolder::StippleRegion const & GetStippleMaskItem()
+  dp::TextureSetHolder::StippleRegion const & GetStippleMaskItem() const
   {
     ASSERT(!IsSolid(), ());
     ASSERT(m_stippleRegion.IsValid(), ());
@@ -204,7 +204,7 @@ private:
     if (partialSegment)
     {
       int const numParts = static_cast<int>(ceilf(pixelLength / maxLength));
-      m2::PointD const singlePart = segmentVector / (float)numParts;
+      m2::PointD const singlePart = segmentVector / (double)numParts;
 
       result = glsl::ToVec2(prevPt + singlePart * m_partGenerated);
 
@@ -229,7 +229,7 @@ private:
     if (m_iterIndex == -1)
     {
       ASSERT(m_generateEndpoints, ());
-      glsl::vec2 tmp = glsl::ToVec2(m_points[0]);
+      glsl::vec2 const tmp = glsl::ToVec2(m_points[0]);
       result = tmp + glsl::normalize(tmp - glsl::ToVec2(m_points[1]));
       m_iterIndex = 0;
       return true;
@@ -243,8 +243,8 @@ private:
     if (m_iterIndex == static_cast<int>(m_points.size()))
     {
       ASSERT(m_generateEndpoints, ());
-      size_t size = m_points.size();
-      glsl::vec2 tmp = glsl::ToVec2(m_points[size - 1]);
+      size_t const size = m_points.size();
+      glsl::vec2 const tmp = glsl::ToVec2(m_points[size - 1]);
       result = tmp + glsl::normalize(tmp - glsl::ToVec2(m_points[size - 2]));
       m_iterIndex++;
       return true;
@@ -256,14 +256,14 @@ private:
 private:
   vector<m2::PointD> const & m_points;
   int m_iterIndex = 0;
+  int m_partGenerated = 1;
 
   dp::TextureSetHolder::ColorRegion m_colorRegion;
   dp::TextureSetHolder::StippleRegion m_stippleRegion;
   bool m_isSolid = true;
 
-  float m_GtoPScale = 1.0f;
-  bool m_generateEndpoints = false;
-  int m_partGenerated = 1;
+  float m_GtoPScale;
+  bool m_generateEndpoints;
 };
 
 } // namespace
@@ -299,7 +299,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   float const halfWidth = m_params.m_width / 2.0f;
   float const insetHalfWidth= 1.0f * halfWidth;
 
-  int size = m_spline->GetPath().size();
+  size_t size = m_spline->GetPath().size();
   if (m_params.m_cap != dp::ButtCap)
     size += 2;
 
@@ -309,7 +309,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   // |       |   |      |
   // A2 --- AB2 BC2 --- C2
   // By this segment count == points.size() - 1
-  int vertexCount = (size - 1) * 4;
+  size_t const vertexCount = (size - 1) * 4;
   vector<glsl::vec4> vertexArray;
   vector<glsl::vec3> dxValsArray;
   vector<glsl::vec4> centersArray;
@@ -381,7 +381,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   v3 = 2.0f * v2 - v1;
   helper = GeomHelper(v1, v2, v3);
 
-  if (m_params.m_cap !=dp::ButtCap)
+  if (m_params.m_cap != dp::ButtCap)
   {
     vertexArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_leftBisector));
     vertexArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_rightBisector));
@@ -401,10 +401,10 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
   centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
 
-  ASSERT(vertexArray.size() == dxValsArray.size(), ());
-  ASSERT(vertexArray.size() == centersArray.size(), ());
-  ASSERT(vertexArray.size() == widthTypeArray.size(), ());
-  ASSERT(vertexArray.size() % 4 == 0, ());
+  ASSERT_EQUAL(vertexArray.size(), dxValsArray.size(), ());
+  ASSERT_EQUAL(vertexArray.size(), centersArray.size(), ());
+  ASSERT_EQUAL(vertexArray.size(), widthTypeArray.size(), ());
+  ASSERT_EQUAL(vertexArray.size() % 4, 0, ());
 
   colorArray.resize(vertexArray.size(), enumerator.GetColorItem());
 
@@ -414,14 +414,14 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     float const stippleTexOffset = region.GetTextureNode().GetOffset();
     m2::RectF const & stippleRect = region.GetTexRect();
 
-    float maskTexLength = region.GetMaskPixelLength() / stippleRect.SizeX();
-    float patternTexLength = region.GetPatternPixelLength() / maskTexLength;
+    float const maskTexLength = region.GetMaskPixelLength() / stippleRect.SizeX();
+    float const patternTexLength = region.GetPatternPixelLength() / maskTexLength;
     float const dxFactor = halfWidth / (2.0f * m_params.m_baseGtoPScale);
     float patternStart = 0.0f;
-    int quadCount = vertexArray.size() / 4;
-    for(int i = 0; i < quadCount; ++i)
+    size_t const quadCount = vertexArray.size() / 4;
+    for(size_t i = 0; i < quadCount; ++i)
     {
-      int const baseIndex = i * 4;
+      size_t const baseIndex = i * 4;
       float dx1 = dxValsArray[baseIndex + 0].x * dxFactor;
       float dx2 = dxValsArray[baseIndex + 1].x * dxFactor;
       float dx3 = dxValsArray[baseIndex + 2].x * dxFactor;

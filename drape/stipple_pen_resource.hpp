@@ -18,7 +18,7 @@ class StipplePenKey : public Texture::Key
 {
 public:
   StipplePenKey() = default;
-  StipplePenKey(buffer_vector<uint8_t, 8> const pattern) : m_pattern(pattern) {}
+  StipplePenKey(buffer_vector<uint8_t, 8> const & pattern) : m_pattern(pattern) {}
   virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
 
   static StipplePenKey const & Solid();

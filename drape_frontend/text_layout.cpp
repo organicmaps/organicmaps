@@ -49,7 +49,7 @@ public:
   m2::RectD GetPixelRect(ScreenBase const & screen) const
   {
     m2::PointD const pivot = screen.GtoP(m2::PointD(m_pivot.x, m_pivot.y)) + m2::PointD(m_offset.x, m_offset.y);
-    return m2::RectD(pivot, pivot + m2::PointD(m_size.x, m_size.y));
+    return m2::RectD(pivot, pivot + glsl::ToPoint(m_size));
   }
 
   void GetPixelShape(ScreenBase const & screen, Rects & rects) const

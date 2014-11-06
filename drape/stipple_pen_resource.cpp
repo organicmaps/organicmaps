@@ -83,8 +83,7 @@ void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
   // 0 - 5 bits = reserved
 
   uint32_t patternSize = pattern.size();
-  ASSERT(patternSize >= 1, ());
-  ASSERT(patternSize < 9, ());
+  ASSERT(patternSize >= 1 && patternSize < 9, (patternSize));
 
   m_keyValue = patternSize - 1; // we code value 1 as 000 and value 8 as 111
   for (size_t i = 0; i < patternSize; ++i)

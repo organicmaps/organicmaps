@@ -231,14 +231,14 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
 void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<TextLayout> & layouts,
                                   int delim, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  uint32_t const count = layouts.size();
+  size_t const count = layouts.size();
   vector<float> lengths(count);
   float maxLength = 0.0f;
   float textHeight = 0.0f;
   uint32_t maxCount = 0;
   uint32_t symCount = 0;
   vector<uint32_t> heights(count);
-  for (int i = 0; i < count; ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     lengths[i] = layouts[i].GetPixelLength();
     heights[i] = layouts[i].GetPixelHeight();
@@ -262,7 +262,7 @@ void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<Te
   vector<TextLayout>::iterator it1;
   vector<glsl::vec2>::iterator it2;
   glsl::vec2 pivot(m_basePoint.x, m_basePoint.y);
-  for (int i = 0; i < count; ++i)
+  for (size_t i = 0; i < count; ++i)
   {
     float const dx = (maxLength - lengths[i]) / 2.0f;
     pixelOffset[i] = glsl::vec2(dx, dy) + anchorOffset + glsl::vec2(m_params.m_primaryOffset.x,
