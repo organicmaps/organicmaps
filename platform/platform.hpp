@@ -43,10 +43,13 @@ protected:
   /// Extended resource files.
   /// Used in Android only (downloaded zip files as a container).
   vector<string> m_extResFiles;
+  /// Default search scope for resource files.
+  /// Used in Android only and initialized according to the market type (Play, Amazon, Samsung).
+  string m_androidDefResScope;
 
   /// Internal function to get full path for input file.
-  /// Uses m_writeableDir and m_resourcesDir.
-  string ReadPathForFile(string const & file, string const & searchScope) const;
+  /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
+  string ReadPathForFile(string const & file, string searchScope = string()) const;
 
   /// Hash some unique string into uniform format.
   static string HashUniqueID(string const & s);
@@ -78,9 +81,9 @@ public:
   /// @return reader for file decriptor.
   /// @throws FileAbsentException
   /// @param[in] file name or full path which we want to read, don't forget to free memory or wrap it to ReaderPtr
-  /// @param[in] searchScope looks for file in dirs in given order: [w]ritable, [r]esources, by [f]ull path
-  /// @TODO add [e]xternal resource scope for Android (obb support)
-  ModelReader * GetReader(string const & file, string const & searchScope = "wrf") const;
+  /// @param[in] searchScope looks for file in dirs in given order: \n
+  ///  [w]ritable, [r]esources, [s]ettings, by [f]ull path, [e]xternal resources,
+  ModelReader * GetReader(string const & file, string const & searchScope = string()) const;
 
   /// @name File operations
   //@{

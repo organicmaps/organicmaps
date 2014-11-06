@@ -6,8 +6,11 @@
 #include "../base/logging.hpp"
 
 
-string Platform::ReadPathForFile(string const & file, string const & searchScope) const
+string Platform::ReadPathForFile(string const & file, string searchScope) const
 {
+  if (searchScope.empty())
+    searchScope = "wrf";
+
   string fullPath;
   for (size_t i = 0; i < searchScope.size(); ++i)
   {
@@ -15,6 +18,7 @@ string Platform::ReadPathForFile(string const & file, string const & searchScope
     {
     case 'w': fullPath = m_writableDir + file; break;
     case 'r': fullPath = m_resourcesDir + file; break;
+    case 's': fullPath = m_settingsDir + file; break;
     case 'f': fullPath = file; break;
     default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }

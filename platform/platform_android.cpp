@@ -21,40 +21,44 @@ Platform::Platform()
 namespace
 {
 
-enum SourceT { EXTERNAL_RESOURCE, RESOURCE, WRITABLE_PATH, FULL_PATH };
+enum SourceT { EXTERNAL_RESOURCE, RESOURCE, WRITABLE_PATH, SETTINGS_PATH, FULL_PATH };
 
-size_t GetSearchSources(string const & file, SourceT (&arr)[4])
+bool IsResource(string const & file, string const & ext)
 {
-  size_t ret = 0;
-  string const ext = my::GetFileExtension(file);
-  ASSERT ( !ext.empty(), () );
-
   if (ext == DATA_FILE_EXTENSION)
   {
-    bool const isWorld =
-        strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
-        strings::StartsWith(file, WORLD_FILE_NAME);
-
-    if (isWorld)
-      arr[ret++] = EXTERNAL_RESOURCE;
-    arr[ret++] = WRITABLE_PATH;
-    if (isWorld)
-      arr[ret++] = RESOURCE;
+    return (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
+            strings::StartsWith(file, WORLD_FILE_NAME));
   }
-  else if (ext == FONT_FILE_EXTENSION)
+  else if (ext == BOOKMARKS_FILE_EXTENSION ||
+           ext == ROUTING_FILE_EXTENSION ||
+           file == SETTINGS_FILE_NAME)
   {
-    // system fonts have absolute unix path
-    if (strings::StartsWith(file, "/"))
-      arr[ret++] = FULL_PATH;
-    else
+    return false;
+  }
+
+  return true;
+}
+
+size_t GetSearchSources(string const & file, string const & searchScope, SourceT (&arr)[4])
+{
+  size_t ret = 0;
+
+  for (size_t i = 0; i < searchScope.size(); ++i)
+  {
+    switch (searchScope[i])
     {
-      arr[ret++] = EXTERNAL_RESOURCE;
-      arr[ret++] = WRITABLE_PATH;
-      arr[ret++] = RESOURCE;
+    case 'w': arr[ret++] = WRITABLE_PATH; break;
+    case 'r': arr[ret++] = RESOURCE; break;
+    case 'e': arr[ret++] = EXTERNAL_RESOURCE; break;
+    case 's': arr[ret++] = SETTINGS_PATH; break;
+    case 'f':
+      if (strings::StartsWith(file, "/"))
+        arr[ret++] = FULL_PATH;
+      break;
+    default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }
   }
-  else
-    arr[ret++] = RESOURCE;
 
   return ret;
 }
@@ -78,24 +82,32 @@ public:
 
 ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
-  // @TODO now we handle only two specific cases needed to release guides ads
-  if (searchScope == "w")
-  {
-    string const path = m_writableDir + file;
-    if (IsFileExistsByFullPath(path))
-      return new FileReader(path, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
-    MYTHROW(FileAbsentException, ("File not found", file));
-  }
-  else if (searchScope == "r")
-  {
-    return new ZipFileReader(m_resourcesDir, "assets/" + file);
-  }
-  // @TODO refactor code below and some other parts too, like fonts and maps detection and loading,
-  // as it can be done much better
+  string const ext = my::GetFileExtension(file);
+  ASSERT(!ext.empty(), ());
 
+  uint32_t const logPageSize = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_SIZE : 10;
+  uint32_t const logPageCount = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_COUNT : 4;
 
   SourceT sources[4];
-  size_t const n = GetSearchSources(file, sources);
+  size_t n = 0;
+
+  if (searchScope.empty())
+  {
+    // Default behaviour - use predefined scope for resource files and writable path for all others.
+
+    if (IsResource(file, ext))
+      n = GetSearchSources(file, m_androidDefResScope, sources);
+    else
+    {
+      // Add source for map files and other dynamic stored data.
+      sources[n++] = WRITABLE_PATH;
+    }
+  }
+  else
+  {
+    // Use passed scope as client wishes.
+    n = GetSearchSources(file, searchScope, sources);
+  }
 
 #ifdef DEBUG
   DbgLogger logger(file);
@@ -110,38 +122,53 @@ ModelReader * Platform::GetReader(string const & file, string const & searchScop
     switch (sources[i])
     {
     case EXTERNAL_RESOURCE:
-    {
       for (size_t j = 0; j < m_extResFiles.size(); ++j)
       {
         try
         {
-          return new ZipFileReader(m_extResFiles[j], file,
-                                   READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+          return new ZipFileReader(m_extResFiles[j], file, logPageSize, logPageCount);
         }
         catch (Reader::OpenException const &)
         {
         }
       }
       break;
-    }
 
     case WRITABLE_PATH:
     {
       string const path = m_writableDir + file;
       if (IsFileExistsByFullPath(path))
-        return new FileReader(path, READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+        return new FileReader(path, logPageSize, logPageCount);
+      break;
+    }
+
+    case SETTINGS_PATH:
+    {
+      string const path = m_settingsDir + file;
+      if (IsFileExistsByFullPath(path))
+        return new FileReader(path, logPageSize, logPageCount);
       break;
     }
 
     case FULL_PATH:
       if (IsFileExistsByFullPath(file))
-        return new FileReader(file);
+        return new FileReader(file, logPageSize, logPageCount);
+      break;
+
+    case RESOURCE:
+      ASSERT_EQUAL(file.find("assets/"), string::npos, ());
+      try
+      {
+        return new ZipFileReader(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
+      }
+      catch (Reader::OpenException const &)
+      {
+      }
       break;
 
     default:
-      ASSERT_EQUAL ( sources[i], RESOURCE, () );
-      ASSERT_EQUAL ( file.find("assets/"), string::npos, () );
-      return new ZipFileReader(m_resourcesDir, "assets/" + file);
+      CHECK(false, ("Unsupported source:", sources[i]));
+      break;
     }
   }
 

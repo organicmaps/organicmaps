@@ -121,7 +121,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
-        getOBBGooglePath(), BuildConfig.IS_PRO, mIsYota);
+        getOBBGooglePath(), BuildConfig.FLAVOR, BuildConfig.IS_PRO, mIsYota);
 
     ActiveCountryTree.addListener(this);
 
@@ -216,6 +216,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   private native void nativeInit(String apkPath, String storagePath,
                                  String tmpPath, String obbGooglePath,
+                                 String flavorName,
                                  boolean isPro, boolean isYota);
 
   public native boolean nativeIsBenchmarking();

@@ -120,7 +120,7 @@ bool GuidesManager::RestoreFromFile()
   try
   {
     string json;
-    ReaderPtr<Reader>(pl.GetReader(GetDataFileName(), "w")).ReadAsString(json);
+    FileReader(GetDataFileFullPath()).ReadAsString(json);
     downloadedVersion = ParseGuidesData(json, fromDownloaded);
   }
   catch (RootException const &)
@@ -209,7 +209,7 @@ string GuidesManager::GetDataFileName()
 
 string GuidesManager::GetDataFileFullPath()
 {
-  return GetPlatform().WritableDir() + GetDataFileName();
+  return GetPlatform().SettingsDir() + GetDataFileName();
 }
 
 void GuidesManager::OnFinish(downloader::HttpRequest & request)

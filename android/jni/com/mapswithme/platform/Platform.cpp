@@ -65,12 +65,22 @@ namespace android
   void Platform::Initialize(JNIEnv * env,
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
-                            bool isPro, bool isYota)
+                            jstring flavorName, bool isPro, bool isYota)
   {
+    string const flavor = jni::ToNativeString(env, flavorName);
+    LOG(LINFO, ("Flavor name:", flavor));
+
+    if (flavor.find("google") == 0)
+      m_androidDefResScope = "ferw";
+    else if (flavor.find("amazon") == 0 || flavor.find("samsung") == 0)
+      m_androidDefResScope = "frw";
+    else
+      m_androidDefResScope = "fwr";
+
     m_resourcesDir = jni::ToNativeString(env, apkPath);
 
-    // Settings file should always be in one place (default external storage).
-    // It stores path to current maps storage.
+    // Settings file should be in a one place always (default external storage).
+    // It stores path to the current maps storage.
     m_settingsDir = jni::ToNativeString(env, storagePath);
 
     // @TODO it's a bug when user had all his maps on SD but when space is low,

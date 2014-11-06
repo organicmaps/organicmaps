@@ -13,6 +13,7 @@ namespace android
     void Initialize(JNIEnv * env,
                     jstring apkPath, jstring storagePath,
                     jstring tmpPath, jstring obbGooglePath,
+                    jstring flavorName,
                     bool isPro, bool isYota);
 
     void OnExternalStorageStatusChanged(bool isAvailable);

@@ -22,7 +22,7 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 {
   try
   {
-    return GetFileSizeByFullPath(ReadPathForFile(fileName, "wr"), size);
+    return GetFileSizeByFullPath(ReadPathForFile(fileName), size);
   }
   catch (RootException const &)
   {
