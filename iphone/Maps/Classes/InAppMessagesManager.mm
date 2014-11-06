@@ -42,6 +42,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   self = [super init];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appInfoSynced:) name:AppInfoSyncedNotification object:nil];
 
   return self;
 }
@@ -142,11 +143,21 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
 - (void)applicationWillEnterForeground:(NSNotification *)notification
 {
   [self performAfterDelay:0.7 block:^{
-    for (NSString * messageName in [self.observers allKeys])
-    {
-      [self triggerMessage:messageName];
-    }
+    [self triggerAllMessages];
   }];
+}
+
+- (void)appInfoSynced:(NSNotification *)notification
+{
+  [self triggerAllMessages];
+}
+
+- (void)triggerAllMessages
+{
+  for (NSString * messageName in [self.observers allKeys])
+  {
+    [self triggerMessage:messageName];
+  }
 }
 
 - (void)findVariantForMessage:(NSString *)messageName completion:(CompletionBlock)block
