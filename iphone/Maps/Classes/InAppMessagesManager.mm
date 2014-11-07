@@ -184,6 +184,12 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
     if ([launchCountInterval count] == 2)
       inLaunchInterval = info.launchCount >= [launchCountInterval[0] doubleValue] && info.launchCount <= [launchCountInterval[1] doubleValue];
 
+    BOOL inViewsNumberInterval = YES;
+    NSNumber * viewsNumberLimit = imageParameters[@"ViewsNumberLimit"];
+    NSNumber * viewsNumber = [self showsNumberOfMessage:messageName];
+    if (viewsNumberLimit && [viewsNumber integerValue] >= [viewsNumberLimit integerValue])
+      inViewsNumberInterval = NO;
+
     BOOL shouldShow = [imageParameters[@"Online"] boolValue] ? [info.reachability isReachable] : YES;
 
     NSString * idiom = imageParameters[@"Idiom"];
@@ -193,7 +199,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
     else if ([idiom isEqualToString:@"Phone"] && IPAD)
       rightIdiom = NO;
 
-    if (inTimeInterval && inLaunchInterval && shouldShow && rightIdiom)
+    if (inTimeInterval && inLaunchInterval && inViewsNumberInterval && shouldShow && rightIdiom)
       actualImageVariants[type] = imageVariants[type];
   }
 
@@ -364,11 +370,28 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (NSNumber *)showsNumberOfMessage:(NSString *)messageName
+{
+  NSString * key = [NSString stringWithFormat:@"ShowsNumber%@", messageName];
+  NSNumber * showsNumber = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+  return showsNumber ? showsNumber : @(0);
+}
+
+- (void)increaseShowsNumberOfMessage:(NSString *)messageName
+{
+  NSString * key = [NSString stringWithFormat:@"ShowsNumber%@", messageName];
+  NSNumber * showsNumber = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+  showsNumber = showsNumber ? @([showsNumber integerValue] + 1) : @(1);
+  [[NSUserDefaults standardUserDefaults] setObject:showsNumber forKey:key];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - InterstitialView callbacks
 
 - (void)interstitialViewWillOpen:(InterstitialView *)interstitial
 {
   [self updateShowTimeOfMessage:interstitial.inAppMessageName];
+  [self increaseShowsNumberOfMessage:interstitial.inAppMessageName];
 
   NSString * eventName = [NSString stringWithFormat:@"%@ showed", interstitial.inAppMessageName];
   [[Statistics instance] logInAppMessageEvent:eventName imageType:interstitial.imageType];
