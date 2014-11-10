@@ -64,6 +64,7 @@ public enum Statistics
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
+    public static final String APP_ACTIVATED = "Application activated.";
   }
 
   public static class EventParam
@@ -81,6 +82,7 @@ public enum Statistics
     public static final String FG_TIME = "Foreground time";
     public static final String PRO_STAT = "One time PRO stat";
     public static final String ENABLED = "Enabled";
+    public static final String PRESTIGIO_PREINSTALLED = "IsPrestigioPreinstalled";
   }
 
   private Statistics()
@@ -116,9 +118,12 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackCountryDownload()
+  public void trackCountryDownload(boolean isPrestigioPreinstalled)
   {
-    trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_DOWNLOAD).buildEvent());
+    trackIfEnabled(mEventBuilder.
+        setName(EventName.COUNTRY_DOWNLOAD).
+        addParam(EventParam.PRESTIGIO_PREINSTALLED, String.valueOf(isPrestigioPreinstalled)).
+        buildEvent());
   }
 
   public void trackCountryUpdate()
@@ -228,6 +233,15 @@ public enum Statistics
         setName(EventName.WIFI_CONNECTED).
         addParam(EventParam.HAD_VALID_LOCATION, String.valueOf(isLocationExpired)).
         addParam(EventParam.DELAY_MILLIS, String.valueOf(delayMillis)).
+        buildEvent();
+    trackIfEnabled(event);
+  }
+
+  public void trackAppActivated(boolean isPrestigioPreinstalled)
+  {
+    final Event event = mEventBuilder.
+        setName(EventName.APP_ACTIVATED).
+        addParam(EventParam.PRESTIGIO_PREINSTALLED, String.valueOf(isPrestigioPreinstalled)).
         buildEvent();
     trackIfEnabled(event);
   }

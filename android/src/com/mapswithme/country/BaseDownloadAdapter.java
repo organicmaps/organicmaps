@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuideInfo;
@@ -150,7 +151,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   {
     // TODO if download is greater then 50MB check 3g/WIFI connection
     startItemDownloading(holder, position, newOptions);
-    Statistics.INSTANCE.trackCountryDownload();
+    Statistics.INSTANCE.trackCountryDownload(MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PRESTIGIO_PREINSTALLED, false));
   }
 
   protected void confirmDownloadCancelation(final ViewHolder holder, final int position, final String name)

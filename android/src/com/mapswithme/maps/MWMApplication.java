@@ -23,11 +23,14 @@ import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
+import com.mapswithme.util.statistics.Statistics;
 import com.mobileapptracker.MobileAppTracker;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
+import ru.mail.mrgservice.MRGSApplication;
 import ru.mail.mrgservice.MRGSMap;
 import ru.mail.mrgservice.MRGSServerData;
 import ru.mail.mrgservice.MRGService;
@@ -37,6 +40,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private final static String TAG = "MWMApplication";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
+  public static final String IS_PRESTIGIO_PREINSTALLED = "IsPrestigioPreinstalled";
 
   private static MWMApplication mSelf;
 
@@ -111,8 +115,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     mIsYota = Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
 
-    initMrgs();
-
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
 
@@ -147,15 +149,19 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
 
-
     // init BookmarkManager (automatically loads bookmarks)
     if (hasBookmarks())
       BookmarkManager.getBookmarkManager();
 
-    WorkerService.startActionUpdateAds(this);
-
     updateLaunchNumbers();
+    initMrgs();
+    WorkerService.startActionUpdateAds(this);
     PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+    if (BuildConfig.IS_PRESTIGIO_PREINSTALLED && !nativeGetBoolean(IS_PRESTIGIO_PREINSTALLED, false))
+    {
+      nativeSetBoolean(IS_PRESTIGIO_PREINSTALLED, true);
+      Statistics.INSTANCE.trackAppActivated(true);
+    }
   }
 
   private void initMrgs()
@@ -169,6 +175,12 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       @Override
       public void loadPromoBannersDidFinished(MRGSMap mrgsMap) {}
     }, getString(R.string.mrgs_id), getString(R.string.mrgs_key));
+
+    if (getLaunchesNumber() == 1)
+    {
+      Log.d("TEST", "Init mrgsApp!");
+      MRGSApplication.instance().markAsUpdated(new Date());
+    }
   }
 
   public String getApkPath()
