@@ -177,10 +177,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     }, getString(R.string.mrgs_id), getString(R.string.mrgs_key));
 
     if (getLaunchesNumber() == 1)
-    {
-      Log.d("TEST", "Init mrgsApp!");
       MRGSApplication.instance().markAsUpdated(new Date());
-    }
   }
 
   public String getApkPath()
