@@ -104,7 +104,6 @@
 	<string name="country_status_download_failed">下載\n^\n失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
-	<string name="app_name">MAPS.ME 專業版</string>
 	<string name="about_menu_title">關於 MAPS.ME</string>
 	<string name="downloading_touch_to_cancel">正在下載 %d%%, 輕觸以取消</string>
 	<string name="downloaded_touch_to_delete">已下載的 (%s), 輕觸以刪除</string>

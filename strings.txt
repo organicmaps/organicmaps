@@ -1464,7 +1464,6 @@
 
   [app_name]
     en = MAPS.ME
-    zh-Hant = MAPS.ME 專業版
 
   [about_menu_title]
     en = About MAPS.ME
