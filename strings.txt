@@ -6765,3 +6765,26 @@
     tr = Uygulama menüsü
     sv = Programmeny
     iw = תפריט האפליקציה
+
+  [pref_use_google_play]
+    tags = android
+    comment = Preference text
+    en = Use Google Play Services to get your current location
+    ja = 現在のロケーションを取得するためにGoogle Playのサービスを使う
+    ko = Google Play 서비스를 사용하여 현재 위치 정보 얻기
+    it = Usa i servizi Google Play per ottenere la tua posizione attuale
+    hu = Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről
+    fr = Utilisez l'application Google Play Services pour obtenir votre emplacement actuel
+    de = Nutzen Sie die Google Play-Dienstleistungen, um Ihren aktuellen Standort zu erhalten
+    nl = Gebruik de diensten van Google Play om uw huidige locatie te bepalen
+    zh-hant = 使用Google Play Services來獲得您的當前位置
+    es = Usar los servicios de Google Play para obtener tu ubicación actual
+    uk = Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play
+    pl = Użyj Usług Google Play do ustalenia swojej bieżącej lokalizacji
+    ar = استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي
+    da =Anvend Google Play Services til at få din aktuelle placering
+    tr = Şu anki konumunuzu almak için Google Play hizmetlerini kullanın
+    zh-Hans = 使用Google Play服务以获取您的当前位置。
+    th = ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ 
+    ru = Использовать Google Play Services для определения позиции
+    sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
