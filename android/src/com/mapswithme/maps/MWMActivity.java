@@ -1505,6 +1505,7 @@ public class MWMActivity extends NvEventQueueActivity
     mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.clearAnimation();
     mPbRoutingProgress.setVisibility(View.GONE);
+    mIvStartRouting.setVisibility(View.VISIBLE);
 
     Framework.nativeCloseRouting();
   }
