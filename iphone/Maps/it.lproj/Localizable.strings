@@ -768,3 +768,6 @@
 
 /* Item in context menu. */
 "downloader_map_only" = "Solo mappa";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Menu applicazione";

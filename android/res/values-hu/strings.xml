@@ -484,4 +484,6 @@
 	<string name="downloader_update_map_and_routing">Térkép frissítése + útvonal megállapítása</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Csak térkép</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Menü</string>
 </resources>

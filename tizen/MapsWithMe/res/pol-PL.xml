@@ -155,4 +155,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Aktualizuj mapę + trasy</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_MAP_ONLY">Tylko mapa</text>
+	<!-- Toolbar title -->
+	<text id="IDS_TOOLBAR_APPLICATION_MENU">Menu aplikacji</text>
 </string_table>

@@ -485,4 +485,6 @@
 	<string name="downloader_update_map_and_routing">Uppdatera karta + Navigering</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Endast karta</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Programmeny</string>
 </resources>

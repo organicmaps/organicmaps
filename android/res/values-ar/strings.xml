@@ -489,4 +489,6 @@
 	<string name="downloader_update_map_and_routing">تحديث الخريطة + تحديد المسار</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">الخريطة فقط</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">قائمة التطبيق</string>
 </resources>

@@ -163,4 +163,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Update Map + Routing</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_MAP_ONLY">Map Only</text>
+	<!-- Toolbar title -->
+	<text id="IDS_TOOLBAR_APPLICATION_MENU">Application menu</text>
 </string_table>

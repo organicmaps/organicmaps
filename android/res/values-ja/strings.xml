@@ -472,4 +472,6 @@
 	<string name="downloader_update_map_and_routing">地図とルートを更新</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">地図のみ</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">アプリケーションメニュー</string>
 </resources>

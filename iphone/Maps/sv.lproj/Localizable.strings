@@ -768,3 +768,6 @@
 
 /* Item in context menu. */
 "downloader_map_only" = "Endast karta";
+
+/* Toolbar title */
+"toolbar_application_menu" = "Programmeny";

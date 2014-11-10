@@ -463,4 +463,6 @@
 	<string name="downloader_update_map_and_routing">지도 + 라우팅 업데이트</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">지도만</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">애플리케이션 메뉴</string>
 </resources>

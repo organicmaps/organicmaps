@@ -480,4 +480,6 @@
 	<string name="downloader_update_map_and_routing">Karte + Routenplanung aktualisieren</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Nur Karte</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Applikations-Menü</string>
 </resources>

@@ -492,4 +492,6 @@
 	<string name="downloader_update_map_and_routing">Aktualizovat mapu + trasy</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Pouze mapa</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Nabídka aplikace</string>
 </resources>

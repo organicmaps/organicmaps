@@ -482,4 +482,6 @@
 	<string name="downloader_update_map_and_routing">Atualizar Mapa + Criação de Trajeto</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Apenas Mapa</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Menu de Aplicação</string>
 </resources>

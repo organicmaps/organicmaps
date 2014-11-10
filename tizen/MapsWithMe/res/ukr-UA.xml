@@ -157,4 +157,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Оновити мапу + Маршрути</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_MAP_ONLY">Тільки карта</text>
+	<!-- Toolbar title -->
+	<text id="IDS_TOOLBAR_APPLICATION_MENU">Меню програми</text>
 </string_table>

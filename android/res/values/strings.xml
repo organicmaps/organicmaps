@@ -500,4 +500,6 @@
 	<string name="downloader_update_map_and_routing">Update Map + Routing</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">Map Only</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">Application menu</string>
 </resources>

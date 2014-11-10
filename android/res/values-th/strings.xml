@@ -487,4 +487,6 @@
 	<string name="downloader_update_map_and_routing">อัปเดตแผนที่ + เส้นทาง</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">แผนที่เท่านั้น</string>
+	<!-- Toolbar title -->
+	<string name="toolbar_application_menu">เมนูของแอปพลิเคชัน</string>
 </resources>
