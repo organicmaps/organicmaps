@@ -57,7 +57,7 @@
         android:layout_gravity="center"
         android:contentDescription="@null"
         android:padding="@dimen/margin_medium"
-        android:src="@drawable/ic_close"/>
+        android:src="@drawable/ic_close_w"/>
 
     <ImageView
         android:id="@+id/search_voice_input"
