@@ -506,7 +506,13 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void doUpdate()
         {
-          showDownloader(false);
+          runOnUiThread(new Runnable() {
+            @Override
+            public void run()
+            {
+              showDownloader(false);
+            }
+          });
         }
 
         @Override
@@ -1931,9 +1937,16 @@ public class MWMActivity extends NvEventQueueActivity
   public static class UpdateCountryTask implements MapTask
   {
     @Override
-    public boolean run(MWMActivity target)
+    public boolean run(final MWMActivity target)
     {
-      target.showDownloader(true);
+      target.runOnUiThread(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          target.showDownloader(true);
+        }
+      });
       return true;
     }
   }
