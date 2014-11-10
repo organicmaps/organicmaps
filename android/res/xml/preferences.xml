@@ -54,8 +54,7 @@
       <CheckBoxPreference
           android:key="@string/pref_play_services"
           android:order="5"
-          android:summary="Use google play services for location"
-          android:title="Location"/>
+          android:title="@string/pref_use_google_play"/>
 
       <Preference
           android:key="@string/pref_yota"
