@@ -201,7 +201,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       buildConfigField 'boolean', 'IS_PRESTIGIO_PREINSTALLED', 'true'
       android.sourceSets.prestigio.setRoot('flavors/pro')
-      android.sourceSets.prestigio.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.prestigio.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
   }
 
