@@ -43,4 +43,7 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(string const & s,
                                                    delimiter);
 }
 
+void GetStreetName(strings::SimpleTokenizer iter, string & streetName);
+void GetStreetNameAsKey(string const & name, string & res);
+
 }  // namespace search
