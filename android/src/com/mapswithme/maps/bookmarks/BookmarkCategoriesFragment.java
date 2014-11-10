@@ -29,8 +29,7 @@ public class BookmarkCategoriesFragment extends MWMListFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    final ListView lv = getListView();
-    lv.setAdapter(new BookmarkCategoriesAdapter(getActivity()));
+    setListAdapter(new BookmarkCategoriesAdapter(getActivity()));
     registerForContextMenu(getListView());
   }
 
