@@ -684,7 +684,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
       {
         Framework.cleanSearchLayerOnMap();
 
-        final ParsedMmwRequest request = ParsedMmwRequest.extractFromIntent(intent, getApplicationContext());
+        final ParsedMmwRequest request = ParsedMmwRequest.extractFromIntent(intent);
         ParsedMmwRequest.setCurrentRequest(request);
         Statistics.INSTANCE.trackApiCall(request);
 

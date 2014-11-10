@@ -34,6 +34,9 @@ public class ParsedMmwRequest
   private double mLon;
   private double mZoomLevel;
 
+  private String mName;
+  private String mId;
+
 
   public double getLat() { return mLat; }
 
@@ -47,16 +50,13 @@ public class ParsedMmwRequest
 
   public String getCustomButtonName() { return mCustomButtonName; }
 
-  private String mName;
-  private String mId;
-
   public static ParsedMmwRequest getCurrentRequest() { return sCurrentRequest; }
 
   public static boolean hasRequest() { return sCurrentRequest != null; }
 
   public static void setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
 
-  public static ParsedMmwRequest extractFromIntent(Intent data, Context context)
+  public static ParsedMmwRequest extractFromIntent(Intent data)
   {
     final ParsedMmwRequest request = new ParsedMmwRequest();
 
@@ -155,7 +155,7 @@ public class ParsedMmwRequest
   }
 
   /**
-   * Do not use constructor externally. Use {@link ParsedMmwRequest#extractFromIntent(Intent, Context)} instead.
+   * Do not use constructor externally. Use {@link ParsedMmwRequest#extractFromIntent(android.content.Intent)} instead.
    */
   private ParsedMmwRequest()
   {}
