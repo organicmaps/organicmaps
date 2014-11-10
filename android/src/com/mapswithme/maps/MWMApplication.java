@@ -16,8 +16,6 @@ import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.guides.GuideInfo;
-import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
@@ -88,24 +86,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       return;
 
     if (newOptions == requestOptions)
-    {
       Notifier.placeDownloadCompleted(ActiveCountryTree.getCoreIndex(group, position), item.getName());
-      tryNotifyGuideAvailable(group, position);
-    }
-  }
-
-  private void tryNotifyGuideAvailable(int group, int position)
-  {
-    if (Utils.hasAnyGoogleStoreInstalled())
-    {
-      final GuideInfo info = ActiveCountryTree.getGuideInfo(group, position);
-      if (info != null && !GuidesUtils.isGuideInstalled(info.mAppId, this)
-          && !Framework.wasAdvertised(info.mAppId))
-      {
-        Notifier.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
-        Framework.setWasAdvertised(info.mAppId);
-      }
-    }
   }
 
   @Override

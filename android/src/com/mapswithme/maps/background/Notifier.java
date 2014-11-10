@@ -17,7 +17,6 @@ import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -27,7 +26,6 @@ import java.util.Calendar;
 public class Notifier
 {
   private final static int ID_UPDATE_AVAIL = 0x1;
-  private final static int ID_GUIDE_AVAIL = 0x2;
   private final static int ID_DOWNLOAD_STATUS = 0x3;
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
   private final static int ID_PRO_IS_FREE = 0x5;
@@ -114,20 +112,6 @@ public class Notifier
         .build();
 
     getNotificationManager().notify(ID_DOWNLOAD_STATUS, notification);
-  }
-
-  public static void placeGuideAvailable(String packageName, String title, String content)
-  {
-    final PendingIntent pi = PendingIntent
-        .getActivity(MWMApplication.get(), 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
-
-    final Notification guideNotification = getBuilder()
-        .setContentIntent(pi)
-        .setContentTitle(title)
-        .setContentText(content)
-        .build();
-
-    getNotificationManager().notify(ID_GUIDE_AVAIL, guideNotification);
   }
 
   public static void placeDownloadSuggest(String title, String content, Index countryIndex)

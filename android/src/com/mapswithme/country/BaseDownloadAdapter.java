@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -26,7 +25,6 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuideInfo;
-import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -733,7 +731,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     final int MENU_UPDATE = 5;
     final int MENU_DOWNLOAD_ROUTING = 6;
     final int MENU_SHOW = 7;
-    final int MENU_GUIDE = 8;
     final int MENU_DELETE_ROUTING = 9;
     final int MENU_DELETE = 10;
     final int MENU_RETRY = 11;
@@ -766,9 +763,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           break;
         case MENU_SHOW:
           showCountry(position);
-          break;
-        case MENU_GUIDE:
-          GuidesUtils.openOrDownloadGuide(getGuideInfo(position), mActivity);
           break;
         case MENU_DELETE_ROUTING:
           processOnDisk(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING);
@@ -847,14 +841,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
             }
-          }
-
-          if (mHasGoogleStore)
-          {
-            final GuideInfo info = getGuideInfo(position);
-            if (info != null && !TextUtils.isEmpty(info.mTitle))
-              menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
-                  .setOnMenuItemClickListener(menuItemClickListener);
           }
 
           switch (status)
