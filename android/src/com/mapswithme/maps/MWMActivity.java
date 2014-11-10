@@ -181,6 +181,9 @@ public class MWMActivity extends NvEventQueueActivity
 
   public static void startSearch(Context context, String query)
   {
+    if (!(context instanceof MWMActivity))
+      return;
+
     final MWMActivity activity = (MWMActivity) context;
     if (activity.mIsFragmentContainer)
       activity.showSearch();
