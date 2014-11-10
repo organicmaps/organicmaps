@@ -45,6 +45,7 @@
 
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic) ToolbarView * toolbarView;
+@property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
@@ -517,7 +518,7 @@
   [self.view addSubview:self.toolbarView];
   self.toolbarView.maxY = self.toolbarView.superview.height;
 
-  [self.view addSubview:self.routeView];
+  [self.view addSubview:self.routeViewWrapper];
 
   [self.view addSubview:self.searchView];
 
@@ -779,6 +780,18 @@
   [zoomOutButton addTarget:self action:@selector(zoomOutPressed:) forControlEvents:UIControlEventTouchUpInside];
 
   return zoomOutButton;
+}
+
+- (UIView *)routeViewWrapper
+{
+  if (!_routeViewWrapper)
+  {
+    _routeViewWrapper = [[UIView alloc] initWithFrame:self.routeView.bounds];
+    _routeViewWrapper.backgroundColor = [UIColor clearColor];
+    _routeViewWrapper.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [_routeViewWrapper addSubview:self.routeView];
+  }
+  return _routeViewWrapper;
 }
 
 - (RouteView *)routeView
@@ -1273,6 +1286,7 @@
     [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.apiBar.minY = 0;
       self.containerView.frame = CGRectMake(0, self.apiBar.maxY, self.view.width, self.view.height - self.apiBar.maxY);
+      self.routeViewWrapper.minY = self.apiBar.maxY;
     } completion:nil];
 
     [self.view insertSubview:self.searchView aboveSubview:self.apiBar];
@@ -1285,6 +1299,7 @@
     [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.apiBar.maxY = 0;
       self.containerView.frame = self.view.bounds;
+      self.routeViewWrapper.minY = self.apiBar.maxY;
     } completion:^(BOOL finished) {
       [self.apiBar removeFromSuperview];
     }];
