@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -154,6 +155,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     WorkerService.startActionUpdateAds(this);
 
     updateLaunchNumbers();
+    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
   }
 
   private void initMrgs()

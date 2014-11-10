@@ -52,6 +52,7 @@
           android:title="@string/pref_zoom_title"/>
 
       <CheckBoxPreference
+          android:defaultValue="true"
           android:key="@string/pref_play_services"
           android:order="5"
           android:title="@string/pref_use_google_play"/>
