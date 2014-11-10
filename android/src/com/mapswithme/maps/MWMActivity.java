@@ -27,7 +27,6 @@ import android.telephony.TelephonyManager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -91,6 +90,8 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
@@ -1171,7 +1172,11 @@ public class MWMActivity extends NvEventQueueActivity
         ViewHelper.setScaleX(mIvTurn, -1); // right turns are displayed as mirrored left turns.
       else
         ViewHelper.setScaleX(mIvTurn, 1);
-      mTvTotalTime.setText(DateUtils.formatElapsedTime(info.mTotalTimeInSeconds));
+
+      final Calendar calendar = Calendar.getInstance();
+      calendar.add(Calendar.SECOND, info.mTotalTimeInSeconds);
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
+      mTvTotalTime.setText(simpleDateFormat.format(calendar.getTime()));
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
       builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
