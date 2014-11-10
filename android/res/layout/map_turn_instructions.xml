@@ -11,6 +11,7 @@
       style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/margin_medium"/>
 
   <TextView
@@ -18,10 +19,11 @@
       style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/tv__total_distance"
+      android:layout_below="@id/tv__total_distance"
       android:textColor="#99000000"
       android:textSize="14sp"
-      android:layout_alignLeft="@id/tv__total_distance"
-      android:layout_below="@id/tv__total_distance"/>
+      android:visibility="gone"/>
 
   <LinearLayout
       android:layout_width="wrap_content"
