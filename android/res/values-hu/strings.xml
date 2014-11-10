@@ -486,4 +486,6 @@
 	<string name="downloader_map_only">Csak térkép</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Menü</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről</string>
 </resources>

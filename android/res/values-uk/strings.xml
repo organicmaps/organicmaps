@@ -482,4 +482,6 @@
 	<string name="downloader_map_only">Тільки карта</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Меню програми</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play</string>
 </resources>

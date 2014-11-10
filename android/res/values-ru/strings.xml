@@ -488,4 +488,6 @@
 	<string name="downloader_map_only">Только карта</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Меню приложения</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Использовать Google Play Services для определения позиции</string>
 </resources>

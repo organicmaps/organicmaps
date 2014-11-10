@@ -491,4 +491,6 @@
 	<string name="downloader_map_only">Iba mapa</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Ponuka aplikácie</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Pomocou Google Play služieb získajte svoju aktuálnu polohu</string>
 </resources>

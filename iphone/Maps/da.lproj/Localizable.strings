@@ -771,3 +771,6 @@
 
 /* Toolbar title */
 "toolbar_application_menu" = "Programmenu";
+
+/* Preference text */
+"pref_use_google_play" = "Anvend Google Play Services til at få din aktuelle placering";

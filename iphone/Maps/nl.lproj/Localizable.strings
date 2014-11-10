@@ -771,3 +771,6 @@
 
 /* Toolbar title */
 "toolbar_application_menu" = "Applicatiemenu";
+
+/* Preference text */
+"pref_use_google_play" = "Gebruik de diensten van Google Play om uw huidige locatie te bepalen";

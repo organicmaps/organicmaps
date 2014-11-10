@@ -491,4 +491,6 @@
 	<string name="downloader_map_only">الخريطة فقط</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">قائمة التطبيق</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي</string>
 </resources>

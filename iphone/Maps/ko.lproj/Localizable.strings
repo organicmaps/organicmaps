@@ -771,3 +771,6 @@
 
 /* Toolbar title */
 "toolbar_application_menu" = "애플리케이션 메뉴";
+
+/* Preference text */
+"pref_use_google_play" = "Google Play 서비스를 사용하여 현재 위치 정보 얻기";

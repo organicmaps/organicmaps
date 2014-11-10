@@ -479,4 +479,6 @@
 	<string name="downloader_update_map_and_routing">更新地图 + 布置路线</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">只有地图</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">使用Google Play服务以获取您的当前位置。</string>
 </resources>

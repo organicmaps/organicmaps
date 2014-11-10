@@ -482,4 +482,6 @@
 	<string name="downloader_map_only">Nur Karte</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Applikations-Menü</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Nutzen Sie die Google Play-Dienstleistungen, um Ihren aktuellen Standort zu erhalten</string>
 </resources>

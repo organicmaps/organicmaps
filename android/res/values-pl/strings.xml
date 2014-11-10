@@ -488,4 +488,6 @@
 	<string name="downloader_map_only">Tylko mapa</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Menu aplikacji</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Użyj Usług Google Play do ustalenia swojej bieżącej lokalizacji</string>
 </resources>

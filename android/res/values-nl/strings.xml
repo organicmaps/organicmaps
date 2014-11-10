@@ -467,4 +467,6 @@
 	<string name="downloader_map_only">Alleen de kaart</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Applicatiemenu</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Gebruik de diensten van Google Play om uw huidige locatie te bepalen</string>
 </resources>

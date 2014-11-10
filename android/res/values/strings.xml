@@ -502,4 +502,6 @@
 	<string name="downloader_map_only">Map Only</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Application menu</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Use Google Play Services to get your current location</string>
 </resources>

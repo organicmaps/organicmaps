@@ -474,4 +474,6 @@
 	<string name="downloader_map_only">地図のみ</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">アプリケーションメニュー</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">現在のロケーションを取得するためにGoogle Playのサービスを使う</string>
 </resources>

@@ -771,3 +771,6 @@
 
 /* Toolbar title */
 "toolbar_application_menu" = "Меню приложения";
+
+/* Preference text */
+"pref_use_google_play" = "Использовать Google Play Services для определения позиции";

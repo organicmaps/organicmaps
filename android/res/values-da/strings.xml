@@ -487,4 +487,6 @@
 	<string name="downloader_map_only">Kun kort</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Programmenu</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Anvend Google Play Services til at få din aktuelle placering</string>
 </resources>

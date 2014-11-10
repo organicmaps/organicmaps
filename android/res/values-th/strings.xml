@@ -489,4 +489,6 @@
 	<string name="downloader_map_only">แผนที่เท่านั้น</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">เมนูของแอปพลิเคชัน</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ </string>
 </resources>

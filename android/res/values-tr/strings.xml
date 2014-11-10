@@ -491,4 +491,6 @@
 	<string name="downloader_map_only">Sadece harita</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Uygulama menüsü</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Şu anki konumunuzu almak için Google Play hizmetlerini kullanın</string>
 </resources>

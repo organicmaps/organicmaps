@@ -465,4 +465,6 @@
 	<string name="downloader_map_only">지도만</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">애플리케이션 메뉴</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Google Play 서비스를 사용하여 현재 위치 정보 얻기</string>
 </resources>

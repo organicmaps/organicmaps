@@ -771,3 +771,6 @@
 
 /* Toolbar title */
 "toolbar_application_menu" = "Ponuka aplikácie";
+
+/* Preference text */
+"pref_use_google_play" = "Pomocou Google Play služieb získajte svoju aktuálnu polohu";
