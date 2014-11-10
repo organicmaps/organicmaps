@@ -217,7 +217,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
               if (mCurrentState == State.FULL_PLACEPAGE)
                 setState(State.PREVIEW_ONLY);
               else
+              {
                 setState(State.HIDDEN);
+                Framework.deactivatePopup();
+              }
             }
             else
               setState(State.FULL_PLACEPAGE);

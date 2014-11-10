@@ -167,8 +167,6 @@ public class MWMActivity extends NvEventQueueActivity
         .putExtra(DownloadResourcesActivity.EXTRA_UPDATE_COUNTRIES, true);
   }
 
-  private native void deactivatePopup();
-
   private void pauseLocation()
   {
     LocationService.INSTANCE.stopUpdate(this);
@@ -1215,7 +1213,7 @@ public class MWMActivity extends NvEventQueueActivity
     if (mInfoView.getState() != State.HIDDEN)
     {
       hideInfoView();
-      deactivatePopup();
+      Framework.deactivatePopup();
     }
     else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
       setVerticalToolbarVisible(false);
@@ -1362,7 +1360,7 @@ public class MWMActivity extends NvEventQueueActivity
         public void run()
         {
           hideInfoView();
-          deactivatePopup();
+          Framework.deactivatePopup();
         }
       });
     }
@@ -1522,7 +1520,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     if (mInfoView.getState() == State.FULL_PLACEPAGE)
     {
-      deactivatePopup();
+      Framework.deactivatePopup();
       hideInfoView();
       result = true;
     }
@@ -1576,7 +1574,7 @@ public class MWMActivity extends NvEventQueueActivity
           mRlRoutingBox.bringToFront();
 
           hideInfoView();
-          deactivatePopup();
+          Framework.deactivatePopup();
           updateRoutingDistance();
         }
         else

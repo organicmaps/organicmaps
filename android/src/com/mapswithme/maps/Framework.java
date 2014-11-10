@@ -121,6 +121,8 @@ public class Framework
 
   public native static void invalidate();
 
+  public native static void deactivatePopup();
+
   public native static String[] nativeGetMovableFilesExt();
 
   public native static String nativeGetBookmarksExt();

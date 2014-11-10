@@ -14,12 +14,6 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_deactivatePopup(JNIEnv * env, jobject thiz)
-  {
-    return g_framework->DeactivatePopup();
-  }
-
-  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeOnLocationError(JNIEnv * env, jobject thiz,
       int errorCode)
   {
