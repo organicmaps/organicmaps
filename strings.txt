@@ -6737,3 +6737,31 @@
     ar = الخريطة فقط
     zh-Hant = 只有地圖
     zh-Hans = 只有地图
+
+
+  [toolbar_application_menu]
+    tags = ios,android,tizen
+    comment = Toolbar title
+    en = Application menu
+    ru = Меню приложения
+    uk = Меню програми
+    de = Applikations-Menü
+    fr = Menu principal
+    it = Menu applicazione
+    es = Menú de aplicación
+    ko = 애플리케이션 메뉴
+    ja = アプリケーションメニュー
+    cs = Nabídka aplikace
+    sk = Ponuka aplikácie
+    nl = Applicatiemenu
+    zh-hant = 應用程序菜單
+    zh-hans = 应用程序菜单
+    pl = Menu aplikacji
+    pt = Menu de Aplicação
+    hu = Menü
+    th = เมนูของแอปพลิเคชัน
+    ar = قائمة التطبيق
+    da = Programmenu
+    tr = Uygulama menüsü
+    sv = Programmeny
+    iw = תפריט האפליקציה
