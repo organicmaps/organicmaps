@@ -6788,3 +6788,6 @@
     th = ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ 
     ru = Использовать Google Play Services для определения позиции
     sk = Pomocou Google Play služieb získajte svoju aktuálnu polohu
+    cs = Použijte služby Google Play, abyste získali svou aktuální polohu
+    pt = Use o Google Play Serviços para determinar a sua localização actual
+    sv = Använd Google Play Services för att bestämma din aktuella position
