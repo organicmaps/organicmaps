@@ -171,11 +171,6 @@ ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey,
 {
 }
 
-void ApplyPointFeature::operator()(CoordPointT const & point)
-{
-  operator()(m2::PointF(point.first, point.second));
-}
-
 void ApplyPointFeature::operator()(m2::PointD const & point)
 {
   m_hasPoint = true;
