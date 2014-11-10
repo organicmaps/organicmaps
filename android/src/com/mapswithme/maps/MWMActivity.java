@@ -1049,6 +1049,11 @@ public class MWMActivity extends NvEventQueueActivity
         else
           onDismiss();
       }
+      else if (intent.getBooleanExtra(Notifier.EXTRA_FORCE_PROMO_DIALOG, false))
+      {
+        getIntent().putExtra(Notifier.EXTRA_FORCE_PROMO_DIALOG, true);
+        Notifier.notifyAboutFreePro(this);
+      }
     }
   }
 
@@ -1178,10 +1183,10 @@ public class MWMActivity extends NvEventQueueActivity
         ViewHelper.setScaleX(mIvTurn, 1);
 
       // TODO uncomment when core will update driving time regularly
-//      final Calendar calendar = Calendar.getInstance();
-//      calendar.add(Calendar.SECOND, info.mTotalTimeInSeconds);
-//      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
-//      mTvTotalTime.setText(simpleDateFormat.format(calendar.getTime()));
+      //      final Calendar calendar = Calendar.getInstance();
+      //      calendar.add(Calendar.SECOND, info.mTotalTimeInSeconds);
+      //      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
+      //      mTvTotalTime.setText(simpleDateFormat.format(calendar.getTime()));
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
       builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -34,7 +34,7 @@ public class Notifier
   private static final String EXTRA_CONTENT = "ExtraContent";
   private static final String EXTRA_TITLE = "ExtraTitle";
   private static final String EXTRA_INTENT = "ExtraIntent";
-  private static final String EXTRA_FORCE_PROMO_DIALOG = "ExtraForceDialog";
+  public static final String EXTRA_FORCE_PROMO_DIALOG = "ExtraForceDialog";
 
   public static final String ACTION_NAME = "com.mapswithme.MYACTION";
   private static IntentFilter mIntentFilter = new IntentFilter(ACTION_NAME);
@@ -134,6 +134,9 @@ public class Notifier
 
   public static void notifyAboutFreePro(Activity activity)
   {
+    if (MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PRESTIGIO_PREINSTALLED, false))
+      return;
+
     if (BuildConfig.IS_PRO)
       freePromoInPro(activity);
     else
@@ -195,10 +198,9 @@ public class Notifier
     final MWMApplication application = MWMApplication.get();
     final Calendar calendar = Calendar.getInstance();
     calendar.set(2014, Calendar.DECEMBER, 3);
-    if (Utils.isInstalledAfter(calendar) &&
-        !application.nativeGetBoolean(FREE_PROMO_SHOWN, false))
+    if (Utils.isInstalledAfter(calendar) && !application.nativeGetBoolean(FREE_PROMO_SHOWN, false))
     {
-      if (application.getForegroundTime() > 10 * 60)
+      if (application.getForegroundTime() > 10 * 60 || activity.getIntent().getBooleanExtra(EXTRA_FORCE_PROMO_DIALOG, false))
       {
         UiUtils.showPromoShareDialog(activity, application.getString(R.string.free_pro_version_share_message));
         application.nativeSetBoolean(FREE_PROMO_SHOWN, true);
@@ -226,7 +228,8 @@ public class Notifier
   public static void showFreeProNotification(Intent intent)
   {
     final MWMApplication application = MWMApplication.get();
-    final PendingIntent pi = PendingIntent.getActivity(application, 0, new Intent(application, MWMActivity.class),
+    final Intent it = new Intent(application, MWMActivity.class).putExtra(EXTRA_FORCE_PROMO_DIALOG, true);
+    final PendingIntent pi = PendingIntent.getActivity(application, 0, it,
         PendingIntent.FLAG_UPDATE_CURRENT);
     final String title = intent.getStringExtra(EXTRA_TITLE);
     final String content = intent.getStringExtra(EXTRA_CONTENT);
