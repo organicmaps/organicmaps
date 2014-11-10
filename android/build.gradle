@@ -20,7 +20,7 @@ dependencies {
   compile propAndroidSupportLibrary, propGooglePlayServices
   compile project(':3rd_party:external_styles')
   compile propNineOldAndroids, propFacebookSdk
-  compile fileTree(dir: '3rd_party', include: '*.jar')
+  compile fileTree(dir: '3rd_party', include: '*.jar', exclude: 'mrgsmanifest.jar')
 }
 
 def getDate() {

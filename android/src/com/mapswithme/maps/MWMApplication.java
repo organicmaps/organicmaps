@@ -27,6 +27,8 @@ import com.mobileapptracker.MobileAppTracker;
 import java.io.File;
 import java.io.IOException;
 
+import ru.mail.mrgservice.MRGService;
+
 public class MWMApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MWMApplication";
@@ -107,6 +109,8 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     super.onCreate();
 
     mIsYota = Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
+
+    MRGService.setAppContext(this);
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)

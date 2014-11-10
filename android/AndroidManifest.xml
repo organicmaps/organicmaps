@@ -39,6 +39,16 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
+  <permission
+      android:name="com.mapswithme.maps.permission.C2D_MESSAGE"
+      android:protectionLevel="signature"/>
+
+  <uses-permission android:name="com.mapswithme.maps.permission.C2D_MESSAGE"/>
+
   <supports-screens
       android:largeScreens="true"
       android:xlargeScreens="true"/>
@@ -211,14 +221,50 @@
         android:exported="false">
     </service>
 
-    <!-- Mobile Apps Tracking -->
+    <!-- needed for MRGS -->
+    <activity
+        android:name="ru.mail.mrgservice.MRGSGCMActivity"
+        android:configChanges="keyboardHidden|orientation"
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
+
     <receiver
-        android:name="com.mobileapptracker.Tracker"
+        android:name="ru.mail.mrgservice.MRGSGCMBroadcastReceiver"
+        android:permission="com.google.android.c2dm.permission.SEND">
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+
+        <category android:name="ru.mail.mrgservice"/>
+      </intent-filter>
+    </receiver>
+    <receiver
+        android:name="ru.mail.mrgservice.MRGSBroadcastReceiver"
         android:exported="true">
       <intent-filter>
         <action android:name="com.android.vending.INSTALL_REFERRER"/>
       </intent-filter>
     </receiver>
+
+    <receiver android:name="ru.mail.mrgservice.MRGSPackageRemoveReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+        <data android:scheme="package"/>
+      </intent-filter>
+    </receiver>
+    <receiver android:name="ru.mail.mrgservice.MRGSLocalPushBroadcastReceiver"/>
+    <receiver android:name="ru.mail.mrgservice.MRGSLocalPushAutoStartReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+      </intent-filter>
+    </receiver>
+    <receiver android:name="ru.mail.mrgservice.MRGSNotificationDeleteReceiver"/>
+
+    <service
+        android:name="ru.mail.mrgservice.MRGSGCMIntentService"
+        android:enabled="true"/>
+    <service android:name="com.google.analytics.tracking.android.CampaignTrackingService"/>
+    <!-- MRGS -->
+
   </application>
 
 </manifest>
