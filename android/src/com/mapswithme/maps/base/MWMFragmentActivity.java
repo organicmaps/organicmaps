@@ -48,7 +48,10 @@ public class MWMFragmentActivity extends ActionBarActivity implements Framework.
 
     final ActionBar bar = getSupportActionBar();
     if (bar != null)
+    {
       bar.setDisplayHomeAsUpEnabled(true);
+      bar.setElevation(0);
+    }
   }
 
   @Override

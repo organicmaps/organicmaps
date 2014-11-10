@@ -5,6 +5,7 @@
     <item name="colorPrimary">@color/base_green</item>
     <item name="colorPrimaryDark">@color/text_search_item_greyed</item>
     <item name="colorAccent">@color/downloader_blue</item>
+    <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
   </style>
 
   <string name="robotoLight">sans-serif-light</string>
