@@ -494,4 +494,6 @@
 	<string name="downloader_map_only">Pouze mapa</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Nabídka aplikace</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Použijte služby Google Play, abyste získali svou aktuální polohu</string>
 </resources>

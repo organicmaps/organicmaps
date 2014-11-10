@@ -487,4 +487,6 @@
 	<string name="downloader_map_only">Endast karta</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Programmeny</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Använd Google Play Services för att bestämma din aktuella position</string>
 </resources>

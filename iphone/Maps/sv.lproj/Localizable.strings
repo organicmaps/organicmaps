@@ -773,4 +773,4 @@
 "toolbar_application_menu" = "Programmeny";
 
 /* Preference text */
-"pref_use_google_play" = "Use Google Play Services to get your current location";
+"pref_use_google_play" = "Använd Google Play Services för att bestämma din aktuella position";

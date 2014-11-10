@@ -484,4 +484,6 @@
 	<string name="downloader_map_only">Apenas Mapa</string>
 	<!-- Toolbar title -->
 	<string name="toolbar_application_menu">Menu de Aplicação</string>
+	<!-- Preference text -->
+	<string name="pref_use_google_play">Use o Google Play Serviços para determinar a sua localização actual</string>
 </resources>
