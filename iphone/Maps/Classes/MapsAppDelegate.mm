@@ -9,6 +9,7 @@
 #import "AppInfo.h"
 #import "LocalNotificationManager.h"
 #import "AccountManager.h"
+#import <MRGService/MRGService.h>
 
 #include <sys/xattr.h>
 
@@ -99,6 +100,25 @@ void InitLocalizedStrings()
     [MobileAppTracker setExistingUser:YES];
 }
 
+- (void)initMRGService
+{
+#warning App id and secret key are not set.
+  NSInteger appId = NSNotFound;
+  NSString * secret = @"test_key";
+  [MRGServiceInit MRGServiceWithAppId:appId andSecret:secret andDelegate:nil];
+  
+  // MRGService settings
+  MRGServiceParams * mrgsParams = [[MRGServiceParams alloc] initWithAppId:appId andSecret:secret];
+  mrgsParams.debug = YES;
+  mrgsParams.shouldResetBadge = NO;
+  mrgsParams.crashReportEnabled = YES;
+  mrgsParams.allowPushNotificationHooks = YES;
+  
+  NSArray * externalParams = @[];
+  [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
+  [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
@@ -136,6 +156,7 @@ void InitLocalizedStrings()
   [self customizeAppearance];
 
   [self initMAT];
+  [self initMRGService];
 
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
