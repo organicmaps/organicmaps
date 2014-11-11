@@ -74,6 +74,12 @@ void LoaderBase::Init(BufferT data)
   m_pF = 0;
 
   m_CommonOffset = m_Header2Offset = 0;
+
+  ResetGeometry();
+}
+
+void LoaderBase::ResetGeometry()
+{
   m_ptsSimpMask = 0;
 
   m_ptsOffsets.clear();

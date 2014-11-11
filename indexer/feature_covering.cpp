@@ -120,23 +120,28 @@ namespace covering
 
 vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
 {
-  FeatureIntersector featureIntersector;
-  f.ForEachPointRef(featureIntersector, FeatureType::BEST_GEOMETRY);
-  f.ForEachTriangleRef(featureIntersector, FeatureType::BEST_GEOMETRY);
+  // We need to cover feature for the best geometry, because it's indexed once for the
+  // first top level scale. Do reset current cached geometry first.
+  f.ResetGeometry();
+  int const scale = FeatureType::BEST_GEOMETRY;
 
-  CHECK(!featureIntersector.m_trg.empty() || !featureIntersector.m_polyline.empty(), \
-        (f.DebugString(FeatureType::BEST_GEOMETRY)));
+  FeatureIntersector fIsect;
+  f.ForEachPointRef(fIsect, scale);
+  f.ForEachTriangleRef(fIsect, scale);
 
-  if (featureIntersector.m_trg.empty() && featureIntersector.m_polyline.size() == 1)
+  CHECK(!(fIsect.m_trg.empty() && fIsect.m_polyline.empty()) &&
+        f.GetLimitRect(scale).IsValid(), (f.DebugString(scale)));
+
+  if (fIsect.m_trg.empty() && fIsect.m_polyline.size() == 1)
   {
-    m2::PointD const pt = featureIntersector.m_polyline[0];
+    m2::PointD const pt = fIsect.m_polyline[0];
     return vector<int64_t>(
           1, RectId::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y),
                             RectId::DEPTH_LEVELS - 1).ToInt64(cellDepth));
   }
 
   vector<RectId> cells;
-  covering::CoverObject(featureIntersector, cellPenaltyArea, cells, cellDepth, RectId::Root());
+  covering::CoverObject(fIsect, cellPenaltyArea, cells, cellDepth, RectId::Root());
 
   vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)

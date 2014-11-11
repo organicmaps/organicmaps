@@ -159,6 +159,8 @@ public:
   /// @name Parse functions. Do simple dispatching to m_pLoader.
   //@{
   void ParseHeader2() const;
+
+  void ResetGeometry() const;
   uint32_t ParseGeometry(int scale) const;
   uint32_t ParseTriangles(int scale) const;
   //@}

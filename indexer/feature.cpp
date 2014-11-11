@@ -98,6 +98,19 @@ void FeatureType::ParseHeader2() const
   }
 }
 
+void FeatureType::ResetGeometry() const
+{
+  m_points.clear();
+  m_triangles.clear();
+
+  if (GetFeatureType() != GEOM_POINT)
+    m_limitRect = m2::RectD();
+
+  m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
+
+  m_pLoader->ResetGeometry();
+}
+
 uint32_t FeatureType::ParseGeometry(int scale) const
 {
   uint32_t sz = 0;
@@ -154,6 +167,10 @@ string FeatureType::DebugString(int scale) const
   case GEOM_AREA:
     s += " Triangles:";
     Points2String(s, m_triangles);
+    break;
+
+  case GEOM_UNDEFINED:
+    ASSERT(false, ("Assume that we have valid feature always"));
     break;
   }
 

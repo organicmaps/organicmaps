@@ -62,6 +62,8 @@ namespace feature
     //@{
     void Init(BufferT data);
     inline void InitFeature(FeatureType * p) { m_pF = p; }
+
+    void ResetGeometry();
     //@}
 
     virtual uint8_t GetHeader() = 0;
