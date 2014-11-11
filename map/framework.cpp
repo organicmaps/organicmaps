@@ -173,7 +173,7 @@ void Framework::GetMaps(vector<string> & maps) const
   pl.GetFilesByExt(pl.ResourcesDir(), DATA_FILE_EXTENSION, maps);
   pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
 
-  // Remove duplicate maps if they're both present in resources and in WritableDir.
+  // Remove duplicate maps if they're both present in Resources and in Writable dirs.
   sort(maps.begin(), maps.end());
   maps.erase(unique(maps.begin(), maps.end()), maps.end());
 

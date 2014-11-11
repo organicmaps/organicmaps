@@ -65,29 +65,22 @@ string Platform::DefaultUrlsJSON() const
 
 void Platform::GetFontNames(FilesList & res) const
 {
+  ASSERT(res.empty(), ());
+
+  /// @todo Actually, this list should present once in all our code.
+  /// We can take it from data/external_resources.txt
+  char const * arrDef[] = {
+    "00_roboto_regular.ttf",
+    "01_dejavusans.ttf",
+    "02_wqy-microhei.ttf",
+    "03_jomolhari-id-a3d.ttf",
+    "04_padauk.ttf",
+    "05_khmeros.ttf",
+    "06_code2000.ttf",
+  };
+  res.insert(res.end(), arrDef, arrDef + ARRAY_SIZE(arrDef));
+
   GetSystemFontNames(res);
-
-  size_t n = 0;
-  string const * arrPaths[4];
-
-  arrPaths[n++] = &m_writableDir;
-#ifdef OMIM_OS_ANDROID
-  for (size_t i = 0; i < m_extResFiles.size(); ++i)
-    arrPaths[n++] = &m_extResFiles[i];
-#else
-  arrPaths[n++] = &m_resourcesDir;
-#endif
-
-  FilesList fonts;
-  for (size_t i = 0; i < n; ++i)
-  {
-    LOG(LDEBUG, ("Searching for fonts in", *(arrPaths[i])));
-    GetFilesByExt(*(arrPaths[i]), FONT_FILE_EXTENSION, fonts);
-  }
-
-  sort(fonts.begin(), fonts.end());
-  fonts.erase(unique(fonts.begin(), fonts.end()), fonts.end());
-  res.insert(res.end(), fonts.begin(), fonts.end());
 
   LOG(LINFO, ("Available font files:", (res)));
 }

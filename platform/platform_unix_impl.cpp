@@ -50,17 +50,11 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "DejaVuSans.ttf",
     "arial.ttf",
     "AbyssinicaSIL-R.ttf",
-    "00_roboto_regular.ttf",
-    "01_dejavusans.ttf",
-    "02_wqy-microhei.ttf",
-    "03_jomolhari-id-a3d.ttf",
-    "04_padauk.ttf",
-    "05_khmeros.ttf",
-    "06_code2000.ttf"
   };
 
   char const * systemFontsPath[] = {
     "/system/fonts/",
+#ifdef OMIM_OS_LINUX
     "/usr/share/fonts/truetype/roboto/",
     "/usr/share/fonts/truetype/droid/",
     "/usr/share/fonts/truetype/ttf-dejavu/",
@@ -72,9 +66,10 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "/usr/share/fonts/truetype/tlwg/",
     "/usr/share/fonts/truetype/abyssinica/",
     "/usr/share/fonts/truetype/paktype/",
-    "/usr/share/fonts/truetype/mapswithme/"
+    "/usr/share/fonts/truetype/mapswithme/",
+#endif
   };
-  
+
   const uint64_t fontSizeBlacklist[] = {
     183560,   // Samsung Duos DroidSans
     7140172,  // Serif font without Emoji
