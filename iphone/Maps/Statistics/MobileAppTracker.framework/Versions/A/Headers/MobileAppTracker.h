@@ -15,7 +15,7 @@
 #import <CoreLocation/CoreLocation.h>
 #endif
 
-#define MATVERSION @"3.5.3"
+#define MATVERSION @"3.5.4"
 
 
 #pragma mark - enumerated types
