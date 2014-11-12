@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:paddingLeft="16dip" android:gravity="center_vertical" android:paddingRight="12dip" android:minHeight="?listPreferredItemHeightSmall" android:layout_height="wrap_content" android:orientation="horizontal">
-	<LinearLayout android:layout_width="wrap_content" android:gravity="center_vertical" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-		<TextView android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:ellipsize="marquee" android:gravity="center_vertical|left" android:singleLine="true" android:textColor="?textColorAlertDialogListItem" android:layout_height="wrap_content" android:id="@android:id/text1"></TextView>
-		<TextView android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall" android:ellipsize="marquee" android:gravity="center_vertical|left" android:singleLine="true" android:textColor="?textColorAlertDialogListItem" android:layout_height="wrap_content" android:id="@android:id/text2"></TextView>
-	</LinearLayout>
-	<RadioButton android:layout_width="35dip" android:clickable="false" android:gravity="center_vertical" android:paddingRight="12dip" android:layout_height="wrap_content" android:id="@+id/radio" android:focusable="false"></RadioButton>
-</LinearLayout>

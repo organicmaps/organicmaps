@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:padding="16dip" android:layout_height="match_parent" android:orientation="horizontal" android:baselineAligned="false">
-	<ProgressBar android:layout_width="wrap_content" android:layout_marginRight="16dip" style="?android:attr/progressBarStyle" android:layout_height="wrap_content" android:max="10000" android:id="@+id/progress"></ProgressBar>
-	<TextView android:layout_width="match_parent" android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:id="@+id/message"></TextView>
-</LinearLayout>

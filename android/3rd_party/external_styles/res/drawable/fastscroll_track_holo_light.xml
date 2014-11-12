@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:drawable="@drawable/fastscroll_track_pressed_holo_light" android:state_pressed="true"></item>
-	<item android:drawable="@drawable/fastscroll_track_default_holo_light"></item>
-</selector>

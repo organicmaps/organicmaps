@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:state_accelerated="false" android:color="#fff3f3f3"></item>
-	<item android:color="@android:color/transparent"></item>
-</selector>

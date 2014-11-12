@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:state_selected="true" android:color="@color/dim_foreground_dark_inverse"></item>
-	<item android:state_activated="true" android:color="@color/bright_foreground_dark_inverse"></item>
-	<item android:color="@color/dim_foreground_dark"></item>
-</selector>

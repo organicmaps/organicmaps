@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><ListView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:divider="?listDividerAlertDialog" android:overScrollMode="ifContentScrolls" android:scrollbars="vertical" android:layout_height="match_parent" android:id="@+id/select_dialog_listview" android:cacheColorHint="@null"></ListView>

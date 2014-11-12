@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><ExpandableListView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:drawSelectorOnTop="false" android:layout_height="match_parent" android:id="@android:id/list"></ExpandableListView>

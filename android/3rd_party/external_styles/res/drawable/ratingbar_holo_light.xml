@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:drawable="@drawable/rate_star_big_off_holo_light" android:id="@+android:id/background"></item>
-	<item android:drawable="@drawable/rate_star_big_half_holo_light" android:id="@+android:id/secondaryProgress"></item>
-	<item android:drawable="@drawable/rate_star_big_on_holo_light" android:id="@+android:id/progress"></item>
-</layer-list>

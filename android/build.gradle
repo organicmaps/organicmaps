@@ -17,9 +17,7 @@ allprojects {
 apply plugin: 'com.android.application'
 
 dependencies {
-  compile propAndroidSupportLibrary, propGooglePlayServices
-  compile project(':3rd_party:external_styles')
-  compile propNineOldAndroids, propFacebookSdk
+  compile libSupportV4, libSupportV7, libGooglePlayServices, libNineOldAndroids, libFacebookSdk
   compile fileTree(dir: '3rd_party', include: '*.jar', exclude: 'mrgsmanifest.jar')
 }
 
@@ -60,7 +58,7 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.googlePro.setRoot('flavors/pro')
-      android.sourceSets.googlePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/pro/assets']
+      android.sourceSets.googlePro.assets.srcDirs = ['flavors/guides-assets']
     }
 
     googleLite {
@@ -80,7 +78,7 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
       android.sourceSets.samsungPro.setRoot('flavors/pro')
-      android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
+      android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     samsungLite {
@@ -101,7 +99,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
       android.sourceSets.amazonPro.setRoot('flavors/pro')
       // Do not include guides assets for Amazon, they don't like GP apps ads
-      android.sourceSets.amazonPro.assets.srcDirs = ['flavors/mwm-ttf-assets', 'flavors/pro/assets']
+      android.sourceSets.amazonPro.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     amazonLite {
@@ -122,7 +120,7 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"appcenter://package/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitPro.setRoot('flavors/pro')
-      android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
+      android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     androidpitLite {
@@ -142,7 +140,7 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.slidemePro.setRoot('flavors/pro')
-      android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
+      android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     slidemeLite {
@@ -162,7 +160,7 @@ android {
       buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexPro.setRoot('flavors/pro')
-      android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
+      android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
     }
 
     yandexLite {

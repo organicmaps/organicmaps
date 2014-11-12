@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/switch_thumb_disabled_holo_dark" android:state_enabled="false"></item>
-    <item android:drawable="@drawable/switch_thumb_pressed_holo_dark" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/switch_thumb_activated_holo_dark" android:state_checked="true"></item>
-    <item android:drawable="@drawable/switch_thumb_holo_dark"></item>
-
-</selector>

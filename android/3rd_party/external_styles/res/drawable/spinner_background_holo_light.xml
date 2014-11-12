@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/spinner_disabled_holo_light" android:state_enabled="false"></item>
-    <item android:drawable="@drawable/spinner_pressed_holo_light" android:state_pressed="true"></item>
-    <item android:state_focused="true" android:drawable="@drawable/spinner_focused_holo_light" android:state_pressed="false"></item>
-    <item android:drawable="@drawable/spinner_default_holo_light"></item>
-</selector>

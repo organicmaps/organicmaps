@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
-	<dimen name="config_prefDialogWidth">580dp</dimen>
-	<item name="dialog_min_width_major" type="dimen">45%</item>
-	<item name="dialog_min_width_minor" type="dimen">72%</item>
-</resources>

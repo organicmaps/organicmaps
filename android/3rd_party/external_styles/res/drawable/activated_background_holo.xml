@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:drawable="@drawable/list_activated_holo" android:state_activated="true"></item>
-	<item android:drawable="@android:color/transparent"></item>
-</selector>

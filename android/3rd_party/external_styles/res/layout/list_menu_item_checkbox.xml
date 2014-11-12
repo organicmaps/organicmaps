@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><CheckBox xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content" android:clickable="false" android:layout_gravity="center_vertical" android:duplicateParentState="true" android:layout_height="wrap_content" android:id="@+id/checkbox" android:focusable="false"></CheckBox>
