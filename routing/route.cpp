@@ -20,7 +20,7 @@ static double const ON_END_TOLERANCE_M = 10.0;
 
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
-  : m_router(router), m_poly(points), m_name(name)
+  : m_router(router), m_poly(points), m_name(name), m_time(0)
 {
   Update();
 }
@@ -40,6 +40,16 @@ void Route::Swap(Route & rhs)
 void Route::SetTurnInstructions(TurnsT & v)
 {
   swap(m_turns, v);
+}
+
+void Route::SetTime(uint32_t time)
+{
+  m_time = time;
+}
+
+uint32_t Route::GetTime() const
+{
+  return m_time;
 }
 
 double Route::GetDistance() const

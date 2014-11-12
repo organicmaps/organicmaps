@@ -542,6 +542,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   ASSERT(segEnd.IsValid(), ());
 
   Route::TurnsT turns;
+  uint32_t estimateTime = 0;
 
   vector<m2::PointD> points;
   for (auto i : osrm::irange<std::size_t>(0, rawRoute.unpacked_path_segments.size()))
@@ -558,6 +559,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     for (size_t j = 0; j < n; ++j)
     {
       PathData const & path_data = rawRoute.unpacked_path_segments[i][j];
+      if (j != 0)
+        estimateTime += path_data.segment_duration;
 
       buffer_vector<SegT, 8> buffer;
       m_mapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
@@ -655,6 +658,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
   route.SetGeometry(points.begin(), points.end());
   route.SetTurnInstructions(turns);
+  route.SetTime(estimateTime);
+
+  LOG(LDEBUG, ("Estimate time:", estimateTime, "s"));
 
   return NoError;
 }

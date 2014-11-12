@@ -233,7 +233,7 @@ template <class DataFacadeT> class BasicRoutingInterface
                 unpacked_path.emplace_back(edge.second,
                                            INVALID_EDGE_WEIGHT,
                                            TurnInstruction::NoTurn,
-                                           INVALID_EDGE_WEIGHT);
+                                           ed.distance);
 //                BOOST_ASSERT_MSG(!ed.shortcut, "original edge flagged as shortcut");
 //                unsigned name_index = facade->GetNameIndexFromEdgeID(ed.id);
 //                const TurnInstruction turn_instruction = facade->GetTurnInstructionForEdgeID(ed.id);

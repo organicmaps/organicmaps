@@ -61,6 +61,10 @@ public:
 
   void SetTurnInstructions(TurnsT & v);
 
+  // Time measure are seconds
+  void SetTime(uint32_t time);
+  uint32_t GetTime() const;
+
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
   string const & GetName() const { return m_name; }
@@ -117,6 +121,7 @@ private:
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
 
   TurnsT m_turns;
+  double m_time;
 
   /// Cached result iterator for last MoveIterator query.
   mutable IterT m_current;
