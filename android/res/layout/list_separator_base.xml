@@ -5,9 +5,9 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/dp_x_6" >
 
+  <!--style="@style/Holo.TextView.ListSeparator.Light"-->
     <TextView
         android:id="@+id/text"
-        style="@style/Holo.TextView.ListSeparator.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|center"

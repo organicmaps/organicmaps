@@ -22,7 +22,7 @@
       android:layout_marginLeft="@dimen/margin_medium"
       android:layout_weight="1"
       android:fontFamily="@string/robotoLight"
-      android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
       android:textColor="@android:color/white"/>
 
 </LinearLayout>

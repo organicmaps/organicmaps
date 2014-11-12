@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_selector_holo_light"
                 android:minHeight="?android:attr/listPreferredItemHeight">
 
   <TextView
@@ -13,7 +12,7 @@
       android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/margin_small"
       android:text="@string/downloader_downloaded"
-      android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
   <TextView
       android:id="@+id/tv__count"

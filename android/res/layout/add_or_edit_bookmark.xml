@@ -1,124 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <!-- This view'll take focus. And user will not see keyboard when open this screen. -->
+  <!-- This view'll take focus. And user will not see keyboard when open this screen. -->
 
-    <View
-        android:id="@+id/bmk_hack_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+  <View
+      android:id="@+id/bmk_hack_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:focusable="true"
+      android:focusableInTouchMode="true"/>
 
-    <ScrollView
+  <ScrollView
+      android:layout_width="fill_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:padding="@dimen/dp_x_3">
+
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="@dimen/dp_x_3" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+      <!-- NAME -->
+
+      <TextView
+          style="@style/labelGreen"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/name"/>
+
+      <include layout="@layout/green_separator"/>
+
+      <LinearLayout
+          android:id="@+id/bookmark_name_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/pin_name"
+            style="@style/pinEditableParam"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_weight="1"
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:singleLine="true"/>
 
-            <!-- NAME -->
+        <ImageView
+            android:id="@+id/bookmark_name_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:padding="8dp"
+            android:src="@drawable/ic_close"/>
+      </LinearLayout>
 
-            <TextView
-                style="@style/labelGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/name" />
+      <!-- SET -->
 
-            <include layout="@layout/green_separator" />
+      <TextView
+          style="@style/labelGreen"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_large"
+          android:text="@string/set"/>
 
-            <LinearLayout
-                android:id="@+id/bookmark_name_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <EditText
-                    android:id="@+id/pin_name"
-                    style="@style/pinEditableParam"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/name"
-                    android:inputType="textCapWords"
-                    android:singleLine="true" />
-
-                <ImageView
-                    android:id="@+id/bookmark_name_clear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_close" />
-            </LinearLayout>
-
-            <!-- SET -->
-
-            <TextView
-                style="@style/labelGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
-                android:text="@string/set" />
-
-            <include layout="@layout/green_separator" />
+      <include layout="@layout/green_separator"/>
 
 
-            <TextView
-                android:id="@+id/pin_set_chooser"
-                style="@style/pinEditableParam"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_x_4"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background_holo_light"
-                android:focusable="false" />
+      <TextView
+          android:id="@+id/pin_set_chooser"
+          style="@style/pinEditableParam"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/dp_x_4"
+          android:layout_weight="1"
+          android:focusable="false"/>
 
-            <!-- DESCR -->
+      <!-- DESCR -->
 
-            <TextView
-                style="@style/labelGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/description" />
+      <TextView
+          style="@style/labelGreen"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_medium"
+          android:text="@string/description"/>
 
-            <include layout="@layout/green_separator" />
+      <include layout="@layout/green_separator"/>
 
-            <EditText
-                android:id="@+id/pin_description"
-                style="@style/pinEditableParam"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/description" />
-
-            <!-- BUTTONS -->
-
-            <Button
-                android:id="@+id/btn_done"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:onClick="onOkClick"
-                android:text="@string/ok" />
-
-            <Button
-                android:id="@+id/btn_delete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:onClick="onDeleteClick"
-                android:text="@string/remove_pin" />
-        </LinearLayout>
-    </ScrollView>
+      <EditText
+          android:id="@+id/pin_description"
+          style="@style/pinEditableParam"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/description"/>
+    </LinearLayout>
+  </ScrollView>
 
 </LinearLayout>

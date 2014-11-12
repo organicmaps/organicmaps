@@ -19,7 +19,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@string/robotoLight"
-      android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
       android:textColor="@color/text_search_item"/>
 
 </LinearLayout>

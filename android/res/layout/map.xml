@@ -75,7 +75,7 @@
 
     <TextView
         android:id="@+id/tv__routing_distance"
-        style="@style/Holo.TextAppearance.Large.Light"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/routing_button_height"
         android:layout_centerVertical="true"

@@ -193,7 +193,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   private WebView buildWebViewDialog(String dialogTitle)
   {
     final LayoutInflater inflater = LayoutInflater.from(this);
-    final View alertDialogView = inflater.inflate(R.layout.dialog_about, null);
+    final View alertDialogView = inflater.inflate(R.layout.dialog_about, (android.view.ViewGroup) findViewById(android.R.id.content), false);
     final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
 
     myWebView.setWebViewClient(new WebViewClient()

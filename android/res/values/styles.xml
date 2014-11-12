@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="AppTheme" parent="android:Theme.Light"/>
+  <style name="AppTheme" parent="Theme.AppCompat.Light">
+
+    <!-- customize the color palette -->
+    <item name="colorPrimary">@color/green</item>
+    <item name="colorPrimaryDark">@color/downloader_blue</item>
+    <item name="colorAccent">@color/ab_bookmarks</item>
+  </style>
 
   <string name="robotoLight">sans-serif-light</string>
   <string name="robotoRegular">"sans-serif"</string>
 
-
-  <style name="Widget.MapButtonZoom" parent="android:Widget.Holo.ImageButton">
+  <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
     <item name="android:background">@drawable/btn_zoom_bg_selector</item>
     <item name="android:scaleType">center</item>
     <item name="android:layout_marginRight">@dimen/margin_small</item>
@@ -15,39 +20,11 @@
     <item name="android:padding">0dp</item>
   </style>
 
-  <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.ImageButton">
+  <style name="Widget.MapButtonBottom" parent="android:Widget.ImageButton">
     <item name="android:background">@android:color/transparent</item>
   </style>
 
-  <style name="tagGreenText" parent="@style/Holo.TextAppearance.Medium.Light">
-    <item name="android:background">@color/base_green</item>
-    <item name="android:paddingLeft">@dimen/dp_x_3</item>
-    <item name="android:paddingRight">@dimen/dp_x_3</item>
-    <item name="android:paddingBottom">@dimen/dp_x_2</item>
-    <item name="android:paddingTop">@dimen/dp_x_2</item>
-    <item name="android:textColor">@android:color/white</item>
-    <item name="android:singleLine">true</item>
-    <item name="android:ellipsize">marquee</item>
-    <item name="android:gravity">center</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-  </style>
-
-  <style name="tagGreenText.Small" parent="@style/tagGreenText">
-    <item name="android:textSize">@dimen/sp_x_3</item>
-    <item name="android:paddingBottom">@dimen/dp_x_1</item>
-    <item name="android:paddingTop">@dimen/dp_x_1</item>
-  </style>
-
-  <style name="tagGreenText.Large" parent="@style/tagGreenText">
-    <item name="android:textSize">@dimen/sp_x_5</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
-  </style>
-
-  <style name="tagGreenText.Mid" parent="@style/tagGreenText">
-    <item name="android:textSize">@dimen/sp_x_4</item>
-  </style>
-
-  <style name="infoItem" parent="@style/Holo.TextAppearance.Large.Light">
+  <style name="infoItem" parent="TextAppearance.AppCompat.Large">
     <item name="android:textSize">@dimen/ppp_title_text_size</item>
     <item name="android:textColor">@color/text_info_box</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
@@ -63,14 +40,18 @@
     <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="pinEditableParam" parent="Holo.EditText.Light">
+  <style name="pinEditableParam" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
     <item name="android:textSize">@dimen/sp_x_4</item>
+
+    <item name="colorPrimary">@color/green</item>
+    <item name="colorPrimaryDark">@color/semitransparent_black</item>
+    <item name="colorAccent">@color/downloader_red</item>
   </style>
 
-  <style name="MWMMain" parent="@style/Holo.Theme.Light"></style>
+  <style name="MWMMain" parent="@style/AppTheme"/>
 
-  <style name="MWMMain.NoBar" parent="@style/Holo.Theme.Light.NoActionBar"></style>
+  <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar"/>
 
   <style name="MwmSearch" parent="@style/MWMMain">
     <item name="android:windowNoTitle">true</item>
@@ -81,27 +62,23 @@
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
   </style>
 
-  <!-- Dialog Holo.Light theme for Activity -->
   <style name="MWMTheme.Dialog.Light" parent="@style/MWMMain">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFrame">@null</item>
-    <item name="android:windowTitleStyle">@style/Holo.DialogWindowTitle.Light</item>
-    <item name="android:windowBackground">@drawable/dialog_full_holo_light</item>
+    <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title</item>
     <item name="android:windowIsFloating">true</item>
     <item name="android:windowContentOverlay">@null</item>
-    <item name="android:windowAnimationStyle">@style/Holo.Animation.Dialog</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="android:windowActionBar">false</item>
     <item name="android:windowActionModeOverlay">true</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:buttonBarStyle">@style/Holo.ButtonBar.AlertDialog</item>
-    <item name="borderlessButtonStyle">@style/Holo.Button.Borderless.Small.Light</item>
+    <item name="android:buttonBarStyle">@style/Theme.AppCompat.Dialog</item>
     <item name="listPreferredItemPaddingLeft">16dip</item>
     <item name="listPreferredItemPaddingRight">16dip</item>
   </style>
 
-  <style name="MWMTheme.Dialog.DialogFragment" parent="@android:style/Theme.Holo.Light" >
+  <style name="MWMTheme.Dialog.DialogFragment" parent="Theme.AppCompat.Light">
     <item name="android:windowBackground">@null</item>
     <item name="android:windowIsFloating">true</item>
   </style>
@@ -123,7 +100,7 @@
     <item name="android:background">@drawable/separator_medium_padded</item>
   </style>
 
-  <style name="Widget.MapButtonDrawer">
+  <style name="Widget.MapButtonDrawer" parent="android:Widget">
     <item name="android:layout_height">wrap_content</item>
     <item name="android:minHeight">@dimen/drawer_item_height</item>
     <item name="android:layout_width">wrap_content</item>
@@ -145,7 +122,7 @@
     <item name="android:disabledAlpha">?android:attr/disabledAlpha</item>
   </style>
 
-  <style name="bookmarkToggleButton" parent="@android:Theme.Black">
+  <style name="bookmarkToggleButton" parent="Widget.AppCompat.CompoundButton.Switch">
     <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
     <item name="android:textOn"/>
     <item name="android:textOff"/>

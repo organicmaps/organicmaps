@@ -4,7 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/search_item_height"
-    android:background="@drawable/list_selector_holo_light"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/margin_medium"
@@ -22,7 +21,7 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:fontFamily="@string/robotoRegular"
-      android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
       android:textSize="24sp"/>
 
   <TextView
@@ -30,7 +29,7 @@
       android:layout_height="wrap_content"
       android:fontFamily="@string/robotoRegular"
       android:text="FREE"
-      android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
       android:textSize="16sp"/>
 
 </LinearLayout>

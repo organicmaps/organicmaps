@@ -55,7 +55,7 @@ public class WheelProgressView extends View
     setBackgroundColor(Color.WHITE);
 
     final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WheelProgressView, 0, 0);
-    mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WheelProgressView_thickness, DEFAULT_THICKNESS);
+    mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WheelProgressView_wheelThickness, DEFAULT_THICKNESS);
     final int color = typedArray.getColor(R.styleable.WheelProgressView_progressColor, getResources().getColor(R.color.downloader_progress_bg));
     final int secondaryColor = typedArray.getColor(R.styleable.WheelProgressView_secondaryColor, getResources().getColor(R.color.base_green));
     typedArray.recycle();

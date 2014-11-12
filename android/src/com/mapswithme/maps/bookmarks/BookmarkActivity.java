@@ -1,12 +1,10 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -52,7 +50,6 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
         .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark)), REQUEST_CODE_EDIT_BOOKMARK);
   }
 
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
@@ -71,15 +68,14 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
     setTitle(mPin.getName());
     setUpViews();
 
-    // Adapt UI according to API version: leave ActionBar or Buttons.
-    if (Utils.apiEqualOrGreaterThan(11) && getActionBar() != null)
+    final ActionBar ab = getSupportActionBar();
+    if (ab != null)
     {
-      final ActionBar ab = getActionBar();
       ab.setDisplayShowHomeEnabled(false);
       ab.setDisplayShowTitleEnabled(false);
       ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
-      final View abView = getLayoutInflater().inflate(R.layout.done_delete, null);
+      final View abView = getLayoutInflater().inflate(R.layout.done_delete, (android.view.ViewGroup) findViewById(android.R.id.content), false);
       ab.setCustomView(abView);
 
       abView.findViewById(R.id.done).setOnClickListener(new OnClickListener()
@@ -87,7 +83,7 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
         @Override
         public void onClick(View v)
         {
-          onOkClick(null);
+          onBackPressed();
         }
       });
       abView.findViewById(R.id.delete).setOnClickListener(new OnClickListener()
@@ -95,11 +91,9 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
         @Override
         public void onClick(View v)
         {
-          onDeleteClick(null);
+          deleteBookmark();
         }
       });
-
-      UiUtils.hide(findViewById(R.id.btn_done), findViewById(R.id.btn_delete));
     }
   }
 
@@ -205,12 +199,7 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
     super.onActivityResult(requestCode, resultCode, data);
   }
 
-  public void onOkClick(View v)
-  {
-    onBackPressed();
-  }
-
-  public void onDeleteClick(View v)
+  public void deleteBookmark()
   {
     if (mPin != null)
     {

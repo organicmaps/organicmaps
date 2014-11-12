@@ -25,7 +25,7 @@
         android:layout_toLeftOf="@+id/pi_distance"
         android:layout_toRightOf="@id/pi_pin_color"
         android:singleLine="true"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_primary" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_x_4"
-        android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_seconadary" />
 
 </RelativeLayout>

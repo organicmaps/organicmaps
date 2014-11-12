@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/margin_small"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <ImageView
         android:id="@+id/disclosure_image"

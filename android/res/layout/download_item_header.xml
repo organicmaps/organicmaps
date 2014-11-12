@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/margin_small"
-      android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
   <ImageView
       android:layout_width="wrap_content"

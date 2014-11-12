@@ -25,7 +25,7 @@
         android:layout_weight="1"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <ImageView
         android:id="@+id/disclosure_image"

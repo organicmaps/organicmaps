@@ -15,7 +15,7 @@
       android:layout_marginLeft="@dimen/margin_small"
       android:layout_toLeftOf="@+id/ll__info_slided"
       android:maxLines="2"
-      android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
   <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/download_progress"
@@ -29,7 +29,7 @@
       android:paddingRight="@dimen/margin_tiny"
       wheel:progressColor="@color/downloader_blue"
       wheel:secondaryColor="@color/downloader_progress_bg"
-      wheel:thickness="@dimen/margin_micro"/>
+      wheel:wheelThickness="@dimen/margin_micro"/>
 
   <ImageView
       android:id="@+id/iv__routing_status_slided"
@@ -49,7 +49,7 @@
       android:paddingRight="@dimen/margin_tiny"
       wheel:progressColor="@color/downloader_blue"
       wheel:secondaryColor="@color/downloader_progress_bg"
-      wheel:thickness="@dimen/margin_micro"/>
+      wheel:wheelThickness="@dimen/margin_micro"/>
 
 
   <LinearLayout
@@ -69,7 +69,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:maxLines="1"
-        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/downloader_green"/>
 
     <TextView
@@ -80,7 +80,7 @@
         android:layout_weight="1"
         android:maxLines="1"
         android:shadowColor="@color/downloader_gray"
-        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/downloader_gray"/>
 
   </LinearLayout>
@@ -103,7 +103,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:maxLines="1"
-        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/downloader_green"/>
 
     <TextView
@@ -113,7 +113,7 @@
         android:layout_weight="1"
         android:maxLines="1"
         android:shadowColor="@color/downloader_gray"
-        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/downloader_gray"/>
 
   </LinearLayout>

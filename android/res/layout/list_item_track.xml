@@ -30,14 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textAppearance="@style/Holo.TextAppearance.Large.Light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/pi_distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Holo.TextAppearance.Small.Light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/text_seconadary" />
     </LinearLayout>
 

@@ -3,6 +3,6 @@
   <declare-styleable name="WheelProgressView">
     <attr name="progressColor" format="color"/>
     <attr name="secondaryColor" format="color"/>
-    <attr name="thickness" format="dimension"/>
+    <attr name="wheelThickness" format="dimension"/>
   </declare-styleable>
 </resources>

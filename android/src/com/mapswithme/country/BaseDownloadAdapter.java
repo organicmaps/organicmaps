@@ -302,7 +302,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
 
     setItemName(position, holder);
-    convertView.setBackgroundResource(R.drawable.list_selector_holo_light);
     final View fview = convertView;
 
     final View.OnClickListener listener = new View.OnClickListener()
