@@ -132,11 +132,42 @@
                          withMetrics:[NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()]];
 =======
       NSMutableDictionary *routeInfo = [NSMutableDictionary new];
-      routeInfo[@"distance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
-      routeInfo[@"metrics"] = [NSString stringWithUTF8String:res.m_unitsSuffix.c_str()];
+      routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
+      routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
+      routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
+      routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
+      routeInfo[@"turnTypeImage"] = [self turnTypeToImage:res.m_turn];
+      routeInfo[@"timeToTarget"] = @(res.m_time);
       [self.routeView updateWithInfo:routeInfo];
 >>>>>>> Added turn-by-turn view.
     }
+  }
+}
+
+- (UIImage *)turnTypeToImage:(routing::turns::TurnDirection)type
+{
+  using namespace routing::turns;
+  switch (type)
+  {
+    case NoTurn:
+    case GoStraight:
+    case HeadOn: return [UIImage imageNamed:@"straight"];
+      
+    case TurnSlightRight: return [UIImage imageNamed:@"right-1"];
+    case TurnRight: return [UIImage imageNamed:@"right-2"];
+    case TurnSharpRight: return [UIImage imageNamed:@"right-3"];
+      
+    case TurnSlightLeft: return [UIImage imageNamed:@"left-1"];
+    case TurnLeft: return [UIImage imageNamed:@"left-2"];
+    case TurnSharpLeft: return [UIImage imageNamed:@"left-3"];
+      
+    case UTurn: return [UIImage imageNamed:@"turn-around"];
+      
+    case LeaveRoundAbout:
+    case StayOnRoundAbout:
+    case EnterRoundAbout: return [UIImage imageNamed:@"turn-around"];
+      
+    default: return nil;
   }
 }
 

@@ -47,20 +47,21 @@
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-  self.turnTypeView.image = [self imageForTurnType:0];
-  self.nextTurnDistanceLabel.text = info[@"distance"];
-  self.nextTurnMetricsLabel.text = [info[@"metrics"] uppercaseString];
-  self.distanceLabel.text = [info[@"distance"] stringByAppendingString:[info[@"metrics"] uppercaseString]];
-  self.timeLeftLabel.text = @"25 min";
+  self.turnTypeView.image = info[@"turnTypeImage"];
+  self.nextTurnDistanceLabel.text = info[@"turnDistance"];
+  self.nextTurnMetricsLabel.text = [info[@"turnMetrics"] uppercaseString];
+  self.distanceLabel.text = [info[@"targetDistance"] stringByAppendingString:[info[@"targetMetrics"] uppercaseString]];
+  self.timeLeftLabel.text = [self secondsToString:info[@"timeToTarget"]];
   
   [UIView animateWithDuration:0.2 animations:^{
     [self layoutSubviews];
   }];
 }
 
-- (UIImage *)imageForTurnType:(NSInteger)turnType
+- (NSString *)secondsToString:(NSNumber *)seconds
 {
-  return [UIImage imageNamed:@"circle"];
+  NSString * minutesString = [NSString stringWithFormat:@"%d min", ([seconds integerValue] / 60)];
+  return minutesString;
 }
 
 #define BUTTON_HEIGHT 51
