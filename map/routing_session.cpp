@@ -119,15 +119,32 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
-  if (m_route.IsValid())
+  auto formatDistFn = [](double dist, string & value, string & suffix)
   {
     /// @todo Make better formatting of distance and units.
-    MeasurementUtils::FormatDistance(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget);
+    MeasurementUtils::FormatDistance(dist, value);
 
-    size_t const delim = info.m_distToTarget.find(' ');
+    size_t const delim = value.find(' ');
     ASSERT(delim != string::npos, ());
-    info.m_unitsSuffix = info.m_distToTarget.substr(delim + 1);
-    info.m_distToTarget.erase(delim);
+    suffix = value.substr(delim + 1);
+    value.erase(delim);
+  };
+
+  if (m_route.IsValid())
+  {
+    formatDistFn(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget, info.m_targetUnitsSuffix);
+
+    {
+      double dist;
+      Route::TurnItem turn;
+      m_route.GetTurn(dist, turn);
+
+      formatDistFn(dist, info.m_distToTurn, info.m_turnUnitsSuffix);
+      info.m_turn = turn.m_turn;
+      info.m_exitNum = turn.m_exitNum;
+    }
+
+    info.m_time = m_route.GetTime();
   }
 }
 

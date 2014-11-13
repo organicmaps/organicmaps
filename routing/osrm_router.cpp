@@ -516,7 +516,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       break;
   }
 
-  m_dataFacade.Clear();
+  //m_dataFacade.Clear();
 
   if (!IsRouteExist(rawRoute))
     return RouteNotFound;
@@ -541,7 +541,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   ASSERT(segBegin.IsValid(), ());
   ASSERT(segEnd.IsValid(), ());
 
-  Route::TurnsT turns;
+  Route::TurnsT turnsDir;
   uint32_t estimateTime = 0;
 
   vector<m2::PointD> points;
@@ -551,16 +551,25 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       return Cancelled;
 
     // Get all the coordinates for the computed route
-    m2::PointD p1, p;
-    feature::TypesHolder fTypePrev;
-    string namePrev;
-
     size_t const n = rawRoute.unpacked_path_segments[i].size();
     for (size_t j = 0; j < n; ++j)
     {
       PathData const & path_data = rawRoute.unpacked_path_segments[i][j];
-      if (j != 0)
+
+      // turns
+      if (j > 0)
+      {
         estimateTime += path_data.segment_duration;
+
+        Route::TurnItem t;
+        t.m_index = points.size() - 1;
+
+        GetTurnDirection(rawRoute.unpacked_path_segments[i][j - 1],
+                         rawRoute.unpacked_path_segments[i][j],
+                         mwmId, t);
+        if (t.m_turn != turns::NoTurn)
+          turnsDir.push_back(t);
+      }
 
       buffer_vector<SegT, 8> buffer;
       m_mapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
@@ -604,34 +613,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         if (j == n - 1 && k == endK - 1)
           endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
 
-
-        if (j > 0 && k == startK)
-        {
-          ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(startIdx)), 2, ());
-
-          m2::PointD const p2 = ft.GetPoint((seg.m_pointEnd > seg.m_pointStart) ? startIdx + 1 : startIdx - 1);
-
-          string name;
-          ft.GetName(FeatureType::DEFAULT_LANG, name);
-
-          string n1, n2;
-          search::GetStreetNameAsKey(namePrev, n1);
-          search::GetStreetNameAsKey(name, n2);
-
-          Route::TurnInstruction const t = GetTurnInstruction(fTypePrev, ft, p1, p, p2, (!n1.empty() && (n1 == n2)));
-
-          if (t != Route::NoTurn)
-            turns.push_back(Route::TurnItemT(points.size(), t));
-        }
-
-        if (k == endK - 1)
-        {
-          fTypePrev = feature::TypesHolder(ft);
-          ft.GetName(FeatureType::DEFAULT_LANG, namePrev);
-          p1 = ft.GetPoint((seg.m_pointEnd > seg.m_pointStart) ? (endIdx - 1) : (endIdx + 1));
-          p = ft.GetPoint(endIdx);
-        }
-
         if (seg.m_pointEnd > seg.m_pointStart)
         {
           for (auto idx = startIdx; idx <= endIdx; ++idx)
@@ -644,6 +625,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
           points.push_back(ft.GetPoint(endIdx));
         }
       }
+
     }
   }
 
@@ -653,11 +635,19 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   if (points.size() < 2)
     return RouteNotFound;
 
+  turnsDir.push_back(Route::TurnItem(points.size() - 1, turns::ReachedYourDestination));
+  FixupTurns(points, turnsDir);
+
   // osrm multiple seconds to 10, so we need to divide it back
   estimateTime /= 10;
 
+#ifdef _DEBUG
+  for (auto t : turnsDir)
+    LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_srcName, "-", t.m_trgName, "exit:", t.m_exitNum));
+#endif
+
   route.SetGeometry(points.begin(), points.end());
-  route.SetTurnInstructions(turns);
+  route.SetTurnInstructions(turnsDir);
   route.SetTime(estimateTime);
 
   LOG(LDEBUG, ("Estimate time:", estimateTime, "s"));
@@ -665,51 +655,176 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   return NoError;
 }
 
-Route::TurnInstruction OsrmRouter::GetTurnInstruction(feature::TypesHolder const & ft1, feature::TypesHolder const & ft2,
-                                                      m2::PointD const & p1, m2::PointD const & p, m2::PointD const & p2,
-                                                      bool isStreetEqual) const
+void OsrmRouter::GetTurnDirection(PathData const & node1,
+                                  PathData const & node2,
+                                  uint32_t mwmId, Route::TurnItem & turn)
 {
-  bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
-  bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
 
-  if (isRound1 && isRound2)
-    return Route::StayOnRoundAbout;
+  auto nSegs1 = m_mapping.GetSegmentsRange(node1.node);
+  auto nSegs2 = m_mapping.GetSegmentsRange(node2.node);
 
-  if (!isRound1 && isRound2)
-    return Route::EnterRoundAbout;
+  ASSERT_GREATER(nSegs1.second, 0, ());
 
-  if (isRound1 && !isRound2)
-    return Route::LeaveRoundAbout;
+  OsrmFtSegMapping::FtSeg seg1, seg2;
+  m_mapping.GetSegmentByIndex(nSegs1.second - 1, seg1);
+  m_mapping.GetSegmentByIndex(nSegs2.first, seg2);
 
-  if (isStreetEqual)
-    return Route::NoTurn;
+  FeatureType ft1, ft2;
+  Index::FeaturesLoaderGuard loader1(*m_pIndex, mwmId);
+  Index::FeaturesLoaderGuard loader2(*m_pIndex, mwmId);
+
+  loader1.GetFeature(seg1.m_fid, ft1);
+  loader2.GetFeature(seg2.m_fid, ft2);
+
+  ft1.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  ft2.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), 2, ());
+
+  m2::PointD p = ft1.GetPoint(seg1.m_pointEnd);
+  m2::PointD p1 = ft1.GetPoint(seg1.m_pointEnd > seg1.m_pointStart ? seg1.m_pointEnd - 1 : seg1.m_pointEnd + 1);
+  m2::PointD p2 = ft2.GetPoint(seg2.m_pointEnd > seg2.m_pointStart ? seg2.m_pointStart + 1 : seg2.m_pointStart - 1);
 
   double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
   while (a < 0)
     a += 360;
 
+  turn.m_turn = turns::NoTurn;
   if (a >= 23 && a < 67)
-    return Route::TurnSharpRight;
+    turn.m_turn = turns::TurnSharpRight;
+  else if (a >= 67 && a < 113)
+    turn.m_turn = turns::TurnRight;
+  else if (a >= 113 && a < 177)
+    turn.m_turn = turns::TurnSlightRight;
+  else if (a >= 177 && a < 183)
+    turn.m_turn = turns::GoStraight;
+  else if (a >= 183 && a < 248)
+    turn.m_turn = turns::TurnSlightLeft;
+  else if (a >= 248 && a < 292)
+    turn.m_turn = turns::TurnLeft;
+  else if (a >= 292 && a < 336)
+    turn.m_turn = turns::TurnSharpLeft;
 
-  if (a >= 67 && a < 113)
-    return Route::TurnRight;
+  bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
+  bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
 
-  if (a >= 113 && a < 158)
-    return Route::TurnSlightRight;
+  auto hasMultiTurns = [&]()
+  {
+    for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(node1.node))
+    {
+      QueryEdge::EdgeData const & d = m_dataFacade.GetEdgeData(e, node1.node);
+      if (d.forward && m_dataFacade.GetTarget(e) != node2.node)
+        return true;
+    }
+    return false;
+  };
 
-  if (a >= 158 && a < 202)
-    return Route::GoStraight;
+  if (isRound1 && isRound2)
+  {
+    if (hasMultiTurns())
+      turn.m_turn = turns::StayOnRoundAbout;
+    else // No turn possible.
+      turn.m_turn = turns::NoTurn;
+    return;
+  }
 
-  if (a >= 202 && a < 248)
-    return Route::TurnSlightLeft;
+  if (!isRound1 && isRound2)
+  {
+    turn.m_turn = turns::EnterRoundAbout;
+    return;
+  }
 
-  if (a >= 248 && a < 292)
-    return Route::TurnLeft;
+  if (isRound1 && !isRound2)
+  {
+    STATIC_ASSERT(turns::TurnRight < turns::TurnSlightRight);
+    STATIC_ASSERT(turns::TurnLeft < turns::TurnSlightLeft);
 
-  if (a >= 292 && a < 336)
-    return Route::TurnSharpLeft;
+    /// @todo: add support of left-hand traffic
+    if (!turns::IsLeftTurn(turn.m_turn))
+      turn.m_turn = turns::LeaveRoundAbout;
+    return;
+  }
 
-  return Route::UTurn;
+  // get names
+  string name1, name2;
+  {
+    ft1.GetName(FeatureType::DEFAULT_LANG, turn.m_srcName);
+    ft2.GetName(FeatureType::DEFAULT_LANG, turn.m_trgName);
+
+    search::GetStreetNameAsKey(turn.m_srcName, name1);
+    search::GetStreetNameAsKey(turn.m_trgName, name2);
+  }
+
+  string road1 = ft1.GetRoadNumber();
+  string road2 = ft2.GetRoadNumber();
+
+  if ((!name1.empty() && name1 == name2) ||
+      (!road1.empty() && road1 == road2))
+  {
+    turn.m_turn = turns::NoTurn;
+    return;
+  }
+
+  if (turn.m_turn == turns::GoStraight)
+  {
+    if (!hasMultiTurns())
+      turn.m_turn = turns::NoTurn;
+
+    return;
+  }
+
+  if (turn.m_turn == turns::NoTurn)
+    turn.m_turn = turns::UTurn;
+}
+
+void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const
+{
+  uint32_t exitNum = 0;
+  Route::TurnItem * roundabout = 0;
+
+  auto distance = [&points](uint32_t start, uint32_t end)
+  {
+    double res = 0.0;
+    for (uint32_t i = start + 1; i < end; ++i)
+      res += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
+    return res;
+  };
+
+  for (uint32_t idx = 0; idx < turnsDir.size(); )
+  {
+    Route::TurnItem & t = turnsDir[idx];
+    if (roundabout && t.m_turn != turns::StayOnRoundAbout && t.m_turn != turns::LeaveRoundAbout)
+    {
+      exitNum = 0;
+      roundabout = 0;
+    }
+    else if (t.m_turn == turns::EnterRoundAbout)
+    {
+      ASSERT_EQUAL(roundabout, 0, ());
+      roundabout = &t;
+    }
+    else if (t.m_turn == turns::StayOnRoundAbout)
+      ++exitNum;
+    else if (t.m_turn == turns::LeaveRoundAbout)
+    {
+      roundabout->m_exitNum = exitNum + 1;
+      roundabout = 0;
+      exitNum = 0;
+    }
+
+    double const mergeDist = 30.0;
+
+    if (idx > 0 &&
+        turns::IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
+        turns::IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
+        distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < mergeDist)
+    {
+      turnsDir.erase(turnsDir.begin() + idx - 1);
+      continue;
+    }
+
+    ++idx;
+  }
 }
 
 IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,

@@ -94,6 +94,27 @@ IsRoundAboutChecker const & IsRoundAboutChecker::Instance()
   return inst;
 }
 
+IsLinkChecker::IsLinkChecker()
+{
+  Classificator const & c = classif();
+  char const * arr[][2] = {
+    { "highway", "motorway_link" },
+    { "highway", "trunk_link" },
+    { "highway", "primary_link" },
+    { "highway", "secondary_link" },
+    { "highway", "tertiary_link" }
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+}
+
+IsLinkChecker const & IsLinkChecker::Instance()
+{
+  static const IsLinkChecker inst;
+  return inst;
+}
+
 IsBuildingChecker::IsBuildingChecker()
 {
   Classificator const & c = classif();

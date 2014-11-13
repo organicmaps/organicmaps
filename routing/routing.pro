@@ -12,6 +12,7 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/Include
 
 SOURCES += \
+    turns.cpp \
     route.cpp \
     osrm_router.cpp \
     osrm_online_router.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
     ../3party/succinct/rs_bit_vector.cpp \
 
 HEADERS += \
+    turns.hpp \
     route.hpp \
     router.hpp \
     osrm_router.hpp \

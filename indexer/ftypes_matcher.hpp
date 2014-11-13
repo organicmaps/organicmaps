@@ -50,6 +50,13 @@ public:
   static IsRoundAboutChecker const & Instance();
 };
 
+class IsLinkChecker : public BaseChecker
+{
+public:
+  IsLinkChecker();
+  static IsLinkChecker const & Instance();
+};
+
 class IsBuildingChecker : public BaseChecker
 {
 public:

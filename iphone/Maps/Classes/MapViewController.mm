@@ -128,7 +128,7 @@
     if (res.IsValid())
     {
       [self.routeView updateDistance:[NSString stringWithUTF8String:res.m_distToTarget.c_str()]
-                         withMetrics:[NSString stringWithUTF8String:res.m_unitsSuffix.c_str()]];
+                         withMetrics:[NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()]];
     }
   }
 }

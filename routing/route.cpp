@@ -35,6 +35,7 @@ void Route::Swap(Route & rhs)
   swap(m_current, rhs.m_current);
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
+  swap(m_time, rhs.m_time);
 }
 
 void Route::SetTurnInstructions(TurnsT & v)
@@ -72,6 +73,37 @@ double Route::GetCurrentDistanceToEnd() const
 
   return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
           MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
+}
+
+void Route::GetTurn(double & distance, Route::TurnItem & turn) const
+{
+  if (m_segDistance.empty())
+  {
+    distance = 0;
+    turn = Route::TurnItem();
+  }
+
+  if (m_current.m_ind == 0)
+  {
+    ASSERT_GREATER(m_turns[0].m_index, 0, ());
+    distance = m_segDistance[m_turns[0].m_index - 1];
+    turn = m_turns.empty() ? (Route::TurnItem()) : m_turns[0];
+    return;
+  }
+
+  TurnItem t;
+  t.m_index = m_current.m_ind;
+  auto it = upper_bound(m_turns.begin(), m_turns.end(), t,
+            [](TurnItem const & v, TurnItem const & item)
+            {
+              return v.m_index < item.m_index;
+            });
+
+  ASSERT_GREATER_OR_EQUAL((*it).m_index - 1, 0, ());
+
+  size_t const segIdx = (*it).m_index - 1;
+  turn = (*it);
+  distance = m_segDistance[segIdx] - GetCurrentDistanceFromBegin();
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const

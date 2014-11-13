@@ -1,5 +1,7 @@
 #pragma once
 
+#include "turns.hpp"
+
 #include "../geometry/polyline2d.hpp"
 
 #include "../std/vector.hpp"
@@ -15,30 +17,27 @@ class Route
 {
 public:
 
-  enum TurnInstruction
+  struct TurnItem
   {
-    NoTurn = 0,
-    GoStraight,
-    TurnRight,
-    TurnSharpRight,
-    TurnSlightRight,
-    TurnLeft,
-    TurnSharpLeft,
-    TurnSlightLeft,
-    UTurn,
-    HeadOn,
-    EnterRoundAbout,
-    LeaveRoundAbout,
-    StayOnRoundAbout,
-    StartAtEndOfStreet,
-    ReachedYourDestination,
-    EnterAgainstAllowedDirection,
-    LeaveAgainstAllowedDirection
+    TurnItem()
+      : m_index(std::numeric_limits<uint32_t>::max())
+      , m_turn(turns::NoTurn), m_exitNum(0)
+    {
+    }
+
+    TurnItem(uint32_t idx, turns::TurnDirection t)
+      : m_index(idx), m_turn(t), m_exitNum(0)
+    {
+    }
+
+    uint32_t m_index; // number of point on polyline (number of segment + 1)
+    turns::TurnDirection m_turn;
+    uint32_t m_exitNum;  // number of exit on roundabout
+    string m_srcName;
+    string m_trgName;
   };
 
-  // first value of piar is an number of point in polyline (number of segment + 1)
-  typedef pair<uint32_t, TurnInstruction> TurnItemT;
-  typedef vector<TurnItemT> TurnsT;
+  typedef vector<TurnItem> TurnsT;
 
   explicit Route(string const & router) : m_router(router) {}
 
@@ -87,6 +86,8 @@ public:
   double GetCurrentDistanceFromBegin() const;
   double GetCurrentDistanceToEnd() const;
   //@}
+
+  void GetTurn(double & distance, Route::TurnItem & turn) const;
 
   /// @return true  If position was updated successfully (projection within gps error radius).
   bool MoveIterator(location::GpsInfo const & info) const;

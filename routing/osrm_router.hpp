@@ -16,6 +16,7 @@ namespace feature { class TypesHolder; }
 
 class Index;
 struct PhantomNode;
+struct PathData;
 
 namespace routing
 {
@@ -51,10 +52,10 @@ protected:
   void CalculateRouteAsync(ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route);
 
-  Route::TurnInstruction GetTurnInstruction(feature::TypesHolder const & ft1, feature::TypesHolder const & ft2,
-                                            m2::PointD const & p1, m2::PointD const & p, m2::PointD const & p2,
-                                            bool isStreetEqual) const;
-
+  void GetTurnDirection(PathData const & node1,
+                        PathData const & node2,
+                        uint32_t mwmId, Route::TurnItem & turn);
+  void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
 private:
   Index const * m_pIndex;
 

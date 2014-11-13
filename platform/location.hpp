@@ -2,6 +2,8 @@
 
 #include "../base/base.hpp"
 
+#include "../routing/turns.hpp"
+
 #include "../std/string.hpp"
 
 
@@ -77,8 +79,17 @@ namespace location
     /// @name Formatted covered distance with measurement units suffix.
     //@{
     string m_distToTarget;
-    string m_unitsSuffix;
+    string m_targetUnitsSuffix;
     //@}
+
+    /// @name Formated distance to next turn with measurement unit suffix
+    //@{
+    string m_distToTurn;
+    string m_turnUnitsSuffix;
+    routing::turns::TurnDirection m_turn;
+    uint32_t m_exitNum;
+    //@}
+    int m_time;
 
     bool IsValid() const { return !m_distToTarget.empty(); }
   };

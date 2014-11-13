@@ -1294,7 +1294,7 @@ extern "C"
 
         return env->NewObject(klass, methodID,
                               jni::ToJavaString(env, info.m_distToTarget),
-                              jni::ToJavaString(env, info.m_unitsSuffix));
+                              jni::ToJavaString(env, info.m_targetUnitsSuffix));
       }
     }
 
