@@ -60,7 +60,7 @@
 
 - (NSString *)secondsToString:(NSNumber *)seconds
 {
-  NSString * minutesString = [NSString stringWithFormat:@"%d min", ([seconds integerValue] / 60)];
+  NSString * minutesString = [NSString stringWithFormat:@"%d min", (NSInteger)(ceil([seconds integerValue] * 1. / 60))];
   return minutesString;
 }
 
