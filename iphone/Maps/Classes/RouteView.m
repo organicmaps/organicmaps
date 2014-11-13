@@ -6,11 +6,18 @@
 
 @property (nonatomic) UIButton * closeButton;
 @property (nonatomic) UIButton * startButton;
-@property (nonatomic) UILabel * distanceLabel;
+
+@property (nonatomic) UIImageView * turnTypeView;
+@property (nonatomic) UIImageView * turnView;
+
+@property (nonatomic) UIImageView * nextTurnDistanceView;
 @property (nonatomic) UIView * wrapView;
-@property (nonatomic) UILabel * metricsLabel;
-@property (nonatomic) UIImageView * backgroundView;
-@property (nonatomic) UIImageView * distanceView;
+@property (nonatomic) UILabel * nextTurnDistanceLabel;
+@property (nonatomic) UILabel * nextTurnMetricsLabel;
+
+@property (nonatomic) UIImageView * overallInfoView;
+@property (nonatomic) UILabel * distanceLabel;
+@property (nonatomic) UILabel * timeLeftLabel;
 
 @end
 
@@ -21,48 +28,74 @@
   self = [super initWithFrame:frame];
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
-  [self addSubview:self.distanceView];
-  [self.distanceView addSubview:self.wrapView];
-  [self.wrapView addSubview:self.distanceLabel];
-  [self.wrapView addSubview:self.metricsLabel];
+  [self addSubview:self.turnView];
+  
+  [self addSubview:self.nextTurnDistanceView];
+  [self.nextTurnDistanceView addSubview:self.wrapView];
+  [self.wrapView addSubview:self.nextTurnDistanceLabel];
+  [self.wrapView addSubview:self.nextTurnMetricsLabel];
+  
+  [self addSubview:self.overallInfoView];
+  [self.overallInfoView addSubview:self.distanceLabel];
+  [self.overallInfoView addSubview:self.timeLeftLabel];
+  
   [self addSubview:self.closeButton];
   [self addSubview:self.startButton];
 
   return self;
 }
 
-- (void)updateDistance:(NSString *)distance withMetrics:(NSString *)metrics
+- (void)updateWithInfo:(NSDictionary *)info
 {
-  self.distanceLabel.text = distance;
-  self.metricsLabel.text = metrics.uppercaseString;
+  self.turnTypeView.image = [self imageForTurnType:0];
+  self.nextTurnDistanceLabel.text = info[@"distance"];
+  self.nextTurnMetricsLabel.text = [info[@"metrics"] uppercaseString];
+  self.distanceLabel.text = [info[@"distance"] stringByAppendingString:[info[@"metrics"] uppercaseString]];
+  self.timeLeftLabel.text = @"25 min";
+  
   [UIView animateWithDuration:0.2 animations:^{
     [self layoutSubviews];
   }];
+}
+
+- (UIImage *)imageForTurnType:(NSInteger)turnType
+{
+  return [UIImage imageNamed:@"circle"];
 }
 
 #define BUTTON_HEIGHT 51
 
 - (void)layoutSubviews
 {
-  if (self.distanceLabel.text.length == 0)
-    self.distanceView.alpha = 0;
+  if (self.nextTurnDistanceLabel.text.length == 0)
+    self.nextTurnDistanceView.alpha = 0;
   else
   {
-    [self.distanceLabel sizeToIntegralFit];
-    [self.metricsLabel sizeToIntegralFit];
+    [self.nextTurnDistanceLabel sizeToIntegralFit];
+    [self.nextTurnMetricsLabel sizeToIntegralFit];
 
     CGFloat const betweenOffset = 2;
-    self.wrapView.size = CGSizeMake(self.distanceLabel.width + betweenOffset + self.metricsLabel.width, 40);
+    self.wrapView.size = CGSizeMake(self.nextTurnDistanceLabel.width + betweenOffset + self.nextTurnMetricsLabel.width, 40);
     self.wrapView.center = CGPointMake(self.wrapView.superview.width / 2, self.wrapView.superview.height / 2);
     self.wrapView.frame = CGRectIntegral(self.wrapView.frame);
 
-    self.distanceLabel.minX = 0;
-    self.metricsLabel.minX = self.distanceLabel.minX + self.distanceLabel.width + betweenOffset;
-    self.distanceLabel.midY = self.wrapView.height / 2 ;
-    self.metricsLabel.maxY = self.distanceLabel.maxY - 5;
+    self.nextTurnDistanceLabel.minX = 0;
+    self.nextTurnMetricsLabel.minX = self.nextTurnDistanceLabel.minX + self.nextTurnDistanceLabel.width + betweenOffset;
+    self.nextTurnDistanceLabel.midY = self.wrapView.height / 2 ;
+    self.nextTurnMetricsLabel.maxY = self.nextTurnDistanceLabel.maxY - 5;
 
-    self.distanceView.alpha = 1;
-    self.distanceView.size = CGSizeMake(self.wrapView.width + 24, BUTTON_HEIGHT);
+    self.nextTurnDistanceView.alpha = 1;
+    self.nextTurnDistanceView.size = CGSizeMake(self.wrapView.width + 24, BUTTON_HEIGHT);
+    
+    [self.distanceLabel sizeToIntegralFit];
+    [self.timeLeftLabel sizeToIntegralFit];
+    CGFloat const overallInfoViewPadding = 12;
+    self.overallInfoView.width = MAX(self.distanceLabel.width, self.timeLeftLabel.width) + 2 * overallInfoViewPadding;
+    self.overallInfoView.minX = self.nextTurnDistanceView.maxX;
+    self.distanceLabel.minX = overallInfoViewPadding;
+    self.distanceLabel.minY = 10;
+    self.timeLeftLabel.minX = overallInfoViewPadding;
+    self.timeLeftLabel.maxY = self.timeLeftLabel.superview.height - 10;
   }
 }
 
@@ -97,26 +130,36 @@
   CGFloat const offsetInnerX = 2;
   CGFloat const originY = 20;
   [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.distanceView.minX = offsetInnerX;
+    self.turnView.minX = offsetInnerX;
+    self.nextTurnDistanceView.minX = self.turnView.maxX;
+    self.overallInfoView.minX = self.nextTurnDistanceView.maxX;
     self.closeButton.maxX = self.width - offsetInnerX;
     self.startButton.maxX = self.closeButton.minX + 3;
     if (visible)
     {
       self.startButton.userInteractionEnabled = YES;
       self.startButton.minY = originY - offsetInnerY;
-      self.distanceView.minY = self.startButton.minY;
+      self.turnView.minY = self.startButton.minY;
+      self.nextTurnDistanceView.minY = self.startButton.minY;
+      self.overallInfoView.minY = self.startButton.minY;
       self.closeButton.minY = self.startButton.minY;
       self.startButton.alpha = 1.0;
-      self.distanceView.alpha = 1.0;
+      self.turnView.alpha = 1.0;
+      self.nextTurnDistanceView.alpha = 1.0;
+      self.overallInfoView.alpha = 1.0;
       self.closeButton.alpha = 1.0;
     }
     else
     {
       self.startButton.maxY = -30;
-      self.distanceView.maxY = self.startButton.maxY;
+      self.turnView.maxY = self.startButton.maxY;
+      self.nextTurnDistanceView.maxY = self.startButton.maxY;
+      self.overallInfoView.maxY = self.startButton.maxY;
       self.closeButton.maxY = self.startButton.maxY;
       self.startButton.alpha = 0.0;
-      self.distanceView.alpha = 0.0;
+      self.turnView.alpha = 0.0;
+      self.nextTurnDistanceView.alpha = 0.0;
+      self.overallInfoView.alpha = 0.0;
       self.closeButton.alpha = 0.0;
     }
   } completion:nil];
@@ -169,40 +212,65 @@
   return _startButton;
 }
 
-- (UILabel *)distanceLabel
+- (UILabel *)nextTurnDistanceLabel
 {
-  if (!_distanceLabel)
+  if (!_nextTurnDistanceLabel)
   {
-    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _distanceLabel.backgroundColor = [UIColor clearColor];
-    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:34];
-    _distanceLabel.textColor = [UIColor blackColor];
+    _nextTurnDistanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _nextTurnDistanceLabel.backgroundColor = [UIColor clearColor];
+    _nextTurnDistanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:34];
+    _nextTurnDistanceLabel.textColor = [UIColor blackColor];
   }
-  return _distanceLabel;
+  return _nextTurnDistanceLabel;
 }
 
-- (UILabel *)metricsLabel
+- (UILabel *)nextTurnMetricsLabel
 {
-  if (!_metricsLabel)
+  if (!_nextTurnMetricsLabel)
   {
-    _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _metricsLabel.backgroundColor = [UIColor clearColor];
-    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
-    _metricsLabel.textColor = [UIColor blackColor];
+    _nextTurnMetricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _nextTurnMetricsLabel.backgroundColor = [UIColor clearColor];
+    _nextTurnMetricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
+    _nextTurnMetricsLabel.textColor = [UIColor blackColor];
   }
-  return _metricsLabel;
+  return _nextTurnMetricsLabel;
 }
 
-- (UIImageView *)distanceView
+- (UIImageView *)nextTurnDistanceView
 {
-  if (!_distanceView)
+  if (!_nextTurnDistanceView)
   {
-    _distanceView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _nextTurnDistanceView = [[UIImageView alloc] initWithFrame:CGRectZero];
     UIImage * image = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    _distanceView.image = image;
-    _distanceView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    _nextTurnDistanceView.image = image;
+    _nextTurnDistanceView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
   }
-  return _distanceView;
+  return _nextTurnDistanceView;
+}
+
+- (UIImageView *)turnTypeView
+{
+  if (!_turnTypeView)
+  {
+    _turnTypeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    _turnTypeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+  }
+  return _turnTypeView;
+}
+
+- (UIImageView *)turnView
+{
+  if (!_turnView)
+  {
+    _turnView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, BUTTON_HEIGHT, BUTTON_HEIGHT)];
+    UIImage * image = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    _turnView.image = image;
+    _turnView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    self.turnTypeView.midX = _turnView.width / 2.0;
+    self.turnTypeView.midY = _turnView.height / 2.0;
+    [_turnView addSubview:self.turnTypeView];
+  }
+  return _turnView;
 }
 
 - (UIView *)wrapView
@@ -210,6 +278,39 @@
   if (!_wrapView)
     _wrapView = [[UIView alloc] initWithFrame:CGRectZero];
   return _wrapView;
+}
+
+- (UIImageView *)overallInfoView
+{
+  if (!_overallInfoView) {
+    _overallInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, BUTTON_HEIGHT, BUTTON_HEIGHT)];
+    UIImage * image = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    _overallInfoView.image = image;
+    _overallInfoView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+  }
+  return _overallInfoView;
+}
+
+- (UILabel *)distanceLabel
+{
+  if (!_distanceLabel) {
+    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _distanceLabel.backgroundColor = [UIColor clearColor];
+    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+    _distanceLabel.textColor = [UIColor blackColor];
+  }
+  return _distanceLabel;
+}
+
+- (UILabel *)timeLeftLabel
+{
+  if (!_timeLeftLabel) {
+    _timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _timeLeftLabel.backgroundColor = [UIColor clearColor];
+    _timeLeftLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+    _timeLeftLabel.textColor = [UIColor blackColor];
+  }
+  return _timeLeftLabel;
 }
 
 @end

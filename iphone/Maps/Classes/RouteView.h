@@ -15,7 +15,7 @@
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated;
 - (void)hideFollowButton;
 
-- (void)updateDistance:(NSString *)distance withMetrics:(NSString *)metrics;
+- (void)updateWithInfo:(NSDictionary *)info;
 
 @property (nonatomic, weak) id <RouteViewDelegate> delegate;
 @property (nonatomic, readonly) BOOL visible;

@@ -127,8 +127,15 @@
 
     if (res.IsValid())
     {
+<<<<<<< HEAD
       [self.routeView updateDistance:[NSString stringWithUTF8String:res.m_distToTarget.c_str()]
                          withMetrics:[NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()]];
+=======
+      NSMutableDictionary *routeInfo = [NSMutableDictionary new];
+      routeInfo[@"distance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
+      routeInfo[@"metrics"] = [NSString stringWithUTF8String:res.m_unitsSuffix.c_str()];
+      [self.routeView updateWithInfo:routeInfo];
+>>>>>>> Added turn-by-turn view.
     }
   }
 }
@@ -976,7 +983,7 @@
     return;
   }
 
-  [self.routeView updateDistance:nil withMetrics:nil];
+  [self.routeView updateWithInfo:nil];
   [self.containerView.placePage showBuildingRoutingActivity:YES];
   GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
 }
