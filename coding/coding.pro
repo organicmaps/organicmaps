@@ -33,6 +33,7 @@ SOURCES += \
     zip_creator.cpp \
     file_name_utils.cpp \
     varint_vector.cpp \
+    arithmetic_codec.cpp \
 
 HEADERS += \
     internal/xmlparser.hpp \
@@ -95,3 +96,4 @@ HEADERS += \
     constants.hpp \
     matrix_traversal.hpp \
     varint_vector.hpp \
+    arithmetic_codec.hpp \

@@ -46,6 +46,7 @@ SOURCES += ../../testing/testingmain.cpp \
     zip_creator_test.cpp \
     file_utils_test.cpp \
     varint_vector_test.cpp \
+    arithmetic_codec_test.cpp \
 
 HEADERS += \
     reader_test.hpp \
