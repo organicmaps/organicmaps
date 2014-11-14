@@ -47,6 +47,7 @@ SOURCES += ../../testing/testingmain.cpp \
     file_utils_test.cpp \
     varint_vector_test.cpp \
     arithmetic_codec_test.cpp \
+    compressed_bit_vector_test.cpp \
 
 HEADERS += \
     reader_test.hpp \

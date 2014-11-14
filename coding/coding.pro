@@ -34,6 +34,7 @@ SOURCES += \
     file_name_utils.cpp \
     varint_vector.cpp \
     arithmetic_codec.cpp \
+    compressed_bit_vector.cpp \
 
 HEADERS += \
     internal/xmlparser.hpp \
@@ -97,3 +98,4 @@ HEADERS += \
     matrix_traversal.hpp \
     varint_vector.hpp \
     arithmetic_codec.hpp \
+    compressed_bit_vector.hpp \
