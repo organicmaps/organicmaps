@@ -358,8 +358,7 @@ void Classificator::ReadClassificator(istream & s)
 
   m_root.Sort();
 
-  char const * path[] = { "natural", "coastline" };
-  m_coastType = GetTypeByPath(vector<string>(path, path + 2));
+  m_coastType = GetTypeByPath({ "natural", "coastline" });
 }
 
 void Classificator::SortClassificator()

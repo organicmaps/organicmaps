@@ -106,9 +106,8 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
   Classificator const & c = classif();
 
   vector<uint32_t> types;
-  types.push_back(c.GetTypeByPath(vector<string>(1, "building")));
-  char const * arr[] = { "amenity", "theatre" };
-  types.push_back(c.GetTypeByPath(vector<string>(arr, arr + 2)));
+  types.push_back(c.GetTypeByPath({ "building" }));
+  types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
   TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
   TEST_EQUAL(types.size(), 2, ());
