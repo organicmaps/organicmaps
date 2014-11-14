@@ -771,6 +771,12 @@ namespace glm
 
 #if GLM_HAS_CONSTEXPR
 #	define GLM_CONSTEXPR constexpr
+// TODO(artyom): LowPriority. constexpr doesn't work in MSVC <= 18.00. Maybe some other nice workaround?
+# ifdef _MSC_VER
+#   if _MSC_VER <= 1800
+#     define GLM_CONSTEXPR
+#   endif
+# endif
 #else
 #	define GLM_CONSTEXPR
 #endif
