@@ -1,16 +1,14 @@
 package com.mapswithme.maps.tests;
 
-import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
-import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.jayway.android.robotium.solo.Solo;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.SearchActivity;
+import com.mapswithme.maps.search.SearchActivity;
 import com.squareup.spoon.Spoon;
 
 public class SearchActivityTest extends ActivityInstrumentationTestCase2<SearchActivity>

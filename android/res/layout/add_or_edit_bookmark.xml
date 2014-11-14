@@ -76,7 +76,7 @@
           android:id="@+id/pin_set_chooser"
           style="@style/pinEditableParam"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="0dp"
           android:layout_marginBottom="@dimen/dp_x_4"
           android:layout_weight="1"
           android:focusable="false"/>

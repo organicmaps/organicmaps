@@ -145,7 +145,7 @@
     </activity>
 
     <activity
-        android:name="com.mapswithme.maps.SearchActivity"
+        android:name=".search.SearchActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/search_map"
         android:screenOrientation="behind"

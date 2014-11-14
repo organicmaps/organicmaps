@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.SearchActivity;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.util.UiUtils;
 

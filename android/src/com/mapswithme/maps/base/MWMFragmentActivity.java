@@ -12,7 +12,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 import ru.mail.mrgservice.MRGService;
-public class MapsWithMeBaseFragmentActivity extends ActionBarActivity implements Framework.BuyProListener
+
+public class MWMFragmentActivity extends ActionBarActivity implements Framework.BuyProListener
 {
   @Override
   protected void onResume()
@@ -66,6 +67,6 @@ public class MapsWithMeBaseFragmentActivity extends ActionBarActivity implements
 
   public void onBuyPro()
   {
-    UiUtils.showBuyProDialog(MapsWithMeBaseFragmentActivity.this, getString(R.string.routing_failed_buy_pro));
+    UiUtils.showBuyProDialog(MWMFragmentActivity.this, getString(R.string.routing_failed_buy_pro));
   }
 }

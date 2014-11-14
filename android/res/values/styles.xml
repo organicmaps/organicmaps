@@ -4,9 +4,9 @@
   <style name="AppTheme" parent="Theme.AppCompat.Light">
 
     <!-- customize the color palette -->
-    <item name="colorPrimary">@color/green</item>
-    <item name="colorPrimaryDark">@color/downloader_blue</item>
-    <item name="colorAccent">@color/ab_bookmarks</item>
+    <item name="colorPrimary">@color/base_green</item>
+    <item name="colorPrimaryDark">@color/text_search_item_greyed</item>
+    <item name="colorAccent">@color/downloader_blue</item>
   </style>
 
   <string name="robotoLight">sans-serif-light</string>
@@ -126,5 +126,9 @@
     <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
     <item name="android:textOn"/>
     <item name="android:textOff"/>
+  </style>
+
+  <style name="MyActionBar" parent="Widget.AppCompat.Toolbar">
+    <item name="displayOptions">showHome|homeAsUp|showTitle</item>
   </style>
 </resources>

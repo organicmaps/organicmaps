@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -61,7 +62,9 @@ import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchController;
+import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
@@ -147,6 +150,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
   };
   private boolean mAreToolbarAdsUpdated;
+  private boolean mIsFragmentContainer;
 
   private LocationPredictor mLocationPredictor;
 
@@ -599,9 +603,18 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void runSearchActivity()
+  private void showSearchFragment()
   {
-    startActivity(new Intent(this, SearchActivity.class));
+    if (mIsFragmentContainer)
+    {
+      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+      Fragment fragment = Fragment.instantiate(this, SearchFragment.class.getName(), getIntent().getExtras());
+      transaction.replace(R.id.fragment_container, fragment);
+      transaction.addToBackStack(null);
+      transaction.commit();
+    }
+    else
+      startActivity(new Intent(this, SearchActivity.class));
   }
 
   public void onSearchClicked(View v)
@@ -619,11 +632,11 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void doCancel()
       {
-        runSearchActivity();
+        showSearchFragment();
       }
     }))
     {
-      runSearchActivity();
+      showSearchFragment();
     }
   }
 
@@ -761,13 +774,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     nativeConnectDownloadButton();
 
-    // Set up view
-    mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
-
-    yotaSetup();
-
-    setUpInfoBox();
-    setUpRoutingBox();
+    initViews();
 
     Framework.nativeSetRoutingListener(this);
     Framework.nativeConnectBalloonListeners(this);
@@ -780,8 +787,6 @@ public class MWMActivity extends NvEventQueueActivity
     mSearchController = SearchController.getInstance();
     mSearchController.onCreate(this);
 
-    setUpToolbars();
-
     if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
     {
       String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
@@ -793,6 +798,17 @@ public class MWMActivity extends NvEventQueueActivity
     LocalBroadcastManager.getInstance(this).registerReceiver(mUpdateAdsReceiver, new IntentFilter(WorkerService.ACTION_UPDATE_MENU_ADS));
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
+  }
+
+  private void initViews()
+  {
+    mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
+    yotaSetup();
+    setUpInfoBox();
+    setUpRoutingBox();
+    setUpToolbars();
+    if (findViewById(R.id.fragment_container) != null)
+      mIsFragmentContainer = true;
   }
 
   private void updateToolbarAds()
@@ -969,8 +985,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
   }
 
-  /// @name From Location interface
-  //@{
   @Override
   public void onLocationError(int errorCode)
   {
@@ -1073,7 +1087,7 @@ public class MWMActivity extends NvEventQueueActivity
       mInfoView.updateAzimuth(north);
   }
 
-  /// Callback from native location GUI element processing.
+  // Callback from native location state mode element processing.
   public void onLocationStateModeChangedCallback(final int newMode)
   {
     runOnUiThread(new Runnable()
@@ -1266,8 +1280,7 @@ public class MWMActivity extends NvEventQueueActivity
       super.onBackPressed();
   }
 
-  /// Callbacks from native map objects touch event.
-
+  // Callbacks from native map objects touch event.
   @Override
   public void onApiPointActivated(final double lat, final double lon, final String name, final String id)
   {

@@ -24,7 +24,7 @@ class SearchAdapter
   // This function may be called several times for one queryID.
   // In that case we should increment m_storeID to distinguish different results.
   // Main queryID is incremented by 5-step to leave space for middle queries.
-  // This constant should be equal with SearchActivity.QUERY_STEP;
+  // This constant should be equal with SearchFragment.QUERY_STEP;
   static int const QUERY_STEP = 5;
 
   void OnResults(search::Results const & res, int queryID)
@@ -192,19 +192,19 @@ extern "C"
 {
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeConnect(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeConnect(JNIEnv * env, jobject thiz)
 {
   SearchAdapter::ConnectInstance(env, thiz);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeDisconnect(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeDisconnect(JNIEnv * env, jobject thiz)
 {
   SearchAdapter::DisconnectInstance(env);
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
+Java_com_mapswithme_maps_search_SearchFragment_nativeRunSearch(
     JNIEnv * env, jobject thiz, jstring s, jstring lang,
     jdouble lat, jdouble lon, jint flags, jint searchMode, jint queryID)
 {
@@ -216,7 +216,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
   params.SetSearchMode(searchMode);
 
   /// @note These magic numbers should be equal with NOT_FIRST_QUERY and HAS_POSITION
-  /// from SearchActivity.java
+  /// from SearchFragment.java
   if ((flags & 1) == 0) params.SetForceSearch(true);
   if ((flags & 2) != 0) params.SetPosition(lat, lon);
 
@@ -224,19 +224,19 @@ Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeShowItem(JNIEnv * env, jobject thiz, jint position)
+Java_com_mapswithme_maps_search_SearchFragment_nativeShowItem(JNIEnv * env, jobject thiz, jint position)
 {
   SearchAdapter::Instance().ShowItem(position);
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeShowAllSearchResults(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_search_SearchFragment_nativeShowAllSearchResults(JNIEnv * env, jclass clazz)
 {
   SearchAdapter::Instance().ShowAllResults();
 }
 
 JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
+Java_com_mapswithme_maps_search_SearchFragment_nativeGetResult(
     JNIEnv * env, jobject thiz, jint position, jint queryID,
     jdouble lat, jdouble lon, jboolean hasPosition, jdouble north)
 {
@@ -254,7 +254,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
 
   env->ReleaseIntArrayElements(ranges, narr, 0);
 
-  jclass klass = env->FindClass("com/mapswithme/maps/SearchActivity$SearchAdapter$SearchResult");
+  jclass klass = env->FindClass("com/mapswithme/maps/search/SearchAdapter$SearchResult");
   ASSERT(klass, ());
 
   if (!res->IsSuggest())
@@ -291,19 +291,19 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_SearchActivity_getLastQuery(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_getLastQuery(JNIEnv * env, jobject thiz)
 {
   return jni::ToJavaString(env, g_framework->GetLastSearchQuery());
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_clearLastQuery(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_search_SearchFragment_clearLastQuery(JNIEnv * env, jobject thiz)
 {
   g_framework->ClearLastSearchQuery();
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_SearchActivity_runInteractiveSearch(JNIEnv * env, jobject thiz,
+Java_com_mapswithme_maps_search_SearchFragment_runInteractiveSearch(JNIEnv * env, jobject thiz,
                               jstring query, jstring lang)
 {
   search::SearchParams params;

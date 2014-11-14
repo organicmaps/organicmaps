@@ -28,15 +28,15 @@ import java.util.Map;
 public class BookmarkListAdapter extends BaseAdapter
     implements LocationService.LocationListener
 {
-  private final Activity mContext;
+  private final Activity mActivity;
   private final BookmarkCategory mCategory;
 
   // reuse drawables
   private final Map<String, Drawable> mBmkToCircle = new HashMap<String, Drawable>(8);
 
-  public BookmarkListAdapter(Activity context, BookmarkCategory cat)
+  public BookmarkListAdapter(Activity activity, BookmarkCategory cat)
   {
-    mContext = context;
+    mActivity = activity;
     mCategory = cat;
   }
 
@@ -89,7 +89,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
       if (convertView == null)
       {
-        sectionView = LayoutInflater.from(mContext).inflate(R.layout.list_separator_base, null);
+        sectionView = LayoutInflater.from(mActivity).inflate(R.layout.list_separator_base, null);
         sectionName = (TextView) sectionView.findViewById(R.id.text);
         sectionView.setTag(sectionName);
       }
@@ -107,7 +107,7 @@ public class BookmarkListAdapter extends BaseAdapter
     if (convertView == null)
     {
       final int id = (type == TYPE_BMK) ? R.layout.list_item_bookmark : R.layout.list_item_track;
-      convertView = LayoutInflater.from(mContext).inflate(id, null);
+      convertView = LayoutInflater.from(mActivity).inflate(id, null);
       convertView.setTag(new PinHolder(convertView));
     }
 
@@ -198,7 +198,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setDistance(Track trk)
     {
-      distance.setText(mContext.getString(R.string.length) + " " + trk.getLengthString());
+      distance.setText(mActivity.getString(R.string.length) + " " + trk.getLengthString());
     }
 
     void setIcon(Bookmark bmk)
@@ -208,7 +208,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
       if (!mBmkToCircle.containsKey(key))
       {
-        final Resources res = mContext.getResources();
+        final Resources res = mActivity.getResources();
         final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
         circle = UiUtils.drawCircleForPin(key, circleSize, res);
         mBmkToCircle.put(key, circle);
@@ -221,7 +221,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setIcon(Track trk)
     {
-      final Resources res = mContext.getResources();
+      final Resources res = mActivity.getResources();
       final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
       // colors could be different, so don't use cache
       final Drawable circle = UiUtils.drawCircle(trk.getColor(), circleSize, res);
@@ -266,8 +266,8 @@ public class BookmarkListAdapter extends BaseAdapter
   private List<String> getSections()
   {
     final List<String> sections = new ArrayList<String>();
-    sections.add(mContext.getString(R.string.tracks));
-    sections.add(mContext.getString(R.string.bookmarks));
+    sections.add(mActivity.getString(R.string.tracks));
+    sections.add(mActivity.getString(R.string.bookmarks));
     return sections;
   }
 

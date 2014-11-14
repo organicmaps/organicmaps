@@ -2,21 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/search_background_gray"
-              android:minHeight="9999dp"
               android:orientation="vertical">
 
-  <include
-      layout="@layout/search_box"
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/MyActionBar"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/search_box_height"/>
+      android:layout_height="@dimen/search_box_height"
+      android:background="@android:color/white">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:voiceIcon="@drawable/ic_es_guides_icon"/>
+  </android.support.v7.widget.Toolbar>
 
   <ListView
       android:id="@android:id/list"
+      android:layout_marginTop="@dimen/margin_small"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:animationCache="false"
-      android:background="@color/bg_bottom_toolbar"
       android:divider="@color/divider_search"
       android:dividerHeight="1px"
       android:scrollbarStyle="outsideOverlay"

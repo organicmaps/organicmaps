@@ -11,7 +11,7 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMActivity.MapTask;
-import com.mapswithme.maps.SearchActivity;
+import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;

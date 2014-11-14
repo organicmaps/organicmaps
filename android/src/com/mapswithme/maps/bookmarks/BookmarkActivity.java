@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MapsWithMeBaseFragmentActivity;
+import com.mapswithme.maps.base.MWMFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
@@ -23,7 +23,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
+public class BookmarkActivity extends MWMFragmentActivity
 {
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";
@@ -133,7 +133,6 @@ public class BookmarkActivity extends MapsWithMeBaseFragmentActivity
             .putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
       }
     });
-
 
     refreshValuesInViews();
 

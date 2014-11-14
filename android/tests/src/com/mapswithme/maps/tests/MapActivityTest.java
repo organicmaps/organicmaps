@@ -8,7 +8,7 @@ import com.jayway.android.robotium.solo.Solo;
 import com.mapswithme.maps.DownloadUI;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.SearchActivity;
+import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.squareup.spoon.Spoon;
 

@@ -155,7 +155,7 @@
             android:screenOrientation="behind" >
         </activity>
         <activity
-            android:name="com.mapswithme.maps.SearchActivity"
+            android:name="com.mapswithme.maps.search.SearchActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/search_map"
             android:noHistory="true"

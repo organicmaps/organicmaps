@@ -1,72 +1,24 @@
 package com.mapswithme.maps.settings;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.view.View;
-import android.widget.ListView;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
-import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MWMFragmentActivity;
 
-public class StoragePathActivity extends MapsWithMeBaseListActivity implements StoragePathManager.SetStoragePathListener
+public class StoragePathActivity extends MWMFragmentActivity
 {
-  private StoragePathManager mPathManager = new StoragePathManager();
-  private StoragePathAdapter mAdapter;
-
-  private StoragePathAdapter getAdapter()
-  {
-    return (StoragePathAdapter) getListView().getAdapter();
-  }
-
   @Override
-  protected void onListItemClick(final ListView l, View v, final int position, long id)
+  protected void onCreate(Bundle savedInstanceState)
   {
-    // Do not process clicks on header items.
-    if (position != 0)
-      getAdapter().onItemClick(position);
-  }
+    super.onCreate(savedInstanceState);
 
-  @Override
-  protected void onResume()
-  {
-    super.onResume();
-    BroadcastReceiver receiver = new BroadcastReceiver()
-    {
-      @Override
-      public void onReceive(Context context, Intent intent)
-      {
-        if (mAdapter != null)
-          mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StoragePathManager.getMwmDirSize());
-      }
-    };
-    mPathManager.startExternalStorageWatching(this, receiver, this);
-    initAdapter();
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StoragePathManager.getMwmDirSize());
-    setListAdapter(mAdapter);
-  }
+    setTitle(getString(R.string.more_apps_title));
 
-  @Override
-  protected void onPause()
-  {
-    super.onPause();
-    mPathManager.stopExternalStorageWatching();
-  }
-
-  private void initAdapter()
-  {
-    if (mAdapter == null)
-      mAdapter = new StoragePathAdapter(mPathManager, this);
-  }
-
-  @Override
-  public void moveFilesFinished(String newPath)
-  {
-    mAdapter.updateList(mPathManager.getStorageItems(), mPathManager.getCurrentStorageIndex(), StoragePathManager.getMwmDirSize());
-  }
-
-  @Override
-  public void moveFilesFailed()
-  {
-    //
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    Fragment fragment = Fragment.instantiate(this, StoragePathFragment.class.getName(), getIntent().getExtras());
+    transaction.replace(android.R.id.content, fragment, "fragment");
+    transaction.commit();
   }
 }
