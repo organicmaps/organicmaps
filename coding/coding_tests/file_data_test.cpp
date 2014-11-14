@@ -80,6 +80,7 @@ UNIT_TEST(FileData_NoDiskSpace)
 }
 */
 
+/*
 #ifdef OMIM_OS_WINDOWS
 UNIT_TEST(FileData_SharingAV_Windows)
 {
@@ -114,6 +115,7 @@ UNIT_TEST(FileData_SharingAV_Windows)
   TEST(my::DeleteFileX(name2), ());
 }
 #endif
+*/
 
 UNIT_TEST(Equal_Function_Test)
 {
