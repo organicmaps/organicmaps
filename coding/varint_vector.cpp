@@ -178,7 +178,7 @@ void Vector::FindBySum(uint64_t sum, uint32_t & serialPos, uint64_t & sumBefore,
   uint64_t numsSum = tableEntry.sum;
   // At this point nums_sum <= sum.
   uint64_t numOffset = m_serialNumsOffset + tableEntry.pos;
-  while (numsSum <= sum)
+  while (numsSum <= sum && countBefore < m_numsCount)
   {
     uint64_t nextOffset = numOffset;
     uint64_t num = VarintDecode(m_reader, nextOffset);
