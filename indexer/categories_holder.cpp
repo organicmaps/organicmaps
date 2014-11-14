@@ -22,8 +22,6 @@ enum State
 }  // unnamed namespace
 
 
-int8_t const CategoriesHolder::UNSUPPORTED_LOCALE_CODE;
-
 CategoriesHolder::CategoriesHolder(Reader * reader)
 {
   ReaderStreamBuf buffer(reader);
