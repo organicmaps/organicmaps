@@ -11,6 +11,7 @@
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
+#include "../base/cache.hpp"
 
 #include "../std/unordered_map.hpp"
 #include "../std/list.hpp"
@@ -98,144 +99,122 @@ class SecondPassParser : public BaseOSMParser
     holes_list_t & GetHoles() { return m_holes.GetHoles(); }
   };
 
-  /// Feature types processor.
-  class type_processor
+  /// Generated features should include parent relation tags to make
+  /// full types matching and storing any additional info.
+  class RelationTagsProcessor
   {
-    static void MakeXMLElement(RelationElement const & rel, XMLElement & out)
-    {
-      for (auto i = rel.tags.begin(); i != rel.tags.end(); ++i)
-        if (i->first != "type")
-          out.AddKV(i->first, i->second);
-    }
-
-    /// @param[in]  ID of processing feature.
     uint64_t m_featureID;
+    XMLElement * m_current;
 
-    /// @param[out] Feature value as result.
-    FeatureParams * m_val;
+    my::Cache<uint64_t, RelationElement> m_cache;
 
-    /// Cache: relation id -> feature value (for fast feature parsing)
-    struct RelationValue
-    {
-      FeatureParams m_p;
-      RelationElement * m_e;
-
-      RelationValue() : m_e(0) {}
-    };
-
-    typedef unordered_map<uint64_t, RelationValue> RelationCacheT;
-    RelationCacheT m_typeCache;
-
-    bool IsAcceptBoundaryTypes(RelationElement const & rel) const
+    bool IsAcceptBoundary(RelationElement const & e) const
     {
       string role;
-      if (!rel.FindWay(m_featureID, role))
-      {
-        // This case is possible when we found the relation by node (just skip it).
-        CHECK ( rel.FindNode(m_featureID, role), (m_featureID) );
-        return false;
-      }
+      CHECK(e.FindWay(m_featureID, role), (m_featureID));
 
-      // Do not accumulate boundary types (boundary-administrative-*) for inner polygons.
+      // Do not accumulate boundary types (boundary=administrative) for inner polygons.
       // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
       return (role != "inner");
     }
 
-    uint32_t const m_boundaryType;
-    uint32_t GetSkipBoundaryType(RelationElement const * rel) const
+    bool HasName() const
     {
-      return ((rel == 0 || IsAcceptBoundaryTypes(*rel)) ? 0 : m_boundaryType);
+      for (auto p : m_current->childs)
+      {
+        if (p.name == "tag")
+          for (auto a : p.attrs)
+            if (strings::StartsWith(a.first, "name"))
+              return true;
+      }
+
+      return false;
+    }
+
+    void Process(RelationElement const & e)
+    {
+      string const type = e.GetType();
+
+      /// @todo Skip special relation types.
+      if (type == "multipolygon" ||
+          type == "route" ||
+          type == "bridge" ||
+          type == "restriction")
+      {
+        return;
+      }
+
+      bool const isWay = (m_current->name == "way");
+      bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
+      bool const hasName = HasName();
+
+      for (auto p : e.tags)
+      {
+        /// @todo Skip common key tags.
+        if (p.first == "type" || p.first == "route")
+          continue;
+
+        if (hasName && strings::StartsWith(p.first, "name"))
+          continue;
+
+        if (!isBoundary && p.first == "boundary")
+          continue;
+
+        if (isWay && p.first == "place")
+          continue;
+
+        m_current->AddKV(p.first, p.second);
+      }
     }
 
   public:
-    type_processor() : m_boundaryType(ftype::GetBoundaryType2())
+    RelationTagsProcessor()
+      : m_cache(14)
     {
     }
 
-    ~type_processor()
-    {
-      for (auto & r : m_typeCache)
-        delete r.second.m_e;
-    }
-
-    /// Start process new feature.
-    void Reset(uint64_t fID, FeatureParams * val)
+    void Reset(uint64_t fID, XMLElement * p)
     {
       m_featureID = fID;
-      m_val = val;
+      m_current = p;
     }
 
-    /// 1. "initial relation" process
-    int operator() (uint64_t id)
+    template <class ReaderT> bool operator() (uint64_t id, ReaderT & reader)
     {
-      auto const i = m_typeCache.find(id);
-      if (i != m_typeCache.end())
-      {
-        m_val->AddTypes(i->second.m_p, GetSkipBoundaryType(i->second.m_e));
-        return -1;  // continue process relations
-      }
-      return 0;     // read relation from file (see next operator)
-    }
+      bool exists = false;
+      RelationElement & e = m_cache.Find(id, exists);
+      if (!exists)
+        CHECK(reader.Read(id, e), (id));
 
-    /// 2. "relation from file" process
-    /// param[in] rel Get non-const reference to Swap inner data
-    bool operator() (uint64_t id, RelationElement & rel)
-    {
-      string const type = rel.GetType();
-      if (type == "multipolygon")
-      {
-        // we will process multipolygons later
-        return false;
-      }
-      bool const isBoundary = (type == "boundary");
-
-      // make XMLElement struct from relation's tags for GetNameAndType function.
-      XMLElement e;
-      MakeXMLElement(rel, e);
-
-      // process types of relation and add them to m_val
-      RelationValue val;
-      ftype::GetNameAndType(&e, val.m_p);
-      if (val.m_p.IsValid())
-      {
-        m_val->AddTypes(val.m_p, GetSkipBoundaryType(isBoundary ? &rel : 0));
-
-        if (isBoundary)
-        {
-          val.m_e = new RelationElement();
-          val.m_e->Swap(rel);
-        }
-      }
-
-      m_typeCache[id] = val;
-
-      // continue process relations
+      Process(e);
       return false;
     }
-  } m_typeProcessor;
 
+  } m_relationsProcess;
 
   bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & params)
   {
-    CHECK ( strings::to_uint64(p->attrs["id"], id), (p->attrs["id"]) );
+    CHECK(strings::to_uint64(p->attrs["id"], id), (p->attrs["id"]));
 
-    // try to get type from element tags
-    ftype::GetNameAndType(p, params);
+    // Get tags from parent relations.
+    m_relationsProcess.Reset(id, p);
 
-    // try to get type from relations tags
-    m_typeProcessor.Reset(id, &params);
-
-    if (p->name == "node" && !params.IsValid())
+    if (p->name == "node")
     {
       // additional process of nodes ONLY if there is no native types
-      m_holder.ForEachRelationByNodeCached(id, m_typeProcessor);
+      FeatureParams fp;
+      ftype::GetNameAndType(p, fp);
+      if (!ftype::IsValidTypes(fp))
+        m_holder.ForEachRelationByNodeCached(id, m_relationsProcess);
     }
     else if (p->name == "way")
     {
       // always make additional process of ways
-      m_holder.ForEachRelationByWayCached(id, m_typeProcessor);
+      m_holder.ForEachRelationByWayCached(id, m_relationsProcess);
     }
 
+    // Get params from element tags.
+    ftype::GetNameAndType(p, params);
     params.FinishAddingTypes();
     return ftype::IsValidTypes(params);
   }

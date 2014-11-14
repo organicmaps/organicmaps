@@ -41,8 +41,8 @@ class FileHolder : public cache::BaseFileHolder<TNodesHolder, cache::DataFileRea
 
   template <class TElement, class ToDo> struct process_base
   {
-    reader_t & m_reader;
   protected:
+    reader_t & m_reader;
     ToDo & m_toDo;
   public:
     process_base(reader_t & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
@@ -73,12 +73,7 @@ class FileHolder : public cache::BaseFileHolder<TNodesHolder, cache::DataFileRea
 
     bool operator() (uint64_t id)
     {
-      switch (this->m_toDo(id))
-      {
-      case 1:   return true;
-      case -1:  return false;
-      default:  return base_type::operator()(id);
-      }
+      return this->m_toDo(id, this->m_reader);
     }
   };
 
