@@ -27,22 +27,22 @@ def readIndexFile(filePath):
     for line in f:
         lineParts = line.strip().split()
         if len(lineParts) != 3:
-            print "Incorrect GPU program definition : " + line
+            print("Incorrect GPU program definition : " + line)
             exit(10)
 
         vertexShader   = next( f for f in lineParts if f.endswith(".vsh"))
         fragmentShader = next( f for f in lineParts if f.endswith(".fsh"))
 
         if not vertexShader:
-            print "Vertex shader not found in GPU program definition : " + line
+            print("Vertex shader not found in GPU program definition : " + line)
             exit(11)
 
         if not fragmentShader:
-            print "Fragment shader not found in GPU program definition : " + line
+            print("Fragment shader not found in GPU program definition : " + line)
             exit(12)
 
         if lineParts[0] in gpuPrograms.keys():
-            print "More than one difinition of %s gpu program" % lineParts[0]
+            print("More than one difinition of %s gpu program" % lineParts[0])
             exit(13)
 
         gpuPrograms[lineParts[0]] = (vertexShader, fragmentShader)
@@ -197,11 +197,11 @@ def validateDocumentation(shaders, shaderDir):
         if formatShaderDocName(shader) not in docFiles:
             undocumentedShaders.append(shader)
     if undocumentedShaders:
-        print "no documentation for shaders:", undocumentedShaders
+        print("no documentation for shaders:", undocumentedShaders)
         #exit(20)
 
 if len(sys.argv) < 4:
-  print "Usage : " + sys.argv[0] + " <shader_dir> <index_file_name> <generate_file_name>"
+  print("Usage : " + sys.argv[0] + " <shader_dir> <index_file_name> <generate_file_name>")
   exit(1)
 
 shaderDir = sys.argv[1]
@@ -218,6 +218,6 @@ programIndex = generateProgramIndex(programDefinition)
 if definitionChanged(programIndex, formatOutFilePath(shaderDir, definesFile)):
     writeDefinitionFile(programIndex, formatOutFilePath(shaderDir, definesFile))
 else:
-    print "No need to update definition file"
+    print("No need to update definition file")
 writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile, shaders)
 validateDocumentation(shaders, shaderDir)
