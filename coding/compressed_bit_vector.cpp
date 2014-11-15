@@ -77,7 +77,7 @@ class BitWriter {
 public:
   BitWriter(Writer & _writer)
     : writer_(_writer), last_byte_(0), size_(0) {}
-  ~BitWriter() { Finalize(); }
+  ~BitWriter() { if (size_ % 8 > 0) writer_.Write(&last_byte_, 1); }
   uint64_t NumBitsWritten() const { return size_; }
   void Write(uint64_t bits, uint32_t write_size) {
     if (write_size == 0) return;
@@ -95,7 +95,6 @@ public:
     last_byte_ = (bits >> (write_bytes_size * 8)) & ((1 << (write_size % 8)) - 1);
     size_ += write_size;
   }
-  void Finalize() { if (size_ % 8 > 0) writer_.Write(&last_byte_, 1); }
 private:
   Writer & writer_;
   uint8_t last_byte_;
@@ -108,7 +107,7 @@ public:
   BitReader(Reader & reader)
     : reader_(reader), serial_cur_(0), serial_end_(reader.Size()),
       bits_(0), bits_size_(0), total_bits_read_(0) {}
-  uint64_t NumBitsWritten() const { return total_bits_read_; }
+  uint64_t NumBitsRead() const { return total_bits_read_; }
   uint64_t Read(uint32_t read_size) {
     total_bits_read_ += read_size;
     if (read_size == 0) return 0;
