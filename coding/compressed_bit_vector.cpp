@@ -6,54 +6,66 @@
 
 #include "../base/assert.hpp"
 
-using std::vector;
-
 namespace {
-  void VarintEncode(vector<uint8_t> & dst, uint64_t n) {
-    if (n == 0) {
+  void VarintEncode(vector<u8> & dst, u64 n)
+  {
+    if (n == 0)
+    {
       dst.push_back(0);
-    } else {
-      while (n != 0) {
-        uint8_t b = n & 0x7F;
+    }
+    else
+    {
+      while (n != 0)
+      {
+        u8 b = n & 0x7F;
         n >>= 7;
         b |= n == 0 ? 0 : 0x80;
         dst.push_back(b);
       }
     }
   }
-  void VarintEncode(Writer & writer, uint64_t n) {
-    if (n == 0) {
+  void VarintEncode(Writer & writer, u64 n)
+  {
+    if (n == 0)
+    {
       writer.Write(&n, 1);
-    } else {
-      while (n != 0) {
-        uint8_t b = n & 0x7F;
+    }
+    else
+    {
+      while (n != 0)
+      {
+        u8 b = n & 0x7F;
         n >>= 7;
         b |= n == 0 ? 0 : 0x80;
         writer.Write(&b, 1);
       }
     }
   }
-  uint64_t VarintDecode(void * src, uint64_t & offset) {
-    uint64_t n = 0;
+  u64 VarintDecode(void * src, u64 & offset)
+  {
+    u64 n = 0;
     int shift = 0;
-    while (1) {
-      uint8_t b = *(((uint8_t*)src) + offset);
-      ASSERT_LESS_OR_EQUAL(shift, 56, ());
-      n |= uint64_t(b & 0x7F) << shift;
+    while (1)
+    {
+      u8 b = *(((u8*)src) + offset);
+      CHECK_LESS_OR_EQUAL(shift, 56, ());
+      n |= u64(b & 0x7F) << shift;
       ++offset;
       if ((b & 0x80) == 0) break;
       shift += 7;
     }
     return n;
   }
-  uint64_t VarintDecode(Reader & reader, uint64_t & offset) {
-    uint64_t n = 0;
+  u64 VarintDecode(Reader & reader, u64 & offset)
+  {
+    u64 n = 0;
     int shift = 0;
-    while (1) {
-      uint8_t b = 0;
+    while (1)
+    {
+      u8 b = 0;
       reader.Read(offset, &b, 1);
-      ASSERT_LESS_OR_EQUAL(shift, 56, ());
-      n |= uint64_t(b & 0x7F) << shift;
+      CHECK_LESS_OR_EQUAL(shift, 56, ());
+      n |= u64(b & 0x7F) << shift;
       ++offset;
       if ((b & 0x80) == 0) break;
       shift += 7;
@@ -61,491 +73,552 @@ namespace {
     return n;
   }
 
-  inline uint32_t NumUsedBits(uint64_t n) {
-    uint32_t result = 0;
+  inline u32 NumUsedBits(u64 n)
+  {
+    u32 result = 0;
     while (n != 0) { ++result; n >>= 1; }
     return result;
   }
-  vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decode_offset, uint64_t cnt) {
-    vector<uint32_t> freqs;
-    for (uint64_t i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decode_offset));
+  vector<u32> SerialFreqsToDistrTable(Reader & reader, u64 & decodeOffset, u64 cnt)
+  {
+    vector<u32> freqs;
+    for (u64 i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
     return FreqsToDistrTable(freqs);
   }
 }
 
-class BitWriter {
+class BitWriter
+{
 public:
-  BitWriter(Writer & _writer)
-    : writer_(_writer), last_byte_(0), size_(0) {}
-  ~BitWriter() { if (size_ % 8 > 0) writer_.Write(&last_byte_, 1); }
-  uint64_t NumBitsWritten() const { return size_; }
-  void Write(uint64_t bits, uint32_t write_size) {
-    if (write_size == 0) return;
-    total_bits_ += write_size;
-    uint32_t rem_size = size_ % 8;
-    ASSERT_LESS_OR_EQUAL(write_size, 64 - rem_size, ());
-    if (rem_size > 0) {
-      bits <<= rem_size;
-      bits |= last_byte_;
-      write_size += rem_size;
-      size_ -= rem_size;
+  BitWriter(Writer & writer)
+    : m_writer(writer), m_lastByte(0), m_size(0) {}
+  ~BitWriter() { if (m_size % 8 > 0) m_writer.Write(&m_lastByte, 1); }
+  u64 NumBitsWritten() const { return m_size; }
+  void Write(u64 bits, u32 writeSize)
+  {
+    if (writeSize == 0) return;
+    m_totalBits += writeSize;
+    u32 remSize = m_size % 8;
+    CHECK_LESS_OR_EQUAL(writeSize, 64 - remSize, ());
+    if (remSize > 0)
+    {
+      bits <<= remSize;
+      bits |= m_lastByte;
+      writeSize += remSize;
+      m_size -= remSize;
     }
-    uint32_t write_bytes_size = write_size / 8;
-    writer_.Write(&bits, write_bytes_size);
-    last_byte_ = (bits >> (write_bytes_size * 8)) & ((1 << (write_size % 8)) - 1);
-    size_ += write_size;
+    u32 writeBytesSize = writeSize / 8;
+    m_writer.Write(&bits, writeBytesSize);
+    m_lastByte = (bits >> (writeBytesSize * 8)) & ((1 << (writeSize % 8)) - 1);
+    m_size += writeSize;
   }
 private:
-  Writer & writer_;
-  uint8_t last_byte_;
-  uint64_t size_;
-  uint64_t total_bits_;
+  Writer & m_writer;
+  u8 m_lastByte;
+  u64 m_size;
+  u64 m_totalBits;
 };
 
 class BitReader {
 public:
   BitReader(Reader & reader)
-    : reader_(reader), serial_cur_(0), serial_end_(reader.Size()),
-      bits_(0), bits_size_(0), total_bits_read_(0) {}
-  uint64_t NumBitsRead() const { return total_bits_read_; }
-  uint64_t Read(uint32_t read_size) {
-    total_bits_read_ += read_size;
-    if (read_size == 0) return 0;
-    ASSERT_LESS_OR_EQUAL(read_size, 64, ());
-    // First read, sets bits that are in the bits_ buffer.
-    uint32_t first_read_size = read_size <= bits_size_ ? read_size : bits_size_;
-    uint64_t result = bits_ & (~uint64_t(0) >> (64 - first_read_size));
-    bits_ >>= first_read_size;
-    bits_size_ -= first_read_size;
-    read_size -= first_read_size;
-    // Second read, does an extra read using reader_.
-    if (read_size > 0) {
-      uint32_t read_byte_size = serial_cur_ + sizeof(bits_) <= serial_end_ ? sizeof(bits_) : serial_end_ - serial_cur_;
-      reader_.Read(serial_cur_, &bits_, read_byte_size);
-      serial_cur_ += read_byte_size;
-      bits_size_ += read_byte_size * 8;
-      if (read_size > bits_size_) ASSERT_LESS_OR_EQUAL(read_size, bits_size_, ());
-      result |= (bits_ & (~uint64_t(0) >> (64 - read_size))) << first_read_size;
-      bits_ >>= read_size;
-      bits_size_ -= read_size;
-      read_size = 0;
+    : m_reader(reader), m_serialCur(0), m_serialEnd(reader.Size()),
+      m_bits(0), m_bitsSize(0), m_totalBitsRead(0) {}
+  u64 NumBitsRead() const { return m_totalBitsRead; }
+  u64 Read(u32 readSize)
+  {
+    m_totalBitsRead += readSize;
+    if (readSize == 0) return 0;
+    CHECK_LESS_OR_EQUAL(readSize, 64, ());
+    // First read, sets bits that are in the m_bits buffer.
+    u32 firstReadSize = readSize <= m_bitsSize ? readSize : m_bitsSize;
+    u64 result = m_bits & (~u64(0) >> (64 - firstReadSize));
+    m_bits >>= firstReadSize;
+    m_bitsSize -= firstReadSize;
+    readSize -= firstReadSize;
+    // Second read, does an extra read using m_reader.
+    if (readSize > 0)
+    {
+      u32 readByteSize = m_serialCur + sizeof(m_bits) <= m_serialEnd ? sizeof(m_bits) : m_serialEnd - m_serialCur;
+      m_reader.Read(m_serialCur, &m_bits, readByteSize);
+      m_serialCur += readByteSize;
+      m_bitsSize += readByteSize * 8;
+      if (readSize > m_bitsSize) CHECK_LESS_OR_EQUAL(readSize, m_bitsSize, ());
+      result |= (m_bits & (~u64(0) >> (64 - readSize))) << firstReadSize;
+      m_bits >>= readSize;
+      m_bitsSize -= readSize;
+      readSize = 0;
     }
     return result;
   }
 private:
-  Reader & reader_;
-  uint64_t serial_cur_;
-  uint64_t serial_end_;
-  uint64_t bits_;
-  uint32_t bits_size_;
-  uint64_t total_bits_read_;
+  Reader & m_reader;
+  u64 m_serialCur;
+  u64 m_serialEnd;
+  u64 m_bits;
+  u32 m_bitsSize;
+  u64 m_totalBitsRead;
 };
 
-void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & pos_ones, int chosen_enc_type) {
-  uint32_t const c_block_size = 7;
+void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int chosenEncType)
+{
+  u32 const BLOCK_SIZE = 7;
   // First stage of compression is analysis run through data ones.
-  uint64_t num_bytes_diffs_enc_vint = 0, num_bytes_ranges_enc_vint = 0, num_bits_diffs_enc_arith = 0, num_bits_ranges_enc_arith = 0;
-  int64_t prev_one_pos = -1;
-  uint64_t ones_range_len = 0;
-  vector<uint32_t> diffs_sizes_freqs(65, 0), ranges0_sizes_freqs(65, 0), ranges1_sizes_freqs(65, 0);
-  for (uint32_t i = 0; i < pos_ones.size(); ++i) {
-    ASSERT_LESS(prev_one_pos, pos_ones[i], ());
+  u64 numBytesDiffsEncVint = 0, numBytesRangesEncVint = 0, numBitsDiffsEncArith = 0, numBitsRangesEncArith = 0;
+  int64_t prevOnePos = -1;
+  u64 onesRangeLen = 0;
+  vector<u32> diffsSizesFreqs(65, 0), ranges0SizesFreqs(65, 0), ranges1SizesFreqs(65, 0);
+  for (u32 i = 0; i < posOnes.size(); ++i)
+  {
+    CHECK_LESS(prevOnePos, posOnes[i], ());
     // Accumulate size of diff encoding.
-    uint64_t diff = pos_ones[i] - prev_one_pos;
-    uint32_t diff_bitsize = NumUsedBits(diff - 1);
-    num_bytes_diffs_enc_vint += (diff_bitsize + c_block_size - 1) / c_block_size;
-    num_bits_diffs_enc_arith += diff_bitsize > 0 ? diff_bitsize - 1 : 0;
-    ++diffs_sizes_freqs[diff_bitsize];
+    u64 diff = posOnes[i] - prevOnePos;
+    u32 diffBitsize = NumUsedBits(diff - 1);
+    numBytesDiffsEncVint += (diffBitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
+    numBitsDiffsEncArith += diffBitsize > 0 ? diffBitsize - 1 : 0;
+    ++diffsSizesFreqs[diffBitsize];
     // Accumulate sizes of ranges encoding.
-    if (pos_ones[i] - prev_one_pos > 1) {
-      if (ones_range_len > 0) {
+    if (posOnes[i] - prevOnePos > 1)
+    {
+      if (onesRangeLen > 0)
+      {
         // Accumulate size of ones-range encoding.
-        uint32_t ones_range_len_bitsize = NumUsedBits(ones_range_len - 1);
-        num_bytes_ranges_enc_vint += (ones_range_len_bitsize + c_block_size - 1) / c_block_size;
-        num_bits_ranges_enc_arith += ones_range_len_bitsize > 0 ? ones_range_len_bitsize - 1 : 0;
-        ++ranges1_sizes_freqs[ones_range_len_bitsize];
-        ones_range_len = 0;
+        u32 onesRangeLenBitsize = NumUsedBits(onesRangeLen - 1);
+        numBytesRangesEncVint += (onesRangeLenBitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
+        numBitsRangesEncArith += onesRangeLenBitsize > 0 ? onesRangeLenBitsize - 1 : 0;
+        ++ranges1SizesFreqs[onesRangeLenBitsize];
+        onesRangeLen = 0;
       }
       // Accumulate size of zeros-range encoding.
-      uint32_t zeros_range_len_bitsize = NumUsedBits(pos_ones[i] - prev_one_pos - 2);
-      num_bytes_ranges_enc_vint += (zeros_range_len_bitsize + c_block_size - 1) / c_block_size;
-      num_bits_ranges_enc_arith += zeros_range_len_bitsize > 0 ? zeros_range_len_bitsize - 1 : 0;
-      ++ranges0_sizes_freqs[zeros_range_len_bitsize];
+      u32 zeros_range_len_bitsize = NumUsedBits(posOnes[i] - prevOnePos - 2);
+      numBytesRangesEncVint += (zeros_range_len_bitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
+      numBitsRangesEncArith += zeros_range_len_bitsize > 0 ? zeros_range_len_bitsize - 1 : 0;
+      ++ranges0SizesFreqs[zeros_range_len_bitsize];
     }
-    ++ones_range_len;
-    prev_one_pos = pos_ones[i];
+    ++onesRangeLen;
+    prevOnePos = posOnes[i];
   }
   // Accumulate size of remaining ones-range encoding.
-  if (ones_range_len > 0) {
-    uint32_t ones_range_len_bitsize = NumUsedBits(ones_range_len - 1);
-    num_bytes_ranges_enc_vint += (ones_range_len_bitsize + c_block_size - 1) / c_block_size;
-    num_bits_ranges_enc_arith = ones_range_len_bitsize > 0 ? ones_range_len_bitsize - 1 : 0;
-    ++ranges1_sizes_freqs[ones_range_len_bitsize];
-    ones_range_len = 0;
+  if (onesRangeLen > 0)
+  {
+    u32 onesRangeLenBitsize = NumUsedBits(onesRangeLen - 1);
+    numBytesRangesEncVint += (onesRangeLenBitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
+    numBitsRangesEncArith = onesRangeLenBitsize > 0 ? onesRangeLenBitsize - 1 : 0;
+    ++ranges1SizesFreqs[onesRangeLenBitsize];
+    onesRangeLen = 0;
   }
   // Compute arithmetic encoding size.
-  uint64_t diffs_sizes_total_freq = 0, ranges0_sizes_total_freq = 0, ranges1_sizes_total_freq = 0;
-  for (uint32_t i = 0; i < diffs_sizes_freqs.size(); ++i) diffs_sizes_total_freq += diffs_sizes_freqs[i];
-  for (uint32_t i = 0; i < ranges0_sizes_freqs.size(); ++i) ranges0_sizes_total_freq += ranges0_sizes_freqs[i];
-  for (uint32_t i = 0; i < ranges1_sizes_freqs.size(); ++i) ranges1_sizes_total_freq += ranges1_sizes_freqs[i];
+  u64 diffsSizesTotalFreq = 0, ranges0_sizes_total_freq = 0, ranges1SizesTotalFreq = 0;
+  for (u32 i = 0; i < diffsSizesFreqs.size(); ++i) diffsSizesTotalFreq += diffsSizesFreqs[i];
+  for (u32 i = 0; i < ranges0SizesFreqs.size(); ++i) ranges0_sizes_total_freq += ranges0SizesFreqs[i];
+  for (u32 i = 0; i < ranges1SizesFreqs.size(); ++i) ranges1SizesTotalFreq += ranges1SizesFreqs[i];
   // Compute number of bits for arith encoded diffs sizes.
-  double num_sizes_bits_diffs_enc_arith = 0;
-  uint32_t nonzero_diffs_sizes_freqs_end = 0;
-  for (uint32_t i = 0; i < diffs_sizes_freqs.size(); ++i) {
-    if (diffs_sizes_freqs[i] > 0) {
-      double prob = double(diffs_sizes_freqs[i]) / diffs_sizes_total_freq;
-      num_sizes_bits_diffs_enc_arith += - prob * log(prob) / log(2);
-      nonzero_diffs_sizes_freqs_end = i + 1;
+  double numSizesBitsDiffsEncArith = 0;
+  u32 nonzeroDiffsSizesFreqsEnd = 0;
+  for (u32 i = 0; i < diffsSizesFreqs.size(); ++i)
+  {
+    if (diffsSizesFreqs[i] > 0)
+    {
+      double prob = double(diffsSizesFreqs[i]) / diffsSizesTotalFreq;
+      numSizesBitsDiffsEncArith += - prob * log(prob) / log(2);
+      nonzeroDiffsSizesFreqsEnd = i + 1;
     }
   }
-  vector<uint8_t> diffs_sizes_freqs_serial;
-  for (uint32_t i = 0; i < nonzero_diffs_sizes_freqs_end; ++i) VarintEncode(diffs_sizes_freqs_serial, diffs_sizes_freqs[i]);
-  uint64_t num_bytes_diffs_enc_arith = 4 + diffs_sizes_freqs_serial.size() + (uint64_t(num_sizes_bits_diffs_enc_arith * diffs_sizes_total_freq + 0.999) + 7) / 8 + (num_bits_diffs_enc_arith + 7) /8;
+  vector<u8> diffsSizesFreqsSerial;
+  for (u32 i = 0; i < nonzeroDiffsSizesFreqsEnd; ++i) VarintEncode(diffsSizesFreqsSerial, diffsSizesFreqs[i]);
+  u64 numBytesDiffsEncArith = 4 + diffsSizesFreqsSerial.size() + (u64(numSizesBitsDiffsEncArith * diffsSizesTotalFreq + 0.999) + 7) / 8 + (numBitsDiffsEncArith + 7) /8;
   // Compute number of bits for arith encoded ranges sizes.
-  double num_sizes_bits_ranges0_enc_arith = 0;
-  uint32_t nonzero_ranges0_sizes_freqs_end = 0;
-  for (uint32_t i = 0; i < ranges0_sizes_freqs.size(); ++i) {
-    if (ranges0_sizes_freqs[i] > 0) {
-      double prob = double(ranges0_sizes_freqs[i]) / ranges0_sizes_total_freq;
-      num_sizes_bits_ranges0_enc_arith += - prob * log(prob) / log(2);
-      nonzero_ranges0_sizes_freqs_end = i + 1;
+  double numSizesBitsRanges0EncArith = 0;
+  u32 nonzeroRanges0SizesFreqsEnd = 0;
+  for (u32 i = 0; i < ranges0SizesFreqs.size(); ++i)
+  {
+    if (ranges0SizesFreqs[i] > 0)
+    {
+      double prob = double(ranges0SizesFreqs[i]) / ranges0_sizes_total_freq;
+      numSizesBitsRanges0EncArith += - prob * log(prob) / log(2);
+      nonzeroRanges0SizesFreqsEnd = i + 1;
     }
   }
-  double num_sizes_bits_ranges1_enc_arith = 0;
-  uint32_t nonzero_ranges1_sizes_freqs_end = 0;
-  for (uint32_t i = 0; i < ranges1_sizes_freqs.size(); ++i) {
-    if (ranges1_sizes_freqs[i] > 0) {
-      double prob = double(ranges1_sizes_freqs[i]) / ranges1_sizes_total_freq;
-      num_sizes_bits_ranges1_enc_arith += - prob * log(prob) / log(2);
-      nonzero_ranges1_sizes_freqs_end = i + 1;
+  double numSizesBitsRanges1EncArith = 0;
+  u32 nonzeroRanges1SizesFreqsEnd = 0;
+  for (u32 i = 0; i < ranges1SizesFreqs.size(); ++i)
+  {
+    if (ranges1SizesFreqs[i] > 0)
+    {
+      double prob = double(ranges1SizesFreqs[i]) / ranges1SizesTotalFreq;
+      numSizesBitsRanges1EncArith += - prob * log(prob) / log(2);
+      nonzeroRanges1SizesFreqsEnd = i + 1;
     }
   }
-  vector<uint8_t> ranges0_sizes_freqs_serial, ranges1_sizes_freqs_serial;
-  for (uint32_t i = 0; i < nonzero_ranges0_sizes_freqs_end; ++i) VarintEncode(ranges0_sizes_freqs_serial, ranges0_sizes_freqs[i]);
-  for (uint32_t i = 0; i < nonzero_ranges1_sizes_freqs_end; ++i) VarintEncode(ranges1_sizes_freqs_serial, ranges1_sizes_freqs[i]);
-  uint64_t num_bytes_ranges_enc_arith = 4 + ranges0_sizes_freqs_serial.size() + ranges1_sizes_freqs_serial.size() +
-    (uint64_t(num_sizes_bits_ranges0_enc_arith * ranges0_sizes_total_freq + 0.999) + 7) / 8 + (uint64_t(num_sizes_bits_ranges1_enc_arith * ranges1_sizes_total_freq + 0.999) + 7) / 8 +
-    (num_bits_ranges_enc_arith + 7) / 8;
+  vector<u8> ranges0SizesFreqsSerial, ranges1SizesFreqsSerial;
+  for (u32 i = 0; i < nonzeroRanges0SizesFreqsEnd; ++i) VarintEncode(ranges0SizesFreqsSerial, ranges0SizesFreqs[i]);
+  for (u32 i = 0; i < nonzeroRanges1SizesFreqsEnd; ++i) VarintEncode(ranges1SizesFreqsSerial, ranges1SizesFreqs[i]);
+  u64 numBytesRangesEncArith = 4 + ranges0SizesFreqsSerial.size() + ranges1SizesFreqsSerial.size() +
+    (u64(numSizesBitsRanges0EncArith * ranges0_sizes_total_freq + 0.999) + 7) / 8 + (u64(numSizesBitsRanges1EncArith * ranges1SizesTotalFreq + 0.999) + 7) / 8 +
+    (numBitsRangesEncArith + 7) / 8;
 
   // Find minimum among 4 types of encoding.
-  vector<uint64_t> num_bytes_per_enc = {num_bytes_diffs_enc_vint, num_bytes_ranges_enc_vint, num_bytes_diffs_enc_arith, num_bytes_ranges_enc_arith};
-  uint32_t enc_type = 0;
-  if (chosen_enc_type != -1) { ASSERT(0 <= chosen_enc_type && chosen_enc_type <= 3, ()); enc_type = chosen_enc_type; }
-  else if (num_bytes_per_enc[0] <= num_bytes_per_enc[1] && num_bytes_per_enc[0] <= num_bytes_per_enc[2] && num_bytes_per_enc[0] <= num_bytes_per_enc[3]) enc_type = 0;
-  else if (num_bytes_per_enc[1] <= num_bytes_per_enc[0] && num_bytes_per_enc[1] <= num_bytes_per_enc[2] && num_bytes_per_enc[1] <= num_bytes_per_enc[3]) enc_type = 1;
-  else if (num_bytes_per_enc[2] <= num_bytes_per_enc[0] && num_bytes_per_enc[2] <= num_bytes_per_enc[1] && num_bytes_per_enc[2] <= num_bytes_per_enc[3]) enc_type = 2;
-  else if (num_bytes_per_enc[3] <= num_bytes_per_enc[0] && num_bytes_per_enc[3] <= num_bytes_per_enc[1] && num_bytes_per_enc[3] <= num_bytes_per_enc[2]) enc_type = 3;
+  vector<u64> numBytesPerEnc = {numBytesDiffsEncVint, numBytesRangesEncVint, numBytesDiffsEncArith, numBytesRangesEncArith};
+  u32 encType = 0;
+  if (chosenEncType != -1) { CHECK(0 <= chosenEncType && chosenEncType <= 3, ()); encType = chosenEncType; }
+  else if (numBytesPerEnc[0] <= numBytesPerEnc[1] && numBytesPerEnc[0] <= numBytesPerEnc[2] && numBytesPerEnc[0] <= numBytesPerEnc[3]) encType = 0;
+  else if (numBytesPerEnc[1] <= numBytesPerEnc[0] && numBytesPerEnc[1] <= numBytesPerEnc[2] && numBytesPerEnc[1] <= numBytesPerEnc[3]) encType = 1;
+  else if (numBytesPerEnc[2] <= numBytesPerEnc[0] && numBytesPerEnc[2] <= numBytesPerEnc[1] && numBytesPerEnc[2] <= numBytesPerEnc[3]) encType = 2;
+  else if (numBytesPerEnc[3] <= numBytesPerEnc[0] && numBytesPerEnc[3] <= numBytesPerEnc[1] && numBytesPerEnc[3] <= numBytesPerEnc[2]) encType = 3;
 
-  if (enc_type == 0) {
+  if (encType == 0)
+  {
     // Diffs-Varint encoding.
 
-    int64_t prev_one_pos = -1;
-    bool is_empty = pos_ones.empty();
+    int64_t prevOnePos = -1;
+    bool is_empty = posOnes.empty();
     // Encode encoding type and first diff.
-    if (is_empty) {
-      VarintEncode(writer, enc_type + (1 << 2));
-    } else {
-      VarintEncode(writer, enc_type + (0 << 2) + ((pos_ones[0] - prev_one_pos - 1) << 3));
-      prev_one_pos = pos_ones[0];
+    if (is_empty)
+    {
+      VarintEncode(writer, encType + (1 << 2));
     }
-    for (uint32_t i = 1; i < pos_ones.size(); ++i) {
-      ASSERT_GREATER(pos_ones[i], prev_one_pos, ());
+    else
+    {
+      VarintEncode(writer, encType + (0 << 2) + ((posOnes[0] - prevOnePos - 1) << 3));
+      prevOnePos = posOnes[0];
+    }
+    for (u32 i = 1; i < posOnes.size(); ++i)
+    {
+      CHECK_GREATER(posOnes[i], prevOnePos, ());
       // Encode one's pos (diff - 1).
-      VarintEncode(writer, pos_ones[i] - prev_one_pos - 1);
-      prev_one_pos = pos_ones[i];
+      VarintEncode(writer, posOnes[i] - prevOnePos - 1);
+      prevOnePos = posOnes[i];
     }
-  } else if (enc_type == 2) {
+  }
+  else if (encType == 2)
+  {
     // Diffs-Arith encoding.
     
     // Encode encoding type plus number of freqs in the table.
-    VarintEncode(writer, enc_type + (nonzero_diffs_sizes_freqs_end << 2));
+    VarintEncode(writer, encType + (nonzeroDiffsSizesFreqsEnd << 2));
     // Encode freqs table.
-    writer.Write(diffs_sizes_freqs_serial.data(), diffs_sizes_freqs_serial.size());
-    uint64_t tmp_offset = 0;
-    MemReader diffs_sizes_freqs_serial_reader(diffs_sizes_freqs_serial.data(), diffs_sizes_freqs_serial.size());
-    vector<uint32_t> distr_table = SerialFreqsToDistrTable(
-      diffs_sizes_freqs_serial_reader, tmp_offset, nonzero_diffs_sizes_freqs_end
+    writer.Write(diffsSizesFreqsSerial.data(), diffsSizesFreqsSerial.size());
+    u64 tmpOffset = 0;
+    MemReader diffsSizesFreqsSerialReader(diffsSizesFreqsSerial.data(), diffsSizesFreqsSerial.size());
+    vector<u32> distrTable = SerialFreqsToDistrTable(
+      diffsSizesFreqsSerialReader, tmpOffset, nonzeroDiffsSizesFreqsEnd
     );
 
     {
       // First stage. Encode all bits sizes of all diffs using ArithmeticEncoder.
-      ArithmeticEncoder arith_enc(distr_table);
-      int64_t prev_one_pos = -1;
-      uint64_t cnt_elements = 0;
-      for (uint64_t i = 0; i < pos_ones.size(); ++i) {
-        ASSERT_GREATER(pos_ones[i], prev_one_pos, ());
-        uint32_t bits_used = NumUsedBits(pos_ones[i] - prev_one_pos - 1);
-        arith_enc.Encode(bits_used);
-        ++cnt_elements;
-        prev_one_pos = pos_ones[i];
+      ArithmeticEncoder arithEnc(distrTable);
+      int64_t prevOnePos = -1;
+      u64 cntElements = 0;
+      for (u64 i = 0; i < posOnes.size(); ++i)
+      {
+        CHECK_GREATER(posOnes[i], prevOnePos, ());
+        u32 bitsUsed = NumUsedBits(posOnes[i] - prevOnePos - 1);
+        arithEnc.Encode(bitsUsed);
+        ++cntElements;
+        prevOnePos = posOnes[i];
       }
-      vector<uint8_t> serial_sizes_enc = arith_enc.Finalize();
+      vector<u8> serialSizesEnc = arithEnc.Finalize();
       // Store number of compressed elements.
-      VarintEncode(writer, cnt_elements);
+      VarintEncode(writer, cntElements);
       // Store compressed size of encoded sizes.
-      VarintEncode(writer, serial_sizes_enc.size());
+      VarintEncode(writer, serialSizesEnc.size());
       // Store serial sizes.
-      writer.Write(serial_sizes_enc.data(), serial_sizes_enc.size());
+      writer.Write(serialSizesEnc.data(), serialSizesEnc.size());
     }
     {
       // Second Stage. Encode all bits of all diffs using BitWriter.
-      BitWriter bit_writer(writer);
-      int64_t prev_one_pos = -1;
-      uint64_t total_read_bits = 0;
-      uint64_t total_read_cnts = 0;
-      for (uint64_t i = 0; i < pos_ones.size(); ++i) {
-        ASSERT_GREATER(pos_ones[i], prev_one_pos, ());
+      BitWriter bitWriter(writer);
+      int64_t prevOnePos = -1;
+      u64 totalReadBits = 0;
+      u64 totalReadCnts = 0;
+      for (u64 i = 0; i < posOnes.size(); ++i)
+      {
+        CHECK_GREATER(posOnes[i], prevOnePos, ());
         // Encode one's pos (diff - 1).
-        uint64_t diff = pos_ones[i] - prev_one_pos - 1;
-        uint32_t bits_used = NumUsedBits(diff);
-        if (bits_used > 1) {
+        u64 diff = posOnes[i] - prevOnePos - 1;
+        u32 bitsUsed = NumUsedBits(diff);
+        if (bitsUsed > 1)
+        {
           // Most significant bit is always 1 for non-zero diffs, so don't store it.
-          --bits_used;
-          bit_writer.Write(diff, bits_used);
-          total_read_bits += bits_used;
-          ++total_read_cnts;
+          --bitsUsed;
+          bitWriter.Write(diff, bitsUsed);
+          totalReadBits += bitsUsed;
+          ++totalReadCnts;
         }
-        prev_one_pos = pos_ones[i];
+        prevOnePos = posOnes[i];
       }
     }
-  } else if (enc_type == 1) {
+  }
+  else if (encType == 1)
+  {
     // Ranges-Varint encoding.
     
     // If bit vector starts with 1.
-    bool is_first_one = pos_ones.size() > 0 && pos_ones.front() == 0;
+    bool isFirstOne = posOnes.size() > 0 && posOnes.front() == 0;
     // Encode encoding type plus flag if first is 1.
-    VarintEncode(writer, enc_type + ((is_first_one ? 1 : 0) << 2));
-    int64_t prev_one_pos = -1;
-    uint64_t ones_range_len = 0;
-    for (uint32_t i = 0; i < pos_ones.size(); ++i) {
-      ASSERT_GREATER(pos_ones[i], prev_one_pos, ());
-      if (pos_ones[i] - prev_one_pos > 1) {
-        if (ones_range_len > 0) {
+    VarintEncode(writer, encType + ((isFirstOne ? 1 : 0) << 2));
+    int64_t prevOnePos = -1;
+    u64 onesRangeLen = 0;
+    for (u32 i = 0; i < posOnes.size(); ++i)
+    {
+      CHECK_GREATER(posOnes[i], prevOnePos, ());
+      if (posOnes[i] - prevOnePos > 1)
+      {
+        if (onesRangeLen > 0)
+        {
           // Encode ones range size - 1.
-          VarintEncode(writer, ones_range_len - 1);
-          ones_range_len = 0;
+          VarintEncode(writer, onesRangeLen - 1);
+          onesRangeLen = 0;
         }
         // Encode zeros range size - 1.
-        VarintEncode(writer, pos_ones[i] - prev_one_pos - 2);
+        VarintEncode(writer, posOnes[i] - prevOnePos - 2);
       }
-      ++ones_range_len;
-      prev_one_pos = pos_ones[i];
+      ++onesRangeLen;
+      prevOnePos = posOnes[i];
     }
-    if (ones_range_len > 0) {
+    if (onesRangeLen > 0)
+    {
       // Encode last ones range size.
-      VarintEncode(writer, ones_range_len - 1);
-      ones_range_len = 0;
+      VarintEncode(writer, onesRangeLen - 1);
+      onesRangeLen = 0;
     }
-  } else if (enc_type == 3) {
+  }
+  else if (encType == 3)
+  {
     // Ranges-Arith encoding.
 
     // If bit vector starts with 1.
-    bool is_first_one = pos_ones.size() > 0 && pos_ones.front() == 0;
+    bool isFirstOne = posOnes.size() > 0 && posOnes.front() == 0;
     // Encode encoding type plus flag if first is 1 plus count of sizes freqs.
-    VarintEncode(writer, enc_type + ((is_first_one ? 1 : 0) << 2) + (nonzero_ranges0_sizes_freqs_end << 3));
-    VarintEncode(writer, nonzero_ranges1_sizes_freqs_end);
+    VarintEncode(writer, encType + ((isFirstOne ? 1 : 0) << 2) + (nonzeroRanges0SizesFreqsEnd << 3));
+    VarintEncode(writer, nonzeroRanges1SizesFreqsEnd);
     // Encode freqs table.
-    writer.Write(ranges0_sizes_freqs_serial.data(), ranges0_sizes_freqs_serial.size());
-    writer.Write(ranges1_sizes_freqs_serial.data(), ranges1_sizes_freqs_serial.size());
+    writer.Write(ranges0SizesFreqsSerial.data(), ranges0SizesFreqsSerial.size());
+    writer.Write(ranges1SizesFreqsSerial.data(), ranges1SizesFreqsSerial.size());
     // Create distr tables.
-    uint64_t tmp_offset = 0;
-    MemReader ranges0_sizes_freqs_serial_reader(ranges0_sizes_freqs_serial.data(), ranges0_sizes_freqs_serial.size());
-    vector<uint32_t> distr_table0 = SerialFreqsToDistrTable(
-      ranges0_sizes_freqs_serial_reader, tmp_offset, nonzero_ranges0_sizes_freqs_end
+    u64 tmpOffset = 0;
+    MemReader ranges0SizesFreqsSerialReader(ranges0SizesFreqsSerial.data(), ranges0SizesFreqsSerial.size());
+    vector<u32> distrTable0 = SerialFreqsToDistrTable(
+      ranges0SizesFreqsSerialReader, tmpOffset, nonzeroRanges0SizesFreqsEnd
     );
-    tmp_offset = 0;
-    MemReader ranges1_sizes_freqs_serial_reader(ranges1_sizes_freqs_serial.data(), ranges1_sizes_freqs_serial.size());
-    vector<uint32_t> distr_table1 = SerialFreqsToDistrTable(
-      ranges1_sizes_freqs_serial_reader, tmp_offset, nonzero_ranges1_sizes_freqs_end
+    tmpOffset = 0;
+    MemReader ranges1SizesFreqsSerialReader(ranges1SizesFreqsSerial.data(), ranges1SizesFreqsSerial.size());
+    vector<u32> distrTable1 = SerialFreqsToDistrTable(
+      ranges1SizesFreqsSerialReader, tmpOffset, nonzeroRanges1SizesFreqsEnd
     );
 
     {
       // First stage, encode all ranges bits sizes using ArithmeticEncoder.
 
       // Encode number of compressed elements.
-      ArithmeticEncoder arith_enc0(distr_table0), arith_enc1(distr_table1);
-      int64_t prev_one_pos = -1;
-      uint64_t ones_range_len = 0;
+      ArithmeticEncoder arith_enc0(distrTable0), arith_enc1(distrTable1);
+      int64_t prevOnePos = -1;
+      u64 onesRangeLen = 0;
       // Total number of compressed elements (ranges sizes).
-      uint64_t cnt_elements0 = 0, cnt_elements1 = 0;
-      for (uint32_t i = 0; i < pos_ones.size(); ++i) {
-        ASSERT_GREATER(pos_ones[i], prev_one_pos, ());
-        if (pos_ones[i] - prev_one_pos > 1) {
-          if (ones_range_len > 0) {
+      u64 cntElements0 = 0, cntElements1 = 0;
+      for (u32 i = 0; i < posOnes.size(); ++i)
+      {
+        CHECK_GREATER(posOnes[i], prevOnePos, ());
+        if (posOnes[i] - prevOnePos > 1)
+        {
+          if (onesRangeLen > 0)
+          {
             // Encode ones range bits size.
-            uint32_t bits_used = NumUsedBits(ones_range_len - 1);
-            arith_enc1.Encode(bits_used);
-            ++cnt_elements1;
-            ones_range_len = 0;
+            u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+            arith_enc1.Encode(bitsUsed);
+            ++cntElements1;
+            onesRangeLen = 0;
           }
           // Encode zeros range bits size - 1.
-          uint32_t bits_used = NumUsedBits(pos_ones[i] - prev_one_pos - 2);
-          arith_enc0.Encode(bits_used);
-          ++cnt_elements0;
+          u32 bitsUsed = NumUsedBits(posOnes[i] - prevOnePos - 2);
+          arith_enc0.Encode(bitsUsed);
+          ++cntElements0;
         }
-        ++ones_range_len;
-        prev_one_pos = pos_ones[i];
+        ++onesRangeLen;
+        prevOnePos = posOnes[i];
       }
-      if (ones_range_len > 0) {
+      if (onesRangeLen > 0)
+      {
         // Encode last ones range size - 1.
-        uint32_t bits_used = NumUsedBits(ones_range_len - 1);
-        arith_enc1.Encode(bits_used);
-        ++cnt_elements1;
-        ones_range_len = 0;
+        u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+        arith_enc1.Encode(bitsUsed);
+        ++cntElements1;
+        onesRangeLen = 0;
       }
-      vector<uint8_t> serial0_sizes_enc = arith_enc0.Finalize(), serial1_sizes_enc = arith_enc1.Finalize();
+      vector<u8> serial0SizesEnc = arith_enc0.Finalize(), serial1SizesEnc = arith_enc1.Finalize();
       // Store number of compressed elements.
-      VarintEncode(writer, cnt_elements0);
-      VarintEncode(writer, cnt_elements1);
+      VarintEncode(writer, cntElements0);
+      VarintEncode(writer, cntElements1);
       // Store size of encoded bits sizes.
-      VarintEncode(writer, serial0_sizes_enc.size());
-      VarintEncode(writer, serial1_sizes_enc.size());
+      VarintEncode(writer, serial0SizesEnc.size());
+      VarintEncode(writer, serial1SizesEnc.size());
       // Store serial sizes.
-      writer.Write(serial0_sizes_enc.data(), serial0_sizes_enc.size());
-      writer.Write(serial1_sizes_enc.data(), serial1_sizes_enc.size());
+      writer.Write(serial0SizesEnc.data(), serial0SizesEnc.size());
+      writer.Write(serial1SizesEnc.data(), serial1SizesEnc.size());
     }
 
     {
       // Second stage, encode all ranges bits using BitWriter.
-      BitWriter bit_writer(writer);
-      int64_t prev_one_pos = -1;
-      uint64_t ones_range_len = 0;
-      for (uint32_t i = 0; i < pos_ones.size(); ++i) {
-        ASSERT_GREATER(pos_ones[i], prev_one_pos, ());
-        if (pos_ones[i] - prev_one_pos > 1) {
-          if (ones_range_len > 0) {
+      BitWriter bitWriter(writer);
+      int64_t prevOnePos = -1;
+      u64 onesRangeLen = 0;
+      for (u32 i = 0; i < posOnes.size(); ++i)
+      {
+        CHECK_GREATER(posOnes[i], prevOnePos, ());
+        if (posOnes[i] - prevOnePos > 1)
+        {
+          if (onesRangeLen > 0)
+          {
             // Encode ones range bits size.
-            uint32_t bits_used = NumUsedBits(ones_range_len - 1);
-            if (bits_used > 1) {
+            u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+            if (bitsUsed > 1)
+            {
               // Most significant bit for non-zero values is always 1, don't encode it.
-              --bits_used;
-              bit_writer.Write(ones_range_len - 1, bits_used);
+              --bitsUsed;
+              bitWriter.Write(onesRangeLen - 1, bitsUsed);
             }
-            ones_range_len = 0;
+            onesRangeLen = 0;
           }
           // Encode zeros range bits size - 1.
-          uint32_t bits_used = NumUsedBits(pos_ones[i] - prev_one_pos - 2);
-          if (bits_used > 1) {
+          u32 bitsUsed = NumUsedBits(posOnes[i] - prevOnePos - 2);
+          if (bitsUsed > 1)
+          {
             // Most significant bit for non-zero values is always 1, don't encode it.
-            --bits_used;
-            bit_writer.Write(pos_ones[i] - prev_one_pos - 2, bits_used);
+            --bitsUsed;
+            bitWriter.Write(posOnes[i] - prevOnePos - 2, bitsUsed);
           }
         }
-        ++ones_range_len;
-        prev_one_pos = pos_ones[i];
+        ++onesRangeLen;
+        prevOnePos = posOnes[i];
       }
-      if (ones_range_len > 0) {
+      if (onesRangeLen > 0)
+      {
         // Encode last ones range size - 1.
-        uint32_t bits_used = NumUsedBits(ones_range_len - 1);
-        if (bits_used > 1) {
+        u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+        if (bitsUsed > 1)
+        {
           // Most significant bit for non-zero values is always 1, don't encode it.
-          --bits_used;
-          bit_writer.Write(ones_range_len - 1, bits_used);
+          --bitsUsed;
+          bitWriter.Write(onesRangeLen - 1, bitsUsed);
         }
-        ones_range_len = 0;
+        onesRangeLen = 0;
       }
     }
   }
 }
 
-vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
-  uint64_t serial_size = reader.Size();
-  vector<uint32_t> pos_ones;
-  uint64_t decode_offset = 0;
-  uint64_t header = VarintDecode(reader, decode_offset);
-  uint32_t enc_type = header & 3;
-  ASSERT_LESS(enc_type, 4, ());
-  if (enc_type == 0) {
+vector<u32> DecodeCompressedBitVector(Reader & reader) {
+  u64 serialSize = reader.Size();
+  vector<u32> posOnes;
+  u64 decodeOffset = 0;
+  u64 header = VarintDecode(reader, decodeOffset);
+  u32 encType = header & 3;
+  CHECK_LESS(encType, 4, ());
+  if (encType == 0)
+  {
     // Diffs-Varint encoded.
-    int64_t prev_one_pos = -1;
+    int64_t prevOnePos = -1;
     // For non-empty vectors first diff is taken from header number.
     bool is_empty = (header & 4) != 0;
-    if (!is_empty) {
-      pos_ones.push_back(header >> 3);
-      prev_one_pos = pos_ones.back();
+    if (!is_empty)
+    {
+      posOnes.push_back(header >> 3);
+      prevOnePos = posOnes.back();
     }
-    while (decode_offset < serial_size) {
-      pos_ones.push_back(prev_one_pos + VarintDecode(reader, decode_offset) + 1);
-      prev_one_pos = pos_ones.back();
+    while (decodeOffset < serialSize)
+    {
+      posOnes.push_back(prevOnePos + VarintDecode(reader, decodeOffset) + 1);
+      prevOnePos = posOnes.back();
     }
-  } else if (enc_type == 2) {
+  }
+  else if (encType == 2)
+  {
     // Diffs-Arith encoded.
-    uint64_t freqs_cnt = header >> 2;
-    vector<uint32_t> distr_table = SerialFreqsToDistrTable(reader, decode_offset, freqs_cnt);
-    uint64_t cnt_elements = VarintDecode(reader, decode_offset);
-    uint64_t enc_sizes_bytesize = VarintDecode(reader, decode_offset);
-    vector<uint32_t> bits_used_vec;
-    Reader * arith_dec_reader = reader.CreateSubReader(decode_offset, enc_sizes_bytesize);
-    ArithmeticDecoder arith_dec(*arith_dec_reader, distr_table);
-    for (uint64_t i = 0; i < cnt_elements; ++i) bits_used_vec.push_back(arith_dec.Decode());
-    decode_offset += enc_sizes_bytesize;
-    Reader * bit_reader_reader = reader.CreateSubReader(decode_offset, serial_size - decode_offset);
-    BitReader bit_reader(*bit_reader_reader);
-    int64_t prev_one_pos = -1;
-    for (uint64_t i = 0; i < cnt_elements; ++i) {
-      uint32_t bits_used = bits_used_vec[i];
-      uint64_t diff = 0;
-      if (bits_used > 0) diff = ((uint64_t(1) << (bits_used - 1)) | bit_reader.Read(bits_used - 1)) + 1; else diff = 1;
-      pos_ones.push_back(prev_one_pos + diff);
-      prev_one_pos += diff;
+    u64 freqsCnt = header >> 2;
+    vector<u32> distrTable = SerialFreqsToDistrTable(reader, decodeOffset, freqsCnt);
+    u64 cntElements = VarintDecode(reader, decodeOffset);
+    u64 encSizesBytesize = VarintDecode(reader, decodeOffset);
+    vector<u32> bitsUsedVec;
+    Reader * arithDecReader = reader.CreateSubReader(decodeOffset, encSizesBytesize);
+    ArithmeticDecoder arithDec(*arithDecReader, distrTable);
+    for (u64 i = 0; i < cntElements; ++i) bitsUsedVec.push_back(arithDec.Decode());
+    decodeOffset += encSizesBytesize;
+    Reader * bitReaderReader = reader.CreateSubReader(decodeOffset, serialSize - decodeOffset);
+    BitReader bitReader(*bitReaderReader);
+    int64_t prevOnePos = -1;
+    for (u64 i = 0; i < cntElements; ++i)
+    {
+      u32 bitsUsed = bitsUsedVec[i];
+      u64 diff = 0;
+      if (bitsUsed > 0) diff = ((u64(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else diff = 1;
+      posOnes.push_back(prevOnePos + diff);
+      prevOnePos += diff;
     }
-    decode_offset = serial_size;
-  } else if (enc_type == 1) {
+    decodeOffset = serialSize;
+  }
+  else if (encType == 1)
+  {
     // Ranges-Varint encoding.
     
     // If bit vector starts with 1.
-    bool is_first_one = ((header >> 2) & 1) == 1;
-    uint64_t sum = 0;
-    while (decode_offset < serial_size) {
-      uint64_t zeros_range_size = 0;
+    bool isFirstOne = ((header >> 2) & 1) == 1;
+    u64 sum = 0;
+    while (decodeOffset < serialSize)
+    {
+      u64 zerosRangeSize = 0;
       // Don't read zero range size for the first time if first bit is 1.
-      if (!is_first_one) zeros_range_size = VarintDecode(reader, decode_offset) + 1; else is_first_one = false;
-      uint64_t ones_range_size = VarintDecode(reader, decode_offset) + 1;
-      sum += zeros_range_size;
-      for (uint64_t i = sum; i < sum + ones_range_size; ++i) pos_ones.push_back(i);
-      sum += ones_range_size;
+      if (!isFirstOne) zerosRangeSize = VarintDecode(reader, decodeOffset) + 1; else isFirstOne = false;
+      u64 onesRangeSize = VarintDecode(reader, decodeOffset) + 1;
+      sum += zerosRangeSize;
+      for (u64 i = sum; i < sum + onesRangeSize; ++i) posOnes.push_back(i);
+      sum += onesRangeSize;
     }
-  } else if (enc_type == 3) {
+  }
+  else if (encType == 3)
+  {
     // Ranges-Arith encoding.
 
     // If bit vector starts with 1.
-    bool is_first_one = ((header >> 2) & 1) == 1;
-    uint64_t freqs0_cnt = header >> 3, freqs1_cnt = VarintDecode(reader, decode_offset);
-    vector<uint32_t> distr_table0 = SerialFreqsToDistrTable(reader, decode_offset, freqs0_cnt);
-    vector<uint32_t> distr_table1 = SerialFreqsToDistrTable(reader, decode_offset, freqs1_cnt);
-    uint64_t cnt_elements0 = VarintDecode(reader, decode_offset), cnt_elements1 = VarintDecode(reader, decode_offset);
-    uint64_t enc0_sizes_bytesize = VarintDecode(reader, decode_offset), enc1_sizes_bytesize = VarintDecode(reader, decode_offset);
-    Reader * arith_dec0_reader = reader.CreateSubReader(decode_offset, enc0_sizes_bytesize);
-    ArithmeticDecoder arith_dec0(*arith_dec0_reader, distr_table0);
-    vector<uint32_t> bits_sizes0;
-    for (uint64_t i = 0; i < cnt_elements0; ++i) bits_sizes0.push_back(arith_dec0.Decode());
-    decode_offset += enc0_sizes_bytesize;
-    Reader * arith_dec1_reader = reader.CreateSubReader(decode_offset, enc1_sizes_bytesize);
-    ArithmeticDecoder arith_dec1(*arith_dec1_reader, distr_table1);
-    vector<uint32_t> bits_sizes1;
-    for (uint64_t i = 0; i < cnt_elements1; ++i) bits_sizes1.push_back(arith_dec1.Decode());
-    decode_offset += enc1_sizes_bytesize;
-    Reader * bit_reader_reader = reader.CreateSubReader(decode_offset, serial_size - decode_offset);
-    BitReader bit_reader(*bit_reader_reader);
-    uint64_t sum = 0, i0 = 0, i1 = 0;
-    while (i0 < cnt_elements0 && i1 < cnt_elements1) {
-      uint64_t zeros_range_size = 0;
+    bool isFirstOne = ((header >> 2) & 1) == 1;
+    u64 freqs0Cnt = header >> 3, freqs1Cnt = VarintDecode(reader, decodeOffset);
+    vector<u32> distrTable0 = SerialFreqsToDistrTable(reader, decodeOffset, freqs0Cnt);
+    vector<u32> distrTable1 = SerialFreqsToDistrTable(reader, decodeOffset, freqs1Cnt);
+    u64 cntElements0 = VarintDecode(reader, decodeOffset), cntElements1 = VarintDecode(reader, decodeOffset);
+    u64 enc0SizesBytesize = VarintDecode(reader, decodeOffset), enc1SizesBytesize = VarintDecode(reader, decodeOffset);
+    Reader * arithDec0Reader = reader.CreateSubReader(decodeOffset, enc0SizesBytesize);
+    ArithmeticDecoder arithDec0(*arithDec0Reader, distrTable0);
+    vector<u32> bitsSizes0;
+    for (u64 i = 0; i < cntElements0; ++i) bitsSizes0.push_back(arithDec0.Decode());
+    decodeOffset += enc0SizesBytesize;
+    Reader * arithDec1Reader = reader.CreateSubReader(decodeOffset, enc1SizesBytesize);
+    ArithmeticDecoder arith_dec1(*arithDec1Reader, distrTable1);
+    vector<u32> bitsSizes1;
+    for (u64 i = 0; i < cntElements1; ++i) bitsSizes1.push_back(arith_dec1.Decode());
+    decodeOffset += enc1SizesBytesize;
+    Reader * bitReaderReader = reader.CreateSubReader(decodeOffset, serialSize - decodeOffset);
+    BitReader bitReader(*bitReaderReader);
+    u64 sum = 0, i0 = 0, i1 = 0;
+    while (i0 < cntElements0 && i1 < cntElements1)
+    {
+      u64 zerosRangeSize = 0;
       // Don't read zero range size for the first time if first bit is 1.
-      if (!is_first_one) {
-        uint32_t bits_used = bits_sizes0[i0];
-        if (bits_used > 0) zeros_range_size = ((uint64_t(1) << (bits_used - 1)) | bit_reader.Read(bits_used - 1)) + 1; else zeros_range_size = 1;
+      if (!isFirstOne)
+      {
+        u32 bitsUsed = bitsSizes0[i0];
+        if (bitsUsed > 0) zerosRangeSize = ((u64(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else zerosRangeSize = 1;
         ++i0;
-      } else is_first_one = false;
-      uint64_t ones_range_size = 0;
-      uint32_t bits_used = bits_sizes1[i1];
-      if (bits_used > 0) ones_range_size = ((uint64_t(1) << (bits_used - 1)) | bit_reader.Read(bits_used - 1)) + 1; else ones_range_size = 1;
+      }
+      else isFirstOne = false;
+      u64 onesRangeSize = 0;
+      u32 bitsUsed = bitsSizes1[i1];
+      if (bitsUsed > 0) onesRangeSize = ((u64(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else onesRangeSize = 1;
       ++i1;
-      sum += zeros_range_size;
-      for (uint64_t j = sum; j < sum + ones_range_size; ++j) pos_ones.push_back(j);
-      sum += ones_range_size;
+      sum += zerosRangeSize;
+      for (u64 j = sum; j < sum + onesRangeSize; ++j) posOnes.push_back(j);
+      sum += onesRangeSize;
     }
-    ASSERT(i0 == cnt_elements0 && i1 == cnt_elements1, ());
-    decode_offset = serial_size;
+    CHECK(i0 == cntElements0 && i1 == cntElements1, ());
+    decodeOffset = serialSize;
   }
-  return pos_ones;
+  return posOnes;
 }
