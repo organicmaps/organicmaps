@@ -1051,11 +1051,6 @@
       [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position") message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
     }
   }
-  else if ([itemName isEqualToString:@"MoreApps"])
-  {
-    MoreAppsVC * vc = [[MoreAppsVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-  }
   else if ([itemName isEqualToString:@"MWMPro"])
   {
     [[Statistics instance] logProposalReason:@"Pro button in menu" withAnswer:@"YES"];

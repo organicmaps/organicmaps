@@ -64,8 +64,6 @@
       [items addObjectsFromArray:serverItems];
   }
 
-  [items addObject:@{@"Id" : @"MoreApps",  @"Title" : L(@"more_apps_guides"), @"Icon" : @"IconMoreApps"}];
-
    NSArray * standardItems = @[@{@"Id" : @"Maps", @"Title" : L(@"download_maps"), @"Icon" : @"IconMap"},
                                @{@"Id" : @"Settings", @"Title" : L(@"settings_and_more"), @"Icon" : @"IconSettings"},
                                @{@"Id" : @"Share", @"Title" : L(@"share_my_location"), @"Icon" : @"IconShare"}];
