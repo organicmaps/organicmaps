@@ -60,8 +60,16 @@
 
 - (NSString *)secondsToString:(NSNumber *)seconds
 {
-  NSString * minutesString = [NSString stringWithFormat:@"%d min", (NSInteger)(ceil([seconds integerValue] * 1. / 60))];
-  return minutesString;
+  static NSDateFormatter * dateFormatter;
+  if (!dateFormatter)
+  {
+    dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateStyle = NSDateFormatterNoStyle;
+    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+  }
+  NSDate * date = [NSDate dateWithTimeIntervalSinceNow:[seconds floatValue]];
+  NSString * string = [dateFormatter stringFromDate:date];
+  return string;
 }
 
 #define BUTTON_HEIGHT 51
