@@ -31,6 +31,7 @@
           android:id="@+id/btn_edit_title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
           android:layout_weight="0"
           android:alpha="@dimen/alpha_edit_button"
           android:background="@android:color/transparent"
