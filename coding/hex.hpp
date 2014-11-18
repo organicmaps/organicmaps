@@ -3,8 +3,7 @@
 #include "../base/base.hpp"
 
 #include "../std/string.hpp"
-
-#include <boost/type_traits/is_integral.hpp>
+#include "../std/type_traits.hpp"
 
 
 namespace impl
@@ -40,7 +39,7 @@ inline string ToHex(ContainerT const & container)
 template <typename IntT>
 inline string NumToHex(IntT n)
 {
-  STATIC_ASSERT(boost::is_integral<IntT>::value);
+  STATIC_ASSERT(is_integral<IntT>::value);
 
   uint8_t buf[sizeof(n)];
 
