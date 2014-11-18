@@ -198,7 +198,7 @@ void FrontendRenderer::RenderScene()
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
   GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
-  GLFunctions::glClearDepth(1.0);
+  GLFunctions::glClearDepthValue(1.0);
   GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
   GLFunctions::glDepthMask(true);
 
