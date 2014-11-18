@@ -38,12 +38,7 @@ vector<uint32_t> FreqsToDistrTable(vector<uint32_t> const & origFreqs)
         break;
       }
     }
-    if (!hasDegradedZeroInterval) {
-      // Convert distr_table to 32-bit vector, although currently only 17 bits are used.
-      vector<uint32_t> distr_table;
-      for (uint32_t i = 0; i < result.size(); ++i) distr_table.push_back(result[i]);
-      return distr_table;
-    }
+    if (!hasDegradedZeroInterval) return vector<uint32_t>(result.begin(), result.end());
     ++freqLowerBound;
   }  
 }
