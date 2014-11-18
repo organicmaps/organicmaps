@@ -92,7 +92,6 @@ const glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
 const glConst GLIntType             = GL_INT;
 const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
 const glConst GLFloatType           = GL_FLOAT;
-const glConst GLDoubleType          = GL_DOUBLE;
 
 const glConst GLFloatVec2           = GL_FLOAT_VEC2;
 const glConst GLFloatVec3           = GL_FLOAT_VEC3;

@@ -77,7 +77,6 @@ extern const glConst GLUnsignedShortType;
 extern const glConst GLIntType;
 extern const glConst GLUnsignedIntType;
 extern const glConst GLFloatType;
-extern const glConst GLDoubleType;
 
 extern const glConst GLFloatVec2;
 extern const glConst GLFloatVec3;

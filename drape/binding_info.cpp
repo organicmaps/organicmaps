@@ -19,8 +19,6 @@ uint16_t sizeOfType(glConst type)
     return sizeof(GLint);
   else if (type == gl_const::GLFloatType)
     return sizeof(GLfloat);
-  else if (type == gl_const::GLDoubleType)
-    return sizeof(GLdouble);
 
   ASSERT(false, ());
   return 0;
