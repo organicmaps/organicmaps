@@ -3,6 +3,7 @@
 #include "reader.hpp"
 #include "writer.hpp"
 
+#include "../std/algorithm.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
 
@@ -104,9 +105,6 @@ namespace {
     for (u64 i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
     return FreqsToDistrTable(freqs);
   }
-  
-  u64 Max(u64 a, u64 b) { return a > b ? a : b; }
-  u64 Min(u64 a, u64 b) { return a < b ? a : b; }
 }
 
 class BitWriter
@@ -311,7 +309,7 @@ void CompressedVarnumVectorReader::SetDecodeContext(u64 tableEntryIndex)
   m_decodeCtx->m_sizesArithDec.reset(new ArithmeticDecoder(*m_decodeCtx->m_sizesArithDecReader, m_distrTable));
   m_decodeCtx->m_numsBitsReaderReader.reset(m_reader.CreateSubReader(decodeOffset + encodedSizesSize, m_numsEncodedOffset + m_tablePos[tableEntryIndex + 1] - decodeOffset - encodedSizesSize));
   m_decodeCtx->m_numsBitsReader.reset(new BitReader(*m_decodeCtx->m_numsBitsReaderReader));
-  m_decodeCtx->m_numsLeftInChunk = Min((tableEntryIndex + 1) * m_numElemPerTableEntry, m_numsCnt) - tableEntryIndex * m_numElemPerTableEntry;
+  m_decodeCtx->m_numsLeftInChunk = min((tableEntryIndex + 1) * m_numElemPerTableEntry, m_numsCnt) - tableEntryIndex * m_numElemPerTableEntry;
 }
 
 void CompressedVarnumVectorReader::FindByIndex(u64 index, u64 & sumBefore)
