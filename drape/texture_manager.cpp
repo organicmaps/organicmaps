@@ -111,7 +111,7 @@ void TextureManager::Init(string const & resourcePrefix)
   m_textures.push_back(MasterPointer<TextureSet>(defaultSet));
 
   vector<TransferPointer<Texture> > tempTextures;
-  LoadFont(string("resources/font"), tempTextures);
+  LoadFont(string("resources-common/font"), tempTextures);
   for (size_t i = 0; i < tempTextures.size(); ++i)
   {
     RefPointer<TextureSet> set = m_textures.back().GetRefPointer();
@@ -130,11 +130,6 @@ void TextureManager::Init(string const & resourcePrefix)
     m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
     textureSet = m_textures.back().GetRefPointer();
   }
-
-  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TStippleTexture;
-  typedef DynamicTexture<ColorPalette, ColorKey, Texture::Color> TColorTexture;
-  textureSet->AddTexture(MovePointer<Texture>(new TStippleTexture(m2::PointU(1024, 1024), dp::ALPHA)));
-  textureSet->AddTexture(MovePointer<Texture>(new TColorTexture(m2::PointU(1024, 1024), dp::RGBA8)));
 }
 
 void TextureManager::Release()
