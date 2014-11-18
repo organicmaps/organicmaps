@@ -32,6 +32,12 @@ VertexArrayBuffer::~VertexArrayBuffer()
   }
 }
 
+void VertexArrayBuffer::Preflush()
+{
+  GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
+  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+}
+
 void VertexArrayBuffer::Render()
 {
   if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()))

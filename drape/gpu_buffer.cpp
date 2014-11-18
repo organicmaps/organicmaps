@@ -39,6 +39,7 @@ GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
 
 GPUBuffer::~GPUBuffer()
 {
+  GLFunctions::glBindBuffer(0, glTarget(m_t));
   GLFunctions::glDeleteBuffer(m_bufferID);
 }
 
@@ -56,7 +57,7 @@ void GPUBuffer::UploadData(void const * data, uint16_t elementCount)
 
 void GPUBuffer::Bind()
 {
-  GLFunctions::glBindBuffer(m_bufferID, glTarget((m_t)));
+  GLFunctions::glBindBuffer(m_bufferID, glTarget(m_t));
 }
 
 void * GPUBuffer::Map()

@@ -177,15 +177,20 @@ RefPointer<RenderBucket> Batcher::GetBucket(GLState const & state)
 void Batcher::FinalizeBucket(GLState const & state)
 {
   ASSERT(m_buckets.find(state) != m_buckets.end(), ("Have no bucket for finalize with given state"));
-  m_flushInterface(state, m_buckets[state].Move());
+  MasterPointer<RenderBucket> bucket = m_buckets[state];
   m_buckets.erase(state);
+  bucket->GetBuffer()->Preflush();
+  m_flushInterface(state, bucket.Move());
 }
 
 void Batcher::Flush()
 {
   ASSERT(m_flushInterface != NULL, ());
   for (buckets_t::iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
+  {
+    it->second->GetBuffer()->Preflush();
     m_flushInterface(it->first, it->second.Move());
+  }
 
   m_buckets.clear();
 }

@@ -4,6 +4,12 @@
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 
+#ifdef DEBUG
+#include "../base/thread.hpp"
+#include "../base/mutex.hpp"
+#include "../std/map.hpp"
+#endif
+
 #include "../std/cstring.hpp"
 
 #ifndef OMIM_OS_WINDOWS
@@ -12,6 +18,14 @@
 
 namespace
 {
+#ifdef DEBUG
+  typedef pair<threads::ThreadID, glConst> TKey;
+  typedef pair<TKey, uint32_t> TNode;
+  typedef map<TKey, uint32_t> TBoundMap;
+  TBoundMap g_boundBuffers;
+  threads::Mutex g_mutex;
+#endif
+
   inline GLboolean convert(bool v)
   {
     return (v == true) ? GL_TRUE : GL_FALSE;
@@ -294,12 +308,26 @@ uint32_t GLFunctions::glGenBuffer()
 void GLFunctions::glBindBuffer(uint32_t vbo, uint32_t target)
 {
   ASSERT(glBindBufferFn != NULL, ());
+#ifdef DEBUG
+  threads::MutexGuard guard(g_mutex);
+  TKey key = make_pair(threads::GetCurrentThreadID(), target);
+  auto iter = g_boundBuffers.find(key);
+  if (iter != g_boundBuffers.end())
+    g_boundBuffers.erase(iter);
+  g_boundBuffers.emplace(key, vbo);
+#endif
   GLCHECK(glBindBufferFn(target, vbo));
 }
 
 void GLFunctions::glDeleteBuffer(uint32_t vbo)
 {
   ASSERT(glDeleteBuffersFn != NULL, ());
+#ifdef DEBUG
+  threads::MutexGuard guard(g_mutex);
+  threads::ThreadID id = threads::GetCurrentThreadID();
+  for (TNode const & n : g_boundBuffers)
+    ASSERT(n.second != vbo, ());
+#endif
   GLCHECK(glDeleteBuffersFn(1, &vbo));
 }
 
@@ -615,6 +643,9 @@ void GLFunctions::glDrawElements(uint16_t indexCount)
 void CheckGLError()
 {
   GLenum result = glGetError();
-  if (result != GL_NO_ERROR)
+  while (result != GL_NO_ERROR)
+  {
     LOG(LERROR, ("GLError:", result));
+    result = glGetError();
+  }
 }

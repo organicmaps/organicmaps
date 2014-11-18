@@ -20,6 +20,9 @@ public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
 
+  /// This method must be call on reading thread, before VAO will be transfer on render thread
+  void Preflush();
+
   ///{@
   /// On devices where implemented OES_vertex_array_object extensions we use it for build VertexArrayBuffer
   /// OES_vertex_array_object create OpenGL resource that belong only one GL context (which was created by)
