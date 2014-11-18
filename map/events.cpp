@@ -1,5 +1,6 @@
 #include "events.hpp"
 
+#ifndef USE_DRAPE
 PaintEvent::PaintEvent(Drawer * drawer,
                        core::CommandsQueue::Environment const * env)
     : m_drawer(drawer),
@@ -36,3 +37,4 @@ void PaintEvent::setIsEmptyDrawing(bool flag)
 {
   m_isEmptyDrawing = flag;
 }
+#endif // USE_DRAPE

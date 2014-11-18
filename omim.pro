@@ -10,6 +10,7 @@ greaterThan(QT_VER_MAJ, 4) {
 
 TEMPLATE = subdirs
 CONFIG += ordered
+#CONFIG += drape_device
 
 HEADERS += defines.hpp
 
@@ -32,8 +33,8 @@ SUBDIRS = 3party \
           gui \
           storage storage/storage_tests \
           search search/search_tests \
-          map map/map_tests map/benchmark_tool map/mwm_tests\
           drape_frontend drape_frontend/drape_frontend_tests \
+          map map/map_tests map/benchmark_tool map/mwm_tests\
           generator generator/generator_tests \
           generator/generator_tool \
           qt_tstfrm \
@@ -43,6 +44,24 @@ SUBDIRS = 3party \
           qt \
           drape_head \
           map_server
+} else:drape_device {
+  # libraries which are used on mobile devices with drape engine
+  SUBDIRS = 3party \
+            base \
+            coding \
+            geometry \
+            drape \
+            platform \
+            anim \
+            indexer \
+            routing \
+            storage \
+            graphics \
+            gui \
+            search \
+            drape_frontend \
+            map \
+            stats/client \
 } else {
   # libraries which are used on mobile devices
   SUBDIRS = 3party \

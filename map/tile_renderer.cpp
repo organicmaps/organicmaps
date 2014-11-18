@@ -150,6 +150,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                            Tiler::RectInfo const & rectInfo,
                            int sequenceID)
 {
+#ifndef USE_DRAPE
   if (m_isPaused)
     return;
 
@@ -222,6 +223,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
                  paintEvent->isEmptyDrawing(),
                  sequenceID));
   }
+#endif //USE_DRAPE
 }
 
 void TileRenderer::AddCommand(Tiler::RectInfo const & rectInfo, int sequenceID, core::CommandsQueue::Chain const & afterTileFns)

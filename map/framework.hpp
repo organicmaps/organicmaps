@@ -1,13 +1,18 @@
 #pragma once
 
 #include "events.hpp"
-#include "render_policy.hpp"
+#ifndef USE_DRAPE
+  #include "render_policy.hpp"
+  #include "window_handle.hpp"
+#else
+  #include "../drape/oglcontextfactory.hpp"
+  #include "../drape_frontend/drape_engine.hpp"
+#endif // USE_DRAPE
+#include "feature_vec_model.hpp"
 #include "information_display.hpp"
-#include "window_handle.hpp"
 #include "location_state.hpp"
 #include "navigator.hpp"
 #include "animator.hpp"
-#include "feature_vec_model.hpp"
 #include "scales_processor.hpp"
 
 #include "bookmark.hpp"
@@ -26,9 +31,11 @@
 
 #include "../platform/location.hpp"
 
-#include "../graphics/defines.hpp"
-#include "../graphics/screen.hpp"
-#include "../graphics/color.hpp"
+#ifndef USE_DRAPE
+  #include "../graphics/defines.hpp"
+  #include "../graphics/screen.hpp"
+  #include "../graphics/color.hpp"
+#endif // USE_DRAPE
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
@@ -39,8 +46,6 @@
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/target_os.hpp"
-
-//#define DRAW_TOUCH_POINTS
 
 namespace search
 {
@@ -96,7 +101,11 @@ protected:
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
+#ifndef USE_DRAPE
   unique_ptr<RenderPolicy> m_renderPolicy;
+#else
+  dp::MasterPointer<df::DrapeEngine> m_drapeEngine;
+#endif
 
   double m_StartForegroundTime;
 
@@ -126,8 +135,9 @@ protected:
     //return m_timer.ElapsedSeconds();
     return 0.0;
   }
-
+#ifndef USE_DRAPE
   void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
+#endif // USE_DRAPE
 
   BenchmarkEngine * m_benchmarkEngine;
 
@@ -214,9 +224,13 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info);
   //@}
 
+#ifndef USE_DRAPE
   void SetRenderPolicy(RenderPolicy * renderPolicy);
   void InitGuiSubsystem();
   RenderPolicy * GetRenderPolicy() const;
+#else
+  void CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
+#endif // USE_DRAPE
 
   InformationDisplay & GetInformationDisplay();
   CountryStatusDisplay * GetCountryStatusDisplay() const;
@@ -230,13 +244,14 @@ public:
 
   void SetupMeasurementSystem();
 
+#ifndef USE_DRAPE
   RenderPolicy::TRenderFn DrawModelFn();
 
   void DrawModel(shared_ptr<PaintEvent> const & e,
                  ScreenBase const & screen,
                  m2::RectD const & renderRect,
                  int baseScale, bool isTilingQuery);
-
+#endif // USE_DRAPE
 
   void ShowBuyProDialog();
 
@@ -352,11 +367,13 @@ private:
 public:
   bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info) const;
 
+#ifndef USE_DRAPE
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
   virtual void DoPaint(shared_ptr<PaintEvent> const & e);
 
   virtual void EndPaint(shared_ptr<PaintEvent> const & e);
+#endif // USE_DRAPE
 
 private:
   /// Always check rect in public function for minimal draw scale.
@@ -408,7 +425,7 @@ public:
 
   /// @name Scaling.
   //@{
-  void ScaleToPoint(ScaleToPointEvent const & e);
+  void ScaleToPoint(ScaleToPointEvent const & e, bool anim = true);
   void ScaleDefault(bool enlarge);
   void Scale(double scale);
 

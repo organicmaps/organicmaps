@@ -187,6 +187,7 @@ void YopmeRP::InsertOverlayCross(m2::PointD pivot, shared_ptr<OverlayStorage> co
 
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
+#ifndef USE_DRAPE
   shared_ptr<gl::BaseTexture> renderTarget;
 
   int width = m_offscreenDrawer->screen()->width();
@@ -254,6 +255,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
     pScreen->endFrame();
   }
+#endif // USE_DRAPE
 }
 
 void YopmeRP::OnSize(int w, int h)

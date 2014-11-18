@@ -3,9 +3,11 @@
 #include "framework.hpp"
 #include "move_screen_task.hpp"
 
+#ifndef USE_DRAPE
 #include "../graphics/display_list.hpp"
 #include "../graphics/icon.hpp"
 #include "../graphics/depth_constants.hpp"
+#endif // USE_DRAPE
 
 #include "../anim/controller.hpp"
 #include "../anim/task.hpp"
@@ -246,7 +248,7 @@ State::Params::Params()
 
 State::State(Params const & p)
   : TBase(p),
-    m_modeInfo(Follow),
+    m_modeInfo(UnknownPosition),
     m_errorRadius(0),
     m_position(0, 0),
     m_drawDirection(0.0),
@@ -454,19 +456,23 @@ void State::InvalidatePosition()
 
 void State::cache()
 {
+#ifndef USE_DRAPE
   CachePositionArrow();
   CacheRoutingArrow();
   CacheLocationMark();
 
   m_controller->GetCacheScreen()->completeCommands();
+#endif // USE_DRAPE
 }
 
 void State::purge()
 {
+#ifndef USE_DRAPE
   m_positionArrow.reset();
   m_locationMarkDL.reset();
   m_positionMarkDL.reset();
   m_routingArrow.reset();
+#endif // USE_DRAPE
 }
 
 void State::update()
@@ -484,6 +490,7 @@ void State::update()
 void State::draw(graphics::OverlayRenderer * r,
                  math::Matrix<double, 3, 3> const & m) const
 {
+#ifndef USE_DRAPE
   if (!IsModeHasPosition() || !isVisible())
     return;
 
@@ -525,8 +532,10 @@ void State::draw(graphics::OverlayRenderer * r,
   }
   else
     r->drawDisplayList(m_positionMarkDL.get(), drawM);
+#endif // USE_DRAPE
 }
 
+#ifndef USE_DRAPE
 void State::CachePositionArrow()
 {
   m_positionArrow.reset();
@@ -609,6 +618,8 @@ void State::CacheArrow(graphics::DisplayList * dl, const string & iconName)
   cacheScreen->setDisplayList(0);
   cacheScreen->endFrame();
 }
+
+#endif // USE_DRAPE
 
 bool State::IsRotationActive() const
 {

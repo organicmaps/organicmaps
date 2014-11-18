@@ -210,6 +210,7 @@ void BenchmarkEngine::MarkBenchmarkResultsStart()
 
 bool BenchmarkEngine::NextBenchmarkCommand()
 {
+#ifndef USE_DRAPE
   if (m_benchmarks[m_curBenchmark].m_provider->hasRect() || ++m_curBenchmark < m_benchmarks.size())
   {
     double const s = m_benchmarksTimer.ElapsedSeconds();
@@ -235,6 +236,9 @@ bool BenchmarkEngine::NextBenchmarkCommand()
     LOG(LINFO, ("Bechmarks took", m_benchmarksTimer.ElapsedSeconds(), "seconds to complete"));
     return false;
   }
+#else
+  return false;
+#endif // USE_DRAPE
 }
 
 void BenchmarkEngine::Start()

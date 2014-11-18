@@ -62,6 +62,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
 void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
                                ScreenBase const & s)
 {
+#ifndef USE_DRAPE
   shared_ptr<graphics::OverlayStorage> storage(new graphics::OverlayStorage());
 
   Drawer * pDrawer = e->drawer();
@@ -85,6 +86,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
   });
 
   pScreen->endFrame();
+#endif // USE_DRAPE
 }
 
 graphics::Overlay * SimpleRenderPolicy::FrameOverlay() const

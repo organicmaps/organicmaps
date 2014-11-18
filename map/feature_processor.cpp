@@ -1,7 +1,9 @@
 #include "feature_processor.hpp"
 #include "geometry_processors.hpp"
 #include "feature_info.hpp"
+#ifndef USE_DRAPE
 #include "drawer.hpp"
+#endif // USE_DRAPE
 
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/feature_algo.hpp"
@@ -9,6 +11,7 @@
 
 namespace fwork
 {
+#ifndef USE_DRAPE
   namespace
   {
     template <class TSrc> void assign_point(di::FeatureInfo & p, TSrc & src)
@@ -177,4 +180,5 @@ namespace fwork
   {
     return (m_zoom >= feature::g_arrCountryScales[0] && !m_hasNonCoast);
   }
+#endif // USE_DRAPE
 }

@@ -39,6 +39,7 @@ MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffe
   LOG(LINFO, ("MwmRpcService started"));
 
   m_pixelBuffer->makeCurrent();
+#ifndef USE_DRAPE
   shared_ptr<srv::RenderContext> primaryRC(new srv::RenderContext());
   graphics::ResourceManager::Params rmParams;
   rmParams.m_texFormat = graphics::Data8Bpp;
@@ -62,6 +63,7 @@ MwmRpcService::MwmRpcService(QObject * parent) : m_pixelBuffer(new QGLPixelBuffe
   {
     LOG(LCRITICAL, ("OpenGL platform is unsupported, reason: ", e.what()));
   }
+#endif // USE_DRAPE
 }
 
 MwmRpcService::~MwmRpcService()
@@ -82,7 +84,7 @@ QString MwmRpcService::RenderBox(
 
   // @todo: set language from parameter
   // Settings::SetCurrentLanguage(string(language.toAscii()));
-
+#ifndef USE_DRAPE
   graphics::EDensity requestDensity;
   graphics::convert(density.toUtf8(), requestDensity);
   if (m_framework.GetRenderPolicy()->Density() != requestDensity)
@@ -114,6 +116,9 @@ QString MwmRpcService::RenderBox(
 
   LOG(LINFO, ("Render box finished"));
   return QString(ba.toBase64());
+#else
+  return QString();
+#endif // USE_DRAPE
 }
 
 bool MwmRpcService::Ping()

@@ -1,6 +1,10 @@
 #include "framework.hpp"
-#include "feature_processor.hpp"
-#include "drawer.hpp"
+#ifndef USE_DRAPE
+  #include "feature_processor.hpp"
+  #include "drawer.hpp"
+#else
+  #include "../drape_frontend/visual_params.hpp"
+#endif // USE_DRAPE
 #include "benchmark_provider.hpp"
 #include "benchmark_engine.hpp"
 #include "geourl_process.hpp"
@@ -565,7 +569,11 @@ bool Framework::AddBookmarksFile(string const & filePath)
 
 void Framework::PrepareToShutdown()
 {
+#ifndef USE_DRAPE
   SetRenderPolicy(0);
+#else
+  m_drapeEngine.Destroy();
+#endif // USE_DRAPE
 }
 
 void Framework::SetMaxWorldRect()
@@ -576,14 +584,20 @@ void Framework::SetMaxWorldRect()
 bool Framework::NeedRedraw() const
 {
   // Checking this here allows to avoid many dummy "IsInitialized" flags in client code.
+#ifndef USE_DRAPE
   return (m_renderPolicy && m_renderPolicy->NeedRedraw());
+#else
+  return false;
+#endif // USE_DRAPE
 }
 
 void Framework::SetNeedRedraw(bool flag)
 {
+#ifndef USE_DRAPE
   m_renderPolicy->GetWindowHandle()->setNeedRedraw(flag);
   //if (!flag)
   //  m_doForceUpdate = false;
+#endif // USE_DRAPE
 }
 
 void Framework::Invalidate(bool doForceUpdate)
@@ -593,6 +607,7 @@ void Framework::Invalidate(bool doForceUpdate)
 
 void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
 {
+#ifndef USE_DRAPE
   if (m_renderPolicy)
   {
     ASSERT ( rect.IsValid(), () );
@@ -600,6 +615,10 @@ void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
     m_renderPolicy->SetInvalidRect(m2::AnyRectD(rect));
     m_renderPolicy->GetWindowHandle()->invalidate();
   }
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 }
 
 void Framework::SaveState()
@@ -609,7 +628,12 @@ void Framework::SaveState()
 
 bool Framework::LoadState()
 {
-  return m_navigator.LoadState();
+  bool r = m_navigator.LoadState();
+#ifdef USE_DRAPE
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif
+  return r;
 }
 //@}
 
@@ -620,25 +644,37 @@ void Framework::OnSize(int w, int h)
   if (h < 2) h = 2;
 
   m2::RectD oldPixelRect = m_navigator.Screen().PixelRect();
-  m_navigator.OnSize(0, 0, w, h);
 
+#ifndef USE_DRAPE
+  m_navigator.OnSize(0, 0, w, h);
   if (m_renderPolicy)
   {
     m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
     m_renderPolicy->OnSize(w, h);
   }
+#else
+  if (!m_drapeEngine.IsNull())
+  {
+    double vs = df::VisualParams::Instance().GetVisualScale();
+    m_navigator.OnSize(0, 0, vs * w, vs * h);
+    //m_navigator.OnSize(0, 0, w, h);
+    m_drapeEngine->Resize(w, h);
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+  }
+#endif // USE_DRAPE
 
   m_width = w;
   m_height = h;
   GetLocationState()->OnSize(oldPixelRect);
-
 }
 
 bool Framework::SetUpdatesEnabled(bool doEnable)
 {
+#ifndef USE_DRAPE
   if (m_renderPolicy)
     return m_renderPolicy->GetWindowHandle()->setUpdatesEnabled(doEnable);
   else
+#endif // USE_DRAPE
     return false;
 }
 
@@ -647,6 +683,7 @@ int Framework::GetDrawScale() const
   return m_navigator.GetDrawScale();
 }
 
+#ifndef USE_DRAPE
 RenderPolicy::TRenderFn Framework::DrawModelFn()
 {
   bool const isTiling = m_renderPolicy->IsTiling();
@@ -686,6 +723,7 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
   if (m_navigator.Update(ElapsedSeconds()))
     Invalidate();
 }
+#endif // USE_DRAPE
 
 void Framework::ShowBuyProDialog()
 {
@@ -708,6 +746,7 @@ bool Framework::IsCountryLoaded(m2::PointD const & pt) const
   return m_model.IsLoaded(fName);
 }
 
+#ifndef USE_DRAPE
 void Framework::BeginPaint(shared_ptr<PaintEvent> const & e)
 {
   if (m_renderPolicy)
@@ -766,6 +805,7 @@ void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
       DrawAdditionalInfo(e);
   }
 }
+#endif // USE_DRAPE
 
 m2::PointD const & Framework::GetViewportCenter() const
 {
@@ -950,16 +990,26 @@ void Framework::StartDrag(DragEvent const & e)
   m_navigator.StartDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
   m_informationDisplay.locationState()->DragStarted();
 
+#ifndef USE_DRAPE
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 }
 
 void Framework::DoDrag(DragEvent const & e)
 {
   m_navigator.DoDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
 
+#ifndef USE_DRAPE
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 }
 
 void Framework::StopDrag(DragEvent const & e)
@@ -967,11 +1017,16 @@ void Framework::StopDrag(DragEvent const & e)
   m_navigator.StopDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds(), true);
   m_informationDisplay.locationState()->DragEnded();
 
+#ifndef USE_DRAPE
   if (m_renderPolicy)
   {
     m_renderPolicy->StopDrag();
     UpdateUserViewportChanged();
   }
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 }
 
 void Framework::StartRotate(RotateEvent const & e)
@@ -979,7 +1034,12 @@ void Framework::StartRotate(RotateEvent const & e)
   if (CanRotate())
   {
     m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
+#ifndef USE_DRAPE
     m_renderPolicy->StartRotate(e.Angle(), ElapsedSeconds());
+#else
+    if (!m_drapeEngine.IsNull())
+      m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
     GetLocationState()->ScaleStarted();
   }
 }
@@ -989,7 +1049,12 @@ void Framework::DoRotate(RotateEvent const & e)
   if (CanRotate())
   {
     m_navigator.DoRotate(e.Angle(), ElapsedSeconds());
+#ifndef USE_DRAPE
     m_renderPolicy->DoRotate(e.Angle(), ElapsedSeconds());
+#else
+    if (!m_drapeEngine.IsNull())
+      m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif
   }
 }
 
@@ -1000,7 +1065,12 @@ void Framework::StopRotate(RotateEvent const & e)
     m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
     GetLocationState()->Rotated();
     GetLocationState()->ScaleEnded();
+#ifndef USE_DRAPE
     m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
+#else
+    if (!m_drapeEngine.IsNull())
+      m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif
 
     UpdateUserViewportChanged();
   }
@@ -1016,12 +1086,15 @@ void Framework::Move(double azDir, double factor)
 
 /// @name Scaling.
 //@{
-void Framework::ScaleToPoint(ScaleToPointEvent const & e)
+void Framework::ScaleToPoint(ScaleToPointEvent const & e, bool anim)
 {
   m2::PointD pt = m_navigator.ShiftPoint(e.Pt());
   GetLocationState()->CorrectScalePoint(pt);
 
-  m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
+  if (anim)
+    m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
+  else
+    m_navigator.ScaleToPoint(pt, e.ScaleFactor(), 0);
 
   Invalidate();
   UpdateUserViewportChanged();
@@ -1052,8 +1125,12 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
 
 bool Framework::CanRotate() const
 {
+#ifndef USE_DRAPE
   return m_renderPolicy &&
          m_renderPolicy->DoSupportRotation();
+#else
+  return true;
+#endif // USE_DRAPE
 }
 
 void Framework::StartScale(ScaleEvent const & e)
@@ -1063,8 +1140,13 @@ void Framework::StartScale(ScaleEvent const & e)
 
   GetLocationState()->ScaleStarted();
   m_navigator.StartScale(pt1, pt2, ElapsedSeconds());
+#ifndef USE_DRAPE
   if (m_renderPolicy)
     m_renderPolicy->StartScale();
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 }
 
 void Framework::DoScale(ScaleEvent const & e)
@@ -1073,8 +1155,13 @@ void Framework::DoScale(ScaleEvent const & e)
   CalcScalePoints(e, pt1, pt2);
 
   m_navigator.DoScale(pt1, pt2, ElapsedSeconds());
+#ifndef USE_DRAPE
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 
   if (m_navigator.IsRotatingDuringScale())
     GetLocationState()->Rotated();
@@ -1087,11 +1174,16 @@ void Framework::StopScale(ScaleEvent const & e)
 
   m_navigator.StopScale(pt1, pt2, ElapsedSeconds());
 
+#ifndef USE_DRAPE
   if (m_renderPolicy)
   {
     m_renderPolicy->StopScale();
     UpdateUserViewportChanged();
   }
+#else
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+#endif // USE_DRAPE
 
   GetLocationState()->ScaleEnded();
 }
@@ -1367,6 +1459,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   return (d < 25000.0);
 }
 
+#ifndef USE_DRAPE
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
   m_bmManager.ResetScreen();
@@ -1428,6 +1521,28 @@ RenderPolicy * Framework::GetRenderPolicy() const
 {
   return m_renderPolicy.get();
 }
+#else
+void Framework::CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextFactory, float vs, int w, int h)
+{
+  typedef df::MapDataProvider::TReadIDsFn TReadIDsFn;
+  typedef df::MapDataProvider::TReadFeaturesFn TReadFeaturesFn;
+  typedef df::MapDataProvider::TReadIdCallback TReadIdCallback;
+  typedef df::MapDataProvider::TReadFeatureCallback TReadFeatureCallback;
+
+  TReadIDsFn idReadFn = [this](TReadIdCallback const & fn, m2::RectD const & r, int scale)
+  {
+    m_model.ForEachFeatureID(r, fn, scale);
+  };
+
+  TReadFeaturesFn featureReadFn = [this](TReadFeatureCallback const & fn, vector<FeatureID> const & ids)
+  {
+    m_model.ReadFeatures(fn, ids);
+  };
+
+  m_drapeEngine.Reset(new df::DrapeEngine(contextFactory, df::Viewport(vs, 0, 0, w, h), df::MapDataProvider(idReadFn, featureReadFn)));
+  OnSize(w, h);
+}
+#endif // USE_DRAPE
 
 void Framework::SetupMeasurementSystem()
 {
@@ -1573,6 +1688,7 @@ bool Framework::IsBenchmarking() const
   return m_benchmarkEngine != 0;
 }
 
+#ifndef USE_DRAPE
 namespace
 {
 
@@ -1597,10 +1713,12 @@ OEPointerT GetClosestToPivot(list<OEPointerT> const & l, m2::PointD const & pxPo
 }
 
 }
+#endif // USE_DRAPE
 
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
                               search::AddressInfo & info) const
 {
+#ifndef USE_DRAPE
   graphics::OverlayElement::UserInfo ui;
 
   {
@@ -1644,6 +1762,7 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
     pxPivot = GtoP(center);
     return true;
   }
+#endif // USE_DRAPE
 
   return false;
 }

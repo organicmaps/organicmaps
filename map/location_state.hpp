@@ -123,11 +123,13 @@ namespace location
     void CallPositionChangedListeners(m2::PointD const & pt);
     void CallStateModeListeners();
 
+#ifndef USE_DRAPE
     void CachePositionArrow();
     void CacheRoutingArrow();
     void CacheLocationMark();
 
     void CacheArrow(graphics::DisplayList * dl, string const & iconName);
+#endif // USE_DRAPE
 
     bool IsRotationActive() const;
     bool IsDirectionKnown() const;
@@ -177,10 +179,12 @@ namespace location
 
     /// @name Compass Rendering Parameters
     //@{
+#ifndef USE_DRAPE
     unique_ptr<graphics::DisplayList> m_positionArrow;
     unique_ptr<graphics::DisplayList> m_locationMarkDL;
     unique_ptr<graphics::DisplayList> m_positionMarkDL;
     unique_ptr<graphics::DisplayList> m_routingArrow;
+#endif // USE_DRAPE
     graphics::Color m_locationAreaColor;
     //@}
 

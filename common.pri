@@ -2,6 +2,13 @@
 #
 # To use it, define ROOT_DIR variable and include($$ROOT_DIR/common.pri)
 
+
+#CONFIG *= drape
+
+drape {
+  DEFINES *= USE_DRAPE
+}
+
 # our own version variables
 VERSION_MAJOR = 2
 VERSION_MINOR = 4

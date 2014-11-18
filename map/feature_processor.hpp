@@ -17,6 +17,7 @@ class redraw_operation_cancelled {};
 
 namespace fwork
 {
+#ifndef USE_DRAPE
   class FeatureProcessor
   {
     m2::RectD m_rect;
@@ -48,4 +49,5 @@ namespace fwork
 
     bool IsEmptyDrawing() const;
   };
+#endif //USE_DRAPE
 }

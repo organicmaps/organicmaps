@@ -51,6 +51,7 @@ void BasicTilingRenderPolicy::CheckAnimationTransition()
 
 void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
+#ifndef USE_DRAPE
   if (m_QueuedRenderer)
   {
     m_QueuedRenderer->DrawFrame();
@@ -93,6 +94,7 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
   m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing();
 
   pDrawer->endFrame();
+#endif // USE_DRAPE
 }
 
 void BasicTilingRenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)

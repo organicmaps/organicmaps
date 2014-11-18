@@ -128,6 +128,7 @@ public:
 
 void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const
 {
+#ifndef USE_DRAPE
   /// TODO cutomize draw in UserMarkContainer for user Draw method
   Navigator const & navigator = m_framework.GetNavigator();
   ScreenBase const & screen = navigator.Screen();
@@ -146,6 +147,7 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEve
   }
 
   cat->Draw(e, m_cache);
+#endif // USE_DRAPE
 }
 
 void BookmarkManager::ClearItems()
@@ -249,6 +251,7 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
 
 void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 {
+#ifndef USE_DRAPE
   ASSERT(m_cache != NULL, ());
   ScreenBase const & screen = m_framework.GetNavigator().Screen();
   m2::RectD const limitRect = screen.ClipRect();
@@ -297,6 +300,7 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   m_selection.Draw(event, m_cache);
 
   pScreen->endFrame();
+#endif // USE_DRAPE
 }
 
 void BookmarkManager::DeleteBmCategory(CategoryIter i)
