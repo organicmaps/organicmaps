@@ -108,6 +108,11 @@ void TextureManager::Init(string const & resourcePrefix)
   TextureSet * defaultSet = new TextureSet(m_maxTextureBlocks);
   defaultSet->AddTexture(MovePointer<Texture>(symbols));
 
+  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TStippleTexture;
+  typedef DynamicTexture<ColorPalette, ColorKey, Texture::Color> TColorTexture;
+  defaultSet->AddTexture(MovePointer<Texture>(new TStippleTexture(m2::PointU(1024, 1024), dp::ALPHA)));
+  defaultSet->AddTexture(MovePointer<Texture>(new TColorTexture(m2::PointU(1024, 1024), dp::RGBA8)));
+
   m_textures.push_back(MasterPointer<TextureSet>(defaultSet));
 
   vector<TransferPointer<Texture> > tempTextures;
