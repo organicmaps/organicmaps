@@ -1,5 +1,6 @@
 #import "iosOGLContext.h"
 #import "../../../../base/assert.hpp"
+#import "../../../../base/logging.cpp"
 
 iosOGLContext::iosOGLContext(CAEAGLLayer * layer, iosOGLContext * contextToShareWith, bool needBuffers)
   : m_layer(layer)
@@ -74,11 +75,13 @@ void iosOGLContext::initBuffers()
 
     // Framebuffer
     glGenFramebuffers(1, &m_frameBufferId);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderBufferId);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthBufferId);
-
-    GLenum fbStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    ASSERT(fbStatus == GL_FRAMEBUFFER_COMPLETE, ("Incomplete framebuffer:", fbStatus));
+    
+    GLint fbStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (fbStatus != GL_FRAMEBUFFER_COMPLETE)
+      LOG(LERROR, ("Incomplete framebuffer:", fbStatus));
     // framebuffer
 
     m_hasBuffers = true;

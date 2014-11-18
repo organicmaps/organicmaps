@@ -5,13 +5,17 @@
 
 #import "EAGLView.h"
 
-#include "RenderBuffer.hpp"
-#include "RenderContext.hpp"
 #include "Framework.h"
 
-#include "../../graphics/resource_manager.hpp"
-#include "../../graphics/opengl/opengl.hpp"
-#include "../../graphics/data_formats.hpp"
+#ifndef USE_DRAPE
+  #include "RenderBuffer.hpp"
+  #include "RenderContext.hpp"
+  #include "../../graphics/resource_manager.hpp"
+  #include "../../graphics/opengl/opengl.hpp"
+  #include "../../graphics/data_formats.hpp"
+#else
+  #import "../Platform/opengl/iosOGLContextFactory.h"
+#endif
 
 #include "../../map/render_policy.hpp"
 
@@ -41,7 +45,14 @@
     CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
 
     eaglLayer.opaque = YES;
+    // ColorFormat : RGB565
+    // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO, kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGB565};
+    
+    // Correct retina display support in opengl renderbuffer
+    self.contentScaleFactor = [self correctContentScale];
 
+#ifndef USE_DRAPE
     renderContext = shared_ptr<iphone::RenderContext>(new iphone::RenderContext());
 
     if (!renderContext.get())
@@ -51,12 +62,10 @@
     }
     
     renderContext->makeCurrent();
-    
-    // ColorFormat : RGB565
-    // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
-    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO, kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGB565};
-    // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = [self correctContentScale];
+#else
+    dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new iosOGLContextFactory(eaglLayer));
+    m_factory.Reset(factory);
+#endif
   }
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -67,6 +76,7 @@
 {
   NSLog(@"EAGLView initRenderPolicy Started");
   
+#ifndef USE_DRAPE
   typedef void (*drawFrameFn)(id, SEL);
   SEL drawFrameSel = @selector(drawFrame);
   drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
@@ -117,12 +127,17 @@
   f.OnSize(frameRect.size.width * vs, frameRect.size.height * vs);
   f.SetRenderPolicy(renderPolicy);
   f.InitGuiSubsystem();
+#else
+  CGRect frameRect = [UIScreen mainScreen].applicationFrame;
+  GetFramework().CreateDrapeEngine(m_factory.GetRefPointer(), self.contentScaleFactor, frameRect.size.width, frameRect.size.height);
+#endif
 
   NSLog(@"EAGLView initRenderPolicy Ended");
 }
 
 - (void)onSize:(int)width withHeight:(int)height
 {
+#ifndef USE_DRAPE
   frameBuffer->onSize(width, height);
   
   graphics::Screen * screen = renderPolicy->GetDrawer()->screen();
@@ -142,12 +157,15 @@
   
   screen->setRenderTarget(renderBuffer);
   screen->setDepthBuffer(make_shared<graphics::gl::RenderBuffer>(width, height, true));
+#endif
 
   GetFramework().OnSize(width, height);
   
+#ifndef USE_DRAPE
   screen->beginFrame();
   screen->clear(graphics::Screen::s_bgColor);
   screen->endFrame();
+#endif
 }
 
 - (double)correctContentScale
@@ -159,6 +177,7 @@
     return uiScreen.nativeScale;
 }
 
+#ifndef USE_DRAPE
 - (void)drawFrame
 {
 	shared_ptr<PaintEvent> pe(new PaintEvent(renderPolicy->GetDrawer().get()));
@@ -173,22 +192,33 @@
     f.EndPaint(pe);
   }
 }
+#endif
 
 - (void)layoutSubviews
 {
   if (!CGRectEqualToRect(lastViewSize, self.frame))
   {
     lastViewSize = self.frame;
+#ifndef USE_DRAPE
     CGFloat const scale = self.contentScaleFactor;
     CGSize const s = self.bounds.size;
 	  [self onSize:s.width * scale withHeight:s.height * scale];
+#else
+    CGSize const s = self.bounds.size;
+    [self onSize:s.width withHeight:s.height];
+#endif
   }
 }
 
 - (void)dealloc
 {
+#ifndef USE_DRAPE
   delete videoTimer;
   [EAGLContext setCurrentContext:nil];
+#else
+  GetFramework().PrepareToShutdown();
+  m_factory.Destroy();
+#endif
 }
 
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt

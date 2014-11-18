@@ -6,7 +6,7 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-class iosOGLContext : public OGLContext
+class iosOGLContext : public dp::OGLContext
 {
 public:
   iosOGLContext(CAEAGLLayer * layer, iosOGLContext * contextToShareWith, bool needBuffers = false);
