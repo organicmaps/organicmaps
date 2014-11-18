@@ -20,9 +20,9 @@ vector<u32> FreqsToDistrTable(vector<u32> const & origFreqs)
   while (1)
   {
     // Resulting distr table is initialized with first zero value.
-    vector<u32> result(1, 0);
+    vector<u64> result(1, 0);
     vector<u32> freqs;
-    u32 sum = 0;
+    u64 sum = 0;
     u64 minFreq = ~u64(0);
     for (u32 i = 0; i < origFreqs.size(); ++i)
     {
@@ -39,16 +39,21 @@ vector<u32> FreqsToDistrTable(vector<u32> const & origFreqs)
     bool hasDegradedZeroInterval = false;
     for (u32 i = 1; i < result.size(); ++i)
     {
-      result[i] = (u64(result[i]) << DISTR_SHIFT) / u64(sum);
+      result[i] = (result[i] << DISTR_SHIFT) / sum;
       if (freqs[i - 1] > 0 && (result[i] - result[i - 1] == 0))
       {
         hasDegradedZeroInterval = true;
         break;
       }
     }
-    if (!hasDegradedZeroInterval) return result;
+    if (!hasDegradedZeroInterval) {
+      // Convert distr_table to 32-bit vector, although currently only 17 bits are used.
+      vector<u32> distr_table;
+      for (u32 i = 0; i < result.size(); ++i) distr_table.push_back(result[i]);
+      return distr_table;
+    }
     ++freqLowerBound;
-  }
+  }  
 }
 
 ArithmeticEncoder::ArithmeticEncoder(vector<u32> const & distrTable)
@@ -121,15 +126,16 @@ ArithmeticDecoder::ArithmeticDecoder(Reader & reader, vector<u32> const & distrT
 u32 ArithmeticDecoder::Decode()
 {
   u32 l = 0, r = m_distrTable.size(), m = 0;
+  u32 shiftedSize = m_size >> DISTR_SHIFT;
   while (r - l > 1)
   {
     m = (l + r) / 2;
-    u32 intervalBegin = (m_size >> DISTR_SHIFT) * m_distrTable[m];
+    u32 intervalBegin = shiftedSize * m_distrTable[m];
     if (intervalBegin <= m_codeValue) l = m; else r = m;
   }
   u32 symbol = l;
-  m_codeValue -= (m_size >> DISTR_SHIFT) * m_distrTable[symbol];
-  m_size = (m_size >> DISTR_SHIFT) * (m_distrTable[symbol + 1] - m_distrTable[symbol]);
+  m_codeValue -= shiftedSize * m_distrTable[symbol];
+  m_size = shiftedSize * (m_distrTable[symbol + 1] - m_distrTable[symbol]);
   while (m_size < (u32(1) << 24))
   {
     m_codeValue <<= 8;
