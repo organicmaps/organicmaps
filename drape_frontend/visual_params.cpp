@@ -178,7 +178,11 @@ int CalculateTileSize(int screenWidth, int screenHeight)
       res = flooredSz;
   }
 
-  return min(max(res / 2, 256), 1024);
+#ifndef OMIM_OS_DESKTOP
+  return my::clamp(res / 2, 256, 1024);
+#else
+  return my::clamp(res / 2, 512, 1024);
+#endif
 }
 
 int GetDrawTileScale(int baseScale)

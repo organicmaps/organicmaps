@@ -59,6 +59,11 @@ uint32_t Viewport::GetHeight() const
   return GetLogicHeight() * m_pixelRatio;
 }
 
+float Viewport::GetPixelRatio() const
+{
+  return m_pixelRatio;
+}
+
 void Viewport::Apply() const
 {
   GLFunctions::glViewport(GetX0(), GetY0(), GetWidth(), GetHeight());

@@ -28,6 +28,7 @@ public:
   uint32_t GetY0() const;
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;
+  float GetPixelRatio() const;
   // Apply viewport to graphics pipeline
   // with convert start poin and size to physical pixels
   void Apply() const;
