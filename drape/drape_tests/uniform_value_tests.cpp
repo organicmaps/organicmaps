@@ -105,10 +105,12 @@ UNIT_TEST(UniformValueTest)
     InSequence seq;
     // vertexShader->Ref()
     EXPECTGL(glCreateShader(gl_const::GLVertexShader)).WillOnce(Return(VertexShaderID));
+    //EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillOnce(Return(8));
     EXPECTGL(glShaderSource(VertexShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(VertexShaderID, _)).WillOnce(Return(true));
     // fragmentShader->Ref()
     EXPECTGL(glCreateShader(gl_const::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
+    EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillOnce(Return(8));
     EXPECTGL(glShaderSource(FragmentShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(FragmentShaderID, _)).WillOnce(Return(true));
 

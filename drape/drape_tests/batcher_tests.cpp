@@ -109,12 +109,17 @@ public:
     EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
     EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, vertxeCount * sizeof(float), _, 0))
         .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmpSubBuffer));
+
+    EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
+    EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   }
 
   void ExpectBufferDeletion()
   {
     InSequence seq;
+    EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
     EXPECTGL(glDeleteBuffer(m_indexBufferID));
+    EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
     EXPECTGL(glDeleteBuffer(m_dataBufferID));
   }
 
@@ -284,13 +289,18 @@ namespace
       EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
       EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, 0))
               .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmpSubBuffer));
+
+      EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
+      EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
     }
 
     void CloseExpection()
     {
       for (size_t i = 0; i < m_nodes.size(); ++i)
       {
+        EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
         EXPECTGL(glDeleteBuffer(m_nodes[i].m_indexBufferID));
+        EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
         EXPECTGL(glDeleteBuffer(m_nodes[i].m_vertexBufferID));
       }
     }
