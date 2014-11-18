@@ -4,8 +4,6 @@
 #include "../base/assert.hpp"
 #include "../base/string_utils.hpp"
 
-
-
 namespace dp
 {
 
@@ -40,11 +38,11 @@ void ResolveGetTexel(string & result, string const & sampler, int count)
   result.append("uniform sampler2D u_textures[").append(to_string(count)).append("];\n");
 
   // Function signature
-  result.append(MEDIUM_P).append(" vec4 getTexel(int ").append(texIndex).append(", ")
-        .append(LOW_P).append(" vec2 ").append(texCoord).append("){ \n");
+  result.append(LOW_P).append(" vec4 getTexel(int ").append(texIndex).append(", ")
+        .append(MAXPREC_P).append(" vec2 ").append(texCoord).append("){ \n");
 
   // Declare result var;
-  result.append(MEDIUM_P).append(" vec4 ").append(answer).append(";\n");
+  result.append(LOW_P).append(" vec4 ").append(answer).append(";\n");
 
   for (uint32_t i = 0; i < count; ++i)
   {

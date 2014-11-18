@@ -1,14 +1,22 @@
-attribute highp vec4 a_position;
-attribute lowp vec4 a_texcoord;
-attribute lowp vec4 a_color;
-attribute mediump float a_index;
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+  #define MAXPREC highp
+#else
+  #define MAXPREC mediump
+#endif
 
-uniform highp mat4 modelView;
-uniform highp mat4 projection;
+precision MAXPREC float;
 
-varying lowp vec3 v_texcoord;
-varying lowp vec4 v_colors;
-varying mediump float v_index;
+attribute vec4 a_position;
+attribute vec4 a_texcoord;
+attribute vec4 a_color;
+attribute float a_index;
+
+uniform mat4 modelView;
+uniform mat4 projection;
+
+varying vec3 v_texcoord;
+varying vec4 v_colors;
+varying float v_index;
 
 void main()
 {
