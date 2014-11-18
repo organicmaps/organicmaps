@@ -4,8 +4,6 @@
 
 #include "../drape/pointers.hpp"
 
-#include "../map/scales_processor.hpp"
-
 namespace df
 {
 
