@@ -224,6 +224,11 @@ namespace qt
 
     if (!m_isInitialized)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+      m_ratio = dynamic_cast<QApplication*>(qApp)->devicePixelRatio();
+#endif
+
+#ifndef USE_DRAPE
       m_videoTimer.reset(CreateVideoTimer());
 
       shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
@@ -235,9 +240,6 @@ namespace qt
 
       RenderPolicy::Params rpParams;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-      m_ratio = dynamic_cast<QApplication*>(qApp)->devicePixelRatio();
-#endif
 
       QRect const & geometry = QApplication::desktop()->geometry();
       rpParams.m_screenWidth = L2D(geometry.width());
@@ -264,6 +266,7 @@ namespace qt
         LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
         /// @todo Show "Please Update Drivers" dialog and close the program.
       }
+#endif // USE_DRAPE
 
       m_isInitialized = true;
     }
@@ -294,6 +297,7 @@ namespace qt
 
   void DrawWidget::DrawFrame()
   {
+#ifndef USE_DRAPE
     if (m_framework->NeedRedraw())
     {
       makeCurrent();
@@ -310,6 +314,7 @@ namespace qt
       m_framework->EndPaint(paintEvent);
       doneCurrent();
     }
+#endif // USE_DRAPE
   }
 
   void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)

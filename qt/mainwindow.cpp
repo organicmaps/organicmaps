@@ -1,5 +1,11 @@
 #include "mainwindow.hpp"
+
+#ifndef USE_DRAPE
 #include "draw_widget.hpp"
+#else
+#include "drape_surface.hpp"
+#endif
+
 #include "slider_ctrl.hpp"
 #include "about.hpp"
 #include "preferences_dialog.hpp"
@@ -48,7 +54,19 @@ namespace qt
 
 MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
+#ifndef USE_DRAPE
   m_pDrawWidget = new DrawWidget(this);
+  setCentralWidget(m_pDrawWidget);
+#else
+  m_pDrawWidget = new DrapeSurface();
+  QSurfaceFormat format = m_pDrawWidget->requestedFormat();
+  format.setDepthBufferSize(16);
+  m_pDrawWidget->setFormat(format);
+  QWidget * w = QWidget::createWindowContainer(m_pDrawWidget, this);
+  w->setMouseTracking(true);
+  setCentralWidget(w);
+#endif // USE_DRAPE
+
   shared_ptr<location::State> locState = m_pDrawWidget->GetFramework().GetLocationState();
   locState->AddStateModeListener([this] (location::State::Mode mode)
                                  {
@@ -57,8 +75,6 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
-
-  setCentralWidget(m_pDrawWidget);
 
   setWindowTitle(tr("MapsWithMe"));
   setWindowIcon(QIcon(":/ui/logo.png"));
@@ -125,7 +141,9 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   }
 #endif // NO_DOWNLOADER
 
+#ifndef USE_DRAPE
   m_pDrawWidget->UpdateAfterSettingsChanged();
+#endif // USE_DRAPE
   locState->InvalidatePosition();
 }
 
@@ -169,7 +187,6 @@ void MainWindow::LoadState()
 {
   // do always show on full screen
   showMaximized();
-
   m_pDrawWidget->LoadState();
 }
 
@@ -199,7 +216,7 @@ namespace
     char const * slot;
   };
 
-  void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QWidget * pReceiver)
+  void add_buttons(QToolBar * pBar, button_t buttons[], size_t count, QObject * pReceiver)
   {
     for (size_t i = 0; i < count; ++i)
     {
@@ -223,6 +240,7 @@ void MainWindow::CreateNavigationBar()
   pToolBar->setOrientation(Qt::Vertical);
   pToolBar->setIconSize(QSize(32, 32));
 
+#ifndef USE_DRAPE
   {
     // add navigation hot keys
     hotkey_t arr[] = {
@@ -246,6 +264,7 @@ void MainWindow::CreateNavigationBar()
       addAction(pAct);
     }
   }
+#endif // USE_DRAPE
 
   {
     // add search button with "checked" behavior
@@ -270,6 +289,7 @@ void MainWindow::CreateNavigationBar()
     m_pMyPositionAction->setToolTip(tr("My Position"));
 #endif
 
+#ifndef USE_DRAPE
     // add view actions 1
     button_t arr[] = {
       { QString(), 0, 0 },
@@ -277,8 +297,10 @@ void MainWindow::CreateNavigationBar()
       { tr("Scale +"), ":/navig64/plus.png", SLOT(ScalePlus()) }
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
+#endif // USE_DRAPE
   }
 
+#ifndef USE_DRAPE
   // add scale slider
   QScaleSlider * pScale = new QScaleSlider(Qt::Vertical, this, 20);
   pScale->SetRange(2, scales::GetUpperScale());
@@ -294,6 +316,7 @@ void MainWindow::CreateNavigationBar()
     };
     add_buttons(pToolBar, arr, ARRAY_SIZE(arr), m_pDrawWidget);
   }
+#endif // USE_DRAPE
 
 #ifndef NO_DOWNLOADER
   {
@@ -327,12 +350,13 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
     ASSERT(false, ("Not handled location notification:", errorCode));
     break;
   }
+
   m_pDrawWidget->GetFramework().OnLocationError(errorCode);
 }
 
 void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 {
-  m_pDrawWidget->OnLocationUpdate(info);
+  m_pDrawWidget->GetFramework().OnLocationUpdate(info);
 }
 
 void MainWindow::OnMyPosition()
@@ -360,7 +384,7 @@ void MainWindow::OnPreferences()
   PreferencesDialog dlg(this);
   dlg.exec();
 
-  m_pDrawWidget->UpdateAfterSettingsChanged();
+  m_pDrawWidget->GetFramework().SetupMeasurementSystem();
 }
 
 #ifndef NO_DOWNLOADER
@@ -374,10 +398,12 @@ void MainWindow::ShowUpdateDialog()
 
 void MainWindow::CreateSearchBarAndPanel()
 {
+#ifndef USE_DRAPE
   CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), 0);
 
   SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[0]);
   m_Docks[0]->setWidget(panel);
+#endif // USE_DRAPE
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
@@ -403,7 +429,11 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
 
 void MainWindow::closeEvent(QCloseEvent * e)
 {
+#ifndef USE_DRAPE
   m_pDrawWidget->PrepareShutdown();
+#else
+  m_pDrawWidget->GetFramework().PrepareToShutdown();
+#endif // USE_DRAPE
   e->accept();
 }
 
