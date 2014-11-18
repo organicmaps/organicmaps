@@ -5,8 +5,6 @@
 #include "tile_info.hpp"
 #include "read_mwm_task.hpp"
 
-#include "../map/feature_vec_model.hpp"
-
 #include "../geometry/screenbase.hpp"
 
 #include "../drape/pointers.hpp"
@@ -20,6 +18,7 @@
 namespace df
 {
 
+class MapDataProvider;
 class CoverageUpdateDescriptor;
 
 typedef shared_ptr<TileInfo> tileinfo_ptr;
@@ -27,7 +26,7 @@ typedef shared_ptr<TileInfo> tileinfo_ptr;
 class ReadManager
 {
 public:
-  ReadManager(EngineContext & context, model::FeaturesFetcher & model);
+  ReadManager(EngineContext & context, MapDataProvider & model);
 
   void UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles);
   void Invalidate(set<TileKey> const & keyStorage);
@@ -46,7 +45,7 @@ private:
   MemoryFeatureIndex m_memIndex;
   EngineContext & m_context;
 
-  model::FeaturesFetcher & m_model;
+  MapDataProvider & m_model;
 
   dp::MasterPointer<threads::ThreadPool> m_pool;
 

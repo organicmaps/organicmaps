@@ -3,10 +3,9 @@
 #include "message_acceptor.hpp"
 #include "engine_context.hpp"
 #include "viewport.hpp"
+#include "map_data_provider.hpp"
 
 #include "../drape/pointers.hpp"
-
-#include "../map/feature_vec_model.hpp"
 
 #include "../base/thread.hpp"
 
@@ -21,6 +20,7 @@ class TextureSetHolder;
 namespace df
 {
 
+
 class Message;
 class ThreadsCommutator;
 class BatchersPool;
@@ -32,12 +32,13 @@ class BackendRenderer : public MessageAcceptor,
 public:
   BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                  dp::RefPointer<dp::TextureSetHolder> textureHolder);
+                  dp::RefPointer<dp::TextureSetHolder> textureHolder,
+                  MapDataProvider const & model);
 
   ~BackendRenderer();
 
 private:
-  model::FeaturesFetcher m_model;
+  MapDataProvider m_model;
   EngineContext m_engineContext;
   dp::MasterPointer<BatchersPool> m_batchersPool;
   dp::MasterPointer<ReadManager>  m_readManager;

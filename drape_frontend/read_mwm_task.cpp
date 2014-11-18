@@ -4,7 +4,7 @@
 
 namespace df
 {
-ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, model::FeaturesFetcher & model,
+ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model,
                          EngineContext & context)
   : m_memIndex(memIndex)
   , m_model(model)

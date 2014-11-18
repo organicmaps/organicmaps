@@ -19,7 +19,7 @@ class ReadMWMTask : public threads::IRoutine
 {
 public:
   ReadMWMTask(MemoryFeatureIndex & memIndex,
-              model::FeaturesFetcher & model,
+              MapDataProvider & model,
               EngineContext & context);
 
   virtual void Do();
@@ -30,7 +30,7 @@ public:
 private:
   weak_ptr<TileInfo> m_tileInfo;
   MemoryFeatureIndex & m_memIndex;
-  model::FeaturesFetcher & m_model;
+  MapDataProvider & m_model;
   EngineContext & m_context;
 
 #ifdef DEBUG
@@ -43,7 +43,7 @@ class ReadMWMTaskFactory
 {
 public:
   ReadMWMTaskFactory(MemoryFeatureIndex & memIndex,
-                     model::FeaturesFetcher & model,
+                     MapDataProvider & model,
                      EngineContext & context)
     : m_memIndex(memIndex)
     , m_model(model)
@@ -56,7 +56,7 @@ public:
 
 private:
   MemoryFeatureIndex & m_memIndex;
-  model::FeaturesFetcher & m_model;
+  MapDataProvider & m_model;
   EngineContext & m_context;
 };
 

@@ -30,7 +30,7 @@ struct LessCoverageCell
 
 } // namespace
 
-ReadManager::ReadManager(EngineContext & context, model::FeaturesFetcher & model)
+ReadManager::ReadManager(EngineContext & context, MapDataProvider & model)
   : m_context(context)
   , m_model(model)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model, m_context))

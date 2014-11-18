@@ -20,21 +20,14 @@ namespace df
 
 BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                                 dp::RefPointer<dp::TextureSetHolder> textureHolder)
-  : m_engineContext(commutator)
+                                 dp::RefPointer<dp::TextureSetHolder> textureHolder,
+                                 MapDataProvider const & model)
+  : m_model(model)
+  , m_engineContext(commutator)
   , m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
   , m_textures(textureHolder)
 {
-  ///{ Temporary initialization
-  m_model.InitClassificator();
-  Platform::FilesList maps;
-  Platform & pl = GetPlatform();
-  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
-
-  for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::AddMap, &m_model, _1));
-  ///}
-
   m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
   m_readManager.Reset(new ReadManager(m_engineContext, m_model));

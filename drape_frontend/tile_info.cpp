@@ -2,8 +2,7 @@
 #include "engine_context.hpp"
 #include "stylist.hpp"
 #include "rule_drawer.hpp"
-
-#include "../map/feature_vec_model.hpp"
+#include "map_data_provider.hpp"
 
 #include "../indexer/scales.hpp"
 
@@ -48,18 +47,20 @@ m2::RectD TileInfo::GetGlobalRect() const
   return m_key.GetGlobalRect();
 }
 
-void TileInfo::ReadFeatureIndex(model::FeaturesFetcher const & model)
+void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
   threads::MutexGuard guard(m_mutex);
+  UNUSED_VALUE(guard);
+
   if (DoNeedReadIndex())
   {
     CheckCanceled();
-    model.ForEachFeatureID(GetGlobalRect(), *this, GetZoomLevel());
+    model.ReadFeaturesID(bind(&TileInfo::operator(), this, _1), GetGlobalRect(), GetZoomLevel());
     sort(m_featureInfo.begin(), m_featureInfo.end());
   }
 }
 
-void TileInfo::ReadFeatures(model::FeaturesFetcher const & model,
+void TileInfo::ReadFeatures(MapDataProvider const & model,
                             MemoryFeatureIndex & memIndex,
                             EngineContext & context)
 {
@@ -78,7 +79,7 @@ void TileInfo::ReadFeatures(model::FeaturesFetcher const & model,
     for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_key, context);
-    model.ReadFeatures(drawer, featuresToRead);
+    model.ReadFeatures(bind(&RuleDrawer::operator(), &drawer, _1), featuresToRead);
   }
 }
 
@@ -86,6 +87,7 @@ void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
 {
   m_isCanceled = true;
   threads::MutexGuard guard(m_mutex);
+  UNUSED_VALUE(guard);
   memIndex.RemoveFeatures(m_featureInfo);
 }
 

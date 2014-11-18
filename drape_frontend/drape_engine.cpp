@@ -10,15 +10,13 @@
 namespace df
 {
 
-DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory, double vs, Viewport const & viewport)
+DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
+                         Viewport const & viewport,
+                         MapDataProvider const & model)
   : m_viewport(viewport)
-  , m_navigator(m_scales)
 {
   GLFunctions::Init();
-  VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
-  m_navigator.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
-                     m_viewport.GetWidth(), m_viewport.GetHeight());
-  m_navigator.LoadState();
+  VisualParams::Init(viewport.GetPixelRatio(), df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   m_textures.Reset(new dp::TextureManager());
   dp::RefPointer<dp::TextureSetHolder> textureHolder = m_textures.GetRefPointer();
@@ -33,14 +31,12 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory, d
                                                                         m_viewport));
   m_backend =  dp::MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
                                                                       contextfactory,
-                                                                      textureHolder));
-
-  UpdateCoverage();
+                                                                      textureHolder,
+                                                                      model));
 }
 
 DrapeEngine::~DrapeEngine()
 {
-  m_navigator.SaveState();
   m_frontend.Destroy();
   m_backend.Destroy();
   m_textures.Destroy();
@@ -49,44 +45,18 @@ DrapeEngine::~DrapeEngine()
 
 void DrapeEngine::Resize(int w, int h)
 {
-  if (m_viewport.GetWidth() == w && m_viewport.GetHeight() == h)
+  if (m_viewport.GetLogicWidth() == w && m_viewport.GetLogicHeight() == h)
     return;
 
   m_viewport.SetViewport(0, 0, w, h);
-  m_navigator.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
-                     m_viewport.GetWidth(), m_viewport.GetHeight());
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   dp::MovePointer<Message>(new ResizeMessage(m_viewport)));
 }
 
-void DrapeEngine::DragStarted(m2::PointF const & p)
-{
-  m_navigator.StartDrag(p, 0.0);
-  UpdateCoverage();
-}
-
-void DrapeEngine::Drag(m2::PointF const & p)
-{
-  m_navigator.DoDrag(p, 0.0);
-  UpdateCoverage();
-}
-
-void DrapeEngine::DragEnded(m2::PointF const & p)
-{
-  m_navigator.StopDrag(p, 0.0, false);
-  UpdateCoverage();
-}
-
-void DrapeEngine::Scale(m2::PointF const & p, double factor)
-{
-  m_navigator.ScaleToPoint(p, factor, 0.0);
-  UpdateCoverage();
-}
-
-void DrapeEngine::UpdateCoverage()
+void DrapeEngine::UpdateCoverage(ScreenBase const & screen)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new UpdateModelViewMessage(m_navigator.Screen())));
+                                  dp::MovePointer<Message>(new UpdateModelViewMessage(screen)));
 }
 
 } // namespace df

@@ -11,13 +11,12 @@
 #include "../std/vector.hpp"
 #include "../std/noncopyable.hpp"
 
-namespace model { class FeaturesFetcher; }
-
 class FeatureType;
 
 namespace df
 {
 
+class MapDataProvider;
 class EngineContext;
 class Stylist;
 
@@ -28,8 +27,8 @@ public:
 
   TileInfo(TileKey const & key);
 
-  void ReadFeatureIndex(model::FeaturesFetcher const & model);
-  void ReadFeatures(model::FeaturesFetcher const & model,
+  void ReadFeatureIndex(MapDataProvider const & model);
+  void ReadFeatures(MapDataProvider const & model,
                     MemoryFeatureIndex & memIndex,
                     EngineContext & context);
   void Cancel(MemoryFeatureIndex & memIndex);
