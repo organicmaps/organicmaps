@@ -95,7 +95,7 @@ TextLayout::TextLayout(strings::UniString const & string,
   m_metrics.reserve(string.size());
   for_each(string.begin(), string.end(), bind(&TextLayout::InitMetric, this, _1, textures));
 #ifdef DEBUG
-  ValidateTextureSet(m_metrics);
+  //ValidateTextureSet(m_metrics);
 #endif
 }
 
