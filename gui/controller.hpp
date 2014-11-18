@@ -77,7 +77,7 @@ namespace gui
     StringsBundle const * m_bundle;
 
     /// Screen, which is used to cache gui::Elements into display lists.
-    graphics::Screen * m_CacheScreen;
+    graphics::Screen * m_CacheScreen = nullptr;
 
     /// Should we call the onTapEnded when the tap finished(we should
     /// not if the tap was cancelled while moving).

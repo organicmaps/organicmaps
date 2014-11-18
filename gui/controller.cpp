@@ -48,6 +48,9 @@ namespace gui
 
   bool Controller::OnTapStarted(m2::PointD const & pt)
   {
+    if (GetCacheScreen() == nullptr)
+      return false;
+
     shared_ptr<Element> e = SelectTopElement(pt, true);
     if (e)
     {
@@ -62,6 +65,9 @@ namespace gui
 
   bool Controller::OnTapMoved(m2::PointD const & pt)
   {
+    if (GetCacheScreen() == nullptr)
+      return false;
+
     if (m_focusedElement)
     {
       if (!m_LastTapCancelled)
@@ -84,6 +90,9 @@ namespace gui
 
   bool Controller::OnTapEnded(m2::PointD const & pt)
   {
+    if (GetCacheScreen() == nullptr)
+      return false;
+
     if (m_focusedElement)
     {
       // re-checking, whether we are above the gui element.
@@ -109,6 +118,9 @@ namespace gui
 
   bool Controller::OnTapCancelled(m2::PointD const & pt)
   {
+    if (GetCacheScreen() == nullptr)
+      return false;
+
     if (m_focusedElement)
     {
       m_focusedElement->onTapCancelled(pt);
@@ -163,7 +175,7 @@ namespace gui
     m_GlyphCache = 0;
     m_Density = graphics::EDensityLDPI;
     m_InvalidateFn = TInvalidateFn();
-    m_CacheScreen = 0;
+    m_CacheScreen = nullptr;
 
     PurgeElements();
 
@@ -172,7 +184,7 @@ namespace gui
 
   void Controller::DrawFrame(graphics::Screen * screen)
   {
-    if (m_CacheScreen == NULL)
+    if (m_CacheScreen == nullptr)
       return;
 
     screen->beginFrame();
