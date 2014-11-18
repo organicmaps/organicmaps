@@ -213,6 +213,7 @@ void FrontendRenderer::RenderScene()
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
       GLFunctions::glClearDepth();
 
+    prevLayer = layer;
     ASSERT_LESS_OR_EQUAL(prevLayer, layer, ());
 
     dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
@@ -278,7 +279,11 @@ void FrontendRenderer::ResolveTileKeys(set<TileKey> & keyStorage, int tileScale)
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
-      keyStorage.insert(TileKey(tileX, tileY, tileScale));
+    {
+      TileKey key(tileX, tileY, tileScale);
+      if (clipRect.IsIntersect(key.GetGlobalRect()))
+        keyStorage.insert(key);
+    }
   }
 }
 
