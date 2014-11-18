@@ -165,6 +165,10 @@
 		97FC99DF19C1A2CD00C1CF98 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
 		97FC99E119C1A2CD00C1CF98 /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
+		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
+		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
+		A32B6D701A14D9BE00E54A65 /* resources-common in Resources */ = {isa = PBXBuildFile; fileRef = A32B6D6F1A14D9BE00E54A65 /* resources-common */; };
+		A32B6D711A14D9BE00E54A65 /* resources-common in Resources */ = {isa = PBXBuildFile; fileRef = A32B6D6F1A14D9BE00E54A65 /* resources-common */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
@@ -1472,6 +1476,11 @@
 		97FC99D919C1A2CD00C1CF98 /* resources-mdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-mdpi"; path = "../../data/resources-mdpi"; sourceTree = "<group>"; };
 		97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xhdpi"; path = "../../data/resources-xhdpi"; sourceTree = "<group>"; };
 		97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxhdpi"; path = "../../data/resources-xxhdpi"; sourceTree = "<group>"; };
+		A32B6D481A14980500E54A65 /* iosOGLContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContext.h; path = Platform/opengl/iosOGLContext.h; sourceTree = "<group>"; };
+		A32B6D491A14980500E54A65 /* iosOGLContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContext.mm; path = Platform/opengl/iosOGLContext.mm; sourceTree = "<group>"; };
+		A32B6D4A1A14980500E54A65 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContextFactory.h; path = Platform/opengl/iosOGLContextFactory.h; sourceTree = "<group>"; };
+		A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContextFactory.mm; path = Platform/opengl/iosOGLContextFactory.mm; sourceTree = "<group>"; };
+		A32B6D6F1A14D9BE00E54A65 /* resources-common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-common"; path = "../../data/resources-common"; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -2493,6 +2502,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A32B6D6F1A14D9BE00E54A65 /* resources-common */,
 				ED9CC5EE17CA18770051642E /* ios-guides.json */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				978D4A30199A11E600D72CA7 /* faq.html */,
@@ -2623,6 +2633,10 @@
 		FA6E1F1B124E6B2800F59149 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
+				A32B6D481A14980500E54A65 /* iosOGLContext.h */,
+				A32B6D491A14980500E54A65 /* iosOGLContext.mm */,
+				A32B6D4A1A14980500E54A65 /* iosOGLContextFactory.h */,
+				A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */,
 				FAA5C2A0144F135F005337F6 /* LocationManager.h */,
 				FAA5C2A1144F135F005337F6 /* LocationManager.mm */,
 			);
@@ -3637,6 +3651,7 @@
 				FAF804761417E3510024E8C1 /* er@2x.png in Resources */,
 				FAF804771417E3510024E8C1 /* es@2x.png in Resources */,
 				FAF804781417E3510024E8C1 /* et@2x.png in Resources */,
+				A32B6D701A14D9BE00E54A65 /* resources-common in Resources */,
 				FAF804791417E3510024E8C1 /* fi@2x.png in Resources */,
 				FAF8047A1417E3510024E8C1 /* fj@2x.png in Resources */,
 				FAF8047B1417E3510024E8C1 /* fk@2x.png in Resources */,
@@ -3918,6 +3933,7 @@
 				FAFB06ED151215EE0041901D /* bj.png in Resources */,
 				FAFB06EE151215EE0041901D /* bl.png in Resources */,
 				FAFB06EF151215EE0041901D /* bm.png in Resources */,
+				A32B6D711A14D9BE00E54A65 /* resources-common in Resources */,
 				FAFB06F0151215EE0041901D /* bn.png in Resources */,
 				FAFB06F1151215EE0041901D /* bo.png in Resources */,
 				FAFB06F2151215EE0041901D /* br.png in Resources */,
@@ -4437,7 +4453,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF";
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\n  echo \"Drape renderer building\"\n  DRAPE_CONF=\"drape\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
 		};
 		FA78191C15C5F673009E0278 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4468,6 +4484,7 @@
 				976D86F119C877E600C920EF /* MapCell.mm in Sources */,
 				977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
+				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
 				9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
@@ -4503,6 +4520,7 @@
 				97D807BC18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
+				A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */,
 				9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
 				97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */,
@@ -4672,6 +4690,249 @@
 			};
 			name = "Simulator Lite";
 		};
+		A32B6D4E1A14A7B700E54A65 /* Drape Release Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4.0.2;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					RELEASE,
+					_RELEASE,
+					TARGET_OS_IPHONE,
+					"NS_BLOCK_ASSERTIONS=1",
+					OMIM_FULL,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-drape-$(CURRENT_ARCH)/out/release\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
+				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DUSE_DRAPE",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-ldrape_frontend",
+					"-ldrape",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+				);
+				PRODUCT_NAME = "maps.me rel";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Drape Release Full";
+		};
+		A32B6D4F1A14A7B700E54A65 /* Drape Release Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
+				);
+				PROVISIONING_PROFILE = "";
+			};
+			name = "Drape Release Full";
+		};
+		A32B6D501A14A7B700E54A65 /* Drape Release Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
+				);
+				PROVISIONING_PROFILE = "";
+			};
+			name = "Drape Release Full";
+		};
+		A32B6D5F1A14C16500E54A65 /* Drape Debug Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 4.0.2;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					_DEBUG,
+					TARGET_OS_IPHONE,
+					OMIM_FULL,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../../3party/boost;
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-drape-$(CURRENT_ARCH)/out/debug\"";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-mno-thumb",
+				);
+				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DUSE_DRAPE",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-ldrape_frontend",
+					"-ldrape",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+				);
+				PRODUCT_NAME = "maps.me dbg";
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Drape Debug Full";
+		};
+		A32B6D601A14C16500E54A65 /* Drape Debug Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
+				);
+				PROVISIONING_PROFILE = "";
+			};
+			name = "Drape Debug Full";
+		};
+		A32B6D611A14C16500E54A65 /* Drape Debug Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Maps_Prefix.pch;
+				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/Statistics",
+					"${SRCROOT}",
+				);
+				PROVISIONING_PROFILE = "";
+			};
+			name = "Drape Debug Full";
+		};
 		C01FCF4F08A954540054247B /* Simulator Lite */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4704,6 +4965,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -4774,6 +5036,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -4864,6 +5127,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -4958,6 +5222,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5047,6 +5312,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5137,6 +5403,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5231,6 +5498,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5325,6 +5593,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5418,6 +5687,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5511,6 +5781,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5603,6 +5874,7 @@
 					"-Wall",
 					"-mno-thumb",
 				);
+				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5935,10 +6207,12 @@
 				FACFE54515F8F35600CE8B20 /* Simulator Full Release */,
 				FA1DE85A11E2235D00C6D69A /* Debug Lite */,
 				FAAB411C149BA84700C245B1 /* Debug Full */,
+				A32B6D601A14C16500E54A65 /* Drape Debug Full */,
 				FA1DE85C11E2236200C6D69A /* AdHoc Lite */,
 				FABB561D149CD943006969C0 /* Release Lite */,
 				FAAB411E149BA85500C245B1 /* AdHoc Full */,
 				FABB561F149CD957006969C0 /* Release Full */,
+				A32B6D4F1A14A7B700E54A65 /* Drape Release Full */,
 				FA0686DF13578E1D004CFF81 /* Production Lite */,
 				FAAB4120149BA86000C245B1 /* Production Full */,
 			);
@@ -5953,10 +6227,12 @@
 				FACFE54415F8F35600CE8B20 /* Simulator Full Release */,
 				FA1DE85911E2235D00C6D69A /* Debug Lite */,
 				FAAB411B149BA84700C245B1 /* Debug Full */,
+				A32B6D5F1A14C16500E54A65 /* Drape Debug Full */,
 				FA1DE85B11E2236200C6D69A /* AdHoc Lite */,
 				FABB561C149CD943006969C0 /* Release Lite */,
 				FAAB411D149BA85500C245B1 /* AdHoc Full */,
 				FABB561E149CD957006969C0 /* Release Full */,
+				A32B6D4E1A14A7B700E54A65 /* Drape Release Full */,
 				FA0686DE13578E1D004CFF81 /* Production Lite */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
@@ -5971,10 +6247,12 @@
 				FACFE54615F8F35600CE8B20 /* Simulator Full Release */,
 				FAFB0916151215EE0041901D /* Debug Lite */,
 				FAFB0917151215EE0041901D /* Debug Full */,
+				A32B6D611A14C16500E54A65 /* Drape Debug Full */,
 				FAFB0918151215EE0041901D /* AdHoc Lite */,
 				FAFB0919151215EE0041901D /* Release Lite */,
 				FAFB091A151215EE0041901D /* AdHoc Full */,
 				FAFB091B151215EE0041901D /* Release Full */,
+				A32B6D501A14A7B700E54A65 /* Drape Release Full */,
 				FAFB091C151215EE0041901D /* Production Lite */,
 				FAFB091D151215EE0041901D /* Production Full */,
 			);
