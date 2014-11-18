@@ -1,6 +1,9 @@
 #include "drape_surface.hpp"
 
 #include "../drape_frontend/viewport.hpp"
+#include "../drape_frontend/map_data_provider.hpp"
+
+#include "../platform/platform.hpp"
 
 #include "../drape/shader_def.hpp"
 
@@ -15,16 +18,29 @@
 
 DrapeSurface::DrapeSurface()
   : m_dragState(false)
+  , m_navigator(m_scales)
   , m_contextFactory(NULL)
 {
   setSurfaceType(QSurface::OpenGLSurface);
 
   QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(sizeChanged(int)));
   QObject::connect(this, SIGNAL(widthChanged(int)), this,  SLOT(sizeChanged(int)));
+
+  ///{ Temporary initialization
+  m_model.InitClassificator();
+  Platform::FilesList maps;
+  Platform & pl = GetPlatform();
+  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
+
+  for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::AddMap, &m_model, _1));
+  ///}
+  ///
+  m_navigator.LoadState();
 }
 
 DrapeSurface::~DrapeSurface()
 {
+  m_navigator.SaveState();
   m_drapeEngine.Destroy();
   m_contextFactory.Destroy();
 }
@@ -40,6 +56,7 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
       dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new QtOGLContextFactory(this));
       m_contextFactory = dp::MasterPointer<dp::OGLContextFactory>(factory);
       CreateEngine();
+      UpdateCoverage();
     }
   }
 }
@@ -53,7 +70,8 @@ void DrapeSurface::mousePressEvent(QMouseEvent * e)
   if (e->button() == Qt::LeftButton)
   {
     m2::PointF p = GetDevicePosition(e->pos());
-    m_drapeEngine->DragStarted(p);
+    m_navigator.StartDrag(p, 0);
+    UpdateCoverage();
     m_dragState = true;
   }
 }
@@ -67,7 +85,8 @@ void DrapeSurface::mouseMoveEvent(QMouseEvent * e)
   if (m_dragState)
   {
     m2::PointF p = GetDevicePosition(e->pos());
-    m_drapeEngine->Drag(p);
+    m_navigator.DoDrag(p, 0);
+    UpdateCoverage();
   }
 }
 
@@ -80,7 +99,8 @@ void DrapeSurface::mouseReleaseEvent(QMouseEvent * e)
   if (m_dragState)
   {
     m2::PointF p = GetDevicePosition(e->pos());
-    m_drapeEngine->DragEnded(p);
+    m_navigator.StopDrag(p, 0, false);
+    UpdateCoverage();
     m_dragState = false;
   }
 }
@@ -89,7 +109,8 @@ void DrapeSurface::wheelEvent(QWheelEvent * e)
 {
   if (!m_dragState)
   {
-    m_drapeEngine->Scale(GetDevicePosition(e->pos()), exp(e->delta() / 360.0));
+    m_navigator.ScaleToPoint(GetDevicePosition(e->pos()), exp(e->delta() / 360.0), 0);
+    UpdateCoverage();
   }
 }
 
@@ -99,14 +120,41 @@ void DrapeSurface::CreateEngine()
 
   float pixelRatio = devicePixelRatio();
 
-  m_drapeEngine = dp::MasterPointer<df::DrapeEngine>(
-                    new df::DrapeEngine(f , pixelRatio, df::Viewport(pixelRatio, 0, 0, width(), height())));
+  typedef df::MapDataProvider::TReadIDsFn TReadIDsFn;
+  typedef df::MapDataProvider::TReadFeaturesFn TReadFeaturesFn;
+  typedef df::MapDataProvider::TReadIdCallback TReadIdCallback;
+  typedef df::MapDataProvider::TReadFeatureCallback TReadFeatureCallback;
+
+  TReadIDsFn idReadFn = [this](TReadIdCallback const & fn, m2::RectD const & r, int scale)
+  {
+    m_model.ForEachFeatureID(r, fn, scale);
+  };
+
+  TReadFeaturesFn featureReadFn = [this](TReadFeatureCallback const & fn, vector<FeatureID> const & ids)
+  {
+    m_model.ReadFeatures(fn, ids);
+  };
+
+  m_drapeEngine = TEnginePrt(new df::DrapeEngine(f, df::Viewport(pixelRatio, 0, 0, width(), height()),
+                                                 df::MapDataProvider(idReadFn, featureReadFn)));
+}
+
+void DrapeSurface::UpdateCoverage()
+{
+  m_drapeEngine->UpdateCoverage(m_navigator.Screen());
 }
 
 void DrapeSurface::sizeChanged(int)
 {
   if (!m_drapeEngine.IsNull())
+  {
+    float vs = devicePixelRatio();
+    int w = width() * vs;
+    int h = height() * vs;
+    m_navigator.OnSize(0, 0, w, h);
     m_drapeEngine->Resize(width(), height());
+    UpdateCoverage();
+  }
 }
 
 m2::PointF DrapeSurface::GetDevicePosition(QPoint const & p)

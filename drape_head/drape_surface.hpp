@@ -2,6 +2,10 @@
 
 #include "qtoglcontextfactory.hpp"
 
+#include "../map/feature_vec_model.hpp"
+#include "../map/navigator.hpp"
+#include "../map/scales_processor.hpp"
+
 #include "../drape/batcher.hpp"
 #include "../drape/gpu_program_manager.hpp"
 #include "../drape/uniform_values_storage.hpp"
@@ -33,6 +37,7 @@ protected:
 
 private:
   void CreateEngine();
+  void UpdateCoverage();
 
   Q_SLOT void sizeChanged(int);
 
@@ -41,7 +46,13 @@ private:
 
   bool m_dragState;
 
+  ScalesProcessor m_scales;
+  model::FeaturesFetcher m_model;
+  Navigator m_navigator;
+
 private:
-  dp::MasterPointer<dp::OGLContextFactory> m_contextFactory;
-  dp::MasterPointer<df::DrapeEngine>   m_drapeEngine;
+  typedef dp::MasterPointer<dp::OGLContextFactory> TContextFactoryPtr;
+  typedef dp::MasterPointer<df::DrapeEngine> TEnginePrt;
+  TContextFactoryPtr m_contextFactory;
+  TEnginePrt m_drapeEngine;
 };
