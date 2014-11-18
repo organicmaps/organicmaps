@@ -22,37 +22,33 @@
 #include "../std/stdint.hpp"
 #include "../std/vector.hpp"
 
-typedef uint8_t u8;
-typedef uint32_t u32;
-typedef uint64_t u64;
-
 // Forward declarations.
 class Reader;
 
 // Default shift of distribution table, i.e. all distribution table frequencies are
 // normalized by this shift, i.e. distr table upper bound equals (1 << DISTR_SHIFT).
-u32 const DISTR_SHIFT = 16;
+uint32_t const DISTR_SHIFT = 16;
 // Converts symbols frequencies table to distribution table, used in Arithmetic codecs.
-vector<u32> FreqsToDistrTable(vector<u32> const & freqs);
+vector<uint32_t> FreqsToDistrTable(vector<uint32_t> const & freqs);
 
 class ArithmeticEncoder
 {
 public:
   // Provided distribution table.
-  ArithmeticEncoder(vector<u32> const & distrTable);
+  ArithmeticEncoder(vector<uint32_t> const & distrTable);
   // Encode symbol using given distribution table and add that symbol to output.
-  void Encode(u32 symbol);
+  void Encode(uint32_t symbol);
   // Finalize encoding, flushes remaining bytes from the buffer to output.
   // Returns output vector of encoded bytes.
-  vector<u8> Finalize();
+  vector<uint8_t> Finalize();
 private:
   // Propagates carry in case of overflow.
   void PropagateCarry();
 private:
-  u32 m_begin;
-  u32 m_size;
-  vector<u8> m_output;
-  vector<u32> const & m_distrTable;
+  uint32_t m_begin;
+  uint32_t m_size;
+  vector<uint8_t> m_output;
+  vector<uint32_t> const & m_distrTable;
 };
 
 class ArithmeticDecoder
@@ -60,21 +56,21 @@ class ArithmeticDecoder
 public:
   // Decoder is given a reader to read input bytes,
   // distrTable - distribution table to decode symbols.
-  ArithmeticDecoder(Reader & reader, vector<u32> const & distrTable);
+  ArithmeticDecoder(Reader & reader, vector<uint32_t> const & distrTable);
   // Decode next symbol from the encoded stream.
-  u32 Decode();
+  uint32_t Decode();
 private:
   // Read next code byte from encoded stream.
-  u8 ReadCodeByte();
+  uint8_t ReadCodeByte();
 private:
   // Current most significant part of code value.
-  u32 m_codeValue;
+  uint32_t m_codeValue;
   // Current interval size.
-  u32 m_size;
+  uint32_t m_size;
   // Reader and two bounds of encoded data within this Reader.
   Reader & m_reader;
-  u64 m_serialCur;
-  u64 m_serialEnd;
+  uint64_t m_serialCur;
+  uint64_t m_serialEnd;
   
-  vector<u32> const & m_distrTable;
+  vector<uint32_t> const & m_distrTable;
 };
