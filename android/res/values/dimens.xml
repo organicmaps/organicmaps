@@ -37,7 +37,6 @@
   <dimen name="color_chooser_radius">24dp</dimen>
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="zoom_buttom_size">40dp</dimen>
-  <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 
@@ -48,7 +47,9 @@
   <dimen name="ppp_button_size">47dp</dimen>
   <dimen name="ppp_button_size_small">42dp</dimen>
 
+  <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="bottom_button_width">90dp</dimen>
+  <dimen name="bottom_item_height">46dp</dimen>
 
   <item name="alpha_edit_button" format="float" type="dimen">0.75</item>
 
@@ -62,5 +63,6 @@
   <dimen name="routing_button_height">51dp</dimen>
   <dimen name="routing_button_width">51dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
+  <dimen name="panel_width">400dp</dimen>
 
 </resources>

@@ -8,14 +8,14 @@
   <ImageView
       android:id="@+id/iv__bottom_icon"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/bottom_panel_height"
+      android:layout_height="@dimen/bottom_item_height"
       android:layout_centerVertical="true"
       android:paddingLeft="@dimen/margin_small"/>
 
   <TextView
       android:id="@+id/tv__bottom_item_text"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/bottom_panel_height"
+      android:layout_height="@dimen/bottom_item_height"
       android:layout_toRightOf="@id/iv__bottom_icon"
       android:layout_marginLeft="@dimen/margin_small"
       android:gravity="center_vertical"

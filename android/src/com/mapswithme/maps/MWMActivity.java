@@ -608,10 +608,12 @@ public class MWMActivity extends NvEventQueueActivity
     if (mIsFragmentContainer)
     {
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-      Fragment fragment = Fragment.instantiate(this, SearchFragment.class.getName(), getIntent().getExtras());
-      transaction.replace(R.id.fragment_container, fragment);
-      transaction.addToBackStack(null);
-      transaction.commit();
+      Fragment fragment = new SearchFragment();
+      fragment.setArguments(getIntent().getExtras());//Fragment.instantiate(this, SearchFragment.class.getName(), getIntent().getExtras());
+      transaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom,
+          R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
+      transaction.add(R.id.fragment_container, fragment, SearchFragment.class.getName());
+      transaction.addToBackStack(null).commit();
     }
     else
       startActivity(new Intent(this, SearchActivity.class));
@@ -808,7 +810,14 @@ public class MWMActivity extends NvEventQueueActivity
     setUpRoutingBox();
     setUpToolbars();
     if (findViewById(R.id.fragment_container) != null)
+    {
       mIsFragmentContainer = true;
+      // add dummy fragment to enable pop out fragment animations
+      Fragment fragment = new Fragment();
+      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+      transaction.add(R.id.fragment_container, fragment);
+      transaction.commit();
+    }
   }
 
   private void updateToolbarAds()

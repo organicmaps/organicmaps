@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/info_box_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <RelativeLayout
+      android:id="@+id/preview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone">
+
+    <LinearLayout
+        android:id="@+id/ll_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_top_panels"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp"
+        android:paddingLeft="@dimen/margin_tiny"
+        android:paddingRight="@dimen/margin_tiny"
+        android:paddingTop="@dimen/margin_tiny">
+
+      <RelativeLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:paddingBottom="@dimen/margin_tiny_and_half"
+          android:paddingLeft="@dimen/margin_tiny">
+
+        <TextView
+            android:id="@+id/info_title"
+            style="@style/infoItemLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/margin_large"/>
+
+        <ImageButton
+            android:id="@+id/btn_edit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-32dp"
+            android:layout_toRightOf="@id/info_title"
+            android:alpha="@dimen/alpha_edit_button"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/margin_tiny"
+            android:src="@drawable/ic_place_page_edit_button"/>
+
+        <TextView
+            android:id="@+id/info_subtitle"
+            style="@style/infoItemLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info_title"
+            android:textSize="@dimen/ppp_subtitle_text_size"/>
+
+      </RelativeLayout>
+
+      <FrameLayout
+          android:layout_width="@dimen/ppp_button_size"
+          android:layout_height="@dimen/ppp_button_size"
+          android:layout_weight="0">
+
+        <ImageView
+            android:id="@+id/iv__start_routing"
+            android:layout_width="@dimen/ppp_button_size"
+            android:layout_height="@dimen/ppp_button_size"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:src="@drawable/ic_drive"/>
+
+        <ProgressBar
+            android:id="@+id/pb__routing_progress"
+            android:layout_width="@dimen/routing_progress_size"
+            android:layout_height="@dimen/routing_progress_size"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+      </FrameLayout>
+
+      <ToggleButton
+          android:id="@+id/info_box_is_bookmarked"
+          style="@style/bookmarkToggleButton"
+          android:layout_width="@dimen/ppp_button_size"
+          android:layout_height="@dimen/ppp_button_size"
+          android:layout_weight="0"
+          android:background="@drawable/ic_bookmarks_toggle_bg"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/iv_arrow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/ll_preview"/>
+
+  </RelativeLayout>
+
+  <LinearLayout
+      android:id="@+id/place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/preview"
+      android:background="@color/bg_top_panels"
+      android:orientation="vertical"
+      android:paddingLeft="@dimen/margin_tiny"
+      android:paddingRight="@dimen/margin_tiny"
+      android:visibility="gone">
+
+    <View
+        style="@style/drawerSeparatorNoPadding"
+        android:layout_weight="0"/>
+
+    <ScrollView
+        android:id="@+id/place_page_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </ScrollView>
+  </LinearLayout>
+
+</RelativeLayout>

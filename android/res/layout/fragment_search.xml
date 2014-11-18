@@ -11,18 +11,17 @@
       android:layout_height="@dimen/search_box_height"
       android:background="@android:color/white">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/search"
+    <include
+        layout="@layout/search_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:voiceIcon="@drawable/ic_es_guides_icon"/>
+        android:layout_height="@dimen/search_box_height"/>
   </android.support.v7.widget.Toolbar>
 
   <ListView
       android:id="@android:id/list"
-      android:layout_marginTop="@dimen/margin_small"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_small"
       android:animationCache="false"
       android:divider="@color/divider_search"
       android:dividerHeight="1px"

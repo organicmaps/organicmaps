@@ -5,88 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_searchbox"
+    android:baselineAligned="false"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="@dimen/margin_small">
+    android:orientation="horizontal">
 
-  <LinearLayout
+  <FrameLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:id="@+id/search_progress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/margin_micro"/>
+
+    <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_search"/>
+  </FrameLayout>
+
+  <EditText
+      android:id="@+id/search_text_query"
+      style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_small"
+      android:layout_gravity="center_vertical"
       android:layout_weight="1"
-      android:background="@drawable/bg_search_rounded"
-      android:gravity="center_vertical"
-      android:orientation="horizontal">
+      android:background="@null"
+      android:fontFamily="@string/robotoLight"
+      android:imeOptions="actionSearch|flagNoExtractUi"
+      android:inputType="text"
+      android:padding="@dimen/margin_tiny"
+      android:singleLine="true"
+      android:textColor="@color/text_search_item"/>
 
-    <FrameLayout
-        android:id="@+id/container_progress_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-      <ProgressBar
-          android:id="@+id/search_progress"
-          style="@style/Widget.AppCompat.ProgressBar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:visibility="visible"/>
-
-      <ImageView
-          android:id="@+id/search_icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:src="@drawable/ic_search"/>
-    </FrameLayout>
-
-    <EditText
-        android:id="@+id/search_text_query"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:background="@null"
-        android:fontFamily="@string/robotoLight"
-        android:imeOptions="actionSearch|flagNoExtractUi"
-        android:inputType="text"
-        android:padding="@dimen/margin_tiny"
-        android:singleLine="true"
-        android:textColor="@android:color/white"/>
-
-    <FrameLayout
-        android:id="@+id/container_cancel_voice_input_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0">
-
-      <ImageView
-          android:id="@+id/search_image_clear"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:padding="10dp"
-          android:src="@drawable/ic_close"/>
-
-      <ImageView
-          android:id="@+id/search_voice_input"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:padding="10dp"
-          android:src="@drawable/search_box_voice_selector"
-          android:visibility="gone"/>
-    </FrameLayout>
-
-  </LinearLayout>
-
-  <TextView
-      android:id="@+id/btn_cancel_search"
+  <FrameLayout
+      android:id="@+id/container_cancel_voice_input_search"
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:paddingLeft="@dimen/margin_small"
-      android:text="@string/cancel"
-      android:gravity="center_vertical"
-      android:textColor="@android:color/white"/>
+      android:layout_height="wrap_content"
+      android:layout_weight="0">
+
+    <ImageView
+        android:id="@+id/search_image_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_medium"
+        android:src="@drawable/ic_close"/>
+
+    <ImageView
+        android:id="@+id/search_voice_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_medium"
+        android:src="@drawable/search_box_voice_selector"
+        android:visibility="gone"/>
+  </FrameLayout>
 
 </LinearLayout>

@@ -32,7 +32,7 @@
   <color name="divider_standart">#4A4B53</color>
 
   <!-- search -->
-  <color name="bg_searchbox">#15c783</color>
+  <color name="bg_searchbox">@android:color/white</color>
   <color name="text_search_item">@android:color/black</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
   <color name="bg_search_green">#1F9F7E</color>

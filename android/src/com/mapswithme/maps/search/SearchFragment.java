@@ -4,13 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMActivity;
@@ -20,6 +26,8 @@ import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
@@ -46,7 +54,11 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   // Handle voice recognition here
   private final static int RC_VOICE_RECOGNITION = 0xCA11;
   // Search views
-  private SearchView mSearchView;
+  private EditText mSearchEt;
+  private ProgressBar mSearchProgress;
+  private View mClearQueryBtn;
+  private View mVoiceInput;
+  private View mSearchIcon;
   // Current position.
   private double mLat;
   private double mLon;
@@ -75,29 +87,29 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     final Bundle args = getArguments();
     if (args != null)
     {
-      mSearchView.setQuery(args.getString(SearchActivity.EXTRA_QUERY, ""), true);
+      mSearchEt.setText(args.getString(SearchActivity.EXTRA_QUERY, ""));
       runSearch();
     }
 
-//    mSearchEt.setOnEditorActionListener(new TextView.OnEditorActionListener()
-//    {
-//      @Override
-//      public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-//      {
-//        final boolean isSearchDown = (event != null) &&
-//            (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
-//        final boolean isActionSearch = (actionId == EditorInfo.IME_ACTION_SEARCH);
-//
-//        if ((isSearchDown || isActionSearch) && getSearchAdapter().getCount() > 0)
-//        {
-//          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
-//          if (!doShowCategories())
-//            showSearchResultOnMap(0);
-//          return true;
-//        }
-//        return false;
-//      }
-//    });
+    mSearchEt.setOnEditorActionListener(new TextView.OnEditorActionListener()
+    {
+      @Override
+      public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+      {
+        final boolean isSearchDown = (event != null) &&
+            (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
+        final boolean isActionSearch = (actionId == EditorInfo.IME_ACTION_SEARCH);
+
+        if ((isSearchDown || isActionSearch) && getSearchAdapter().getCount() > 0)
+        {
+          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
+          if (!doShowCategories())
+            showSearchResultOnMap(0);
+          return true;
+        }
+        return false;
+      }
+    });
   }
 
   @Override
@@ -117,96 +129,77 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
 
   private String getSearchString()
   {
-    return mSearchView.getQuery().toString();
+    return mSearchEt.getText().toString();
   }
 
   private void setUpView(ViewGroup root)
   {
-    //    mVoiceInput = root.findViewById(R.id.search_voice_input);
-    //    mSearchIcon = root.findViewById(R.id.search_icon);
-    //    mSearchProgress = (ProgressBar) root.findViewById(R.id.search_progress);
-    //    mClearQueryBtn = root.findViewById(R.id.search_image_clear);
-    //    mClearQueryBtn.setOnClickListener(this);
-    mSearchView = (SearchView) getToolbar().findViewById(R.id.search);
+    mVoiceInput = root.findViewById(R.id.search_voice_input);
+    mSearchIcon = root.findViewById(R.id.search_icon);
+    mSearchProgress = (ProgressBar) root.findViewById(R.id.search_progress);
+    mClearQueryBtn = root.findViewById(R.id.search_image_clear);
+    mClearQueryBtn.setOnClickListener(this);
 
     // Initialize search edit box processor.
-    //    mSearchEt = (EditText) root.findViewById(R.id.search_text_query);
-    //    mSearchEt.addTextChangedListener(new TextWatcher()
-    //    {
-    //      @Override
-    //      public void afterTextChanged(Editable s)
-    //      {
-    //        if (runSearch() == QUERY_EMPTY)
-    //          showCategories();
-    //
-    //        if (s.length() == 0) // enable voice input
-    //        {
-    //          UiUtils.invisible(mClearQueryBtn);
-    //          UiUtils.showIf(InputUtils.isVoiceInputSupported(getActivity()), mVoiceInput);
-    //        }
-    //        else // show clear cross
-    //        {
-    //          UiUtils.show(mClearQueryBtn);
-    //          UiUtils.invisible(mVoiceInput);
-    //        }
-    //      }
-    //
-    //      @Override
-    //      public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
-    //      {
-    //      }
-    //
-    //      @Override
-    //      public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3)
-    //      {
-    //      }
-    //    });
-
-    //    mVoiceInput.setOnClickListener(this);
-
-    final SearchView searchView = (SearchView) root.findViewById(R.id.search);
-    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+    mSearchEt = (EditText) root.findViewById(R.id.search_text_query);
+    mSearchEt.addTextChangedListener(new TextWatcher()
     {
       @Override
-      public boolean onQueryTextSubmit(String s)
+      public void afterTextChanged(Editable s)
       {
-        Log.d("TEST", "Query text submit, " + s);
-        mSearchView.clearFocus();
-        return true;
+        if (runSearch() == QUERY_EMPTY)
+          showCategories();
+
+        if (s.length() == 0) // enable voice input
+        {
+          UiUtils.invisible(mClearQueryBtn);
+          UiUtils.showIf(InputUtils.isVoiceInputSupported(getActivity()), mVoiceInput);
+        }
+        else // show clear cross
+        {
+          UiUtils.show(mClearQueryBtn);
+          UiUtils.invisible(mVoiceInput);
+        }
       }
 
       @Override
-      public boolean onQueryTextChange(String s)
+      public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3)
       {
-        Log.d("TEST", "Query text change, " + s);
-        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
-        if (!doShowCategories())
-          showSearchResultOnMap(0);
-        return true;
       }
-    });
-    searchView.setIconified(false);
-    getToolbar().setOnClickListener(new View.OnClickListener()
-    {
+
       @Override
-      public void onClick(View v)
+      public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3)
       {
-        getActivity().getSupportFragmentManager().popBackStack();
       }
     });
 
-    getListView().setOnScrollListener(new AbsListView.OnScrollListener() {
+    mVoiceInput.setOnClickListener(this);
+
+    getListView().setOnScrollListener(new OnScrollListener()
+    {
       @Override
       public void onScrollStateChanged(AbsListView view, int scrollState)
       {
-        mSearchView.clearFocus();
-        InputUtils.hideKeyboard(mSearchView);
+        // Hide keyboard when user starts scroll
+        InputUtils.hideKeyboard(mSearchEt);
+
+        // Hacky way to remove focus from only edittext at activity
+        mSearchEt.setFocusableInTouchMode(false);
+        mSearchEt.setFocusable(false);
+        mSearchEt.setFocusableInTouchMode(true);
+        mSearchEt.setFocusable(true);
       }
 
       @Override
       public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-      {
+      {}
+    });
 
+    getToolbar().setNavigationOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
       }
     });
   }
@@ -223,9 +216,8 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     LocationService.INSTANCE.startUpdate(this);
 
     // do the search immediately after resume
-    // TODO
-    //    Utils.setTextAndCursorToEnd(mSearchView, getLastQuery());
-    //    mSearchEt.requestFocus();
+    Utils.setTextAndCursorToEnd(mSearchEt, getLastQuery());
+    mSearchEt.requestFocus();
   }
 
   @Override
@@ -266,7 +258,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
       }
 
       MWMActivity.startWithSearchResult(getActivity(), !allResults);
-      getActivity().onBackPressed();
+      getActivity().getSupportFragmentManager().popBackStack();
     }
   }
 
@@ -339,10 +331,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
 
   private void runSearch(String s)
   {
-    // TODO
-    //    Utils.setTextAndCursorToEnd(mSearchEt, s);
-    mSearchView.setQuery(s, true);
-    mSearchView.requestFocus();
+    Utils.setTextAndCursorToEnd(mSearchEt, s);
   }
 
   private int runSearch()
@@ -350,7 +339,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     final String s = getSearchString();
     if (s.length() == 0)
     {
-      // search next time from categories list
+      // do force search next time from fragment_bookmark_categories list
       mFlags &= (~NOT_FIRST_QUERY);
       return QUERY_EMPTY;
     }
@@ -374,16 +363,15 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
 
   private void setSearchInProgress(boolean inProgress)
   {
-    // TODO show progress?
     if (inProgress)
     {
-      //      UiUtils.show(mSearchProgress);
-      //      UiUtils.invisible(mSearchIcon);
+      UiUtils.show(mSearchProgress);
+      UiUtils.invisible(mSearchIcon);
     }
     else // search is completed
     {
-      //      UiUtils.invisible(mSearchProgress);
-      //      UiUtils.show(mSearchIcon);
+      UiUtils.invisible(mSearchProgress);
+      UiUtils.show(mSearchIcon);
     }
   }
 
@@ -392,13 +380,8 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   {
     switch (v.getId())
     {
-    case R.id.btn_cancel_search:
-      SearchController.getInstance().cancel();
-      clearLastQuery();
-      getActivity().onBackPressed();
-      break;
     case R.id.search_image_clear:
-      // TODO
+      mSearchEt.getText().clear();
       break;
     case R.id.search_voice_input:
       final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
@@ -421,7 +404,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     {
       final String result = InputUtils.getMostConfidentResult(data);
       if (result != null)
-        mSearchView.setQuery(result, true);
+        mSearchEt.setText(result);
     }
   }
 

@@ -13,21 +13,24 @@
 
   <FrameLayout
       android:id="@+id/fragment_container"
-      android:layout_width="400dp"
-      android:layout_height="wrap_content"
+      android:layout_width="@dimen/panel_width"
+      android:layout_height="match_parent"
       android:layout_margin="@dimen/margin_medium"/>
 
   <include
       android:id="@+id/search_box"
       layout="@layout/search_box"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/search_box_height"/>
+      android:layout_width="@dimen/panel_width"
+      android:layout_height="@dimen/search_box_height"
+      android:layout_margin="@dimen/margin_medium"
+      android:layout_marginBottom="@dimen/margin_micro"/>
 
   <com.mapswithme.maps.widget.MapInfoView
       android:id="@+id/info_box"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"/>
+      android:layout_below="@id/search_box"
+      android:layout_margin="@dimen/margin_medium"/>
 
   <RelativeLayout
       android:id="@+id/rl__routing_box"
@@ -97,8 +100,7 @@
       android:id="@+id/navigation_buttons_container_ref"
       layout="@layout/map_navigation_buttons"
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_below="@id/rl__routing_box"/>
+      android:layout_height="match_parent"/>
 
   <ImageView
       android:id="@+id/fade_view"
@@ -110,9 +112,10 @@
   <include
       android:id="@+id/map_bottom_toolbar"
       layout="@layout/map_bottom_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_alignParentBottom="true"/>
+      android:layout_width="@dimen/bottom_button_width"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"/>
 
   <include
       android:id="@+id/map_bottom_vertical_toolbar"

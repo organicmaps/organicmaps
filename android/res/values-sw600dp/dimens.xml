@@ -1,26 +1,29 @@
 <resources>
 
-    <dimen name="zoom_plus_top_margin">100dp</dimen>
-    <dimen name="activity_horizontal_margin">128dp</dimen>
-    <dimen name="dialog_max_height">560dp</dimen>
-    <dimen name="drawer_width">400dp</dimen>
-    <dimen name="drawer_grad_left">397dp</dimen>
-    <dimen name="drawer_item_height">76dp</dimen>
+  <dimen name="zoom_plus_top_margin">100dp</dimen>
+  <dimen name="activity_horizontal_margin">128dp</dimen>
+  <dimen name="dialog_max_height">560dp</dimen>
+  <dimen name="drawer_width">400dp</dimen>
+  <dimen name="drawer_grad_left">397dp</dimen>
+  <dimen name="drawer_item_height">76dp</dimen>
 
-    <dimen name="dp_x_1">6dp</dimen>
-    <dimen name="dp_x_2">12dp</dimen>
-    <dimen name="dp_x_3">18dp</dimen>
-    <dimen name="dp_x_4">24dp</dimen>
-    <dimen name="dp_x_6">36dp</dimen>
-    <dimen name="dp_x_8">48dp</dimen>
-    <dimen name="dp_x_10">60dp</dimen>
-    <dimen name="dp_x_12">72dp</dimen>
-    <dimen name="dp_x_14">84dp</dimen>
+  <dimen name="dp_x_1">6dp</dimen>
+  <dimen name="dp_x_2">12dp</dimen>
+  <dimen name="dp_x_3">18dp</dimen>
+  <dimen name="dp_x_4">24dp</dimen>
+  <dimen name="dp_x_6">36dp</dimen>
+  <dimen name="dp_x_8">48dp</dimen>
+  <dimen name="dp_x_10">60dp</dimen>
+  <dimen name="dp_x_12">72dp</dimen>
+  <dimen name="dp_x_14">84dp</dimen>
 
-    <dimen name="sp_x_1">7dp</dimen>
-    <dimen name="sp_x_2">14sp</dimen>
-    <dimen name="sp_x_3">21sp</dimen>
-    <dimen name="sp_x_4">28sp</dimen>
-    <dimen name="sp_x_5">35sp</dimen>
+  <dimen name="sp_x_1">7dp</dimen>
+  <dimen name="sp_x_2">14sp</dimen>
+  <dimen name="sp_x_3">21sp</dimen>
+  <dimen name="sp_x_4">28sp</dimen>
+  <dimen name="sp_x_5">35sp</dimen>
+
+  <dimen name="bottom_panel_height">90dp</dimen>
+  <dimen name="bottom_button_width">46dp</dimen>
 
 </resources>

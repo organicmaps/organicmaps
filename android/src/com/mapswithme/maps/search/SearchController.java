@@ -52,7 +52,6 @@ public class SearchController implements OnClickListener
 
     mSearchQueryTV.setOnClickListener(this);
     mClearView.setOnClickListener(this);
-    UiUtils.hide(mSearchBox.findViewById(R.id.btn_cancel_search));
   }
 
   public void onResume()
