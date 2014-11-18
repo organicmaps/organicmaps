@@ -198,7 +198,7 @@ namespace
         return;
       }
 
-      notProcessedRects.push_back(m2::RectU(rightBorder, 0, fullRect.maxX(), downBorder));
+      notProcessedRects.push_back(m2::RectU(rightBorder, 0, fullRect.maxX(), fullRect.maxY()));
 
       if (downBorder == fullRect.SizeY())
         return;
