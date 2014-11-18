@@ -5,6 +5,7 @@
 #if defined(OMIM_OS_IPHONE)
   #define USE_OPENGLES20_IF_AVAILABLE 1
   #include <OpenGLES/ES2/gl.h>
+  #include <OpenGLES/ES2/glext.h>
 #elif defined(OMIM_OS_MAC)
   #include <OpenGL/gl.h>
   #include <OpenGL/glext.h>

@@ -19,7 +19,7 @@ public:
 
   static void glEnable(glConst mode);
   static void glDisable(glConst mode);
-  static void glClearDepth(double depth);
+  static void glClearDepthValue(double depth);
   static void glDepthMask(bool needWriteToDepthBuffer);
   static void glDepthFunc(glConst depthFunc);
   static void glBlendEquation(glConst function);

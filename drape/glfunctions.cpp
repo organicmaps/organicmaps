@@ -115,14 +115,20 @@ void GLFunctions::Init()
   glGenVertexArraysFn = &glGenVertexArraysAPPLE;
   glBindVertexArrayFn = &glBindVertexArrayAPPLE;
   glDeleteVertexArrayFn = &glDeleteVertexArraysAPPLE;
+  glMapBufferFn = &::glMapBuffer;
+  glUnmapBufferFn = &::glUnmapBuffer;
 #elif defined(OMIM_OS_LINUX)
   glGenVertexArraysFn = &::glGenVertexArrays;
   glBindVertexArrayFn = &::glBindVertexArray;
   glDeleteVertexArrayFn = &::glDeleteVertexArrays;
+  glMapBufferFn = &::glMapBuffer;  // I don't know correct name for linux!
+  glUnmapBufferFn = &::glUnmapBuffer; // I don't know correct name for linux!
 #elif defined(OMIM_OS_MOBILE)
   glGenVertexArraysFn = &glGenVertexArraysOES;
   glBindVertexArrayFn = &glBindVertexArrayOES;
   glDeleteVertexArrayFn = &glDeleteVertexArraysOES;
+  glMapBufferFn = &::glMapBufferOES;
+  glUnmapBufferFn = &::glUnmapBufferOES;
 #endif
 
   glBindFramebufferFn = &::glBindFramebuffer;
@@ -138,8 +144,6 @@ void GLFunctions::Init()
   glDeleteBuffersFn = &::glDeleteBuffers;
   glBufferDataFn = &::glBufferData;
   glBufferSubDataFn = &::glBufferSubData;
-  glMapBufferFn = &::glMapBuffer;
-  glUnmapBufferFn = &::glUnmapBuffer;
 
   /// Shaders
   glCreateShaderFn = &::glCreateShader;
@@ -180,6 +184,9 @@ void GLFunctions::Init()
   glUniform1fvFn = &::glUniform1fv;
 
   glUniformMatrix4fvFn = &glUniformMatrix4fv;
+
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+  glPixelStorei(GL_PACK_ALIGNMENT, 1);
 }
 
 bool GLFunctions::glHasExtension(string const & name)
@@ -246,9 +253,13 @@ void GLFunctions::glDisable(glConst mode)
   GLCHECK(::glDisable(mode));
 }
 
-void GLFunctions::glClearDepth(double depth)
+void GLFunctions::glClearDepthValue(double depth)
 {
+#ifdef OMIM_OS_IPHONE
+  GLCHECK(::glClearDepthf(static_cast<GLclampf>(depth)));
+#else
   GLCHECK(::glClearDepth(depth));
+#endif
 }
 
 void GLFunctions::glDepthMask(bool needWriteToDepthBuffer)
