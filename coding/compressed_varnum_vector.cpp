@@ -3,6 +3,7 @@
 #include "reader.hpp"
 #include "writer.hpp"
 
+#include "../base/bits.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
@@ -89,16 +90,6 @@ namespace {
     return num;
   }
 
-  inline u32 NumUsedBits(u64 n)
-  {
-    u32 result = 0;
-    while (n != 0)
-    {
-      ++result;
-      n >>= 1;
-    }
-    return result;
-  }
   vector<u32> SerialFreqsToDistrTable(Reader & reader, u64 & decodeOffset, u64 cnt)
   {
     vector<u32> freqs;
@@ -194,7 +185,7 @@ void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, u6
   for (u64 i = 0; i < numsCnt; ++i)
   {
     u64 num = numsSource(i);
-    u32 bitsUsed = NumUsedBits(num);
+    u32 bitsUsed = bits::NumUsedBits(num);
     ++sizesFreqs[bitsUsed];
     if (int32_t(bitsUsed) > maxBitsSize) maxBitsSize = bitsUsed;
   }
@@ -223,7 +214,7 @@ void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, u6
       for (u64 ichunkNum = 0; ichunkNum < NUM_ELEM_PER_TABLE_ENTRY && inum < numsCnt; ++ichunkNum, ++inum)
       {
         u64 num = numsSource(inum);
-        u32 bitsUsed = NumUsedBits(num);
+        u32 bitsUsed = bits::NumUsedBits(num);
         arithEncSizes.Encode(bitsUsed);
         if (bitsUsed > 1) bitsWriter.Write(num, bitsUsed - 1);
         sum += num;
