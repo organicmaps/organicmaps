@@ -50,7 +50,7 @@ public:
   {
     if (m_Pos + size > m_Data.size())
       m_Data.resize(m_Pos + size);
-    memcpy(&m_Data[m_Pos], p, size);
+    memcpy(((uint8_t*)m_Data.data()) + m_Pos, p, size);
     m_Pos += size;
   }
 
