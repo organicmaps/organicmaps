@@ -164,4 +164,13 @@ namespace bits
     while ((n & (uint64_t(1) << 63)) == 0) { ++result; n <<= 1; }
     return result;
   }
+  
+  // Computes number of bits needed to store the number, it is not equal to number of ones.
+  // E.g. if we have a number (in bit representation) 00001000b then NumUsedBits is 4.
+  inline uint32_t NumUsedBits(uint64_t n)
+  {
+    uint32_t result = 0;
+    while (n != 0) { ++result; n >>= 1; }
+    return result;
+  }
 }

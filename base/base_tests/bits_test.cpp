@@ -100,3 +100,11 @@ UNIT_TEST(NumHiZeroBits64)
   TEST_EQUAL(bits::NumHiZeroBits64(0x0FABCDEF0FABCDEFULL), 4, ());
   TEST_EQUAL(bits::NumHiZeroBits64(0x000000000000FDEFULL), 48, ());
 }
+
+UNIT_TEST(NumUsedBits)
+{
+  TEST_EQUAL(bits::NumUsedBits(0), 0, ());
+  TEST_EQUAL(bits::NumUsedBits(0xFFFFFFFFFFFFFFFFULL), 64, ());
+  TEST_EQUAL(bits::NumUsedBits(0x0FABCDEF0FABCDEFULL), 60, ());
+  TEST_EQUAL(bits::NumUsedBits(0x000000000000FDEFULL), 16, ());
+}

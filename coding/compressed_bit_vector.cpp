@@ -5,6 +5,7 @@
 #include "writer.hpp"
 
 #include "../base/assert.hpp"
+#include "../base/bits.hpp"
 
 namespace {
   void VarintEncode(vector<u8> & dst, u64 n)
@@ -73,12 +74,6 @@ namespace {
     return n;
   }
 
-  inline u32 NumUsedBits(u64 n)
-  {
-    u32 result = 0;
-    while (n != 0) { ++result; n >>= 1; }
-    return result;
-  }
   vector<u32> SerialFreqsToDistrTable(Reader & reader, u64 & decodeOffset, u64 cnt)
   {
     vector<u32> freqs;
@@ -173,7 +168,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
     CHECK_LESS(prevOnePos, posOnes[i], ());
     // Accumulate size of diff encoding.
     u64 diff = posOnes[i] - prevOnePos;
-    u32 diffBitsize = NumUsedBits(diff - 1);
+    u32 diffBitsize = bits::NumUsedBits(diff - 1);
     numBytesDiffsEncVint += (diffBitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
     numBitsDiffsEncArith += diffBitsize > 0 ? diffBitsize - 1 : 0;
     ++diffsSizesFreqs[diffBitsize];
@@ -183,14 +178,14 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
       if (onesRangeLen > 0)
       {
         // Accumulate size of ones-range encoding.
-        u32 onesRangeLenBitsize = NumUsedBits(onesRangeLen - 1);
+        u32 onesRangeLenBitsize = bits::NumUsedBits(onesRangeLen - 1);
         numBytesRangesEncVint += (onesRangeLenBitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
         numBitsRangesEncArith += onesRangeLenBitsize > 0 ? onesRangeLenBitsize - 1 : 0;
         ++ranges1SizesFreqs[onesRangeLenBitsize];
         onesRangeLen = 0;
       }
       // Accumulate size of zeros-range encoding.
-      u32 zeros_range_len_bitsize = NumUsedBits(posOnes[i] - prevOnePos - 2);
+      u32 zeros_range_len_bitsize = bits::NumUsedBits(posOnes[i] - prevOnePos - 2);
       numBytesRangesEncVint += (zeros_range_len_bitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
       numBitsRangesEncArith += zeros_range_len_bitsize > 0 ? zeros_range_len_bitsize - 1 : 0;
       ++ranges0SizesFreqs[zeros_range_len_bitsize];
@@ -201,7 +196,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
   // Accumulate size of remaining ones-range encoding.
   if (onesRangeLen > 0)
   {
-    u32 onesRangeLenBitsize = NumUsedBits(onesRangeLen - 1);
+    u32 onesRangeLenBitsize = bits::NumUsedBits(onesRangeLen - 1);
     numBytesRangesEncVint += (onesRangeLenBitsize + BLOCK_SIZE - 1) / BLOCK_SIZE;
     numBitsRangesEncArith = onesRangeLenBitsize > 0 ? onesRangeLenBitsize - 1 : 0;
     ++ranges1SizesFreqs[onesRangeLenBitsize];
@@ -312,7 +307,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
       for (u64 i = 0; i < posOnes.size(); ++i)
       {
         CHECK_GREATER(posOnes[i], prevOnePos, ());
-        u32 bitsUsed = NumUsedBits(posOnes[i] - prevOnePos - 1);
+        u32 bitsUsed = bits::NumUsedBits(posOnes[i] - prevOnePos - 1);
         arithEnc.Encode(bitsUsed);
         ++cntElements;
         prevOnePos = posOnes[i];
@@ -336,7 +331,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
         CHECK_GREATER(posOnes[i], prevOnePos, ());
         // Encode one's pos (diff - 1).
         u64 diff = posOnes[i] - prevOnePos - 1;
-        u32 bitsUsed = NumUsedBits(diff);
+        u32 bitsUsed = bits::NumUsedBits(diff);
         if (bitsUsed > 1)
         {
           // Most significant bit is always 1 for non-zero diffs, so don't store it.
@@ -424,13 +419,13 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
           if (onesRangeLen > 0)
           {
             // Encode ones range bits size.
-            u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+            u32 bitsUsed = bits::NumUsedBits(onesRangeLen - 1);
             arith_enc1.Encode(bitsUsed);
             ++cntElements1;
             onesRangeLen = 0;
           }
           // Encode zeros range bits size - 1.
-          u32 bitsUsed = NumUsedBits(posOnes[i] - prevOnePos - 2);
+          u32 bitsUsed = bits::NumUsedBits(posOnes[i] - prevOnePos - 2);
           arith_enc0.Encode(bitsUsed);
           ++cntElements0;
         }
@@ -440,7 +435,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
       if (onesRangeLen > 0)
       {
         // Encode last ones range size - 1.
-        u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+        u32 bitsUsed = bits::NumUsedBits(onesRangeLen - 1);
         arith_enc1.Encode(bitsUsed);
         ++cntElements1;
         onesRangeLen = 0;
@@ -470,7 +465,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
           if (onesRangeLen > 0)
           {
             // Encode ones range bits size.
-            u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+            u32 bitsUsed = bits::NumUsedBits(onesRangeLen - 1);
             if (bitsUsed > 1)
             {
               // Most significant bit for non-zero values is always 1, don't encode it.
@@ -480,7 +475,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
             onesRangeLen = 0;
           }
           // Encode zeros range bits size - 1.
-          u32 bitsUsed = NumUsedBits(posOnes[i] - prevOnePos - 2);
+          u32 bitsUsed = bits::NumUsedBits(posOnes[i] - prevOnePos - 2);
           if (bitsUsed > 1)
           {
             // Most significant bit for non-zero values is always 1, don't encode it.
@@ -494,7 +489,7 @@ void BuildCompressedBitVector(Writer & writer, vector<u32> const & posOnes, int 
       if (onesRangeLen > 0)
       {
         // Encode last ones range size - 1.
-        u32 bitsUsed = NumUsedBits(onesRangeLen - 1);
+        u32 bitsUsed = bits::NumUsedBits(onesRangeLen - 1);
         if (bitsUsed > 1)
         {
           // Most significant bit for non-zero values is always 1, don't encode it.
