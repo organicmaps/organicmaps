@@ -85,3 +85,18 @@ UNIT_TEST(ZigZagDecode)
   TEST_EQUAL(bits::ZigZagDecode(256U),  128, ());
 }
 
+UNIT_TEST(NumHiZeroBits32)
+{
+  TEST_EQUAL(bits::NumHiZeroBits32(0), 32, ());
+  TEST_EQUAL(bits::NumHiZeroBits32(0xFFFFFFFF), 0, ());
+  TEST_EQUAL(bits::NumHiZeroBits32(0x0FABCDEF), 4, ());
+  TEST_EQUAL(bits::NumHiZeroBits32(0x000000FF), 24, ());
+}
+
+UNIT_TEST(NumHiZeroBits64)
+{
+  TEST_EQUAL(bits::NumHiZeroBits64(0), 64, ());
+  TEST_EQUAL(bits::NumHiZeroBits64(0xFFFFFFFFFFFFFFFFULL), 0, ());
+  TEST_EQUAL(bits::NumHiZeroBits64(0x0FABCDEF0FABCDEFULL), 4, ());
+  TEST_EQUAL(bits::NumHiZeroBits64(0x000000000000FDEFULL), 48, ());
+}

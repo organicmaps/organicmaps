@@ -4,6 +4,7 @@
 #include "assert.hpp"
 
 #include "../std/type_traits.hpp"
+#include "../std/stdint.hpp"
 
 
 namespace bits
@@ -145,5 +146,22 @@ namespace bits
   {
     uint8_t * pData = static_cast<uint8_t *>(p);
     pData[offset >> 3] |= (1 << (offset & 7));
+  }
+  
+  // Compute number of zero bits from the most significant bits side. 
+  inline uint32_t NumHiZeroBits32(uint32_t n)
+  {
+    if (n == 0) return 32;
+    uint32_t result = 0;
+    while ((n & (uint32_t(1) << 31)) == 0) { ++result; n <<= 1; }
+    return result;
+  }
+  
+  inline uint32_t NumHiZeroBits64(uint64_t n)
+  {
+    if (n == 0) return 64;
+    uint32_t result = 0;
+    while ((n & (uint64_t(1) << 63)) == 0) { ++result; n <<= 1; }
+    return result;
   }
 }

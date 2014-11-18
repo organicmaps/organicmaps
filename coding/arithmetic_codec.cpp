@@ -4,15 +4,7 @@
 #include "reader.hpp"
 
 #include "../base/assert.hpp"
-
-namespace {
-  inline u32 NumHiZeroBits32(u32 n)
-  {
-    u32 result = 0;
-    while ((n & (u32(1) << 31)) == 0) { ++result; n <<= 1; }
-    return result;
-  }
-}
+#include "../base/bits.hpp"
 
 vector<u32> FreqsToDistrTable(vector<u32> const & origFreqs)
 {
@@ -87,7 +79,7 @@ vector<u8> ArithmeticEncoder::Finalize()
   }
   else
   {
-    u32 resultHiBits = NumHiZeroBits32(m_begin ^ last) + 1;
+    u32 resultHiBits = bits::NumHiZeroBits32(m_begin ^ last) + 1;
     u32 value = last & (~u32(0) << (32 - resultHiBits));
     while (value != 0)
     {
