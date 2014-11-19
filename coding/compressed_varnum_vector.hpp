@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../std/functional.hpp"
+#include "../std/function.hpp"
 #include "../std/stdint.hpp"
 #include "../std/vector.hpp"
 
@@ -16,7 +16,7 @@ class Writer;
 uint64_t const NUM_ELEM_PER_TABLE_ENTRY = 1024;
 
 // A source of nums.
-typedef std::function<uint64_t (uint64_t pos)> NumsSourceFuncT;
+typedef function<uint64_t (uint64_t pos)> NumsSourceFuncT;
 // Builds CompressedVarnumVector based on source of numbers.
 // If supportSums is true then sums are included in the table otherwise sums are not computed.
 void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, uint64_t numsCnt, bool supportSums);
