@@ -1,4 +1,5 @@
 #include "arithmetic_codec.hpp"
+#include "bit_streams.hpp"
 #include "compressed_varnum_vector.hpp"
 #include "reader.hpp"
 #include "writer.hpp"
@@ -17,80 +18,6 @@ namespace {
     return FreqsToDistrTable(freqs);
   }
 }
-
-class BitWriter
-{
-public:
-  BitWriter(Writer & writer)
-    : m_writer(writer), m_lastByte(0), m_size(0) {}
-  ~BitWriter() { if (m_size % 8 > 0) m_writer.Write(&m_lastByte, 1); }
-  u64 NumBitsWritten() const { return m_size; }
-  void Write(u64 bits, u32 writeSize)
-  {
-    if (writeSize == 0) return;
-    m_totalBits += writeSize;
-    u32 remSize = m_size % 8;
-    CHECK_LESS_OR_EQUAL(writeSize, 64 - remSize, ());
-    if (remSize > 0)
-    {
-      bits <<= remSize;
-      bits |= m_lastByte;
-      writeSize += remSize;
-      m_size -= remSize;
-    }
-    u32 writeBytesSize = writeSize / 8;
-    m_writer.Write(&bits, writeBytesSize);
-    m_lastByte = (bits >> (writeBytesSize * 8)) & ((1 << (writeSize % 8)) - 1);
-    m_size += writeSize;
-  }
-private:
-  Writer & m_writer;
-  u8 m_lastByte;
-  u64 m_size;
-  u64 m_totalBits;
-};
-
-class BitReader
-{
-public:
-  BitReader(Reader & reader)
-    : m_reader(reader), m_serialCur(0), m_serialEnd(reader.Size()),
-      m_bits(0), m_bitsSize(0), m_totalBitsRead(0) {}
-  u64 NumBitsRead() const { return m_totalBitsRead; }
-  u64 Read(u32 readSize)
-  {
-    m_totalBitsRead += readSize;
-    if (readSize == 0) return 0;
-    CHECK_LESS_OR_EQUAL(readSize, 64, ());
-    // First read, sets bits that are in the m_bits buffer.
-    u32 firstReadSize = readSize <= m_bitsSize ? readSize : m_bitsSize;
-    u64 result = m_bits & (~u64(0) >> (64 - firstReadSize));
-    m_bits >>= firstReadSize;
-    m_bitsSize -= firstReadSize;
-    readSize -= firstReadSize;
-    // Second read, does an extra read using m_reader.
-    if (readSize > 0)
-    {
-      u32 read_byte_size = m_serialCur + sizeof(m_bits) <= m_serialEnd ? sizeof(m_bits) : m_serialEnd - m_serialCur;
-      m_reader.Read(m_serialCur, &m_bits, read_byte_size);
-      m_serialCur += read_byte_size;
-      m_bitsSize += read_byte_size * 8;
-      if (readSize > m_bitsSize) CHECK_LESS_OR_EQUAL(readSize, m_bitsSize, ());
-      result |= (m_bits & (~u64(0) >> (64 - readSize))) << firstReadSize;
-      m_bits >>= readSize;
-      m_bitsSize -= readSize;
-      readSize = 0;
-    }
-    return result;
-  }
-private:
-  Reader & m_reader;
-  u64 m_serialCur;
-  u64 m_serialEnd;
-  u64 m_bits;
-  u32 m_bitsSize;
-  u64 m_totalBitsRead;
-};
 
 void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, u64 numsCnt, bool supportSums)
 {
@@ -130,7 +57,7 @@ void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, u6
     ArithmeticEncoder arithEncSizes(distr_table);
     {
       MemWriter< vector<u8> > encoded_bits_writer(encodedBits);
-      BitWriter bitsWriter(encoded_bits_writer);
+      BitSink bitsWriter(encoded_bits_writer);
       for (u64 ichunkNum = 0; ichunkNum < NUM_ELEM_PER_TABLE_ENTRY && inum < numsCnt; ++ichunkNum, ++inum)
       {
         u64 num = numsSource(inum);
@@ -162,7 +89,7 @@ struct CompressedVarnumVectorReader::DecodeContext
   unique_ptr<Reader> m_sizesArithDecReader;
   unique_ptr<ArithmeticDecoder> m_sizesArithDec;
   unique_ptr<Reader> m_numsBitsReaderReader;
-  unique_ptr<BitReader> m_numsBitsReader;
+  unique_ptr<BitSource> m_numsBitsReader;
   u64 m_numsLeftInChunk;
 };
 
@@ -221,7 +148,7 @@ void CompressedVarnumVectorReader::SetDecodeContext(u64 tableEntryIndex)
   m_decodeCtx->m_sizesArithDecReader.reset(m_reader.CreateSubReader(decodeOffset, encodedSizesSize));
   m_decodeCtx->m_sizesArithDec.reset(new ArithmeticDecoder(*m_decodeCtx->m_sizesArithDecReader, m_distrTable));
   m_decodeCtx->m_numsBitsReaderReader.reset(m_reader.CreateSubReader(decodeOffset + encodedSizesSize, m_numsEncodedOffset + m_tablePos[tableEntryIndex + 1] - decodeOffset - encodedSizesSize));
-  m_decodeCtx->m_numsBitsReader.reset(new BitReader(*m_decodeCtx->m_numsBitsReaderReader));
+  m_decodeCtx->m_numsBitsReader.reset(new BitSource(*m_decodeCtx->m_numsBitsReaderReader));
   m_decodeCtx->m_numsLeftInChunk = min((tableEntryIndex + 1) * m_numElemPerTableEntry, m_numsCnt) - tableEntryIndex * m_numElemPerTableEntry;
 }
 

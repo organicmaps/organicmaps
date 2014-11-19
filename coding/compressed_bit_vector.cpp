@@ -1,6 +1,7 @@
 #include "compressed_bit_vector.hpp"
 
 #include "arithmetic_codec.hpp"
+#include "bit_streams.hpp"
 #include "reader.hpp"
 #include "writer.hpp"
 #include "varint_misc.hpp"
@@ -16,79 +17,6 @@ namespace {
     return FreqsToDistrTable(freqs);
   }
 }
-
-class BitWriter
-{
-public:
-  BitWriter(Writer & writer)
-    : m_writer(writer), m_lastByte(0), m_size(0) {}
-  ~BitWriter() { if (m_size % 8 > 0) m_writer.Write(&m_lastByte, 1); }
-  uint64_t NumBitsWritten() const { return m_size; }
-  void Write(uint64_t bits, uint32_t writeSize)
-  {
-    if (writeSize == 0) return;
-    m_totalBits += writeSize;
-    uint32_t remSize = m_size % 8;
-    CHECK_LESS_OR_EQUAL(writeSize, 64 - remSize, ());
-    if (remSize > 0)
-    {
-      bits <<= remSize;
-      bits |= m_lastByte;
-      writeSize += remSize;
-      m_size -= remSize;
-    }
-    uint32_t writeBytesSize = writeSize / 8;
-    m_writer.Write(&bits, writeBytesSize);
-    m_lastByte = (bits >> (writeBytesSize * 8)) & ((1 << (writeSize % 8)) - 1);
-    m_size += writeSize;
-  }
-private:
-  Writer & m_writer;
-  uint8_t m_lastByte;
-  uint64_t m_size;
-  uint64_t m_totalBits;
-};
-
-class BitReader {
-public:
-  BitReader(Reader & reader)
-    : m_reader(reader), m_serialCur(0), m_serialEnd(reader.Size()),
-      m_bits(0), m_bitsSize(0), m_totalBitsRead(0) {}
-  uint64_t NumBitsRead() const { return m_totalBitsRead; }
-  uint64_t Read(uint32_t readSize)
-  {
-    m_totalBitsRead += readSize;
-    if (readSize == 0) return 0;
-    CHECK_LESS_OR_EQUAL(readSize, 64, ());
-    // First read, sets bits that are in the m_bits buffer.
-    uint32_t firstReadSize = readSize <= m_bitsSize ? readSize : m_bitsSize;
-    uint64_t result = m_bits & (~uint64_t(0) >> (64 - firstReadSize));
-    m_bits >>= firstReadSize;
-    m_bitsSize -= firstReadSize;
-    readSize -= firstReadSize;
-    // Second read, does an extra read using m_reader.
-    if (readSize > 0)
-    {
-      uint32_t readByteSize = m_serialCur + sizeof(m_bits) <= m_serialEnd ? sizeof(m_bits) : m_serialEnd - m_serialCur;
-      m_reader.Read(m_serialCur, &m_bits, readByteSize);
-      m_serialCur += readByteSize;
-      m_bitsSize += readByteSize * 8;
-      if (readSize > m_bitsSize) CHECK_LESS_OR_EQUAL(readSize, m_bitsSize, ());
-      result |= (m_bits & (~uint64_t(0) >> (64 - readSize))) << firstReadSize;
-      m_bits >>= readSize;
-      m_bitsSize -= readSize;
-      readSize = 0;
-    }
-    return result;
-  }
-private:
-  Reader & m_reader;
-  uint64_t m_serialCur;
-  uint64_t m_serialEnd;
-  uint64_t m_bits;
-  uint32_t m_bitsSize;
-  uint64_t m_totalBitsRead;
-};
 
 void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes, int chosenEncType)
 {
@@ -256,8 +184,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
       writer.Write(serialSizesEnc.data(), serialSizesEnc.size());
     }
     {
-      // Second Stage. Encode all bits of all diffs using BitWriter.
-      BitWriter bitWriter(writer);
+      // Second Stage. Encode all bits of all diffs using BitSink.
+      BitSink bitWriter(writer);
       int64_t prevOnePos = -1;
       uint64_t totalReadBits = 0;
       uint64_t totalReadCnts = 0;
@@ -388,8 +316,8 @@ void BuildCompressedBitVector(Writer & writer, vector<uint32_t> const & posOnes,
     }
 
     {
-      // Second stage, encode all ranges bits using BitWriter.
-      BitWriter bitWriter(writer);
+      // Second stage, encode all ranges bits using BitSink.
+      BitSink bitWriter(writer);
       int64_t prevOnePos = -1;
       uint64_t onesRangeLen = 0;
       for (uint32_t i = 0; i < posOnes.size(); ++i)
@@ -474,7 +402,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     for (uint64_t i = 0; i < cntElements; ++i) bitsUsedVec.push_back(arithDec.Decode());
     decodeOffset += encSizesBytesize;
     Reader * bitReaderReader = reader.CreateSubReader(decodeOffset, serialSize - decodeOffset);
-    BitReader bitReader(*bitReaderReader);
+    BitSource bitReader(*bitReaderReader);
     int64_t prevOnePos = -1;
     for (uint64_t i = 0; i < cntElements; ++i)
     {
@@ -526,7 +454,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     for (uint64_t i = 0; i < cntElements1; ++i) bitsSizes1.push_back(arith_dec1.Decode());
     decodeOffset += enc1SizesBytesize;
     Reader * bitReaderReader = reader.CreateSubReader(decodeOffset, serialSize - decodeOffset);
-    BitReader bitReader(*bitReaderReader);
+    BitSource bitReader(*bitReaderReader);
     uint64_t sum = 0, i0 = 0, i1 = 0;
     while (i0 < cntElements0 && i1 < cntElements1)
     {

@@ -36,6 +36,7 @@ SOURCES += \
     arithmetic_codec.cpp \
     compressed_bit_vector.cpp \
     compressed_varnum_vector.cpp \
+    bit_streams.cpp \
 
 HEADERS += \
     internal/xmlparser.hpp \
@@ -101,3 +102,5 @@ HEADERS += \
     arithmetic_codec.hpp \
     compressed_bit_vector.hpp \
     compressed_varnum_vector.hpp \
+    varint_misc.hpp \
+    bit_streams.hpp \
