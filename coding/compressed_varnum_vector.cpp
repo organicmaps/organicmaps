@@ -11,15 +11,15 @@
 #include "../std/vector.hpp"
 
 namespace {
-  vector<u32> SerialFreqsToDistrTable(Reader & reader, u64 & decodeOffset, u64 cnt)
+  vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)
   {
-    vector<u32> freqs;
-    for (u64 i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
+    vector<uint32_t> freqs;
+    for (uint64_t i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
     return FreqsToDistrTable(freqs);
   }
 }
 
-void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, u64 numsCnt, bool supportSums)
+void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, uint64_t numsCnt, bool supportSums)
 {
   // Encode header.
   VarintEncode(writer, numsCnt);
@@ -27,47 +27,47 @@ void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, u6
   VarintEncode(writer, supportSums ? 1 : 0);
 
   // Compute frequencies of bits sizes of all nums.
-  vector<u32> sizesFreqs(65, 0);
+  vector<uint32_t> sizesFreqs(65, 0);
   int32_t maxBitsSize = -1;
-  for (u64 i = 0; i < numsCnt; ++i)
+  for (uint64_t i = 0; i < numsCnt; ++i)
   {
-    u64 num = numsSource(i);
-    u32 bitsUsed = bits::NumUsedBits(num);
+    uint64_t num = numsSource(i);
+    uint32_t bitsUsed = bits::NumUsedBits(num);
     ++sizesFreqs[bitsUsed];
     if (int32_t(bitsUsed) > maxBitsSize) maxBitsSize = bitsUsed;
   }
   sizesFreqs.resize(maxBitsSize + 1);
   VarintEncode(writer, sizesFreqs.size());
-  for (u32 i = 0; i < sizesFreqs.size(); ++i) VarintEncode(writer, sizesFreqs[i]);
+  for (uint32_t i = 0; i < sizesFreqs.size(); ++i) VarintEncode(writer, sizesFreqs[i]);
   
-  vector<u32> distr_table = FreqsToDistrTable(sizesFreqs);
+  vector<uint32_t> distr_table = FreqsToDistrTable(sizesFreqs);
 
-  vector<u8> encoded_table;
-  u64 tableSize = numsCnt == 0 ? 1 : ((numsCnt - 1) / NUM_ELEM_PER_TABLE_ENTRY) + 2;
-  u64 inum = 0, prevChunkPos = 0, encodedNumsSize = 0, prevChunkSum = 0, sum = 0;
+  vector<uint8_t> encoded_table;
+  uint64_t tableSize = numsCnt == 0 ? 1 : ((numsCnt - 1) / NUM_ELEM_PER_TABLE_ENTRY) + 2;
+  uint64_t inum = 0, prevChunkPos = 0, encodedNumsSize = 0, prevChunkSum = 0, sum = 0;
   {
     // Encode starting table entry.
     VarintEncode(encoded_table, 0);
     if (supportSums) VarintEncode(encoded_table, 0);
   }
-  for (u64 itable = 0; itable < tableSize && inum < numsCnt; ++itable)
+  for (uint64_t itable = 0; itable < tableSize && inum < numsCnt; ++itable)
   {
     // Encode chunk of nums (one chunk for one table entry).    
-    vector<u8> encodedChunk, encodedBits;
+    vector<uint8_t> encodedChunk, encodedBits;
     ArithmeticEncoder arithEncSizes(distr_table);
     {
-      MemWriter< vector<u8> > encoded_bits_writer(encodedBits);
+      MemWriter< vector<uint8_t> > encoded_bits_writer(encodedBits);
       BitSink bitsWriter(encoded_bits_writer);
-      for (u64 ichunkNum = 0; ichunkNum < NUM_ELEM_PER_TABLE_ENTRY && inum < numsCnt; ++ichunkNum, ++inum)
+      for (uint64_t ichunkNum = 0; ichunkNum < NUM_ELEM_PER_TABLE_ENTRY && inum < numsCnt; ++ichunkNum, ++inum)
       {
-        u64 num = numsSource(inum);
-        u32 bitsUsed = bits::NumUsedBits(num);
+        uint64_t num = numsSource(inum);
+        uint32_t bitsUsed = bits::NumUsedBits(num);
         arithEncSizes.Encode(bitsUsed);
         if (bitsUsed > 1) bitsWriter.Write(num, bitsUsed - 1);
         sum += num;
       }
     }
-    vector<u8> encodedChunkSizes = arithEncSizes.Finalize();
+    vector<uint8_t> encodedChunkSizes = arithEncSizes.Finalize();
     VarintEncode(encodedChunk, encodedChunkSizes.size());
     encodedChunk.insert(encodedChunk.end(), encodedChunkSizes.begin(), encodedChunkSizes.end());
     encodedChunk.insert(encodedChunk.end(), encodedBits.begin(), encodedBits.end());
@@ -90,7 +90,7 @@ struct CompressedVarnumVectorReader::DecodeContext
   unique_ptr<ArithmeticDecoder> m_sizesArithDec;
   unique_ptr<Reader> m_numsBitsReaderReader;
   unique_ptr<BitSource> m_numsBitsReader;
-  u64 m_numsLeftInChunk;
+  uint64_t m_numsLeftInChunk;
 };
 
 CompressedVarnumVectorReader::CompressedVarnumVectorReader(Reader & reader)
@@ -99,33 +99,33 @@ CompressedVarnumVectorReader::CompressedVarnumVectorReader(Reader & reader)
 {
   CHECK_GREATER(reader.Size(), 0, ());
   // Decode header.
-  u64 offset = 0;
+  uint64_t offset = 0;
   m_numsCnt = VarintDecode(m_reader, offset);
   m_numElemPerTableEntry = VarintDecode(m_reader, offset);
   m_supportSums = VarintDecode(m_reader, offset) != 0;
-  vector<u32> sizesFreqs;
-  u64 freqsCnt = VarintDecode(m_reader, offset);
-  for (u32 i = 0; i < freqsCnt; ++i) sizesFreqs.push_back(VarintDecode(m_reader, offset));
+  vector<uint32_t> sizesFreqs;
+  uint64_t freqsCnt = VarintDecode(m_reader, offset);
+  for (uint32_t i = 0; i < freqsCnt; ++i) sizesFreqs.push_back(VarintDecode(m_reader, offset));
   m_distrTable = FreqsToDistrTable(sizesFreqs);
   m_numsEncodedOffset = offset;
 
   // Decode jump table.  
-  u64 tableSize = m_numsCnt == 0 ? 0 : ((m_numsCnt - 1) / m_numElemPerTableEntry) + 1;
-  u64 tableDecodeOffset = reader.Size() - 1;
-  u64 tableSizeEncodedSize = VarintDecodeReverse(reader, tableDecodeOffset);
+  uint64_t tableSize = m_numsCnt == 0 ? 0 : ((m_numsCnt - 1) / m_numElemPerTableEntry) + 1;
+  uint64_t tableDecodeOffset = reader.Size() - 1;
+  uint64_t tableSizeEncodedSize = VarintDecodeReverse(reader, tableDecodeOffset);
   // Advance offset to point to the first byte of table size encoded varint.
   ++tableDecodeOffset;
-  u64 tableEncodedBegin = tableDecodeOffset - tableSizeEncodedSize;
-  u64 tableEncodedEnd = tableDecodeOffset;
-  u64 prevPos = 0, prevSum = 0;
-  for (u64 tableOffset = tableEncodedBegin; tableOffset < tableEncodedEnd;)
+  uint64_t tableEncodedBegin = tableDecodeOffset - tableSizeEncodedSize;
+  uint64_t tableEncodedEnd = tableDecodeOffset;
+  uint64_t prevPos = 0, prevSum = 0;
+  for (uint64_t tableOffset = tableEncodedBegin; tableOffset < tableEncodedEnd;)
   {
-    u64 posDiff = VarintDecode(reader, tableOffset);
+    uint64_t posDiff = VarintDecode(reader, tableOffset);
     m_tablePos.push_back(prevPos + posDiff);
     prevPos += posDiff;
     if (m_supportSums)
     {
-      u64 sumDiff = VarintDecode(reader, tableOffset);
+      uint64_t sumDiff = VarintDecode(reader, tableOffset);
       m_tableSum.push_back(prevSum + sumDiff);
       prevSum += sumDiff;
     }
@@ -137,11 +137,11 @@ CompressedVarnumVectorReader::~CompressedVarnumVectorReader()
   if (m_decodeCtx) delete m_decodeCtx;
 }
 
-void CompressedVarnumVectorReader::SetDecodeContext(u64 tableEntryIndex)
+void CompressedVarnumVectorReader::SetDecodeContext(uint64_t tableEntryIndex)
 {
   CHECK_LESS(tableEntryIndex, m_tablePos.size() - 1, ());
-  u64 decodeOffset = m_numsEncodedOffset + m_tablePos[tableEntryIndex];
-  u64 encodedSizesSize = VarintDecode(m_reader, decodeOffset);
+  uint64_t decodeOffset = m_numsEncodedOffset + m_tablePos[tableEntryIndex];
+  uint64_t encodedSizesSize = VarintDecode(m_reader, decodeOffset);
   // Create decode context.
   if (m_decodeCtx) delete m_decodeCtx;
   m_decodeCtx = new DecodeContext;
@@ -152,33 +152,33 @@ void CompressedVarnumVectorReader::SetDecodeContext(u64 tableEntryIndex)
   m_decodeCtx->m_numsLeftInChunk = min((tableEntryIndex + 1) * m_numElemPerTableEntry, m_numsCnt) - tableEntryIndex * m_numElemPerTableEntry;
 }
 
-void CompressedVarnumVectorReader::FindByIndex(u64 index, u64 & sumBefore)
+void CompressedVarnumVectorReader::FindByIndex(uint64_t index, uint64_t & sumBefore)
 {
   CHECK_LESS(index, m_numsCnt, ());
-  u64 tableEntryIndex = index / m_numElemPerTableEntry;
-  u64 indexWithinRange = index % m_numElemPerTableEntry;
+  uint64_t tableEntryIndex = index / m_numElemPerTableEntry;
+  uint64_t indexWithinRange = index % m_numElemPerTableEntry;
   
   this->SetDecodeContext(tableEntryIndex);
   
-  u64 sum = 0;
+  uint64_t sum = 0;
   if (m_supportSums) sum = m_tableSum[tableEntryIndex];
-  for (u64 i = 0; i < indexWithinRange; ++i)
+  for (uint64_t i = 0; i < indexWithinRange; ++i)
   {
-    u64 num = this->Read();
+    uint64_t num = this->Read();
     if (m_supportSums) sum += num;
   }
   if (m_supportSums) sumBefore = sum;
 }
 
-u64 CompressedVarnumVectorReader::FindBySum(u64 sum, u64 & sumIncl, u64 & cntIncl)
+uint64_t CompressedVarnumVectorReader::FindBySum(uint64_t sum, uint64_t & sumIncl, uint64_t & cntIncl)
 {
   CHECK(m_supportSums, ());
   // First do binary search over select table to find the biggest
   // sum that is less than our.
-  u64 l = 0, r = m_tablePos.size();
+  uint64_t l = 0, r = m_tablePos.size();
   while (r - l > 1)
   {
-    u64 m = (l + r) / 2;
+    uint64_t m = (l + r) / 2;
     if (sum > m_tableSum[m])
     {
       l = m;
@@ -188,13 +188,13 @@ u64 CompressedVarnumVectorReader::FindBySum(u64 sum, u64 & sumIncl, u64 & cntInc
       r = m;
     }
   }
-  u64 tableEntryIndex = l;
+  uint64_t tableEntryIndex = l;
   cntIncl = tableEntryIndex * m_numElemPerTableEntry;
   
   this->SetDecodeContext(tableEntryIndex);
 
   sumIncl = m_tableSum[tableEntryIndex];
-  u64 num = 0;
+  uint64_t num = 0;
   while (sumIncl < sum && cntIncl < m_numsCnt)
   {
     num = this->Read();
@@ -205,13 +205,13 @@ u64 CompressedVarnumVectorReader::FindBySum(u64 sum, u64 & sumIncl, u64 & cntInc
   return num;
 }
 
-u64 CompressedVarnumVectorReader::Read()
+uint64_t CompressedVarnumVectorReader::Read()
 {
   CHECK(m_decodeCtx != 0, ());
   CHECK_GREATER(m_decodeCtx->m_numsLeftInChunk, 0, ());
-  u32 bitsUsed = m_decodeCtx->m_sizesArithDec->Decode();
+  uint32_t bitsUsed = m_decodeCtx->m_sizesArithDec->Decode();
   if (bitsUsed == 0) return 0;
-  u64 num = (u64(1) << (bitsUsed - 1)) | m_decodeCtx->m_numsBitsReader->Read(bitsUsed - 1);
+  uint64_t num = (uint64_t(1) << (bitsUsed - 1)) | m_decodeCtx->m_numsBitsReader->Read(bitsUsed - 1);
   --m_decodeCtx->m_numsLeftInChunk;
   return num;
 }
