@@ -4,6 +4,7 @@
 #import "LocationButton.h"
 #import "BottomMenu.h"
 #import "SearchView.h"
+#import "LocationPredictor.h"
 
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
@@ -28,6 +29,8 @@ namespace search { struct AddressInfo; }
   m2::PointD m_touchDownPoint;
 
   CGPoint m_popoverPos;
+  
+  LocationPredictor * m_predictor;
 }
 
 - (void)setupMeasurementSystem;

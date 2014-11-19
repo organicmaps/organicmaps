@@ -99,6 +99,8 @@
   // TODO: Remove this hack for location changing bug
   if (self.navigationController.visibleViewController == self)
   {
+    if (info.m_source != location::EPredictor)
+      [m_predictor reset:info];
     Framework & frm = GetFramework();
     frm.OnLocationUpdate(info);
 
@@ -602,6 +604,8 @@
     LocationStateModeFnT locationStateModeFn = (LocationStateModeFnT)[self methodForSelector:locationStateModeSelector];
 
     f.GetLocationState()->AddStateModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
+    
+    m_predictor = [[LocationPredictor alloc] initWithObserver:self];
 
     m_StickyThreshold = 10;
 

@@ -169,6 +169,8 @@
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A32B6D701A14D9BE00E54A65 /* resources-common in Resources */ = {isa = PBXBuildFile; fileRef = A32B6D6F1A14D9BE00E54A65 /* resources-common */; };
 		A32B6D711A14D9BE00E54A65 /* resources-common in Resources */ = {isa = PBXBuildFile; fileRef = A32B6D6F1A14D9BE00E54A65 /* resources-common */; };
+		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
+		A3CC2CD51A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
@@ -1481,6 +1483,8 @@
 		A32B6D4A1A14980500E54A65 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContextFactory.h; path = Platform/opengl/iosOGLContextFactory.h; sourceTree = "<group>"; };
 		A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContextFactory.mm; path = Platform/opengl/iosOGLContextFactory.mm; sourceTree = "<group>"; };
 		A32B6D6F1A14D9BE00E54A65 /* resources-common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-common"; path = "../../data/resources-common"; sourceTree = "<group>"; };
+		A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationPredictor.mm; sourceTree = "<group>"; };
+		A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPredictor.h; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -2211,6 +2215,8 @@
 				FAF457E415597BC100DCCC49 /* Framework.h */,
 				FAF457E615597D4600DCCC49 /* Framework.cpp */,
 				97DEA09018D706C300C5F963 /* Common.h */,
+				A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */,
+				A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -4488,6 +4494,7 @@
 				9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
+				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				9750841F199501F100A7457D /* ImageDownloader.m in Sources */,
@@ -4568,6 +4575,7 @@
 				97A8001118B21395000C07A2 /* SearchBar.mm in Sources */,
 				FAFB08EC151215EE0041901D /* MapViewController.mm in Sources */,
 				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
+				A3CC2CD51A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
 				97508420199501F100A7457D /* ImageDownloader.m in Sources */,
