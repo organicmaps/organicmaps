@@ -41,9 +41,8 @@ public:
 
   /// set current country name
   void SetCountryIndex(storage::TIndex const & idx);
-  typedef function<void (int)> TDownloadCountryFn;
+  typedef function<void (storage::TIndex const & idx, int)> TDownloadCountryFn;
   void SetDownloadCountryListener(TDownloadCountryFn const & fn) { m_downloadCallback = fn; }
-  void DownloadCurrentCountry(int options);
 
   /// @name Override from graphics::OverlayElement and gui::Element.
   //@{
@@ -91,9 +90,7 @@ private:
 
   typedef function<bool (unique_ptr<gui::Button> const &, m2::PointD const &)> TTapActionFn;
   bool OnTapAction(TTapActionFn const & action, m2::PointD const & pt);
-
-  void OnButtonClicked(const Element * button);
-  void DownloadCountry(int options, bool checkCallback = true);
+  void OnButtonClicked(Element const * button);
 
   void Repaint() const;
 

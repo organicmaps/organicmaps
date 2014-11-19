@@ -18,6 +18,7 @@
 #import "SettingsAndMoreVC.h"
 #import "RouteView.h"
 #import "CountryTreeVC.h"
+#import "Reachability.h"
 
 #import "../../Common/CustomAlertView.h"
 
@@ -30,6 +31,7 @@
 #include "../Statistics/Statistics.h"
 #include "../../../map/dialog_settings.hpp"
 #include "../../../map/user_mark.hpp"
+#include "../../../map/country_status_display.hpp"
 #include "../../../platform/settings.hpp"
 
 #define ALERT_VIEW_FACEBOOK 1
@@ -620,6 +622,47 @@
 
     f.Invalidate();
     f.LoadBookmarks();
+    
+    f.GetCountryStatusDisplay()->SetDownloadCountryListener([](storage::TIndex const & idx, int opt)
+    {
+      ActiveMapsLayout & layout = GetFramework().GetCountryTree().GetActiveMapLayout();
+      if (opt == -1)
+        layout.RetryDownloading(idx);
+      else
+      {
+        LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
+        size_t sizeToDownload = sizes.first;
+        TMapOptions options = static_cast<TMapOptions>(opt);
+        if(options & TMapOptions::ECarRouting)
+          sizeToDownload += sizes.second;
+        
+        NSString * name = [NSString stringWithUTF8String:layout.GetCountryName(idx).c_str()];
+        Reachability * reachability = [Reachability reachabilityForInternetConnection];
+        if ([reachability isReachable])
+        {
+          if ([reachability isReachableViaWWAN] && sizeToDownload > 50 * 1024 * 1024)
+          {
+            NSString * title = [NSString stringWithFormat:L(@"no_wifi_ask_cellular_download"), name];
+            
+            CustomAlertView * alertView = [[CustomAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"use_cellular_data"), nil];
+            alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex)
+            {
+              if (buttonIndex != alertView.cancelButtonIndex)
+                layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
+            };
+            [alertView show];
+            return;
+          }
+        }
+        else
+        {
+          [[[CustomAlertView alloc] initWithTitle:L(@"no_internet_connection_detected") message:L(@"use_wifi_recommendation_text") delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
+          return;
+        }
+        
+        layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
+      }
+    });
 
     f.SetRouteBuildingListener([self, &f](bool isSuccess, string const & message, bool openDownloader)
     {

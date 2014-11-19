@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapswithme.country.CountryTree;
+import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.MWMActivity.MapTask;
 import com.mapswithme.maps.MWMActivity.OpenUrlTask;
 import com.mapswithme.maps.MapStorage.Index;
@@ -288,7 +290,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
         mMsgView.setText(String.format(getString(R.string.downloading_country_can_proceed),
             mMapStorage.countryName(mCountryIndex)));
 
-        mProgress.setMax((int) mMapStorage.countryRemoteSizeInBytes(mCountryIndex));
+        mProgress.setMax((int) mMapStorage.countryRemoteSizeInBytes(mCountryIndex, StorageOptions.MAP_OPTION_MAP_ONLY));
         mProgress.setProgress(0);
 
         Framework.downloadCountry(mCountryIndex);

@@ -1,4 +1,7 @@
 #include "Framework.hpp"
+#include "MapStorage.hpp"
+
+#include "../country/country_helper.hpp"
 
 #include "../core/jni_helper.hpp"
 
@@ -7,6 +10,8 @@
 #include "../../../nv_event/nv_event.hpp"
 
 #include "../../../../../map/country_status_display.hpp"
+
+#include "../../../../../storage/index.hpp"
 
 #include "../../../../../base/logging.hpp"
 
@@ -86,11 +91,12 @@ extern "C"
   }
 
   void CallOnDownloadCountryClicked(shared_ptr<jobject> const & obj,
+                                    storage::TIndex const & idx,
                                     int options,
                                     jmethodID methodID)
   {
     JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(*obj.get(), methodID, options);
+    env->CallVoidMethod(*obj.get(), methodID, idx.m_group, idx.m_country, idx.m_region, options);
   }
 
   JNIEXPORT void JNICALL
@@ -98,18 +104,24 @@ extern "C"
   {
     CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(I)V");
+    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(IIII)V");
 
     display->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
                                               jni::make_global_ref(thiz),
                                               _1,
+                                              _2,
                                               methodID));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz, jint options)
+  Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz, jobject idx, jint options)
   {
-    g_framework->GetCountryStatusDisplay()->DownloadCurrentCountry(options);
+    storage::TIndex index = storage::ToNative(idx);
+    storage::ActiveMapsLayout & layout = storage_utils::GetMapLayout();
+    if (options == -1)
+      layout.RetryDownloading(index);
+    else
+      layout.DownloadMap(index, storage_utils::ToOptions(options));
   }
 
   JNIEXPORT void JNICALL

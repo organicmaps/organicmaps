@@ -69,6 +69,7 @@ void CountryStatusDisplay::SetCountryIndex(TIndex const & idx)
 {
   if (m_countryIdx != idx)
   {
+    Lock();
     m_countryIdx = idx;
 
     if (m_countryIdx.IsValid())
@@ -78,20 +79,18 @@ void CountryStatusDisplay::SetCountryIndex(TIndex const & idx)
     }
 
     Repaint();
+    Unlock();
   }
-}
-
-void CountryStatusDisplay::DownloadCurrentCountry(int options)
-{
-  // I don't know why this work, but it's terrible
-  // This method call only on android, from "AndroidUIThread"
-  DownloadCountry(options, false);
 }
 
 void CountryStatusDisplay::setIsVisible(bool isVisible) const
 {
   if (isVisible && isVisible != TBase::isVisible())
+  {
+    Lock();
     Repaint();
+    Unlock();
+  }
 
   TBase::setIsVisible(isVisible);
 }
@@ -218,6 +217,10 @@ void CountryStatusDisplay::CountryStatusChanged(ActiveMapsLayout::TGroup const &
   {
     Lock();
     m_countryStatus = newStatus;
+    if (m_countryStatus == TStatus::EDownloading)
+      m_progressSize = m_activeMaps.GetDownloadableCountrySize(m_countryIdx);
+    else
+      m_progressSize = LocalAndRemoteSizeT(0, 0);
     Repaint();
     Unlock();
   }
@@ -361,7 +364,9 @@ void CountryStatusDisplay::SetContentForDownloadPropose()
 void CountryStatusDisplay::SetContentForProgress()
 {
   ASSERT(m_label->isVisible(), ());
-  int const percent = m_progressSize.first * 100 / m_progressSize.second;
+  int percent = 0;
+  if (m_progressSize.second != 0)
+    percent = m_progressSize.first * 100 / m_progressSize.second;
   m_label->setText(FormatStatusMessage<string, int>("country_status_downloading", &m_displayMapName, &percent));
 }
 
@@ -446,28 +451,12 @@ void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
   if (button == m_secondaryButton.get())
     options |= TMapOptions::ECarRouting;
 
-  DownloadCountry(static_cast<int>(options));
-}
+  ASSERT(m_downloadCallback, ());
+  int opt = static_cast<int>(options);
+  if (IsStatusFailed())
+    opt = -1;
 
-void CountryStatusDisplay::DownloadCountry(int options, bool checkCallback)
-{
-  ASSERT(m_countryIdx.IsValid(), ());
-  if (checkCallback && m_downloadCallback)
-    m_downloadCallback(options);
-  else
-  {
-    if (IsStatusFailed())
-    {
-      m_progressSize = m_activeMaps.GetDownloadableCountrySize(m_countryIdx);
-      m_activeMaps.RetryDownloading(m_countryIdx);
-    }
-    else
-    {
-      TMapOptions mapOptions = static_cast<TMapOptions>(options);
-      m_progressSize = m_activeMaps.GetCountrySize(m_countryIdx, mapOptions);
-      m_activeMaps.DownloadMap(m_countryIdx, mapOptions);
-    }
-  }
+  m_downloadCallback(m_countryIdx, opt);
 }
 
 void CountryStatusDisplay::Repaint() const

@@ -100,7 +100,7 @@ public enum MapStorage
 
   public native int countryStatus(Index idx);
 
-  public native long countryRemoteSizeInBytes(Index idx);
+  public native long countryRemoteSizeInBytes(Index idx, int options);
 
   public native String countryName(Index idx);
 

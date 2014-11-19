@@ -196,14 +196,49 @@ public class MWMActivity extends NvEventQueueActivity
     LocationState.INSTANCE.invalidatePosition();
   }
 
-  public void OnDownloadCountryClicked(final int options)
+  public void OnDownloadCountryClicked(final int group, final int country, final int region, final int options)
   {
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        nativeDownloadCountry(options);
+        final MapStorage.Index index = new Index(group, country, region);
+        if (options == -1)
+          nativeDownloadCountry(index, options);
+        else
+        {
+          long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
+          if (size > 50 * 1024 * 1024 && !ConnectionState.isWifiConnected())
+          {
+            new AlertDialog.Builder(MWMActivity.this)
+                .setCancelable(true)
+                .setMessage(String.format(getString(R.string.no_wifi_ask_cellular_download), MapStorage.INSTANCE.countryName(index)))
+                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+                {
+                  @Override
+                  public void onClick(DialogInterface dlg, int which)
+                  {
+                    nativeDownloadCountry(index, options);
+                    dlg.dismiss();
+                  }
+                })
+                .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener()
+                {
+                  @Override
+                  public void onClick(DialogInterface dlg, int which)
+                  {
+                    dlg.dismiss();
+                  }
+                })
+                .create()
+                .show();
+
+            return;
+          }
+
+          nativeDownloadCountry(index, options);
+        }
       }
     });
   }
@@ -1382,7 +1417,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private native void nativeConnectDownloadButton();
 
-  private native void nativeDownloadCountry(int options);
+  private native void nativeDownloadCountry(MapStorage.Index index, int options);
 
   private native void nativeOnLocationError(int errorCode);
 

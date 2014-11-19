@@ -1,6 +1,8 @@
 #include "MapStorage.hpp"
 #include "Framework.hpp"
 
+#include "../country/country_helper.hpp"
+
 #include "../../../../../coding/internal/file_data.hpp"
 
 
@@ -71,10 +73,15 @@ extern "C"
   }
 
   JNIEXPORT jlong JNICALL
-  Java_com_mapswithme_maps_MapStorage_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz, jobject idx)
+  Java_com_mapswithme_maps_MapStorage_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz, jobject idx, jint options)
   {
-    // This function is used in the start screen (downloading resources).
-    return GetStorage().CountrySizeInBytes(IndexBinding(idx).toNative(), TMapOptions::EMapOnly).second;
+    ActiveMapsLayout & layout = storage_utils::GetMapLayout();
+    TMapOptions opt = storage_utils::ToOptions(options);
+    LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(ToNative(idx));
+    if (opt == TMapOptions::EMapWithCarRouting)
+      return sizes.first + sizes.second;
+    else
+      return sizes.first;
   }
 
   JNIEXPORT jint JNICALL
