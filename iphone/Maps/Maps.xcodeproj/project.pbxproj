@@ -181,10 +181,8 @@
 		B00511BC1A1102FE00A61AA4 /* libMRAdMan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511491A1102FE00A61AA4 /* libMRAdMan.a */; };
 		B00511BD1A1102FF00A61AA4 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */; };
 		B00511BE1A1102FF00A61AA4 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511601A1102FE00A61AA4 /* Chartboost.framework */; };
-		B00511BF1A11030000A61AA4 /* libFlurry_5.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511631A1102FE00A61AA4 /* libFlurry_5.3.0.a */; };
 		B00511C01A11030000A61AA4 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005116F1A1102FE00A61AA4 /* libGoogleAnalyticsServices.a */; };
 		B00511C11A11030100A61AA4 /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */; };
-		B00511C21A11030100A61AA4 /* libMobileAppTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511781A1102FE00A61AA4 /* libMobileAppTracker.a */; };
 		B00511C31A11030200A61AA4 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005117B1A1102FE00A61AA4 /* libMyTracker.a */; };
 		B00511C41A11030200A61AA4 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511811A1102FE00A61AA4 /* MRGService.framework */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
@@ -1528,8 +1526,6 @@
 		B005115D1A1102FE00A61AA4 /* AppsFlyerTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyerTracker.h; sourceTree = "<group>"; };
 		B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppsFlyerLib.a; sourceTree = "<group>"; };
 		B00511601A1102FE00A61AA4 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
-		B00511621A1102FE00A61AA4 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		B00511631A1102FE00A61AA4 /* libFlurry_5.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.3.0.a; sourceTree = "<group>"; };
 		B00511651A1102FE00A61AA4 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		B00511661A1102FE00A61AA4 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		B00511671A1102FE00A61AA4 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
@@ -1545,8 +1541,6 @@
 		B00511731A1102FE00A61AA4 /* GoogleConversionPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleConversionPing.h; sourceTree = "<group>"; };
 		B00511751A1102FE00A61AA4 /* DCTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTReporter.h; sourceTree = "<group>"; };
 		B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
-		B00511781A1102FE00A61AA4 /* libMobileAppTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobileAppTracker.a; sourceTree = "<group>"; };
-		B00511791A1102FE00A61AA4 /* MobileAppTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileAppTracker.h; sourceTree = "<group>"; };
 		B005117B1A1102FE00A61AA4 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMyTracker.a; sourceTree = "<group>"; };
 		B005117C1A1102FE00A61AA4 /* MCMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMyTracker.h; sourceTree = "<group>"; };
 		B005117D1A1102FE00A61AA4 /* MRCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCustomParamsProvider.h; sourceTree = "<group>"; };
@@ -2202,14 +2196,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00511C21A11030100A61AA4 /* libMobileAppTracker.a in Frameworks */,
 				B00511BC1A1102FE00A61AA4 /* libMRAdMan.a in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511C31A11030200A61AA4 /* libMyTracker.a in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
 				B00511011A1101AA00A61AA4 /* libz.dylib in Frameworks */,
-				B00511BF1A11030000A61AA4 /* libFlurry_5.3.0.a in Frameworks */,
 				B00510FF1A1101A000A61AA4 /* libxml2.dylib in Frameworks */,
 				B00510FD1A11019400A61AA4 /* libsqlite3.dylib in Frameworks */,
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
@@ -2591,10 +2583,8 @@
 				B00511481A1102FE00A61AA4 /* Adman */,
 				B005115C1A1102FE00A61AA4 /* AppsFlyer */,
 				B005115F1A1102FE00A61AA4 /* Chartboost */,
-				B00511611A1102FE00A61AA4 /* Flurry */,
 				B00511641A1102FE00A61AA4 /* GoogleAnalytics */,
 				B00511701A1102FE00A61AA4 /* GoogleConversionTracking */,
-				B00511771A1102FE00A61AA4 /* MobileAppTracking */,
 				B005117A1A1102FE00A61AA4 /* MyTracker */,
 			);
 			path = ExternalLibs;
@@ -2643,15 +2633,6 @@
 			path = Chartboost;
 			sourceTree = "<group>";
 		};
-		B00511611A1102FE00A61AA4 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				B00511621A1102FE00A61AA4 /* Flurry.h */,
-				B00511631A1102FE00A61AA4 /* libFlurry_5.3.0.a */,
-			);
-			path = Flurry;
-			sourceTree = "<group>";
-		};
 		B00511641A1102FE00A61AA4 /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -2695,15 +2676,6 @@
 				B00511751A1102FE00A61AA4 /* DCTReporter.h */,
 			);
 			path = DoubleClick;
-			sourceTree = "<group>";
-		};
-		B00511771A1102FE00A61AA4 /* MobileAppTracking */ = {
-			isa = PBXGroup;
-			children = (
-				B00511781A1102FE00A61AA4 /* libMobileAppTracker.a */,
-				B00511791A1102FE00A61AA4 /* MobileAppTracker.h */,
-			);
-			path = MobileAppTracking;
 			sourceTree = "<group>";
 		};
 		B005117A1A1102FE00A61AA4 /* MyTracker */ = {
@@ -5127,6 +5099,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -5241,6 +5214,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
@@ -5312,6 +5286,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
@@ -5412,6 +5387,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
@@ -5516,6 +5492,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me beta lite";
 				SDKROOT = iphoneos;
@@ -5615,6 +5592,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -5819,6 +5797,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
@@ -5923,6 +5902,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
@@ -6026,6 +6006,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel lite";
 				SDKROOT = iphoneos;
@@ -6129,6 +6110,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -6231,6 +6213,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -6294,6 +6277,30 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Full Release";
@@ -6317,6 +6324,30 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6342,6 +6373,30 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Full";
@@ -6365,6 +6420,30 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6390,6 +6469,30 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Debug Full";
@@ -6413,6 +6516,30 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6438,6 +6565,30 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Release Lite";
@@ -6461,6 +6612,30 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6486,6 +6661,30 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Release Full";
@@ -6510,6 +6709,30 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Lite";
@@ -6533,6 +6756,30 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};

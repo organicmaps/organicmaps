@@ -103,9 +103,8 @@ void InitLocalizedStrings()
 - (void)initMRGService
 {
 #warning App id and secret key are not set.
-  NSInteger appId = NSNotFound;
-  NSString * secret = @"test_key";
-  [MRGServiceInit MRGServiceWithAppId:appId andSecret:secret andDelegate:nil];
+  NSInteger appId = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppID"] integerValue];
+  NSString * secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceClientKey"];
   
   // MRGService settings
   MRGServiceParams * mrgsParams = [[MRGServiceParams alloc] initWithAppId:appId andSecret:secret];
@@ -114,7 +113,14 @@ void InitLocalizedStrings()
   mrgsParams.crashReportEnabled = YES;
   mrgsParams.allowPushNotificationHooks = YES;
   
-  NSArray * externalParams = @[];
+  // Google Analytics
+//  MRGSGoogleAnalyticsParams *googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:@"***REMOVED***"];
+//  googleAnalyticsParams.enable = NO;
+//  googleAnalyticsParams.exceptionHandlerEnabled = YES;
+//  googleAnalyticsParams.logLevel = 0;
+  
+  NSArray *externalParams = @[/*googleAnalyticsParams*/];
+  
   [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
   [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
 }

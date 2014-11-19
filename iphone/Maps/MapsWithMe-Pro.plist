@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>MRGServiceClientKey</key>
+	<string>***REMOVED***</string>
+	<key>MRGServiceAppID</key>
+	<integer>148</integer>
 	<key>AarkiClientSecurityKey</key>
 	<string>2mWtcnLWDuXgdKEhYLmatwh3cby3</string>
 	<key>CFBundleDevelopmentRegion</key>
