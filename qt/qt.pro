@@ -127,7 +127,7 @@ CONFIG(drape){
   SOURCES += \
     drape_surface.cpp \
     qtoglcontext.cpp \
-    qtoglcontextfactory.cpp
+    qtoglcontextfactory.cpp \
 }
 
 HEADERS += \
@@ -146,7 +146,7 @@ CONFIG(drape){
   HEADERS += \
     drape_surface.hpp \
     qtoglcontext.hpp \
-    qtoglcontextfactory.hpp
+    qtoglcontextfactory.hpp \
 }
 
 RESOURCES += res/resources.qrc

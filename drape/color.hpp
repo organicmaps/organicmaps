@@ -19,6 +19,10 @@ struct Color
   uint8_t m_alfa;
 
   int GetColorInInt() const { return (m_alfa << 24) | (m_blue << 16) | (m_green << 8) | m_red; }
+
+  static Color Black() { return Color(0, 0, 0, 255); }
+  static Color White() { return Color(255, 255, 255, 255); }
+  static Color Red()   { return Color(255, 0, 0, 255); }
 };
 
 struct ColorF

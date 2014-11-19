@@ -44,7 +44,7 @@ void EngineContext::EndReadTile(TileKey const & key)
   df::LineViewParams p;
   p.m_baseGtoPScale = 1.0;
   p.m_cap = dp::ButtCap;
-  p.m_color = dp::Color(255, 0, 0, 255);
+  p.m_color = dp::Color::Red();
   p.m_depth = 20000;
   p.m_width = 5;
   p.m_join = dp::RoundJoin;
@@ -58,9 +58,7 @@ void EngineContext::EndReadTile(TileKey const & key)
                      strings::to_string(key.m_y) + " " +
                      strings::to_string(key.m_zoomLevel);
 
-  tp.m_primaryTextFont = df::FontDecl{ dp::Color(255, 0, 0, 255),
-                                       dp::Color(0, 0, 0, 0),
-                                       30, true};
+  tp.m_primaryTextFont = df::FontDecl(dp::Color::Red(), 30);
 
   InsertShape(key, dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
 #endif

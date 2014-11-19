@@ -51,6 +51,16 @@ struct LineViewParams : CommonViewParams
 
 struct FontDecl
 {
+  FontDecl() = default;
+  FontDecl(dp::Color const & color, float size,
+           bool needOutline = false, dp::Color const & outlineColor = dp::Color::White())
+    : m_color(color)
+    , m_outlineColor(outlineColor)
+    , m_size(size)
+    , m_needOutline(needOutline)
+  {
+  }
+
   dp::Color m_color;
   dp::Color m_outlineColor;
   float m_size;

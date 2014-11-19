@@ -36,10 +36,10 @@ public:
   m2::RectD GetGlobalRect() const;
   TileKey const & GetTileKey() const { return m_key; }
 
-  void operator ()(FeatureID const & id);
   bool operator <(TileInfo const & other) const { return m_key < other.m_key; }
 
 private:
+  void ProcessID(FeatureID const & id);
   void InitStylist(FeatureType const & f, Stylist & s);
   void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
   void CheckCanceled() const;

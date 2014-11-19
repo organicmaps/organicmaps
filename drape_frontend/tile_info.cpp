@@ -55,7 +55,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
   if (DoNeedReadIndex())
   {
     CheckCanceled();
-    model.ReadFeaturesID(bind(&TileInfo::operator(), this, _1), GetGlobalRect(), GetZoomLevel());
+    model.ReadFeaturesID(bind(&TileInfo::ProcessID, this, _1), GetGlobalRect(), GetZoomLevel());
     sort(m_featureInfo.begin(), m_featureInfo.end());
   }
 }
@@ -79,7 +79,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
     for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
     RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_key, context);
-    model.ReadFeatures(bind(&RuleDrawer::operator(), &drawer, _1), featuresToRead);
+    model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }
 
@@ -91,7 +91,7 @@ void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
   memIndex.RemoveFeatures(m_featureInfo);
 }
 
-void TileInfo::operator ()(FeatureID const & id)
+void TileInfo::ProcessID(FeatureID const & id)
 {
   m_featureInfo.push_back(id);
   CheckCanceled();

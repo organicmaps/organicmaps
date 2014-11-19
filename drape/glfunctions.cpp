@@ -321,11 +321,7 @@ void GLFunctions::glBindBuffer(uint32_t vbo, uint32_t target)
   ASSERT(glBindBufferFn != NULL, ());
 #ifdef DEBUG
   threads::MutexGuard guard(g_mutex);
-  TKey key = make_pair(threads::GetCurrentThreadID(), target);
-  auto iter = g_boundBuffers.find(key);
-  if (iter != g_boundBuffers.end())
-    g_boundBuffers.erase(iter);
-  g_boundBuffers.emplace(key, vbo);
+  g_boundBuffers[make_pair(threads::GetCurrentThreadID(), target)] = vbo;
 #endif
   GLCHECK(glBindBufferFn(target, vbo));
 }
@@ -335,7 +331,6 @@ void GLFunctions::glDeleteBuffer(uint32_t vbo)
   ASSERT(glDeleteBuffersFn != NULL, ());
 #ifdef DEBUG
   threads::MutexGuard guard(g_mutex);
-  threads::ThreadID id = threads::GetCurrentThreadID();
   for (TNode const & n : g_boundBuffers)
     ASSERT(n.second != vbo, ());
 #endif
