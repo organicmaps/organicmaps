@@ -2,7 +2,6 @@
 #import "Framework.h"
 
 #include "../../../base/timer.hpp"
-#include "../../../base/logging.cpp"
 
 #include "../../../map/location_state.hpp"
 
