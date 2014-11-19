@@ -49,6 +49,7 @@ SOURCES += ../../testing/testingmain.cpp \
     arithmetic_codec_test.cpp \
     compressed_bit_vector_test.cpp \
     compressed_varnum_vector_test.cpp \
+    bit_streams_test.cpp \
 
 HEADERS += \
     reader_test.hpp \
