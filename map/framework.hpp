@@ -467,6 +467,11 @@ public:
   PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;
 
+  /// [in] lat, lon - last known location
+  /// [out] lat, lon - predicted location
+  static void PredictLocation(double & lat, double & lon, double accuracy,
+                              double bearing, double speed, double elapsedSeconds);
+
 public:
   string CodeGe0url(Bookmark const * bmk, bool addName);
   string CodeGe0url(double lat, double lon, double zoomLevel, string const & name);

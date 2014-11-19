@@ -1389,12 +1389,10 @@ extern "C"
   Java_com_mapswithme_maps_Framework_predictLocation(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble accuracy,
                                                      jdouble bearing, jdouble speed, jdouble elapsedSeconds)
   {
-    double offsetInM = static_cast<double>(speed * elapsedSeconds);
-    double angle = my::DegToRad(90.0 - static_cast<double>(bearing));
-    m2::PointD mercatorPt = MercatorBounds::MetresToXY(lon, lat, accuracy).Center();
-    mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, mercatorPt.x * cos(angle), mercatorPt.y * sin(angle));
-
-    double latlon[] = {MercatorBounds::YToLat(mercatorPt.y), MercatorBounds::XToLon(mercatorPt.x)};
+    double latitude = lat;
+    double longitude = lon;
+    ::Framework::PredictLocation(lat, lon, accuracy, bearing, speed, elapsedSeconds);
+    double latlon[] = { lat, lon };
     jdoubleArray jLatLon = env->NewDoubleArray(2);
     env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
 

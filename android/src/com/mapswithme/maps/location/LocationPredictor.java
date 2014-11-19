@@ -2,7 +2,6 @@ package com.mapswithme.maps.location;
 
 import android.location.Location;
 import android.os.Handler;
-import android.util.Log;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.LocationState;
@@ -12,9 +11,18 @@ public class LocationPredictor
   final private long PREDICTION_INTERVAL = 200;
   final private long MAX_PREDICTION_COUNT = 20;
 
+  private Runnable mRunnable = null;
+  private Handler mHandler = null;
+
+  private LocationService.LocationListener mListener = null;
+  private Location mLastLocation = null;
+  private boolean mGeneratePredictions = false;
+  private int mPredictionCount = 0;
+  private int mConnectionSlot = 0;
+
   public LocationPredictor(Handler handler, LocationService.LocationListener listener)
   {
-    mTimer = handler;
+    mHandler = handler;
     mListener = listener;
     mPredictionCount = 0;
 
@@ -24,7 +32,7 @@ public class LocationPredictor
       public void run()
       {
         if (generatePrediction())
-          mTimer.postDelayed(mRunnable, PREDICTION_INTERVAL);
+          mHandler.postDelayed(mRunnable, PREDICTION_INTERVAL);
       }
     };
   }
@@ -45,13 +53,21 @@ public class LocationPredictor
 
   public void reset(Location location)
   {
-    mLastLocation = location;
+    if (location.hasBearing() && location.hasSpeed())
+    {
+      mLastLocation = new Location(location);
+      mLastLocation.setTime(System.currentTimeMillis());
+      mLastLocation.setProvider(LocationService.LOCATION_PREDICTOR_PROVIDER);
+    }
+    else
+      mLastLocation = null;
+
     resetTimer();
   }
 
   private void onLocationStateModeChangedCallback(final int mode)
   {
-    mTimer.post(new Runnable()
+    mHandler.post(new Runnable()
     {
       @Override
       public void run()
@@ -73,9 +89,9 @@ public class LocationPredictor
   private void resetTimer()
   {
     mPredictionCount = 0;
-    mTimer.removeCallbacks(mRunnable);
+    mHandler.removeCallbacks(mRunnable);
     if (mLastLocation != null && mGeneratePredictions)
-      mTimer.postDelayed(mRunnable, PREDICTION_INTERVAL);
+      mHandler.postDelayed(mRunnable, PREDICTION_INTERVAL);
   }
 
   private boolean generatePrediction()
@@ -87,7 +103,6 @@ public class LocationPredictor
     {
       Location info = new Location(mLastLocation);
       info.setTime(System.currentTimeMillis());
-      info.setProvider(LocationService.LOCATION_PREDICTOR_PROVIDER);
 
       long elapsedMillis = info.getTime() - mLastLocation.getTime();
 
@@ -101,13 +116,4 @@ public class LocationPredictor
 
     return false;
   }
-
-  private Runnable mRunnable = null;
-  private Handler mTimer = null;
-
-  private LocationService.LocationListener mListener = null;
-  private Location mLastLocation = null;
-  private boolean mGeneratePredictions = false;
-  private int mPredictionCount = 0;
-  private int mConnectionSlot = 0;
 }

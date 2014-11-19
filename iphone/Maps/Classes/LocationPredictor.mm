@@ -52,8 +52,17 @@ namespace
 
 -(void)reset:(location::GpsInfo const &)info
 {
-  m_gpsInfoIsValid = true;
-  m_lastGpsInfo = info;
+  if (info.HasSpeed() && info.HasBearing())
+  {
+    m_gpsInfoIsValid = true;
+    m_lastGpsInfo = info;
+    m_lastGpsInfo.m_timestamp = my::Timer::LocalTime();
+    m_lastGpsInfo.m_source = location::EPredictor;
+  }
+  else
+  {
+    m_gpsInfoIsValid = false;
+  }
   [self resetTimer];
 }
 
@@ -87,14 +96,8 @@ namespace
     
     location::GpsInfo info = m_lastGpsInfo;
     info.m_timestamp = my::Timer::LocalTime();
-    
-    double offsetInM = info.m_speed * (info.m_timestamp - m_lastGpsInfo.m_timestamp);
-    
-    double angle = my::DegToRad(90.0 - info.m_bearing);
-    m2::PointD mercatorPt = MercatorBounds::MetresToXY(info.m_longitude, info.m_latitude, info.m_horizontalAccuracy).Center();
-    mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
-    info.m_longitude = MercatorBounds::XToLon(mercatorPt.x);
-    info.m_latitude = MercatorBounds::YToLat(mercatorPt.y);
+    ::Framework::PredictLocation(info.m_latitude, info.m_longitude, info.m_horizontalAccuracy, info.m_bearing,
+                                 info.m_speed, info.m_timestamp - m_lastGpsInfo.m_timestamp);
     
     [m_observer onLocationUpdate:info];
   }

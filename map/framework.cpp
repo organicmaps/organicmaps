@@ -1915,6 +1915,18 @@ BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
   return result;
 }
 
+void Framework::PredictLocation(double & lat, double & lon, double accuracy,
+                                double bearing, double speed, double elapsedSeconds)
+{
+  double offsetInM = speed * elapsedSeconds;
+  double angle = my::DegToRad(90.0 - bearing);
+
+  m2::PointD mercatorPt = MercatorBounds::MetresToXY(lon, lat, accuracy).Center();
+  mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
+  lon = MercatorBounds::XToLon(mercatorPt.x);
+  lat = MercatorBounds::YToLat(mercatorPt.y);
+}
+
 StringsBundle const & Framework::GetStringsBundle()
 {
   return m_stringsBundle;
