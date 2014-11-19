@@ -109,7 +109,6 @@ public:
     else if (m_idleFrames > 0)
     {
       --m_idleFrames;
-      LOG(LINFO, ("Idle counter = ", m_idleFrames));
       m_fw->Invalidate();
     }
   }

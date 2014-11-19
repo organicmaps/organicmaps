@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -58,6 +59,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
@@ -145,6 +147,8 @@ public class MWMActivity extends NvEventQueueActivity
     }
   };
   private boolean mAreToolbarAdsUpdated;
+
+  private LocationPredictor mLocationPredictor;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -752,6 +756,8 @@ public class MWMActivity extends NvEventQueueActivity
 
     updateToolbarAds();
     LocalBroadcastManager.getInstance(this).registerReceiver(mUpdateAdsReceiver, new IntentFilter(WorkerService.ACTION_UPDATE_MENU_ADS));
+
+    mLocationPredictor = new LocationPredictor(new Handler(), this);
   }
 
   private void updateToolbarAds()
@@ -989,6 +995,9 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
+    if (l.getProvider() != LocationService.LOCATION_PREDICTOR_PROVIDER)
+      mLocationPredictor.reset(l);
+
     nativeLocationUpdated(
         l.getTime(),
         l.getLatitude(),
@@ -1073,6 +1082,7 @@ public class MWMActivity extends NvEventQueueActivity
     stopWatchingCompassStatusUpdate();
 
     super.onPause();
+    mLocationPredictor.pause();
   }
 
   @Override
@@ -1095,7 +1105,7 @@ public class MWMActivity extends NvEventQueueActivity
     tryResumeRouting();
 
     MWMApplication.get().onMwmResume(this);
-
+    mLocationPredictor.resume();
   }
 
   private void checkShouldShowBanners()

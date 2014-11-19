@@ -163,4 +163,6 @@ public class Framework
 
   // TODO consider removal of that methods
   public native static void downloadCountry(Index idx);
+
+  public native static double[] predictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
 }

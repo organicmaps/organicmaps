@@ -49,6 +49,8 @@ public enum LocationService implements
   public static final int ERROR_DENIED = 2;
   public static final int ERROR_GPS_OFF = 3;
 
+  public static final String LOCATION_PREDICTOR_PROVIDER = "LocationPredictorProvider";
+
   public interface LocationListener
   {
     public void onLocationUpdated(final Location l);

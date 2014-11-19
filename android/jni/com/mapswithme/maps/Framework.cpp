@@ -1384,6 +1384,22 @@ extern "C"
   {
     return g_framework->DeactivatePopup();
   }
+
+  JNIEXPORT jdoubleArray JNICALL
+  Java_com_mapswithme_maps_Framework_predictLocation(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon, jdouble accuracy,
+                                                     jdouble bearing, jdouble speed, jdouble elapsedSeconds)
+  {
+    double offsetInM = static_cast<double>(speed * elapsedSeconds);
+    double angle = my::DegToRad(90.0 - static_cast<double>(bearing));
+    m2::PointD mercatorPt = MercatorBounds::MetresToXY(lon, lat, accuracy).Center();
+    mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, mercatorPt.x * cos(angle), mercatorPt.y * sin(angle));
+
+    double latlon[] = {MercatorBounds::YToLat(mercatorPt.y), MercatorBounds::XToLon(mercatorPt.x)};
+    jdoubleArray jLatLon = env->NewDoubleArray(2);
+    env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+
+    return jLatLon;
+  }
 }
 
 namespace guides
