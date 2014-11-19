@@ -2,6 +2,7 @@
 #include "compressed_varnum_vector.hpp"
 #include "reader.hpp"
 #include "writer.hpp"
+#include "varint_misc.hpp"
 
 #include "../base/bits.hpp"
 #include "../std/algorithm.hpp"
@@ -9,87 +10,6 @@
 #include "../std/vector.hpp"
 
 namespace {
-  void VarintEncode(vector<u8> & dst, u64 n)
-  {
-    if (n == 0)
-    {
-      dst.push_back(0);
-    }
-    else
-    {
-      while (n != 0)
-      {
-        u8 b = n & 0x7F;
-        n >>= 7;
-        b |= n == 0 ? 0 : 0x80;
-        dst.push_back(b);
-      }
-    }
-  }
-  void VarintEncode(Writer & writer, u64 n)
-  {
-    if (n == 0)
-    {
-      writer.Write(&n, 1);
-    }
-    else
-    {
-      while (n != 0)
-      {
-        u8 b = n & 0x7F;
-        n >>= 7;
-        b |= n == 0 ? 0 : 0x80;
-        writer.Write(&b, 1);
-      }
-    }
-  }
-  u64 VarintDecode(void * src, u64 & offset)
-  {
-    u64 n = 0;
-    int shift = 0;
-    while (1)
-    {
-      u8 b = *(((u8*)src) + offset);
-      CHECK_LESS_OR_EQUAL(shift, 56, ());
-      n |= u64(b & 0x7F) << shift;
-      ++offset;
-      if ((b & 0x80) == 0) break;
-      shift += 7;
-    }
-    return n;
-  }
-  u64 VarintDecode(Reader & reader, u64 & offset)
-  {
-    u64 n = 0;
-    int shift = 0;
-    while (1)
-    {
-      u8 b = 0;
-      reader.Read(offset, &b, 1);
-      CHECK_LESS_OR_EQUAL(shift, 56, ());
-      n |= u64(b & 0x7F) << shift;
-      ++offset;
-      if ((b & 0x80) == 0) break;
-      shift += 7;
-    }
-    return n;
-  }
-  u64 VarintDecodeReverse(Reader & reader, u64 & offset)
-  {
-    u8 b = 0;
-    do
-    {
-      --offset;
-      reader.Read(offset, &b, 1);
-    }
-    while ((b & 0x80) != 0);
-    ++offset;
-    u64 beginOffset = offset;
-    u64 num = VarintDecode(reader, offset);
-    offset = beginOffset;
-    return num;
-  }
-
   vector<u32> SerialFreqsToDistrTable(Reader & reader, u64 & decodeOffset, u64 cnt)
   {
     vector<u32> freqs;
@@ -266,6 +186,8 @@ CompressedVarnumVectorReader::CompressedVarnumVectorReader(Reader & reader)
   u64 tableSize = m_numsCnt == 0 ? 0 : ((m_numsCnt - 1) / m_numElemPerTableEntry) + 1;
   u64 tableDecodeOffset = reader.Size() - 1;
   u64 tableSizeEncodedSize = VarintDecodeReverse(reader, tableDecodeOffset);
+  // Advance offset to point to the first byte of table size encoded varint.
+  ++tableDecodeOffset;
   u64 tableEncodedBegin = tableDecodeOffset - tableSizeEncodedSize;
   u64 tableEncodedEnd = tableDecodeOffset;
   u64 prevPos = 0, prevSum = 0;

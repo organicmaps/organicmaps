@@ -3,77 +3,12 @@
 #include "arithmetic_codec.hpp"
 #include "reader.hpp"
 #include "writer.hpp"
+#include "varint_misc.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/bits.hpp"
 
 namespace {
-  void VarintEncode(vector<uint8_t> & dst, uint64_t n)
-  {
-    if (n == 0)
-    {
-      dst.push_back(0);
-    }
-    else
-    {
-      while (n != 0)
-      {
-        uint8_t b = n & 0x7F;
-        n >>= 7;
-        b |= n == 0 ? 0 : 0x80;
-        dst.push_back(b);
-      }
-    }
-  }
-  void VarintEncode(Writer & writer, uint64_t n)
-  {
-    if (n == 0)
-    {
-      writer.Write(&n, 1);
-    }
-    else
-    {
-      while (n != 0)
-      {
-        uint8_t b = n & 0x7F;
-        n >>= 7;
-        b |= n == 0 ? 0 : 0x80;
-        writer.Write(&b, 1);
-      }
-    }
-  }
-  uint64_t VarintDecode(void * src, uint64_t & offset)
-  {
-    uint64_t n = 0;
-    int shift = 0;
-    while (1)
-    {
-      uint8_t b = *(((uint8_t*)src) + offset);
-      CHECK_LESS_OR_EQUAL(shift, 56, ());
-      n |= uint64_t(b & 0x7F) << shift;
-      ++offset;
-      if ((b & 0x80) == 0) break;
-      shift += 7;
-    }
-    return n;
-  }
-  uint64_t VarintDecode(Reader & reader, uint64_t & offset)
-  {
-    uint64_t n = 0;
-    int shift = 0;
-    while (1)
-    {
-      uint8_t b = 0;
-      reader.Read(offset, &b, 1);
-      CHECK_LESS_OR_EQUAL(shift, 56, ());
-      n |= uint64_t(b & 0x7F) << shift;
-      ++offset;
-      if ((b & 0x80) == 0) break;
-      shift += 7;
-    }
-    return n;
-  }
-
   vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)
   {
     vector<uint32_t> freqs;
