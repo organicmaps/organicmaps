@@ -7,6 +7,8 @@ mediumPDefine = "MEDIUM_P"
 mediumPSearch = "mediump"
 highPDefine = "HIGH_P"
 highPSearch = "highp"
+maxPrecDefine = "MAXPREC_P"
+maxPrecSearch = "MAXPREC"
 
 def formatOutFilePath(baseDir, fileName):
     return os.path.join(baseDir, "..", fileName)
@@ -79,10 +81,12 @@ def writeDefinitionFile(programIndex, defFilePath):
     file.write("  #define %s \"\" \n" % (lowPDefine))
     file.write("  #define %s \"\" \n" % (mediumPDefine))
     file.write("  #define %s \"\" \n" % (highPDefine))
+    file.write("  #define %s \"\" \n" % (maxPrecDefine))
     file.write("#else\n")
     file.write("  #define %s \"%s\"\n" % (lowPDefine, lowPSearch))
     file.write("  #define %s \"%s\"\n" % (mediumPDefine, mediumPSearch))
     file.write("  #define %s \"%s\"\n" % (highPDefine, highPSearch))
+    file.write("  #define %s \"%s\"\n" % (maxPrecDefine, maxPrecSearch))
     file.write("#endif\n\n")
     file.write("struct ProgramInfo\n")
     file.write("{\n")
