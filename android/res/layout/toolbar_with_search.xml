@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/search_box_height"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/MyActionBar">
+
+  <include
+      android:id="@+id/search_box"
+      layout="@layout/search_box"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/search_box_height"/>
+</android.support.v7.widget.Toolbar>

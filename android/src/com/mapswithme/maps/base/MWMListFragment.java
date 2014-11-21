@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 
 public abstract class MWMListFragment extends ListFragment
 {
@@ -18,7 +19,7 @@ public abstract class MWMListFragment extends ListFragment
 
     mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
     if (mToolbar != null)
-      mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+      UiUtils.showHomeUpButton(mToolbar);
   }
 
   public Toolbar getToolbar()

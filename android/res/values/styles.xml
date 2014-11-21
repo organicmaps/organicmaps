@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="AppTheme" parent="Theme.AppCompat.Light">
+  <style name="AppTheme" parent="Theme.AppCompat">
 
     <!-- customize the color palette -->
     <item name="colorPrimary">@color/base_green</item>
@@ -128,7 +128,8 @@
     <item name="android:textOff"/>
   </style>
 
-  <style name="MyActionBar" parent="Widget.AppCompat.Toolbar">
+  <style name="MyActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+    <item name="android:background">@color/base_green</item>
   </style>
 </resources>

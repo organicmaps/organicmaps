@@ -22,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -129,10 +130,11 @@ public class MWMActivity extends NvEventQueueActivity
   // toolbars
   private static final long VERT_TOOLBAR_ANIM_DURATION = 250;
   private ViewGroup mVerticalToolbar;
-  private ViewGroup mToolbar;
+  private ViewGroup mBottomToolbar;
   private Animation mVerticalToolbarAnimation;
   private static final float FADE_VIEW_ALPHA = 0.5f;
   private View mFadeView;
+  private Toolbar mToolbar;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
@@ -257,7 +259,7 @@ public class MWMActivity extends NvEventQueueActivity
       {
         final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
         final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
-        mToolbar.getHandler().postDelayed(new Runnable()
+        mBottomToolbar.getHandler().postDelayed(new Runnable()
         {
           @Override
           public void run()
@@ -354,7 +356,13 @@ public class MWMActivity extends NvEventQueueActivity
     if (!MWMApplication.get().hasBookmarks())
       UiUtils.showBuyProDialog(this, getString(R.string.bookmarks_in_pro_version));
     else
-      startActivity(new Intent(this, BookmarkCategoriesActivity.class));
+      showBookmarks();
+  }
+
+  private void showBookmarks()
+  {
+    // TODO open in fragment?
+    startActivity(new Intent(this, BookmarkCategoriesActivity.class));
   }
 
   public void onMyPositionClicked(View v)
@@ -603,7 +611,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void showSearchFragment()
+  private void showSearch()
   {
     if (mIsFragmentContainer)
     {
@@ -614,6 +622,8 @@ public class MWMActivity extends NvEventQueueActivity
           R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
       transaction.add(R.id.fragment_container, fragment, SearchFragment.class.getName());
       transaction.addToBackStack(null).commit();
+
+      fadeMap(0, FADE_VIEW_ALPHA);
     }
     else
       startActivity(new Intent(this, SearchActivity.class));
@@ -634,11 +644,11 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void doCancel()
       {
-        showSearchFragment();
+        showSearch();
       }
     }))
     {
-      showSearchFragment();
+      showSearch();
     }
   }
 
@@ -676,7 +686,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void onAnimationStart(Animation animation)
         {
-          mVerticalToolbar.setVisibility(View.VISIBLE);
+          UiUtils.show(mVerticalToolbar);
         }
 
         @Override
@@ -698,26 +708,34 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void onAnimationEnd(Animation animation)
         {
-          mVerticalToolbar.setVisibility(View.INVISIBLE);
-          mFadeView.setVisibility(View.GONE);
+          UiUtils.invisible(mVerticalToolbar, mFadeView);
           mVerticalToolbarAnimation = null;
         }
       };
     }
 
-    // slide vertical toolbar
     mVerticalToolbarAnimation = UiUtils.generateRelativeSlideAnimation(0, 0, fromY, toY);
     mVerticalToolbarAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
     mVerticalToolbarAnimation.setAnimationListener(listener);
     mVerticalToolbar.startAnimation(mVerticalToolbarAnimation);
 
     // fade map
+    fadeMap(fromAlpha, toAlpha);
+  }
+
+  private void fadeMap(float fromAlpha, float toAlpha)
+  {
     Animation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
     alphaAnimation.setFillBefore(true);
     alphaAnimation.setFillAfter(true);
     alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
     mFadeView.setVisibility(View.VISIBLE);
     mFadeView.startAnimation(alphaAnimation);
+  }
+
+  private boolean isMapFaded()
+  {
+    return mFadeView.getVisibility() == View.VISIBLE;
   }
 
   private void shareMyLocation()
@@ -865,7 +883,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void setUpToolbars()
   {
-    mToolbar = (ViewGroup) findViewById(R.id.map_bottom_toolbar);
+    mBottomToolbar = (ViewGroup) findViewById(R.id.map_bottom_toolbar);
     mVerticalToolbar = (ViewGroup) findViewById(R.id.map_bottom_vertical_toolbar);
     mVerticalToolbar.findViewById(R.id.btn_buy_pro).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
@@ -880,6 +898,18 @@ public class MWMActivity extends NvEventQueueActivity
     UiUtils.invisible(mVerticalToolbar);
 
     mFadeView = findViewById(R.id.fade_view);
+    mToolbar = (Toolbar) findViewById(R.id.toolbar);
+    UiUtils.showHomeUpButton(mToolbar);
+    // TODO
+    mToolbar.setTitle("Toolbar");
+    mToolbar.setNavigationOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        onBackPressed();
+      }
+    });
   }
 
   private void setUpInfoBox()
@@ -1285,6 +1315,11 @@ public class MWMActivity extends NvEventQueueActivity
     }
     else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
       setVerticalToolbarVisible(false);
+    else if (isMapFaded())
+    {
+      fadeMap(FADE_VIEW_ALPHA, 0.0f);
+      super.onBackPressed();
+    }
     else
       super.onBackPressed();
   }

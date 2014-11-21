@@ -3,8 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_bottom_toolbar"
     android:orientation="vertical">
+
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar_with_search"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin_small"/>
 
   <View
       android:id="@+id/btn_buy_pro"
@@ -48,8 +54,8 @@
       android:layout_height="@dimen/bottom_item_height"
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_send_my_location"
-      android:gravity="center_vertical"
       android:drawablePadding="@dimen/margin_small"
+      android:gravity="center_vertical"
       android:paddingLeft="10dp"
       android:text="@string/share_my_location"
       android:textColor="@color/text_menu"/>
@@ -63,8 +69,8 @@
       android:layout_height="@dimen/bottom_item_height"
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_more_apps"
-      android:gravity="center_vertical"
       android:drawablePadding="@dimen/margin_small"
+      android:gravity="center_vertical"
       android:paddingLeft="10dp"
       android:text="@string/more_apps_guides"
       android:textColor="@color/text_menu"/>

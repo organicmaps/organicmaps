@@ -200,6 +200,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
       @Override
       public void onClick(View v)
       {
+        getActivity().onBackPressed();
       }
     });
   }

@@ -15,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -400,6 +401,11 @@ public final class UiUtils
         }
       });
     }
+  }
+
+  public static void showHomeUpButton(Toolbar toolbar)
+  {
+    toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
   }
 
   // utility class
