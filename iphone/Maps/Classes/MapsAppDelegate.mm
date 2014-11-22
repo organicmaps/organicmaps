@@ -102,7 +102,6 @@ void InitLocalizedStrings()
 
 - (void)initMRGService
 {
-#warning App id and secret key are not set.
   NSInteger appId = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppID"] integerValue];
   NSString * secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceClientKey"];
   
@@ -113,13 +112,18 @@ void InitLocalizedStrings()
   mrgsParams.crashReportEnabled = YES;
   mrgsParams.allowPushNotificationHooks = YES;
   
-  // Google Analytics
-//  MRGSGoogleAnalyticsParams *googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:@"***REMOVED***"];
-//  googleAnalyticsParams.enable = NO;
-//  googleAnalyticsParams.exceptionHandlerEnabled = YES;
-//  googleAnalyticsParams.logLevel = 0;
+  NSString * appleAppId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppleAppID"];
+  MRGSAppsFlyerParams * appsFlyerParams = [[MRGSAppsFlyerParams alloc] initWithDevKey:@"***REMOVED***" andAppleAppId:appleAppId];
+  appsFlyerParams.debug = YES;
   
-  NSArray *externalParams = @[/*googleAnalyticsParams*/];
+  // Google Analytics
+  NSString * googleAnalyticsTrackingId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GoogleAnalyticsTrackingID"];
+  MRGSGoogleAnalyticsParams *googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:googleAnalyticsTrackingId];
+  googleAnalyticsParams.enable = NO;
+  googleAnalyticsParams.exceptionHandlerEnabled = YES;
+  googleAnalyticsParams.logLevel = 0;
+  
+  NSArray *externalParams = @[appsFlyerParams, googleAnalyticsParams];
   
   [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
   [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];

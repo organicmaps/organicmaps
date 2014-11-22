@@ -6,6 +6,10 @@
 	<string>***REMOVED***</string>
 	<key>MRGServiceAppID</key>
 	<integer>148</integer>
+	<key>MRGServiceAppleAppID</key>
+	<string>510623322</string>
+	<key>GoogleAnalyticsTrackingID</key>
+	<string>UA-45510902-17</string>
 	<key>AarkiClientSecurityKey</key>
 	<string>2mWtcnLWDuXgdKEhYLmatwh3cby3</string>
 	<key>CFBundleDevelopmentRegion</key>
