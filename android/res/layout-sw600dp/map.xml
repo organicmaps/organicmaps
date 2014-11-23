@@ -114,8 +114,8 @@
       layout="@layout/map_bottom_vertical_toolbar"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
-      android:layout_below="@id/toolbar"
-      android:layout_margin="@dimen/margin_medium"/>
-
+      android:layout_below="@id/info_box"
+      android:layout_margin="@dimen/margin_medium"
+      android:layout_marginTop="0dp"/>
 
 </RelativeLayout>

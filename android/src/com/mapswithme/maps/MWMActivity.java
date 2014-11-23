@@ -45,6 +45,7 @@ import android.widget.Toast;
 
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
+import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.Banner;
 import com.mapswithme.maps.Ads.BannerDialogFragment;
@@ -486,7 +487,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void doUpdate()
         {
-          runDownloadActivity(false);
+          showDownloader(false);
         }
 
         @Override
@@ -615,12 +616,17 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (mIsFragmentContainer)
     {
+      if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) != null) // search is already shown
+        return;
+      setVerticalToolbarVisible(false);
+      popFragment();
+
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
       Fragment fragment = new SearchFragment();
-      fragment.setArguments(getIntent().getExtras());//Fragment.instantiate(this, SearchFragment.class.getName(), getIntent().getExtras());
+      fragment.setArguments(getIntent().getExtras());
       transaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom,
           R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
-      transaction.add(R.id.fragment_container, fragment, SearchFragment.class.getName());
+      transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
       transaction.addToBackStack(null).commit();
 
       fadeMap(0, FADE_VIEW_ALPHA);
@@ -638,7 +644,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void doUpdate()
       {
-        runDownloadActivity(false);
+        showDownloader(false);
       }
 
       @Override
@@ -652,13 +658,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  @Override
-  public boolean onSearchRequested()
-  {
-    onSearchClicked(null);
-    return false;
-  }
-
   public void onMoreClicked(View v)
   {
     setVerticalToolbarVisible(true);
@@ -670,6 +669,8 @@ public class MWMActivity extends NvEventQueueActivity
         (mVerticalToolbar.getVisibility() == View.VISIBLE && showVerticalToolbar) ||
         (mVerticalToolbar.getVisibility() != View.VISIBLE && !showVerticalToolbar))
       return;
+
+    popFragment();
 
     int fromY, toY;
     Animation.AnimationListener listener;
@@ -733,11 +734,6 @@ public class MWMActivity extends NvEventQueueActivity
     mFadeView.startAnimation(alphaAnimation);
   }
 
-  private boolean isMapFaded()
-  {
-    return mFadeView.getVisibility() == View.VISIBLE;
-  }
-
   private void shareMyLocation()
   {
     final Location loc = LocationService.INSTANCE.getLastLocation();
@@ -767,10 +763,31 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void runDownloadActivity(boolean openDownloadedList)
+  private void showDownloader(boolean openDownloadedList)
   {
-    final Intent intent = new Intent(this, DownloadActivity.class).putExtra(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
-    startActivity(intent);
+    if (mIsFragmentContainer)
+    {
+      if (getSupportFragmentManager().findFragmentByTag(DownloadFragment.class.getName()) != null) // downloader is already shown
+        return;
+      setVerticalToolbarVisible(false);
+      popFragment();
+
+      FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+      Fragment fragment = new DownloadFragment();
+      fragment.setArguments(getIntent().getExtras());
+      transaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom,
+          R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
+      transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
+      transaction.addToBackStack(null).commit();
+
+      fadeMap(0, FADE_VIEW_ALPHA);
+
+    }
+    else
+    {
+      final Intent intent = new Intent(this, DownloadActivity.class).putExtra(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
+      startActivity(intent);
+    }
   }
 
   @Override
@@ -899,17 +916,20 @@ public class MWMActivity extends NvEventQueueActivity
 
     mFadeView = findViewById(R.id.fade_view);
     mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    UiUtils.showHomeUpButton(mToolbar);
-    // TODO
-    mToolbar.setTitle("Toolbar");
-    mToolbar.setNavigationOnClickListener(new OnClickListener()
+    if (mToolbar != null)
     {
-      @Override
-      public void onClick(View v)
+      UiUtils.showHomeUpButton(mToolbar);
+      // TODO
+      mToolbar.setTitle("Toolbar");
+      mToolbar.setNavigationOnClickListener(new OnClickListener()
       {
-        onBackPressed();
-      }
-    });
+        @Override
+        public void onClick(View v)
+        {
+          onBackPressed();
+        }
+      });
+    }
   }
 
   private void setUpInfoBox()
@@ -1315,14 +1335,50 @@ public class MWMActivity extends NvEventQueueActivity
     }
     else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
       setVerticalToolbarVisible(false);
-    else if (isMapFaded())
+    else if (canFragmentInterceptBackPress())
     {
-      fadeMap(FADE_VIEW_ALPHA, 0.0f);
-      super.onBackPressed();
+      //
     }
+    else if (popFragment())
+      fadeMap(FADE_VIEW_ALPHA, 0.0f);
     else
       super.onBackPressed();
   }
+
+  private boolean canFragmentInterceptBackPress()
+  {
+    final FragmentManager manager = getSupportFragmentManager();
+    final int count = manager.getBackStackEntryCount();
+    if (count < 1) // first fragment is dummy and shouldn't be removed
+      return false;
+
+    DownloadFragment fragment = (DownloadFragment) manager.findFragmentByTag(DownloadFragment.class.getName());
+    return fragment != null && fragment.onBackPressed();
+  }
+
+  private boolean popFragment()
+  {
+    final FragmentManager manager = getSupportFragmentManager();
+    final int count = manager.getBackStackEntryCount();
+    if (count < 1) // first fragment is dummy and shouldn't be removed
+      return false;
+
+    Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
+    if (fragment != null)
+    {
+      manager.popBackStack();
+      return true;
+    }
+    fragment = manager.findFragmentByTag(DownloadFragment.class.getName());
+    if (fragment != null)
+    {
+      manager.popBackStack();
+      return true;
+    }
+
+    return false;
+  }
+
 
   // Callbacks from native map objects touch event.
   @Override
@@ -1518,7 +1574,7 @@ public class MWMActivity extends NvEventQueueActivity
       break;
     case R.id.btn_download_maps:
       setVerticalToolbarVisible(false);
-      runDownloadActivity(false);
+      showDownloader(false);
       break;
     case R.id.btn_more_apps:
       setVerticalToolbarVisible(false);
@@ -1693,7 +1749,7 @@ public class MWMActivity extends NvEventQueueActivity
                   public void onClick(DialogInterface dialog, int which)
                   {
                     // TODO start country download automatically?
-                    runDownloadActivity(true);
+                    showDownloader(true);
                     closeRouting();
                     dialog.dismiss();
                   }
@@ -1783,7 +1839,7 @@ public class MWMActivity extends NvEventQueueActivity
     @Override
     public boolean run(MWMActivity target)
     {
-      target.runDownloadActivity(true);
+      target.showDownloader(true);
       return true;
     }
   }

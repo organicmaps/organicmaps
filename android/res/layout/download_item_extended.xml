@@ -12,7 +12,8 @@
       android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/margin_small"
       android:text="@string/downloader_downloaded"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"
+      android:textColor="@android:color/black"/>
 
   <TextView
       android:id="@+id/tv__count"

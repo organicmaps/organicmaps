@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView
-    android:id="@android:id/list"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animationCache="false"
-    android:background="@android:color/white"
-    android:cacheColorHint="@android:color/transparent"
-    android:scrollingCache="false"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/search_box_height"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/MyActionBar">
+
+    <TextView
+        android:id="@+id/tv__update_all"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/margin_small"
+        android:text="@string/downloader_update_all"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ListView
+      android:id="@android:id/list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:animationCache="false"
+      android:background="@android:color/white"
+      android:cacheColorHint="@android:color/transparent"
+      android:scrollingCache="false"/>
+</LinearLayout>

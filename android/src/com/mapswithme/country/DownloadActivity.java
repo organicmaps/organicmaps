@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MWMFragmentActivity;
 
 
@@ -19,7 +18,7 @@ public class DownloadActivity extends MWMFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    setTitle(getString(R.string.bookmarks));
+    getSupportActionBar().hide();
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     mDownloadFragment = (DownloadFragment) Fragment.instantiate(this, DownloadFragment.class.getName(), getIntent().getExtras());

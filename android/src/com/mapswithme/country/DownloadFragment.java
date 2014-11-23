@@ -3,11 +3,7 @@ package com.mapswithme.country;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -18,12 +14,13 @@ import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MWMListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.util.UiUtils;
 
 public class DownloadFragment extends MWMListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
   private ExtendedDownloadAdapterWrapper mExtendedAdapter;
   private DownloadedAdapter mDownloadedAdapter;
-  private TextView mAbButton;
+  private TextView mTvUpdateAll;
   private int mMode = MODE_DISABLED;
   private int mListenerSlotId;
 
@@ -41,15 +38,34 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
   {
-    if (getArguments().getBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, false))
+    super.onViewCreated(view, savedInstanceState);
+    initToolbar();
+    if (getArguments() != null && getArguments().getBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, false))
       openDownloadedList();
     else
     {
-      mExtendedAdapter = getExtendedAdater();
+      mExtendedAdapter = getExtendedAdapter();
       setListAdapter(mExtendedAdapter);
       mMode = MODE_DISABLED;
       mListenerSlotId = ActiveCountryTree.addListener(this);
     }
+  }
+
+  private void initToolbar()
+  {
+    UiUtils.showHomeUpButton(getToolbar());
+    getToolbar().setTitle(getString(R.string.maps));
+    getToolbar().setNavigationOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        onBackPressed();
+      }
+    });
+    mTvUpdateAll = (TextView) getToolbar().findViewById(R.id.tv__update_all);
+    mTvUpdateAll.setOnClickListener(this);
+    mTvUpdateAll.setVisibility(View.GONE);
   }
 
   @Override
@@ -60,23 +76,6 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
     ActiveCountryTree.removeListener(mListenerSlotId);
   }
 
-  @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-  {
-    inflater.inflate(R.menu.ab_downloader, menu);
-
-    final MenuItem item = menu.findItem(R.id.item_update);
-    mAbButton = (TextView) MenuItemCompat.getActionView(item);
-    if (mAbButton != null)
-    {
-      mAbButton.setOnClickListener(this);
-      mAbButton.setVisibility(View.GONE);
-    }
-
-    updateActionBar();
-
-    super.onCreateOptionsMenu(menu, inflater);
-  }
 
   private BaseDownloadAdapter getDownloadAdapter()
   {
@@ -110,25 +109,28 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
     {
       mMode = MODE_DISABLED;
       mDownloadedAdapter.onPause();
-      mExtendedAdapter = getExtendedAdater();
+      mExtendedAdapter = getExtendedAdapter();
       mExtendedAdapter.onResume(getListView());
       setListAdapter(mExtendedAdapter);
-      updateActionBar();
+      updateToolbar();
       return true;
     }
     else
+    {
+      // FIXME
       // Always show map as parent
       startActivity(new Intent(getActivity(), MWMActivity.class));
+    }
     return false;
   }
 
-  private void updateActionBar()
+  private void updateToolbar()
   {
-    if (mAbButton == null)
+    if (mTvUpdateAll == null)
       return;
     if (mMode == MODE_DISABLED)
     {
-      mAbButton.setVisibility(View.GONE);
+      mTvUpdateAll.setVisibility(View.GONE);
       return;
     }
 
@@ -136,17 +138,15 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
     switch (mMode)
     {
     case MODE_CANCEL_ALL:
-      mAbButton.setText(getString(R.string.downloader_cancel_all));
-      mAbButton.setTextColor(getResources().getColor(R.color.downloader_red));
-      mAbButton.setVisibility(View.VISIBLE);
+      mTvUpdateAll.setText(getString(R.string.downloader_cancel_all));
+      mTvUpdateAll.setVisibility(View.VISIBLE);
       break;
     case MODE_UPDATE_ALL:
-      mAbButton.setText(getString(R.string.downloader_update_all));
-      mAbButton.setTextColor(getResources().getColor(R.color.downloader_green));
-      mAbButton.setVisibility(View.VISIBLE);
+      mTvUpdateAll.setText(getString(R.string.downloader_update_all));
+      mTvUpdateAll.setVisibility(View.VISIBLE);
       break;
     case MODE_NONE:
-      mAbButton.setVisibility(View.GONE);
+      mTvUpdateAll.setVisibility(View.GONE);
       break;
     }
   }
@@ -172,7 +172,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   {
     setListAdapter(getDownloadedAdapter());
     mMode = MODE_NONE;
-    updateActionBar();
+    updateToolbar();
     if (mExtendedAdapter != null)
       mExtendedAdapter.onPause();
     mDownloadedAdapter.onResume(getListView());
@@ -188,7 +188,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
         @Override
         public void onChanged()
         {
-          updateActionBar();
+          updateToolbar();
         }
       });
     }
@@ -196,7 +196,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
     return mDownloadedAdapter;
   }
 
-  private ExtendedDownloadAdapterWrapper getExtendedAdater()
+  private ExtendedDownloadAdapterWrapper getExtendedAdapter()
   {
     if (mExtendedAdapter == null)
     {
@@ -206,7 +206,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
         @Override
         public void onChanged()
         {
-          updateActionBar();
+          updateToolbar();
         }
       });
     }
@@ -219,12 +219,12 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   {
     switch (v.getId())
     {
-    case R.id.item_update:
+    case R.id.tv__update_all:
       if (mMode == MODE_UPDATE_ALL)
         ActiveCountryTree.updateAll();
       else
         ActiveCountryTree.cancelAll();
-      updateActionBar();
+      updateToolbar();
       break;
     }
   }
@@ -235,7 +235,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   @Override
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
-    updateActionBar();
+    updateToolbar();
   }
 
   @Override
@@ -244,6 +244,6 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   @Override
   public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
   {
-    updateActionBar();
+    updateToolbar();
   }
 }
