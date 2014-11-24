@@ -42,7 +42,7 @@
       android:inputType="text"
       android:padding="@dimen/margin_tiny"
       android:singleLine="true"
-      android:textColor="@color/text_search_item"/>
+      android:textColor="@color/text_search_box"/>
 
   <FrameLayout
       android:id="@+id/container_cancel_voice_input_search"

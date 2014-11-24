@@ -121,7 +121,6 @@ public class MWMActivity extends NvEventQueueActivity
   private RelativeLayout mLayoutRoutingGo;
   private ProgressBar mPbRoutingProgress;
 
-  private SearchController mSearchController;
   private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
   private int mLocationStateModeListenerId = -1;
@@ -135,7 +134,6 @@ public class MWMActivity extends NvEventQueueActivity
   private Animation mVerticalToolbarAnimation;
   private static final float FADE_VIEW_ALPHA = 0.5f;
   private View mFadeView;
-  private Toolbar mToolbar;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
@@ -619,6 +617,8 @@ public class MWMActivity extends NvEventQueueActivity
       if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) != null) // search is already shown
         return;
       setVerticalToolbarVisible(false);
+      hideInfoView();
+      Framework.deactivatePopup();
       popFragment();
 
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -628,8 +628,6 @@ public class MWMActivity extends NvEventQueueActivity
           R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
       transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
       transaction.addToBackStack(null).commit();
-
-      fadeMap(0, FADE_VIEW_ALPHA);
     }
     else
       startActivity(new Intent(this, SearchActivity.class));
@@ -670,6 +668,8 @@ public class MWMActivity extends NvEventQueueActivity
         (mVerticalToolbar.getVisibility() != View.VISIBLE && !showVerticalToolbar))
       return;
 
+    hideInfoView();
+    Framework.deactivatePopup();
     popFragment();
 
     int fromY, toY;
@@ -709,7 +709,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void onAnimationEnd(Animation animation)
         {
-          UiUtils.invisible(mVerticalToolbar, mFadeView);
+          UiUtils.invisible(mVerticalToolbar);
           mVerticalToolbarAnimation = null;
         }
       };
@@ -724,12 +724,21 @@ public class MWMActivity extends NvEventQueueActivity
     fadeMap(fromAlpha, toAlpha);
   }
 
-  private void fadeMap(float fromAlpha, float toAlpha)
+  private void fadeMap(float fromAlpha, final float toAlpha)
   {
     Animation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
     alphaAnimation.setFillBefore(true);
     alphaAnimation.setFillAfter(true);
     alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+    alphaAnimation.setAnimationListener(new UiUtils.SimpleAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animation animation)
+      {
+        if (toAlpha == 0)
+          mFadeView.setVisibility(View.GONE);
+      }
+    });
     mFadeView.setVisibility(View.VISIBLE);
     mFadeView.startAnimation(alphaAnimation);
   }
@@ -781,7 +790,6 @@ public class MWMActivity extends NvEventQueueActivity
       transaction.addToBackStack(null).commit();
 
       fadeMap(0, FADE_VIEW_ALPHA);
-
     }
     else
     {
@@ -821,8 +829,7 @@ public class MWMActivity extends NvEventQueueActivity
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
 
-    mSearchController = SearchController.getInstance();
-    mSearchController.onCreate(this);
+    SearchController.getInstance().onCreate(this);
 
     if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
     {
@@ -915,13 +922,14 @@ public class MWMActivity extends NvEventQueueActivity
     UiUtils.invisible(mVerticalToolbar);
 
     mFadeView = findViewById(R.id.fade_view);
-    mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    if (mToolbar != null)
+
+    final Toolbar toolbar = (Toolbar) mVerticalToolbar.findViewById(R.id.toolbar);
+    if (toolbar != null)
     {
-      UiUtils.showHomeUpButton(mToolbar);
-      // TODO
-      mToolbar.setTitle("Toolbar");
-      mToolbar.setNavigationOnClickListener(new OnClickListener()
+      UiUtils.showHomeUpButton(toolbar);
+      // TODO add string
+      toolbar.setTitle("Application menu");
+      toolbar.setNavigationOnClickListener(new OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -1002,9 +1010,9 @@ public class MWMActivity extends NvEventQueueActivity
         addTask(intent);
       else if (intent.hasExtra(EXTRA_SEARCH_RES_SINGLE))
       {
-        final boolean singleResult = intent.getBooleanExtra(EXTRA_SEARCH_RES_SINGLE, false);
-        if (singleResult)
+        if (intent.getBooleanExtra(EXTRA_SEARCH_RES_SINGLE, false))
         {
+          popFragment();
           MapObject.SearchResult result = new MapObject.SearchResult(0);
           onAdditionalLayerActivated(result.getName(), result.getPoiTypeName(), result.getLat(), result.getLon());
         }
@@ -1208,7 +1216,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     alignControls();
 
-    mSearchController.onResume();
+    SearchController.getInstance().onResume();
     mInfoView.onResume();
     tryResumeRouting();
 
@@ -1336,13 +1344,19 @@ public class MWMActivity extends NvEventQueueActivity
     else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
       setVerticalToolbarVisible(false);
     else if (canFragmentInterceptBackPress())
-    {
-      //
-    }
+      return;
     else if (popFragment())
-      fadeMap(FADE_VIEW_ALPHA, 0.0f);
+    {
+      if (isMapFaded())
+        fadeMap(FADE_VIEW_ALPHA, 0.0f);
+    }
     else
       super.onBackPressed();
+  }
+
+  private boolean isMapFaded()
+  {
+    return mFadeView.getVisibility() == View.VISIBLE;
   }
 
   private boolean canFragmentInterceptBackPress()
@@ -1404,6 +1418,8 @@ public class MWMActivity extends NvEventQueueActivity
             mInfoView.setState(State.PREVIEW_ONLY);
             mIvStartRouting.setVisibility(View.VISIBLE);
             mPbRoutingProgress.setVisibility(View.GONE);
+            if (popFragment() && isMapFaded())
+              fadeMap(FADE_VIEW_ALPHA, 0);
           }
         }
       });
@@ -1427,6 +1443,8 @@ public class MWMActivity extends NvEventQueueActivity
           mInfoView.setState(State.PREVIEW_ONLY);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
+          if (popFragment() && isMapFaded())
+            fadeMap(FADE_VIEW_ALPHA, 0);
         }
       }
     });
@@ -1448,6 +1466,8 @@ public class MWMActivity extends NvEventQueueActivity
           mInfoView.setState(State.PREVIEW_ONLY);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
+          if (popFragment() && isMapFaded())
+            fadeMap(FADE_VIEW_ALPHA, 0);
         }
       }
     });
@@ -1472,6 +1492,8 @@ public class MWMActivity extends NvEventQueueActivity
             mInfoView.setState(State.PREVIEW_ONLY);
             mIvStartRouting.setVisibility(View.GONE);
             mPbRoutingProgress.setVisibility(View.GONE);
+            if (popFragment() && isMapFaded())
+              fadeMap(FADE_VIEW_ALPHA, 0);
           }
         }
       }
@@ -1494,6 +1516,8 @@ public class MWMActivity extends NvEventQueueActivity
           mInfoView.setState(State.PREVIEW_ONLY);
           mPbRoutingProgress.setVisibility(View.GONE);
           mIvStartRouting.setVisibility(View.VISIBLE);
+          if (popFragment() && isMapFaded())
+            fadeMap(FADE_VIEW_ALPHA, 0);
         }
       }
     });
@@ -1503,8 +1527,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     mInfoView.setState(State.HIDDEN);
     mInfoView.setMapObject(null);
-
-    UiUtils.show(findViewById(R.id.map_bottom_toolbar));
   }
 
   @Override

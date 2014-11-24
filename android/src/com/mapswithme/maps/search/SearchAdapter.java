@@ -228,10 +228,7 @@ public class SearchAdapter extends BaseAdapter
       else
       {
         s = Html.fromHtml(r.mName);
-
-        holder.mView.setBackgroundResource(R.drawable.bg_search_item_green_selector);
-        UiUtils.show(holder.mImageLeft);
-        holder.mImageLeft.setImageResource(R.drawable.ic_search);
+        holder.mView.setBackgroundResource(R.drawable.bg_search_suggestion_selector);
       }
 
       UiUtils.setTextAndShow(holder.mName, s);

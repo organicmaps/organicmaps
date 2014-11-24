@@ -23,6 +23,6 @@
       android:layout_weight="1"
       android:fontFamily="@string/robotoLight"
       android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-      android:textColor="@color/text_search_item"/>
+      android:textColor="@color/text_search_category"/>
 
 </LinearLayout>

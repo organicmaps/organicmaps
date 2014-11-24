@@ -18,8 +18,6 @@
 
   <color name="semitransparent_black">#60000000</color>
 
-  <drawable name="white">#FFF</drawable>
-
   <color name="search_background_gray">#efeff4</color>
 
   <color name="red">#F00</color>
@@ -33,10 +31,14 @@
   <color name="divider_standart">#4A4B53</color>
 
   <!-- search -->
+  <color name="text_search_box">@android:color/white</color>
   <color name="text_search_item">@android:color/black</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
+  <color name="text_search_category">@android:color/black</color>
   <color name="bg_search_green">#1F9F7E</color>
   <color name="bg_search_green_pressed">#68BEA8</color>
+  <color name="bg_search_suggestion">#f7f5f0</color>
+  <color name="bg_search_suggestion_pressed">#68BEA8</color>
   <color name="divider_search">#4A4B53</color>
 
   <!-- place page -->
