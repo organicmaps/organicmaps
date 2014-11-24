@@ -1344,47 +1344,43 @@ size_t Framework::ShowAllSearchResults()
   m_fixedSearchResults = count;
 
   shared_ptr<State> state = GetLocationState();
-  if (state->GetMode() < location::State::Follow)
+  state->SetFixedZoom();
+  // Setup viewport according to results.
+  m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
+  m2::PointD const center = viewport.Center();
+
+  double minDistance = numeric_limits<double>::max();
+  int minInd = -1;
+  for (size_t i = 0; i < count; ++i)
   {
-    // Setup viewport according to results.
-    m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
-    m2::PointD const center = viewport.Center();
-
-    double minDistance = numeric_limits<double>::max();
-    int minInd = -1;
-    for (size_t i = 0; i < count; ++i)
+    Result const & r = results.GetResult(i);
+    if (r.HasPoint())
     {
-      Result const & r = results.GetResult(i);
-      if (r.HasPoint())
+      double const dist = center.SquareLength(r.GetFeatureCenter());
+      if (dist < minDistance)
       {
-        double const dist = center.SquareLength(r.GetFeatureCenter());
-        if (dist < minDistance)
-        {
-          minDistance = dist;
-          minInd = static_cast<int>(i);
-        }
+        minDistance = dist;
+        minInd = static_cast<int>(i);
       }
     }
-
-    if (minInd != -1)
-    {
-      m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
-      if (!viewport.IsPointInside(pt))
-      {
-        viewport.SetSizesToIncludePoint(pt);
-
-        ShowRectFixedAR(viewport);
-        StopLocationFollow();
-      }
-      else
-        minInd = -1;
-    }
-
-    if (minInd == -1)
-      Invalidate();
   }
-  else
-    state->SetFixedZoom();
+
+  if (minInd != -1)
+  {
+    m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+    if (!viewport.IsPointInside(pt))
+    {
+      viewport.SetSizesToIncludePoint(pt);
+
+      ShowRectFixedAR(viewport);
+      //StopLocationFollow();
+    }
+    else
+      minInd = -1;
+  }
+
+  if (minInd == -1)
+    Invalidate();
 
   return count;
 }
