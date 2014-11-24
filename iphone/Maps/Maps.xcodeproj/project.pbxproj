@@ -4894,15 +4894,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5001,7 +4994,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -5051,7 +5044,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -5174,7 +5167,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				PROVISIONING_PROFILE = "";
@@ -5198,7 +5191,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				PROVISIONING_PROFILE = "";
@@ -5363,15 +5356,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5464,15 +5450,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5569,15 +5548,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5669,15 +5641,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5770,15 +5735,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5899,15 +5857,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6004,15 +5955,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6108,15 +6052,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6212,15 +6149,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6315,15 +6245,8 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Adman",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Flurry",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6346,7 +6269,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6394,7 +6317,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6442,7 +6365,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6490,7 +6413,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6538,7 +6461,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6586,7 +6509,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6634,7 +6557,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6682,7 +6605,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6730,7 +6653,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6778,7 +6701,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
@@ -6826,7 +6749,7 @@
 				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
+					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
 				);
 				OTHER_LDFLAGS = (
