@@ -8,9 +8,6 @@
 
 @property (nonatomic) UIView * phoneIdiomView;
 
-//@property (nonatomic) UIButton * closeButton;
-//@property (nonatomic) UIButton * startButton;
-
 @property (nonatomic) UIView * phoneTurnInstructions;
 @property (nonatomic) RouteOverallInfoView * phoneOverallInfoView;
 @property (nonatomic) NextTurnPhoneView * phoneNextTurnView;
@@ -19,6 +16,9 @@
 @property (nonatomic) UIView * routeInfo;
 @property (nonatomic) UIButton * startRouteButton;
 @property (nonatomic) UIButton * closeRouteInfoButton;
+@property (nonatomic) UILabel * distanceLabel;
+@property (nonatomic) UILabel * metricsLabel;
+@property (nonatomic) UILabel * timeLeftLabel;
 
 @property (nonatomic) UIView * tabletIdiomView;
 
@@ -41,6 +41,9 @@
   [self.phoneIdiomView addSubview:self.routeInfo];
   [self.routeInfo addSubview:self.closeRouteInfoButton];
   [self.routeInfo addSubview:self.startRouteButton];
+  [self.routeInfo addSubview:self.distanceLabel];
+  [self.routeInfo addSubview:self.metricsLabel];
+  [self.routeInfo addSubview:self.timeLeftLabel];
 
   return self;
 }
@@ -49,6 +52,10 @@
 {
   [self.phoneOverallInfoView updateWithInfo:info];
   [self.phoneNextTurnView updateWithInfo:info];
+  
+  self.distanceLabel.text = info[@"targetDistance"];
+  self.metricsLabel.text = [info[@"targetMetrics"] uppercaseString];
+  self.timeLeftLabel.text = [self secondsToString:info[@"timeToTarget"]];
   
   [UIView animateWithDuration:0.2 animations:^{
     [self layoutSubviews];
@@ -102,13 +109,16 @@
   
   self.startRouteButton.maxY = self.routeInfo.height;
   self.startRouteButton.maxX = self.closeRouteInfoButton.minX - 6;
-//    CGFloat const overallInfoViewPadding = 12;
-//    self.overallInfoView.width = MAX(self.distanceLabel.width, self.timeLeftLabel.width) + 2 * overallInfoViewPadding;
-//    self.overallInfoView.minX = self.nextTurnDistanceView.maxX;
-//    self.distanceLabel.minX = overallInfoViewPadding;
-//    self.distanceLabel.minY = 10;
-//    self.timeLeftLabel.minX = overallInfoViewPadding;
-//    self.timeLeftLabel.maxY = self.timeLeftLabel.superview.height - 10;
+  
+  [self.distanceLabel sizeToIntegralFit];
+  self.distanceLabel.minX = 10;
+  self.distanceLabel.minY = 34;
+  [self.metricsLabel sizeToIntegralFit];
+  self.metricsLabel.minX = self.distanceLabel.maxX + 2;
+  self.metricsLabel.maxY = self.distanceLabel.maxY - 2;
+  [self.timeLeftLabel sizeToIntegralFit];
+  self.timeLeftLabel.minX = 96;
+  self.timeLeftLabel.maxY = self.distanceLabel.maxY;
 }
 
 - (void)didMoveToSuperview
@@ -243,28 +253,6 @@
   return closeButton;
 }
 
-- (UIButton *)startRouteButton
-{
-  if (!_startRouteButton)
-  {
-    NSString * title = L(@"routing_go");
-    UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:19];
-    CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + 38;
-
-    _startRouteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, BUTTON_HEIGHT)];
-    _startRouteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    //UIImage * backgroundImage = [[UIImage imageNamed:@"StartRoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    //[_startRouteButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-
-    _startRouteButton.titleLabel.font = font;
-    [_startRouteButton setTitle:title forState:UIControlStateNormal];
-    [_startRouteButton setTitleColor:[UIColor colorWithColorCode:@"179E4D"] forState:UIControlStateNormal];
-
-    [_startRouteButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-  }
-  return _startRouteButton;
-}
-
 - (UIView *)routeInfo
 {
   if (!_routeInfo)
@@ -289,6 +277,67 @@
     _closeRouteInfoButton = [self closeButton];
   }
   return _closeRouteInfoButton;
+}
+
+- (UIButton *)startRouteButton
+{
+  if (!_startRouteButton)
+  {
+    NSString * title = L(@"routing_go");
+    UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:19];
+    CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + 20;
+    
+    _startRouteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, BUTTON_HEIGHT)];
+    _startRouteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    _startRouteButton.titleLabel.font = font;
+    _startRouteButton.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
+    [_startRouteButton setTitle:title forState:UIControlStateNormal];
+    [_startRouteButton setTitleColor:[UIColor colorWithColorCode:@"179E4D"] forState:UIControlStateNormal];
+    
+    UIView * underline = [[UIView alloc] initWithFrame:CGRectMake(0, _startRouteButton.height - 2, _startRouteButton.width, 2)];
+    underline.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    underline.backgroundColor = [UIColor colorWithColorCode:@"179E4D"];
+    [_startRouteButton addSubview:underline];
+    
+    [_startRouteButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  return _startRouteButton;
+}
+
+- (UILabel *)metricsLabel
+{
+  if (!_metricsLabel)
+  {
+    _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _metricsLabel.backgroundColor = [UIColor clearColor];
+    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
+    _metricsLabel.textColor = [UIColor blackColor];
+  }
+  return _metricsLabel;
+}
+
+- (UILabel *)distanceLabel
+{
+  if (!_distanceLabel)
+  {
+    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _distanceLabel.backgroundColor = [UIColor clearColor];
+    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:19];
+    _distanceLabel.textColor = [UIColor blackColor];
+  }
+  return _distanceLabel;
+}
+
+- (UILabel *)timeLeftLabel
+{
+  if (!_timeLeftLabel)
+  {
+    _timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _timeLeftLabel.backgroundColor = [UIColor clearColor];
+    _timeLeftLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:19];
+    _timeLeftLabel.textColor = [UIColor blackColor];
+  }
+  return _timeLeftLabel;
 }
 
 @end
