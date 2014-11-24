@@ -150,8 +150,7 @@
   switch (type)
   {
     case NoTurn:
-    case GoStraight:
-    case HeadOn: return @"straight";
+    case GoStraight: return @"straight";
       
     case TurnSlightRight: return @"right-1";
     case TurnRight: return @"right-2";
