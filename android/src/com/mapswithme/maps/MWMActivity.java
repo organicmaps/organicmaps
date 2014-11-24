@@ -913,11 +913,6 @@ public class MWMActivity extends NvEventQueueActivity
     mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
-    View moreApps = mVerticalToolbar.findViewById(R.id.btn_more_apps);
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || Framework.getGuideIds().length == 0)
-      UiUtils.hide(moreApps);
-    else
-      moreApps.setOnClickListener(this);
 
     UiUtils.invisible(mVerticalToolbar);
 
@@ -1597,10 +1592,6 @@ public class MWMActivity extends NvEventQueueActivity
     case R.id.btn_download_maps:
       setVerticalToolbarVisible(false);
       showDownloader(false);
-      break;
-    case R.id.btn_more_apps:
-      setVerticalToolbarVisible(false);
-      startActivity(new Intent(this, MoreAppsActivity.class));
       break;
     case R.id.iv__start_routing:
       buildRoute();

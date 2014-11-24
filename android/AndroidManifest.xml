@@ -197,12 +197,6 @@
         android:screenOrientation="behind">
     </activity>
 
-    <activity
-        android:name="com.mapswithme.maps.MoreAppsActivity"
-        android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/more_apps_guides"
-        android:screenOrientation="behind"/>
-
     <activity android:name="com.facebook.LoginActivity"/>
 
     <receiver

@@ -60,19 +60,4 @@
       android:text="@string/share_my_location"
       android:textColor="@color/text_menu"/>
 
-  <View
-      style="@style/drawerSeparatorMediumPadded"/>
-
-  <TextView
-      android:id="@+id/btn_more_apps"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_item_height"
-      android:background="@drawable/bg_toolbar_button_selector"
-      android:drawableLeft="@drawable/ic_menu_more_apps"
-      android:drawablePadding="@dimen/margin_small"
-      android:gravity="center_vertical"
-      android:paddingLeft="10dp"
-      android:text="@string/more_apps_guides"
-      android:textColor="@color/text_menu"/>
-
 </LinearLayout>
