@@ -1,23 +1,26 @@
 
 #import "RouteView.h"
 #import "UIKitCategories.h"
+#import "RouteOverallInfoView.h"
+#import "NextTurnPhoneView.h"
 
 @interface RouteView ()
 
-@property (nonatomic) UIButton * closeButton;
-@property (nonatomic) UIButton * startButton;
+@property (nonatomic) UIView * phoneIdiomView;
 
-@property (nonatomic) UIImageView * turnTypeView;
-@property (nonatomic) UIImageView * turnView;
+//@property (nonatomic) UIButton * closeButton;
+//@property (nonatomic) UIButton * startButton;
 
-@property (nonatomic) UIImageView * nextTurnDistanceView;
-@property (nonatomic) UIView * wrapView;
-@property (nonatomic) UILabel * nextTurnDistanceLabel;
-@property (nonatomic) UILabel * nextTurnMetricsLabel;
+@property (nonatomic) UIView * phoneTurnInstructions;
+@property (nonatomic) RouteOverallInfoView * phoneOverallInfoView;
+@property (nonatomic) NextTurnPhoneView * phoneNextTurnView;
+@property (nonatomic) UIButton * phoneCloseTurnInstructionsButton;
 
-@property (nonatomic) UIImageView * overallInfoView;
-@property (nonatomic) UILabel * distanceLabel;
-@property (nonatomic) UILabel * timeLeftLabel;
+@property (nonatomic) UIView * routeInfo;
+@property (nonatomic) UIButton * startRouteButton;
+@property (nonatomic) UIButton * closeRouteInfoButton;
+
+@property (nonatomic) UIView * tabletIdiomView;
 
 @end
 
@@ -28,34 +31,34 @@
   self = [super initWithFrame:frame];
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
-  [self addSubview:self.turnView];
+  [self addSubview:self.phoneIdiomView];
+
+  [self.phoneIdiomView addSubview:self.phoneTurnInstructions];
+  [self.phoneTurnInstructions addSubview:self.phoneOverallInfoView];
+  [self.phoneTurnInstructions addSubview:self.phoneNextTurnView];
+  [self.phoneTurnInstructions addSubview:self.phoneCloseTurnInstructionsButton];
   
-  [self addSubview:self.nextTurnDistanceView];
-  [self.nextTurnDistanceView addSubview:self.wrapView];
-  [self.wrapView addSubview:self.nextTurnDistanceLabel];
-  [self.wrapView addSubview:self.nextTurnMetricsLabel];
-  
-  [self addSubview:self.overallInfoView];
-  [self.overallInfoView addSubview:self.distanceLabel];
-  [self.overallInfoView addSubview:self.timeLeftLabel];
-  
-  [self addSubview:self.closeButton];
-  [self addSubview:self.startButton];
+  [self.phoneIdiomView addSubview:self.routeInfo];
+  [self.routeInfo addSubview:self.closeRouteInfoButton];
+  [self.routeInfo addSubview:self.startRouteButton];
 
   return self;
 }
 
 - (void)updateWithInfo:(NSDictionary *)info
 {
-  self.turnTypeView.image = info[@"turnTypeImage"];
-  self.nextTurnDistanceLabel.text = info[@"turnDistance"];
-  self.nextTurnMetricsLabel.text = [info[@"turnMetrics"] uppercaseString];
-  self.distanceLabel.text = [info[@"targetDistance"] stringByAppendingString:[info[@"targetMetrics"] uppercaseString]];
-  self.timeLeftLabel.text = [self secondsToString:info[@"timeToTarget"]];
+  [self.phoneOverallInfoView updateWithInfo:info];
+  [self.phoneNextTurnView updateWithInfo:info];
   
   [UIView animateWithDuration:0.2 animations:^{
     [self layoutSubviews];
   }];
+}
+
+- (UIImage *)turnImageWithType:(NSString *)turnType
+{
+  NSString * turnTypeImageName = [NSString stringWithFormat:@"big-%@", turnType];
+  return [UIImage imageNamed:turnTypeImageName];
 }
 
 - (NSString *)secondsToString:(NSNumber *)seconds
@@ -72,46 +75,46 @@
   return string;
 }
 
-#define BUTTON_HEIGHT 51
+#define BUTTON_HEIGHT 48
 
 - (void)layoutSubviews
 {
-  if (self.nextTurnDistanceLabel.text.length == 0)
-    self.nextTurnDistanceView.alpha = 0;
-  else
-  {
-    [self.nextTurnDistanceLabel sizeToIntegralFit];
-    [self.nextTurnMetricsLabel sizeToIntegralFit];
-
-    CGFloat const betweenOffset = 2;
-    self.wrapView.size = CGSizeMake(self.nextTurnDistanceLabel.width + betweenOffset + self.nextTurnMetricsLabel.width, 40);
-    self.wrapView.center = CGPointMake(self.wrapView.superview.width / 2, self.wrapView.superview.height / 2);
-    self.wrapView.frame = CGRectIntegral(self.wrapView.frame);
-
-    self.nextTurnDistanceLabel.minX = 0;
-    self.nextTurnMetricsLabel.minX = self.nextTurnDistanceLabel.minX + self.nextTurnDistanceLabel.width + betweenOffset;
-    self.nextTurnDistanceLabel.midY = self.wrapView.height / 2 ;
-    self.nextTurnMetricsLabel.maxY = self.nextTurnDistanceLabel.maxY - 5;
-
-    self.nextTurnDistanceView.alpha = 1;
-    self.nextTurnDistanceView.size = CGSizeMake(self.wrapView.width + 24, BUTTON_HEIGHT);
-    
-    [self.distanceLabel sizeToIntegralFit];
-    [self.timeLeftLabel sizeToIntegralFit];
-    CGFloat const overallInfoViewPadding = 12;
-    self.overallInfoView.width = MAX(self.distanceLabel.width, self.timeLeftLabel.width) + 2 * overallInfoViewPadding;
-    self.overallInfoView.minX = self.nextTurnDistanceView.maxX;
-    self.distanceLabel.minX = overallInfoViewPadding;
-    self.distanceLabel.minY = 10;
-    self.timeLeftLabel.minX = overallInfoViewPadding;
-    self.timeLeftLabel.maxY = self.timeLeftLabel.superview.height - 10;
-  }
+  [self.phoneOverallInfoView layoutSubviews];
+  [self.phoneNextTurnView layoutSubviews];
+  
+  CGFloat const offsetInnerX = 2;
+  CGFloat const originY = 20;
+  self.phoneTurnInstructions.width = self.phoneIdiomView.width;
+  self.phoneTurnInstructions.height = 68;
+  self.routeInfo.width = self.phoneTurnInstructions.width;
+  self.routeInfo.height = self.phoneTurnInstructions.height;
+  self.phoneNextTurnView.frame = self.phoneTurnInstructions.bounds;
+  self.phoneNextTurnView.minY = originY;
+  self.phoneNextTurnView.height -= originY;
+  
+  self.phoneOverallInfoView.width = self.phoneTurnInstructions.width - 26;
+  
+  self.phoneCloseTurnInstructionsButton.minY = originY;
+  self.phoneCloseTurnInstructionsButton.maxX = self.phoneTurnInstructions.width - offsetInnerX;
+  
+  self.closeRouteInfoButton.maxY = self.routeInfo.height;
+  self.closeRouteInfoButton.maxX = self.routeInfo.width - offsetInnerX;
+  
+  self.startRouteButton.maxY = self.routeInfo.height;
+  self.startRouteButton.maxX = self.closeRouteInfoButton.minX - 6;
+//    CGFloat const overallInfoViewPadding = 12;
+//    self.overallInfoView.width = MAX(self.distanceLabel.width, self.timeLeftLabel.width) + 2 * overallInfoViewPadding;
+//    self.overallInfoView.minX = self.nextTurnDistanceView.maxX;
+//    self.distanceLabel.minX = overallInfoViewPadding;
+//    self.distanceLabel.minY = 10;
+//    self.timeLeftLabel.minX = overallInfoViewPadding;
+//    self.timeLeftLabel.maxY = self.timeLeftLabel.superview.height - 10;
 }
 
 - (void)didMoveToSuperview
 {
   self.minY = [self viewMinY];
-  [self setVisible:NO animated:NO];
+  [self setState:RouteViewStateHidden animated:NO];
 }
 
 - (void)closeButtonPressed:(id)sender
@@ -124,52 +127,40 @@
   [self.delegate routeViewDidStartFollowing:self];
 }
 
-- (void)hideFollowButton
+- (void)setState:(RouteViewState)state animated:(BOOL)animated
 {
-  self.startButton.userInteractionEnabled = NO;
-  [UIView animateWithDuration:0.5 delay:0.1 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.startButton.maxY = -30;
-  } completion:nil];
-}
-
-- (void)setVisible:(BOOL)visible animated:(BOOL)animated
-{
-  _visible = visible;
-  CGFloat const offsetInnerY = 2;
-  CGFloat const offsetInnerX = 2;
-  CGFloat const originY = 20;
-  [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.turnView.minX = offsetInnerX;
-    self.nextTurnDistanceView.minX = self.turnView.maxX;
-    self.overallInfoView.minX = self.nextTurnDistanceView.maxX;
-    self.closeButton.maxX = self.width - offsetInnerX;
-    self.startButton.maxX = self.closeButton.minX + 3;
-    if (visible)
+  _state = state;
+  
+  [UIView animateWithDuration:(animated ? 0.5 : 0) delay:0 damping:0.83 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
+    self.phoneTurnInstructions.userInteractionEnabled = NO;
+    self.phoneTurnInstructions.alpha = 0.0;
+    self.phoneTurnInstructions.minY = - self.phoneTurnInstructions.height;
+    self.routeInfo.userInteractionEnabled = NO;
+    self.routeInfo.alpha = 0.0;
+    self.routeInfo.minY = self.phoneTurnInstructions.minY;
+    
+    switch (state)
     {
-      self.startButton.userInteractionEnabled = YES;
-      self.startButton.minY = originY - offsetInnerY;
-      self.turnView.minY = self.startButton.minY;
-      self.nextTurnDistanceView.minY = self.startButton.minY;
-      self.overallInfoView.minY = self.startButton.minY;
-      self.closeButton.minY = self.startButton.minY;
-      self.startButton.alpha = 1.0;
-      self.turnView.alpha = 1.0;
-      self.nextTurnDistanceView.alpha = 1.0;
-      self.overallInfoView.alpha = 1.0;
-      self.closeButton.alpha = 1.0;
-    }
-    else
-    {
-      self.startButton.maxY = -30;
-      self.turnView.maxY = self.startButton.maxY;
-      self.nextTurnDistanceView.maxY = self.startButton.maxY;
-      self.overallInfoView.maxY = self.startButton.maxY;
-      self.closeButton.maxY = self.startButton.maxY;
-      self.startButton.alpha = 0.0;
-      self.turnView.alpha = 0.0;
-      self.nextTurnDistanceView.alpha = 0.0;
-      self.overallInfoView.alpha = 0.0;
-      self.closeButton.alpha = 0.0;
+      case RouteViewStateHidden:
+      {
+        break;
+      }
+      case RouteViewStateInfo:
+      {
+        self.routeInfo.userInteractionEnabled = YES;
+        self.routeInfo.alpha = 1.0;
+        self.routeInfo.minY = 0;
+        break;
+      }
+      case RouteViewStateTurnInstructions:
+      {
+        self.phoneTurnInstructions.userInteractionEnabled = YES;
+        self.phoneTurnInstructions.alpha = 1.0;
+        self.phoneTurnInstructions.minY = 0;
+        break;
+      }
+      default:
+        break;
     }
   } completion:nil];
 }
@@ -179,147 +170,125 @@
   return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0;
 }
 
-- (UIButton *)closeButton
+- (UIView *)phoneIdiomView
 {
-  if (!_closeButton)
+  if (!_phoneIdiomView)
   {
-    _closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, BUTTON_HEIGHT)];
-    _closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    UIImage * backgroundImage = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    [_closeButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StopRoutingButton"]];
-    [_closeButton addSubview:imageView];
-    imageView.center = CGPointMake(_closeButton.width / 2, _closeButton.height / 2 + 2);
-    imageView.frame = CGRectIntegral(imageView.frame);
-
-    [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _phoneIdiomView = [[UIView alloc] initWithFrame:self.bounds];
+    _phoneIdiomView.backgroundColor = [UIColor clearColor];
+    _phoneIdiomView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   }
-  return _closeButton;
+  return _phoneIdiomView;
 }
 
-- (UIButton *)startButton
+- (UIView *)phoneTurnInstructions
 {
-  if (!_startButton)
+  if (!_phoneTurnInstructions)
+  {
+    _phoneTurnInstructions = [[UIView alloc] initWithFrame:CGRectZero];
+    _phoneTurnInstructions.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.94];;
+    _phoneTurnInstructions.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    
+    UIImageView * shadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _phoneTurnInstructions.width, 18)];
+    shadow.image = [[UIImage imageNamed:@"PlacePageShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    shadow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    shadow.minY = _phoneTurnInstructions.height;
+    [_phoneTurnInstructions addSubview:shadow];
+  }
+  return _phoneTurnInstructions;
+}
+
+- (UIButton *)phoneCloseTurnInstructionsButton
+{
+  if (!_phoneCloseTurnInstructionsButton)
+  {
+    _phoneCloseTurnInstructionsButton = [self closeButton];
+  }
+  return _phoneCloseTurnInstructionsButton;
+}
+
+- (RouteOverallInfoView *)phoneOverallInfoView
+{
+  if (!_phoneOverallInfoView)
+  {
+    _phoneOverallInfoView = [[RouteOverallInfoView alloc] initWithFrame:CGRectMake(12, 22, 32, 32)];
+    _phoneOverallInfoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+  }
+  return _phoneOverallInfoView;
+}
+
+- (NextTurnPhoneView *)phoneNextTurnView
+{
+  if (!_phoneNextTurnView)
+  {
+    _phoneNextTurnView = [[NextTurnPhoneView alloc] initWithFrame:self.phoneTurnInstructions.bounds];
+    _phoneNextTurnView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+  }
+  return _phoneNextTurnView;
+}
+
+- (UIButton *)closeButton
+{
+  UIButton * closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, BUTTON_HEIGHT)];
+  closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+  closeButton.backgroundColor = [UIColor clearColor];
+  
+  UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StopRoutingButton"]];
+  [closeButton addSubview:imageView];
+  imageView.center = CGPointMake(closeButton.width / 2, closeButton.height / 2 + 2);
+  imageView.frame = CGRectIntegral(imageView.frame);
+  
+  [closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+  
+  return closeButton;
+}
+
+- (UIButton *)startRouteButton
+{
+  if (!_startRouteButton)
   {
     NSString * title = L(@"routing_go");
     UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:19];
     CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + 38;
 
-    _startButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, BUTTON_HEIGHT)];
-    _startButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    UIImage * backgroundImage = [[UIImage imageNamed:@"StartRoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    [_startButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+    _startRouteButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, BUTTON_HEIGHT)];
+    _startRouteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    //UIImage * backgroundImage = [[UIImage imageNamed:@"StartRoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    //[_startRouteButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
 
-    _startButton.titleLabel.font = font;
-    _startButton.titleEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0);
-    [_startButton setTitle:title forState:UIControlStateNormal];
-    [_startButton setTitleColor:[UIColor colorWithColorCode:@"179E4D"] forState:UIControlStateNormal];
+    _startRouteButton.titleLabel.font = font;
+    [_startRouteButton setTitle:title forState:UIControlStateNormal];
+    [_startRouteButton setTitleColor:[UIColor colorWithColorCode:@"179E4D"] forState:UIControlStateNormal];
 
-    [_startButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_startRouteButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
-  return _startButton;
+  return _startRouteButton;
 }
 
-- (UILabel *)nextTurnDistanceLabel
+- (UIView *)routeInfo
 {
-  if (!_nextTurnDistanceLabel)
+  if (!_routeInfo)
   {
-    _nextTurnDistanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _nextTurnDistanceLabel.backgroundColor = [UIColor clearColor];
-    _nextTurnDistanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:34];
-    _nextTurnDistanceLabel.textColor = [UIColor blackColor];
+    _routeInfo = [[UIView alloc] initWithFrame:CGRectZero];
+    _routeInfo.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.94];;
+    _routeInfo.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    
+    UIImageView * shadow = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _routeInfo.width, 18)];
+    shadow.image = [[UIImage imageNamed:@"PlacePageShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    shadow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    shadow.minY = _routeInfo.height;
+    [_routeInfo addSubview:shadow];
   }
-  return _nextTurnDistanceLabel;
+  return _routeInfo;
 }
 
-- (UILabel *)nextTurnMetricsLabel
+- (UIButton *)closeRouteInfoButton
 {
-  if (!_nextTurnMetricsLabel)
+  if (!_closeRouteInfoButton)
   {
-    _nextTurnMetricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _nextTurnMetricsLabel.backgroundColor = [UIColor clearColor];
-    _nextTurnMetricsLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11];
-    _nextTurnMetricsLabel.textColor = [UIColor blackColor];
+    _closeRouteInfoButton = [self closeButton];
   }
-  return _nextTurnMetricsLabel;
-}
-
-- (UIImageView *)nextTurnDistanceView
-{
-  if (!_nextTurnDistanceView)
-  {
-    _nextTurnDistanceView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    UIImage * image = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    _nextTurnDistanceView.image = image;
-    _nextTurnDistanceView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-  }
-  return _nextTurnDistanceView;
-}
-
-- (UIImageView *)turnTypeView
-{
-  if (!_turnTypeView)
-  {
-    _turnTypeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    _turnTypeView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-  }
-  return _turnTypeView;
-}
-
-- (UIImageView *)turnView
-{
-  if (!_turnView)
-  {
-    _turnView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, BUTTON_HEIGHT, BUTTON_HEIGHT)];
-    UIImage * image = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    _turnView.image = image;
-    _turnView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    self.turnTypeView.midX = _turnView.width / 2.0;
-    self.turnTypeView.midY = _turnView.height / 2.0;
-    [_turnView addSubview:self.turnTypeView];
-  }
-  return _turnView;
-}
-
-- (UIView *)wrapView
-{
-  if (!_wrapView)
-    _wrapView = [[UIView alloc] initWithFrame:CGRectZero];
-  return _wrapView;
-}
-
-- (UIImageView *)overallInfoView
-{
-  if (!_overallInfoView) {
-    _overallInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, BUTTON_HEIGHT, BUTTON_HEIGHT)];
-    UIImage * image = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    _overallInfoView.image = image;
-    _overallInfoView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-  }
-  return _overallInfoView;
-}
-
-- (UILabel *)distanceLabel
-{
-  if (!_distanceLabel) {
-    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _distanceLabel.backgroundColor = [UIColor clearColor];
-    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
-    _distanceLabel.textColor = [UIColor blackColor];
-  }
-  return _distanceLabel;
-}
-
-- (UILabel *)timeLeftLabel
-{
-  if (!_timeLeftLabel) {
-    _timeLeftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _timeLeftLabel.backgroundColor = [UIColor clearColor];
-    _timeLeftLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
-    _timeLeftLabel.textColor = [UIColor blackColor];
-  }
-  return _timeLeftLabel;
+  return _closeRouteInfoButton;
 }
 
 @end

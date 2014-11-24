@@ -1,6 +1,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, RouteViewState) {
+  RouteViewStateHidden,
+  RouteViewStateInfo,
+  RouteViewStateTurnInstructions,
+};
+
 @class RouteView;
 
 @protocol RouteViewDelegate <NSObject>
@@ -12,12 +18,11 @@
 
 @interface RouteView : UIView
 
-- (void)setVisible:(BOOL)visible animated:(BOOL)animated;
-- (void)hideFollowButton;
+- (void)setState:(RouteViewState)state animated:(BOOL)animated;
 
 - (void)updateWithInfo:(NSDictionary *)info;
 
 @property (nonatomic, weak) id <RouteViewDelegate> delegate;
-@property (nonatomic, readonly) BOOL visible;
+@property (nonatomic, readonly) RouteViewState state;
 
 @end

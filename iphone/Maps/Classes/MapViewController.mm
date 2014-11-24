@@ -136,7 +136,7 @@
       routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
       routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
       routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
-      routeInfo[@"turnTypeImage"] = [self turnTypeToImage:res.m_turn];
+      routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
       routeInfo[@"timeToTarget"] = @(res.m_time);
       [self.routeView updateWithInfo:routeInfo];
 >>>>>>> Added turn-by-turn view.
@@ -144,28 +144,28 @@
   }
 }
 
-- (UIImage *)turnTypeToImage:(routing::turns::TurnDirection)type
+- (NSString *)turnTypeToImage:(routing::turns::TurnDirection)type
 {
   using namespace routing::turns;
   switch (type)
   {
     case NoTurn:
     case GoStraight:
-    case HeadOn: return [UIImage imageNamed:@"straight"];
+    case HeadOn: return @"straight";
       
-    case TurnSlightRight: return [UIImage imageNamed:@"right-1"];
-    case TurnRight: return [UIImage imageNamed:@"right-2"];
-    case TurnSharpRight: return [UIImage imageNamed:@"right-3"];
+    case TurnSlightRight: return @"right-1";
+    case TurnRight: return @"right-2";
+    case TurnSharpRight: return @"right-3";
       
-    case TurnSlightLeft: return [UIImage imageNamed:@"left-1"];
-    case TurnLeft: return [UIImage imageNamed:@"left-2"];
-    case TurnSharpLeft: return [UIImage imageNamed:@"left-3"];
+    case TurnSlightLeft: return @"left-1";
+    case TurnLeft: return @"left-2";
+    case TurnSharpLeft: return @"left-3";
       
-    case UTurn: return [UIImage imageNamed:@"turn-around"];
+    case UTurn: return @"turn-around";
       
     case LeaveRoundAbout:
     case StayOnRoundAbout:
-    case EnterRoundAbout: return [UIImage imageNamed:@"turn-around"];
+    case EnterRoundAbout: return @"turn-around";
       
     default: return nil;
   }
@@ -712,7 +712,7 @@
         [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
         [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
         [self performAfterDelay:0.3 block:^{
-          [self.routeView setVisible:YES animated:YES];
+          [self.routeView setState:RouteViewStateInfo animated:YES];
           [self updateRoutingInfo];
         }];
 
@@ -1022,7 +1022,7 @@
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
 {
   [UIApplication sharedApplication].idleTimerDisabled = YES;
-  [routeView hideFollowButton];
+  [routeView setState:RouteViewStateTurnInstructions animated:YES];
   GetFramework().FollowRoute();
 }
 
@@ -1035,7 +1035,7 @@
 {
   [UIApplication sharedApplication].idleTimerDisabled = NO;
   GetFramework().CloseRouting();
-  [self.routeView setVisible:NO animated:YES];
+  [self.routeView setState:RouteViewStateHidden animated:YES];
 }
 
 #pragma mark - PlacePageViewDelegate
@@ -1313,7 +1313,7 @@
           if (GetFramework().IsRoutingActive())
           {
             self.routeView.alpha = 1;
-            self.routeView.minY = self.containerView.placePage.maxY - 20;
+            //self.routeView.minY = self.containerView.placePage.maxY - 20;
           }
         } completion:^(BOOL finished) {}];
 
@@ -1342,7 +1342,7 @@
     {
       [UIView animateWithDuration:0.3 animations:^{
         if (GetFramework().IsRoutingActive())
-          self.routeView.minY = self.searchView.searchBar.maxY - 14;
+          self.routeView.minY = self.searchView.searchBar.maxY - 20;
       }];
     }
     else if (self.searchView.state == SearchViewStateHidden)
