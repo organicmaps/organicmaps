@@ -390,7 +390,10 @@ void State::OnLocationUpdate(location::GpsInfo const & info)
   setIsVisible(true);
 
   if (GetMode() == PendingPosition)
+  {
     SetModeInfo(ChangeMode(m_modeInfo, m_afterPendingMode));
+    m_afterPendingMode = Follow;
+  }
   else
     AnimateFollow();
 
@@ -731,10 +734,16 @@ void State::StopCompassFollowing()
 
 void State::StopLocationFollow()
 {
-  if (GetMode() > NotFollow)
+  Mode currentMode = GetMode();
+  if (currentMode > NotFollow)
   {
     StopAllAnimations();
     SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
+  }
+  else if (currentMode == PendingPosition)
+  {
+    StopAllAnimations();
+    m_afterPendingMode = NotFollow;
   }
 }
 
