@@ -4973,6 +4973,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -5003,6 +5004,32 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-ldrape_frontend",
+					"-ldrape",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Release Full";
@@ -5026,6 +5053,32 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-ldrape_frontend",
+					"-ldrape",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5687,6 +5740,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -5725,6 +5779,30 @@
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleConversionTracking",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MobileAppTracking",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
+				);
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+					"-losrm",
+					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
