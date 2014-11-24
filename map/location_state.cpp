@@ -254,7 +254,7 @@ State::Params::Params()
 
 State::State(Params const & p)
   : TBase(p),
-    m_modeInfo(UnknownPosition),
+    m_modeInfo(Follow),
     m_errorRadius(0),
     m_position(0, 0),
     m_drawDirection(0.0),
