@@ -3,15 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "turn-around.png"
+      "filename" : "uturn_compact_mdpi.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "uturn_compact_xhdpi.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "uturn_compact_xxhdpi.png"
     }
   ],
   "info" : {

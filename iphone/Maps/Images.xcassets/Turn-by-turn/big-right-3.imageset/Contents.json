@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "sharp_small_mdpi.png"
+      "filename" : "sharp_compact_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "sharp_small_xhdpi.png"
+      "filename" : "sharp_compact_xhdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "sharp_small_xxhdpi.png"
+      "filename" : "sharp_compact_xxhdpi.png"
     }
   ],
   "info" : {

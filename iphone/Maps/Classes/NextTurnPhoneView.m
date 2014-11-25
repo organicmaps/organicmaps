@@ -27,8 +27,8 @@
 - (void)updateWithInfo:(NSDictionary *)info
 {
   self.turnTypeView.image = [self turnImageWithType:info[@"turnType"]];
-  self.distanceLabel.text = info[@"targetDistance"];
-  self.metricsLabel.text = [info[@"targetMetrics"] uppercaseString];
+  self.distanceLabel.text = info[@"turnDistance"];
+  self.metricsLabel.text = [info[@"turnMetrics"] uppercaseString];
   
   [UIView animateWithDuration:0.2 animations:^{
     [self layoutSubviews];
@@ -38,7 +38,21 @@
 - (UIImage *)turnImageWithType:(NSString *)turnType
 {
   NSString * turnTypeImageName = [NSString stringWithFormat:@"big-%@", turnType];
+  
+  if ([turnTypeImageName isEqualToString:@"big-left-1"])
+    return [self flippedImageWithImage:[UIImage imageNamed:@"big-right-1"]];
+  if ([turnTypeImageName isEqualToString:@"big-left-2"])
+    return [self flippedImageWithImage:[UIImage imageNamed:@"big-right-2"]];
+  if ([turnTypeImageName isEqualToString:@"big-left-3"])
+    return [self flippedImageWithImage:[UIImage imageNamed:@"big-right-3"]];
+  
   return [UIImage imageNamed:turnTypeImageName];
+}
+
+- (UIImage *)flippedImageWithImage:(UIImage *)sourceImage
+{
+  UIImage * flippedImage = [UIImage imageWithCGImage:sourceImage.CGImage scale:sourceImage.scale orientation:UIImageOrientationUpMirrored];
+  return flippedImage;
 }
 
 - (void)layoutSubviews

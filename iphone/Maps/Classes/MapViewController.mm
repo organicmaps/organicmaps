@@ -137,6 +137,7 @@
       routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
       routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
       routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
+      routeInfo[@"turnTypeValue"] = @(5);
       routeInfo[@"timeToTarget"] = @(res.m_time);
       [self.routeView updateWithInfo:routeInfo];
 >>>>>>> Added turn-by-turn view.
@@ -149,9 +150,6 @@
   using namespace routing::turns;
   switch (type)
   {
-    case NoTurn:
-    case GoStraight: return @"straight";
-      
     case TurnSlightRight: return @"right-1";
     case TurnRight: return @"right-2";
     case TurnSharpRight: return @"right-3";
@@ -164,9 +162,9 @@
       
     case LeaveRoundAbout:
     case StayOnRoundAbout:
-    case EnterRoundAbout: return @"turn-around";
+    case EnterRoundAbout: return @"turn-circle";
       
-    default: return nil;
+    default: return @"straight";
   }
 }
 
