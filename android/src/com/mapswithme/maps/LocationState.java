@@ -59,7 +59,17 @@ public enum LocationState
       STAY_ON_ROUND_ABOUT,
 
       START_AT_THE_END_OF_STREET,
-      REACHED_YOUR_DESTINATION
+      REACHED_YOUR_DESTINATION;
+
+      public static boolean isLeftTurn(TurnDirection turn)
+      {
+        return turn == TURN_LEFT || turn == TURN_SHARP_LEFT || turn == TURN_SLIGHT_LEFT;
+      }
+
+      public static boolean isRightTurn(TurnDirection turn)
+      {
+        return turn == TURN_RIGHT || turn == TURN_SHARP_RIGHT || turn == TURN_SLIGHT_RIGHT;
+      }
     }
 
     public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, int direction)

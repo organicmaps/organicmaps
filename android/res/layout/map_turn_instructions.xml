@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/navigation_buttons_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_top_panels">
+
+  <TextView
+      android:id="@+id/tv__total_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/margin_medium"/>
+
+  <TextView
+      android:id="@+id/tv__total_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignLeft="@id/tv__total_distance"
+      android:layout_below="@id/tv__total_distance"/>
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv__turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_slight_compact"/>
+
+    <TextView
+        android:id="@+id/tv__turn_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_turn_blue"/>
+  </LinearLayout>
+
+  <ImageView
+      android:id="@+id/btn__close"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_marginRight="@dimen/margin_medium"
+      android:background="@drawable/ic_close_routing"/>
+
+</RelativeLayout>

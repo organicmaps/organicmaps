@@ -81,6 +81,13 @@
   </RelativeLayout>
 
   <include
+      android:id="@+id/layout__turn_instructions"
+      layout="@layout/map_turn_instructions"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"/>
+
+  <include
       android:id="@+id/navigation_buttons_container_ref"
       layout="@layout/map_navigation_buttons"
       android:layout_width="wrap_content"

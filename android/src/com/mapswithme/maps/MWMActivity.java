@@ -122,6 +122,12 @@ public class MWMActivity extends NvEventQueueActivity
   private RelativeLayout mRlRoutingBox;
   private RelativeLayout mLayoutRoutingGo;
   private ProgressBar mPbRoutingProgress;
+  private RelativeLayout mRlTurnByTurnBox;
+  private TextView mTvTotalDistance;
+  private TextView mTvTotalTime;
+  private ImageView mIvTurn;
+  private TextView mTvTurnDistance;
+
 
   private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
@@ -956,6 +962,13 @@ public class MWMActivity extends NvEventQueueActivity
     mLayoutRoutingGo = (RelativeLayout) mRlRoutingBox.findViewById(R.id.rl__routing_go);
     mLayoutRoutingGo.setOnClickListener(this);
     mTvRoutingDistance = (TextView) mRlRoutingBox.findViewById(R.id.tv__routing_distance);
+
+    mRlTurnByTurnBox = (RelativeLayout) findViewById(R.id.layout__turn_instructions);
+    mTvTotalDistance = (TextView) mRlTurnByTurnBox.findViewById(R.id.tv__total_distance);
+    mTvTotalTime = (TextView) mRlTurnByTurnBox.findViewById(R.id.tv__total_time);
+    mIvTurn = (ImageView) mRlTurnByTurnBox.findViewById(R.id.iv__turn);
+    mTvTurnDistance = (TextView) mRlTurnByTurnBox.findViewById(R.id.tv__turn_distance);
+    mRlTurnByTurnBox.findViewById(R.id.btn__close).setOnClickListener(this);
   }
 
   private void yotaSetup()
@@ -1133,11 +1146,53 @@ public class MWMActivity extends NvEventQueueActivity
     final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     if (info != null)
     {
-      final SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase());
+      SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase());
       builder.setSpan(new AbsoluteSizeSpan(34, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvRoutingDistance.setText(builder);
+      mTvTotalDistance.setText(builder);
+      mIvTurn.setImageResource(getTurnImageResource(info));
+      if (LocationState.RoutingInfo.TurnDirection.isRightTurn(info.mTurnDirection))
+        ViewHelper.setScaleX(mIvTurn, -1); // right turns are displayed as mirrored left turns.
+      else
+        ViewHelper.setScaleX(mIvTurn, 1);
+
+
+      builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
+      builder.setSpan(new AbsoluteSizeSpan(34, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mTvTurnDistance.setText(builder.toString());
     }
+  }
+
+  private int getTurnImageResource(LocationState.RoutingInfo info)
+  {
+    switch (info.mTurnDirection)
+    {
+    case NO_TURN:
+    case GO_STRAIGHT:
+      return R.drawable.ic_straight_compact;
+    case TURN_RIGHT:
+      return R.drawable.ic_simple_compact;
+    case TURN_SHARP_RIGHT:
+      return R.drawable.ic_sharp_compact;
+    case TURN_SLIGHT_RIGHT:
+      return R.drawable.ic_slight_compact;
+    case TURN_LEFT:
+      return R.drawable.ic_simple_compact;
+    case TURN_SHARP_LEFT:
+      return R.drawable.ic_sharp_compact;
+    case TURN_SLIGHT_LEFT:
+      return R.drawable.ic_slight_compact;
+    case U_TURN:
+      return R.drawable.ic_uturn_compact;
+    case ENTER_ROUND_ABOUT:
+    case LEAVE_ROUND_ABOUT:
+    case STAY_ON_ROUND_ABOUT:
+      return R.drawable.ic_round_compact;
+    }
+
+    return 0;
   }
 
   @SuppressWarnings("deprecation")
@@ -1603,6 +1658,7 @@ public class MWMActivity extends NvEventQueueActivity
       buildRoute();
       break;
     case R.id.iv__routing_close:
+    case R.id.btn__close:
       closeRouting();
       break;
     case R.id.rl__routing_go:
@@ -1617,13 +1673,14 @@ public class MWMActivity extends NvEventQueueActivity
   {
     Framework.nativeFollowRoute();
 
-    Animator animator = ObjectAnimator.ofFloat(mLayoutRoutingGo, "alpha", 1, 0);
+    Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 1, 0);
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        mLayoutRoutingGo.setVisibility(View.GONE);
+        mRlTurnByTurnBox.setVisibility(View.VISIBLE);
+        mRlRoutingBox.setVisibility(View.GONE);
       }
     });
     animator.start();
@@ -1676,10 +1733,10 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void closeRouting()
   {
+    Log.d("TEST", "Close routing.");
     mInfoView.bringToFront();
-    mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.clearAnimation();
-    mPbRoutingProgress.setVisibility(View.GONE);
+    UiUtils.hide(mRlRoutingBox, mPbRoutingProgress, mRlTurnByTurnBox);
     mIvStartRouting.setVisibility(View.VISIBLE);
 
     Framework.nativeCloseRouting();
@@ -1739,14 +1796,14 @@ public class MWMActivity extends NvEventQueueActivity
       {
         if (isSuccess)
         {
+          mRlTurnByTurnBox.setVisibility(View.GONE);
           ViewHelper.setAlpha(mLayoutRoutingGo, 1);
           mLayoutRoutingGo.setVisibility(View.VISIBLE);
 
-          Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-          alphaAnimation.setFillBefore(true);
-          alphaAnimation.setFillAfter(true);
-          alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
-          mRlRoutingBox.startAnimation(alphaAnimation);
+          Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 0, 1);
+          animator.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+          animator.start();
+
           mRlRoutingBox.setVisibility(View.VISIBLE);
           mRlRoutingBox.bringToFront();
 
