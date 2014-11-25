@@ -27,24 +27,24 @@ import com.mobileapptracker.MobileAppTracker;
 import java.io.File;
 import java.io.IOException;
 
+import ru.mail.mrgservice.MRGSMap;
+import ru.mail.mrgservice.MRGSServerData;
 import ru.mail.mrgservice.MRGService;
 
 public class MWMApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MWMApplication";
-  private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
 
   private static MWMApplication mSelf;
-
 
   private boolean mIsYota = false;
 
   // We check how old is modified date of our MapsWithMe folder
   private final static long TIME_DELTA = 5 * 1000;
 
-  private MobileAppTracker mMobileAppTracker = null;
+  private MobileAppTracker mMobileAppTracker;
   private final Logger mLogger = StubLogger.get();
   //      SimpleLogger.get("MAT");
 
@@ -110,11 +110,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     mIsYota = Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
 
-    MRGService.setAppContext(this);
-
-    // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
-    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
-      System.setProperty("http.keepAlive", "false");
+    initMrgs();
 
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
@@ -158,6 +154,19 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     WorkerService.startActionUpdateAds(this);
 
     updateLaunchNumbers();
+  }
+
+  private void initMrgs()
+  {
+    MRGService.setAppContext(this);
+    MRGService.service(this, new MRGSServerData.MRGSServerDataDelegate()
+    {
+      @Override
+      public void loadServerDataDidFinished(MRGSMap mrgsMap) {}
+
+      @Override
+      public void loadPromoBannersDidFinished(MRGSMap mrgsMap) {}
+    }, getString(R.string.mrgs_id), getString(R.string.mrgs_key));
   }
 
   public String getApkPath()

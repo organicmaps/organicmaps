@@ -260,7 +260,7 @@
     <service
         android:name="ru.mail.mrgservice.MRGSGCMIntentService"
         android:enabled="true"/>
-    <service android:name="com.google.analytics.tracking.android.CampaignTrackingService"/>
+    <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
     <!-- MRGS -->
 
   </application>

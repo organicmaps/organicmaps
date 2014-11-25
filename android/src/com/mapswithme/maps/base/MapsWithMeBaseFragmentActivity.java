@@ -13,6 +13,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
+import ru.mail.mrgservice.MRGService;
+
 public class MapsWithMeBaseFragmentActivity extends FragmentActivity implements Framework.BuyProListener
 {
   @Override
@@ -27,6 +29,9 @@ public class MapsWithMeBaseFragmentActivity extends FragmentActivity implements 
   {
     super.onStart();
     Statistics.INSTANCE.startActivity(this);
+
+    MRGService.instance().sendGAScreen(getClass().getName());
+    MRGService.instance().onStart(this);
   }
 
   @Override
@@ -34,6 +39,8 @@ public class MapsWithMeBaseFragmentActivity extends FragmentActivity implements 
   {
     Statistics.INSTANCE.stopActivity(this);
     super.onStop();
+
+    MRGService.instance().onStop(this);
   }
 
   @Override
