@@ -128,13 +128,19 @@
     if (res.IsValid())
     {
       NSMutableDictionary *routeInfo = [NSMutableDictionary new];
+      routeInfo[@"timeToTarget"] = @(res.m_time);
       routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
       routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
       routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
       routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
       routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
-      routeInfo[@"turnTypeValue"] = @(5);
-      routeInfo[@"timeToTarget"] = @(res.m_time);
+      static NSNumber * turnTypeValue;
+      if (res.m_turn == routing::turns::EnterRoundAbout)
+        turnTypeValue = @(res.m_exitNum);
+      else if (res.m_turn != routing::turns::StayOnRoundAbout)
+        turnTypeValue = nil;
+      if (turnTypeValue)
+        routeInfo[@"turnTypeValue"] = turnTypeValue;
       [self.routeView updateWithInfo:routeInfo];
     }
   }
@@ -157,7 +163,7 @@
       
     case LeaveRoundAbout:
     case StayOnRoundAbout:
-    case EnterRoundAbout: return @"turn-circle";
+    case EnterRoundAbout: return @"circle";
       
     default: return @"straight";
   }

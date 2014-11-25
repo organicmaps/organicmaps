@@ -18,6 +18,7 @@
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
   
   [self addSubview:self.turnTypeView];
+  [self.turnTypeView addSubview:self.turnValue];
   [self addSubview:self.distanceLabel];
   [self addSubview:self.metricsLabel];
   
@@ -27,6 +28,8 @@
 - (void)updateWithInfo:(NSDictionary *)info
 {
   self.turnTypeView.image = [self turnImageWithType:info[@"turnType"]];
+  NSNumber * turnValue = info[@"turnTypeValue"];
+  self.turnValue.text = [turnValue integerValue] ? [turnValue stringValue] : @"";
   self.distanceLabel.text = info[@"turnDistance"];
   self.metricsLabel.text = [info[@"turnMetrics"] uppercaseString];
   
@@ -62,6 +65,8 @@
   
   CGFloat const betweenOffset = 2;
   
+  self.turnValue.frame = self.turnTypeView.bounds;
+  
   self.turnTypeView.maxX = self.width / 2.0 - 16.0;
   self.turnTypeView.midY = self.height / 2.0;
   
@@ -80,6 +85,18 @@
     _turnTypeView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
   }
   return _turnTypeView;
+}
+
+- (UILabel *)turnValue
+{
+  if (!_turnValue)
+  {
+    _turnValue = [[UILabel alloc] initWithFrame:CGRectZero];
+    _turnValue.textAlignment = NSTextAlignmentCenter;
+    _turnValue.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
+    _turnValue.textColor = [UIColor blackColor];
+  }
+  return _turnValue;
 }
 
 - (UILabel *)distanceLabel

@@ -11,6 +11,7 @@
 @interface NextTurnPhoneView : UIView
 
 @property (nonatomic) UIImageView * turnTypeView;
+@property (nonatomic) UILabel * turnValue;
 @property (nonatomic) UILabel * distanceLabel;
 @property (nonatomic) UILabel * metricsLabel;
 
