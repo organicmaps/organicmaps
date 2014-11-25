@@ -127,10 +127,6 @@
 
     if (res.IsValid())
     {
-<<<<<<< HEAD
-      [self.routeView updateDistance:[NSString stringWithUTF8String:res.m_distToTarget.c_str()]
-                         withMetrics:[NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()]];
-=======
       NSMutableDictionary *routeInfo = [NSMutableDictionary new];
       routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
       routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
@@ -140,7 +136,6 @@
       routeInfo[@"turnTypeValue"] = @(5);
       routeInfo[@"timeToTarget"] = @(res.m_time);
       [self.routeView updateWithInfo:routeInfo];
->>>>>>> Added turn-by-turn view.
     }
   }
 }
