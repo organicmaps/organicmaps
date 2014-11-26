@@ -2802,3 +2802,4 @@ zh-Hans:无线网络|3互联网|Wi-Fi|wifi|3Internet
 ar:واي فاي|الإنترنت|Wi-Fi|wifi|3Internet
 da:Wi-Fi|wifi|3Internet
 tr:Wi-Fi|wifi|3Internet
+sv:Wi-Fi|wifi|3Internet
