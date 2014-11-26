@@ -35,7 +35,8 @@ bool FormatDistanceImpl(double m, string & res,
     return false;
   }
 
-  if (m >= highF)
+  // To display any lower units only if < 1000
+  if (m >= 1000.0 * lowF)
   {
     double const v = m / highF;
     res = ToStringPrecision(v, v >= 10.0 ? 0 : 1) + high;
