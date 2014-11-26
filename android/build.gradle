@@ -249,6 +249,19 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
   }
+
+
+  // TODO add tasks for all flavors to run app.
+  task runGooglePro(type: Exec, description: 'install iGPR and run') {
+    commandLine 'bash', '-c', 'adb shell am start -n com.mapswithme.maps.pro/com.mapswithme.maps.DownloadResourcesActivity'
+  }
+
+  // temprorary workaround of bug on android L with gradle plugin
+  // details here https://groups.google.com/forum/#!topic/adt-dev/oHWbLdonsBU
+  gradle.projectsEvaluated {
+    installGoogleProRelease.dependsOn("uninstallGoogleProRelease")
+    runGooglePro.dependsOn("installGoogleProRelease")
+  }
 }
 
 //@{ Below are tasks needed to compile our NDK part
