@@ -2,28 +2,28 @@
 <root>
  <file height="512" width="1024">
   <symbol minX="0" maxX="138" minY="0" maxY="138" name="route_to"/>
-  <symbol minX="138" maxX="204" minY="0" maxY="66" name="search-result-active"/>
-  <symbol minX="204" maxX="265" minY="0" maxY="61" name="compass-image"/>
-  <symbol minX="265" maxX="295" minY="0" maxY="58" name="placemark-yellow"/>
-  <symbol minX="295" maxX="325" minY="0" maxY="58" name="placemark-red"/>
-  <symbol minX="325" maxX="355" minY="0" maxY="58" name="placemark-orange"/>
-  <symbol minX="355" maxX="385" minY="0" maxY="58" name="placemark-pink"/>
-  <symbol minX="385" maxX="415" minY="0" maxY="58" name="placemark-green"/>
-  <symbol minX="415" maxX="445" minY="0" maxY="58" name="placemark-purple"/>
-  <symbol minX="445" maxX="475" minY="0" maxY="58" name="placemark-brown"/>
-  <symbol minX="475" maxX="505" minY="0" maxY="58" name="placemark-blue"/>
-  <symbol minX="505" maxX="552" minY="0" maxY="54" name="current-routing-compas"/>
-  <symbol minX="552" maxX="593" minY="0" maxY="48" name="current-position-compas"/>
-  <symbol minX="593" maxX="633" minY="0" maxY="40" name="tennis"/>
-  <symbol minX="633" maxX="673" minY="0" maxY="40" name="tennis-borderless"/>
-  <symbol minX="673" maxX="713" minY="0" maxY="40" name="telephone"/>
-  <symbol minX="713" maxX="753" minY="0" maxY="40" name="parking_roof"/>
-  <symbol minX="753" maxX="793" minY="0" maxY="40" name="taxi"/>
-  <symbol minX="793" maxX="833" minY="0" maxY="40" name="synagogue"/>
-  <symbol minX="833" maxX="873" minY="0" maxY="40" name="peak-mini"/>
-  <symbol minX="873" maxX="913" minY="0" maxY="40" name="peak"/>
-  <symbol minX="913" maxX="953" minY="0" maxY="40" name="information-office"/>
-  <symbol minX="953" maxX="993" minY="0" maxY="40" name="information"/>
+  <symbol minX="138" maxX="196" minY="0" maxY="74" name="current-position-compas"/>
+  <symbol minX="196" maxX="254" minY="0" maxY="74" name="current-routing-compas"/>
+  <symbol minX="254" maxX="320" minY="0" maxY="66" name="search-result-active"/>
+  <symbol minX="320" maxX="381" minY="0" maxY="61" name="compass-image"/>
+  <symbol minX="381" maxX="411" minY="0" maxY="58" name="placemark-yellow"/>
+  <symbol minX="411" maxX="441" minY="0" maxY="58" name="placemark-red"/>
+  <symbol minX="441" maxX="471" minY="0" maxY="58" name="placemark-orange"/>
+  <symbol minX="471" maxX="501" minY="0" maxY="58" name="placemark-pink"/>
+  <symbol minX="501" maxX="531" minY="0" maxY="58" name="placemark-green"/>
+  <symbol minX="531" maxX="561" minY="0" maxY="58" name="placemark-purple"/>
+  <symbol minX="561" maxX="591" minY="0" maxY="58" name="placemark-brown"/>
+  <symbol minX="591" maxX="621" minY="0" maxY="58" name="placemark-blue"/>
+  <symbol minX="621" maxX="661" minY="0" maxY="40" name="tennis"/>
+  <symbol minX="661" maxX="701" minY="0" maxY="40" name="tennis-borderless"/>
+  <symbol minX="701" maxX="741" minY="0" maxY="40" name="telephone"/>
+  <symbol minX="741" maxX="781" minY="0" maxY="40" name="parking_roof"/>
+  <symbol minX="781" maxX="821" minY="0" maxY="40" name="taxi"/>
+  <symbol minX="821" maxX="861" minY="0" maxY="40" name="synagogue"/>
+  <symbol minX="861" maxX="901" minY="0" maxY="40" name="peak-mini"/>
+  <symbol minX="901" maxX="941" minY="0" maxY="40" name="peak"/>
+  <symbol minX="941" maxX="981" minY="0" maxY="40" name="information-office"/>
+  <symbol minX="981" maxX="1021" minY="0" maxY="40" name="information"/>
   <symbol minX="0" maxX="40" minY="138" maxY="178" name="kindergarten"/>
   <symbol minX="40" maxX="80" minY="138" maxY="178" name="kindergarten2"/>
   <symbol minX="80" maxX="120" minY="138" maxY="178" name="kiosk"/>
