@@ -86,7 +86,7 @@ BEGIN {
                 output = gensub(/\\n/, "\n", "g", output)
                 output = gensub(/(\") /, "\\1", "g", output)
                 output = gensub(/ ('|;|:|\.|\,|\!|\?)/, "\\1", "g", output)
-                printf output "\n"
+                printf tl ":" output "\n"
             }
         }
     }
