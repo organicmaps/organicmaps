@@ -24,9 +24,9 @@ dependencies {
 }
 
 def getDate() {
-    def date = new Date()
-    def formattedDate = date.format('yyMMdd')
-    return formattedDate
+  def date = new Date()
+  def formattedDate = date.format('yyMMdd')
+  return formattedDate
 }
 
 android {
@@ -55,9 +55,9 @@ android {
 
     googlePro {
       applicationId 'com.mapswithme.maps.pro'
-      buildConfigField 'boolean', 'IS_PRO',     'true'
-      buildConfigField 'String',  'PRO_URL',    '"market://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'boolean', 'IS_PRO', 'true'
+      buildConfigField 'String', 'PRO_URL', '"market://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.googlePro.setRoot('flavors/pro')
       android.sourceSets.googlePro.assets.srcDirs = ['flavors/guides-assets']
@@ -65,9 +65,9 @@ android {
 
     googleLite {
       applicationId 'com.mapswithme.maps'
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"market://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"market://details?id=com.mapswithme.maps"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"market://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.googleLite.setRoot('flavors/lite')
       android.sourceSets.googleLite.assets.srcDirs = ['flavors/guides-assets']
@@ -75,9 +75,9 @@ android {
 
     samsungPro {
       applicationId 'com.mapswithme.maps.pro'
-      buildConfigField 'boolean', 'IS_PRO',     'true'
-      buildConfigField 'String',  'PRO_URL',    '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
+      buildConfigField 'boolean', 'IS_PRO', 'true'
+      buildConfigField 'String', 'PRO_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
       android.sourceSets.samsungPro.setRoot('flavors/pro')
       android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -85,9 +85,9 @@ android {
 
     samsungLite {
       applicationId 'com.mapswithme.maps.samsung'       // historically different id for samsung lite version
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.samsung"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.samsung"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
       android.sourceSets.samsungLite.setRoot('flavors/lite')
       android.sourceSets.samsungLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -95,9 +95,9 @@ android {
 
     amazonPro {
       applicationId 'com.mapswithme.maps.pro'
-      buildConfigField 'boolean', 'IS_PRO',     'true'
-      buildConfigField 'String',  'PRO_URL',    '"amzn://apps/android?p=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
+      buildConfigField 'boolean', 'IS_PRO', 'true'
+      buildConfigField 'String', 'PRO_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
       android.sourceSets.amazonPro.setRoot('flavors/pro')
       // Do not include guides assets for Amazon, they don't like GP apps ads
@@ -106,9 +106,9 @@ android {
 
     amazonLite {
       applicationId 'com.mapswithme.maps'
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"amzn://apps/android?p=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
       android.sourceSets.amazonLite.setRoot('flavors/lite')
       // Do not include guides assets for Amazon, they don't like GP apps ads
@@ -117,9 +117,9 @@ android {
 
     androidpitPro {
       applicationId 'com.mapswithme.maps.pro'
-      buildConfigField 'boolean', 'IS_PRO',     'true'
-      buildConfigField 'String',  'PRO_URL',    '"appcenter://package/com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"appcenter://package/com.mapswithme.maps.pro"'
+      buildConfigField 'boolean', 'IS_PRO', 'true'
+      buildConfigField 'String', 'PRO_URL', '"appcenter://package/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"appcenter://package/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitPro.setRoot('flavors/pro')
       android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -127,9 +127,9 @@ android {
 
     androidpitLite {
       applicationId 'com.mapswithme.maps'
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"appcenter://package/com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"appcenter://package/com.mapswithme.maps"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"appcenter://package/com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"appcenter://package/com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.androidpitLite.setRoot('flavors/lite')
       android.sourceSets.androidpitLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -137,9 +137,9 @@ android {
 
     slidemePro {
       applicationId 'com.mapswithme.maps.pro'
-      buildConfigField 'boolean', 'IS_PRO',     'true'
-      buildConfigField 'String',  'PRO_URL',    '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
-      buildConfigField 'String',  'REVIEW_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
+      buildConfigField 'boolean', 'IS_PRO', 'true'
+      buildConfigField 'String', 'PRO_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
+      buildConfigField 'String', 'REVIEW_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.slidemePro.setRoot('flavors/pro')
       android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -147,9 +147,9 @@ android {
 
     slidemeLite {
       applicationId 'com.mapswithme.maps'
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
-      buildConfigField 'String',  'REVIEW_URL', '"sam://details?bundleId=943fe9dc-9799-11e2-8af8-1670ef61174f"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
+      buildConfigField 'String', 'REVIEW_URL', '"sam://details?bundleId=943fe9dc-9799-11e2-8af8-1670ef61174f"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.slidemeLite.setRoot('flavors/lite')
       android.sourceSets.slidemeLite.assets.srcDirs = ['flavors/guides-assets']
@@ -157,9 +157,9 @@ android {
 
     yandexPro {
       applicationId 'com.mapswithme.maps.pro'
-      buildConfigField 'boolean', 'IS_PRO',     'true'
-      buildConfigField 'String',  'PRO_URL',    '"yastore://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'boolean', 'IS_PRO', 'true'
+      buildConfigField 'String', 'PRO_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexPro.setRoot('flavors/pro')
       android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -167,9 +167,9 @@ android {
 
     yandexLite {
       applicationId 'com.mapswithme.maps'
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"yastore://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       android.sourceSets.yandexLite.setRoot('flavors/lite')
       android.sourceSets.yandexLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -177,9 +177,9 @@ android {
 
     yotaLite {
       applicationId 'com.mapswithme.maps'
-      buildConfigField 'boolean', 'IS_PRO',     'false'
-      buildConfigField 'String',  'PRO_URL',    '"market://details?id=com.mapswithme.maps.pro"'
-      buildConfigField 'String',  'REVIEW_URL', '"market://details?id=com.mapswithme.maps"'
+      buildConfigField 'boolean', 'IS_PRO', 'false'
+      buildConfigField 'String', 'PRO_URL', '"market://details?id=com.mapswithme.maps.pro"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=com.mapswithme.maps"'
       buildConfigField 'String', 'SUPPORT_MAIL', 'android@maps.me'
       android.sourceSets.yotaLite.setRoot('flavors/lite')
       android.sourceSets.yotaLite.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
@@ -251,15 +251,14 @@ android {
   }
 }
 
-
 //@{ Below are tasks needed to compile our NDK part
-apply plugin:'base'
+apply plugin: 'base'
 
-task cppLibsBuildDebug(type:Exec, description: 'Building DEBUG version of static C++ libraries') {
+task cppLibsBuildDebug(type: Exec, description: 'Building DEBUG version of static C++ libraries') {
   commandLine 'bash', '../tools/autobuild/android.sh', 'debug'
 }
 
-task cppLibsBuildRelease(type:Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries') {
+task cppLibsBuildRelease(type: Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries') {
   commandLine 'bash', '../tools/autobuild/android.sh', 'production'
 }
 
@@ -268,17 +267,17 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'
 
-task ndkBuildDebug(type:Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
+task ndkBuildDebug(type: Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
   def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propDebugNdkFlags.split(' ')).flatten()
   commandLine clArgs
 }
 
-task ndkBuildRelease(type:Exec, dependsOn: 'cppLibsBuildRelease', description: 'Building RELEASE/PRODUCTION jni sources') {
+task ndkBuildRelease(type: Exec, dependsOn: 'cppLibsBuildRelease', description: 'Building RELEASE/PRODUCTION jni sources') {
   def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propReleaseNdkFlags.split(' ')).flatten()
   commandLine clArgs
 }
 
-task ndkBuildClean(type:Exec, description: 'Clean native libraries') {
+task ndkBuildClean(type: Exec, description: 'Clean native libraries') {
   commandLine NDK_BUILD, 'clean'
 }
 
