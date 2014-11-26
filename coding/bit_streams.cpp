@@ -14,20 +14,30 @@ BitSink::~BitSink()
 void BitSink::Write(uint64_t bits, uint32_t writeSize)
 {
   if (writeSize == 0) return;
+  CHECK_LESS_OR_EQUAL(writeSize, 64, ());
   m_totalBits += writeSize;
   uint32_t remSize = m_size % 8;
-  CHECK_LESS_OR_EQUAL(writeSize, 64 - remSize, ());
-  if (remSize > 0)
+  if (writeSize > 64 - remSize)
   {
-    bits <<= remSize;
-    bits |= m_lastByte;
-    writeSize += remSize;
-    m_size -= remSize;
+    uint64_t writeData = (bits << remSize) | m_lastByte;
+    m_writer.Write(&writeData, sizeof(writeData));
+    m_lastByte = uint8_t(bits >> (64 - remSize));
+    m_size += writeSize;
   }
-  uint32_t writeBytesSize = writeSize / 8;
-  m_writer.Write(&bits, writeBytesSize);
-  m_lastByte = (bits >> (writeBytesSize * 8)) & ((1 << (writeSize % 8)) - 1);
-  m_size += writeSize;
+  else
+  {
+    if (remSize > 0)
+    {
+      bits <<= remSize;
+      bits |= m_lastByte;
+      writeSize += remSize;
+      m_size -= remSize;
+    }
+    uint32_t writeBytesSize = writeSize / 8;
+    m_writer.Write(&bits, writeBytesSize);
+    m_lastByte = (bits >> (writeBytesSize * 8)) & ((1 << (writeSize % 8)) - 1);
+    m_size += writeSize;
+  }
 }
 
 
