@@ -31,3 +31,4 @@ SOURCES += \
     coasts_test.cpp \
     feature_builder_test.cpp \
     classificator_tests.cpp \
+    check_mwms.cpp \
