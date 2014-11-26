@@ -1,4 +1,4 @@
-//	$Id: MRGSDevice.h 5656 2014-10-20 10:48:36Z a.grachev $
+//	$Id: MRGSDevice.h 5812 2014-10-30 08:45:19Z a.grachev $
 //  MRGSDevice.h
 //  MRGServiceFramework
 //
@@ -183,13 +183,6 @@ extern NSString* const MRGSReceivedIDFANotification;
 /** @return Уникальный UDID устройства (Можно использовать для идентификации устройства) */
 - (NSString*)openUDID;
 
-/**
- *   identifierForVendor
- *
- *   @return [[UIDevice currentDevice] identifierForVendor]
- */
-- (NSString*)idfa;
-
 /** Обновление данных системы */
 - (void)update;
 
@@ -198,5 +191,15 @@ extern NSString* const MRGSReceivedIDFANotification;
  *	@return Возвращает статус YES - Jailbreak найден
  */
 - (BOOL)isDeviceJailbreak;
+
+#pragma mark - Deprecated methods
+
+/**
+ *   identifierForVendor
+ *
+ *   @return [[UIDevice currentDevice] identifierForVendor]
+ */
+- (NSString*)idfa DEPRECATED_ATTRIBUTE;
+
 
 @end

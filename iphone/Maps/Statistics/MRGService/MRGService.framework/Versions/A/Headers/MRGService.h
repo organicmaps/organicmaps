@@ -1,4 +1,4 @@
-//  $Id: MRGService.h 5669 2014-10-21 09:39:51Z a.grachev $
+//  $Id: MRGService.h 6143 2014-11-21 11:16:17Z a.grachev $
 //  MRTest.h
 //  MRGServiceFramework
 //
@@ -38,16 +38,15 @@
 #import <MRGService/MRGSBank.h>
 #import <MRGService/MRGSPromoCodes.h>
 #import <MRGService/MRGSRate.h>
-#import <MRGService/MRGSMoreGames.h>
 
 #import <MRGService/MRGSLocalNotification.h>
 #import <MRGService/MRGSNotificationManager.h>
 
 #import <MRGService/MRGSMobileAppTracker.h>
 #import <MRGService/MRGSGoogleanalytics.h>
-
 #import <MRGService/MRGSAppsFlyer.h>
 #import <MRGService/MRGSFlurry.h>
+#import <MRGService/MRGSAdman.h>
 
 #import <MRGService/MRGSSocial.h>
 #import <MRGService/MRGSSocialUserInfo.h>

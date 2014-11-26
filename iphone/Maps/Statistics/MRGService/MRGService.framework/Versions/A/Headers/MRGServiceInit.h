@@ -1,4 +1,4 @@
-//  $Id: MRGServiceInit.h 5721 2014-10-23 08:12:11Z a.grachev $
+//  $Id: MRGServiceInit.h 5816 2014-10-30 09:35:50Z a.grachev $
 //  MRGServiceInit.h
 //  MRGServiceFramework
 //
@@ -44,7 +44,7 @@
 
 /** Делегат класса.
  */
-@property (nonatomic, strong) id<MRGSServerDataDelegate> delegate;
+@property (nonatomic, weak) id<MRGSServerDataDelegate> delegate;
 
 /** Текущие настройки MRGService. */
 @property (readonly, nonatomic, strong) MRGServiceParams *serviceParams;

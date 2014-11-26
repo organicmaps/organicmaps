@@ -82,10 +82,30 @@
 
 /** Класс для настроек Adman. */
 @interface MRGSAdmanParams : MRGSExternalSDKParams
-/** Идентификатор слота приложения в Adman. */
-@property (readonly, nonatomic) NSUInteger slotId;
+/** Идентификатор слота для отображения витрины. */
+@property (readonly, nonatomic) NSUInteger showcaseSlotId;
+/** Идентификатор слота для отображения полноэкранных баннеров. */
+@property (readonly, nonatomic) NSUInteger fullscreenBannerSlotId;
 /** Включение/отключение отладочных логов Adman в консоле. */
 @property (nonatomic) BOOL debug;
+
+/**
+ *  Создание объекта настроек для Adman.
+ *
+ *  @param showcaseSlot         Идентификатор слота приложения для витрины.
+ *  @param fullscreenBannerSlot Идентификатор слота приложения для полноэкранного баннера.
+ *
+ *  @return Объект с настройками Adman по умолчанию.
+ */
+- (instancetype)initWithShowcaseSlotId:(NSUInteger)showcaseSlot
+                fullscreenBannerSlotId:(NSUInteger)fullscreenBannerSlot;
+
+#pragma mark - Deprecated methods and properties
+/**
+ *  Идентификатор слота приложения в Adman.
+ *  @deprecated Используйте showcaseSlotId;
+ */
+@property (readonly, nonatomic) NSUInteger slotId DEPRECATED_ATTRIBUTE;
 
 /**
  *  Создание объекта настроек для Adman.
@@ -93,8 +113,11 @@
  *  @param slotId Идентификатор слота приложения.
  *
  *  @return Объект с настройками Adman по умолчанию.
+ *  @deprecated Используйте initWithShowcaseSlotId:fullscreenBannerSlotId:
  */
-- (instancetype)initWithSlotId:(NSUInteger)slotId;
+- (instancetype)initWithSlotId:(NSUInteger)slotId DEPRECATED_ATTRIBUTE;
+
+
 @end
 
 /** Класс для настроек Chartboost. */

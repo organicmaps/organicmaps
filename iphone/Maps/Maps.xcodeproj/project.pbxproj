@@ -16,6 +16,18 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
+		6B948E151A254C9800229BD5 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E131A254C9800229BD5 /* MRGService.framework */; };
+		6B948E161A254C9800229BD5 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E131A254C9800229BD5 /* MRGService.framework */; };
+		6B948E171A254C9900229BD5 /* ExternalLibs in Resources */ = {isa = PBXBuildFile; fileRef = 6B948E141A254C9800229BD5 /* ExternalLibs */; };
+		6B948E181A254C9900229BD5 /* ExternalLibs in Resources */ = {isa = PBXBuildFile; fileRef = 6B948E141A254C9800229BD5 /* ExternalLibs */; };
+		6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */; };
+		6B948E1E1A25533C00229BD5 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */; };
+		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
+		6B948E201A25533C00229BD5 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1C1A25533C00229BD5 /* libMyTracker.a */; };
+		6B948E211A25536200229BD5 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */; };
+		6B948E221A25536200229BD5 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */; };
+		6B948E231A25536200229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
+		6B948E241A25536200229BD5 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1C1A25533C00229BD5 /* libMyTracker.a */; };
 		972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		97354B6E196EDD3A00352536 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B6D196EDD3A00352536 /* AccountManager.m */; };
 		97354B6F196EDD3F00352536 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B6D196EDD3A00352536 /* AccountManager.m */; };
@@ -176,13 +188,6 @@
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		B00511BC1A1102FE00A61AA4 /* libMRAdMan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511491A1102FE00A61AA4 /* libMRAdMan.a */; };
-		B00511BD1A1102FF00A61AA4 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */; };
-		B00511BE1A1102FF00A61AA4 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511601A1102FE00A61AA4 /* Chartboost.framework */; };
-		B00511C01A11030000A61AA4 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005116F1A1102FE00A61AA4 /* libGoogleAnalyticsServices.a */; };
-		B00511C11A11030100A61AA4 /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */; };
-		B00511C31A11030200A61AA4 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005117B1A1102FE00A61AA4 /* libMyTracker.a */; };
-		B00511C41A11030200A61AA4 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511811A1102FE00A61AA4 /* MRGService.framework */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
@@ -1352,6 +1357,12 @@
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
+		6B948E131A254C9800229BD5 /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MRGService.framework; sourceTree = "<group>"; };
+		6B948E141A254C9800229BD5 /* ExternalLibs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExternalLibs; sourceTree = "<group>"; };
+		6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = Statistics/MRGService/ExternalLibs/GoogleAnalytics/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = Statistics/MRGService/ExternalLibs/GoogleAnalytics/libAdIdAccess.a; sourceTree = "<group>"; };
+		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
+		6B948E1C1A25533C00229BD5 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMyTracker.a; path = Statistics/MRGService/ExternalLibs/MyTracker/libMyTracker.a; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1501,50 +1512,6 @@
 		B00511001A1101AA00A61AA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		B00511491A1102FE00A61AA4 /* libMRAdMan.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMRAdMan.a; sourceTree = "<group>"; };
-		B005114A1A1102FE00A61AA4 /* MRADBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADBanner.h; sourceTree = "<group>"; };
-		B005114B1A1102FE00A61AA4 /* MRADBannerImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADBannerImage.h; sourceTree = "<group>"; };
-		B005114C1A1102FE00A61AA4 /* MRADBannerStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADBannerStatistics.h; sourceTree = "<group>"; };
-		B005114D1A1102FE00A61AA4 /* MRAdCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdCustomParamsProvider.h; sourceTree = "<group>"; };
-		B005114E1A1102FE00A61AA4 /* MRADFullscreenBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADFullscreenBanner.h; sourceTree = "<group>"; };
-		B005114F1A1102FE00A61AA4 /* MRAdManAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManAdapter.h; sourceTree = "<group>"; };
-		B00511501A1102FE00A61AA4 /* MRAdManConstants+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MRAdManConstants+Corp.h"; sourceTree = "<group>"; };
-		B00511511A1102FE00A61AA4 /* MRAdManConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManConstants.h; sourceTree = "<group>"; };
-		B00511521A1102FE00A61AA4 /* MRAdManFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManFullScreenViewController.h; sourceTree = "<group>"; };
-		B00511531A1102FE00A61AA4 /* MRAdManView+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MRAdManView+Corp.h"; sourceTree = "<group>"; };
-		B00511541A1102FE00A61AA4 /* MRAdManView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManView.h; sourceTree = "<group>"; };
-		B00511551A1102FE00A61AA4 /* MRADSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADSection.h; sourceTree = "<group>"; };
-		B00511561A1102FE00A61AA4 /* MRADSectionIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADSectionIcon.h; sourceTree = "<group>"; };
-		B00511571A1102FE00A61AA4 /* MRADSectionsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADSectionsData.h; sourceTree = "<group>"; };
-		B00511581A1102FE00A61AA4 /* MRADShowcaseBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADShowcaseBanner.h; sourceTree = "<group>"; };
-		B00511591A1102FE00A61AA4 /* MRADStandardBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADStandardBanner.h; sourceTree = "<group>"; };
-		B005115A1A1102FE00A61AA4 /* MRStoreProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRStoreProductViewController.h; sourceTree = "<group>"; };
-		B005115B1A1102FE00A61AA4 /* SKStoreProductViewControllerDelegateExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStoreProductViewControllerDelegateExtended.h; sourceTree = "<group>"; };
-		B005115D1A1102FE00A61AA4 /* AppsFlyerTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyerTracker.h; sourceTree = "<group>"; };
-		B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppsFlyerLib.a; sourceTree = "<group>"; };
-		B00511601A1102FE00A61AA4 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
-		B00511651A1102FE00A61AA4 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		B00511661A1102FE00A61AA4 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		B00511671A1102FE00A61AA4 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		B00511681A1102FE00A61AA4 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		B00511691A1102FE00A61AA4 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		B005116A1A1102FE00A61AA4 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		B005116B1A1102FE00A61AA4 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		B005116C1A1102FE00A61AA4 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		B005116D1A1102FE00A61AA4 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		B005116E1A1102FE00A61AA4 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
-		B005116F1A1102FE00A61AA4 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		B00511711A1102FE00A61AA4 /* ACTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTReporter.h; sourceTree = "<group>"; };
-		B00511731A1102FE00A61AA4 /* GoogleConversionPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleConversionPing.h; sourceTree = "<group>"; };
-		B00511751A1102FE00A61AA4 /* DCTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTReporter.h; sourceTree = "<group>"; };
-		B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
-		B005117B1A1102FE00A61AA4 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMyTracker.a; sourceTree = "<group>"; };
-		B005117C1A1102FE00A61AA4 /* MCMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMyTracker.h; sourceTree = "<group>"; };
-		B005117D1A1102FE00A61AA4 /* MRCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCustomParamsProvider.h; sourceTree = "<group>"; };
-		B005117E1A1102FE00A61AA4 /* MRMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRMyTracker.h; sourceTree = "<group>"; };
-		B005117F1A1102FE00A61AA4 /* MRTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTracker.h; sourceTree = "<group>"; };
-		B00511801A1102FE00A61AA4 /* MRTrackerParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTrackerParams.h; sourceTree = "<group>"; };
-		B00511811A1102FE00A61AA4 /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MRGService.framework; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -2193,9 +2160,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00511BC1A1102FE00A61AA4 /* libMRAdMan.a in Frameworks */,
+				6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */,
+				6B948E1E1A25533C00229BD5 /* libAdIdAccess.a in Frameworks */,
+				6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */,
+				6B948E201A25533C00229BD5 /* libMyTracker.a in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
-				B00511C31A11030200A61AA4 /* libMyTracker.a in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
 				B00511011A1101AA00A61AA4 /* libz.dylib in Frameworks */,
@@ -2204,23 +2173,19 @@
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
-				B00511C11A11030100A61AA4 /* libGoogleConversionTracking.a in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
 				97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */,
-				B00511BD1A1102FF00A61AA4 /* libAppsFlyerLib.a in Frameworks */,
 				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
 				97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */,
 				97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				6B948E151A254C9800229BD5 /* MRGService.framework in Frameworks */,
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
-				B00511BE1A1102FF00A61AA4 /* Chartboost.framework in Frameworks */,
-				B00511C01A11030000A61AA4 /* libGoogleAnalyticsServices.a in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
 				97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */,
-				B00511C41A11030200A61AA4 /* MRGService.framework in Frameworks */,
 				974386D91934CBAC00FD5659 /* FacebookSDK.framework in Frameworks */,
 				97DD585C18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
@@ -2232,6 +2197,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B948E211A25536200229BD5 /* libGoogleAnalyticsServices.a in Frameworks */,
+				6B948E221A25536200229BD5 /* libAdIdAccess.a in Frameworks */,
+				6B948E231A25536200229BD5 /* libAppsFlyerLib.a in Frameworks */,
+				6B948E241A25536200229BD5 /* libMyTracker.a in Frameworks */,
 				97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */,
 				972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */,
 				97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */,
@@ -2239,6 +2208,7 @@
 				97C98652186C5EF000AF7E9E /* iAd.framework in Frameworks */,
 				97C98650186C5EDE00AF7E9E /* PassKit.framework in Frameworks */,
 				97C9864E186C5ED300AF7E9E /* Social.framework in Frameworks */,
+				6B948E161A254C9800229BD5 /* MRGService.framework in Frameworks */,
 				97C9864C186C5EAA00AF7E9E /* MediaPlayer.framework in Frameworks */,
 				97C98649186C5E9900AF7E9E /* EventKit.framework in Frameworks */,
 				97C9864A186C5E9900AF7E9E /* EventKitUI.framework in Frameworks */,
@@ -2356,6 +2326,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */,
+				6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */,
+				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
+				6B948E1C1A25533C00229BD5 /* libMyTracker.a */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
 				B00511031A1101F600A61AA4 /* CoreData.framework */,
 				B00511001A1101AA00A61AA4 /* libz.dylib */,
@@ -2568,124 +2542,10 @@
 		B00511071A1102FE00A61AA4 /* MRGService */ = {
 			isa = PBXGroup;
 			children = (
-				B00511471A1102FE00A61AA4 /* ExternalLibs */,
-				B00511811A1102FE00A61AA4 /* MRGService.framework */,
+				6B948E131A254C9800229BD5 /* MRGService.framework */,
+				6B948E141A254C9800229BD5 /* ExternalLibs */,
 			);
 			path = MRGService;
-			sourceTree = "<group>";
-		};
-		B00511471A1102FE00A61AA4 /* ExternalLibs */ = {
-			isa = PBXGroup;
-			children = (
-				B00511481A1102FE00A61AA4 /* Adman */,
-				B005115C1A1102FE00A61AA4 /* AppsFlyer */,
-				B005115F1A1102FE00A61AA4 /* Chartboost */,
-				B00511641A1102FE00A61AA4 /* GoogleAnalytics */,
-				B00511701A1102FE00A61AA4 /* GoogleConversionTracking */,
-				B005117A1A1102FE00A61AA4 /* MyTracker */,
-			);
-			path = ExternalLibs;
-			sourceTree = "<group>";
-		};
-		B00511481A1102FE00A61AA4 /* Adman */ = {
-			isa = PBXGroup;
-			children = (
-				B00511491A1102FE00A61AA4 /* libMRAdMan.a */,
-				B005114A1A1102FE00A61AA4 /* MRADBanner.h */,
-				B005114B1A1102FE00A61AA4 /* MRADBannerImage.h */,
-				B005114C1A1102FE00A61AA4 /* MRADBannerStatistics.h */,
-				B005114D1A1102FE00A61AA4 /* MRAdCustomParamsProvider.h */,
-				B005114E1A1102FE00A61AA4 /* MRADFullscreenBanner.h */,
-				B005114F1A1102FE00A61AA4 /* MRAdManAdapter.h */,
-				B00511501A1102FE00A61AA4 /* MRAdManConstants+Corp.h */,
-				B00511511A1102FE00A61AA4 /* MRAdManConstants.h */,
-				B00511521A1102FE00A61AA4 /* MRAdManFullScreenViewController.h */,
-				B00511531A1102FE00A61AA4 /* MRAdManView+Corp.h */,
-				B00511541A1102FE00A61AA4 /* MRAdManView.h */,
-				B00511551A1102FE00A61AA4 /* MRADSection.h */,
-				B00511561A1102FE00A61AA4 /* MRADSectionIcon.h */,
-				B00511571A1102FE00A61AA4 /* MRADSectionsData.h */,
-				B00511581A1102FE00A61AA4 /* MRADShowcaseBanner.h */,
-				B00511591A1102FE00A61AA4 /* MRADStandardBanner.h */,
-				B005115A1A1102FE00A61AA4 /* MRStoreProductViewController.h */,
-				B005115B1A1102FE00A61AA4 /* SKStoreProductViewControllerDelegateExtended.h */,
-			);
-			path = Adman;
-			sourceTree = "<group>";
-		};
-		B005115C1A1102FE00A61AA4 /* AppsFlyer */ = {
-			isa = PBXGroup;
-			children = (
-				B005115D1A1102FE00A61AA4 /* AppsFlyerTracker.h */,
-				B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */,
-			);
-			path = AppsFlyer;
-			sourceTree = "<group>";
-		};
-		B005115F1A1102FE00A61AA4 /* Chartboost */ = {
-			isa = PBXGroup;
-			children = (
-				B00511601A1102FE00A61AA4 /* Chartboost.framework */,
-			);
-			path = Chartboost;
-			sourceTree = "<group>";
-		};
-		B00511641A1102FE00A61AA4 /* GoogleAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				B00511651A1102FE00A61AA4 /* GAI.h */,
-				B00511661A1102FE00A61AA4 /* GAIDictionaryBuilder.h */,
-				B00511671A1102FE00A61AA4 /* GAIEcommerceFields.h */,
-				B00511681A1102FE00A61AA4 /* GAIEcommerceProduct.h */,
-				B00511691A1102FE00A61AA4 /* GAIEcommerceProductAction.h */,
-				B005116A1A1102FE00A61AA4 /* GAIEcommercePromotion.h */,
-				B005116B1A1102FE00A61AA4 /* GAIFields.h */,
-				B005116C1A1102FE00A61AA4 /* GAILogger.h */,
-				B005116D1A1102FE00A61AA4 /* GAITrackedViewController.h */,
-				B005116E1A1102FE00A61AA4 /* GAITracker.h */,
-				B005116F1A1102FE00A61AA4 /* libGoogleAnalyticsServices.a */,
-			);
-			path = GoogleAnalytics;
-			sourceTree = "<group>";
-		};
-		B00511701A1102FE00A61AA4 /* GoogleConversionTracking */ = {
-			isa = PBXGroup;
-			children = (
-				B00511711A1102FE00A61AA4 /* ACTReporter.h */,
-				B00511721A1102FE00A61AA4 /* Deprecated */,
-				B00511741A1102FE00A61AA4 /* DoubleClick */,
-				B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */,
-			);
-			path = GoogleConversionTracking;
-			sourceTree = "<group>";
-		};
-		B00511721A1102FE00A61AA4 /* Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-				B00511731A1102FE00A61AA4 /* GoogleConversionPing.h */,
-			);
-			path = Deprecated;
-			sourceTree = "<group>";
-		};
-		B00511741A1102FE00A61AA4 /* DoubleClick */ = {
-			isa = PBXGroup;
-			children = (
-				B00511751A1102FE00A61AA4 /* DCTReporter.h */,
-			);
-			path = DoubleClick;
-			sourceTree = "<group>";
-		};
-		B005117A1A1102FE00A61AA4 /* MyTracker */ = {
-			isa = PBXGroup;
-			children = (
-				B005117B1A1102FE00A61AA4 /* libMyTracker.a */,
-				B005117C1A1102FE00A61AA4 /* MCMyTracker.h */,
-				B005117D1A1102FE00A61AA4 /* MRCustomParamsProvider.h */,
-				B005117E1A1102FE00A61AA4 /* MRMyTracker.h */,
-				B005117F1A1102FE00A61AA4 /* MRTracker.h */,
-				B00511801A1102FE00A61AA4 /* MRTrackerParams.h */,
-			);
-			path = MyTracker;
 			sourceTree = "<group>";
 		};
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
@@ -3856,6 +3716,7 @@
 				FAF804731417E3510024E8C1 /* ee@2x.png in Resources */,
 				FAF804741417E3510024E8C1 /* eg@2x.png in Resources */,
 				FAF804751417E3510024E8C1 /* eh@2x.png in Resources */,
+				6B948E171A254C9900229BD5 /* ExternalLibs in Resources */,
 				FAF804761417E3510024E8C1 /* er@2x.png in Resources */,
 				FAF804771417E3510024E8C1 /* es@2x.png in Resources */,
 				FAF804781417E3510024E8C1 /* et@2x.png in Resources */,
@@ -4552,6 +4413,7 @@
 				FAFB0882151215EE0041901D /* ph@2x.png in Resources */,
 				FAFB0883151215EE0041901D /* pk@2x.png in Resources */,
 				FAFB0884151215EE0041901D /* pl@2x.png in Resources */,
+				6B948E181A254C9900229BD5 /* ExternalLibs in Resources */,
 				FAFB0885151215EE0041901D /* pm@2x.png in Resources */,
 				FAFB0886151215EE0041901D /* pn@2x.png in Resources */,
 				FAFB0887151215EE0041901D /* pr@2x.png in Resources */,
@@ -4896,6 +4758,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4988,6 +4853,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -4996,6 +4862,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5038,6 +4907,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5046,6 +4916,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5161,6 +5034,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5169,6 +5043,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5185,6 +5062,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -5193,6 +5071,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5358,6 +5239,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5452,6 +5336,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5550,6 +5437,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5643,6 +5533,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5737,6 +5630,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5859,6 +5755,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5957,6 +5856,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6054,6 +5956,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6151,6 +6056,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6247,6 +6155,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -6263,6 +6174,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6271,6 +6183,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6311,6 +6226,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6319,6 +6235,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6359,6 +6278,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6367,6 +6287,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6407,6 +6330,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6415,6 +6339,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6455,6 +6382,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6463,6 +6391,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6503,6 +6434,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6511,6 +6443,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6551,6 +6486,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6559,6 +6495,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6599,6 +6538,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6607,6 +6547,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6647,6 +6590,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6655,6 +6599,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6695,6 +6642,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6703,6 +6651,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -6743,6 +6694,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
@@ -6751,6 +6703,9 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
+					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",

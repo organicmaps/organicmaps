@@ -1,4 +1,4 @@
-//  $Id: MRGSMoreGames.h 5656 2014-10-20 10:48:36Z a.grachev $
+//  $Id: MRGSMoreGames.h 6101 2014-11-19 16:03:20Z a.grachev $
 //
 //  MRGSMoreGames.h
 //  MRGServiceFramework
@@ -19,8 +19,9 @@
 @protocol MRGSMoreGamesDelegate;
 
 /**  Класс MRGSMoreGames. В инициализации не нуждается. Существовать должен только 1 экземпляр класса
- *
+ *  @deprecated Используйте класс MRGSAdman
  */
+DEPRECATED_ATTRIBUTE
 @interface MRGSMoreGames : NSObject<UIWebViewDelegate>
 
 #pragma mark -
@@ -45,14 +46,6 @@
 
 /** Витрина Открыта */
 @property (readonly, nonatomic, getter=isOpened) BOOL opened;
-
-/** Витрина игр и приложений AdMan */
-@property (readonly, strong, nonatomic) MRMyComAdManView* adManView;
-
-/** Флвг для опеределения необходимости завершения отложенной инициализации AdMan. Значение по умолчанию - NO.
- *  @discussion Если значение YES, то для завершения инициализации AdMan следует вызвать - (void)completeAdManLazyInit;
- */
-@property (nonatomic) BOOL shouldCompleteAdManLazyInit;
 
 /**
  *  Получение объекта, с помощью которого происходит отображение рекламной витрины.
@@ -81,12 +74,16 @@
  */
 - (void)close;
 
-/** Завершение отложенной инициализации AdMan.
- *  @discussion Выполняется только в случае, если значение shoulCompleteAdManLazyInit равно YES;
- */
-- (void)completeAdManLazyInit;
 
-#pragma mark - Deprecated methods and delegates
+#pragma mark - Deprecated methods and properties
+
+/** Витрина игр и приложений AdMan */
+@property (readonly, strong, nonatomic) MRMyComAdManView* adManView DEPRECATED_ATTRIBUTE;
+
+/** Флвг для опеределения необходимости завершения отложенной инициализации AdMan. Значение по умолчанию - NO.
+ *  @discussion Если значение YES, то для завершения инициализации AdMan следует вызвать - (void)completeAdManLazyInit;
+ */
+@property (nonatomic) BOOL shouldCompleteAdManLazyInit DEPRECATED_ATTRIBUTE;
 
 /** Экземпляр класса MRGSMoreGames.
  *	@return Возвращает экземпляр класса MRGSMoreGames
@@ -99,6 +96,11 @@
  * @param catalog int флаг каталога
  */
 - (void)open:(UIView*)rootview andCatalog:(int)catalog DEPRECATED_ATTRIBUTE;
+
+/** Завершение отложенной инициализации AdMan.
+ *  @discussion Выполняется только в случае, если значение shoulCompleteAdManLazyInit равно YES;
+ */
+- (void)completeAdManLazyInit DEPRECATED_ATTRIBUTE;
 
 @end
 

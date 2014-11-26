@@ -1,4 +1,4 @@
-//  $Id: MRGSRate.h 5723 2014-10-23 09:03:06Z a.grachev $
+//  $Id: MRGSRate.h 6143 2014-11-21 11:16:17Z a.grachev $
 //
 //  MRGSRate.h
 //  MRGServiceFramework
@@ -107,7 +107,7 @@
 #pragma mark Протокол
 /**  @name Протокол */
 
-/** Протокол MRGSMoreGamesDelegate. */
+/** Протокол MRGSRateDelegate. */
 @protocol MRGSRateDelegate<NSObject>
 
 @optional
