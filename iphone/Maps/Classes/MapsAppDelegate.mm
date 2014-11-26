@@ -107,21 +107,29 @@ void InitLocalizedStrings()
   
   // MRGService settings
   MRGServiceParams * mrgsParams = [[MRGServiceParams alloc] initWithAppId:appId andSecret:secret];
+#ifdef DEBUG
   mrgsParams.debug = YES;
+#endif
   mrgsParams.shouldResetBadge = NO;
   mrgsParams.crashReportEnabled = YES;
   mrgsParams.allowPushNotificationHooks = YES;
   
   NSString * appleAppId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppleAppID"];
   MRGSAppsFlyerParams * appsFlyerParams = [[MRGSAppsFlyerParams alloc] initWithDevKey:@"***REMOVED***" andAppleAppId:appleAppId];
+#ifdef DEBUG
   appsFlyerParams.debug = YES;
-  
+#endif
+
   // Google Analytics
   NSString * googleAnalyticsTrackingId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GoogleAnalyticsTrackingID"];
-  MRGSGoogleAnalyticsParams *googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:googleAnalyticsTrackingId];
+  MRGSGoogleAnalyticsParams * googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:googleAnalyticsTrackingId];
   googleAnalyticsParams.enable = NO;
   googleAnalyticsParams.exceptionHandlerEnabled = YES;
+#ifdef DEBUG
+  googleAnalyticsParams.logLevel = 4;
+#else
   googleAnalyticsParams.logLevel = 0;
+#endif
   
   NSArray *externalParams = @[appsFlyerParams, googleAnalyticsParams];
   
