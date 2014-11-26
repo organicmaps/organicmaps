@@ -16,6 +16,8 @@ namespace scales
   inline int GetUpperWorldScale() { return 9; }
   /// Upper scale for user comfort view (e.g. location zoom).
   inline int GetUpperComfortScale() { return UPPER_STYLE_SCALE - 2; }
+  /// Default navigation mode scale
+  inline int GetNavigationScale() { return UPPER_STYLE_SCALE - 4; }
 
   double GetScaleLevelD(double ratio);
   double GetScaleLevelD(m2::RectD const & r);
