@@ -195,6 +195,7 @@
 		B08AA8D41A25E56B00810B1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FC1A11019400A61AA4 /* libsqlite3.dylib */; };
 		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; };
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; };
+		B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
 		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
@@ -1521,6 +1522,8 @@
 		B00511001A1101AA00A61AA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		B08AA8D81A26299A00810B1C /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUtils.h; path = Categories/TimeUtils.h; sourceTree = "<group>"; };
+		B08AA8D91A26299A00810B1C /* TimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeUtils.m; path = Categories/TimeUtils.m; sourceTree = "<group>"; };
 		B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteOverallInfoView.h; sourceTree = "<group>"; };
 		B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteOverallInfoView.m; sourceTree = "<group>"; };
 		B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextTurnPhoneView.h; sourceTree = "<group>"; };
@@ -2400,6 +2403,8 @@
 			children = (
 				9747264218323080006B7CB7 /* UIKitCategories.h */,
 				9747264118323080006B7CB7 /* UIKitCategories.m */,
+				B08AA8D81A26299A00810B1C /* TimeUtils.h */,
+				B08AA8D91A26299A00810B1C /* TimeUtils.m */,
 				9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */,
 				9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */,
 			);
@@ -4614,6 +4619,7 @@
 				9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */,
 				97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
 				9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */,
+				B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */,
 				976D86F519CB21BD00C920EF /* RouteView.m in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				97A8000C18B21363000C07A2 /* SearchView.mm in Sources */,

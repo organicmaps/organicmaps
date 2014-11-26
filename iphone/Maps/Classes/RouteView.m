@@ -1,6 +1,7 @@
 
 #import "RouteView.h"
 #import "UIKitCategories.h"
+#import "TimeUtils.h"
 #import "RouteOverallInfoView.h"
 #import "NextTurnPhoneView.h"
 
@@ -55,7 +56,7 @@
   
   self.distanceLabel.text = info[@"targetDistance"];
   self.metricsLabel.text = [info[@"targetMetrics"] uppercaseString];
-  self.timeLeftLabel.text = [self secondsToString:info[@"timeToTarget"]];
+  self.timeLeftLabel.text = [NSDateFormatter estimatedArrivalTimeWithSeconds:info[@"timeToTarget"]];
   
   [UIView animateWithDuration:0.2 animations:^{
     [self updateSubviews];
@@ -66,20 +67,6 @@
 {
   NSString * turnTypeImageName = [NSString stringWithFormat:@"big-%@", turnType];
   return [UIImage imageNamed:turnTypeImageName];
-}
-
-- (NSString *)secondsToString:(NSNumber *)seconds
-{
-  static NSDateFormatter * dateFormatter;
-  if (!dateFormatter)
-  {
-    dateFormatter = [NSDateFormatter new];
-    dateFormatter.dateStyle = NSDateFormatterNoStyle;
-    dateFormatter.timeStyle = NSDateFormatterShortStyle;
-  }
-  NSDate * date = [NSDate dateWithTimeIntervalSinceNow:[seconds floatValue]];
-  NSString * string = [dateFormatter stringFromDate:date];
-  return string;
 }
 
 #define BUTTON_HEIGHT 48
