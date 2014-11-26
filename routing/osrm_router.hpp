@@ -37,6 +37,24 @@ public:
   };
   typedef vector<FeatureGraphNode> FeatureGraphNodeVecT;
 
+  struct TurnCandidate
+  {
+    double m_angle;
+    NodeID m_node;
+
+    TurnCandidate(double a, NodeID n)
+      : m_angle(a), m_node(n)
+    {
+    }
+
+    bool operator == (TurnCandidate const & other) const
+    {
+      return m_node == other.m_node;
+    }
+  };
+  typedef vector<TurnCandidate> TurnCandidatesT;
+
+
   OsrmRouter(Index const * index, CountryFileFnT const & fn);
 
   virtual string GetName() const;
@@ -53,13 +71,21 @@ protected:
   void CalculateRouteAsync(ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
+private:
+  NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData);
+
+  void GetPossibleTurns(NodeID node,
+                        m2::PointD const & p1,
+                        m2::PointD const & p,
+                        uint32_t mwmId,
+                        TurnCandidatesT & candidates);
+
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
                         uint32_t mwmId, Route::TurnItem & turn);
   void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
-private:
-  m2::PointD GetPointForTurnAngle(const OsrmFtSegMapping::FtSeg &seg,
-                                  const FeatureType &ft, const m2::PointD &turnPnt,
+  m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
+                                  FeatureType const &ft, m2::PointD const &turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
 
   Index const * m_pIndex;

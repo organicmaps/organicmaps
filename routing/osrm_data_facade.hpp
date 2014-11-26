@@ -111,11 +111,9 @@ public:
     return res;
   }
 
-  //! TODO: Remove static variable
-  EdgeDataT & GetEdgeData(const EdgeID e, NodeID node)
+  EdgeDataT GetEdgeData(const EdgeID e, NodeID node)
   {
-    static EdgeDataT res;
-
+    EdgeDataT res;
 
     res.shortcut = m_shortcuts[e];
     res.id = res.shortcut ? (node - bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)])) : 0;

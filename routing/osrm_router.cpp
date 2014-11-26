@@ -684,9 +684,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
   return NoError;
 }
-m2::PointD OsrmRouter::GetPointForTurnAngle(const OsrmFtSegMapping::FtSeg &seg,
-    const FeatureType &ft, const m2::PointD &turnPnt,
-    size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
+m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
+                                            FeatureType const &ft, m2::PointD const &turnPnt,
+                                            size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
 {
   const size_t maxPntsNum = 5;
   const double maxDistMeter = 250.f;
@@ -698,16 +698,105 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(const OsrmFtSegMapping::FtSeg &seg,
               ("GetPntForTurnAngle(). The start and the end pnt of a segment are too far from each other"));
   const size_t usedFtPntNum = min(maxPntsNum, segDist);
 
-  for(size_t i=1; i<= usedFtPntNum; ++i){
+  for (size_t i = 1; i <= usedFtPntNum; ++i)
+  {
     nextPnt = ft.GetPoint(GetPndInd(seg.m_pointStart, seg.m_pointEnd, i));
     curDist += MercatorBounds::DistanceOnEarth(pnt, nextPnt);
-    if(curDist > maxDistMeter){
+    if (curDist > maxDistMeter)
+    {
       return nextPnt;
     }
     pnt = nextPnt;
   }
   return nextPnt;
 }
+
+NodeID OsrmRouter::GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData)
+{
+  ASSERT_NOT_EQUAL(src, SPECIAL_NODEID, ());
+  ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
+  if (!edgeData.shortcut)
+    return trg;
+
+  ASSERT_LESS(edgeData.id, m_dataFacade.GetNumberOfNodes(), ());
+  EdgeID edge = SPECIAL_EDGEID;
+  QueryEdge::EdgeData d;
+  for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(edgeData.id))
+  {
+    if (m_dataFacade.GetTarget(e) == src )
+    {
+      d = m_dataFacade.GetEdgeData(e, edgeData.id);
+      if (d.backward)
+      {
+        edge = e;
+        break;
+      }
+    }
+  }
+
+  if (edge == SPECIAL_EDGEID)
+  {
+    for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(src))
+    {
+      if (m_dataFacade.GetTarget(e) == edgeData.id)
+      {
+        d = m_dataFacade.GetEdgeData(e, src);
+        if (d.forward)
+        {
+          edge = e;
+          break;
+        }
+      }
+    }
+  }
+  ASSERT_NOT_EQUAL(edge, SPECIAL_EDGEID, ());
+
+  if (d.shortcut)
+    return GetTurnTargetNode(src, edgeData.id, d);
+
+  return edgeData.id;
+}
+
+void OsrmRouter::GetPossibleTurns(NodeID node,
+                                  m2::PointD const & p1,
+                                  m2::PointD const & p,
+                                  uint32_t mwmId,
+                                  OsrmRouter::TurnCandidatesT & candidates)
+{
+
+  for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(node))
+  {
+    QueryEdge::EdgeData const data = m_dataFacade.GetEdgeData(e, node);
+    if (!data.forward)
+      continue;
+
+    NodeID trg = GetTurnTargetNode(node, m_dataFacade.GetTarget(e), data);
+    ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
+
+    auto const range = m_mapping.GetSegmentsRange(trg);
+    OsrmFtSegMapping::FtSeg seg;
+    m_mapping.GetSegmentByIndex(range.first, seg);
+
+    FeatureType ft;
+    Index::FeaturesLoaderGuard loader(*m_pIndex, mwmId);
+    loader.GetFeature(seg.m_fid, ft);
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+    m2::PointD const p2 = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
+    ASSERT_EQUAL(p, ft.GetPoint(seg.m_pointStart), ());
+
+    double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
+    while (a < 0)
+      a += 360;
+
+    candidates.emplace_back(a, trg);
+  }
+
+  sort(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2) { return t1.m_angle < t2.m_angle; });
+  auto last = unique(candidates.begin(), candidates.end());
+  candidates.erase(last, candidates.end());
+}
+
 
 void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
@@ -737,17 +826,31 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   m2::PointD p = ft1.GetPoint(seg1.m_pointEnd);
   m2::PointD p1 = GetPointForTurnAngle(seg1, ft1, p,
-                    [](const size_t start, const size_t end, const size_t i){
+                    [](const size_t start, const size_t end, const size_t i)
+                    {
                       return end > start ? end - i : end + i;
                     });
   m2::PointD p2 = GetPointForTurnAngle(seg2, ft2, p,
-                    [](const size_t start, const size_t end, const size_t i){
+                    [](const size_t start, const size_t end, const size_t i)
+                    {
                       return end > start ? start + i : start - i;
                     });
 
   double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
   while (a < 0)
     a += 360;
+
+#ifdef _DEBUG
+  TurnCandidatesT nodes;
+  GetPossibleTurns(node1.node, p1, p, mwmId, nodes);
+
+  LOG(LDEBUG, ("Possible turns: ", nodes.size()));
+  for (size_t i = 0; i < nodes.size(); ++i)
+  {
+    TurnCandidate const &t = nodes[i];
+    LOG(LDEBUG, ("Angle:", t.m_angle, "Node:", t.m_node));
+  }
+#endif
 
   turn.m_turn = turns::NoTurn;
   if (a >= 23 && a < 67)
