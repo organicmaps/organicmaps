@@ -131,7 +131,14 @@ void InitLocalizedStrings()
   googleAnalyticsParams.logLevel = 0;
 #endif
   
-  NSArray *externalParams = @[appsFlyerParams, googleAnalyticsParams];
+  // MyTracker (Adman Tracker)
+  NSString * admanTrackerAppId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AdmanTrackerAppID"];
+  MRGSMyTrackerParams * myTrackerParams = [[MRGSMyTrackerParams alloc] initWithAppId:admanTrackerAppId];
+#ifdef DEBUG
+  myTrackerParams.enableLogging = YES;
+#endif
+
+  NSArray * externalParams = @[appsFlyerParams, googleAnalyticsParams, admanTrackerAppId];
   
   [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
   [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
