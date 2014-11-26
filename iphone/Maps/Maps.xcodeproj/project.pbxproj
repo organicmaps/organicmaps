@@ -200,6 +200,8 @@
 		B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
 		B0DFE62B1A1B75DB00B6C35E /* LocalNotifications-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */; };
 		B0DFE6311A1B78A200B6C35E /* LocalNotifications-Pro.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */; };
+		B08AA8DB1A2647EE00810B1C /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
+		B08AA8DC1A2647F100810B1C /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
@@ -4697,6 +4699,7 @@
 				A3CC2CD51A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
+				B08AA8DC1A2647F100810B1C /* RouteOverallInfoView.m in Sources */,
 				97508420199501F100A7457D /* ImageDownloader.m in Sources */,
 				97A0EEFD192F3B43009B2779 /* BottomMenuCell.mm in Sources */,
 				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
@@ -4734,6 +4737,7 @@
 				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				977E26C719E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
+				B08AA8DB1A2647EE00810B1C /* NextTurnPhoneView.m in Sources */,
 				97D092B6190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				97C98523186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
