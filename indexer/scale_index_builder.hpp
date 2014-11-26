@@ -176,6 +176,9 @@ inline void IndexScales(uint32_t bucketsCount,
     recordWriter.FinishRecord();
   }
 
-  CHECK(skipped.empty(), ());
+  /// @todo Now we can't check this condition here.
+  /// We have stored features that are invisible even on the last zoom for now (coastlines).
+  //CHECK(skipped.empty(), ());
+
   LOG(LINFO, ("All scale indexes done."));
 }
