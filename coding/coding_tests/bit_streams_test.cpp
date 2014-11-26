@@ -27,6 +27,9 @@ UNIT_TEST(BitStream_ReadWrite)
   {
     uint32_t numBits = GetRand64() % 57;
     uint64_t num = GetRand64() & (uint64_t(-1) >> (64 - numBits));
+    // Right bit shift by 64 doesn't always work correctly,
+    // this is a workaround.
+    if (numBits == 0) num = 0;
     nums.push_back(make_pair(num, numBits));
   }
   
@@ -42,5 +45,6 @@ UNIT_TEST(BitStream_ReadWrite)
   {
     uint64_t num = bitsSource.Read(nums[i].second);
     TEST_EQUAL(num, nums[i].first, ());
-  }}
+  }
+}
 
