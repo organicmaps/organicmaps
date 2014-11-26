@@ -123,7 +123,6 @@ void InitLocalizedStrings()
   // Google Analytics
   NSString * googleAnalyticsTrackingId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GoogleAnalyticsTrackingID"];
   MRGSGoogleAnalyticsParams * googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:googleAnalyticsTrackingId];
-  googleAnalyticsParams.enable = NO;
   googleAnalyticsParams.exceptionHandlerEnabled = YES;
 #ifdef DEBUG
   googleAnalyticsParams.logLevel = 4;
