@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Naviguez plus facilement avec la version complète de MAPS.ME proposant la recherche hors ligne. Obtenez-la maintenant !</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">Passez à MAPS.ME Pro aujourd\&#39;hui, gratuitement !</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro est gratuit aujourd\&#39;hui. Dites-le à vos amis !</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Aujourd\&#39;hui, vous pouvez passer à MAPS.ME Pro gratuitement. Ne ratez pas cette occasion !</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Les meilleures cartes hors ligne de MAPS.ME sont gratuites aujourd\&#39;hui. Téléchargez-le maintenant et dites-le à vos amis !</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Téléchargez les cartes hors ligne de MAPS.ME gratuitement</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Savez-vous que les cartes hors lignes de MAPS.ME sont téléchargeables gratuitement, aujourd\&#39;hui ? Grâce à cette appli, vous voyagerez sans jamais vous perdre. Elle coûte normalement 4 euros, donne accès aux cartes hors ligne de tous les pays du monde, vous permet d\&#39;enregistrer des favoris et est dotée d\&#39;un moteur de recherche et d\&#39;une fonction itinéraire. Ne ratez pas cette occasion !</string>
 	<!-- About button text (should be short) -->
 	<string name="about">À propos de</string>
 	<!-- Button text (should be short) -->

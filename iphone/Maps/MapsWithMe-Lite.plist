@@ -12,6 +12,8 @@
 	<string>431183278</string>
 	<key>GoogleAnalyticsTrackingID</key>
 	<string>UA-45510902-19</string>
+	<key>LocalNotificationsFileName</key>
+	<string>LocalNotifications-Lite</string>
 	<key>AarkiClientSecurityKey</key>
 	<string>lN96dHHOKoi6mGD5NtsFx8NmuQqM</string>
 	<key>CFBundleDevelopmentRegion</key>

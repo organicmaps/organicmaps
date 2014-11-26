@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Mas facil navegar con la version completa MAPS.ME con el buscador fuera de la Internet. Bajalo ya!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">¡Actualízate a MAPS.ME Pro gratis hoy!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro es gratis hoy. ¡Díselo a tus amigos!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Hoy puedes actualizarte a MAPS.ME Pro gratis. ¡No dejes pasar la oportunidad!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">¡Hoy los mejores mapas sin conexión de MAPS.ME son gratis! Descárgalo ahora y dilo a tus amigos .</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Obtén ahora mapas sin conexión de MAPS.ME gratis</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">¡Ey! ¿Sabes que hoy puedes descargar mapas sin conexión de MAPS.ME gratis? Con esta aplicación nunca te perderás al viajar. Normalmente cuesta 5 $ y ofrece mapas sin conexión de todos los países del mundo con búsquedas, favoritos e itinerarios. ¡No dejes pasar la oportunidad!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Acerca de</string>
 	<!-- Button text (should be short) -->

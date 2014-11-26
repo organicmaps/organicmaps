@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Navegue mais facilmente com a versão completa do MAPS.ME com a funcionalidade de procura offline. Obtenha-a agora mesmo!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Faça o upgrade para MAPS.ME Pro gratuitamente hoje!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "O MAPS.ME Pro é gratuito hoje. Diga aos seus amigos!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Pode fazer o upgrade para MAPS.ME Pro gratuitamente hoje. Não perca a oportunidade!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Os melhores mapas offline do MAPS.ME são hoje gratuitos. Descarregue e conte aos seus amigos!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Obtenha mapas offline do MAPS.ME agora, gratuitamente";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Oi! Sabia que hoje pode descarregar mapas offline do MAPS.ME gratuitamente? Com esta aplicação, nunca se perderá enquanto viaja. Normalmente custa $5 e proporciona mapas offline de todos os países do mundo, com pesquisas, marcadores e criação de trajetos. Não perca esta oportunidade!";
+
 /* About button text (should be short) */
 "about" = "Sobre";
 

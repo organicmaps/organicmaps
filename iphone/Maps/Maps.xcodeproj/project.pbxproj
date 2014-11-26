@@ -160,7 +160,7 @@
 		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
 		97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
-		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; };
+		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
 		97ECD8821836751100F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
@@ -188,14 +188,18 @@
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
+		B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */; };
 		B08AA8D01A25E53600810B1C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
 		B08AA8D11A25E54800810B1C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B08AA8D21A25E55800810B1C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511001A1101AA00A61AA4 /* libz.dylib */; };
 		B08AA8D31A25E56300810B1C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FE1A1101A000A61AA4 /* libxml2.dylib */; };
 		B08AA8D41A25E56B00810B1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FC1A11019400A61AA4 /* libsqlite3.dylib */; };
-		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; };
-		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; };
+		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B08AA8D71A26108F00810B1C /* LocalNotificationInfoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */; };
 		B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
+		B0DFE62B1A1B75DB00B6C35E /* LocalNotifications-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */; };
+		B0DFE6311A1B78A200B6C35E /* LocalNotifications-Pro.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */; };
 		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
@@ -1522,8 +1526,12 @@
 		B00511001A1101AA00A61AA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		B08AA8CC1A24C7BC00810B1C /* LocalNotificationInfoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotificationInfoProvider.h; sourceTree = "<group>"; };
+		B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationInfoProvider.m; sourceTree = "<group>"; };
 		B08AA8D81A26299A00810B1C /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUtils.h; path = Categories/TimeUtils.h; sourceTree = "<group>"; };
 		B08AA8D91A26299A00810B1C /* TimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeUtils.m; path = Categories/TimeUtils.m; sourceTree = "<group>"; };
+		B0DFE62C1A1B75DB00B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = "en.lproj/LocalNotifications-Lite.plist"; sourceTree = "<group>"; };
+		B0DFE6301A1B78A200B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = "en.lproj/LocalNotifications-Pro.plist"; sourceTree = "<group>"; };
 		B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteOverallInfoView.h; sourceTree = "<group>"; };
 		B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteOverallInfoView.m; sourceTree = "<group>"; };
 		B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextTurnPhoneView.h; sourceTree = "<group>"; };
@@ -2265,8 +2273,12 @@
 				9789DB53188D5DFF007C6FAE /* In App Messaging */,
 				9770A04618AD19D300126E5C /* More Apps */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
-				974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */,
 				974D041C1977DE430081D0A7 /* LocalNotificationManager.h */,
+				974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */,
+				B08AA8CC1A24C7BC00810B1C /* LocalNotificationInfoProvider.h */,
+				B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */,
+				B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */,
+				B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */,
@@ -3761,6 +3773,7 @@
 				FAF8047A1417E3510024E8C1 /* fj@2x.png in Resources */,
 				FAF8047B1417E3510024E8C1 /* fk@2x.png in Resources */,
 				FAF8047C1417E3510024E8C1 /* fm@2x.png in Resources */,
+				B0DFE6311A1B78A200B6C35E /* LocalNotifications-Pro.plist in Resources */,
 				FAF8047D1417E3510024E8C1 /* fo@2x.png in Resources */,
 				FAF8047E1417E3510024E8C1 /* fr@2x.png in Resources */,
 				FAF8047F1417E3510024E8C1 /* ga@2x.png in Resources */,
@@ -4193,6 +4206,7 @@
 				FAFB0786151215EE0041901D /* pl.png in Resources */,
 				FAFB0787151215EE0041901D /* pm.png in Resources */,
 				FAFB0788151215EE0041901D /* pn.png in Resources */,
+				B0DFE62B1A1B75DB00B6C35E /* LocalNotifications-Lite.plist in Resources */,
 				FAFB0789151215EE0041901D /* pr.png in Resources */,
 				FAFB078A151215EE0041901D /* ps.png in Resources */,
 				FAFB078B151215EE0041901D /* pt.png in Resources */,
@@ -4590,6 +4604,7 @@
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				976D86F119C877E600C920EF /* MapCell.mm in Sources */,
 				977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
+				B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
 				B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */,
@@ -4694,6 +4709,7 @@
 				FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */,
 				977E26BF19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
 				97F61782183E6172009919E2 /* LocationButton.mm in Sources */,
+				B08AA8D71A26108F00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				9747264418323080006B7CB7 /* UIKitCategories.m in Sources */,
 				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
 				97F0817F19AF72590098FB0B /* BadgeView.m in Sources */,
@@ -4746,6 +4762,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0DFE62C1A1B75DB00B6C35E /* en */,
+			);
+			name = "LocalNotifications-Lite.plist";
+			sourceTree = "<group>";
+		};
+		B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0DFE6301A1B78A200B6C35E /* en */,
+			);
+			name = "LocalNotifications-Pro.plist";
+			sourceTree = "<group>";
+		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

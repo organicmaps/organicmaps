@@ -184,11 +184,15 @@ void InitLocalizedStrings()
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
 
+  if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
+  {
+    UIUserNotificationSettings * settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+  }
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
-    [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]];
-  else
-    [notificationManager showDownloadMapAlertIfNeeded];
+    [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
+  [notificationManager updateLocalNotifications];
 
   [UIApplication sharedApplication].applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
 
@@ -382,7 +386,7 @@ void InitLocalizedStrings()
   }
   else
   {
-    [[LocalNotificationManager sharedManager] processNotification:notification];
+    [[LocalNotificationManager sharedManager] processNotification:notification onLaunch:NO];
   }
 }
 

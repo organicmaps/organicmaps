@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Navigeer makkelijker met MAPS.ME Pro met offline zoeken. Instelleer het nu!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Upgrade vandaag gratis naar MAPS.ME Pro!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro is vandaag gratis. Vertel het aan je vrienden!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Je kunt vandaag gratis upgraden naar MAPS.ME Pro. Mis deze kans niet!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "De beste offline kaarten van MAPS.ME zijn vandaag gratis. Download nu en vertel het je vrienden!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Verkrijg offline kaarten van MAPS.ME nu gratis";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hey! Weet u dat u vandaag de offline kaarten van MAPS.ME gratis kunt downloaden? Met deze app raakt u de weg nooit meer kwijt tijdens uw reis. Normaliter kost het $ 5,- en biedt offline kaarten voor alle landen op de wereld met zoekfunctie, favorieten en routeplanning. Mis uw kans niet!";
+
 /* About button text (should be short) */
 "about" = "Over";
 

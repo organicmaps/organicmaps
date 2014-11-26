@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "使用带离线搜索功能的完整版MAPS.ME实现更简便的导航。现在就获取它吧！";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Upgrade to MAPS.ME Pro for free today!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro is free today. Tell your friends!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "You can upgrade to MAPS.ME Pro for free today. Don’t miss your chance!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Best offline maps MAPS.ME are free today. Download now and tell your friends!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Get offline maps MAPS.ME for free now";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hey! Do you know that today you can download offline maps MAPS.ME for free? With this app you’ll never get lost while traveling. It usually costs $5 and provides offline maps of all world countries with search, bookmarks and routing. Don’t miss your chance!";
+
 /* About button text (should be short) */
 "about" = "关于";
 

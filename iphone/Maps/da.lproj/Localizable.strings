@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Naviger lettere med den fulde version af MAPS.ME med bl.a. offline søgning. Få det nu!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Opgradér til MAPS.ME Pro gratis i dag!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro er gratis i dag. Fortæl det til dine venner!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Du kan opgradér til MAPS.ME Pro gratis i dag. Gå ikke glip af chancen!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Bedste offline kort MAPS.ME er gratis i dag. Download nu og fortæl dine venner om det!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Nu kan du få gratis offline-kort fra MAPS.ME";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hej! Vidste du, at du i dag kan downloade offline-kort fra MAPS.ME helt gratis? Med denne app vil du aldrig mere fare vild på dine rejser. Det koster normalt $5 og tilbyder offline-kort til alle verdens lande med søgning, bogmærker og routing. Gå ikke glip af denne chance!";
+
 /* About button text (should be short) */
 "about" = "Om app";
 

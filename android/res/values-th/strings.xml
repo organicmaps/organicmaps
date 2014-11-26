@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">ระบบนำทางที่ง่ายขึ้นด้วย MAPS.ME ที่โดดเด่นด้วยการค้นหาแบบออฟไลน์แบบเวอร์ชันเต็ม รับมันทันทีตอนนี้!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">อัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro ฟรีวันนี้ บอกเพื่อน ๆ ของคุณ!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">คุณสามารถที่จะอัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้ อย่าพลาดโอกาสของคุณ!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">อัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้. ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">รับแผนที่ออฟไลน์ MAPS.ME ฟรีตอนนี้</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">สวัสดี! คุณรู้ไหมว่าวันนี้คุณสามารถดาวน์โหลดแผนที่ออฟไลน์ของ MAPS.ME ได้ฟรี? เมื่อใช้แอปนี้ คุณจะไม่หลงทางอีกต่อไปในระหว่างการท่องเที่ยว ซึ่งโดยปกติแล้ว การให้บริการแผนที่ออฟไลน์ของประเทศทั่วโลกที่สามารถทำการค้นหา บุ๊กมาร์กและระบุเส้นทางได้นั้นจะต้องเสียเงินถึง $5 ดังนั้นอย่าพลาดโอกาสของคุณ!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">เกี่ยวกับ</string>
 	<!-- Button text (should be short) -->

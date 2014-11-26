@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "További lehetőségek a MAPS.ME teljes verziójában. Töltse le most!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Ma ingyen frissítheted a MAPS.ME Pro!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "A MAPS.ME Pro ma ingyenes. Mondd el a barátaidnak!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Ma ingyen frissítheted a MAPS.ME Pro. Ne szalaszd el az esélyt!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "A legjobb MAPS.ME offline térképek ma ingyenesek. Töltsd le most és meséld el barátaidnak!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Szerezze meg az ingyenes offline MAPS.ME-t";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hé! Tudtad, hogy ma letöltheted az offline MAPS.ME-t ingyen? Ezzel az alkalmazással sosem fogsz elveszni utazás közben. Általában 5 dollárba kerül és offline térképeket nyújt az összes országból, ahol keresel vele, könyvjelzőket és útvonaltervezést ad. Ne hagyd ki ezt a lehetőséget!";
+
 /* About button text (should be short) */
 "about" = "A programról";
 

@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Більше можливостей у повній версії MAPS.ME з офлайн пошуком. Встановити її зараз?";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "MAPS.ME Pro сьогодні безкоштовні! Завантажуйте!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro сьогодні безкоштовні! Розкажіть друзям!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Сьогодні ви можете завантажити MAPS.ME Pro безкоштовно. Не втрачайте можливості!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Круті офлайн-карти MAPS.ME Pro сьогодні безкоштовні! Завантажуй та розкажи друзям!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Офлайн-карти MAPS.ME сьогодні безкоштовні";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Привіт! Хороша новина: сьогодні ти можеш безкоштовно завантажити офлайн-карти MAPS.ME! З цією програмою ти ніколи не загубишся в поїздках. Зазвичай вона коштує $5! Крім офлайн карт всіх країн там ще є пошук, закладки і прокладання маршрутів. Обов'язково завантаж!";
+
 /* About button text (should be short) */
 "about" = "Про програму";
 

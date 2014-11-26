@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Navigera enklare med fullversionen av MAPS.ME med bl.a. offline-sökning. Skaffa den nu!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">Uppgradera till MAPS.ME Pro gratis redan idag!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro är gratis idag. Berätta för dina vänner!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Du kan uppgradera till MAPS.ME Pro gratis redan idag. Missa inte din chans!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Bästa offline kartor MAPS. ME är gratis idag. Ladda ner den nu och berätta för dina vänner!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Få offline-kartor MAPS.ME gratis nu</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Hallå där! Vet du att du i dag kan ladda ner offline-kartor MAPS.ME gratis? Med denna app går du aldrig vilse på resan. Vanligtvis kostar den 5 $ och tillhandahåller offline-kartor från alla länder i världen med sökning, bokmärken och rutter. Missa inte din chans!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Om</string>
 	<!-- Button text (should be short) -->

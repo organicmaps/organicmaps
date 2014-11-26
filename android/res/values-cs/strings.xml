@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Získej více možností s plnou verzí MAPS.ME, zahrnující offline vyhledávání. Nainstaluj si ji nyní!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">Proveďte dnes zdarma upgrade na MAPS.ME Pro!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro jsou dnes zdarma. Řekněte to všem kamarádům!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Dnes můžete zdarma provést upgrade na MAPS.ME Pro. Nezmeškejte svou šanci!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Nejlepší offline mapy MAPS.ME jsou dnes zdarma. Stáhni si ji nyní a dej vědět kamarádům!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Získejte v režimu offline mapy MAPS.ME nyní zdarma</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Hej! Víte, že dnes si můžete stáhnout v režimu offline mapy MAPS.ME zdarma? Díky této aplikaci se na cestách nikdy neztratíte. Obvyklá cena je 5 dolarů a poskytuje off-line mapy všech zemí světa s vyhledáváním, záložkami a směrováním. Nenechte si ujít příležitost!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">O aplikaci</string>
 	<!-- Button text (should be short) -->

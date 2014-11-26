@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Більше можливостей у повній версії MAPS.ME з офлайн пошуком. Встановити її зараз?</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">MAPS.ME Pro сьогодні безкоштовні! Завантажуйте!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro сьогодні безкоштовні! Розкажіть друзям!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Сьогодні ви можете завантажити MAPS.ME Pro безкоштовно. Не втрачайте можливості!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Круті офлайн-карти MAPS.ME Pro сьогодні безкоштовні! Завантажуй та розкажи друзям!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Офлайн-карти MAPS.ME сьогодні безкоштовні</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Привіт! Хороша новина: сьогодні ти можеш безкоштовно завантажити офлайн-карти MAPS.ME! З цією програмою ти ніколи не загубишся в поїздках. Зазвичай вона коштує $5! Крім офлайн карт всіх країн там ще є пошук, закладки і прокладання маршрутів. Обов\&#39;язково завантаж!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Про програму</string>
 	<!-- Button text (should be short) -->

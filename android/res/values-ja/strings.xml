@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">MAPS.ME完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">本日MAPS.ME Proに無料でアップグレード！</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">本日MAPS.ME Proが無料です。お友達に教えてあげてください！</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">本日MAPS.ME Proに無料でアップグレードできます。このチャンスをお見逃しなく！</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">ベストオフライン地図のMAPS.MEが本日無料。今すぐダウンロードして友達に教えてあげましょう！</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">本日オフライン地図のMAPS.MEを無料でゲット</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">こんにちは！今日オフライン地図のMAPS.MEが無料でダウンロードできるのをご存じでしたか？このアプリがあれば、旅行中に道に迷うことがなくなります。通常$5で、世界中すべての国のオフライン地図を検索、お気に入り、ルート機能付きで提供します。このチャンスをお見逃しなく！</string>
 	<!-- About button text (should be short) -->
 	<string name="about">情報</string>
 	<!-- Button text (should be short) -->

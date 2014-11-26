@@ -7,6 +7,7 @@
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
+#import "LocalNotificationInfoProvider.h"
 
 #include "../../../storage/storage_defines.hpp"
 
@@ -14,6 +15,9 @@
 
 #define FLAGS_KEY @"DownloadMapNotificationFlags"
 #define SHOW_INTERVAL (6 * 30 * 24 * 60 * 60) // six months
+
+NSString * const LocalNotificationManagerSpecialNotificationInfoKey = @"LocalNotificationManagerSpecialNotificationInfoKey";
+NSString * const LocalNotificationManagerNumberOfViewsPrefix = @"LocalNotificationManagerNumberOfViewsPrefix";
 
 using namespace storage;
 
@@ -40,63 +44,209 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   return manager;
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (void)updateLocalNotifications
 {
-  [self.timer invalidate];
-  BOOL const inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
-  BOOL const onWiFi = [[AppInfo sharedInfo].reachability isReachableViaWiFi];
-  if (inBackground && onWiFi)
+  [self scheduleSpecialLocalNotifications];
+}
+
+- (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch
+{
+  NSDictionary * userInfo = [notification userInfo];
+  if ([userInfo[@"Action"] isEqualToString:DOWNLOAD_MAP_ACTION_NAME])
   {
-    Framework & f = GetFramework();
-    CLLocation * lastLocation = [locations lastObject];
-    TIndex const index = f.GetCountryIndex(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude));
+    [[Statistics instance] logEvent:@"'Download Map' Notification Clicked"];
+    [[MapsAppDelegate theApp].m_mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
-    if (index.IsValid() && [self shouldShowNotificationForIndex:index])
+    TIndex const index = TIndex([userInfo[@"Group"] intValue], [userInfo[@"Country"] intValue], [userInfo[@"Region"] intValue]);
+    [self downloadCountryWithIndex:index];
+  }
+  else if (userInfo[LocalNotificationManagerSpecialNotificationInfoKey])
+  {
+    NSDictionary * notificationInfo = userInfo[LocalNotificationManagerSpecialNotificationInfoKey];
+    if (onLaunch)
+      [self runNotificationAction:notificationInfo];
+    else
     {
-      TStatus const status = f.GetCountryStatus(index);
-      if (status == TStatus::ENotDownloaded)
-      {
-        [self markNotificationShowingForIndex:index];
-
-        UILocalNotification * notification = [[UILocalNotification alloc] init];
-        notification.alertAction = L(@"download");
-        notification.alertBody = L(@"download_map_notification");
-        notification.soundName = UILocalNotificationDefaultSoundName;
-        notification.userInfo = @{@"Action" : DOWNLOAD_MAP_ACTION_NAME, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
-
-        UIApplication * application = [UIApplication sharedApplication];
-        [application presentLocalNotificationNow:notification];
-        [[Statistics instance] logEvent:@"'Download Map' Notification Scheduled"];
-        // we don't need badges now
-//        [application setApplicationIconBadgeNumber:[application applicationIconBadgeNumber] + 1];
-
-        self.downloadMapCompletionHandler(UIBackgroundFetchResultNewData);
-        return;
-      }
+      NSString * dismissiveAction = L(@"later");
+      NSString * positiveAction = [self actionTitleWithAction:notificationInfo[@"NotificationAction"]];
+      NSString * notificationTitle = L(notificationInfo[@"NotificationLocalizedAlertBodyKey"]);
+      if (![notificationTitle length])
+        notificationTitle = L(notificationInfo[@"NotificationLocalizedBodyKey"]);
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:notificationTitle message:nil delegate:nil cancelButtonTitle:dismissiveAction otherButtonTitles:positiveAction, nil];
+      alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex != alertView.cancelButtonIndex)
+          [self runNotificationAction:notificationInfo];
+      };
+      [alertView show];
     }
   }
-  [[Statistics instance] logEvent:@"'Download Map' Notification Didn't Schedule" withParameters:@{@"WiFi" : @(onWiFi)}];
-  self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
 }
 
-- (void)markNotificationShowingForIndex:(TIndex)index
+- (NSString *)actionTitleWithAction:(NSString *)action
 {
-  NSMutableDictionary * flags = [[[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY] mutableCopy];
-  if (!flags)
-    flags = [[NSMutableDictionary alloc] init];
-
-  flags[[self flagStringForIndex:index]] = [NSDate date];
-
-  [[NSUserDefaults standardUserDefaults] setObject:flags forKey:FLAGS_KEY];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+  if ([action isEqualToString:@"Share"])
+    return L(@"share");
+  else if ([action isEqualToString:@"AppStoreProVersion"])
+    return L(@"download");
+  else
+    return nil;
 }
 
-- (BOOL)shouldShowNotificationForIndex:(TIndex)index
+- (void)runNotificationAction:(NSDictionary *)notificationInfo
 {
-  NSDictionary * flags = [[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY];
-  NSDate * lastShowDate = flags[[self flagStringForIndex:index]];
-  return !lastShowDate || [[NSDate date] timeIntervalSinceDate:lastShowDate] > SHOW_INTERVAL;
+  NSString * action = notificationInfo[@"NotificationAction"];
+  
+  if ([action isEqualToString:@"Share"])
+  {
+    NSString * textToShare = L(notificationInfo[@"NotificationLocalizedShareTextKey"]);
+    NSURL * link = [NSURL URLWithString:notificationInfo[@"NotificationShareLink"]];
+    if (link)
+      textToShare = [textToShare stringByAppendingFormat:@" %@", [link absoluteString]];
+    UIImage * shareImage = [UIImage imageNamed:notificationInfo[@"NotifiicationShareImage"]];
+    LocalNotificationInfoProvider * infoProvider = [[LocalNotificationInfoProvider alloc] initWithDictionary:notificationInfo];
+
+    if (SYSTEM_VERSION_IS_LESS_THAN(@"6.0"))
+    {
+      UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
+      pasteboard.URL = link;
+      NSString * message = [NSString stringWithFormat:L(@"copied_to_clipboard"), [link absoluteString]];
+      UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil];
+      [alertView show];
+    }
+    else
+    {
+      NSMutableArray * itemsToShare = [NSMutableArray arrayWithObject:infoProvider];
+      if (shareImage)
+        [itemsToShare addObject:shareImage];
+      
+      UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+      NSMutableArray * excludedActivityTypes = [@[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll] mutableCopy];
+      if (!SYSTEM_VERSION_IS_LESS_THAN(@"7.0"))
+        [excludedActivityTypes addObject:UIActivityTypeAirDrop];
+      activityVC.excludedActivityTypes = excludedActivityTypes;
+      UIWindow * window = [[UIApplication sharedApplication].windows firstObject];
+      NavigationController * vc = (NavigationController *)window.rootViewController;
+      [vc presentViewController:activityVC animated:YES completion:nil];
+    }
+  }
+  else if ([action isEqualToString:@"AppStoreProVersion"])
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_free_pro_version_notification"];
 }
+
+#pragma mark - Special Notifications
+
+- (BOOL)isSpecialLocalNotification:(UILocalNotification *)notification
+{
+  if (notification.userInfo && notification.userInfo[LocalNotificationManagerSpecialNotificationInfoKey])
+    return YES;
+  else
+    return NO;
+}
+
+- (NSArray *)scheduledSpecialLocalNotifications
+{
+  NSArray * allNotifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+  NSMutableArray * specialNotifications = [[NSMutableArray alloc] init];
+  for (UILocalNotification * notification in allNotifications)
+  {
+    if ([self isSpecialLocalNotification:notification])
+      [specialNotifications addObject:notification];
+  }
+  
+  return specialNotifications;
+}
+
+- (BOOL)isSpecialNotificationScheduled:(NSString *)specialNotificationID
+{
+  NSArray * notifications = [self scheduledSpecialLocalNotifications];
+  
+  for (UILocalNotification * scheduledNotification in notifications)
+  {
+    NSDictionary * notificationInfo = scheduledNotification.userInfo[LocalNotificationManagerSpecialNotificationInfoKey];
+    NSString * scheduledSpecialNotificationID = notificationInfo[@"NotificationID"];
+    if ([scheduledSpecialNotificationID isEqualToString:specialNotificationID])
+      return YES;
+  }
+  
+  return NO;
+}
+
+- (void)increaseViewsNumberOfNotification:(NSString *)specialNotificationID
+{
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSString * key = [NSString stringWithFormat:@"%@%@", LocalNotificationManagerNumberOfViewsPrefix, specialNotificationID];
+  NSNumber * viewsNumber = [userDefaults objectForKey:key];
+  viewsNumber = viewsNumber ? @([viewsNumber integerValue] + 1) : @(1);
+  [userDefaults setObject:viewsNumber forKey:key];
+  [userDefaults synchronize];
+}
+
+- (NSNumber *)viewNumberOfNotification:(NSString *)specialNotificationID
+{
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSString * key = [NSString stringWithFormat:@"%@%@", LocalNotificationManagerNumberOfViewsPrefix, specialNotificationID];
+  NSNumber * viewsNumber = [userDefaults objectForKey:key];
+  if (!viewsNumber)
+    viewsNumber = @(0);
+  return viewsNumber;
+}
+
+- (void)scheduleSpecialLocalNotifications
+{
+  NSArray * localNotificationsInfo = [self localNotificationsInfo];
+  NSMutableArray * actualSpecialLocalNotifications = [NSMutableArray array];
+  for (NSDictionary * notificationInfo in localNotificationsInfo)
+  {
+    NSString * notificationID = notificationInfo[@"NotificationID"];
+    if ([self isSpecialNotificationScheduled:notificationID])
+      continue;
+    
+    NSNumber * viewsLimit = notificationInfo[@"NotificationViewsLimit"];
+    NSNumber * viewsNumber = [self viewNumberOfNotification:notificationID];
+    if ([viewsNumber integerValue] >= [viewsLimit integerValue])
+      continue;
+    
+    NSDate * fireDate = notificationInfo[@"NotificationDate"];
+    NSDate * expirationDate = notificationInfo[@"NotificationExpirationDate"];
+    NSDate * currentDate = [NSDate date];
+    if (expirationDate && [currentDate timeIntervalSinceDate:expirationDate] >= 0)
+      continue;
+    
+    if ([currentDate timeIntervalSinceDate:fireDate] >= 0)
+      fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0 * 60];
+    
+    [self increaseViewsNumberOfNotification:notificationID];
+    
+    UILocalNotification * notification = [[UILocalNotification alloc] init];
+    notification.alertBody = L(notificationInfo[@"NotificationLocalizedBodyKey"]);
+    notification.fireDate = fireDate;
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.alertAction = L(notificationInfo[@"NotificationActionTitleKey"]);
+    notification.userInfo = @{LocalNotificationManagerSpecialNotificationInfoKey : notificationInfo};
+    
+    UIApplication * application = [UIApplication sharedApplication];
+    [application scheduleLocalNotification:notification];
+    [actualSpecialLocalNotifications addObject:notification];
+  }
+  
+  // We'd like to remove not actual special notifications.
+  NSMutableArray * notActualSpecialLocalNotifications = [[self scheduledSpecialLocalNotifications] mutableCopy];
+  [notActualSpecialLocalNotifications removeObjectsInArray:actualSpecialLocalNotifications];
+  for (UILocalNotification * notification in notActualSpecialLocalNotifications)
+    [[UIApplication sharedApplication] cancelLocalNotification:notification];
+  
+  [[Statistics instance] logEvent:@"'Download Map' Notification Scheduled"];
+}
+
+- (NSArray *)localNotificationsInfo
+{
+  NSString * localNotificationsInfoFileName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"LocalNotificationsFileName"];
+  NSString * localNotificationsInfoFilePath = [[NSBundle mainBundle] pathForResource:localNotificationsInfoFileName ofType:@"plist"];
+  NSArray * localNotificationsInfo = [NSArray arrayWithContentsOfFile:localNotificationsInfoFilePath];
+  return localNotificationsInfo;
+}
+
+#pragma mark - Location Notifications
 
 - (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler
 {
@@ -106,6 +256,26 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     [self.locationManager startUpdatingLocation];
   else
     completionHandler(UIBackgroundFetchResultFailed);
+}
+
+- (void)markNotificationShowingForIndex:(TIndex)index
+{
+  NSMutableDictionary * flags = [[[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY] mutableCopy];
+  if (!flags)
+    flags = [[NSMutableDictionary alloc] init];
+  
+  flags[[self flagStringForIndex:index]] = [NSDate date];
+  
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  [userDefaults setObject:flags forKey:FLAGS_KEY];
+  [userDefaults synchronize];
+}
+
+- (BOOL)shouldShowNotificationForIndex:(TIndex)index
+{
+  NSDictionary * flags = [[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY];
+  NSDate * lastShowDate = flags[[self flagStringForIndex:index]];
+  return !lastShowDate || [[NSDate date] timeIntervalSinceDate:lastShowDate] > SHOW_INTERVAL;
 }
 
 - (void)timerSelector:(id)sender
@@ -125,57 +295,6 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   f.ShowRect(lat, lon, 10);
 }
 
-- (void)processNotification:(UILocalNotification *)notification
-{
-  NSDictionary * ui = [notification userInfo];
-  if ([ui[@"Action"] isEqualToString:DOWNLOAD_MAP_ACTION_NAME])
-  {
-    [[Statistics instance] logEvent:@"'Download Map' Notification Clicked"];
-    [[MapsAppDelegate theApp].m_mapViewController.navigationController popToRootViewControllerAnimated:NO];
-
-    TIndex const index = TIndex([ui[@"Group"] intValue], [ui[@"Country"] intValue], [ui[@"Region"] intValue]);
-    [self downloadCountryWithIndex:index];
-  }
-}
-
-- (void)showDownloadMapAlertIfNeeded
-{
-    // We should implement another version of alert
-
-//  BOOL inForeground = [UIApplication sharedApplication].applicationState != UIApplicationStateBackground;
-//  NSArray * flags = [[NSUserDefaults standardUserDefaults] objectForKey:FLAGS_KEY];
-//  NSString * flag = [flags lastObject];
-//  if (flag && inForeground)
-//  {
-//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-//    self.countryIndex = [self indexWithFlagString:flag];
-//
-//    Framework & f = GetFramework();
-//    NSString * sizeString = [self sizeStringWithBytesCount:f.Storage().CountrySizeInBytes(self.countryIndex).second];
-//    NSString * downloadText = [NSString stringWithFormat:@"%@ (%@)", L(@"download"), sizeString];
-//    std::string const name = f.GetCountryName(self.countryIndex);
-//    NSString * title = [NSString stringWithFormat:L(@"download_country_ask"), [NSString stringWithUTF8String:name.c_str()]];
-//    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:downloadText, nil];
-//    [alertView show];
-//  }
-}
-
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//  if (buttonIndex != alertView.cancelButtonIndex)
-//    [self downloadCountryWithIndex:self.countryIndex];
-//}
-
-//#define MB (1024 * 1024)
-//
-//- (NSString *)sizeStringWithBytesCount:(size_t)size
-//{
-//  if (size > MB)
-//    return [NSString stringWithFormat:@"%ld %@", (size + 512 * 1024) / MB, L(@"mb")];
-//  else
-//    return [NSString stringWithFormat:@"%ld %@", (size + 1023) / 1024, L(@"kb")];
-//}
-
 - (NSString *)flagStringForIndex:(TIndex)index
 {
   return [NSString stringWithFormat:@"%i_%i_%i", index.m_group, index.m_country, index.m_region];
@@ -186,9 +305,11 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   NSArray * components = [flag componentsSeparatedByString:@"_"];
   if ([components count] == 3)
     return TIndex([components[0] intValue], [components[1] intValue], [components[2] intValue]);
-
+  
   return TIndex();
 }
+
+#pragma mark - Location Manager
 
 - (CLLocationManager *)locationManager
 {
@@ -199,6 +320,43 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     _locationManager.distanceFilter = kCLLocationAccuracyThreeKilometers;
   }
   return _locationManager;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+  [self.timer invalidate];
+  BOOL const inBackground = [UIApplication sharedApplication].applicationState == UIApplicationStateBackground;
+  BOOL const onWiFi = [[AppInfo sharedInfo].reachability isReachableViaWiFi];
+  if (inBackground && onWiFi)
+  {
+    Framework & f = GetFramework();
+    CLLocation * lastLocation = [locations lastObject];
+    TIndex const index = f.GetCountryIndex(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude, lastLocation.coordinate.longitude));
+    
+    if (index.IsValid() && [self shouldShowNotificationForIndex:index])
+    {
+      TStatus const status = f.GetCountryStatus(index);
+      if (status == TStatus::ENotDownloaded)
+      {
+        [self markNotificationShowingForIndex:index];
+        
+        UILocalNotification * notification = [[UILocalNotification alloc] init];
+        notification.alertAction = L(@"download");
+        notification.alertBody = L(@"download_map_notification");
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        notification.userInfo = @{@"Action" : DOWNLOAD_MAP_ACTION_NAME, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
+        
+        UIApplication * application = [UIApplication sharedApplication];
+        [application presentLocalNotificationNow:notification];
+        [[Statistics instance] logEvent:@"'Download Map' Notification Scheduled"];
+        
+        self.downloadMapCompletionHandler(UIBackgroundFetchResultNewData);
+        return;
+      }
+    }
+  }
+  [[Statistics instance] logEvent:@"'Download Map' Notification Didn't Schedule" withParameters:@{@"WiFi" : @(onWiFi)}];
+  self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
 }
 
 @end

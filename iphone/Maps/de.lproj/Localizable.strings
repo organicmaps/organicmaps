@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Mehr Möglichkeiten in der vollen Version MAPS.ME mit Offline-Suche. Jetzt herunterladen!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Heute kostenlos auf MAPS.ME Pro upgraden!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro gibt es heute gratis. Erzählen Sie es Ihren Freunden!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Sie können heute kostenlos auf MAPS.ME Pro upgraden. Verpassen Sie nicht Ihre Chance!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Die besten Offline-Karten MAPS.ME sind heute kostenlos. Jetzt runterladen & Freunde informieren!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Holen Sie sich jetzt kostenlos die MAPS.ME Offline-Karten";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hey! Wussten Sie schon, dass Sie heute die MAPS.ME Offline-Karten kostenlos herunterladen können? Mit dieser App werden Sie sich auf Reisen niemals verirren. Normalerweise kostet sie 5 $ und bietet Offline-Karten aller Länder der Welt mit Suchfunktion, Bookmarks und Routenplanung. Verpassen Sie nicht Ihre Chance!";
+
 /* About button text (should be short) */
 "about" = "Über Karten";
 

@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Nawigacja staje się prostsza kiedy masz pełną wersję aplikację MAPS.ME wraz z wyszukiwaniem offline. Pobierz już teraz!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">Dokonaj dziś darmowej aktualizacji do MAPS.ME Pro!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro jest dziś za darmo. Powiedz znajomym!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Możesz dziś dokonać darmowej aktualizacji do MAPS.ME Pro! Nie przegap okazji!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Najlepsze mapy offline MAPS.ME są dziś za darmo. Pobierz teraz i powiedz znajomym!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Pobierz mapy offline MAPS.ME za darmo</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Hej! Czy wiesz, że dziś możesz pobrać mapy offline MAPS.ME bezpłatnie? Dzięki tej aplikacji nigdy nie zgubisz się podczas podróży. Kosztuje ona przeważnie 5 $ i oferuje mapy offline wszystkich krajów świata z możliwością ich przeszukiwania, dodawania oznaczeń i ustalania tras. Nie przegap szansy!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">O programie</string>
 	<!-- Button text (should be short) -->

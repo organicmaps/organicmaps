@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">يمكنك التصفح بشكل أسهل مع الإصدار الكامل من MAPS.ME الذي يتميز بامكانية البحث بدون الاتصال مع الانترنت. احصل عليه الآن!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">قم بالترقية إلى MAPS.ME Pro مجانا اليوم!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro مجانا اليوم. أخبر أصدقاءك!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">يمكنك الترقية إلى MAPS.ME Pro مجانا اليوم. لا تفوت فرصتك!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">أفضل خرائط دون اتصال MAPS.ME مجانا اليوم. قم بتنزيله الآن وأخبر أصدقائك!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">احصل على خرائط MAPS.ME في وضع غير متصل بالإنترنت مجانا الآن</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">مرحبا! هل تعلم أنه يمكنك اليوم تنزيل خرائط MAPS.ME في وضع غير متصل بالإنترنت مجانا؟ مع هذا التطبيق لن تضل الطريق أبداً أثناء السفر. تكلفتها عادة 5 دولارات و تقدم لك خرائط في وضع غير متصل بالإنترنت لجميع دول العالم مع إمكانية البحث، وإضافة علامات مرجعية وإعادة التوجيه. لا تفوت فرصتك!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">نبذة عنا</string>
 	<!-- Button text (should be short) -->

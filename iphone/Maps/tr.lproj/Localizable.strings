@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Çevrimdışı arama özelliğine sahip MAPS.ME’nin tam sürümüyle daha kolay gezinin. Hemen şimdi alın!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Mevcut sürünüzü bugün ücretsiz olarak MAPS.ME Pro'ya yükseltin!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro bugün ücretsiz. Arkadaşlarınıza anlatın!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Sadece bugün mevcut sürümünüzü MAPS.ME Pro'ya, ücretsiz olarak yükseltebilirsiniz. Bu fırsatı kaçırmayın!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "MAPS.ME'nin en iyi çevrimdışı haritaları bugün ücretsiz. İndir ve arkadaşlarına haber ver!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "MAPS.ME çevrimdışı haritaları hemen ücretsiz al";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hey! Bugün MAPS.ME çevrimdışı haritaları ücretsiz indirebileceğini biliyor muydun? Bu uygulamayla seyahat ederken asla kaybolmayacaksın. Genellikle 5$'a mal olur ve arama, yer imleri ve rotalama ile tüm dünya ülkelerinin çevrimdışı haritalarını sunar. Fırsatı kaçırma!";
+
 /* About button text (should be short) */
 "about" = "Hakkında";
 

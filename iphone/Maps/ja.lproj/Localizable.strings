@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "MAPS.ME完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "本日MAPS.ME Proに無料でアップグレード！";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "本日MAPS.ME Proが無料です。お友達に教えてあげてください！";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "本日MAPS.ME Proに無料でアップグレードできます。このチャンスをお見逃しなく！";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "ベストオフライン地図のMAPS.MEが本日無料。今すぐダウンロードして友達に教えてあげましょう！";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "本日オフライン地図のMAPS.MEを無料でゲット";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "こんにちは！今日オフライン地図のMAPS.MEが無料でダウンロードできるのをご存じでしたか？このアプリがあれば、旅行中に道に迷うことがなくなります。通常$5で、世界中すべての国のオフライン地図を検索、お気に入り、ルート機能付きで提供します。このチャンスをお見逃しなく！";
+
 /* About button text (should be short) */
 "about" = "情報";
 

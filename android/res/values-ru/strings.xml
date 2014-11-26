@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Больше возможностей в полной версии MAPS.ME с офлайн поиском. Установить ее сейчас?</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">MAPS.ME Pro сегодня бесплатные! Качайте!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro сегодня бесплатны. Расскажите друзьям!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Сегодня вы можете скачать MAPS.ME Pro бесплатно. Не упустите возможность!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Крутые офлайн-карты MAPS.ME сегодня бесплатные. Скачай сейчас и расскажи друзьям!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Офлайн-карты MAPS.ME сегодня бесплатные</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Привет! Хорошая новость: сегодня ты можешь бесплатно скачать офлайн-карты MAPS.ME! С этим приложением ты никогда не потеряешься в поездках. Обычно оно стоит $5! Кроме офлайновых карт всех стран там есть еще поиск, закладки и прокладывание маршрутов. Обязательно скачай!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">О программе</string>
 	<!-- Button text (should be short) -->

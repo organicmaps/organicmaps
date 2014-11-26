@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Naviguez plus facilement avec la version complète de MAPS.ME proposant la recherche hors ligne. Obtenez-la maintenant !";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Passez à MAPS.ME Pro aujourd'hui, gratuitement !";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro est gratuit aujourd'hui. Dites-le à vos amis !";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Aujourd'hui, vous pouvez passer à MAPS.ME Pro gratuitement. Ne ratez pas cette occasion !";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Les meilleures cartes hors ligne de MAPS.ME sont gratuites aujourd'hui. Téléchargez-le maintenant et dites-le à vos amis !";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Téléchargez les cartes hors ligne de MAPS.ME gratuitement";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Savez-vous que les cartes hors lignes de MAPS.ME sont téléchargeables gratuitement, aujourd'hui ? Grâce à cette appli, vous voyagerez sans jamais vous perdre. Elle coûte normalement 4 euros, donne accès aux cartes hors ligne de tous les pays du monde, vous permet d'enregistrer des favoris et est dotée d'un moteur de recherche et d'une fonction itinéraire. Ne ratez pas cette occasion !";
+
 /* About button text (should be short) */
 "about" = "À propos de";
 

@@ -6,7 +6,7 @@
 + (instancetype)sharedManager;
 
 - (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler;
-- (void)showDownloadMapAlertIfNeeded;
-- (void)processNotification:(UILocalNotification *)notification;
+- (void)updateLocalNotifications;
+- (void)processNotification:(UILocalNotification *)notification onLaunch:(BOOL)onLaunch;
 
 @end

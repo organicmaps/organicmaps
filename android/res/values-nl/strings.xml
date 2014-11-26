@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Navigeer makkelijker met MAPS.ME Pro met offline zoeken. Instelleer het nu!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">Upgrade vandaag gratis naar MAPS.ME Pro!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro is vandaag gratis. Vertel het aan je vrienden!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Je kunt vandaag gratis upgraden naar MAPS.ME Pro. Mis deze kans niet!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">De beste offline kaarten van MAPS.ME zijn vandaag gratis. Download nu en vertel het je vrienden!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Verkrijg offline kaarten van MAPS.ME nu gratis</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Hey! Weet u dat u vandaag de offline kaarten van MAPS.ME gratis kunt downloaden? Met deze app raakt u de weg nooit meer kwijt tijdens uw reis. Normaliter kost het $ 5,- en biedt offline kaarten voor alle landen op de wereld met zoekfunctie, favorieten en routeplanning. Mis uw kans niet!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Over</string>
 	<!-- Button text (should be short) -->

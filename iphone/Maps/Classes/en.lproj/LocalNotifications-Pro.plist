@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>NotificationLocalizedShareEmailBodyKey</key>
+		<string>free_pro_version_share_email_text</string>
+		<key>NotificationLocalizedShareEmailSubjectKey</key>
+		<string>free_pro_version_share_email_subject</string>
+		<key>NotifiicationShareImage</key>
+		<string>AppIsFree</string>
+		<key>NotificationAction</key>
+		<string>Share</string>
+		<key>NotificationID</key>
+		<string>ProVersionForFree</string>
+		<key>NotificationDate</key>
+		<date>2014-12-03T09:00:00Z</date>
+		<key>NotificationExpirationDate</key>
+		<date>2016-12-01T13:10:00Z</date>
+		<key>NotificationViewsLimit</key>
+		<integer>1</integer>
+		<key>NotificationLocalizedBodyKey</key>
+		<string>free_pro_version_notification_pro</string>
+		<key>NotificationLocalizedAlertBodyKey</key>
+		<string></string>
+		<key>NotificationLocalizedShareTextKey</key>
+		<string>free_pro_version_share_message</string>
+		<key>NotificationShareLink</key>
+		<string>http://maps.me/get</string>
+	</dict>
+</array>
+</plist>

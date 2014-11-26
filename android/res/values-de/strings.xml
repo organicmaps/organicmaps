@@ -6,6 +6,18 @@
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Mehr Möglichkeiten in der vollen Version MAPS.ME mit Offline-Suche. Jetzt herunterladen!</string>
+	<!-- Notification text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_lite">Heute kostenlos auf MAPS.ME Pro upgraden!</string>
+	<!-- Notification text when paid version become free on the market (Pro app version). -->
+	<string name="free_pro_version_notification_pro">MAPS.ME Pro gibt es heute gratis. Erzählen Sie es Ihren Freunden!</string>
+	<!-- Dialog text when paid version become free on the market (Lite app version). -->
+	<string name="free_pro_version_notification_alert">Sie können heute kostenlos auf MAPS.ME Pro upgraden. Verpassen Sie nicht Ihre Chance!</string>
+	<!-- Share text when paid version become free on the market. -->
+	<string name="free_pro_version_share_message">Die besten Offline-Karten MAPS.ME sind heute kostenlos. Jetzt runterladen &amp; Freunde informieren!</string>
+	<!-- Share email subject when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_subject">Holen Sie sich jetzt kostenlos die MAPS.ME Offline-Karten</string>
+	<!-- Share email body when paid version become free on the market. -->
+	<string name="free_pro_version_share_email_text">Hey! Wussten Sie schon, dass Sie heute die MAPS.ME Offline-Karten kostenlos herunterladen können? Mit dieser App werden Sie sich auf Reisen niemals verirren. Normalerweise kostet sie 5 $ und bietet Offline-Karten aller Länder der Welt mit Suchfunktion, Bookmarks und Routenplanung. Verpassen Sie nicht Ihre Chance!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Über Karten</string>
 	<!-- Button text (should be short) -->

@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "오프라인 검색 기능의 MAPS.ME의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "오늘 MAPS.ME Pro를 무료로 업그레이드하세요!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro가 오늘만 무료입니다. 친구들에게도 알리세요!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "오늘 하루 MAPS.ME Pro를 무료로 업그레이드할 수 있습니다. 기회를 놓치지 마세요!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "최고의 오프라인 지도인 MAPS.ME가 오늘 무료입니다. 지금 다운로드하고 친구들에게 알리세요!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "지금 무료로 오프라인 지도인 MAPS.ME 가져 오기";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "안녕! 오늘 무료로 오프라인 지도인 MAPS.ME를 다운로드할 수 있다는 사실을 알고 있었나요? 이 앱으로, 여행시 길을 잃지 않을 거에요. 보통 5달러의 비용이 들며, 검색, 북마크 및 여정이 있는 모든 세계 국가의 오프라인 맵을 제공합니다. 이 기회를 놓치지 마세요!";
+
 /* About button text (should be short) */
 "about" = "소개";
 

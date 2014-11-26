@@ -12,6 +12,24 @@
 /* Dialog text when paid version become available on the market. Showed only once. */
 "pro_version_available" = "Získajte viac možností s plnou verziou MAPS.ME, obsahujúcou offline vyhľadávanie. Nainštalujte si ju teraz!";
 
+/* Notification text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_lite" = "Aktualizácia na MAPS.ME Pro zadarmo ešte dnes!";
+
+/* Notification text when paid version become free on the market (Pro app version). */
+"free_pro_version_notification_pro" = "MAPS.ME Pro sú dnes zadarmo. Dajte vedieť svojim priateľom!";
+
+/* Dialog text when paid version become free on the market (Lite app version). */
+"free_pro_version_notification_alert" = "Môžete aktualizovať na MAPS.ME Pro zadarmo ešte dnes. Nenechajte si ujsť svoju šancu!";
+
+/* Share text when paid version become free on the market. */
+"free_pro_version_share_message" = "Najlepšie offline mapy MAPS.ME sú dnes zadarmo. Stiahnite si teraz a povedzte to svojim priateľom!";
+
+/* Share email subject when paid version become free on the market. */
+"free_pro_version_share_email_subject" = "Získať v režime offline mapy MAPS.ME teraz zadarmo";
+
+/* Share email body when paid version become free on the market. */
+"free_pro_version_share_email_text" = "Hej! Viete, že dnes si môžete stiahnuť v režime offline mapy MAPS.ME zadarmo? Vďaka tejto aplikácii sa na cestách nikdy nestratíte. Zvyčajne stojí 5 dolárov a poskytuje off-line mapy všetkých krajín sveta s vyhľadávaním, záložkami a smerovaním. Nenechajte si ujsť túto príležitosť!";
+
 /* About button text (should be short) */
 "about" = "O aplikácii";
 
