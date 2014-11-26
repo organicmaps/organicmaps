@@ -50,6 +50,7 @@ namespace graphics
         DrawGeometry();
         virtual bool isNeedAdditionalUniforms() const;
         virtual void setAdditionalUniforms(UniformsHolder const & holder);
+        virtual void resetAdditionalUniforms();
         void perform();
         void dump();
 

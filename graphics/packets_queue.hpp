@@ -30,6 +30,7 @@ namespace graphics
 
     virtual bool isNeedAdditionalUniforms() const { return false; }
     virtual void setAdditionalUniforms(UniformsHolder const & /*uniforms*/) {}
+    virtual void resetAdditionalUniforms() {}
 
     void setRenderContext(RenderContext * ctx);
     RenderContext * renderContext();

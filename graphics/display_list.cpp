@@ -122,6 +122,8 @@ namespace graphics
       (*it)->setRenderContext(r->renderContext());
       if (holder != NULL && (*it)->isNeedAdditionalUniforms())
         (*it)->setAdditionalUniforms(*holder);
+      else
+        (*it)->resetAdditionalUniforms();
       (*it)->perform();
     }
 

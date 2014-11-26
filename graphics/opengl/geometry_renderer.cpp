@@ -164,6 +164,11 @@ namespace graphics
       VERIFY(holder.getValue(ETransparency, m_alfa), ());
     }
 
+    void GeometryRenderer::DrawGeometry::resetAdditionalUniforms()
+    {
+      m_alfa = 1.0;
+    }
+
     void GeometryRenderer::DrawGeometry::perform()
     {
       gl::RenderContext * rc = static_cast<gl::RenderContext*>(renderContext());
