@@ -195,13 +195,6 @@
 		B08AA8D41A25E56B00810B1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FC1A11019400A61AA4 /* libsqlite3.dylib */; };
 		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; };
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; };
-		B00511BC1A1102FE00A61AA4 /* libMRAdMan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511491A1102FE00A61AA4 /* libMRAdMan.a */; };
-		B00511BD1A1102FF00A61AA4 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */; };
-		B00511BE1A1102FF00A61AA4 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511601A1102FE00A61AA4 /* Chartboost.framework */; };
-		B00511C01A11030000A61AA4 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005116F1A1102FE00A61AA4 /* libGoogleAnalyticsServices.a */; };
-		B00511C11A11030100A61AA4 /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */; };
-		B00511C31A11030200A61AA4 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B005117B1A1102FE00A61AA4 /* libMyTracker.a */; };
-		B00511C41A11030200A61AA4 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511811A1102FE00A61AA4 /* MRGService.framework */; };
 		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
@@ -1528,50 +1521,6 @@
 		B00511001A1101AA00A61AA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		B00511491A1102FE00A61AA4 /* libMRAdMan.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMRAdMan.a; sourceTree = "<group>"; };
-		B005114A1A1102FE00A61AA4 /* MRADBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADBanner.h; sourceTree = "<group>"; };
-		B005114B1A1102FE00A61AA4 /* MRADBannerImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADBannerImage.h; sourceTree = "<group>"; };
-		B005114C1A1102FE00A61AA4 /* MRADBannerStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADBannerStatistics.h; sourceTree = "<group>"; };
-		B005114D1A1102FE00A61AA4 /* MRAdCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdCustomParamsProvider.h; sourceTree = "<group>"; };
-		B005114E1A1102FE00A61AA4 /* MRADFullscreenBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADFullscreenBanner.h; sourceTree = "<group>"; };
-		B005114F1A1102FE00A61AA4 /* MRAdManAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManAdapter.h; sourceTree = "<group>"; };
-		B00511501A1102FE00A61AA4 /* MRAdManConstants+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MRAdManConstants+Corp.h"; sourceTree = "<group>"; };
-		B00511511A1102FE00A61AA4 /* MRAdManConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManConstants.h; sourceTree = "<group>"; };
-		B00511521A1102FE00A61AA4 /* MRAdManFullScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManFullScreenViewController.h; sourceTree = "<group>"; };
-		B00511531A1102FE00A61AA4 /* MRAdManView+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MRAdManView+Corp.h"; sourceTree = "<group>"; };
-		B00511541A1102FE00A61AA4 /* MRAdManView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAdManView.h; sourceTree = "<group>"; };
-		B00511551A1102FE00A61AA4 /* MRADSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADSection.h; sourceTree = "<group>"; };
-		B00511561A1102FE00A61AA4 /* MRADSectionIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADSectionIcon.h; sourceTree = "<group>"; };
-		B00511571A1102FE00A61AA4 /* MRADSectionsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADSectionsData.h; sourceTree = "<group>"; };
-		B00511581A1102FE00A61AA4 /* MRADShowcaseBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADShowcaseBanner.h; sourceTree = "<group>"; };
-		B00511591A1102FE00A61AA4 /* MRADStandardBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRADStandardBanner.h; sourceTree = "<group>"; };
-		B005115A1A1102FE00A61AA4 /* MRStoreProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRStoreProductViewController.h; sourceTree = "<group>"; };
-		B005115B1A1102FE00A61AA4 /* SKStoreProductViewControllerDelegateExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStoreProductViewControllerDelegateExtended.h; sourceTree = "<group>"; };
-		B005115D1A1102FE00A61AA4 /* AppsFlyerTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsFlyerTracker.h; sourceTree = "<group>"; };
-		B005115E1A1102FE00A61AA4 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppsFlyerLib.a; sourceTree = "<group>"; };
-		B00511601A1102FE00A61AA4 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
-		B00511651A1102FE00A61AA4 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
-		B00511661A1102FE00A61AA4 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		B00511671A1102FE00A61AA4 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
-		B00511681A1102FE00A61AA4 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		B00511691A1102FE00A61AA4 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
-		B005116A1A1102FE00A61AA4 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		B005116B1A1102FE00A61AA4 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
-		B005116C1A1102FE00A61AA4 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
-		B005116D1A1102FE00A61AA4 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
-		B005116E1A1102FE00A61AA4 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
-		B005116F1A1102FE00A61AA4 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		B00511711A1102FE00A61AA4 /* ACTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTReporter.h; sourceTree = "<group>"; };
-		B00511731A1102FE00A61AA4 /* GoogleConversionPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleConversionPing.h; sourceTree = "<group>"; };
-		B00511751A1102FE00A61AA4 /* DCTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTReporter.h; sourceTree = "<group>"; };
-		B00511761A1102FE00A61AA4 /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
-		B005117B1A1102FE00A61AA4 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMyTracker.a; sourceTree = "<group>"; };
-		B005117C1A1102FE00A61AA4 /* MCMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMyTracker.h; sourceTree = "<group>"; };
-		B005117D1A1102FE00A61AA4 /* MRCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCustomParamsProvider.h; sourceTree = "<group>"; };
-		B005117E1A1102FE00A61AA4 /* MRMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRMyTracker.h; sourceTree = "<group>"; };
-		B005117F1A1102FE00A61AA4 /* MRTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTracker.h; sourceTree = "<group>"; };
-		B00511801A1102FE00A61AA4 /* MRTrackerParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTrackerParams.h; sourceTree = "<group>"; };
-		B00511811A1102FE00A61AA4 /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MRGService.framework; sourceTree = "<group>"; };
 		B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteOverallInfoView.h; sourceTree = "<group>"; };
 		B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteOverallInfoView.m; sourceTree = "<group>"; };
 		B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextTurnPhoneView.h; sourceTree = "<group>"; };
@@ -3395,7 +3344,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 53X44EN5X2;
+						DevelopmentTeam = XMK5825GXK;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3403,7 +3352,7 @@
 						};
 					};
 					FAFB06A9151215EE0041901D = {
-						DevelopmentTeam = 53X44EN5X2;
+						DevelopmentTeam = XMK5825GXK;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;

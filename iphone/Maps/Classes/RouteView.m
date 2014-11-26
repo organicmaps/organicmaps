@@ -58,7 +58,7 @@
   self.timeLeftLabel.text = [self secondsToString:info[@"timeToTarget"]];
   
   [UIView animateWithDuration:0.2 animations:^{
-    [self layoutSubviews];
+    [self updateSubviews];
   }];
 }
 
@@ -84,11 +84,14 @@
 
 #define BUTTON_HEIGHT 48
 
-- (void)layoutSubviews
+- (void)setFrame:(CGRect)frame
 {
-  [self.phoneOverallInfoView layoutSubviews];
-  [self.phoneNextTurnView layoutSubviews];
-  
+  [super setFrame:frame];
+  [self configureSubviews];
+}
+
+- (void)configureSubviews
+{
   CGFloat const offsetInnerX = 2;
   CGFloat const originY = 20;
   self.phoneTurnInstructions.width = self.phoneIdiomView.width;
@@ -110,6 +113,11 @@
   self.startRouteButton.maxY = self.routeInfo.height;
   self.startRouteButton.maxX = self.closeRouteInfoButton.minX - 6;
   
+  [self updateSubviews];
+}
+
+- (void)updateSubviews
+{
   [self.distanceLabel sizeToIntegralFit];
   self.distanceLabel.minX = 10;
   self.distanceLabel.minY = 34;

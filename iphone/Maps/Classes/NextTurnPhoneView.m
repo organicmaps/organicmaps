@@ -34,7 +34,7 @@
   self.metricsLabel.text = [info[@"turnMetrics"] uppercaseString];
   
   [UIView animateWithDuration:0.2 animations:^{
-    [self layoutSubviews];
+    [self updateSubviews];
   }];
 }
 
@@ -58,17 +58,28 @@
   return flippedImage;
 }
 
-- (void)layoutSubviews
+- (void)setFrame:(CGRect)frame
+{
+  [super setFrame:frame];
+  [self configureSubviews];
+}
+
+- (void)configureSubviews
+{
+  self.turnValue.frame = self.turnTypeView.bounds;
+  
+  self.turnTypeView.maxX = self.width / 2.0 - 16.0;
+  self.turnTypeView.midY = self.height / 2.0 - 2;
+  
+  [self updateSubviews];
+}
+
+- (void)updateSubviews
 {
   [self.distanceLabel sizeToIntegralFit];
   [self.metricsLabel sizeToIntegralFit];
   
   CGFloat const betweenOffset = 2;
-  
-  self.turnValue.frame = self.turnTypeView.bounds;
-  
-  self.turnTypeView.maxX = self.width / 2.0 - 16.0;
-  self.turnTypeView.midY = self.height / 2.0;
   
   self.distanceLabel.minX = self.width / 2.0 - 8;
   self.distanceLabel.midY = self.turnTypeView.midY;
@@ -104,7 +115,7 @@
   if (!_distanceLabel)
   {
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:44];
+    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:44];
     _distanceLabel.textColor = [UIColor colorWithColorCode:@"2291D1"];
   }
   return _distanceLabel;
@@ -115,7 +126,7 @@
   if (!_metricsLabel)
   {
     _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
+    _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     _metricsLabel.textColor = [UIColor colorWithColorCode:@"2291D1"];
   }
   return _metricsLabel;
