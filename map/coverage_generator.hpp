@@ -166,6 +166,8 @@ private:
     CachedCoverageInfo();
     ~CachedCoverageInfo();
 
+    void ResetDL();
+
     graphics::DisplayList * m_mainElements;
     graphics::DisplayList * m_sharpElements;
     ScreenBase m_screen;

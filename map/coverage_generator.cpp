@@ -210,8 +210,12 @@ void CoverageGenerator::CoverScreenImpl(core::CommandsQueue::Environment const &
   bool const shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
   if (shouldSwap)
   {
-    threads::MutexGuard g(m_stateInfo.m_mutex);
-    swap(m_currentCoverage, m_backCoverage);
+    {
+      threads::MutexGuard g(m_stateInfo.m_mutex);
+      swap(m_currentCoverage, m_backCoverage);
+    }
+
+    m_backCoverage->ResetDL();
   }
   else
   {
@@ -242,8 +246,11 @@ void CoverageGenerator::MergeTileImpl(core::CommandsQueue::Environment const & e
   bool const shouldSwap = !m_stateInfo.m_isPause && CacheCoverage(env);
   if (shouldSwap)
   {
-    threads::MutexGuard g(m_stateInfo.m_mutex);
-    swap(m_currentCoverage, m_backCoverage);
+    {
+      threads::MutexGuard g(m_stateInfo.m_mutex);
+      swap(m_currentCoverage, m_backCoverage);
+    }
+    m_backCoverage->ResetDL();
   }
 
   m_benchmarkInfo.DecrementTileCount(sequenceID);
@@ -472,8 +479,11 @@ namespace
 
 bool CoverageGenerator::CacheCoverage(core::CommandsQueue::Environment const & env)
 {
-  delete m_backCoverage->m_mainElements;
-  delete m_backCoverage->m_sharpElements;
+  if (m_cacheScreen->isCancelled())
+    return false;
+
+  ASSERT(m_backCoverage->m_mainElements == nullptr, ());
+  ASSERT(m_backCoverage->m_sharpElements == nullptr, ());
 
   m_backCoverage->m_mainElements = m_cacheScreen->createDisplayList();
   m_backCoverage->m_sharpElements = m_cacheScreen->createDisplayList();
@@ -545,11 +555,9 @@ bool CoverageGenerator::CacheCoverage(core::CommandsQueue::Environment const & e
 
   m_cacheScreen->completeCommands();
 
-  bool isCancelled = m_cacheScreen->isCancelled();
-
   m_cacheScreen->setEnvironment(0);
 
-  return !isCancelled;
+  return true;
 }
 
 void CoverageGenerator::ClearCoverage()
@@ -684,8 +692,8 @@ CoverageGenerator::CoverageInfo::~CoverageInfo()
 }
 
 CoverageGenerator::CachedCoverageInfo::CachedCoverageInfo()
-  : m_mainElements(NULL)
-  , m_sharpElements(NULL)
+  : m_mainElements(nullptr)
+  , m_sharpElements(nullptr)
   , m_renderLeafTilesCount(0)
   , m_isEmptyDrawing(false)
 {
@@ -695,4 +703,12 @@ CoverageGenerator::CachedCoverageInfo::~CachedCoverageInfo()
 {
   delete m_mainElements;
   delete m_sharpElements;
+}
+
+void CoverageGenerator::CachedCoverageInfo::ResetDL()
+{
+  delete m_mainElements;
+  m_mainElements = nullptr;
+  delete m_sharpElements;
+  m_sharpElements = nullptr;
 }
