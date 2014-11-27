@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/bottom_panel_height"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/ic_toolbar_gradient_v">
 
   <ImageButton
       style="@style/Widget.MapButtonBottom"
