@@ -1106,7 +1106,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    if (l.getProvider() != LocationService.LOCATION_PREDICTOR_PROVIDER)
+    if (!l.getProvider().equals(LocationService.LOCATION_PREDICTOR_PROVIDER))
       mLocationPredictor.reset(l);
 
     nativeLocationUpdated(
