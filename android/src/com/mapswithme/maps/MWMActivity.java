@@ -76,6 +76,7 @@ import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
@@ -917,7 +918,6 @@ public class MWMActivity extends NvEventQueueActivity
     UiUtils.invisible(mVerticalToolbar);
 
     mFadeView = findViewById(R.id.fade_view);
-    Log.d("TEST", "Set up tob ");
 
     final Toolbar toolbar = (Toolbar) mVerticalToolbar.findViewById(R.id.toolbar);
     if (toolbar != null)
@@ -1000,7 +1000,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     super.onNewIntent(intent);
 
-    Log.d("TEST", "onnewintent");
     fadeMap(0, 0);
     if (intent != null)
     {
@@ -1345,6 +1344,7 @@ public class MWMActivity extends NvEventQueueActivity
       return;
     else if (popFragment())
     {
+      InputUtils.hideKeyboard(mBottomToolbar);
       if (isMapFaded())
         fadeMap(FADE_VIEW_ALPHA, 0.0f);
     }
@@ -1375,6 +1375,7 @@ public class MWMActivity extends NvEventQueueActivity
     if (count < 1) // first fragment is dummy and shouldn't be removed
       return false;
 
+    InputUtils.hideKeyboard(mVerticalToolbar);
     Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
     if (fragment != null)
     {

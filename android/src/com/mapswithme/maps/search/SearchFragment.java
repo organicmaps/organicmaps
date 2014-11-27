@@ -258,6 +258,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
         runInteractiveSearch(query, Language.getKeyboardInput(getActivity()));
       }
 
+      InputUtils.hideKeyboard(mSearchEt);
       MWMActivity.startWithSearchResult(getActivity(), !allResults);
       getActivity().getSupportFragmentManager().popBackStack();
     }
