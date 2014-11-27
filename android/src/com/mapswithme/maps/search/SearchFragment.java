@@ -383,7 +383,10 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     switch (v.getId())
     {
     case R.id.search_image_clear:
-      mSearchEt.getText().clear();
+      mSearchEt.setText(null);
+      SearchController.getInstance().cancelApiCall();
+      SearchController.getInstance().cancel();
+      InputUtils.hideKeyboard(mSearchEt);
       break;
     case R.id.search_voice_input:
       final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
