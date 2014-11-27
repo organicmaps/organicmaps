@@ -43,6 +43,39 @@
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
+@interface NSValueWrapper : NSObject
+
+-(NSValue *)getInnerValue;
+
+@end
+
+@implementation NSValueWrapper
+{
+  NSValue * m_innerValue;
+}
+
+-(NSValue *)getInnerValue
+{
+  return m_innerValue;
+}
+
+-(id)initWithValue:(NSValue *)value
+{
+  if (self = [super init])
+  {
+    m_innerValue = value;
+  }
+  
+  return self;
+}
+
+-(BOOL)isEqual:(id)anObject
+{
+  return [anObject isMemberOfClass:[NSValueWrapper class]];
+}
+
+@end
+
 @interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate>
 
 @property (nonatomic) ShareActionSheet * shareActionSheet;
@@ -267,14 +300,14 @@
   f.GetBalloonManager().OnShowMark(f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick));
 }
 
-- (void)onSingleTap:(NSValue *)point
+- (void)onSingleTap:(NSValueWrapper *)point
 {
-  [self processMapClickAtPoint:[point CGPointValue] longClick:NO];
+  [self processMapClickAtPoint:[[point getInnerValue] CGPointValue] longClick:NO];
 }
 
-- (void)onLongTap:(NSValue *)point
+- (void)onLongTap:(NSValueWrapper *)point
 {
-  [self processMapClickAtPoint:[point CGPointValue] longClick:YES];
+  [self processMapClickAtPoint:[[point getInnerValue] CGPointValue] longClick:YES];
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -333,12 +366,33 @@
 	m_CurrentAction = NOTHING;
 }
 
+-(void)preformLongTapSelector:(NSValue *)object
+{
+  [self performSelector:@selector(onLongTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:1.0];
+}
+
+-(void)performSingleTapSelector:(NSValue *)object
+{
+  [self performSelector:@selector(onSingleTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:0.3];
+}
+
+-(void)cancelLongTap
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onLongTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
+}
+
+-(void)cancelSingleTap
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onSingleTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+//  [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]
   // To cancel single tap timer
   UITouch * theTouch = (UITouch *)[touches anyObject];
   if (theTouch.tapCount > 1)
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelSingleTap];
 
 	[self updatePointsFromEvent:event];
 
@@ -353,7 +407,7 @@
 		m_CurrentAction = DRAGGING;
 
     // Start long-tap timer
-    [self performSelector:@selector(onLongTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:1.0];
+    [self preformLongTapSelector:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
     // Temporary solution to filter long touch
     m_touchDownPoint = m_Pt1;
 	}
@@ -375,7 +429,7 @@
 
   // Cancel long-touch timer
   if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelLongTap];
 
   Framework & f = GetFramework();
 
@@ -431,7 +485,7 @@
   if (touchesCount == 1)
   {
     // Cancel long-touch timer
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelLongTap];
 
     // TapCount could be zero if it was a single long (or moving) tap.
     if (tapCount < 2)
@@ -444,7 +498,7 @@
     {
       // Launch single tap timer
       if (m_isSticking)
-        [self performSelector:@selector(onSingleTap:) withObject:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]] afterDelay:0.3];
+        [self performSingleTapSelector: [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
     }
     else if (tapCount == 2 && m_isSticking)
       f.ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
@@ -454,14 +508,18 @@
   {
     f.Scale(0.5);
     if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
-      [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    {
+      [self cancelLongTap];
+      [self cancelSingleTap];
+    }
     m_isSticking = NO;
   }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  [self cancelLongTap];
+  [self cancelSingleTap];
 
   [self updatePointsFromEvent:event];
   [self stopCurrentAction];
