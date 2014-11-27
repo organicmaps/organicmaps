@@ -36,6 +36,7 @@ public class Notifier
   private static final String EXTRA_CONTENT = "ExtraContent";
   private static final String EXTRA_TITLE = "ExtraTitle";
   private static final String EXTRA_INTENT = "ExtraIntent";
+  private static final String EXTRA_FORCE_PROMO_DIALOG = "ExtraForceDialog";
 
   public static final String ACTION_NAME = "com.mapswithme.MYACTION";
   private static IntentFilter mIntentFilter = new IntentFilter(ACTION_NAME);
@@ -44,7 +45,10 @@ public class Notifier
     @Override
     public void onReceive(Context context, Intent intent)
     {
-      showFreeLiteNotification(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)).putExtras(intent.getExtras()));
+      if (intent.getBooleanExtra(EXTRA_FORCE_PROMO_DIALOG, false))
+        showFreeProNotification(new Intent(context, MWMActivity.class).putExtras(intent.getExtras()));
+      else
+        showFreeLiteNotification(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)).putExtras(intent.getExtras()));
     }
   };
 
@@ -168,9 +172,10 @@ public class Notifier
 
   private static void cancelPromoNotifications()
   {
-    final AlarmManager alarmManager = (AlarmManager) MWMApplication.get().getSystemService(Context.ALARM_SERVICE);
+    final MWMApplication application = MWMApplication.get();
+    final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
     final Intent it = new Intent(ACTION_NAME);
-    final PendingIntent pi = PendingIntent.getBroadcast(MWMApplication.get(), 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
+    final PendingIntent pi = PendingIntent.getBroadcast(application, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
     alarmManager.cancel(pi);
   }
 
@@ -216,15 +221,31 @@ public class Notifier
         cancelPromoNotifications();
       }
       else
-        scheduleFreeProNotification(application.getString(R.string.free_pro_version_notification_pro), "");
+        scheduleFreeProNotification(application.getString(R.string.free_pro_version_notification_pro), "", calendar);
     }
   }
 
-  private static void scheduleFreeProNotification(String title, String content)
+  private static void scheduleFreeProNotification(String title, String content, Calendar calendar)
+  {
+    final MWMApplication application = MWMApplication.get();
+    application.registerReceiver(mAlarmReceiver, mIntentFilter);
+    final Intent it = new Intent(ACTION_NAME).
+        putExtra(EXTRA_TITLE, title).
+        putExtra(EXTRA_CONTENT, content).
+        putExtra(EXTRA_FORCE_PROMO_DIALOG, true);
+    final PendingIntent pi = PendingIntent.getBroadcast(application, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
+    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pi);
+  }
+
+  public static void showFreeProNotification(Intent intent)
   {
     final MWMApplication application = MWMApplication.get();
     final PendingIntent pi = PendingIntent.getActivity(application, 0, new Intent(application, MWMActivity.class),
         PendingIntent.FLAG_UPDATE_CURRENT);
+    final String title = intent.getStringExtra(EXTRA_TITLE);
+    final String content = intent.getStringExtra(EXTRA_CONTENT);
 
     final Notification notification = getBuilder()
         .setContentTitle(title)

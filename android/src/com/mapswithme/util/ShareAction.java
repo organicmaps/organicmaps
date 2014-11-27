@@ -247,15 +247,15 @@ public abstract class ShareAction
       {
         for (ResolveInfo info : resInfo)
         {
-          if (info.activityInfo.packageName.contains("facebook") || info.activityInfo.packageName.contains("twitter") ||
-              info.activityInfo.packageName.contains("google") || info.activityInfo.packageName.contains("viber"))
+          if (info.activityInfo.packageName.toLowerCase().contains("facebook") || info.activityInfo.packageName.toLowerCase().contains("twitter") ||
+              info.activityInfo.packageName.toLowerCase().contains("google") || info.activityInfo.packageName.toLowerCase().contains("viber"))
           {
             final Intent copy = new Intent(intent);
             copy.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
             if (info.activityInfo.packageName.toLowerCase().contains(Constants.Package.FB_PACKAGE))
             {
-              copy.putExtra(Intent.EXTRA_TEXT, "http://maps.me/promo_banner");
-              copy.putExtra(Intent.EXTRA_SUBJECT, "http://masp.me/promo_banner");
+              copy.putExtra(Intent.EXTRA_TEXT, "http://maps.me/fb_share");
+              copy.putExtra(Intent.EXTRA_SUBJECT, "http://maps.me/fb_share");
             }
             targetedShareIntents.add(new LabeledIntent(copy, info.activityInfo.packageName,
                 info.loadLabel(activity.getPackageManager()), info.icon));
