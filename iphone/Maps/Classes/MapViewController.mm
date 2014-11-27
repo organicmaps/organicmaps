@@ -1311,7 +1311,6 @@
           if (GetFramework().IsRoutingActive())
           {
             self.routeView.alpha = 1;
-            //self.routeView.minY = self.containerView.placePage.maxY - 20;
           }
         } completion:^(BOOL finished) {}];
 

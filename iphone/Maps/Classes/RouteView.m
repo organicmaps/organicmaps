@@ -81,11 +81,12 @@
 {
   CGFloat const offsetInnerX = 2;
   CGFloat const originY = 20;
-  CGFloat const instructionsViewHeight = 75;
+  CGFloat const instructionsViewHeight = 68;
+  CGFloat const routeInfoViewHeight = 68;
   self.phoneTurnInstructions.width = self.phoneIdiomView.width;
   self.phoneTurnInstructions.height = instructionsViewHeight;
   self.routeInfo.width = self.phoneTurnInstructions.width;
-  self.routeInfo.height = self.phoneTurnInstructions.height;
+  self.routeInfo.height = routeInfoViewHeight;
   self.phoneNextTurnView.frame = self.phoneTurnInstructions.bounds;
   self.phoneNextTurnView.minY = originY;
   self.phoneNextTurnView.height -= originY;

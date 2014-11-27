@@ -104,6 +104,7 @@
   {
     _turnValue = [[UILabel alloc] initWithFrame:CGRectZero];
     _turnValue.textAlignment = NSTextAlignmentCenter;
+    _turnValue.backgroundColor = [UIColor clearColor];
     _turnValue.font = [UIFont fontWithName:@"HelveticaNeue" size:12];
     _turnValue.textColor = [UIColor blackColor];
   }
@@ -115,6 +116,7 @@
   if (!_distanceLabel)
   {
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _distanceLabel.backgroundColor = [UIColor clearColor];
     _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:44];
     _distanceLabel.textColor = [UIColor colorWithColorCode:@"2291D1"];
   }
@@ -126,6 +128,7 @@
   if (!_metricsLabel)
   {
     _metricsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _metricsLabel.backgroundColor = [UIColor clearColor];
     _metricsLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     _metricsLabel.textColor = [UIColor colorWithColorCode:@"2291D1"];
   }
