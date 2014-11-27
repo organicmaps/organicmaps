@@ -105,6 +105,7 @@
       android:layout_width="@dimen/bottom_button_width"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
+      android:layout_marginBottom="56dp"
       android:layout_alignParentRight="true"/>
 
   <include
