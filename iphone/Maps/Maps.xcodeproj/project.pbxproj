@@ -18,8 +18,6 @@
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		6B948E151A254C9800229BD5 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E131A254C9800229BD5 /* MRGService.framework */; };
 		6B948E161A254C9800229BD5 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E131A254C9800229BD5 /* MRGService.framework */; };
-		6B948E171A254C9900229BD5 /* ExternalLibs in Resources */ = {isa = PBXBuildFile; fileRef = 6B948E141A254C9800229BD5 /* ExternalLibs */; };
-		6B948E181A254C9900229BD5 /* ExternalLibs in Resources */ = {isa = PBXBuildFile; fileRef = 6B948E141A254C9800229BD5 /* ExternalLibs */; };
 		6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */; };
 		6B948E1E1A25533C00229BD5 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */; };
 		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
@@ -3768,7 +3766,6 @@
 				FAF804731417E3510024E8C1 /* ee@2x.png in Resources */,
 				FAF804741417E3510024E8C1 /* eg@2x.png in Resources */,
 				FAF804751417E3510024E8C1 /* eh@2x.png in Resources */,
-				6B948E171A254C9900229BD5 /* ExternalLibs in Resources */,
 				FAF804761417E3510024E8C1 /* er@2x.png in Resources */,
 				FAF804771417E3510024E8C1 /* es@2x.png in Resources */,
 				FAF804781417E3510024E8C1 /* et@2x.png in Resources */,
@@ -4467,7 +4464,6 @@
 				FAFB0882151215EE0041901D /* ph@2x.png in Resources */,
 				FAFB0883151215EE0041901D /* pk@2x.png in Resources */,
 				FAFB0884151215EE0041901D /* pl@2x.png in Resources */,
-				6B948E181A254C9900229BD5 /* ExternalLibs in Resources */,
 				FAFB0885151215EE0041901D /* pm@2x.png in Resources */,
 				FAFB0886151215EE0041901D /* pn@2x.png in Resources */,
 				FAFB0887151215EE0041901D /* pr@2x.png in Resources */,
