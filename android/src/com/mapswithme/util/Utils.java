@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,6 +35,8 @@ import java.util.NoSuchElementException;
 public class Utils
 {
   private static final String TAG = "Utils";
+
+  private Utils() {}
 
   public static String firstNotEmpty(String... args)
   {
@@ -284,6 +287,17 @@ public class Utils
     return model;
   }
 
+  public static boolean isInstalledAfter(Calendar calendar)
+  {
+    try
+    {
+      final PackageInfo info = MWMApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
+      return info.firstInstallTime > calendar.getTimeInMillis();
+    } catch (PackageManager.NameNotFoundException e)
+    {
+      e.printStackTrace();
+    }
 
-  private Utils() {}
+    return false;
+  }
 }

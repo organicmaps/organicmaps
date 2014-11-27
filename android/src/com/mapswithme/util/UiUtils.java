@@ -273,9 +273,10 @@ public final class UiUtils
     showIf(!TextUtils.isEmpty(text), tv);
   }
 
-  public static void showBuyProDialog(final Activity activity, final String message)
+  public static void showDownloadProDialog(final Activity activity, final String message)
   {
-    activity.runOnUiThread(new Runnable() {
+    activity.runOnUiThread(new Runnable()
+    {
       @Override
       public void run()
       {
@@ -406,6 +407,36 @@ public final class UiUtils
   public static void showHomeUpButton(Toolbar toolbar)
   {
     toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+  }
+
+  public static void showPromoShareDialog(final Activity activity, String message)
+  {
+    if (activity == null || activity.isFinishing())
+      return;
+
+    new AlertDialog.Builder(activity)
+        .setMessage(message)
+        .setCancelable(false)
+        .setPositiveButton(activity.getString(R.string.share), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            ShareAction.getFbShare().shareWithText(activity, activity.getString(R.string.free_pro_version_share_email_text),
+                activity.getString(R.string.free_pro_version_share_email_subject));
+          }
+        }).
+        setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        })
+        .create()
+        .show();
   }
 
   // utility class

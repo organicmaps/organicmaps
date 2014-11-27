@@ -67,6 +67,6 @@ public class MWMFragmentActivity extends ActionBarActivity implements Framework.
 
   public void onBuyPro()
   {
-    UiUtils.showBuyProDialog(MWMFragmentActivity.this, getString(R.string.routing_failed_buy_pro));
+    UiUtils.showDownloadProDialog(MWMFragmentActivity.this, getString(R.string.routing_failed_buy_pro));
   }
 }

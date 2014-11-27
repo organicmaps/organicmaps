@@ -54,6 +54,7 @@ import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -291,6 +292,7 @@ public class MWMActivity extends NvEventQueueActivity
         checkBuyProDialog();
         checkUserMarkActivation();
         checkShouldShowBanners();
+        Notifier.notifyAboutFreePro(MWMActivity.this);
       }
     });
 
@@ -354,7 +356,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onBookmarksClicked(View v)
   {
     if (!MWMApplication.get().hasBookmarks())
-      UiUtils.showBuyProDialog(this, getString(R.string.bookmarks_in_pro_version));
+      UiUtils.showDownloadProDialog(this, getString(R.string.bookmarks_in_pro_version));
     else
       showBookmarks();
   }
@@ -637,7 +639,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onSearchClicked(View v)
   {
     if (!BuildConfig.IS_PRO)
-      UiUtils.showBuyProDialog(this, getString(R.string.search_available_in_pro_version));
+      UiUtils.showDownloadProDialog(this, getString(R.string.search_available_in_pro_version));
     else if (!MapStorage.INSTANCE.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
       @Override
@@ -1631,7 +1633,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (!BuildConfig.IS_PRO)
     {
-      UiUtils.showBuyProDialog(this, getString(R.string.routing_failed_buy_pro));
+      UiUtils.showDownloadProDialog(this, getString(R.string.routing_failed_buy_pro));
       return;
     }
     if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))

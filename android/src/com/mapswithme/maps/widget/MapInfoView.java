@@ -823,7 +823,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       if (!MWMApplication.get().hasBookmarks())
       {
         mIsBookmarked.setChecked(false);
-        UiUtils.showBuyProDialog((Activity) getContext(), getResources().getString(R.string.bookmarks_in_pro_version));
+        UiUtils.showDownloadProDialog((Activity) getContext(), getResources().getString(R.string.bookmarks_in_pro_version));
         return;
       }
       if (mMapObject == null)

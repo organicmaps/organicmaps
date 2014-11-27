@@ -2,10 +2,14 @@ package com.mapswithme.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.LabeledIntent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Parcelable;
 import android.provider.Telephony;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +20,9 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class ShareAction
@@ -32,6 +38,7 @@ public abstract class ShareAction
   private final static SmsShareAction SMS_SHARE = new SmsShareAction();
   private final static EmailShareAction EMAIL_SHARE = new EmailShareAction();
   private final static AnyShareAction ANY_SHARE = new AnyShareAction();
+  private static final ShareAction FB_SHARE = new PromoShareAction();
 
   /* Extras*/
   private static final String EXTRA_SMS_BODY = "sms_body";
@@ -62,6 +69,11 @@ public abstract class ShareAction
   public static AnyShareAction getAnyShare()
   {
     return ANY_SHARE;
+  }
+
+  public static ShareAction getFbShare()
+  {
+    return FB_SHARE;
   }
 
   protected ShareAction(int id, int nameResId, Intent baseIntent)
@@ -210,6 +222,56 @@ public abstract class ShareAction
           .putExtra(Intent.EXTRA_SUBJECT, subject);
       final String header = activity.getString(R.string.share);
       activity.startActivity(Intent.createChooser(intent, header));
+    }
+  }
+
+  /**
+   * ANYTHING
+   */
+  public static class PromoShareAction extends ShareAction
+  {
+    public PromoShareAction()
+    {
+      super(ID_ANY, R.string.share, new Intent(Intent.ACTION_SEND).setType(TYPE_TEXT_PLAIN));
+    }
+
+    @Override
+    public void shareWithText(Activity activity, String body, String subject)
+    {
+      final Intent intent = getIntent();
+      intent.putExtra(Intent.EXTRA_TEXT, body)
+          .putExtra(Intent.EXTRA_SUBJECT, subject);
+      List<LabeledIntent> targetedShareIntents = new ArrayList<>();
+      List<ResolveInfo> resInfo = activity.getPackageManager().queryIntentActivities(intent, 0);
+      if (!resInfo.isEmpty())
+      {
+        for (ResolveInfo info : resInfo)
+        {
+          if (info.activityInfo.packageName.contains("facebook") || info.activityInfo.packageName.contains("twitter") ||
+              info.activityInfo.packageName.contains("google") || info.activityInfo.packageName.contains("viber"))
+          {
+            final Intent copy = new Intent(intent);
+            copy.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+            if (info.activityInfo.packageName.toLowerCase().contains(Constants.Package.FB_PACKAGE))
+            {
+              copy.putExtra(Intent.EXTRA_TEXT, "http://maps.me/promo_banner");
+              copy.putExtra(Intent.EXTRA_SUBJECT, "http://masp.me/promo_banner");
+            }
+            targetedShareIntents.add(new LabeledIntent(copy, info.activityInfo.packageName,
+                info.loadLabel(activity.getPackageManager()), info.icon));
+          }
+        }
+        Intent emailIntent = new Intent();
+        emailIntent.setAction(Intent.ACTION_SEND);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        emailIntent.setType(TYPE_MESSAGE_RFC822);
+
+        final String header = activity.getString(R.string.share);
+        Intent chooserIntent = Intent.createChooser(emailIntent, header);
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[targetedShareIntents.size()]));
+        activity.startActivity(chooserIntent);
+      }
     }
   }
 
