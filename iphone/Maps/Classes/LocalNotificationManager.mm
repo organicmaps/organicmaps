@@ -75,7 +75,10 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
         notificationTitle = L(notificationInfo[@"NotificationLocalizedBodyKey"]);
       UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:notificationTitle message:nil delegate:nil cancelButtonTitle:dismissiveAction otherButtonTitles:positiveAction, nil];
       alertView.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex != alertView.cancelButtonIndex)
+        NSString * notificationID = notificationInfo[@"NotificationID"];
+        BOOL shared = (buttonIndex != alertView.cancelButtonIndex);
+        [[Statistics instance] logEvent:[NSString stringWithFormat:@"'%@' Notification Show", notificationID] withParameters:@{@"Shared" : @(shared)}];
+        if (shared)
           [self runNotificationAction:notificationInfo];
       };
       [alertView show];
