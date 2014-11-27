@@ -252,6 +252,8 @@ public abstract class ShareAction
           {
             final Intent copy = new Intent(intent);
             copy.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+            copy.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.free_pro_version_share_message));
+            copy.putExtra(Intent.EXTRA_SUBJECT, activity.getString(R.string.free_pro_version_share_message));
             if (info.activityInfo.packageName.toLowerCase().contains(Constants.Package.FB_PACKAGE))
             {
               copy.putExtra(Intent.EXTRA_TEXT, "http://maps.me/fb_share");
