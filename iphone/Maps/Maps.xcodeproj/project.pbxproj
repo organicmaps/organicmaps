@@ -188,6 +188,7 @@
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
+		B0183B751A272FF500D7A4BA /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
 		B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */; };
 		B08AA8D01A25E53600810B1C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
 		B08AA8D11A25E54800810B1C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
@@ -4719,6 +4720,7 @@
 				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				97908B2D1965876C003DD7C6 /* SearchCategoryCell.m in Sources */,
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
+				B0183B751A272FF500D7A4BA /* TimeUtils.m in Sources */,
 				9789DB57188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
 				97AA2822190AD21100AE1AAB /* PlacePageShareCell.m in Sources */,
 				976D86F619CB21BD00C920EF /* RouteView.m in Sources */,
