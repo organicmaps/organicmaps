@@ -14,9 +14,9 @@
 		<key>NotificationID</key>
 		<string>ProVersionForFree</string>
 		<key>NotificationDate</key>
-		<date>2014-12-03T09:00:00Z</date>
+		<string>2014-12-03T19:00:00</string>
 		<key>NotificationExpirationDate</key>
-		<date>2016-12-01T13:10:00Z</date>
+		<string>2016-12-01T19:00:00</string>
 		<key>NotificationViewsLimit</key>
 		<integer>1</integer>
 		<key>NotificationLocalizedBodyKey</key>

@@ -7,6 +7,7 @@
 #import "MapViewController.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
+#import "TimeUtils.h"
 #import "LocalNotificationInfoProvider.h"
 
 #include "../../../storage/storage_defines.hpp"
@@ -206,14 +207,14 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     if ([viewsNumber integerValue] >= [viewsLimit integerValue])
       continue;
     
-    NSDate * fireDate = notificationInfo[@"NotificationDate"];
-    NSDate * expirationDate = notificationInfo[@"NotificationExpirationDate"];
+    NSDate * fireDate = [NSDateFormatter dateWithString:notificationInfo[@"NotificationDate"]];
+    NSDate * expirationDate = [NSDateFormatter dateWithString:notificationInfo[@"NotificationExpirationDate"]];
     NSDate * currentDate = [NSDate date];
     if (expirationDate && [currentDate timeIntervalSinceDate:expirationDate] >= 0)
       continue;
     
     if ([currentDate timeIntervalSinceDate:fireDate] >= 0)
-      fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0 * 60];
+      fireDate = [NSDate dateWithTimeIntervalSinceNow:10.0 * 60];
     
     [self increaseViewsNumberOfNotification:notificationID];
     
@@ -227,6 +228,8 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     UIApplication * application = [UIApplication sharedApplication];
     [application scheduleLocalNotification:notification];
     [actualSpecialLocalNotifications addObject:notification];
+    
+    [[Statistics instance] logEvent:[NSString stringWithFormat:@"'%@' Notification Scheduled", notificationID]];
   }
   
   // We'd like to remove not actual special notifications.
@@ -234,8 +237,6 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   [notActualSpecialLocalNotifications removeObjectsInArray:actualSpecialLocalNotifications];
   for (UILocalNotification * notification in notActualSpecialLocalNotifications)
     [[UIApplication sharedApplication] cancelLocalNotification:notification];
-  
-  [[Statistics instance] logEvent:@"'Download Map' Notification Scheduled"];
 }
 
 - (NSArray *)localNotificationsInfo
