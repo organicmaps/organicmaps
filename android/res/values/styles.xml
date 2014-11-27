@@ -49,7 +49,9 @@
 
   <style name="MWMMain" parent="@style/AppTheme"/>
 
-  <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar"/>
+  <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+  </style>
 
   <style name="MwmSearch" parent="@style/MWMMain">
     <item name="android:windowNoTitle">true</item>

@@ -117,8 +117,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
     }
     else
     {
-      // FIXME
-      // Always show map as parent
+      getActivity().getSupportFragmentManager().popBackStack();
       startActivity(new Intent(getActivity(), MWMActivity.class));
     }
     return false;

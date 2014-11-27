@@ -917,6 +917,7 @@ public class MWMActivity extends NvEventQueueActivity
     UiUtils.invisible(mVerticalToolbar);
 
     mFadeView = findViewById(R.id.fade_view);
+    Log.d("TEST", "Set up tob ");
 
     final Toolbar toolbar = (Toolbar) mVerticalToolbar.findViewById(R.id.toolbar);
     if (toolbar != null)
@@ -999,6 +1000,8 @@ public class MWMActivity extends NvEventQueueActivity
   {
     super.onNewIntent(intent);
 
+    Log.d("TEST", "onnewintent");
+    fadeMap(0, 0);
     if (intent != null)
     {
       if (intent.hasExtra(EXTRA_TASK))
