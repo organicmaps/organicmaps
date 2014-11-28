@@ -16,6 +16,14 @@
   <dimen name="margin_medium">16dp</dimen>
   <dimen name="margin_large">32dp</dimen>
 
+  <dimen name="neg_margin_micro">-2dp</dimen>
+  <dimen name="neg_margin_tiny">-4dp</dimen>
+  <dimen name="neg_margin_tiny_and_half">-6dp</dimen>
+  <dimen name="neg_margin_small">-8dp</dimen>
+  <dimen name="neg_margin_small_and_half">-12dp</dimen>
+  <dimen name="neg_margin_medium">-16dp</dimen>
+  <dimen name="neg_margin_large">-32dp</dimen>
+
   <dimen name="dp_x_1">4dp</dimen>
   <dimen name="dp_x_2">8dp</dimen>
   <dimen name="dp_x_3">12dp</dimen>

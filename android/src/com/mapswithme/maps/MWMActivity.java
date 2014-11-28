@@ -27,6 +27,7 @@ import android.telephony.TelephonyManager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -1150,18 +1151,20 @@ public class MWMActivity extends NvEventQueueActivity
       builder.setSpan(new AbsoluteSizeSpan(34, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvRoutingDistance.setText(builder);
+      builder.setSpan(new AbsoluteSizeSpan(25, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(15, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvTotalDistance.setText(builder);
       mIvTurn.setImageResource(getTurnImageResource(info));
-      if (LocationState.RoutingInfo.TurnDirection.isRightTurn(info.mTurnDirection))
+      if (LocationState.RoutingInfo.TurnDirection.isLeftTurn(info.mTurnDirection))
         ViewHelper.setScaleX(mIvTurn, -1); // right turns are displayed as mirrored left turns.
       else
         ViewHelper.setScaleX(mIvTurn, 1);
-
+      mTvTotalTime.setText(DateUtils.formatElapsedTime(info.mTotalTimeInSeconds));
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
-      builder.setSpan(new AbsoluteSizeSpan(34, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      mTvTurnDistance.setText(builder.toString());
+      builder.setSpan(new AbsoluteSizeSpan(40, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(15, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mTvTurnDistance.setText(builder);
     }
   }
 
@@ -1733,7 +1736,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void closeRouting()
   {
-    Log.d("TEST", "Close routing.");
     mInfoView.bringToFront();
     mRlRoutingBox.clearAnimation();
     UiUtils.hide(mRlRoutingBox, mPbRoutingProgress, mRlTurnByTurnBox);

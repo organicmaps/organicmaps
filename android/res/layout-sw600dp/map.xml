@@ -21,16 +21,14 @@
       android:id="@+id/rl__routing_box"
       android:layout_width="match_parent"
       android:layout_height="@dimen/routing_pp_height"
-      android:background="@android:color/transparent"
-      android:padding="@dimen/margin_micro">
+      android:background="@color/bg_top_panels">
 
     <RelativeLayout
         android:id="@+id/rl__routing_go"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/routing_button_height"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/iv__routing_close"
-        android:background="@drawable/ic_route_bg">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/iv__routing_close">
 
       <TextView
           android:id="@+id/tv__routing_go"
@@ -61,7 +59,6 @@
         android:layout_height="@dimen/routing_button_height"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_route_bg"
         android:padding="@dimen/margin_medium"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"/>
@@ -72,7 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/routing_button_height"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_route_bg"
         android:gravity="bottom"
         android:includeFontPadding="false"
         android:paddingBottom="1dp"
@@ -112,8 +108,8 @@
       android:layout_width="@dimen/bottom_button_width"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:layout_marginBottom="56dp"
-      android:layout_alignParentRight="true"/>
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="56dp"/>
 
   <include
       android:id="@+id/map_bottom_vertical_toolbar"

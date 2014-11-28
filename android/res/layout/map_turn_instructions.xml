@@ -8,14 +8,18 @@
 
   <TextView
       android:id="@+id/tv__total_distance"
+      style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/margin_medium"/>
 
   <TextView
       android:id="@+id/tv__total_time"
+      style="@style/TextAppearance.AppCompat.Large"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:textColor="#99000000"
+      android:textSize="14sp"
       android:layout_alignLeft="@id/tv__total_distance"
       android:layout_below="@id/tv__total_distance"/>
 
@@ -34,6 +38,7 @@
 
     <TextView
         android:id="@+id/tv__turn_distance"
+        style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_turn_blue"/>
