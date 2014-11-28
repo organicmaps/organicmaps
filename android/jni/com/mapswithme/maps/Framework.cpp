@@ -1291,15 +1291,16 @@ extern "C"
       {
         jclass klass = env->FindClass("com/mapswithme/maps/LocationState$RoutingInfo");
         jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;"
-            "Ljava/lang/String;Ljava/lang/String;I)V");
+            "Ljava/lang/String;Ljava/lang/String;II)V");
 
         return env->NewObject(klass, methodID,
                               jni::ToJavaString(env, info.m_distToTarget),
                               jni::ToJavaString(env, info.m_targetUnitsSuffix),
                               jni::ToJavaString(env, info.m_distToTurn),
                               jni::ToJavaString(env, info.m_turnUnitsSuffix),
-                              static_cast<jint>(info.m_turn));
-      }
+                              static_cast<jint>(info.m_turn),
+                              info.m_time);
+            }
     }
 
     return 0;

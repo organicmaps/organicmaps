@@ -28,6 +28,7 @@ public enum LocationState
   {
     public String mDistToTarget;
     public String mUnits;
+    public int mTotalTimeInSeconds;
 
     public String mDistToTurn;
     public String mTurnUnitsSuffix;
@@ -72,12 +73,13 @@ public enum LocationState
       }
     }
 
-    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, int direction)
+    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, int direction, int totalTime)
     {
       mDistToTarget = distToTarget;
       mUnits = units;
       mTurnUnitsSuffix = turnSuffix;
       mDistToTurn = distTurn;
+      mTotalTimeInSeconds = totalTime;
       mTurnDirection = TurnDirection.values()[direction];
     }
   }
