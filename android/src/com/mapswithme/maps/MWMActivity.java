@@ -1152,7 +1152,7 @@ public class MWMActivity extends NvEventQueueActivity
       builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvRoutingDistance.setText(builder);
       builder.setSpan(new AbsoluteSizeSpan(25, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(15, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(14, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvTotalDistance.setText(builder);
       mIvTurn.setImageResource(getTurnImageResource(info));
       if (LocationState.RoutingInfo.TurnDirection.isLeftTurn(info.mTurnDirection))
@@ -1162,8 +1162,8 @@ public class MWMActivity extends NvEventQueueActivity
       mTvTotalTime.setText(DateUtils.formatElapsedTime(info.mTotalTimeInSeconds));
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
-      builder.setSpan(new AbsoluteSizeSpan(40, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(15, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(11, true), info.mDistToTurn.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvTurnDistance.setText(builder);
     }
   }

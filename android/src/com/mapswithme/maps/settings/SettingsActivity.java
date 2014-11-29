@@ -26,6 +26,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
@@ -80,6 +82,12 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
     enableZoomButtons.setChecked(MWMApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
     enableZoomButtons.setOnPreferenceChangeListener(this);
+
+    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(MWMApplication.get()) != ConnectionResult.SUCCESS)
+    {
+      ((PreferenceScreen) findPreference(getString(R.string.pref_settings))).
+          removePreference(findPreference(getString(R.string.pref_play_services)));
+    }
 
     findPreference(getString(R.string.pref_about)).setOnPreferenceClickListener(this);
     findPreference(getString(R.string.pref_rate_app)).setOnPreferenceClickListener(this);

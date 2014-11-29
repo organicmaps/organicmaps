@@ -51,6 +51,12 @@
           android:summary="@string/pref_zoom_summary"
           android:title="@string/pref_zoom_title"/>
 
+      <CheckBoxPreference
+          android:key="@string/pref_play_services"
+          android:order="5"
+          android:summary="Use google play services for location"
+          android:title="Location"/>
+
       <Preference
           android:key="@string/pref_yota"
           android:order="98"

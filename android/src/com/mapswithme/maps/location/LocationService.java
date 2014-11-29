@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 
@@ -20,6 +21,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
@@ -118,8 +120,10 @@ public enum LocationService implements
       }
     }
 
+    final MWMApplication application = MWMApplication.get();
     if (isLocationTurnedOn &&
-        GooglePlayServicesUtil.isGooglePlayServicesAvailable(MWMApplication.get().get()) == ConnectionResult.SUCCESS)
+        GooglePlayServicesUtil.isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS &&
+        PreferenceManager.getDefaultSharedPreferences(application).getBoolean(application.getString(R.string.pref_play_services), false))
     {
       mLogger.d("Use fused provider.");
       mLocationProvider = new GoogleFusedLocationProvider();
