@@ -12,8 +12,8 @@
       android:background="@android:color/transparent"/>
 
   <include
-      android:id="@+id/search_box"
-      layout="@layout/search_box"
+      android:id="@+id/toolbar_search"
+      layout="@layout/toolbar_with_search"
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"/>
 
@@ -27,7 +27,7 @@
       android:id="@+id/rl__routing_box"
       android:layout_width="match_parent"
       android:layout_height="@dimen/routing_pp_height"
-      android:layout_below="@id/search_box"
+      android:layout_below="@id/toolbar_search"
       android:background="@color/bg_top_panels">
 
     <RelativeLayout

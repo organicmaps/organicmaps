@@ -5,12 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-  <include
+  <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
-      layout="@layout/toolbar_with_search"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_small"/>
+      android:layout_height="@dimen/search_box_height"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/MyActionBar"/>
 
   <View
       android:id="@+id/btn_buy_pro"

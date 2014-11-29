@@ -179,6 +179,15 @@ public class MWMActivity extends NvEventQueueActivity
     // Next we need to handle intent
   }
 
+  public static void startSearch(Context context, String query)
+  {
+    final MWMActivity activity = (MWMActivity) context;
+    if (activity.mIsFragmentContainer)
+      activity.showSearch();
+    else
+      SearchActivity.startForSearch(context, query);
+  }
+
   public static Intent createUpdateMapsIntent()
   {
     return new Intent(MWMApplication.get(), DownloadResourcesActivity.class)
@@ -790,6 +799,7 @@ public class MWMActivity extends NvEventQueueActivity
         return;
       setVerticalToolbarVisible(false);
       popFragment();
+      SearchController.getInstance().cancel();
 
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
       Fragment fragment = new DownloadFragment();
@@ -932,8 +942,7 @@ public class MWMActivity extends NvEventQueueActivity
     if (toolbar != null)
     {
       UiUtils.showHomeUpButton(toolbar);
-      // TODO add string
-      toolbar.setTitle("Application menu");
+      toolbar.setTitle(getString(R.string.toolbar_application_menu));
       toolbar.setNavigationOnClickListener(new OnClickListener()
       {
         @Override
