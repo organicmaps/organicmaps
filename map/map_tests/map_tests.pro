@@ -9,6 +9,10 @@ ROOT_DIR = ../..
 DEPENDENCIES = map gui routing search storage graphics indexer platform anim geometry coding base \
                freetype fribidi expat protobuf tomcrypt jansson zlib osrm
 
+drape {
+  DEPENDENCIES *= drape_frontend drape
+}
+
 include($$ROOT_DIR/common.pri)
 
 QT *= core opengl
