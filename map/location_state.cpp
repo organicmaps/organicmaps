@@ -245,6 +245,8 @@ private:
   int m_idleFrames = 0;
 };
 
+string const LocationStateMode = "LastLocationStateMode";
+
 }
 
 State::Params::Params()
@@ -264,6 +266,11 @@ State::State(Params const & p)
 {
   m_locationAreaColor = p.m_locationAreaColor;
   m_framework = p.m_framework;
+
+  int mode = 0;
+  if (Settings::Get(LocationStateMode, mode))
+    m_modeInfo = mode;
+
   bool isBench = false;
   if (Settings::Get("IsBenchmarking", isBench) && isBench)
     m_modeInfo = UnknownPosition;
@@ -696,6 +703,7 @@ void State::SetModeInfo(uint16_t modeInfo)
   m_modeInfo = modeInfo;
   if (newMode != oldMode)
   {
+    Settings::Set(LocationStateMode, static_cast<int>(GetMode()));
     CallStateModeListeners();
     AnimateStateTransition(oldMode, newMode);
     invalidate();
