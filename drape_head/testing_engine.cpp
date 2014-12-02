@@ -127,15 +127,8 @@ public:
 
   void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
   {
-    const int cnt = 6000;
-
-    dp::ColorKey key(0);
     dp::TextureSetHolder::ColorRegion region;
-    for (int i = 0; i < cnt; ++i)
-    {
-      key.SetColor(dp::Color(rand()%256, rand()%256, rand()%256, 255).GetColorInInt());
-      textures->GetColorRegion(key, region);
-    }
+    textures->GetColorRegion(dp::Color(rand() % 256, rand() % 256, rand() % 256, 255), region);
 
     m2::RectF const & rect = region.GetTexRect();
     float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
@@ -272,9 +265,8 @@ public:
     formingVectors[2] = m2::PointF( m_radius,  m_radius);
     formingVectors[3] = m2::PointF( m_radius, -m_radius);
 
-    dp::ColorKey key(dp::Color(150, 130, 120, 255).GetColorInInt());
     dp::TextureSetHolder::ColorRegion region;
-    textures->GetColorRegion(key, region);
+    textures->GetColorRegion(dp::Color(150, 130, 120, 255), region);
     m2::RectF const & rect = region.GetTexRect();
     float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 

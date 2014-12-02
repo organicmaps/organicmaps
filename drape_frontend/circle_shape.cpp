@@ -49,9 +49,8 @@ void CircleShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::T
   double const TriangleCount = 20.0;
   double const etalonSector = (2.0 * math::pi) / TriangleCount;
 
-  dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
-  textures->GetColorRegion(key, region);
+  textures->GetColorRegion(m_params.m_color, region);
   glsl::vec3 color(glsl::ToVec2(region.GetTexRect().Center()), region.GetTextureNode().GetOffset());
 
   /// x, y, z floats on geompoint

@@ -23,9 +23,8 @@ AreaShape::AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & 
 
 void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
-  textures->GetColorRegion(key, region);
+  textures->GetColorRegion(m_params.m_color, region);
   m2::PointF const colorPoint = region.GetTexRect().Center();
 
   dp::TextureSetHolder::TextureNode const & texNode = region.GetTextureNode();

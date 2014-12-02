@@ -17,11 +17,9 @@ void FillColor(vector<glsl::Quad4> & colors,
                dp::Color const & base, dp::Color const & outline,
                dp::RefPointer<dp::TextureSetHolder> textures)
 {
-  dp::ColorKey key(base.GetColorInInt());
-  textures->GetColorRegion(key, region);
+  textures->GetColorRegion(base, region);
   m2::PointF const color = region.GetTexRect().Center();
-  key.SetColor(outline.GetColorInInt());
-  textures->GetColorRegion(key, region);
+  textures->GetColorRegion(outline, region);
   m2::PointF const mask = region.GetTexRect().Center();
 
   glsl::vec4 clrs(color.x, color.y, mask.x, mask.y);

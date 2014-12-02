@@ -184,9 +184,6 @@ void GLFunctions::Init()
   glUniform1fvFn = &::glUniform1fv;
 
   glUniformMatrix4fvFn = &glUniformMatrix4fv;
-
-  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-  glPixelStorei(GL_PACK_ALIGNMENT, 1);
 }
 
 bool GLFunctions::glHasExtension(string const & name)

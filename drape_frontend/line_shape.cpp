@@ -281,7 +281,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   LineEnumerator enumerator(m_spline->GetPath(), m_params.m_baseGtoPScale, m_params.m_cap != dp::ButtCap);
 
   dp::TextureSetHolder::ColorRegion colorRegion;
-  textures->GetColorRegion(dp::ColorKey(m_params.m_color.GetColorInInt()), colorRegion);
+  textures->GetColorRegion(m_params.m_color, colorRegion);
   enumerator.SetColorParams(colorRegion);
 
   dp::StipplePenKey maskKey;

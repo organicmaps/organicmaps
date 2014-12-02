@@ -42,10 +42,6 @@ public:
   int32_t GetTextureSet() const { return m_textureSet; }
   bool HasTextureSet() const;
 
-  void SetColor(Color const & c);
-  Color const & GetColor() const { return m_color; }
-  bool HasColor() const;
-
   void SetBlending(Blending const & blending);
   Blending const & GetBlending() const { return m_blending; }
 
@@ -59,8 +55,6 @@ private:
   DepthLayer m_depthLayer;
   int32_t m_textureSet;
   Blending m_blending;
-  Color m_color;
-
   uint32_t m_mask;
 };
 

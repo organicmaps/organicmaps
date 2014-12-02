@@ -10,40 +10,36 @@ static const uint8_t MaxChannelValue = 255;
 
 } // namespace
 
+#define EXTRACT_BYTE(x, n) (((x) >> 8 * (n)) & 0xFF);
+
 Color::Color()
-  : m_red(0)
-  , m_green(0)
-  , m_blue(0)
-  , m_alfa(MaxChannelValue)
+  : m_rgba(MaxChannelValue)
 {
 }
 
 Color::Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alfa)
-  : m_red(red)
-  , m_green(green)
-  , m_blue(blue)
-  , m_alfa(alfa)
 {
+  m_rgba = red << 24 | green << 16 | blue << 8 | alfa;
 }
 
-bool Color::operator< (Color const & other) const
+uint8_t Color::GetRed() const
 {
-  if (other.m_red != m_red)
-    return m_red < other.m_red;
-  if (other.m_green != m_green)
-    return m_green < other.m_green;
-  if (other.m_blue != m_blue)
-    return m_blue < other.m_blue;
-
-  return m_alfa < other.m_alfa;
+  return EXTRACT_BYTE(m_rgba, 3);
 }
 
-bool Color::operator== (Color const & other) const
+uint8_t Color::GetGreen() const
 {
-  return m_red   == other.m_red   &&
-         m_green == other.m_green &&
-         m_blue  == other.m_blue  &&
-         m_alfa  == other.m_alfa;
+  return EXTRACT_BYTE(m_rgba, 2);
+}
+
+uint8_t Color::GetBlue() const
+{
+  return EXTRACT_BYTE(m_rgba, 1);
+}
+
+uint8_t Color::GetAlfa() const
+{
+  return EXTRACT_BYTE(m_rgba, 0);
 }
 
 uint8_t ExtractRed(uint32_t argb)
@@ -80,39 +76,6 @@ Color Extract(uint32_t xrgb, uint8_t a)
                ExtractGreen(xrgb),
                ExtractBlue(xrgb),
                a);
-}
-
-void Convert(Color const & c, float & r, float & g, float & b, float & a)
-{
-  r = c.m_red / (float)MaxChannelValue;
-  g = c.m_green / (float)MaxChannelValue;
-  b = c.m_blue / (float)MaxChannelValue;
-  a = c.m_alfa / (float)MaxChannelValue;
-}
-
-ColorF::ColorF(Color const & clr)
-{
-  Convert(clr, m_r, m_g, m_b, m_a);
-}
-
-bool ColorF::operator< (ColorF const & other) const
-{
-  if (other.m_r != m_r)
-    return m_r < other.m_r;
-  if (other.m_g != m_g)
-    return m_g < other.m_g;
-  if (other.m_b != m_b)
-    return m_b < other.m_b;
-
-  return m_a < other.m_a;
-}
-
-bool ColorF::operator== (ColorF const & other) const
-{
-  return m_r == other.m_r &&
-         m_g == other.m_g &&
-         m_b == other.m_b &&
-         m_a == other.m_a;
 }
 
 } // namespace dp

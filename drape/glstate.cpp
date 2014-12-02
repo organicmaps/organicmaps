@@ -4,8 +4,7 @@
 #include "../base/buffer_vector.hpp"
 #include "../std/bind.hpp"
 
-#define COLOR_BIT     0x1
-#define TEXTURE_BIT   0x2
+#define TEXTURE_BIT 0x1
 
 namespace dp
 {
@@ -54,7 +53,6 @@ GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
   , m_textureSet(-1)
-  , m_color(0, 0, 0, 0)
   , m_mask(0)
 {
 }
@@ -68,17 +66,6 @@ void GLState::SetTextureSet(int32_t textureSet)
 bool GLState::HasTextureSet() const
 {
   return (m_mask & TEXTURE_BIT) != 0;
-}
-
-void GLState::SetColor(Color const & c)
-{
-  m_mask |= COLOR_BIT;
-  m_color = c;
-}
-
-bool GLState::HasColor() const
-{
-  return (m_mask & COLOR_BIT) != 0;
 }
 
 void GLState::SetBlending(Blending const & blending)
@@ -96,10 +83,7 @@ bool GLState::operator<(GLState const & other) const
   if (m_gpuProgramIndex != other.m_gpuProgramIndex)
     return m_gpuProgramIndex < other.m_gpuProgramIndex;
 
-  if (m_textureSet != other.m_textureSet)
-    return m_textureSet < other.m_textureSet;
-
-  return m_color < other.m_color;
+  return m_textureSet < other.m_textureSet;
 }
 
 bool GLState::operator==(GLState const & other) const
@@ -108,8 +92,7 @@ bool GLState::operator==(GLState const & other) const
          m_depthLayer == other.m_depthLayer &&
          m_gpuProgramIndex == other.m_gpuProgramIndex &&
          m_textureSet == other.m_textureSet &&
-         m_blending == other.m_blending &&
-         m_color == other.m_color;
+         m_blending == other.m_blending;
 }
 
 namespace
@@ -128,14 +111,6 @@ void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram>
 void ApplyState(GLState state, RefPointer<GpuProgram> program,
                                RefPointer<TextureSetController> textures)
 {
-  if (state.HasColor())
-  {
-    int8_t location = program->GetUniformLocation("u_color");
-    float c[4];
-    Convert(state.GetColor(), c[0], c[1], c[2], c[3]);
-    GLFunctions::glUniformValuef(location, c[0], c[1], c[2], c[3]);
-  }
-
   if (state.HasTextureSet())
   {
     uint32_t textureSet = state.GetTextureSet();
