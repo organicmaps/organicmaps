@@ -643,7 +643,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
 #ifdef _DEBUG
   for (auto t : turnsDir)
+  {
     LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_srcName, "-", t.m_trgName, "exit:", t.m_exitNum));
+  }
 #endif
 
   route.SetGeometry(points.begin(), points.end());
