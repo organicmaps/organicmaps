@@ -1,5 +1,6 @@
 import os
 import sys
+import hashlib
 
 lowPDefine = "LOW_P"
 lowPSearch = "lowp"
@@ -57,63 +58,75 @@ def generateShaderIndexes(shaders):
 def generateProgramIndex(programs):
     return dict((v, k) for k, v in enumerate(programs))
 
-def definitionChanged(programIndex, defFilePath):
+def definitionChanged(newHeaderContent, defFilePath):
     if not os.path.isfile(defFilePath):
         return True
 
     defContent = open(defFilePath, 'r').read()
-    for program in programIndex.keys():
-        if program not in defContent:
-            return True
+    oldMD5 = hashlib.md5()
+    oldMD5.update(defContent)
 
-    return False
+    newMd5 = hashlib.md5()
+    newMd5.update(newHeaderContent)
 
-def writeDefinitionFile(programIndex, defFilePath):
-    file = open(defFilePath, 'w')
-    file.write("#pragma once\n\n")
-    file.write("#include \"../std/map.hpp\"\n")
-    file.write("#include \"../std/vector.hpp\"\n")
-    file.write("#include \"../std/string.hpp\"\n\n")
-    file.write("namespace gpu\n")
-    file.write("{\n")
-    file.write("\n")
-    file.write("#if defined(OMIM_OS_DESKTOP) && !defined(COMPILER_TESTS)\n")
-    file.write("  #define %s \"\" \n" % (lowPDefine))
-    file.write("  #define %s \"\" \n" % (mediumPDefine))
-    file.write("  #define %s \"\" \n" % (highPDefine))
-    file.write("  #define %s \"\" \n" % (maxPrecDefine))
-    file.write("#else\n")
-    file.write("  #define %s \"%s\"\n" % (lowPDefine, lowPSearch))
-    file.write("  #define %s \"%s\"\n" % (mediumPDefine, mediumPSearch))
-    file.write("  #define %s \"%s\"\n" % (highPDefine, highPSearch))
-    file.write("  #define %s \"%s\"\n" % (maxPrecDefine, maxPrecSearch))
-    file.write("#endif\n\n")
-    file.write("struct ProgramInfo\n")
-    file.write("{\n")
-    file.write("  ProgramInfo();\n")
-    file.write("  ProgramInfo(int vertexIndex, int fragmentIndex,\n")
-    file.write("              char const * vertexSource, char const  * fragmentSource);\n")
-    file.write("  int m_vertexIndex;\n")
-    file.write("  int m_fragmentIndex;\n")
-    file.write("  char const * m_vertexSource;\n")
-    file.write("  char const * m_fragmentSource;\n")
-    file.write("};\n\n")
+    return oldMD5.digest() != newMd5.digest()
+
+def writeDefinitionFile(programIndex):
+    result = ""
+    result += "#pragma once\n\n"
+    result += "#include \"../std/map.hpp\"\n"
+    result += "#include \"../std/vector.hpp\"\n"
+    result += "#include \"../std/string.hpp\"\n\n"
+    result += "namespace gpu\n"
+    result += "{\n"
+    result += "\n"
+    result += "#if defined(OMIM_OS_DESKTOP) && !defined(COMPILER_TESTS)\n"
+    result += "  #define %s \"\" \n" % (lowPDefine)
+    result += "  #define %s \"\" \n" % (mediumPDefine)
+    result += "  #define %s \"\" \n" % (highPDefine)
+    result += "  #define %s \"\" \n" % (maxPrecDefine)
+    result += "#else\n"
+    result += "  #define %s \"%s\"\n" % (lowPDefine, lowPSearch)
+    result += "  #define %s \"%s\"\n" % (mediumPDefine, mediumPSearch)
+    result += "  #define %s \"%s\"\n" % (highPDefine, highPSearch)
+    result += "  #define %s \"%s\"\n" % (maxPrecDefine, maxPrecSearch)
+    result += "#endif\n\n"
+    result += "struct ProgramInfo\n"
+    result += "{\n"
+    result += "  ProgramInfo();\n"
+    result += "  ProgramInfo(int vertexIndex, int fragmentIndex,\n"
+    result += "              char const * vertexSource, char const  * fragmentSource);\n"
+    result += "  int m_vertexIndex;\n"
+    result += "  int m_fragmentIndex;\n"
+    result += "  char const * m_vertexSource;\n"
+    result += "  char const * m_fragmentSource;\n"
+    result += "};\n\n"
 
     for programName in programIndex.keys():
-        file.write("extern int const %s;\n" % (programName));
+        result += "extern int const %s;\n" % (programName)
 
-    file.write("\n")
-    file.write("void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n\n")
-    file.write("#if defined(COMPILER_TESTS)\n")
-    file.write("extern vector<string> VertexEnum;\n")
-    file.write("extern vector<string> FragmentEnum;\n\n")
-    file.write("void InitEnumeration();\n\n")
-    file.write("#endif\n")
-    file.write("} // namespace gpu\n")
-    file.close()
+    result += "\n"
+    result += "void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n\n"
+    result += "#if defined(COMPILER_TESTS)\n"
+    result += "extern vector<string> VertexEnum;\n"
+    result += "extern vector<string> FragmentEnum;\n\n"
+    result += "void InitEnumeration();\n\n"
+    result += "#endif\n"
+    result += "} // namespace gpu\n"
+
+    return result
 
 def writeShader(outputFile, shaderFile, shaderDir):
-    outputFile.write("  static char const %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)));
+    outputFile.write("  static char const %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)))
+    outputFile.write("  #ifdef GL_ES \\n\\\n")
+    outputFile.write("    #ifdef GL_FRAGMENT_PRECISION_HIGH \\n\\\n")
+    outputFile.write("      #define MAXPREC \" HIGH_P \" \\n\\\n")
+    outputFile.write("    #else \\n\\\n")
+    outputFile.write("      #define MAXPREC \" MEDIUM_P \" \\n\\\n")
+    outputFile.write("    #endif \\n\\\n")
+    outputFile.write("    precision MAXPREC float; \\n\\\n")
+    outputFile.write("  #endif \\n\\\n")
+
     for line in open(os.path.join(shaderDir, shaderFile)):
         if not line.lstrip().startswith("//"):
             outputLine = line.rstrip().replace(lowPSearch, "\" " + lowPDefine + " \"")
@@ -219,8 +232,11 @@ shaderIndex = generateShaderIndexes(shaders)
 programDefinition = readIndexFile(os.path.join(shaderDir, indexFileName))
 programIndex = generateProgramIndex(programDefinition)
 
-if definitionChanged(programIndex, formatOutFilePath(shaderDir, definesFile)):
-    writeDefinitionFile(programIndex, formatOutFilePath(shaderDir, definesFile))
+headerFile = writeDefinitionFile(programIndex)
+if definitionChanged(headerFile, formatOutFilePath(shaderDir, definesFile)):
+    f = open(formatOutFilePath(shaderDir, definesFile), 'w')
+    f.write(headerFile)
+    f.close()
 else:
     print("No need to update definition file")
 writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile, shaders)

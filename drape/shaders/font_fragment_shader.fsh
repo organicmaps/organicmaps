@@ -1,11 +1,3 @@
-#ifdef GL_FRAGMENT_PRECISION_HIGH
-  #define MAXPREC highp
-#else
-  #define MAXPREC mediump
-#endif
-
-precision MAXPREC float;
-
 varying vec3 v_texcoord;
 varying vec4 v_colors;
 varying float v_index;
