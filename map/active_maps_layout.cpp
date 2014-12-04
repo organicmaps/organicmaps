@@ -383,7 +383,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 
   TGroup group = TGroup::ENewMap;
   int position = 0;
-  VERIFY(GetGroupAndPositionByIndex(index, group, position), ());
+  VERIFY(GetGroupAndPositionByIndex(index, group, position), (index));
   Item & item = GetItemInGroup(group, position);
 
   TStatus oldStatus = item.m_status;

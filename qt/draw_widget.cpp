@@ -2,6 +2,7 @@
 #include "slider_ctrl.hpp"
 
 #include "../map/render_policy.hpp"
+#include "../map/country_status_display.hpp"
 
 #include "../search/result.hpp"
 
@@ -86,6 +87,15 @@ namespace qt
     PinClickManager & manager = GetBalloonManager();
     manager.ConnectUserMarkListener(bind(&DrawWidget::OnActivateMark, this, _1));
     manager.ConnectDismissListener(&DummyDismiss);
+
+    m_framework->GetCountryStatusDisplay()->SetDownloadCountryListener([this] (storage::TIndex const & idx, int opt)
+    {
+      storage::ActiveMapsLayout & layout = m_framework->GetCountryTree().GetActiveMapLayout();
+      if (opt == -1)
+        layout.RetryDownloading(idx);
+      else
+        layout.DownloadMap(idx, static_cast<storage::TMapOptions>(opt));
+     });
   }
 
   DrawWidget::~DrawWidget()
