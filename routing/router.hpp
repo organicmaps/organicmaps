@@ -38,7 +38,7 @@ public:
   virtual void ClearState() {}
 
   virtual void SetFinalPoint(m2::PointD const & finalPt) = 0;
-  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback) = 0;
+  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero()) = 0;
 };
 
 }

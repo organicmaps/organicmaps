@@ -41,16 +41,16 @@ public:
   virtual string GetName() const;
   virtual void ClearState();
   virtual void SetFinalPoint(m2::PointD const & finalPt);
-  virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback);
+  virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
 
 protected:
-  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,
+  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & startPt, const m2::PointD &startDr, m2::PointD const & finalPt,
                                        FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId);
 
   bool NeedReload(string const & fPath) const;
 
   void CalculateRouteAsync(ReadyCallback const & callback);
-  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route);
+  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
@@ -66,7 +66,7 @@ private:
   FilesMappingContainer m_container;
 
   bool m_isFinalChanged;
-  m2::PointD m_startPt, m_finalPt;
+  m2::PointD m_startPt, m_finalPt, m_startDr;
   FeatureGraphNodeVecT m_cachedFinalNodes;
 
   threads::Mutex m_paramsMutex;

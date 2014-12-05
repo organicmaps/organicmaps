@@ -19,7 +19,7 @@ class OsrmOnlineRouter : public IRouter
 public:
   virtual string GetName() const;
   virtual void SetFinalPoint(m2::PointD const & finalPt);
-  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback);
+  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
 };
 
 } // namespace routing

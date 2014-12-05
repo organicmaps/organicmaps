@@ -29,7 +29,7 @@ void OsrmOnlineRouter::SetFinalPoint(m2::PointD const & finalPt)
   m_finalPt = finalPt;
 }
 
-void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
+void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction)
 {
   // Construct OSRM url request to get the route
   string url = OSRM_CAR_ROUTING_URL;

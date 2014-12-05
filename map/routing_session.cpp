@@ -27,6 +27,7 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
                                 TReadyCallbackFn const & callback)
 {
   ASSERT(m_router != nullptr, ());
+  m_lastGoodPosition = startPoint;
   m_router->SetFinalPoint(endPoint);
   RebuildRoute(startPoint, callback);
 }
@@ -39,7 +40,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
 
   // Use old-style callback constraction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(startPoint, DoReadyCallback(*this, callback));
+  m_router->CalculateRoute(startPoint, DoReadyCallback(*this, callback), startPoint - m_lastGoodPosition);
 }
 
 void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)
@@ -93,6 +94,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
       m_state = RouteFinished;
     else
       m_state = OnRoute;
+    m_lastGoodPosition = position;
   }
   else
   {

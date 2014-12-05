@@ -37,6 +37,7 @@ namespace
 class Point2PhantomNode : private noncopyable
 {
   m2::PointD m_point;
+  m2::PointD const m_direction;
   OsrmFtSegMapping const & m_mapping;
 
   struct Candidate
@@ -55,8 +56,8 @@ class Point2PhantomNode : private noncopyable
   Index const * m_pIndex;
 
 public:
-  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex)
-    : m_mapping(mapping), m_ptIdx(0),
+  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex, m2::PointD const & direction)
+    : m_direction(direction), m_mapping(mapping), m_ptIdx(0),
       m_mwmId(numeric_limits<uint32_t>::max()), m_pIndex(pIndex)
   {
   }
@@ -267,8 +268,33 @@ public:
         {
           OsrmRouter::FeatureGraphNode & node = res[idx];
 
-          node.m_node.forward_node_id = it->second.first;
-          node.m_node.reverse_node_id = it->second.second;
+          if (!m_direction.IsAlmostZero())
+          {
+            // Filter income nodes by direction mode
+            OsrmFtSegMapping::FtSeg const & node_seg = segments[idx];
+            FeatureType feature;
+            Index::FeaturesLoaderGuard loader(*m_pIndex, mwmId);
+            loader.GetFeature(node_seg.m_fid, feature);
+            feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
+            m2::PointD const featureDirection = feature.GetPoint(node_seg.m_pointEnd) - feature.GetPoint(node_seg.m_pointStart);
+            bool const sameDirection = (m2::DotProduct(featureDirection, m_direction) / (featureDirection.Length() * m_direction.Length()) > 0);
+            if (sameDirection)
+            {
+              node.m_node.forward_node_id = it->second.first;
+              node.m_node.reverse_node_id = INVALID_NODE_ID;
+            }
+            else
+            {
+              node.m_node.forward_node_id = INVALID_NODE_ID;
+              node.m_node.reverse_node_id = it->second.second;
+            }
+          }
+          else
+          {
+            node.m_node.forward_node_id = it->second.first;
+            node.m_node.reverse_node_id = it->second.second;
+          }
+
           node.m_seg = segments[idx];
           node.m_segPt = m_candidates[i][j].m_point;
 
@@ -321,13 +347,14 @@ void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
   }
 }
 
-void OsrmRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback)
+void OsrmRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction)
 {
   {
     threads::MutexGuard guard(m_paramsMutex);
     UNUSED_VALUE(guard);
 
     m_startPt = startPt;
+    m_startDr = direction;
 
     m_requestCancel = true;
   }
@@ -348,13 +375,14 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
 
   m_isReadyThread.clear();
 
-  m2::PointD startPt, finalPt;
+  m2::PointD startPt, finalPt, startDr;
   {
     threads::MutexGuard params(m_paramsMutex);
     UNUSED_VALUE(params);
 
     startPt = m_startPt;
     finalPt = m_finalPt;
+    startDr = m_startDr;
 
     if (m_isFinalChanged)
       m_cachedFinalNodes.clear();
@@ -365,7 +393,7 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
 
   try
   {
-    code = CalculateRouteImpl(startPt, finalPt, route);
+    code = CalculateRouteImpl(startPt, startDr, finalPt, route);
     switch (code)
     {
     case StartPointNotFound:
@@ -415,7 +443,7 @@ bool IsRouteExist(RawRouteData const & r)
 
 }
 
-OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route)
+OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route)
 {
   // 1. Find country file name and check that we are in the same MWM.
   string fName = m_countryFn(startPt);
@@ -462,7 +490,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
   FeatureGraphNodeVecT graphNodes;
   uint32_t mwmId = -1;
-  ResultCode const code = FindPhantomNodes(fName, startPt, finalPt, graphNodes, MAX_NODE_CANDIDATES, mwmId);
+  ResultCode const code = FindPhantomNodes(fName, startPt, startDr, finalPt, graphNodes, MAX_NODE_CANDIDATES, mwmId);
 
   if (m_requestCancel)
     return Cancelled;
@@ -829,10 +857,10 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
   }
 }
 
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,
+IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt,
                                                  FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId)
 {
-  Point2PhantomNode getter(m_mapping, m_pIndex);
+  Point2PhantomNode getter(m_mapping, m_pIndex, startDr);
 
   auto processPt = [&] (m2::PointD const & p, size_t idx)
   {

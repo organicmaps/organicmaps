@@ -81,6 +81,7 @@ private:
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;
   int m_moveAwayCounter;
+  m2::PointD m_lastGoodPosition;
 };
 
 }
