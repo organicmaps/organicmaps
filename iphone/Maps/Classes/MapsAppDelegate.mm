@@ -136,7 +136,7 @@ void InitLocalizedStrings()
   myTrackerParams.enableLogging = YES;
 #endif
 
-  NSArray * externalParams = @[appsFlyerParams, googleAnalyticsParams, admanTrackerAppId];
+  NSArray * externalParams = @[appsFlyerParams, googleAnalyticsParams, myTrackerParams];
   
   [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
   [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
