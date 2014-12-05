@@ -1,15 +1,14 @@
 package com.mapswithme.country;
 
-import android.app.Activity;
 import android.view.View;
 
 import com.mapswithme.maps.guides.GuideInfo;
 
 class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.CountryTreeListener
 {
-  public DownloadAdapter(Activity activity)
+  public DownloadAdapter(DownloadFragment fragment)
   {
-    super(activity);
+    super(fragment);
     CountryTree.setDefaultRoot();
   }
 
@@ -46,7 +45,8 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   {
     CountryTree.showLeafOnMap(position);
     resetCountryListener();
-    mActivity.finish();
+    mFragment.onBackPressed();
+    mFragment.onBackPressed();
   }
 
   protected void expandGroup(int position)

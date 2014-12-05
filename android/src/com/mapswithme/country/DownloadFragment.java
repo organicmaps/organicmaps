@@ -181,7 +181,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   {
     if (mDownloadedAdapter == null)
     {
-      mDownloadedAdapter = new DownloadedAdapter(getActivity());
+      mDownloadedAdapter = new DownloadedAdapter(this);
       mDownloadedAdapter.registerDataSetObserver(new DataSetObserver()
       {
         @Override
@@ -199,7 +199,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   {
     if (mExtendedAdapter == null)
     {
-      mExtendedAdapter = new ExtendedDownloadAdapterWrapper(getActivity(), new DownloadAdapter(getActivity()));
+      mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
       mExtendedAdapter.registerDataSetObserver(new DataSetObserver()
       {
         @Override

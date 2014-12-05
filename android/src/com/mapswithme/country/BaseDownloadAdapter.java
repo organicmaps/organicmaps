@@ -1,6 +1,5 @@
 package com.mapswithme.country;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -84,7 +83,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   private SafeAdapterRunnable mDatasetChangedRunnable = new SafeAdapterRunnable(this);
 
   protected final LayoutInflater mInflater;
-  protected final Activity mActivity;
+  protected final DownloadFragment mFragment;
   protected final boolean mHasGoogleStore;
 
   protected final String mStatusDownloaded;
@@ -94,17 +93,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected final String mMapOnly;
 
 
-  public BaseDownloadAdapter(Activity activity)
+  public BaseDownloadAdapter(DownloadFragment fragment)
   {
-    mActivity = activity;
-    mInflater = mActivity.getLayoutInflater();
+    mFragment = fragment;
+    mInflater = mFragment.getActivity().getLayoutInflater();
     mHasGoogleStore = Utils.hasAnyGoogleStoreInstalled();
 
-    mStatusDownloaded = mActivity.getString(R.string.downloader_downloaded).toUpperCase();
-    mStatusFailed = mActivity.getString(R.string.downloader_status_failed).toUpperCase();
-    mStatusOutdated = mActivity.getString(R.string.downloader_status_outdated).toUpperCase();
-    mStatusNotDownloaded = mActivity.getString(R.string.download).toUpperCase();
-    mMapOnly = mActivity.getString(R.string.downloader_map_only).toUpperCase();
+    mStatusDownloaded = mFragment.getString(R.string.downloader_downloaded).toUpperCase();
+    mStatusFailed = mFragment.getString(R.string.downloader_status_failed).toUpperCase();
+    mStatusOutdated = mFragment.getString(R.string.downloader_status_outdated).toUpperCase();
+    mStatusNotDownloaded = mFragment.getString(R.string.download).toUpperCase();
+    mMapOnly = mFragment.getString(R.string.downloader_map_only).toUpperCase();
   }
 
   public abstract void onItemClick(int position, View view);
@@ -154,7 +153,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void confirmDownloadCancelation(final ViewHolder holder, final int position, final String name)
   {
-    final Dialog dlg = new AlertDialog.Builder(mActivity)
+    final Dialog dlg = new AlertDialog.Builder(mFragment.getActivity())
         .setTitle(name)
         .setMessage(R.string.are_you_sure)
         .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
@@ -180,7 +179,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void processOnDisk(final String name, final int position, final int newOptions)
   {
-    new AlertDialog.Builder(mActivity)
+    new AlertDialog.Builder(mFragment.getActivity())
         .setTitle(name)
         .setMessage(R.string.are_you_sure)
         .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
@@ -199,7 +198,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void processFailed(ViewHolder holder, int position)
   {
-    holder.mProgressSlided.setProgressColor(mActivity.getResources().getColor(R.color.downloader_blue));
+    holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.downloader_blue));
     holder.mProgressSlided.setDrawable(null);
     retryDownload(position);
   }
@@ -371,7 +370,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       setHolderSizeString(holder, 0, sizes[1]);
       final int percent = (int) (sizes[0] * 100 / sizes[1]);
       setHolderPercentText(holder, percent + "%");
-      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
       setHolderProgress(holder, percent);
       break;
 
@@ -392,7 +391,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mStatusOutdated);
-      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_green));
+      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_green));
       break;
 
     case MapStorage.ON_DISK:
@@ -404,13 +403,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
       {
         setHolderPercentText(holder, mMapOnly);
-        setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+        setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
         setHolderSizeString(holder, 0, sizes[0]);
       }
       else
       {
         setHolderPercentText(holder, mStatusDownloaded);
-        setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+        setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
         setHolderSizeString(holder, 0, sizes[1]);
       }
       break;
@@ -429,13 +428,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       };
       holder.mProgressSlided.setOnClickListener(listener);
       holder.mInfoSlided.setOnClickListener(listener);
-      holder.mProgressSlided.setProgressColor(mActivity.getResources().getColor(R.color.downloader_red));
-      holder.mProgressSlided.setDrawable(BitmapFactory.decodeResource(mActivity.getResources(), R.drawable.ic_retry));
+      holder.mProgressSlided.setProgressColor(mFragment.getResources().getColor(R.color.downloader_red));
+      holder.mProgressSlided.setDrawable(BitmapFactory.decodeResource(mFragment.getResources(), R.drawable.ic_retry));
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentText(holder, mStatusFailed);
-      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_red));
+      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_red));
       break;
 
     case MapStorage.IN_QUEUE:
@@ -455,8 +454,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentText(holder, mActivity.getString(R.string.downloader_queued));
-      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+      setHolderPercentText(holder, mFragment.getString(R.string.downloader_queued));
+      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
       break;
 
     case MapStorage.NOT_DOWNLOADED:
@@ -467,7 +466,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       sizes = getRemoteItemSizes(position);
       setHolderSizeString(holder, sizes[0], sizes[1]);
       setHolderPercentText(holder, mStatusNotDownloaded);
-      setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_green));
+      setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_green));
       break;
 
     }
@@ -483,14 +482,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void startItemDownloading(final ViewHolder holder, final int position, int newOptions)
   {
-    setHolderPercentText(holder, mActivity.getString(R.string.downloader_queued));
-    setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+    setHolderPercentText(holder, mFragment.getString(R.string.downloader_queued));
+    setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
     holder.mProgress.setVisibility(View.VISIBLE);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
-          -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+          -mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
       animator.setDuration(ANIMATION_LENGTH);
 
       AnimatorSet animatorSet = new AnimatorSet();
@@ -507,7 +506,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       if (getItem(position).getStatus() == MapStorage.NOT_DOWNLOADED)
       {
         ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mInfo, PROPERTY_TRANSLATION_X, 0,
-            -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+            -mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
         infoAnimator.setDuration(ANIMATION_LENGTH);
 
         animatorSet.playTogether(animator, infoAnimator);
@@ -547,13 +546,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void startItemUpdating(final ViewHolder holder, int position, int options)
   {
-    setHolderPercentText(holder, mActivity.getString(R.string.downloader_queued));
-    setHolderPercentColor(holder, mActivity.getResources().getColor(R.color.downloader_gray));
+    setHolderPercentText(holder, mFragment.getString(R.string.downloader_queued));
+    setHolderPercentColor(holder, mFragment.getResources().getColor(R.color.downloader_gray));
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
-          -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+          -mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
       animator.setDuration(ANIMATION_LENGTH);
 
       animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -585,11 +584,11 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       if (item.getStatus() == MapStorage.NOT_DOWNLOADED)
       {
         ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mInfoSlided, PROPERTY_TRANSLATION_X, 0,
-            mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+            mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
         animator.setDuration(ANIMATION_LENGTH);
 
         ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
-            mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+            mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
         infoAnimator.setDuration(ANIMATION_LENGTH);
 
         AnimatorSet animatorSet = new AnimatorSet();
@@ -612,7 +611,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         bindCarRoutingIcon(holder, item);
 
         ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
-            mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+            mFragment.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
         infoAnimator.setDuration(ANIMATION_LENGTH);
 
         infoAnimator.addListener(new UiUtils.SimpleNineoldAnimationListener()
@@ -690,7 +689,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
 
       if (item.getStatus() == MapStorage.DOWNLOAD_FAILED)
-        UiUtils.checkConnectionAndShowAlert(mActivity, String.format(mActivity.getString(R.string.download_country_failed), item.getName()));
+        UiUtils.checkConnectionAndShowAlert(mFragment.getActivity(), String.format(mFragment.getString(R.string.download_country_failed), item.getName()));
     }
   }
 
@@ -800,22 +799,22 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           final long[] remoteSizes = getRemoteItemSizes(position);
           if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
           {
-            String titleDelete = mActivity.getString(R.string.downloader_delete_map);
+            String titleDelete = mFragment.getString(R.string.downloader_delete_map);
             menu.add(0, MENU_DELETE, MENU_DELETE, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
 
             if (options != StorageOptions.MAP_OPTION_MAP_ONLY)
             {
-              titleDelete = mActivity.getString(R.string.downloader_delete_routing);
+              titleDelete = mFragment.getString(R.string.downloader_delete_routing);
               menu.add(0, MENU_DELETE_ROUTING, MENU_DELETE_ROUTING, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
             }
 
-            final String titleShow = mActivity.getString(R.string.zoom_to_country);
+            final String titleShow = mFragment.getString(R.string.zoom_to_country);
             menu.add(0, MENU_SHOW, MENU_SHOW, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
           if (status == MapStorage.ON_DISK && options == StorageOptions.MAP_OPTION_MAP_ONLY)
           {
-            final String titleShow = mActivity.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1] - remoteSizes[0]);
+            final String titleShow = mFragment.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1] - remoteSizes[0]);
             menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
@@ -826,17 +825,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
             switch (options)
             {
             case StorageOptions.MAP_OPTION_MAP_ONLY:
-              titleUpdate = mActivity.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[0]);
+              titleUpdate = mFragment.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[0]);
               menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
 
-              titleUpdate = mActivity.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1]);
+              titleUpdate = mFragment.getString(R.string.downloader_download_routing) + ", " + getSizeString(remoteSizes[1]);
               menu.add(0, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
 
             case StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING:
-              titleUpdate = mActivity.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[1]);
+              titleUpdate = mFragment.getString(R.string.downloader_update_map) + ", " + getSizeString(remoteSizes[1]);
               menu.add(0, MENU_UPDATE_MAP_AND_ROUTING, MENU_UPDATE_MAP_AND_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
@@ -847,26 +846,26 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           {
           case MapStorage.DOWNLOADING:
           case MapStorage.IN_QUEUE:
-            menu.add(0, MENU_CANCEL, MENU_CANCEL, mActivity.getString(R.string.cancel_download))
+            menu.add(0, MENU_CANCEL, MENU_CANCEL, mFragment.getString(R.string.cancel_download))
                 .setOnMenuItemClickListener(menuItemClickListener);
             break;
 
           case MapStorage.NOT_DOWNLOADED:
-            String title = mActivity.getString(R.string.downloader_download_map) + ", " + getSizeString(remoteSizes[0]);
+            String title = mFragment.getString(R.string.downloader_download_map) + ", " + getSizeString(remoteSizes[0]);
             menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
-            title = mActivity.getString(R.string.downloader_download_map_and_routing) + ", " + getSizeString(remoteSizes[1]);
+            title = mFragment.getString(R.string.downloader_download_map_and_routing) + ", " + getSizeString(remoteSizes[1]);
             menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
             break;
 
           case MapStorage.DOWNLOAD_FAILED:
-            title = mActivity.getString(R.string.downloader_retry);
+            title = mFragment.getString(R.string.downloader_retry);
             menu.add(0, MENU_RETRY, MENU_DOWNLOAD, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
-            title = mActivity.getString(R.string.downloader_download_map_and_routing);
+            title = mFragment.getString(R.string.downloader_download_map_and_routing);
             menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
@@ -883,8 +882,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected String getSizeString(long size)
   {
     if (size > Constants.MB)
-      return (size + Constants.MB / 2) / Constants.MB + " " + mActivity.getString(R.string.mb);
+      return (size + Constants.MB / 2) / Constants.MB + " " + mFragment.getString(R.string.mb);
     else
-      return (size + Constants.KB - 1) / Constants.KB + " " + mActivity.getString(R.string.kb);
+      return (size + Constants.KB - 1) / Constants.KB + " " + mFragment.getString(R.string.kb);
   }
 }

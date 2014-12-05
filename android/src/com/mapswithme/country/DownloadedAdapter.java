@@ -1,6 +1,5 @@
 package com.mapswithme.country;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,9 +15,9 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   private int mInProgressCount;
   private int mListenerSlotId;
 
-  public DownloadedAdapter(Activity activity)
+  public DownloadedAdapter(DownloadFragment fragment)
   {
-    super(activity);
+    super(fragment);
   }
 
   @Override
@@ -42,9 +41,9 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
         holder = (ViewHolder) view.getTag();
       }
       if (position == mInProgressCount && containsOutdated())
-        holder.mName.setText(mActivity.getString(R.string.downloader_outdated_maps));
+        holder.mName.setText(mFragment.getString(R.string.downloader_outdated_maps));
       else
-        holder.mName.setText(mActivity.getString(R.string.downloader_uptodate_maps));
+        holder.mName.setText(mFragment.getString(R.string.downloader_uptodate_maps));
 
       return view;
     }
@@ -258,7 +257,9 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   {
     ActiveCountryTree.showOnMap(getGroupByAbsPosition(position), getPositionInGroup(position));
     resetCountryListener();
-    mActivity.finish();
+    // TODO think about refactoring.
+    mFragment.onBackPressed();
+    mFragment.onBackPressed();
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.mapswithme.country;
 
-import android.app.Activity;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,9 @@ public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
     }
   };
 
-  public ExtendedDownloadAdapterWrapper(Activity activity, BaseDownloadAdapter wrappedAdapter)
+  public ExtendedDownloadAdapterWrapper(DownloadFragment fragment, BaseDownloadAdapter wrappedAdapter)
   {
-    super(activity);
+    super(fragment);
     mWrappedAdapter = wrappedAdapter;
     mWrappedAdapter.registerDataSetObserver(mObserver);
   }
