@@ -30,6 +30,7 @@ namespace routing
 
 size_t const MAX_NODE_CANDIDATES = 10;
 double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
+double const TIME_OVERHEAD = 1.2;
 
 namespace
 {
@@ -569,8 +570,16 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   ASSERT(segEnd.IsValid(), ());
 
   Route::TurnsT turnsDir;
-  uint32_t estimateTime = 0;
+  Route::TimesT times;
+  double estimateTime = 0;
+#ifdef _DEBUG
+  size_t lastIdx = 0;
+#endif
 
+  LOG(LDEBUG, ("Length:", rawRoute.shortest_path_length));
+
+  //! @todo: Improve last segment time calculation
+  CarModel carModel;
   vector<m2::PointD> points;
   for (auto i : osrm::irange<std::size_t>(0, rawRoute.unpacked_path_segments.size()))
   {
@@ -583,11 +592,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     {
       PathData const & path_data = rawRoute.unpacked_path_segments[i][j];
 
-      // turns
       if (j > 0)
       {
-        estimateTime += path_data.segment_duration;
-
         Route::TurnItem t;
         t.m_index = points.size() - 1;
 
@@ -596,6 +602,19 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
                          mwmId, t);
         if (t.m_turn != turns::NoTurn)
           turnsDir.push_back(t);
+
+
+        // osrm multiple seconds to 10, so we need to divide it back
+        double const sTime = TIME_OVERHEAD * path_data.segment_duration / 10.0;
+#ifdef _DEBUG
+        double dist = 0.0;
+        for (size_t l = lastIdx + 1; l < points.size(); ++l)
+          dist += MercatorBounds::DistanceOnEarth(points[l - 1], points[l]);
+        LOG(LDEBUG, ("Speed:", 3.6 * dist / sTime, "kmph; Dist:", dist, "Time:", sTime, "s", lastIdx, "e", points.size()));
+        lastIdx = points.size();
+#endif
+        estimateTime += sTime;
+        times.push_back(Route::TimeItemT(points.size(), estimateTime));
       }
 
       buffer_vector<SegT, 8> buffer;
@@ -634,6 +653,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
         auto startIdx = seg.m_pointStart;
         auto endIdx = seg.m_pointEnd;
+        bool const needTime = (j == 0) || (j == n - 1);
 
         if (j == 0 && k == startK)
           startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
@@ -643,16 +663,23 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         if (seg.m_pointEnd > seg.m_pointStart)
         {
           for (auto idx = startIdx; idx <= endIdx; ++idx)
+          {
             points.push_back(ft.GetPoint(idx));
+            if (needTime && idx > startIdx)
+              estimateTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
+          }
         }
         else
         {
           for (auto idx = startIdx; idx > endIdx; --idx)
+          {
+            if (needTime)
+              estimateTime += MercatorBounds::DistanceOnEarth(ft.GetPoint(idx - 1), ft.GetPoint(idx)) / carModel.GetSpeed(ft);
             points.push_back(ft.GetPoint(idx));
+          }
           points.push_back(ft.GetPoint(endIdx));
         }
       }
-
     }
   }
 
@@ -662,22 +689,35 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   if (points.size() < 2)
     return RouteNotFound;
 
+  times.push_back(Route::TimeItemT(points.size() - 1, estimateTime));
   turnsDir.push_back(Route::TurnItem(points.size() - 1, turns::ReachedYourDestination));
   FixupTurns(points, turnsDir);
-
-  // osrm multiple seconds to 10, so we need to divide it back
-  estimateTime /= 10;
 
 #ifdef _DEBUG
   for (auto t : turnsDir)
   {
     LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_srcName, "-", t.m_trgName, "exit:", t.m_exitNum));
   }
+
+  size_t last = 0;
+  double lastTime = 0;
+  for (Route::TimeItemT t : times)
+  {
+    double dist = 0;
+    for (size_t i = last + 1; i <= t.first; ++i)
+      dist += MercatorBounds::DistanceOnEarth(points[i - 1], points[i]);
+
+    double time = t.second - lastTime;
+
+    LOG(LDEBUG, ("distance:", dist, "start:", last, "end:", t.first, "Time:", time, "Speed:", 3.6 * dist / time));
+    last = t.first;
+    lastTime = t.second;
+  }
 #endif
 
   route.SetGeometry(points.begin(), points.end());
   route.SetTurnInstructions(turnsDir);
-  route.SetTime(estimateTime);
+  route.SetSectionTimes(times);
 
   LOG(LDEBUG, ("Estimate time:", estimateTime, "s"));
 
@@ -812,7 +852,6 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
                                   uint32_t mwmId, Route::TurnItem & turn)
 {
-
   auto nSegs1 = m_mapping.GetSegmentsRange(node1.node);
   auto nSegs2 = m_mapping.GetSegmentsRange(node2.node);
 

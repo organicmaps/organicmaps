@@ -20,7 +20,7 @@ static double const ON_END_TOLERANCE_M = 10.0;
 
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
-  : m_router(router), m_poly(points), m_name(name), m_time(0)
+  : m_router(router), m_poly(points), m_name(name)
 {
   Update();
 }
@@ -35,7 +35,7 @@ void Route::Swap(Route & rhs)
   swap(m_current, rhs.m_current);
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
-  swap(m_time, rhs.m_time);
+  swap(m_times, rhs.m_times);
 }
 
 void Route::SetTurnInstructions(TurnsT & v)
@@ -43,14 +43,9 @@ void Route::SetTurnInstructions(TurnsT & v)
   swap(m_turns, v);
 }
 
-void Route::SetTime(uint32_t time)
+void Route::SetSectionTimes(TimesT & v)
 {
-  m_time = time;
-}
-
-uint32_t Route::GetTime() const
-{
-  return m_time;
+  swap(m_times, v);
 }
 
 double Route::GetDistance() const
@@ -73,6 +68,41 @@ double Route::GetCurrentDistanceToEnd() const
 
   return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
           MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
+}
+
+uint32_t Route::GetAllTime() const
+{
+  return m_times.empty() ? 0 : m_times.back().second;
+}
+
+uint32_t Route::GetTime() const
+{
+  TimesT::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_current.m_ind,
+                                         [](size_t v, Route::TimeItemT const & item) { return v < item.first; });
+
+  if (it == m_times.end())
+    return 0;
+
+  size_t idx = distance(m_times.begin(), it);
+  double time = (*it).second;
+  if (idx > 0)
+    time -= m_times[idx - 1].second;
+
+  auto distFn = [&](uint32_t start, uint32_t end)
+  {
+    double d = 0.0;
+    for (uint32_t i = start + 1; i < end; ++i)
+      d += MercatorBounds::DistanceOnEarth(m_poly.GetPoint(i - 1), m_poly.GetPoint(i));
+    return d;
+  };
+
+  ASSERT_LESS_OR_EQUAL(m_times[idx].first, m_poly.GetSize(), ());
+  double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first + 1);
+  ASSERT_GREATER(dist, 0, ());
+  double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
+                      MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
+
+  return (uint32_t)((GetAllTime() - (*it).second) + (double)time * (distRemain / dist));
 }
 
 void Route::GetTurn(double & distance, Route::TurnItem & turn) const

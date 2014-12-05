@@ -39,6 +39,9 @@ public:
 
   typedef vector<TurnItem> TurnsT;
 
+  typedef pair<uint32_t, double> TimeItemT;
+  typedef vector<TimeItemT> TimesT;
+
   explicit Route(string const & router) : m_router(router) {}
 
   template <class IterT>
@@ -59,9 +62,10 @@ public:
   }
 
   void SetTurnInstructions(TurnsT & v);
+  void SetSectionTimes(TimesT & v);
 
   // Time measure are seconds
-  void SetTime(uint32_t time);
+  uint32_t GetAllTime() const;
   uint32_t GetTime() const;
 
   string const & GetRouterId() const { return m_router; }
@@ -123,7 +127,7 @@ private:
   vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
 
   TurnsT m_turns;
-  double m_time;
+  TimesT m_times;
 
   /// Cached result iterator for last MoveIterator query.
   mutable IterT m_current;
