@@ -236,6 +236,7 @@
         <action android:name="com.android.vending.INSTALL_REFERRER"/>
       </intent-filter>
     </receiver>
+    <service android:name="ru.mail.android.mytracker.campaign.CampaignService"/>
 
     <receiver android:name="ru.mail.mrgservice.MRGSPackageRemoveReceiver">
       <intent-filter>
