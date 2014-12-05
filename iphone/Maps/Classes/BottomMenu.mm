@@ -129,11 +129,12 @@
     NSString * itemId = item[@"Id"];
     NSString * imageName = itemId;
     NSString * imagePath = [[self imagesPath] stringByAppendingPathComponent:imageName];
-    UIImage * image = [UIImage imageNamed:imagePath];
+    NSData * imageData = [NSData dataWithContentsOfFile:imagePath];
+    UIImage * image;
+    if (imageData)
+      image = [UIImage imageWithData:imageData scale:[UIScreen mainScreen].scale];
     if (image)
-    {
       cell.iconImageView.image = image;
-    }
     else if (!self.imageDownloaders[itemId])
     {
       ImageDownloader * downloader = [[ImageDownloader alloc] init];
