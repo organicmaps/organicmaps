@@ -203,41 +203,6 @@ namespace graphics
         LOG(LERROR, ("Can't load font", fontNames[i], ex.Msg()));
       }
     }
-
-    /*
-    LOG(LINFO, ("----------------------------"));
-    LOG(LINFO, ("-- Coverage Info -----------"));
-    LOG(LINFO, ("----------------------------"));
-
-    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
-    {
-      if (!it->m_fonts.empty())
-      {
-        std::stringstream out;
-
-        out << it->m_name << " : " << it->m_end + 1 - it->m_start << " symbols -> [";
-
-        for (unsigned i = 0; i < it->m_fonts.size(); ++i)
-        {
-          out << extract_name(it->m_fonts[i]->m_name) << " : " << it->m_coverage[i];
-          if (i != it->m_fonts.size() - 1)
-            out << ", ";
-        }
-
-        out << "]";
-
-        LOG(LINFO, (out.str()));
-      }
-    }
-
-    LOG(LINFO, ("----------------------------"));
-    LOG(LINFO, ("-- Empty blocks ------------"));
-    LOG(LINFO, ("----------------------------"));
-
-    for (unicode_blocks_t::const_iterator it = m_unicodeBlocks.begin(); it != m_unicodeBlocks.end(); ++it)
-      if (it->m_fonts.empty())
-        LOG(LINFO, (it->m_name, " unicode block of ", it->m_end + 1 - it->m_start, " symbols is empty"));
-    */
   }
 
   void GlyphCacheImpl::addFont(char const * fileName)
@@ -268,27 +233,16 @@ namespace graphics
     m_fonts.push_back(pFont);
 
     // modifying the m_unicodeBlocks
-
-    uint32_t lastUBEnd = 0;
-
     unicode_blocks_t::iterator ubIt = m_unicodeBlocks.begin();
     vector<FT_ULong>::iterator ccIt = charcodes.begin();
-
-    typedef vector<unicode_blocks_t::const_iterator> touched_blocks_t;
-    touched_blocks_t touchedBlocks;
 
     while (ccIt != charcodes.end())
     {
       while (ubIt != m_unicodeBlocks.end())
       {
         ASSERT ( ccIt != charcodes.end(), () );
-        if ((*ccIt > lastUBEnd) && (*ccIt < ubIt->m_start))
-        {
-          LOG(LDEBUG, ("Symbol with code ", (uint16_t)*ccIt, " present in font lies between two unicode blocks!"));
-        }
         if (ubIt->hasSymbol(*ccIt))
           break;
-        lastUBEnd = ubIt->m_end;
         ++ubIt;
       }
 
@@ -300,7 +254,6 @@ namespace graphics
       {
         ubIt->m_fonts.push_back(m_fonts.back());
         ubIt->m_coverage.push_back(0);
-        touchedBlocks.push_back(ubIt);
 
         // checking blacklist and whitelist
 
@@ -328,15 +281,6 @@ namespace graphics
         ++ubIt->m_coverage.back();
       ++ccIt;
     }
-
-    //LOG(LINFO, ("-----------------------------------------"));
-    //LOG(LINFO, ("Unicode Blocks for Font : ", extract_name(fileName)));
-    //LOG(LINFO, ("-----------------------------------------"));
-    //// dumping touched unicode blocks
-    //for (touched_blocks_t::const_iterator it = touchedBlocks.begin(); it != touchedBlocks.end(); ++it)
-    //{
-    //  LOG(LINFO, ((*it)->m_name, " with coverage ", (*it)->m_coverage.back(), " out of ", (*it)->m_end + 1 - (*it)->m_start));
-    //}
 
     // rearrange fonts in all unicode blocks according to it's coverage
     for (ubIt = m_unicodeBlocks.begin(); ubIt != m_unicodeBlocks.end(); ++ubIt)
