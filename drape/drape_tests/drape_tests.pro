@@ -10,12 +10,12 @@ CONFIG -= app_bundle
 TEMPLATE = app
 DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS
 
-DEPENDENCIES = platform coding base gmock expat tomcrypt
+DEPENDENCIES = platform coding base gmock freetype expat tomcrypt
 ROOT_DIR = ../..
 SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def
 include($$ROOT_DIR/common.pri)
 
-QT *= core
+QT *= core gui widgets
 
 DRAPE_DIR = ..
 include($$DRAPE_DIR/drape_common.pri)
@@ -40,6 +40,7 @@ SOURCES += \
     bingind_info_tests.cpp \
     stipple_pen_tests.cpp \
     texture_of_colors_tests.cpp \
+    glyph_mng_tests.cpp \
 
 HEADERS += \
     glmock_functions.hpp \

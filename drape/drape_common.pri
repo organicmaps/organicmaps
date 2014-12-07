@@ -1,6 +1,9 @@
 CMDRES = $$system(python ../tools/autobuild/shader_preprocessor.py $$SHADER_COMPILE_ARGS)
 message($$CMDRES)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/freetype/include
+INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
+
 SOURCES += \
     $$DRAPE_DIR/data_buffer.cpp \
     $$DRAPE_DIR/binding_info.cpp \
@@ -37,6 +40,7 @@ SOURCES += \
     $$DRAPE_DIR/attribute_buffer_mutator.cpp \
     $$DRAPE_DIR/stipple_pen_resource.cpp \
     $$DRAPE_DIR/texture_of_colors.cpp \
+    $$DRAPE_DIR/glyph_manager.cpp \
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -83,3 +87,4 @@ HEADERS += \
     $$DRAPE_DIR/texture_of_colors.hpp \
     $$DRAPE_DIR/glsl_types.hpp \
     $$DRAPE_DIR/glsl_func.hpp \
+    $$DRAPE_DIR/glyph_manager.hpp \

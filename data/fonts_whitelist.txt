@@ -3,7 +3,6 @@ Basic_Latin 01_dejavusans.ttf
 Basic_Latin /system/fonts/DroidSans.ttf
 Basic_Latin /system/fonts/Roboto-Regular.ttf
 Latin-1_Supplement /usr/share/fonts/truetype/roboto/Roboto-Regular.ttf
-Latin-1_Supplement 00_roboto_regular.ttf
 Latin-1_Supplement 01_dejavusans.ttf
 Latin-1_Supplement /system/fonts/DroidSans.ttf
 Latin-1_Supplement /system/fonts/Roboto-Regular.ttf
