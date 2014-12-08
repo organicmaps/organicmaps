@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@null"
-    android:minHeight="?android:attr/listPreferredItemHeight" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:addStatesFromChildren="true"
+                android:background="?attr/clickableBackground"
+                android:minHeight="?android:attr/listPreferredItemHeight">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_centerVertical="true"
+      android:layout_marginLeft="@dimen/margin_small"
+      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
-    <ImageView
-        android:id="@+id/disclosure_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:paddingLeft="@dimen/dp_x_3"
-        android:paddingRight="@dimen/dp_x_3"
-        android:src="@drawable/ic_next_item" />
+  <ImageView
+      android:id="@+id/disclosure_image"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:paddingLeft="@dimen/dp_x_3"
+      android:paddingRight="@dimen/dp_x_3"
+      android:src="@drawable/ic_next_item"/>
 
 </RelativeLayout>

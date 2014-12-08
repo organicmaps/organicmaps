@@ -34,7 +34,7 @@
           android:layout_gravity="center_vertical"
           android:layout_weight="0"
           android:alpha="@dimen/alpha_edit_button"
-          android:background="@android:color/transparent"
+          android:background="?attr/clickableBackground"
           android:padding="@dimen/margin_tiny"
           android:src="@drawable/ic_place_page_edit_button"/>
 
@@ -56,6 +56,7 @@
             android:layout_width="@dimen/ppp_button_size"
             android:layout_height="@dimen/ppp_button_size_small"
             android:layout_gravity="center"
+            android:background="?attr/clickableBackground"
             android:scaleType="center"
             android:src="@drawable/ic_drive"/>
 
@@ -71,10 +72,8 @@
       <ToggleButton
           android:id="@+id/info_box_is_bookmarked"
           style="@style/bookmarkToggleButton"
-          android:layout_width="@dimen/ppp_button_size"
-          android:layout_height="@dimen/ppp_button_size_small"
           android:layout_weight="0"
-          android:background="@drawable/ic_bookmarks_toggle_bg"/>
+          android:layout_height="@dimen/ppp_button_size_small"/>
 
     </LinearLayout>
 

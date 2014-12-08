@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="MWMMain" parent="@style/AppTheme">
+    <item name="clickableBackground">?android:attr/selectableItemBackground</item>
+  </style>
+
+  <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="clickableBackground">?android:attr/selectableItemBackground</item>
+  </style>
+
+  <style name="MwmSearch" parent="@style/MWMMain">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowBackground">@color/semitransparent_black</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    <item name="clickableBackground">?android:attr/selectableItemBackground</item>
+  </style>
+</resources>

@@ -10,8 +10,8 @@ import com.mapswithme.maps.R;
 
 public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
 {
-  protected static final int EXTENDED_VIEWS_COUNT = 3; // 3 more views at the top of baseadapter
-  protected static final int DOWNLOADED_ITEM_POSITION = 1;
+  protected static final int EXTENDED_VIEWS_COUNT = 2; // 3 more views at the top of baseadapter
+  protected static final int DOWNLOADED_ITEM_POSITION = 0;
   protected static final int EXTENDED_VIEW_TYPE_COUNT = 2; // one for placeholder, other for downloader view
   protected static final int TYPE_PLACEHOLDER = 5;
   protected static final int TYPE_EXTENDED = 6;

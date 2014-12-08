@@ -41,6 +41,7 @@
           android:id="@+id/tv__routing_go"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
+          android:background="?attr/clickableBackground"
           android:gravity="bottom"
           android:includeFontPadding="false"
           android:paddingBottom="10dp"
@@ -66,6 +67,7 @@
         android:layout_height="@dimen/routing_button_height"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:background="?attr/clickableBackground"
         android:padding="@dimen/margin_medium"
         android:scaleType="center"
         android:src="@drawable/ic_close_routing"/>

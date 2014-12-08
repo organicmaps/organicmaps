@@ -32,6 +32,7 @@
 
   <!-- search -->
   <color name="text_search_box">@android:color/white</color>
+  <color name="text_hint_search_box">#bdffffff</color>
   <color name="text_search_item">@android:color/black</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
   <color name="text_search_category">@android:color/black</color>

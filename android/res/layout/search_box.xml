@@ -38,6 +38,8 @@
       android:layout_weight="1"
       android:background="@null"
       android:fontFamily="@string/robotoLight"
+      android:hint="@string/search"
+      android:textColorHint="@color/text_hint_search_box"
       android:imeOptions="actionSearch|flagNoExtractUi"
       android:inputType="text"
       android:padding="@dimen/margin_tiny"

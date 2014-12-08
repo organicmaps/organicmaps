@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               android:orientation="vertical">
 
   <include
@@ -16,6 +16,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_small"
       android:animationCache="false"
+      android:background="@android:color/white"
       android:divider="@color/divider_search"
       android:dividerHeight="1px"
       android:scrollbarStyle="outsideOverlay"

@@ -223,7 +223,7 @@ public class SearchAdapter extends BaseAdapter
         country = r.mCountry;
         dist = r.mDistance;
         UiUtils.hide(holder.mImageLeft);
-        holder.mView.setBackgroundResource(R.drawable.bg_toolbar_button_selector);
+        holder.mView.setBackgroundResource(0);
       }
       else
       {

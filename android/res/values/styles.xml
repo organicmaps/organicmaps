@@ -48,10 +48,13 @@
     <item name="colorAccent">@color/downloader_red</item>
   </style>
 
-  <style name="MWMMain" parent="@style/AppTheme"/>
+  <style name="MWMMain" parent="@style/AppTheme">
+    <item name="clickableBackground">@drawable/default_selector</item>
+  </style>
 
   <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
   <style name="MwmSearch" parent="@style/MWMMain">
@@ -61,6 +64,7 @@
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
   <style name="MWMTheme.Dialog.Light" parent="@style/MWMMain">
@@ -124,9 +128,14 @@
   </style>
 
   <style name="bookmarkToggleButton" parent="Widget.AppCompat.CompoundButton.Switch">
+    <item name="android:paddingTop">14dp</item>
+    <item name="android:drawableTop">@drawable/ic_bookmarks_selector</item>
+    <item name="android:layout_width">@dimen/ppp_button_size</item>
+    <item name="android:layout_height">@dimen/ppp_button_size</item>
     <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
     <item name="android:textOn"/>
     <item name="android:textOff"/>
+    <item name="android:background">?attr/clickableBackground</item>
   </style>
 
   <style name="MyActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

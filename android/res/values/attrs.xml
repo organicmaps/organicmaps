@@ -4,5 +4,7 @@
     <attr name="progressColor" format="color"/>
     <attr name="secondaryColor" format="color"/>
     <attr name="wheelThickness" format="dimension"/>
+
+    <attr name="clickableBackground" format="reference"/>
   </declare-styleable>
 </resources>
