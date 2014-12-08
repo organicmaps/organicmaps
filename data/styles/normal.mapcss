@@ -2022,10 +2022,21 @@ line|z15[boundary=administrative][border_type=country]
 }
 
 area|z15-[amenity=fuel],
-node|z15-[amenity=fuel]
+node|z15-[amenity=fuel],
 {
   icon-image: petrolstation.svg;
 }
+
+line[highway=speed_camera]
+{
+  casing-width: 0;
+}
+area|z15-[highway=speed_camera],
+node|z15-[highway=speed_camera],
+{
+  icon-image: speed_trap.svg;
+}
+
 area|z15-[leisure=nature_reserve],
 node|z15-[leisure=nature_reserve]
 {

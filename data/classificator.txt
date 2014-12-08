@@ -266,6 +266,7 @@ world  +
             parking_aisle  -
             tunnel  -
             {}
+        speed_camera  -
         steps  +
             bridge  -
             tunnel  -

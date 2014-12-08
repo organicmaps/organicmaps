@@ -2826,3 +2826,7 @@ ar:شاطئ
 da:strand
 tr:plaj
 sv:stranden
+
+highway-speed_camera
+en:3speed camera
+ru:3камера скорости

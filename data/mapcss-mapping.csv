@@ -988,3 +988,4 @@ amenity|bbq;[amenity=bbq];;name;int_name;987;
 hwtag|private;[hwtag=private];;name;int_name;988;
 route|ferry|motorcar;[route=ferry];;name;int_name;989;
 junction|roundabout;[junction=roundabout];;name;int_name;990;
+highway|speed_camera;[highway=speed_camera];;name;int_name;991;

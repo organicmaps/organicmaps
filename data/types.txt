@@ -988,3 +988,4 @@ amenity|bbq
 hwtag|private
 route|ferry|motorcar
 junction|roundabout
+highway|speed_camera

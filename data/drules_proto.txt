@@ -24999,6 +24999,44 @@ cont {
   }
 }
 cont {
+  name: "highway-speed_camera"
+  element {
+    scale: 15
+    symbol {
+      name: "speed_trap"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "speed_trap"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "speed_trap"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "speed_trap"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "speed_trap"
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "highway-steps"
   element {
     scale: 15
