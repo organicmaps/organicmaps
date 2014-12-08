@@ -684,6 +684,30 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
   return NoError;
 }
+m2::PointD OsrmRouter::GetPointForTurnAngle(const OsrmFtSegMapping::FtSeg &seg,
+    const FeatureType &ft, const m2::PointD &turnPnt,
+    size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
+{
+  const size_t maxPntsNum = 5;
+  const double maxDistMeter = 250.f;
+  double curDist = 0.f;
+  m2::PointD pnt = turnPnt, nextPnt;
+
+  const size_t segDist = abs(seg.m_pointEnd - seg.m_pointStart);
+  ASSERT_LESS(segDist, ft.GetPointsCount(),
+              ("GetPntForTurnAngle(). The start and the end pnt of a segment are too far from each other"));
+  const size_t usedFtPntNum = min(maxPntsNum, segDist);
+
+  for(size_t i=1; i<= usedFtPntNum; ++i){
+    nextPnt = ft.GetPoint(GetPndInd(seg.m_pointStart, seg.m_pointEnd, i));
+    curDist += MercatorBounds::DistanceOnEarth(pnt, nextPnt);
+    if(curDist > maxDistMeter){
+      return nextPnt;
+    }
+    pnt = nextPnt;
+  }
+  return nextPnt;
+}
 
 void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
@@ -712,8 +736,14 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), 2, ());
 
   m2::PointD p = ft1.GetPoint(seg1.m_pointEnd);
-  m2::PointD p1 = ft1.GetPoint(seg1.m_pointEnd > seg1.m_pointStart ? seg1.m_pointEnd - 1 : seg1.m_pointEnd + 1);
-  m2::PointD p2 = ft2.GetPoint(seg2.m_pointEnd > seg2.m_pointStart ? seg2.m_pointStart + 1 : seg2.m_pointStart - 1);
+  m2::PointD p1 = GetPointForTurnAngle(seg1, ft1, p,
+                    [](const size_t start, const size_t end, const size_t i){
+                      return end > start ? end - i : end + i;
+                    });
+  m2::PointD p2 = GetPointForTurnAngle(seg2, ft2, p,
+                    [](const size_t start, const size_t end, const size_t i){
+                      return end > start ? start + i : start - i;
+                    });
 
   double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
   while (a < 0)
@@ -722,15 +752,15 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   turn.m_turn = turns::NoTurn;
   if (a >= 23 && a < 67)
     turn.m_turn = turns::TurnSharpRight;
-  else if (a >= 67 && a < 113)
+  else if (a >= 67 && a < 130)
     turn.m_turn = turns::TurnRight;
-  else if (a >= 113 && a < 177)
+  else if (a >= 130 && a < 165)
     turn.m_turn = turns::TurnSlightRight;
-  else if (a >= 177 && a < 183)
+  else if (a >= 165 && a < 195)
     turn.m_turn = turns::GoStraight;
-  else if (a >= 183 && a < 248)
+  else if (a >= 195 && a < 230)
     turn.m_turn = turns::TurnSlightLeft;
-  else if (a >= 248 && a < 292)
+  else if (a >= 230 && a < 292)
     turn.m_turn = turns::TurnLeft;
   else if (a >= 292 && a < 336)
     turn.m_turn = turns::TurnSharpLeft;

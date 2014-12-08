@@ -17,6 +17,7 @@ namespace feature { class TypesHolder; }
 class Index;
 struct PhantomNode;
 struct PathData;
+class FeatureType;
 
 namespace routing
 {
@@ -57,6 +58,10 @@ protected:
                         uint32_t mwmId, Route::TurnItem & turn);
   void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
 private:
+  m2::PointD GetPointForTurnAngle(const OsrmFtSegMapping::FtSeg &seg,
+                                  const FeatureType &ft, const m2::PointD &turnPnt,
+                                  size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
+
   Index const * m_pIndex;
 
   typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
