@@ -1,5 +1,6 @@
 package com.mapswithme.maps.search;
 
+import android.app.Activity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.mapswithme.util.UiUtils;
 
 public class SearchController implements OnClickListener
 {
+  private Activity mActivity;
   // Views
   private TextView mSearchQueryTV;
   private View mClearView;
@@ -43,8 +45,17 @@ public class SearchController implements OnClickListener
 
   public void onCreate(MWMActivity activity)
   {
+    mActivity = activity;
     mSearchToolbar = (Toolbar) activity.findViewById(R.id.toolbar_search);
     UiUtils.showHomeUpButton(mSearchToolbar);
+    mSearchToolbar.setNavigationOnClickListener(new OnClickListener()
+    {
+      @Override
+      public void onClick(View v)
+      {
+        exitSearch();
+      }
+    });
     mSearchBox = (ViewGroup) mSearchToolbar.findViewById(R.id.search_box);
     mSearchQueryTV = (TextView) mSearchBox.findViewById(R.id.search_text_query);
     mClearView = mSearchBox.findViewById(R.id.search_image_clear);
@@ -82,16 +93,11 @@ public class SearchController implements OnClickListener
     if (R.id.search_text_query == id)
     {
       final String query = mSearchQueryTV.getText().toString();
-      MWMActivity.startSearch(v.getContext(), query);
+      MWMActivity.startSearch(mActivity, query);
       UiUtils.hide(mSearchToolbar);
     }
     else if (R.id.search_image_clear == id)
-    {
-      cancelApiCall();
-      cancel();
-      mSearchQueryTV.setText(null);
-      UiUtils.hide(mSearchToolbar);
-    }
+      exitSearch();
     else
       throw new IllegalArgumentException("Unknown id");
   }
@@ -119,5 +125,13 @@ public class SearchController implements OnClickListener
   {
     setQuery(null);
     Framework.cleanSearchLayerOnMap();
+  }
+
+  private void exitSearch()
+  {
+    cancelApiCall();
+    cancel();
+    mSearchQueryTV.setText(null);
+    UiUtils.hide(mSearchToolbar);
   }
 }

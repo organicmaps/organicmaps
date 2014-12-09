@@ -180,9 +180,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   public static void startSearch(Context context, String query)
   {
-    if (!(context instanceof MWMActivity))
-      return;
-
     final MWMActivity activity = (MWMActivity) context;
     if (activity.mIsFragmentContainer)
       activity.showSearch();
@@ -966,7 +963,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     mInfoView = (MapInfoView) findViewById(R.id.info_box);
     mInfoView.setOnVisibilityChangedListener(this);
-    mInfoView.bringToFront();
     mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
     mIvStartRouting.setOnClickListener(this);
     mPbRoutingProgress = (ProgressBar) mInfoView.findViewById(R.id.pb__routing_progress);

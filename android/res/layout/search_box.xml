@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        android:src="@drawable/ic_search"/>
+        android:src="@drawable/ic_search_hint_white"/>
   </FrameLayout>
 
   <EditText
@@ -39,12 +39,12 @@
       android:background="@null"
       android:fontFamily="@string/robotoLight"
       android:hint="@string/search"
-      android:textColorHint="@color/text_hint_search_box"
       android:imeOptions="actionSearch|flagNoExtractUi"
       android:inputType="text"
       android:padding="@dimen/margin_tiny"
       android:singleLine="true"
-      android:textColor="@color/text_search_box"/>
+      android:textColor="@color/text_search_box"
+      android:textColorHint="@color/text_hint_search_box"/>
 
   <FrameLayout
       android:id="@+id/container_cancel_voice_input_search"
@@ -57,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="?attr/clickableBackground"
         android:contentDescription="@null"
         android:padding="@dimen/margin_medium"
         android:src="@drawable/ic_close_w"/>
@@ -66,9 +67,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="?attr/clickableBackground"
         android:contentDescription="@null"
         android:padding="@dimen/margin_medium"
-        android:src="@drawable/search_box_voice_selector"
+        android:src="@drawable/ic_mic_white"
         android:visibility="gone"/>
   </FrameLayout>
 

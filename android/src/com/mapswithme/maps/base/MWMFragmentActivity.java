@@ -11,6 +11,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
+
 import ru.mail.mrgservice.MRGService;
 
 public class MWMFragmentActivity extends ActionBarActivity implements Framework.BuyProListener

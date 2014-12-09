@@ -21,7 +21,7 @@
       android:id="@+id/info_box"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"/>
+      android:layout_below="@+id/toolbar_search"/>
 
   <RelativeLayout
       android:id="@+id/rl__routing_box"
@@ -40,7 +40,8 @@
       <TextView
           android:id="@+id/tv__routing_go"
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="@dimen/routing_button_height"
+          android:layout_centerVertical="true"
           android:background="?attr/clickableBackground"
           android:gravity="bottom"
           android:includeFontPadding="false"
@@ -90,6 +91,7 @@
       layout="@layout/map_turn_instructions"
       android:layout_width="match_parent"
       android:layout_height="@dimen/routing_pp_height"
+      android:layout_below="@+id/toolbar_search"
       android:visibility="gone"/>
 
   <include
