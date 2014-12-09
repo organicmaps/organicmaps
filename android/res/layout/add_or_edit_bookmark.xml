@@ -27,7 +27,7 @@
       <!-- NAME -->
 
       <TextView
-          style="@style/labelGreen"
+          style="@style/LabelGreen"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="@string/name"/>
@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/pin_name"
-            style="@style/pinEditableParam"
+            style="@style/PinEditableParam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
       <!-- SET -->
 
       <TextView
-          style="@style/labelGreen"
+          style="@style/LabelGreen"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_large"
@@ -74,7 +74,7 @@
 
       <TextView
           android:id="@+id/pin_set_chooser"
-          style="@style/pinEditableParam"
+          style="@style/PinEditableParam"
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_marginBottom="@dimen/dp_x_4"
@@ -84,7 +84,7 @@
       <!-- DESCR -->
 
       <TextView
-          style="@style/labelGreen"
+          style="@style/LabelGreen"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_medium"
@@ -94,7 +94,7 @@
 
       <EditText
           android:id="@+id/pin_description"
-          style="@style/pinEditableParam"
+          style="@style/PinEditableParam"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:hint="@string/description"/>

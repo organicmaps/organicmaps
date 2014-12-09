@@ -51,7 +51,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   {
     if (getItemViewType(position) == HELP)
     {
-      final View hintView = LayoutInflater.from(getContext()).inflate(R.layout.bookmark_hint, null);
+      final View hintView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_hint, parent, false);
       if (super.getCount() > 0)
         ((TextView) hintView.findViewById(R.id.bookmarks_usage_hint)).setText(R.string.bookmarks_usage_hint_import_only);
       return hintView;
@@ -59,7 +59,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
 
     if (convertView == null)
     {
-      convertView = LayoutInflater.from(getContext()).inflate(R.layout.bmk_category_item, null);
+      convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_category, parent, false);
       final PinSetHolder holder = new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name),
           (CheckBox) convertView.findViewById(R.id.pin_set_visible));
       convertView.setTag(holder);

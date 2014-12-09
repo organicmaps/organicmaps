@@ -1310,7 +1310,7 @@ public class MWMActivity extends NvEventQueueActivity
     if (banner != null)
     {
       final DialogFragment fragment = new BannerDialogFragment();
-      fragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.MWMTheme_Dialog_DialogFragment);
+      fragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_Dialog_DialogFragment);
       final Bundle args = new Bundle();
       args.putParcelable(BannerDialogFragment.EXTRA_BANNER, banner);
       fragment.setArguments(args);

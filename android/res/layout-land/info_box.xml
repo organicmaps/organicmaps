@@ -22,7 +22,7 @@
 
       <TextView
           android:id="@+id/info_title"
-          style="@style/infoItemLight"
+          style="@style/InfoItemLight"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1"/>
@@ -40,7 +40,7 @@
 
       <TextView
           android:id="@+id/info_subtitle"
-          style="@style/infoItemLight"
+          style="@style/InfoItemLight"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginRight="@dimen/margin_large"
@@ -71,7 +71,7 @@
 
       <ToggleButton
           android:id="@+id/info_box_is_bookmarked"
-          style="@style/bookmarkToggleButton"
+          style="@style/BookmarkToggleButton"
           android:layout_weight="0"
           android:layout_height="@dimen/ppp_button_size_small"/>
 
@@ -111,7 +111,7 @@
       android:visibility="gone">
 
     <View
-        style="@style/drawerSeparatorNoPadding"
+        style="@style/DrawerSeparatorNoPadding"
         android:layout_weight="0"/>
 
     <ScrollView

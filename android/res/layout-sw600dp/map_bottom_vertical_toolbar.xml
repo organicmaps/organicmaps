@@ -47,7 +47,7 @@
   </RelativeLayout>
 
   <View
-      style="@style/drawerSeparatorMediumPadded"/>
+      style="@style/DrawerSeparatorMediumPadded"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -76,7 +76,7 @@
   </RelativeLayout>
 
   <View
-      style="@style/drawerSeparatorMediumPadded"/>
+      style="@style/DrawerSeparatorMediumPadded"/>
 
   <RelativeLayout
       android:layout_width="match_parent"

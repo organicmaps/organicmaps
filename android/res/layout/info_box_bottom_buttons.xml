@@ -9,7 +9,7 @@
 
   <TextView
       android:id="@+id/info_box_share"
-      style="@style/infoItemLight"
+      style="@style/InfoItemLight"
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
@@ -20,7 +20,7 @@
 
   <TextView
       android:id="@+id/info_box_back_to_caller"
-      style="@style/infoItem"
+      style="@style/InfoItem"
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_marginLeft="@dimen/margin_medium"

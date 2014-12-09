@@ -1,63 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="AppTheme" parent="Theme.AppCompat.Light">
+  <style name="MwmBase" parent="Theme.AppCompat.Light">
     <item name="colorPrimary">@color/base_green</item>
     <item name="colorPrimaryDark">@color/text_search_item_greyed</item>
     <item name="colorAccent">@color/downloader_blue</item>
     <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
   </style>
 
-  <string name="robotoLight">sans-serif-light</string>
-  <string name="robotoRegular">"sans-serif"</string>
-
-  <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
-    <item name="android:background">@drawable/btn_zoom_bg_selector</item>
-    <item name="android:scaleType">center</item>
-    <item name="android:layout_marginRight">@dimen/margin_small</item>
-    <item name="android:layout_marginBottom">@dimen/margin_tiny_and_half</item>
-    <item name="android:padding">0dp</item>
-  </style>
-
-  <style name="Widget.MapButtonBottom" parent="android:Widget.ImageButton">
-    <item name="android:background">@android:color/transparent</item>
-  </style>
-
-  <style name="infoItem" parent="TextAppearance.AppCompat.Large">
-    <item name="android:textSize">@dimen/ppp_title_text_size</item>
-    <item name="android:textColor">@color/text_info_box</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-  </style>
-
-  <style name="infoItemLight" parent="@style/infoItem">
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
-  </style>
-
-  <style name="labelGreen" parent="android:Widget.TextView">
-    <item name="android:textColor">@color/text_label_bookmarks_green</item>
-    <item name="android:textSize">@dimen/sp_x_3</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="pinEditableParam" parent="Widget.AppCompat.EditText">
-    <item name="android:imeOptions">actionDone</item>
-    <item name="android:textSize">@dimen/sp_x_4</item>
-
-    <item name="colorPrimary">@color/green</item>
-    <item name="colorPrimaryDark">@color/semitransparent_black</item>
-    <item name="colorAccent">@color/downloader_red</item>
-  </style>
-
-  <style name="MWMMain" parent="@style/AppTheme">
+  <style name="MwmMain" parent="MwmBase">
     <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
-  <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="MwmMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
-  <style name="MwmSearch" parent="@style/MWMMain">
+  <style name="MwmSearch" parent="MwmMain">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowBackground">@color/semitransparent_black</item>
@@ -67,7 +27,7 @@
     <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
-  <style name="MWMTheme.Dialog.Light" parent="@style/MWMMain">
+  <style name="MwmMain.Dialog.Light" parent="MwmMain">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFrame">@null</item>
     <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title</item>
@@ -83,51 +43,70 @@
     <item name="listPreferredItemPaddingRight">16dip</item>
   </style>
 
-  <style name="MWMTheme.Dialog.DialogFragment" parent="Theme.AppCompat.Light">
+  <style name="MwmMain.Dialog.DialogFragment" parent="Theme.AppCompat.Light">
     <item name="android:windowBackground">@null</item>
     <item name="android:windowIsFloating">true</item>
   </style>
 
-  <style name="drawerSeparatorNoPadding">
+  <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
+    <item name="android:background">@drawable/btn_zoom_bg_selector</item>
+    <item name="android:scaleType">center</item>
+    <item name="android:layout_marginRight">@dimen/margin_small</item>
+    <item name="android:layout_marginBottom">@dimen/margin_tiny_and_half</item>
+    <item name="android:padding">0dp</item>
+  </style>
+
+  <style name="Widget.MapButtonBottom" parent="android:Widget.ImageButton">
+    <item name="android:background">@android:color/transparent</item>
+  </style>
+
+  <style name="InfoItem" parent="TextAppearance.AppCompat.Large">
+    <item name="android:textSize">@dimen/ppp_title_text_size</item>
+    <item name="android:textColor">@color/text_info_box</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
+  </style>
+
+  <style name="InfoItemLight" parent="InfoItem">
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
+  </style>
+
+  <style name="LabelGreen" parent="android:Widget.TextView">
+    <item name="android:textColor">@color/text_label_bookmarks_green</item>
+    <item name="android:textSize">@dimen/sp_x_3</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="PinEditableParam" parent="Widget.AppCompat.EditText">
+    <item name="android:imeOptions">actionDone</item>
+    <item name="android:textSize">@dimen/sp_x_4</item>
+
+    <item name="colorPrimary">@color/green</item>
+    <item name="colorPrimaryDark">@color/semitransparent_black</item>
+    <item name="colorAccent">@color/downloader_red</item>
+  </style>
+
+  <style name="DrawerSeparatorNoPadding">
     <item name="android:layout_height">1px</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:background">@android:color/black</item>
   </style>
 
-  <style name="drawerSeparator" parent="drawerSeparatorNoPadding">
+  <style name="DrawerSeparator" parent="DrawerSeparatorNoPadding">
     <item name="android:layout_marginRight">@dimen/dp_x_2</item>
     <item name="android:layout_marginLeft">@dimen/dp_x_2</item>
   </style>
 
-  <style name="drawerSeparatorMediumPadded" parent="drawerSeparator">
+  <style name="DrawerSeparatorMediumPadded" parent="DrawerSeparator">
     <item name="android:layout_marginRight">0dp</item>
     <item name="android:layout_marginLeft">0dp</item>
     <item name="android:background">@drawable/separator_medium_padded</item>
-  </style>
-
-  <style name="Widget.MapButtonDrawer" parent="android:Widget">
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:minHeight">@dimen/drawer_item_height</item>
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:maxWidth">@dimen/drawer_width</item>
-    <item name="android:background">@null</item>
-    <item name="android:duplicateParentState">true</item>
-    <item name="android:textSize">@dimen/sp_x_4</item>
-    <item name="android:textColor">@color/drawer_text_selector</item>
-    <item name="android:drawablePadding">@dimen/dp_x_1</item>
-    <item name="android:paddingRight">@dimen/dp_x_2</item>
-    <item name="android:paddingLeft">@dimen/dp_x_2</item>
-    <item name="android:paddingTop">@dimen/dp_x_1</item>
-    <item name="android:paddingBottom">@dimen/dp_x_1</item>
-    <item name="android:gravity">left|center_vertical</item>
-    <item name="android:fontFamily">@string/robotoLight</item>
   </style>
 
   <style name="Widget.Button.Toggle" parent="android:Widget">
     <item name="android:disabledAlpha">?android:attr/disabledAlpha</item>
   </style>
 
-  <style name="bookmarkToggleButton" parent="Widget.AppCompat.CompoundButton.Switch">
+  <style name="BookmarkToggleButton" parent="Widget.AppCompat.CompoundButton.Switch">
     <item name="android:paddingTop">14dp</item>
     <item name="android:drawableTop">@drawable/ic_bookmarks_selector</item>
     <item name="android:layout_width">@dimen/ppp_button_size</item>

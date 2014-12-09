@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="MWMMain" parent="@style/AppTheme">
+  <style name="MwmMain" parent="MwmBase">
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
-  <style name="MWMMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="MwmMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
-  <style name="MwmSearch" parent="@style/MWMMain">
+  <style name="MwmSearch" parent="MwmBase">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowBackground">@color/semitransparent_black</item>
@@ -18,5 +21,6 @@
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 </resources>

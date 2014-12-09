@@ -15,7 +15,7 @@
 
   <TextView
       android:id="@+id/info_box_geo_distance"
-      style="@style/infoItemLight"
+      style="@style/InfoItemLight"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
@@ -23,7 +23,7 @@
 
   <TextView
       android:id="@+id/info_box_lat"
-      style="@style/infoItemLight"
+      style="@style/InfoItemLight"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/info_box_geo_distance"
@@ -31,7 +31,7 @@
 
   <TextView
       android:id="@+id/info_box_lon"
-      style="@style/infoItemLight"
+      style="@style/InfoItemLight"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/info_box_lat"

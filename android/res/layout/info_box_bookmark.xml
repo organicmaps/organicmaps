@@ -17,7 +17,7 @@
       android:layout_gravity="center_vertical"/>
 
   <View
-      style="@style/drawerSeparatorNoPadding"/>
+      style="@style/DrawerSeparatorNoPadding"/>
 
   <include
       layout="@layout/info_box_bottom_buttons"/>
