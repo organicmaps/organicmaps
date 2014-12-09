@@ -78,7 +78,7 @@ namespace
     void RenderGlyphs(QPaintDevice * device)
     {
       vector<dp::GlyphManager::Glyph> glyphs;
-      m_mng->GetGlyphs({0x58, 0x79, 0x439, 0x00}, glyphs);
+      m_mng->GetGlyphs({0x58, 0x79, 0x439}, glyphs);
 
       QPainter painter(device);
       painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
@@ -90,12 +90,12 @@ namespace
           continue;
 
         uint8_t * d = SharedBufferManager::GetRawPointer(g.m_image.m_data);
-        int pitch = 32 * (((g.m_image.m_pitch - 1) / 32) + 1);
+        int pitch = 32 * (((g.m_image.m_width - 1) / 32) + 1);
         int byteCount = pitch * g.m_image.m_height;
         unsigned char * buf = (unsigned char *)malloc(byteCount);
         memset(buf, 0, byteCount);
         for (int i = 0; i < g.m_image.m_height; ++i)
-          memcpy(buf + pitch * i, d + g.m_image.m_pitch * i, g.m_image.m_pitch);
+          memcpy(buf + pitch * i, d + g.m_image.m_width * i, g.m_image.m_width);
 
         QImage img = QImage(buf,
                             pitch,

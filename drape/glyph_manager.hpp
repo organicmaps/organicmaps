@@ -20,6 +20,8 @@ public:
     string m_blacklist;
 
     vector<string> m_fonts;
+
+    uint32_t m_baseGlyphHeight = 20;
   };
 
   struct GlyphMetrics
@@ -46,7 +48,6 @@ public:
 
     int m_width;
     int m_height;
-    int m_pitch;
 
     SharedBufferManager::shared_buffer_ptr_t m_data;
     size_t m_bufferSize;

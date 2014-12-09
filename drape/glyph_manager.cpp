@@ -1,4 +1,5 @@
 #include "glyph_manager.hpp"
+#include "sdf_image.h"
 
 #include "../platform/platform.hpp"
 
@@ -7,6 +8,7 @@
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
+#include "../base/timer.hpp"
 
 #include <ft2build.h>
 #include FT_TYPES_H
@@ -55,6 +57,9 @@ namespace dp
 
 namespace
 {
+
+int const SDF_SCALE_FACTOR = 4;
+int const SDF_BORDER = 4;
 
 template <typename ToDo>
 void ParseUniBlocks(string const & uniBlocksFile, ToDo toDo)
@@ -152,9 +157,9 @@ public:
     return FT_Get_Char_Index(m_fontFace, unicodePoint) != 0;
   }
 
-  GlyphManager::Glyph GetGlyph(strings::UniChar unicodePoint) const
+  GlyphManager::Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t baseHeight) const
   {
-    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, 0, 20));
+    FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, SDF_SCALE_FACTOR * baseHeight, SDF_SCALE_FACTOR * baseHeight));
     FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, FT_Get_Char_Index(m_fontFace, unicodePoint), FT_LOAD_RENDER));
 
     FT_Glyph glyph;
@@ -166,32 +171,41 @@ public:
     FT_Bitmap bitmap = m_fontFace->glyph->bitmap;
 
     SharedBufferManager::shared_buffer_ptr_t data;
-    size_t byteSize = bitmap.rows * bitmap.pitch;
-    size_t bufferSize = my::NextPowOf2(byteSize);
+    size_t bufferSize = 0;
+    int imgWidth = bitmap.width;
+    int imgHeigh = bitmap.rows;
     if (bitmap.buffer != nullptr)
     {
+      SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, SDF_BORDER);
+      img.GenerateSDF(1.0 / (float)SDF_SCALE_FACTOR);
+
+      imgWidth = img.GetWidth();
+      imgHeigh = img.GetHeight();
+
+      size_t byteSize = imgWidth * imgHeigh;
+      bufferSize = my::NextPowOf2(byteSize);
       data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
-      memcpy(SharedBufferManager::GetRawPointer(data), bitmap.buffer, byteSize);
+
+      img.GetData(*data);
     }
 
     GlyphManager::Glyph result;
     result.m_image = GlyphManager::GlyphImage
     {
-      bitmap.width,
-      bitmap.rows,
-      bitmap.pitch,
+      imgWidth,
+      imgHeigh,
       data,
       bufferSize
     };
 
     result.m_metrics = GlyphManager::GlyphMetrics
     {
-      static_cast<int>(glyph->advance.x >> 16),
-      static_cast<int>(glyph->advance.y >> 16),
-      static_cast<int>(bbox.xMin),
-      static_cast<int>(bbox.yMin),
-      static_cast<int>(bbox.xMax - bbox.xMin),
-      static_cast<int>(bbox.yMax - bbox.yMin)
+      static_cast<int>((glyph->advance.x >> 16) / SDF_SCALE_FACTOR),
+      static_cast<int>((glyph->advance.y >> 16) / SDF_SCALE_FACTOR),
+      static_cast<int>(bbox.xMin / SDF_SCALE_FACTOR),
+      static_cast<int>(bbox.yMin / SDF_SCALE_FACTOR),
+      imgWidth,
+      imgHeigh
     };
 
     FT_Done_Glyph(glyph);
@@ -283,11 +297,15 @@ struct GlyphManager::Impl
   FT_Library m_library;
   TUniBlocks m_blocks;
   vector<Font> m_fonts;
+
+  uint32_t m_baseGlyphHeight;
 };
 
 GlyphManager::GlyphManager(GlyphManager::Params const & params)
   : m_impl(new Impl())
 {
+  m_impl->m_baseGlyphHeight = params.m_baseGlyphHeight;
+
   typedef pair<string, string> TFontAndBlockName;
   typedef buffer_vector<TFontAndBlockName, 64> TFontLst;
 
@@ -446,7 +464,7 @@ void GlyphManager::GetGlyphs(vector<strings::UniChar> const & unicodePoints, vec
         Font const & f = m_impl->m_fonts[fontIndex];
         if (f.HasGlyph(unicodePoint))
         {
-          glyphs.push_back(f.GetGlyph(unicodePoint));
+          glyphs.push_back(f.GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight));
           break;
         }
       }
@@ -467,7 +485,7 @@ GlyphManager::Glyph const & GlyphManager::GetInvalidGlyph() const
   if (!s_inited)
   {
     ASSERT(!m_impl->m_fonts.empty(), ());
-    s_glyph = m_impl->m_fonts[0].GetGlyph(0);
+    s_glyph = m_impl->m_fonts[0].GetGlyph(0x9, m_impl->m_baseGlyphHeight);
     s_inited = true;
   }
 
