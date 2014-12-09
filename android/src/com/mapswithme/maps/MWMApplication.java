@@ -19,6 +19,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
@@ -105,7 +106,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
-        getOBBGooglePath(), BuildConfig.FLAVOR, BuildConfig.IS_PRO, mIsYota);
+        getOBBGooglePath(), BuildConfig.FLAVOR, BuildConfig.IS_PRO, mIsYota, UiUtils.isTablet());
 
     ActiveCountryTree.addListener(this);
 
@@ -222,7 +223,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private native void nativeInit(String apkPath, String storagePath,
                                  String tmpPath, String obbGooglePath,
                                  String flavorName,
-                                 boolean isPro, boolean isYota);
+                                 boolean isPro, boolean isYota, boolean isTablet);
 
   public native boolean nativeIsBenchmarking();
 

@@ -24,10 +24,10 @@ extern "C"
   Java_com_mapswithme_maps_MWMApplication_nativeInit(
       JNIEnv * env, jobject thiz,
       jstring apkPath, jstring storagePath, jstring tmpPath, jstring obbGooglePath,
-      jstring flavorName, jboolean isPro, jboolean isYota)
+      jstring flavorName, jboolean isPro, jboolean isYota, jboolean isTablet)
   {
     android::Platform::Instance().Initialize(
-        env, apkPath, storagePath, tmpPath, obbGooglePath, flavorName, isPro, isYota);
+        env, apkPath, storagePath, tmpPath, obbGooglePath, flavorName, isPro, isYota, isTablet);
 
     LOG(LDEBUG, ("Creating android::Framework instance ..."));
 

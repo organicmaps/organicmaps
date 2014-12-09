@@ -14,7 +14,7 @@ namespace android
                     jstring apkPath, jstring storagePath,
                     jstring tmpPath, jstring obbGooglePath,
                     jstring flavorName,
-                    bool isPro, bool isYota);
+                    bool isPro, bool isYota, bool isTablet);
 
     void OnExternalStorageStatusChanged(bool isAvailable);
 

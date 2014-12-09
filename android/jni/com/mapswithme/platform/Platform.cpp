@@ -65,7 +65,7 @@ namespace android
   void Platform::Initialize(JNIEnv * env,
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
-                            jstring flavorName, bool isPro, bool isYota)
+                            jstring flavorName, bool isPro, bool isYota, bool isTablet)
   {
     string const flavor = jni::ToNativeString(env, flavorName);
     LOG(LINFO, ("Flavor name:", flavor));
@@ -76,6 +76,8 @@ namespace android
       m_androidDefResScope = "frw";
     else
       m_androidDefResScope = "fwr";
+
+    m_isTablet = isTablet;
 
     m_resourcesDir = jni::ToNativeString(env, apkPath);
 

@@ -17,6 +17,8 @@
 #include "../graphics/depth_constants.hpp"
 #include "../graphics/display_list.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../geometry/transformations.hpp"
 
 
@@ -25,10 +27,14 @@ using namespace graphics;
 namespace
 {
   static int const RULLER_X_OFFSET = 6;
+  static double const RULLER_X_OFFSET_L = 70.4;
   static int const RULLER_Y_OFFSET = 42;
+  static double const RULLER_Y_OFFSET_L = 10.5;
   static int const FONT_SIZE = 14;
   static int const COMPASS_X_OFFSET = 27;
+  static int const COMPASS_X_OFFSET_L = 18;
   static int const COMPASS_Y_OFFSET = 57;
+  static double const COMPASS_Y_OFFSET_L = 11.4;
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)
@@ -150,24 +156,38 @@ void InformationDisplay::setController(gui::Controller * controller)
 
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
-  double visualScale = m_framework->GetVisualScale();
+  double rulerOffsX = RULLER_X_OFFSET;
+  double rulerOffsY = RULLER_Y_OFFSET;
+  double compassOffsX = COMPASS_X_OFFSET;
+  double compassOffsY = COMPASS_Y_OFFSET;
+#ifdef OMIM_OS_ANDROID
+  if (GetPlatform().IsTablet())
+  {
+    rulerOffsX = RULLER_X_OFFSET_L;
+    rulerOffsY = RULLER_Y_OFFSET_L;
+    compassOffsX = COMPASS_X_OFFSET_L;
+    compassOffsY = COMPASS_Y_OFFSET_L;
+  }
+#endif
+
+  double const vs = m_framework->GetVisualScale();
   m_countryStatusDisplay->setPivot(m2::PointD(rect.Center()));
 
   m2::PointD const size = m_compassArrow->GetPixelSize();
-  m_compassArrow->setPivot(m2::PointD(COMPASS_X_OFFSET * visualScale + size.x / 2.0,
-                                      rect.maxY() - COMPASS_Y_OFFSET * visualScale - size.y / 2.0));
+  m_compassArrow->setPivot(m2::PointD(compassOffsX * vs + size.x / 2.0,
+                                      rect.maxY() - compassOffsY * vs - size.y / 2.0));
 
-  m_ruler->setPivot(m2::PointD(rect.maxX() - RULLER_X_OFFSET * visualScale,
-                               rect.maxY() - RULLER_Y_OFFSET * visualScale));
+  m_ruler->setPivot(m2::PointD(rect.maxX() - rulerOffsX * vs,
+                               rect.maxY() - rulerOffsY * vs));
 
   if (m_copyrightLabel)
   {
-    m_copyrightLabel->setPivot(m2::PointD(rect.maxX() - RULLER_X_OFFSET * visualScale,
-                                          rect.maxY() - RULLER_Y_OFFSET * visualScale));
+    m_copyrightLabel->setPivot(m2::PointD(rect.maxX() - rulerOffsX * vs,
+                                          rect.maxY() - rulerOffsY * vs));
   }
 
   m_debugLabel->setPivot(m2::PointD(rect.minX() + 10,
-                                    rect.minY() + 50 + 5 * visualScale));
+                                    rect.minY() + 50 + 5 * vs));
 }
 
 bool InformationDisplay::isCopyrightActive() const

@@ -47,6 +47,9 @@ protected:
   /// Used in Android only and initialized according to the market type (Play, Amazon, Samsung).
   string m_androidDefResScope;
 
+  /// Used in Android only to get corret GUI elements layout.
+  bool m_isTablet;
+
   /// Internal function to get full path for input file.
   /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
   string ReadPathForFile(string const & file, string searchScope = string()) const;
@@ -153,9 +156,10 @@ public:
   /// @return JSON-encoded list of urls if metaserver is unreachable
   string DefaultUrlsJSON() const;
 
+  bool IsTablet() const { return m_isTablet; }
+
 private:
   void GetSystemFontNames(FilesList & res) const;
-
 };
 
 extern Platform & GetPlatform();

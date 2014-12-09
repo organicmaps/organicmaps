@@ -439,6 +439,17 @@ public final class UiUtils
         .show();
   }
 
+  /**
+   *
+   * @return whether device is a tablet with 600dp+ minimum width
+   */
+  public static boolean isTablet()
+  {
+    final DisplayMetrics metrics = MWMApplication.get().getResources().getDisplayMetrics();
+    final float minLength = metrics.density * 600;
+    return metrics.widthPixels > minLength || metrics.heightPixels > minLength;
+  }
+
   // utility class
   private UiUtils()
   {}
