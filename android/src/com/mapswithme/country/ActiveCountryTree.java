@@ -55,4 +55,6 @@ public class ActiveCountryTree
   public static native int addListener(ActiveCountryListener listener);
 
   public static native void removeListener(int slotId);
+
+  public static native void downloadMapForIndex(Index index, int options);
 }

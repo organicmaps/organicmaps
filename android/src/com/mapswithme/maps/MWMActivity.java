@@ -46,6 +46,7 @@ import android.widget.Toast;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
+import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.Banner;
 import com.mapswithme.maps.Ads.BannerDialogFragment;
@@ -804,11 +805,14 @@ public class MWMActivity extends NvEventQueueActivity
         return;
       setVerticalToolbarVisible(false);
       popFragment();
+      hideInfoView();
       SearchController.getInstance().cancel();
 
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
       Fragment fragment = new DownloadFragment();
-      fragment.setArguments(getIntent().getExtras());
+      final Bundle extras = new Bundle();
+      extras.putBoolean(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
+      fragment.setArguments(extras);
       transaction.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom,
           R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom);
       transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
@@ -1849,7 +1853,13 @@ public class MWMActivity extends NvEventQueueActivity
                   @Override
                   public void onClick(DialogInterface dialog, int which)
                   {
-                    // TODO start country download automatically?
+                    final Location location = LocationService.INSTANCE.getLastLocation();
+                    if (location != null)
+                    {
+                      final Index currentIndex = Framework.nativeGetCountryIndex(location.getLatitude(), location.getLongitude());
+                      if (currentIndex != null)
+                        ActiveCountryTree.downloadMapForIndex(currentIndex, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+                    }
                     showDownloader(true);
                     closeRouting();
                     dialog.dismiss();

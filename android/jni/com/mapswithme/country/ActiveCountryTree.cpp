@@ -93,6 +93,7 @@ extern "C"
   {
     GetMapLayout().DownloadMap(ToGroup(group), position, ToOptions(options));
   }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_deleteMap(JNIEnv * env, jclass clazz, jint group, jint position, jint options)
   {
@@ -145,5 +146,11 @@ extern "C"
   {
     return storage::ToJava(GetMapLayout().GetCoreIndex(static_cast<storage::ActiveMapsLayout::TGroup>(group),
                                                        static_cast<int>(position)));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_country_ActiveCountryTree_downloadMapForIndex(JNIEnv * env, jclass clazz, jobject index, jint options)
+  {
+    GetMapLayout().DownloadMap(storage::ToNative(index), ToOptions(options));
   }
 }
