@@ -43,10 +43,7 @@ public class Notifier
     @Override
     public void onReceive(Context context, Intent intent)
     {
-      if (intent.getBooleanExtra(EXTRA_FORCE_PROMO_DIALOG, false))
-        showFreeProNotification(new Intent(context, MWMActivity.class).putExtras(intent.getExtras()));
-      else
-        showFreeLiteNotification(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)).putExtras(intent.getExtras()));
+      showFreeLiteNotification(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)).putExtras(intent.getExtras()));
     }
   };
 
@@ -87,7 +84,8 @@ public class Notifier
     final String title = MWMApplication.get().getString(R.string.app_name);
     final String content = MWMApplication.get().getString(R.string.download_country_success, name);
 
-    placeDownloadNotification(title, content, idx);
+    // TODO add complex stacked notification with progress, number of countries and other info.
+//    placeDownloadNotification(title, content, idx);
   }
 
   public static void placeDownloadFailed(Index idx, String name)
@@ -198,49 +196,12 @@ public class Notifier
     final MWMApplication application = MWMApplication.get();
     final Calendar calendar = Calendar.getInstance();
     calendar.set(2014, Calendar.DECEMBER, 3);
-    if (Utils.isInstalledAfter(calendar) && !application.nativeGetBoolean(FREE_PROMO_SHOWN, false))
+    if (Utils.isInstalledAfter(calendar) &&
+        !application.nativeGetBoolean(FREE_PROMO_SHOWN, false) &&
+        application.getForegroundTime() > 10 * 60)
     {
-      if (application.getForegroundTime() > 10 * 60 || activity.getIntent().getBooleanExtra(EXTRA_FORCE_PROMO_DIALOG, false))
-      {
-        UiUtils.showPromoShareDialog(activity, application.getString(R.string.free_pro_version_share_message));
-        application.nativeSetBoolean(FREE_PROMO_SHOWN, true);
-        cancelPromoNotifications();
-      }
-      else
-        scheduleFreeProNotification(application.getString(R.string.free_pro_version_notification_pro), "", calendar);
+      UiUtils.showPromoShareDialog(activity, application.getString(R.string.free_pro_version_share_message));
+      application.nativeSetBoolean(FREE_PROMO_SHOWN, true);
     }
-  }
-
-  private static void scheduleFreeProNotification(String title, String content, Calendar calendar)
-  {
-    final MWMApplication application = MWMApplication.get();
-    application.registerReceiver(mAlarmReceiver, mIntentFilter);
-    final Intent it = new Intent(ACTION_NAME).
-        putExtra(EXTRA_TITLE, title).
-        putExtra(EXTRA_CONTENT, content).
-        putExtra(EXTRA_FORCE_PROMO_DIALOG, true);
-    final PendingIntent pi = PendingIntent.getBroadcast(application, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pi);
-  }
-
-  public static void showFreeProNotification(Intent intent)
-  {
-    final MWMApplication application = MWMApplication.get();
-    final Intent it = new Intent(application, MWMActivity.class).putExtra(EXTRA_FORCE_PROMO_DIALOG, true);
-    final PendingIntent pi = PendingIntent.getActivity(application, 0, it,
-        PendingIntent.FLAG_UPDATE_CURRENT);
-    final String title = intent.getStringExtra(EXTRA_TITLE);
-    final String content = intent.getStringExtra(EXTRA_CONTENT);
-
-    final Notification notification = getBuilder()
-        .setContentTitle(title)
-        .setContentText(content)
-        .setTicker(title + ": " + content)
-        .setContentIntent(pi)
-        .build();
-
-    getNotificationManager().notify(ID_PRO_IS_FREE, notification);
   }
 }
