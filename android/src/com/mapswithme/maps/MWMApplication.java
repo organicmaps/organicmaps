@@ -69,6 +69,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   @Override
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
+    Notifier.cancelDownloadSuggest();
     if (newStatus == MapStorage.DOWNLOAD_FAILED)
     {
       CountryItem item = ActiveCountryTree.getCountryItem(group, position);

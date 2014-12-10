@@ -130,6 +130,11 @@ public class Notifier
     Statistics.INSTANCE.trackDownloadCountryNotificationShown();
   }
 
+  public static void cancelDownloadSuggest()
+  {
+    getNotificationManager().cancel(ID_DOWNLOAD_NEW_COUNTRY);
+  }
+
   public static void notifyAboutFreePro(Activity activity)
   {
     if (MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PRESTIGIO_PREINSTALLED, false))
