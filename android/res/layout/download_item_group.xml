@@ -4,7 +4,8 @@
                 android:layout_height="wrap_content"
                 android:addStatesFromChildren="true"
                 android:background="?attr/clickableBackground"
-                android:minHeight="?android:attr/listPreferredItemHeight">
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:paddingLeft="@dimen/margin_small">
 
   <TextView
       android:id="@+id/title"
@@ -13,7 +14,7 @@
       android:layout_alignParentLeft="true"
       android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/margin_small"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
   <ImageView
       android:id="@+id/disclosure_image"

@@ -15,11 +15,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_small"
-      android:animationCache="false"
-      android:background="@android:color/white"
-      android:divider="@color/divider_standard"
-      android:dividerHeight="1px"
-      android:scrollbarStyle="outsideOverlay"
-      android:scrollingCache="false"/>
+      android:scrollbarStyle="outsideOverlay"/>
 
 </LinearLayout>

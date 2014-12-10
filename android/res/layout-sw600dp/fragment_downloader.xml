@@ -12,13 +12,14 @@
       android:layout_height="@dimen/search_box_height"
       android:layout_marginBottom="@dimen/margin_small"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MyActionBar">
+      app:theme="@style/MwmToolbar">
 
     <TextView
         android:id="@+id/tv__update_all"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|right"
+        android:background="?attr/clickableBackground"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/margin_small"
         android:text="@string/downloader_update_all"
@@ -30,11 +31,5 @@
   <ListView
       android:id="@android:id/list"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:animationCache="false"
-      android:divider="@color/divider_standard"
-      android:dividerHeight="1px"
-      android:background="@android:color/white"
-      android:cacheColorHint="@android:color/transparent"
-      android:scrollingCache="false"/>
+      android:layout_height="match_parent"/>
 </LinearLayout>

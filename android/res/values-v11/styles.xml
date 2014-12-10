@@ -11,6 +11,8 @@
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:listViewStyle">@style/MwmList</item>
+    <item name="android:textViewStyle">@style/MwmText</item>
   </style>
 
   <style name="MwmSearch" parent="MwmBase">
@@ -21,6 +23,5 @@
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 </resources>

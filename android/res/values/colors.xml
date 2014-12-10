@@ -28,12 +28,13 @@
   <color name="text_menu">#1D1F29</color>
   <color name="bg_bottom_toolbar">@android:color/white</color>
   <color name="bg_bottom_toolbar_pressed">#15d081</color>
-  <color name="divider_standard">#E14A4B53</color>
+  <color name="divider_standard">#1E4A4B53</color>
 
   <!-- search -->
   <color name="text_search_box">@android:color/white</color>
   <color name="text_hint_search_box">#bdffffff</color>
   <color name="text_search_item">@android:color/black</color>
+  <color name="text_search_item_subtitle">#8A000000</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
   <color name="text_search_category">@android:color/black</color>
   <color name="bg_search_green">#1F9F7E</color>

@@ -938,7 +938,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     mBottomToolbar = (ViewGroup) findViewById(R.id.map_bottom_toolbar);
     mVerticalToolbar = (ViewGroup) findViewById(R.id.map_bottom_vertical_toolbar);
-    mVerticalToolbar.findViewById(R.id.btn_buy_pro).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
@@ -1668,10 +1667,6 @@ public class MWMActivity extends NvEventQueueActivity
     switch (v.getId())
     {
 
-    case R.id.btn_buy_pro:
-      setVerticalToolbarVisible(false);
-      UiUtils.openAppInMarket(MWMActivity.this, BuildConfig.PRO_URL);
-      break;
     case R.id.btn_share:
       setVerticalToolbarVisible(false);
       shareMyLocation();

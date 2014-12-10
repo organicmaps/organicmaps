@@ -12,13 +12,7 @@
       android:layout_height="@dimen/search_box_height"
       android:layout_marginBottom="@dimen/margin_small"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MyActionBar"/>
-
-  <View
-      android:id="@+id/btn_buy_pro"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_item_height"
-      android:visibility="gone"/>
+      app:theme="@style/MwmToolbar"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -81,6 +75,7 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_item_height"
+      android:minHeight="@dimen/search_item_height"
       android:background="@android:color/white">
 
     <ImageView

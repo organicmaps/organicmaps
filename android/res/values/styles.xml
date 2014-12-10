@@ -6,6 +6,8 @@
     <item name="colorPrimaryDark">@color/text_search_item_greyed</item>
     <item name="colorAccent">@color/downloader_blue</item>
     <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    <item name="android:listViewStyle">@style/MwmList</item>
+    <item name="android:textViewStyle">@style/MwmText</item>
   </style>
 
   <style name="MwmMain" parent="MwmBase">
@@ -15,6 +17,8 @@
   <style name="MwmMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="clickableBackground">@drawable/default_selector</item>
+    <item name="android:listViewStyle">@style/MwmList</item>
+    <item name="android:textViewStyle">@style/MwmText</item>
   </style>
 
   <style name="MwmSearch" parent="MwmMain">
@@ -24,7 +28,6 @@
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
   <style name="MwmMain.Dialog.Light" parent="MwmMain">
@@ -46,6 +49,8 @@
   <style name="MwmMain.Dialog.DialogFragment" parent="Theme.AppCompat.Light">
     <item name="android:windowBackground">@null</item>
     <item name="android:windowIsFloating">true</item>
+    <item name="android:listViewStyle">@style/MwmList</item>
+    <item name="android:textViewStyle">@style/MwmText</item>
   </style>
 
   <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
@@ -99,7 +104,7 @@
   <style name="DrawerSeparatorMediumPadded" parent="DrawerSeparator">
     <item name="android:layout_marginRight">0dp</item>
     <item name="android:layout_marginLeft">0dp</item>
-    <item name="android:background">@drawable/separator_medium_padded</item>
+    <item name="android:background">@drawable/divider_medium_padded</item>
   </style>
 
   <style name="Widget.Button.Toggle" parent="android:Widget">
@@ -117,8 +122,23 @@
     <item name="android:background">?attr/clickableBackground</item>
   </style>
 
-  <style name="MyActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <style name="MwmToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="displayOptions">showHome|homeAsUp|showTitle</item>
     <item name="android:background">@color/base_green</item>
   </style>
+
+  <style name="MwmList" parent="android:Widget.Material.ListView">
+    <item name="android:fadingEdge">none</item>
+    <item name="android:divider">@drawable/divider_medium_padded</item>
+    <item name="android:dividerHeight">1px</item>
+    <item name="android:background">@android:color/white</item>
+    <item name="android:animationCache">false</item>
+    <item name="android:scrollingCache">false</item>
+    <item name="android:cacheColorHint">@android:color/transparent</item>
+  </style>
+
+  <style name="MwmText" parent="android:Widget.Material.TextView">
+    <item name="android:fontFamily">@string/robotoRegular</item>
+  </style>
+
 </resources>

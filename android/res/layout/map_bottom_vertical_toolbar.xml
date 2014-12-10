@@ -6,12 +6,6 @@
     android:background="@color/bg_bottom_toolbar"
     android:orientation="vertical">
 
-  <View
-      android:id="@+id/btn_buy_pro"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_item_height"
-      android:visibility="gone"/>
-
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_item_height">

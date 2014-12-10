@@ -40,7 +40,7 @@
         android:ellipsize="end"
         android:fontFamily="@string/robotoRegular"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/text_search_item"
+        android:textColor="@color/text_search_item_subtitle"
         android:textSize="13sp"/>
   </LinearLayout>
 
