@@ -46,11 +46,6 @@ public:
       : m_angle(a), m_node(n)
     {
     }
-
-    bool operator == (TurnCandidate const & other) const
-    {
-      return m_node == other.m_node;
-    }
   };
   typedef vector<TurnCandidate> TurnCandidatesT;
 

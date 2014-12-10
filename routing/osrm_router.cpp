@@ -694,8 +694,7 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
   m2::PointD pnt = turnPnt, nextPnt;
 
   const size_t segDist = abs(seg.m_pointEnd - seg.m_pointStart);
-  ASSERT_LESS(segDist, ft.GetPointsCount(),
-              ("GetPntForTurnAngle(). The start and the end pnt of a segment are too far from each other"));
+  ASSERT_LESS(segDist, ft.GetPointsCount(), ());
   const size_t usedFtPntNum = min(maxPntsNum, segDist);
 
   for (size_t i = 1; i <= usedFtPntNum; ++i)
@@ -792,9 +791,21 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
     candidates.emplace_back(a, trg);
   }
 
-  sort(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2) { return t1.m_angle < t2.m_angle; });
-  auto last = unique(candidates.begin(), candidates.end());
+  sort(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2)
+  {
+    return t1.m_node < t2.m_node;
+  });
+
+  auto last = unique(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2)
+  {
+    return t1.m_node == t2.m_node;
+  });
   candidates.erase(last, candidates.end());
+
+  sort(candidates.begin(), candidates.end(), [](TurnCandidate const & t1, TurnCandidate const & t2)
+  {
+    return t1.m_angle < t2.m_angle;
+  });
 }
 
 
