@@ -1,5 +1,6 @@
 package com.mapswithme.country;
 
+import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.MapStorage.Index;
 
@@ -26,6 +27,11 @@ public class ActiveCountryTree
   public static native int getOutOfDateCount();
 
   public static native int getCountInGroup(int group);
+
+  public static int getTotalCount()
+  {
+    return getCountInGroup(MapStorage.ON_DISK) + getCountInGroup(MapStorage.ON_DISK_OUT_OF_DATE);
+  }
 
   public static native CountryItem getCountryItem(int group, int position);
 

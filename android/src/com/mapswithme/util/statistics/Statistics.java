@@ -2,6 +2,7 @@ package com.mapswithme.util.statistics;
 
 import android.app.Activity;
 
+import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
@@ -123,6 +124,7 @@ public enum Statistics
     trackIfEnabled(mEventBuilder.
         setName(EventName.COUNTRY_DOWNLOAD).
         addParam(EventParam.PRESTIGIO_PREINSTALLED, String.valueOf(isPrestigioPreinstalled)).
+        addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalCount())).
         buildEvent());
   }
 
