@@ -16,7 +16,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:animationCache="false"
-      android:divider="@color/divider_search"
+      android:divider="@color/divider_standard"
       android:dividerHeight="1px"
       android:scrollbarStyle="outsideOverlay"
       android:scrollingCache="false"/>

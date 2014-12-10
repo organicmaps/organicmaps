@@ -32,6 +32,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:animationCache="false"
+      android:divider="@color/divider_standard"
+      android:dividerHeight="1px"
       android:background="@android:color/white"
       android:cacheColorHint="@android:color/transparent"
       android:scrollingCache="false"/>

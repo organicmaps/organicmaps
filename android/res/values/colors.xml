@@ -28,7 +28,7 @@
   <color name="text_menu">#1D1F29</color>
   <color name="bg_bottom_toolbar">@android:color/white</color>
   <color name="bg_bottom_toolbar_pressed">#15d081</color>
-  <color name="divider_standart">#4A4B53</color>
+  <color name="divider_standard">#E14A4B53</color>
 
   <!-- search -->
   <color name="text_search_box">@android:color/white</color>
@@ -40,7 +40,6 @@
   <color name="bg_search_green_pressed">#68BEA8</color>
   <color name="bg_search_suggestion">#f7f5f0</color>
   <color name="bg_search_suggestion_pressed">#68BEA8</color>
-  <color name="divider_search">#4A4B53</color>
 
   <!-- place page -->
   <color name="text_info_box">@android:color/black</color>

@@ -31,6 +31,8 @@
       android:layout_height="match_parent"
       android:animationCache="false"
       android:background="@android:color/white"
+      android:divider="@color/divider_standard"
+      android:dividerHeight="1px"
       android:cacheColorHint="@android:color/transparent"
       android:scrollingCache="false"/>
 </LinearLayout>
