@@ -108,30 +108,30 @@
     iw = אתם יכולים לשדרג היום בחינם ל- MAPS.ME Pro. אל תפספסו את ההזדמנות!
 
   [free_pro_version_share_message]
-    en = Best offline maps MAPS.ME are free today. Download now and tell your friends!
+    en = You are lucky to get MAPS.ME for free and save $4.99. Help your friends, share the news with them!
     comment = Share text when paid version become free on the market.
-    ru = Крутые офлайн-карты MAPS.ME сегодня бесплатные. Скачай сейчас и расскажи друзьям!
-    uk = Круті офлайн-карти MAPS.ME Pro сьогодні безкоштовні! Завантажуй та розкажи друзям!
-    de = Die besten Offline-Karten MAPS.ME sind heute kostenlos. Jetzt runterladen & Freunde informieren!
-    fr = Les meilleures cartes hors ligne de MAPS.ME sont gratuites aujourd'hui. Téléchargez-le maintenant et dites-le à vos amis !
-    it = Le migliori mappe offline di MAPS.ME Pro sono gratis oggi. Scaricala ora e dillo ai tuoi amici!
-    es = ¡Hoy los mejores mapas sin conexión de MAPS.ME son gratis! Descárgalo ahora y dilo a tus amigos .
-    ko = 최고의 오프라인 지도인 MAPS.ME가 오늘 무료입니다. 지금 다운로드하고 친구들에게 알리세요!
-    ja = ベストオフライン地図のMAPS.MEが本日無料。今すぐダウンロードして友達に教えてあげましょう！
-    cs = Nejlepší offline mapy MAPS.ME jsou dnes zdarma. Stáhni si ji nyní a dej vědět kamarádům!
-    sk = Najlepšie offline mapy MAPS.ME sú dnes zadarmo. Stiahnite si teraz a povedzte to svojim priateľom!
-    nl = De beste offline kaarten van MAPS.ME zijn vandaag gratis. Download nu en vertel het je vrienden!
-    zh-hant = 最好的離線地圖MAPS.ME今日免費為你提供。馬上下載并告訴您的朋友！
-    zh-hans = 最佳的脱机地图MAPS.ME今天免费。立刻下载并告诉您的好友！
-    pl = Najlepsze mapy offline MAPS.ME są dziś za darmo. Pobierz teraz i powiedz znajomym!
-    pt = Os melhores mapas offline do MAPS.ME são hoje gratuitos. Descarregue e conte aos seus amigos!
-    hu = A legjobb MAPS.ME offline térképek ma ingyenesek. Töltsd le most és meséld el barátaidnak!
-    th = อัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้. ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ!
-    ar = أفضل خرائط دون اتصال MAPS.ME مجانا اليوم. قم بتنزيله الآن وأخبر أصدقائك!
-    da = Bedste offline kort MAPS.ME er gratis i dag. Download nu og fortæl dine venner om det!
-    tr = MAPS.ME'nin en iyi çevrimdışı haritaları bugün ücretsiz. İndir ve arkadaşlarına haber ver!
-    sv = Bästa offline kartor MAPS. ME är gratis idag. Ladda ner den nu och berätta för dina vänner!
-    iw = MAPS.ME - המפות הטובות ביותר במצב לא מקוון הן היום בחינם! זמינה היום בחינם!
+    ru = Тебе повезло скачать MAPS.ME бесплатно и сэкономить $4.99. Помоги друзьям, поделись новостью!
+    uk = Тобі пощастило скачати MAPS.ME безкоштовно і зберегти $4.99. Допоможи друзям, поділися новиною!
+    de = Sie haben Glück, denn Sie erhalten MAPS.ME kostenlos und sparen 4,99 $. Helfen Sie Ihren Freunden, teilen Sie die Neuigkeiten mit ihnen!
+    fr = Bravo, vous avez téléchargé MAPS.ME gratuitement et économisé $4.99. Rendez service à vos amis, faites passer l'info !
+    it = Sei fortunato a ricevere MAPS.ME gratuitamente e risparmiare $4,99. Aiuta i tuoi amici condividendo con loro la novità!
+    es = Tienes la suerte de obtener MAPS.ME gratis y ahorrar 4,99 $.Ayuda a tus amigos, ¡comparte la noticia con ellos!
+    ko = 무료로 MAPS.ME을 얻어 $4.99를 절약할 행운이 있습니다. 친구들을 돕고 그들과 함께 뉴스를 공유하세요!
+    ja = MAPS.MEが無料で手に入って$4.99節約できるなんて、ラッキーですね。友達にもこのニュースを教えてあげましょう！
+    cs = Máte štěstí a získáváte MAPS.ME zdarma. Ušetříte 4,99 $. Pomozte kamarádům, sdílejte tuto novinku!
+    sk = Máte šťastie, že môžete získať MAPS.ME zadarmo a ušetriť 4,99 dolárov. Pomôžte svojim priateľom, zdieľajte novinky s nimi!
+    nl = U heeft geluk dat u MAPS.ME gratis krijgt en $ 4,99 bespaart. Help uw vrienden, deel het nieuws met hen!
+    zh-hant = 您很幸運，能免費獲得MAPS.ME並省下$4.99。幫助您的朋友們，和他們分享這個消息吧！
+    zh-hans = 您很幸运，能免费获得MAPS.ME并省下$4.99。帮助您的朋友们，和他们分享这个消息吧！
+    pl = Masz szczęście! Otrzymał MAPS.ME za darmo i zaoszczędził 4,99 USD. Pomóż swoim znajomym i podziel się z nimi tą wiadomością!
+    pt = Tem a sorte de poder obter o MAPS.ME gratuitamente e poupar $4,99. Ajude os seus amigos, partilhe a notícia com eles!
+    hu = Szerencsés vagy, hogy a MAPS.ME ingyen a tiéd, és $4.99-t megspórolsz! Segítsd a barátaidnak, oszd meg velük a hírt!
+    th = คุณคือผู้โชคดีที่ได้รับ MAPS.ME ฟรี ๆ และประหยัดถึง $4.99 ช่วยเพื่อนของคุณโดยการแชร์ข่าวกับพวกเขา!
+    ar = أنت سعيد الحظ بحصولك على MAPS.ME مجانا وتوفيرك مبلغ 4,99 دولار. ساعد أصدقائك، وشارك معهم الأخبار!
+    da = Du er heldig at få MAPS.ME gratis og spare 4,99 $. Hjælp dine venner, del nyheden med dem!
+    tr = MAPS.ME'yi ücretsiz alıp 4.99$ tasarruf edeceğin için şanslısın. Arkadaşlarına yardım et, haberi onlarla paylaş!
+    sv = Du har tur som får MAPS.ME utan kostnad och sparar 4,99 $. Hjälp dina vänner och dela nyheterna med dem!
+    iw = יש לך מזל, אתה יכול לקבל את MAPS.ME בחינם ולחסוך $4.99. עזור לחבריך, שתף איתם את המידע הזה!
 
   [free_pro_version_share_email_subject]
     en = Get offline maps MAPS.ME for free now
