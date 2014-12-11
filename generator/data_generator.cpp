@@ -112,7 +112,7 @@ public:
 };
 
 template <class TNodesHolder>
-bool GenerateImpl(string const & dir)
+bool GenerateImpl(string const & dir, std::string const &osm_filename=std::string())
 {
   try
   {
@@ -121,7 +121,14 @@ bool GenerateImpl(string const & dir)
     holder_t holder(nodes, dir);
 
     FirstPassParser<holder_t> parser(holder);
-    ParseXMLFromStdIn(parser);
+    if(osm_filename.empty())
+    {
+      ParseXMLFromStdIn(parser);
+    }
+    else
+    {
+      ParseXMLFromFile(parser, osm_filename);
+    }
 
     LOG(LINFO, ("Added points count = ", nodes.GetCount()));
 
@@ -136,12 +143,12 @@ bool GenerateImpl(string const & dir)
   return true;
 }
 
-bool GenerateToFile(string const & dir, bool lightNodes)
+bool GenerateToFile(string const & dir, bool lightNodes, std::string const &osm_filename)
 {
   if (lightNodes)
-    return GenerateImpl<points_in_file_light>(dir);
+    return GenerateImpl<points_in_file_light>(dir, osm_filename);
   else
-    return GenerateImpl<points_in_file>(dir);
+    return GenerateImpl<points_in_file>(dir, osm_filename);
 }
 
 }

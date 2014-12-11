@@ -419,7 +419,7 @@ public:
 }
 
 template <class TNodesHolder>
-bool GenerateImpl(GenerateInfo & info)
+  bool GenerateImpl(GenerateInfo & info, std::string const &osm_filename=std::string())
 {
   try
   {
@@ -435,7 +435,14 @@ bool GenerateImpl(GenerateInfo & info)
           info.m_makeCoasts ? classif().GetCoastType() : 0,
           info.m_addressFile);
 
-    ParseXMLFromStdIn(parser);
+    if(osm_filename.empty())
+    {
+      ParseXMLFromStdIn(parser);
+    }
+    else
+    {
+      ParseXMLFromFile(parser, osm_filename);
+    }
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
     if (!bucketer.Finish())
@@ -451,12 +458,12 @@ bool GenerateImpl(GenerateInfo & info)
   return true;
 }
 
-bool GenerateFeatures(GenerateInfo & info, bool lightNodes)
+bool GenerateFeatures(GenerateInfo & info, bool lightNodes, std::string const &osm_filename)
 {
   if (lightNodes)
-    return GenerateImpl<points_in_map>(info);
+    return GenerateImpl<points_in_map>(info, osm_filename);
   else
-    return GenerateImpl<points_in_file>(info);
+    return GenerateImpl<points_in_file>(info, osm_filename);
 }
 
 }

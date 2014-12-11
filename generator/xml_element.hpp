@@ -41,3 +41,4 @@ protected:
 };
 
 void ParseXMLFromStdIn(BaseOSMParser & parser);
+void ParseXMLFromFile(BaseOSMParser & parser, std::string const &osm_filename);

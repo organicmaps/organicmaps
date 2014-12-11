@@ -87,9 +87,35 @@ struct StdinReader
   }
 };
 
+struct FileReader
+{
+  FILE *m_file;
+
+  FileReader(std::string const &filename)
+  {
+    m_file = fopen(filename.c_str(),"rb");
+  }
+
+  ~FileReader()
+  {
+    fclose(m_file);
+  }
+
+  uint64_t Read(char * buffer, uint64_t bufferSize)
+  {
+    return fread(buffer, sizeof(char), bufferSize, m_file);
+  }
+};
+
 
 void ParseXMLFromStdIn(BaseOSMParser & parser)
 {
   StdinReader reader;
+  (void)ParseXMLSequence(reader, parser);
+}
+
+void ParseXMLFromFile(BaseOSMParser & parser, std::string const &osm_filename)
+{
+  FileReader reader(osm_filename);
   (void)ParseXMLSequence(reader, parser);
 }

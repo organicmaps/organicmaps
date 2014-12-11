@@ -64,6 +64,8 @@ DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastl
 DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
 DEFINE_string(export_poly_path, "", "Output dir for osm .poly files created from .borders (countires are read from polygons.lst)");
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
+DEFINE_string(osm_file_name, "", "Input osm area file");
+DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 
 
 string AddSlashIfNeeded(string const & str)
@@ -90,6 +92,11 @@ int main(int argc, char ** argv)
 
   Platform & pl = GetPlatform();
 
+  if(!FLAGS_user_resource_path.empty())
+  {
+    pl.AddOptionalPath(FLAGS_user_resource_path);
+  }
+
   string const path =
       FLAGS_data_path.empty() ? pl.WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
 
@@ -97,8 +104,16 @@ int main(int argc, char ** argv)
   if (FLAGS_preprocess_xml)
   {
     LOG(LINFO, ("Generating intermediate data ...."));
-    if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_use_light_nodes))
-      return -1;
+    if(!FLAGS_osm_file_name.empty())
+    {
+      if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_use_light_nodes, FLAGS_osm_file_name))
+        return -1;
+    }
+    else
+    {
+      if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_use_light_nodes))
+        return -1;
+    }
   }
 
   feature::GenerateInfo genInfo;
@@ -141,8 +156,16 @@ int main(int argc, char ** argv)
     if (!FLAGS_address_file_name.empty())
       genInfo.m_addressFile = path + FLAGS_address_file_name;
 
-    if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
-      return -1;
+    if(!FLAGS_osm_file_name.empty())
+    {
+      if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes, FLAGS_osm_file_name))
+        return -1;
+    }
+    else
+    {
+      if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
+        return -1;
+    }
 
     // without --spit_by_polygons, we have empty name country as result - assign it
     if (genInfo.m_bucketNames.size() == 1 && genInfo.m_bucketNames[0].empty())

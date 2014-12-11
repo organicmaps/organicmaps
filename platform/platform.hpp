@@ -21,6 +21,9 @@ class Platform
 protected:
   /// Usually read-only directory for application resources
   string m_resourcesDir;
+  /// Optional resource search path
+  string m_optionalDir;
+
   /// Writable directory to store downloaded map data
   /// @note on some systems it can point to external ejectable storage
   string m_writableDir;
@@ -62,6 +65,8 @@ public:
 
   static bool IsFileExistsByFullPath(string const & filePath);
 
+  /// @return void
+  void AddOptionalPath(string const &path) {m_optionalDir = path;}
   /// @return always the same writable dir for current user with slash at the end
   string WritableDir() const { return m_writableDir; }
   /// @return full path to file in user's writable directory
