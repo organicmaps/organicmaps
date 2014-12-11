@@ -15,7 +15,7 @@ public:
   TestMainLoop(TRednerFn const & fn);
   virtual ~TestMainLoop() {}
 
-  void exec(char const * testName);
+  void exec(char const * testName, bool autoExit = true);
 
 protected:
   bool eventFilter(QObject * obj, QEvent * event);

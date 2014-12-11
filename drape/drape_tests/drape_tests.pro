@@ -40,8 +40,11 @@ SOURCES += \
     stipple_pen_tests.cpp \
     texture_of_colors_tests.cpp \
     glyph_mng_tests.cpp \
-    glyph_packer_test.cpp
+    glyph_packer_test.cpp \
+    font_texture_tests.cpp \
+    img.cpp \
 
 HEADERS += \
     glmock_functions.hpp \
     memory_comparer.hpp \
+    img.hpp \

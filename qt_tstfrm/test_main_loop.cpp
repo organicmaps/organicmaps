@@ -13,7 +13,7 @@ TestMainLoop::TestMainLoop(TestMainLoop::TRednerFn const & fn)
 {
 }
 
-void TestMainLoop::exec(char const * testName)
+void TestMainLoop::exec(char const * testName, bool autoExit)
 {
   char * buf = (char *)malloc(strlen(testName) + 1);
   MY_SCOPE_GUARD(argvFreeFun, [&buf](){ free(buf); });
@@ -21,7 +21,8 @@ void TestMainLoop::exec(char const * testName)
 
   int argc = 1;
   QApplication app(argc, &buf);
-  QTimer::singleShot(3000, &app, SLOT(quit()));
+  if (autoExit)
+    QTimer::singleShot(3000, &app, SLOT(quit()));
 
   QWidget w;
   w.setWindowTitle(testName);

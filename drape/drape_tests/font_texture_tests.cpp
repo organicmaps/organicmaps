@@ -1,12 +1,18 @@
 #include "../../testing/testing.hpp"
+#include "img.hpp"
+
 #include "../font_texture.hpp"
+#include "../glyph_manager.hpp"
+
+#include "../../platform/platform.hpp"
+#include "../../qt_tstfrm/test_main_loop.hpp"
+
+#include "../../std/bind.hpp"
+
+#include <QtGui/QPainter>
+#include <QtCore/QPoint>
 
 #include "glmock_functions.hpp"
-#include "../../base/stl_add.hpp"
-#include "../../platform/platform.hpp"
-
-#include "../../geometry/rect2d.hpp"
-#include "../../geometry/point2d.hpp"
 
 #include <gmock/gmock.h>
 
@@ -14,166 +20,88 @@ using ::testing::_;
 using ::testing::Return;
 using ::testing::InSequence;
 using ::testing::AnyNumber;
+using ::testing::Invoke;
 using namespace dp;
 
 namespace
 {
-  void PrepareOpenGL(int size)
-  {
-    EXPECTGL(glHasExtension(_)).Times(AnyNumber());
-    EXPECTGL(glGetInteger(gl_const::GLMaxTextureSize)).WillOnce(Return(size));
-    EXPECTGL(glBindTexture(_)).Times(AnyNumber());
-    EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
-    EXPECTGL(glTexParameter(_, _)).Times(AnyNumber());
-    EXPECTGL(glTexImage2D(_, _, _, _, _)).Times(AnyNumber());
-    EXPECTGL(glGenTexture()).Times(AnyNumber());
-  }
-
-  FontTexture::GlyphInfo const * FindSymbol(int uni, vector<MasterPointer<Texture> > const & textures,
-                                            int & w, int & h)
-  {
-    FontTexture::GlyphKey key(uni);
-    for (size_t i = 0; i < textures.size(); ++i)
-    {
-      RefPointer<Texture> texture = textures[i].GetRefPointer();
-      Texture::ResourceInfo const * info = texture->FindResource(key);
-      if (info != NULL)
-      {
-        w = texture->GetWidth();
-        h = texture->GetHeight();
-        return static_cast<FontTexture::GlyphInfo const *>(info);
-      }
-    }
-
-    ASSERT(false, ());
-    return NULL;
-  }
-
-  void TestSymbol(FontTexture::GlyphInfo const * srcInfo, FontTexture::GlyphInfo dstInfo, int texW, int texH)
-  {
-    m2::RectF srcTexRect = srcInfo->GetTexRect();
-    m2::RectU srcRect(srcTexRect.minX() * texW, srcTexRect.minY() * texH,
-                      srcTexRect.maxX() * texW, srcTexRect.maxY() * texH);
-
-    m2::RectF dstTexRect = dstInfo.GetTexRect();
-    m2::RectU dstRect(dstTexRect.minX() * texW, dstTexRect.minY() * texH,
-                      dstTexRect.maxX() * texW, dstTexRect.maxY() * texH);
-
-    TEST_EQUAL(dstRect, srcRect, ());
-
-    float srcXoff, srcYoff, srcAdvance;
-    srcInfo->GetMetrics(srcXoff, srcYoff, srcAdvance);
-    float dstXoff, dstYoff, dstAdvance;
-    dstInfo.GetMetrics(dstXoff, dstYoff, dstAdvance);
-
-    TEST_ALMOST_EQUAL(srcXoff, dstXoff, ());
-    TEST_ALMOST_EQUAL(srcYoff, dstYoff, ());
-    TEST_ALMOST_EQUAL(srcAdvance, dstAdvance, ());
-  }
-
-  class Tester
+  class DummyTexture : public dp::Texture
   {
   public:
-    Tester(int textureSize)
+    virtual ResourceInfo const * FindResource(Key const & key) const { return nullptr; }
+  };
+
+  class UploadedRender
+  {
+  public:
+    UploadedRender(QPoint const & pen)
+      : m_pen(pen)
     {
-      PrepareOpenGL(textureSize);
     }
 
-    void AddInfo(int id, FontTexture::GlyphInfo const & info)
+    void glMemoryToQImage(int x, int y, int w, int h, glConst f, glConst t, void const * memory)
     {
-      m_infos.push_back(make_pair(id, info));
+      TEST(f == gl_const::GLAlpha || f == gl_const::GLAlpha8, ());
+      TEST(t == gl_const::GLUnsignedByteType, ());
+
+      uint8_t const * image = reinterpret_cast<uint8_t const *>(memory);
+
+      QPoint p(m_pen);
+      p.rx() += x;
+      m_images.push_back(qMakePair(p, CreateImage(w, h, image)));
+      m_pen.ry() += h;
     }
 
-    void TestThis(string const & resPath)
+    void Render(QPaintDevice * device)
     {
-      vector<MasterPointer<Texture> > textures;
-      vector<TransferPointer<Texture> > tempTextures;
-      LoadFont(resPath, tempTextures);
-      textures.reserve(tempTextures.size());
-      for (size_t i = 0; i < tempTextures.size(); ++i)
-        textures.push_back(MasterPointer<Texture>(tempTextures[i]));
-
-      for (size_t i = 0; i < m_infos.size(); ++i)
-      {
-        int id = m_infos[i].first;
-
-        int w, h;
-        FontTexture::GlyphInfo const * info = FindSymbol(id, textures, w, h);
-        TestSymbol(info, m_infos[i].second, w, h);
-      }
-
-      DeleteRange(textures, MasterPointerDeleter());
+      QPainter p(device);
+      for (auto d : m_images)
+        p.drawImage(d.first, d.second);
     }
 
   private:
-    vector<pair<int, FontTexture::GlyphInfo> > m_infos;
+    QPoint m_pen;
+    QVector<QPair<QPoint, QImage> > m_images;
   };
 }
-typedef FontTexture::GlyphInfo glyph_t;
 
-UNIT_TEST(CutTextureTest_1024)
+UNIT_TEST(UploadingGlyphs)
 {
-  Tester t(1024);
-  int w = 1024;
-  int h = 1024;
-  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
-                                 20.0  / w, 20.0  / h), 0.0, 0.0, 0.1));
-  t.AddInfo(2, glyph_t(m2::RectF(20.0  / w, 20.0  / h,
-                                 45.0  / w, 45.0  / h), 2.0, 4.3, 0.2));
-  t.AddInfo(3, glyph_t(m2::RectF(512.0 / w, 256.0 / h,
-                                 768.0 / w, 512.0 / h), 0.1, 0.2, 1.2));
-  t.AddInfo(4, glyph_t(m2::RectF(768.0 / w, 512.0 / h,
-                                 868.0 / w, 612.0 / h), 0.8, 1.0, 1.3));
+  EXPECTGL(glHasExtension(_)).Times(AnyNumber());
+  EXPECTGL(glBindTexture(_)).Times(AnyNumber());
+  EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
+  EXPECTGL(glTexParameter(_, _)).Times(AnyNumber());
+  EXPECTGL(glTexImage2D(_, _, _, _, _)).Times(AnyNumber());
+  EXPECTGL(glGenTexture()).Times(AnyNumber());
 
-  t.TestThis("font_test");
-}
+  UploadedRender r(QPoint(10, 10));
+  dp::GlyphManager::Params args;
+  args.m_uniBlocks = "unicode_blocks.txt";
+  args.m_whitelist = "fonts_whitelist.txt";
+  args.m_blacklist = "fonts_blacklist.txt";
+  GetPlatform().GetFontNames(args.m_fonts);
 
-UNIT_TEST(CutTextureTest_512)
-{
-  Tester t(512);
-  int w = 512;
-  int h = 512;
-  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
-                                 20.0  / w, 20.0  / h), 0.0, 0.0, 0.1));
-  t.AddInfo(2, glyph_t(m2::RectF(20.0  / w, 20.0  / h,
-                                 45.0  / w, 45.0  / h), 2.0, 4.3, 0.2));
-  t.AddInfo(3, glyph_t(m2::RectF(0.0   / w, 256.0 / h,
-                                 256.0 / w, 512.0 / h), 0.1, 0.2, 1.2));
-  t.AddInfo(4, glyph_t(m2::RectF(256.0 / w, 0.0   / h,
-                                 356.0 / w, 100.0 / h), 0.8, 1.0, 1.3));
+  GlyphManager mng(args);
+  GlyphIndex index(m2::PointU(64, 64), MakeStackRefPointer(&mng));
+  index.MapResource(GlyphKey(0x58));
+  index.MapResource(GlyphKey(0x59));
+  index.MapResource(GlyphKey(0x61));
 
-  t.TestThis("font_test");
-}
+  DummyTexture tex;
+  tex.Create(64, 64, dp::ALPHA, MakeStackRefPointer<void>(nullptr));
+  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
+  index.UploadResources(MakeStackRefPointer<Texture>(&tex));
 
-UNIT_TEST(RectangleCut_1024)
-{
-  Tester t(1024);
-  int w1 = 512;
-  int h1 = 512;
-  int w2 = 256;
-  int h2 = 256;
-  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w1, 0.0   / h1,
-                                 20.0  / w1, 20.0  / h1), 0.0, 0.0, 0.1));
-  t.AddInfo(2, glyph_t(m2::RectF(0.0   / w1, 412.0 / h1,
-                                 100.0 / w1, 512.0 / h1), 2.0, 4.3, 0.2));
-  t.AddInfo(3, glyph_t(m2::RectF(0.0   / w2, 0.0   / h2,
-                                 50.0  / w2, 50.0  / h2), 0.1, 0.2, 1.2));
+  index.MapResource(GlyphKey(0x68));
+  index.MapResource(GlyphKey(0x30));
+  index.MapResource(GlyphKey(0x62));
+  index.MapResource(GlyphKey(0x65));
+  index.MapResource(GlyphKey(0x400));
+  index.MapResource(GlyphKey(0x401));
+  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
+                                                .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
+  index.UploadResources(MakeStackRefPointer<Texture>(&tex));
 
-  t.TestThis("font_test2");
-}
-
-
-UNIT_TEST(RectangleCut_256)
-{
-  Tester t(256);
-  int w = 256;
-  int h = 256;
-  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
-                                 20.0  / w, 20.0  / h), 0.0, 0.0, 0.1));
-  t.AddInfo(2, glyph_t(m2::RectF(0.0   / w, 156.0 / h,
-                                 100.0 / w, 256.0 / h), 2.0, 4.3, 0.2));
-  t.AddInfo(3, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
-                                 50.0  / w, 50.0  / h), 0.1, 0.2, 1.2));
-
-  t.TestThis("font_test2");
+  TestMainLoop loop(bind(&UploadedRender::Render, &r, _1));
+  loop.exec("UploadingGlyphs");
 }

@@ -114,8 +114,8 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
 
   buffer_vector<size_t, 3> ranges;
   buffer_vector<uint32_t, 2> maxHeights;
-  uint32_t maxHeight = 0;
   ranges.push_back(0);
+  uint32_t maxHeight = m_pendingNodes[0].first.SizeY();
   for (size_t i = 1; i < m_pendingNodes.size(); ++i)
   {
     TPendingNode const & prevNode = m_pendingNodes[i - 1];
@@ -139,7 +139,7 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     size_t startIndex = ranges[i - 1];
     size_t endIndex = ranges[i];
     uint32_t height = maxHeights[i - 1];
-    uint32_t width = m_pendingNodes[endIndex].first.maxX() - m_pendingNodes[startIndex].first.maxX();
+    uint32_t width = m_pendingNodes[endIndex - 1].first.maxX() - m_pendingNodes[startIndex].first.minX();
     uint32_t byteCount = my::NextPowOf2(height * width);
     m2::PointU zeroPoint = m_pendingNodes[startIndex].first.LeftBottom();
 

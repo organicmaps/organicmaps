@@ -1,5 +1,7 @@
 #include "../../testing/testing.hpp"
 
+#include "img.hpp"
+
 #include <QtGui/QPainter>
 
 #include "../../qt_tstfrm/test_main_loop.hpp"
@@ -49,29 +51,14 @@ namespace
           continue;
 
         uint8_t * d = SharedBufferManager::GetRawPointer(g.m_image.m_data);
-        int pitch = 32 * (((g.m_image.m_width - 1) / 32) + 1);
-        int byteCount = pitch * g.m_image.m_height;
-        unsigned char * buf = (unsigned char *)malloc(byteCount);
-        memset(buf, 0, byteCount);
-        for (int i = 0; i < g.m_image.m_height; ++i)
-          memcpy(buf + pitch * i, d + g.m_image.m_width * i, g.m_image.m_width);
 
-        QImage img = QImage(buf,
-                            pitch,
-                            g.m_image.m_height,
-                            QImage::Format_Indexed8);
-
-        img.setColorCount(0xFF);
-        for (int i = 0; i < 256; ++i)
-          img.setColor(i, qRgb(255 - i, 255 - i, 255 - i));
         QPoint currentPen = pen;
         currentPen.rx() += g.m_metrics.m_xOffset;
         currentPen.ry() -= g.m_metrics.m_yOffset;
-        painter.drawImage(currentPen, img, QRect(0, 0, g.m_image.m_width, g.m_image.m_height));
+        painter.drawImage(currentPen, CreateImage(g.m_image.m_width, g.m_image.m_height, d), QRect(0, 0, g.m_image.m_width, g.m_image.m_height));
         pen.rx() += g.m_metrics.m_xAdvance;
         pen.ry() += g.m_metrics.m_yAdvance;
 
-        free(buf);
         g.m_image.Destroy();
       }
     }
