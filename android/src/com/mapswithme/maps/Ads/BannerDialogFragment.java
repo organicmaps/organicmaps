@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -50,6 +51,8 @@ public class BannerDialogFragment extends DialogFragment implements View.OnClick
     {
       e.printStackTrace();
     }
+
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.PROMO_BANNER_SHOWN);
 
     return view;
   }

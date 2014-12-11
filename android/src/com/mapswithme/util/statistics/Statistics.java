@@ -66,6 +66,7 @@ public enum Statistics
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
     public static final String APP_ACTIVATED = "Application activated.";
+    public static final String PROMO_BANNER_SHOWN = "Promo banner shown.";
   }
 
   public static class EventParam
