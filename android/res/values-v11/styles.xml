@@ -24,4 +24,20 @@
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
   </style>
+
+  <style name="MwmList" parent="android:Widget.Holo.ListView">
+    <item name="android:fadingEdge">none</item>
+    <item name="android:divider">@drawable/divider_medium_padded</item>
+    <item name="android:dividerHeight">1px</item>
+    <item name="android:background">@android:color/white</item>
+    <item name="android:animationCache">false</item>
+    <item name="android:scrollingCache">false</item>
+    <item name="android:cacheColorHint">@android:color/transparent</item>
+  </style>
+
+  <style name="MwmText" parent="android:Widget.Holo.TextView">
+    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:background">@android:color/transparent</item>
+  </style>
+
 </resources>
