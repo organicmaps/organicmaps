@@ -46,6 +46,7 @@ bool IsLeftTurn(TurnDirection t);
 bool IsRightTurn(TurnDirection t);
 bool IsLeftOrRightTurn(TurnDirection t);
 bool IsStayOnRoad(TurnDirection t);
+bool IsTurnSlightOrStraight(TurnDirection t);
 
 }
 }

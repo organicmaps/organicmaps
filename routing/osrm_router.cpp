@@ -997,6 +997,14 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
       continue;
     }
 
+    if (!t.m_srcName.empty()
+        && t.m_srcName == t.m_trgName
+        && turns::IsTurnSlightOrStraight(t.m_turn))
+    {
+      turnsDir.erase(turnsDir.begin() + idx);
+      continue;
+    }
+
     ++idx;
   }
 }
