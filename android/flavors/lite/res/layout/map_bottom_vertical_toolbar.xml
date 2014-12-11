@@ -10,7 +10,7 @@
       android:id="@+id/btn_buy_pro"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
-      android:background="@drawable/bg_toolbar_button_selector"
+      android:background="?attr/clickableBackground"
       android:drawableLeft="@drawable/ic_menu_buy_pro"
       android:drawablePadding="@dimen/margin_small"
       android:gravity="center_vertical"
@@ -19,13 +19,13 @@
       android:textColor="@color/text_menu"/>
 
   <View
-      style="@style/drawerSeparatorMediumPadded"/>
+      style="@style/DrawerSeparatorMediumPadded"/>
 
   <TextView
       android:id="@+id/btn_download_maps"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
-      android:background="@drawable/bg_toolbar_button_selector"
+      android:background="?attr/clickableBackground"
       android:drawableLeft="@drawable/ic_menu_download"
       android:drawablePadding="@dimen/margin_small"
       android:gravity="center_vertical"
@@ -34,13 +34,13 @@
       android:textColor="@color/text_menu"/>
 
   <View
-      style="@style/drawerSeparatorMediumPadded"/>
+      style="@style/DrawerSeparatorMediumPadded"/>
 
   <TextView
       android:id="@+id/btn_settings"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
-      android:background="@drawable/bg_toolbar_button_selector"
+      android:background="?attr/clickableBackground"
       android:drawableLeft="@drawable/ic_menu_settings"
       android:drawablePadding="@dimen/margin_small"
       android:gravity="center_vertical"
@@ -49,13 +49,13 @@
       android:textColor="@color/text_menu"/>
 
   <View
-      style="@style/drawerSeparatorMediumPadded"/>
+      style="@style/DrawerSeparatorMediumPadded"/>
 
   <TextView
       android:id="@+id/btn_share"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
-      android:background="@drawable/bg_toolbar_button_selector"
+      android:background="?attr/clickableBackground"
       android:drawableLeft="@drawable/ic_menu_send_my_location"
       android:drawablePadding="@dimen/margin_small"
       android:gravity="center_vertical"
