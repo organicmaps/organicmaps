@@ -131,13 +131,13 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   }
 
 #else
-  GpsInfo const & rInfo = info;
+  GpsInfo rInfo(info);
 #endif
+  CheckLocationForRouting(rInfo);
+  MatchLocationToRoute(rInfo);
 
   shared_ptr<State> const & state = GetLocationState();
   state->OnLocationUpdate(rInfo);
-
-  CheckLocationForRouting(info);
 
   if (state->IsModeChangeViewport())
     UpdateUserViewportChanged();
@@ -2079,6 +2079,13 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
         InsertRoute(route);
     });
   }
+}
+
+void Framework::MatchLocationToRoute(location::GpsInfo & location) const
+{
+  if (!IsRoutingActive())
+    return;
+  m_routingSession.MatchLocationToRoute(location);
 }
 
 void Framework::CallRouteBuilded(IRouter::ResultCode code)

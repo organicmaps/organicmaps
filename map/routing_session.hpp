@@ -56,6 +56,7 @@ public:
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void DeleteIndexFile(string const & fileName);
+  void MatchLocationToRoute(location::GpsInfo & location) const;
 
 private:
   struct DoReadyCallback

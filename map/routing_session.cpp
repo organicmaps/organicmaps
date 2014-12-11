@@ -169,4 +169,11 @@ void RoutingSession::DeleteIndexFile(string const & fileName)
   (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
 }
 
+void RoutingSession::MatchLocationToRoute(location::GpsInfo & location) const
+{
+  if (m_state != State::OnRoute)
+    return;
+  m_route.MatchLocationToRoute(location);
+}
+
 }

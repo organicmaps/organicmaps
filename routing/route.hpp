@@ -94,6 +94,7 @@ public:
 
   /// Square distance to current projection in mercator.
   double GetCurrentSqDistance(m2::PointD const & pt) const;
+  void MatchLocationToRoute(location::GpsInfo & location) const;
 
   bool IsCurrentOnEnd() const;
 

@@ -15,7 +15,7 @@ namespace routing
 {
 
 static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
-static double const ON_ROAD_TOLERANCE_M = 20.0;
+static double const ON_ROAD_TOLERANCE_M = 40.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
 
@@ -137,6 +137,21 @@ double Route::GetCurrentSqDistance(m2::PointD const & pt) const
 {
   ASSERT(m_current.IsValid(), ());
   return pt.SquareLength(m_current.m_pt);
+}
+
+void Route::MatchLocationToRoute(location::GpsInfo & location) const
+{
+  if (m_current.IsValid())
+  {
+    const m2::PointD locationMerc(MercatorBounds::LonToX(location.m_longitude),
+                                  MercatorBounds::LatToY(location.m_latitude));
+    const double distFromRoute = MercatorBounds::DistanceOnEarth(m_current.m_pt, locationMerc);
+    if (distFromRoute < ON_ROAD_TOLERANCE_M)
+    {
+      location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
+      location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
+    }
+  }
 }
 
 bool Route::IsCurrentOnEnd() const
