@@ -139,6 +139,7 @@
 
   <style name="MwmText" parent="android:Widget.Material.TextView">
     <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:background">@android:color/transparent</item>
   </style>
 
 </resources>
