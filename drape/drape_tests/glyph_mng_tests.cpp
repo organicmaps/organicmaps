@@ -1,14 +1,11 @@
 #include "../../testing/testing.hpp"
 
-
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QWidget>
 #include <QtGui/QPainter>
-#include <QtCore/QTimer>
+
+#include "../../qt_tstfrm/test_main_loop.hpp"
 
 #include "../glyph_manager.hpp"
 #include "../../platform/platform.hpp"
-#include "../../base/scope_guard.hpp"
 
 #include "../../std/cstring.hpp"
 #include "../../std/function.hpp"
@@ -16,46 +13,6 @@
 
 namespace
 {
-  class TestMainLoop : public QObject
-  {
-  public:
-    typedef function<void (QPaintDevice *)> TRednerFn;
-    TestMainLoop(TRednerFn const & fn) : m_renderFn(fn) {}
-
-    void exec(char const * testName)
-    {
-      char * buf = (char *)malloc(strlen(testName) + 1);
-      MY_SCOPE_GUARD(argvFreeFun, [&buf](){ free(buf); })
-      strcpy(buf, testName);
-
-      int argc = 1;
-      QApplication app(argc, &buf);
-      QTimer::singleShot(3000, &app, SLOT(quit()));
-
-      QWidget w;
-      w.setWindowTitle(testName);
-      w.show();
-      w.installEventFilter(this);
-
-      app.exec();
-    }
-
-  protected:
-    bool eventFilter(QObject * obj, QEvent * event)
-    {
-      if (event->type() == QEvent::Paint)
-      {
-        m_renderFn(qobject_cast<QWidget *>(obj));
-        return true;
-      }
-
-      return false;
-    }
-
-  private:
-    TRednerFn m_renderFn;
-  };
-
   class GlyphRenderer
   {
   public:
@@ -78,7 +35,9 @@ namespace
     void RenderGlyphs(QPaintDevice * device)
     {
       vector<dp::GlyphManager::Glyph> glyphs;
-      m_mng->GetGlyphs({0x58, 0x79, 0x439}, glyphs);
+      glyphs.push_back(m_mng->GetGlyph(0x58));
+      glyphs.push_back(m_mng->GetGlyph(0x79));
+      glyphs.push_back(m_mng->GetGlyph(0x439));
 
       QPainter painter(device);
       painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
