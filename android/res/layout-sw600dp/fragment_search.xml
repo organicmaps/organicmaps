@@ -8,7 +8,7 @@
       android:id="@+id/toolbar"
       layout="@layout/toolbar_with_search"
       android:layout_width="@dimen/panel_width"
-      android:layout_height="@dimen/search_box_height"/>
+      android:layout_height="?attr/actionBarSize"/>
 
   <ListView
       android:id="@android:id/list"
