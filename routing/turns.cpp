@@ -54,10 +54,5 @@ bool IsStayOnRoad(TurnDirection t)
   return (t == turns::GoStraight || t == turns::StayOnRoundAbout);
 }
 
-bool IsTurnSlightOrStraight(TurnDirection t)
-{
-  return (t == GoStraight || t == TurnSlightRight || t == TurnSlightLeft);
-}
-
 }
 }

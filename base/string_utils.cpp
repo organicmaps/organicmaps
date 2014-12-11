@@ -222,4 +222,21 @@ bool IsHTML(string const & utf8)
   return (ltCount > 0 && gtCount > 0);
 }
 
+bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCount)
+{
+  pair<string::const_iterator, string::const_iterator> mis(str1.begin(), str2.begin());
+  auto const str1End = str1.end();
+  auto const str2End = str2.end();
+
+  for (size_t i = 0; i <= mismatchedCount; ++i)
+  {
+    mis = mismatch(mis.first, str1End, mis.second);
+    if (mis.first == str1End && mis.second == str2End)
+      return true;
+    ++mis.first;
+    ++mis.second;
+  }
+  return false;
+}
+
 } // namespace strings

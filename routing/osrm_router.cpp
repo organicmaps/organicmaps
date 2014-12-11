@@ -306,7 +306,6 @@ public:
 
 } // namespace
 
-
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
   : m_countryFn(fn), m_pIndex(index), m_isFinalChanged(false),
     m_requestCancel(false)
@@ -997,9 +996,9 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
       continue;
     }
 
-    if (!t.m_srcName.empty()
-        && t.m_srcName == t.m_trgName
-        && turns::IsTurnSlightOrStraight(t.m_turn))
+    if (t.m_turn == turns::GoStraight
+        && !t.m_srcName.empty()
+        && strings::AlmostEqual(t.m_srcName, t.m_trgName, 2))
     {
       turnsDir.erase(turnsDir.begin() + idx);
       continue;

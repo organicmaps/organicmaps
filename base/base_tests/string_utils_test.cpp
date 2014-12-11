@@ -522,3 +522,18 @@ UNIT_TEST(IsHTML)
   TEST(!IsHTML("This is not html < too!"), ());
   TEST(!IsHTML("I am > not html"), ());
 }
+
+UNIT_TEST(AlmostEqual)
+{
+  using namespace strings;
+
+  TEST(AlmostEqual("МКАД, 70-й километр", "МКАД, 79-й километр", 2), ());
+  TEST(AlmostEqual("MKAD, 60 km", "MKAD, 59 km", 2), ());
+  TEST(AlmostEqual("KAD, 5-y kilometre", "KAD, 7-y kilometre", 1), ());
+  TEST(AlmostEqual("", "", 2), ());
+  TEST(AlmostEqual("The Vista", "The Vista", 2), ());
+  TEST(!AlmostEqual("Glasbrook Road", "ул. Петрова", 2), ());
+  TEST(!AlmostEqual("MKAD, 600 km", "MKAD, 599 km", 2), ());
+  TEST(!AlmostEqual("MKAD, 45-y kilometre", "MKAD, 46", 2), ());
+  TEST(!AlmostEqual("ул. Героев Панфиловцев", "ул. Планерная", 2), ());
+}

@@ -258,6 +258,9 @@ bool StartsWith(string const & s1, char const * s2);
 /// Try to guess if it's HTML or not. No guarantee.
 bool IsHTML(string const & utf8);
 
+/// Compare str1 and str2 and return if they are equal except for mismatchedSymbolsNum symbols
+bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCount);
+
 /*
 template <typename ItT, typename DelimiterT>
 typename ItT::value_type JoinStrings(ItT begin, ItT end, DelimiterT const & delimiter)
