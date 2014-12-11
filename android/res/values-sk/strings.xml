@@ -13,7 +13,7 @@
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">Môžete aktualizovať na MAPS.ME Pro zadarmo ešte dnes. Nenechajte si ujsť svoju šancu!</string>
 	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">Najlepšie offline mapy MAPS.ME sú dnes zadarmo. Stiahnite si teraz a povedzte to svojim priateľom!</string>
+	<string name="free_pro_version_share_message">Máte šťastie, že môžete získať MAPS.ME zadarmo a ušetriť 4,99 dolárov. Pomôžte svojim priateľom, zdieľajte novinky s nimi!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">Získať v režime offline mapy MAPS.ME teraz zadarmo</string>
 	<!-- Share email body when paid version become free on the market. -->

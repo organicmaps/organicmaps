@@ -13,7 +13,7 @@
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">Hoy puedes actualizarte a MAPS.ME Pro gratis. ¡No dejes pasar la oportunidad!</string>
 	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">¡Hoy los mejores mapas sin conexión de MAPS.ME son gratis! Descárgalo ahora y dilo a tus amigos .</string>
+	<string name="free_pro_version_share_message">Tienes la suerte de obtener MAPS.ME gratis y ahorrar 4,99 $.Ayuda a tus amigos, ¡comparte la noticia con ellos!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">Obtén ahora mapas sin conexión de MAPS.ME gratis</string>
 	<!-- Share email body when paid version become free on the market. -->

@@ -13,7 +13,7 @@
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">คุณสามารถที่จะอัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้ อย่าพลาดโอกาสของคุณ!</string>
 	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">อัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้. ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ!</string>
+	<string name="free_pro_version_share_message">คุณคือผู้โชคดีที่ได้รับ MAPS.ME ฟรี ๆ และประหยัดถึง $4.99 ช่วยเพื่อนของคุณโดยการแชร์ข่าวกับพวกเขา!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">รับแผนที่ออฟไลน์ MAPS.ME ฟรีตอนนี้</string>
 	<!-- Share email body when paid version become free on the market. -->

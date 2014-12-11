@@ -22,7 +22,7 @@
 "free_pro_version_notification_alert" = "Ma ingyen frissítheted a MAPS.ME Pro. Ne szalaszd el az esélyt!";
 
 /* Share text when paid version become free on the market. */
-"free_pro_version_share_message" = "A legjobb MAPS.ME offline térképek ma ingyenesek. Töltsd le most és meséld el barátaidnak!";
+"free_pro_version_share_message" = "Szerencsés vagy, hogy a MAPS.ME ingyen a tiéd, és $4.99-t megspórolsz! Segítsd a barátaidnak, oszd meg velük a hírt!";
 
 /* Share email subject when paid version become free on the market. */
 "free_pro_version_share_email_subject" = "Szerezze meg az ingyenes offline MAPS.ME-t";

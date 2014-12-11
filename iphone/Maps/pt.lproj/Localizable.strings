@@ -22,7 +22,7 @@
 "free_pro_version_notification_alert" = "Pode fazer o upgrade para MAPS.ME Pro gratuitamente hoje. Não perca a oportunidade!";
 
 /* Share text when paid version become free on the market. */
-"free_pro_version_share_message" = "Os melhores mapas offline do MAPS.ME são hoje gratuitos. Descarregue e conte aos seus amigos!";
+"free_pro_version_share_message" = "Tem a sorte de poder obter o MAPS.ME gratuitamente e poupar $4,99. Ajude os seus amigos, partilhe a notícia com eles!";
 
 /* Share email subject when paid version become free on the market. */
 "free_pro_version_share_email_subject" = "Obtenha mapas offline do MAPS.ME agora, gratuitamente";

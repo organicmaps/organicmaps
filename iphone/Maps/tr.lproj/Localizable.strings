@@ -22,7 +22,7 @@
 "free_pro_version_notification_alert" = "Sadece bugün mevcut sürümünüzü MAPS.ME Pro'ya, ücretsiz olarak yükseltebilirsiniz. Bu fırsatı kaçırmayın!";
 
 /* Share text when paid version become free on the market. */
-"free_pro_version_share_message" = "MAPS.ME'nin en iyi çevrimdışı haritaları bugün ücretsiz. İndir ve arkadaşlarına haber ver!";
+"free_pro_version_share_message" = "MAPS.ME'yi ücretsiz alıp 4.99$ tasarruf edeceğin için şanslısın. Arkadaşlarına yardım et, haberi onlarla paylaş!";
 
 /* Share email subject when paid version become free on the market. */
 "free_pro_version_share_email_subject" = "MAPS.ME çevrimdışı haritaları hemen ücretsiz al";

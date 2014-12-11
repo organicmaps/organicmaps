@@ -13,7 +13,7 @@
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">오늘 하루 MAPS.ME Pro를 무료로 업그레이드할 수 있습니다. 기회를 놓치지 마세요!</string>
 	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">최고의 오프라인 지도인 MAPS.ME가 오늘 무료입니다. 지금 다운로드하고 친구들에게 알리세요!</string>
+	<string name="free_pro_version_share_message">무료로 MAPS.ME을 얻어 $4.99를 절약할 행운이 있습니다. 친구들을 돕고 그들과 함께 뉴스를 공유하세요!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">지금 무료로 오프라인 지도인 MAPS.ME 가져 오기</string>
 	<!-- Share email body when paid version become free on the market. -->
