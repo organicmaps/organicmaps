@@ -141,6 +141,16 @@ void ColorPalette::UploadResources(RefPointer<Texture> texture)
   m_pendingNodes.clear();
 }
 
+glConst ColorPalette::GetMinFilter() const
+{
+  return gl_const::GLNearest;
+}
+
+glConst ColorPalette::GetMagFilter() const
+{
+  return gl_const::GLNearest;
+}
+
 void ColorPalette::MoveCursor()
 {
   m_cursor.x += RESOURCE_SIZE;

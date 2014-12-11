@@ -101,6 +101,8 @@ public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
   StipplePenResourceInfo const * MapResource(StipplePenKey const & key);
   void UploadResources(RefPointer<Texture> texture);
+  glConst GetMinFilter() const;
+  glConst GetMagFilter() const;
 
 private:
   typedef MasterPointer<StipplePenResourceInfo> TResourcePtr;

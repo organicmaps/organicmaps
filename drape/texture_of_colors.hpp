@@ -31,6 +31,8 @@ public:
   ~ColorPalette();
   ColorResourceInfo const * MapResource(ColorKey const & key);
   void UploadResources(RefPointer<Texture> texture);
+  glConst GetMinFilter() const;
+  glConst GetMagFilter() const;
 
   void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
 

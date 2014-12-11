@@ -231,6 +231,16 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
   m_pendingNodes.clear();
 }
 
+glConst StipplePenIndex::GetMinFilter() const
+{
+  return gl_const::GLNearest;
+}
+
+glConst StipplePenIndex::GetMagFilter() const
+{
+  return gl_const::GLNearest;
+}
+
 string DebugPrint(StipplePenHandle const & key)
 {
   ostringstream out;

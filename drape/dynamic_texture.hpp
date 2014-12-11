@@ -13,7 +13,7 @@ public:
     : m_indexer(size)
   {
     Create(size.x, size.y, format);
-    SetFilterParams(gl_const::GLNearest, gl_const::GLNearest);
+    SetFilterParams(m_indexer.GetMinFilter(), m_indexer.GetMagFilter());
   }
 
   virtual ResourceInfo const * FindResource(Key const & key) const
