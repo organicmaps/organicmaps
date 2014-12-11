@@ -435,13 +435,13 @@ UNIT_TEST(StippleMappingTest)
   EXPECTGL(glHasExtension(_)).WillRepeatedly(Return(true));
   EXPECTGL(glGenTexture()).WillOnce(Return(1));
   EXPECTGL(glBindTexture(1)).WillOnce(Return());
-  EXPECTGL(glTexImage2D(512, 8, gl_const::GLAlpha, gl_const::GL8BitOnChannel, NULL));
+  EXPECTGL(glTexImage2D(512, 8, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, NULL));
   EXPECTGL(glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear));
   EXPECTGL(glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear));
   EXPECTGL(glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge));
   EXPECTGL(glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge));
   MemoryComparer cmp(firstUploadEtalon, ARRAY_SIZE(firstUploadEtalon));
-  EXPECTGL(glTexSubImage2D(0, 0, 256, 6, gl_const::GLAlpha, gl_const::GL8BitOnChannel, _))
+  EXPECTGL(glTexSubImage2D(0, 0, 256, 6, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
   DummyTexture texture;
@@ -462,11 +462,11 @@ UNIT_TEST(StippleMappingTest)
                                                  497.0f / width, 1.0f / height)), ());
 
   MemoryComparer cmp21(secondUploadFirstPartEtalon, ARRAY_SIZE(secondUploadFirstPartEtalon));
-  EXPECTGL(glTexSubImage2D(0, 6, 256, 2, gl_const::GLAlpha, gl_const::GL8BitOnChannel, _))
+  EXPECTGL(glTexSubImage2D(0, 6, 256, 2, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp21, &MemoryComparer::cmpSubImage));
 
   MemoryComparer cmp22(secondUploadSecondPartEtalon, ARRAY_SIZE(secondUploadSecondPartEtalon));
-  EXPECTGL(glTexSubImage2D(256, 0, 256, 2, gl_const::GLAlpha, gl_const::GL8BitOnChannel, _))
+  EXPECTGL(glTexSubImage2D(256, 0, 256, 2, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp22, &MemoryComparer::cmpSubImage));
   index.UploadResources(MakeStackRefPointer<Texture>(&texture));
   EXPECTGL(glDeleteTexture(1));

@@ -30,12 +30,16 @@ struct MemoryComparer
                    glConst layout, glConst pixelFormat, void const * data) const
   {
     uint32_t channelCount = 0;
-    if (layout == gl_const::GLRGBA)
+    if (layout == gl_const::GLRGBA ||
+        layout == gl_const::GLRGBA8 ||
+        layout == gl_const::GLRGBA4)
       channelCount = 4;
     else if (layout == gl_const::GLRGB)
       channelCount = 3;
     else if (layout == gl_const::GLAlpha ||
+             layout == gl_const::GLAlpha8 ||
              layout == gl_const::GLLuminance ||
+             layout == gl_const::GLLuminance8 ||
              layout == gl_const::GLAlphaLuminance)
     {
       channelCount = 1;
