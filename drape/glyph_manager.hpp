@@ -43,14 +43,13 @@ public:
 
     void Destroy()
     {
-      SharedBufferManager::instance().freeSharedBuffer(m_bufferSize, m_data);
+      SharedBufferManager::instance().freeSharedBuffer(m_data->size(), m_data);
     }
 
     int m_width;
     int m_height;
 
     SharedBufferManager::shared_buffer_ptr_t m_data;
-    size_t m_bufferSize;
   };
 
   struct Glyph
@@ -62,10 +61,10 @@ public:
   GlyphManager(Params const & params);
   ~GlyphManager();
 
-  void GetGlyphs(vector<strings::UniChar> const & unicodePoints, vector<Glyph> & glyphs);
+  Glyph GetGlyph(strings::UniChar unicodePoints);
 
 private:
-  Glyph const & GetInvalidGlyph() const;
+  Glyph GetInvalidGlyph() const;
 
 private:
   struct Impl;

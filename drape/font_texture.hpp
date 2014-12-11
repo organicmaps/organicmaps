@@ -2,6 +2,7 @@
 
 #include "pointers.hpp"
 #include "texture.hpp"
+#include "glyph_manager.hpp"
 
 #include "../std/map.hpp"
 #include "../std/vector.hpp"
@@ -10,46 +11,74 @@
 namespace dp
 {
 
-class FontTexture : public Texture
+class GlyphPacker
 {
 public:
-  class GlyphKey : public Key
-  {
-  public:
-    GlyphKey(int32_t unicode) : m_unicode(unicode) {}
+  GlyphPacker(m2::PointU const & size);
 
-    ResourceType GetType() const { return Texture::Glyph; }
-    int32_t GetUnicodePoint() const { return m_unicode; }
-
-  private:
-    int32_t m_unicode;
-  };
-
-  class GlyphInfo : public ResourceInfo
-  {
-  public:
-    GlyphInfo(m2::RectF const & texRect, float xOffset,
-              float yOffset, float advance);
-
-    virtual ResourceType GetType() const { return Texture::Glyph; }
-    void GetMetrics(float & xOffset, float & yOffset, float & advance) const;
-    float GetAdvance() const;
-
-  private:
-    float m_xOffset, m_yOffset;
-    float m_advance;
-  };
-
-public:
-  ResourceInfo const * FindResource(Key const & key) const;
-
-  void Add(int unicodePoint, GlyphInfo const & glyphInfo);
+  bool PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect);
+  m2::RectF MapTextureCoords(m2::RectU const & pixelRect) const;
+  bool IsFull() const;
 
 private:
-  typedef map<int, GlyphInfo> glyph_map_t;
-  glyph_map_t m_glyphs;
+  m2::PointU m_size = m2::PointU(0, 0);
+  m2::PointU m_cursor = m2::PointU(0, 0);
+  uint32_t m_yStep = 0;
+  bool m_isFull = false;
 };
 
-void LoadFont(string const & resourcePrefix, vector<TransferPointer<Texture> > & textures);
+class GlyphKey : public Texture::Key
+{
+public:
+  GlyphKey(strings::UniChar unicodePoint) : m_unicodePoint(unicodePoint) {}
+
+  Texture::ResourceType GetType() const { return Texture::Glyph; }
+  strings::UniChar GetUnicodePoint() const { return m_unicodePoint; }
+
+private:
+  strings::UniChar m_unicodePoint;
+};
+
+class GlyphInfo : public Texture::ResourceInfo
+{
+  typedef Texture::ResourceInfo TBase;
+public:
+  GlyphInfo(m2::RectF const & texRect, GlyphManager::GlyphMetrics const & metrics)
+    : TBase(texRect)
+    , m_metrics(metrics)
+  {
+  }
+
+  virtual Texture::ResourceType GetType() const { return Texture::Glyph; }
+  GlyphManager::GlyphMetrics const & GetMetrics() const { return m_metrics; }
+
+private:
+  GlyphManager::GlyphMetrics m_metrics;
+};
+
+class GlyphIndex
+{
+public:
+  GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng);
+
+  /// can return nullptr
+  GlyphInfo const * MapResource(GlyphKey const & key);
+  void UploadResources(RefPointer<Texture> texture);
+
+  glConst GetMinFilter() const { return gl_const::GLLinear; }
+  glConst GetMagFilter() const { return gl_const::GLLinear; }
+
+private:
+  GlyphPacker m_packer;
+  RefPointer<GlyphManager> m_mng;
+
+  typedef MasterPointer<GlyphInfo> TResourcePtr;
+  typedef map<strings::UniChar, TResourcePtr> TResourceMapping;
+  typedef pair<m2::RectU, GlyphManager::Glyph> TPendingNode;
+  typedef vector<TPendingNode> TPendingNodes;
+
+  TResourceMapping m_index;
+  TPendingNodes m_pendingNodes;
+};
 
 }

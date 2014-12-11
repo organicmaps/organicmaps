@@ -194,8 +194,7 @@ public:
     {
       imgWidth,
       imgHeigh,
-      data,
-      bufferSize
+      data
     };
 
     result.m_metrics = GlyphManager::GlyphMetrics
@@ -296,6 +295,7 @@ struct GlyphManager::Impl
 {
   FT_Library m_library;
   TUniBlocks m_blocks;
+  TUniBlockIter m_lastUsedBlock;
   vector<Font> m_fonts;
 
   uint32_t m_baseGlyphHeight;
@@ -419,6 +419,8 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
       uniBlock.m_fontsWeight.back() = node.second;
     }
   }
+
+  m_impl->m_lastUsedBlock = m_impl->m_blocks.end();
 }
 
 GlyphManager::~GlyphManager()
@@ -430,13 +432,12 @@ GlyphManager::~GlyphManager()
   delete m_impl;
 }
 
-void GlyphManager::GetGlyphs(vector<strings::UniChar> const & unicodePoints, vector<GlyphManager::Glyph> & glyphs)
+GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
 {
-  glyphs.reserve(unicodePoints.size());
-
   TUniBlockIter iter = m_impl->m_blocks.end();
-  int fontIndex = -1;
-  for (strings::UniChar const & unicodePoint : unicodePoints)
+  if (m_impl->m_lastUsedBlock != m_impl->m_blocks.end() && m_impl->m_lastUsedBlock->HasSymbol(unicodePoint))
+    iter = m_impl->m_lastUsedBlock;
+  else
   {
     if (iter == m_impl->m_blocks.end() || !iter->HasSymbol(unicodePoint))
     {
@@ -445,39 +446,34 @@ void GlyphManager::GetGlyphs(vector<strings::UniChar> const & unicodePoints, vec
       {
         return block.m_end < v;
       });
-      fontIndex = -1;
     }
-
-    if (iter == m_impl->m_blocks.end())
-    {
-      glyphs.push_back(GetInvalidGlyph());
-      continue;
-    }
-
-    UnicodeBlock const & block = *iter;
-    ASSERT(block.HasSymbol(unicodePoint), ());
-    do
-    {
-      if (fontIndex != -1)
-      {
-        ASSERT_LESS(fontIndex, m_impl->m_fonts.size(), ());
-        Font const & f = m_impl->m_fonts[fontIndex];
-        if (f.HasGlyph(unicodePoint))
-        {
-          glyphs.push_back(f.GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight));
-          break;
-        }
-      }
-
-      fontIndex = block.GetFontOffset(fontIndex);
-    } while(fontIndex != -1);
-
-    if (fontIndex == -1)
-      glyphs.push_back(GetInvalidGlyph());
   }
+
+  if (iter == m_impl->m_blocks.end())
+    return GetInvalidGlyph();
+
+  m_impl->m_lastUsedBlock = iter;
+
+  int fontIndex = -1;
+  UnicodeBlock const & block = *iter;
+  ASSERT(block.HasSymbol(unicodePoint), ());
+  do
+  {
+    if (fontIndex != -1)
+    {
+      ASSERT_LESS(fontIndex, m_impl->m_fonts.size(), ());
+      Font const & f = m_impl->m_fonts[fontIndex];
+      if (f.HasGlyph(unicodePoint))
+        return f.GetGlyph(unicodePoint, m_impl->m_baseGlyphHeight);
+    }
+
+    fontIndex = block.GetFontOffset(fontIndex);
+  } while(fontIndex != -1);
+
+  return GetInvalidGlyph();
 }
 
-GlyphManager::Glyph const & GlyphManager::GetInvalidGlyph() const
+GlyphManager::Glyph GlyphManager::GetInvalidGlyph() const
 {
   static bool s_inited = false;
   static Glyph s_glyph;
