@@ -67,14 +67,15 @@ TextureSetHolder::GlyphRegion::GlyphRegion()
 void TextureSetHolder::GlyphRegion::GetMetrics(float & xOffset, float & yOffset, float & advance) const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  FontTexture::GlyphInfo const * info = static_cast<FontTexture::GlyphInfo const *>(m_info);
-  info->GetMetrics(xOffset, yOffset, advance);
+  //FontTexture::GlyphInfo const * info = static_cast<FontTexture::GlyphInfo const *>(m_info);
+  //info->GetMetrics(xOffset, yOffset, advance);
 }
 
 float TextureSetHolder::GlyphRegion::GetAdvance() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  return static_cast<FontTexture::GlyphInfo const *>(m_info)->GetAdvance();
+  //return static_cast<FontTexture::GlyphInfo const *>(m_info)->GetAdvance();
+  return 0.0f;
 }
 
 uint32_t TextureSetHolder::StippleRegion::GetMaskPixelLength() const

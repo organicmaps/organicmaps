@@ -116,25 +116,25 @@ void TextureManager::Init(string const & resourcePrefix)
   m_textures.push_back(MasterPointer<TextureSet>(defaultSet));
 
   vector<TransferPointer<Texture> > tempTextures;
-  LoadFont(string("resources-common/font"), tempTextures);
-  for (size_t i = 0; i < tempTextures.size(); ++i)
-  {
-    RefPointer<TextureSet> set = m_textures.back().GetRefPointer();
-    if (set->IsFull())
-    {
-      m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
-      set = m_textures.back().GetRefPointer();
-    }
+//  LoadFont(string("resources-common/font"), tempTextures);
+//  for (size_t i = 0; i < tempTextures.size(); ++i)
+//  {
+//    RefPointer<TextureSet> set = m_textures.back().GetRefPointer();
+//    if (set->IsFull())
+//    {
+//      m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
+//      set = m_textures.back().GetRefPointer();
+//    }
 
-    set->AddTexture(tempTextures[i]);
-  }
+//    set->AddTexture(tempTextures[i]);
+//  }
 
-  RefPointer<TextureSet> textureSet = m_textures.back().GetRefPointer();
-  if (textureSet->IsFull())
-  {
-    m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
-    textureSet = m_textures.back().GetRefPointer();
-  }
+//  RefPointer<TextureSet> textureSet = m_textures.back().GetRefPointer();
+//  if (textureSet->IsFull())
+//  {
+//    m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
+//    textureSet = m_textures.back().GetRefPointer();
+//  }
 }
 
 void TextureManager::Release()
@@ -174,8 +174,9 @@ bool TextureManager::FindResource(TKey const & key, TRegion & region) const
 
 bool TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const
 {
-  FontTexture::GlyphKey key(charCode);
-  return FindResource(key, region);
+  //FontTexture::GlyphKey key(charCode);
+  //return FindResource(key, region);
+  return false;
 }
 
 void TextureManager::GetStippleRegion(StipplePenKey const & pen, TextureSetHolder::StippleRegion & region) const
