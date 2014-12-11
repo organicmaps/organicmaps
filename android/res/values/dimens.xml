@@ -74,4 +74,6 @@
   <dimen name="routing_progress_size">32dp</dimen>
   <dimen name="panel_width">400dp</dimen>
 
+  <bool name="isTablet">false</bool>
+
 </resources>
