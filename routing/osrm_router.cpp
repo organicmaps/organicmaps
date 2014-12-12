@@ -850,10 +850,9 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   while (a < 0)
     a += 360;
 
-#ifdef _DEBUG
   TurnCandidatesT nodes;
   GetPossibleTurns(node1.node, p1, p, mwmId, nodes);
-
+#ifdef _DEBUG
   LOG(LDEBUG, ("Possible turns: ", nodes.size()));
   for (size_t i = 0; i < nodes.size(); ++i)
   {
@@ -863,6 +862,10 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 #endif
 
   turn.m_turn = turns::NoTurn;
+
+  if (nodes.size() < 2)
+    return;
+
   if (a >= 23 && a < 67)
     turn.m_turn = turns::TurnSharpRight;
   else if (a >= 67 && a < 130)
