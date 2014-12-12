@@ -168,6 +168,20 @@ bool FeatureParams::AddHouseName(string const & s)
   return false;
 }
 
+bool FeatureParams::AddAdditionalInfo(additional_info_types type, string const &s)
+{
+  if (m_additional_info[type].empty())
+  {
+    m_additional_info[type] = s;
+  }
+  else
+  {
+    m_additional_info[type] = m_additional_info[type] + ", " + s;
+  }
+  return true;
+}
+
+
 bool FeatureParams::AddHouseNumber(string const & ss)
 {
   if (!feature::IsHouseNumber(ss))

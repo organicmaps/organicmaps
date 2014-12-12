@@ -206,6 +206,16 @@ class FeatureParams : public FeatureParamsBase
   string m_street;
 
 public:
+
+  enum additional_info_types {
+    ait_cuisine = 1,
+    ait_open_hours,
+    ait_phone_number,
+    ait_fax_number
+  };
+  typedef std::map<uint8_t, std::string> additional_info_type;
+  additional_info_type m_additional_info;
+
   typedef vector<uint32_t> types_t;
   types_t m_Types;
 
@@ -216,6 +226,9 @@ public:
   bool AddName(string const & lang, string const & s);
   bool AddHouseName(string const & s);
   bool AddHouseNumber(string const & s);
+
+  bool AddAdditionalInfo(additional_info_types type,string const &s);
+
   /// @name Used in storing full street address only.
   //@{
   void AddStreetAddress(string const & s);
@@ -230,6 +243,7 @@ public:
 
     m_Types = rhs.m_Types;
     m_street = rhs.m_street;
+    m_additional_info = rhs.m_additional_info;
   }
 
   inline bool IsValid() const { return !m_Types.empty(); }
@@ -255,7 +269,7 @@ public:
 
   uint8_t GetHeader() const;
 
-  template <class TSink> void Write(TSink & sink) const
+  template <class TSink> void Write(TSink & sink, bool need_store_additional_info = true) const
   {
     uint8_t const header = GetHeader();
 
@@ -264,10 +278,24 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, GetIndexForType(m_Types[i]));
 
+    if( need_store_additional_info )
+    {
+      uint8_t const ait_size = m_additional_info.size();
+      WriteToSink(sink, ait_size);
+      if (ait_size)
+      {
+        for(auto &it: m_additional_info)
+        {
+          WriteToSink(sink, uint8_t(it.first));
+          utils::WriteString(sink, it.second);
+        }
+      }
+    }
+
     BaseT::Write(sink, header);
   }
 
-  template <class TSrc> void Read(TSrc & src)
+  template <class TSrc> void Read(TSrc & src, bool need_read_additional_info = true)
   {
     using namespace feature;
 
@@ -277,6 +305,18 @@ public:
     size_t const count = (header & HEADER_TYPE_MASK) + 1;
     for (size_t i = 0; i < count; ++i)
       m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
+
+    if( need_read_additional_info )
+    {
+      uint8_t const ait_size = ReadPrimitiveFromSource<uint8_t>(src);
+      for(size_t i=0; i<ait_size; ++i)
+      {
+        uint8_t const key = ReadPrimitiveFromSource<uint8_t>(src);
+        std::string value;
+        utils::ReadString(src, value);
+        m_additional_info.insert(make_pair(key, value));
+      }
+    }
 
     BaseT::Read(src, header);
   }

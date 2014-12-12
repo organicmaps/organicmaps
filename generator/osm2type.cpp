@@ -101,6 +101,44 @@ namespace ftype
       }
     };
 
+    class do_find_additional_info
+    {
+      size_t & m_count;
+      FeatureParams & m_params;
+
+    public:
+      typedef bool result_type;
+
+      do_find_additional_info(size_t &count, FeatureParams &params)
+      : m_count(count), m_params(params)
+      {
+        m_count = 0;
+      }
+
+      bool operator() (string const & k, string const & v)
+      {
+        ++m_count;
+
+        if (v.empty())
+          return false;
+
+        if (k == "cuisine")
+        {
+          m_params.AddAdditionalInfo(FeatureParams::ait_cuisine, v);
+        }
+        else if (k == "phone")
+        {
+          m_params.AddAdditionalInfo(FeatureParams::ait_phone_number, v);
+        }
+        else if (k == "opening_hours")
+        {
+          m_params.AddAdditionalInfo(FeatureParams::ait_open_hours, v);
+        }
+        return false;
+      }
+
+    };
+
     class do_find_name
     {
       set<string> m_savedNames;
@@ -359,6 +397,7 @@ namespace ftype
   {
     size_t count;
     for_each_tag(p, do_find_name(count, params));
+    for_each_tag(p, do_find_additional_info(count, params));
     return count;
   }
 

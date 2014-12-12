@@ -67,7 +67,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(buffer_t & data) const;
-  void SerializeBase(buffer_t & data, serial::CodingParams const & params) const;
+  void SerializeBase(buffer_t & data, serial::CodingParams const & params, bool need_searialize_additional_info = true) const;
 
   void Deserialize(buffer_t & data);
   //@}
