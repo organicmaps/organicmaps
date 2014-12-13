@@ -86,7 +86,7 @@ GlyphIndex::GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
 GlyphInfo const * GlyphIndex::MapResource(GlyphKey const & key)
 {
   strings::UniChar uniChar = key.GetUnicodePoint();
-  TResourceMapping::const_iterator it = m_index.find(uniChar);
+  auto it = m_index.find(uniChar);
   if (it != m_index.end())
     return it->second.GetRaw();
 
@@ -100,10 +100,8 @@ GlyphInfo const * GlyphIndex::MapResource(GlyphKey const & key)
 
   m_pendingNodes.emplace_back(r, glyph);
 
-  pair<TResourceMapping::iterator, bool> res = m_index.emplace(uniChar, TResourcePtr(new GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics)));
-  if (!res.second)
-    return nullptr;
-
+  auto res = m_index.emplace(uniChar, TResourcePtr(new GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics)));
+  ASSERT(!res.second, ());
   return res.first->second.GetRaw();
 }
 

@@ -13,10 +13,10 @@ HEADERS += \
   macros.hpp \
   gl_test_widget.hpp \
   gui_test_widget.hpp \
-    test_main_loop.hpp
+  test_main_loop.hpp \
 
 SOURCES += \
   tstwidgets.cpp \
-    test_main_loop.cpp
+  test_main_loop.cpp \
 
 
