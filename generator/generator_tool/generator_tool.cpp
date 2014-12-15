@@ -92,7 +92,7 @@ int main(int argc, char ** argv)
 
   Platform & pl = GetPlatform();
 
-  if(!FLAGS_user_resource_path.empty())
+  if (!FLAGS_user_resource_path.empty())
   {
     pl.AddOptionalPath(FLAGS_user_resource_path);
   }
@@ -104,7 +104,7 @@ int main(int argc, char ** argv)
   if (FLAGS_preprocess_xml)
   {
     LOG(LINFO, ("Generating intermediate data ...."));
-    if(!FLAGS_osm_file_name.empty())
+    if (!FLAGS_osm_file_name.empty())
     {
       if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_use_light_nodes, FLAGS_osm_file_name))
         return -1;
@@ -156,7 +156,7 @@ int main(int argc, char ** argv)
     if (!FLAGS_address_file_name.empty())
       genInfo.m_addressFile = path + FLAGS_address_file_name;
 
-    if(!FLAGS_osm_file_name.empty())
+    if (!FLAGS_osm_file_name.empty())
     {
       if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes, FLAGS_osm_file_name))
         return -1;

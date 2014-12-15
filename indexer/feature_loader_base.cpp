@@ -34,6 +34,16 @@ SharedLoadInfo::ReaderT SharedLoadInfo::GetDataReader() const
   return m_cont.GetReader(DATA_FILE_TAG);
 }
 
+SharedLoadInfo::ReaderT SharedLoadInfo::GetAdditionalInfoReader() const
+{
+  return m_cont.GetReader(ADDITIONAL_INFO_FILE_TAG);
+}
+
+SharedLoadInfo::ReaderT SharedLoadInfo::GetAdditionalInfoIndexReader() const
+{
+  return m_cont.GetReader(ADDITIONAL_INFO_INDEX_FILE_TAG);
+}
+
 SharedLoadInfo::ReaderT SharedLoadInfo::GetGeometryReader(int ind) const
 {
   return m_cont.GetReader(GetTagForIndex(GEOMETRY_FILE_TAG, ind));

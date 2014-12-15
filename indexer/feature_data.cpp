@@ -168,7 +168,7 @@ bool FeatureParams::AddHouseName(string const & s)
   return false;
 }
 
-bool FeatureParams::AddAdditionalInfo(additional_info_types type, string const &s)
+bool FeatureParams::AddAdditionalInfo(additional_info_types type, string const & s)
 {
   if (m_additional_info[type].empty())
   {

@@ -82,7 +82,7 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
 
   m_pLoader->InitFeature(this);
 
-  m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
+  m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = m_bAdditionalInfoParsed = false;
 
   m_innerStats.MakeZero();
 }
@@ -136,6 +136,16 @@ uint32_t FeatureType::ParseTriangles(int scale) const
   }
   return sz;
 }
+
+void FeatureType::ParseAdditionalInfo() const
+{
+  if (m_bAdditionalInfoParsed) return;
+
+  m_pLoader->ParseAdditionalInfo();
+  m_bAdditionalInfoParsed = true;
+}
+
+
 
 namespace
 {

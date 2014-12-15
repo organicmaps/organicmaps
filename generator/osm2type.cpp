@@ -124,15 +124,15 @@ namespace ftype
 
         if (k == "cuisine")
         {
-          m_params.AddAdditionalInfo(FeatureParams::ait_cuisine, v);
+          m_params.AddAdditionalInfo(FeatureParams::AIT_CUISINE, v);
         }
         else if (k == "phone")
         {
-          m_params.AddAdditionalInfo(FeatureParams::ait_phone_number, v);
+          m_params.AddAdditionalInfo(FeatureParams::AIT_PHONE_NUMBER, v);
         }
         else if (k == "opening_hours")
         {
-          m_params.AddAdditionalInfo(FeatureParams::ait_open_hours, v);
+          m_params.AddAdditionalInfo(FeatureParams::AIT_OPEN_HOURS, v);
         }
         return false;
       }

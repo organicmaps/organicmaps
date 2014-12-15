@@ -9,7 +9,10 @@
 #include "../geometry/pointu_to_uint64.hpp"
 
 #include "../coding/byte_stream.hpp"
+#include "../coding/dd_vector.hpp"
 
+#include "../base/logging.hpp"
+#include "../defines.hpp"
 
 namespace feature
 {
@@ -96,7 +99,7 @@ namespace
 
 void LoaderCurrent::ParseHeader2()
 {
-  uint8_t ptsCount, ptsMask, trgCount, trgMask;
+  uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
 
   BitSource bitSource(DataPtr() + m_Header2Offset);
 
@@ -247,6 +250,38 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
   }
 
   return sz;
+}
+
+void LoaderCurrent::ParseAdditionalInfo()
+{
+  try
+  {
+    typedef pair<uint32_t, uint32_t> IdxElementT;
+    DDVector<IdxElementT, FilesContainerR::ReaderT> idx(m_Info.GetAdditionalInfoIndexReader());
+    
+    auto it = lower_bound(idx.begin(), idx.end()
+                          , make_pair(uint32_t(m_pF->m_id.m_offset), uint32_t(0))
+                          , [](IdxElementT const & v1, IdxElementT const & v2) { return v1.first < v2.first; }
+                          );
+
+    if (it != idx.end() && m_pF->m_id.m_offset == it->first)
+    {
+      uint8_t header[2] = {0};
+      char buffer[numeric_limits<uint8_t>::max()] = {0};
+      ReaderSource<FilesContainerR::ReaderT> reader(m_Info.GetAdditionalInfoReader());
+      reader.Skip(it->second);
+      do
+      {
+        reader.Read(header, sizeof(header));
+        reader.Read(buffer, header[1]);
+        m_pF->m_additional_info[uint8_t(header[0] & 0x7F)].assign(buffer, header[1]);
+      } while (!(header[0] & 0x80));
+    }
+  }
+  catch(Reader::OpenException & e)
+  {
+    // now ignore exception because not all mwm have needed sections
+  }
 }
 
 int LoaderCurrent::GetScaleIndex(int scale) const

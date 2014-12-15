@@ -4,5 +4,5 @@
 
 namespace data
 {
-  bool GenerateToFile(string const & dir, bool lightNodes, string const &osm_filename=string());
+  bool GenerateToFile(string const & dir, bool lightNodes, string const & osmFileName = string());
 }

@@ -418,31 +418,27 @@ public:
 
 }
 
-template <class TNodesHolder>
-  bool GenerateImpl(GenerateInfo & info, std::string const &osm_filename=std::string())
+template <class NodesHolderT>
+bool GenerateImpl(GenerateInfo & info, string const & osmFileName = string())
 {
   try
   {
-    TNodesHolder nodes(info.m_tmpDir + NODES_FILE);
+    NodesHolderT nodes(info.m_tmpDir + NODES_FILE);
 
-    typedef FileHolder<TNodesHolder> holder_t;
-    holder_t holder(nodes, info.m_tmpDir);
+    typedef FileHolder<NodesHolderT> HolderT;
+    HolderT holder(nodes, info.m_tmpDir);
     holder.LoadIndex();
 
     MainFeaturesEmitter bucketer(info);
-    SecondPassParser<MainFeaturesEmitter, holder_t> parser(
+    SecondPassParser<MainFeaturesEmitter, HolderT> parser(
           bucketer, holder,
           info.m_makeCoasts ? classif().GetCoastType() : 0,
           info.m_addressFile);
 
-    if(osm_filename.empty())
-    {
+    if (osmFileName.empty())
       ParseXMLFromStdIn(parser);
-    }
     else
-    {
-      ParseXMLFromFile(parser, osm_filename);
-    }
+      ParseXMLFromFile(parser, osmFileName);
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
     if (!bucketer.Finish())
@@ -458,12 +454,12 @@ template <class TNodesHolder>
   return true;
 }
 
-bool GenerateFeatures(GenerateInfo & info, bool lightNodes, std::string const &osm_filename)
+bool GenerateFeatures(GenerateInfo & info, bool lightNodes, string const & osmFileName)
 {
   if (lightNodes)
-    return GenerateImpl<points_in_map>(info, osm_filename);
+    return GenerateImpl<points_in_map>(info, osmFileName);
   else
-    return GenerateImpl<points_in_file>(info, osm_filename);
+    return GenerateImpl<points_in_file>(info, osmFileName);
 }
 
 }

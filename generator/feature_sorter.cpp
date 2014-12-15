@@ -23,9 +23,11 @@
 #include "../base/logging.hpp"
 
 
+
+
 namespace
 {
-  typedef pair<uint64_t, uint64_t> TCellAndOffset;
+  typedef pair<uint64_t, uint64_t> CellAndOffsetT;
 
   class CalculateMidPoints
   {
@@ -39,7 +41,7 @@ namespace
     {
     }
 
-    std::vector<TCellAndOffset> m_vec;
+    vector<CellAndOffsetT> m_vec;
 
     void operator() (FeatureBuilder1 const & ft, uint64_t pos)
     {
@@ -74,7 +76,7 @@ namespace
     m2::PointD GetCenter() const { return m_midAll / m_allCount; }
   };
 
-  bool SortMidPointsFunc(TCellAndOffset const & c1, TCellAndOffset const & c2)
+  bool SortMidPointsFunc(CellAndOffsetT const & c1, CellAndOffsetT const & c2)
   {
     return c1.first < c2.first;
   }
@@ -88,6 +90,10 @@ namespace feature
 
     vector<FileWriter*> m_geoFile, m_trgFile;
 
+    unique_ptr<FileWriter> m_AdditionalInfoWriter;
+
+    vector<pair<uint32_t, uint32_t>> m_AdditionalInfoIndex;
+
     DataHeader m_header;
 
     gen::OsmID2FeatureID m_osm2ft;
@@ -96,6 +102,8 @@ namespace feature
     FeaturesCollector2(string const & fName, DataHeader const & header)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
     {
+      m_AdditionalInfoWriter.reset(new FileWriter(fName + ADDITIONAL_INFO_FILE_TAG));
+
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
         string const postfix = strings::to_string(i);
@@ -145,6 +153,12 @@ namespace feature
         FileWriter::DeleteFileX(geomFile);
         FileWriter::DeleteFileX(trgFile);
       }
+
+
+      FileWriter ainf_index = m_writer.GetWriter(ADDITIONAL_INFO_INDEX_FILE_TAG);
+      ainf_index.Write(m_AdditionalInfoIndex.data(), m_AdditionalInfoIndex.size()*(sizeof(uint32_t)*2));
+      m_AdditionalInfoWriter->Flush();
+      m_writer.Write(m_AdditionalInfoWriter->GetName(), ADDITIONAL_INFO_FILE_TAG);
 
       m_writer.Finish();
 
@@ -512,11 +526,31 @@ namespace feature
 
         uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
 
+        ProcessFeatureAdditionalInfo(ftID, fb);
+
         uint64_t const osmID = fb.GetWayIDForRouting();
         if (osmID != 0)
           m_osm2ft.Add(make_pair(osmID, ftID));
       }
     }
+
+    void ProcessFeatureAdditionalInfo(uint32_t const ftID, FeatureBuilder2 const & f)
+    {
+      FeatureParams::AdditionalInfoT const & ainf = f.GetAdditionalInfo();
+      if (ainf.size())
+      {
+        uint64_t offset = m_AdditionalInfoWriter->Pos();
+        m_AdditionalInfoIndex.push_back(make_pair(ftID, static_cast<uint32_t>(offset)));
+        for (auto const & e: ainf)
+        {
+          uint8_t last_key_mark = (&e == &(*ainf.crbegin())) << 7; /// set high bit (0x80) if it last element
+          uint8_t elem[2] = {static_cast<uint8_t>(e.first | last_key_mark), numeric_limits<uint8_t>::max()};
+          m_AdditionalInfoWriter->Write(elem, sizeof(elem));
+          m_AdditionalInfoWriter->Write(e.second.data(), elem[1]);
+        }
+      }
+    }
+
   };
 
   /// Simplify geometry for the upper scale.
@@ -551,7 +585,7 @@ namespace feature
     ForEachFromDatRawFormat(srcFilePath, midPoints);
 
     // sort features by their middle point
-    std::sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
+    sort(midPoints.m_vec.begin(), midPoints.m_vec.end(), &SortMidPointsFunc);
 
     // store sorted features
     {

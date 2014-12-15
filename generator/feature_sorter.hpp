@@ -49,7 +49,7 @@ namespace feature
           fabs(p.y - m_rect.minY()) <= m_eps || fabs(p.y - m_rect.maxY()) <= m_eps)
       {
         // points near rect should be in a result simplified vector
-        return std::numeric_limits<double>::max();
+        return numeric_limits<double>::max();
       }
 
       return m2::DistanceToLineSquare<m2::PointD>::operator()(p);

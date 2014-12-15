@@ -322,11 +322,11 @@ bool FeatureBuilder1::CheckValid() const
   return true;
 }
 
-void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const & params, bool need_serialize_additional_info) const
+void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const & params, bool needSerializeAdditionalInfo) const
 {
   PushBackByteSink<buffer_t> sink(data);
 
-  m_params.Write(sink, need_serialize_additional_info);
+  m_params.Write(sink, needSerializeAdditionalInfo);
 
   if (m_params.GetGeomType() == GEOM_POINT)
     serial::SavePoint(sink, m_center, params);

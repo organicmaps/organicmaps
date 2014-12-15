@@ -39,6 +39,8 @@ public:
   void AddPolygon(vector<m2::PointD> & poly);
   //@}
 
+  inline FeatureParams::AdditionalInfoT const & GetAdditionalInfo() const { return m_params.m_additional_info; }
+
   inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
 
   inline void AddType(uint32_t type) { m_params.AddType(type); }
@@ -67,7 +69,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(buffer_t & data) const;
-  void SerializeBase(buffer_t & data, serial::CodingParams const & params, bool need_searialize_additional_info = true) const;
+  void SerializeBase(buffer_t & data, serial::CodingParams const & params, bool needSearializeAdditionalInfo = true) const;
 
   void Deserialize(buffer_t & data);
   //@}

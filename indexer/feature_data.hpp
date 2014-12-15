@@ -208,13 +208,14 @@ class FeatureParams : public FeatureParamsBase
 public:
 
   enum additional_info_types {
-    ait_cuisine = 1,
-    ait_open_hours,
-    ait_phone_number,
-    ait_fax_number
+    AIT_CUISINE = 1,
+    AIT_OPEN_HOURS,
+    AIT_PHONE_NUMBER,
+    AIT_FAX_NUMBER
   };
-  typedef std::map<uint8_t, std::string> additional_info_type;
-  additional_info_type m_additional_info;
+
+  typedef map<uint8_t, string> AdditionalInfoT;
+  AdditionalInfoT m_additional_info;
 
   typedef vector<uint32_t> types_t;
   types_t m_Types;
@@ -227,7 +228,7 @@ public:
   bool AddHouseName(string const & s);
   bool AddHouseNumber(string const & s);
 
-  bool AddAdditionalInfo(additional_info_types type,string const &s);
+  bool AddAdditionalInfo(additional_info_types type, string const & s);
 
   /// @name Used in storing full street address only.
   //@{
@@ -269,7 +270,7 @@ public:
 
   uint8_t GetHeader() const;
 
-  template <class TSink> void Write(TSink & sink, bool need_store_additional_info = true) const
+  template <class SinkT> void Write(SinkT & sink, bool needStoreAdditionalInfo = true) const
   {
     uint8_t const header = GetHeader();
 
@@ -278,13 +279,13 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, GetIndexForType(m_Types[i]));
 
-    if( need_store_additional_info )
+    if (needStoreAdditionalInfo)
     {
       uint8_t const ait_size = m_additional_info.size();
       WriteToSink(sink, ait_size);
       if (ait_size)
       {
-        for(auto &it: m_additional_info)
+        for(auto & it: m_additional_info)
         {
           WriteToSink(sink, uint8_t(it.first));
           utils::WriteString(sink, it.second);
@@ -295,7 +296,7 @@ public:
     BaseT::Write(sink, header);
   }
 
-  template <class TSrc> void Read(TSrc & src, bool need_read_additional_info = true)
+  template <class SrcT> void Read(SrcT & src, bool needReadAdditionalInfo = true)
   {
     using namespace feature;
 
@@ -306,13 +307,13 @@ public:
     for (size_t i = 0; i < count; ++i)
       m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
-    if( need_read_additional_info )
+    if (needReadAdditionalInfo)
     {
       uint8_t const ait_size = ReadPrimitiveFromSource<uint8_t>(src);
-      for(size_t i=0; i<ait_size; ++i)
+      for (size_t i=0; i < ait_size; ++i)
       {
         uint8_t const key = ReadPrimitiveFromSource<uint8_t>(src);
-        std::string value;
+        string value;
         utils::ReadString(src, value);
         m_additional_info.insert(make_pair(key, value));
       }

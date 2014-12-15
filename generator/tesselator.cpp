@@ -11,7 +11,7 @@
 
 #include "../std/queue.hpp"
 
-#include "../../3party/sgitess/interface.h"
+#include "../3party/sgitess/interface.h"
 
 
 namespace tesselator

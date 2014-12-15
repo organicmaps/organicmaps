@@ -8,7 +8,7 @@
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 
-#include "../../3party/gflags/src/gflags/gflags.h"
+#include "../3party/gflags/src/gflags/gflags.h"
 
 #include "../std/bind.hpp"
 

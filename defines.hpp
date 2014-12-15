@@ -12,6 +12,9 @@
 #define SEARCH_INDEX_FILE_TAG "sdx"
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
+#define ADDITIONAL_INFO_FILE_TAG "ainf"
+#define ADDITIONAL_INFO_INDEX_FILE_TAG "ainfidx"
+
 #define ROUTING_MATRIX_FILE_TAG "mercedes"
 #define ROUTING_EDGEDATA_FILE_TAG "daewoo"
 #define ROUTING_EDGEID_FILE_TAG "infinity"
@@ -45,3 +48,5 @@
 
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64
+
+

@@ -89,11 +89,11 @@ struct StdinReader
 
 struct FileReader
 {
-  FILE *m_file;
+  FILE * m_file;
 
-  FileReader(std::string const &filename)
+  FileReader(string const & filename)
   {
-    m_file = fopen(filename.c_str(),"rb");
+    m_file = fopen(filename.c_str(), "rb");
   }
 
   ~FileReader()
@@ -114,8 +114,8 @@ void ParseXMLFromStdIn(BaseOSMParser & parser)
   (void)ParseXMLSequence(reader, parser);
 }
 
-void ParseXMLFromFile(BaseOSMParser & parser, std::string const &osm_filename)
+void ParseXMLFromFile(BaseOSMParser & parser, string const & osmFileName)
 {
-  FileReader reader(osm_filename);
+  FileReader reader(osmFileName);
   (void)ParseXMLSequence(reader, parser);
 }
