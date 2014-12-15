@@ -727,8 +727,8 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
                                             FeatureType const &ft, m2::PointD const &turnPnt,
                                             size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
 {
-  const size_t maxPntsNum = 5;
-  const double maxDistMeter = 250.f;
+  const size_t maxPntsNum = 7;
+  const double maxDistMeter = 300.f;
   double curDist = 0.f;
   m2::PointD pnt = turnPnt, nextPnt;
 
@@ -909,11 +909,11 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
     turn.m_turn = turns::TurnSharpRight;
   else if (a >= 67 && a < 130)
     turn.m_turn = turns::TurnRight;
-  else if (a >= 130 && a < 165)
+  else if (a >= 130 && a < 170)
     turn.m_turn = turns::TurnSlightRight;
-  else if (a >= 165 && a < 195)
+  else if (a >= 170 && a < 190)
     turn.m_turn = turns::GoStraight;
-  else if (a >= 195 && a < 230)
+  else if (a >= 190 && a < 230)
     turn.m_turn = turns::TurnSlightLeft;
   else if (a >= 230 && a < 292)
     turn.m_turn = turns::TurnLeft;
