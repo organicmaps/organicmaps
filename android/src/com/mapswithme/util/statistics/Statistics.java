@@ -84,7 +84,8 @@ public enum Statistics
     public static final String FG_TIME = "Foreground time";
     public static final String PRO_STAT = "One time PRO stat";
     public static final String ENABLED = "Enabled";
-    public static final String PRESTIGIO_PREINSTALLED = "IsPrestigioPreinstalled";
+    public static final String IS_PREINSTALLED = "IsPreinstalled";
+    public static final String APP_FLAVOR = "Flavor";
   }
 
   private Statistics()
@@ -120,11 +121,12 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackCountryDownload(boolean isPrestigioPreinstalled)
+  public void trackCountryDownload(boolean isPreinstalled, String flavor)
   {
     trackIfEnabled(mEventBuilder.
         setName(EventName.COUNTRY_DOWNLOAD).
-        addParam(EventParam.PRESTIGIO_PREINSTALLED, String.valueOf(isPrestigioPreinstalled)).
+        addParam(EventParam.IS_PREINSTALLED, String.valueOf(isPreinstalled)).
+        addParam(EventParam.APP_FLAVOR, flavor).
         addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalCount())).
         buildEvent());
   }
@@ -240,11 +242,12 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackAppActivated(boolean isPrestigioPreinstalled)
+  public void trackAppActivated(boolean isPreinstalled, String flavor)
   {
     final Event event = mEventBuilder.
         setName(EventName.APP_ACTIVATED).
-        addParam(EventParam.PRESTIGIO_PREINSTALLED, String.valueOf(isPrestigioPreinstalled)).
+        addParam(EventParam.IS_PREINSTALLED, String.valueOf(isPreinstalled)).
+        addParam(EventParam.APP_FLAVOR, flavor).
         buildEvent();
     trackIfEnabled(event);
   }

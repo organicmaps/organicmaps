@@ -137,7 +137,7 @@ public class Notifier
 
   public static void notifyAboutFreePro(Activity activity)
   {
-    if (MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PRESTIGIO_PREINSTALLED, false))
+    if (MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false))
       return;
 
     if (BuildConfig.IS_PRO)

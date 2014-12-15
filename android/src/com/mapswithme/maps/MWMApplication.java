@@ -38,7 +38,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private final static String TAG = "MWMApplication";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
-  public static final String IS_PRESTIGIO_PREINSTALLED = "IsPrestigioPreinstalled";
+  public static final String IS_PREINSTALLED = "IsPreinstalled";
 
   private static MWMApplication mSelf;
 
@@ -139,11 +139,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     initMrgs();
     WorkerService.startActionUpdateAds(this);
     PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-    if (BuildConfig.IS_PRESTIGIO_PREINSTALLED && !nativeGetBoolean(IS_PRESTIGIO_PREINSTALLED, false))
-    {
-      nativeSetBoolean(IS_PRESTIGIO_PREINSTALLED, true);
-      Statistics.INSTANCE.trackAppActivated(true);
-    }
   }
 
   private void initMrgs()
@@ -287,7 +282,17 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   private void updateLaunchNumbers()
   {
-    nativeSetInt(LAUNCH_NUMBER_SETTING, nativeGetInt(LAUNCH_NUMBER_SETTING, 0) + 1);
+    final int currentLaunches = nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
+    if (currentLaunches == 0)
+      trackAppActivation();
+
+    nativeSetInt(LAUNCH_NUMBER_SETTING, currentLaunches + 1);
+  }
+
+  private void trackAppActivation()
+  {
+    nativeSetBoolean(IS_PREINSTALLED, BuildConfig.IS_PREINSTALLED);
+    Statistics.INSTANCE.trackAppActivated(BuildConfig.IS_PREINSTALLED, BuildConfig.FLAVOR);
   }
 
   public int getLaunchesNumber()
