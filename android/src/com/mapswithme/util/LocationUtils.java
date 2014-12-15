@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.view.Surface;
 
+import com.mapswithme.maps.location.LocationService;
+
 public class LocationUtils
 {
   private LocationUtils() {}
@@ -68,5 +70,30 @@ public class LocationUtils
     else
       timeDiff = System.currentTimeMillis() - millis;
     return (timeDiff > expirationMillis);
+  }
+
+  public static double getDiffWithLastLocation(Location lastLocation, Location newLocation)
+  {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+      return (newLocation.getElapsedRealtimeNanos() - lastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
+    else
+    {
+      long time = newLocation.getTime();
+      long lastTime = lastLocation.getTime();
+      if (!isSameLocationProvider(newLocation.getProvider(), lastLocation.getProvider()))
+      {
+        // Do compare current and previous system times in case when
+        // we have incorrect time settings on a device.
+        time = System.currentTimeMillis();
+        lastTime = LocationService.INSTANCE.getLastLocationTime();
+      }
+
+      return (time - lastTime) * 1.0E-3;
+    }
+  }
+
+  public static boolean isSameLocationProvider(String p1, String p2)
+  {
+    return !(p1 == null || p2 == null) && p1.equals(p2);
   }
 }

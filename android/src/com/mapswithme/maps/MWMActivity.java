@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -53,7 +52,6 @@ import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
-import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -196,14 +194,14 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void pauseLocation()
   {
-    LocationService.INSTANCE.stopUpdate(this);
+    LocationService.INSTANCE.removeLocationListener(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
   }
 
   private void listenLocationUpdates()
   {
-    LocationService.INSTANCE.startUpdate(this);
+    LocationService.INSTANCE.addLocationListener(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
   }

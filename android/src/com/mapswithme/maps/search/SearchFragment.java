@@ -212,7 +212,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     mFlags = 0;
     mNorth = -1.0;
 
-    LocationService.INSTANCE.startUpdate(this);
+    LocationService.INSTANCE.addLocationListener(this);
 
     // do the search immediately after resume
     Utils.setTextAndCursorToEnd(mSearchEt, getLastQuery());
@@ -222,7 +222,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   @Override
   public void onPause()
   {
-    LocationService.INSTANCE.stopUpdate(this);
+    LocationService.INSTANCE.removeLocationListener(this);
 
     super.onPause();
   }

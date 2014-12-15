@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mapswithme.country.CountryTree;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.MWMActivity.MapTask;
 import com.mapswithme.maps.MWMActivity.OpenUrlTask;
@@ -184,7 +182,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
     mBtnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
 
     // Start listening the location.
-    LocationService.INSTANCE.startUpdate(this);
+    LocationService.INSTANCE.addLocationListener(this);
   }
 
   private void setAction(int action)
@@ -483,7 +481,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
   {
     super.onDestroy();
 
-    LocationService.INSTANCE.stopUpdate(this);
+    LocationService.INSTANCE.removeLocationListener(this);
 
     if (mMapStorage != null)
       mMapStorage.unsubscribe(mSlotId);
@@ -494,7 +492,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
   {
     super.onPause();
 
-    LocationService.INSTANCE.stopUpdate(this);
+    LocationService.INSTANCE.removeLocationListener(this);
   }
 
   @Override
@@ -502,7 +500,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
   {
     super.onResume();
 
-    LocationService.INSTANCE.startUpdate(this);
+    LocationService.INSTANCE.addLocationListener(this);
   }
 
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
@@ -565,7 +563,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
           checkBox.setText(checkBoxText);
         }
 
-        LocationService.INSTANCE.stopUpdate(this);
+        LocationService.INSTANCE.removeLocationListener(this);
       }
     }
   }

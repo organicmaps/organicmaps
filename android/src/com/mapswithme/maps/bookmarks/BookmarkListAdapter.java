@@ -42,12 +42,12 @@ public class BookmarkListAdapter extends BaseAdapter
 
   public void startLocationUpdate()
   {
-    LocationService.INSTANCE.startUpdate(this);
+    LocationService.INSTANCE.addLocationListener(this);
   }
 
   public void stopLocationUpdate()
   {
-    LocationService.INSTANCE.stopUpdate(this);
+    LocationService.INSTANCE.removeLocationListener(this);
   }
 
   @Override
