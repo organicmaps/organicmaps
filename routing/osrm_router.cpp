@@ -823,9 +823,7 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
     m2::PointD const p2 = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
     ASSERT_EQUAL(p, ft.GetPoint(seg.m_pointStart), ());
 
-    double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
-    while (a < 0)
-      a += 360;
+    double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
 
     candidates.emplace_back(a, trg);
   }
@@ -847,6 +845,67 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
   });
 }
 
+turns::TurnDirection OsrmRouter::InvertDirection(turns::TurnDirection dir) const
+{
+  switch (dir)
+  {
+  case turns::TurnSharpRight:
+    return turns::TurnSharpLeft;
+  case turns::TurnRight:
+    return turns::TurnLeft;
+  case turns::TurnSlightRight:
+    return turns::TurnSlightLeft;
+  case turns::TurnSlightLeft:
+    return turns::TurnSlightRight;
+  case turns::TurnLeft:
+    return turns::TurnRight;
+  case turns::TurnSharpLeft:
+    return turns::TurnSharpRight;
+  default:
+    return dir;
+  };
+}
+
+turns::TurnDirection OsrmRouter::MostRightDirection(const double angle) const
+{
+  if (angle >= 23 && angle < 67)
+    return turns::TurnSharpRight;
+  else if (angle >= 67 && angle < 140)
+    return  turns::TurnRight;
+  else if (angle >= 140 && angle < 185)
+    return turns::TurnSlightRight;
+  else if (angle >= 185 && angle < 200)
+    return  turns::GoStraight;
+  else if (angle >= 200 && angle < 240)
+    return  turns::TurnSlightLeft;
+  else if (angle >= 240 && angle < 336)
+    return  turns::TurnLeft;
+  return turns::NoTurn;
+}
+
+turns::TurnDirection OsrmRouter::MostLeftDirection(const double angle) const
+{
+  return InvertDirection(MostRightDirection(360 - angle));
+}
+
+turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
+{
+  if (angle >= 23 && angle < 67)
+    return turns::TurnSharpRight;
+  else if (angle >= 67 && angle < 130)
+    return  turns::TurnRight;
+  else if (angle >= 130 && angle < 170)
+    return turns::TurnSlightRight;
+  else if (angle >= 170 && angle < 190)
+    return  turns::GoStraight;
+  else if (angle >= 190 && angle < 230)
+    return  turns::TurnSlightLeft;
+  else if (angle >= 230 && angle < 292)
+    return  turns::TurnLeft;
+  else if (angle >= 292 && angle < 336)
+    return turns::TurnSharpLeft;
+  return turns::NoTurn;
+}
 
 void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
@@ -873,26 +932,28 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), 2, ());
 
-  m2::PointD p = ft1.GetPoint(seg1.m_pointEnd);
-  m2::PointD p1 = GetPointForTurnAngle(seg1, ft1, p,
+  m2::PointD const p = ft1.GetPoint(seg1.m_pointEnd);
+  m2::PointD const p1 = GetPointForTurnAngle(seg1, ft1, p,
                     [](const size_t start, const size_t end, const size_t i)
                     {
                       return end > start ? end - i : end + i;
                     });
-  m2::PointD p2 = GetPointForTurnAngle(seg2, ft2, p,
+  m2::PointD const p2 = GetPointForTurnAngle(seg2, ft2, p,
                     [](const size_t start, const size_t end, const size_t i)
                     {
                       return end > start ? start + i : start - i;
                     });
+  double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
 
-  double a = my::RadToDeg(ang::AngleTo(p, p2) - ang::AngleTo(p, p1));
-  while (a < 0)
-    a += 360;
-
+  m2::PointD const p1OneSeg = ft1.GetPoint(seg1.m_pointStart < seg1.m_pointEnd ? seg1.m_pointEnd - 1 : seg1.m_pointEnd + 1);
   TurnCandidatesT nodes;
-  GetPossibleTurns(node1.node, p1, p, mwmId, nodes);
+  GetPossibleTurns(node1.node, p1OneSeg, p, mwmId, nodes);
+
 #ifdef _DEBUG
-  LOG(LDEBUG, ("Possible turns: ", nodes.size()));
+  m2::PointD const p2OneSeg = ft2.GetPoint(seg2.m_pointStart < seg2.m_pointEnd ? seg2.m_pointStart + 1 : seg2.m_pointStart - 1);
+
+  double const aOneSeg = my::RadToDeg(ang::TwoVectorsAngle(p, p1OneSeg, p2OneSeg));
+  LOG(LDEBUG, ("Possible turns. nodes = ", nodes.size(), ". ang = ", aOneSeg, ". node = ", node2.node));
   for (size_t i = 0; i < nodes.size(); ++i)
   {
     TurnCandidate const &t = nodes[i];
@@ -904,21 +965,11 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   if (nodes.size() < 2)
     return;
-
-  if (a >= 23 && a < 67)
-    turn.m_turn = turns::TurnSharpRight;
-  else if (a >= 67 && a < 130)
-    turn.m_turn = turns::TurnRight;
-  else if (a >= 130 && a < 170)
-    turn.m_turn = turns::TurnSlightRight;
-  else if (a >= 170 && a < 190)
-    turn.m_turn = turns::GoStraight;
-  else if (a >= 190 && a < 230)
-    turn.m_turn = turns::TurnSlightLeft;
-  else if (a >= 230 && a < 292)
-    turn.m_turn = turns::TurnLeft;
-  else if (a >= 292 && a < 336)
-    turn.m_turn = turns::TurnSharpLeft;
+  if (nodes.front().m_node == node2.node)
+    turn.m_turn = MostRightDirection(a);
+  else if (nodes.back().m_node == node2.node)
+    turn.m_turn = MostLeftDirection(a);
+  else turn.m_turn = IntermediateDirection(a);
 
   bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
   bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
@@ -1020,7 +1071,7 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
     }
     else if (t.m_turn == turns::StayOnRoundAbout)
       ++exitNum;
-    else if (t.m_turn == turns::LeaveRoundAbout)
+    else if (roundabout && t.m_turn == turns::LeaveRoundAbout)
     {
       roundabout->m_exitNum = exitNum + 1;
       roundabout = 0;
@@ -1038,7 +1089,7 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
       continue;
     }
 
-    if (t.m_turn == turns::GoStraight
+    if (turns::IsGoStraightOrSlightTurn(t.m_turn)
         && !t.m_srcName.empty()
         && strings::AlmostEqual(t.m_srcName, t.m_trgName, 2))
     {

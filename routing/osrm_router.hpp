@@ -68,13 +68,11 @@ protected:
 
 private:
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData);
-
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,
                         m2::PointD const & p,
                         uint32_t mwmId,
                         TurnCandidatesT & candidates);
-
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
                         uint32_t mwmId, Route::TurnItem & turn);
@@ -82,6 +80,10 @@ private:
   m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
                                   FeatureType const &ft, m2::PointD const &turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
+  turns::TurnDirection InvertDirection(turns::TurnDirection dir) const;
+  turns::TurnDirection MostRightDirection(double angle) const;
+  turns::TurnDirection MostLeftDirection(double angle) const;
+  turns::TurnDirection IntermediateDirection(double angle) const;
 
   Index const * m_pIndex;
 

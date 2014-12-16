@@ -76,6 +76,17 @@ namespace ang
     return atan2(p2.y - p1.y, p2.x - p1.x);
   }
 
+  /// Returns an angle from vector [p, p1] to vector [p, p2]. A counterclockwise rotation.
+  /// Angle is in range [0, 2 * pi]
+  template <typename T>
+  inline T TwoVectorsAngle(m2::Point<T> const & p, m2::Point<T> const & p1, m2::Point<T> const & p2)
+  {
+    T a = ang::AngleTo(p, p2) - ang::AngleTo(p, p1);
+    while (a < 0)
+      a += math::twicePi;
+    return a;
+  }
+
   double AngleIn2PI(double ang);
 
   /// @return Oriented angle (<= PI) from rad1 to rad2.
