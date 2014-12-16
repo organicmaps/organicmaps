@@ -231,6 +231,21 @@ android {
     }
   }
 
+  gradle.projectsEvaluated {
+    android.applicationVariants.all { variant ->
+      def task = variant.name.capitalize()
+      def runTask = "run$task"
+      def installTask = "install$task"
+      project.task(type: Exec, "${runTask}", dependsOn: "${installTask}") {
+        doLast {
+          def component = "com.mapswithme.maps.pro/com.mapswithme.maps.DownloadResourcesActivity"
+          executable "sh"
+          args "-c", "adb shell am start -n ${component}"
+        }
+      }
+    }
+  }
+
   signingConfigs {
     mapswithme {
       storeFile file('../tools/android/mapswithme.keystore')
@@ -278,19 +293,6 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
     targetCompatibility JavaVersion.VERSION_1_7
-  }
-
-
-  // TODO add tasks for all flavors to run app.
-  task runGooglePro(type: Exec, description: 'install iGPR and run') {
-    commandLine 'bash', '-c', 'adb shell am start -n com.mapswithme.maps.pro/com.mapswithme.maps.DownloadResourcesActivity'
-  }
-
-  // temprorary workaround of bug on android L with gradle plugin
-  // details here https://groups.google.com/forum/#!topic/adt-dev/oHWbLdonsBU
-  gradle.projectsEvaluated {
-    installGoogleProRelease.dependsOn("uninstallGoogleProRelease")
-    runGooglePro.dependsOn("installGoogleProRelease")
   }
 }
 
