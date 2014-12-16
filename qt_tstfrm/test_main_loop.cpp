@@ -8,12 +8,30 @@
 
 #include "../std/cstring.hpp"
 
-TestMainLoop::TestMainLoop(TestMainLoop::TRednerFn const & fn)
-  : m_renderFn(fn)
+namespace
 {
-}
 
-void TestMainLoop::exec(char const * testName, bool autoExit)
+class MyWidget : public QWidget
+{
+public:
+  MyWidget(TRednerFn const & fn)
+    : m_fn(fn)
+  {
+  }
+
+protected:
+  void paintEvent(QPaintEvent * e)
+  {
+    m_fn(this);
+  }
+
+private:
+  TRednerFn m_fn;
+};
+
+} // namespace
+
+void RunTestLoop(char const * testName, TRednerFn const & fn, bool autoExit)
 {
   char * buf = (char *)malloc(strlen(testName) + 1);
   MY_SCOPE_GUARD(argvFreeFun, [&buf](){ free(buf); });
@@ -24,21 +42,10 @@ void TestMainLoop::exec(char const * testName, bool autoExit)
   if (autoExit)
     QTimer::singleShot(3000, &app, SLOT(quit()));
 
-  QWidget w;
-  w.setWindowTitle(testName);
-  w.show();
-  w.installEventFilter(this);
+  MyWidget * widget = new MyWidget(fn);
+  widget->setWindowTitle(testName);
+  widget->show();
 
   app.exec();
-}
-
-bool TestMainLoop::eventFilter(QObject * obj, QEvent * event)
-{
-  if (event->type() == QEvent::Paint)
-  {
-    m_renderFn(qobject_cast<QWidget *>(obj));
-    return true;
-  }
-
-  return false;
+  delete widget;
 }

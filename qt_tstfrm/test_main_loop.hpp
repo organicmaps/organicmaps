@@ -1,25 +1,7 @@
 #pragma once
 
-#include <QtCore/QObject>
-
 #include "../std/function.hpp"
 
 class QPaintDevice;
-class TestMainLoop : public QObject
-{
-  Q_OBJECT
-
-public:
-
-  typedef function<void (QPaintDevice *)> TRednerFn;
-  TestMainLoop(TRednerFn const & fn);
-  virtual ~TestMainLoop() {}
-
-  void exec(char const * testName, bool autoExit = true);
-
-protected:
-  bool eventFilter(QObject * obj, QEvent * event);
-
-private:
-  TRednerFn m_renderFn;
-};
+typedef function<void (QPaintDevice *)> TRednerFn;
+void RunTestLoop(char const * testName, TRednerFn const & fn, bool autoExit = false);

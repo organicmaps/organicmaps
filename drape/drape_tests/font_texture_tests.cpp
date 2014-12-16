@@ -102,6 +102,5 @@ UNIT_TEST(UploadingGlyphs)
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(MakeStackRefPointer<Texture>(&tex));
 
-  TestMainLoop loop(bind(&UploadedRender::Render, &r, _1));
-  loop.exec("UploadingGlyphs");
+  RunTestLoop("UploadingGlyphs", bind(&UploadedRender::Render, &r, _1));
 }

@@ -71,6 +71,5 @@ namespace
 UNIT_TEST(GlyphLoadingTest)
 {
   GlyphRenderer renderer;
-  TestMainLoop loop(bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
-  loop.exec("GlyphLoadingTest");
+  RunTestLoop("GlyphLoadingTest", bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 }

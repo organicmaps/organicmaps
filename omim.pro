@@ -27,6 +27,7 @@ SUBDIRS = 3party \
           geometry/geometry_tests \
           platform/platform_tests \
           anim \
+          qt_tstfrm \
           drape \
           drape/drape_tests \
           graphics \
@@ -37,7 +38,6 @@ SUBDIRS = 3party \
           map map/map_tests map/benchmark_tool map/mwm_tests\
           generator generator/generator_tests \
           generator/generator_tool \
-          qt_tstfrm \
           indexer/indexer_tests \
           graphics/graphics_tests \
           gui/gui_tests \
