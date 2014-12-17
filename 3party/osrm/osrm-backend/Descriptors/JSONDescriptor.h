@@ -42,7 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <algorithm>
 
-template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFacadeT>
+template <class DataFacadeT> class JSONDescriptor final : public BaseDescriptor<DataFacadeT>
 {
   private:
     DataFacadeT *facade;
@@ -70,13 +70,14 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
     ExtractRouteNames<DataFacadeT, Segment> GenerateRouteNames;
 
   public:
-    JSONDescriptor(DataFacadeT *facade) : facade(facade), entered_restricted_area_count(0) {}
+    explicit JSONDescriptor(DataFacadeT *facade) : facade(facade), entered_restricted_area_count(0) {}
 
-    void SetConfig(const DescriptorConfig &c) { config = c; }
+    void SetConfig(const DescriptorConfig &c) final { config = c; }
 
     unsigned DescribeLeg(const std::vector<PathData> route_leg,
                          const PhantomNodes &leg_phantoms,
-                         const bool target_traversed_in_reverse)
+                         const bool target_traversed_in_reverse,
+                         const bool is_via_leg)
     {
         unsigned added_element_count = 0;
         // Get all the coordinates for the computed route
@@ -87,13 +88,14 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
             description_factory.AppendSegment(current_coordinate, path_data);
             ++added_element_count;
         }
-        description_factory.SetEndSegment(leg_phantoms.target_phantom, target_traversed_in_reverse);
+        description_factory.SetEndSegment(
+            leg_phantoms.target_phantom, target_traversed_in_reverse, is_via_leg);
         ++added_element_count;
         BOOST_ASSERT((route_leg.size() + 1) == added_element_count);
         return added_element_count;
     }
 
-    void Run(const RawRouteData &raw_route, http::Reply &reply)
+    void Run(const RawRouteData &raw_route, http::Reply &reply) final
     {
         JSON::Object json_result;
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)
@@ -124,9 +126,10 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
 #ifndef NDEBUG
             const int added_segments =
 #endif
-            DescribeLeg(raw_route.unpacked_path_segments[i],
-                        raw_route.segment_end_coordinates[i],
-                        raw_route.target_traversed_in_reverse[i]);
+                DescribeLeg(raw_route.unpacked_path_segments[i],
+                            raw_route.segment_end_coordinates[i],
+                            raw_route.target_traversed_in_reverse[i],
+                            raw_route.is_via_leg(i));
             BOOST_ASSERT(0 < added_segments);
         }
         description_factory.Run(facade, config.zoom_level);
@@ -134,7 +137,7 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
         if (config.geometry)
         {
             JSON::Value route_geometry =
-                description_factory.AppendEncodedPolylineString(config.encode_geometry);
+                description_factory.AppendGeometryString(config.encode_geometry);
             json_result.values["route_geometry"] = route_geometry;
         }
         if (config.instructions)
@@ -202,14 +205,15 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
                 current = facade->GetCoordinateOfNode(path_data.node);
                 alternate_description_factory.AppendSegment(current, path_data);
             }
-            alternate_description_factory.SetEndSegment(raw_route.segment_end_coordinates.back().target_phantom, raw_route.alt_source_traversed_in_reverse.back());
+            alternate_description_factory.SetEndSegment(
+                raw_route.segment_end_coordinates.back().target_phantom,
+                raw_route.alt_source_traversed_in_reverse.back());
             alternate_description_factory.Run(facade, config.zoom_level);
 
             if (config.geometry)
             {
                 JSON::Value alternate_geometry_string =
-                    alternate_description_factory.AppendEncodedPolylineString(
-                        config.encode_geometry);
+                    alternate_description_factory.AppendGeometryString(config.encode_geometry);
                 JSON::Array json_alternate_geometries_array;
                 json_alternate_geometries_array.values.push_back(alternate_geometry_string);
                 json_result.values["alternative_geometries"] = json_alternate_geometries_array;
@@ -279,10 +283,10 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
         std::string hint;
         for (const auto i : osrm::irange<std::size_t>(0, raw_route.segment_end_coordinates.size()))
         {
-            EncodeObjectToBase64(raw_route.segment_end_coordinates[i].source_phantom, hint);
+            ObjectEncoder::EncodeToBase64(raw_route.segment_end_coordinates[i].source_phantom, hint);
             json_location_hint_array.values.push_back(hint);
         }
-        EncodeObjectToBase64(raw_route.segment_end_coordinates.back().target_phantom, hint);
+        ObjectEncoder::EncodeToBase64(raw_route.segment_end_coordinates.back().target_phantom, hint);
         json_location_hint_array.values.push_back(hint);
         json_hint_object.values["locations"] = json_location_hint_array;
         json_result.values["hint_data"] = json_hint_object;
@@ -326,16 +330,16 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
                     if (TurnInstruction::LeaveRoundAbout == current_instruction)
                     {
                         temp_instruction =
-                            IntToString(as_integer(TurnInstruction::EnterRoundAbout));
+                            cast::integral_to_string(cast::enum_to_underlying(TurnInstruction::EnterRoundAbout));
                         current_turn_instruction += temp_instruction;
                         current_turn_instruction += "-";
-                        temp_instruction = IntToString(round_about.leave_at_exit + 1);
+                        temp_instruction = cast::integral_to_string(round_about.leave_at_exit + 1);
                         current_turn_instruction += temp_instruction;
                         round_about.leave_at_exit = 0;
                     }
                     else
                     {
-                        temp_instruction = IntToString(as_integer(current_instruction));
+                        temp_instruction = cast::integral_to_string(cast::enum_to_underlying(current_instruction));
                         current_turn_instruction += temp_instruction;
                     }
                     json_instruction_row.values.push_back(current_turn_instruction);
@@ -346,13 +350,17 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
                     json_instruction_row.values.push_back(necessary_segments_running_index);
                     json_instruction_row.values.push_back(round(segment.duration / 10));
                     json_instruction_row.values.push_back(
-                        UintToString(static_cast<int>(segment.length)) + "m");
-                    const double bearing_value = (segment.bearing / 10.) ;
+                        cast::integral_to_string(static_cast<unsigned>(segment.length)) + "m");
+                    const double bearing_value = (segment.bearing / 10.);
                     json_instruction_row.values.push_back(Azimuth::Get(bearing_value));
-                    json_instruction_row.values.push_back(static_cast<unsigned>(round(bearing_value)));
+                    json_instruction_row.values.push_back(
+                        static_cast<unsigned>(round(bearing_value)));
+                    json_instruction_row.values.push_back(segment.travel_mode);
 
                     route_segments_list.emplace_back(
-                        segment.name_id, static_cast<int>(segment.length), static_cast<unsigned>(route_segments_list.size()));
+                        segment.name_id,
+                        static_cast<int>(segment.length),
+                        static_cast<unsigned>(route_segments_list.size()));
                     json_instruction_array.values.push_back(json_instruction_row);
                 }
             }
@@ -367,7 +375,7 @@ template <class DataFacadeT> class JSONDescriptor : public BaseDescriptor<DataFa
         }
 
         JSON::Array json_last_instruction_row;
-        temp_instruction = IntToString(as_integer(TurnInstruction::ReachedYourDestination));
+        temp_instruction = cast::integral_to_string(cast::enum_to_underlying(TurnInstruction::ReachedYourDestination));
         json_last_instruction_row.values.push_back(temp_instruction);
         json_last_instruction_row.values.push_back("");
         json_last_instruction_row.values.push_back(0);

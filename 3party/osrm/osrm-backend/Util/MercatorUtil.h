@@ -30,14 +30,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cmath>
 
-inline float y2lat(const float a)
+inline double y2lat(const double a)
 {
-    return 180.f * static_cast<float>(M_1_PI) * (2.f * std::atan(std::exp(a * static_cast<float>(M_PI) / 180.f)) - static_cast<float>(M_PI_2));
+    return 180. * M_1_PI * (2. * std::atan(std::exp(a * M_PI / 180.)) - M_PI_2);
 }
 
-inline float lat2y(const float a)
+inline double lat2y(const double a)
 {
-    return 180.f * static_cast<float>(M_1_PI) * std::log(std::tan(static_cast<float>(M_PI_4) + a * (static_cast<float>(M_PI) / 180.f) / 2.f));
+    return 180. * M_1_PI * std::log(std::tan(M_PI_4 + a * (M_PI / 180.) / 2.));
 }
 
 #endif // MERCATOR_UTIL_H

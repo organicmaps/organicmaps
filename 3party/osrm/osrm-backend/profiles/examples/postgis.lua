@@ -65,11 +65,11 @@ function way_function (way)
 
   local cursor = assert( sql_con:execute(sql_query) )   -- execute querty
   local row = cursor:fetch( {}, "a" )                   -- fetch first (and only) row
-  way.speed = 20.0                                      -- default speed
+  way.forward_speed = 20.0                                      -- default speed
   if row then
     local val = tonumber(row.val)                       -- read 'val' from row
     if val > 10 then
-      way.speed = way.speed / math.log10( val )         -- reduce speed by amount of industry close by
+      way.forward_speed = way.forward_speed / math.log10( val )         -- reduce speed by amount of industry close by
     end
   end
   cursor:close()                                        -- done with this query

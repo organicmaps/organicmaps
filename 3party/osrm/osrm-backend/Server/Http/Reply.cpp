@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <osrm/Reply.h>
 
-#include "../../Util/StringUtil.h"
+#include "../../Util/cast.hpp"
 
 namespace http
 {
@@ -38,7 +38,7 @@ void Reply::SetSize(const unsigned size)
     {
         if ("Content-Length" == h.name)
         {
-            h.value = UintToString(size);
+            h.value = cast::integral_to_string(size);
         }
     }
 }
@@ -87,8 +87,7 @@ Reply Reply::StockReply(Reply::status_type status)
     const std::string status_string = reply.ToString(status);
     reply.content.insert(reply.content.end(), status_string.begin(), status_string.end());
     reply.headers.emplace_back("Access-Control-Allow-Origin", "*");
-    reply.headers.emplace_back("Content-Length",
-                               UintToString(static_cast<unsigned>(reply.content.size())));
+    reply.headers.emplace_back("Content-Length", cast::integral_to_string(reply.content.size()));
     reply.headers.emplace_back("Content-Type", "text/html");
     return reply;
 }

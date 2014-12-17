@@ -43,10 +43,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template <typename EdgeDataT> class DynamicGraph
 {
   public:
-    typedef EdgeDataT EdgeData;
-    typedef unsigned NodeIterator;
-    typedef unsigned EdgeIterator;
-    typedef osrm::range<EdgeIterator> EdgeRange;
+    using EdgeData = EdgeDataT;
+    using NodeIterator = unsigned;
+    using EdgeIterator = unsigned;
+    using EdgeRange = osrm::range<EdgeIterator>;
 
     class InputEdge
     {
@@ -71,7 +71,7 @@ template <typename EdgeDataT> class DynamicGraph
     };
 
     // Constructs an empty graph with a given number of nodes.
-    explicit DynamicGraph(int32_t nodes) : number_of_nodes(nodes), number_of_edges(0)
+    explicit DynamicGraph(NodeIterator nodes) : number_of_nodes(nodes), number_of_edges(0)
     {
         node_list.reserve(number_of_nodes);
         node_list.resize(number_of_nodes);
@@ -80,7 +80,7 @@ template <typename EdgeDataT> class DynamicGraph
         edge_list.resize(number_of_nodes);
     }
 
-    template <class ContainerT> DynamicGraph(const int32_t nodes, const ContainerT &graph)
+    template <class ContainerT> DynamicGraph(const NodeIterator nodes, const ContainerT &graph)
     {
         number_of_nodes = nodes;
         number_of_edges = (EdgeIterator)graph.size();

@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../Algorithms/StronglyConnectedComponents.h"
 #include "../Util/GraphLoader.h"
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../Util/FingerPrint.h"
 
 #include <fstream>
@@ -44,16 +44,17 @@ std::vector<NodeID> trafficlight_ID_list;
 
 int main(int argc, char *argv[])
 {
-    // enable logging
     LogPolicy::GetInstance().Unmute();
-    if (argc < 3)
-    {
-        SimpleLogger().Write(logWARNING) << "usage:\n" << argv[0] << " <osrm> <osrm.restrictions>";
-        return -1;
-    }
-
     try
     {
+        // enable logging
+        if (argc < 3)
+        {
+            SimpleLogger().Write(logWARNING) << "usage:\n" << argv[0]
+                                             << " <osrm> <osrm.restrictions>";
+            return -1;
+        }
+
         SimpleLogger().Write() << "Using restrictions from file: " << argv[2];
         std::ifstream restriction_ifstream(argv[2], std::ios::binary);
         const FingerPrint fingerprint_orig;
@@ -71,15 +72,15 @@ int main(int argc, char *argv[])
         {
             throw OSRMException("Could not access <osrm-restrictions> files");
         }
-        uint32_t usable_restriction_count = 0;
-        restriction_ifstream.read((char *)&usable_restriction_count, sizeof(uint32_t));
-        restrictions_vector.resize(usable_restriction_count);
+        uint32_t usable_restrictions = 0;
+        restriction_ifstream.read((char *)&usable_restrictions, sizeof(uint32_t));
+        restrictions_vector.resize(usable_restrictions);
 
         // load restrictions
-        if (usable_restriction_count>0)
+        if (usable_restrictions > 0)
         {
             restriction_ifstream.read((char *)&(restrictions_vector[0]),
-                                 usable_restriction_count * sizeof(TurnRestriction));
+                                      usable_restrictions * sizeof(TurnRestriction));
         }
         restriction_ifstream.close();
 
@@ -99,7 +100,7 @@ int main(int argc, char *argv[])
                                                                      restrictions_vector);
         input_stream.close();
 
-        BOOST_ASSERT_MSG(restrictions_vector.size() == usable_restriction_count,
+        BOOST_ASSERT_MSG(restrictions_vector.size() == usable_restrictions,
                          "size of restrictions_vector changed");
 
         SimpleLogger().Write() << restrictions_vector.size() << " restrictions, "
@@ -109,13 +110,12 @@ int main(int argc, char *argv[])
         // Building an edge-expanded graph from node-based input an turn
         // restrictions
         SimpleLogger().Write() << "Starting SCC graph traversal";
-        std::shared_ptr<TarjanSCC> tarjan =
-            std::make_shared<TarjanSCC>(number_of_nodes,
-                                        edge_list,
-                                        bollard_ID_list,
-                                        trafficlight_ID_list,
-                                        restrictions_vector,
-                                        coordinate_list);
+        std::shared_ptr<TarjanSCC> tarjan = std::make_shared<TarjanSCC>(number_of_nodes,
+                                                                        edge_list,
+                                                                        bollard_ID_list,
+                                                                        trafficlight_ID_list,
+                                                                        restrictions_vector,
+                                                                        coordinate_list);
         edge_list.clear();
         edge_list.shrink_to_fit();
 

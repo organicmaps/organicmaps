@@ -1,4 +1,4 @@
-@routing @origin
+@routing @origin @testbot
 Feature: Routing close to the [0,0] origin
 
     Background:

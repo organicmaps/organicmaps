@@ -43,12 +43,12 @@ class ExtractionContainers
     const static unsigned stxxl_memory = ((sizeof(std::size_t) == 4) ? INT_MAX : UINT_MAX);
 #endif
   public:
-    typedef stxxl::vector<NodeID> STXXLNodeIDVector;
-    typedef stxxl::vector<ExternalMemoryNode> STXXLNodeVector;
-    typedef stxxl::vector<InternalExtractorEdge> STXXLEdgeVector;
-    typedef stxxl::vector<std::string> STXXLStringVector;
-    typedef stxxl::vector<InputRestrictionContainer> STXXLRestrictionsVector;
-    typedef stxxl::vector<WayIDStartAndEndEdge> STXXLWayIDStartEndVector;
+    using  STXXLNodeIDVector = stxxl::vector<NodeID>;
+    using  STXXLNodeVector = stxxl::vector<ExternalMemoryNode>;
+    using  STXXLEdgeVector = stxxl::vector<InternalExtractorEdge>;
+    using  STXXLStringVector = stxxl::vector<std::string>;
+    using  STXXLRestrictionsVector = stxxl::vector<InputRestrictionContainer>;
+    using  STXXLWayIDStartEndVector = stxxl::vector<WayIDStartAndEndEdge>;
 
     STXXLNodeIDVector used_node_id_list;
     STXXLNodeVector all_nodes_list;
@@ -60,7 +60,7 @@ class ExtractionContainers
 
     ExtractionContainers();
 
-    virtual ~ExtractionContainers();
+    ~ExtractionContainers();
 
     void PrepareData(const std::string &output_file_name,
                      const std::string &restrictions_file_name);

@@ -100,8 +100,8 @@ class BinaryHeap
     void operator=(const BinaryHeap &right);
 
   public:
-    typedef Weight WeightType;
-    typedef Data DataType;
+    using WeightType = Weight;
+    using DataType = Data;
 
     explicit BinaryHeap(size_t maxID) : node_index(maxID) { Clear(); }
 

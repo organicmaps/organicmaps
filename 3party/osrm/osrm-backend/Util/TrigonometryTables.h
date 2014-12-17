@@ -722,7 +722,7 @@ constexpr unsigned short atan_table[4096] = {
 // max value is pi/4
 constexpr double SCALING_FACTOR = 4. / M_PI * 0xFFFF;
 
-inline double atan2_lookup(double y, double x)
+double atan2_lookup(double y, double x)
 {
     if (std::abs(x) < std::numeric_limits<double>::epsilon())
     {

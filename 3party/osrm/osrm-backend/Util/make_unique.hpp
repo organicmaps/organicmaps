@@ -25,33 +25,33 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#ifndef COMPUTE_ANGLE_H
-#define COMPUTE_ANGLE_H
+#ifndef MAKE_UNIQUE_H_
+#define MAKE_UNIQUE_H_
 
-#include "TrigonometryTables.h"
-#include "../Util/MercatorUtil.h"
-#include <osrm/Coordinate.h>
+#include <cstdlib>
+#include <memory>
+#include <type_traits>
 
-#include <boost/assert.hpp>
-#include <cmath>
-
-/* Get angle of line segment (A,C)->(C,B), atan2 magic, formerly cosine theorem*/
-template <class CoordinateT>
-inline static double GetAngleBetweenThreeFixedPointCoordinates(const CoordinateT &A,
-                                                               const CoordinateT &C,
-                                                               const CoordinateT &B)
+namespace osrm
 {
-    const double v1x = (A.lon - C.lon) / COORDINATE_PRECISION;
-    const double v1y = lat2y(A.lat / COORDINATE_PRECISION) - lat2y(C.lat / COORDINATE_PRECISION);
-    const double v2x = (B.lon - C.lon) / COORDINATE_PRECISION;
-    const double v2y = lat2y(B.lat / COORDINATE_PRECISION) - lat2y(C.lat / COORDINATE_PRECISION);
+// Taken from http://msdn.microsoft.com/en-us/library/dn439780.asp
+// Note, that the snippet was broken there and needed minor massaging
 
-    double angle = (atan2_lookup(v2y, v2x) - atan2_lookup(v1y, v1x)) * 180 / M_PI;
-    while (angle < 0)
-    {
-        angle += 360;
-    }
-    return angle;
+// make_unique<T>
+template <class T, class... Types> std::unique_ptr<T> make_unique(Types &&... Args)
+{
+    return (std::unique_ptr<T>(new T(std::forward<Types>(Args)...)));
 }
 
-#endif // COMPUTE_ANGLE_H
+// make_unique<T[]>
+template <class T> std::unique_ptr<T[]> make_unique(std::size_t Size)
+{
+    return (std::unique_ptr<T>(new T[Size]()));
+}
+
+// make_unique<T[N]> disallowed
+template <class T, class... Types>
+typename std::enable_if<std::extent<T>::value != 0, void>::type make_unique(Types &&...) = delete;
+}
+
+#endif //MAKE_UNIQUE_H_

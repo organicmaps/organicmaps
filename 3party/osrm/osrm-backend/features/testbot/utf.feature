@@ -1,4 +1,4 @@
-@routing @utf
+@routing @utf @testbot
 Feature: Handling of UTF characters
 
     Background:

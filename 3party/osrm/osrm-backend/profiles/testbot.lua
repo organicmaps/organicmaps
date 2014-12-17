@@ -6,10 +6,19 @@
 -- Secondary road:  18km/h = 18000m/3600s = 100m/20s
 -- Tertiary road:  12km/h = 12000m/3600s = 100m/30s
 
+-- modes:
+-- 1: normal
+-- 2: route
+-- 3: river downstream
+-- 4: river upstream
+-- 5: steps down
+-- 6: steps up
+
 speed_profile = {
   ["primary"] = 36,
   ["secondary"] = 18,
   ["tertiary"] = 12,
+  ["steps"] = 6,
   ["default"] = 24
 }
 
@@ -61,14 +70,21 @@ function way_function (way)
 
   if route ~= nil and durationIsValid(duration) then
     way.duration = math.max( 1, parseDuration(duration) )
+    way.forward_mode = 2
+    way.backward_mode = 2
   else
     local speed_forw = speed_profile[highway] or speed_profile['default']
     local speed_back = speed_forw
 
     if highway == "river" then
       local temp_speed = speed_forw;
+      way.forward_mode = 3
+      way.backward_mode = 4
       speed_forw = temp_speed*1.5
       speed_back = temp_speed/1.5
+    elseif highway == "steps" then
+      way.forward_mode = 5
+      way.backward_mode = 6
     end
 
     if maxspeed_forward ~= nil and maxspeed_forward > 0 then
@@ -87,26 +103,19 @@ function way_function (way)
       end
     end
 
-    way.speed = speed_forw
-    if speed_back ~= way_forw then
-      way.backward_speed = speed_back
-    end
+    way.forward_speed = speed_forw
+    way.backward_speed = speed_back
   end
 
   if oneway == "no" or oneway == "0" or oneway == "false" then
-    way.direction = Way.bidirectional
+    -- nothing to do
   elseif oneway == "-1" then
-    way.direction = Way.opposite
+    way.forward_mode = 0
   elseif oneway == "yes" or oneway == "1" or oneway == "true" or junction == "roundabout" then
-    way.direction = Way.oneway
-  else
-    way.direction = Way.bidirectional
+    way.backward_mode = 0
   end
 
   if junction == 'roundabout' then
     way.roundabout = true
   end
-
-  way.type = 1
-  return 1
 end

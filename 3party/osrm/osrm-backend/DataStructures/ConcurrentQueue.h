@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef CONCURRENT_QUEUE_H
 #define CONCURRENT_QUEUE_H
 
-#include "../typedefs.h"
-
 #include <boost/circular_buffer.hpp>
 #include <condition_variable>
 #include <mutex>

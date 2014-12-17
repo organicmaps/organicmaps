@@ -30,6 +30,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <osrm/ServerPaths.h>
 
+#include <memory>
+
 class OSRM_impl;
 struct RouteParameters;
 
@@ -41,10 +43,10 @@ class Reply;
 class OSRM
 {
   private:
-    OSRM_impl *OSRM_pimpl_;
+    std::unique_ptr<OSRM_impl> OSRM_pimpl_;
 
   public:
-    explicit OSRM(const ServerPaths &paths, const bool use_shared_memory = false);
+    explicit OSRM(ServerPaths paths, const bool use_shared_memory = false);
     ~OSRM();
     void RunQuery(RouteParameters &route_parameters, http::Reply &reply);
 };

@@ -1,4 +1,4 @@
-@routing @distance
+@routing @distance @testbot
 Feature: Distance calculation
 
     Background:

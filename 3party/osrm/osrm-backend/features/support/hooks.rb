@@ -1,7 +1,9 @@
 
 STRESS_TIMEOUT = 300
 
+
 Before do |scenario|
+
   # feature name
   case scenario
     when Cucumber::Ast::Scenario
@@ -18,6 +20,7 @@ Before do |scenario|
       @scenario_title = scenario.scenario_outline.name
   end
 
+  @load_method  = DEFAULT_LOAD_METHOD
   @query_params = {}
   @scenario_time = Time.now.strftime("%Y-%m-%dT%H:%m:%SZ")
   reset_data
@@ -25,6 +28,7 @@ Before do |scenario|
   @has_logged_scenario_info = false
   set_grid_size DEFAULT_GRID_SIZE
   set_origin DEFAULT_ORIGIN
+
 end
 
 Around('@stress') do |scenario, block|

@@ -38,7 +38,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/TurnInstructions.h"
 #include "../DataStructures/NodeBasedGraph.h"
 #include "../DataStructures/RestrictionMap.h"
-#include "../DataStructures/EdgeBasedNodeData.h"
 #include "GeometryCompressor.h"
 
 #include <algorithm>
@@ -49,7 +48,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-
 
 struct lua_State;
 
@@ -62,7 +60,6 @@ class EdgeBasedGraphFactory
     struct SpeedProfileProperties;
 
     explicit EdgeBasedGraphFactory(const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph,
-                                   const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph_origin,
                                    std::unique_ptr<RestrictionMap> restricion_map,
                                    std::vector<NodeID> &barrier_node_list,
                                    std::vector<NodeID> &traffic_light_node_list,
@@ -77,9 +74,7 @@ class EdgeBasedGraphFactory
 
     void GetEdgeBasedNodes(std::vector<EdgeBasedNode> &nodes);
 
-    void GetEdgeBasedNodeData(osrm::NodeDataVectorT &data);
-
-    TurnInstruction AnalyzeTurn(const NodeID u, const NodeID v, const NodeID w, double angle) const;
+    TurnInstruction AnalyzeTurn(const NodeID u, const NodeID v, const NodeID w, const double angle) const;
 
     int GetTurnPenalty(double angle, lua_State *lua_state) const;
 
@@ -88,17 +83,17 @@ class EdgeBasedGraphFactory
     struct SpeedProfileProperties
     {
         SpeedProfileProperties()
-            : trafficSignalPenalty(0), uTurnPenalty(0), has_turn_penalty_function(false)
+            : traffic_signal_penalty(0), u_turn_penalty(0), has_turn_penalty_function(false)
         {
         }
 
-        int trafficSignalPenalty;
-        int uTurnPenalty;
+        int traffic_signal_penalty;
+        int u_turn_penalty;
         bool has_turn_penalty_function;
     } speed_profile;
 
   private:
-    typedef NodeBasedDynamicGraph::EdgeData EdgeData;
+    using EdgeData = NodeBasedDynamicGraph::EdgeData;
 
     unsigned m_number_of_edge_based_nodes;
 
@@ -107,18 +102,15 @@ class EdgeBasedGraphFactory
     DeallocatingVector<EdgeBasedEdge> m_edge_based_edge_list;
 
     std::shared_ptr<NodeBasedDynamicGraph> m_node_based_graph;
-    std::shared_ptr<NodeBasedDynamicGraph> m_node_based_graph_origin;
     std::unordered_set<NodeID> m_barrier_nodes;
     std::unordered_set<NodeID> m_traffic_lights;
 
     std::unique_ptr<RestrictionMap> m_restriction_map;
-    std::vector<osrm::NodeData> m_edge_based_node_data;
 
     GeometryCompressor m_geometry_compressor;
 
     void CompressGeometry();
     void RenumberEdges();
-    void GenerateEdgeBasedNodeData();
     void GenerateEdgeExpandedNodes();
     void GenerateEdgeExpandedEdges(const std::string &original_edge_data_filename,
                                    lua_State *lua_state);
@@ -128,7 +120,7 @@ class EdgeBasedGraphFactory
     void FlushVectorToStream(std::ofstream &edge_data_file,
                              std::vector<OriginalEdgeData> &original_edge_data_vector) const;
 
-    unsigned max_id;
+    NodeID max_id;
 };
 
 #endif /* EDGEBASEDGRAPHFACTORY_H_ */

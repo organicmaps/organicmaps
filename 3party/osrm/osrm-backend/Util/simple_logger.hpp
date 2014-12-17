@@ -1,4 +1,5 @@
 /*
+
 Copyright (c) 2013, Project OSRM, Dennis Luxen, others
 All rights reserved.
 
@@ -24,16 +25,50 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#ifndef __NUMERIC_UTIL_H__
-#define __NUMERIC_UTIL_H__
+#ifndef SIMPLE_LOGGER_HPP
+#define SIMPLE_LOGGER_HPP
 
-#include <cstdlib>
+#include <atomic>
+#include <mutex>
+#include <sstream>
 
-#include <limits>
-
-template <typename FloatT> inline bool EpsilonCompare(const FloatT d1, const FloatT d2)
+enum LogLevel
 {
-    return (std::abs(d1 - d2) < std::numeric_limits<FloatT>::epsilon());
-}
+    logINFO,
+    logWARNING,
+    logDEBUG
+};
 
-#endif
+class LogPolicy
+{
+  public:
+    void Unmute();
+
+    void Mute();
+
+    bool IsMute() const;
+
+    static LogPolicy &GetInstance();
+
+    LogPolicy(const LogPolicy &) = delete;
+
+  private:
+    LogPolicy() : m_is_mute(true) {}
+    std::atomic<bool> m_is_mute;
+};
+
+class SimpleLogger
+{
+  public:
+    SimpleLogger();
+
+    virtual ~SimpleLogger();
+    std::mutex &get_mutex();
+    std::ostringstream &Write(LogLevel l = logINFO);
+
+  private:
+    LogLevel level;
+    std::ostringstream os;
+};
+
+#endif /* SIMPLE_LOGGER_HPP */

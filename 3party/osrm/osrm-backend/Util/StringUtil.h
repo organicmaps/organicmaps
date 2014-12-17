@@ -29,13 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define STRINGUTIL_H
 
 #include <boost/algorithm/string.hpp>
-#include <boost/spirit/include/karma.hpp>
-#include <boost/spirit/include/qi.hpp>
 
 #include <cstdio>
 #include <cctype>
 #include <string>
-#include <type_traits>
 #include <vector>
 
 // precision:  position after decimal point
@@ -72,151 +69,6 @@ template <int length, int precision> static inline char *printInt(char *buffer, 
         *buffer = '-';
     }
     return buffer;
-}
-
-// convert scoped enums to integers
-template <typename Enumeration>
-auto as_integer(Enumeration const value)
-    -> typename std::underlying_type<Enumeration>::type
-{
-    return static_cast<typename std::underlying_type<Enumeration>::type>(value);
-}
-
-static inline std::string IntToString(const int value)
-{
-    std::string output;
-    std::back_insert_iterator<std::string> sink(output);
-    boost::spirit::karma::generate(sink, boost::spirit::karma::int_, value);
-    return output;
-}
-
-static inline std::string UintToString(const unsigned value)
-{
-    std::string output;
-    std::back_insert_iterator<std::string> sink(output);
-    boost::spirit::karma::generate(sink, boost::spirit::karma::uint_, value);
-    return output;
-}
-
-static inline void int64ToString(const int64_t value, std::string &output)
-{
-    output.clear();
-    std::back_insert_iterator<std::string> sink(output);
-    boost::spirit::karma::generate(sink, boost::spirit::karma::long_long, value);
-}
-
-static inline int StringToInt(const std::string &input)
-{
-    auto first_digit = input.begin();
-    // Delete any trailing white-spaces
-    while (first_digit != input.end() && std::isspace(*first_digit))
-    {
-        ++first_digit;
-    }
-    int value = 0;
-    boost::spirit::qi::parse(first_digit, input.end(), boost::spirit::int_, value);
-    return value;
-}
-
-static inline unsigned StringToUint(const std::string &input)
-{
-    auto first_digit = input.begin();
-    // Delete any trailing white-spaces
-    while (first_digit != input.end() && (std::isspace(*first_digit) || '-' == *first_digit))
-    {
-        ++first_digit;
-    }
-    unsigned value = 0;
-    boost::spirit::qi::parse(first_digit, input.end(), boost::spirit::uint_, value);
-    return value;
-}
-
-static inline uint64_t StringToInt64(const std::string &input)
-{
-    auto first_digit = input.begin();
-    // Delete any trailing white-spaces
-    while (first_digit != input.end() && std::isspace(*first_digit))
-    {
-        ++first_digit;
-    }
-    uint64_t value = 0;
-    boost::spirit::qi::parse(first_digit, input.end(), boost::spirit::long_long, value);
-    return value;
-}
-
-// source: http://tinodidriksen.com/2011/05/28/cpp-convert-string-to-double-speed/
-static inline double StringToDouble(const char *p)
-{
-    double r = 0.0;
-    bool neg = false;
-    if (*p == '-')
-    {
-        neg = true;
-        ++p;
-    }
-    while (*p >= '0' && *p <= '9')
-    {
-        r = (r * 10.0) + (*p - '0');
-        ++p;
-    }
-    if (*p == '.')
-    {
-        double f = 0.0;
-        int n = 0;
-        ++p;
-        while (*p >= '0' && *p <= '9')
-        {
-            f = (f * 10.0) + (*p - '0');
-            ++p;
-            ++n;
-        }
-        r += f / std::pow(10.0, n);
-    }
-    if (neg)
-    {
-        r = -r;
-    }
-    return r;
-}
-
-template <typename T>
-struct scientific_policy : boost::spirit::karma::real_policies<T>
-{
-    //  we want the numbers always to be in fixed format
-    static int floatfield(T n) { return boost::spirit::karma::real_policies<T>::fmtflags::fixed; }
-    static unsigned int precision(T) { return 6; }
-};
-typedef
-boost::spirit::karma::real_generator<double, scientific_policy<double> >
-science_type;
-
-static inline std::string FixedDoubleToString(const double value)
-{
-    std::string output;
-    std::back_insert_iterator<std::string> sink(output);
-    boost::spirit::karma::generate(sink, science_type(), value);
-    if (output.size() >= 2 && output[output.size()-2] == '.' && output[output.size()-1] == '0')
-    {
-        output.resize(output.size()-2);
-    }
-    return output;
-}
-
-static inline std::string DoubleToString(const double value)
-{
-    std::string output;
-    std::back_insert_iterator<std::string> sink(output);
-    boost::spirit::karma::generate(sink, value);
-    return output;
-}
-
-static inline void doubleToStringWithTwoDigitsBehindComma(const double value, std::string &output)
-{
-    // The largest 32-bit integer is 4294967295, that is 10 chars
-    // On the safe side, add 1 for sign, and 1 for trailing zero
-    char buffer[12];
-    sprintf(buffer, "%g", value);
-    output = buffer;
 }
 
 inline void replaceAll(std::string &s, const std::string &sub, const std::string &other)
@@ -265,8 +117,8 @@ inline std::string EscapeJSONString(const std::string &input)
 }
 
 static std::string originals[] = {"&", "\"", "<", ">", "'", "[", "]", "\\"};
-static std::string entities[] = {"&amp;", "&quot;", "&lt;", "&gt;",
-                                 "&#39;", "&91;",   "&93;", " &#92;"};
+static std::string entities[] = {
+    "&amp;", "&quot;", "&lt;", "&gt;", "&#39;", "&91;", "&93;", " &#92;"};
 
 inline std::size_t URIDecode(const std::string &input, std::string &output)
 {
@@ -294,6 +146,7 @@ inline std::size_t URIDecode(const std::string &input, std::string &output)
 
 inline std::size_t URIDecodeInPlace(std::string &URI) { return URIDecode(URI, URI); }
 
+// TODO: remove after switch to libosmium
 inline bool StringStartsWith(const std::string &input, const std::string &prefix)
 {
     return boost::starts_with(input, prefix);

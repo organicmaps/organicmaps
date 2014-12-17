@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/ImportNode.h"
 #include "../Util/LuaUtil.h"
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../typedefs.h"
 
 #include <sstream>
@@ -76,16 +76,17 @@ void ScriptingEnvironment::initLuaState(lua_State* lua_state)
         // .def(luabind::constructor<>())
         .def_readonly("id", &ExtractionWay::id)
         .def_readwrite("name", &ExtractionWay::name)
-        .def_readwrite("speed", &ExtractionWay::speed)
+        .def_readwrite("forward_speed", &ExtractionWay::forward_speed)
         .def_readwrite("backward_speed", &ExtractionWay::backward_speed)
         .def_readwrite("duration", &ExtractionWay::duration)
-        .def_readwrite("type", &ExtractionWay::type)
         .def_readwrite("access", &ExtractionWay::access)
         .def_readwrite("roundabout", &ExtractionWay::roundabout)
         .def_readwrite("is_access_restricted", &ExtractionWay::isAccessRestricted)
         .def_readwrite("ignore_in_grid", &ExtractionWay::ignoreInGrid)
         .def_readwrite("tags", &ExtractionWay::keyVals)
-        .def_readwrite("direction", &ExtractionWay::direction)
+        .property("direction", &ExtractionWay::get_direction, &ExtractionWay::set_direction)
+        .property("forward_mode", &ExtractionWay::get_forward_mode, &ExtractionWay::set_forward_mode)
+        .property("backward_mode", &ExtractionWay::get_backward_mode, &ExtractionWay::set_backward_mode)
         .enum_("constants")[
             luabind::value("notSure", 0),
             luabind::value("oneway", 1),

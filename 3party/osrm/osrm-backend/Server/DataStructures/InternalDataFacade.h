@@ -42,7 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../../Util/BoostFileSystemFix.h"
 #include "../../Util/GraphLoader.h"
 #include "../../Util/ProgramOptions.h"
-#include "../../Util/SimpleLogger.h"
+#include "../../Util/simple_logger.hpp"
 
 #include <osrm/Coordinate.h>
 
@@ -66,13 +66,14 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
     ShM<NodeID, false>::vector m_via_node_list;
     ShM<unsigned, false>::vector m_name_ID_list;
     ShM<TurnInstruction, false>::vector m_turn_instruction_list;
+    ShM<TravelMode, false>::vector m_travel_mode_list;
     ShM<char, false>::vector m_names_char_list;
-    ShM<bool, false>::vector m_egde_is_compressed;
+    ShM<bool, false>::vector m_edge_is_compressed;
     ShM<unsigned, false>::vector m_geometry_indices;
     ShM<unsigned, false>::vector m_geometry_list;
 
-    boost::thread_specific_ptr<StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, false>::vector, false>>
-    m_static_rtree;
+    boost::thread_specific_ptr<
+        StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, false>::vector, false>> m_static_rtree;
     boost::filesystem::path ram_index_path;
     boost::filesystem::path file_index_path;
     RangeTable<16, false> m_name_table;
@@ -145,7 +146,8 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
         m_via_node_list.resize(number_of_edges);
         m_name_ID_list.resize(number_of_edges);
         m_turn_instruction_list.resize(number_of_edges);
-        m_egde_is_compressed.resize(number_of_edges);
+        m_travel_mode_list.resize(number_of_edges);
+        m_edge_is_compressed.resize(number_of_edges);
 
         unsigned compressed = 0;
 
@@ -156,8 +158,9 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
             m_via_node_list[i] = current_edge_data.via_node;
             m_name_ID_list[i] = current_edge_data.name_id;
             m_turn_instruction_list[i] = current_edge_data.turn_instruction;
-            m_egde_is_compressed[i] = current_edge_data.compressed_geometry;
-            if (m_egde_is_compressed[i])
+            m_travel_mode_list[i] = current_edge_data.travel_mode;
+            m_edge_is_compressed[i] = current_edge_data.compressed_geometry;
+            if (m_edge_is_compressed[i])
             {
                 ++compressed;
             }
@@ -199,8 +202,7 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
         BOOST_ASSERT_MSG(!m_coordinate_list->empty(), "coordinates must be loaded before r-tree");
 
         m_static_rtree.reset(
-            new StaticRTree<RTreeLeaf>(ram_index_path, file_index_path, m_coordinate_list)
-        );
+            new StaticRTree<RTreeLeaf>(ram_index_path, file_index_path, m_coordinate_list));
     }
 
     void LoadStreetNames(const boost::filesystem::path &names_file)
@@ -289,7 +291,7 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
         SimpleLogger().Write() << "loading graph data";
         AssertPathExists(hsgr_path);
         LoadGraph(hsgr_path);
-        SimpleLogger().Write() << "loading egde information";
+        SimpleLogger().Write() << "loading edge information";
         AssertPathExists(nodes_data_path);
         AssertPathExists(edges_data_path);
         LoadNodeAndEdgeInformation(nodes_data_path, edges_data_path);
@@ -307,59 +309,64 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
     }
 
     // search graph access
-    unsigned GetNumberOfNodes() const { return m_query_graph->GetNumberOfNodes(); }
+    unsigned GetNumberOfNodes() const final { return m_query_graph->GetNumberOfNodes(); }
 
-    unsigned GetNumberOfEdges() const { return m_query_graph->GetNumberOfEdges(); }
+    unsigned GetNumberOfEdges() const final { return m_query_graph->GetNumberOfEdges(); }
 
-    unsigned GetOutDegree(const NodeID n) const { return m_query_graph->GetOutDegree(n); }
+    unsigned GetOutDegree(const NodeID n) const final { return m_query_graph->GetOutDegree(n); }
 
-    NodeID GetTarget(const EdgeID e) const { return m_query_graph->GetTarget(e); }
+    NodeID GetTarget(const EdgeID e) const final { return m_query_graph->GetTarget(e); }
 
-    EdgeDataT &GetEdgeData(const EdgeID e) { return m_query_graph->GetEdgeData(e); }
+    // EdgeDataT &GetEdgeData(const EdgeID e) final { return m_query_graph->GetEdgeData(e); }
 
-    const EdgeDataT &GetEdgeData(const EdgeID e) const { return m_query_graph->GetEdgeData(e); }
+    EdgeDataT &GetEdgeData(const EdgeID e) const final { return m_query_graph->GetEdgeData(e); }
 
-    EdgeID BeginEdges(const NodeID n) const { return m_query_graph->BeginEdges(n); }
+    EdgeID BeginEdges(const NodeID n) const final { return m_query_graph->BeginEdges(n); }
 
-    EdgeID EndEdges(const NodeID n) const { return m_query_graph->EndEdges(n); }
+    EdgeID EndEdges(const NodeID n) const final { return m_query_graph->EndEdges(n); }
 
-    EdgeRange GetAdjacentEdgeRange(const NodeID node) const
+    EdgeRange GetAdjacentEdgeRange(const NodeID node) const final
     {
         return m_query_graph->GetAdjacentEdgeRange(node);
     };
 
     // searches for a specific edge
-    EdgeID FindEdge(const NodeID from, const NodeID to) const
+    EdgeID FindEdge(const NodeID from, const NodeID to) const final
     {
         return m_query_graph->FindEdge(from, to);
     }
 
-    EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const
+    EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const final
     {
         return m_query_graph->FindEdgeInEitherDirection(from, to);
     }
 
-    EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const
+    EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const final
     {
         return m_query_graph->FindEdgeIndicateIfReverse(from, to, result);
     }
 
     // node and edge information access
-    FixedPointCoordinate GetCoordinateOfNode(const unsigned id) const
+    FixedPointCoordinate GetCoordinateOfNode(const unsigned id) const final
     {
         return m_coordinate_list->at(id);
     };
 
-    bool EdgeIsCompressed(const unsigned id) const { return m_egde_is_compressed.at(id); }
+    bool EdgeIsCompressed(const unsigned id) const { return m_edge_is_compressed.at(id); }
 
-    TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const
+    TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const final
     {
         return m_turn_instruction_list.at(id);
     }
 
+    TravelMode GetTravelModeForEdgeID(const unsigned id) const
+    {
+      return m_travel_mode_list.at(id);
+    }
+
     bool LocateClosestEndPointForCoordinate(const FixedPointCoordinate &input_coordinate,
                                             FixedPointCoordinate &result,
-                                            const unsigned zoom_level = 18)
+                                            const unsigned zoom_level = 18) final
     {
         if (!m_static_rtree.get())
         {
@@ -372,7 +379,7 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
 
     bool FindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                       PhantomNode &resulting_phantom_node,
-                                      const unsigned zoom_level)
+                                      const unsigned zoom_level) final
     {
         if (!m_static_rtree.get())
         {
@@ -387,7 +394,7 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
     IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                             std::vector<PhantomNode> &resulting_phantom_node_vector,
                                             const unsigned zoom_level,
-                                            const unsigned number_of_results)
+                                            const unsigned number_of_results) final
     {
         if (!m_static_rtree.get())
         {
@@ -398,14 +405,14 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
             input_coordinate, resulting_phantom_node_vector, zoom_level, number_of_results);
     }
 
-    unsigned GetCheckSum() const { return m_check_sum; }
+    unsigned GetCheckSum() const final { return m_check_sum; }
 
-    unsigned GetNameIndexFromEdgeID(const unsigned id) const
+    unsigned GetNameIndexFromEdgeID(const unsigned id) const final
     {
         return m_name_ID_list.at(id);
     };
 
-    void GetName(const unsigned name_id, std::string &result) const
+    void GetName(const unsigned name_id, std::string &result) const final
     {
         if (UINT_MAX == name_id)
         {
@@ -424,13 +431,13 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
         }
     }
 
-    virtual unsigned GetGeometryIndexForEdgeID(const unsigned id) const
+    virtual unsigned GetGeometryIndexForEdgeID(const unsigned id) const final
     {
         return m_via_node_list.at(id);
     }
 
-    virtual void GetUncompressedGeometry(const unsigned id, std::vector<unsigned> &result_nodes)
-        const
+    virtual void GetUncompressedGeometry(const unsigned id,
+                                         std::vector<unsigned> &result_nodes) const final
     {
         const unsigned begin = m_geometry_indices.at(id);
         const unsigned end = m_geometry_indices.at(id + 1);
@@ -440,7 +447,7 @@ template <class EdgeDataT> class InternalDataFacade : public BaseDataFacade<Edge
             result_nodes.begin(), m_geometry_list.begin() + begin, m_geometry_list.begin() + end);
     }
 
-    std::string GetTimestamp() const { return m_timestamp; }
+    std::string GetTimestamp() const final { return m_timestamp; }
 };
 
 #endif // INTERNAL_DATA_FACADE

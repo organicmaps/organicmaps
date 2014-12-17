@@ -38,7 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../../DataStructures/StaticRTree.h"
 #include "../../Util/BoostFileSystemFix.h"
 #include "../../Util/ProgramOptions.h"
-#include "../../Util/SimpleLogger.h"
+#include "../../Util/make_unique.hpp"
+#include "../../Util/simple_logger.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -55,8 +56,9 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
     typedef typename RangeTable<16, true>::BlockT NameIndexBlock;
     typedef typename QueryGraph::InputEdge InputEdge;
     typedef typename super::RTreeLeaf RTreeLeaf;
-    typedef typename StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, true>::vector, true>::TreeNode
-    RTreeNode;
+    using SharedRTree = StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, true>::vector, true>;
+    using TimeStampedRTreePair = std::pair<unsigned, std::shared_ptr<SharedRTree>>;
+    using RTreeNode = typename SharedRTree::TreeNode;
 
     SharedDataLayout *data_layout;
     char *shared_memory;
@@ -67,24 +69,23 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
     unsigned CURRENT_TIMESTAMP;
 
     unsigned m_check_sum;
-    unsigned m_number_of_nodes;
-    std::shared_ptr<QueryGraph> m_query_graph;
-    std::shared_ptr<SharedMemory> m_layout_memory;
-    std::shared_ptr<SharedMemory> m_large_memory;
+    std::unique_ptr<QueryGraph> m_query_graph;
+    std::unique_ptr<SharedMemory> m_layout_memory;
+    std::unique_ptr<SharedMemory> m_large_memory;
     std::string m_timestamp;
 
     std::shared_ptr<ShM<FixedPointCoordinate, true>::vector> m_coordinate_list;
     ShM<NodeID, true>::vector m_via_node_list;
     ShM<unsigned, true>::vector m_name_ID_list;
     ShM<TurnInstruction, true>::vector m_turn_instruction_list;
+    ShM<TravelMode, true>::vector m_travel_mode_list;
     ShM<char, true>::vector m_names_char_list;
     ShM<unsigned, true>::vector m_name_begin_indices;
-    ShM<bool, true>::vector m_egde_is_compressed;
+    ShM<bool, true>::vector m_edge_is_compressed;
     ShM<unsigned, true>::vector m_geometry_indices;
     ShM<unsigned, true>::vector m_geometry_list;
 
-    boost::thread_specific_ptr<StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, true>::vector, true>>
-    m_static_rtree;
+    boost::thread_specific_ptr<std::pair<unsigned, std::shared_ptr<SharedRTree>>> m_static_rtree;
     boost::filesystem::path file_index_path;
 
     std::shared_ptr<RangeTable<16, true>> m_name_table;
@@ -112,18 +113,16 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
 
         RTreeNode *tree_ptr =
             data_layout->GetBlockPtr<RTreeNode>(shared_memory, SharedDataLayout::R_SEARCH_TREE);
-        m_static_rtree.reset(
-            new StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, true>::vector, true>(
+        m_static_rtree.reset(new TimeStampedRTreePair(CURRENT_TIMESTAMP,
+            osrm::make_unique<SharedRTree>(
                 tree_ptr,
                 data_layout->num_entries[SharedDataLayout::R_SEARCH_TREE],
                 file_index_path,
-                m_coordinate_list)
-        );
+                m_coordinate_list)));
     }
 
     void LoadGraph()
     {
-        m_number_of_nodes = data_layout->num_entries[SharedDataLayout::GRAPH_NODE_LIST];
         GraphNode *graph_nodes_ptr =
             data_layout->GetBlockPtr<GraphNode>(shared_memory, SharedDataLayout::GRAPH_NODE_LIST);
 
@@ -142,8 +141,15 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
 
         FixedPointCoordinate *coordinate_list_ptr = data_layout->GetBlockPtr<FixedPointCoordinate>(
             shared_memory, SharedDataLayout::COORDINATE_LIST);
-        m_coordinate_list = std::make_shared<ShM<FixedPointCoordinate, true>::vector>(
+        m_coordinate_list = osrm::make_unique<ShM<FixedPointCoordinate, true>::vector>(
             coordinate_list_ptr, data_layout->num_entries[SharedDataLayout::COORDINATE_LIST]);
+
+        TravelMode *travel_mode_list_ptr = data_layout->GetBlockPtr<TravelMode>(
+            shared_memory, SharedDataLayout::TRAVEL_MODE);
+        typename ShM<TravelMode, true>::vector travel_mode_list(
+            travel_mode_list_ptr,
+            data_layout->num_entries[SharedDataLayout::TRAVEL_MODE]);
+        m_travel_mode_list.swap(travel_mode_list);
 
         TurnInstruction *turn_instruction_list_ptr = data_layout->GetBlockPtr<TurnInstruction>(
             shared_memory, SharedDataLayout::TURN_INSTRUCTION);
@@ -183,8 +189,8 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
             data_layout->GetBlockPtr<char>(shared_memory, SharedDataLayout::NAME_CHAR_LIST);
         typename ShM<char, true>::vector names_char_list(
             names_list_ptr, data_layout->num_entries[SharedDataLayout::NAME_CHAR_LIST]);
-        m_name_table = std::make_shared<RangeTable<16, true>>(
-            name_offsets, name_blocks, names_char_list.size());
+        m_name_table = osrm::make_unique<RangeTable<16, true>>(
+            name_offsets, name_blocks, static_cast<unsigned>(names_char_list.size()));
 
         m_names_char_list.swap(names_char_list);
     }
@@ -193,10 +199,10 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
     {
         unsigned *geometries_compressed_ptr = data_layout->GetBlockPtr<unsigned>(
             shared_memory, SharedDataLayout::GEOMETRIES_INDICATORS);
-        typename ShM<bool, true>::vector egde_is_compressed(
+        typename ShM<bool, true>::vector edge_is_compressed(
             geometries_compressed_ptr,
             data_layout->num_entries[SharedDataLayout::GEOMETRIES_INDICATORS]);
-        m_egde_is_compressed.swap(egde_is_compressed);
+        m_edge_is_compressed.swap(edge_is_compressed);
 
         unsigned *geometries_index_ptr =
             data_layout->GetBlockPtr<unsigned>(shared_memory, SharedDataLayout::GEOMETRIES_INDEX);
@@ -218,7 +224,6 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
     {
         data_timestamp_ptr = (SharedDataTimestamp *)SharedMemoryFactory::Get(
                                  CURRENT_REGIONS, sizeof(SharedDataTimestamp), false, false)->Ptr();
-
         CURRENT_LAYOUT = LAYOUT_NONE;
         CURRENT_DATA = DATA_NONE;
         CURRENT_TIMESTAMP = 0;
@@ -271,7 +276,7 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
             SimpleLogger().Write() << "number of geometries: " << m_coordinate_list->size();
             for (unsigned i = 0; i < m_coordinate_list->size(); ++i)
             {
-                if(!GetCoordinateOfNode(i).isValid())
+                if (!GetCoordinateOfNode(i).isValid())
                 {
                     SimpleLogger().Write() << "coordinate " << i << " not valid";
                 }
@@ -280,55 +285,54 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
     }
 
     // search graph access
-    unsigned GetNumberOfNodes() const { return m_query_graph->GetNumberOfNodes(); }
+    unsigned GetNumberOfNodes() const final { return m_query_graph->GetNumberOfNodes(); }
 
-    unsigned GetNumberOfEdges() const { return m_query_graph->GetNumberOfEdges(); }
+    unsigned GetNumberOfEdges() const final { return m_query_graph->GetNumberOfEdges(); }
 
-    unsigned GetOutDegree(const NodeID n) const { return m_query_graph->GetOutDegree(n); }
+    unsigned GetOutDegree(const NodeID n) const final { return m_query_graph->GetOutDegree(n); }
 
-    NodeID GetTarget(const EdgeID e) const { return m_query_graph->GetTarget(e); }
+    NodeID GetTarget(const EdgeID e) const final { return m_query_graph->GetTarget(e); }
 
-    EdgeDataT &GetEdgeData(const EdgeID e) { return m_query_graph->GetEdgeData(e); }
+    EdgeDataT &GetEdgeData(const EdgeID e) const final { return m_query_graph->GetEdgeData(e); }
 
-    // const EdgeDataT &GetEdgeData( const EdgeID e ) const {
-    //     return m_query_graph->GetEdgeData(e);
-    // }
+    EdgeID BeginEdges(const NodeID n) const final { return m_query_graph->BeginEdges(n); }
 
-    EdgeID BeginEdges(const NodeID n) const { return m_query_graph->BeginEdges(n); }
+    EdgeID EndEdges(const NodeID n) const final { return m_query_graph->EndEdges(n); }
 
-    EdgeID EndEdges(const NodeID n) const { return m_query_graph->EndEdges(n); }
-
-    EdgeRange GetAdjacentEdgeRange(const NodeID node) const
+    EdgeRange GetAdjacentEdgeRange(const NodeID node) const final
     {
         return m_query_graph->GetAdjacentEdgeRange(node);
     };
 
     // searches for a specific edge
-    EdgeID FindEdge(const NodeID from, const NodeID to) const
+    EdgeID FindEdge(const NodeID from, const NodeID to) const final
     {
         return m_query_graph->FindEdge(from, to);
     }
 
-    EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const
+    EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const final
     {
         return m_query_graph->FindEdgeInEitherDirection(from, to);
     }
 
-    EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const
+    EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const final
     {
         return m_query_graph->FindEdgeIndicateIfReverse(from, to, result);
     }
 
     // node and edge information access
-    FixedPointCoordinate GetCoordinateOfNode(const NodeID id) const
+    FixedPointCoordinate GetCoordinateOfNode(const NodeID id) const final
     {
         return m_coordinate_list->at(id);
     };
 
-    virtual bool EdgeIsCompressed(const unsigned id) const { return m_egde_is_compressed.at(id); }
+    virtual bool EdgeIsCompressed(const unsigned id) const final
+    {
+        return m_edge_is_compressed.at(id);
+    }
 
-    virtual void GetUncompressedGeometry(const unsigned id, std::vector<unsigned> &result_nodes)
-        const
+    virtual void GetUncompressedGeometry(const unsigned id,
+                                         std::vector<unsigned> &result_nodes) const final
     {
         const unsigned begin = m_geometry_indices.at(id);
         const unsigned end = m_geometry_indices.at(id + 1);
@@ -338,39 +342,44 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
             result_nodes.begin(), m_geometry_list.begin() + begin, m_geometry_list.begin() + end);
     }
 
-    virtual unsigned GetGeometryIndexForEdgeID(const unsigned id) const
+    virtual unsigned GetGeometryIndexForEdgeID(const unsigned id) const final
     {
         return m_via_node_list.at(id);
     }
 
-    TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const
+    TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const final
     {
         return m_turn_instruction_list.at(id);
     }
 
+    TravelMode GetTravelModeForEdgeID(const unsigned id) const
+    {
+        return m_travel_mode_list.at(id);
+    }
+
     bool LocateClosestEndPointForCoordinate(const FixedPointCoordinate &input_coordinate,
                                             FixedPointCoordinate &result,
-                                            const unsigned zoom_level = 18)
+                                            const unsigned zoom_level = 18) final
     {
-        if (!m_static_rtree.get())
+        if (!m_static_rtree.get() || CURRENT_TIMESTAMP != m_static_rtree->first)
         {
             LoadRTree();
         }
 
-        return m_static_rtree->LocateClosestEndPointForCoordinate(
+        return m_static_rtree->second->LocateClosestEndPointForCoordinate(
             input_coordinate, result, zoom_level);
     }
 
     bool FindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                       PhantomNode &resulting_phantom_node,
-                                      const unsigned zoom_level)
+                                      const unsigned zoom_level) final
     {
-        if (!m_static_rtree.get())
+        if (!m_static_rtree.get() || CURRENT_TIMESTAMP != m_static_rtree->first)
         {
             LoadRTree();
         }
 
-        return m_static_rtree->FindPhantomNodeForCoordinate(
+        return m_static_rtree->second->FindPhantomNodeForCoordinate(
             input_coordinate, resulting_phantom_node, zoom_level);
     }
 
@@ -378,25 +387,25 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
     IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                             std::vector<PhantomNode> &resulting_phantom_node_vector,
                                             const unsigned zoom_level,
-                                            const unsigned number_of_results)
+                                            const unsigned number_of_results) final
     {
-        if (!m_static_rtree.get())
+        if (!m_static_rtree.get() || CURRENT_TIMESTAMP != m_static_rtree->first)
         {
             LoadRTree();
         }
 
-        return m_static_rtree->IncrementalFindPhantomNodeForCoordinate(
+        return m_static_rtree->second->IncrementalFindPhantomNodeForCoordinate(
             input_coordinate, resulting_phantom_node_vector, zoom_level, number_of_results);
     }
 
-    unsigned GetCheckSum() const { return m_check_sum; }
+    unsigned GetCheckSum() const final { return m_check_sum; }
 
-    unsigned GetNameIndexFromEdgeID(const unsigned id) const
+    unsigned GetNameIndexFromEdgeID(const unsigned id) const final
     {
         return m_name_ID_list.at(id);
     };
 
-    void GetName(const unsigned name_id, std::string &result) const
+    void GetName(const unsigned name_id, std::string &result) const final
     {
         if (UINT_MAX == name_id)
         {
@@ -415,7 +424,7 @@ template <class EdgeDataT> class SharedDataFacade : public BaseDataFacade<EdgeDa
         }
     }
 
-    std::string GetTimestamp() const { return m_timestamp; }
+    std::string GetTimestamp() const final { return m_timestamp; }
 };
 
 #endif // SHARED_DATA_FACADE_H

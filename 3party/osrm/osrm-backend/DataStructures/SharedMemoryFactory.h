@@ -29,21 +29,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define SHARED_MEMORY_FACTORY_H
 
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/interprocess/mapped_region.hpp>
-#if !defined(WIN32) && !defined(__ANDROID__)
+#ifndef WIN32
 #include <boost/interprocess/xsi_shared_memory.hpp>
 #else
 #include <boost/interprocess/shared_memory_object.hpp>
 #endif
 
-//#ifdef __linux__
-//#include <sys/ipc.h>
-//#include <sys/shm.h>
-//#endif
+#ifdef __linux__
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#endif
 
 // #include <cstring>
 #include <cstdint>
@@ -61,7 +61,7 @@ struct OSRMLockFile
     }
 };
 
-#if !defined(WIN32) && !defined(__ANDROID__)
+#ifndef WIN32
 class SharedMemory
 {
 
@@ -196,12 +196,14 @@ class SharedMemory
 };
 #else
 // Windows - specific code
-class SharedMemory : boost::noncopyable
+class SharedMemory
 {
+    SharedMemory(const SharedMemory&) = delete;
     // Remove shared memory on destruction
-    class shm_remove : boost::noncopyable
+    class shm_remove
     {
       private:
+        shm_remove(const shm_remove&) = delete;
         char *m_shmid;
         bool m_initialized;
 
@@ -286,7 +288,6 @@ class SharedMemory : boost::noncopyable
   private:
     static void build_key(int id, char *key)
     {
-        OSRMLockFile lock_file;
         sprintf(key, "%s.%d", "osrm.lock", id);
     }
 
@@ -365,6 +366,6 @@ template <class LockFileT = OSRMLockFile> class SharedMemoryFactory_tmpl
     SharedMemoryFactory_tmpl(const SharedMemoryFactory_tmpl &) = delete;
 };
 
-typedef SharedMemoryFactory_tmpl<> SharedMemoryFactory;
+using SharedMemoryFactory = SharedMemoryFactory_tmpl<>;
 
 #endif /* SHARED_MEMORY_POINTER_FACTORY_H */

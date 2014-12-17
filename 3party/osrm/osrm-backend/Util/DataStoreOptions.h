@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "GitDescription.h"
 #include "IniFileUtil.h"
 #include "OSRMException.h"
-#include "SimpleLogger.h"
+#include "simple_logger.hpp"
 
 #include <osrm/ServerPaths.h>
 
@@ -43,7 +43,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 
 // generate boost::program_options object for the routing part
-inline bool GenerateDataStoreOptions(const int argc, const char *argv[], ServerPaths &paths, bool & springclean)
+bool GenerateDataStoreOptions(const int argc, const char *argv[], ServerPaths &paths)
 {
     // declare a group of options that will be allowed only on command line
     boost::program_options::options_description generic_options("Options");
@@ -122,11 +122,6 @@ inline bool GenerateDataStoreOptions(const int argc, const char *argv[], ServerP
         return false;
     }
 
-    if (option_variables.count("springclean"))
-    {
-        springclean = true;
-        return true;
-    }
     boost::program_options::notify(option_variables);
 
     const bool parameter_present = (paths.find("hsgrdata") != paths.end() &&

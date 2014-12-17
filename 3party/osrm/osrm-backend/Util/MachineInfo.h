@@ -33,7 +33,7 @@ enum Endianness
   BigEndian = 2 };
 
 // Function is optimized to a single 'mov eax,1' on GCC, clang and icc using -O3
-inline Endianness GetMachineEndianness()
+Endianness GetMachineEndianness()
 {
     int i(1);
     char *p = (char *)&i;
@@ -45,7 +45,7 @@ inline Endianness GetMachineEndianness()
 }
 
 // Reverses Network Byte Order into something usable, compiles down to a bswap-mov combination
-inline unsigned SwapEndian(unsigned x)
+unsigned SwapEndian(unsigned x)
 {
     if (GetMachineEndianness() == LittleEndian)
     {

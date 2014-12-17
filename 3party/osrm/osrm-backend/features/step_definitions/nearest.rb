@@ -1,7 +1,7 @@
 When /^I request nearest I should get$/ do |table|
   reprocess
   actual = []
-  OSRMBackgroundLauncher.new("#{@osm_file}.osrm") do
+  OSRMLoader.load(self,"#{prepared_file}.osrm") do
     table.hashes.each_with_index do |row,ri|
       in_node = find_node_by_name row['in']
       raise "*** unknown in-node '#{row['in']}" unless in_node

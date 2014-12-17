@@ -46,7 +46,7 @@ class DouglasPeucker
   private:
     std::vector<int> douglas_peucker_thresholds;
 
-    typedef std::pair<unsigned, unsigned> GeometryRange;
+    using GeometryRange = std::pair<unsigned, unsigned>;
     // Stack to simulate the recursion
     std::stack<GeometryRange> recursion_stack;
 

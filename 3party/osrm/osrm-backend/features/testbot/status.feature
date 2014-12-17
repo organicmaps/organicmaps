@@ -1,4 +1,4 @@
-@routing @status
+@routing @status @testbot
 Feature: Status messages
 
     Background:

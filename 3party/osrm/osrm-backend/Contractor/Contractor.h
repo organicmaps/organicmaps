@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/Range.h"
 #include "../DataStructures/XORFastHash.h"
 #include "../DataStructures/XORFastHashStorage.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
 #include "../typedefs.h"
@@ -92,19 +92,18 @@ class Contractor
         ContractorHeapData(short h, bool t) : hop(h), target(t) {}
     };
 
-    typedef DynamicGraph<ContractorEdgeData> ContractorGraph;
-    //    typedef BinaryHeap< NodeID, NodeID, int, ContractorHeapData, ArrayStorage<NodeID, NodeID>
-    //    > ContractorHeap;
-    typedef BinaryHeap<NodeID, NodeID, int, ContractorHeapData, XORFastHashStorage<NodeID, NodeID>>
-    ContractorHeap;
-    typedef ContractorGraph::InputEdge ContractorEdge;
+    using ContractorGraph = DynamicGraph<ContractorEdgeData>;
+    //    using ContractorHeap = BinaryHeap<NodeID, NodeID, int, ContractorHeapData, ArrayStorage<NodeID, NodeID>
+    //    >;
+    using ContractorHeap = BinaryHeap<NodeID, NodeID, int, ContractorHeapData, XORFastHashStorage<NodeID, NodeID>>;
+    using ContractorEdge = ContractorGraph::InputEdge;
 
     struct ContractorThreadData
     {
         ContractorHeap heap;
         std::vector<ContractorEdge> inserted_edges;
         std::vector<NodeID> neighbours;
-        ContractorThreadData(NodeID nodes) : heap(nodes) {}
+        explicit ContractorThreadData(NodeID nodes) : heap(nodes) {}
     };
 
     struct NodePriorityData
@@ -136,7 +135,7 @@ class Contractor
 
     struct ThreadDataContainer
     {
-        ThreadDataContainer(int number_of_nodes) : number_of_nodes(number_of_nodes)  {}
+        explicit ThreadDataContainer(int number_of_nodes) : number_of_nodes(number_of_nodes)  {}
 
         inline ContractorThreadData* getThreadData()
         {
@@ -151,7 +150,7 @@ class Contractor
         }
 
         int number_of_nodes;
-        typedef tbb::enumerable_thread_specific<std::shared_ptr<ContractorThreadData>> EnumerableThreadData;
+        using EnumerableThreadData = tbb::enumerable_thread_specific<std::shared_ptr<ContractorThreadData>>;
         EnumerableThreadData data;
     };
 

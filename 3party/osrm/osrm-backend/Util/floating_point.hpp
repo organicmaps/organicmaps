@@ -1,5 +1,4 @@
 /*
-
 Copyright (c) 2013, Project OSRM, Dennis Luxen, others
 All rights reserved.
 
@@ -25,25 +24,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#ifndef SERVER_FACTORY_H
-#define SERVER_FACTORY_H
+#ifndef FLOATING_POINT_HPP
+#define FLOATING_POINT_HPP
 
-#include "Server.h"
-#include "../Util/SimpleLogger.h"
+#include <cmath>
 
-#include <zlib.h>
+#include <limits>
+#include <type_traits>
 
-struct ServerFactory
+namespace osrm
 {
-    ServerFactory() = delete;
-    ServerFactory(const ServerFactory &) = delete;
-    static Server *CreateServer(std::string &ip_address, int ip_port, unsigned requested_num_threads)
-    {
-        SimpleLogger().Write() << "http 1.1 compression handled by zlib version " << zlibVersion();
-        const unsigned hardware_threads = std::max(1u, std::thread::hardware_concurrency());
-        const unsigned real_num_threads = std::min(hardware_threads, requested_num_threads);
-        return new Server(ip_address, ip_port, real_num_threads);
-    }
-};
+template <typename FloatT> bool epsilon_compare(const FloatT number1, const FloatT number2)
+{
+    static_assert(std::is_floating_point<FloatT>::value, "type must be floating point");
+    return (std::abs(number1 - number2) < std::numeric_limits<FloatT>::epsilon());
+}
+}
 
-#endif // SERVER_FACTORY_H
+#endif // FLOATING_POINT_HPP

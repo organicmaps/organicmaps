@@ -46,24 +46,21 @@ bool NodeBasedEdge::operator<(const NodeBasedEdge &other) const
     return source < other.source;
 }
 
-NodeBasedEdge::NodeBasedEdge(unsigned way_id,
-                             NodeID source,
+NodeBasedEdge::NodeBasedEdge(NodeID source,
                              NodeID target,
                              NodeID name_id,
                              EdgeWeight weight,
                              bool forward,
                              bool backward,
-                             short type,
                              bool roundabout,
                              bool in_tiny_cc,
                              bool access_restricted,
-                             bool contra_flow,
+                             TravelMode travel_mode,
                              bool is_split)
-    : way_id(way_id), source(source), target(target), name_id(name_id), weight(weight), type(type),
+    : source(source), target(target), name_id(name_id), weight(weight),
       forward(forward), backward(backward), roundabout(roundabout), in_tiny_cc(in_tiny_cc),
-      access_restricted(access_restricted), contra_flow(contra_flow), is_split(is_split)
+      access_restricted(access_restricted), is_split(is_split), travel_mode(travel_mode)
 {
-    BOOST_ASSERT_MSG(type > 0, "negative edge type");
 }
 
 bool EdgeBasedEdge::operator<(const EdgeBasedEdge &other) const

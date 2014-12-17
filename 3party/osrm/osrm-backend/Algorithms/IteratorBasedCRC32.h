@@ -28,44 +28,59 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef ITERATOR_BASED_CRC32_H
 #define ITERATOR_BASED_CRC32_H
 
-#include "../Util/SimpleLogger.h"
-
-#include <iostream>
-
 #if defined(__x86_64__) && !defined(__MINGW64__)
 #include <cpuid.h>
-#else
+#endif
+
 #include <boost/crc.hpp> // for boost::crc_32_type
 
-inline void __get_cpuid(int param, unsigned *eax, unsigned *ebx, unsigned *ecx, unsigned *edx)
+#include <iterator>
+
+class IteratorbasedCRC32
 {
-    *ecx = 0;
-}
-#endif
+  public:
+    bool using_hardware() const { return use_hardware_implementation; }
 
-template <class ContainerT> class IteratorbasedCRC32
-{
-  private:
-    typedef typename ContainerT::iterator IteratorType;
-    unsigned crc;
+    IteratorbasedCRC32() : crc(0) { use_hardware_implementation = detect_hardware_support(); }
 
-    bool use_SSE42_CRC_function;
-
-#if !defined(__x86_64__)
-    boost::crc_optimal<32, 0x1EDC6F41, 0x0, 0x0, true, true> CRC32_processor;
-#endif
-    unsigned SoftwareBasedCRC32(char *str, unsigned len)
+    template <class Iterator> unsigned operator()(Iterator iter, const Iterator end)
     {
-#if !defined(__x86_64__)
-        CRC32_processor.process_bytes(str, len);
-        return CRC32_processor.checksum();
-#else
-        return 0;
-#endif
+        unsigned crc = 0;
+        while (iter != end)
+        {
+            using value_type = typename std::iterator_traits<Iterator>::value_type;
+            char *data = (char *)(&(*iter));
+
+            if (use_hardware_implementation)
+            {
+                crc = compute_in_hardware(data, sizeof(value_type));
+            }
+            else
+            {
+                crc = compute_in_software(data, sizeof(value_type));
+            }
+            ++iter;
+        }
+        return crc;
+    }
+
+  private:
+    bool detect_hardware_support() const
+    {
+        static const int sse42_bit = 0x00100000;
+        const unsigned ecx = cpuid();
+        const bool sse42_found = (ecx & sse42_bit) != 0;
+        return sse42_found;
+    }
+
+    unsigned compute_in_software(char *str, unsigned len)
+    {
+        crc_processor.process_bytes(str, len);
+        return crc_processor.checksum();
     }
 
     // adapted from http://byteworm.com/2010/10/13/crc32/
-    unsigned SSE42BasedCRC32(char *str, unsigned len)
+    unsigned compute_in_hardware(char *str, unsigned len)
     {
 #if defined(__x86_64__)
         unsigned q = len / sizeof(unsigned);
@@ -101,44 +116,31 @@ template <class ContainerT> class IteratorbasedCRC32
         return ecx;
     }
 
-    bool DetectNativeCRC32Support()
+#if defined(__MINGW64__) || defined(_MSC_VER)
+    inline void
+    __get_cpuid(int param, unsigned *eax, unsigned *ebx, unsigned *ecx, unsigned *edx) const
     {
-        static const int SSE42_BIT = 0x00100000;
-        const unsigned ecx = cpuid();
-        const bool has_SSE42 = (ecx & SSE42_BIT) != 0;
-        if (has_SSE42)
-        {
-            SimpleLogger().Write() << "using hardware based CRC32 computation";
-        }
-        else
-        {
-            SimpleLogger().Write() << "using software based CRC32 computation";
-        }
-        return has_SSE42;
+        *ecx = 0;
+    }
+#endif
+
+    boost::crc_optimal<32, 0x1EDC6F41, 0x0, 0x0, true, true> crc_processor;
+    unsigned crc;
+    bool use_hardware_implementation;
+};
+
+struct RangebasedCRC32
+{
+    template<typename Iteratable>
+    unsigned operator()(const Iteratable &iterable)
+    {
+        return crc32(std::begin(iterable), std::end(iterable));
     }
 
-  public:
-    IteratorbasedCRC32() : crc(0) { use_SSE42_CRC_function = DetectNativeCRC32Support(); }
+    bool using_hardware() const { return crc32.using_hardware(); }
 
-    unsigned operator()(IteratorType iter, const IteratorType end)
-    {
-        unsigned crc = 0;
-        while (iter != end)
-        {
-            char *data = reinterpret_cast<char *>(&(*iter));
-
-            if (use_SSE42_CRC_function)
-            {
-                crc = SSE42BasedCRC32(data, sizeof(typename ContainerT::value_type));
-            }
-            else
-            {
-                crc = SoftwareBasedCRC32(data, sizeof(typename ContainerT::value_type));
-            }
-            ++iter;
-        }
-        return crc;
-    }
+  private:
+    IteratorbasedCRC32 crc32;
 };
 
 #endif /* ITERATOR_BASED_CRC32_H */

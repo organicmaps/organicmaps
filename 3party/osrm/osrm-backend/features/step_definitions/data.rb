@@ -158,3 +158,19 @@ Given /^the data has been prepared$/ do
     @process_error = e
   end
 end
+
+Given /^osrm\-routed is stopped$/ do
+  begin
+    OSRMLoader.shutdown
+  rescue OSRMError => e
+    @process_error = e
+  end
+end
+
+Given /^data is loaded directly/ do
+  @load_method = 'directly'
+end
+
+Given /^data is loaded with datastore$/ do
+  @load_method = 'datastore'
+end

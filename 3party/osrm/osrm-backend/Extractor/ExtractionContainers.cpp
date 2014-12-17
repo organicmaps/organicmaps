@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ExtractionContainers.h"
 #include "ExtractionWay.h"
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../Util/TimingUtil.h"
 #include "../DataStructures/RangeTable.h"
 
@@ -330,7 +330,6 @@ void ExtractionContainers::PrepareData(const std::string &output_file_name,
                 edge_iterator->source_coordinate.lon != std::numeric_limits<int>::min())
             {
                 BOOST_ASSERT(edge_iterator->speed != -1);
-                BOOST_ASSERT(edge_iterator->type >= 0);
                 edge_iterator->target_coordinate.lat = node_iterator->lat;
                 edge_iterator->target_coordinate.lon = node_iterator->lon;
 
@@ -349,7 +348,6 @@ void ExtractionContainers::PrepareData(const std::string &output_file_name,
                 short zero = 0;
                 short one = 1;
 
-                file_out_stream.write((char *)&edge_iterator->way_id, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->start, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->target, sizeof(unsigned));
                 file_out_stream.write((char *)&integer_distance, sizeof(int));
@@ -372,14 +370,16 @@ void ExtractionContainers::PrepareData(const std::string &output_file_name,
                 }
 
                 file_out_stream.write((char *)&integer_weight, sizeof(int));
-                file_out_stream.write((char *)&edge_iterator->type, sizeof(short));
                 file_out_stream.write((char *)&edge_iterator->name_id, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->is_roundabout, sizeof(bool));
                 file_out_stream.write((char *)&edge_iterator->is_in_tiny_cc, sizeof(bool));
                 file_out_stream.write((char *)&edge_iterator->is_access_restricted, sizeof(bool));
-                file_out_stream.write((char *)&edge_iterator->is_contra_flow, sizeof(bool));
-                file_out_stream.write((char *)&edge_iterator->is_split, sizeof(bool));
 
+                // cannot take adress of bit field, so use local
+                const TravelMode  travel_mode = edge_iterator->travel_mode;
+                file_out_stream.write((char *)&travel_mode, sizeof(TravelMode));
+
+                file_out_stream.write((char *)&edge_iterator->is_split, sizeof(bool));
                 ++number_of_used_edges;
             }
             ++edge_iterator;

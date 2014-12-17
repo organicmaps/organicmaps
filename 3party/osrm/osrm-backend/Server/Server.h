@@ -28,13 +28,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "../Util/StringUtil.h"
-
 #include "Connection.h"
 #include "RequestHandler.h"
 
+#include "../Util/cast.hpp"
+#include "../Util/make_unique.hpp"
+#include "../Util/simple_logger.hpp"
+
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+
+#include <zlib.h>
 
 #include <functional>
 #include <memory>
@@ -44,11 +48,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class Server
 {
   public:
+
+    // Note: returns a shared instead of a unique ptr as it is captured in a lambda somewhere else
+    static std::shared_ptr<Server> CreateServer(std::string &ip_address, int ip_port, unsigned requested_num_threads)
+    {
+        SimpleLogger().Write() << "http 1.1 compression handled by zlib version " << zlibVersion();
+        const unsigned hardware_threads = std::max(1u, std::thread::hardware_concurrency());
+        const unsigned real_num_threads = std::min(hardware_threads, requested_num_threads);
+        return std::make_shared<Server>(ip_address, ip_port, real_num_threads);
+    }
+
     explicit Server(const std::string &address, const int port, const unsigned thread_pool_size)
         : thread_pool_size(thread_pool_size), acceptor(io_service),
-          new_connection(new http::Connection(io_service, request_handler)), request_handler()
+          new_connection(std::make_shared<http::Connection>(io_service, request_handler)), request_handler()
     {
-        const std::string port_string = IntToString(port);
+        const std::string port_string = cast::integral_to_string(port);
 
         boost::asio::ip::tcp::resolver resolver(io_service);
         boost::asio::ip::tcp::resolver::query query(address, port_string);
@@ -63,9 +77,6 @@ class Server
             boost::bind(&Server::HandleAccept, this, boost::asio::placeholders::error));
     }
 
-    // Server() = delete;
-    // Server(const Server &) = delete;
-
     void Run()
     {
         std::vector<std::shared_ptr<std::thread>> threads;
@@ -75,9 +86,9 @@ class Server
                 boost::bind(&boost::asio::io_service::run, &io_service));
             threads.push_back(thread);
         }
-        for (unsigned i = 0; i < threads.size(); ++i)
+        for (auto thread : threads)
         {
-            threads[i]->join();
+            thread->join();
         }
     }
 
@@ -91,7 +102,7 @@ class Server
         if (!e)
         {
             new_connection->start();
-            new_connection.reset(new http::Connection(io_service, request_handler));
+            new_connection = std::make_shared<http::Connection>(io_service, request_handler);
             acceptor.async_accept(
                 new_connection->socket(),
                 boost::bind(&Server::HandleAccept, this, boost::asio::placeholders::error));

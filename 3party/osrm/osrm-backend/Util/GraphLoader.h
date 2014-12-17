@@ -33,13 +33,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/ImportEdge.h"
 #include "../DataStructures/QueryNode.h"
 #include "../DataStructures/Restriction.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../Util/FingerPrint.h"
 #include "../typedefs.h"
 
 #include <boost/assert.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+
+#include <tbb/parallel_sort.h>
 
 #include <cmath>
 
@@ -124,26 +126,22 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
 
     edge_list.reserve(m);
     EdgeWeight weight;
-    short type;
     NodeID nameID;
     int length;
-    bool is_roundabout, ignore_in_grid, is_access_restricted, is_contra_flow, is_split;
-    unsigned way_id;
-
+    bool is_roundabout, ignore_in_grid, is_access_restricted, is_split;
+    TravelMode travel_mode;
     for (EdgeID i = 0; i < m; ++i)
     {
-        input_stream.read((char *)&way_id, sizeof(unsigned));
         input_stream.read((char *)&source, sizeof(unsigned));
         input_stream.read((char *)&target, sizeof(unsigned));
         input_stream.read((char *)&length, sizeof(int));
         input_stream.read((char *)&dir, sizeof(short));
         input_stream.read((char *)&weight, sizeof(int));
-        input_stream.read((char *)&type, sizeof(short));
         input_stream.read((char *)&nameID, sizeof(unsigned));
         input_stream.read((char *)&is_roundabout, sizeof(bool));
         input_stream.read((char *)&ignore_in_grid, sizeof(bool));
         input_stream.read((char *)&is_access_restricted, sizeof(bool));
-        input_stream.read((char *)&is_contra_flow, sizeof(bool));
+        input_stream.read((char *)&travel_mode, sizeof(TravelMode));
         input_stream.read((char *)&is_split, sizeof(bool));
 
         BOOST_ASSERT_MSG(length > 0, "loaded null length edge");
@@ -160,8 +158,6 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
         {
             forward = false;
         }
-
-        BOOST_ASSERT(type >= 0);
 
         // translate the external NodeIDs to internal IDs
         auto internal_id_iter = ext_to_int_id_map.find(source);
@@ -190,22 +186,20 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
             std::swap(forward, backward);
         }
 
-        edge_list.emplace_back(way_id,
-                               source,
+        edge_list.emplace_back(source,
                                target,
                                nameID,
                                weight,
                                forward,
                                backward,
-                               type,
                                is_roundabout,
                                ignore_in_grid,
                                is_access_restricted,
-                               is_contra_flow,
+                               travel_mode,
                                is_split);
     }
 
-    std::sort(edge_list.begin(), edge_list.end());
+    tbb::parallel_sort(edge_list.begin(), edge_list.end());
     for (unsigned i = 1; i < edge_list.size(); ++i)
     {
         if ((edge_list[i - 1].target == edge_list[i].target) &&
@@ -304,33 +298,28 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
 
     edge_list.reserve(m);
     EdgeWeight weight;
-    short type;
     NodeID nameID;
     int length;
-    unsigned way_id;
-    bool is_roundabout, ignore_in_grid, is_access_restricted, is_contra_flow, is_split;
+    bool is_roundabout, ignore_in_grid, is_access_restricted, is_split;
+    TravelMode travel_mode;
 
     for (EdgeID i = 0; i < m; ++i)
     {
-        input_stream.read((char *)&way_id, sizeof(unsigned));
         input_stream.read((char *)&source, sizeof(unsigned));
         input_stream.read((char *)&target, sizeof(unsigned));
         input_stream.read((char *)&length, sizeof(int));
         input_stream.read((char *)&dir, sizeof(short));
         input_stream.read((char *)&weight, sizeof(int));
-        input_stream.read((char *)&type, sizeof(short));
         input_stream.read((char *)&nameID, sizeof(unsigned));
         input_stream.read((char *)&is_roundabout, sizeof(bool));
         input_stream.read((char *)&ignore_in_grid, sizeof(bool));
         input_stream.read((char *)&is_access_restricted, sizeof(bool));
-        input_stream.read((char *)&is_contra_flow, sizeof(bool));
+        input_stream.read((char *)&travel_mode, sizeof(TravelMode));
         input_stream.read((char *)&is_split, sizeof(bool));
 
         BOOST_ASSERT_MSG(length > 0, "loaded null length edge");
         BOOST_ASSERT_MSG(weight > 0, "loaded null weight");
         BOOST_ASSERT_MSG(0 <= dir && dir <= 2, "loaded bogus direction");
-
-        BOOST_ASSERT(type >= 0);
 
         // translate the external NodeIDs to internal IDs
         auto internal_id_iter = ext_to_int_id_map.find(source);
@@ -362,7 +351,7 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
                                target);
     }
 
-    std::sort(edge_list.begin(), edge_list.end());
+    tbb::parallel_sort(edge_list.begin(), edge_list.end());
     for (unsigned i = 1; i < edge_list.size(); ++i)
     {
         if ((edge_list[i - 1].target == edge_list[i].target) &&

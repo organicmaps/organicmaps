@@ -4,9 +4,9 @@ Feature: Bike - Accessability of different way types
     Background:
         Given the profile "bicycle"
         Given the shortcuts
-            | key  | value     |
-            | bike | 49s ~20%  |
-            | foot | 121s ~20% |
+            | key  | value        |
+            | bike | 15 km/h ~20% |
+            | foot | 5 km/h ~20%  |
 
     Scenario: Bike - Pushing bikes on pedestrian-only ways
         Then routability should be
@@ -98,11 +98,11 @@ Feature: Bike - Accessability of different way types
             | cd    | primary |        |
 
         When I route I should get
-            | from | to | route    | turns                                              |
-            | a    | d  | ab,bc,cd | head,right,left,destination                        |
-            | d    | a  | cd,bc,ab | head,enter_contraflow,leave_contraflow,destination |
-            | c    | a  | bc,ab    | head,leave_contraflow,destination                  |
-            | d    | b  | cd,bc    | head,enter_contraflow,destination                  |
+            | from | to | route    | turns                       |
+            | a    | d  | ab,bc,cd | head,right,left,destination |
+            | d    | a  | cd,bc,ab | head,right,left,destination |
+            | c    | a  | bc,ab    | head,left,destination       |
+            | d    | b  | cd,bc    | head,right,destination      |
 
     @todo
     Scenario: Bike - Instructions when pushing bike on footway/pedestrian, etc.
@@ -117,8 +117,8 @@ Feature: Bike - Accessability of different way types
             | cd    | primary |
 
         When I route I should get
-            | from | to | route    | turns                                              |
-            | a    | d  | ab,bc,cd | head,right,left,destination                        |
-            | d    | a  | cd,bc,ab | head,enter_contraflow,leave_contraflow,destination |
-            | c    | a  | bc,ab    | head,leave_contraflow,destination                  |
-            | d    | b  | cd,bc    | head,enter_contraflow,destination                  |
+            | from | to | route    | turns                       |
+            | a    | d  | ab,bc,cd | head,right,left,destination |
+            | d    | a  | cd,bc,ab | head,right,left,destination |
+            | c    | a  | bc,ab    | head,left,destination       |
+            | d    | b  | cd,bc    | head,right,destination      |

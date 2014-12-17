@@ -31,6 +31,12 @@ class OSRMError < StandardError
   end
 end
 
+class FileError < OSRMError
+  def initialize code, msg
+    super 'fileutil', code, msg, PREPROCESS_LOG_FILE, 5
+  end
+end
+
 class OsmosisError < OSRMError
   def initialize code, msg
     super 'osmosis', code, msg, PREPROCESS_LOG_FILE, 40

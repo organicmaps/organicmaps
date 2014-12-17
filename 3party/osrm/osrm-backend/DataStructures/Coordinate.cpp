@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <osrm/Coordinate.h>
 #include "../Util/MercatorUtil.h"
 #ifndef NDEBUG
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #endif
 #include "../Util/StringUtil.h"
 
@@ -159,11 +159,11 @@ FixedPointCoordinate::ComputePerpendicularDistance(const FixedPointCoordinate &s
                                                    const FixedPointCoordinate &point)
 {
     // initialize values
-    const float x_value = lat2y(point.lat / COORDINATE_PRECISION);
+    const float x_value = static_cast<float>(lat2y(point.lat / COORDINATE_PRECISION));
     const float y_value = point.lon / COORDINATE_PRECISION;
-    float a = lat2y(source_coordinate.lat / COORDINATE_PRECISION);
+    float a = static_cast<float>(lat2y(source_coordinate.lat / COORDINATE_PRECISION));
     float b = source_coordinate.lon / COORDINATE_PRECISION;
-    float c = lat2y(target_coordinate.lat / COORDINATE_PRECISION);
+    float c = static_cast<float>(lat2y(target_coordinate.lat / COORDINATE_PRECISION));
     float d = target_coordinate.lon / COORDINATE_PRECISION;
     float p, q;
     if (std::abs(a - c) > std::numeric_limits<float>::epsilon())
@@ -184,7 +184,8 @@ FixedPointCoordinate::ComputePerpendicularDistance(const FixedPointCoordinate &s
     bool inverse_ratio = false;
 
     // straight line segment on equator
-    if (std::abs(c) < std::numeric_limits<float>::epsilon() && std::abs(a) < std::numeric_limits<float>::epsilon())
+    if (std::abs(c) < std::numeric_limits<float>::epsilon() &&
+        std::abs(a) < std::numeric_limits<float>::epsilon())
     {
         ratio = (q - b) / (d - b);
     }
@@ -228,7 +229,7 @@ FixedPointCoordinate::ComputePerpendicularDistance(const FixedPointCoordinate &s
         ratio = 1.0f - ratio;
     }
 
-    //compute the nearest location
+    // compute the nearest location
     FixedPointCoordinate nearest_location;
     BOOST_ASSERT(!std::isnan(ratio));
     if (ratio <= 0.f)
@@ -258,16 +259,16 @@ float FixedPointCoordinate::ComputePerpendicularDistance(const FixedPointCoordin
     BOOST_ASSERT(query_location.isValid());
 
     // initialize values
-    const float x = lat2y(query_location.lat / COORDINATE_PRECISION);
-    const float y = query_location.lon / COORDINATE_PRECISION;
-    const float a = lat2y(segment_source.lat / COORDINATE_PRECISION);
-    const float b = segment_source.lon / COORDINATE_PRECISION;
-    const float c = lat2y(segment_target.lat / COORDINATE_PRECISION);
-    const float d = segment_target.lon / COORDINATE_PRECISION;
-    float p, q /*,mX*/, nY;
-    if (std::abs(a - c) > std::numeric_limits<float>::epsilon())
+    const double x = lat2y(query_location.lat / COORDINATE_PRECISION);
+    const double y = query_location.lon / COORDINATE_PRECISION;
+    const double a = lat2y(segment_source.lat / COORDINATE_PRECISION);
+    const double b = segment_source.lon / COORDINATE_PRECISION;
+    const double c = lat2y(segment_target.lat / COORDINATE_PRECISION);
+    const double d = segment_target.lon / COORDINATE_PRECISION;
+    double p, q /*,mX*/, nY;
+    if (std::abs(a - c) > std::numeric_limits<double>::epsilon())
     {
-        const float m = (d - b) / (c - a); // slope
+        const double m = (d - b) / (c - a); // slope
         // Projection of (x,y) on line joining (a,b) and (c,d)
         p = ((x + (m * y)) + (m * m * a - m * b)) / (1.f + m * m);
         q = b + m * (p - a);
@@ -293,11 +294,11 @@ float FixedPointCoordinate::ComputePerpendicularDistance(const FixedPointCoordin
     {
         ratio = (segment_target == query_location ? 1.f : 0.f);
     }
-    else if (std::abs(ratio) <= std::numeric_limits<float>::epsilon())
+    else if (std::abs(ratio) <= std::numeric_limits<double>::epsilon())
     {
-        ratio = 0.;
+        ratio = 0.f;
     }
-    else if (std::abs(ratio - 1.f) <= std::numeric_limits<float>::epsilon())
+    else if (std::abs(ratio - 1.f) <= std::numeric_limits<double>::epsilon())
     {
         ratio = 1.f;
     }
@@ -308,7 +309,7 @@ float FixedPointCoordinate::ComputePerpendicularDistance(const FixedPointCoordin
     {
         nearest_location = segment_source;
     }
-    else if (ratio >= 1.)
+    else if (ratio >= 1.f)
     {
         nearest_location = segment_target;
     }
@@ -366,7 +367,8 @@ void FixedPointCoordinate::Output(std::ostream &out) const
 float FixedPointCoordinate::GetBearing(const FixedPointCoordinate &first_coordinate,
                                        const FixedPointCoordinate &second_coordinate)
 {
-    const float lon_diff = second_coordinate.lon / COORDINATE_PRECISION - first_coordinate.lon / COORDINATE_PRECISION;
+    const float lon_diff =
+        second_coordinate.lon / COORDINATE_PRECISION - first_coordinate.lon / COORDINATE_PRECISION;
     const float lon_delta = DegreeToRadian(lon_diff);
     const float lat1 = DegreeToRadian(first_coordinate.lat / COORDINATE_PRECISION);
     const float lat2 = DegreeToRadian(second_coordinate.lat / COORDINATE_PRECISION);
@@ -408,9 +410,15 @@ float FixedPointCoordinate::GetBearing(const FixedPointCoordinate &other) const
     return result;
 }
 
-float FixedPointCoordinate::DegreeToRadian(const float degree) { return degree * (static_cast<float>(M_PI) / 180.f); }
+float FixedPointCoordinate::DegreeToRadian(const float degree)
+{
+    return degree * (static_cast<float>(M_PI) / 180.f);
+}
 
-float FixedPointCoordinate::RadianToDegree(const float radian) { return radian * (180.f * static_cast<float>(M_1_PI)); }
+float FixedPointCoordinate::RadianToDegree(const float radian)
+{
+    return radian * (180.f * static_cast<float>(M_1_PI));
+}
 
 // This distance computation does integer arithmetic only and is a lot faster than
 // the other distance function which are numerically correct('ish).
@@ -421,11 +429,11 @@ int FixedPointCoordinate::OrderedPerpendicularDistanceApproximation(
     const FixedPointCoordinate &segment_target)
 {
     // initialize values
-    const float x = lat2y(input_point.lat / COORDINATE_PRECISION);
+    const float x = static_cast<float>(lat2y(input_point.lat / COORDINATE_PRECISION));
     const float y = input_point.lon / COORDINATE_PRECISION;
-    const float a = lat2y(segment_source.lat / COORDINATE_PRECISION);
+    const float a = static_cast<float>(lat2y(segment_source.lat / COORDINATE_PRECISION));
     const float b = segment_source.lon / COORDINATE_PRECISION;
-    const float c = lat2y(segment_target.lat / COORDINATE_PRECISION);
+    const float c = static_cast<float>(lat2y(segment_target.lat / COORDINATE_PRECISION));
     const float d = segment_target.lon / COORDINATE_PRECISION;
 
     float p, q;

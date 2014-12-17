@@ -30,8 +30,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <osrm/Coordinate.h>
 
-void PolylineCompressor::encodeVectorSignedNumber(std::vector<int> &numbers, std::string &output)
-    const
+void PolylineCompressor::encodeVectorSignedNumber(std::vector<int> &numbers,
+                                                  std::string &output) const
 {
     const unsigned end = static_cast<unsigned>(numbers.size());
     for (unsigned i = 0; i < end; ++i)
@@ -69,8 +69,8 @@ void PolylineCompressor::encodeNumber(int number_to_encode, std::string &output)
     }
 }
 
-JSON::String PolylineCompressor::printEncodedString(const std::vector<SegmentInformation> &polyline)
-    const
+JSON::String
+PolylineCompressor::printEncodedString(const std::vector<SegmentInformation> &polyline) const
 {
     std::string output;
     std::vector<int> delta_numbers;
@@ -102,12 +102,10 @@ PolylineCompressor::printUnencodedString(const std::vector<SegmentInformation> &
     {
         if (segment.necessary)
         {
-            std::string tmp, output;
-            FixedPointCoordinate::convertInternalLatLonToString(segment.location.lat, tmp);
-            output += (tmp + ",");
-            FixedPointCoordinate::convertInternalLatLonToString(segment.location.lon, tmp);
-            output += tmp;
-            json_geometry_array.values.push_back(output);
+            JSON::Array json_coordinate;
+            json_coordinate.values.push_back(segment.location.lat / COORDINATE_PRECISION);
+            json_coordinate.values.push_back(segment.location.lon / COORDINATE_PRECISION);
+            json_geometry_array.values.push_back(json_coordinate);
         }
     }
     return json_geometry_array;

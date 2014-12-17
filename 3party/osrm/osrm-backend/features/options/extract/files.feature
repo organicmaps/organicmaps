@@ -1,7 +1,7 @@
 @extract @options @files
 Feature: osrm-extract command line options: files
 # expansions:
-# {base} => path to current input file
+# {osm_base} => path to current input file
 # {profile} => path to current profile script
 
     Background:
@@ -14,12 +14,12 @@ Feature: osrm-extract command line options: files
         And the data has been saved to disk
 
     Scenario: osrm-extract - Passing base file
-        When I run "osrm-extract {base}.osm --profile {profile}"
+        When I run "osrm-extract {osm_base}.osm --profile {profile}"
         Then stderr should be empty
         And it should exit with code 0
 
     Scenario: osrm-extract - Order of options should not matter
-        When I run "osrm-extract --profile {profile} {base}.osm"
+        When I run "osrm-extract --profile {profile} {osm_base}.osm"
         Then stderr should be empty
         And it should exit with code 0
 

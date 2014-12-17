@@ -31,10 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Percent.h"
 #include "Range.h"
 #include "SharedMemoryVectorWrapper.h"
-#include "../Util/SimpleLogger.h"
 #include "../typedefs.h"
 
 #include <boost/assert.hpp>
+
+#include <tbb/parallel_sort.h>
 
 #include <algorithm>
 #include <limits>
@@ -44,10 +45,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template <typename EdgeDataT, bool UseSharedMemory = false> class StaticGraph
 {
   public:
-    typedef NodeID NodeIterator;
-    typedef NodeID EdgeIterator;
-    typedef EdgeDataT EdgeData;
-    typedef osrm::range<EdgeIterator> EdgeRange;
+    using NodeIterator = NodeID;
+    using EdgeIterator = NodeID;
+    using EdgeData = EdgeDataT;
+    using EdgeRange = osrm::range<EdgeIterator>;
 
     class InputEdge
     {
@@ -87,7 +88,7 @@ template <typename EdgeDataT, bool UseSharedMemory = false> class StaticGraph
 
     StaticGraph(const int nodes, std::vector<InputEdge> &graph)
     {
-        std::sort(graph.begin(), graph.end());
+        tbb::parallel_sort(graph.begin(), graph.end());
         number_of_nodes = nodes;
         number_of_edges = (EdgeIterator)graph.size();
         node_array.resize(number_of_nodes + 1);
@@ -121,8 +122,8 @@ template <typename EdgeDataT, bool UseSharedMemory = false> class StaticGraph
     StaticGraph(typename ShM<NodeArrayEntry, UseSharedMemory>::vector &nodes,
                 typename ShM<EdgeArrayEntry, UseSharedMemory>::vector &edges)
     {
-        number_of_nodes = nodes.size() - 1;
-        number_of_edges = edges.size();
+        number_of_nodes = static_cast<decltype(number_of_nodes)>(nodes.size() - 1);
+        number_of_edges = static_cast<decltype(number_of_edges)>(edges.size());
 
         node_array.swap(nodes);
         edge_array.swap(edges);

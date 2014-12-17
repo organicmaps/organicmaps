@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 enum class TurnInstruction : unsigned char
 {
     NoTurn = 0, GoStraight, TurnSlightRight, TurnRight, TurnSharpRight, UTurn,
-    TurnSharpLeft, TurnLeft, TurnSlightLeft, ReachViaPoint, HeadOn, EnterRoundAbout,
+    TurnSharpLeft, TurnLeft, TurnSlightLeft, ReachViaLocation, HeadOn, EnterRoundAbout,
     LeaveRoundAbout, StayOnRoundAbout, StartAtEndOfStreet, ReachedYourDestination,
     EnterAgainstAllowedDirection, LeaveAgainstAllowedDirection,
     InverseAccessRestrictionFlag = 127,

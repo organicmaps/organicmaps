@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define EXTRACTION_WAY_H
 
 #include "../DataStructures/HashTable.h"
+#include "../DataStructures/TravelMode.h"
 #include "../typedefs.h"
 
 #include <string>
@@ -44,15 +45,15 @@ struct ExtractionWay
         nameID = INVALID_NAMEID;
         path.clear();
         keyVals.Clear();
-        direction = ExtractionWay::notSure;
-        speed = -1;
+        forward_speed = -1;
         backward_speed = -1;
         duration = -1;
-        type = -1;
         access = true;
         roundabout = false;
         isAccessRestricted = false;
         ignoreInGrid = false;
+        forward_travel_mode = TRAVEL_MODE_DEFAULT;
+        backward_travel_mode = TRAVEL_MODE_DEFAULT;
     }
 
     enum Directions
@@ -60,20 +61,70 @@ struct ExtractionWay
       oneway,
       bidirectional,
       opposite };
+
+    // These accessor methods exists to support the depreciated "way.direction" access
+    // in LUA. Since the direction attribute was removed from ExtractionWay, the
+    // accessors translate to/from the mode attributes.
+    inline void set_direction(const Directions m)
+    {
+        if (Directions::oneway == m)
+        {
+            forward_travel_mode = TRAVEL_MODE_DEFAULT;
+            backward_travel_mode = TRAVEL_MODE_INACCESSIBLE;
+        }
+        else if (Directions::opposite == m)
+        {
+          forward_travel_mode = TRAVEL_MODE_INACCESSIBLE;
+          backward_travel_mode = TRAVEL_MODE_DEFAULT;
+        }
+        else if (Directions::bidirectional == m)
+        {
+          forward_travel_mode = TRAVEL_MODE_DEFAULT;
+          backward_travel_mode = TRAVEL_MODE_DEFAULT;
+        }
+    }
+
+    inline const Directions get_direction() const
+    {
+        if (TRAVEL_MODE_INACCESSIBLE != forward_travel_mode && TRAVEL_MODE_INACCESSIBLE != backward_travel_mode)
+        {
+            return Directions::bidirectional;
+        }
+        else if (TRAVEL_MODE_INACCESSIBLE != forward_travel_mode)
+        {
+            return Directions::oneway;
+        }
+        else if (TRAVEL_MODE_INACCESSIBLE != backward_travel_mode)
+        {
+            return Directions::opposite;
+        }
+        else
+        {
+            return Directions::notSure;
+        }
+    }
+
+    // These accessors exists because it's not possible to take the address of a bitfield,
+    // and LUA therefore cannot read/write the mode attributes directly.
+    inline void set_forward_mode(const TravelMode m) { forward_travel_mode = m; }
+    inline const TravelMode get_forward_mode() const { return forward_travel_mode; }
+    inline void set_backward_mode(const TravelMode m) { backward_travel_mode = m; }
+    inline const TravelMode get_backward_mode() const { return backward_travel_mode; }
+
     unsigned id;
     unsigned nameID;
-    double speed;
+    double forward_speed;
     double backward_speed;
     double duration;
-    Directions direction;
     std::string name;
-    short type;
     bool access;
     bool roundabout;
     bool isAccessRestricted;
     bool ignoreInGrid;
     std::vector<NodeID> path;
     HashTable<std::string, std::string> keyVals;
+    TravelMode forward_travel_mode : 4;
+    TravelMode backward_travel_mode : 4;
 };
 
 #endif // EXTRACTION_WAY_H

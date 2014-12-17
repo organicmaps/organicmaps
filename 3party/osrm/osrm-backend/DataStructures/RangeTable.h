@@ -1,5 +1,5 @@
-#ifndef __RANGE_TABLE_H__
-#define __RANGE_TABLE_H__
+#ifndef RANGE_TABLE_H_
+#define RANGE_TABLE_H_
 
 #include "Range.h"
 #include "SharedMemoryFactory.h"
@@ -36,10 +36,10 @@ class RangeTable
 {
 public:
 
-    typedef std::array<unsigned char, BLOCK_SIZE> BlockT;
-    typedef typename ShM<BlockT, USE_SHARED_MEMORY>::vector   BlockContainerT;
-    typedef typename ShM<unsigned, USE_SHARED_MEMORY>::vector OffsetContainerT;
-    typedef osrm::range<unsigned>                            RangeT;
+    using BlockT = std::array<unsigned char, BLOCK_SIZE>;
+    using BlockContainerT = typename ShM<BlockT, USE_SHARED_MEMORY>::vector;
+    using OffsetContainerT = typename ShM<unsigned, USE_SHARED_MEMORY>::vector;
+    using RangeT = osrm::range<unsigned>;
 
     friend std::ostream& operator<< <>(std::ostream &out, const RangeTable &table);
     friend std::istream& operator>> <>(std::istream &in, RangeTable &table);
@@ -228,4 +228,4 @@ std::istream& operator>>(std::istream &in, RangeTable<BLOCK_SIZE, USE_SHARED_MEM
     return in;
 }
 
-#endif
+#endif //RANGE_TABLE_H_

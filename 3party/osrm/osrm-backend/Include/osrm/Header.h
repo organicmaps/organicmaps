@@ -37,7 +37,7 @@ struct Header
 {
     Header& operator=(const Header& other) = default;
     Header(const std::string & name, const std::string & value) : name(name), value(value) {}
-    Header(const Header && other) : name(std::move(other.name)), value(std::move(other.value)) {}
+    Header(Header && other) : name(std::move(other.name)), value(std::move(other.value)) {}
 
     void Clear()
     {

@@ -165,11 +165,11 @@ class DeallocatingVector
     std::vector<ElementT *> bucket_list;
 
   public:
-    typedef DeallocatingVectorIterator<ElementT, ELEMENTS_PER_BLOCK> iterator;
-    typedef DeallocatingVectorIterator<ElementT, ELEMENTS_PER_BLOCK> const_iterator;
+    using iterator = DeallocatingVectorIterator<ElementT, ELEMENTS_PER_BLOCK>;
+    using const_iterator = DeallocatingVectorIterator<ElementT, ELEMENTS_PER_BLOCK>;
 
     // this forward-only iterator deallocates all buckets that have been visited
-    typedef DeallocatingVectorRemoveIterator<ElementT, ELEMENTS_PER_BLOCK> deallocation_iterator;
+    using deallocation_iterator = DeallocatingVectorRemoveIterator<ElementT, ELEMENTS_PER_BLOCK>;
 
     DeallocatingVector() : current_size(0) { bucket_list.emplace_back(new ElementT[ELEMENTS_PER_BLOCK]); }
 

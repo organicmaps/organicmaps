@@ -6,7 +6,7 @@ require 'sys/proctable'
 
 BUILD_FOLDER = 'build'
 DATA_FOLDER = 'sandbox'
-PROFILE = 'examples/postgis'
+PROFILE = 'bicycle'
 OSRM_PORT = 5000
 PROFILES_FOLDER = '../profiles'
 
@@ -180,4 +180,10 @@ end
 
 desc "Stop, reprocess and restart."
 task :update => [:down,:process,:up] do
+end
+
+
+desc "Remove test cache files."
+task :sweep do
+  system "rm test/cache/*"
 end

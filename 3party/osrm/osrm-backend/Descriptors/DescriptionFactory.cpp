@@ -45,38 +45,71 @@ void DescriptionFactory::SetStartSegment(const PhantomNode &source, const bool t
     start_phantom = source;
     const EdgeWeight segment_duration =
         (traversed_in_reverse ? source.reverse_weight : source.forward_weight);
-    AppendSegment(source.location,
-                  PathData(0, source.name_id, TurnInstruction::HeadOn, segment_duration));
+    const TravelMode travel_mode =
+        (traversed_in_reverse ? source.backward_travel_mode : source.forward_travel_mode);
+    AppendSegment(
+        source.location,
+        PathData(0, source.name_id, TurnInstruction::HeadOn, segment_duration, travel_mode));
     BOOST_ASSERT(path_description.back().duration == segment_duration);
 }
 
-void DescriptionFactory::SetEndSegment(const PhantomNode &target, const bool traversed_in_reverse)
+void DescriptionFactory::SetEndSegment(const PhantomNode &target,
+                                       const bool traversed_in_reverse,
+                                       const bool is_via_location)
 {
     target_phantom = target;
     const EdgeWeight segment_duration =
         (traversed_in_reverse ? target.reverse_weight : target.forward_weight);
-    path_description.emplace_back(
-        target.location, target.name_id, segment_duration, 0.f, TurnInstruction::NoTurn, true, true);
+    const TravelMode travel_mode =
+        (traversed_in_reverse ? target.backward_travel_mode : target.forward_travel_mode);
+    path_description.emplace_back(target.location,
+                                  target.name_id,
+                                  segment_duration,
+                                  0.f,
+                                  is_via_location ? TurnInstruction::ReachViaLocation
+                                                  : TurnInstruction::NoTurn,
+                                  true,
+                                  true,
+                                  travel_mode);
     BOOST_ASSERT(path_description.back().duration == segment_duration);
 }
 
 void DescriptionFactory::AppendSegment(const FixedPointCoordinate &coordinate,
                                        const PathData &path_point)
 {
-    if ((1 == path_description.size()) && (path_description.back().location == coordinate))
+    // if the start location is on top of a node, the first movement might be zero-length,
+    // in which case we dont' add a new description, but instead update the existing one
+    if ((1 == path_description.size()) && (path_description.front().location == coordinate))
     {
-        path_description.back().name_id = path_point.name_id;
+        if (path_point.segment_duration > 0)
+        {
+            path_description.front().name_id = path_point.name_id;
+            path_description.front().travel_mode = path_point.travel_mode;
+        }
         return;
     }
+
+    // make sure mode changes are announced, even when there otherwise is no turn
+    const TurnInstruction turn = [&]() -> TurnInstruction
+    {
+        if (TurnInstruction::NoTurn == path_point.turn_instruction &&
+            path_description.front().travel_mode != path_point.travel_mode &&
+            path_point.segment_duration > 0)
+        {
+            return TurnInstruction::GoStraight;
+        }
+        return path_point.turn_instruction;
+    }();
 
     path_description.emplace_back(coordinate,
                                   path_point.name_id,
                                   path_point.segment_duration,
                                   0.f,
-                                  path_point.turn_instruction);
+                                  turn,
+                                  path_point.travel_mode);
 }
 
-JSON::Value DescriptionFactory::AppendEncodedPolylineString(const bool return_encoded)
+JSON::Value DescriptionFactory::AppendGeometryString(const bool return_encoded)
 {
     if (return_encoded)
     {

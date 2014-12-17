@@ -1,4 +1,4 @@
-@routing @time
+@routing @time @testbot
 Feature: Estimation of travel time
 # Testbot speeds:
 # Primary road:    36km/h = 36000m/3600s = 100m/10s

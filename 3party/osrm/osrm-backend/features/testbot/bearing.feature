@@ -1,4 +1,4 @@
-@routing @bearing
+@routing @bearing @testbot
 Feature: Compass bearing
 
     Background:

@@ -29,11 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BOOST_FILE_SYSTEM_FIX_H
 
 #include "OSRMException.h"
-#include "SimpleLogger.h"
 
-#include <boost/any.hpp>
+// #include <boost/any.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/program_options.hpp>
+// #include <boost/program_options.hpp>
 
 // This is one big workaround for latest boost renaming woes.
 
@@ -51,7 +50,7 @@ namespace filesystem
 // exists. The validate() function must be defined in the same namespace
 // as the target type, (boost::filesystem::path in this case), otherwise
 // it is not called
-// inline void validate(
+// void validate(
 //     boost::any & v,
 //     const std::vector<std::string> & values,
 //     boost::filesystem::path *,
@@ -60,8 +59,6 @@ namespace filesystem
 //     boost::program_options::validators::check_first_occurrence(v);
 //     const std::string & input_string =
 //         boost::program_options::validators::get_single_string(values);
-//     // SimpleLogger().Write() << "validator called for " << input_string;
-//     // SimpleLogger().Write() << "validator called for " << input_string;
 //     if(boost::filesystem::is_regular_file(input_string)) {
 //         v = boost::any(boost::filesystem::path(input_string));
 //     } else {
@@ -71,7 +68,7 @@ namespace filesystem
 
 // adapted from:
 // http://stackoverflow.com/questions/1746136/how-do-i-normalize-a-pathname-using-boostfilesystem
-inline boost::filesystem::path
+boost::filesystem::path
 portable_canonical(const boost::filesystem::path &relative_path,
                    const boost::filesystem::path &current_path = boost::filesystem::current_path())
 {
@@ -118,15 +115,15 @@ portable_canonical(const boost::filesystem::path &relative_path,
 
 #if BOOST_FILESYSTEM_VERSION < 3
 
-inline path temp_directory_path()
+path temp_directory_path()
 {
     char *buffer;
-    buffer = tmpnam(NULL);
+    buffer = tmpnam(nullptr);
 
     return path(buffer);
 }
 
-inline path unique_path(const path &) { return temp_directory_path(); }
+path unique_path(const path &) { return temp_directory_path(); }
 
 #endif
 }
@@ -136,7 +133,7 @@ inline path unique_path(const path &) { return temp_directory_path(); }
 #define BOOST_FILESYSTEM_VERSION 3
 #endif
 
-inline void AssertPathExists(const boost::filesystem::path &path)
+void AssertPathExists(const boost::filesystem::path &path)
 {
     if (!boost::filesystem::is_regular_file(path))
     {

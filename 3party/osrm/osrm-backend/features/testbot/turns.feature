@@ -1,4 +1,4 @@
-@routing @turns
+@routing @turns @testbot
 Feature: Turn directions/codes
 
     Background:

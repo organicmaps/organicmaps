@@ -83,7 +83,7 @@ struct WayIDStartAndEndEdge
 
 struct CmpWayByID
 {
-    typedef WayIDStartAndEndEdge value_type;
+    using value_type = WayIDStartAndEndEdge;
     bool operator()(const WayIDStartAndEndEdge &a, const WayIDStartAndEndEdge &b) const
     {
         return a.wayID < b.wayID;
@@ -94,7 +94,7 @@ struct CmpWayByID
 
 struct Cmp
 {
-    typedef NodeID value_type;
+    using value_type = NodeID;
     bool operator()(const NodeID left, const NodeID right) const { return left < right; }
     value_type max_value() { return 0xffffffff; }
     value_type min_value() { return 0x0; }
@@ -102,7 +102,7 @@ struct Cmp
 
 struct CmpNodeByID
 {
-    typedef ExternalMemoryNode value_type;
+    using value_type = ExternalMemoryNode;
     bool operator()(const ExternalMemoryNode &left, const ExternalMemoryNode &right) const
     {
         return left.node_id < right.node_id;

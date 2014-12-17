@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/Restriction.h"
 #include "../Util/MachineInfo.h"
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../typedefs.h"
 
 #include <boost/assert.hpp>
@@ -49,6 +49,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <zlib.h>
 
 #include <functional>
+#include <iostream>
 #include <limits>
 #include <thread>
 

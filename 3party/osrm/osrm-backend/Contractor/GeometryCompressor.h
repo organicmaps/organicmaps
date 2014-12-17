@@ -25,6 +25,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+#ifndef GEOMETRY_COMPRESSOR_H
+#define GEOMETRY_COMPRESSOR_H
+
 #include "../typedefs.h"
 
 #include <unordered_map>
@@ -32,13 +35,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-#ifndef GEOMETRY_COMPRESSOR_H
-#define GEOMETRY_COMPRESSOR_H
-
 class GeometryCompressor
 {
   public:
-    typedef std::pair<NodeID, EdgeWeight> CompressedNode;
+    using CompressedNode = std::pair<NodeID, EdgeWeight>;
 
     GeometryCompressor();
     void CompressEdge(const EdgeID surviving_edge_id,
@@ -54,6 +54,8 @@ class GeometryCompressor
     unsigned GetPositionForID(const EdgeID edge_id) const;
     const std::vector<GeometryCompressor::CompressedNode> &
     GetBucketReference(const EdgeID edge_id) const;
+    NodeID GetFirstNodeIDOfBucket(const EdgeID edge_id) const;
+    NodeID GetLastNodeIDOfBucket(const EdgeID edge_id) const;
 
   private:
     void IncreaseFreeList();

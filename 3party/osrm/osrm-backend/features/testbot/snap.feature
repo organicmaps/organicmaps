@@ -1,4 +1,4 @@
-@routing @snap
+@routing @snap @testbot
 Feature: Snap start/end point to the nearest way
 
     Background:

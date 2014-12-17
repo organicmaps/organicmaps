@@ -32,18 +32,32 @@ def lua_lib_hash
 end
 
 def bin_extract_hash
-  bin_extract_hash ||= hash_of_files "#{BIN_PATH}/osrm-extract#{EXE}"
+  @bin_extract_hash ||= hash_of_files "#{BIN_PATH}/osrm-extract#{EXE}"
+  @bin_extract_hash
 end
 
 def bin_prepare_hash
-  bin_prepare_hash ||= hash_of_files "#{BIN_PATH}/osrm-prepare#{EXE}"
+  @bin_prepare_hash ||= hash_of_files "#{BIN_PATH}/osrm-prepare#{EXE}"
 end
 
 def bin_routed_hash
-  bin_routed_hash ||= hash_of_files "#{BIN_PATH}/osrm-routed#{EXE}"
+  @bin_routed_hash ||= hash_of_files "#{BIN_PATH}/osrm-routed#{EXE}"
 end
 
-#combine state of data, profile and binaries into a hash that identifies the exact test scenario
-def fingerprint
-  @fingerprint ||= Digest::SHA1.hexdigest "#{bin_extract_hash}-#{bin_prepare_hash}-#{bin_routed_hash}-#{profile_hash}-#{lua_lib_hash}-#{osm_hash}"
+# combine state of data, profile and binaries into a hashes that identifies
+# the exact test situation at different stages, so we can later skip steps when possible.
+def fingerprint_osm
+  @fingerprint_osm ||= Digest::SHA1.hexdigest "#{osm_hash}"
+end
+
+def fingerprint_extract
+  @fingerprint_extract ||= Digest::SHA1.hexdigest "#{profile_hash}-#{lua_lib_hash}-#{bin_extract_hash}"
+end
+
+def fingerprint_prepare
+  @fingerprint_prepare ||= Digest::SHA1.hexdigest "#{bin_prepare_hash}"
+end
+
+def fingerprint_route
+  @fingerprint_route ||= Digest::SHA1.hexdigest "#{bin_routed_hash}"
 end

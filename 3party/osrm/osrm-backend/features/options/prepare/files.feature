@@ -1,7 +1,7 @@
 @prepare @options @files
 Feature: osrm-prepare command line options: files
 # expansions:
-# {base} => path to current input file
+# {extracted_base} => path to current extracted input file
 # {profile} => path to current profile script
 
     Background:
@@ -14,12 +14,12 @@ Feature: osrm-prepare command line options: files
         And the data has been extracted
 
     Scenario: osrm-prepare - Passing base file
-        When I run "osrm-prepare {base}.osrm --profile {profile}"
+        When I run "osrm-prepare {extracted_base}.osrm --profile {profile}"
         Then stderr should be empty
         And it should exit with code 0
 
     Scenario: osrm-prepare - Order of options should not matter
-        When I run "osrm-prepare --profile {profile} {base}.osrm"
+        When I run "osrm-prepare --profile {profile} {extracted_base}.osrm"
         Then stderr should be empty
         And it should exit with code 0
 

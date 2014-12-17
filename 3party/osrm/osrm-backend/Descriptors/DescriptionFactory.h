@@ -80,9 +80,11 @@ class DescriptionFactory
     void AppendSegment(const FixedPointCoordinate &coordinate, const PathData &data);
     void BuildRouteSummary(const double distance, const unsigned time);
     void SetStartSegment(const PhantomNode &start_phantom, const bool traversed_in_reverse);
-    void SetEndSegment(const PhantomNode &start_phantom, const bool traversed_in_reverse);
-    JSON::Value AppendEncodedPolylineString(const bool return_encoded);
-    std::vector<unsigned> const & GetViaIndices() const;
+    void SetEndSegment(const PhantomNode &start_phantom,
+                       const bool traversed_in_reverse,
+                       const bool is_via_location = false);
+    JSON::Value AppendGeometryString(const bool return_encoded);
+    std::vector<unsigned> const &GetViaIndices() const;
 
     template <class DataFacadeT> void Run(const DataFacadeT *facade, const unsigned zoomLevel)
     {
@@ -198,14 +200,15 @@ class DescriptionFactory
             {
                 ++necessary_pieces;
                 if (path_description[i].is_via_location)
-                {   //mark the end of a leg
+                { // mark the end of a leg
                     via_indices.push_back(necessary_pieces);
                 }
-                const double angle = path_description[i+1].location.GetBearing(path_description[i].location);
+                const double angle =
+                    path_description[i + 1].location.GetBearing(path_description[i].location);
                 path_description[i].bearing = static_cast<unsigned>(angle * 10);
             }
         }
-        via_indices.push_back(necessary_pieces+1);
+        via_indices.push_back(necessary_pieces + 1);
         BOOST_ASSERT(via_indices.size() >= 2);
         // BOOST_ASSERT(0 != necessary_pieces || path_description.empty());
         return;

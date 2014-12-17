@@ -1,4 +1,4 @@
-@routing
+@routing @testbot
 Feature: Retrieve geometry
 
     Background: Use some profile

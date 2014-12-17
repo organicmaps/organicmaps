@@ -49,14 +49,14 @@ template <typename NodeID, typename Key> class XORFastHashStorage
 
         HashCell(const HashCell &other) : key(other.key), id(other.id), time(other.time) {}
 
-        inline operator Key() const { return key; }
+        operator Key() const { return key; }
 
-        inline void operator=(const Key &key_to_insert) { key = key_to_insert; }
+        void operator=(const Key &key_to_insert) { key = key_to_insert; }
     };
 
     explicit XORFastHashStorage(size_t) : positions(2 << 16), current_timestamp(0) {}
 
-    inline HashCell &operator[](const NodeID node)
+    HashCell &operator[](const NodeID node)
     {
         unsigned short position = fast_hasher(node);
         while ((positions[position].time == current_timestamp) && (positions[position].id != node))
@@ -69,7 +69,7 @@ template <typename NodeID, typename Key> class XORFastHashStorage
         return positions[position];
     }
 
-    inline void Clear()
+    void Clear()
     {
         ++current_timestamp;
         if (std::numeric_limits<unsigned>::max() == current_timestamp)

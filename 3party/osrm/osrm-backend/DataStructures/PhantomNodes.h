@@ -28,8 +28,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef PHANTOM_NODES_H
 #define PHANTOM_NODES_H
 
-#include "../Include/osrm/Coordinate.h"
-#include "../Util/SimpleLogger.h"
+#include <osrm/Coordinate.h>
+#include "../DataStructures/TravelMode.h"
+#include "../Util/simple_logger.hpp"
 #include "../typedefs.h"
 
 #include <vector>
@@ -39,7 +40,8 @@ struct PhantomNode
     PhantomNode(NodeID forward_node_id, NodeID reverse_node_id, unsigned name_id,
                 int forward_weight, int reverse_weight, int forward_offset, int reverse_offset,
                 unsigned packed_geometry_id, FixedPointCoordinate &location,
-                unsigned short fwd_segment_position) :
+                unsigned short fwd_segment_position,
+                TravelMode forward_travel_mode, TravelMode backward_travel_mode) :
         forward_node_id(forward_node_id),
         reverse_node_id(reverse_node_id),
         name_id(name_id),
@@ -49,7 +51,9 @@ struct PhantomNode
         reverse_offset(reverse_offset),
         packed_geometry_id(packed_geometry_id),
         location(location),
-        fwd_segment_position(fwd_segment_position)
+        fwd_segment_position(fwd_segment_position),
+        forward_travel_mode(forward_travel_mode),
+        backward_travel_mode(backward_travel_mode)
     { }
 
     PhantomNode() :
@@ -61,7 +65,9 @@ struct PhantomNode
         forward_offset(0),
         reverse_offset(0),
         packed_geometry_id(SPECIAL_EDGEID),
-        fwd_segment_position(0)
+        fwd_segment_position(0),
+        forward_travel_mode(TRAVEL_MODE_INACCESSIBLE),
+        backward_travel_mode(TRAVEL_MODE_INACCESSIBLE)
     { }
 
     NodeID forward_node_id;
@@ -74,6 +80,8 @@ struct PhantomNode
     unsigned packed_geometry_id;
     FixedPointCoordinate location;
     unsigned short fwd_segment_position;
+    TravelMode forward_travel_mode : 4;
+    TravelMode backward_travel_mode : 4;
 
     int GetForwardWeightPlusOffset() const
     {
@@ -134,7 +142,7 @@ struct PhantomNode
     }
 };
 
-typedef std::vector<std::vector<PhantomNode>> PhantomNodeArray;
+using PhantomNodeArray = std::vector<std::vector<PhantomNode>>;
 
 struct PhantomNodeLists
 {

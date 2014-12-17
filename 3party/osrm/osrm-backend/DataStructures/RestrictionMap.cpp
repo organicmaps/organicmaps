@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "RestrictionMap.h"
 #include "NodeBasedGraph.h"
 
-#include "../Util/SimpleLogger.h"
-
 bool RestrictionMap::IsViaNode(const NodeID node) const
 {
     return m_no_turn_via_node_set.find(node) != m_no_turn_via_node_set.end();
@@ -96,9 +94,8 @@ void RestrictionMap::FixupArrivingTurnRestriction(const NodeID node_u,
     std::vector<NodeID> predecessors;
     for (const EdgeID current_edge_id : m_graph->GetAdjacentEdgeRange(node_u))
     {
-        const EdgeData &edge_data = m_graph->GetEdgeData(current_edge_id);
         const NodeID target = m_graph->GetTarget(current_edge_id);
-        if (edge_data.backward && (node_v != target))
+        if (node_v != target)
         {
             predecessors.push_back(target);
         }
@@ -163,11 +160,11 @@ NodeID RestrictionMap::CheckForEmanatingIsOnlyTurn(const NodeID node_u, const No
         return SPECIAL_NODEID;
     }
 
-    auto restriction_iter = m_restriction_map.find({node_u, node_v});
+    const auto restriction_iter = m_restriction_map.find({node_u, node_v});
     if (restriction_iter != m_restriction_map.end())
     {
         const unsigned index = restriction_iter->second;
-        auto &bucket = m_restriction_bucket_list.at(index);
+        const auto &bucket = m_restriction_bucket_list.at(index);
         for (const RestrictionTarget &restriction_target : bucket)
         {
             if (restriction_target.is_only)
@@ -184,8 +181,6 @@ bool RestrictionMap::CheckIfTurnIsRestricted(const NodeID node_u,
                                              const NodeID node_v,
                                              const NodeID node_w) const
 {
-    // return false;
-
     BOOST_ASSERT(node_u != SPECIAL_NODEID);
     BOOST_ASSERT(node_v != SPECIAL_NODEID);
     BOOST_ASSERT(node_w != SPECIAL_NODEID);
@@ -195,7 +190,7 @@ bool RestrictionMap::CheckIfTurnIsRestricted(const NodeID node_u,
         return false;
     }
 
-    auto restriction_iter = m_restriction_map.find({node_u, node_v});
+    const auto restriction_iter = m_restriction_map.find({node_u, node_v});
     if (restriction_iter != m_restriction_map.end())
     {
         const unsigned index = restriction_iter->second;

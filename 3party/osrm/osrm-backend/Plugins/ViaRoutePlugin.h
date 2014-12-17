@@ -31,13 +31,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "BasePlugin.h"
 
 #include "../Algorithms/ObjectToBase64.h"
-
 #include "../DataStructures/QueryEdge.h"
 #include "../DataStructures/SearchEngine.h"
 #include "../Descriptors/BaseDescriptor.h"
 #include "../Descriptors/GPXDescriptor.h"
 #include "../Descriptors/JSONDescriptor.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/make_unique.hpp"
+#include "../Util/simple_logger.hpp"
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
 
@@ -49,16 +49,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-template <class DataFacadeT> class ViaRoutePlugin : public BasePlugin
+template <class DataFacadeT> class ViaRoutePlugin final : public BasePlugin
 {
   private:
     std::unordered_map<std::string, unsigned> descriptor_table;
-    std::shared_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
+    std::unique_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
 
   public:
     explicit ViaRoutePlugin(DataFacadeT *facade) : descriptor_string("viaroute"), facade(facade)
     {
-        search_engine_ptr = std::make_shared<SearchEngine<DataFacadeT>>(facade);
+        search_engine_ptr = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
 
         descriptor_table.emplace("json", 0);
         descriptor_table.emplace("gpx", 1);
@@ -67,16 +67,18 @@ template <class DataFacadeT> class ViaRoutePlugin : public BasePlugin
 
     virtual ~ViaRoutePlugin() {}
 
-    const std::string GetDescriptor() const { return descriptor_string; }
+    const std::string GetDescriptor() const final { return descriptor_string; }
 
-    void HandleRequest(const RouteParameters &route_parameters, http::Reply &reply)
+    void HandleRequest(const RouteParameters &route_parameters, http::Reply &reply) final
     {
         // check number of parameters
         if (2 > route_parameters.coordinates.size() ||
             std::any_of(begin(route_parameters.coordinates),
                         end(route_parameters.coordinates),
                         [&](FixedPointCoordinate coordinate)
-                        { return !coordinate.isValid(); }))
+                        {
+                return !coordinate.isValid();
+            }))
         {
             reply = http::Reply::StockReply(http::Reply::badRequest);
             return;
@@ -97,7 +99,7 @@ template <class DataFacadeT> class ViaRoutePlugin : public BasePlugin
             if (checksum_OK && i < route_parameters.hints.size() &&
                 !route_parameters.hints[i].empty())
             {
-                DecodeObjectFromBase64(route_parameters.hints[i], phantom_node_vector[i]);
+                ObjectEncoder::DecodeFromBase64(route_parameters.hints[i], phantom_node_vector[i]);
                 if (phantom_node_vector[i].isValid(facade->GetNumberOfNodes()))
                 {
                     continue;
@@ -125,7 +127,8 @@ template <class DataFacadeT> class ViaRoutePlugin : public BasePlugin
         }
         else
         {
-            search_engine_ptr->shortest_path(raw_route.segment_end_coordinates, route_parameters.uturns, raw_route);
+            search_engine_ptr->shortest_path(
+                raw_route.segment_end_coordinates, route_parameters.uturns, raw_route);
         }
 
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)

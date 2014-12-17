@@ -28,8 +28,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SHARED_MEMORY_VECTOR_WRAPPER_H
 #define SHARED_MEMORY_VECTOR_WRAPPER_H
 
-#include "../Util/SimpleLogger.h"
-
 #include <boost/assert.hpp>
 
 #include <algorithm>
@@ -78,7 +76,7 @@ template <typename DataT> class SharedMemoryWrapper
 
     void swap(SharedMemoryWrapper<DataT> &other)
     {
-        BOOST_ASSERT_MSG(m_size != 0 || other.size() != 0, "size invalid");
+        // BOOST_ASSERT_MSG(m_size != 0 || other.size() != 0, "size invalid");
         std::swap(m_size, other.m_size);
         std::swap(m_ptr, other.m_ptr);
     }
@@ -121,7 +119,7 @@ template <> class SharedMemoryWrapper<bool>
 
     void swap(SharedMemoryWrapper<bool> &other)
     {
-        BOOST_ASSERT_MSG(m_size != 0 || other.size() != 0, "size invalid");
+        // BOOST_ASSERT_MSG(m_size != 0 || other.size() != 0, "size invalid");
         std::swap(m_size, other.m_size);
         std::swap(m_ptr, other.m_ptr);
     }
@@ -148,9 +146,9 @@ template <> class SharedMemoryWrapper<bool>
 
 template <typename DataT, bool UseSharedMemory> struct ShM
 {
-    typedef typename std::conditional<UseSharedMemory,
+    using vector = typename std::conditional<UseSharedMemory,
                                       SharedMemoryWrapper<DataT>,
-                                      std::vector<DataT>>::type vector;
+                                      std::vector<DataT>>::type;
 };
 
 #endif // SHARED_MEMORY_VECTOR_WRAPPER_H

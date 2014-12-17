@@ -27,7 +27,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../Util/GitDescription.h"
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../Util/TimingUtil.h"
 
 #include <boost/filesystem.hpp>
@@ -71,32 +71,30 @@ void RunStatistics(std::vector<double> &timings_vector, Statistics &stats)
 int main(int argc, char *argv[])
 {
     LogPolicy::GetInstance().Unmute();
-
-    SimpleLogger().Write() << "starting up engines, " << g_GIT_DESCRIPTION << ", "
-                           << "compiled at " << __DATE__ << ", " __TIME__;
-
-#ifdef __FreeBSD__
-    SimpleLogger().Write() << "Not supported on FreeBSD";
-    return 0;
-#endif
-#ifdef WIN32
-    SimpleLogger().Write() << "Not supported on Windows";
-    return 0;
-#else
-
-
-    if (1 == argc)
-    {
-        SimpleLogger().Write(logWARNING) << "usage: " << argv[0] << " /path/on/device";
-        return -1;
-    }
-
-    boost::filesystem::path test_path = boost::filesystem::path(argv[1]);
-    test_path /= "osrm.tst";
-    SimpleLogger().Write(logDEBUG) << "temporary file: " << test_path.string();
-
+    boost::filesystem::path test_path;
     try
     {
+        SimpleLogger().Write() << "starting up engines, " << g_GIT_DESCRIPTION;
+
+#ifdef __FreeBSD__
+        SimpleLogger().Write() << "Not supported on FreeBSD";
+        return 0;
+#endif
+#ifdef WIN32
+        SimpleLogger().Write() << "Not supported on Windows";
+        return 0;
+#else
+
+        if (1 == argc)
+        {
+            SimpleLogger().Write(logWARNING) << "usage: " << argv[0] << " /path/on/device";
+            return -1;
+        }
+
+        test_path = boost::filesystem::path(argv[1]);
+        test_path /= "osrm.tst";
+        SimpleLogger().Write(logDEBUG) << "temporary file: " << test_path.string();
+
         // create files for testing
         if (2 == argc)
         {
@@ -118,27 +116,26 @@ int main(int argc, char *argv[])
             fclose(fd);
 #endif
 #ifdef __linux__
-            int f =
+            int file_desc =
                 open(test_path.string().c_str(), O_CREAT | O_TRUNC | O_WRONLY | O_SYNC, S_IRWXU);
-            if (-1 == f)
+            if (-1 == file_desc)
             {
                 throw OSRMException("Could not open random data file");
             }
             TIMER_START(write_1gb);
-            int ret = write(f, random_array, number_of_elements * sizeof(unsigned));
+            int ret = write(file_desc, random_array, number_of_elements * sizeof(unsigned));
             if (0 > ret)
             {
                 throw OSRMException("could not write random data file");
             }
             TIMER_STOP(write_1gb);
-            close(f);
+            close(file_desc);
 #endif
             delete[] random_array;
             SimpleLogger().Write(logDEBUG) << "writing raw 1GB took " << TIMER_SEC(write_1gb)
                                            << "s";
             SimpleLogger().Write() << "raw write performance: " << std::setprecision(5)
-                                   << std::fixed << 1024 * 1024 / TIMER_SEC(write_1gb)
-                                   << "MB/sec";
+                                   << std::fixed << 1024 * 1024 / TIMER_SEC(write_1gb) << "MB/sec";
 
             SimpleLogger().Write(logDEBUG)
                 << "finished creation of random data. Flush disk cache now!";
@@ -164,8 +161,8 @@ int main(int argc, char *argv[])
 #ifdef __linux__
             char *single_block = (char *)memalign(512, 1024 * sizeof(unsigned));
 
-            int f = open(test_path.string().c_str(), O_RDONLY | O_DIRECT | O_SYNC);
-            if (-1 == f)
+            int file_desc = open(test_path.string().c_str(), O_RDONLY | O_DIRECT | O_SYNC);
+            if (-1 == file_desc)
             {
                 SimpleLogger().Write(logDEBUG) << "opened, error: " << strerror(errno);
                 return -1;
@@ -179,17 +176,16 @@ int main(int argc, char *argv[])
             fd = fopen(test_path.string().c_str(), "r");
 #endif
 #ifdef __linux__
-            int ret = read(f, raw_array, number_of_elements * sizeof(unsigned));
+            int ret = read(file_desc, raw_array, number_of_elements * sizeof(unsigned));
             SimpleLogger().Write(logDEBUG) << "read " << ret
                                            << " bytes, error: " << strerror(errno);
-            close(f);
-            f = open(test_path.string().c_str(), O_RDONLY | O_DIRECT | O_SYNC);
+            close(file_desc);
+            file_desc = open(test_path.string().c_str(), O_RDONLY | O_DIRECT | O_SYNC);
             SimpleLogger().Write(logDEBUG) << "opened, error: " << strerror(errno);
 #endif
             TIMER_STOP(read_1gb);
 
-            SimpleLogger().Write(logDEBUG) << "reading raw 1GB took " << TIMER_SEC(read_1gb)
-                                           << "s";
+            SimpleLogger().Write(logDEBUG) << "reading raw 1GB took " << TIMER_SEC(read_1gb) << "s";
             SimpleLogger().Write() << "raw read performance: " << std::setprecision(5) << std::fixed
                                    << 1024 * 1024 / TIMER_SEC(read_1gb) << "MB/sec";
 
@@ -200,7 +196,7 @@ int main(int argc, char *argv[])
             fseek(fd, 0, SEEK_SET);
 #endif
 #ifdef __linux__
-            lseek(f, 0, SEEK_SET);
+            lseek(file_desc, 0, SEEK_SET);
 #endif
             // make 1000 random access, time each I/O seperately
             unsigned number_of_blocks = (number_of_elements * sizeof(unsigned) - 1) / 4096;
@@ -220,11 +216,11 @@ int main(int argc, char *argv[])
 #endif
 
 #ifdef __linux__
-                int ret1 = lseek(f, current_offset, SEEK_SET);
-                int ret2 = read(f, (char *)single_block, 4096);
+                int ret1 = lseek(file_desc, current_offset, SEEK_SET);
+                int ret2 = read(file_desc, (char *)single_block, 4096);
 #endif
                 TIMER_STOP(random_access);
-                if (((off_t) - 1) == ret1)
+                if (((off_t)-1) == ret1)
                 {
                     SimpleLogger().Write(logWARNING) << "offset: " << current_offset;
                     SimpleLogger().Write(logWARNING) << "seek error " << strerror(errno);
@@ -261,7 +257,7 @@ int main(int argc, char *argv[])
             fseek(fd, 0, SEEK_SET);
 #endif
 #ifdef __linux__
-            lseek(f, 0, SEEK_SET);
+            lseek(file_desc, 0, SEEK_SET);
 #endif
 
             // read every 100th block
@@ -280,12 +276,12 @@ int main(int argc, char *argv[])
 #endif
 
 #ifdef __linux__
-                int ret1 = lseek(f, current_offset, SEEK_SET);
+                int ret1 = lseek(file_desc, current_offset, SEEK_SET);
 
-                int ret2 = read(f, (char *)single_block, 4096);
+                int ret2 = read(file_desc, (char *)single_block, 4096);
 #endif
                 TIMER_STOP(read_every_100);
-                if (((off_t) - 1) == ret1)
+                if (((off_t)-1) == ret1)
                 {
                     SimpleLogger().Write(logWARNING) << "offset: " << current_offset;
                     SimpleLogger().Write(logWARNING) << "seek error " << strerror(errno);
@@ -306,7 +302,7 @@ int main(int argc, char *argv[])
 // free(single_block);
 #endif
 #ifdef __linux__
-            close(f);
+            close(file_desc);
 #endif
             // Do statistics
             SimpleLogger().Write(logDEBUG) << "running sequential I/O statistics";

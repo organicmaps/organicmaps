@@ -25,10 +25,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <osrm/Coordinate.h>
-
 #include "DouglasPeucker.h"
+
+#include "../DataStructures/Range.h"
 #include "../DataStructures/SegmentInformation.h"
+
+#include <osrm/Coordinate.h>
 
 #include <boost/assert.hpp>
 
@@ -36,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <algorithm>
 
+namespace {
 struct CoordinatePairCalculator
 {
     CoordinatePairCalculator() = delete;
@@ -77,6 +80,7 @@ struct CoordinatePairCalculator
     float second_lat;
     float second_lon;
 };
+}
 
 DouglasPeucker::DouglasPeucker()
     : douglas_peucker_thresholds({512440, // z0
@@ -149,13 +153,13 @@ void DouglasPeucker::Run(std::vector<SegmentInformation> &input_geometry, const 
 
         int max_int_distance = 0;
         unsigned farthest_entry_index = pair.second;
-        const CoordinatePairCalculator DistCalc(input_geometry[pair.first].location,
-                                                input_geometry[pair.second].location);
+        const CoordinatePairCalculator dist_calc(input_geometry[pair.first].location,
+                                                 input_geometry[pair.second].location);
 
         // sweep over range to find the maximum
-        for (unsigned i = pair.first + 1; i < pair.second; ++i)
+        for (const auto i : osrm::irange(pair.first + 1, pair.second))
         {
-            const int distance = DistCalc(input_geometry[i].location);
+            const int distance = dist_calc(input_geometry[i].location);
             // found new feasible maximum?
             if (distance > max_int_distance && distance > douglas_peucker_thresholds[zoom_level])
             {

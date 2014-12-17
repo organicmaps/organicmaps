@@ -30,8 +30,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <iosfwd> //for std::ostream
 #include <string>
+#include <type_traits>
 
-const float COORDINATE_PRECISION = 1000000.f;
+constexpr float COORDINATE_PRECISION = 1000000.f;
 
 struct FixedPointCoordinate
 {
@@ -40,6 +41,14 @@ struct FixedPointCoordinate
 
     FixedPointCoordinate();
     FixedPointCoordinate(int lat, int lon);
+
+    template<class T>
+    FixedPointCoordinate(const T &coordinate) : lat(coordinate.lat), lon(coordinate.lon)
+    {
+        static_assert(std::is_same<decltype(lat), decltype(coordinate.lat)>::value, "coordinate types incompatible");
+        static_assert(std::is_same<decltype(lon), decltype(coordinate.lon)>::value, "coordinate types incompatible");
+    }
+
     void Reset();
     bool isSet() const;
     bool isValid() const;

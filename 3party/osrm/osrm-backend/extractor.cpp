@@ -26,8 +26,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include "Extractor/Extractor.h"
+#include "Util/simple_logger.hpp"
 
 int main (int argc, char *argv[])
 {
-    return Extractor().Run(argc, argv);
+    try
+    {
+        return Extractor().Run(argc, argv);
+    }
+    catch (const std::exception &e)
+    {
+        SimpleLogger().Write(logWARNING) << "[exception] " << e.what();
+    }
+
 }

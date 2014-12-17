@@ -1,4 +1,4 @@
-@routing @bad
+@routing @bad @testbot
 Feature: Handle bad data in a graceful manner
 
     Background:

@@ -1,4 +1,4 @@
-@routing @planetary
+@routing @planetary @testbot
 Feature: Distance calculation
 
     Scenario: Approximated Longitudinal distances at equator

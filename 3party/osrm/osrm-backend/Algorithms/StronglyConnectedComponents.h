@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/TurnInstructions.h"
 
 #include "../Util/OSRMException.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/simple_logger.hpp"
 #include "../Util/StdHashExtensions.h"
 #include "../Util/TimingUtil.h"
 
@@ -92,12 +92,12 @@ class TarjanSCC
         NodeID parent;
     };
 
-    typedef DynamicGraph<TarjanEdgeData> TarjanDynamicGraph;
-    typedef TarjanDynamicGraph::InputEdge TarjanEdge;
-    typedef std::pair<NodeID, NodeID> RestrictionSource;
-    typedef std::pair<NodeID, bool> RestrictionTarget;
-    typedef std::vector<RestrictionTarget> EmanatingRestrictionsVector;
-    typedef std::unordered_map<RestrictionSource, unsigned> RestrictionMap;
+    using TarjanDynamicGraph = DynamicGraph<TarjanEdgeData>;
+    using TarjanEdge = TarjanDynamicGraph::InputEdge;
+    using RestrictionSource = std::pair<NodeID, NodeID>;
+    using RestrictionTarget = std::pair<NodeID, bool>;
+    using EmanatingRestrictionsVector = std::vector<RestrictionTarget>;
+    using RestrictionMap = std::unordered_map<RestrictionSource, unsigned>;
 
     std::vector<NodeInfo> m_coordinate_list;
     std::vector<EmanatingRestrictionsVector> m_restriction_bucket_list;

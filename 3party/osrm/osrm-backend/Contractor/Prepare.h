@@ -18,9 +18,9 @@
 class Prepare
 {
   public:
-    typedef QueryEdge::EdgeData EdgeData;
-    typedef DynamicGraph<EdgeData>::InputEdge InputEdge;
-    typedef StaticGraph<EdgeData>::InputEdge StaticEdge;
+    using EdgeData = QueryEdge::EdgeData;
+    using InputEdge = DynamicGraph<EdgeData>::InputEdge;
+    using StaticEdge = StaticGraph<EdgeData>::InputEdge;
 
     explicit Prepare();
     Prepare(const Prepare &) = delete;
@@ -33,12 +33,11 @@ class Prepare
     void CheckRestrictionsFile(FingerPrint &fingerprint_orig);
     bool SetupScriptingEnvironment(lua_State *myLuaState,
                                    EdgeBasedGraphFactory::SpeedProfileProperties &speed_profile);
-    void BuildEdgeExpandedGraph(lua_State *myLuaState,
-                                NodeID nodeBasedNodeNumber,
-                                unsigned &nodeBasedEdgesNumber,
-                                std::vector<EdgeBasedNode> &nodeBasedEdgeList,
-                                DeallocatingVector<EdgeBasedEdge> &edgeBasedEdgeList,
-                                EdgeBasedGraphFactory::SpeedProfileProperties &speed_profile);
+    std::size_t BuildEdgeExpandedGraph(lua_State *myLuaState,
+                                       NodeID nodeBasedNodeNumber,
+                                       std::vector<EdgeBasedNode> &nodeBasedEdgeList,
+                                       DeallocatingVector<EdgeBasedEdge> &edgeBasedEdgeList,
+                                       EdgeBasedGraphFactory::SpeedProfileProperties &speed_profile);
     void WriteNodeMapping();
     void BuildRTree(std::vector<EdgeBasedNode> &node_based_edge_list);
 
@@ -63,7 +62,6 @@ class Prepare
     std::string graph_out;
     std::string rtree_nodes_path;
     std::string rtree_leafs_path;
-    std::string node_data_filename;
 };
 
 #endif // PREPARE_H

@@ -34,7 +34,7 @@ template <typename Key, typename Value>
 class HashTable
 {
   private:
-    typedef std::pair<Key, Value> KeyValPair;
+    using KeyValPair = std::pair<Key, Value>;
     std::vector<KeyValPair> table;
 
   public:

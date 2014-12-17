@@ -44,7 +44,7 @@ class RequestHandler
 {
 
   public:
-    typedef APIGrammar<std::string::iterator, RouteParameters> APIGrammarParser;
+    using APIGrammarParser = APIGrammar<std::string::iterator, RouteParameters>;
 
     RequestHandler();
     RequestHandler(const RequestHandler &) = delete;

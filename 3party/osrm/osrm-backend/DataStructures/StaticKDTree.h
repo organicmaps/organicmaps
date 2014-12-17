@@ -211,7 +211,7 @@ class StaticKDTree
     }
 
   private:
-    typedef unsigned Iterator;
+    using Iterator = unsigned;
     struct Tree
     {
         Iterator left;

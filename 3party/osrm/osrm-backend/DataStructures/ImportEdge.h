@@ -28,39 +28,36 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef IMPORT_EDGE_H
 #define IMPORT_EDGE_H
 
+#include "../DataStructures/TravelMode.h"
 #include "../typedefs.h"
 
 struct NodeBasedEdge
 {
     bool operator<(const NodeBasedEdge &e) const;
 
-    explicit NodeBasedEdge(unsigned way_id,
-                           NodeID source,
+    explicit NodeBasedEdge(NodeID source,
                            NodeID target,
                            NodeID name_id,
                            EdgeWeight weight,
                            bool forward,
                            bool backward,
-                           short type,
                            bool roundabout,
                            bool in_tiny_cc,
                            bool access_restricted,
-                           bool contra_flow,
+                           TravelMode travel_mode,
                            bool is_split);
 
-    unsigned way_id;
     NodeID source;
     NodeID target;
     NodeID name_id;
     EdgeWeight weight;
-    short type;
     bool forward : 1;
     bool backward : 1;
     bool roundabout : 1;
     bool in_tiny_cc : 1;
     bool access_restricted : 1;
-    bool contra_flow : 1;
     bool is_split : 1;
+    TravelMode travel_mode : 4;
 
     NodeBasedEdge() = delete;
 };
@@ -89,6 +86,6 @@ struct EdgeBasedEdge
     bool backward : 1;
 };
 
-typedef NodeBasedEdge ImportEdge;
+using ImportEdge = NodeBasedEdge;
 
 #endif /* IMPORT_EDGE_H */

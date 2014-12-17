@@ -63,6 +63,10 @@ traffic_signal_penalty 	= 2
 u_turn_penalty 			= 2
 use_turn_restrictions   = false
 
+--modes
+local mode_normal = 1
+local mode_ferry = 2
+
 function get_exceptions(vector)
 	for i,v in ipairs(restriction_exception_tags) do
 		vector:Add(v)
@@ -105,25 +109,25 @@ function way_function (way)
 	local railway = way.tags:Find("railway")
 	local amenity = way.tags:Find("amenity")
 	local public_transport = way.tags:Find("public_transport")
-    if (not highway or highway == '') and
+	if (not highway or highway == '') and
 		(not route or route == '') and
 		(not railway or railway=='') and
 		(not amenity or amenity=='') and
 		(not man_made or man_made=='') and
-	(not public_transport or public_transport=='')
-	then
-	return 0
+		(not public_transport or public_transport=='')
+		then
+		return
     end
 
     -- don't route on ways that are still under construction
     if highway=='construction' then
-        return 0
+        return
     end
 
 	-- access
     local access = Access.find_access_tag(way, access_tags_hierachy)
     if access_tag_blacklist[access] then
-		return 0
+		return
     end
 
 	local name = way.tags:Find("name")
@@ -156,50 +160,52 @@ function way_function (way)
     -- speed
     if route_speeds[route] then
 		-- ferries (doesn't cover routes tagged using relations)
-		way.direction = Way.bidirectional
 		way.ignore_in_grid = true
 		if durationIsValid(duration) then
 			way.duration = math.max( 1, parseDuration(duration) )
 		else
-			way.speed = route_speeds[route]
+			way.forward_speed = route_speeds[route]
+			way.backward_speed = route_speeds[route]
 		end
+		way.forward_mode = mode_ferry
+		way.backward_mode = mode_ferry
 	elseif railway and platform_speeds[railway] then
 		-- railway platforms (old tagging scheme)
-		way.speed = platform_speeds[railway]
+		way.forward_speed = platform_speeds[railway]
+		way.backward_speed = platform_speeds[railway]
 	elseif platform_speeds[public_transport] then
 		-- public_transport platforms (new tagging platform)
-		way.speed = platform_speeds[public_transport]
+		way.forward_speed = platform_speeds[public_transport]
+		way.backward_speed = platform_speeds[public_transport]
 	elseif amenity and amenity_speeds[amenity] then
 		-- parking areas
-		way.speed = amenity_speeds[amenity]
+		way.forward_speed = amenity_speeds[amenity]
+		way.backward_speed = amenity_speeds[amenity]
 	elseif speeds[highway] then
 		-- regular ways
-	way.speed = speeds[highway]
+		way.forward_speed = speeds[highway]
+		way.backward_speed = speeds[highway]
 	elseif access and access_tag_whitelist[access] then
 	    -- unknown way, but valid access tag
-		way.speed = walking_speed
+		way.forward_speed = walking_speed
+		way.backward_speed = walking_speed
     end
 
 	-- oneway
 	if onewayClass == "yes" or onewayClass == "1" or onewayClass == "true" then
-		way.direction = Way.oneway
+		way.backward_mode = 0
 	elseif onewayClass == "no" or onewayClass == "0" or onewayClass == "false" then
-		way.direction = Way.bidirectional
+		-- nothing to do
 	elseif onewayClass == "-1" then
-		way.direction = Way.opposite
-	else
-      way.direction = Way.bidirectional
+		way.forward_mode = 0
     end
 
     -- surfaces
     if surface then
         surface_speed = surface_speeds[surface]
         if surface_speed then
-            way.speed = math.min(way.speed, surface_speed)
+            way.forward_speed = math.min(way.forward_speed, surface_speed)
             way.backward_speed  = math.min(way.backward_speed, surface_speed)
         end
     end
-
-	way.type = 1
-    return 1
 end

@@ -1,7 +1,7 @@
 #include "../../DataStructures/StaticRTree.h"
 #include "../../DataStructures/QueryNode.h"
 #include "../../DataStructures/EdgeBasedNode.h"
-#include "../../Util/NumericUtil.h"
+#include "../../Util/floating_point.hpp"
 #include "../../typedefs.h"
 
 #include <osrm/Coordinate.h>
@@ -97,7 +97,7 @@ class LinearSearchNN
                     coords->at(e.u), coords->at(e.v), input_coordinate, nearest, current_ratio);
 
             if ((current_perpendicular_distance < min_dist) &&
-                !EpsilonCompare(current_perpendicular_distance, min_dist))
+                !osrm::epsilon_compare(current_perpendicular_distance, min_dist))
             { // found a new minimum
                 min_dist = current_perpendicular_distance;
                 result_phantom_node = {e.forward_edge_based_node_id,
@@ -109,7 +109,9 @@ class LinearSearchNN
                                        e.reverse_offset,
                                        e.packed_geometry_id,
                                        nearest,
-                                       e.fwd_segment_position};
+                                       e.fwd_segment_position,
+                                       e.forward_travel_mode,
+                                       e.backward_travel_mode};
                 nearest_edge = e;
             }
         }

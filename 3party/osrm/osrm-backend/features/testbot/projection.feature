@@ -1,4 +1,4 @@
-@routing @projection
+@routing @projection @testbot
 Feature: Projection to nearest point on road
 # Waypoints are projected perpendiculary onto the closest road
 

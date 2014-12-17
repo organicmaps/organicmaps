@@ -28,10 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef EXTRACTION_HELPER_FUNCTIONS_H
 #define EXTRACTION_HELPER_FUNCTIONS_H
 
-#include "../Util/StringUtil.h"
+#include "../Util/cast.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string_regex.hpp>
+#include <boost/spirit/include/qi.hpp>
 #include <boost/regex.hpp>
 
 #include <limits>
@@ -68,18 +69,18 @@ inline unsigned parseDuration(const std::string &s)
     {
         if (1 == result.size())
         {
-            minutes = StringToUint(result[0]);
+            minutes = cast::string_to_int(result[0]);
         }
         if (2 == result.size())
         {
-            minutes = StringToUint(result[1]);
-            hours = StringToUint(result[0]);
+            minutes = cast::string_to_int(result[1]);
+            hours = cast::string_to_int(result[0]);
         }
         if (3 == result.size())
         {
-            seconds = StringToUint(result[2]);
-            minutes = StringToUint(result[1]);
-            hours = StringToUint(result[0]);
+            seconds = cast::string_to_int(result[2]);
+            minutes = cast::string_to_int(result[1]);
+            hours = cast::string_to_int(result[0]);
         }
         return 10 * (3600 * hours + 60 * minutes + seconds);
     }

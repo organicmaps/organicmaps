@@ -31,6 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "BasicRoutingInterface.h"
 #include "../DataStructures/Range.h"
 #include "../DataStructures/SearchEngineData.h"
+#include "../Util/container.hpp"
 
 #include <boost/assert.hpp>
 
@@ -43,12 +44,12 @@ const double VIAPATH_ALPHA = 0.10;
 const double VIAPATH_EPSILON = 0.15; // alternative at most 15% longer
 const double VIAPATH_GAMMA = 0.75;   // alternative shares at most 75% with the shortest.
 
-template <class DataFacadeT> class AlternativeRouting : private BasicRoutingInterface<DataFacadeT>
+template <class DataFacadeT> class AlternativeRouting final : private BasicRoutingInterface<DataFacadeT>
 {
-    typedef BasicRoutingInterface<DataFacadeT> super;
-    typedef typename DataFacadeT::EdgeData EdgeData;
-    typedef SearchEngineData::QueryHeap QueryHeap;
-    typedef std::pair<NodeID, NodeID> SearchSpaceEdge;
+    using super = BasicRoutingInterface<DataFacadeT>;
+    using EdgeData = typename DataFacadeT::EdgeData;
+    using QueryHeap = SearchEngineData::QueryHeap;
+    using SearchSpaceEdge = std::pair<NodeID, NodeID>;
 
     struct RankedCandidateNode
     {
@@ -172,7 +173,7 @@ template <class DataFacadeT> class AlternativeRouting : private BasicRoutingInte
             return;
         }
 
-        sort_unique_resize(via_node_candidate_list);
+        osrm::sort_unique_resize(via_node_candidate_list);
 
         std::vector<NodeID> packed_forward_path;
         std::vector<NodeID> packed_reverse_path;

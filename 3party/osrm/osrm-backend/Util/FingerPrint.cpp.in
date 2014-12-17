@@ -45,8 +45,7 @@ FingerPrint::FingerPrint() : magic_number(1297240911)
     md5_prepare[32] = md5_tree[32] = md5_graph[32] = md5_objects[32] = '\0';
 
     boost::uuids::name_generator gen(named_uuid);
-    std::string temp_string(__DATE__);
-    temp_string += __TIME__;
+    std::string temp_string;
 
     std::memcpy(md5_prepare, MD5PREPARE, strlen(MD5PREPARE));
     temp_string += md5_prepare;

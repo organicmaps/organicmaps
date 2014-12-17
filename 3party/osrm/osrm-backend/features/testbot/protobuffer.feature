@@ -1,4 +1,4 @@
-@routing @pbf
+@routing @pbf @testbot
 Feature: Importing protobuffer (.pbf) format
 # Test normally read .osm, which is faster than .pbf files,
 # since we don't need to use osmosis to first convert to .pbf

@@ -1,4 +1,4 @@
-@routing @uturn @via
+@routing @uturn @via @testbot
 Feature: U-turns at via points
 
     Background:
@@ -21,7 +21,7 @@ Feature: U-turns at via points
 
         When I route I should get
             | waypoints | route             | turns                                          |
-            | a,e,c     | ab,be,ef,fg,dg,cd | head,right,left,straight,left,left,destination |
+            | a,e,c     | ab,be,be,ef,fg,dg,cd | head,right,via,left,straight,left,left,destination |
 
     Scenario: Query param to allow U-turns at all via points
         Given the node map
@@ -42,8 +42,8 @@ Feature: U-turns at via points
             | fg    |
 
         When I route I should get
-            | waypoints | route    |
-            | a,e,c     | ab,be,bc |
+            | waypoints | route       |
+            | a,e,c     | ab,be,be,bc |
 
     @todo
     Scenario: Instructions at via points at u-turns

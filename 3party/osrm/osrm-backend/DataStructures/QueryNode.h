@@ -30,7 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "../typedefs.h"
 
-#include "../Include/osrm/Coordinate.h"
+#include <osrm/Coordinate.h>
 
 #include <boost/assert.hpp>
 
@@ -38,8 +38,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 struct NodeInfo
 {
-    typedef NodeID key_type; // type of NodeID
-    typedef int value_type; // type of lat,lons
+    using key_type = NodeID; // type of NodeID
+    using value_type = int; // type of lat,lons
 
     explicit NodeInfo(int lat, int lon, NodeID node_id) : lat(lat), lon(lon), node_id(node_id) {}
     NodeInfo()

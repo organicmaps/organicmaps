@@ -1,4 +1,4 @@
-@routing @fastest
+@routing @fastest @testbot
 Feature: Choosing fastest route
 
     Background:

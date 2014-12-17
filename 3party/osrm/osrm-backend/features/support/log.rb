@@ -29,7 +29,10 @@ def log_scenario_fail_info
   log "========================================="
   log "Failed scenario: #{@scenario_title}"
   log "Time: #{@scenario_time}"
-  log "Fingerprint: #{@fingerprint}"
+  log "Fingerprint osm stage: #{@fingerprint_osm}"
+  log "Fingerprint extract stage: #{@fingerprint_extract}"
+  log "Fingerprint prepare stage: #{@fingerprint_prepare}"
+  log "Fingerprint route stage: #{@fingerprint_route}"
   log "Profile: #{@profile}"
   log
   log '```xml' #so output can be posted directly to github comment fields
@@ -41,6 +44,7 @@ def log_scenario_fail_info
 end
 
 def log_fail expected,got,attempts
+  return
   log_scenario_fail_info
   log "== "
   log "Expected: #{expected}"

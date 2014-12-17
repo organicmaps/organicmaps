@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/QueryEdge.h"
 #include "../DataStructures/SearchEngine.h"
 #include "../Descriptors/BaseDescriptor.h"
-#include "../Util/SimpleLogger.h"
+#include "../Util/make_unique.hpp"
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
 
@@ -47,22 +47,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <vector>
 
-template <class DataFacadeT> class DistanceTablePlugin : public BasePlugin
+template <class DataFacadeT> class DistanceTablePlugin final : public BasePlugin
 {
   private:
-    std::shared_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
+    std::unique_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
 
   public:
     explicit DistanceTablePlugin(DataFacadeT *facade) : descriptor_string("table"), facade(facade)
     {
-        search_engine_ptr = std::make_shared<SearchEngine<DataFacadeT>>(facade);
+        search_engine_ptr = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
     }
 
     virtual ~DistanceTablePlugin() {}
 
-    const std::string GetDescriptor() const { return descriptor_string; }
+    const std::string GetDescriptor() const final { return descriptor_string; }
 
-    void HandleRequest(const RouteParameters &route_parameters, http::Reply &reply)
+    void HandleRequest(const RouteParameters &route_parameters, http::Reply &reply) final
     {
         // check number of parameters
         if (2 > route_parameters.coordinates.size())
@@ -77,7 +77,9 @@ template <class DataFacadeT> class DistanceTablePlugin : public BasePlugin
         if (std::any_of(begin(route_parameters.coordinates),
                         end(route_parameters.coordinates),
                         [&](FixedPointCoordinate coordinate)
-                        { return !coordinate.isValid(); }))
+                        {
+                return !coordinate.isValid();
+            }))
         {
             reply = http::Reply::StockReply(http::Reply::badRequest);
             return;
@@ -98,7 +100,7 @@ template <class DataFacadeT> class DistanceTablePlugin : public BasePlugin
                 !route_parameters.hints[i].empty())
             {
                 PhantomNode current_phantom_node;
-                DecodeObjectFromBase64(route_parameters.hints[i], current_phantom_node);
+                ObjectEncoder::DecodeFromBase64(route_parameters.hints[i], current_phantom_node);
                 if (current_phantom_node.isValid(facade->GetNumberOfNodes()))
                 {
                     phantom_node_vector[i].emplace_back(std::move(current_phantom_node));

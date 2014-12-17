@@ -1,4 +1,4 @@
-@routing @726
+@routing @726 @testbot
 Feature: Avoid weird loops caused by rounding errors
 
     Background:
@@ -73,6 +73,6 @@ Feature: Avoid weird loops caused by rounding errors
             | cf    | secondary |
 
         When I route I should get
-            | waypoints | route          | turns                                  |
-            | a,2,d     | ab,be,ef,cf,cd | head,left,right,right,left,destination |
-            | a,1,d     | ab,be,ef,cf,cd | head,left,right,right,left,destination |
+            | waypoints | route             | turns                                      |
+            | a,2,d     | ab,be,ef,ef,cf,cd | head,left,right,via,right,left,destination |
+            | a,1,d     | ab,be,ef,ef,cf,cd | head,left,right,via,right,left,destination |

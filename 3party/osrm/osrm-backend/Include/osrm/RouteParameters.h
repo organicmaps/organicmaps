@@ -41,6 +41,8 @@ struct RouteParameters
 
     void setZoomLevel(const short level);
 
+    void setNumberOfResults(const short number);
+
     void setAlternateRouteFlag(const bool flag);
 
     void setUTurn(const bool flag);
@@ -77,6 +79,7 @@ struct RouteParameters
     bool deprecatedAPI;
     bool uturn_default;
     unsigned check_sum;
+    short num_results;
     std::string service;
     std::string output_format;
     std::string jsonp_parameter;

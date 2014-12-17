@@ -1,4 +1,4 @@
-@routing @graph
+@routing @graph @testbot
 Feature: Basic Routing
 #Test the input data descibed on https://github.com/DennisOSRM/Project-OSRM/wiki/Graph-representation
 
@@ -19,3 +19,22 @@ Feature: Basic Routing
         When I route I should get
             | from | to | route   |
             | a    | e  | abc,dce |
+
+    Scenario: Turn instructions on compressed road network geometry
+        Given the node map
+            | x | a |   |   |
+            |   | b |   |   |
+            | f |   |   | e |
+            |   |   |   |   |
+            |   |   |   |   |
+            | y | c |   | d |
+
+        And the ways
+            | nodes  | name  |
+            | xa     | first |
+            | abcdef | compr |
+            | fy     | last  |
+
+        When I route I should get
+            | from | to | route            | turns                       |
+            | x    | y  | first,compr,last | head,right,left,destination |

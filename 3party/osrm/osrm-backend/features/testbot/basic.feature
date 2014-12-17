@@ -1,4 +1,4 @@
-@routing @basic
+@routing @basic @testbot
 Feature: Basic Routing
 
     Background:

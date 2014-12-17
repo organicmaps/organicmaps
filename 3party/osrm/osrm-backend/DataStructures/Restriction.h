@@ -101,7 +101,7 @@ struct InputRestrictionContainer
 
 struct CmpRestrictionContainerByFrom
 {
-    typedef InputRestrictionContainer value_type;
+    using value_type = InputRestrictionContainer;
     inline bool operator()(const InputRestrictionContainer &a, const InputRestrictionContainer &b)
         const
     {
@@ -113,7 +113,7 @@ struct CmpRestrictionContainerByFrom
 
 struct CmpRestrictionContainerByTo
 {
-    typedef InputRestrictionContainer value_type;
+    using value_type = InputRestrictionContainer;
     inline bool operator()(const InputRestrictionContainer &a, const InputRestrictionContainer &b)
         const
     {

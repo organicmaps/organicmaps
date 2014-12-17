@@ -1,4 +1,4 @@
-@routing @bearing_param @todo
+@routing @bearing_param @todo @testbot
 Feature: Bearing parameter
 
     Background:

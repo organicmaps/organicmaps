@@ -39,10 +39,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unordered_map>
 #include <vector>
 
-template <class DataFacadeT> class ManyToManyRouting : public BasicRoutingInterface<DataFacadeT>
+template <class DataFacadeT> class ManyToManyRouting final : public BasicRoutingInterface<DataFacadeT>
 {
-    typedef BasicRoutingInterface<DataFacadeT> super;
-    typedef SearchEngineData::QueryHeap QueryHeap;
+    using super = BasicRoutingInterface<DataFacadeT>;
+    using QueryHeap = SearchEngineData::QueryHeap;
     SearchEngineData &engine_working_data;
 
     struct NodeBucket
@@ -54,7 +54,7 @@ template <class DataFacadeT> class ManyToManyRouting : public BasicRoutingInterf
         {
         }
     };
-    typedef std::unordered_map<NodeID, std::vector<NodeBucket>> SearchSpaceWithBuckets;
+    using SearchSpaceWithBuckets = std::unordered_map<NodeID, std::vector<NodeBucket>>;
 
   public:
     ManyToManyRouting(DataFacadeT *facade, SearchEngineData &engine_working_data)

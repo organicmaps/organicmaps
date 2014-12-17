@@ -29,6 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INTERNAL_EXTRACTOR_EDGE_H
 
 #include "../typedefs.h"
+#include "../DataStructures/TravelMode.h"
 #include <osrm/Coordinate.h>
 
 #include <boost/assert.hpp>
@@ -36,16 +37,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct InternalExtractorEdge
 {
     InternalExtractorEdge()
-        : way_id(0), start(0), target(0), type(0), direction(0), speed(0), name_id(0), is_roundabout(false),
+        : start(0), target(0), direction(0), speed(0), name_id(0), is_roundabout(false),
           is_in_tiny_cc(false), is_duration_set(false), is_access_restricted(false),
-          is_contra_flow(false), is_split(false)
+          travel_mode(TRAVEL_MODE_INACCESSIBLE), is_split(false)
     {
     }
 
-    explicit InternalExtractorEdge(unsigned id,
-                                   NodeID start,
+    explicit InternalExtractorEdge(NodeID start,
                                    NodeID target,
-                                   short type,
                                    short direction,
                                    double speed,
                                    unsigned name_id,
@@ -53,31 +52,28 @@ struct InternalExtractorEdge
                                    bool is_in_tiny_cc,
                                    bool is_duration_set,
                                    bool is_access_restricted,
-                                   bool is_contra_flow,
+                                   TravelMode travel_mode,
                                    bool is_split)
-        : way_id(id), start(start), target(target), type(type), direction(direction), speed(speed),
+        : start(start), target(target), direction(direction), speed(speed),
           name_id(name_id), is_roundabout(is_roundabout), is_in_tiny_cc(is_in_tiny_cc),
           is_duration_set(is_duration_set), is_access_restricted(is_access_restricted),
-          is_contra_flow(is_contra_flow), is_split(is_split)
+          travel_mode(travel_mode), is_split(is_split)
     {
-        BOOST_ASSERT(0 <= type);
     }
 
     // necessary static util functions for stxxl's sorting
     static InternalExtractorEdge min_value()
     {
-        return InternalExtractorEdge(0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false);
+        return InternalExtractorEdge(0, 0, 0, 0, 0, false, false, false, false, TRAVEL_MODE_INACCESSIBLE, false);
     }
     static InternalExtractorEdge max_value()
     {
         return InternalExtractorEdge(
-            SPECIAL_EDGEID, SPECIAL_NODEID, SPECIAL_NODEID, 0, 0, 0, 0, false, false, false, false, false, false);
+            SPECIAL_NODEID, SPECIAL_NODEID, 0, 0, 0, false, false, false, false, TRAVEL_MODE_INACCESSIBLE, false);
     }
 
-    unsigned way_id;
     NodeID start;
     NodeID target;
-    short type;
     short direction;
     double speed;
     unsigned name_id;
@@ -85,7 +81,7 @@ struct InternalExtractorEdge
     bool is_in_tiny_cc;
     bool is_duration_set;
     bool is_access_restricted;
-    bool is_contra_flow;
+    TravelMode travel_mode : 4;
     bool is_split;
 
     FixedPointCoordinate source_coordinate;
@@ -94,7 +90,7 @@ struct InternalExtractorEdge
 
 struct CmpEdgeByStartID
 {
-    typedef InternalExtractorEdge value_type;
+    using value_type = InternalExtractorEdge;
     bool operator()(const InternalExtractorEdge &a, const InternalExtractorEdge &b) const
     {
         return a.start < b.start;
@@ -107,7 +103,7 @@ struct CmpEdgeByStartID
 
 struct CmpEdgeByTargetID
 {
-    typedef InternalExtractorEdge value_type;
+    using value_type = InternalExtractorEdge;
 
     bool operator()(const InternalExtractorEdge &a, const InternalExtractorEdge &b) const
     {
