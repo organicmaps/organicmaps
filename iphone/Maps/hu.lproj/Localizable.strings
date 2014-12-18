@@ -596,7 +596,7 @@
 "download_map_notification" = "Töltsd le annak a helynek a térképét, ahol most vagy";
 
 /* text of notification */
-"pro_version_is_free_today" = "A MAPS.ME Pro ma ingyenes! Töltsd le most és meséld el barátaidnak.";
+"pro_version_is_free_today" = "A teljes verzió MAPS.ME ma ingyenes! Töltsd le most és meséld el barátaidnak.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "A MAPS.ME 80%-kal olcsóbban érhető el a Google Play-n! Töltsd le most és mondd el barátaidnak!";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Sikertelen";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Az útvonaltervezés csak a MAPS.ME Pro-ban elérhető. Szerezd meg most!";
+"routing_failed_buy_pro" = "Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.";

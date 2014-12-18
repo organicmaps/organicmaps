@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "Marcapáginas de MAPS.ME compartidos contigo";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "¡Hola!\n\nEn el archivo adjunto \"%@.kmz\", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!";
+"share_bookmarks_email_body" = "¡Hola!\n\nEn el archivo adjunto \"%@.kmz\", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Cargando favoritos";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Descarga el mapa del lugar en que te encuentras";
 
 /* text of notification */
-"pro_version_is_free_today" = "¡MAPS.ME Pro gratis hoy! Descárgalo ahora y dilo a tus amigos.";
+"pro_version_is_free_today" = "¡Versión completa de MAPS.ME gratis hoy! Descárgalo ahora y dilo a tus amigos.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME disponible con un descuento del 80 % en Google Play! Descárgalo ahora y dilo a tus amigos.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Fallo";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "El enrutamiento solo está disponible en MAPS.ME Pro. ¡Obtenla ahora!";
+"routing_failed_buy_pro" = "La planificación de la ruta solo está disponible en la versión completa de MAPS.ME. ¡Consígala ya!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "La ubicación actual no está definida. Por favor, especifique la ubicación para crear la ruta.";

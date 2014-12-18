@@ -247,7 +247,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Il segnalibri MAPS.ME è stato condiviso con te</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MAPS.ME, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app MAPS.ME Pro è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MAPS.ME, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app MAPS.ME è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
 	<!-- Kmz file successful loading -->
@@ -357,7 +357,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Scarica la mappa del luogo in cui ti trovi</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro è oggi gratis! Scaricala ora e dillo ai tuoi amici!</string>
+	<string name="pro_version_is_free_today">Versione completa di MAPS.ME è oggi gratis! Scaricala ora e dillo ai tuoi amici!</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today_android">MAPS.ME è disponibile con uno sconto dell\&#39;80% su Google Play! Scaricala ora e dillo ai tuoi amici!</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
@@ -435,7 +435,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Fallito</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">La funzione percorso è disponibile solo in MAPS.ME Pro. Prendila ora!</string>
+	<string name="routing_failed_buy_pro">Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">La posizione attuale non è definita. Specifica la posizione per creare il percorso.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

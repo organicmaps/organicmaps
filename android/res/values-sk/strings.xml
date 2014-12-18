@@ -249,7 +249,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Zdielané záložky MAPS.ME</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore \&quot;%s.kmz\&quot;. Pokiaľ máte už podobnú aplikáciu MAPS.ME Pro nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore \&quot;%s.kmz\&quot;. Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Načítavanie záložiek</string>
 	<!-- Kmz file successful loading -->
@@ -374,7 +374,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Stiahnite si mapu miesta, kde sa práve nachádzate</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
+	<string name="pro_version_is_free_today">Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today_android">MAPS.ME sú dostupné v Google Play so zľavou 80%! Stiahnite teraz a povedzte svojim priateľom.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
@@ -452,7 +452,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Zlyhalo</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Smerovanie je k dispozícii len na MAPS.ME Pro. Získajte ho hneď teraz!</string>
+	<string name="routing_failed_buy_pro">Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

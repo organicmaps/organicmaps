@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "Signets MAPS.ME partagés";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME Pro d'installé. Sinon, téléchargez l'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !";
+"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME d'installé. Sinon, téléchargez l'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Télécharger la carte de l'endroit où vous êtes";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro est gratuit aujoud'hui ! Téléchargez-le maintenant et dites-le à vos amis.";
+"pro_version_is_free_today" = "Version complète de MAPS.ME est gratuit aujoud'hui ! Téléchargez-le maintenant et dites-le à vos amis.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME est disponible avec 80 % de réduction sur Google Play ! Téléchargez-le maintenant et dites-le à vos amis.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "A échoué";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Le calcul d'itinéraire est seulement disponible avec MAPS.ME Pro. Achetez-le maintenant !";
+"routing_failed_buy_pro" = "L'itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.";

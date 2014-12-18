@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "تم مشاركة اشارات MAPS.ME المرجعية معك";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME Pro مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!";
+"share_bookmarks_email_body" = "مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "تحميل الإشارات المرجعية";
@@ -596,7 +596,7 @@
 "download_map_notification" = "تنزيل خريطة المكان الذي توجد فيه";
 
 /* text of notification */
-"pro_version_is_free_today" = "تطبيق MAPS.ME Pro مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.";
+"pro_version_is_free_today" = "تطبيق MAPS.ME مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي. قم بتنزيله الآن وأخبر أصدقائك.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "فشل";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "تحديد المسار متاح فقط من خلال MAPS.ME Pro. احصل عليه الآن!";
+"routing_failed_buy_pro" = "تحديد المسار متاح فقط من خلال الإصدار الكامل لتطبيق MAPS.ME. احصل عليه الآن!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.";

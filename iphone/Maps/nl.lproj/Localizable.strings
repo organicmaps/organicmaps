@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Navigeer makkelijker met MAPS.ME Pro met offline zoeken. Instelleer het nu!";
+"pro_version_available" = "Navigeer makkelijker met MAPS.ME met offline zoeken. Instelleer het nu!";
 
 /* Notification text when paid version become free on the market (Lite app version). */
 "free_pro_version_notification_lite" = "Upgrade vandaag gratis naar MAPS.ME Pro!";
@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "Bladwijzers van MAPS.ME met u gedeeld";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde \"%@.kmz\"-bestand. Open het bestand als u MAPS.ME Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!";
+"share_bookmarks_email_body" = "Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde \"%@.kmz\"-bestand. Open het bestand als u MAPS.ME al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers aan het uploaden";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Download de kaart van de plaats waar u bent";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro is nu gratis! Download nu en vertel het je vrienden.";
+"pro_version_is_free_today" = "Volledige versie van MAPS.ME is nu gratis! Download nu en vertel het je vrienden.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME is met 80% korting te koop op Google Play! Download nu en vertel het je vrienden.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Mislukt";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Routeplanning is enkel beschikbaar in MAPS.ME Pro. Verkrijg het nu meteen!";
+"routing_failed_buy_pro" = "Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";

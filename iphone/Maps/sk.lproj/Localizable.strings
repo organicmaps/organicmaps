@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "Zdielané záložky MAPS.ME";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore \"%@.kmz\". Pokiaľ máte už podobnú aplikáciu MAPS.ME Pro nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!";
+"share_bookmarks_email_body" = "Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore \"%@.kmz\". Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Načítavanie záložiek";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Stiahnite si mapu miesta, kde sa práve nachádzate";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.";
+"pro_version_is_free_today" = "Plná verzia MAPS.ME dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME sú dostupné v Google Play so zľavou 80%! Stiahnite teraz a povedzte svojim priateľom.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Zlyhalo";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Smerovanie je k dispozícii len na MAPS.ME Pro. Získajte ho hneď teraz!";
+"routing_failed_buy_pro" = "Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.";

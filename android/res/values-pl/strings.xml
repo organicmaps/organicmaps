@@ -251,7 +251,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Udostępniono ci zakładkę z MAPS.ME</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku \&quot;%s.kmz\&quot;. Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MAPS.ME Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku \&quot;%s.kmz\&quot;. Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Wczytywanie zakładek</string>
 	<!-- Kmz file successful loading -->
@@ -371,7 +371,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Pobierz mapę miejsca, w którym się zajdujesz</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro jest dziś za darmo! Pobierz teraz i powiedz znajomym.</string>
+	<string name="pro_version_is_free_today">Pełna wersja MAPS.ME jest dziś za darmo! Pobierz teraz i powiedz znajomym.</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today_android">MAPS.ME jest dostępne z 80% zniżką na Google Play! Pobierz teraz i powiedz znajomym.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
@@ -449,7 +449,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Nieudane</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Ustalanie tras jest dostępne tylko w MAPS.ME Pro. Pobierz je teraz!</string>
+	<string name="routing_failed_buy_pro">Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Bieżąca lokalizacja nie została zdefiniowana. Aby utworzyć trasę, określ lokalizację.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

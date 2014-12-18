@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Naviger lettere med den fulde version af MAPS.ME med bl.a. offline søgning. Få det nu!";
+"pro_version_available" = "Naviger lettere med den fulde version af MAPS.ME med bl.a. offline søgning. Få det nu!";
 
 /* Notification text when paid version become free on the market (Lite app version). */
 "free_pro_version_notification_lite" = "Opgradér til MAPS.ME Pro gratis i dag!";
@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "MAPS.ME bogmærker er blevet delt med dig";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME Pro installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!";
+"share_bookmarks_email_body" = "Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Indlæser Bogmærker";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Download kortet over det sted, hvor du befinder dig";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro er gratis i dag! Download nu og fortæl dine venner om det.";
+"pro_version_is_free_today" = "Fuld version af MAPS.ME er gratis i dag! Download nu og fortæl dine venner om det.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME er tilgængeligt med 80% rabat på Google Play! Del nyheden på Facebook.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Mislykkedes";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Routing er kun muligt med MAPS.ME Pro. Prøv det lige nu!";
+"routing_failed_buy_pro" = "Oprettelse af ruter er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Den nuværende placering er ikke defineret. Venligst angiv placering for at oprette en rute.";

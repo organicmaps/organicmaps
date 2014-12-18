@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "С вами поделились метками MAPS.ME";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле \"%@.kmz\" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле \"%@.kmz\" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка меток";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Скачайте карту места, где вы находитесь";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro сегодня бесплатно! Скачай сейчас и расскажи друзьям.";
+"pro_version_is_free_today" = "Полная версия MAPS.ME сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "Сегодня в Google Play скидка на MAPS.ME 80%! Скачай сейчас и расскажи друзьям.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Ошибка";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Создание маршрутов возможно только в MAPS.ME Pro. Скачай сейчас!";
+"routing_failed_buy_pro" = "Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Невозможно проложить маршрут. Не определено текущее местоположение.";

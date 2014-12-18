@@ -259,7 +259,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Shared MAPS.ME bookmarks</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Loading Bookmarks</string>
 	<!-- Kmz file successful loading -->
@@ -385,7 +385,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Download the map of the place where you are</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro is free today! Download now and tell your friends.</string>
+	<string name="pro_version_is_free_today">Full version of MAPS.ME is free today! Download now and tell your friends.</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today_android">MAPS.ME is available with 80% discount at Google Play! Download now and tell your friends.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
@@ -395,7 +395,7 @@
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.</string>
 	<!-- Message to display on 17th-18th august -->
-	<string name="maps_me_is_free_today_ios">MAPS.ME Pro is free today! Share the news on Facebook.</string>
+	<string name="maps_me_is_free_today_ios">MAPS.ME is free today! Share the news on Facebook.</string>
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_android">MAPS.ME is available with 80% discount at Google Play! Share the news on Facebook.</string>
 	<!-- Message for facebook post on 17th-18th august -->
@@ -463,7 +463,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Failed</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Routing is only available in MAPS.ME Pro. Get it right now!</string>
+	<string name="routing_failed_buy_pro">Routing is only available in the full version of MAPS.ME. Get it right now!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Current location is undefined. Please specify location to create route.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

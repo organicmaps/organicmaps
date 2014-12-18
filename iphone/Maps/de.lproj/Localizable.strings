@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "MAPS.ME Lesezeichen mit Ihnen geteilt";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MAPS.ME!";
+"share_bookmarks_email_body" = "Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro heute gratis! Jetzt runterladen & Freunde informieren";
+"pro_version_is_free_today" = "MAPS.ME heute gratis! Jetzt runterladen & Freunde informieren";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Jetzt runterladen & Freunde informieren.";
@@ -611,7 +611,7 @@
 "move_lite_maps_to_pro_failed" = "Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.";
 
 /* Message to display on 17th-18th august */
-"maps_me_is_free_today_ios" = "MAPS.ME Pro ist heute gratis! Neuigkeiten auf Facebook teilen.";
+"maps_me_is_free_today_ios" = "MAPS.ME ist heute gratis! Neuigkeiten auf Facebook teilen.";
 
 /* Message to display on 17th-18th august */
 "maps_me_is_free_today_android" = "MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Neuigkeiten auf Facebook teilen.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Fehlgeschlagen";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Die Routenplanung ist nur in MAPS.ME Pro verfügbar. JHolen Sie es sich gleich jetzt!";
+"routing_failed_buy_pro" = "Routing ist nur in der Vollversion von MAPS.ME verfügbar. Jetzt holen!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.";

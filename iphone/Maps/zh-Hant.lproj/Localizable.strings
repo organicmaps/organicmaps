@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "您已分享了 MAPS.ME 書籤";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "哈囉!\n\n這是我的MAPS.ME離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝MAPS.ME專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MAPS.ME愉快!";
+"share_bookmarks_email_body" = "哈囉!\n\n這是我的MAPS.ME離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝MAPS.ME的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MAPS.ME愉快!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -596,7 +596,7 @@
 "download_map_notification" = "下載您所在地方的地圖";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。";
+"pro_version_is_free_today" = "完整版MAPS.ME是免費的今天！馬上下載并告訴您的朋友。";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME在Google Play上可享受80％折扣! 馬上下載并告訴您的朋友。";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "失敗";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "規劃路線只有在MAPS.ME專業版有。現在就獲得它！";
+"routing_failed_buy_pro" = "佈置路線只在MAPS.ME的完整版本中才有。现在就得到它吧！";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "當前地點未定。請明確地點以創建路線。";

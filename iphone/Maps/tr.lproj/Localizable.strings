@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "Paylaşılan MAPS.ME yer imleri";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME PRO sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!";
+"share_bookmarks_email_body" = "Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!";
 
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Bulunduğun yerin haritasını indir";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
+"pro_version_is_free_today" = "MAPS.ME tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME Google Play'de %80 indirimli! İndir ve arkadaşlarına haber ver.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Başarısız";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Yönlendirme yalnızca MAPS.ME pro'da mevcuttur. Hemen edinin!";
+"routing_failed_buy_pro" = "Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.";

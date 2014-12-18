@@ -254,7 +254,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">แชร์บุ๊กมาร์กของ MAPS.ME แล้ว</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">สวัสดี n\nสิ่งที่แนบ \&quot;%s.kmz\&quot; คือบุ๊กมาร์กของฉันจากแผนที่ MAPS.ME แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง MAPS.ME Pro หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz\n\nสนุกไปกับการเดินทางไปกับ MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">สวัสดี n\nสิ่งที่แนบ \&quot;%s.kmz\&quot; คือบุ๊กมาร์กของฉันจากแผนที่ MAPS.ME แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง MAPS.ME หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz\n\nสนุกไปกับการเดินทางไปกับ MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">กำลังโหลดบุ๊กมาร์ก</string>
 	<!-- Kmz file successful loading -->
@@ -372,7 +372,7 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ</string>
+	<string name="pro_version_is_free_today">เวอร์ชันเต็มของ MAPS.ME วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today_android">สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
@@ -450,7 +450,7 @@
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">ล้มเหลว</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">การระบุเส้นทางสามารถทำได้เฉพาะใน MAPS.ME Pro รับมันตอนนี้เลย!</string>
+	<string name="routing_failed_buy_pro">เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

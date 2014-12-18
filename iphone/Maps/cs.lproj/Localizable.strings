@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "Sdílené záložky MAPS.ME";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci MAPS.ME Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!";
+"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Stáhni si mapu místa, kde právě jsi";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro je dnes zadarmo! Stáhni si ji nyní a dej vědět kamarádům.";
+"pro_version_is_free_today" = "Plná verze MAPS.ME dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "Aplikace MAPS.ME je dostupná na Google Play se slevou 80 %! Stáhni si ji nyní a dej vědět kamarádům.";
@@ -614,7 +614,7 @@
 "maps_me_is_free_today_ios" = "MAPS.ME je dnes zdarma! Sdílej tu zprávu na Facebooku.";
 
 /* Message to display on 17th-18th august */
-"maps_me_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílej tu zprávu na Facebooku.";
+"maps_me_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80%! Sdílej tu zprávu na Facebooku.";
 
 /* Message for facebook post on 17th-18th august */
 "maps_me_is_free_today_facebook_post_ios" = "Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěš si a získej tuto aplikaci ještě dnes, tato propagační akce brzy skončí!";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Selhalo";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Vytýčení tras funguje pouze v aplikaci MAPS.ME Pro. Získejte ji teď hned!";
+"routing_failed_buy_pro" = "Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuální poloha nebyla zatím zjištěna. Chceš-li naplánovat trasu, zadej prosím umístění.";

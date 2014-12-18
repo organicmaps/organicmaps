@@ -401,7 +401,7 @@
 "share_bookmarks_email_subject" = "MAPS.ME bokmärken har delats med dig";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hej,\n\nMina bokmärken från MAPS.ME offline-kartor är bifogade. Öppna dem ifall du har MAPS.ME Pro installerat. Om inte, ladda ner appen till din iOS- eller Android-enhet från denna länk: http://maps.me/get?kmz\n\nNjut av att resa med MAPS.ME!";
+"share_bookmarks_email_body" = "Hej,\n\nMina bokmärken från MAPS.ME offline-kartor är bifogade. Öppna dem ifall du har MAPS.ME installerat. Om inte, ladda ner appen till din iOS- eller Android-enhet från denna länk: http://maps.me/get?kmz\n\nNjut av att resa med MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Läser in bokmärken";
@@ -596,7 +596,7 @@
 "download_map_notification" = "Ladda ner kartan över din nuvarande plats";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro är gratis idag! Ladda ner den nu och berätta för dina vänner.";
+"pro_version_is_free_today" = "Fullständig version av MAPS.ME är gratis idag! Ladda ner den nu och berätta för dina vänner.";
 
 /* text of notification */
 "pro_version_is_free_today_android" = "MAPS.ME finns tillgänglig med 80% rabbat på Google Play! Ladda ner nu och berätta för dina vänner.";
@@ -713,7 +713,7 @@
 "downloader_status_failed" = "Misslyckades";
 
 /* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Rutter är endast tillgängliga i MAPS.ME Pro. Hämta den redan nu!";
+"routing_failed_buy_pro" = "Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.";
