@@ -5,6 +5,7 @@
 #include "../routing/turns.hpp"
 
 #include "../std/string.hpp"
+#include "../std/cmath.hpp"
 
 
 namespace location
@@ -71,6 +72,22 @@ namespace location
   static inline bool IsLonValid(double lon)
   {
     return lon != 0. && lon < 180. && lon > -180.;
+  }
+
+
+  // Convert angle (in degrees counterclockwise from X) to bearing ([0, 360) clockwise from the north)
+  static inline double AngleToBearing(double a)
+  {
+    double reverseAng = fmod(-a + 90, 360.);
+    if (reverseAng < 0)
+      reverseAng += 360.;
+    return reverseAng;
+  }
+
+  // Convert bearing (in degrees clockwise from the north) to angle ([0, 360) counterclockwise from X)
+  static inline double BearingToAngle(double a)
+  {
+    return AngleToBearing(a);
   }
 
   class FollowingInfo

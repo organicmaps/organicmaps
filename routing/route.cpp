@@ -5,6 +5,8 @@
 #include "../platform/location.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"
+#include "../geometry/angles.hpp"
+#include "../geometry/point2d.hpp"
 
 #include "../base/logging.hpp"
 
@@ -172,6 +174,27 @@ double Route::GetCurrentSqDistance(m2::PointD const & pt) const
   return pt.SquareLength(m_current.m_pt);
 }
 
+double Route::GetPolySegAngle(size_t ind) const
+{
+  size_t const polySz = m_poly.GetSize();
+
+  if (ind + 1 >= polySz)
+  {
+    ASSERT(false, ());
+    return 0;
+  }
+
+  m2::PointD const p1 = m_poly.GetPoint(ind);
+  m2::PointD p2;
+  size_t i = ind + 1;
+  do
+  {
+    p2 = m_poly.GetPoint(i);
+  }
+  while (m2::AlmostEqual(p1, p2) && ++i < polySz);
+  return (i == polySz) ? 0 : my::RadToDeg(ang::AngleTo(p1, p2));
+}
+
 void Route::MatchLocationToRoute(location::GpsInfo & location) const
 {
   if (m_current.IsValid())
@@ -183,6 +206,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location) const
     {
       location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
       location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
+      location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
     }
   }
 }

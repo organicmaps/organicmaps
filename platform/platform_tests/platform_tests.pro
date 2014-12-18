@@ -34,3 +34,4 @@ SOURCES += \
     downloader_test.cpp \
     video_timer_test.cpp \
     apk_test.cpp \
+    location_test.cpp \

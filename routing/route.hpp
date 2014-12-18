@@ -113,6 +113,7 @@ private:
 
   /// Call this fucnction when geometry have changed.
   void Update();
+  double GetPolySegAngle(size_t ind) const;
 
 private:
   friend string DebugPrint(Route const & r);
