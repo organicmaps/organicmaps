@@ -41,8 +41,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-#include <tbb/parallel_sort.h>
-
 #include <cmath>
 
 #include <algorithm>
@@ -130,8 +128,11 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
     int length;
     bool is_roundabout, ignore_in_grid, is_access_restricted, is_split;
     TravelMode travel_mode;
+    unsigned way_id;
+
     for (EdgeID i = 0; i < m; ++i)
     {
+        input_stream.read((char *)&way_id, sizeof(unsigned));
         input_stream.read((char *)&source, sizeof(unsigned));
         input_stream.read((char *)&target, sizeof(unsigned));
         input_stream.read((char *)&length, sizeof(int));
@@ -186,7 +187,8 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
             std::swap(forward, backward);
         }
 
-        edge_list.emplace_back(source,
+        edge_list.emplace_back(way_id,
+                               source,
                                target,
                                nameID,
                                weight,
@@ -199,7 +201,7 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
                                is_split);
     }
 
-    tbb::parallel_sort(edge_list.begin(), edge_list.end());
+    std::sort(edge_list.begin(), edge_list.end());
     for (unsigned i = 1; i < edge_list.size(); ++i)
     {
         if ((edge_list[i - 1].target == edge_list[i].target) &&
@@ -300,11 +302,13 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
     EdgeWeight weight;
     NodeID nameID;
     int length;
+    unsigned way_id;
     bool is_roundabout, ignore_in_grid, is_access_restricted, is_split;
     TravelMode travel_mode;
 
     for (EdgeID i = 0; i < m; ++i)
     {
+        input_stream.read((char *)&way_id, sizeof(unsigned));
         input_stream.read((char *)&source, sizeof(unsigned));
         input_stream.read((char *)&target, sizeof(unsigned));
         input_stream.read((char *)&length, sizeof(int));
@@ -351,7 +355,7 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
                                target);
     }
 
-    tbb::parallel_sort(edge_list.begin(), edge_list.end());
+    std::sort(edge_list.begin(), edge_list.end());
     for (unsigned i = 1; i < edge_list.size(); ++i)
     {
         if ((edge_list[i - 1].target == edge_list[i].target) &&

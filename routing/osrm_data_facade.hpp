@@ -15,6 +15,7 @@
 #include "../3party/succinct/mapper.hpp"
 
 #include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
+#include "../3party/osrm/osrm-backend/DataStructures/TravelMode.h"
 
 
 namespace routing
@@ -129,6 +130,12 @@ public:
   {
     static EdgeDataT res;
     return res;
+  }
+
+  //! TODO: Make proper travelmode getter when we add it to routing file
+  TravelMode GetTravelModeForEdgeID(const unsigned id) const
+  {
+      return TRAVEL_MODE_DEFAULT;
   }
 
   EdgeID BeginEdges(const NodeID n) const

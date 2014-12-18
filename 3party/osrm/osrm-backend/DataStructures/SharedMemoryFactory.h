@@ -34,16 +34,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/interprocess/mapped_region.hpp>
-#ifndef WIN32
+#if !defined(WIN32) && !defined(__ANDROID__)
 #include <boost/interprocess/xsi_shared_memory.hpp>
 #else
 #include <boost/interprocess/shared_memory_object.hpp>
 #endif
 
-#ifdef __linux__
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#endif
+//#ifdef __linux__
+//#include <sys/ipc.h>
+//#include <sys/shm.h>
+//#endif
 
 // #include <cstring>
 #include <cstdint>
@@ -61,7 +61,7 @@ struct OSRMLockFile
     }
 };
 
-#ifndef WIN32
+#if !defined(WIN32) && !defined(__ANDROID__)
 class SharedMemory
 {
 

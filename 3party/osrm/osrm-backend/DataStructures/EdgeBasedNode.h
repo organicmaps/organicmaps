@@ -4,7 +4,7 @@
 #include "../DataStructures/TravelMode.h"
 #include "../typedefs.h"
 
-#include <osrm/Coordinate.h>
+#include "../Include/osrm/Coordinate.h"
 
 #include <boost/assert.hpp>
 
@@ -14,6 +14,8 @@ struct EdgeBasedNode
 {
 
     EdgeBasedNode() :
+        forward_way_id(-1),
+        reverse_way_id(-1),
         forward_edge_based_node_id(SPECIAL_NODEID),
         reverse_edge_based_node_id(SPECIAL_NODEID),
         u(SPECIAL_NODEID),
@@ -31,6 +33,8 @@ struct EdgeBasedNode
     { }
 
     explicit EdgeBasedNode(
+        unsigned forward_way_id,
+        unsigned reverse_way_id,
         NodeID forward_edge_based_node_id,
         NodeID reverse_edge_based_node_id,
         NodeID u,
@@ -46,6 +50,8 @@ struct EdgeBasedNode
         TravelMode forward_travel_mode,
         TravelMode backward_travel_mode
     ) :
+        forward_way_id(forward_way_id),
+        reverse_way_id(reverse_way_id),
         forward_edge_based_node_id(forward_edge_based_node_id),
         reverse_edge_based_node_id(reverse_edge_based_node_id),
         u(u),
@@ -79,6 +85,8 @@ struct EdgeBasedNode
         return packed_geometry_id != SPECIAL_EDGEID;
     }
 
+    unsigned forward_way_id;
+    unsigned reverse_way_id;
     NodeID forward_edge_based_node_id; // needed for edge-expanded graph
     NodeID reverse_edge_based_node_id; // needed for edge-expanded graph
     NodeID u;   // indices into the coordinates array
