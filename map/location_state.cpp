@@ -462,11 +462,14 @@ void State::InvalidatePosition()
     SetModeInfo(ChangeMode(m_modeInfo, UnknownPosition));
     SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
     m_afterPendingMode = currentMode;
+    setIsVisible(true);
   }
   else if (currentMode == UnknownPosition)
+  {
     m_afterPendingMode = Follow;
+    setIsVisible(false);
+  }
 
-  setIsVisible(false);
   invalidate();
 }
 
