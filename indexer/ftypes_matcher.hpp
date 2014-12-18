@@ -13,17 +13,21 @@ namespace ftypes
 
 class BaseChecker
 {
-  bool IsMatched(uint32_t type) const;
+  size_t const m_level;
+  virtual bool IsMatched(uint32_t type) const;
 
 protected:
   vector<uint32_t> m_types;
 
 public:
+  BaseChecker(size_t level = 2) : m_level(level) {}
+  virtual ~BaseChecker() {}
+
   bool operator() (feature::TypesHolder const & types) const;
   bool operator() (FeatureType const & ft) const;
   bool operator() (vector<uint32_t> const & types) const;
 
-  static uint32_t PrepareToMatch(uint32_t type);
+  static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 };
 
 class IsStreetChecker : public BaseChecker
@@ -63,6 +67,22 @@ public:
   IsBuildingChecker();
 
   uint32_t GetMainType() const { return m_types[0]; }
+};
+
+class IsBridgeChecker : public BaseChecker
+{
+  size_t m_typeMask;
+public:
+  IsBridgeChecker();
+  static IsBridgeChecker const & Instance();
+};
+
+class IsTunnelChecker : public BaseChecker
+{
+  size_t m_typeMask;
+public:
+  IsTunnelChecker();
+  static IsTunnelChecker const & Instance();
 };
 
 /// Type of locality (do not change values and order - they have detalization order)

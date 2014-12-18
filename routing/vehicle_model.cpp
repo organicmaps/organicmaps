@@ -67,7 +67,7 @@ double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
   double speed = m_maxSpeed * 2;
   for (size_t i = 0; i < types.Size(); ++i)
   {
-    uint32_t const type = ftypes::BaseChecker::PrepareToMatch(types[i]);
+    uint32_t const type = ftypes::BaseChecker::PrepareToMatch(types[i], 2);
     TypesT::const_iterator it = m_types.find(type);
     if (it != m_types.end())
       speed = min(speed, it->second.m_speed);
@@ -108,7 +108,7 @@ bool VehicleModel::IsRoad(vector<uint32_t> const & types) const
 bool VehicleModel::IsRoad(uint32_t type) const
 {
   return (type == m_ferryType ||
-          m_types.find(ftypes::BaseChecker::PrepareToMatch(type)) != m_types.end());
+          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end());
 }
 
 }

@@ -8,15 +8,15 @@
 namespace ftypes
 {
 
-uint32_t BaseChecker::PrepareToMatch(uint32_t type)
+uint32_t BaseChecker::PrepareToMatch(uint32_t type, uint8_t level)
 {
-  ftype::TruncValue(type, 2);
+  ftype::TruncValue(type, level);
   return type;
 }
 
 bool BaseChecker::IsMatched(uint32_t type) const
 {
-  return (find(m_types.begin(), m_types.end(), PrepareToMatch(type)) != m_types.end());
+  return (find(m_types.begin(), m_types.end(), PrepareToMatch(type, m_level)) != m_types.end());
 }
 
 bool BaseChecker::operator() (feature::TypesHolder const & types) const
@@ -139,6 +139,75 @@ IsLocalityChecker::IsLocalityChecker()
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+}
+
+IsBridgeChecker::IsBridgeChecker() : BaseChecker(3), m_typeMask(0)
+{ 
+  Classificator const & c = classif();
+  uint32_t type = c.GetTypeByPath({"highway", "road", "bridge"});
+  uint8_t highwayType, bridgeType;
+  ftype::GetValue(type, 0, highwayType);
+  ftype::GetValue(type, 2, bridgeType);
+
+  size_t const recordSz = 3;
+  char const * arr[][recordSz] = {
+    { "highway", "living_street", "bridge" },
+    { "highway", "motorway", "bridge" },
+    { "highway", "motorway_link", "bridge" },
+    { "highway", "primary", "bridge" },
+    { "highway", "primary_link", "bridge" },
+    { "highway", "residential", "bridge" },
+    { "highway", "road", "bridge" },
+    { "highway", "secondary", "bridge" },
+    { "highway", "secondary_link", "bridge" },
+    { "highway", "service", "bridge" },
+    { "highway", "tertiary", "bridge" },
+    { "highway", "tertiary_link", "bridge" },
+    { "highway", "trunk", "bridge" },
+    { "highway", "trunk_link", "bridge" },
+    { "highway", "unclassified", "bridge" }
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + recordSz)));
+}
+
+IsBridgeChecker const & IsBridgeChecker::Instance()
+{
+  static const IsBridgeChecker inst;
+  return inst;
+}
+
+IsTunnelChecker::IsTunnelChecker() : BaseChecker(3), m_typeMask(0)
+{
+  Classificator const & c = classif();
+  size_t const recordSz = 3;
+  char const * arr[][recordSz] = {
+    { "highway", "living_street", "tunnel" },
+    { "highway", "motorway", "tunnel" },
+    { "highway", "motorway_link", "tunnel" },
+    { "highway", "primary", "tunnel" },
+    { "highway", "primary_link", "tunnel" },
+    { "highway", "residential", "tunnel" },
+    { "highway", "road", "tunnel" },
+    { "highway", "secondary", "tunnel" },
+    { "highway", "secondary_link", "tunnel" },
+    { "highway", "service", "tunnel" },
+    { "highway", "tertiary", "tunnel" },
+    { "highway", "tertiary_link", "tunnel" },
+    { "highway", "trunk", "tunnel" },
+    { "highway", "trunk_link", "tunnel" },
+    { "highway", "unclassified", "tunnel" }
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + recordSz)));
+}
+
+IsTunnelChecker const & IsTunnelChecker::Instance()
+{
+  static const IsTunnelChecker inst;
+  return inst;
 }
 
 Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
