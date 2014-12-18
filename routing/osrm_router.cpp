@@ -31,7 +31,7 @@ namespace routing
 size_t const MAX_NODE_CANDIDATES = 10;
 double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
 double const TIME_OVERHEAD = 1.2;
-double const FEATURES_NEAR_TURN_M = 5.0;
+double const FEATURES_NEAR_TURN_M = 3.0;
 
 namespace
 {
@@ -64,7 +64,7 @@ public:
 
     for (size_t i = 0; i < count; ++i)
     {
-      if (MercatorBounds::DistanceOnEarth(m_p, ft.GetPoint(i)) < 2)
+      if (MercatorBounds::DistanceOnEarth(m_p, ft.GetPoint(i)) < FEATURES_NEAR_TURN_M)
       {
         if (i > 0)
           addAngle(m_p, m_p1, ft.GetPoint(i - 1));
