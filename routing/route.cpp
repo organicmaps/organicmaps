@@ -15,7 +15,7 @@ namespace routing
 {
 
 static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
-static double const ON_ROAD_TOLERANCE_M = 40.0;
+static double const ON_ROAD_TOLERANCE_M = 50.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
 

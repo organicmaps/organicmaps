@@ -31,9 +31,50 @@ namespace routing
 size_t const MAX_NODE_CANDIDATES = 10;
 double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
 double const TIME_OVERHEAD = 1.2;
+double const FEATURES_NEAR_TURN_M = 5.0;
 
 namespace
 {
+class Point2Geometry : private noncopyable
+{
+  m2::PointD m_p, m_p1;
+  OsrmRouter::GeomTurnCandidateT & m_candidates;
+public:
+  Point2Geometry(m2::PointD const & p, m2::PointD const & p1,
+                 OsrmRouter::GeomTurnCandidateT & candidates)
+    : m_p(p), m_p1(p1), m_candidates(candidates)
+  {
+  }
+
+  void operator() (FeatureType const & ft)
+  {
+    static CarModel const carModel;
+    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
+      return;
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+    size_t const count = ft.GetPointsCount();
+    ASSERT_GREATER(count, 1, ());
+
+    auto addAngle = [&](m2::PointD const & p, m2::PointD const & p1, m2::PointD const & p2)
+    {
+      double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
+      if (!my::AlmostEqual(a, 0.))
+        m_candidates.push_back(a);
+    };
+
+    for (size_t i = 0; i < count; ++i)
+    {
+      if (MercatorBounds::DistanceOnEarth(m_p, ft.GetPoint(i)) < 2)
+      {
+        if (i > 0)
+          addAngle(m_p, m_p1, ft.GetPoint(i - 1));
+        if (i < count - 1)
+          addAngle(m_p, m_p1, ft.GetPoint(i + 1));
+        return;
+      }
+    }
+  }
+};
 
 class Point2PhantomNode : private noncopyable
 {
@@ -599,7 +640,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
         GetTurnDirection(rawRoute.unpacked_path_segments[i][j - 1],
                          rawRoute.unpacked_path_segments[i][j],
-                         mwmId, t);
+                         mwmId, t, fName);
         if (t.m_turn != turns::NoTurn)
           turnsDir.push_back(t);
 
@@ -845,6 +886,14 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
   });
 }
 
+void OsrmRouter::GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
+                                 OsrmRouter::GeomTurnCandidateT & candidates, string const & fName) const
+{
+  Point2Geometry getter(p, p1, candidates);
+  m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(p, FEATURES_NEAR_TURN_M),
+                                scales::GetUpperScale(), fName);
+}
+
 turns::TurnDirection OsrmRouter::InvertDirection(turns::TurnDirection dir) const
 {
   switch (dir)
@@ -909,7 +958,7 @@ turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
 
 void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
-                                  uint32_t mwmId, Route::TurnItem & turn)
+                                  uint32_t mwmId, Route::TurnItem & turn, string const & fName)
 {
   auto nSegs1 = m_mapping.GetSegmentsRange(node1.node);
   auto nSegs2 = m_mapping.GetSegmentsRange(node2.node);
@@ -950,6 +999,9 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   GetPossibleTurns(node1.node, p1OneSeg, p, mwmId, nodes);
 
 #ifdef _DEBUG
+  GeomTurnCandidateT geoNodes;
+  GetTurnGeometry(p, p1OneSeg, geoNodes, fName);
+
   m2::PointD const p2OneSeg = ft2.GetPoint(seg2.m_pointStart < seg2.m_pointEnd ? seg2.m_pointStart + 1 : seg2.m_pointStart - 1);
 
   double const aOneSeg = my::RadToDeg(ang::TwoVectorsAngle(p, p1OneSeg, p2OneSeg));

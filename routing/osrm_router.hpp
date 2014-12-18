@@ -49,6 +49,7 @@ public:
   };
   typedef vector<TurnCandidate> TurnCandidatesT;
 
+  typedef vector<double> GeomTurnCandidateT;
 
   OsrmRouter(Index const * index, CountryFileFnT const & fn);
 
@@ -75,7 +76,7 @@ private:
                         TurnCandidatesT & candidates);
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
-                        uint32_t mwmId, Route::TurnItem & turn);
+                        uint32_t mwmId, Route::TurnItem & turn, string const & fName);
   void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
   m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
                                   FeatureType const &ft, m2::PointD const &turnPnt,
@@ -84,6 +85,9 @@ private:
   turns::TurnDirection MostRightDirection(double angle) const;
   turns::TurnDirection MostLeftDirection(double angle) const;
   turns::TurnDirection IntermediateDirection(double angle) const;
+  void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
+                       OsrmRouter::GeomTurnCandidateT & candidates, string const & fName) const;
+
 
   Index const * m_pIndex;
 
