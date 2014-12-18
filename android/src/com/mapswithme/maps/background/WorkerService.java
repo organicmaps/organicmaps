@@ -116,6 +116,7 @@ public class WorkerService extends IntentService
   private void handleActionCheckUpdate()
   {
     mLogger.d("Trying to update");
+    // TODO launch this call less frequently
     if (!Framework.nativeIsDataVersionChanged()) return;
 
     final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
