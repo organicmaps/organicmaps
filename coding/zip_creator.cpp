@@ -1,21 +1,21 @@
 #include "zip_creator.hpp"
 
-#include "../../base/string_utils.hpp"
+#include "../base/string_utils.hpp"
 
-#include "../../coding/file_name_utils.hpp"
-#include "../../coding/internal/file_data.hpp"
-#include "../../coding/reader.hpp"
-#include "../../coding/constants.hpp"
+#include "../coding/file_name_utils.hpp"
+#include "../coding/internal/file_data.hpp"
+#include "../coding/reader.hpp"
+#include "../coding/constants.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/scope_guard.hpp"
+#include "../base/logging.hpp"
+#include "../base/scope_guard.hpp"
 
-#include "../../std/vector.hpp"
-#include "../../std/ctime.hpp"
-#include "../../std/algorithm.hpp"
-#include "../../std/unique_ptr.hpp"
+#include "../std/vector.hpp"
+#include "../std/ctime.hpp"
+#include "../std/algorithm.hpp"
+#include "../std/unique_ptr.hpp"
 
-#include "../../3party/zlib/contrib/minizip/zip.h"
+#include "../3party/zlib/contrib/minizip/zip.h"
 
 
 namespace

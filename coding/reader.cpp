@@ -1,6 +1,6 @@
 #include "reader.hpp"
 
-#include "../../base/string_utils.hpp"
+#include "../base/string_utils.hpp"
 
 
 void Reader::ReadAsString(string & s) const

@@ -1,11 +1,11 @@
 #include "guides.hpp"
 
-#include "../../coding/file_writer.hpp"
-#include "../../coding/file_reader.hpp"
-#include "../../coding/internal/file_data.hpp"
+#include "../coding/file_writer.hpp"
+#include "../coding/file_reader.hpp"
+#include "../coding/internal/file_data.hpp"
 
-#include "../../platform/platform.hpp"
-#include "../../platform/settings.hpp"
+#include "../platform/platform.hpp"
+#include "../platform/settings.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/timer.hpp"
@@ -14,7 +14,7 @@
 #include "../std/iostream.hpp"
 #include "../std/target_os.hpp"
 
-#include "../../3party/jansson/myjansson.hpp"
+#include "../3party/jansson/myjansson.hpp"
 
 
 namespace

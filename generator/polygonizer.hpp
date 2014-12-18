@@ -22,10 +22,10 @@
 #endif
 
 #if PARALLEL_POLYGONIZER
-#include <QSemaphore>
-#include <QThreadPool>
-#include <QMutex>
-#include <QMutexLocker>
+#include <QtCore/QSemaphore>
+#include <QtCore/QThreadPool>
+#include <QtCore/QMutex>
+#include <QtCore/QMutexLocker>
 #endif
 
 

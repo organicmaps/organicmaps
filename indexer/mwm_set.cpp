@@ -1,7 +1,7 @@
 #include "mwm_set.hpp"
 #include "scales.hpp"
 
-#include "../../defines.hpp"
+#include "../defines.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
