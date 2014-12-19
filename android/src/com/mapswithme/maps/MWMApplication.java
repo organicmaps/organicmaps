@@ -105,8 +105,9 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     new File(extTmpPath).mkdirs();
 
     // init native framework
-    nativeInit(getApkPath(), extStoragePath, extTmpPath,
-        getOBBGooglePath(), BuildConfig.FLAVOR, BuildConfig.IS_PRO, mIsYota, getResources().getBoolean(R.bool.isTablet));
+    nativeInit(getApkPath(), extStoragePath, extTmpPath, getOBBGooglePath(),
+               BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, BuildConfig.IS_PRO,
+               mIsYota, getResources().getBoolean(R.bool.isTablet));
 
     ActiveCountryTree.addListener(this);
 
@@ -217,7 +218,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   private native void nativeInit(String apkPath, String storagePath,
                                  String tmpPath, String obbGooglePath,
-                                 String flavorName,
+                                 String flavorName, String buildType,
                                  boolean isPro, boolean isYota, boolean isTablet);
 
   public native boolean nativeIsBenchmarking();

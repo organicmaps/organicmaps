@@ -65,12 +65,17 @@ namespace android
   void Platform::Initialize(JNIEnv * env,
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
-                            jstring flavorName, bool isPro, bool isYota, bool isTablet)
+                            jstring flavorName, jstring buildType,
+                            bool isPro, bool isYota, bool isTablet)
   {
     string const flavor = jni::ToNativeString(env, flavorName);
+    string const build = jni::ToNativeString(env, buildType);
     LOG(LINFO, ("Flavor name:", flavor));
+    LOG(LINFO, ("Build type name:", build));
 
-    if (flavor.find("google") == 0)
+    if (build == "beta" || build == "debug")
+      m_androidDefResScope = "fwr";
+    else if (flavor.find("google") == 0)
       m_androidDefResScope = "ferw";
     else if (flavor.find("amazon") == 0 || flavor.find("samsung") == 0)
       m_androidDefResScope = "frw";
