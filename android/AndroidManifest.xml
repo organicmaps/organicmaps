@@ -257,6 +257,13 @@
         android:enabled="true"/>
     <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
     <!-- MRGS -->
+    <receiver
+        android:name="com.mobileapptracker.Tracker"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER"/>
+      </intent-filter>
+    </receiver>
 
   </application>
 
