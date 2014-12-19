@@ -10,7 +10,6 @@
 
 #include "../std/numeric.hpp"
 
-
 namespace routing
 {
 
@@ -98,11 +97,15 @@ uint32_t Route::GetTime() const
 
   ASSERT_LESS_OR_EQUAL(m_times[idx].first, m_poly.GetSize(), ());
   double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first + 1);
-  ASSERT_GREATER(dist, 0, ());
-  double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
-                      MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
 
-  return (uint32_t)((GetAllTime() - (*it).second) + (double)time * (distRemain / dist));
+  if (!my::AlmostEqual(dist, 0.))
+  {
+    double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
+                        MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
+    return (uint32_t)((GetAllTime() - (*it).second) + (double)time * (distRemain / dist));
+  }
+  else
+    return (uint32_t)((GetAllTime() - (*it).second));
 }
 
 void Route::GetTurn(double & distance, Route::TurnItem & turn) const
