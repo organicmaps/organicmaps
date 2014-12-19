@@ -126,7 +126,7 @@ public:
   }
 
   //! TODO: Remove static variable
-  EdgeDataT const & GetEdgeData(const EdgeID e) const
+  EdgeDataT & GetEdgeData(const EdgeID e) const
   {
     static EdgeDataT res;
     return res;
