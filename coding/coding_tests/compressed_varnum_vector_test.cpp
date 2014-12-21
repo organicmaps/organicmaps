@@ -57,6 +57,7 @@ UNIT_TEST(CompressedVarnumVector)
   for (uint32_t i = 1; i < nums.size() - 1; ++i)
   {
     // Find strict equal sum.
+    if (nums[i - 1] >= 1)
     {
       uint64_t sumIncl = 0, cntIncl = 0;
       uint64_t num = comprNums.FindBySum(sums[i], sumIncl, cntIncl);
@@ -65,6 +66,7 @@ UNIT_TEST(CompressedVarnumVector)
       TEST_EQUAL(num, nums[i - 1], ());
     }
     // Find by intermediate sum (not strictly equal).
+    if (nums[i] > 1)
     {
       uint64_t sumIncl = 0, cntIncl = 0;
       uint64_t num = comprNums.FindBySum(sums[i] + 1, sumIncl, cntIncl);
