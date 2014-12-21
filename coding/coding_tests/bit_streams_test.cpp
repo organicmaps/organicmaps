@@ -19,10 +19,7 @@ UNIT_TEST(BitStream_ReadWrite)
   for (uint32_t i = 0; i < NUMS_CNT; ++i)
   {
     uint32_t numBits = GetRand64() % 65;
-    uint64_t num = GetRand64() & (uint64_t(-1) >> (64 - numBits));
-    // Right bit shift by 64 doesn't always work correctly,
-    // this is a workaround.
-    if (numBits == 0) num = 0;
+    uint64_t num = GetRand64() & ((uint64_t(1) << numBits) - 1);
     nums.push_back(make_pair(num, numBits));
   }
   
