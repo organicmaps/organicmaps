@@ -1,10 +1,13 @@
+#include "../../testing/testing.hpp"
+
 #include "../arithmetic_codec.hpp"
 #include "../reader.hpp"
 
-#include "../../testing/testing.hpp"
 #include "../../base/pseudo_random.hpp"
 
-UNIT_TEST(ArithmeticCodec) {
+
+UNIT_TEST(ArithmeticCodec)
+{
   PseudoRNG32 rng;
 
   uint32_t const MAX_FREQ = 2048;

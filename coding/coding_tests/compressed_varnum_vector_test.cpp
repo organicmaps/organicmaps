@@ -6,15 +6,8 @@
 
 #include "../../base/pseudo_random.hpp"
 
-namespace {
-  uint64_t GetRand64()
-  {
-    static PseudoRNG32 g_rng;
-    uint64_t result = g_rng.Generate();
-    result ^= uint64_t(g_rng.Generate()) << 32;
-    return result;
-  }
-}
+
+using namespace rnd;
 
 struct NumsSource
 {

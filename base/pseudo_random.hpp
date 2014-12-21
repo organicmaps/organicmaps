@@ -26,5 +26,8 @@ typedef LCG32 PseudoRNG32;
 
 namespace rnd
 {
+
 string GenerateString();
+uint64_t GetRand64();
+
 }

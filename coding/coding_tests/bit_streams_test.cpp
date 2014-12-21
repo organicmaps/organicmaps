@@ -5,19 +5,12 @@
 #include "../writer.hpp"
 
 #include "../../base/pseudo_random.hpp"
+
 #include "../../std/utility.hpp"
 #include "../../std/vector.hpp"
 
-namespace
-{
-  uint64_t GetRand64()
-  {
-    static PseudoRNG32 g_rng;
-    uint64_t result = g_rng.Generate();
-    result ^= uint64_t(g_rng.Generate()) << 32;
-    return result;
-  }
-}
+
+using namespace rnd;
 
 UNIT_TEST(BitStream_ReadWrite)
 {

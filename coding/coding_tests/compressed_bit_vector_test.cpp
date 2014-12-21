@@ -1,22 +1,15 @@
+#include "../../testing/testing.hpp"
+
 #include "../compressed_bit_vector.hpp"
 #include "../reader.hpp"
 #include "../writer.hpp"
 
-#include "../../testing/testing.hpp"
 #include "../../base/pseudo_random.hpp"
 
-uint32_t const NUMS_COUNT = 12345;
 
-namespace
-{
-  uint64_t GetRand64()
-  {
-    static PseudoRNG32 g_rng;
-    uint64_t result = g_rng.Generate();
-    result ^= uint64_t(g_rng.Generate()) << 32;
-    return result;
-  }
-}
+using namespace rnd;
+
+uint32_t const NUMS_COUNT = 12345;
 
 UNIT_TEST(CompressedBitVector_Sparse)
 {
