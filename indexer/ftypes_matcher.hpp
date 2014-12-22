@@ -4,6 +4,7 @@
 
 #include "../std/vector.hpp"
 
+#include "../std/string.hpp"
 
 namespace feature { class TypesHolder; }
 class FeatureType;
@@ -71,7 +72,7 @@ public:
 
 class IsBridgeChecker : public BaseChecker
 {
-  size_t m_typeMask;
+  virtual bool IsMatched(uint32_t type) const;
 public:
   IsBridgeChecker();
   static IsBridgeChecker const & Instance();
@@ -79,7 +80,7 @@ public:
 
 class IsTunnelChecker : public BaseChecker
 {
-  size_t m_typeMask;
+  virtual bool IsMatched(uint32_t type) const;
 public:
   IsTunnelChecker();
   static IsTunnelChecker const & Instance();
@@ -106,5 +107,12 @@ public:
 uint32_t GetPopulation(FeatureType const & ft);
 double GetRadiusByPopulation(uint32_t p);
 uint32_t GetPopulationByRadius(double r);
+
+/// Check if type conforms the path. Strings in the path can be
+/// feature types like "highway", "living_street", "bridge" and so on
+///  or *. * means any class.
+/// The root name ("world") is ignored
+bool IsTypeConformed(uint32_t type, vector<string> const & path);
+
 //@}
 }

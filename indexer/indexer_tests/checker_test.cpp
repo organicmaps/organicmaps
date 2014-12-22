@@ -24,7 +24,8 @@ vector<uint32_t> GetTypes(char const * arr[][roadArrColumnCount], size_t const r
 
 vector<uint32_t> GetStreetTypes()
 {
-  char const * arr[][roadArrColumnCount] = {
+  char const * arr[][roadArrColumnCount] =
+  {
     { "highway", "trunk", "bridge" },
     { "highway", "tertiary", "tunnel" }
   };
@@ -33,7 +34,8 @@ vector<uint32_t> GetStreetTypes()
 
 vector<uint32_t> GetStreetAndNotStreetTypes()
 {
-  char const * arr[][roadArrColumnCount] = {
+  char const * arr[][roadArrColumnCount] =
+  {
     { "highway", "trunk", "bridge" },
     { "highway", "primary_link", "tunnel" }
   };
@@ -42,7 +44,8 @@ vector<uint32_t> GetStreetAndNotStreetTypes()
 
 vector<uint32_t> GetLinkTypes()
 {
-  char const * arr[][roadArrColumnCount] = {
+  char const * arr[][roadArrColumnCount] =
+  {
     { "highway", "secondary_link", "bridge" },
     { "highway", "motorway_link", "tunnel" }
   };
@@ -51,7 +54,8 @@ vector<uint32_t> GetLinkTypes()
 
 vector<uint32_t> GetBridgeTypes()
 {
-  char const * arr[][roadArrColumnCount] = {
+  char const * arr[][roadArrColumnCount] =
+  {
     { "highway", "trunk", "bridge" },
     { "highway", "tertiary", "bridge" }
   };
@@ -60,7 +64,8 @@ vector<uint32_t> GetBridgeTypes()
 
 vector<uint32_t> GetTunnelTypes()
 {
-  char const * arr[][roadArrColumnCount] = {
+  char const * arr[][roadArrColumnCount] =
+  {
     { "highway", "trunk", "tunnel" },
     { "highway", "motorway_link", "tunnel" }
   };
@@ -69,12 +74,30 @@ vector<uint32_t> GetTunnelTypes()
 
 vector<uint32_t> GetBridgeAndTunnelTypes()
 {
-  char const * arr[][roadArrColumnCount] = {
+  char const * arr[][roadArrColumnCount] =
+  {
     { "highway", "trunk", "bridge" },
     { "highway", "motorway_link", "tunnel" }
   };
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
+}
+
+UNIT_TEST(IsTypeConformed)
+{
+  char const * arr[][roadArrColumnCount] =
+  {
+    {"highway", "trunk", "bridge"},
+    {"highway", "motorway_link", "tunnel"}
+  };
+  vector<uint32_t> types = GetTypes(arr, ARRAY_SIZE(arr));
+  TEST(ftypes::IsTypeConformed(types[0], {"highway", "trunk", "bridge"}), ());
+  TEST(ftypes::IsTypeConformed(types[0], {"highway", "trunk"}), ());
+  TEST(ftypes::IsTypeConformed(types[1], {"highway", "*", "tunnel"}), ());
+  TEST(!ftypes::IsTypeConformed(types[0], {"highway", "trunk", "tunnel"}), ());
+  TEST(!ftypes::IsTypeConformed(types[0], {"highway", "abcd", "tunnel"}), ());
+  TEST(!ftypes::IsTypeConformed(types[1], {"highway", "efgh", "*"}), ());
+  TEST(!ftypes::IsTypeConformed(types[1], {"*", "building", "*"}), ());
 }
 
 UNIT_TEST(IsStreetChecker)
