@@ -78,6 +78,12 @@ uint32_t Route::GetAllTime() const
 
 uint32_t Route::GetTime() const
 {
+  if (m_times.empty())
+  {
+    ASSERT(false, ());
+    return 0;
+  }
+
   TimesT::const_iterator it = upper_bound(m_times.begin(), m_times.end(), m_current.m_ind,
                                          [](size_t v, Route::TimeItemT const & item) { return v < item.first; });
 
@@ -112,17 +118,21 @@ uint32_t Route::GetTime() const
 
 void Route::GetTurn(double & distance, Route::TurnItem & turn) const
 {
-  if (m_segDistance.empty())
+/// @todo GetTurn should be refactered. It should never return Route::TurnItem()
+/// and it should never be called if m_turns.empty()
+  if (m_segDistance.empty() || m_turns.empty())
   {
+    ASSERT(!m_segDistance.empty(), ());
+    ASSERT(!m_turns.empty(), ());
     distance = 0;
     turn = Route::TurnItem();
+    return;
   }
 
   if (m_current.m_ind == 0)
   {
-    ASSERT_GREATER(m_turns[0].m_index, 0, ());
     distance = m_segDistance[m_turns[0].m_index - 1];
-    turn = m_turns.empty() ? (Route::TurnItem()) : m_turns[0];
+    turn = m_turns[0];
     return;
   }
 
