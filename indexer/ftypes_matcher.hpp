@@ -3,7 +3,6 @@
 #include "../base/base.hpp"
 
 #include "../std/vector.hpp"
-
 #include "../std/string.hpp"
 
 namespace feature { class TypesHolder; }

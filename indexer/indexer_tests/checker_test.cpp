@@ -3,7 +3,6 @@
 #include "../ftypes_matcher.hpp"
 
 #include "../../indexer/index.hpp"
-
 #include "../../indexer/classificator.hpp"
 
 #include "../../base/logging.hpp"
