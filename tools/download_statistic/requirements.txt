@@ -1,0 +1,8 @@
+Required python 2.7 and additional modules:
+geoip2
+ipaddr
+maxminddb
+
+also reuired IP to geo database from http://dev.maxmind.com/geoip/legacy/geolite/
+
+GeoLite2-Country.mmdb

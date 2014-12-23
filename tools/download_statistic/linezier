@@ -1,0 +1,1 @@
+sed -e :a -e '$!N;s/\n\t/ | /;ta;' -e 'P;D' | grep -e 'COUNTRY:'
