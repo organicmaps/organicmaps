@@ -243,14 +243,14 @@ bool IsTypeConformed(uint32_t type, vector<string> const & path)
   ASSERT(p, ());
 
   uint8_t val = 0, i = 0;
-  for (auto n : path)
+  for (auto const n : path)
   {
     if (!ftype::GetValue(type, i, val))
       return false;
     p = p->GetObject(val);
     if (p == 0)
       return false;
-    const string name = p->GetName();
+    string const name = p->GetName();
     if (n != name && n != "*")
       return false;
     ++i;
