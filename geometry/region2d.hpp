@@ -2,6 +2,7 @@
 
 #include "point2d.hpp"
 #include "rect2d.hpp"
+#include "distance.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/algorithm.hpp"
@@ -190,6 +191,45 @@ namespace m2
     bool Contains(PointT const & pt) const
     {
       return Contains(pt, typename TraitsT::EqualType());
+    }
+
+    /// Slow point at border realisation
+    template <class EqualF>
+    bool atBorder(PointT const & pt, double const delta, EqualF equalF) const
+    {
+      if (!m_rect.IsPointInside(pt))
+        return false;
+
+      const double squareDelta = delta*delta;
+
+      size_t const numPoints = m_points.size();
+
+      typedef typename TraitsT::BigType BigCoordT;
+      typedef Point<BigCoordT> BigPointT;
+
+      PointT prev = m_points[numPoints - 1];
+      DistanceToLineSquare<PointT> distance;
+      for (size_t i = 0; i < numPoints; ++i)
+      {
+        PointT const curr = m_points[i];
+
+        // Borders often has same points with ways
+        if (equalF.EqualPoints(m_points[i], pt))
+          return true;
+
+        distance.SetBounds(prev, curr);
+        if (distance(pt) < squareDelta)
+          return true;
+
+        prev = curr;
+      }
+
+        return false; // outside
+    }
+
+    bool atBorder(PointT const & pt, double const delta) const
+    {
+      return atBorder(pt, delta, typename TraitsT::EqualType());
     }
 
   private:

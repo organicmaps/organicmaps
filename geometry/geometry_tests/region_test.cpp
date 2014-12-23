@@ -193,3 +193,22 @@ UNIT_TEST(Region_ForEachPoint)
 
   TEST_EQUAL(res, P(11.5, 14.5), ());
 }
+
+UNIT_TEST(Region_point_at_border_test)
+{
+  typedef m2::PointF P;
+  P const points[] = { P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0) };
+  m2::Region<P> region(points, points + ARRAY_SIZE(points));
+
+  P p1(0, 0);
+  P p2(5.0, 5.0);
+  P p3(0.0, 1.0);
+  P p4(5.0, 1.0);
+  P p5(5.0, 1.01);
+
+  TEST(!region.atBorder(p1, 0.01), ("Point lies outside border"));
+  TEST(!region.atBorder(p2, 0.01), ("Point lies inside but not at border"));
+  TEST(region.atBorder(p3, 0.01), ("Point has same point with border"));
+  TEST(region.atBorder(p4, 0.01), ("Point lies at border"));
+  TEST(region.atBorder(p5, 0.01), ("Point lies at delta interval near border"));
+}

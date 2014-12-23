@@ -1,5 +1,7 @@
 #include "routing_generator.hpp"
 #include "gen_mwm_info.hpp"
+#include "borders_generator.hpp"
+#include "borders_loader.hpp"
 
 #include "../routing/osrm2feature_map.hpp"
 
@@ -21,6 +23,8 @@
 
 #include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
 
+#define BORDERS_DIR "borders/"
+#define BORDERS_EXTENSION ".borders"
 
 namespace routing
 {
@@ -28,16 +32,36 @@ namespace routing
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 
 
-void BuildRoutingIndex(string const & mwmFile, string const & osrmFile)
+void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
 {
   classificator::Load();
 
+  string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
   Index index;
   m2::RectD rect;
   if (!index.Add(mwmFile, rect))
   {
     LOG(LCRITICAL, ("MWM file not found"));
     return;
+  }
+
+  vector<m2::RegionD> regionBorders;
+  vector<size_t> outgoingNodes;
+  LOG(LINFO, ("Loading countries borders"));
+  {
+    vector<m2::RegionD> tmpRegionBorders;
+    if (osm::LoadBorders(baseDir + BORDERS_DIR + countryName + BORDERS_EXTENSION, tmpRegionBorders))
+    {
+      LOG(LINFO, ("Found",tmpRegionBorders.size(),"region borders"));
+      for (m2::RegionD const& border: tmpRegionBorders)
+      {
+        m2::RegionD finalBorder;
+        finalBorder.Data().reserve(border.Data().size());
+        for (auto p = tmpRegionBorders.data()->Begin(); p<tmpRegionBorders.data()->End(); ++p)
+          finalBorder.AddPoint(m2::PointD(MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)));
+        regionBorders.push_back(finalBorder);
+      }
+    }
   }
 
   gen::OsmID2FeatureID osm2ft;
@@ -67,6 +91,12 @@ void BuildRoutingIndex(string const & mwmFile, string const & osrmFile)
     for (auto const & seg : data.m_segments)
     {
       m2::PointD pts[2] = { { seg.lon1, seg.lat1 }, { seg.lon2, seg.lat2 } };
+
+      for (m2::RegionD const& border: regionBorders)
+      {
+        if (border.atBorder(pts[0], 0.0001) || border.atBorder(pts[1], 0.0001))
+          outgoingNodes.push_back(seg.wayId);
+      }
 
       ++all;
 
@@ -183,6 +213,8 @@ void BuildRoutingIndex(string const & mwmFile, string const & osrmFile)
   LOG(LINFO, ("All:", all, "Found:", found, "Not found:", all - found, "More that one segs in node:", moreThan1Seg,
               "Multiple:", multiple, "Equal:", equal));
 
+  LOG(LINFO, ("At border", outgoingNodes.size()));
+
   LOG(LINFO, ("Collect all data into one file..."));
   string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
 
@@ -211,6 +243,13 @@ void BuildRoutingIndex(string const & mwmFile, string const & osrmFile)
   appendFile(ROUTING_EDGEDATA_FILE_TAG);
   appendFile(ROUTING_MATRIX_FILE_TAG);
   appendFile(ROUTING_EDGEID_FILE_TAG);
+
+  {
+    // Write outs information
+    FileWriter w = routingCont.GetWriter(ROUTING_OUTGOING_FILE_TAG);
+    rw::WriteVectorOfPOD(w, outgoingNodes);
+    w.WritePadding(4);
+  }
 
   routingCont.Finish();
 

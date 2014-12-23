@@ -289,7 +289,7 @@ int main(int argc, char ** argv)
   }
 
   if (!FLAGS_osrm_file_name.empty())
-    routing::BuildRoutingIndex(datFile, FLAGS_osrm_file_name);
+    routing::BuildRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
 
   return 0;
 }

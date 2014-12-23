@@ -6,8 +6,9 @@
 namespace routing
 {
 
-/// @param[in]  mwmFile   Full path to .mwm file (.osm2ft file should be there).
+/// @param[in]  baseDir   Full path to .mwm files directory.
+/// @param[in]  countryName   Country name same with .mwm and .border file name.
 /// @param[in]  osrmFile  Full path to .osrm file (all prepared osrm files should be there).
-void BuildRoutingIndex(string const & mwmFile, string const & osrmFile);
+void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile);
 
 }

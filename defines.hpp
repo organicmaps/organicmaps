@@ -19,6 +19,7 @@
 #define ROUTING_EDGEDATA_FILE_TAG "daewoo"
 #define ROUTING_EDGEID_FILE_TAG "infinity"
 #define ROUTING_SHORTCUTS_FILE_TAG  "skoda"
+#define ROUTING_OUTGOING_FILE_TAG "opel"
 
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
