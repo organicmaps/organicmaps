@@ -91,6 +91,8 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
@@ -504,7 +506,8 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void doUpdate()
         {
-          runOnUiThread(new Runnable() {
+          runOnUiThread(new Runnable()
+          {
             @Override
             public void run()
             {
@@ -1181,11 +1184,10 @@ public class MWMActivity extends NvEventQueueActivity
       else
         ViewHelper.setScaleX(mIvTurn, 1);
 
-      // TODO uncomment when core will update driving time regularly
-      //      final Calendar calendar = Calendar.getInstance();
-      //      calendar.add(Calendar.SECOND, info.mTotalTimeInSeconds);
-      //      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
-      //      mTvTotalTime.setText(simpleDateFormat.format(calendar.getTime()));
+      final Calendar calendar = Calendar.getInstance();
+      calendar.add(Calendar.SECOND, info.mTotalTimeInSeconds);
+      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+      mTvTotalTime.setText(simpleDateFormat.format(calendar.getTime()));
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
       builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
