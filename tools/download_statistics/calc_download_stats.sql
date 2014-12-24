@@ -8,7 +8,7 @@ delete from downloads where country_to in (select country_to from (select countr
 delete from downloads where country_from in ('None', 'Unknown');
 
 update downloads set country_from='USA'                          where country_from='United States';
-update downloads set country_from='UK'	                         where country_from='United Kingdom';
+update downloads set country_from='UK'                           where country_from='United Kingdom';
 update downloads set country_from='Moldova'                      where country_from='Republic of Moldova';
 update downloads set country_from='Lithuania'                    where country_from='Republic of Lithuania';
 update downloads set country_from='Burma'                        where country_from='Myanmar [Burma]';
