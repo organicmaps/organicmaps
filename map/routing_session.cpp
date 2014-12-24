@@ -60,7 +60,7 @@ bool RoutingSession::IsActive() const
 
 bool RoutingSession::IsNavigable() const
 {
-  return (m_state == RouteNeedRebuild || m_state == OnRoute || m_state == RouteNeedRebuild);
+  return (m_state == RouteNotStarted || m_state == OnRoute);
 }
 
 void RoutingSession::Reset()
@@ -151,7 +151,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_time = m_route.GetTime();
   }
   else
-  { // nothing should be displayed on the screen about turns if these lines are executed
+  {
+    // nothing should be displayed on the screen about turns if these lines are executed
     info.m_turn = turns::NoTurn;
     info.m_exitNum = 0;
     info.m_time = 0;
