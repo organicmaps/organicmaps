@@ -9,7 +9,7 @@ namespace feature
 
 bool IsDigit(int c)
 {
-  return (c <= 127 && isdigit(c));
+  return (int('0') <= c && c <= int('9'));
 }
 
 bool IsNumber(strings::UniString const & s)
