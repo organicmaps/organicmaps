@@ -58,6 +58,11 @@ bool RoutingSession::IsActive() const
   return (m_state != RoutingNotActive);
 }
 
+bool RoutingSession::IsNavigable() const
+{
+  return (m_state == RouteNeedRebuild || m_state == OnRoute || m_state == RouteNeedRebuild);
+}
+
 void RoutingSession::Reset()
 {
   m_state = RoutingNotActive;
@@ -132,21 +137,24 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     value.erase(delim);
   };
 
-  if (m_route.IsValid())
+  if (m_route.IsValid() && IsNavigable())
   {
     formatDistFn(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
-    {
-      double dist;
-      Route::TurnItem turn;
-      m_route.GetTurn(dist, turn);
+    double dist;
+    Route::TurnItem turn;
+    m_route.GetTurn(dist, turn);
 
-      formatDistFn(dist, info.m_distToTurn, info.m_turnUnitsSuffix);
-      info.m_turn = turn.m_turn;
-      info.m_exitNum = turn.m_exitNum;
-    }
-
+    formatDistFn(dist, info.m_distToTurn, info.m_turnUnitsSuffix);
+    info.m_turn = turn.m_turn;
+    info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
+  }
+  else
+  { // nothing should be displayed on the screen about turns if these lines are executed
+    info.m_turn = turns::NoTurn;
+    info.m_exitNum = 0;
+    info.m_time = 0;
   }
 }
 

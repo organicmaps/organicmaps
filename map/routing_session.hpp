@@ -50,6 +50,7 @@ public:
 
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
   bool IsActive() const;
+  bool IsNavigable() const;
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);

@@ -78,9 +78,10 @@ uint32_t Route::GetAllTime() const
 
 uint32_t Route::GetTime() const
 {
-  if (m_times.empty())
+  if (m_times.empty() || m_poly.GetSize() == 0)
   {
-    ASSERT(false, ());
+    ASSERT(!m_times.empty(), ());
+    ASSERT(m_poly.GetSize() != 0, ());
     return 0;
   }
 
@@ -118,21 +119,12 @@ uint32_t Route::GetTime() const
 
 void Route::GetTurn(double & distance, Route::TurnItem & turn) const
 {
-/// @todo GetTurn should be refactered. It should never return Route::TurnItem()
-/// and it should never be called if m_turns.empty()
   if (m_segDistance.empty() || m_turns.empty())
   {
     ASSERT(!m_segDistance.empty(), ());
     ASSERT(!m_turns.empty(), ());
     distance = 0;
     turn = Route::TurnItem();
-    return;
-  }
-
-  if (m_current.m_ind == 0)
-  {
-    distance = m_segDistance[m_turns[0].m_index - 1];
-    turn = m_turns[0];
     return;
   }
 
