@@ -58,7 +58,6 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   private ProgressBar mSearchProgress;
   private View mClearQueryBtn;
   private View mVoiceInput;
-  private View mSearchIcon;
   // Current position.
   private double mLat;
   private double mLon;
@@ -135,7 +134,6 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   private void setUpView(ViewGroup root)
   {
     mVoiceInput = root.findViewById(R.id.search_voice_input);
-    mSearchIcon = root.findViewById(R.id.search_icon);
     mSearchProgress = (ProgressBar) root.findViewById(R.id.search_progress);
     mClearQueryBtn = root.findViewById(R.id.search_image_clear);
     mClearQueryBtn.setOnClickListener(this);
@@ -366,15 +364,9 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   private void setSearchInProgress(boolean inProgress)
   {
     if (inProgress)
-    {
       UiUtils.show(mSearchProgress);
-      UiUtils.invisible(mSearchIcon);
-    }
     else // search is completed
-    {
       UiUtils.invisible(mSearchProgress);
-      UiUtils.show(mSearchIcon);
-    }
   }
 
   @Override

@@ -8,27 +8,6 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-  <FrameLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
-
-    <ProgressBar
-        android:id="@+id/search_progress"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="@dimen/margin_micro"/>
-
-    <ImageView
-        android:id="@+id/search_icon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_search_hint_white"/>
-  </FrameLayout>
-
   <EditText
       android:id="@+id/search_text_query"
       style="@style/TextAppearance.AppCompat.Large"
@@ -45,6 +24,14 @@
       android:singleLine="true"
       android:textColor="@color/text_search_box"
       android:textColorHint="@color/text_hint_search_box"/>
+
+  <ProgressBar
+      android:id="@+id/search_progress"
+      style="@style/Widget.AppCompat.ProgressBar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="0"
+      android:padding="@dimen/margin_micro"/>
 
   <FrameLayout
       android:id="@+id/container_cancel_voice_input_search"

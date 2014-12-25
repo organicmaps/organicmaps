@@ -10,7 +10,6 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
-      android:layout_marginBottom="@dimen/margin_small"
       android:gravity="center_vertical"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
       app:theme="@style/MwmToolbar">
@@ -32,5 +31,6 @@
   <ListView
       android:id="@android:id/list"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_height="match_parent"
+      android:background="@drawable/ic_bg_light"/>
 </LinearLayout>

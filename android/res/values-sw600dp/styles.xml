@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="MwmToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+    <item name="android:background">@drawable/ic_bg_toolbar</item>
+  </style>
+
+</resources>
