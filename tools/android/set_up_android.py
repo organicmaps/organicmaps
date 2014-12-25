@@ -58,7 +58,10 @@ def write_local_properties(sdkDir, ndkDir):
                   '3rd_party/facebook-android-sdk/facebook']
 
     for folder in subfolders:
-        dst = os.path.join(androidRoot, folder, 'local.properties')
+        dstFold = os.path.join(androidRoot, folder)
+        if not os.path.exists(dstFold):
+            os.makedirs(dstFold)
+        dst = os.path.join(dstFold, 'local.properties')
         shutil.copy(locPropsOrigin, dst)
         print 'File created:', dst
 
