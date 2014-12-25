@@ -34,14 +34,14 @@ SharedLoadInfo::ReaderT SharedLoadInfo::GetDataReader() const
   return m_cont.GetReader(DATA_FILE_TAG);
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetAdditionalInfoReader() const
+SharedLoadInfo::ReaderT SharedLoadInfo::GetMetadataReader() const
 {
-  return m_cont.GetReader(ADDITIONAL_INFO_FILE_TAG);
+  return m_cont.GetReader(METADATA_FILE_TAG);
 }
 
-SharedLoadInfo::ReaderT SharedLoadInfo::GetAdditionalInfoIndexReader() const
+SharedLoadInfo::ReaderT SharedLoadInfo::GetMetadataIndexReader() const
 {
-  return m_cont.GetReader(ADDITIONAL_INFO_INDEX_FILE_TAG);
+  return m_cont.GetReader(METADATA_INDEX_FILE_TAG);
 }
 
 SharedLoadInfo::ReaderT SharedLoadInfo::GetGeometryReader(int ind) const

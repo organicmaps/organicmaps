@@ -164,7 +164,7 @@ public:
   uint32_t ParseGeometry(int scale) const;
   uint32_t ParseTriangles(int scale) const;
 
-  void ParseAdditionalInfo() const;
+  void ParseMetadata() const;
   //@}
 
   /// @name Geometry.
@@ -261,7 +261,8 @@ public:
   uint8_t GetRank() const;
   uint32_t GetPopulation() const;
   string GetRoadNumber() const;
-  inline FeatureParams::AdditionalInfoT const & GetAdditionalInfo() const { return m_additional_info; }
+  inline feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
+  inline feature::FeatureMetadata & GetMetadata() { return m_metadata; }
 
   double GetDistance(m2::PointD const & pt, int scale) const;
 
@@ -311,9 +312,9 @@ private:
 
   typedef buffer_vector<m2::PointD, static_buffer> points_t;
   mutable points_t m_points, m_triangles;
-  mutable FeatureParams::AdditionalInfoT m_additional_info;
+  mutable feature::FeatureMetadata m_metadata;
 
-  mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed, m_bAdditionalInfoParsed;
+  mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed, m_bMetadataParsed;
 
   mutable inner_geom_stat_t m_innerStats;
 

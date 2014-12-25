@@ -1,4 +1,5 @@
 #include "osm2type.hpp"
+#include "osm2meta.hpp"
 #include "xml_element.hpp"
 
 #include "../indexer/classificator.hpp"
@@ -99,44 +100,6 @@ namespace ftype
         m_s << k << " <---> " << v << endl;
         return false;
       }
-    };
-
-    class do_find_additional_info
-    {
-      size_t & m_count;
-      FeatureParams & m_params;
-
-    public:
-      typedef bool result_type;
-
-      do_find_additional_info(size_t &count, FeatureParams &params)
-      : m_count(count), m_params(params)
-      {
-        m_count = 0;
-      }
-
-      bool operator() (string const & k, string const & v)
-      {
-        ++m_count;
-
-        if (v.empty())
-          return false;
-
-        if (k == "cuisine")
-        {
-          m_params.AddAdditionalInfo(FeatureParams::AIT_CUISINE, v);
-        }
-        else if (k == "phone")
-        {
-          m_params.AddAdditionalInfo(FeatureParams::AIT_PHONE_NUMBER, v);
-        }
-        else if (k == "opening_hours")
-        {
-          m_params.AddAdditionalInfo(FeatureParams::AIT_OPEN_HOURS, v);
-        }
-        return false;
-      }
-
     };
 
     class do_find_name
@@ -397,7 +360,6 @@ namespace ftype
   {
     size_t count;
     for_each_tag(p, do_find_name(count, params));
-    for_each_tag(p, do_find_additional_info(count, params));
     return count;
   }
 
@@ -574,6 +536,8 @@ namespace ftype
       }
 
     params.FinishAddingTypes();
+    /// Collect addidtional information about feature such as start for hotels, opening hours and etc.
+    for_each_tag(p, MetadataTagProcessor(params));
   }
 
   uint32_t GetBoundaryType2()

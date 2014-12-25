@@ -39,7 +39,7 @@ public:
   void AddPolygon(vector<m2::PointD> & poly);
   //@}
 
-  inline FeatureParams::AdditionalInfoT const & GetAdditionalInfo() const { return m_params.m_additional_info; }
+  inline feature::FeatureMetadata const & GetMetadata() const { return m_params.GetMetadata(); }
 
   inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
 

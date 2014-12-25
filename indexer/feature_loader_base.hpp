@@ -30,8 +30,8 @@ namespace feature
     ~SharedLoadInfo();
 
     ReaderT GetDataReader() const;
-    ReaderT GetAdditionalInfoReader() const;
-    ReaderT GetAdditionalInfoIndexReader() const;
+    ReaderT GetMetadataReader() const;
+    ReaderT GetMetadataIndexReader() const;
     ReaderT GetGeometryReader(int ind) const;
     ReaderT GetTrianglesReader(int ind) const;
 
@@ -75,7 +75,7 @@ namespace feature
     virtual void ParseHeader2() = 0;
     virtual uint32_t ParseGeometry(int scale) = 0;
     virtual uint32_t ParseTriangles(int scale) = 0;
-    virtual void ParseAdditionalInfo() = 0;
+    virtual void ParseMetadata() = 0;
 
     inline uint32_t GetTypesSize() const { return m_CommonOffset - m_TypesOffset; }
 

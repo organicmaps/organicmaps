@@ -78,35 +78,36 @@ void BaseOSMParser::Pop(string const &)
   }
 }
 
-
-struct StdinReader
+namespace
 {
-  uint64_t Read(char * buffer, uint64_t bufferSize)
+  struct StdinReader
   {
-    return fread(buffer, sizeof(char), bufferSize, stdin);
-  }
-};
+    uint64_t Read(char * buffer, uint64_t bufferSize)
+    {
+      return fread(buffer, sizeof(char), bufferSize, stdin);
+    }
+  };
 
-struct FileReader
-{
-  FILE * m_file;
-
-  FileReader(string const & filename)
+  struct FileReader
   {
-    m_file = fopen(filename.c_str(), "rb");
-  }
+    FILE * m_file;
 
-  ~FileReader()
-  {
-    fclose(m_file);
-  }
+    FileReader(string const & filename)
+    {
+      m_file = fopen(filename.c_str(), "rb");
+    }
 
-  uint64_t Read(char * buffer, uint64_t bufferSize)
-  {
-    return fread(buffer, sizeof(char), bufferSize, m_file);
-  }
-};
+    ~FileReader()
+    {
+      fclose(m_file);
+    }
 
+    uint64_t Read(char * buffer, uint64_t bufferSize)
+    {
+      return fread(buffer, sizeof(char), bufferSize, m_file);
+    }
+  };
+}
 
 void ParseXMLFromStdIn(BaseOSMParser & parser)
 {

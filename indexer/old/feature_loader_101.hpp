@@ -36,7 +36,7 @@ namespace old_101 { namespace feature
     virtual void ParseHeader2();
     virtual uint32_t ParseGeometry(int scale);
     virtual uint32_t ParseTriangles(int scale);
-    virtual void ParseAdditionalInfo() {} /// not supported in this version
+    virtual void ParseMetadata() {} /// not supported in this version
 
   };
 }

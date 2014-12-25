@@ -90,9 +90,9 @@ namespace feature
 
     vector<FileWriter*> m_geoFile, m_trgFile;
 
-    unique_ptr<FileWriter> m_AdditionalInfoWriter;
+    unique_ptr<FileWriter> m_MetadataWriter;
 
-    vector<pair<uint32_t, uint32_t>> m_AdditionalInfoIndex;
+    vector<pair<uint32_t, uint32_t>> m_MetadataIndex;
 
     DataHeader m_header;
 
@@ -102,7 +102,7 @@ namespace feature
     FeaturesCollector2(string const & fName, DataHeader const & header)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
     {
-      m_AdditionalInfoWriter.reset(new FileWriter(fName + ADDITIONAL_INFO_FILE_TAG));
+      m_MetadataWriter.reset(new FileWriter(fName + METADATA_FILE_TAG));
 
       for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
       {
@@ -155,10 +155,10 @@ namespace feature
       }
 
 
-      FileWriter ainf_index = m_writer.GetWriter(ADDITIONAL_INFO_INDEX_FILE_TAG);
-      ainf_index.Write(m_AdditionalInfoIndex.data(), m_AdditionalInfoIndex.size()*(sizeof(uint32_t)*2));
-      m_AdditionalInfoWriter->Flush();
-      m_writer.Write(m_AdditionalInfoWriter->GetName(), ADDITIONAL_INFO_FILE_TAG);
+      FileWriter metadata_index = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
+      metadata_index.Write(m_MetadataIndex.data(), m_MetadataIndex.size()*(sizeof(uint32_t)*2));
+      m_MetadataWriter->Flush();
+      m_writer.Write(m_MetadataWriter->GetName(), METADATA_FILE_TAG);
 
       m_writer.Finish();
 
@@ -526,31 +526,17 @@ namespace feature
 
         uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
 
-        ProcessFeatureAdditionalInfo(ftID, fb);
+        if (!fb.GetMetadata().Empty()) {
+          uint64_t offset = m_MetadataWriter->Pos();
+          m_MetadataIndex.push_back(make_pair(ftID, static_cast<uint32_t>(offset)));
+          fb.GetMetadata().SerializeToMWM(*m_MetadataWriter);
+        }
 
         uint64_t const osmID = fb.GetWayIDForRouting();
         if (osmID != 0)
           m_osm2ft.Add(make_pair(osmID, ftID));
       }
     }
-
-    void ProcessFeatureAdditionalInfo(uint32_t const ftID, FeatureBuilder2 const & f)
-    {
-      FeatureParams::AdditionalInfoT const & ainf = f.GetAdditionalInfo();
-      if (ainf.size())
-      {
-        uint64_t offset = m_AdditionalInfoWriter->Pos();
-        m_AdditionalInfoIndex.push_back(make_pair(ftID, static_cast<uint32_t>(offset)));
-        for (auto const & e: ainf)
-        {
-          uint8_t last_key_mark = (&e == &(*ainf.crbegin())) << 7; /// set high bit (0x80) if it last element
-          uint8_t elem[2] = {static_cast<uint8_t>(e.first | last_key_mark), numeric_limits<uint8_t>::max()};
-          m_AdditionalInfoWriter->Write(elem, sizeof(elem));
-          m_AdditionalInfoWriter->Write(e.second.data(), elem[1]);
-        }
-      }
-    }
-
   };
 
   /// Simplify geometry for the upper scale.

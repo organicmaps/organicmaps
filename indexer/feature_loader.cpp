@@ -252,12 +252,12 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
   return sz;
 }
 
-void LoaderCurrent::ParseAdditionalInfo()
+void LoaderCurrent::ParseMetadata()
 {
   try
   {
     typedef pair<uint32_t, uint32_t> IdxElementT;
-    DDVector<IdxElementT, FilesContainerR::ReaderT> idx(m_Info.GetAdditionalInfoIndexReader());
+    DDVector<IdxElementT, FilesContainerR::ReaderT> idx(m_Info.GetMetadataIndexReader());
     
     auto it = lower_bound(idx.begin(), idx.end()
                           , make_pair(uint32_t(m_pF->m_id.m_offset), uint32_t(0))
@@ -266,16 +266,9 @@ void LoaderCurrent::ParseAdditionalInfo()
 
     if (it != idx.end() && m_pF->m_id.m_offset == it->first)
     {
-      uint8_t header[2] = {0};
-      char buffer[numeric_limits<uint8_t>::max()] = {0};
-      ReaderSource<FilesContainerR::ReaderT> reader(m_Info.GetAdditionalInfoReader());
+      ReaderSource<FilesContainerR::ReaderT> reader(m_Info.GetMetadataReader());
       reader.Skip(it->second);
-      do
-      {
-        reader.Read(header, sizeof(header));
-        reader.Read(buffer, header[1]);
-        m_pF->m_additional_info[uint8_t(header[0] & 0x7F)].assign(buffer, header[1]);
-      } while (!(header[0] & 0x80));
+      m_pF->GetMetadata().DeserializeFromMWM(reader);
     }
   }
   catch(Reader::OpenException & e)

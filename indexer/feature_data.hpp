@@ -11,6 +11,7 @@
 #include "../std/vector.hpp"
 #include "../std/algorithm.hpp"
 
+#include "feature_meta.hpp"
 
 class FeatureBase;
 
@@ -205,17 +206,10 @@ class FeatureParams : public FeatureParamsBase
   /// We use it now only for search unit tests
   string m_street;
 
+  feature::FeatureMetadata m_metadata;
+
 public:
 
-  enum additional_info_types {
-    AIT_CUISINE = 1,
-    AIT_OPEN_HOURS,
-    AIT_PHONE_NUMBER,
-    AIT_FAX_NUMBER
-  };
-
-  typedef map<uint8_t, string> AdditionalInfoT;
-  AdditionalInfoT m_additional_info;
 
   typedef vector<uint32_t> types_t;
   types_t m_Types;
@@ -227,8 +221,6 @@ public:
   bool AddName(string const & lang, string const & s);
   bool AddHouseName(string const & s);
   bool AddHouseNumber(string const & s);
-
-  bool AddAdditionalInfo(additional_info_types type, string const & s);
 
   /// @name Used in storing full street address only.
   //@{
@@ -244,7 +236,7 @@ public:
 
     m_Types = rhs.m_Types;
     m_street = rhs.m_street;
-    m_additional_info = rhs.m_additional_info;
+    m_metadata = rhs.m_metadata;
   }
 
   inline bool IsValid() const { return !m_Types.empty(); }
@@ -270,7 +262,10 @@ public:
 
   uint8_t GetHeader() const;
 
-  template <class SinkT> void Write(SinkT & sink, bool needStoreAdditionalInfo = true) const
+  feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
+  feature::FeatureMetadata & GetMetadata() { return m_metadata; }
+
+  template <class SinkT> void Write(SinkT & sink, bool needStoreMetadata = true) const
   {
     uint8_t const header = GetHeader();
 
@@ -279,24 +274,13 @@ public:
     for (size_t i = 0; i < m_Types.size(); ++i)
       WriteVarUint(sink, GetIndexForType(m_Types[i]));
 
-    if (needStoreAdditionalInfo)
-    {
-      uint8_t const ait_size = m_additional_info.size();
-      WriteToSink(sink, ait_size);
-      if (ait_size)
-      {
-        for(auto & it: m_additional_info)
-        {
-          WriteToSink(sink, uint8_t(it.first));
-          utils::WriteString(sink, it.second);
-        }
-      }
-    }
+    if (needStoreMetadata)
+      m_metadata.Serialize(sink);
 
     BaseT::Write(sink, header);
   }
 
-  template <class SrcT> void Read(SrcT & src, bool needReadAdditionalInfo = true)
+  template <class SrcT> void Read(SrcT & src, bool needReadMetadata = true)
   {
     using namespace feature;
 
@@ -307,17 +291,8 @@ public:
     for (size_t i = 0; i < count; ++i)
       m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
-    if (needReadAdditionalInfo)
-    {
-      uint8_t const ait_size = ReadPrimitiveFromSource<uint8_t>(src);
-      for (size_t i=0; i < ait_size; ++i)
-      {
-        uint8_t const key = ReadPrimitiveFromSource<uint8_t>(src);
-        string value;
-        utils::ReadString(src, value);
-        m_additional_info.insert(make_pair(key, value));
-      }
-    }
+    if (needReadMetadata)
+      m_metadata.Deserialize(src);
 
     BaseT::Read(src, header);
   }
