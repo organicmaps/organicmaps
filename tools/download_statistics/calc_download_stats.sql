@@ -3,7 +3,7 @@ create table downloads(year int, month int, country_from varchar(255), country_t
 
 load data infile '/tmp/aggregated_download_info.csv' into table downloads fields terminated by ';' lines terminated by '\n';
 
-delete from downloads where country_to in (select country_to from (select country_to, SUM(count) as cnt from downloads group by country_to having cnt < 1000 order by cnt asc limit 100) as z);
+delete from downloads where country_to in (select country_to from (select country_to, SUM(count) as cnt from downloads group by country_to having cnt < 1000) as z);
 
 delete from downloads where country_from in ('None', 'Unknown');
 
