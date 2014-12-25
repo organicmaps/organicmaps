@@ -92,29 +92,25 @@ class Point2PhantomNode : private noncopyable
     Candidate() : m_dist(numeric_limits<double>::max()), m_fid(OsrmFtSegMapping::FtSeg::INVALID_FID) {}
   };
 
-  size_t m_ptIdx;
-  buffer_vector<Candidate, 128> m_candidates[2];
+  buffer_vector<Candidate, 128> m_candidates;
   uint32_t m_mwmId;
   Index const * m_pIndex;
 
 public:
   Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex, m2::PointD const & direction)
-    : m_direction(direction), m_mapping(mapping), m_ptIdx(0),
+    : m_direction(direction), m_mapping(mapping),
       m_mwmId(numeric_limits<uint32_t>::max()), m_pIndex(pIndex)
   {
   }
 
-  void SetPoint(m2::PointD const & pt, size_t idx)
+  void SetPoint(m2::PointD const & pt)
   {
-    ASSERT_LESS(idx, 2, ());
     m_point = pt;
-    m_ptIdx = idx;
   }
 
-  bool HasCandidates(uint32_t idx) const
+  bool HasCandidates() const
   {
-    ASSERT_LESS(idx, 2, ());
-    return !m_candidates[idx].empty();
+    return !m_candidates.empty();
   }
 
   void operator() (FeatureType const & ft)
@@ -151,7 +147,7 @@ public:
     }
 
     if (res.m_fid != OsrmFtSegMapping::FtSeg::INVALID_FID)
-      m_candidates[m_ptIdx].push_back(res);
+      m_candidates.push_back(res);
   }
 
   double CalculateDistance(OsrmFtSegMapping::FtSeg const & s) const
@@ -246,7 +242,7 @@ public:
     offset = max(static_cast<int>(distance), 1);
   }
 
-  void CalculateOffsets(OsrmRouter::FeatureGraphNode & node) const
+  void CalculateOffsets(FeatureGraphNode & node) const
   {
     CalculateOffset(node.m_seg, node.m_segPt, node.m_node.forward_node_id, node.m_node.forward_offset, true);
     CalculateOffset(node.m_seg, node.m_segPt, node.m_node.reverse_node_id, node.m_node.reverse_offset, false);
@@ -257,8 +253,7 @@ public:
     node.m_node.reverse_weight = 0;
   }
 
-  void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId,
-                  bool needFinal, volatile bool const & requestCancel)
+  void MakeResult(FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId, volatile bool const & requestCancel)
   {
     mwmId = m_mwmId;
     if (mwmId == numeric_limits<uint32_t>::max())
@@ -266,41 +261,36 @@ public:
 
     vector<OsrmFtSegMapping::FtSeg> segments;
 
-    size_t const processPtCount = needFinal ? 2 : 1;
-    segments.resize(maxCount * processPtCount);
+    segments.resize(maxCount);
 
     OsrmFtSegMapping::FtSegSetT segmentSet;
-    for (size_t i = 0; i < processPtCount; ++i)
+    sort(m_candidates.begin(), m_candidates.end(), [] (Candidate const & r1, Candidate const & r2)
     {
-      sort(m_candidates[i].begin(), m_candidates[i].end(), [] (Candidate const & r1, Candidate const & r2)
-      {
-        return (r1.m_dist < r2.m_dist);
-      });
+      return (r1.m_dist < r2.m_dist);
+    });
 
-      size_t const n = min(m_candidates[i].size(), maxCount);
-      for (size_t j = 0; j < n; ++j)
-      {
-        OsrmFtSegMapping::FtSeg & seg = segments[i * maxCount + j];
-        Candidate const & c = m_candidates[i][j];
+    size_t const n = min(m_candidates.size(), maxCount);
+    for (size_t j = 0; j < n; ++j)
+    {
+      OsrmFtSegMapping::FtSeg & seg = segments[j];
+      Candidate const & c = m_candidates[j];
 
-        seg.m_fid = c.m_fid;
-        seg.m_pointStart = c.m_segIdx;
-        seg.m_pointEnd = c.m_segIdx + 1;
+      seg.m_fid = c.m_fid;
+      seg.m_pointStart = c.m_segIdx;
+      seg.m_pointEnd = c.m_segIdx + 1;
 
-        segmentSet.insert(&seg);
-      }
+      segmentSet.insert(&seg);
     }
 
     OsrmFtSegMapping::OsrmNodesT nodes;
     m_mapping.GetOsrmNodes(segmentSet, nodes, requestCancel);
 
     res.clear();
-    res.resize(maxCount * 2);
+    res.resize(maxCount);
 
-    for (size_t i = 0; i < processPtCount; ++i)
       for (size_t j = 0; j < maxCount; ++j)
       {
-        size_t const idx = i * maxCount + j;
+        size_t const idx = j;
 
         if (!segments[idx].IsValid())
           continue;
@@ -308,7 +298,7 @@ public:
         auto it = nodes.find(segments[idx].Store());
         if (it != nodes.end())
         {
-          OsrmRouter::FeatureGraphNode & node = res[idx];
+          FeatureGraphNode & node = res[idx];
 
           if (!m_direction.IsAlmostZero())
           {
@@ -338,7 +328,7 @@ public:
           }
 
           node.m_seg = segments[idx];
-          node.m_segPt = m_candidates[i][j].m_point;
+          node.m_segPt = m_candidates[j].m_point;
 
           CalculateOffsets(node);
         }
@@ -348,8 +338,34 @@ public:
 
 } // namespace
 
+RoutingMapping::RoutingMapping(string fName): map_counter(0), facade_counter(0), m_base_name(fName+DATA_FILE_EXTENSION)
+{
+  Platform & pl = GetPlatform();
+  fName += DATA_FILE_EXTENSION;
+
+  string const fPath = pl.WritablePathForFile(fName + ROUTING_FILE_EXTENSION);
+  if (!pl.IsFileExistsByFullPath(fPath))
+    throw IRouter::ResultCode::RouteFileNotExist;
+  // Open new container and check that mwm and routing have equal timestamp.
+  LOG(LDEBUG, ("Load routing index for file:", fPath));
+  m_container.Open(fPath);
+  {
+    FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
+    ReaderSrc src1(r1);
+    ModelReaderPtr r2 = FilesContainerR(pl.GetReader(fName)).GetReader(VERSION_FILE_TAG);
+    ReaderSrc src2(r2.GetPtr());
+
+    if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
+    {
+      m_container.Close();
+      throw IRouter::ResultCode::InconsistentMWMandRoute;
+    }
+    mapping.Load(m_container);
+  }
+}
+
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
-  : m_countryFn(fn), m_pIndex(index), m_isFinalChanged(false),
+  : m_pIndex(index), m_indexManager(fn), m_isFinalChanged(false),
     m_requestCancel(false)
 {
   m_isReadyThread.clear();
@@ -369,10 +385,7 @@ void OsrmRouter::ClearState()
 
   m_cachedFinalNodes.clear();
 
-  m_dataFacade.Clear();
-  m_mapping.Clear();
-
-  m_container.Close();
+  m_indexManager.Clear();
 }
 
 void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
@@ -462,11 +475,7 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
     LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
     code = InternalError;
 
-    // Clear data while m_container is valid.
-    m_dataFacade.Clear();
-    m_mapping.Clear();
-
-    m_container.Close();
+    m_indexManager.Clear();
   }
 
   GetPlatform().RunOnGuiThread(bind(callback, route, code));
@@ -484,125 +493,115 @@ bool IsRouteExist(RawRouteData const & r)
 
 }
 
-OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route)
+bool OsrmRouter::FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+                     RawRouteData& outputPath, FeatureGraphNodeVecT::const_iterator & sourceEdge, FeatureGraphNodeVecT::const_iterator & targetEdge)
 {
-  // 1. Find country file name and check that we are in the same MWM.
-  string fName = m_countryFn(startPt);
-  if (fName != m_countryFn(finalPt))
-    return PointsInDifferentMWM;
-
-  // 2. Open routing file index if needed.
-  Platform & pl = GetPlatform();
-  fName += DATA_FILE_EXTENSION;
-
-  string const fPath = pl.WritablePathForFile(fName + ROUTING_FILE_EXTENSION);
-  if (!pl.IsFileExistsByFullPath(fPath))
-    return RouteFileNotExist;
-
-  if (NeedReload(fPath))
-  {
-    LOG(LDEBUG, ("Load routing index for file:", fPath));
-
-    // Clear data while m_container is valid.
-    m_dataFacade.Clear();
-    m_mapping.Clear();
-
-    // Open new container and check that mwm and routing have equal timestamp.
-    m_container.Open(fPath);
-    {
-      FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
-      ReaderSrc src1(r1);
-      ModelReaderPtr r2 = FilesContainerR(pl.GetReader(fName)).GetReader(VERSION_FILE_TAG);
-      ReaderSrc src2(r2.GetPtr());
-
-      if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
-      {
-        m_container.Close();
-        return InconsistentMWMandRoute;
-      }
-    }
-
-    m_mapping.Load(m_container);
-  }
-
-  // 3. Find start/end nodes.
-  if (!m_mapping.IsMapped())
-    m_mapping.Map(m_container);
-
-  FeatureGraphNodeVecT graphNodes;
-  uint32_t mwmId = -1;
-  ResultCode const code = FindPhantomNodes(fName, startPt, startDr, finalPt, graphNodes, MAX_NODE_CANDIDATES, mwmId);
-
-  if (m_requestCancel)
-    return Cancelled;
-
-  m_mapping.Unmap();
-
-  if (code != NoError)
-    return code;
-
-  // 4. Find route.
-  m_dataFacade.Load(m_container);
-
-  ASSERT_EQUAL(graphNodes.size(), MAX_NODE_CANDIDATES * 2, ());
-
   SearchEngineData engineData;
-  ShortestPathRouting<DataFacadeT> pathFinder(&m_dataFacade, engineData);
-  RawRouteData rawRoute;
+  ShortestPathRouting<DataFacadeT> pathFinder(&facade, engineData);
 
-  size_t ni = 0, nj = 0;
-  while (ni < MAX_NODE_CANDIDATES && nj < MAX_NODE_CANDIDATES)
+  sourceEdge = source.cbegin();
+  targetEdge = target.cbegin();
+  while (sourceEdge < source.cend() && targetEdge < target.cend())
   {
-    if (m_requestCancel)
-      break;
-
     PhantomNodes nodes;
-    nodes.source_phantom = graphNodes[ni].m_node;
-    nodes.target_phantom = graphNodes[nj + MAX_NODE_CANDIDATES].m_node;
+    nodes.source_phantom = sourceEdge->m_node;
+    nodes.target_phantom = targetEdge->m_node;
 
-    rawRoute = RawRouteData();
+    outputPath = RawRouteData();
 
     if ((nodes.source_phantom.forward_node_id != INVALID_NODE_ID ||
          nodes.source_phantom.reverse_node_id != INVALID_NODE_ID) &&
         (nodes.target_phantom.forward_node_id != INVALID_NODE_ID ||
          nodes.target_phantom.reverse_node_id != INVALID_NODE_ID))
     {
-      rawRoute.segment_end_coordinates.push_back(nodes);
+      outputPath.segment_end_coordinates.push_back(nodes);
 
-      pathFinder({nodes}, {}, rawRoute);
+      pathFinder({nodes}, {}, outputPath);
     }
 
-    if (!IsRouteExist(rawRoute))
+    /// @todo: make more complex nearest edge turnaround
+    if (!IsRouteExist(outputPath))
     {
-      ++ni;
-      if (ni == MAX_NODE_CANDIDATES)
+      ++sourceEdge;
+      if (sourceEdge == source.cend())
       {
-        ++nj;
-        ni = 0;
+        ++targetEdge;
+        sourceEdge = source.cbegin();
       }
     }
     else
-      break;
+      return true;
   }
 
-  //m_dataFacade.Clear();
+  return IsRouteExist(outputPath);
+}
 
-  if (!IsRouteExist(rawRoute))
-    return RouteNotFound;
+OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route)
+{
+  RoutingMappingPtrT startMapping;
+  RoutingMappingPtrT finalMapping;
+  try
+  {
+    startMapping = m_indexManager.GetMappingByPoint(startPt);
+    finalMapping = m_indexManager.GetMappingByPoint(finalPt);
+  }
+  catch (OsrmRouter::ResultCode e)
+  {
+      return e;
+  }
 
+  // 3. Find start/end nodes.
+  MultiroutingTaskPointT startTask;
+
+  startTask.resize(1);
+  uint32_t mwmId = -1;
+
+  {
+    startMapping->Map();
+    ResultCode const code = FindPhantomNodes(startMapping->GetName(), startPt, startDr, startTask[0], MAX_NODE_CANDIDATES, mwmId, startMapping->mapping);
+    if (code != NoError)
+      return code;
+    startMapping->Unmap();
+  }
+  {
+    if (finalPt != m_CachedTargetPoint)
+    {
+      m_CachedTargetTask.resize(1);
+      finalMapping->Map();
+      ResultCode const code = FindPhantomNodes(finalMapping->GetName(), finalPt, m2::PointD::Zero(), m_CachedTargetTask[0], MAX_NODE_CANDIDATES, mwmId, finalMapping->mapping);
+      if (code != NoError)
+        return code;
+      m_CachedTargetPoint = finalPt;
+      finalMapping->Unmap();
+    }
+  }
+  if (m_requestCancel)
+    return Cancelled;
+
+  // 4. Find route.
+  RawRouteData rawRoute;
+  FeatureGraphNodeVecT::const_iterator sourceEdge;
+  FeatureGraphNodeVecT::const_iterator targetEdge;
+
+  if (startMapping->GetName() == finalMapping->GetName())
+  {
+    startMapping->LoadFacade();
+    if (!FindSingleRoute(startTask[0], m_CachedTargetTask[0], startMapping->dataFacade, rawRoute, sourceEdge, targetEdge))
+      return RouteNotFound;
+  }
   if (m_requestCancel)
     return Cancelled;
 
   // 5. Restore route.
-  m_mapping.Map(m_container);
+  startMapping->Map();
 
-  ASSERT_LESS(ni, MAX_NODE_CANDIDATES, ());
-  ASSERT_LESS(nj, MAX_NODE_CANDIDATES, ());
+  ASSERT(sourceEdge != startTask[0].cend(), ());
+  ASSERT(targetEdge != m_CachedTargetTask[0].cend(), ());
 
   typedef OsrmFtSegMapping::FtSeg SegT;
 
-  FeatureGraphNode const & sNode = graphNodes[ni];
-  FeatureGraphNode const & eNode = graphNodes[nj + MAX_NODE_CANDIDATES];
+  FeatureGraphNode const & sNode = *sourceEdge;
+  FeatureGraphNode const & eNode = *targetEdge;
 
   SegT const & segBegin = sNode.m_seg;
   SegT const & segEnd = eNode.m_seg;
@@ -640,7 +639,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
         GetTurnDirection(rawRoute.unpacked_path_segments[i][j - 1],
                          rawRoute.unpacked_path_segments[i][j],
-                         mwmId, t, fName);
+                         mwmId, startMapping, t);
         if (t.m_turn != turns::NoTurn)
           turnsDir.push_back(t);
 
@@ -659,7 +658,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       }
 
       buffer_vector<SegT, 8> buffer;
-      m_mapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
+      startMapping->mapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
 
       auto correctFn = [&buffer] (SegT const & seg, size_t & ind)
       {
@@ -794,21 +793,21 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
   return nextPnt;
 }
 
-NodeID OsrmRouter::GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData)
+NodeID OsrmRouter::GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping)
 {
   ASSERT_NOT_EQUAL(src, SPECIAL_NODEID, ());
   ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
   if (!edgeData.shortcut)
     return trg;
 
-  ASSERT_LESS(edgeData.id, m_dataFacade.GetNumberOfNodes(), ());
+  ASSERT_LESS(edgeData.id, routingMapping->dataFacade.GetNumberOfNodes(), ());
   EdgeID edge = SPECIAL_EDGEID;
   QueryEdge::EdgeData d;
-  for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(edgeData.id))
+  for (EdgeID e : routingMapping->dataFacade.GetAdjacentEdgeRange(edgeData.id))
   {
-    if (m_dataFacade.GetTarget(e) == src )
+    if (routingMapping->dataFacade.GetTarget(e) == src )
     {
-      d = m_dataFacade.GetEdgeData(e, edgeData.id);
+      d = routingMapping->dataFacade.GetEdgeData(e, edgeData.id);
       if (d.backward)
       {
         edge = e;
@@ -819,11 +818,11 @@ NodeID OsrmRouter::GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData
 
   if (edge == SPECIAL_EDGEID)
   {
-    for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(src))
+    for (EdgeID e : routingMapping->dataFacade.GetAdjacentEdgeRange(src))
     {
-      if (m_dataFacade.GetTarget(e) == edgeData.id)
+      if (routingMapping->dataFacade.GetTarget(e) == edgeData.id)
       {
-        d = m_dataFacade.GetEdgeData(e, src);
+        d = routingMapping->dataFacade.GetEdgeData(e, src);
         if (d.forward)
         {
           edge = e;
@@ -835,7 +834,7 @@ NodeID OsrmRouter::GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData
   ASSERT_NOT_EQUAL(edge, SPECIAL_EDGEID, ());
 
   if (d.shortcut)
-    return GetTurnTargetNode(src, edgeData.id, d);
+    return GetTurnTargetNode(src, edgeData.id, d, routingMapping);
 
   return edgeData.id;
 }
@@ -844,21 +843,22 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
                                   m2::PointD const & p1,
                                   m2::PointD const & p,
                                   uint32_t mwmId,
+                                  RoutingMappingPtrT const & routingMapping,
                                   OsrmRouter::TurnCandidatesT & candidates)
 {
 
-  for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(node))
+  for (EdgeID e : routingMapping->dataFacade.GetAdjacentEdgeRange(node))
   {
-    QueryEdge::EdgeData const data = m_dataFacade.GetEdgeData(e, node);
+    QueryEdge::EdgeData const data = routingMapping->dataFacade.GetEdgeData(e, node);
     if (!data.forward)
       continue;
 
-    NodeID trg = GetTurnTargetNode(node, m_dataFacade.GetTarget(e), data);
+    NodeID trg = GetTurnTargetNode(node, routingMapping->dataFacade.GetTarget(e), data, routingMapping);
     ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
 
-    auto const range = m_mapping.GetSegmentsRange(trg);
+    auto const range = routingMapping->mapping.GetSegmentsRange(trg);
     OsrmFtSegMapping::FtSeg seg;
-    m_mapping.GetSegmentByIndex(range.first, seg);
+    routingMapping->mapping.GetSegmentByIndex(range.first, seg);
 
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(*m_pIndex, mwmId);
@@ -1021,16 +1021,16 @@ turns::TurnDirection OsrmRouter::RoundaboutDirection(bool isRound1, bool isRound
 
 void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
-                                  uint32_t mwmId, Route::TurnItem & turn, string const & fName)
+                                  uint32_t mwmId, RoutingMappingPtrT const & routingMapping, Route::TurnItem & turn)
 {
-  auto nSegs1 = m_mapping.GetSegmentsRange(node1.node);
-  auto nSegs2 = m_mapping.GetSegmentsRange(node2.node);
+  auto nSegs1 = routingMapping->mapping.GetSegmentsRange(node1.node);
+  auto nSegs2 = routingMapping->mapping.GetSegmentsRange(node2.node);
 
   ASSERT_GREATER(nSegs1.second, 0, ());
 
   OsrmFtSegMapping::FtSeg seg1, seg2;
-  m_mapping.GetSegmentByIndex(nSegs1.second - 1, seg1);
-  m_mapping.GetSegmentByIndex(nSegs2.first, seg2);
+  routingMapping->mapping.GetSegmentByIndex(nSegs1.second - 1, seg1);
+  routingMapping->mapping.GetSegmentByIndex(nSegs2.first, seg2);
 
   FeatureType ft1, ft2;
   Index::FeaturesLoaderGuard loader1(*m_pIndex, mwmId);
@@ -1059,11 +1059,11 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   m2::PointD const p1OneSeg = ft1.GetPoint(seg1.m_pointStart < seg1.m_pointEnd ? seg1.m_pointEnd - 1 : seg1.m_pointEnd + 1);
   TurnCandidatesT nodes;
-  GetPossibleTurns(node1.node, p1OneSeg, p, mwmId, nodes);
+  GetPossibleTurns(node1.node, p1OneSeg, p, mwmId, routingMapping, nodes);
 
 #ifdef _DEBUG
   GeomTurnCandidateT geoNodes;
-  GetTurnGeometry(p, p1OneSeg, geoNodes, fName);
+  GetTurnGeometry(p, p1OneSeg, geoNodes, routingMapping->GetName());
 
   m2::PointD const p2OneSeg = ft2.GetPoint(seg2.m_pointStart < seg2.m_pointEnd ? seg2.m_pointStart + 1 : seg2.m_pointStart - 1);
 
@@ -1096,7 +1096,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
 
   if (!hasMultiTurns
-      && !KeepOnewayOutgoingTurnIncomingEdges(nodes, turn, p, p1OneSeg, fName)
+      && !KeepOnewayOutgoingTurnIncomingEdges(nodes, turn, p, p1OneSeg, routingMapping->GetName())
       && !KeepOnewayOutgoingTurnRoundabout(isRound1, isRound2))
   {
     turn.m_turn = turns::NoTurn;
@@ -1226,44 +1226,22 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
   }
 }
 
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt,
-                                                 FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId)
+IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
+                                                 FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId, OsrmFtSegMapping const & mapping)
 {
-  Point2PhantomNode getter(m_mapping, m_pIndex, startDr);
+  Point2PhantomNode getter(mapping, m_pIndex, direction);
+  getter.SetPoint(point);
 
-  auto processPt = [&] (m2::PointD const & p, size_t idx)
-  {
-    getter.SetPoint(p, idx);
+  LOG(LINFO, ("MAKE FOR EACH OF", fName));
+  m_pIndex->ForEachInRectForMWM(getter,
+    MercatorBounds::RectByCenterXYAndSizeInMeters(point, FEATURE_BY_POINT_RADIUS_M),
+    scales::GetUpperScale(), fName);
 
-    m_pIndex->ForEachInRectForMWM(getter,
-          MercatorBounds::RectByCenterXYAndSizeInMeters(p, FEATURE_BY_POINT_RADIUS_M),
-          scales::GetUpperScale(), fName);
-  };
-
-  processPt(startPt, 0);
-  if (!getter.HasCandidates(0))
+  if (!getter.HasCandidates())
     return StartPointNotFound;
 
-  bool const hasFinalCache = !m_cachedFinalNodes.empty();
-  if (!hasFinalCache)
-  {
-    processPt(finalPt, 1);
-    if (!getter.HasCandidates(1))
-      return EndPointNotFound;
-  }
-
-  getter.MakeResult(res, maxCount, mwmId, !hasFinalCache, m_requestCancel);
-  if (hasFinalCache)
-    copy(m_cachedFinalNodes.begin(), m_cachedFinalNodes.end(), res.begin() + maxCount);
-  else
-    m_cachedFinalNodes.assign(res.begin() + maxCount, res.end());
-
+  getter.MakeResult(res, maxCount, mwmId, m_requestCancel);
   return NoError;
-}
-
-bool OsrmRouter::NeedReload(string const & fPath) const
-{
-  return (m_container.GetName() != fPath);
 }
 
 }
