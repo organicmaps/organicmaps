@@ -21,12 +21,12 @@ public:
   {
     TurnItem()
       : m_index(std::numeric_limits<uint32_t>::max())
-      , m_turn(turns::NoTurn), m_exitNum(0)
+      , m_turn(turns::NoTurn), m_exitNum(0), m_keepAnyway(false)
     {
     }
 
     TurnItem(uint32_t idx, turns::TurnDirection t)
-      : m_index(idx), m_turn(t), m_exitNum(0)
+      : m_index(idx), m_turn(t), m_exitNum(0), m_keepAnyway(false)
     {
     }
 
@@ -35,6 +35,8 @@ public:
     uint32_t m_exitNum;  // number of exit on roundabout
     string m_srcName;
     string m_trgName;
+    bool m_keepAnyway; // m_keepAnyway is equel to true if the turn shell not be deleted
+                       // and shell be demonstrated to an end user
   };
 
   typedef vector<TurnItem> TurnsT;

@@ -921,11 +921,11 @@ turns::TurnDirection OsrmRouter::MostRightDirection(const double angle) const
     return turns::TurnSharpRight;
   else if (angle >= 67 && angle < 140)
     return  turns::TurnRight;
-  else if (angle >= 140 && angle < 185)
+  else if (angle >= 140 && angle < 195)
     return turns::TurnSlightRight;
-  else if (angle >= 185 && angle < 200)
+  else if (angle >= 195 && angle < 205)
     return  turns::GoStraight;
-  else if (angle >= 200 && angle < 240)
+  else if (angle >= 205 && angle < 240)
     return  turns::TurnSlightLeft;
   else if (angle >= 240 && angle < 336)
     return  turns::TurnLeft;
@@ -1023,6 +1023,9 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
     turn.m_turn = MostLeftDirection(a);
   else turn.m_turn = IntermediateDirection(a);
 
+  turn.m_keepAnyway = (ftypes::IsLinkChecker::Instance()(ft1) == false
+                       && ftypes::IsLinkChecker::Instance()(ft2) == true);
+
   bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
   bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
 
@@ -1076,8 +1079,8 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   string road1 = ft1.GetRoadNumber();
   string road2 = ft2.GetRoadNumber();
 
-  if ((!name1.empty() && name1 == name2) ||
-      (!road1.empty() && road1 == road2))
+  if (!turn.m_keepAnyway
+      && ((!name1.empty() && name1 == name2) || (!road1.empty() && road1 == road2)))
   {
     turn.m_turn = turns::NoTurn;
     return;
@@ -1141,7 +1144,8 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
       continue;
     }
 
-    if (turns::IsGoStraightOrSlightTurn(t.m_turn)
+    if (!t.m_keepAnyway
+        && turns::IsGoStraightOrSlightTurn(t.m_turn)
         && !t.m_srcName.empty()
         && strings::AlmostEqual(t.m_srcName, t.m_trgName, 2))
     {
