@@ -90,3 +90,10 @@ typedef void (^UIAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger b
 @property (copy, nonatomic) BOOL(^shouldEnableFirstOtherButtonBlock)(UIAlertView * alertView);
 
 @end
+
+@interface UINavigationController (Autorotate)
+
+- (BOOL)shouldAutorotate;
+- (NSUInteger)supportedInterfaceOrientations;
+
+@end

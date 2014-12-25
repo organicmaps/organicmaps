@@ -444,3 +444,18 @@ static const void * UIAlertViewShouldEnableFirstOtherButtonBlockKey  = & UIAlert
 }
 
 @end
+
+
+@implementation UINavigationController (Autorotate)
+
+- (BOOL)shouldAutorotate
+{
+  return [[self.viewControllers lastObject] shouldAutorotate];
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+  return UIInterfaceOrientationMaskAll;
+}
+
+@end
