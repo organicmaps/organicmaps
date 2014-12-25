@@ -57,7 +57,7 @@
     webView.clipsToBounds = YES;
     webView.opaque = NO;
     webView.backgroundColor = [UIColor clearColor];
-    webView.userInteractionEnabled = NO;
+    webView.userInteractionEnabled = YES;
     _webView = webView;
   }
 }

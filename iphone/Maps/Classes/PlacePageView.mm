@@ -303,6 +303,17 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self updateWebView];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+  if (navigationType == UIWebViewNavigationTypeLinkClicked)
+  {
+    [[UIApplication sharedApplication] openURL:[request URL]];
+    return NO;
+  }
+  else
+    return YES;
+}
+
 - (void)updateWebView
 {
   [self.bookmarkDescriptionView sizeToIntegralFit];
