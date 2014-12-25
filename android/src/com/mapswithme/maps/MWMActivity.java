@@ -91,11 +91,10 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
+import java.util.concurrent.TimeUnit;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
@@ -1184,10 +1183,10 @@ public class MWMActivity extends NvEventQueueActivity
       else
         ViewHelper.setScaleX(mIvTurn, 1);
 
-      final Calendar calendar = Calendar.getInstance();
-      calendar.add(Calendar.SECOND, info.mTotalTimeInSeconds);
-      SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-      mTvTotalTime.setText(simpleDateFormat.format(calendar.getTime()));
+      final long hours = TimeUnit.SECONDS.toHours(info.mTotalTimeInSeconds);
+      final String time = String.format("%02d:%02d", hours,
+          TimeUnit.SECONDS.toMinutes(info.mTotalTimeInSeconds) - TimeUnit.HOURS.toMinutes(hours));
+      mTvTotalTime.setText(time);
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());
       builder.setSpan(new AbsoluteSizeSpan(44, true), 0, info.mDistToTurn.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
