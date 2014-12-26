@@ -917,17 +917,25 @@ turns::TurnDirection OsrmRouter::InvertDirection(turns::TurnDirection dir) const
 
 turns::TurnDirection OsrmRouter::MostRightDirection(const double angle) const
 {
-  if (angle >= 23 && angle < 67)
+  double const lowerSharpRightBound = 23.;
+  double const upperSharpRightBound = 67.;
+  double const upperRightBound = 140.;
+  double const upperSlightRight = 195.;
+  double const upperGoStraitBound = 205.;
+  double const upperSlightLeftBound = 240.;
+  double const upperLeftBound = 336.;
+
+  if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
     return turns::TurnSharpRight;
-  else if (angle >= 67 && angle < 140)
+  else if (angle >= upperSharpRightBound && angle < upperRightBound)
     return  turns::TurnRight;
-  else if (angle >= 140 && angle < 195)
+  else if (angle >= upperRightBound && angle < upperSlightRight)
     return turns::TurnSlightRight;
-  else if (angle >= 195 && angle < 205)
+  else if (angle >= upperSlightRight && angle < upperGoStraitBound)
     return  turns::GoStraight;
-  else if (angle >= 205 && angle < 240)
+  else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
     return  turns::TurnSlightLeft;
-  else if (angle >= 240 && angle < 336)
+  else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
     return  turns::TurnLeft;
   return turns::NoTurn;
 }
@@ -939,19 +947,28 @@ turns::TurnDirection OsrmRouter::MostLeftDirection(const double angle) const
 
 turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
 {
-  if (angle >= 23 && angle < 67)
+  double const lowerSharpRightBound = 23.;
+  double const upperSharpRightBound = 67.;
+  double const upperRightBound = 130.;
+  double const upperSlightRight = 170.;
+  double const upperGoStraitBound = 190.;
+  double const upperSlightLeftBound = 230.;
+  double const upperLeftBound = 292.;
+  double const upperSharpLeftBound = 336.;
+
+  if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
     return turns::TurnSharpRight;
-  else if (angle >= 67 && angle < 130)
+  else if (angle >= upperSharpRightBound && angle < upperRightBound)
     return  turns::TurnRight;
-  else if (angle >= 130 && angle < 170)
+  else if (angle >= upperRightBound && angle < upperSlightRight)
     return turns::TurnSlightRight;
-  else if (angle >= 170 && angle < 190)
+  else if (angle >= upperSlightRight && angle < upperGoStraitBound)
     return  turns::GoStraight;
-  else if (angle >= 190 && angle < 230)
+  else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
     return  turns::TurnSlightLeft;
-  else if (angle >= 230 && angle < 292)
+  else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
     return  turns::TurnLeft;
-  else if (angle >= 292 && angle < 336)
+  else if (angle >= upperLeftBound && angle < upperSharpLeftBound)
     return turns::TurnSharpLeft;
   return turns::NoTurn;
 }
