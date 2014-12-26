@@ -258,6 +258,9 @@ public:
   bool PopExactType(uint32_t t);
   bool IsTypeExist(uint32_t t) const;
 
+  /// Find type that matches "comp" with "level" in classificator hierarchy.
+  uint32_t FindType(uint32_t comp, uint8_t level) const;
+
   bool CheckValid() const;
 
   uint8_t GetHeader() const;

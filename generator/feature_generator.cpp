@@ -440,9 +440,12 @@ bool GenerateImpl(GenerateInfo & info, string const & osmFileName = string())
     else
       ParseXMLFromFile(parser, osmFileName);
 
+    parser.Finish();
+
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
     if (!bucketer.Finish())
       return false;
+
     bucketer.GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & e)

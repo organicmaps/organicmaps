@@ -306,6 +306,18 @@ bool FeatureParams::IsTypeExist(uint32_t t) const
   return (find(m_Types.begin(), m_Types.end(), t) != m_Types.end());
 }
 
+uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
+{
+  for (uint32_t const type : m_Types)
+  {
+    uint32_t t = type;
+    ftype::TruncValue(t, level);
+    if (t == comp)
+      return type;
+  }
+  return ftype::GetEmptyValue();
+}
+
 bool FeatureParams::CheckValid() const
 {
   CHECK(!m_Types.empty() && m_Types.size() <= max_types_count, ());

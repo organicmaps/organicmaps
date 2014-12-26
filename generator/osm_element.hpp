@@ -7,6 +7,9 @@
 
 #include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/classificator.hpp"
+
+#include "../geometry/tree4d.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -264,6 +267,48 @@ class SecondPassParser : public BaseOSMParser
     return m_addrWriter && checker(params.m_Types);
   }
 
+  class Place
+  {
+    FeatureBuilderT m_ft;
+    m2::PointD m_pt;
+    uint32_t m_type;
+
+    static constexpr long double THRESHOLD_M = 5000.0;
+
+    bool IsPoint() const { return (m_ft.GetGeomType() == feature::GEOM_POINT); }
+
+  public:
+    Place(FeatureBuilderT const & ft, uint32_t type)
+      : m_ft(ft), m_pt(ft.GetKeyPoint()), m_type(type)
+    {
+    }
+
+    FeatureBuilderT const & GetFeature() const { return m_ft; }
+
+    m2::RectD GetLimitRect() const
+    {
+      return MercatorBounds::RectByCenterXYAndSizeInMeters(m_pt, THRESHOLD_M);
+    }
+
+    /// @name Always replace point features and leave area features.
+    //@{
+    bool IsEqual(Place const & r) const
+    {
+      return (m_type == r.m_type &&
+              m_ft.GetName() == r.m_ft.GetName() &&
+              (IsPoint() || r.IsPoint()) &&
+              MercatorBounds::DistanceOnEarth(m_pt, r.m_pt) < THRESHOLD_M);
+    }
+
+    bool NeedReplace(Place const & r) const
+    {
+      return r.IsPoint();
+    }
+    //@}
+  };
+
+  m4::Tree<Place> m_places;
+
   void EmitFeatureBase(FeatureBuilderT & ft, FeatureParams const & params)
   {
     ft.SetParams(params);
@@ -273,7 +318,17 @@ class SecondPassParser : public BaseOSMParser
       if (NeedWriteAddress(params) && ft.FormatFullAddress(addr))
         m_addrWriter->Write(addr.c_str(), addr.size());
 
-      m_emitter(ft);
+      static uint32_t const placeType = classif().GetTypeByPath({"place"});
+      uint32_t const type = params.FindType(placeType, 1);
+
+      if (type != ftype::GetEmptyValue() && !ft.GetName().empty())
+      {
+        m_places.ReplaceEqualInRect(Place(ft, type),
+                                    bind(&Place::IsEqual, _1, _2),
+                                    bind(&Place::NeedReplace, _1, _2));
+      }
+      else
+        m_emitter(ft);
     }
   }
 
@@ -434,5 +489,13 @@ public:
 
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
+  }
+
+  void Finish()
+  {
+    m_places.ForEach([this] (Place const & p)
+    {
+      m_emitter(p.GetFeature());
+    });
   }
 };

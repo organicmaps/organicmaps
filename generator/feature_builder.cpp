@@ -47,6 +47,20 @@ m2::PointD FeatureBuilder1::GetGeometryCenter() const
   return ret / count;
 }
 
+m2::PointD FeatureBuilder1::GetKeyPoint() const
+{
+  switch (GetGeomType())
+  {
+  case GEOM_POINT:
+    return m_center;
+  case GEOM_LINE: case GEOM_AREA:
+    return GetGeometryCenter();
+  default:
+    ASSERT(false, ());
+    return m2::PointD(0, 0);
+  }
+}
+
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
 {
   m_center = p;
@@ -444,8 +458,16 @@ void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
 {
   m_coastCell = iCell;
 
-  ASSERT ( m_params.name.IsEmpty(), () );
+  ASSERT(m_params.name.IsEmpty(), ());
   m_params.name.AddString(0, strCell);
+}
+
+string FeatureBuilder1::GetName(int8_t lang) const
+{
+  string s;
+  bool const res = m_params.name.GetString(lang, s);
+  ASSERT(res != s.empty(), ());
+  return s;
 }
 
 string DebugPrint(FeatureBuilder1 const & f)

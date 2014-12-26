@@ -85,6 +85,7 @@ public:
 
   bool IsGeometryClosed() const;
   m2::PointD GetGeometryCenter() const;
+  m2::PointD GetKeyPoint() const;
 
   inline size_t GetPointsCount() const { return GetGeometry().size(); }
   inline size_t GetPolygonsCount() const { return m_polygons.size(); }
@@ -157,12 +158,7 @@ public:
     else return false;
   }
 
-  inline string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const
-  {
-    string s;
-    m_params.name.GetString(lang, s);
-    return s;
-  }
+  string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const;
 
   /// @name For diagnostic use only.
   //@{
