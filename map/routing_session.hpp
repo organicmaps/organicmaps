@@ -10,6 +10,8 @@
 
 #include "../std/unique_ptr.hpp"
 
+#include "../base/mutex.hpp"
+
 
 namespace routing
 {
@@ -47,8 +49,8 @@ public:
 
   /// @param[in] startPoint and endPoint in mercator
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint, TReadyCallbackFn const & callback);
-
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
+
   bool IsActive() const;
   bool IsNavigable() const;
   void Reset();
@@ -60,6 +62,9 @@ public:
   void MatchLocationToRoute(location::GpsInfo & location) const;
 
 private:
+  void ResetUnprotected();
+  void RebuildRouteUnprotected(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
+
   struct DoReadyCallback
   {
     RoutingSession & m_rs;
@@ -79,6 +84,8 @@ private:
   unique_ptr<IRouter> m_router;
   Route m_route;
   State m_state;
+
+  mutable threads::Mutex m_routeSessionMutex;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;

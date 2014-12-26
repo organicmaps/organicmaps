@@ -78,10 +78,11 @@ uint32_t Route::GetAllTime() const
 
 uint32_t Route::GetTime() const
 {
+  size_t const polySz = m_poly.GetSize();
   if (m_times.empty() || m_poly.GetSize() == 0)
   {
     ASSERT(!m_times.empty(), ());
-    ASSERT(m_poly.GetSize() != 0, ());
+    ASSERT(polySz != 0, ());
     return 0;
   }
 
@@ -98,6 +99,11 @@ uint32_t Route::GetTime() const
 
   auto distFn = [&](uint32_t start, uint32_t end)
   {
+    if (start > polySz || end > polySz)
+    {
+      ASSERT(false, ());
+      return 0.;
+    }
     double d = 0.0;
     for (uint32_t i = start + 1; i < end; ++i)
       d += MercatorBounds::DistanceOnEarth(m_poly.GetPoint(i - 1), m_poly.GetPoint(i));

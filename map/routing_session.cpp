@@ -26,16 +26,27 @@ RoutingSession::RoutingSession()
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
                                 TReadyCallbackFn const & callback)
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
   m_router->SetFinalPoint(endPoint);
-  RebuildRoute(startPoint, callback);
+  RebuildRouteUnprotected(startPoint, callback);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
+  RebuildRouteUnprotected(startPoint, callback);
+}
+
+void RoutingSession::RebuildRouteUnprotected(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
+{
   ASSERT(m_router != nullptr, ());
-  Reset();
+  ResetUnprotected();
   m_state = RouteBuilding;
 
   // Use old-style callback constraction, because lambda constructs buggy function on Android
@@ -63,7 +74,7 @@ bool RoutingSession::IsNavigable() const
   return (m_state == RouteNotStarted || m_state == OnRoute);
 }
 
-void RoutingSession::Reset()
+void RoutingSession::ResetUnprotected()
 {
   m_state = RoutingNotActive;
   m_lastDistance = 0.0;
@@ -71,9 +82,20 @@ void RoutingSession::Reset()
   Route(string()).Swap(m_route);
 }
 
+void RoutingSession::Reset()
+{
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
+  ResetUnprotected();
+}
+
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
                                                                 GpsInfo const & info)
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
@@ -126,6 +148,9 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
   auto formatDistFn = [](double dist, string & value, string & suffix)
   {
     /// @todo Make better formatting of distance and units.
@@ -161,6 +186,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
 void RoutingSession::AssignRoute(Route & route)
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
   ASSERT(route.IsValid(), ());
   m_state = RouteNotStarted;
   m_route.Swap(route);
@@ -168,18 +196,27 @@ void RoutingSession::AssignRoute(Route & route)
 
 void RoutingSession::SetRouter(IRouter * router)
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
   m_router.reset(router);
 }
 
 void RoutingSession::DeleteIndexFile(string const & fileName)
 {
-  Reset();
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
+  ResetUnprotected();
   m_router->ClearState();
   (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
 }
 
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location) const
 {
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
+
   if (m_state != State::OnRoute)
     return;
   m_route.MatchLocationToRoute(location);
