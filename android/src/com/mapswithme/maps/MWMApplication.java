@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -145,6 +146,8 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private void initMrgs()
   {
     MRGService.setAppContext(this);
+    final Bundle options = new Bundle();
+    options.putBoolean("locations", false);
     MRGService.service(this, new MRGSServerData.MRGSServerDataDelegate()
     {
       @Override
@@ -152,7 +155,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
       @Override
       public void loadPromoBannersDidFinished(MRGSMap mrgsMap) {}
-    }, getString(R.string.mrgs_id), getString(R.string.mrgs_key));
+    }, getString(R.string.mrgs_id), getString(R.string.mrgs_key), options);
 
     if (getLaunchesNumber() == 1)
       MRGSApplication.instance().markAsUpdated(new Date());

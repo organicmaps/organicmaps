@@ -58,7 +58,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.googlePro.setRoot('flavors/pro')
-      android.sourceSets.googlePro.assets.srcDirs = ['flavors/guides-assets']
+      android.sourceSets.googlePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/pro/assets']
     }
 
     googleLite {
@@ -80,7 +80,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.samsungPro.setRoot('flavors/pro')
-      android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
+      android.sourceSets.samsungPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     samsungLite {
@@ -103,7 +103,7 @@ android {
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.amazonPro.setRoot('flavors/pro')
       // Do not include guides assets for Amazon, they don't like GP apps ads
-      android.sourceSets.amazonPro.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      android.sourceSets.amazonPro.assets.srcDirs = ['flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     amazonLite {
@@ -126,7 +126,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.androidpitPro.setRoot('flavors/pro')
-      android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
+      android.sourceSets.androidpitPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     androidpitLite {
@@ -148,7 +148,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.slidemePro.setRoot('flavors/pro')
-      android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
+      android.sourceSets.slidemePro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     slidemeLite {
@@ -170,7 +170,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.yandexPro.setRoot('flavors/pro')
-      android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
+      android.sourceSets.yandexPro.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     yandexLite {
@@ -203,7 +203,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
       android.sourceSets.prestigio.setRoot('flavors/pro')
-      android.sourceSets.prestigio.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets']
+      android.sourceSets.prestigio.assets.srcDirs = ['flavors/guides-assets', 'flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     cipherlab {
@@ -214,7 +214,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"support@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
       android.sourceSets.cipherlab.setRoot('flavors/pro')
-      android.sourceSets.cipherlab.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      android.sourceSets.cipherlab.assets.srcDirs = ['flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
 
     xiaomi {
@@ -225,7 +225,7 @@ android {
       buildConfigField 'String', 'SUPPORT_MAIL', '"support@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
       android.sourceSets.xiaomi.setRoot('flavors/pro')
-      android.sourceSets.xiaomi.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      android.sourceSets.xiaomi.assets.srcDirs = ['flavors/mwm-ttf-assets', 'flavors/pro/assets']
     }
   }
 
