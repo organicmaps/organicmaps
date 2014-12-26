@@ -9,6 +9,7 @@
 #include "../std/sstream.hpp"
 #include "../std/kdtree.hpp"
 
+
 namespace m4
 {
   template <typename T>
@@ -72,14 +73,15 @@ namespace m4
 
     typedef vector<value_t const *> store_vec_t;
 
-    // Base do-class for rect-iteration in tree.
-    class for_each_base
+    // Do-class for rect-iteration in tree.
+    template <class ToDo> class for_each_helper
     {
-    protected:
       m2::RectD const & m_rect;
+      ToDo m_toDo;
 
     public:
-      for_each_base(m2::RectD const & r) : m_rect(r)
+      for_each_helper(m2::RectD const & r, ToDo toDo)
+        : m_rect(r), m_toDo(toDo)
       {
       }
 
@@ -102,44 +104,18 @@ namespace m4
         default: return true;
         }
       }
+
+      void operator() (value_t const & v) const
+      {
+        if (v.IsIntersect(m_rect))
+          m_toDo(v);
+      }
     };
 
-    // Do-class for getting elements in rect.
-    class insert_if_intersect : public for_each_base
+    template <class ToDo> for_each_helper<ToDo> GetFunctor(m2::RectD const & rect, ToDo toDo) const
     {
-      typedef for_each_base base_t;
-
-      store_vec_t & m_isect;
-
-    public:
-      insert_if_intersect(store_vec_t & isect, m2::RectD const & r)
-        : for_each_base(r), m_isect(isect)
-      {
-      }
-      void operator() (value_t const & v)
-      {
-        if (v.IsIntersect(base_t::m_rect))
-          m_isect.push_back(&v);
-      }
-    };
-
-    // Do-class for processing elements in rect.
-    template <class ToDo> class for_each_in_rect : public for_each_base
-    {
-      typedef for_each_base base_t;
-
-      ToDo & m_toDo;
-    public:
-      for_each_in_rect(ToDo & toDo, m2::RectD const & rect)
-        : for_each_base(rect), m_toDo(toDo)
-      {
-      }
-      void operator() (value_t const & v)
-      {
-        if (v.IsIntersect(base_t::m_rect))
-          m_toDo(v.m_val);
-      }
-    };
+      return for_each_helper<ToDo>(rect, toDo);
+    }
 
   protected:
     Traits m_traits;
@@ -160,20 +136,58 @@ namespace m4
       m_tree.insert(value_t(obj, rect));
     }
 
+  private:
     template <class TCompare>
-    void ReplaceIf(T const & obj, m2::RectD const & rect, TCompare comp)
+    void ReplaceImpl(T const & obj, m2::RectD const & rect, TCompare comp)
     {
+      bool skip = false;
       store_vec_t isect;
-      m_tree.for_each(insert_if_intersect(isect, rect));
 
-      for (size_t i = 0; i < isect.size(); ++i)
-        if (!comp(obj, isect[i]->m_val))
+      m_tree.for_each(GetFunctor(rect, [&] (value_t const & v)
+      {
+        if (skip)
           return;
 
-      for (size_t i = 0; i < isect.size(); ++i)
-        m_tree.erase(*isect[i]);
+        switch (comp(obj, v.m_val))
+        {
+        case 1:
+          isect.push_back(&v);
+          break;
+        case -1:
+          skip = true;
+          break;
+        }
+      }));
+
+      if (skip)
+        return;
+
+      for (value_t const * v : isect)
+        m_tree.erase(*v);
 
       Add(obj, rect);
+    }
+
+  public:
+    template <class TCompare>
+    void ReplaceAllInRect(T const & obj, TCompare comp)
+    {
+      ReplaceImpl(obj, GetLimitRect(obj), [&comp] (T const & t1, T const & t2)
+      {
+        return comp(t1, t2) ? 1 : -1;
+      });
+    }
+
+    template <class TEqual, class TCompare>
+    void ReplaceEqualInRect(T const & obj, TEqual eq, TCompare comp)
+    {
+      ReplaceImpl(obj, GetLimitRect(obj), [&] (T const & t1, T const & t2)
+      {
+        if (eq(t1, t2))
+          return comp(t1, t2) ? 1 : -1;
+        else
+          return 0;
+      });
     }
 
     void Erase(T const & obj, m2::RectD const & r)
@@ -188,30 +202,24 @@ namespace m4
       m_tree.erase_exact(val);
     }
 
-    template <class TCompare>
-    void ReplaceIf(T const & obj, TCompare comp)
-    {
-      ReplaceIf(obj, GetLimitRect(obj), comp);
-    }
-
     template <class ToDo>
     void ForEach(ToDo toDo) const
     {
-      for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
-        toDo((*i).m_val);
+      for (value_t const & v : m_tree)
+        toDo(v.m_val);
     }
 
     template <class ToDo>
     void ForEachWithRect(ToDo toDo) const
     {
-      for (typename tree_t::const_iterator i = m_tree.begin(); i != m_tree.end(); ++i)
-        toDo((*i).GetRect(), (*i).m_val);
+      for (value_t const & v : m_tree)
+        toDo(v.GetRect(), v.m_val);
     }
 
     template <class ToDo>
     void ForEachInRect(m2::RectD const & rect, ToDo toDo) const
     {
-      m_tree.for_each(for_each_in_rect<ToDo>(toDo, rect));
+      m_tree.for_each(GetFunctor(rect, [&toDo] (value_t const & v) { toDo(v.m_val); }));
     }
 
     bool IsEmpty() const { return m_tree.empty(); }
@@ -223,10 +231,8 @@ namespace m4
     string DebugPrint() const
     {
       ostringstream out;
-      for (typename tree_t::const_iterator it = m_tree.begin();
-           it != m_tree.end();
-           ++it)
-        out << it->DebugPrint() << ", ";
+      for (value_t const & v : m_tree.begin())
+        out << v.DebugPrint() << ", ";
       return out.str();
     }
   };

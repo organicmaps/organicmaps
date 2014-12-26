@@ -168,7 +168,7 @@ void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   m_tree.ForEachInRect(fn.GetSearchRect(), bind<void>(ref(fn), _1));
 
   if (fn.IsIntersect())
-    m_tree.ReplaceIf(oe, &betterOverlayElement);
+    m_tree.ReplaceAllInRect(oe, &betterOverlayElement);
   else
     m_tree.Add(oe);
 }
