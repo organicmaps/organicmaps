@@ -526,7 +526,8 @@ namespace feature
 
         uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
 
-        if (!fb.GetMetadata().Empty()) {
+        if (!fb.GetMetadata().Empty())
+        {
           uint64_t offset = m_MetadataWriter->Pos();
           m_MetadataIndex.push_back(make_pair(ftID, static_cast<uint32_t>(offset)));
           fb.GetMetadata().SerializeToMWM(*m_MetadataWriter);

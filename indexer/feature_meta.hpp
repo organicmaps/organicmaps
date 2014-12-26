@@ -40,7 +40,7 @@ namespace feature
       return true;
     }
 
-    string Get(EMetadataType type)
+    string Get(EMetadataType type) const
     {
       auto it = m_metadata.find(type);
       return (it == m_metadata.end()) ? string() : it->second;
@@ -102,7 +102,5 @@ namespace feature
       }
 
     }
-
-
   };
 }

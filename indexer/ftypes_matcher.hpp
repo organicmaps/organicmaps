@@ -30,6 +30,22 @@ public:
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 };
 
+class IsATMChecker : public BaseChecker
+{
+public:
+  IsATMChecker();
+
+  static IsATMChecker const & Instance();
+};
+
+class IsFuelStationChecker : public BaseChecker
+{
+public:
+  IsFuelStationChecker();
+
+  static IsFuelStationChecker const & Instance();
+};
+
 class IsStreetChecker : public BaseChecker
 {
 public:

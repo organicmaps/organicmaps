@@ -12,56 +12,56 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
   MetadataTagProcessor p(params);
 
   // ignore incorrect values
-  p("stars","0");
+  p("stars", "0");
   TEST(params.GetMetadata().Empty(), ());
-  p("stars","-1");
+  p("stars", "-1");
   TEST(params.GetMetadata().Empty(), ());
-  p("stars","aasdasdas");
+  p("stars", "aasdasdas");
   TEST(params.GetMetadata().Empty(), ());
-  p("stars","8");
+  p("stars", "8");
   TEST(params.GetMetadata().Empty(), ());
-  p("stars","10");
+  p("stars", "10");
   TEST(params.GetMetadata().Empty(), ());
-  p("stars","910");
+  p("stars", "910");
   TEST(params.GetMetadata().Empty(), ());
-  p("stars","100");
+  p("stars", "100");
   TEST(params.GetMetadata().Empty(), ());
 
   // check correct values
-  p("stars","1");
+  p("stars", "1");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "1", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","2");
+  p("stars", "2");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "2", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","3");
+  p("stars", "3");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "3", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","4");
+  p("stars", "4");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "4", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","5");
+  p("stars", "5");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "5", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","6");
+  p("stars", "6");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "6", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","7");
+  p("stars", "7");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "7", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
   // check almost correct values
-  p("stars","4+");
+  p("stars", "4+");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "4", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
-  p("stars","5s");
+  p("stars", "5s");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_STARS), "5", ())
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_STARS);
 
@@ -78,22 +78,22 @@ UNIT_TEST(Metadata_ValidateAndFormat_operator)
   MetadataTagProcessor p(params);
 
   // ignore tag 'operator' if feature have inappropriate type
-  p("operator","Some");
+  p("operator", "Some");
   TEST(params.GetMetadata().Empty(), ());
 
   params.SetType(type_atm);
-  p("operator","Some");
+  p("operator", "Some");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR), "Some", ());
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
 
   params.SetType(type_fuel);
-  p("operator","Some");
+  p("operator", "Some");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR), "Some", ());
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
 
   params.SetType(type_atm);
   params.AddType(type_fuel);
-  p("operator","Some");
+  p("operator", "Some");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_OPERATOR), "Some", ());
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
 }
@@ -107,11 +107,11 @@ UNIT_TEST(Metadata_ReadWrite_Intermediate)
   vector<char> buffer;
   MemWriter<vector<char> > writer(buffer);
 
-  p("stars","3");
-  p("phone","+123456789");
-  p("opening_hours","24/7");
-  p("cuisine","regional");
-  p("operator","Unused");
+  p("stars", "3");
+  p("phone", "+123456789");
+  p("opening_hours", "24/7");
+  p("cuisine", "regional");
+  p("operator", "Unused");
   params.GetMetadata().Serialize(writer);
 
   MemReader reader(buffer.data(), buffer.size());
@@ -134,11 +134,11 @@ UNIT_TEST(Metadata_ReadWrite_MWM)
   vector<char> buffer;
   MemWriter<vector<char> > writer(buffer);
 
-  p("stars","3");
-  p("phone","+123456789");
-  p("opening_hours","24/7");
-  p("cuisine","regional");
-  p("operator","Unused");
+  p("stars", "3");
+  p("phone", "+123456789");
+  p("opening_hours", "24/7");
+  p("cuisine", "regional");
+  p("operator", "Unused");
   params.GetMetadata().SerializeToMWM(writer);
 
   MemReader reader(buffer.data(), buffer.size());

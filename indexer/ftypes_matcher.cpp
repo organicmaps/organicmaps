@@ -44,6 +44,31 @@ bool BaseChecker::operator() (vector<uint32_t> const & types) const
   return false;
 }
 
+IsATMChecker::IsATMChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({ "amenity", "atm" }));
+}
+
+IsATMChecker const & IsATMChecker::Instance()
+{
+  static const IsATMChecker inst;
+  return inst;
+}
+
+IsFuelStationChecker::IsFuelStationChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({ "amenity", "fuel" }));
+}
+
+IsFuelStationChecker const & IsFuelStationChecker::Instance()
+{
+  static const IsFuelStationChecker inst;
+  return inst;
+}
+
+
 IsStreetChecker::IsStreetChecker()
 {
   Classificator const & c = classif();

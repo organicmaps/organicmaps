@@ -2,8 +2,10 @@
 
 #include "../indexer/feature_data.hpp"
 #include "../indexer/classificator.hpp"
+#include "../indexer/ftypes_matcher.hpp"
 
 #include "../std/string.hpp"
+
 
 class MetadataTagProcessor
 {
@@ -61,6 +63,7 @@ public:
     }
     return false;
   }
+
 protected:
   /// Validation and formatting functions
 
@@ -86,11 +89,10 @@ protected:
   }
   string ValidateAndFormat_operator(string const & v) const
   {
-    Classificator const & c = classif();
-    uint32_t const type_atm = c.GetTypeByPath({ "amenity", "atm" });
-    uint32_t const type_fuel = c.GetTypeByPath({ "amenity", "fuel" });
+    static ftypes::IsATMChecker const IsATM;
+    static ftypes::IsFuelStationChecker const IsFuelStation;
 
-    if (!(m_params.IsTypeExist(type_atm) || m_params.IsTypeExist(type_fuel)))
+    if (!(IsATM(m_params.m_Types) || IsFuelStation(m_params.m_Types)))
       return string();
 
     return v;
