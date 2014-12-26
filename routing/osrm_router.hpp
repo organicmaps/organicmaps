@@ -173,6 +173,8 @@ protected:
                        FeatureGraphNodeVecT::const_iterator & sourceEdge,
                        FeatureGraphNodeVecT::const_iterator & targetEdge);
 
+  ResultCode MakeTurnAnnotation(RawRouteData const & rawRoute, uint32_t const mwmId, RoutingMappingPtrT const & mapping, vector<m2::PointD> & points, Route::TurnsT & turnsDir, Route::TimesT & times, FeatureGraphNodeVecT::const_iterator & sourceEdge, FeatureGraphNodeVecT::const_iterator & targetEdge, turns::TurnsGeomT &turnsGeom);
+
   void CalculateRouteAsync(ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 

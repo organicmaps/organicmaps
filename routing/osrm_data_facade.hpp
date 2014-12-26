@@ -7,6 +7,7 @@
 #include "../base/bits.hpp"
 
 #include "../coding/file_container.hpp"
+#include "../coding/read_write_utils.hpp"
 
 #include "../3party/succinct/elias_fano.hpp"
 #include "../3party/succinct/elias_fano_compressed_list.hpp"
@@ -21,6 +22,8 @@
 namespace routing
 {
 
+typedef vector<NodeID> NodeIdVectorT;
+
 template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeDataT>
 {
   typedef BaseDataFacade<EdgeDataT> super;
@@ -29,6 +32,7 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
   succinct::rs_bit_vector m_shortcuts;
   succinct::elias_fano m_matrix;
   succinct::elias_fano_compressed_list m_edgeId;
+  NodeIdVectorT m_outgoingNodes;
 
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
@@ -67,6 +71,10 @@ public:
     m_handleFanoMatrix.Assign(container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
 
+    ReaderSource<FileReader> r(container.GetReader(ROUTING_OUTGOING_FILE_TAG));
+    rw::ReadVectorOfPOD(r, m_outgoingNodes);
+
+
     m_numberOfNodes = *m_handleFanoMatrix.GetData<uint32_t>();
     succinct::mapper::map(m_matrix, m_handleFanoMatrix.GetData<char>() + sizeof(m_numberOfNodes));
   }
@@ -84,6 +92,8 @@ public:
 
     ClearContainer(m_matrix);
     m_handleFanoMatrix.Unmap();
+
+    m_outgoingNodes.clear();
   }
 
   unsigned GetNumberOfNodes() const
@@ -252,6 +262,16 @@ public:
   std::string GetTimestamp() const
   {
     return "";
+  }
+
+  NodeIdVectorT::const_iterator GetOutgoingBegin()
+  {
+    return m_outgoingNodes.cbegin();
+  }
+
+  NodeIdVectorT::const_iterator GetOutgoingEnd()
+  {
+    return m_outgoingNodes.cend();
   }
 };
 
