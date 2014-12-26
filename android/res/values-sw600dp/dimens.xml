@@ -28,6 +28,8 @@
   <dimen name="bottom_button_width">46dp</dimen>
   <dimen name="bottom_item_height">56dp</dimen>
 
+  <dimen name="routing_pp_height">63dp</dimen>
+
   <bool name="isTablet">true</bool>
 
 </resources>

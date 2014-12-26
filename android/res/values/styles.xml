@@ -142,4 +142,12 @@
     <item name="android:background">@android:color/transparent</item>
   </style>
 
+  <style name="MwmLightShadow">
+    <item name="android:paddingLeft">4dp</item>
+    <item name="android:paddingRight">4dp</item>
+    <item name="android:paddingBottom">5dp</item>
+    <item name="android:paddingTop">3dp</item>
+    <item name="android:background">@drawable/ic_bg_light</item>
+  </style>
+
 </resources>

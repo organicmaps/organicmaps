@@ -10,11 +10,17 @@
       android:layout_width="@dimen/panel_width"
       android:layout_height="?attr/actionBarSize"/>
 
-  <ListView
-      android:id="@android:id/list"
+  <FrameLayout
+      style="@style/MwmLightShadow"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/ic_bg_light"
-      android:scrollbarStyle="outsideOverlay"/>
+      android:layout_height="wrap_content">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="outsideOverlay"/>
+
+  </FrameLayout>
 
 </LinearLayout>

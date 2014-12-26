@@ -20,11 +20,12 @@
 
   <RelativeLayout
       android:id="@+id/rl__routing_box"
+      style="@style/MwmLightShadow"
       android:layout_width="@dimen/panel_width"
       android:layout_height="@dimen/routing_pp_height"
       android:layout_below="@+id/toolbar_search"
       android:layout_margin="@dimen/margin_medium"
-      android:background="@color/bg_top_panels">
+      android:background="@drawable/ic_bg_pp">
 
     <RelativeLayout
         android:id="@+id/rl__routing_go"

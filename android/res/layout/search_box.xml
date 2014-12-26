@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:baselineAligned="false"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -28,16 +29,18 @@
   <ProgressBar
       android:id="@+id/search_progress"
       style="@style/Widget.AppCompat.ProgressBar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="@dimen/routing_progress_size"
+      android:layout_height="@dimen/routing_progress_size"
+      android:layout_marginRight="@dimen/margin_small"
       android:layout_weight="0"
-      android:padding="@dimen/margin_micro"/>
+      android:background="@android:color/transparent"/>
 
   <FrameLayout
       android:id="@+id/container_cancel_voice_input_search"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_weight="0">
+      android:layout_weight="0"
+      android:background="@android:color/transparent">
 
     <ImageView
         android:id="@+id/search_image_clear"

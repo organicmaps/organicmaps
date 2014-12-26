@@ -15,9 +15,9 @@
       app:theme="@style/MwmToolbar"/>
 
   <LinearLayout
+      style="@style/MwmLightShadow"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/ic_bg_dim"
       android:orientation="vertical">
 
     <RelativeLayout
@@ -27,7 +27,8 @@
 
       <ImageView
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/margin_medium"
           android:background="@drawable/ic_menu_download"
           android:scaleType="center"/>
@@ -56,7 +57,8 @@
 
       <ImageView
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/margin_medium"
           android:background="@drawable/ic_menu_settings"
           android:scaleType="center"/>
@@ -86,7 +88,8 @@
 
       <ImageView
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/margin_medium"
           android:background="@drawable/ic_menu_send_my_location"
           android:scaleType="center"/>

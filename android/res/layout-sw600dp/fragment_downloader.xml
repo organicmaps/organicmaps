@@ -28,9 +28,16 @@
         android:textSize="18sp"/>
   </android.support.v7.widget.Toolbar>
 
-  <ListView
-      android:id="@android:id/list"
+  <FrameLayout
+      style="@style/MwmLightShadow"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@drawable/ic_bg_light"/>
+      android:layout_height="match_parent">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+  </FrameLayout>
+
 </LinearLayout>
