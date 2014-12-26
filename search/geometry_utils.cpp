@@ -2,16 +2,13 @@
 
 #include "../indexer/mercator.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
-
 
 namespace search
 {
 
 double PointDistance(m2::PointD const & a, m2::PointD const & b)
 {
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(a.y), MercatorBounds::XToLon(a.x),
-                             MercatorBounds::YToLat(b.y), MercatorBounds::XToLon(b.x));
+  return MercatorBounds::DistanceOnEarth(a, b);
 }
 
 uint8_t ViewportDistance(m2::RectD const & viewport, m2::PointD const & p)

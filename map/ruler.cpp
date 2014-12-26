@@ -17,7 +17,6 @@
 
 #include "../indexer/mercator.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
 #include "../geometry/transformations.hpp"
 
 #include "../base/string_utils.hpp"
@@ -569,9 +568,7 @@ void Ruler::update()
   m2::PointD pt1 = screen.PtoG(pivot());
   m2::PointD pt0 = screen.PtoG(pivot() - m2::PointD(minPxWidth, 0));
 
-  double const distanceInMetres = ms::DistanceOnEarth(
-        MercatorBounds::YToLat(pt0.y), MercatorBounds::XToLon(pt0.x),
-        MercatorBounds::YToLat(pt1.y), MercatorBounds::XToLon(pt1.x));
+  double const distanceInMetres = MercatorBounds::DistanceOnEarth(pt0, pt1);
 
   // convert metres to units for calculating m_metresDiff
   double metersDiff = CalcMetresDiff(distanceInMetres);

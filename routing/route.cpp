@@ -4,7 +4,6 @@
 
 #include "../platform/location.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
 #include "../geometry/angles.hpp"
 #include "../geometry/point2d.hpp"
 
@@ -279,10 +278,7 @@ void Route::Update()
     m2::PointD const & p1 = m_poly.GetPoint(i);
     m2::PointD const & p2 = m_poly.GetPoint(i + 1);
 
-    dist += ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y),
-                                MercatorBounds::XToLon(p1.x),
-                                MercatorBounds::YToLat(p2.y),
-                                MercatorBounds::XToLon(p2.x));
+    dist += MercatorBounds::DistanceOnEarth(p1, p2);
 
     m_segDistance[i] = dist;
     m_segProj[i].SetBounds(p1, p2);

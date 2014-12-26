@@ -3,8 +3,6 @@
 #include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/features_vector.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
-
 
 namespace search
 {
@@ -77,12 +75,7 @@ public:
 
   void operator() (LocalityItem const & item)
   {
-    m2::PointD const c = item.m_rect.Center();
-    double const d = ms::DistanceOnEarth(MercatorBounds::YToLat(c.y),
-                                         MercatorBounds::XToLon(c.x),
-                                         MercatorBounds::YToLat(m_point.y),
-                                         MercatorBounds::XToLon(m_point.x));
-
+    double const d = MercatorBounds::DistanceOnEarth(item.m_rect.Center(), m_point);
     double const value = ftypes::GetPopulationByRadius(d) / static_cast<double>(item.m_population);
     if (value < m_bestValue)
     {

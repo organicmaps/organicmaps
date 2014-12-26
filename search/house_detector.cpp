@@ -6,7 +6,6 @@
 #include "../indexer/classificator.hpp"
 
 #include "../geometry/distance.hpp"
-#include "../geometry/distance_on_sphere.hpp"
 #include "../geometry/angles.hpp"
 
 #include "../base/logging.hpp"
@@ -267,8 +266,7 @@ bool LessStreetDistance(HouseProjection const & p1, HouseProjection const & p2)
 
 double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y), MercatorBounds::XToLon(p1.x),
-                             MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
+  return MercatorBounds::DistanceOnEarth(p1, p2);
 }
 
 pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * s1, Street const * s2)
