@@ -479,11 +479,6 @@ void InitLocalizedStrings()
 - (void)countryStatusChangedAtPosition:(int)position inGroup:(storage::ActiveMapsLayout::TGroup const &)group
 {
   ActiveMapsLayout & l = GetFramework().GetCountryTree().GetActiveMapLayout();
-  TStatus const & status = l.GetCountryStatus(group, position);
-  guides::GuideInfo info;
-  if (status == storage::TStatus::EOnDisk && l.GetGuideInfo(group, position, info))
-    [self showNotificationWithGuideInfo:info];
-
   int const outOfDateCount = l.GetOutOfDateCount();
   [[NSNotificationCenter defaultCenter] postNotificationName:MapsStatusChangedNotification object:nil userInfo:@{@"OutOfDate" : @(outOfDateCount)}];
 }
@@ -491,36 +486,6 @@ void InitLocalizedStrings()
 - (void)outOfDateCountriesCountChanged:(NSNotification *)notification
 {
   [UIApplication sharedApplication].applicationIconBadgeNumber = [[notification userInfo][@"OutOfDate"] integerValue];
-}
-
-- (void)showNotificationWithGuideInfo:(guides::GuideInfo const &)guide
-{
-  guides::GuidesManager & guidesManager = GetFramework().GetGuidesManager();
-  string const appID = guide.GetAppID();
-
-  if (guidesManager.WasAdvertised(appID) ||
-      [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
-    return;
-
-  UILocalNotification * notification = [[UILocalNotification alloc] init];
-  notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
-  notification.repeatInterval = 0;
-  notification.timeZone = [NSTimeZone defaultTimeZone];
-  notification.soundName = UILocalNotificationDefaultSoundName;
-
-  string const lang = languages::GetCurrentNorm();
-  NSString * message = [NSString stringWithUTF8String:guide.GetAdMessage(lang).c_str()];
-  notification.alertBody = message;
-  notification.userInfo = @{
-                            @"Proposal" : @"OpenGuides",
-                            @"GuideUrl" : [NSString stringWithUTF8String:guide.GetURL().c_str()],
-                            @"GuideTitle" : [NSString stringWithUTF8String:guide.GetAdTitle(lang).c_str()],
-                            @"GuideMessage" : message
-                            };
-
-  [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-
-  guidesManager.SetWasAdvertised(appID);
 }
 
 @end
