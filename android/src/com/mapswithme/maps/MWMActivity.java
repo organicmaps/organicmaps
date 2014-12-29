@@ -210,13 +210,13 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   /**
-   * Invalidates location state in core(core then tries to restore previous location state and notifies us).
+   * Invalidates location state in core.
    * Updates location button accordingly.
    */
   public void invalidateLocationState()
   {
     final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
-    LocationButtonImageSetter.setButtonViewFromState(currentLocationMode, mLocationButton);
+    refreshLocationState(currentLocationMode);
     LocationState.INSTANCE.invalidatePosition();
   }
 
@@ -1246,20 +1246,25 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        LocationButtonImageSetter.setButtonViewFromState(newMode, mLocationButton);
-        switch (newMode)
-        {
-        case LocationState.UNKNOWN_POSITION:
-          pauseLocation();
-          break;
-        case LocationState.PENDING_POSITION:
-          listenLocationUpdates();
-          break;
-        default:
-          break;
-        }
+        refreshLocationState(newMode);
       }
     });
+  }
+
+  private void refreshLocationState(int newMode)
+  {
+    LocationButtonImageSetter.setButtonViewFromState(newMode, mLocationButton);
+    switch (newMode)
+    {
+    case LocationState.UNKNOWN_POSITION:
+      pauseLocation();
+      break;
+    case LocationState.PENDING_POSITION:
+      listenLocationUpdates();
+      break;
+    default:
+      break;
+    }
   }
 
   private void listenLocationStateModeUpdates()
