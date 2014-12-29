@@ -1040,8 +1040,8 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
     turn.m_turn = MostLeftDirection(a);
   else turn.m_turn = IntermediateDirection(a);
 
-  turn.m_keepAnyway = (ftypes::IsLinkChecker::Instance()(ft1) == false
-                       && ftypes::IsLinkChecker::Instance()(ft2) == true);
+  turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ft1)
+                       && ftypes::IsLinkChecker::Instance()(ft2));
 
   bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
   bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
