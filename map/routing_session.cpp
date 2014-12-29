@@ -26,27 +26,16 @@ RoutingSession::RoutingSession()
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
                                 TReadyCallbackFn const & callback)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
   m_router->SetFinalPoint(endPoint);
-  RebuildRouteUnprotected(startPoint, callback);
+  RebuildRoute(startPoint, callback);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
-  RebuildRouteUnprotected(startPoint, callback);
-}
-
-void RoutingSession::RebuildRouteUnprotected(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
-{
   ASSERT(m_router != nullptr, ());
-  ResetUnprotected();
+  Reset();
   m_state = RouteBuilding;
 
   // Use old-style callback constraction, because lambda constructs buggy function on Android

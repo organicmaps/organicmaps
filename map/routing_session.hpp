@@ -63,8 +63,6 @@ public:
 
 private:
   void ResetUnprotected();
-  void RebuildRouteUnprotected(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
-
   struct DoReadyCallback
   {
     RoutingSession & m_rs;
