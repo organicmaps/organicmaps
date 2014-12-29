@@ -40,7 +40,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
 
   // Use old-style callback constraction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(startPoint, DoReadyCallback(*this, callback), startPoint - m_lastGoodPosition);
+  m_router->CalculateRoute(startPoint, DoReadyCallback(*this, callback, m_routeSessionMutex), startPoint - m_lastGoodPosition);
 }
 
 void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)
@@ -50,6 +50,8 @@ void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::Result
   else
     m_rs.m_state = RouteNotReady;
 
+  threads::MutexGuard guard(m_routeSessionMutexInner);
+  UNUSED_VALUE(guard);
   m_callback(m_rs.m_route, e);
 }
 

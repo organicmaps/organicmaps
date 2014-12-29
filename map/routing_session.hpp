@@ -66,15 +66,15 @@ private:
   {
     RoutingSession & m_rs;
     TReadyCallbackFn m_callback;
+    threads::Mutex & m_routeSessionMutexInner;
 
-    DoReadyCallback(RoutingSession & rs, TReadyCallbackFn const & cb)
-      : m_rs(rs), m_callback(cb)
+    DoReadyCallback(RoutingSession & rs, TReadyCallbackFn const & cb, threads::Mutex & routeSessionMutex)
+      : m_rs(rs), m_callback(cb), m_routeSessionMutexInner(routeSessionMutex)
     {
     }
 
     void operator() (Route & route, IRouter::ResultCode e);
   };
-
   void AssignRoute(Route & route);
 
 private:
