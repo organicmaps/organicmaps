@@ -62,7 +62,6 @@ public:
   void MatchLocationToRoute(location::GpsInfo & location) const;
 
 private:
-  void ResetUnprotected();
   struct DoReadyCallback
   {
     RoutingSession & m_rs;

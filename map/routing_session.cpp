@@ -63,28 +63,20 @@ bool RoutingSession::IsNavigable() const
   return (m_state == RouteNotStarted || m_state == OnRoute);
 }
 
-void RoutingSession::ResetUnprotected()
+void RoutingSession::Reset()
 {
   m_state = RoutingNotActive;
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
-  Route(string()).Swap(m_route);
-}
 
-void RoutingSession::Reset()
-{
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-
-  ResetUnprotected();
+  Route(string()).Swap(m_route);
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
                                                                 GpsInfo const & info)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
@@ -99,6 +91,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   if (m_state == RouteNeedRebuild || m_state == RouteFinished || m_state == RouteBuilding)
     return m_state;
 
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
   ASSERT(m_route.IsValid(), ());
 
   if (m_route.MoveIterator(info))
@@ -137,9 +131,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 
 void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
   auto formatDistFn = [](double dist, string & value, string & suffix)
   {
     /// @todo Make better formatting of distance and units.
@@ -150,6 +141,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     suffix = value.substr(delim + 1);
     value.erase(delim);
   };
+
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
 
   if (m_route.IsValid() && IsNavigable())
   {
@@ -185,29 +179,23 @@ void RoutingSession::AssignRoute(Route & route)
 
 void RoutingSession::SetRouter(IRouter * router)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
   m_router.reset(router);
 }
 
 void RoutingSession::DeleteIndexFile(string const & fileName)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
-  ResetUnprotected();
+  Reset();
   m_router->ClearState();
   (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
 }
 
 void RoutingSession::MatchLocationToRoute(location::GpsInfo & location) const
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
   if (m_state != State::OnRoute)
     return;
+
+  threads::MutexGuard guard(m_routeSessionMutex);
+  UNUSED_VALUE(guard);
   m_route.MatchLocationToRoute(location);
 }
 
