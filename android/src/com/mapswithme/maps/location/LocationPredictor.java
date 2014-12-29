@@ -11,20 +11,20 @@ public class LocationPredictor
   final private long PREDICTION_INTERVAL = 200;
   final private long MAX_PREDICTION_COUNT = 20;
 
-  private Runnable mRunnable = null;
-  private Handler mHandler = null;
+  private Runnable mRunnable;
+  private Handler mHandler;
 
-  private LocationService.LocationListener mListener = null;
-  private Location mLastLocation = null;
-  private boolean mGeneratePredictions = false;
-  private int mPredictionCount = 0;
-  private int mConnectionSlot = 0;
+  private LocationService.LocationListener mListener;
+  private Location mLastLocation;
+  private boolean mGeneratePredictions;
+  // TODO variable ISNT really changed anywhere.
+  private int mPredictionCount;
+  private int mConnectionSlot;
 
   public LocationPredictor(Handler handler, LocationService.LocationListener listener)
   {
     mHandler = handler;
     mListener = listener;
-    mPredictionCount = 0;
 
     mRunnable = new Runnable()
     {
@@ -48,7 +48,7 @@ public class LocationPredictor
     LocationState.INSTANCE.removeLocationStateModeListener(mConnectionSlot);
     mGeneratePredictions = false;
     mLastLocation = null;
-    resetTimer();
+    resetHandler();
   }
 
   public void reset(Location location)
@@ -62,7 +62,7 @@ public class LocationPredictor
     else
       mLastLocation = null;
 
-    resetTimer();
+    resetHandler();
   }
 
   private void onLocationStateModeChangedCallback(final int mode)
@@ -83,10 +83,10 @@ public class LocationPredictor
       mLastLocation = null;
 
     mGeneratePredictions = mode == LocationState.ROTATE_AND_FOLLOW;
-    resetTimer();
+    resetHandler();
   }
 
-  private void resetTimer()
+  private void resetHandler()
   {
     mPredictionCount = 0;
     mHandler.removeCallbacks(mRunnable);
@@ -96,7 +96,7 @@ public class LocationPredictor
 
   private boolean generatePrediction()
   {
-    if (mLastLocation == null || mGeneratePredictions == false)
+    if (mLastLocation == null || !mGeneratePredictions)
       return false;
 
     if (mPredictionCount < MAX_PREDICTION_COUNT)
@@ -107,7 +107,7 @@ public class LocationPredictor
       long elapsedMillis = info.getTime() - mLastLocation.getTime();
 
       double[] newLatLon = Framework.predictLocation(info.getLatitude(), info.getLongitude(), info.getAccuracy(), info.getBearing(),
-                                                     info.getSpeed(), elapsedMillis / 1000.0);
+          info.getSpeed(), elapsedMillis / 1000.0);
       info.setLatitude(newLatLon[0]);
       info.setLongitude(newLatLon[1]);
 
