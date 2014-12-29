@@ -17,6 +17,7 @@
 #include <QtCore/QLocale>
 
 #include <QtGui/QMouseEvent>
+#include <QDateTime>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QMenu>
@@ -430,8 +431,17 @@ namespace qt
         info.m_latitude = MercatorBounds::YToLat(point.y);
         info.m_longitude = MercatorBounds::XToLon(point.x);
         info.m_horizontalAccuracy = 10.0;
+        info.m_timestamp = QDateTime::currentMSecsSinceEpoch() / 1000.0;
 
         m_framework->OnLocationUpdate(info);
+
+        if (m_framework->IsRoutingActive())
+        {
+          location::FollowingInfo loc;
+          m_framework->GetRouteFollowingInfo(loc);
+          LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+                       "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix, ")"));
+        }
       }
       else
       {
