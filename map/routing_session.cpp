@@ -45,13 +45,14 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
 
 void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)
 {
+  threads::MutexGuard guard(m_routeSessionMutexInner);
+  UNUSED_VALUE(guard);
+
   if (e == IRouter::NoError)
     m_rs.AssignRoute(route);
   else
     m_rs.m_state = RouteNotReady;
 
-  threads::MutexGuard guard(m_routeSessionMutexInner);
-  UNUSED_VALUE(guard);
   m_callback(m_rs.m_route, e);
 }
 
@@ -171,9 +172,6 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
 void RoutingSession::AssignRoute(Route & route)
 {
-  threads::MutexGuard guard(m_routeSessionMutex);
-  UNUSED_VALUE(guard);
-
   ASSERT(route.IsValid(), ());
   m_state = RouteNotStarted;
   m_route.Swap(route);
