@@ -5,16 +5,10 @@
 
 + (NSString *)estimatedArrivalTimeWithSeconds:(NSNumber *)seconds
 {
-  static NSDateFormatter * dateFormatter;
-  if (!dateFormatter)
-  {
-    dateFormatter = [NSDateFormatter new];
-    dateFormatter.dateStyle = NSDateFormatterNoStyle;
-    dateFormatter.timeStyle = NSDateFormatterShortStyle;
-  }
-  NSDate * date = [NSDate dateWithTimeIntervalSinceNow:[seconds floatValue]];
-  NSString * string = [dateFormatter stringFromDate:date];
-  return string;
+  NSInteger ti = [seconds integerValue];
+  NSInteger minutes = (ti / 60) % 60;
+  NSInteger hours = (ti / 3600);
+  return [NSString stringWithFormat:@"%ld:%02ld", (long)hours, (long)minutes];
 }
 
 + (NSDate *)dateWithString:(NSString *)dateString
