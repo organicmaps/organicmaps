@@ -1,7 +1,8 @@
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
-@interface RichTextVC : UIViewController
+@interface RichTextVC : ViewController
 
 - (instancetype)initWithText:(NSString *)text;
 

@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 #include "../../map/bookmark.hpp"
 
 @class SelectSetVC;
@@ -9,7 +10,7 @@
 
 @end
 
-@interface SelectSetVC : UITableViewController
+@interface SelectSetVC : TableViewController
 
 - (id)initWithBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory;
 

@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
 @class AddSetVC;
 @protocol AddSetVCDelegate <NSObject>
@@ -7,7 +8,7 @@
 
 @end
 
-@interface AddSetVC : UITableViewController <UITextFieldDelegate>
+@interface AddSetVC : TableViewController <UITextFieldDelegate>
 
 @property (nonatomic, weak) id <AddSetVCDelegate> delegate;
 

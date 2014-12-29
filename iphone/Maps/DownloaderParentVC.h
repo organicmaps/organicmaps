@@ -3,6 +3,7 @@
 #import "MapsObservers.h"
 #import "MapCell.h"
 #import "UIKitCategories.h"
+#import "ViewController.h"
 
 #include "../../storage/storage_defines.hpp"
 
@@ -23,7 +24,7 @@ typedef NS_ENUM(NSUInteger, DownloaderAction)
 
 using namespace storage;
 
-@interface DownloaderParentVC : UIViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface DownloaderParentVC : ViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (NSString *)formattedMapSize:(size_t)size;
 - (void)openGuideWithInfo:(guides::GuideInfo const &)info;

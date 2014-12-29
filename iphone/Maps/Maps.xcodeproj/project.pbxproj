@@ -203,6 +203,10 @@
 		B0DFE6311A1B78A200B6C35E /* LocalNotifications-Pro.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */; };
 		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
+		B0FBFA271A515AFD0086819E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.m */; };
+		B0FBFA281A515AFD0086819E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.m */; };
+		B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.m */; };
+		B0FBFA2C1A515B4C0086819E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
@@ -1537,6 +1541,10 @@
 		B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteOverallInfoView.m; sourceTree = "<group>"; };
 		B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextTurnPhoneView.h; sourceTree = "<group>"; };
 		B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextTurnPhoneView.m; sourceTree = "<group>"; };
+		B0FBFA251A515AFD0086819E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../ViewController.h; sourceTree = "<group>"; };
+		B0FBFA261A515AFD0086819E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../ViewController.m; sourceTree = "<group>"; };
+		B0FBFA291A515B4C0086819E /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = ../TableViewController.h; sourceTree = "<group>"; };
+		B0FBFA2A1A515B4C0086819E /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewController.m; path = ../TableViewController.m; sourceTree = "<group>"; };
 		CB252D6B16FF82C8001E41E9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		CB252D6C16FF82C8001E41E9 /* Statistics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Statistics.mm; sourceTree = "<group>"; };
 		ED48BBB317C267F5003E7E92 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -2280,6 +2288,10 @@
 				B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */,
 				B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */,
 				B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */,
+				B0FBFA251A515AFD0086819E /* ViewController.h */,
+				B0FBFA261A515AFD0086819E /* ViewController.m */,
+				B0FBFA291A515B4C0086819E /* TableViewController.h */,
+				B0FBFA2A1A515B4C0086819E /* TableViewController.m */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */,
@@ -4653,6 +4665,7 @@
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
+				B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				9789DB56188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
 				9778E99D191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
@@ -4669,6 +4682,7 @@
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				976D86EC19C8697700C920EF /* ProgressView.m in Sources */,
 				97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
+				B0FBFA271A515AFD0086819E /* ViewController.m in Sources */,
 				97A8001018B21395000C07A2 /* SearchBar.mm in Sources */,
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
 				9778E9A1191A663700AD850A /* BookmarkNameVC.mm in Sources */,
@@ -4687,6 +4701,7 @@
 				978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */,
 				FAFB08EA151215EE0041901D /* MapsAppDelegate.mm in Sources */,
 				97908B31196591FB003DD7C6 /* SearchShowOnMapCell.m in Sources */,
+				B0FBFA281A515AFD0086819E /* ViewController.m in Sources */,
 				976D86F219C877E600C920EF /* MapCell.mm in Sources */,
 				977E26C319E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
 				FAFB08EB151215EE0041901D /* EAGLView.mm in Sources */,
@@ -4712,6 +4727,7 @@
 				B08AA8D71A26108F00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				9747264418323080006B7CB7 /* UIKitCategories.m in Sources */,
 				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
+				B0FBFA2C1A515B4C0086819E /* TableViewController.m in Sources */,
 				97F0817F19AF72590098FB0B /* BadgeView.m in Sources */,
 				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				97908B2D1965876C003DD7C6 /* SearchCategoryCell.m in Sources */,

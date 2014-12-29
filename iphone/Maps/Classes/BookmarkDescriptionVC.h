@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 #include "../../map/bookmark.hpp"
 
 @class BookmarkDescriptionVC;
@@ -9,7 +10,7 @@
 
 @end
 
-@interface BookmarkDescriptionVC : UITableViewController
+@interface BookmarkDescriptionVC : TableViewController
 
 @property (nonatomic, weak) id <BookmarkDescriptionVCDelegate> delegate;
 @property (nonatomic) BookmarkAndCategory bookmarkAndCategory;

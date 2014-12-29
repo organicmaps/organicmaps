@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 #include "../../map/bookmark.hpp"
 
 @class BookmarkNameVC;
@@ -9,7 +10,7 @@
 
 @end
 
-@interface BookmarkNameVC : UITableViewController
+@interface BookmarkNameVC : TableViewController
 
 @property (nonatomic) BookmarkAndCategory bookmarkAndCategory;
 @property (nonatomic) NSString * temporaryName;

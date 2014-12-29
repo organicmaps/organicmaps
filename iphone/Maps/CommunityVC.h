@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
-@interface CommunityVC : UITableViewController
+@interface CommunityVC : TableViewController
 
 @end

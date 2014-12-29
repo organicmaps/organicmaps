@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 #import "LocationManager.h"
 #import "LocationButton.h"
 #import "BottomMenu.h"
@@ -12,7 +13,7 @@
 
 namespace search { struct AddressInfo; }
 
-@interface MapViewController : UIViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
+@interface MapViewController : ViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
 {
   enum Action
 	{

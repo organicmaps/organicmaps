@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
+#import "TableViewController.h"
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : TableViewController
 
 @end

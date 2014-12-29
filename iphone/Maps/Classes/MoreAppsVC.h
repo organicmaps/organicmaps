@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
 
-@interface MoreAppsVC : UIViewController
+@interface MoreAppsVC : ViewController
 
 @end
