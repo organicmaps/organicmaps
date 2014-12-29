@@ -12,8 +12,7 @@
 	<string name="free_pro_version_notification_pro">MAPS.ME Pro är gratis idag. Berätta för dina vänner!</string>
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">Du kan uppgradera till MAPS.ME Pro gratis redan idag. Missa inte din chans!</string>
-	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">Du har tur som får MAPS.ME utan kostnad och sparar 4,99 $. Hjälp dina vänner och dela nyheterna med dem!</string>
+	<string name="free_pro_version_share_message">Bästa offline kartor MAPS. ME är gratis idag. Ladda ner den nu och berätta för dina vänner!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">Få offline-kartor MAPS.ME gratis nu</string>
 	<!-- Share email body when paid version become free on the market. -->

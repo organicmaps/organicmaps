@@ -21,8 +21,7 @@
 /* Dialog text when paid version become free on the market (Lite app version). */
 "free_pro_version_notification_alert" = "本日MAPS.ME Proに無料でアップグレードできます。このチャンスをお見逃しなく！";
 
-/* Share text when paid version become free on the market. */
-"free_pro_version_share_message" = "MAPS.MEが無料で手に入って$4.99節約できるなんて、ラッキーですね。友達にもこのニュースを教えてあげましょう！";
+"free_pro_version_share_message" = "ベストオフライン地図のMAPS.MEが本日無料。今すぐダウンロードして友達に教えてあげましょう！";
 
 /* Share email subject when paid version become free on the market. */
 "free_pro_version_share_email_subject" = "本日オフライン地図のMAPS.MEを無料でゲット";

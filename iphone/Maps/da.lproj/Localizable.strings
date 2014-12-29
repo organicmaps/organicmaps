@@ -21,8 +21,7 @@
 /* Dialog text when paid version become free on the market (Lite app version). */
 "free_pro_version_notification_alert" = "Du kan opgradér til MAPS.ME Pro gratis i dag. Gå ikke glip af chancen!";
 
-/* Share text when paid version become free on the market. */
-"free_pro_version_share_message" = "Du er heldig at få MAPS.ME gratis og spare 4,99 $. Hjælp dine venner, del nyheden med dem!";
+"free_pro_version_share_message" = "Bedste offline kort MAPS.ME er gratis i dag. Download nu og fortæl dine venner om det!";
 
 /* Share email subject when paid version become free on the market. */
 "free_pro_version_share_email_subject" = "Nu kan du få gratis offline-kort fra MAPS.ME";

@@ -14,8 +14,7 @@
 	<string name="free_pro_version_notification_pro">MAPS.ME Pro is free today. Tell your friends!</string>
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">You can upgrade to MAPS.ME Pro for free today. Don’t miss your chance!</string>
-	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">You are lucky to get MAPS.ME for free and save $4.99. Help your friends, share the news with them!</string>
+	<string name="free_pro_version_share_message">Best offline maps MAPS.ME are free today. Download now and tell your friends!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">Get offline maps MAPS.ME for free now</string>
 	<!-- Share email body when paid version become free on the market. -->

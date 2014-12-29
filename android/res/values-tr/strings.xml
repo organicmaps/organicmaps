@@ -12,8 +12,7 @@
 	<string name="free_pro_version_notification_pro">MAPS.ME Pro bugün ücretsiz. Arkadaşlarınıza anlatın!</string>
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">Sadece bugün mevcut sürümünüzü MAPS.ME Pro\&#39;ya, ücretsiz olarak yükseltebilirsiniz. Bu fırsatı kaçırmayın!</string>
-	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">MAPS.ME\&#39;yi ücretsiz alıp 4.99$ tasarruf edeceğin için şanslısın. Arkadaşlarına yardım et, haberi onlarla paylaş!</string>
+	<string name="free_pro_version_share_message">MAPS.ME\&#39;nin en iyi çevrimdışı haritaları bugün ücretsiz. İndir ve arkadaşlarına haber ver!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">MAPS.ME çevrimdışı haritaları hemen ücretsiz al</string>
 	<!-- Share email body when paid version become free on the market. -->

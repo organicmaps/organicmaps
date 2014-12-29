@@ -12,8 +12,7 @@
 	<string name="free_pro_version_notification_pro">MAPS.ME Pro is vandaag gratis. Vertel het aan je vrienden!</string>
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">Je kunt vandaag gratis upgraden naar MAPS.ME Pro. Mis deze kans niet!</string>
-	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">U heeft geluk dat u MAPS.ME gratis krijgt en $ 4,99 bespaart. Help uw vrienden, deel het nieuws met hen!</string>
+	<string name="free_pro_version_share_message">De beste offline kaarten van MAPS.ME zijn vandaag gratis. Download nu en vertel het je vrienden!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">Verkrijg offline kaarten van MAPS.ME nu gratis</string>
 	<!-- Share email body when paid version become free on the market. -->

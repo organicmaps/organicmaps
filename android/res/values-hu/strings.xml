@@ -12,8 +12,7 @@
 	<string name="free_pro_version_notification_pro">A MAPS.ME Pro ma ingyenes. Mondd el a barátaidnak!</string>
 	<!-- Dialog text when paid version become free on the market (Lite app version). -->
 	<string name="free_pro_version_notification_alert">Ma ingyen frissítheted a MAPS.ME Pro. Ne szalaszd el az esélyt!</string>
-	<!-- Share text when paid version become free on the market. -->
-	<string name="free_pro_version_share_message">Szerencsés vagy, hogy a MAPS.ME ingyen a tiéd, és $4.99-t megspórolsz! Segítsd a barátaidnak, oszd meg velük a hírt!</string>
+	<string name="free_pro_version_share_message">A legjobb MAPS.ME offline térképek ma ingyenesek. Töltsd le most és meséld el barátaidnak!</string>
 	<!-- Share email subject when paid version become free on the market. -->
 	<string name="free_pro_version_share_email_subject">Szerezze meg az ingyenes offline MAPS.ME-t</string>
 	<!-- Share email body when paid version become free on the market. -->
