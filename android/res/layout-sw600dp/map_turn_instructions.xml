@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/navigation_buttons_container"
+    style="@style/MwmLightShadow"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/routing_pp_height"
-    android:background="@color/bg_top_panels">
+    android:background="@drawable/ic_bg_pp">
 
   <TextView
       android:id="@+id/tv__total_distance"
