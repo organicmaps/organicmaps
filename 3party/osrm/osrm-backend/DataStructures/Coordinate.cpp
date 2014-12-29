@@ -26,19 +26,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <osrm/Coordinate.h>
+
 #include "../Util/MercatorUtil.h"
-#ifndef NDEBUG
-#include "../Util/simple_logger.hpp"
-#endif
 #include "../Util/StringUtil.h"
 
 #include <boost/assert.hpp>
 
-#ifndef NDEBUG
-#include <bitset>
-#endif
 #include <iostream>
 #include <limits>
+
 
 FixedPointCoordinate::FixedPointCoordinate()
     : lat(std::numeric_limits<int>::min()), lon(std::numeric_limits<int>::min())
@@ -47,20 +43,6 @@ FixedPointCoordinate::FixedPointCoordinate()
 
 FixedPointCoordinate::FixedPointCoordinate(int lat, int lon) : lat(lat), lon(lon)
 {
-#ifndef NDEBUG
-    if (0 != (std::abs(lat) >> 30))
-    {
-        std::bitset<32> y_coordinate_vector(lat);
-        SimpleLogger().Write(logDEBUG) << "broken lat: " << lat
-                                       << ", bits: " << y_coordinate_vector;
-    }
-    if (0 != (std::abs(lon) >> 30))
-    {
-        std::bitset<32> x_coordinate_vector(lon);
-        SimpleLogger().Write(logDEBUG) << "broken lon: " << lon
-                                       << ", bits: " << x_coordinate_vector;
-    }
-#endif
 }
 
 void FixedPointCoordinate::Reset()

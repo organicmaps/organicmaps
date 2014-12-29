@@ -3,6 +3,9 @@
 #include "../base/shared_buffer_manager.hpp"
 #include "../base/stl_add.hpp"
 
+#include "../std/cstring.hpp"
+
+
 namespace  dp
 {
 
