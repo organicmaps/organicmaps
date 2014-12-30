@@ -32,7 +32,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <type_traits>
 
-constexpr float COORDINATE_PRECISION = 1000000.f;
+#include "../../../../../std/constexpr.hpp"
+
+CONSTEXPR_VALUE float COORDINATE_PRECISION = 1000000.f;
 
 struct FixedPointCoordinate
 {

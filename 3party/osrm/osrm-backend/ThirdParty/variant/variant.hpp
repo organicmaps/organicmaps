@@ -12,6 +12,7 @@
 
 #include "recursive_wrapper.hpp"
 
+#include "../../../../../std/constexpr.hpp"
 #include "../../../../../std/noexcept.hpp"
 
 #ifdef _MSC_VER
@@ -38,7 +39,7 @@
 
 namespace mapbox { namespace util { namespace detail {
 
-static constexpr std::size_t invalid_value = std::size_t(-1);
+static CONSTEXPR_VALUE std::size_t invalid_value = std::size_t(-1);
 
 template <typename T, typename...Types>
 struct direct_type;
@@ -46,14 +47,14 @@ struct direct_type;
 template <typename T, typename First, typename...Types>
 struct direct_type<T, First, Types...>
 {
-    static constexpr std::size_t index = std::is_same<T, First>::value
+    static CONSTEXPR_VALUE std::size_t index = std::is_same<T, First>::value
         ? sizeof...(Types) : direct_type<T, Types...>::index;
 };
 
 template <typename T>
 struct direct_type<T>
 {
-    static constexpr std::size_t index = invalid_value;
+    static CONSTEXPR_VALUE std::size_t index = invalid_value;
 };
 
 template <typename T, typename...Types>
@@ -62,21 +63,21 @@ struct convertible_type;
 template <typename T, typename First, typename...Types>
 struct convertible_type<T, First, Types...>
 {
-    static constexpr std::size_t index = std::is_convertible<T, First>::value
+    static CONSTEXPR_VALUE std::size_t index = std::is_convertible<T, First>::value
         ? sizeof...(Types) : convertible_type<T, Types...>::index;
 };
 
 template <typename T>
 struct convertible_type<T>
 {
-    static constexpr std::size_t index = invalid_value;
+    static CONSTEXPR_VALUE std::size_t index = invalid_value;
 };
 
 template <typename T, typename...Types>
 struct value_traits
 {
-    static constexpr std::size_t direct_index = direct_type<T, Types...>::index;
-    static constexpr std::size_t index =
+    static CONSTEXPR_VALUE std::size_t direct_index = direct_type<T, Types...>::index;
+    static CONSTEXPR_VALUE std::size_t index =
         (direct_index == invalid_value) ? convertible_type<T, Types...>::index : direct_index;
 };
 
@@ -86,7 +87,7 @@ struct is_valid_type;
 template <typename T, typename First, typename... Types>
 struct is_valid_type<T, First, Types...>
 {
-    static constexpr bool value = std::is_convertible<T, First>::value
+    static CONSTEXPR_VALUE bool value = std::is_convertible<T, First>::value
         || is_valid_type<T, Types...>::value;
 };
 
@@ -522,7 +523,7 @@ public:
     VARIANT_INLINE variant(T && val) NOEXCEPT_MODIFIER
         : type_index(detail::value_traits<typename std::remove_reference<T>::type, Types...>::index)
     {
-        constexpr std::size_t index = sizeof...(Types) - detail::value_traits<typename std::remove_reference<T>::type, Types...>::index - 1;
+        CONSTEXPR_VALUE std::size_t index = sizeof...(Types) - detail::value_traits<typename std::remove_reference<T>::type, Types...>::index - 1;
         using target_type = typename detail::select_type<index, Types...>::type;
         new (&data) target_type(std::forward<T>(val)); // nothrow
     }
