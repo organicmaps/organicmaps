@@ -1,9 +1,9 @@
 #pragma once
 
 #include "pointers.hpp"
+#include "texture.hpp"
+#include "gpu_program.hpp"
 #include "uniform_values_storage.hpp"
-#include "texture_set_controller.hpp"
-#include "color.hpp"
 
 namespace dp
 {
@@ -38,11 +38,13 @@ public:
 
   DepthLayer const & GetDepthLayer() const { return m_depthLayer; }
 
-  void SetTextureSet(int32_t textureSet);
-  int32_t GetTextureSet() const { return m_textureSet; }
-  bool HasTextureSet() const;
+  void SetColorTexture(RefPointer<Texture> tex) { m_colorTexture = tex; }
+  RefPointer<Texture> GetColorTexture() const { return m_colorTexture; }
 
-  void SetBlending(Blending const & blending);
+  void SetMaskTexture(RefPointer<Texture> tex) { m_maskTexture = tex; }
+  RefPointer<Texture> GetMaskTexture() const { return m_maskTexture; }
+
+  void SetBlending(Blending const & blending) { m_blending = blending; }
   Blending const & GetBlending() const { return m_blending; }
 
   int GetProgramIndex() const { return m_gpuProgramIndex; }
@@ -53,12 +55,13 @@ public:
 private:
   uint32_t m_gpuProgramIndex;
   DepthLayer m_depthLayer;
-  int32_t m_textureSet;
   Blending m_blending;
-  uint32_t m_mask;
+
+  RefPointer<Texture> m_colorTexture;
+  RefPointer<Texture> m_maskTexture;
 };
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program);
-void ApplyState(GLState state, RefPointer<GpuProgram> program, RefPointer<TextureSetController> textures);
+void ApplyState(GLState state, RefPointer<GpuProgram> program);
 
 } // namespace dp

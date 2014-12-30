@@ -20,12 +20,7 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
    , m_cursor(m2::PointU::Zero())
 {}
 
-ColorPalette::~ColorPalette()
-{
-  DeleteRange(m_palette, MasterPointerDeleter());
-}
-
-ColorResourceInfo const * ColorPalette::MapResource(ColorKey const & key)
+RefPointer<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key)
 {
   TPalette::iterator itm = m_palette.find(key.m_color);
   if (itm == m_palette.end())
@@ -50,10 +45,11 @@ ColorResourceInfo const * ColorPalette::MapResource(ColorKey const & key)
     m2::PointF const resCenter = m2::RectF(pendingColor.m_rect).Center();
     float const x = resCenter.x / sizeX;
     float const y = resCenter.y / sizeY;
-    TResourcePtr resourcePtr(new ColorResourceInfo(m2::RectF(x, y, x, y)));
-    itm = m_palette.insert(make_pair(key.m_color, resourcePtr)).first;
+    auto res = m_palette.emplace(key.m_color, ColorResourceInfo(m2::RectF(x, y, x, y)));
+    ASSERT(res.second, ());
+    itm = res.first;
   }
-  return itm->second.GetRaw();
+  return MakeStackRefPointer<Texture::ResourceInfo>(&itm->second);
 }
 
 void ColorPalette::UploadResources(RefPointer<Texture> texture)

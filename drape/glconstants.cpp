@@ -36,6 +36,8 @@
 namespace gl_const
 {
 
+const glConst GLUnpackAlignment     = GL_UNPACK_ALIGNMENT;
+
 const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
 const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
 const glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;

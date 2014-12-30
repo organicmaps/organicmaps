@@ -14,12 +14,6 @@ namespace dp
 uint32_t const MAX_STIPPLE_PEN_LENGTH = 254;
 uint32_t const COLUMN_WIDTH = MAX_STIPPLE_PEN_LENGTH + 2;
 
-StipplePenKey const & StipplePenKey::Solid()
-{
-  static StipplePenKey solidKey(buffer_vector<uint8_t, 8>((size_t)1, (uint8_t)1));
-  return solidKey;
-}
-
 StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
   : m_canvasSize(canvasSize)
   , m_currentColumn(0)
@@ -144,24 +138,22 @@ void StipplePenRasterizator::Rasterize(void * buffer)
   memcpy(pixels + COLUMN_WIDTH, pixels, COLUMN_WIDTH);
 }
 
-StipplePenResourceInfo const * StipplePenIndex::MapResource(StipplePenKey const & key)
+RefPointer<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key)
 {
   StipplePenHandle handle(key);
-  TResourceMapping::const_iterator it = m_resourceMapping.find(handle);
+  TResourceMapping::iterator it = m_resourceMapping.find(handle);
   if (it != m_resourceMapping.end())
-    return it->second.GetRaw();
+    return MakeStackRefPointer<Texture::ResourceInfo>(&it->second);
 
   StipplePenRasterizator resource(key);
   m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
   m_pendingNodes.push_back(make_pair(pixelRect, resource));
 
-  typedef pair<TResourceMapping::iterator, bool> TInsertionNode;
-  MasterPointer<StipplePenResourceInfo> info(new StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
-                                                             resource.GetSize(),
-                                                             resource.GetPatternSize()));
-  TInsertionNode result = m_resourceMapping.insert(TResourceMapping::value_type(handle, info));
-  ASSERT(result.second, ());
-  return result.first->second.GetRaw();
+  auto res = m_resourceMapping.emplace(handle, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
+                                                                      resource.GetSize(),
+                                                                      resource.GetPatternSize()));
+  ASSERT(res.second, ());
+  return MakeStackRefPointer<Texture::ResourceInfo>(&res.first->second);
 }
 
 void StipplePenIndex::UploadResources(RefPointer<Texture> texture)

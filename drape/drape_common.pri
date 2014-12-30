@@ -35,7 +35,6 @@ SOURCES += \
     $$DRAPE_DIR/batcher_helpers.cpp \
     $$DRAPE_DIR/overlay_tree.cpp \
     $$DRAPE_DIR/font_texture.cpp \
-    $$DRAPE_DIR/texture_set_holder.cpp \
     $$DRAPE_DIR/utils/stb_image.c \
     $$DRAPE_DIR/attribute_buffer_mutator.cpp \
     $$DRAPE_DIR/stipple_pen_resource.cpp \
@@ -71,8 +70,6 @@ HEADERS += \
     $$DRAPE_DIR/cpu_buffer.hpp \
     $$DRAPE_DIR/symbols_texture.hpp \
     $$DRAPE_DIR/texture_manager.hpp \
-    $$DRAPE_DIR/texture_set_controller.hpp \
-    $$DRAPE_DIR/texture_set_holder.hpp \
     $$DRAPE_DIR/render_bucket.hpp \
     $$DRAPE_DIR/overlay_handle.hpp \
     $$DRAPE_DIR/index_buffer_mutator.hpp \

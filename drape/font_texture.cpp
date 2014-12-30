@@ -83,26 +83,26 @@ GlyphIndex::GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
 {
 }
 
-GlyphInfo const * GlyphIndex::MapResource(GlyphKey const & key)
+RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key)
 {
   strings::UniChar uniChar = key.GetUnicodePoint();
   auto it = m_index.find(uniChar);
   if (it != m_index.end())
-    return it->second.GetRaw();
+    return MakeStackRefPointer<Texture::ResourceInfo>(&it->second);
 
   GlyphManager::Glyph glyph = m_mng->GetGlyph(uniChar);
   m2::RectU r;
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
-    return nullptr;
+    return RefPointer<GlyphInfo>();
   }
 
   m_pendingNodes.emplace_back(r, glyph);
 
-  auto res = m_index.emplace(uniChar, TResourcePtr(new GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics)));
-  ASSERT(!res.second, ());
-  return res.first->second.GetRaw();
+  auto res = m_index.emplace(uniChar, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
+  ASSERT(res.second, ());
+  return MakeStackRefPointer<GlyphInfo>(&res.first->second);
 }
 
 void GlyphIndex::UploadResources(RefPointer<Texture> texture)
@@ -148,6 +148,9 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     {
       GlyphManager::Glyph & glyph = m_pendingNodes[node].second;
       m2::RectU rect = m_pendingNodes[node].first;
+      if (rect.SizeX() == 0 || rect.SizeY() == 0)
+        continue;
+
       rect.Offset(-zeroPoint);
 
       uint32_t w = rect.SizeX();

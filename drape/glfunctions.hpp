@@ -15,6 +15,8 @@ public:
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
 
+  static void glPixelStore(glConst name, uint32_t value);
+
   static int32_t glGetInteger(glConst pname);
 
   static void glEnable(glConst mode);

@@ -52,47 +52,30 @@ bool Blending::operator == (Blending const & other) const
 GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
-  , m_textureSet(-1)
-  , m_mask(0)
 {
-}
-
-void GLState::SetTextureSet(int32_t textureSet)
-{
-  m_mask |= TEXTURE_BIT;
-  m_textureSet = textureSet;
-}
-
-bool GLState::HasTextureSet() const
-{
-  return (m_mask & TEXTURE_BIT) != 0;
-}
-
-void GLState::SetBlending(Blending const & blending)
-{
-  m_blending = blending;
 }
 
 bool GLState::operator<(GLState const & other) const
 {
-  if (m_mask != other.m_mask)
-    return m_mask < other.m_mask;
-
   if (m_depthLayer != other.m_depthLayer)
     return m_depthLayer < other.m_depthLayer;
+  if (!(m_blending == other.m_blending))
+    return m_blending < other.m_blending;
   if (m_gpuProgramIndex != other.m_gpuProgramIndex)
     return m_gpuProgramIndex < other.m_gpuProgramIndex;
+  if (m_colorTexture.GetRaw() != other.m_colorTexture.GetRaw())
+    return m_colorTexture.GetRaw() < other.m_colorTexture.GetRaw();
 
-  return m_textureSet < other.m_textureSet;
+  return m_maskTexture.GetRaw() < other.m_maskTexture.GetRaw();
 }
 
 bool GLState::operator==(GLState const & other) const
 {
-  return m_mask == other.m_mask &&
-         m_depthLayer == other.m_depthLayer &&
+  return m_depthLayer == other.m_depthLayer &&
          m_gpuProgramIndex == other.m_gpuProgramIndex &&
-         m_textureSet == other.m_textureSet &&
-         m_blending == other.m_blending;
+         m_blending == other.m_blending &&
+         m_colorTexture == other.m_colorTexture &&
+         m_maskTexture == other.m_maskTexture;
 }
 
 namespace
@@ -108,22 +91,25 @@ void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram>
   uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
 }
 
-void ApplyState(GLState state, RefPointer<GpuProgram> program,
-                               RefPointer<TextureSetController> textures)
+void ApplyState(GLState state, RefPointer<GpuProgram> program)
 {
-  if (state.HasTextureSet())
+  RefPointer<Texture> tex = state.GetColorTexture();
+  if (!tex.IsNull())
   {
-    uint32_t textureSet = state.GetTextureSet();
-    uint32_t count = textures->GetTextureCount(textureSet);
-    textures->BindTextureSet(textureSet);
-    buffer_vector<int32_t, 16> ids;
-    for (uint32_t i = 0; i < count; ++i)
-      ids.push_back(i);
-
-    int8_t location = program->GetUniformLocation("u_textures");
-    GLFunctions::glUniformValueiv(location, ids.data(), count);
+    int8_t colorTexLoc = program->GetUniformLocation("u_colorTex");
+    GLFunctions::glActiveTexture(gl_const::GLTexture0);
+    tex->Bind();
+    GLFunctions::glUniformValuei(colorTexLoc, 0);
   }
 
+  tex = state.GetMaskTexture();
+  if (!tex.IsNull())
+  {
+    int8_t maskTexLoc = program->GetUniformLocation("u_maskTex");
+    GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
+    tex->Bind();
+    GLFunctions::glUniformValuei(maskTexLoc, 1);
+  }
   state.GetBlending().Apply();
 }
 

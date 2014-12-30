@@ -30,14 +30,14 @@ public:
   };
 
   void Load(string const & skinPathName);
-  ResourceInfo const * FindResource(Key const & key) const;
+  RefPointer<ResourceInfo> FindResource(Key const & key) const;
 
 private:
   void Fail();
 
 private:
-  typedef map<string, SymbolInfo> tex_definition_t;
-  tex_definition_t m_definition;
+  typedef map<string, SymbolInfo> TSymDefinition;
+  mutable TSymDefinition m_definition;
 
   class DefinitionLoader;
 };

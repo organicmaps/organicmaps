@@ -2,6 +2,7 @@
 
 #include "texture.hpp"
 #include "color.hpp"
+#include "dynamic_texture.hpp"
 
 #include "../base/buffer_vector.hpp"
 
@@ -28,8 +29,8 @@ class ColorPalette
 {
 public:
   ColorPalette(m2::PointU const & canvasSize);
-  ~ColorPalette();
-  ColorResourceInfo const * MapResource(ColorKey const & key);
+
+  RefPointer<Texture::ResourceInfo> MapResource(ColorKey const & key);
   void UploadResources(RefPointer<Texture> texture);
   glConst GetMinFilter() const;
   glConst GetMagFilter() const;
@@ -40,8 +41,7 @@ private:
   void MoveCursor();
 
 private:
-  typedef MasterPointer<ColorResourceInfo> TResourcePtr;
-  typedef map<Color, TResourcePtr> TPalette;
+  typedef map<Color, ColorResourceInfo> TPalette;
 
   struct PendingColor
   {
@@ -54,6 +54,28 @@ private:
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
   bool m_isDebug = false;
+};
+
+class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::Color>
+{
+  typedef DynamicTexture<ColorPalette, ColorKey, Texture::Color> TBase;
+public:
+  ColorTexture(m2::PointU const & size)
+    : m_pallete(size)
+  {
+    TBase::TextureParams params;
+    params.m_size = size;
+    params.m_format = TextureFormat::RGBA8;
+    params.m_minFilter = gl_const::GLNearest;
+    params.m_magFilter = gl_const::GLNearest;
+
+    TBase::Init(MakeStackRefPointer(&m_pallete), params);
+  }
+
+  ~ColorTexture() { TBase::Reset(); }
+
+private:
+  ColorPalette m_pallete;
 };
 
 }

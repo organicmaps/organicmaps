@@ -3,6 +3,7 @@
 #include "drape_global.hpp"
 #include "pointers.hpp"
 #include "texture.hpp"
+#include "dynamic_texture.hpp"
 
 #include "../base/buffer_vector.hpp"
 
@@ -20,8 +21,6 @@ public:
   StipplePenKey() = default;
   StipplePenKey(buffer_vector<uint8_t, 8> const & pattern) : m_pattern(pattern) {}
   virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
-
-  static StipplePenKey const & Solid();
 
   buffer_vector<uint8_t, 8> m_pattern;
 };
@@ -99,14 +98,13 @@ class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
-  StipplePenResourceInfo const * MapResource(StipplePenKey const & key);
+  RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key);
   void UploadResources(RefPointer<Texture> texture);
   glConst GetMinFilter() const;
   glConst GetMagFilter() const;
 
 private:
-  typedef MasterPointer<StipplePenResourceInfo> TResourcePtr;
-  typedef map<StipplePenHandle, TResourcePtr> TResourceMapping;
+  typedef map<StipplePenHandle, StipplePenResourceInfo> TResourceMapping;
   typedef pair<m2::RectU, StipplePenRasterizator> TPendingNode;
   typedef buffer_vector<TPendingNode, 32> TPendingNodes;
 
@@ -116,5 +114,22 @@ private:
 };
 
 string DebugPrint(StipplePenHandle const & key);
+
+class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen>
+{
+  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TBase;
+public:
+  StipplePenTexture(m2::PointU const & size)
+    : m_index(size)
+  {
+    TBase::TextureParams params{ size, TextureFormat::ALPHA, gl_const::GLNearest, gl_const::GLNearest };
+    TBase::Init(MakeStackRefPointer(&m_index), params);
+  }
+
+  ~StipplePenTexture() { TBase::Reset(); }
+
+private:
+  StipplePenIndex m_index;
+};
 
 }

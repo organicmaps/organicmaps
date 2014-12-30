@@ -14,7 +14,7 @@ namespace dp
 class SymbolsTexture::DefinitionLoader
 {
 public:
-  DefinitionLoader(SymbolsTexture::tex_definition_t & definition)
+  DefinitionLoader(SymbolsTexture::TSymDefinition & definition)
     : m_def(definition)
     , m_width(0)
     , m_height(0)
@@ -79,7 +79,7 @@ public:
   uint32_t GetHeight() const { return m_height; }
 
 private:
-  SymbolsTexture::tex_definition_t & m_def;
+  SymbolsTexture::TSymDefinition & m_def;
   uint32_t m_width;
   uint32_t m_height;
 
@@ -161,16 +161,16 @@ void SymbolsTexture::Load(string const & skinPathName)
   stbi_image_free(data);
 }
 
-Texture::ResourceInfo const * SymbolsTexture::FindResource(Texture::Key const & key) const
+RefPointer<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key) const
 {
   if (key.GetType() != Texture::Symbol)
-    return NULL;
+    return RefPointer<ResourceInfo>();
 
   string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
-  tex_definition_t::const_iterator it = m_definition.find(symbolName);
+  TSymDefinition::iterator it = m_definition.find(symbolName);
   ASSERT(it != m_definition.end(), ());
-  return &(it->second);
+  return MakeStackRefPointer<ResourceInfo>(&it->second);
 }
 
 void SymbolsTexture::Fail()

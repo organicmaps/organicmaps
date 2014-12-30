@@ -3,6 +3,7 @@
 #include "pointers.hpp"
 #include "texture.hpp"
 #include "glyph_manager.hpp"
+#include "dynamic_texture.hpp"
 
 #include "../std/map.hpp"
 #include "../std/vector.hpp"
@@ -62,7 +63,7 @@ public:
   GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng);
 
   /// can return nullptr
-  GlyphInfo const * MapResource(GlyphKey const & key);
+  RefPointer<Texture::ResourceInfo> MapResource(GlyphKey const & key);
   void UploadResources(RefPointer<Texture> texture);
 
   glConst GetMinFilter() const { return gl_const::GLLinear; }
@@ -72,13 +73,34 @@ private:
   GlyphPacker m_packer;
   RefPointer<GlyphManager> m_mng;
 
-  typedef MasterPointer<GlyphInfo> TResourcePtr;
-  typedef map<strings::UniChar, TResourcePtr> TResourceMapping;
+  typedef map<strings::UniChar, GlyphInfo> TResourceMapping;
   typedef pair<m2::RectU, GlyphManager::Glyph> TPendingNode;
   typedef vector<TPendingNode> TPendingNodes;
 
   TResourceMapping m_index;
   TPendingNodes m_pendingNodes;
+};
+
+class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>
+{
+  typedef DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph> TBase;
+public:
+  FontTexture(m2::PointU const & size, RefPointer<GlyphManager> glyphMng)
+    : m_index(size, glyphMng)
+  {
+    TBase::TextureParams params;
+    params.m_size = size;
+    params.m_format = TextureFormat::ALPHA;
+    params.m_minFilter = gl_const::GLLinear;
+    params.m_magFilter = gl_const::GLLinear;
+
+    TBase::Init(MakeStackRefPointer(&m_index), params);
+  }
+
+  ~FontTexture() { TBase::Reset(); }
+
+private:
+  GlyphIndex m_index;
 };
 
 }

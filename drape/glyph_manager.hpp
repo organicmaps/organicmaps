@@ -7,6 +7,8 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
+#include "../std/function.hpp"
+
 namespace dp
 {
 
@@ -62,6 +64,9 @@ public:
   ~GlyphManager();
 
   Glyph GetGlyph(strings::UniChar unicodePoints);
+
+  typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
+  void ForEachUnicodeBlock(TUniBlockCallback const & fn);
 
 private:
   Glyph GetInvalidGlyph() const;

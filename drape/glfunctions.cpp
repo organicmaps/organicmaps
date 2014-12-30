@@ -233,6 +233,11 @@ void GLFunctions::glFlush()
   GLCHECK(glFlushFn());
 }
 
+void GLFunctions::glPixelStore(glConst name, uint32_t value)
+{
+  GLCHECK(::glPixelStorei(name, value));
+}
+
 int32_t GLFunctions::glGetInteger(glConst pname)
 {
   GLint value;

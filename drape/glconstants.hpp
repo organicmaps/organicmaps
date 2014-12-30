@@ -6,6 +6,7 @@ typedef uint32_t glConst;
 
 namespace gl_const
 {
+extern const glConst GLUnpackAlignment;
 
 /// Hardware specific params
 extern const glConst GLMaxFragmentTextures;
