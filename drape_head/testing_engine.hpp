@@ -8,6 +8,7 @@
 #include "../drape/texture_manager.hpp"
 
 #include "../drape_frontend/viewport.hpp"
+#include "../drape_frontend/map_data_provider.hpp"
 
 #include "../std/map.hpp"
 
@@ -20,7 +21,9 @@ namespace df
 class TestingEngine : public QObject
 {
 public:
-  TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory, double vs, df::Viewport const & viewport);
+  TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                Viewport const & viewport,
+                MapDataProvider const & model);
   ~TestingEngine();
 
   void Draw();
@@ -29,6 +32,7 @@ public:
   void Drag(m2::PointF const & p);
   void DragEnded(m2::PointF const & p);
   void Scale(m2::PointF const & p, double factor);
+  void UpdateCoverage(ScreenBase const & s){};
 
 protected:
   void timerEvent(QTimerEvent * e);

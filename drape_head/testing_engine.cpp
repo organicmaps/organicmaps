@@ -3,6 +3,7 @@
 #include "../coding/file_reader.hpp"
 #include "../platform/platform.hpp"
 
+#include "../drape/utils/vertex_decl.hpp"
 #include "../drape/glsl_types.hpp"
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/shader_def.hpp"
@@ -39,78 +40,38 @@ public:
   {
   }
 
-  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
   {
-    dp::StipplePenKey key;
-    key.m_pattern.push_back(10);
-    key.m_pattern.push_back(3);
-    key.m_pattern.push_back(7);
-    key.m_pattern.push_back(5);
-    key.m_pattern.push_back(5);
-    key.m_pattern.push_back(10);
-    dp::TextureSetHolder::StippleRegion region;
+    dp::TextureManager::TStipplePattern key;
+    key.push_back(10);
+    key.push_back(3);
+    key.push_back(7);
+    key.push_back(5);
+    key.push_back(5);
+    key.push_back(10);
+    dp::TextureManager::StippleRegion region;
     textures->GetStippleRegion(key, region);
 
     m2::RectF const & rect = region.GetTexRect();
-    float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
-
     uint32_t length = region.GetMaskPixelLength();
-    m2::PointF positions[4] =
+
+    glsl::vec3 startPos(m_base.x, m_base.y, 0.0f);
+    glsl::vec3 endPos = startPos + glsl::vec3(length, 0.0f, 0.0f);
+
+    gpu::SolidTexturingVertex vertexes[4] =
     {
-      m_base, m_base,
-      m_base + m2::PointF(length, 0.0), m_base + m2::PointF(length, 0.0)
+      gpu::SolidTexturingVertex(startPos, glsl::vec2(0.0f,  1.0f), glsl::ToVec2(rect.LeftBottom())),
+      gpu::SolidTexturingVertex(startPos, glsl::vec2(0.0f, -1.0f), glsl::ToVec2(rect.LeftTop())),
+      gpu::SolidTexturingVertex(endPos, glsl::vec2(0.0f, 1.0f), glsl::ToVec2(rect.RightBottom())),
+      gpu::SolidTexturingVertex(endPos, glsl::vec2(0.0f, -1.0f), glsl::ToVec2(rect.RightTop()))
     };
 
-    m2::PointF normals[4] =
-    {
-      m2::PointF(0.0, 1.0), m2::PointF(0.0, -1.0),
-      m2::PointF(0.0, 1.0), m2::PointF(0.0, -1.0)
-    };
 
-    glsl::vec4 texCoord[4] =
-    {
-      glsl::vec4(rect.minX(), rect.minY(), texIndex, 0),
-      glsl::vec4(rect.minX(), rect.maxY(), texIndex, 0),
-      glsl::vec4(rect.maxX(), rect.minY(), texIndex, 0),
-      glsl::vec4(rect.maxX(), rect.maxY(), texIndex, 0)
-    };
-
-    dp::AttributeProvider provider(3, 4);
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_position";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(0, info, dp::MakeStackRefPointer<void>(positions));
-    }
-
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_normal";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(1, info, dp::MakeStackRefPointer<void>(normals));
-    }
-
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_texCoords";
-      decl.m_componentCount = 4;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(2, info, dp::MakeStackRefPointer<void>(texCoord));
-    }
+    dp::AttributeProvider provider(1, 4);
+    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(vertexes));
 
     dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
-    state.SetTextureSet(region.GetTextureNode().m_textureSet);
+    state.SetColorTexture(region.GetTexture());
     state.SetBlending(dp::Blending(true));
 
     batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider));
@@ -125,197 +86,33 @@ class DummyColorElement : public MapShape
 public:
   DummyColorElement() { }
 
-  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
   {
-    dp::TextureSetHolder::ColorRegion region;
+    dp::TextureManager::ColorRegion region;
     textures->GetColorRegion(dp::Color(rand() % 256, rand() % 256, rand() % 256, 255), region);
 
     m2::RectF const & rect = region.GetTexRect();
-    float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-    m2::PointF const basePoint(900.0f, 700.0f);
-    m2::PointF positions[4] =
-    {
-      basePoint, basePoint,
-      basePoint, basePoint
-    };
-
+    glsl::vec3 const basePoint(900.0f, 700.0f, 0.0f);
     float const halfSize = 12.0f;
-    m2::PointF normals[4] =
+    glsl::vec2 texCoord = glsl::ToVec2(rect.Center());
+    gpu::SolidTexturingVertex vertexes[4] =
     {
-      m2::PointF(-halfSize, halfSize), m2::PointF(-halfSize, -halfSize),
-      m2::PointF(halfSize, halfSize), m2::PointF(halfSize, -halfSize)
+      gpu::SolidTexturingVertex(basePoint, glsl::vec2(-halfSize, halfSize), texCoord),
+      gpu::SolidTexturingVertex(basePoint, glsl::vec2(-halfSize, -halfSize), texCoord),
+      gpu::SolidTexturingVertex(basePoint, glsl::vec2(halfSize, halfSize), texCoord),
+      gpu::SolidTexturingVertex(basePoint, glsl::vec2(halfSize, -halfSize), texCoord)
     };
 
-    bool drawEntireTexture = true;
-    glsl::vec4 texCoord[4];
-    if (drawEntireTexture)
-    {
-      texCoord[0] = glsl::vec4(0.0f, 1.0f, texIndex, 0);
-      texCoord[1] = glsl::vec4(0.0f, 0.0f, texIndex, 0);
-      texCoord[2] = glsl::vec4(1.0f, 1.0f, texIndex, 0);
-      texCoord[3] = glsl::vec4(1.0f, 0.0f, texIndex, 0);
-    }
-    else
-    {
-      texCoord[0] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
-      texCoord[1] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
-      texCoord[2] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
-      texCoord[3] = glsl::vec4(glsl::ToVec2(rect.RightTop()), texIndex, 0);
-    }
-
-    dp::AttributeProvider provider(3, 4);
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_position";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(0, info, dp::MakeStackRefPointer<void>(positions));
-    }
-
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_normal";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(1, info, dp::MakeStackRefPointer<void>(normals));
-    }
-
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_texCoords";
-      decl.m_componentCount = 4;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(2, info, dp::MakeStackRefPointer<void>(texCoord));
-    }
+    dp::AttributeProvider provider(1, 4);
+    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(vertexes));
 
     dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
-    state.SetTextureSet(region.GetTextureNode().m_textureSet);
+    state.SetColorTexture(region.GetTexture());
     state.SetBlending(dp::Blending(true));
 
     batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider));
   }
-};
-
-class SquareHandle : public dp::OverlayHandle
-{
-public:
-  static const uint8_t NormalAttributeID = 1;
-  SquareHandle(vector<m2::PointF> const & formingVector)
-    : OverlayHandle(FeatureID(), dp::Center, 0.0f)
-    , m_vectors(formingVector)
-  {
-    SetIsVisible(true);
-  }
-
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const { return m2::RectD(); }
-  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
-  {
-    m2::RectD rd = GetPixelRect(screen);
-    rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
-  }
-
-  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
-  {
-    static const my::Timer timer;
-    double const angle = timer.ElapsedSeconds();
-
-    math::Matrix<double, 3, 3> const m = math::Rotate(math::Identity<double, 3>(), angle);
-
-    vector<m2::PointF> data(4);
-    for (size_t i = 0; i < m_vectors.size(); ++i)
-      data[i] = m_vectors[i] * m;
-
-    TOffsetNode const & node = GetOffsetNode(NormalAttributeID);
-    dp::MutateNode mutateNode;
-    mutateNode.m_region = node.second;
-    mutateNode.m_data = dp::MakeStackRefPointer<void>(&data[0]);
-    mutator->AddMutation(node.first, mutateNode);
-  }
-
-private:
-  vector<m2::PointF> m_vectors;
-};
-
-class SquareShape : public MapShape
-{
-public:
-  SquareShape(m2::PointF const & center, float radius)
-    : m_center(center)
-    , m_radius(radius)
-  {
-  }
-
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
-  {
-    vector<m2::PointF> vertexes(4, m_center);
-
-    vector<m2::PointF> formingVectors(4);
-    formingVectors[0] = m2::PointF(-m_radius,  m_radius);
-    formingVectors[1] = m2::PointF(-m_radius, -m_radius);
-    formingVectors[2] = m2::PointF( m_radius,  m_radius);
-    formingVectors[3] = m2::PointF( m_radius, -m_radius);
-
-    dp::TextureSetHolder::ColorRegion region;
-    textures->GetColorRegion(dp::Color(150, 130, 120, 255), region);
-    m2::RectF const & rect = region.GetTexRect();
-    float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
-
-    vector<glsl::vec3> colors(4, glsl::vec3(glsl::ToVec2(rect.RightTop()), texIndex));
-
-    dp::AttributeProvider provider(3, 4);
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_position";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes[0]));
-    }
-    {
-      dp::BindingInfo info(1, SquareHandle::NormalAttributeID);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_normal";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(1, info, dp::MakeStackRefPointer<void>(&formingVectors[0]));
-    }
-
-    {
-      dp::BindingInfo info(1);
-      dp::BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "a_color_index";
-      decl.m_componentCount = 3;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(2, info, dp::MakeStackRefPointer<void>(&colors[0]));
-    }
-
-    dp::GLState state(gpu::TEST_DYN_ATTR_PROGRAM, dp::GLState::GeometryLayer);
-    state.SetTextureSet(region.GetTextureNode().m_textureSet);
-
-    dp::OverlayHandle * handle = new SquareHandle(formingVectors);
-
-    batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer<dp::AttributeProvider>(&provider), dp::MovePointer(handle));
-  }
-
-private:
-  m2::PointF m_center;
-  float m_radius;
 };
 
 class MapShapeFactory
@@ -328,7 +125,6 @@ public:
   {
     m_creators["line"] = bind(&MapShapeFactory::CreateLine, this, _1);
     m_creators["area"] = bind(&MapShapeFactory::CreateArea, this, _1);
-    m_creators["dyn_square"] = bind(&MapShapeFactory::CreateDynSquare, this, _1);
     m_creators["circle"] = bind(&MapShapeFactory::CreateCircle, this, _1);
   }
 
@@ -436,14 +232,6 @@ private:
     return new AreaShape(move(points), params);
   }
 
-  MapShape * CreateDynSquare(json_t * object)
-  {
-    float radius = json_real_value(json_object_get(object, "radius"));
-    vector<m2::PointF> point;
-    ParseGeometry(json_object_get(object, "geometry"), point);
-    return new SquareShape(point[0], radius);
-  }
-
   MapShape * CreateCircle(json_t * object)
   {
     CircleViewParams params(FeatureID(-1, 0));
@@ -461,16 +249,25 @@ private:
 };
 
 TestingEngine::TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                             double vs, df::Viewport const & viewport)
+                             Viewport const & viewport,
+                             MapDataProvider const & model)
   : m_contextFactory(oglcontextfactory)
   , m_viewport(viewport)
 {
   GLFunctions::Init();
-  df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
+  df::VisualParams::Init(viewport.GetPixelRatio(), df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
   m_contextFactory->getDrawContext()->makeCurrent();
 
+  dp::TextureManager::Params params;
+  params.m_resPrefix = VisualParams::Instance().GetResourcePostfix();
+  params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";
+  params.m_glyphMngParams.m_whitelist = "fonts_whitelist.txt";
+  params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
+  GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
+
   m_textures.Reset(new dp::TextureManager());
-  m_textures->Init(df::VisualParams::Instance().GetResourcePostfix());
+  m_textures->Init(params);
+
   m_batcher.Reset(new dp::Batcher());
   m_programManager.Reset(new dp::GpuProgramManager());
 
@@ -508,6 +305,7 @@ void TestingEngine::Draw()
   m_viewport.Apply();
   GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
   GLFunctions::glClear();
+  GLFunctions::glEnable(gl_const::GLDepthTest);
 
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
@@ -515,8 +313,7 @@ void TestingEngine::Draw()
     dp::GLState const & state = it->first;
     dp::RefPointer<dp::GpuProgram> prg = m_programManager->GetProgram(state.GetProgramIndex());
     prg->Bind();
-    dp::TextureSetBinder binder(m_textures.GetRefPointer());
-    ApplyState(state, prg, dp::MakeStackRefPointer<dp::TextureSetController>(&binder));
+    ApplyState(state, prg);
     ApplyUniforms(m_generalUniforms, prg);
 
     vector<dp::MasterPointer<dp::RenderBucket> > & buckets = it->second;
@@ -535,6 +332,7 @@ void TestingEngine::Draw()
 void TestingEngine::Resize(int w, int h)
 {
   m_modelView.OnSize(0, 0, w, h);
+  m_modelView.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, w, h)));
   m_viewport.SetViewport(0, 0, w, h);
   ModelViewInit();
   ProjectionInit();
@@ -554,127 +352,80 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 
 void TestingEngine::DrawImpl()
 {
-  ReaderPtr<ModelReader> reader = GetPlatform().GetReader("test_scene.json");
-  string jsonString;
-  reader.ReadAsString(jsonString);
-
-  vector<MapShape *> shapes;
-  try
-  {
-    my::Json json(jsonString.c_str());
-    MapShapeFactory factory;
-    factory.CreateShapes(shapes, json.get());
-  }
-  catch (RootException & e)
-  {
-    LOG(LCRITICAL, (e.Msg()));
-  }
-
-  for (size_t i = 0; i < shapes.size(); ++i)
-    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
-
-  DeleteRange(shapes, DeleteFunctor());
-
   FontDecl fd;
-  fd.m_color = dp::Color(200, 80, 240, 255);
-  fd.m_needOutline = true;
-  fd.m_outlineColor = dp::Color(255, 255, 255, 255);
-  fd.m_size = 60.0f;
+  fd.m_color = dp::Color::Black();
+  fd.m_outlineColor = dp::Color::White();
+  fd.m_size = 32.0f;
   FontDecl auxFd;
   auxFd.m_color = dp::Color(0, 80, 240, 255);
-  auxFd.m_needOutline = false;
-  auxFd.m_outlineColor = dp::Color(0, 255, 0, 255);
+  auxFd.m_outlineColor = dp::Color::Transparent();
   auxFd.m_size = 20.0f;
 
   TextViewParams params;
   params.m_featureID = FeatureID(23, 567);
   params.m_depth = 10.0f;
-  params.m_anchor = dp::Left;
-  params.m_primaryOffset = m2::PointF(0,0);
-  params.m_primaryText = "hjksdfhjajsdf";
+  params.m_anchor = dp::Center;
+  params.m_primaryText = "People's republic of China";
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
-  params.m_secondaryText = "Small fix bugs";
-  TextShape sh1(m2::PointF(200.0f, 300.0f), params);
-  //sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  params.m_secondaryText = "Народная Китайская республика";
+  TextShape sh1(m2::PointF(82.277071f, 56.9271164f), params);
+  sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-  params.m_featureID = FeatureID(23, 78);
-  params.m_depth = -10.0f;
-  params.m_anchor = dp::RightTop;
-  //params.m_primaryTextFont.m_needOutline = false;
-  TextShape sh2(m2::PointF(250.0f, 250.0f), params);
-  //sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  LineViewParams lp;
+  lp.m_width = 3.0f;
+  lp.m_color = dp::Color::Red();
+  lp.m_baseGtoPScale = 1.0f;
+  lp.m_depth = 100.0f;
 
-  vector<m2::PointD> path;
-
-  path.push_back(m2::PointF(200, 650));
-  path.push_back(m2::PointF(200, 450));
-  for(int i = 16; i >= 0 ; --i)
   {
-    float r = 200.0f;
-    float x = r * cos((float)i / 32.0f * 2.0f * M_PI) + 800.0f;
-    float y = r * sin((float)i / 32.0f * 2.0f * M_PI) + 450.0f;
-    path.push_back(m2::PointF(x, y));
+    float dd[] =
+    {
+      79.349274307266398, 56.927116394042969,
+      85.204863876327352, 55.58033079315895
+    };
+
+    vector<m2::PointD> path;
+    path.push_back(m2::PointD(dd[0], dd[1]));
+    path.push_back(m2::PointD(dd[2], dd[1]));
+    path.push_back(m2::PointD(dd[2], dd[3]));
+    path.push_back(m2::PointD(dd[0], dd[3]));
+    path.push_back(m2::PointD(dd[0], dd[1]));
+    m2::SharedSpline spline(path);
+
+    LineShape shL(spline, lp);
+    shL.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
   }
-  path.push_back(m2::PointF(1600, 450));
 
-  PathTextViewParams params3;
-  params3.m_depth = -10.0f;
-  params3.m_text = "√2+√3=?----+";
-  params3.m_textFont = params.m_primaryTextFont;
-  params3.m_baseGtoPScale = 1.0;
-  PathTextShape sh3(path, params3);
-  //sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  {
+    float dd[] =
+    {
+      78.295268184835421, 59.064406586750223,
+      86.258869998758328, 56.927116394042969,
+    };
 
-  PathSymbolViewParams params4;
-  params4.m_featureID = FeatureID(23, 78);
-  params4.m_depth = 30.0f;
-  params4.m_step = 40.0f;
-  params4.m_offset = 0.0f;
-  params4.m_symbolName = "arrow";
-  params4.m_baseGtoPScale = 10.0;
-  PathSymbolShape sh4(path, params4);
-  //sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+    vector<m2::PointD> path;
+    path.push_back(m2::PointD(dd[0], dd[1]));
+    path.push_back(m2::PointD(dd[2], dd[1]));
+    path.push_back(m2::PointD(dd[2], dd[3]));
+    path.push_back(m2::PointD(dd[0], dd[3]));
+    path.push_back(m2::PointD(dd[0], dd[1]));
+    m2::SharedSpline spline(path);
 
-  DummyStippleElement e(m2::PointU(100, 900));
-  e.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
-
-  DummyColorElement f;
-  f.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
-
-  dp::StipplePenKey key;
-  key.m_pattern.push_back(35);
-  key.m_pattern.push_back(35);
-
-  LineViewParams params7;
-  params7.m_depth = 10;
-  params7.m_color = dp::Color(0, 0, 0, 255);
-  params7.m_width = 4;
-  params7.m_join = dp::LineJoin::RoundJoin;
-  params7.m_cap = dp::LineCap::ButtCap;
-  params7.m_pattern = key.m_pattern;
-  params7.m_baseGtoPScale = 1.0f / m_modelView.GetScale();
-
-  vector<m2::PointD> points;
-  points.push_back(m2::PointF(100.0f, 100.0f));
-  points.push_back(m2::PointF(190.0f, 100.0f));
-  points.push_back(m2::PointF(190.0f, 190.0f));
-  points.push_back(m2::PointF(280.0f, 190.0f));
-  points.push_back(m2::PointF(280.0f, 280.0f));
-  points.push_back(m2::PointF(370.0f, 280.0f));
-  LineShape ls1(points, params7);
-  ls1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+    LineShape shL(spline, lp);
+    shL.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
 }
 
 void TestingEngine::ModelViewInit()
 {
-  math::Matrix<double, 3, 3> m = math::Shift(
-                                        math::Rotate(
-                                            math::Scale(math::Identity<double, 3>(), 1.0, 1.0),
-                                                        0.0),
-                                             0.0, 0.0);
+  math::Matrix<double, 3, 3> m
+  {   34.1554f,      0.0f, 0.0f,
+          0.0f, -34.1554f, 0.0f,
+     -2639.46f,  2080.99f, 1.0f};
 
   m_modelView.SetGtoPMatrix(m);
+  m = m_modelView.GtoPMatrix();
 
   math::Matrix<float, 4, 4> mv;
 
@@ -692,16 +443,16 @@ void TestingEngine::ProjectionInit()
 {
   float const left = m_viewport.GetX0();
   float const right = left + m_viewport.GetWidth();
-  float const bottom = m_viewport.GetY0();
-  float const top = bottom + m_viewport.GetHeight();
+  float const bottom = m_viewport.GetY0() + m_viewport.GetHeight();
+  float const top = m_viewport.GetY0();
   float const nearClip = -20000.0f;
   float const farClip = 20000.0f;
 
   float m[4 * 4] = {0.};
   m[0]  = 2.0f / (right - left);
   m[3]  = - (right + left) / (right - left);
-  m[5]  = 2.0f / (bottom - top);
-  m[7]  = - (bottom + top) / (bottom - top);
+  m[5]  = 2.0f / (top - bottom);
+  m[7]  = - (top + bottom) / (top - bottom);
   m[10] = -2.0f / (farClip - nearClip);
   m[11] = - (farClip + nearClip) / (farClip - nearClip);
   m[15] = 1.0;
