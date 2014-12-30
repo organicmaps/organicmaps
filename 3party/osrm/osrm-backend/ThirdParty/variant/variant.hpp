@@ -12,6 +12,7 @@
 
 #include "recursive_wrapper.hpp"
 
+#include "../../../../../std/alignof.hpp"
 #include "../../../../../std/constexpr.hpp"
 #include "../../../../../std/noexcept.hpp"
 
@@ -497,7 +498,7 @@ class variant
 private:
 
     static const std::size_t data_size = static_max<sizeof(Types)...>::value;
-    static const std::size_t data_align = static_max<alignof(Types)...>::value;
+    static const std::size_t data_align = static_max<ALIGNOF(Types)...>::value;
 
     using data_type = typename std::aligned_storage<data_size, data_align>::type;
     using helper_type = variant_helper<Types...>;
