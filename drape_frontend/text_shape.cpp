@@ -1,13 +1,12 @@
 #include "text_shape.hpp"
 #include "text_layout.hpp"
-#include "fribidi.hpp"
 
-#include "../drape/glsl_types.hpp"
+#include "../drape/utils/vertex_decl.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
-#include "../drape/texture_set_holder.hpp"
+#include "../drape/texture_manager.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -19,184 +18,62 @@ namespace df
 namespace
 {
 
-float const TEXT_EXPAND_FACTOR = 1.3f;
-
-glsl::vec2 GetShift(dp::Anchor anchor, float width, float height)
+class StraightTextHandle : public dp::OverlayHandle
 {
-  switch(anchor)
+public:
+  StraightTextHandle(FeatureID const & id, dp::Anchor anchor, glsl::vec2 const & pivot,
+                     glsl::vec2 const & pxSize, glsl::vec2 const & offset,
+                     double priority)
+    : OverlayHandle(id, anchor, priority)
+    , m_pivot(glsl::ToPoint(pivot))
+    , m_offset(glsl::ToPoint(offset))
+    , m_size(glsl::ToPoint(pxSize))
   {
-  case dp::Center:      return glsl::vec2(-width / 2.0f, height / 2.0f);
-  case dp::Left:        return glsl::vec2(0.0f, height / 2.0f);
-  case dp::Right:       return glsl::vec2(-width, height / 2.0f);
-  case dp::Top:         return glsl::vec2(-width / 2.0f, height);
-  case dp::Bottom:      return glsl::vec2(-width / 2.0f, 0);
-  case dp::LeftTop:     return glsl::vec2(0.0f, height);
-  case dp::RightTop:    return glsl::vec2(-width, height);
-  case dp::LeftBottom:  return glsl::vec2(0.0f, 0.0f);
-  case dp::RightBottom: return glsl::vec2(-width, 0.0f);
-  default:              return glsl::vec2(0.0f, 0.0f);
-  }
-}
-
-void BatchText(dp::RefPointer<dp::Batcher> batcher, int32_t textureSet,
-               vector<glsl::Quad4> const & positions,
-               vector<glsl::Quad4> const & texCoord,
-               vector<glsl::Quad4> const & color,
-               vector<glsl::Quad1> const & index,
-               size_t glyphCount,
-               dp::OverlayHandle * handle)
-{
-  ASSERT(glyphCount <= positions.size(), ());
-  ASSERT(positions.size() == texCoord.size(), ());
-  ASSERT(positions.size() == color.size(), ());
-  ASSERT(positions.size() == index.size(), ());
-
-  dp::GLState state(gpu::FONT_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetTextureSet(textureSet);
-  state.SetBlending(dp::Blending(true));
-
-  dp::AttributeProvider provider(4, 4 * glyphCount);
-  {
-    dp::BindingInfo position(1);
-    dp::BindingDecl & decl = position.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(0, position, dp::MakeStackRefPointer((void*)&positions[0]));
-  }
-  {
-    dp::BindingInfo texcoord(1);
-    dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
-    decl.m_attributeName = "a_texcoord";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(1, texcoord, dp::MakeStackRefPointer((void*)&texCoord[0]));
-  }
-  {
-    dp::BindingInfo base_color(1);
-    dp::BindingDecl & decl = base_color.GetBindingDecl(0);
-    decl.m_attributeName = "a_color";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(2, base_color, dp::MakeStackRefPointer((void*)&color[0]));
-  }
-  {
-    dp::BindingInfo outline_color(1);
-    dp::BindingDecl & decl = outline_color.GetBindingDecl(0);
-    decl.m_attributeName = "a_index";
-    decl.m_componentCount = 1;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(3, outline_color, dp::MakeStackRefPointer((void*)&index[0]));
   }
 
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), MovePointer(handle), 4);
-}
-
-///Old code
-void SplitText(strings::UniString const & visText,
-              buffer_vector<strings::UniString, 3> & res,
-              char const * delims,
-              bool splitAllFound)
-{
-  if (!splitAllFound)
+  m2::RectD GetPixelRect(ScreenBase const & screen) const
   {
-    size_t count = visText.size();
-    if (count > 15)
+    m2::PointD pivot = screen.GtoP(m_pivot) + m_offset;
+    double x = pivot.x;
+    double y = pivot.y;
+    if (m_anchor & dp::Left)
+      x += m_size.x;
+    else if (m_anchor & dp::Right)
+      x -= m_size.x;
+    else
     {
-      // split on two parts
-      typedef strings::UniString::const_iterator TIter;
-      TIter const iMiddle = visText.begin() + count/2;
-
-      size_t const delimsSize = strlen(delims);
-
-      // find next delimeter after middle [m, e)
-      TIter iNext = find_first_of(iMiddle,
-                                  visText.end(),
-                                  delims, delims + delimsSize);
-
-      // find last delimeter before middle [b, m)
-      TIter iPrev = find_first_of(reverse_iterator<TIter>(iMiddle),
-                                  reverse_iterator<TIter>(visText.begin()),
-                                  delims, delims + delimsSize).base();
-      // don't do split like this:
-      //     xxxx
-      // xxxxxxxxxxxx
-      if (4 * distance(visText.begin(), iPrev) <= count)
-        iPrev = visText.end();
-      else
-        --iPrev;
-
-      // get closest delimiter to the middle
-      if (iNext == visText.end() ||
-          (iPrev != visText.end() && distance(iPrev, iMiddle) < distance(iMiddle, iNext)))
-      {
-        iNext = iPrev;
-      }
-
-      // split string on 2 parts
-      if (iNext != visText.end())
-      {
-        ASSERT_NOT_EQUAL(iNext, visText.begin(), ());
-        res.push_back(strings::UniString(visText.begin(), iNext));
-
-        if (++iNext != visText.end())
-          res.push_back(strings::UniString(iNext, visText.end()));
-
-        return;
-      }
+      float halfWidth = m_size.x / 2.0f;
+      x += halfWidth;
+      pivot.x -= halfWidth;
     }
 
-    res.push_back(visText);
-  }
-  else
-  {
-    // split string using according to all delimiters
-    typedef strings::SimpleDelimiter TDelim;
-    for (strings::TokenizeIterator<TDelim> iter(visText, TDelim(delims)); iter; ++iter)
-      res.push_back(iter.GetUniString());
-  }
-}
-
-pair<bool, bool> GetBidiTexts(
-    strings::UniString const & visText, strings::UniString const & auxVisText,
-    strings::UniString & primaryText, strings::UniString & secondaryText)
-{
-  primaryText = fribidi::log2vis(visText);
-  secondaryText = fribidi::log2vis(auxVisText);
-  return make_pair(visText != primaryText, auxVisText != secondaryText);
-}
-
-void GetLayouts(vector<TextLayout> & layouts, strings::UniString const & text, bool isBidi, FontDecl const & fontDecl, dp::RefPointer<dp::TextureSetHolder> textures)
-{
-  if (!isBidi)
-  {
-    buffer_vector<strings::UniString, 3> res;
-    SplitText(text, res, " \n\t", false);
-    for (int i = 0; i < res.size(); ++i)
+    if (m_anchor & dp::Top)
+      y += m_size.y;
+    else if (m_anchor & dp::Bottom)
+      y -= m_size.y;
+    else
     {
-      TextLayout tl = TextLayout(res[res.size() - i - 1], fontDecl, textures);
-      if (tl.GetGlyphCount() == 0)
-        continue;
-      layouts.push_back(tl);
+      float halfHeight = m_size.y / 2.0f;
+      y += halfHeight;
+      pivot.y -= halfHeight;
     }
+
+    return m2::RectD(min(x, pivot.x), min(y, pivot.y),
+                     max(x, pivot.x), max(y, pivot.y));
   }
-  else
+
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
   {
-    TextLayout tl = TextLayout(text, fontDecl, textures);
-    if (tl.GetGlyphCount() == 0)
-      return;
-    layouts.push_back(tl);
+    rects.push_back(m2::RectF(GetPixelRect(screen)));
   }
-}
-}
+
+private:
+  m2::PointF m_pivot;
+  m2::PointF m_offset;
+  m2::PointF m_size;
+};
+
+} // namespace
 
 TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params)
   : m_basePoint(basePoint),
@@ -204,100 +81,73 @@ TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params
 {
 }
 
-void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
   ASSERT(!m_params.m_primaryText.empty(), ());
-  vector<TextLayout> layouts;
-  strings::UniString primaryText, secondaryText;
-  pair<bool, bool> isBidi = GetBidiTexts(strings::MakeUniString(m_params.m_primaryText), strings::MakeUniString(m_params.m_secondaryText), primaryText, secondaryText);
-  if (m_params.m_secondaryText.empty())
+  StraightTextLayout primaryLayout(strings::MakeUniString(m_params.m_primaryText),
+                                   m_params.m_primaryTextFont.m_size, textures, m_params.m_anchor);
+  glsl::vec2 primaryOffset(0.0, 0.0);
+
+  if (!m_params.m_secondaryText.empty())
   {
-    GetLayouts(layouts, primaryText, isBidi.first, m_params.m_primaryTextFont, textures);
-    if (layouts.size() == 0)
-      return;
-    DrawMultipleLines(batcher, layouts, -1, textures);
+    StraightTextLayout secondaryLayout(strings::MakeUniString(m_params.m_secondaryText),
+                                       m_params.m_secondaryTextFont.m_size, textures, m_params.m_anchor);
+
+    glsl::vec2 secondaryOffset = primaryOffset;
+
+    if (m_params.m_anchor & dp::Top)
+      secondaryOffset += glsl::vec2(0.0, primaryLayout.GetPixelSize().y);
+    else if (m_params.m_anchor & dp::Bottom)
+      primaryOffset -= glsl::vec2(0.0, secondaryLayout.GetPixelSize().y);
+    else
+    {
+      primaryOffset -= glsl::vec2(0.0, primaryLayout.GetPixelSize().y / 2.0f);
+      secondaryOffset += glsl::vec2(0.0, secondaryLayout.GetPixelSize().y / 2.0f);
+    }
+
+    DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher, textures);
   }
-  else
-  {
-    GetLayouts(layouts, secondaryText, isBidi.second, m_params.m_secondaryTextFont, textures);
-    int size = layouts.size() - 1;
-    GetLayouts(layouts, primaryText, isBidi.first, m_params.m_primaryTextFont, textures);
-    if (layouts.size() == 0)
-      return;
-    DrawMultipleLines(batcher, layouts, size, textures);
-  }
+
+  DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher, textures);
 }
 
-void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<TextLayout> & layouts,
-                                  int delim, dp::RefPointer<dp::TextureSetHolder> textures) const
+void TextShape::DrawSubString(StraightTextLayout const & layout,
+                              df::FontDecl const & font,
+                              glsl::vec2 const & baseOffset,
+                              dp::RefPointer<dp::Batcher> batcher,
+                              dp::RefPointer<dp::TextureManager> textures) const
 {
-  size_t const count = layouts.size();
-  vector<float> lengths(count);
-  float maxLength = 0.0f;
-  float textHeight = 0.0f;
-  uint32_t maxCount = 0;
-  uint32_t symCount = 0;
-  vector<uint32_t> heights(count);
-  for (size_t i = 0; i < count; ++i)
-  {
-    lengths[i] = layouts[i].GetPixelLength();
-    heights[i] = layouts[i].GetPixelHeight();
-    textHeight += heights[i];
-    maxLength = max(maxLength, lengths[i]);
-    symCount += layouts[i].GetGlyphCount();
-    maxCount = max(maxCount, layouts[i].GetGlyphCount());
-  }
+  gpu::TTextStaticVertexBuffer staticBuffer;
+  gpu::TTextDynamicVertexBuffer dynamicBuffer;
 
-  glsl::vec2 const anchorOffset = GetShift(m_params.m_anchor, maxLength, textHeight * TEXT_EXPAND_FACTOR);
+  dp::TextureManager::ColorRegion color, outline;
+  textures->GetColorRegion(font.m_color, color);
+  textures->GetColorRegion(font.m_outlineColor, outline);
 
-  vector<glsl::Quad4> positions(symCount);
-  vector<glsl::Quad4> texCoord(symCount);
-  vector<glsl::Quad4> fontColor(symCount);
-  vector<glsl::Quad1> indexes(symCount);
+  layout.Cache(glsl::vec3(glsl::ToVec2(m_basePoint), m_params.m_depth),
+               baseOffset,
+               color, outline,
+               staticBuffer,
+               dynamicBuffer);
 
-  float dy = (1.0f - TEXT_EXPAND_FACTOR) * heights[0];
-  vector<glsl::vec2> pixelOffset(count);
-  uint32_t delSymCount = 0;
-  uint32_t lastIndex = 0;
-  vector<TextLayout>::iterator it1;
-  vector<glsl::vec2>::iterator it2;
-  glsl::vec2 pivot(m_basePoint.x, m_basePoint.y);
-  for (size_t i = 0; i < count; ++i)
-  {
-    float const dx = (maxLength - lengths[i]) / 2.0f;
-    pixelOffset[i] = glsl::vec2(dx, dy) + anchorOffset + glsl::vec2(m_params.m_primaryOffset.x,
-                                                                    m_params.m_primaryOffset.y);
-    dy -= heights[i] * TEXT_EXPAND_FACTOR;
-    delSymCount += layouts[i].GetGlyphCount();
-    if (i == delim)
-    {
-      it2 = pixelOffset.begin();
-      it1 = layouts.begin();
-      dp::OverlayHandle * handle = LayoutText(m_params.m_featureID, pivot,
-                                              it1, it2, m_params.m_depth,
-                                              positions, texCoord, fontColor,
-                                              indexes, textures, i + 1);
+  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetBlending(dp::Blending(true));
+  ASSERT(color.GetTexture() == outline.GetTexture(), ());
+  state.SetColorTexture(color.GetTexture());
+  state.SetMaskTexture(layout.GetMaskTexture());
 
-      BatchText(batcher, layouts[0].GetTextureSet(),
-                positions, texCoord,
-                fontColor, indexes,
-                delSymCount, handle);
+  m2::PointU const & pixelSize = layout.GetPixelSize();
+  dp::OverlayHandle * handle = new StraightTextHandle(m_params.m_featureID,
+                                                      m_params.m_anchor,
+                                                      glsl::ToVec2(m_basePoint),
+                                                      glsl::vec2(pixelSize.x, pixelSize.y),
+                                                      baseOffset,
+                                                      m_params.m_depth);
 
-      delSymCount = 0;
-      lastIndex = i + 1;
-    }
-  }
-  it2 = pixelOffset.begin() + lastIndex;
-  it1 = layouts.begin() + lastIndex;
-  dp::OverlayHandle * handle = LayoutText(m_params.m_featureID, pivot,
-                                          it1, it2, m_params.m_depth,
-                                          positions, texCoord, fontColor, indexes,
-                                          textures, count - lastIndex);
-
-  BatchText(batcher, layouts[0].GetTextureSet(),
-            positions, texCoord,
-            fontColor, indexes,
-            delSymCount, handle);
+  dp::AttributeProvider provider(2, 4 * layout.GetGlyphCount());
+  provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(staticBuffer.data()));
+  provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynamicBuffer.data()));
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
 }
 
 } //end of df namespace

@@ -3,9 +3,10 @@
 #include "shape_view_params.hpp"
 #include "intrusive_vector.hpp"
 
+#include "../drape/utils/vertex_decl.hpp"
 #include "../drape/glsl_types.hpp"
 #include "../drape/pointers.hpp"
-#include "../drape/texture_set_holder.hpp"
+#include "../drape/texture_manager.hpp"
 
 #include "../geometry/spline.hpp"
 #include "../geometry/screenbase.hpp"
@@ -26,52 +27,59 @@ namespace df
 
 class TextLayout
 {
-  typedef dp::TextureSetHolder::GlyphRegion GlyphRegion;
-public:
-  TextLayout(strings::UniString const & string,
-             df::FontDecl const & font,
-             dp::RefPointer<dp::TextureSetHolder> textures);
 
-  void InitPathText(float depth,
-                    vector<glsl::Quad4> & texCoord,
-                    vector<glsl::Quad4> & fontColor,
-                    vector<glsl::Quad1> & index,
-                    dp::RefPointer<dp::TextureSetHolder> textures) const;
-  void LayoutPathText(m2::Spline::iterator const & iterator,
-                      float const scalePtoG,
-                      IntrusiveVector<glsl::vec2> & positions,
-                      bool isForwardDirection,
-                      vector<m2::RectF> & rects,
-                      ScreenBase const & screen) const;
+public:
+  enum class LayoutType
+  {
+    StraightLayout,
+    PathLayout
+  };
+
+  dp::RefPointer<dp::Texture> GetMaskTexture() const;
 
   uint32_t GetGlyphCount() const;
-  uint32_t GetTextureSet() const;
+
   float GetPixelLength() const;
   float GetPixelHeight() const;
+  LayoutType GetType() const { return m_type; }
+
+protected:
+  TextLayout(LayoutType type);
+  void Init(strings::UniString const & text,
+            float fontSize,
+            dp::RefPointer<dp::TextureManager> textures);
+
+
+protected:
+  typedef dp::TextureManager::GlyphRegion GlyphRegion;
+
+  dp::TextureManager::TGlyphsBuffer m_metrics;
+  float m_textSizeRatio = 0.0;
 
 private:
-  float AccumulateAdvance(double const & currentValue, GlyphRegion const & reg2) const;
-  void InitMetric(strings::UniChar const & unicodePoint, dp::RefPointer<dp::TextureSetHolder> textures);
-  void GetTextureQuad(GlyphRegion const & region, float depth, glsl::Quad4 & quad) const;
-  void GetMetrics(int32_t const index, float & xOffset, float & yOffset, float & advance,
-                  float & halfWidth, float & halfHeight) const;
+  LayoutType m_type;
+};
+
+class StraightTextLayout : public TextLayout
+{
+  typedef TextLayout TBase;
+public:
+  StraightTextLayout(strings::UniString const & text,
+                     float fontSize,
+                     dp::RefPointer<dp::TextureManager> textures,
+                     dp::Anchor anchor);
+
+  void Cache(glm::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+                   dp::TextureManager::ColorRegion const & colorRegion,
+                   dp::TextureManager::ColorRegion const & outlineRegion,
+                   gpu::TTextStaticVertexBuffer & staticBuffer,
+                   gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+
+  m2::PointU const & GetPixelSize() const { return m_pixelSize; }
 
 private:
-  buffer_vector<GlyphRegion, 32> m_metrics;
-  df::FontDecl m_font;
-  float m_textSizeRatio;
-
-  friend dp::OverlayHandle * LayoutText(FeatureID const & featureID,
-                                        glsl::vec2 const & pivot,
-                                        vector<TextLayout>::iterator & layoutIter,
-                                        vector<glsl::vec2>::iterator & pixelOffsetIter,
-                                        float depth,
-                                        vector<glsl::Quad4> & positions,
-                                        vector<glsl::Quad4> & texCoord,
-                                        vector<glsl::Quad4> & color,
-                                        vector<glsl::Quad1> & index,
-                                        dp::RefPointer<dp::TextureSetHolder> textures,
-                                        int count);
+  buffer_vector<pair<size_t, glsl::vec2>, 2> m_offsets;
+  m2::PointU m_pixelSize;
 };
 
 class SharedTextLayout

@@ -18,20 +18,14 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
   GLFunctions::Init();
   VisualParams::Init(viewport.GetPixelRatio(), df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
-  m_textures.Reset(new dp::TextureManager());
-  dp::RefPointer<dp::TextureSetHolder> textureHolder = m_textures.GetRefPointer();
-  dp::TextureSetBinder * binder = new dp::TextureSetBinder(m_textures.GetRefPointer());
-
   m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
   dp::RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
   m_frontend = dp::MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
                                                                         contextfactory,
-                                                                        dp::MovePointer<dp::TextureSetController>(binder),
                                                                         m_viewport));
   m_backend =  dp::MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
                                                                       contextfactory,
-                                                                      textureHolder,
                                                                       model));
 }
 
@@ -39,7 +33,6 @@ DrapeEngine::~DrapeEngine()
 {
   m_frontend.Destroy();
   m_backend.Destroy();
-  m_textures.Destroy();
   m_threadCommutator.Destroy();
 }
 

@@ -28,12 +28,11 @@ public:
 
   struct GlyphMetrics
   {
-    int m_xAdvance;
-    int m_yAdvance;
-    int m_xOffset;
-    int m_yOffset;
-    int m_width;
-    int m_height;
+    float m_xAdvance;
+    float m_yAdvance;
+    float m_xOffset;
+    float m_yOffset;
+    bool m_isValid;
   };
 
   struct GlyphImage

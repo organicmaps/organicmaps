@@ -59,7 +59,7 @@ namespace
 {
 
 int const SDF_SCALE_FACTOR = 4;
-int const SDF_BORDER = 4;
+int const SDF_BORDER = 4 * SDF_SCALE_FACTOR;
 
 template <typename ToDo>
 void ParseUniBlocks(string const & uniBlocksFile, ToDo toDo)
@@ -177,7 +177,7 @@ public:
     if (bitmap.buffer != nullptr)
     {
       SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, SDF_BORDER);
-      img.GenerateSDF(1.0 / (float)SDF_SCALE_FACTOR);
+      img.GenerateSDF(1.0f / (float)SDF_SCALE_FACTOR);
 
       imgWidth = img.GetWidth();
       imgHeigh = img.GetHeight();
@@ -199,12 +199,11 @@ public:
 
     result.m_metrics = GlyphManager::GlyphMetrics
     {
-      static_cast<int>((glyph->advance.x >> 16) / SDF_SCALE_FACTOR),
-      static_cast<int>((glyph->advance.y >> 16) / SDF_SCALE_FACTOR),
-      static_cast<int>(bbox.xMin / SDF_SCALE_FACTOR),
-      static_cast<int>(bbox.yMin / SDF_SCALE_FACTOR),
-      imgWidth,
-      imgHeigh
+      static_cast<float>(glyph->advance.x >> 16) / SDF_SCALE_FACTOR,
+      static_cast<float>(glyph->advance.y >> 16) / SDF_SCALE_FACTOR,
+      static_cast<float>(bbox.xMin) / SDF_SCALE_FACTOR,
+      static_cast<float>(bbox.yMin) / SDF_SCALE_FACTOR,
+      true
     };
 
     FT_Done_Glyph(glyph);
@@ -449,7 +448,7 @@ GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
     }
   }
 
-  if (iter == m_impl->m_blocks.end())
+  if (iter == m_impl->m_blocks.end() || !iter->HasSymbol(unicodePoint))
     return GetInvalidGlyph();
 
   m_impl->m_lastUsedBlock = iter;
@@ -488,6 +487,7 @@ GlyphManager::Glyph GlyphManager::GetInvalidGlyph() const
   {
     ASSERT(!m_impl->m_fonts.empty(), ());
     s_glyph = m_impl->m_fonts[0].GetGlyph(0x9, m_impl->m_baseGlyphHeight);
+    s_glyph.m_metrics.m_isValid = false;
     s_inited = true;
   }
 

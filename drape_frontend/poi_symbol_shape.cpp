@@ -1,7 +1,8 @@
 #include "poi_symbol_shape.hpp"
 
-#include "../drape/texture_set_holder.hpp"
+#include "../drape/utils/vertex_decl.hpp"
 #include "../drape/attribute_provider.hpp"
+#include "../drape/texture_manager.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
 
@@ -16,81 +17,46 @@ PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParam
 {
 }
 
-void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
-  dp::TextureSetHolder::SymbolRegion region;
+  dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
-
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetTextureSet(region.GetTextureNode().m_textureSet);
-
-  state.SetBlending(dp::Blending(true));
 
   m2::PointU pixelSize;
   region.GetPixelSize(pixelSize);
   m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
   m2::RectF const & texRect = region.GetTexRect();
-  float const depth = m_params.m_depth;
-  float const texture = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-  float positions[] = {
-    m_pt.x, m_pt.y, depth,
-    m_pt.x, m_pt.y, depth,
-    m_pt.x, m_pt.y, depth,
-    m_pt.x, m_pt.y, depth
+  glsl::vec3 position = glsl::vec3(glsl::ToVec2(m_pt), m_params.m_depth);
+
+  gpu::SolidTexturingVertex vertexes[] =
+  {
+    gpu::SolidTexturingVertex{ position,
+                               glsl::vec2(-halfSize.x,  halfSize.y),
+                               glsl::vec2(texRect.minX(), texRect.maxY())},
+    gpu::SolidTexturingVertex{ position,
+                               glsl::vec2(-halfSize.x,  -halfSize.y),
+                               glsl::vec2(texRect.minX(), texRect.minY())},
+    gpu::SolidTexturingVertex{ position,
+                               glsl::vec2(halfSize.x,  halfSize.y),
+                               glsl::vec2(texRect.maxX(), texRect.maxY())},
+    gpu::SolidTexturingVertex{ position,
+                               glsl::vec2(halfSize.x,  -halfSize.y),
+                               glsl::vec2(texRect.maxX(), texRect.minY())},
   };
 
-  float normals[] = {
-    -halfSize.x,  halfSize.y,
-    -halfSize.x, -halfSize.y,
-     halfSize.x,  halfSize.y,
-     halfSize.x, -halfSize.y
-  };
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetBlending(dp::Blending(true));
+  state.SetColorTexture(region.GetTexture());
 
-  float uvs[] = {
-    texRect.minX(), texRect.maxY(), texture,
-    texRect.minX(), texRect.minY(), texture,
-    texRect.maxX(), texRect.maxY(), texture,
-    texRect.maxX(), texRect.minY(), texture
-  };
-
-  dp::AttributeProvider provider(3, 4);
-  {
-    dp::BindingInfo position(1, 1);
-    dp::BindingDecl & decl = position.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(0, position, dp::MakeStackRefPointer<void>(positions));
-  }
-  {
-    dp::BindingInfo normal(1);
-    dp::BindingDecl & decl = normal.GetBindingDecl(0);
-    decl.m_attributeName = "a_normal";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(1, normal, dp::MakeStackRefPointer<void>(normals));
-  }
-  {
-    dp::BindingInfo texcoord(1);
-    dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
-    decl.m_attributeName = "a_texCoords";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(2, texcoord, dp::MakeStackRefPointer<void>(uvs));
-  }
+  dp::AttributeProvider provider(1, 4);
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(vertexes));
 
   dp::OverlayHandle * handle = new dp::SquareHandle(m_params.m_id,
                                                     dp::Center,
                                                     m_pt,
                                                     pixelSize,
-                                                    depth);
+                                                    m_params.m_depth);
 
   batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
 }

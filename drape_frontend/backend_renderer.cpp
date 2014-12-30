@@ -7,26 +7,24 @@
 #include "threads_commutator.hpp"
 #include "message_subclasses.hpp"
 
-#include "../drape/texture_set_holder.hpp"
 #include "../drape/oglcontextfactory.hpp"
+#include "../drape/texture_manager.hpp"
 
 #include "../platform/platform.hpp"
 
 #include "../std/bind.hpp"
-
 
 namespace df
 {
 
 BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                                 dp::RefPointer<dp::TextureSetHolder> textureHolder,
                                  MapDataProvider const & model)
   : m_model(model)
   , m_engineContext(commutator)
   , m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
-  , m_textures(textureHolder)
+  , m_textures(new dp::TextureManager())
 {
   m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
@@ -72,7 +70,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);
       dp::RefPointer<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
       dp::MasterPointer<MapShape> shape(msg->GetShape());
-      shape->Draw(batcher, m_textures);
+      shape->Draw(batcher, m_textures.GetRefPointer());
 
       shape.Destroy();
     }
@@ -118,7 +116,7 @@ void BackendRenderer::ReleaseResources()
   m_batchersPool.Destroy();
 
   m_textures->Release();
-  m_textures = dp::RefPointer<dp::TextureSetHolder>();
+  m_textures.Destroy();
 }
 
 void BackendRenderer::Do()
@@ -128,7 +126,14 @@ void BackendRenderer::Do()
 
 void BackendRenderer::InitGLDependentResource()
 {
-  m_textures->Init(VisualParams::Instance().GetResourcePostfix());
+  dp::TextureManager::Params params;
+  params.m_resPrefix = VisualParams::Instance().GetResourcePostfix();
+  params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";
+  params.m_glyphMngParams.m_whitelist = "fonts_whitelist.txt";
+  params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
+  GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
+
+  m_textures->Init(params);
 }
 
 void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)

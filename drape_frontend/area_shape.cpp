@@ -1,11 +1,11 @@
 #include "area_shape.hpp"
 
-#include "../drape/glsl_types.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
 #include "../drape/attribute_provider.hpp"
-#include "../drape/texture_set_holder.hpp"
+#include "../drape/texture_manager.hpp"
+#include "../drape/utils/vertex_decl.hpp"
 
 #include "../base/buffer_vector.hpp"
 #include "../base/logging.hpp"
@@ -21,50 +21,26 @@ AreaShape::AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & 
 {
 }
 
-void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
-  dp::TextureSetHolder::ColorRegion region;
+  dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
-  m2::PointF const colorPoint = region.GetTexRect().Center();
+  glsl::vec2 const colorPoint = glsl::ToVec2(region.GetTexRect().Center());
 
-  dp::TextureSetHolder::TextureNode const & texNode = region.GetTextureNode();
-
-  buffer_vector<glsl::vec3, 128> colors;
-  colors.resize(m_vertexes.size(), glsl::vec3(colorPoint.x, colorPoint.y, texNode.GetOffset()));
-
-  buffer_vector<glsl::vec3, 128> geom;
-  colors.reserve(m_vertexes.size());
-  for_each(m_vertexes.begin(), m_vertexes.end(), [&geom, this] (m2::PointF const & vertex)
+  buffer_vector<gpu::SolidTexturingVertex, 128> vertexes;
+  vertexes.resize(m_vertexes.size());
+  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&colorPoint, this](m2::PointF const & vertex)
   {
-    geom.push_back(glsl::vec3(vertex.x, vertex.y, m_params.m_depth));
+    return gpu::SolidTexturingVertex(glsl::vec3(glsl::ToVec2(vertex), m_params.m_depth),
+                                     glsl::vec2(0.0, 0.0),
+                                     colorPoint);
   });
 
-  dp::GLState state(gpu::SOLID_AREA_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetTextureSet(texNode.m_textureSet);
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
+  state.SetColorTexture(region.GetTexture());
 
-  dp::AttributeProvider provider(2, m_vertexes.size());
-  {
-    dp::BindingInfo info(1);
-    dp::BindingDecl & decl = info.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(0, info, dp::MakeStackRefPointer((void *)&geom[0]));
-  }
-
-  {
-    dp::BindingInfo info(1);
-    dp::BindingDecl & decl = info.GetBindingDecl(0);
-    decl.m_attributeName = "a_color_index";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(1, info, dp::MakeStackRefPointer((void *)&colors[0]));
-  }
-
+  dp::AttributeProvider provider(1, m_vertexes.size());
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(vertexes.data()));
   batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider));
 }
 

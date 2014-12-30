@@ -52,19 +52,16 @@ struct LineViewParams : CommonViewParams
 struct FontDecl
 {
   FontDecl() = default;
-  FontDecl(dp::Color const & color, float size,
-           bool needOutline = false, dp::Color const & outlineColor = dp::Color::White())
+  FontDecl(dp::Color const & color, float size, dp::Color const & outlineColor = dp::Color::Transparent())
     : m_color(color)
     , m_outlineColor(outlineColor)
     , m_size(size)
-    , m_needOutline(needOutline)
   {
   }
 
-  dp::Color m_color;
-  dp::Color m_outlineColor;
-  float m_size;
-  bool m_needOutline;
+  dp::Color m_color = dp::Color::Transparent();
+  dp::Color m_outlineColor = dp::Color::Transparent();
+  float m_size = 0;
 };
 
 struct TextViewParams : CommonViewParams
@@ -72,7 +69,6 @@ struct TextViewParams : CommonViewParams
   FeatureID m_featureID;
   FontDecl m_primaryTextFont;
   string m_primaryText;
-  m2::PointF m_primaryOffset;
   FontDecl m_secondaryTextFont;
   string m_secondaryText;
   dp::Anchor m_anchor;

@@ -41,11 +41,9 @@ void OrthoMatrix(float * m, float left, float right, float bottom, float top, fl
 
 FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                                   dp::TransferPointer<dp::TextureSetController> textureController,
                                    Viewport viewport)
   : m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
-  , m_textureController(textureController)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
 {
@@ -220,7 +218,7 @@ void FrontendRenderer::RenderScene()
     dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
     program->Bind();
     ApplyUniforms(m_generalUniforms, program);
-    ApplyState(state, program, m_textureController.GetRefPointer());
+    ApplyState(state, program);
 
     group->Render(m_view);
   }
@@ -354,7 +352,6 @@ void FrontendRenderer::ReleaseResources()
 {
   DeleteRenderData();
   m_gpuProgramManager.Destroy();
-  m_textureController.Destroy();
 }
 
 void FrontendRenderer::Do()

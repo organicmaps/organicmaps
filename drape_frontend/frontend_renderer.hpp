@@ -19,7 +19,6 @@
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/gpu_program_manager.hpp"
 #include "../drape/oglcontextfactory.hpp"
-#include "../drape/texture_set_controller.hpp"
 #include "../drape/overlay_tree.hpp"
 
 #include "../drape/uniform_values_storage.hpp"
@@ -39,7 +38,6 @@ class FrontendRenderer : public MessageAcceptor,
 public:
   FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                   dp::TransferPointer<dp::TextureSetController> textureController,
                    Viewport viewport);
 
   ~FrontendRenderer();
@@ -86,7 +84,6 @@ private:
 private:
   dp::RefPointer<ThreadsCommutator> m_commutator;
   dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
-  dp::MasterPointer<dp::TextureSetController> m_textureController;
   dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
   threads::Thread m_selfThread;
 

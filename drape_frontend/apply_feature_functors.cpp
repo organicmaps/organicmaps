@@ -80,25 +80,8 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, df::FontDecl &pa
   params.m_color = ToDrapeColor(capRule->color());
   params.m_size = max(8.0, capRule->height() * df::VisualParams::Instance().GetVisualScale());
 
-  params.m_needOutline = false;
   if (capRule->has_stroke_color())
-  {
-    params.m_needOutline = true;
-    params.m_outlineColor = dp::Color(255, 255, 255, 255);
-  }
-}
-
-m2::PointF GetCaptionOffset(CaptionDefProto const * capRule)
-{
-  m2::PointF offset;
-  float visualScale = df::VisualParams::Instance().GetVisualScale();
-  if (capRule->has_offset_x())
-    offset.x = capRule->offset_x() * visualScale;
-
-  if (capRule->has_offset_y())
-    offset.y = capRule->offset_y() * visualScale;
-
-  return offset;
+    params.m_outlineColor = ToDrapeColor(capRule->stroke_color());
 }
 
 dp::Anchor GetAnchor(CaptionDefProto const * capRule)
@@ -144,7 +127,6 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_anchor = GetAnchor(primaryProto);
   params.m_depth = depth;
   params.m_featureID = m_id;
-  params.m_primaryOffset = GetCaptionOffset(primaryProto);
   params.m_primaryText = m_captions.GetMainText();
   params.m_primaryTextFont = decl;
 
@@ -364,18 +346,12 @@ void ApplyLineFeature::Finish()
     int const count = static_cast<int>((pathPixelLength / emptySpace) + 2);
     double const splineStep = pathPixelLength / count;
 
-    FontDecl font;
-    font.m_color = dp::Color(150, 75, 0, 255);
-    font.m_needOutline = true;
-    font.m_outlineColor = dp::Color(255, 255, 255, 255);
-    font.m_size = textHeight;
-
     TextViewParams viewParams;
     viewParams.m_depth = 0;
     viewParams.m_anchor = dp::Center;
     viewParams.m_featureID = FeatureID();
     viewParams.m_primaryText = roadNumber;
-    viewParams.m_primaryTextFont = font;
+    viewParams.m_primaryTextFont = FontDecl(dp::Color::RoadNumberOutline(), textHeight, dp::Color::White());
 
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())

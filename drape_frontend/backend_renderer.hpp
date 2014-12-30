@@ -13,13 +13,12 @@ namespace dp
 {
 
 class OGLContextFactory;
-class TextureSetHolder;
+class TextureManager;
 
 }
 
 namespace df
 {
-
 
 class Message;
 class ThreadsCommutator;
@@ -32,7 +31,6 @@ class BackendRenderer : public MessageAcceptor,
 public:
   BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                  dp::RefPointer<dp::TextureSetHolder> textureHolder,
                   MapDataProvider const & model);
 
   ~BackendRenderer();
@@ -66,7 +64,8 @@ private:
   threads::Thread m_selfThread;
   dp::RefPointer<ThreadsCommutator> m_commutator;
   dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
-  dp::RefPointer<dp::TextureSetHolder> m_textures;
+
+  dp::MasterPointer<dp::TextureManager> m_textures;
 };
 
 } // namespace df

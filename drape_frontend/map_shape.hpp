@@ -8,7 +8,7 @@
 namespace dp
 {
   class Batcher;
-  class TextureSetHolder;
+  class TextureManager;
 }
 
 namespace df
@@ -18,7 +18,7 @@ class MapShape
 {
 public:
   virtual ~MapShape(){}
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const = 0;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const = 0;
 };
 
 class MapShapeReadedMessage : public Message

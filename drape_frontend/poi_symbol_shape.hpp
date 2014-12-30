@@ -11,7 +11,7 @@ class PoiSymbolShape : public MapShape
 public:
   PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params);
 
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
 
 private:
   m2::PointF const m_pt;
