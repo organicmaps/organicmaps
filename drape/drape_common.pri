@@ -41,6 +41,7 @@ SOURCES += \
     $$DRAPE_DIR/texture_of_colors.cpp \
     $$DRAPE_DIR/glyph_manager.cpp \
     $$DRAPE_DIR/sdf_image.cpp \
+    $$DRAPE_DIR/utils/vertex_decl.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -87,3 +88,4 @@ HEADERS += \
     $$DRAPE_DIR/glsl_func.hpp \
     $$DRAPE_DIR/glyph_manager.hpp \
     $$DRAPE_DIR/sdf_image.h \
+    $$DRAPE_DIR/utils/vertex_decl.hpp
