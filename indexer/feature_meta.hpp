@@ -67,7 +67,7 @@ namespace feature
     template <class ArchiveT> void DeserializeFromMWM(ArchiveT & ar)
     {
       uint8_t header[2] = {0};
-      char buffer[numeric_limits<uint8_t>::max()] = {0};
+      char buffer[uint8_t(-1)] = {0};
       do
       {
         ar.Read(header, sizeof(header));
