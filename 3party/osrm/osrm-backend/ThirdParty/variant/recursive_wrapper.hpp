@@ -2,6 +2,7 @@
 #define MAPBOX_UTIL_VARIANT_RECURSIVE_WRAPPER_HPP
 
 #include <utility>
+#include "../../../../../std/noexcept.hpp"
 
 namespace mapbox { namespace util {
 
@@ -42,7 +43,7 @@ public:
         return *this;
     }
 
-    inline void swap(recursive_wrapper& operand) noexcept
+    inline void swap(recursive_wrapper& operand) NOEXCEPT_MODIFIER
     {
         T* temp = operand.p_;
         operand.p_ = p_;
@@ -50,7 +51,7 @@ public:
     }
 
 
-    recursive_wrapper& operator=(recursive_wrapper&& rhs) noexcept
+    recursive_wrapper& operator=(recursive_wrapper&& rhs) NOEXCEPT_MODIFIER
     {
         swap(rhs);
         return *this;
@@ -117,7 +118,7 @@ void recursive_wrapper<T>::assign(const T& rhs)
 }
 
 template <typename T>
-inline void swap(recursive_wrapper<T>& lhs, recursive_wrapper<T>& rhs) noexcept
+inline void swap(recursive_wrapper<T>& lhs, recursive_wrapper<T>& rhs) NOEXCEPT_MODIFIER
 {
     lhs.swap(rhs);
 }

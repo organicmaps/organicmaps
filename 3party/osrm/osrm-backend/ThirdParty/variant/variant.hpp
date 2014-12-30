@@ -12,6 +12,8 @@
 
 #include "recursive_wrapper.hpp"
 
+#include "../../../../../std/noexcept.hpp"
+
 #ifdef _MSC_VER
  // http://msdn.microsoft.com/en-us/library/z8y1yy88.aspx
  #ifdef NDEBUG
@@ -451,7 +453,7 @@ template <typename Variant, typename Comp>
 class comparer : public static_visitor<bool>
 {
 public:
-    explicit comparer(Variant const& lhs) noexcept
+    explicit comparer(Variant const& lhs) NOEXCEPT_MODIFIER
         : lhs_(lhs) {}
     comparer& operator=(comparer const&) = delete;
     // visitor
@@ -517,7 +519,7 @@ public:
     // http://isocpp.org/blog/2012/11/universal-references-in-c11-scott-meyers
     template <typename T, class = typename std::enable_if<
                           detail::is_valid_type<typename std::remove_reference<T>::type, Types...>::value>::type>
-    VARIANT_INLINE variant(T && val) noexcept
+    VARIANT_INLINE variant(T && val) NOEXCEPT_MODIFIER
         : type_index(detail::value_traits<typename std::remove_reference<T>::type, Types...>::index)
     {
         constexpr std::size_t index = sizeof...(Types) - detail::value_traits<typename std::remove_reference<T>::type, Types...>::index - 1;
@@ -531,7 +533,7 @@ public:
         helper_type::copy(old.type_index, &old.data, &data);
     }
 
-    VARIANT_INLINE variant(variant<Types...>&& old) noexcept
+    VARIANT_INLINE variant(variant<Types...>&& old) NOEXCEPT_MODIFIER
         : type_index(old.type_index)
     {
         helper_type::move(old.type_index, &old.data, &data);
@@ -553,7 +555,7 @@ public:
     // conversions
     // move-assign
     template <typename T>
-    VARIANT_INLINE variant<Types...>& operator=(T && rhs) noexcept
+    VARIANT_INLINE variant<Types...>& operator=(T && rhs) NOEXCEPT_MODIFIER
     {
         variant<Types...> temp(std::forward<T>(rhs));
         swap(*this, temp);
@@ -655,7 +657,7 @@ public:
         return detail::binary_dispatcher<F, V, Types...>::apply(v0, v1, f);
     }
 
-    ~variant() noexcept
+    ~variant() NOEXCEPT_MODIFIER
     {
         helper_type::destroy(type_index, &data);
     }
