@@ -2,15 +2,15 @@ attribute vec4 a_position;
 attribute vec4 a_deltas;
 attribute vec4 a_width_type;
 attribute vec4 a_centres;
-attribute vec3 a_color;
-attribute vec3 a_mask;
+attribute vec2 a_color;
+attribute vec2 a_mask;
 
 varying float v_dx;
 varying vec4 v_radius;
 varying vec2 v_type;
 
-varying vec3 v_color;
-varying vec3 v_mask;
+varying vec2 v_color;
+varying vec2 v_mask;
 
 uniform mat4 modelView;
 uniform mat4 projection;

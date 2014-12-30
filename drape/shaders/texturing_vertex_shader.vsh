@@ -1,16 +1,14 @@
-attribute vec4 a_position;
+attribute vec3 a_position;
 attribute vec2 a_normal;
-attribute vec3 a_texCoords;
+attribute vec2 a_colorTexCoords;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 
-varying vec2 v_texCoords;
-varying float v_textureIndex;
+varying vec2 v_colorTexCoords;
 
 void main(void)
 {
-  gl_Position = (vec4(a_normal.xy, 0, 0) + a_position * modelView) * projection;
-  v_texCoords = a_texCoords.st;
-  v_textureIndex = a_texCoords.z;
+  gl_Position = (vec4(a_normal, 0, 0) + vec4(a_position, 1) * modelView) * projection;
+  v_colorTexCoords = a_colorTexCoords;
 }

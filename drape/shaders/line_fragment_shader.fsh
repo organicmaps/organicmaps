@@ -2,10 +2,11 @@ varying float v_dx;
 varying vec4 v_radius;
 varying vec2 v_type;
 
-varying vec3 v_color;
-varying vec3 v_mask;
+varying vec2 v_color;
+varying vec2 v_mask;
 
-~getTexel~
+uniform sampler2D u_colorTex;
+uniform sampler2D u_maskTex;
 
 void main(void)
 {
@@ -27,7 +28,7 @@ void main(void)
   else if (v_type.y > 0.1 && abs(v_dx) >= 1.0 && (squareDist + capY > squareRadius))
       discard;
 
-  vec4 color = getTexel(int(v_color.z), v_color.xy);
-  color.a = getTexel(int(v_mask.z), v_mask.xy).a;
+  vec4 color = texture2D(u_colorTex, v_color);
+  color.a = texture2D(u_maskTex, v_mask).a;
   gl_FragColor = color;
 }

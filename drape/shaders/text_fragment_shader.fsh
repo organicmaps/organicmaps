@@ -1,8 +1,9 @@
-varying vec3 v_texcoord;
-varying vec4 v_colors;
-varying float v_index;
+varying vec2 v_colorTexCoord;
+varying vec2 v_outlineColorTexCoord;
+varying vec2 v_maskTexCoord;
 
-~getTexel~
+uniform sampler2D u_colorTex;
+uniform sampler2D u_maskTex;
 
 const lowp float OUTLINE_MIN_VALUE0 = 0.41;
 const lowp float OUTLINE_MIN_VALUE1 = 0.565;
@@ -17,7 +18,7 @@ vec4 colorize(vec4 base, vec4 outline, float alpha)
     return vec4(outline.rgb, 0);
   if (alpha > OUTLINE_MAX_VALUE0)
   {
-    float oFactor = smoothstep(OUTLINE_MAX_VALUE1, OUTLINE_MAX_VALUE0, alpha );
+    float oFactor = smoothstep(OUTLINE_MAX_VALUE1, OUTLINE_MAX_VALUE0, alpha);
     return mix(vec4(outline.rgb,0), outline, oFactor);
   }
   if (alpha > OUTLINE_MIN_VALUE1)
@@ -26,7 +27,7 @@ vec4 colorize(vec4 base, vec4 outline, float alpha)
   }
   if (alpha > OUTLINE_MIN_VALUE0)
   {
-    float oFactor = smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
+    float oFactor = smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha);
     return mix(base, outline, oFactor);
   }
   return base;
@@ -44,18 +45,15 @@ vec4 without_outline(vec4 base, float alpha)
 
 void main (void)
 {
-  int shapeIndex = int(v_texcoord.z / 2.0);
-  int colorIndex = int(v_index);
-  vec4 base = getTexel(colorIndex, v_colors.xy);;
-  vec4 outline = getTexel(colorIndex, v_colors.zw);
-  float alpha = getTexel(shapeIndex, v_texcoord.xy).a;
+  vec4 base = texture2D(u_colorTex, v_colorTexCoord);
+  vec4 outline = texture2D(u_colorTex, v_outlineColorTexCoord);
+  float alpha = texture2D(u_maskTex, v_maskTexCoord).a;
 
-  float needOutline = (fract(v_texcoord.z / 2.0)) * 2.0;
   vec4 finalColor;
-  if (needOutline > 0.5)
-    finalColor = colorize(base, outline, 1.0 - base.a*alpha);
+  if (outline.a > 0.1)
+    finalColor = colorize(base, outline, 1.0 - base.a * alpha);
   else
-    finalColor = without_outline(base, 1.0 - base.a*alpha);
+    finalColor = without_outline(base, 1.0 - base.a * alpha);
 
   gl_FragColor = finalColor;
 }

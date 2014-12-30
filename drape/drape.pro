@@ -20,15 +20,10 @@ include($$DRAPE_DIR/drape_common.pri)
 SOURCES += glfunctions.cpp
 
 OTHER_FILES += \
-    shaders/simple_vertex_shader.vsh \
-    shaders/solid_area_fragment_shader.fsh \
     shaders/texturing_vertex_shader.vsh \
-    shaders/shader_index.txt \
     shaders/texturing_fragment_shader.fsh \
+    shaders/shader_index.txt \
     shaders/line_vertex_shader.vsh \
     shaders/line_fragment_shader.fsh \
-    shaders/solid_color_fragment_shader.fsh \
-    shaders/normalize_vertex_shader.vsh \
-    shaders/font_fragment_shader.fsh \
-    shaders/font_vertex_shader.vsh \
-    shaders/path_font_vertex_shader.vsh \
+    shaders/text_fragment_shader.fsh \
+    shaders/text_vertex_shader.vsh \
