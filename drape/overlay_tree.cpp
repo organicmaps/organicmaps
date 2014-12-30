@@ -21,8 +21,13 @@ void OverlayTree::Add(RefPointer<OverlayHandle> handle)
 
   if (!handle->IsValid())
     return;
-  
+
   m2::RectD const pixelRect = handle->GetPixelRect(modelView);
+  if (!m_traits.m_modelView.PixelRect().IsIntersect(pixelRect))
+  {
+    handle->SetIsVisible(false);
+    return;
+  }
 
   typedef buffer_vector<RefPointer<OverlayHandle>, 8> OverlayContainerT;
   OverlayContainerT elements;

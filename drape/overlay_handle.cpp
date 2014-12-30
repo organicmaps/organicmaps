@@ -44,7 +44,7 @@ void OverlayHandle::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
-bool OverlayHandle::IsIntersect(ScreenBase const & screen, const OverlayHandle & h) const
+bool OverlayHandle::IsIntersect(ScreenBase const & screen, OverlayHandle const & h) const
 {
   Rects ar1;
   Rects ar2;

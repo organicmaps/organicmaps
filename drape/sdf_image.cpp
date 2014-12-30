@@ -171,7 +171,7 @@ void SdfImage::GenerateSDF(float sc)
 
   outside.Minus(inside);
   outside.Distquant();
-  //outside.Invert();
+  outside.Invert();
   *this = outside.Bilinear(sc);
 }
 

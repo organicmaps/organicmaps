@@ -3,6 +3,7 @@
 #include "math.hpp"
 
 #include "../std/iomanip.hpp"
+#include "../std/initializer_list.hpp"
 
 
 namespace math
@@ -24,6 +25,12 @@ namespace math
     Matrix(T * data)
     {
       copy(data, data + Rows * Cols, m_data);
+    }
+
+    Matrix(initializer_list<T> initList)
+    {
+      ASSERT(initList.size() == Rows * Cols, ());
+      copy(initList.begin(), initList.end(), m_data);
     }
 
     template <typename U>

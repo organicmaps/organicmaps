@@ -28,6 +28,11 @@ public:
     resize(n, c);
   }
 
+  explicit buffer_vector(initializer_list<T> const & initList) : m_size(0)
+  {
+    assign(initList.begin(), initList.end());
+  }
+
   template <typename IterT>
   explicit buffer_vector(IterT beg, IterT end) : m_size(0)
   {
