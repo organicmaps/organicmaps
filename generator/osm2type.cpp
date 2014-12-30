@@ -11,6 +11,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
+#include "../std/function.hpp"
 
 #include <QtCore/QString>
 
@@ -321,33 +322,35 @@ namespace ftype
       }
     };
 
-    class do_find_pairs
+    class TagProcessor
     {
-      char const * (*m_arr) [2];
-      size_t m_size;
+      typedef struct {
+        char const * key;
+        char const * value;
+        function<void()> func;
+      } RuleT;
 
-      vector<bool> m_res;
+      initializer_list<RuleT> m_rules;
 
     public:
-      do_find_pairs(char const * (*arr) [2], size_t sz)
-        : m_arr(arr), m_size(sz)
+      typedef bool result_type;
+
+      TagProcessor(initializer_list<RuleT> rules)
+      : m_rules(rules)
       {
-        m_res.resize(m_size, false);
       }
 
       bool operator() (string const & k, string const & v)
       {
-        for (size_t i = 0; i < m_size; ++i)
-          if ((k == "*" || k == m_arr[i][0]) &&
-              (v == "*" || v == m_arr[i][1]))
+        for (auto e: m_rules)
+          if ((k == "*" || k == e.key) &&
+              (v == "*" || v == e.value))
           {
-            m_res[i] = true;
+            e.func();
           }
 
         return false;
       }
-
-      bool IsExist(size_t i) const { return m_res[i]; }
     };
   }
 
@@ -370,22 +373,19 @@ namespace ftype
 
   void add_layers(XMLElement * p)
   {
-    static char const * arr[][2] = {
-      { "bridge", "yes" },
-      { "tunnel", "yes" },
-      { "layer", "*" },
-    };
+    bool isLayer = false;
+    char const *layer = nullptr;
 
-    do_find_pairs doFind(arr, ARRAY_SIZE(arr));
-    for_each_tag(p, bind<bool>(ref(doFind), _1, _2));
+    TagProcessor setLayer({
+      { "bridge", "yes", [&layer](){ layer = "1";}},
+      { "tunnel", "yes", [&layer](){ layer = "-1";} },
+      { "layer", "*", [&isLayer](){ isLayer = true;} },
+    });
 
-    if (!doFind.IsExist(2))
-    {
-      if (doFind.IsExist(0))
-        p->AddKV("layer", "1");
-      if (doFind.IsExist(1))
-        p->AddKV("layer", "-1");
-    }
+    for_each_tag(p, bind<bool>(ref(setLayer), _1, _2));
+
+    if (!isLayer && layer)
+        p->AddKV("layer", layer);
   }
 
 //#ifdef DEBUG
@@ -407,30 +407,20 @@ namespace ftype
     buffer_vector<uint32_t, 16> m_types;
 
   public:
-    enum Type { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT };
+    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT };
 
     CachedTypes()
     {
       Classificator const & c = classif();
+      
+      for (auto &e: (Classificator::Path1T[]){ {"entrance"}, {"highway"} })
+        m_types.push_back(c.GetTypeByPath( {e[0]} ));
 
-      char const * arr1[][1] = {
-        { "entrance" },
-        { "highway" }
-      };
-      for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
-        m_types.push_back(c.GetTypeByPath(vector<string>(arr1[i], arr1[i] + 1)));
-
-      char const * arr2[][2] = {
-        { "building", "address" },
-        { "hwtag", "oneway" },
-        { "hwtag", "private" },
-        { "hwtag", "lit" },
-      };
-      for (size_t i = 0; i < ARRAY_SIZE(arr2); ++i)
-        m_types.push_back(c.GetTypeByPath(vector<string>(arr2[i], arr2[i] + 2)));
+      for (auto &e: (Classificator::Path2T[]){ {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"} })
+        m_types.push_back(c.GetTypeByPath( {e[0], e[1]} ));
     }
 
-    uint32_t Get(Type t) const { return m_types[t]; }
+    uint32_t Get(EType t) const { return m_types[t]; }
     bool IsHighway(uint32_t t) const
     {
       ftype::TruncValue(t, 1);
@@ -507,30 +497,16 @@ namespace ftype
     for (size_t i = 0; i < params.m_Types.size(); ++i)
       if (types.IsHighway(params.m_Types[i]))
       {
-        static char const * arr[][2] = {
-          { "oneway", "yes" },
-          { "oneway", "1" },
-          { "oneway", "-1" },
-          { "access", "private" },
-          { "lit", "yes" },
-        };
 
-        do_find_pairs doFind(arr, ARRAY_SIZE(arr));
-        for_each_tag(p, bind<bool>(ref(doFind), _1, _2));
+        TagProcessor addHighwayTypes({
+          { "oneway", "yes", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
+          { "oneway", "1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
+          { "oneway", "-1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true;} },
+          { "access", "private", [&params](){params.AddType(types.Get(CachedTypes::PRIVATE));} },
+          { "lit", "yes", [&params](){params.AddType(types.Get(CachedTypes::LIT));} },
+        });
 
-        if (doFind.IsExist(3))
-          params.AddType(types.Get(CachedTypes::PRIVATE));
-
-        if (doFind.IsExist(4))
-          params.AddType(types.Get(CachedTypes::LIT));
-
-        if (doFind.IsExist(0) || doFind.IsExist(1) || doFind.IsExist(2))
-        {
-          params.AddType(types.Get(CachedTypes::ONEWAY));
-
-          if (doFind.IsExist(2))
-            params.m_reverseGeometry = true;
-        }
+        for_each_tag(p, bind<bool>(ref(addHighwayTypes), _1, _2));
 
         break;
       }
