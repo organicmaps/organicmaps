@@ -1,4 +1,4 @@
-//  $Id: MRGS.h 5669 2014-10-21 09:39:51Z a.grachev $
+//  $Id: MRGS.h 6320 2014-12-12 08:47:35Z a.grachev $
 //  MRGS.h
 //  MRGServiceFramework
 //
@@ -77,11 +77,20 @@ NSString* MRGSMD5(NSString* text);
  */
 NSTimeInterval MRGSTime();
 
+/**
+ *  Получить дату (без времени) в виде строки формата
+ *
+ *  @param date Дата для конвертации в строковое значение
+ *
+ *  @return Строка содержащая дату в виде строки
+ */
+NSString* MRGSDateToString(NSDate *date);
+
 /** Получить текущуюю дату
  * @param format	- формат времени например @"dd/MMM/yyyy"
  * @param time		- UNIX время"
  * @return текущую дату
  */
-NSString* MRGSDate(NSString* format, int time);
+NSString* MRGSDate(NSString* format, int time) DEPRECATED_ATTRIBUTE;
 
 #endif

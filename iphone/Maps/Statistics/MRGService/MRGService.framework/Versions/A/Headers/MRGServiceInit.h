@@ -1,4 +1,4 @@
-//  $Id: MRGServiceInit.h 5816 2014-10-30 09:35:50Z a.grachev $
+//  $Id: MRGServiceInit.h 6360 2014-12-22 12:06:15Z a.grachev $
 //  MRGServiceInit.h
 //  MRGServiceFramework
 //
@@ -130,78 +130,4 @@
  */
 + (void)sendHandleException:(NSString*)description reason:(NSString*)reason;
 
-#pragma mark - Deprecated properties and methods
-
-/** Параметр отвечающий за вывод в лог
- *
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance].serviceParams.debug;
- */
-@property (readonly, assign) BOOL debug DEPRECATED_ATTRIBUTE;
-
-/** Параметр отвечающий за обнуление цифры на иконке
- *
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance].serviceParams.shouldResetBadge;
- */
-@property (readonly, assign) BOOL badgeReset DEPRECATED_ATTRIBUTE;
-
-/** Если параметр установлен в YES, то Фреймворк будет автоматом сам запрашивать доступ на определение геопозиции
- *
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance].serviceParams.locationTrackingEnabled;
- */
-@property (readonly, assign) BOOL locations DEPRECATED_ATTRIBUTE;
-
-/** Если параметр установлен в YES, то Фреймворк будет автоматически запрашивать доступ к пуш нотификациям
- *
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance].serviceParams.allowPushNotificationHooks;
- */
-@property (readonly, assign) BOOL pushNotifications DEPRECATED_ATTRIBUTE;
-
-/** Id приложения
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance].serviceParams.appId;
- */
-@property (readonly, assign) int applicationID DEPRECATED_ATTRIBUTE;
-
-/** Секретный ключ приложения
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance].serviceParams.appSecret;
- */
-@property (readonly, nonatomic, strong) NSString* applicationSecret DEPRECATED_ATTRIBUTE;
-
-/** Singleton библиотеки
- *
- *	@return Возвращает экземпляр класса MRGServiceInit, если он был инициализирован до этого
- *  @deprecated Используйте метод [MRGServiceInit sharedInstance];
- */
-+ (MRGServiceInit*)singleton DEPRECATED_ATTRIBUTE;
-
-/**
- *  Инициализация библиотеки
- *
- *	@param appId Id приложения.
- *	@param secret Секретный ключ приложения
- *  @param delegate MRGSServerDataDelegate
- *  @param options Параметры инициализации MRGS (см. MRGService.plist - Options).
- *  @param externalSDK Настройки сторонних SDK (см. MRGService.plist - ExternalSDK)
- *  @deprecated Используйте метод [MRGServiceInit startWithServiceParams:externalSDKParams:delegate:];
- */
-+ (void)MRGServiceWithAppId:(int)appId
-                     secret:(NSString*)secret
-                   delegate:(id<MRGSServerDataDelegate>)delegate
-                    options:(NSDictionary*)options
-                externalSDK:(NSDictionary*)externalSDK DEPRECATED_ATTRIBUTE;
-
-/** Инициализация библиотеки
- *
- *  Параметры appId и secret нужно взять с сайта https://mrgs.my.com/
- *
- *
- *	@param appId Id приложения.
- *	@param secret Секретный ключ приложения
- *  @param delegate MRGSServerDataDelegate
- *  @param options Параметры инициализации MRGS.
- *	@deprecated Используйте метод [MRGServiceInit startWithServiceParams:externalSDKParams:delegate:];
- */
-+ (void)MRGServiceWithAppId:(int)appId
-                  andSecret:(NSString*)secret
-                andDelegate:(id<MRGSServerDataDelegate>)delegate
-                 andOptions:(NSDictionary*)options DEPRECATED_ATTRIBUTE;
 @end

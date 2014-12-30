@@ -1,7 +1,7 @@
 //
 // Created by Igor Glotov on 22/08/14.
 // Copyright (c) 2014 Mail.ru Group. All rights reserved.
-// MyTracker, version 1.0.8
+// MyTracker, version 1.0.9
 
 #import <Foundation/Foundation.h>
 #import "MRAbstractDataProvider.h"

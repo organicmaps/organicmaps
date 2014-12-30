@@ -1,4 +1,4 @@
-//	$Id: MRGSLogs.h 5602 2014-10-14 08:06:47Z a.grachev $
+//	$Id: MRGSLogs.h 6341 2014-12-18 12:16:38Z a.grachev $
 //  MRGSLog.h
 //  MRGServiceFramework
 //
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define MRGSLogS(...) [MRGSLogs MRGSLogS:[[NSString stringWithFormat:@"%s line:%i ", __PRETTY_FUNCTION__, __LINE__] stringByAppendingFormat:__VA_ARGS__]
+#define MRGSLogS(...) [MRGSLogs MRGSLogS:[[NSString stringWithFormat:@"%s line:%i ", __PRETTY_FUNCTION__, __LINE__] stringByAppendingFormat:__VA_ARGS__]]
 
 /** Класс для вывода логов в консоль. */
 @interface MRGSLogs : NSObject
