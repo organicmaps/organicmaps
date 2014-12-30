@@ -1,5 +1,6 @@
 #include "../../testing/testing.hpp"
 #include "img.hpp"
+#include "dummy_texture.hpp"
 
 #include "../font_texture.hpp"
 #include "../glyph_manager.hpp"
@@ -25,12 +26,6 @@ using namespace dp;
 
 namespace
 {
-  class DummyTexture : public dp::Texture
-  {
-  public:
-    virtual ResourceInfo const * FindResource(Key const & key) const { return nullptr; }
-  };
-
   class UploadedRender
   {
   public:

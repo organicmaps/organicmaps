@@ -166,7 +166,7 @@ UNIT_TEST(UniformValueTest)
   }
 
   GpuProgramManager * manager = new GpuProgramManager();
-  RefPointer<GpuProgram> program = manager->GetProgram(gpu::SOLID_AREA_PROGRAM);
+  RefPointer<GpuProgram> program = manager->GetProgram(gpu::TEXTURING_PROGRAM);
 
   program->Bind();
 

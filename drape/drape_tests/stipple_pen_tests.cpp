@@ -1,10 +1,12 @@
 #include "../../testing/testing.hpp"
 
 #include "memory_comparer.hpp"
+#include "dummy_texture.hpp"
 
 #include "../glconstants.hpp"
 #include "../stipple_pen_resource.hpp"
 #include "../texture.hpp"
+
 
 #include "glmock_functions.hpp"
 
@@ -20,14 +22,6 @@ using namespace dp;
 
 namespace
 {
-  class DummyTexture : public Texture
-  {
-  public:
-    DummyTexture() {}
-
-    virtual ResourceInfo const * FindResource(Key const & key) const { return NULL; }
-  };
-
   void TestPacker(StipplePenPacker & packer, uint32_t width, m2::RectU const & expect)
   {
     m2::RectU rect = packer.PackResource(width);
@@ -410,11 +404,11 @@ UNIT_TEST(StippleMappingTest)
   info.m_pattern.push_back(10);
   info.m_pattern.push_back(10);
 
-  StipplePenResourceInfo const * r1 = index.MapResource(info);
+  RefPointer<Texture::ResourceInfo> r1 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.0f   / width, 1.0f / height,
                                                 241.0f / width, 1.0f / height)), ());
 
-  StipplePenResourceInfo const * r2 = index.MapResource(info);
+  RefPointer<Texture::ResourceInfo> r2 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), r2->GetTexRect()), ());
 
   info.m_pattern.clear();
@@ -451,7 +445,7 @@ UNIT_TEST(StippleMappingTest)
   StipplePenKey secInfo;
   secInfo.m_pattern.push_back(20);
   secInfo.m_pattern.push_back(20);
-  StipplePenResourceInfo const * r12 = index.MapResource(secInfo);
+  RefPointer<Texture::ResourceInfo> r12 = index.MapResource(secInfo);
   TEST(IsRectsEqual(r12->GetTexRect(), m2::RectF(1.0f   / width, 7.0f / height,
                                                  241.0f / width, 7.0f / height)), ());
 

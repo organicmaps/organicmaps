@@ -1,10 +1,10 @@
 #include "../../testing/testing.hpp"
 
 #include "memory_comparer.hpp"
+#include "dummy_texture.hpp"
 
 #include "../glconstants.hpp"
 #include "../texture_of_colors.hpp"
-#include "../texture_set_holder.hpp"
 #include "../texture.hpp"
 
 #include "glmock_functions.hpp"
@@ -21,13 +21,6 @@ using namespace dp;
 
 namespace
 {
-class SimpleTexture : public Texture
-{
-public:
-  SimpleTexture() {}
-
-  virtual ResourceInfo const * FindResource(Key const & key) const { return NULL; }
-};
 
 void TestRects(m2::RectF const & a, m2::RectF const & b)
 {
@@ -55,12 +48,12 @@ UNIT_TEST(ColorPalleteMappingTests)
 {
   ColorPalette cp(m2::PointU(32, 16));
 
-  ColorResourceInfo const * info1 = cp.MapResource(dp::Color(0, 0, 0, 0));
-  ColorResourceInfo const * info2 = cp.MapResource(dp::Color(1, 1, 1, 1));
-  ColorResourceInfo const * info3 = cp.MapResource(dp::Color(0, 0, 0, 0));
+  RefPointer<Texture::ResourceInfo> info1 = cp.MapResource(dp::Color(0, 0, 0, 0));
+  RefPointer<Texture::ResourceInfo> info2 = cp.MapResource(dp::Color(1, 1, 1, 1));
+  RefPointer<Texture::ResourceInfo> info3 = cp.MapResource(dp::Color(0, 0, 0, 0));
 
-  TEST_NOT_EQUAL(info1, info2, ());
-  TEST_EQUAL(info1, info3, ());
+  TEST_NOT_EQUAL(info1.GetRaw(), info2.GetRaw(), ());
+  TEST_EQUAL(info1.GetRaw(), info3.GetRaw(), ());
   TestRects(info1->GetTexRect(), m2::RectF(1.0f / 32.0f, 1.0f / 16,
                                            1.0f / 32.0f, 1.0f / 16));
   TestRects(info2->GetTexRect(), m2::RectF(3.0f / 32.0f, 1.0f / 16,
@@ -81,7 +74,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
   int const height = 16;
   InitOpenGLTextures(width, height);
 
-  SimpleTexture texture;
+  DummyTexture texture;
   texture.Create(width, height, dp::RGBA8);
   ColorPalette cp(m2::PointU(width, height));
   cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
@@ -147,7 +140,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
   int const height = 16;
   InitOpenGLTextures(width, height);
 
-  SimpleTexture texture;
+  DummyTexture texture;
   dp::ColorKey key(dp::Color(0, 0, 0, 0));
   texture.Create(width, height, dp::RGBA8);
   ColorPalette cp(m2::PointU(width, height));
@@ -222,7 +215,7 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
   int const height = 16;
   InitOpenGLTextures(width, height);
 
-  SimpleTexture texture;
+  DummyTexture texture;
   dp::ColorKey key(dp::Color(0, 0, 0, 0));
   texture.Create(width, height, dp::RGBA8);
   ColorPalette cp(m2::PointU(width, height));
