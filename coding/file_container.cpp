@@ -140,7 +140,7 @@ void FilesMappingContainer::Open(string const & fName)
     m_hFile = CreateFileA(fName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
     if (m_hFile == INVALID_HANDLE_VALUE)
       MYTHROW(Reader::OpenException, ("Can't open file:", fName, "win last error:", GetLastError()));
-    m_hMapping = CreateFileMappingA(m_hFile, NULL, PAGE_READONLY, 0, 0, fName.c_str());
+    m_hMapping = CreateFileMappingA(m_hFile, NULL, PAGE_READONLY, 0, 0, NULL);
     if (m_hMapping == NULL)
       MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fName, "win last error:", GetLastError()));
   #else
