@@ -205,9 +205,6 @@ UNIT_TEST(FilesContainer_RewriteExisting)
   FileWriter::DeleteFileX(fName);
 }
 
-// Currently FilesMappingContainer doesn't work for windows.
-#ifndef OMIM_OS_WINDOWS
-
 UNIT_TEST(FilesMappingContainer_Handle)
 {
   string const fName = "file_container.tmp";
@@ -326,5 +323,3 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 
   FileWriter::DeleteFileX(fName);
 }
-
-#endif  // OMIM_OS_WINDOWS

@@ -182,7 +182,12 @@ public:
 
 private:
   string m_name;
-  int m_fd;
+  #ifdef OMIM_OS_WINDOWS
+    void * m_hFile;
+    void * m_hMapping;
+  #else
+    int m_fd;
+  #endif
 };
 
 class FilesContainerW : public FilesContainerBase
