@@ -49,6 +49,15 @@ void iosOGLContext::setDefaultFramebuffer()
   glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
 }
 
+void iosOGLContext::resize(int /*w*/, int /*h*/)
+{
+  if (m_needBuffers && m_hasBuffers)
+  {
+    destroyBuffers();
+    initBuffers();
+  }
+}
+
 void iosOGLContext::initBuffers()
 {
   ASSERT(m_needBuffers, ());
@@ -92,9 +101,15 @@ void iosOGLContext::destroyBuffers()
 {
   if (m_needBuffers && m_hasBuffers)
   {
+    glFinish();
+    glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, 0);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
     glDeleteFramebuffers(1, &m_frameBufferId);
-    glDeleteBuffers(1, &m_renderBufferId);
-    glDeleteBuffers(1, &m_depthBufferId);
+    glDeleteRenderbuffers(1, &m_renderBufferId);
+    glDeleteRenderbuffers(1, &m_depthBufferId);
 
     m_hasBuffers = false;
   }

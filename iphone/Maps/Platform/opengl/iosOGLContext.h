@@ -15,6 +15,7 @@ public:
   virtual void makeCurrent();
   virtual void present();
   virtual void setDefaultFramebuffer();
+  virtual void resize(int w, int h);
 
 private:
   CAEAGLLayer * m_layer;

@@ -118,6 +118,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       m_viewport = rszMsg->GetViewport();
       m_view.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
                     m_viewport.GetWidth(), m_viewport.GetHeight());
+      m_contextFactory->getDrawContext()->resize(m_viewport.GetWidth(), m_viewport.GetHeight());
       RefreshProjection();
       RefreshModelView();
       ResolveTileKeys();
