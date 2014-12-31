@@ -12,7 +12,7 @@ class PathSymbolShape : public MapShape
 {
 public:
   PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params);
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
 
 private:
   PathSymbolViewParams m_params;

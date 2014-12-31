@@ -1,19 +1,18 @@
 #include "path_symbol_shape.hpp"
 #include "visual_params.hpp"
 
+#include "../drape/utils/vertex_decl.hpp"
 #include "../drape/glsl_types.hpp"
 #include "../drape/glsl_func.hpp"
 #include "../drape/overlay_handle.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
+#include "../drape/texture_manager.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
-#include "../drape/texture_set_holder.hpp"
 
 namespace df
 {
-
-int const VertexPerQuad = 4;
 
 PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
                                  PathSymbolViewParams const & params)
@@ -22,86 +21,51 @@ PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
 {
 }
 
-void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
-  buffer_vector<glsl::Quad3, 128> positions;
-  buffer_vector<glsl::Quad2, 128> normals;
-  buffer_vector<glsl::Quad3, 128> texCoord;
-
-  dp::TextureSetHolder::SymbolRegion region;
+  dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
+  m2::RectF const & rect = region.GetTexRect();
+
   m2::PointU pixelSize;
   region.GetPixelSize(pixelSize);
-  double pToGScale = 1.0 / m_params.m_baseGtoPScale;
-  double halfW = pixelSize.x / 2.0f;
-  double halfH = pixelSize.y / 2.0f;
+  float halfW = pixelSize.x / 2.0f;
+  float halfH = pixelSize.y / 2.0f;
+
+  gpu::TSolidTexVertexBuffer buffer;
 
   m2::Spline::iterator splineIter = m_spline.CreateIterator();
+  double pToGScale = 1.0 / m_params.m_baseGtoPScale;
   splineIter.Step(m_params.m_offset * pToGScale);
   float step = m_params.m_step * pToGScale;
+  glsl::vec2 dummy(0.0, 0.0);
   while (!splineIter.BeginAgain())
   {
-    glsl::dvec2 pos = glsl::dvec2(splineIter.m_pos.x, splineIter.m_pos.y);
-    glsl::dvec2 n = pToGScale * halfH * glsl::dvec2(-splineIter.m_dir.y, splineIter.m_dir.x);
-    glsl::dvec2 d = pToGScale * halfW * glsl::dvec2(splineIter.m_dir.x, splineIter.m_dir.y);
+    glsl::vec2 pivot = glsl::ToVec2(splineIter.m_pos);
+    glsl::vec2 n = halfH * glsl::normalize(glsl::vec2(-splineIter.m_dir.y, splineIter.m_dir.x));
+    glsl::vec2 d = halfW * glsl::normalize(glsl::vec2(splineIter.m_dir.x, splineIter.m_dir.y));
+    float nLength = glsl::length(n) * pToGScale;
+    float dLength = glsl::length(d) * pToGScale;
+    n = nLength * glsl::normalize(n);
+    d = dLength * glsl::normalize(d);
 
-    positions.push_back(glsl::Quad3(glsl::vec3(pos - d + n, m_params.m_depth),
-                                    glsl::vec3(pos - d - n, m_params.m_depth),
-                                    glsl::vec3(pos + d + n, m_params.m_depth),
-                                    glsl::vec3(pos + d - n, m_params.m_depth)));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot - d + n, m_params.m_depth), dummy, glsl::ToVec2(rect.LeftTop())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot - d - n, m_params.m_depth), dummy, glsl::ToVec2(rect.LeftBottom())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot + d + n, m_params.m_depth), dummy, glsl::ToVec2(rect.RightTop())));
+    buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot + d - n, m_params.m_depth), dummy, glsl::ToVec2(rect.RightBottom())));
     splineIter.Step(step);
   }
 
-  if (positions.empty())
+  if (buffer.empty())
     return;
 
-  normals.resize(positions.size(), glsl::Quad2(0.0f, 0.0f, 0.0f, 0.0f,
-                                               0.0f, 0.0f, 0.0f, 0.0f));
-
-  m2::RectF const & rect = region.GetTexRect();
-  float const textureNum = region.GetTextureNode().GetOffset();
-  texCoord.resize(positions.size(), glsl::Quad3(glsl::vec3(rect.minX(), rect.maxY(), textureNum),
-                                                glsl::vec3(rect.minX(), rect.minY(), textureNum),
-                                                glsl::vec3(rect.maxX(), rect.maxY(), textureNum),
-                                                glsl::vec3(rect.maxX(), rect.minY(), textureNum)));
-
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::DynamicGeometry);
-  state.SetTextureSet(region.GetTextureNode().m_textureSet);
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
+  state.SetColorTexture(region.GetTexture());
   state.SetBlending(dp::Blending(true));
 
-  dp::AttributeProvider provider(3, positions.size() * VertexPerQuad);
-  {
-    dp::BindingInfo position(1/*, PathSymbolHandle::PositionAttributeID*/);
-    dp::BindingDecl & decl = position.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(0, position, dp::MakeStackRefPointer(positions.data()));
-  }
-  {
-    dp::BindingInfo normal(1);
-    dp::BindingDecl & decl = normal.GetBindingDecl(0);
-    decl.m_attributeName = "a_normal";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(1, normal, dp::MakeStackRefPointer(normals.data()));
-  }
-  {
-    dp::BindingInfo texcoord(1);
-    dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
-    decl.m_attributeName = "a_texCoords";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(2, texcoord, dp::MakeStackRefPointer(texCoord.data()));
-  }
-
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), VertexPerQuad);
+  dp::AttributeProvider provider(1, 4 * buffer.size());
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(buffer.data()));
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
 }
 
 }
