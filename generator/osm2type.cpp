@@ -295,61 +295,37 @@ namespace ftype
       }
     };
 
-    /// Process synonym tags to match existing classificator types.
-    /// @todo We are planning to rewrite classificator <-> tags matching.
-    class do_replace_synonyms
-    {
-    public:
-      typedef bool result_type;
-
-      bool operator() (string & k, string & v) const
-      {
-        if (v == "yes")
-        {
-          if (k == "atm" || k == "restaurant")
-          {
-            k.swap(v);
-            k = "amenity";
-          }
-          else if (k == "hotel")
-          {
-            k.swap(v);
-            k = "tourism";
-          }
-        }
-
-        return false;
-      }
-    };
-
+    template< typename FuncT = void()>
     class TagProcessor
     {
       typedef struct {
         char const * key;
         char const * value;
-        function<void()> func;
+        function<FuncT> func;
       } RuleT;
 
       initializer_list<RuleT> m_rules;
 
     public:
-      typedef bool result_type;
+      TagProcessor(initializer_list<RuleT> rules) : m_rules(rules) {}
 
-      TagProcessor(initializer_list<RuleT> rules)
-      : m_rules(rules)
+      bool operator() (string & k, string & v) const
       {
+        for (auto const & e: m_rules)
+          if ((k == "*" || k == e.key) && (v == "*" || v == e.value))
+            apply(e.func, k, v);
+        return false;
       }
 
-      bool operator() (string const & k, string const & v)
-      {
-        for (auto e: m_rules)
-          if ((k == "*" || k == e.key) &&
-              (v == "*" || v == e.value))
-          {
-            e.func();
-          }
+    protected:
 
-        return false;
+      static void apply(function<void()> const & f, string & k, string & v) { f(); }
+      static void apply(function<void(string & , string &)> const & f, string & k, string & v) { f(k, v); }
+
+      template< typename F>
+      static void apply(function<F> const & f, string & k, string & v)
+      {
+        ASSERT(false,("inappropriate function for instansing"));
       }
     };
   }
@@ -368,7 +344,14 @@ namespace ftype
 
   void process_synonims(XMLElement * p)
   {
-    for_each_tag(p, do_replace_synonyms());
+    /// Process synonym tags to match existing classificator types.
+    /// @todo We are planning to rewrite classificator <-> tags matching.
+    TagProcessor<void(string &, string &)> replaceSynonyms({
+      { "atm", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
+      { "restaurant", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
+      { "hotel", "yes", [](string &k, string &v){ k.swap(v); k = "tourism"; }},
+    });
+    for_each_tag(p, bind<bool>(ref(replaceSynonyms), _1, _2));
   }
 
   void add_layers(XMLElement * p)
@@ -376,7 +359,7 @@ namespace ftype
     bool isLayer = false;
     char const *layer = nullptr;
 
-    TagProcessor setLayer({
+    TagProcessor<> setLayer({
       { "bridge", "yes", [&layer](){ layer = "1";}},
       { "tunnel", "yes", [&layer](){ layer = "-1";} },
       { "layer", "*", [&isLayer](){ isLayer = true;} },
@@ -498,7 +481,7 @@ namespace ftype
       if (types.IsHighway(params.m_Types[i]))
       {
 
-        TagProcessor addHighwayTypes({
+        TagProcessor<> addHighwayTypes({
           { "oneway", "yes", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
           { "oneway", "1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
           { "oneway", "-1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true;} },
