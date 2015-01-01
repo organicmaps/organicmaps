@@ -61,7 +61,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     public SafeAdapterRunnable(BaseDownloadAdapter adapter)
     {
-      mAdapterReference = new WeakReference<BaseDownloadAdapter>(adapter);
+      mAdapterReference = new WeakReference<>(adapter);
     }
 
     @Override

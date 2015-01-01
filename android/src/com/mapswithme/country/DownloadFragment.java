@@ -187,7 +187,8 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
         @Override
         public void onChanged()
         {
-          updateToolbar();
+          if (isAdded())
+            updateToolbar();
         }
       });
     }
@@ -205,7 +206,8 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
         @Override
         public void onChanged()
         {
-          updateToolbar();
+          if (isAdded())
+            updateToolbar();
         }
       });
     }
@@ -234,7 +236,8 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   @Override
   public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
-    updateToolbar();
+    if (isAdded())
+      updateToolbar();
   }
 
   @Override
@@ -243,6 +246,7 @@ public class DownloadFragment extends MWMListFragment implements View.OnClickLis
   @Override
   public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
   {
-    updateToolbar();
+    if (isAdded())
+      updateToolbar();
   }
 }
