@@ -86,7 +86,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     final Bundle args = getArguments();
     if (args != null)
     {
-      mSearchEt.setText(args.getString(SearchActivity.EXTRA_QUERY, ""));
+      mSearchEt.setText(args.getString(SearchActivity.EXTRA_QUERY));
       runSearch();
     }
 
@@ -308,6 +308,9 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   @SuppressWarnings("unused")
   public void updateData(final int count, final int resultID)
   {
+    if (!isAdded())
+      return;
+
     getActivity().runOnUiThread(new Runnable()
     {
       @Override
