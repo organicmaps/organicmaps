@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <type_traits>
 
-#include "../../../../../std/constexpr.hpp"
+#include "../../../../../std/msvc_cpp11_workarounds.hpp"
 
 CONSTEXPR_VALUE float COORDINATE_PRECISION = 1000000.f;
 

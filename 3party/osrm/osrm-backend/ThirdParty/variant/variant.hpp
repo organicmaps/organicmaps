@@ -12,9 +12,7 @@
 
 #include "recursive_wrapper.hpp"
 
-#include "../../../../../std/alignof.hpp"
-#include "../../../../../std/constexpr.hpp"
-#include "../../../../../std/noexcept.hpp"
+#include "../../../../../std/msvc_cpp11_workarounds.hpp"
 
 #ifdef _MSC_VER
  // http://msdn.microsoft.com/en-us/library/z8y1yy88.aspx

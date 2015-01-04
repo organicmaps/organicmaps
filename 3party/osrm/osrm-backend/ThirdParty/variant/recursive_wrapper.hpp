@@ -2,7 +2,7 @@
 #define MAPBOX_UTIL_VARIANT_RECURSIVE_WRAPPER_HPP
 
 #include <utility>
-#include "../../../../../std/noexcept.hpp"
+#include "../../../../../std/msvc_cpp11_workarounds.hpp"
 
 namespace mapbox { namespace util {
 
