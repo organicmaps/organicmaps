@@ -472,7 +472,7 @@ GlyphManager::Glyph GlyphManager::GetGlyph(strings::UniChar unicodePoint)
   return GetInvalidGlyph();
 }
 
-void GlyphManager::ForEachUnicodeBlock(GlyphManager::TUniBlockCallback const & fn)
+void GlyphManager::ForEachUnicodeBlock(GlyphManager::TUniBlockCallback const & fn) const
 {
   for (UnicodeBlock const & uni : m_impl->m_blocks)
     fn(uni.m_start, uni.m_end);

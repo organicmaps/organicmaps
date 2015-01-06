@@ -65,7 +65,7 @@ public:
   Glyph GetGlyph(strings::UniChar unicodePoints);
 
   typedef function<void (strings::UniChar start, strings::UniChar end)> TUniBlockCallback;
-  void ForEachUnicodeBlock(TUniBlockCallback const & fn);
+  void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
 
 private:
   Glyph GetInvalidGlyph() const;

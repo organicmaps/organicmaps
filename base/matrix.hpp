@@ -27,7 +27,7 @@ namespace math
       copy(data, data + Rows * Cols, m_data);
     }
 
-    Matrix(initializer_list<T> initList)
+    Matrix(initializer_list<T> const & initList)
     {
       ASSERT(initList.size() == Rows * Cols, ());
       copy(initList.begin(), initList.end(), m_data);

@@ -27,8 +27,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   textures->GetSymbolRegion(m_params.m_symbolName, region);
   m2::RectF const & rect = region.GetTexRect();
 
-  m2::PointU pixelSize;
-  region.GetPixelSize(pixelSize);
+  m2::PointU pixelSize = region.GetPixelSize();
   float halfW = pixelSize.x / 2.0f;
   float halfH = pixelSize.y / 2.0f;
 

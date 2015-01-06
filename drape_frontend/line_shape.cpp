@@ -8,9 +8,7 @@
 #include "../drape/batcher.hpp"
 #include "../drape/texture_manager.hpp"
 
-//#include "../base/math.hpp"
 #include "../base/logging.hpp"
-//#include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
 

@@ -48,4 +48,4 @@ HEADERS += \
     glmock_functions.hpp \
     memory_comparer.hpp \
     img.hpp \
-    dummy_texture.hpp
+    dummy_texture.hpp \

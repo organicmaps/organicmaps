@@ -94,7 +94,8 @@ public:
     params.m_minFilter = gl_const::GLLinear;
     params.m_magFilter = gl_const::GLLinear;
 
-    TBase::Init(MakeStackRefPointer(&m_index), params);
+    vector<uint8_t> initData(params.m_size.x * params.m_size.y, 0);
+    TBase::Init(MakeStackRefPointer(&m_index), params, MakeStackRefPointer<void>(initData.data()));
   }
 
   ~FontTexture() { TBase::Reset(); }

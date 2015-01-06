@@ -25,6 +25,7 @@ public:
   void CollectOverlayHandles(RefPointer<OverlayTree> tree);
   void Render(ScreenBase const & screen);
 
+  /// Only for testing! Don't use this function in production code!
   template <typename ToDo>
   void ForEachOverlay(ToDo const & todo)
   {

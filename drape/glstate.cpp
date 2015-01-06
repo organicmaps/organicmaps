@@ -96,7 +96,7 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program)
   RefPointer<Texture> tex = state.GetColorTexture();
   if (!tex.IsNull())
   {
-    int8_t colorTexLoc = program->GetUniformLocation("u_colorTex");
+    int8_t const colorTexLoc = program->GetUniformLocation("u_colorTex");
     GLFunctions::glActiveTexture(gl_const::GLTexture0);
     tex->Bind();
     GLFunctions::glUniformValuei(colorTexLoc, 0);
@@ -105,7 +105,7 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program)
   tex = state.GetMaskTexture();
   if (!tex.IsNull())
   {
-    int8_t maskTexLoc = program->GetUniformLocation("u_maskTex");
+    int8_t const maskTexLoc = program->GetUniformLocation("u_maskTex");
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
     tex->Bind();
     GLFunctions::glUniformValuei(maskTexLoc, 1);

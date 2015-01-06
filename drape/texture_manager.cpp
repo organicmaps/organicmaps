@@ -18,6 +18,9 @@
 namespace dp
 {
 
+uint32_t const STIPPLE_TEXTURE_SIZE = 1024;
+uint32_t const COLOR_TEXTURE_SIZE = 1024;
+
 bool TextureManager::BaseRegion::IsValid() const
 {
   return !m_info.IsNull() && !m_texture.IsNull();
@@ -33,12 +36,12 @@ void TextureManager::BaseRegion::SetTexture(RefPointer<Texture> texture)
   m_texture = texture;
 }
 
-void TextureManager::BaseRegion::GetPixelSize(m2::PointU & size) const
+m2::PointU TextureManager::BaseRegion::GetPixelSize() const
 {
   ASSERT(IsValid(), ());
   m2::RectF const & texRect = m_info->GetTexRect();
-  size.x = ceil(texRect.SizeX() * m_texture->GetWidth());
-  size.y = ceil(texRect.SizeY() * m_texture->GetHeight());
+  return  m2::PointU(ceil(texRect.SizeX() * m_texture->GetWidth()),
+                     ceil(texRect.SizeY() * m_texture->GetHeight()));
 }
 
 uint32_t TextureManager::BaseRegion::GetPixelHeight() const
@@ -124,15 +127,15 @@ void TextureManager::Init(Params const & params)
   symbols->Load(my::JoinFoldersToPath(string("resources-") + params.m_resPrefix, "symbols"));
   m_symbolTexture.Reset(symbols);
 
-  m_stipplePenTexture.Reset(new StipplePenTexture(m2::PointU(1024, 1024)));
-  m_colorTexture.Reset(new ColorTexture(m2::PointU(1024, 1024)));
+  m_stipplePenTexture.Reset(new StipplePenTexture(m2::PointU(STIPPLE_TEXTURE_SIZE, STIPPLE_TEXTURE_SIZE)));
+  m_colorTexture.Reset(new ColorTexture(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE)));
 
   m_glyphManager.Reset(new GlyphManager(params.m_glyphMngParams));
-  m_maxTextureSize = min(8192, GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
+  m_maxTextureSize = GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
 
-  uint32_t textureSquare = m_maxTextureSize * m_maxTextureSize;
-  uint32_t baseGlyphHeight = params.m_glyphMngParams.m_baseGlyphHeight;
-  uint32_t avarageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
+  uint32_t const textureSquare = m_maxTextureSize * m_maxTextureSize;
+  uint32_t const baseGlyphHeight = params.m_glyphMngParams.m_baseGlyphHeight;
+  uint32_t const avarageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
 
   m_glyphGroups.push_back(GlyphGroup());
   uint32_t glyphCount = ceil(0.9 * textureSquare / avarageGlyphSquare);
@@ -148,9 +151,7 @@ void TextureManager::Init(Params const & params)
     ASSERT_LESS_OR_EQUAL(group.m_endChar, start, ());
 
     if (end - group.m_startChar < glyphCount)
-    {
       group.m_endChar = end;
-    }
     else
       m_glyphGroups.push_back(GlyphGroup(start, end));
   });
@@ -197,7 +198,7 @@ void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuf
   size_t groupIndex = INVALID_GROUP;
   for (strings::UniChar const & c : text)
   {
-    auto iter = lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c, [](GlyphGroup const & g, strings::UniChar const & c)
+    auto const iter = lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c, [](GlyphGroup const & g, strings::UniChar const & c)
     {
       return g.m_endChar < c;
     });
@@ -215,7 +216,7 @@ void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuf
   regions.reserve(text.size());
   if (groupIndex == INVALID_GROUP)
   {
-    /// some magic with hybrid textures
+    /// TODO some magic with hybrid textures
   }
   else
   {

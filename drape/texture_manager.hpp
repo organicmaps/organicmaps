@@ -21,7 +21,7 @@ public:
     RefPointer<Texture> GetTexture() const { return m_texture; }
     bool IsValid() const;
 
-    void GetPixelSize(m2::PointU & size) const;
+    m2::PointU GetPixelSize() const;
     uint32_t GetPixelHeight() const;
     m2::RectF const & GetTexRect() const;
 

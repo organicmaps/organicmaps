@@ -22,8 +22,7 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
-  m2::PointU pixelSize;
-  region.GetPixelSize(pixelSize);
+  m2::PointU pixelSize = region.GetPixelSize();
   m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
   m2::RectF const & texRect = region.GetTexRect();
 

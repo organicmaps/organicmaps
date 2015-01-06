@@ -308,7 +308,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
                                gpu::TTextDynamicVertexBuffer & dynamicBuffer) const
 {
   size_t beginOffset = 0;
-  for (pair<size_t, glsl::vec2> node : m_offsets)
+  for (pair<size_t, glsl::vec2> const & node : m_offsets)
   {
     size_t endOffset = node.first;
     StraigthTextGeometryGenerator generator(pivot, pixelOffset + node.second, m_textSizeRatio,

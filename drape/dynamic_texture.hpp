@@ -45,10 +45,13 @@ protected:
 
   void Init(RefPointer<TIndexer> indexer, TextureParams const & params)
   {
+    Init(indexer, params, MakeStackRefPointer<void>(nullptr));
+  }
+
+  void Init(RefPointer<TIndexer> indexer, TextureParams const & params, RefPointer<void> data)
+  {
     m_indexer = indexer;
-    vector<uint8_t> buf(params.m_size.x * params.m_size.y * 4, 0);
-    Create(params.m_size.x, params.m_size.y, params.m_format, MakeStackRefPointer<void>(buf.data()));
-    //Create(params.m_size.x, params.m_size.y, params.m_format);
+    Create(params.m_size.x, params.m_size.y, params.m_format, data);
     SetFilterParams(params.m_minFilter, params.m_magFilter);
   }
 
