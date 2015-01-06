@@ -57,7 +57,7 @@ void RenderBucket::Render(ScreenBase const & screen)
 
     for_each(m_overlay.begin(), m_overlay.end(), [&] (MasterPointer<OverlayHandle> handle)
     {
-      if (handle->IsVisible())
+      if (handle->IsValid() && handle->IsVisible())
       {
         handle->GetElementIndexes(rfpIndex);
         if (handle->HasDynamicAttributes())

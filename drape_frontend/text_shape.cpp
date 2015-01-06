@@ -144,7 +144,7 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
                                                       baseOffset,
                                                       m_params.m_depth);
 
-  dp::AttributeProvider provider(2, 4 * layout.GetGlyphCount());
+  dp::AttributeProvider provider(2, staticBuffer.size());
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(staticBuffer.data()));
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynamicBuffer.data()));
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);

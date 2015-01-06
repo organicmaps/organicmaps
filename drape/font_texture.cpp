@@ -40,7 +40,6 @@ GlyphPacker::GlyphPacker(const m2::PointU & size)
 
 bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
 {
-  ASSERT(!IsFull(), ());
   ASSERT_LESS(width, m_size.x, ());
   ASSERT_LESS(height, m_size.y, ());
 
@@ -123,7 +122,7 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     {
       ranges.push_back(i);
       maxHeights.push_back(maxHeight);
-      maxHeight = 0;
+      maxHeight = currentNode.first.SizeY();
     }
   }
   maxHeights.push_back(maxHeight);

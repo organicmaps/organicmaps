@@ -25,6 +25,13 @@ public:
   void CollectOverlayHandles(RefPointer<OverlayTree> tree);
   void Render(ScreenBase const & screen);
 
+  template <typename ToDo>
+  void ForEachOverlay(ToDo const & todo)
+  {
+    for (MasterPointer<OverlayHandle> & h : m_overlay)
+      todo(h.GetRaw());
+  }
+
 private:
   vector<MasterPointer<OverlayHandle> > m_overlay;
   MasterPointer<VertexArrayBuffer> m_buffer;
