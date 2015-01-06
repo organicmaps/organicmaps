@@ -6,12 +6,11 @@
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
-#include "../drape/texture_of_colors.hpp"
-#include "../drape/texture_set_holder.hpp"
+#include "../drape/texture_manager.hpp"
 
-#include "../base/math.hpp"
+//#include "../base/math.hpp"
 #include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
+//#include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
 
@@ -101,45 +100,47 @@ public:
     return m_isSolid;
   }
 
-  int32_t GetTextureSet() const
-  {
-    ASSERT(m_colorRegion.IsValid(), ());
-    ASSERT(m_stippleRegion.IsValid(), ());
-    ASSERT(m_colorRegion.GetTextureNode().m_textureSet == m_stippleRegion.GetTextureNode().m_textureSet, ());
-    return m_colorRegion.GetTextureNode().m_textureSet;
-  }
-
-  void SetColorParams(dp::TextureSetHolder::ColorRegion const & color)
+  void SetColorParams(dp::TextureManager::ColorRegion const & color)
   {
     m_colorRegion = color;
   }
 
-  glsl::vec3 GetColorItem() const
+  glsl::vec2 GetColorCoord() const
   {
     ASSERT(m_colorRegion.IsValid(), ());
-    m2::PointF const texCoord = m_colorRegion.GetTexRect().Center();
-    return glsl::vec3(texCoord.x, texCoord.y, m_colorRegion.GetTextureNode().GetOffset());
+    return glsl::ToVec2(m_colorRegion.GetTexRect().Center());
   }
 
-  void SetMaskParams(dp::TextureSetHolder::StippleRegion const & stippleRegion, bool isSolid)
+  dp::RefPointer<dp::Texture> GetColorTexture() const
+  {
+    ASSERT(m_colorRegion.IsValid(), ());
+    return m_colorRegion.GetTexture();
+  }
+
+  dp::RefPointer<dp::Texture> GetMaskTexture() const
+  {
+    ASSERT(m_stippleRegion.IsValid(), ());
+    return m_stippleRegion.GetTexture();
+  }
+
+  void SetMaskParams(dp::TextureManager::StippleRegion const & stippleRegion, bool isSolid)
   {
     m_stippleRegion = stippleRegion;
     m_isSolid = isSolid;
   }
 
-  dp::TextureSetHolder::StippleRegion const & GetStippleMaskItem() const
+  dp::TextureManager::StippleRegion const & GetStippleMaskItem() const
   {
     ASSERT(!IsSolid(), ());
     ASSERT(m_stippleRegion.IsValid(), ());
     return m_stippleRegion;
   }
 
-  glsl::vec3 GetSolidMaskItem() const
+  glsl::vec2 GetSolidMaskCoord() const
   {
     ASSERT(IsSolid(), ());
     ASSERT(m_stippleRegion.IsValid(), ());
-    m2::PointF const texCoord = m_stippleRegion.GetTexRect().Center();
-    return glsl::vec3(texCoord.x, texCoord.y, m_stippleRegion.GetTextureNode().GetOffset());
+    return glsl::ToVec2(m_stippleRegion.GetTexRect().Center());
   }
 
   glsl::vec2 GetNextPoint()
@@ -258,8 +259,8 @@ private:
   int m_iterIndex = 0;
   int m_partGenerated = 1;
 
-  dp::TextureSetHolder::ColorRegion m_colorRegion;
-  dp::TextureSetHolder::StippleRegion m_stippleRegion;
+  dp::TextureManager::ColorRegion m_colorRegion;
+  dp::TextureManager::StippleRegion m_stippleRegion;
   bool m_isSolid = true;
 
   float m_GtoPScale;
@@ -276,22 +277,20 @@ LineShape::LineShape(m2::SharedSpline const & spline,
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
 }
 
-void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
   LineEnumerator enumerator(m_spline->GetPath(), m_params.m_baseGtoPScale, m_params.m_cap != dp::ButtCap);
 
-  dp::TextureSetHolder::ColorRegion colorRegion;
+  dp::TextureManager::ColorRegion colorRegion;
   textures->GetColorRegion(m_params.m_color, colorRegion);
   enumerator.SetColorParams(colorRegion);
 
-  dp::StipplePenKey maskKey;
+  dp::TextureManager::StippleRegion maskRegion;
   if (!m_params.m_pattern.empty())
-    maskKey = dp::StipplePenKey(m_params.m_pattern);
+    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
   else
-    maskKey = dp::StipplePenKey::Solid();
+    textures->GetStippleRegion(dp::TextureManager::TStipplePattern{1}, maskRegion);
 
-  dp::TextureSetHolder::StippleRegion maskRegion;
-  textures->GetStippleRegion(maskKey, maskRegion);
   enumerator.SetMaskParams(maskRegion, m_params.m_pattern.empty());
 
   float const joinType = m_params.m_join == dp::RoundJoin ? 1 : 0;
@@ -314,8 +313,8 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   vector<glsl::vec3> dxValsArray;
   vector<glsl::vec4> centersArray;
   vector<glsl::vec4> widthTypeArray;
-  vector<glsl::vec3> colorArray;
-  vector<glsl::vec3> maskArray;
+  vector<glsl::vec2> colorArray;
+  vector<glsl::vec2> maskArray;
 
   vertexArray.reserve(vertexCount);
   dxValsArray.reserve(vertexCount);
@@ -406,12 +405,11 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   ASSERT_EQUAL(vertexArray.size(), widthTypeArray.size(), ());
   ASSERT_EQUAL(vertexArray.size() % 4, 0, ());
 
-  colorArray.resize(vertexArray.size(), enumerator.GetColorItem());
+  colorArray.resize(vertexArray.size(), enumerator.GetColorCoord());
 
   if (!enumerator.IsSolid())
   {
-    dp::TextureSetHolder::StippleRegion const & region = enumerator.GetStippleMaskItem();
-    float const stippleTexOffset = region.GetTextureNode().GetOffset();
+    dp::TextureManager::StippleRegion const & region = enumerator.GetStippleMaskItem();
     m2::RectF const & stippleRect = region.GetTexRect();
 
     float const maskTexLength = region.GetMaskPixelLength() / stippleRect.SizeX();
@@ -436,10 +434,10 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
       dx3 *= lengthTex;
       dx4 *= lengthTex;
 
-      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + dx1 + f1, stippleRect.minY(), stippleTexOffset));
-      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + dx2 + f1, stippleRect.maxY(), stippleTexOffset));
-      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + length2 + dx3, stippleRect.minY(), stippleTexOffset));
-      maskArray.push_back(glsl::vec3(stippleRect.minX() + patternStart + length2 + dx4, stippleRect.maxY(), stippleTexOffset));
+      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + dx1 + f1, stippleRect.minY()));
+      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + dx2 + f1, stippleRect.maxY()));
+      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + length2 + dx3, stippleRect.minY()));
+      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + length2 + dx4, stippleRect.maxY()));
 
       patternStart += length2;
       while (patternStart >= patternTexLength)
@@ -447,11 +445,12 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     }
   }
   else
-    maskArray.resize(vertexArray.size(), enumerator.GetSolidMaskItem());
+    maskArray.resize(vertexArray.size(), enumerator.GetSolidMaskCoord());
 
-  dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetTextureSet(enumerator.GetTextureSet());
+  dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
   state.SetBlending(dp::Blending(true));
+  state.SetColorTexture(enumerator.GetColorTexture());
+  state.SetMaskTexture(enumerator.GetMaskTexture());
 
   dp::AttributeProvider provider(6, vertexArray.size());
 
@@ -463,7 +462,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer((void*)vertexArray.data()));
+    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer<void>(vertexArray.data()));
   }
   {
     dp::BindingInfo deltas(1);
@@ -474,7 +473,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(1, deltas, dp::MakeStackRefPointer((void*)dxValsArray.data()));
+    provider.InitStream(1, deltas, dp::MakeStackRefPointer<void>(dxValsArray.data()));
   }
   {
     dp::BindingInfo width_type(1);
@@ -485,7 +484,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(2, width_type, dp::MakeStackRefPointer((void*)widthTypeArray.data()));
+    provider.InitStream(2, width_type, dp::MakeStackRefPointer<void>(widthTypeArray.data()));
   }
   {
     dp::BindingInfo centres(1);
@@ -496,30 +495,30 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(3, centres, dp::MakeStackRefPointer((void*)centersArray.data()));
+    provider.InitStream(3, centres, dp::MakeStackRefPointer<void>(centersArray.data()));
   }
   {
     dp::BindingInfo colorBinding(1);
     dp::BindingDecl & decl = colorBinding.GetBindingDecl(0);
     decl.m_attributeName = "a_color";
-    decl.m_componentCount = 3;
+    decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(4, colorBinding, dp::MakeStackRefPointer((void*)colorArray.data()));
+    provider.InitStream(4, colorBinding, dp::MakeStackRefPointer<void>(colorArray.data()));
   }
 
   {
     dp::BindingInfo ind(1);
     dp::BindingDecl & decl = ind.GetBindingDecl(0);
     decl.m_attributeName = "a_mask";
-    decl.m_componentCount = 3;
+    decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(5, ind, dp::MakeStackRefPointer((void*)maskArray.data()));
+    provider.InitStream(5, ind, dp::MakeStackRefPointer<void>(maskArray.data()));
   }
 
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
