@@ -41,6 +41,7 @@ protected:
 
 private:
   void DrawImpl();
+  void DrawRects();
   void ModelViewInit();
   void ProjectionInit();
   void OnFlushData(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> vao);
@@ -56,8 +57,12 @@ private:
   typedef map<dp::GLState, vector<dp::MasterPointer<dp::RenderBucket> > > TScene;
   TScene m_scene;
   ScreenBase m_modelView;
+  float m_angle = 0.0;
 
   dp::UniformValuesStorage m_generalUniforms;
+
+  vector<m2::RectD> m_boundRects;
+  vector<dp::OverlayHandle::Rects> m_rects;
 };
 
 } // namespace df

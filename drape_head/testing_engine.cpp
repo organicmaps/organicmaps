@@ -295,9 +295,15 @@ void TestingEngine::Draw()
     m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
     DrawImpl();
     m_batcher->EndSession();
+    m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
+    DrawRects();
+    m_batcher->EndSession();
     m_textures->UpdateDynamicTextures();
     isInitialized = true;
   }
+
+  ModelViewInit();
+  m_angle += 0.005;
 
   dp::OGLContext * context = m_contextFactory->getDrawContext();
   context->setDefaultFramebuffer();
@@ -372,48 +378,66 @@ void TestingEngine::DrawImpl()
   TextShape sh1(m2::PointF(82.277071f, 56.9271164f), params);
   sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-  LineViewParams lp;
-  lp.m_width = 3.0f;
-  lp.m_color = dp::Color::Red();
-  lp.m_baseGtoPScale = 1.0f;
-  lp.m_depth = 100.0f;
+  vector<m2::PointD> path;
+  path.push_back(m2::PointD(92.277071f, 50.9271164f));
+  path.push_back(m2::PointD(98.277071f, 50.9271164f));
+  path.push_back(m2::PointD(106.277071f, 47.9271164f));
 
+  m2::SharedSpline spline(path);
+  PathTextViewParams ptvp;
+  ptvp.m_baseGtoPScale = 1.0f / m_modelView.GetScale();
+  ptvp.m_depth = 100.0f;
+  ptvp.m_text = "Some text along path";
+  ptvp.m_textFont = FontDecl(dp::Color::Black(), 40);
+
+  PathTextShape(spline, ptvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  LineViewParams lvp;
+  lvp.m_baseGtoPScale = ptvp.m_baseGtoPScale;
+  lvp.m_depth = 90.0f;
+  lvp.m_cap = dp::RoundCap;
+  lvp.m_color = dp::Color::Red();
+  lvp.m_width = 3.0f;
+  lvp.m_join = dp::BevelJoin;
+  LineShape(spline, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+}
+
+void TestingEngine::DrawRects()
+{
+  LineViewParams lvp;
+  lvp.m_baseGtoPScale = m_modelView.GetScale();
+  lvp.m_depth = 0.0f;
+  lvp.m_cap = dp::RoundCap;
+  lvp.m_join = dp::RoundJoin;
+  lvp.m_color = dp::Color::Red();
+  lvp.m_width = 3.0f;
+
+  auto drawRectFn = [&lvp, this](m2::RectD const & r)
   {
-    float dd[] =
+    if ((r.LeftBottom() - r.RightTop()).IsAlmostZero())
+      return;
+
+    vector<m2::PointD> path
     {
-      79.349274307266398, 56.927116394042969,
-      85.204863876327352, 55.58033079315895
+      m_modelView.PtoG(r.LeftBottom()),
+      m_modelView.PtoG(r.LeftTop()),
+      m_modelView.PtoG(r.RightTop()),
+      m_modelView.PtoG(r.RightBottom()),
+      m_modelView.PtoG(r.LeftBottom())
     };
 
-    vector<m2::PointD> path;
-    path.push_back(m2::PointD(dd[0], dd[1]));
-    path.push_back(m2::PointD(dd[2], dd[1]));
-    path.push_back(m2::PointD(dd[2], dd[3]));
-    path.push_back(m2::PointD(dd[0], dd[3]));
-    path.push_back(m2::PointD(dd[0], dd[1]));
     m2::SharedSpline spline(path);
+    LineShape(spline, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  };
 
-    LineShape shL(spline, lp);
-    shL.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
-  }
+  for (m2::RectD const & r : m_boundRects)
+    drawRectFn(r);
 
+  lvp.m_color = dp::Color::White();
+  lvp.m_depth = 10.0f;
+  for (dp::OverlayHandle::Rects const & rr : m_rects)
   {
-    float dd[] =
-    {
-      78.295268184835421, 59.064406586750223,
-      86.258869998758328, 56.927116394042969,
-    };
-
-    vector<m2::PointD> path;
-    path.push_back(m2::PointD(dd[0], dd[1]));
-    path.push_back(m2::PointD(dd[2], dd[1]));
-    path.push_back(m2::PointD(dd[2], dd[3]));
-    path.push_back(m2::PointD(dd[0], dd[3]));
-    path.push_back(m2::PointD(dd[0], dd[1]));
-    m2::SharedSpline spline(path);
-
-    LineShape shL(spline, lp);
-    shL.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+    for (m2::RectF const & r : rr)
+      drawRectFn(m2::RectD(r));
   }
 }
 
@@ -423,6 +447,15 @@ void TestingEngine::ModelViewInit()
   {   34.1554f,      0.0f, 0.0f,
           0.0f, -34.1554f, 0.0f,
      -2639.46f,  2080.99f, 1.0f};
+
+//  math::Matrix<double, 3, 3> m = math::Inverse(math::Shift(
+//                                                 math::Rotate(
+//                                                   math::Scale(
+//                                                     math::Shift(math::Identity<double, 3>(),
+//                                                                 -m_modelView.PixelRect().Center()),
+//                                                               1.0f /34.1554f, 1.0f / -34.1554f),
+//                                                   m_angle),
+//                                                 92.277071f, 50.9271164f));
 
   m_modelView.SetGtoPMatrix(m);
   m = m_modelView.GtoPMatrix();
@@ -465,6 +498,16 @@ void TestingEngine::OnFlushData(dp::GLState const & state, dp::TransferPointer<d
   dp::MasterPointer<dp::RenderBucket> bucket(vao);
   bucket->GetBuffer()->Build(m_programManager->GetProgram(state.GetProgramIndex()));
   m_scene[state].push_back(bucket);
+  bucket->ForEachOverlay([this](dp::OverlayHandle * handle)
+  {
+    handle->Update(m_modelView);
+    if (handle->IsValid())
+    {
+      m_boundRects.push_back(handle->GetPixelRect(m_modelView));
+      m_rects.resize(m_rects.size() + 1);
+      handle->GetPixelShape(m_modelView, m_rects.back());
+    }
+  });
 }
 
 void TestingEngine::ClearScene()

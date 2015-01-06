@@ -4,4 +4,4 @@
 
 class QPaintDevice;
 typedef function<void (QPaintDevice *)> TRednerFn;
-void RunTestLoop(char const * testName, TRednerFn const & fn, bool autoExit = false);
+void RunTestLoop(char const * testName, TRednerFn const & fn, bool autoExit = true);
