@@ -76,6 +76,34 @@ Spline::iterator::iterator()
   , m_index(0)
   , m_dist(0) {}
 
+Spline::iterator::iterator(Spline::iterator const & other)
+{
+  m_checker = other.m_checker;
+  m_spl = other.m_spl;
+  m_index = other.m_index;
+  m_dist = other.m_dist;
+
+  m_pos = other.m_pos;
+  m_dir = other.m_dir;
+  m_avrDir = other.m_avrDir;
+}
+
+Spline::iterator & Spline::iterator::operator=(Spline::iterator const & other)
+{
+  if (this == &other)
+    return *this;
+
+  m_checker = other.m_checker;
+  m_spl = other.m_spl;
+  m_index = other.m_index;
+  m_dist = other.m_dist;
+
+  m_pos = other.m_pos;
+  m_dir = other.m_dir;
+  m_avrDir = other.m_avrDir;
+  return *this;
+}
+
 void Spline::iterator::Attach(Spline const & spl)
 {
   m_spl = &spl;
@@ -87,44 +115,12 @@ void Spline::iterator::Attach(Spline const & spl)
   m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
 }
 
-void Spline::iterator::Step(double speed)
+void Spline::iterator::Advance(double step)
 {
-  m_dist += speed;
-  if (m_checker)
-  {
-    m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
-    return;
-  }
-  while (m_dist > m_spl->m_length[m_index])
-  {
-    m_dist -= m_spl->m_length[m_index];
-    m_index++;
-    if (m_index >= m_spl->m_direction.size())
-    {
-      m_index--;
-      m_dist += m_spl->m_length[m_index];
-      m_checker = true;
-      break;
-    }
-  }
-  m_dir = m_spl->m_direction[m_index];
-  m_avrDir = -m_pos;
-  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
-  m_avrDir += m_pos;
-}
-
-void Spline::iterator::StepBack(double speed)
-{
-  m_dist -= speed;
-  while(m_dist < 0.0f)
-  {
-    m_index--;
-    m_dist += m_spl->m_length[m_index];
-  }
-  m_dir = m_spl->m_direction[m_index];
-  m_avrDir = -m_pos;
-  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
-  m_avrDir += m_pos;
+  if (step < 0.0)
+    AdvanceBackward(step);
+  else
+    AdvanceForward(step);
 }
 
 double Spline::iterator::GetLength() const
@@ -150,6 +146,57 @@ double Spline::iterator::GetDistance() const
 int Spline::iterator::GetIndex() const
 {
   return m_index;
+}
+
+void Spline::iterator::AdvanceBackward(double step)
+{
+  m_dist += step;
+  while(m_dist < 0.0f)
+  {
+    m_index--;
+    if (m_index < 0)
+    {
+      m_index = 0;
+      m_checker = true;
+      m_pos = m_spl->m_position[m_index];
+      m_dir = m_spl->m_direction[m_index];
+      m_avrDir = m2::PointD::Zero();
+      m_dist = 0.0;
+      return;
+    }
+
+    m_dist += m_spl->m_length[m_index];
+  }
+  m_dir = m_spl->m_direction[m_index];
+  m_avrDir = -m_pos;
+  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
+  m_avrDir += m_pos;
+}
+
+void Spline::iterator::AdvanceForward(double step)
+{
+  m_dist += step;
+  if (m_checker)
+  {
+    m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
+    return;
+  }
+  while (m_dist > m_spl->m_length[m_index])
+  {
+    m_dist -= m_spl->m_length[m_index];
+    m_index++;
+    if (m_index >= m_spl->m_direction.size())
+    {
+      m_index--;
+      m_dist += m_spl->m_length[m_index];
+      m_checker = true;
+      break;
+    }
+  }
+  m_dir = m_spl->m_direction[m_index];
+  m_avrDir = -m_pos;
+  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
+  m_avrDir += m_pos;
 }
 
 SharedSpline::SharedSpline(vector<PointD> const & path)

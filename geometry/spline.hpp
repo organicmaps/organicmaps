@@ -17,10 +17,13 @@ public:
     PointD m_pos;
     PointD m_dir;
     PointD m_avrDir;
+
     iterator();
+    iterator(iterator const & other);
+    iterator & operator=(iterator const & other);
+
     void Attach(Spline const & spl);
-    void Step(double speed);
-    void StepBack(double speed);
+    void Advance(double step);
     bool BeginAgain() const;
     double GetLength() const;
     double GetFullLength() const;
@@ -29,6 +32,9 @@ public:
     friend class Spline;
     double GetDistance() const;
     int GetIndex() const;
+
+    void AdvanceForward(double step);
+    void AdvanceBackward(double step);
 
   private:
     bool m_checker;

@@ -29,11 +29,7 @@ class TextLayout
 {
 
 public:
-  enum class LayoutType
-  {
-    StraightLayout,
-    PathLayout
-  };
+  virtual ~TextLayout() {}
 
   dp::RefPointer<dp::Texture> GetMaskTexture() const;
 
@@ -41,23 +37,17 @@ public:
 
   float GetPixelLength() const;
   float GetPixelHeight() const;
-  LayoutType GetType() const { return m_type; }
 
 protected:
-  TextLayout(LayoutType type);
   void Init(strings::UniString const & text,
             float fontSize,
             dp::RefPointer<dp::TextureManager> textures);
-
 
 protected:
   typedef dp::TextureManager::GlyphRegion GlyphRegion;
 
   dp::TextureManager::TGlyphsBuffer m_metrics;
   float m_textSizeRatio = 0.0;
-
-private:
-  LayoutType m_type;
 };
 
 class StraightTextLayout : public TextLayout
@@ -69,11 +59,11 @@ public:
                      dp::RefPointer<dp::TextureManager> textures,
                      dp::Anchor anchor);
 
-  void Cache(glm::vec3 const & pivot, glsl::vec2 const & pixelOffset,
-                   dp::TextureManager::ColorRegion const & colorRegion,
-                   dp::TextureManager::ColorRegion const & outlineRegion,
-                   gpu::TTextStaticVertexBuffer & staticBuffer,
-                   gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+  void Cache(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
+             dp::TextureManager::ColorRegion const & colorRegion,
+             dp::TextureManager::ColorRegion const & outlineRegion,
+             gpu::TTextStaticVertexBuffer & staticBuffer,
+             gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
   m2::PointU const & GetPixelSize() const { return m_pixelSize; }
 
@@ -82,19 +72,37 @@ private:
   m2::PointU m_pixelSize;
 };
 
+class PathTextLayout : public TextLayout
+{
+  typedef TextLayout TBase;
+public:
+  PathTextLayout(strings::UniString const & text,
+                 float fontSize, dp::RefPointer<dp::TextureManager> textures);
+
+  void CacheStaticGeometry(glsl::vec3 const & pivot,
+                           dp::TextureManager::ColorRegion const & colorRegion,
+                           dp::TextureManager::ColorRegion const & outlineRegion,
+                           gpu::TTextStaticVertexBuffer & staticBuffer) const;
+
+  bool CacheDynamicGeometry(m2::Spline::iterator const & iter,
+                            ScreenBase const & screen,
+                            gpu::TTextDynamicVertexBuffer & buffer) const;
+};
+
 class SharedTextLayout
 {
 public:
-  SharedTextLayout(TextLayout * layout);
+  SharedTextLayout(PathTextLayout * layout);
 
   bool IsNull() const;
-  void Reset(TextLayout * layout);
+  void Reset(PathTextLayout * layout);
+  PathTextLayout * GetRaw();
 
-  TextLayout * operator->();
-  TextLayout const * operator->() const;
+  PathTextLayout * operator->();
+  PathTextLayout const * operator->() const;
 
 private:
-  shared_ptr<TextLayout> m_layout;
+  shared_ptr<PathTextLayout> m_layout;
 };
 
 }

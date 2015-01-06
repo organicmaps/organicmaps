@@ -13,7 +13,7 @@ class PathTextShape : public MapShape
 public:
   PathTextShape(m2::SharedSpline const & spline,
                 PathTextViewParams const & params);
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
 
 private:
   m2::SharedSpline m_spline;

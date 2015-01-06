@@ -36,7 +36,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
 
   m2::Spline::iterator splineIter = m_spline.CreateIterator();
   double pToGScale = 1.0 / m_params.m_baseGtoPScale;
-  splineIter.Step(m_params.m_offset * pToGScale);
+  splineIter.Advance(m_params.m_offset * pToGScale);
   float step = m_params.m_step * pToGScale;
   glsl::vec2 dummy(0.0, 0.0);
   while (!splineIter.BeginAgain())
@@ -53,7 +53,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
     buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot - d - n, m_params.m_depth), dummy, glsl::ToVec2(rect.LeftBottom())));
     buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot + d + n, m_params.m_depth), dummy, glsl::ToVec2(rect.RightTop())));
     buffer.push_back(gpu::SolidTexturingVertex(glsl::vec3(pivot + d - n, m_params.m_depth), dummy, glsl::ToVec2(rect.RightBottom())));
-    splineIter.Step(step);
+    splineIter.Advance(step);
   }
 
   if (buffer.empty())

@@ -357,7 +357,7 @@ void ApplyLineFeature::Finish()
     while (!it.BeginAgain())
     {
       m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new TextShape(it.m_pos, viewParams)));
-      it.Step(splineStep);
+      it.Advance(splineStep);
     }
   }
 }

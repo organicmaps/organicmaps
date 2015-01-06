@@ -7,7 +7,6 @@
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
-#include "../drape/texture_set_holder.hpp"
 
 #include "../base/math.hpp"
 #include "../base/logging.hpp"
@@ -25,27 +24,9 @@ using m2::Spline;
 
 namespace
 {
-  struct AccumulateRect
-  {
-    ScreenBase const & m_screen;
-    m2::RectD m_pixelRect;
-    AccumulateRect(ScreenBase const & screen)
-      : m_screen(screen)
-    {
-    }
-
-    void operator()(m2::PointF const & pt)
-    {
-      m_pixelRect.Add(m_screen.GtoP(pt));
-    }
-
-  };
-
   class PathTextHandle : public dp::OverlayHandle
   {
   public:
-    static const uint8_t PathGlyphPositionID = 1;
-
     PathTextHandle(m2::SharedSpline const & spl,
                    df::SharedTextLayout const & layout,
                    float const mercatorOffset,
@@ -53,151 +34,75 @@ namespace
       : OverlayHandle(FeatureID(), dp::Center, depth)
       , m_spline(spl)
       , m_layout(layout)
-      , m_splineOffset(mercatorOffset)
     {
+      m_centerPointIter = m_spline.CreateIterator();
+      m_centerPointIter.Advance(mercatorOffset);
+      m_normals.resize(4 * m_layout->GetGlyphCount());
     }
 
     void Update(ScreenBase const & screen)
     {
-      m_scalePtoG = screen.GetScale();
-      GetBegEnd(m_begin, m_end);
-
-      SetIsValid(!m_begin.BeginAgain() && !m_end.BeginAgain());
-      if (!IsValid())
+      if (m_layout->CacheDynamicGeometry(m_centerPointIter, screen, m_normals))
+      {
+        SetIsValid(true);
         return;
+      }
 
-      if (screen.GtoP(m_end.m_pos).x < screen.GtoP(m_begin.m_pos).x)
-        m_isForward = false;
-      else
-        m_isForward = true;
+      SetIsValid(false);
     }
 
     m2::RectD GetPixelRect(ScreenBase const & screen) const
     {
       ASSERT(IsValid(), ());
-      ASSERT(!m_begin.BeginAgain(), ());
-      ASSERT(!m_end.BeginAgain(), ());
 
-      AccumulateRect f(screen);
-      m_spline->ForEachNode(m_begin, m_end, f);
-      float const pixelHeight = m_layout->GetPixelHeight();
-      f.m_pixelRect.Inflate(2 * pixelHeight, 2 * pixelHeight);
-      return f.m_pixelRect;
+      m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+      m2::RectD result;
+      for (gpu::TextDynamicVertex const & v : m_normals)
+        result.Add(pixelPivot + glsl::ToPoint(v.m_normal));
+
+      return result;
     }
-
 
     void GetPixelShape(ScreenBase const & screen, Rects & rects) const
     {
-      rects = m_bboxes;
+      ASSERT(IsValid(), ());
+
+      m2::PointD pixelPivot(screen.GtoP(m_centerPointIter.m_pos));
+      for (size_t quadIndex = 0; quadIndex < m_normals.size(); quadIndex += 4)
+      {
+        m2::RectF r;
+        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex].m_normal));
+        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 1].m_normal));
+        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 2].m_normal));
+        r.Add(pixelPivot + glsl::ToPoint(m_normals[quadIndex + 3].m_normal));
+        rects.push_back(r);
+      }
     }
 
     void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
     {
       ASSERT(IsValid(), ());
-      uint32_t byteCount = 4 * m_layout->GetGlyphCount() * sizeof(glsl::vec2);
-      void * buffer = mutator->AllocateMutationBuffer(byteCount);
-      df::IntrusiveVector<glsl::vec2> positions(buffer, byteCount);
-      // m_splineOffset set offset to Center of text.
-      // By this we calc offset for start of text in mercator
-      m_layout->LayoutPathText(m_begin, m_scalePtoG, positions, m_isForward, m_bboxes, screen);
 
-      TOffsetNode const & node = GetOffsetNode(PathGlyphPositionID);
+      TOffsetNode const & node = GetOffsetNode(gpu::TextDynamicVertex::GetDynamicStreamID());
+      ASSERT(node.first.GetElementSize() == sizeof(gpu::TextDynamicVertex), ());
+      ASSERT(node.second.m_count == m_normals.size(), ());
+
+      uint32_t byteCount = m_normals.size() * sizeof(gpu::TextDynamicVertex);
+      void * buffer = mutator->AllocateMutationBuffer(byteCount);
+      memcpy(buffer, m_normals.data(), byteCount);
       dp::MutateNode mutateNode;
       mutateNode.m_region = node.second;
-      mutateNode.m_data = dp::MakeStackRefPointer<void>(buffer);
+      mutateNode.m_data = dp::MakeStackRefPointer(buffer);
       mutator->AddMutation(node.first, mutateNode);
     }
 
   private:
-    void GetBegEnd(Spline::iterator & beg, Spline::iterator & end) const
-    {
-      beg = m_spline.CreateIterator();
-      end = m_spline.CreateIterator();
-      float const textLength = m_layout->GetPixelLength() * m_scalePtoG;
-      float const step = max(0.0f, m_splineOffset - textLength / 2.0f);
-      if (step > 0.0f)
-        beg.Step(step);
-      end.Step(step + textLength);
-    }
-
-  private:
     m2::SharedSpline m_spline;
-    m2::Spline::iterator m_begin;
-    m2::Spline::iterator m_end;
-    mutable Rects m_bboxes;
+    m2::Spline::iterator m_centerPointIter;
+    gpu::TTextDynamicVertexBuffer m_normals;
 
     df::SharedTextLayout m_layout;
-    float m_scalePtoG;
-    float m_splineOffset;
-    bool m_isForward;
   };
-
-  void BatchPathText(m2::SharedSpline const & spline,
-                      buffer_vector<float, 32> const & offsets,
-                      float depth,
-                      dp::RefPointer<dp::Batcher> batcher,
-                      df::SharedTextLayout const & layout,
-                      vector<glsl::vec2> & positions,
-                      vector<glsl::Quad4> & texCoord,
-                      vector<glsl::Quad4> & fontColor,
-                      vector<glsl::Quad1> & index,
-                      dp::RefPointer<dp::TextureSetHolder> textures)
-  {
-    ASSERT(!offsets.empty(), ());
-    layout->InitPathText(depth, texCoord, fontColor, index, textures);
-
-    dp::GLState state(gpu::PATH_FONT_PROGRAM, dp::GLState::OverlayLayer);
-    state.SetTextureSet(layout->GetTextureSet());
-    state.SetBlending(dp::Blending(true));
-
-    for (size_t i = 0; i < offsets.size(); ++i)
-    {
-      dp::AttributeProvider provider(4, 4 * layout->GetGlyphCount());
-      {
-        dp::BindingInfo positionBind(1, PathTextHandle::PathGlyphPositionID);
-        dp::BindingDecl & decl = positionBind.GetBindingDecl(0);
-        decl.m_attributeName = "a_position";
-        decl.m_componentCount = 2;
-        decl.m_componentType = gl_const::GLFloatType;
-        decl.m_offset = 0;
-        decl.m_stride = 0;
-        provider.InitStream(0, positionBind, dp::MakeStackRefPointer(&positions[0]));
-      }
-      {
-        dp::BindingInfo texCoordBind(1);
-        dp::BindingDecl & decl = texCoordBind.GetBindingDecl(0);
-        decl.m_attributeName = "a_texcoord";
-        decl.m_componentCount = 4;
-        decl.m_componentType = gl_const::GLFloatType;
-        decl.m_offset = 0;
-        decl.m_stride = 0;
-        provider.InitStream(1, texCoordBind, dp::MakeStackRefPointer(&texCoord[0]));
-      }
-      {
-        dp::BindingInfo fontColorBind(1);
-        dp::BindingDecl & decl = fontColorBind.GetBindingDecl(0);
-        decl.m_attributeName = "a_color";
-        decl.m_componentCount = 4;
-        decl.m_componentType = gl_const::GLFloatType;
-        decl.m_offset = 0;
-        decl.m_stride = 0;
-        provider.InitStream(2, fontColorBind, dp::MakeStackRefPointer(&fontColor[0]));
-      }
-      {
-        dp::BindingInfo outlineColorBind(1);
-        dp::BindingDecl & decl = outlineColorBind.GetBindingDecl(0);
-        decl.m_attributeName = "a_index";
-        decl.m_componentCount = 1;
-        decl.m_componentType = gl_const::GLFloatType;
-        decl.m_offset = 0;
-        decl.m_stride = 0;
-        provider.InitStream(3, outlineColorBind, dp::MakeStackRefPointer(&index[0]));
-      }
-
-      dp::OverlayHandle * handle = new PathTextHandle(spline, layout, offsets[i], depth);
-      batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
-    }
-  }
 }
 
 namespace df
@@ -210,11 +115,11 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
 {
 }
 
-void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
-  SharedTextLayout layout(new TextLayout(strings::MakeUniString(m_params.m_text),
-                                         m_params.m_textFont,
-                                         textures));
+  PathTextLayout * layout = new PathTextLayout(strings::MakeUniString(m_params.m_text),
+                                               m_params.m_textFont.m_size,
+                                               textures);
 
   uint32_t glyphCount = layout->GetGlyphCount();
   if (glyphCount == 0)
@@ -239,10 +144,6 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   float const minPeriodSize = etalonEmpty + textLength;
   float const twoTextAndEmpty = minPeriodSize + textLength;
 
-  vector<glsl::vec2>  positions(glyphCount, glsl::vec2(0.0, 0.0));
-  vector<glsl::Quad4> texCoords(glyphCount);
-  vector<glsl::Quad4> fontColor(glyphCount);
-  vector<glsl::Quad1> index(glyphCount);
   buffer_vector<float, 32> offsets;
 
   float const scalePtoG = 1.0f / m_params.m_baseGtoPScale;
@@ -278,8 +179,39 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
       offsets.push_back((textHalfLength + (textLength + offset) * (i + 1)) * scalePtoG);
   }
 
-  BatchPathText(m_spline, offsets, m_params.m_depth, batcher, layout,
-                positions, texCoords, fontColor, index, textures);
+  dp::TextureManager::ColorRegion color;
+  dp::TextureManager::ColorRegion outline;
+  textures->GetColorRegion(m_params.m_textFont.m_color, color);
+  textures->GetColorRegion(m_params.m_textFont.m_outlineColor, outline);
+
+  dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+  state.SetBlending(dp::Blending(true));
+  state.SetColorTexture(color.GetTexture());
+  state.SetMaskTexture(layout->GetMaskTexture());
+
+  ASSERT(!offsets.empty(), ());
+  gpu::TTextStaticVertexBuffer staticBuffer;
+  gpu::TTextDynamicVertexBuffer dynBuffer;
+  SharedTextLayout layoutPtr(layout);
+  for (float offset : offsets)
+  {
+    staticBuffer.clear();
+    dynBuffer.clear();
+
+    Spline::iterator iter = m_spline.CreateIterator();
+    iter.Advance(offset);
+    layout->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
+                                color, outline, staticBuffer);
+
+    dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
+
+    dp::AttributeProvider provider(2, staticBuffer.size());
+    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynBuffer.data()));
+
+    dp::OverlayHandle * handle = new PathTextHandle(m_spline, layoutPtr, offset, m_params.m_depth);
+    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
+  }
 }
 
 }

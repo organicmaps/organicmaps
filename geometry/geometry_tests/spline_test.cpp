@@ -28,11 +28,11 @@ UNIT_TEST(SmoothedDirections)
   PointD dir2(sqrt2 / 2.0, -sqrt2 / 2.0);
   itr.Attach(spl);
   TestPointDDir(itr.m_avrDir, dir1);
-  itr.Step(sqrt2 * 30.0);
+  itr.Advance(sqrt2 * 30.0);
   TestPointDDir(itr.m_avrDir, dir1);
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_avrDir, dir1 * 0.25 + dir2 * 0.75);
-  itr.Step(sqrt2 * 10.0);
+  itr.Advance(sqrt2 * 10.0);
   TestPointDDir(itr.m_avrDir, dir2);
 
   path.clear();
@@ -46,12 +46,12 @@ UNIT_TEST(SmoothedDirections)
   Spline spl2(path);
   itr.Attach(spl2);
   TestPointDDir(itr.m_avrDir, dir1);
-  itr.Step(sqrt2 * 80.0 + 40.0);
+  itr.Advance(sqrt2 * 80.0 + 40.0);
   TestPointDDir(itr.m_avrDir, dir12);
   itr.Attach(spl2);
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_avrDir, dir1);
-  itr.Step(80.0);
+  itr.Advance(80.0);
   TestPointDDir(itr.m_avrDir, dir12 * 0.5 + dir2 * 0.5);
 }
 
@@ -69,9 +69,9 @@ UNIT_TEST(UsualDirections)
   PointD dir2(sqrt2 / 2.0, -sqrt2 / 2.0);
   itr.Attach(spl);
   TestPointDDir(itr.m_dir, dir1);
-  itr.Step(sqrt2 * 30.0);
+  itr.Advance(sqrt2 * 30.0);
   TestPointDDir(itr.m_dir, dir1);
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_dir, dir2);
 
   path.clear();
@@ -85,12 +85,12 @@ UNIT_TEST(UsualDirections)
   Spline spl2(path);
   itr.Attach(spl2);
   TestPointDDir(itr.m_dir, dir1);
-  itr.Step(sqrt2 * 80.0 + 35.0);
+  itr.Advance(sqrt2 * 80.0 + 35.0);
   TestPointDDir(itr.m_dir, dir2);
   itr.Attach(spl2);
-  itr.Step(sqrt2 * 45.0);
+  itr.Advance(sqrt2 * 45.0);
   TestPointDDir(itr.m_dir, dir12);
-  itr.Step(80.0);
+  itr.Advance(80.0);
   TestPointDDir(itr.m_dir, dir2);
 }
 
@@ -108,15 +108,15 @@ UNIT_TEST(Positions)
   Spline::iterator itr;
   itr.Attach(spl0);
   TestPointDDir(itr.m_pos, PointD(0, 0));
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_pos, PointD(40, 40));
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_pos, PointD(80, 0));
   itr.Attach(spl4);
   TestPointDDir(itr.m_pos, PointD(0, 0));
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_pos, PointD(40, 40));
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_pos, PointD(80, 0));
 
   path.clear();
@@ -130,16 +130,16 @@ UNIT_TEST(Positions)
   Spline spl3 = spl2;
   itr.Attach(spl3);
   TestPointDDir(itr.m_pos, PointD(0, 0));
-  itr.Step(sqrt2 * 80.0 + 40.0);
+  itr.Advance(sqrt2 * 80.0 + 40.0);
   TestPointDDir(itr.m_pos, PointD(120, 0));
   itr.Attach(spl2);
-  itr.Step(sqrt2 * 40.0);
+  itr.Advance(sqrt2 * 40.0);
   TestPointDDir(itr.m_pos, PointD(40, 40));
-  itr.Step(2.0);
+  itr.Advance(2.0);
   TestPointDDir(itr.m_pos, PointD(42, 40));
-  itr.Step(20.0);
+  itr.Advance(20.0);
   TestPointDDir(itr.m_pos, PointD(62, 40));
-  itr.Step(18.0);
+  itr.Advance(18.0);
   TestPointDDir(itr.m_pos, PointD(80, 40));
 }
 
@@ -157,11 +157,11 @@ UNIT_TEST(BeginAgain)
   PointD dir2(sqrt2 / 2.0, -sqrt2 / 2.0);
   itr.Attach(spl);
   TEST_EQUAL(itr.BeginAgain(), false, ());
-  itr.Step(90.0);
+  itr.Advance(90.0);
   TEST_EQUAL(itr.BeginAgain(), false, ());
-  itr.Step(90.0);
+  itr.Advance(90.0);
   TEST_EQUAL(itr.BeginAgain(), true, ());
-  itr.Step(190.0);
+  itr.Advance(190.0);
   TEST_EQUAL(itr.BeginAgain(), true, ());
 
   path.clear();
@@ -174,11 +174,11 @@ UNIT_TEST(BeginAgain)
   Spline spl2(path);
   itr.Attach(spl2);
   TEST_EQUAL(itr.BeginAgain(), false, ());
-  itr.Step(90.0);
+  itr.Advance(90.0);
   TEST_EQUAL(itr.BeginAgain(), false, ());
-  itr.Step(90.0);
+  itr.Advance(90.0);
   TEST_EQUAL(itr.BeginAgain(), true, ());
-  itr.Step(190.0);
+  itr.Advance(190.0);
   TEST_EQUAL(itr.BeginAgain(), true, ());
 }
 
