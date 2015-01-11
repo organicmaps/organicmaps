@@ -1,6 +1,14 @@
-# Project that includes all stats projects.
+# Statistics client library.
 
-TEMPLATE = subdirs
-CONFIG += ordered
+TARGET = stats_client
+TEMPLATE = lib
+CONFIG += staticlib
 
-SUBDIRS = client
+ROOT_DIR = ..
+include($$ROOT_DIR/common.pri)
+
+DEPENDENCIES =
+
+SOURCES +=
+
+HEADERS +=

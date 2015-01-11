@@ -107,9 +107,4 @@
   return instance;
 }
 
-- (void)logSearchQuery:(NSString *)query
-{
-  m_tracker.TrackSearch([query UTF8String]);
-}
-
 @end

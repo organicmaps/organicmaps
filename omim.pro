@@ -61,7 +61,7 @@ SUBDIRS = 3party \
             search \
             drape_frontend \
             map \
-            stats/client \
+            stats \
 } else {
   # libraries which are used on mobile devices
   SUBDIRS = 3party \
@@ -77,7 +77,7 @@ SUBDIRS = 3party \
             gui \
             search \
             map \
-            stats/client \
+            stats \
 }
 
 win32 {
