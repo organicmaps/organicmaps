@@ -62,7 +62,7 @@ class HashTable
         return Value();
     }
 
-    inline const bool Holds(Key const &key) const
+    inline bool Holds(Key const &key) const
     {
         for (const auto &key_val_pair : table)
         {

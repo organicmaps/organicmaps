@@ -44,7 +44,7 @@ UNIT_TEST(CompressedBitVector_Sparse)
 UNIT_TEST(CompressedBitVector_Dense)
 {
   vector<uint32_t> posOnes;
-  uint32_t prevPos = 0;
+  //uint32_t prevPos = 0;
   uint32_t sum = 0;
   for (uint32_t i = 0; i < NUMS_COUNT; ++i)
   {
@@ -115,7 +115,7 @@ UNIT_TEST(BitVectors_Or)
 UNIT_TEST(BitVectors_SubAnd)
 {
   vector<bool> v1(NUMS_COUNT * 2, false);
-  uint64_t numV1Ones = 0;
+  //uint64_t numV1Ones = 0;
   for (uint32_t i = 0; i < v1.size(); ++i) v1[i] = (GetRand64() % 2) == 0;
   vector<uint32_t> posOnes1;
   for (uint32_t i = 0; i < v1.size(); ++i) if (v1[i]) posOnes1.push_back(i);

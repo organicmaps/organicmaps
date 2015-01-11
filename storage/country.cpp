@@ -16,9 +16,11 @@ string CountryFile::GetFileWithExt(TMapOptions opt) const
   {
   case TMapOptions::EMapOnly: return m_fileName + DATA_FILE_EXTENSION;
   case TMapOptions::ECarRouting: return m_fileName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
-  }
 
-  ASSERT(false, ());
+  case TMapOptions::EMapWithCarRouting:
+  default:
+    ASSERT(false, ());
+  }
   return string();
 }
 

@@ -10,14 +10,14 @@
 #include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
 
-namespace {
-  vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)
-  {
-    vector<uint32_t> freqs;
-    for (uint64_t i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
-    return FreqsToDistrTable(freqs);
-  }
-}
+//namespace {
+//  vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)
+//  {
+//    vector<uint32_t> freqs;
+//    for (uint64_t i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
+//    return FreqsToDistrTable(freqs);
+//  }
+//}
 
 void BuildCompressedVarnumVector(Writer & writer, NumsSourceFuncT numsSource, uint64_t numsCnt, bool supportSums)
 {
@@ -110,7 +110,7 @@ CompressedVarnumVectorReader::CompressedVarnumVectorReader(Reader & reader)
   m_numsEncodedOffset = offset;
 
   // Decode jump table.  
-  uint64_t tableSize = m_numsCnt == 0 ? 0 : ((m_numsCnt - 1) / m_numElemPerTableEntry) + 1;
+  //uint64_t tableSize = m_numsCnt == 0 ? 0 : ((m_numsCnt - 1) / m_numElemPerTableEntry) + 1;
   uint64_t tableDecodeOffset = reader.Size() - 1;
   uint64_t tableSizeEncodedSize = VarintDecodeReverse(reader, tableDecodeOffset);
   // Advance offset to point to the first byte of table size encoded varint.

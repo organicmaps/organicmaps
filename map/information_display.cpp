@@ -27,14 +27,16 @@ using namespace graphics;
 namespace
 {
   static int const RULLER_X_OFFSET = 6;
-  static double const RULLER_X_OFFSET_L = 70.4;
   static int const RULLER_Y_OFFSET = 42;
-  static double const RULLER_Y_OFFSET_L = 10.5;
   static int const FONT_SIZE = 14;
   static int const COMPASS_X_OFFSET = 27;
-  static int const COMPASS_X_OFFSET_L = 18;
   static int const COMPASS_Y_OFFSET = 57;
+#ifdef OMIM_OS_ANDROID
+  static double const RULLER_X_OFFSET_L = 70.4;
+  static double const RULLER_Y_OFFSET_L = 10.5;
+  static int const COMPASS_X_OFFSET_L = 18;
   static double const COMPASS_Y_OFFSET_L = 11.4;
+#endif
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)

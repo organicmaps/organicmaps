@@ -6,6 +6,8 @@ INCLUDEPATH += src
 
 TEMPLATE = lib
 CONFIG += staticlib
+QMAKE_CFLAGS_WARN_ON += -Wno-unused-function
+
 SOURCES += \
     src/dump.c \
     src/hashtable.c \

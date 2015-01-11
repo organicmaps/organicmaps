@@ -149,10 +149,10 @@ template <class DataFacadeT> class BasicRoutingInterface
                            const PhantomNodes &phantom_node_pair,
                            std::vector<PathData> &unpacked_path) const
     {
-        const bool start_traversed_in_reverse =
-            (packed_path.front() != phantom_node_pair.source_phantom.forward_node_id);
-        const bool target_traversed_in_reverse =
-            (packed_path.back() != phantom_node_pair.target_phantom.forward_node_id);
+//        const bool start_traversed_in_reverse =
+//            (packed_path.front() != phantom_node_pair.source_phantom.forward_node_id);
+//        const bool target_traversed_in_reverse =
+//            (packed_path.back() != phantom_node_pair.target_phantom.forward_node_id);
 
         const unsigned packed_path_size = static_cast<unsigned>(packed_path.size());
         std::stack<std::pair<NodeID, NodeID>> recursion_stack;
