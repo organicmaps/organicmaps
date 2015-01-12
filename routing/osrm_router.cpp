@@ -1031,14 +1031,38 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 #endif
 
   turn.m_turn = turns::NoTurn;
-
-  if (nodes.size() < 2)
+  size_t const nodesSz = nodes.size();
+  if (nodesSz == 0)
+  {
+    ASSERT(false, ());
     return;
+  }
+
   if (nodes.front().m_node == node2.node)
     turn.m_turn = MostRightDirection(a);
   else if (nodes.back().m_node == node2.node)
     turn.m_turn = MostLeftDirection(a);
   else turn.m_turn = IntermediateDirection(a);
+
+  size_t const outgoingNotesCount = 1;
+  if (nodesSz == outgoingNotesCount)
+  {
+    if (turns::IsGoStraightOrSlightTurn(turn.m_turn))
+    {
+      turn.m_turn = turns::NoTurn;
+      return;
+    }
+    else
+    {
+      GeomTurnCandidateT geoNodes;
+      GetTurnGeometry(p, p1OneSeg, geoNodes, fName);
+      if (geoNodes.size() <= outgoingNotesCount)
+      {
+        turn.m_turn = turns::NoTurn;
+        return;
+      }
+    }
+  }
 
   turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ft1)
                        && ftypes::IsLinkChecker::Instance()(ft2));
