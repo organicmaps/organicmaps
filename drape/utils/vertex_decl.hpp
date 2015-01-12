@@ -8,53 +8,71 @@
 namespace gpu
 {
 
-struct SolidTexturingVertex
+struct BaseVertex
+{
+  typedef glsl::vec3 TPosition;
+  typedef glsl::vec2 TNormal;
+  typedef glsl::vec2 TTexCoord;
+};
+
+struct SolidTexturingVertex : BaseVertex
 {
   SolidTexturingVertex();
-  SolidTexturingVertex(glsl::vec3 const & position, glsl::vec2 const & normal, glsl::vec2 const & colorTexCoord);
+  SolidTexturingVertex(TPosition const & position, TNormal const & normal, TTexCoord const & colorTexCoord);
 
-  glsl::vec3 m_position;
-  glsl::vec2 m_normal;
-  glsl::vec2 m_colorTexCoord;
+  TPosition m_position;
+  TNormal m_normal;
+  TTexCoord m_colorTexCoord;
 
   static dp::BindingInfo const & GetBindingInfo();
 };
 
 typedef buffer_vector<SolidTexturingVertex, 128> TSolidTexVertexBuffer;
 
-struct TextStaticVertex
+struct TextStaticVertex : BaseVertex
 {
 public:
-  TextStaticVertex() = default;
-  TextStaticVertex(glsl::vec3 position, glsl::vec2 colorTexCoord, glsl::vec2 outlineTexCoord, glsl::vec2 maskTexCoord)
-    : m_position(position)
-    , m_colorTexCoord(colorTexCoord)
-    , m_outlineTexCoord(outlineTexCoord)
-    , m_maskTexCoord(maskTexCoord)
-  {
-  }
+  TextStaticVertex();
+  TextStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord,
+                   TTexCoord const & outlineTexCoord, TTexCoord const & maskTexCoord);
 
-  glsl::vec3 m_position;
-  glsl::vec2 m_colorTexCoord;
-  glsl::vec2 m_outlineTexCoord;
-  glsl::vec2 m_maskTexCoord;
+  TPosition m_position;
+  TTexCoord m_colorTexCoord;
+  TTexCoord m_outlineTexCoord;
+  TTexCoord m_maskTexCoord;
 
   static dp::BindingInfo const & GetBindingInfo();
 };
 
 typedef buffer_vector<TextStaticVertex, 128> TTextStaticVertexBuffer;
 
-struct TextDynamicVertex
+struct TextDynamicVertex : BaseVertex
 {
-  TextDynamicVertex() = default;
-  TextDynamicVertex(glsl::vec2 normal) : m_normal(normal) {}
+  TextDynamicVertex();
+  TextDynamicVertex(TNormal const & normal);
 
-  glsl::vec2 m_normal;
+  TNormal m_normal;
 
   static dp::BindingInfo const & GetBindingInfo();
   static uint32_t GetDynamicStreamID();
 };
 
 typedef buffer_vector<TextDynamicVertex, 128> TTextDynamicVertexBuffer;
+
+struct LineVertex : BaseVertex
+{
+  LineVertex();
+  LineVertex(TPosition const & position, TNormal const & normal,
+             TTexCoord const & color, TTexCoord const & mask,
+             TNormal const & dxdy);
+
+  TPosition m_position;
+  TNormal m_normal;
+  TTexCoord m_colorTexCoord;
+  TTexCoord m_maskTexCoord;
+  TNormal m_dxdy;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
 
 } // namespace gpu

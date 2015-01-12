@@ -381,7 +381,7 @@ void TestingEngine::DrawImpl()
   vector<m2::PointD> path;
   path.push_back(m2::PointD(92.277071f, 50.9271164f));
   path.push_back(m2::PointD(98.277071f, 50.9271164f));
-  path.push_back(m2::PointD(106.277071f, 47.9271164f));
+  path.push_back(m2::PointD(106.277071f, 45.9271164f));
 
   m2::SharedSpline spline(path);
   PathTextViewParams ptvp;
@@ -394,11 +394,27 @@ void TestingEngine::DrawImpl()
   LineViewParams lvp;
   lvp.m_baseGtoPScale = ptvp.m_baseGtoPScale;
   lvp.m_depth = 90.0f;
-  lvp.m_cap = dp::RoundCap;
+  lvp.m_cap = dp::SquareCap;
   lvp.m_color = dp::Color::Red();
-  lvp.m_width = 3.0f;
+  lvp.m_width = 16.0f;
   lvp.m_join = dp::BevelJoin;
   LineShape(spline, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  {
+    vector<m2::PointD> path1;
+    path1.push_back(m2::PointD(92.277071f, 45.9271164f));
+    path1.push_back(m2::PointD(98.277071f, 45.9271164f));
+    path1.push_back(m2::PointD(98.277071f, 40.9271164f));
+    path1.push_back(m2::PointD(100.277071f, 38.9271164f));
+    path1.push_back(m2::PointD(101.277071f, 45.9271164f));
+    path1.push_back(m2::PointD(102.277071f, 40.9271164f));
+    m2::SharedSpline spl1(path1);
+
+    lvp.m_join = dp::BevelJoin;
+    lvp.m_cap = dp::RoundCap;
+    lvp.m_color = dp::Color::Black();
+    LineShape(spl1, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
 }
 
 void TestingEngine::DrawRects()

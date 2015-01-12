@@ -1,5 +1,6 @@
 #include "line_shape.hpp"
 
+#include "../drape/utils/vertex_decl.hpp"
 #include "../drape/glsl_types.hpp"
 #include "../drape/glsl_func.hpp"
 #include "../drape/shader_def.hpp"
@@ -8,264 +9,16 @@
 #include "../drape/batcher.hpp"
 #include "../drape/texture_manager.hpp"
 
-#include "../base/logging.hpp"
-
-#include "../std/algorithm.hpp"
-
 namespace df
 {
 
 namespace
 {
-
-class GeomHelper
-{
-public:
-  GeomHelper(glsl::vec2 const & prevPt,
-             glsl::vec2 const & curPt,
-             glsl::vec2 const & nextPt)
-    : m_prevPt(prevPt)
-    , m_currentPt(curPt)
-    , m_nextPt(nextPt)
-  {
-    Init(m_prevPt, m_currentPt, m_nextPt);
-  }
-
-  void MoveNext(glsl::vec2 const & nextPt)
-  {
-    m_prevPt = m_currentPt;
-    m_currentPt = m_nextPt;
-    m_nextPt = nextPt;
-    Init(m_prevPt, m_currentPt, m_nextPt);
-  }
-
-  glsl::vec2 m_prevPt, m_currentPt, m_nextPt;
-  glsl::vec2 m_leftBisector, m_rightBisector;
-  float m_dx;
-  float m_aspect;
-
-private:
-  /// Split angle v1-v2-v3 by bisector.
-  void Init(glsl::vec2 const & v1, glsl::vec2 const & v2, glsl::vec2 const & v3)
-  {
-    glsl::vec2 const dif21 = v2 - v1;
-    glsl::vec2 const dif32 = v3 - v2;
-
-    float const l1 = glsl::length(dif21);
-    float const l2 = glsl::length(dif32);
-    float const l3 = glsl::length(v1 - v3);
-    m_aspect = l1 / l2;
-
-    /// normal1 is normal from segment v2 - v1
-    /// normal2 is normal from segment v3 - v2
-    glsl::vec2 const normal1(-dif21.y / l1, dif21.x / l1);
-    glsl::vec2 const normal2(-dif32.y / l2, dif32.x / l2);
-
-    m_leftBisector = normal1 + normal2;
-
-    /// find cos(2a), where angle a is a half of v1-v2-v3 angle
-    float const cos2A = (l1 * l1 + l2 * l2 - l3 * l3) / (2.0f * l1 * l2);
-    float const sinA = sqrt((1.0f - cos2A) / 2.0f);
-
-    m_leftBisector = m_leftBisector / (sinA * glsl::length(m_leftBisector));
-    m_rightBisector = -m_leftBisector;
-
-    float offsetLength = glsl::length(m_leftBisector - normal1);
-
-    float const sign = (glsl::dot(dif21, m_leftBisector) > 0.0f) ? 1.0f : -1.0f;
-    m_dx = sign * 2.0f * (offsetLength / l1);
-
-    m_leftBisector += v2;
-    m_rightBisector += v2;
-  }
-};
-
-class LineEnumerator
-{
-public:
-  LineEnumerator(vector<m2::PointD> const & points, float GtoPScale, bool generateEndpoints)
-    : m_points(points)
-    , m_GtoPScale(GtoPScale)
-    , m_generateEndpoints(generateEndpoints)
-  {
-    ASSERT_GREATER(points.size(), 1, ());
-    if (generateEndpoints)
-      m_iterIndex = -1;
-  }
-
-  bool IsSolid() const
-  {
-    return m_isSolid;
-  }
-
-  void SetColorParams(dp::TextureManager::ColorRegion const & color)
-  {
-    m_colorRegion = color;
-  }
-
-  glsl::vec2 GetColorCoord() const
-  {
-    ASSERT(m_colorRegion.IsValid(), ());
-    return glsl::ToVec2(m_colorRegion.GetTexRect().Center());
-  }
-
-  dp::RefPointer<dp::Texture> GetColorTexture() const
-  {
-    ASSERT(m_colorRegion.IsValid(), ());
-    return m_colorRegion.GetTexture();
-  }
-
-  dp::RefPointer<dp::Texture> GetMaskTexture() const
-  {
-    ASSERT(m_stippleRegion.IsValid(), ());
-    return m_stippleRegion.GetTexture();
-  }
-
-  void SetMaskParams(dp::TextureManager::StippleRegion const & stippleRegion, bool isSolid)
-  {
-    m_stippleRegion = stippleRegion;
-    m_isSolid = isSolid;
-  }
-
-  dp::TextureManager::StippleRegion const & GetStippleMaskItem() const
-  {
-    ASSERT(!IsSolid(), ());
-    ASSERT(m_stippleRegion.IsValid(), ());
-    return m_stippleRegion;
-  }
-
-  glsl::vec2 GetSolidMaskCoord() const
-  {
-    ASSERT(IsSolid(), ());
-    ASSERT(m_stippleRegion.IsValid(), ());
-    return glsl::ToVec2(m_stippleRegion.GetTexRect().Center());
-  }
-
-  glsl::vec2 GetNextPoint()
-  {
-    ASSERT(HasPoint(), ());
-    glsl::vec2 result;
-    if (IsSolid())
-      GetNextSolid(result);
-    else
-      GetNextStipple(result);
-
-    return result;
-  }
-
-  bool HasPoint() const
-  {
-    int additionalSize = m_generateEndpoints ? 1 : 0;
-    return m_iterIndex < static_cast<int>(m_points.size() + additionalSize);
-  }
-
-private:
-  void GetNextSolid(glsl::vec2 & result)
-  {
-    if (GetGeneratedStart(result) || GetGeneratedEnd(result))
-      return;
-
-    result = glsl::ToVec2(m_points[m_iterIndex++]);
-  }
-
-  void GetNextStipple(glsl::vec2 & result)
-  {
-    if (GetGeneratedStart(result) || GetGeneratedEnd(result))
-      return;
-
-    if (m_iterIndex == 0)
-    {
-      result = glsl::ToVec2(m_points[m_iterIndex++]);
-      return;
-    }
-
-    m2::PointD const & currentPt = m_points[m_iterIndex];
-    m2::PointD const & prevPt = m_points[m_iterIndex - 1];
-    m2::PointD const segmentVector = currentPt - prevPt;
-
-    float const pixelLength = segmentVector.Length() * m_GtoPScale;
-    int const maskPixelLength = m_stippleRegion.GetMaskPixelLength();
-    int const patternPixelLength = m_stippleRegion.GetPatternPixelLength();
-
-    bool partialSegment = false;
-    int maxLength = maskPixelLength;
-    int pixelDiff = maskPixelLength - patternPixelLength;
-    int resetType = 0;
-    if (pixelLength > pixelDiff)
-    {
-      partialSegment = true;
-      maxLength = pixelDiff;
-      resetType = 1;
-    }
-    else if (pixelDiff == 0 && pixelLength > maskPixelLength)
-      partialSegment = true;
-
-    if (partialSegment)
-    {
-      int const numParts = static_cast<int>(ceilf(pixelLength / maxLength));
-      m2::PointD const singlePart = segmentVector / (double)numParts;
-
-      result = glsl::ToVec2(prevPt + singlePart * m_partGenerated);
-
-      m_partGenerated++;
-      if (resetType == 0 && m_partGenerated == numParts)
-      {
-        m_partGenerated = 0;
-        m_iterIndex++;
-      }
-      else if (resetType == 1 && m_partGenerated > numParts)
-      {
-        m_partGenerated = 1;
-        m_iterIndex++;
-      }
-    }
-    else
-      result = glsl::ToVec2(m_points[m_iterIndex++]);
-  }
-
-  bool GetGeneratedStart(glsl::vec2 & result)
-  {
-    if (m_iterIndex == -1)
-    {
-      ASSERT(m_generateEndpoints, ());
-      glsl::vec2 const tmp = glsl::ToVec2(m_points[0]);
-      result = tmp + glsl::normalize(tmp - glsl::ToVec2(m_points[1]));
-      m_iterIndex = 0;
-      return true;
-    }
-
-    return false;
-  }
-
-  bool GetGeneratedEnd(glsl::vec2 & result)
-  {
-    if (m_iterIndex == static_cast<int>(m_points.size()))
-    {
-      ASSERT(m_generateEndpoints, ());
-      size_t const size = m_points.size();
-      glsl::vec2 const tmp = glsl::ToVec2(m_points[size - 1]);
-      result = tmp + glsl::normalize(tmp - glsl::ToVec2(m_points[size - 2]));
-      m_iterIndex++;
-      return true;
-    }
-
-    return false;
-  }
-
-private:
-  vector<m2::PointD> const & m_points;
-  int m_iterIndex = 0;
-  int m_partGenerated = 1;
-
-  dp::TextureManager::ColorRegion m_colorRegion;
-  dp::TextureManager::StippleRegion m_stippleRegion;
-  bool m_isSolid = true;
-
-  float m_GtoPScale;
-  bool m_generateEndpoints;
-};
-
-} // namespace
+  float const SEGMENT = 0.0f;
+  float const CAP = 1.0f;
+  float const LEFT_WIDTH = 1.0f;
+  float const RIGHT_WIDTH = -1.0f;
+}
 
 LineShape::LineShape(m2::SharedSpline const & spline,
                      LineViewParams const & params)
@@ -277,247 +30,156 @@ LineShape::LineShape(m2::SharedSpline const & spline,
 
 void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
 {
-  LineEnumerator enumerator(m_spline->GetPath(), m_params.m_baseGtoPScale, m_params.m_cap != dp::ButtCap);
+  buffer_vector<gpu::LineVertex, 128> geometry;
+  vector<m2::PointD> const & path = m_spline->GetPath();
 
   dp::TextureManager::ColorRegion colorRegion;
   textures->GetColorRegion(m_params.m_color, colorRegion);
-  enumerator.SetColorParams(colorRegion);
+  glsl::vec2 colorCoord(glsl::ToVec2(colorRegion.GetTexRect().Center()));
 
   dp::TextureManager::StippleRegion maskRegion;
-  if (!m_params.m_pattern.empty())
-    textures->GetStippleRegion(m_params.m_pattern, maskRegion);
-  else
-    textures->GetStippleRegion(dp::TextureManager::TStipplePattern{1}, maskRegion);
+  textures->GetStippleRegion(dp::TextureManager::TStipplePattern{1}, maskRegion);
+  glsl::vec2 maskCoord(glsl::ToVec2(maskRegion.GetTexRect().Center()));
 
-  enumerator.SetMaskParams(maskRegion, m_params.m_pattern.empty());
-
-  float const joinType = m_params.m_join == dp::RoundJoin ? 1 : 0;
-  float const capType = m_params.m_cap == dp::RoundCap ? -1 : 1;
   float const halfWidth = m_params.m_width / 2.0f;
-  float const insetHalfWidth= 1.0f * halfWidth;
+  bool generateCap = m_params.m_cap != dp::ButtCap;
 
-  size_t size = m_spline->GetPath().size();
-  if (m_params.m_cap != dp::ButtCap)
-    size += 2;
-
-  // We generate quad for each line segment
-  // For line with 3 point A -- B -- C, we will generate
-  // A1 --- AB1 BC1 --- C1
-  // |       |   |      |
-  // A2 --- AB2 BC2 --- C2
-  // By this segment count == points.size() - 1
-  size_t const vertexCount = (size - 1) * 4;
-  vector<glsl::vec4> vertexArray;
-  vector<glsl::vec3> dxValsArray;
-  vector<glsl::vec4> centersArray;
-  vector<glsl::vec4> widthTypeArray;
-  vector<glsl::vec2> colorArray;
-  vector<glsl::vec2> maskArray;
-
-  vertexArray.reserve(vertexCount);
-  dxValsArray.reserve(vertexCount);
-  centersArray.reserve(vertexCount);
-  widthTypeArray.reserve(vertexCount);
-
-  glsl::vec2 v2 = enumerator.GetNextPoint();
-  glsl::vec2 v3 = enumerator.GetNextPoint();
-  glsl::vec2 v1 = 2.0f * v2 - v3;
-
-  GeomHelper helper(v1, v2, v3);
-
-  // Fill first two vertex of segment. A1 and A2
-  if (m_params.m_cap != dp::ButtCap)
+  auto const calcTangentAndNormals = [&halfWidth](glsl::vec2 const & pt0, glsl::vec2 const & pt1,
+                                        glsl::vec2 & tangent, glsl::vec2 & leftNormal,
+                                        glsl::vec2 & rightNormal)
   {
-    vertexArray.push_back(glsl::vec4(helper.m_nextPt, helper.m_leftBisector));
-    vertexArray.push_back(glsl::vec4(helper.m_nextPt, helper.m_rightBisector));
-    widthTypeArray.push_back(glsl::vec4(halfWidth, capType, -1, insetHalfWidth));
-    widthTypeArray.push_back(glsl::vec4(-halfWidth, capType, -1, insetHalfWidth));
-  }
-  else
+    tangent = pt1 - pt0;
+    leftNormal = halfWidth * glsl::normalize(glsl::vec2(tangent.y, -tangent.x));
+    rightNormal = -leftNormal;
+  };
+
+  float capType = m_params.m_cap == dp::RoundCap ? CAP : SEGMENT;
+
+  glsl::vec2 leftSegment(SEGMENT, LEFT_WIDTH);
+  glsl::vec2 rightSegment(SEGMENT, RIGHT_WIDTH);
+
+  if (generateCap)
   {
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
-    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
-    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
+    glsl::vec2 startPoint = glsl::ToVec2(path[0]);
+    glsl::vec2 endPoint = glsl::ToVec2(path[1]);
+    glsl::vec2 tangent, leftNormal, rightNormal;
+    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
+    tangent = -halfWidth * glsl::normalize(tangent);
+
+    glsl::vec3 pivot = glsl::vec3(startPoint, m_params.m_depth);
+    glsl::vec2 leftCap(capType, LEFT_WIDTH);
+    glsl::vec2 rightCap(capType, RIGHT_WIDTH);
+
+    geometry.push_back(gpu::LineVertex(pivot, leftNormal + tangent, colorCoord, maskCoord, leftCap));
+    geometry.push_back(gpu::LineVertex(pivot, rightNormal + tangent, colorCoord, maskCoord, rightCap));
+    geometry.push_back(gpu::LineVertex(pivot, leftNormal, colorCoord, maskCoord, leftSegment));
+    geometry.push_back(gpu::LineVertex(pivot, rightNormal, colorCoord, maskCoord, rightSegment));
   }
 
-  dxValsArray.push_back(glsl::vec3(0.0f, -1.0f, m_params.m_depth));
-  dxValsArray.push_back(glsl::vec3(0.0f, -1.0f, m_params.m_depth));
-  centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
-  centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
+  glsl::vec2 prevPoint;
+  glsl::vec2 prevLeftNormal;
+  glsl::vec2 prevRightNormal;
 
-  //points in the middle
-  while (enumerator.HasPoint())
+  for (size_t i = 1; i < path.size(); ++i)
   {
-    helper.MoveNext(enumerator.GetNextPoint());
-    // In line like A -- AB BC -- C we fill AB points in this block
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
-    dxValsArray.push_back(glsl::vec3(helper.m_dx, 1.0f, m_params.m_depth));
-    dxValsArray.push_back(glsl::vec3(-helper.m_dx, 1.0f, m_params.m_depth));
-    centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
-    centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
-    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
-    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
+    glsl::vec2 startPoint = glsl::ToVec2(path[i - 1]);
+    glsl::vec2 endPoint = glsl::ToVec2(path[i]);
+    glsl::vec2 tangent, leftNormal, rightNormal;
+    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
 
-    // As AB and BC point calculation on the same source point B
-    // we also fill BC points
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
-    dxValsArray.push_back(glsl::vec3(-helper.m_dx * helper.m_aspect, -1.0f, m_params.m_depth));
-    dxValsArray.push_back(glsl::vec3(helper.m_dx * helper.m_aspect, -1.0f, m_params.m_depth));
-    centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
-    centersArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_nextPt));
-    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
-    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
-  }
+    glsl::vec3 startPivot = glsl::vec3(startPoint, m_params.m_depth);
+    glsl::vec3 endPivot = glsl::vec3(endPoint, m_params.m_depth);
 
-  // Here we fill last vertexes of last segment
-  v1 = helper.m_currentPt;
-  v2 = helper.m_nextPt;
-  v3 = 2.0f * v2 - v1;
-  helper = GeomHelper(v1, v2, v3);
-
-  if (m_params.m_cap != dp::ButtCap)
-  {
-    vertexArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_leftBisector));
-    vertexArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_rightBisector));
-    widthTypeArray.push_back(glsl::vec4(halfWidth, capType, 1, insetHalfWidth));
-    widthTypeArray.push_back(glsl::vec4(-halfWidth, capType, 1, insetHalfWidth));
-  }
-  else
-  {
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_leftBisector));
-    vertexArray.push_back(glsl::vec4(helper.m_currentPt, helper.m_rightBisector));
-    widthTypeArray.push_back(glsl::vec4(halfWidth, 0, joinType, insetHalfWidth));
-    widthTypeArray.push_back(glsl::vec4(-halfWidth, 0, joinType, insetHalfWidth));
-  }
-
-  dxValsArray.push_back(glsl::vec3(-helper.m_dx * helper.m_aspect, 1.0f, m_params.m_depth));
-  dxValsArray.push_back(glsl::vec3(helper.m_dx * helper.m_aspect, 1.0f, m_params.m_depth));
-  centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
-  centersArray.push_back(glsl::vec4(helper.m_prevPt, helper.m_currentPt));
-
-  ASSERT_EQUAL(vertexArray.size(), dxValsArray.size(), ());
-  ASSERT_EQUAL(vertexArray.size(), centersArray.size(), ());
-  ASSERT_EQUAL(vertexArray.size(), widthTypeArray.size(), ());
-  ASSERT_EQUAL(vertexArray.size() % 4, 0, ());
-
-  colorArray.resize(vertexArray.size(), enumerator.GetColorCoord());
-
-  if (!enumerator.IsSolid())
-  {
-    dp::TextureManager::StippleRegion const & region = enumerator.GetStippleMaskItem();
-    m2::RectF const & stippleRect = region.GetTexRect();
-
-    float const maskTexLength = region.GetMaskPixelLength() / stippleRect.SizeX();
-    float const patternTexLength = region.GetPatternPixelLength() / maskTexLength;
-    float const dxFactor = halfWidth / (2.0f * m_params.m_baseGtoPScale);
-    float patternStart = 0.0f;
-    size_t const quadCount = vertexArray.size() / 4;
-    for(size_t i = 0; i < quadCount; ++i)
+    // Create join beetween current segment and previous
+    if (i > 1)
     {
-      size_t const baseIndex = i * 4;
-      float dx1 = dxValsArray[baseIndex + 0].x * dxFactor;
-      float dx2 = dxValsArray[baseIndex + 1].x * dxFactor;
-      float dx3 = dxValsArray[baseIndex + 2].x * dxFactor;
-      float dx4 = dxValsArray[baseIndex + 3].x * dxFactor;
-      float const lengthPx = glsl::length(vertexArray[baseIndex].xy() - vertexArray[baseIndex + 2].xy());
-      float const lengthTex = lengthPx * m_params.m_baseGtoPScale / (maskTexLength * (fabs(dx1) + fabs(dx3) + 1.0));
-      float const f1 = fabs(dx1) * lengthTex;
-      float const length2 = (fabs(dx1) + 1.0) * lengthTex;
+      glsl::vec2 zeroNormal(0.0, 0.0);
+      glsl::vec2 prevForming, nextForming;
+      if (glsl::dot(prevLeftNormal, tangent) < 0)
+      {
+        prevForming = prevLeftNormal;
+        nextForming = leftNormal;
+      }
+      else
+      {
+        prevForming = prevRightNormal;
+        nextForming = rightNormal;
+      }
 
-      dx1 *= lengthTex;
-      dx2 *= lengthTex;
-      dx3 *= lengthTex;
-      dx4 *= lengthTex;
+      if (m_params.m_join == dp::BevelJoin)
+      {
+        geometry.push_back(gpu::LineVertex(startPivot, prevForming, colorCoord, maskCoord, leftSegment));
+        geometry.push_back(gpu::LineVertex(startPivot, zeroNormal, colorCoord, maskCoord, leftSegment));
+        geometry.push_back(gpu::LineVertex(startPivot, nextForming, colorCoord, maskCoord, leftSegment));
+        geometry.push_back(gpu::LineVertex(startPivot, nextForming, colorCoord, maskCoord, leftSegment));
+      }
+      else
+      {
+        glsl::vec2 middleForming = glsl::normalize(prevForming + nextForming);
+        glsl::vec2 zeroDxDy(0.0, 0.0);
 
-      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + dx1 + f1, stippleRect.minY()));
-      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + dx2 + f1, stippleRect.maxY()));
-      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + length2 + dx3, stippleRect.minY()));
-      maskArray.push_back(glsl::vec2(stippleRect.minX() + patternStart + length2 + dx4, stippleRect.maxY()));
+        if (m_params.m_join == dp::MiterJoin)
+        {
+          float const b = glsl::length(prevForming - nextForming) / 2.0;
+          float const a = glsl::length(prevForming);
+          middleForming *= static_cast<float>(sqrt(a * a + b * b));
 
-      patternStart += length2;
-      while (patternStart >= patternTexLength)
-        patternStart -= patternTexLength;
+          geometry.push_back(gpu::LineVertex(startPivot, prevForming, colorCoord, maskCoord, zeroDxDy));
+          geometry.push_back(gpu::LineVertex(startPivot, zeroNormal, colorCoord, maskCoord, zeroDxDy));
+          geometry.push_back(gpu::LineVertex(startPivot, middleForming, colorCoord, maskCoord, zeroDxDy));
+          geometry.push_back(gpu::LineVertex(startPivot, nextForming, colorCoord, maskCoord, zeroDxDy));
+        }
+        else
+        {
+          middleForming *= glsl::length(prevForming);
+
+          glsl::vec2 dxdyLeft(0.0, -1.0);
+          glsl::vec2 dxdyRight(0.0, -1.0);
+          glsl::vec2 dxdyMiddle(1.0, 1.0);
+          geometry.push_back(gpu::LineVertex(startPivot, zeroNormal, colorCoord, maskCoord, zeroDxDy));
+          geometry.push_back(gpu::LineVertex(startPivot, prevForming, colorCoord, maskCoord, dxdyLeft));
+          geometry.push_back(gpu::LineVertex(startPivot, nextForming, colorCoord, maskCoord, dxdyRight));
+          geometry.push_back(gpu::LineVertex(startPivot, middleForming, colorCoord, maskCoord, dxdyMiddle));
+        }
+      }
     }
+
+    geometry.push_back(gpu::LineVertex(startPivot, leftNormal, colorCoord, maskCoord, leftSegment));
+    geometry.push_back(gpu::LineVertex(startPivot, rightNormal, colorCoord, maskCoord, rightSegment));
+    geometry.push_back(gpu::LineVertex(endPivot, leftNormal, colorCoord, maskCoord, leftSegment));
+    geometry.push_back(gpu::LineVertex(endPivot, rightNormal, colorCoord, maskCoord, rightSegment));
+
+    prevPoint = startPoint;
+    prevLeftNormal = leftNormal;
+    prevRightNormal = rightNormal;
   }
-  else
-    maskArray.resize(vertexArray.size(), enumerator.GetSolidMaskCoord());
+
+  if (generateCap)
+  {
+    size_t lastPointIndex = path.size() - 1;
+    glsl::vec2 startPoint = glsl::ToVec2(path[lastPointIndex - 1]);
+    glsl::vec2 endPoint = glsl::ToVec2(path[lastPointIndex]);
+    glsl::vec2 tangent, leftNormal, rightNormal;
+    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
+    tangent = halfWidth * glsl::normalize(tangent);
+
+    glsl::vec3 pivot = glsl::vec3(endPoint, m_params.m_depth);
+    glsl::vec2 leftCap(capType, LEFT_WIDTH);
+    glsl::vec2 rightCap(capType, RIGHT_WIDTH);
+
+    geometry.push_back(gpu::LineVertex(pivot, leftNormal, colorCoord, maskCoord, leftSegment));
+    geometry.push_back(gpu::LineVertex(pivot, rightNormal, colorCoord, maskCoord, rightSegment));
+    geometry.push_back(gpu::LineVertex(pivot, leftNormal + tangent, colorCoord, maskCoord, leftCap));
+    geometry.push_back(gpu::LineVertex(pivot, rightNormal + tangent, colorCoord, maskCoord, rightCap));
+  }
 
   dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetBlending(dp::Blending(true));
-  state.SetColorTexture(enumerator.GetColorTexture());
-  state.SetMaskTexture(enumerator.GetMaskTexture());
+  state.SetBlending(true);
+  state.SetColorTexture(colorRegion.GetTexture());
+  state.SetMaskTexture(maskRegion.GetTexture());
 
-  dp::AttributeProvider provider(6, vertexArray.size());
-
-  {
-    dp::BindingInfo pos_dir(1);
-    dp::BindingDecl & decl = pos_dir.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer<void>(vertexArray.data()));
-  }
-  {
-    dp::BindingInfo deltas(1);
-    dp::BindingDecl & decl = deltas.GetBindingDecl(0);
-    decl.m_attributeName = "a_deltas";
-    decl.m_componentCount = 3;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-
-    provider.InitStream(1, deltas, dp::MakeStackRefPointer<void>(dxValsArray.data()));
-  }
-  {
-    dp::BindingInfo width_type(1);
-    dp::BindingDecl & decl = width_type.GetBindingDecl(0);
-    decl.m_attributeName = "a_width_type";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-
-    provider.InitStream(2, width_type, dp::MakeStackRefPointer<void>(widthTypeArray.data()));
-  }
-  {
-    dp::BindingInfo centres(1);
-    dp::BindingDecl & decl = centres.GetBindingDecl(0);
-    decl.m_attributeName = "a_centres";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-
-    provider.InitStream(3, centres, dp::MakeStackRefPointer<void>(centersArray.data()));
-  }
-  {
-    dp::BindingInfo colorBinding(1);
-    dp::BindingDecl & decl = colorBinding.GetBindingDecl(0);
-    decl.m_attributeName = "a_color";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-
-    provider.InitStream(4, colorBinding, dp::MakeStackRefPointer<void>(colorArray.data()));
-  }
-
-  {
-    dp::BindingInfo ind(1);
-    dp::BindingDecl & decl = ind.GetBindingDecl(0);
-    decl.m_attributeName = "a_mask";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-
-    provider.InitStream(5, ind, dp::MakeStackRefPointer<void>(maskArray.data()));
-  }
+  dp::AttributeProvider provider(1, geometry.size());
+  provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(geometry.data()));
 
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
 }

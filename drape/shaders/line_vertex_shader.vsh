@@ -1,45 +1,26 @@
-attribute vec4 a_position;
-attribute vec4 a_deltas;
-attribute vec4 a_width_type;
-attribute vec4 a_centres;
-attribute vec2 a_color;
-attribute vec2 a_mask;
-
-varying float v_dx;
-varying vec4 v_radius;
-varying vec2 v_type;
-
-varying vec2 v_color;
-varying vec2 v_mask;
+attribute vec3 a_position;
+attribute vec2 a_normal;
+attribute vec2 a_colorTexCoord;
+attribute vec2 a_maskTexCoord;
+attribute vec2 a_dxdy;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 
+varying vec2 v_colorTexCoord;
+varying vec2 v_maskTexCoord;
+varying vec2 v_dxdy;
+
 void main(void)
 {
-  float r = abs(a_width_type.x);
-  vec2 dir = a_position.zw - a_position.xy;
-  float len = length(dir);
-  vec4 pos2 = vec4(a_position.xy, a_deltas.z, 1) * modelView;
-  vec4 direc = vec4(a_position.zw, a_deltas.z, 1) * modelView;
-  dir = direc.xy - pos2.xy;
-  float l2 = length(dir);
-  dir = normalize(dir);
-  dir *= len * r;
-  pos2 += vec4(dir, 0, 0);
+  float halfWidth = length(a_normal);
+  vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
+  vec4 glbShiftPos = vec4(a_position.xy + a_normal, 0.0, 1.0);
+  vec2 shiftPos = (glbShiftPos * modelView).xy;
+  vec2 pxNormal = normalize(shiftPos - transformedAxisPos);
 
-  gl_Position = pos2 * projection;
-
-  v_dx = (a_deltas.y + a_deltas.x * r / l2 * len);
-  v_radius.x = a_width_type.x;
-  v_radius.y = r;
-  v_radius.w = a_width_type.w;
-  vec2 centr1 = (vec4(a_centres.xy, 0, 1) * modelView).xy;
-  vec2 centr2 = (vec4(a_centres.zw, 0, 1) * modelView).xy;
-  float len2 = length(centr1 - centr2);
-  v_radius.z = len2;
-  v_type = a_width_type.yz;
-
-  v_color = a_color;
-  v_mask = a_mask;
+  v_colorTexCoord = a_colorTexCoord;
+  v_maskTexCoord = a_maskTexCoord;
+  v_dxdy = a_dxdy;
+  gl_Position = vec4(transformedAxisPos + pxNormal * halfWidth, a_position.z, 1.0) * projection;
 }

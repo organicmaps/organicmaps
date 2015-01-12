@@ -3,6 +3,178 @@
 namespace gpu
 {
 
+namespace
+{
+
+enum VertexType
+{
+  SolidTexturing,
+  TextStatic,
+  TextDynamic,
+  Line,
+  TypeCount
+};
+
+struct BindingNode
+{
+  dp::BindingInfo m_info;
+  bool m_inited = false;
+};
+
+typedef dp::BindingInfo (*TInitFunction)();
+
+dp::BindingInfo SolidTexturingBindingInit()
+{
+  STATIC_ASSERT(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition) +
+                                                 sizeof(SolidTexturingVertex::TNormal) +
+                                                 sizeof(SolidTexturingVertex::TTexCoord)));
+
+  dp::BindingInfo info(3);
+
+  dp::BindingDecl & posDecl = info.GetBindingDecl(0);
+  posDecl.m_attributeName = "a_position";
+  posDecl.m_componentCount = glsl::GetComponentCount<SolidTexturingVertex::TPosition>();
+  posDecl.m_componentType = gl_const::GLFloatType;
+  posDecl.m_offset = 0;
+  posDecl.m_stride = sizeof(SolidTexturingVertex);
+
+  dp::BindingDecl & normalDecl = info.GetBindingDecl(1);
+  normalDecl.m_attributeName = "a_normal";
+  normalDecl.m_componentCount = glsl::GetComponentCount<SolidTexturingVertex::TNormal>();
+  normalDecl.m_componentType = gl_const::GLFloatType;
+  normalDecl.m_offset = sizeof(SolidTexturingVertex::TPosition);
+  normalDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & colorTexCoordDecl = info.GetBindingDecl(2);
+  colorTexCoordDecl.m_attributeName = "a_colorTexCoords";
+  colorTexCoordDecl.m_componentCount = glsl::GetComponentCount<SolidTexturingVertex::TTexCoord>();
+  colorTexCoordDecl.m_componentType = gl_const::GLFloatType;
+  colorTexCoordDecl.m_offset = normalDecl.m_offset + sizeof(SolidTexturingVertex::TNormal);
+  colorTexCoordDecl.m_stride = posDecl.m_stride;
+
+  return info;
+}
+
+dp::BindingInfo TextStaticBindingInit()
+{
+  STATIC_ASSERT(sizeof(TextStaticVertex) == (sizeof(TextStaticVertex::TPosition) +
+                                             3 * sizeof(TextStaticVertex::TTexCoord)));
+  dp::BindingInfo info(4);
+
+  dp::BindingDecl & posDecl = info.GetBindingDecl(0);
+  posDecl.m_attributeName = "a_position";
+  posDecl.m_componentCount = glsl::GetComponentCount<TextStaticVertex::TPosition>();
+  posDecl.m_componentType = gl_const::GLFloatType;
+  posDecl.m_offset = 0;
+  posDecl.m_stride = sizeof(TextStaticVertex);
+
+  dp::BindingDecl & colorDecl = info.GetBindingDecl(1);
+  colorDecl.m_attributeName = "a_colorTexCoord";
+  colorDecl.m_componentCount = glsl::GetComponentCount<TextStaticVertex::TTexCoord>();
+  colorDecl.m_componentType = gl_const::GLFloatType;
+  colorDecl.m_offset = sizeof(TextStaticVertex::TPosition);
+  colorDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & outlineDecl = info.GetBindingDecl(2);
+  outlineDecl.m_attributeName = "a_outlineColorTexCoord";
+  outlineDecl.m_componentCount = glsl::GetComponentCount<TextStaticVertex::TTexCoord>();
+  outlineDecl.m_componentType = gl_const::GLFloatType;
+  outlineDecl.m_offset = colorDecl.m_offset + sizeof(TextStaticVertex::TTexCoord);
+  outlineDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & maskDecl = info.GetBindingDecl(3);
+  maskDecl.m_attributeName = "a_maskTexCoord";
+  maskDecl.m_componentCount = glsl::GetComponentCount<TextStaticVertex::TTexCoord>();
+  maskDecl.m_componentType = gl_const::GLFloatType;
+  maskDecl.m_offset = outlineDecl.m_offset + sizeof(TextStaticVertex::TTexCoord);
+  maskDecl.m_stride = posDecl.m_stride;
+
+  return info;
+}
+
+dp::BindingInfo TextDynamicBindingInit()
+{
+  STATIC_ASSERT(sizeof(TextDynamicVertex) == sizeof(TextDynamicVertex::TNormal));
+  dp::BindingInfo info(1, TextDynamicVertex::GetDynamicStreamID());
+
+  dp::BindingDecl & decl = info.GetBindingDecl(0);
+  decl.m_attributeName = "a_normal";
+  decl.m_componentCount = glsl::GetComponentCount<TextDynamicVertex::TNormal>();
+  decl.m_componentType = gl_const::GLFloatType;
+  decl.m_offset = 0;
+  decl.m_stride = sizeof(TextDynamicVertex);
+
+  return info;
+}
+
+dp::BindingInfo LineBindingInit()
+{
+  STATIC_ASSERT(sizeof(LineVertex) == sizeof(LineVertex::TPosition) +
+                                      2 * sizeof(LineVertex::TNormal) +
+                                      2 * sizeof(LineVertex::TTexCoord));
+  dp::BindingInfo info(5);
+
+  dp::BindingDecl & posDecl = info.GetBindingDecl(0);
+  posDecl.m_attributeName = "a_position";
+  posDecl.m_componentCount = glsl::GetComponentCount<LineVertex::TPosition>();
+  posDecl.m_componentType = gl_const::GLFloatType;
+  posDecl.m_offset = 0;
+  posDecl.m_stride = sizeof(LineVertex);
+
+  dp::BindingDecl & normalDecl = info.GetBindingDecl(1);
+  normalDecl.m_attributeName = "a_normal";
+  normalDecl.m_componentCount = glsl::GetComponentCount<LineVertex::TNormal>();
+  normalDecl.m_componentType = gl_const::GLFloatType;
+  normalDecl.m_offset = posDecl.m_offset + sizeof(LineVertex::TPosition);
+  normalDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & colorDecl = info.GetBindingDecl(2);
+  colorDecl.m_attributeName = "a_colorTexCoord";
+  colorDecl.m_componentCount = glsl::GetComponentCount<LineVertex::TTexCoord>();
+  colorDecl.m_componentType = gl_const::GLFloatType;
+  colorDecl.m_offset = normalDecl.m_offset + sizeof(LineVertex::TNormal);
+  colorDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & maskDecl = info.GetBindingDecl(3);
+  maskDecl.m_attributeName = "a_maskTexCoord";
+  maskDecl.m_componentCount = glsl::GetComponentCount<LineVertex::TTexCoord>();
+  maskDecl.m_componentType = gl_const::GLFloatType;
+  maskDecl.m_offset = colorDecl.m_offset + sizeof(LineVertex::TTexCoord);
+  maskDecl.m_stride = posDecl.m_stride;
+
+  dp::BindingDecl & dxdyDecl = info.GetBindingDecl(4);
+  dxdyDecl.m_attributeName = "a_dxdy";
+  dxdyDecl.m_componentCount = glsl::GetComponentCount<LineVertex::TNormal>();
+  dxdyDecl.m_componentType = gl_const::GLFloatType;
+  dxdyDecl.m_offset = maskDecl.m_offset + sizeof(LineVertex::TNormal);
+  dxdyDecl.m_stride = posDecl.m_stride;
+
+  return info;
+}
+
+BindingNode g_bindingNodes[TypeCount];
+TInitFunction g_initFunctions[TypeCount] =
+{
+  &SolidTexturingBindingInit,
+  &TextStaticBindingInit,
+  &TextDynamicBindingInit,
+  &LineBindingInit
+};
+
+dp::BindingInfo const & GetBinding(VertexType type)
+{
+  BindingNode & node = g_bindingNodes[type];
+  if (!node.m_inited)
+  {
+    node.m_info = g_initFunctions[type]();
+    node.m_inited = true;
+  }
+
+  return node.m_info;
+}
+
+} // namespace
+
 SolidTexturingVertex::SolidTexturingVertex()
   : m_position(0.0, 0.0, 0.0)
   , m_normal(0.0, 0.0)
@@ -10,7 +182,8 @@ SolidTexturingVertex::SolidTexturingVertex()
 {
 }
 
-SolidTexturingVertex::SolidTexturingVertex(glm::vec3 const & position, glm::vec2 const & normal, glm::vec2 const & colorTexCoord)
+SolidTexturingVertex::SolidTexturingVertex(TPosition const & position, TNormal const & normal,
+                                           TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(colorTexCoord)
@@ -19,103 +192,74 @@ SolidTexturingVertex::SolidTexturingVertex(glm::vec3 const & position, glm::vec2
 
 dp::BindingInfo const & SolidTexturingVertex::GetBindingInfo()
 {
-  STATIC_ASSERT(sizeof(SolidTexturingVertex) == (sizeof(glsl::vec3) + 2 * sizeof(glsl::vec2)));
+  return GetBinding(SolidTexturing);
+}
 
-  static dp::BindingInfo s_info(3);
-  static bool s_inited = false;
+TextStaticVertex::TextStaticVertex()
+  : m_position(0.0, 0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+  , m_outlineTexCoord(0.0, 0.0)
+  , m_maskTexCoord(0.0, 0.0)
+{
+}
 
-  if (!s_inited)
-  {
-    s_inited = true;
-    dp::BindingDecl & posDecl = s_info.GetBindingDecl(0);
-    posDecl.m_attributeName = "a_position";
-    posDecl.m_componentCount = 3;
-    posDecl.m_componentType = gl_const::GLFloatType;
-    posDecl.m_offset = 0;
-    posDecl.m_stride = sizeof(SolidTexturingVertex);
-
-    dp::BindingDecl & normalDecl = s_info.GetBindingDecl(1);
-    normalDecl.m_attributeName = "a_normal";
-    normalDecl.m_componentCount = 2;
-    normalDecl.m_componentType = gl_const::GLFloatType;
-    normalDecl.m_offset = sizeof(glsl::vec3);
-    normalDecl.m_stride = posDecl.m_stride;
-
-    dp::BindingDecl & colorTexCoordDecl = s_info.GetBindingDecl(2);
-    colorTexCoordDecl.m_attributeName = "a_colorTexCoords";
-    colorTexCoordDecl.m_componentCount = 2;
-    colorTexCoordDecl.m_componentType = gl_const::GLFloatType;
-    colorTexCoordDecl.m_offset = sizeof(glsl::vec3) + sizeof(glsl::vec2);
-    colorTexCoordDecl.m_stride = posDecl.m_stride;
-  }
-
-  return s_info;
+TextStaticVertex::TextStaticVertex(TPosition const & position, TTexCoord const & colorTexCoord,
+                                   TTexCoord const & outlineTexCoord, TTexCoord const & maskTexCoord)
+  : m_position(position)
+  , m_colorTexCoord(colorTexCoord)
+  , m_outlineTexCoord(outlineTexCoord)
+  , m_maskTexCoord(maskTexCoord)
+{
 }
 
 dp::BindingInfo const & TextStaticVertex::GetBindingInfo()
 {
-  STATIC_ASSERT(sizeof(TextStaticVertex) == (sizeof(glsl::vec3) + 3 * sizeof(glsl::vec2)));
-  static dp::BindingInfo s_info(4);
-  static bool s_inited = false;
+  return GetBinding(TextStatic);
+}
 
-  if (!s_inited)
-  {
-    s_inited = true;
+TextDynamicVertex::TextDynamicVertex()
+  : m_normal(0.0, 0.0)
+{
+}
 
-    dp::BindingDecl & posDecl = s_info.GetBindingDecl(0);
-    posDecl.m_attributeName = "a_position";
-    posDecl.m_componentCount = 3;
-    posDecl.m_componentType = gl_const::GLFloatType;
-    posDecl.m_offset = 0;
-    posDecl.m_stride = sizeof(TextStaticVertex);
-
-    dp::BindingDecl & colorDecl = s_info.GetBindingDecl(1);
-    colorDecl.m_attributeName = "a_colorTexCoord";
-    colorDecl.m_componentCount = 2;
-    colorDecl.m_componentType = gl_const::GLFloatType;
-    colorDecl.m_offset = sizeof(glsl::vec3);
-    colorDecl.m_stride = posDecl.m_stride;
-
-    dp::BindingDecl & outlineDecl = s_info.GetBindingDecl(2);
-    outlineDecl.m_attributeName = "a_outlineColorTexCoord";
-    outlineDecl.m_componentCount = 2;
-    outlineDecl.m_componentType = gl_const::GLFloatType;
-    outlineDecl.m_offset = colorDecl.m_offset + sizeof(glsl::vec2);
-    outlineDecl.m_stride = posDecl.m_stride;
-
-    dp::BindingDecl & maskDecl = s_info.GetBindingDecl(3);
-    maskDecl.m_attributeName = "a_maskTexCoord";
-    maskDecl.m_componentCount = 2;
-    maskDecl.m_componentType = gl_const::GLFloatType;
-    maskDecl.m_offset = outlineDecl.m_offset + sizeof(glsl::vec2);
-    maskDecl.m_stride = posDecl.m_stride;
-  }
-
-  return s_info;
+TextDynamicVertex::TextDynamicVertex(TNormal const & normal)
+  : m_normal(normal)
+{
 }
 
 dp::BindingInfo const & TextDynamicVertex::GetBindingInfo()
 {
-  STATIC_ASSERT(sizeof(TextDynamicVertex) == sizeof(glsl::vec2));
-  static dp::BindingInfo s_info(1, GetDynamicStreamID());
-  static bool s_inited = false;
-
-  if (!s_inited)
-  {
-    dp::BindingDecl & decl = s_info.GetBindingDecl(0);
-    decl.m_attributeName = "a_normal";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = sizeof(TextDynamicVertex);
-  }
-
-  return s_info;
+  return GetBinding(TextDynamic);
 }
 
 uint32_t TextDynamicVertex::GetDynamicStreamID()
 {
   return 0x7F;
+}
+
+LineVertex::LineVertex()
+  : m_position(0.0, 0.0, 0.0)
+  , m_normal(0.0, 0.0)
+  , m_colorTexCoord(0.0, 0.0)
+  , m_maskTexCoord(0.0, 0.0)
+  , m_dxdy(0.0, 0.0)
+{
+}
+
+LineVertex::LineVertex(TPosition const & position, TNormal const & normal,
+                       TTexCoord const & color, TTexCoord const & mask,
+                       TNormal const & dxdy)
+  : m_position(position)
+  , m_normal(normal)
+  , m_colorTexCoord(color)
+  , m_maskTexCoord(mask)
+  , m_dxdy(dxdy)
+{
+}
+
+dp::BindingInfo const & LineVertex::GetBindingInfo()
+{
+  return GetBinding(Line);
 }
 
 } //namespace gpu
