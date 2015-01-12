@@ -57,7 +57,7 @@
   <dimen name="ppp_button_size_small">42dp</dimen>
 
   <dimen name="bottom_panel_height">46dp</dimen>
-  <dimen name="bottom_button_width">90dp</dimen>
+  <dimen name="bottom_button_width">113dp</dimen>
   <dimen name="bottom_item_height">46dp</dimen>
 
   <item name="alpha_edit_button" format="float" type="dimen">0.75</item>

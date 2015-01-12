@@ -62,7 +62,7 @@
   </style>
 
   <style name="Widget.MapButtonBottom" parent="android:Widget.ImageButton">
-    <item name="android:background">@android:color/transparent</item>
+    <item name="android:background">@drawable/bg_toolbar_button</item>
   </style>
 
   <style name="InfoItem" parent="TextAppearance.AppCompat.Large">

@@ -4,6 +4,7 @@
     android:layout_width="@dimen/bottom_panel_width"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:clipChildren="false"
     android:background="@drawable/ic_toolbar_tablet_bg">
 
   <ImageButton
