@@ -973,6 +973,22 @@ turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
   return turns::NoTurn;
 }
 
+bool OsrmRouter::KeepOnewayOutgoingTurn(TurnCandidatesT const & nodes, Route::TurnItem const & turn,
+                            m2::PointD const & p, m2::PointD const & p1OneSeg, string const & fName) const
+{
+  size_t const outgoingNotesCount = 1;
+  if (turns::IsGoStraightOrSlightTurn(turn.m_turn))
+    return false;
+  else
+  {
+    GeomTurnCandidateT geoNodes;
+    GetTurnGeometry(p, p1OneSeg, geoNodes, fName);
+    if (geoNodes.size() <= outgoingNotesCount)
+      return false;
+    return true;
+  }
+}
+
 void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   PathData const & node2,
                                   uint32_t mwmId, Route::TurnItem & turn, string const & fName)
@@ -1044,24 +1060,10 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
     turn.m_turn = MostLeftDirection(a);
   else turn.m_turn = IntermediateDirection(a);
 
-  size_t const outgoingNotesCount = 1;
-  if (nodesSz == outgoingNotesCount)
+  if (nodesSz == 1 && !KeepOnewayOutgoingTurn(nodes, turn, p, p1OneSeg, fName))
   {
-    if (turns::IsGoStraightOrSlightTurn(turn.m_turn))
-    {
-      turn.m_turn = turns::NoTurn;
-      return;
-    }
-    else
-    {
-      GeomTurnCandidateT geoNodes;
-      GetTurnGeometry(p, p1OneSeg, geoNodes, fName);
-      if (geoNodes.size() <= outgoingNotesCount)
-      {
-        turn.m_turn = turns::NoTurn;
-        return;
-      }
-    }
+    turn.m_turn = turns::NoTurn;
+    return;
   }
 
   turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ft1)
