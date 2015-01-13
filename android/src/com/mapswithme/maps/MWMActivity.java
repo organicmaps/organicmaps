@@ -91,6 +91,7 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
@@ -532,6 +533,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)
   {
+    final MWMApplication application = MWMApplication.get();
     new AlertDialog.Builder(this)
         .setCancelable(false)
         .setMessage(getString(resMsg))
@@ -542,7 +544,7 @@ public class MWMActivity extends NvEventQueueActivity
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.NEVER);
+            application.submitDialogResult(dlgID, MWMApplication.NEVER);
           }
         })
         .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
@@ -551,7 +553,9 @@ public class MWMActivity extends NvEventQueueActivity
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.LATER);
+            application.submitDialogResult(dlgID, MWMApplication.LATER);
+            // FIXME hack to deal with native & java FACEBOOK dialog views conflict
+            application.nativeSetInt(MWMApplication.LAUNCH_NUMBER_SETTING, application.nativeGetInt(MWMApplication.LAUNCH_NUMBER_SETTING, 0) + 1);
           }
         })
         .create()
@@ -597,8 +601,18 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkFacebookDialog()
   {
     if (ConnectionState.isConnected() &&
-        MWMApplication.get().shouldShowDialog(MWMApplication.FACEBOOK) &&
+        // TODO If new dialog display logic will be fine - move it to core and uncomment the following line
+        // MWMApplication.get().shouldShowDialog(MWMApplication.FACEBOOK) &&
+        Arrays.asList(MWMApplication.FACEBOOK_RATE_LAUNCHES).contains(MWMApplication.get().getLaunchesNumber()) &&
+        MWMApplication.get().nativeGetBoolean("ShouldShowFacebookDialog", true) &&
         !isChinaRegion())
+      mInfoView.postDelayed(mShareFacebookRunnable, 30 * 1000);
+  }
+
+  private Runnable mShareFacebookRunnable = new Runnable()
+  {
+    @Override
+    public void run()
     {
       showDialogImpl(MWMApplication.FACEBOOK, R.string.share_on_facebook_text,
           new DialogInterface.OnClickListener()
@@ -614,7 +628,7 @@ public class MWMActivity extends NvEventQueueActivity
           }
       );
     }
-  }
+  };
 
   private void checkBuyProDialog()
   {
@@ -1281,13 +1295,11 @@ public class MWMActivity extends NvEventQueueActivity
   protected void onPause()
   {
     pauseLocation();
-
     stopWatchingExternalStorage();
-
     stopWatchingCompassStatusUpdate();
-
     super.onPause();
     mLocationPredictor.pause();
+    mInfoView.removeCallbacks(mShareFacebookRunnable);
   }
 
   @Override

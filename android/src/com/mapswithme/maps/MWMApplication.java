@@ -38,7 +38,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 {
   private final static String TAG = "MWMApplication";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
-  private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
+  public static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
   public static final String IS_PREINSTALLED = "IsPreinstalled";
 
   private static MWMApplication mSelf;
@@ -107,8 +107,8 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath, getOBBGooglePath(),
-               BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, BuildConfig.IS_PRO,
-               mIsYota, getResources().getBoolean(R.bool.isTablet));
+        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, BuildConfig.IS_PRO,
+        mIsYota, getResources().getBoolean(R.bool.isTablet));
 
     ActiveCountryTree.addListener(this);
 
@@ -226,12 +226,13 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   public native boolean nativeIsBenchmarking();
 
-  /// @name Dealing with dialogs.
-  /// @note Constants should be equal with map/dialog_settings.hpp
-  /// @{
-  static public final int FACEBOOK = 0;
-  static public final int BUYPRO = 1;
-  static public final int ROUTING = 3;
+  // Dealing with dialogs.
+  // Constants should be equal with map/dialog_settings.hpp
+  public static final int FACEBOOK = 0;
+  public static final int BUYPRO = 1;
+  public static final int ROUTING = 3;
+
+  public static final Integer[] FACEBOOK_RATE_LAUNCHES = new Integer[]{3, 7, 10, 15, 21};
 
   public native boolean shouldShowDialog(int dlg);
 
@@ -240,7 +241,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   static public final int NEVER = 2;
 
   public native void submitDialogResult(int dlg, int res);
-  /// @}
+  //
 
   private native void nativeAddLocalization(String name, String value);
 
