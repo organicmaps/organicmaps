@@ -406,11 +406,12 @@ void TestingEngine::DrawImpl()
     path1.push_back(m2::PointD(98.277071f, 45.9271164f));
     path1.push_back(m2::PointD(98.277071f, 40.9271164f));
     path1.push_back(m2::PointD(100.277071f, 38.9271164f));
-    path1.push_back(m2::PointD(101.277071f, 45.9271164f));
+    path1.push_back(m2::PointD(101.277071f, 49.9271164f));
     path1.push_back(m2::PointD(102.277071f, 40.9271164f));
     m2::SharedSpline spl1(path1);
 
-    lvp.m_join = dp::BevelJoin;
+    lvp.m_pattern = dp::TextureManager::TStipplePattern{8, 8};
+    lvp.m_join = dp::RoundJoin;
     lvp.m_cap = dp::RoundCap;
     lvp.m_color = dp::Color::Black();
     LineShape(spl1, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());

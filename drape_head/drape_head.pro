@@ -11,7 +11,6 @@ TARGET = DrapeHead
 TEMPLATE = app
 CONFIG += warn_on
 QT *= core gui widgets opengl
-#DEFINES += USE_TESTING_ENGINE
 
 win32* {
   LIBS += -lopengl32 -lws2_32 -lshell32 -liphlpapi
