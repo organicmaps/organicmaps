@@ -86,11 +86,7 @@ public:
         break;
 
       if (doFirstWait)
-      {
         doFirstWait = false;
-        if (!m_resName.empty())
-          LOG(LDEBUG, ("consumer is waiting for", m_resName));
-      }
 
       m_Cond.Wait();
     }
