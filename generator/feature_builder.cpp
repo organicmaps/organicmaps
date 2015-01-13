@@ -56,8 +56,8 @@ m2::PointD FeatureBuilder1::GetKeyPoint() const
   case GEOM_LINE: case GEOM_AREA:
     return GetGeometryCenter();
   default:
-    ASSERT(false, ());
-    return m2::PointD(0, 0);
+    CHECK(false, ());
+    return m2::PointD();
   }
 }
 

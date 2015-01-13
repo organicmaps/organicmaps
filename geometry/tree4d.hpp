@@ -24,14 +24,14 @@ namespace m4
   template <class T, typename Traits = TraitsDef<T> >
   class Tree
   {
-    struct value_t
+    struct ValueT
     {
       T m_val;
       double m_pts[4];
 
       typedef double value_type;
 
-      value_t(T const & t, m2::RectD const & r) : m_val(t)
+      ValueT(T const & t, m2::RectD const & r) : m_val(t)
       {
         m_pts[0] = r.minX();
         m_pts[1] = r.minY();
@@ -45,7 +45,7 @@ namespace m4
                  (m_pts[3] <= r.minY()) || (m_pts[1] >= r.maxY()));
       }
 
-      bool operator ==(value_t const & r) const
+      bool operator ==(ValueT const & r) const
       {
         return (m_val == r.m_val);
       }
@@ -68,10 +68,8 @@ namespace m4
       m2::RectD GetRect() const { return m2::RectD(m_pts[0], m_pts[1], m_pts[2], m_pts[3]); }
     };
 
-    typedef KDTree::KDTree<4, value_t> tree_t;
-    tree_t m_tree;
-
-    typedef vector<value_t const *> store_vec_t;
+    typedef KDTree::KDTree<4, ValueT> TreeT;
+    TreeT m_tree;
 
     // Do-class for rect-iteration in tree.
     template <class ToDo> class for_each_helper
@@ -85,7 +83,7 @@ namespace m4
       {
       }
 
-      bool ScanLeft(size_t plane, value_t const & v) const
+      bool ScanLeft(size_t plane, ValueT const & v) const
       {
         switch (plane & 3)    // % 4
         {
@@ -95,7 +93,7 @@ namespace m4
         }
       }
 
-      bool ScanRight(size_t plane, value_t const & v) const
+      bool ScanRight(size_t plane, ValueT const & v) const
       {
         switch (plane & 3)  // % 4
         {
@@ -105,7 +103,7 @@ namespace m4
         }
       }
 
-      void operator() (value_t const & v) const
+      void operator() (ValueT const & v) const
       {
         if (v.IsIntersect(m_rect))
           m_toDo(v);
@@ -133,17 +131,17 @@ namespace m4
 
     void Add(T const & obj, m2::RectD const & rect)
     {
-      m_tree.insert(value_t(obj, rect));
+      m_tree.insert(ValueT(obj, rect));
     }
 
   private:
-    template <class TCompare>
-    void ReplaceImpl(T const & obj, m2::RectD const & rect, TCompare comp)
+    template <class CompareT>
+    void ReplaceImpl(T const & obj, m2::RectD const & rect, CompareT comp)
     {
       bool skip = false;
-      store_vec_t isect;
+      vector<ValueT const *> isect;
 
-      m_tree.for_each(GetFunctor(rect, [&] (value_t const & v)
+      m_tree.for_each(GetFunctor(rect, [&] (ValueT const & v)
       {
         if (skip)
           return;
@@ -162,15 +160,15 @@ namespace m4
       if (skip)
         return;
 
-      for (value_t const * v : isect)
+      for (ValueT const * v : isect)
         m_tree.erase(*v);
 
       Add(obj, rect);
     }
 
   public:
-    template <class TCompare>
-    void ReplaceAllInRect(T const & obj, TCompare comp)
+    template <class CompareT>
+    void ReplaceAllInRect(T const & obj, CompareT comp)
     {
       ReplaceImpl(obj, GetLimitRect(obj), [&comp] (T const & t1, T const & t2)
       {
@@ -178,8 +176,8 @@ namespace m4
       });
     }
 
-    template <class TEqual, class TCompare>
-    void ReplaceEqualInRect(T const & obj, TEqual eq, TCompare comp)
+    template <class EqualT, class CompareT>
+    void ReplaceEqualInRect(T const & obj, EqualT eq, CompareT comp)
     {
       ReplaceImpl(obj, GetLimitRect(obj), [&] (T const & t1, T const & t2)
       {
@@ -192,34 +190,34 @@ namespace m4
 
     void Erase(T const & obj, m2::RectD const & r)
     {
-      value_t val(obj, r);
+      ValueT val(obj, r);
       m_tree.erase_exact(val);
     }
 
     void Erase(T const & obj)
     {
-      value_t val(obj, m_traits.LimitRect(obj));
+      ValueT val(obj, m_traits.LimitRect(obj));
       m_tree.erase_exact(val);
     }
 
     template <class ToDo>
     void ForEach(ToDo toDo) const
     {
-      for (value_t const & v : m_tree)
+      for (ValueT const & v : m_tree)
         toDo(v.m_val);
     }
 
     template <class ToDo>
     void ForEachWithRect(ToDo toDo) const
     {
-      for (value_t const & v : m_tree)
+      for (ValueT const & v : m_tree)
         toDo(v.GetRect(), v.m_val);
     }
 
     template <class ToDo>
     void ForEachInRect(m2::RectD const & rect, ToDo toDo) const
     {
-      m_tree.for_each(GetFunctor(rect, [&toDo] (value_t const & v) { toDo(v.m_val); }));
+      m_tree.for_each(GetFunctor(rect, [&toDo] (ValueT const & v) { toDo(v.m_val); }));
     }
 
     bool IsEmpty() const { return m_tree.empty(); }
@@ -231,7 +229,7 @@ namespace m4
     string DebugPrint() const
     {
       ostringstream out;
-      for (value_t const & v : m_tree.begin())
+      for (ValueT const & v : m_tree.begin())
         out << v.DebugPrint() << ", ";
       return out.str();
     }
