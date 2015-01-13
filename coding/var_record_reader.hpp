@@ -31,23 +31,28 @@ public:
     ASSERT_GREATER_OR_EQUAL(expectedRecordSize, 4, ());
   }
 
-  uint64_t ReadRecord(uint64_t const pos, vector<char> & buffer, uint32_t & recordOffset) const
+  uint64_t ReadRecord(uint64_t const pos, vector<char> & buffer, uint32_t & recordOffset, uint32_t & actualSize) const
   {
     ASSERT_LESS(pos, m_ReaderSize, ());
     uint32_t const initialSize = static_cast<uint32_t>(
         min(static_cast<uint64_t>(m_ExpectedRecordSize), m_ReaderSize - pos));
-    buffer.resize(initialSize);
+
+    if (buffer.size() < initialSize)
+      buffer.resize(initialSize);
+
     m_Reader.Read(pos, &buffer[0], initialSize);
     ArrayByteSource source(&buffer[0]);
     uint32_t const recordSize = VarRecordSizeReaderFn(source);
     uint32_t const recordSizeSize = static_cast<uint32_t>(source.PtrC() - &buffer[0]);
     uint32_t const fullSize = recordSize + recordSizeSize;
     ASSERT_LESS_OR_EQUAL(pos + fullSize, m_ReaderSize, ());
-    buffer.resize(fullSize);
+    if (buffer.size() < fullSize)
+      buffer.resize(fullSize);
     if (initialSize < fullSize)
       m_Reader.Read(pos + initialSize, &buffer[initialSize], fullSize - initialSize);
 
     recordOffset = recordSizeSize;
+    actualSize = fullSize;
     return pos + fullSize;
   }
 
@@ -58,10 +63,10 @@ public:
     vector<char> buffer;
     while (pos < m_ReaderSize)
     {
-      uint32_t offset;
-      uint64_t nextPos = ReadRecord(pos, buffer, offset);
+      uint32_t offset = 0, size = 0;
+      uint64_t nextPos = ReadRecord(pos, buffer, offset, size);
       // uint64_t -> uint32_t : assume that feature dat file not more than 4Gb
-      f(static_cast<uint32_t>(pos), &buffer[offset], static_cast<uint32_t>(buffer.size() - offset));
+      f(static_cast<uint32_t>(pos), &buffer[offset], static_cast<uint32_t>(size - offset));
       pos = nextPos;
     }
     ASSERT_EQUAL(pos, m_ReaderSize, ());

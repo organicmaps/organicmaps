@@ -17,8 +17,8 @@ public:
 
   void Get(uint64_t pos, FeatureType & ft) const
   {
-    uint32_t offset;
-    m_RecordReader.ReadRecord(pos, m_buffer, offset);
+    uint32_t offset = 0, size = 0;
+    m_RecordReader.ReadRecord(pos, m_buffer, offset, size);
 
     ft.Deserialize(m_LoadInfo.GetLoader(), &m_buffer[offset]);
   }

@@ -123,10 +123,10 @@ class SecondPassParser : public BaseOSMParser
 
     bool HasName() const
     {
-      for (auto p : m_current->childs)
+      for (auto const & p : m_current->childs)
       {
         if (p.name == "tag")
-          for (auto a : p.attrs)
+          for (auto const & a : p.attrs)
             if (strings::StartsWith(a.first, "name"))
               return true;
       }
@@ -151,7 +151,7 @@ class SecondPassParser : public BaseOSMParser
       bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
       bool const hasName = HasName();
 
-      for (auto p : e.tags)
+      for (auto const &p : e.tags)
       {
         /// @todo Skip common key tags.
         if (p.first == "type" || p.first == "route")

@@ -396,15 +396,15 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
 }
 
-bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuild)
+bool indexer::BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
 {
   LOG(LINFO, ("Start building search index. Bits = ", search::POINT_CODING_BITS));
 
   try
   {
     Platform & pl = GetPlatform();
-    string const datFile = pl.WritablePathForFile(fName);
-    string const tmpFile = pl.WritablePathForFile(fName + ".search_index_2.tmp");
+    string const tmpFile1 = datFile + ".search_index_1.tmp";
+    string const tmpFile2 = datFile + ".search_index_2.tmp";
 
     {
       FilesContainerR readCont(datFile);
@@ -412,12 +412,11 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuil
       if (!forceRebuild && readCont.IsExist(SEARCH_INDEX_FILE_TAG))
         return true;
 
-      FileWriter writer(tmpFile);
+      FileWriter writer(tmpFile2);
 
       CategoriesHolder catHolder(pl.GetReader(SEARCH_CATEGORIES_FILE_NAME));
 
-      BuildSearchIndex(readCont, catHolder, writer,
-                       pl.WritablePathForFile(fName + ".search_index_1.tmp"));
+      BuildSearchIndex(readCont, catHolder, writer, tmpFile1);
 
       LOG(LINFO, ("Search index size = ", writer.Size()));
     }
@@ -426,10 +425,10 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuil
       // Write to container in reversed order.
       FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
       FileWriter writer = writeCont.GetWriter(SEARCH_INDEX_FILE_TAG);
-      rw_ops::Reverse(FileReader(tmpFile), writer);
+      rw_ops::Reverse(FileReader(tmpFile2), writer);
     }
 
-    FileWriter::DeleteFileX(tmpFile);
+    FileWriter::DeleteFileX(tmpFile2);
   }
   catch (Reader::Exception const & e)
   {

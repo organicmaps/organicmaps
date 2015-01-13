@@ -27,15 +27,20 @@ namespace ftype
       static char const * aFalse[] = { "no", "false", "-1" };
 
       strings::SimpleTokenizer it(v, "|");
-      while (it)
+      if (it)
       {
-        if (strings::IsInArray(aTrue, *it))
-          return 1;
+        bool allowedKey = (k != "layer" && k != "oneway");
+        while (it)
+        {
+          string const &part = *it;
+          if (allowedKey && strings::IsInArray(aFalse, part))
+            return -1;
 
-        if (k != "layer" && k != "oneway" && strings::IsInArray(aFalse, *it))
-          return -1;
+          if (strings::IsInArray(aTrue, part))
+            return 1;
 
-        ++it;
+          ++it;
+        }
       }
 
       // "~" means no this tag, so sometimes it means true,
@@ -67,10 +72,11 @@ namespace ftype
         if (p->childs[i].name == "tag")
         {
           string & k = p->childs[i].attrs["k"];
-          string & v = p->childs[i].attrs["v"];
 
           if (k.empty() || is_skip_tag(k))
             continue;
+
+          string & v = p->childs[i].attrs["v"];
 
           // this means "no"
           if (get_mark_value(k, v) == -1)
