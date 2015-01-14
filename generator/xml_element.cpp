@@ -1,38 +1,74 @@
 #include "xml_element.hpp"
 
 #include "../coding/parse_xml.hpp"
+#include "../base/string_utils.hpp"
 
 #include "../std/cstdio.hpp"
 #include "../std/algorithm.hpp"
 
-
-void XMLElement::Clear()
-{
-  name.clear();
-  attrs.clear();
-  childs.clear();
-  parent = 0;
-}
 
 void XMLElement::AddKV(string const & k, string const & v)
 {
   childs.push_back(XMLElement());
   XMLElement & e = childs.back();
 
-  e.name = "tag";
-  e.attrs["k"] = k;
-  e.attrs["v"] = v;
+  e.tagKey = ET_TAG;
+  e.k = k;
+  e.v = v;
   e.parent = this;
 }
 
-bool BaseOSMParser::is_our_tag(string const & name)
+void BaseOSMParser::AddAttr(string const & key, string const & value)
 {
-  return (find(m_tags.begin(), m_tags.end(), name) != m_tags.end());
+  if (m_current)
+  {
+    if (key == "id")
+      VERIFY ( strings::to_uint64(value, m_current->id), ("Unknown element with invalid id : ", value) );
+    else if (key == "lon")
+      VERIFY ( strings::to_double(value, m_current->lng), ("Bad node lon : ", value) );
+    else if (key == "lat")
+      VERIFY ( strings::to_double(value, m_current->lat), ("Bad node lon : ", value) );
+    else if (key == "ref")
+      VERIFY ( strings::to_uint64(value, m_current->ref), ("Bad node ref in way : ", value) );
+    else if (key == "k")
+      m_current->k = value;
+    else if (key == "v")
+      m_current->v = value;
+    else if (key == "type")
+      m_current->type = value;
+    else if (key == "role")
+      m_current->role = value;
+  }
 }
 
-bool BaseOSMParser::Push(string const & name)
+bool BaseOSMParser::MatchTag(string const & tagName, XMLElement::ETag &tagKey)
 {
-  if (!is_our_tag(name) && (m_depth != 2))
+  static const TagT allowedTags[] = {
+    {"nd", XMLElement::ET_ND, false},
+    {"node", XMLElement::ET_NODE, true},
+    {"tag", XMLElement::ET_TAG, false},
+    {"way", XMLElement::ET_WAY, true},
+    {"relation", XMLElement::ET_RELATION, true},
+    {"member", XMLElement::ET_MEMBER, false},
+    {"osm", XMLElement::ET_OSM, true}
+  };
+
+  tagKey = XMLElement::ET_UNKNOWN;
+  for (auto const & e : allowedTags) {
+    if (tagName == e.tagName)
+    {
+      tagKey = e.tagKey;
+      return e.allowed;
+    }
+  }
+  return false;
+}
+
+bool BaseOSMParser::Push(string const & tagName)
+{
+  XMLElement::ETag tagKey;
+
+  if (!MatchTag(tagName, tagKey) && (m_depth != 2))
     return false;
 
   ++m_depth;
@@ -54,14 +90,8 @@ bool BaseOSMParser::Push(string const & name)
   }
 
   if (m_depth >= 2)
-    m_current->name = name;
+    m_current->tagKey = tagKey;
   return true;
-}
-
-void BaseOSMParser::AddAttr(string const & name, string const & value)
-{
-  if (m_current)
-    m_current->attrs[name] = value;
 }
 
 void BaseOSMParser::Pop(string const &)
@@ -74,7 +104,7 @@ void BaseOSMParser::Pop(string const &)
   else if (m_depth == 1)
   {
     EmitElement(m_current);
-    m_current->Clear();
+    (*m_current) = XMLElement();
   }
 }
 

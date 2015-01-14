@@ -125,10 +125,16 @@ class SecondPassParser : public BaseOSMParser
     {
       for (auto const & p : m_current->childs)
       {
-        if (p.name == "tag")
-          for (auto const & a : p.attrs)
-            if (strings::StartsWith(a.first, "name"))
+        if (p.tagKey == XMLElement::ET_TAG)
+        {
+            if (strings::StartsWith(p.k, "name"))
               return true;
+            if (strings::StartsWith(p.v, "name"))
+              return true;
+        }
+//          for (auto const & a : p.attrs)
+//            if (strings::StartsWith(a.first, "name"))
+//              return true;
       }
 
       return false;
@@ -147,7 +153,7 @@ class SecondPassParser : public BaseOSMParser
         return;
       }
 
-      bool const isWay = (m_current->name == "way");
+      bool const isWay = (m_current->tagKey == XMLElement::ET_WAY);
       bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
       bool const hasName = HasName();
 
@@ -195,25 +201,23 @@ class SecondPassParser : public BaseOSMParser
 
   } m_relationsProcess;
 
-  bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & params)
+  bool ParseType(XMLElement * p, FeatureParams & params)
   {
-    CHECK(strings::to_uint64(p->attrs["id"], id), (p->attrs["id"]));
-
     // Get tags from parent relations.
-    m_relationsProcess.Reset(id, p);
+    m_relationsProcess.Reset(p->id, p);
 
-    if (p->name == "node")
+    if (p->tagKey == XMLElement::ET_NODE)
     {
       // additional process of nodes ONLY if there is no native types
       FeatureParams fp;
       ftype::GetNameAndType(p, fp);
       if (!ftype::IsValidTypes(fp))
-        m_holder.ForEachRelationByNodeCached(id, m_relationsProcess);
+        m_holder.ForEachRelationByNodeCached(p->id, m_relationsProcess);
     }
-    else if (p->name == "way")
+    else if (p->tagKey == XMLElement::ET_WAY)
     {
       // always make additional process of ways
-      m_holder.ForEachRelationByWayCached(id, m_relationsProcess);
+      m_holder.ForEachRelationByWayCached(p->id, m_relationsProcess);
     }
 
     // Get params from element tags.
@@ -386,33 +390,29 @@ class SecondPassParser : public BaseOSMParser
   /// The main entry point for parsing process.
   virtual void EmitElement(XMLElement * p)
   {
-    uint64_t id;
     FeatureParams params;
-    if (!ParseType(p, id, params))
+    if (!ParseType(p, params))
       return;
 
-    if (p->name == "node")
+    if (p->tagKey == XMLElement::ET_NODE)
     {
       m2::PointD pt;
-      if (p->childs.empty() || !GetPoint(id, pt))
+      if (p->childs.empty() || !GetPoint(p->id, pt))
         return;
 
-      EmitPoint(pt, params, osm::Id::Node(id));
+      EmitPoint(pt, params, osm::Id::Node(p->id));
     }
-    else if (p->name == "way")
+    else if (p->tagKey == XMLElement::ET_WAY)
     {
       FeatureBuilderT ft;
 
       // Parse geometry.
-      for (size_t i = 0; i < p->childs.size(); ++i)
+      for (auto const & e : p->childs)
       {
-        if (p->childs[i].name == "nd")
+        if (e.tagKey == XMLElement::ET_ND)
         {
-          uint64_t nodeID;
-          CHECK ( strings::to_uint64(p->childs[i].attrs["ref"], nodeID), (p->childs[i].attrs["ref"]) );
-
           m2::PointD pt;
-          if (!GetPoint(nodeID, pt))
+          if (!GetPoint(e.ref, pt))
             return;
 
           ft.AddPoint(pt);
@@ -422,20 +422,20 @@ class SecondPassParser : public BaseOSMParser
       if (ft.GetPointsCount() < 2)
         return;
 
-      ft.SetOsmId(osm::Id::Way(id));
+      ft.SetOsmId(osm::Id::Way(p->id));
       bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
       EmitArea(ft, params, [&] (FeatureBuilderT & ft)
       {
         isCoastLine = false;  // emit coastline feature only once
-        multipolygon_holes_processor processor(id, this);
-        m_holder.ForEachRelationByWay(id, processor);
+        multipolygon_holes_processor processor(p->id, this);
+        m_holder.ForEachRelationByWay(p->id, processor);
         ft.SetAreaAddHoles(processor.GetHoles());
       });
 
       EmitLine(ft, params, isCoastLine);
     }
-    else if (p->name == "relation")
+    else if (p->tagKey == XMLElement::ET_RELATION)
     {
       {
         // 1. Check, if this is our processable relation. Here we process only polygon relations.
@@ -443,9 +443,9 @@ class SecondPassParser : public BaseOSMParser
         size_t const count = p->childs.size();
         for (; i < count; ++i)
         {
-          if (p->childs[i].name == "tag" &&
-              p->childs[i].attrs["k"] == "type" &&
-              p->childs[i].attrs["v"] == "multipolygon")
+          if (p->childs[i].tagKey == XMLElement::ET_TAG &&
+              p->childs[i].k == "type" &&
+              p->childs[i].v == "multipolygon")
           {
             break;
           }
@@ -458,23 +458,18 @@ class SecondPassParser : public BaseOSMParser
       AreaWayMerger<THolder> outer(m_holder);
 
       // 3. Iterate ways to get 'outer' and 'inner' geometries
-      for (size_t i = 0; i < p->childs.size(); ++i)
+      for (auto const & e : p->childs)
       {
-        if (p->childs[i].name == "member" &&
-            p->childs[i].attrs["type"] == "way")
+        if (e.tagKey == XMLElement::ET_MEMBER && e.type == "way")
         {
-          string const & role = p->childs[i].attrs["role"];
-          uint64_t wayID;
-          CHECK ( strings::to_uint64(p->childs[i].attrs["ref"], wayID), (p->childs[i].attrs["ref"]) );
-
-          if (role == "outer")
-            outer.AddWay(wayID);
-          else if (role == "inner")
-            holes(wayID);
+          if (e.role == "outer")
+            outer.AddWay(e.ref);
+          else if (e.role == "inner")
+            holes(e.ref);
         }
       }
 
-      multipolygons_emitter emitter(this, params, holes.GetHoles(), id);
+      multipolygons_emitter emitter(this, params, holes.GetHoles(), p->id);
       outer.ForEachArea(emitter, true);
     }
   }
@@ -484,9 +479,6 @@ public:
                    uint32_t coastType, string const & addrFilePath)
     : m_emitter(emitter), m_holder(holder), m_coastType(coastType)
   {
-    char const * tags[] = { "osm", "node", "way", "relation" };
-    SetTags(tags);
-
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
   }

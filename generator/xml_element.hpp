@@ -3,15 +3,23 @@
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
 
+#include "../std/iostream.hpp"
 
 struct XMLElement
 {
-  string name;
-  map<string, string> attrs;
+  enum ETag {ET_UNKNOWN = 0, ET_OSM = 1, ET_NODE = 2, ET_WAY = 3, ET_RELATION = 4, ET_TAG = 5, ET_ND = 6, ET_MEMBER = 7};
+  ETag tagKey = ET_UNKNOWN;
+  uint64_t id = 0;
+  double lng = 0;
+  double lat = 0;
+  uint64_t ref = 0;
+  string k;
+  string v;
+  string type;
+  string role;
+  
   vector<XMLElement> childs;
-  XMLElement * parent;
-
-  void Clear();
+  XMLElement * parent = nullptr;
 
   void AddKV(string const & k, string const & v);
 };
@@ -19,24 +27,24 @@ struct XMLElement
 class BaseOSMParser
 {
   XMLElement m_element;
-  XMLElement * m_current;
 
   size_t m_depth;
 
-  vector<string> m_tags;
-  bool is_our_tag(string const & name);
+  typedef struct { char const * tagName; XMLElement::ETag tagKey; bool allowed;} TagT;
+
+protected:
+  XMLElement * m_current;
 
 public:
   BaseOSMParser() : m_current(0), m_depth(0) {}
 
-  template <size_t N> void SetTags(char const * (&arr)[N]) { m_tags.assign(&arr[0], &arr[N]); }
-
-  bool Push(string const & name);
-  void AddAttr(string const & name, string const & value);
+  void AddAttr(string const & key, string const & value);
+  bool Push(string const & tagName);
   void Pop(string const &);
   void CharData(string const &) {}
 
 protected:
+  bool MatchTag(string const & tagName, XMLElement::ETag &tagKey);
   virtual void EmitElement(XMLElement * p) = 0;
 };
 

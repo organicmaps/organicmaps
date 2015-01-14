@@ -169,9 +169,9 @@ class Classificator : private noncopyable
 
 public:
 
-  typedef const char * Path1T[1];
-  typedef const char * Path2T[2];
-  typedef const char * Path3T[3];
+  typedef const char * const Path1T[1];
+  typedef const char * const Path2T[2];
+  typedef const char * const Path3T[3];
 
   Classificator() : m_root("world") {}
 

@@ -69,14 +69,14 @@ namespace ftype
       res_t res = res_t();
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
-        if (p->childs[i].name == "tag")
+        if (p->childs[i].tagKey == XMLElement::ET_TAG)
         {
-          string & k = p->childs[i].attrs["k"];
+          string & k = p->childs[i].k;
 
           if (k.empty() || is_skip_tag(k))
             continue;
 
-          string & v = p->childs[i].attrs["v"];
+          string & v = p->childs[i].v;
 
           // this means "no"
           if (get_mark_value(k, v) == -1)
@@ -374,7 +374,7 @@ namespace ftype
     for_each_tag(p, bind<bool>(ref(setLayer), _1, _2));
 
     if (!isLayer && layer)
-        p->AddKV("layer", layer);
+      p->AddKV("layer", layer);
   }
 
 //#ifdef DEBUG
@@ -402,10 +402,10 @@ namespace ftype
     {
       Classificator const & c = classif();
       
-      for (auto &e: (Classificator::Path1T[]){ {"entrance"}, {"highway"} })
+      for (auto const & e : (Classificator::Path1T[]){ {"entrance"}, {"highway"} })
         m_types.push_back(c.GetTypeByPath( {e[0]} ));
 
-      for (auto &e: (Classificator::Path2T[]){ {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"} })
+      for (auto const & e : (Classificator::Path2T[]){ {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"} })
         m_types.push_back(c.GetTypeByPath( {e[0], e[1]} ));
     }
 
