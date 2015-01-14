@@ -123,7 +123,8 @@ private:
 class FilesMappingContainer : public FilesContainerBase
 {
 public:
-  FilesMappingContainer();
+  /// Do nothing by default, call Open to attach to file.
+  FilesMappingContainer() = default;
   explicit FilesMappingContainer(string const & fName);
 
   ~FilesMappingContainer();
@@ -182,12 +183,12 @@ public:
 
 private:
   string m_name;
-  #ifdef OMIM_OS_WINDOWS
-    void * m_hFile;
-    void * m_hMapping;
-  #else
-    int m_fd;
-  #endif
+#ifdef OMIM_OS_WINDOWS
+  void * m_hFile = (void *)-1;
+  void * m_hMapping = (void *)-1;
+#else
+  int m_fd = -1;
+#endif
 };
 
 class FilesContainerW : public FilesContainerBase

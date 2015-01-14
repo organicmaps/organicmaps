@@ -99,25 +99,7 @@ FilesContainerBase::Info const * FilesContainerBase::GetInfo(Tag const & tag) co
 // FilesMappingContainer
 /////////////////////////////////////////////////////////////////////////////
 
-FilesMappingContainer::FilesMappingContainer()
-  :
-  #ifdef OMIM_OS_WINDOWS
-    m_hFile(INVALID_HANDLE_VALUE),
-    m_hMapping(INVALID_HANDLE_VALUE)
-  #else
-    m_fd(-1)
-  #endif
-{
-}
-
 FilesMappingContainer::FilesMappingContainer(string const & fName)
-  :
-  #ifdef OMIM_OS_WINDOWS
-    m_hFile(INVALID_HANDLE_VALUE),
-    m_hMapping(INVALID_HANDLE_VALUE)
-  #else
-    m_fd(-1)
-  #endif
 {
   Open(fName);
 }
@@ -136,31 +118,33 @@ void FilesMappingContainer::Open(string const & fName)
     ReadInfo(reader);
   }
 
-  #ifdef OMIM_OS_WINDOWS
-    m_hFile = CreateFileA(fName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
-    if (m_hFile == INVALID_HANDLE_VALUE)
-      MYTHROW(Reader::OpenException, ("Can't open file:", fName, "win last error:", GetLastError()));
-    m_hMapping = CreateFileMappingA(m_hFile, NULL, PAGE_READONLY, 0, 0, NULL);
-    if (m_hMapping == NULL)
-      MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fName, "win last error:", GetLastError()));
-  #else
-    m_fd = open(fName.c_str(), O_RDONLY | O_NONBLOCK);
-    if (m_fd == -1)
-      MYTHROW(Reader::OpenException, ("Can't open file:", fName));
-  #endif
+#ifdef OMIM_OS_WINDOWS
+  m_hFile = CreateFileA(fName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
+  if (m_hFile == INVALID_HANDLE_VALUE)
+    MYTHROW(Reader::OpenException, ("Can't open file:", fName, "win last error:", GetLastError()));
+  m_hMapping = CreateFileMappingA(m_hFile, NULL, PAGE_READONLY, 0, 0, NULL);
+  if (m_hMapping == NULL)
+    MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fName, "win last error:", GetLastError()));
+#else
+  m_fd = open(fName.c_str(), O_RDONLY | O_NONBLOCK);
+  if (m_fd == -1)
+    MYTHROW(Reader::OpenException, ("Can't open file:", fName));
+#endif
 
   m_name = fName;
 }
 
 void FilesMappingContainer::Close()
 {
-  #ifdef OMIM_OS_WINDOWS
-    if (m_hMapping != INVALID_HANDLE_VALUE) CloseHandle(m_hMapping);
-    if (m_hFile != INVALID_HANDLE_VALUE) CloseHandle(m_hFile);
-  #else
-    if (m_fd != -1)
-      close(m_fd);
-  #endif
+#ifdef OMIM_OS_WINDOWS
+  if (m_hMapping != INVALID_HANDLE_VALUE)
+    CloseHandle(m_hMapping);
+  if (m_hFile != INVALID_HANDLE_VALUE)
+    CloseHandle(m_hFile);
+#else
+  if (m_fd != -1)
+    close(m_fd);
+#endif
 
   m_name.clear();
 }
@@ -170,38 +154,33 @@ FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
   Info const * p = GetInfo(tag);
   if (p)
   {
-    #ifdef OMIM_OS_WINDOWS
-      SYSTEM_INFO sysInfo; memset(&sysInfo, 0, sizeof(sysInfo));
-      GetSystemInfo(&sysInfo);
+#ifdef OMIM_OS_WINDOWS
+    SYSTEM_INFO sysInfo;
+    memset(&sysInfo, 0, sizeof(sysInfo));
+    GetSystemInfo(&sysInfo);
+    long const offsetAlign = sysInfo.dwAllocationGranularity;
+#else
+    long const offsetAlign = sysconf(_SC_PAGE_SIZE);
+#endif
 
-      long const offsetAlign = sysInfo.dwAllocationGranularity;
+    uint64_t const offset = (p->m_offset / offsetAlign) * offsetAlign;
+    ASSERT_LESS_OR_EQUAL(offset, p->m_offset, ());
+    uint64_t const length = p->m_size + (p->m_offset - offset);
+    ASSERT_GREATER_OR_EQUAL(length, p->m_size, ());
 
-      uint64_t const offset = (p->m_offset / offsetAlign) * offsetAlign;
-      ASSERT_LESS_OR_EQUAL(offset, p->m_offset, ());
-      uint64_t const length = p->m_size + (p->m_offset - offset);
-      ASSERT_GREATER_OR_EQUAL(length, p->m_size, ());
+#ifdef OMIM_OS_WINDOWS
+    void * pMap = MapViewOfFile(m_hMapping, FILE_MAP_READ, offset >> (sizeof(DWORD) * 8), DWORD(offset), length);
+    if (pMap == NULL)
+      MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", *p, "win last error:", GetLastError()));
+#else
+    void * pMap = mmap(0, length, PROT_READ, MAP_SHARED, m_fd, offset);
+    if (pMap == MAP_FAILED)
+      MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", *p));
+#endif
 
-      char * pMap = (char*)MapViewOfFile(m_hMapping, FILE_MAP_READ, offset >> (sizeof(DWORD) * 8), DWORD(offset), length);
-      if (pMap == NULL) MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", *p, "win last error:", GetLastError()));
-      char const * data = reinterpret_cast<char const *>(pMap);
-      char const * d = data + (p->m_offset - offset);
-      return Handle(d, data, p->m_size, length);
-    #else
-      long const offsetAlign = sysconf(_SC_PAGE_SIZE);
-
-      uint64_t const offset = (p->m_offset / offsetAlign) * offsetAlign;
-      ASSERT_LESS_OR_EQUAL(offset, p->m_offset, ());
-      uint64_t const length = p->m_size + (p->m_offset - offset);
-      ASSERT_GREATER_OR_EQUAL(length, p->m_size, ());
-
-      void * pMap = mmap(0, length, PROT_READ, MAP_SHARED, m_fd, offset);
-      if (pMap == MAP_FAILED)
-        MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", *p));
-
-      char const * data = reinterpret_cast<char const *>(pMap);
-      char const * d = data + (p->m_offset - offset);
-      return Handle(d, data, p->m_size, length);
-    #endif
+    char const * data = reinterpret_cast<char const *>(pMap);
+    char const * d = data + (p->m_offset - offset);
+    return Handle(d, data, p->m_size, length);
   }
   else
     MYTHROW(Reader::OpenException, ("Can't find section:", tag));
