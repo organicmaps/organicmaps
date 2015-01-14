@@ -1197,9 +1197,11 @@ public class MWMActivity extends NvEventQueueActivity
       else
         ViewHelper.setScaleX(mIvTurn, 1);
 
-      final long hours = TimeUnit.SECONDS.toHours(info.mTotalTimeInSeconds);
-      final String time = String.format("%02d:%02d", hours,
-          TimeUnit.SECONDS.toMinutes(info.mTotalTimeInSeconds) - TimeUnit.HOURS.toMinutes(hours));
+      // one minute is added to estimated time to destination point
+      // to prevent displaying that zero minutes are left to the finish near destination point
+      final long minutes = TimeUnit.SECONDS.toMinutes(info.mTotalTimeInSeconds) + 1;
+      final long hours = TimeUnit.MINUTES.toHours(minutes);
+      final String time = String.format("%d:%02d", hours, minutes - TimeUnit.HOURS.toMinutes(hours));
       mTvTotalTime.setText(time);
 
       builder = new SpannableStringBuilder(info.mDistToTurn).append(" ").append(info.mTurnUnitsSuffix.toUpperCase());

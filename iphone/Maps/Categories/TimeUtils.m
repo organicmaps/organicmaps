@@ -5,10 +5,12 @@
 
 + (NSString *)estimatedArrivalTimeWithSeconds:(NSNumber *)seconds
 {
-  NSInteger ti = [seconds integerValue];
-  NSInteger minutes = (ti / 60) % 60;
-  NSInteger hours = (ti / 3600);
-  return [NSString stringWithFormat:@"%ld:%02ld", (long)hours, (long)minutes];
+  NSInteger const ti = [seconds integerValue];
+  // one minute is added to estimated time to destination point
+  // to prevent displaying that zero minutes are left to the finish near destination point
+  NSInteger const minutes = ti / 60 + 1;
+  NSInteger const hours = minutes / 60;
+  return [NSString stringWithFormat:@"%ld:%02ld", (long)hours, (long)(minutes % 60)];
 }
 
 + (NSDate *)dateWithString:(NSString *)dateString
