@@ -137,7 +137,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   MatchLocationToRoute(rInfo);
 
   shared_ptr<State> const & state = GetLocationState();
-  state->OnLocationUpdate(rInfo);
+  state->OnLocationUpdate(rInfo, m_routingSession.IsNavigable());
 
   if (state->IsModeChangeViewport())
     UpdateUserViewportChanged();

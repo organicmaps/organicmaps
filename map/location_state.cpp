@@ -390,9 +390,9 @@ void State::TurnOff()
   invalidate();
 }
 
-void State::OnLocationUpdate(location::GpsInfo const & info)
+void State::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable)
 {
-  Assign(info);
+  Assign(info, isNavigable);
 
   setIsVisible(true);
 
@@ -888,7 +888,7 @@ void State::RotateOnNorth()
   m_framework->GetAnimator().RotateScreen(GetModelView().GetAngle(), 0.0);
 }
 
-void State::Assign(location::GpsInfo const & info)
+void State::Assign(location::GpsInfo const & info, bool isNavigable)
 {
   m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
                                               info.m_latitude,
@@ -896,7 +896,9 @@ void State::Assign(location::GpsInfo const & info)
   m_position = rect.Center();
   m_errorRadius = rect.SizeX() / 2;
 
-  if (info.HasBearing() && info.HasSpeed() && info.m_speed > 1.0)
+  bool const hasBearing = info.HasBearing();
+  if ((isNavigable && hasBearing)
+      || (!isNavigable && hasBearing && info.HasSpeed() && info.m_speed > 1.0))
   {
     SetDirection(my::DegToRad(info.m_bearing));
     m_lastGPSBearing.Reset();

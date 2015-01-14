@@ -98,7 +98,7 @@ namespace location
 
     /// @name GPS location updates routine.
     //@{
-    void OnLocationUpdate(location::GpsInfo const & info);
+    void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable);
     void OnCompassUpdate(location::CompassInfo const & info);
     //@}
 
@@ -144,7 +144,7 @@ namespace location
 
     ScreenBase const & GetModelView() const;
 
-    void Assign(location::GpsInfo const & info);
+    void Assign(location::GpsInfo const & info, bool isNavigable);
     bool Assign(location::CompassInfo const & info);
     void SetDirection(double bearing);
 
