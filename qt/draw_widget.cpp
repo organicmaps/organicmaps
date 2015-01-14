@@ -440,7 +440,8 @@ namespace qt
           location::FollowingInfo loc;
           m_framework->GetRouteFollowingInfo(loc);
           LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                       "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix, ")"));
+                       "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix,
+                       ") Roundabout exit number:", loc.m_exitNum));
         }
       }
       else

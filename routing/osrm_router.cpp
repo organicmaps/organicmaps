@@ -973,7 +973,7 @@ turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
   return turns::NoTurn;
 }
 
-bool OsrmRouter::KeepOnewayOutgoingTurn(TurnCandidatesT const & nodes, Route::TurnItem const & turn,
+bool OsrmRouter::KeepOnewayOutgoingTurnIncomingEdges(TurnCandidatesT const & nodes, Route::TurnItem const & turn,
                             m2::PointD const & p, m2::PointD const & p1OneSeg, string const & fName) const
 {
   size_t const outgoingNotesCount = 1;
@@ -987,6 +987,32 @@ bool OsrmRouter::KeepOnewayOutgoingTurn(TurnCandidatesT const & nodes, Route::Tu
       return false;
     return true;
   }
+}
+
+bool OsrmRouter::KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2) const
+{
+  return !isRound1 && isRound2;
+}
+
+turns::TurnDirection OsrmRouter::RoundaboutDirection(bool isRound1, bool isRound2,
+                                         bool hasMultiTurns, Route::TurnItem const & turn) const
+{
+  if (isRound1 && isRound2)
+  {
+    if (hasMultiTurns)
+      return turns::StayOnRoundAbout;
+    else
+      return turns::NoTurn;
+  }
+
+  if (!isRound1 && isRound2)
+    return turns::EnterRoundAbout;
+
+  if (isRound1 && !isRound2)
+    return turns::LeaveRoundAbout;
+
+  ASSERT(false, ());
+  return turns::NoTurn;
 }
 
 void OsrmRouter::GetTurnDirection(PathData const & node1,
@@ -1048,6 +1074,8 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   turn.m_turn = turns::NoTurn;
   size_t const nodesSz = nodes.size();
+  bool const hasMultiTurns = (nodesSz >= 2);
+
   if (nodesSz == 0)
   {
     ASSERT(false, ());
@@ -1060,54 +1088,25 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
     turn.m_turn = MostLeftDirection(a);
   else turn.m_turn = IntermediateDirection(a);
 
-  if (nodesSz == 1 && !KeepOnewayOutgoingTurn(nodes, turn, p, p1OneSeg, fName))
+  bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
+  bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
+
+  if (!hasMultiTurns
+      && !KeepOnewayOutgoingTurnIncomingEdges(nodes, turn, p, p1OneSeg, fName)
+      && !KeepOnewayOutgoingTurnRoundabout(isRound1, isRound2))
   {
     turn.m_turn = turns::NoTurn;
     return;
   }
 
+  if (isRound1 || isRound2)
+  {
+    turn.m_turn = RoundaboutDirection(isRound1, isRound2, hasMultiTurns, turn);
+    return;
+  }
+
   turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ft1)
                        && ftypes::IsLinkChecker::Instance()(ft2));
-
-  bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
-  bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
-
-  auto hasMultiTurns = [&]()
-  {
-    for (EdgeID e : m_dataFacade.GetAdjacentEdgeRange(node1.node))
-    {
-      QueryEdge::EdgeData const & d = m_dataFacade.GetEdgeData(e, node1.node);
-      if (d.forward && m_dataFacade.GetTarget(e) != node2.node)
-        return true;
-    }
-    return false;
-  };
-
-  if (isRound1 && isRound2)
-  {
-    if (hasMultiTurns())
-      turn.m_turn = turns::StayOnRoundAbout;
-    else // No turn possible.
-      turn.m_turn = turns::NoTurn;
-    return;
-  }
-
-  if (!isRound1 && isRound2)
-  {
-    turn.m_turn = turns::EnterRoundAbout;
-    return;
-  }
-
-  if (isRound1 && !isRound2)
-  {
-    STATIC_ASSERT(turns::TurnRight < turns::TurnSlightRight);
-    STATIC_ASSERT(turns::TurnLeft < turns::TurnSlightLeft);
-
-    /// @todo: add support of left-hand traffic
-    if (!turns::IsLeftTurn(turn.m_turn))
-      turn.m_turn = turns::LeaveRoundAbout;
-    return;
-  }
 
   // get names
   string name1, name2;
@@ -1131,7 +1130,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   if (turn.m_turn == turns::GoStraight)
   {
-    if (!hasMultiTurns())
+    if (!hasMultiTurns)
       turn.m_turn = turns::NoTurn;
 
     return;
@@ -1168,7 +1167,11 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
       roundabout = &t;
     }
     else if (t.m_turn == turns::StayOnRoundAbout)
+    {
       ++exitNum;
+      turnsDir.erase(turnsDir.begin() + idx);
+      continue;
+    }
     else if (roundabout && t.m_turn == turns::LeaveRoundAbout)
     {
       roundabout->m_exitNum = exitNum + 1;
