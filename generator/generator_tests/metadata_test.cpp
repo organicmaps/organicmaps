@@ -112,6 +112,18 @@ UNIT_TEST(Metadata_ValidateAndFormat_ele)
   TEST(params.GetMetadata().Empty(), ());
 
   params.SetType(type_peak);
+  p("ele", "0");
+  TEST(params.GetMetadata().Empty(), ());
+
+  params.SetType(type_peak);
+  p("ele", "0,0000");
+  TEST(params.GetMetadata().Empty(), ());
+
+  params.SetType(type_peak);
+  p("ele", "0.0");
+  TEST(params.GetMetadata().Empty(), ());
+
+  params.SetType(type_peak);
   p("ele", "123");
   TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_ELE), "123", ());
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_ELE);

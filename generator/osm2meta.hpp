@@ -4,6 +4,8 @@
 #include "../indexer/classificator.hpp"
 #include "../indexer/ftypes_matcher.hpp"
 
+#include "../base/string_utils.hpp"
+
 #include "../std/string.hpp"
 
 
@@ -137,6 +139,9 @@ protected:
   {
     static ftypes::IsPeakChecker const IsPeak;
     if (!IsPeak(m_params.m_Types))
+      return string();
+    double val = 0;
+    if(!strings::to_double(v, val) || val == 0)
       return string();
     return v;
   }
