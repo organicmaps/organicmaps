@@ -284,6 +284,8 @@ android {
 
     release {
       signingConfig signingConfigs.mapswithme
+      minifyEnabled true
+      proguardFile('proguard-mwm.txt')
     }
 
     beta {
