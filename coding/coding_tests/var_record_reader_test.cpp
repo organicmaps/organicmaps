@@ -46,16 +46,20 @@ UNIT_TEST(VarRecordReader_Simple)
     MemReader reader(&data[0], data.size());
     VarRecordReader<MemReader, &VarRecordSizeReaderVarint> recordReader(
         reader, chunkSizes[chunkSize]);
-    vector<char> r;
-    uint32_t offset;
 
-    TEST_EQUAL(4, recordReader.ReadRecord(0, r, offset), ());
+    vector<char> r;
+    uint32_t offset, size;
+
+    TEST_EQUAL(4, recordReader.ReadRecord(0, r, offset, size), ());
+    r.resize(size);
     TEST_EQUAL(string(r.begin() + offset, r.end()), "abc", ());
 
-    TEST_EQUAL(11 + longStringSize, recordReader.ReadRecord(6 + longStringSize, r, offset), ());
+    TEST_EQUAL(11 + longStringSize, recordReader.ReadRecord(6 + longStringSize, r, offset, size), ());
+    r.resize(size);
     TEST_EQUAL(string(r.begin() + offset, r.end()), "defg", ());
 
-    TEST_EQUAL(6 + longStringSize, recordReader.ReadRecord(4, r, offset), ());
+    TEST_EQUAL(6 + longStringSize, recordReader.ReadRecord(4, r, offset, size), ());
+    r.resize(size);
     TEST_EQUAL(string(r.begin() + offset, r.end()), longString, ());
 
     vector<pair<uint64_t, string> > forEachCalls;
