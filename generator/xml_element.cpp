@@ -43,25 +43,18 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
 
 bool BaseOSMParser::MatchTag(string const & tagName, XMLElement::ETag &tagKey)
 {
-  static const TagT allowedTags[] = {
-    {"nd", XMLElement::ET_ND, false},
-    {"node", XMLElement::ET_NODE, true},
-    {"tag", XMLElement::ET_TAG, false},
-    {"way", XMLElement::ET_WAY, true},
-    {"relation", XMLElement::ET_RELATION, true},
-    {"member", XMLElement::ET_MEMBER, false},
-    {"osm", XMLElement::ET_OSM, true}
-  };
-
-  tagKey = XMLElement::ET_UNKNOWN;
-  for (auto const & e : allowedTags) {
-    if (tagName == e.tagName)
-    {
-      tagKey = e.tagKey;
-      return e.allowed;
-    }
+  /// as tagKey we use first two char of tag name
+  tagKey = XMLElement::ETag(*((unsigned short *)tagName.data()));
+  switch (tagKey) {
+    /// this tags will ignored in Push function
+    case XMLElement::ET_MEMBER:
+    case XMLElement::ET_TAG:
+    case XMLElement::ET_ND:
+      return false;
+    default:
+      return true;
   }
-  return false;
+  return true;
 }
 
 bool BaseOSMParser::Push(string const & tagName)

@@ -7,7 +7,7 @@
 
 struct XMLElement
 {
-  enum ETag {ET_UNKNOWN = 0, ET_OSM = 1, ET_NODE = 2, ET_WAY = 3, ET_RELATION = 4, ET_TAG = 5, ET_ND = 6, ET_MEMBER = 7};
+  enum ETag {ET_UNKNOWN = 0, ET_OSM = 'so', ET_NODE = 'on', ET_WAY = 'aw', ET_RELATION = 'er', ET_TAG = 'at', ET_ND = 'dn', ET_MEMBER = 'em'};
   ETag tagKey = ET_UNKNOWN;
   uint64_t id = 0;
   double lng = 0;
