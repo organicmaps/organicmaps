@@ -12,6 +12,7 @@
 #import "Statistics.h"
 
 #include "../../base/string_utils.hpp"
+#include "../../platform/platform.hpp"
 #include "../../search/result.hpp"
 #include "../../std/shared_ptr.hpp"
 
