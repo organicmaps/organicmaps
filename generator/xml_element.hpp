@@ -7,7 +7,17 @@
 
 struct XMLElement
 {
-  enum ETag {ET_UNKNOWN = 0, ET_OSM = 'so', ET_NODE = 'on', ET_WAY = 'aw', ET_RELATION = 'er', ET_TAG = 'at', ET_ND = 'dn', ET_MEMBER = 'em'};
+  enum ETag {
+    ET_UNKNOWN = 0,
+    ET_OSM = 'so',
+    ET_NODE = 'on',
+    ET_WAY = 'aw',
+    ET_RELATION = 'er',
+    ET_TAG = 'at',
+    ET_ND = 'dn',
+    ET_MEMBER = 'em'
+  };
+
   ETag tagKey = ET_UNKNOWN;
   uint64_t id = 0;
   double lng = 0;
@@ -18,8 +28,8 @@ struct XMLElement
   string type;
   string role;
   
-  vector<XMLElement> childs;
   XMLElement * parent = nullptr;
+  vector<XMLElement> childs;
 
   void AddKV(string const & k, string const & v);
 };
@@ -44,7 +54,7 @@ public:
   void CharData(string const &) {}
 
 protected:
-  bool MatchTag(string const & tagName, XMLElement::ETag &tagKey);
+  bool MatchTag(string const & tagName, XMLElement::ETag & tagKey);
   virtual void EmitElement(XMLElement * p) = 0;
 };
 

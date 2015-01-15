@@ -41,10 +41,10 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
   }
 }
 
-bool BaseOSMParser::MatchTag(string const & tagName, XMLElement::ETag &tagKey)
+bool BaseOSMParser::MatchTag(string const & tagName, XMLElement::ETag & tagKey)
 {
   /// as tagKey we use first two char of tag name
-  tagKey = XMLElement::ETag(*((unsigned short *)tagName.data()));
+  tagKey = XMLElement::ETag(*((uint16_t *)tagName.data()));
   switch (tagKey) {
     /// this tags will ignored in Push function
     case XMLElement::ET_MEMBER:

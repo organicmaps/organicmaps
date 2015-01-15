@@ -67,22 +67,18 @@ namespace ftype
       typedef typename ToDo::result_type res_t;
 
       res_t res = res_t();
-      for (size_t i = 0; i < p->childs.size(); ++i)
+      for (auto & e : p->childs)
       {
-        if (p->childs[i].tagKey == XMLElement::ET_TAG)
+        if (e.tagKey == XMLElement::ET_TAG)
         {
-          string & k = p->childs[i].k;
-
-          if (k.empty() || is_skip_tag(k))
+          if (e.k.empty() || is_skip_tag(e.k))
             continue;
-
-          string & v = p->childs[i].v;
 
           // this means "no"
-          if (get_mark_value(k, v) == -1)
+          if (get_mark_value(e.k, e.v) == -1)
             continue;
 
-          res = toDo(k, v);
+          res = toDo(e.k, e.v);
           if (res)
             return res;
         }
@@ -324,15 +320,8 @@ namespace ftype
       }
 
     protected:
-
       static void apply(function<void()> const & f, string & k, string & v) { f(); }
       static void apply(function<void(string & , string &)> const & f, string & k, string & v) { f(k, v); }
-
-      template< typename F>
-      static void apply(function<F> const & f, string & k, string & v)
-      {
-        ASSERT(false,("inappropriate function for instansing"));
-      }
     };
   }
 
