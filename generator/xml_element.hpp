@@ -7,7 +7,8 @@
 
 struct XMLElement
 {
-  enum ETag {
+  enum ETag
+  {
     ET_UNKNOWN = 0,
     ET_OSM = 'so',
     ET_NODE = 'on',
@@ -39,8 +40,6 @@ class BaseOSMParser
   XMLElement m_element;
 
   size_t m_depth;
-
-  typedef struct { char const * tagName; XMLElement::ETag tagKey; bool allowed;} TagT;
 
 protected:
   XMLElement * m_current;

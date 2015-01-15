@@ -23,13 +23,13 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
   if (m_current)
   {
     if (key == "id")
-      VERIFY ( strings::to_uint64(value, m_current->id), ("Unknown element with invalid id : ", value) );
+      CHECK ( strings::to_uint64(value, m_current->id), ("Unknown element with invalid id : ", value) );
     else if (key == "lon")
-      VERIFY ( strings::to_double(value, m_current->lng), ("Bad node lon : ", value) );
+      CHECK ( strings::to_double(value, m_current->lng), ("Bad node lon : ", value) );
     else if (key == "lat")
-      VERIFY ( strings::to_double(value, m_current->lat), ("Bad node lon : ", value) );
+      CHECK ( strings::to_double(value, m_current->lat), ("Bad node lon : ", value) );
     else if (key == "ref")
-      VERIFY ( strings::to_uint64(value, m_current->ref), ("Bad node ref in way : ", value) );
+      CHECK ( strings::to_uint64(value, m_current->ref), ("Bad node ref in way : ", value) );
     else if (key == "k")
       m_current->k = value;
     else if (key == "v")
@@ -44,8 +44,9 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
 bool BaseOSMParser::MatchTag(string const & tagName, XMLElement::ETag & tagKey)
 {
   /// as tagKey we use first two char of tag name
-  tagKey = XMLElement::ETag(*((uint16_t *)tagName.data()));
-  switch (tagKey) {
+  tagKey = XMLElement::ETag(*reinterpret_cast<uint16_t const *>(tagName.data()));
+  switch (tagKey)
+  {
     /// this tags will ignored in Push function
     case XMLElement::ET_MEMBER:
     case XMLElement::ET_TAG:
