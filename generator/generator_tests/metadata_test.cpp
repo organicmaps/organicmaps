@@ -98,6 +98,26 @@ UNIT_TEST(Metadata_ValidateAndFormat_operator)
   params.GetMetadata().Drop(feature::FeatureMetadata::FMD_OPERATOR);
 }
 
+UNIT_TEST(Metadata_ValidateAndFormat_ele)
+{
+  classificator::Load();
+  Classificator const & c = classif();
+  uint32_t const type_peak = c.GetTypeByPath({ "natural", "peak" });
+
+  FeatureParams params;
+  MetadataTagProcessor p(params);
+
+  // ignore tag 'operator' if feature have inappropriate type
+  p("ele", "123");
+  TEST(params.GetMetadata().Empty(), ());
+
+  params.SetType(type_peak);
+  p("ele", "123");
+  TEST_EQUAL(params.GetMetadata().Get(feature::FeatureMetadata::FMD_ELE), "123", ());
+  params.GetMetadata().Drop(feature::FeatureMetadata::FMD_ELE);
+}
+
+
 UNIT_TEST(Metadata_ReadWrite_Intermediate)
 {
   FeatureParams params;

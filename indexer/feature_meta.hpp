@@ -24,7 +24,11 @@ namespace feature
       FMD_STARS,
       FMD_OPERATOR,
       FMD_URL,
-      FMD_INTERNET
+      FMD_INTERNET,
+      FMD_ELE,
+      FMD_TURN_LANES,
+      FMD_TURN_LANES_FORWARD,
+      FMD_TURN_LANES_BACKWARD
     };
 
     bool Add(EMetadataType type, string const & s)

@@ -61,6 +61,30 @@ public:
       if (!value.empty())
       m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_OPEN_HOURS, value);
     }
+    else if (k == "ele")
+    {
+      string const & value = ValidateAndFormat_ele(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_ELE, value);
+    }
+    else if (k == "turn:lanes")
+    {
+      string const & value = ValidateAndFormat_turn_lanes(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES, value);
+    }
+    else if (k == "turn:lanes:forward")
+    {
+      string const & value = ValidateAndFormat_turn_lanes_forward(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD, value);
+    }
+    else if (k == "turn:lanes:backward")
+    {
+      string const & value = ValidateAndFormat_turn_lanes_backward(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD, value);
+    }
     return false;
   }
 
@@ -106,6 +130,25 @@ protected:
     return v;
   }
   string ValidateAndFormat_opening_hours(string const & v) const
+  {
+    return v;
+  }
+  string ValidateAndFormat_ele(string const & v) const
+  {
+    static ftypes::IsPeakChecker const IsPeak;
+    if (!IsPeak(m_params.m_Types))
+      return string();
+    return v;
+  }
+  string ValidateAndFormat_turn_lanes(string const & v) const
+  {
+    return v;
+  }
+  string ValidateAndFormat_turn_lanes_forward(string const & v) const
+  {
+    return v;
+  }
+  string ValidateAndFormat_turn_lanes_backward(string const & v) const
   {
     return v;
   }

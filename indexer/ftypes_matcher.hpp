@@ -30,6 +30,14 @@ public:
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 };
 
+class IsPeakChecker : public BaseChecker
+{
+public:
+  IsPeakChecker();
+
+  static IsPeakChecker const & Instance();
+};
+
 class IsATMChecker : public BaseChecker
 {
 public:

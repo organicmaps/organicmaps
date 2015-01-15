@@ -44,6 +44,19 @@ bool BaseChecker::operator() (vector<uint32_t> const & types) const
   return false;
 }
 
+IsPeakChecker::IsPeakChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({ "natural", "peak" }));
+}
+
+IsPeakChecker const & IsPeakChecker::Instance()
+{
+  static const IsPeakChecker inst;
+  return inst;
+}
+
+
 IsATMChecker::IsATMChecker()
 {
   Classificator const & c = classif();
