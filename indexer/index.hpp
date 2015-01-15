@@ -242,18 +242,19 @@ public:
     void GetFeature(uint32_t offset, FeatureType & ft);
   };
 
-  template <typename F>
-  void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, string const & name) const
+  MwmId getMwmIdByName(string const & name) const
   {
-    MwmId id;
-    {
       Index * p = const_cast<Index *>(this);
 
       threads::MutexGuard guard(p->m_lock);
       UNUSED_VALUE(guard);
-      id = p->GetIdByName(name);
-    }
+      ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identefier"));
+      return p->GetIdByName(name);
+  }
 
+  template <typename F>
+  void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const id) const
+  {
     if (id != INVALID_MWM_ID)
     {
       MwmLock lock(*this, id);

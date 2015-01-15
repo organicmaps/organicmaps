@@ -211,18 +211,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
     if (vec.size() > 1)
       ++moreThan1Seg;
-/*
-    if (vec.size())
-    for (m2::RegionD const& border: regionBorders)
-    {
-      m2::PointD pts[2] = { { data.m_segments.front().lon1, data.m_segments.front().lat1 }, { data.m_segments.back().lon2, data.m_segments.back().lat2 } };
-      if (border.atBorder(pts[0], 0.0001) || border.atBorder(pts[1], 0.0001))
-        for (auto v: vec)
-        {
-          outgoingNodes.push_back(v.Store()); //nodeId); //seg.wayId);
-        }
-    }
-*/
     mapping.Append(nodeId, vec);
   }
 

@@ -18,11 +18,11 @@
 #include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
 #include "../3party/osrm/osrm-backend/DataStructures/TravelMode.h"
 
+#include "../generator/routing_generator.hpp"
+
 
 namespace routing
 {
-
-typedef vector<NodeID> NodeIdVectorT;
 
 template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeDataT>
 {
@@ -32,7 +32,7 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
   succinct::rs_bit_vector m_shortcuts;
   succinct::elias_fano m_matrix;
   succinct::elias_fano_compressed_list m_edgeId;
-  NodeIdVectorT m_outgoingNodes;
+  OutgoingVectorT m_outgoingNodes;
 
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
@@ -264,12 +264,12 @@ public:
     return "";
   }
 
-  NodeIdVectorT::const_iterator GetOutgoingBegin()
+  OutgoingVectorT::const_iterator GetOutgoingBegin()
   {
     return m_outgoingNodes.cbegin();
   }
 
-  NodeIdVectorT::const_iterator GetOutgoingEnd()
+  OutgoingVectorT::const_iterator GetOutgoingEnd()
   {
     return m_outgoingNodes.cend();
   }

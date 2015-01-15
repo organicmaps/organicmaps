@@ -5,6 +5,7 @@
 #include "osrm2feature_map.hpp"
 #include "osrm_data_facade.hpp"
 
+#include "../indexer/index.hpp"
 #include "../base/mutex.hpp"
 
 #include "../std/function.hpp"
@@ -14,12 +15,10 @@
 
 namespace feature { class TypesHolder; }
 
-class Index;
 struct PhantomNode;
 struct PathData;
 class FeatureType;
-class RawRouteData;
-
+struct RawRouteData;
 namespace routing
 {
 
@@ -38,6 +37,15 @@ typedef vector<FeatureGraphNode> FeatureGraphNodeVecT;
 /// Points vector to calculate several routes
 typedef vector<FeatureGraphNodeVecT> MultiroutingTaskPointT;
 
+/*!
+ * \brief The OSRM routing result struct. Contains raw routing result and iterators to source and target edges.
+ * \property routePath: result path data
+ * \property sourceEdge: iterator to src edge from source vector
+ * \property targetEdge: iterator to target edge from target vector
+ */
+struct RawRoutingResultT;
+
+typedef vector<RawRoutingResultT> MultipleRoutingResultT;
 
 
 ///Datamapping and facade for single MWM and MWM.routing file
@@ -47,7 +55,7 @@ struct RoutingMapping
   OsrmFtSegMapping mapping;
 
   ///@param fName: mwm file path
-  RoutingMapping(string fName);
+  RoutingMapping(string const & fName, Index const * pIndex);
 
   ~RoutingMapping()
   {
@@ -87,11 +95,14 @@ struct RoutingMapping
 
   string GetName() {return m_base_name;}
 
+  Index::MwmId GetMwmId() {return m_mwmId;}
+
 private:
   size_t map_counter;
   size_t facade_counter;
   string m_base_name;
   FilesMappingContainer m_container;
+  Index::MwmId m_mwmId;
 };
 
 typedef shared_ptr<RoutingMapping> RoutingMappingPtrT;
@@ -108,7 +119,7 @@ class RoutingIndexManager
 public:
   RoutingIndexManager(CountryFileFnT const & fn): m_countryFn(fn) {}
 
-  RoutingMappingPtrT GetMappingByPoint(m2::PointD point)
+  RoutingMappingPtrT GetMappingByPoint(m2::PointD point, Index const * pIndex)
   {
     string fName = m_countryFn(point);
     //Check if we have already load this file
@@ -116,7 +127,7 @@ public:
     if (mapIter != m_mapping.end())
       return mapIter->second;
     //Or load and check file
-    RoutingMappingPtrT new_mapping = RoutingMappingPtrT(new RoutingMapping(fName));
+    RoutingMappingPtrT new_mapping = RoutingMappingPtrT(new RoutingMapping(fName, pIndex));
 
     m_mapping.insert(std::make_pair(fName, new_mapping));
     return new_mapping;
@@ -146,6 +157,8 @@ public:
   };
   typedef vector<TurnCandidate> TurnCandidatesT;
 
+  typedef vector<size_t> NodeIdVectorT;
+
   typedef vector<double> GeomTurnCandidateT;
 
   OsrmRouter(Index const * index, CountryFileFnT const & fn);
@@ -156,29 +169,46 @@ public:
   virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
 
 protected:
-  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, const m2::PointD &direction,
-                                       FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId, OsrmFtSegMapping const & mapping);
+  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
+                                       FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping);
+
+  /*!
+   * \brief GetPointByNodeId finds geographical points for outgoing nodes to test linkage
+   * \param node_id
+   * \param routingMapping
+   * \param use_start
+   * \return point coordinates
+   */
+  m2::PointD GetPointByNodeId(const size_t node_id, RoutingMappingPtrT const & routingMapping, bool use_start=true);
 
   /*! Find single shortest path in single MWM between 2 sets of edges
-   * @param source: vector of source edgest to make path
-   * @param taget: vector of target edges to make path
-   * @param facade: OSRM routing data facade to recover graph information
-   * @param outputPath: result path data
-   * @param sourceEdge: iterator to src edge from source vector
-   * @param sourceEdge: iterator to target edge from target vector
-   * @return true if path exists. False otherwise
+   * \param source: vector of source edgest to make path
+   * \param taget: vector of target edges to make path
+   * \param facade: OSRM routing data facade to recover graph information
+   * \param rawRoutingResult: routing result store
+   * \return true if path exists. False otherwise
    */
   bool FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
-                       RawRouteData& outputPath,
-                       FeatureGraphNodeVecT::const_iterator & sourceEdge,
-                       FeatureGraphNodeVecT::const_iterator & targetEdge);
+                       RawRoutingResultT& rawRoutingResult);
 
-  ResultCode MakeTurnAnnotation(RawRouteData const & rawRoute, uint32_t const mwmId, RoutingMappingPtrT const & mapping, vector<m2::PointD> & points, Route::TurnsT & turnsDir, Route::TimesT & times, FeatureGraphNodeVecT::const_iterator & sourceEdge, FeatureGraphNodeVecT::const_iterator & targetEdge, turns::TurnsGeomT &turnsGeom);
+  /*!
+   * \brief Compute turn and time estimation structs for OSRM raw route.
+   * \param routingResult OSRM routing result structure to annotate
+   * \param mapping Feature mappings
+   * \param points Unpacked point pathes
+   * \param turnsDir output turns annotation storage
+   * \param times output times annotation storage
+   * \param turnsGeom output turns geometry
+   * \return OSRM routing errors if any exists
+   */
+  ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping,
+                                vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
 
   void CalculateRouteAsync(ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
 private:
+  void GenerateBorderTask(NodeIdVectorT const & borderNodes, RoutingMappingPtrT & mapping, MultiroutingTaskPointT & outgoingTask, uint32_t mwmid);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,
@@ -201,9 +231,9 @@ private:
   turns::TurnDirection MostLeftDirection(double angle) const;
   turns::TurnDirection IntermediateDirection(double angle) const;
   void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
-                       OsrmRouter::GeomTurnCandidateT & candidates, string const & fName) const;
+                       OsrmRouter::GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
   bool KeepOnewayOutgoingTurnIncomingEdges(TurnCandidatesT const & nodes, Route::TurnItem const & turn,
-                              m2::PointD const & p, m2::PointD const & p1, string const & fName) const;
+                              m2::PointD const & p, m2::PointD const & p1, RoutingMappingPtrT const & mapping) const;
   bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2) const;
   turns::TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
                                            bool hasMultiTurns, Route::TurnItem const & turn) const;
