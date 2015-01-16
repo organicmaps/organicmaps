@@ -57,3 +57,31 @@ UNIT_TEST(PointInTriangle_EmptyTriangle)
   m2::PointD pt(27, 31);
   TEST(!m2::IsPointStrictlyInsideTriangle(m2::PointD(0, 16), pt, pt, pt), ());
 }
+
+/// @todo add more tests
+UNIT_TEST(ArrowPoints)
+{
+  m2::PointF p1, p2, p3;
+
+  m2::ArrowPoints(m2::PointF(0, 0), m2::PointF(1, 0), 1.f, 1.f, p1, p2, p3);
+  TEST(m2::AlmostEqual(p1, m2::PointF(1.f, 1.f)), ());
+  TEST(m2::AlmostEqual(p2, m2::PointF(2.f, 0.f)), ());
+  TEST(m2::AlmostEqual(p3, m2::PointF(1.f, -1.f)), ());
+
+  m2::PointD d1, d2, d3;
+  m2::ArrowPoints(m2::PointD(-1., 2.), m2::PointD(-1., 100.), 2., 5., d1, d2, d3);
+  TEST(m2::AlmostEqual(d1, m2::PointD(-3.f, 100.f)), ());
+  TEST(m2::AlmostEqual(d2, m2::PointD(-1.f, 105.f)), ());
+  TEST(m2::AlmostEqual(d3, m2::PointD(1.f, 100.f)), ());
+}
+
+UNIT_TEST(PointAtSegment)
+{
+  m2::PointF p1, p2, p3;
+
+  TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(1, 0), 0.5f), m2::PointF(0.5f, 0.f)), ());
+  TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(0, 1), 0.3f), m2::PointF(0.f, 0.3f)), ());
+  TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointD(0., 0.), m2::PointD(30., 40.), 5.), m2::PointD(3., 4.)), ());
+  TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointF(-3, -4), m2::PointF(-30, -40), 5.f), m2::PointF(-6.f, -8.f)), ());
+  TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointD(14., -48.), m2::PointD(70., -240.), 25.), m2::PointD(21., -72.)), ());
+}

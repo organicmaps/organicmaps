@@ -65,6 +65,7 @@ public:
 
   void SetTurnInstructions(TurnsT & v);
   void SetSectionTimes(TimesT & v);
+  void SetTurnInstructionsGeometry(turns::TurnsGeomT & v);
 
   // Time measure are seconds
   uint32_t GetAllTime() const;
@@ -72,6 +73,7 @@ public:
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
+  turns::TurnsGeomT const & GetTurnsGeometry() const { return m_turnsGeom; }
   string const & GetName() const { return m_name; }
   bool IsValid() const { return (m_poly.GetSize() > 1); }
 
@@ -131,6 +133,8 @@ private:
 
   TurnsT m_turns;
   TimesT m_times;
+
+  turns::TurnsGeomT m_turnsGeom;
 
   /// Cached result iterator for last MoveIterator query.
   mutable IterT m_current;

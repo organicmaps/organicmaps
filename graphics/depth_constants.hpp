@@ -24,6 +24,7 @@ namespace graphics
   static const int activePinDepth = routingFinishDepth - balloonContentInc;
   static const int routingSymbolsDepth = activePinDepth - balloonContentInc;
   static const int tracksDepth = routingSymbolsDepth - balloonContentInc;
+  static const int arrowDepth = tracksDepth + 10;
   static const int tracksOutlineDepth = tracksDepth - 10;
   static const int bookmarkDepth = tracksOutlineDepth - balloonContentInc;
 }

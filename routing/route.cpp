@@ -36,6 +36,7 @@ void Route::Swap(Route & rhs)
   swap(m_currentTime, rhs.m_currentTime);
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
+  m_turnsGeom.swap(rhs.m_turnsGeom);
 }
 
 void Route::SetTurnInstructions(TurnsT & v)
@@ -46,6 +47,11 @@ void Route::SetTurnInstructions(TurnsT & v)
 void Route::SetSectionTimes(TimesT & v)
 {
   swap(m_times, v);
+}
+
+void Route::SetTurnInstructionsGeometry(turns::TurnsGeomT & v)
+{
+  swap(m_turnsGeom, v);
 }
 
 double Route::GetDistance() const

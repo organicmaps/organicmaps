@@ -6,6 +6,8 @@
 #include "../graphics/color.hpp"
 #include "../graphics/defines.hpp"
 
+#include "../routing/turns.hpp"
+
 #include "../std/noncopyable.hpp"
 
 class Navigator;
@@ -40,7 +42,7 @@ public:
   graphics::Color const & GetMainColor() const;
 
   void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
-  void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix) const;
+  void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, int drawScale, double visualScale) const;
   void DeleteDisplayList() const;
   bool HasDisplayList() const { return m_dList != nullptr; }
 
@@ -59,6 +61,7 @@ public:
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
+  void SetTurnsGeometry(routing::turns::TurnsGeomT const & turnsGeom) { m_turnsGeom = turnsGeom; }
 
   PolylineD const & GetPolyline() const { return m_polyline; }
   m2::RectD const & GetLimitRect() const { return m_rect; }
@@ -72,6 +75,8 @@ public:
   void Swap(Track & rhs);
 
 private:
+  void CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT const & matrix, double visualScale) const;
+
   bool m_isVisible = false;
   string m_name;
 
@@ -90,7 +95,11 @@ private:
   vector<ClosingSymbol> m_endSymbols;
 
   PolylineD m_polyline;
+  routing::turns::TurnsGeomT m_turnsGeom;
   m2::RectD m_rect;
 
   mutable graphics::DisplayList * m_dList = nullptr;
 };
+
+bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
+                                       size_t turnIndex, double beforeTurn, double afterTurn, double arrowLength);

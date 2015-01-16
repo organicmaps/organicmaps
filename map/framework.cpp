@@ -768,7 +768,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   pScreen->endFrame();
 
-  m_bmManager.DrawItems(e);
+  m_bmManager.DrawItems(e, GetDrawScale(), m_guiController->GetVisualScale());
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }
@@ -2000,6 +2000,7 @@ void Framework::InsertRoute(Route const & route)
 
   Track track(route.GetPoly());
   track.SetName(route.GetName());
+  track.SetTurnsGeometry(route.GetTurnsGeometry());
 
   Track::TrackOutline outlines[]
   {

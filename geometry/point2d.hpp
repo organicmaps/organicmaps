@@ -142,6 +142,14 @@ namespace m2
       double const module = this->Length();
       return Point<T>(x / module, y / module);
     }
+
+    pair<Point<T>, Point<T> > Normals(T prolongationFactor = 1) const
+    {
+      T const prolongatedX = prolongationFactor * x;
+      T const prolongatedY = prolongationFactor * y;
+      return pair<Point<T>, Point<T> >(Point<T>(static_cast<T>(-prolongatedY), static_cast<T>(prolongatedX)),
+                                       Point<T>(static_cast<T>(prolongatedY), static_cast<T>(-prolongatedX)));
+    }
     // @}
 
     m2::Point<T> const & operator *= (math::Matrix<T, 3, 3> const & m)
@@ -309,6 +317,33 @@ namespace m2
   bool AlmostEqual(m2::Point<T> const & a, m2::Point<T> const & b, unsigned int maxULPs = 256)
   {
     return my::AlmostEqual(a.x, b.x, maxULPs) && my::AlmostEqual(a.y, b.y, maxULPs);
+  }
+
+  /// Calculate three point of a triangle (p1, p2 and p3) which gives a arrow at the end of segment s, f
+  /// with respect to w - arrow's width and l - arrow's length
+  template <typename T>
+  void ArrowPoints(Point<T> const & b, Point<T> const & e, T w, T l,
+                            Point<T> & p1, Point<T> & p2, Point<T> & p3)
+  {
+    ASSERT(!m2::AlmostEqual(b, e), ());
+    Point<T> const beVec = e - b;
+    Point<T> beNormalizedVec = beVec.Normalize();
+    pair<Point<T>, Point<T> > beNormVecs = beNormalizedVec.Normals(w);
+
+    p1 = e + beNormVecs.first;
+    p2 = e + beNormalizedVec * l;
+    p3 = e + beNormVecs.second;
+  }
+
+  /// Returns a point which is belonged to the segment p1, p2 with respet the indent shiftFromP1 from p1.
+  /// If shiftFromP1 is more the distance between (p1, p2) it returns p2.
+  /// If shiftFromP1 is less or equal zero it returns p1.
+  template <typename T>
+  Point<T> PointAtSegment(Point<T> const & p1, Point<T> const & p2, T shiftFromP1)
+  {
+    Point<T> p12 = p2 - p1;
+    shiftFromP1 = my::clamp(shiftFromP1, 0.0, p12.Length());
+    return p1 + p12.Normalize() * shiftFromP1;
   }
 
   template <class TArchive, class PointT>

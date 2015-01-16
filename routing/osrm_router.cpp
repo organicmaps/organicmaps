@@ -734,6 +734,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   turnsDir.push_back(Route::TurnItem(points.size() - 1, turns::ReachedYourDestination));
   FixupTurns(points, turnsDir);
 
+  turns::TurnsGeomT turnsGeom;
+  CalculateTurnGeometry(points, turnsDir, turnsGeom);
+
 #ifdef _DEBUG
   for (auto t : turnsDir)
   {
@@ -759,6 +762,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   route.SetGeometry(points.begin(), points.end());
   route.SetTurnInstructions(turnsDir);
   route.SetSectionTimes(times);
+  route.SetTurnInstructionsGeometry(turnsGeom);
 
   LOG(LDEBUG, ("Estimate time:", estimateTime, "s"));
 
@@ -1138,6 +1142,24 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   if (turn.m_turn == turns::NoTurn)
     turn.m_turn = turns::UTurn;
+}
+
+void OsrmRouter::CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir, turns::TurnsGeomT & turnsGeom) const
+{
+  size_t const pointsSz = points.size();
+  for (Route::TurnItem const & t : turnsDir)
+  {
+    ASSERT(t.m_index < pointsSz, ());
+    if (t.m_index == 0 || t.m_index == (pointsSz - 1))
+      continue;
+
+    uint32_t const beforePivotCount = 10;
+    /// afterPivotCount is more because there are half body and the arrow after the pivot point
+    uint32_t const afterPivotCount = beforePivotCount + 10;
+    uint32_t const fromIndex = (t.m_index <= beforePivotCount) ? 0 : t.m_index - beforePivotCount;
+    uint32_t const toIndex = min<uint32_t>(pointsSz, t.m_index + afterPivotCount);
+    turnsGeom.emplace_back(beforePivotCount, points.begin() + fromIndex, points.begin() + toIndex);
+  }
 }
 
 void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const

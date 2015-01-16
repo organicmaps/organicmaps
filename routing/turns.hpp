@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../std/string.hpp"
+#include "../std/vector.hpp"
+
+#include "../geometry/point2d.hpp"
 
 namespace routing
 {
@@ -39,6 +42,19 @@ enum TurnDirection
   ReachedYourDestination,
 
 };
+
+struct TurnGeom
+{
+  TurnGeom(uint32_t turnIndex, vector<m2::PointD>::const_iterator b, vector<m2::PointD>::const_iterator e)
+    : m_turnIndex(turnIndex), m_points(b, e)
+  {
+  }
+
+  uint32_t m_turnIndex;
+  vector<m2::PointD> m_points;
+};
+
+typedef vector<turns::TurnGeom> TurnsGeomT;
 
 string const & GetTurnString(TurnDirection turn);
 

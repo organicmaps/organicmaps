@@ -77,6 +77,7 @@ private:
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
                         uint32_t mwmId, Route::TurnItem & turn, string const & fName);
+  void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir, turns::TurnsGeomT & turnsGeom) const;
   void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
   m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
                                   FeatureType const &ft, m2::PointD const &turnPnt,
