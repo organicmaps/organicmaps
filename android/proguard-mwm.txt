@@ -4,6 +4,9 @@
 # ignore warnings from MRGS billing.
 -dontwarn ru.mail.**
 
+-dontoptimize
+-keepattributes **
+
 # log proguard info
 #
 #-verbose
