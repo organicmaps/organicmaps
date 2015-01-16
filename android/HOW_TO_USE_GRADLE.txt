@@ -6,12 +6,12 @@ To clean everything, use './gradlew clean'
 
 To build all production apks, use './gradlew assembleRelease' or './gradlew aR'
 
-To build production Pro version, use './gradlew assembleGoogleProRelease'
+To build production version, use './gradlew assembleGoogleRelease'
 
-To build beta, use './gradlew assembleProBeta'
+To build beta, use './gradlew assembleBetaRelease'
 
-To build specific Lite version, use './gradlew assembleAmazonLiteRelease'
+To build specific store version, use './gradlew assembleAmazonDebug'
 
 To see all available build targets './gradlew tasks'
 
-To build and install debug version on a device './gradlew installProDebug'
+To build and install debug version on a device './gradlew installGoogleDebug'
