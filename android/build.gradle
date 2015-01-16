@@ -106,12 +106,12 @@ android {
       android.sourceSets.prestigio.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
-    CipherLab {
+    cipherlab {
       applicationId 'com.mapswithme.maps.pro'
       buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
       buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
-      android.sourceSets.CipherLab.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      android.sourceSets.cipherlab.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     xiaomi {
