@@ -178,6 +178,7 @@ android {
     release {
       signingConfig signingConfigs.mapswithme
       minifyEnabled true
+      shrinkResources true
       proguardFile('proguard-mwm.txt')
     }
 
