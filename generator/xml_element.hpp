@@ -4,19 +4,20 @@
 #include "../std/map.hpp"
 
 #include "../std/iostream.hpp"
+#include "../std/exception.hpp"
 
 struct XMLElement
 {
   enum ETag
   {
     ET_UNKNOWN = 0,
-    ET_OSM = 'so',
-    ET_NODE = 'on',
-    ET_WAY = 'aw',
-    ET_RELATION = 'er',
-    ET_TAG = 'at',
-    ET_ND = 'dn',
-    ET_MEMBER = 'em'
+    ET_OSM = 0x736F, // "os"
+    ET_NODE = 0x6F6E, // "no"
+    ET_WAY = 0x6177, // "wa"
+    ET_RELATION = 0x6572, // "re"
+    ET_TAG = 0x6174, // "ta"
+    ET_ND = 0x646E, // "nd"
+    ET_MEMBER = 0x656D // "me"
   };
 
   ETag tagKey = ET_UNKNOWN;
