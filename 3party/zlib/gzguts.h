@@ -26,6 +26,7 @@
 #  include <limits.h>
 #endif
 #include <fcntl.h>
+#include <unistd.h>
 
 #ifdef _WIN32
 #  include <stddef.h>

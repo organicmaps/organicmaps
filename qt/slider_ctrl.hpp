@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Qt>
+#include <QtWidgets/QApplication>
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QSlider>
 #else

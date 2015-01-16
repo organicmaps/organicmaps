@@ -56,8 +56,8 @@
 #include "../std/target_os.hpp"
 #include "../std/vector.hpp"
 
-#include "../../api/internal/c/api-client-internals.h"
-#include "../../api/src/c/api-client.h"
+#include "../api/internal/c/api-client-internals.h"
+#include "../api/src/c/api-client.h"
 
 
 #define KMZ_EXTENSION ".kmz"

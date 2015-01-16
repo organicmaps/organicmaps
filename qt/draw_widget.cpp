@@ -17,7 +17,7 @@
 #include <QtCore/QLocale>
 
 #include <QtGui/QMouseEvent>
-#include <QDateTime>
+#include <QtCore/QDateTime>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QMenu>

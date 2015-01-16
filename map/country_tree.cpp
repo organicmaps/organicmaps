@@ -2,7 +2,7 @@
 
 #include "framework.hpp"
 
-#include "../../storage/storage.hpp"
+#include "../storage/storage.hpp"
 
 namespace storage
 {
