@@ -334,34 +334,12 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
 
   private boolean checkLiteProPackages()
   {
-    try
+    if (!MWMApplication.get().isYota() &&
+        (getPackageIntent(Constants.Package.MWM_LITE_PACKAGE) != null ||
+            getPackageIntent(Constants.Package.MWM_SAMSUNG_PACKAGE) != null))
     {
-      if (!BuildConfig.IS_PRO)
-      {
-        final Intent intent = getPackageIntent(Constants.Package.MWM_PRO_PACKAGE);
-        if (intent != null)
-        {
-          Log.i(TAG, "Trying to launch pro version");
-
-          startActivity(intent);
-          finish();
-          return true;
-        }
-      }
-      else
-      {
-        if (!MWMApplication.get().isYota() &&
-            (getPackageIntent(Constants.Package.MWM_LITE_PACKAGE) != null ||
-                getPackageIntent(Constants.Package.MWM_SAMSUNG_PACKAGE) != null))
-        {
-          Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
-        }
-      }
-    } catch (final ActivityNotFoundException ex)
-    {
-      Log.d(TAG, "Intent not found", ex);
+      Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
     }
-
     return false;
   }
 

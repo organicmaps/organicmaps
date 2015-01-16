@@ -59,17 +59,6 @@ int Platform::VideoMemoryLimit() const
 
 extern Platform & GetPlatform()
 {
-  // We need this derive class because Platform::Platform for desktop
-  // has special initialization in every platform.
-  class PlatformQt : public Platform
-  {
-  public:
-    PlatformQt()
-    {
-      m_flags.set();
-    }
-  };
-
-  static PlatformQt platform;
+  static Platform platform;
   return platform;
 }

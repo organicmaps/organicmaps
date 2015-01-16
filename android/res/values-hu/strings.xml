@@ -4,19 +4,6 @@
 <!-- Language: hu -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">További lehetőségek a MAPS.ME teljes verziójában. Töltse le most!</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">Ma ingyen frissítheted a MAPS.ME Pro!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">A MAPS.ME Pro ma ingyenes. Mondd el a barátaidnak!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">Ma ingyen frissítheted a MAPS.ME Pro. Ne szalaszd el az esélyt!</string>
-	<string name="free_pro_version_share_message">A legjobb MAPS.ME offline térképek ma ingyenesek. Töltsd le most és meséld el barátaidnak!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Szerezze meg az ingyenes offline MAPS.ME-t</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Hé! Tudtad, hogy ma letöltheted az offline MAPS.ME-t ingyen? Ezzel az alkalmazással sosem fogsz elveszni utazás közben. Általában 5 dollárba kerül és offline térképeket nyújt az összes országból, ahol keresel vele, könyvjelzőket és útvonaltervezést ad. Ne hagyd ki ezt a lehetőséget!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">A programról</string>
 	<!-- Button text (should be short) -->
@@ -81,8 +68,6 @@
 	<string name="report_an_issue">Hiba jelentése</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Keresés</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Keresés csak a MAPS.ME teljes verziójában érhető el. Vásárolja meg most!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Keresés a térképen</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -198,8 +183,6 @@
 	<string name="wait_several_minutes">Ez több percig is eltarthat.\nKérjük várjon…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">látható</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Könyvjelzők csak a MAPS.ME teljes verziójában érhetőek el. Vásárolja meg most!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.</string>
 	<!-- Measurement units title in settings activity -->
@@ -293,14 +276,6 @@
 	<string name="message">Üzenet</string>
 	<!-- Share by email button text -->
 	<string name="email">Email</string>
-	<!-- Enter promo code hint -->
-	<string name="enter_promocode_hint">Akciós kód aktiváláshoz</string>
-	<!-- Promocode Activation success message -->
-	<string name="promocode_success">Promóciós kód aktiválva!</string>
-	<!-- Promocode Activation connection/io error -->
-	<string name="promocode_error">Kapcsolati hiba. Kérjük próbálja újra később.</string>
-	<!-- Promocode Activation is invalid  message. -->
-	<string name="promocode_failure">Érvénytelen kód. Kérjük próbálja újra.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Hivatkozás másolása</string>
 	<!-- Text for the button that returns to caller application -->
@@ -445,8 +420,6 @@
 	<string name="downloader_status_outdated">Frissítése</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Sikertelen</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

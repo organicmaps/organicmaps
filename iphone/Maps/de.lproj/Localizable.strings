@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Mehr Möglichkeiten in der vollen Version MAPS.ME mit Offline-Suche. Jetzt herunterladen!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Heute kostenlos auf MAPS.ME Pro upgraden!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro gibt es heute gratis. Erzählen Sie es Ihren Freunden!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Sie können heute kostenlos auf MAPS.ME Pro upgraden. Verpassen Sie nicht Ihre Chance!";
-
-"free_pro_version_share_message" = "Die besten Offline-Karten MAPS.ME sind heute kostenlos. Jetzt runterladen & Freunde informieren!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Holen Sie sich jetzt kostenlos die MAPS.ME Offline-Karten";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hey! Wussten Sie schon, dass Sie heute die MAPS.ME Offline-Karten kostenlos herunterladen können? Mit dieser App werden Sie sich auf Reisen niemals verirren. Normalerweise kostet sie 5 $ und bietet Offline-Karten aller Länder der Welt mit Suchfunktion, Bookmarks und Routenplanung. Verpassen Sie nicht Ihre Chance!";
-
 /* About button text (should be short) */
 "about" = "Über Karten";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Suche";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?";
 
 /* Search box placeholder text */
 "search_map" = "Auf der Karte suchen";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Sichtbar";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Lesezeichen stehen in der Vollversion von MAPS.ME zur Verfügung. Jetzt sofort besorgen?";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS ist deaktiviert. Schalten Sie sie bitte ein, um das Programm bequem nutzen zu können.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-Mail";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Aktivierung des Aktionscodes";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Geben Sie den Aktionscode ein";
-
-/* Promocode Activation success message */
-"promocode_success" = "Aktionscode wurde aktiviert!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Verbindungsfehler: Bitte versuchen Sie es später erneut.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.";
 
 /* Copy Link */
 "copy_link" = "Link kopieren";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Fehlgeschlagen";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Routing ist nur in der Vollversion von MAPS.ME verfügbar. Jetzt holen!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.";

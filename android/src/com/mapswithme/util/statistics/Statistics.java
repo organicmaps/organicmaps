@@ -44,7 +44,7 @@ public enum Statistics
     public static final String BOOKMARK_GROUP_CHANGED = "Bookmark group changed";
     public static final String DESCRIPTION_CHANGED = "Description changed";
     public static final String GROUP_CREATED = "Group Created";
-    public static final String SEARCH_CONTEXT_CNAHGED = "Search context changed";
+    public static final String SEARCH_CONTEXT_CHANGED = "Search context changed";
     public static final String COLOR_CHANGED = "Color changed";
     public static final String BOOKMARK_CREATED = "Bookmark created";
     public static final String PLACE_SHARED = "Place Shared";
@@ -66,7 +66,6 @@ public enum Statistics
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
     public static final String APP_ACTIVATED = "Application activated.";
-    public static final String PROMO_BANNER_SHOWN = "Promo banner shown.";
   }
 
   public static class EventParam
@@ -169,7 +168,7 @@ public enum Statistics
   public void trackSearchContextChanged(String from, String to)
   {
     final Event event = mEventBuilder
-        .setName(EventName.SEARCH_CONTEXT_CNAHGED)
+        .setName(EventName.SEARCH_CONTEXT_CHANGED)
         .addParam(EventParam.FROM, from)
         .addParam(EventParam.TO, to)
         .buildEvent();
@@ -310,29 +309,26 @@ public enum Statistics
 
   private void collectOneTimeStatistics(Activity activity)
   {
-    if (MWMApplication.get().hasBookmarks())
+    mEventBuilder.setName(EventParam.PRO_STAT);
+
+    // Number of sets
+    final BookmarkManager manager = BookmarkManager.getBookmarkManager();
+    final int categoriesCount = manager.getCategoriesCount();
+    if (categoriesCount > 0)
     {
-      mEventBuilder.setName(EventParam.PRO_STAT);
+      // Calculate average number of bookmarks in category
+      final double[] sizes = new double[categoriesCount];
+      for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
+        sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
+      final double average = MathUtils.average(sizes);
 
-      // Number of sets
-      final BookmarkManager manager = BookmarkManager.getBookmarkManager();
-      final int categoriesCount = manager.getCategoriesCount();
-      if (categoriesCount > 0)
-      {
-        // Calculate average number of bookmarks in category
-        final double[] sizes = new double[categoriesCount];
-        for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
-          sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
-        final double average = MathUtils.average(sizes);
-
-        mEventBuilder.addParam(EventParam.BOOKMARK_NUMBER_AVG, String.valueOf(average));
-      }
-
-      mEventBuilder.addParam(EventParam.CATEGORIES_COUNT, String.valueOf(categoriesCount))
-          .addParam(EventParam.FG_TIME, String.valueOf(MWMApplication.get().getForegroundTime()));
-
-      trackIfEnabled(mEventBuilder.buildEvent());
+      mEventBuilder.addParam(EventParam.BOOKMARK_NUMBER_AVG, String.valueOf(average));
     }
+
+    mEventBuilder.addParam(EventParam.CATEGORIES_COUNT, String.valueOf(categoriesCount))
+        .addParam(EventParam.FG_TIME, String.valueOf(MWMApplication.get().getForegroundTime()));
+
+    trackIfEnabled(mEventBuilder.buildEvent());
     setStatisticsCollected(true);
   }
 

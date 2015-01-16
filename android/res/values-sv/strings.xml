@@ -4,19 +4,6 @@
 <!-- Language: sv -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Navigera enklare med fullversionen av MAPS.ME med bl.a. offline-sökning. Skaffa den nu!</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">Uppgradera till MAPS.ME Pro gratis redan idag!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro är gratis idag. Berätta för dina vänner!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">Du kan uppgradera till MAPS.ME Pro gratis redan idag. Missa inte din chans!</string>
-	<string name="free_pro_version_share_message">Bästa offline kartor MAPS. ME är gratis idag. Ladda ner den nu och berätta för dina vänner!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Få offline-kartor MAPS.ME gratis nu</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Hallå där! Vet du att du i dag kan ladda ner offline-kartor MAPS.ME gratis? Med denna app går du aldrig vilse på resan. Vanligtvis kostar den 5 $ och tillhandahåller offline-kartor från alla länder i världen med sökning, bokmärken och rutter. Missa inte din chans!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Om</string>
 	<!-- Button text (should be short) -->
@@ -82,8 +69,6 @@
 	<string name="report_an_issue">Rapportera ett problem</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Sök</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Sökfunktionen finns bara i fullversionen av MAPS.ME. Skaffa den nu!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Sök karta</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -197,8 +182,6 @@
 	<string name="wait_several_minutes">Detta kan ta flera minuter.\nVänligen vänta…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Synliga</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Bokmärken finns bara i fullversionen av MAPS.ME. Skaffa den nu!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS har inaktiverats. Vänligen aktivera den i Inställningar.</string>
 	<!-- Measurement units title in settings activity -->
@@ -292,16 +275,6 @@
 	<string name="message">Meddelande</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
-	<!-- Promocode Activation dialog title -->
-	<string name="promocode_activation">Promokod aktivering</string>
-	<!-- Enter promo code hint -->
-	<string name="enter_promocode_hint">Skriv in promokod</string>
-	<!-- Promocode Activation success message -->
-	<string name="promocode_success">Promokoden är aktiverad!</string>
-	<!-- Promocode Activation connection/io error -->
-	<string name="promocode_error">Anslutningsfel. Försök igen senare.</string>
-	<!-- Promocode Activation is invalid  message. -->
-	<string name="promocode_failure">Felaktig promokod. Försök igen.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Kopiera Länk</string>
 	<!-- Text for the button that returns to caller application -->
@@ -446,8 +419,6 @@
 	<string name="downloader_status_outdated">Uppdatera</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Misslyckades</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Navigera enklare med fullversionen av MAPS.ME med bl.a. offline-sökning. Skaffa den nu!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Uppgradera till MAPS.ME Pro gratis redan idag!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro är gratis idag. Berätta för dina vänner!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Du kan uppgradera till MAPS.ME Pro gratis redan idag. Missa inte din chans!";
-
-"free_pro_version_share_message" = "Bästa offline kartor MAPS. ME är gratis idag. Ladda ner den nu och berätta för dina vänner!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Få offline-kartor MAPS.ME gratis nu";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hallå där! Vet du att du i dag kan ladda ner offline-kartor MAPS.ME gratis? Med denna app går du aldrig vilse på resan. Vanligtvis kostar den 5 $ och tillhandahåller offline-kartor från alla länder i världen med sökning, bokmärken och rutter. Missa inte din chans!";
-
 /* About button text (should be short) */
 "about" = "Om";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Sök";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Sökfunktionen finns bara i fullversionen av MAPS.ME. Skaffa den nu!";
 
 /* Search box placeholder text */
 "search_map" = "Sök karta";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Synliga";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Bokmärken finns bara i fullversionen av MAPS.ME. Skaffa den nu!";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS har inaktiverats. Vänligen aktivera den i Inställningar.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-Mail";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promokod aktivering";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Skriv in promokod";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promokoden är aktiverad!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Anslutningsfel. Försök igen senare.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Felaktig promokod. Försök igen.";
 
 /* Copy Link */
 "copy_link" = "Kopiera Länk";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Misslyckades";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.";

@@ -4,19 +4,6 @@
 <!-- Language: th -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">ระบบนำทางที่ง่ายขึ้นด้วย MAPS.ME ที่โดดเด่นด้วยการค้นหาแบบออฟไลน์แบบเวอร์ชันเต็ม รับมันทันทีตอนนี้!</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">อัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro ฟรีวันนี้ บอกเพื่อน ๆ ของคุณ!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">คุณสามารถที่จะอัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้ อย่าพลาดโอกาสของคุณ!</string>
-	<string name="free_pro_version_share_message">อัปเกรดเป็น MAPS.ME Pro ฟรีวันนี้. ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">รับแผนที่ออฟไลน์ MAPS.ME ฟรีตอนนี้</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">สวัสดี! คุณรู้ไหมว่าวันนี้คุณสามารถดาวน์โหลดแผนที่ออฟไลน์ของ MAPS.ME ได้ฟรี? เมื่อใช้แอปนี้ คุณจะไม่หลงทางอีกต่อไปในระหว่างการท่องเที่ยว ซึ่งโดยปกติแล้ว การให้บริการแผนที่ออฟไลน์ของประเทศทั่วโลกที่สามารถทำการค้นหา บุ๊กมาร์กและระบุเส้นทางได้นั้นจะต้องเสียเงินถึง $5 ดังนั้นอย่าพลาดโอกาสของคุณ!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">เกี่ยวกับ</string>
 	<!-- Button text (should be short) -->
@@ -86,8 +73,6 @@
 	<string name="report_an_issue">รายงานปัญหา</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">ค้นหา</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">สามารถใช้การค้นหา MAPS.ME ในเวอร์ชันเต็มได้ รับมันตอนนี้!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">ค้นหาแผนที่</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -201,8 +186,6 @@
 	<string name="wait_several_minutes">นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">มองเห็นได้</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">สามารถใช้บุ๊กมาร์กของ MAPS.ME ในเวอร์ชันเต็มได้ รับมันตอนนี้!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">มีการปิดใช้งาน GPS โปรดเปิดใช้งานในการตั้งค่า</string>
 	<!-- Measurement units title in settings activity -->
@@ -294,16 +277,6 @@
 	<string name="message">ข้อความ</string>
 	<!-- Share by email button text -->
 	<string name="email">อีเมล</string>
-	<!-- Promocode Activation dialog title -->
-	<string name="promocode_activation">เปิดการใช้งานรหัสโปรโม (Promo)</string>
-	<!-- Enter promo code hint -->
-	<string name="enter_promocode_hint">ใส่รหัสโปรโม (Promo)</string>
-	<!-- Promocode Activation success message -->
-	<string name="promocode_success">เปิดการใช้งานรหัสโปรโม (Promo) แล้ว!</string>
-	<!-- Promocode Activation connection/io error -->
-	<string name="promocode_error">มีข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้งในภายหลัง</string>
-	<!-- Promocode Activation is invalid  message. -->
-	<string name="promocode_failure">รหัสโปรโปไม่ถูกต้อง โปรดลองอีกครั้ง</string>
 	<!-- Copy Link -->
 	<string name="copy_link">คัดลอกลิงก์</string>
 	<!-- Text for the button that returns to caller application -->
@@ -448,8 +421,6 @@
 	<string name="downloader_status_outdated">ปรับปรุง</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">ล้มเหลว</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

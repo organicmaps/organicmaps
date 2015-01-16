@@ -55,7 +55,6 @@ protected:
   shared_ptr<WindowHandle> m_windowHandle;
   shared_ptr<Drawer> m_drawer;
   TRenderFn m_renderFn;
-  bool m_doSupportRotation;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
   graphics::EDensity m_density;
@@ -82,7 +81,6 @@ public:
 
   /// constructor
   RenderPolicy(Params const & p,
-               bool doSupportRotation,
                size_t idCacheSize);
   /// destructor
   virtual ~RenderPolicy();
@@ -116,7 +114,6 @@ public:
 
   void SetAnimController(anim::Controller * controller);
 
-  bool DoSupportRotation() const;
   virtual bool IsTiling() const;
 
   virtual bool NeedRedraw() const;

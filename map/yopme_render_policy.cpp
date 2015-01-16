@@ -81,7 +81,7 @@ namespace
 }
 
 YopmeRP::YopmeRP(RenderPolicy::Params const & p)
-  : RenderPolicy(p, false, 1)
+  : RenderPolicy(p, 1)
   , m_drawApiPin(false)
   , m_drawMyPosition(false)
 {

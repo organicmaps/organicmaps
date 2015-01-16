@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Navigeer makkelijker met MAPS.ME met offline zoeken. Instelleer het nu!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Upgrade vandaag gratis naar MAPS.ME Pro!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro is vandaag gratis. Vertel het aan je vrienden!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Je kunt vandaag gratis upgraden naar MAPS.ME Pro. Mis deze kans niet!";
-
-"free_pro_version_share_message" = "De beste offline kaarten van MAPS.ME zijn vandaag gratis. Download nu en vertel het je vrienden!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Verkrijg offline kaarten van MAPS.ME nu gratis";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hey! Weet u dat u vandaag de offline kaarten van MAPS.ME gratis kunt downloaden? Met deze app raakt u de weg nooit meer kwijt tijdens uw reis. Normaliter kost het $ 5,- en biedt offline kaarten voor alle landen op de wereld met zoekfunctie, favorieten en routeplanning. Mis uw kans niet!";
-
 /* About button text (should be short) */
 "about" = "Over";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Zoeken";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Zoeken is alleen beschikbaar in de Pro versie van MAPS.ME. Wilt u hem nu installeren?";
 
 /* Search box placeholder text */
 "search_map" = "Zoek Kaart";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Zichtbaar";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Bladwijzers zijn beschikbaar in de volledige versie van MAPS.ME. Wilt u die nu gelijk?";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS is uitgeschakeld. Schakel ze in bij Instellingen.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-mail";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
 
 /* Copy Link */
 "copy_link" = "Kopieer koppeling";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Mislukt";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";

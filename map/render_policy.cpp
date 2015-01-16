@@ -27,11 +27,9 @@ RenderPolicy::~RenderPolicy()
 }
 
 RenderPolicy::RenderPolicy(Params const & p,
-                           bool doSupportRotation,
                            size_t idCacheSize)
   : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
     m_primaryRC(p.m_primaryRC),
-    m_doSupportRotation(doSupportRotation),
     m_doForceUpdate(false),
     m_density(p.m_density),
     m_visualScale(graphics::visualScale(p.m_density)),
@@ -125,11 +123,6 @@ void RenderPolicy::BeginFrame(shared_ptr<PaintEvent> const & e, ScreenBase const
 
 void RenderPolicy::EndFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 {
-}
-
-bool RenderPolicy::DoSupportRotation() const
-{
-  return m_doSupportRotation;
 }
 
 bool RenderPolicy::NeedRedraw() const

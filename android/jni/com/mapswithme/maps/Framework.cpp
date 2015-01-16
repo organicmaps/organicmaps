@@ -914,14 +914,6 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, isSuccess, jni::ToJavaString(jniEnv, messageID), openDownloader);
   }
 
-  void CallBuyProListener(shared_ptr<jobject> obj)
-  {
-    JNIEnv * jniEnv = jni::GetEnv();
-    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onBuyPro", "()V");
-    ASSERT(methodId, ());
-    jniEnv->CallVoidMethod(*obj.get(), methodId);
-  }
-
   /// @name JNI EXPORTS
   //@{
   JNIEXPORT jstring JNICALL
@@ -1370,12 +1362,6 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
     frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2, _3));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetBuyProListener(JNIEnv * env, jobject thiz, jobject listener)
-  {
-    frm()->SetBuyProListener(bind(&CallBuyProListener, jni::make_global_ref(listener)));
   }
 
   JNIEXPORT void JNICALL

@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Navigate easier with the full version of MAPS.ME featuring offline search. Get it right now!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Upgrade to MAPS.ME Pro for free today!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro is free today. Tell your friends!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "You can upgrade to MAPS.ME Pro for free today. Don’t miss your chance!";
-
-"free_pro_version_share_message" = "Best offline maps MAPS.ME are free today. Download now and tell your friends!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Get offline maps MAPS.ME for free now";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hey! Do you know that today you can download offline maps MAPS.ME for free? With this app you’ll never get lost while traveling. It usually costs $5 and provides offline maps of all world countries with search, bookmarks and routing. Don’t miss your chance!";
-
 /* About button text (should be short) */
 "about" = "About";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Search";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Search is only available in the full version of MAPS.ME. Get it right now!";
 
 /* Search box placeholder text */
 "search_map" = "Search Map";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Visible";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Bookmarks are only available in the full version of MAPS.ME. Get it right now!";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS is disabled. Please enable it in Settings.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-Mail";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
 
 /* Copy Link */
 "copy_link" = "Copy Link";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Routing is only available in the full version of MAPS.ME. Get it right now!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Current location is undefined. Please specify location to create route.";

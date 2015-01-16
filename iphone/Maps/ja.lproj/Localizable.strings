@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "MAPS.ME完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "本日MAPS.ME Proに無料でアップグレード！";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "本日MAPS.ME Proが無料です。お友達に教えてあげてください！";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "本日MAPS.ME Proに無料でアップグレードできます。このチャンスをお見逃しなく！";
-
-"free_pro_version_share_message" = "ベストオフライン地図のMAPS.MEが本日無料。今すぐダウンロードして友達に教えてあげましょう！";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "本日オフライン地図のMAPS.MEを無料でゲット";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "こんにちは！今日オフライン地図のMAPS.MEが無料でダウンロードできるのをご存じでしたか？このアプリがあれば、旅行中に道に迷うことがなくなります。通常$5で、世界中すべての国のオフライン地図を検索、お気に入り、ルート機能付きで提供します。このチャンスをお見逃しなく！";
-
 /* About button text (should be short) */
 "about" = "情報";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "検索";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "検索機能はMAPS.ME完全版で利用可能です。ぜひお買い求めください。";
 
 /* Search box placeholder text */
 "search_map" = "マップを検索";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "マップに表示";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "ブックマーク機能はMAPS.ME完全版で利用可能です。ぜひお買い求めください。";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS機能が無効です。端末の設定画面から有効にしてください。";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "Eメール";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
 
 /* Copy Link */
 "copy_link" = "リンクをコピー";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "失敗";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "現在地が設定されていません。ルートを作成するには現在地を設定してください。";

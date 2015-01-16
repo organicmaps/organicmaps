@@ -48,8 +48,6 @@ import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.Ads.AdsManager;
-import com.mapswithme.maps.Ads.Banner;
-import com.mapswithme.maps.Ads.BannerDialogFragment;
 import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
@@ -307,10 +305,7 @@ public class MWMActivity extends NvEventQueueActivity
         checkRoutingMaps();
         checkLiteMapsInPro();
         checkFacebookDialog();
-        checkBuyProDialog();
         checkUserMarkActivation();
-        checkShouldShowBanners();
-        Notifier.notifyAboutFreePro(MWMActivity.this);
       }
     });
 
@@ -373,10 +368,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onBookmarksClicked(View v)
   {
-    if (!MWMApplication.get().hasBookmarks())
-      UiUtils.showDownloadProDialog(this, getString(R.string.bookmarks_in_pro_version));
-    else
-      showBookmarks();
+    showBookmarks();
   }
 
   private void showBookmarks()
@@ -441,7 +433,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkRoutingMaps()
   {
-    if (BuildConfig.IS_PRO && MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true)
+    if (MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true)
         && ActiveCountryTree.getOutOfDateCount() != 0)
     {
       MWMApplication.get().nativeSetBoolean(IS_FIRST_ROUTING_VERSION_RUN, false);
@@ -469,7 +461,6 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkLiteMapsInPro()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-        BuildConfig.IS_PRO &&
         (Utils.isPackageInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isPackageInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
     {
       if (!mPathManager.containsLiteMapsOnSdcard())
@@ -630,27 +621,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
   };
 
-  private void checkBuyProDialog()
-  {
-    if (!BuildConfig.IS_PRO &&
-        (ConnectionState.isConnected()) &&
-        MWMApplication.get().shouldShowDialog(MWMApplication.BUYPRO))
-    {
-      showDialogImpl(MWMApplication.BUYPRO, R.string.pro_version_available,
-          new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              MWMApplication.get().submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
-              dlg.dismiss();
-              UiUtils.openAppInMarket(MWMActivity.this, BuildConfig.PRO_URL);
-            }
-          }
-      );
-    }
-  }
-
   private void showSearch()
   {
     if (mIsFragmentContainer)
@@ -676,9 +646,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onSearchClicked(View v)
   {
-    if (!BuildConfig.IS_PRO)
-      UiUtils.showDownloadProDialog(this, getString(R.string.search_available_in_pro_version));
-    else if (!MapStorage.INSTANCE.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
+    if (!MapStorage.INSTANCE.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
       @Override
       public void doUpdate()
@@ -1064,11 +1032,6 @@ public class MWMActivity extends NvEventQueueActivity
         else
           onDismiss();
       }
-      else if (intent.getBooleanExtra(Notifier.EXTRA_FORCE_PROMO_DIALOG, false))
-      {
-        getIntent().putExtra(Notifier.EXTRA_FORCE_PROMO_DIALOG, true);
-        Notifier.notifyAboutFreePro(this);
-      }
     }
   }
 
@@ -1325,23 +1288,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     MWMApplication.get().onMwmResume(this);
     mLocationPredictor.resume();
-  }
-
-  private void checkShouldShowBanners()
-  {
-    final Banner banner = AdsManager.getBannerToShow();
-    if (banner != null)
-    {
-      final DialogFragment fragment = new BannerDialogFragment();
-      fragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_Dialog_DialogFragment);
-      final Bundle args = new Bundle();
-      args.putParcelable(BannerDialogFragment.EXTRA_BANNER, banner);
-      fragment.setArguments(args);
-      final FragmentManager fragmentManager = getSupportFragmentManager();
-      FragmentTransaction transaction = fragmentManager.beginTransaction();
-      transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-      transaction.add(android.R.id.content, fragment).addToBackStack(null).commit();
-    }
   }
 
   private void tryResumeRouting()
@@ -1733,11 +1679,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void buildRoute()
   {
-    if (!BuildConfig.IS_PRO)
-    {
-      UiUtils.showDownloadProDialog(this, getString(R.string.routing_failed_buy_pro));
-      return;
-    }
     if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
     {
       showRoutingDisclaimer();

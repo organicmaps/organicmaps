@@ -642,7 +642,7 @@ void State::CacheArrow(graphics::DisplayList * dl, const string & iconName)
 
 bool State::IsRotationActive() const
 {
-  return m_framework->GetNavigator().DoSupportRotation() && IsDirectionKnown();
+  return IsDirectionKnown();
 }
 
 bool State::IsDirectionKnown() const

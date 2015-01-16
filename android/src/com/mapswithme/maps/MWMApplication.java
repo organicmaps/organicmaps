@@ -107,7 +107,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath, getOBBGooglePath(),
-        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE, BuildConfig.IS_PRO,
+        BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
         mIsYota, getResources().getBoolean(R.bool.isTablet));
 
     ActiveCountryTree.addListener(this);
@@ -134,8 +134,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
 
     // init BookmarkManager (automatically loads bookmarks)
-    if (hasBookmarks())
-      BookmarkManager.getBookmarkManager();
+    BookmarkManager.getBookmarkManager();
 
     updateLaunchNumbers();
     initMrgs();
@@ -204,11 +203,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     return nativeGetDouble(FOREGROUND_TIME_SETTING, 0);
   }
 
-  public boolean hasBookmarks()
-  {
-    return BuildConfig.IS_PRO || mIsYota;
-  }
-
   public boolean isYota()
   {
     return mIsYota;
@@ -222,15 +216,13 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private native void nativeInit(String apkPath, String storagePath,
                                  String tmpPath, String obbGooglePath,
                                  String flavorName, String buildType,
-                                 boolean isPro, boolean isYota, boolean isTablet);
+                                 boolean isYota, boolean isTablet);
 
   public native boolean nativeIsBenchmarking();
 
   // Dealing with dialogs.
   // Constants should be equal with map/dialog_settings.hpp
   public static final int FACEBOOK = 0;
-  public static final int BUYPRO = 1;
-  public static final int ROUTING = 3;
 
   public static final Integer[] FACEBOOK_RATE_LAUNCHES = new Integer[]{3, 7, 10, 15, 21};
 

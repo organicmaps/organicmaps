@@ -5,7 +5,7 @@ namespace dlg_settings
 {
   /// @note Do not change numeric values, order and leave DlgCount last.
   //@{
-  enum DialogT { FacebookDlg = 0, BuyProDlg, AppStore, DlgCount };
+  enum DialogT { FacebookDlg = 0, AppStore, DlgCount };
   enum ResultT { OK = 0, Later, Never };
   //@}
 

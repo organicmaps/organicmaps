@@ -14,15 +14,8 @@ import com.mapswithme.util.statistics.Statistics;
 
 import ru.mail.mrgservice.MRGService;
 
-public class MWMFragmentActivity extends ActionBarActivity implements Framework.BuyProListener
+public class MWMFragmentActivity extends ActionBarActivity
 {
-  @Override
-  protected void onResume()
-  {
-    super.onResume();
-    Framework.nativeSetBuyProListener(this);
-  }
-
   @Override
   protected void onStart()
   {
@@ -67,10 +60,5 @@ public class MWMFragmentActivity extends ActionBarActivity implements Framework.
     }
     else
       return super.onOptionsItemSelected(item);
-  }
-
-  public void onBuyPro()
-  {
-    UiUtils.showDownloadProDialog(MWMFragmentActivity.this, getString(R.string.routing_failed_buy_pro));
   }
 }

@@ -17,7 +17,6 @@
 
 @end
 
-NSString * TitleMWM;
 NSString * TitleGuides;
 NSString * TitleAds;
 
@@ -57,7 +56,6 @@ using namespace::storage;
   }
   self.guideRegions = [guideRegions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"Country" ascending:YES]]];
 
-  TitleMWM = @"maps.me pro";
   TitleGuides = L(@"more_apps_guides");
   TitleAds = L(@"more_apps_ads");
 
@@ -71,9 +69,6 @@ using namespace::storage;
 - (void)updateData
 {
   NSMutableArray * mData = [[NSMutableArray alloc] init];
-
-  if (!GetPlatform().IsPro())
-    [mData addObject:TitleMWM];
 
   [mData addObject:TitleGuides];
 
@@ -101,19 +96,13 @@ using namespace::storage;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * title = self.data[indexPath.section];
-  if ([title isEqualToString:TitleMWM] || [title isEqualToString:TitleGuides])
+  if ([title isEqualToString:TitleGuides])
   {
     MoreAppsCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell)
       cell = [[MoreAppsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
 
-    if ([title isEqualToString:TitleMWM])
-    {
-      cell.textLabel.text = TitleMWM;
-      cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:@"MapsWithMeProIcon"]];
-      [cell setFree:NO];
-    }
-    else if ([title isEqualToString:TitleGuides])
+    if ([title isEqualToString:TitleGuides])
     {
       NSDictionary * guide = self.guideRegions[indexPath.row];
       cell.textLabel.text = guide[@"Country"];
@@ -142,12 +131,7 @@ using namespace::storage;
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   NSString * title = self.data[indexPath.section];
-  if ([title isEqualToString:TitleMWM])
-  {
-    [[Statistics instance] logEvent:@"MoreApps MWM clicked"];
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_more_apps"];
-  }
-  else if ([title isEqualToString:TitleGuides])
+  if ([title isEqualToString:TitleGuides])
   {
     [[Statistics instance] logEvent:@"MoreApps guide clicked" withParameters:@{@"Guide" : self.guideRegions[indexPath.row][@"GuideName"]}];
     NSDictionary * guide = self.guideRegions[indexPath.row];
@@ -158,9 +142,7 @@ using namespace::storage;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   NSString * title = self.data[section];
-  if ([title isEqualToString:TitleMWM])
-    return 1;
-  else if ([title isEqualToString:TitleGuides])
+  if ([title isEqualToString:TitleGuides])
     return [self.guideRegions count];
   else if ([title isEqualToString:TitleAds])
     return 1;
@@ -180,7 +162,7 @@ using namespace::storage;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * title = self.data[indexPath.section];
-  if ([title isEqualToString:TitleMWM] || [title isEqualToString:TitleGuides])
+  if ([title isEqualToString:TitleGuides])
     return 44;
   else
     return self.bannerView.height;

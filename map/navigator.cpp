@@ -27,8 +27,7 @@ namespace
 
 Navigator::Navigator(ScalesProcessor const & scales)
   : m_scales(scales),
-    m_InAction(false),
-    m_DoSupportRotation(false)
+    m_InAction(false)
 {
 }
 
@@ -147,9 +146,6 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boun
 
   ScreenBase res = screen;
 
-/*  if (m_DoSupportRotation)
-    return res;*/
-
   m2::RectD clipRect = res.ClipRect();
   if (clipRect.minX() < boundRect.minX())
     clipRect.Offset(boundRect.minX() - clipRect.minX(), 0);
@@ -184,9 +180,6 @@ ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD bound
   ReduceRectHack(boundRect);
 
   ScreenBase res = screen;
-
-/*  if (m_DoSupportRotation)
-    return res;*/
 
   double scale = 1;
 
@@ -230,9 +223,6 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
   ReduceRectHack(boundRect);
 
   ScreenBase res = screen;
-
-/*  if (m_DoSupportRotation)
-    return res;*/
 
   m2::RectD globalRect = res.ClipRect();
 
@@ -392,7 +382,7 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, doubl
   m_StartPt1 = m_LastPt1 = pt1;
   m_StartPt2 = m_LastPt2 = pt2;
 
-  m_DoCheckRotationThreshold = m_DoSupportRotation;
+  m_DoCheckRotationThreshold = true;
   m_IsRotatingDuringScale = false;
   m_InAction = true;
 }
@@ -675,16 +665,6 @@ bool Navigator::Update(double timeInSec)
 {
   m_LastUpdateTimeInSec = timeInSec;
   return false;
-}
-
-void Navigator::SetSupportRotation(bool flag)
-{
-  m_DoSupportRotation = flag;
-}
-
-bool Navigator::DoSupportRotation() const
-{
-  return m_DoSupportRotation;
 }
 
 int Navigator::GetDrawScale() const

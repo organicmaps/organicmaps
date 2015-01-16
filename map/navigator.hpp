@@ -69,10 +69,6 @@ public:
 
   bool InAction() const;
 
-  /// enabling/disabling screen rotation handling
-  void SetSupportRotation(bool flag);
-  /// checking, whether the navigator supports rotation
-  bool DoSupportRotation() const;
   /// Our surface is a square which is bigger than visible screen area on the device,
   /// so we should take it into an account
   m2::PointD ShiftPoint(m2::PointD const & pt) const;
@@ -119,8 +115,6 @@ private:
   math::Matrix<float, 3, 3> m_DeltaMatrix;
   // Flag, which indicates, whether we are in the middle of some action.
   bool m_InAction;
-  // Does Navigator supports screen rotation.
-  bool m_DoSupportRotation;
   // Should we check for threshold while scaling by two fingers.
   bool m_DoCheckRotationThreshold;
   // Do screen rotates during the two fingers scaling.

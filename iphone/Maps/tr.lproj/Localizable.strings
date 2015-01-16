@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Çevrimdışı arama özelliğine sahip MAPS.ME’nin tam sürümüyle daha kolay gezinin. Hemen şimdi alın!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Mevcut sürünüzü bugün ücretsiz olarak MAPS.ME Pro'ya yükseltin!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro bugün ücretsiz. Arkadaşlarınıza anlatın!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Sadece bugün mevcut sürümünüzü MAPS.ME Pro'ya, ücretsiz olarak yükseltebilirsiniz. Bu fırsatı kaçırmayın!";
-
-"free_pro_version_share_message" = "MAPS.ME'nin en iyi çevrimdışı haritaları bugün ücretsiz. İndir ve arkadaşlarına haber ver!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "MAPS.ME çevrimdışı haritaları hemen ücretsiz al";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hey! Bugün MAPS.ME çevrimdışı haritaları ücretsiz indirebileceğini biliyor muydun? Bu uygulamayla seyahat ederken asla kaybolmayacaksın. Genellikle 5$'a mal olur ve arama, yer imleri ve rotalama ile tüm dünya ülkelerinin çevrimdışı haritalarını sunar. Fırsatı kaçırma!";
-
 /* About button text (should be short) */
 "about" = "Hakkında";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Ara";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Arama özelliği sadece MAPS.ME tam sürümünde kullanılabilir. Hemen şimdi al!";
 
 /* Search box placeholder text */
 "search_map" = "Haritada Ara";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Görünür";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Yer imleri sadece MAPS.ME tam sürümünde kullanılabilir. Hemen şimdi al!";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS devre dışı bırakıldı. Lütfen Ayarlar bölümünden etkinleştirin.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-Posta";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promosyon Kodu Etkinleştirme";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Promosyon Kodunu Gir";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promosyon kodu etkinleştirildi!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Bağlantı hatası. Lütfen daha sonra tekrar deneyin.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Geçersiz promosyon kodu. Lütfen tekrar deneyin.";
 
 /* Copy Link */
 "copy_link" = "Bağlantıyı Kopyala";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Başarısız";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.";

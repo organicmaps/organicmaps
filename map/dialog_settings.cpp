@@ -13,7 +13,6 @@ namespace dlg_settings
 char const * g_arrSettingsName[] =
 {
   "FacebookDialog",
-  "BuyProDialog" ,
   "AppStoreRate"
 };
 

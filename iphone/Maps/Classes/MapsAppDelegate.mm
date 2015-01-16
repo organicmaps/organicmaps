@@ -166,14 +166,6 @@ void InitLocalizedStrings()
   [m_window setRootViewController:m_navController];
   [m_window makeKeyAndVisible];
 
-  if (GetPlatform().HasBookmarks())
-  {
-    int val = 0;
-    if (Settings::Get("NumberOfBookmarksPerSession", val))
-      [[Statistics instance] logEvent:@"Bookmarks Per Session" withParameters:@{@"Number of bookmarks" : [NSNumber numberWithInt:val]}];
-    Settings::Set("NumberOfBookmarksPerSession", 0);
-  }
-
   [self subscribeToStorage];
 
   [self customizeAppearance];

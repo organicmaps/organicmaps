@@ -253,14 +253,6 @@ public:
                  int baseScale, bool isTilingQuery);
 #endif // USE_DRAPE
 
-  void ShowBuyProDialog();
-
-  typedef function<void ()> TShowBuyProCallback;
-  void SetBuyProListener(TShowBuyProCallback const & fn);
-
-private:
-  TShowBuyProCallback m_showDlgCallback;
-
 private:
   search::Engine * GetSearchEngine() const;
   search::SearchParams m_lastSearch;
@@ -431,7 +423,6 @@ public:
 
 private:
   void CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const;
-  bool CanRotate() const;
 public:
   void StartScale(ScaleEvent const & e);
   void DoScale(ScaleEvent const & e);

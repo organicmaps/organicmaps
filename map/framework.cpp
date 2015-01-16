@@ -316,10 +316,7 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)
 {
-  if ((opt & TMapOptions::ECarRouting) && !GetPlatform().IsPro())
-    ShowBuyProDialog();
-  else
-    m_storage.DownloadCountry(index, opt);
+  m_storage.DownloadCountry(index, opt);
 }
 
 TStatus Framework::GetCountryStatus(TIndex const & index) const
@@ -415,8 +412,7 @@ void Framework::RemoveMaps()
 
 void Framework::LoadBookmarks()
 {
-  if (GetPlatform().HasBookmarks())
-    m_bmManager.LoadBookmarks();
+  m_bmManager.LoadBookmarks();
 }
 
 size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
@@ -725,17 +721,6 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 }
 #endif // USE_DRAPE
 
-void Framework::ShowBuyProDialog()
-{
-  if (m_showDlgCallback)
-    m_showDlgCallback();
-}
-
-void Framework::SetBuyProListener(TShowBuyProCallback const & fn)
-{
-  m_showDlgCallback = fn;
-}
-
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const
 {
   // Correct, but slow version (check country polygon).
@@ -1031,49 +1016,40 @@ void Framework::StopDrag(DragEvent const & e)
 
 void Framework::StartRotate(RotateEvent const & e)
 {
-  if (CanRotate())
-  {
-    m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
+  m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
 #ifndef USE_DRAPE
-    m_renderPolicy->StartRotate(e.Angle(), ElapsedSeconds());
+  m_renderPolicy->StartRotate(e.Angle(), ElapsedSeconds());
 #else
-    if (!m_drapeEngine.IsNull())
-      m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
 #endif // USE_DRAPE
-    GetLocationState()->ScaleStarted();
-  }
+  GetLocationState()->ScaleStarted();
 }
 
 void Framework::DoRotate(RotateEvent const & e)
 {
-  if (CanRotate())
-  {
-    m_navigator.DoRotate(e.Angle(), ElapsedSeconds());
+  m_navigator.DoRotate(e.Angle(), ElapsedSeconds());
 #ifndef USE_DRAPE
-    m_renderPolicy->DoRotate(e.Angle(), ElapsedSeconds());
+  m_renderPolicy->DoRotate(e.Angle(), ElapsedSeconds());
 #else
-    if (!m_drapeEngine.IsNull())
-      m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
 #endif
-  }
 }
 
 void Framework::StopRotate(RotateEvent const & e)
 {
-  if (CanRotate())
-  {
-    m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
-    GetLocationState()->Rotated();
-    GetLocationState()->ScaleEnded();
+  m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
+  shared_ptr<State> const & state = GetLocationState();
+  state->Rotated();
+  state->ScaleEnded();
 #ifndef USE_DRAPE
-    m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
+  m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
 #else
-    if (!m_drapeEngine.IsNull())
-      m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
 #endif
-
-    UpdateUserViewportChanged();
-  }
+  UpdateUserViewportChanged();
 }
 
 void Framework::Move(double azDir, double factor)
@@ -1121,16 +1097,6 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   pt2 = m_navigator.ShiftPoint(e.Pt2());
 
   m_informationDisplay.locationState()->CorrectScalePoint(pt1, pt2);
-}
-
-bool Framework::CanRotate() const
-{
-#ifndef USE_DRAPE
-  return m_renderPolicy &&
-         m_renderPolicy->DoSupportRotation();
-#else
-  return true;
-#endif // USE_DRAPE
 }
 
 void Framework::StartScale(ScaleEvent const & e)
@@ -1466,8 +1432,6 @@ void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
   if (m_renderPolicy)
   {
     m_renderPolicy->SetAnimController(m_animController.get());
-
-    m_navigator.SetSupportRotation(m_renderPolicy->DoSupportRotation());
 
     m_renderPolicy->SetRenderFn(DrawModelFn());
 
@@ -1992,8 +1956,6 @@ bool Framework::IsRoutingActive() const
 
 void Framework::BuildRoute(m2::PointD const & destination)
 {
-  ASSERT(GetPlatform().HasRouting(), ());
-
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
   {

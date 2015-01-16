@@ -4,19 +4,6 @@
 <!-- Language: uk -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Більше можливостей у повній версії MAPS.ME з офлайн пошуком. Встановити її зараз?</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">MAPS.ME Pro сьогодні безкоштовні! Завантажуйте!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro сьогодні безкоштовні! Розкажіть друзям!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">Сьогодні ви можете завантажити MAPS.ME Pro безкоштовно. Не втрачайте можливості!</string>
-	<string name="free_pro_version_share_message">Круті офлайн-карти MAPS.ME Pro сьогодні безкоштовні! Завантажуй та розкажи друзям!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Офлайн-карти MAPS.ME сьогодні безкоштовні</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Привіт! Хороша новина: сьогодні ти можеш безкоштовно завантажити офлайн-карти MAPS.ME! З цією програмою ти ніколи не загубишся в поїздках. Зазвичай вона коштує $5! Крім офлайн карт всіх країн там ще є пошук, закладки і прокладання маршрутів. Обов\&#39;язково завантаж!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Про програму</string>
 	<!-- Button text (should be short) -->
@@ -85,8 +72,6 @@
 	<string name="report_an_issue">Повідомити про проблему</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Пошук</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Пошук доступний тільки в Pro версії MAPS.ME. Встановіть її прямо зараз!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Пошук на картi</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -202,8 +187,6 @@
 	<string name="wait_several_minutes">Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показувати на карті</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Мітки доступні у повній версії MAPS.ME. Отримати просто зараз?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.</string>
 	<!-- Measurement units title in settings activity -->
@@ -441,8 +424,6 @@
 	<string name="downloader_status_outdated">Oновити</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Помилка</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Створення маршрутів можливе лише у платній версії MAPS.ME. Завантаж зараз!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

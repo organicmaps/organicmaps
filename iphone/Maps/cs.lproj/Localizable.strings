@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Získej více možností s plnou verzí MAPS.ME, zahrnující offline vyhledávání. Nainstaluj si ji nyní!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Proveďte dnes zdarma upgrade na MAPS.ME Pro!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro jsou dnes zdarma. Řekněte to všem kamarádům!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Dnes můžete zdarma provést upgrade na MAPS.ME Pro. Nezmeškejte svou šanci!";
-
-"free_pro_version_share_message" = "Nejlepší offline mapy MAPS.ME jsou dnes zdarma. Stáhni si ji nyní a dej vědět kamarádům!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Získejte v režimu offline mapy MAPS.ME nyní zdarma";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hej! Víte, že dnes si můžete stáhnout v režimu offline mapy MAPS.ME zdarma? Díky této aplikaci se na cestách nikdy neztratíte. Obvyklá cena je 5 dolarů a poskytuje off-line mapy všech zemí světa s vyhledáváním, záložkami a směrováním. Nenechte si ujít příležitost!";
-
 /* About button text (should be short) */
 "about" = "O aplikaci";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Hledat";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Vyhledávání je dostupné jen v placené verzi MAPS.ME. Stáhni si ji nyní!";
 
 /* Search box placeholder text */
 "search_map" = "Prohledat mapu";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Viditelné";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Záložky jsou dostupné jen v plné verzi MAPS.ME. Chceš ji nyní stáhnout?";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "Navigace GPS deaktivována. Prosím, povol ji v Nastavení.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-Mail";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Uplatnit kód";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Zadej promo kód";
-
-/* Promocode Activation success message */
-"promocode_success" = "Kód byl úspěšně přijat!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Chyba připojení. Opakuj akci později.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Nesprávný kód! Opakuj zadání.";
 
 /* Copy Link */
 "copy_link" = "Zkopírovat odkaz";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Selhalo";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Aktuální poloha nebyla zatím zjištěna. Chceš-li naplánovat trasu, zadej prosím umístění.";

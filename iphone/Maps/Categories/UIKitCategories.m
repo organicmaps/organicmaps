@@ -180,29 +180,9 @@
 
 @implementation UIApplication (URLs)
 
-- (void)openProVersionFrom:(NSString *)launchPlaceName
-{
-  NSURL * url = [NSURL URLWithString:MAPSWITHME_PREMIUM_LOCAL_URL];
-  if ([self canOpenURL:url])
-  {
-    [self openURL:url];
-  }
-  else
-  {
-    NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName];
-    [self openURL:[NSURL URLWithString:urlString]];
-  }
-}
-
-- (void)rateProVersionFrom:(NSString *)launchPlaceName
+- (void)rateVersionFrom:(NSString *)launchPlaceName
 {
   NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName];
-  [self openURL:[NSURL URLWithString:urlString]];
-}
-
-- (void)rateLiteVersionFrom:(NSString *)launchPlaceName
-{
-  NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id431183278?mt=8&at=1l3v7ya&ct=%@", launchPlaceName];
   [self openURL:[NSURL URLWithString:urlString]];
 }
 

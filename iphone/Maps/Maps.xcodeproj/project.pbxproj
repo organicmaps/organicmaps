@@ -16,169 +16,83 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		6B948E151A254C9800229BD5 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E131A254C9800229BD5 /* MRGService.framework */; };
-		6B948E161A254C9800229BD5 /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E131A254C9800229BD5 /* MRGService.framework */; };
 		6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */; };
 		6B948E1E1A25533C00229BD5 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */; };
 		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
 		6B948E201A25533C00229BD5 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1C1A25533C00229BD5 /* libMyTracker.a */; };
-		6B948E211A25536200229BD5 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */; };
-		6B948E221A25536200229BD5 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */; };
-		6B948E231A25536200229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
-		6B948E241A25536200229BD5 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1C1A25533C00229BD5 /* libMyTracker.a */; };
-		972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
+		6BBD66B31A695722005FF58D /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B11A695722005FF58D /* MobileAppTracker.framework */; };
+		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
+		6BBD66B51A6957EE005FF58D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
 		97354B6E196EDD3A00352536 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B6D196EDD3A00352536 /* AccountManager.m */; };
-		97354B6F196EDD3F00352536 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B6D196EDD3A00352536 /* AccountManager.m */; };
-		974386D91934CBAC00FD5659 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
-		974386DA1934CBAD00FD5659 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
-		974386DE19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
-		9746492818EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
-		9747264418323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
-		9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
-		974D041E1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
 		9750841F199501F100A7457D /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9750841E199501F100A7457D /* ImageDownloader.m */; };
-		97508420199501F100A7457D /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9750841E199501F100A7457D /* ImageDownloader.m */; };
 		97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
-		97508424199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
-		9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		976D86EC19C8697700C920EF /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86EB19C8697700C920EF /* ProgressView.m */; };
-		976D86ED19C8697700C920EF /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86EB19C8697700C920EF /* ProgressView.m */; };
 		976D86F119C877E600C920EF /* MapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F019C877E600C920EF /* MapCell.mm */; };
-		976D86F219C877E600C920EF /* MapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F019C877E600C920EF /* MapCell.mm */; };
 		976D86F519CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
-		976D86F619CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
-		97719D461843B6E500BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
-		97719D481843B6F200BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
 		97719D491843B6F700BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
 		97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
-		97719D4C1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
 		9773DB8F198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9773DB8E198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m */; };
-		9773DB90198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9773DB8E198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m */; };
 		9778E99D191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E99C191A5B6600AD850A /* BookmarkDescriptionVC.mm */; };
-		9778E99E191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E99C191A5B6600AD850A /* BookmarkDescriptionVC.mm */; };
 		9778E9A1191A663700AD850A /* BookmarkNameVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A0191A663700AD850A /* BookmarkNameVC.mm */; };
-		9778E9A2191A663700AD850A /* BookmarkNameVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A0191A663700AD850A /* BookmarkNameVC.mm */; };
 		9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A4191A86D800AD850A /* SelectedColorView.m */; };
-		9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A4191A86D800AD850A /* SelectedColorView.m */; };
 		977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26B819E2E64200BA2219 /* MapsObservers.mm */; };
-		977E26BA19E2E64200BA2219 /* MapsObservers.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26B819E2E64200BA2219 /* MapsObservers.mm */; };
 		977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26BD19E31BBE00BA2219 /* CountryTreeVC.mm */; };
-		977E26BF19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26BD19E31BBE00BA2219 /* CountryTreeVC.mm */; };
 		977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */; };
-		977E26C319E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */; };
 		977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */; };
-		977E26C719E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */; };
-		9789DB56188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */; };
-		9789DB57188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */; };
 		9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB59188D94F9007C6FAE /* InterstitialView.mm */; };
-		9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB59188D94F9007C6FAE /* InterstitialView.mm */; };
 		978D4A251996B0EC00D72CA7 /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.m */; };
-		978D4A261996B0EC00D72CA7 /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.m */; };
 		978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.m */; };
-		978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.m */; };
 		978D4A31199A11E600D72CA7 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
-		978D4A32199A11E600D72CA7 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
 		978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; };
-		978F9241183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; };
 		978F9242183B660F000D6C7C /* SelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923A183B660F000D6C7C /* SelectableCell.m */; };
-		978F9243183B660F000D6C7C /* SelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923A183B660F000D6C7C /* SelectableCell.m */; };
 		978F9244183B660F000D6C7C /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923B183B660F000D6C7C /* SwitchCell.m */; };
-		978F9245183B660F000D6C7C /* SwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923B183B660F000D6C7C /* SwitchCell.m */; };
 		978F9247183B6671000D6C7C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F9246183B6671000D6C7C /* Main_iPhone.storyboard */; };
-		978F9248183B6671000D6C7C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F9246183B6671000D6C7C /* Main_iPhone.storyboard */; };
 		978F9253183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
-		978F9254183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
 		97908B2C19658767003DD7C6 /* SearchCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97908B2B19658767003DD7C6 /* SearchCategoryCell.m */; };
-		97908B2D1965876C003DD7C6 /* SearchCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97908B2B19658767003DD7C6 /* SearchCategoryCell.m */; };
 		97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97908B2F196591F7003DD7C6 /* SearchShowOnMapCell.m */; };
-		97908B31196591FB003DD7C6 /* SearchShowOnMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97908B2F196591F7003DD7C6 /* SearchShowOnMapCell.m */; };
 		97A0EEFA192F3B43009B2779 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF7192F3B43009B2779 /* BottomMenu.mm */; };
-		97A0EEFB192F3B43009B2779 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF7192F3B43009B2779 /* BottomMenu.mm */; };
 		97A0EEFC192F3B43009B2779 /* BottomMenuCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.mm */; };
-		97A0EEFD192F3B43009B2779 /* BottomMenuCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.mm */; };
 		97A5967F19B9CD47007A963F /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
-		97A5968019B9CD47007A963F /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
 		97A8000C18B21363000C07A2 /* SearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000B18B21363000C07A2 /* SearchView.mm */; };
-		97A8000D18B21363000C07A2 /* SearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000B18B21363000C07A2 /* SearchView.mm */; };
 		97A8001018B21395000C07A2 /* SearchBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000F18B21395000C07A2 /* SearchBar.mm */; };
-		97A8001118B21395000C07A2 /* SearchBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000F18B21395000C07A2 /* SearchBar.mm */; };
 		97A8001418B2140A000C07A2 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001318B2140A000C07A2 /* SearchResultCell.m */; };
-		97A8001518B2140A000C07A2 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001318B2140A000C07A2 /* SearchResultCell.m */; };
 		97A8002718B2741C000C07A2 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8002618B2741C000C07A2 /* SearchCell.m */; };
-		97A8002818B2741C000C07A2 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8002618B2741C000C07A2 /* SearchCell.m */; };
 		97AA2821190AD21100AE1AAB /* PlacePageShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AA2820190AD21100AE1AAB /* PlacePageShareCell.m */; };
-		97AA2822190AD21100AE1AAB /* PlacePageShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AA2820190AD21100AE1AAB /* PlacePageShareCell.m */; };
 		97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97ABBA4418C8DF620079333C /* PlacePageView.mm */; };
-		97ABBA4618C8DF620079333C /* PlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97ABBA4418C8DF620079333C /* PlacePageView.mm */; };
 		97C9851E186AE3C500AF7E9E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9851C186AE3C500AF7E9E /* Reachability.m */; };
-		97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9851C186AE3C500AF7E9E /* Reachability.m */; };
 		97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97C98520186AE3CF00AF7E9E /* AppInfo.mm */; };
-		97C98523186AE3CF00AF7E9E /* AppInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97C98520186AE3CF00AF7E9E /* AppInfo.mm */; };
-		97C98649186C5E9900AF7E9E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98647186C5E9900AF7E9E /* EventKit.framework */; };
-		97C9864A186C5E9900AF7E9E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98648186C5E9900AF7E9E /* EventKitUI.framework */; };
-		97C9864C186C5EAA00AF7E9E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864B186C5EAA00AF7E9E /* MediaPlayer.framework */; };
-		97C9864E186C5ED300AF7E9E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		97C98650186C5EDE00AF7E9E /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		97C98652186C5EF000AF7E9E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
-		97C98654186C5F0500AF7E9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98653186C5F0500AF7E9E /* AudioToolbox.framework */; };
-		97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CC93BA19599F4700369B42 /* SearchSuggestCell.m */; };
-		97CC93BC19599F4700369B42 /* SearchSuggestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CC93BA19599F4700369B42 /* SearchSuggestCell.m */; };
 		97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B0190A681F00FF645B /* PlacePageInfoCell.mm */; };
-		97D092B2190A681F00FF645B /* PlacePageInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B0190A681F00FF645B /* PlacePageInfoCell.mm */; };
 		97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B4190A6E1D00FF645B /* PlacePageEditCell.mm */; };
-		97D092B6190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B4190A6E1D00FF645B /* PlacePageEditCell.mm */; };
 		97D092B9190AA69700FF645B /* SmallCompassView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B8190AA69700FF645B /* SmallCompassView.mm */; };
-		97D092BA190AA69700FF645B /* SmallCompassView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B8190AA69700FF645B /* SmallCompassView.mm */; };
-		97D40C06184CF5F100A1D572 /* ImagesLite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */; };
 		97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */; };
 		97D40C0A184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
-		97D40C0B184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */; };
-		97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D807B718A92AAB00D416E0 /* MoreAppsVC.mm */; };
 		97D807BC18A933FB00D416E0 /* MoreAppsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D807BB18A933FB00D416E0 /* MoreAppsCell.m */; };
-		97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D807BB18A933FB00D416E0 /* MoreAppsCell.m */; };
 		97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
 		97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
-		97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
-		97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
-		97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
 		97DD585C18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */; };
-		97DD585D18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */; };
 		97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
-		97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
 		97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
 		97ECD87F1836594400F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87E1836594400F77A46 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
-		97ECD8821836751100F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
-		97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EDDCE418A299C000AEFB7A /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97F0817E19AF72590098FB0B /* BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.m */; };
-		97F0817F19AF72590098FB0B /* BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.m */; };
 		97F61781183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
-		97F61782183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
 		97F61794183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
-		97F61795183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
 		97FC99DC19C1A2CD00C1CF98 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99D919C1A2CD00C1CF98 /* resources-mdpi */; };
-		97FC99DD19C1A2CD00C1CF98 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99D919C1A2CD00C1CF98 /* resources-mdpi */; };
 		97FC99DE19C1A2CD00C1CF98 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
-		97FC99DF19C1A2CD00C1CF98 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
 		97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
-		97FC99E119C1A2CD00C1CF98 /* resources-xxhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DB19C1A2CD00C1CF98 /* resources-xxhdpi */; };
 		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
-		A3CC2CD51A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		B00510FD1A11019400A61AA4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FC1A11019400A61AA4 /* libsqlite3.dylib */; };
 		B00510FF1A1101A000A61AA4 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FE1A1101A000A61AA4 /* libxml2.dylib */; };
@@ -186,39 +100,21 @@
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		B0183B751A272FF500D7A4BA /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
 		B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */; };
-		B08AA8D01A25E53600810B1C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
-		B08AA8D11A25E54800810B1C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
-		B08AA8D21A25E55800810B1C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511001A1101AA00A61AA4 /* libz.dylib */; };
-		B08AA8D31A25E56300810B1C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FE1A1101A000A61AA4 /* libxml2.dylib */; };
-		B08AA8D41A25E56B00810B1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FC1A11019400A61AA4 /* libsqlite3.dylib */; };
 		B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864F186C5EDE00AF7E9E /* PassKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C9864D186C5ED300AF7E9E /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		B08AA8D71A26108F00810B1C /* LocalNotificationInfoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */; };
 		B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B08AA8D91A26299A00810B1C /* TimeUtils.m */; };
-		B08AA8DB1A2647EE00810B1C /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
-		B08AA8DC1A2647F100810B1C /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
-		B0DFE62B1A1B75DB00B6C35E /* LocalNotifications-Lite.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */; };
-		B0DFE6311A1B78A200B6C35E /* LocalNotifications-Pro.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */; };
+		B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */; };
 		B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */; };
 		B0E1FCDF1A2343BC00A8E08B /* NextTurnPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E1FCDE1A2343BC00A8E08B /* NextTurnPhoneView.m */; };
 		B0FBFA271A515AFD0086819E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.m */; };
-		B0FBFA281A515AFD0086819E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA261A515AFD0086819E /* ViewController.m */; };
 		B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.m */; };
-		B0FBFA2C1A515B4C0086819E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FBFA2A1A515B4C0086819E /* TableViewController.m */; };
 		CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
-		CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB252D6C16FF82C8001E41E9 /* Statistics.mm */; };
 		ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
-		ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB917C2B1E2003E7E92 /* CircleView.mm */; };
-		ED48BBC417C3B3BF003E7E92 /* ColorPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */; };
 		ED9CC5EF17CA18770051642E /* ios-guides.json in Resources */ = {isa = PBXBuildFile; fileRef = ED9CC5EE17CA18770051642E /* ios-guides.json */; };
-		ED9CC5F017CA18770051642E /* ios-guides.json in Resources */ = {isa = PBXBuildFile; fileRef = ED9CC5EE17CA18770051642E /* ios-guides.json */; };
 		EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
-		EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
 		EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
-		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
@@ -233,11 +129,8 @@
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		F7264B8C16388E0B00A8E6C0 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
-		F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
-		F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
 		F7E7BA221672328F00B4492E /* atm.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA061672328F00B4492E /* atm.png */; };
 		F7E7BA231672328F00B4492E /* atm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA071672328F00B4492E /* atm@2x.png */; };
 		F7E7BA241672328F00B4492E /* bank.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA081672328F00B4492E /* bank.png */; };
@@ -270,74 +163,27 @@
 		F7E7BA4116723CD200B4492E /* hotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA3F16723CD200B4492E /* hotel@2x.png */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
-		FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
 		FA140651162A6288002BC1ED /* empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064D162A6288002BC1ED /* empty@2x.png */; };
-		FA140652162A6288002BC1ED /* empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064D162A6288002BC1ED /* empty@2x.png */; };
 		FA140653162A6288002BC1ED /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064E162A6288002BC1ED /* empty.png */; };
-		FA140654162A6288002BC1ED /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064E162A6288002BC1ED /* empty.png */; };
 		FA140655162A6288002BC1ED /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064F162A6288002BC1ED /* eye.png */; };
-		FA140656162A6288002BC1ED /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = FA14064F162A6288002BC1ED /* eye.png */; };
 		FA140657162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
-		FA140658162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
-		FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		FA7F4B0017F1FFE800FAB1B5 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA99CB73147089B100689A9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
 		FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
 		FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
-		FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
 		FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
-		FAAEA7D2161BD26600CCD661 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */; };
-		FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */; };
 		FAAFD697139D9BE2000AE70C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
 		FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
-		FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
 		FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF457E615597D4600DCCC49 /* Framework.cpp */; };
-		FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF457E615597D4600DCCC49 /* Framework.cpp */; };
-		FAFB06AB151215EE0041901D /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
-		FAFB06AC151215EE0041901D /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
-		FAFB06AE151215EE0041901D /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
-		FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
-		FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
-		FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		FAFB06C7151215EE0041901D /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
-		FAFB06C8151215EE0041901D /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */; };
-		FAFB06C9151215EE0041901D /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
-		FAFB06CA151215EE0041901D /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
-		FAFB06CB151215EE0041901D /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
-		FAFB06CC151215EE0041901D /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
-		FAFB06CE151215EE0041901D /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
-		FAFB06D1151215EE0041901D /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
-		FAFB08D2151215EE0041901D /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
-		FAFB08D3151215EE0041901D /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
-		FAFB08D4151215EE0041901D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
-		FAFB08DB151215EE0041901D /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
-		FAFB08E9151215EE0041901D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
-		FAFB08EA151215EE0041901D /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapsAppDelegate.mm */; };
-		FAFB08EB151215EE0041901D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
-		FAFB08EC151215EE0041901D /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
-		FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
-		FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
-		FAFB08F1151215EE0041901D /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
-		FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
-		FAFB08F5151215EE0041901D /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
-		FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
-		FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		FAFB08FE151215EE0041901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		FAFB08FF151215EE0041901D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
-		FAFB0900151215EE0041901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
-		FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
@@ -347,7 +193,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1D6058910D05DD3D006BFB54 /* maps.me dbg lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* maps.me dbg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -360,16 +206,17 @@
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
-		6B948E131A254C9800229BD5 /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MRGService.framework; sourceTree = "<group>"; };
 		6B948E141A254C9800229BD5 /* ExternalLibs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExternalLibs; sourceTree = "<group>"; };
 		6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = Statistics/MRGService/ExternalLibs/GoogleAnalytics/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = Statistics/MRGService/ExternalLibs/GoogleAnalytics/libAdIdAccess.a; sourceTree = "<group>"; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6B948E1C1A25533C00229BD5 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMyTracker.a; path = Statistics/MRGService/ExternalLibs/MyTracker/libMyTracker.a; sourceTree = "<group>"; };
+		6BBD66B11A695722005FF58D /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileAppTracker.framework; path = Statistics/MobileAppTracker.framework; sourceTree = "<group>"; };
+		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		97354B6C196EDD3A00352536 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
 		97354B6D196EDD3A00352536 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
@@ -415,8 +262,6 @@
 		977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActiveMapsVC.mm; sourceTree = "<group>"; };
 		977E26C419E31BDF00BA2219 /* DownloaderParentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderParentVC.h; sourceTree = "<group>"; };
 		977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DownloaderParentVC.mm; sourceTree = "<group>"; };
-		9789DB54188D5E2A007C6FAE /* InAppMessagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppMessagesManager.h; sourceTree = "<group>"; };
-		9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InAppMessagesManager.mm; sourceTree = "<group>"; };
 		9789DB58188D94F9007C6FAE /* InterstitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialView.h; sourceTree = "<group>"; };
 		9789DB59188D94F9007C6FAE /* InterstitialView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InterstitialView.mm; sourceTree = "<group>"; };
 		978D4A231996B0EC00D72CA7 /* CommunityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityVC.h; sourceTree = "<group>"; };
@@ -474,7 +319,6 @@
 		97D092B4190A6E1D00FF645B /* PlacePageEditCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageEditCell.mm; sourceTree = "<group>"; };
 		97D092B7190AA69700FF645B /* SmallCompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallCompassView.h; sourceTree = "<group>"; };
 		97D092B8190AA69700FF645B /* SmallCompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SmallCompassView.mm; sourceTree = "<group>"; };
-		97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesPro.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C09184D031900A1D572 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
 		97D807B618A92AAB00D416E0 /* MoreAppsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppsVC.h; sourceTree = "<group>"; };
@@ -484,7 +328,6 @@
 		97DD585218A8EAFA0079837E /* libAarkiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAarkiSDK.a; sourceTree = "<group>"; };
 		97DD585318A8EAFA0079837E /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
 		97DD585418A8EAFA0079837E /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
-		97DD585718A8EB060079837E /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
 		97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		97DD585B18A8EB120079837E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		97DEA09018D706C300C5F963 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
@@ -519,8 +362,7 @@
 		B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalNotificationInfoProvider.m; sourceTree = "<group>"; };
 		B08AA8D81A26299A00810B1C /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUtils.h; path = Categories/TimeUtils.h; sourceTree = "<group>"; };
 		B08AA8D91A26299A00810B1C /* TimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeUtils.m; path = Categories/TimeUtils.m; sourceTree = "<group>"; };
-		B0DFE62C1A1B75DB00B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = "en.lproj/LocalNotifications-Lite.plist"; sourceTree = "<group>"; };
-		B0DFE6301A1B78A200B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = "en.lproj/LocalNotifications-Pro.plist"; sourceTree = "<group>"; };
+		B0DFE6301A1B78A200B6C35E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/LocalNotifications.plist; sourceTree = "<group>"; };
 		B0E1FCDA1A23399E00A8E08B /* RouteOverallInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteOverallInfoView.h; sourceTree = "<group>"; };
 		B0E1FCDB1A23399E00A8E08B /* RouteOverallInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteOverallInfoView.m; sourceTree = "<group>"; };
 		B0E1FCDD1A2343BC00A8E08B /* NextTurnPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextTurnPhoneView.h; sourceTree = "<group>"; };
@@ -657,8 +499,6 @@
 		FAF457E415597BC100DCCC49 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		FAF457E615597D4600DCCC49 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
 		FAF8E2EC1752E0F100D41090 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FAFB091E151215EE0041901D /* maps.me dbg lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Lite.plist"; sourceTree = "<group>"; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
@@ -669,6 +509,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BBD66B51A6957EE005FF58D /* FacebookSDK.framework in Frameworks */,
+				6BBD66B31A695722005FF58D /* MobileAppTracker.framework in Frameworks */,
+				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
 				6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */,
@@ -692,59 +535,12 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
-				6B948E151A254C9800229BD5 /* MRGService.framework in Frameworks */,
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
 				97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */,
-				974386D91934CBAC00FD5659 /* FacebookSDK.framework in Frameworks */,
 				97DD585C18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
-				97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FAFB08FA151215EE0041901D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B08AA8D41A25E56B00810B1C /* libsqlite3.dylib in Frameworks */,
-				B08AA8D31A25E56300810B1C /* libxml2.dylib in Frameworks */,
-				B08AA8D21A25E55800810B1C /* libz.dylib in Frameworks */,
-				B08AA8D11A25E54800810B1C /* CoreData.framework in Frameworks */,
-				B08AA8D01A25E53600810B1C /* CoreMedia.framework in Frameworks */,
-				6B948E211A25536200229BD5 /* libGoogleAnalyticsServices.a in Frameworks */,
-				6B948E221A25536200229BD5 /* libAdIdAccess.a in Frameworks */,
-				6B948E231A25536200229BD5 /* libAppsFlyerLib.a in Frameworks */,
-				6B948E241A25536200229BD5 /* libMyTracker.a in Frameworks */,
-				97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */,
-				972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */,
-				97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */,
-				97C98654186C5F0500AF7E9E /* AudioToolbox.framework in Frameworks */,
-				97C98652186C5EF000AF7E9E /* iAd.framework in Frameworks */,
-				97C98650186C5EDE00AF7E9E /* PassKit.framework in Frameworks */,
-				97C9864E186C5ED300AF7E9E /* Social.framework in Frameworks */,
-				6B948E161A254C9800229BD5 /* MRGService.framework in Frameworks */,
-				97C9864C186C5EAA00AF7E9E /* MediaPlayer.framework in Frameworks */,
-				97C98649186C5E9900AF7E9E /* EventKit.framework in Frameworks */,
-				97C9864A186C5E9900AF7E9E /* EventKitUI.framework in Frameworks */,
-				97719D481843B6F200BDD815 /* Security.framework in Frameworks */,
-				97719D461843B6E500BDD815 /* MessageUI.framework in Frameworks */,
-				97ECD8821836751100F77A46 /* MobileCoreServices.framework in Frameworks */,
-				97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */,
-				97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */,
-				97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */,
-				FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */,
-				97DD585D18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */,
-				FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */,
-				FAFB08FE151215EE0041901D /* CoreGraphics.framework in Frameworks */,
-				FAFB08FF151215EE0041901D /* OpenGLES.framework in Frameworks */,
-				FAFB0900151215EE0041901D /* QuartzCore.framework in Frameworks */,
-				FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */,
-				97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
-				FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */,
-				97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */,
-				974386DA1934CBAD00FD5659 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,8 +558,7 @@
 				974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */,
 				B08AA8CC1A24C7BC00810B1C /* LocalNotificationInfoProvider.h */,
 				B08AA8CD1A24C7BC00810B1C /* LocalNotificationInfoProvider.m */,
-				B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */,
-				B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */,
+				B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */,
 				B0FBFA251A515AFD0086819E /* ViewController.h */,
 				B0FBFA261A515AFD0086819E /* ViewController.m */,
 				B0FBFA291A515B4C0086819E /* TableViewController.h */,
@@ -792,8 +587,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* maps.me dbg lite.app */,
-				FAFB091E151215EE0041901D /* maps.me dbg lite.app */,
+				1D6058910D05DD3D006BFB54 /* maps.me dbg.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -816,8 +610,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				FA1DE68411E15D4E00C6D69A /* Static Libraries */,
-				8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */,
-				FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */,
+				8D1107310486CEB800E47090 /* MAPSME.plist */,
 			);
 			indentWidth = 2;
 			name = Maps;
@@ -837,7 +630,6 @@
 			isa = PBXGroup;
 			children = (
 				97D40C09184D031900A1D572 /* Images.xcassets */,
-				97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */,
 				97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */,
 				FA8F930C150184280057B215 /* Suggestion Icons */,
 				FA99CB71147089B100689A9A /* Localizable.strings */,
@@ -850,6 +642,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BBD66B11A695722005FF58D /* MobileAppTracker.framework */,
+				6BBD66B21A695722005FF58D /* MRGService.framework */,
 				6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */,
 				6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */,
 				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
@@ -947,8 +741,6 @@
 		9789DB53188D5DFF007C6FAE /* In App Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				9789DB54188D5E2A007C6FAE /* InAppMessagesManager.h */,
-				9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */,
 				9789DB58188D94F9007C6FAE /* InterstitialView.h */,
 				9789DB59188D94F9007C6FAE /* InterstitialView.mm */,
 			);
@@ -1067,7 +859,6 @@
 		B00511071A1102FE00A61AA4 /* MRGService */ = {
 			isa = PBXGroup;
 			children = (
-				6B948E131A254C9800229BD5 /* MRGService.framework */,
 				6B948E141A254C9800229BD5 /* ExternalLibs */,
 			);
 			path = MRGService;
@@ -1098,7 +889,6 @@
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
 				97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
-				97DD585718A8EB060079837E /* MobileAppTracker.framework */,
 				97DD585218A8EAFA0079837E /* libAarkiSDK.a */,
 				97DD585318A8EAFA0079837E /* Aarki.h */,
 				97DD585418A8EAFA0079837E /* AarkiContact.h */,
@@ -1288,9 +1078,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* MapsWithMe Pro */ = {
+		1D6058900D05DD3D006BFB54 /* MAPS.ME */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapsWithMe Pro" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MAPS.ME" */;
 			buildPhases = (
 				FA3A60E715AD5BBD00F40D20 /* Run Script */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
@@ -1301,27 +1091,9 @@
 			);
 			dependencies = (
 			);
-			name = "MapsWithMe Pro";
+			name = MAPS.ME;
 			productName = Maps;
-			productReference = 1D6058910D05DD3D006BFB54 /* maps.me dbg lite.app */;
-			productType = "com.apple.product-type.application";
-		};
-		FAFB06A9151215EE0041901D /* MapsWithMe Lite */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FAFB0913151215EE0041901D /* Build configuration list for PBXNativeTarget "MapsWithMe Lite" */;
-			buildPhases = (
-				FA78191C15C5F673009E0278 /* Run Script */,
-				FAFB06AA151215EE0041901D /* Resources */,
-				FAFB08E8151215EE0041901D /* Sources */,
-				FAFB08FA151215EE0041901D /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MapsWithMe Lite";
-			productName = Maps;
-			productReference = FAFB091E151215EE0041901D /* maps.me dbg lite.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* maps.me dbg.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1334,14 +1106,6 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = XMK5825GXK;
-						SystemCapabilities = {
-							com.apple.BackgroundModes = {
-								enabled = 1;
-							};
-						};
-					};
-					FAFB06A9151215EE0041901D = {
 						DevelopmentTeam = XMK5825GXK;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1388,8 +1152,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* MapsWithMe Pro */,
-				FAFB06A9151215EE0041901D /* MapsWithMe Lite */,
+				1D6058900D05DD3D006BFB54 /* MAPS.ME */,
 			);
 		};
 /* End PBXProject section */
@@ -1418,7 +1181,7 @@
 				97FC99DC19C1A2CD00C1CF98 /* resources-mdpi in Resources */,
 				97FC99DE19C1A2CD00C1CF98 /* resources-xhdpi in Resources */,
 				97D40C0A184D031900A1D572 /* Images.xcassets in Resources */,
-				B0DFE6311A1B78A200B6C35E /* LocalNotifications-Pro.plist in Resources */,
+				B0DFE6311A1B78A200B6C35E /* LocalNotifications.plist in Resources */,
 				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
 				97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */,
 				97FC99E019C1A2CD00C1CF98 /* resources-xxhdpi in Resources */,
@@ -1469,50 +1232,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAFB06AA151215EE0041901D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FAFB06AB151215EE0041901D /* MainWindow.xib in Resources */,
-				FAFB06AC151215EE0041901D /* classificator.txt in Resources */,
-				FAFB06AE151215EE0041901D /* MainWindow-iPad.xib in Resources */,
-				FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */,
-				FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */,
-				FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */,
-				FAFB06C7151215EE0041901D /* 01_dejavusans.ttf in Resources */,
-				FAFB06C8151215EE0041901D /* 02_wqy-microhei.ttf in Resources */,
-				FAFB06C9151215EE0041901D /* 03_jomolhari-id-a3d.ttf in Resources */,
-				FAFB06CA151215EE0041901D /* 04_padauk.ttf in Resources */,
-				FAFB06CB151215EE0041901D /* 05_khmeros.ttf in Resources */,
-				FAFB06CC151215EE0041901D /* 06_code2000.ttf in Resources */,
-				FAFB06CE151215EE0041901D /* categories.txt in Resources */,
-				FAFB06D1151215EE0041901D /* types.txt in Resources */,
-				97FC99DD19C1A2CD00C1CF98 /* resources-mdpi in Resources */,
-				97D40C0B184D031900A1D572 /* Images.xcassets in Resources */,
-				B0DFE62B1A1B75DB00B6C35E /* LocalNotifications-Lite.plist in Resources */,
-				97719D4C1843B86700BDD815 /* Main_iPad.storyboard in Resources */,
-				97FC99DF19C1A2CD00C1CF98 /* resources-xhdpi in Resources */,
-				97D40C06184CF5F100A1D572 /* ImagesLite.xcassets in Resources */,
-				978D4A32199A11E600D72CA7 /* faq.html in Resources */,
-				97FC99E119C1A2CD00C1CF98 /* resources-xxhdpi in Resources */,
-				FA7F4B0017F1FFE800FAB1B5 /* World.mwm in Resources */,
-				97A5968019B9CD47007A963F /* copyright.html in Resources */,
-				FAFB08D2151215EE0041901D /* WorldCoasts.mwm in Resources */,
-				FAFB08D3151215EE0041901D /* packed_polygons.bin in Resources */,
-				FAFB08D4151215EE0041901D /* Localizable.strings in Resources */,
-				FAFB08DB151215EE0041901D /* drules_proto.bin in Resources */,
-				978F9248183B6671000D6C7C /* Main_iPhone.storyboard in Resources */,
-				FAAEA7D2161BD26600CCD661 /* synonyms.txt in Resources */,
-				FA140652162A6288002BC1ED /* empty@2x.png in Resources */,
-				FA140654162A6288002BC1ED /* empty.png in Resources */,
-				FA140656162A6288002BC1ED /* eye.png in Resources */,
-				FA140658162A6288002BC1ED /* eye@2x.png in Resources */,
-				F7264B8C16388E0B00A8E6C0 /* countries.txt in Resources */,
-				FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */,
-				ED9CC5F017CA18770051642E /* ios-guides.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1529,20 +1248,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  if [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\n    CONF=\"simulator-release\"\n  else\n    CONF=\"release\"\n  fi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\n  echo \"Drape renderer building\"\n  DRAPE_CONF=\"drape\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
-		};
-		FA78191C15C5F673009E0278 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\n  CONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\n  CONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\n  CONF=\"release\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF \"old_renderer\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1611,7 +1316,6 @@
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
-				9789DB56188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
 				9778E99D191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
 				97354B6E196EDD3A00352536 /* AccountManager.m in Sources */,
@@ -1635,109 +1339,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAFB08E8151215EE0041901D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				978D4A261996B0EC00D72CA7 /* CommunityVC.m in Sources */,
-				FAFB08E9151215EE0041901D /* main.mm in Sources */,
-				9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
-				978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */,
-				FAFB08EA151215EE0041901D /* MapsAppDelegate.mm in Sources */,
-				97908B31196591FB003DD7C6 /* SearchShowOnMapCell.m in Sources */,
-				B0FBFA281A515AFD0086819E /* ViewController.m in Sources */,
-				976D86F219C877E600C920EF /* MapCell.mm in Sources */,
-				977E26C319E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
-				FAFB08EB151215EE0041901D /* EAGLView.mm in Sources */,
-				97A8001118B21395000C07A2 /* SearchBar.mm in Sources */,
-				FAFB08EC151215EE0041901D /* MapViewController.mm in Sources */,
-				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
-				A3CC2CD51A1C723900B832E1 /* LocationPredictor.mm in Sources */,
-				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
-				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
-				B08AA8DC1A2647F100810B1C /* RouteOverallInfoView.m in Sources */,
-				97508420199501F100A7457D /* ImageDownloader.m in Sources */,
-				97A0EEFD192F3B43009B2779 /* BottomMenuCell.mm in Sources */,
-				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
-				97ABBA4618C8DF620079333C /* PlacePageView.mm in Sources */,
-				977E26BA19E2E64200BA2219 /* MapsObservers.mm in Sources */,
-				9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */,
-				FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */,
-				FAFB08F1151215EE0041901D /* WebViewController.mm in Sources */,
-				9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */,
-				FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */,
-				977E26BF19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
-				97F61782183E6172009919E2 /* LocationButton.mm in Sources */,
-				B08AA8D71A26108F00810B1C /* LocalNotificationInfoProvider.m in Sources */,
-				9747264418323080006B7CB7 /* UIKitCategories.m in Sources */,
-				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
-				B0FBFA2C1A515B4C0086819E /* TableViewController.m in Sources */,
-				97F0817F19AF72590098FB0B /* BadgeView.m in Sources */,
-				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
-				97908B2D1965876C003DD7C6 /* SearchCategoryCell.m in Sources */,
-				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
-				B0183B751A272FF500D7A4BA /* TimeUtils.m in Sources */,
-				9789DB57188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
-				97AA2822190AD21100AE1AAB /* PlacePageShareCell.m in Sources */,
-				976D86F619CB21BD00C920EF /* RouteView.m in Sources */,
-				97D092BA190AA69700FF645B /* SmallCompassView.mm in Sources */,
-				978F9241183B660F000D6C7C /* SettingsViewController.mm in Sources */,
-				97A8001518B2140A000C07A2 /* SearchResultCell.m in Sources */,
-				F7B90CD41521E6D200C054EE /* CustomNavigationView.mm in Sources */,
-				9778E9A2191A663700AD850A /* BookmarkNameVC.mm in Sources */,
-				FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */,
-				97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
-				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,
-				97A8002818B2741C000C07A2 /* SearchCell.m in Sources */,
-				974386DE19373EA400FD5659 /* ToastView.m in Sources */,
-				FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */,
-				97CC93BC19599F4700369B42 /* SearchSuggestCell.m in Sources */,
-				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
-				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
-				977E26C719E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
-				B08AA8DB1A2647EE00810B1C /* NextTurnPhoneView.m in Sources */,
-				97D092B6190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
-				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
-				97C98523186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
-				978F9243183B660F000D6C7C /* SelectableCell.m in Sources */,
-				974D041E1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
-				97354B6F196EDD3F00352536 /* AccountManager.m in Sources */,
-				97A0EEFB192F3B43009B2779 /* BottomMenu.mm in Sources */,
-				CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */,
-				9778E99E191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
-				978F9245183B660F000D6C7C /* SwitchCell.m in Sources */,
-				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
-				97508424199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
-				9773DB90198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */,
-				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
-				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
-				976D86ED19C8697700C920EF /* ProgressView.m in Sources */,
-				9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */,
-				97A8000D18B21363000C07A2 /* SearchView.mm in Sources */,
-				ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */,
-				97D092B2190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
-				9746492818EEE2F8004B4658 /* ToolbarView.mm in Sources */,
-				ED48BBC417C3B3BF003E7E92 /* ColorPickerView.mm in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B0DFE62D1A1B75DB00B6C35E /* LocalNotifications-Lite.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0DFE62C1A1B75DB00B6C35E /* en */,
-			);
-			name = "LocalNotifications-Lite.plist";
-			sourceTree = "<group>";
-		};
-		B0DFE62F1A1B78A200B6C35E /* LocalNotifications-Pro.plist */ = {
+		B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */ = {
 			isa = PBXVariantGroup;
 			children = (
 				B0DFE6301A1B78A200B6C35E /* en */,
 			);
-			name = "LocalNotifications-Pro.plist";
+			name = LocalNotifications.plist;
 			sourceTree = "<group>";
 		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
@@ -1772,36 +1382,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1D6058940D05DD3E006BFB54 /* Simulator Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Simulator Lite";
-		};
-		A32B6D4E1A14A7B700E54A65 /* Drape Release Full */ = {
+		A32B6D4E1A14A7B700E54A65 /* Drape Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1829,7 +1410,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-drape-$(CURRENT_ARCH)/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -1875,9 +1456,9 @@
 				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Drape Release Full";
+			name = "Drape Release";
 		};
-		A32B6D4F1A14A7B700E54A65 /* Drape Release Full */ = {
+		A32B6D4F1A14A7B700E54A65 /* Drape Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1886,13 +1467,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -1929,63 +1510,9 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "Drape Release Full";
+			name = "Drape Release";
 		};
-		A32B6D501A14A7B700E54A65 /* Drape Release Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-ldrape_frontend",
-					"-ldrape",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Drape Release Full";
-		};
-		A32B6D5F1A14C16500E54A65 /* Drape Debug Full */ = {
+		A32B6D5F1A14C16500E54A65 /* Drape Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2010,7 +1537,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-drape-$(CURRENT_ARCH)/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -2056,9 +1583,9 @@
 				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Drape Debug Full";
+			name = "Drape Debug";
 		};
-		A32B6D601A14C16500E54A65 /* Drape Debug Full */ = {
+		A32B6D601A14C16500E54A65 /* Drape Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2067,13 +1594,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -2084,403 +1611,9 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "Drape Debug Full";
+			name = "Drape Debug";
 		};
-		A32B6D611A14C16500E54A65 /* Drape Debug Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Drape Debug Full";
-		};
-		C01FCF4F08A954540054247B /* Simulator Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.simulator;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.2.2;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TARGET_OS_IPHONE,
-					DEBUG,
-					_DEBUG,
-					OMIM_LITE,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-mno-thumb",
-				);
-				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "maps.me dbg lite";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = i386;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Simulator Lite";
-		};
-		FA0686DE13578E1D004CFF81 /* Production Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.travelguide;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 4.2.2;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					OMIM_PRODUCTION,
-					RELEASE,
-					_RELEASE,
-					NDEBUG,
-					TARGET_OS_IPHONE,
-					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_LITE,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-mno-thumb",
-				);
-				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PRODUCT_NAME = maps.me;
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7s armv7";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Production Lite";
-		};
-		FA0686DF13578E1D004CFF81 /* Production Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Production Lite";
-		};
-		FA1DE85911E2235D00C6D69A /* Debug Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.debug;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.2.2;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					DEBUG,
-					_DEBUG,
-					TARGET_OS_IPHONE,
-					OMIM_LITE,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-mno-thumb",
-				);
-				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "maps.me dbg lite";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Debug Lite";
-		};
-		FA1DE85A11E2235D00C6D69A /* Debug Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Debug Lite";
-		};
-		FA1DE85B11E2236200C6D69A /* AdHoc Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.beta;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 4.2.2;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					OMIM_PRODUCTION,
-					NDEBUG,
-					RELEASE,
-					_RELEASE,
-					TARGET_OS_IPHONE,
-					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_LITE,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-mno-thumb",
-				);
-				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "maps.me beta lite";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7s armv7";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "AdHoc Lite";
-		};
-		FA1DE85C11E2236200C6D69A /* AdHoc Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "AdHoc Lite";
-		};
-		FAAB4119149BA83500C245B1 /* Simulator Full */ = {
+		FAAB4119149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2504,7 +1637,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -2545,9 +1678,9 @@
 				VALID_ARCHS = i386;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Simulator Full";
+			name = Simulator;
 		};
-		FAAB411A149BA83500C245B1 /* Simulator Full */ = {
+		FAAB411A149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2556,14 +1689,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -2574,9 +1706,9 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "Simulator Full";
+			name = Simulator;
 		};
-		FAAB411B149BA84700C245B1 /* Debug Full */ = {
+		FAAB411B149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2601,7 +1733,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -2642,9 +1774,9 @@
 				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Debug Full";
+			name = Debug;
 		};
-		FAAB411C149BA84700C245B1 /* Debug Full */ = {
+		FAAB411C149BA84700C245B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2653,14 +1785,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -2695,9 +1826,9 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "Debug Full";
+			name = Debug;
 		};
-		FAAB411D149BA85500C245B1 /* AdHoc Full */ = {
+		FAAB411D149BA85500C245B1 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2726,7 +1857,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -2767,9 +1898,9 @@
 				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "AdHoc Full";
+			name = AdHoc;
 		};
-		FAAB411E149BA85500C245B1 /* AdHoc Full */ = {
+		FAAB411E149BA85500C245B1 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2778,14 +1909,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -2796,7 +1926,7 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "AdHoc Full";
+			name = AdHoc;
 		};
 		FAAB411F149BA86000C245B1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
@@ -2827,7 +1957,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -2879,14 +2009,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -2899,107 +2028,7 @@
 			};
 			name = "Production Full";
 		};
-		FABB561C149CD943006969C0 /* Release Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.travelguide.release;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COMPRESS_PNG_FILES = NO;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.2.2;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NDEBUG,
-					RELEASE,
-					_RELEASE,
-					TARGET_OS_IPHONE,
-					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_LITE,
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				GCC_UNROLL_LOOPS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = (
-					"-Wall",
-					"-mno-thumb",
-				);
-				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PRODUCT_NAME = "maps.me rel lite";
-				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = "Release Lite";
-		};
-		FABB561D149CD943006969C0 /* Release Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Release Lite";
-		};
-		FABB561E149CD957006969C0 /* Release Full */ = {
+		FABB561E149CD957006969C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3027,7 +2056,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -3068,9 +2097,9 @@
 				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Release Full";
+			name = Release;
 		};
-		FABB561F149CD957006969C0 /* Release Full */ = {
+		FABB561F149CD957006969C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3079,14 +2108,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -3097,9 +2125,9 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "Release Full";
+			name = Release;
 		};
-		FACFE54415F8F35600CE8B20 /* Simulator Full Release */ = {
+		FACFE54415F8F35600CE8B20 /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3126,7 +2154,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = ../../3party/boost;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
@@ -3167,9 +2195,9 @@
 				VALID_ARCHS = i386;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
-			name = "Simulator Full Release";
+			name = "Simulator Release";
 		};
-		FACFE54515F8F35600CE8B20 /* Simulator Full Release */ = {
+		FACFE54515F8F35600CE8B20 /* Simulator Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3178,14 +2206,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/Chartboost",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
+				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics/**",
@@ -3196,642 +2223,40 @@
 				);
 				PROVISIONING_PROFILE = "";
 			};
-			name = "Simulator Full Release";
-		};
-		FACFE54615F8F35600CE8B20 /* Simulator Full Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Simulator Full Release";
-		};
-		FAFB0914151215EE0041901D /* Simulator Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Simulator Lite";
-		};
-		FAFB0915151215EE0041901D /* Simulator Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Simulator Full";
-		};
-		FAFB0916151215EE0041901D /* Debug Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Debug Lite";
-		};
-		FAFB0917151215EE0041901D /* Debug Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Debug Full";
-		};
-		FAFB0918151215EE0041901D /* AdHoc Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "AdHoc Lite";
-		};
-		FAFB0919151215EE0041901D /* Release Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Release Lite";
-		};
-		FAFB091A151215EE0041901D /* AdHoc Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "AdHoc Full";
-		};
-		FAFB091B151215EE0041901D /* Release Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Release Full";
-		};
-		FAFB091C151215EE0041901D /* Production Lite */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Lite.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Production Lite";
-		};
-		FAFB091D151215EE0041901D /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Statistics/MRGService",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Maps_Prefix.pch;
-				INFOPLIST_FILE = "MapsWithMe-Pro.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-lmap",
-					"-lsearch",
-					"-lgui",
-					"-lgraphics",
-					"-lstorage",
-					"-lrouting",
-					"-lindexer",
-					"-lanim",
-					"-lplatform",
-					"-lgeometry",
-					"-lcoding",
-					"-lbase",
-					"-lfreetype",
-					"-lfribidi",
-					"-lzlib",
-					"-ljansson",
-					"-ltomcrypt",
-					"-lexpat",
-					"-lprotobuf",
-					"-losrm",
-					"-ObjC",
-				);
-				PROVISIONING_PROFILE = "";
-			};
-			name = "Production Full";
+			name = "Simulator Release";
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapsWithMe Pro" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MAPS.ME" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D6058940D05DD3E006BFB54 /* Simulator Lite */,
-				FAAB411A149BA83500C245B1 /* Simulator Full */,
-				FACFE54515F8F35600CE8B20 /* Simulator Full Release */,
-				FA1DE85A11E2235D00C6D69A /* Debug Lite */,
-				FAAB411C149BA84700C245B1 /* Debug Full */,
-				A32B6D601A14C16500E54A65 /* Drape Debug Full */,
-				FA1DE85C11E2236200C6D69A /* AdHoc Lite */,
-				FABB561D149CD943006969C0 /* Release Lite */,
-				FAAB411E149BA85500C245B1 /* AdHoc Full */,
-				FABB561F149CD957006969C0 /* Release Full */,
-				A32B6D4F1A14A7B700E54A65 /* Drape Release Full */,
-				FA0686DF13578E1D004CFF81 /* Production Lite */,
+				FAAB411A149BA83500C245B1 /* Simulator */,
+				FACFE54515F8F35600CE8B20 /* Simulator Release */,
+				FAAB411C149BA84700C245B1 /* Debug */,
+				A32B6D601A14C16500E54A65 /* Drape Debug */,
+				FAAB411E149BA85500C245B1 /* AdHoc */,
+				FABB561F149CD957006969C0 /* Release */,
+				A32B6D4F1A14A7B700E54A65 /* Drape Release */,
 				FAAB4120149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "AdHoc Full";
+			defaultConfigurationName = AdHoc;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Maps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C01FCF4F08A954540054247B /* Simulator Lite */,
-				FAAB4119149BA83500C245B1 /* Simulator Full */,
-				FACFE54415F8F35600CE8B20 /* Simulator Full Release */,
-				FA1DE85911E2235D00C6D69A /* Debug Lite */,
-				FAAB411B149BA84700C245B1 /* Debug Full */,
-				A32B6D5F1A14C16500E54A65 /* Drape Debug Full */,
-				FA1DE85B11E2236200C6D69A /* AdHoc Lite */,
-				FABB561C149CD943006969C0 /* Release Lite */,
-				FAAB411D149BA85500C245B1 /* AdHoc Full */,
-				FABB561E149CD957006969C0 /* Release Full */,
-				A32B6D4E1A14A7B700E54A65 /* Drape Release Full */,
-				FA0686DE13578E1D004CFF81 /* Production Lite */,
+				FAAB4119149BA83500C245B1 /* Simulator */,
+				FACFE54415F8F35600CE8B20 /* Simulator Release */,
+				FAAB411B149BA84700C245B1 /* Debug */,
+				A32B6D5F1A14C16500E54A65 /* Drape Debug */,
+				FAAB411D149BA85500C245B1 /* AdHoc */,
+				FABB561E149CD957006969C0 /* Release */,
+				A32B6D4E1A14A7B700E54A65 /* Drape Release */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "AdHoc Full";
-		};
-		FAFB0913151215EE0041901D /* Build configuration list for PBXNativeTarget "MapsWithMe Lite" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FAFB0914151215EE0041901D /* Simulator Lite */,
-				FAFB0915151215EE0041901D /* Simulator Full */,
-				FACFE54615F8F35600CE8B20 /* Simulator Full Release */,
-				FAFB0916151215EE0041901D /* Debug Lite */,
-				FAFB0917151215EE0041901D /* Debug Full */,
-				A32B6D611A14C16500E54A65 /* Drape Debug Full */,
-				FAFB0918151215EE0041901D /* AdHoc Lite */,
-				FAFB0919151215EE0041901D /* Release Lite */,
-				FAFB091A151215EE0041901D /* AdHoc Full */,
-				FAFB091B151215EE0041901D /* Release Full */,
-				A32B6D501A14A7B700E54A65 /* Drape Release Full */,
-				FAFB091C151215EE0041901D /* Production Lite */,
-				FAFB091D151215EE0041901D /* Production Full */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "AdHoc Full";
+			defaultConfigurationName = AdHoc;
 		};
 /* End XCConfigurationList section */
 	};

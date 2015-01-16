@@ -244,22 +244,19 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     // If user searched for something, clear API layer
     SearchController.getInstance().cancelApiCall();
 
-    if (BuildConfig.IS_PRO)
+    // Put query string for "View on map" or feature name for search result.
+    final boolean allResults = (position == 0);
+    final String query = getSearchString();
+    SearchController.getInstance().setQuery(allResults ? query : "");
+    if (allResults)
     {
-      // Put query string for "View on map" or feature name for search result.
-      final boolean allResults = (position == 0);
-      final String query = getSearchString();
-      SearchController.getInstance().setQuery(allResults ? query : "");
-      if (allResults)
-      {
-        nativeShowAllSearchResults();
-        runInteractiveSearch(query, Language.getKeyboardInput(getActivity()));
-      }
-
-      InputUtils.hideKeyboard(mSearchEt);
-      MWMActivity.startWithSearchResult(getActivity(), !allResults);
-      getActivity().getSupportFragmentManager().popBackStack();
+      nativeShowAllSearchResults();
+      runInteractiveSearch(query, Language.getKeyboardInput(getActivity()));
     }
+
+    InputUtils.hideKeyboard(mSearchEt);
+    MWMActivity.startWithSearchResult(getActivity(), !allResults);
+    getActivity().getSupportFragmentManager().popBackStack();
   }
 
   private SearchAdapter getSearchAdapter()

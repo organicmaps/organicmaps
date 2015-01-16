@@ -38,7 +38,6 @@ public abstract class ShareAction
   private final static SmsShareAction SMS_SHARE = new SmsShareAction();
   private final static EmailShareAction EMAIL_SHARE = new EmailShareAction();
   private final static AnyShareAction ANY_SHARE = new AnyShareAction();
-  private static final ShareAction FB_SHARE = new PromoShareAction();
 
   /* Extras*/
   private static final String EXTRA_SMS_BODY = "sms_body";
@@ -69,11 +68,6 @@ public abstract class ShareAction
   public static AnyShareAction getAnyShare()
   {
     return ANY_SHARE;
-  }
-
-  public static ShareAction getFbShare()
-  {
-    return FB_SHARE;
   }
 
   protected ShareAction(int id, int nameResId, Intent baseIntent)
@@ -222,58 +216,6 @@ public abstract class ShareAction
           .putExtra(Intent.EXTRA_SUBJECT, subject);
       final String header = activity.getString(R.string.share);
       activity.startActivity(Intent.createChooser(intent, header));
-    }
-  }
-
-  /**
-   * ANYTHING
-   */
-  public static class PromoShareAction extends ShareAction
-  {
-    public PromoShareAction()
-    {
-      super(ID_ANY, R.string.share, new Intent(Intent.ACTION_SEND).setType(TYPE_TEXT_PLAIN));
-    }
-
-    @Override
-    public void shareWithText(Activity activity, String body, String subject)
-    {
-      final Intent intent = getIntent();
-      intent.putExtra(Intent.EXTRA_TEXT, body)
-          .putExtra(Intent.EXTRA_SUBJECT, subject);
-      List<LabeledIntent> targetedShareIntents = new ArrayList<>();
-      List<ResolveInfo> resInfo = activity.getPackageManager().queryIntentActivities(intent, 0);
-      if (!resInfo.isEmpty())
-      {
-        for (ResolveInfo info : resInfo)
-        {
-          if (info.activityInfo.packageName.toLowerCase().contains("facebook") || info.activityInfo.packageName.toLowerCase().contains("twitter") ||
-              info.activityInfo.packageName.toLowerCase().contains("google") || info.activityInfo.packageName.toLowerCase().contains("viber"))
-          {
-            final Intent copy = new Intent(intent);
-            copy.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-            copy.putExtra(Intent.EXTRA_TEXT, activity.getString(R.string.free_pro_version_share_email_text));
-            copy.putExtra(Intent.EXTRA_SUBJECT, activity.getString(R.string.free_pro_version_share_email_subject));
-            if (info.activityInfo.packageName.toLowerCase().contains(Constants.Package.FB_PACKAGE))
-            {
-              copy.putExtra(Intent.EXTRA_TEXT, "http://maps.me/fb_share");
-              copy.putExtra(Intent.EXTRA_SUBJECT, "http://maps.me/fb_share");
-            }
-            targetedShareIntents.add(new LabeledIntent(copy, info.activityInfo.packageName,
-                info.loadLabel(activity.getPackageManager()), info.icon));
-          }
-        }
-        Intent emailIntent = new Intent();
-        emailIntent.setAction(Intent.ACTION_SEND);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-        emailIntent.setType(TYPE_MESSAGE_RFC822);
-
-        final String header = activity.getString(R.string.share);
-        Intent chooserIntent = Intent.createChooser(emailIntent, header);
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[targetedShareIntents.size()]));
-        activity.startActivity(chooserIntent);
-      }
     }
   }
 

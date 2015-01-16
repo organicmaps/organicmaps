@@ -16,7 +16,7 @@
 using namespace graphics;
 
 SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
-  : RenderPolicy(p, false, 1)
+  : RenderPolicy(p, 1)
 {
   graphics::ResourceManager::Params rmp = p.m_rmParams;
 

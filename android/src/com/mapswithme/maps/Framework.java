@@ -36,11 +36,6 @@ public class Framework
     void onRoutingEvent(boolean isSuccess, String message, boolean openDownloader);
   }
 
-  public interface BuyProListener
-  {
-    void onBuyPro();
-  }
-
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework()
   {}
@@ -150,7 +145,6 @@ public class Framework
   public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);
-  public native static void nativeSetBuyProListener(BuyProListener listener);
   //@}
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);

@@ -51,10 +51,6 @@
 - (NSArray *)generateItems
 {
   NSMutableArray * items = [[NSMutableArray alloc] init];
-
-  if (!GetPlatform().IsPro())
-    [items addObject:@{@"Id" : @"MWMPro", @"Title" : L(@"become_a_pro"), @"Icon" : @"MWMProIcon", @"Color" : @"15c783"}];
-
   bool adsEnabled = true;
   (void)Settings::Get("MenuLinksEnabled", adsEnabled);
   if (adsEnabled)
@@ -64,9 +60,9 @@
       [items addObjectsFromArray:serverItems];
   }
 
-   NSArray * standardItems = @[@{@"Id" : @"Maps", @"Title" : L(@"download_maps"), @"Icon" : @"IconMap"},
-                               @{@"Id" : @"Settings", @"Title" : L(@"settings_and_more"), @"Icon" : @"IconSettings"},
-                               @{@"Id" : @"Share", @"Title" : L(@"share_my_location"), @"Icon" : @"IconShare"}];
+  NSArray * standardItems = @[@{@"Id" : @"Maps", @"Title" : L(@"download_maps"), @"Icon" : @"IconMap"},
+                              @{@"Id" : @"Settings", @"Title" : L(@"settings_and_more"), @"Icon" : @"IconSettings"},
+                              @{@"Id" : @"Share", @"Title" : L(@"share_my_location"), @"Icon" : @"IconShare"}];
   [items addObjectsFromArray:standardItems];
 
   return items;

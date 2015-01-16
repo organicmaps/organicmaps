@@ -50,18 +50,12 @@ string Platform::ResourcesMetaServerUrl() const
 
 string Platform::MetaServerUrl() const
 {
-  if (IsPro())
-    return "http://active.servers.url";
-  else
-    return "http://active.servers.url";
+  return "http://active.servers.url";
 }
 
 string Platform::DefaultUrlsJSON() const
 {
-  if (IsPro())
-    return "[\"http://v2s-1.mapswithme.com/\",\"http://v2s-2.mapswithme.com/\",\"http://v2s-3.mapswithme.com/\"]";
-  else
-    return "[\"http://v2-1.mapswithme.com/\",\"http://v2-2.mapswithme.com/\",\"http://v2-3.mapswithme.com/\"]";
+  return "[\"http://v2s-1.mapswithme.com/\",\"http://v2s-2.mapswithme.com/\",\"http://v2s-3.mapswithme.com/\"]";
 }
 
 void Platform::GetFontNames(FilesList & res) const

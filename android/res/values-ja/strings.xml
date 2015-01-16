@@ -4,19 +4,6 @@
 <!-- Language: ja -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">MAPS.ME完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">本日MAPS.ME Proに無料でアップグレード！</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">本日MAPS.ME Proが無料です。お友達に教えてあげてください！</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">本日MAPS.ME Proに無料でアップグレードできます。このチャンスをお見逃しなく！</string>
-	<string name="free_pro_version_share_message">ベストオフライン地図のMAPS.MEが本日無料。今すぐダウンロードして友達に教えてあげましょう！</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">本日オフライン地図のMAPS.MEを無料でゲット</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">こんにちは！今日オフライン地図のMAPS.MEが無料でダウンロードできるのをご存じでしたか？このアプリがあれば、旅行中に道に迷うことがなくなります。通常$5で、世界中すべての国のオフライン地図を検索、お気に入り、ルート機能付きで提供します。このチャンスをお見逃しなく！</string>
 	<!-- About button text (should be short) -->
 	<string name="about">情報</string>
 	<!-- Button text (should be short) -->
@@ -81,8 +68,6 @@
 	<string name="report_an_issue">問題を報告</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">検索</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">検索機能はMAPS.ME完全版で利用可能です。ぜひお買い求めください。</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">マップを検索</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -196,8 +181,6 @@
 	<string name="wait_several_minutes">数分かかる場合があります。\nしばらくお待ち下さい…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">マップに表示</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">ブックマーク機能はMAPS.ME完全版で利用可能です。ぜひお買い求めください。</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS機能が無効です。端末の設定画面から有効にしてください。</string>
 	<!-- Measurement units title in settings activity -->
@@ -433,8 +416,6 @@
 	<string name="downloader_status_outdated">を更新</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">失敗</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">現在地が設定されていません。ルートを作成するには現在地を設定してください。</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

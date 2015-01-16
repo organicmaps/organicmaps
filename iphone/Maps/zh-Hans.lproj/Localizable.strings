@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "使用带离线搜索功能的完整版MAPS.ME实现更简便的导航。现在就获取它吧！";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Upgrade to MAPS.ME Pro for free today!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro is free today. Tell your friends!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "You can upgrade to MAPS.ME Pro for free today. Don’t miss your chance!";
-
-"free_pro_version_share_message" = "Best offline maps MAPS.ME are free today. Download now and tell your friends!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Get offline maps MAPS.ME for free now";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hey! Do you know that today you can download offline maps MAPS.ME for free? With this app you’ll never get lost while traveling. It usually costs $5 and provides offline maps of all world countries with search, bookmarks and routing. Don’t miss your chance!";
-
 /* About button text (should be short) */
 "about" = "关于";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "搜索";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "搜索只在完整版 MAPS.ME 中提供。现在就 获取它!";
 
 /* Search box placeholder text */
 "search_map" = "搜索地图";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "可见";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "书签只在完整版 MAPS.ME 中提供。现在就 获取它!";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS 已禁用。请在设置中启用它。";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "邮件";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "促销码激活";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "输入促销码";
-
-/* Promocode Activation success message */
-"promocode_success" = "促销码已激活!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "连接错误。请稍后再试。";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "无效的促销代码。请再试一次。";
 
 /* Copy Link */
 "copy_link" = "复制链接";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "下载失败";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "布置路线只在MAPS.ME的完整版本中才有。现在就得到它吧！";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "当前地点未定。请明确地点以创建路线。";

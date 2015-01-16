@@ -32,17 +32,6 @@ protected:
   /// Writable directory to store persistent application data
   string m_settingsDir;
 
-  enum
-  {
-    PRO_URL,
-    HAS_BOOKMARKS,
-    HAS_ROTATION,
-    HAS_ROUTING,
-    FLAGS_COUNT // should always be the last one
-  };
-
-  bitset<FLAGS_COUNT> m_flags;
-
   /// Extended resource files.
   /// Used in Android only (downloaded zip files as a container).
   vector<string> m_extResFiles;
@@ -146,11 +135,6 @@ public:
   string DeviceName() const;
 
   string UniqueClientId() const;
-
-  inline bool IsPro() const { return m_flags[PRO_URL]; }
-  inline bool HasBookmarks() const { return m_flags[HAS_BOOKMARKS]; }
-  inline bool HasRotation() const { return m_flags[HAS_ROTATION]; }
-  inline bool HasRouting() const { return m_flags[HAS_ROUTING]; }
 
   /// @return url for clients to download maps
   //@{

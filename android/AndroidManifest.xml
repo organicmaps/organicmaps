@@ -126,6 +126,43 @@
         <action android:name="com.mapswithme.maps.api.request"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:mimeType="application/vnd.google-earth.kmz"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:mimeType="application/vnd.google-earth.kml+xml"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:mimeType="*/*"
+            android:pathPattern=".*\\.kmz"
+            android:scheme="file"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:mimeType="*/*"
+            android:pathPattern=".*\\.kml"
+            android:scheme="file"/>
+      </intent-filter>
+
     </activity>
 
     <activity

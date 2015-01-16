@@ -6,8 +6,7 @@
 #import "UIViewController+Navigation.h"
 #import "ShareActionSheet.h"
 #import "AppInfo.h"
-#import "InAppMessagesManager.h"
-#import "InterstitialView.h"
+//#import "InterstitialView.h"
 #import "MoreAppsVC.h"
 #import "ContainerView.h"
 #import "ToolbarView.h"
@@ -36,9 +35,7 @@
 
 #define ALERT_VIEW_FACEBOOK 1
 #define ALERT_VIEW_APPSTORE 2
-#define ALERT_VIEW_BOOKMARKS 4
 #define ALERT_VIEW_DOWNLOADER 5
-#define ALERT_VIEW_PRO_VERSION_ROUTING 6
 #define ALERT_VIEW_ROUTING_DISCLAIMER 7
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
@@ -586,17 +583,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-
   [self invalidate];
-
-#ifdef OMIM_LITE
-  InAppMessagesManager * manager = [InAppMessagesManager sharedManager];
-  [manager registerController:self forMessage:InAppMessageInterstitial];
-  [manager registerController:self forMessage:InAppMessageBanner];
-
-  [manager triggerMessage:InAppMessageInterstitial];
-  [manager triggerMessage:InAppMessageBanner];
-#endif
 }
 
 - (void)viewDidLoad
@@ -641,8 +628,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
   GetFramework().SetUpdatesEnabled(false);
-
-  [[InAppMessagesManager sharedManager] unregisterControllerFromAllMessages:self];
 
   [super viewWillDisappear:animated];
 }
@@ -795,11 +780,6 @@
           [self showDialogWithMessageID:message];
       }
     });
-
-    f.SetBuyProListener([self]()
-    {
-      [self showBuyProDialog];
-    });
   }
 
   NSLog(@"MapViewController initWithCoder Ended");
@@ -813,7 +793,7 @@
   int const outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   bool isFirstRoutingRun = true;
   (void)Settings::Get("IsFirstRoutingRun", isFirstRoutingRun);
-  if (GetPlatform().IsPro() && isFirstRoutingRun && outOfDateCount > 0)
+  if (isFirstRoutingRun && outOfDateCount > 0)
   {
     [[[UIAlertView alloc] initWithTitle:L(@"routing_update_maps") message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
     Settings::Set("IsFirstRoutingRun", false);
@@ -830,13 +810,6 @@
   UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
   alertView.tag = ALERT_VIEW_DOWNLOADER;
   [alertView show];
-}
-
-- (void)showBuyProDialog
-{
-  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"routing_failed_buy_pro") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
-  alert.tag = ALERT_VIEW_PRO_VERSION_ROUTING;
-  [alert show];
 }
 
 #pragma mark - Getters
@@ -1044,17 +1017,8 @@
     [self.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
   else if ([itemName isEqualToString:@"Bookmarks"])
   {
-    if (GetPlatform().IsPro())
-    {
-      BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
-      [self.navigationController pushViewController:vc animated:YES];
-    }
-    else
-    {
-      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"bookmarks_in_pro_version") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
-      alert.tag = ALERT_VIEW_BOOKMARKS;
-      [alert show];
-    }
+    BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Menu"])
     [self.bottomMenu setMenuHidden:NO animated:YES];
@@ -1064,12 +1028,6 @@
 
 - (void)tryToBuildRoute
 {
-  if (!GetPlatform().HasRouting())
-  {
-    [self showBuyProDialog];
-    return;
-  }
-
   [self.routeView updateWithInfo:nil];
   [self.containerView.placePage showBuildingRoutingActivity:YES];
   GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
@@ -1192,11 +1150,6 @@
       [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position") message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
     }
   }
-  else if ([itemName isEqualToString:@"MWMPro"])
-  {
-    [[Statistics instance] logProposalReason:@"Pro button in menu" withAnswer:@"YES"];
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_bottom_menu"];
-  }
   else
   {
     [menu setMenuHidden:YES animated:YES];
@@ -1225,10 +1178,7 @@
       else if (buttonIndex == 1)
       {
         dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
-        if (GetPlatform().IsPro())
-          [[UIApplication sharedApplication] rateProVersionFrom:@"ios_pro_popup"];
-        else
-          [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_lite_popup"];
+        [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
       }
       else if (buttonIndex == 2)
       {
@@ -1255,41 +1205,6 @@
       else if (buttonIndex == 2)
       {
         dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::Later);
-      }
-      break;
-    }
-    case ALERT_VIEW_BOOKMARKS:
-    {
-      if (buttonIndex == alertView.cancelButtonIndex)
-      {
-        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
-      }
-      else
-      {
-        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
-        [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
-      }
-      break;
-    }
-    case ALERT_VIEW_DOWNLOADER:
-    {
-      if (buttonIndex != alertView.cancelButtonIndex)
-      {
-        CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
-        [self.navigationController pushViewController:vc animated:YES];
-      }
-      break;
-    }
-    case ALERT_VIEW_PRO_VERSION_ROUTING:
-    {
-      if (buttonIndex == alertView.cancelButtonIndex)
-      {
-        [[Statistics instance] logProposalReason:@"Routing Menu" withAnswer:@"NO"];
-      }
-      else
-      {
-        [[UIApplication sharedApplication] openProVersionFrom:@"ios_routing_alert"];
-        [[Statistics instance] logProposalReason:@"Routing Menu" withAnswer:@"YES"];
       }
       break;
     }

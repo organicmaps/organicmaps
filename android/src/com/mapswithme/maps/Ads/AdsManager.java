@@ -345,7 +345,7 @@ public class AdsManager
   {
     final MWMApplication application = MWMApplication.get();
     return ((ConnectionState.isConnected()) &&
-        ((BuildConfig.IS_PRO && banner.getShowInPro()) || (!BuildConfig.IS_PRO && banner.getShowInLite())) &&
+        banner.getShowInPro() &&
         (BuildConfig.VERSION_CODE >= banner.getAppVersion()) &&
         (application.nativeGetBoolean("ShouldShow" + banner.getId(), true)) &&
         (application.getForegroundTime() >= banner.getFgTime()) &&

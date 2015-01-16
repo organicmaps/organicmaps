@@ -6,19 +6,6 @@
 	<!-- SECTION: Strings -->
 	<!-- DO NOT TRANSLATE! Used only on Android for special purposes. -->
 	<string name="shared_user_label">Maps With Me</string>
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Navigate easier with the full version of MAPS.ME featuring offline search. Get it right now!</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">Upgrade to MAPS.ME Pro for free today!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro is free today. Tell your friends!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">You can upgrade to MAPS.ME Pro for free today. Don’t miss your chance!</string>
-	<string name="free_pro_version_share_message">Best offline maps MAPS.ME are free today. Download now and tell your friends!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Get offline maps MAPS.ME for free now</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Hey! Do you know that today you can download offline maps MAPS.ME for free? With this app you’ll never get lost while traveling. It usually costs $5 and provides offline maps of all world countries with search, bookmarks and routing. Don’t miss your chance!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">About</string>
 	<!-- Button text (should be short) -->
@@ -88,8 +75,6 @@
 	<string name="report_an_issue">Report an issue</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Search</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Search is only available in the full version of MAPS.ME. Get it right now!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Search Map</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -206,8 +191,6 @@
 	<string name="wait_several_minutes">This can take several minutes.\nPlease wait…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visible</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Bookmarks are only available in the full version of MAPS.ME. Get it right now!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS is disabled. Please enable it in Settings.</string>
 	<!-- Measurement units title in settings activity -->
@@ -301,16 +284,6 @@
 	<string name="message">Message</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
-	<!-- Promocode Activation dialog title -->
-	<string name="promocode_activation">Promo Code Activation</string>
-	<!-- Enter promo code hint -->
-	<string name="enter_promocode_hint">Enter Promo Code</string>
-	<!-- Promocode Activation success message -->
-	<string name="promocode_success">Promo code is activated!</string>
-	<!-- Promocode Activation connection/io error -->
-	<string name="promocode_error">Connection error. Please try again later.</string>
-	<!-- Promocode Activation is invalid  message. -->
-	<string name="promocode_failure">Invalid promo code. Please try again.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copy Link</string>
 	<!-- Text for the button that returns to caller application -->
@@ -461,8 +434,6 @@
 	<string name="downloader_status_outdated">Update</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Failed</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Routing is only available in the full version of MAPS.ME. Get it right now!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Current location is undefined. Please specify location to create route.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

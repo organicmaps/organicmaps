@@ -112,7 +112,7 @@ typedef NS_ENUM(NSUInteger, CellType)
 };
 
 
-@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, UIAlertViewDelegate>
+@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) SolidTouchImageView * topBackgroundView;
@@ -420,47 +420,40 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (void)showOnMap
 {
-  if (GetPlatform().IsPro())
+  Framework & f = GetFramework();
+  if (f.ShowAllSearchResults() == 0)
   {
-    Framework & f = GetFramework();
-    if (f.ShowAllSearchResults() == 0)
+    NSString * secondSentence = @"";
+    // Country in the viewport should be downloaded
+    if (!f.IsCountryLoaded(f.GetViewportCenter()))
     {
-      NSString * secondSentence = @"";
-      // Country in the viewport should be downloaded
-      if (!f.IsCountryLoaded(f.GetViewportCenter()))
+      secondSentence = [NSString stringWithFormat:L(@"download_viewport_country_to_search"),
+                        [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
+    }
+    else
+    {
+      // Country in the current location should be downloaded
+      CLLocation * lastLocation = [[MapsAppDelegate theApp].m_locationManager lastLocation];
+      if (lastLocation && !f.IsCountryLoaded(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude,
+                                                                        lastLocation.coordinate.longitude)))
       {
-        secondSentence = [NSString stringWithFormat:L(@"download_viewport_country_to_search"),
+        secondSentence = [NSString stringWithFormat:L(@"download_location_country"),
                           [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
       }
-      else
-      {
-        // Country in the current location should be downloaded
-        CLLocation * lastLocation = [[MapsAppDelegate theApp].m_locationManager lastLocation];
-        if (lastLocation && !f.IsCountryLoaded(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude,
-                                                                          lastLocation.coordinate.longitude)))
-        {
-          secondSentence = [NSString stringWithFormat:L(@"download_location_country"),
-                            [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
-        }
-      }
-
-      NSString * message = [NSString stringWithFormat:@"%@. %@", L(@"no_search_results_found"), secondSentence];
-      ToastView * toastView = [[ToastView alloc] initWithMessage:message];
-      [toastView show];
     }
 
-    search::SearchParams params;
-    params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-    params.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
-
-    f.StartInteractiveSearch(params);
-
-    [self setState:SearchViewStateResults animated:YES withCallback:YES];
+    NSString * message = [NSString stringWithFormat:@"%@. %@", L(@"no_search_results_found"), secondSentence];
+    ToastView * toastView = [[ToastView alloc] initWithMessage:message];
+    [toastView show];
   }
-  else
-  {
-    [self showBuyProMessage];
-  }
+
+  search::SearchParams params;
+  params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
+  params.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
+
+  f.StartInteractiveSearch(params);
+
+  [self setState:SearchViewStateResults animated:YES withCallback:YES];
 }
 
 - (BOOL)isShowingCategories
@@ -492,12 +485,6 @@ static void onSearchResultCallback(search::Results const & results)
 - (BOOL)iPhoneInLandscape
 {
   return self.width > self.height && !IPAD;
-}
-
-- (void)showBuyProMessage
-{
-  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"search_available_in_pro_version") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
-  [alert show];
 }
 
 - (void)layoutSubviews
@@ -648,16 +635,8 @@ static void onSearchResultCallback(search::Results const & results)
     {
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
-      if (GetPlatform().IsPro())
-      {
-        [self setState:SearchViewStateHidden animated:YES withCallback:YES];
-        GetFramework().ShowSearchResult(result);
-      }
-      else
-      {
-        [self showBuyProMessage];
-      }
-
+      [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+      GetFramework().ShowSearchResult(result);
       break;
     }
     case CellTypeSuggest:
@@ -670,19 +649,6 @@ static void onSearchResultCallback(search::Results const & results)
 
       break;
     }
-  }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  if (buttonIndex == alertView.cancelButtonIndex)
-  {
-    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
-  }
-  else
-  {
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_search_alert"];
-    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
   }
 }
 

@@ -47,12 +47,6 @@
   [self logEvent:eventName withParameters:@{@"Type": imageType, @"Country" : info.countryCode, @"Language" : language, @"Id" : info.uniqueId}];
 }
 
-- (void)logProposalReason:(NSString *)reason withAnswer:(NSString *)answer
-{
-  NSString * screen = [NSString stringWithFormat:@"Open AppStore With Proposal on %@", reason];
-  [self logEvent:screen withParameters:@{@"Answer" : answer}];
-}
-
 - (void)logApiUsage:(NSString *)programName
 {
   if (programName)

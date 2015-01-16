@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "오프라인 검색 기능의 MAPS.ME의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "오늘 MAPS.ME Pro를 무료로 업그레이드하세요!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro가 오늘만 무료입니다. 친구들에게도 알리세요!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "오늘 하루 MAPS.ME Pro를 무료로 업그레이드할 수 있습니다. 기회를 놓치지 마세요!";
-
-"free_pro_version_share_message" = "최고의 오프라인 지도인 MAPS.ME가 오늘 무료입니다. 지금 다운로드하고 친구들에게 알리세요!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "지금 무료로 오프라인 지도인 MAPS.ME 가져 오기";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "안녕! 오늘 무료로 오프라인 지도인 MAPS.ME를 다운로드할 수 있다는 사실을 알고 있었나요? 이 앱으로, 여행시 길을 잃지 않을 거에요. 보통 5달러의 비용이 들며, 검색, 북마크 및 여정이 있는 모든 세계 국가의 오프라인 맵을 제공합니다. 이 기회를 놓치지 마세요!";
-
 /* About button text (should be short) */
 "about" = "소개";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "검색하기";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "검색은 MAPS.ME의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?";
 
 /* Search box placeholder text */
 "search_map" = "지도 검색하기";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "눈에 보이는";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "MAPS.ME의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "이메일";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
 
 /* Copy Link */
 "copy_link" = "링크 복사하기";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "실패함";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "라우팅은 MAPS.ME의 정식 버전에서만 사용할 수 있습니다 지금 당장 얻으세요!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "현재 위치는 정의되지 않습니다. 경로를 생성할 위치를 지정하십시오.";

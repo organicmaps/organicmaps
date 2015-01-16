@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "További lehetőségek a MAPS.ME teljes verziójában. Töltse le most!";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "Ma ingyen frissítheted a MAPS.ME Pro!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "A MAPS.ME Pro ma ingyenes. Mondd el a barátaidnak!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Ma ingyen frissítheted a MAPS.ME Pro. Ne szalaszd el az esélyt!";
-
-"free_pro_version_share_message" = "A legjobb MAPS.ME offline térképek ma ingyenesek. Töltsd le most és meséld el barátaidnak!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Szerezze meg az ingyenes offline MAPS.ME-t";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Hé! Tudtad, hogy ma letöltheted az offline MAPS.ME-t ingyen? Ezzel az alkalmazással sosem fogsz elveszni utazás közben. Általában 5 dollárba kerül és offline térképeket nyújt az összes országból, ahol keresel vele, könyvjelzőket és útvonaltervezést ad. Ne hagyd ki ezt a lehetőséget!";
-
 /* About button text (should be short) */
 "about" = "A programról";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Keresés";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Keresés csak a MAPS.ME teljes verziójában érhető el. Vásárolja meg most!";
 
 /* Search box placeholder text */
 "search_map" = "Keresés a térképen";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "látható";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Könyvjelzők csak a MAPS.ME teljes verziójában érhetőek el. Vásárolja meg most!";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "Email";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Akciós kód aktiváláshoz";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promóciós kód aktiválva!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Kapcsolati hiba. Kérjük próbálja újra később.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Érvénytelen kód. Kérjük próbálja újra.";
 
 /* Copy Link */
 "copy_link" = "Hivatkozás másolása";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Sikertelen";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.";

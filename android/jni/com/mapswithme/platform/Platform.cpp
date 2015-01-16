@@ -66,7 +66,7 @@ namespace android
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
                             jstring flavorName, jstring buildType,
-                            bool isPro, bool isYota, bool isTablet)
+                            bool isYota, bool isTablet)
   {
     string const flavor = jni::ToNativeString(env, flavorName);
     string const build = jni::ToNativeString(env, buildType);
@@ -101,11 +101,6 @@ namespace android
     }
 
     m_tmpDir = jni::ToNativeString(env, tmpPath);
-
-    m_flags[PRO_URL] = isPro;
-    m_flags[HAS_BOOKMARKS] = isPro || isYota;
-    m_flags[HAS_ROTATION] = isPro;
-    m_flags[HAS_ROUTING] = isPro;
 
     string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;

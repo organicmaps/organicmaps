@@ -4,19 +4,6 @@
 <!-- Language: sk -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Získajte viac možností s plnou verziou MAPS.ME, obsahujúcou offline vyhľadávanie. Nainštalujte si ju teraz!</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">Aktualizácia na MAPS.ME Pro zadarmo ešte dnes!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro sú dnes zadarmo. Dajte vedieť svojim priateľom!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">Môžete aktualizovať na MAPS.ME Pro zadarmo ešte dnes. Nenechajte si ujsť svoju šancu!</string>
-	<string name="free_pro_version_share_message">Najlepšie offline mapy MAPS.ME sú dnes zadarmo. Stiahnite si teraz a povedzte to svojim priateľom!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Získať v režime offline mapy MAPS.ME teraz zadarmo</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Hej! Viete, že dnes si môžete stiahnuť v režime offline mapy MAPS.ME zadarmo? Vďaka tejto aplikácii sa na cestách nikdy nestratíte. Zvyčajne stojí 5 dolárov a poskytuje off-line mapy všetkých krajín sveta s vyhľadávaním, záložkami a smerovaním. Nenechajte si ujsť túto príležitosť!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">O aplikácii</string>
 	<!-- Button text (should be short) -->
@@ -81,8 +68,6 @@
 	<string name="report_an_issue">Nahlásiť chybu</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hľadať</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Vyhľadávanie je dostupné len v platenej verzii MAPS.ME. Stiahnite si ju teraz!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Prehľadať mapu</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -198,8 +183,6 @@
 	<string name="wait_several_minutes">Táto akcia môže trvať niekoľko minút.\nProsím čakajte…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Viditeľné</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Záložky sú dostupné len v plnej verzii MAPS.ME. Chcete ju teraz stiahnuť?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">Navigácia GPS deaktivovaná. Prosím, povoľte ju v Nastaveniach.</string>
 	<!-- Measurement units title in settings activity -->
@@ -291,16 +274,6 @@
 	<string name="message">Správa</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
-	<!-- Promocode Activation dialog title -->
-	<string name="promocode_activation">Aktivácia promo kódu</string>
-	<!-- Enter promo code hint -->
-	<string name="enter_promocode_hint">Vložte promo kód</string>
-	<!-- Promocode Activation success message -->
-	<string name="promocode_success">Promo kód úspešne aktivovaný!</string>
-	<!-- Promocode Activation connection/io error -->
-	<string name="promocode_error">Aktivácia promo kódu zlyhala. Skúste neskôr prosím.</string>
-	<!-- Promocode Activation is invalid  message. -->
-	<string name="promocode_failure">Promo kód je neplatný. Prosím skúste to znovu.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Skopírovať odkaz</string>
 	<!-- Text for the button that returns to caller application -->
@@ -450,8 +423,6 @@
 	<string name="downloader_status_outdated">Aktualizácia</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Zlyhalo</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

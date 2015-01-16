@@ -34,18 +34,9 @@ public class Notifier
   private static final String EXTRA_CONTENT = "ExtraContent";
   private static final String EXTRA_TITLE = "ExtraTitle";
   private static final String EXTRA_INTENT = "ExtraIntent";
-  public static final String EXTRA_FORCE_PROMO_DIALOG = "ExtraForceDialog";
 
   public static final String ACTION_NAME = "com.mapswithme.MYACTION";
   private static IntentFilter mIntentFilter = new IntentFilter(ACTION_NAME);
-  private static BroadcastReceiver mAlarmReceiver = new BroadcastReceiver()
-  {
-    @Override
-    public void onReceive(Context context, Intent intent)
-    {
-      showFreeLiteNotification(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)).putExtras(intent.getExtras()));
-    }
-  };
 
   private Notifier() { }
 
@@ -133,80 +124,5 @@ public class Notifier
   public static void cancelDownloadSuggest()
   {
     getNotificationManager().cancel(ID_DOWNLOAD_NEW_COUNTRY);
-  }
-
-  public static void notifyAboutFreePro(Activity activity)
-  {
-    if (MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false))
-      return;
-
-    if (BuildConfig.IS_PRO)
-      freePromoInPro(activity);
-    else
-      freePromoInLite(activity);
-  }
-
-  private static void freePromoInLite(Activity activity)
-  {
-    final MWMApplication application = MWMApplication.get();
-    final Calendar calendar = Calendar.getInstance();
-    calendar.set(2014, Calendar.DECEMBER, 3, 19, 0);
-    if (System.currentTimeMillis() > calendar.getTimeInMillis())
-    {
-      UiUtils.showDownloadProDialog(activity, application.getString(R.string.free_pro_version_notification_alert));
-      cancelPromoNotifications();
-    }
-    else
-      scheduleFreeLiteNotification(application.getString(R.string.free_pro_version_notification_lite), "", calendar);
-  }
-
-  private static void cancelPromoNotifications()
-  {
-    final MWMApplication application = MWMApplication.get();
-    final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-    final Intent it = new Intent(ACTION_NAME);
-    final PendingIntent pi = PendingIntent.getBroadcast(application, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
-    alarmManager.cancel(pi);
-  }
-
-  private static void scheduleFreeLiteNotification(String title, String content, Calendar calendar)
-  {
-    final MWMApplication application = MWMApplication.get();
-    application.registerReceiver(mAlarmReceiver, mIntentFilter);
-    final Intent it = new Intent(ACTION_NAME).
-        putExtra(EXTRA_TITLE, title).
-        putExtra(EXTRA_CONTENT, content);
-    final PendingIntent pi = PendingIntent.getBroadcast(application, 0, it, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    final AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-    alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pi);
-  }
-
-  public static void showFreeLiteNotification(Intent intent)
-  {
-    final String title = intent.getStringExtra(EXTRA_TITLE);
-    final String content = intent.getStringExtra(EXTRA_CONTENT);
-    final Notification notification = getBuilder()
-        .setContentTitle(title)
-        .setContentText(content)
-        .setTicker(title + ": " + content)
-        .setContentIntent(PendingIntent.getActivity(MWMApplication.get(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
-        .build();
-
-    getNotificationManager().notify(ID_PRO_IS_FREE, notification);
-  }
-
-  private static void freePromoInPro(Activity activity)
-  {
-    final MWMApplication application = MWMApplication.get();
-    final Calendar calendar = Calendar.getInstance();
-    calendar.set(2014, Calendar.DECEMBER, 3);
-    if (Utils.isInstalledAfter(calendar) &&
-        !application.nativeGetBoolean(FREE_PROMO_SHOWN, false) &&
-        application.getForegroundTime() > 10 * 60)
-    {
-      UiUtils.showPromoShareDialog(activity, application.getString(R.string.free_pro_version_share_message));
-      application.nativeSetBoolean(FREE_PROMO_SHOWN, true);
-    }
   }
 }

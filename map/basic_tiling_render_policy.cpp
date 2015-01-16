@@ -12,7 +12,7 @@
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,
                                                  bool doUseQueuedRenderer)
-  : RenderPolicy(p, GetPlatform().HasRotation(), GetPlatform().CpuCores() + 2),
+  : RenderPolicy(p, GetPlatform().CpuCores() + 2),
     m_IsEmptyModel(false),
     m_IsNavigating(false),
     m_WasAnimatingLastFrame(false),

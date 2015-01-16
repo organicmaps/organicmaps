@@ -4,19 +4,6 @@
 <!-- Language: fr -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Naviguez plus facilement avec la version complète de MAPS.ME proposant la recherche hors ligne. Obtenez-la maintenant !</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">Passez à MAPS.ME Pro aujourd\&#39;hui, gratuitement !</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro est gratuit aujourd\&#39;hui. Dites-le à vos amis !</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">Aujourd\&#39;hui, vous pouvez passer à MAPS.ME Pro gratuitement. Ne ratez pas cette occasion !</string>
-	<string name="free_pro_version_share_message">Les meilleures cartes hors ligne de MAPS.ME sont gratuites aujourd\&#39;hui. Téléchargez-le maintenant et dites-le à vos amis !</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Téléchargez les cartes hors ligne de MAPS.ME gratuitement</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Savez-vous que les cartes hors lignes de MAPS.ME sont téléchargeables gratuitement, aujourd\&#39;hui ? Grâce à cette appli, vous voyagerez sans jamais vous perdre. Elle coûte normalement 4 euros, donne accès aux cartes hors ligne de tous les pays du monde, vous permet d\&#39;enregistrer des favoris et est dotée d\&#39;un moteur de recherche et d\&#39;une fonction itinéraire. Ne ratez pas cette occasion !</string>
 	<!-- About button text (should be short) -->
 	<string name="about">À propos de</string>
 	<!-- Button text (should be short) -->
@@ -85,8 +72,6 @@
 	<string name="report_an_issue">Signaler un problème</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Recherche</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">La recherche n\&#39;est disponible que dans la version complète de MAPS.ME. Obtenez-la maintenant !</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Rechercher sur la carte</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -202,8 +187,6 @@
 	<string name="wait_several_minutes">Ceci peut prendre plusieurs minutes.\nVeuillez patienter…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visible</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Les signets ne sont disponibles que dans la version complète de MAPS.ME. Obtenez-la maintenant !</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">Le GPS est désactivé. Veuillez l\&#39;activer dans les Paramètres.</string>
 	<!-- Measurement units title in settings activity -->
@@ -297,16 +280,6 @@
 	<string name="message">Message</string>
 	<!-- Share by email button text -->
 	<string name="email">Courriel</string>
-	<!-- Promocode Activation dialog title -->
-	<string name="promocode_activation">Activation du code de promotion</string>
-	<!-- Enter promo code hint -->
-	<string name="enter_promocode_hint">Saisir le code de promotion</string>
-	<!-- Promocode Activation success message -->
-	<string name="promocode_success">Le code de promotion est activé !</string>
-	<!-- Promocode Activation connection/io error -->
-	<string name="promocode_error">Erreur de connexion. Veuillez ressayer ultérieurement.</string>
-	<!-- Promocode Activation is invalid  message. -->
-	<string name="promocode_failure">Code de promotion invalide. Veuillez ressayer.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Copier le lien</string>
 	<!-- Text for the button that returns to caller application -->
@@ -457,8 +430,6 @@
 	<string name="downloader_status_outdated">Mettre à jour</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">A échoué</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">L\&#39;itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">L\&#39;emplacement actuel n\&#39;est pas défini. Veuillez préciser l\&#39;emplacement pour créer l\&#39;itinéraire.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

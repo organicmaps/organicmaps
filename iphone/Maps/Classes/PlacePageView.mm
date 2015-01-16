@@ -1051,40 +1051,32 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)addBookmark
 {
-  if (GetPlatform().IsPro())
+  Framework & framework = GetFramework();
+  if (m_bookmarkData)
   {
-    Framework & framework = GetFramework();
-    if (m_bookmarkData)
-    {
-      BookmarkCategory const * category = framework.GetBmCategory(m_categoryIndex);
-      if (!category)
-        m_categoryIndex = framework.LastEditedBMCategory();
+    BookmarkCategory const * category = framework.GetBmCategory(m_categoryIndex);
+    if (!category)
+      m_categoryIndex = framework.LastEditedBMCategory();
 
-      size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
-      m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
-    }
-    else
-    {
-      size_t const categoryIndex = framework.LastEditedBMCategory();
-      BookmarkData data = BookmarkData([[self newBookmarkName] UTF8String], framework.LastEditedBMType());
-      size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
-      BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
-      m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
-    }
-    framework.ActivateUserMark([self userMark]);
-    framework.Invalidate();
-
-    _title = nil;
-    _types = nil;
-    [self reloadHeader];
-    [self updateBookmarkStateAnimated:YES];
-    [self updateBookmarkViewsAlpha:YES];
+    size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
+    m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
   }
   else
   {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:L(@"bookmarks_in_pro_version") message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"get_it_now"), nil];
-    [alert show];
+    size_t const categoryIndex = framework.LastEditedBMCategory();
+    BookmarkData data = BookmarkData([[self newBookmarkName] UTF8String], framework.LastEditedBMType());
+    size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
+    BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
+    m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
   }
+  framework.ActivateUserMark([self userMark]);
+  framework.Invalidate();
+
+  _title = nil;
+  _types = nil;
+  [self reloadHeader];
+  [self updateBookmarkStateAnimated:YES];
+  [self updateBookmarkViewsAlpha:YES];
 }
 
 - (void)shareCellDidPressApiButton:(PlacePageShareCell *)cell
@@ -1104,19 +1096,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     if (self.state == PlacePageStateOpened)
       [self setState:PlacePageStateHidden animated:YES withCallback:YES];
-  }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-  if (buttonIndex == alertView.cancelButtonIndex)
-  {
-    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"NO"];
-  }
-  else
-  {
-    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"YES"];
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_pp_bookmark"];
   }
 }
 

@@ -4,19 +4,6 @@
 <!-- Language: it -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Naviga più facilmente con la versione completa di MAPS.ME con la ricerca offline. Scaricala subito!</string>
-	<!-- Notification text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_lite">Fai l\&#39;upgrade a MAPS.ME Pro gratis oggi!</string>
-	<!-- Notification text when paid version become free on the market (Pro app version). -->
-	<string name="free_pro_version_notification_pro">MAPS.ME Pro è gratis oggi. Dillo ai tuoi amici!</string>
-	<!-- Dialog text when paid version become free on the market (Lite app version). -->
-	<string name="free_pro_version_notification_alert">Puoi fare l\&#39;upgrade a MAPS.ME Pro gratis oggi. Non perdere quest\&#39;opportunità!</string>
-	<string name="free_pro_version_share_message">Le migliori mappe offline di MAPS.ME Pro sono gratis oggi. Scaricala ora e dillo ai tuoi amici!</string>
-	<!-- Share email subject when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_subject">Ottieni le mappe offline di MAPS.me gratuitamente</string>
-	<!-- Share email body when paid version become free on the market. -->
-	<string name="free_pro_version_share_email_text">Ciao! Sai che oggi puoi scaricare e avere disponibili gratuitamente offline le mappe di MAPS.ME? Con questa app non ti perderai più quando sei in viaggio! Normalmente costa $5 e consente di accedere alle mappe offline di tutti i paesi del mondo con funzione di ricerca, preferiti e percorso. Non perderti questa opportunità!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Informazioni</string>
 	<!-- Button text (should be short) -->
@@ -81,8 +68,6 @@
 	<string name="report_an_issue">Segnala un problema</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cerca</string>
-	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">La ricerca è disponibile solo nella versione completa di MAPS.ME. Scaricala subito!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Ricerca Mappa</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -194,8 +179,6 @@
 	<string name="wait_several_minutes">Questo può richiedere diversi minuti.\ncortesemente attendi…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visibile</string>
-	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">I segnalibri sono disponibili solo nella versione completa di MAPS.ME. Scaricalo subito!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.</string>
 	<!-- Measurement units title in settings activity -->
@@ -433,8 +416,6 @@
 	<string name="downloader_status_outdated">Aggiorna</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Fallito</string>
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">La posizione attuale non è definita. Specifica la posizione per creare il percorso.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->

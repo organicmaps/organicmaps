@@ -25,13 +25,4 @@ public class DownloadActivity extends MWMFragmentActivity
     transaction.replace(android.R.id.content, mDownloadFragment, "fragment");
     transaction.commit();
   }
-
-  @Override
-  public void onBuyPro()
-  {
-    if (mDownloadFragment != null && mDownloadFragment.isAdded() && !mDownloadFragment.isRemoving() && mDownloadFragment.onBackPressed())
-      return;
-
-    super.onBuyPro();
-  }
 }

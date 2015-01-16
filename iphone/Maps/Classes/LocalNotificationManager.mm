@@ -133,8 +133,6 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
       [vc presentViewController:activityVC animated:YES completion:nil];
     }
   }
-  else if ([action isEqualToString:@"AppStoreProVersion"])
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_free_pro_version_notification"];
 }
 
 #pragma mark - Special Notifications

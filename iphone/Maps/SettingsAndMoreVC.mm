@@ -186,10 +186,7 @@
 - (void)rateApp
 {
   dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
-  if (GetPlatform().IsPro())
-    [[UIApplication sharedApplication] rateProVersionFrom:@"ios_pro_popup"];
-  else
-    [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_lite_popup"];
+  [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
 }
 
 - (void)reportBug
@@ -205,7 +202,7 @@
   NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
   NSString * country = [[NSLocale localeWithLocaleIdentifier:@"en_gb"] displayNameForKey:NSLocaleCountryCode value:locale];
   NSString * bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ %@\n- %@/%@", device, [UIDevice currentDevice].systemVersion, (GetPlatform().IsPro() ? @"Pro" : @"Lite"), bundleVersion, language, country];
+  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@\n- %@/%@", device, [UIDevice currentDevice].systemVersion, bundleVersion, language, country];
   NSString * email = @"ios@maps.me";
   if ([MFMailComposeViewController canSendMail])
   {

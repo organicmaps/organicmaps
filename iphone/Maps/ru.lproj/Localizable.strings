@@ -9,26 +9,6 @@
 /* DO NOT TRANSLATE! Used only on Android for special purposes. */
 "shared_user_label" = "Maps With Me";
 
-/* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Больше возможностей в полной версии MAPS.ME с офлайн поиском. Установить ее сейчас?";
-
-/* Notification text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_lite" = "MAPS.ME Pro сегодня бесплатные! Качайте!";
-
-/* Notification text when paid version become free on the market (Pro app version). */
-"free_pro_version_notification_pro" = "MAPS.ME Pro сегодня бесплатны. Расскажите друзьям!";
-
-/* Dialog text when paid version become free on the market (Lite app version). */
-"free_pro_version_notification_alert" = "Сегодня вы можете скачать MAPS.ME Pro бесплатно. Не упустите возможность!";
-
-"free_pro_version_share_message" = "Крутые офлайн-карты MAPS.ME сегодня бесплатные. Скачай сейчас и расскажи друзьям!";
-
-/* Share email subject when paid version become free on the market. */
-"free_pro_version_share_email_subject" = "Офлайн-карты MAPS.ME сегодня бесплатные";
-
-/* Share email body when paid version become free on the market. */
-"free_pro_version_share_email_text" = "Привет! Хорошая новость: сегодня ты можешь бесплатно скачать офлайн-карты MAPS.ME! С этим приложением ты никогда не потеряешься в поездках. Обычно оно стоит $5! Кроме офлайновых карт всех стран там есть еще поиск, закладки и прокладывание маршрутов. Обязательно скачай!";
-
 /* About button text (should be short) */
 "about" = "О программе";
 
@@ -133,9 +113,6 @@
 
 /* View and button titles for accessibility */
 "search" = "Поиск";
-
-/* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Поиск доступен только в полной версии MAPS.ME. Установите ее прямо сейчас!";
 
 /* Search box placeholder text */
 "search_map" = "Поиск на карте";
@@ -322,9 +299,6 @@
 /* Show bookmarks from this category on a map or not */
 "visible" = "Показывать на карте";
 
-/* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Метки доступны только в полной верии MAPS.ME. Установите ее прямо сейчас!";
-
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.";
 
@@ -464,21 +438,6 @@
 
 /* Share by email button text */
 "email" = "E-Mail";
-
-/* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
-
-/* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
-
-/* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
-
-/* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
-
-/* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
 
 /* Copy Link */
 "copy_link" = "Скопировать ссылку";
@@ -710,9 +669,6 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Ошибка";
-
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!";
 
 /* Show when user try build route, but we don't know where he */
 "routing_failed_unknown_my_position" = "Невозможно проложить маршрут. Не определено текущее местоположение.";
