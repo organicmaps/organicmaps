@@ -312,9 +312,6 @@
 	<string name="menu_search">بحث</string>
 	<string name="pref_zoom_title">أزرار التكبير</string>
 	<string name="pref_zoom_summary">عرض على الشاشة</string>
-	<string name="more_apps_title">المزيد من التطبيقات</string>
-	<string name="more_apps_guides">دليل السفر الارشادي</string>
-	<string name="more_apps_ads">المزيد من التطبيقات</string>
 	<string name="placepage_distance">المسافة</string>
 	<string name="placepage_coordinates">الإحداثيات</string>
 	<string name="placepage_unsorted">لم يتم فرزها</string>

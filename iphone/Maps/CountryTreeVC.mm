@@ -127,17 +127,6 @@
   return [NSString stringWithUTF8String:self.tree.GetChildName(self.selectedPosition).c_str()];
 }
 
-- (NSString *)selectedMapGuideName
-{
-  guides::GuideInfo info;
-  if (self.tree.GetLeafGuideInfo(self.selectedPosition, info))
-  {
-    string const lang = languages::GetCurrentNorm();
-    return [NSString stringWithUTF8String:info.GetAdTitle(lang).c_str()];
-  }
-  return nil;
-}
-
 - (size_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
 {
   return self.tree.GetLeafSize(self.selectedPosition, options).second;
@@ -178,12 +167,6 @@
       self.tree.ShowLeafOnMap(self.selectedPosition);
       [[Statistics instance] logEvent:@"Show Map From Download Countries Screen"];
       [self.navigationController popToRootViewControllerAnimated:YES];
-      break;
-
-    case DownloaderActionShowGuide:
-      guides::GuideInfo info;
-      if (self.tree.GetLeafGuideInfo(self.selectedPosition, info))
-        [self openGuideWithInfo:info];
       break;
   }
 }

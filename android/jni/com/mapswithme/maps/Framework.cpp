@@ -1042,94 +1042,6 @@ extern "C"
     frm()->UpdateSavedDataVersion();
   }
 
-  namespace
-  {
-
-  class GuideNative2Java
-  {
-    JNIEnv * m_env;
-    jclass m_giClass;
-    jmethodID m_methodID;
-    string m_lang;
-
-  public:
-    GuideNative2Java(JNIEnv * env) : m_env(env)
-    {
-      m_giClass = m_env->FindClass("com/mapswithme/maps/guides/GuideInfo");
-      m_methodID = m_env->GetMethodID(m_giClass,
-                "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-      m_lang = languages::GetCurrentNorm();
-    }
-
-    jclass GetClass() const { return m_giClass; }
-
-    jobject GetGuide(guides::GuideInfo const & info) const
-    {
-      return m_env->NewObject(m_giClass, m_methodID,
-                            jni::ToJavaString(m_env, info.GetAppID()),
-                            jni::ToJavaString(m_env, info.GetURL()),
-                            jni::ToJavaString(m_env, info.GetAdTitle(m_lang)),
-                            jni::ToJavaString(m_env, info.GetAdMessage(m_lang)),
-                            jni::ToJavaString(m_env, info.GetName()));
-    }
-  };
-
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
-  {
-    guides::GuideInfo info;
-    if (frm()->GetGuideInfo(ToNative(index), info))
-      return GuideNative2Java(env).GetGuide(info);
-
-    return NULL;
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_setWasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
-  {
-    frm()->GetGuidesManager().SetWasAdvertised(jni::ToNativeString(env, appId));
-  }
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_wasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
-  {
-    return frm()->GetGuidesManager().WasAdvertised(jni::ToNativeString(env, appId));
-  }
-
-  JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_getGuideIds(JNIEnv * env, jclass clazz)
-  {
-    std::set<string> guides;
-    frm()->GetGuidesManager().GetGuidesIds(guides);
-
-    jclass klass = env->FindClass("java/lang/String");
-    ASSERT ( klass, () );
-
-    jobjectArray arr = env->NewObjectArray(guides.size(), klass, 0);
-
-    set<string>::iterator it;
-    int i = 0;
-    for (it = guides.begin(); it != guides.end(); ++it)
-    {
-        string guideId = *it;
-        env->SetObjectArrayElement(arr, i++, jni::ToJavaString(env, guideId));
-    }
-
-    return arr;
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_getGuideById(JNIEnv * env, jclass clazz, jstring guideId)
-  {
-    guides::GuideInfo info;
-    if (frm()->GetGuidesManager().GetGuideInfoByAppId(jni::ToNativeString(env, guideId), info))
-      return GuideNative2Java(env).GetGuide(info);
-
-    return NULL;
-  }
-
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_Framework_getDrawScale(JNIEnv * env, jclass clazz)
   {
@@ -1389,12 +1301,4 @@ extern "C"
 
     return jLatLon;
   }
-}
-
-namespace guides
-{
-  jobject GuideNativeToJava(JNIEnv * env, GuideInfo const & info)
-  {
-    return GuideNative2Java(env).GetGuide(info);
-  }
-}
+} // extern "C"

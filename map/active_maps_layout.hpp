@@ -1,11 +1,13 @@
 #pragma once
 
 #include "../storage/storage_defines.hpp"
-#include "../storage/guides.hpp"
 #include "../storage/index.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+#include "../std/map.hpp"
+#include "../std/function.hpp"
+
 
 class Framework;
 
@@ -67,8 +69,6 @@ public:
   int AddListener(ActiveMapsListener * listener);
   void RemoveListener(int slotID);
 
-  bool GetGuideInfo(TGroup const & group, int position, guides::GuideInfo & info) const;
-
   void DownloadMap(TIndex const & index, TMapOptions const & options);
   void DownloadMap(TGroup const & group, int position, TMapOptions const & options);
   void DeleteMap(TIndex const & index, TMapOptions const & options);
@@ -93,8 +93,6 @@ private:
 
   void Init(vector<string> const & maps);
   void Clear();
-
-  bool GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const;
 
   void ShowMap(TIndex const & index);
 

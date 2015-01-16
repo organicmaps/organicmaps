@@ -489,13 +489,6 @@ public:
   void UpdateSavedDataVersion();
   //@}
 
-  /// @name Guides
-  //@{
-public:
-  guides::GuidesManager & GetGuidesManager() { return m_storage.GetGuideManager(); }
-  bool GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const;
-  //@}
-
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
 public:

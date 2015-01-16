@@ -1,7 +1,6 @@
 package com.mapswithme.country;
 
 import com.mapswithme.maps.MapStorage;
-import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.MapStorage.Index;
 
 public class ActiveCountryTree
@@ -51,8 +50,6 @@ public class ActiveCountryTree
   public static native Index getCoreIndex(int group, int position);
 
   public static native void showOnMap(int group, int position);
-
-  public static native GuideInfo getGuideInfo(int group, int position);
 
   public static native void updateAll();
 

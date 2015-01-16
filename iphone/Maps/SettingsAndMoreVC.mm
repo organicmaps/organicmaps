@@ -186,7 +186,7 @@
 - (void)rateApp
 {
   dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
-  [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
+  [[UIApplication sharedApplication] rateVersionFrom:@"rate_menu_item"];
 }
 
 - (void)reportBug

@@ -24,7 +24,6 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -122,8 +121,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   // returns local and remote size for downloading items(DO NOT call that method for NOT_DOWNLOADED items).
   protected abstract long[] getDownloadableItemSizes(int position);
-
-  protected abstract GuideInfo getGuideInfo(int position);
 
   protected abstract void cancelDownload(int position);
 

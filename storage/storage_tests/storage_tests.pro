@@ -24,4 +24,3 @@ SOURCES += \
   simple_tree_test.cpp \
   country_info_test.cpp \
   storage_tests.cpp \
-  guides_tests.cpp \

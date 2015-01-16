@@ -310,9 +310,6 @@
 	<string name="menu_search">Søg</string>
 	<string name="pref_zoom_title">Zoom knapper</string>
 	<string name="pref_zoom_summary">Vis på skærmen</string>
-	<string name="more_apps_title">Flere apps</string>
-	<string name="more_apps_guides">Rejseguider</string>
-	<string name="more_apps_ads">Flere apps</string>
 	<string name="placepage_distance">Afstand</string>
 	<string name="placepage_coordinates">Koordinater</string>
 	<string name="placepage_unsorted">Usorteret</string>

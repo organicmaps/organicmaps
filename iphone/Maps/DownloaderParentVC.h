@@ -18,8 +18,7 @@ typedef NS_ENUM(NSUInteger, DownloaderAction)
   DownloaderActionDeleteMap,
   DownloaderActionDeleteCarRouting,
   DownloaderActionCancelDownloading,
-  DownloaderActionZoomToCountry,
-  DownloaderActionShowGuide
+  DownloaderActionZoomToCountry
 };
 
 using namespace storage;
@@ -27,7 +26,6 @@ using namespace storage;
 @interface DownloaderParentVC : ViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 - (NSString *)formattedMapSize:(size_t)size;
-- (void)openGuideWithInfo:(guides::GuideInfo const &)info;
 
 - (BOOL)canDownloadSelectedMap;
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap;
@@ -43,7 +41,6 @@ using namespace storage;
 // virtual
 - (NSString *)parentTitle;
 - (NSString *)selectedMapName;
-- (NSString *)selectedMapGuideName;
 - (size_t)selectedMapSizeWithOptions:(TMapOptions)options;
 - (TStatus)selectedMapStatus;
 - (TMapOptions)selectedMapOptions;

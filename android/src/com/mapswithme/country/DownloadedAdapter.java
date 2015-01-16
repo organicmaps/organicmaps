@@ -4,7 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.guides.GuideInfo;
 
 public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
 {
@@ -202,12 +201,6 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   public boolean onBackPressed()
   {
     return false;
-  }
-
-  @Override
-  protected GuideInfo getGuideInfo(int position)
-  {
-    return ActiveCountryTree.getGuideInfo(getGroupByAbsPosition(position), getPositionInGroup(position));
   }
 
   @Override

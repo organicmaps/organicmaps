@@ -169,8 +169,3 @@ namespace android
 }
 
 extern android::Framework * g_framework;
-
-namespace guides
-{
-  jobject GuideNativeToJava(JNIEnv *, GuideInfo const &);
-}

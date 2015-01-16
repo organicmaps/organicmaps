@@ -50,7 +50,6 @@
 @interface UIApplication (URLs)
 
 - (void)rateVersionFrom:(NSString *)launchPlaceName;
-- (void)openGuideWithName:(NSString *)guideName itunesURL:(NSString *)itunesURL;
 
 @end
 

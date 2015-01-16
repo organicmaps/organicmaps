@@ -308,9 +308,6 @@
 	<string name="menu_search">Sök</string>
 	<string name="pref_zoom_title">Zoom-knappar</string>
 	<string name="pref_zoom_summary">Visa på skärmen</string>
-	<string name="more_apps_title">Fler Appar</string>
-	<string name="more_apps_guides">Reseguider</string>
-	<string name="more_apps_ads">Fler Appar</string>
 	<string name="placepage_distance">Avstånd</string>
 	<string name="placepage_coordinates">Koordinater</string>
 	<string name="placepage_unsorted">Osorterade</string>

@@ -1,14 +1,10 @@
 package com.mapswithme.maps;
 
-import android.os.Build;
-
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
-import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.Utils;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -46,33 +42,6 @@ public class Framework
   }
 
   public static native void nativeShowTrackRect(int category, int track);
-
-  // guides
-  public native static GuideInfo getGuideInfoForIndex(Index idx);
-
-  public static GuideInfo getGuideInfoForIndexWithApiCheck(Index idx)
-  {
-    if (Utils.apiLowerThan(Build.VERSION_CODES.HONEYCOMB))
-      return null;
-    else
-      return getGuideInfoForIndex(idx);
-  }
-
-  public static GuideInfo getGuideInfoForIdWithApiCheck(String id)
-  {
-    if (Utils.apiLowerThan(Build.VERSION_CODES.HONEYCOMB))
-      return null;
-    else
-      return getGuideById(id);
-  }
-
-  public native static void setWasAdvertised(String appId);
-
-  public native static boolean wasAdvertised(String appId);
-
-  public native static String[] getGuideIds();
-
-  public native static GuideInfo getGuideById(String id);
 
   public native static int getDrawScale();
 

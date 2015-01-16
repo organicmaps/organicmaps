@@ -156,12 +156,6 @@ TMapOptions CountryTree::GetLeafOptions(int position) const
   return options;
 }
 
-bool CountryTree::GetLeafGuideInfo(int position, guides::GuideInfo & info) const
-{
-  ASSERT(IsLeaf(position), ());
-  return GetActiveMapLayout().GetGuideInfo(GetChild(position), info);
-}
-
 LocalAndRemoteSizeT const CountryTree::GetDownloadableLeafSize(int position) const
 {
   return GetActiveMapLayout().GetDownloadableCountrySize(GetChild(position));

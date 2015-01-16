@@ -267,12 +267,6 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
-#ifndef OMIM_OS_DESKTOP
-  // Init guides manager
-  m_storage.GetGuideManager().RestoreFromFile();
-  LOG(LDEBUG, ("Guides info initialized"));
-#endif
-
   m_routingSession.SetRouter(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
   {
     return GetSearchEngine()->GetCountryFile(pt);
@@ -1942,11 +1936,6 @@ bool Framework::IsDataVersionUpdated()
 void Framework::UpdateSavedDataVersion()
 {
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
-}
-
-bool Framework::GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const
-{
-  return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileNameWithoutExt(index), info);
 }
 
 bool Framework::IsRoutingActive() const

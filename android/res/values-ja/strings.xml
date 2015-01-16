@@ -299,9 +299,6 @@
 	<string name="menu_search">検索</string>
 	<string name="pref_zoom_title">ズームボタン</string>
 	<string name="pref_zoom_summary">画面上に表示</string>
-	<string name="more_apps_title">その他のアプリ</string>
-	<string name="more_apps_guides">トラベルガイド</string>
-	<string name="more_apps_ads">その他のアプリ</string>
 	<string name="placepage_distance">距離</string>
 	<string name="placepage_coordinates">コーディネート</string>
 	<string name="placepage_unsorted">未分類</string>

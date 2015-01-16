@@ -57,7 +57,6 @@
 - (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check {}
 - (NSString *)parentTitle { return nil; }
 - (NSString *)selectedMapName { return nil; }
-- (NSString *)selectedMapGuideName { return nil; }
 - (size_t)selectedMapSizeWithOptions:(TMapOptions)options { return 0; }
 - (TStatus)selectedMapStatus { return TStatus::EUnknown; }
 - (TMapOptions)selectedMapOptions { return TMapOptions::EMapOnly; }
@@ -104,24 +103,6 @@
   return NO;
 }
 
-- (void)openGuideWithInfo:(const guides::GuideInfo &)info
-{
-  string const lang = languages::GetCurrentNorm();
-  NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
-  [[Statistics instance] logEvent:@"Open Guide Country" withParameters:@{@"Country Name" : [self selectedMapName]}];
-  UIApplication * application = [UIApplication sharedApplication];
-  if ([application canOpenURL:guideUrl])
-  {
-    [application openURL:guideUrl];
-    [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"YES"}];
-  }
-  else
-  {
-    [application openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
-    [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"NO"}];
-  }
-}
-
 #define ROUTING_SYMBOL @"\xF0\x9F\x9A\x97"
 
 - (UIActionSheet *)actionSheetToPerformActionOnSelectedMap
@@ -140,12 +121,7 @@
   UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 
   if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-  {
-    if ([self selectedMapGuideName])
-      [self addButtonWithTitle:[self selectedMapGuideName] action:DownloaderActionShowGuide toActionSheet:actionSheet];
-
     [self addButtonWithTitle:L(@"zoom_to_country") action:DownloaderActionZoomToCountry toActionSheet:actionSheet];
-  }
 
   if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
   {

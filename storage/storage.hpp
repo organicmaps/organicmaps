@@ -3,7 +3,6 @@
 #include "storage_defines.hpp"
 #include "country.hpp"
 #include "index.hpp"
-#include "guides.hpp"
 
 #include "../platform/http_request.hpp"
 
@@ -150,14 +149,5 @@ namespace storage
   private:
     TStatus CountryStatusWithoutFailed(TIndex const & index) const;
     TStatus CountryStatusFull(TIndex const & index, TStatus const status) const;
-
-    //@{
-  private:
-    guides::GuidesManager m_guideManager;
-
-  public:
-    guides::GuidesManager const & GetGuideManager() const { return m_guideManager; }
-    guides::GuidesManager & GetGuideManager() { return m_guideManager; }
-    //@}
   };
 }

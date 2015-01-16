@@ -260,16 +260,6 @@ void ActiveMapsLayout::RemoveListener(int slotID)
   m_listeners.erase(slotID);
 }
 
-bool ActiveMapsLayout::GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const
-{
-  return m_framework.GetGuideInfo(index, info);
-}
-
-bool ActiveMapsLayout::GetGuideInfo(TGroup const & group, int position, guides::GuideInfo & info) const
-{
-  return GetGuideInfo(GetItemInGroup(group, position).m_index, info);
-}
-
 void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & options)
 {
   TMapOptions validOptions = ValidOptionsForDownload(options);

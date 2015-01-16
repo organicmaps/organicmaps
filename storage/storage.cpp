@@ -303,8 +303,6 @@ namespace storage
       return;
     }
 
-    m_guideManager.UpdateGuidesData();
-
     // remove it from failed list
     m_failedCountries.erase(index);
 

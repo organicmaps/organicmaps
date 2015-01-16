@@ -186,16 +186,6 @@
   [self openURL:[NSURL URLWithString:urlString]];
 }
 
-- (void)openGuideWithName:(NSString *)guideName itunesURL:(NSString *)itunesURL
-{
-  NSString * guide = [[guideName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
-  NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"guidewithme-%@://", guide]];
-  if ([self canOpenURL:url])
-    [self openURL:url];
-  else
-    [self openURL:[NSURL URLWithString:itunesURL]];
-}
-
 @end
 
 

@@ -305,9 +305,6 @@
 	<string name="menu_search">Pesquisar</string>
 	<string name="pref_zoom_title">Botões de zoom</string>
 	<string name="pref_zoom_summary">Mostrar no ecrã</string>
-	<string name="more_apps_title">Mais aplicativos</string>
-	<string name="more_apps_guides">Guias de Viagem</string>
-	<string name="more_apps_ads">Mais aplicativos</string>
 	<string name="placepage_distance">Distância</string>
 	<string name="placepage_coordinates">Coordenadas</string>
 	<string name="placepage_unsorted">Não classificado</string>

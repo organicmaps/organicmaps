@@ -312,9 +312,6 @@
 	<string name="menu_search">Ara</string>
 	<string name="pref_zoom_title">Yakınlaştırma butonları</string>
 	<string name="pref_zoom_summary">Ekranda göster</string>
-	<string name="more_apps_title">Daha fazla uygulama</string>
-	<string name="more_apps_guides">Seyahat rehberleri</string>
-	<string name="more_apps_ads">Daha fazla uygulama</string>
 	<string name="placepage_distance">Mesafe</string>
 	<string name="placepage_coordinates">Koordinatlar</string>
 	<string name="placepage_unsorted">Sıralanmamış</string>

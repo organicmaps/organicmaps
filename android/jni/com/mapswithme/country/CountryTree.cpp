@@ -96,16 +96,6 @@ extern "C"
     g_framework->DontLoadState();
   }
 
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_country_CountryTree_getLeafGuideInfo(JNIEnv * env, jclass clazz, jint position)
-  {
-    guides::GuideInfo info;
-    if (GetTree().GetLeafGuideInfo(position, info))
-      return guides::GuideNativeToJava(env, info);
-
-    return NULL;
-  }
-
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_country_CountryTree_getLeafSize(JNIEnv * env, jclass clazz, jint position, jint options, jboolean isLocal)
   {

@@ -309,9 +309,6 @@
 	<string name="menu_search">Keresés</string>
 	<string name="pref_zoom_title">Nagyítás/kicsinyítés gombok</string>
 	<string name="pref_zoom_summary">Mutassa a kijelzőn</string>
-	<string name="more_apps_title">Több alkalmazás</string>
-	<string name="more_apps_guides">Útikönyvek</string>
-	<string name="more_apps_ads">Több alkalmazás</string>
 	<string name="placepage_distance">Távolság</string>
 	<string name="placepage_coordinates">Koordináták</string>
 	<string name="placepage_unsorted">Osztályozatlan</string>

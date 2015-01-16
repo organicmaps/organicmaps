@@ -58,7 +58,6 @@ public:
   /// call this only if child IsLeaf == true
   TStatus GetLeafStatus(int position) const;
   TMapOptions GetLeafOptions(int position) const;
-  bool GetLeafGuideInfo(int position, guides::GuideInfo & info) const;
   LocalAndRemoteSizeT const GetDownloadableLeafSize(int position) const;
   LocalAndRemoteSizeT const GetLeafSize(int position, TMapOptions const & options) const;
   LocalAndRemoteSizeT const GetRemoteLeafSizes(int position) const;

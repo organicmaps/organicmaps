@@ -30,7 +30,6 @@
 #define ROUTING_FILE_EXTENSION ".routing"
 
 #define COUNTRIES_FILE  "countries.txt"
-#define GUIDES_DATA_FILE_SUFFIX  "guides.json"
 
 #define WORLD_FILE_NAME "World"
 #define WORLD_COASTS_FILE_NAME "WorldCoasts"

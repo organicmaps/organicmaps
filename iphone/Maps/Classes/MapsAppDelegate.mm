@@ -23,8 +23,6 @@
 
 NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 
-#define NOTIFICATION_ALERT_VIEW_TAG 665
-
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
 void InitLocalizedStrings()
@@ -51,12 +49,6 @@ void InitLocalizedStrings()
   f.AddString("routing_failed_route_not_found", [L(@"routing_failed_route_not_found") UTF8String]);
   f.AddString("routing_failed_internal_error", [L(@"routing_failed_internal_error") UTF8String]);
 }
-
-@interface MapsAppDelegate()
-
-@property (nonatomic) NSString * lastGuidesUrl;
-
-@end
 
 @implementation MapsAppDelegate
 {
@@ -368,18 +360,7 @@ void InitLocalizedStrings()
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-  NSDictionary * dict = notification.userInfo;
-  if ([[dict objectForKey:@"Proposal"] isEqual:@"OpenGuides"])
-  {
-    self.lastGuidesUrl = [dict objectForKey:@"GuideUrl"];
-    UIAlertView * view = [[UIAlertView alloc] initWithTitle:[dict objectForKey:@"GuideTitle"] message:[dict objectForKey:@"GuideMessage"] delegate:self cancelButtonTitle:L(@"later") otherButtonTitles:L(@"get_it_now"), nil];
-    view.tag = NOTIFICATION_ALERT_VIEW_TAG;
-    [view show];
-  }
-  else
-  {
-    [[LocalNotificationManager sharedManager] processNotification:notification onLaunch:NO];
-  }
+  [[LocalNotificationManager sharedManager] processNotification:notification onLaunch:NO];
 }
 
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
@@ -438,19 +419,7 @@ void InitLocalizedStrings()
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-  if (alertView.tag == NOTIFICATION_ALERT_VIEW_TAG)
-  {
-    if (buttonIndex != alertView.cancelButtonIndex)
-    {
-      [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"YES"}];
-      NSURL * url = [NSURL URLWithString:self.lastGuidesUrl];
-      [[UIApplication sharedApplication] openURL:url];
-    }
-    else
-      [[Statistics instance] logEvent:@"Download Guides Proposal" withParameters:@{@"Answer" : @"NO"}];
-  }
-  else
-    m_loadingAlertView = nil;
+  m_loadingAlertView = nil;
 }
 
 - (void)showMap

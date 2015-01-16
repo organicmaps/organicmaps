@@ -2,8 +2,6 @@ package com.mapswithme.country;
 
 import android.view.View;
 
-import com.mapswithme.maps.guides.GuideInfo;
-
 class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.CountryTreeListener
 {
   public DownloadAdapter(DownloadFragment fragment)
@@ -84,12 +82,6 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   {
     return new long[] { CountryTree.getLeafSize(position, -1, true),
                         CountryTree.getLeafSize(position, -1, false) };
-  }
-
-  @Override
-  protected GuideInfo getGuideInfo(int position)
-  {
-    return CountryTree.getLeafGuideInfo(position);
   }
 
   @Override

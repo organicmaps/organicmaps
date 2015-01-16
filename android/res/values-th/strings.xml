@@ -310,9 +310,6 @@
 	<string name="menu_search">ค้นหา</string>
 	<string name="pref_zoom_title">ปุ่มซูม</string>
 	<string name="pref_zoom_summary">แสดงบนหน้าจอ</string>
-	<string name="more_apps_title">แอปเพิ่มเติม</string>
-	<string name="more_apps_guides">คู่มือการเดินทาง</string>
-	<string name="more_apps_ads">แอปเพิ่มเติม</string>
 	<string name="placepage_distance">ระยะห่าง</string>
 	<string name="placepage_coordinates">พิกัด</string>
 	<string name="placepage_unsorted">ไม่เรียงลำดับ</string>

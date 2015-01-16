@@ -767,12 +767,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self addBookmark];
 }
 
-- (void)guideButtonPressed:(id)sender
-{
-  NSString * urlString = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-}
-
 - (void)clearCachedProperties
 {
   _title = nil;

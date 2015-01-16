@@ -1,7 +1,5 @@
 package com.mapswithme.country;
 
-import com.mapswithme.maps.guides.GuideInfo;
-
 public class CountryTree
 {
   // interface for listening callbacks from native
@@ -39,8 +37,6 @@ public class CountryTree
   public static native void retryDownloading(int position);
 
   public static native void showLeafOnMap(int position);
-
-  public static native GuideInfo getLeafGuideInfo(int position);
 
   public static native long getLeafSize(int position, int options, boolean isLocal);
 

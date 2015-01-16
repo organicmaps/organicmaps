@@ -120,17 +120,6 @@
   return [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(self.selectedGroup, self.selectedPosition).c_str()];
 }
 
-- (NSString *)selectedMapGuideName
-{
-  guides::GuideInfo info;
-  if (self.mapsLayout.GetGuideInfo(self.selectedGroup, self.selectedPosition, info))
-  {
-    string const lang = languages::GetCurrentNorm();
-    return [NSString stringWithUTF8String:info.GetAdTitle(lang).c_str()];
-  }
-  return nil;
-}
-
 - (size_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
 {
   return self.mapsLayout.GetCountrySize(self.selectedGroup, self.selectedPosition, options).second;
@@ -171,12 +160,6 @@
       self.mapsLayout.ShowMap(self.selectedGroup, self.selectedPosition);
       [[Statistics instance] logEvent:@"Show Map From Download Countries Screen"];
       [self.navigationController popToRootViewControllerAnimated:YES];
-      break;
-
-    case DownloaderActionShowGuide:
-      guides::GuideInfo info;
-      if (self.mapsLayout.GetGuideInfo(self.selectedGroup, self.selectedPosition, info))
-        [self openGuideWithInfo:info];
       break;
   }
 }

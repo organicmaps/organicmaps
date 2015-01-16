@@ -307,8 +307,6 @@
 	<string name="menu_search">Vyhľadávanie</string>
 	<string name="pref_zoom_title">Tlačítka priblíženia/oddialenia</string>
 	<string name="pref_zoom_summary">Zobraziť na obrazovke</string>
-	<string name="more_apps_title">Viacej aplikácií</string>
-	<string name="more_apps_ads">Viacej aplikácií</string>
 	<string name="placepage_distance">Vzdialenosť</string>
 	<string name="placepage_coordinates">Súradnice</string>
 	<string name="placepage_unsorted">Nezaradené</string>
