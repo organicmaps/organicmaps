@@ -55,26 +55,26 @@ inline vec2 ToVec2(m2::PointD const & pt)
 }
 
 template <typename T>
-uint8_t GetComponentCount()
+inline uint8_t GetComponentCount()
 {
   ASSERT(false, ());
   return 0;
 }
 
 template <>
-uint8_t GetComponentCount<vec2>()
+inline uint8_t GetComponentCount<vec2>()
 {
   return 2;
 }
 
 template <>
-uint8_t GetComponentCount<vec3>()
+inline uint8_t GetComponentCount<vec3>()
 {
   return 3;
 }
 
 template <>
-uint8_t GetComponentCount<vec4>()
+inline uint8_t GetComponentCount<vec4>()
 {
   return 4;
 }
