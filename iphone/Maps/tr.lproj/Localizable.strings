@@ -6,9 +6,6 @@
 
 /********** Strings **********/
 
-/* DO NOT TRANSLATE! Used only on Android for special purposes. */
-"shared_user_label" = "Maps With Me";
-
 /* About button text (should be short) */
 "about" = "Hakkında";
 

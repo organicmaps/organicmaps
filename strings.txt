@@ -1,10 +1,5 @@
 [[Strings]]
-  [shared_user_label]
-    en = Maps With Me
-    tags = android
-    comment = DO NOT TRANSLATE! Used only on Android for special purposes.
-
-  [about]
+ [about]
     tags = tizen
     en = About
     comment = About button text (should be short)

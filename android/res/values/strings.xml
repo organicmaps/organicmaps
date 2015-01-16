@@ -4,8 +4,6 @@
 <!-- Language: en -->
 <resources>
 	<!-- SECTION: Strings -->
-	<!-- DO NOT TRANSLATE! Used only on Android for special purposes. -->
-	<string name="shared_user_label">Maps With Me</string>
 	<!-- About button text (should be short) -->
 	<string name="about">About</string>
 	<!-- Button text (should be short) -->

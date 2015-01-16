@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="shared_user_label" translatable="false">Maps With Me</string>
 
+  <!-- FLURRY -->
+  <string name="flurry_app_key" translatable="false">***REMOVED***</string>
+
+  <!-- FB -->
+  <string name="fb_app_id" translatable="false">185237551520383</string>
+
+  <!-- MAT -->
+  <string name="advertiser_id" translatable="false">14130</string>
+  <string name="conversion_key" translatable="false">***REMOVED***</string>
+
+  <!-- MRGS -->
+  <string name="mrgs_key" translatable="false">***REMOVED***</string>
+  <string name="mrgs_id" translatable="false">150</string>
+
+  <!-- Font names -->
+  <string name="robotoLight" translatable="false">sans-serif-light</string>
+  <string name="robotoRegular" translatable="false">sans-serif</string>
+  <string name="robotoCondensed" translatable="false">sans-serif-condensed</string>
+  <!-- roboto thin (android 4.2)-->
+  <string name="robotoThin" translatable="false">sans-serif-thin</string>
+  <!--  roboto medium (android 5.0)-->
+  <string name="robotoMedium" translatable="false">sans-serif-medium</string>
+
+  <!--  Prefs -->
   <string name="pref_allow_stat" translatable="false">AllowStat</string>
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
   <string name="pref_storage_activity" translatable="false">StorageActivity</string>
@@ -19,5 +44,4 @@
   <string name="pref_subscribe" translatable="false">Subscribe</string>
   <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
-
 </resources>
