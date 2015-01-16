@@ -22,6 +22,8 @@
 #include "../std/fstream.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
+#include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
+#include "../3party/succinct/mapper.hpp"
 
 #define BORDERS_DIR "borders/"
 #define BORDERS_EXTENSION ".borders"
@@ -85,24 +87,36 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   {
     auto const & data = nodeData[nodeId];
 
+    //Check for outgoing candidates
+    if (data.m_segments.size() > 0)
+    {
+      auto const & startSeg = data.m_segments.front();
+      auto const & endSeg = data.m_segments.back();
+      // Check if we have geometry for our candidate
+      if (osm2ft.GetFeatureID(startSeg.wayId) || osm2ft.GetFeatureID(endSeg.wayId))
+      {
+        m2::PointD pts[2] = { { startSeg.lon1, startSeg.lat1 }, { endSeg.lon2, endSeg.lat2 } };
+
+        // check nearest to goverment borders
+        for (m2::RegionD const& border: regionBorders)
+        {
+          if (border.atBorder(pts[0], 0.001) || border.atBorder(pts[1], 0.001))
+          {
+            outgoingNodes.push_back(nodeId);
+            //outgoingNodes.push_back({nodeId, pts[0].x, pts[0].y});
+            //outgoingNodes.push_back(pts[0].x); //seg.wayId);
+            //outgoingNodes.push_back(pts[0].y);
+            //LOG(LINFO, ("PUSH TO OUTGOINF",pts[0].x,pts[0].y));
+          }
+        }
+      }
+    }
+
     OsrmFtSegMappingBuilder::FtSegVectorT vec;
 
     for (auto const & seg : data.m_segments)
     {
       m2::PointD pts[2] = { { seg.lon1, seg.lat1 }, { seg.lon2, seg.lat2 } };
-
-      for (m2::RegionD const& border: regionBorders)
-      {
-        if (border.atBorder(pts[0], 0.001) || border.atBorder(pts[1], 0.001))
-        {
-          outgoingNodes.push_back(nodeId);
-          //outgoingNodes.push_back({nodeId, pts[0].x, pts[0].y});
-          //outgoingNodes.push_back(pts[0].x); //seg.wayId);
-          //outgoingNodes.push_back(pts[0].y);
-          //LOG(LINFO, ("PUSH TO OUTGOINF",pts[0].x,pts[0].y));
-        }
-      }
-
       ++all;
 
       // now need to determine feature id and segments in it
@@ -261,16 +275,68 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   appendFile(ROUTING_EDGEID_FILE_TAG);
 
   {
-    //LOG(LINFO, ("OUTGOING NODES DUMP"));
-    //for (auto n: outgoingNodes)
-    //  LOG(LINFO, ("Node: ", n));
-    // Write outs information
+    LOG(LINFO, ("Filtering outgoing candidates"));
+    //Sort nodes
     sort(outgoingNodes.begin(), outgoingNodes.end());
     outgoingNodes.erase(
         unique(outgoingNodes.begin(), outgoingNodes.end()),
         outgoingNodes.end());
+
+    OutgoingVectorT finalOutgoingNodes;
+
+    // Load node connectivity matrix
+    succinct::elias_fano matrix;
+    ReaderSource<ModelReaderPtr> matrixSource(new FileReader(osrmFile + "." + ROUTING_MATRIX_FILE_TAG));
+    vector<char> buffer(static_cast<size_t>(matrixSource.Size()));
+    matrixSource.Read(&buffer[0], matrixSource.Size());
+    const uint32_t matrixNumberOfNodes = *reinterpret_cast<uint32_t *>(&buffer[0]);
+    succinct::mapper::map(matrix, (const char *)&buffer[0] + sizeof(matrixNumberOfNodes));
+
+    map<size_t, size_t> incomeEdgeCountMap;
+    size_t const nodeDataSize = nodeData.size();
+    for (size_t nodeId = 0; nodeId < nodeDataSize; ++nodeId)
+    {
+      uint64_t const begin_idx = 2 * nodeId * (uint64_t)matrixNumberOfNodes;
+      auto begin = nodeId == 0 ? 0 : matrix.rank(min(begin_idx, matrix.size()));
+      uint64_t const end_idx = 2 * (nodeId+1) * (uint64_t)matrixNumberOfNodes;
+      auto const end = matrix.rank(min(end_idx, matrix.size()));
+      for(auto e: osrm::irange(begin, end))
+      {
+        const size_t target_node = (matrix.select(e) / 2) % matrixNumberOfNodes;
+        auto const it = incomeEdgeCountMap.find(target_node);
+        if (it==incomeEdgeCountMap.end())
+          incomeEdgeCountMap.insert(make_pair(target_node, 1));
+        else
+          incomeEdgeCountMap.insert(make_pair(target_node, it->second+1));
+      }
+    }
+
+
+
+    for (auto nodeId: outgoingNodes)
+    {
+      // Check if there is no outgoing nodes
+      uint64_t const begin_idx = 2 * nodeId * (uint64_t)matrixNumberOfNodes;
+      auto const begin = nodeId == 0 ? 0 : matrix.rank(min(begin_idx, matrix.size()));
+      uint64_t const end_idx = 2 * (nodeId+1) * (uint64_t)matrixNumberOfNodes;
+      auto const end = matrix.rank(min(end_idx, matrix.size()));
+      if (end-begin == 0) // no outgoing edges
+      {
+        finalOutgoingNodes.push_back(nodeId);
+        continue;
+      }
+
+      // Check if there is no income nodes
+      auto const it = incomeEdgeCountMap.find(nodeId);
+      if (it == incomeEdgeCountMap.end() || it->second==1) //No income or self income
+        finalOutgoingNodes.push_back(nodeId);
+    }
+    LOG(LINFO, ("Outgoing filering done! Have: ", finalOutgoingNodes.size(), "outgoing nodes"));
+    //for (auto n: outgoingNodes)
+    //  LOG(LINFO, ("Node: ", n));
+    // Write outs information
     FileWriter w = routingCont.GetWriter(ROUTING_OUTGOING_FILE_TAG);
-    rw::WriteVectorOfPOD(w, outgoingNodes);
+    rw::WriteVectorOfPOD(w, finalOutgoingNodes);
     w.WritePadding(4);
   }
 
