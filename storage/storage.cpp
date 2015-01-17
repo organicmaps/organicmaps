@@ -236,6 +236,14 @@ namespace storage
     return CountryByIndex(index).GetFile().GetFileWithoutExt();
   }
 
+  string Storage::MapWithoutExt(string mapFile)
+  {
+    string::size_type const pos = mapFile.rfind(DATA_FILE_EXTENSION);
+    if (pos != string::npos)
+      mapFile.resize(pos);
+    return std::move(mapFile);
+  }
+
   LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index, TMapOptions opt) const
   {
     LocalAndRemoteSizeT sizes(0, 0);

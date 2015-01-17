@@ -22,10 +22,10 @@ ActiveMapsLayout::~ActiveMapsLayout()
 void ActiveMapsLayout::Init(vector<string> const & maps)
 {
   Storage & storage = GetStorage();
-  auto insertIndexFn = [&] (TIndex const & index)
+  for (auto const & file : maps)
   {
-    string const fName = storage.CountryFileNameWithoutExt(index) + DATA_FILE_EXTENSION;
-    if (binary_search(maps.begin(), maps.end(), fName))
+    TIndex const index = storage.FindIndexByFile(Storage::MapWithoutExt(file));
+    if (index.IsValid())
     {
       TStatus status;
       TMapOptions options;
@@ -33,45 +33,19 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
       if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
         m_items.push_back({ index, status, options, options });
     }
-  };
-
-  TIndex root;
-  size_t groupCount = storage.CountriesCount(root);
-  for (size_t groupIt = 0; groupIt < groupCount; ++groupIt)
-  {
-    TIndex group(groupIt);
-    size_t countryCount = storage.CountriesCount(group);
-    for (size_t cntIt = 0; cntIt < countryCount; ++cntIt)
-    {
-      TIndex country(groupIt, cntIt);
-      size_t regionCount = storage.CountriesCount(country);
-      if (regionCount != 0)
-      {
-        for (size_t regionIt = 0; regionIt < regionCount; ++regionIt)
-          insertIndexFn(TIndex(groupIt, cntIt, regionIt));
-      }
-      else
-        insertIndexFn(country);
-    }
+    else
+      LOG(LWARNING, ("Can't find map index for", file));
   }
 
-  auto comparatorFn = [&storage] (Item const & lhs, Item const & rhs)
+  auto const comparatorFn = [&storage] (Item const & lhs, Item const & rhs)
   {
     if (lhs.m_status != rhs.m_status)
       return lhs.m_status > rhs.m_status;
     else
-    {
       return storage.CountryName(lhs.m_index) < storage.CountryName(rhs.m_index);
-    }
   };
 
   sort(m_items.begin(), m_items.end(), comparatorFn);
-  auto uniqPredicate = [] (Item const & item1, Item const & item2)
-  {
-    return item1.m_index == item2.m_index;
-  };
-
-  m_items.erase(unique(m_items.begin(), m_items.end(), uniqPredicate), m_items.end());
 
   m_split = { 0, m_items.size() };
   for (size_t i = 0; i < m_items.size(); ++i)

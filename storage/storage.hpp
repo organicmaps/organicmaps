@@ -123,6 +123,8 @@ namespace storage
 
     string CountryFileName(TIndex const & index, TMapOptions opt) const;
     string const & CountryFileNameWithoutExt(TIndex const & index) const;
+    /// Removes map file extension.
+    static string MapWithoutExt(string mapFile);
     LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index, TMapOptions opt) const;
 
     /// Fast version, doesn't check if country is out of date
