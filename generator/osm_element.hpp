@@ -16,7 +16,7 @@
 #include "../base/stl_add.hpp"
 #include "../base/cache.hpp"
 
-#include "../std/unordered_map.hpp"
+#include "../std/unordered_set.hpp"
 #include "../std/list.hpp"
 
 
@@ -121,23 +121,15 @@ class SecondPassParser : public BaseOSMParser
       return (role != "inner");
     }
 
-    bool HasName() const
+    typedef unordered_set<string> NameKeysT;
+    void GetNameKeys(NameKeysT & keys) const
     {
       for (auto const & p : m_current->childs)
-      {
         if (p.tagKey == XMLElement::ET_TAG)
         {
-            if (strings::StartsWith(p.k, "name"))
-              return true;
-            if (strings::StartsWith(p.v, "name"))
-              return true;
+          if (strings::StartsWith(p.k, "name"))
+            keys.insert(p.k);
         }
-//          for (auto const & a : p.attrs)
-//            if (strings::StartsWith(a.first, "name"))
-//              return true;
-      }
-
-      return false;
     }
 
     void Process(RelationElement const & e)
@@ -155,15 +147,18 @@ class SecondPassParser : public BaseOSMParser
 
       bool const isWay = (m_current->tagKey == XMLElement::ET_WAY);
       bool const isBoundary = isWay && (type == "boundary") && IsAcceptBoundary(e);
-      bool const hasName = HasName();
 
-      for (auto const &p : e.tags)
+      NameKeysT nameKeys;
+      GetNameKeys(nameKeys);
+
+      for (auto const & p : e.tags)
       {
         /// @todo Skip common key tags.
         if (p.first == "type" || p.first == "route")
           continue;
 
-        if (hasName && strings::StartsWith(p.first, "name"))
+        /// Skip already existing "name" tags.
+        if (nameKeys.count(p.first) != 0)
           continue;
 
         if (!isBoundary && p.first == "boundary")
