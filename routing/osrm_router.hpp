@@ -213,12 +213,10 @@ private:
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,
                         m2::PointD const & p,
-                        uint32_t mwmId,
                         RoutingMappingPtrT const & routingMapping,
                         TurnCandidatesT & candidates);
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
-                        uint32_t mwmId,
                         RoutingMappingPtrT const & routingMapping,
                         Route::TurnItem & turn);
   void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir, turns::TurnsGeomT & turnsGeom) const;
