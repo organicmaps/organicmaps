@@ -21,4 +21,4 @@ mkdir $OUT_DIR || true
 
 $GENERATOR_TOOL -export_poly_path $POLY_FILES_PATH
 
-ls $POLY_FILES_PATH | parallel -t -v "$OSMCONVERT_TOOL $PLANET_FILE --hash-memory=2000 -B=$POLY_FILES_PATH/{} --out-pbf -o=$OUT_DIR/{.}.pbf"
+ls $POLY_FILES_PATH | parallel -t -v "$OSMCONVERT_TOOL $PLANET_FILE --hash-memory=2000 -B=$POLY_FILES_PATH/{} --complex-ways --out-pbf -o=$OUT_DIR/{.}.pbf"
