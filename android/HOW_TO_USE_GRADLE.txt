@@ -8,10 +8,12 @@ To build all production apks, use './gradlew assembleRelease' or './gradlew aR'
 
 To build production version, use './gradlew assembleGoogleRelease'
 
-To build beta, use './gradlew assembleBetaRelease'
+To build beta, use './gradlew assembleGoogleBeta'
 
 To build specific store version, use './gradlew assembleAmazonDebug'
 
 To see all available build targets './gradlew tasks'
 
 To build and install debug version on a device './gradlew installGoogleDebug'
+
+To build, install and run application './gradlew runGoogleDebug'
