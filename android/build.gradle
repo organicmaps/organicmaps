@@ -117,8 +117,16 @@ android {
       applicationId 'com.mapswithme.maps.pro'
       buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
-      buildConfigField 'boolean', 'IS_PREINSTALLED', 'true'
+      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
       android.sourceSets.xiaomi.assets.srcDirs = ['flavors/mwm-ttf-assets']
+    }
+
+    opera {
+      applicationId 'com.mapswithme.maps.pro'
+      buildConfigField 'String', 'REVIEW_URL', '"http://maps.me/"'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"android@maps.me"'
+      buildConfigField 'boolean', 'IS_PREINSTALLED', 'false'
+      android.sourceSets.opera.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
   }
 
