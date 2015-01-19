@@ -46,7 +46,7 @@ protected:
   XMLElement * m_current;
 
 public:
-  BaseOSMParser() : m_current(0), m_depth(0) {}
+  BaseOSMParser() : m_depth(0), m_current(0) {}
 
   void AddAttr(string const & key, string const & value);
   bool Push(string const & tagName);
