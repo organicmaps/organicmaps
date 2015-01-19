@@ -28,7 +28,8 @@ namespace feature
       FMD_ELE,
       FMD_TURN_LANES,
       FMD_TURN_LANES_FORWARD,
-      FMD_TURN_LANES_BACKWARD
+      FMD_TURN_LANES_BACKWARD,
+      FMD_EMAIL
     };
 
     bool Add(EMetadataType type, string const & s)

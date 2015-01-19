@@ -87,6 +87,12 @@ public:
       if (!value.empty())
         m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD, value);
     }
+    else if (k == "email" || k == "contact:email")
+    {
+      string const & value = ValidateAndFormat_email(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_EMAIL, value);
+    }
     return false;
   }
 
@@ -154,6 +160,10 @@ protected:
     return v;
   }
   string ValidateAndFormat_turn_lanes_backward(string const & v) const
+  {
+    return v;
+  }
+  string ValidateAndFormat_email(string const & v) const
   {
     return v;
   }
