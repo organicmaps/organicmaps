@@ -14,14 +14,14 @@ public class LocationPredictor
   private Runnable mRunnable;
   private Handler mHandler;
 
-  private LocationService.LocationListener mListener;
+  private LocationHelper.LocationListener mListener;
   private Location mLastLocation;
   private boolean mGeneratePredictions;
   // TODO variable ISNT really changed anywhere.
   private int mPredictionCount;
   private int mConnectionSlot;
 
-  public LocationPredictor(Handler handler, LocationService.LocationListener listener)
+  public LocationPredictor(Handler handler, LocationHelper.LocationListener listener)
   {
     mHandler = handler;
     mListener = listener;
@@ -57,7 +57,7 @@ public class LocationPredictor
     {
       mLastLocation = new Location(location);
       mLastLocation.setTime(System.currentTimeMillis());
-      mLastLocation.setProvider(LocationService.LOCATION_PREDICTOR_PROVIDER);
+      mLastLocation.setProvider(LocationHelper.LOCATION_PREDICTOR_PROVIDER);
     }
     else
       mLastLocation = null;

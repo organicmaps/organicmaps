@@ -22,7 +22,7 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.base.MWMFragmentActivity;
-import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
@@ -36,7 +36,7 @@ import java.io.OutputStream;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends MWMFragmentActivity
-    implements LocationService.LocationListener, MapStorage.Listener
+    implements LocationHelper.LocationListener, MapStorage.Listener
 {
   private static final String TAG = DownloadResourcesActivity.class.getName();
 
@@ -182,7 +182,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
     mBtnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
 
     // Start listening the location.
-    LocationService.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this);
   }
 
   private void setAction(int action)
@@ -481,7 +481,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
   {
     super.onDestroy();
 
-    LocationService.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(this);
 
     if (mMapStorage != null)
       mMapStorage.unsubscribe(mSlotId);
@@ -492,7 +492,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
   {
     super.onPause();
 
-    LocationService.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(this);
   }
 
   @Override
@@ -500,7 +500,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
   {
     super.onResume();
 
-    LocationService.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this);
   }
 
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
@@ -563,7 +563,7 @@ public class DownloadResourcesActivity extends MWMFragmentActivity
           checkBox.setText(checkBoxText);
         }
 
-        LocationService.INSTANCE.removeLocationListener(this);
+        LocationHelper.INSTANCE.removeLocationListener(this);
       }
     }
   }

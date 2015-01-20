@@ -18,12 +18,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MWMListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
@@ -31,7 +30,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
-public class SearchFragment extends MWMListFragment implements View.OnClickListener, LocationService.LocationListener, OnBackPressListener
+public class SearchFragment extends MWMListFragment implements View.OnClickListener, LocationHelper.LocationListener, OnBackPressListener
 {
   // These constants should be equal with
   // Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.
@@ -212,7 +211,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
     mFlags = 0;
     mNorth = -1.0;
 
-    LocationService.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this);
 
     // do the search immediately after resume
     Utils.setTextAndCursorToEnd(mSearchEt, getLastQuery());
@@ -222,7 +221,7 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   @Override
   public void onPause()
   {
-    LocationService.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(this);
 
     super.onPause();
   }

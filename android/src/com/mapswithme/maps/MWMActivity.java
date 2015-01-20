@@ -60,8 +60,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
-import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.search.SearchFragment;
@@ -94,7 +94,7 @@ import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
 public class MWMActivity extends NvEventQueueActivity
-    implements LocationService.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
+    implements LocationHelper.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
     OnClickListener, RoutingListener
 {
   public static final String EXTRA_TASK = "map_task";
@@ -194,14 +194,14 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void pauseLocation()
   {
-    LocationService.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
   }
 
   private void listenLocationUpdates()
   {
-    LocationService.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
   }
@@ -572,7 +572,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     else
     {
-      final Location l = LocationService.INSTANCE.getLastLocation();
+      final Location l = LocationHelper.INSTANCE.getLastLocation();
       if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
         return true;
       else
@@ -752,7 +752,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void shareMyLocation()
   {
-    final Location loc = LocationService.INSTANCE.getLastLocation();
+    final Location loc = LocationHelper.INSTANCE.getLastLocation();
     if (loc != null)
     {
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
@@ -1069,7 +1069,7 @@ public class MWMActivity extends NvEventQueueActivity
     nativeOnLocationError(errorCode);
 
     // Notify user about turned off location services
-    if (errorCode == LocationService.ERROR_DENIED)
+    if (errorCode == LocationHelper.ERROR_DENIED)
     {
       LocationState.INSTANCE.turnOff();
 
@@ -1113,7 +1113,7 @@ public class MWMActivity extends NvEventQueueActivity
             .show();
       }
     }
-    else if (errorCode == LocationService.ERROR_GPS_OFF)
+    else if (errorCode == LocationHelper.ERROR_GPS_OFF)
     {
       Toast.makeText(this, R.string.gps_is_disabled_long_text, Toast.LENGTH_LONG).show();
     }
@@ -1122,7 +1122,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    if (!l.getProvider().equals(LocationService.LOCATION_PREDICTOR_PROVIDER))
+    if (!l.getProvider().equals(LocationHelper.LOCATION_PREDICTOR_PROVIDER))
       mLocationPredictor.reset(l);
 
     nativeLocationUpdated(
@@ -1807,7 +1807,7 @@ public class MWMActivity extends NvEventQueueActivity
                   @Override
                   public void onClick(DialogInterface dialog, int which)
                   {
-                    final Location location = LocationService.INSTANCE.getLastLocation();
+                    final Location location = LocationHelper.INSTANCE.getLastLocation();
                     if (location != null)
                     {
                       final Index currentIndex = Framework.nativeGetCountryIndex(location.getLatitude(), location.getLongitude());

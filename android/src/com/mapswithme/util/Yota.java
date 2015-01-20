@@ -6,7 +6,7 @@ import android.location.Location;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.location.LocationHelper;
 
 public class Yota
 {
@@ -59,7 +59,7 @@ public class Yota
 
     if (addLastKnow)
     {
-      final Location lastLocation = LocationService.INSTANCE.getLastLocation();
+      final Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
       if (lastLocation != null)
       {
         i.putExtra(EXTRA_HAS_LOCATION, true)

@@ -5,7 +5,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.view.Surface;
 
-import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.location.LocationHelper;
 
 public class LocationUtils
 {
@@ -85,7 +85,7 @@ public class LocationUtils
         // Do compare current and previous system times in case when
         // we have incorrect time settings on a device.
         time = System.currentTimeMillis();
-        lastTime = LocationService.INSTANCE.getLastLocationTime();
+        lastTime = LocationHelper.INSTANCE.getLastLocationTime();
       }
 
       return (time - lastTime) * 1.0E-3;

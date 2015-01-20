@@ -24,7 +24,7 @@ public abstract class BaseLocationProvider
     if (newLocation == null)
       return false;
 
-    final Location lastLocation = LocationService.INSTANCE.getLastLocation();
+    final Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
     if (lastLocation == null)
       return true;
 

@@ -58,7 +58,7 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
     if (newLocation == null)
       return false;
 
-    Location lastLocation = LocationService.INSTANCE.getLastLocation();
+    Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
     if (lastLocation == null)
       return true;
 
@@ -73,10 +73,10 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
   {
     mLogger.d("Fused onConnected. Bundle " + bundle);
     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-    LocationService.INSTANCE.registerSensorListeners();
+    LocationHelper.INSTANCE.registerSensorListeners();
     final Location l = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
     if (l != null)
-      LocationService.INSTANCE.setLastLocation(l);
+      LocationHelper.INSTANCE.setLastLocation(l);
   }
 
   @Override
@@ -90,7 +90,7 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
   {
     mLogger.d("Fused onConnectionFailed. Fall back to native provider. ConnResult " + connectionResult);
     // TODO handle error in a smarter way
-    LocationService.INSTANCE.initLocationProvider(true);
+    LocationHelper.INSTANCE.initLocationProvider(true);
   }
 
   @Override
@@ -102,8 +102,8 @@ public class GoogleFusedLocationProvider extends BaseLocationProvider
 
     if (isLocationBetterThanLast(location))
     {
-      LocationService.INSTANCE.initMagneticField(location);
-      LocationService.INSTANCE.setLastLocation(location);
+      LocationHelper.INSTANCE.initMagneticField(location);
+      LocationHelper.INSTANCE.setLastLocation(location);
     }
   }
 }

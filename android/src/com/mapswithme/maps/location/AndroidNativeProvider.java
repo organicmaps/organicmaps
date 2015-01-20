@@ -29,26 +29,26 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
     final List<String> providers = getFilteredProviders();
 
     if (providers.size() == 0)
-      LocationService.INSTANCE.notifyLocationError(LocationService.ERROR_DENIED);
+      LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_DENIED);
     else
     {
       for (final String provider : providers)
         mLocationManager.requestLocationUpdates(provider, LOCATION_UPDATE_INTERVAL, 0, this);
 
-      LocationService.INSTANCE.registerSensorListeners();
+      LocationHelper.INSTANCE.registerSensorListeners();
 
       // Choose best location from available
       final Location newLocation = findBestNotExpiredLocation(providers);
       if (isLocationBetterThanLast(newLocation))
-        LocationService.INSTANCE.setLastLocation(newLocation);
+        LocationHelper.INSTANCE.setLastLocation(newLocation);
       else
       {
-        final Location lastLocation = LocationService.INSTANCE.getLastLocation();
-        if (lastLocation != null && !LocationUtils.isExpired(lastLocation, LocationService.INSTANCE.getLastLocationTime(),
+        final Location lastLocation = LocationHelper.INSTANCE.getLastLocation();
+        if (lastLocation != null && !LocationUtils.isExpired(lastLocation, LocationHelper.INSTANCE.getLastLocationTime(),
             LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
-          LocationService.INSTANCE.setLastLocation(lastLocation);
+          LocationHelper.INSTANCE.setLastLocation(lastLocation);
         else
-          LocationService.INSTANCE.setLastLocation(null);
+          LocationHelper.INSTANCE.setLastLocation(null);
       }
     }
   }
@@ -87,7 +87,7 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
       if (!mLocationManager.isProviderEnabled(prov))
       {
         if (LocationManager.GPS_PROVIDER.equals(prov))
-          LocationService.INSTANCE.notifyLocationError(LocationService.ERROR_GPS_OFF);
+          LocationHelper.INSTANCE.notifyLocationError(LocationHelper.ERROR_GPS_OFF);
         continue;
       }
 
@@ -111,8 +111,8 @@ public class AndroidNativeProvider extends BaseLocationProvider implements andro
 
     if (isLocationBetterThanLast(l))
     {
-      LocationService.INSTANCE.initMagneticField(l);
-      LocationService.INSTANCE.setLastLocation(l);
+      LocationHelper.INSTANCE.initMagneticField(l);
+      LocationHelper.INSTANCE.setLastLocation(l);
     }
   }
 

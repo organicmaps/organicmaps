@@ -16,7 +16,7 @@ import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
-import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 public class BookmarkListAdapter extends BaseAdapter
-    implements LocationService.LocationListener
+    implements LocationHelper.LocationListener
 {
   private final Activity mActivity;
   private final BookmarkCategory mCategory;
@@ -42,12 +42,12 @@ public class BookmarkListAdapter extends BaseAdapter
 
   public void startLocationUpdate()
   {
-    LocationService.INSTANCE.addLocationListener(this);
+    LocationHelper.INSTANCE.addLocationListener(this);
   }
 
   public void stopLocationUpdate()
   {
-    LocationService.INSTANCE.removeLocationListener(this);
+    LocationHelper.INSTANCE.removeLocationListener(this);
   }
 
   @Override
@@ -186,7 +186,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setDistance(Bookmark bmk)
     {
-      final Location loc = LocationService.INSTANCE.getLastLocation();
+      final Location loc = LocationHelper.INSTANCE.getLastLocation();
       if (loc != null)
       {
         final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), 0.0);

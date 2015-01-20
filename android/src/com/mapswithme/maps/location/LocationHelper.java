@@ -23,7 +23,7 @@ import com.mapswithme.util.log.SimpleLogger;
 
 import java.util.HashSet;
 
-public enum LocationService implements SensorEventListener
+public enum LocationHelper implements SensorEventListener
 {
   INSTANCE;
 
@@ -62,9 +62,9 @@ public enum LocationService implements SensorEventListener
   private final float[] mI = new float[9];
   private final float[] mOrientation = new float[3];
 
-  private LocationService()
+  private LocationHelper()
   {
-    mLogger = SimpleLogger.get(LocationService.class.getName());
+    mLogger = SimpleLogger.get(LocationHelper.class.getName());
     initLocationProvider(false);
     mSensorManager = (SensorManager) MWMApplication.get().getSystemService(Context.SENSOR_SERVICE);
     if (mSensorManager != null)
@@ -163,7 +163,7 @@ public enum LocationService implements SensorEventListener
       // Reset current parameters to force initialize in the next addLocationListener
       mMagneticField = null;
       if (mSensorManager != null)
-        mSensorManager.unregisterListener(LocationService.this);
+        mSensorManager.unregisterListener(LocationHelper.this);
     }
   }
 

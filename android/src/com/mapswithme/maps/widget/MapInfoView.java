@@ -39,7 +39,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
@@ -52,7 +51,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
-import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.UiUtils.SimpleAnimationListener;
@@ -531,7 +530,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mTvLon = (TextView) mGeoLayout.findViewById(R.id.info_box_lon);
     mTvLon.setOnClickListener(this);
 
-    final Location lastKnown = LocationService.INSTANCE.getLastLocation();
+    final Location lastKnown = LocationHelper.INSTANCE.getLastLocation();
     updateLocation(lastKnown);
 
     updateCoords();
@@ -594,7 +593,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     if (mGeoLayout != null && mMapObject != null && mMapObject.getType() != MapObjectType.MY_POSITION)
     {
-      final Location l = LocationService.INSTANCE.getLastLocation();
+      final Location l = LocationHelper.INSTANCE.getLastLocation();
       if (l != null)
       {
         final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimutFromLatLon(

@@ -72,7 +72,7 @@ extern "C"
 #pragma clang pop_options
 
   JNIEXPORT jfloatArray JNICALL
-  Java_com_mapswithme_maps_location_LocationService_nativeUpdateCompassSensor(
+  Java_com_mapswithme_maps_location_LocationHelper_nativeUpdateCompassSensor(
       JNIEnv * env, jobject thiz, jint ind, jfloatArray arr)
   {
     int const count = 3;
