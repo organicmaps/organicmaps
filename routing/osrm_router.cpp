@@ -769,7 +769,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     {
       m2::PointD point1 = GetPointByNodeId(*sit, startMapping, false);
       point1 = m2::PointD(MercatorBounds::XToLon(point1.x), MercatorBounds::YToLat(point1.y));
-      for (auto fit = finalMapping->dataFacade.GetOutgoingBegin(); fit!= finalMapping->dataFacade.GetOutgoingEnd(); ++fit)
+      m2::PointD point1o = GetPointByNodeId(*sit, startMapping, true);
+      point1o = m2::PointD(MercatorBounds::XToLon(point1o.x), MercatorBounds::YToLat(point1o.y));
+      for (auto fit = finalMapping->dataFacade.GetIngoingBegin(); fit!= finalMapping->dataFacade.GetIngoingEnd(); ++fit)
       {
         m2::PointD point2;
         auto cache = pointCache.find(*fit);
@@ -785,11 +787,17 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         if (point1.IsAlmostZero() || point2.IsAlmostZero())
           continue;
         //double const dist = ms::DistanceOnEarth(MercatorBounds::YToLat(point1.y), MercatorBounds::XToLon(point1.x), MercatorBounds::YToLat(point2.y), MercatorBounds::XToLon(point2.x));
-        double const dist = ms::DistanceOnEarth((point1.y), (point1.x), (point2.y), (point2.x));
+        m2::PointD point2o = GetPointByNodeId(*fit, finalMapping, false);
+        point2o = m2::PointD(MercatorBounds::XToLon(point2o.x), MercatorBounds::YToLat(point2o.y));
+        double const dist = min(min(ms::DistanceOnEarth((point1.y), (point1.x), (point2.y), (point2.x)),
+                                ms::DistanceOnEarth((point1o.y), (point1o.x), (point2.y), (point2.x))),
+                                min(ms::DistanceOnEarth((point1.y), (point1.x), (point2o.y), (point2o.x)),
+                                ms::DistanceOnEarth((point1o.y), (point1o.x), (point2o.y), (point2o.x))));
 
-        LOG(LINFO, ("!!!! DIST", dist," ID ", *sit));
+        //LOG(LINFO, ("!!!! DIST", dist," ID ", *sit, "HAVE OUTGOING NODE COORD", point1.y, point1.x));
         if (dist <= 1000.0)  //TODO Make constant
         {
+          LOG(LINFO, ("HAVE OUTGOING NODE COORD", point1.y, point1.x));
           LOG(LINFO, ("!!!! DIST", dist," ID ", *sit));
           //startBorderNodes.push_back(sit->node_id);
           //finalBorderNodes.push_back(fit->node_id);
@@ -998,13 +1006,24 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
 
       //m_mapping.DumpSegmentByNode(path_data.node);
 
+      //Do not put out node geometry (we do not have it)!
       size_t startK = 0, endK = buffer.size();
-      if (j == 0 && segBegin.IsValid())
-        correctFn(segBegin, startK);
-      if (j == n - 1 && segEnd.IsValid())
+      if (j == 0)
       {
-        correctFn(segEnd, endK);
-        ++endK;
+        if (segBegin.IsValid())
+          correctFn(segBegin, startK);
+        else
+          continue;
+      }
+      if (j == n - 1)
+      {
+        if  (segEnd.IsValid())
+        {
+          correctFn(segEnd, endK);
+          ++endK;
+        }
+        else
+          continue;
       }
 
       for (size_t k = startK; k < endK; ++k)

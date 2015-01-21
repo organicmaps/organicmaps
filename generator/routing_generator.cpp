@@ -22,8 +22,8 @@
 #include "../std/fstream.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
-#include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
-#include "../3party/succinct/mapper.hpp"
+#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
+#include "../routing/osrm_data_facade.hpp"
 
 #define BORDERS_DIR "borders/"
 #define BORDERS_EXTENSION ".borders"
@@ -48,6 +48,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   vector<m2::RegionD> regionBorders;
   OutgoingVectorT outgoingNodes;
+  OutgoingVectorT finalOutgoingNodes;
+  OutgoingVectorT finalIngoingNodes;
   LOG(LINFO, ("Loading countries borders"));
   {
     vector<m2::RegionD> tmpRegionBorders;
@@ -100,14 +102,15 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         // check nearest to goverment borders
         for (m2::RegionD const& border: regionBorders)
         {
-          if (border.atBorder(pts[0], 0.001) || border.atBorder(pts[1], 0.001))
-          {
-            outgoingNodes.push_back(nodeId);
-            //outgoingNodes.push_back({nodeId, pts[0].x, pts[0].y});
-            //outgoingNodes.push_back(pts[0].x); //seg.wayId);
-            //outgoingNodes.push_back(pts[0].y);
-            //LOG(LINFO, ("PUSH TO OUTGOINF",pts[0].x,pts[0].y));
-          }
+          //if ( (border.Contains(pts[0]) ^ border.Contains(pts[1]))) // || border.atBorder(pts[0], 0.005) || border.atBorder(pts[1], 0.005))
+          //{
+          //  outgoingNodes.push_back(nodeId);
+          //}
+          bool outStart = border.Contains(pts[0]), outEnd = border.Contains(pts[1]);
+          if (outStart == true && outEnd == false)
+            finalOutgoingNodes.push_back(nodeId);
+          if (outStart == false && outEnd == true)
+            finalIngoingNodes.push_back(nodeId);
         }
       }
     }
@@ -225,18 +228,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
     if (vec.size() > 1)
       ++moreThan1Seg;
-/*
-    if (vec.size())
-    for (m2::RegionD const& border: regionBorders)
-    {
-      m2::PointD pts[2] = { { data.m_segments.front().lon1, data.m_segments.front().lat1 }, { data.m_segments.back().lon2, data.m_segments.back().lat2 } };
-      if (border.atBorder(pts[0], 0.0001) || border.atBorder(pts[1], 0.0001))
-        for (auto v: vec)
-        {
-          outgoingNodes.push_back(v.Store()); //nodeId); //seg.wayId);
-        }
-    }
-*/
     mapping.Append(nodeId, vec);
   }
 
@@ -282,62 +273,93 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         unique(outgoingNodes.begin(), outgoingNodes.end()),
         outgoingNodes.end());
 
-    OutgoingVectorT finalOutgoingNodes;
 
-    // Load node connectivity matrix
-    succinct::elias_fano matrix;
+
+
+    // Load routing facade
+    OsrmRawDataFacade<QueryEdge::EdgeData> facade;
+    ReaderSource<ModelReaderPtr> edgeSource(new FileReader(osrmFile + "." + ROUTING_EDGEDATA_FILE_TAG));
+    vector<char> edgeBuffer(static_cast<size_t>(edgeSource.Size()));
+    edgeSource.Read(&edgeBuffer[0], edgeSource.Size());
+    ReaderSource<ModelReaderPtr> edgeIdsSource(new FileReader(osrmFile + "." + ROUTING_EDGEID_FILE_TAG));
+    vector<char> edgeIdsBuffer(static_cast<size_t>(edgeIdsSource.Size()));
+    edgeIdsSource.Read(&edgeIdsBuffer[0], edgeIdsSource.Size());
+    ReaderSource<ModelReaderPtr> shortcutsSource(new FileReader(osrmFile + "." + ROUTING_SHORTCUTS_FILE_TAG));
+    vector<char> shortcutsBuffer(static_cast<size_t>(shortcutsSource.Size()));
+    shortcutsSource.Read(&shortcutsBuffer[0], shortcutsSource.Size());
     ReaderSource<ModelReaderPtr> matrixSource(new FileReader(osrmFile + "." + ROUTING_MATRIX_FILE_TAG));
-    vector<char> buffer(static_cast<size_t>(matrixSource.Size()));
-    matrixSource.Read(&buffer[0], matrixSource.Size());
-    const uint32_t matrixNumberOfNodes = *reinterpret_cast<uint32_t *>(&buffer[0]);
-    succinct::mapper::map(matrix, (const char *)&buffer[0] + sizeof(matrixNumberOfNodes));
+    vector<char> matrixBuffer(static_cast<size_t>(matrixSource.Size()));
+    matrixSource.Read(&matrixBuffer[0], matrixSource.Size());
+    facade.LoadRawData(edgeBuffer.data(), edgeIdsBuffer.data(), shortcutsBuffer.data(), matrixBuffer.data());
+
 
     map<size_t, size_t> incomeEdgeCountMap;
     size_t const nodeDataSize = nodeData.size();
     for (size_t nodeId = 0; nodeId < nodeDataSize; ++nodeId)
     {
-      uint64_t const begin_idx = 2 * nodeId * (uint64_t)matrixNumberOfNodes;
-      auto begin = nodeId == 0 ? 0 : matrix.rank(min(begin_idx, matrix.size()));
-      uint64_t const end_idx = 2 * (nodeId+1) * (uint64_t)matrixNumberOfNodes;
-      auto const end = matrix.rank(min(end_idx, matrix.size()));
-      for(auto e: osrm::irange(begin, end))
+      for(auto e: facade.GetAdjacentEdgeRange(nodeId))
       {
-        const size_t target_node = (matrix.select(e) / 2) % matrixNumberOfNodes;
+        const size_t target_node = facade.GetTarget(e);
         auto const it = incomeEdgeCountMap.find(target_node);
         if (it==incomeEdgeCountMap.end())
           incomeEdgeCountMap.insert(make_pair(target_node, 1));
         else
-          incomeEdgeCountMap.insert(make_pair(target_node, it->second+1));
+          incomeEdgeCountMap[target_node] += 1;
       }
     }
 
 
+    size_t single_counter = 0;
 
     for (auto nodeId: outgoingNodes)
     {
+
       // Check if there is no outgoing nodes
-      uint64_t const begin_idx = 2 * nodeId * (uint64_t)matrixNumberOfNodes;
-      auto const begin = nodeId == 0 ? 0 : matrix.rank(min(begin_idx, matrix.size()));
-      uint64_t const end_idx = 2 * (nodeId+1) * (uint64_t)matrixNumberOfNodes;
-      auto const end = matrix.rank(min(end_idx, matrix.size()));
-      if (end-begin == 0) // no outgoing edges
+      auto const it = incomeEdgeCountMap.find(nodeId);
+      size_t const out_degree = facade.GetOutDegree(nodeId) + (0 ? it == incomeEdgeCountMap.end() : it->second);
+      if (out_degree == 3)
+        finalOutgoingNodes.push_back(nodeId);
+      finalIngoingNodes.push_back(nodeId);
+      continue;
+      if (facade.GetOutDegree(nodeId) == 0  && it != incomeEdgeCountMap.end())
+      {
+        LOG(LINFO, ("!!! 0 INCOME HAS OUTCOMES ", it->second ));
+        for (size_t nodeIt = 0; nodeIt < nodeDataSize; ++nodeIt)
+        {
+          for(auto e: facade.GetAdjacentEdgeRange(nodeIt))
+          {
+            const size_t target_node = facade.GetTarget(e);
+
+            if (target_node == nodeId)
+            {
+              QueryEdge::EdgeData edge = facade.GetEdgeData(e, nodeIt);
+              LOG(LINFO, (nodeIt, nodeId, edge.shortcut, edge.forward, edge.backward, edge.distance,edge.id));
+            }
+          }
+        }
+        single_counter++;
+        continue;
+      }
+      //LOG(LINFO, ("!!! HAVE DELTA ", facade.GetOutDegree(nodeId) ));
+      if (facade.GetOutDegree(nodeId)  == 2) // no outgoing edges
       {
         finalOutgoingNodes.push_back(nodeId);
         continue;
       }
-
       // Check if there is no income nodes
-      auto const it = incomeEdgeCountMap.find(nodeId);
       if (it == incomeEdgeCountMap.end() || it->second==1) //No income or self income
-        finalOutgoingNodes.push_back(nodeId);
+        finalIngoingNodes.push_back(nodeId);
     }
-    LOG(LINFO, ("Outgoing filering done! Have: ", finalOutgoingNodes.size(), "outgoing nodes"));
+    LOG(LINFO, ("Outgoing filering done! Have: ", finalOutgoingNodes.size(), "outgoing nodes and ",finalIngoingNodes.size(), "single nodes",single_counter));
     //for (auto n: outgoingNodes)
     //  LOG(LINFO, ("Node: ", n));
     // Write outs information
     FileWriter w = routingCont.GetWriter(ROUTING_OUTGOING_FILE_TAG);
     rw::WriteVectorOfPOD(w, finalOutgoingNodes);
     w.WritePadding(4);
+    FileWriter wi = routingCont.GetWriter(ROUTING_INGOING_FILE_TAG);
+    rw::WriteVectorOfPOD(wi, finalIngoingNodes);
+    wi.WritePadding(4);
   }
 
   routingCont.Finish();
