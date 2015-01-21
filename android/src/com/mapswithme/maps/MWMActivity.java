@@ -60,6 +60,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
 import com.mapswithme.maps.search.SearchActivity;
@@ -217,6 +218,7 @@ public class MWMActivity extends NvEventQueueActivity
     LocationState.INSTANCE.invalidatePosition();
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public void OnDownloadCountryClicked(final int group, final int country, final int region, final int options)
   {
     runOnUiThread(new Runnable()
@@ -230,35 +232,14 @@ public class MWMActivity extends NvEventQueueActivity
         else
         {
           long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(index, options);
-          if (size > 50 * 1024 * 1024 && !ConnectionState.isWifiConnected())
+          DownloadHelper.downloadWithCellularCheck(MWMActivity.this, size, MapStorage.INSTANCE.countryName(index), new DownloadHelper.OnDownloadListener()
           {
-            new AlertDialog.Builder(MWMActivity.this)
-                .setCancelable(true)
-                .setMessage(String.format(getString(R.string.no_wifi_ask_cellular_download), MapStorage.INSTANCE.countryName(index)))
-                .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
-                {
-                  @Override
-                  public void onClick(DialogInterface dlg, int which)
-                  {
-                    nativeDownloadCountry(index, options);
-                    dlg.dismiss();
-                  }
-                })
-                .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener()
-                {
-                  @Override
-                  public void onClick(DialogInterface dlg, int which)
-                  {
-                    dlg.dismiss();
-                  }
-                })
-                .create()
-                .show();
-
-            return;
-          }
-
-          nativeDownloadCountry(index, options);
+            @Override
+            public void onDownload()
+            {
+              nativeDownloadCountry(index, options);
+            }
+          });
         }
       }
     });

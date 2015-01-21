@@ -24,6 +24,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
@@ -142,11 +143,19 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   @Override
   public abstract CountryItem getItem(int position);
 
-  protected void processNotDownloaded(final String name, int position, int newOptions, ViewHolder holder)
+  protected void processNotDownloaded(final String name, final int position, final int status, final int newOptions, final ViewHolder holder)
   {
-    // TODO if download is greater then 50MB check 3g/WIFI connection
-    startItemDownloading(holder, position, newOptions);
-    Statistics.INSTANCE.trackCountryDownload(MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false), BuildConfig.FLAVOR);
+    final long[] remoteSizes = getRemoteItemSizes(position);
+    final long size = newOptions > StorageOptions.MAP_OPTION_MAP_ONLY ? remoteSizes[0] : remoteSizes[1];
+    DownloadHelper.downloadWithCellularCheck(mFragment.getActivity(), size, name, new DownloadHelper.OnDownloadListener()
+    {
+      @Override
+      public void onDownload()
+      {
+        startItemDownloading(holder, position, newOptions);
+        Statistics.INSTANCE.trackCountryDownload(MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false), BuildConfig.FLAVOR);
+      }
+    });
   }
 
   protected void confirmDownloadCancelation(final ViewHolder holder, final int position, final String name)
@@ -168,11 +177,19 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     dlg.show();
   }
 
-  protected void processOutOfDate(final String name, int position, int newOptions)
+  protected void processOutOfDate(final String name, final int position, int status, final int newOptions)
   {
-    // TODO if download is greater then 50MB check 3g/WIFI connection
-    updateCountry(position, newOptions);
-    Statistics.INSTANCE.trackCountryUpdate();
+    final long[] remoteSizes = getRemoteItemSizes(position);
+    final long size = newOptions > StorageOptions.MAP_OPTION_MAP_ONLY ? remoteSizes[0] : remoteSizes[1];
+    DownloadHelper.downloadWithCellularCheck(mFragment.getActivity(), size, name, new DownloadHelper.OnDownloadListener()
+    {
+      @Override
+      public void onDownload()
+      {
+        updateCountry(position, newOptions);
+        Statistics.INSTANCE.trackCountryUpdate();
+      }
+    });
   }
 
   protected void processOnDisk(final String name, final int position, final int newOptions)
@@ -750,10 +767,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           processOnDisk(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
           break;
         case MENU_UPDATE:
-          processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
+          processOutOfDate(name, position, status, StorageOptions.MAP_OPTION_MAP_ONLY);
           break;
         case MENU_DOWNLOAD:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
+          processNotDownloaded(name, position, status, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
           break;
         case MENU_CANCEL:
           confirmDownloadCancelation(holder, position, name);
@@ -765,16 +782,16 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           processOnDisk(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING);
           break;
         case MENU_DOWNLOAD_ROUTING:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING, holder);
+          processNotDownloaded(name, position, status, StorageOptions.MAP_OPTION_CAR_ROUTING, holder);
           break;
         case MENU_DOWNLOAD_MAP_AND_ROUTING:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
+          processNotDownloaded(name, position, status, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
           break;
         case MENU_UPDATE_MAP_DOWNLOAD_ROUTING:
-          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
+          processNotDownloaded(name, position, status, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
           break;
         case MENU_UPDATE_MAP_AND_ROUTING:
-          processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+          processOutOfDate(name, position, status, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
           break;
         case MENU_RETRY:
           processFailed(holder, position);
