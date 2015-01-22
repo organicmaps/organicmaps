@@ -44,21 +44,6 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMApplication_shouldShowDialog(
-      JNIEnv * env, jobject thiz, jint dlg)
-  {
-    return static_cast<jboolean>(dlg_settings::ShouldShow(static_cast<dlg_settings::DialogT>(dlg)));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_submitDialogResult(
-      JNIEnv * env, jobject thiz, jint dlg, jint res)
-  {
-    dlg_settings::SaveResult(static_cast<dlg_settings::DialogT>(dlg),
-                             static_cast<dlg_settings::ResultT>(res));
-  }
-
-  JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_MWMApplication_nativeGetBoolean(JNIEnv * env,
                                                            jobject thiz,
                                                            jstring name,

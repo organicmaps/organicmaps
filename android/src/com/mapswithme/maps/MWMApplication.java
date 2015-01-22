@@ -200,7 +200,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
   }
 
-  /// Check if we have free space on storage (writable path).
+  // Check if we have free space on storage (writable path).
   public native boolean hasFreeSpace(long size);
 
   public double getForegroundTime()
@@ -225,24 +225,9 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   public native boolean nativeIsBenchmarking();
 
-  // Dealing with dialogs.
-  // Constants should be equal with map/dialog_settings.hpp
-  public static final int FACEBOOK = 0;
-
-  public static final Integer[] FACEBOOK_RATE_LAUNCHES = new Integer[]{3, 7, 10, 15, 21};
-
-  public native boolean shouldShowDialog(int dlg);
-
-  static public final int OK = 0;
-  static public final int LATER = 1;
-  static public final int NEVER = 2;
-
-  public native void submitDialogResult(int dlg, int res);
-  //
-
   private native void nativeAddLocalization(String name, String value);
 
-  /// Dealing with Settings
+  // Dealing with Settings
   public native boolean nativeGetBoolean(String name, boolean defaultValue);
 
   public native void nativeSetBoolean(String name, boolean value);

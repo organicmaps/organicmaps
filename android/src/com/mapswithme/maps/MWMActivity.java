@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -88,9 +87,7 @@ import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
@@ -283,7 +280,6 @@ public class MWMActivity extends NvEventQueueActivity
         checkKitkatMigrationMove();
         checkRoutingMaps();
         checkLiteMapsInPro();
-        checkFacebookDialog();
         checkUserMarkActivation();
       }
     });
@@ -498,107 +494,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onConfigurationChanged(Configuration newConfig)
   {
     super.onConfigurationChanged(newConfig);
-    alignControls();
   }
-
-  private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)
-  {
-    final MWMApplication application = MWMApplication.get();
-    new AlertDialog.Builder(this)
-        .setCancelable(false)
-        .setMessage(getString(resMsg))
-        .setPositiveButton(getString(R.string.ok), okListener)
-        .setNeutralButton(getString(R.string.never), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            application.submitDialogResult(dlgID, MWMApplication.NEVER);
-          }
-        })
-        .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-            application.submitDialogResult(dlgID, MWMApplication.LATER);
-            // FIXME hack to deal with native & java FACEBOOK dialog views conflict
-            application.nativeSetInt(MWMApplication.LAUNCH_NUMBER_SETTING, application.nativeGetInt(MWMApplication.LAUNCH_NUMBER_SETTING, 0) + 1);
-          }
-        })
-        .create()
-        .show();
-  }
-
-  private boolean isChinaISO(String iso)
-  {
-    final String arr[] = {"CN", "CHN", "HK", "HKG", "MO", "MAC"};
-    for (final String s : arr)
-      if (iso.equalsIgnoreCase(s))
-        return true;
-    return false;
-  }
-
-  private boolean isChinaRegion()
-  {
-    final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-    if (tm != null && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_CDMA)
-    {
-      final String iso = tm.getNetworkCountryIso();
-      Log.i(TAG, "TelephonyManager country ISO = " + iso);
-      if (isChinaISO(iso))
-        return true;
-    }
-    else
-    {
-      final Location l = LocationHelper.INSTANCE.getLastLocation();
-      if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
-        return true;
-      else
-      {
-        final String code = Locale.getDefault().getCountry();
-        Log.i(TAG, "Locale country ISO = " + code);
-        if (isChinaISO(code))
-          return true;
-      }
-    }
-
-    return false;
-  }
-
-  private void checkFacebookDialog()
-  {
-    if (ConnectionState.isConnected() &&
-        // TODO If new dialog display logic will be fine - move it to core and uncomment the following line
-        // MWMApplication.get().shouldShowDialog(MWMApplication.FACEBOOK) &&
-        Arrays.asList(MWMApplication.FACEBOOK_RATE_LAUNCHES).contains(MWMApplication.get().getLaunchesNumber()) &&
-        MWMApplication.get().nativeGetBoolean("ShouldShowFacebookDialog", true) &&
-        !isChinaRegion())
-      mInfoView.postDelayed(mShareFacebookRunnable, 30 * 1000);
-  }
-
-  private Runnable mShareFacebookRunnable = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      showDialogImpl(MWMApplication.FACEBOOK, R.string.share_on_facebook_text,
-          new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              MWMApplication.get().submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
-
-              dlg.dismiss();
-              UiUtils.showFacebookPage(MWMActivity.this);
-            }
-          }
-      );
-    }
-  };
 
   private void showSearch()
   {
@@ -1040,10 +936,6 @@ public class MWMActivity extends NvEventQueueActivity
     mRenderingInitialized = false;
   }
 
-  private void alignControls()
-  {
-  }
-
   @Override
   public void onLocationError(int errorCode)
   {
@@ -1243,7 +1135,6 @@ public class MWMActivity extends NvEventQueueActivity
     stopWatchingCompassStatusUpdate();
     super.onPause();
     mLocationPredictor.pause();
-    mInfoView.removeCallbacks(mShareFacebookRunnable);
   }
 
   @Override
@@ -1259,12 +1150,9 @@ public class MWMActivity extends NvEventQueueActivity
         findViewById(R.id.map_button_plus),
         findViewById(R.id.map_button_minus));
 
-    alignControls();
-
     SearchController.getInstance().onResume();
     mInfoView.onResume();
     tryResumeRouting();
-
     MWMApplication.get().onMwmResume(this);
     mLocationPredictor.resume();
   }
