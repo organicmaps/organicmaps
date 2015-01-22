@@ -30,6 +30,7 @@ public class Constants
     public static final String MAIL_MAPSME_INFO = "android@maps.me";
     public static final String MAIL_MAPSME_BUGS = "android@maps.me";
     public static final String MAIL_MAPSME_SUBSCRIBE = "subscribe@maps.me";
+    public static final String MAIL_MAPSME_RATING = "rating@maps.me";
 
     public static final String DATA_SCHEME_FILE = "file";
     public static final String FEATURES_JSON = "http://application.server/android/features.json";

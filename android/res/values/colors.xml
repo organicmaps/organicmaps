@@ -65,4 +65,8 @@
   <!-- routing-->
   <color name="text_turn_blue">#2291d1</color>
 
+  <!-- global black fonts -->
+  <color name="text_black_title">#dd000000</color>
+  <color name="text_black_subtitle">#89000000</color>
+
 </resources>

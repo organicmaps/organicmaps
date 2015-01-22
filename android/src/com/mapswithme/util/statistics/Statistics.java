@@ -66,6 +66,9 @@ public enum Statistics
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
     public static final String APP_ACTIVATED = "Application activated.";
+    public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
+    public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
+    public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
   }
 
   public static class EventParam
@@ -85,6 +88,7 @@ public enum Statistics
     public static final String ENABLED = "Enabled";
     public static final String IS_PREINSTALLED = "IsPreinstalled";
     public static final String APP_FLAVOR = "Flavor";
+    public static final String RATING = "Rating";
   }
 
   private Statistics()
@@ -259,6 +263,15 @@ public enum Statistics
   public void trackDownloadCountryNotificationClicked()
   {
     trackIfEnabled(mEventBuilder.setName(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED).buildEvent());
+  }
+
+  public void trackRatingDialog(float rating)
+  {
+    final Event event = mEventBuilder.
+        setName(EventName.RATE_DIALOG_RATED).
+        addParam(EventParam.RATING, String.valueOf(rating)).
+        buildEvent();
+    trackIfEnabled(event);
   }
 
   public void trackSimpleNamedEvent(String eventName)

@@ -284,7 +284,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     final int sessionNum = nativeGetInt(SESSION_NUMBER_SETTING, 0);
     final long lastSessionTimestamp = nativeGetLong(LAST_SESSION_TIMESTAMP_SETTING, 0);
     if (!DateUtils.isToday(lastSessionTimestamp))
+    {
       nativeSetInt(SESSION_NUMBER_SETTING, sessionNum + 1);
+      nativeSetLong(LAST_SESSION_TIMESTAMP_SETTING, System.currentTimeMillis());
+    }
   }
 
   private void trackAppActivation()

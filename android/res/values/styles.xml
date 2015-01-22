@@ -150,4 +150,9 @@
     <item name="android:background">@drawable/ic_bg_light</item>
   </style>
 
+  <style name="MwmRatingBar" parent="android:Widget.RatingBar">
+    <item name="android:progressDrawable">@drawable/rating_bar</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
+  </style>
+
 </resources>

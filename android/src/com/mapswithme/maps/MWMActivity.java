@@ -49,6 +49,7 @@ import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.ads.AdsManager;
+import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.ads.MenuAd;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.background.WorkerService;
@@ -72,7 +73,6 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
@@ -159,6 +159,7 @@ public class MWMActivity extends NvEventQueueActivity
   private boolean mIsFragmentContainer;
 
   private LocationPredictor mLocationPredictor;
+  private LikesManager mLikesManager;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -730,6 +731,7 @@ public class MWMActivity extends NvEventQueueActivity
     LocalBroadcastManager.getInstance(this).registerReceiver(mUpdateAdsReceiver, new IntentFilter(WorkerService.ACTION_UPDATE_MENU_ADS));
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
+    mLikesManager = new LikesManager(this);
   }
 
   private void initViews()
@@ -1128,16 +1130,6 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  protected void onPause()
-  {
-    pauseLocation();
-    stopWatchingExternalStorage();
-    stopWatchingCompassStatusUpdate();
-    super.onPause();
-    mLocationPredictor.pause();
-  }
-
-  @Override
   protected void onResume()
   {
     super.onResume();
@@ -1155,6 +1147,18 @@ public class MWMActivity extends NvEventQueueActivity
     tryResumeRouting();
     MWMApplication.get().onMwmResume(this);
     mLocationPredictor.resume();
+    mLikesManager.showLikeDialogs();
+  }
+
+  @Override
+  protected void onPause()
+  {
+    pauseLocation();
+    stopWatchingExternalStorage();
+    stopWatchingCompassStatusUpdate();
+    super.onPause();
+    mLocationPredictor.pause();
+    mLikesManager.cancelLikeDialogs();
   }
 
   private void tryResumeRouting()

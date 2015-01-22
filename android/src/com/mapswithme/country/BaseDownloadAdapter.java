@@ -158,7 +158,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     });
   }
 
-  protected void confirmDownloadCancelation(final ViewHolder holder, final int position, final String name)
+  protected void confirmDownloadCancellation(final ViewHolder holder, final int position, final String name)
   {
     final Dialog dlg = new AlertDialog.Builder(mFragment.getActivity())
         .setTitle(name)
@@ -376,7 +376,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          confirmDownloadCancelation(holder, position, item.getName());
+          confirmDownloadCancellation(holder, position, item.getName());
         }
       });
 
@@ -462,7 +462,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          confirmDownloadCancelation(holder, position, item.getName());
+          confirmDownloadCancellation(holder, position, item.getName());
         }
       });
       holder.mInfoSlided.setVisibility(View.VISIBLE);
@@ -773,7 +773,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           processNotDownloaded(name, position, status, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
           break;
         case MENU_CANCEL:
-          confirmDownloadCancelation(holder, position, name);
+          confirmDownloadCancellation(holder, position, name);
           break;
         case MENU_SHOW:
           showCountry(position);
