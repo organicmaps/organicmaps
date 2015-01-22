@@ -39,10 +39,11 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 {
   private final static String TAG = "MWMApplication";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
-  public static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
-  public static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
-  public static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
+  private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
+  private static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
+  private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
   public static final String IS_PREINSTALLED = "IsPreinstalled";
+  private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
 
   private static MWMApplication mSelf;
 
@@ -285,7 +286,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   {
     final int currentLaunches = nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
     if (currentLaunches == 0)
+    {
       trackAppActivation();
+      nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
+    }
 
     nativeSetInt(LAUNCH_NUMBER_SETTING, currentLaunches + 1);
   }
@@ -305,7 +309,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   }
 
   /**
-   *
    * @return total number of application launches
    */
   public int getLaunchesNumber()
@@ -315,11 +318,17 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   /**
    * Session = single day, when app was started any number of times.
+   *
    * @return number of sessions.
    */
   public int getSessionsNumber()
   {
     return nativeGetInt(SESSION_NUMBER_SETTING, 0);
+  }
+
+  public int getFirstInstallVersion()
+  {
+    return nativeGetInt(FIRST_INSTALL_VERSION, 0);
   }
 
   private void initMAT(Activity activity)

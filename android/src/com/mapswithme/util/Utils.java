@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -287,12 +286,17 @@ public class Utils
     return model;
   }
 
-  public static boolean isInstalledAfter(Calendar calendar)
+  /**
+   *
+   * @param timestamp in currentTimeMillis() format
+   * @return
+   */
+  public static boolean isInstalledAfter(long timestamp)
   {
     try
     {
       final PackageInfo info = MWMApplication.get().getPackageManager().getPackageInfo(BuildConfig.APPLICATION_ID, 0);
-      return info.firstInstallTime > calendar.getTimeInMillis();
+      return info.firstInstallTime > timestamp;
     } catch (PackageManager.NameNotFoundException e)
     {
       e.printStackTrace();
