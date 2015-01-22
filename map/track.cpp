@@ -129,12 +129,7 @@ void drawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD>
   m2::PointD p1, p2, p3;
 
   m2::ArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, p1, p2, p3);
-  vector<m2::PointF> arrow;
-  arrow.reserve(3);
-  arrow.push_back(p1);
-  arrow.push_back(p2);
-  arrow.push_back(p3);
-
+  vector<m2::PointF> arrow = {p1, p2, p3};
   dlScreen->drawConvexPolygon(&arrow[0], arrow.size(), arrowColor, arrowDepth);
 }
 

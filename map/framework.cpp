@@ -768,7 +768,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   pScreen->endFrame();
 
-  m_bmManager.DrawItems(e, GetDrawScale(), m_guiController->GetVisualScale());
+  m_bmManager.DrawItems(e);
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }

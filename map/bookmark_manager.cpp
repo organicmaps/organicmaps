@@ -249,7 +249,7 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
   return (m_categories.size()-1);
 }
 
-void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e, int drawScale, double visualScale) const
+void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 {
 #ifndef USE_DRAPE
   ASSERT(m_cache != NULL, ());
@@ -258,6 +258,8 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e, int drawScale,
 
   LazyMatrixCalc matrix(screen, m_lastScale);
 
+  double const drawScale = m_framework.GetDrawScale();
+  double const visualScale = m_framework.GetVisualScale();
   auto trackUpdateFn = [&matrix, &limitRect, this, drawScale, visualScale](Track const * track)
   {
     if (limitRect.IsIntersect(track->GetLimitRect()))
