@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -38,7 +39,9 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 {
   private final static String TAG = "MWMApplication";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
-  public static final String LAUNCH_NUMBER_SETTING = "LaunchNumber";
+  public static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
+  public static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
+  public static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
   public static final String IS_PREINSTALLED = "IsPreinstalled";
 
   private static MWMApplication mSelf;
@@ -137,6 +140,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     BookmarkManager.getBookmarkManager();
 
     updateLaunchNumbers();
+    updateSessionsNumber();
     initMrgs();
     WorkerService.startActionUpdateAds(this);
     PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -286,15 +290,36 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     nativeSetInt(LAUNCH_NUMBER_SETTING, currentLaunches + 1);
   }
 
+  private void updateSessionsNumber()
+  {
+    final int sessionNum = nativeGetInt(SESSION_NUMBER_SETTING, 0);
+    final long lastSessionTimestamp = nativeGetLong(LAST_SESSION_TIMESTAMP_SETTING, 0);
+    if (!DateUtils.isToday(lastSessionTimestamp))
+      nativeSetInt(SESSION_NUMBER_SETTING, sessionNum + 1);
+  }
+
   private void trackAppActivation()
   {
     nativeSetBoolean(IS_PREINSTALLED, BuildConfig.IS_PREINSTALLED);
     Statistics.INSTANCE.trackAppActivated(BuildConfig.IS_PREINSTALLED, BuildConfig.FLAVOR);
   }
 
+  /**
+   *
+   * @return total number of application launches
+   */
   public int getLaunchesNumber()
   {
     return nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
+  }
+
+  /**
+   * Session = single day, when app was started any number of times.
+   * @return number of sessions.
+   */
+  public int getSessionsNumber()
+  {
+    return nativeGetInt(SESSION_NUMBER_SETTING, 0);
   }
 
   private void initMAT(Activity activity)
