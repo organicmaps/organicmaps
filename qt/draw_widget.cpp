@@ -103,9 +103,7 @@ namespace qt
     if (!m_framework->LoadState())
       ShowAll();
     else
-    {
       UpdateScaleControl();
-    }
   }
 
   void DrawWidget::SaveState()
@@ -211,6 +209,7 @@ namespace qt
         dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new QtOGLContextFactory(this));
         m_contextFactory = dp::MasterPointer<dp::OGLContextFactory>(factory);
         CreateEngine();
+        LoadState();
         UpdateScaleControl();
       }
     }

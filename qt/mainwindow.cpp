@@ -177,7 +177,6 @@ void MainWindow::LoadState()
 {
   // do always show on full screen
   showMaximized();
-  m_pDrawWidget->LoadState();
 }
 
 void MainWindow::LocationStateModeChanged(location::State::Mode mode)

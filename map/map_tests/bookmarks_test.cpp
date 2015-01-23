@@ -120,21 +120,21 @@ char const * kmlString =
 
   void CheckBookmarks(BookmarkCategory const & cat)
   {
-    TEST_EQUAL(cat.GetBookmarksCount(), 4, ());
+    TEST_EQUAL(cat.GetUserMarkCount(), 4, ());
 
-    Bookmark const * bm = cat.GetBookmark(3);
+    Bookmark const * bm = static_cast<Bookmark const *>(cat.GetUserMark(3));
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
     TEST_EQUAL(bm->GetType(), "placemark-red", ());
     TEST_EQUAL(bm->GetDescription(), "", ());
     TEST_EQUAL(bm->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
 
-    bm = cat.GetBookmark(2);
+    bm = static_cast<Bookmark const *>(cat.GetUserMark(2));
     TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
     TEST_EQUAL(bm->GetType(), "placemark-pink", ());
     TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
     TEST_EQUAL(bm->GetTimeStamp(), 524214643, ());
 
-    bm = cat.GetBookmark(1);
+    bm = static_cast<Bookmark const *>(cat.GetUserMark(1));
     m2::PointD org = bm->GetOrg();
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.566765, ());
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.900047, ());
@@ -143,7 +143,7 @@ char const * kmlString =
     TEST_EQUAL(bm->GetDescription(), "", ());
     TEST_EQUAL(bm->GetTimeStamp(), 888888888, ());
 
-    bm = cat.GetBookmark(0);
+    bm = static_cast<Bookmark const *>(cat.GetUserMark(0));
     org = bm->GetOrg();
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.551532, ());
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.89306, ());
@@ -172,12 +172,13 @@ UNIT_TEST(Bookmarks_ExportKML)
 
   Framework framework;
   BookmarkCategory cat("Default", framework);
+  BookmarkCategory::Guard guard(cat);
   TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
   TEST_EQUAL(cat.IsVisible(), false, ());
   // Change visibility
-  cat.SetVisible(true);
+  guard.m_controller.SetIsVisible(true);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
   {
@@ -185,8 +186,8 @@ UNIT_TEST(Bookmarks_ExportKML)
     cat.SaveToKML(of);
   }
 
-  cat.ClearBookmarks();
-  TEST_EQUAL(cat.GetBookmarksCount(), 0, ());
+  guard.m_controller.Clear();
+  TEST_EQUAL(guard.m_controller.GetUserMarkCount(), 0, ());
 
   TEST(cat.LoadFromKML(new FileReader(BOOKMARKS_FILE_NAME)), ());
   CheckBookmarks(cat);
@@ -229,7 +230,7 @@ namespace
     UserMark const * mark = GetMark(fm, pt);
     ASSERT(mark != NULL, ());
     ASSERT(mark->GetContainer() != NULL, ());
-    ASSERT(mark->GetContainer()->GetType() == UserMarkContainer::BOOKMARK_MARK, ());
+    ASSERT(mark->GetContainer()->GetType() == UserMarkType::BOOKMARK_MARK, ());
     return static_cast<Bookmark const *>(mark);
   }
 
@@ -241,7 +242,7 @@ namespace
   BookmarkCategory const * GetCategory(Bookmark const * bm)
   {
     ASSERT(bm->GetContainer() != NULL, ());
-    ASSERT(bm->GetContainer()->GetType() == UserMarkContainer::BOOKMARK_MARK, ());
+    ASSERT(bm->GetContainer()->GetType() == UserMarkType::BOOKMARK_MARK, ());
     return static_cast<BookmarkCategory const *>(bm->GetContainer());
   }
 
@@ -251,7 +252,7 @@ namespace
     if (mark == NULL)
       return false;
 
-    if (mark->GetContainer()->GetType() != UserMarkContainer::BOOKMARK_MARK)
+    if (mark->GetContainer()->GetType() != UserMarkType::BOOKMARK_MARK)
       return false;
 
     return true;
@@ -281,17 +282,23 @@ UNIT_TEST(Bookmarks_Timestamp)
   // Check bookmarks order here. First added should be in the bottom of the list.
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1), pBm, ());
 
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetName(), "name", ());
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetType(), "type", ());
+  Bookmark const * bm01 = static_cast<Bookmark const *>(fm.GetBmCategory(0)->GetUserMark(1));
 
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetName(), "newName", ());
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetType(), "newType", ());
+  TEST_EQUAL(bm01->GetName(), "name", ());
+  TEST_EQUAL(bm01->GetType(), "type", ());
 
-  TEST_EQUAL(fm.GetBmCategory(1)->GetBookmark(0)->GetName(), "newName", ());
-  TEST_EQUAL(fm.GetBmCategory(1)->GetBookmark(0)->GetType(), "newType", ());
+  Bookmark const * bm00 = static_cast<Bookmark const *>(fm.GetBmCategory(0)->GetUserMark(0));
 
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2, ());
-  TEST_EQUAL(fm.GetBmCategory(1)->GetBookmarksCount(), 1, ());
+  TEST_EQUAL(bm00->GetName(), "newName", ());
+  TEST_EQUAL(bm00->GetType(), "newType", ());
+
+  Bookmark const * bm10 = static_cast<Bookmark const *>(fm.GetBmCategory(1)->GetUserMark(0));
+
+  TEST_EQUAL(bm10->GetName(), "newName", ());
+  TEST_EQUAL(bm10->GetType(), "newType", ());
+
+  TEST_EQUAL(fm.GetBmCategory(0)->GetUserMarkCount(), 2, ());
+  TEST_EQUAL(fm.GetBmCategory(1)->GetUserMarkCount(), 1, ());
 
   DeleteCategoryFiles(arrCat);
 }
@@ -354,10 +361,11 @@ UNIT_TEST(Bookmarks_Getting)
   TEST_EQUAL(mark->GetName(), "4", ());
   TEST_EQUAL(mark->GetType(), "placemark-blue", ());
 
-  TEST_EQUAL(cat->GetBookmarksCount(), 2, ());
+  TEST_EQUAL(cat->GetUserMarkCount(), 2, ());
 
-  fm.GetBmCategory(2)->DeleteBookmark(0);
-  TEST_EQUAL(cat->GetBookmarksCount(), 1, ());
+  BookmarkCategory::Guard guard(*fm.GetBmCategory(2));
+  guard.m_controller.DeleteUserMark(0);
+  TEST_EQUAL(cat->GetUserMarkCount(), 1, ());
 
   DeleteCategoryFiles(arrCat);
 }
@@ -509,7 +517,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   mark = GetBookmarkPxPoint(fm, pixelPoint);
   cat = GetCategory(mark);
   TEST_EQUAL(cat->GetName(), arrCat[0], ());
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2,
+  TEST_EQUAL(fm.GetBmCategory(0)->GetUserMarkCount(), 2,
              ("Bookmark wasn't moved from one category to another"));
   TEST_EQUAL(mark->GetName(), "name2", ());
   TEST_EQUAL(mark->GetType(), "placemark-blue", ());
@@ -552,14 +560,17 @@ UNIT_TEST(Bookmarks_InnerFolder)
   BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2))), ());
 
-  TEST_EQUAL(cat.GetBookmarksCount(), 1, ());
+  TEST_EQUAL(cat.GetUserMarkCount(), 1, ());
 }
 
 UNIT_TEST(BookmarkCategory_EmptyName)
 {
   Framework framework;
   unique_ptr<BookmarkCategory> pCat(new BookmarkCategory("", framework));
-  TEST(pCat->AddBookmark(m2::PointD(0, 0), BookmarkData("", "placemark-red")), ());
+  {
+    BookmarkCategory::Guard guard(*pCat);
+    static_cast<Bookmark *>(guard.m_controller.CreateUserMark(m2::PointD(0, 0)))->SetData(BookmarkData("", "placemark-red"));
+  }
   TEST(pCat->SaveToKMLFile(), ());
 
   pCat->SetName("xxx");
@@ -611,18 +622,20 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
   BookmarkCategory cat1("", framework);
   TEST(cat1.LoadFromKML(new MemReader(kmlString3, strlen(kmlString3))), ());
 
-  TEST_EQUAL(cat1.GetBookmarksCount(), 1, ());
+  TEST_EQUAL(cat1.GetUserMarkCount(), 1, ());
   TEST(cat1.SaveToKMLFile(), ());
 
   unique_ptr<BookmarkCategory> const cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName(), framework));
   TEST(cat2.get(), ());
-  TEST_EQUAL(cat2->GetBookmarksCount(), 1, ());
+  TEST_EQUAL(cat2->GetUserMarkCount(), 1, ());
 
   TEST_EQUAL(cat1.GetName(), "3663 and M & J Seafood Branches", ());
   TEST_EQUAL(cat1.GetName(), cat2->GetName(), ());
   TEST_EQUAL(cat1.GetFileName(), cat2->GetFileName(), ());
-  TEST(EqualBookmarks(*cat1.GetBookmark(0), *cat2->GetBookmark(0)), ());
-  TEST_EQUAL(cat1.GetBookmark(0)->GetName(), "![X1]{X2}(X3)", ());
+  Bookmark const * bm1 = static_cast<Bookmark const *>(cat1.GetUserMark(0));
+  Bookmark const * bm2 = static_cast<Bookmark const *>(cat2->GetUserMark(0));
+  TEST(EqualBookmarks(*bm1, *bm2), ());
+  TEST_EQUAL(bm1->GetName(), "![X1]{X2}(X3)", ());
 
   TEST(my::DeleteFileX(cat1.GetFileName()), ());
 }

@@ -19,30 +19,26 @@ namespace
     lat = MercatorBounds::YToLat(MercatorBounds::LatToY(lat));
   }
 
-  const UserMarkContainer::Type type = UserMarkContainer::API_MARK;
+  UserMarkType const type = UserMarkType::API_MARK;
+
   class ApiTest
   {
   public:
     ApiTest(string const & uriString)
     {
       m_m = &m_fm.GetBookmarkManager();
-      m_c = &m_m->UserMarksGetController(type);
-      m_api.SetController(m_c);
-      m_api.SetUriAndParse(uriString);
+      UserMarkControllerGuard guard(*m_m, type);
+      url_scheme::ParseUrl(guard.m_controller, uriString, m_api, m_viewportRect);
     }
 
-    bool IsValid() const { return m_api.IsValid(); }
-    m2::RectD GetViewport()
-    {
-      m2::RectD rect;
-      m_api.GetViewportRect(rect);
-      return rect;
-    }
-    string const & GetAppTitle() { return m_api.GetAppTitle(); }
-    bool GoBackOnBalloonClick() { return m_api.GoBackOnBalloonClick(); }
-    int GetPointCount() { return m_c->GetUserMarkCount(); }
-    string const & GetGlobalBackUrl() { return m_api.GetGlobalBackUrl(); }
-    int GetApiVersion() { return m_api.GetApiVersion(); }
+    bool IsValid() const { return m_api.m_isValid; }
+    m2::RectD GetViewport() { return m_viewportRect; }
+
+    string const & GetAppTitle() { return m_api.m_appTitle; }
+    bool GoBackOnBalloonClick() { return m_api.m_goBackOnBalloonClick; }
+    int GetPointCount() { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
+    string const & GetGlobalBackUrl() { return m_api.m_globalBackUrl; }
+    int GetApiVersion() { return m_api.m_version; }
     bool TestLatLon(int index, double lat, double lon) const
     {
       double tLat, tLon;
@@ -63,26 +59,29 @@ namespace
   private:
     ApiMarkPoint const * GetMark(int index) const
     {
-      TEST_LESS(index, m_c->GetUserMarkCount(), ());
-      return static_cast<ApiMarkPoint const *>(m_c->GetUserMark(index));
+      UserMarkControllerGuard guard(*m_m, type);
+      TEST_LESS(index, guard.m_controller.GetUserMarkCount(), ());
+      return static_cast<ApiMarkPoint const *>(guard.m_controller.GetUserMark(index));
     }
 
   private:
     Framework m_fm;
     ParsedMapApi m_api;
-    UserMarkContainer::Controller * m_c;
+    m2::RectD m_viewportRect;
     BookmarkManager * m_m;
   };
 
   bool IsValid(Framework & fm, string const & uriStrig)
   {
     ParsedMapApi api;
-    UserMarkContainer::Type type = UserMarkContainer::API_MARK;
-    api.SetController(&fm.GetBookmarkManager().UserMarksGetController(type));
-    api.SetUriAndParse(uriStrig);
-    bool res = api.IsValid();
-    fm.GetBookmarkManager().UserMarksClear(type);
-    return res;
+    {
+      UserMarkControllerGuard guard(fm.GetBookmarkManager(), UserMarkType::API_MARK);
+      m2::RectD dummyRect;
+      url_scheme::ParseUrl(guard.m_controller, uriStrig, api, dummyRect);
+      guard.m_controller.Clear();
+    }
+
+    return api.m_isValid;
   }
 }
 

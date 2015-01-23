@@ -67,7 +67,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   else if (section == m_trackSection)
     return GetFramework().GetBmCategory(m_categoryIndex)->GetTracksCount();
   else if (section == m_bookmarkSection)
-    return GetFramework().GetBmCategory(m_categoryIndex)->GetBookmarksCount();
+    return GetFramework().GetBmCategory(m_categoryIndex)->GetUserMarkCount();
   else if (section == m_shareSection)
     return 1;
   else
@@ -79,7 +79,10 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   [[Statistics instance] logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
                    withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
-  cat->SetVisible(sender.on);
+  {
+    BookmarkCategory::Guard guard(*cat);
+    guard.m_controller.SetIsVisible(sender.on);
+  }
   cat->SaveToKMLFile();
 }
 
@@ -176,7 +179,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     BookmarkCell * bmCell = (BookmarkCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!bmCell)
       bmCell = [[BookmarkCell alloc] initWithReuseIdentifier:@"BookmarksVCBookmarkItemCell"];
-    Bookmark const * bm = cat->GetBookmark(indexPath.row);
+    Bookmark const * bm = static_cast<Bookmark const *>(cat->GetUserMark(indexPath.row));
     if (bm)
     {
       bmCell.bmName.text = @(bm->GetName().c_str());
@@ -252,7 +255,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
   {
     if (cat)
     {
-      Bookmark const * bm = cat->GetBookmark(indexPath.row);
+      Bookmark const * bm = static_cast<Bookmark const *>(cat->GetUserMark(indexPath.row));
       ASSERT(bm, ("NULL bookmark"));
       if (bm)
       {
@@ -335,7 +338,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
       else
         [self.tableView reloadData];
-      if (cat->GetBookmarksCount() + cat->GetTracksCount() == 0)
+      if (cat->GetUserMarkCount() + cat->GetTracksCount() == 0)
       {
         self.navigationItem.rightBarButtonItem = nil;
         [self setEditing:NO animated:YES];
@@ -360,7 +363,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       NSIndexPath * indexPath = [table indexPathForCell:cell];
       if (indexPath.section == m_bookmarkSection)
       {
-        Bookmark const * bm = cat->GetBookmark(indexPath.row);
+        Bookmark const * bm = static_cast<Bookmark const *>(cat->GetUserMark(indexPath.row));
         if (bm)
         {
           m2::PointD const center = bm->GetOrg();
@@ -389,7 +392,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
 
   // Display Edit button only if table is not empty
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
-  if (cat && (cat->GetBookmarksCount() + cat->GetTracksCount()))
+  if (cat && (cat->GetUserMarkCount() + cat->GetTracksCount()))
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
     self.navigationItem.rightBarButtonItem = nil;
@@ -451,7 +454,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
     m_trackSection = index++;
   else
     m_trackSection = EMPTY_SECTION;
-  if (cat->GetBookmarksCount())
+  if (cat->GetUserMarkCount())
     m_bookmarkSection = index++;
   else
     m_bookmarkSection = EMPTY_SECTION;

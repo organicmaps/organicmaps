@@ -121,7 +121,7 @@ public:
 
 class BookmarkCategory : public UserMarkContainer
 {
-  typedef UserMarkContainer base_t;
+  typedef UserMarkContainer TBase;
   /// @name Data
   //@{
   /// TODO move track into UserMarkContainer as a IDrawable custom data
@@ -133,21 +133,36 @@ class BookmarkCategory : public UserMarkContainer
   string m_file;
 
 public:
+  class Guard
+  {
+  public:
+    Guard(BookmarkCategory & cat)
+      : m_controller(cat.RequestController())
+      , m_cat(cat)
+    {
+    }
+
+    ~Guard()
+    {
+      m_cat.ReleaseController();
+    }
+
+    UserMarksController & m_controller;
+
+  private:
+    BookmarkCategory & m_cat;
+  };
+
   BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
-  virtual Type GetType() const { return BOOKMARK_MARK; }
+  virtual string const & GetSymbolName(size_t index) const;
+  virtual dp::Anchor GetAnchor(size_t index) const;
 
   void ClearBookmarks();
   void ClearTracks();
 
   static string GetDefaultType();
-
-  /// @name Theese functions are called from Framework only.
-  //@{
-  Bookmark* AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
-  void ReplaceBookmark(size_t index, BookmarkData const & bm);
-  //@}
 
   /// @name Tracks routine.
   //@{
@@ -161,16 +176,6 @@ public:
   void SetName(string const & name) { m_name = name; }
   string const & GetName() const { return m_name; }
   string const & GetFileName() const { return m_file; }
-
-  size_t GetBookmarksCount() const;
-
-  Bookmark const * GetBookmark(size_t index) const;
-  Bookmark * GetBookmark(size_t index);
-  void DeleteBookmark(size_t index);
-
-  // Returns index of the bookmark if exists, otherwise returns
-  // total number of bookmarks.
-  size_t FindBookmark(Bookmark const * bookmark) const;
 
   /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.
@@ -192,17 +197,7 @@ public:
   //@}
 
 protected:
-  virtual string GetTypeName() const { return "search-result"; }
-  virtual string GetActiveTypeName() const { return "search-result-active"; }
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
-
-private:
-  void ReleaseAnimations();
-  
-private:
-  bool m_blockAnimation;
-  using TAnimNode = pair<UserMark *, shared_ptr<anim::Task>>;
-  vector<TAnimNode> m_anims;
 };
 
 /// <category index, bookmark index>

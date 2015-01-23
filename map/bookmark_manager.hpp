@@ -2,7 +2,6 @@
 #include "map/bookmark.hpp"
 #include "map/route_track.hpp"
 #include "map/user_mark_container.hpp"
-#include "map/user_mark_dl_cache.hpp"
 
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"
@@ -19,7 +18,7 @@ class BookmarkManager : private noncopyable
 
   Framework & m_framework;
 
-  vector<UserMarkContainer * > m_userMarkLayers;
+  vector<UserMarkContainer *> m_userMarkLayers;
 
   mutable double m_lastScale;
 
@@ -64,9 +63,9 @@ public:
   void DeleteBmCategory(CategoryIter i);
   bool DeleteBmCategory(size_t index);
 
-  void ActivateMark(UserMark const * mark, bool needAnim);
-  bool UserMarkHasActive() const;
-  bool IsUserMarkActive(UserMark const * container) const;
+  //void ActivateMark(UserMark const * mark, bool needAnim);
+  //bool UserMarkHasActive() const;
+  //bool IsUserMarkActive(UserMark const * container) const;
 
   typedef function<m2::AnyRectD const & (UserMarkContainer::Type)> TTouchRectHolder;
 
@@ -74,17 +73,9 @@ public:
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
 
   /// Additional layer methods
-  void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);
-  bool UserMarksIsVisible(UserMarkContainer::Type type) const;
-  void UserMarksSetDrawable(UserMarkContainer::Type type, bool isDrawable);
-  void UserMarksIsDrawable(UserMarkContainer::Type type);
-  UserMark * UserMarksAddMark(UserMarkContainer::Type type, m2::PointD const & ptOrg);
-  void UserMarksClear(UserMarkContainer::Type type, size_t skipCount = 0);
-  UserMarkContainer::Controller & UserMarksGetController(UserMarkContainer::Type type);
-
-  ///@TODO UVR
-  //void SetScreen(graphics::Screen * screen);
-  void ResetScreen();
+  bool UserMarksIsVisible(UserMarkType type) const;
+  UserMarksController & UserMarksRequestController(UserMarkType type);
+  void UserMarksReleaseController(UserMarksController & controller);
 
   void SetRouteTrack(m2::PolylineD const & routePolyline, vector<double> const & turns,
                      graphics::Color const & color);
@@ -94,12 +85,16 @@ public:
   void SetRouteFinishPoint(m2::PointD const & pt, bool isValid);
 
 private:
-  UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;
-  UserMarkContainer * FindUserMarksContainer(UserMarkContainer::Type type);
+  UserMarkContainer const * FindUserMarksContainer(UserMarkType type) const;
+  UserMarkContainer * FindUserMarksContainer(UserMarkType type);
+};
 
-  UserMarkDLCache * m_cache;
+class UserMarkControllerGuard
+{
+public:
+  UserMarkControllerGuard(BookmarkManager & mng, UserMarkType type);
+  ~UserMarkControllerGuard();
 
-  SelectionContainer m_selection;
-
-  unique_ptr<rg::RouteRenderer> m_routeRenderer;
+  BookmarkManager & m_mng;
+  UserMarksController & m_controller;
 };

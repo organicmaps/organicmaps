@@ -1,13 +1,12 @@
 #include "map/user_mark_container.hpp"
 
 #include "map/framework.hpp"
-#include "map/anim_phase_chain.hpp"
 
-#include "geometry/transformations.hpp"
+#include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
-#include "anim/task.hpp"
-#include "anim/controller.hpp"
-
+#include "base/scope_guard.hpp"
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
@@ -17,24 +16,24 @@
 
 namespace
 {
-  class PinAnimation : public AnimPhaseChain
-  {
-  public:
-    PinAnimation(Framework & f)
-      : AnimPhaseChain(f, m_scale)
-      , m_scale(0.0)
-    {
-      InitDefaultPinAnim(this);
-    }
+//  class PinAnimation : public AnimPhaseChain
+//  {
+//  public:
+//    PinAnimation(Framework & f)
+//      : AnimPhaseChain(f, m_scale)
+//      , m_scale(0.0)
+//    {
+//      InitDefaultPinAnim(this);
+//    }
 
-    double GetScale() const
-    {
-      return m_scale;
-    }
+//    double GetScale() const
+//    {
+//      return m_scale;
+//    }
 
-  private:
-    double m_scale;
-  };
+//  private:
+//    double m_scale;
+//  };
 
   class FindMarkFunctor
   {
@@ -67,105 +66,54 @@ namespace
     m2::PointD m_globalCenter;
   };
 
-  ///@TODO UVR
-//  void DrawUserMarkByPoint(double scale,
-//                           double visualScale,
-//                           m2::PointD const & pixelOfsset,
-//                           PaintOverlayEvent const & event,
-//                           graphics::DisplayList * dl,
-//                           m2::PointD const & ptOrg)
-//  {
-//#ifndef USE_DRAPE
-//    ScreenBase const & modelView = event.GetModelView();
-//    graphics::Screen * screen = event.GetDrawer()->screen();
-//    m2::PointD pxPoint = modelView.GtoP(ptOrg);
-//    pxPoint += (pixelOfsset * visualScale);
-//    math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
-//                                                           scale, scale),
-//                                               pxPoint.x, pxPoint.y);
-//    dl->draw(screen, m);
-//#endif // USE_DRAPE
-//  }
+  df::TileKey CreateTileKey(UserMarkContainer const * cont)
+  {
+    switch (cont->GetType())
+    {
+    case UserMarkType::API_MARK: return df::GetApiTileKey();
+    case UserMarkType::SEARCH_MARK: return df::GetSearchTileKey();
+    case UserMarkType::BOOKMARK_MARK: return df::GetBookmarkTileKey(reinterpret_cast<size_t>(cont));
+    default:
+      ASSERT(false, ());
+      break;
+    }
 
-//  void DrawUserMarkImpl(double scale,
-//                        double visualScale,
-//                        m2::PointD const & pixelOfsset,
-//                        PaintOverlayEvent const & event,
-//                        graphics::DisplayList * dl,
-//                        UserMark const * mark)
-//  {
-//    DrawUserMarkByPoint(scale, visualScale, pixelOfsset, event, dl, mark->GetOrg());
-//  }
+    return df::TileKey();
+  }
 
-//  void DrawUserMark(double scale,
-//                    double visualScale,
-//                    PaintOverlayEvent const & event,
-//                    UserMarkDLCache * cache,
-//                    UserMarkDLCache::Key const & defaultKey,
-//                    UserMark const * mark)
-//  {
-//    if (mark->IsCustomDrawable())
-//    {
-//      ICustomDrawable const * drawable = static_cast<ICustomDrawable const *>(mark);
-//      DrawUserMarkImpl(drawable->GetAnimScaleFactor(), visualScale, drawable->GetPixelOffset(), event, drawable->GetDisplayList(cache), mark);
-//    }
-//    else
-//      DrawUserMarkImpl(scale, visualScale, m2::PointD(0.0, 0.0), event, cache->FindUserMark(defaultKey), mark);
-//  }
+  size_t const VisibleFlag = 0;
+  size_t const VisibleDirtyFlag = 1;
+  size_t const DrawableFlag = 2;
+  size_t const DrawableDirtyFlag = 3;
 }
 
-UserMarkContainer::UserMarkContainer(double layerDepth, Framework & fm)
+UserMarkContainer::UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm)
   : m_framework(fm)
-  , m_controller(this)
-  , m_isVisible(true)
-  , m_isDrawable(true)
   , m_layerDepth(layerDepth)
+  , m_type(type)
 {
+  m_flags.set();
 }
 
 UserMarkContainer::~UserMarkContainer()
 {
-  Clear();
-}
-
-template <class ToDo>
-void UserMarkContainer::ForEachInRect(m2::RectD const & rect, ToDo toDo) const
-{
-  for (size_t i = 0; i < m_userMarks.size(); ++i)
-    if (rect.IsPointInside(m_userMarks[i]->GetOrg()))
-      toDo(m_userMarks[i].get());
+  RequestController().Clear();
+  ReleaseController();
 }
 
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
 {
-  UserMark * mark = NULL;
+  UserMark * mark = nullptr;
   if (IsVisible())
   {
     FindMarkFunctor f(&mark, d, rect);
-    ForEachInRect(rect.GetGlobalRect(), f);
+    for (size_t i = 0; i < m_userMarks.size(); ++i)
+    {
+      if (rect.IsPointInside(m_userMarks[i]->GetOrg()))
+        f(m_userMarks[i]);
+    }
   }
   return mark;
-}
-
-void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const
-{
-  ///@TODO UVR
-//#ifndef USE_DRAPE
-//  if (IsVisible() && IsDrawable())
-//  {
-//    UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
-//    ForEachInRect(e.GetClipRect(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
-//                                        e, cache, defaultKey, _1));
-//  }
-//#endif // USE_DRAPE
-}
-
-void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
-{
-  // Recently added marks stored in the head of list
-  // (@see CreateUserMark). Leave tail here.
-  if (skipCount < m_userMarks.size())
-    m_userMarks.erase(m_userMarks.begin(), m_userMarks.end() - skipCount);
 }
 
 namespace
@@ -200,11 +148,69 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
   return g_myPosition.get();
 }
 
+UserMarksController & UserMarkContainer::RequestController()
+{
+  BeginWrite();
+  return *this;
+}
+
+void UserMarkContainer::ReleaseController()
+{
+  MY_SCOPE_GUARD(endWriteGuard, [this]{ EndWrite(); });
+  dp::RefPointer<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
+  if (engine.IsNull())
+    return;
+
+  df::TileKey key = CreateTileKey(this);
+  if (IsVisibleFlagDirty() || IsDrawableFlagDirty())
+    engine->ChangeVisibilityUserMarksLayer(key, IsVisible() && IsDrawable());
+
+  if (IsDirty())
+  {
+    if (GetUserMarkCount() == 0)
+      engine->ClearUserMarksLayer(key);
+    else
+      engine->UpdateUserMarksLayer(key, this);
+  }
+}
+
+size_t UserMarkContainer::GetCount() const
+{
+  return m_userMarks.size();
+}
+
+m2::PointD const & UserMarkContainer::GetPivot(size_t index) const
+{
+  return GetUserMark(index)->GetOrg();
+}
+
+float UserMarkContainer::GetDepth(size_t index) const
+{
+  UNUSED_VALUE(index);
+  return m_layerDepth;
+}
+
+dp::Anchor UserMarkContainer::GetAnchor(size_t index) const
+{
+  UNUSED_VALUE(index);
+  return dp::Center;
+}
+
+bool UserMarkContainer::IsVisible() const
+{
+  return m_flags[VisibleFlag];
+}
+
+bool UserMarkContainer::IsDrawable() const
+{
+  return m_flags[DrawableFlag];
+}
+
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
-  // Push new marks to the head of list.
-  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
-  return m_userMarks.front().get();
+  SetDirty();
+  m_userMarks.push_back(AllocateUserMark(ptOrg));
+  return m_userMarks.back();
 }
 
 size_t UserMarkContainer::GetUserMarkCount() const
@@ -215,58 +221,57 @@ size_t UserMarkContainer::GetUserMarkCount() const
 UserMark const * UserMarkContainer::GetUserMark(size_t index) const
 {
   ASSERT_LESS(index, m_userMarks.size(), ());
-  return m_userMarks[index].get();
+  return m_userMarks[index];
 }
 
-UserMark * UserMarkContainer::GetUserMark(size_t index)
+UserMarkType UserMarkContainer::GetType() const
 {
+  return m_type;
+}
+
+UserMark * UserMarkContainer::GetUserMarkForEdit(size_t index)
+{
+  SetDirty();
   ASSERT_LESS(index, m_userMarks.size(), ());
-  return m_userMarks[index].get();
+  return m_userMarks[index];
 }
 
-void UserMarkContainer::DeleteUserMark(size_t index)
+void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 {
-  ASSERT_LESS(index, m_userMarks.size(), ());
-  if (index < m_userMarks.size())
-    m_userMarks.erase(m_userMarks.begin() + index);
-  else
-    LOG(LWARNING, ("Trying to delete non-existing item at index", index));
+  SetDirty();
+  for (size_t i = skipCount; i < m_userMarks.size(); ++i)
+    delete m_userMarks[i];
+
+  if (skipCount < m_userMarks.size())
+    m_userMarks.erase(m_userMarks.begin() + skipCount, m_userMarks.end());
 }
 
-void UserMarkContainer::DeleteUserMark(UserMark const * mark)
+void UserMarkContainer::SetIsDrawable(bool isDrawable)
 {
-  size_t index = FindUserMark(mark);
-  if (index != m_userMarks.size())
-    DeleteUserMark(index);
+  if (IsDrawable() != isDrawable)
+  {
+    m_flags[DrawableDirtyFlag] = true;
+    m_flags[DrawableFlag] = isDrawable;
+  }
 }
 
-size_t UserMarkContainer::FindUserMark(UserMark const * mark)
+void UserMarkContainer::SetIsVisible(bool isVisible)
 {
-  auto it = find_if(m_userMarks.begin(), m_userMarks.end(), [&mark](unique_ptr<UserMark> const & p)
-                    {
-                      return p.get() == mark;
-                    });
-  return distance(m_userMarks.begin(), it);
+  if (IsVisible() != isVisible)
+  {
+    m_flags[VisibleDirtyFlag] = true;
+    m_flags[VisibleFlag] = isVisible;
+  }
 }
 
-SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)
-  : UserMarkContainer(layerDepth, framework)
+bool UserMarkContainer::IsVisibleFlagDirty()
 {
+  return m_flags[VisibleDirtyFlag];
 }
 
-string SearchUserMarkContainer::GetTypeName() const
+bool UserMarkContainer::IsDrawableFlagDirty()
 {
-  return "search-result";
-}
-
-string SearchUserMarkContainer::GetActiveTypeName() const
-{
-  return "search-result-active";
-}
-
-UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
-{
-  return new SearchMarkPoint(ptOrg, this);
+  return m_flags[DrawableDirtyFlag];
 }
 
 DebugUserMarkContainer::DebugUserMarkContainer(double layerDepth, Framework & framework)
@@ -291,70 +296,61 @@ UserMark * DebugUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
   return new DebugMarkPoint(ptOrg, this);
 }
 
-
-SelectionContainer::SelectionContainer(Framework & fm)
-  : m_container(NULL)
-  , m_fm(fm)
+namespace
 {
-}
 
-void SelectionContainer::ActivateMark(UserMark const * userMark, bool needAnim)
+template <class T> void DeleteItem(vector<T> & v, size_t i)
 {
-  if (needAnim)
-    KillActivationAnim();
-  if (userMark != NULL)
+  if (i < v.size())
   {
-    m_ptOrg = userMark->GetOrg();
-    m_container = userMark->GetContainer();
-    if (needAnim)
-      StartActivationAnim();
+    delete v[i];
+    v.erase(v.begin() + i);
   }
   else
-    m_container = NULL;
-}
-
-void SelectionContainer::Draw(const PaintOverlayEvent & e, UserMarkDLCache * cache) const
-{
-  ///@TODO UVR
-//  if (m_container != NULL)
-//  {
-//    UserMarkDLCache::Key defaultKey(m_container->GetActiveTypeName(),
-//                                    graphics::EPosCenter,
-//                                    graphics::activePinDepth);
-
-//    DrawUserMarkByPoint(GetActiveMarkScale(),
-//                        m_fm.GetVisualScale(),
-//                        m2::PointD(0, 0),
-//                        e, cache->FindUserMark(defaultKey),
-//                        m_ptOrg);
-//  }
-}
-
-bool SelectionContainer::IsActive() const
-{
-  return m_container != NULL;
-}
-
-void SelectionContainer::StartActivationAnim()
-{
-  m_animTask.reset(new PinAnimation(m_fm));
-  m_fm.GetAnimController()->AddTask(m_animTask);
-  ///@TODO UVR
-  //m_fm.Invalidate();
-}
-
-void SelectionContainer::KillActivationAnim()
-{
-  m_animTask.reset();
-}
-
-double SelectionContainer::GetActiveMarkScale() const
-{
-  if (m_animTask != NULL)
   {
-    PinAnimation * a = static_cast<PinAnimation *>(m_animTask.get());
-    return a->GetScale();
+    LOG(LWARNING, ("Trying to delete non-existing item at index", i));
   }
+}
 
-  return 1.0;
+}
+
+void UserMarkContainer::DeleteUserMark(size_t index)
+{
+  SetDirty();
+  ASSERT_LESS(index, m_userMarks.size(), ());
+  DeleteItem(m_userMarks, index);
+}
+
+SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, UserMarkType::SEARCH_MARK, framework)
+{
+}
+
+string const & SearchUserMarkContainer::GetSymbolName(size_t index) const
+{
+  UNUSED_VALUE(index);
+  static string s_symbol = "search-result";
+  return s_symbol;
+}
+
+UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new SearchMarkPoint(ptOrg, this);
+}
+
+ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, UserMarkType::API_MARK, framework)
+{
+}
+
+string const & ApiUserMarkContainer::GetSymbolName(size_t index) const
+{
+  UNUSED_VALUE(index);
+  static string s_symbol = "api-result";
+  return s_symbol;
+}
+
+UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new ApiMarkPoint(ptOrg, this);
 }

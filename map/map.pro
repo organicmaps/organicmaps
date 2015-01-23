@@ -15,10 +15,6 @@ HEADERS += \
     alfa_animation_task.hpp \
     anim_phase_chain.hpp \
     animator.hpp \
-    api_mark_container.hpp \
-    api_mark_point.hpp \
-    benchmark_engine.hpp \
-    benchmark_provider.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
     change_viewport_task.hpp \
@@ -38,11 +34,9 @@ HEADERS += \
     pin_click_manager.hpp \
     rotate_screen_task.hpp \
     ruler.hpp \
-    styled_point.hpp \
     track.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
-    user_mark_dl_cache.hpp \
 
 SOURCES += \
     ../api/src/c/api-client.c \
@@ -51,9 +45,6 @@ SOURCES += \
     alfa_animation_task.cpp \
     anim_phase_chain.cpp \
     animator.cpp \
-    api_mark_container.cpp \
-    benchmark_engine.cpp \
-    benchmark_provider.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
     change_viewport_task.cpp \
@@ -73,13 +64,10 @@ SOURCES += \
     pin_click_manager.cpp \
     rotate_screen_task.cpp \
     ruler.cpp \
-    styled_point.cpp \
     track.cpp \
+    user_mark.cpp \
     user_mark_container.cpp \
-    user_mark_dl_cache.cpp \
 
 !iphone*:!tizen*:!android* {
-  HEADERS += qgl_render_context.hpp
-  SOURCES += qgl_render_context.cpp
   QT += opengl
 }

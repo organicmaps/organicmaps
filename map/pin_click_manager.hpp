@@ -12,7 +12,6 @@ class Framework;
 class PaintEvent;
 namespace location { class GpsInfo; }
 namespace gui { class Element; }
-namespace url_scheme { struct ApiPoint; }
 
 class PinClickManager
 {

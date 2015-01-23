@@ -4,8 +4,6 @@
 
 #include "graphics/depth_constants.hpp"
 
-#include "render/route_renderer.hpp"
-
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -22,16 +20,13 @@
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
   , m_lastScale(1.0)
-  , m_cache(NULL)
-  , m_selection(f)
-  , m_routeRenderer(new rg::RouteRenderer())
 {
   m_userMarkLayers.reserve(3);
   ///@TODO UVR
   m_userMarkLayers.push_back(new SearchUserMarkContainer(0.0/*graphics::activePinDepth*/, m_framework));
   m_userMarkLayers.push_back(new ApiUserMarkContainer(0.0/*graphics::activePinDepth*/, m_framework));
   //m_userMarkLayers.push_back(new DebugUserMarkContainer(graphics::debugDepth, m_framework));
-  UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
+  UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
 }
 
 BookmarkManager::~BookmarkManager()
@@ -40,7 +35,6 @@ BookmarkManager::~BookmarkManager()
   m_userMarkLayers.clear();
 
   ClearItems();
-  ResetScreen();
 }
 
 namespace
@@ -189,42 +183,45 @@ void BookmarkManager::LoadBookmark(string const & filePath)
     m_categories.push_back(cat);
 }
 
-size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
+size_t BookmarkManager::AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm)
 {
   bm.SetTimeStamp(time(0));
   bm.SetScale(m_framework.GetDrawScale());
 
   BookmarkCategory * pCat = m_categories[categoryIndex];
-  Bookmark * bookmark = pCat->AddBookmark(ptOrg, bm);
-  pCat->SetVisible(true);
+
+  BookmarkCategory::Guard guard(*pCat);
+  static_cast<Bookmark *>(guard.m_controller.CreateUserMark(ptOrg))->SetData(bm);
+  guard.m_controller.SetIsVisible(true);
   pCat->SaveToKMLFile();
 
   m_lastCategoryUrl = pCat->GetFileName();
   m_lastType = bm.GetType();
   SaveState();
 
-  return pCat->FindBookmark(bookmark);
+  return (pCat->GetUserMarkCount() - 1);
 }
 
 size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
 {
   BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
-
-  Bookmark * bm = cat->GetBookmark(bmIndex);
+  BookmarkCategory::Guard guard(*cat);
+  Bookmark const * bm = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bmIndex));
   BookmarkData data = bm->GetData();
   m2::PointD ptOrg = bm->GetOrg();
 
-  cat->DeleteBookmark(bmIndex);
+  guard.m_controller.DeleteUserMark(bmIndex);
   cat->SaveToKMLFile();
 
-  return m_framework.AddBookmark(newCatIndex, ptOrg, data);
+  return AddBookmark(newCatIndex, ptOrg, data);
 }
 
 void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
-  BookmarkCategory * pCat = m_categories[catIndex];
-  pCat->ReplaceBookmark(bmIndex, bm);
-  pCat->SaveToKMLFile();
+  BookmarkCategory * cat = m_categories[catIndex];
+  BookmarkCategory::Guard guard(*cat);
+  static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(bmIndex))->SetData(bm);
+  cat->SaveToKMLFile();
 
   m_lastType = bm.GetType();
   SaveState();
@@ -322,18 +319,12 @@ void BookmarkManager::DrawItems(Drawer * drawer) const
 void BookmarkManager::DeleteBmCategory(CategoryIter i)
 {
   BookmarkCategory * cat = *i;
-  if (m_selection.m_container == cat)
-  {
-    PinClickManager & clikManager = m_framework.GetBalloonManager();
-    clikManager.RemovePin();
-    clikManager.Dismiss();
-  }
-
+  m_categories.erase(i);
+  cat->DeleteLater();
   FileWriter::DeleteFileX(cat->GetFileName());
 
-  delete cat;
-
-  m_categories.erase(i);
+  if (cat->CanBeDeleted())
+    delete cat;
 }
 
 bool BookmarkManager::DeleteBmCategory(size_t index)
@@ -347,24 +338,25 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
     return false;
 }
 
-void BookmarkManager::ActivateMark(UserMark const * mark, bool needAnim)
-{
-  m_selection.ActivateMark(mark, needAnim);
-}
+///@TODO UVR
+//void BookmarkManager::ActivateMark(UserMark const * mark, bool needAnim)
+//{
+//  m_selection.ActivateMark(mark, needAnim);
+//}
 
-bool BookmarkManager::UserMarkHasActive() const
-{
-  return m_selection.IsActive();
-}
+//bool BookmarkManager::UserMarkHasActive() const
+//{
+//  return m_selection.IsActive();
+//}
 
-bool BookmarkManager::IsUserMarkActive(UserMark const * mark) const
-{
-  if (mark == nullptr)
-    return false;
+//bool BookmarkManager::IsUserMarkActive(UserMark const * mark) const
+//{
+//  if (mark == nullptr)
+//    return false;
 
-  return (m_selection.m_container == mark->GetContainer() &&
-          m_selection.m_ptOrg.EqualDxDy(mark->GetOrg(), 1.0E-4));
-}
+//  return (m_selection.m_container == mark->GetContainer() &&
+//          m_selection.m_ptOrg.EqualDxDy(mark->GetOrg(), 1.0E-4));
+//}
 
 namespace
 {
@@ -401,112 +393,65 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 {
   BestUserMarkFinder finder(holder);
   for_each(m_categories.begin(), m_categories.end(), ref(finder));
-  finder(FindUserMarksContainer(UserMarkContainer::API_MARK));
-  finder(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
+  finder(FindUserMarksContainer(UserMarkType::API_MARK));
+  finder(FindUserMarksContainer(UserMarkType::SEARCH_MARK));
 
   return finder.GetFindedMark();
 }
 
-void BookmarkManager::UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible)
-{
-  FindUserMarksContainer(type)->SetVisible(isVisible);
-}
-
-bool BookmarkManager::UserMarksIsVisible(UserMarkContainer::Type type) const
+bool BookmarkManager::UserMarksIsVisible(UserMarkType type) const
 {
   return FindUserMarksContainer(type)->IsVisible();
 }
 
-void BookmarkManager::UserMarksSetDrawable(UserMarkContainer::Type type, bool isDrawable)
+UserMarksController & BookmarkManager::UserMarksRequestController(UserMarkType type)
 {
-  FindUserMarksContainer(type)->SetIsDrawable(isDrawable);
+  return FindUserMarksContainer(type)->RequestController();
 }
 
-void BookmarkManager::UserMarksIsDrawable(UserMarkContainer::Type type)
+void BookmarkManager::UserMarksReleaseController(UserMarksController & controller)
 {
-  FindUserMarksContainer(type)->IsDrawable();
+  FindUserMarksContainer(controller.GetType())->ReleaseController();
 }
 
-UserMark * BookmarkManager::UserMarksAddMark(UserMarkContainer::Type type, const m2::PointD & ptOrg)
+void BookmarkManager::SetRouteTrack(Track & track)
 {
-  return FindUserMarksContainer(type)->GetController().CreateUserMark(ptOrg);
-}
-
-void BookmarkManager::UserMarksClear(UserMarkContainer::Type type, size_t skipCount/* = 0*/)
-{
-  FindUserMarksContainer(type)->Clear(skipCount);
-}
-
-UserMarkContainer::Controller & BookmarkManager::UserMarksGetController(UserMarkContainer::Type type)
-{
-  return FindUserMarksContainer(type)->GetController();
-}
-
-///@TODO UVR
-//void BookmarkManager::SetScreen(graphics::Screen * screen)
-//{
-//  ResetScreen();
-//  m_bmScreen = screen;
-//  m_cache = new UserMarkDLCache(m_bmScreen);
-//}
-
-void BookmarkManager::ResetScreen()
-{
-  ///@TODO UVR
-  //delete m_cache;
-  //m_cache = NULL;
-
-  //auto dlDeleteFn = [] (BookmarkCategory const * cat)
-  //{
-  //  for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-  //    cat->GetTrack(j)->CleanUp();
-  //};
-
-  //if (m_bmScreen)
-  //{
-    // Delete display lists for all tracks
-  //  for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
-  //  m_routeRenderer->Clear();
-  //  m_bmScreen = 0;
-  //}
-}
-
-void BookmarkManager::SetRouteTrack(m2::PolylineD const & routePolyline, vector<double> const & turns,
-                                    graphics::Color const & color)
-{
-  m_routeRenderer->Setup(routePolyline, turns, color);
+  m_routeTrack.reset();
+  m_routeTrack.reset(track.CreatePersistent());
 }
 
 void BookmarkManager::ResetRouteTrack()
 {
-  m_routeRenderer->Clear();
+  m_routeTrack.reset();
 }
 
-void BookmarkManager::UpdateRouteDistanceFromBegin(double distance)
+UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkType type) const
 {
-  m_routeRenderer->UpdateDistanceFromBegin(distance);
+  auto const iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(), [&type](UserMarkContainer const * cont)
+  {
+    return cont->GetType() == type;
+  });
+  ASSERT(iter != m_userMarkLayers.end(), ());
+  return *iter;
 }
 
-void BookmarkManager::SetRouteStartPoint(m2::PointD const & pt, bool isValid)
+UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkType type)
 {
-  m_routeRenderer->SetRoutePoint(pt, true /* start */, isValid);
+  auto iter = find_if(m_userMarkLayers.begin(), m_userMarkLayers.end(), [&type](UserMarkContainer * cont)
+  {
+    return cont->GetType() == type;
+  });
+  ASSERT(iter != m_userMarkLayers.end(), ());
+  return *iter;
 }
 
-void BookmarkManager::SetRouteFinishPoint(m2::PointD const & pt, bool isValid)
+UserMarkControllerGuard::UserMarkControllerGuard(BookmarkManager & mng, UserMarkType type)
+  : m_mng(mng)
+  , m_controller(mng.UserMarksRequestController(type))
 {
-  m_routeRenderer->SetRoutePoint(pt, false /* start */, isValid);
 }
 
-UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type) const
+UserMarkControllerGuard::~UserMarkControllerGuard()
 {
-  ASSERT(type >= 0 && type < m_userMarkLayers.size(), ());
-  ASSERT(m_userMarkLayers[(size_t)type]->GetType() == type, ());
-  return m_userMarkLayers[(size_t)type];
-}
-
-UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type)
-{
-  ASSERT(type >= 0 && type < m_userMarkLayers.size(), ());
-  ASSERT(m_userMarkLayers[(size_t)type]->GetType() == type, ());
-  return m_userMarkLayers[(size_t)type];
+  m_mng.UserMarksReleaseController(m_controller);
 }

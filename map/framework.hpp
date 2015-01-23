@@ -249,6 +249,7 @@ public:
   //@}
 
   void CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
+  dp::RefPointer<df::DrapeEngine> GetDrapeEngine();
   void DestroyDrapeEngine();
 
   void SetMapStyle(MapStyle mapStyle);
@@ -385,6 +386,7 @@ private:
 
   void ShowRectFixed(m2::RectD const & rect);
   void ShowRectFixedAR(m2::AnyRectD const & rect);
+  void UpdateEngineViewport();
 
 public:
   /// Show rect for point and needed draw scale.
