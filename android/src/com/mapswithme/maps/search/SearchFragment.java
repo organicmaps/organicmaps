@@ -230,6 +230,10 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   public void onListItemClick(ListView l, View v, int position, long id)
   {
     super.onListItemClick(l, v, position, id);
+
+    if (!isAdded())
+      return;
+
     final String suggestion = getSearchAdapter().onItemClick(position);
     if (suggestion == null)
       showSearchResultOnMap(position);
@@ -304,14 +308,14 @@ public class SearchFragment extends MWMListFragment implements View.OnClickListe
   @SuppressWarnings("unused")
   public void updateData(final int count, final int resultID)
   {
-    if (!isAdded())
-      return;
-
     getActivity().runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
+        if (!isAdded())
+          return;
+
         // if this results for the last query - hide progress
         if (isCurrentResult(resultID))
           setSearchInProgress(false);
