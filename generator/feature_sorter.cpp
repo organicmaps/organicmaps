@@ -128,7 +128,7 @@ namespace feature
       }
 
       // assume like we close files
-      m_datFile.Flush();
+      Flush();
 
       m_writer.Write(m_datFile.GetName(), DATA_FILE_TAG);
 

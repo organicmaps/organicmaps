@@ -27,7 +27,7 @@ void BaseOSMParser::AddAttr(string const & key, string const & value)
     else if (key == "lon")
       CHECK ( strings::to_double(value, m_current->lng), ("Bad node lon : ", value) );
     else if (key == "lat")
-      CHECK ( strings::to_double(value, m_current->lat), ("Bad node lon : ", value) );
+      CHECK ( strings::to_double(value, m_current->lat), ("Bad node lat : ", value) );
     else if (key == "ref")
       CHECK ( strings::to_uint64(value, m_current->ref), ("Bad node ref in way : ", value) );
     else if (key == "k")

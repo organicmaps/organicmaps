@@ -125,6 +125,14 @@ public:
 FeaturesCollector::FeaturesCollector(string const & fName)
 : m_datFile(fName)
 {
+  CHECK_EQUAL(GetFileSize(m_datFile), 0, ());
+}
+
+FeaturesCollector::~FeaturesCollector()
+{
+  FlushBuffer();
+  /// Check file size
+  (void)GetFileSize(m_datFile);
 }
 
 uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
@@ -137,25 +145,69 @@ uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
   return ret;
 }
 
+template <typename ValueT, size_t ValueSizeT = sizeof(ValueT)+1>
+pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
+{
+  static_assert(is_integral<ValueT>::value, "Non integral value");
+  static_assert(is_unsigned<ValueT>::value, "Non unsigned value");
+
+  pair<char[ValueSizeT], uint8_t> res;
+  res.second = 0;
+  while (v > 127)
+  {
+    res.first[res.second++] = static_cast<uint8_t>((v & 127) | 128);
+    v >>= 7;
+  }
+  res.first[res.second++] = static_cast<uint8_t>(v);
+  return res;
+}
+
+void FeaturesCollector::FlushBuffer()
+{
+  m_datFile.Write(m_writeBuffer, m_writePosition);
+  m_baseOffset += m_writePosition;
+  m_writePosition = 0;
+}
+
+void FeaturesCollector::Flush()
+{
+  FlushBuffer();
+  m_datFile.Flush();
+}
+
+void FeaturesCollector::Write(char const *src, size_t size)
+{
+  do
+  {
+    if (m_writePosition == sizeof(m_writeBuffer))
+      FlushBuffer();
+    size_t const part_size = min(size, sizeof(m_writeBuffer) - m_writePosition);
+    memcpy(&m_writeBuffer[m_writePosition], src, part_size);
+    m_writePosition += part_size;
+    size -= part_size;
+    src += part_size;
+  } while(size > 0);
+}
+
+
 uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb)
 {
   size_t const sz = bytes.size();
   CHECK(sz != 0, ("Empty feature not allowed here!"));
 
-  uint32_t const offset = GetFileSize(m_datFile);
+  size_t const offset = m_baseOffset + m_writePosition;
 
-  WriteVarUint(m_datFile, sz);
-  m_datFile.Write(&bytes[0], sz);
+  auto const & packedSize = PackValue(sz);
+  Write(packedSize.first, packedSize.second);
+  Write(&bytes[0], sz);
 
   m_bounds.Add(fb.GetLimitRect());
-  return offset;
+  CHECK_EQUAL(offset, static_cast<uint32_t>(offset), ());
+  return static_cast<uint32_t>(offset);
 }
 
 void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 {
-  // Just to ensure that file size is less than 4Gb.
-  (void)GetFileSize(m_datFile);
-
   FeatureBuilder1::buffer_t bytes;
   fb.Serialize(bytes);
   (void)WriteFeatureBase(bytes, fb);
