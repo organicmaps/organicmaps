@@ -34,14 +34,15 @@ namespace
     m_gpsInfoIsValid = false;
     m_generatePredictions = false;
 
-    m_connectionSlot = GetFramework().GetLocationState()->AddStateModeListener([self](location::State::Mode mode)
-    {
-      m_generatePredictions = (mode == location::State::RotateAndFollow);
-      if (mode < location::State::NotFollow)
-        m_gpsInfoIsValid = false;
+    //@TODO UVR
+    //m_connectionSlot = GetFramework().GetLocationState()->AddStateModeListener([self](location::State::Mode mode)
+    //{
+    //  m_generatePredictions = (mode == location::State::RotateAndFollow);
+    //  if (mode < location::State::NotFollow)
+    //    m_gpsInfoIsValid = false;
 
-      [self resetTimer];
-    });
+    //  [self resetTimer];
+    //});
   }
   
   return self;
@@ -49,7 +50,7 @@ namespace
 
 -(void)dealloc
 {
-  GetFramework().GetLocationState()->RemoveStateModeListener(m_connectionSlot);
+  //GetFramework().GetLocationState()->RemoveStateModeListener(m_connectionSlot);
 }
 
 -(void)reset:(location::GpsInfo const &)info

@@ -105,10 +105,12 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
       secondaryOffset += glsl::vec2(0.0, secondaryLayout.GetPixelSize().y / 2.0f);
     }
 
-    DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher, textures);
+    if (secondaryLayout.GetGlyphCount() > 0)
+      DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher, textures);
   }
 
-  DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher, textures);
+  if (primaryLayout.GetGlyphCount() > 0)
+    DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher, textures);
 }
 
 void TextShape::DrawSubString(StraightTextLayout const & layout,

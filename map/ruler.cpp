@@ -7,22 +7,11 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-#include "gui/controller.hpp"
-
-#include "graphics/glyph.hpp"
-#include "graphics/brush.hpp"
-#include "graphics/screen.hpp"
-#include "graphics/display_list.hpp"
-#include "graphics/uniforms_holder.hpp"
-
 #include "indexer/mercator.hpp"
 
 #include "geometry/transformations.hpp"
 
 #include "base/string_utils.hpp"
-
-
-using namespace graphics;
 
 namespace
 {
@@ -104,7 +93,7 @@ Ruler::RulerFrame::RulerFrame(Framework & f, const Ruler::RulerFrame::frame_end_
 
 
 Ruler::RulerFrame::RulerFrame(const Ruler::RulerFrame & other, const Ruler::RulerFrame::frame_end_fn & fn)
-  : m_f(other.m_f), m_dl(other.m_dl), m_textDL(other.m_textDL)
+  : m_f(other.m_f)
 {
   m_textLengthInPx = other.m_textLengthInPx;
   m_scale = other.m_scale;
@@ -128,140 +117,139 @@ Ruler::RulerFrame::~RulerFrame()
 
 bool Ruler::RulerFrame::IsValid() const
 {
-  return m_dl != NULL && m_textDL != NULL;
+  return false;
 }
 
-void Ruler::RulerFrame::Cache(const string & text, FontDesc const & f)
-{
-  gui::Controller * controller = m_f.GetGuiController();
-  Screen * cs = controller->GetCacheScreen();
-  double const k = m_f.GetVisualScale();
+///@TODO UVR
+//void Ruler::RulerFrame::Cache(const string & text, FontDesc const & f)
+//{
+//  gui::Controller * controller = m_f.GetGuiController();
+//  Screen * cs = controller->GetCacheScreen();
+//  double const k = m_f.GetVisualScale();
 
-  // Create solid line DL.
-  if (m_dl == NULL)
-  {
-    m_dl.reset(cs->createDisplayList());
+//  // Create solid line DL.
+//  if (m_dl == NULL)
+//  {
+//    m_dl.reset(cs->createDisplayList());
 
-    cs->beginFrame();
-    cs->setDisplayList(m_dl.get());
-    cs->applyVarAlfaStates();
+//    cs->beginFrame();
+//    cs->setDisplayList(m_dl.get());
+//    cs->applyVarAlfaStates();
 
-    m2::PointD coords[] =
-    {
-    /* 3*/  m2::PointD(0.0, -RulerHeight * k),
-    /* 4*/  m2::PointD(0.0,  0.0),
-    /*14*/  m2::PointD(CacheLength, -RulerHeight * k),
-    /*15*/  m2::PointD(CacheLength,  0.0 * k),
-    };
+//    m2::PointD coords[] =
+//    {
+//    /* 3*/  m2::PointD(0.0, -RulerHeight * k),
+//    /* 4*/  m2::PointD(0.0,  0.0),
+//    /*14*/  m2::PointD(CacheLength, -RulerHeight * k),
+//    /*15*/  m2::PointD(CacheLength,  0.0 * k),
+//    };
 
-    Brush::Info const brushInfo(f.m_color);
-    Resource const * brushRes = cs->fromID(cs->mapInfo(brushInfo));
-    m2::PointF const brushCenter = cs->pipeline(brushRes->m_pipelineID).texture()->mapPixel(brushRes->m_texRect.Center());
+//    Brush::Info const brushInfo(f.m_color);
+//    Resource const * brushRes = cs->fromID(cs->mapInfo(brushInfo));
+//    m2::PointF const brushCenter = cs->pipeline(brushRes->m_pipelineID).texture()->mapPixel(brushRes->m_texRect.Center());
 
-    m2::PointF normal(0.0, 0.0);
-    cs->addTexturedStripStrided(coords , sizeof(m2::PointD),
-                               &normal, 0,
-                               &brushCenter, 0, ARRAY_SIZE(coords),
-                               m_depth, brushRes->m_pipelineID);
+//    m2::PointF normal(0.0, 0.0);
+//    cs->addTexturedStripStrided(coords , sizeof(m2::PointD),
+//                               &normal, 0,
+//                               &brushCenter, 0, ARRAY_SIZE(coords),
+//                               m_depth, brushRes->m_pipelineID);
 
-    cs->setDisplayList(0);
-    cs->applyStates();
-    cs->endFrame();
-  }
+//    cs->setDisplayList(0);
+//    cs->applyStates();
+//    cs->endFrame();
+//  }
 
-  // Create text DL.
+//  // Create text DL.
 
-  ASSERT(!text.empty(), ());
+//  ASSERT(!text.empty(), ());
 
-  {
-    m_textDL.reset();
-    m_textDL.reset(cs->createDisplayList());
+//  {
+//    m_textDL.reset();
+//    m_textDL.reset(cs->createDisplayList());
 
-    cs->beginFrame();
-    cs->setDisplayList(m_textDL.get());
-    cs->applyVarAlfaStates();
+//    cs->beginFrame();
+//    cs->setDisplayList(m_textDL.get());
+//    cs->applyVarAlfaStates();
 
-    strings::UniString uniString = strings::MakeUniString(text);
-    size_t length = uniString.size();
-    buffer_vector<Glyph::Info, 8> infos(length, Glyph::Info());
-    buffer_vector<Resource::Info const *, 8> resInfos(length, NULL);
-    buffer_vector<uint32_t, 8> ids(length, 0);
-    buffer_vector<Resource const *, 8> glyphRes(length, NULL);
+//    strings::UniString uniString = strings::MakeUniString(text);
+//    size_t length = uniString.size();
+//    buffer_vector<Glyph::Info, 8> infos(length, Glyph::Info());
+//    buffer_vector<Resource::Info const *, 8> resInfos(length, NULL);
+//    buffer_vector<uint32_t, 8> ids(length, 0);
+//    buffer_vector<Resource const *, 8> glyphRes(length, NULL);
 
-    for (size_t i = 0; i < uniString.size(); ++i)
-    {
-      infos[i] = Glyph::Info(GlyphKey(uniString[i], f.m_size, false, f.m_color),
-                                       controller->GetGlyphCache());
+//    for (size_t i = 0; i < uniString.size(); ++i)
+//    {
+//      infos[i] = Glyph::Info(GlyphKey(uniString[i], f.m_size, false, f.m_color),
+//                                       controller->GetGlyphCache());
 
-      resInfos[i] = &infos[i];
-    }
+//      resInfos[i] = &infos[i];
+//    }
 
-    if (cs->mapInfo(resInfos.data(), ids.data(), infos.size()))
-    {
-      for (size_t i = 0; i < ids.size(); ++i)
-      {
-        Resource const * res = cs->fromID(ids[i]);
-        glyphRes[i] = res;
-      }
+//    if (cs->mapInfo(resInfos.data(), ids.data(), infos.size()))
+//    {
+//      for (size_t i = 0; i < ids.size(); ++i)
+//      {
+//        Resource const * res = cs->fromID(ids[i]);
+//        glyphRes[i] = res;
+//      }
 
-      int32_t pipelineID = glyphRes[0]->m_pipelineID;
-      shared_ptr<gl::BaseTexture> texture = cs->pipeline(pipelineID).texture();
-      double lengthFromStart = 0.0;
+//      int32_t pipelineID = glyphRes[0]->m_pipelineID;
+//      shared_ptr<gl::BaseTexture> texture = cs->pipeline(pipelineID).texture();
+//      double lengthFromStart = 0.0;
 
-      buffer_vector<m2::PointF, 48> coords;
-      buffer_vector<m2::PointF, 48> normals;
-      buffer_vector<m2::PointF, 48> texCoords;
+//      buffer_vector<m2::PointF, 48> coords;
+//      buffer_vector<m2::PointF, 48> normals;
+//      buffer_vector<m2::PointF, 48> texCoords;
 
-      for (size_t i = 0; i < uniString.size(); ++i)
-      {
-        double baseX = lengthFromStart;
-        coords.push_back(m2::PointD(baseX, 0.0));
-        coords.push_back(m2::PointD(baseX, 0.0));
-        coords.push_back(m2::PointD(baseX, 0.0));
+//      for (size_t i = 0; i < uniString.size(); ++i)
+//      {
+//        double baseX = lengthFromStart;
+//        coords.push_back(m2::PointD(baseX, 0.0));
+//        coords.push_back(m2::PointD(baseX, 0.0));
+//        coords.push_back(m2::PointD(baseX, 0.0));
 
-        coords.push_back(m2::PointD(baseX, 0.0));
-        coords.push_back(m2::PointD(baseX, 0.0));
-        coords.push_back(m2::PointD(baseX, 0.0));
+//        coords.push_back(m2::PointD(baseX, 0.0));
+//        coords.push_back(m2::PointD(baseX, 0.0));
+//        coords.push_back(m2::PointD(baseX, 0.0));
 
-        m2::RectI resourceRect(glyphRes[i]->m_texRect);
-        resourceRect.Inflate(-1, -1);
-        double w = resourceRect.SizeX();
-        double h = resourceRect.SizeY();
-        lengthFromStart += infos[i].m_metrics.m_xAdvance;
+//        m2::RectI resourceRect(glyphRes[i]->m_texRect);
+//        resourceRect.Inflate(-1, -1);
+//        double w = resourceRect.SizeX();
+//        double h = resourceRect.SizeY();
+//        lengthFromStart += infos[i].m_metrics.m_xAdvance;
 
-        normals.push_back(m2::PointF(0.0, 0.0));
-        normals.push_back(m2::PointF(0.0, -h));
-        normals.push_back(m2::PointF(w  , 0.0));
+//        normals.push_back(m2::PointF(0.0, 0.0));
+//        normals.push_back(m2::PointF(0.0, -h));
+//        normals.push_back(m2::PointF(w  , 0.0));
 
-        normals.push_back(m2::PointF(w  , 0.0));
-        normals.push_back(m2::PointF(0.0, -h));
-        normals.push_back(m2::PointF(w  , -h));
+//        normals.push_back(m2::PointF(w  , 0.0));
+//        normals.push_back(m2::PointF(0.0, -h));
+//        normals.push_back(m2::PointF(w  , -h));
 
-        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.minX(), resourceRect.maxY())));
-        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.minX(), resourceRect.minY())));
-        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.maxY())));
+//        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.minX(), resourceRect.maxY())));
+//        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.minX(), resourceRect.minY())));
+//        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.maxY())));
 
-        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.maxY())));
-        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.minX(), resourceRect.minY())));
-        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.minY())));
-      }
+//        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.maxY())));
+//        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.minX(), resourceRect.minY())));
+//        texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.minY())));
+//      }
 
-      m_textLengthInPx = lengthFromStart;
-      cs->addTexturedListStrided(coords.data(), sizeof(m2::PointF),
-                                 normals.data(), sizeof(m2::PointF),
-                                 texCoords.data(), sizeof(m2::PointF),
-                                 coords.size(), m_depth, pipelineID);
-    }
+//      m_textLengthInPx = lengthFromStart;
+//      cs->addTexturedListStrided(coords.data(), sizeof(m2::PointF),
+//                                 normals.data(), sizeof(m2::PointF),
+//                                 texCoords.data(), sizeof(m2::PointF),
+//                                 coords.size(), m_depth, pipelineID);
+//    }
 
-    cs->setDisplayList(0);
-    cs->endFrame();
-  }
-}
+//    cs->setDisplayList(0);
+//    cs->endFrame();
+//  }
+//}
 
 void Ruler::RulerFrame::Purge()
 {
-  m_dl.reset();
-  m_textDL.reset();
 }
 
 bool Ruler::RulerFrame::IsHidingAnim() const
@@ -309,23 +297,24 @@ void Ruler::RulerFrame::HideAnimate(bool needPause)
   CreateAnim(1.0, 0.0, timeInterval, offset, false);
 }
 
-void Ruler::RulerFrame::Draw(OverlayRenderer * r, const math::Matrix<double, 3, 3> & m)
-{
-  ASSERT(m_dl, ());
-  ASSERT(m_textDL, ());
+///@TODO UVR
+//void Ruler::RulerFrame::Draw(OverlayRenderer * r, const math::Matrix<double, 3, 3> & m)
+//{
+//  ASSERT(m_dl, ());
+//  ASSERT(m_textDL, ());
 
-  UniformsHolder holder;
-  holder.insertValue(ETransparency, GetCurrentAlfa());
+//  UniformsHolder holder;
+//  holder.insertValue(ETransparency, GetCurrentAlfa());
 
-  r->drawDisplayList(m_dl.get(), math::Shift(
-                           math::Scale(m, m2::PointD(m_scale, 1.0)),
-                            m_orgPt), &holder);
+//  r->drawDisplayList(m_dl.get(), math::Shift(
+//                           math::Scale(m, m2::PointD(m_scale, 1.0)),
+//                            m_orgPt), &holder);
 
-  double const yOffset = -(2 + TextOffsetFromRuler * m_f.GetVisualScale());
-  r->drawDisplayList(m_textDL.get(),
-                     math::Shift(m, m_orgPt + m2::PointF(CacheLength * m_scale - m_textLengthInPx, yOffset)),
-                     &holder);
-}
+//  double const yOffset = -(2 + TextOffsetFromRuler * m_f.GetVisualScale());
+//  r->drawDisplayList(m_textDL.get(),
+//                     math::Shift(m, m_orgPt + m2::PointF(CacheLength * m_scale - m_textLengthInPx, yOffset)),
+//                     &holder);
+//}
 
 void Ruler::RulerFrame::CreateAnim(double startAlfa, double endAlfa, double timeInterval, double timeOffset, bool isVisibleAtEnd)
 {
@@ -421,38 +410,40 @@ Ruler::Params::Params()
 {}
 
 Ruler::Ruler(Params const & p)
-  : BaseT(p),
-    m_currentRangeIndex(InvalidUnitValue),
+  : m_currentRangeIndex(InvalidUnitValue),
     m_currSystem(0),
     m_framework(p.m_framework)
 {
-  setIsVisible(false);
+  ///@TODO UVR
+  //setIsVisible(false);
 }
 
 void Ruler::AnimateShow()
 {
-  RulerFrame * frame = GetMainFrame();
-  if (!isVisible() && (!frame->IsAnimActive() || frame->IsHidingAnim()))
-  {
-    setIsVisible(true);
-    frame->ShowAnimate(false);
-    m_framework->Invalidate();
-  }
-  else if (isVisible() && (frame->IsAnimActive() && frame->IsHidingAnim()))
-  {
-    frame->ShowAnimate(false);
-    m_framework->Invalidate();
-  }
+  ///@TODO UVR
+//  RulerFrame * frame = GetMainFrame();
+//  if (!isVisible() && (!frame->IsAnimActive() || frame->IsHidingAnim()))
+//  {
+//    setIsVisible(true);
+//    frame->ShowAnimate(false);
+//    m_framework->Invalidate();
+//  }
+//  else if (isVisible() && (frame->IsAnimActive() && frame->IsHidingAnim()))
+//  {
+//    frame->ShowAnimate(false);
+//    m_framework->Invalidate();
+//  }
 }
 
 void Ruler::AnimateHide()
 {
-  RulerFrame * frame = GetMainFrame();
-  if (isVisible() && (!frame->IsAnimActive() || !frame->IsHidingAnim()))
-  {
-    frame->HideAnimate(true);
-    m_framework->Invalidate();
-  }
+  ///@TODO UVR
+//  RulerFrame * frame = GetMainFrame();
+//  if (isVisible() && (!frame->IsAnimActive() || !frame->IsHidingAnim()))
+//  {
+//    frame->HideAnimate(true);
+//    m_framework->Invalidate();
+//  }
 }
 
 void Ruler::layout()
@@ -480,22 +471,24 @@ void Ruler::layout()
 
 void Ruler::UpdateText(const string & text)
 {
-  RulerFrame * frame = GetMainFrame();
-  if (frame->IsAnimActive() && frame->IsHidingAnim())
-    return;
+  ///@TODO UVR
+//  RulerFrame * frame = GetMainFrame();
+//  if (frame->IsAnimActive() && frame->IsHidingAnim())
+//    return;
 
-  if (frame->IsValid())
-    m_animFrame.reset(new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2)));
+//  if (frame->IsValid())
+//    m_animFrame.reset(new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2)));
 
-  frame->Cache(text, font(EActive));
-  if (isVisible())
-    frame->ShowAnimate(true);
+//  frame->Cache(text, font(EActive));
+//  if (isVisible())
+//    frame->ShowAnimate(true);
 }
 
 void Ruler::MainFrameAnimEnded(bool isVisible, RulerFrame * frame)
 {
-  setIsVisible(isVisible);
-  ASSERT(GetMainFrame() == frame, ());
+  ///@TODO UVR
+//  setIsVisible(isVisible);
+//  ASSERT(GetMainFrame() == frame, ());
 }
 
 void Ruler::AnimFrameAnimEnded(bool /*isVisible*/, RulerFrame * frame)
@@ -506,9 +499,11 @@ void Ruler::AnimFrameAnimEnded(bool /*isVisible*/, RulerFrame * frame)
 
 Ruler::RulerFrame * Ruler::GetMainFrame()
 {
-  if (!m_mainFrame)
-    m_mainFrame.reset(new RulerFrame(*m_framework, bind(&Ruler::MainFrameAnimEnded, this, _1, _2), depth()));
-  return m_mainFrame.get();
+  ///@TODO UVR
+//  if (!m_mainFrame)
+//    m_mainFrame.reset(new RulerFrame(*m_framework, bind(&Ruler::MainFrameAnimEnded, this, _1, _2), depth()));
+//  return m_mainFrame.get();
+  return nullptr;
 }
 
 Ruler::RulerFrame * Ruler::GetMainFrame() const
@@ -524,74 +519,78 @@ void Ruler::purge()
   m_mainFrame.reset();
   m_animFrame.reset();
 
-  setIsVisible(false);
+  ///@TODO UVR
+  //setIsVisible(false);
 }
 
 void Ruler::update()
 {
-  double const k = visualScale();
+  ///@TODO UVR
+//  double const k = visualScale();
 
-  ScreenBase const & screen = m_framework->GetNavigator().Screen();
+//  ScreenBase const & screen = m_framework->GetNavigator().Screen();
 
-  int const rulerHeight = my::rounds(RulerHeight * k);
-  int const minPxWidth = my::rounds(MinPixelWidth * k);
+//  int const rulerHeight = my::rounds(RulerHeight * k);
+//  int const minPxWidth = my::rounds(MinPixelWidth * k);
 
-  // pivot() here is the down right point of the ruler.
-  // Get global points of ruler and distance according to minPxWidth.
+//  // pivot() here is the down right point of the ruler.
+//  // Get global points of ruler and distance according to minPxWidth.
 
-  m2::PointD pt1 = screen.PtoG(pivot());
-  m2::PointD pt0 = screen.PtoG(pivot() - m2::PointD(minPxWidth, 0));
+//  m2::PointD pt1 = screen.PtoG(pivot());
+//  m2::PointD pt0 = screen.PtoG(pivot() - m2::PointD(minPxWidth, 0));
 
-  double const distanceInMetres = MercatorBounds::DistanceOnEarth(pt0, pt1);
+//  double const distanceInMetres = MercatorBounds::DistanceOnEarth(pt0, pt1);
 
-  // convert metres to units for calculating m_metresDiff
-  double metersDiff = CalcMetresDiff(distanceInMetres);
+//  // convert metres to units for calculating m_metresDiff
+//  double metersDiff = CalcMetresDiff(distanceInMetres);
 
-  bool const higherThanMax = metersDiff > MaxMetersWidth;
-  bool const lessThanMin = metersDiff < MinMetersWidth;
+//  bool const higherThanMax = metersDiff > MaxMetersWidth;
+//  bool const lessThanMin = metersDiff < MinMetersWidth;
 
-  // Calculate width of the ruler in pixels.
-  double scalerWidthInPx = minPxWidth;
+//  // Calculate width of the ruler in pixels.
+//  double scalerWidthInPx = minPxWidth;
 
-  if (higherThanMax)
-    scalerWidthInPx = minPxWidth * 3 / 2;
-  else if (!lessThanMin)
-  {
-    // Here we need to convert metres to pixels according to angle
-    // (in global coordinates) of the ruler.
+//  if (higherThanMax)
+//    scalerWidthInPx = minPxWidth * 3 / 2;
+//  else if (!lessThanMin)
+//  {
+//    // Here we need to convert metres to pixels according to angle
+//    // (in global coordinates) of the ruler.
 
-    double const a = ang::AngleTo(pt1, pt0);
-    pt0 = MercatorBounds::GetSmPoint(pt1, cos(a) * metersDiff, sin(a) * metersDiff);
+//    double const a = ang::AngleTo(pt1, pt0);
+//    pt0 = MercatorBounds::GetSmPoint(pt1, cos(a) * metersDiff, sin(a) * metersDiff);
 
-    scalerWidthInPx = my::rounds(pivot().Length(screen.GtoP(pt0)));
-  }
+//    scalerWidthInPx = my::rounds(pivot().Length(screen.GtoP(pt0)));
+//  }
 
-  m2::PointD orgPt = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
+//  m2::PointD orgPt = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
 
-  if (position() & EPosLeft)
-    orgPt.x -= scalerWidthInPx / 2;
+//  if (position() & EPosLeft)
+//    orgPt.x -= scalerWidthInPx / 2;
 
-  if (position() & EPosRight)
-    orgPt.x += scalerWidthInPx / 2;
+//  if (position() & EPosRight)
+//    orgPt.x += scalerWidthInPx / 2;
 
-  if (position() & EPosAbove)
-    orgPt.y -= rulerHeight / 2;
+//  if (position() & EPosAbove)
+//    orgPt.y -= rulerHeight / 2;
 
-  if (position() & EPosUnder)
-    orgPt.y += rulerHeight / 2;
+//  if (position() & EPosUnder)
+//    orgPt.y += rulerHeight / 2;
 
-  RulerFrame * frame = GetMainFrame();
-  frame->SetScale(scalerWidthInPx / CacheLength);
-  frame->SetOrgPoint(orgPt);
+//  RulerFrame * frame = GetMainFrame();
+//  frame->SetScale(scalerWidthInPx / CacheLength);
+//  frame->SetOrgPoint(orgPt);
 }
 
 m2::RectD Ruler::GetBoundRect() const
 {
-  FontDesc const & f = font(EActive);
-  RulerFrame * frame = GetMainFrame();
-  m2::PointD const org = frame->GetOrgPoint();
-  m2::PointD const size = m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2);
-  return m2::RectD(org - m2::PointD(size.x, 0.0), org + m2::PointD(0.0, size.y));
+  ///@TODO UVR
+//  FontDesc const & f = font(EActive);
+//  RulerFrame * frame = GetMainFrame();
+//  m2::PointD const org = frame->GetOrgPoint();
+//  m2::PointD const size = m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2);
+//  return m2::RectD(org - m2::PointD(size.x, 0.0), org + m2::PointD(0.0, size.y));
+  return m2::RectD();
 }
 
 void Ruler::cache()
@@ -600,18 +599,19 @@ void Ruler::cache()
   update();
 }
 
-void Ruler::draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
-{
-  if (isVisible())
-  {
-    checkDirtyLayout();
+///@TODO UVR
+//void Ruler::draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
+//{
+//  if (isVisible())
+//  {
+//    checkDirtyLayout();
 
-    RulerFrame * frame = GetMainFrame();
-    frame->Draw(s, m);
-    if (m_animFrame)
-      m_animFrame->Draw(s, m);
-  }
-}
+//    RulerFrame * frame = GetMainFrame();
+//    frame->Draw(s, m);
+//    if (m_animFrame)
+//      m_animFrame->Draw(s, m);
+//  }
+//}
 
 int Ruler::GetTextOffsetFromLine() const
 {

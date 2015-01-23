@@ -1,9 +1,7 @@
 #include "Framework.hpp"
-#include "VideoTimer.hpp"
 #include "MapStorage.hpp"
 
 #include "../core/jni_helper.hpp"
-#include "../core/render_context.hpp"
 
 #include "../country/country_helper.hpp"
 
@@ -12,10 +10,7 @@
 #include "map/information_display.hpp"
 #include "map/user_mark.hpp"
 
-#include "gui/controller.hpp"
-
-#include "graphics/opengl/framebuffer.hpp"
-#include "graphics/opengl/opengl.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
@@ -61,681 +56,655 @@ namespace
 
 namespace android
 {
-  void Framework::CallRepaint() {}
 
-  Framework::Framework()
-   : m_mask(0),
-     m_isCleanSingleClick(false),
-     m_doLoadState(true),
-     m_lastCompass(0.0),
-     m_wasLongClick(false),
-     m_densityDpi(0),
-     m_screenWidth(0),
-     m_screenHeight(0),
-     m_currentSlotID(0)
+enum MultiTouchAction
+{
+  MULTITOUCH_UP    =   0x00000001,
+  MULTITOUCH_DOWN  =   0x00000002,
+  MULTITOUCH_MOVE  =   0x00000003,
+  MULTITOUCH_CANCEL =  0x00000004,
+  MULTITOUCH_POINTER_MASK =  0x0000ff00,
+  MULTITOUCH_POINTER_SHIFT = 0x00000008,
+  MULTITOUCH_ACTION_MASK =   0x000000ff,
+  MULTITOUCH_FORCE_32BITS = 0x7fffffff
+};
+
+void ShowAllSearchResultsImpl()
+{
+  frm()->ShowAllSearchResults();
+}
+
+Framework::Framework()
+ : m_mask(0),
+   m_isCleanSingleClick(false),
+   m_doLoadState(true),
+   m_lastCompass(0.0),
+   m_wasLongClick(false)
+{
+  ASSERT_EQUAL ( g_framework, 0, () );
+  g_framework = this;
+  m_activeMapsConnectionID = m_work.GetCountryTree().GetActiveMapLayout().AddListener(this);
+}
+
+Framework::~Framework()
+{
+  m_work.GetCountryTree().GetActiveMapLayout().RemoveListener(m_activeMapsConnectionID);
+}
+
+void Framework::OnLocationError(int errorCode)
+{
+  m_work.OnLocationError(static_cast<location::TLocationError>(errorCode));
+}
+
+void Framework::OnLocationUpdated(location::GpsInfo const & info)
+{
+  Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info));
+}
+
+void Framework::OnCompassUpdated(location::CompassInfo const & info)
+{
+  static double const COMPASS_THRASHOLD = my::DegToRad(1.0);
+
+  /// @todo Do not emit compass bearing too often while we are passing it through nv-queue.
+  /// Need to make more experiments in future.
+  if (fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRASHOLD)
   {
-    ASSERT_EQUAL ( g_framework, 0, () );
-    g_framework = this;
-
-    m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
-    m_activeMapsConnectionID = m_work.GetCountryTree().GetActiveMapLayout().AddListener(this);
+    m_lastCompass = info.m_bearing;
+    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info));
   }
+}
 
-  Framework::~Framework()
+void Framework::UpdateCompassSensor(int ind, float * arr)
+{
+  m_sensors[ind].Next(arr);
+}
+
+float Framework::GetBestDensity(int densityDpi)
+{
+  typedef pair<int, float> P;
+  P dens[] = {
+      P(120, 0.75f),
+      P(160, 1.0f),
+      P(240, 1.5f),
+      P(320, 2.0f),
+      P(480, 3.0f)
+  };
+
+  int prevRange = numeric_limits<int>::max();
+  int bestRangeIndex = 0;
+  for (int i = 0; i < ARRAY_SIZE(dens); i++)
   {
-    m_work.GetCountryTree().GetActiveMapLayout().RemoveListener(m_activeMapsConnectionID);
-    delete m_videoTimer;
-  }
-
-  void Framework::OnLocationError(int errorCode)
-  {
-    m_work.OnLocationError(static_cast<location::TLocationError>(errorCode));
-  }
-
-  void Framework::OnLocationUpdated(location::GpsInfo const & info)
-  {
-    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info));
-  }
-
-  void Framework::OnCompassUpdated(location::CompassInfo const & info, bool force)
-  {
-    static double const COMPASS_THRESHOLD = my::DegToRad(1.0);
-
-    /// @todo Do not emit compass bearing too often while we are passing it through nv-queue.
-    /// Need to make more experiments in future.
-    if (force || fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRESHOLD)
+    int currRange = abs(densityDpi - dens[i].first);
+    if (currRange <= prevRange)
     {
-      m_lastCompass = info.m_bearing;
-      Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info));
-    }
-  }
-
-  void Framework::UpdateCompassSensor(int ind, float * arr)
-  {
-    m_sensors[ind].Next(arr);
-  }
-
-  void Framework::DeleteRenderPolicy()
-  {
-    m_work.SaveState();
-    LOG(LINFO, ("Clearing current render policy."));
-    m_work.SetRenderPolicy(nullptr);
-    m_work.EnterBackground();
-  }
-
-  void Framework::SetBestDensity(int densityDpi, RenderPolicy::Params & params)
-  {
-    typedef pair<int, graphics::EDensity> P;
-    P dens[] = {
-        P(120, graphics::EDensityLDPI),
-        P(160, graphics::EDensityMDPI),
-        P(240, graphics::EDensityHDPI),
-        P(320, graphics::EDensityXHDPI),
-        P(480, graphics::EDensityXXHDPI)
-    };
-
-    int prevRange = numeric_limits<int>::max();
-    int bestRangeIndex = 0;
-    for (int i = 0; i < ARRAY_SIZE(dens); i++)
-    {
-      int currRange = abs(densityDpi - dens[i].first);
-      if (currRange <= prevRange)
-      {
-        // it is better, take index
-        bestRangeIndex = i;
-        prevRange = currRange;
-      }
-      else
-        break;
-    }
-
-    params.m_density = dens[bestRangeIndex].second;
-    params.m_exactDensityDPI = densityDpi;
-  }
-
-  bool Framework::InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight)
-  {
-    graphics::ResourceManager::Params rmParams;
-
-    rmParams.m_videoMemoryLimit = 30 * 1024 * 1024;
-    rmParams.m_texFormat = graphics::Data4Bpp;
-    rmParams.m_exactDensityDPI = densityDpi;
-
-    RenderPolicy::Params rpParams;
-
-    rpParams.m_videoTimer = m_videoTimer;
-    rpParams.m_useDefaultFB = true;
-    rpParams.m_rmParams = rmParams;
-    rpParams.m_primaryRC = make_shared<android::RenderContext>();
-
-    SetBestDensity(densityDpi, rpParams);
-
-    rpParams.m_skinName = "basic.skn";
-    LOG(LINFO, ("Using", graphics::convert(rpParams.m_density), "resources"));
-
-    rpParams.m_screenWidth = screenWidth;
-    rpParams.m_screenHeight = screenHeight;
-
-    try
-    {
-      m_work.SetRenderPolicy(CreateRenderPolicy(rpParams));
-      m_work.InitGuiSubsystem();
-    }
-    catch (graphics::gl::platform_unsupported const & e)
-    {
-      LOG(LINFO, ("This android platform is unsupported, reason:", e.what()));
-      return false;
-    }
-
-    return true;
-  }
-
-  bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
-  {
-    if (!InitRenderPolicyImpl(densityDpi, screenWidth, screenHeight))
-      return false;
-
-    if (m_doLoadState)
-      LoadState();
-    else
-      m_doLoadState = true;
-
-    m_work.SetUpdatesEnabled(true);
-    m_work.EnterForeground();
-
-    m_densityDpi = densityDpi;
-    m_screenWidth = screenWidth;
-    m_screenHeight = screenHeight;
-
-    return true;
-  }
-
-  void Framework::SetMapStyle(MapStyle mapStyle)
-  {
-    if (m_work.GetMapStyle() == mapStyle)
-      return;
-
-    bool const hasRenderPolicy = (nullptr != m_work.GetRenderPolicy());
-
-    if (hasRenderPolicy)
-    {
-      // Drop old render policy.
-      m_work.SetRenderPolicy(nullptr);
-
-      m_work.SetMapStyle(mapStyle);
-
-      // Construct new render policy.
-      if (!InitRenderPolicyImpl(m_densityDpi, m_screenWidth, m_screenHeight))
-        return;
-
-      m_work.SetUpdatesEnabled(true);
+      // it is better, take index
+      bestRangeIndex = i;
+      prevRange = currRange;
     }
     else
-    {
-      // Just set the flag, a new render policy will be initialized with this flag.
-      m_work.SetMapStyle(mapStyle);
-    }
+      break;
   }
 
-  MapStyle Framework::GetMapStyle() const
+  return dens[bestRangeIndex].second;
+}
+
+bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi)
+{
+  m_contextFactory.Reset(new AndroidOGLContextFactory(env, jSurface));
+  if (!m_contextFactory->IsValid())
+    return false;
+
+  float visualScale = GetBestDensity(densityDpi);
+  m_work.CreateDrapeEngine(m_contextFactory.GetRefPointer(), visualScale, m_contextFactory->GetWidth(), m_contextFactory->GetHeight());
+  m_work.SetUpdatesEnabled(true);
+  m_work.EnterForeground();
+
+  return true;
+}
+
+void Framework::DeleteDrapeEngine()
+{
+  m_work.DestroyDrapeEngine();
+}
+
+void Framework::Resize(int w, int h)
+{
+  m_contextFactory->UpdateSurfaceSize();
+  m_work.OnSize(w, h);
+}
+
+void Framework::SetMapStyle(MapStyle mapStyle)
+{
+  //@TODO UVR
+}
+
+Storage & Framework::Storage()
+{
+  return m_work.Storage();
+}
+
+void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
+{
+  m_doLoadState = false;
+
+  if (zoomToDownloadButton)
   {
-    return m_work.GetMapStyle();
+      m2::RectD const rect = m_work.GetCountryBounds(idx);
+      double const lon = MercatorBounds::XToLon(rect.Center().x);
+      double const lat = MercatorBounds::YToLat(rect.Center().y);
+      m_work.ShowRect(lat, lon, 10);
   }
+  else
+    m_work.ShowCountry(idx);
+}
 
-  Storage & Framework::Storage()
+TStatus Framework::GetCountryStatus(TIndex const & idx) const
+{
+  return m_work.GetCountryStatus(idx);
+}
+
+void Framework::Move(int mode, double x, double y)
+{
+  DragEvent e(x, y);
+  switch (mode)
   {
-    return m_work.Storage();
+  case 0: m_work.StartDrag(e); break;
+  case 1: m_work.DoDrag(e); break;
+  case 2: m_work.StopDrag(e); break;
   }
+}
 
-  CountryStatusDisplay * Framework::GetCountryStatusDisplay()
+void Framework::Zoom(int mode, double x1, double y1, double x2, double y2)
+{
+  ScaleEvent e(x1, y1, x2, y2);
+  switch (mode)
   {
-    return m_work.GetCountryStatusDisplay();
+  case 0: m_work.StartScale(e); break;
+  case 1: m_work.DoScale(e); break;
+  case 2: m_work.StopScale(e); break;
   }
+}
 
-  void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
+void Framework::StartTouchTask(double x, double y, unsigned ms)
+{
+  KillTouchTask();
+  m_deferredTask.reset(new DeferredTask(
+      bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), milliseconds(ms)));
+}
+
+void Framework::KillTouchTask() { m_deferredTask.reset(); }
+
+/// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
+void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
+{
+  MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
+
+  // Check if we touch is canceled or we get coordinates NOT from the first pointer.
+  if ((mask != 0x1) || (eventType == MULTITOUCH_CANCEL))
   {
-    m_doLoadState = false;
+    ///@TODO UVR
+    //if (mask == 0x1)
+    //  m_work.GetGuiController()->OnTapCancelled(m2::PointD(x1, y1));
 
-    if (zoomToDownloadButton)
-    {
-        m2::RectD const rect = m_work.GetCountryBounds(idx);
-        double const lon = MercatorBounds::XToLon(rect.Center().x);
-        double const lat = MercatorBounds::YToLat(rect.Center().y);
-        m_work.ShowRect(lat, lon, 10);
-    }
-    else
-      m_work.ShowCountry(idx);
-  }
-
-  TStatus Framework::GetCountryStatus(TIndex const & idx) const
-  {
-    return m_work.GetCountryStatus(idx);
-  }
-
-  void Framework::Resize(int w, int h)
-  {
-    m_work.OnSize(w, h);
-  }
-
-  void Framework::DrawFrame()
-  {
-    if (m_work.NeedRedraw())
-    {
-      m_work.SetNeedRedraw(false);
-
-      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_work.GetRenderPolicy()->GetDrawer().get()));
-
-      m_work.BeginPaint(paintEvent);
-      m_work.DoPaint(paintEvent);
-
-      NVEventSwapBuffersEGL();
-
-      m_work.EndPaint(paintEvent);
-    }
-  }
-
-  void Framework::Move(int mode, double x, double y)
-  {
-    DragEvent e(x, y);
-    switch (mode)
-    {
-    case 0: m_work.StartDrag(e); break;
-    case 1: m_work.DoDrag(e); break;
-    case 2: m_work.StopDrag(e); break;
-    }
-  }
-
-  void Framework::Zoom(int mode, double x1, double y1, double x2, double y2)
-  {
-    ScaleEvent e(x1, y1, x2, y2);
-    switch (mode)
-    {
-    case 0: m_work.StartScale(e); break;
-    case 1: m_work.DoScale(e); break;
-    case 2: m_work.StopScale(e); break;
-    }
-  }
-
-  void Framework::StartTouchTask(double x, double y, unsigned ms)
-  {
+    m_isCleanSingleClick = false;
     KillTouchTask();
-    m_deferredTask.reset(new DeferredTask(
-        bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), milliseconds(ms)));
   }
-
-  void Framework::KillTouchTask() { m_deferredTask.reset(); }
-
-  /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
-  void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
+  else
   {
-    NVMultiTouchEventType eventType = static_cast<NVMultiTouchEventType>(action);
+    ASSERT_EQUAL(mask, 0x1, ());
 
-    // Check if we touch is canceled or we get coordinates NOT from the first pointer.
-    if ((mask != 0x1) || (eventType == NV_MULTITOUCH_CANCEL))
+    if (eventType == MULTITOUCH_DOWN)
     {
-      if (mask == 0x1)
-        m_work.GetGuiController()->OnTapCancelled(m2::PointD(x1, y1));
-
-      m_isCleanSingleClick = false;
       KillTouchTask();
+
+      m_wasLongClick = false;
+      m_isCleanSingleClick = true;
+      m_lastX1 = x1;
+      m_lastY1 = y1;
+
+      ///@TODO UVR
+      //if (m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1)))
+      //  return;
+
+      StartTouchTask(x1, y1, LONG_TOUCH_MS);
     }
-    else
+
+    if (eventType == MULTITOUCH_MOVE)
     {
-      ASSERT_EQUAL(mask, 0x1, ());
-
-      if (eventType == NV_MULTITOUCH_DOWN)
+      double const minDist = df::VisualParams::Instance().GetVisualScale() * 10.0;
+      if ((fabs(x1 - m_lastX1) > minDist) || (fabs(y1 - m_lastY1) > minDist))
       {
+        m_isCleanSingleClick = false;
         KillTouchTask();
-
-        m_wasLongClick = false;
-        m_isCleanSingleClick = true;
-        m_lastX1 = x1;
-        m_lastY1 = y1;
-
-        if (m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1)))
-          return;
-
-        StartTouchTask(x1, y1, LONG_TOUCH_MS);
       }
 
-      if (eventType == NV_MULTITOUCH_MOVE)
+      ///@TODO UVR
+      //if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
+      //  return;
+    }
+
+    if (eventType == MULTITOUCH_UP)
+    {
+      KillTouchTask();
+
+      ///@TODO UVR
+      //if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
+      //  return;
+
+      if (!m_wasLongClick && m_isCleanSingleClick)
       {
-        double const minDist = m_work.GetVisualScale() * 10.0;
-        if ((fabs(x1 - m_lastX1) > minDist) || (fabs(y1 - m_lastY1) > minDist))
+        if (m_doubleClickTimer.ElapsedSeconds() <= DOUBLE_TOUCH_S)
         {
-          m_isCleanSingleClick = false;
-          KillTouchTask();
-        }
-
-        if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
-          return;
-      }
-
-      if (eventType == NV_MULTITOUCH_UP)
-      {
-        KillTouchTask();
-
-        if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
-          return;
-
-        if (!m_wasLongClick && m_isCleanSingleClick)
-        {
-          if (m_doubleClickTimer.ElapsedSeconds() <= DOUBLE_TOUCH_S)
-          {
-            // performing double-click
-            m_work.ScaleToPoint(ScaleToPointEvent(x1, y1, 1.5));
-          }
-          else
-          {
-            // starting single touch task
-            StartTouchTask(x1, y1, SHORT_TOUCH_MS);
-
-            // starting double click
-            m_doubleClickTimer.Reset();
-          }
+          // performing double-click
+          m_work.ScaleToPoint(ScaleToPointEvent(x1, y1, 1.5));
         }
         else
-          m_wasLongClick = false;
+        {
+          // starting single touch task
+          StartTouchTask(x1, y1, SHORT_TOUCH_MS);
+
+          // starting double click
+          m_doubleClickTimer.Reset();
+        }
       }
+      else
+        m_wasLongClick = false;
+    }
+  }
+
+  // general case processing
+  if (m_mask != mask)
+  {
+    if (m_mask == 0x0)
+    {
+      if (mask == 0x1)
+        m_work.StartDrag(DragEvent(x1, y1));
+
+      if (mask == 0x2)
+        m_work.StartDrag(DragEvent(x2, y2));
+
+      if (mask == 0x3)
+        m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
     }
 
-    // general case processing
-    if (m_mask != mask)
+    if (m_mask == 0x1)
     {
-      if (m_mask == 0x0)
+      m_work.StopDrag(DragEvent(x1, y1));
+
+      if (mask == 0x0)
+      {
+        if ((eventType != MULTITOUCH_UP) && (eventType != MULTITOUCH_CANCEL))
+          LOG(LWARNING, ("should be MULTITOUCH_UP or MULTITOUCH_CANCEL"));
+      }
+
+      if (m_mask == 0x2)
+        m_work.StartDrag(DragEvent(x2, y2));
+
+      if (mask == 0x3)
+        m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
+    }
+
+    if (m_mask == 0x2)
+    {
+      m_work.StopDrag(DragEvent(x2, y2));
+
+      if (mask == 0x0)
+      {
+        if ((eventType != MULTITOUCH_UP) && (eventType != MULTITOUCH_CANCEL))
+          LOG(LWARNING, ("should be MULTITOUCH_UP or MULTITOUCH_CANCEL"));
+      }
+
+      if (mask == 0x1)
+        m_work.StartDrag(DragEvent(x1, y1));
+
+      if (mask == 0x3)
+        m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
+    }
+
+    if (m_mask == 0x3)
+    {
+      m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
+
+      if (eventType == MULTITOUCH_MOVE)
       {
         if (mask == 0x1)
           m_work.StartDrag(DragEvent(x1, y1));
 
         if (mask == 0x2)
           m_work.StartDrag(DragEvent(x2, y2));
-
-        if (mask == 0x3)
-          m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
       }
-
-      if (m_mask == 0x1)
-      {
-        m_work.StopDrag(DragEvent(x1, y1));
-
-        if (mask == 0x0)
-        {
-          if ((eventType != NV_MULTITOUCH_UP) && (eventType != NV_MULTITOUCH_CANCEL))
-            LOG(LWARNING, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
-        }
-
-        if (m_mask == 0x2)
-          m_work.StartDrag(DragEvent(x2, y2));
-
-        if (mask == 0x3)
-          m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
-      }
-
-      if (m_mask == 0x2)
-      {
-        m_work.StopDrag(DragEvent(x2, y2));
-
-        if (mask == 0x0)
-        {
-          if ((eventType != NV_MULTITOUCH_UP) && (eventType != NV_MULTITOUCH_CANCEL))
-            LOG(LWARNING, ("should be NV_MULTITOUCH_UP or NV_MULTITOUCH_CANCEL"));
-        }
-
-        if (mask == 0x1)
-          m_work.StartDrag(DragEvent(x1, y1));
-
-        if (mask == 0x3)
-          m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
-      }
-
-      if (m_mask == 0x3)
-      {
-        m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
-
-        if (eventType == NV_MULTITOUCH_MOVE)
-        {
-          if (mask == 0x1)
-            m_work.StartDrag(DragEvent(x1, y1));
-
-          if (mask == 0x2)
-            m_work.StartDrag(DragEvent(x2, y2));
-        }
-        else
-          mask = 0;
-      }
-    }
-    else
-    {
-      if (eventType == NV_MULTITOUCH_MOVE)
-      {
-        if (m_mask == 0x1)
-          m_work.DoDrag(DragEvent(x1, y1));
-        if (m_mask == 0x2)
-          m_work.DoDrag(DragEvent(x2, y2));
-        if (m_mask == 0x3)
-          m_work.DoScale(ScaleEvent(x1, y1, x2, y2));
-      }
-
-      if ((eventType == NV_MULTITOUCH_CANCEL) || (eventType == NV_MULTITOUCH_UP))
-      {
-        if (m_mask == 0x1)
-          m_work.StopDrag(DragEvent(x1, y1));
-        if (m_mask == 0x2)
-          m_work.StopDrag(DragEvent(x2, y2));
-        if (m_mask == 0x3)
-          m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
+      else
         mask = 0;
-      }
     }
-
-    m_x1 = x1;
-    m_y1 = y1;
-    m_x2 = x2;
-    m_y2 = y2;
-    m_mask = mask;
   }
-
-  void Framework::LoadState()
+  else
   {
-    if (!m_work.LoadState())
-      m_work.ShowAll();
-  }
-
-  void Framework::SaveState()
-  {
-    m_work.SaveState();
-  }
-
-  void Framework::Invalidate()
-  {
-    m_work.Invalidate();
-  }
-
-  void Framework::SetupMeasurementSystem()
-  {
-    m_work.SetupMeasurementSystem();
-  }
-
-  void Framework::AddLocalMaps()
-  {
-    m_work.RegisterAllMaps();
-  }
-
-  void Framework::RemoveLocalMaps()
-  {
-    m_work.DeregisterAllMaps();
-  }
-
-  TIndex Framework::GetCountryIndex(double lat, double lon) const
-  {
-    return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
-  }
-
-  string Framework::GetCountryCode(double lat, double lon) const
-  {
-    return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
-  }
-
-  string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
-  {
-    TIndex const idx = m_work.GetCountryIndex(pt);
-    TStatus const status = m_work.GetCountryStatus(idx);
-    if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
-      return m_work.GetCountryName(idx);
-    else
-      return string();
-  }
-
-  m2::PointD Framework::GetViewportCenter() const
-  {
-    return m_work.GetViewportCenter();
-  }
-
-  void Framework::AddString(string const & name, string const & value)
-  {
-    m_work.AddString(name, value);
-  }
-
-  void Framework::Scale(double k)
-  {
-    m_work.Scale(k);
-  }
-
-  ::Framework * Framework::NativeFramework()
-  {
-    return &m_work;
-  }
-
-  void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
-  {
-    m_wasLongClick = (ms == LONG_TOUCH_MS);
-    GetPinClickManager().OnShowMark(m_work.GetUserMark(m2::PointD(x, y), m_wasLongClick));
-  }
-
-  BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkData & bm)
-  {
-    return BookmarkAndCategory(cat, m_work.AddBookmark(cat, pt, bm));
-  }
-
-  void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm)
-  {
-    m_work.ReplaceBookmark(ind.first, ind.second, bm);
-  }
-
-  size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
-  {
-    BookmarkCategory * pOld = m_work.GetBmCategory(ind.first);
-    Bookmark const * oldBm = pOld->GetBookmark(ind.second);
-    m2::PointD pt = oldBm->GetOrg();
-    BookmarkData bm(oldBm->GetName(), oldBm->GetType(), oldBm->GetDescription(),
-                    oldBm->GetScale(), oldBm->GetTimeStamp());
-
-    pOld->DeleteBookmark(ind.second);
-    pOld->SaveToKMLFile();
-
-    return AddBookmark(newCat, pt, bm).second;
-  }
-
-  bool Framework::ShowMapForURL(string const & url)
-  {
-    /// @todo this is weird hack, we should reconsider Android lifecycle handling design
-    m_doLoadState = false;
-
-    return m_work.ShowMapForURL(url);
-  }
-
-  void Framework::DeactivatePopup()
-  {
-    GetPinClickManager().RemovePin();
-  }
-
-  string Framework::GetOutdatedCountriesString()
-  {
-    vector<Country const *> countries;
-    Storage().GetOutdatedCountries(countries);
-
-    string res;
-    for (size_t i = 0; i < countries.size(); ++i)
+    if (eventType == MULTITOUCH_MOVE)
     {
-      res += countries[i]->Name();
-      if (i < countries.size() - 1)
-        res += ", ";
+      if (m_mask == 0x1)
+        m_work.DoDrag(DragEvent(x1, y1));
+      if (m_mask == 0x2)
+        m_work.DoDrag(DragEvent(x2, y2));
+      if (m_mask == 0x3)
+        m_work.DoScale(ScaleEvent(x1, y1, x2, y2));
     }
-    return res;
+
+    if ((eventType == MULTITOUCH_CANCEL) || (eventType == MULTITOUCH_UP))
+    {
+      if (m_mask == 0x1)
+        m_work.StopDrag(DragEvent(x1, y1));
+      if (m_mask == 0x2)
+        m_work.StopDrag(DragEvent(x2, y2));
+      if (m_mask == 0x3)
+        m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
+      mask = 0;
+    }
   }
 
-  void Framework::ShowTrack(int category, int track)
-  {
-    Track const * nTrack = NativeFramework()->GetBmCategory(category)->GetTrack(track);
-    m_doLoadState = false;
-    NativeFramework()->ShowTrack(*nTrack);
-  }
+  m_x1 = x1;
+  m_y1 = y1;
+  m_x2 = x2;
+  m_y2 = y2;
+  m_mask = mask;
+}
 
-  void Framework::SetCountryTreeListener(shared_ptr<jobject> objPtr)
-  {
-    m_javaCountryListener = objPtr;
-    m_work.GetCountryTree().SetListener(this);
-  }
+void Framework::ShowSearchResult(search::Result const & r)
+{
+  m_doLoadState = false;
+  m_work.ShowSearchResult(r);
+}
 
-  void Framework::ResetCountryTreeListener()
-  {
-    m_work.GetCountryTree().ResetListener();
-    m_javaCountryListener.reset();
-  }
+void Framework::ShowAllSearchResults()
+{
+  m_doLoadState = false;
+  Platform::RunOnGuiThreadImpl(bind(&ShowAllSearchResultsImpl));
+}
 
-  int Framework::AddActiveMapsListener(shared_ptr<jobject> obj)
-  {
-    m_javaActiveMapListeners[m_currentSlotID] = obj;
-    return m_currentSlotID++;
-  }
+bool Framework::Search(search::SearchParams const & params)
+{
+  m_searchQuery = params.m_query;
+  return m_work.Search(params);
+}
 
-  void Framework::RemoveActiveMapsListener(int slotID)
-  {
-    m_javaActiveMapListeners.erase(slotID);
-  }
-  //////////////////////////////////////////////////////////////////////////////////////////
-  void Framework::ItemStatusChanged(int childPosition)
-  {
-    if (m_javaCountryListener == NULL)
-      return;
+void Framework::LoadState()
+{
+  if (!m_work.LoadState())
+    m_work.ShowAll();
+}
 
-    JNIEnv * env = jni::GetEnv();
-    jmethodID const methodID = jni::GetJavaMethodID(env,
-                                                    *m_javaCountryListener,
-                                                    "onItemStatusChanged",
-                                                    "(I)V");
+void Framework::SaveState()
+{
+  m_work.SaveState();
+}
+
+void Framework::Invalidate()
+{
+  ///@TODO UVR
+  //m_work.Invalidate();
+}
+
+void Framework::SetupMeasurementSystem()
+{
+  m_work.SetupMeasurementSystem();
+}
+
+void Framework::AddLocalMaps()
+{
+  m_work.RegisterAllMaps();
+}
+
+void Framework::RemoveLocalMaps()
+{
+  m_work.DeregisterAllMaps();
+}
+
+void Framework::GetMapsWithoutSearch(vector<string> & out) const
+{
+  // Actually, this routing is obsolete and comes from ancient times
+  // when mwm was without search index.
+  if (!Settings::IsFirstLaunchForDate(150101))
+    return;
+
+  ASSERT(out.empty(), ());
+
+  ::Platform const & pl = GetPlatform();
+
+  vector<LocalCountryFile> localFiles;
+  platform::FindAllLocalMaps(localFiles);
+
+  for (LocalCountryFile const & localFile : localFiles)
+  {
+    CountryFile const countryFile = localFile.GetCountryFile();
+    // skip World and WorldCoast
+    if (countryFile.GetNameWithoutExt() == WORLD_FILE_NAME ||
+        countryFile.GetNameWithoutExt() == WORLD_COASTS_FILE_NAME)
+    {
+      continue;
+    }
+    try
+    {
+      FilesContainerR cont(platform::GetCountryReader(localFile, MapOptions::Map));
+      if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
+        out.push_back(countryFile.GetNameWithoutExt());
+    }
+    catch (RootException const & ex)
+    {
+      // sdcard can contain dummy _*.mwm files. Suppress these errors.
+      LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
+    }
+  }
+}
+
+TIndex Framework::GetCountryIndex(double lat, double lon) const
+{
+  return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
+}
+
+string Framework::GetCountryCode(double lat, double lon) const
+{
+  return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
+}
+
+string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
+{
+  TIndex const idx = m_work.GetCountryIndex(pt);
+  TStatus const status = m_work.GetCountryStatus(idx);
+  if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
+    return m_work.GetCountryName(idx);
+  else
+    return string();
+}
+
+m2::PointD Framework::GetViewportCenter() const
+{
+  return m_work.GetViewportCenter();
+}
+
+void Framework::AddString(string const & name, string const & value)
+{
+  m_work.AddString(name, value);
+}
+
+void Framework::Scale(double k)
+{
+  m_work.Scale(k);
+}
+
+::Framework * Framework::NativeFramework()
+{
+  return &m_work;
+}
+
+void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
+{
+  m_wasLongClick = (ms == LONG_TOUCH_MS);
+  GetPinClickManager().OnShowMark(m_work.GetUserMark(m2::PointD(x, y), m_wasLongClick));
+}
+
+BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkData & bm)
+{
+  return BookmarkAndCategory(cat, m_work.AddBookmark(cat, pt, bm));
+}
+
+void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm)
+{
+  m_work.ReplaceBookmark(ind.first, ind.second, bm);
+}
+
+size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
+{
+  BookmarkCategory * pOld = m_work.GetBmCategory(ind.first);
+  Bookmark const * oldBm = pOld->GetBookmark(ind.second);
+  m2::PointD pt = oldBm->GetOrg();
+  BookmarkData bm(oldBm->GetName(), oldBm->GetType(), oldBm->GetDescription(),
+                  oldBm->GetScale(), oldBm->GetTimeStamp());
+
+  pOld->DeleteBookmark(ind.second);
+  pOld->SaveToKMLFile();
+
+  return AddBookmark(newCat, pt, bm).second;
+}
+
+bool Framework::ShowMapForURL(string const & url)
+{
+  /// @todo this is weird hack, we should reconsider Android lifecycle handling design
+  m_doLoadState = false;
+
+  return m_work.ShowMapForURL(url);
+}
+
+void Framework::DeactivatePopup()
+{
+  GetPinClickManager().RemovePin();
+}
+
+string Framework::GetOutdatedCountriesString()
+{
+  vector<Country const *> countries;
+  Storage().GetOutdatedCountries(countries);
+
+  string res;
+  for (size_t i = 0; i < countries.size(); ++i)
+  {
+    res += countries[i]->Name();
+    if (i < countries.size() - 1)
+      res += ", ";
+  }
+  return res;
+}
+
+void Framework::ShowTrack(int category, int track)
+{
+  Track const * nTrack = NativeFramework()->GetBmCategory(category)->GetTrack(track);
+  m_doLoadState = false;
+  NativeFramework()->ShowTrack(*nTrack);
+}
+
+void Framework::SetCountryTreeListener(shared_ptr<jobject> objPtr)
+{
+  m_javaCountryListener = objPtr;
+  m_work.GetCountryTree().SetListener(this);
+}
+
+void Framework::ResetCountryTreeListener()
+{
+  m_work.GetCountryTree().ResetListener();
+  m_javaCountryListener.reset();
+}
+
+int Framework::AddActiveMapsListener(shared_ptr<jobject> obj)
+{
+  m_javaActiveMapListeners[m_currentSlotID] = obj;
+  return m_currentSlotID++;
+}
+
+void Framework::RemoveActiveMapsListener(int slotID)
+{
+  m_javaActiveMapListeners.erase(slotID);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+void Framework::ItemStatusChanged(int childPosition)
+{
+  if (m_javaCountryListener == NULL)
+    return;
+
+  JNIEnv * env = jni::GetEnv();
+  static jmethodID const methodID = jni::GetJavaMethodID(env,
+                                                  *m_javaCountryListener,
+                                                  "onItemStatusChanged",
+                                                  "(I)V");
+  ASSERT ( methodID, () );
+
+  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);
+}
+
+void Framework::ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes)
+{
+  if (m_javaCountryListener == NULL)
+    return;
+
+  JNIEnv * env = jni::GetEnv();
+  static jmethodID const methodID = jni::GetJavaMethodID(env,
+                                                  *m_javaCountryListener,
+                                                  "onItemProgressChanged",
+                                                  "(I[J)V");
+  ASSERT ( methodID, () );
+
+  env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition, storage_utils::ToArray(env, sizes));
+}
+
+void Framework::CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
+                                    ActiveMapsLayout::TGroup const & newGroup, int newPosition)
+{
+  JNIEnv * env = jni::GetEnv();
+  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
+  {
+    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
     ASSERT ( methodID, () );
 
-    env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition);
+    env->CallVoidMethod(*(it->second), methodID, oldGroup, oldPosition, newGroup, newPosition);
   }
+}
 
-  void Framework::ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes)
+void Framework::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position,
+                                     TStatus const & oldStatus, TStatus const & newStatus)
+{
+  JNIEnv * env = jni::GetEnv();
+  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    if (m_javaCountryListener == NULL)
-      return;
-
-    JNIEnv * env = jni::GetEnv();
-    jmethodID const methodID = jni::GetJavaMethodID(env,
-                                                    *m_javaCountryListener,
-                                                    "onItemProgressChanged",
-                                                    "(I[J)V");
+    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
     ASSERT ( methodID, () );
 
-    env->CallVoidMethod(*m_javaCountryListener, methodID, childPosition, storage_utils::ToArray(env, sizes));
+    env->CallVoidMethod(*(it->second), methodID, group, position,
+                           static_cast<jint>(oldStatus), static_cast<jint>(newStatus));
   }
+}
 
-  void Framework::CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
-                                      ActiveMapsLayout::TGroup const & newGroup, int newPosition)
+void Framework::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
+                                      MapOptions const & oldOpt, MapOptions const & newOpt)
+{
+  JNIEnv * env = jni::GetEnv();
+  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    JNIEnv * env = jni::GetEnv();
-    for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-    {
-      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
-      ASSERT ( methodID, () );
+    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
+    ASSERT ( methodID, () );
 
-      env->CallVoidMethod(*(it->second), methodID, oldGroup, oldPosition, newGroup, newPosition);
-    }
+    env->CallVoidMethod(*(it->second), methodID, group, position,
+                            static_cast<jint>(oldOpt), static_cast<jint>(newOpt));
   }
+}
 
-  void Framework::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                       TStatus const & oldStatus, TStatus const & newStatus)
+void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position,
+                                          LocalAndRemoteSizeT const & progress)
+{
+  JNIEnv * env = jni::GetEnv();
+  for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
   {
-    JNIEnv * env = jni::GetEnv();
-    for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-    {
-      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
-      ASSERT ( methodID, () );
+    jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
+    ASSERT ( methodID, () );
 
-      env->CallVoidMethod(*(it->second), methodID, group, position,
-                             static_cast<jint>(oldStatus), static_cast<jint>(newStatus));
-    }
-  }
-
-  void Framework::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
-                                        MapOptions const & oldOpt, MapOptions const & newOpt)
-  {
-    JNIEnv * env = jni::GetEnv();
-    for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-    {
-      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
-      ASSERT ( methodID, () );
-
-      env->CallVoidMethod(*(it->second), methodID, group, position,
-                              static_cast<jint>(oldOpt), static_cast<jint>(newOpt));
-    }
-  }
-
-  void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position,
-                                            LocalAndRemoteSizeT const & progress)
-  {
-    JNIEnv * env = jni::GetEnv();
-    for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
-    {
-      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
-      ASSERT ( methodID, () );
-
-      env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
-    }
+    env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
   }
 
   // Fills mapobject's metadata from UserMark

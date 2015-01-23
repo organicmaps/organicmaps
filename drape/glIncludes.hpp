@@ -14,6 +14,11 @@
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>
   #include "../3party/GL/glext.h"
+#elif defined(OMIM_OS_ANDROID)
+  #include <EGL/egl.h>
+  #include <GLES2/gl2.h>
+  #define GL_GLEXT_PROTOTYPES
+  #include <GLES2/gl2ext.h>
 #else
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>

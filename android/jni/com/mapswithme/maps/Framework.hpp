@@ -2,6 +2,10 @@
 
 #include <jni.h>
 
+#include "opengl/androidoglcontextfactory.hpp"
+
+#include "drape/pointers.hpp"
+
 #include "map/framework.hpp"
 
 #include "search/result.hpp"
@@ -19,19 +23,14 @@
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 
-#include "../../../nv_event/nv_event.hpp"
-
-
-class CountryStatusDisplay;
-
 namespace android
 {
   class Framework : public storage::CountryTree::CountryTreeListener,
                     public storage::ActiveMapsLayout::ActiveMapsListener
   {
   private:
+    dp::MasterPointer<AndroidOGLContextFactory> m_contextFactory;
     ::Framework m_work;
-    VideoTimer * m_videoTimer;
 
     typedef shared_ptr<jobject> TJobject;
 
@@ -41,8 +40,6 @@ namespace android
     int m_currentSlotID;
 
     int m_activeMapsConnectionID;
-
-    void CallRepaint();
 
     double m_x1;
     double m_y1;
@@ -76,7 +73,7 @@ namespace android
 
     string m_searchQuery;
 
-    void SetBestDensity(int densityDpi, RenderPolicy::Params & params);
+    float GetBestDensity(int densityDpi);
 
     bool InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight);
 
@@ -85,7 +82,6 @@ namespace android
     ~Framework();
 
     storage::Storage & Storage();
-    CountryStatusDisplay * GetCountryStatusDisplay();
 
     void DontLoadState() { m_doLoadState = false; }
 
@@ -99,8 +95,8 @@ namespace android
 
     void Invalidate();
 
-    bool InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight);
-    void DeleteRenderPolicy();
+    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi);
+    void DeleteDrapeEngine();
 
     void SetMapStyle(MapStyle mapStyle);
     MapStyle GetMapStyle() const;
@@ -111,11 +107,18 @@ namespace android
 
     void Resize(int w, int h);
 
-    void DrawFrame();
-
     void Move(int mode, double x, double y);
     void Zoom(int mode, double x1, double y1, double x2, double y2);
     void Touch(int action, int mask, double x1, double y1, double x2, double y2);
+
+    /// Show rect from another activity. Ensure that no LoadState will be called,
+    /// when main map activity will become active.
+    void ShowSearchResult(search::Result const & r);
+    void ShowAllSearchResults();
+
+    bool Search(search::SearchParams const & params);
+    string GetLastSearchQuery() { return m_searchQuery; }
+    void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
     void LoadState();
     void SaveState();

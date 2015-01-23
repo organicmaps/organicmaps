@@ -3,18 +3,10 @@
 #include "map/framework.hpp"
 #include "map/move_screen_task.hpp"
 
-#ifndef USE_DRAPE
-#include "graphics/display_list.hpp"
-#include "graphics/icon.hpp"
-#include "graphics/depth_constants.hpp"
-#endif // USE_DRAPE
-
 #include "anim/controller.hpp"
 #include "anim/task.hpp"
 #include "anim/angle_interpolation.hpp"
 #include "anim/segment_interpolation.hpp"
-
-#include "gui/controller.hpp"
 
 #include "indexer/mercator.hpp"
 #include "indexer/scales.hpp"
@@ -105,12 +97,14 @@ public:
     {
       m_hasPendingAnimation = false;
       SetParams(m_pendingDstPos, m_pendingAngle);
-      m_fw->Invalidate();
+      ///@TODO UVR
+      //m_fw->Invalidate();
     }
     else if (m_idleFrames > 0)
     {
       --m_idleFrames;
-      m_fw->Invalidate();
+      ///@TODO UVR
+      //m_fw->Invalidate();
     }
   }
 
@@ -185,7 +179,8 @@ private:
 
     m_fw->SetViewportCenter(currentPosition + rotateVector);
     m_fw->GetNavigator().SetAngle(currentAngle);
-    m_fw->Invalidate();
+    ///@TODO UVR
+    //m_fw->Invalidate();
   }
 
   void SetParams(m2::PointD const & dstPos, double dstAngle)
@@ -251,13 +246,11 @@ string const LocationStateMode = "LastLocationStateMode";
 }
 
 State::Params::Params()
-  : m_locationAreaColor(0, 0, 0, 0),
-    m_framework(0)
+  : m_framework(0)
 {}
 
 State::State(Params const & p)
-  : TBase(p),
-    m_modeInfo(Follow),
+  : m_modeInfo(Follow),
     m_errorRadius(0),
     m_position(0, 0),
     m_drawDirection(0.0),
@@ -266,7 +259,6 @@ State::State(Params const & p)
     m_routeMatchingInfo(),
     m_currentSlotID(0)
 {
-  m_locationAreaColor = p.m_locationAreaColor;
   m_framework = p.m_framework;
 
   int mode = 0;
@@ -277,7 +269,8 @@ State::State(Params const & p)
   if (Settings::Get("IsBenchmarking", isBench) && isBench)
     m_modeInfo = UnknownPosition;
 
-  setIsVisible(false);
+  ///@TODO UVR
+  //setIsVisible(false);
 }
 
 m2::PointD const & State::Position() const
@@ -393,8 +386,9 @@ void State::TurnOff()
 {
   StopLocationFollow();
   SetModeInfo(UnknownPosition);
-  setIsVisible(false);
-  invalidate();
+  ///@TODO UVR
+  //setIsVisible(false);
+  //invalidate();
 }
 
 void State::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeMatchingInfo)
@@ -402,7 +396,8 @@ void State::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, l
   Assign(info, isNavigable);
   m_routeMatchingInfo = routeMatchingInfo;
 
-  setIsVisible(true);
+  ///@TODO UVR
+  //setIsVisible(true);
 
   if (GetMode() == PendingPosition)
   {
@@ -413,7 +408,8 @@ void State::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, l
     AnimateFollow();
 
   CallPositionChangedListeners(m_position);
-  invalidate();
+  ///@TODO UVR
+  //invalidate();
 }
 
 void State::OnCompassUpdate(location::CompassInfo const & info)
@@ -421,7 +417,8 @@ void State::OnCompassUpdate(location::CompassInfo const & info)
   if (Assign(info))
   {
     AnimateFollow();
-    invalidate();
+    ///@TODO UVR
+    //invalidate();
   }
 }
 
@@ -470,183 +467,40 @@ void State::InvalidatePosition()
     SetModeInfo(ChangeMode(m_modeInfo, UnknownPosition));
     SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
     m_afterPendingMode = currentMode;
-    setIsVisible(true);
+    ///@TODO UVR
+    //setIsVisible(true);
   }
   else if (currentMode == UnknownPosition)
   {
     m_afterPendingMode = Follow;
-    setIsVisible(false);
+    ///@TODO UVR
+    //setIsVisible(false);
   }
 
-  invalidate();
+  ///@TODO UVR
+  //invalidate();
 }
 
 void State::cache()
 {
-#ifndef USE_DRAPE
-  CachePositionArrow();
-  CacheRoutingArrow();
-  CacheLocationMark();
-
-  m_controller->GetCacheScreen()->completeCommands();
-#endif // USE_DRAPE
 }
 
 void State::purge()
 {
-#ifndef USE_DRAPE
-  m_positionArrow.reset();
-  m_locationMarkDL.reset();
-  m_positionMarkDL.reset();
-  m_routingArrow.reset();
-#endif // USE_DRAPE
 }
 
 void State::update()
 {
-  if (isVisible() && IsModeHasPosition())
-  {
-    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-    setPivot(pxPosition, false);
+  ///@TODO UVR
+//  if (isVisible() && IsModeHasPosition())
+//  {
+//    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+//    setPivot(pxPosition, false);
 
-    if (m_animTask)
-      static_cast<RotateAndFollowAnim *>(m_animTask.get())->Update();
-  }
+//    if (m_animTask)
+//      static_cast<RotateAndFollowAnim *>(m_animTask.get())->Update();
+//  }
 }
-
-void State::draw(graphics::OverlayRenderer * r,
-                 math::Matrix<double, 3, 3> const & m) const
-{
-#ifndef USE_DRAPE
-  if (!IsModeHasPosition() || !isVisible())
-    return;
-
-  checkDirtyLayout();
-
-  m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-  double const pxErrorRadius = pxPosition.Length(
-        m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
-
-  double const drawScale = pxErrorRadius / s_cacheRadius;
-  m2::PointD const & pivotPosition = GetPositionForDraw();
-
-  math::Matrix<double, 3, 3> locationDrawM = math::Shift(
-                                               math::Scale(
-                                                 math::Identity<double, 3>(),
-                                                 drawScale,
-                                                 drawScale),
-                                               pivotPosition);
-
-  math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
-  // draw error sector
-  r->drawDisplayList(m_locationMarkDL.get(), drawM);
-
-  // if we know look direction than we draw arrow
-  if (IsDirectionKnown())
-  {
-    double rotateAngle = m_drawDirection + GetModelView().GetAngle();
-
-    math::Matrix<double, 3, 3> compassDrawM = math::Shift(
-                                                math::Rotate(
-                                                  math::Identity<double, 3>(),
-                                                  rotateAngle),
-                                                pivotPosition);
-
-    if (!IsInRouting())
-      r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
-    else
-      r->drawDisplayList(m_routingArrow.get(), compassDrawM * m);
-  }
-  else
-    r->drawDisplayList(m_positionMarkDL.get(), drawM);
-#endif // USE_DRAPE
-}
-
-#ifndef USE_DRAPE
-void State::CachePositionArrow()
-{
-  m_positionArrow.reset();
-  m_positionArrow.reset(m_controller->GetCacheScreen()->createDisplayList());
-  CacheArrow(m_positionArrow.get(), "current-position-compas");
-}
-
-void State::CacheRoutingArrow()
-{
-  m_routingArrow.reset();
-  m_routingArrow.reset(m_controller->GetCacheScreen()->createDisplayList());
-  CacheArrow(m_routingArrow.get(), "current-routing-compas");
-}
-
-void State::CacheLocationMark()
-{
-  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
-
-  m_locationMarkDL.reset();
-  m_locationMarkDL.reset(cacheScreen->createDisplayList());
-
-  m_positionMarkDL.reset();
-  m_positionMarkDL.reset(cacheScreen->createDisplayList());
-
-  cacheScreen->beginFrame();
-  cacheScreen->setDisplayList(m_locationMarkDL.get());
-
-  cacheScreen->fillSector(m2::PointD(0, 0),
-                          0, 2.0 * math::pi,
-                          s_cacheRadius,
-                          m_locationAreaColor,
-                          graphics::locationFaultDepth);
-
-  cacheScreen->setDisplayList(m_positionMarkDL.get());
-  cacheScreen->drawSymbol(m2::PointD(0, 0),
-                          "current-position",
-                          graphics::EPosCenter,
-                          graphics::locationDepth);
-
-  cacheScreen->setDisplayList(0);
-
-  cacheScreen->endFrame();
-}
-
-void State::CacheArrow(graphics::DisplayList * dl, const string & iconName)
-{
-  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
-  graphics::Icon::Info info(iconName);
-
-  graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
-  m2::RectU const rect = res->m_texRect;
-  m2::PointD const halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
-
-  cacheScreen->beginFrame();
-  cacheScreen->setDisplayList(dl);
-
-  m2::PointD coords[4] =
-  {
-    m2::PointD(-halfArrowSize.x, -halfArrowSize.y),
-    m2::PointD(-halfArrowSize.x,  halfArrowSize.y),
-    m2::PointD( halfArrowSize.x, -halfArrowSize.y),
-    m2::PointD( halfArrowSize.x,  halfArrowSize.y)
-  };
-
-  m2::PointF const normal(0.0, 0.0);
-  shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
-
-  m2::PointF texCoords[4] =
-  {
-    texture->mapPixel(m2::PointF(rect.minX(), rect.minY())),
-    texture->mapPixel(m2::PointF(rect.minX(), rect.maxY())),
-    texture->mapPixel(m2::PointF(rect.maxX(), rect.minY())),
-    texture->mapPixel(m2::PointF(rect.maxX(), rect.maxY()))
-  };
-
-  cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
-                                       &normal, 0,
-                                       texCoords, sizeof(m2::PointF),
-                                       4, graphics::locationDepth, res->m_pipelineID);
-  cacheScreen->setDisplayList(0);
-  cacheScreen->endFrame();
-}
-
-#endif // USE_DRAPE
 
 bool State::IsRotationActive() const
 {
@@ -725,7 +579,8 @@ void State::SetModeInfo(uint16_t modeInfo, bool callListeners)
       CallStateModeListeners();
 
     AnimateStateTransition(oldMode, newMode);
-    invalidate();
+    ///@TODO UVR
+    //invalidate();
   }
 }
 
@@ -745,9 +600,11 @@ ScreenBase const & State::GetModelView() const
 
 m2::PointD const State::GetRaFModeDefaultPxBind() const
 {
-  m2::RectD const & pixelRect = GetModelView().PixelRect();
-  return m2::PointD(pixelRect.Center().x,
-                    pixelRect.maxY() - POSITION_Y_OFFSET * visualScale());
+  return m2::PointD();
+  ///@TODO UVR
+//  m2::RectD const & pixelRect = GetModelView().PixelRect();
+//  return m2::PointD(pixelRect.Center().x,
+//                    pixelRect.maxY() - POSITION_Y_OFFSET * visualScale());
 }
 
 void State::StopCompassFollowing()
@@ -851,7 +708,7 @@ void State::OnCompassTaped()
   AnimateFollow();
 }
 
-void State::OnSize(m2::RectD const & /*oldPixelRect*/)
+void State::OnSize()
 {
   if (GetMode() == RotateAndFollow)
   {
@@ -955,7 +812,9 @@ m2::PointD const State::GetPositionForDraw() const
   if (m_animTask != nullptr)
     return m_framework->GtoP(static_cast<RotateAndFollowAnim *>(m_animTask.get())->GetPositionForDraw());
 
-  return pivot();
+  return m2::PointD();
+  ///@TODO UVR
+  //return pivot();
 }
 
 }

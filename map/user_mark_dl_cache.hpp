@@ -1,26 +1,21 @@
 #pragma once
 
+#include "drape/drape_global.hpp"
+
 #include "base/math.hpp"
-#include "graphics/defines.hpp"
 
 #include "std/map.hpp"
-
-namespace graphics
-{
-  class Screen;
-  class DisplayList;
-}
 
 class UserMarkDLCache
 {
 public:
   struct Key
   {
-    Key(string const & name, graphics::EPosition anchor, double depthLayer)
+    Key(string const & name, dp::Anchor anchor, double depthLayer)
       : m_name(name), m_anchor(anchor), m_depthLayer(depthLayer) {}
 
     string m_name;
-    graphics::EPosition m_anchor;
+    dp::Anchor m_anchor;
     double m_depthLayer;
 
     bool operator < (Key const & other) const
@@ -34,17 +29,15 @@ public:
     }
   };
 
-  UserMarkDLCache(graphics::Screen * cacheScreen);
+  UserMarkDLCache();
   ~UserMarkDLCache();
 
-  graphics::DisplayList * FindUserMark(Key const & key);
+  ///@TODO UVR
+  //graphics::DisplayList * FindUserMark(Key const & key);
 
 private:
-  graphics::DisplayList * CreateDL(Key const & key);
+  //graphics::DisplayList * CreateDL(Key const & key);
 
 private:
-  graphics::Screen * m_cacheScreen;
-  typedef map<Key, graphics::DisplayList *> cache_t;
-  typedef cache_t::iterator node_t;
-  cache_t m_dls;
+  //graphics::Screen * m_cacheScreen;
 };

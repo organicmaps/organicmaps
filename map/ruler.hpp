@@ -1,6 +1,7 @@
 #pragma once
 
-#include "gui/element.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
@@ -12,23 +13,11 @@ namespace anim
   class Task;
 }
 
-namespace graphics
-{
-  class DisplayList;
-
-  namespace gl
-  {
-    class OverlayRenderer;
-  }
-}
-
 class Framework;
 
 
-class Ruler : public gui::Element
+class Ruler
 {
-  typedef gui::Element BaseT;
-
   class RulerFrame
   {
   public:
@@ -43,7 +32,6 @@ class Ruler : public gui::Element
 
     bool IsValid() const;
 
-    void Cache(const string & text, const graphics::FontDesc & f);
     void Purge();
     bool IsHidingAnim() const;
     bool IsAnimActive() const;
@@ -54,7 +42,6 @@ class Ruler : public gui::Element
 
     void ShowAnimate(bool needPause);
     void HideAnimate(bool needPause);
-    void Draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m);
 
   private:
     void CreateAnim(double startAlfa, double endAlfa,
@@ -65,9 +52,6 @@ class Ruler : public gui::Element
 
   private:
     Framework & m_f;
-
-    shared_ptr<graphics::DisplayList> m_dl;
-    shared_ptr<graphics::DisplayList> m_textDL;
 
     int m_textLengthInPx;
     double m_scale;
@@ -97,7 +81,7 @@ private:
 
 public:
 
-  struct Params : public Element::Params
+  struct Params
   {
     Framework * m_framework;
     Params();
@@ -111,8 +95,6 @@ public:
   /// @name Override from graphics::OverlayElement and gui::Element.
   //@{
   virtual m2::RectD GetBoundRect() const;
-
-  void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   void update();
   void layout();

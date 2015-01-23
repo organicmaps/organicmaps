@@ -30,8 +30,7 @@
 
 UNIT_TEST(Navigator_Scale2Points)
 {
-  ScalesProcessor scales;
-  Navigator navigator(scales);
+  Navigator navigator;
 
   navigator.OnSize(0, 0, 200, 100);
   navigator.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
@@ -69,8 +68,7 @@ namespace
 
 UNIT_TEST(Navigator_G2P_P2G)
 {
-  ScalesProcessor scales;
-  Navigator navigator(scales);
+  Navigator navigator;
 
   // Initialize.
   navigator.OnSize(0, 0, 200, 100);

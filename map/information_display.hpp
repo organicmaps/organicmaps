@@ -1,9 +1,5 @@
 #pragma once
 
-#include "gui/button.hpp"
-
-#include "graphics/font_desc.hpp"
-
 #include "storage/index.hpp"
 
 #include "geometry/point2d.hpp"
@@ -19,15 +15,6 @@ namespace location
   class State;
 }
 
-class Drawer;
-
-namespace gui
-{
-  class Button;
-  class Controller;
-  class CachedTextView;
-}
-
 class Framework;
 class CountryStatusDisplay;
 class CompassArrow;
@@ -38,16 +25,19 @@ class Ruler;
 class InformationDisplay
 {
   Framework * m_framework;
-  graphics::FontDesc m_fontDesc;
+  ///@TODO UVR
+  //graphics::FontDesc m_fontDesc;
 
   shared_ptr<Ruler> m_ruler;
-  gui::Controller * m_controller;
+  ///@TODO UVR
+  //gui::Controller * m_controller;
 
   shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
   shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
-  shared_ptr<gui::CachedTextView> m_debugLabel;
-  shared_ptr<gui::CachedTextView> m_copyrightLabel;
+  ///@TODO UVR
+  //shared_ptr<gui::CachedTextView> m_debugLabel;
+  //shared_ptr<gui::CachedTextView> m_copyrightLabel;
 
   void InitRuler(Framework * fw);
   void InitDebugLabel();
@@ -67,14 +57,9 @@ public:
   };
 
   InformationDisplay(Framework * framework);
+  //void setController(gui::Controller * controller);
 
-  void setController(gui::Controller * controller);
-  /*!
-   * \brief SetWidgetPivotsByDefault sets the default pivot points for all the widgets on the map.
-   * The pivot points can be overridden by a call of SetWidgetPivot()
-   * after Framework::OnSize() call.
-   */
-  void SetWidgetPivotsByDefault(int screenWidth, int screenHeight);
+  void setDisplayRect(m2::RectI const & rect);
   void setVisualScale(double visualScale);
 
   bool isCopyrightActive() const;

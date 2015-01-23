@@ -111,12 +111,12 @@ extern "C"
     string formattedLenght;
     MeasurementUtils::FormatDistance(nTrack->GetLengthMeters(), formattedLenght);
 
-    graphics::Color nColor = nTrack->GetMainColor();
+    dp::Color nColor = nTrack->GetMainColor();
 
-    jint androidColor = shift(nColor.a, 24) +
-                        shift(nColor.r, 16) +
-                        shift(nColor.g, 8) +
-                        nColor.b;
+    jint androidColor = shift(nColor.GetAlfa(), 24) +
+                        shift(nColor.GetRed(), 16) +
+                        shift(nColor.GetGreen(), 8) +
+                        nColor.GetBlue();
 
     return env->NewObject(trackClazz, cId,
         index, id, jni::ToJavaString(env, nTrack->GetName()),

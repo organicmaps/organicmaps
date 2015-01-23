@@ -16,6 +16,7 @@
 
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "graphics/defines.hpp"
 
@@ -146,8 +147,8 @@ ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey,
                                      FeatureID const & id, CaptionDescription const & captions)
   : TBase(context, tileKey, id, captions)
   , m_hasPoint(false)
-  , m_symbolDepth(graphics::minDepth)
-  , m_circleDepth(graphics::minDepth)
+  , m_symbolDepth(dp::minDepth)
+  , m_circleDepth(dp::minDepth)
   , m_symbolRule(NULL)
   , m_circleRule(NULL)
 {

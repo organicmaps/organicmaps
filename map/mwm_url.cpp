@@ -1,6 +1,6 @@
-#include "mwm_url.hpp"
+#include "map/mwm_url.hpp"
 
-#include "render/scales_processor.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "indexer/mercator.hpp"
 #include "indexer/scales.hpp"
@@ -174,14 +174,14 @@ void ParsedMapApi::Reset()
   m_goBackOnBalloonClick = false;
 }
 
-bool ParsedMapApi::GetViewportRect(ScalesProcessor const & scales, m2::RectD & rect) const
+bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 {
   ASSERT(m_controller != NULL, ());
   size_t markCount = m_controller->GetUserMarkCount();
   if (markCount == 1 && m_zoomLevel >= 1)
   {
     double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    rect = scales.GetRectForDrawScale(zoom, m_controller->GetUserMark(0)->GetOrg());
+    rect = df::GetRectForDrawScale(zoom, m_controller->GetUserMark(0)->GetOrg());
     return true;
   }
   else

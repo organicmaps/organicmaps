@@ -2,11 +2,13 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape/utils/projection.hpp"
+
+#include "geometry/any_rect2d.hpp"
+
 #include "base/timer.hpp"
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
-
-#include "geometry/any_rect2d.hpp"
 
 #include "std/bind.hpp"
 #include "std/cmath.hpp"
@@ -24,18 +26,6 @@ const double VSyncInterval = 0.030;
 const double VSyncInterval = 0.014;
 //const double InitAvarageTimePerMessage = 0.001;
 #endif
-
-void OrthoMatrix(float * m, float left, float right, float bottom, float top, float nearClip, float farClip)
-{
-  memset(m, 0, 16 * sizeof(float));
-  m[0]  = 2.0f / (right - left);
-  m[3]  = - (right + left) / (right - left);
-  m[5]  = 2.0f / (top - bottom);
-  m[7]  = - (top + bottom) / (top - bottom);
-  m[10] = -2.0f / (farClip - nearClip);
-  m[11] = - (farClip + nearClip) / (farClip - nearClip);
-  m[15] = 1.0;
-}
 
 } // namespace
 
@@ -230,10 +220,10 @@ void FrontendRenderer::RenderScene()
 
 void FrontendRenderer::RefreshProjection()
 {
-  float m[4*4];
+  array<float, 16> m;
 
-  OrthoMatrix(m, 0.0f, m_viewport.GetWidth(), m_viewport.GetHeight(), 0.0f, -20000.0f, 20000.0f);
-  m_generalUniforms.SetMatrix4x4Value("projection", m);
+  dp::MakeProjection(m, 0.0f, m_viewport.GetWidth(), m_viewport.GetHeight(), 0.0f);
+  m_generalUniforms.SetMatrix4x4Value("projection", m.data());
 }
 
 void FrontendRenderer::RefreshModelView()

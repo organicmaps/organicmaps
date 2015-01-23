@@ -26,7 +26,9 @@
   {
     int m_code;
     char const * m_message;
-  } g_FT_Errors[]
+  };
+
+  FreetypeError g_FT_Errors[] =
   #include FT_ERRORS_H
 
   #define FREETYPE_CHECK(x) \

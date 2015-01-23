@@ -2,21 +2,10 @@
 
 #include "map/active_maps_layout.hpp"
 
-#include "gui/element.hpp"
-#include "platform/country_defines.hpp"
-
-#ifdef OMIM_OS_ANDROID
-  #include "../base/mutex.hpp"
-#endif
+#include "storage/storage_defines.hpp"
 
 #include "std/unique_ptr.hpp"
 #include "std/target_os.hpp"
-
-namespace gui
-{
-  class Button;
-  class TextView;
-}
 
 class Framework;
 
@@ -24,12 +13,10 @@ namespace storage { struct TIndex; }
 
 /// This class is a composite GUI element to display
 /// an on-screen GUI for the country, which is not downloaded yet.
-class CountryStatusDisplay : public gui::Element,
-                             public storage::ActiveMapsLayout::ActiveMapsListener
+class CountryStatusDisplay : public storage::ActiveMapsLayout::ActiveMapsListener
 {
-  typedef gui::Element TBase;
 public:
-  struct Params : public gui::Element::Params
+  struct Params
   {
     Params(storage::ActiveMapsLayout & activeMaps) : m_activeMaps(activeMaps) {}
 
@@ -48,20 +35,10 @@ public:
   //@{
   virtual void setIsVisible(bool isVisible) const;
   virtual void setIsDirtyLayout(bool isDirty) const;
-  virtual m2::RectD GetBoundRect() const;
-
-  void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   void cache();
   void purge();
   void layout();
-
-  void setController(gui::Controller * controller);
-
-  bool onTapStarted(m2::PointD const & pt);
-  bool onTapMoved(m2::PointD const & pt);
-  bool onTapEnded(m2::PointD const & pt);
-  bool onTapCancelled(m2::PointD const & pt);
   //@}
 
 private:
@@ -90,11 +67,10 @@ private:
 
   void ComposeElementsForState();
 
-  typedef function<bool (unique_ptr<gui::Button> const &, m2::PointD const &)> TTapActionFn;
-  bool OnTapAction(TTapActionFn const & action, m2::PointD const & pt);
-  void OnButtonClicked(Element const * button);
-
-  void Repaint() const;
+  ///@TODO UVR
+  //typedef function<bool (unique_ptr<gui::Button> const &, m2::PointD const &)> TTapActionFn;
+  //bool OnTapAction(TTapActionFn const & action, m2::PointD const & pt);
+  //void OnButtonClicked(Element const * button);
 
   bool IsStatusFailed() const;
 
@@ -102,20 +78,10 @@ private:
   storage::ActiveMapsLayout & m_activeMaps;
   int m_activeMapsSlotID = 0;
 
-  unique_ptr<gui::TextView> m_label;
-  unique_ptr<gui::Button> m_primaryButton;
-  unique_ptr<gui::Button> m_secondaryButton;
-
   string m_displayMapName;
   mutable storage::TStatus m_countryStatus = storage::TStatus::EUnknown;
   storage::TIndex m_countryIdx;
   storage::LocalAndRemoteSizeT m_progressSize;
 
   TDownloadCountryFn m_downloadCallback;
-
-  void Lock() const;
-  void Unlock() const;
-#ifdef OMIM_OS_ANDROID
-  mutable threads::Mutex m_mutex;
-#endif
 };

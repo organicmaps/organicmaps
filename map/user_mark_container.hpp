@@ -19,12 +19,6 @@ namespace anim
   class Task;
 }
 
-namespace graphics
-{
-  class DisplayList;
-  class Screen;
-}
-
 class UserMarkContainer : private noncopyable
 {
 public:
@@ -62,7 +56,7 @@ public:
   UserMarkContainer(double layerDepth, Framework & fm);
   virtual ~UserMarkContainer();
 
-  void SetScreen(graphics::Screen * cacheScreen);
+  //void SetScreen(graphics::Screen * cacheScreen);
   virtual Type GetType() const = 0;
 
   bool IsVisible() const { return m_isVisible; }

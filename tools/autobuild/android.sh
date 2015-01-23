@@ -16,7 +16,7 @@ source "$MY_PATH/ndk_helper.sh"
 
 MKSPEC="$MY_PATH/../mkspecs/android-clang"
 QMAKE_PARAMS="CONFIG+=${CONFIGURATION}"
-SHADOW_DIR_BASE="$MY_PATH/../../../omim-android"
+SHADOW_DIR_BASE="$MY_PATH/../../../omim-android-drape"
 
 # Try to read ndk root path from android/local.properties file
 export NDK_ROOT=$(GetNdkRoot) || ( echo "Can't read NDK root path from android/local.properties"; exit 1 )

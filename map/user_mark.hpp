@@ -14,12 +14,6 @@
 class UserMarkContainer;
 class PaintOverlayEvent;
 class UserMarkDLCache;
-
-namespace graphics
-{
-  class DisplayList;
-}
-
 class UserMarkCopy;
 
 class UserMark
@@ -197,7 +191,7 @@ class ICustomDrawable : public UserMark
 public:
   ICustomDrawable(m2::PointD const & ptOrg, UserMarkContainer * container) : UserMark(ptOrg, container) {}
   bool IsCustomDrawable() const { return true; }
-  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const = 0;
+  //virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const = 0;
   virtual double GetAnimScaleFactor() const = 0;
   virtual m2::PointD const & GetPixelOffset() const = 0;
 };

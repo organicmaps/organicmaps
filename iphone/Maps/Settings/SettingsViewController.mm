@@ -62,7 +62,8 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)viewWillDisappear:(BOOL)animated
 {
   [super viewWillDisappear:animated];
-  GetFramework().Invalidate(true);
+  ///@TODO UVR
+  //GetFramework().Invalidate(true);
 }
 
 #pragma mark - Table view data source

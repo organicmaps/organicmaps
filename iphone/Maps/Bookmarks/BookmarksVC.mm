@@ -166,8 +166,9 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), [NSString  stringWithUTF8String:dist.c_str()]];
     else
       cell.detailTextLabel.text = nil;
-    const graphics::Color c = tr->GetMainColor();
-    cell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[UIColor colorWithRed:c.r/255.f green:c.g/255.f blue:c.b/255.f alpha:1.f]];
+    const dp::Color c = tr->GetMainColor();
+    cell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[UIColor colorWithRed:c.GetRed()/255.f green:c.GetGreen()/255.f
+                                                                                                   blue:c.GetBlue()/255.f alpha:1.f]];
   }
   // Contains bookmarks list
   else if (indexPath.section == m_bookmarkSection)

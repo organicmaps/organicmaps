@@ -2,11 +2,8 @@
 
 #include "indexer/mercator.hpp"
 
-#include "graphics/screen.hpp"
-#include "graphics/pen.hpp"
-#include "graphics/depth_constants.hpp"
-#include "graphics/display_list.hpp"
-#include "graphics/defines.hpp"
+#include "drape/color.hpp"
+#include "drape/drape_global.hpp"
 
 #include "geometry/distance.hpp"
 #include "geometry/simplification.hpp"
@@ -20,7 +17,8 @@
 
 Track::~Track()
 {
-  DeleteDisplayList();
+  ///@TODO UVR
+  //DeleteDisplayList();
 }
 
 Track * Track::CreatePersistent()
@@ -36,17 +34,21 @@ float Track::GetMainWidth() const
   return m_outlines.back().m_lineWidth;
 }
 
-const graphics::Color & Track::GetMainColor() const
+dp::Color const & Track::GetMainColor() const
 {
   ASSERT(!m_outlines.empty(), ());
   return m_outlines.back().m_color;
 }
 
-void Track::DeleteDisplayList() const
-{
-  delete m_dList;
-  m_dList = nullptr;
-}
+///@TODO UVR
+//void Track::DeleteDisplayList() const
+//{
+//  if (m_dList)
+//  {
+//    delete m_dList;
+//    m_dList = nullptr;
+//  }
+//}
 
 void Track::AddOutline(TrackOutline const * outline, size_t arraySize)
 {
@@ -58,10 +60,11 @@ void Track::AddOutline(TrackOutline const * outline, size_t arraySize)
   });
 }
 
-void Track::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
-{
-  pScreen->drawDisplayList(m_dList, matrix);
-}
+///@TODO UVR
+//void Track::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
+//{
+//  pScreen->drawDisplayList(m_dList, matrix);
+//}
 
 void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts) const
 {
@@ -75,25 +78,26 @@ void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContaine
   }
 }
 
+///@TODO UVR
 void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
                               int, double, location::RouteMatchingInfo const &) const
 {
   if (HasDisplayLists() && !isScaleChanged)
     return;
 
-  DeleteDisplayList();
+//  DeleteDisplayList();
 
-  m_dList = dlScreen->createDisplayList();
-  dlScreen->beginFrame();
-  dlScreen->setDisplayList(m_dList);
+//  m_dList = dlScreen->createDisplayList();
+//  dlScreen->beginFrame();
+//  dlScreen->setDisplayList(m_dList);
 
-  PointContainerT pts;
-  pts.reserve(m_polyline.GetSize());
-  TransformAndSymplifyPolyline(m_polyline, matrix, GetMainWidth(), pts);
-  CreateDisplayListPolyline(dlScreen, pts);
+//  PointContainerT pts;
+//  pts.reserve(m_polyline.GetSize());
+//  TransformAndSymplifyPolyline(m_polyline, matrix, GetMainWidth(), pts);
+//  CreateDisplayListPolyline(dlScreen, pts);
 
-  dlScreen->setDisplayList(0);
-  dlScreen->endFrame();
+//  dlScreen->setDisplayList(0);
+//  dlScreen->endFrame();
 }
 
 double Track::GetLengthMeters() const
@@ -117,13 +121,14 @@ double Track::GetLengthMeters() const
 
 void Track::Swap(Track & rhs)
 {
-  swap(m_rect, rhs.m_rect);
-  swap(m_outlines, rhs.m_outlines);
-  m_name.swap(rhs.m_name);
-  m_polyline.Swap(rhs.m_polyline);
+  ///@TODO UVR
+  //swap(m_rect, rhs.m_rect);
+  //swap(m_outlines, rhs.m_outlines);
+  //m_name.swap(rhs.m_name);
+  //m_polyline.Swap(rhs.m_polyline);
 
-  DeleteDisplayList();
-  rhs.DeleteDisplayList();
+  //DeleteDisplayList();
+  //rhs.DeleteDisplayList();
 }
 
 void Track::CleanUp() const
@@ -149,5 +154,3 @@ void TransformAndSymplifyPolyline(Track::PolylineD const & polyline, MatrixT con
   SimplifyDP(pts1.begin(), pts1.end(), width,
              m2::DistanceToLineSquare<m2::PointD>(), MakeBackInsertFunctor(pts));
 }
-
-

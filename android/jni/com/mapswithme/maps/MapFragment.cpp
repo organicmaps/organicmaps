@@ -7,10 +7,6 @@
 
 #include "../platform/Platform.hpp"
 
-#include "../../../nv_event/nv_event.hpp"
-
-#include "map/country_status_display.hpp"
-
 #include "storage/index.hpp"
 
 #include "base/logging.hpp"
@@ -105,15 +101,16 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapFragment_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
   {
-    CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
+    ///@TODO UVR
+    //CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(IIII)V");
+    //jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(IIII)V");
 
-    display->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
-                                              jni::make_global_ref(thiz),
-                                              _1,
-                                              _2,
-                                              methodID));
+    //display->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
+    //                                          jni::make_global_ref(thiz),
+    //                                          _1,
+    //                                          _2,
+    //                                          methodID));
   }
 
   JNIEXPORT void JNICALL

@@ -28,7 +28,8 @@ void AlfaAnimationTask::OnStart(double ts)
 {
   m_timeStart = ts;
   BaseT::OnStart(ts);
-  m_f->Invalidate();
+  ///@TODO UVR
+  //m_f->Invalidate();
 }
 
 void AlfaAnimationTask::OnStep(double ts)
@@ -48,5 +49,6 @@ void AlfaAnimationTask::OnStep(double ts)
       m_current = m_start + t * (m_end - m_start);
   }
 
-  m_f->Invalidate();
+  ///@TODO UVR
+  //m_f->Invalidate();
 }

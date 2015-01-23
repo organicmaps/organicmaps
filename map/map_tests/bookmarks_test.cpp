@@ -637,10 +637,10 @@ UNIT_TEST(TrackParsingTest_1)
   TEST_EQUAL(cat->GetTracksCount(), 4, ());
 
   string names[4] = { "Option1", "Pakkred1", "Pakkred2", "Pakkred3"};
-  graphics::Color col[4] = {graphics::Color(230, 0, 0, 255),
-                            graphics::Color(171, 230, 0, 255),
-                            graphics::Color(0, 230, 117, 255),
-                            graphics::Color(0, 59, 230, 255)};
+  dp::Color col[4] = {dp::Color(230, 0, 0, 255),
+                      dp::Color(171, 230, 0, 255),
+                      dp::Color(0, 230, 117, 255),
+                      dp::Color(0, 59, 230, 255)};
   double length[4] = {3525.46839061, 27174.11393166, 27046.0456586, 23967.35765800};
 
   for (size_t i = 0; i < ARRAY_SIZE(names); ++i)
@@ -662,6 +662,6 @@ UNIT_TEST(TrackParsingTest_2)
   TEST_EQUAL(cat->GetTracksCount(), 1, ());
   Track const * track = cat->GetTrack(0);
   TEST_EQUAL(track->GetName(), "XY", ());
-  TEST_EQUAL(track->GetMainColor(), graphics::Color(57, 255, 32, 255), ());
+  TEST_EQUAL(track->GetMainColor(), dp::Color(57, 255, 32, 255), ());
 }
 

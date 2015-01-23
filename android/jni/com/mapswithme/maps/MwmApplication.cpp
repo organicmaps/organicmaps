@@ -30,7 +30,8 @@ extern "C"
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_MwmApplication_nativeIsBenchmarking(JNIEnv * env, jobject thiz)
   {
-    return static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
+    ///@TODO UVR
+    return JNI_FALSE; //static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
   }
 
   JNIEXPORT jboolean JNICALL

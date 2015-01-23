@@ -8,6 +8,7 @@
 
 #include "base/scope_guard.hpp"
 
+
 #include "graphics/depth_constants.hpp"
 
 #include "indexer/mercator.hpp"
@@ -16,6 +17,9 @@
 #include "../coding/parse_xml.hpp"  // LoadFromKML
 #include "coding/internal/file_data.hpp"
 #include "coding/hex.hpp"
+
+#include "drape/drape_global.hpp"
+#include "drape/color.hpp"
 
 #include "platform/platform.hpp"
 
@@ -29,6 +33,23 @@
 unique_ptr<UserMarkCopy> Bookmark::Copy() const
 {
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
+}
+
+///@TODO UVR
+//graphics::DisplayList * Bookmark::GetDisplayList(UserMarkDLCache * cache) const
+//{
+//  return cache->FindUserMark(UserMarkDLCache::Key(GetType(), dp::Bottom, GetContainer()->GetDepth()));
+//}
+
+double Bookmark::GetAnimScaleFactor() const
+{
+  return m_animScaleFactor;
+}
+
+m2::PointD const & Bookmark::GetPixelOffset() const
+{
+  static m2::PointD s_offset(0.0, 3.0);
+  return s_offset;
 }
 
 shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
@@ -73,7 +94,7 @@ void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
 }
 
 BookmarkCategory::BookmarkCategory(const string & name, Framework & framework)
-  : base_t(graphics::bookmarkDepth, framework)
+  : base_t(0.0/*graphics::bookmarkDepth*/, framework)
   , m_name(name)
   , m_blockAnimation(false)
 {
@@ -166,14 +187,14 @@ size_t BookmarkCategory::FindBookmark(Bookmark const * bookmark) const
 
 namespace
 {
-string const kPlacemark = "Placemark";
-string const kStyle = "Style";
-string const kDocument = "Document";
-string const kStyleMap = "StyleMap";
-string const kStyleUrl = "styleUrl";
-string const kPair = "Pair";
+  string const kPlacemark = "Placemark";
+  string const kStyle = "Style";
+  string const kDocument = "Document";
+  string const kStyleMap = "StyleMap";
+  string const kStyleUrl = "styleUrl";
+  string const kPair = "Pair";
 
-graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF);
+  dp::Color const kDefaultTrackColor = dp::Extract(0xFF33CCFF);
 
   string PointToString(m2::PointD const & org)
   {
@@ -210,12 +231,12 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
     vector<string> m_tags;
     GeometryType m_geometryType;
     m2::PolylineD m_points;
-    graphics::Color m_trackColor;
+    dp::Color m_trackColor;
 
     string m_styleId;
     string m_mapStyleId;
     string m_styleUrlKey;
-    map<string, graphics::Color> m_styleUrl2Color;
+    map<string, dp::Color> m_styleUrl2Color;
     map<string, string> m_mapStyle2Style;
 
     string m_name;
@@ -322,10 +343,10 @@ graphics::Color const kDefaultTrackColor = graphics::Color::fromARGB(0xFF33CCFF)
       string fromHex = FromHex(value);
       ASSERT(fromHex.size() == 4, ("Invalid color passed"));
       // Color positions in HEX – aabbggrr
-      m_trackColor = graphics::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
+      m_trackColor = dp::Color(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
     }
 
-    bool GetColorForStyle(string const & styleUrl, graphics::Color & color)
+    bool GetColorForStyle(string const & styleUrl, dp::Color & color)
     {
       if (styleUrl.empty())
         return false;
@@ -751,12 +772,12 @@ void BookmarkCategory::SaveToKML(ostream & s)
     s << "</name>\n";
 
     s << "<Style><LineStyle>";
-    graphics::Color const & col = track->GetMainColor();
+    dp::Color const & col = track->GetMainColor();
     s << "<color>"
-      << NumToHex(col.a)
-      << NumToHex(col.b)
-      << NumToHex(col.g)
-      << NumToHex(col.r);
+      << NumToHex(col.GetAlfa())
+      << NumToHex(col.GetBlue())
+      << NumToHex(col.GetGreen())
+      << NumToHex(col.GetRed());
     s << "</color>\n";
 
     s << "<width>"

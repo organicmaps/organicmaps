@@ -116,5 +116,10 @@ public:
 
 void CheckGLError();
 
-#define GLCHECK(x) do { (x); CheckGLError(); } while (false)
-#define GLCHECKCALL() do { CheckGLError(); } while (false)
+#ifdef DEBUG
+  #define GLCHECK(x) do { (x); CheckGLError(); } while (false)
+  #define GLCHECKCALL() do { CheckGLError(); } while (false)
+#else
+  #define GLCHECK(x) (x)
+  #define GLCHECKCALL()
+#endif

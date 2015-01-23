@@ -1,60 +1,32 @@
 #pragma once
 
+#include "qt/qtoglcontextfactory.hpp"
+
 #include "map/framework.hpp"
 #include "map/navigator.hpp"
-#include "map/qgl_render_context.hpp"
 
-#include "render/window_handle.hpp"
-
-#include "platform/video_timer.hpp"
+#include "drape_frontend/drape_engine.hpp"
 
 #include "base/deferred_task.hpp"
 
 #include "std/unique_ptr.hpp"
 
-#include <QtCore/QTimer>
-#include <QtOpenGL/qgl.h>
+#include <QtGui/QWindow>
 
 
 namespace qt
 {
   class QScaleSlider;
 
-  class DrawWidget;
-
-  class QtVideoTimer : public QObject, public ::VideoTimer
+  class DrawWidget : public QWindow
   {
-    Q_OBJECT
-  private:
-    QTimer * m_timer;
+    typedef QWindow TBase;
 
-  public:
-    QtVideoTimer(::VideoTimer::TFrameFn frameFn);
-
-    void resume();
-    void pause();
-
-    void start();
-    void stop();
-
-  protected:
-    Q_SLOT void TimerElapsed();
-  };
-
-  class DrawWidget : public QGLWidget
-  {
-    bool m_isInitialized;
-    bool m_isTimerStarted;
-
+    dp::MasterPointer<dp::OGLContextFactory> m_contextFactory;
     unique_ptr<Framework> m_framework;
-    unique_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
     bool m_isRotate;
-
-    //QTimer * m_timer;
-    //QTimer * m_animTimer;
-    //size_t m_redrawInterval;
 
     qreal m_ratio;
 
@@ -77,11 +49,7 @@ namespace qt
     void ScaleMinusLight();
 
     void ShowAll();
-    void Repaint();
     void ScaleChanged(int action);
-    //void ScaleTimerElapsed();
-
-    void QueryMaxScaleMode();
 
   public:
     DrawWidget(QWidget * pParent);
@@ -99,7 +67,6 @@ namespace qt
     void SaveState();
     void LoadState();
 
-    void UpdateNow();
     void UpdateAfterSettingsChanged();
 
     void PrepareShutdown();
@@ -111,26 +78,17 @@ namespace qt
     void SetRouter(routing::RouterType routerType);
 
   protected:
-    VideoTimer * CreateVideoTimer();
-
-  protected:
     void StartPressTask(m2::PointD const & pt, unsigned ms);
     void KillPressTask();
     void OnPressTaskEvent(m2::PointD const & pt, unsigned ms);
     void OnActivateMark(unique_ptr<UserMarkCopy> pCopy);
 
+    void CreateEngine();
+
   protected:
-    /// @name Overriden from base_type.
-    //@{
-    virtual void initializeGL();
-    virtual void resizeGL(int w, int h);
-    virtual void paintGL();
-    //@}
-
-    void DrawFrame();
-
     /// @name Overriden from QWidget.
     //@{
+    virtual void exposeEvent(QExposeEvent * e);
     virtual void mousePressEvent(QMouseEvent * e);
     virtual void mouseDoubleClickEvent(QMouseEvent * e);
     virtual void mouseMoveEvent(QMouseEvent * e);
@@ -138,6 +96,8 @@ namespace qt
     virtual void wheelEvent(QWheelEvent * e);
     virtual void keyReleaseEvent(QKeyEvent * e);
     //@}
+
+    Q_SLOT void sizeChanged(int);
 
   private:
     void UpdateScaleControl();

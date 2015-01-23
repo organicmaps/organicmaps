@@ -49,7 +49,8 @@ void AnimPhaseChain::OnStep(double ts)
   double t = elapsedTime / phase->m_timeInterval;
   m_scale = m_startScale + t * (phase->m_endScale - m_startScale);
 
-  m_f.Invalidate();
+  ///@TODO UVR
+  //m_f.Invalidate();
 }
 
 void InitDefaultPinAnim(AnimPhaseChain * chain)

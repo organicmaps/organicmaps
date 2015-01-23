@@ -71,6 +71,8 @@ public:
 
   void operator()(dp::TextureManager::GlyphRegion const & glyph)
   {
+    if (!glyph.IsValid())
+      return;
     m2::PointF pixelSize = m2::PointF(glyph.GetPixelSize()) * m_textRatio;
 
     float const xOffset = glyph.GetOffsetX() * m_textRatio;
@@ -223,9 +225,12 @@ void CalculateOffsets(dp::Anchor anchor,
     ASSERT_NOT_EQUAL(start, end, ());
     lengthAndHeight.push_back(TLengthAndHeight(0, 0));
     TLengthAndHeight & node = lengthAndHeight.back();
-    for (size_t glyphIndex = start; glyphIndex < end; ++glyphIndex)
+    for (size_t glyphIndex = start; glyphIndex < end && glyphIndex < glyphs.size(); ++glyphIndex)
     {
       dp::TextureManager::GlyphRegion const & glyph = glyphs[glyphIndex];
+      if (!glyph.IsValid())
+        continue;
+
       node.first += (glyph.GetAdvanceX() * textRatio);
       node.second = max(node.second, (glyph.GetPixelHeight() + glyph.GetAdvanceY()) * textRatio);
     }
@@ -313,7 +318,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
     size_t endOffset = node.first;
     StraigthTextGeometryGenerator generator(pivot, pixelOffset + node.second, m_textSizeRatio,
                                             colorRegion, outlineRegion, staticBuffer, dynamicBuffer);
-    for (size_t index = beginOffset; index < endOffset; ++index)
+    for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
       generator(m_metrics[index]);
 
     beginOffset = endOffset;

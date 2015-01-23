@@ -3,13 +3,6 @@
 #include "coding/file_reader.hpp"
 #include "platform/platform.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
-#include "drape/glsl_types.hpp"
-#include "drape/vertex_array_buffer.hpp"
-#include "drape/shader_def.hpp"
-#include "drape/overlay_tree.hpp"
-#include "drape/stipple_pen_resource.hpp"
-
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
@@ -17,6 +10,14 @@
 #include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/circle_shape.hpp"
+
+#include "drape/utils/vertex_decl.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/vertex_array_buffer.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/overlay_tree.hpp"
+#include "drape/stipple_pen_resource.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "geometry/transformations.hpp"
 
@@ -495,19 +496,10 @@ void TestingEngine::ProjectionInit()
   float const right = left + m_viewport.GetWidth();
   float const bottom = m_viewport.GetY0() + m_viewport.GetHeight();
   float const top = m_viewport.GetY0();
-  float const nearClip = -20000.0f;
-  float const farClip = 20000.0f;
 
-  float m[4 * 4] = {0.};
-  m[0]  = 2.0f / (right - left);
-  m[3]  = - (right + left) / (right - left);
-  m[5]  = 2.0f / (top - bottom);
-  m[7]  = - (top + bottom) / (top - bottom);
-  m[10] = -2.0f / (farClip - nearClip);
-  m[11] = - (farClip + nearClip) / (farClip - nearClip);
-  m[15] = 1.0;
-
-  m_generalUniforms.SetMatrix4x4Value("projection", m);
+  array<float, 16> m;
+  dp::MakeProjection(m, left, right, bottom, top);
+  m_generalUniforms.SetMatrix4x4Value("projection", m.data());
 }
 
 void TestingEngine::OnFlushData(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> vao)

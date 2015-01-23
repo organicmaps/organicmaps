@@ -1,5 +1,8 @@
 #pragma once
 
+#include "map/events.hpp"
+#include "drape/oglcontextfactory.hpp"
+#include "drape_frontend/drape_engine.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/information_display.hpp"
 #include "map/location_state.hpp"
@@ -17,18 +20,6 @@
 #include "map/track.hpp"
 #include "map/country_tree.hpp"
 
-#include "routing/routing_session.hpp"
-
-#include "render/events.hpp"
-#include "render/scales_processor.hpp"
-#ifndef USE_DRAPE
-  #include "render/render_policy.hpp"
-  #include "render/window_handle.hpp"
-#else
-  #include "drape/oglcontextfactory.hpp"
-  #include "drape_frontend/drape_engine.hpp"
-#endif // USE_DRAPE
-
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"
 
@@ -39,12 +30,6 @@
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
-
-#ifndef USE_DRAPE
-  #include "graphics/defines.hpp"
-  #include "graphics/screen.hpp"
-  #include "graphics/color.hpp"
-#endif // USE_DRAPE
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -71,14 +56,10 @@ namespace storage
 class CountryInfoGetter;
 }
 
-namespace gui { class Controller; }
 namespace anim { class Controller; }
 namespace routing { namespace turns{ class Settings; } }
 
 class CountryStatusDisplay;
-class BenchmarkEngine;
-struct FrameImage;
-class CPUDrawer;
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -119,7 +100,6 @@ protected:
   search::QuerySaver m_searchQuerySaver;
 
   model::FeaturesFetcher m_model;
-  ScalesProcessor m_scales;
   Navigator m_navigator;
   Animator m_animator;
 
@@ -127,13 +107,7 @@ protected:
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-#ifndef USE_DRAPE
-  unique_ptr<RenderPolicy> m_renderPolicy;
-#else
   dp::MasterPointer<df::DrapeEngine> m_drapeEngine;
-#endif
-
-  unique_ptr<CPUDrawer> m_cpuDrawer;
 
   double m_startForegroundTime;
 
@@ -146,7 +120,6 @@ protected:
 
   storage::Storage m_storage;
   storage::CountryTree m_countryTree;
-  unique_ptr<gui::Controller> m_guiController;
   unique_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
@@ -166,11 +139,9 @@ protected:
     //return m_timer.ElapsedSeconds();
     return 0.0;
   }
-#ifndef USE_DRAPE
-  void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
-#endif // USE_DRAPE
 
-  BenchmarkEngine * m_benchmarkEngine;
+  ///@TODO UVR
+  ///void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
 
   BookmarkManager m_bmManager;
   PinClickManager m_balloonManager;
@@ -277,13 +248,8 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info);
   //@}
 
-#ifndef USE_DRAPE
-  void SetRenderPolicy(RenderPolicy * renderPolicy);
-  void InitGuiSubsystem();
-  RenderPolicy * GetRenderPolicy() const;
-#else
   void CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
-#endif // USE_DRAPE
+  void DestroyDrapeEngine();
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
@@ -311,23 +277,9 @@ public:
   void SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD const & pivot);
   m2::PointD GetWidgetSize(InformationDisplay::WidgetType widget) const;
 
-  /// Safe function to get current visual scale.
-  /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
-  /// @return 1.0 if m_renderPolicy == 0 (possible for Android).
-  double GetVisualScale() const;
-
   void PrepareToShutdown();
 
   void SetupMeasurementSystem();
-
-#ifndef USE_DRAPE
-  RenderPolicy::TRenderFn DrawModelFn();
-
-  void DrawModel(shared_ptr<PaintEvent> const & e,
-                 ScreenBase const & screen,
-                 m2::RectD const & renderRect,
-                 int baseScale, bool isTilingQuery);
-#endif // USE_DRAPE
 
 private:
   void InitCountryInfoGetter();
@@ -389,9 +341,6 @@ public:
 
   void SetMaxWorldRect();
 
-  void Invalidate(bool doForceUpdate = false);
-  void InvalidateRect(m2::RectD const & rect, bool doForceUpdate = false);
-
   void SaveState();
   bool LoadState();
 
@@ -408,21 +357,6 @@ public:
 
   /// Set correct viewport, parse API, show balloon.
   bool ShowMapForURL(string const & url);
-
-  bool NeedRedraw() const;
-  void SetNeedRedraw(bool flag);
-
-  inline void XorQueryMaxScaleMode()
-  {
-    m_queryMaxScaleMode = !m_queryMaxScaleMode;
-    Invalidate(true);
-  }
-
-  inline void SetQueryMaxScaleMode(bool mode)
-  {
-    m_queryMaxScaleMode = mode;
-    Invalidate(true);
-  }
 
   /// Get classificator types for nearest features.
   /// @param[in] pxPoint Current touch point in device pixel coordinates.
@@ -442,14 +376,6 @@ private:
 public:
   bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info, feature::Metadata & metadata) const;
   void FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata & metadata) const;
-
-#ifndef USE_DRAPE
-  virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
-  /// Function for calling from platform dependent-paint function.
-  virtual void DoPaint(shared_ptr<PaintEvent> const & e);
-
-  virtual void EndPaint(shared_ptr<PaintEvent> const & e);
-#endif // USE_DRAPE
 
 private:
   /// Always check rect in public function for minimal draw scale.
@@ -501,7 +427,7 @@ public:
 
   /// @name Scaling.
   //@{
-  void ScaleToPoint(ScaleToPointEvent const & e, bool anim = true);
+  void ScaleToPoint(ScaleToPointEvent const & e, bool anim = false);
   void ScaleDefault(bool enlarge);
   void Scale(double scale);
 
@@ -514,7 +440,6 @@ public:
   void StopScale(ScaleEvent const & e);
   //@}
 
-  gui::Controller * GetGuiController() const;
   anim::Controller * GetAnimController() const;
 
   Animator & GetAnimator();
@@ -526,8 +451,6 @@ public:
     m_stringsBundle.SetString(name, value);
   }
 
-  bool IsBenchmarking() const;
-
   StringsBundle const & GetStringsBundle();
 
   PinClickManager & GetBalloonManager() { return m_balloonManager; }
@@ -536,7 +459,8 @@ public:
   /// the specified point is loaded
   bool IsCountryLoaded(m2::PointD const & pt) const;
 
-  shared_ptr<location::State> const & GetLocationState() const;
+  ///@TODO UVR
+  //shared_ptr<location::State> const & GetLocationState() const;
   void ActivateUserMark(UserMark const * mark, bool needAnim = true);
   bool HasActiveUserMark() const;
   UserMark const * GetUserMarkWithoutLogging(m2::PointD const & pxPoint, bool isLongPress);

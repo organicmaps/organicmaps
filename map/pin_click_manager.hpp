@@ -1,8 +1,6 @@
 #pragma once
 #include "map/bookmark.hpp"
 
-#include "graphics/defines.hpp"
-
 #include "geometry/point2d.hpp"
 
 #include "std/function.hpp"
@@ -27,7 +25,6 @@ class PinClickManager
 public:
   PinClickManager(Framework & f);
 
-  void RenderPolicyCreated(graphics::EDensity density) {}
   void LocationChanged(location::GpsInfo const & info) {}
 
   void OnShowMark(UserMark const * mark);

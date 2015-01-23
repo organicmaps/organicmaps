@@ -1,12 +1,7 @@
-#include "user_mark_container.hpp"
-#include "framework.hpp"
-#include "anim_phase_chain.hpp"
+#include "map/user_mark_container.hpp"
 
-#include "render/drawer.hpp"
-
-#include "graphics/display_list.hpp"
-#include "graphics/screen.hpp"
-#include "graphics/depth_constants.hpp"
+#include "map/framework.hpp"
+#include "map/anim_phase_chain.hpp"
 
 #include "geometry/transformations.hpp"
 
@@ -72,50 +67,51 @@ namespace
     m2::PointD m_globalCenter;
   };
 
-  void DrawUserMarkByPoint(double scale,
-                           double visualScale,
-                           m2::PointD const & pixelOfsset,
-                           PaintOverlayEvent const & event,
-                           graphics::DisplayList * dl,
-                           m2::PointD const & ptOrg)
-  {
-#ifndef USE_DRAPE
-    ScreenBase const & modelView = event.GetModelView();
-    graphics::Screen * screen = GPUDrawer::GetScreen(event.GetDrawer());
-    m2::PointD pxPoint = modelView.GtoP(ptOrg);
-    pxPoint += (pixelOfsset * visualScale);
-    math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
-                                                           scale, scale),
-                                               pxPoint.x, pxPoint.y);
-    dl->draw(screen, m);
-#endif // USE_DRAPE
-  }
+  ///@TODO UVR
+//  void DrawUserMarkByPoint(double scale,
+//                           double visualScale,
+//                           m2::PointD const & pixelOfsset,
+//                           PaintOverlayEvent const & event,
+//                           graphics::DisplayList * dl,
+//                           m2::PointD const & ptOrg)
+//  {
+//#ifndef USE_DRAPE
+//    ScreenBase const & modelView = event.GetModelView();
+//    graphics::Screen * screen = event.GetDrawer()->screen();
+//    m2::PointD pxPoint = modelView.GtoP(ptOrg);
+//    pxPoint += (pixelOfsset * visualScale);
+//    math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
+//                                                           scale, scale),
+//                                               pxPoint.x, pxPoint.y);
+//    dl->draw(screen, m);
+//#endif // USE_DRAPE
+//  }
 
-  void DrawUserMarkImpl(double scale,
-                        double visualScale,
-                        m2::PointD const & pixelOfsset,
-                        PaintOverlayEvent const & event,
-                        graphics::DisplayList * dl,
-                        UserMark const * mark)
-  {
-    DrawUserMarkByPoint(scale, visualScale, pixelOfsset, event, dl, mark->GetOrg());
-  }
+//  void DrawUserMarkImpl(double scale,
+//                        double visualScale,
+//                        m2::PointD const & pixelOfsset,
+//                        PaintOverlayEvent const & event,
+//                        graphics::DisplayList * dl,
+//                        UserMark const * mark)
+//  {
+//    DrawUserMarkByPoint(scale, visualScale, pixelOfsset, event, dl, mark->GetOrg());
+//  }
 
-  void DrawUserMark(double scale,
-                    double visualScale,
-                    PaintOverlayEvent const & event,
-                    UserMarkDLCache * cache,
-                    UserMarkDLCache::Key const & defaultKey,
-                    UserMark const * mark)
-  {
-    if (mark->IsCustomDrawable())
-    {
-      ICustomDrawable const * drawable = static_cast<ICustomDrawable const *>(mark);
-      DrawUserMarkImpl(drawable->GetAnimScaleFactor(), visualScale, drawable->GetPixelOffset(), event, drawable->GetDisplayList(cache), mark);
-    }
-    else
-      DrawUserMarkImpl(scale, visualScale, m2::PointD(0.0, 0.0), event, cache->FindUserMark(defaultKey), mark);
-  }
+//  void DrawUserMark(double scale,
+//                    double visualScale,
+//                    PaintOverlayEvent const & event,
+//                    UserMarkDLCache * cache,
+//                    UserMarkDLCache::Key const & defaultKey,
+//                    UserMark const * mark)
+//  {
+//    if (mark->IsCustomDrawable())
+//    {
+//      ICustomDrawable const * drawable = static_cast<ICustomDrawable const *>(mark);
+//      DrawUserMarkImpl(drawable->GetAnimScaleFactor(), visualScale, drawable->GetPixelOffset(), event, drawable->GetDisplayList(cache), mark);
+//    }
+//    else
+//      DrawUserMarkImpl(scale, visualScale, m2::PointD(0.0, 0.0), event, cache->FindUserMark(defaultKey), mark);
+//  }
 }
 
 UserMarkContainer::UserMarkContainer(double layerDepth, Framework & fm)
@@ -153,14 +149,15 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
 
 void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const
 {
-#ifndef USE_DRAPE
-  if (IsVisible() && IsDrawable())
-  {
-    UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
-    ForEachInRect(e.GetClipRect(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
-                                        e, cache, defaultKey, _1));
-  }
-#endif // USE_DRAPE
+  ///@TODO UVR
+//#ifndef USE_DRAPE
+//  if (IsVisible() && IsDrawable())
+//  {
+//    UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
+//    ForEachInRect(e.GetClipRect(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
+//                                        e, cache, defaultKey, _1));
+//  }
+//#endif // USE_DRAPE
 }
 
 void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
@@ -318,18 +315,19 @@ void SelectionContainer::ActivateMark(UserMark const * userMark, bool needAnim)
 
 void SelectionContainer::Draw(const PaintOverlayEvent & e, UserMarkDLCache * cache) const
 {
-  if (m_container != NULL)
-  {
-    UserMarkDLCache::Key defaultKey(m_container->GetActiveTypeName(),
-                                    graphics::EPosCenter,
-                                    graphics::activePinDepth);
+  ///@TODO UVR
+//  if (m_container != NULL)
+//  {
+//    UserMarkDLCache::Key defaultKey(m_container->GetActiveTypeName(),
+//                                    graphics::EPosCenter,
+//                                    graphics::activePinDepth);
 
-    DrawUserMarkByPoint(GetActiveMarkScale(),
-                        m_fm.GetVisualScale(),
-                        m2::PointD(0, 0),
-                        e, cache->FindUserMark(defaultKey),
-                        m_ptOrg);
-  }
+//    DrawUserMarkByPoint(GetActiveMarkScale(),
+//                        m_fm.GetVisualScale(),
+//                        m2::PointD(0, 0),
+//                        e, cache->FindUserMark(defaultKey),
+//                        m_ptOrg);
+//  }
 }
 
 bool SelectionContainer::IsActive() const
@@ -341,7 +339,8 @@ void SelectionContainer::StartActivationAnim()
 {
   m_animTask.reset(new PinAnimation(m_fm));
   m_fm.GetAnimController()->AddTask(m_animTask);
-  m_fm.Invalidate();
+  ///@TODO UVR
+  //m_fm.Invalidate();
 }
 
 void SelectionContainer::KillActivationAnim()

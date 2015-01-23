@@ -12,29 +12,19 @@
   #include <QtWidgets/QMainWindow>
 #endif
 
-
-
 class QDockWidget;
 
 namespace search { class Result; }
 
 namespace qt
 {
-#ifndef USE_DRAPE
   class DrawWidget;
-#else
-  class DrapeSurface;
-#endif // USE_DRAPE
 
   class MainWindow : public QMainWindow, location::LocationObserver
   {
     QAction * m_pMyPositionAction;
     QAction * m_pSearchAction;
-#ifndef USE_DRAPE
     DrawWidget * m_pDrawWidget;
-#else
-    DrapeSurface * m_pDrawWidget;
-#endif // USE_DRAPE
 
     QDockWidget * m_Docks[1];
 

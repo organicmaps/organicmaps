@@ -19,19 +19,18 @@
 #include "std/target_os.hpp"
 #include "std/vector.hpp"
 
-
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
-  , m_bmScreen(0)
   , m_lastScale(1.0)
   , m_cache(NULL)
   , m_selection(f)
   , m_routeRenderer(new rg::RouteRenderer())
 {
   m_userMarkLayers.reserve(3);
-  m_userMarkLayers.push_back(new SearchUserMarkContainer(graphics::activePinDepth, m_framework));
-  m_userMarkLayers.push_back(new ApiUserMarkContainer(graphics::activePinDepth, m_framework));
-  m_userMarkLayers.push_back(new DebugUserMarkContainer(graphics::debugDepth, m_framework));
+  ///@TODO UVR
+  m_userMarkLayers.push_back(new SearchUserMarkContainer(0.0/*graphics::activePinDepth*/, m_framework));
+  m_userMarkLayers.push_back(new ApiUserMarkContainer(0.0/*graphics::activePinDepth*/, m_framework));
+  //m_userMarkLayers.push_back(new DebugUserMarkContainer(graphics::debugDepth, m_framework));
   UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
 }
 
@@ -137,29 +136,30 @@ void BookmarkManager::PrepareToShutdown()
 
 void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const
 {
-#ifndef USE_DRAPE
-  /// TODO cutomize draw in UserMarkContainer for user Draw method
-  ASSERT(cat, ());
-  if (!cat->IsVisible())
-    return;
+///@TODO UVR
+//#ifndef USE_DRAPE
+//  /// TODO cutomize draw in UserMarkContainer for user Draw method
+//  ASSERT(cat, ());
+//  if (!cat->IsVisible())
+//    return;
+//  Navigator const & navigator = m_framework.GetNavigator();
+//  ScreenBase const & screen = navigator.Screen();
 
-  Navigator const & navigator = m_framework.GetNavigator();
-  ScreenBase const & screen = navigator.Screen();
+//  Drawer * pDrawer = e.GetDrawer();
+//  graphics::Screen * pScreen = pDrawer->screen();
 
-  graphics::Screen * pScreen = GPUDrawer::GetScreen(e.GetDrawer());
+//  LazyMatrixCalc matrix(screen, m_lastScale);
 
-  LazyMatrixCalc matrix(screen, m_lastScale);
+//  // Draw tracks.
+//  for (size_t i = 0; i < cat->GetTracksCount(); ++i)
+//  {
+//    Track const * track = cat->GetTrack(i);
+//    if (track->HasDisplayList())
+//      track->Draw(pScreen, matrix.GetFinalG2P());
+//  }
 
-  // Draw tracks.
-  for (size_t i = 0; i < cat->GetTracksCount(); ++i)
-  {
-    Track const * track = cat->GetTrack(i);
-    if (track->HasDisplayLists())
-      track->Draw(pScreen, matrix.GetFinalG2P());
-  }
-
-  cat->Draw(e, m_cache);
-#endif // USE_DRAPE
+//  cat->Draw(e, m_cache);
+//#endif // USE_DRAPE
 }
 
 void BookmarkManager::ClearItems()
@@ -262,62 +262,60 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
 
 void BookmarkManager::DrawItems(Drawer * drawer) const
 {
-#ifndef USE_DRAPE
-  ASSERT(m_cache != NULL, ());
-  ASSERT(m_framework.GetLocationState(), ());
+  //@TODO UVR
+  //ASSERT(m_cache != NULL, ());
+  //ASSERT(m_framework.GetLocationState(), ());
 
-  ScreenBase const & screen = m_framework.GetNavigator().Screen();
-  m2::RectD const limitRect = screen.ClipRect();
+  //ScreenBase const & screen = m_framework.GetNavigator().Screen();
+  //m2::RectD const limitRect = screen.ClipRect();
 
-  LazyMatrixCalc matrix(screen, m_lastScale);
+  //LazyMatrixCalc matrix(screen, m_lastScale);
 
-  double const drawScale = m_framework.GetDrawScale();
-  double const visualScale = m_framework.GetVisualScale();
-  location::RouteMatchingInfo const & matchingInfo = m_framework.GetLocationState()->GetRouteMatchingInfo();
+  //double const drawScale = m_framework.GetDrawScale();
+  //double const visualScale = m_framework.GetVisualScale();
+  //location::RouteMatchingInfo const & matchingInfo = m_framework.GetLocationState()->GetRouteMatchingInfo();
 
-  auto trackUpdateFn = [&](Track const * track)
-  {
-    ASSERT(track, ());
-    if (limitRect.IsIntersect(track->GetLimitRect()))
-      track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P(), matrix.IsScaleChanged(), drawScale, visualScale, matchingInfo);
-    else
-      track->CleanUp();
-  };
+  //auto trackUpdateFn = [&](Track const * track)
+  //{
+  //  ASSERT(track, ());
+  //  if (limitRect.IsIntersect(track->GetLimitRect()))
+  //    track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P(), matrix.IsScaleChanged(), drawScale, visualScale, matchingInfo);
+  //  else
+  //    track->CleanUp();
+  //};
 
-  auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
-  {
-    bool const isVisible = cat->IsVisible();
-    for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-    {
-      Track const * track = cat->GetTrack(j);
-      ASSERT(track, ());
-      if (isVisible)
-        trackUpdateFn(track);
-      else
-        track->CleanUp();
-    }
-  };
+  //auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
+  //{
+  //  bool const isVisible = cat->IsVisible();
+  //  for (size_t j = 0; j < cat->GetTracksCount(); ++j)
+  //  {
+  //    Track const * track = cat->GetTrack(j);
+  //    ASSERT(track, ());
+  //    if (isVisible)
+  //      trackUpdateFn(track);
+  //    else
+  //      track->CleanUp();
+  //  }
+  //};
 
   // Update track's display lists.
-  for (size_t i = 0; i < m_categories.size(); ++i)
-  {
-    BookmarkCategory const * cat = m_categories[i];
-    ASSERT(cat, ());
-    dlUpdateFn(cat);
-  }
+  //for (size_t i = 0; i < m_categories.size(); ++i)
+  //{
+  //  BookmarkCategory const * cat = m_categories[i];
+  //  ASSERT(cat, ());
+  //  dlUpdateFn(cat);
+  //}
 
-  graphics::Screen * pScreen = GPUDrawer::GetScreen(drawer);
-  pScreen->beginFrame();
+  //graphics::Screen * pScreen = GPUDrawer::GetScreen(drawer);
+  //pScreen->beginFrame();
 
-  PaintOverlayEvent event(drawer, screen);
-  for (auto const & layer : m_userMarkLayers)
-    layer->Draw(event, m_cache);
-  for (auto const & category : m_categories)
-    DrawCategory(category, event);
-  m_routeRenderer->Render(pScreen, screen);
-  m_selection.Draw(event, m_cache);
+  //PaintOverlayEvent event(drawer, screen);
+  //for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
+  //for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
+  //m_routeRenderer->Render(pScreen, screen);
+  //m_selection.Draw(event, m_cache);
 
-  pScreen->endFrame();
+  //pScreen->endFrame();
 #endif // USE_DRAPE
 }
 
@@ -444,30 +442,33 @@ UserMarkContainer::Controller & BookmarkManager::UserMarksGetController(UserMark
   return FindUserMarksContainer(type)->GetController();
 }
 
-void BookmarkManager::SetScreen(graphics::Screen * screen)
-{
-  ResetScreen();
-  m_bmScreen = screen;
-  m_cache = new UserMarkDLCache(m_bmScreen);
-}
+///@TODO UVR
+//void BookmarkManager::SetScreen(graphics::Screen * screen)
+//{
+//  ResetScreen();
+//  m_bmScreen = screen;
+//  m_cache = new UserMarkDLCache(m_bmScreen);
+//}
 
 void BookmarkManager::ResetScreen()
 {
-  delete m_cache;
-  m_cache = NULL;
+  ///@TODO UVR
+  //delete m_cache;
+  //m_cache = NULL;
 
-  auto dlDeleteFn = [] (BookmarkCategory const * cat)
-  {
-    for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-      cat->GetTrack(j)->CleanUp();
-  };
+  //auto dlDeleteFn = [] (BookmarkCategory const * cat)
+  //{
+  //  for (size_t j = 0; j < cat->GetTracksCount(); ++j)
+  //    cat->GetTrack(j)->CleanUp();
+  //};
 
-  if (m_bmScreen)
-  {
+  //if (m_bmScreen)
+  //{
     // Delete display lists for all tracks
-    for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
-    m_bmScreen = 0;
-  }
+  //  for_each(m_categories.begin(), m_categories.end(), dlDeleteFn);
+  //  m_routeRenderer->Clear();
+  //  m_bmScreen = 0;
+  //}
 }
 
 void BookmarkManager::SetRouteTrack(m2::PolylineD const & routePolyline, vector<double> const & turns,

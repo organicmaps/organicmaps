@@ -3,17 +3,14 @@
 #include "qt/slider_ctrl.hpp"
 
 #include "map/country_status_display.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "render/render_policy.hpp"
 #include "render/frame_image.hpp"
 
 #include "search/result.hpp"
 
-#include "gui/controller.hpp"
-
-#include "graphics/opengl/opengl.hpp"
-#include "graphics/depth_constants.hpp"
-
+#include "platform/settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
@@ -38,73 +35,40 @@ namespace qt
   const unsigned LONG_TOUCH_MS = 1000;
   const unsigned SHORT_TOUCH_MS = 250;
 
-  QtVideoTimer::QtVideoTimer(TFrameFn frameFn)
-    : ::VideoTimer(frameFn)
-  {}
-
-  void QtVideoTimer::start()
-  {
-    m_timer = new QTimer();
-    QObject::connect(m_timer, SIGNAL(timeout()), this, SLOT(TimerElapsed()));
-    resume();
-  }
-
-  void QtVideoTimer::pause()
-  {
-    m_timer->stop();
-    m_state = EPaused;
-  }
-
-  void QtVideoTimer::resume()
-  {
-    m_timer->start(1000 / 60);
-    m_state = ERunning;
-  }
-
-  void QtVideoTimer::stop()
-  {
-    pause();
-    delete m_timer;
-    m_timer = 0;
-    m_state = EStopped;
-  }
-
-  void QtVideoTimer::TimerElapsed()
-  {
-    m_frameFn();
-  }
-
   void DummyDismiss() {}
 
   DrawWidget::DrawWidget(QWidget * pParent)
-    : QGLWidget(pParent),
-      m_isInitialized(false),
-      m_isTimerStarted(false),
+    : m_contextFactory(nullptr),
       m_framework(new Framework()),
       m_isDrag(false),
       m_isRotate(false),
-      //m_redrawInterval(100),
       m_ratio(1.0),
       m_pScale(0),
       m_emulatingLocation(false)
   {
+    setSurfaceType(QSurface::OpenGLSurface);
+
+    QObject::connect(this, SIGNAL(heightChanged(int)), this, SLOT(sizeChanged(int)));
+    QObject::connect(this, SIGNAL(widthChanged(int)), this,  SLOT(sizeChanged(int)));
+
     // Initialize with some stubs for test.
     PinClickManager & manager = GetBalloonManager();
     manager.ConnectUserMarkListener(bind(&DrawWidget::OnActivateMark, this, _1));
     manager.ConnectDismissListener(&DummyDismiss);
 
-    m_framework->GetCountryStatusDisplay()->SetDownloadCountryListener([this] (storage::TIndex const & idx, int opt)
-    {
-      storage::ActiveMapsLayout & layout = m_framework->GetCountryTree().GetActiveMapLayout();
-      if (opt == -1)
-        layout.RetryDownloading(idx);
-      else
-        layout.DownloadMap(idx, static_cast<MapOptions>(opt));
-    });
+    ///@TODO UVR
+    //m_framework->GetCountryStatusDisplay()->SetDownloadCountryListener([this] (storage::TIndex const & idx, int opt)
+    //{
+    // storage::ActiveMapsLayout & layout = m_framework->GetCountryTree().GetActiveMapLayout();
+    //  if (opt == -1)
+    //    layout.RetryDownloading(idx);
+    //  else
+    //    layout.DownloadMap(idx, static_cast<storage::TMapOptions>(opt));
+    //});
 
-    m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &, vector<storage::TIndex> const &)
-    {
-    });
+    //m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
+    //{
+    //});
   }
 
   DrawWidget::~DrawWidget()
@@ -116,12 +80,8 @@ namespace qt
   {
     KillPressTask();
 
-    ASSERT(isValid(), ());
-    makeCurrent();
-
     m_framework->PrepareToShutdown();
-
-    m_videoTimer.reset();
+    m_contextFactory.Destroy();
   }
 
   void DrawWidget::SetScaleControl(QScaleSlider * pScale)
@@ -129,11 +89,6 @@ namespace qt
     m_pScale = pScale;
 
     connect(m_pScale, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
-  }
-
-  void DrawWidget::UpdateNow()
-  {
-    update();
   }
 
   void DrawWidget::UpdateAfterSettingsChanged()
@@ -149,7 +104,6 @@ namespace qt
       ShowAll();
     else
     {
-      UpdateNow();
       UpdateScaleControl();
     }
   }
@@ -209,23 +163,6 @@ namespace qt
     UpdateScaleControl();
   }
 
-  void DrawWidget::Repaint()
-  {
-    m_framework->Invalidate();
-  }
-
-  VideoTimer * DrawWidget::CreateVideoTimer()
-  {
-//#ifdef OMIM_OS_MAC
-//    return CreateAppleVideoTimer(bind(&DrawWidget::DrawFrame, this));
-//#else
-    /// Using timer, which doesn't use the separate thread
-    /// for performing an action. This avoids race conditions in Framework.
-    /// see issue #717
-    return new QtVideoTimer(bind(&DrawWidget::DrawFrame, this));
-//#endif
-  }
-
   void DrawWidget::ScaleChanged(int action)
   {
     if (action != QAbstractSlider::SliderNoAction)
@@ -234,119 +171,6 @@ namespace qt
       if (factor != 1.0)
         m_framework->Scale(factor);
     }
-  }
-
-  void DrawWidget::initializeGL()
-  {
-    // we'll perform swap by ourselves, see issue #333
-    setAutoBufferSwap(false);
-
-    if (!m_isInitialized)
-    {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-      m_ratio = dynamic_cast<QApplication*>(qApp)->devicePixelRatio();
-#endif
-
-#ifndef USE_DRAPE
-      m_videoTimer.reset(CreateVideoTimer());
-
-      InitRenderPolicy();
-#endif
-
-      m_isInitialized = true;
-    }
-  }
-
-  void DrawWidget::InitRenderPolicy()
-  {
-#ifndef USE_DRAPE
-    shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
-
-    graphics::ResourceManager::Params rmParams;
-    rmParams.m_texFormat = graphics::Data8Bpp;
-    rmParams.m_texRtFormat = graphics::Data4Bpp;
-    rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
-
-    RenderPolicy::Params rpParams;
-
-    QRect const & geometry = QApplication::desktop()->geometry();
-    rpParams.m_screenWidth = L2D(geometry.width());
-    rpParams.m_screenHeight = L2D(geometry.height());
-
-    if (m_ratio >= 1.5 || QApplication::desktop()->physicalDpiX() >= 180)
-    {
-      rpParams.m_density = graphics::EDensityXHDPI;
-      rpParams.m_exactDensityDPI = 320.;
-    }
-    else
-    {
-      rpParams.m_density = graphics::EDensityMDPI;
-      rpParams.m_exactDensityDPI = 160.;
-    }
-    rmParams.m_exactDensityDPI = rpParams.m_exactDensityDPI;
-
-    rpParams.m_videoTimer = m_videoTimer.get();
-    rpParams.m_useDefaultFB = true;
-    rpParams.m_rmParams = rmParams;
-    rpParams.m_primaryRC = primaryRC;
-    rpParams.m_skinName = "basic.skn";
-
-    try
-    {
-      m_framework->SetRenderPolicy(CreateRenderPolicy(rpParams));
-      m_framework->InitGuiSubsystem();
-    }
-    catch (graphics::gl::platform_unsupported const & e)
-    {
-      LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
-      /// @todo Show "Please Update Drivers" dialog and close the program.
-    }
-#endif // USE_DRAPE
-  }
-
-  void DrawWidget::resizeGL(int w, int h)
-  {
-    m_framework->OnSize(w, h);
-    m_framework->Invalidate();
-
-    if (m_isInitialized && m_isTimerStarted)
-      DrawFrame();
-
-    UpdateScaleControl();
-  }
-
-  void DrawWidget::paintGL()
-  {
-    if (m_isInitialized && !m_isTimerStarted)
-    {
-      // timer should be started upon the first repaint request to fully initialized GLWidget.
-      m_isTimerStarted = true;
-      (void)m_framework->SetUpdatesEnabled(true);
-    }
-
-    m_framework->Invalidate();
-  }
-
-  void DrawWidget::DrawFrame()
-  {
-#ifndef USE_DRAPE
-    if (m_framework->NeedRedraw())
-    {
-      makeCurrent();
-      m_framework->SetNeedRedraw(false);
-
-      shared_ptr<PaintEvent> paintEvent(new PaintEvent(m_framework->GetRenderPolicy()->GetDrawer().get()));
-
-      m_framework->BeginPaint(paintEvent);
-      m_framework->DoPaint(paintEvent);
-
-      // swapping buffers before ending the frame, see issue #333
-      swapBuffers();
-
-      m_framework->EndPaint(paintEvent);
-      doneCurrent();
-    }
-#endif // USE_DRAPE
   }
 
   void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
@@ -370,6 +194,28 @@ namespace qt
     m_framework->ActivateUserMark(pMark);
   }
 
+  void DrawWidget::CreateEngine()
+  {
+    m_framework->CreateDrapeEngine(m_contextFactory.GetRefPointer(), m_ratio, width(), height());
+  }
+
+  void DrawWidget::exposeEvent(QExposeEvent * e)
+  {
+    Q_UNUSED(e);
+
+    if (isExposed())
+    {
+      if (m_contextFactory.IsNull())
+      {
+        m_ratio = devicePixelRatio();
+        dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new QtOGLContextFactory(this));
+        m_contextFactory = dp::MasterPointer<dp::OGLContextFactory>(factory);
+        CreateEngine();
+        UpdateScaleControl();
+      }
+    }
+  }
+
   m2::PointD DrawWidget::GetDevicePoint(QMouseEvent * e) const
   {
     return m2::PointD(L2D(e->x()), L2D(e->y()));
@@ -382,7 +228,7 @@ namespace qt
 
   RotateEvent DrawWidget::GetRotateEvent(QPoint const & pt) const
   {
-    QPoint const center = rect().center();
+    QPoint const center = geometry().center();
     return RotateEvent(L2D(center.x()), L2D(center.y()),
                        L2D(pt.x()), L2D(pt.y()));
   }
@@ -397,7 +243,7 @@ namespace qt
 
   void DrawWidget::mousePressEvent(QMouseEvent * e)
   {
-    QGLWidget::mousePressEvent(e);
+    TBase::mousePressEvent(e);
 
     KillPressTask();
 
@@ -405,8 +251,9 @@ namespace qt
 
     if (e->button() == Qt::LeftButton)
     {
-      if (m_framework->GetGuiController()->OnTapStarted(pt))
-        return;
+      ///@TODO UVR
+//      if (m_framework->GetGuiController()->OnTapStarted(pt))
+//        return;
 
       if (e->modifiers() & Qt::ControlModifier)
       {
@@ -501,7 +348,7 @@ namespace qt
 
   void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
   {
-    QGLWidget::mouseDoubleClickEvent(e);
+    TBase::mouseDoubleClickEvent(e);
 
     KillPressTask();
     m_isCleanSingleClick = false;
@@ -518,18 +365,19 @@ namespace qt
 
   void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   {
-    QGLWidget::mouseMoveEvent(e);
+    TBase::mouseMoveEvent(e);
 
     m2::PointD const pt = GetDevicePoint(e);
-    if (!pt.EqualDxDy(m_taskPoint, m_framework->GetVisualScale() * 10.0))
+    if (!pt.EqualDxDy(m_taskPoint, df::VisualParams::Instance().GetVisualScale() * 10.0))
     {
       // moved far from start point - do not show balloon
       m_isCleanSingleClick = false;
       KillPressTask();
     }
 
-    if (m_framework->GetGuiController()->OnTapMoved(pt))
-      return;
+    ///@TODO UVR
+//    if (m_framework->GetGuiController()->OnTapMoved(pt))
+//      return;
 
     if (m_isDrag)
       m_framework->DoDrag(GetDragEvent(e));
@@ -540,11 +388,12 @@ namespace qt
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
-    QGLWidget::mouseReleaseEvent(e);
+    TBase::mouseReleaseEvent(e);
 
     m2::PointD const pt = GetDevicePoint(e);
-    if (m_framework->GetGuiController()->OnTapEnded(pt))
-      return;
+    ///@TODO UVR
+//    if (m_framework->GetGuiController()->OnTapEnded(pt))
+//      return;
 
     if (!m_wasLongClick && m_isCleanSingleClick)
     {
@@ -561,12 +410,19 @@ namespace qt
 
   void DrawWidget::keyReleaseEvent(QKeyEvent * e)
   {
-    QGLWidget::keyReleaseEvent(e);
+    TBase::keyReleaseEvent(e);
 
     StopRotating(e);
 
     if (e->key() == Qt::Key_Alt)
       m_emulatingLocation = false;
+  }
+
+  void DrawWidget::sizeChanged(int)
+  {
+    m_framework->OnSize(width(), height());
+
+    UpdateScaleControl();
   }
 
   void DrawWidget::StopRotating(QMouseEvent * e)
@@ -597,11 +453,6 @@ namespace qt
     }
   }
 
-  //void DrawWidget::ScaleTimerElapsed()
-  //{
-  //  m_timer->stop();
-  //}
-
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
     if (!m_isDrag && !m_isRotate)
@@ -614,7 +465,7 @@ namespace qt
 
   void DrawWidget::UpdateScaleControl()
   {
-    if (m_pScale)
+    if (m_pScale && isExposed())
     {
       // don't send ScaleChanged
       m_pScale->SetPosWithBlockedSignals(m_framework->GetDrawScale());
@@ -626,17 +477,6 @@ namespace qt
     double lat, lon;
     if (m_framework->GetCurrentPosition(lat, lon))
       params.SetPosition(lat, lon);
-
-    // This stuff always returns system language (not keyboard input language).
-    /*
-    QInputMethod const * pIM = QApplication::inputMethod();
-    if (pIM)
-    {
-      string const lang = pIM->locale().name().toStdString();
-      LOG(LDEBUG, ("QT input language", lang));
-      params.SetInputLanguage(lang);
-    }
-    */
 
     return m_framework->Search(params);
   }
@@ -662,7 +502,8 @@ namespace qt
 
   void DrawWidget::CloseSearch()
   {
-    setFocus();
+    ///@TODO UVR
+    //setFocus();
   }
 
   void DrawWidget::OnLocationUpdate(location::GpsInfo const & info)
@@ -671,28 +512,9 @@ namespace qt
       m_framework->OnLocationUpdate(info);
   }
 
-  void DrawWidget::QueryMaxScaleMode()
-  {
-    m_framework->XorQueryMaxScaleMode();
-  }
-
   void DrawWidget::SetMapStyle(MapStyle mapStyle)
   {
-#ifndef USE_DRAPE
-    if (m_framework->GetMapStyle() == mapStyle)
-      return;
-
-    makeCurrent();
-
-    m_framework->SetRenderPolicy(nullptr);
-
-    m_framework->SetMapStyle(mapStyle);
-
-    // init new render policy
-    InitRenderPolicy();
-
-    m_framework->SetUpdatesEnabled(true);
-#endif
+	//@TODO UVR
   }
 
   void DrawWidget::SetRouter(routing::RouterType routerType)

@@ -39,7 +39,7 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   /// @name Used in settings map viewport after invoking API.
-  bool GetViewportRect(ScalesProcessor const & scales, m2::RectD & rect) const;
+  bool GetViewportRect(m2::RectD & rect) const;
   UserMark const * GetSinglePoint() const;
 
 private:

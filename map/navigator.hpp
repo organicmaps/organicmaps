@@ -1,5 +1,4 @@
 #pragma once
-#include "render/scales_processor.hpp"
 
 #include "anim/task.hpp"
 
@@ -14,7 +13,7 @@
 class Navigator
 {
 public:
-  Navigator(ScalesProcessor const & scales);
+  Navigator();
 
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
@@ -72,17 +71,12 @@ public:
   int GetDrawScale() const;
 
 private:
-  ScalesProcessor const & m_scales;
-
   bool CheckMinScale(ScreenBase const & screen) const;
   bool CheckMaxScale(ScreenBase const & screen) const;
   bool CheckBorders(ScreenBase const & screen) const;
 
   static bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
   static ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect);
-
-  static bool CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
-  static ScreenBase const RotateInto(ScreenBase const & screen, m2::RectD const & boundRect);
 
   static ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect);
   static ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect);

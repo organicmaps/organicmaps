@@ -35,8 +35,7 @@ namespace
     m2::RectD GetViewport()
     {
       m2::RectD rect;
-      ScalesProcessor scales;
-      m_api.GetViewportRect(scales, rect);
+      m_api.GetViewportRect(rect);
       return rect;
     }
     string const & GetAppTitle() { return m_api.GetAppTitle(); }

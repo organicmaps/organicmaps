@@ -18,8 +18,7 @@
 
 DrapeSurface::DrapeSurface()
   : m_dragState(false)
-  , m_navigator(m_scales)
-  , m_contextFactory(NULL)
+  , m_contextFactory(nullptr)
 {
   setSurfaceType(QSurface::OpenGLSurface);
 

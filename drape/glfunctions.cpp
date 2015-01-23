@@ -12,7 +12,11 @@
 
 #include "std/cstring.hpp"
 
-#ifndef OMIM_OS_WINDOWS
+#if defined(OMIM_OS_WINDOWS)
+#define APIENTRY __stdcall
+#elif defined(OMIM_OS_ANDROID)
+#define APIENTRY __NDK_FPABI__
+#else
 #define APIENTRY
 #endif
 
@@ -74,21 +78,21 @@ namespace
 
   void (APIENTRY *glEnableVertexAttributeFn)(GLuint location)                                                      = NULL;
   void (APIENTRY *glVertexAttributePointerFn)(GLuint index,
-                                     GLint count,
-                                     GLenum type,
-                                     GLboolean normalize,
-                                     GLsizei stride,
-                                     GLvoid const * p)                                                    = NULL;
+                                              GLint count,
+                                              GLenum type,
+                                              GLboolean normalize,
+                                              GLsizei stride,
+                                              GLvoid const * p)                                                    = NULL;
 
   GLint (APIENTRY *glGetUniformLocationFn)(GLuint programID, GLchar const * name)                                  = NULL;
 
   void (APIENTRY *glGetActiveUniformFn)(GLuint programID,
-                               GLuint uniformIndex,
-                               GLsizei bufSize,
-                               GLsizei * length,
-                               GLint * size,
-                               GLenum * type,
-                               GLchar * name)                                                             = NULL;
+                                        GLuint uniformIndex,
+                                        GLsizei bufSize,
+                                        GLsizei * length,
+                                        GLint * size,
+                                        GLenum * type,
+                                        GLchar * name)                                                             = NULL;
 
   void (APIENTRY *glUniform1iFn)(GLint location, GLint value)                                                      = NULL;
   void (APIENTRY *glUniform2iFn)(GLint location, GLint v1, GLint v2)                                               = NULL;
@@ -123,6 +127,15 @@ void GLFunctions::Init()
   glDeleteVertexArrayFn = &::glDeleteVertexArrays;
   glMapBufferFn = &::glMapBuffer;  // I don't know correct name for linux!
   glUnmapBufferFn = &::glUnmapBuffer; // I don't know correct name for linux!
+#elif defined(OMIM_OS_ANDROID)
+  typedef void (APIENTRY *glGenVertexArraysType)(GLsizei n, GLuint * arrays);
+  typedef void (APIENTRY *glBindVertexArrayType)(GLuint array);
+  typedef void (APIENTRY *glDeleteVertexArrayType)(GLsizei n, GLuint const * ids);
+  glGenVertexArraysFn = (glGenVertexArraysType)eglGetProcAddress("glGenVertexArraysOES");
+  glBindVertexArrayFn = (glBindVertexArrayType)eglGetProcAddress("glBindVertexArrayOES");
+  glDeleteVertexArrayFn = (glDeleteVertexArrayType)eglGetProcAddress("glDeleteVertexArraysOES");
+  glMapBufferFn = &::glMapBufferOES;
+  glUnmapBufferFn = &::glUnmapBufferOES;
 #elif defined(OMIM_OS_MOBILE)
   glGenVertexArraysFn = &glGenVertexArraysOES;
   glBindVertexArrayFn = &glBindVertexArrayOES;
@@ -257,7 +270,7 @@ void GLFunctions::glDisable(glConst mode)
 
 void GLFunctions::glClearDepthValue(double depth)
 {
-#ifdef OMIM_OS_IPHONE
+#if defined(OMIM_OS_IPHONE) || defined(OMIM_OS_ANDROID)
   GLCHECK(::glClearDepthf(static_cast<GLclampf>(depth)));
 #else
   GLCHECK(::glClearDepth(depth));

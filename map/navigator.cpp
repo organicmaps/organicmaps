@@ -1,5 +1,7 @@
 #include "map/navigator.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "indexer/scales.hpp"
 
 #include "platform/settings.hpp"
@@ -25,15 +27,14 @@ namespace
   }
 }
 
-Navigator::Navigator(ScalesProcessor const & scales)
-  : m_scales(scales),
-    m_InAction(false)
+Navigator::Navigator()
+  : m_InAction(false)
 {
 }
 
 void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxRect)
 {
-  m2::RectD const & worldR = m_scales.GetWorldRect();
+  m2::RectD const & worldR = df::GetWorldRect();
 
   m_Screen.SetFromRects(glbRect, pxRect);
   m_Screen = ScaleInto(m_Screen, worldR);
@@ -47,7 +48,7 @@ void Navigator::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & pxR
 
 void Navigator::SetFromRect(m2::AnyRectD const & r)
 {
-  m2::RectD const & worldR = m_scales.GetWorldRect();
+  m2::RectD const & worldR = df::GetWorldRect();
 
   m_Screen.SetFromRect(r);
   m_Screen = ScaleInto(m_Screen, worldR);
@@ -81,7 +82,7 @@ double Navigator::ComputeMoveSpeed(m2::PointD const & /*p0*/, m2::PointD const &
 
 void Navigator::OnSize(int x0, int y0, int w, int h)
 {
-  m2::RectD const & worldR = m_scales.GetWorldRect();
+  m2::RectD const & worldR = df::GetWorldRect();
 
   m_Screen.OnSize(x0, y0, w, h);
   m_Screen = ShrinkAndScaleInto(m_Screen, worldR);
@@ -123,8 +124,6 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boun
 {
   ReduceRectHack(boundRect);
 
-//  ASSERT ( CanShrinkInto(screen, boundRect), () );
-
   ScreenBase res = screen;
 
   m2::RectD clipRect = res.ClipRect();
@@ -142,18 +141,6 @@ ScreenBase const Navigator::ShrinkInto(ScreenBase const & screen, m2::RectD boun
   // This assert fails near x = 180 (Philipines).
   //ASSERT ( boundRect.IsRectInside(res.ClipRect()), (clipRect, res.ClipRect()) );
   return res;
-}
-
-bool Navigator::CanRotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
-{
-  /// @todo
-  return false;
-}
-
-ScreenBase const Navigator::RotateInto(ScreenBase const & screen, m2::RectD const & boundRect)
-{
-  /// @todo
-  return screen;
 }
 
 ScreenBase const Navigator::ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
@@ -319,7 +306,7 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   if (m_LastPt1 == pt)
     return;
 
-  ScreenBase const s = ShrinkInto(m_StartScreen, m_scales.GetWorldRect());
+  ScreenBase const s = ShrinkInto(m_StartScreen, df::GetWorldRect());
 
   double dx = pt.x - m_StartPt1.x;
   double dy = pt.y - m_StartPt1.y;
@@ -487,20 +474,20 @@ shared_ptr<anim::Task> Navigator::ScaleToPointAnim(m2::PointD const & pt, double
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
   m2::RectD const & r = screen.ClipRect();
-  m2::RectD const & worldR = m_scales.GetWorldRect();
+  m2::RectD const & worldR = df::GetWorldRect();
 
   return (r.SizeX() <= worldR.SizeX() || r.SizeY() <= worldR.SizeY());
 }
 
 bool Navigator::CheckMaxScale(ScreenBase const & screen) const
 {
-  return (m_scales.GetDrawTileScale(screen) <= scales::GetUpperStyleScale());
+  return (df::GetDrawTileScale(screen) <= scales::GetUpperStyleScale());
 }
 
 bool Navigator::CheckBorders(ScreenBase const & screen) const
 {
   m2::RectD const & r = screen.ClipRect();
-  m2::RectD const & worldR = m_scales.GetWorldRect();
+  m2::RectD const & worldR = df::GetWorldRect();
 
   return (r.IsRectInside(worldR) || worldR.IsRectInside(r));
 }
@@ -521,7 +508,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   if (!skipMinScaleAndBordersCheck && !CheckMinScale(tmp))
     return false;
 
-  m2::RectD const & worldR = m_scales.GetWorldRect();
+  m2::RectD const & worldR = df::GetWorldRect();
 
   if (!skipMinScaleAndBordersCheck && !CheckBorders(tmp))
   {
@@ -650,5 +637,5 @@ bool Navigator::Update(double timeInSec)
 
 int Navigator::GetDrawScale() const
 {
-  return m_scales.GetDrawTileScale(m_Screen);
+  return df::GetDrawTileScale(m_Screen);
 }

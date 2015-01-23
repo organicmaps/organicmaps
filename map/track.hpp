@@ -1,10 +1,10 @@
 #pragma once
 
+#include "drape/drape_global.hpp"
+#include "drape/color.hpp"
+
 #include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
-
-#include "graphics/color.hpp"
-#include "graphics/defines.hpp"
 
 #include "std/noncopyable.hpp"
 
@@ -12,11 +12,6 @@
 
 
 class Navigator;
-namespace graphics
-{
-  class Screen;
-  class DisplayList;
-}
 namespace location
 {
   class RouteMatchingInfo;
@@ -52,13 +47,15 @@ public:
   /// @note Move semantics is used here.
   virtual Track * CreatePersistent();
   float GetMainWidth() const;
-  graphics::Color const & GetMainColor() const;
+  dp::Color const & GetMainColor() const;
 
-  virtual void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
-  virtual void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
+
+  /// @TODO UVR
+  //virtual void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
+  //virtual void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
                          int, double, location::RouteMatchingInfo const &) const;
-  virtual void CleanUp() const;
-  virtual bool HasDisplayLists() const;
+  //virtual void CleanUp() const;
+  //virtual bool HasDisplayLists() const;
 
   /// @name Simple Getters-Setter
   //@{
@@ -66,7 +63,7 @@ public:
   struct TrackOutline
   {
     float m_lineWidth;
-    graphics::Color m_color;
+    dp::Color m_color;
   };
 
   void AddOutline(TrackOutline const * outline, size_t arraySize);
@@ -93,7 +90,8 @@ private:
   PolylineD m_polyline;
   m2::RectD m_rect;
 
-  mutable graphics::DisplayList * m_dList = nullptr;
+  ///@TODO UVR
+  //mutable graphics::DisplayList * m_dList = nullptr;
 };
 
 void TransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, PointContainerT & pts);

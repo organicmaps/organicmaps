@@ -1,6 +1,8 @@
 #pragma once
 
 #include "std/cstdint.hpp"
+#include "std/sstream.hpp"
+#include "std/string.hpp"
 
 namespace dp
 {
@@ -15,6 +17,7 @@ struct Color
   uint8_t GetBlue() const;
   uint8_t GetAlfa() const;
 
+  bool operator==(Color const & other) const { return m_rgba == other.m_rgba; }
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
 
   static Color Black()             { return Color(0, 0, 0, 255); }
@@ -33,5 +36,15 @@ inline uint8_t ExtractBlue(uint32_t argb);
 inline uint8_t ExtractAlfa(uint32_t argb);
 Color Extract(uint32_t argb);
 Color Extract(uint32_t xrgb, uint8_t a);
+
+inline string DebugPrint(Color const & c)
+{
+  ostringstream out;
+  out << "R = " << c.GetRed()
+      << "G = " << c.GetGreen()
+      << "B = " << c.GetBlue()
+      << "A = " << c.GetAlfa();
+  return out.str();
+}
 
 }

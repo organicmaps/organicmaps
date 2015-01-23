@@ -110,6 +110,9 @@ public:
 
   unique_ptr<UserMarkCopy> Copy() const override;
 
+  //virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const;
+  virtual double GetAnimScaleFactor() const;
+  virtual m2::PointD const & GetPixelOffset() const;
   shared_ptr<anim::Task> CreateAnimTask(Framework & fm);
 
   // StyledPoint overrides:
