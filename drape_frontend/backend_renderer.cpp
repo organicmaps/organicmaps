@@ -3,6 +3,7 @@
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -73,8 +74,21 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       shape->Draw(batcher, m_textures.GetRefPointer());
 
       shape.Destroy();
+      break;
     }
-    break;
+  case Message::UpdateUserMarkLayer:
+    {
+      UpdateUserMarkLayerMessage * msg = df::CastMessage<UpdateUserMarkLayerMessage>(message);
+      TileKey const & key = msg->GetKey();
+      m_batchersPool->ReserveBatcher(key);
+
+      UserMarksProvider const * marksProvider = msg->StartProcess();
+      if (marksProvider->IsDirty())
+        CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_textures.GetRefPointer());
+      msg->EndProcess();
+      m_batchersPool->ReleaseBatcher(key);
+      break;
+    }
   default:
     ASSERT(false, ());
     break;

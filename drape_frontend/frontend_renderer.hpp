@@ -68,6 +68,7 @@ private:
   set<TileKey> & GetTileKeyStorage();
 
   void InvalidateRenderGroups(set<TileKey> & keyStorage);
+  UserMarkRenderGroup * FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
 
 private:
   class Routine : public threads::IRoutine
@@ -97,6 +98,7 @@ private:
 
 private:
   vector<RenderGroup *> m_renderGroups;
+  vector<UserMarkRenderGroup *> m_userMarkRenderGroups;
 
   dp::UniformValuesStorage m_generalUniforms;
 

@@ -3,6 +3,7 @@
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/viewport.hpp"
 #include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/user_marks_provider.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -149,5 +150,67 @@ T * CastMessage(dp::RefPointer<Message> msg)
 {
   return static_cast<T *>(msg.GetRaw());
 }
+
+class ClearUserMarkLayerMessage : public BaseTileMessage
+{
+public:
+  ClearUserMarkLayerMessage(TileKey const & tileKey)
+    : BaseTileMessage(tileKey, Message::ClearUserMarkLayer) {}
+};
+
+class ChangeUserMarkLayerVisibilityMessage : public BaseTileMessage
+{
+public:
+  ChangeUserMarkLayerVisibilityMessage(TileKey const & tileKey, bool isVisible)
+    : BaseTileMessage(tileKey, Message::ChangeUserMarkLayerVisibility)
+    , m_isVisible(isVisible) {}
+
+bool IsVisible() const { return m_isVisible; }
+
+private:
+  bool m_isVisible;
+};
+
+class UpdateUserMarkLayerMessage : public BaseTileMessage
+{
+public:
+  UpdateUserMarkLayerMessage(TileKey const & tileKey, UserMarksProvider * provider)
+    : BaseTileMessage(tileKey, Message::UpdateUserMarkLayer)
+    , m_provider(provider)
+  {
+    m_provider->IncrementCounter();
+  }
+
+  ~UpdateUserMarkLayerMessage()
+  {
+    ASSERT(m_inProcess == false, ());
+    m_provider->DecrementCounter();
+    if (m_provider->IsPendingOnDelete() && m_provider->CanBeDeleted())
+      delete m_provider;
+  }
+
+  UserMarksProvider const * StartProcess()
+  {
+    m_provider->BeginRead();
+#ifdef DEBUG
+    m_inProcess = true;
+#endif
+    return m_provider;
+  }
+
+  void EndProcess()
+  {
+#ifdef DEBUG
+    m_inProcess = false;
+#endif
+    m_provider->EndRead();
+  }
+
+private:
+  UserMarksProvider * m_provider;
+#ifdef DEBUG
+  bool m_inProcess;
+#endif
+};
 
 } // namespace df

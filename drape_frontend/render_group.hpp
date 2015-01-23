@@ -15,8 +15,26 @@ namespace dp { class OverlayTree; }
 namespace df
 {
 
-class RenderGroup
+class BaseRenderGroup
 {
+public:
+  BaseRenderGroup(dp::GLState const & state, TileKey const & tileKey)
+    : m_state(state)
+    , m_tileKey(tileKey) {}
+
+  dp::GLState const & GetState() const { return m_state; }
+  TileKey const & GetTileKey() const { return m_tileKey; }
+
+protected:
+  dp::GLState m_state;
+
+private:
+  TileKey m_tileKey;
+};
+
+class RenderGroup : public BaseRenderGroup
+{
+  typedef BaseRenderGroup TBase;
 public:
   RenderGroup(dp::GLState const & state, TileKey const & tileKey);
   ~RenderGroup();
@@ -28,9 +46,6 @@ public:
   void PrepareForAdd(size_t countForAdd);
   void AddBucket(dp::TransferPointer<dp::RenderBucket> bucket);
 
-  dp::GLState const & GetState() const { return m_state; }
-  TileKey const & GetTileKey() const { return m_tileKey; }
-
   bool IsEmpty() const { return m_renderBuckets.empty(); }
   void DeleteLater() const { m_pendingOnDelete = true; }
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
@@ -38,17 +53,15 @@ public:
   bool IsLess(RenderGroup const & other) const;
 
 private:
-  dp::GLState m_state;
-  TileKey m_tileKey;
   vector<dp::MasterPointer<dp::RenderBucket> > m_renderBuckets;
 
   mutable bool m_pendingOnDelete;
 };
 
-class RenderBucketComparator
+class RenderGroupComparator
 {
 public:
-  RenderBucketComparator(set<TileKey> const & activeTiles);
+  RenderGroupComparator(set<TileKey> const & activeTiles);
 
   void ResetInternalState();
 
@@ -58,6 +71,26 @@ private:
   set<TileKey> const & m_activeTiles;
   bool m_needGroupMergeOperation;
   bool m_needBucketsMergeOperation;
+};
+
+class UserMarkRenderGroup : public BaseRenderGroup
+{
+  typedef BaseRenderGroup TBase;
+
+public:
+  UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey);
+  ~UserMarkRenderGroup();
+
+  void SetIsVisible(bool isVisible);
+  bool IsVisible();
+
+  void Clear();
+  void SetRenderBucket(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket);
+  void Render(ScreenBase const & screen);
+
+private:
+  bool m_isVisible;
+  dp::MasterPointer<dp::RenderBucket> m_renderBucket;
 };
 
 } // namespace df

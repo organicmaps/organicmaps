@@ -52,4 +52,22 @@ void DrapeEngine::UpdateCoverage(ScreenBase const & screen)
                                   dp::MovePointer<Message>(new UpdateModelViewMessage(screen)));
 }
 
+void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  dp::MovePointer<Message>(new ClearUserMarkLayerMessage(tileKey)));
+}
+
+void DrapeEngine::ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  dp::MovePointer<Message>(new ChangeUserMarkLayerVisibilityMessage(tileKey, isVisible)));
+}
+
+void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  dp::MovePointer<Message>(new UpdateUserMarkLayerMessage(tileKey, provider)));
+}
+
 } // namespace df

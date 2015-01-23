@@ -31,7 +31,8 @@ public:
     /// Do not change order
     GeometryLayer,
     DynamicGeometry,
-    OverlayLayer
+    OverlayLayer,
+    UserMarkLayer
   };
 
   GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);

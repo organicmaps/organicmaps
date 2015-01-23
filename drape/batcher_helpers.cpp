@@ -166,6 +166,7 @@ void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
+    ChangeBuffer(true);
     uint16_t avVertex = GetAvailableVertexCount();
     uint16_t avIndex  = GetAvailableIndexCount();
     uint16_t vertexCount = streams->GetVertexCount();
@@ -193,7 +194,6 @@ void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
 
     FlushData(streams, vertexCount);
     streams->Advance(vertexCount);
-    ChangeBuffer(true);
   }
 }
 
@@ -296,13 +296,13 @@ void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
+    ChangeBuffer(true);
     uint16_t const batchVertexCount = BatchIndexes(streams->GetVertexCount());
     FlushData(streams, batchVertexCount);
 
     uint16_t const advanceCount = IsFullUploaded() ? batchVertexCount : (batchVertexCount - 2);
     streams->Advance(advanceCount);
 
-    ChangeBuffer(true);
   }
 }
 
@@ -417,11 +417,10 @@ void TriangleListOfStripBatch::BatchData(RefPointer<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
+    ChangeBuffer(true);
     uint16_t const batchVertexCount = BatchIndexes(streams->GetVertexCount());
     FlushData(streams, batchVertexCount);
     streams->Advance(batchVertexCount);
-
-    ChangeBuffer(true);
   }
 }
 

@@ -20,7 +20,9 @@ public:
     InvalidateRect,
     InvalidateReadManagerRect,
     Resize,
-    Rotate
+    ClearUserMarkLayer,
+    ChangeUserMarkLayerVisibility,
+    UpdateUserMarkLayer
   };
 
   Message();

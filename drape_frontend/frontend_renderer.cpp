@@ -1,6 +1,7 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
 
 #include "drape/utils/projection.hpp"
 
@@ -81,6 +82,29 @@ void FrontendRenderer::AfterDrawFrame()
 }
 #endif
 
+UserMarkRenderGroup * FrontendRenderer::FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed)
+{
+  auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](UserMarkRenderGroup * g)
+  {
+    return g->GetTileKey() == tileKey;
+  });
+
+  if (it != m_userMarkRenderGroups.end())
+  {
+    ASSERT((*it) != nullptr, ());
+    return *it;
+  }
+
+  if (createIfNeed)
+  {
+    UserMarkRenderGroup * group = new UserMarkRenderGroup(dp::GLState(0, dp::GLState::UserMarkLayer), tileKey);
+    m_userMarkRenderGroups.push_back(group);
+    return group;
+  }
+
+  return nullptr;
+}
+
 void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 {
   switch (message->GetType())
@@ -94,9 +118,18 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
       program->Bind();
       bucket->GetBuffer()->Build(program);
-      RenderGroup * group = new RenderGroup(state, key);
-      group->AddBucket(bucket.Move());
-      m_renderGroups.push_back(group);
+      if (!IsUserMarkLayer(key))
+      {
+        RenderGroup * group = new RenderGroup(state, key);
+        group->AddBucket(bucket.Move());
+        m_renderGroups.push_back(group);
+      }
+      else
+      {
+        UserMarkRenderGroup * group = FindUserMarkRenderGroup(key, true);
+        ASSERT(group != nullptr, ());
+        group->SetRenderBucket(state, bucket.Move());
+      }
       break;
     }
 
@@ -139,6 +172,33 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       break;
     }
 
+  case Message::ClearUserMarkLayer:
+    {
+      TileKey const & tileKey = df::CastMessage<ClearUserMarkLayerMessage>(message)->GetKey();
+      auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](UserMarkRenderGroup * g)
+      {
+        return g->GetTileKey() == tileKey;
+      });
+
+      if (it != m_userMarkRenderGroups.end())
+      {
+        UserMarkRenderGroup * group = *it;
+        ASSERT(group != nullptr, ());
+        m_userMarkRenderGroups.erase(it);
+        delete group;
+      }
+
+      break;
+    }
+  case Message::ChangeUserMarkLayerVisibility:
+    {
+      ChangeUserMarkLayerVisibilityMessage * m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
+      UserMarkRenderGroup * group = FindUserMarkRenderGroup(m->GetKey(), true);
+      ASSERT(group != nullptr, ());
+      group->SetIsVisible(m->IsVisible());
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }
@@ -150,8 +210,8 @@ void FrontendRenderer::RenderScene()
   BeforeDrawFrame();
 #endif
 
-  RenderBucketComparator comparator(GetTileKeyStorage());
-  sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderBucketComparator::operator (), &comparator, _1, _2));
+  RenderGroupComparator comparator(GetTileKeyStorage());
+  sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
 
   m_overlayTree.StartOverlayPlacing(m_view);
   size_t eraseCount = 0;
@@ -211,6 +271,22 @@ void FrontendRenderer::RenderScene()
     ApplyState(state, program);
 
     group->Render(m_view);
+  }
+
+  GLFunctions::glClearDepth();
+
+  for (UserMarkRenderGroup * group : m_userMarkRenderGroups)
+  {
+    ASSERT(group != nullptr, ());
+    if (group->IsVisible())
+    {
+      dp::GLState const & state = group->GetState();
+      dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      program->Bind();
+      ApplyUniforms(m_generalUniforms, program);
+      ApplyState(state, program);
+      group->Render(m_view);
+    }
   }
 
 #ifdef DRAW_INFO
@@ -348,7 +424,8 @@ void FrontendRenderer::ReleaseResources()
 
 void FrontendRenderer::DeleteRenderData()
 {
-  (void)GetRangeDeletor(m_renderGroups, DeleteFunctor())();
+  DeleteRange(m_renderGroups, DeleteFunctor());
+  DeleteRange(m_userMarkRenderGroups, DeleteFunctor());
 }
 
 } // namespace df

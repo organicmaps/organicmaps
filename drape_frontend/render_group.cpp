@@ -9,8 +9,7 @@ namespace df
 {
 
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
-  : m_state(state)
-  , m_tileKey(tileKey)
+  : TBase(state, tileKey)
   , m_pendingOnDelete(false)
 {
 }
@@ -56,20 +55,20 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-RenderBucketComparator::RenderBucketComparator(set<TileKey> const & activeTiles)
+RenderGroupComparator::RenderGroupComparator(set<TileKey> const & activeTiles)
   : m_activeTiles(activeTiles)
   , m_needGroupMergeOperation(false)
   , m_needBucketsMergeOperation(false)
 {
 }
 
-void RenderBucketComparator::ResetInternalState()
+void RenderGroupComparator::ResetInternalState()
 {
   m_needBucketsMergeOperation = false;
   m_needGroupMergeOperation = false;
 }
 
-bool RenderBucketComparator::operator()(RenderGroup const * l, RenderGroup const * r)
+bool RenderGroupComparator::operator()(RenderGroup const * l, RenderGroup const * r)
 {
   dp::GLState const & lState = l->GetState();
   dp::GLState const & rState = r->GetState();
@@ -96,6 +95,39 @@ bool RenderBucketComparator::operator()(RenderGroup const * l, RenderGroup const
     return true;
 
   return false;
+}
+
+UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey)
+  : TBase(state, tileKey)
+  , m_isVisible(true)
+{
+}
+
+UserMarkRenderGroup::~UserMarkRenderGroup()
+{
+  m_renderBucket.Destroy();
+}
+
+void UserMarkRenderGroup::SetIsVisible(bool isVisible)
+{
+  m_isVisible = isVisible;
+}
+
+bool UserMarkRenderGroup::IsVisible()
+{
+  return m_isVisible && !m_renderBucket.IsNull();
+}
+
+void UserMarkRenderGroup::SetRenderBucket(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket)
+{
+  m_state = state;
+  m_renderBucket = dp::MasterPointer<dp::RenderBucket>(bucket);
+}
+
+void UserMarkRenderGroup::Render(ScreenBase const & screen)
+{
+  if (!m_renderBucket.IsNull())
+    m_renderBucket->Render(screen);
 }
 
 } // namespace df

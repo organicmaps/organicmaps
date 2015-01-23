@@ -14,8 +14,10 @@ namespace dp { class OGLContextFactory; }
 namespace df
 {
 
+class UserMarksProvider;
 class MapDataProvider;
 class Viewport;
+
 class DrapeEngine
 {
 public:
@@ -26,6 +28,10 @@ public:
 
   void Resize(int w, int h);
   void UpdateCoverage(ScreenBase const & screen);
+
+  void ClearUserMarksLayer(TileKey const & tileKey);
+  void ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible);
+  void UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider);
 
 private:
   dp::MasterPointer<FrontendRenderer> m_frontend;
