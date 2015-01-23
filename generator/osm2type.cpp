@@ -297,31 +297,37 @@ namespace ftype
       }
     };
 
-    template< typename FuncT = void()>
     class TagProcessor
     {
-      typedef struct {
+      template<typename FuncT>
+      struct Rule{
         char const * key;
         char const * value;
         function<FuncT> func;
-      } RuleT;
+      };
 
-      initializer_list<RuleT> m_rules;
-
+      XMLElement * m_element;
     public:
-      TagProcessor(initializer_list<RuleT> rules) : m_rules(rules) {}
+      TagProcessor(XMLElement *elem) : m_element(elem) {}
 
-      bool operator() (string & k, string & v) const
+
+      template< typename FuncT = void()>
+      void ApplyRules(initializer_list<Rule<FuncT>> const &rules) const
       {
-        for (auto const & e: m_rules)
-          if ((k == "*" || k == e.key) && (v == "*" || v == e.value))
-            apply(e.func, k, v);
-        return false;
+        for (auto & e : m_element->childs)
+        {
+          if (e.tagKey == XMLElement::ET_TAG)
+          {
+            for (auto const & rule: rules)
+              if ((e.k == "*" || e.k == rule.key) && (e.v == "*" || e.v == rule.value))
+                call(rule.func, e.k, e.v);
+          }
+        }
       }
 
     protected:
-      static void apply(function<void()> const & f, string & k, string & v) { f(); }
-      static void apply(function<void(string & , string &)> const & f, string & k, string & v) { f(k, v); }
+      static void call(function<void()> const & f, string & k, string & v) { f(); }
+      static void call(function<void(string & , string &)> const & f, string & k, string & v) { f(k, v); }
     };
   }
 
@@ -330,37 +336,23 @@ namespace ftype
     return for_each_tag(p, do_find_obj(parent, isKey));
   }
 
-  size_t process_common_params(XMLElement * p, FeatureParams & params)
+  size_t ProcessCommonParams(XMLElement * p, FeatureParams & params)
   {
     size_t count;
     for_each_tag(p, do_find_name(count, params));
     return count;
   }
 
-  void process_synonims(XMLElement * p)
-  {
-    /// Process synonym tags to match existing classificator types.
-    /// @todo We are planning to rewrite classificator <-> tags matching.
-    TagProcessor<void(string &, string &)> replaceSynonyms({
-      { "atm", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
-      { "restaurant", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
-      { "hotel", "yes", [](string &k, string &v){ k.swap(v); k = "tourism"; }},
-    });
-    for_each_tag(p, bind<bool>(ref(replaceSynonyms), _1, _2));
-  }
-
-  void add_layers(XMLElement * p)
+  void AddLayers(XMLElement * p)
   {
     bool isLayer = false;
     char const *layer = nullptr;
 
-    TagProcessor<> setLayer({
+    TagProcessor(p).ApplyRules({
       { "bridge", "yes", [&layer](){ layer = "1";}},
       { "tunnel", "yes", [&layer](){ layer = "-1";} },
       { "layer", "*", [&isLayer](){ isLayer = true;} },
     });
-
-    for_each_tag(p, bind<bool>(ref(setLayer), _1, _2));
 
     if (!isLayer && layer)
       p->AddKV("layer", layer);
@@ -408,11 +400,18 @@ namespace ftype
 
   void GetNameAndType(XMLElement * p, FeatureParams & params)
   {
-    process_synonims(p);
-    add_layers(p);
+    /// Process synonym tags to match existing classificator types.
+    /// @todo We are planning to rewrite classificator <-> tags matching.
+    TagProcessor(p).ApplyRules<void(string &, string &)>({
+      { "atm", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
+      { "restaurant", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
+      { "hotel", "yes", [](string &k, string &v){ k.swap(v); k = "tourism"; }},
+    });
+
+    AddLayers(p);
 
     // maybe an empty feature
-    if (process_common_params(p, params) == 0)
+    if (ProcessCommonParams(p, params) == 0)
       return;
 
     set<int> skipRootKeys;
@@ -475,16 +474,13 @@ namespace ftype
     for (size_t i = 0; i < params.m_Types.size(); ++i)
       if (types.IsHighway(params.m_Types[i]))
       {
-
-        TagProcessor<> addHighwayTypes({
+        TagProcessor(p).ApplyRules({
           { "oneway", "yes", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
           { "oneway", "1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
           { "oneway", "-1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true;} },
           { "access", "private", [&params](){params.AddType(types.Get(CachedTypes::PRIVATE));} },
           { "lit", "yes", [&params](){params.AddType(types.Get(CachedTypes::LIT));} },
         });
-
-        for_each_tag(p, bind<bool>(ref(addHighwayTypes), _1, _2));
 
         break;
       }
