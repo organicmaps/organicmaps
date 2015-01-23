@@ -1664,9 +1664,13 @@ public class MWMActivity extends NvEventQueueActivity
       return;
     }
 
-    mIvStartRouting.setVisibility(View.INVISIBLE);
-    mPbRoutingProgress.setVisibility(View.VISIBLE);
-    Framework.nativeBuildRoute(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
+    final MapObject mapObject = mInfoView.getMapObject();
+    if (mapObject != null)
+    {
+      mIvStartRouting.setVisibility(View.INVISIBLE);
+      mPbRoutingProgress.setVisibility(View.VISIBLE);
+      Framework.nativeBuildRoute(mapObject.getLat(), mapObject.getLon());
+    }
   }
 
   private void showRoutingDisclaimer()
