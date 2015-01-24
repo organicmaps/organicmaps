@@ -19,6 +19,8 @@
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
 
+#include "../3party/Alohalytics/src/alohalytics.h"
+
 
 namespace search
 {
@@ -227,6 +229,9 @@ void Engine::EmitResults(SearchParams const & params, Results & res)
 //  }
 
   m_searchResults = res;
+  // Basic test of our statistics engine.
+  alohalytics::LogEvent("searchEmitResults",
+                        alohalytics::TStringMap({{params.m_query, strings::to_string(res.GetCount())}}));
   params.m_callback(res);
 }
 
