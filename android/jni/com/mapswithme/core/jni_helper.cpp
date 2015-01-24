@@ -3,7 +3,13 @@
 
 #include "../../../../../base/assert.hpp"
 
+
 static JavaVM * g_jvm = 0;
+
+extern JavaVM * GetJVM()
+{
+  return g_jvm;
+}
 
 // @TODO remove after refactoring. Needed for NVidia code
 void InitNVEvent(JavaVM * jvm);

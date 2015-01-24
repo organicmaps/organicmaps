@@ -304,6 +304,16 @@
       </intent-filter>
     </receiver>
 
+    <!-- Used to automatically upload Alohalytics statistics using WiFi. -->
+    <receiver
+        android:name="org.alohalytics.ConnectivityChangedReceiver"
+        android:enabled="true"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+      </intent-filter>
+    </receiver>
+
   </application>
 
 </manifest>

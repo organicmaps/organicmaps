@@ -92,6 +92,8 @@ data/settings.ini
 !data/route_test2.osm.bz2
 data/index.idx
 data/index.stamp
+# local statistics storage
+data/stats
 
 # benchmark results
 data/benchmarks/*.trace
