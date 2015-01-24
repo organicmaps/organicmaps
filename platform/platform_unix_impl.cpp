@@ -66,7 +66,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
     "/usr/share/fonts/truetype/tlwg/",
     "/usr/share/fonts/truetype/abyssinica/",
     "/usr/share/fonts/truetype/paktype/",
-    "/usr/share/fonts/truetype/mapswithme/",
+    "/usr/share/fonts/truetype/mapsme/",
 #endif
   };
 

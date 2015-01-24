@@ -33,7 +33,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   labelIcon->setPixmap(icon.pixmap(128));
 
   // @todo insert version to bundle.
-  QLabel * labelVersion = new QLabel(QString::fromLocal8Bit("MapsWithMe"));
+  QLabel * labelVersion = new QLabel(QString::fromLocal8Bit("MAPS.ME"));
 
   QHBoxLayout * hBox = new QHBoxLayout();
   hBox->addWidget(labelIcon);

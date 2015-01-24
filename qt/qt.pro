@@ -9,7 +9,7 @@ drape {
 
 include($$ROOT_DIR/common.pri)
 
-TARGET = MapsWithMe
+TARGET = MAPS.ME
 TEMPLATE = app
 CONFIG += warn_on
 QT *= core widgets gui opengl
@@ -30,10 +30,10 @@ linux* {
   DEFINES += INSTALL_PREFIX=$$(PREFIX)
   BINDIR = $$PREFIX/bin
 
-  DATADIR = $$PREFIX/share/MapsWithMe
+  DATADIR = $$PREFIX/share/mapsme
   RESDIR =  $$DATADIR
 
-  FONTSDIR = /usr/share/fonts/truetype/mapswithme/
+  FONTSDIR = /usr/share/fonts/truetype/mapsme/
 
   target.path = $$BINDIR
   desktop.path = /usr/share/applications/

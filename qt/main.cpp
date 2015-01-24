@@ -41,7 +41,7 @@ namespace
     InitializeFinalize()
     {
       // App runs without error console under win32.
-      m_errFile = ::freopen(".\\mapswithme.log", "w", stderr);
+      m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
       my::g_LogLevel = my::LDEBUG;
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
@@ -94,7 +94,7 @@ int main(int argc, char * argv[])
       ReaderPtr<Reader> reader = GetPlatform().GetReader("eula.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog("MapsWithMe End User Licensing Agreement", buffer.c_str(), NULL, buttons);
+    qt::InfoDialog eulaDialog("MAPS.ME End User Licensing Agreement", buffer.c_str(), NULL, buttons);
     eulaAccepted = (eulaDialog.exec() == 1);
     Settings::Set(settingsEULA, eulaAccepted);
   }

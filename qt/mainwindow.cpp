@@ -76,7 +76,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   CreateNavigationBar();
   CreateSearchBarAndPanel();
 
-  setWindowTitle(tr("MapsWithMe"));
+  setWindowTitle(tr("MAPS.ME"));
   setWindowIcon(QIcon(":/ui/logo.png"));
 
 #ifndef OMIM_OS_WINDOWS
@@ -98,7 +98,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
     item.cch = prefsStr.size();
     ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
     item.wID = IDM_ABOUT_DIALOG;
-    QByteArray const aboutStr = tr("About MapsWithMe...").toLocal8Bit();
+    QByteArray const aboutStr = tr("About MAPS.ME...").toLocal8Bit();
     item.dwTypeData = const_cast<char *>(aboutStr.data());
     item.cch = aboutStr.size();
     ::InsertMenuItemA(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
@@ -129,7 +129,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 
     if (!text.empty())
     {
-      InfoDialog welcomeDlg(tr("Welcome to MapsWithMe!"), text.c_str(),
+      InfoDialog welcomeDlg(tr("Welcome to MAPS.ME!"), text.c_str(),
                             this, QStringList(tr("Download Maps")));
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
