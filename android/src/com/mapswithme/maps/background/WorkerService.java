@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
-import com.mapswithme.maps.Ads.AdsManager;
+import com.mapswithme.maps.ads.AdsManager;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;

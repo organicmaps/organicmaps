@@ -1,4 +1,4 @@
-package com.mapswithme.maps.Ads;
+package com.mapswithme.maps.ads;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
