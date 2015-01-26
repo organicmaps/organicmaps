@@ -1671,6 +1671,8 @@ public class MWMActivity extends NvEventQueueActivity
       mPbRoutingProgress.setVisibility(View.VISIBLE);
       Framework.nativeBuildRoute(mapObject.getLat(), mapObject.getLon());
     }
+    else
+      Log.d(MWMActivity.class.getName(), "buildRoute(). MapObject is null. MapInfoView visibility : " + mInfoView.getVisibility());
   }
 
   private void showRoutingDisclaimer()
