@@ -24,10 +24,7 @@ AndroidOGLContext::AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGL
 
   EGLContext sharedContext = (contextToShareWith == NULL) ? EGL_NO_CONTEXT : contextToShareWith->m_nativeContext;
   m_nativeContext = eglCreateContext(m_display, config, sharedContext, getContextAttributesList());
-  LOG(LINFO, ("UVR : Context created = ", m_nativeContext));
-
   CHECK(m_nativeContext != EGL_NO_CONTEXT, ());
-  LOG(LINFO, ("UVR : Present"));
 }
 
 AndroidOGLContext::~AndroidOGLContext()
@@ -43,16 +40,12 @@ void AndroidOGLContext::setDefaultFramebuffer()
 
 void AndroidOGLContext::makeCurrent()
 {
-  LOG(LINFO, ("UVR : Make current for context"));
-  if (eglMakeCurrent(m_display, m_surface, m_surface, m_nativeContext) != EGL_TRUE)
-    LOG(LINFO, ("Failed to set current context:", eglGetError()));
+  eglMakeCurrent(m_display, m_surface, m_surface, m_nativeContext);
 }
 
 void AndroidOGLContext::present()
 {
-  LOG(LINFO, ("UVR : Present"));
-  if(eglSwapBuffers(m_display, m_surface) != EGL_TRUE)
-    LOG(LINFO, ("Failed to swap buffers:", eglGetError()));
+  eglSwapBuffers(m_display, m_surface);
 }
 
 } // namespace android

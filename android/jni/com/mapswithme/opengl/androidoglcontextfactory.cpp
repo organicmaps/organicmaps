@@ -39,12 +39,8 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   , m_surfaceHeight(0)
   , m_valid(false)
 {
-  LOG(LINFO, ("UVR : Start create factory"));
   if (!jsurface)
-  {
-    LOG(LINFO, ("Java surface incorrect"));
     return;
-  }
 
   m_nativeWindow = ANativeWindow_fromSurface(env, jsurface);
   if (!m_nativeWindow)
@@ -76,7 +72,6 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   if (!QuerySurfaceSize())
     return;
 
-  LOG(LINFO, ("UVR : Correct created factory"));
   m_valid = true;
 }
 

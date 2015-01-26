@@ -21,7 +21,6 @@ public abstract class RenderActivity extends MWMFragmentActivity
   @Override
   public void surfaceCreated(SurfaceHolder surfaceHolder)
   {
-    Log.i("UVR", "Surface created");
     mSurfaceHolder = surfaceHolder;
     InitEngine();
   }
@@ -42,7 +41,6 @@ public abstract class RenderActivity extends MWMFragmentActivity
   @Override
   protected void onCreate(Bundle b)
   {
-    Log.i("UVR", "onCreate");
     final DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
     m_displayDensity = metrics.densityDpi;
@@ -52,7 +50,6 @@ public abstract class RenderActivity extends MWMFragmentActivity
   @Override
   protected void onResume()
   {
-    Log.i("UVR", "onResume");
     InitEngine();
     super.onResume();
   }
@@ -101,10 +98,8 @@ public abstract class RenderActivity extends MWMFragmentActivity
 
   private void InitEngine()
   {
-    Log.i("UVR", "Init engine");
     if (mSurfaceHolder != null)
     {
-      Log.i("UVR", "CreateEngine");
       if (CreateEngine(mSurfaceHolder.getSurface(), m_displayDensity))
         OnRenderingInitialized();
       else
