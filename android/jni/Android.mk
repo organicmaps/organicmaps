@@ -95,6 +95,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/platform/PThreadImpl.cpp \
 	com/mapswithme/utils/StringUtils.cpp \
     com/mapswithme/util/Config.cpp \
+	com/mapswithme/opengl/android_gl_utils.cpp \
 	com/mapswithme/opengl/androidoglcontext.cpp \
 	com/mapswithme/opengl/androidoglcontextfactory.cpp \
 

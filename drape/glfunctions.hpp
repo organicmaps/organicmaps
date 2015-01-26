@@ -1,6 +1,9 @@
 #pragma once
 
 #include "drape/glconstants.hpp"
+
+#include "base/src_point.hpp"
+
 #include "std/string.hpp"
 
 class GLFunctions
@@ -114,11 +117,11 @@ public:
   static void glDrawElements(uint16_t indexCount);
 };
 
-void CheckGLError();
+void CheckGLError(my::SrcPoint const &src);
 
 #ifdef DEBUG
-  #define GLCHECK(x) do { (x); CheckGLError(); } while (false)
-  #define GLCHECKCALL() do { CheckGLError(); } while (false)
+  #define GLCHECK(x) do { (x); CheckGLError(SRC()); } while (false)
+  #define GLCHECKCALL() do { CheckGLError(SRC()); } while (false)
 #else
   #define GLCHECK(x) (x)
   #define GLCHECKCALL()

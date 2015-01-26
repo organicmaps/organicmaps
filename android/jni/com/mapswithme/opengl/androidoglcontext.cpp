@@ -1,4 +1,5 @@
 #include "androidoglcontext.hpp"
+#include "android_gl_utils.hpp"
 #include "../../../base/assert.hpp"
 #include "../../../base/logging.hpp"
 
@@ -30,7 +31,10 @@ AndroidOGLContext::AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGL
 AndroidOGLContext::~AndroidOGLContext()
 {
   // Native context must exist
-  eglDestroyContext(m_display, m_nativeContext);
+  if (eglDestroyContext(m_display, m_nativeContext) == EGL_FALSE)
+  {
+    CHECK_EGL_CALL();
+  }
 }
 
 void AndroidOGLContext::setDefaultFramebuffer()
@@ -40,12 +44,18 @@ void AndroidOGLContext::setDefaultFramebuffer()
 
 void AndroidOGLContext::makeCurrent()
 {
-  eglMakeCurrent(m_display, m_surface, m_surface, m_nativeContext);
+  if (eglMakeCurrent(m_display, m_surface, m_surface, m_nativeContext) == EGL_FALSE)
+  {
+    CHECK_EGL_CALL();
+  }
 }
 
 void AndroidOGLContext::present()
 {
-  eglSwapBuffers(m_display, m_surface);
+  if (eglSwapBuffers(m_display, m_surface) == EGL_FALSE)
+  {
+    CHECK_EGL_CALL();
+  }
 }
 
 } // namespace android

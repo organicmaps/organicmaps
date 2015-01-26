@@ -52,20 +52,20 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   m_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
   if (m_display == EGL_NO_DISPLAY)
   {
-    LOG(LINFO, ("Can't query default egl display. Error code = ", eglGetError()));
+    CHECK_EGL_CALL();
     return;
   }
 
   EGLint version[2] = {0};
   if (!eglInitialize(m_display, &version[0], &version[1]))
   {
-    LOG(LINFO, ("EGL initialize failed. Error code = ", eglGetError()));
+    CHECK_EGL_CALL();
     return;
   }
 
   if (!(createWindowSurface() && createPixelbufferSurface()))
   {
-    eglTerminate(m_display);
+    CHECK_EGL(eglTerminate(m_display));
     return;
   }
 
@@ -83,8 +83,11 @@ AndroidOGLContextFactory::~AndroidOGLContextFactory()
     delete m_uploadContext;
 
     eglDestroySurface(m_display, m_windowSurface);
+    CHECK_EGL_CALL();
     eglDestroySurface(m_display, m_pixelbufferSurface);
+    CHECK_EGL_CALL();
     eglTerminate(m_display);
+    CHECK_EGL_CALL();
 
     ANativeWindow_release(m_nativeWindow);
   }
@@ -118,14 +121,14 @@ bool AndroidOGLContextFactory::QuerySurfaceSize()
   EGLint queryResult;
   if (eglQuerySurface(m_display, m_windowSurface, EGL_WIDTH, &queryResult) == EGL_FALSE)
   {
-    LOG(LINFO, ("Can't query surface width. Error code = ", eglGetError()));
+    CHECK_EGL_CALL();
     return false;
   }
 
   m_surfaceWidth = static_cast<int>(queryResult);
   if (eglQuerySurface(m_display, m_windowSurface, EGL_HEIGHT, &queryResult) == EGL_FALSE)
   {
-    LOG(LINFO, ("Can't query surface height. Error code = ", eglGetError()));
+    CHECK_EGL_CALL();
     return false;
   }
 
@@ -178,7 +181,7 @@ bool AndroidOGLContextFactory::createWindowSurface()
 
   if (m_windowSurface == EGL_NO_SURFACE)
   {
-    LOG(LINFO, ("Can't create EGLWindowSurface. Error code = ", eglGetError()));
+    CHECK_EGL_CALL();
     return false;
   }
 
@@ -200,7 +203,7 @@ bool AndroidOGLContextFactory::createPixelbufferSurface()
 
   if (m_pixelbufferSurface == EGL_NO_SURFACE)
   {
-    LOG(LINFO, ("Can't create buffer surface for UploadThread. Error code = ", eglGetError()));
+    CHECK_EGL_CALL();
     return false;
   }
 

@@ -3,6 +3,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #ifdef DEBUG
 #include "base/thread.hpp"
@@ -661,12 +662,29 @@ void GLFunctions::glDrawElements(uint16_t indexCount)
   GLCHECK(::glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, 0));
 }
 
-void CheckGLError()
+namespace
+{
+
+string GetGLError(GLenum error)
+{
+  switch (error)
+  {
+  case GL_INVALID_ENUM:       return "GL_INVALID_ENUM";
+  case GL_INVALID_VALUE:      return "GL_INVALID_VALUE";
+  case GL_INVALID_OPERATION:  return "GL_INVALID_OPERATION";
+  case GL_OUT_OF_MEMORY:      return "GL_OUT_OF_MEMORY";
+  default:                    return strings::to_string(error);
+  }
+}
+
+} // namespace
+
+void CheckGLError(my::SrcPoint const & srcPoint)
 {
   GLenum result = glGetError();
   while (result != GL_NO_ERROR)
   {
-    LOG(LERROR, ("GLError:", result));
+    LOG(LERROR, ("SrcPoint ", srcPoint, "GLError:", GetGLError(result)));
     result = glGetError();
   }
 }
