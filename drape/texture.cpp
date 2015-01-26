@@ -131,8 +131,9 @@ uint32_t Texture::GetMaxTextureSize()
 
 void Texture::UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType)
 {
-  bool requiredFormat = GLExtensionsList::Instance().IsSupported(GLExtensionsList::RequiredInternalFormat);
-  switch (format) {
+  bool requiredFormat = false;//GLExtensionsList::Instance().IsSupported(GLExtensionsList::RequiredInternalFormat);
+  switch (format)
+  {
   case RGBA8:
     layout = requiredFormat ? gl_const::GLRGBA8 : gl_const::GLRGBA;
     pixelType = gl_const::GL8BitOnChannel;
