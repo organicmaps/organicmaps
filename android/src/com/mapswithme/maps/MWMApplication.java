@@ -255,6 +255,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       initMrgs();
       WorkerService.startActionUpdateAds(this);
       PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+      org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
+      // We try to take into an account if app was previously installed.
+      org.alohalytics.Statistics.setup(BuildConfig.STATISTICS_URL, this, isNewUser());
     }
   }
 

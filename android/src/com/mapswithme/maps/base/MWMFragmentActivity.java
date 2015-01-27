@@ -60,4 +60,18 @@ public class MWMFragmentActivity extends ActionBarActivity
     else
       return super.onOptionsItemSelected(item);
   }
+
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+  }
+
+  @Override
+  protected void onPause()
+  {
+    super.onPause();
+    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+  }
 }

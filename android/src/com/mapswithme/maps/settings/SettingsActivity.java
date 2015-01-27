@@ -168,6 +168,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     };
     mPathManager.startExternalStorageWatching(this, receiver, null);
     storagePathSetup();
+
+    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
   }
 
   @Override
@@ -175,6 +177,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   {
     super.onPause();
     mPathManager.stopExternalStorageWatching();
+
+    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
   }
 
   @Override
