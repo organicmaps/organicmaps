@@ -7,7 +7,7 @@
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
-
+#include "point_storage.hpp"
 
 namespace data
 {
@@ -61,56 +61,6 @@ public:
   }
 };
 
-
-class points_in_file_base
-{
-protected:
-  FileWriter m_file;
-  progress_policy m_progress;
-
-public:
-  points_in_file_base(string const & name, size_t factor) : m_file(name.c_str())
-  {
-    m_progress.Begin(name, factor);
-  }
-
-  uint64_t GetCount() const { return m_progress.GetCount(); }
-};
-
-class points_in_file : public points_in_file_base
-{
-public:
-  points_in_file(string const & name) : points_in_file_base(name, 1000) {}
-
-  void AddPoint(uint64_t id, double lat, double lng)
-  {
-    LatLon ll;
-    ll.lat = lat;
-    ll.lon = lng;
-    m_file.Seek(id * sizeof(ll));
-    m_file.Write(&ll, sizeof(ll));
-
-    m_progress.Inc();
-  }
-};
-
-class points_in_file_light : public points_in_file_base
-{
-public:
-  points_in_file_light(string const & name) : points_in_file_base(name, 10000) {}
-
-  void AddPoint(uint64_t id, double lat, double lng)
-  {
-    LatLonPos ll;
-    ll.pos = id;
-    ll.lat = lat;
-    ll.lon = lng;
-    m_file.Write(&ll, sizeof(ll));
-
-    m_progress.Inc();
-  }
-};
-
 template <class TNodesHolder>
 bool GenerateImpl(string const & dir, string const & osmFileName = string())
 {
@@ -139,12 +89,19 @@ bool GenerateImpl(string const & dir, string const & osmFileName = string())
   return true;
 }
 
-bool GenerateToFile(string const & dir, bool lightNodes, string const & osmFileName)
+bool GenerateToFile(string const & dir, string const & nodeStorage, string const & osmFileName)
 {
-  if (lightNodes)
-    return GenerateImpl<points_in_file_light>(dir, osmFileName);
+  if (nodeStorage == "raw")
+    return GenerateImpl<RawFilePointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
+  else if (nodeStorage == "map")
+    return GenerateImpl<MapFileShortPointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
+  else if (nodeStorage == "sqlite")
+    return GenerateImpl<SQLitePointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
+  else if (nodeStorage == "mem")
+    return GenerateImpl<RawFileShortPointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
   else
-    return GenerateImpl<points_in_file>(dir, osmFileName);
+    CHECK(nodeStorage.empty(), ("Incorrect node_storage type:", nodeStorage));
+  return false;
 }
 
 }

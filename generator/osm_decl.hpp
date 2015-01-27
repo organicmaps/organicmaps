@@ -10,24 +10,6 @@
 #include "../std/bind.hpp"
 
 
-/// Used to store all world nodes inside temporary index file.
-/// To find node by id, just calculate offset inside index file:
-/// offset_in_file = sizeof(LatLon) * node_ID
-struct LatLon
-{
-  double lat;
-  double lon;
-};
-STATIC_ASSERT(sizeof(LatLon) == 16);
-
-struct LatLonPos
-{
-  uint64_t pos;
-  double lat;
-  double lon;
-};
-STATIC_ASSERT(sizeof(LatLonPos) == 24);
-
 #define NODES_FILE "nodes.dat"
 #define WAYS_FILE "ways.dat"
 #define RELATIONS_FILE "relations.dat"

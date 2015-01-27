@@ -15,7 +15,6 @@
 #include "../indexer/classificator.hpp"
 
 #include "../coding/varint.hpp"
-#include "../coding/mmap_reader.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
@@ -25,6 +24,7 @@
 #include "../std/unordered_map.hpp"
 #include "../std/target_os.hpp"
 
+#include "point_storage.hpp"
 
 namespace feature
 {
@@ -219,89 +219,6 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 
 namespace
 {
-
-class points_in_file
-{
-#ifdef OMIM_OS_WINDOWS
-  FileReader m_file;
-#else
-  MmapReader m_file;
-#endif
-
-public:
-  points_in_file(string const & name) : m_file(name) {}
-
-  bool GetPoint(uint64_t id, double & lat, double & lng) const
-  {
-    // I think, it's not good idea to write this ugly code.
-    // memcpy isn't to slow for that.
-//#ifdef OMIM_OS_WINDOWS
-    LatLon ll;
-    m_file.Read(id * sizeof(ll), &ll, sizeof(ll));
-//#else
-//    LatLon const & ll = *reinterpret_cast<LatLon const *>(m_file.Data() + id * sizeof(ll));
-//#endif
-
-    // assume that valid coordinate is not (0, 0)
-    if (ll.lat != 0.0 || ll.lon != 0.0)
-    {
-      lat = ll.lat;
-      lng = ll.lon;
-      return true;
-    }
-    else
-    {
-      LOG(LERROR, ("Node with id = ", id, " not found!"));
-      return false;
-    }
-  }
-};
-
-class points_in_map
-{
-  typedef unordered_map<uint64_t, pair<double, double> > cont_t;
-  typedef cont_t::const_iterator iter_t;
-  cont_t m_map;
-
-  static bool equal_coord(double d1, double d2)
-  {
-    return ::fabs(d1 - d2) < 1.0E-8;
-  }
-
-public:
-  points_in_map(string const & name)
-  {
-    LOG(LINFO, ("Nodes reading is started"));
-
-    FileReader reader(name);
-    uint64_t const count = reader.Size();
-
-    uint64_t pos = 0;
-    while (pos < count)
-    {
-      LatLonPos ll;
-      reader.Read(pos, &ll, sizeof(ll));
-
-      (void)m_map.insert(make_pair(ll.pos, make_pair(ll.lat, ll.lon)));
-
-      pos += sizeof(ll);
-    }
-
-    LOG(LINFO, ("Nodes reading is finished"));
-  }
-
-  bool GetPoint(uint64_t id, double & lat, double & lng) const
-  {
-    iter_t i = m_map.find(id);
-    if (i != m_map.end())
-    {
-      lat = i->second.first;
-      lng = i->second.second;
-      return true;
-    }
-    return false;
-  }
-};
 
 class MainFeaturesEmitter
 {
@@ -509,12 +426,19 @@ bool GenerateImpl(GenerateInfo & info, string const & osmFileName = string())
   return true;
 }
 
-bool GenerateFeatures(GenerateInfo & info, bool lightNodes, string const & osmFileName)
+bool GenerateFeatures(GenerateInfo & info, string const & nodeStorage, string const & osmFileName)
 {
-  if (lightNodes)
-    return GenerateImpl<points_in_map>(info, osmFileName);
+  if (nodeStorage == "raw")
+    return GenerateImpl<RawFilePointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
+  else if (nodeStorage == "map")
+    return GenerateImpl<MapFileShortPointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
+  else if (nodeStorage == "sqlite")
+    return GenerateImpl<SQLitePointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
+  else if (nodeStorage == "mem")
+    return GenerateImpl<RawFileShortPointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
   else
-    return GenerateImpl<points_in_file>(info, osmFileName);
+    CHECK(nodeStorage.empty(), ("Incorrect node_storage type:", nodeStorage));
+  return false;
 }
 
 }

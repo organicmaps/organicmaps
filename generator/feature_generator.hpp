@@ -14,7 +14,7 @@ namespace feature
 {
   struct GenerateInfo;
 
-  bool GenerateFeatures(GenerateInfo & info, bool lightNodes, string const & osmFileName = string());
+  bool GenerateFeatures(GenerateInfo & info, string const & nodeStorage, string const & osmFileName);
 
   // Writes features to dat file.
   class FeaturesCollector

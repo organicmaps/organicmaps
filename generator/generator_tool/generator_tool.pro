@@ -16,7 +16,7 @@ TEMPLATE = app
 QT *= core
 
 win32: LIBS *= -lShell32
-macx-*: LIBS *= "-framework Foundation"
+macx-*: LIBS *= "-framework Foundation" -lsqlite3
 
 SOURCES += \
     generator_tool.cpp \

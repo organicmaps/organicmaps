@@ -247,13 +247,10 @@ namespace ftype
 
       ClassifObjectPtr operator() (string const & k, string const & v) const
       {
-        if (is_good_tag(k, v))
-        {
-          ClassifObjectPtr p = m_parent->BinaryFind(m_isKey ? k : v);
-          if (p)
-            return p;
-        }
-        return ClassifObjectPtr(0, 0);
+        if (!is_good_tag(k, v))
+          return ClassifObjectPtr(0, 0);
+
+        return m_parent->BinaryFind(m_isKey ? k : v);
       }
     };
 
@@ -332,9 +329,12 @@ namespace ftype
     };
   }
 
-  ClassifObjectPtr find_object(ClassifObject const * parent, XMLElement * p, bool isKey)
+  ClassifObjectPtr find_object(ClassifObject const * parent, XMLElement * p)
   {
-    return for_each_tag(p, do_find_obj(parent, isKey));
+    // next objects trying to find by value first
+    ClassifObjectPtr pObj = for_each_tag(p, do_find_obj(parent, false));
+    // if no - try find object by key (in case of k = "area", v = "yes")
+    return pObj ? pObj : for_each_tag(p, do_find_obj(parent, true));
   }
 
   size_t ProcessCommonParams(XMLElement * p, FeatureParams & params)
@@ -428,28 +428,14 @@ namespace ftype
         break;
 
       // continue find path from last element
-      do
-      {
-        // next objects trying to find by value first
-        ClassifObjectPtr pObj = find_object(path.back().get(), p, false);
-        if (!pObj)
-        {
-          // if no - try find object by key (in case of k = "area", v = "yes")
-          pObj = find_object(path.back().get(), p, true);
-        }
-
-        // add to path or stop search
-        if (pObj)
-          path.push_back(pObj);
-        else
-          break;
-
-      } while (true);
+      ClassifObjectPtr pObj;
+      while ((pObj = find_object(path.back().get(), p)))
+        path.push_back(pObj);
 
       // assign type
       uint32_t t = ftype::GetEmptyValue();
-      for (size_t i = 0; i < path.size(); ++i)
-        ftype::PushValue(t, path[i].GetIndex());
+      for (auto const & e : path)
+        ftype::PushValue(t, e.GetIndex());
 
       // use features only with drawing rules
       if (feature::IsDrawableAny(t))

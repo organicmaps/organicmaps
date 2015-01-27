@@ -44,7 +44,7 @@ DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry an
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
-DEFINE_bool(use_light_nodes, false, "Use temporary vector of nodes, instead of huge temp file");
+DEFINE_string(node_storage, "raw", "Type of storage for intermediate points representation. Available: raw, map, sqlite, mem");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
@@ -104,16 +104,8 @@ int main(int argc, char ** argv)
   if (FLAGS_preprocess_xml)
   {
     LOG(LINFO, ("Generating intermediate data ...."));
-    if (!FLAGS_osm_file_name.empty())
-    {
-      if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_use_light_nodes, FLAGS_osm_file_name))
-        return -1;
-    }
-    else
-    {
-      if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_use_light_nodes))
-        return -1;
-    }
+    if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_node_storage, FLAGS_osm_file_name))
+      return -1;
   }
 
   feature::GenerateInfo genInfo;
@@ -156,16 +148,8 @@ int main(int argc, char ** argv)
     if (!FLAGS_address_file_name.empty())
       genInfo.m_addressFile = path + FLAGS_address_file_name;
 
-    if (!FLAGS_osm_file_name.empty())
-    {
-      if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes, FLAGS_osm_file_name))
-        return -1;
-    }
-    else
-    {
-      if (!feature::GenerateFeatures(genInfo, FLAGS_use_light_nodes))
-        return -1;
-    }
+    if (!feature::GenerateFeatures(genInfo, FLAGS_node_storage, FLAGS_osm_file_name))
+      return -1;
 
     // without --spit_by_polygons, we have empty name country as result - assign it
     if (genInfo.m_bucketNames.size() == 1 && genInfo.m_bucketNames[0].empty())
