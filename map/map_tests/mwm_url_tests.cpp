@@ -32,13 +32,13 @@ namespace
     }
 
     bool IsValid() const { return m_api.m_isValid; }
-    m2::RectD GetViewport() { return m_viewportRect; }
+    m2::RectD GetViewport() const { return m_viewportRect; }
 
-    string const & GetAppTitle() { return m_api.m_appTitle; }
-    bool GoBackOnBalloonClick() { return m_api.m_goBackOnBalloonClick; }
-    int GetPointCount() { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
-    string const & GetGlobalBackUrl() { return m_api.m_globalBackUrl; }
-    int GetApiVersion() { return m_api.m_version; }
+    string const & GetAppTitle() const { return m_api.m_appTitle; }
+    bool GoBackOnBalloonClick() const { return m_api.m_goBackOnBalloonClick; }
+    int GetPointCount() const { return UserMarkControllerGuard(*m_m, type).m_controller.GetUserMarkCount(); }
+    string const & GetGlobalBackUrl() const { return m_api.m_globalBackUrl; }
+    int GetApiVersion() const { return m_api.m_version; }
     bool TestLatLon(int index, double lat, double lon) const
     {
       double tLat, tLon;
@@ -46,12 +46,12 @@ namespace
       return my::AlmostEqualULPs(tLat, lat) && my::AlmostEqualULPs(tLon, lon);
     }
 
-    bool TestName(int index, string const & name)
+    bool TestName(int index, string const & name) const
     {
       return GetMark(index)->GetName() == name;
     }
 
-    bool TestID(int index, string const & id)
+    bool TestID(int index, string const & id) const
     {
       return GetMark(index)->GetID() == id;
     }
