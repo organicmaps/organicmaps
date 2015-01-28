@@ -54,7 +54,8 @@ extern "C"
     BookmarkCategory * pCat = frm()->GetBmCategory(cat);
     if (pCat)
     {
-      pCat->DeleteBookmark(bmk);
+      BookmarkCategory::Guard guard(*pCat);
+      guard.m_controller.DeleteUserMark(bmk);
       pCat->SaveToKMLFile();
     }
   }

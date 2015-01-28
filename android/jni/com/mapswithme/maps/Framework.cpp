@@ -556,16 +556,7 @@ void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & 
 
 size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
 {
-  BookmarkCategory * pOld = m_work.GetBmCategory(ind.first);
-  Bookmark const * oldBm = pOld->GetBookmark(ind.second);
-  m2::PointD pt = oldBm->GetOrg();
-  BookmarkData bm(oldBm->GetName(), oldBm->GetType(), oldBm->GetDescription(),
-                  oldBm->GetScale(), oldBm->GetTimeStamp());
-
-  pOld->DeleteBookmark(ind.second);
-  pOld->SaveToKMLFile();
-
-  return AddBookmark(newCat, pt, bm).second;
+  return m_work.MoveBookmark(ind.second, ind.first, newCat);
 }
 
 bool Framework::ShowMapForURL(string const & url)
@@ -983,7 +974,8 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
   {
-    frm()->GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
+    UserMarkControllerGuard guard(frm()->GetBookmarkManager(), UserMarkType::API_MARK);
+    guard.m_controller.Clear();
   }
 
   JNIEXPORT void JNICALL
@@ -1124,10 +1116,9 @@ extern "C"
   {
     const size_t nIndex = static_cast<size_t>(index);
 
-    BookmarkManager & m = frm()->GetBookmarkManager();
-    UserMarkContainer::Controller & c = m.UserMarksGetController(UserMarkContainer::SEARCH_MARK);
-    ASSERT_LESS(nIndex , c.GetUserMarkCount(), ("Invalid index", nIndex));
-    UserMark const * mark = c.GetUserMark(nIndex);
+    UserMarkControllerGuard guard(frm()->GetBookmarkManager(), UserMarkType::SEARCH_MARK);
+    ASSERT_LESS(nIndex , guard.m_controller.GetUserMarkCount(), ("Invalid index", nIndex));
+    UserMark const * mark = guard.m_controller.GetUserMark(nIndex);
     search::AddressInfo const & info= CastMark<SearchMarkPoint>(mark)->GetInfo();
 
     jclass const javaClazz = env->GetObjectClass(jsearchResult);

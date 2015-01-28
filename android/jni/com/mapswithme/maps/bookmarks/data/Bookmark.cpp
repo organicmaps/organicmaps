@@ -11,8 +11,7 @@ namespace
   {
     BookmarkCategory const * pCat = frm()->GetBmCategory(c);
     ASSERT(pCat, ("Category not found", c));
-    Bookmark const * pBmk = pCat->GetBookmark(b);
-    ASSERT(pBmk, ("Bookmark not found", c, b));
+    Bookmark const * pBmk = static_cast<Bookmark const *>(pCat->GetUserMark(b));
     return pBmk;
   }
 }

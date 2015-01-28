@@ -31,7 +31,10 @@ extern "C"
       JNIEnv * env, jobject thiz, jint id, jboolean b)
   {
     BookmarkCategory * pCat = getBmCategory(id);
-    pCat->SetVisible(b);
+    {
+      BookmarkCategory::Guard guard(*pCat);
+      guard.m_controller.SetIsVisible(b);
+    }
     pCat->SaveToKMLFile();
   }
 
@@ -56,14 +59,14 @@ extern "C"
        JNIEnv * env, jobject thiz, jint id)
   {
     BookmarkCategory * category = getBmCategory(id);
-    return category->GetBookmarksCount() + category->GetTracksCount();
+    return category->GetUserMarkCount() + category->GetTracksCount();
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkCategory_getBookmarksCount(
        JNIEnv * env, jobject thiz, jint id)
   {
-    return getBmCategory(id)->GetBookmarksCount();
+    return getBmCategory(id)->GetUserMarkCount();
   }
 
   JNIEXPORT jint JNICALL
@@ -81,7 +84,7 @@ extern "C"
     jmethodID static const cId = env->GetMethodID(bookmarkClazz, "<init>", "(IILjava/lang/String;)V");
 
     BookmarkCategory * category = getBmCategory(id);
-    Bookmark const * nBookmark = category->GetBookmark(index);
+    Bookmark const * nBookmark = static_cast<Bookmark const *>(category->GetUserMark(index));
 
     ASSERT(nBookmark, ("Bookmark must not be null with index:)", index));
 
