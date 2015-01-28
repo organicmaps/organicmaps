@@ -41,24 +41,24 @@ public abstract class RenderActivity extends MWMFragmentActivity
   @Override
   protected void onCreate(Bundle b)
   {
+    super.onCreate(b);
     final DisplayMetrics metrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(metrics);
     m_displayDensity = metrics.densityDpi;
-    super.onCreate(b);
   }
 
   @Override
   protected void onResume()
   {
-    InitEngine();
     super.onResume();
+    InitEngine();
   }
 
   @Override
   protected void onStop()
   {
-    super.onStop();
     DestroyEngine();
+    super.onStop();
   }
 
   @Override
