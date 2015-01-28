@@ -14,8 +14,6 @@ import com.mapswithme.maps.ads.AdsManager;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 /**
@@ -25,27 +23,9 @@ import com.mapswithme.util.statistics.Statistics;
  */
 public class WorkerService extends IntentService
 {
-  public static final String ACTION_PUSH_STATISTICS = "com.mapswithme.maps.action.stat";
   public static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
   public static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
   public static final String ACTION_UPDATE_MENU_ADS = "com.mapswithme.maps.action.ads.update";
-
-  private Logger mLogger = StubLogger.get();
-  // = SimpleLogger.get("MWMWorkerService");
-
-
-  /**
-   * Starts this service to perform action  with the given parameters. If the
-   * service is already performing a task this action will be queued.
-   *
-   * @see IntentService
-   */
-  public static void startActionPushStat(Context context)
-  {
-    Intent intent = new Intent(context, WorkerService.class);
-    intent.setAction(ACTION_PUSH_STATISTICS);
-    context.startService(intent);
-  }
 
   /**
    * Starts this service to perform check update action with the given parameters. If the
@@ -61,7 +41,7 @@ public class WorkerService extends IntentService
   }
 
   /**
-   * Starts this service to perform check update action with the given parameters. If the
+   * Starts this service to check if map download for current location is available. If the
    * service is already performing a task this action will be queued.
    *
    * @see IntentService
@@ -100,9 +80,6 @@ public class WorkerService extends IntentService
       case ACTION_CHECK_UPDATE:
         handleActionCheckUpdate();
         break;
-      case ACTION_PUSH_STATISTICS:
-        handleActionPushStat();
-        break;
       case ACTION_DOWNLOAD_COUNTRY:
         handleActionCheckLocation();
         break;
@@ -115,24 +92,13 @@ public class WorkerService extends IntentService
 
   private void handleActionCheckUpdate()
   {
-    mLogger.d("Trying to update");
-    // TODO launch this call less frequently
     if (!Framework.nativeIsDataVersionChanged()) return;
 
     final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
     if (!TextUtils.isEmpty(countriesToUpdate))
-    {
-      mLogger.d("Update available! " + countriesToUpdate);
       Notifier.placeUpdateAvailable(countriesToUpdate);
-    }
     // We are done with current version
     Framework.nativeUpdateSavedDataVersion();
-    mLogger.d("Version updated");
-  }
-
-  private void handleActionPushStat()
-  {
-    // TODO: add server call here
   }
 
   private void handleActionCheckLocation()
