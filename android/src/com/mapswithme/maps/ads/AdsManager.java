@@ -85,7 +85,8 @@ public class AdsManager
       sMenuAds = parseMenuAds(featuresJson);
     } catch (JSONException e)
     {
-      e.printStackTrace();
+      if (BuildConfig.DEBUG)
+        e.printStackTrace();
     }
 
     try
@@ -93,7 +94,8 @@ public class AdsManager
       sBanners = parseBanners(featuresJson);
     } catch (JSONException e)
     {
-      e.printStackTrace();
+      if (BuildConfig.DEBUG)
+        e.printStackTrace();
     }
   }
 
