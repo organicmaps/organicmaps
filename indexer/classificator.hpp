@@ -168,11 +168,6 @@ class Classificator : private noncopyable
   static ClassifObject * AddV(ClassifObject * parent, string const & key, string const & value);
 
 public:
-
-  typedef const char * const Path1T[1];
-  typedef const char * const Path2T[2];
-  typedef const char * const Path3T[3];
-
   Classificator() : m_root("world") {}
 
   ClassifObject * Add(ClassifObject * parent, string const & key, string const & value);

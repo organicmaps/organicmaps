@@ -1,5 +1,4 @@
 #include "search_index_builder.hpp"
-
 #include "feature_utils.hpp"
 #include "features_vector.hpp"
 #include "search_delimiters.hpp"
@@ -29,6 +28,7 @@
 #include "../std/vector.hpp"
 #include "../std/unordered_map.hpp"
 #include "../std/fstream.hpp"
+#include "../std/initializer_list.hpp"
 
 #define SYNONYMS_FILE "synonyms.txt"
 
@@ -176,119 +176,101 @@ class FeatureInserter
   /// - skip specified types for features with empty names (m_enTypes)
   class SkipIndexing
   {
-    /// Array index (0, 1) means type level for checking (1, 2).
-    vector<uint32_t> m_enFeature[2];
+    typedef buffer_vector<uint32_t, 16> ContT;
 
-    template <size_t count, size_t ind>
-    void FillEnFeature(char const * (& arr)[count][ind])
+    // Array index (0, 1) means type level for checking (1, 2).
+    ContT m_skipEn[2], m_skipF[2];
+    ContT m_dontSkipEn;
+    uint32_t m_country, m_state;
+
+    static bool HasType(ContT const & v, uint32_t t)
     {
-      STATIC_ASSERT ( count > 0 );
-      STATIC_ASSERT ( ind > 0 );
-
-      Classificator const & c = classif();
-
-      m_enFeature[ind-1].reserve(count);
-      for (size_t i = 0; i < count; ++i)
-      {
-        vector<string> v(arr[i], arr[i] + ind);
-        m_enFeature[ind-1].push_back(c.GetTypeByPath(v));
-      }
+      return (find(v.begin(), v.end(), t) != v.end());
     }
-
-    vector<uint32_t> m_skipFeatures, m_enTypes;
-
-    template <size_t count, size_t ind>
-    static void FillTypes(char const * (& arr)[count][ind], vector<uint32_t> & dest)
-    {
-      STATIC_ASSERT ( count > 0 );
-      STATIC_ASSERT ( ind > 0 );
-
-      Classificator const & c = classif();
-
-      for (size_t i = 0; i < count; ++i)
-      {
-        vector<string> v(arr[i], arr[i] + ind);
-        dest.push_back(c.GetTypeByPath(v));
-      }
-    }
-
-    uint32_t GetCountryType() const { return m_enFeature[1][0]; }
-    uint32_t GetStateType() const { return m_enFeature[1][1]; }
 
   public:
     SkipIndexing()
     {
-      // Get features which shoud be skipped in any case.
-      char const * arrSkip1[][1] = { { "entrance" } };
-      char const * arrSkip2[][2] = { { "building", "address" } };
+      Classificator const & c = classif();
 
-      FillTypes(arrSkip1, m_skipFeatures);
-      FillTypes(arrSkip2, m_skipFeatures);
+      // Fill types that always! should be skipped.
+      for (auto const & e : (StringIL[]) { { "entrance" } })
+        m_skipF[0].push_back(c.GetTypeByPath(e));
 
-      // Get features which shoud be skipped without names.
-      char const * arrEnFeature1[][1] = {
-        { "highway" }, { "natural" }, { "waterway"}, { "landuse" }
-      };
+      for (auto const & e : (StringIL[]) { { "building", "address" } })
+        m_skipF[1].push_back(c.GetTypeByPath(e));
 
-      /// @note Do not change order of country and state. @see GetCountryType().
-      char const * arrEnFeature2[][2] = {
+      // Fill types that never! will be skipped.
+      for (auto const & e : (StringIL[]) { { "highway", "bus_stop" }, { "highway", "speed_camera" } })
+        m_dontSkipEn.push_back(c.GetTypeByPath(e));
+
+      // Fill types that will be skipped if feature's name is empty!
+      for (auto const & e : (StringIL[]) { { "building" }, { "highway" }, { "natural" }, { "waterway" }, { "landuse" } })
+        m_skipEn[0].push_back(c.GetTypeByPath(e));
+
+      for (auto const & e : (StringIL[]) {
         { "place", "country" },
         { "place", "state" },
         { "place", "county" },
         { "place", "region" },
         { "place", "city" },
         { "place", "town" },
-        { "railway", "rail" }
-      };
+        { "railway", "rail" }})
+      {
+        m_skipEn[1].push_back(c.GetTypeByPath(e));
+      }
 
-      FillEnFeature(arrEnFeature1);
-      FillEnFeature(arrEnFeature2);
-
-      // Get types which shoud be skipped for features without names.
-      char const * arrEnTypes1[][1] = { { "building" } };
-
-      FillTypes(arrEnTypes1, m_enTypes);
+      m_country = c.GetTypeByPath({ "place", "country" });
+      m_state = c.GetTypeByPath({ "place", "state" });
     }
 
-    bool SkipFeature(feature::TypesHolder const & types) const
+    void SkipTypes(feature::TypesHolder & types) const
     {
-      for (size_t i = 0; i < m_skipFeatures.size(); ++i)
-        if (types.Has(m_skipFeatures[i]))
+      types.RemoveIf([this](uint32_t type)
+      {
+        ftype::TruncValue(type, 2);
+
+        if (HasType(m_skipF[1], type))
           return true;
-      return false;
+
+        ftype::TruncValue(type, 1);
+
+        if (HasType(m_skipF[0], type))
+          return true;
+
+        return false;
+      });
     }
 
-    bool SkipEmptyNameFeature(feature::TypesHolder const & types) const
+    void SkipEmptyNameTypes(feature::TypesHolder & types) const
     {
-      for (size_t i = 0; i < types.Size(); ++i)
-        for (size_t j = 0; j < ARRAY_SIZE(m_enFeature); ++j)
-        {
-          uint32_t type = types[i];
-          ftype::TruncValue(type, j+1);
+      types.RemoveIf([this](uint32_t type)
+      {
+        ftype::TruncValue(type, 2);
 
-          if (find(m_enFeature[j].begin(), m_enFeature[j].end(), type) != m_enFeature[j].end())
-            return true;
-        }
+        if (HasType(m_dontSkipEn, type))
+          return false;
 
-      return false;
+        if (HasType(m_skipEn[1], type))
+          return true;
+
+        ftype::TruncValue(type, 1);
+
+        if (HasType(m_skipEn[0], type))
+          return true;
+
+        return false;
+      });
     }
 
-    void SkipEmptyNameTypes(feature::TypesHolder & types)
+    bool IsCountryOrState(feature::TypesHolder const & types) const
     {
-      for (size_t i = 0; i < m_enTypes.size(); ++i)
-        types.Remove(m_enTypes[i]);
-    }
-
-    bool IsCountryOrState(feature::TypesHolder const & types)
-    {
-      uint32_t const c = GetCountryType();
-      uint32_t const s = GetStateType();
-
       for (size_t i = 0; i < types.Size(); ++i)
       {
         uint32_t t = types[i];
         ftype::TruncValue(t, 2);
-        if (t == c || t == s)
+
+        if (t == m_country || t == m_state)
           return true;
       }
       return false;
@@ -310,31 +292,21 @@ public:
     feature::TypesHolder types(f);
 
     static SkipIndexing skipIndex;
-    if (skipIndex.SkipFeature(types))
-    {
-      // Do not add this features in any case.
+
+    skipIndex.SkipTypes(types);
+    if (types.Empty())
       return;
-    }
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0, m_names);
     MakeValue(f, types, pos, inserter.m_val);
 
-    // add names of the feature
+    // Skip types for features without names.
     if (!f.ForEachNameRef(inserter))
-    {
-      if (skipIndex.SkipEmptyNameFeature(types))
-      {
-        // Do not add features without names to index.
-        return;
-      }
-
-      // Skip types for features without names.
       skipIndex.SkipEmptyNameTypes(types);
-    }
-
-    if (types.Empty()) return;
+    if (types.Empty())
+      return;
 
     Classificator const & c = classif();
 

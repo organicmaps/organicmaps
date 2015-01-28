@@ -12,6 +12,7 @@
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
 #include "../std/function.hpp"
+#include "../std/initializer_list.hpp"
 
 #include <QtCore/QString>
 
@@ -383,11 +384,11 @@ namespace ftype
     {
       Classificator const & c = classif();
       
-      for (auto const & e : (Classificator::Path1T[]){ {"entrance"}, {"highway"} })
-        m_types.push_back(c.GetTypeByPath( {e[0]} ));
+      for (auto const & e : (StringIL[]) { {"entrance"}, {"highway"} })
+        m_types.push_back(c.GetTypeByPath(e));
 
-      for (auto const & e : (Classificator::Path2T[]){ {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"} })
-        m_types.push_back(c.GetTypeByPath( {e[0], e[1]} ));
+      for (auto const & e : (StringIL[]) { {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"} })
+        m_types.push_back(c.GetTypeByPath(e));
     }
 
     uint32_t Get(EType t) const { return m_types[t]; }
