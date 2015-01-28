@@ -239,7 +239,7 @@ int32_t GLFunctions::glGetInteger(glConst pname)
   return MOCK_CALL(glGetInteger(pname));
 }
 
-void CheckGLError() {}
+void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
 
 // @TODO add actual unit tests
 void GLFunctions::glEnable(glConst mode) {}

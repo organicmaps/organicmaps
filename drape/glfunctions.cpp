@@ -12,6 +12,7 @@
 #endif
 
 #include "std/cstring.hpp"
+#include "std/atomic.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
 #define APIENTRY __stdcall
@@ -111,10 +112,15 @@ namespace
 
   int const GLCompileStatus = GL_COMPILE_STATUS;
   int const GLLinkStatus = GL_LINK_STATUS;
+
+  atomic_flag s_inited = ATOMIC_FLAG_INIT;
 }
 
 void GLFunctions::Init()
 {
+  if (s_inited.test_and_set())
+    return;
+
   /// VAO
 #if defined(OMIM_OS_MAC)
   glGenVertexArraysFn = &glGenVertexArraysAPPLE;

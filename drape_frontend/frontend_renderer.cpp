@@ -385,6 +385,7 @@ void FrontendRenderer::Routine::Do()
 {
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
   context->makeCurrent();
+  GLFunctions::Init();
 
   my::Timer timer;
   //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms

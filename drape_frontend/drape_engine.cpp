@@ -15,7 +15,6 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
                          MapDataProvider const & model)
   : m_viewport(viewport)
 {
-  GLFunctions::Init();
   VisualParams::Init(viewport.GetPixelRatio(), df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
