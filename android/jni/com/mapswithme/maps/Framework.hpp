@@ -2,13 +2,12 @@
 
 #include <jni.h>
 
-#include "opengl/androidoglcontextfactory.hpp"
-
-#include "drape/pointers.hpp"
-
 #include "map/framework.hpp"
 
 #include "search/result.hpp"
+
+#include "drape/pointers.hpp"
+#include "drape/oglcontextfactory.hpp"
 
 #include "platform/country_defines.hpp"
 
@@ -29,7 +28,7 @@ namespace android
                     public storage::ActiveMapsLayout::ActiveMapsListener
   {
   private:
-    dp::MasterPointer<AndroidOGLContextFactory> m_contextFactory;
+    dp::MasterPointer<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
 
     typedef shared_ptr<jobject> TJobject;

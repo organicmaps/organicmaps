@@ -1,6 +1,8 @@
 #include "Framework.hpp"
 #include "MapStorage.hpp"
 
+#include "../opengl/androidoglcontextfactory.hpp"
+
 #include "../core/jni_helper.hpp"
 
 #include "../country/country_helper.hpp"
@@ -150,12 +152,13 @@ float Framework::GetBestDensity(int densityDpi)
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi)
 {
-  m_contextFactory.Reset(new AndroidOGLContextFactory(env, jSurface));
-  if (!m_contextFactory->IsValid())
+  m_contextFactory.Reset(new dp::ThreadSafeFactory(new AndroidOGLContextFactory(env, jSurface)));
+  AndroidOGLContextFactory const * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
+  if (!factory->IsValid())
     return false;
 
   float visualScale = GetBestDensity(densityDpi);
-  m_work.CreateDrapeEngine(m_contextFactory.GetRefPointer(), visualScale, m_contextFactory->GetWidth(), m_contextFactory->GetHeight());
+  m_work.CreateDrapeEngine(m_contextFactory.GetRefPointer(), visualScale, factory->GetWidth(), factory->GetHeight());
   m_work.SetUpdatesEnabled(true);
   m_work.EnterForeground();
 
@@ -169,7 +172,7 @@ void Framework::DeleteDrapeEngine()
 
 void Framework::Resize(int w, int h)
 {
-  m_contextFactory->UpdateSurfaceSize();
+  m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
   m_work.OnSize(w, h);
 }
 

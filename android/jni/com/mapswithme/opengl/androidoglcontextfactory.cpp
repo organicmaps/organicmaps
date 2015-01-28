@@ -113,7 +113,7 @@ int AndroidOGLContextFactory::GetHeight() const
 void AndroidOGLContextFactory::UpdateSurfaceSize()
 {
   ASSERT(IsValid(), ());
-  VERIFY(QuerySurfaceSize(), ());
+  QuerySurfaceSize();
 }
 
 bool AndroidOGLContextFactory::QuerySurfaceSize()
