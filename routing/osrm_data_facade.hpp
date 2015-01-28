@@ -19,6 +19,7 @@
 #include "../3party/osrm/osrm-backend/DataStructures/TravelMode.h"
 
 #include "../generator/routing_generator.hpp"
+#include "cross_routing_context.hpp"
 
 
 namespace routing
@@ -106,7 +107,6 @@ public:
     return res;
   }
 
-  //! TODO: Remove static variable
   virtual EdgeDataT & GetEdgeData(const EdgeID e) const
   {
     static EdgeDataT res;
@@ -240,8 +240,7 @@ public:
 template <class EdgeDataT> class OsrmDataFacade : public OsrmRawDataFacade<EdgeDataT>
 {
   typedef OsrmRawDataFacade<EdgeDataT> super;
-  OutgoingVectorT m_outgoingNodes;
-  OutgoingVectorT m_ingoingNodes;
+  CrossRoutingContext m_crossContext;
 
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
@@ -276,10 +275,14 @@ public:
 
     LoadRawData(m_handleEdgeData.GetData<char>(), m_handleEdgeId.GetData<char>(), m_handleShortcuts.GetData<char>(), m_handleFanoMatrix.GetData<char>());
 
-    ReaderSource<FileReader> ro(container.GetReader(ROUTING_OUTGOING_FILE_TAG));
-    rw::ReadVectorOfPOD(ro, m_outgoingNodes);
-    ReaderSource<FileReader> ri(container.GetReader(ROUTING_INGOING_FILE_TAG));
-    rw::ReadVectorOfPOD(ri, m_ingoingNodes);
+    if (container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
+    {
+      m_crossContext.Load(container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
+    }
+    else
+    {
+      //LOG(LINFO, ("Old routing file version! Have no crossMwm information!"));
+    }
   }
 
   void Clear()
@@ -289,29 +292,11 @@ public:
     m_handleEdgeId.Unmap();
     m_handleShortcuts.Unmap();
     m_handleFanoMatrix.Unmap();
-
-    m_outgoingNodes.clear();
-    m_ingoingNodes.clear();
   }
 
-  OutgoingVectorT::const_iterator GetOutgoingBegin()
+  CrossRoutingContext const & getRoutingContext()
   {
-    return m_outgoingNodes.cbegin();
-  }
-
-  OutgoingVectorT::const_iterator GetOutgoingEnd()
-  {
-    return m_outgoingNodes.cend();
-  }
-
-  OutgoingVectorT::const_iterator GetIngoingBegin()
-  {
-    return m_ingoingNodes.cbegin();
-  }
-
-  OutgoingVectorT::const_iterator GetIngoingEnd()
-  {
-    return m_ingoingNodes.cend();
+    return m_crossContext;
   }
 };
 

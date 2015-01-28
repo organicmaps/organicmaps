@@ -209,7 +209,7 @@ template <class DataFacadeT> class ManyToManyRouting final : public BasicRouting
     {
         for (auto edge : super::facade->GetAdjacentEdgeRange(node))
         {
-            const auto &data = super::facade->GetEdgeData(edge);
+            const auto &data = super::facade->GetEdgeData(edge,node);
             const bool direction_flag = (forward_direction ? data.forward : data.backward);
             if (direction_flag)
             {
@@ -242,7 +242,7 @@ template <class DataFacadeT> class ManyToManyRouting final : public BasicRouting
     {
         for (auto edge : super::facade->GetAdjacentEdgeRange(node))
         {
-            const auto &data = super::facade->GetEdgeData(edge);
+            const auto &data = super::facade->GetEdgeData(edge, node);
             const bool reverse_flag = ((!forward_direction) ? data.forward : data.backward);
             if (reverse_flag)
             {

@@ -12,6 +12,7 @@
 #include "../std/atomic.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
+#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
 
 namespace feature { class TypesHolder; }
 
@@ -23,6 +24,7 @@ namespace routing
 {
 
 typedef function<string (m2::PointD const &)> CountryFileFnT;
+typedef OsrmRawDataFacade<QueryEdge::EdgeData> RawDataFacadeT;
 typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
 
 ///Single graph node representation for routing task
@@ -35,7 +37,7 @@ struct FeatureGraphNode
 /// All edges available for start route while routing
 typedef vector<FeatureGraphNode> FeatureGraphNodeVecT;
 /// Points vector to calculate several routes
-typedef vector<FeatureGraphNodeVecT> MultiroutingTaskPointT;
+typedef vector<FeatureGraphNode> MultiroutingTaskPointT;
 
 /*!
  * \brief The OSRM routing result struct. Contains raw routing result and iterators to source and target edges.
@@ -43,7 +45,12 @@ typedef vector<FeatureGraphNodeVecT> MultiroutingTaskPointT;
  * \property sourceEdge: iterator to src edge from source vector
  * \property targetEdge: iterator to target edge from target vector
  */
-struct RawRoutingResultT;
+struct RawRoutingResultT
+{
+  RawRouteData m_routePath;
+  FeatureGraphNode  m_sourceEdge;
+  FeatureGraphNode  m_targetEdge;
+};
 
 typedef vector<RawRoutingResultT> MultipleRoutingResultT;
 
@@ -122,6 +129,11 @@ public:
   RoutingMappingPtrT GetMappingByPoint(m2::PointD point, Index const * pIndex)
   {
     string fName = m_countryFn(point);
+    return GetMappingByName(fName, pIndex);
+  }
+
+  RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex)
+  {
     //Check if we have already load this file
     auto mapIter = m_mapping.find(fName);
     if (mapIter != m_mapping.end())
@@ -168,6 +180,33 @@ public:
   virtual void SetFinalPoint(m2::PointD const & finalPt);
   virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
 
+  /*! Find single shortest path in single MWM between 2 sets of edges
+   * \param source: vector of source edgest to make path
+   * \param taget: vector of target edges to make path
+   * \param facade: OSRM routing data facade to recover graph information
+   * \param rawRoutingResult: routing result store
+   * \return true if path exists. False otherwise
+   */
+  static bool FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+                       RawRoutingResultT& rawRoutingResult);
+
+  /*!
+   * \brief FindCostMatrix Find costs matrix from sources to targets. WARNING in finds only costs of shortests, not pathes.
+   * \param sources vector. Allows only one phantom node for one source
+   * \param targets vector. Allows only one phantom node for one target
+   * \param facade osrm data facade reference
+   * \param result vector with result costs. Packed. Source nodes are rows. S1T1 S1T2 S2T1 S2T2
+   */
+  static void FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
+                                      RawDataFacadeT &facade, std::vector<EdgeWeight> &result);
+
+  /*!
+   * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
+   * \param nodeId osrm node idetifier
+   * \param taskNode output point task for router
+   */
+  static void GenerateRoutingTaskFromNodeId(const size_t nodeId, FeatureGraphNode & taskNode);
+
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
                                        FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping);
@@ -181,15 +220,7 @@ protected:
    */
   m2::PointD GetPointByNodeId(const size_t node_id, RoutingMappingPtrT const & routingMapping, bool use_start=true);
 
-  /*! Find single shortest path in single MWM between 2 sets of edges
-   * \param source: vector of source edgest to make path
-   * \param taget: vector of target edges to make path
-   * \param facade: OSRM routing data facade to recover graph information
-   * \param rawRoutingResult: routing result store
-   * \return true if path exists. False otherwise
-   */
-  bool FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
-                       RawRoutingResultT& rawRoutingResult);
+  size_t FindNextMwmNode(RoutingMappingPtrT const & startMapping, size_t startId, RoutingMappingPtrT const & targetMapping);
 
   /*!
    * \brief Compute turn and time estimation structs for OSRM raw route.
@@ -208,7 +239,16 @@ protected:
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
 private:
-  void GenerateBorderTask(NodeIdVectorT const & borderNodes, RoutingMappingPtrT & mapping, MultiroutingTaskPointT & outgoingTask, uint32_t mwmid);
+  typedef pair<size_t,string> MwmOut;
+  typedef set<MwmOut> CheckedOuts;
+  struct RoutePathCross {
+    string mwmName;
+    FeatureGraphNode startNode;
+    FeatureGraphNode targetNode;
+  };
+  typedef vector<RoutePathCross> CheckedPathT;
+
+  ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,
@@ -240,7 +280,7 @@ private:
 
   FeatureGraphNodeVecT graphNodes;
 
-  MultiroutingTaskPointT m_CachedTargetTask;
+  FeatureGraphNodeVecT m_CachedTargetTask;
   m2::PointD m_CachedTargetPoint;
 
   RoutingIndexManager m_indexManager;

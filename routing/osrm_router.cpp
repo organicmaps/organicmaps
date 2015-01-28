@@ -24,6 +24,7 @@
 #include "../3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
 #include "../3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
 #include "../3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
+#include "../3party/osrm/osrm-backend/RoutingAlgorithms/ManyToManyRouting.h"
 
 
 namespace routing
@@ -33,13 +34,6 @@ size_t const MAX_NODE_CANDIDATES = 10;
 double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
 double const TIME_OVERHEAD = 1.4;
 double const FEATURES_NEAR_TURN_M = 3.0;
-
-struct RawRoutingResultT
-{
-  RawRouteData m_routePath;
-  FeatureGraphNode  m_sourceEdge;
-  FeatureGraphNode  m_targetEdge;
-};
 
 namespace
 {
@@ -346,119 +340,12 @@ public:
 } // namespace
 
 
-void OsrmRouter::GenerateBorderTask(NodeIdVectorT const & borderNodes, RoutingMappingPtrT & mapping, MultiroutingTaskPointT & outgoingTask, uint32_t mwmid)
-{
-  for (auto node: borderNodes)
-  {
-    FeatureGraphNodeVecT taskNode(2);
-    taskNode[0].m_node.forward_node_id = node;
-    taskNode[0].m_node.reverse_node_id = INVALID_NODE_ID;
-    taskNode[0].m_node.forward_weight = 0;
-    taskNode[0].m_node.reverse_weight = 0;
-    taskNode[1].m_node.forward_node_id = INVALID_NODE_ID;
-    taskNode[1].m_node.reverse_node_id = node;
-    taskNode[1].m_node.forward_weight = 0;
-    taskNode[1].m_node.reverse_weight = 0;
-    outgoingTask.push_back(taskNode);
-  }
-  return;
-  FeatureGraphNodeVecT taskNode(1);
 
-      taskNode[0].m_node.forward_node_id = 12372;
-      //taskNode[0].m_node.forward_offset = 659;
-      //taskNode[0].m_node.reverse_offset = 1;
-      taskNode[0].m_node.reverse_node_id = 12376;
-      taskNode[0].m_node.forward_weight = 0;
-      taskNode[0].m_node.reverse_weight = 0;
-      //taskNode[0].m_node.forward_travel_mode = '\0';
-      //taskNode[0].m_node.backward_travel_mode = '\0';
-      //taskNode[0].m_node.fwd_segment_position = 0;
-      //taskNode[0].m_node.name_id = 4294967295;
-      //taskNode[0].m_node.packed_geometry_id = 4294967295;
-      /*taskNode[0].m_seg.m_fid=77366;
-      taskNode[0].m_seg.m_pointStart=27;
-      taskNode[0].m_seg.m_pointEnd=28;
-      taskNode[0].m_segPt.x = 23.2725689;
-      taskNode[0].m_segPt.y = 68.5672581834;*/
-      outgoingTask.push_back(taskNode);
-  return;
-  auto curD =borderNodes.cbegin();
-
-  while (curD!= borderNodes.cend())
-  {
-    m2::PointD task;
-    task.x = MercatorBounds::LonToX(*curD);
-    ++curD;
-    task.y = MercatorBounds::LatToY(*curD);
-    ++curD;
-    FeatureGraphNodeVecT res;
-    ResultCode const code = FindPhantomNodes(mapping->GetName(), task, m2::PointD::Zero(), res, MAX_NODE_CANDIDATES, mapping);
-    if (code == NoError)
-    {
-      res.erase(++res.begin(), res.end());
-      outgoingTask.push_back(res);
-      return;
-    }
-  }
-  return;
-
-  OsrmFtSegMapping::FtSegSetT segmentSet;
-  vector<OsrmFtSegMapping::FtSeg > all_nodes(borderNodes.size());
-  for (int i= 0; i< borderNodes.size(); ++i)
-  {
-    OsrmFtSegMapping::FtSeg node(borderNodes[i]);
-    all_nodes[i] = node;
-    /*all_nodes[i].m_fid = node.m_fid;
-    all_nodes[i].m_pointStart = node.m_pointStart;
-    all_nodes[i].m_pointEnd = node.m_pointStart+1;*/
-    LOG(LINFO, ("!!!ON",all_nodes[i].m_fid, "   ", all_nodes[i].m_pointStart, "   ", all_nodes[i].m_pointEnd));
-    segmentSet.insert(&(all_nodes[i]));
-  }
-
-    /*FeatureGraphNodeVecT taskNode(2);
-
-    taskNode[0].m_node.forward_node_id = mapping->mapping.GetNodeId(node);
-    taskNode[0].m_node.forward_offset = 1;
-    taskNode[0].m_node.reverse_offset = 1;
-    taskNode[0].m_node.reverse_node_id = INVALID_NODE_ID;
-    taskNode[1].m_node.forward_node_id = INVALID_NODE_ID;
-    taskNode[1].m_node.reverse_node_id = mapping->mapping.GetNodeId(node);
-    outgoingTask.push_back(taskNode);
-  }*/
-
-  OsrmFtSegMapping::OsrmNodesT nodes;
-  volatile bool cancel=false;
-  mapping->mapping.GetOsrmNodes(segmentSet, nodes, cancel);
-
-  FeatureGraphNodeVecT res;
-  res.clear();
-  res.resize(borderNodes.size());
-
-    for (size_t j = 0; j < borderNodes.size(); ++j)
-    {
-      size_t const idx = j;
-
-      if (!all_nodes[idx].IsValid())
-        continue;
-
-      auto it = nodes.find(all_nodes[idx].Store());
-      if (it != nodes.end())
-      {
-        FeatureGraphNode & node = res[idx];
-
-        node.m_node.forward_node_id = it->second.first;
-        node.m_node.reverse_node_id = it->second.second;
-      }
-    }
-    outgoingTask.push_back(res);
-
-}
-
-RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex): map_counter(0), facade_counter(0), m_base_name(fName+DATA_FILE_EXTENSION)
+RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex): map_counter(0), facade_counter(0), m_base_name(fName)
 {
   Platform & pl = GetPlatform();
-
-  string const fPath = pl.WritablePathForFile(m_base_name + ROUTING_FILE_EXTENSION);
+  string const mwmName = m_base_name + DATA_FILE_EXTENSION;
+  string const fPath = pl.WritablePathForFile(mwmName + ROUTING_FILE_EXTENSION);
   if (!pl.IsFileExistsByFullPath(fPath))
     throw IRouter::ResultCode::RouteFileNotExist;
   // Open new container and check that mwm and routing have equal timestamp.
@@ -467,7 +354,7 @@ RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex): map_
   {
     FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
     ReaderSrc src1(r1);
-    ModelReaderPtr r2 = FilesContainerR(pl.GetReader(m_base_name)).GetReader(VERSION_FILE_TAG);
+    ModelReaderPtr r2 = FilesContainerR(pl.GetReader(mwmName)).GetReader(VERSION_FILE_TAG);
     ReaderSrc src2(r2.GetPtr());
 
     if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
@@ -478,7 +365,7 @@ RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex): map_
     mapping.Load(m_container);
   }
 
-  m_mwmId = pIndex->getMwmIdByName(m_base_name);
+  m_mwmId = pIndex->getMwmIdByName(mwmName);
 }
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
@@ -610,15 +497,35 @@ bool IsRouteExist(RawRouteData const & r)
 
 }
 
-/*
-bool OsrmRouter::FindMultipleRoutes(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
-                                    RawRouteData& outputPath, FeatureGraphNodeVecT::const_iterator & sourceEdge, FeatureGraphNodeVecT::const_iterator & targetEdge)
+void OsrmRouter::FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
+                                    RawDataFacadeT &facade, std::vector<EdgeWeight> &result)
 {
+  SearchEngineData engineData;
+  ManyToManyRouting<RawDataFacadeT> pathFinder(&facade, engineData);
 
+  size_t const row_size = sources.size() + targets.size();
+  size_t const result_row_size = targets.size();
+  PhantomNodeArray taskVector(row_size);
+  for (int i = 0; i< sources.size(); ++i)
+  {
+    taskVector[i].push_back(sources[i].m_node);
+  }
+  for (int i = 0; i< targets.size(); ++i)
+  {
+    taskVector[sources.size() + i].push_back(targets[i].m_node);
+  }
+
+  std::shared_ptr<std::vector<EdgeWeight>> resultTable = pathFinder(taskVector);
+
+  result.resize(sources.size() * result_row_size);
+  auto const start_iter = resultTable->begin()+sources.size();
+  for(int i=0; i<sources.size(); ++i)
+  {
+    std::copy_n(start_iter+i*row_size, result_row_size, result.begin()+ result_row_size*i);
+  }
 }
-*/
 
-bool OsrmRouter::FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+bool OsrmRouter::FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT &facade,
                      RawRoutingResultT& rawRoutingResult)
 {
   SearchEngineData engineData;
@@ -690,6 +597,127 @@ m2::PointD OsrmRouter::GetPointByNodeId(const size_t node_id, RoutingMappingPtrT
     return ft.GetPoint(seg.m_pointEnd);
 }
 
+void OsrmRouter::GenerateRoutingTaskFromNodeId(const size_t nodeId, FeatureGraphNode & taskNode)
+{
+  taskNode.m_node.forward_node_id = nodeId;
+  taskNode.m_node.reverse_node_id = nodeId;
+  taskNode.m_node.forward_weight = 0;
+  taskNode.m_node.reverse_weight = 0;
+  taskNode.m_node.forward_offset = 0;
+  taskNode.m_node.reverse_offset = 0;
+  taskNode.m_node.name_id = 1;
+  taskNode.m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
+  /*
+  taskNode.resize(2);
+  taskNode[0].m_node.forward_node_id = nodeId;
+  taskNode[0].m_node.reverse_node_id = INVALID_NODE_ID;
+  taskNode[0].m_node.forward_weight = 0;
+  taskNode[0].m_node.reverse_weight = 0;
+  taskNode[0].m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
+  taskNode[1].m_node.forward_node_id = INVALID_NODE_ID;
+  taskNode[1].m_node.reverse_node_id = nodeId;
+  taskNode[1].m_node.forward_weight = 0;
+  taskNode[1].m_node.reverse_weight = 0;
+  taskNode[1].m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
+  */
+}
+
+size_t OsrmRouter::FindNextMwmNode(RoutingMappingPtrT const & startMapping, size_t startId, RoutingMappingPtrT const & targetMapping)
+{
+  m2::PointD startPoint = GetPointByNodeId(startId, startMapping, false);
+  m2::PointD startPointTmp = GetPointByNodeId(startId, startMapping, true);
+  startPoint = m2::PointD(MercatorBounds::XToLon(startPoint.x), MercatorBounds::YToLat(startPoint.y));
+  startPointTmp = m2::PointD(MercatorBounds::XToLon(startPointTmp.x), MercatorBounds::YToLat(startPointTmp.y));
+  CrossRoutingContext const & targetContext = targetMapping->dataFacade.getRoutingContext();
+  auto income_iters = targetContext.GetIngoingIterators();
+  for (auto i=income_iters.first; i<income_iters.second; ++i)
+  {
+    m2::PointD targetPoint = GetPointByNodeId(*i, targetMapping, true);
+    m2::PointD targetPointTmp = GetPointByNodeId(*i, targetMapping, false);
+    targetPoint = m2::PointD(MercatorBounds::XToLon(targetPoint.x), MercatorBounds::YToLat(targetPoint.y));
+    targetPointTmp = m2::PointD(MercatorBounds::XToLon(targetPointTmp.x), MercatorBounds::YToLat(targetPointTmp.y));
+
+    double const dist = min(min(ms::DistanceOnEarth((startPoint.y), (startPoint.x), (targetPoint.y), (targetPoint.x)),
+                            ms::DistanceOnEarth((startPointTmp.y), (startPointTmp.x), (targetPoint.y), (targetPoint.x))),
+                            min(ms::DistanceOnEarth((startPoint.y), (startPoint.x), (targetPointTmp.y), (targetPointTmp.x)),
+                            ms::DistanceOnEarth((startPointTmp.y), (startPointTmp.x), (targetPointTmp.y), (targetPointTmp.x))));
+    if (dist<1000)
+      return *i;
+  }
+  return 0;
+}
+
+OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route)
+{
+  Route::TurnsT TurnsDir;
+  Route::TimesT Times;
+  vector<m2::PointD> Points;
+  turns::TurnsGeomT TurnsGeom;
+  for (RoutePathCross const & cross: path)
+  {
+    RawRoutingResultT routingResult;
+    FeatureGraphNodeVecT startTask(1), targetTask(1);
+    startTask[0] = cross.startNode;
+    if (cross.startNode.m_seg.m_fid == OsrmFtSegMapping::FtSeg::INVALID_FID)
+    {
+      startTask.push_back(cross.startNode);
+      startTask[0].m_node.reverse_node_id = INVALID_NODE_ID;
+      startTask[1].m_node.forward_node_id = INVALID_NODE_ID;
+    }
+
+    targetTask[0] = cross.targetNode;
+    if (cross.targetNode.m_seg.m_fid == OsrmFtSegMapping::FtSeg::INVALID_FID)
+    {
+      targetTask.push_back(cross.targetNode);
+      targetTask[0].m_node.reverse_node_id = INVALID_NODE_ID;
+      targetTask[1].m_node.forward_node_id = INVALID_NODE_ID;
+    }
+    RoutingMappingPtrT mwmMapping;
+    mwmMapping = m_indexManager.GetMappingByName(cross.mwmName, m_pIndex);
+    mwmMapping->LoadFacade();
+    LOG(LINFO, ("mwmFacade data", mwmMapping->dataFacade.GetNumberOfNodes()));
+    if (!FindSingleRoute(startTask, targetTask, mwmMapping->dataFacade, routingResult))
+    {
+      mwmMapping->FreeFacade();
+      return OsrmRouter::RouteNotFound;
+    }
+    mwmMapping->Map();
+
+    Route::TurnsT mwmTurnsDir;
+    Route::TimesT mwmTimes;
+    vector<m2::PointD> mwmPoints;
+    turns::TurnsGeomT mwmTurnsGeom;
+    MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
+
+    //And connect it to result route
+    for (auto turn:mwmTurnsDir)
+    {
+      turn.m_index += Points.size() - 1;
+      TurnsDir.push_back(turn);
+    }
+
+
+    double const estimationTime = Times.size() ? Times.back().second :0.0;
+    for (auto time:mwmTimes)
+    {
+      time.first += Points.size() - 1;
+      time.second += estimationTime;
+      Times.push_back(time);
+    }
+
+    if (Points.size())
+      Points.pop_back(); //You at the end point
+    Points.insert(Points.end(), ++mwmPoints.begin(), mwmPoints.end());
+    TurnsGeom.insert(TurnsGeom.end(), mwmTurnsGeom.begin(), mwmTurnsGeom.end());
+  }
+
+  route.SetGeometry(Points.begin(), Points.end());
+  route.SetTurnInstructions(TurnsDir);
+  route.SetSectionTimes(Times);
+  route.SetTurnInstructionsGeometry(TurnsGeom);
+  return OsrmRouter::NoError;
+}
+
 OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route)
 {
   RoutingMappingPtrT startMapping;
@@ -705,11 +733,11 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   }
 
   // 3. Find start/end nodes.
-  MultiroutingTaskPointT startTask(1);
+  FeatureGraphNodeVecT startTask;
 
   {
     startMapping->Map();
-    ResultCode const code = FindPhantomNodes(startMapping->GetName(), startPt, startDr, startTask[0], MAX_NODE_CANDIDATES, startMapping);
+    ResultCode const code = FindPhantomNodes(startMapping->GetName(), startPt, startDr, startTask, MAX_NODE_CANDIDATES, startMapping);
     if (code != NoError)
       return code;
     startMapping->Unmap();
@@ -717,9 +745,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   {
     if (finalPt != m_CachedTargetPoint)
     {
-      m_CachedTargetTask.resize(1);
       finalMapping->Map();
-      ResultCode const code = FindPhantomNodes(finalMapping->GetName(), finalPt, m2::PointD::Zero(), m_CachedTargetTask[0], MAX_NODE_CANDIDATES, finalMapping);
+      ResultCode const code = FindPhantomNodes(finalMapping->GetName(), finalPt, m2::PointD::Zero(), m_CachedTargetTask, MAX_NODE_CANDIDATES, finalMapping);
       if (code != NoError)
         return code;
       m_CachedTargetPoint = finalPt;
@@ -736,8 +763,35 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   {
     LOG(LINFO, ("Single mwm routing case"));
     startMapping->LoadFacade();
-    if (!FindSingleRoute(startTask[0], m_CachedTargetTask[0], startMapping->dataFacade, routingResult))
+    if (!FindSingleRoute(startTask, m_CachedTargetTask, startMapping->dataFacade, routingResult))
+    {
+      startMapping->FreeFacade();
       return RouteNotFound;
+    }
+    if (m_requestCancel)
+    {
+      startMapping->FreeFacade();
+      return Cancelled;
+    }
+
+    // 5. Restore route.
+    startMapping->Map();
+
+    Route::TurnsT turnsDir;
+    Route::TimesT times;
+    vector<m2::PointD> points;
+    turns::TurnsGeomT turnsGeom;
+
+    MakeTurnAnnotation(routingResult, startMapping, points, turnsDir, times, turnsGeom);
+
+    route.SetGeometry(points.begin(), points.end());
+    route.SetTurnInstructions(turnsDir);
+    route.SetSectionTimes(times);
+    route.SetTurnInstructionsGeometry(turnsGeom);
+
+    startMapping->FreeFacade();
+    startMapping->Unmap();
+    return NoError;
   }
   else
   {
@@ -745,169 +799,103 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     //NodeIdVectorT startBorderNodes;
     //NodeIdVectorT finalBorderNodes;
     startMapping->Map();
+    finalMapping->Map();
     startMapping->LoadFacade();
     finalMapping->LoadFacade();
-    /*
-    set_intersection(startMapping->dataFacade.GetOutgoingBegin(), startMapping->dataFacade.GetOutgoingEnd(),
-                     finalMapping->dataFacade.GetOutgoingBegin(), finalMapping->dataFacade.GetOutgoingEnd(),
-                     back_inserter(borderNodes));
-    if (!borderNodes.size())
-    {
-      LOG(LINFO, ("There is no same outgoing nodes at mwm borders"));
-      return PointsInDifferentMWM;
-    }*/
-    RawRoutingResultT tmpRoutingResult;
-    RawRoutingResultT startRoutingResult;
-    RawRoutingResultT finalRoutingResult;
-    double finalCost = numeric_limits<double>::max();
 
-    startMapping->Map();
-    finalMapping->Map();
+    CrossRoutingContext const & startContext = startMapping->dataFacade.getRoutingContext();
+    auto out_iterators = startContext.GetOutgoingIterators();
+    CrossRoutingContext const & targetContext = finalMapping->dataFacade.getRoutingContext();
+    auto income_iterators = targetContext.GetIngoingIterators();
+    MultiroutingTaskPointT sources, targets(distance(out_iterators.first, out_iterators.second));
+    MultiroutingTaskPointT income_sources(distance(income_iterators.first, income_iterators.second)), income_targets;
+    for (auto i = out_iterators.first; i<out_iterators.second; ++i)
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->first, targets[distance(out_iterators.first, i)]);
+    for (auto i = income_iterators.first; i<income_iterators.second; ++i)
+      OsrmRouter::GenerateRoutingTaskFromNodeId(*i, income_sources[distance(income_iterators.first, i)]);
 
-    std::map<size_t, m2::PointD> pointCache;
-    for (auto sit = startMapping->dataFacade.GetOutgoingBegin(); sit!= startMapping->dataFacade.GetOutgoingEnd(); ++sit)
+    for (auto t: startTask)
+      sources.push_back(t);
+    for (auto t: m_CachedTargetTask)
+      income_targets.push_back(t);
+    vector<EdgeWeight> weights, target_weights;
+    FindWeightsMatrix(sources, targets, startMapping->dataFacade, weights);
+    FindWeightsMatrix(income_sources, income_targets, finalMapping->dataFacade, target_weights);
+
+
+
+
+    EdgeWeight finalWeight = numeric_limits<EdgeWeight>::max();
+    CheckedPathT finalPath;
+
+
+    for (size_t i=0; i<sources.size(); ++i)
     {
-      m2::PointD point1 = GetPointByNodeId(*sit, startMapping, false);
-      point1 = m2::PointD(MercatorBounds::XToLon(point1.x), MercatorBounds::YToLat(point1.y));
-      m2::PointD point1o = GetPointByNodeId(*sit, startMapping, true);
-      point1o = m2::PointD(MercatorBounds::XToLon(point1o.x), MercatorBounds::YToLat(point1o.y));
-      for (auto fit = finalMapping->dataFacade.GetIngoingBegin(); fit!= finalMapping->dataFacade.GetIngoingEnd(); ++fit)
+      bool found = false;
+      for (size_t j=0; j<targets.size(); ++j)
       {
-        m2::PointD point2;
-        auto cache = pointCache.find(*fit);
-        if (cache == pointCache.end())
+        if (weights[ i*sources.size() + j] < numeric_limits<EdgeWeight>::max())
         {
-          point2 = GetPointByNodeId(*fit, finalMapping, true);
-          point2 = m2::PointD(MercatorBounds::XToLon(point2.x), MercatorBounds::YToLat(point2.y));
-          pointCache.insert(std::make_pair(*fit, point2));
-        }
-        else
-          point2 = cache->second;
-        //const m2::PointD point2 = GetPointByNodeId(*fit, finalMapping, true);
-        if (point1.IsAlmostZero() || point2.IsAlmostZero())
-          continue;
-        //double const dist = ms::DistanceOnEarth(MercatorBounds::YToLat(point1.y), MercatorBounds::XToLon(point1.x), MercatorBounds::YToLat(point2.y), MercatorBounds::XToLon(point2.x));
-        m2::PointD point2o = GetPointByNodeId(*fit, finalMapping, false);
-        point2o = m2::PointD(MercatorBounds::XToLon(point2o.x), MercatorBounds::YToLat(point2o.y));
-        double const dist = min(min(ms::DistanceOnEarth((point1.y), (point1.x), (point2.y), (point2.x)),
-                                ms::DistanceOnEarth((point1o.y), (point1o.x), (point2.y), (point2.x))),
-                                min(ms::DistanceOnEarth((point1.y), (point1.x), (point2o.y), (point2o.x)),
-                                ms::DistanceOnEarth((point1o.y), (point1o.x), (point2o.y), (point2o.x))));
-
-        //LOG(LINFO, ("!!!! DIST", dist," ID ", *sit, "HAVE OUTGOING NODE COORD", point1.y, point1.x));
-        if (dist <= 1000.0)  //TODO Make constant
-        {
-          LOG(LINFO, ("HAVE OUTGOING NODE COORD", point1.y, point1.x));
-          LOG(LINFO, ("!!!! DIST", dist," ID ", *sit));
-          //startBorderNodes.push_back(sit->node_id);
-          //finalBorderNodes.push_back(fit->node_id);
-          FeatureGraphNodeVecT taskNode(2);
-          taskNode[0].m_node.forward_node_id = *sit;
-          taskNode[0].m_node.reverse_node_id = INVALID_NODE_ID;
-          taskNode[0].m_node.forward_weight = 0;
-          taskNode[0].m_node.reverse_weight = 0;
-          taskNode[0].m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
-          taskNode[1].m_node.forward_node_id = INVALID_NODE_ID;
-          taskNode[1].m_node.reverse_node_id = *sit;
-          taskNode[1].m_node.forward_weight = 0;
-          taskNode[1].m_node.reverse_weight = 0;
-          taskNode[1].m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
-          FeatureGraphNodeVecT ftaskNode(2);
-          ftaskNode[0].m_node.forward_node_id = *fit;
-          ftaskNode[0].m_node.reverse_node_id = INVALID_NODE_ID;
-          ftaskNode[0].m_node.forward_weight = 0;
-          ftaskNode[0].m_node.reverse_weight = 0;
-          ftaskNode[0].m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
-          ftaskNode[1].m_node.forward_node_id = INVALID_NODE_ID;
-          ftaskNode[1].m_node.reverse_node_id = *fit;
-          ftaskNode[1].m_node.forward_weight = 0;
-          ftaskNode[1].m_node.reverse_weight = 0;
-          ftaskNode[1].m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
-          routingResult = RawRoutingResultT();
-          if (FindSingleRoute(startTask[0], taskNode, startMapping->dataFacade, routingResult))
+          found = true;
+          string const & nextMwm = startContext.getOutgoingMwmName((out_iterators.first+j)->second);
+          RoutingMappingPtrT nextMapping;
+          try
           {
-            LOG(LINFO, ("START FOUND"));
-            if (FindSingleRoute(ftaskNode, m_CachedTargetTask[0], finalMapping->dataFacade, tmpRoutingResult))
+            nextMapping = m_indexManager.GetMappingByName(nextMwm, m_pIndex);
+          }
+          catch (OsrmRouter::ResultCode e)
+          {
+              continue; //There is no outgoing mwm
+          }
+
+          size_t tNodeId = (out_iterators.first+j)->first;
+          size_t nextNodeId = FindNextMwmNode(startMapping, tNodeId, nextMapping);
+          if(!nextNodeId)
+            continue;
+          if (nextMwm == finalMapping->GetName())
+          {
+            auto it = income_iterators.second;
+            for (auto k=income_iterators.first; k < income_iterators.second; ++k)
             {
-              LOG(LINFO, ("!!! CHECK LEN"));
-                const double finalLength = routingResult.m_routePath.shortest_path_length + tmpRoutingResult.m_routePath.shortest_path_length;
-                if(finalLength < finalCost)
-                {
-                  LOG(LINFO, ("!!! FINAL OUT DIST ", dist, " COST ", finalLength));
-                  finalCost = finalLength;
-                  startRoutingResult = routingResult;
-                  finalRoutingResult = tmpRoutingResult;
-                  ASSERT(!startRoutingResult.m_targetEdge.m_seg.IsValid(), ());
-                  ASSERT(!finalRoutingResult.m_sourceEdge.m_seg.IsValid(), ());
-                }
+              if (*k==nextNodeId)
+                it=k;
+            }
+            if (it == income_iterators.second)
+              continue;
+            int p=0;
+            size_t targetWeight = target_weights[distance(income_iterators.first, it)];
+            if (targetWeight == numeric_limits<EdgeWeight>::max())
+              for (p=1; p<income_sources.size(); ++p)
+              {
+                targetWeight = target_weights[p*income_targets.size()+distance(income_iterators.first, it)];
+                if (targetWeight != numeric_limits<EdgeWeight>::max())
+                  break;
+              }
+            if (targetWeight == numeric_limits<EdgeWeight>::max())
+              continue;
+            const EdgeWeight newWeight = weights[ i*sources.size() + j] + targetWeight;
+            if (newWeight<finalWeight)
+            {
+              finalWeight = newWeight;
+              finalPath.clear();
+              finalPath.push_back({startMapping->GetName(), sources[i], targets[j]});
+              finalPath.push_back({finalMapping->GetName(), income_sources[distance(income_iterators.first, it)], income_targets[p]});
             }
           }
         }
       }
+      if (found)
+        break;
     }
 
-    if (finalCost==numeric_limits<double>::max())
-      return RouteNotFound;
-    routingResult = startRoutingResult;
-
-    Route::TurnsT startTurnsDir;
-    Route::TimesT startTimes;
-    vector<m2::PointD> startPoints;
-    turns::TurnsGeomT startTurnsGeom;
-    MakeTurnAnnotation(startRoutingResult, startMapping, startPoints, startTurnsDir, startTimes, startTurnsGeom);
-
-
-    Route::TurnsT finalTurnsDir;
-    Route::TimesT finalTimes;
-    vector<m2::PointD> finalPoints;
-    turns::TurnsGeomT finalTurnsGeom;
-    MakeTurnAnnotation(finalRoutingResult, finalMapping, finalPoints, finalTurnsDir, finalTimes, finalTurnsGeom);
-
-    for (auto turn:finalTurnsDir)
-    {
-      turn.m_index += startPoints.size() - 1;
-      startTurnsDir.push_back(turn);
-    }
-
-    const auto startEstimationTime = startTimes.back().second;
-    for (auto time:finalTimes)
-    {
-      time.first += startPoints.size() - 1;
-      time.second += startEstimationTime;
-      startTimes.push_back(time);
-    }
-
-    startPoints.pop_back();
-    startPoints.insert(startPoints.end(), ++finalPoints.begin(), finalPoints.end());
-
-    route.SetGeometry(startPoints.begin(), startPoints.end());
-    route.SetTurnInstructions(startTurnsDir);
-    route.SetSectionTimes(startTimes);
-    return NoError;
-
+    LOG(LINFO, ("Facade data", startMapping->dataFacade.GetNumberOfNodes()));
+    startMapping->Unmap();
+    startMapping->FreeFacade();
+    if (finalWeight< numeric_limits<EdgeWeight>::max())
+      return MakeRouteFromCrossesPath(finalPath, route);
+    else
+      return OsrmRouter::RouteNotFound;
   }
-  if (m_requestCancel)
-    return Cancelled;
-
-  // 5. Restore route.
-  startMapping->Map();
-
-  //ASSERT(routingResult.m_sourceEdge != startTask[0].cend(), ());
-  //ASSERT(routingResult.m_targetEdge != m_CachedTargetTask[0].cend(), ());
-
-  Route::TurnsT turnsDir;
-  Route::TimesT times;
-  vector<m2::PointD> points;
-  turns::TurnsGeomT turnsGeom;
-
-  MakeTurnAnnotation(routingResult, startMapping, points, turnsDir, times, turnsGeom);
-
-  route.SetGeometry(points.begin(), points.end());
-  route.SetTurnInstructions(turnsDir);
-  route.SetSectionTimes(times);
-  route.SetTurnInstructionsGeometry(turnsGeom);
-
-  return NoError;
 }
 
 m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,

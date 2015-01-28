@@ -23,13 +23,95 @@
 
 #include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
+#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
 #include "../routing/osrm_data_facade.hpp"
+#include "../routing/osrm_router.hpp"
+#include "../routing/cross_routing_context.hpp"
 
 #define BORDERS_DIR "borders/"
 #define BORDERS_EXTENSION ".borders"
 
 namespace routing
 {
+
+//Int bacause shortest_path_length has same type =(
+/*int CalculateCrossLength(size_t start, size_t stop, RawDataFacadeT & facade)
+{
+  FeatureGraphNodeVecT taskNode(2), ftaskNode(2);
+  OsrmRouter::GenerateRoutingTaskFromNodeId(start, taskNode);
+  OsrmRouter::GenerateRoutingTaskFromNodeId(stop, ftaskNode);
+  RawRoutingResultT routingResult;
+  if (OsrmRouter::FindSingleRoute(taskNode, ftaskNode, facade, routingResult))
+  {
+    return routingResult.m_routePath.shortest_path_length;
+  }
+  return std::numeric_limits<int>::max();
+}*/
+
+class GetCountriesBordersByName
+{
+
+  class GetBordersOfCountry
+  {
+    vector<m2::RegionD> & m_vec;
+  public:
+    GetBordersOfCountry(vector<m2::RegionD> & vec) : m_vec(vec) {}
+    void operator()(m2::RegionD const & region)
+    {
+      m_vec.push_back(region);
+    }
+
+  };
+  typedef vector<m2::RegionD> vec_type;
+  vec_type & m_vec;
+  string const & m_name;
+
+public:
+  GetCountriesBordersByName(vec_type & vec, string const & name) : m_vec(vec), m_name(name) {}
+  void operator() (borders::CountryPolygons const & c)
+  {
+    if (c.m_name == m_name)
+    {
+      GetBordersOfCountry getter(m_vec);
+      c.m_regions.ForEach(getter);
+    }
+  }
+};
+
+class GetMWMName
+{
+  class CheckPointInBorder
+  {
+    m2::PointD const & m_point;
+    bool & m_inside;
+  public:
+    CheckPointInBorder(m2::PointD const & point, bool & inside) : m_point(point), m_inside(inside) {m_inside=false;}
+    void operator()(m2::RegionD const & region)
+    {
+      if (region.Contains(m_point))
+        m_inside=true;
+    }
+  };
+
+  string  & m_name;
+  m2::PointD const & m_point;
+public:
+  GetMWMName(string & name, m2::PointD const & point) : m_name(name), m_point(point) {}
+  void operator() (borders::CountryPolygons const & c)
+  {
+    bool inside;
+    CheckPointInBorder getter(m_point, inside);
+    c.m_regions.ForEachInRect(m2::RectD(m_point, m_point), getter);
+    if (inside)
+    {
+      m_name = c.m_name;
+      LOG(LINFO, ("FROM INSIDE 0_0 ", m_name));
+    }
+    else
+      LOG(LINFO, ("NOT INSIDE ", c.m_name));
+  }
+};
+
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 
@@ -47,11 +129,24 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   }
 
   vector<m2::RegionD> regionBorders;
-  OutgoingVectorT outgoingNodes;
-  OutgoingVectorT finalOutgoingNodes;
-  OutgoingVectorT finalIngoingNodes;
+  routing::CrossRoutingContext crossContext;
   LOG(LINFO, ("Loading countries borders"));
+  borders::CountriesContainerT m_countries;
+  CHECK(borders::LoadCountriesList(baseDir, m_countries),
+      ("Error loading country polygons files"));
   {
+    vector<m2::RegionD> tmpRegionBorders;
+    GetCountriesBordersByName getter(tmpRegionBorders, countryName);
+    m_countries.ForEach(getter);
+    for (m2::RegionD const& border: tmpRegionBorders)
+    {
+      m2::RegionD finalBorder;
+      finalBorder.Data().reserve(border.Data().size());
+      for (auto p = tmpRegionBorders.data()->Begin(); p<tmpRegionBorders.data()->End(); ++p)
+        finalBorder.AddPoint(m2::PointD(MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)));
+      regionBorders.push_back(finalBorder);
+    }
+    /*
     vector<m2::RegionD> tmpRegionBorders;
     if (osm::LoadBorders(baseDir + BORDERS_DIR + countryName + BORDERS_EXTENSION, tmpRegionBorders))
     {
@@ -64,7 +159,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           finalBorder.AddPoint(m2::PointD(MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)));
         regionBorders.push_back(finalBorder);
       }
-    }
+    }*/
   }
 
   gen::OsmID2FeatureID osm2ft;
@@ -108,9 +203,15 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           //}
           bool outStart = border.Contains(pts[0]), outEnd = border.Contains(pts[1]);
           if (outStart == true && outEnd == false)
-            finalOutgoingNodes.push_back(nodeId);
+          {
+            string mwmName;
+            m2::PointD mercatorPoint(MercatorBounds::LonToX(pts[1].x), MercatorBounds::LatToY(pts[1].y));
+            GetMWMName getter(mwmName, mercatorPoint);
+            m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), getter);
+            crossContext.addOutgoingNode(nodeId, mwmName);
+          }
           if (outStart == false && outEnd == true)
-            finalIngoingNodes.push_back(nodeId);
+            crossContext.addIngoingNode(nodeId);
         }
       }
     }
@@ -234,8 +335,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   LOG(LINFO, ("All:", all, "Found:", found, "Not found:", all - found, "More that one segs in node:", moreThan1Seg,
               "Multiple:", multiple, "Equal:", equal));
 
-  LOG(LINFO, ("At border", outgoingNodes.size()));
-
   LOG(LINFO, ("Collect all data into one file..."));
   string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
 
@@ -266,16 +365,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   appendFile(ROUTING_EDGEID_FILE_TAG);
 
   {
-    LOG(LINFO, ("Filtering outgoing candidates"));
-    //Sort nodes
-    sort(outgoingNodes.begin(), outgoingNodes.end());
-    outgoingNodes.erase(
-        unique(outgoingNodes.begin(), outgoingNodes.end()),
-        outgoingNodes.end());
-
-
-
-
     // Load routing facade
     OsrmRawDataFacade<QueryEdge::EdgeData> facade;
     ReaderSource<ModelReaderPtr> edgeSource(new FileReader(osrmFile + "." + ROUTING_EDGEDATA_FILE_TAG));
@@ -308,59 +397,38 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       }
     }
 
-
-    size_t single_counter = 0;
-
-    for (auto nodeId: outgoingNodes)
+    LOG(LINFO, ("Calculating weight map between outgoing nodes"));
+    crossContext.reserveAdjacencyMatrix();
+    auto in = crossContext.GetIngoingIterators();
+    auto out = crossContext.GetOutgoingIterators();
+    MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
+    for (auto i=in.first; i<in.second; ++i )
     {
-
-      // Check if there is no outgoing nodes
-      auto const it = incomeEdgeCountMap.find(nodeId);
-      size_t const out_degree = facade.GetOutDegree(nodeId) + (0 ? it == incomeEdgeCountMap.end() : it->second);
-      if (out_degree == 3)
-        finalOutgoingNodes.push_back(nodeId);
-      finalIngoingNodes.push_back(nodeId);
-      continue;
-      if (facade.GetOutDegree(nodeId) == 0  && it != incomeEdgeCountMap.end())
-      {
-        LOG(LINFO, ("!!! 0 INCOME HAS OUTCOMES ", it->second ));
-        for (size_t nodeIt = 0; nodeIt < nodeDataSize; ++nodeIt)
-        {
-          for(auto e: facade.GetAdjacentEdgeRange(nodeIt))
-          {
-            const size_t target_node = facade.GetTarget(e);
-
-            if (target_node == nodeId)
-            {
-              QueryEdge::EdgeData edge = facade.GetEdgeData(e, nodeIt);
-              LOG(LINFO, (nodeIt, nodeId, edge.shortcut, edge.forward, edge.backward, edge.distance,edge.id));
-            }
-          }
-        }
-        single_counter++;
-        continue;
-      }
-      //LOG(LINFO, ("!!! HAVE DELTA ", facade.GetOutDegree(nodeId) ));
-      if (facade.GetOutDegree(nodeId)  == 2) // no outgoing edges
-      {
-        finalOutgoingNodes.push_back(nodeId);
-        continue;
-      }
-      // Check if there is no income nodes
-      if (it == incomeEdgeCountMap.end() || it->second==1) //No income or self income
-        finalIngoingNodes.push_back(nodeId);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(*i, sources[distance(in.first, i)]);
     }
-    LOG(LINFO, ("Outgoing filering done! Have: ", finalOutgoingNodes.size(), "outgoing nodes and ",finalIngoingNodes.size(), "single nodes",single_counter));
-    //for (auto n: outgoingNodes)
-    //  LOG(LINFO, ("Node: ", n));
-    // Write outs information
-    FileWriter w = routingCont.GetWriter(ROUTING_OUTGOING_FILE_TAG);
-    rw::WriteVectorOfPOD(w, finalOutgoingNodes);
-    w.WritePadding(4);
-    FileWriter wi = routingCont.GetWriter(ROUTING_INGOING_FILE_TAG);
-    rw::WriteVectorOfPOD(wi, finalIngoingNodes);
-    wi.WritePadding(4);
+    for (auto i=out.first; i<out.second; ++i )
+    {
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->first, targets[distance(out.first, i)]);
+    }
+
+    vector<EdgeWeight> costs;
+    OsrmRouter::FindWeightsMatrix(sources, targets, facade, costs);
+    auto res = costs.begin();
+    for (auto i=in.first; i<in.second; ++i )
+      for (auto j=out.first; j<out.second; ++j )
+      {
+        crossContext.setAdjacencyCost(i, j, *res);
+        LOG(LINFO, ("Have weight", *res));
+        ++res;
+      }
+
+    LOG(LINFO, ("Calculating weight map between outgoing nodes DONE"));
   }
+
+  FileWriter w = routingCont.GetWriter(ROUTING_CROSS_CONTEXT_TAG);
+  crossContext.Save(w);
+  w.WritePadding(4);
+  LOG(LINFO, ("Write routing info. Have", w.Pos(), "bytes"));
 
   routingCont.Finish();
 
@@ -372,6 +440,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
 void BuildCrossesRoutingIndex(string const & baseDir)
 {
+/*
   vector<size_t> outgoingNodes1;
   vector<size_t> outgoingNodes2;
   vector<size_t> result;
@@ -383,8 +452,6 @@ void BuildCrossesRoutingIndex(string const & baseDir)
   ReaderSource<FileReader> r2(f2Cont.GetReader(ROUTING_OUTGOING_FILE_TAG));
 
   LOG(LINFO, ("Loading mwms"));
-  /*ReaderPtr<Reader> r1 = f1Cont.GetReader(ROUTING_OUTGOING_FILE_TAG);
-  ReaderPtr<Reader> r2 = f2Cont.GetReader(ROUTING_OUTGOING_FILE_TAG);*/
   rw::ReadVectorOfPOD(r1,outgoingNodes1);
   rw::ReadVectorOfPOD(r2,outgoingNodes2);
 
@@ -393,7 +460,7 @@ void BuildCrossesRoutingIndex(string const & baseDir)
   sort(outgoingNodes2.begin(), outgoingNodes2.end());
   set_intersection(outgoingNodes1.begin(),outgoingNodes1.end(),outgoingNodes2.begin(),outgoingNodes2.end(),back_inserter(result));
   LOG(LINFO, ("Have nodes after intersection", result.size()));
-
+*/
 }
 
 }
