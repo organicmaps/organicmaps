@@ -47,6 +47,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   private static MWMApplication mSelf;
 
+  private boolean mAreStatsInitialised;
   private boolean mIsYota = false;
 
   // We check how old is modified date of our MapsWithMe folder
@@ -139,12 +140,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
     // init BookmarkManager (automatically loads bookmarks)
     BookmarkManager.getBookmarkManager();
-
-    updateLaunchNumbers();
-    updateSessionsNumber();
-    initMrgs();
-    WorkerService.startActionUpdateAds(this);
-    PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
   }
 
   private void initMrgs()
@@ -244,10 +239,25 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   public native void nativeSetDouble(String name, double value);
 
-  public void onMwmStart(Activity activity)
+  public void onMwmCreate(Activity activity)
   {
     FbUtil.activate(activity);
-    initMAT(activity);
+    initMat(activity);
+
+    initStats();
+  }
+
+  private void initStats()
+  {
+    if (!mAreStatsInitialised)
+    {
+      mAreStatsInitialised = true;
+      updateLaunchNumbers();
+      updateSessionsNumber();
+      initMrgs();
+      WorkerService.startActionUpdateAds(this);
+      PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+    }
   }
 
   public void onMwmResume(Activity activity)
@@ -319,7 +329,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     return nativeGetInt(FIRST_INSTALL_VERSION, 0);
   }
 
-  private void initMAT(Activity activity)
+  private void initMat(Activity activity)
   {
     if (!Utils.hasAnyGoogleStoreInstalled())
     {

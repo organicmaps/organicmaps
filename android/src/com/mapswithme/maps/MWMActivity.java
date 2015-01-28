@@ -700,7 +700,7 @@ public class MWMActivity extends NvEventQueueActivity
     super.onCreate(savedInstanceState);
 
     // Log app start events - successful installation means that user has passed DownloadResourcesActivity
-    MWMApplication.get().onMwmStart(this);
+    MWMApplication.get().onMwmCreate(this);
 
     // Do not turn off the screen while benchmarking
     if (MWMApplication.get().nativeIsBenchmarking())
