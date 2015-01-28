@@ -2,6 +2,7 @@
 #include "bookmark.hpp"
 #include "user_mark_container.hpp"
 #include "user_mark_dl_cache.hpp"
+#include "route_track.hpp"
 
 #include "../std/unique_ptr.hpp"
 
@@ -11,7 +12,7 @@ namespace graphics { class Screen; }
 
 class BookmarkManager : private noncopyable
 {
-  unique_ptr<Track> m_routeTrack;
+  unique_ptr<RouteTrack> m_routeTrack;
   vector<BookmarkCategory *> m_categories;
   string m_lastCategoryUrl;
   string m_lastType;
@@ -86,7 +87,7 @@ public:
   void SetScreen(graphics::Screen * screen);
   void ResetScreen();
 
-  void SetRouteTrack(Track & track);
+  void SetRouteTrack(RouteTrack & track);
   void ResetRouteTrack();
 
 private:

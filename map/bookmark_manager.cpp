@@ -253,6 +253,8 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 {
 #ifndef USE_DRAPE
   ASSERT(m_cache != NULL, ());
+  ASSERT(m_framework.GetLocationState(), ());
+
   ScreenBase const & screen = m_framework.GetNavigator().Screen();
   m2::RectD const limitRect = screen.ClipRect();
 
@@ -260,23 +262,27 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 
   double const drawScale = m_framework.GetDrawScale();
   double const visualScale = m_framework.GetVisualScale();
-  auto trackUpdateFn = [&matrix, &limitRect, this, drawScale, visualScale](Track const * track)
+  location::RouteMatchingInfo const & matchingInfo = m_framework.GetLocationState()->GetRouteMatchingInfo();
+
+  auto trackUpdateFn = [&matrix, &limitRect, this, drawScale, visualScale, &matchingInfo](Track const * track)
   {
+    ASSERT(track, ());
     if (limitRect.IsIntersect(track->GetLimitRect()))
-    {
-      if (!track->HasDisplayList() || matrix.IsScaleChanged())
-        track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P(), drawScale, visualScale);
-    }
+      track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P(), matrix.IsScaleChanged(), drawScale, visualScale, matchingInfo);
     else
       track->DeleteDisplayList();
   };
 
-  auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
+  auto dlUpdateFn = [&matrix, &trackUpdateFn] (BookmarkCategory const * cat)
   {
     if (cat->IsVisible())
     {
       for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-        trackUpdateFn(cat->GetTrack(j));
+      {
+        Track const * track = cat->GetTrack(j);
+        ASSERT(track, ());
+        trackUpdateFn(track);
+      }
     }
   };
 
@@ -284,6 +290,7 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   for (size_t i = 0; i < m_categories.size(); ++i)
   {
     BookmarkCategory const * cat = m_categories[i];
+    ASSERT(cat, ());
     dlUpdateFn(cat);
   }
 
@@ -477,7 +484,7 @@ void BookmarkManager::ResetScreen()
   }
 }
 
-void BookmarkManager::SetRouteTrack(Track & track)
+void BookmarkManager::SetRouteTrack(RouteTrack & track)
 {
   m_routeTrack.reset(track.CreatePersistent());
 }

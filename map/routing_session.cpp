@@ -7,6 +7,7 @@
 
 #include "../coding/internal/file_data.hpp"
 
+#include "../map/location_state.hpp"
 
 using namespace location;
 
@@ -189,14 +190,14 @@ void RoutingSession::DeleteIndexFile(string const & fileName)
   (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
 }
 
-void RoutingSession::MatchLocationToRoute(location::GpsInfo & location) const
+void RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
   if (m_state != State::OnRoute)
     return;
 
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
-  m_route.MatchLocationToRoute(location);
+  m_route.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
 }

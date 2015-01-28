@@ -506,7 +506,7 @@ private:
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void MatchLocationToRoute(location::GpsInfo & info) const;
+  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
   void CallRouteBuilded(routing::IRouter::ResultCode code);
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 

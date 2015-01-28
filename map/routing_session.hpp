@@ -13,6 +13,8 @@
 #include "../base/mutex.hpp"
 
 
+namespace location {   class RouteMatchingInfo;}
+
 namespace routing
 {
 
@@ -59,7 +61,7 @@ public:
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void DeleteIndexFile(string const & fileName);
-  void MatchLocationToRoute(location::GpsInfo & location) const;
+  void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
 private:
   struct DoReadyCallback

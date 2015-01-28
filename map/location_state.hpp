@@ -6,6 +6,8 @@
 
 #include "../base/timer.hpp"
 
+#include "../routing/turns.hpp"
+
 #include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
@@ -23,6 +25,27 @@ namespace location
   class GpsInfo;
   class CompassInfo;
 
+  class RouteMatchingInfo
+  {
+    m2::PointD m_matchedPosition;
+    size_t m_indexInRoute;
+    bool m_isPositionMatched;
+
+    RouteMatchingInfo(RouteMatchingInfo const &) = delete;
+  public:
+    RouteMatchingInfo() : m_matchedPosition(0., 0.), m_indexInRoute(0), m_isPositionMatched(false) {}
+    void SetRouteMatchingInfo(m2::PointD const & matchedPosition, size_t indexInRoute)
+    {
+      m_matchedPosition = matchedPosition;
+      m_indexInRoute = indexInRoute;
+      m_isPositionMatched = true;
+    }
+    void ResetRouteMatchingInfo() { m_isPositionMatched = false; }
+    bool hasRouteMatchingInfo() const { return m_isPositionMatched; }
+    size_t GetIndexInRoute() const { return m_indexInRoute; }
+    m2::PointD GetPosition() const { return m_matchedPosition; }
+  };
+
   // Class, that handles position and compass updates,
   // centers, scales and rotates map according to this updates
   // and draws location and compass marks.
@@ -38,7 +61,6 @@ namespace location
       Params();
     };
 
-  public:
     // Do not change the order and values
     enum Mode
     {
@@ -98,9 +120,12 @@ namespace location
 
     /// @name GPS location updates routine.
     //@{
-    void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable);
+    void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeMatchingInfo);
     void OnCompassUpdate(location::CompassInfo const & info);
     //@}
+
+    RouteMatchingInfo const & GetRouteMatchingInfo() const { return m_routeMatchingInfo; }
+    void ResetRouteMatchingInfo() { m_routeMatchingInfo.ResetRouteMatchingInfo(); }
 
     /// @name Override from graphics::OverlayElement and gui::Element.
     //@{
@@ -147,7 +172,6 @@ namespace location
     void Assign(location::GpsInfo const & info, bool isNavigable);
     bool Assign(location::CompassInfo const & info);
     void SetDirection(double bearing);
-
     const m2::PointD GetPositionForDraw() const;
 
   private:
@@ -169,6 +193,8 @@ namespace location
     double m_drawDirection;
     my::Timer m_lastGPSBearing;
     Mode m_afterPendingMode;
+
+    RouteMatchingInfo m_routeMatchingInfo;
 
     typedef map<int, TStateModeListener> TModeListeners;
     typedef map<int, TPositionListener> TPositionListeners;

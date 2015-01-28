@@ -85,4 +85,6 @@ public:
   void setEmptyCountryIndex(storage::TIndex const & idx);
 
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
+
+  void ResetRouteMatchingInfo();
 };

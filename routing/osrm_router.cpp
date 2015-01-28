@@ -1158,7 +1158,8 @@ void OsrmRouter::CalculateTurnGeometry(vector<m2::PointD> const & points, Route:
     uint32_t const afterPivotCount = beforePivotCount + 10;
     uint32_t const fromIndex = (t.m_index <= beforePivotCount) ? 0 : t.m_index - beforePivotCount;
     uint32_t const toIndex = min<uint32_t>(pointsSz, t.m_index + afterPivotCount);
-    turnsGeom.emplace_back(beforePivotCount, points.begin() + fromIndex, points.begin() + toIndex);
+    uint32_t const turnIndex = (t.m_index <= beforePivotCount ? t.m_index : beforePivotCount);
+    turnsGeom.emplace_back(t.m_index, turnIndex, points.begin() + fromIndex, points.begin() + toIndex);
   }
 }
 

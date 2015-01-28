@@ -11,6 +11,9 @@
 
 #include "../std/numeric.hpp"
 
+#include "../map/location_state.hpp"
+
+
 namespace routing
 {
 
@@ -169,7 +172,6 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
   m2::RectD const rect = MercatorBounds::MetresToXY(
         info.m_longitude, info.m_latitude,
         max(ON_ROAD_TOLERANCE_M, info.m_horizontalAccuracy));
-
   IterT const res = FindProjection(rect, predictDistance);
   if (res.IsValid())
   {
@@ -208,7 +210,7 @@ double Route::GetPolySegAngle(size_t ind) const
   return (i == polySz) ? 0 : my::RadToDeg(ang::AngleTo(p1, p2));
 }
 
-void Route::MatchLocationToRoute(location::GpsInfo & location) const
+void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
   if (m_current.IsValid())
   {
@@ -220,6 +222,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location) const
       location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
       location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
       location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
+      routeMatchingInfo.SetRouteMatchingInfo(m_current.m_pt, m_current.m_ind);
     }
   }
 }

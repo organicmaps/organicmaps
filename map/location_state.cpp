@@ -262,6 +262,7 @@ State::State(Params const & p)
     m_drawDirection(0.0),
     m_lastGPSBearing(false),
     m_afterPendingMode(Follow),
+    m_routeMatchingInfo(),
     m_currentSlotID(0)
 {
   m_locationAreaColor = p.m_locationAreaColor;
@@ -390,9 +391,10 @@ void State::TurnOff()
   invalidate();
 }
 
-void State::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable)
+void State::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeMatchingInfo)
 {
   Assign(info, isNavigable);
+  m_routeMatchingInfo = routeMatchingInfo;
 
   setIsVisible(true);
 

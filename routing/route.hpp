@@ -8,7 +8,11 @@
 #include "../std/string.hpp"
 
 
-namespace location { class GpsInfo; }
+namespace location
+{
+  class GpsInfo;
+  class RouteMatchingInfo;
+}
 
 namespace routing
 {
@@ -102,7 +106,7 @@ public:
 
   /// Square distance to current projection in mercator.
   double GetCurrentSqDistance(m2::PointD const & pt) const;
-  void MatchLocationToRoute(location::GpsInfo & location) const;
+  void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
   bool IsCurrentOnEnd() const;
 

@@ -66,6 +66,7 @@ HEADERS += \
     routing_session.hpp \
     country_tree.hpp \
     active_maps_layout.hpp \
+    route_track.hpp \
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -123,6 +124,7 @@ SOURCES += \
     routing_session.cpp \
     country_tree.cpp \
     active_maps_layout.cpp \
+    route_track.cpp \
 
 !iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp

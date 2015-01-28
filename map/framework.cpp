@@ -133,11 +133,12 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 #else
   GpsInfo rInfo(info);
 #endif
+  location::RouteMatchingInfo routeMatchingInfo;
   CheckLocationForRouting(rInfo);
-  MatchLocationToRoute(rInfo);
+  MatchLocationToRoute(rInfo, routeMatchingInfo);
 
   shared_ptr<State> const & state = GetLocationState();
-  state->OnLocationUpdate(rInfo, m_routingSession.IsNavigable());
+  state->OnLocationUpdate(rInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
 
   if (state->IsModeChangeViewport())
     UpdateUserViewportChanged();
@@ -1998,7 +1999,7 @@ void Framework::InsertRoute(Route const & route)
 {
   float const visScale = GetVisualScale();
 
-  Track track(route.GetPoly());
+  RouteTrack track(route.GetPoly());
   track.SetName(route.GetName());
   track.SetTurnsGeometry(route.GetTurnsGeometry());
 
@@ -2010,10 +2011,10 @@ void Framework::InsertRoute(Route const & route)
   };
 
   track.AddOutline(outlines, ARRAY_SIZE(outlines));
-  track.AddClosingSymbol(true, "route_from", graphics::EPosCenter, graphics::routingSymbolsDepth);
   track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
 
   m_bmManager.SetRouteTrack(track);
+  m_informationDisplay.ResetRouteMatchingInfo();
   Invalidate();
 }
 
@@ -2033,11 +2034,11 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   }
 }
 
-void Framework::MatchLocationToRoute(location::GpsInfo & location) const
+void Framework::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
   if (!IsRoutingActive())
     return;
-  m_routingSession.MatchLocationToRoute(location);
+  m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
 void Framework::CallRouteBuilded(IRouter::ResultCode code)

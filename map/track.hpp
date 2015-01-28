@@ -6,9 +6,10 @@
 #include "../graphics/color.hpp"
 #include "../graphics/defines.hpp"
 
-#include "../routing/turns.hpp"
-
 #include "../std/noncopyable.hpp"
+
+#include "../base/buffer_vector.hpp"
+
 
 class Navigator;
 namespace graphics
@@ -16,16 +17,32 @@ namespace graphics
   class Screen;
   class DisplayList;
 }
+namespace location
+{
+  class RouteMatchingInfo;
+}
+
+template <class T> class DoLeftProduct
+{
+  T const & m_t;
+public:
+  DoLeftProduct(T const & t) : m_t(t) {}
+  template <class X> X operator() (X const & x) const { return x * m_t; }
+};
+
+typedef math::Matrix<double, 3, 3> MatrixT;
+typedef buffer_vector<m2::PointD, 32> PointContainerT;
 
 class Track : private noncopyable
 {
-  typedef math::Matrix<double, 3, 3> MatrixT;
+  Track & operator=(Track const &) = delete;
+  Track(Track const &) = delete;
 
 public:
-  Track() {}
-  ~Track();
-
   typedef m2::PolylineD PolylineD;
+
+  Track() {}
+  virtual ~Track();
 
   explicit Track(PolylineD const & polyline)
     : m_isVisible(true),
@@ -37,12 +54,13 @@ public:
   }
 
   /// @note Move semantics is used here.
-  Track * CreatePersistent();
+  virtual Track * CreatePersistent();
   float GetMainWidth() const;
   graphics::Color const & GetMainColor() const;
 
-  void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
-  void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, int drawScale, double visualScale) const;
+  virtual void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
+  virtual void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
+                         int, double, location::RouteMatchingInfo const &) const;
   void DeleteDisplayList() const;
   bool HasDisplayList() const { return m_dList != nullptr; }
 
@@ -61,45 +79,29 @@ public:
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
-  void SetTurnsGeometry(routing::turns::TurnsGeomT const & turnsGeom) { m_turnsGeom = turnsGeom; }
 
   PolylineD const & GetPolyline() const { return m_polyline; }
   m2::RectD const & GetLimitRect() const { return m_rect; }
   //@}
-
-  void AddClosingSymbol(bool isBeginSymbol, string const & symbolName,
-                        graphics::EPosition pos, double depth);
-
   double GetLengthMeters() const;
 
+protected:
+  graphics::DisplayList * GetDisplayList() const { return m_dList; }
+  void SetDisplayList(graphics::DisplayList * dl) const { m_dList = dl; }
+  void CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts2) const;
   void Swap(Track & rhs);
 
 private:
-  void CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT const & matrix, double visualScale) const;
-
   bool m_isVisible = false;
   string m_name;
 
   vector<TrackOutline> m_outlines;
-
-  struct ClosingSymbol
-  {
-    ClosingSymbol(string const & iconName, graphics::EPosition pos, double depth)
-      : m_iconName(iconName), m_position(pos), m_depth(depth) {}
-    string m_iconName;
-    graphics::EPosition m_position;
-    double m_depth;
-  };
-
-  vector<ClosingSymbol> m_beginSymbols;
-  vector<ClosingSymbol> m_endSymbols;
-
   PolylineD m_polyline;
-  routing::turns::TurnsGeomT m_turnsGeom;
   m2::RectD m_rect;
 
   mutable graphics::DisplayList * m_dList = nullptr;
 };
 
-bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
-                                       size_t turnIndex, double beforeTurn, double afterTurn, double arrowLength);
+void TransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, PointContainerT & pts);
+void SymplifyAndTransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix,
+                                  double width, PointContainerT & pts);

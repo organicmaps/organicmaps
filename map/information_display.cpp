@@ -270,3 +270,8 @@ void InformationDisplay::measurementSystemChanged()
 {
   m_ruler->setIsDirtyLayout(true);
 }
+
+void InformationDisplay::ResetRouteMatchingInfo()
+{
+  m_locationState->ResetRouteMatchingInfo();
+}
