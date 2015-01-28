@@ -9,6 +9,7 @@
 #include "../base/mutex.hpp"
 
 #include "../std/function.hpp"
+#include "../std/numeric.hpp"
 #include "../std/atomic.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
@@ -239,14 +240,20 @@ protected:
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
 private:
-  typedef pair<size_t,string> MwmOut;
-  typedef set<MwmOut> CheckedOuts;
+  typedef pair<size_t,string> MwmOutT;
+  typedef set<MwmOutT> CheckedOutsT;
   struct RoutePathCross {
     string mwmName;
     FeatureGraphNode startNode;
     FeatureGraphNode targetNode;
+    EdgeWeight weight;
   };
   typedef vector<RoutePathCross> CheckedPathT;
+
+  static EdgeWeight getPathWeight(CheckedPathT const & path)
+  {
+    return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
+  }
 
   ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);

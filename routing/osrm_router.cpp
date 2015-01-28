@@ -26,6 +26,8 @@
 #include "../3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
 #include "../3party/osrm/osrm-backend/RoutingAlgorithms/ManyToManyRouting.h"
 
+#include "../std/queue.hpp"
+
 
 namespace routing
 {
@@ -824,9 +826,17 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
 
 
-
     EdgeWeight finalWeight = numeric_limits<EdgeWeight>::max();
     CheckedPathT finalPath;
+
+    struct pathChecker{
+      bool operator() (CheckedPathT const & a, CheckedPathT const & b) const {
+        return getPathWeight(b)<getPathWeight(a); // backward sort
+      }
+    };
+
+    priority_queue<CheckedPathT, vector<CheckedPathT>, pathChecker> crossTasks;
+    CheckedOutsT checkedOuts;
 
 
     for (size_t i=0; i<sources.size(); ++i)
@@ -838,6 +848,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         {
           found = true;
           string const & nextMwm = startContext.getOutgoingMwmName((out_iterators.first+j)->second);
+          LOG(LINFO, ("Next mwm", nextMwm));
           RoutingMappingPtrT nextMapping;
           try
           {
@@ -852,7 +863,17 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
           size_t nextNodeId = FindNextMwmNode(startMapping, tNodeId, nextMapping);
           if(!nextNodeId)
             continue;
-          if (nextMwm == finalMapping->GetName())
+          checkedOuts.insert(make_pair(tNodeId, startMapping->GetName()));
+          if (nextMwm != finalMapping->GetName())
+          {
+            CheckedPathT tmpPath;
+            FeatureGraphNode tmpNode;
+            OsrmRouter::GenerateRoutingTaskFromNodeId(nextNodeId, tmpNode);
+            tmpPath.push_back({startMapping->GetName(), sources[i], targets[j], weights[ i*sources.size() + j]});
+            tmpPath.push_back({nextMapping->GetName(), tmpNode, tmpNode, 0});
+            crossTasks.push(tmpPath);
+          }
+          else
           {
             auto it = income_iterators.second;
             for (auto k=income_iterators.first; k < income_iterators.second; ++k)
@@ -863,7 +884,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
             if (it == income_iterators.second)
               continue;
             int p=0;
-            size_t targetWeight = target_weights[distance(income_iterators.first, it)];
+            EdgeWeight targetWeight = target_weights[distance(income_iterators.first, it)];
             if (targetWeight == numeric_limits<EdgeWeight>::max())
               for (p=1; p<income_sources.size(); ++p)
               {
@@ -878,8 +899,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
             {
               finalWeight = newWeight;
               finalPath.clear();
-              finalPath.push_back({startMapping->GetName(), sources[i], targets[j]});
-              finalPath.push_back({finalMapping->GetName(), income_sources[distance(income_iterators.first, it)], income_targets[p]});
+              finalPath.push_back({startMapping->GetName(), sources[i], targets[j], weights[ i*sources.size() + j]});
+              finalPath.push_back({finalMapping->GetName(), income_sources[distance(income_iterators.first, it)], income_targets[p], targetWeight});
             }
           }
         }
@@ -888,9 +909,129 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         break;
     }
 
+    if (crossTasks.size())
+    {
+      while (getPathWeight(crossTasks.top())<finalWeight)
+      {
+        CheckedPathT const & topTask = crossTasks.top();
+        RoutePathCross const & cross = topTask.back();
+        RoutingMappingPtrT currentMapping;
+        try
+        {
+          currentMapping = m_indexManager.GetMappingByName(cross.mwmName, m_pIndex);
+        }
+        catch (OsrmRouter::ResultCode e)
+        {
+          crossTasks.pop();
+          continue; //There is no outgoing mwm
+        }
+        currentMapping->LoadFacade();
+        currentMapping->Map();
+        CrossRoutingContext const & currentContext = currentMapping->dataFacade.getRoutingContext();
+        auto current_in_iterators = currentContext.GetIngoingIterators();
+        auto current_out_iterators = currentContext.GetOutgoingIterators();
+
+        //find income number
+        //auto const iit = find(current_in_iterators.first, current_in_iterators.second, cross.startNode.m_node.forward_node_id);
+        auto iit = current_in_iterators.second;
+        for (auto q = current_in_iterators.first; q<current_in_iterators.second; ++q)
+          if (*q==cross.startNode.m_node.forward_node_id)
+          {
+            iit = q;
+            break;
+          }
+        ASSERT(iit != current_in_iterators.second, ());
+
+        //find outs
+        for (auto oit=current_out_iterators.first; oit!= current_out_iterators.second; ++oit)
+        {
+          const EdgeWeight outWeight = currentContext.getAdjacencyCost(iit, oit);
+          if (outWeight != numeric_limits<EdgeWeight>::max())
+          {
+            if (getPathWeight(topTask)+outWeight < finalWeight)
+            {
+              string const & nextMwm = currentContext.getOutgoingMwmName(oit->second);
+              RoutingMappingPtrT nextMapping;
+              try
+              {
+                nextMapping = m_indexManager.GetMappingByName(nextMwm, m_pIndex);
+              }
+              catch (OsrmRouter::ResultCode e)
+              {
+                  continue; //There is no outgoing mwm
+              }
+
+              nextMapping->Map();
+              nextMapping->LoadFacade();
+              size_t tNodeId = oit->first;
+              auto const outNode = make_pair(tNodeId, startMapping->GetName());
+              if (checkedOuts.find(outNode)!=checkedOuts.end())
+                continue;
+              checkedOuts.insert(outNode);
+              size_t nextNodeId = FindNextMwmNode(currentMapping, tNodeId, nextMapping);
+              if(!nextNodeId)
+                continue;
+              if (nextMwm != finalMapping->GetName())
+              {
+                CheckedPathT tmpPath(crossTasks.top());
+                crossTasks.pop();
+                FeatureGraphNode startNode, stopNode, tmpNode;
+                OsrmRouter::GenerateRoutingTaskFromNodeId(nextNodeId, tmpNode);
+                OsrmRouter::GenerateRoutingTaskFromNodeId(*iit, startNode);
+                OsrmRouter::GenerateRoutingTaskFromNodeId(oit->first, stopNode);
+                tmpPath.push_back({currentMapping->GetName(), startNode, stopNode, outWeight});
+                tmpPath.push_back({nextMapping->GetName(), tmpNode, tmpNode, 0});
+                crossTasks.push(tmpPath);
+              }
+              else
+              {
+                auto it = income_iterators.second;
+                for (auto k=income_iterators.first; k < income_iterators.second; ++k)
+                {
+                  if (*k==nextNodeId)
+                    it=k;
+                }
+                if (it == income_iterators.second)
+                  continue;
+                int p=0;
+                EdgeWeight targetWeight = target_weights[distance(income_iterators.first, it)];
+                if (targetWeight == numeric_limits<EdgeWeight>::max())
+                  for (p=1; p<income_sources.size(); ++p)
+                  {
+                    targetWeight = target_weights[p*income_targets.size()+distance(income_iterators.first, it)];
+                    if (targetWeight != numeric_limits<EdgeWeight>::max())
+                      break;
+                  }
+                if (targetWeight == numeric_limits<EdgeWeight>::max())
+                  continue;
+                const EdgeWeight newWeight = getPathWeight(topTask) + outWeight + targetWeight;
+                if (newWeight<finalWeight)
+                {
+                  finalWeight = newWeight;
+                  finalPath = CheckedPathT(crossTasks.top());
+                  finalPath.pop_back();
+                  FeatureGraphNode startNode, stopNode;
+                  OsrmRouter::GenerateRoutingTaskFromNodeId(*iit, startNode);
+                  OsrmRouter::GenerateRoutingTaskFromNodeId(oit->first, stopNode);
+                  finalPath.push_back({currentMapping->GetName(), startNode, stopNode, outWeight});
+                  finalPath.push_back({finalMapping->GetName(), income_sources[distance(income_iterators.first, it)], income_targets[p], targetWeight});
+                }
+
+              }
+            }
+          }
+        }
+
+        //CrossRoutingContext const & targetContext = finalMapping->dataFacade.getRoutingContext();
+        //auto income_iterators = targetContext.GetIngoingIterators();
+
+        crossTasks.pop();
+        if (!crossTasks.size())
+          break;
+      }
+    }
+
     LOG(LINFO, ("Facade data", startMapping->dataFacade.GetNumberOfNodes()));
-    startMapping->Unmap();
-    startMapping->FreeFacade();
     if (finalWeight< numeric_limits<EdgeWeight>::max())
       return MakeRouteFromCrossesPath(finalPath, route);
     else

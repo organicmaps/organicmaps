@@ -35,6 +35,15 @@ public:
     return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
   }
 
+  int getAdjacencyCost(std::vector<size_t>::const_iterator ingoing_iter, std::vector<std::pair<size_t,size_t>>::const_iterator outgoin_iter) const
+  {
+    size_t ingoing_index = std::distance(m_ingoingNodes.cbegin(), ingoing_iter);
+    size_t outgoing_index = std::distance(m_outgoingNodes.cbegin(), outgoin_iter);
+    ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
+    ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
+    return m_adjacencyMatrix[m_ingoingNodes.size() * ingoing_index + outgoing_index];
+  }
+
   void Load(Reader const & r)
   {
     size_t size, pos=0;
