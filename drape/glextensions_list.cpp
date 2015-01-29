@@ -16,7 +16,12 @@ namespace dp
   public:
     void CheckExtension(GLExtensionsList::ExtensionName const & enumName, const string & extName)
     {
-      m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
+#ifdef OMIM_OS_ANDROID
+      if (enumName == GLExtensionsList::VertexArrayObject)
+        m_supportedMap[enumName] = false;
+      else
+#endif
+        m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
     }
 
     bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
@@ -40,6 +45,10 @@ namespace dp
   public:
     void CheckExtension(GLExtensionsList::ExtensionName const & enumName, const string & extName)
     {
+#ifdef OMIM_OS_ANDROID
+      if (enumName == GLExtensionsList::VertexArrayObject)
+        return;
+#endif
       if (GLFunctions::glHasExtension(extName))
         m_supported.insert(enumName);
     }
