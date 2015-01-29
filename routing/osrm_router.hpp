@@ -255,6 +255,9 @@ private:
     return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
   }
 
+  FeatureGraphNode const & FilterWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
+                                      std::vector<EdgeWeight> &weightMatrix, bool const filterSource);
+
   ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,
