@@ -1,0 +1,14 @@
+BasedOnStyle: Google
+
+ColumnLimit: 112
+
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackParameters: false  # Use multiple lines for parameters.
+BreakConstructorInitializersBeforeComma: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true  # One per line.
+
+AllowShortFunctionsOnASingleLine: false
+
+Cpp11BracedListStyle: true
+
+IndentCaseLabels: true

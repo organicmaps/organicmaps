@@ -1,0 +1,51 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:+'
+  }
+}
+
+allprojects {
+  repositories {
+    jcenter()
+  }
+}
+
+apply plugin: 'com.android.application'
+
+dependencies {
+  // This one is needed to get Google Play advertising ID if Google Play Services are available on the device.
+  compile 'com.google.android.gms:play-services-location:+'
+}
+
+android {
+  compileSdkVersion 21
+  buildToolsVersion '21.1.1'
+
+  defaultConfig {
+    applicationId 'org.alohalytics.demoapp'
+    minSdkVersion 9
+    targetSdkVersion 21
+    versionCode 1
+    versionName '1.0'
+
+    ndk {
+      moduleName 'alohalytics'
+      stl 'c++_static'
+      cFlags '-frtti -fexceptions'
+      ldLibs 'log', 'atomic'
+    }
+  }
+
+  sourceSets.main {
+    java.srcDirs = ['src/main/java', '../../src/android/java']
+    jni.srcDirs = ['../../src/cpp', '../../src/android/jni']
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
+}

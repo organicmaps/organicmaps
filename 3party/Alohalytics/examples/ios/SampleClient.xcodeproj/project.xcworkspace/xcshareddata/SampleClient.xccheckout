@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DC49AAAD-79F8-48DF-87B1-7B0856F93DB4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SampleClient</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B29F426D1BF5D0F0A418F392D1F363C5DC680EA5</key>
+		<string>github.com:KnowSheet/AlohaStatsClient.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>examples/ios/SampleClient.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B29F426D1BF5D0F0A418F392D1F363C5DC680EA5</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:KnowSheet/AlohaStatsClient.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B29F426D1BF5D0F0A418F392D1F363C5DC680EA5</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B29F426D1BF5D0F0A418F392D1F363C5DC680EA5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AlohaStatsClient</string>
+		</dict>
+	</array>
+</dict>
+</plist>

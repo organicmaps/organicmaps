@@ -1,0 +1,3 @@
+BasedOnStyle: Google
+ColumnLimit: 112          # Calibrated by Dima&Alex for GitHub-based code reviews in 2014.
+BinPackParameters: false  # Allow either all parameters on one line or one parameter per line, no packing.

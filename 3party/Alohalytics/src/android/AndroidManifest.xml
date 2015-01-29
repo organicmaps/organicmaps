@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="org.alohalytics">
+
+      <uses-permission android:name="android.permission.INTERNET"/>
+      <!-- This permission is needed if you want to access device's IMEI.
+           It is not enabled by default as users are very sensitive to it.
+      <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+      -->
+
+    <application>
+        <!-- Used to automatically upload statistics using WiFi. -->
+        <receiver
+            android:name="org.alohalytics.ConnectivityChangedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
