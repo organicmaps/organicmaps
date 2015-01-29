@@ -161,7 +161,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
   double lat, lon;
-  if (![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+  if (!m_mark || ![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
     return;
 
   PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
@@ -1051,7 +1051,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     BookmarkCategory const * category = framework.GetBmCategory(m_categoryIndex);
     if (!category)
+    {
       m_categoryIndex = framework.LastEditedBMCategory();
+      category = framework.GetBmCategory(m_categoryIndex);
+    }
 
     size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
     m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());

@@ -102,10 +102,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   
   if ([action isEqualToString:@"Share"])
   {
-    NSString * textToShare = L(notificationInfo[@"NotificationLocalizedShareTextKey"]);
     NSURL * link = [NSURL URLWithString:notificationInfo[@"NotificationShareLink"]];
-    if (link)
-      textToShare = [textToShare stringByAppendingFormat:@" %@", [link absoluteString]];
     UIImage * shareImage = [UIImage imageNamed:notificationInfo[@"NotifiicationShareImage"]];
     LocalNotificationInfoProvider * infoProvider = [[LocalNotificationInfoProvider alloc] initWithDictionary:notificationInfo];
 
