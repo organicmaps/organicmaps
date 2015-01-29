@@ -14,6 +14,11 @@ public abstract class RenderActivity extends MWMFragmentActivity
                                      implements View.OnTouchListener,
                                                 SurfaceHolder.Callback
 {
+  // Should be equal to values from Framework.cpp MultiTouchAction enum
+  private static final int NATIVE_ACTION_UP = 0x1;
+  private static final int NATIVE_ACTION_DOWN = 0x2;
+  private static final int NATIVE_ACTION_MOVE = 0x3;
+  private static final int NATIVE_ACTION_CANCEL = 0x4;
   private int mLastPointerId = 0;
   private SurfaceHolder mSurfaceHolder = null;
   private int m_displayDensity = 0;
@@ -69,6 +74,23 @@ public abstract class RenderActivity extends MWMFragmentActivity
     if (count == 0)
       return super.onTouchEvent(event);
 
+    int action = event.getAction();
+    switch (action)
+    {
+    case MotionEvent.ACTION_UP:
+      action = NATIVE_ACTION_UP;
+      break;
+    case MotionEvent.ACTION_DOWN:
+      action = NATIVE_ACTION_DOWN;
+      break;
+    case MotionEvent.ACTION_MOVE:
+      action = NATIVE_ACTION_MOVE;
+      break;
+    case MotionEvent.ACTION_CANCEL:
+      action = NATIVE_ACTION_CANCEL;
+      break;
+    }
+
     switch (count)
     {
     case 1:
@@ -78,7 +100,7 @@ public abstract class RenderActivity extends MWMFragmentActivity
       final float x0 = event.getX();
       final float y0 = event.getY();
 
-      return OnTouch(event.getAction(), true, false, x0, y0, 0, 0);
+      return OnTouch(action, true, false, x0, y0, 0, 0);
     }
     default:
     {
@@ -89,9 +111,9 @@ public abstract class RenderActivity extends MWMFragmentActivity
       final float y1 = event.getY(1);
 
       if (event.getPointerId(0) == mLastPointerId)
-        return OnTouch(event.getAction(), true, true, x0, y0, x1, y1);
+        return OnTouch(action, true, true, x0, y0, x1, y1);
       else
-        return OnTouch(event.getAction(), true, true, x1, y1, x0, y0);
+        return OnTouch(action, true, true, x1, y1, x0, y0);
     }
     }
   }
