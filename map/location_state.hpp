@@ -31,7 +31,6 @@ namespace location
     size_t m_indexInRoute;
     bool m_isPositionMatched;
 
-    RouteMatchingInfo(RouteMatchingInfo const &) = delete;
   public:
     RouteMatchingInfo() : m_matchedPosition(0., 0.), m_indexInRoute(0), m_isPositionMatched(false) {}
     void SetRouteMatchingInfo(m2::PointD const & matchedPosition, size_t indexInRoute)
@@ -41,7 +40,7 @@ namespace location
       m_isPositionMatched = true;
     }
     void ResetRouteMatchingInfo() { m_isPositionMatched = false; }
-    bool hasRouteMatchingInfo() const { return m_isPositionMatched; }
+    bool HasRouteMatchingInfo() const { return m_isPositionMatched; }
     size_t GetIndexInRoute() const { return m_indexInRoute; }
     m2::PointD GetPosition() const { return m_matchedPosition; }
   };

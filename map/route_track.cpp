@@ -9,11 +9,24 @@
 
 #include "../indexer/scales.hpp"
 
-
-pair<m2::PointD, m2::PointD> shiftArrow(pair<m2::PointD, m2::PointD> const & arrowDirection)
+namespace
 {
-  return pair<m2::PointD, m2::PointD>(arrowDirection.first - (arrowDirection.second - arrowDirection.first),
-                                      arrowDirection.first);
+  pair<m2::PointD, m2::PointD> shiftArrow(pair<m2::PointD, m2::PointD> const & arrowDirection)
+  {
+    return pair<m2::PointD, m2::PointD>(arrowDirection.first - (arrowDirection.second - arrowDirection.first),
+                                        arrowDirection.first);
+  }
+
+  void drawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD> const & arrowDirection,
+                         double arrowWidth, double arrowLength, graphics::Color arrowColor, double arrowDepth)
+  {
+    ASSERT(dlScreen, ());
+    m2::PointD p1, p2, p3;
+
+    m2::ArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, p1, p2, p3);
+    vector<m2::PointF> arrow = {p1, p2, p3};
+    dlScreen->drawConvexPolygon(&arrow[0], arrow.size(), arrowColor, arrowDepth);
+  }
 }
 
 bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
@@ -113,17 +126,6 @@ bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   return true;
 }
 
-void drawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD> const & arrowDirection,
-                       double arrowWidth, double arrowLength, graphics::Color arrowColor, double arrowDepth)
-{
-  ASSERT(dlScreen, ());
-  m2::PointD p1, p2, p3;
-
-  m2::ArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, p1, p2, p3);
-  vector<m2::PointF> arrow = {p1, p2, p3};
-  dlScreen->drawConvexPolygon(&arrow[0], arrow.size(), arrowColor, arrowDepth);
-}
-
 void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT const & matrix, double visualScale) const
 {
   double const beforeTurn = 13. * visualScale;
@@ -175,7 +177,7 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
   PolylineD const & fullPoly = GetPolyline();
   size_t const formerIndex = m_relevantMatchedInfo.GetIndexInRoute();
 
-  if (matchingInfo.hasRouteMatchingInfo())
+  if (matchingInfo.HasRouteMatchingInfo())
     m_relevantMatchedInfo = matchingInfo;
   size_t const currentIndex = m_relevantMatchedInfo.GetIndexInRoute();
 
@@ -189,7 +191,7 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
   auto const curSegIter = fullPoly.Begin() + currentIndex;
 
   //the most part of the route and symbols
-  if (currentIndex == 0 || formerIndex != currentIndex ||
+  if (formerIndex != currentIndex ||
       !HasDisplayList() || isScaleChanged)
   {
     DeleteDisplayList();
@@ -220,7 +222,7 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
   //closest route segment
   m_closestSegmentDL = dlScreen->createDisplayList();
   dlScreen->setDisplayList(m_closestSegmentDL);
-  PolylineD closestPoly(m_relevantMatchedInfo.hasRouteMatchingInfo() ?
+  PolylineD closestPoly(m_relevantMatchedInfo.HasRouteMatchingInfo() ?
           vector<m2::PointD>({m_relevantMatchedInfo.GetPosition(), fullPoly.GetPoint(currentIndex + 1)}) :
           vector<m2::PointD>({fullPoly.GetPoint(currentIndex), fullPoly.GetPoint(currentIndex + 1)}));
   PointContainerT pts;

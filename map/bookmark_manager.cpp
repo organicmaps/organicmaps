@@ -264,7 +264,7 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   double const visualScale = m_framework.GetVisualScale();
   location::RouteMatchingInfo const & matchingInfo = m_framework.GetLocationState()->GetRouteMatchingInfo();
 
-  auto trackUpdateFn = [&matrix, &limitRect, this, drawScale, visualScale, &matchingInfo](Track const * track)
+  auto trackUpdateFn = [&](Track const * track)
   {
     ASSERT(track, ());
     if (limitRect.IsIntersect(track->GetLimitRect()))
@@ -273,7 +273,7 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
       track->DeleteDisplayList();
   };
 
-  auto dlUpdateFn = [&matrix, &trackUpdateFn] (BookmarkCategory const * cat)
+  auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
   {
     if (cat->IsVisible())
     {
