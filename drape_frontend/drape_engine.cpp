@@ -12,10 +12,11 @@ namespace df
 
 DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
                          Viewport const & viewport,
-                         MapDataProvider const & model)
+                         MapDataProvider const & model,
+                         double vs)
   : m_viewport(viewport)
 {
-  VisualParams::Init(viewport.GetPixelRatio(), df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
+  VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
   dp::RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
@@ -37,7 +38,7 @@ DrapeEngine::~DrapeEngine()
 
 void DrapeEngine::Resize(int w, int h)
 {
-  if (m_viewport.GetLogicWidth() == w && m_viewport.GetLogicHeight() == h)
+  if (m_viewport.GetWidth() == w && m_viewport.GetHeight() == h)
     return;
 
   m_viewport.SetViewport(0, 0, w, h);

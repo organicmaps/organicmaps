@@ -419,7 +419,8 @@ namespace qt
 
   void DrawWidget::sizeChanged(int)
   {
-    m_framework->OnSize(width(), height());
+    double scaleFactor = static_cast<double>(devicePixelRatio());
+    m_framework->OnSize(scaleFactor * width(), scaleFactor * height());
 
     UpdateScaleControl();
   }

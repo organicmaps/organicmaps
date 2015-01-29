@@ -23,7 +23,8 @@ class DrapeEngine
 public:
   DrapeEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
               Viewport const & viewport,
-              MapDataProvider const & model);
+              MapDataProvider const & model,
+              double vs);
   ~DrapeEngine();
 
   void Resize(int w, int h);

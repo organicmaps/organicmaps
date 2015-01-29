@@ -663,8 +663,7 @@ void Framework::OnSize(int w, int h)
 
   if (!m_drapeEngine.IsNull())
   {
-    double vs = df::VisualParams::Instance().GetVisualScale();
-    m_navigator.OnSize(0, 0, vs * w, vs * h);
+    m_navigator.OnSize(0, 0, w, h);
     m_drapeEngine->Resize(w, h);
     m_drapeEngine->UpdateCoverage(m_navigator.Screen());
   }
@@ -1012,7 +1011,9 @@ void Framework::Scale(double scale)
   m2::PointD center = GetPixelCenter();
   ///@TODO UVR
   //GetLocationState()->CorrectScalePoint(center);
-  m_animController->AddTask(m_navigator.ScaleToPointAnim(center, scale, 0.25));
+  ///@TODO UVR
+  //m_animController->AddTask(m_navigator.ScaleToPointAnim(center, scale, 0.25));
+  m_navigator.ScaleToPoint(center, scale, 0.0);
 
   if (!m_drapeEngine.IsNull())
     m_drapeEngine->UpdateCoverage(m_navigator.Screen());
@@ -1381,7 +1382,7 @@ void Framework::CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextF
     m_model.ReadFeatures(fn, ids);
   };
 
-  m_drapeEngine.Reset(new df::DrapeEngine(contextFactory, df::Viewport(vs, 0, 0, w, h), df::MapDataProvider(idReadFn, featureReadFn)));
+  m_drapeEngine.Reset(new df::DrapeEngine(contextFactory, df::Viewport(0, 0, w, h), df::MapDataProvider(idReadFn, featureReadFn), vs));
   OnSize(w, h);
 }
 

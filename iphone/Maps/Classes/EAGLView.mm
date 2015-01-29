@@ -131,7 +131,7 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 
 - (void)onSize:(int)width withHeight:(int)height
 {
-  GetFramework().OnSize(width, height);
+  GetFramework().OnSize(width * self.contentScaleFactor, height * self.contentScaleFactor);
 }
 
 - (double)correctContentScale

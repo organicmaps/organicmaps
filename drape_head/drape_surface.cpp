@@ -132,8 +132,8 @@ void DrapeSurface::CreateEngine()
     m_model.ReadFeatures(fn, ids);
   };
 
-  m_drapeEngine = TEnginePrt(new df::DrapeEngine(f, df::Viewport(pixelRatio, 0, 0, width(), height()),
-                                                 df::MapDataProvider(idReadFn, featureReadFn)));
+  m_drapeEngine = TEnginePrt(new df::DrapeEngine(f, df::Viewport(0, 0, width(), height()),
+                                                 df::MapDataProvider(idReadFn, featureReadFn), pixelRatio));
 }
 
 void DrapeSurface::UpdateCoverage()
