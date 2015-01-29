@@ -279,7 +279,6 @@ public class MWMActivity extends NvEventQueueActivity
         checkMeasurementSystem();
         checkUpdateMaps();
         checkKitkatMigrationMove();
-        checkRoutingMaps();
         checkLiteMapsInPro();
         checkUserMarkActivation();
       }
@@ -405,28 +404,6 @@ public class MWMActivity extends NvEventQueueActivity
             }
           }
       );
-  }
-
-  private void checkRoutingMaps()
-  {
-    if (MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true)
-        && ActiveCountryTree.getOutOfDateCount() != 0)
-    {
-      MWMApplication.get().nativeSetBoolean(IS_FIRST_ROUTING_VERSION_RUN, false);
-      new AlertDialog.Builder(this)
-          .setCancelable(false)
-          .setMessage(getString(R.string.routing_update_maps))
-          .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-              dialog.dismiss();
-            }
-          })
-          .create()
-          .show();
-    }
   }
 
   /**
