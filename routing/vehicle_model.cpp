@@ -65,10 +65,10 @@ double VehicleModel::GetSpeed(FeatureType const & f) const
 double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
 {
   double speed = m_maxSpeed * 2;
-  for (size_t i = 0; i < types.Size(); ++i)
+  for (uint32_t t : types)
   {
-    uint32_t const type = ftypes::BaseChecker::PrepareToMatch(types[i], 2);
-    TypesT::const_iterator it = m_types.find(type);
+    uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
+    auto it = m_types.find(type);
     if (it != m_types.end())
       speed = min(speed, it->second.m_speed);
   }
@@ -91,9 +91,10 @@ bool VehicleModel::IsOneWay(feature::TypesHolder const & types) const
 bool VehicleModel::IsRoad(FeatureType const & f) const
 {
   feature::TypesHolder types(f);
-  for (size_t i = 0; i < types.Size(); ++i)
-    if (IsRoad(types[i]))
+  for (uint32_t t : types)
+    if (IsRoad(t))
       return true;
+
   return false;
 }
 
@@ -102,6 +103,7 @@ bool VehicleModel::IsRoad(vector<uint32_t> const & types) const
   for (uint32_t t : types)
     if (IsRoad(t))
       return true;
+
   return false;
 }
 

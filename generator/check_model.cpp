@@ -27,12 +27,11 @@ namespace check_model
     {
       TypesHolder types(ft);
 
-      size_t const count = types.Size();
-      vector<uint32_t> vTypes(count);
-      for (size_t i = 0; i < count; ++i)
+      vector<uint32_t> vTypes;
+      for (uint32_t t : types)
       {
-        CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(types[i])), types[i], ());
-        vTypes[i] = types[i];
+        CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(t)), t, ());
+        vTypes.push_back(t);
       }
 
       sort(vTypes.begin(), vTypes.end());

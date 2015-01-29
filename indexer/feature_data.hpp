@@ -72,12 +72,9 @@ namespace feature
     inline EGeomType GetGeoType() const { return m_geoType; }
 
     inline bool Empty() const { return (m_size == 0); }
-    inline size_t Size() const { return m_size; }
-    inline uint32_t operator[] (size_t i) const
-    {
-      ASSERT_LESS(i, m_size, ());
-      return m_types[i];
-    }
+    inline uint32_t const * begin() const { return m_types; }
+    inline uint32_t const * end() const { return m_types + m_size; }
+
     inline uint32_t GetBestType() const
     {
       // 0 - is an empty type.
@@ -86,8 +83,7 @@ namespace feature
 
     inline bool Has(uint32_t t) const
     {
-      uint32_t const * e = m_types + m_size;
-      return (find(m_types, e, t) != e);
+      return (find(begin(), end(), t) != end());
     }
     //@}
 

@@ -25,8 +25,8 @@ string TypesHolder::DebugPrint() const
   Classificator const & c = classif();
 
   string s;
-  for (size_t i = 0; i < Size(); ++i)
-    s += c.GetFullObjectName(m_types[i]) + "  ";
+  for (uint32_t t : *this)
+    s += c.GetFullObjectName(t) + "  ";
   return s;
 }
 

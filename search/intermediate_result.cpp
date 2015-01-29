@@ -337,28 +337,28 @@ string PreResult2::DebugPrint() const
 
 uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
 {
-  uint32_t t = 0;
+  uint32_t type = 0;
 
   if (pPrefferedTypes)
   {
-    for (size_t i = 0; i < m_types.Size(); ++i)
-      if (pPrefferedTypes->count(m_types[i]) > 0)
+    for (uint32_t t : m_types)
+      if (pPrefferedTypes->count(t) > 0)
       {
-        t = m_types[i];
+        type = t;
         break;
       }
   }
 
-  if (t == 0)
+  if (type == 0)
   {
-    t = m_types.GetBestType();
+    type = m_types.GetBestType();
 
     // Do type truncate (2-level is enough for search results) only for
     // non-preffered types (types from categories leave original).
-    ftype::TruncValue(t, 2);
+    ftype::TruncValue(type, 2);
   }
 
-  return t;
+  return type;
 }
 
 string PreResult2::ReadableFeatureType(CategoriesHolder const * pCat,

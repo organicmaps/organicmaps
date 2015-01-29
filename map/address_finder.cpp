@@ -152,8 +152,8 @@ namespace
       Classificator const & c = classif();
 
       for (size_t i = 0; i < min(count, m_cont.size()); ++i)
-        for (size_t j = 0; j < m_cont[i].m_types.Size(); ++j)
-          types.push_back(c.GetReadableObjectName(m_cont[i].m_types[j]));
+        for (uint32_t t : m_cont[i].m_types)
+          types.push_back(c.GetReadableObjectName(t));
     }
 
   private:
@@ -204,12 +204,10 @@ namespace
 
       static bool IsMatchImpl(vector<uint32_t> const & vec, feature::TypesHolder const & types)
       {
-        for (size_t i = 0; i < types.Size(); ++i)
+        for (uint32_t t : types)
         {
-          uint32_t type = types[i];
-          ftype::TruncValue(type, 2);
-
-          if (find(vec.begin(), vec.end(), type) != vec.end())
+          ftype::TruncValue(t, 2);
+          if (find(vec.begin(), vec.end(), t) != vec.end())
             return true;
         }
 
@@ -268,12 +266,11 @@ namespace
         double arrF[] = { 10.0, 10.0, 1.0, 1.0 };
         ASSERT_EQUAL ( ARRAY_SIZE(arrF), m_localities.size(), () );
 
-        for (size_t i = 0; i < types.Size(); ++i)
+        for (uint32_t t : types)
         {
-          uint32_t type = types[i];
-          ftype::TruncValue(type, 2);
+          ftype::TruncValue(t, 2);
 
-          vector<uint32_t>::const_iterator j = find(m_localities.begin(), m_localities.end(), type);
+          auto j = find(m_localities.begin(), m_localities.end(), t);
           if (j != m_localities.end())
             return arrF[distance(m_localities.begin(), j)];
         }
@@ -327,11 +324,10 @@ namespace
       types.SortBySpec();
 
       // Try to add types from categories.
-      size_t const count = types.Size();
-      for (size_t i = 0; i < count; ++i)
+      for (uint32_t t : types)
       {
         string s;
-        if (eng->GetNameByType(types[i], locale, s))
+        if (eng->GetNameByType(t, locale, s))
           info.m_types.push_back(s);
       }
 
@@ -339,8 +335,8 @@ namespace
       if (info.m_types.empty())
       {
         Classificator const & c = classif();
-        for (size_t i = 0; i < count; ++i)
-          info.m_types.push_back(c.GetReadableObjectName(types[i]));
+        for (uint32_t t : types)
+          info.m_types.push_back(c.GetReadableObjectName(t));
       }
     }
 

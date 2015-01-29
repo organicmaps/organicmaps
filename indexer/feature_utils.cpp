@@ -71,10 +71,8 @@ public:
     int scale = GetDefaultScale();
 
     if (types.GetGeoType() == GEOM_POINT)
-    {
-      for (size_t i = 0; i < types.Size(); ++i)
-        scale = min(scale, GetScaleForType(types[i]));
-    }
+      for (uint32_t t : types)
+        scale = min(scale, GetScaleForType(t));
 
     CorrectScaleForVisibility(types, scale);
     return scale;
@@ -82,15 +80,15 @@ public:
 
   uint8_t GetSearchRank(TypesHolder const & types, m2::PointD const & pt, uint32_t population) const
   {
-    for (size_t i = 0; i < types.Size(); ++i)
+    for (uint32_t t : types)
     {
-      if (IsEqual(types[i], m_TypeSmallVillage))
+      if (IsEqual(t, m_TypeSmallVillage))
         population = max(population, static_cast<uint32_t>(100));
-      else if (IsEqual(types[i], m_TypeVillage))
+      else if (IsEqual(t, m_TypeVillage))
         population = max(population, static_cast<uint32_t>(1000));
-      else if (types[i] == m_TypeTown || IsEqual(types[i], m_TypeCounty))
+      else if (t == m_TypeTown || IsEqual(t, m_TypeCounty))
         population = max(population, static_cast<uint32_t>(10000));
-      else if (types[i] == m_TypeState)
+      else if (t == m_TypeState)
       {
         m2::RectD usaRects[] =
         {
@@ -130,13 +128,13 @@ public:
           population = min(population, static_cast<uint32_t>(500000));
         }
       }
-      else if (types[i] == m_TypeCity)
+      else if (t == m_TypeCity)
         population = max(population, static_cast<uint32_t>(500000));
-      else if (types[i] == m_TypeCityCapital)
+      else if (t == m_TypeCityCapital)
         population = max(population, static_cast<uint32_t>(1000000));
-      else if (types[i] == m_TypeCountry)
+      else if (t == m_TypeCountry)
         population = max(population, static_cast<uint32_t>(2000000));
-      else if (types[i] == m_TypeContinent)
+      else if (t == m_TypeContinent)
         population = max(population, static_cast<uint32_t>(20000000));
     }
 

@@ -265,11 +265,9 @@ class FeatureInserter
 
     bool IsCountryOrState(feature::TypesHolder const & types) const
     {
-      for (size_t i = 0; i < types.Size(); ++i)
+      for (uint32_t t : types)
       {
-        uint32_t t = types[i];
         ftype::TruncValue(t, 2);
-
         if (t == m_country || t == m_state)
           return true;
       }
@@ -311,25 +309,23 @@ public:
     Classificator const & c = classif();
 
     // add names of categories of the feature
-    for (size_t i = 0; i < types.Size(); ++i)
+    for (uint32_t t : types)
     {
-      uint32_t type = types[i];
-
       // Leave only 2 level of type - for example, do not distinguish:
       // highway-primary-bridge or amenity-parking-fee.
-      ftype::TruncValue(type, 2);
+      ftype::TruncValue(t, 2);
 
       // Push to index only categorized types.
-      if (m_categories.IsTypeExist(type))
+      if (m_categories.IsTypeExist(t))
       {
         // Do index only for visible types in mwm.
-        pair<int, int> const r = feature::GetDrawableScaleRange(type);
-        CHECK(r.first <= r.second && r.first != -1, (c.GetReadableObjectName(type)));
+        pair<int, int> const r = feature::GetDrawableScaleRange(t);
+        CHECK(r.first <= r.second && r.first != -1, (c.GetReadableObjectName(t)));
 
         if (r.second >= m_scales.first && r.first <= m_scales.second)
         {
           inserter.AddToken(search::CATEGORIES_LANG,
-                            search::FeatureTypeToString(c.GetIndexForType(type)));
+                            search::FeatureTypeToString(c.GetIndexForType(t)));
         }
       }
     }

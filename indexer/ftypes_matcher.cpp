@@ -21,11 +21,10 @@ bool BaseChecker::IsMatched(uint32_t type) const
 
 bool BaseChecker::operator() (feature::TypesHolder const & types) const
 {
-  for (size_t i = 0; i < types.Size(); ++i)
-  {
-    if (IsMatched(types[i]))
+  for (uint32_t t : types)
+    if (IsMatched(t))
       return true;
-  }
+
   return false;
 }
 
@@ -211,9 +210,8 @@ bool IsTunnelChecker::IsMatched(uint32_t type) const
 
 Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
 {
-  for (size_t i = 0; i < types.Size(); ++i)
+  for (uint32_t t : types)
   {
-    uint32_t t = types[i];
     ftype::TruncValue(t, 2);
 
     size_t j = COUNTRY;

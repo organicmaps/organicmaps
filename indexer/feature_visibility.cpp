@@ -132,8 +132,8 @@ pair<int, bool> GetDrawRule(FeatureBase const & f, int level,
   Classificator const & c = classif();
 
   DrawRuleGetter doRules(level, types.GetGeoType(), keys);
-  for (size_t i = 0; i < types.Size(); ++i)
-    (void)c.ProcessObjects(types[i], doRules);
+  for (uint32_t t : types)
+    (void)c.ProcessObjects(t, doRules);
 
   return make_pair(types.GetGeoType(), types.Has(c.GetCoastType()));
 }
@@ -281,8 +281,8 @@ bool IsDrawableForIndex(FeatureBase const & f, int level)
       return false;
 
   IsDrawableChecker doCheck(level);
-  for (size_t i = 0; i < types.Size(); ++i)
-    if (c.ProcessObjects(types[i], doCheck))
+  for (uint32_t t : types)
+    if (c.ProcessObjects(t, doCheck))
       return true;
 
   return false;
@@ -388,8 +388,8 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
 {
   pair<int, int> res(1000, -1000);
 
-  for (size_t i = 0; i < types.Size(); ++i)
-    AddRange(res, GetDrawableScaleRange(types[i]));
+  for (uint32_t t : types)
+    AddRange(res, GetDrawableScaleRange(t));
 
   return (res.first > res.second ? make_pair(-1, -1) : res);
 }
@@ -401,8 +401,8 @@ namespace
     Classificator const & c = classif();
 
     IsDrawableRulesChecker doCheck(level, types.GetGeoType(), rules);
-    for (size_t i = 0; i < types.Size(); ++i)
-      if (c.ProcessObjects(types[i], doCheck))
+    for (uint32_t t : types)
+      if (c.ProcessObjects(t, doCheck))
         return true;
 
     return false;
