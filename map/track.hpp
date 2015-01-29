@@ -103,5 +103,5 @@ private:
 };
 
 void TransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, PointContainerT & pts);
-void SymplifyAndTransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix,
+void TransformAndSymplifyPolyline(Track::PolylineD const & polyline, MatrixT const & matrix,
                                   double width, PointContainerT & pts);

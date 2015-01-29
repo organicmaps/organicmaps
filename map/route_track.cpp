@@ -202,7 +202,7 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
     PolylineD mostPartPoly(curSegIter + 1, fullPoly.End());
     PointContainerT ptsMostPart;
     ptsMostPart.reserve(mostPartPoly.GetSize());
-    SymplifyAndTransformPolyline(mostPartPoly, matrix, GetMainWidth(), ptsMostPart);
+    TransformAndSymplifyPolyline(mostPartPoly, matrix, GetMainWidth(), ptsMostPart);
     CreateDisplayListPolyline(dlScreen, ptsMostPart);
     
     PolylineD sym(vector<m2::PointD>({fullPoly.Front(), fullPoly.Back()}));

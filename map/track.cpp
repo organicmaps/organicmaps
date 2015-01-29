@@ -63,14 +63,14 @@ void Track::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
   pScreen->drawDisplayList(m_dList, matrix);
 }
 
-void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts2) const
+void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts) const
 {
   double baseDepthTrack = graphics::tracksDepth - 10 * m_outlines.size();
   for (TrackOutline const & outline : m_outlines)
   {
     graphics::Pen::Info const outlineInfo(outline.m_color, outline.m_lineWidth);
     uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
-    dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, baseDepthTrack);
+    dlScreen->drawPath(pts.data(), pts.size(), 0, outlineId, baseDepthTrack);
     baseDepthTrack += 10;
   }
 }
@@ -89,7 +89,7 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
 
   PointContainerT pts;
   pts.reserve(m_polyline.GetSize());
-  SymplifyAndTransformPolyline(m_polyline, matrix, GetMainWidth(), pts);
+  TransformAndSymplifyPolyline(m_polyline, matrix, GetMainWidth(), pts);
   CreateDisplayListPolyline(dlScreen, pts);
 
   dlScreen->setDisplayList(0);
@@ -133,7 +133,7 @@ void TransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix
   transform(polyline.Begin(), polyline.End(), pts.begin(), DoLeftProduct<MatrixT>(matrix));
 }
 
-void SymplifyAndTransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, double width, PointContainerT & pts)
+void TransformAndSymplifyPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, double width, PointContainerT & pts)
 {
   PointContainerT pts1(polyline.GetSize());
   TransformPolyline(polyline, matrix, pts1);
