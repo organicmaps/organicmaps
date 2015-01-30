@@ -61,8 +61,8 @@ public:
   virtual void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
   virtual void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
                          int, double, location::RouteMatchingInfo const &) const;
-  void DeleteDisplayList() const;
-  bool HasDisplayList() const { return m_dList != nullptr; }
+  virtual void CleanUp() const;
+  virtual bool HasDisplayLists() const;
 
   /// @name Simple Getters-Setter
   //@{
@@ -90,6 +90,7 @@ protected:
   void SetDisplayList(graphics::DisplayList * dl) const { m_dList = dl; }
   void CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts2) const;
   void Swap(Track & rhs);
+  void DeleteDisplayList() const;
 
 private:
   bool m_isVisible = false;

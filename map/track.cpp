@@ -78,7 +78,7 @@ void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContaine
 void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
                               int, double, location::RouteMatchingInfo const &) const
 {
-  if (HasDisplayList() && !isScaleChanged)
+  if (HasDisplayLists() && !isScaleChanged)
     return;
 
   DeleteDisplayList();
@@ -125,6 +125,16 @@ void Track::Swap(Track & rhs)
 
   DeleteDisplayList();
   rhs.DeleteDisplayList();
+}
+
+void Track::CleanUp() const
+{
+  DeleteDisplayList();
+}
+
+bool Track::HasDisplayLists() const
+{
+  return m_dList != nullptr;
 }
 
 void TransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, PointContainerT & pts)

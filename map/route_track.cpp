@@ -9,31 +9,33 @@
 
 #include "../indexer/scales.hpp"
 
+#include "../std/array.hpp"
+
 namespace
 {
-  pair<m2::PointD, m2::PointD> shiftArrow(pair<m2::PointD, m2::PointD> const & arrowDirection)
+  pair<m2::PointD, m2::PointD> ShiftArrow(pair<m2::PointD, m2::PointD> const & arrowDirection)
   {
     return pair<m2::PointD, m2::PointD>(arrowDirection.first - (arrowDirection.second - arrowDirection.first),
                                         arrowDirection.first);
   }
 
-  void drawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD> const & arrowDirection,
+  void DrawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD> const & arrowDirection,
                          double arrowWidth, double arrowLength, graphics::Color arrowColor, double arrowDepth)
   {
     ASSERT(dlScreen, ());
-    m2::PointD p1, p2, p3;
 
-    m2::ArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, p1, p2, p3);
-    vector<m2::PointF> arrow = {p1, p2, p3};
+    array<m2::PointF, 3> arrow;
+    m2::GetArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, arrow);
     dlScreen->drawConvexPolygon(&arrow[0], arrow.size(), arrowColor, arrowDepth);
   }
 }
 
-bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
+bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
                                        size_t turnIndex, double beforeTurn, double afterTurn, double arrowLength)
 {
   size_t const ptsTurnSz = ptsTurn.size();
-  ASSERT(turnIndex < ptsTurnSz, ());
+  ASSERT_LESS(turnIndex, ptsTurnSz, ());
+  ASSERT_GREATER(ptsTurnSz, 1, ());
 
   /// Clipping after turnIndex
   size_t i = turnIndex;
@@ -60,6 +62,7 @@ bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
     lenForArrow +=  vLenForArrow;
     j += 1;
   }
+  ASSERT_GREATER(j, 0, ());
   if (m2::AlmostEqual(ptsTurn[j - 1], ptsTurn[j]))
     return false;
   m2::PointD arrowEnd = m2::PointAtSegment(ptsTurn[j - 1], ptsTurn[j], vLenForArrow - (lenForArrow - arrowLength));
@@ -81,7 +84,7 @@ bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   // Calculating arrow direction
   arrowDirection.first = ptsTurn.back();
   arrowDirection.second = arrowEnd;
-  arrowDirection = shiftArrow(arrowDirection);
+  arrowDirection = ShiftArrow(arrowDirection);
 
   /// Clipping before turnIndex
   i = turnIndex;
@@ -126,6 +129,11 @@ bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   return true;
 }
 
+RouteTrack::~RouteTrack()
+{
+  DeleteClosestSegmentDisplayList();
+}
+
 void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT const & matrix, double visualScale) const
 {
   double const beforeTurn = 13. * visualScale;
@@ -149,7 +157,7 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
       continue;
     transform(t.m_points.begin(), t.m_points.end(), back_inserter(ptsTurn), DoLeftProduct<MatrixT>(matrix));
 
-    if (!clipArrowBodyAndGetArrowDirection(ptsTurn, arrowDirection, t.m_turnIndex, beforeTurn, afterTurn, arrowLength))
+    if (!ClipArrowBodyAndGetArrowDirection(ptsTurn, arrowDirection, t.m_turnIndex, beforeTurn, afterTurn, arrowLength))
       continue;
     size_t const ptsTurnSz = ptsTurn.size();
     if (ptsTurnSz < 2)
@@ -159,7 +167,7 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
     uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
     dlScreen->drawPath(&ptsTurn[0], ptsTurnSz, 0, outlineId, arrowDepth);
 
-    drawArrowTriangle(dlScreen, arrowDirection, arrowWidth, arrowLength, arrowColor, arrowDepth);
+    DrawArrowTriangle(dlScreen, arrowDirection, arrowWidth, arrowLength, arrowColor, arrowDepth);
   }
 }
 /// @todo there are some ways to optimize the code bellow.
@@ -170,18 +178,19 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
                                    int drawScale, double visualScale,
                                    location::RouteMatchingInfo const & matchingInfo) const
 {
-  if (HasDisplayList() && !isScaleChanged &&
+  if (HasDisplayLists() && !isScaleChanged &&
       m_relevantMatchedInfo.GetPosition() == matchingInfo.GetPosition())
     return;
 
   PolylineD const & fullPoly = GetPolyline();
   size_t const formerIndex = m_relevantMatchedInfo.GetIndexInRoute();
 
-  if (matchingInfo.HasRouteMatchingInfo())
+  if (matchingInfo.IsMatched())
     m_relevantMatchedInfo = matchingInfo;
   size_t const currentIndex = m_relevantMatchedInfo.GetIndexInRoute();
 
-  if (currentIndex + 2 >= fullPoly.GetSize())
+  size_t const fullPolySz = fullPoly.GetSize();
+  if (currentIndex + 2 >= fullPolySz || fullPolySz < 2)
   {
     DeleteDisplayList();
     DeleteClosestSegmentDisplayList();
@@ -192,7 +201,7 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
 
   //the most part of the route and symbols
   if (formerIndex != currentIndex ||
-      !HasDisplayList() || isScaleChanged)
+      !HasDisplayLists() || isScaleChanged)
   {
     DeleteDisplayList();
     dlScreen->beginFrame();
@@ -222,7 +231,7 @@ void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & 
   //closest route segment
   m_closestSegmentDL = dlScreen->createDisplayList();
   dlScreen->setDisplayList(m_closestSegmentDL);
-  PolylineD closestPoly(m_relevantMatchedInfo.HasRouteMatchingInfo() ?
+  PolylineD closestPoly(m_relevantMatchedInfo.IsMatched() ?
           vector<m2::PointD>({m_relevantMatchedInfo.GetPosition(), fullPoly.GetPoint(currentIndex + 1)}) :
           vector<m2::PointD>({fullPoly.GetPoint(currentIndex), fullPoly.GetPoint(currentIndex + 1)}));
   PointContainerT pts;
@@ -286,7 +295,17 @@ void RouteTrack::Swap(RouteTrack & rhs)
   swap(m_endSymbols, rhs.m_endSymbols);
   m_turnsGeom.swap(rhs.m_turnsGeom);
 
-  rhs.m_relevantMatchedInfo.ResetRouteMatchingInfo();
-  m_relevantMatchedInfo.ResetRouteMatchingInfo();
+  rhs.m_relevantMatchedInfo.Reset();
+  m_relevantMatchedInfo.Reset();
 }
 
+void RouteTrack::CleanUp() const
+{
+  Track::CleanUp();
+  DeleteClosestSegmentDisplayList();
+}
+
+bool RouteTrack::HasDisplayLists() const
+{
+  return Track::HasDisplayLists() && m_closestSegmentDL != nullptr;
+}

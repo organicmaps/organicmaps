@@ -33,14 +33,14 @@ namespace location
 
   public:
     RouteMatchingInfo() : m_matchedPosition(0., 0.), m_indexInRoute(0), m_isPositionMatched(false) {}
-    void SetRouteMatchingInfo(m2::PointD const & matchedPosition, size_t indexInRoute)
+    void Set(m2::PointD const & matchedPosition, size_t indexInRoute)
     {
       m_matchedPosition = matchedPosition;
       m_indexInRoute = indexInRoute;
       m_isPositionMatched = true;
     }
-    void ResetRouteMatchingInfo() { m_isPositionMatched = false; }
-    bool HasRouteMatchingInfo() const { return m_isPositionMatched; }
+    void Reset() { m_isPositionMatched = false; }
+    bool IsMatched() const { return m_isPositionMatched; }
     size_t GetIndexInRoute() const { return m_indexInRoute; }
     m2::PointD GetPosition() const { return m_matchedPosition; }
   };
@@ -124,7 +124,7 @@ namespace location
     //@}
 
     RouteMatchingInfo const & GetRouteMatchingInfo() const { return m_routeMatchingInfo; }
-    void ResetRouteMatchingInfo() { m_routeMatchingInfo.ResetRouteMatchingInfo(); }
+    void ResetRouteMatchingInfo() { m_routeMatchingInfo.Reset(); }
 
     /// @name Override from graphics::OverlayElement and gui::Element.
     //@{

@@ -7,6 +7,7 @@
 #include "../std/cmath.hpp"
 #include "../std/sstream.hpp"
 #include "../std/typeinfo.hpp"
+#include "../std/array.hpp"
 
 
 namespace m2
@@ -321,18 +322,18 @@ namespace m2
 
   /// Calculate three point of a triangle (p1, p2 and p3) which gives a arrow at the end of segment s, f
   /// with respect to w - arrow's width and l - arrow's length
-  template <typename T>
-  void ArrowPoints(Point<T> const & b, Point<T> const & e, T w, T l,
-                            Point<T> & p1, Point<T> & p2, Point<T> & p3)
+  template <typename T, typename TT, typename PointT = Point<T>>
+  void GetArrowPoints(PointT const & b, PointT const & e, T w, T l, array<Point<TT>, 3> & arrPnts)
   {
     ASSERT(!m2::AlmostEqual(b, e), ());
-    Point<T> const beVec = e - b;
-    Point<T> beNormalizedVec = beVec.Normalize();
-    pair<Point<T>, Point<T> > beNormVecs = beNormalizedVec.Normals(w);
 
-    p1 = e + beNormVecs.first;
-    p2 = e + beNormalizedVec * l;
-    p3 = e + beNormVecs.second;
+    PointT const beVec = e - b;
+    PointT beNormalizedVec = beVec.Normalize();
+    pair<PointT, PointT > beNormVecs = beNormalizedVec.Normals(w);
+
+    arrPnts[0] = e + beNormVecs.first;
+    arrPnts[1] = e + beNormalizedVec * l;
+    arrPnts[2] = e + beNormVecs.second;
   }
 
   /// Returns a point which is belonged to the segment p1, p2 with respet the indent shiftFromP1 from p1.

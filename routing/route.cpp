@@ -222,7 +222,7 @@ void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
       location.m_latitude = MercatorBounds::YToLat(m_current.m_pt.y);
       location.m_longitude = MercatorBounds::XToLon(m_current.m_pt.x);
       location.m_bearing = location::AngleToBearing(GetPolySegAngle(m_current.m_ind));
-      routeMatchingInfo.SetRouteMatchingInfo(m_current.m_pt, m_current.m_ind);
+      routeMatchingInfo.Set(m_current.m_pt, m_current.m_ind);
     }
   }
 }

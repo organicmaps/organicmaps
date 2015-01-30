@@ -13,12 +13,14 @@ class RouteTrack : public Track
 public:
   RouteTrack() {}
   explicit RouteTrack(PolylineD const & polyline) : Track(polyline) {}
-  virtual ~RouteTrack() {}
+  virtual ~RouteTrack();
   virtual void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
                                 int drawScale, double visualScale, 
                                 location::RouteMatchingInfo const & matchingInfo) const;
   virtual void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
   virtual RouteTrack * CreatePersistent();
+  virtual void CleanUp() const;
+  virtual bool HasDisplayLists() const;
 
   void SetTurnsGeometry(routing::turns::TurnsGeomT const & turnsGeom) { m_turnsGeom = turnsGeom; }
   
@@ -52,5 +54,5 @@ private:
   mutable graphics::DisplayList * m_closestSegmentDL = nullptr;
 };
 
-bool clipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
+bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
                                        size_t turnIndex, double beforeTurn, double afterTurn, double arrowLength);

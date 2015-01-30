@@ -59,26 +59,23 @@ UNIT_TEST(PointInTriangle_EmptyTriangle)
 }
 
 /// @todo add more tests
-UNIT_TEST(ArrowPoints)
+UNIT_TEST(GetArrowPoints)
 {
-  m2::PointF p1, p2, p3;
+  array<m2::PointF, 3> arrPntsFlt;
+  m2::GetArrowPoints(m2::PointF(0, 0), m2::PointF(1, 0), 1.f, 1.f, arrPntsFlt);
+  TEST(m2::AlmostEqual(arrPntsFlt[0], m2::PointF(1.f, 1.f)), ());
+  TEST(m2::AlmostEqual(arrPntsFlt[1], m2::PointF(2.f, 0.f)), ());
+  TEST(m2::AlmostEqual(arrPntsFlt[2], m2::PointF(1.f, -1.f)), ());
 
-  m2::ArrowPoints(m2::PointF(0, 0), m2::PointF(1, 0), 1.f, 1.f, p1, p2, p3);
-  TEST(m2::AlmostEqual(p1, m2::PointF(1.f, 1.f)), ());
-  TEST(m2::AlmostEqual(p2, m2::PointF(2.f, 0.f)), ());
-  TEST(m2::AlmostEqual(p3, m2::PointF(1.f, -1.f)), ());
-
-  m2::PointD d1, d2, d3;
-  m2::ArrowPoints(m2::PointD(-1., 2.), m2::PointD(-1., 100.), 2., 5., d1, d2, d3);
-  TEST(m2::AlmostEqual(d1, m2::PointD(-3.f, 100.f)), ());
-  TEST(m2::AlmostEqual(d2, m2::PointD(-1.f, 105.f)), ());
-  TEST(m2::AlmostEqual(d3, m2::PointD(1.f, 100.f)), ());
+  array<m2::PointD, 3> arrPntsDbl;
+  m2::GetArrowPoints(m2::PointD(-1., 2.), m2::PointD(-1., 100.), 2., 5., arrPntsDbl);
+  TEST(m2::AlmostEqual(arrPntsDbl[0], m2::PointD(-3.f, 100.f)), ());
+  TEST(m2::AlmostEqual(arrPntsDbl[1], m2::PointD(-1.f, 105.f)), ());
+  TEST(m2::AlmostEqual(arrPntsDbl[2], m2::PointD(1.f, 100.f)), ());
 }
 
 UNIT_TEST(PointAtSegment)
 {
-  m2::PointF p1, p2, p3;
-
   TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(1, 0), 0.5f), m2::PointF(0.5f, 0.f)), ());
   TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(0, 1), 0.3f), m2::PointF(0.f, 0.3f)), ());
   TEST(m2::AlmostEqual(m2::PointAtSegment(m2::PointD(0., 0.), m2::PointD(30., 40.), 5.), m2::PointD(3., 4.)), ());
