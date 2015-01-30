@@ -36,6 +36,14 @@ typedef enum {
     FlurryLogLevelAll               //Highest level, outputs all log events
 } FlurryLogLevel;
 
+typedef enum {
+    FlurryEventFailed = 0,
+    FlurryEventRecorded,
+    FlurryEventUniqueCountExceeded,
+    FlurryEventParamsCountExceeded,
+    FlurryEventLogCountExceeded,
+    FlurryEventLoggingDelayed
+} FlurryEventRecordStatus;
 
 @interface Flurry : NSObject {
 }
@@ -142,19 +150,6 @@ typedef enum {
 + (void)setSessionContinueSeconds:(int)seconds;
 
 /*!
- *  @brief Send data over a secure transport.
- *  @since 3.0
- * 
- *  This is an optional method that sends data over an SSL connection when enabled. The
- *  default value is @c NO.
- * 
- *  @note This method must be called prior to invoking #startSession:.
- * 
- *  @param value @c YES to send data over secure connection.
- */
-+ (void)setSecureTransportEnabled:(BOOL)value;
-
-/*!
  *  @brief Enable automatic collection of crash reports.
  *  @since 4.1
  *
@@ -233,6 +228,25 @@ typedef enum {
  */
 + (void) startSession:(NSString *)apiKey withOptions:(id)options;
 
+
+/*!
+ *  @brief Start a Flurry session for the project denoted by @c apiKey.
+ *  @since 6.0.0
+ *
+ * @code
+ *  - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ {
+ // Optional Flurry startup methods
+ [Flurry activeSessionExists:@"YOUR_API_KEY" withOptions:launchOptions];
+ // ....
+ }
+ * @endcode
+ *
+ * @param apiKey The API key for this project.
+ * @param options passed launchOptions from the applicatin's didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ 
+ */
++ (BOOL) activeSessionExists;
 
 /*!
  *  @brief Pauses a Flurry session left running in background.
@@ -349,8 +363,10 @@ typedef enum {
  * 
  *  @param eventName Name of the event. For maximum effectiveness, we recommend using a naming scheme
  *  that can be easily understood by non-technical people in your business domain.
+ *
+ *  @return enum FlurryEventRecordStatus for the recording status of the logged event.
  */
-+ (void)logEvent:(NSString *)eventName;
++ (FlurryEventRecordStatus)logEvent:(NSString *)eventName;
 
 /*!
  *  @brief Records a custom parameterized event specified by @c eventName with @c parameters.
@@ -393,8 +409,10 @@ typedef enum {
  *  @param eventName Name of the event. For maximum effectiveness, we recommend using a naming scheme
  *  that can be easily understood by non-technical people in your business domain.
  *  @param parameters An immutable copy of map containing Name-Value pairs of parameters.
+ *
+ *  @return enum FlurryEventRecordStatus for the recording status of the logged event.
  */
-+ (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;
++ (FlurryEventRecordStatus)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;
 
 /*!
  *  @brief Records an app exception. Commonly used to catch unhandled exceptions.
@@ -482,9 +500,11 @@ typedef enum {
  * 
  *  @param eventName Name of the event. For maximum effectiveness, we recommend using a naming scheme
  *  that can be easily understood by non-technical people in your business domain.
- *  @param timed Specifies the event will be timed.
+ *  @param timed Specifies the event will be timed..
+ *
+ *  @return enum FlurryEventRecordStatus for the recording status of the logged event.
  */
-+ (void)logEvent:(NSString *)eventName timed:(BOOL)timed;
++ (FlurryEventRecordStatus)logEvent:(NSString *)eventName timed:(BOOL)timed;
 
 /*!
  *  @brief Records a custom parameterized timed event specified by @c eventName with @c parameters.
@@ -529,9 +549,11 @@ typedef enum {
  *  @param eventName Name of the event. For maximum effectiveness, we recommend using a naming scheme
  *  that can be easily understood by non-technical people in your business domain.
  *  @param parameters An immutable copy of map containing Name-Value pairs of parameters.
- *  @param timed Specifies the event will be timed.
+ *  @param timed Specifies the event will be timed..
+ *
+ *  @return enum FlurryEventRecordStatus for the recording status of the logged event.
  */
-+ (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters timed:(BOOL)timed;
++ (FlurryEventRecordStatus)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters timed:(BOOL)timed;
 
 /*!
  *  @brief Ends a timed event specified by @c eventName and optionally updates parameters with @c parameters.

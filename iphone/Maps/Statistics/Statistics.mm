@@ -75,16 +75,6 @@
 {
 }
 
-- (id)init
-{
-  self = [super init];
-
-  if (self.enabled)
-    [Flurry setSecureTransportEnabled:true];
-
-  return self;
-}
-
 - (BOOL)enabled
 {
 #ifdef DEBUG
