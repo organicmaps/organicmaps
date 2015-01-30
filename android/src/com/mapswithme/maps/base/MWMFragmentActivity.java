@@ -7,15 +7,27 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.R;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.statistics.Statistics;
 
 import ru.mail.mrgservice.MRGService;
 
 public class MWMFragmentActivity extends ActionBarActivity
 {
+  @Override
+  protected void onCreate(Bundle arg0)
+  {
+    super.onCreate(arg0);
+
+    MWMApplication.get().initStats();
+    final ActionBar bar = getSupportActionBar();
+    if (bar != null)
+    {
+      bar.setDisplayHomeAsUpEnabled(true);
+      bar.setElevation(0);
+    }
+  }
+
   @Override
   protected void onStart()
   {
@@ -33,19 +45,6 @@ public class MWMFragmentActivity extends ActionBarActivity
     super.onStop();
 
     MRGService.instance().onStop(this);
-  }
-
-  @Override
-  protected void onCreate(Bundle arg0)
-  {
-    super.onCreate(arg0);
-
-    final ActionBar bar = getSupportActionBar();
-    if (bar != null)
-    {
-      bar.setDisplayHomeAsUpEnabled(true);
-      bar.setElevation(0);
-    }
   }
 
   @Override

@@ -243,11 +243,9 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   {
     FbUtil.activate(activity);
     initMat(activity);
-
-    initStats();
   }
 
-  private void initStats()
+  public void initStats()
   {
     if (!mAreStatsInitialised)
     {
