@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import com.google.android.gms.plus.PlusOneButton;
 import com.mapswithme.maps.R;
@@ -34,9 +33,7 @@ public class GooglePlusDialogFragment extends DialogFragment
     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     final LayoutInflater inflater = getActivity().getLayoutInflater();
 
-    final View root = inflater.inflate(R.layout.fragment_google_plus_dialog, null);
-    builder.
-        setView(root).
+    builder.setView(inflater.inflate(R.layout.fragment_google_plus_dialog, null)).
         setNegativeButton(getString(R.string.remind_me_later), new DialogInterface.OnClickListener()
         {
           @Override

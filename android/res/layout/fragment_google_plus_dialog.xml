@@ -10,7 +10,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:padding="@dimen/margin_medium"
-      android:src="@drawable/ic_direction"/>
+      android:src="@drawable/ic_launcher"/>
 
   <TextView
       style="@style/MwmText"
@@ -18,7 +18,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:padding="@dimen/margin_small"
-      android:text="Enjoy app?"/>
+      android:text="@string/rating_do_like_maps"/>
 
   <TextView
       android:layout_width="wrap_content"

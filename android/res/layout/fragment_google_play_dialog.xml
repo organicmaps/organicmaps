@@ -13,7 +13,7 @@
       android:layout_marginRight="@dimen/margin_medium_and_half"
       android:layout_marginTop="@dimen/margin_medium_and_half"
       android:fontFamily="@string/robotoMedium"
-      android:text="Do you like maps.me?"
+      android:text="@string/rating_do_like_maps"
       android:textColor="@color/text_black_title"
       android:textSize="20sp"
       android:textStyle="bold"/>
@@ -26,7 +26,7 @@
       android:layout_marginLeft="@dimen/margin_medium_and_half"
       android:layout_marginRight="@dimen/margin_medium_and_half"
       android:fontFamily="@string/robotoRegular"
-      android:text="Please, tap a star to rate our app"
+      android:text="@string/rating_tap_star"
       android:textColor="@color/text_black_subtitle"
       android:textSize="14sp"/>
 
@@ -60,7 +60,7 @@
         android:fontFamily="@string/robotoRegular"
         android:gravity="center_vertical"
         android:padding="@dimen/margin_medium"
-        android:text="Send feedback"
+        android:text="@string/rating_send_feedback"
         android:textColor="@color/text_black_title"
         android:visibility="gone"/>
 
