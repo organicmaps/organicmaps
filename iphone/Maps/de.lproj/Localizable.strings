@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "Nutzen Sie die Google Play-Dienstleistungen, um Ihren aktuellen Standort zu erhalten";
+
+/* Text for rating dialog */
+"rating_just_rated" = "Ich habe gerade Ihre App bewertet";
+
+/* Text for rating dialog */
+"rating_user_since" = "Ich bin MAPS.ME-Benutzer seit 2011";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "Mögen Sie MAPS.ME?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "Tippen Sie auf einen Stern, um unsere App zu bewerten.";
+
+/* Text for rating dialog */
+"rating_thanks" = "Vielen Dank!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "Teilen Sie uns Ihre Anregungen und Fragen mit, sodass wir die App für Sie verbessern können.";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "Feedback senden";

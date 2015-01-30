@@ -461,4 +461,18 @@
 	<string name="toolbar_application_menu">Ponuka aplikácie</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Pomocou Google Play služieb získajte svoju aktuálnu polohu</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Práve som hodnotil vašu aplikáciu</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">Som používateľ MAPS.ME od roku 2011</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Páči sa vám MAPS.ME?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Kliknutím na hviezdu ohodnotíte našu aplikáciu.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Ďakujeme vám!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Podeľte sa o svoje nápady alebo problémy, aby sme pre vás mohli vylepšiť aplikáciu.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Odoslať spätnú väzbu</string>
 </resources>

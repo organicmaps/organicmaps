@@ -456,4 +456,18 @@
 	<string name="toolbar_application_menu">Programmeny</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Använd Google Play Services för att bestämma din aktuella position</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Jag har precis betygsatt er app</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">Jag har använt MAPS.ME sedan 2011</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Gillar du MAPS.ME?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Tryck på en stjärna för att betygsätta vår app.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Tack!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Dela med dig av dina idéer eller problem så att vi kan förbättra appen åt dig.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Skicka återkoppling</string>
 </resources>

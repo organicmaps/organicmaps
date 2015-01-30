@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "Использовать Google Play Services для определения позиции";
+
+/* Text for rating dialog */
+"rating_just_rated" = "Я только что оценил MAPS.ME";
+
+/* Text for rating dialog */
+"rating_user_since" = "Я пользуюсь MAPS.ME c";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "Нравится приложение?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "Оцените MAPS.ME";
+
+/* Text for rating dialog */
+"rating_thanks" = "Спасибо!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "Написать отзыв";

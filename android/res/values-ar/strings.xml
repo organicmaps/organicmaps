@@ -460,4 +460,18 @@
 	<string name="toolbar_application_menu">قائمة التطبيق</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">דירגתי את האפליקציה שלכם כרגע</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">אני משתמש ב-MAPS.ME משנת 2011</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">אהבת את MAPS.ME?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">הקש כאן כדי לדרג את האפליקציה שלנו.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">תודה!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">שתף איתנו רעיונות או בעיות שיש לך, כדי שנוכל לשפר את האפליקציה למענך.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">שלח משוב</string>
 </resources>

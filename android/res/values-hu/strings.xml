@@ -457,4 +457,18 @@
 	<string name="toolbar_application_menu">Menü</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Használja a Google Play szolgáltatást, hogy szert tegyen aktuális helyszínéről</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Most értékeltem az alkalmazásodat</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">MAPS.ME felhasználó vagyok 2011 óta</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Szereted a MAPS.ME-t?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Érints meg egy csillagot az alkalmazás értékeléséhez.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Köszönjük!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Az alkalmazás fejlesztése érdekében ossz meg bármilyen ötletet vagy problémát.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Visszajelzés elküldése</string>
 </resources>

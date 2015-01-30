@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ ";
+
+/* Text for rating dialog */
+"rating_just_rated" = "ฉันเพิ่งให้คะแนนแอปของคุณ";
+
+/* Text for rating dialog */
+"rating_user_since" = "ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี 2011";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "คุณชอบ MAPS. ME หรือไม่?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "แตะดาวเพื่อให้คะแนนแอปของเรา";
+
+/* Text for rating dialog */
+"rating_thanks" = "ขอบคุณ!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "แชร์ความคิดเห็นหรือปัญหาใด ๆ เพื่อให้เราสามารถปรับปรุงแอปสำหรับคุณได้";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "ส่งข้อเสนอแนะ";

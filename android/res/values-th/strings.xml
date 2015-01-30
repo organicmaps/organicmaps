@@ -458,4 +458,18 @@
 	<string name="toolbar_application_menu">เมนูของแอปพลิเคชัน</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ </string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">ฉันเพิ่งให้คะแนนแอปของคุณ</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี 2011</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">คุณชอบ MAPS. ME หรือไม่?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">แตะดาวเพื่อให้คะแนนแอปของเรา</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">ขอบคุณ!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">แชร์ความคิดเห็นหรือปัญหาใด ๆ เพื่อให้เราสามารถปรับปรุงแอปสำหรับคุณได้</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">ส่งข้อเสนอแนะ</string>
 </resources>

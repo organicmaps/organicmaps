@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "Använd Google Play Services för att bestämma din aktuella position";
+
+/* Text for rating dialog */
+"rating_just_rated" = "Jag har precis betygsatt er app";
+
+/* Text for rating dialog */
+"rating_user_since" = "Jag har använt MAPS.ME sedan 2011";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "Gillar du MAPS.ME?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "Tryck på en stjärna för att betygsätta vår app.";
+
+/* Text for rating dialog */
+"rating_thanks" = "Tack!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "Dela med dig av dina idéer eller problem så att vi kan förbättra appen åt dig.";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "Skicka återkoppling";

@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "استخدم خدمات جوجل بلاي لتتعرف على موقعك الحالي";
+
+/* Text for rating dialog */
+"rating_just_rated" = "דירגתי את האפליקציה שלכם כרגע";
+
+/* Text for rating dialog */
+"rating_user_since" = "אני משתמש ב-MAPS.ME משנת 2011";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "אהבת את MAPS.ME?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "הקש כאן כדי לדרג את האפליקציה שלנו.";
+
+/* Text for rating dialog */
+"rating_thanks" = "תודה!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "שתף איתנו רעיונות או בעיות שיש לך, כדי שנוכל לשפר את האפליקציה למענך.";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "שלח משוב";

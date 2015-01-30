@@ -467,4 +467,18 @@
 	<string name="toolbar_application_menu">Меню приложения</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Использовать Google Play Services для определения позиции</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Я только что оценил MAPS.ME</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">Я пользуюсь MAPS.ME c</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Нравится приложение?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Оцените MAPS.ME</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Спасибо!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Написать отзыв</string>
 </resources>

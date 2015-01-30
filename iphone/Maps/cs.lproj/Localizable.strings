@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "Použijte služby Google Play, abyste získali svou aktuální polohu";
+
+/* Text for rating dialog */
+"rating_just_rated" = "I’ve just rated your app";
+
+/* Text for rating dialog */
+"rating_user_since" = "I’m MAPS.ME user since 2011";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "Do you like MAPS.ME?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "Tap a star to rate our app.";
+
+/* Text for rating dialog */
+"rating_thanks" = "Thank you!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "Share any ideas or issues, so we can improve the app for you.";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "Send feedback";

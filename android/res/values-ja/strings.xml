@@ -453,4 +453,18 @@
 	<string name="toolbar_application_menu">アプリケーションメニュー</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">現在のロケーションを取得するためにGoogle Playのサービスを使う</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">たった今アプリを評価したところです</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">私は2011年からMAPS.MEのユーザーです</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">MAPS.MEをお気に入りいただいていますか？</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">星印をタップしてアプリを評価してください。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">よろしくお願いします！</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">皆様のためにアプリを改善できるよう、アイディアや問題点を教えてください。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">フィードバックを送信</string>
 </resources>

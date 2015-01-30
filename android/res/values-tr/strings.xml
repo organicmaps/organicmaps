@@ -460,4 +460,18 @@
 	<string name="toolbar_application_menu">Uygulama menüsü</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Şu anki konumunuzu almak için Google Play hizmetlerini kullanın</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Uygulamanıza az önce puan verdim</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">2011 yılından beri MAPS.ME kullanıcısıyım</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">MAPS.ME\&#39;yi beğeniyor musunuz?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Uygulamamıza puan vermek için bir yıldıza dokunun.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Teşekkürler!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Uygulamayı geliştirebilmemiz için fikirlerinizi veya sorunlarınızı paylaşın.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Geribildirim gönder</string>
 </resources>

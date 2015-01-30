@@ -461,4 +461,18 @@
 	<string name="toolbar_application_menu">Меню програми</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Щоб визначити ваше поточне місцезнаходження, використовуйте сервіси Google Play</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Я щойно оцінив вашу програму</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">Я користувач MAPS.ME з 2011 року</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Вам подобається MAPS.ME?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Торкніться зірочки, щоб оцінити нашу програму.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Дякуємо!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Діліться будь-якими ідеями чи проблемами, щоб ми могли удосконалюватись.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Надіслати відгук</string>
 </resources>

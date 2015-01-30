@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "現在のロケーションを取得するためにGoogle Playのサービスを使う";
+
+/* Text for rating dialog */
+"rating_just_rated" = "たった今アプリを評価したところです";
+
+/* Text for rating dialog */
+"rating_user_since" = "私は2011年からMAPS.MEのユーザーです";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "MAPS.MEをお気に入りいただいていますか？";
+
+/* Text for rating dialog */
+"rating_tap_star" = "星印をタップしてアプリを評価してください。";
+
+/* Text for rating dialog */
+"rating_thanks" = "よろしくお願いします！";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "皆様のためにアプリを改善できるよう、アイディアや問題点を教えてください。";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "フィードバックを送信";

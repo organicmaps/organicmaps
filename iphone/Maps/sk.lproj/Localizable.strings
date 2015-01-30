@@ -720,3 +720,24 @@
 
 /* Preference text */
 "pref_use_google_play" = "Pomocou Google Play služieb získajte svoju aktuálnu polohu";
+
+/* Text for rating dialog */
+"rating_just_rated" = "Práve som hodnotil vašu aplikáciu";
+
+/* Text for rating dialog */
+"rating_user_since" = "Som používateľ MAPS.ME od roku 2011";
+
+/* Text for rating dialog */
+"rating_do_like_maps" = "Páči sa vám MAPS.ME?";
+
+/* Text for rating dialog */
+"rating_tap_star" = "Kliknutím na hviezdu ohodnotíte našu aplikáciu.";
+
+/* Text for rating dialog */
+"rating_thanks" = "Ďakujeme vám!";
+
+/* Text for rating dialog */
+"rating_share_ideas" = "Podeľte sa o svoje nápady alebo problémy, aby sme pre vás mohli vylepšiť aplikáciu.";
+
+/* Text for rating dialog */
+"rating_send_feedback" = "Odoslať spätnú väzbu";
