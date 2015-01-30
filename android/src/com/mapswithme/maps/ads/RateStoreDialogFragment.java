@@ -56,7 +56,10 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
         Statistics.INSTANCE.trackRatingDialog(rating);
         mRating = rating;
         if (rating == 5.0f)
+        {
+          dismiss();
           Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
+        }
         else
         {
           ObjectAnimator animator = ObjectAnimator.ofFloat(rateBar, "alpha", 1.0f, 0.0f);
@@ -96,6 +99,7 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
     switch (v.getId())
     {
     case R.id.btn__explain_bad_rating:
+      dismiss();
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_RATING, "Rating : " + mRating,
           "Android version:" + Build.VERSION.SDK_INT + "\n" + "App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_CODE + "\n"));
