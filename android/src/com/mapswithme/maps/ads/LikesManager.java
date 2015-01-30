@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.util.ConnectionState;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
@@ -36,6 +37,9 @@ public class LikesManager
 
   public void showLikeDialogs()
   {
+    if (!ConnectionState.isConnected())
+      return;
+
     if (mIsNewUser)
     {
       if (Arrays.asList(GPLAY_NEW_USERS).contains(mSessionNum))
