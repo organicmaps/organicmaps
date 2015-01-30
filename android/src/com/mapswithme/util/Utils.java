@@ -249,7 +249,7 @@ public class Utils
       writer = new FileWriter(file);
       writer.write("Android version: " + Build.VERSION.SDK_INT + "\n");
       writer.write("Device: " + getDeviceModel() + "\n");
-      writer.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_CODE + "\n");
+      writer.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
       writer.write("Locale : " + Locale.getDefault() + "\n\n");
 
       String cmd = "logcat -d -v time";

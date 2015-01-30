@@ -102,7 +102,7 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
       dismiss();
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_RATING, "Rating : " + mRating,
-          "Android version:" + Build.VERSION.SDK_INT + "\n" + "App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_CODE + "\n"));
+          "Android version:" + Build.VERSION.SDK_INT + "\n" + "App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n"));
       try
       {
         startActivity(intent);
