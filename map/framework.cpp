@@ -2005,9 +2005,7 @@ void Framework::InsertRoute(Route const & route)
 
   Track::TrackOutline outlines[]
   {
-    { 4.0f  * visScale, graphics::Color(0x73, 0xCC,0xFF, 0xFF) },
-    { 8.0f * visScale, graphics::Color(0x40, 0xB9, 0xFF, 0xFF) },
-    { 10.0f * visScale, graphics::Color::White() }
+    { 10.0f * visScale, graphics::Color(110, 180, 240, 255) }
   };
 
   track.AddOutline(outlines, ARRAY_SIZE(outlines));

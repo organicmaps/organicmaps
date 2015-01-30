@@ -141,7 +141,7 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
   double const arrowWidth = 10. * visualScale;
   double const arrowLength = 19. * visualScale;
   double const arrowBodyWidth = 8. * visualScale;
-  graphics::Color const arrowColor(graphics::Color(0, 0, 128, 255));
+  graphics::Color const arrowColor(graphics::Color(40, 70, 160, 255));
   double const arrowDepth = graphics::arrowDepth;
 
   pair<m2::PointD, m2::PointD> arrowDirection;
