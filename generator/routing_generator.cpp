@@ -28,26 +28,11 @@
 #include "../routing/osrm_router.hpp"
 #include "../routing/cross_routing_context.hpp"
 
-#define BORDERS_DIR "borders/"
-#define BORDERS_EXTENSION ".borders"
 
 namespace routing
 {
 
-//Int bacause shortest_path_length has same type =(
-/*int CalculateCrossLength(size_t start, size_t stop, RawDataFacadeT & facade)
-{
-  FeatureGraphNodeVecT taskNode(2), ftaskNode(2);
-  OsrmRouter::GenerateRoutingTaskFromNodeId(start, taskNode);
-  OsrmRouter::GenerateRoutingTaskFromNodeId(stop, ftaskNode);
-  RawRoutingResultT routingResult;
-  if (OsrmRouter::FindSingleRoute(taskNode, ftaskNode, facade, routingResult))
-  {
-    return routingResult.m_routePath.shortest_path_length;
-  }
-  return std::numeric_limits<int>::max();
-}*/
-
+//Routines to get borders from tree
 class GetCountriesBordersByName
 {
 
@@ -103,15 +88,9 @@ public:
     CheckPointInBorder getter(m_point, inside);
     c.m_regions.ForEachInRect(m2::RectD(m_point, m_point), getter);
     if (inside)
-    {
       m_name = c.m_name;
-      LOG(LINFO, ("FROM INSIDE 0_0 ", m_name));
-    }
-    else
-      LOG(LINFO, ("NOT INSIDE ", c.m_name));
   }
 };
-
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 
@@ -143,23 +122,9 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       m2::RegionD finalBorder;
       finalBorder.Data().reserve(border.Data().size());
       for (auto p = tmpRegionBorders.data()->Begin(); p<tmpRegionBorders.data()->End(); ++p)
-        finalBorder.AddPoint(m2::PointD(MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)));
+        finalBorder.AddPoint({MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)});
       regionBorders.push_back(finalBorder);
     }
-    /*
-    vector<m2::RegionD> tmpRegionBorders;
-    if (osm::LoadBorders(baseDir + BORDERS_DIR + countryName + BORDERS_EXTENSION, tmpRegionBorders))
-    {
-      LOG(LINFO, ("Found",tmpRegionBorders.size(),"region borders"));
-      for (m2::RegionD const& border: tmpRegionBorders)
-      {
-        m2::RegionD finalBorder;
-        finalBorder.Data().reserve(border.Data().size());
-        for (auto p = tmpRegionBorders.data()->Begin(); p<tmpRegionBorders.data()->End(); ++p)
-          finalBorder.AddPoint(m2::PointD(MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)));
-        regionBorders.push_back(finalBorder);
-      }
-    }*/
   }
 
   gen::OsmID2FeatureID osm2ft;
@@ -197,10 +162,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         // check nearest to goverment borders
         for (m2::RegionD const& border: regionBorders)
         {
-          //if ( (border.Contains(pts[0]) ^ border.Contains(pts[1]))) // || border.atBorder(pts[0], 0.005) || border.atBorder(pts[1], 0.005))
-          //{
-          //  outgoingNodes.push_back(nodeId);
-          //}
           bool outStart = border.Contains(pts[0]), outEnd = border.Contains(pts[1]);
           if (outStart == true && outEnd == false)
           {
@@ -210,8 +171,9 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
             m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), getter);
             crossContext.addOutgoingNode(nodeId, mwmName);
           }
-          if (outStart == false && outEnd == true)
-            crossContext.addIngoingNode(nodeId);
+          else
+            if (outStart == false && outEnd == true)
+              crossContext.addIngoingNode(nodeId);
         }
       }
     }
@@ -381,22 +343,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     matrixSource.Read(&matrixBuffer[0], matrixSource.Size());
     facade.LoadRawData(edgeBuffer.data(), edgeIdsBuffer.data(), shortcutsBuffer.data(), matrixBuffer.data());
 
-
-    map<size_t, size_t> incomeEdgeCountMap;
-    size_t const nodeDataSize = nodeData.size();
-    for (size_t nodeId = 0; nodeId < nodeDataSize; ++nodeId)
-    {
-      for(auto e: facade.GetAdjacentEdgeRange(nodeId))
-      {
-        const size_t target_node = facade.GetTarget(e);
-        auto const it = incomeEdgeCountMap.find(target_node);
-        if (it==incomeEdgeCountMap.end())
-          incomeEdgeCountMap.insert(make_pair(target_node, 1));
-        else
-          incomeEdgeCountMap[target_node] += 1;
-      }
-    }
-
     LOG(LINFO, ("Calculating weight map between outgoing nodes"));
     crossContext.reserveAdjacencyMatrix();
     auto in = crossContext.GetIngoingIterators();
@@ -418,10 +364,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       for (auto j=out.first; j<out.second; ++j )
       {
         crossContext.setAdjacencyCost(i, j, *res);
-        LOG(LINFO, ("Have weight", *res));
         ++res;
       }
-
     LOG(LINFO, ("Calculating weight map between outgoing nodes DONE"));
   }
 
@@ -436,31 +380,4 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   VERIFY(my::GetFileSize(fPath, sz), ());
   LOG(LINFO, ("Nodes stored:", stored, "Routing index file size:", sz));
 }
-
-
-void BuildCrossesRoutingIndex(string const & baseDir)
-{
-/*
-  vector<size_t> outgoingNodes1;
-  vector<size_t> outgoingNodes2;
-  vector<size_t> result;
-  const string file1_path = baseDir+"Russia_central.mwm.routing";
-  const string file2_path = baseDir+"Belarus.mwm.routing";
-  FilesMappingContainer f1Cont(file1_path);
-  FilesMappingContainer f2Cont(file2_path);
-  ReaderSource<FileReader> r1(f1Cont.GetReader(ROUTING_OUTGOING_FILE_TAG));
-  ReaderSource<FileReader> r2(f2Cont.GetReader(ROUTING_OUTGOING_FILE_TAG));
-
-  LOG(LINFO, ("Loading mwms"));
-  rw::ReadVectorOfPOD(r1,outgoingNodes1);
-  rw::ReadVectorOfPOD(r2,outgoingNodes2);
-
-  LOG(LINFO, ("Have outgoing lengthes", outgoingNodes1.size(), outgoingNodes2.size()));
-  sort(outgoingNodes1.begin(), outgoingNodes1.end());
-  sort(outgoingNodes2.begin(), outgoingNodes2.end());
-  set_intersection(outgoingNodes1.begin(),outgoingNodes1.end(),outgoingNodes2.begin(),outgoingNodes2.end(),back_inserter(result));
-  LOG(LINFO, ("Have nodes after intersection", result.size()));
-*/
-}
-
 }

@@ -11,11 +11,6 @@ namespace routing
 /*!
  * \brief The OutgoungNodeT struct. Contains node identifier and it's coordinate to calculate same nodes at different mwm's
  */
-/*struct OutgoungNodeT {
-  size_t node_id;
-  double x;
-  double y;
-};*/
 typedef size_t OutgoingNodeT;
 
 typedef std::vector<OutgoingNodeT> OutgoingVectorT;

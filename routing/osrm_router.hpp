@@ -115,6 +115,25 @@ private:
 
 typedef shared_ptr<RoutingMapping> RoutingMappingPtrT;
 
+//! \brief The MappingGuard struct. Asks mapping to load all data on construction and free it on destruction
+class MappingGuard
+{
+  RoutingMappingPtrT const m_mapping;
+
+public:
+  MappingGuard(RoutingMappingPtrT const mapping): m_mapping(mapping)
+  {
+    m_mapping->Map();
+    m_mapping->LoadFacade();
+  }
+
+  ~MappingGuard()
+  {
+    m_mapping->Unmap();
+    m_mapping->FreeFacade();
+  }
+};
+
 /*! Manager for loading, cashing and building routing indexes.
  * Builds and shares special routing contexts.
 */
@@ -255,9 +274,15 @@ private:
     return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
   }
 
-  FeatureGraphNode const & FilterWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
+  MultiroutingTaskPointT::const_iterator FilterWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
                                       std::vector<EdgeWeight> &weightMatrix, bool const filterSource);
 
+  /*!
+   * \brief Makes route (points turns and other annotations) and submits it to @route class
+   * \param path vector of pathes through mwms
+   * \param route class to render final route
+   * \return NoError or error code
+   */
   ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,

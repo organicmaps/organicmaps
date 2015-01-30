@@ -46,6 +46,8 @@ public:
 
   void Load(Reader const & r)
   {
+    if (m_adjacencyMatrix.size())
+      return; //Already loaded
     size_t size, pos=0;
     r.Read(pos, &size, sizeof(size_t));
     pos += sizeof(size_t);
@@ -82,7 +84,7 @@ public:
   //Writing part
   void Save(Writer & w)
   {
-    //LOG(LINFO, ("Have ingoing", m_ingoingNodes.size(), "outgoing", m_outgoingNodes.size, "neighbors", m_neighborMwmList.size()));
+    sort(m_ingoingNodes.begin(), m_ingoingNodes.end());
     size_t size = m_ingoingNodes.size();
     w.Write(&size, sizeof(size_t));
     w.Write(&(m_ingoingNodes[0]), sizeof(size_t) * size);
