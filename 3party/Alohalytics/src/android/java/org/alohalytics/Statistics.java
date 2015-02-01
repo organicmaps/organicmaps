@@ -123,8 +123,8 @@ public class Statistics {
   private static final String PREF_APP_UPDATE_TIME = "APP_UPDATE_TIME";
 
   // Returns id and true if id was generated or false if id was read from preferences.
-  // Please note, that only the very first call to getInstallationId can tell the truth.
-  public synchronized static Pair<String, Boolean> getInstallationId(final Context context) {
+  // Please note, that only the very first call to getInstallationId in the app lifetime returns true.
+  private synchronized static Pair<String, Boolean> getInstallationId(final Context context) {
     if (uniqueID == null) {
       final SharedPreferences sharedPrefs = context.getSharedPreferences(
           PREF_FILE, Context.MODE_PRIVATE);

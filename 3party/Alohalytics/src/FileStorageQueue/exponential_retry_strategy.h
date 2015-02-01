@@ -10,6 +10,15 @@
 #include "exception.h"
 #include "../Bricks/time/chrono.h"
 
+#ifdef _MSC_VER
+#ifdef max
+#undef max
+#endif
+#ifdef min
+#undef min
+#endif
+#endif // _MSC_VER
+
 namespace fsq {
 namespace strategy {
 

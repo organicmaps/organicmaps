@@ -317,7 +317,7 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
     // Step 1/4: Get the list of finalized files.
     typedef std::vector<FileInfo<T_TIMESTAMP>> FileInfoVector;
     const FileInfoVector& finalized_files_on_disk = ScanDir([this](const std::string& s, T_TIMESTAMP* t) {
-      return T_FILE_NAMING_STRATEGY::finalized.ParseFileName(s, t);
+      return this->finalized.ParseFileName(s, t);
     });
     status_.finalized.queue.assign(finalized_files_on_disk.begin(), finalized_files_on_disk.end());
     status_.finalized.total_size = 0;
@@ -327,7 +327,7 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
 
     // Step 2/4: Get the list of current files.
     const FileInfoVector& current_files_on_disk = ScanDir([this](
-        const std::string& s, T_TIMESTAMP* t) { return T_FILE_NAMING_STRATEGY::current.ParseFileName(s, t); });
+        const std::string& s, T_TIMESTAMP* t) { return this->current.ParseFileName(s, t); });
     if (!current_files_on_disk.empty()) {
       const bool resume = T_FILE_RESUME_STRATEGY::ShouldResume();
       const size_t number_of_files_to_finalize = current_files_on_disk.size() - (resume ? 1u : 0u);

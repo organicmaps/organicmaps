@@ -33,6 +33,9 @@
 #include "cereal/include/cereal.hpp"
 #include "cereal/include/types/base_class.hpp"
 #include "cereal/include/types/polymorphic.hpp"
+#include "cereal/include/archives/binary.hpp"
+#include "cereal/include/types/string.hpp"
+#include "cereal/include/types/map.hpp"
 
 // For easier processing on a server side, every statistics event should derive from this base class.
 struct AlohalyticsBaseEvent {

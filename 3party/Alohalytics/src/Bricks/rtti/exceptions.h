@@ -22,46 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-#ifndef BRICKS_EXCEPTIONS_H
-#define BRICKS_EXCEPTIONS_H
+#ifndef BRICKS_RTTI_EXCEPTIONS_H
+#define BRICKS_RTTI_EXCEPTIONS_H
 
-#include <exception>
-#include <string>
-
-#include "strings/printf.h"
+#include "../exception.h"
 
 namespace bricks {
+namespace rtti {
 
-class Exception : public std::exception {
- public:
-  Exception(const std::string& what = "") : what_(what) {}
-  virtual ~Exception() = default;
+struct UnrecognizedPolymorphicType : Exception {};
 
-  void SetWhat(const std::string& what) { what_ = what; }
-
-  // LCOV_EXCL_START
-  virtual const char* what() const noexcept override { return what_.c_str(); }
-  // LCOV_EXCL_STOP
-
-  virtual const std::string& What() const noexcept { return what_; }
-
-  void SetCaller(const std::string& caller) { what_ = caller + '\t' + what_; }
-
-  void SetOrigin(const char* file, int line) { what_ = strings::Printf("%s:%d\t", file, line) + what_; }
-
- private:
-  std::string what_;
-};
-
-// Extra parenthesis around `e((E))` are essential to not make it a function declaration.
-#define BRICKS_THROW(E)              \
-  {                                  \
-    auto e((E));                     \
-    e.SetCaller(#E);                 \
-    e.SetOrigin(__FILE__, __LINE__); \
-    throw e;                         \
-  }
-
+}  // namespace rtti
 }  // namespace bricks
 
-#endif  // BRICKS_EXCEPTIONS_H
+#endif  // BRICKS_RTTI_EXCEPTIONS_H

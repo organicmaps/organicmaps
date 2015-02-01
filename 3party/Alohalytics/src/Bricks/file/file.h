@@ -33,8 +33,27 @@ SOFTWARE.
 #include <string>
 #include <cstring>
 
+#ifdef _MSC_VER
+#include <windows.h>
+#include <direct.h>
+struct ScopedCloseFindFileHandle {
+  HANDLE handle_;
+  ScopedCloseFindFileHandle(HANDLE handle) : handle_(handle) {}
+  ~ScopedCloseFindFileHandle() {
+    ::FindClose(handle_);
+  }
+};
+#else
 #include <dirent.h>
 #include <sys/stat.h>
+struct ScopedCloseDir {
+  DIR * dir_;
+  ScopedCloseDir(DIR * dir) : dir_(dir) {}
+  ~ScopedCloseDir() {
+    ::closedir(dir_);
+  }
+};
+#endif
 
 #include "exceptions.h"
 #include "../../logger.h"
@@ -47,8 +66,8 @@ inline std::string ReadFileAsString(std::string const& file_name) {
     fi.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fi.open(file_name, std::ifstream::binary);
     fi.seekg(0, std::ios::end);
-    const size_t size = fi.tellg();
-    std::string buffer(size, '\0');
+    const std::streampos size = fi.tellg();
+    std::string buffer(static_cast<const size_t>(size), '\0');
     fi.seekg(0);
     if (fi.read(&buffer[0], size).good()) {
       return buffer;
@@ -100,17 +119,6 @@ class ScopedRemoveFile final {
   std::string file_name_;
 };
 
-class ScopedCloseDir final {
-  DIR* dir_;
-
- public:
-  explicit ScopedCloseDir(DIR* dir) : dir_(dir) {
-  }
-  ~ScopedCloseDir() {
-    ::closedir(dir_);
-  }
-};
-
 // Platform-indepenent, injection-friendly filesystem wrapper.
 struct FileSystem {
   typedef std::ofstream OutputFile;
@@ -148,9 +156,24 @@ struct FileSystem {
 
   static inline void ScanDirUntil(const std::string& directory,
                                   std::function<bool(const std::string&)> lambda) {
-    DIR* dir = ::opendir(directory.c_str());
-    const ScopedCloseDir dir_closer(dir);
+#ifdef _MSC_VER
+    WIN32_FIND_DATAA find_data;
+    HANDLE handle = ::FindFirstFileA(directory.c_str(), &find_data);
+    if (handle == INVALID_HANDLE_VALUE) {
+      return;
+    }
+    const ScopedCloseFindFileHandle closer(handle);
+    do {
+      if (!(find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+        if (!lambda(find_data.cFileName)) {
+          return;
+        }
+      }
+    } while (::FindNextFileA(handle, &find_data) != 0);
+#else
+    DIR * dir = ::opendir(directory.c_str());
     if (dir) {
+      const ScopedCloseDir closer(dir);
       while (struct dirent* entry = ::readdir(dir)) {
         if (*entry->d_name && ::strcmp(entry->d_name, ".") && ::strcmp(entry->d_name, "..")) {
           if (!lambda(entry->d_name)) {
@@ -159,6 +182,7 @@ struct FileSystem {
         }
       }
     }
+#endif
   }
 
   static inline void ScanDir(const std::string& directory, std::function<void(const std::string&)> lambda) {
@@ -179,8 +203,12 @@ struct FileSystem {
   }
 
   static inline void CreateDirectory(const std::string& directory) {
+#ifdef _MSC_VER
+    ::_mkdir(directory.c_str());
+#else
     // Hard-code default permissions to avoid cross-platform compatibility issues.
     ::mkdir(directory.c_str(), 0755);
+#endif
   }
 };
 

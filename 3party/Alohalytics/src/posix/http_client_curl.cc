@@ -28,6 +28,11 @@
 #include <fstream>
 #include <iostream> // std::cerr
 
+#ifdef _MSC_VER
+#define popen _popen
+#define pclose _pclose
+#endif
+
 // Used as a test stub for basic HTTP client implementation.
 
 namespace alohalytics {
@@ -54,7 +59,11 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   if (!post_body_.empty()) {
     // POST body through tmp file to avoid breaking command line.
     char tmp_file[L_tmpnam];
+#ifdef _MSC_VER
+    ::tmpnam_s(tmp_file, L_tmpnam);
+#else
     ::tmpnam(tmp_file);
+#endif
     std::ofstream(tmp_file) << post_body_;
     post_file_ = tmp_file;
   }
