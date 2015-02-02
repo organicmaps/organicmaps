@@ -725,7 +725,7 @@
 "rating_just_rated" = "Właśnie oceniłem Waszą aplikację";
 
 /* Text for rating dialog */
-"rating_user_since" = "Jestem użytkownikiem MAPS.ME od 2011 r.";
+"rating_user_since" = "Jestem użytkownikiem MAPS.ME od %@ r.";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Lubisz MAPS.ME?";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Wyślij opinię";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Kliknij g+, aby powiedzieć swoim znajomym o tej apce.";

@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "의견 보내기";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "g+를 클릭하여 이 앱에 대해 친구들에게 말하세요.";

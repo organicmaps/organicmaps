@@ -453,4 +453,20 @@
 	<string name="toolbar_application_menu">Menu applicazione</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Usa i servizi Google Play per ottenere la tua posizione attuale</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Ho appena valutato la tua app</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">Sono un utente MAPS.ME dal %s</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Ti piace MAPS.ME?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Fai tap sulla stella per valutare la nostra app.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Grazie!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Condividi le tue idee o problemi così che possiamo migliorare l\&#39;app per te.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Invia feedback</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Clicca su g+ per far conoscere l\&#39;app ai tuoi amici.</string>
 </resources>

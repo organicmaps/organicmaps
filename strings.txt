@@ -6392,30 +6392,46 @@
     ar = דירגתי את האפליקציה שלכם כרגע
     de = Ich habe gerade Ihre App bewertet
     fr = je viens d'évaluer votre appli
+    nl = Ik heb je app zojuist gewaardeerd
+    fi = Olen juuri arvostellut sovelluksesi.
+    da = Jeg har netop bedømt jeres app
+    cs = Právě jsem ohodnotil(a) vaši aplikaci
+    zh-Hans = 我刚刚评价了您的应用
+    zh-Hant = 我剛剛評價了您的應用
+    it = Ho appena valutato la tua app
+    ar = لقد قمت بتقييم تطبيقك للتو
 
   [rating_user_since]
     tags = android
     comment = Text for rating dialog
-    en = I’m MAPS.ME user since 2011
-    ru = Я пользуюсь MAPS.ME c
-    uk = Я користувач MAPS.ME з 2011 року
-    vi = Tôi là người dùng MAPS.ME từ năm 2011
-    tr = 2011 yılından beri MAPS.ME kullanıcısıyım
-    th = ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี 2011
-    es = Soy usuario de MAPS.ME desde 2011
-    sv = Jag har använt MAPS.ME sedan 2011
-    sk = Som používateľ MAPS.ME od roku 2011
-    pt = Sou usuário do MAPS.ME desde 2011
-    ro = Sunt utilizator MAPS.ME din 2011
-    pl = Jestem użytkownikiem MAPS.ME od 2011 r.
+    en = I’ve been MAPS.ME user since %@
+    ru = Я пользуюсь MAPS.ME c %@
+    uk = Я користувач MAPS.ME з %@ року
+    vi = Tôi là người dùng MAPS.ME từ năm %@
+    tr = %@ yılından beri MAPS.ME kullanıcısıyım
+    th = ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี %@
+    es = Soy usuario de MAPS.ME desde %@
+    sv = Jag har använt MAPS.ME sedan %@
+    sk = Som používateľ MAPS.ME od roku %@
+    pt = Sou usuário do MAPS.ME desde %@
+    ro = Sunt utilizator MAPS.ME din %@
+    pl = Jestem użytkownikiem MAPS.ME od %@ r.
     ko = 2011 이후로 MAPS.ME 사용자임
-    in = Saya pengguna MAPS.ME sejak 2011
-    ja = 私は2011年からMAPS.MEのユーザーです
-    hu = MAPS.ME felhasználó vagyok 2011 óta
-    el = Είμαι χρήστης του MAPS.ME από το 2011
-    ar = אני משתמש ב-MAPS.ME משנת 2011
-    de = Ich bin MAPS.ME-Benutzer seit 2011
-    fr = J'utilise MAPS.ME depuis 2011
+    in = Saya pengguna MAPS.ME sejak %@
+    ja = 私は%@年からMAPS.MEのユーザーです
+    hu = MAPS.ME felhasználó vagyok %@ óta
+    el = Είμαι χρήστης του MAPS.ME από το %@
+    ar = אני משתמש ב-MAPS.ME משנת %@
+    de = Ich bin MAPS.ME-Benutzer seit %@
+    fr = J'utilise MAPS.ME depuis %@
+    nl = Ik ben een MAPS.ME-gebruiker vanaf %@
+    fi = Olen MAPS.ME käyttäjä vuodesta %@.
+    da = Jeg er MAPS.ME bruger siden %@
+    cs = Uživatelem MAPS.ME jsem od roku %@
+    zh-Hans = 我是从%@年起的MAPS.ME用户
+    zh-Hant = 我是從%@年起的MAPS.ME用戶
+    it = Sono un utente MAPS.ME dal %@
+    ar = أنا مستخدم لتطبيق MAPS.ME منذ %@
 
   [rating_do_like_maps]
     tags = android
@@ -6440,6 +6456,14 @@
     ar = אהבת את MAPS.ME?
     de = Mögen Sie MAPS.ME?
     fr = Aimez-vous MAPS.ME ?
+    nl = Vind je MAPS.ME leuk?
+    fi = Pidätkö MAPS.ME sovelluksesta?
+    da = Kan du lide MAPS.ME?
+    cs = Líbí se vám aplikace MAPS.ME?
+    zh-Hans = 您喜欢MAPS.ME吗？
+    zh-Hant = 您喜歡MAPS.ME嗎？
+    it = Ti piace MAPS.ME?
+    ar = هل تطبيق MAPS.ME يعجبك؟
 
 
   [rating_tap_star]
@@ -6465,6 +6489,14 @@
     ar = הקש כאן כדי לדרג את האפליקציה שלנו.
     de = Tippen Sie auf einen Stern, um unsere App zu bewerten.
     fr = Tapotez sur une étoile pour évaluer notre appli
+    nl = Druk op een ster om onze app te waarderen.
+    fi = Napauta tähteä arvostellaksesi sovelluksemme.
+    da = Tryk på en stjerne for at bedømme vores app.
+    cs = Klepnutím na hvězdičku naši aplikaci ohodnotíte.
+    zh-Hans = 点击星星给我们应用评分。
+    zh-Hant = 點擊星星給我們應用評分。
+    it = Fai tap sulla stella per valutare la nostra app.
+    ar = انقر على النجمة لتقييم التطبيق.
 
   [rating_thanks]
     tags = android
@@ -6489,11 +6521,19 @@
     ar = תודה!
     de = Vielen Dank!
     fr = Merci !
+    nl = Dank je!
+    fi = Kiitos!
+    da = Mange tak!
+    cs = Děkujeme vám!
+    zh-Hans = 谢谢您！
+    zh-Hant = 謝謝您！
+    it = Grazie!
+    ar = شكرا لك!
 
   [rating_share_ideas]
     tags = android
     comment = Text for rating dialog
-    en = Share any ideas or issues, so we can improve the app for you.
+    en = Share any ideas or issues so we can improve the app for you.
     ru = Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.
     uk = Діліться будь-якими ідеями чи проблемами, щоб ми могли удосконалюватись.
     vi = Hãy chia sẻ bất kỳ ý tưởng hay vấn đề nào, để chúng tôi cải tiến ứng dụng tốt hơn.
@@ -6513,6 +6553,14 @@
     ar = שתף איתנו רעיונות או בעיות שיש לך, כדי שנוכל לשפר את האפליקציה למענך.
     de = Teilen Sie uns Ihre Anregungen und Fragen mit, sodass wir die App für Sie verbessern können.
     fr = Partagez vos idées ou vos problèmes de façon à ce que nous puissions améliorer l'application.
+    nl = Deel alle ideeën of problemen zodat we de app voor je kunnen verbeteren.
+    fi = Jaathan ideasi ja kohtaamasi ongelmat, jotta voimme parantaa sovellusta sinua varten.
+    da = Del dine ideer eller problemer med os, så vi kan forbedre appen for dig.
+    cs = Podělte se o jakékoli nápady nebo problémy, abychom mohli naši aplikaci pro vás neustále zlepšovat.
+    zh-Hans = 分享任何主意或问题，这样我们可以为您改善应用。
+    zh-Hant = 分享任何主意或問題，這樣我們可以為您改善應用。
+    it = Condividi le tue idee o problemi così che possiamo migliorare l'app per te.
+    ar = شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.
 
   [rating_send_feedback]
     tags = android
@@ -6537,3 +6585,43 @@
     ar = שלח משוב
     de = Feedback senden
     fr = Envoyez vos commentaires
+    nl = Feedback verzenden
+    fi = Lähetä palautetta
+    da = Send feedback
+    cs = Odeslat názor
+    zh-Hans = 发送反馈
+    zh-Hant = 發送反饋
+    it = Invia feedback
+    ar = إرسال التعليق
+
+  [rating_google_plus]
+    tags = android
+    comment = Text for g+ dialog
+    en = Click g+ to tell your friends about the app.
+    ru = Нажмите g+, чтобы рассказать друзьям о приложении
+    uk = Щоб розповісти своїм друзям про програму, клацніть g+.
+    vi = Nhấp vào g+ để nói với bạn bè của bạn về ứng dụng.
+    tr = Arkadaşlarına uygulamayı duyurmak için g+'ya tıkla.
+    th = คลิก g+ เพื่อบอกเพื่อน ๆ ของคุณเกี่ยวกับแอป
+    es = Haz clic en g+ para hablar a tus amigos acerca de la app.
+    sv = Klicka på g+ för att berätta om appen för dina vänner.
+    sk = Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.
+    pt = Clique em g+ para contar aos seus amigos sobre o app.
+    ro = Clic pe g+ pentru a le spune prietenilor tăi despre aplicație.
+    pl = Kliknij g+, aby powiedzieć swoim znajomym o tej apce.
+    ko = g+를 클릭하여 이 앱에 대해 친구들에게 말하세요.
+    in = Klik g+ untuk memberi tahu teman-teman tentang aplikasi tersebut.
+    ja = g+をクリックして友達にこのアプリを教えてあげましょう。
+    hu = Kattints a g+-ra és mesélj barátaidnak az alkalmazásról
+    el = Πατήστε g+ για να πείτε στους φίλους σας για την εφαρμογή.
+    ar = הקישו g+ כדי לספר לחבריכם על האפליקציה.
+    de = Klick auf g+, um deinen Freunden über die App zu erzählen.
+    fr = Clique sur g+ pour parler de l'appli à tes amis.
+    nl = Klik op g+ om je vrienden te informeren over de app.
+    fi = Napsauta g+ ja kerro ystävillesi sovelluksesta.
+    da = Klik g+ for at fortælle dine venner om app'en.
+    cs = Klikněte na g+ a povězte o aplikaci svým přátelům.
+    zh-Hans = 点击g+向您的朋友们告知这款应用。
+    zh-Hant = 點擊g+向您的朋友們告知這款應用。
+    it = Clicca su g+ per far conoscere l'app ai tuoi amici.
+    ar = اضغط على g+ لتخبر أصدقاءك عن التطبيق.

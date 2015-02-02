@@ -722,22 +722,25 @@
 "pref_use_google_play" = "Use Google Play Services to get your current location";
 
 /* Text for rating dialog */
-"rating_just_rated" = "I’ve just rated your app";
+"rating_just_rated" = "我剛剛評價了您的應用";
 
 /* Text for rating dialog */
-"rating_user_since" = "I’m MAPS.ME user since 2011";
+"rating_user_since" = "我是從%@年起的MAPS.ME用戶";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Do you like MAPS.ME?";
+"rating_do_like_maps" = "您喜歡MAPS.ME嗎？";
 
 /* Text for rating dialog */
-"rating_tap_star" = "Tap a star to rate our app.";
+"rating_tap_star" = "點擊星星給我們應用評分。";
 
 /* Text for rating dialog */
-"rating_thanks" = "Thank you!";
+"rating_thanks" = "謝謝您！";
 
 /* Text for rating dialog */
-"rating_share_ideas" = "Share any ideas or issues, so we can improve the app for you.";
+"rating_share_ideas" = "分享任何主意或問題，這樣我們可以為您改善應用。";
 
 /* Text for rating dialog */
-"rating_send_feedback" = "Send feedback";
+"rating_send_feedback" = "發送反饋";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "點擊g+向您的朋友們告知這款應用。";

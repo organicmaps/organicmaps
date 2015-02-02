@@ -442,4 +442,20 @@
 	<string name="downloader_update_map_and_routing">更新地圖 + 布置路線</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_map_only">只有地圖</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">我剛剛評價了您的應用</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">我是從%s年起的MAPS.ME用戶</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">您喜歡MAPS.ME嗎？</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">點擊星星給我們應用評分。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">謝謝您！</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">分享任何主意或問題，這樣我們可以為您改善應用。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">發送反饋</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">點擊g+向您的朋友們告知這款應用。</string>
 </resources>

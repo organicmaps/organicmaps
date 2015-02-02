@@ -463,7 +463,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Uygulamanıza az önce puan verdim</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">2011 yılından beri MAPS.ME kullanıcısıyım</string>
+	<string name="rating_user_since">%s yılından beri MAPS.ME kullanıcısıyım</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">MAPS.ME\&#39;yi beğeniyor musunuz?</string>
 	<!-- Text for rating dialog -->
@@ -474,4 +474,6 @@
 	<string name="rating_share_ideas">Uygulamayı geliştirebilmemiz için fikirlerinizi veya sorunlarınızı paylaşın.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Geribildirim gönder</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Arkadaşlarına uygulamayı duyurmak için g+\&#39;ya tıkla.</string>
 </resources>

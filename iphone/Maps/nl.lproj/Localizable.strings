@@ -722,22 +722,25 @@
 "pref_use_google_play" = "Gebruik de diensten van Google Play om uw huidige locatie te bepalen";
 
 /* Text for rating dialog */
-"rating_just_rated" = "I’ve just rated your app";
+"rating_just_rated" = "Ik heb je app zojuist gewaardeerd";
 
 /* Text for rating dialog */
-"rating_user_since" = "I’m MAPS.ME user since 2011";
+"rating_user_since" = "Ik ben een MAPS.ME-gebruiker vanaf %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Do you like MAPS.ME?";
+"rating_do_like_maps" = "Vind je MAPS.ME leuk?";
 
 /* Text for rating dialog */
-"rating_tap_star" = "Tap a star to rate our app.";
+"rating_tap_star" = "Druk op een ster om onze app te waarderen.";
 
 /* Text for rating dialog */
-"rating_thanks" = "Thank you!";
+"rating_thanks" = "Dank je!";
 
 /* Text for rating dialog */
-"rating_share_ideas" = "Share any ideas or issues, so we can improve the app for you.";
+"rating_share_ideas" = "Deel alle ideeën of problemen zodat we de app voor je kunnen verbeteren.";
 
 /* Text for rating dialog */
-"rating_send_feedback" = "Send feedback";
+"rating_send_feedback" = "Feedback verzenden";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Klik op g+ om je vrienden te informeren over de app.";

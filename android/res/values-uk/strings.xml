@@ -464,7 +464,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Я щойно оцінив вашу програму</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Я користувач MAPS.ME з 2011 року</string>
+	<string name="rating_user_since">Я користувач MAPS.ME з %s року</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Вам подобається MAPS.ME?</string>
 	<!-- Text for rating dialog -->
@@ -475,4 +475,6 @@
 	<string name="rating_share_ideas">Діліться будь-якими ідеями чи проблемами, щоб ми могли удосконалюватись.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Надіслати відгук</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Щоб розповісти своїм друзям про програму, клацніть g+.</string>
 </resources>

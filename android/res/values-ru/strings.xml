@@ -470,7 +470,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Я только что оценил MAPS.ME</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Я пользуюсь MAPS.ME c</string>
+	<string name="rating_user_since">Я пользуюсь MAPS.ME c %s</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Нравится приложение?</string>
 	<!-- Text for rating dialog -->
@@ -481,4 +481,6 @@
 	<string name="rating_share_ideas">Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Написать отзыв</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Нажмите g+, чтобы рассказать друзьям о приложении</string>
 </resources>

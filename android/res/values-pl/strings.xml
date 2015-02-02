@@ -460,7 +460,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Właśnie oceniłem Waszą aplikację</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Jestem użytkownikiem MAPS.ME od 2011 r.</string>
+	<string name="rating_user_since">Jestem użytkownikiem MAPS.ME od %s r.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Lubisz MAPS.ME?</string>
 	<!-- Text for rating dialog -->
@@ -471,4 +471,6 @@
 	<string name="rating_share_ideas">Podziel się z nami pomysłami lub problemami, a pozwoli to nam usprawnić aplikację.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Wyślij opinię</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Kliknij g+, aby powiedzieć swoim znajomym o tej apce.</string>
 </resources>

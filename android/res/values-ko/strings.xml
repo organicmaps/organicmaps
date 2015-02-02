@@ -458,4 +458,6 @@
 	<string name="rating_share_ideas">모든 아이디어나 문제를 공유하여, 사용자를 위한 앱을 향상시킬 수 있습니다.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">의견 보내기</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">g+를 클릭하여 이 앱에 대해 친구들에게 말하세요.</string>
 </resources>

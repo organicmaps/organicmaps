@@ -725,7 +725,7 @@
 "rating_just_rated" = "Práve som hodnotil vašu aplikáciu";
 
 /* Text for rating dialog */
-"rating_user_since" = "Som používateľ MAPS.ME od roku 2011";
+"rating_user_since" = "Som používateľ MAPS.ME od roku %@";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Páči sa vám MAPS.ME?";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Odoslať spätnú väzbu";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.";

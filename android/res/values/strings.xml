@@ -472,7 +472,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">I’ve just rated your app</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">I’m MAPS.ME user since 2011</string>
+	<string name="rating_user_since">I’ve been MAPS.ME user since %s</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Do you like MAPS.ME?</string>
 	<!-- Text for rating dialog -->
@@ -480,7 +480,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_thanks">Thank you!</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_share_ideas">Share any ideas or issues, so we can improve the app for you.</string>
+	<string name="rating_share_ideas">Share any ideas or issues so we can improve the app for you.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Send feedback</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Click g+ to tell your friends about the app.</string>
 </resources>

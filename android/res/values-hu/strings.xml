@@ -460,7 +460,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Most értékeltem az alkalmazásodat</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">MAPS.ME felhasználó vagyok 2011 óta</string>
+	<string name="rating_user_since">MAPS.ME felhasználó vagyok %s óta</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Szereted a MAPS.ME-t?</string>
 	<!-- Text for rating dialog -->
@@ -471,4 +471,6 @@
 	<string name="rating_share_ideas">Az alkalmazás fejlesztése érdekében ossz meg bármilyen ötletet vagy problémát.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Visszajelzés elküldése</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Kattints a g+-ra és mesélj barátaidnak az alkalmazásról</string>
 </resources>

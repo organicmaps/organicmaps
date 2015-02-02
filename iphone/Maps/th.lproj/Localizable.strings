@@ -725,7 +725,7 @@
 "rating_just_rated" = "ฉันเพิ่งให้คะแนนแอปของคุณ";
 
 /* Text for rating dialog */
-"rating_user_since" = "ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี 2011";
+"rating_user_since" = "ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี %@";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "คุณชอบ MAPS. ME หรือไม่?";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "ส่งข้อเสนอแนะ";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "คลิก g+ เพื่อบอกเพื่อน ๆ ของคุณเกี่ยวกับแอป";

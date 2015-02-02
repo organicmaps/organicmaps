@@ -464,7 +464,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Práve som hodnotil vašu aplikáciu</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Som používateľ MAPS.ME od roku 2011</string>
+	<string name="rating_user_since">Som používateľ MAPS.ME od roku %s</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Páči sa vám MAPS.ME?</string>
 	<!-- Text for rating dialog -->
@@ -475,4 +475,6 @@
 	<string name="rating_share_ideas">Podeľte sa o svoje nápady alebo problémy, aby sme pre vás mohli vylepšiť aplikáciu.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Odoslať spätnú väzbu</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.</string>
 </resources>

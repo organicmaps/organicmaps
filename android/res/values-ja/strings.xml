@@ -456,7 +456,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">たった今アプリを評価したところです</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">私は2011年からMAPS.MEのユーザーです</string>
+	<string name="rating_user_since">私は%s年からMAPS.MEのユーザーです</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">MAPS.MEをお気に入りいただいていますか？</string>
 	<!-- Text for rating dialog -->
@@ -467,4 +467,6 @@
 	<string name="rating_share_ideas">皆様のためにアプリを改善できるよう、アイディアや問題点を教えてください。</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">フィードバックを送信</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">g+をクリックして友達にこのアプリを教えてあげましょう。</string>
 </resources>

@@ -461,7 +461,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">ฉันเพิ่งให้คะแนนแอปของคุณ</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี 2011</string>
+	<string name="rating_user_since">ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี %s</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">คุณชอบ MAPS. ME หรือไม่?</string>
 	<!-- Text for rating dialog -->
@@ -472,4 +472,6 @@
 	<string name="rating_share_ideas">แชร์ความคิดเห็นหรือปัญหาใด ๆ เพื่อให้เราสามารถปรับปรุงแอปสำหรับคุณได้</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">ส่งข้อเสนอแนะ</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">คลิก g+ เพื่อบอกเพื่อน ๆ ของคุณเกี่ยวกับแอป</string>
 </resources>

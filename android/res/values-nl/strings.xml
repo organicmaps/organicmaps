@@ -446,4 +446,20 @@
 	<string name="toolbar_application_menu">Applicatiemenu</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Gebruik de diensten van Google Play om uw huidige locatie te bepalen</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">Ik heb je app zojuist gewaardeerd</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">Ik ben een MAPS.ME-gebruiker vanaf %s</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">Vind je MAPS.ME leuk?</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">Druk op een ster om onze app te waarderen.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">Dank je!</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">Deel alle ideeën of problemen zodat we de app voor je kunnen verbeteren.</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">Feedback verzenden</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">Klik op g+ om je vrienden te informeren over de app.</string>
 </resources>

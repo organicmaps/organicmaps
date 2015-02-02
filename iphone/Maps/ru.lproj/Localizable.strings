@@ -725,7 +725,7 @@
 "rating_just_rated" = "Я только что оценил MAPS.ME";
 
 /* Text for rating dialog */
-"rating_user_since" = "Я пользуюсь MAPS.ME c";
+"rating_user_since" = "Я пользуюсь MAPS.ME c %@";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Нравится приложение?";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Написать отзыв";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Нажмите g+, чтобы рассказать друзьям о приложении";

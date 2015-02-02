@@ -725,7 +725,7 @@
 "rating_just_rated" = "たった今アプリを評価したところです";
 
 /* Text for rating dialog */
-"rating_user_since" = "私は2011年からMAPS.MEのユーザーです";
+"rating_user_since" = "私は%@年からMAPS.MEのユーザーです";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "MAPS.MEをお気に入りいただいていますか？";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "フィードバックを送信";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "g+をクリックして友達にこのアプリを教えてあげましょう。";

@@ -722,22 +722,25 @@
 "pref_use_google_play" = "Anvend Google Play Services til at få din aktuelle placering";
 
 /* Text for rating dialog */
-"rating_just_rated" = "I’ve just rated your app";
+"rating_just_rated" = "Jeg har netop bedømt jeres app";
 
 /* Text for rating dialog */
-"rating_user_since" = "I’m MAPS.ME user since 2011";
+"rating_user_since" = "Jeg er MAPS.ME bruger siden %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Do you like MAPS.ME?";
+"rating_do_like_maps" = "Kan du lide MAPS.ME?";
 
 /* Text for rating dialog */
-"rating_tap_star" = "Tap a star to rate our app.";
+"rating_tap_star" = "Tryk på en stjerne for at bedømme vores app.";
 
 /* Text for rating dialog */
-"rating_thanks" = "Thank you!";
+"rating_thanks" = "Mange tak!";
 
 /* Text for rating dialog */
-"rating_share_ideas" = "Share any ideas or issues, so we can improve the app for you.";
+"rating_share_ideas" = "Del dine ideer eller problemer med os, så vi kan forbedre appen for dig.";
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Send feedback";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Klik g+ for at fortælle dine venner om app'en.";

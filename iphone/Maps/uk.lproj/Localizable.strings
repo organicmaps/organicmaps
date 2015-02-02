@@ -725,7 +725,7 @@
 "rating_just_rated" = "Я щойно оцінив вашу програму";
 
 /* Text for rating dialog */
-"rating_user_since" = "Я користувач MAPS.ME з 2011 року";
+"rating_user_since" = "Я користувач MAPS.ME з %@ року";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Вам подобається MAPS.ME?";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Надіслати відгук";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Щоб розповісти своїм друзям про програму, клацніть g+.";

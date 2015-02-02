@@ -460,4 +460,20 @@
 	<string name="downloader_map_only">只有地图</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">使用Google Play服务以获取您的当前位置。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_just_rated">我刚刚评价了您的应用</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_user_since">我是从%s年起的MAPS.ME用户</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_do_like_maps">您喜欢MAPS.ME吗？</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_tap_star">点击星星给我们应用评分。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_thanks">谢谢您！</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_share_ideas">分享任何主意或问题，这样我们可以为您改善应用。</string>
+	<!-- Text for rating dialog -->
+	<string name="rating_send_feedback">发送反馈</string>
+	<!-- Text for g+ dialog -->
+	<string name="rating_google_plus">点击g+向您的朋友们告知这款应用。</string>
 </resources>

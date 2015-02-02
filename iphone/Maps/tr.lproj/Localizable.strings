@@ -725,7 +725,7 @@
 "rating_just_rated" = "Uygulamanıza az önce puan verdim";
 
 /* Text for rating dialog */
-"rating_user_since" = "2011 yılından beri MAPS.ME kullanıcısıyım";
+"rating_user_since" = "%@ yılından beri MAPS.ME kullanıcısıyım";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "MAPS.ME'yi beğeniyor musunuz?";
@@ -741,3 +741,6 @@
 
 /* Text for rating dialog */
 "rating_send_feedback" = "Geribildirim gönder";
+
+/* Text for g+ dialog */
+"rating_google_plus" = "Arkadaşlarına uygulamayı duyurmak için g+'ya tıkla.";
