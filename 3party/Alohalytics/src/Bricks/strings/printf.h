@@ -7,7 +7,7 @@
 namespace bricks {
 namespace strings {
 
-std::string Printf(const char *fmt, ...) {
+inline std::string Printf(const char *fmt, ...) {
   const int max_formatted_output_length = 1024 * 1024;
   static char buf[max_formatted_output_length + 1];
   va_list ap;
