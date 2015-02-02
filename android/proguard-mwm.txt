@@ -3,6 +3,8 @@
 -keep class !android.support.v7.internal.view.menu.**,** {*;}
 # ignore warnings from MRGS billing.
 -dontwarn ru.mail.**
+# flurry
+-dontwarn com.flurry.**
 
 -dontoptimize
 -keepattributes **

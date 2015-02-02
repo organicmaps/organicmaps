@@ -7,6 +7,7 @@ import android.provider.Settings.Secure;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
 public class FlurryEngine extends StatisticsEngine
@@ -24,15 +25,9 @@ public class FlurryEngine extends StatisticsEngine
   @Override
   public void configure(Context context, Bundle params)
   {
-    FlurryAgent.setUseHttps(true);
     FlurryAgent.setUserId(Secure.ANDROID_ID);
-
-    FlurryAgent.setReportLocation(false);
-
-    if (mDebug)
-      FlurryAgent.setLogLevel(Log.DEBUG);
-    else
-      FlurryAgent.setLogLevel(Log.ERROR);
+    FlurryAgent.setLogLevel(mDebug ? Log.DEBUG : Log.ERROR);
+    FlurryAgent.init(context, context.getString(R.string.flurry_app_key));
   }
 
   @Override
@@ -40,7 +35,7 @@ public class FlurryEngine extends StatisticsEngine
   {
     Utils.checkNotNull(mKey);
     Utils.checkNotNull(activity);
-    FlurryAgent.onStartSession(activity, mKey);
+    FlurryAgent.onStartSession(activity);
   }
 
   @Override
@@ -58,5 +53,4 @@ public class FlurryEngine extends StatisticsEngine
     else
       FlurryAgent.logEvent(event.getName());
   }
-
 }

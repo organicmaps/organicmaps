@@ -3,6 +3,7 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 
 import com.mapswithme.country.ActiveCountryTree;
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
@@ -27,8 +28,7 @@ public enum Statistics
   private List<StatisticsEngine> mStatisticsEngines;
   private EventBuilder mEventBuilder;
 
-  private final boolean DEBUG = false;
-  private final Logger mLogger = DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
+  private final Logger mLogger = BuildConfig.DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
 
   // Statistics counters
   private int mBookmarksCreated = 0;
@@ -287,7 +287,7 @@ public enum Statistics
         engine.onStartActivity(activity);
 
       if (doCollectStatistics())
-        collectOneTimeStatistics(activity);
+        collectOneTimeStatistics();
     }
   }
 
@@ -304,8 +304,8 @@ public enum Statistics
     final String key = MWMApplication.get().getResources().getString(R.string.flurry_app_key);
     mStatisticsEngines = new ArrayList<>();
 
-    final StatisticsEngine flurryEngine = new FlurryEngine(DEBUG, key);
-    flurryEngine.configure(null, null);
+    final StatisticsEngine flurryEngine = new FlurryEngine(BuildConfig.DEBUG, key);
+    flurryEngine.configure(MWMApplication.get(), null);
     mStatisticsEngines.add(flurryEngine);
 
     mEventBuilder = new EventBuilder();
@@ -320,7 +320,7 @@ public enum Statistics
     }
   }
 
-  private void collectOneTimeStatistics(Activity activity)
+  private void collectOneTimeStatistics()
   {
     mEventBuilder.setName(EventParam.PRO_STAT);
 
