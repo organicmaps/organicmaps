@@ -728,8 +728,14 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
       Times.push_back(time);
     }
 
+
     if (Points.size())
+    {
       Points.pop_back(); //You at the end point
+      const size_t psize = Points.size() - 1; //-1 because --mwmPoints.begin()
+      for (auto & turnGeom : mwmTurnsGeom)
+        turnGeom.m_indexInRoute += psize;
+    }
     Points.insert(Points.end(), ++mwmPoints.begin(), mwmPoints.end());
     TurnsGeom.insert(TurnsGeom.end(), mwmTurnsGeom.begin(), mwmTurnsGeom.end());
     mwmMapping->FreeFacade();
