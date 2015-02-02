@@ -17,6 +17,8 @@ public class LikesManager
   public static final Integer[] GPLAY_OLD_USERS = new Integer[]{1, 7, 10, 15, 21};
   public static final Integer[] GPLUS_OLD_USERS = new Integer[]{4, 14, 24, 34, 44};
 
+  private static final long DIALOG_DELAY_MILLIS = 30000;
+
   private final boolean mIsNewUser;
   private final int mSessionNum;
 
@@ -86,7 +88,7 @@ public class LikesManager
         }
       }
     };
-    mHandler.postDelayed(mLikeRunnable, 1);
+    mHandler.postDelayed(mLikeRunnable, DIALOG_DELAY_MILLIS);
   }
 
   public void cancelLikeDialogs()

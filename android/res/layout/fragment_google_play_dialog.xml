@@ -48,7 +48,7 @@
         android:id="@+id/v__divider"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/downloader_gray"
+        android:background="?android:attr/listDivider"
         android:visibility="gone"/>
 
     <Button

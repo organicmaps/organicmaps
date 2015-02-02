@@ -75,8 +75,8 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
               final Button button = (Button) root.findViewById(R.id.btn__explain_bad_rating);
               button.setVisibility(View.VISIBLE);
               button.setOnClickListener(RateStoreDialogFragment.this);
-              ((TextView) root.findViewById(R.id.tv__title)).setText("Thank you!");
-              ((TextView) root.findViewById(R.id.tv__subtitle)).setText("Would you like to share any ideas or issues, so we can improve the app for you?");
+              ((TextView) root.findViewById(R.id.tv__title)).setText(getString(R.string.rating_thanks));
+              ((TextView) root.findViewById(R.id.tv__subtitle)).setText(getString(R.string.rating_share_ideas));
               root.findViewById(R.id.v__divider).setVisibility(View.VISIBLE);
               rateBar.setVisibility(View.GONE);
               super.onAnimationEnd(animation);
@@ -117,7 +117,7 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
       }
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_RATING, "Rating : " + mRating,
           "OS : " + Build.VERSION.SDK_INT + "\n" + "Version : " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n" +
-          getString(R.string.rating_user_since) + " " + DateUtils.formatDateTime(getActivity(), installTime, 0)));
+          getString(R.string.rating_user_since) + " " + DateUtils.formatDateTime(getActivity(), installTime, 0) + "\n\n"));
       try
       {
         startActivity(intent);

@@ -15,6 +15,7 @@
   <TextView
       style="@style/MwmText"
       android:layout_width="wrap_content"
+      android:textSize="20sp"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:padding="@dimen/margin_small"
@@ -25,12 +26,13 @@
       android:layout_height="wrap_content"
       android:fontFamily="@string/robotoLight"
       android:padding="@dimen/margin_small"
-      android:text="Tap on +1 button to recommend"/>
+      android:textSize="14sp"
+      android:text="@string/rating_google_plus"/>
 
   <View
       android:layout_width="match_parent"
       android:layout_height="1px"
-      android:background="@android:color/darker_gray"/>
+      android:background="?android:attr/listDivider"/>
 
   <com.google.android.gms.plus.PlusOneButton
       android:id="@+id/btn__gplus"
