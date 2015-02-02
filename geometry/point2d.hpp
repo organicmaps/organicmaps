@@ -320,8 +320,10 @@ namespace m2
     return my::AlmostEqual(a.x, b.x, maxULPs) && my::AlmostEqual(a.y, b.y, maxULPs);
   }
 
-  /// Calculate three point of a triangle (p1, p2 and p3) which gives a arrow at the end of segment s, f
-  /// with respect to w - arrow's width and l - arrow's length
+  /// Calculate three points of a triangle (p1, p2 and p3) which give an arrow that
+  /// presents an equilateral triangle with the median
+  /// starting at point b and having direction b,e.
+  /// The height of the equilateral triangle is l and the base of the triangle is 2 * w
   template <typename T, typename TT, typename PointT = Point<T>>
   void GetArrowPoints(PointT const & b, PointT const & e, T w, T l, array<Point<TT>, 3> & arrPnts)
   {

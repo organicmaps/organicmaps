@@ -99,3 +99,59 @@ UNIT_TEST(ClipArrowBodyAndGetArrowDirection)
     }
   }
 }
+
+UNIT_TEST(MergeArrows)
+{
+  double const arrowLen = 19;
+  double const bodyLen = 26;
+
+  /// Merging arrows bodies
+  {
+    vector<m2::Point<double>> ptsCurrentTurn = {{942781.30335104989, -1704679.4222819123},
+                                                {942770.40578790777, -1704686.5105198855},
+                                                {942770.40578790777, -1704686.5105198855},
+                                                {942772.83924417838, -1704690.2283002988},
+                                                {942772.83924417838, -1704690.2283002988},
+                                                {942777.65950491628, -1704697.298016048}};
+    vector<m2::Point<double>> const ptsNextTurn = {{942772.61973019898, -1704689.8929317191},
+                                                   {942772.83924417838, -1704690.2283002988},
+                                                   {942772.83924417838, -1704690.2283002988},
+                                                   {942779.93682496831, -1704700.6380854577},
+                                                   {942779.93682496831, -1704700.6380854577},
+                                                   {942779.12567287835, -1704701.0436615027},
+                                                   {942768.95600306219, -1704707.5874363843}};
+
+    bool const mergeArrows = MergeArrows(ptsCurrentTurn, ptsNextTurn, bodyLen, arrowLen);
+
+    TEST(mergeArrows, ());
+    TEST_EQUAL(ptsCurrentTurn.size(), 4, ());
+    if (ptsCurrentTurn.size() == 4)
+    {
+      TEST(m2::AlmostEqual(ptsCurrentTurn[0], m2::PointD(942781.30335104989, -1704679.4222819123)), ());
+      TEST(m2::AlmostEqual(ptsCurrentTurn[1], m2::PointD(942770.40578790777, -1704686.5105198855)), ());
+      TEST(m2::AlmostEqual(ptsCurrentTurn[2], m2::PointD(942770.40578790777, -1704686.5105198855)), ());
+      TEST(m2::AlmostEqual(ptsCurrentTurn[3], m2::PointD(942772.83924417838, -1704690.2283002988)), ());
+    }
+  }
+
+  /// No need merging
+  {
+    vector<m2::Point<double>> ptsCurrentTurn = {{5076492.1418151176, -9129678.8727533203},
+                                                {5076492.1418151176, -9129678.8727533203},
+                                                {5076492.2410291191, -9129680.013714334}};
+    vector<m2::Point<double>> const ptsNextTurn = {{5076440.1457105754, -9129732.8748834748},
+                                                   {5076428.3278678777, -9129727.458372239},
+                                                   {5076428.3278678777, -9129727.458372239}};
+    double const arrowLen = 19;
+    double const bodyLen = 26;
+    bool const mergeArrows = MergeArrows(ptsCurrentTurn, ptsNextTurn, bodyLen, arrowLen);
+    TEST(!mergeArrows, ());
+    TEST_EQUAL(ptsCurrentTurn.size(), 3, ());
+    if (ptsCurrentTurn.size() == 3)
+    {
+      TEST(m2::AlmostEqual(ptsCurrentTurn[0], m2::PointD(5076492.1418151176, -9129678.8727533203)), ());
+      TEST(m2::AlmostEqual(ptsCurrentTurn[1], m2::PointD(5076492.1418151176, -9129678.8727533203)), ());
+      TEST(m2::AlmostEqual(ptsCurrentTurn[2], m2::PointD(5076492.2410291191, -9129680.013714334)), ());
+    }
+  }
+}

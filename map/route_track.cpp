@@ -129,6 +129,51 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   return true;
 }
 
+bool MergeArrows(vector<m2::PointD> & ptsCurrentTurn, vector<m2::PointD> const & ptsNextTurn, double bodyLen, double arrowLen)
+{
+  ASSERT_GREATER_OR_EQUAL(ptsCurrentTurn.size(), 2, ());
+  ASSERT_GREATER_OR_EQUAL(ptsNextTurn.size(), 2, ());
+  ASSERT_GREATER(bodyLen, 0, ());
+  ASSERT_GREATER(arrowLen, 0, ());
+  ASSERT_GREATER(bodyLen, arrowLen, ());
+
+  double const distBetweenBodies = ptsCurrentTurn.back().Length(ptsNextTurn.front());
+  /// The most likely the function returns here because the arrows are usually far to each other
+  if (distBetweenBodies > bodyLen)
+    return false;
+
+  /// The arrows are close to each other or intersected
+  double const distBetweenBodies2 = ptsCurrentTurn[ptsCurrentTurn.size() - 2].Length(ptsNextTurn[1]);
+  if (distBetweenBodies < distBetweenBodies2)
+  {
+    /// The arrows bodies are not intersected
+    if (distBetweenBodies > arrowLen)
+      return false;
+    else
+    {
+      ptsCurrentTurn.push_back(ptsNextTurn.front());
+      return true;
+    }
+  }
+  else
+  {
+    /// The arrows bodies are intersected. Make ptsCurrentTurn shorter if possible to prevent double rendering.
+    /// ptsNextTurn[0] is not a point of route network graph. It is generated while clipping.
+    /// The first point of route network graph is ptsNextTurn[1]. The same with the end of ptsCurrentTurn
+    m2::PointD const pivotPnt = ptsNextTurn[1]; 
+    auto const currentTurnBeforeEnd = ptsCurrentTurn.end() - 1;
+    for (auto t = ptsCurrentTurn.begin() + 1; t != currentTurnBeforeEnd; ++t)
+    {
+      if (m2::AlmostEqual(*t, pivotPnt))
+      {
+        ptsCurrentTurn.erase(t + 1, ptsCurrentTurn.end());
+        return true;
+      }
+    }
+    return true;
+  }
+}
+
 RouteTrack::~RouteTrack()
 {
   DeleteClosestSegmentDisplayList();
@@ -145,29 +190,35 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
   double const arrowDepth = graphics::arrowDepth;
 
   pair<m2::PointD, m2::PointD> arrowDirection;
-  vector<m2::PointD> ptsTurn;
+  vector<m2::PointD> ptsTurn, ptsNextTurn;
 
   ptsTurn.reserve(m_turnsGeom.size());
-  for (routing::turns::TurnGeom const & t : m_turnsGeom)
+  bool drawArrowHead = true;
+  auto turnsGeomEnd = m_turnsGeom.rend();
+  for (auto t = m_turnsGeom.rbegin(); t != turnsGeomEnd; ++t)
   {
-    if (t.m_indexInRoute < m_relevantMatchedInfo.GetIndexInRoute())
+    if (t->m_indexInRoute < m_relevantMatchedInfo.GetIndexInRoute())
       continue;
     ptsTurn.clear();
-    if (t.m_points.empty())
+    if (t->m_points.empty())
       continue;
-    transform(t.m_points.begin(), t.m_points.end(), back_inserter(ptsTurn), DoLeftProduct<MatrixT>(matrix));
+    transform(t->m_points.begin(), t->m_points.end(), back_inserter(ptsTurn), DoLeftProduct<MatrixT>(matrix));
 
-    if (!ClipArrowBodyAndGetArrowDirection(ptsTurn, arrowDirection, t.m_turnIndex, beforeTurn, afterTurn, arrowLength))
+    if (!ClipArrowBodyAndGetArrowDirection(ptsTurn, arrowDirection, t->m_turnIndex, beforeTurn, afterTurn, arrowLength))
       continue;
-    size_t const ptsTurnSz = ptsTurn.size();
-    if (ptsTurnSz < 2)
+    if (ptsTurn.size() < 2)
       continue;
+
+    if (!ptsNextTurn.empty())
+      drawArrowHead = !MergeArrows(ptsTurn, ptsNextTurn, beforeTurn + afterTurn, arrowLength);
 
     graphics::Pen::Info const outlineInfo(arrowColor, arrowBodyWidth);
     uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
-    dlScreen->drawPath(&ptsTurn[0], ptsTurnSz, 0, outlineId, arrowDepth);
+    dlScreen->drawPath(&ptsTurn[0], ptsTurn.size(), 0, outlineId, arrowDepth);
 
-    DrawArrowTriangle(dlScreen, arrowDirection, arrowWidth, arrowLength, arrowColor, arrowDepth);
+    if (drawArrowHead)
+      DrawArrowTriangle(dlScreen, arrowDirection, arrowWidth, arrowLength, arrowColor, arrowDepth);
+    ptsNextTurn = ptsTurn;
   }
 }
 /// @todo there are some ways to optimize the code bellow.

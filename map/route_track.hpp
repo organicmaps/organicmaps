@@ -56,3 +56,4 @@ private:
 
 bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
                                        size_t turnIndex, double beforeTurn, double afterTurn, double arrowLength);
+bool MergeArrows(vector<m2::PointD> & ptsCurrentTurn, vector<m2::PointD> const & ptsNextTurn, double bodyLen, double arrowLen);

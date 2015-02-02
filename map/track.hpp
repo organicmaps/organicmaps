@@ -35,9 +35,6 @@ typedef buffer_vector<m2::PointD, 32> PointContainerT;
 
 class Track : private noncopyable
 {
-  Track & operator=(Track const &) = delete;
-  Track(Track const &) = delete;
-
 public:
   typedef m2::PolylineD PolylineD;
 
