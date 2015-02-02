@@ -1122,7 +1122,6 @@ public class MWMActivity extends NvEventQueueActivity
     SearchController.getInstance().onResume();
     mInfoView.onResume();
     tryResumeRouting();
-    MWMApplication.get().onMwmResume(this);
     mLocationPredictor.resume();
     mLikesManager.showLikeDialogs();
   }

@@ -9,10 +9,6 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
@@ -20,14 +16,9 @@ import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
-import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
-import com.mobileapptracker.MobileAppTracker;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 import ru.mail.mrgservice.MRGSApplication;
@@ -52,10 +43,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   // We check how old is modified date of our MapsWithMe folder
   private final static long TIME_DELTA = 5 * 1000;
-
-  private MobileAppTracker mMobileAppTracker;
-  private final Logger mLogger = StubLogger.get();
-  //      SimpleLogger.get("MAT");
 
   public MWMApplication()
   {
@@ -242,7 +229,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public void onMwmCreate(Activity activity)
   {
     FbUtil.activate(activity);
-    initMat(activity);
   }
 
   public void initStats()
@@ -259,17 +245,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
       // We try to take into an account if app was previously installed.
       org.alohalytics.Statistics.setup(BuildConfig.STATISTICS_URL, this, isNewUser());
-    }
-  }
-
-  public void onMwmResume(Activity activity)
-  {
-    if (mMobileAppTracker != null)
-    {
-      // Get source of open for app re-engagement
-      mMobileAppTracker.setReferralSources(activity);
-      // MAT will not function unless the measureSession call is included
-      mMobileAppTracker.measureSession();
     }
   }
 
@@ -329,62 +304,5 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public int getFirstInstallVersion()
   {
     return nativeGetInt(FIRST_INSTALL_VERSION, 0);
-  }
-
-  private void initMat(Activity activity)
-  {
-    if (!Utils.hasAnyGoogleStoreInstalled())
-    {
-      mLogger.d("SKIPPING MAT INIT, DOES NOT HAVE GP");
-      return;
-    }
-
-    final String advId = getString(R.string.advertiser_id);
-    final String convKey = getString(R.string.conversion_key);
-
-    final boolean doTrack = !"FALSE".equalsIgnoreCase(advId);
-    if (doTrack)
-    {
-      MobileAppTracker.init(activity, advId, convKey);
-      mMobileAppTracker = MobileAppTracker.getInstance();
-
-      if (!isNewUser())
-      {
-        mMobileAppTracker.setExistingUser(true);
-        mLogger.d("Existing user");
-      }
-
-      // Collect Google Play Advertising ID
-      new Thread(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          // See sample code at http://developer.android.com/google/play-services/id.html
-          try
-          {
-            Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
-            mMobileAppTracker.setGoogleAdvertisingId(adInfo.getId(), adInfo.isLimitAdTrackingEnabled());
-            mLogger.d("Got Google User ID");
-          } catch (IOException e)
-          {
-            // Unrecoverable error connecting to Google Play services (e.g.,
-            // the old version of the service doesn't support getting AdvertisingId).
-            e.printStackTrace();
-          } catch (GooglePlayServicesNotAvailableException e)
-          {
-            // Google Play services is not available entirely.
-            // Use ANDROID_ID instead
-            // AlexZ: we can't use Android ID from 1st of August, 2014, according to Google policies
-            // mMobileAppTracker.setAndroidId(Secure.getString(getContentResolver(), Secure.ANDROID_ID));
-            e.printStackTrace();
-          } catch (GooglePlayServicesRepairableException e)
-          {
-            // Encountered a recoverable error connecting to Google Play services.
-            e.printStackTrace();
-          }
-        }
-      }).start();
-    }
   }
 }

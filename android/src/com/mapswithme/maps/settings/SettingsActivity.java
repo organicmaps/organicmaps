@@ -141,7 +141,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     super.onStart();
 
     Statistics.INSTANCE.startActivity(this);
-    MRGService.instance().sendGAScreen(getClass().getName());
     MRGService.instance().onStart(this);
   }
 

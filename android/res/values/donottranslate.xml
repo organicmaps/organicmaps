@@ -8,10 +8,6 @@
   <!-- FB -->
   <string name="fb_app_id" translatable="false">185237551520383</string>
 
-  <!-- MAT -->
-  <string name="advertiser_id" translatable="false">14130</string>
-  <string name="conversion_key" translatable="false">***REMOVED***</string>
-
   <!-- MRGS -->
   <string name="mrgs_key" translatable="false">***REMOVED***</string>
   <string name="mrgs_id" translatable="false">150</string>

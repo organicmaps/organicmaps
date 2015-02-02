@@ -34,7 +34,6 @@ public class MWMFragmentActivity extends ActionBarActivity
     super.onStart();
     Statistics.INSTANCE.startActivity(this);
 
-    MRGService.instance().sendGAScreen(getClass().getName());
     MRGService.instance().onStart(this);
   }
 
