@@ -66,24 +66,25 @@ void Track::AddOutline(TrackOutline const * outline, size_t arraySize)
 //  pScreen->drawDisplayList(m_dList, matrix);
 //}
 
-void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts) const
-{
-  double baseDepthTrack = graphics::tracksDepth - 10 * m_outlines.size();
-  for (TrackOutline const & outline : m_outlines)
-  {
-    graphics::Pen::Info const outlineInfo(outline.m_color, outline.m_lineWidth);
-    uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
-    dlScreen->drawPath(pts.data(), pts.size(), 0, outlineId, baseDepthTrack);
-    baseDepthTrack += 10;
-  }
-}
+///@TODO UVR
+//void Track::CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts) const
+//{
+//  double baseDepthTrack = graphics::tracksDepth - 10 * m_outlines.size();
+//  for (TrackOutline const & outline : m_outlines)
+//  {
+//    graphics::Pen::Info const outlineInfo(outline.m_color, outline.m_lineWidth);
+//    uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
+//    dlScreen->drawPath(pts.data(), pts.size(), 0, outlineId, baseDepthTrack);
+//    baseDepthTrack += 10;
+//  }
+//}
 
 ///@TODO UVR
-void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
-                              int, double, location::RouteMatchingInfo const &) const
-{
-  if (HasDisplayLists() && !isScaleChanged)
-    return;
+//void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
+//                              int, double, location::RouteMatchingInfo const &) const
+//{
+//  if (HasDisplayLists() && !isScaleChanged)
+//    return;
 
 //  DeleteDisplayList();
 
@@ -98,7 +99,7 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
 
 //  dlScreen->setDisplayList(0);
 //  dlScreen->endFrame();
-}
+//}
 
 double Track::GetLengthMeters() const
 {
@@ -131,15 +132,16 @@ void Track::Swap(Track & rhs)
   //rhs.DeleteDisplayList();
 }
 
-void Track::CleanUp() const
-{
-  DeleteDisplayList();
-}
+///@TODO UVR
+//void Track::CleanUp() const
+//{
+//  DeleteDisplayList();
+//}
 
-bool Track::HasDisplayLists() const
-{
-  return m_dList != nullptr;
-}
+//bool Track::HasDisplayLists() const
+//{
+//  return m_dList != nullptr;
+//}
 
 void TransformPolyline(Track::PolylineD const & polyline, MatrixT const & matrix, PointContainerT & pts)
 {

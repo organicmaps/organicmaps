@@ -1,7 +1,9 @@
 #pragma once
+
 #include "map/bookmark.hpp"
 #include "map/route_track.hpp"
 #include "map/user_mark_container.hpp"
+#include "map/route_track.hpp"
 
 #include "std/function.hpp"
 #include "std/unique_ptr.hpp"

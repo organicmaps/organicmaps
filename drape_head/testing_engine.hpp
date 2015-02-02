@@ -23,7 +23,8 @@ class TestingEngine : public QObject
 public:
   TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                 Viewport const & viewport,
-                MapDataProvider const & model);
+                MapDataProvider const & model,
+                double vs);
   ~TestingEngine();
 
   void Draw();

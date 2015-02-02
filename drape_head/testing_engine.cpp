@@ -251,12 +251,13 @@ private:
 
 TestingEngine::TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                              Viewport const & viewport,
-                             MapDataProvider const & model)
+                             MapDataProvider const & model,
+                             double vs)
   : m_contextFactory(oglcontextfactory)
   , m_viewport(viewport)
 {
   GLFunctions::Init();
-  df::VisualParams::Init(viewport.GetPixelRatio(), df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
+  df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
   m_contextFactory->getDrawContext()->makeCurrent();
 
   dp::TextureManager::Params params;

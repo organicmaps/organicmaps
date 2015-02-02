@@ -1,9 +1,6 @@
 #include "map/route_track.hpp"
 
-#include "graphics/screen.hpp"
-#include "graphics/display_list.hpp"
-#include "graphics/depth_constants.hpp"
-#include "graphics/pen.hpp"
+#include "map/location_state.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -17,15 +14,15 @@ namespace
                                         arrowDirection.first);
   }
 
-  void DrawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD> const & arrowDirection,
-                         double arrowWidth, double arrowLength, graphics::Color arrowColor, double arrowDepth)
-  {
-    ASSERT(dlScreen, ());
+//  void DrawArrowTriangle(graphics::Screen * dlScreen, pair<m2::PointD, m2::PointD> const & arrowDirection,
+//                         double arrowWidth, double arrowLength, graphics::Color arrowColor, double arrowDepth)
+//  {
+//    ASSERT(dlScreen, ());
 
-    array<m2::PointF, 3> arrow;
-    m2::GetArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, arrow);
-    dlScreen->drawConvexPolygon(&arrow[0], arrow.size(), arrowColor, arrowDepth);
-  }
+//    array<m2::PointF, 3> arrow;
+//    m2::GetArrowPoints(arrowDirection.first, arrowDirection.second, arrowWidth, arrowLength, arrow);
+//    dlScreen->drawConvexPolygon(&arrow[0], arrow.size(), arrowColor, arrowDepth);
+//  }
 }
 
 bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::PointD, m2::PointD> & arrowDirection,
@@ -177,6 +174,7 @@ RouteTrack::~RouteTrack()
   DeleteClosestSegmentDisplayList();
 }
 
+/*
 void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT const & matrix, double visualScale) const
 {
   double const beforeTurn = 13. * visualScale;
@@ -218,78 +216,80 @@ void RouteTrack::CreateDisplayListArrows(graphics::Screen * dlScreen, MatrixT co
     ptsNextTurn = ptsTurn;
   }
 }
+*/
+
 /// @todo there are some ways to optimize the code bellow.
 /// 1. Call CreateDisplayListArrows only after passing the next arrow while driving
 /// 2. Use several closest segments intead of one to recreate Display List for the most part of the track
 ///
-void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
-                                   int drawScale, double visualScale,
-                                   location::RouteMatchingInfo const & matchingInfo) const
-{
-  if (HasDisplayLists() && !isScaleChanged &&
-      m_relevantMatchedInfo.GetPosition() == matchingInfo.GetPosition())
-    return;
+//void RouteTrack::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
+//                                   int drawScale, double visualScale,
+//                                   location::RouteMatchingInfo const & matchingInfo) const
+//{
+//  if (HasDisplayLists() && !isScaleChanged &&
+//      m_relevantMatchedInfo.GetPosition() == matchingInfo.GetPosition())
+//    return;
 
-  PolylineD const & fullPoly = GetPolyline();
-  size_t const formerIndex = m_relevantMatchedInfo.GetIndexInRoute();
+//  PolylineD const & fullPoly = GetPolyline();
+//  size_t const formerIndex = m_relevantMatchedInfo.GetIndexInRoute();
 
-  if (matchingInfo.IsMatched())
-    m_relevantMatchedInfo = matchingInfo;
-  size_t const currentIndex = m_relevantMatchedInfo.GetIndexInRoute();
+//  if (matchingInfo.IsMatched())
+//    m_relevantMatchedInfo = matchingInfo;
+//  size_t const currentIndex = m_relevantMatchedInfo.GetIndexInRoute();
 
-  size_t const fullPolySz = fullPoly.GetSize();
-  if (currentIndex + 2 >= fullPolySz || fullPolySz < 2)
-  {
-    DeleteDisplayList();
-    DeleteClosestSegmentDisplayList();
-    return;
-  }
-  DeleteClosestSegmentDisplayList();
-  auto const curSegIter = fullPoly.Begin() + currentIndex;
+//  size_t const fullPolySz = fullPoly.GetSize();
+//  if (currentIndex + 2 >= fullPolySz || fullPolySz < 2)
+//  {
+//    DeleteDisplayList();
+//    DeleteClosestSegmentDisplayList();
+//    return;
+//  }
+//  DeleteClosestSegmentDisplayList();
+//  auto const curSegIter = fullPoly.Begin() + currentIndex;
 
-  //the most part of the route and symbols
-  if (formerIndex != currentIndex ||
-      !HasDisplayLists() || isScaleChanged)
-  {
-    DeleteDisplayList();
-    dlScreen->beginFrame();
+//  //the most part of the route and symbols
+//  if (formerIndex != currentIndex ||
+//      !HasDisplayLists() || isScaleChanged)
+//  {
+//    DeleteDisplayList();
+//    dlScreen->beginFrame();
 
-    graphics::DisplayList * dList = dlScreen->createDisplayList();
-    dlScreen->setDisplayList(dList);
-    SetDisplayList(dList);
+//    graphics::DisplayList * dList = dlScreen->createDisplayList();
+//    dlScreen->setDisplayList(dList);
+//    SetDisplayList(dList);
 
-    PolylineD mostPartPoly(curSegIter + 1, fullPoly.End());
-    PointContainerT ptsMostPart;
-    ptsMostPart.reserve(mostPartPoly.GetSize());
-    TransformAndSymplifyPolyline(mostPartPoly, matrix, GetMainWidth(), ptsMostPart);
-    CreateDisplayListPolyline(dlScreen, ptsMostPart);
+//    PolylineD mostPartPoly(curSegIter + 1, fullPoly.End());
+//    PointContainerT ptsMostPart;
+//    ptsMostPart.reserve(mostPartPoly.GetSize());
+//    TransformAndSymplifyPolyline(mostPartPoly, matrix, GetMainWidth(), ptsMostPart);
+//    CreateDisplayListPolyline(dlScreen, ptsMostPart);
     
-    PolylineD sym(vector<m2::PointD>({fullPoly.Front(), fullPoly.Back()}));
-    PointContainerT ptsSym;
-    TransformPolyline(sym, matrix, ptsSym);
-    CreateDisplayListSymbols(dlScreen, ptsSym);
+//    PolylineD sym(vector<m2::PointD>({fullPoly.Front(), fullPoly.Back()}));
+//    PointContainerT ptsSym;
+//    TransformPolyline(sym, matrix, ptsSym);
+//    CreateDisplayListSymbols(dlScreen, ptsSym);
 
-    //arrows on the route
-    if (drawScale >= scales::GetNavigationScale())
-      CreateDisplayListArrows(dlScreen, matrix, visualScale);
-  }
-  else
-    dlScreen->beginFrame();
+//    //arrows on the route
+//    if (drawScale >= scales::GetNavigationScale())
+//      CreateDisplayListArrows(dlScreen, matrix, visualScale);
+//  }
+//  else
+//    dlScreen->beginFrame();
 
-  //closest route segment
-  m_closestSegmentDL = dlScreen->createDisplayList();
-  dlScreen->setDisplayList(m_closestSegmentDL);
-  PolylineD closestPoly(m_relevantMatchedInfo.IsMatched() ?
-          vector<m2::PointD>({m_relevantMatchedInfo.GetPosition(), fullPoly.GetPoint(currentIndex + 1)}) :
-          vector<m2::PointD>({fullPoly.GetPoint(currentIndex), fullPoly.GetPoint(currentIndex + 1)}));
-  PointContainerT pts;
-  pts.reserve(closestPoly.GetSize());
-  TransformPolyline(closestPoly, matrix, pts);
-  CreateDisplayListPolyline(dlScreen, pts);
+//  //closest route segment
+//  m_closestSegmentDL = dlScreen->createDisplayList();
+//  dlScreen->setDisplayList(m_closestSegmentDL);
+//  PolylineD closestPoly(m_relevantMatchedInfo.IsMatched() ?
+//          vector<m2::PointD>({m_relevantMatchedInfo.GetPosition(), fullPoly.GetPoint(currentIndex + 1)}) :
+//          vector<m2::PointD>({fullPoly.GetPoint(currentIndex), fullPoly.GetPoint(currentIndex + 1)}));
+//  PointContainerT pts;
+//  pts.reserve(closestPoly.GetSize());
+//  TransformPolyline(closestPoly, matrix, pts);
+//  CreateDisplayListPolyline(dlScreen, pts);
 
-  dlScreen->setDisplayList(0);
-  dlScreen->endFrame();
-}
+//  dlScreen->setDisplayList(0);
+//  dlScreen->endFrame();
+//}
 
 RouteTrack * RouteTrack::CreatePersistent()
 {
@@ -300,17 +300,17 @@ RouteTrack * RouteTrack::CreatePersistent()
 
 void RouteTrack::DeleteClosestSegmentDisplayList() const
 {
-  delete m_closestSegmentDL;
-  m_closestSegmentDL = nullptr;
+//  delete m_closestSegmentDL;
+//  m_closestSegmentDL = nullptr;
 }
 
-void RouteTrack::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
-{
-  Track::Draw(pScreen, matrix);
-  pScreen->drawDisplayList(m_closestSegmentDL, matrix);
-}
+//void RouteTrack::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
+//{
+//  Track::Draw(pScreen, matrix);
+//  pScreen->drawDisplayList(m_closestSegmentDL, matrix);
+//}
 
-void RouteTrack::AddClosingSymbol(bool isBeginSymbol, string const & symbolName, graphics::EPosition pos, double depth)
+void RouteTrack::AddClosingSymbol(bool isBeginSymbol, string const & symbolName, dp::Anchor pos, double depth)
 {
   if (isBeginSymbol)
     m_beginSymbols.push_back(ClosingSymbol(symbolName, pos, depth));
@@ -318,44 +318,42 @@ void RouteTrack::AddClosingSymbol(bool isBeginSymbol, string const & symbolName,
     m_endSymbols.push_back(ClosingSymbol(symbolName, pos, depth));
 }
 
-void RouteTrack::CreateDisplayListSymbols(graphics::Screen * dlScreen, PointContainerT const & pts) const
-{
-  ASSERT(!pts.empty(), ());
-  if (!m_beginSymbols.empty() || !m_endSymbols.empty())
-  {
-    m2::PointD pivot = pts.front();
-    auto symDrawer = [&dlScreen, &pivot] (ClosingSymbol const & symbol)
-    {
-      dlScreen->drawSymbol(pivot, symbol.m_iconName, symbol.m_position, symbol.m_depth);
-    };
+//void RouteTrack::CreateDisplayListSymbols(graphics::Screen * dlScreen, PointContainerT const & pts) const
+//{
+//  ASSERT(!pts.empty(), ());
+//  if (!m_beginSymbols.empty() || !m_endSymbols.empty())
+//  {
+//    m2::PointD pivot = pts.front();
+//    auto symDrawer = [&dlScreen, &pivot] (ClosingSymbol const & symbol)
+//    {
+//      dlScreen->drawSymbol(pivot, symbol.m_iconName, symbol.m_position, symbol.m_depth);
+//    };
 
-    for_each(m_beginSymbols.begin(), m_beginSymbols.end(), symDrawer);
+//    for_each(m_beginSymbols.begin(), m_beginSymbols.end(), symDrawer);
 
-    pivot = pts.back();
-    for_each(m_endSymbols.begin(), m_endSymbols.end(), symDrawer);
-  }
-}
+//    pivot = pts.back();
+//    for_each(m_endSymbols.begin(), m_endSymbols.end(), symDrawer);
+//  }
+//}
 
 void RouteTrack::Swap(RouteTrack & rhs)
 {
-  Track::Swap(rhs);
-  swap(m_beginSymbols, rhs.m_beginSymbols);
-  swap(m_endSymbols, rhs.m_endSymbols);
-  m_turnsGeom.swap(rhs.m_turnsGeom);
+//  Track::Swap(rhs);
+//  swap(m_beginSymbols, rhs.m_beginSymbols);
+//  swap(m_endSymbols, rhs.m_endSymbols);
+//  m_turnsGeom.swap(rhs.m_turnsGeom);
 
-  rhs.m_relevantMatchedInfo.Reset();
-  m_relevantMatchedInfo.Reset();
-
-  swap(m_arrowColor, rhs.m_arrowColor);
+//  rhs.m_relevantMatchedInfo.Reset();
+//  m_relevantMatchedInfo.Reset();
 }
 
-void RouteTrack::CleanUp() const
-{
-  Track::CleanUp();
-  DeleteClosestSegmentDisplayList();
-}
+//void RouteTrack::CleanUp() const
+//{
+//  Track::CleanUp();
+//  DeleteClosestSegmentDisplayList();
+//}
 
-bool RouteTrack::HasDisplayLists() const
-{
-  return Track::HasDisplayLists() && m_closestSegmentDL != nullptr;
-}
+//bool RouteTrack::HasDisplayLists() const
+//{
+//  return Track::HasDisplayLists() && m_closestSegmentDL != nullptr;
+//}

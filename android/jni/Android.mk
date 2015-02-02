@@ -40,7 +40,7 @@ LOCAL_CPP_FEATURES += exceptions rtti
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := map render gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours
+LOCAL_STATIC_LIBRARIES := map drape_frontend routing search storage indexer drape platform anim geometry coding base expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)

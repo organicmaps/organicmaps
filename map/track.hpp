@@ -53,7 +53,7 @@ public:
   /// @TODO UVR
   //virtual void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
   //virtual void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix, bool isScaleChanged,
-                         int, double, location::RouteMatchingInfo const &) const;
+  //                       int, double, location::RouteMatchingInfo const &) const;
   //virtual void CleanUp() const;
   //virtual bool HasDisplayLists() const;
 
@@ -77,11 +77,12 @@ public:
   double GetLengthMeters() const;
 
 protected:
-  graphics::DisplayList * GetDisplayList() const { return m_dList; }
-  void SetDisplayList(graphics::DisplayList * dl) const { m_dList = dl; }
-  void CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts2) const;
+/// @TODO UVR
+//  graphics::DisplayList * GetDisplayList() const { return m_dList; }
+//  void SetDisplayList(graphics::DisplayList * dl) const { m_dList = dl; }
+//  void CreateDisplayListPolyline(graphics::Screen * dlScreen, PointContainerT const & pts2) const;
   void Swap(Track & rhs);
-  void DeleteDisplayList() const;
+//  void DeleteDisplayList() const;
 
 private:
   string m_name;
