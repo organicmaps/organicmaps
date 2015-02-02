@@ -7,6 +7,7 @@ import android.provider.Settings.Secure;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
@@ -27,6 +28,7 @@ public class FlurryEngine extends StatisticsEngine
   {
     FlurryAgent.setUserId(Secure.ANDROID_ID);
     FlurryAgent.setLogLevel(mDebug ? Log.DEBUG : Log.ERROR);
+    FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
     FlurryAgent.init(context, context.getString(R.string.flurry_app_key));
   }
 
