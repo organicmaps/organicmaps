@@ -731,7 +731,7 @@
 "rating_do_like_maps" = "Нравится приложение?";
 
 /* Text for rating dialog */
-"rating_tap_star" = "Оцените MAPS.ME";
+"rating_tap_star" = "Оцените MAPS.ME и поделитесь радостью со всеми!";
 
 /* Text for rating dialog */
 "rating_thanks" = "Спасибо!";
@@ -740,7 +740,7 @@
 "rating_share_ideas" = "Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.";
 
 /* Text for rating dialog */
-"rating_send_feedback" = "Написать отзыв";
+"rating_send_feedback" = "Напишите нам";
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Нажмите g+, чтобы рассказать друзьям о приложении";

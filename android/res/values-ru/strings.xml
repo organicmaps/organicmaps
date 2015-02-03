@@ -474,13 +474,13 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">Нравится приложение?</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_tap_star">Оцените MAPS.ME</string>
+	<string name="rating_tap_star">Оцените MAPS.ME и поделитесь радостью со всеми!</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_thanks">Спасибо!</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_share_ideas">Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_send_feedback">Написать отзыв</string>
+	<string name="rating_send_feedback">Напишите нам</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Нажмите g+, чтобы рассказать друзьям о приложении</string>
 </resources>
