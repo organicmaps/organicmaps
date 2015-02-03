@@ -117,7 +117,7 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
       {
         e.printStackTrace();
       }
-      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_RATING, "Rating : " + mRating,
+      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_RATING, getString(R.string.rating_just_rated) + ": " + mRating,
           "OS : " + Build.VERSION.SDK_INT + "\n" + "Version : " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n" +
               getString(R.string.rating_user_since, DateUtils.formatDateTime(getActivity(), installTime, 0)) + "\n\n"));
       try
