@@ -7,7 +7,6 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
-#include "../std/deque.hpp"
 #include "../std/noncopyable.hpp"
 
 class Framework;
@@ -26,8 +25,6 @@ namespace graphics
 class UserMarkContainer : private noncopyable
 {
 public:
-  using UserMarksList = deque<UserMark *>;
-
   class Controller
   {
   public:
@@ -109,7 +106,7 @@ private:
   bool m_isVisible;
   bool m_isDrawable;
   double m_layerDepth;
-  UserMarksList m_userMarks;
+  vector<UserMark *> m_userMarks;
 };
 
 class SearchUserMarkContainer : public UserMarkContainer

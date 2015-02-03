@@ -202,9 +202,8 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
 
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
-  unique_ptr<UserMark> mark(AllocateUserMark(ptOrg));
-  m_userMarks.push_front(mark.get());
-  return mark.release();
+  m_userMarks.push_back(AllocateUserMark(ptOrg));
+  return m_userMarks.back();
 }
 
 size_t UserMarkContainer::GetUserMarkCount() const
@@ -224,23 +223,33 @@ UserMark * UserMarkContainer::GetUserMark(size_t index)
   return m_userMarks[index];
 }
 
-void UserMarkContainer::DeleteUserMark(size_t index)
+namespace
 {
-  ASSERT_LESS(index, m_userMarks.size(), ());
-  if (index < m_userMarks.size())
+
+template <class T> void DeleteItem(vector<T> & v, size_t i)
+{
+  if (i < v.size())
   {
-    delete m_userMarks[index];
-    m_userMarks.erase(m_userMarks.begin() + index);
+    delete v[i];
+    v.erase(v.begin() + i);
   }
   else
   {
-    LOG(LWARNING, ("Trying to delete non-existing item at index", index));
+    LOG(LWARNING, ("Trying to delete non-existing item at index", i));
   }
+}
+
+}
+
+void UserMarkContainer::DeleteUserMark(size_t index)
+{
+  ASSERT_LESS(index, m_userMarks.size(), ());
+  DeleteItem(m_userMarks, index);
 }
 
 void UserMarkContainer::DeleteUserMark(UserMark const * mark)
 {
-  UserMarksList::iterator it = find(m_userMarks.begin(), m_userMarks.end(), mark);
+  vector<UserMark *>::iterator it = find(m_userMarks.begin(), m_userMarks.end(), mark);
   if (it != m_userMarks.end())
     DeleteUserMark(distance(m_userMarks.begin(), it));
 }

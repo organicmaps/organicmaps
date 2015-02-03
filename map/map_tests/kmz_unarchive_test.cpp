@@ -40,7 +40,7 @@ UNIT_TEST(Open_KMZ_Test)
   TEST_EQUAL(cat.GetBookmarksCount(), 6, ("Category wrong number of bookmarks"));
 
   {
-    Bookmark const * bm = cat.GetBookmark(5);
+    Bookmark const * bm = cat.GetBookmark(0);
     TEST_EQUAL(bm->GetName(), ("Lahaina Breakwall"), ("KML wrong name!"));
     TEST_EQUAL(bm->GetType(), "placemark-red", ("KML wrong type!"));
     TEST_ALMOST_EQUAL(bm->GetOrg().x, -156.6777046791284, ("KML wrong org x!"));
@@ -48,7 +48,7 @@ UNIT_TEST(Open_KMZ_Test)
     TEST_EQUAL(bm->GetScale(), -1, ("KML wrong scale!"));
   }
   {
-    Bookmark const * bm = cat.GetBookmark(4);
+    Bookmark const * bm = cat.GetBookmark(1);
     TEST_EQUAL(bm->GetName(), ("Seven Sacred Pools, Kipahulu"), ("KML wrong name!"));
     TEST_EQUAL(bm->GetType(), "placemark-red", ("KML wrong type!"));
     TEST_ALMOST_EQUAL(bm->GetOrg().x, -156.0405130750025, ("KML wrong org x!"));

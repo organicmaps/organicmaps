@@ -705,8 +705,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
 
   for (size_t i = 0; i < GetBookmarksCount(); ++i)
   {
-    const size_t ix = GetBookmarksCount() - i - 1;
-    Bookmark const * bm = GetBookmark(ix);
+    Bookmark const * bm = GetBookmark(i);
     s << "  <Placemark>\n";
     s << "    <name>";
     SaveStringWithCDATA(s, bm->GetName());
