@@ -6470,7 +6470,7 @@
     tags = android
     comment = Text for rating dialog
     en = Tap a star to rate our app.
-    ru = Оцените MAPS.ME и поделитесь радостью со всеми!
+    ru = Оцените MAPS.ME.
     uk = Торкніться зірочки, щоб оцінити нашу програму.
     vi = Chạm vào một ngôi sao để đánh giá ứng dụng của chúng tôi.
     tr = Uygulamamıza puan vermek için bir yıldıza dokunun.
