@@ -11,6 +11,7 @@
 #include "../std/function.hpp"
 #include "../std/numeric.hpp"
 #include "../std/atomic.hpp"
+#include "../std/queue.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 #include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
@@ -83,7 +84,7 @@ struct RoutingMapping
   void Unmap()
   {
     --map_counter;
-    if (map_counter<1 && mapping.IsMapped())
+    if (map_counter < 1 && mapping.IsMapped())
       mapping.Unmap();
   }
 
@@ -268,14 +269,23 @@ private:
     EdgeWeight weight;
   };
   typedef vector<RoutePathCross> CheckedPathT;
+  class LastCrossFinder;
 
   static EdgeWeight getPathWeight(CheckedPathT const & path)
   {
     return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
   }
 
+  struct pathChecker{
+    bool operator() (CheckedPathT const & a, CheckedPathT const & b) const {
+      return getPathWeight(b)<getPathWeight(a); // backward sort
+    }
+  };
+
+  typedef priority_queue<CheckedPathT, vector<CheckedPathT>, pathChecker> RoutingTaskQueueT;
+
   MultiroutingTaskPointT::const_iterator FilterWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
-                                      std::vector<EdgeWeight> &weightMatrix, bool const filterSource);
+                                      std::vector<EdgeWeight> &weightMatrix);
 
   /*!
    * \brief Makes route (points turns and other annotations) and submits it to @route class

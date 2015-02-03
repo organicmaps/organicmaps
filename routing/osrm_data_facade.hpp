@@ -91,6 +91,7 @@ public:
   virtual EdgeDataT & GetEdgeData(const EdgeID e)
   {
     static EdgeDataT res;
+    ASSERT(false, ("Maps me routing facade do not supports this edge unpacking method"));
     return res;
   }
 
@@ -110,6 +111,7 @@ public:
   virtual EdgeDataT & GetEdgeData(const EdgeID e) const
   {
     static EdgeDataT res;
+    ASSERT(false, ("Maps me routing facade do not supports this  edge unpacking method"));
     return res;
   }
 
