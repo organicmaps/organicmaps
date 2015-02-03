@@ -46,7 +46,7 @@
 
   <dimen name="color_chooser_radius">24dp</dimen>
   <dimen name="dialog_max_height">320dp</dimen>
-  <dimen name="zoom_buttom_size">40dp</dimen>
+  <dimen name="zoom_buttom_size">56dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 

@@ -54,7 +54,7 @@
   </style>
 
   <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
-    <item name="android:background">@drawable/btn_zoom_bg_selector</item>
+    <item name="android:background">@drawable/bg_btn_zoom</item>
     <item name="android:scaleType">center</item>
     <item name="android:layout_marginRight">@dimen/margin_small</item>
     <item name="android:layout_marginBottom">@dimen/margin_tiny_and_half</item>

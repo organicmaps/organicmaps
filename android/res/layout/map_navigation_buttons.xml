@@ -32,7 +32,7 @@
       android:layout_alignParentRight="true"
       android:layout_below="@id/anchor_center"
       android:onClick="onPlusClicked"
-      android:src="@drawable/ic_btn_zoom_in"/>
+      android:src="@drawable/ic_zoom_in"/>
 
   <ImageButton
       android:id="@+id/map_button_minus"
@@ -42,6 +42,6 @@
       android:layout_alignParentRight="true"
       android:layout_below="@+id/map_button_plus"
       android:onClick="onMinusClicked"
-      android:src="@drawable/ic_btn_zoom_out"/>
+      android:src="@drawable/ic_zoom_out"/>
 
 </RelativeLayout>
