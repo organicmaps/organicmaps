@@ -725,7 +725,7 @@
 "rating_just_rated" = "앱 평가 완료";
 
 /* Text for rating dialog */
-"rating_user_since" = "2011 이후로 MAPS.ME 사용자임";
+"rating_user_since" = "%@ 이후로 MAPS.ME 사용자임";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "MAPS.ME를 좋아하나요?";

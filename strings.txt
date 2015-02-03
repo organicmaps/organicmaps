@@ -6416,7 +6416,7 @@
     pt = Sou usuário do MAPS.ME desde %@
     ro = Sunt utilizator MAPS.ME din %@
     pl = Jestem użytkownikiem MAPS.ME od %@ r.
-    ko = 2011 이후로 MAPS.ME 사용자임
+    ko = %@ 이후로 MAPS.ME 사용자임
     in = Saya pengguna MAPS.ME sejak %@
     ja = 私は%@年からMAPS.MEのユーザーです
     hu = MAPS.ME felhasználó vagyok %@ óta

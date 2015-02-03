@@ -447,7 +447,7 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">앱 평가 완료</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">2011 이후로 MAPS.ME 사용자임</string>
+	<string name="rating_user_since">%s 이후로 MAPS.ME 사용자임</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_do_like_maps">MAPS.ME를 좋아하나요?</string>
 	<!-- Text for rating dialog -->
