@@ -142,12 +142,12 @@ UNIT_TEST(MapApiMultiplePoints)
   ApiTest api("mwm://map?ll=1.1,1.2&n=A&LL=2.1,2.2&ll=-3.1,-3.2&n=C");
   TEST(api.IsValid(), ());
   TEST_EQUAL(api.GetPointCount(), 3, ());
-  TEST(api.TestLatLon(0, 1.1, 1.2), ());
-  TEST(api.TestName(0, "A"), ());
+  TEST(api.TestLatLon(2, 1.1, 1.2), ());
+  TEST(api.TestName(2, "A"), ());
   TEST(api.TestLatLon(1, 2.1, 2.2), ());
   TEST(api.TestName(1, ""), ());
-  TEST(api.TestLatLon(2, -3.1, -3.2), ());
-  TEST(api.TestName(2, "C"), ());
+  TEST(api.TestLatLon(0, -3.1, -3.2), ());
+  TEST(api.TestName(0, "C"), ());
 }
 
 UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
@@ -298,9 +298,10 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
     double lat = vect[i].m_lat;
     double lon = vect[i].m_lon;
     ToMercatoToLatLon(lat, lon);
-    TEST(api.TestLatLon(i, lat, lon), ());
-    TEST(api.TestName(i, vect[i].m_name), ());
-    TEST(api.TestID(i, vect[i].m_id), ());
+    const size_t ix = vect.size() - i - 1;
+    TEST(api.TestLatLon(ix, lat, lon), ());
+    TEST(api.TestName(ix, vect[i].m_name), ());
+    TEST(api.TestID(ix, vect[i].m_id), ());
   }
   TEST_EQUAL(api.GetApiVersion(), 1, ());
 }
