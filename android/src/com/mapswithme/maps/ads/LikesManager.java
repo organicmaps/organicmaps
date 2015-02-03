@@ -27,13 +27,14 @@ public class LikesManager
   private WeakReference<FragmentActivity> mActivityRef;
 
   public static final String LAST_RATED_SESSION = "LastRatedSession";
+  public static final String RATED_DIALOG = "RatedDialog";
 
   public LikesManager(FragmentActivity activity)
   {
     mHandler = new Handler(activity.getMainLooper());
     mActivityRef = new WeakReference<>(activity);
 
-    mIsNewUser = MWMApplication.get().getFirstInstallVersion() >= 430;
+    mIsNewUser = MWMApplication.get().getFirstInstallVersion() >= 422;
     mSessionNum = MWMApplication.get().getSessionsNumber();
   }
 
@@ -60,7 +61,7 @@ public class LikesManager
 
   private void displayLikeDialog(final Class<? extends DialogFragment> dialogFragmentClass)
   {
-    if (isSessionRated())
+    if (isSessionRated() || isRatingApplied(dialogFragmentClass))
       return;
     setSessionRated();
 
@@ -104,5 +105,15 @@ public class LikesManager
   public void setSessionRated()
   {
     MWMApplication.get().nativeSetInt(LAST_RATED_SESSION, mSessionNum);
+  }
+
+  public static boolean isRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass)
+  {
+    return MWMApplication.get().nativeGetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), false);
+  }
+
+  public static void setRatingApplied(final Class<? extends DialogFragment> dialogFragmentClass, boolean applied)
+  {
+    MWMApplication.get().nativeSetBoolean(RATED_DIALOG + dialogFragmentClass.getSimpleName(), applied);
   }
 }

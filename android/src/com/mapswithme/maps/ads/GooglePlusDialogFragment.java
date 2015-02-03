@@ -3,6 +3,7 @@ package com.mapswithme.maps.ads;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -21,9 +22,20 @@ public class GooglePlusDialogFragment extends DialogFragment
   {
     super.onResume();
 
-    PlusOneButton plusButton = (PlusOneButton) getDialog().findViewById(R.id.btn__gplus);
+    final PlusOneButton plusButton = (PlusOneButton) getDialog().findViewById(R.id.btn__gplus);
     if (plusButton != null)
-      plusButton.initialize(Constants.Url.PLAY_MARKET_HTTPS_APP_PREFIX + Constants.Package.MWM_PRO_PACKAGE, 0);
+    {
+      plusButton.initialize(Constants.Url.PLAY_MARKET_HTTPS_APP_PREFIX + Constants.Package.MWM_PRO_PACKAGE, new PlusOneButton.OnPlusOneClickListener()
+      {
+        @Override
+        public void onPlusOneClick(Intent intent)
+        {
+          LikesManager.setRatingApplied(GooglePlusDialogFragment.class, true);
+          dismiss();
+          startActivityForResult(intent, 0);
+        }
+      });
+    }
   }
 
   @NonNull

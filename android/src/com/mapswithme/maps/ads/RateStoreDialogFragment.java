@@ -61,6 +61,7 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
         mRating = rating;
         if (rating == 5.0f)
         {
+          LikesManager.setRatingApplied(RateStoreDialogFragment.class, true);
           dismiss();
           Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
         }
@@ -103,6 +104,7 @@ public class RateStoreDialogFragment extends DialogFragment implements View.OnCl
     switch (v.getId())
     {
     case R.id.btn__explain_bad_rating:
+      LikesManager.setRatingApplied(GooglePlusDialogFragment.class, true);
       dismiss();
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       final PackageInfo info;
