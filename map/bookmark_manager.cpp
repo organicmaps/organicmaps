@@ -184,7 +184,7 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptO
   bm.SetScale(m_framework.GetDrawScale());
 
   BookmarkCategory * pCat = m_categories[categoryIndex];
-  pCat->AddBookmark(ptOrg, bm);
+  Bookmark * bookmark = pCat->AddBookmark(ptOrg, bm);
   pCat->SetVisible(true);
   pCat->SaveToKMLFile();
 
@@ -192,7 +192,7 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptO
   m_lastType = bm.GetType();
   SaveState();
 
-  return (pCat->GetBookmarksCount() - 1);
+  return pCat->FindBookmark(bookmark);
 }
 
 size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)

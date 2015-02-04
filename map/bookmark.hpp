@@ -142,7 +142,7 @@ public:
 
   /// @name Theese functions are called from Framework only.
   //@{
-  void AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
+  Bookmark* AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
   void ReplaceBookmark(size_t index, BookmarkData const & bm);
   //@}
 
@@ -164,6 +164,10 @@ public:
   Bookmark const * GetBookmark(size_t index) const;
   Bookmark * GetBookmark(size_t index);
   void DeleteBookmark(size_t index);
+
+  // Returns index of the bookmark if exists, otherwise returns
+  // total number of bookmarks.
+  size_t FindBookmark(Bookmark const * bookmark) const;
 
   /// @name Theese fuctions are public for unit tests only.
   /// You don't need to call them from client code.

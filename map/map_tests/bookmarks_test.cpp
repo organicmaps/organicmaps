@@ -120,19 +120,19 @@ char const * kmlString =
   {
     TEST_EQUAL(cat.GetBookmarksCount(), 4, ());
 
-    Bookmark const * bm = cat.GetBookmark(0);
+    Bookmark const * bm = cat.GetBookmark(3);
     TEST_EQUAL(bm->GetName(), "Nebraska", ());
     TEST_EQUAL(bm->GetType(), "placemark-red", ());
     TEST_EQUAL(bm->GetDescription(), "", ());
     TEST_EQUAL(bm->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
 
-    bm = cat.GetBookmark(1);
+    bm = cat.GetBookmark(2);
     TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
     TEST_EQUAL(bm->GetType(), "placemark-pink", ());
     TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
     TEST_EQUAL(bm->GetTimeStamp(), 524214643, ());
 
-    bm = cat.GetBookmark(2);
+    bm = cat.GetBookmark(1);
     m2::PointD org = bm->GetOrg();
     TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.566765, ());
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.900047, ());
@@ -141,7 +141,7 @@ char const * kmlString =
     TEST_EQUAL(bm->GetDescription(), "", ());
     TEST_EQUAL(bm->GetTimeStamp(), 888888888, ());
 
-    bm = cat.GetBookmark(3);
+    bm = cat.GetBookmark(0);
     org = bm->GetOrg();
     TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.551532, ());
     TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.89306, ());
@@ -286,11 +286,11 @@ UNIT_TEST(Bookmarks_Timestamp)
   fm.AddCategory(arrCat[1]);
   fm.AddBookmark(1, orgPoint, b3);
 
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetName(), "name", ());
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetType(), "type", ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetName(), "name", ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetType(), "type", ());
 
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetName(), "newName", ());
-  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(1)->GetType(), "newType", ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetName(), "newName", ());
+  TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetType(), "newType", ());
 
   TEST_EQUAL(fm.GetBmCategory(1)->GetBookmark(0)->GetName(), "newName", ());
   TEST_EQUAL(fm.GetBmCategory(1)->GetBookmark(0)->GetType(), "newType", ());
@@ -356,9 +356,11 @@ UNIT_TEST(Bookmarks_Getting)
 
   mark = GetBookmark(fm, m2::PointD(41, 40));
   cat = GetCategory(mark);
-  //should find first valid result, there two results with the same coordinates 3 and 4
-  TEST_EQUAL(mark->GetName(), "3", ());
-  TEST_EQUAL(mark->GetType(), "placemark-red", ());
+
+  // Should find last added valid result, there two results with the
+  // same coordinates 3 and 4, but 4 was added later.
+  TEST_EQUAL(mark->GetName(), "4", ());
+  TEST_EQUAL(mark->GetType(), "placemark-blue", ());
 
   TEST_EQUAL(cat->GetBookmarksCount(), 2, ());
 
@@ -504,8 +506,8 @@ UNIT_TEST(Bookmarks_AddingMoving)
   mark = GetBookmarkPxPoint(fm, pixelPoint);
   cat = GetCategory(mark);
   TEST_EQUAL(cat->GetName(), arrCat[0], ());
-  TEST_EQUAL(mark->GetName(), "name", ());
-  TEST_EQUAL(mark->GetType(), "placemark-red", ());
+  TEST_EQUAL(mark->GetName(), "name2", ());
+  TEST_EQUAL(mark->GetType(), "placemark-blue", ());
 
   // Edit name, type and category of bookmark
   bm = BookmarkData("name3", "placemark-green");
@@ -518,8 +520,8 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(cat->GetName(), arrCat[0], ());
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2,
              ("Bookmark wasn't moved from one category to another"));
-  TEST_EQUAL(mark->GetName(), "name", ());
-  TEST_EQUAL(mark->GetType(), "placemark-red", ());
+  TEST_EQUAL(mark->GetName(), "name2", ());
+  TEST_EQUAL(mark->GetType(), "placemark-blue", ());
 
   DeleteCategoryFiles(arrCat);
 }

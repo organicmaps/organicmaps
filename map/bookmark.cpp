@@ -63,10 +63,11 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
   return (index < m_tracks.size() ? m_tracks[index] : 0);
 }
 
-void BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm)
+Bookmark * BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm)
 {
-  UserMark * mark = base_t::GetController().CreateUserMark(ptOrg);
-  static_cast<Bookmark *>(mark)->SetData(bm);
+  Bookmark * bookmark = static_cast<Bookmark *>(base_t::GetController().CreateUserMark(ptOrg));
+  bookmark->SetData(bm);
+  return bookmark;
 }
 
 void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
@@ -166,6 +167,11 @@ Bookmark * BookmarkCategory::GetBookmark(size_t index)
 {
   base_t::Controller & c = base_t::GetController();
   return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMarkForEdit(index) : 0);
+}
+
+size_t BookmarkCategory::FindBookmark(Bookmark const * bookmark) const
+{
+  return base_t::GetController().FindUserMark(bookmark);
 }
 
 namespace
@@ -703,7 +709,21 @@ void BookmarkCategory::SaveToKML(ostream & s)
 
   s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
 
-  for (size_t i = 0; i < GetBookmarksCount(); ++i)
+  // Bookmarks are stored to KML file in reverse order, so, least
+  // recently added bookmark will be stored last. The reason is that
+  // when bookmarks will be loaded from the KML file, most recently
+  // added bookmark will be loaded last and in accordance with current
+  // logic will added to the beginning of the bookmarks list. Thus,
+  // this method preserves LRU bookmarks order after store -> load
+  // actions.
+  //
+  // Loop invariant: on each iteration count means number of already
+  // stored bookmarks and i means index of the bookmark that should be
+  // processed during the iteration. That's why i is initially set to
+  // GetBookmarksCount() - 1, i.e. to the last bookmark in the
+  // bookmarks list.
+  for (size_t count = 0, i = GetBookmarksCount() - 1;
+       count < GetBookmarksCount(); ++count, --i)
   {
     Bookmark const * bm = GetBookmark(i);
     s << "  <Placemark>\n";

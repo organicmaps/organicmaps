@@ -7,6 +7,7 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
+#include "../std/deque.hpp"
 #include "../std/noncopyable.hpp"
 
 class Framework;
@@ -25,6 +26,8 @@ namespace graphics
 class UserMarkContainer : private noncopyable
 {
 public:
+  using UserMarksListT = deque<UserMark *>;
+
   class Controller
   {
   public:
@@ -37,6 +40,10 @@ public:
     UserMark * GetUserMarkForEdit(size_t index) { return m_container->GetUserMark(index); }
     void DeleteUserMark(size_t index) { m_container->DeleteUserMark(index); }
     void DeleteUserMark(UserMark const * mark) { m_container->DeleteUserMark(mark); }
+
+    // Returns index of the mark if exists, otherwise returns
+    // number of user marks.
+    size_t FindUserMark(UserMark const * mark) const { return m_container->FindUserMark(mark); }
 
   private:
     UserMarkContainer * m_container;
@@ -95,6 +102,7 @@ private:
   UserMark * GetUserMark(size_t index);
   void DeleteUserMark(size_t index);
   void DeleteUserMark(UserMark const * mark);
+  size_t FindUserMark(UserMark const * mark);
 
   template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo) const;
 
@@ -106,7 +114,7 @@ private:
   bool m_isVisible;
   bool m_isDrawable;
   double m_layerDepth;
-  vector<UserMark *> m_userMarks;
+  UserMarksListT m_userMarks;
 };
 
 class SearchUserMarkContainer : public UserMarkContainer
