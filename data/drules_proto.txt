@@ -56755,6 +56755,13 @@ cont {
 cont {
   name: "shop-alcohol"
   element {
+    scale: 16
+    symbol {
+      name: "supermarket"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
     symbol {
       name: "supermarket"
@@ -56862,6 +56869,57 @@ cont {
   }
 }
 cont {
+  name: "shop-beauty"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
   name: "shop-beverages"
   element {
     scale: 17
@@ -56902,13 +56960,6 @@ cont {
 }
 cont {
   name: "shop-bicycle"
-  element {
-    scale: 16
-    symbol {
-      name: "supermarket"
-      priority: 16000
-    }
-  }
   element {
     scale: 17
     symbol {
@@ -58039,6 +58090,10 @@ cont {
   name: "shop-mobile_phone"
   element {
     scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
     caption {
       primary {
         height: 11
@@ -58051,6 +58106,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
     caption {
       primary {
         height: 11
@@ -58063,6 +58122,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
     caption {
       primary {
         height: 11
@@ -58115,6 +58178,57 @@ cont {
 }
 cont {
   name: "shop-shoes"
+  element {
+    scale: 17
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "supermarket"
+      priority: 16003
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15003
+    }
+  }
+}
+cont {
+  name: "shop-sports"
   element {
     scale: 17
     symbol {

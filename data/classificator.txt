@@ -645,6 +645,7 @@ world  +
     shop  +
         alcohol  -
         bakery  -
+        beauty  -
         beverages  -
         bicycle  -
         books  -
@@ -672,6 +673,7 @@ world  +
         mobile_phone  -
         optician  -
         shoes  -
+        sports  -
         supermarket  -
         toys  -
         {}

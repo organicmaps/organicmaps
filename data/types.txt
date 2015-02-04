@@ -989,3 +989,5 @@ hwtag|private
 route|ferry|motorcar
 junction|roundabout
 highway|speed_camera
+shop|beauty
+shop|sports

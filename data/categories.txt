@@ -215,7 +215,7 @@ da:2bager|bageri|butik
 tr:3fırın|mağaza
 sv:3bageri|butik
 
-shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher
+shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher|shop-furniture|shop-alcohol|shop-books|shop-shoes|shop-electronics|shop-hardware|shop-jewelry|shop-optician|shop-gift|shop-mobile_phone|shop-beauty|shop-greengrocer|shop-chemist|shop-garden_centre|shop-sports
 en:2shop
 ru:2магазин
 uk:2магазин|крамниця
