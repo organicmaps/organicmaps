@@ -41,6 +41,7 @@ namespace boost { namespace interprocess { class named_mutex; } }
 #include "../Plugins/NearestPlugin.h"
 #include "../Plugins/TimestampPlugin.h"
 #include "../Plugins/ViaRoutePlugin.h"
+#include "../Plugins/MapsMePlugin.h"
 #include "../Server/DataStructures/BaseDataFacade.h"
 #include "../Server/DataStructures/InternalDataFacade.h"
 #include "../Server/DataStructures/SharedBarriers.h"
@@ -79,6 +80,7 @@ OSRM_impl::OSRM_impl(ServerPaths server_paths, const bool use_shared_memory)
     RegisterPlugin(new NearestPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new TimestampPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new ViaRoutePlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
+    RegisterPlugin(new MapsMePlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade, "../../../data/"));
 }
 
 OSRM_impl::~OSRM_impl()

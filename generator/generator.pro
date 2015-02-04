@@ -34,6 +34,7 @@ SOURCES += \
     tesselator.cpp \
     check_model.cpp \
     routing_generator.cpp \
+    country_loader.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -64,3 +65,4 @@ HEADERS += \
     ways_merger.hpp \
     gen_mwm_info.hpp \
     routing_generator.hpp \
+    country_loader.hpp \

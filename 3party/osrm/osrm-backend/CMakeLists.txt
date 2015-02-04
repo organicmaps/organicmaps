@@ -76,6 +76,7 @@ file(GLOB LibOSRMGlob Library/*.cpp)
 
 file(GLOB MapsMeSources mapsme/*.cpp)
 file(GLOB MapsMeHeaders mapsme/*.h)
+file(GLOB MapsMeGenerator ../../../generator/country_loader.cpp)
 
 set(
   OSRMSources
@@ -85,6 +86,7 @@ set(
   ${CoordinateGlob}
   ${AlgorithmGlob}
   ${HttpGlob}
+  ${MapsMeGenerator}
 )
 add_library(COORDINATE OBJECT ${CoordinateGlob})
 add_library(FINGERPRINT OBJECT Util/FingerPrint.cpp)
@@ -189,7 +191,15 @@ include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(OSRM ${Boost_LIBRARIES})
 target_link_libraries(osrm-extract ${Boost_LIBRARIES})
 target_link_libraries(osrm-prepare ${Boost_LIBRARIES})
-target_link_libraries(osrm-routed ${Boost_LIBRARIES} ${OPTIONAL_SOCKET_LIBS} OSRM)
+target_link_libraries(osrm-routed ${Boost_LIBRARIES} ${OPTIONAL_SOCKET_LIBS} OSRM
+                      debug "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libcoding.a"
+                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libbase.a"
+                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libindexer.a"
+                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libgeometry.a"
+                      general "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libcoding.a"
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libindexer.a"
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libgeometry.a"
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libbase.a")
 target_link_libraries(osrm-datastore ${Boost_LIBRARIES})
 
 target_link_libraries(osrm-mapsme ${Boost_LIBRARIES} OSRM

@@ -41,26 +41,4 @@ namespace osm
     // drop inner rings
     return name[0] != '!';
   }
-
-  bool LoadBorders(string const & borderFile, vector<m2::RegionD> & outBorders)
-  {
-    ifstream stream(borderFile);
-    string line;
-    if (!getline(stream, line).good()) // skip title
-    {
-      LOG(LERROR, ("Polygon file is empty:", borderFile));
-      return false;
-    }
-
-    m2::RegionD currentRegion;
-    while (ReadPolygon(stream, currentRegion, borderFile))
-    {
-      CHECK(currentRegion.IsValid(), ("Invalid region in", borderFile));
-      outBorders.push_back(currentRegion);
-      currentRegion = m2::RegionD();
-    }
-
-    CHECK(!outBorders.empty(), ("No borders were loaded from", borderFile));
-    return true;
-  }
 }
