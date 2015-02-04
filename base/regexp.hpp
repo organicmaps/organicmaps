@@ -13,6 +13,11 @@ namespace regexp
     out = RegExpT::compile(regexp);
   }
 
+  inline bool Matches(string const & str, RegExpT const & regexp)
+  {
+    return boost::xpressive::regex_match(str, regexp);
+  }
+
   inline bool IsExist(string const & str, RegExpT const & regexp)
   {
     return boost::xpressive::regex_search(str, regexp);

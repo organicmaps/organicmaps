@@ -2,6 +2,8 @@
 #include "testing.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/string_utils.hpp"
+#include "../base/regexp.hpp"
 
 #include "../std/iostream.hpp"
 #include "../std/string.hpp"
@@ -43,6 +45,20 @@ int main(int argc, char * argv[])
   vector<bool> testResults;
   int numFailedTests = 0;
 
+  char const filterOptionPrefix[] = "--filter=";
+  char const * testsFilter = nullptr;
+
+  regexp::RegExpT testsFilterRegExp;
+
+  for (int arg = 1; arg < argc; ++arg)
+  {
+    if (strings::StartsWith(argv[arg], filterOptionPrefix))
+      testsFilter = argv[arg] + sizeof(filterOptionPrefix) - 1;
+  }
+
+  if (testsFilter)
+    regexp::Create(testsFilter, testsFilterRegExp);
+
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
     string fileName(pTest->m_FileName);
@@ -63,6 +79,8 @@ int main(int argc, char * argv[])
   int iTest = 0;
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
+    if (testsFilter && !regexp::Matches(testNames[iTest], testsFilterRegExp))
+      continue;
     cerr << "Running " << testNames[iTest] << endl << flush;
     if (!g_bLastTestOK)
     {
