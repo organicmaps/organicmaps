@@ -42,7 +42,7 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   double len = 0, vLen = 0;
   while (len < afterTurn)
   {
-    if (i >= ptsTurnSz - 2)
+    if (i > ptsTurnSz - 2)
       return false;
     vLen = ptsTurn[i + 1].Length(ptsTurn[i]);
     len += vLen;
@@ -56,7 +56,7 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   size_t j = i;
   while (lenForArrow < arrowLength)
   {
-    if (j >= ptsTurnSz - 2)
+    if (j > ptsTurnSz - 2)
       return false;
     vLenForArrow = ptsTurn[j + 1].Length(ptsTurn[j]);
     lenForArrow +=  vLenForArrow;
@@ -91,7 +91,7 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   len = 0;
   while (len < beforeTurn)
   {
-    if (i <= 1)
+    if (i < 1)
       return false;
     vLen = ptsTurn[i - 1].Length(ptsTurn[i]);
     len += vLen;
