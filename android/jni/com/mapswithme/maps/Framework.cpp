@@ -1154,7 +1154,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeLoadbookmarks(JNIEnv * env, jclass thiz)
   {
-    frm()->LoadBookmarks();
+    android::Platform::RunOnGuiThreadImpl(bind(&::Framework::LoadBookmarks, frm()));
   }
 
   JNIEXPORT jboolean JNICALL
