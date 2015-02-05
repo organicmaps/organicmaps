@@ -29,4 +29,4 @@ HEADERS += \
     osrm_data_facade.hpp \
     osrm2feature_map.hpp \
     vehicle_model.hpp \
-    cross_routing_context.hpp
+    cross_routing_context.hpp \

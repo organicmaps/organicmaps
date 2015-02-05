@@ -42,7 +42,7 @@ protected:
 
 public:
 
-  void LoadRawData(const char* pRawEdgeData, const char* pRawEdgeIds, const char* pRawEdgeShortcuts, const char* pRawFanoMatrix)
+  void LoadRawData(char const * pRawEdgeData, char const * pRawEdgeIds, char const * pRawEdgeShortcuts, char const * pRawFanoMatrix)
   {
     ClearRawData();
 

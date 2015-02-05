@@ -157,12 +157,12 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       // Check if we have geometry for our candidate
       if (osm2ft.GetFeatureID(startSeg.wayId) || osm2ft.GetFeatureID(endSeg.wayId))
       {
-        m2::PointD pts[2] = { { startSeg.lon1, startSeg.lat1 }, { endSeg.lon2, endSeg.lat2 } };
+        m2::PointD const pts[2] = { { startSeg.lon1, startSeg.lat1 }, { endSeg.lon2, endSeg.lat2 } };
 
         // check nearest to goverment borders
         for (m2::RegionD const& border: regionBorders)
         {
-          bool outStart = border.Contains(pts[0]), outEnd = border.Contains(pts[1]);
+          bool const outStart = border.Contains(pts[0]), outEnd = border.Contains(pts[1]);
           if (outStart == true && outEnd == false)
           {
             string mwmName;
@@ -182,7 +182,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
     for (auto const & seg : data.m_segments)
     {
-      m2::PointD pts[2] = { { seg.lon1, seg.lat1 }, { seg.lon2, seg.lat2 } };
+      m2::PointD const pts[2] = { { seg.lon1, seg.lat1 }, { seg.lon2, seg.lat2 } };
       ++all;
 
       // now need to determine feature id and segments in it
@@ -348,11 +348,11 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     auto in = crossContext.GetIngoingIterators();
     auto out = crossContext.GetOutgoingIterators();
     MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
-    for (auto i=in.first; i<in.second; ++i )
+    for (auto i = in.first; i < in.second; ++i)
     {
       OsrmRouter::GenerateRoutingTaskFromNodeId(*i, sources[distance(in.first, i)]);
     }
-    for (auto i=out.first; i<out.second; ++i )
+    for (auto i = out.first; i < out.second; ++i)
     {
       OsrmRouter::GenerateRoutingTaskFromNodeId(i->first, targets[distance(out.first, i)]);
     }
@@ -360,8 +360,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     vector<EdgeWeight> costs;
     OsrmRouter::FindWeightsMatrix(sources, targets, facade, costs);
     auto res = costs.begin();
-    for (auto i=in.first; i<in.second; ++i )
-      for (auto j=out.first; j<out.second; ++j )
+    for (auto i = in.first; i < in.second; ++i)
+      for (auto j = out.first; j < out.second; ++j)
       {
         crossContext.setAdjacencyCost(i, j, *res);
         ++res;

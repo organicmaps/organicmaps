@@ -68,7 +68,7 @@ public:
     size_t strsize;
     r.Read(pos, &strsize, sizeof(size_t));
     pos += sizeof(size_t);
-    for (int i=0; i<strsize; ++i)
+    for (int i = 0; i < strsize; ++i)
     {
       char * tmpString;
       r.Read(pos, &size, sizeof(size_t));

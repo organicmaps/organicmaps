@@ -60,8 +60,8 @@ typedef vector<RawRoutingResultT> MultipleRoutingResultT;
 ///Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping
 {
-  DataFacadeT dataFacade;
-  OsrmFtSegMapping mapping;
+  DataFacadeT m_dataFacade;
+  OsrmFtSegMapping m_segMapping;
 
   ///@param fName: mwm file path
   RoutingMapping(string const & fName, Index const * pIndex);
@@ -69,47 +69,47 @@ struct RoutingMapping
   ~RoutingMapping()
   {
     // Clear data while m_container is valid.
-    dataFacade.Clear();
-    mapping.Clear();
+    m_dataFacade.Clear();
+    m_segMapping.Clear();
     m_container.Close();
   }
 
   void Map()
   {
-    ++map_counter;
-    if (!mapping.IsMapped())
-      mapping.Map(m_container);
+    ++m_mapCounter;
+    if (!m_segMapping.IsMapped())
+      m_segMapping.Map(m_container);
   }
 
   void Unmap()
   {
-    --map_counter;
-    if (map_counter < 1 && mapping.IsMapped())
-      mapping.Unmap();
+    --m_mapCounter;
+    if (m_mapCounter < 1 && m_segMapping.IsMapped())
+      m_segMapping.Unmap();
   }
 
   void LoadFacade()
   {
-    if (!facade_counter)
-      dataFacade.Load(m_container);
-    ++facade_counter;
+    if (!m_facadeCounter)
+      m_dataFacade.Load(m_container);
+    ++m_facadeCounter;
   }
 
   void FreeFacade()
   {
-    --facade_counter;
-    if (!facade_counter)
-      dataFacade.Clear();
+    --m_facadeCounter;
+    if (!m_facadeCounter)
+      m_dataFacade.Clear();
   }
 
-  string GetName() {return m_base_name;}
+  string GetName() {return m_baseName;}
 
   Index::MwmId GetMwmId() {return m_mwmId;}
 
 private:
-  size_t map_counter;
-  size_t facade_counter;
-  string m_base_name;
+  size_t m_mapCounter;
+  size_t m_facadeCounter;
+  string m_baseName;
   FilesMappingContainer m_container;
   Index::MwmId m_mwmId;
 };
