@@ -22,6 +22,7 @@
 #pragma once
 
 #include "../base/assert.hpp"
+#include "../std/iterator.hpp"
 #include "../std/stdint.hpp"
 #include "../std/vector.hpp"
 
@@ -87,30 +88,17 @@ vector<uint32_t> BitVectorsOr(It1T begin1, It1T end1, It2T begin2, It2T end2)
       result.push_back(pos1);
       ++it1;      
     }
-    else if (pos1 > pos2)
+    else  // pos1 > pos2
     {
       result.push_back(pos2);
       ++it2;
     }
   }
-  if (it2 == end2)
-  {
-    while (it1 != end1)
-    {
-      uint32_t pos1 = *it1;
-      result.push_back(pos1);
-      ++it1;
-    }
-  }
-  else
-  {
-    while (it2 != end2)
-    {
-      uint32_t pos2 = *it2;
-      result.push_back(pos2);
-      ++it2;
-    }
-  }
+
+  for (; it1 != end1; ++it1)
+    result.push_back(*it1);
+  for (; it2 != end2; ++it2)
+    result.push_back(*it2);
   return result;
 }
 
@@ -124,15 +112,11 @@ vector<uint32_t> BitVectorsSubAnd(It1T begin1, It1T end1, It2T begin2, It2T end2
 
   It1T it1 = begin1;
   It2T it2 = begin2;
-  uint64_t index2 = 0;
-  for (; it1 != end1 && it2 != end2; ++it1, ++index2)
-  {
-    uint64_t pos1 = *it1, pos2 = *it2;
-    if (pos2 == index2)
-    {
-      result.push_back(pos1);
-      ++it2;
-    }
+  uint64_t index = 0;
+  for (; it1 != end1 && it2 != end2; ++it2) {
+    advance(it1, *it2 - index);
+    index = *it2;
+    result.push_back(*it1);
   }
   CHECK((it2 == end2), ());
   return result;
