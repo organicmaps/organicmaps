@@ -29,7 +29,7 @@ typedef function<string (m2::PointD const &)> CountryFileFnT;
 typedef OsrmRawDataFacade<QueryEdge::EdgeData> RawDataFacadeT;
 typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
 
-///Single graph node representation for routing task
+/// Single graph node representation for routing task
 struct FeatureGraphNode
 {
   PhantomNode m_node;
@@ -57,7 +57,7 @@ struct RawRoutingResultT
 typedef vector<RawRoutingResultT> MultipleRoutingResultT;
 
 
-///Datamapping and facade for single MWM and MWM.routing file
+/// Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping
 {
   DataFacadeT m_dataFacade;
@@ -102,6 +102,10 @@ struct RoutingMapping
       m_dataFacade.Clear();
   }
 
+  bool IsValid() {return m_isValid;}
+
+  IRouter::ResultCode GetError() {return m_error;}
+
   string GetName() {return m_baseName;}
 
   Index::MwmId GetMwmId() {return m_mwmId;}
@@ -112,6 +116,8 @@ private:
   string m_baseName;
   FilesMappingContainer m_container;
   Index::MwmId m_mwmId;
+  bool m_isValid;
+  IRouter::ResultCode m_error;
 };
 
 typedef shared_ptr<RoutingMapping> RoutingMappingPtrT;
@@ -155,12 +161,12 @@ public:
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex)
   {
-    //Check if we have already load this file
+    // Check if we have already load this file
     auto mapIter = m_mapping.find(fName);
     if (mapIter != m_mapping.end())
       return mapIter->second;
     //Or load and check file
-    RoutingMappingPtrT new_mapping = RoutingMappingPtrT(new RoutingMapping(fName, pIndex));
+    RoutingMappingPtrT new_mapping = make_shared<RoutingMapping>(fName, pIndex);
 
     m_mapping.insert(std::make_pair(fName, new_mapping));
     return new_mapping;
@@ -209,7 +215,7 @@ public:
    * \return true if path exists. False otherwise
    */
   static bool FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
-                       RawRoutingResultT& rawRoutingResult);
+                       RawRoutingResultT & rawRoutingResult);
 
   /*!
    * \brief FindCostMatrix Find costs matrix from sources to targets. WARNING in finds only costs of shortests, not pathes.
@@ -219,7 +225,7 @@ public:
    * \param result vector with result costs. Packed. Source nodes are rows. S1T1 S1T2 S2T1 S2T2
    */
   static void FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
-                                      RawDataFacadeT &facade, std::vector<EdgeWeight> &result);
+                                      RawDataFacadeT & facade, std::vector<EdgeWeight> & result);
 
   /*!
    * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
@@ -227,6 +233,8 @@ public:
    * \param taskNode output point task for router
    */
   static void GenerateRoutingTaskFromNodeId(const size_t nodeId, FeatureGraphNode & taskNode);
+
+  void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
@@ -285,7 +293,7 @@ private:
   typedef priority_queue<CheckedPathT, vector<CheckedPathT>, pathChecker> RoutingTaskQueueT;
 
   MultiroutingTaskPointT::const_iterator FilterWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
-                                      std::vector<EdgeWeight> &weightMatrix);
+                                      std::vector<EdgeWeight> & weightMatrix);
 
   /*!
    * \brief Makes route (points turns and other annotations) and submits it to @route class
@@ -306,8 +314,8 @@ private:
                         Route::TurnItem & turn);
   void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir, turns::TurnsGeomT & turnsGeom) const;
   void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
-  m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
-                                  FeatureType const &ft, m2::PointD const &turnPnt,
+  m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const & seg,
+                                  FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
   turns::TurnDirection InvertDirection(turns::TurnDirection dir) const;
   turns::TurnDirection MostRightDirection(double angle) const;
@@ -339,6 +347,9 @@ private:
   atomic_flag m_isReadyThread;
 
   volatile bool m_requestCancel;
+
+  // Additional features unlocking engine
+  bool m_additionalFeatures;
 };
 
 }

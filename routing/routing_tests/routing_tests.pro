@@ -21,5 +21,5 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   osrm_router_test.cpp \
   vehicle_model_test.cpp \
-    cross_routing_tests.cpp \
+  cross_routing_tests.cpp \
 

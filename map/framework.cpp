@@ -1196,6 +1196,12 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 
 bool Framework::Search(search::SearchParams const & params)
 {
+  if (params.m_query == "?ariadna")
+  {
+    LOG(LINFO, ("Enable mwm cross mode"));
+    m_routingSession.ActivateAdditionalFeatures();
+    return false;
+  }
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
   if (params.IsValidPosition())

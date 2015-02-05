@@ -63,6 +63,8 @@ public:
   void DeleteIndexFile(string const & fileName);
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
+  void ActivateAdditionalFeatures() {m_router->ActivateAdditionalFeatures();}
+
 private:
   struct DoReadyCallback
   {
