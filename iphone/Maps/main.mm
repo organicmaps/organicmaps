@@ -17,21 +17,10 @@
 - (void) dummyThread: (id) obj {}
 @end
 
-
-/// Used to log NSExceptions.
-static void exceptionHandler(NSException * ex)
-{
-  NSArray *stack = [ex callStackSymbols];
-  NSLog(@"%@", ex.name);
-  NSLog(@"%@", ex.reason);
-  NSLog(@"Stack trace: %@", stack);
-}
-
 int main(int argc, char * argv[])
 {
   LOG(LINFO, ("maps.me started, detected CPU cores:", GetPlatform().CpuCores()));
 
-  NSSetUncaughtExceptionHandler(&exceptionHandler);
   int retVal;
   @autoreleasepool
   {
