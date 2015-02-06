@@ -43,7 +43,8 @@ SUBDIRS = 3party \
           gui/gui_tests \
           qt \
           drape_head \
-          map_server
+          map_server \
+          integration_tests \
 } else:drape_device {
   # libraries which are used on mobile devices with drape engine
   SUBDIRS = 3party \

@@ -22,6 +22,12 @@ struct PhantomNode;
 struct PathData;
 class FeatureType;
 struct RawRouteData;
+
+namespace integration
+{
+  class OsrmRouterWrapper;
+}
+
 namespace routing
 {
 
@@ -130,6 +136,10 @@ public:
   RoutingMappingPtrT GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
+
+  friend class integration::OsrmRouterWrapper;
+  typedef function<string (m2::PointD const &)> CountryFileFnT;
+  CountryFileFnT m_countryFn;
 
   void Clear()
   {
