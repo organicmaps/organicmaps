@@ -157,12 +157,15 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.CreateDrapeEngine(m_contextFactory.GetRefPointer(), visualScale, factory->GetWidth(), factory->GetHeight());
   m_work.SetUpdatesEnabled(true);
   m_work.EnterForeground();
+  LoadState();
+  m_work.LoadBookmarks();
 
   return true;
 }
 
 void Framework::DeleteDrapeEngine()
 {
+  SaveState();
   m_work.DestroyDrapeEngine();
 }
 
