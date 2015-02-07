@@ -132,7 +132,7 @@ void DrapeSurface::CreateEngine()
     m_model.ReadFeatures(fn, ids);
   };
 
-  m_drapeEngine = TEnginePrt(new df::DrapeEngine(f, df::Viewport(0, 0, width(), height()),
+  m_drapeEngine = TEnginePrt(new df::DrapeEngine(f, df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()),
                                                  df::MapDataProvider(idReadFn, featureReadFn), pixelRatio));
 }
 
@@ -149,7 +149,7 @@ void DrapeSurface::sizeChanged(int)
     int w = width() * vs;
     int h = height() * vs;
     m_navigator.OnSize(0, 0, w, h);
-    m_drapeEngine->Resize(width(), height());
+    m_drapeEngine->Resize(w, h);
     UpdateCoverage();
   }
 }

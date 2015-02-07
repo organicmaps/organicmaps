@@ -194,7 +194,7 @@ namespace qt
 
   void DrawWidget::CreateEngine()
   {
-    m_framework->CreateDrapeEngine(m_contextFactory.GetRefPointer(), m_ratio, width(), height());
+    m_framework->CreateDrapeEngine(m_contextFactory.GetRefPointer(), m_ratio, m_ratio * width(), m_ratio * height());
   }
 
   void DrawWidget::exposeEvent(QExposeEvent * e)
@@ -419,8 +419,7 @@ namespace qt
 
   void DrawWidget::sizeChanged(int)
   {
-    double scaleFactor = static_cast<double>(devicePixelRatio());
-    m_framework->OnSize(scaleFactor * width(), scaleFactor * height());
+    m_framework->OnSize(m_ratio * width(), m_ratio * height());
 
     UpdateScaleControl();
   }
