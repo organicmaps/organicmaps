@@ -15,8 +15,11 @@ void IndexBuffer::UploadData(uint16_t const * data, uint16_t size)
 
 void IndexBuffer::UpdateData(uint16_t const * data, uint16_t size)
 {
-  GPUBuffer::Resize(size);
-  UploadData(data, size);
+  ASSERT_LESS_OR_EQUAL(size, GetCapacity(), ());
+
+  Seek(0);
+  if (size > 0)
+    UploadData(data, size);
 }
 
 } // namespace dp

@@ -40,7 +40,7 @@ void VertexArrayBuffer::Preflush()
 
 void VertexArrayBuffer::Render()
 {
-  if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()))
+  if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && m_indexBuffer->GetCurrentSize() > 0)
   {
     ASSERT(!m_program.IsNull(), ("Somebody not call Build. It's very bad. Very very bad"));
     /// if OES_vertex_array_object is supported than all bindings already saved in VAO
@@ -200,6 +200,7 @@ void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutato
     for (size_t i = 0; i < nodes.size(); ++i)
     {
       MutateNode const & node = nodes[i];
+      ASSERT_GREATER(node.m_region.m_count, 0, ());
       mapper.UpdateData(node.m_data.GetRaw(), node.m_region.m_offset, node.m_region.m_count);
     }
   }
