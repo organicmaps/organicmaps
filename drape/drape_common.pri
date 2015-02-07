@@ -42,6 +42,7 @@ SOURCES += \
     $$DRAPE_DIR/glyph_manager.cpp \
     $$DRAPE_DIR/utils/vertex_decl.cpp \
     $$DRAPE_DIR/utils/projection.cpp \
+    $$DRAPE_DIR/utils/gpu_mem_tracker.cpp \
 
 HEADERS += \
     $$ROOT_DIR/3party/sdf_image/sdf_image.h \
@@ -90,3 +91,4 @@ HEADERS += \
     $$DRAPE_DIR/glyph_manager.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \
     $$DRAPE_DIR/utils/projection.hpp \
+    $$DRAPE_DIR/utils/gpu_mem_tracker.hpp \

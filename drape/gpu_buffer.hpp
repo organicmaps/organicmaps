@@ -8,7 +8,7 @@ namespace dp
 
 class GPUBuffer : public BufferBase
 {
-  typedef BufferBase base_t;
+  typedef BufferBase TBase;
 public:
   enum Target
   {

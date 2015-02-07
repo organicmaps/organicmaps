@@ -17,10 +17,14 @@ public:
   static void glClearDepth();
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
+  static void glFinish();
 
   static void glPixelStore(glConst name, uint32_t value);
 
   static int32_t glGetInteger(glConst pname);
+  /// target = { gl_const::GLArrayBuffer, gl_const::GLElementArrayBuffer }
+  /// name = { gl_const::GLBufferSize, gl_const::GLBufferUsage }
+  static int32_t glGetBufferParameter(glConst target, glConst name);
 
   static void glEnable(glConst mode);
   static void glDisable(glConst mode);

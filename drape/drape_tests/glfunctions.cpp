@@ -241,7 +241,6 @@ int32_t GLFunctions::glGetInteger(glConst pname)
 
 void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
 
-// @TODO add actual unit tests
 void GLFunctions::glEnable(glConst mode) {}
 
 void GLFunctions::glBlendEquation(glConst function) {}
@@ -259,3 +258,5 @@ void GLFunctions::glUnmapBuffer(glConst target) {}
 void GLFunctions::glDrawElements(uint16_t indexCount) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
+
+int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name) { return 0; }

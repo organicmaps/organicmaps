@@ -58,6 +58,7 @@ namespace
   void * (APIENTRY *glMapBufferFn)(GLenum target, GLenum access)                                                   = NULL;
   GLboolean (APIENTRY *glUnmapBufferFn)(GLenum target)                                                             = NULL;
 
+
   /// Shaders
   GLuint (APIENTRY *glCreateShaderFn)(GLenum type)                                                                 = NULL;
   void (APIENTRY *glShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length)  = NULL;
@@ -253,6 +254,11 @@ void GLFunctions::glFlush()
   GLCHECK(glFlushFn());
 }
 
+void GLFunctions::glFinish()
+{
+  GLCHECK(::glFinish());
+}
+
 void GLFunctions::glPixelStore(glConst name, uint32_t value)
 {
   GLCHECK(::glPixelStorei(name, value));
@@ -263,6 +269,13 @@ int32_t GLFunctions::glGetInteger(glConst pname)
   GLint value;
   GLCHECK(::glGetIntegerv(pname, &value));
   return (int32_t)value;
+}
+
+int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
+{
+  GLint result;
+  GLCHECK(::glGetBufferParameteriv(target, name, &result));
+  return static_cast<int32_t>(result);
 }
 
 void GLFunctions::glEnable(glConst mode)

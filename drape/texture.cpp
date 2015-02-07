@@ -2,6 +2,7 @@
 
 #include "drape/glfunctions.hpp"
 #include "drape/glextensions_list.hpp"
+#include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "base/math.hpp"
 
@@ -31,7 +32,12 @@ Texture::Texture()
 Texture::~Texture()
 {
   if (m_textureID != -1)
+  {
     GLFunctions::glDeleteTexture(m_textureID);
+#if defined(TRACK_GPU_MEM)
+    dp::GPUMemTracker::Inst().RemoveDeallocated("Texture", m_textureID);
+#endif
+  }
 }
 
 void Texture::Create(uint32_t width, uint32_t height, TextureFormat format)
@@ -60,6 +66,21 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefP
   GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, data.GetRaw());
   SetFilterParams(gl_const::GLLinear, gl_const::GLLinear);
   SetWrapMode(gl_const::GLClampToEdge, gl_const::GLClampToEdge);
+
+#if defined(TRACK_GPU_MEM)
+  uint32_t channelBitSize = 8;
+  uint32_t channelCount = 4;
+  if (pixelType == gl_const::GL4BitOnChannel)
+    channelBitSize = 4;
+
+  if (layout == gl_const::GLAlpha)
+    channelCount = 1;
+
+  uint32_t bitCount = channelBitSize * channelCount * m_width * m_height;
+  uint32_t memSize = bitCount >> 3;
+  dp::GPUMemTracker::Inst().AddAllocated("Texture", m_textureID, memSize);
+  dp::GPUMemTracker::Inst().SetUsed("Texture", m_textureID, memSize);
+#endif
 }
 
 void Texture::SetFilterParams(glConst minFilter, glConst magFilter)
