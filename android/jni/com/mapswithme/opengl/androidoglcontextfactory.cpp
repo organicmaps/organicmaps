@@ -8,6 +8,7 @@
 
 #include <EGL/egl.h>
 #include <android/native_window_jni.h>
+#include <android/native_window.h>
 
 namespace android
 {
@@ -165,6 +166,11 @@ bool AndroidOGLContextFactory::createWindowSurface()
   for (int i = 0; i < count; ++i)
   {
     EGLConfig currentConfig = configs[i];
+
+    EGLint format;
+    eglGetConfigAttrib(m_display, currentConfig, EGL_NATIVE_VISUAL_ID, &format);
+    ANativeWindow_setBuffersGeometry(m_nativeWindow, 0, 0, format);
+
     EGLint surfaceAttributes[] = { EGL_RENDER_BUFFER, EGL_BACK_BUFFER, EGL_NONE };
     m_windowSurface = eglCreateWindowSurface(m_display, currentConfig, m_nativeWindow, surfaceAttributes);
     if (m_windowSurface == EGL_NO_SURFACE)
