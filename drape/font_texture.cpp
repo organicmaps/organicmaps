@@ -82,12 +82,15 @@ GlyphIndex::GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
 {
 }
 
-RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key)
+RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, bool & newResource)
 {
+  newResource = false;
   strings::UniChar uniChar = key.GetUnicodePoint();
   auto it = m_index.find(uniChar);
   if (it != m_index.end())
     return MakeStackRefPointer<Texture::ResourceInfo>(&it->second);
+
+  newResource = true;
 
   GlyphManager::Glyph glyph = m_mng->GetGlyph(uniChar);
   m2::RectU r;
@@ -97,7 +100,10 @@ RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key)
     return RefPointer<GlyphInfo>();
   }
 
-  m_pendingNodes.emplace_back(r, glyph);
+  {
+    threads::MutexGuard g(m_lock);
+    m_pendingNodes.emplace_back(r, glyph);
+  }
 
   auto res = m_index.emplace(uniChar, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
   ASSERT(res.second, ());
@@ -109,15 +115,21 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
   if (m_pendingNodes.empty())
     return;
 
+  TPendingNodes pendingNodes;
+  {
+    threads::MutexGuard g(m_lock);
+    m_pendingNodes.swap(pendingNodes);
+  }
+
   buffer_vector<size_t, 3> ranges;
   buffer_vector<uint32_t, 2> maxHeights;
   ranges.push_back(0);
-  uint32_t maxHeight = m_pendingNodes[0].first.SizeY();
-  for (size_t i = 1; i < m_pendingNodes.size(); ++i)
+  uint32_t maxHeight = pendingNodes[0].first.SizeY();
+  for (size_t i = 1; i < pendingNodes.size(); ++i)
   {
-    TPendingNode const & prevNode = m_pendingNodes[i - 1];
+    TPendingNode const & prevNode = pendingNodes[i - 1];
     maxHeight = max(maxHeight, prevNode.first.SizeY());
-    TPendingNode const & currentNode = m_pendingNodes[i];
+    TPendingNode const & currentNode = pendingNodes[i];
     if (ranges.size() < 2 && prevNode.first.minY() < currentNode.first.minY())
     {
       ranges.push_back(i);
@@ -126,7 +138,7 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     }
   }
   maxHeights.push_back(maxHeight);
-  ranges.push_back(m_pendingNodes.size());
+  ranges.push_back(pendingNodes.size());
 
   ASSERT(maxHeights.size() < 3, ());
   ASSERT(ranges.size() < 4, ());
@@ -136,17 +148,17 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     size_t startIndex = ranges[i - 1];
     size_t endIndex = ranges[i];
     uint32_t height = maxHeights[i - 1];
-    uint32_t width = m_pendingNodes[endIndex - 1].first.maxX() - m_pendingNodes[startIndex].first.minX();
+    uint32_t width = pendingNodes[endIndex - 1].first.maxX() - pendingNodes[startIndex].first.minX();
     uint32_t byteCount = my::NextPowOf2(height * width);
-    m2::PointU zeroPoint = m_pendingNodes[startIndex].first.LeftBottom();
+    m2::PointU zeroPoint = pendingNodes[startIndex].first.LeftBottom();
 
     SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(byteCount);
     uint8_t * dstMemory = SharedBufferManager::GetRawPointer(buffer);
     view_t dstView = interleaved_view(width, height, (pixel_t *)dstMemory, width);
     for (size_t node = startIndex; node < endIndex; ++node)
     {
-      GlyphManager::Glyph & glyph = m_pendingNodes[node].second;
-      m2::RectU rect = m_pendingNodes[node].first;
+      GlyphManager::Glyph & glyph = pendingNodes[node].second;
+      m2::RectU rect = pendingNodes[node].first;
       if (rect.SizeX() == 0 || rect.SizeY() == 0)
         continue;
 
@@ -169,8 +181,6 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, dp::ALPHA, MakeStackRefPointer<void>(dstMemory));
     SharedBufferManager::instance().freeSharedBuffer(byteCount, buffer);
   }
-
-  m_pendingNodes.clear();
 }
 
 } // namespace dp

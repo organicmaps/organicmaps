@@ -20,16 +20,20 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
    , m_cursor(m2::PointU::Zero())
 {}
 
-RefPointer<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key)
+RefPointer<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
 {
   TPalette::iterator itm = m_palette.find(key.m_color);
-  if (itm == m_palette.end())
+  newResource = itm == m_palette.end();
+  if (newResource)
   {
     PendingColor pendingColor;
     pendingColor.m_color = key.m_color;
     pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y,
                                     m_cursor.x + RESOURCE_SIZE, m_cursor.y + RESOURCE_SIZE);
-    m_pendingNodes.push_back(pendingColor);
+    {
+      threads::MutexGuard g(m_lock);
+      m_pendingNodes.push_back(pendingColor);
+    }
 
     m_cursor.x += RESOURCE_SIZE;
     if (m_cursor.x >= m_textureSize.x)
@@ -58,13 +62,19 @@ void ColorPalette::UploadResources(RefPointer<Texture> texture)
   if (m_pendingNodes.empty())
     return;
 
+  buffer_vector<PendingColor, 16> pendingNodes;
+  {
+    threads::MutexGuard g(m_lock);
+    m_pendingNodes.swap(pendingNodes);
+  }
+
   buffer_vector<size_t, 3> ranges;
   ranges.push_back(0);
 
-  uint32_t minX = m_pendingNodes[0].m_rect.minX();
-  for (size_t i = 0; i < m_pendingNodes.size(); ++i)
+  uint32_t minX = pendingNodes[0].m_rect.minX();
+  for (size_t i = 0; i < pendingNodes.size(); ++i)
   {
-    m2::RectU const & currentRect = m_pendingNodes[i].m_rect;
+    m2::RectU const & currentRect = pendingNodes[i].m_rect;
     if (minX > currentRect.minX())
     {
       ranges.push_back(i);
@@ -72,15 +82,15 @@ void ColorPalette::UploadResources(RefPointer<Texture> texture)
     }
   }
 
-  ranges.push_back(m_pendingNodes.size());
+  ranges.push_back(pendingNodes.size());
 
   for (size_t i = 1; i < ranges.size(); ++i)
   {
     size_t startRange = ranges[i - 1];
     size_t endRange = ranges[i];
 
-    m2::RectU const & startRect = m_pendingNodes[startRange].m_rect;
-    m2::RectU const & endRect = m_pendingNodes[endRange - 1].m_rect;
+    m2::RectU const & startRect = pendingNodes[startRange].m_rect;
+    m2::RectU const & endRect = pendingNodes[endRange - 1].m_rect;
 
     m2::RectU uploadRect;
     if (startRect.minY() == endRect.minY() &&
@@ -106,7 +116,7 @@ void ColorPalette::UploadResources(RefPointer<Texture> texture)
     for (size_t j = startRange; j < endRange; ++j)
     {
       ASSERT(pointer < SharedBufferManager::GetRawPointer(buffer) + byteCount, ());
-      PendingColor const & c = m_pendingNodes[j];
+      PendingColor const & c = pendingNodes[j];
       if (c.m_rect.minY() > currentY)
       {
         pointer += BYTES_PER_PIXEL * pixelStride;
@@ -136,8 +146,6 @@ void ColorPalette::UploadResources(RefPointer<Texture> texture)
     texture->UploadData(uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
                         dp::RGBA8, dp::MakeStackRefPointer<void>(pointer));
   }
-
-  m_pendingNodes.clear();
 }
 
 glConst ColorPalette::GetMinFilter() const

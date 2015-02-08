@@ -30,6 +30,7 @@ class BackendRenderer : public MessageAcceptor
 public:
   BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                  dp::RefPointer<dp::TextureManager> textureManager,
                   MapDataProvider const & model);
 
   ~BackendRenderer() override;
@@ -74,7 +75,7 @@ private:
   dp::RefPointer<ThreadsCommutator> m_commutator;
   dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
 
-  dp::MasterPointer<dp::TextureManager> m_textures;
+  dp::RefPointer<dp::TextureManager> m_texturesManager;
 };
 
 } // namespace df

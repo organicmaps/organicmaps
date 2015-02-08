@@ -38,6 +38,7 @@ private:
   dp::MasterPointer<FrontendRenderer> m_frontend;
   dp::MasterPointer<BackendRenderer>  m_backend;
   dp::MasterPointer<ThreadsCommutator> m_threadCommutator;
+  dp::MasterPointer<dp::TextureManager> m_textureManager;
 
   Viewport m_viewport;
 };

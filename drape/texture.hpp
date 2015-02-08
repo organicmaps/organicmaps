@@ -55,7 +55,7 @@ public:
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, TextureFormat format,
                   RefPointer<void> data);
 
-  virtual RefPointer<ResourceInfo> FindResource(Key const & key) const = 0;
+  virtual RefPointer<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState() {}
 
   TextureFormat GetFormat() const;

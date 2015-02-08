@@ -98,7 +98,7 @@ class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
-  RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key);
+  RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
   void UploadResources(RefPointer<Texture> texture);
   glConst GetMinFilter() const;
   glConst GetMagFilter() const;
@@ -111,6 +111,8 @@ private:
   TResourceMapping m_resourceMapping;
   TPendingNodes m_pendingNodes;
   StipplePenPacker m_packer;
+
+  threads::Mutex m_lock;
 };
 
 string DebugPrint(StipplePenHandle const & key);

@@ -3,12 +3,14 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
 
 #include "geometry/any_rect2d.hpp"
 
 #include "base/timer.hpp"
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
@@ -32,9 +34,11 @@ const double VSyncInterval = 0.014;
 
 FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                                   dp::RefPointer<dp::TextureManager> textureManager,
                                    Viewport viewport)
   : m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
+  , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
 {
@@ -78,6 +82,11 @@ void FrontendRenderer::AfterDrawFrame()
 
     LOG(LINFO, ("Average Fps : ", m_fps));
     LOG(LINFO, ("Average Tpf : ", m_tpf));
+
+#if defined(TRACK_GPU_MEM)
+    string report = dp::GPUMemTracker::Inst().Report();
+    LOG(LINFO, (report));
+#endif
   }
 }
 #endif
@@ -198,7 +207,6 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       group->SetIsVisible(m->IsVisible());
       break;
     }
-
   default:
     ASSERT(false, ());
   }
@@ -244,13 +252,6 @@ void FrontendRenderer::RenderScene()
   m_renderGroups.resize(m_renderGroups.size() - eraseCount);
 
   m_viewport.Apply();
-  GLFunctions::glEnable(gl_const::GLDepthTest);
-
-  GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
-  GLFunctions::glClearDepthValue(1.0);
-  GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
-  GLFunctions::glDepthMask(true);
-
   GLFunctions::glClear();
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
@@ -387,6 +388,14 @@ void FrontendRenderer::Routine::Do()
   context->makeCurrent();
   GLFunctions::Init();
 
+  GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
+  GLFunctions::glEnable(gl_const::GLDepthTest);
+
+  GLFunctions::glClearColor(0.93f, 0.93f, 0.86f, 1.f);
+  GLFunctions::glClearDepthValue(1.0);
+  GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
+  GLFunctions::glDepthMask(true);
+
   my::Timer timer;
   //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 
@@ -394,6 +403,7 @@ void FrontendRenderer::Routine::Do()
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
+    m_textureManager->UpdateDynamicTextures();
     m_renderer.RenderScene();
 
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);

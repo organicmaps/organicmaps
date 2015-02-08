@@ -37,6 +37,7 @@ class FrontendRenderer : public MessageAcceptor
 public:
   FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                   dp::RefPointer<dp::TextureManager> textureManager,
                    Viewport viewport);
 
   ~FrontendRenderer() override;
@@ -93,6 +94,8 @@ private:
 private:
   dp::RefPointer<ThreadsCommutator> m_commutator;
   dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
+  dp::RefPointer<dp::TextureManager> m_textureManager;
+
   dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
   threads::Thread m_selfThread;
 

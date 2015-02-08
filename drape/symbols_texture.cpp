@@ -161,8 +161,9 @@ void SymbolsTexture::Load(string const & skinPathName)
   stbi_image_free(data);
 }
 
-RefPointer<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key) const
+RefPointer<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
+  newResource = false;
   if (key.GetType() != Texture::Symbol)
     return RefPointer<ResourceInfo>();
 

@@ -18,14 +18,17 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
 {
   VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
+  m_textureManager = dp::MasterPointer<dp::TextureManager>(new dp::TextureManager());
   m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
   dp::RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
   m_frontend = dp::MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
                                                                         contextfactory,
+                                                                        m_textureManager.GetRefPointer(),
                                                                         m_viewport));
   m_backend =  dp::MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
                                                                       contextfactory,
+                                                                      m_textureManager.GetRefPointer(),
                                                                       model));
 }
 
@@ -34,6 +37,7 @@ DrapeEngine::~DrapeEngine()
   m_frontend.Destroy();
   m_backend.Destroy();
   m_threadCommutator.Destroy();
+  m_textureManager.Destroy();
 }
 
 void DrapeEngine::Resize(int w, int h)

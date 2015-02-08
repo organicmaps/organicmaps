@@ -5,6 +5,7 @@
 #include "drape/dynamic_texture.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/mutex.hpp"
 
 namespace dp
 {
@@ -30,7 +31,7 @@ class ColorPalette
 public:
   ColorPalette(m2::PointU const & canvasSize);
 
-  RefPointer<Texture::ResourceInfo> MapResource(ColorKey const & key);
+  RefPointer<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
   void UploadResources(RefPointer<Texture> texture);
   glConst GetMinFilter() const;
   glConst GetMagFilter() const;
@@ -54,6 +55,7 @@ private:
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
   bool m_isDebug = false;
+  threads::Mutex m_lock;
 };
 
 class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::Color>

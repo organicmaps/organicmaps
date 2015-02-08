@@ -15,19 +15,18 @@ public:
     ASSERT(m_indexer.IsNull(), ());
   }
 
-  virtual RefPointer<ResourceInfo> FindResource(Key const & key) const
+  virtual RefPointer<ResourceInfo> FindResource(Key const & key, bool & newResource)
   {
     ASSERT(!m_indexer.IsNull(), ());
     if (key.GetType() != TResourceType)
       return RefPointer<ResourceInfo>();
 
-    return m_indexer->MapResource(static_cast<TResourceKey const &>(key));
+    return m_indexer->MapResource(static_cast<TResourceKey const &>(key), newResource);
   }
 
   virtual void UpdateState()
   {
     ASSERT(!m_indexer.IsNull(), ());
-
     Bind();
     m_indexer->UploadResources(MakeStackRefPointer<Texture>(this));
   }
@@ -61,7 +60,7 @@ protected:
   }
 
 private:
-  mutable RefPointer<TIndexer> m_indexer;
+  RefPointer<TIndexer> m_indexer;
 };
 
 }

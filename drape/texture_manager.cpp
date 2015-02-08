@@ -101,6 +101,10 @@ uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
 
 void TextureManager::UpdateDynamicTextures()
 {
+  if (!m_hasPendingUpdates)
+    return;
+
+  m_hasPendingUpdates = false;
   m_colorTexture->UpdateState();
   m_stipplePenTexture->UpdateState();
   for_each(m_glyphGroups.begin(), m_glyphGroups.end(), [](GlyphGroup & g)
@@ -120,6 +124,15 @@ void TextureManager::AllocateGlyphTexture(TextureManager::GlyphGroup & group) co
   group.m_texture.Reset(new FontTexture(m2::PointU(m_maxTextureSize, m_maxTextureSize), m_glyphManager.GetRefPointer()));
 }
 
+void TextureManager::GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key)
+{
+  bool dummy = false;
+  region.SetResourceInfo(tex->FindResource(key, dummy));
+  region.SetTexture(tex);
+  ASSERT(region.IsValid(), ());
+  m_hasPendingUpdates |= dummy;
+}
+
 void TextureManager::Init(Params const & params)
 {
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
@@ -131,7 +144,7 @@ void TextureManager::Init(Params const & params)
   m_colorTexture.Reset(new ColorTexture(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE)));
 
   m_glyphManager.Reset(new GlyphManager(params.m_glyphMngParams));
-  m_maxTextureSize = GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
+  m_maxTextureSize = min(2048, GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
 
   uint32_t const textureSquare = m_maxTextureSize * m_maxTextureSize;
   uint32_t const baseGlyphHeight = params.m_glyphMngParams.m_baseGlyphHeight;
@@ -171,28 +184,22 @@ void TextureManager::Release()
   DeleteRange(m_hybridGlyphGroups, MasterPointerDeleter());
 }
 
-void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region) const
+void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
 {
-  region.SetResourceInfo(m_symbolTexture->FindResource(SymbolsTexture::SymbolKey(symbolName)));
-  region.SetTexture(m_symbolTexture.GetRefPointer());
-  ASSERT(region.IsValid(), ());
+  GetRegionBase(m_symbolTexture.GetRefPointer(), region, SymbolsTexture::SymbolKey(symbolName));
 }
 
-void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region) const
+void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region)
 {
-  region.SetResourceInfo(m_stipplePenTexture->FindResource(StipplePenKey(pen)));
-  region.SetTexture(m_stipplePenTexture.GetRefPointer());
-  ASSERT(region.IsValid(), ());
+  GetRegionBase(m_stipplePenTexture.GetRefPointer(), region, StipplePenKey(pen));
 }
 
-void TextureManager::GetColorRegion(Color const & color, ColorRegion & region) const
+void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
 {
-  region.SetResourceInfo(m_colorTexture->FindResource(ColorKey(color)));
-  region.SetTexture(m_colorTexture.GetRefPointer());
-  ASSERT(region.IsValid(), ());
+  GetRegionBase(m_colorTexture.GetRefPointer(), region, ColorKey(color));
 }
 
-void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions) const
+void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
 {
   size_t const INVALID_GROUP = static_cast<size_t>(-1);
   size_t groupIndex = INVALID_GROUP;
@@ -228,8 +235,7 @@ void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuf
     for (strings::UniChar const & c : text)
     {
       GlyphRegion reg;
-      reg.SetResourceInfo(texture->FindResource(GlyphKey(c)));
-      reg.SetTexture(texture);
+      GetRegionBase(texture, reg, GlyphKey(c));
       regions.push_back(reg);
     }
   }

@@ -138,16 +138,22 @@ void StipplePenRasterizator::Rasterize(void * buffer)
   memcpy(pixels + COLUMN_WIDTH, pixels, COLUMN_WIDTH);
 }
 
-RefPointer<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key)
+RefPointer<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key, bool & newResource)
 {
+  newResource = false;
   StipplePenHandle handle(key);
   TResourceMapping::iterator it = m_resourceMapping.find(handle);
   if (it != m_resourceMapping.end())
     return MakeStackRefPointer<Texture::ResourceInfo>(&it->second);
 
+  newResource = true;
+
   StipplePenRasterizator resource(key);
   m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
-  m_pendingNodes.push_back(make_pair(pixelRect, resource));
+  {
+    threads::MutexGuard g(m_lock);
+    m_pendingNodes.push_back(make_pair(pixelRect, resource));
+  }
 
   auto res = m_resourceMapping.emplace(handle, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
                                                                       resource.GetSize(),
@@ -162,18 +168,24 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
   if (m_pendingNodes.empty())
     return;
 
+  TPendingNodes pendingNodes;
+  {
+    threads::MutexGuard g(m_lock);
+    m_pendingNodes.swap(pendingNodes);
+  }
+
   buffer_vector<uint32_t, 5> ranges;
   ranges.push_back(0);
 
-  uint32_t xOffset = m_pendingNodes[0].first.minX();
-  for (size_t i = 1; i < m_pendingNodes.size(); ++i)
+  uint32_t xOffset = pendingNodes[0].first.minX();
+  for (size_t i = 1; i < pendingNodes.size(); ++i)
   {
-    m2::RectU & node = m_pendingNodes[i].first;
+    m2::RectU & node = pendingNodes[i].first;
 #ifdef DEBUG
     ASSERT(xOffset <= node.minX(), ());
     if (xOffset == node.minX())
     {
-      m2::RectU const & prevNode = m_pendingNodes[i - 1].first;
+      m2::RectU const & prevNode = pendingNodes[i - 1].first;
       ASSERT(prevNode.minY() < node.minY(), ());
     }
 #endif
@@ -182,7 +194,7 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
     xOffset = node.minX();
   }
 
-  ranges.push_back(m_pendingNodes.size());
+  ranges.push_back(pendingNodes.size());
   SharedBufferManager & mng = SharedBufferManager::instance();
 
   for (size_t i = 1; i < ranges.size(); ++i)
@@ -199,17 +211,17 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
     uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
     memset(rawBuffer, 0, reserveBufferSize);
 
-    m2::RectU const & startNode = m_pendingNodes[rangeStart].first;
+    m2::RectU const & startNode = pendingNodes[rangeStart].first;
     uint32_t minX = startNode.minX();
     uint32_t minY = startNode.minY();
 #ifdef DEBUG
-    m2::RectU const & endNode = m_pendingNodes[rangeEnd - 1].first;
+    m2::RectU const & endNode = pendingNodes[rangeEnd - 1].first;
     ASSERT(endNode.maxY() == (minY + lineCount), ());
 #endif
 
     for (size_t r = rangeStart; r < rangeEnd; ++r)
     {
-      m_pendingNodes[r].second.Rasterize(rawBuffer);
+      pendingNodes[r].second.Rasterize(rawBuffer);
       rawBuffer += 2 * COLUMN_WIDTH;
     }
 
@@ -219,8 +231,6 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
 
     mng.freeSharedBuffer(reserveBufferSize, ptr);
   }
-
-  m_pendingNodes.clear();
 }
 
 glConst StipplePenIndex::GetMinFilter() const

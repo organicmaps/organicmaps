@@ -63,7 +63,7 @@ public:
   GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng);
 
   /// can return nullptr
-  RefPointer<Texture::ResourceInfo> MapResource(GlyphKey const & key);
+  RefPointer<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);
   void UploadResources(RefPointer<Texture> texture);
 
   glConst GetMinFilter() const { return gl_const::GLLinear; }
@@ -79,6 +79,7 @@ private:
 
   TResourceMapping m_index;
   TPendingNodes m_pendingNodes;
+  threads::Mutex m_lock;
 };
 
 class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>

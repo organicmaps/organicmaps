@@ -13,6 +13,8 @@
 
 #include "platform/platform.hpp"
 
+#include "base/logging.hpp"
+
 #include "std/bind.hpp"
 
 namespace df
@@ -20,12 +22,13 @@ namespace df
 
 BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                                 dp::RefPointer<dp::TextureManager> textureManager,
                                  MapDataProvider const & model)
   : m_model(model)
   , m_engineContext(commutator)
   , m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
-  , m_textures(new dp::TextureManager())
+  , m_texturesManager(textureManager)
 {
   m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
@@ -71,7 +74,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);
       dp::RefPointer<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
       dp::MasterPointer<MapShape> shape(msg->GetShape());
-      shape->Draw(batcher, m_textures.GetRefPointer());
+      shape->Draw(batcher, m_texturesManager);
 
       shape.Destroy();
       break;
@@ -84,7 +87,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 
       UserMarksProvider const * marksProvider = msg->StartProcess();
       if (marksProvider->IsDirty())
-        CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_textures.GetRefPointer());
+        CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texturesManager);
       msg->EndProcess();
       m_batchersPool->ReleaseBatcher(key);
       break;
@@ -117,8 +120,7 @@ void BackendRenderer::ReleaseResources()
   m_readManager.Destroy();
   m_batchersPool.Destroy();
 
-  m_textures->Release();
-  m_textures.Destroy();
+  m_texturesManager->Release();
 }
 
 BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}
@@ -143,13 +145,11 @@ void BackendRenderer::InitGLDependentResource()
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
-  m_textures->Init(params);
+  m_texturesManager->Init(params);
 }
 
 void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)
 {
-  m_textures->UpdateDynamicTextures();
-  GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, message);
 }
 

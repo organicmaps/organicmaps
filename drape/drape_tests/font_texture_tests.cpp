@@ -76,23 +76,25 @@ UNIT_TEST(UploadingGlyphs)
   args.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(args.m_fonts);
 
+  bool dummy = false;
+
   GlyphManager mng(args);
   GlyphIndex index(m2::PointU(64, 64), MakeStackRefPointer(&mng));
-  index.MapResource(GlyphKey(0x58));
-  index.MapResource(GlyphKey(0x59));
-  index.MapResource(GlyphKey(0x61));
+  index.MapResource(GlyphKey(0x58), dummy);
+  index.MapResource(GlyphKey(0x59), dummy);
+  index.MapResource(GlyphKey(0x61), dummy);
 
   DummyTexture tex;
   tex.Create(64, 64, dp::ALPHA, MakeStackRefPointer<void>(nullptr));
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(MakeStackRefPointer<Texture>(&tex));
 
-  index.MapResource(GlyphKey(0x68));
-  index.MapResource(GlyphKey(0x30));
-  index.MapResource(GlyphKey(0x62));
-  index.MapResource(GlyphKey(0x65));
-  index.MapResource(GlyphKey(0x400));
-  index.MapResource(GlyphKey(0x401));
+  index.MapResource(GlyphKey(0x68), dummy);
+  index.MapResource(GlyphKey(0x30), dummy);
+  index.MapResource(GlyphKey(0x62), dummy);
+  index.MapResource(GlyphKey(0x65), dummy);
+  index.MapResource(GlyphKey(0x400), dummy);
+  index.MapResource(GlyphKey(0x401), dummy);
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(MakeStackRefPointer<Texture>(&tex));

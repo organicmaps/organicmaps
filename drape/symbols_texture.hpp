@@ -30,7 +30,7 @@ public:
   };
 
   void Load(string const & skinPathName);
-  RefPointer<ResourceInfo> FindResource(Key const & key) const;
+  RefPointer<ResourceInfo> FindResource(Key const & key, bool & newResource);
 
 private:
   void Fail();

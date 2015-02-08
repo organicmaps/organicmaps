@@ -66,13 +66,18 @@ public:
 
   void Init(Params const & params);
   void Release();
-  void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const;
+  void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
+
   typedef buffer_vector<uint8_t, 8> TStipplePattern;
-  void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region) const;
-  void GetColorRegion(Color const & color, ColorRegion & region) const;
+  void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region);
+  void GetColorRegion(Color const & color, ColorRegion & region);
 
   typedef buffer_vector<GlyphRegion, 32> TGlyphsBuffer;
-  void GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions) const;
+  void GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions);
+
+  /// On some devices OpenGL driver can't resolve situation when we upload on texture from on thread
+  /// and use this texture to render on other thread. By this we move UpdateDynamicTextures call into render thread
+  /// If you implement some kind of dynamic texture, you must synchronyze UploadData and index creation operations
   void UpdateDynamicTextures();
 
 private:
@@ -91,6 +96,7 @@ private:
   uint32_t m_maxTextureSize;
 
   void AllocateGlyphTexture(TextureManager::GlyphGroup & group) const;
+  void GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
 
 private:
   MasterPointer<Texture> m_symbolTexture;
@@ -99,8 +105,10 @@ private:
 
   MasterPointer<GlyphManager> m_glyphManager;
 
-  mutable buffer_vector<GlyphGroup, 64> m_glyphGroups;
-  mutable buffer_vector<MasterPointer<Texture>, 4> m_hybridGlyphGroups;
+  buffer_vector<GlyphGroup, 64> m_glyphGroups;
+  buffer_vector<MasterPointer<Texture>, 4> m_hybridGlyphGroups;
+
+  volatile bool m_hasPendingUpdates = false;
 };
 
 } // namespace dp
