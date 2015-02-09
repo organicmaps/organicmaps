@@ -166,6 +166,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   public String getTempPath()
   {
+    // TODO refactor
     // Can't use getExternalCacheDir() here because of API level = 7.
     return getExtAppDirectoryPath(Constants.CACHE_DIR);
   }
@@ -225,6 +226,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public native double nativeGetDouble(String name, double defaultValue);
 
   public native void nativeSetDouble(String name, double value);
+
+  public native String nativeGetString(String name, String defaultValue);
+
+  public native void nativeSetString(String name, String value);
 
   public void onMwmCreate(Activity activity)
   {

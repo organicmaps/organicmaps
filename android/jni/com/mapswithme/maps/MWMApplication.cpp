@@ -124,4 +124,20 @@ extern "C"
   {
     (void)Settings::Set(jni::ToNativeString(env, name), value);
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeSetString(JNIEnv * env, jobject thiz, jstring name, jstring value)
+  {
+    (void)Settings::Set(jni::ToNativeString(env, name), jni::ToNativeString(env, value));
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeGetString(JNIEnv * env, jobject thiz, jstring name, jstring defaultValue)
+  {
+    string value;
+    if (Settings::Get(jni::ToNativeString(env, name), value))
+      return jni::ToJavaString(env, value);
+
+    return defaultValue;
+  }
 }
