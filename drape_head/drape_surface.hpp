@@ -9,7 +9,7 @@
 #include "drape/gpu_program_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
-//#define USE_TESTING_ENGINE
+#define USE_TESTING_ENGINE
 #if defined(USE_TESTING_ENGINE)
 #include "drape_head/testing_engine.hpp"
 #define DrapeEngine TestingEngine
