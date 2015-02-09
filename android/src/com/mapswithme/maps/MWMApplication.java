@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -35,6 +36,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
   public static final String IS_PREINSTALLED = "IsPreinstalled";
   private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
+  private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
 
   private static MWMApplication mSelf;
 
@@ -67,6 +69,8 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       CountryItem item = ActiveCountryTree.getCountryItem(group, position);
       Notifier.placeDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
     }
+    else if (newStatus == MapStorage.ON_DISK)
+      Statistics.INSTANCE.trackCountryDownload(MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false), getFirstInstallFlavor());
   }
 
   @Override
@@ -266,6 +270,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     {
       trackAppActivation();
       nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
+
+      final String installedFlavor = getFirstInstallFlavor();
+      if (TextUtils.isEmpty(installedFlavor))
+        nativeSetString(FIRST_INSTALL_FLAVOR, BuildConfig.FLAVOR);
     }
 
     nativeSetInt(LAUNCH_NUMBER_SETTING, currentLaunches + 1);
@@ -309,5 +317,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public int getFirstInstallVersion()
   {
     return nativeGetInt(FIRST_INSTALL_VERSION, 0);
+  }
+
+  public String getFirstInstallFlavor()
+  {
+    return nativeGetString(FIRST_INSTALL_FLAVOR, "");
   }
 }

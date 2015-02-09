@@ -20,8 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.DownloadHelper;
@@ -153,7 +151,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       public void onDownload()
       {
         startItemDownloading(holder, position, newOptions);
-        Statistics.INSTANCE.trackCountryDownload(MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false), BuildConfig.FLAVOR);
       }
     });
   }

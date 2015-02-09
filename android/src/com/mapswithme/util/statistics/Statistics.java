@@ -127,9 +127,8 @@ public enum Statistics
   public void trackCountryDownload(boolean isPreinstalled, String flavor)
   {
     trackIfEnabled(mEventBuilder.
-        setName(EventName.COUNTRY_DOWNLOAD).
+        setName(EventName.COUNTRY_DOWNLOAD + flavor).
         addParam(EventParam.IS_PREINSTALLED, String.valueOf(isPreinstalled)).
-        addParam(EventParam.APP_FLAVOR, flavor).
         addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalCount())).
         buildEvent());
   }
