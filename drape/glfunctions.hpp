@@ -19,6 +19,9 @@ public:
   static void glFlush();
   static void glFinish();
 
+  static void glFrontFace(glConst mode);
+  static void glCullFace(glConst face);
+
   static void glPixelStore(glConst name, uint32_t value);
 
   static int32_t glGetInteger(glConst pname);

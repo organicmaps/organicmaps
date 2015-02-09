@@ -259,6 +259,16 @@ void GLFunctions::glFinish()
   GLCHECK(::glFinish());
 }
 
+void GLFunctions::glFrontFace(glConst mode)
+{
+  GLCHECK(::glFrontFace(mode));
+}
+
+void GLFunctions::glCullFace(glConst face)
+{
+  GLCHECK(::glCullFace(face));
+}
+
 void GLFunctions::glPixelStore(glConst name, uint32_t value)
 {
   GLCHECK(::glPixelStorei(name, value));

@@ -10,6 +10,7 @@
 #include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/circle_shape.hpp"
+#include "drape_frontend/poi_symbol_shape.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
@@ -315,6 +316,10 @@ void TestingEngine::Draw()
   GLFunctions::glClear();
   GLFunctions::glEnable(gl_const::GLDepthTest);
 
+  GLFunctions::glFrontFace(gl_const::GLClockwise);
+  GLFunctions::glCullFace(gl_const::GLBack);
+  GLFunctions::glEnable(gl_const::GLCullFace);
+
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
   {
@@ -383,14 +388,14 @@ void TestingEngine::DrawImpl()
   vector<m2::PointD> path;
   path.push_back(m2::PointD(92.277071f, 50.9271164f));
   path.push_back(m2::PointD(98.277071f, 50.9271164f));
-  path.push_back(m2::PointD(106.277071f, 45.9271164f));
+  path.push_back(m2::PointD(106.277071f, 48.9271164f));
 
   m2::SharedSpline spline(path);
   PathTextViewParams ptvp;
   ptvp.m_baseGtoPScale = 1.0f / m_modelView.GetScale();
   ptvp.m_depth = 100.0f;
-  ptvp.m_text = "Some text along path";
-  ptvp.m_textFont = FontDecl(dp::Color::Black(), 40);
+  ptvp.m_text = "Some text";
+  ptvp.m_textFont = FontDecl(dp::Color::Black(), 40, dp::Color::Red());
 
   PathTextShape(spline, ptvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
   LineViewParams lvp;
@@ -401,6 +406,16 @@ void TestingEngine::DrawImpl()
   lvp.m_width = 16.0f;
   lvp.m_join = dp::BevelJoin;
   LineShape(spline, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  {
+    PathSymbolViewParams p;
+    p.m_depth = 95.0f;
+    p.m_baseGtoPScale = ptvp.m_baseGtoPScale;
+    p.m_offset = 0.0f;
+    p.m_step = 60.0f;
+    p.m_symbolName = "swimming";
+    PathSymbolShape(spline, p).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
 
   {
     vector<m2::PointD> path1;
@@ -417,6 +432,30 @@ void TestingEngine::DrawImpl()
     lvp.m_cap = dp::RoundCap;
     lvp.m_color = dp::Color::Black();
     LineShape(spl1, lvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
+
+  {
+    PoiSymbolViewParams p(FeatureID(-1, 0));
+    p.m_depth = 0.0f;
+    p.m_symbolName = "subway-station-l";
+    PoiSymbolShape(m2::PointF(92.27f, 30.0f), p).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
+
+  {
+    CircleViewParams p(FeatureID(-1, 0));
+    p.m_color = dp::Color::Red();
+    p.m_depth = 0.0f;
+    p.m_radius = 28.0f;
+    CircleShape(m2::PointF(94.27f, 30.0f), p).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
+
+  {
+    vector<m2::PointF> trg{ m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 30.0f), m2::PointD(112.0f, 28.0f),
+                            m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 28.0f), m2::PointD(110.0f, 28.0f) };
+    AreaViewParams p;
+    p.m_color = dp::Color::White();
+    p.m_depth = 0.0f;
+    AreaShape(move(trg), p).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
   }
 }
 

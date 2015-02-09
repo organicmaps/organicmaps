@@ -396,6 +396,10 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
   GLFunctions::glDepthMask(true);
 
+  GLFunctions::glFrontFace(gl_const::GLClockwise);
+  GLFunctions::glCullFace(gl_const::GLBack);
+  GLFunctions::glEnable(gl_const::GLCullFace);
+
   my::Timer timer;
   //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 

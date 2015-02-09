@@ -113,6 +113,16 @@ extern const glConst GLOneMinusDstAlfa;
 /// OpenGL states
 extern const glConst GLDepthTest;
 extern const glConst GLBlending;
+extern const glConst GLCullFace;
+
+/// Triangle faces order
+extern const glConst GLClockwise;
+extern const glConst GLCounterClockwise;
+
+/// Triangle face
+extern const glConst GLFront;
+extern const glConst GLBack;
+extern const glConst GLFrontAndBack;
 
 /// OpenGL depth functions
 extern const glConst GLNever;
