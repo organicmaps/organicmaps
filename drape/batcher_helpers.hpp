@@ -81,7 +81,7 @@ protected:
   virtual uint16_t ItoVCount(uint16_t iCount) const;
   virtual uint16_t AlignVCount(uint16_t vCount) const;
   virtual uint16_t AlignICount(uint16_t vCount) const;
-  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
+  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const = 0;
 
 private:
   bool m_isFullUploaded;
@@ -95,6 +95,8 @@ public:
   TriangleStripBatch(BatchCallbacks const & callbacks);
 
   virtual void BatchData(RefPointer<AttributeProvider> streams);
+protected:
+  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 };
 
 class TriangleFanBatch : public FanStripHelper
@@ -105,6 +107,8 @@ public:
   TriangleFanBatch(BatchCallbacks const & callbacks);
 
   virtual void BatchData(RefPointer<AttributeProvider> streams);
+protected:
+  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 };
 
 class TriangleListOfStripBatch : public FanStripHelper

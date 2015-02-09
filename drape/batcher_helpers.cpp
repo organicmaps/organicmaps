@@ -3,6 +3,7 @@
 #include "drape/cpu_buffer.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include "std/algorithm.hpp"
 
@@ -20,15 +21,31 @@ bool IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, u
 class IndexGenerator
 {
 public:
-  IndexGenerator(uint16_t startIndex) : m_startIndex(startIndex) , m_counter(0) {}
+  IndexGenerator(uint16_t startIndex)
+    : m_startIndex(startIndex)
+    , m_counter(0)
+    , m_minStriptCounter(0) {}
 
 protected:
   uint16_t GetCounter() { return m_counter++; }
   void ResetCounter() { m_counter = 0; }
   uint16_t const m_startIndex;
 
+  int16_t GetCWNormalizer()
+  {
+    int16_t tmp = m_minStriptCounter;
+    m_minStriptCounter = my::cyclicClamp(m_minStriptCounter + 1, 0, 5);
+    switch (tmp)
+    {
+      case 4: return 1;
+      case 5: return -1;
+      default: return 0;
+    }
+  }
+
 private:
   uint16_t m_counter;
+  int16_t m_minStriptCounter;
 };
 
 class ListIndexGenerator : public IndexGenerator
@@ -41,12 +58,17 @@ public:
 class StripIndexGenerator : public IndexGenerator
 {
 public:
-  StripIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
+  StripIndexGenerator(uint16_t startIndex)
+    : IndexGenerator(startIndex)
+    , m_minStriptCounter(0) {}
   uint16_t operator()()
   {
     uint16_t const counter = GetCounter();
-    return m_startIndex + counter - 2 * (counter / 3);
+    return m_startIndex + counter - 2 * (counter / 3) + GetCWNormalizer();
   }
+
+private:
+  uint16_t m_minStriptCounter;
 };
 
 class FanIndexGenerator : public IndexGenerator
@@ -69,15 +91,17 @@ public:
     : IndexGenerator(startIndex)
     , m_vertexStride(vertexStride)
     , m_indexPerStrip(indexPerStrip)
-    , m_base(0) {}
+    , m_base(0)
+    , m_minStriptCounter(0) {}
 
   uint16_t operator()()
   {
     uint16_t const counter = GetCounter();
-    uint16_t const result = m_startIndex + m_base + counter - 2 * (counter / 3);
+    uint16_t const result = m_startIndex + m_base + counter - 2 * (counter / 3) + GetCWNormalizer();
     if (counter + 1 == m_indexPerStrip)
     {
       m_base += m_vertexStride;
+      m_minStriptCounter = 0;
       ResetCounter();
     }
 
@@ -88,6 +112,7 @@ private:
   uint16_t m_vertexStride;
   uint16_t m_indexPerStrip;
   uint16_t m_base;
+  uint16_t m_minStriptCounter;
 };
 
 } // namespace
@@ -282,11 +307,6 @@ uint16_t FanStripHelper::AlignICount(uint16_t iCount) const
   return iCount - iCount % 3;
 }
 
-void FanStripHelper::GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const
-{
-  generate(indexStorage, indexStorage + count, StripIndexGenerator(startIndex));
-}
-
 TriangleStripBatch::TriangleStripBatch(BatchCallbacks const & callbacks)
  : TBase(callbacks)
 {
@@ -304,6 +324,11 @@ void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
     streams->Advance(advanceCount);
 
   }
+}
+
+void TriangleStripBatch::GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const
+{
+  generate(indexStorage, indexStorage + count, StripIndexGenerator(startIndex));
 }
 
 TriangleFanBatch::TriangleFanBatch(BatchCallbacks const & callbacks) : TBase(callbacks) {}
@@ -407,6 +432,10 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
   }
 }
 
+void TriangleFanBatch::GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const
+{
+  generate(indexStorage, indexStorage + count, FanIndexGenerator(startIndex));
+}
 
 TriangleListOfStripBatch::TriangleListOfStripBatch(BatchCallbacks const & callbacks)
  : TBase(callbacks)

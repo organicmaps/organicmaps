@@ -230,8 +230,16 @@ ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, TileKey tileKey,
 void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
 {
   m_triangles.push_back(p1);
-  m_triangles.push_back(p2);
-  m_triangles.push_back(p3);
+  if (m2::CrossProduct(p2 - p1, p3 - p1) < 0)
+  {
+    m_triangles.push_back(p2);
+    m_triangles.push_back(p3);
+  }
+  else
+  {
+    m_triangles.push_back(p3);
+    m_triangles.push_back(p2);
+  }
 }
 
 void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)

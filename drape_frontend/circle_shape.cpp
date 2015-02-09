@@ -50,9 +50,11 @@ void CircleShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::T
   state.SetBlending(dp::Blending(true));
   state.SetColorTexture(region.GetTexture());
 
+  double handleSize = 2 * m_params.m_radius;
+
   dp::OverlayHandle * overlay = new dp::SquareHandle(m_params.m_id,
                                                      dp::Center, m_pt,
-                                                     m2::PointD(m_params.m_radius, m_params.m_radius),
+                                                     m2::PointD(handleSize, handleSize),
                                                      m_params.m_depth);
 
   dp::AttributeProvider provider(1, TriangleCount + 2);
