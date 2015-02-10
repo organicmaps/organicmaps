@@ -34,9 +34,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
   private static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
   private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
-  public static final String IS_PREINSTALLED = "IsPreinstalled";
+  private static final String IS_PREINSTALLED = "IsPreinstalled";
   private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
   private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
+  private static final String IS_PREINSTALL_ACTIVATED = "PreinstallActivated";
 
   private static MWMApplication mSelf;
 
@@ -69,12 +70,18 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       CountryItem item = ActiveCountryTree.getCountryItem(group, position);
       Notifier.placeDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), item.getName());
     }
-    else if (newStatus == MapStorage.ON_DISK)
-      Statistics.INSTANCE.trackCountryDownload(MWMApplication.get().nativeGetBoolean(MWMApplication.IS_PREINSTALLED, false), getFirstInstallFlavor());
   }
 
   @Override
-  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition) {}
+  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
+  {
+    if (!nativeGetBoolean(IS_PREINSTALL_ACTIVATED, false) && newGroup == ActiveCountryTree.GROUP_UP_TO_DATE &&
+        ((oldGroup == ActiveCountryTree.GROUP_OUT_OF_DATE) || (oldGroup == ActiveCountryTree.GROUP_NEW && ActiveCountryTree.getTotalCount() > 1)))
+    {
+      nativeSetBoolean(IS_PREINSTALL_ACTIVATED, true);
+      Statistics.INSTANCE.trackPreinstallActivation(getFirstInstallFlavor());
+    }
+  }
 
   @Override
   public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
@@ -268,7 +275,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     final int currentLaunches = nativeGetInt(LAUNCH_NUMBER_SETTING, 0);
     if (currentLaunches == 0)
     {
-      trackAppActivation();
+      trackFirstLaunch();
       nativeSetInt(FIRST_INSTALL_VERSION, BuildConfig.VERSION_CODE);
 
       final String installedFlavor = getFirstInstallFlavor();
@@ -290,10 +297,10 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     }
   }
 
-  private void trackAppActivation()
+  private void trackFirstLaunch()
   {
     nativeSetBoolean(IS_PREINSTALLED, BuildConfig.IS_PREINSTALLED);
-    Statistics.INSTANCE.trackAppActivated(BuildConfig.IS_PREINSTALLED, BuildConfig.FLAVOR);
+    Statistics.INSTANCE.trackFirstLaunch(BuildConfig.IS_PREINSTALLED, BuildConfig.FLAVOR);
   }
 
   /**

@@ -151,6 +151,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       public void onDownload()
       {
         startItemDownloading(holder, position, newOptions);
+        Statistics.INSTANCE.trackCountryDownload();
       }
     });
   }

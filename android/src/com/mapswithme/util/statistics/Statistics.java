@@ -69,6 +69,7 @@ public enum Statistics
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
     public static final String RATE_DIALOG_LATER = "GPlay dialog cancelled.";
     public static final String RATE_DIALOG_RATED = "GPlay dialog. Rating set";
+    public static final String PREINSTALL_ACTIVATED = "Preinstalled application activated.";
   }
 
   public static class EventParam
@@ -124,11 +125,9 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackCountryDownload(boolean isPreinstalled, String flavor)
+  public void trackCountryDownload()
   {
     trackIfEnabled(mEventBuilder.
-        setName(EventName.COUNTRY_DOWNLOAD + flavor).
-        addParam(EventParam.IS_PREINSTALLED, String.valueOf(isPreinstalled)).
         addParam(EventParam.COUNT, String.valueOf(ActiveCountryTree.getTotalCount())).
         buildEvent());
   }
@@ -141,6 +140,13 @@ public enum Statistics
   public void trackCountryDeleted()
   {
     trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_DELETE).buildEvent());
+  }
+
+  public void trackPreinstallActivation(String flavor)
+  {
+    trackIfEnabled(mEventBuilder.
+        setName(EventName.PREINSTALL_ACTIVATED + flavor).
+        buildEvent());
   }
 
   public void trackSearchCategoryClicked(String category)
@@ -244,7 +250,7 @@ public enum Statistics
     trackIfEnabled(event);
   }
 
-  public void trackAppActivated(boolean isPreinstalled, String flavor)
+  public void trackFirstLaunch(boolean isPreinstalled, String flavor)
   {
     final Event event = mEventBuilder.
         setName(EventName.APP_ACTIVATED).
