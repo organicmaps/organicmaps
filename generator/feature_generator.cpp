@@ -429,13 +429,13 @@ bool GenerateImpl(GenerateInfo & info, string const & osmFileName = string())
 bool GenerateFeatures(GenerateInfo & info, string const & nodeStorage, string const & osmFileName)
 {
   if (nodeStorage == "raw")
-    return GenerateImpl<RawFilePointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
+    return GenerateImpl<RawFileShortPointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
   else if (nodeStorage == "map")
     return GenerateImpl<MapFileShortPointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
   else if (nodeStorage == "sqlite")
     return GenerateImpl<SQLitePointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
   else if (nodeStorage == "mem")
-    return GenerateImpl<RawFileShortPointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
+    return GenerateImpl<RawMemShortPointStorage<BasePointStorage::MODE_READ>>(info, osmFileName);
   else
     CHECK(nodeStorage.empty(), ("Incorrect node_storage type:", nodeStorage));
   return false;

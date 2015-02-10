@@ -312,6 +312,78 @@ public:
 
 
 template < BasePointStorage::EStorageMode ModeT >
+class RawMemShortPointStorage : public BasePointStorage
+{
+  typename std::conditional<ModeT, FileWriter, FileReader>::type m_file;
+
+  double const m_precision = 10000000;
+
+  vector<ShortLatLon> m_data;
+
+public:
+  RawMemShortPointStorage(string const & name)
+  : BasePointStorage(name, 1000)
+  , m_file(name)
+  , m_data((size_t)0xFFFFFFFF)
+  {
+    InitStorage(EnableIf<ModeT>());
+  }
+
+  ~RawMemShortPointStorage()
+  {
+    DoneStorage(EnableIf<ModeT>());
+  }
+
+  void InitStorage(EnableIf<MODE_WRITE>) {}
+
+  void InitStorage(EnableIf<MODE_READ>)
+  {
+    m_file.Read(0, m_data.data(), m_data.size());
+  }
+
+  void DoneStorage(EnableIf<MODE_WRITE>)
+  {
+    m_file.Write(m_data.data(), m_data.size());
+  }
+
+  void DoneStorage(EnableIf<MODE_READ>) {}
+
+  template <bool T = (ModeT == BasePointStorage::MODE_WRITE)>
+  typename std::enable_if<T, void>::type AddPoint(uint64_t id, double lat, double lng)
+  {
+    int64_t const lat64 = lat * m_precision;
+    int64_t const lng64 = lng * m_precision;
+
+    ShortLatLon & ll = m_data[id];
+    ll.lat = static_cast<int32_t>(lat64);
+    ll.lon = static_cast<int32_t>(lng64);
+    CHECK_EQUAL(static_cast<int64_t>(ll.lat), lat64, ("Latitude is out of 32bit boundary!"));
+    CHECK_EQUAL(static_cast<int64_t>(ll.lon), lng64, ("Longtitude is out of 32bit boundary!"));
+
+    m_progress.Inc();
+  }
+
+  template <bool T = (ModeT == BasePointStorage::MODE_READ)>
+  typename std::enable_if<T, bool>::type GetPoint(uint64_t id, double & lat, double & lng) const
+  {
+    ShortLatLon const & ll = m_data[id];
+    // assume that valid coordinate is not (0, 0)
+    if (ll.lat != 0.0 || ll.lon != 0.0)
+    {
+      lat = static_cast<double>(ll.lat) / m_precision;
+      lng = static_cast<double>(ll.lon) / m_precision;
+      return true;
+    }
+    else
+    {
+      LOG(LERROR, ("Node with id = ", id, " not found!"));
+      return false;
+    }
+  }
+};
+
+
+template < BasePointStorage::EStorageMode ModeT >
 class MapFilePointStorage : public BasePointStorage
 {
   typename std::conditional<ModeT, FileWriter, FileReader>::type m_file;

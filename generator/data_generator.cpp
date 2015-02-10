@@ -92,13 +92,13 @@ bool GenerateImpl(string const & dir, string const & osmFileName = string())
 bool GenerateToFile(string const & dir, string const & nodeStorage, string const & osmFileName)
 {
   if (nodeStorage == "raw")
-    return GenerateImpl<RawFilePointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
+    return GenerateImpl<RawFileShortPointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
   else if (nodeStorage == "map")
     return GenerateImpl<MapFileShortPointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
   else if (nodeStorage == "sqlite")
     return GenerateImpl<SQLitePointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
   else if (nodeStorage == "mem")
-    return GenerateImpl<RawFileShortPointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
+    return GenerateImpl<RawMemShortPointStorage<BasePointStorage::MODE_WRITE>>(dir, osmFileName);
   else
     CHECK(nodeStorage.empty(), ("Incorrect node_storage type:", nodeStorage));
   return false;
