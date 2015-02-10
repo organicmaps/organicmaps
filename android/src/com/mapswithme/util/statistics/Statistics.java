@@ -365,7 +365,7 @@ public enum Statistics
     // We track if user turned on/off
     // statistics to understand data better.
     post(mEventBuilder
-        .setName(EventName.STATISTICS_STATUS_CHANGED)
+        .setName(EventName.STATISTICS_STATUS_CHANGED + " " + MWMApplication.get().getFirstInstallFlavor())
         .addParam(EventParam.ENABLED, String.valueOf(isEnabled))
         .buildEvent());
   }

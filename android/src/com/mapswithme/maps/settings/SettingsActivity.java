@@ -1,6 +1,5 @@
 package com.mapswithme.maps.settings;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -9,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.MailTo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -45,7 +43,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   private static final String COPYRIGHT_HTML_URL = "file:///android_asset/copyright.html";
   private static final String FAQ_HTML_URL = "file:///android_asset/faq.html";
 
-  private Preference mStoragePreference = null;
+  private Preference mStoragePreference;
   private StoragePathManager mPathManager = new StoragePathManager();
 
   @SuppressWarnings("deprecation")
@@ -54,14 +52,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   {
     super.onCreate(savedInstanceState);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-    {
-      // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
-      final ActionBar bar = getActionBar();
-      if (bar != null)
-        bar.setDisplayHomeAsUpEnabled(true);
-    }
-
+    // TODO refactor. use preference fragments instead.
     addPreferencesFromResource(R.xml.preferences);
     initPreferences();
     yotaSetup();
