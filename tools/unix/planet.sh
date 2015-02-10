@@ -5,7 +5,7 @@
 
 # At least "set -e -u" should always be here, not just for debugging!
 # "set -x" is useful to see what is going on.
-set -e -u -x
+set -e -u #-x
 
 # global params
 if [[ `hostname` == "Scout" ]]; then
@@ -43,6 +43,14 @@ function forky() {
     sleep 1
   done
 }
+
+# logger 
+function log() {
+   local prefix="[$(date +%Y/%m/%d\ %H:%M:%S)]: "
+   echo "${prefix} $@" >&2
+} 
+
+log "TIMEMARK" "Start"
 
 if [ $# -lt 1 ]; then
   Usage
@@ -95,18 +103,26 @@ fi
 # If exit code is 255 and FAIL_ON_COASTS is true this means total fail or that coasts are not merged
 function merge_coasts() {
   # Strip coastlines from the planet to speed up the process
+  log "TIMEMARK" "Filter coastlines"
   $FILTER_TOOL $PLANET_FILE --keep= --keep-ways="natural=coastline" -o=$COASTS_FILE
+  log "TIMEMARK" "Filter coastlines done"
   # Preprocess coastlines to separate intermediate directory
-  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -preprocess_xml
+  log "TIMEMARK" "Generate coastlines intermediate"
+  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -preprocess_xml
+  log "TIMEMARK" "Generate coastlines intermediate done"
   # Generate temporary coastlines file in the coasts intermediate dir
-  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -use_light_nodes=true -make_coasts -fail_on_coasts=$FAIL_ON_COASTS
+  log "TIMEMARK" "Generate coastlines"
+  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -make_coasts -fail_on_coasts=$FAIL_ON_COASTS
+  log "TIMEMARK" "Generate coastlines done"
 }
+
 
 # Loop while coasts will be correctly merged
 if [[ $1 == "--full" ]]; then
 
   EXIT_CODE=255
   while [[ $EXIT_CODE != 0 ]]; do
+    log "TIMEMARK" "Download update for planet"
 
     # Get fresh data from OSM server
     pushd  "$UPDATE_PLANET_PATH"
@@ -115,49 +131,63 @@ if [[ $1 == "--full" ]]; then
 
     # Do not exit on error
     set +e
+    log "TIMEMARK" "Start merge coast lines"
     merge_coasts
     EXIT_CODE=$?
     if [[ $EXIT_CODE != 0 ]]; then
+      log "TIMEMARK" "Coasts line merge failed"
+
       date -u
       echo "Will try fresh coasts again in 40 minutes..."
       sleep 2400
     else
+      log "TIMEMARK" "launch parallel routing data preprocessing as we got a 'good' planet"
       # Here we launch parallel routing data preprocessing as we got a 'good' planet
       ( bash split_planet_by_polygons.sh &> split_planet.log ; bash osrm_generator.sh &> osrm_generator.log ) &
     fi
     set -e
   done
+  log "TIMEMARK" "Planet ready, coasts line ready"
 else
   if [[ $1 == "--generate" ]]; then
     # Just merge coasts and continue
     # Do not exit on error
+    log "TIMEMARK" "Start merge coast lines"
     set +e
     merge_coasts
     set -e
+    log "TIMEMARK" "Done merge coast lines"
   fi
 fi
 
 # make a working copy of generated coastlines file
 cp $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
 
+NODE_STORAGE=raw
 
 if [[ $1 == "--generate" || $1 == "--full" ]]; then
+  log "TIMEMARK" "Generate intermediate data"
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
-  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR -use_light_nodes=false -preprocess_xml
+  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR -node_storage=$NODE_STORAGE -preprocess_xml
+  log "TIMEMARK" "Generate intermediate data done"
 fi
 
 if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
   # 2nd pass - paralleled in the code
+  log "TIMEMARK" "Generate features"
   $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR \
-    -use_light_nodes=false -split_by_polygons \
+    -node_storage=$NODE_STORAGE -split_by_polygons \
     -generate_features -generate_world \
     -data_path=$DATA_PATH -emit_coasts
+  log "TIMEMARK" "Generate features done"
 
   # 3rd pass - do in parallel
   # but separate exceptions for world files to finish them earlier
   PARAMS="-data_path=$DATA_PATH -generate_geometry -generate_index"
+  log "TIMEMARK" "Generate final mwms"
   $GENERATOR_TOOL $PARAMS -output=World &
   $GENERATOR_TOOL $PARAMS -output=WorldCoasts &
+
 
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
   # additional exceptions for long-generated countries
@@ -185,16 +215,24 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
   done
 
   wait
+  log "TIMEMARK" "Generate final mwms done"
 
   # Generate search index for World
+  log "TIMEMARK" "Generate world search index"
   $GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
+  log "TIMEMARK" "Generate world search index done"
 
   # Update countries list
+  log "TIMEMARK" "Update countries list"
   $GENERATOR_TOOL -generate_update
   mv $DATA_PATH/countries.txt.updated $DATA_PATH/countries.txt
+  log "TIMEMARK" "Update countries list done"
 
   # Update external resources
   pushd $DATA_PATH
     ../tools/unix/external_resources.sh > external_resources.txt
   popd
+
+  log "TIMEMARK" "All done"
+
 fi
