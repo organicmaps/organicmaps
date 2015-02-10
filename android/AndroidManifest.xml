@@ -258,24 +258,12 @@
         android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
 
     <receiver
-        android:name="ru.mail.mrgservice.MRGSGCMBroadcastReceiver"
-        android:permission="com.google.android.c2dm.permission.SEND">
-      <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-        <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
-
-        <category android:name="ru.mail.mrgservice"/>
-      </intent-filter>
-    </receiver>
-    <receiver
         android:name="ru.mail.mrgservice.MRGSBroadcastReceiver"
         android:exported="true">
       <intent-filter>
         <action android:name="com.android.vending.INSTALL_REFERRER"/>
       </intent-filter>
     </receiver>
-
-    <service android:name="ru.mail.android.mytracker.campaign.CampaignService"/>
 
     <receiver android:name="ru.mail.mrgservice.MRGSPackageRemoveReceiver">
       <intent-filter>
@@ -290,19 +278,6 @@
       </intent-filter>
     </receiver>
     <receiver android:name="ru.mail.mrgservice.MRGSNotificationDeleteReceiver"/>
-
-    <service
-        android:name="ru.mail.mrgservice.MRGSGCMIntentService"
-        android:enabled="true"/>
-    <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
-    <!-- MRGS -->
-    <receiver
-        android:name="com.mobileapptracker.Tracker"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER"/>
-      </intent-filter>
-    </receiver>
 
     <!-- Used to automatically upload Alohalytics statistics using WiFi. -->
     <receiver
