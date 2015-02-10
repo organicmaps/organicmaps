@@ -292,9 +292,6 @@ private:
 
   typedef priority_queue<CheckedPathT, vector<CheckedPathT>, pathChecker> RoutingTaskQueueT;
 
-  MultiroutingTaskPointT::const_iterator FilterWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
-                                      std::vector<EdgeWeight> & weightMatrix);
-
   /*!
    * \brief Makes route (points turns and other annotations) and submits it to @route class
    * \param path vector of pathes through mwms
