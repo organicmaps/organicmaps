@@ -305,10 +305,9 @@ public class SearchAdapter extends BaseAdapter
       }
       break;
     case CATEGORY_TYPE:
-      final String category = getCategoryName(mCategories[position]);
-      Statistics.INSTANCE.trackSearchCategoryClicked(category);
+      Statistics.INSTANCE.trackSearchCategoryClicked(mCategories[position]);
 
-      return category + ' ';
+      return getCategoryName(mCategories[position]) + ' ';
     }
 
     return null;
