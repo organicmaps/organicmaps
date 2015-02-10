@@ -33,60 +33,37 @@ namespace routing
 {
 
 //Routines to get borders from tree
-class GetCountriesBordersByName
+class CountryBordersGetter
 {
-
-  class GetBordersOfCountry
-  {
-    vector<m2::RegionD> & m_vec;
-  public:
-    GetBordersOfCountry(vector<m2::RegionD> & vec) : m_vec(vec) {}
-    void operator()(m2::RegionD const & region)
-    {
-      m_vec.push_back(region);
-    }
-
-  };
   typedef vector<m2::RegionD> vec_type;
   vec_type & m_vec;
   string const & m_name;
 
 public:
-  GetCountriesBordersByName(vec_type & vec, string const & name) : m_vec(vec), m_name(name) {}
+  CountryBordersGetter(vec_type & vec, string const & name) : m_vec(vec), m_name(name) {}
   void operator() (borders::CountryPolygons const & c)
   {
     if (c.m_name == m_name)
     {
-      GetBordersOfCountry getter(m_vec);
-      c.m_regions.ForEach(getter);
+      c.m_regions.ForEach([&](m2::RegionD const & region) { m_vec.push_back(region); });
     }
   }
 };
 
 class GetMWMName
 {
-  class CheckPointInBorder
-  {
-    m2::PointD const & m_point;
-    bool & m_inside;
-  public:
-    CheckPointInBorder(m2::PointD const & point, bool & inside) : m_point(point), m_inside(inside) {m_inside=false;}
-    void operator()(m2::RegionD const & region)
-    {
-      if (region.Contains(m_point))
-        m_inside=true;
-    }
-  };
-
   string  & m_name;
   m2::PointD const & m_point;
 public:
   GetMWMName(string & name, m2::PointD const & point) : m_name(name), m_point(point) {}
   void operator() (borders::CountryPolygons const & c)
   {
-    bool inside;
-    CheckPointInBorder getter(m_point, inside);
-    c.m_regions.ForEachInRect(m2::RectD(m_point, m_point), getter);
+    bool inside = false;
+    c.m_regions.ForEachInRect(m2::RectD(m_point, m_point), [&](m2::RegionD const & region)
+    {
+      if (region.Contains(m_point))
+        inside = true;
+    });
     if (inside)
       m_name = c.m_name;
   }
@@ -115,7 +92,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       ("Error loading country polygons files"));
   {
     vector<m2::RegionD> tmpRegionBorders;
-    GetCountriesBordersByName getter(tmpRegionBorders, countryName);
+    CountryBordersGetter getter(tmpRegionBorders, countryName);
     m_countries.ForEach(getter);
     for (m2::RegionD const& border: tmpRegionBorders)
     {
@@ -150,7 +127,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     auto const & data = nodeData[nodeId];
 
     //Check for outgoing candidates
-    if (data.m_segments.size() > 0)
+    if (!data.m_segments.empty())
     {
       auto const & startSeg = data.m_segments.front();
       auto const & endSeg = data.m_segments.back();
@@ -163,7 +140,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         for (m2::RegionD const& border: regionBorders)
         {
           bool const outStart = border.Contains(pts[0]), outEnd = border.Contains(pts[1]);
-          if (outStart == true && outEnd == false)
+          if (outStart && !outEnd)
           {
             string mwmName;
             m2::PointD mercatorPoint(MercatorBounds::LonToX(pts[1].x), MercatorBounds::LatToY(pts[1].y));
@@ -172,7 +149,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
             crossContext.addOutgoingNode(nodeId, mwmName);
           }
           else
-            if (outStart == false && outEnd == true)
+            if (!outStart && outEnd)
               crossContext.addIngoingNode(nodeId);
         }
       }

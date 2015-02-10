@@ -248,7 +248,7 @@ public:
 
       threads::MutexGuard guard(p->m_lock);
       UNUSED_VALUE(guard);
-      ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identefier"));
+      ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identifier"));
       return p->GetIdByName(name);
   }
 

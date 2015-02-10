@@ -18,6 +18,15 @@ class CrossRoutingContext
   std::vector<WritedEdgeWeight> m_adjacencyMatrix;
   std::vector<string> m_neighborMwmList;
 
+  size_t GetIndexInAdjMatrix(std::vector<uint32_t>::const_iterator ingoing_iter, std::vector<std::pair<uint32_t,uint32_t>>::const_iterator outgoin_iter) const
+  {
+    size_t ingoing_index = std::distance(m_ingoingNodes.cbegin(), ingoing_iter);
+    size_t outgoing_index = std::distance(m_outgoingNodes.cbegin(), outgoin_iter);
+    ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
+    ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
+    return m_ingoingNodes.size() * ingoing_index + outgoing_index;
+  }
+
 public:
 
   const string & getOutgoingMwmName(size_t mwmIndex) const
@@ -36,13 +45,9 @@ public:
     return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
   }
 
-  WritedEdgeWeight getAdjacencyCost(std::vector<uint32_t>::const_iterator ingoing_iter, std::vector<std::pair<uint32_t,uint32_t>>::const_iterator outgoin_iter) const
+  WritedEdgeWeight getAdjacencyCost(std::vector<uint32_t>::const_iterator ingoing_iter, std::vector<std::pair<uint32_t,uint32_t>>::const_iterator outgoing_iter) const
   {
-    size_t ingoing_index = std::distance(m_ingoingNodes.cbegin(), ingoing_iter);
-    size_t outgoing_index = std::distance(m_outgoingNodes.cbegin(), outgoin_iter);
-    ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
-    ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
-    return m_adjacencyMatrix[m_ingoingNodes.size() * ingoing_index + outgoing_index];
+    return m_adjacencyMatrix[GetIndexInAdjMatrix(ingoing_iter, outgoing_iter)];
   }
 
   void Load(Reader const & r)
@@ -73,14 +78,13 @@ public:
     pos += sizeof(uint32_t);
     for (uint32_t i = 0; i < strsize; ++i)
     {
-      char * tmpString;
+      vector<char> tmpString;
       r.Read(pos, &size, sizeof(uint32_t));
       pos += sizeof(uint32_t);
-      tmpString = new char[size];
-      r.Read(pos, tmpString, size);
-      m_neighborMwmList.push_back(string(tmpString, size));
+      tmpString.resize(size);
+      r.Read(pos, &tmpString[0], size);
+      m_neighborMwmList.push_back(string(&tmpString[0], size));
       pos += size;
-      delete [] tmpString;
     }
   }
 
@@ -123,11 +127,7 @@ public:
 
   void setAdjacencyCost(std::vector<uint32_t>::const_iterator ingoing_iter, std::vector<std::pair<uint32_t,uint32_t>>::const_iterator outgoin_iter, WritedEdgeWeight value)
   {
-    size_t ingoing_index = std::distance(m_ingoingNodes.cbegin(), ingoing_iter);
-    size_t outgoing_index = std::distance(m_outgoingNodes.cbegin(), outgoin_iter);
-    ASSERT_LESS(ingoing_index, m_ingoingNodes.size(), ("ingoing index out of range"));
-    ASSERT_LESS(outgoing_index, m_outgoingNodes.size(), ("outgoing index out of range"));
-    m_adjacencyMatrix[m_ingoingNodes.size() * ingoing_index + outgoing_index] = value;
+    m_adjacencyMatrix[GetIndexInAdjMatrix(ingoing_iter, outgoin_iter)] = value;
   }
 };
 

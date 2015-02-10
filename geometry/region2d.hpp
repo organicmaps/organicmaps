@@ -193,7 +193,7 @@ namespace m2
       return Contains(pt, typename TraitsT::EqualType());
     }
 
-    /// Slow point at border realisation
+    /// Slow check that point lies at the border.
     template <class EqualF>
     bool atBorder(PointT const & pt, double const delta, EqualF equalF) const
     {
@@ -213,7 +213,7 @@ namespace m2
       {
         PointT const curr = m_points[i];
 
-        // Borders often has same points with ways
+        // Borders often have same points with ways
         if (equalF.EqualPoints(m_points[i], pt))
           return true;
 
@@ -224,7 +224,7 @@ namespace m2
         prev = curr;
       }
 
-        return false; // outside
+      return false; // Point lies outside the border.
     }
 
     bool atBorder(PointT const & pt, double const delta) const

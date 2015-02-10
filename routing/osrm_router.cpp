@@ -1,6 +1,7 @@
 #include "osrm_router.hpp"
 #include "vehicle_model.hpp"
-#include <algorithm>
+
+#include "../std/algorithm.hpp"
 
 #include "../base/math.hpp"
 

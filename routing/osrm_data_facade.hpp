@@ -46,16 +46,16 @@ public:
   {
     ClearRawData();
 
-    ASSERT(pRawEdgeData != nullptr, ());
+    ASSERT(pRawEdgeData, ());
     succinct::mapper::map(m_edgeData, pRawEdgeData);
 
-    ASSERT(pRawEdgeIds != nullptr, ());
+    ASSERT(pRawEdgeIds, ());
     succinct::mapper::map(m_edgeId, pRawEdgeIds);
 
-    ASSERT(pRawEdgeShortcuts != nullptr, ());
+    ASSERT(pRawEdgeShortcuts, ());
     succinct::mapper::map(m_shortcuts, pRawEdgeShortcuts);
 
-    ASSERT(pRawFanoMatrix != nullptr, ());
+    ASSERT(pRawFanoMatrix, ());
     m_numberOfNodes = *reinterpret_cast<uint32_t const *>(pRawFanoMatrix);
     succinct::mapper::map(m_matrix, pRawFanoMatrix + sizeof(m_numberOfNodes));
   }
@@ -68,34 +68,27 @@ public:
     ClearContainer(m_matrix);
   }
 
-  virtual unsigned GetNumberOfNodes() const
+  unsigned GetNumberOfNodes() const override
   {
     return m_numberOfNodes;
   }
 
-  virtual unsigned GetNumberOfEdges() const
+  unsigned GetNumberOfEdges() const override
   {
     return m_edgeData.size();
   }
 
-  virtual unsigned GetOutDegree(const NodeID n) const
+  unsigned GetOutDegree(const NodeID n) const override
   {
     return EndEdges(n) - BeginEdges(n);
   }
 
-  virtual NodeID GetTarget(const EdgeID e) const
+  NodeID GetTarget(const EdgeID e) const override
   {
     return (m_matrix.select(e) / 2) % GetNumberOfNodes();
   }
 
-  virtual EdgeDataT & GetEdgeData(const EdgeID e)
-  {
-    static EdgeDataT res;
-    ASSERT(false, ("Maps me routing facade do not supports this edge unpacking method"));
-    return res;
-  }
-
-  virtual EdgeDataT GetEdgeData(const EdgeID e, NodeID node)
+  EdgeDataT GetEdgeData(const EdgeID e, NodeID node) override
   {
     EdgeDataT res;
 
@@ -108,7 +101,7 @@ public:
     return res;
   }
 
-  virtual EdgeDataT & GetEdgeData(const EdgeID e) const
+  EdgeDataT & GetEdgeData(const EdgeID e) const override
   {
     static EdgeDataT res;
     ASSERT(false, ("Maps me routing facade do not supports this  edge unpacking method"));
@@ -116,30 +109,30 @@ public:
   }
 
   //! TODO: Make proper travelmode getter when we add it to routing file
-  virtual TravelMode GetTravelModeForEdgeID(const unsigned id) const
+  TravelMode GetTravelModeForEdgeID(const unsigned id) const override
   {
       return TRAVEL_MODE_DEFAULT;
   }
 
-  virtual EdgeID BeginEdges(const NodeID n) const
+  EdgeID BeginEdges(const NodeID n) const override
   {
     uint64_t idx = 2 * n * (uint64_t)GetNumberOfNodes();
     return n == 0 ? 0 : m_matrix.rank(min(idx, m_matrix.size()));
   }
 
-  virtual EdgeID EndEdges(const NodeID n) const
+  EdgeID EndEdges(const NodeID n) const override
   {
     uint64_t const idx = 2 * (n + 1) * (uint64_t)GetNumberOfNodes();
     return m_matrix.rank(min(idx, m_matrix.size()));
   }
 
-  virtual EdgeRange GetAdjacentEdgeRange(const NodeID node) const
+  EdgeRange GetAdjacentEdgeRange(const NodeID node) const override
   {
     return osrm::irange(BeginEdges(node), EndEdges(node));
   }
 
   // searches for a specific edge
-  virtual EdgeID FindEdge(const NodeID from, const NodeID to) const
+  EdgeID FindEdge(const NodeID from, const NodeID to) const override
   {
     EdgeID smallest_edge = SPECIAL_EDGEID;
     EdgeWeight smallest_weight = INVALID_EDGE_WEIGHT;
@@ -156,83 +149,78 @@ public:
     return smallest_edge;
   }
 
-  virtual EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const
+  EdgeID FindEdgeInEitherDirection(const NodeID from, const NodeID to) const override
   {
     return (EdgeID)0;
   }
 
-  virtual EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const
+  EdgeID FindEdgeIndicateIfReverse(const NodeID from, const NodeID to, bool &result) const override
   {
     return (EdgeID)0;
   }
 
   // node and edge information access
-  virtual FixedPointCoordinate GetCoordinateOfNode(const unsigned id) const
+  FixedPointCoordinate GetCoordinateOfNode(const unsigned id) const override
   {
     return FixedPointCoordinate();
   }
 
-  virtual bool EdgeIsCompressed(const unsigned id) const
+  bool EdgeIsCompressed(const unsigned id) const override
   {
     return false;
   }
 
-  virtual unsigned GetGeometryIndexForEdgeID(const unsigned id) const
+  unsigned GetGeometryIndexForEdgeID(const unsigned id) const override
   {
     return false;
   }
 
-  virtual void GetUncompressedGeometry(const unsigned id, std::vector<unsigned> &result_nodes) const
+  void GetUncompressedGeometry(const unsigned id, std::vector<unsigned> &result_nodes) const override
   {
   }
 
-  virtual TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const
+  TurnInstruction GetTurnInstructionForEdgeID(const unsigned id) const override
   {
     return TurnInstruction::NoTurn;
   }
 
-  virtual bool LocateClosestEndPointForCoordinate(const FixedPointCoordinate &input_coordinate,
+  bool LocateClosestEndPointForCoordinate(const FixedPointCoordinate &input_coordinate,
                                           FixedPointCoordinate &result,
-                                          const unsigned zoom_level = 18)
+                                          const unsigned zoom_level = 18) override
   {
     return false;
   }
 
-  virtual bool FindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
+  bool FindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                     PhantomNode &resulting_phantom_node,
-                                    const unsigned zoom_level)
+                                    const unsigned zoom_level) override
   {
     return false;
   }
 
-  virtual bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
+  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                                std::vector<PhantomNode> &resulting_phantom_node_vector,
                                                const unsigned zoom_level,
-                                               const unsigned number_of_results)
+                                               const unsigned number_of_results) override
   {
     return false;
   }
 
-  virtual unsigned GetCheckSum() const
+  unsigned GetCheckSum() const override
   {
     return 0;
   }
 
-  virtual unsigned GetNameIndexFromEdgeID(const unsigned id) const
+  unsigned GetNameIndexFromEdgeID(const unsigned id) const override
   {
     return -1;
   }
 
-  virtual void GetName(const unsigned name_id, std::string &result) const
+  void GetName(const unsigned name_id, std::string &result) const override
   {
   }
 
-  virtual std::string GetEscapedNameForNameID(const unsigned name_id) const
-  {
-    return std::string();
-  }
-
-  virtual std::string GetTimestamp() const
+  std::string GetTimestamp() const override
   {
     return "";
   }
@@ -255,9 +243,6 @@ template <class EdgeDataT> class OsrmDataFacade : public OsrmRawDataFacade<EdgeD
   uint32_t m_numberOfNodes;
 
 public:
-  OsrmDataFacade()
-  {
-  }
 
   void Load(FilesMappingContainer const & container)
   {
