@@ -35,6 +35,22 @@ namespace
            my::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
            my::AlmostEqualULPs(r1.maxY(), r2.maxY());
   }
+
+  class DummyStipplePenIndex : public StipplePenIndex
+  {
+    typedef StipplePenIndex TBase;
+  public:
+    DummyStipplePenIndex(m2::PointU const & size)
+      : TBase(size)
+    {
+    }
+
+    RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key)
+    {
+      bool dummy = false;
+      return TBase::MapResource(key, dummy);
+    }
+  };
 }
 
 UNIT_TEST(SimpleStipplePackTest)
@@ -396,7 +412,7 @@ UNIT_TEST(StippleMappingTest)
 {
   float const width = 512;
   float const height = 8;
-  StipplePenIndex index(m2::PointU(width, height));
+  DummyStipplePenIndex index(m2::PointU(width, height));
 
   StipplePenKey info;
   info.m_pattern.push_back(2);
@@ -404,25 +420,24 @@ UNIT_TEST(StippleMappingTest)
   info.m_pattern.push_back(10);
   info.m_pattern.push_back(10);
 
-  bool dummy = false;
-  RefPointer<Texture::ResourceInfo> r1 = index.MapResource(info, dummy);
+  RefPointer<Texture::ResourceInfo> r1 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.0f   / width, 1.0f / height,
                                                 241.0f / width, 1.0f / height)), ());
 
-  RefPointer<Texture::ResourceInfo> r2 = index.MapResource(info, dummy);
+  RefPointer<Texture::ResourceInfo> r2 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), r2->GetTexRect()), ());
 
   info.m_pattern.clear();
   info.m_pattern.push_back(4);
   info.m_pattern.push_back(4);
-  r1 = index.MapResource(info, dummy);
+  r1 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.0f   / width, 3.0f / height,
                                                 249.0f / width, 3.0f / height)), ());
 
   info.m_pattern.clear();
   info.m_pattern.push_back(3);
   info.m_pattern.push_back(20);
-  r1 = index.MapResource(info, dummy);
+  r1 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.0f   / width, 5.0f / height,
                                                 254.0f / width, 5.0f / height)), ());
 
@@ -446,13 +461,13 @@ UNIT_TEST(StippleMappingTest)
   StipplePenKey secInfo;
   secInfo.m_pattern.push_back(20);
   secInfo.m_pattern.push_back(20);
-  RefPointer<Texture::ResourceInfo> r12 = index.MapResource(secInfo, dummy);
+  RefPointer<Texture::ResourceInfo> r12 = index.MapResource(secInfo);
   TEST(IsRectsEqual(r12->GetTexRect(), m2::RectF(1.0f   / width, 7.0f / height,
                                                  241.0f / width, 7.0f / height)), ());
 
   secInfo.m_pattern.push_back(10);
   secInfo.m_pattern.push_back(10);
-  r12 = index.MapResource(secInfo, dummy);
+  r12 = index.MapResource(secInfo);
   TEST(IsRectsEqual(r12->GetTexRect(), m2::RectF(257.0f / width, 1.0f / height,
                                                  497.0f / width, 1.0f / height)), ());
 

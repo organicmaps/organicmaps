@@ -101,10 +101,9 @@ uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
 
 void TextureManager::UpdateDynamicTextures()
 {
-  if (!m_hasPendingUpdates)
+  if (m_nothingToUpload.test_and_set())
     return;
 
-  m_hasPendingUpdates = false;
   m_colorTexture->UpdateState();
   m_stipplePenTexture->UpdateState();
   for_each(m_glyphGroups.begin(), m_glyphGroups.end(), [](GlyphGroup & g)
@@ -126,11 +125,17 @@ void TextureManager::AllocateGlyphTexture(TextureManager::GlyphGroup & group) co
 
 void TextureManager::GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key)
 {
-  bool dummy = false;
-  region.SetResourceInfo(tex->FindResource(key, dummy));
+  bool isNew = false;
+  region.SetResourceInfo(tex->FindResource(key, isNew));
   region.SetTexture(tex);
   ASSERT(region.IsValid(), ());
-  m_hasPendingUpdates |= dummy;
+  if (isNew)
+    m_nothingToUpload.clear();
+}
+
+TextureManager::TextureManager()
+{
+  m_nothingToUpload.test_and_set();
 }
 
 void TextureManager::Init(Params const & params)

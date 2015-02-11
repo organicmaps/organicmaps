@@ -58,6 +58,22 @@ namespace
     QPoint m_pen;
     QVector<QPair<QPoint, QImage> > m_images;
   };
+
+  class DummyGlyphIndex : public GlyphIndex
+  {
+    typedef GlyphIndex TBase;
+  public:
+    DummyGlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
+      : TBase(size, mng)
+    {
+    }
+
+    RefPointer<Texture::ResourceInfo> MapResource(GlyphKey const & key)
+    {
+      bool dummy = false;
+      return TBase::MapResource(key, dummy);
+    }
+  };
 }
 
 UNIT_TEST(UploadingGlyphs)
@@ -76,25 +92,23 @@ UNIT_TEST(UploadingGlyphs)
   args.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(args.m_fonts);
 
-  bool dummy = false;
-
   GlyphManager mng(args);
-  GlyphIndex index(m2::PointU(64, 64), MakeStackRefPointer(&mng));
-  index.MapResource(GlyphKey(0x58), dummy);
-  index.MapResource(GlyphKey(0x59), dummy);
-  index.MapResource(GlyphKey(0x61), dummy);
+  DummyGlyphIndex index(m2::PointU(64, 64), MakeStackRefPointer(&mng));
+  index.MapResource(GlyphKey(0x58));
+  index.MapResource(GlyphKey(0x59));
+  index.MapResource(GlyphKey(0x61));
 
   DummyTexture tex;
   tex.Create(64, 64, dp::ALPHA, MakeStackRefPointer<void>(nullptr));
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(MakeStackRefPointer<Texture>(&tex));
 
-  index.MapResource(GlyphKey(0x68), dummy);
-  index.MapResource(GlyphKey(0x30), dummy);
-  index.MapResource(GlyphKey(0x62), dummy);
-  index.MapResource(GlyphKey(0x65), dummy);
-  index.MapResource(GlyphKey(0x400), dummy);
-  index.MapResource(GlyphKey(0x401), dummy);
+  index.MapResource(GlyphKey(0x68));
+  index.MapResource(GlyphKey(0x30));
+  index.MapResource(GlyphKey(0x62));
+  index.MapResource(GlyphKey(0x65));
+  index.MapResource(GlyphKey(0x400));
+  index.MapResource(GlyphKey(0x401));
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(MakeStackRefPointer<Texture>(&tex));

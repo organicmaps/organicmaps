@@ -7,6 +7,8 @@
 #include "drape/texture.hpp"
 #include "drape/glyph_manager.hpp"
 
+#include "../std/atomic.hpp"
+
 namespace dp
 {
 
@@ -64,6 +66,8 @@ public:
     GlyphManager::Params m_glyphMngParams;
   };
 
+  TextureManager();
+
   void Init(Params const & params);
   void Release();
   void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
@@ -108,7 +112,7 @@ private:
   buffer_vector<GlyphGroup, 64> m_glyphGroups;
   buffer_vector<MasterPointer<Texture>, 4> m_hybridGlyphGroups;
 
-  volatile bool m_hasPendingUpdates = false;
+  atomic_flag m_nothingToUpload;
 };
 
 } // namespace dp

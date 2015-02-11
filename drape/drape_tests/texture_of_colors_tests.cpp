@@ -42,16 +42,32 @@ void InitOpenGLTextures(int const w, int const h)
   EXPECTGL(glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge));
   EXPECTGL(glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge));
 }
+
+class DummyColorPallete : public ColorPalette
+{
+  typedef ColorPalette TBase;
+public:
+  DummyColorPallete(m2::PointU const & size)
+    : TBase(size)
+  {
+  }
+
+  RefPointer<Texture::ResourceInfo> MapResource(ColorKey const & key)
+  {
+    bool dummy = false;
+    return TBase::MapResource(key, dummy);
+  }
+};
+
 }
 
 UNIT_TEST(ColorPalleteMappingTests)
 {
-  ColorPalette cp(m2::PointU(32, 16));
+  DummyColorPallete cp(m2::PointU(32, 16));
 
-  bool dummy = false;
-  RefPointer<Texture::ResourceInfo> info1 = cp.MapResource(dp::Color(0, 0, 0, 0), dummy);
-  RefPointer<Texture::ResourceInfo> info2 = cp.MapResource(dp::Color(1, 1, 1, 1), dummy);
-  RefPointer<Texture::ResourceInfo> info3 = cp.MapResource(dp::Color(0, 0, 0, 0), dummy);
+  RefPointer<Texture::ResourceInfo> info1 = cp.MapResource(dp::Color(0, 0, 0, 0));
+  RefPointer<Texture::ResourceInfo> info2 = cp.MapResource(dp::Color(1, 1, 1, 1));
+  RefPointer<Texture::ResourceInfo> info3 = cp.MapResource(dp::Color(0, 0, 0, 0));
 
   TEST_NOT_EQUAL(info1.GetRaw(), info2.GetRaw(), ());
   TEST_EQUAL(info1.GetRaw(), info3.GetRaw(), ());
@@ -63,10 +79,10 @@ UNIT_TEST(ColorPalleteMappingTests)
                                            1.0f / 32.0f, 1.0f / 16));
 
   for (int i = 2; i < 100; ++i)
-    cp.MapResource(dp::Color(i, i, i, i), dummy);
+    cp.MapResource(dp::Color(i, i, i, i));
 
-  TestRects(cp.MapResource(dp::Color(54, 54, 54, 54), dummy)->GetTexRect(), m2::RectF(13.0f / 32.0f, 7.0f / 16.0f,
-                                                                                      13.0f / 32.0f, 7.0f / 16.0f));
+  TestRects(cp.MapResource(dp::Color(54, 54, 54, 54))->GetTexRect(), m2::RectF(13.0f / 32.0f, 7.0f / 16.0f,
+                                                                               13.0f / 32.0f, 7.0f / 16.0f));
 }
 
 UNIT_TEST(ColorPalleteUploadingSingleRow)
@@ -77,17 +93,15 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
 
   DummyTexture texture;
   texture.Create(width, height, dp::RGBA8);
-  ColorPalette cp(m2::PointU(width, height));
+  DummyColorPallete cp(m2::PointU(width, height));
   cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
 
-  bool dummy = false;
-
   {
-    cp.MapResource(dp::Color(0xFF, 0, 0, 0), dummy);
-    cp.MapResource(dp::Color(0, 0xFF, 0, 0), dummy);
-    cp.MapResource(dp::Color(0, 0, 0xFF, 0), dummy);
-    cp.MapResource(dp::Color(0, 0, 0, 0xFF), dummy);
-    cp.MapResource(dp::Color(0xAA, 0xBB, 0xCC, 0xDD), dummy);
+    cp.MapResource(dp::Color(0xFF, 0, 0, 0));
+    cp.MapResource(dp::Color(0, 0xFF, 0, 0));
+    cp.MapResource(dp::Color(0, 0, 0xFF, 0));
+    cp.MapResource(dp::Color(0, 0, 0, 0xFF));
+    cp.MapResource(dp::Color(0xAA, 0xBB, 0xCC, 0xDD));
 
     uint8_t memoryEtalon[] =
     {
@@ -109,11 +123,11 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
   }
 
   {
-    cp.MapResource(dp::Color(0xFF, 0xAA, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0xFF, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0, 0xFF, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0, 0, 0xFF), dummy);
-    cp.MapResource(dp::Color(0x00, 0xBB, 0xCC, 0xDD), dummy);
+    cp.MapResource(dp::Color(0xFF, 0xAA, 0, 0));
+    cp.MapResource(dp::Color(0xAA, 0xFF, 0, 0));
+    cp.MapResource(dp::Color(0xAA, 0, 0xFF, 0));
+    cp.MapResource(dp::Color(0xAA, 0, 0, 0xFF));
+    cp.MapResource(dp::Color(0x00, 0xBB, 0xCC, 0xDD));
 
     uint8_t memoryEtalon[] =
     {
@@ -146,17 +160,15 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
   DummyTexture texture;
   dp::ColorKey key(dp::Color(0, 0, 0, 0));
   texture.Create(width, height, dp::RGBA8);
-  ColorPalette cp(m2::PointU(width, height));
-
-  bool dummy = false;
+  DummyColorPallete cp(m2::PointU(width, height));
 
   {
-    cp.MapResource(dp::Color(0xFF, 0, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0), dummy);
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0xFF), dummy);
-    cp.MapResource(dp::Color(0, 0, 0, 0xFF), dummy);
-    cp.MapResource(dp::Color(0, 0, 0xFF, 0xFF), dummy);
+    cp.MapResource(dp::Color(0xFF, 0, 0, 0));
+    cp.MapResource(dp::Color(0xFF, 0xFF, 0, 0));
+    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0));
+    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0xFF));
+    cp.MapResource(dp::Color(0, 0, 0, 0xFF));
+    cp.MapResource(dp::Color(0, 0, 0xFF, 0xFF));
 
     uint8_t memoryEtalon[] =
     {
@@ -178,10 +190,10 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
   }
 
   {
-    cp.MapResource(dp::Color(0xAA, 0, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0xAA, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0xAA, 0xAA, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0xAA, 0xAA, 0xAA), dummy);
+    cp.MapResource(dp::Color(0xAA, 0, 0, 0));
+    cp.MapResource(dp::Color(0xAA, 0xAA, 0, 0));
+    cp.MapResource(dp::Color(0xAA, 0xAA, 0xAA, 0));
+    cp.MapResource(dp::Color(0xAA, 0xAA, 0xAA, 0xAA));
 
     uint8_t memoryEtalon1[] =
     {
@@ -223,14 +235,12 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
   DummyTexture texture;
   dp::ColorKey key(dp::Color(0, 0, 0, 0));
   texture.Create(width, height, dp::RGBA8);
-  ColorPalette cp(m2::PointU(width, height));
+  DummyColorPallete cp(m2::PointU(width, height));
   cp.SetIsDebug(true);
 
-  bool dummy = false;
-
   {
-    cp.MapResource(dp::Color(0xFF, 0, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xAA, 0, 0, 0), dummy);
+    cp.MapResource(dp::Color(0xFF, 0, 0, 0));
+    cp.MapResource(dp::Color(0xAA, 0, 0, 0));
 
     uint8_t memoryEtalon[] =
     {
@@ -247,13 +257,13 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
   }
 
   {
-    cp.MapResource(dp::Color(0xCC, 0, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0, 0), dummy);
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0), dummy);
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0xFF), dummy);
-    cp.MapResource(dp::Color(0, 0, 0, 0xFF), dummy);
-    cp.MapResource(dp::Color(0, 0, 0xFF, 0xFF), dummy);
-    cp.MapResource(dp::Color(0, 0, 0xAA, 0xAA), dummy);
+    cp.MapResource(dp::Color(0xCC, 0, 0, 0));
+    cp.MapResource(dp::Color(0xFF, 0xFF, 0, 0));
+    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0));
+    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0xFF));
+    cp.MapResource(dp::Color(0, 0, 0, 0xFF));
+    cp.MapResource(dp::Color(0, 0, 0xFF, 0xFF));
+    cp.MapResource(dp::Color(0, 0, 0xAA, 0xAA));
 
     uint8_t memoryEtalon1[] =
     {
