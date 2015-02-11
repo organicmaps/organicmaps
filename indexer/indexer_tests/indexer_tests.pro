@@ -20,20 +20,21 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    cell_id_test.cpp \
+    categories_test.cpp \
     cell_coverer_test.cpp \
-    test_type.cpp \
+    cell_id_test.cpp \
+    checker_test.cpp \
+    features_offsets_table_test.cpp \
+    geometry_coding_test.cpp \
+    geometry_serialization_test.cpp \
     index_builder_test.cpp \
     index_test.cpp \
     interval_index_test.cpp \
-    point_to_int64_test.cpp \
     mercator_test.cpp \
-    sort_and_merge_intervals_test.cpp \
-    geometry_coding_test.cpp \
-    scales_test.cpp \
-    test_polylines.cpp \
-    geometry_serialization_test.cpp \
     mwm_set_test.cpp \
-    categories_test.cpp \
+    point_to_int64_test.cpp \
+    scales_test.cpp \
+    sort_and_merge_intervals_test.cpp \
+    test_polylines.cpp \
+    test_type.cpp \
     visibility_test.cpp \
-    checker_test.cpp \
