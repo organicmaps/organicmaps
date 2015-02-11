@@ -34,7 +34,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static final String LAUNCH_NUMBER_SETTING = "LaunchNumber"; // total number of app launches
   private static final String SESSION_NUMBER_SETTING = "SessionNumber"; // session = number of days, when app was launched
   private static final String LAST_SESSION_TIMESTAMP_SETTING = "LastSessionTimestamp"; // timestamp of last session
-  private static final String IS_PREINSTALLED = "IsPreinstalled";
   private static final String FIRST_INSTALL_VERSION = "FirstInstallVersion";
   private static final String FIRST_INSTALL_FLAVOR = "FirstInstallFlavor";
   private static final String IS_PREINSTALL_ACTIVATED = "PreinstallActivated";
@@ -299,7 +298,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
 
   private void trackFirstLaunch()
   {
-    nativeSetBoolean(IS_PREINSTALLED, BuildConfig.IS_PREINSTALLED);
     Statistics.INSTANCE.trackFirstLaunch(BuildConfig.IS_PREINSTALLED, BuildConfig.FLAVOR);
   }
 
