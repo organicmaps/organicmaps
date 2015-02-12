@@ -45,7 +45,7 @@ protected:
 
 private:
   uint16_t m_counter;
-  int16_t m_minStriptCounter;
+  uint8_t m_minStriptCounter;
 };
 
 class ListIndexGenerator : public IndexGenerator
