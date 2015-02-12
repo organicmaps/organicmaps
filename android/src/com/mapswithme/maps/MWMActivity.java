@@ -27,6 +27,8 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
+import java.util.Timer;
+import java.util.TimerTask;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,6 +42,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.ActivityManager;
 
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
@@ -85,11 +88,13 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
+import com.mapswithme.maps.BuildConfig;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
+import android.os.Debug;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationHelper.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
@@ -160,6 +165,10 @@ public class MWMActivity extends NvEventQueueActivity
 
   private LocationPredictor mLocationPredictor;
   private LikesManager mLikesManager;
+
+  private Timer timer;
+  private TimerTask timerTask;
+
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -1124,11 +1133,14 @@ public class MWMActivity extends NvEventQueueActivity
     tryResumeRouting();
     mLocationPredictor.resume();
     mLikesManager.showLikeDialogs();
+
+    startTimer();
   }
 
   @Override
   protected void onPause()
   {
+    stopTimer();
     pauseLocation();
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();
@@ -1770,4 +1782,49 @@ public class MWMActivity extends NvEventQueueActivity
       return true;
     }
   }
+
+  private void startTimer() 
+  {
+    if (BuildConfig.DEBUG == true)
+    {
+      timer = new Timer();
+      initTimerTask();
+      timer.schedule(timerTask, 0, 5000); 
+    }
+  }
+
+  private void stopTimer() 
+  {
+    if (BuildConfig.DEBUG == true)
+    {
+      if (timer != null) 
+      {
+        timer.cancel();
+        timer = null;
+      }
+    }
+  }
+  private void initTimerTask() 
+  {
+    timerTask = new TimerTask() 
+    {
+      public void run() 
+      {
+        final Debug.MemoryInfo debugMI = new Debug.MemoryInfo();
+        Debug.getMemoryInfo(debugMI);
+        final ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+        final ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        activityManager.getMemoryInfo(mi);
+        Log.d(TAG, "Memory info: Debug.getNativeHeapSize() = " + Debug.getNativeHeapSize() / 1024 +
+             "KB; Debug.getNativeHeapAllocatedSize() = " + Debug.getNativeHeapAllocatedSize() / 1024 +
+              "KB, Debug.getNativeHeapFreeSize() = " + Debug.getNativeHeapFreeSize() / 1024 + 
+              "KB. debugMI.getTotalPrivateDirty() = " + debugMI.getTotalPrivateDirty() + 
+              "KB. debugMI.getTotalPss() = " + debugMI.getTotalPss() + 
+              "KB. mi.availMem = " + mi.availMem / 1024 + 
+              "KB. mi.threshold = " + mi.threshold / 1024 + 
+              "KB. mi.lowMemory = " + mi.lowMemory);
+      }
+    };
+  }
+
 }
