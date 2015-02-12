@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="@dimen/pp_button_height"
+              android:layout_height="@dimen/place_page_button_height"
               android:layout_marginBottom="@dimen/margin_small"
               android:layout_marginTop="@dimen/margin_small"
               android:gravity="top"
@@ -16,7 +16,7 @@
       android:background="@drawable/bg_bottom_btn_selector"
       android:gravity="center"
       android:text="@string/share"
-      android:textColor="@color/text_info_box"/>
+      android:textColor="@color/text_place_page"/>
 
   <TextView
       android:id="@+id/info_box_back_to_caller"
@@ -27,6 +27,6 @@
       android:layout_weight="1"
       android:background="@drawable/bg_bottom_btn_selector"
       android:gravity="center"
-      android:textColor="@color/text_info_box"/>
+      android:textColor="@color/text_place_page"/>
 
 </LinearLayout>

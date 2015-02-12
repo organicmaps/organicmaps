@@ -50,12 +50,13 @@
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 
-  <dimen name="pp_height">51dp</dimen>
-  <dimen name="pp_button_height">55dp</dimen>
-  <dimen name="ppp_title_text_size">18sp</dimen>
-  <dimen name="ppp_subtitle_text_size">13sp</dimen>
-  <dimen name="ppp_button_size">47dp</dimen>
-  <dimen name="ppp_button_size_small">42dp</dimen>
+  <dimen name="place_page_height">51dp</dimen>
+  <dimen name="place_page_button_height">55dp</dimen>
+  <dimen name="place_page_title">20sp</dimen>
+  <dimen name="place_page_subtitle">14sp</dimen>
+  <dimen name="place_page_sub_subtitle">12sp</dimen>
+  <dimen name="place_page_button_size">47dp</dimen>
+  <dimen name="place_page_button_size_small">42dp</dimen>
 
   <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="bottom_button_width">113dp</dimen>
@@ -74,7 +75,5 @@
   <dimen name="routing_button_width">51dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
   <dimen name="panel_width">400dp</dimen>
-
-  <bool name="isTablet">false</bool>
 
 </resources>

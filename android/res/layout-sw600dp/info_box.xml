@@ -55,19 +55,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/info_title"
-            android:textSize="@dimen/ppp_subtitle_text_size"/>
+            android:textSize="@dimen/place_page_subtitle"/>
 
       </RelativeLayout>
 
       <FrameLayout
-          android:layout_width="@dimen/ppp_button_size"
-          android:layout_height="@dimen/ppp_button_size"
+          android:layout_width="@dimen/place_page_button_size"
+          android:layout_height="@dimen/place_page_button_size"
           android:layout_weight="0">
 
         <ImageView
             android:id="@+id/iv__start_routing"
-            android:layout_width="@dimen/ppp_button_size"
-            android:layout_height="@dimen/ppp_button_size"
+            android:layout_width="@dimen/place_page_button_size"
+            android:layout_height="@dimen/place_page_button_size"
             android:layout_gravity="center"
             android:background="?attr/clickableBackground"
             android:scaleType="center"

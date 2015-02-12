@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@android:color/white"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/margin_small_and_half"
+    android:paddingRight="@dimen/margin_small_and_half">
+
+  <RelativeLayout
+      android:id="@+id/rl__api_back"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="?attr/clickableBackground"
+      android:paddingTop="@dimen/margin_small_and_half"
+      android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/iv__api_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="share"
+        android:paddingBottom="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:scaleType="center"
+        android:src="@drawable/ic_back"/>
+
+    <TextView
+        android:id="@+id/tv__api_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv__api_back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:text="BACK"
+        android:textColor="@color/text_place_page_buttons"
+        android:textSize="10sp"/>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:id="@+id/rl__share"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="?attr/clickableBackground"
+      android:paddingTop="@dimen/margin_small_and_half">
+
+    <ImageView
+        android:id="@+id/iv__share"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="share"
+        android:paddingBottom="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:scaleType="center"
+        android:src="@drawable/ic_share"/>
+
+    <TextView
+        android:id="@+id/tv__share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv__share"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:text="SHARE"
+        android:textColor="@color/text_place_page_buttons"
+        android:textSize="10sp"/>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:id="@+id/rl__bookmark"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="?attr/clickableBackground"
+      android:paddingTop="@dimen/margin_small_and_half">
+
+    <ImageView
+        android:id="@+id/iv__bookmark"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="bookmark"
+        android:paddingBottom="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:scaleType="center"
+        android:src="@drawable/ic_bookmark_off"/>
+
+    <TextView
+        android:id="@+id/tv__bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv__bookmark"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:text="BOOKMARK"
+        android:textColor="@color/text_place_page_buttons"
+        android:textSize="10sp"/>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:id="@+id/rl__route"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="?attr/clickableBackground"
+      android:paddingTop="@dimen/margin_small_and_half">
+
+    <ImageView
+        android:id="@+id/iv__route"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="share"
+        android:paddingBottom="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:scaleType="center"
+        android:src="@drawable/ic_route"/>
+
+    <TextView
+        android:id="@+id/tv__route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv__route"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:text="ROUTE"
+        android:textColor="@color/text_place_page_buttons"
+        android:textSize="10sp"/>
+
+  </RelativeLayout>
+
+</LinearLayout>

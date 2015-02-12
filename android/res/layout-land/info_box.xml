@@ -53,8 +53,8 @@
 
         <ImageView
             android:id="@+id/iv__start_routing"
-            android:layout_width="@dimen/ppp_button_size"
-            android:layout_height="@dimen/ppp_button_size_small"
+            android:layout_width="@dimen/place_page_button_size"
+            android:layout_height="@dimen/place_page_button_size_small"
             android:layout_gravity="center"
             android:background="?attr/clickableBackground"
             android:scaleType="center"
@@ -73,7 +73,7 @@
           android:id="@+id/info_box_is_bookmarked"
           style="@style/BookmarkToggleButton"
           android:layout_weight="0"
-          android:layout_height="@dimen/ppp_button_size_small"/>
+          android:layout_height="@dimen/place_page_button_size_small"/>
 
     </LinearLayout>
 

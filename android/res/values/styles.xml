@@ -66,8 +66,8 @@
   </style>
 
   <style name="InfoItem" parent="TextAppearance.AppCompat.Large">
-    <item name="android:textSize">@dimen/ppp_title_text_size</item>
-    <item name="android:textColor">@color/text_info_box</item>
+    <item name="android:textSize">@dimen/place_page_title</item>
+    <item name="android:textColor">@color/text_place_page</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
   </style>
 
@@ -114,8 +114,8 @@
   <style name="BookmarkToggleButton" parent="Widget.AppCompat.CompoundButton.Switch">
     <item name="android:paddingTop">14dp</item>
     <item name="android:drawableTop">@drawable/ic_bookmarks_selector</item>
-    <item name="android:layout_width">@dimen/ppp_button_size</item>
-    <item name="android:layout_height">@dimen/ppp_button_size</item>
+    <item name="android:layout_width">@dimen/place_page_button_size</item>
+    <item name="android:layout_height">@dimen/place_page_button_size</item>
     <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
     <item name="android:textOn"/>
     <item name="android:textOff"/>

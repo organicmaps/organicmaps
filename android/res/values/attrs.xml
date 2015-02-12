@@ -7,4 +7,7 @@
 
     <attr name="clickableBackground" format="reference"/>
   </declare-styleable>
+
+  <bool name="isTablet">false</bool>
+
 </resources>

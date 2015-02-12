@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+  <include android:id="@+id/pp__preview"
+      layout="@layout/preview_place_page"/>
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1px"
+      android:background="?android:attr/listDivider"/>
+
+  <include
+      android:id="@+id/pp__details"
+      layout="@layout/details_place_page"
+      android:visibility="gone"/>
+
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1px"
+      android:background="?android:attr/listDivider"/>
+
+  <include android:id="@+id/pp__buttons"
+      layout="@layout/buttons_place_page"/>
+
+</LinearLayout>

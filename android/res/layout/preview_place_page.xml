@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_place_page_back"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/margin_small_and_half"
+    android:paddingLeft="@dimen/margin_medium"
+    android:paddingRight="@dimen/margin_medium"
+    android:paddingTop="@dimen/margin_medium_and_half">
+
+  <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1">
+
+    <TextView
+        android:id="@+id/tv__title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TEST TITLE"
+        android:textColor="@color/text_place_page"
+        android:textSize="@dimen/place_page_title"/>
+
+    <TextView
+        android:id="@+id/tv__subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv__title"
+        android:text="TEST subtitle"
+        android:textColor="@color/text_place_page_subtitle"
+        android:textSize="@dimen/place_page_subtitle"/>
+
+    <TextView
+        android:id="@+id/tv__opened_till"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv__subtitle"
+        android:drawableLeft="@drawable/ic_open"
+        android:gravity="center_vertical"
+        android:text="TEST schedule"
+        android:textColor="@color/text_place_page_subtitle"
+        android:textSize="@dimen/place_page_subtitle"/>
+
+  </RelativeLayout>
+
+  <TextView
+      android:id="@+id/tv__straight_distance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="@dimen/margin_small"
+      android:text="TEST"
+      android:textSize="@dimen/place_page_subtitle"/>
+
+  <ImageButton
+      android:id="@+id/iv__direction"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="?attr/clickableBackground"
+      android:contentDescription="direction"
+      android:src="@drawable/ic_direction_pagepreview"/>
+
+</LinearLayout>
+

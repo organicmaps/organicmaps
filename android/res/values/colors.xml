@@ -43,9 +43,10 @@
   <color name="bg_search_suggestion_pressed">#68BEA8</color>
 
   <!-- place page -->
-  <color name="text_info_box">@android:color/black</color>
-  <color name="text_info_box_subtitle">#4C4C4C</color>
-  <color name="text_info_box_share">#179E4D</color>
+  <color name="text_place_page">#212121</color>
+  <color name="text_place_page_subtitle">#9E9E9E</color>
+  <color name="text_place_page_buttons">#189E4E</color>
+  <color name="text_place_page_blue">#0288D1</color>
   <color name="bg_top_panels">#ffffffff</color>
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">@android:color/white</color>
