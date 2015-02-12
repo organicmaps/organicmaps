@@ -1,21 +1,20 @@
-#include "../../base/scope_guard.hpp"
+#include "../features_offsets_table.hpp"
+#include "../data_header.hpp"
+#include "../features_vector.hpp"
 #include "../../coding/file_container.hpp"
-#include "../../defines.hpp"
-#include "../../platform/platform.hpp"
+#include "../../base/scope_guard.hpp"
 #include "../../std/bind.hpp"
 #include "../../std/string.hpp"
+#include "../../defines.hpp"
+#include "../../platform/platform.hpp"
 #include "../../testing/testing.hpp"
-#include "../data_header.hpp"
-#include "../features_offsets_table.hpp"
-#include "../features_vector.hpp"
 
 namespace feature
 {
   UNIT_TEST(FeaturesOffsetsTable_Empty)
   {
     FeaturesOffsetsTable::Builder builder;
-    unique_ptr<FeaturesOffsetsTable> table(
-        FeaturesOffsetsTable::Build(builder));
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
     TEST(table.get(), ());
     TEST_EQUAL(static_cast<uint64_t>(0), table->size(), ());
   }
@@ -32,8 +31,7 @@ namespace feature
     builder.PushOffset(513);
     builder.PushOffset(1024);
 
-    unique_ptr<FeaturesOffsetsTable> table(
-        FeaturesOffsetsTable::Build(builder));
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
     TEST(table.get(), ());
     TEST_EQUAL(static_cast<uint64_t>(8), table->size(), ());
 
@@ -50,8 +48,7 @@ namespace feature
   UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
   {
     Platform & p = GetPlatform();
-    FilesContainerR baseContainer(
-        p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
+    FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 
     feature::DataHeader header;
     header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
@@ -64,15 +61,12 @@ namespace feature
                              builder.PushOffset(offset);
                            });
 
-    unique_ptr<FeaturesOffsetsTable> table(
-        FeaturesOffsetsTable::Build(builder));
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
     TEST(table.get(), ());
     TEST_EQUAL(builder.size(), table->size(), ());
 
-    string const testFile =
-        p.WritablePathForFile("test_file" DATA_FILE_EXTENSION);
-    MY_SCOPE_GUARD(deleteTestFileGuard,
-                   bind(&FileWriter::DeleteFileX, cref(testFile)));
+    string const testFile = p.WritablePathForFile("test_file" DATA_FILE_EXTENSION);
+    MY_SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
 
     // Store table in a temporary data file.
     {
@@ -80,12 +74,11 @@ namespace feature
 
       // Just copy all sections except a possibly existing offsets
       // table section.
-      baseContainer.ForEachTag(
-          [&baseContainer, &testContainer](string const & tag)
-          {
-            if (tag != FEATURES_OFFSETS_TABLE_FILE_TAG)
-              testContainer.Write(baseContainer.GetReader(tag), tag);
-          });
+      baseContainer.ForEachTag([&baseContainer, &testContainer](string const & tag)
+                               {
+                                 if (tag != FEATURES_OFFSETS_TABLE_FILE_TAG)
+                                   testContainer.Write(baseContainer.GetReader(tag), tag);
+                               });
       table->Save(testContainer);
       testContainer.Finish();
     }
@@ -93,17 +86,14 @@ namespace feature
     // Load table from the temporary data file.
     {
       FilesMappingContainer testContainer(testFile);
-      MY_SCOPE_GUARD(testContainerGuard,
-                     bind(&FilesMappingContainer::Close, &testContainer));
+      MY_SCOPE_GUARD(testContainerGuard, bind(&FilesMappingContainer::Close, &testContainer));
 
-      unique_ptr<FeaturesOffsetsTable> loadedTable(
-          FeaturesOffsetsTable::Load(testContainer));
+      unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(testContainer));
       TEST(loadedTable.get(), ());
 
       TEST_EQUAL(table->size(), loadedTable->size(), ());
       for (uint64_t i = 0; i < table->size(); ++i)
-        TEST_EQUAL(table->GetFeatureOffset(i), loadedTable->GetFeatureOffset(i),
-                   ());
+        TEST_EQUAL(table->GetFeatureOffset(i), loadedTable->GetFeatureOffset(i), ());
     }
   }
 }  // namespace feature
