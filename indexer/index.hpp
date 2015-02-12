@@ -242,7 +242,7 @@ public:
     void GetFeature(uint32_t offset, FeatureType & ft);
   };
 
-  MwmId getMwmIdByName(string const & name) const
+  MwmId GetMwmIdByName(string const & name) const
   {
       Index * p = const_cast<Index *>(this);
 

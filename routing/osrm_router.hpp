@@ -50,8 +50,8 @@ typedef vector<FeatureGraphNode> MultiroutingTaskPointT;
 struct RawRoutingResultT
 {
   RawRouteData m_routePath;
-  FeatureGraphNode  m_sourceEdge;
-  FeatureGraphNode  m_targetEdge;
+  FeatureGraphNode m_sourceEdge;
+  FeatureGraphNode m_targetEdge;
 };
 
 typedef vector<RawRoutingResultT> MultipleRoutingResultT;
@@ -66,49 +66,23 @@ struct RoutingMapping
   ///@param fName: mwm file path
   RoutingMapping(string const & fName, Index const * pIndex);
 
-  ~RoutingMapping()
-  {
-    // Clear data while m_container is valid.
-    m_dataFacade.Clear();
-    m_segMapping.Clear();
-    m_container.Close();
-  }
+  ~RoutingMapping();
 
-  void Map()
-  {
-    ++m_mapCounter;
-    if (!m_segMapping.IsMapped())
-      m_segMapping.Map(m_container);
-  }
+  void Map();
 
-  void Unmap()
-  {
-    --m_mapCounter;
-    if (m_mapCounter < 1 && m_segMapping.IsMapped())
-      m_segMapping.Unmap();
-  }
+  void Unmap();
 
-  void LoadFacade()
-  {
-    if (!m_facadeCounter)
-      m_dataFacade.Load(m_container);
-    ++m_facadeCounter;
-  }
+  void LoadFacade();
 
-  void FreeFacade()
-  {
-    --m_facadeCounter;
-    if (!m_facadeCounter)
-      m_dataFacade.Clear();
-  }
+  void FreeFacade();
 
-  bool IsValid() {return m_isValid;}
+  bool IsValid() const {return m_isValid;}
 
-  IRouter::ResultCode GetError() {return m_error;}
+  IRouter::ResultCode GetError() const {return m_error;}
 
-  string GetName() {return m_baseName;}
+  string GetName() const {return m_baseName;}
 
-  Index::MwmId GetMwmId() {return m_mwmId;}
+  Index::MwmId GetMwmId() const {return m_mwmId;}
 
 private:
   size_t m_mapCounter;
@@ -153,31 +127,14 @@ class RoutingIndexManager
 public:
   RoutingIndexManager(CountryFileFnT const & fn): m_countryFn(fn) {}
 
-  RoutingMappingPtrT GetMappingByPoint(m2::PointD point, Index const * pIndex)
-  {
-    string fName = m_countryFn(point);
-    return GetMappingByName(fName, pIndex);
-  }
+  RoutingMappingPtrT GetMappingByPoint(m2::PointD point, Index const * pIndex);
 
-  RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex)
-  {
-    // Check if we have already load this file
-    auto mapIter = m_mapping.find(fName);
-    if (mapIter != m_mapping.end())
-      return mapIter->second;
-    //Or load and check file
-    RoutingMappingPtrT new_mapping = make_shared<RoutingMapping>(fName, pIndex);
-
-    m_mapping.insert(std::make_pair(fName, new_mapping));
-    return new_mapping;
-  }
+  RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
 
   void Clear()
   {
     m_mapping.clear();
   }
-
-
 };
 
 class OsrmRouter : public IRouter
@@ -207,22 +164,23 @@ public:
   virtual void SetFinalPoint(m2::PointD const & finalPt);
   virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
 
-  /*! Find single shortest path in single MWM between 2 sets of edges
-   * \param source: vector of source edgest to make path
+  /*! Find single shortest path in a single MWM between 2 sets of edges
+   * \param source: vector of source edges to make path
    * \param taget: vector of target edges to make path
    * \param facade: OSRM routing data facade to recover graph information
    * \param rawRoutingResult: routing result store
-   * \return true if path exists. False otherwise
+   * \return true when path exists, false otherwise.
    */
   static bool FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
                        RawRoutingResultT & rawRoutingResult);
 
   /*!
-   * \brief FindCostMatrix Find costs matrix from sources to targets. WARNING in finds only costs of shortests, not pathes.
-   * \param sources vector. Allows only one phantom node for one source
-   * \param targets vector. Allows only one phantom node for one target
+   * \brief FindWeightsMatrix Find weights matrix from sources to targets. WARNING it finds only weights, not pathes.
+   * \param sources vector. Allows only one phantom node for one source. Each source is the start OSRM node.
+   * \param targets vector. Allows only one phantom node for one target. Each target is the finish OSRM node.
    * \param facade osrm data facade reference
-   * \param result vector with result costs. Packed. Source nodes are rows. S1T1 S1T2 S2T1 S2T2
+   * \param packed result vector with weights. Source nodes are rows.
+   * cost(source1 -> target1) cost(source1 -> target2) cost(source2 -> target1) cost(source2 -> target2)
    */
   static void FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
                                       RawDataFacadeT & facade, std::vector<EdgeWeight> & result);
@@ -247,7 +205,7 @@ protected:
    * \param use_start
    * \return point coordinates
    */
-  m2::PointD GetPointByNodeId(const size_t node_id, RoutingMappingPtrT const & routingMapping, bool use_start=true);
+  m2::PointD GetPointByNodeId(const size_t node_id, RoutingMappingPtrT const & routingMapping, bool use_start);
 
   size_t FindNextMwmNode(RoutingMappingPtrT const & startMapping, size_t startId, RoutingMappingPtrT const & targetMapping);
 
@@ -259,7 +217,7 @@ protected:
    * \param turnsDir output turns annotation storage
    * \param times output times annotation storage
    * \param turnsGeom output turns geometry
-   * \return OSRM routing errors if any exists
+   * \return OSRM routing errors if any
    */
   ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping,
                                 vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
@@ -270,6 +228,7 @@ protected:
 private:
   typedef pair<size_t,string> MwmOutT;
   typedef set<MwmOutT> CheckedOutsT;
+
   struct RoutePathCross {
     string mwmName;
     FeatureGraphNode startNode;
@@ -284,13 +243,14 @@ private:
     return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
   }
 
-  struct pathChecker{
+  struct PathChecker {
     bool operator() (CheckedPathT const & a, CheckedPathT const & b) const {
-      return getPathWeight(b)<getPathWeight(a); // backward sort
+      // Backward sorting order
+      return getPathWeight(b)<getPathWeight(a);
     }
   };
 
-  typedef priority_queue<CheckedPathT, vector<CheckedPathT>, pathChecker> RoutingTaskQueueT;
+  typedef priority_queue<CheckedPathT, vector<CheckedPathT>, PathChecker> RoutingTaskQueueT;
 
   /*!
    * \brief Makes route (points turns and other annotations) and submits it to @route class

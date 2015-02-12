@@ -18,6 +18,7 @@ SOURCES += \
     osrm_online_router.cpp \
     osrm2feature_map.cpp \
     vehicle_model.cpp \
+    cross_routing_context.cpp \
     ../3party/succinct/rs_bit_vector.cpp \
 
 HEADERS += \

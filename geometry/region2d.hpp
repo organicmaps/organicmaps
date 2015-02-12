@@ -195,7 +195,7 @@ namespace m2
 
     /// Slow check that point lies at the border.
     template <class EqualF>
-    bool atBorder(PointT const & pt, double const delta, EqualF equalF) const
+    bool AtBorder(PointT const & pt, double const delta, EqualF equalF) const
     {
       if (!m_rect.IsPointInside(pt))
         return false;
@@ -227,9 +227,9 @@ namespace m2
       return false; // Point lies outside the border.
     }
 
-    bool atBorder(PointT const & pt, double const delta) const
+    bool AtBorder(PointT const & pt, double const delta) const
     {
-      return atBorder(pt, delta, typename TraitsT::EqualType());
+      return AtBorder(pt, delta, typename TraitsT::EqualType());
     }
 
   private:

@@ -206,9 +206,9 @@ UNIT_TEST(Region_point_at_border_test)
   P p4(5.0, 1.0);
   P p5(5.0, 1.01);
 
-  TEST(!region.atBorder(p1, 0.01), ("Point lies outside the border"));
-  TEST(!region.atBorder(p2, 0.01), ("Point lies strictly inside the border"));
-  TEST(region.atBorder(p3, 0.01), ("Point has same point with border"));
-  TEST(region.atBorder(p4, 0.01), ("Point lies at border"));
-  TEST(region.atBorder(p5, 0.01), ("Point lies at delta interval near border"));
+  TEST(!region.AtBorder(p1, 0.01), ("Point lies outside the border"));
+  TEST(!region.AtBorder(p2, 0.01), ("Point lies strictly inside the border"));
+  TEST(region.AtBorder(p3, 0.01), ("Point has same point with the border"));
+  TEST(region.AtBorder(p4, 0.01), ("Point lies at the border"));
+  TEST(region.AtBorder(p5, 0.01), ("Point lies at delta interval near the border"));
 }

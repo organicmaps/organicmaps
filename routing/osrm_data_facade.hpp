@@ -38,9 +38,10 @@ protected:
   succinct::elias_fano m_matrix;
   succinct::elias_fano_compressed_list m_edgeId;
 
-  uint32_t m_numberOfNodes;
+  uint32_t m_numberOfNodes = 0;
 
 public:
+  //OsrmRawDataFacade(): m_numberOfNodes(0) {}
 
   void LoadRawData(char const * pRawEdgeData, char const * pRawEdgeIds, char const * pRawEdgeShortcuts, char const * pRawFanoMatrix)
   {
@@ -75,7 +76,7 @@ public:
 
   unsigned GetNumberOfEdges() const override
   {
-    return m_edgeData.size();
+    return static_cast<unsigned>(m_edgeData.size());
   }
 
   unsigned GetOutDegree(const NodeID n) const override
@@ -104,7 +105,7 @@ public:
   EdgeDataT & GetEdgeData(const EdgeID e) const override
   {
     static EdgeDataT res;
-    ASSERT(false, ("Maps me routing facade do not supports this  edge unpacking method"));
+    ASSERT(false, ("Maps me routing facade does not supports this edge unpacking method"));
     return res;
   }
 
@@ -222,7 +223,7 @@ public:
 
   std::string GetTimestamp() const override
   {
-    return "";
+    return std::string();
   }
 };
 
@@ -230,7 +231,7 @@ public:
 template <class EdgeDataT> class OsrmDataFacade : public OsrmRawDataFacade<EdgeDataT>
 {
   typedef OsrmRawDataFacade<EdgeDataT> super;
-  CrossRoutingContext m_crossContext;
+  CrossRoutingContextReader m_crossContext;
 
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
@@ -240,7 +241,6 @@ template <class EdgeDataT> class OsrmDataFacade : public OsrmRawDataFacade<EdgeD
 
   using OsrmRawDataFacade<EdgeDataT>::LoadRawData;
   using OsrmRawDataFacade<EdgeDataT>::ClearRawData;
-  uint32_t m_numberOfNodes;
 
 public:
 
@@ -281,7 +281,7 @@ public:
     m_handleFanoMatrix.Unmap();
   }
 
-  CrossRoutingContext const & getRoutingContext()
+  CrossRoutingContextReader const & getRoutingContext()
   {
     return m_crossContext;
   }

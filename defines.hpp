@@ -24,6 +24,9 @@
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
 
+//Secret word to unlock experimental features in production builds
+#define ROUTING_SECRET_UNLOCKING_WORD "?ariadna"
+
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"
 #define DOWNLOADING_FILE_EXTENSION ".downloading3"

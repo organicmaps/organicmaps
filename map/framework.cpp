@@ -1196,9 +1196,9 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 
 bool Framework::Search(search::SearchParams const & params)
 {
-  if (params.m_query == "?ariadna")
+  if (params.m_query == ROUTING_SECRET_UNLOCKING_WORD)
   {
-    LOG(LINFO, ("Enable mwm cross mode"));
+    LOG(LINFO, ("Cross mwm routing mode enabled"));
     m_routingSession.ActivateAdditionalFeatures();
     return false;
   }
