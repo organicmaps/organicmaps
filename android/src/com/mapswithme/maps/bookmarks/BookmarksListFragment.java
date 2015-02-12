@@ -273,7 +273,7 @@ public class BookmarksListFragment extends MWMListFragment
         ID_SEND_BY_EMAIL,
         R.string.share_by_email);
 
-    menuItem.setIcon(R.drawable.ic_share);
+    menuItem.setIcon(R.drawable.ic_share_bookmark);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
       menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
   }
