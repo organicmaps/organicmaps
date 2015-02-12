@@ -17,7 +17,7 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"/>
 
-  <com.mapswithme.maps.widget.MapInfoView
+  <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

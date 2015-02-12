@@ -46,7 +46,6 @@ import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.country.StorageOptions;
 import com.mapswithme.maps.Framework.OnBalloonListener;
-import com.mapswithme.maps.Framework.RoutingListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.ads.AdsManager;
 import com.mapswithme.maps.ads.LikesManager;
@@ -70,9 +69,9 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.maps.settings.UnitLocale;
-import com.mapswithme.maps.widget.MapInfoView;
-import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
-import com.mapswithme.maps.widget.MapInfoView.State;
+import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
+import com.mapswithme.maps.widget.placepage.PlacePageView;
+import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
@@ -94,8 +93,8 @@ import java.util.concurrent.TimeUnit;
 import android.os.Debug;
 
 public class MWMActivity extends NvEventQueueActivity
-    implements LocationHelper.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
-    OnClickListener, RoutingListener
+    implements LocationHelper.LocationListener, OnBalloonListener,
+    BasePlacePageAnimationController.OnVisibilityChangedListener, OnClickListener, Framework.RoutingListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -115,7 +114,7 @@ public class MWMActivity extends NvEventQueueActivity
   private AlertDialog mStorageDisconnectedDialog = null;
   private ImageButton mLocationButton;
   // Info box (place page).
-  private MapInfoView mInfoView;
+  private PlacePageView mInfoView;
   private ImageView mIvStartRouting;
   private TextView mTvRoutingDistance;
   private RelativeLayout mRlRoutingBox;
@@ -807,7 +806,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void setUpInfoBox()
   {
-    mInfoView = (MapInfoView) findViewById(R.id.info_box);
+    mInfoView = (PlacePageView) findViewById(R.id.info_box);
     mInfoView.setOnVisibilityChangedListener(this);
     mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
     mIvStartRouting.setOnClickListener(this);

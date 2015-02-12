@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget;
+package com.mapswithme.maps.widget.placepage;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,23 +9,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
-import android.support.v4.view.GestureDetectorCompat;
+import android.support.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -52,50 +48,40 @@ import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.UiUtils.SimpleAnimationListener;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
 
-public class MapInfoView extends LinearLayout implements View.OnClickListener
+public class PlacePageView extends LinearLayout implements View.OnClickListener, View.OnLongClickListener
 {
-  private static final int SHORT_ANIM_DURATION = 200;
-  private static final int LONG_ANIM_DURATION = 400;
   private static final float SPAN_SIZE = 25;
   private static final int COLOR_CHOOSER_COLUMN_NUM = 4;
 
-  private final ViewGroup mPreviewGroup;
-  private final ViewGroup mPlacePageGroup;
-  private final ScrollView mPlacePageContainer;
-  private final View mView;
+  private ViewGroup mPlacePageGroup;
+  private ScrollView mPlacePageContainer;
   // Preview
-  private final TextView mTitle;
-  private final TextView mSubtitle;
-  private final ToggleButton mIsBookmarked;
-  private final ImageButton mEditBtn;
-  private final LayoutInflater mInflater;
-  private final View mArrow;
+  private TextView mTitle;
+  private TextView mSubtitle;
+  private ToggleButton mIsBookmarked;
+  private ImageButton mEditBtn;
+  private LayoutInflater mInflater;
+  private View mArrow;
   // Place page
   private RelativeLayout mGeoLayout;
   private TextView mTvLat;
   private TextView mTvLon;
   private ArrowView mAvDirection;
-  private TextView mDistanceText;
-  private ImageView mColorImage;
-  // Gestures
-  private GestureDetectorCompat mGestureDetector;
-  private boolean mIsGestureHandled;
-  private float mDownY;
-  private float mTouchSlop;
+  private TextView mTvDistance;
+  private ImageView mIvColor;
+  // Animations
+  private BasePlacePageAnimationController mAnimationController;
   // Data
   private MapObject mMapObject;
-  private OnVisibilityChangedListener mVisibilityChangedListener;
-  private boolean mIsPreviewVisible = true;
-  private boolean mIsPlacePageVisible = true;
   private State mCurrentState = State.HIDDEN;
   private BookmarkManager mBookmarkManager;
   private List<Icon> mIcons;
@@ -103,57 +89,45 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private boolean mIsLatLonDms;
   private static final String PREF_USE_DMS = "use_dms";
 
-  private OnLongClickListener mLatLonLongClickListener = new OnLongClickListener()
+  public static enum State
   {
-    @Override
-    public boolean onLongClick(View v)
-    {
-      final PopupMenu popup = new PopupMenu(getContext(), v);
-      final Menu menu = popup.getMenu();
-      final double lat = mMapObject.getLat();
-      final double lon = mMapObject.getLon();
+    HIDDEN,
+    PREVIEW_ONLY,
+    FULL_PLACEPAGE
+  }
 
-      final String copyText = getResources().getString(android.R.string.copy);
-      final String arrCoord[] = {
-          Framework.nativeFormatLatLon(lat, lon, false),
-          Framework.nativeFormatLatLon(lat, lon, true)};
-
-      menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
-      menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
-      menu.add(Menu.NONE, 2, 2, android.R.string.cancel);
-
-      popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
-      {
-        @Override
-        public boolean onMenuItemClick(MenuItem item)
-        {
-          final int id = item.getItemId();
-          if (id >= 0 && id < 2)
-          {
-            final Context ctx = getContext();
-            Utils.copyTextToClipboard(ctx, arrCoord[id]);
-            Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, arrCoord[id]));
-          }
-          return true;
-        }
-      });
-
-      popup.show();
-      return true;
-    }
-  };
-
-  public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
+  public PlacePageView(Context context)
   {
-    super(context, attrs);
+    this(context, null, 0);
+  }
+
+  public PlacePageView(Context context, AttributeSet attrs)
+  {
+    this(context, attrs, 0);
+  }
+
+  public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
+  {
+    super(context, attrs, defStyleAttr);
 
     mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name),
         Context.MODE_PRIVATE).getBoolean(PREF_USE_DMS, false);
 
     mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    mView = mInflater.inflate(R.layout.info_box, this, true);
+    initViews();
 
-    mPreviewGroup = (ViewGroup) mView.findViewById(R.id.preview);
+    mBookmarkManager = BookmarkManager.getBookmarkManager();
+    mIcons = mBookmarkManager.getIcons();
+
+    initAnimationController();
+  }
+
+  private void initViews()
+  {
+    View mView = mInflater.inflate(R.layout.info_box, this, true);
+    mView.setOnClickListener(this);
+
+    ViewGroup mPreviewGroup = (ViewGroup) mView.findViewById(R.id.preview);
     mPreviewGroup.bringToFront();
     mPlacePageGroup = (ViewGroup) mView.findViewById(R.id.place_page);
 
@@ -169,222 +143,26 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
     // Place Page
     mPlacePageContainer = (ScrollView) mPlacePageGroup.findViewById(R.id.place_page_container);
-
-    mBookmarkManager = BookmarkManager.getBookmarkManager();
-    mIcons = mBookmarkManager.getIcons();
-
-    showPlacePage(false);
-    showPreview(false);
-
-    initGestureDetector();
-    mView.setOnClickListener(this);
   }
 
-  public MapInfoView(Context context, AttributeSet attrs)
+  private void initAnimationController()
   {
-    this(context, attrs, 0);
-  }
-
-  public MapInfoView(Context context)
-  {
-    this(context, null, 0);
-  }
-
-  private void initGestureDetector()
-  {
-    mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-
-    // Gestures
-    mGestureDetector = new GestureDetectorCompat(getContext(), new GestureDetector.SimpleOnGestureListener()
-    {
-      private static final int Y_MIN = 1;
-      private static final int Y_MAX = 100;
-      private static final int X_TO_Y_SCROLL_RATIO = 2;
-
-      @Override
-      public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
-      {
-        final boolean isVertical = Math.abs(distanceY) > X_TO_Y_SCROLL_RATIO * Math.abs(distanceX);
-        final boolean isInRange = Math.abs(distanceY) > Y_MIN && Math.abs(distanceY) < Y_MAX;
-
-        if (isVertical && isInRange)
-        {
-          if (!mIsGestureHandled)
-          {
-            if (distanceY > 0)
-            {
-              if (mCurrentState == State.FULL_PLACEPAGE)
-                setState(State.PREVIEW_ONLY);
-              else
-              {
-                setState(State.HIDDEN);
-                Framework.deactivatePopup();
-              }
-            }
-            else
-              setState(State.FULL_PLACEPAGE);
-
-            mIsGestureHandled = true;
-          }
-
-          return true;
-        }
-
-        return false;
-      }
-
-      @Override
-      public boolean onSingleTapConfirmed(MotionEvent e)
-      {
-        if (mCurrentState == State.FULL_PLACEPAGE)
-          setState(State.PREVIEW_ONLY);
-        else
-          setState(State.FULL_PLACEPAGE);
-
-        return true;
-      }
-    });
+    // TODO get appropriate controller
+    mAnimationController = new TopPlacePageAnimationController(this);
+    mAnimationController.hidePlacePage();
   }
 
   @Override
-  public boolean onTouchEvent(MotionEvent event)
+  public boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    requestDisallowInterceptTouchEvent(false);
-    mGestureDetector.onTouchEvent(event);
+    mAnimationController.onTouchEvent(event);
     return super.onTouchEvent(event);
   }
 
   @Override
   public boolean onInterceptTouchEvent(MotionEvent event)
   {
-    switch (event.getAction())
-    {
-    case MotionEvent.ACTION_DOWN:
-      mIsGestureHandled = false;
-      mDownY = event.getRawY();
-      break;
-    case MotionEvent.ACTION_MOVE:
-      if (Math.abs(mDownY - event.getRawY()) > mTouchSlop)
-        return true;
-      break;
-    }
-
-    return false;
-  }
-
-  @Override
-  protected void onSizeChanged(int w, int h, int oldw, int oldh)
-  {
-    super.onSizeChanged(w, h, oldw, oldh);
-    calculateMaxPlacePageHeight();
-  }
-
-  private void showPlacePage(final boolean show)
-  {
-    calculateMaxPlacePageHeight();
-
-    if (mIsPlacePageVisible == show)
-      return; // if state is already same as we need
-
-    TranslateAnimation slide;
-    if (show) // slide up
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, -1, 0);
-      slide.setDuration(SHORT_ANIM_DURATION);
-      UiUtils.show(mPlacePageGroup);
-      UiUtils.hide(mArrow);
-      if (mVisibilityChangedListener != null)
-        mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
-    }
-    else // slide down
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
-
-      slide.setDuration(SHORT_ANIM_DURATION);
-      slide.setFillEnabled(true);
-      slide.setFillBefore(true);
-      UiUtils.show(mArrow);
-      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          UiUtils.hide(mPlacePageGroup);
-
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
-        }
-      });
-    }
-    mPlacePageGroup.startAnimation(slide);
-
-    mIsPlacePageVisible = show;
-  }
-
-  private void showPreview(final boolean show)
-  {
-    if (mIsPreviewVisible == show)
-      return;
-
-    TranslateAnimation slide;
-    if (show)
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, -1, 0);
-      UiUtils.show(mPreviewGroup);
-      slide.setAnimationListener(new SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPreviewVisibilityChanged(show);
-        }
-      });
-    }
-    else
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
-      slide.setAnimationListener(new SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          UiUtils.hide(mPreviewGroup);
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPreviewVisibilityChanged(show);
-        }
-      });
-    }
-    slide.setDuration(SHORT_ANIM_DURATION);
-    mPreviewGroup.startAnimation(slide);
-    mIsPreviewVisible = show;
-    UiUtils.show(mArrow);
-  }
-
-  private void hideEverything()
-  {
-    final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
-    slideDown.setDuration(LONG_ANIM_DURATION);
-
-    slideDown.setAnimationListener(new SimpleAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animation animation)
-      {
-        mIsPlacePageVisible = false;
-        mIsPreviewVisible = false;
-
-        UiUtils.hide(mPreviewGroup);
-        UiUtils.hide(mPlacePageGroup);
-        if (mVisibilityChangedListener != null)
-        {
-          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
-          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
-        }
-      }
-    });
-
-    mView.startAnimation(slideDown);
+    return mAnimationController.onInterceptTouchEvent(event);
   }
 
   public State getState()
@@ -398,15 +176,15 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     {
       // Do some transitions
       if (mCurrentState == State.HIDDEN && state == State.PREVIEW_ONLY)
-        showPreview(true);
+        mAnimationController.showPreview(true);
       else if (mCurrentState == State.PREVIEW_ONLY && state == State.FULL_PLACEPAGE)
-        showPlacePage(true);
+        mAnimationController.showPlacePage(true);
       else if (mCurrentState == State.PREVIEW_ONLY && state == State.HIDDEN)
-        showPreview(false);
+        mAnimationController.showPreview(false);
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.PREVIEW_ONLY)
-        showPlacePage(false);
+        mAnimationController.showPlacePage(false);
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.HIDDEN)
-        hideEverything();
+        mAnimationController.hidePlacePage();
       else
         return;
 
@@ -481,7 +259,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     else
       UiUtils.hide(mEditBtn);
 
-    showPreview(true);
+    mAnimationController.showPreview(true);
   }
 
   private void setUpBottomButtons()
@@ -521,7 +299,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private void setUpGeoInformation()
   {
     mGeoLayout = (RelativeLayout) mPlacePageContainer.findViewById(R.id.info_box_geo_ref);
-    mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
+    mTvDistance = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
     mAvDirection = (ArrowView) mGeoLayout.findViewById(R.id.av_direction);
     mAvDirection.setDrawCircle(true);
     mAvDirection.setVisibility(View.GONE); // should be hidden until first compass update
@@ -537,8 +315,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     // Context menu for the coordinates copying.
     if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.HONEYCOMB))
     {
-      mTvLat.setOnLongClickListener(mLatLonLongClickListener);
-      mTvLon.setOnLongClickListener(mLatLonLongClickListener);
+      mTvLat.setOnLongClickListener(this);
+      mTvLon.setOnLongClickListener(this);
     }
   }
 
@@ -556,7 +334,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
               append(Framework.nativeFormatSpeed(l.getSpeed()));
         mSubtitle.setText(builder.toString());
 
-        mDistanceText.setVisibility(View.GONE);
+        mTvDistance.setVisibility(View.GONE);
 
         mMapObject.setLat(l.getLatitude());
         mMapObject.setLon(l.getLongitude());
@@ -566,13 +344,13 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       {
         if (l != null)
         {
-          mDistanceText.setVisibility(View.VISIBLE);
+          mTvDistance.setVisibility(View.VISIBLE);
           final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(),
               mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0);
-          mDistanceText.setText(distanceAndAzimuth.getDistance());
+          mTvDistance.setText(distanceAndAzimuth.getDistance());
         }
         else
-          mDistanceText.setVisibility(View.GONE);
+          mTvDistance.setVisibility(View.GONE);
       }
     }
   }
@@ -640,10 +418,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
           switch (event.getAction())
           {
           case MotionEvent.ACTION_DOWN:
-            MapInfoView.this.requestDisallowInterceptTouchEvent(true);
+            PlacePageView.this.requestDisallowInterceptTouchEvent(true);
             break;
           case MotionEvent.ACTION_UP:
-            MapInfoView.this.requestDisallowInterceptTouchEvent(false);
+            PlacePageView.this.requestDisallowInterceptTouchEvent(false);
             break;
           }
 
@@ -655,9 +433,9 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       UiUtils.show(descriptionWv);
     }
 
-    mColorImage = (ImageView) bmkView.findViewById(R.id.color_image);
-    mColorImage.setOnClickListener(this);
-    mColorImage.setVisibility(View.VISIBLE);
+    mIvColor = (ImageView) bmkView.findViewById(R.id.color_image);
+    mIvColor.setOnClickListener(this);
+    mIvColor.setVisibility(View.VISIBLE);
     updateColorChooser(bmk.getIcon());
 
     mPlacePageContainer.addView(bmkView);
@@ -677,33 +455,9 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mPlacePageContainer.addView(apiView);
   }
 
-  public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
+  public void setOnVisibilityChangedListener(BasePlacePageAnimationController.OnVisibilityChangedListener listener)
   {
-    mVisibilityChangedListener = listener;
-  }
-
-  private void calculateMaxPlacePageHeight()
-  {
-    final View parent = (View) getParent();
-    if (parent != null)
-    {
-      int maxPlacePageHeight = parent.getHeight() / 2;
-      final ViewGroup.LayoutParams lp = mPlacePageGroup.getLayoutParams();
-      if (lp != null && lp.height > maxPlacePageHeight)
-      {
-        lp.height = maxPlacePageHeight;
-        mPlacePageGroup.setLayoutParams(lp);
-        requestLayout();
-        invalidate();
-      }
-    }
-  }
-
-  @Override
-  protected void onLayout(boolean changed, int l, int t, int r, int b)
-  {
-    super.onLayout(changed, l, t, r, b);
-    calculateMaxPlacePageHeight();
+    mAnimationController.setOnVisibilityChangedListener(listener);
   }
 
   public void onResume()
@@ -721,8 +475,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     {
       setMapObject(null);
 
-      showPlacePage(false);
-      showPreview(false);
+      mAnimationController.hidePlacePage();
     }
   }
 
@@ -806,7 +559,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     final String to = icon.getName();
     if (!TextUtils.equals(from, to))
       Statistics.INSTANCE.trackColorChanged(from, to);
-    mColorImage.setImageDrawable(UiUtils
+    mIvColor.setImageDrawable(UiUtils
         .drawCircleForPin(to, (int) getResources().getDimension(R.dimen.color_chooser_radius), getResources()));
   }
 
@@ -872,17 +625,40 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     }
   }
 
-  public static enum State
+  @Override
+  public boolean onLongClick(View v)
   {
-    HIDDEN,
-    PREVIEW_ONLY,
-    FULL_PLACEPAGE
-  }
+    final PopupMenu popup = new PopupMenu(getContext(), v);
+    final Menu menu = popup.getMenu();
+    final double lat = mMapObject.getLat();
+    final double lon = mMapObject.getLon();
 
-  public interface OnVisibilityChangedListener
-  {
-    public void onPreviewVisibilityChanged(boolean isVisible);
+    final String copyText = getResources().getString(android.R.string.copy);
+    final String arrCoord[] = {
+        Framework.nativeFormatLatLon(lat, lon, false),
+        Framework.nativeFormatLatLon(lat, lon, true)};
 
-    public void onPlacePageVisibilityChanged(boolean isVisible);
+    menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
+    menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
+    menu.add(Menu.NONE, 2, 2, android.R.string.cancel);
+
+    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+    {
+      @Override
+      public boolean onMenuItemClick(MenuItem item)
+      {
+        final int id = item.getItemId();
+        if (id >= 0 && id < 2)
+        {
+          final Context ctx = getContext();
+          Utils.copyTextToClipboard(ctx, arrCoord[id]);
+          Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, arrCoord[id]));
+        }
+        return true;
+      }
+    });
+
+    popup.show();
+    return true;
   }
 }

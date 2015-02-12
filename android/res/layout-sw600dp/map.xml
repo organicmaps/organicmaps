@@ -11,7 +11,7 @@
       android:layout_gravity="bottom|center_horizontal"
       android:background="@android:color/transparent"/>
 
-  <com.mapswithme.maps.widget.MapInfoView
+  <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
       android:layout_width="@dimen/panel_width"
       android:layout_height="wrap_content"
