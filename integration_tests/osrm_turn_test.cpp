@@ -4,6 +4,7 @@
 
 #include "../routing/route.hpp"
 
+
 using namespace routing;
 
 UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
@@ -17,14 +18,15 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   OsrmRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, OsrmRouter::NoError, ());
 
-  TEST(integration::TestTurn(route, 0, {37.545981835916507, 67.530713137468041}, turns::TurnLeft), ());
-  TEST(integration::TestTurn(route, 1, {37.546738218864334, 67.531659957257347}, turns::TurnLeft), ());
-  TEST(integration::TestTurn(route, 2, {37.539925407915746, 67.537083383925875}, turns::TurnRight), ());
-  TEST(!integration::TestTurn(route, 2, {37., 67.}, turns::TurnRight), ());
+  integration::GetNthTurn(route, 0).TestValid().TestPoint({37.545981835916507, 67.530713137468041})
+      .TestOneOfDirections({turns::TurnSlightLeft , turns::TurnLeft});
+  integration::GetNthTurn(route, 1).TestValid().TestPoint({37.546738218864334, 67.531659957257347}).TestDirection(turns::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestPoint({37.539925407915746, 67.537083383925875}).TestDirection(turns::TurnRight);
 
-  TEST(integration::TestRouteLength(route, 2033.), ());
-  TEST(!integration::TestRouteLength(route, 2533.), ());
-  TEST(!integration::TestRouteLength(route, 1533.), ());
+  integration::GetTurnByPoint(route, {37., 67.}).TestNotValid();
+  integration::GetTurnByPoint(route, {37.546738218864334, 67.531659957257347}).TestValid().TestDirection(turns::TurnLeft);
+
+  integration::TestRouteLength(route, 2033.);
 }
 
 UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
@@ -36,15 +38,13 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
   OsrmRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
+  integration::GetNthTurn(route, 0).TestValid().TestPoint({37.388482521388539, 67.633382734905041}, 5.)
+      .TestOneOfDirections({turns::GoStraight, turns::TurnSlightRight});
+  integration::GetNthTurn(route, 1).TestValid().TestPoint({37.387117276989784, 67.633369323859881}).TestDirection(turns::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestPoint({37.387380133475205, 67.632781920081243}).TestDirection(turns::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestPoint({37.390526364673121, 67.633106467374461}).TestDirection(turns::TurnRight);
 
-  TEST(integration::TestTurn(route, 0, {37.388482521388539, 67.633382734905041}, turns::TurnSlightRight), ());
-  TEST(integration::TestTurn(route, 1, {37.387117276989784, 67.633369323859881}, turns::TurnLeft), ());
-  TEST(integration::TestTurn(route, 2, {37.387380133475205, 67.632781920081243}, turns::TurnLeft), ());
-  TEST(integration::TestTurn(route, 3, {37.390526364673121, 67.633106467374461}, turns::TurnRight), ());
-
-  TEST(integration::TestTurnCount(route, 4), ());
-
-  TEST(integration::TestRouteLength(route, 1637.), ());
-
+  integration::TestTurnCount(route, 4);
+  integration::TestRouteLength(route, 1637.);
 }
 

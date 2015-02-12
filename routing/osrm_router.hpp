@@ -23,11 +23,6 @@ struct PathData;
 class FeatureType;
 struct RawRouteData;
 
-namespace integration
-{
-  class OsrmRouterWrapper;
-}
-
 namespace routing
 {
 
@@ -126,8 +121,10 @@ public:
 */
 class RoutingIndexManager
 {
+protected:
+  typedef function<string (m2::PointD const &)> CountryFileFnT;
+private:
   CountryFileFnT m_countryFn;
-
   map<string, RoutingMappingPtrT> m_mapping;
 
 public:
@@ -137,10 +134,7 @@ public:
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
 
-  friend class integration::OsrmRouterWrapper;
-  typedef function<string (m2::PointD const &)> CountryFileFnT;
-  CountryFileFnT m_countryFn;
-
+public:
   void Clear()
   {
     m_mapping.clear();
