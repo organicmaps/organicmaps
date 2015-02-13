@@ -62,10 +62,8 @@ template <class DataFacadeT> class NMManyToManyRouting final : public BasicRouti
     {
     }
 
-    ~NMManyToManyRouting() {}
-
-    std::shared_ptr<std::vector<EdgeWeight>> operator()(const PhantomNodeArray &phantom_sources_nodes_array, const PhantomNodeArray &phantom_targets_nodes_array)
-        const
+    std::shared_ptr<std::vector<EdgeWeight>> operator()(const PhantomNodeArray &phantom_sources_nodes_array,
+                                                        const PhantomNodeArray &phantom_targets_nodes_array) const
     {
         const unsigned number_of_sources = static_cast<unsigned>(phantom_sources_nodes_array.size());
         const unsigned number_of_targets = static_cast<unsigned>(phantom_targets_nodes_array.size());

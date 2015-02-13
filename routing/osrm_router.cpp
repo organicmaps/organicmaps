@@ -1,9 +1,7 @@
 #include "osrm_router.hpp"
 #include "vehicle_model.hpp"
 
-#include "../std/algorithm.hpp"
-
-#include "../base/math.hpp"
+#include "../platform/platform.hpp"
 
 #include "../geometry/angles.hpp"
 #include "../geometry/distance.hpp"
@@ -16,12 +14,13 @@
 #include "../indexer/mwm_version.hpp"
 #include "../indexer/search_string_utils.hpp"
 
-#include "../platform/platform.hpp"
-
 #include "../coding/reader_wrapper.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/timer.hpp"
+#include "../base/math.hpp"
+
+#include "../std/algorithm.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
 #include "../3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
@@ -341,10 +340,9 @@ public:
 
 } // namespace
 
-RoutingMappingPtrT RoutingIndexManager::GetMappingByPoint(m2::PointD point, Index const * pIndex)
+RoutingMappingPtrT RoutingIndexManager::GetMappingByPoint(m2::PointD const & point, Index const * pIndex)
 {
-  string fName = m_countryFn(point);
-  return GetMappingByName(fName, pIndex);
+  return GetMappingByName(m_countryFn(point), pIndex);
 }
 
 RoutingMappingPtrT RoutingIndexManager::GetMappingByName(string const & fName, Index const * pIndex)
@@ -356,12 +354,13 @@ RoutingMappingPtrT RoutingIndexManager::GetMappingByName(string const & fName, I
 
   // Or load and check file
   RoutingMappingPtrT new_mapping = make_shared<RoutingMapping>(fName, pIndex);
-  m_mapping.insert(std::make_pair(fName, new_mapping));
+  m_mapping.insert(make_pair(fName, new_mapping));
   return new_mapping;
 }
 
-RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex): m_mapCounter(0), m_facadeCounter(0), m_baseName(fName),
-                                                                            m_isValid(true), m_error(IRouter::ResultCode::NoError)
+RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
+  : m_mapCounter(0), m_facadeCounter(0), m_baseName(fName),
+    m_isValid(true), m_error(IRouter::ResultCode::NoError)
 {
   Platform & pl = GetPlatform();
   string const mwmName = m_baseName + DATA_FILE_EXTENSION;
@@ -516,14 +515,7 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
 
   try
   {
-    try
-    {
-      code = CalculateRouteImpl(startPt, startDr, finalPt, route);
-    }
-    catch (OsrmRouter::ResultCode e)
-    {
-      code = e;
-    }
+    code = CalculateRouteImpl(startPt, startDr, finalPt, route);
     switch (code)
     {
     case StartPointNotFound:
@@ -570,7 +562,7 @@ bool IsRouteExist(RawRouteData const & r)
 }
 
 void OsrmRouter::FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
-                                    RawDataFacadeT &facade, std::vector<EdgeWeight> &result)
+                                    RawDataFacadeT &facade, vector<EdgeWeight> &result)
 {
   SearchEngineData engineData;
   NMManyToManyRouting<RawDataFacadeT> pathFinder(&facade, engineData);
@@ -587,15 +579,15 @@ void OsrmRouter::FindWeightsMatrix(MultiroutingTaskPointT const & sources, Multi
   }
 
   my::HighResTimer timer1(true);
-  std::shared_ptr<std::vector<EdgeWeight>> resultTable = pathFinder(sourcesTaskVector, targetsTaskVector);
+  shared_ptr<vector<EdgeWeight>> resultTable = pathFinder(sourcesTaskVector, targetsTaskVector);
   LOG(LINFO, ("Duration of a single one-to-many routing call", timer1.ElapsedNano()));
   timer1.Reset();
   ASSERT_EQUAL(resultTable->size(), sources.size() * targets.size(), ());
   result.swap(*resultTable);
 }
 
-bool OsrmRouter::FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT &facade,
-                     RawRoutingResultT& rawRoutingResult)
+bool OsrmRouter::FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+                                 RawRoutingResultT & rawRoutingResult)
 {
   /// @todo: make more complex nearest edge turnaround
   SearchEngineData engineData;
@@ -654,13 +646,10 @@ m2::PointD OsrmRouter::GetPointByNodeId(const size_t node_id, RoutingMappingPtrT
   loader.GetFeature(seg.m_fid, ft);
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  if (use_start)
-    return ft.GetPoint(seg.m_pointStart);
-  else
-    return ft.GetPoint(seg.m_pointEnd);
+  return use_start ? ft.GetPoint(seg.m_pointStart) : ft.GetPoint(seg.m_pointEnd);
 }
 
-void OsrmRouter::GenerateRoutingTaskFromNodeId(const size_t nodeId, FeatureGraphNode & taskNode)
+void OsrmRouter::GenerateRoutingTaskFromNodeId(size_t const nodeId, FeatureGraphNode & taskNode)
 {
   taskNode.m_node.forward_node_id = static_cast<size_t>(nodeId);
   taskNode.m_node.reverse_node_id = static_cast<size_t>(nodeId);
@@ -688,9 +677,9 @@ size_t OsrmRouter::FindNextMwmNode(RoutingMappingPtrT const & startMapping, size
     targetPointEnd = m2::PointD(MercatorBounds::XToLon(targetPointEnd.x), MercatorBounds::YToLat(targetPointEnd.y));
 
     double const dist = min(min(ms::DistanceOnEarth(startPointEnd.y, startPointEnd.x, targetPoint.y, targetPoint.x),
-                            ms::DistanceOnEarth(startPointStart.y, startPointStart.x, targetPoint.y, targetPoint.x)),
+                                ms::DistanceOnEarth(startPointStart.y, startPointStart.x, targetPoint.y, targetPoint.x)),
                             min(ms::DistanceOnEarth(startPointEnd.y, startPointEnd.x, targetPointEnd.y, targetPointEnd.x),
-                            ms::DistanceOnEarth(startPointStart.y, startPointStart.x, targetPointEnd.y, targetPointEnd.x)));
+                                ms::DistanceOnEarth(startPointStart.y, startPointStart.x, targetPointEnd.y, targetPointEnd.x)));
     if (dist < FEATURE_BY_POINT_RADIUS_M)
       return *i;
   }
@@ -776,7 +765,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
   return OsrmRouter::NoError;
 }
 
-class OsrmRouter::LastCrossFinder {
+class OsrmRouter::LastCrossFinder
+{
   CrossRoutingContextReader const & m_targetContext;
   string const m_mwmName;
   MultiroutingTaskPointT m_sources;
@@ -784,9 +774,9 @@ class OsrmRouter::LastCrossFinder {
   vector<EdgeWeight> m_weights;
 
 public:
-  LastCrossFinder(RoutingMappingPtrT & mapping, FeatureGraphNodeVecT const & targetTask):
-    m_targetContext(mapping->m_dataFacade.getRoutingContext()),
-    m_mwmName(mapping->GetName())
+  LastCrossFinder(RoutingMappingPtrT & mapping, FeatureGraphNodeVecT const & targetTask)
+    : m_targetContext(mapping->m_dataFacade.getRoutingContext()),
+      m_mwmName(mapping->GetName())
   {
     auto income_iterators = m_targetContext.GetIngoingIterators();
     MultiroutingTaskPointT targets(1);
@@ -811,7 +801,11 @@ public:
         }
       }
     }
-    throw OsrmRouter::EndPointNotFound;
+  }
+
+  bool IsValid()
+  {
+    return (!m_weights.empty());
   }
 
   bool MakeLastCrossSegment(size_t const incomeNodeId, OsrmRouter::RoutePathCross & outCrossTask)
@@ -957,6 +951,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
     // Load target data
     LastCrossFinder targetFinder(targetMapping, m_CachedTargetTask);
+
+    if(!targetFinder.IsValid())
+      return EndPointNotFound;
 
     EdgeWeight finalWeight = INVALID_EDGE_WEIGHT;
     CheckedPathT finalPath;
@@ -1114,8 +1111,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   }
 }
 
-m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const &seg,
-                                            FeatureType const &ft, m2::PointD const &turnPnt,
+m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const & seg,
+                                            FeatureType const & ft, m2::PointD const & turnPnt,
                                             size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
 {
   const size_t maxPntsNum = 7;
@@ -1155,7 +1152,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
 #ifdef _DEBUG
   size_t lastIdx = 0;
 #endif
-  for (auto i : osrm::irange<std::size_t>(0, routingResult.m_routePath.unpacked_path_segments.size()))
+  for (auto i : osrm::irange<size_t>(0, routingResult.m_routePath.unpacked_path_segments.size()))
   {
     if (m_requestCancel)
       return Cancelled;

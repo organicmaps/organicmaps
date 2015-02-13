@@ -1,7 +1,7 @@
 #include "cross_routing_context.hpp"
 
-using namespace routing;
-
+namespace routing
+{
 size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
 {
   size_t ingoing_index = distance(m_ingoingNodes.cbegin(), ingoing);
@@ -133,4 +133,5 @@ pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> CrossRoutingContextWriter::GetI
 pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> CrossRoutingContextWriter::GetOutgoingIterators() const
 {
   return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
+}
 }

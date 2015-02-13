@@ -122,12 +122,12 @@ class RoutingIndexManager
 {
   CountryFileFnT m_countryFn;
 
-  std::map<string, RoutingMappingPtrT> m_mapping;
+  map<string, RoutingMappingPtrT> m_mapping;
 
 public:
   RoutingIndexManager(CountryFileFnT const & fn): m_countryFn(fn) {}
 
-  RoutingMappingPtrT GetMappingByPoint(m2::PointD point, Index const * pIndex);
+  RoutingMappingPtrT GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
 
@@ -183,7 +183,7 @@ public:
    * cost(source1 -> target1) cost(source1 -> target2) cost(source2 -> target1) cost(source2 -> target2)
    */
   static void FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
-                                      RawDataFacadeT & facade, std::vector<EdgeWeight> & result);
+                                RawDataFacadeT & facade, vector<EdgeWeight> & result);
 
   /*!
    * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
@@ -229,7 +229,8 @@ private:
   typedef pair<size_t,string> MwmOutT;
   typedef set<MwmOutT> CheckedOutsT;
 
-  struct RoutePathCross {
+  struct RoutePathCross
+  {
     string mwmName;
     FeatureGraphNode startNode;
     FeatureGraphNode targetNode;
@@ -243,7 +244,8 @@ private:
     return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
   }
 
-  struct PathChecker {
+  struct PathChecker
+  {
     bool operator() (CheckedPathT const & a, CheckedPathT const & b) const {
       // Backward sorting order
       return getPathWeight(b)<getPathWeight(a);

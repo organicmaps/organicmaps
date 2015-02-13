@@ -4,17 +4,10 @@
 #include "borders_loader.hpp"
 #include "gen_mwm_info.hpp"
 
-#include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
-#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
-#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
-
-#include "../base/logging.hpp"
-
-#include "../coding/file_container.hpp"
-#include "../coding/read_write_utils.hpp"
-#include "../coding/internal/file_data.hpp"
-
-#include "../geometry/distance_on_sphere.hpp"
+#include "../routing/osrm2feature_map.hpp"
+#include "../routing/osrm_data_facade.hpp"
+#include "../routing/osrm_router.hpp"
+#include "../routing/cross_routing_context.hpp"
 
 #include "../indexer/index.hpp"
 #include "../indexer/classificator_loader.hpp"
@@ -22,12 +15,19 @@
 #include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/mercator.hpp"
 
-#include "../routing/osrm2feature_map.hpp"
-#include "../routing/osrm_data_facade.hpp"
-#include "../routing/osrm_router.hpp"
-#include "../routing/cross_routing_context.hpp"
+#include "../geometry/distance_on_sphere.hpp"
+
+#include "../coding/file_container.hpp"
+#include "../coding/read_write_utils.hpp"
+#include "../coding/internal/file_data.hpp"
+
+#include "../base/logging.hpp"
 
 #include "../std/fstream.hpp"
+
+#include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
+#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
+#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
 
 namespace routing
 {
