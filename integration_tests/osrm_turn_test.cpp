@@ -12,7 +12,7 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
 
   RouteResultT const routeResult = integration::CalculateRoute(routerComponents, {37.537544383032568, 67.536216737893028},
-                                            {0., 0.}, {37.538908531885973, 67.54544090660923});
+                                                               {0., 0.}, {37.538908531885973, 67.54544090660923});
 
   shared_ptr<Route> const route = routeResult.first;
   OsrmRouter::ResultCode const result = routeResult.second;

@@ -505,6 +505,12 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
     startPt = m_startPt;
     finalPt = m_finalPt;
     startDr = m_startDr;
+
+    if (m_isFinalChanged)
+      m_cachedFinalNodes.clear();
+    m_isFinalChanged = false;
+
+    m_requestCancel = false;
   }
 
   try
@@ -558,23 +564,8 @@ bool IsRouteExist(RawRouteData const & r)
 void OsrmRouter::FindWeightsMatrix(MultiroutingTaskPointT const & sources, MultiroutingTaskPointT const & targets,
                                     RawDataFacadeT &facade, vector<EdgeWeight> &result)
 {
-
   SearchEngineData engineData;
   NMManyToManyRouting<RawDataFacadeT> pathFinder(&facade, engineData);
-
-  {
-    threads::MutexGuard params(m_paramsMutex);
-    UNUSED_VALUE(params);
-    if (m_isFinalChanged)
-      m_cachedFinalNodes.clear();
-    m_isFinalChanged = false;
-    m_requestCancel = false;
-  }
-
-  // 1. Find country file name and check that we are in the same MWM.
-  //string fName = m_countryFn(startPt);
-  //if (fName != m_countryFn(finalPt))
-  //  return PointsInDifferentMWM;
 
   PhantomNodeArray sourcesTaskVector(sources.size());
   PhantomNodeArray targetsTaskVector(targets.size());

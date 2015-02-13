@@ -20,39 +20,6 @@ using namespace routing;
 
 namespace integration
 {
-  class OsrmRouterWrapper : public OsrmRouter
-  {
-  public:
-    OsrmRouterWrapper(Index const * index, CountryFileFnT const & fn) :
-      OsrmRouter(index, fn) {}
-    ResultCode SyncCalculateRoute(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route)
-    {
-      SetFinalPoint(finalPt);
-      return CalculateRouteImpl(startPt, startDr, finalPt, route);
-    }
-  };
-
-  shared_ptr<search::Engine> CreateSearchEngine(search::Engine::IndexType const * pIndex)
-  {
-    ASSERT(pIndex, ());
-    Platform const & pl = GetPlatform();
-    try
-    {
-      shared_ptr<search::Engine> searchEngine(new search::Engine(
-                         pIndex,
-                         pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
-                         pl.GetReader(PACKED_POLYGONS_FILE),
-                         pl.GetReader(COUNTRIES_FILE),
-                         languages::GetCurrentOrig()));
-      return searchEngine;
-    }
-    catch (RootException const &)
-    {
-      ASSERT(false, ());
-      return nullptr;
-    }
-  }
-
   shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<string> const & mapNames)
   {
     shared_ptr<model::FeaturesFetcher> featuresFetcher(new model::FeaturesFetcher);
@@ -71,16 +38,34 @@ namespace integration
 
   shared_ptr<search::Engine> CreateSearchEngine(shared_ptr<model::FeaturesFetcher> featuresFetcher)
   {
-    shared_ptr<search::Engine> searchEngine = CreateSearchEngine(&featuresFetcher->GetIndex());
-    if (!searchEngine.get())
+    ASSERT(featuresFetcher.get(), ());
+    search::Engine::IndexType const & index = featuresFetcher->GetIndex();
+
+    Platform const & pl = GetPlatform();
+    try
+    {
+      shared_ptr<search::Engine> searchEngine(new search::Engine(
+                         &index,
+                         pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
+                         pl.GetReader(PACKED_POLYGONS_FILE),
+                         pl.GetReader(COUNTRIES_FILE),
+                         languages::GetCurrentOrig()));
+      return searchEngine;
+    }
+    catch (RootException const &)
+    {
       ASSERT(false, ());
-    return searchEngine;
+      return nullptr;
+    }
   }
 
-  shared_ptr<OsrmRouterWrapper> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
+  shared_ptr<OsrmRouter> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
                                              shared_ptr<search::Engine> searchEngine)
   {
-    shared_ptr<OsrmRouterWrapper> osrmRouter(new OsrmRouterWrapper(&featuresFetcher->GetIndex(),
+    ASSERT(featuresFetcher.get(), ());
+    ASSERT(searchEngine.get(), ());
+
+    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&featuresFetcher->GetIndex(),
                                                      [searchEngine]  (m2::PointD const & pt)
     {
       return searchEngine->GetCountryFile(pt);
@@ -95,11 +80,11 @@ namespace integration
       m_featuresFetcher(CreateFeaturesFetcher(mapNames)),
       m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
       m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
-    OsrmRouterWrapper * GetOsrmRouter() const { return m_osrmRouter.get(); }
+    OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
   private:
     shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
     shared_ptr<search::Engine> m_searchEngine;
-    shared_ptr<OsrmRouterWrapper> m_osrmRouter;
+    shared_ptr<OsrmRouter> m_osrmRouter;
   };
 
   void GetMapNames(vector<string> & maps)
@@ -137,10 +122,10 @@ namespace integration
                               m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt)
   {
     ASSERT(routerComponents.get(), ());
-    OsrmRouterWrapper * osrmRouter = routerComponents->GetOsrmRouter();
+    OsrmRouter * osrmRouter = routerComponents->GetOsrmRouter();
     ASSERT(osrmRouter, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    OsrmRouter::ResultCode result = osrmRouter->SyncCalculateRoute(startPt, startDr, finalPt, *route.get());
+    OsrmRouter::ResultCode result = osrmRouter->CalculateRouteImpl(startPt, startDr, finalPt, *route.get());
     return RouteResultT(route, result);
   }
 

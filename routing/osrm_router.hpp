@@ -121,10 +121,8 @@ public:
 */
 class RoutingIndexManager
 {
-protected:
-  typedef function<string (m2::PointD const &)> CountryFileFnT;
-private:
   CountryFileFnT m_countryFn;
+
   map<string, RoutingMappingPtrT> m_mapping;
 
 public:
@@ -134,7 +132,6 @@ public:
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
 
-public:
   void Clear()
   {
     m_mapping.clear();
@@ -198,6 +195,8 @@ public:
 
   void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 
+  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
+
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
                                        FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping);
@@ -227,7 +226,6 @@ protected:
                                 vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
 
   void CalculateRouteAsync(ReadyCallback const & callback);
-  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
 private:
   typedef pair<size_t,string> MwmOutT;
