@@ -113,9 +113,10 @@ public class MWMActivity extends NvEventQueueActivity
   private StoragePathManager mPathManager = new StoragePathManager();
   private AlertDialog mStorageDisconnectedDialog = null;
   private ImageButton mLocationButton;
-  // Info box (place page).
-  private PlacePageView mInfoView;
-  private ImageView mIvStartRouting;
+  // Place page
+  private PlacePageView mPlacePage;
+  private View mIvStartRouting;
+  // Routing
   private TextView mTvRoutingDistance;
   private RelativeLayout mRlRoutingBox;
   private RelativeLayout mLayoutRoutingGo;
@@ -125,7 +126,6 @@ public class MWMActivity extends NvEventQueueActivity
   private TextView mTvTotalTime;
   private ImageView mIvTurn;
   private TextView mTvTurnDistance;
-
 
   private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
@@ -719,7 +719,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
     yotaSetup();
-    setUpInfoBox();
+    setUpPlacePage();
     setUpRoutingBox();
     setUpToolbars();
     if (findViewById(R.id.fragment_container) != null)
@@ -804,13 +804,13 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void setUpInfoBox()
+  private void setUpPlacePage()
   {
-    mInfoView = (PlacePageView) findViewById(R.id.info_box);
-    mInfoView.setOnVisibilityChangedListener(this);
-    mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
+    mPlacePage = (PlacePageView) findViewById(R.id.info_box);
+    mPlacePage.setOnVisibilityChangedListener(this);
+    mIvStartRouting = mPlacePage.findViewById(R.id.rl__route);
     mIvStartRouting.setOnClickListener(this);
-    mPbRoutingProgress = (ProgressBar) mInfoView.findViewById(R.id.pb__routing_progress);
+    mPbRoutingProgress = (ProgressBar) mPlacePage.findViewById(R.id.pb__routing_progress);
   }
 
   private void setUpRoutingBox()
@@ -990,8 +990,8 @@ public class MWMActivity extends NvEventQueueActivity
         l.getSpeed(),
         l.getBearing());
 
-    if (mInfoView.getState() != State.HIDDEN)
-      mInfoView.updateLocation(l);
+    if (mPlacePage.getState() != State.HIDDEN)
+      mPlacePage.refreshLocation(l);
 
     updateRoutingDistance();
   }
@@ -1067,8 +1067,8 @@ public class MWMActivity extends NvEventQueueActivity
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
 
     final double north = (angles[1] >= 0.0) ? angles[1] : angles[0];
-    if (mInfoView.getState() != State.HIDDEN)
-      mInfoView.updateAzimuth(north);
+    if (mPlacePage.getState() != State.HIDDEN)
+      mPlacePage.refreshAzimuth(north);
   }
 
   // Callback from native location state mode element processing.
@@ -1124,7 +1124,7 @@ public class MWMActivity extends NvEventQueueActivity
         findViewById(R.id.map_button_minus));
 
     SearchController.getInstance().onResume();
-    mInfoView.onResume();
+    mPlacePage.onResume();
     tryResumeRouting();
     mLocationPredictor.resume();
     mLikesManager.showLikeDialogs();
@@ -1240,7 +1240,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onBackPressed()
   {
-    if (mInfoView.getState() != State.HIDDEN)
+    if (mPlacePage.getState() != State.HIDDEN)
     {
       hideInfoView();
       Framework.deactivatePopup();
@@ -1314,14 +1314,14 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void run()
         {
-          mInfoView.bringToFront();
+          mPlacePage.bringToFront();
           final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
           final ApiPoint apiPoint = new ApiPoint(name, id, poiType, lat, lon);
 
-          if (!mInfoView.hasMapObject(apiPoint))
+          if (!mPlacePage.hasMapObject(apiPoint))
           {
-            mInfoView.setMapObject(apiPoint);
-            mInfoView.setState(State.PREVIEW_ONLY);
+            mPlacePage.setMapObject(apiPoint);
+            mPlacePage.setState(State.PREVIEW_ONLY);
             mIvStartRouting.setVisibility(View.VISIBLE);
             mPbRoutingProgress.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
@@ -1342,11 +1342,11 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        mInfoView.bringToFront();
-        if (!mInfoView.hasMapObject(poi))
+        mPlacePage.bringToFront();
+        if (!mPlacePage.hasMapObject(poi))
         {
-          mInfoView.setMapObject(poi);
-          mInfoView.setState(State.PREVIEW_ONLY);
+          mPlacePage.setMapObject(poi);
+          mPlacePage.setState(State.PREVIEW_ONLY);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
@@ -1364,12 +1364,12 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        mInfoView.bringToFront();
+        mPlacePage.bringToFront();
         final Bookmark b = BookmarkManager.getBookmarkManager().getBookmark(category, bookmarkIndex);
-        if (!mInfoView.hasMapObject(b))
+        if (!mPlacePage.hasMapObject(b))
         {
-          mInfoView.setMapObject(b);
-          mInfoView.setState(State.PREVIEW_ONLY);
+          mPlacePage.setMapObject(b);
+          mPlacePage.setState(State.PREVIEW_ONLY);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
@@ -1391,11 +1391,11 @@ public class MWMActivity extends NvEventQueueActivity
       {
         if (!Framework.nativeIsRoutingActive())
         {
-          mInfoView.bringToFront();
-          if (!mInfoView.hasMapObject(mypos))
+          mPlacePage.bringToFront();
+          if (!mPlacePage.hasMapObject(mypos))
           {
-            mInfoView.setMapObject(mypos);
-            mInfoView.setState(State.PREVIEW_ONLY);
+            mPlacePage.setMapObject(mypos);
+            mPlacePage.setState(State.PREVIEW_ONLY);
             mIvStartRouting.setVisibility(View.GONE);
             mPbRoutingProgress.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
@@ -1414,12 +1414,12 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        mInfoView.bringToFront();
+        mPlacePage.bringToFront();
         final MapObject sr = new MapObject.SearchResult(name, type, lat, lon);
-        if (!mInfoView.hasMapObject(sr))
+        if (!mPlacePage.hasMapObject(sr))
         {
-          mInfoView.setMapObject(sr);
-          mInfoView.setState(State.PREVIEW_ONLY);
+          mPlacePage.setMapObject(sr);
+          mPlacePage.setState(State.PREVIEW_ONLY);
           mPbRoutingProgress.setVisibility(View.GONE);
           mIvStartRouting.setVisibility(View.VISIBLE);
           if (popFragment() && isMapFaded())
@@ -1431,14 +1431,14 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void hideInfoView()
   {
-    mInfoView.setState(State.HIDDEN);
-    mInfoView.setMapObject(null);
+    mPlacePage.setState(State.HIDDEN);
+    mPlacePage.setMapObject(null);
   }
 
   @Override
   public void onDismiss()
   {
-    if (!mInfoView.hasMapObject(null))
+    if (!mPlacePage.hasMapObject(null))
     {
       runOnUiThread(new Runnable()
       {
@@ -1540,7 +1540,7 @@ public class MWMActivity extends NvEventQueueActivity
       return;
     }
 
-    final MapObject mapObject = mInfoView.getMapObject();
+    final MapObject mapObject = mPlacePage.getMapObject();
     if (mapObject != null)
     {
       mIvStartRouting.setVisibility(View.INVISIBLE);
@@ -1548,7 +1548,7 @@ public class MWMActivity extends NvEventQueueActivity
       Framework.nativeBuildRoute(mapObject.getLat(), mapObject.getLon());
     }
     else
-      Log.d(MWMActivity.class.getName(), "buildRoute(). MapObject is null. MapInfoView visibility : " + mInfoView.getVisibility());
+      Log.d(MWMActivity.class.getName(), "buildRoute(). MapObject is null. MapInfoView visibility : " + mPlacePage.getVisibility());
   }
 
   private void showRoutingDisclaimer()
@@ -1580,7 +1580,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void closeRouting()
   {
-    mInfoView.bringToFront();
+    mPlacePage.bringToFront();
     mRlRoutingBox.clearAnimation();
     UiUtils.hide(mRlRoutingBox, mPbRoutingProgress, mRlTurnByTurnBox);
     mIvStartRouting.setVisibility(View.VISIBLE);
@@ -1598,7 +1598,7 @@ public class MWMActivity extends NvEventQueueActivity
       setVerticalToolbarVisible(false);
       result = true;
     }
-    if (mInfoView.getState() == State.FULL_PLACEPAGE)
+    if (mPlacePage.getState() == State.FULL_PLACEPAGE)
     {
       Framework.deactivatePopup();
       hideInfoView();

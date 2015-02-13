@@ -93,6 +93,13 @@
         android:scaleType="center"
         android:src="@drawable/ic_bookmark_off"/>
 
+    <ProgressBar
+        android:id="@+id/pb__routing_progress"
+        android:layout_width="@dimen/routing_progress_size"
+        android:layout_height="@dimen/routing_progress_size"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/tv__bookmark"
         android:layout_width="wrap_content"

@@ -2,8 +2,10 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
@@ -11,16 +13,21 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 
-public class TopPlacePageAnimationController extends BasePlacePageAnimationController
+public class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
-  public TopPlacePageAnimationController(@NonNull PlacePageView placePage)
+  public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
+    mPreview.bringToFront();
+    mDetails.requestDisallowInterceptTouchEvent(true);
+    mButtons.bringToFront();
+    mButtons.requestDisallowInterceptTouchEvent(true);
   }
 
   @Override
   boolean onInterceptTouchEvent(MotionEvent event)
   {
+    Log.d("TEST", "Intercept! Ev " + event);
     switch (event.getAction())
     {
     case MotionEvent.ACTION_DOWN:
@@ -28,6 +35,9 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
       mDownY = event.getRawY();
       break;
     case MotionEvent.ACTION_MOVE:
+      Log.d("TEST", "Intercept! DownY " + mDownY + "; preview Y " + mPreview.getY() + "; buttons Y " + mButtons.getY());
+      if (mDownY < mPreview.getY() || mDownY > mButtons.getY())
+        return false;
       if (Math.abs(mDownY - event.getRawY()) > mTouchSlop)
         return true;
       break;
@@ -56,7 +66,7 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
         {
           if (!mIsGestureHandled)
           {
-            if (distanceY > 0)
+            if (distanceY < 0)
             {
               if (mPlacePage.getState() == State.FULL_PLACEPAGE)
                 mPlacePage.setState(State.PREVIEW_ONLY);
@@ -81,6 +91,10 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
+        Log.d("TEST", "Detector, tap confirmed. Y " + mDownY + "; preview Y " + mPreview.getY() + "; details Y " + mDetails.getY());
+        if (mDownY < mPreview.getY() && mDownY < mDetails.getY())
+          return false;
+
         if (mPlacePage.getState() == State.FULL_PLACEPAGE)
           mPlacePage.setState(State.PREVIEW_ONLY);
         else
@@ -91,88 +105,77 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
     });
   }
 
-  protected void showPlacePage(final boolean show)
-  {
-    if (mIsPlacePageVisible == show)
-      return; // if state is already same as we need
-
-    TranslateAnimation slide;
-    if (show) // slide up
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, -1, 0);
-      slide.setDuration(SHORT_ANIM_DURATION);
-      UiUtils.show(mDetails);
-      if (mVisibilityChangedListener != null)
-        mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
-    }
-    else // slide down
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
-
-      slide.setDuration(SHORT_ANIM_DURATION);
-      slide.setFillEnabled(true);
-      slide.setFillBefore(true);
-      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          UiUtils.hide(mDetails);
-
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
-        }
-      });
-    }
-    mDetails.startAnimation(slide);
-
-    mIsPlacePageVisible = show;
-  }
-
   protected void showPreview(final boolean show)
   {
+    mPlacePage.setVisibility(View.VISIBLE);
+    mDetails.setVisibility(View.GONE);
     if (mIsPreviewVisible == show)
       return;
 
     TranslateAnimation slide;
     if (show)
     {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, -1, 0);
-      UiUtils.show(mPreview);
-      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPreviewVisibilityChanged(show);
-        }
-      });
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 1, 0);
+      mPreview.setVisibility(View.VISIBLE);
     }
     else
     {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);
       slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
         @Override
         public void onAnimationEnd(Animation animation)
         {
-          UiUtils.hide(mPreview);
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPreviewVisibilityChanged(show);
+          mPlacePage.setVisibility(View.GONE);
         }
       });
     }
     slide.setDuration(SHORT_ANIM_DURATION);
     mPreview.startAnimation(slide);
+    mButtons.startAnimation(slide);
+    if (mVisibilityChangedListener != null)
+      mVisibilityChangedListener.onPreviewVisibilityChanged(show);
+
     mIsPreviewVisible = show;
+  }
+
+  protected void showPlacePage(final boolean show)
+  {
+    mPlacePage.setVisibility(View.VISIBLE);
+    if (mIsPlacePageVisible == show)
+      return; // if state is already same as we need
+
+    TranslateAnimation slide;
+    if (show) // slide up
+    {
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 1, 0);
+      slide.setDuration(SHORT_ANIM_DURATION);
+      mDetails.setVisibility(View.VISIBLE);
+    }
+    else // slide down
+    {
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);
+      slide.setDuration(SHORT_ANIM_DURATION);
+      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          mDetails.setVisibility(View.GONE);
+        }
+      });
+    }
+    mDetails.startAnimation(slide);
+    if (mVisibilityChangedListener != null)
+      mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
+
+    mIsPlacePageVisible = show;
   }
 
   protected void hidePlacePage()
   {
-    final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
+    final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);
     slideDown.setDuration(LONG_ANIM_DURATION);
-
     slideDown.setAnimationListener(new UiUtils.SimpleAnimationListener()
     {
       @Override
@@ -181,8 +184,7 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
         mIsPlacePageVisible = false;
         mIsPreviewVisible = false;
 
-        UiUtils.hide(mPreview);
-        UiUtils.hide(mDetails);
+        mPlacePage.setVisibility(View.GONE);
         if (mVisibilityChangedListener != null)
         {
           mVisibilityChangedListener.onPreviewVisibilityChanged(false);

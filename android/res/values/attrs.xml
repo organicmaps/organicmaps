@@ -4,8 +4,16 @@
     <attr name="progressColor" format="color"/>
     <attr name="secondaryColor" format="color"/>
     <attr name="wheelThickness" format="dimension"/>
-
     <attr name="clickableBackground" format="reference"/>
+  </declare-styleable>
+
+  <declare-styleable name="PlacePageView">
+    <attr name="animationType" format="enum">
+      <enum name="bottom" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="leftTop" value="2"/>
+      <enum name="leftSide" value="3"/>
+    </attr>
   </declare-styleable>
 
   <bool name="isTablet">false</bool>

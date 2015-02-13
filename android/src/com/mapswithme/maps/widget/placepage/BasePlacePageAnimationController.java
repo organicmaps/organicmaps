@@ -3,8 +3,8 @@ package com.mapswithme.maps.widget.placepage;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 
@@ -17,8 +17,9 @@ public abstract class BasePlacePageAnimationController
   protected static final int LONG_ANIM_DURATION = 400;
 
   protected PlacePageView mPlacePage;
-  protected View mPreview;
-  protected View mPlacePageDetails;
+  protected ViewGroup mPreview;
+  protected ViewGroup mDetails;
+  protected ViewGroup mButtons;
   // Gestures
   protected GestureDetectorCompat mGestureDetector;
   protected boolean mIsGestureHandled;
@@ -47,8 +48,9 @@ public abstract class BasePlacePageAnimationController
   public BasePlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     mPlacePage = placePage;
-    mPreview = placePage.findViewById(R.id.preview);
-    mPlacePageDetails = placePage.findViewById(R.id.place_page);
+    mPreview = (ViewGroup) placePage.findViewById(R.id.pp__preview);
+    mDetails = (ViewGroup) placePage.findViewById(R.id.pp__details);
+    mButtons = (ViewGroup) placePage.findViewById(R.id.pp__buttons);
     initGestureDetector();
 
     mTouchSlop = ViewConfiguration.get(mPlacePage.getContext()).getScaledTouchSlop();
@@ -61,9 +63,9 @@ public abstract class BasePlacePageAnimationController
 
   abstract boolean onInterceptTouchEvent(MotionEvent event);
 
-  protected void onTouchEvent(@NonNull MotionEvent event)
+  protected boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    mPlacePage.requestDisallowInterceptTouchEvent(false);
-    mGestureDetector.onTouchEvent(event);
+//    mPlacePage.requestDisallowInterceptTouchEvent(false);
+    return mGestureDetector.onTouchEvent(event);
   }
 }

@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-  <include android:id="@+id/pp__preview"
-      layout="@layout/preview_place_page"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
   <View
       android:layout_width="match_parent"
       android:layout_height="1px"
+      android:layout_below="@+id/pp__preview"
       android:background="?android:attr/listDivider"/>
 
   <include
       android:id="@+id/pp__details"
       layout="@layout/details_place_page"
-      android:visibility="gone"/>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/pp__buttons"
+      android:visibility="visible"/>
 
+  <include
+      android:id="@+id/pp__buttons"
+      layout="@layout/buttons_place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"/>
+
+  <include
+      android:id="@+id/pp__preview"
+      layout="@layout/preview_place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@id/pp__details"/>
 
   <View
       android:layout_width="match_parent"
       android:layout_height="1px"
+      android:layout_above="@id/pp__buttons"
       android:background="?android:attr/listDivider"/>
 
-  <include android:id="@+id/pp__buttons"
-      layout="@layout/buttons_place_page"/>
-
-</LinearLayout>
+</RelativeLayout>
