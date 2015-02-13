@@ -3,7 +3,7 @@
 #include "../coding/file_writer.hpp"
 #include "../base/assert.hpp"
 #include "../base/scope_guard.hpp"
-#include "../../std/string.hpp"
+#include "../std/string.hpp"
 #include "../defines.hpp"
 
 namespace feature

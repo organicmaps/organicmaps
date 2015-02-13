@@ -20,9 +20,6 @@ namespace feature
     class Builder
     {
     public:
-      Builder() = default;
-      ~Builder() = default;
-
       /// Adds offset to the end of the sequence of already
       /// accumulated offsets. Note that offset must be strictly
       /// greater than all previously added offsets.
@@ -60,7 +57,6 @@ namespace feature
     ///         when it's not possible to load FeaturesOffsetsTable.
     static unique_ptr<FeaturesOffsetsTable> Load(FilesMappingContainer const & container);
 
-    ~FeaturesOffsetsTable() = default;
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
 
