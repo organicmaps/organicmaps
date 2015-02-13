@@ -382,6 +382,7 @@ class SecondPassParser : public BaseOSMParser
   }
   //@}
 
+public:
   /// The main entry point for parsing process.
   virtual void EmitElement(XMLElement * p)
   {

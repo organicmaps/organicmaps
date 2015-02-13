@@ -8,6 +8,7 @@
 
 #include "../base/assert.hpp"
 #include "../base/bits.hpp"
+#include "../std/cmath.hpp"
 
 namespace {
   vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)

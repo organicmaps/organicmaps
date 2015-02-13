@@ -2,7 +2,7 @@
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator routing storage indexer platform geometry coding base \
-               osrm gflags expat sgitess jansson protobuf tomcrypt
+               osrm gflags expat sgitess jansson protobuf tomcrypt o5mreader
 
 include($$ROOT_DIR/common.pri)
 
@@ -17,8 +17,6 @@ QT *= core
 
 win32: LIBS *= -lShell32
 macx-*: LIBS *= "-framework Foundation"
-
-LIBS *= -lsqlite3
 
 SOURCES += \
     generator_tool.cpp \

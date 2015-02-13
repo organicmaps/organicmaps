@@ -108,11 +108,11 @@ function merge_coasts() {
   log "TIMEMARK" "Filter coastlines done"
   # Preprocess coastlines to separate intermediate directory
   log "TIMEMARK" "Generate coastlines intermediate"
-  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -preprocess_xml
+  $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -preprocess --osm_file_type=o5m --osm_file_name=$COASTS_FILE
   log "TIMEMARK" "Generate coastlines intermediate done"
   # Generate temporary coastlines file in the coasts intermediate dir
   log "TIMEMARK" "Generate coastlines"
-  $CONVERT_TOOL $COASTS_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -make_coasts -fail_on_coasts=$FAIL_ON_COASTS
+  $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -make_coasts -fail_on_coasts=$FAIL_ON_COASTS --osm_file_type=o5m --osm_file_name=$COASTS_FILE
   log "TIMEMARK" "Generate coastlines done"
 }
 
@@ -163,20 +163,20 @@ fi
 # make a working copy of generated coastlines file
 cp $INTCOASTSDIR/WorldCoasts.mwm.tmp $INTDIR/WorldCoasts.mwm.tmp
 
-NODE_STORAGE=raw
+NODE_STORAGE=mem
 
 if [[ $1 == "--generate" || $1 == "--full" ]]; then
   log "TIMEMARK" "Generate intermediate data"
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
-  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR -node_storage=$NODE_STORAGE -preprocess_xml
+  $GENERATOR_TOOL -intermediate_data_path=$INTDIR -node_storage=$NODE_STORAGE -preprocess --osm_file_type=o5m --osm_file_name=$PLANET_FILE
   log "TIMEMARK" "Generate intermediate data done"
 fi
 
 if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
   # 2nd pass - paralleled in the code
   log "TIMEMARK" "Generate features"
-  $CONVERT_TOOL $PLANET_FILE | $GENERATOR_TOOL -intermediate_data_path=$INTDIR \
-    -node_storage=$NODE_STORAGE -split_by_polygons \
+  $GENERATOR_TOOL -intermediate_data_path=$INTDIR \
+    --osm_file_type=o5m --osm_file_name=$PLANET_FILE -node_storage=$NODE_STORAGE -split_by_polygons \
     -generate_features -generate_world \
     -data_path=$DATA_PATH -emit_coasts
   log "TIMEMARK" "Generate features done"

@@ -12,10 +12,6 @@ class FeatureBuilder1;
 
 namespace feature
 {
-  struct GenerateInfo;
-
-  bool GenerateFeatures(GenerateInfo & info, string const & nodeStorage, string const & osmFileName);
-
   // Writes features to dat file.
   class FeaturesCollector
   {

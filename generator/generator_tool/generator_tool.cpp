@@ -1,4 +1,3 @@
-#include "../data_generator.hpp"
 #include "../feature_generator.hpp"
 #include "../feature_sorter.hpp"
 #include "../update_generator.hpp"
@@ -10,6 +9,7 @@
 #include "../generate_info.hpp"
 #include "../check_model.hpp"
 #include "../routing_generator.hpp"
+#include "../osm_source.hpp"
 
 #include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/classificator_loader.hpp"
@@ -35,7 +35,7 @@ DEFINE_bool(generate_update, false,
 
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 
-DEFINE_bool(preprocess_xml, false, "1st pass - create nodes/ways/relations data");
+DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data");
 DEFINE_bool(make_coasts, false, "create intermediate file with coasts data");
 DEFINE_bool(emit_coasts, false, "push coasts features from intermediate file to out files/countries");
 
@@ -44,7 +44,7 @@ DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry an
 DEFINE_bool(generate_index, false, "4rd pass - generate index");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index");
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files");
-DEFINE_string(node_storage, "raw", "Type of storage for intermediate points representation. Available: raw, map, sqlite, mem");
+DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem");
 DEFINE_string(data_path, "", "Working directory, 'path_to_exe/../../data' if empty.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
@@ -65,6 +65,7 @@ DEFINE_string(address_file_name, "", "Output file name for storing full addresse
 DEFINE_string(export_poly_path, "", "Output dir for osm .poly files created from .borders (countires are read from polygons.lst)");
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
 DEFINE_string(osm_file_name, "", "Input osm area file");
+DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 
 
@@ -101,10 +102,10 @@ int main(int argc, char ** argv)
       FLAGS_data_path.empty() ? pl.WritableDir() : AddSlashIfNeeded(FLAGS_data_path);
 
   // Generating intermediate files
-  if (FLAGS_preprocess_xml)
+  if (FLAGS_preprocess)
   {
     LOG(LINFO, ("Generating intermediate data ...."));
-    if (!data::GenerateToFile(FLAGS_intermediate_data_path, FLAGS_node_storage, FLAGS_osm_file_name))
+    if (!GenerateIntermediateData(FLAGS_intermediate_data_path, FLAGS_node_storage, FLAGS_osm_file_type, FLAGS_osm_file_name))
       return -1;
   }
 
@@ -148,7 +149,7 @@ int main(int argc, char ** argv)
     if (!FLAGS_address_file_name.empty())
       genInfo.m_addressFile = path + FLAGS_address_file_name;
 
-    if (!feature::GenerateFeatures(genInfo, FLAGS_node_storage, FLAGS_osm_file_name))
+    if (!GenerateFeatures(genInfo, FLAGS_node_storage, FLAGS_osm_file_type, FLAGS_osm_file_name))
       return -1;
 
     // without --spit_by_polygons, we have empty name country as result - assign it

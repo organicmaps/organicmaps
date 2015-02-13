@@ -34,6 +34,9 @@ struct XMLElement
   vector<XMLElement> childs;
 
   void AddKV(string const & k, string const & v);
+  void AddND(uint64_t ref);
+  void AddMEMBER(uint64_t ref, string const & type, string const & role);
+
 };
 
 class BaseOSMParser
@@ -53,10 +56,8 @@ public:
   void Pop(string const &);
   void CharData(string const &) {}
 
+  virtual void EmitElement(XMLElement * p) = 0;
+
 protected:
   bool MatchTag(string const & tagName, XMLElement::ETag & tagKey);
-  virtual void EmitElement(XMLElement * p) = 0;
 };
-
-void ParseXMLFromStdIn(BaseOSMParser & parser);
-void ParseXMLFromFile(BaseOSMParser & parser, string const & osmFileName);

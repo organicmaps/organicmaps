@@ -18,6 +18,29 @@ void XMLElement::AddKV(string const & k, string const & v)
   e.parent = this;
 }
 
+void XMLElement::AddND(uint64_t ref)
+{
+  childs.push_back(XMLElement());
+  XMLElement & e = childs.back();
+
+  e.tagKey = ET_ND;
+  e.ref = ref;
+  e.parent = this;
+}
+
+void XMLElement::AddMEMBER(uint64_t ref, string const & type, string const & role)
+{
+  childs.push_back(XMLElement());
+  XMLElement & e = childs.back();
+
+  e.tagKey = ET_MEMBER;
+  e.ref = ref;
+  e.type = type;
+  e.role = role;
+  e.parent = this;
+}
+
+
 void BaseOSMParser::AddAttr(string const & key, string const & value)
 {
   if (m_current)
@@ -100,47 +123,4 @@ void BaseOSMParser::Pop(string const &)
     EmitElement(m_current);
     (*m_current) = XMLElement();
   }
-}
-
-namespace
-{
-  struct StdinReader
-  {
-    uint64_t Read(char * buffer, uint64_t bufferSize)
-    {
-      return fread(buffer, sizeof(char), bufferSize, stdin);
-    }
-  };
-
-  struct FileReader
-  {
-    FILE * m_file;
-
-    FileReader(string const & filename)
-    {
-      m_file = fopen(filename.c_str(), "rb");
-    }
-
-    ~FileReader()
-    {
-      fclose(m_file);
-    }
-
-    uint64_t Read(char * buffer, uint64_t bufferSize)
-    {
-      return fread(buffer, sizeof(char), bufferSize, m_file);
-    }
-  };
-}
-
-void ParseXMLFromStdIn(BaseOSMParser & parser)
-{
-  StdinReader reader;
-  (void)ParseXMLSequence(reader, parser);
-}
-
-void ParseXMLFromFile(BaseOSMParser & parser, string const & osmFileName)
-{
-  FileReader reader(osmFileName);
-  (void)ParseXMLSequence(reader, parser);
 }

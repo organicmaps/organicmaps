@@ -17,7 +17,7 @@ namespace stream
     SinkReaderStream(TReader & reader) : m_reader(reader) {}
 
     template <typename T>
-    typename enable_if<is_integral<T>, SinkReaderStream &>::type
+    typename enable_if<is_integral<T>::value, SinkReaderStream &>::type
     operator >> (T & t)
     {
       t = ReadPrimitiveFromSource<T>(m_reader);
@@ -53,7 +53,7 @@ namespace stream
     SinkWriterStream(TWriter & writer) : m_writer(writer) {}
 
     template <typename T>
-    typename enable_if<is_integral<T>, SinkWriterStream &>::type
+    typename enable_if<is_integral<T>::value, SinkWriterStream &>::type
     operator << (T const & t)
     {
       WriteToSink(m_writer, t);

@@ -21,4 +21,8 @@ mkdir $OUT_DIR || true
 
 $GENERATOR_TOOL -export_poly_path $POLY_FILES_PATH
 
-ls $POLY_FILES_PATH | parallel -t -v "$OSMCONVERT_TOOL $PLANET_FILE --hash-memory=2000 -B=$POLY_FILES_PATH/{} --complex-ways --out-pbf -o=$OUT_DIR/{.}.pbf"
+EXT=.poly 
+NUM_INSTANCES=8
+
+COUNTRY_LIST=${COUNTRY_LIST-$(ls -1 $POLY_FILES_PATH/*$EXT | xargs -d "\n" basename -s $EXT)}
+echo "$COUNTRY_LIST" | xargs -d "\n" -P $NUM_INSTANCES -I % $OSMCONVERT_TOOL $PLANET_FILE --hash-memory=2000 -B=$POLY_FILES_PATH/%.poly --complex-ways --out-pbf -o=$OUT_DIR/%.pbf &>~/split_planet_osmconvert.log

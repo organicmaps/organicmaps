@@ -14,18 +14,18 @@
 #endif
 #endif
 
-#include <boost/type_traits.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 
-using boost::enable_if;
+using std::enable_if;
+using std::conditional;
 
-using boost::is_same;
-using boost::make_signed;
-using boost::make_unsigned;
-using boost::is_signed;
-using boost::is_unsigned;
-using boost::is_floating_point;
-using boost::is_integral;
+using std::is_same;
+using std::make_signed;
+using std::make_unsigned;
+using std::is_signed;
+using std::is_unsigned;
+using std::is_floating_point;
+using std::is_integral;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

@@ -16,7 +16,7 @@ QT *= core
 SOURCES += \
     feature_merger.cpp \
     xml_element.cpp \
-    data_generator.cpp \
+    osm_source.cpp \
     feature_generator.cpp \
     feature_sorter.cpp \
     update_generator.cpp \
