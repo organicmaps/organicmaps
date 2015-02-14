@@ -17,6 +17,8 @@ public:
 
   virtual dp::OGLContext * getDrawContext();
   virtual dp::OGLContext * getResourcesUploadContext();
+  virtual bool isDrawContextCreated() const;
+  virtual bool isUploadContextCreated() const;
 
   int GetWidth() const;
   int GetHeight() const;

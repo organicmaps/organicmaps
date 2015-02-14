@@ -367,7 +367,7 @@ namespace qt
     TBase::mouseMoveEvent(e);
 
     m2::PointD const pt = GetDevicePoint(e);
-    if (!pt.EqualDxDy(m_taskPoint, df::VisualParams::Instance().GetVisualScale() * 10.0))
+    if (!pt.EqualDxDy(m_taskPoint, m_ratio * 10.0))
     {
       // moved far from start point - do not show balloon
       m_isCleanSingleClick = false;

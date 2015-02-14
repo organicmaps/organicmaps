@@ -12,7 +12,6 @@ iosOGLContextFactory::~iosOGLContextFactory()
   delete m_uploadContext;
 }
 
-
 dp::OGLContext * iosOGLContextFactory::getDrawContext()
 {
   if (m_drawContext == NULL)
@@ -25,4 +24,14 @@ dp::OGLContext * iosOGLContextFactory::getResourcesUploadContext()
   if (m_uploadContext == NULL)
     m_uploadContext = new iosOGLContext(m_layer, m_drawContext, false);
   return m_uploadContext;
+}
+
+bool iosOGLContextFactory::isDrawContextCreated() const
+{
+  return m_drawContext != nullptr;
+}
+
+bool iosOGLContextFactory::isUploadContextCreated() const
+{
+  return m_uploadContext != nullptr;
 }

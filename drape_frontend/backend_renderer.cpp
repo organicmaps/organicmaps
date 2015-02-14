@@ -150,6 +150,7 @@ void BackendRenderer::InitGLDependentResource()
 
 void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)
 {
+  GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, message);
 }
 

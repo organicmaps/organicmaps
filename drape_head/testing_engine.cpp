@@ -257,9 +257,9 @@ TestingEngine::TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfac
   : m_contextFactory(oglcontextfactory)
   , m_viewport(viewport)
 {
-  GLFunctions::Init();
-  df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
   m_contextFactory->getDrawContext()->makeCurrent();
+  df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
+  GLFunctions::Init();
 
   dp::TextureManager::Params params;
   params.m_resPrefix = VisualParams::Instance().GetResourcePostfix();

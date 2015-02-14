@@ -155,6 +155,16 @@ dp::OGLContext * AndroidOGLContextFactory::getResourcesUploadContext()
   return m_uploadContext;
 }
 
+bool AndroidOGLContextFactory::isDrawContextCreated() const
+{
+  return m_drawContext != NULL;
+}
+
+bool AndroidOGLContextFactory::isUploadContextCreated() const
+{
+  return m_uploadContext != NULL;
+}
+
 bool AndroidOGLContextFactory::createWindowSurface()
 {
   EGLConfig configs[40];

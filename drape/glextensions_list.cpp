@@ -24,6 +24,11 @@ namespace dp
         m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
     }
 
+    void SetExtension(GLExtensionsList::ExtensionName const & enumName, bool isSupported)
+    {
+      m_supportedMap[enumName] = isSupported;
+    }
+
     bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
     {
       map<GLExtensionsList::ExtensionName, bool>::const_iterator it = m_supportedMap.find(enumName);
@@ -53,6 +58,12 @@ namespace dp
         m_supported.insert(enumName);
     }
 
+    void SetExtension(GLExtensionsList::ExtensionName const & enumName, bool isSupported)
+    {
+      if (isSupported)
+        m_supported.insert(enumName);
+    }
+
     bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
     {
       if (m_supported.find(enumName) != m_supported.end())
@@ -71,14 +82,19 @@ GLExtensionsList::GLExtensionsList()
 {
 #if defined(OMIM_OS_MOBILE)
   m_impl->CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
-  m_impl->CheckExtension(TextureNPOT, "GL_OES_texture_npot");
   m_impl->CheckExtension(RequiredInternalFormat, "GL_OES_required_internalformat");
+  m_impl->CheckExtension(TextureNPOT, "GL_OES_texture_npot");
   m_impl->CheckExtension(MapBuffer, "GL_OES_mapbuffer");
+#elif defined(OMIM_OS_WINDOWS)
+  m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
+  m_impl->SetExtension(VertexArrayObject, false);
+  m_impl->SetExtension(RequiredInternalFormat, false);
+  m_impl->SetExtension(MapBuffer, true);
 #else
   m_impl->CheckExtension(VertexArrayObject, "GL_APPLE_vertex_array_object");
   m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
-  m_impl->CheckExtension(RequiredInternalFormat, "GL_OES_required_internalformat");
-  m_impl->CheckExtension(MapBuffer, "GL_OES_mapbuffer");
+  m_impl->SetExtension(RequiredInternalFormat, false);
+  m_impl->SetExtension(MapBuffer, true);
 #endif
 }
 

@@ -1,13 +1,14 @@
 #include "drape/glfunctions.hpp"
 #include "drape/glIncludes.hpp"
+#include "drape/glextensions_list.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/mutex.hpp"
 
 #ifdef DEBUG
 #include "base/thread.hpp"
-#include "base/mutex.hpp"
 #include "std/map.hpp"
 #endif
 
@@ -15,11 +16,11 @@
 #include "std/atomic.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
-#define APIENTRY __stdcall
+#define DP_APIENTRY __stdcall
 #elif defined(OMIM_OS_ANDROID)
-#define APIENTRY __NDK_FPABI__
+#define DP_APIENTRY __NDK_FPABI__
 #else
-#define APIENTRY
+#define DP_APIENTRY
 #endif
 
 namespace
@@ -37,91 +38,160 @@ namespace
     return (v == true) ? GL_TRUE : GL_FALSE;
   }
 
-  void (APIENTRY *glClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                      = NULL;
-  void (APIENTRY *glClearFn)(GLbitfield mask)                                                                      = NULL;
-  void (APIENTRY *glViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h)                                            = NULL;
-  void (APIENTRY *glFlushFn)()                                                                                     = NULL;
+  typedef void (DP_APIENTRY *TglClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a);
+  typedef void (DP_APIENTRY *TglClearFn)(GLbitfield mask);
+  typedef void (DP_APIENTRY *TglViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h);
+  typedef void (DP_APIENTRY *TglFlushFn)();
 
-  void (APIENTRY *glBindFramebufferFn)(GLenum target, GLuint id)                                                   = NULL;
+  typedef void (DP_APIENTRY *TglBindFramebufferFn)(GLenum target, GLuint id);
+  typedef void (DP_APIENTRY *TglActiveTextureFn)(GLenum texture);
+  typedef void (DP_APIENTRY *TglBlendEquationFn)(GLenum mode);
+
+  typedef void (DP_APIENTRY *TglGenVertexArraysFn)(GLsizei n, GLuint * ids);
+  typedef void (DP_APIENTRY *TglBindVertexArrayFn)(GLuint id);
+  typedef void (DP_APIENTRY *TglDeleteVertexArrayFn)(GLsizei n, GLuint const * ids);
+
+  typedef void (DP_APIENTRY *TglGetBufferParameterFn)(GLenum target, GLenum value, GLint * data);
+  typedef void (DP_APIENTRY *TglGenBuffersFn)(GLsizei n, GLuint * buffers);
+  typedef void (DP_APIENTRY *TglBindBufferFn)(GLenum target, GLuint buffer);
+  typedef void (DP_APIENTRY *TglDeleteBuffersFn)(GLsizei n, GLuint const * buffers);
+  typedef void (DP_APIENTRY *TglBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data, GLenum usage);
+  typedef void (DP_APIENTRY *TglBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data);
+  typedef void * (DP_APIENTRY *TglMapBufferFn)(GLenum target, GLenum access);
+  typedef GLboolean(DP_APIENTRY *TglUnmapBufferFn)(GLenum target);
+
+  typedef GLuint(DP_APIENTRY *TglCreateShaderFn)(GLenum type);
+  typedef void (DP_APIENTRY *TglShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
+  typedef void (DP_APIENTRY *TglCompileShaderFn)(GLuint shaderID);
+  typedef void (DP_APIENTRY *TglDeleteShaderFn)(GLuint shaderID);
+  typedef void (DP_APIENTRY *TglGetShaderivFn)(GLuint shaderID, GLenum name, GLint * p);
+  typedef void (DP_APIENTRY *TglGetShaderInfoLogFn)(GLuint shaderID, GLsizei maxLength, GLsizei * length, GLchar * infoLog);
+
+  typedef GLuint(DP_APIENTRY *TglCreateProgramFn)();
+  typedef void (DP_APIENTRY *TglAttachShaderFn)(GLuint programID, GLuint shaderID);
+  typedef void (DP_APIENTRY *TglDetachShaderFn)(GLuint programID, GLuint shaderID);
+  typedef void (DP_APIENTRY *TglLinkProgramFn)(GLuint programID);
+  typedef void (DP_APIENTRY *TglDeleteProgramFn)(GLuint programID);
+  typedef void (DP_APIENTRY *TglGetProgramivFn)(GLuint programID, GLenum name, GLint * p);
+  typedef void (DP_APIENTRY *TglGetProgramInfoLogFn)(GLuint programID, GLsizei maxLength, GLsizei * length, GLchar * infoLog);
+
+  typedef void  (DP_APIENTRY *TglUseProgramFn)(GLuint programID);
+  typedef GLint (DP_APIENTRY *TglGetAttribLocationFn)(GLuint program, GLchar const * name);
+  typedef void  (DP_APIENTRY *TglBindAttribLocationFn)(GLuint program, GLuint index, GLchar const * name);
+
+  typedef void (DP_APIENTRY *TglEnableVertexAttributeFn)(GLuint location);
+  typedef void (DP_APIENTRY *TglVertexAttributePointerFn)(GLuint index, GLint count, GLenum type, GLboolean normalize,
+                                                          GLsizei stride, GLvoid const * p);
+  typedef GLint(DP_APIENTRY *TglGetUniformLocationFn)(GLuint programID, GLchar const * name);
+  typedef void (DP_APIENTRY *TglGetActiveUniformFn)(GLuint programID, GLuint uniformIndex, GLsizei bufSize, GLsizei * length,
+                                                    GLint * size, GLenum * type, GLchar * name);
+  typedef void (DP_APIENTRY *TglUniform1iFn)(GLint location, GLint value);
+  typedef void (DP_APIENTRY *TglUniform2iFn)(GLint location, GLint v1, GLint v2);
+  typedef void (DP_APIENTRY *TglUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3);
+  typedef void (DP_APIENTRY *TglUniform4iFn)(GLint location, GLint v1, GLint v2, GLint v3, GLint v4);
+  typedef void (DP_APIENTRY *TglUniform1ivFn)(GLint location, GLsizei count, GLint const * value);
+  typedef void (DP_APIENTRY *TglUniform1fFn)(GLint location, GLfloat value);
+  typedef void (DP_APIENTRY *TglUniform2fFn)(GLint location, GLfloat v1, GLfloat v2);
+  typedef void (DP_APIENTRY *TglUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3);
+  typedef void (DP_APIENTRY *TglUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4);
+  typedef void (DP_APIENTRY *TglUniform1fvFn)(GLint location, GLsizei count, GLfloat const * value);
+  typedef void (DP_APIENTRY *TglUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, GLfloat const * value);
+
+  TglClearColorFn glClearColorFn = nullptr;
+  TglClearFn glClearFn = nullptr;
+  TglViewportFn glViewportFn = nullptr;
+  TglFlushFn glFlushFn = nullptr;
+
+  TglBindFramebufferFn glBindFramebufferFn = nullptr;
+  TglActiveTextureFn glActiveTextureFn = nullptr;
+  TglBlendEquationFn glBlendEquationFn = nullptr;
 
   /// VAO
-  void (APIENTRY *glGenVertexArraysFn)(GLsizei n, GLuint * ids)                                                    = NULL;
-  void (APIENTRY *glBindVertexArrayFn)(GLuint id)                                                                  = NULL;
-  void (APIENTRY *glDeleteVertexArrayFn)(GLsizei n, GLuint const * ids)                                            = NULL;
+  TglGenVertexArraysFn glGenVertexArraysFn = nullptr;
+  TglBindVertexArrayFn glBindVertexArrayFn = nullptr;
+  TglDeleteVertexArrayFn glDeleteVertexArrayFn = nullptr;
 
   /// VBO
-  void (APIENTRY *glGenBuffersFn)(GLsizei n, GLuint * buffers)                                                     = NULL;
-  void (APIENTRY *glBindBufferFn)(GLenum target, GLuint buffer)                                                    = NULL;
-  void (APIENTRY *glDeleteBuffersFn)(GLsizei n, GLuint const * buffers)                                            = NULL;
-  void (APIENTRY *glBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data, GLenum usage)               = NULL;
-  void (APIENTRY *glBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data)         = NULL;
-  void * (APIENTRY *glMapBufferFn)(GLenum target, GLenum access)                                                   = NULL;
-  GLboolean (APIENTRY *glUnmapBufferFn)(GLenum target)                                                             = NULL;
-
+  TglGetBufferParameterFn glGetBufferParameterFn = nullptr;
+  TglGenBuffersFn glGenBuffersFn = nullptr;
+  TglBindBufferFn glBindBufferFn = nullptr;
+  TglDeleteBuffersFn glDeleteBuffersFn = nullptr;
+  TglBufferDataFn glBufferDataFn = nullptr;
+  TglBufferSubDataFn glBufferSubDataFn = nullptr;
+  TglMapBufferFn glMapBufferFn = nullptr;
+  TglUnmapBufferFn glUnmapBufferFn = nullptr;
 
   /// Shaders
-  GLuint (APIENTRY *glCreateShaderFn)(GLenum type)                                                                 = NULL;
-  void (APIENTRY *glShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length)  = NULL;
-  void (APIENTRY *glCompileShaderFn)(GLuint shaderID)                                                              = NULL;
-  void (APIENTRY *glDeleteShaderFn)(GLuint shaderID)                                                               = NULL;
-  void (APIENTRY *glGetShaderivFn)(GLuint shaderID, GLenum name, GLint * p)                                        = NULL;
-  void (APIENTRY *glGetShaderInfoLogFn)(GLuint shaderID, GLsizei maxLength, GLsizei * length, GLchar * infoLog)    = NULL;
+  TglCreateShaderFn glCreateShaderFn = nullptr;
+  TglShaderSourceFn glShaderSourceFn = nullptr;
+  TglCompileShaderFn glCompileShaderFn = nullptr;
+  TglDeleteShaderFn glDeleteShaderFn = nullptr;
+  TglGetShaderivFn glGetShaderivFn = nullptr;
+  TglGetShaderInfoLogFn glGetShaderInfoLogFn = nullptr;
 
-  GLuint (APIENTRY *glCreateProgramFn)()                                                                           = NULL;
-  void (APIENTRY *glAttachShaderFn)(GLuint programID, GLuint shaderID)                                             = NULL;
-  void (APIENTRY *glDetachShaderFn)(GLuint programID, GLuint shaderID)                                             = NULL;
-  void (APIENTRY *glLinkProgramFn)(GLuint programID)                                                               = NULL;
-  void (APIENTRY *glDeleteProgramFn)(GLuint programID)                                                             = NULL;
-  void (APIENTRY *glGetProgramivFn)(GLuint programID, GLenum name, GLint * p)                                      = NULL;
-  void (APIENTRY *glGetProgramInfoLogFn)(GLuint programID, GLsizei maxLength, GLsizei * length, GLchar * infoLog)  = NULL;
+  TglCreateProgramFn glCreateProgramFn = nullptr;
+  TglAttachShaderFn glAttachShaderFn = nullptr;
+  TglDetachShaderFn glDetachShaderFn = nullptr;
+  TglLinkProgramFn glLinkProgramFn = nullptr;
+  TglDeleteProgramFn glDeleteProgramFn = nullptr;
+  TglGetProgramivFn glGetProgramivFn = nullptr;
+  TglGetProgramInfoLogFn glGetProgramInfoLogFn = nullptr;
 
-  void (APIENTRY *glUseProgramFn)(GLuint programID)                                                                = NULL;
-  GLint (APIENTRY *glGetAttribLocationFn)(GLuint program, GLchar const * name)                                     = NULL;
-  void (APIENTRY *glBindAttribLocationFn)(GLuint program, GLuint index, GLchar const * name)                       = NULL;
+  TglUseProgramFn glUseProgramFn = nullptr;
+  TglGetAttribLocationFn glGetAttribLocationFn = nullptr;
+  TglBindAttribLocationFn glBindAttribLocationFn = nullptr;
 
-  void (APIENTRY *glEnableVertexAttributeFn)(GLuint location)                                                      = NULL;
-  void (APIENTRY *glVertexAttributePointerFn)(GLuint index,
-                                              GLint count,
-                                              GLenum type,
-                                              GLboolean normalize,
-                                              GLsizei stride,
-                                              GLvoid const * p)                                                    = NULL;
-
-  GLint (APIENTRY *glGetUniformLocationFn)(GLuint programID, GLchar const * name)                                  = NULL;
-
-  void (APIENTRY *glGetActiveUniformFn)(GLuint programID,
-                                        GLuint uniformIndex,
-                                        GLsizei bufSize,
-                                        GLsizei * length,
-                                        GLint * size,
-                                        GLenum * type,
-                                        GLchar * name)                                                             = NULL;
-
-  void (APIENTRY *glUniform1iFn)(GLint location, GLint value)                                                      = NULL;
-  void (APIENTRY *glUniform2iFn)(GLint location, GLint v1, GLint v2)                                               = NULL;
-  void (APIENTRY *glUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3)                                     = NULL;
-  void (APIENTRY *glUniform4iFn)(GLint location, GLint v1, GLint v2, GLint v3, GLint v4)                           = NULL;
-  void (APIENTRY *glUniform1ivFn)(GLint location, GLsizei count, GLint const * value)                              = NULL;
-
-  void (APIENTRY *glUniform1fFn)(GLint location, GLfloat value)                                                    = NULL;
-  void (APIENTRY *glUniform2fFn)(GLint location, GLfloat v1, GLfloat v2)                                           = NULL;
-  void (APIENTRY *glUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3)                               = NULL;
-  void (APIENTRY *glUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4)                   = NULL;
-  void (APIENTRY *glUniform1fvFn)(GLint location, GLsizei count, GLfloat const * value)                            = NULL;
-
-  void (APIENTRY *glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, GLfloat const * value) = NULL;
+  TglEnableVertexAttributeFn glEnableVertexAttributeFn = nullptr;
+  TglVertexAttributePointerFn glVertexAttributePointerFn = nullptr;
+  TglGetUniformLocationFn glGetUniformLocationFn = nullptr;
+  TglGetActiveUniformFn glGetActiveUniformFn = nullptr;
+  TglUniform1iFn glUniform1iFn = nullptr;
+  TglUniform2iFn glUniform2iFn = nullptr;
+  TglUniform3iFn glUniform3iFn = nullptr;
+  TglUniform4iFn glUniform4iFn = nullptr;
+  TglUniform1ivFn glUniform1ivFn = nullptr;
+  TglUniform1fFn glUniform1fFn = nullptr;
+  TglUniform2fFn glUniform2fFn = nullptr;
+  TglUniform3fFn glUniform3fFn = nullptr;
+  TglUniform4fFn glUniform4fFn = nullptr;
+  TglUniform1fvFn glUniform1fvFn = nullptr;
+  TglUniformMatrix4fvFn glUniformMatrix4fvFn = nullptr;
 
   int const GLCompileStatus = GL_COMPILE_STATUS;
   int const GLLinkStatus = GL_LINK_STATUS;
 
-  atomic_flag s_inited = ATOMIC_FLAG_INIT;
+  threads::Mutex s_mutex;
+  bool s_inited = false;
 }
+
+#ifdef OMIM_OS_WINDOWS
+
+template <typename TFunc>
+TFunc LoadExtension(string const & ext)
+{
+  TFunc func = reinterpret_cast<TFunc>(wglGetProcAddress(ext.c_str()));
+  if (func == nullptr)
+  {
+    func = reinterpret_cast<TFunc>(wglGetProcAddress((ext + "EXT").c_str()));
+    ASSERT(func, ());
+  }
+
+  return func;
+}
+
+  #define LOAD_GL_FUNC(type, func) LoadExtension<type>(#func);
+#else
+  #define LOAD_GL_FUNC(type, func) &::func
+#endif
+
 
 void GLFunctions::Init()
 {
-  if (s_inited.test_and_set())
+  threads::MutexGuard g(s_mutex);
+  if (s_inited)
     return;
 
+  s_inited = true;
   /// VAO
 #if defined(OMIM_OS_MAC)
   glGenVertexArraysFn = &glGenVertexArraysAPPLE;
@@ -136,12 +206,9 @@ void GLFunctions::Init()
   glMapBufferFn = &::glMapBuffer;  // I don't know correct name for linux!
   glUnmapBufferFn = &::glUnmapBuffer; // I don't know correct name for linux!
 #elif defined(OMIM_OS_ANDROID)
-  typedef void (APIENTRY *glGenVertexArraysType)(GLsizei n, GLuint * arrays);
-  typedef void (APIENTRY *glBindVertexArrayType)(GLuint array);
-  typedef void (APIENTRY *glDeleteVertexArrayType)(GLsizei n, GLuint const * ids);
-  glGenVertexArraysFn = (glGenVertexArraysType)eglGetProcAddress("glGenVertexArraysOES");
-  glBindVertexArrayFn = (glBindVertexArrayType)eglGetProcAddress("glBindVertexArrayOES");
-  glDeleteVertexArrayFn = (glDeleteVertexArrayType)eglGetProcAddress("glDeleteVertexArraysOES");
+  glGenVertexArraysFn = (TglGenVertexArraysFn)eglGetProcAddress("glGenVertexArraysOES");
+  glBindVertexArrayFn = (TglBindVertexArrayFn)eglGetProcAddress("glBindVertexArrayOES");
+  glDeleteVertexArrayFn = (TglDeleteVertexArrayFn)eglGetProcAddress("glDeleteVertexArraysOES");
   glMapBufferFn = &::glMapBufferOES;
   glUnmapBufferFn = &::glUnmapBufferOES;
 #elif defined(OMIM_OS_MOBILE)
@@ -150,69 +217,90 @@ void GLFunctions::Init()
   glDeleteVertexArrayFn = &glDeleteVertexArraysOES;
   glMapBufferFn = &::glMapBufferOES;
   glUnmapBufferFn = &::glUnmapBufferOES;
-#endif
+#elif defined(OMIM_OS_WINDOWS)
+  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  {
+    glGenVertexArraysFn = LOAD_GL_FUNC(TglGenVertexArraysFn, glGenVertexArrays);
+    glBindVertexArrayFn = LOAD_GL_FUNC(TglBindVertexArrayFn, glBindVertexArray);
+    glDeleteVertexArrayFn = LOAD_GL_FUNC(TglDeleteVertexArrayFn, glDeleteVertexArrays);
+  }
 
-  glBindFramebufferFn = &::glBindFramebuffer;
+  glMapBufferFn = LOAD_GL_FUNC(TglMapBufferFn, glMapBuffer);
+  glUnmapBufferFn = LOAD_GL_FUNC(TglUnmapBufferFn, glUnmapBuffer);
+#endif
 
   glClearColorFn = &::glClearColor;
   glClearFn = &::glClear;
   glViewportFn = &::glViewport;
   glFlushFn = &::glFlush;
 
+  glBindFramebufferFn = LOAD_GL_FUNC(TglBindFramebufferFn, glBindFramebuffer);
+  glActiveTextureFn = LOAD_GL_FUNC(TglActiveTextureFn, glActiveTexture);
+  glBlendEquationFn = LOAD_GL_FUNC(TglBlendEquationFn, glBlendEquation);
+
   /// VBO
-  glGenBuffersFn = &::glGenBuffers;
-  glBindBufferFn = &::glBindBuffer;
-  glDeleteBuffersFn = &::glDeleteBuffers;
-  glBufferDataFn = &::glBufferData;
-  glBufferSubDataFn = &::glBufferSubData;
+  glGetBufferParameterFn = LOAD_GL_FUNC(TglGetBufferParameterFn, glGetBufferParameteriv);
+  glGenBuffersFn = LOAD_GL_FUNC(TglGenBuffersFn, glGenBuffers);
+  glBindBufferFn = LOAD_GL_FUNC(TglBindBufferFn, glBindBuffer);
+  glDeleteBuffersFn = LOAD_GL_FUNC(TglDeleteBuffersFn, glDeleteBuffers);
+  glBufferDataFn = LOAD_GL_FUNC(TglBufferDataFn, glBufferData);
+  glBufferSubDataFn = LOAD_GL_FUNC(TglBufferSubDataFn, glBufferSubData);
 
   /// Shaders
-  glCreateShaderFn = &::glCreateShader;
-  typedef void (APIENTRY *glShaderSource_Type)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
+  glCreateShaderFn = LOAD_GL_FUNC(TglCreateShaderFn, glCreateShader);
+#ifdef OMIM_OS_WINDOWS
+  glShaderSourceFn = LOAD_GL_FUNC(TglShaderSourceFn, glShaderSource);
+#else
+  typedef void (DP_APIENTRY *glShaderSource_Type)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
   glShaderSourceFn = reinterpret_cast<glShaderSource_Type>(&::glShaderSource);
-  glCompileShaderFn = &::glCompileShader;
-  glDeleteShaderFn = &::glDeleteShader;
-  glGetShaderivFn = &::glGetShaderiv;
-  glGetShaderInfoLogFn = &::glGetShaderInfoLog;
+#endif`
+  glCompileShaderFn = LOAD_GL_FUNC(TglCompileShaderFn, glCompileShader);
+  glDeleteShaderFn = LOAD_GL_FUNC(TglDeleteShaderFn, glDeleteShader);
+  glGetShaderivFn = LOAD_GL_FUNC(TglGetShaderivFn, glGetShaderiv);
+  glGetShaderInfoLogFn = LOAD_GL_FUNC(TglGetShaderInfoLogFn, glGetShaderInfoLog);
 
-  glCreateProgramFn = &::glCreateProgram;
-  glAttachShaderFn = &::glAttachShader;
-  glDetachShaderFn = &::glDetachShader;
-  glLinkProgramFn = &::glLinkProgram;
-  glDeleteProgramFn = &::glDeleteProgram;
-  glGetProgramivFn = &::glGetProgramiv;
-  glGetProgramInfoLogFn = &::glGetProgramInfoLog;
+  glCreateProgramFn = LOAD_GL_FUNC(TglCreateProgramFn, glCreateProgram);
+  glAttachShaderFn = LOAD_GL_FUNC(TglAttachShaderFn, glAttachShader);
+  glDetachShaderFn = LOAD_GL_FUNC(TglDetachShaderFn, glDetachShader);
+  glLinkProgramFn = LOAD_GL_FUNC(TglLinkProgramFn, glLinkProgram);
+  glDeleteProgramFn = LOAD_GL_FUNC(TglDeleteProgramFn, glDeleteProgram);
+  glGetProgramivFn = LOAD_GL_FUNC(TglGetProgramivFn, glGetProgramiv);
+  glGetProgramInfoLogFn = LOAD_GL_FUNC(TglGetProgramInfoLogFn, glGetProgramInfoLog);
 
-  glUseProgramFn = &::glUseProgram;
-  glGetAttribLocationFn = &::glGetAttribLocation;
-  glBindAttribLocationFn = &::glBindAttribLocation;
+  glUseProgramFn = LOAD_GL_FUNC(TglUseProgramFn, glUseProgram);
+  glGetAttribLocationFn = LOAD_GL_FUNC(TglGetAttribLocationFn, glGetAttribLocation);
+  glBindAttribLocationFn = LOAD_GL_FUNC(TglBindAttribLocationFn, glBindAttribLocation);
 
-  glEnableVertexAttributeFn = &::glEnableVertexAttribArray;
-  glVertexAttributePointerFn = &::glVertexAttribPointer;
+  glEnableVertexAttributeFn = LOAD_GL_FUNC(TglEnableVertexAttributeFn, glEnableVertexAttribArray);
+  glVertexAttributePointerFn = LOAD_GL_FUNC(TglVertexAttributePointerFn, glVertexAttribPointer);
 
-  glGetUniformLocationFn = &::glGetUniformLocation;
-  glGetActiveUniformFn = &::glGetActiveUniform;
-  glUniform1iFn = &::glUniform1i;
-  glUniform2iFn = &::glUniform2i;
-  glUniform3iFn = &::glUniform3i;
-  glUniform4iFn = &::glUniform4i;
-  glUniform1ivFn = &::glUniform1iv;
+  glGetUniformLocationFn = LOAD_GL_FUNC(TglGetUniformLocationFn, glGetUniformLocation);
+  glGetActiveUniformFn = LOAD_GL_FUNC(TglGetActiveUniformFn, glGetActiveUniform);
+  glUniform1iFn = LOAD_GL_FUNC(TglUniform1iFn, glUniform1i);
+  glUniform2iFn = LOAD_GL_FUNC(TglUniform2iFn, glUniform2i);
+  glUniform3iFn = LOAD_GL_FUNC(TglUniform3iFn, glUniform3i);
+  glUniform4iFn = LOAD_GL_FUNC(TglUniform4iFn, glUniform4i);
+  glUniform1ivFn = LOAD_GL_FUNC(TglUniform1ivFn, glUniform1iv);
 
-  glUniform1fFn = &::glUniform1f;
-  glUniform2fFn = &::glUniform2f;
-  glUniform3fFn = &::glUniform3f;
-  glUniform4fFn = &::glUniform4f;
-  glUniform1fvFn = &::glUniform1fv;
+  glUniform1fFn = LOAD_GL_FUNC(TglUniform1fFn, glUniform1f);
+  glUniform2fFn = LOAD_GL_FUNC(TglUniform2fFn, glUniform2f);
+  glUniform3fFn = LOAD_GL_FUNC(TglUniform3fFn, glUniform3f);
+  glUniform4fFn = LOAD_GL_FUNC(TglUniform4fFn, glUniform4f);
+  glUniform1fvFn = LOAD_GL_FUNC(TglUniform1fvFn, glUniform1fv);
 
-  glUniformMatrix4fvFn = &glUniformMatrix4fv;
+  glUniformMatrix4fvFn = LOAD_GL_FUNC(TglUniformMatrix4fvFn, glUniformMatrix4fv);
 }
 
 bool GLFunctions::glHasExtension(string const & name)
 {
-  char const* extensions = reinterpret_cast<char const * >(glGetString(GL_EXTENSIONS));
+  char const * extensions = reinterpret_cast<char const * >(glGetString(GL_EXTENSIONS));
+  GLCHECKCALL();
+  if (extensions == nullptr)
+    return false;
+
   char const * extName = name.c_str();
-  char const * ptr = NULL;
-  while ((ptr = strstr(extensions, extName)) != NULL)
+  char const * ptr = nullptr;
+  while ((ptr = strstr(extensions, extName)) != nullptr)
   {
     char const * end = ptr + strlen(extName);
     if (isspace(*end) || *end == '\0')
@@ -226,31 +314,31 @@ bool GLFunctions::glHasExtension(string const & name)
 
 void GLFunctions::glClearColor(float r, float g, float b, float a)
 {
-  ASSERT(glClearColorFn != NULL, ());
+  ASSERT(glClearColorFn != nullptr, ());
   GLCHECK(glClearColorFn(r, g, b, a));
 }
 
 void GLFunctions::glClear()
 {
-  ASSERT(glClearFn != NULL, ());
+  ASSERT(glClearFn != nullptr, ());
   GLCHECK(glClearFn(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
 void GLFunctions::glClearDepth()
 {
-  ASSERT(glClearFn != NULL, ());
+  ASSERT(glClearFn != nullptr, ());
   GLCHECK(glClearFn(GL_DEPTH_BUFFER_BIT));
 }
 
 void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
-  ASSERT(glViewportFn != NULL, ());
+  ASSERT(glViewportFn != nullptr, ());
   GLCHECK(glViewportFn(x, y, w, h));
 }
 
 void GLFunctions::glFlush()
 {
-  ASSERT(glFlushFn != NULL, ());
+  ASSERT(glFlushFn != nullptr, ());
   GLCHECK(glFlushFn());
 }
 
@@ -284,7 +372,8 @@ int32_t GLFunctions::glGetInteger(glConst pname)
 int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
 {
   GLint result;
-  GLCHECK(::glGetBufferParameteriv(target, name, &result));
+  ASSERT(glGetBufferParameterFn != nullptr, ());
+  GLCHECK(glGetBufferParameterFn(target, name, &result));
   return static_cast<int32_t>(result);
 }
 
@@ -319,7 +408,8 @@ void GLFunctions::glDepthFunc(glConst depthFunc)
 
 void GLFunctions::glBlendEquation(glConst function)
 {
-  GLCHECK(::glBlendEquation(function));
+  ASSERT(glBlendEquationFn != nullptr, ());
+  GLCHECK(glBlendEquationFn(function));
 }
 
 void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor)
@@ -329,13 +419,13 @@ void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor)
 
 void GLFunctions::glBindFramebuffer(glConst target, uint32_t id)
 {
-  ASSERT(glBindFramebufferFn != NULL, ());
+  ASSERT(glBindFramebufferFn != nullptr, ());
   GLCHECK(glBindFramebufferFn(target, id));
 }
 
 uint32_t GLFunctions::glGenVertexArray()
 {
-  ASSERT(glGenVertexArraysFn != NULL, ());
+  ASSERT(glGenVertexArraysFn != nullptr, ());
   GLuint result = 0;
   GLCHECK(glGenVertexArraysFn(1, &result));
   return result;
@@ -343,19 +433,19 @@ uint32_t GLFunctions::glGenVertexArray()
 
 void GLFunctions::glBindVertexArray(uint32_t vao)
 {
-  ASSERT(glBindVertexArrayFn != NULL, ());
+  ASSERT(glBindVertexArrayFn != nullptr, ());
   GLCHECK(glBindVertexArrayFn(vao));
 }
 
 void GLFunctions::glDeleteVertexArray(uint32_t vao)
 {
-  ASSERT(glDeleteVertexArrayFn != NULL, ());
+  ASSERT(glDeleteVertexArrayFn != nullptr, ());
   GLCHECK(glDeleteVertexArrayFn(1, &vao));
 }
 
 uint32_t GLFunctions::glGenBuffer()
 {
-  ASSERT(glGenBuffersFn != NULL, ());
+  ASSERT(glGenBuffersFn != nullptr, ());
   GLuint result = (GLuint)-1;
   GLCHECK(glGenBuffersFn(1, &result));
   return result;
@@ -363,7 +453,7 @@ uint32_t GLFunctions::glGenBuffer()
 
 void GLFunctions::glBindBuffer(uint32_t vbo, uint32_t target)
 {
-  ASSERT(glBindBufferFn != NULL, ());
+  ASSERT(glBindBufferFn != nullptr, ());
 #ifdef DEBUG
   threads::MutexGuard guard(g_mutex);
   g_boundBuffers[make_pair(threads::GetCurrentThreadID(), target)] = vbo;
@@ -373,30 +463,32 @@ void GLFunctions::glBindBuffer(uint32_t vbo, uint32_t target)
 
 void GLFunctions::glDeleteBuffer(uint32_t vbo)
 {
-  ASSERT(glDeleteBuffersFn != NULL, ());
+  ASSERT(glDeleteBuffersFn != nullptr, ());
 #ifdef DEBUG
   threads::MutexGuard guard(g_mutex);
   for (TNode const & n : g_boundBuffers)
+  {
     ASSERT(n.second != vbo, ());
+  }
 #endif
   GLCHECK(glDeleteBuffersFn(1, &vbo));
 }
 
 void GLFunctions::glBufferData(glConst target, uint32_t size, void const * data, glConst usage)
 {
-  ASSERT(glBufferDataFn != NULL, ());
+  ASSERT(glBufferDataFn != nullptr, ());
   GLCHECK(glBufferDataFn(target, size, data, usage));
 }
 
 void GLFunctions::glBufferSubData(glConst target, uint32_t size, void const * data, uint32_t offset)
 {
-  ASSERT(glBufferSubDataFn != NULL, ());
+  ASSERT(glBufferSubDataFn != nullptr, ());
   GLCHECK(glBufferSubDataFn(target, offset, size, data));
 }
 
 void * GLFunctions::glMapBuffer(glConst target)
 {
-  ASSERT(glMapBufferFn != NULL, ());
+  ASSERT(glMapBufferFn != nullptr, ());
   void * result = glMapBufferFn(target, gl_const::GLWriteOnly);
   GLCHECKCALL();
   return result;
@@ -404,14 +496,14 @@ void * GLFunctions::glMapBuffer(glConst target)
 
 void GLFunctions::glUnmapBuffer(glConst target)
 {
-  ASSERT(glUnmapBufferFn != NULL, ());
+  ASSERT(glUnmapBufferFn != nullptr, ());
   VERIFY(glUnmapBufferFn(target) == GL_TRUE, ());
   GLCHECKCALL();
 }
 
 uint32_t GLFunctions::glCreateShader(glConst type)
 {
-  ASSERT(glCreateShaderFn != NULL, ());
+  ASSERT(glCreateShaderFn != nullptr, ());
   GLuint result = glCreateShaderFn(type);
   GLCHECKCALL();
   return result;
@@ -419,7 +511,7 @@ uint32_t GLFunctions::glCreateShader(glConst type)
 
 void GLFunctions::glShaderSource(uint32_t shaderID, string const & src)
 {
-  ASSERT(glShaderSourceFn != NULL, ());
+  ASSERT(glShaderSourceFn != nullptr, ());
   GLchar const * source = src.c_str();
   GLint length = src.size();
   GLCHECK(glShaderSourceFn(shaderID, 1, &source, &length));
@@ -427,9 +519,9 @@ void GLFunctions::glShaderSource(uint32_t shaderID, string const & src)
 
 bool GLFunctions::glCompileShader(uint32_t shaderID, string &errorLog)
 {
-  ASSERT(glCompileShaderFn != NULL, ());
-  ASSERT(glGetShaderivFn != NULL, ());
-  ASSERT(glGetShaderInfoLogFn != NULL, ());
+  ASSERT(glCompileShaderFn != nullptr, ());
+  ASSERT(glGetShaderivFn != nullptr, ());
+  ASSERT(glGetShaderInfoLogFn != nullptr, ());
   GLCHECK(glCompileShaderFn(shaderID));
 
   GLint result = GL_FALSE;
@@ -446,13 +538,13 @@ bool GLFunctions::glCompileShader(uint32_t shaderID, string &errorLog)
 
 void GLFunctions::glDeleteShader(uint32_t shaderID)
 {
-  ASSERT(glDeleteShaderFn != NULL, ());
+  ASSERT(glDeleteShaderFn != nullptr, ());
   GLCHECK(glDeleteBuffersFn(1, &shaderID));
 }
 
 uint32_t GLFunctions::glCreateProgram()
 {
-  ASSERT(glCreateProgramFn != NULL, ());
+  ASSERT(glCreateProgramFn != nullptr, ());
   GLuint result = glCreateProgramFn();
   GLCHECKCALL();
   return result;
@@ -460,21 +552,21 @@ uint32_t GLFunctions::glCreateProgram()
 
 void GLFunctions::glAttachShader(uint32_t programID, uint32_t shaderID)
 {
-  ASSERT(glAttachShaderFn != NULL, ());
+  ASSERT(glAttachShaderFn != nullptr, ());
   GLCHECK(glAttachShaderFn(programID, shaderID));
 }
 
 void GLFunctions::glDetachShader(uint32_t programID, uint32_t shaderID)
 {
-  ASSERT(glDetachShaderFn != NULL, ());
+  ASSERT(glDetachShaderFn != nullptr, ());
   GLCHECK(glDetachShaderFn(programID, shaderID));
 }
 
 bool GLFunctions::glLinkProgram(uint32_t programID, string & errorLog)
 {
-  ASSERT(glLinkProgramFn != NULL, ());
-  ASSERT(glGetProgramivFn != NULL, ());
-  ASSERT(glGetProgramInfoLogFn != NULL, ());
+  ASSERT(glLinkProgramFn != nullptr, ());
+  ASSERT(glGetProgramivFn != nullptr, ());
+  ASSERT(glGetProgramInfoLogFn != nullptr, ());
   GLCHECK(glLinkProgramFn(programID));
 
   GLint result = GL_FALSE;
@@ -492,19 +584,19 @@ bool GLFunctions::glLinkProgram(uint32_t programID, string & errorLog)
 
 void GLFunctions::glDeleteProgram(uint32_t programID)
 {
-  ASSERT(glDeleteProgramFn != NULL, ());
+  ASSERT(glDeleteProgramFn != nullptr, ());
   GLCHECK(glDeleteProgramFn(programID));
 }
 
 void GLFunctions::glUseProgram(uint32_t programID)
 {
-  ASSERT(glUseProgramFn != NULL, ());
+  ASSERT(glUseProgramFn != nullptr, ());
   GLCHECK(glUseProgramFn(programID));
 }
 
 int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 {
-  ASSERT(glGetAttribLocationFn != NULL, ());
+  ASSERT(glGetAttribLocationFn != nullptr, ());
   int result = glGetAttribLocationFn(programID, name.c_str());
   GLCHECKCALL();
   ASSERT(result != -1, ());
@@ -513,13 +605,13 @@ int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 
 void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
 {
-  ASSERT(glBindAttribLocationFn != NULL, ());
+  ASSERT(glBindAttribLocationFn != nullptr, ());
   GLCHECK(glBindAttribLocationFn(programID, index, name.c_str()));
 }
 
 void GLFunctions::glEnableVertexAttribute(int attributeLocation)
 {
-  ASSERT(glEnableVertexAttributeFn != NULL, ());
+  ASSERT(glEnableVertexAttributeFn != nullptr, ());
   GLCHECK(glEnableVertexAttributeFn(attributeLocation));
 }
 
@@ -530,7 +622,7 @@ void GLFunctions::glVertexAttributePointer(int attrLocation,
                               uint32_t stride,
                               uint32_t offset)
 {
-  ASSERT(glVertexAttributePointerFn != NULL, ());
+  ASSERT(glVertexAttributePointerFn != nullptr, ());
   GLCHECK(glVertexAttributePointerFn(attrLocation,
                                      count,
                                      type,
@@ -542,15 +634,15 @@ void GLFunctions::glVertexAttributePointer(int attrLocation,
 void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
                                      int32_t * uniformSize, glConst * type, string & name)
 {
-  ASSERT(glGetActiveUniformFn != NULL, ());
+  ASSERT(glGetActiveUniformFn != nullptr, ());
   char buff[256];
-  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, 256, NULL, uniformSize, type, buff));
+  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, 256, nullptr, uniformSize, type, buff));
   name = buff;
 }
 
 int8_t GLFunctions::glGetUniformLocation(uint32_t programID, string const & name)
 {
-  ASSERT(glGetUniformLocationFn != NULL, ());
+  ASSERT(glGetUniformLocationFn != nullptr, ());
   int result = glGetUniformLocationFn(programID, name.c_str());
   GLCHECKCALL();
   ASSERT(result != -1, ());
@@ -559,77 +651,77 @@ int8_t GLFunctions::glGetUniformLocation(uint32_t programID, string const & name
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v)
 {
-  ASSERT(glUniform1iFn != NULL, ());
+  ASSERT(glUniform1iFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1iFn(location, v));
 }
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2)
 {
-  ASSERT(glUniform2iFn != NULL, ());
+  ASSERT(glUniform2iFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform2iFn(location, v1, v2));
 }
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3)
 {
-  ASSERT(glUniform3iFn != NULL, ());
+  ASSERT(glUniform3iFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform3iFn(location, v1, v2, v3));
 }
 
 void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
 {
-  ASSERT(glUniform4iFn != NULL, ());
+  ASSERT(glUniform4iFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform4iFn(location, v1, v2, v3, v4));
 }
 
 void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size)
 {
-  ASSERT(glUniform1ivFn != NULL, ());
+  ASSERT(glUniform1ivFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1ivFn(location, size, v));
 }
 
 void GLFunctions::glUniformValuef(int8_t location, float v)
 {
-  ASSERT(glUniform1fFn != NULL, ());
+  ASSERT(glUniform1fFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1fFn(location, v));
 }
 
 void GLFunctions::glUniformValuef(int8_t location, float v1, float v2)
 {
-  ASSERT(glUniform2fFn != NULL, ());
+  ASSERT(glUniform2fFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform2fFn(location, v1, v2));
 }
 
 void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3)
 {
-  ASSERT(glUniform3fFn != NULL, ());
+  ASSERT(glUniform3fFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform3fFn(location, v1, v2, v3));
 }
 
 void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3, float v4)
 {
-  ASSERT(glUniform4fFn != NULL, ());
+  ASSERT(glUniform4fFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform4fFn(location, v1, v2, v3, v4));
 }
 
 void GLFunctions::glUniformValuefv(int8_t location, float * v, uint32_t size)
 {
-  ASSERT(glUniform1fvFn != NULL, ());
+  ASSERT(glUniform1fvFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform1fvFn(location, size, v));
 }
 
 void GLFunctions::glUniformMatrix4x4Value(int8_t location,  float const * values)
 {
-  ASSERT(glUniformMatrix4fvFn != NULL, ());
+  ASSERT(glUniformMatrix4fvFn != nullptr, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniformMatrix4fvFn(location, 1, GL_FALSE, values));
 }
@@ -643,7 +735,7 @@ uint32_t GLFunctions::glGetCurrentProgram()
 
 int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 {
-  ASSERT(glGetProgramivFn != NULL, ());
+  ASSERT(glGetProgramivFn != nullptr, ());
   GLint paramValue = 0;
   GLCHECK(glGetProgramivFn(program, paramName, &paramValue));
   return paramValue;
@@ -651,7 +743,8 @@ int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 
 void GLFunctions::glActiveTexture(glConst texBlock)
 {
-  GLCHECK(::glActiveTexture(texBlock));
+  ASSERT(glActiveTextureFn != nullptr, ());
+  GLCHECK(glActiveTextureFn(texBlock));
 }
 
 uint32_t GLFunctions::glGenTexture()
@@ -713,7 +806,7 @@ void CheckGLError(my::SrcPoint const & srcPoint)
   GLenum result = glGetError();
   while (result != GL_NO_ERROR)
   {
-    LOG(LERROR, ("SrcPoint ", srcPoint, "GLError:", GetGLError(result)));
+    LOG(LINFO, ("SrcPoint ", srcPoint, "GLError:", GetGLError(result)));
     result = glGetError();
   }
 }

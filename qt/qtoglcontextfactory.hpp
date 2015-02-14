@@ -14,6 +14,10 @@ public:
   virtual dp::OGLContext * getDrawContext();
   virtual dp::OGLContext * getResourcesUploadContext();
 
+protected:
+  virtual bool isDrawContextCreated() const { return m_drawContext != nullptr; }
+  virtual bool isUploadContextCreated() const { return m_uploadContext != nullptr; }
+
 private:
   QWindow * m_surface;
   QtOGLContext * m_drawContext;

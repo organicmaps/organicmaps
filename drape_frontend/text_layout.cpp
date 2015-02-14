@@ -268,7 +268,9 @@ dp::RefPointer<dp::Texture> TextLayout::GetMaskTexture() const
 #ifdef DEBUG
   dp::RefPointer<dp::Texture> tex = m_metrics[0].GetTexture();
   for (GlyphRegion const & g : m_metrics)
+  {
     ASSERT(g.GetTexture() == tex, ());
+  }
 #endif
 
   return m_metrics[0].GetTexture();
