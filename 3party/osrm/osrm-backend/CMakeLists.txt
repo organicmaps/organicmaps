@@ -195,8 +195,10 @@ target_link_libraries(osrm-datastore ${Boost_LIBRARIES})
 target_link_libraries(osrm-mapsme ${Boost_LIBRARIES} OSRM
                       debug "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libcoding.a"
                             "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libbase.a"
+                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/librouting.a"
                       general "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libcoding.a"
-                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libbase.a")
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libbase.a"
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/librouting.a")
 
 find_package(Threads REQUIRED)
 target_link_libraries(osrm-extract ${CMAKE_THREAD_LIBS_INIT} ${OPTIONAL_OMP_LIB})
