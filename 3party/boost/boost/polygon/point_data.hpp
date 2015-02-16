@@ -46,6 +46,9 @@ class point_data {
   }
 
   template <typename PointType>
+#ifdef __GNUC__
+  explicit
+#endif
   point_data(const PointType& that) {
     *this = that;
   }
