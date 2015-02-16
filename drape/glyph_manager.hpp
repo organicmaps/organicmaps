@@ -39,7 +39,7 @@ public:
   {
     ~GlyphImage()
     {
-      ASSERT(!m_data.unique(), ());
+      ASSERT(!m_data.unique(), ("Probably you forgot to call Destroy()"));
     }
 
     void Destroy()

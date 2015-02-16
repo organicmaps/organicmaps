@@ -32,7 +32,12 @@ BatchersPool::BatchersPool(int initBatcherCount, TSendMessageFn const & sendMess
 
 BatchersPool::~BatchersPool()
 {
-  ASSERT(m_batchs.empty(), ());
+  for_each(m_batchs.begin(), m_batchs.end(), [this](pair<TileKey, TBatcherPair> const & p)
+  {
+    m_pool.Return(p.second.first);
+  });
+
+  m_batchs.clear();
 }
 
 void BatchersPool::ReserveBatcher(TileKey const & key)

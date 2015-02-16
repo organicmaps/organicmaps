@@ -61,6 +61,7 @@ class GlyphIndex
 {
 public:
   GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng);
+  ~GlyphIndex();
 
   /// can return nullptr
   RefPointer<Texture::ResourceInfo> MapResource(GlyphKey const & key, bool & newResource);

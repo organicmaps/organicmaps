@@ -82,6 +82,18 @@ GlyphIndex::GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
 {
 }
 
+GlyphIndex::~GlyphIndex()
+{
+  {
+    threads::MutexGuard g(m_lock);
+    for_each(m_pendingNodes.begin(), m_pendingNodes.end(), [](TPendingNode & node)
+    {
+      node.second.m_image.Destroy();
+    });
+    m_pendingNodes.clear();
+  }
+}
+
 RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, bool & newResource)
 {
   newResource = false;
@@ -128,7 +140,6 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
   for (size_t i = 1; i < pendingNodes.size(); ++i)
   {
     TPendingNode const & prevNode = pendingNodes[i - 1];
-    maxHeight = max(maxHeight, prevNode.first.SizeY());
     TPendingNode const & currentNode = pendingNodes[i];
     if (ranges.size() < 2 && prevNode.first.minY() < currentNode.first.minY())
     {
@@ -136,6 +147,8 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
       maxHeights.push_back(maxHeight);
       maxHeight = currentNode.first.SizeY();
     }
+
+    maxHeight = max(maxHeight, currentNode.first.SizeY());
   }
   maxHeights.push_back(maxHeight);
   ranges.push_back(pendingNodes.size());
@@ -150,6 +163,10 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
     uint32_t height = maxHeights[i - 1];
     uint32_t width = pendingNodes[endIndex - 1].first.maxX() - pendingNodes[startIndex].first.minX();
     uint32_t byteCount = my::NextPowOf2(height * width);
+
+    if (byteCount == 0)
+      continue;
+
     m2::PointU zeroPoint = pendingNodes[startIndex].first.LeftBottom();
 
     SharedBufferManager::shared_buffer_ptr_t buffer = SharedBufferManager::instance().reserveSharedBuffer(byteCount);
@@ -169,6 +186,7 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
 
       ASSERT_EQUAL(glyph.m_image.m_width, w, ());
       ASSERT_EQUAL(glyph.m_image.m_height, h, ());
+      ASSERT_GREATER_OR_EQUAL(height, h, ());
 
       view_t dstSubView = subimage_view(dstView, rect.minX(), rect.minY(), w, h);
       uint8_t * srcMemory = SharedBufferManager::GetRawPointer(glyph.m_image.m_data);
