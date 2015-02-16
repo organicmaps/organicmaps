@@ -60,13 +60,13 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   format.setGreenBufferSize(8);
   format.setRedBufferSize(8);
   format.setStencilBufferSize(0);
-  format.setSamples(0);
+  format.setSamples(8);
   format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
   format.setSwapInterval(1);
   format.setDepthBufferSize(16);
 
   format.setProfile(QSurfaceFormat::CompatibilityProfile);
-  format.setOption(QSurfaceFormat::DebugContext);
+  //format.setOption(QSurfaceFormat::DebugContext);
   m_pDrawWidget->setFormat(format);
   QWidget * w = QWidget::createWindowContainer(m_pDrawWidget, this);
   w->setMouseTracking(true);

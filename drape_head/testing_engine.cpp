@@ -252,7 +252,6 @@ private:
 
 TestingEngine::TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                              Viewport const & viewport,
-                             MapDataProvider const & model,
                              double vs)
   : m_contextFactory(oglcontextfactory)
   , m_viewport(viewport)
@@ -351,11 +350,6 @@ void TestingEngine::Resize(int w, int h)
   ProjectionInit();
   Draw();
 }
-
-void TestingEngine::DragStarted(m2::PointF const & p) {}
-void TestingEngine::Drag(m2::PointF const & p) {}
-void TestingEngine::DragEnded(m2::PointF const & p) {}
-void TestingEngine::Scale(m2::PointF const & p, double factor) {}
 
 void TestingEngine::timerEvent(QTimerEvent * e)
 {

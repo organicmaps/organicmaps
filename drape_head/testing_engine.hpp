@@ -23,17 +23,11 @@ class TestingEngine : public QObject
 public:
   TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                 Viewport const & viewport,
-                MapDataProvider const & model,
                 double vs);
   ~TestingEngine();
 
   void Draw();
   void Resize(int w, int h);
-  void DragStarted(m2::PointF const & p);
-  void Drag(m2::PointF const & p);
-  void DragEnded(m2::PointF const & p);
-  void Scale(m2::PointF const & p, double factor);
-  void UpdateCoverage(ScreenBase const & s){};
 
 protected:
   void timerEvent(QTimerEvent * e);
