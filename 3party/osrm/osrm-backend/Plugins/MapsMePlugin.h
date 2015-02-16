@@ -22,41 +22,8 @@
 #include "../../../../generator/country_loader.hpp"
 #include "../../../../indexer/mercator.hpp"
 
-class GetMWMNameByPoint
-{
-  class CheckPointInBorder
-  {
-    m2::PointD const & m_point;
-    bool & m_inside;
-  public:
-    CheckPointInBorder(m2::PointD const & point, bool & inside) : m_point(point), m_inside(inside) {m_inside=false;}
-    void operator()(m2::RegionD const & region)
-    {
-      if (region.Contains(m_point))
-        m_inside=true;
-    }
-  };
-
-  string  & m_name;
-  m2::PointD const & m_point;
-public:
-  GetMWMNameByPoint(string & name, m2::PointD const & point) : m_name(name), m_point(point) {}
-  void operator() (borders::CountryPolygons const & c)
-  {
-    bool inside;
-    CheckPointInBorder getter(m_point, inside);
-    c.m_regions.ForEachInRect(m2::RectD(m_point, m_point), getter);
-    if (inside)
-      m_name = c.m_name;
-  }
-};
-
 template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 {
-  private:
-    std::unique_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
-    borders::CountriesContainerT m_countries;
-
   public:
     explicit MapsMePlugin(DataFacadeT *facade, std::string const & baseDir) : descriptor_string("mapsme"), facade(facade)
     {
@@ -124,8 +91,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
             raw_route.segment_end_coordinates.emplace_back(current_phantom_node_pair);
         }
 
-        search_engine_ptr->shortest_path(
-              raw_route.segment_end_coordinates, route_parameters.uturns, raw_route);
+        search_engine_ptr->alternative_path(raw_route.segment_end_coordinates.front(), raw_route);
 
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)
         {
@@ -144,9 +110,18 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
             PathData const & path_data = raw_route.unpacked_path_segments[i][j];
             FixedPointCoordinate const coord = facade->GetCoordinateOfNode(path_data.node);
             string mwmName;
-            m2::PointD mercatorPoint(MercatorBounds::LonToX(coord.lon), MercatorBounds::LatToY(coord.lat));
-            GetMWMNameByPoint getter(mwmName, mercatorPoint);
-            m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), getter);
+            m2::PointD mercatorPoint(MercatorBounds::LonToX(coord.lon/1000000.0), MercatorBounds::LatToY(coord.lat/1000000.0));
+            m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
+            {
+              bool inside = false;
+              c.m_regions.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](m2::RegionD const & region)
+              {
+                if (region.Contains(mercatorPoint))
+                  inside = true;
+              });
+              if (inside)
+                mwmName = c.m_name;
+            });
             usedMwms.insert(mwmName);
           }
         }
@@ -159,6 +134,8 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
     }
 
   private:
+    std::unique_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
+    borders::CountriesContainerT m_countries;
     std::string descriptor_string;
     DataFacadeT *facade;
 };

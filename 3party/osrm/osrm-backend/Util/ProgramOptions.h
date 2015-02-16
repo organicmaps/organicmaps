@@ -198,7 +198,10 @@ inline unsigned GenerateServerProgramOptions(const int argc,
         "Number of threads to use")(
         "sharedmemory,s",
         boost::program_options::value<bool>(&use_shared_memory)->implicit_value(true),
-        "Load data from shared memory");
+        "Load data from shared memory")(
+        "borders",
+        boost::program_options::value<boost::filesystem::path>(&paths["borders"]),
+        "Borders folder");
 
     // hidden options, will be allowed both on command line and in config
     // file, but will not be shown to the user
