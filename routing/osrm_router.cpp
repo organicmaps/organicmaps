@@ -1485,7 +1485,7 @@ turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
   return turns::NoTurn;
 }
 
-bool OsrmRouter::KeepOnewayOutgoingTurnIncomingEdges(TurnCandidatesT const & nodes, Route::TurnItem const & turn,
+bool OsrmRouter::KeepOnewayOutgoingTurnIncomingEdges(Route::TurnItem const & turn,
                             m2::PointD const & p, m2::PointD const & p1OneSeg, RoutingMappingPtrT const & mapping) const
 {
   ASSERT(mapping.get(), ());
@@ -1578,21 +1578,6 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   TurnCandidatesT nodes;
   GetPossibleTurns(node1.node, p1OneSeg, p, routingMapping, nodes);
 
-#ifdef _DEBUG
-  GeomTurnCandidateT geoNodes;
-  GetTurnGeometry(p, p1OneSeg, geoNodes, routingMapping);
-
-  m2::PointD const p2OneSeg = ft2.GetPoint(seg2.m_pointStart < seg2.m_pointEnd ? seg2.m_pointStart + 1 : seg2.m_pointStart - 1);
-
-  double const aOneSeg = my::RadToDeg(ang::TwoVectorsAngle(p, p1OneSeg, p2OneSeg));
-  LOG(LDEBUG, ("Possible turns. nodes = ", nodes.size(), ". ang = ", aOneSeg, ". node = ", node2.node));
-  for (size_t i = 0; i < nodes.size(); ++i)
-  {
-    TurnCandidate const &t = nodes[i];
-    LOG(LDEBUG, ("Angle:", t.m_angle, "Node:", t.m_node));
-  }
-#endif
-
   turn.m_turn = turns::NoTurn;
   size_t const nodesSz = nodes.size();
   bool const hasMultiTurns = (nodesSz >= 2);
@@ -1610,14 +1595,6 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   bool const isRound1 = ftypes::IsRoundAboutChecker::Instance()(ft1);
   bool const isRound2 = ftypes::IsRoundAboutChecker::Instance()(ft2);
-
-  if (!hasMultiTurns
-      && !KeepOnewayOutgoingTurnIncomingEdges(nodes, turn, p, p1OneSeg, routingMapping)
-      && !KeepOnewayOutgoingTurnRoundabout(isRound1, isRound2))
-  {
-    turn.m_turn = turns::NoTurn;
-    return;
-  }
 
   if (isRound1 || isRound2)
   {
@@ -1643,6 +1620,14 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   if (!turn.m_keepAnyway
       && ((!name1.empty() && name1 == name2) || (!road1.empty() && road1 == road2)))
+  {
+    turn.m_turn = turns::NoTurn;
+    return;
+  }
+
+  if (!hasMultiTurns
+      && !KeepOnewayOutgoingTurnIncomingEdges(turn, p, p1OneSeg, routingMapping)
+      && !KeepOnewayOutgoingTurnRoundabout(isRound1, isRound2))
   {
     turn.m_turn = turns::NoTurn;
     return;

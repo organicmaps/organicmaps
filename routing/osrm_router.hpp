@@ -282,7 +282,7 @@ private:
   turns::TurnDirection IntermediateDirection(double angle) const;
   void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
                        OsrmRouter::GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
-  bool KeepOnewayOutgoingTurnIncomingEdges(TurnCandidatesT const & nodes, Route::TurnItem const & turn,
+  bool KeepOnewayOutgoingTurnIncomingEdges(Route::TurnItem const & turn,
                               m2::PointD const & p, m2::PointD const & p1, RoutingMappingPtrT const & mapping) const;
   bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2) const;
   turns::TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
