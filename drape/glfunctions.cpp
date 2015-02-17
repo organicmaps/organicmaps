@@ -12,9 +12,6 @@
 #include "std/map.hpp"
 #endif
 
-#include "std/cstring.hpp"
-#include "std/atomic.hpp"
-
 #if defined(OMIM_OS_WINDOWS)
 #define DP_APIENTRY __stdcall
 #elif defined(OMIM_OS_ANDROID)
@@ -253,7 +250,7 @@ void GLFunctions::Init()
 #else
   typedef void (DP_APIENTRY *glShaderSource_Type)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
   glShaderSourceFn = reinterpret_cast<glShaderSource_Type>(&::glShaderSource);
-#endif`
+#endif
   glCompileShaderFn = LOAD_GL_FUNC(TglCompileShaderFn, glCompileShader);
   glDeleteShaderFn = LOAD_GL_FUNC(TglDeleteShaderFn, glDeleteShader);
   glGetShaderivFn = LOAD_GL_FUNC(TglGetShaderivFn, glGetShaderiv);

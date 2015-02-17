@@ -141,7 +141,7 @@ dp::OGLContext * AndroidOGLContextFactory::getDrawContext()
 {
   ASSERT(IsValid(), ());
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
-  if (m_drawContext == NULL)
+  if (m_drawContext == nullptr)
     m_drawContext = new AndroidOGLContext(m_display, m_windowSurface, m_config, m_uploadContext);
   return m_drawContext;
 }
@@ -150,19 +150,19 @@ dp::OGLContext * AndroidOGLContextFactory::getResourcesUploadContext()
 {
   ASSERT(IsValid(), ());
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
-  if (m_uploadContext == NULL)
+  if (m_uploadContext == nullptr)
     m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface, m_config, m_drawContext);
   return m_uploadContext;
 }
 
 bool AndroidOGLContextFactory::isDrawContextCreated() const
 {
-  return m_drawContext != NULL;
+  return m_drawContext != nullptr;
 }
 
 bool AndroidOGLContextFactory::isUploadContextCreated() const
 {
-  return m_uploadContext != NULL;
+  return m_uploadContext != nullptr;
 }
 
 bool AndroidOGLContextFactory::createWindowSurface()

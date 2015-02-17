@@ -38,7 +38,7 @@ void DrapeSurface::CreateEngine()
 {
   dp::RefPointer<dp::OGLContextFactory> f(m_contextFactory.GetRefPointer());
 
-  float pixelRatio = devicePixelRatio();
+  float const pixelRatio = devicePixelRatio();
 
   m_drapeEngine = TEnginePrt(new df::TestingEngine(f, df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()), pixelRatio));
 }
@@ -47,9 +47,9 @@ void DrapeSurface::sizeChanged(int)
 {
   if (!m_drapeEngine.IsNull())
   {
-    float vs = devicePixelRatio();
-    int w = width() * vs;
-    int h = height() * vs;
+    float const vs = devicePixelRatio();
+    int const w = width() * vs;
+    int const h = height() * vs;
     m_drapeEngine->Resize(w, h);
   }
 }
