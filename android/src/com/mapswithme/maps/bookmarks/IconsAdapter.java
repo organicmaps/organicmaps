@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +9,12 @@ import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Icon;
-import com.mapswithme.util.UiUtils;
 
 import java.util.List;
 
-/// SingleChoise list view don't add radio button to custom view.
 public class IconsAdapter extends ArrayAdapter<Icon>
 {
-  private int mCheckedPosition = 0;
+  private String mCheckedIconType;
 
   public IconsAdapter(Context context, List<Icon> list)
   {
@@ -27,26 +24,22 @@ public class IconsAdapter extends ArrayAdapter<Icon>
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
-    final Resources res = getContext().getResources();
+    SpinnerViewHolder holder;
     if (convertView == null)
     {
       LayoutInflater inflater = LayoutInflater.from(getContext());
       convertView = inflater.inflate(R.layout.color_row, parent, false);
-      convertView.setTag(new SpinnerViewHolder((ImageView) convertView.findViewById(R.id.row_color_image),
-          (ImageView) convertView.findViewById(R.id.selected_mark)));
-    }
-    SpinnerViewHolder holder = (SpinnerViewHolder) convertView.getTag();
-    if (position == mCheckedPosition)
-    {
-      UiUtils.show(holder.tick);
-      holder.tick.setImageDrawable(
-          UiUtils.drawCircle(0xCCFFFFFF, (int) res.getDimension(R.dimen.dp_x_8), res));
+      holder = new SpinnerViewHolder(convertView);
+      convertView.setTag(holder);
     }
     else
-      UiUtils.hide(holder.tick);
+      holder = (SpinnerViewHolder) convertView.getTag();
 
-    holder.icon.setImageDrawable(
-        UiUtils.drawCircleForPin(getItem(position).getType(), (int) res.getDimension(R.dimen.dp_x_16), res));
+    final Icon icon = getItem(position);
+    if (icon.getType().equals(mCheckedIconType))
+      holder.icon.setImageResource(getItem(position).getSelectedResId());
+    else
+      holder.icon.setImageResource(getItem(position).getResId());
 
     return convertView;
   }
@@ -54,23 +47,16 @@ public class IconsAdapter extends ArrayAdapter<Icon>
   private class SpinnerViewHolder
   {
     ImageView icon;
-    ImageView tick;
 
-    public SpinnerViewHolder(ImageView icon, ImageView tick)
+    public SpinnerViewHolder(View convertView)
     {
-      this.icon = icon;
-      this.tick = tick;
+      icon = (ImageView) convertView.findViewById(R.id.iv__color);
     }
   }
 
-  public void chooseItem(int position)
+  public void chooseItem(String position)
   {
-    mCheckedPosition = position;
+    mCheckedIconType = position;
     notifyDataSetChanged();
-  }
-
-  public int getCheckedItemPosition()
-  {
-    return mCheckedPosition;
   }
 }

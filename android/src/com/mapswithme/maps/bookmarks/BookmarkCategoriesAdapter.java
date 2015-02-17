@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
 {
@@ -68,8 +69,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
-          BookmarkCategoriesAdapter.this
-              .getBookmarkManager()
+          BookmarkManager.INSTANCE
               .getCategoryById(holder.categoryId)
               .setVisibility(isChecked);
         }

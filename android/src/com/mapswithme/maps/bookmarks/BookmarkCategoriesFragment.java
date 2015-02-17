@@ -45,7 +45,7 @@ public class BookmarkCategoriesFragment extends MWMListFragment
   {
     mSelectedPosition = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
     getActivity().getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
-    menu.setHeaderTitle(BookmarkManager.getBookmarkManager().getCategoryById(mSelectedPosition).getName());
+    menu.setHeaderTitle(BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition).getName());
   }
 
   @Override
@@ -53,7 +53,7 @@ public class BookmarkCategoriesFragment extends MWMListFragment
   {
     if (item.getItemId() == R.id.set_delete)
     {
-      BookmarkManager.getBookmarkManager().deleteCategory(mSelectedPosition);
+      BookmarkManager.INSTANCE.deleteCategory(mSelectedPosition);
       ((BookmarkCategoriesAdapter) getListAdapter()).notifyDataSetChanged();
     }
 

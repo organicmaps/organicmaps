@@ -14,7 +14,7 @@ public class Bookmark extends MapObject
   private double mMerX;
   private double mMerY;
 
-  /* package */ Bookmark(int categoryId, int bookmarkId, String name)
+  Bookmark(int categoryId, int bookmarkId, String name)
   {
     super(name, 0, 0, "");
 
@@ -57,7 +57,7 @@ public class Bookmark extends MapObject
     mLon = ll.x;
   }
 
-  public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
+  public DistanceAndAzimut getDistanceAndAzimuth(double cLat, double cLon, double north)
   {
     return Framework.nativeGetDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
   }
@@ -70,8 +70,7 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.getBookmarkManager()
-        .getIconByName((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
+    return BookmarkManager.INSTANCE.getIconByType((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
   }
 
   public Icon getIcon()
@@ -89,7 +88,7 @@ public class Bookmark extends MapObject
   {
     if (mCategoryId >= 0)
     {
-      return BookmarkManager.getBookmarkManager().getCategoryById(mCategoryId).getName();
+      return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
     }
     else
     {
@@ -153,6 +152,6 @@ public class Bookmark extends MapObject
   @Override
   public String getPoiTypeName()
   {
-    return BookmarkManager.getBookmarkManager().getCategoryById(mCategoryId).getName();
+    return BookmarkManager.INSTANCE.getCategoryById(mCategoryId).getName();
   }
 }

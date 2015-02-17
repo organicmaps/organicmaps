@@ -117,14 +117,13 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
     @Override
     public boolean run(final MWMActivity target)
     {
-      final BookmarkManager bmkManager  = BookmarkManager.getBookmarkManager();
-      final int categoriesCount = bmkManager.getCategoriesCount();
+      final int categoriesCount = BookmarkManager.INSTANCE.getCategoriesCount();
 
       // find category
       BookmarkCategory categoryToShow = null;
       for (int i = 0; i < categoriesCount; i++)
       {
-        categoryToShow = bmkManager.getCategoryById(i);
+        categoryToShow = BookmarkManager.INSTANCE.getCategoryById(i);
         if (categoryToShow.getName().contains(mName))
           break;
         else
@@ -159,12 +158,12 @@ public class MonkeyEventsReceiver extends BroadcastReceiver
             // bring foreground
             mActivity.startActivity(new Intent(mActivity, MWMActivity.class));
 
-            final Bookmark bookmark = bmkManager.getBookmark(mCatId, mBmkId);
-            final BookmarkCategory category = bmkManager.getCategoryById(mCatId);
+            final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(mCatId, mBmkId);
+            final BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(mCatId);
             final String desc = bookmark.getBookmarkDescription();
 
             // Center camera at bookmark
-            bmkManager.showBookmarkOnMap(mCatId, mBmkId);
+            BookmarkManager.INSTANCE.showBookmarkOnMap(mCatId, mBmkId);
 
             // N2DP (Nataha to Dmitry Protocol)
             // Bookmark has no description: show map

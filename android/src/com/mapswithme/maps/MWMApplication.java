@@ -133,7 +133,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
 
     // init BookmarkManager (automatically loads bookmarks)
-    BookmarkManager.getBookmarkManager();
+    BookmarkManager.INSTANCE.getIcons();
   }
 
   private void initMrgs()

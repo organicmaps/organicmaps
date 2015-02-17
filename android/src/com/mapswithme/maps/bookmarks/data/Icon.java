@@ -5,12 +5,15 @@ public class Icon
 {
   private final String mName;
   private final String mType;
+  private final int mResId;
+  private final int mSelectedResId;
 
-  public Icon(String Name, String type)
+  public Icon(String Name, String type, int resId, int selectedResId)
   {
-    super();
-    this.mName = Name;
+    mName = Name;
     mType = type;
+    mResId = resId;
+    mSelectedResId = selectedResId;
   }
 
   public String getType()
@@ -23,9 +26,28 @@ public class Icon
     return mName;
   }
 
+  public int getResId()
+  {
+    return mResId;
+  }
+
+  public int getSelectedResId()
+  {
+    return mSelectedResId;
+  }
+
   @Override
   public boolean equals(Object o)
   {
-    return mType.equals(((Icon) o).getType());
+    if (o == null || !(o instanceof Icon))
+      return false;
+    final Icon comparedIcon = (Icon) o;
+    return mType.equals(comparedIcon.getType());
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return mType.hashCode();
   }
 }

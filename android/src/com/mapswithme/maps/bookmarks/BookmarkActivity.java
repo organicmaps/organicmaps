@@ -61,7 +61,7 @@ public class BookmarkActivity extends MWMFragmentActivity
     // (category index, bookmark index in category).
     final Point cab = ((ParcelablePoint) getIntent().getParcelableExtra(PIN)).getPoint();
 
-    mManager = BookmarkManager.getBookmarkManager();
+    mManager = BookmarkManager.INSTANCE;
     mPin = mManager.getBookmark(cab.x, cab.y);
     mCurrentCategoryId = mPin.getCategoryId();
 

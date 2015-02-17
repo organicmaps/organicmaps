@@ -81,13 +81,8 @@
     <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="PinEditableParam" parent="Widget.AppCompat.EditText">
+  <style name="PlaceEditableParam" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
-    <item name="android:textSize">@dimen/sp_x_4</item>
-
-    <item name="colorPrimary">@color/green</item>
-    <item name="colorPrimaryDark">@color/semitransparent_black</item>
-    <item name="colorAccent">@color/downloader_red</item>
   </style>
 
   <style name="DrawerSeparatorNoPadding">

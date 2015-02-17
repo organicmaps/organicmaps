@@ -58,7 +58,7 @@ public class ChooseBookmarkCategoryFragment extends MWMListFragment
     // Note that Point result from the intent is actually a pair
     // of (category index, bookmark index in category).
     final Point cab = ((ParcelablePoint) getArguments().getParcelable(BookmarkActivity.PIN)).getPoint();
-    return BookmarkManager.getBookmarkManager().getBookmark(cab.x, cab.y);
+    return BookmarkManager.INSTANCE.getBookmark(cab.x, cab.y);
   }
 
   private class FooterHelper implements View.OnClickListener
@@ -117,7 +117,7 @@ public class ChooseBookmarkCategoryFragment extends MWMListFragment
 
     private void createCategory(String name)
     {
-      final int index = BookmarkManager.getBookmarkManager().createCategory(getBookmarkFromIntent(), name);
+      final int index = BookmarkManager.INSTANCE.createCategory(getBookmarkFromIntent(), name);
 
       getActivity().getIntent().putExtra(BookmarkActivity.PIN_SET, index)
           .putExtra(BookmarkActivity.PIN, new ParcelablePoint(index, 0));

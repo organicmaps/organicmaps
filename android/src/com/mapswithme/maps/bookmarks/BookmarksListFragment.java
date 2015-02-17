@@ -36,7 +36,6 @@ public class BookmarksListFragment extends MWMListFragment
 {
   public static final String TAG = "BookmarkListActivity";
 
-  private BookmarkManager mManager;
   private EditText mSetName;
   private BookmarkCategory mEditedSet;
   private int mSelectedPosition;
@@ -69,11 +68,9 @@ public class BookmarksListFragment extends MWMListFragment
   {
     super.onCreate(savedInstanceState);
 
-    mManager = BookmarkManager.getBookmarkManager();
-
     // Initialize with passed edited set.
     mIndex = getArguments().getInt(BookmarkActivity.PIN_SET, -1);
-    mEditedSet = mManager.getCategoryById(mIndex);
+    mEditedSet = BookmarkManager.INSTANCE.getCategoryById(mIndex);
   }
 
   @Override
@@ -85,7 +82,7 @@ public class BookmarksListFragment extends MWMListFragment
       return;
     case BookmarkListAdapter.TYPE_BMK:
       final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
-      mManager.showBookmarkOnMap(mIndex, bmk.getBookmarkId());
+      BookmarkManager.INSTANCE.showBookmarkOnMap(mIndex, bmk.getBookmarkId());
       break;
     case BookmarkListAdapter.TYPE_TRACK:
       final Track track = (Track) mPinAdapter.getItem(position);
@@ -111,7 +108,7 @@ public class BookmarksListFragment extends MWMListFragment
   {
     final String name = mSetName.getText().toString();
     if (!name.equals(mEditedSet.getName()))
-      mManager.setCategoryName(mEditedSet, name);
+      BookmarkManager.INSTANCE.setCategoryName(mEditedSet, name);
   }
 
   private void setUpViews(ViewGroup root)
@@ -186,7 +183,7 @@ public class BookmarksListFragment extends MWMListFragment
     }
     else if (itemId == R.id.set_delete)
     {
-      mManager.deleteBookmark((Bookmark) obj);
+      BookmarkManager.INSTANCE.deleteBookmark((Bookmark) obj);
       mPinAdapter.notifyDataSetChanged();
     }
     else if (ShareAction.ACTIONS.containsKey(itemId))
@@ -196,7 +193,7 @@ public class BookmarksListFragment extends MWMListFragment
     }
     else if (itemId == MENU_DELETE_TRACK)
     {
-      mManager.deleteTrack((Track) obj);
+      BookmarkManager.INSTANCE.deleteTrack((Track) obj);
       mPinAdapter.notifyDataSetChanged();
     }
 
@@ -240,7 +237,7 @@ public class BookmarksListFragment extends MWMListFragment
     assignCategoryParams();
 
     String path = MWMApplication.get().getTempPath();
-    final String name = mManager.saveToKMZFile(mEditedSet.getId(), path);
+    final String name = BookmarkManager.INSTANCE.saveToKMZFile(mEditedSet.getId(), path);
     if (name == null)
     {
       // some error occurred

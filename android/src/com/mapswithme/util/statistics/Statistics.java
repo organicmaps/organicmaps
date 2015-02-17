@@ -330,14 +330,13 @@ public enum Statistics
     mEventBuilder.setName(EventParam.PRO_STAT);
 
     // Number of sets
-    final BookmarkManager manager = BookmarkManager.getBookmarkManager();
-    final int categoriesCount = manager.getCategoriesCount();
+    final int categoriesCount = BookmarkManager.INSTANCE.getCategoriesCount();
     if (categoriesCount > 0)
     {
       // Calculate average number of bookmarks in category
       final double[] sizes = new double[categoriesCount];
       for (int catIndex = 0; catIndex < categoriesCount; catIndex++)
-        sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
+        sizes[catIndex] = BookmarkManager.INSTANCE.getCategoryById(catIndex).getSize();
       final double average = MathUtils.average(sizes);
 
       mEventBuilder.addParam(EventParam.BOOKMARK_NUMBER_AVG, String.valueOf(average));

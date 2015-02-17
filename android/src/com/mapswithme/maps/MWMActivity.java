@@ -115,12 +115,14 @@ public class MWMActivity extends NvEventQueueActivity
   private ImageButton mLocationButton;
   // Place page
   private PlacePageView mPlacePage;
-  private View mIvStartRouting;
+  private View mRlStartRouting;
+  private ProgressBar mPbRoutingProgress;
+  private TextView mTvStartRouting;
+  private ImageView mIvStartRouting;
   // Routing
   private TextView mTvRoutingDistance;
   private RelativeLayout mRlRoutingBox;
   private RelativeLayout mLayoutRoutingGo;
-  private ProgressBar mPbRoutingProgress;
   private RelativeLayout mRlTurnByTurnBox;
   private TextView mTvTotalDistance;
   private TextView mTvTotalTime;
@@ -144,7 +146,6 @@ public class MWMActivity extends NvEventQueueActivity
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
   // for routing
-  private static final String IS_FIRST_ROUTING_VERSION_RUN = "IsFirstRoutingRun";
   private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
   // ads in vertical toolbar
   private static final String MENU_ADS_ENABLED = "MenuLinksEnabled";
@@ -808,9 +809,11 @@ public class MWMActivity extends NvEventQueueActivity
   {
     mPlacePage = (PlacePageView) findViewById(R.id.info_box);
     mPlacePage.setOnVisibilityChangedListener(this);
-    mIvStartRouting = mPlacePage.findViewById(R.id.rl__route);
-    mIvStartRouting.setOnClickListener(this);
-    mPbRoutingProgress = (ProgressBar) mPlacePage.findViewById(R.id.pb__routing_progress);
+    mRlStartRouting = mPlacePage.findViewById(R.id.rl__route);
+    mRlStartRouting.setOnClickListener(this);
+    mTvStartRouting = (TextView) mRlStartRouting.findViewById(R.id.tv__route);
+    mIvStartRouting = (ImageView) mRlStartRouting.findViewById(R.id.iv__route);
+    mPbRoutingProgress = (ProgressBar) mRlStartRouting.findViewById(R.id.pb__routing_progress);
   }
 
   private void setUpRoutingBox()
@@ -1323,6 +1326,7 @@ public class MWMActivity extends NvEventQueueActivity
             mPlacePage.setMapObject(apiPoint);
             mPlacePage.setState(State.PREVIEW_ONLY);
             mIvStartRouting.setVisibility(View.VISIBLE);
+            mTvStartRouting.setVisibility(View.VISIBLE);
             mPbRoutingProgress.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
               fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1348,6 +1352,7 @@ public class MWMActivity extends NvEventQueueActivity
           mPlacePage.setMapObject(poi);
           mPlacePage.setState(State.PREVIEW_ONLY);
           mIvStartRouting.setVisibility(View.VISIBLE);
+          mTvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1365,12 +1370,13 @@ public class MWMActivity extends NvEventQueueActivity
       public void run()
       {
         mPlacePage.bringToFront();
-        final Bookmark b = BookmarkManager.getBookmarkManager().getBookmark(category, bookmarkIndex);
+        final Bookmark b = BookmarkManager.INSTANCE.getBookmark(category, bookmarkIndex);
         if (!mPlacePage.hasMapObject(b))
         {
           mPlacePage.setMapObject(b);
           mPlacePage.setState(State.PREVIEW_ONLY);
           mIvStartRouting.setVisibility(View.VISIBLE);
+          mTvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1397,6 +1403,7 @@ public class MWMActivity extends NvEventQueueActivity
             mPlacePage.setMapObject(mypos);
             mPlacePage.setState(State.PREVIEW_ONLY);
             mIvStartRouting.setVisibility(View.GONE);
+            mTvStartRouting.setVisibility(View.GONE);
             mPbRoutingProgress.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
               fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1420,8 +1427,9 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mPlacePage.setMapObject(sr);
           mPlacePage.setState(State.PREVIEW_ONLY);
-          mPbRoutingProgress.setVisibility(View.GONE);
           mIvStartRouting.setVisibility(View.VISIBLE);
+          mTvStartRouting.setVisibility(View.VISIBLE);
+          mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
         }
@@ -1500,7 +1508,7 @@ public class MWMActivity extends NvEventQueueActivity
       setVerticalToolbarVisible(false);
       showDownloader(false);
       break;
-    case R.id.iv__start_routing:
+    case R.id.rl__route:
       buildRoute();
       break;
     case R.id.iv__routing_close:
@@ -1543,7 +1551,8 @@ public class MWMActivity extends NvEventQueueActivity
     final MapObject mapObject = mPlacePage.getMapObject();
     if (mapObject != null)
     {
-      mIvStartRouting.setVisibility(View.INVISIBLE);
+      mIvStartRouting.setVisibility(View.GONE);
+      mTvStartRouting.setVisibility(View.GONE);
       mPbRoutingProgress.setVisibility(View.VISIBLE);
       Framework.nativeBuildRoute(mapObject.getLat(), mapObject.getLon());
     }
@@ -1583,7 +1592,7 @@ public class MWMActivity extends NvEventQueueActivity
     mPlacePage.bringToFront();
     mRlRoutingBox.clearAnimation();
     UiUtils.hide(mRlRoutingBox, mPbRoutingProgress, mRlTurnByTurnBox);
-    mIvStartRouting.setVisibility(View.VISIBLE);
+    mRlStartRouting.setVisibility(View.VISIBLE);
 
     Framework.nativeCloseRouting();
   }

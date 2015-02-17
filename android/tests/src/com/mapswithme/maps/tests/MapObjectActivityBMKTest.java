@@ -38,7 +38,7 @@ public class MapObjectActivityBMKTest extends ActivityInstrumentationTestCase2<M
   {
     super.setUp();
 
-    bookmarkManager = BookmarkManager.getBookmarkManager();
+    bookmarkManager = BookmarkManager.INSTANCE;
     catbmk = bookmarkManager.addNewBookmark(BMK_NAME, BMK_LAT, BMK_LON);
   }
 

@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/pin_name"
-            style="@style/PinEditableParam"
+            style="@style/PlaceEditableParam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -74,7 +74,7 @@
 
       <TextView
           android:id="@+id/pin_set_chooser"
-          style="@style/PinEditableParam"
+          style="@style/PlaceEditableParam"
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_marginBottom="@dimen/dp_x_4"
@@ -94,7 +94,7 @@
 
       <EditText
           android:id="@+id/pin_description"
-          style="@style/PinEditableParam"
+          style="@style/PlaceEditableParam"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:hint="@string/description"/>

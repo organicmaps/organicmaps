@@ -8,13 +8,11 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
 {
-  private final BookmarkManager mManager;
   private final Context mContext;
 
   public AbstractBookmarkCategoryAdapter(Context context)
   {
     mContext = context;
-    mManager = BookmarkManager.getBookmarkManager();
   }
 
   protected Context getContext()
@@ -22,15 +20,10 @@ public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
     return mContext;
   }
 
-  protected BookmarkManager getBookmarkManager()
-  {
-    return mManager;
-  }
-
   @Override
   public int getCount()
   {
-    return mManager.getCategoriesCount();
+    return BookmarkManager.INSTANCE.getCategoriesCount();
   }
 
   @Override
@@ -42,6 +35,6 @@ public abstract class AbstractBookmarkCategoryAdapter extends BaseAdapter
   @Override
   public BookmarkCategory getItem(int position)
   {
-    return getBookmarkManager().getCategoryById(position);
+    return BookmarkManager.INSTANCE.getCategoryById(position);
   }
 }

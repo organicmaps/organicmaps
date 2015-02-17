@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_x_1"
-    android:background="@null" >
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/clickableBackground"
+                android:padding="@dimen/margin_small">
 
-    <ImageView
-        android:id="@+id/row_color_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@null"
-        android:padding="@dimen/dp_x_1"
-        android:scaleType="centerInside" />
-
-    <ImageView
-        android:id="@+id/selected_mark"
-        android:layout_width="@dimen/dp_x_8"
-        android:layout_height="@dimen/dp_x_8"
-        android:layout_centerInParent="true"
-        android:background="@null" />
+  <ImageView
+      android:id="@+id/iv__color"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:background="@null"
+      android:contentDescription="@null"
+      android:scaleType="center"/>
 
 </RelativeLayout>

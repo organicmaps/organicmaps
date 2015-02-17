@@ -40,8 +40,11 @@
         android:id="@+id/ll__place_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="?attr/clickableBackground"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small">
 
       <ImageView
           android:id="@+id/iv__place_phone"
@@ -64,8 +67,10 @@
         android:id="@+id/ll__place_website"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="horizontal">
+        android:background="?attr/clickableBackground"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small">
 
       <ImageView
           android:id="@+id/iv__place_website"
@@ -87,8 +92,10 @@
         android:id="@+id/ll__place_schedule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="horizontal">
+        android:background="?attr/clickableBackground"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small">
 
       <ImageView
           android:id="@+id/iv__place_schedule"
@@ -110,8 +117,10 @@
         android:id="@+id/ll__place_latlon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="horizontal">
+        android:background="?attr/clickableBackground"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small">
 
       <ImageView
           android:id="@+id/iv__place_latlon"
@@ -183,30 +192,33 @@
           android:textColor="@color/text_place_page_subtitle"
           android:textSize="@dimen/place_page_sub_subtitle"/>
 
-      <TextView
-          android:id="@+id/tv__bookmark_name"
+      <EditText
+          android:id="@+id/et__bookmark_name"
+          style="@style/PlaceEditableParam"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/tv__bookmark_title"
           android:layout_marginTop="@dimen/margin_tiny"
           android:layout_toRightOf="@id/iv__bookmark"
+          android:hint="@string/name"
+          android:inputType="textCapWords"
           android:lineSpacingMultiplier="1.43"
-          android:text="Great bookmark"
+          android:singleLine="true"
           android:textColor="@color/text_place_page"
           android:textSize="@dimen/place_page_subtitle"/>
 
       <View
           android:layout_width="match_parent"
           android:layout_height="1px"
-          android:layout_below="@id/tv__bookmark_name"
-          android:layout_marginTop="@dimen/margin_medium_and_half"
+          android:layout_below="@id/et__bookmark_name"
+          android:layout_marginTop="@dimen/margin_small"
           android:background="?attr/dividerHorizontal"/>
 
       <TextView
           android:id="@+id/tv__bookmark_group_title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_below="@id/tv__bookmark_name"
+          android:layout_below="@id/et__bookmark_name"
           android:layout_marginTop="@dimen/margin_medium_and_half"
           android:layout_toRightOf="@id/iv__bookmark"
           android:lineSpacingMultiplier="1.67"
@@ -237,6 +249,7 @@
             android:textSize="@dimen/place_page_subtitle"/>
 
         <ImageView
+            android:id="@+id/iv__bookmark_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
@@ -247,7 +260,7 @@
           android:layout_width="match_parent"
           android:layout_height="1px"
           android:layout_below="@id/ll__group"
-          android:layout_marginTop="@dimen/margin_medium_and_half"
+          android:layout_marginTop="@dimen/margin_small"
           android:background="?android:attr/listDivider"/>
 
       <TextView
@@ -264,14 +277,17 @@
 
       <EditText
           android:id="@+id/et__bookmark_notes"
+          style="@style/PlaceEditableParam"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/tv__bookmark_notes_title"
           android:layout_marginTop="@dimen/margin_tiny"
           android:layout_toRightOf="@id/iv__bookmark"
           android:background="@null"
+          android:hint="Notes"
+          android:inputType="text"
           android:lineSpacingMultiplier="1.43"
-          android:text="Enter notes here"
+          android:singleLine="true"
           android:textColor="@color/text_place_page"
           android:textSize="@dimen/place_page_subtitle"/>
     </RelativeLayout>

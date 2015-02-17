@@ -189,7 +189,7 @@ public class BookmarkListAdapter extends BaseAdapter
       final Location loc = LocationHelper.INSTANCE.getLastLocation();
       if (loc != null)
       {
-        final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), 0.0);
+        final DistanceAndAzimut daa = bmk.getDistanceAndAzimuth(loc.getLatitude(), loc.getLongitude(), 0.0);
         distance.setText(daa.getDistance());
       }
       else
