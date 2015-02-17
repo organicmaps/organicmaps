@@ -1,0 +1,19 @@
+# Configuration file for clang-format, based on docs/cpp_coding_standard.txt.
+
+---
+BasedOnStyle: Google
+IndentWidth: 2
+
+---
+Language: Cpp
+AccessModifierOffset: -2
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BreakBeforeBraces: Allman
+BreakConstructorInitializersBeforeComma: false
+ColumnLimit: 100
+DerivePointerAlignment: false
+NamespaceIndentation: All
+PointerAlignment: Middle
