@@ -57,7 +57,7 @@
 
 /*!
  Method to create an event item. Revenue will be calculated using (quantity * unitPrice).
- 
+
  @param name name of the event item
  @param unitPrice unit price of the event item
  @param quantity quantity of the event item

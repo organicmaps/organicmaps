@@ -16,10 +16,7 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */; };
-		6B948E1E1A25533C00229BD5 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */; };
 		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
-		6B948E201A25533C00229BD5 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1C1A25533C00229BD5 /* libMyTracker.a */; };
 		6BBD66B31A695722005FF58D /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B11A695722005FF58D /* MobileAppTracker.framework */; };
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
 		6BBD66B51A6957EE005FF58D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
@@ -74,7 +71,6 @@
 		97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */; };
 		97D40C0A184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
-		97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
 		97DD585C18A8EB130079837E /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_6.0.0.a */; };
 		97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -91,9 +87,6 @@
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
-		B00510FD1A11019400A61AA4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FC1A11019400A61AA4 /* libsqlite3.dylib */; };
-		B00510FF1A1101A000A61AA4 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00510FE1A1101A000A61AA4 /* libxml2.dylib */; };
-		B00511011A1101AA00A61AA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511001A1101AA00A61AA4 /* libz.dylib */; };
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
 		B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
 		B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
@@ -203,10 +196,7 @@
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
 		6B948E141A254C9800229BD5 /* ExternalLibs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExternalLibs; sourceTree = "<group>"; };
-		6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = Statistics/MRGService/ExternalLibs/GoogleAnalytics/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
-		6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = Statistics/MRGService/ExternalLibs/GoogleAnalytics/libAdIdAccess.a; sourceTree = "<group>"; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
-		6B948E1C1A25533C00229BD5 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMyTracker.a; path = Statistics/MRGService/ExternalLibs/MyTracker/libMyTracker.a; sourceTree = "<group>"; };
 		6BBD66B11A695722005FF58D /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileAppTracker.framework; path = Statistics/MobileAppTracker.framework; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -315,9 +305,6 @@
 		97D092B8190AA69700FF645B /* SmallCompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SmallCompassView.mm; sourceTree = "<group>"; };
 		97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesPro.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C09184D031900A1D572 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
-		97DD585218A8EAFA0079837E /* libAarkiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAarkiSDK.a; sourceTree = "<group>"; };
-		97DD585318A8EAFA0079837E /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
-		97DD585418A8EAFA0079837E /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
 		97DD585A18A8EB120079837E /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		97DD585B18A8EB120079837E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		97DEA09018D706C300C5F963 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
@@ -343,9 +330,6 @@
 		A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContextFactory.mm; path = Platform/opengl/iosOGLContextFactory.mm; sourceTree = "<group>"; };
 		A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationPredictor.mm; sourceTree = "<group>"; };
 		A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPredictor.h; sourceTree = "<group>"; };
-		B00510FC1A11019400A61AA4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		B00510FE1A1101A000A61AA4 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		B00511001A1101AA00A61AA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B00511051A1101FC00A61AA4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		B08AA8CC1A24C7BC00810B1C /* LocalNotificationInfoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotificationInfoProvider.h; sourceTree = "<group>"; };
@@ -503,16 +487,10 @@
 				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
-				6B948E1D1A25533C00229BD5 /* libGoogleAnalyticsServices.a in Frameworks */,
-				6B948E1E1A25533C00229BD5 /* libAdIdAccess.a in Frameworks */,
 				6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */,
-				6B948E201A25533C00229BD5 /* libMyTracker.a in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
-				B00511011A1101AA00A61AA4 /* libz.dylib in Frameworks */,
-				B00510FF1A1101A000A61AA4 /* libxml2.dylib in Frameworks */,
-				B00510FD1A11019400A61AA4 /* libsqlite3.dylib in Frameworks */,
 				B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
@@ -527,7 +505,6 @@
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
-				97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */,
 				97DD585C18A8EB130079837E /* libFlurry_6.0.0.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -631,15 +608,9 @@
 			children = (
 				6BBD66B11A695722005FF58D /* MobileAppTracker.framework */,
 				6BBD66B21A695722005FF58D /* MRGService.framework */,
-				6B948E191A25533C00229BD5 /* libGoogleAnalyticsServices.a */,
-				6B948E1A1A25533C00229BD5 /* libAdIdAccess.a */,
 				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
-				6B948E1C1A25533C00229BD5 /* libMyTracker.a */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
 				B00511031A1101F600A61AA4 /* CoreData.framework */,
-				B00511001A1101AA00A61AA4 /* libz.dylib */,
-				B00510FE1A1101A000A61AA4 /* libxml2.dylib */,
-				B00510FC1A11019400A61AA4 /* libsqlite3.dylib */,
 				974386D81934CBAC00FD5659 /* FacebookSDK.framework */,
 				97EDDCE418A299C000AEFB7A /* Twitter.framework */,
 				972CDCC51887F1B7006641CA /* CFNetwork.framework */,
@@ -855,9 +826,6 @@
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
 				97DD585A18A8EB120079837E /* libFlurry_6.0.0.a */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
-				97DD585218A8EAFA0079837E /* libAarkiSDK.a */,
-				97DD585318A8EAFA0079837E /* Aarki.h */,
-				97DD585418A8EAFA0079837E /* AarkiContact.h */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";

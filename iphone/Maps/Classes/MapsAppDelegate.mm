@@ -3,7 +3,6 @@
 #import "Preferences.h"
 #import "LocationManager.h"
 #import "Statistics.h"
-#import "AarkiContact.h"
 #import <MobileAppTracker/MobileAppTracker.h>
 #import "UIKitCategories.h"
 #import "AppInfo.h"
@@ -112,23 +111,7 @@ void InitLocalizedStrings()
   appsFlyerParams.debug = YES;
 #endif
 
-  // Google Analytics
-  NSString * googleAnalyticsTrackingId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GoogleAnalyticsTrackingID"];
-  MRGSGoogleAnalyticsParams * googleAnalyticsParams = [[MRGSGoogleAnalyticsParams alloc] initWithTrackingId:googleAnalyticsTrackingId];
-#ifdef DEBUG
-  googleAnalyticsParams.logLevel = 4;
-#else
-  googleAnalyticsParams.logLevel = 0;
-#endif
-  
-  // MyTracker (Adman Tracker)
-  NSString * admanTrackerAppId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AdmanTrackerAppID"];
-  MRGSMyTrackerParams * myTrackerParams = [[MRGSMyTrackerParams alloc] initWithAppId:admanTrackerAppId];
-#ifdef DEBUG
-  myTrackerParams.enableLogging = YES;
-#endif
-
-  NSArray * externalParams = @[appsFlyerParams, googleAnalyticsParams, myTrackerParams];
+  NSArray * externalParams = @[appsFlyerParams];
   
   [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
   [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
@@ -275,12 +258,6 @@ void InitLocalizedStrings()
 
   [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
   [FBAppEvents activateApp];
-
-  if ([MapsAppDelegate isFirstAppLaunch])
-  {
-    NSString * appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AarkiClientSecurityKey"];
-    [AarkiContact registerApp:appId];
-  }
 
   // MAT will not function without the measureSession call included
   [MobileAppTracker measureSession];
