@@ -20,6 +20,17 @@ using namespace routing;
 
 namespace integration
 {
+  class OsrmRouterWrapper : public OsrmRouter
+  {
+  public:
+    OsrmRouterWrapper(Index const * index, CountryFileFnT const & fn) : OsrmRouter(index, fn) {}
+    ResultCode CalculateRouteSync(m2::PointD const & startPt, m2::PointD const & startDr,
+                                  m2::PointD const & finalPt, Route & route)
+    {
+      return CalculateRouteImpl(startPt, startDr, finalPt, route);
+    }
+  };
+
   shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<string> const & mapNames)
   {
     shared_ptr<model::FeaturesFetcher> featuresFetcher(new model::FeaturesFetcher);
@@ -38,7 +49,7 @@ namespace integration
 
   shared_ptr<search::Engine> CreateSearchEngine(shared_ptr<model::FeaturesFetcher> featuresFetcher)
   {
-    ASSERT(featuresFetcher.get(), ());
+    ASSERT(featuresFetcher, ());
     search::Engine::IndexType const & index = featuresFetcher->GetIndex();
 
     Platform const & pl = GetPlatform();
@@ -59,13 +70,13 @@ namespace integration
     }
   }
 
-  shared_ptr<OsrmRouter> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
+  shared_ptr<OsrmRouterWrapper> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
                                              shared_ptr<search::Engine> searchEngine)
   {
-    ASSERT(featuresFetcher.get(), ());
-    ASSERT(searchEngine.get(), ());
+    ASSERT(featuresFetcher, ());
+    ASSERT(searchEngine, ());
 
-    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&featuresFetcher->GetIndex(),
+    shared_ptr<OsrmRouterWrapper> osrmRouter(new OsrmRouterWrapper(&featuresFetcher->GetIndex(),
                                                      [searchEngine]  (m2::PointD const & pt)
     {
       return searchEngine->GetCountryFile(pt);
@@ -76,15 +87,15 @@ namespace integration
   class OsrmRouterComponents
   {
   public:
-    OsrmRouterComponents(vector<string> const & mapNames) :
-      m_featuresFetcher(CreateFeaturesFetcher(mapNames)),
-      m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
-      m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
-    OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
+    OsrmRouterComponents(vector<string> const & mapNames)
+      : m_featuresFetcher(CreateFeaturesFetcher(mapNames)),
+        m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
+        m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
+    OsrmRouterWrapper * GetOsrmRouter() const { return m_osrmRouter.get(); }
   private:
     shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
     shared_ptr<search::Engine> m_searchEngine;
-    shared_ptr<OsrmRouter> m_osrmRouter;
+    shared_ptr<OsrmRouterWrapper> m_osrmRouter;
   };
 
   void GetMapNames(vector<string> & maps)
@@ -114,30 +125,30 @@ namespace integration
   shared_ptr<OsrmRouterComponents> GetAllMaps()
   {
     static shared_ptr<OsrmRouterComponents> inst = LoadAllMaps();
-    ASSERT(inst.get(), ());
+    ASSERT(inst, ());
     return inst;
   }
 
   RouteResultT CalculateRoute(shared_ptr<OsrmRouterComponents> routerComponents,
                               m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt)
   {
-    ASSERT(routerComponents.get(), ());
-    OsrmRouter * osrmRouter = routerComponents->GetOsrmRouter();
+    ASSERT(routerComponents, ());
+    OsrmRouterWrapper * osrmRouter = routerComponents->GetOsrmRouter();
     ASSERT(osrmRouter, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    OsrmRouter::ResultCode result = osrmRouter->CalculateRouteImpl(startPt, startDr, finalPt, *route.get());
+    OsrmRouter::ResultCode result = osrmRouter->CalculateRouteSync(startPt, startDr, finalPt, *route.get());
     return RouteResultT(route, result);
   }
 
   void TestTurnCount(shared_ptr<routing::Route> const route, uint32_t referenceTurnCount)
   {
-    ASSERT(route.get(), ());
+    ASSERT(route, ());
     TEST_EQUAL(route->GetTurnsGeometry().size(), referenceTurnCount, ());
   }
 
   void TestRouteLength(shared_ptr<Route> const route, double referenceRouteLength, double routeLenInaccuracy)
   {
-    ASSERT(route.get(), ());
+    ASSERT(route, ());
     double const delta = referenceRouteLength * routeLenInaccuracy;
     double const routeLength = route->GetDistance();
     TEST_LESS_OR_EQUAL(routeLength - delta, referenceRouteLength, ());
@@ -194,7 +205,7 @@ namespace integration
 
   TestTurn GetNthTurn(shared_ptr<routing::Route> const route, uint32_t referenceTurnNumber)
   {
-    ASSERT(route.get(), ());
+    ASSERT(route, ());
 
     turns::TurnsGeomT const & turnsGeom = route->GetTurnsGeometry();
     if (referenceTurnNumber >= turnsGeom.size())
@@ -212,7 +223,7 @@ namespace integration
 
   TestTurn GetTurnByPoint(shared_ptr<routing::Route> const route, m2::PointD const & referenceTurnPnt, double inaccuracy)
   {
-    ASSERT(route.get(), ());
+    ASSERT(route, ());
     turns::TurnsGeomT const & turnsGeom = route->GetTurnsGeometry();
     Route::TurnsT const & turns = route->GetTurns();
     ASSERT_EQUAL(turnsGeom.size() + 1, turns.size(), ());

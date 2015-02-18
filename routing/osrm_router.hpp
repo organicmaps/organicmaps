@@ -195,8 +195,6 @@ public:
 
   void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 
-  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
-
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
                                        FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping);
@@ -226,6 +224,7 @@ protected:
                                 vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
 
   void CalculateRouteAsync(ReadyCallback const & callback);
+  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
 
 private:
   typedef pair<size_t,string> MwmOutT;
