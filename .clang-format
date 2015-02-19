@@ -8,12 +8,12 @@ IndentWidth: 2
 Language: Cpp
 AccessModifierOffset: -2
 AllowShortBlocksOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 BreakBeforeBraces: Allman
 BreakConstructorInitializersBeforeComma: false
 ColumnLimit: 100
 DerivePointerAlignment: false
-NamespaceIndentation: All
+NamespaceIndentation: None
 PointerAlignment: Middle
