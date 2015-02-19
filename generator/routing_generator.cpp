@@ -225,7 +225,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           ++found;
 
           // Emit segment.
-          OsrmFtSegMapping::FtSeg ftSeg(fID, ind1, ind2);
+          OsrmMappingTypes::FtSeg ftSeg(fID, ind1, ind2);
           if (vec.empty() || !vec.back().Merge(ftSeg))
           {
             vec.push_back(ftSeg);

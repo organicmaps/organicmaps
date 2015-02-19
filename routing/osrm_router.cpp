@@ -88,7 +88,7 @@ class Point2PhantomNode : private noncopyable
     uint32_t m_fid;
     m2::PointD m_point;
 
-    Candidate() : m_dist(numeric_limits<double>::max()), m_fid(OsrmFtSegMapping::FtSeg::INVALID_FID) {}
+    Candidate() : m_dist(numeric_limits<double>::max()), m_fid(OsrmMappingTypes::FtSeg::INVALID_FID) {}
   };
 
   m2::PointD m_point;
@@ -148,11 +148,11 @@ public:
       }
     }
 
-    if (res.m_fid != OsrmFtSegMapping::FtSeg::INVALID_FID)
+    if (res.m_fid != OsrmMappingTypes::FtSeg::INVALID_FID)
       m_candidates.push_back(res);
   }
 
-  double CalculateDistance(OsrmFtSegMapping::FtSeg const & s) const
+  double CalculateDistance(OsrmMappingTypes::FtSeg const & s) const
   {
     ASSERT_NOT_EQUAL(s.m_pointStart, s.m_pointEnd, ());
 
@@ -173,14 +173,14 @@ public:
     return dist;
   }
 
-  void CalculateOffset(OsrmFtSegMapping::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
+  void CalculateOffset(OsrmMappingTypes::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
   {
     if (nodeId == INVALID_NODE_ID)
       return;
 
     double distance = 0;
     auto const range = m_mapping.GetSegmentsRange(nodeId);
-    OsrmFtSegMapping::FtSeg s, cSeg;
+    OsrmMappingTypes::FtSeg s, cSeg;
 
     int si = forward ? range.second - 1 : range.first;
     int ei = forward ? range.first - 1 : range.second;
@@ -263,7 +263,7 @@ public:
     if (m_mwmId == numeric_limits<uint32_t>::max())
       return;
 
-    vector<OsrmFtSegMapping::FtSeg> segments;
+    vector<OsrmMappingTypes::FtSeg> segments;
 
     segments.resize(maxCount);
 
@@ -276,7 +276,7 @@ public:
     size_t const n = min(m_candidates.size(), maxCount);
     for (size_t j = 0; j < n; ++j)
     {
-      OsrmFtSegMapping::FtSeg & seg = segments[j];
+      OsrmMappingTypes::FtSeg & seg = segments[j];
       Candidate const & c = m_candidates[j];
 
       seg.m_fid = c.m_fid;
@@ -308,7 +308,7 @@ public:
       if (!m_direction.IsAlmostZero())
       {
         // Filter income nodes by direction mode
-        OsrmFtSegMapping::FtSeg const & node_seg = segments[idx];
+        OsrmMappingTypes::FtSeg const & node_seg = segments[idx];
         FeatureType feature;
         Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
         loader.GetFeature(node_seg.m_fid, feature);
@@ -568,7 +568,7 @@ void OsrmRouter::GenerateRoutingTaskFromNodeId(size_t const nodeId, FeatureGraph
   taskNode.m_node.forward_offset = 0;
   taskNode.m_node.reverse_offset = 0;
   taskNode.m_node.name_id = 1;
-  taskNode.m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
+  taskNode.m_seg.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
 }
 
 size_t OsrmRouter::FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingMappingPtrT const & targetMapping)
@@ -596,6 +596,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
     RawRoutingResultT routingResult;
     FeatureGraphNodeVecT startTask(1), targetTask(1);
     startTask[0] = cross.startNode;
+
     if (!cross.startNode.m_seg.IsValid())
     {
       startTask.push_back(cross.startNode);
@@ -604,6 +605,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
     }
 
     targetTask[0] = cross.targetNode;
+
     if (!cross.targetNode.m_seg.IsValid())
     {
       targetTask.push_back(cross.targetNode);
@@ -1074,7 +1076,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   }
 }
 
-m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const & seg,
+m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                             FeatureType const & ft, m2::PointD const & turnPnt,
                                             size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
 {
@@ -1102,7 +1104,7 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const & seg,
 
 OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping, vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom)
 {
-  typedef OsrmFtSegMapping::FtSeg SegT;
+  typedef OsrmMappingTypes::FtSeg SegT;
   SegT const & segBegin = routingResult.m_sourceEdge.m_seg;
   SegT const & segEnd = routingResult.m_targetEdge.m_seg;
 
@@ -1157,7 +1159,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
       auto FindIntersectingSeg = [&buffer] (SegT const & seg) -> size_t
       {
         ASSERT(seg.IsValid(), ());
-        auto const it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmFtSegMapping::FtSeg const & s)
+        auto const it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmMappingTypes::FtSeg const & s)
         {
           return s.IsIntersect(seg);
         });
@@ -1327,7 +1329,7 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
     ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
 
     auto const range = routingMapping->m_segMapping.GetSegmentsRange(trg);
-    OsrmFtSegMapping::FtSeg seg;
+    OsrmMappingTypes::FtSeg seg;
     routingMapping->m_segMapping.GetSegmentByIndex(range.first, seg);
     if (!seg.IsValid())
       continue;
@@ -1503,7 +1505,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
 
   ASSERT_GREATER(nSegs1.second, 0, ());
 
-  OsrmFtSegMapping::FtSeg seg1, seg2;
+  OsrmMappingTypes::FtSeg seg1, seg2;
   routingMapping->m_segMapping.GetSegmentByIndex(nSegs1.second - 1, seg1);
   routingMapping->m_segMapping.GetSegmentByIndex(nSegs2.first, seg2);
 

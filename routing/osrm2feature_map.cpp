@@ -20,7 +20,7 @@ namespace routing
 
 OsrmNodeIdT const INVALID_NODE_ID = -1;
 
-OsrmFtSegMapping::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
+OsrmMappingTypes::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   : m_fid(fid),
     m_pointStart(static_cast<uint16_t>(ps)),
     m_pointEnd(static_cast<uint16_t>(pe))
@@ -30,17 +30,17 @@ OsrmFtSegMapping::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   CHECK_EQUAL(m_pointEnd, pe, ());
 }
 
-OsrmFtSegMapping::FtSeg::FtSeg(uint64_t x)
+OsrmMappingTypes::FtSeg::FtSeg(uint64_t x)
   : m_fid(x & 0xFFFFFFFF), m_pointStart(x >> 48), m_pointEnd((x >> 32) & 0xFFFF)
 {
 }
 
-uint64_t OsrmFtSegMapping::FtSeg::Store() const
+uint64_t OsrmMappingTypes::FtSeg::Store() const
 {
   return (uint64_t(m_pointStart) << 48) + (uint64_t(m_pointEnd) << 32) + uint64_t(m_fid);
 }
 
-bool OsrmFtSegMapping::FtSeg::Merge(FtSeg const & other)
+bool OsrmMappingTypes::FtSeg::Merge(FtSeg const & other)
 {
   if (other.m_fid != m_fid)
     return false;
@@ -67,7 +67,7 @@ bool OsrmFtSegMapping::FtSeg::Merge(FtSeg const & other)
     return false;
 }
 
-bool OsrmFtSegMapping::FtSeg::IsIntersect(FtSeg const & other) const
+bool OsrmMappingTypes::FtSeg::IsIntersect(FtSeg const & other) const
 {
   if (other.m_fid != m_fid)
     return false;
@@ -80,7 +80,7 @@ bool OsrmFtSegMapping::FtSeg::IsIntersect(FtSeg const & other) const
   return my::IsIntersect(s1, e1, s2, e2);
 }
 
-string DebugPrint(OsrmFtSegMapping::FtSeg const & seg)
+string OsrmMappingTypes::DebugPrint(OsrmMappingTypes::FtSeg const & seg)
 {
   stringstream ss;
   ss << "{ fID = " << seg.m_fid <<
@@ -89,7 +89,7 @@ string DebugPrint(OsrmFtSegMapping::FtSeg const & seg)
   return ss.str();
 }
 
-string DebugPrint(OsrmFtSegMapping::SegOffset const & off)
+string OsrmMappingTypes::DebugPrint(OsrmMappingTypes::SegOffset const & off)
 {
   stringstream ss;
   ss << "{ " << off.m_nodeId << ", " << off.m_offset << " }";
@@ -126,6 +126,7 @@ void OsrmFtSegMapping::Map(FilesMappingContainer & cont)
   m_handle.Assign(cont.Map(ROUTING_FTSEG_FILE_TAG));
   ASSERT(m_handle.IsValid(), ());
   succinct::mapper::map(m_segments, m_handle.GetData<char>());
+  m_backwardIndex.Construct(m_segments, cont);
 }
 
 void OsrmFtSegMapping::Unmap()
@@ -143,7 +144,7 @@ void OsrmFtSegMapping::DumpSegmentsByFID(uint32_t fID) const
 #ifdef DEBUG
   for (size_t i = 0; i < m_segments.size(); ++i)
   {
-    FtSeg s(m_segments[i]);
+    OsrmMappingTypes::FtSeg s(m_segments[i]);
     if (s.m_fid == fID)
       LOG(LDEBUG, (s));
   }
@@ -153,7 +154,7 @@ void OsrmFtSegMapping::DumpSegmentsByFID(uint32_t fID) const
 void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 {
 #ifdef DEBUG
-  ForEachFtSeg(nodeId, [] (FtSeg const & s)
+  ForEachFtSeg(nodeId, [] (OsrmMappingTypes::FtSeg const & s)
   {
     LOG(LDEBUG, (s));
   });
@@ -186,19 +187,17 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
     return true;
   };
 
-  size_t const count = GetSegmentsCount();
-  for (size_t i = 0; i < count && !segments.empty(); ++i)
+  for (auto it = segments.begin(); it != segments.end(); ++it)
   {
-    FtSeg s(m_segments[i]);
+    OsrmMappingTypes::FtSeg const & seg = *(*it);
+    vector<size_t> results;
+    m_backwardIndex.GetIndexesByFid(seg.m_fid, results);
 
-    if (requestCancel)
-      return;
-
-    for (auto it = segments.begin(); it != segments.end(); ++it)
+    for (size_t i : results)
     {
-      FtSeg const & seg = *(*it);
-      if (s.m_fid != seg.m_fid)
-        continue;
+      OsrmMappingTypes::FtSeg const s(m_segments[i]);
+
+      ASSERT(s.m_fid == seg.m_fid, ());
 
       if (s.m_pointStart <= s.m_pointEnd)
       {
@@ -206,7 +205,6 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
         {
           if (addResFn(seg.Store(), i, true))
           {
-            segments.erase(it);
             break;
           }
         }
@@ -217,7 +215,6 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
         {
           if (addResFn(seg.Store(), i, false))
           {
-            segments.erase(it);
             break;
           }
         }
@@ -226,16 +223,16 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
   }
 }
 
-void OsrmFtSegMapping::GetSegmentByIndex(size_t idx, FtSeg & seg) const
+void OsrmFtSegMapping::GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & seg) const
 {
   ASSERT_LESS(idx, m_segments.size(), ());
-  FtSeg(m_segments[idx]).Swap(seg);
+  OsrmMappingTypes::FtSeg(m_segments[idx]).Swap(seg);
 }
 
 pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(OsrmNodeIdT nodeId) const
 {
-  SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), SegOffset(nodeId, 0),
-                                               [] (SegOffset const & o, SegOffset const & val)
+  SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), OsrmMappingTypes::SegOffset(nodeId, 0),
+                                               [] (OsrmMappingTypes::SegOffset const & o, OsrmMappingTypes::SegOffset const & val)
                                                {
                                                   return (o.m_nodeId < val.m_nodeId);
                                                });
@@ -251,8 +248,8 @@ pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(OsrmNodeIdT nodeId) cons
 
 OsrmNodeIdT OsrmFtSegMapping::GetNodeId(size_t segInd) const
 {
-  SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), SegOffset(segInd, 0),
-                                               [] (SegOffset const & o, SegOffset const & val)
+  SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), OsrmMappingTypes::SegOffset(segInd, 0),
+                                               [] (OsrmMappingTypes::SegOffset const & o, OsrmMappingTypes::SegOffset const & val)
                                                {
                                                   return (o.m_nodeId + o.m_offset < val.m_nodeId);
                                                });
@@ -280,7 +277,7 @@ void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT nodeId, FtSegVectorT const & da
   size_t const count = data.size();
 
   if (count == 0)
-    m_buffer.push_back(FtSeg(FtSeg::INVALID_FID, 0, 1).Store());
+    m_buffer.push_back(OsrmMappingTypes::FtSeg(OsrmMappingTypes::FtSeg::INVALID_FID, 0, 1).Store());
   else
   {
     for (size_t i = 0; i < count; ++i)
@@ -294,7 +291,7 @@ void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT nodeId, FtSegVectorT const & da
     uint32_t const off = static_cast<uint32_t>(m_lastOffset);
     CHECK_EQUAL(m_lastOffset, off, ());
 
-    m_offsets.push_back(SegOffset(nodeId, off));
+    m_offsets.push_back(OsrmMappingTypes::SegOffset(nodeId, off));
   }
 }
 void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const

@@ -63,7 +63,7 @@ void TestMapping(InputDataT const & data,
     {
       OsrmNodeIdT const node = mapping.GetNodeId(i);
       size_t count = 0;
-      mapping.ForEachFtSeg(node, [&] (OsrmFtSegMapping::FtSeg const & s)
+      mapping.ForEachFtSeg(node, [&] (OsrmMappingTypes::FtSeg const & s)
       {
         TEST_EQUAL(s, data[node][count++], ());
       });
@@ -74,7 +74,7 @@ void TestMapping(InputDataT const & data,
   FileWriter::DeleteFileX(fName);
 }
 
-typedef OsrmFtSegMapping::FtSeg SegT;
+typedef OsrmMappingTypes::FtSeg SegT;
 
 bool TestFtSeg(SegT const & s)
 {

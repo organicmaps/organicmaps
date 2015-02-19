@@ -35,7 +35,7 @@ typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
 struct FeatureGraphNode
 {
   PhantomNode m_node;
-  OsrmFtSegMapping::FtSeg m_seg;
+  OsrmMappingTypes::FtSeg m_seg;
   m2::PointD m_segPt;
 };
 /// All edges available for start route while routing
@@ -208,7 +208,7 @@ private:
                         Route::TurnItem & turn);
   void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir, turns::TurnsGeomT & turnsGeom) const;
   void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
-  m2::PointD GetPointForTurnAngle(OsrmFtSegMapping::FtSeg const & seg,
+  m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                   FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
   turns::TurnDirection InvertDirection(turns::TurnDirection dir) const;
