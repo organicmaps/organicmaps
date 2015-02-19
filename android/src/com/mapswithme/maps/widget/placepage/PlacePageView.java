@@ -180,7 +180,6 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
       mAnimationController = new BottomPlacePageAnimationController(this);
       break;
     case 1:
-      // FIXME
       mAnimationController = new TopPlacePageAnimationController(this);
       break;
     case 2:
@@ -188,8 +187,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
       mAnimationController = new TopPlacePageAnimationController(this);
       break;
     case 3:
-      // FIXME
-      mAnimationController = new TopPlacePageAnimationController(this);
+      mAnimationController = new LeftFullAnimationController(this);
       break;
     }
   }

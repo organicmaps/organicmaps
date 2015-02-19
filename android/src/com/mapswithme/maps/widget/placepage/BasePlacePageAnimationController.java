@@ -23,7 +23,7 @@ public abstract class BasePlacePageAnimationController
   // Gestures
   protected GestureDetectorCompat mGestureDetector;
   protected boolean mIsGestureHandled;
-  protected float mDownY;
+  protected float mDownCoord;
   protected float mTouchSlop;
   // Visibility
   protected boolean mIsPreviewVisible;

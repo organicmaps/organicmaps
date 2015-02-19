@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@drawable/bg_place_page_back"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_small_and_half"
@@ -20,8 +19,6 @@
         android:id="@+id/tv__title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:text="TEST TITLE"
         android:textColor="@color/text_place_page"
         android:textSize="@dimen/place_page_title"/>

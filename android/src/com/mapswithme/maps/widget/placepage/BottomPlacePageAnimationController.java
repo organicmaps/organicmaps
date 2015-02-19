@@ -18,32 +18,36 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
-    mPreview.bringToFront();
-    mDetails.requestDisallowInterceptTouchEvent(true);
-    mButtons.bringToFront();
-    mButtons.requestDisallowInterceptTouchEvent(true);
   }
 
   @Override
   boolean onInterceptTouchEvent(MotionEvent event)
   {
-    Log.d("TEST", "Intercept! Ev " + event);
     switch (event.getAction())
     {
     case MotionEvent.ACTION_DOWN:
       mIsGestureHandled = false;
-      mDownY = event.getRawY();
+      mDownCoord = event.getRawY();
       break;
     case MotionEvent.ACTION_MOVE:
-      Log.d("TEST", "Intercept! DownY " + mDownY + "; preview Y " + mPreview.getY() + "; buttons Y " + mButtons.getY());
-      if (mDownY < mPreview.getY() || mDownY > mButtons.getY())
+      if (mDownCoord < mPreview.getY() || mDownCoord > mButtons.getY())
         return false;
-      if (Math.abs(mDownY - event.getRawY()) > mTouchSlop)
+      if (Math.abs(mDownCoord - event.getRawY()) > mTouchSlop)
         return true;
       break;
     }
 
     return false;
+  }
+
+  @Override
+  protected boolean onTouchEvent(@NonNull MotionEvent event)
+  {
+    if (mDownCoord < mPreview.getY() || mDownCoord > mButtons.getY())
+      return false;
+
+    super.onTouchEvent(event);
+    return true;
   }
 
   @Override
@@ -91,8 +95,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
-        Log.d("TEST", "Detector, tap confirmed. Y " + mDownY + "; preview Y " + mPreview.getY() + "; details Y " + mDetails.getY());
-        if (mDownY < mPreview.getY() && mDownY < mDetails.getY())
+        if (mDownCoord < mPreview.getY() && mDownCoord < mDetails.getY())
           return false;
 
         if (mPlacePage.getState() == State.FULL_PLACEPAGE)
@@ -105,6 +108,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     });
   }
 
+  @Override
   protected void showPreview(final boolean show)
   {
     mPlacePage.setVisibility(View.VISIBLE);
@@ -139,6 +143,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     mIsPreviewVisible = show;
   }
 
+  @Override
   protected void showPlacePage(final boolean show)
   {
     mPlacePage.setVisibility(View.VISIBLE);
@@ -172,6 +177,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     mIsPlacePageVisible = show;
   }
 
+  @Override
   protected void hidePlacePage()
   {
     final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);

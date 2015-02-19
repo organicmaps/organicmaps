@@ -25,10 +25,10 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
     {
     case MotionEvent.ACTION_DOWN:
       mIsGestureHandled = false;
-      mDownY = event.getRawY();
+      mDownCoord = event.getRawY();
       break;
     case MotionEvent.ACTION_MOVE:
-      if (Math.abs(mDownY - event.getRawY()) > mTouchSlop)
+      if (Math.abs(mDownCoord - event.getRawY()) > mTouchSlop)
         return true;
       break;
     }
@@ -91,6 +91,7 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
     });
   }
 
+  @Override
   protected void showPlacePage(final boolean show)
   {
     if (mIsPlacePageVisible == show)
@@ -129,6 +130,7 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
     mIsPlacePageVisible = show;
   }
 
+  @Override
   protected void showPreview(final boolean show)
   {
     if (mIsPreviewVisible == show)
@@ -168,6 +170,7 @@ public class TopPlacePageAnimationController extends BasePlacePageAnimationContr
     mIsPreviewVisible = show;
   }
 
+  @Override
   protected void hidePlacePage()
   {
     final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);

@@ -12,7 +12,7 @@
       <enum name="bottom" value="0"/>
       <enum name="top" value="1"/>
       <enum name="leftTop" value="2"/>
-      <enum name="leftSide" value="3"/>
+      <enum name="leftFull" value="3"/>
     </attr>
   </declare-styleable>
 
