@@ -26,36 +26,36 @@ namespace my
 }
 
 #define TEST(X, msg) { if (X) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X")", ::my::impl::Message msg));}}
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X")", ::my::impl::Message msg));}}
 #define TEST_EQUAL(X, Y, msg) { if ((X) == (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X" == "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" == "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_NOT_EQUAL(X, Y, msg) { if ((X) != (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X" != "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" != "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_LESS(X, Y, msg) { if ((X) < (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X" < "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" < "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_LESS_OR_EQUAL(X, Y, msg) { if ((X) <= (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X" <= "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" <= "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_GREATER(X, Y, msg) { if ((X) > (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X" > "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" > "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_GREATER_OR_EQUAL(X, Y, msg) { if ((X) >= (Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST("#X" >= "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" >= "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_ALMOST_EQUAL(X, Y, msg) { if (::my::AlmostEqual(X, Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST(my::AlmostEqual("#X", "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(my::AlmostEqual("#X", "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
 #define TEST_NOT_ALMOST_EQUAL(X, Y, msg) { if (!::my::AlmostEqual(X, Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::MergeMsg("TEST(!my::AlmostEqual("#X", "#Y")", \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(!my::AlmostEqual("#X", "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
