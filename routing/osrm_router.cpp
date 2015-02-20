@@ -700,7 +700,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
     RawRoutingResultT routingResult;
     FeatureGraphNodeVecT startTask(1), targetTask(1);
     startTask[0] = cross.startNode;
-    if (cross.startNode.m_seg.m_fid == OsrmFtSegMapping::FtSeg::INVALID_FID)
+    if (!cross.startNode.m_seg.IsValid())
     {
       startTask.push_back(cross.startNode);
       startTask[0].m_node.reverse_node_id = INVALID_NODE_ID;
@@ -708,7 +708,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
     }
 
     targetTask[0] = cross.targetNode;
-    if (cross.targetNode.m_seg.m_fid == OsrmFtSegMapping::FtSeg::INVALID_FID)
+    if (!cross.targetNode.m_seg.IsValid())
     {
       targetTask.push_back(cross.targetNode);
       targetTask[0].m_node.reverse_node_id = INVALID_NODE_ID;

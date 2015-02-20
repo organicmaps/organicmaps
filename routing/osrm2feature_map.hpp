@@ -101,7 +101,7 @@ public:
     while (r.first != r.second)
     {
       FtSeg s(m_segments[r.first]);
-      if (s.m_fid != FtSeg::INVALID_FID)
+      if (s.IsValid())
         toDo(s);
       ++r.first;
     }
