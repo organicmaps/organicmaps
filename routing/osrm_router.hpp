@@ -199,16 +199,8 @@ protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
                                        FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping);
 
-  /*!
-   * \brief GetPointByNodeId finds geographical points for outgoing nodes to test linkage
-   * \param node_id
-   * \param routingMapping
-   * \param use_start
-   * \return point coordinates
-   */
-  m2::PointD GetPointByNodeId(const size_t node_id, RoutingMappingPtrT const & routingMapping, bool use_start);
 
-  size_t FindNextMwmNode(RoutingMappingPtrT const & startMapping, size_t startId, RoutingMappingPtrT const & targetMapping);
+  size_t FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingMappingPtrT const & targetMapping);
 
   /*!
    * \brief Compute turn and time estimation structs for OSRM raw route.

@@ -1,7 +1,49 @@
 #include "cross_routing_context.hpp"
 
+#include "../indexer/point_to_int64.hpp"
+
 namespace routing
 {
+
+uint32_t const g_coordBits = POINT_COORD_BITS;
+
+void OutgoingCrossNode::Save(Writer &w)
+{
+  w.Write(&m_nodeId, sizeof(m_nodeId));
+  uint64_t const point = PointToInt64(m_point, g_coordBits);
+  w.Write(&point, sizeof(point));
+  w.Write(&m_outgoingIndex, sizeof(m_outgoingIndex));
+}
+
+size_t OutgoingCrossNode::Load(const Reader &r, size_t pos)
+{
+  r.Read(pos, &m_nodeId, sizeof(m_nodeId));
+  pos += sizeof(m_nodeId);
+  uint64_t point;
+  r.Read(pos, &point, sizeof(point));
+  m_point = Int64ToPoint(point, g_coordBits);
+  pos += sizeof(point);
+  r.Read(pos, &m_outgoingIndex, sizeof(m_outgoingIndex));
+  return pos + sizeof(m_outgoingIndex);
+}
+
+void IngoingCrossNode::Save(Writer &w)
+{
+  w.Write(&m_nodeId, sizeof(m_nodeId));
+  uint64_t const point = PointToInt64(m_point, g_coordBits);
+  w.Write(&point, sizeof(point));
+}
+
+size_t IngoingCrossNode::Load(const Reader &r, size_t pos)
+{
+  r.Read(pos, &m_nodeId, sizeof(m_nodeId));
+  pos += sizeof(m_nodeId);
+  uint64_t point;
+  r.Read(pos, &point, sizeof(point));
+  m_point = Int64ToPoint(point, g_coordBits);
+  return pos + sizeof(point);
+}
+
 size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
 {
   size_t ingoing_index = distance(m_ingoingNodes.cbegin(), ingoing);
@@ -17,14 +59,18 @@ void CrossRoutingContextReader::Load(Reader const & r)
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
   m_ingoingNodes.resize(size);
-  r.Read(pos, &m_ingoingNodes[0], sizeof(m_ingoingNodes[0])*size);
-  pos += sizeof(m_ingoingNodes[0]) * size;
+  for (int i = 0; i < size; ++i)
+  {
+    pos = m_ingoingNodes[i].Load(r, pos);
+  }
 
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
   m_outgoingNodes.resize(size);
-  r.Read(pos, &(m_outgoingNodes[0]), sizeof(m_outgoingNodes[0]) * size);
-  pos += sizeof(m_outgoingNodes[0]) * size;
+  for (int i = 0; i < size; ++i)
+  {
+    pos = m_outgoingNodes[i].Load(r, pos);
+  }
   size_t const adjMatrixSize = sizeof(WritedEdgeWeightT) * m_ingoingNodes.size() * m_outgoingNodes.size();
   mp_reader = unique_ptr<Reader>(r.CreateSubReader(pos, adjMatrixSize));
   pos += adjMatrixSize;
@@ -80,14 +126,19 @@ size_t CrossRoutingContextWriter::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoi
 
 void CrossRoutingContextWriter::Save(Writer & w)
 {
-  sort(m_ingoingNodes.begin(), m_ingoingNodes.end());
   uint32_t size = static_cast<uint32_t>(m_ingoingNodes.size());
   w.Write(&size, sizeof(size));
-  w.Write(&m_ingoingNodes[0], sizeof(m_ingoingNodes[0]) * size);
+  for (int i = 0; i < size; ++i)
+  {
+    m_ingoingNodes[i].Save(w);
+  }
 
   size = static_cast<uint32_t>(m_outgoingNodes.size());
   w.Write(&size, sizeof(size));
-  w.Write(&m_outgoingNodes[0], sizeof(m_outgoingNodes[0]) * size);
+  for (int i = 0; i < size; ++i)
+  {
+    m_outgoingNodes[i].Save(w);
+  }
 
   CHECK(m_adjacencyMatrix.size() == m_outgoingNodes.size()*m_ingoingNodes.size(), ());
   w.Write(&m_adjacencyMatrix[0], sizeof(m_adjacencyMatrix[0]) * m_adjacencyMatrix.size());
@@ -102,17 +153,17 @@ void CrossRoutingContextWriter::Save(Writer & w)
   }
 }
 
-void CrossRoutingContextWriter::addIngoingNode(size_t const nodeId)
+void CrossRoutingContextWriter::addIngoingNode(size_t const nodeId, m2::PointD const & point)
 {
-  m_ingoingNodes.push_back(static_cast<uint32_t>(nodeId));
+  m_ingoingNodes.push_back(IngoingCrossNode(nodeId, point));
 }
 
-void CrossRoutingContextWriter::addOutgoingNode(size_t const nodeId, string const & targetMwm)
+void CrossRoutingContextWriter::addOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point)
 {
   auto it = find(m_neighborMwmList.begin(), m_neighborMwmList.end(), targetMwm);
   if (it == m_neighborMwmList.end())
     it = m_neighborMwmList.insert(m_neighborMwmList.end(), targetMwm);
-  m_outgoingNodes.push_back(make_pair(nodeId, distance(m_neighborMwmList.begin(), it)));
+  m_outgoingNodes.push_back(OutgoingCrossNode(nodeId, distance(m_neighborMwmList.begin(), it), point));
 }
 
 void CrossRoutingContextWriter::reserveAdjacencyMatrix()

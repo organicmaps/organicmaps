@@ -12,10 +12,10 @@ UNIT_TEST(TestContextSerialization)
   routing::CrossRoutingContextWriter context;
   routing::CrossRoutingContextReader newContext;
 
-  context.addIngoingNode(1);
-  context.addIngoingNode(2);
-  context.addOutgoingNode(3, "foo");
-  context.addOutgoingNode(4, "bar");
+  context.addIngoingNode(1, m2::PointD::Zero());
+  context.addIngoingNode(2, m2::PointD::Zero());
+  context.addOutgoingNode(3, "foo", m2::PointD::Zero());
+  context.addOutgoingNode(4, "bar", m2::PointD::Zero());
   context.reserveAdjacencyMatrix();
 
   vector<char> buffer;
@@ -27,16 +27,16 @@ UNIT_TEST(TestContextSerialization)
   newContext.Load(reader);
   auto ins = newContext.GetIngoingIterators();
   TEST_EQUAL(distance(ins.first,ins.second), 2, ());
-  TEST_EQUAL(*ins.first, 1, ());
-  TEST_EQUAL(*(++ins.first), 2, ());
+  TEST_EQUAL(ins.first->m_nodeId, 1, ());
+  TEST_EQUAL(((++ins.first)->m_nodeId), 2, ());
 
   auto outs = newContext.GetOutgoingIterators();
   TEST_EQUAL(distance(outs.first,outs.second), 2, ());
-  TEST_EQUAL(outs.first->first, 3, ());
-  TEST_EQUAL(newContext.getOutgoingMwmName(outs.first->second), string("foo"), ());
+  TEST_EQUAL(outs.first->m_nodeId, 3, ());
+  TEST_EQUAL(newContext.getOutgoingMwmName(outs.first->m_outgoingIndex), string("foo"), ());
   ++outs.first;
-  TEST_EQUAL(outs.first->first, 4, ());
-  TEST_EQUAL(newContext.getOutgoingMwmName(outs.first->second), string("bar"), ());
+  TEST_EQUAL(outs.first->m_nodeId, 4, ());
+  TEST_EQUAL(newContext.getOutgoingMwmName(outs.first->m_outgoingIndex), string("bar"), ());
 }
 
 UNIT_TEST(TestAdjacencyMatrix)
@@ -44,10 +44,10 @@ UNIT_TEST(TestAdjacencyMatrix)
   routing::CrossRoutingContextWriter context;
   routing::CrossRoutingContextReader newContext;
 
-  context.addIngoingNode(1);
-  context.addIngoingNode(2);
-  context.addIngoingNode(3);
-  context.addOutgoingNode(4, "foo");
+  context.addIngoingNode(1, m2::PointD::Zero());
+  context.addIngoingNode(2, m2::PointD::Zero());
+  context.addIngoingNode(3, m2::PointD::Zero());
+  context.addOutgoingNode(4, "foo", m2::PointD::Zero());
   context.reserveAdjacencyMatrix();
   {
     auto ins = context.GetIngoingIterators();

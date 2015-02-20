@@ -131,7 +131,34 @@ namespace m2
 
     ContainerT Data() const { return m_points; }
 
+    inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
+                             CoordT const & x21, CoordT const & y21, CoordT const & x22, CoordT const & y22, PointT & pt) const
+    {
+      if (!((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21)))
+        return false;
+      double v = ((x12 - x11) * (y21 - y11) + (y12 - y11) * (x11 - x21)) / ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22 - y21));
+      PointT p(x21 + (x22 - x21) * v, y21 + (y22 - y21) * v);
+
+      if (!(((p.x >= x11) && (p.x <= x12)) || ((p.x <= x11)&&(p.x >= x12))))
+        return false;
+      if (!(((p.x >= x21) && (p.x <= x22)) || ((p.x <= x21)&&(p.x >= x22))))
+        return false;
+      if (!(((p.y >= y11) && (p.y <= y12)) || ((p.y <= y11)&&(p.y >= y12))))
+        return false;
+      if (!(((p.y >= y21) && (p.y <= y22)) || ((p.y <= y21)&&(p.y >= y22))))
+        return false;
+
+      pt = p;
+      return true;
+    }
+
+    inline bool IsIntersect(PointT const & p1, PointT const & p2, PointT const & p3, PointT const & p4 , PointT & pt) const
+    {
+      return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, pt);
+    }
+
   public:
+
     /// Taken from Computational Geometry in C and modified
     template <class EqualF>
     bool Contains(PointT const & pt, EqualF equalF) const
@@ -191,6 +218,21 @@ namespace m2
     bool Contains(PointT const & pt) const
     {
       return Contains(pt, typename TraitsT::EqualType());
+    }
+
+    //Finds point of intersection with border
+    bool FindIntersection(PointT const & point1, PointT const & point2, PointT & result) const
+    {
+      size_t const numPoints = m_points.size();
+      PointT prev = m_points[numPoints - 1];
+      for (size_t i = 0; i < numPoints; ++i)
+      {
+        PointT const curr = m_points[i];
+        if (IsIntersect(point1, point2, prev, curr, result))
+          return true;
+        prev = curr;
+      }
+      return false;
     }
 
     /// Slow check that point lies at the border.

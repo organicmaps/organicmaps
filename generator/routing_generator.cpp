@@ -105,6 +105,14 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         for (m2::RegionD const & border: regionBorders)
         {
           bool const outStart = border.Contains({ startSeg.lon1, startSeg.lat1 }), outEnd = border.Contains({ endSeg.lon2, endSeg.lat2 });
+          if (outStart == outEnd)
+            continue;
+          m2::PointD intersection = m2::PointD::Zero();
+          for (auto segment : data.m_segments)
+            if (border.FindIntersection({segment.lon1, segment.lat1}, {segment.lon2, segment.lat2}, intersection))
+              break;
+          if (intersection == m2::PointD::Zero())
+            continue;
           if (outStart && !outEnd)
           {
             string mwmName;
@@ -121,10 +129,10 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
                 mwmName = c.m_name;
             });
             if (!mwmName.empty() && mwmName != mwmFile)
-              crossContext.addOutgoingNode(nodeId, mwmName);
+              crossContext.addOutgoingNode(nodeId, mwmName, intersection);
           }
           else if (!outStart && outEnd)
-            crossContext.addIngoingNode(nodeId);
+            crossContext.addIngoingNode(nodeId, intersection);
         }
       }
     }
@@ -306,11 +314,11 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
     for (auto i = in.first; i < in.second; ++i)
     {
-      OsrmRouter::GenerateRoutingTaskFromNodeId(*i, sources[distance(in.first, i)]);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, sources[distance(in.first, i)]);
     }
     for (auto i = out.first; i < out.second; ++i)
     {
-      OsrmRouter::GenerateRoutingTaskFromNodeId(i->first, targets[distance(out.first, i)]);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, targets[distance(out.first, i)]);
     }
 
     vector<EdgeWeight> costs;

@@ -628,30 +628,6 @@ bool OsrmRouter::FindSingleRoute(FeatureGraphNodeVecT const & source, FeatureGra
   return false;
 }
 
-m2::PointD OsrmRouter::GetPointByNodeId(const size_t node_id, RoutingMappingPtrT const & routingMapping, bool use_start)
-{
-  ASSERT(routingMapping.get(), ());
-  auto nSegs = routingMapping->m_segMapping.GetSegmentsRange(node_id);
-
-  ASSERT_GREATER(nSegs.second, 0, ());
-
-  OsrmFtSegMapping::FtSeg seg;
-  if (use_start)
-    routingMapping->m_segMapping.GetSegmentByIndex(nSegs.first, seg);
-  else
-    routingMapping->m_segMapping.GetSegmentByIndex(nSegs.second - 1, seg);
-
-  if (!seg.IsValid())
-    return m2::PointD::Zero();
-
-  FeatureType ft;
-  Index::FeaturesLoaderGuard loader(*m_pIndex, routingMapping->GetMwmId());
-  loader.GetFeature(seg.m_fid, ft);
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  return use_start ? ft.GetPoint(seg.m_pointStart) : ft.GetPoint(seg.m_pointEnd);
-}
-
 void OsrmRouter::GenerateRoutingTaskFromNodeId(size_t const nodeId, FeatureGraphNode & taskNode)
 {
   taskNode.m_node.forward_node_id = static_cast<size_t>(nodeId);
@@ -664,27 +640,17 @@ void OsrmRouter::GenerateRoutingTaskFromNodeId(size_t const nodeId, FeatureGraph
   taskNode.m_seg.m_fid = OsrmFtSegMapping::FtSeg::INVALID_FID;
 }
 
-size_t OsrmRouter::FindNextMwmNode(RoutingMappingPtrT const & startMapping, size_t startId, RoutingMappingPtrT const & targetMapping)
+size_t OsrmRouter::FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingMappingPtrT const & targetMapping)
 {
-  m2::PointD startPointStart = GetPointByNodeId(startId, startMapping, true);
-  m2::PointD startPointEnd = GetPointByNodeId(startId, startMapping, false);
-  startPointStart = {MercatorBounds::XToLon(startPointStart.x), MercatorBounds::YToLat(startPointStart.y)};
-  startPointEnd = {MercatorBounds::XToLon(startPointEnd.x), MercatorBounds::YToLat(startPointEnd.y)};
+  m2::PointD startPoint = startNode.m_point;
+
   CrossRoutingContextReader const & targetContext = targetMapping->m_dataFacade.getRoutingContext();
   auto income_iters = targetContext.GetIngoingIterators();
   for (auto i = income_iters.first; i < income_iters.second; ++i)
   {
-    m2::PointD targetPoint = GetPointByNodeId(*i, targetMapping, true);
-    m2::PointD targetPointEnd = GetPointByNodeId(*i, targetMapping, false);
-    targetPoint = m2::PointD(MercatorBounds::XToLon(targetPoint.x), MercatorBounds::YToLat(targetPoint.y));
-    targetPointEnd = m2::PointD(MercatorBounds::XToLon(targetPointEnd.x), MercatorBounds::YToLat(targetPointEnd.y));
-
-    double const dist = min(min(ms::DistanceOnEarth(startPointEnd.y, startPointEnd.x, targetPoint.y, targetPoint.x),
-                                ms::DistanceOnEarth(startPointStart.y, startPointStart.x, targetPoint.y, targetPoint.x)),
-                            min(ms::DistanceOnEarth(startPointEnd.y, startPointEnd.x, targetPointEnd.y, targetPointEnd.x),
-                                ms::DistanceOnEarth(startPointStart.y, startPointStart.x, targetPointEnd.y, targetPointEnd.x)));
-    if (dist < FEATURE_BY_POINT_RADIUS_M)
-      return *i;
+    m2::PointD targetPoint = i->m_point;
+    if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) < FEATURE_BY_POINT_RADIUS_M)
+      return i->m_nodeId;
   }
   return INVALID_NODE_ID;
 }
@@ -786,7 +752,7 @@ public:
     m_sources.resize(distance(income_iterators.first, income_iterators.second));
 
     for (auto i = income_iterators.first; i < income_iterators.second; ++i)
-      OsrmRouter::GenerateRoutingTaskFromNodeId(*i, m_sources[distance(income_iterators.first, i)]);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, m_sources[distance(income_iterators.first, i)]);
 
     vector<EdgeWeight> weights;
     for (auto t : targetTask)
@@ -815,7 +781,14 @@ public:
   {
     auto income_iterators = m_targetContext.GetIngoingIterators();
 
-    auto const it = find(income_iterators.first, income_iterators.second, incomeNodeId);
+    auto it = income_iterators.first;
+    while (it < income_iterators.second)
+    {
+      if (it->m_nodeId == incomeNodeId)
+        break;
+      ++it;
+    }
+
     ASSERT(it != income_iterators.second, ());
 
     const size_t targetNumber = distance(income_iterators.first, it);
@@ -916,8 +889,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   else //4.2 Multiple mwm case
   {
     LOG(LINFO, ("Multiple mwm routing case"));
-    if (!m_additionalFeatures)
-      return PointsInDifferentMWM;
 
     // Load source data
     CrossRoutingContextReader const & startContext = startMapping->m_dataFacade.getRoutingContext();
@@ -925,7 +896,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     MultiroutingTaskPointT sources(1), targets(distance(out_iterators.first, out_iterators.second));
 
     for (auto i = out_iterators.first; i < out_iterators.second; ++i)
-      OsrmRouter::GenerateRoutingTaskFromNodeId(i->first, targets[distance(out_iterators.first, i)]);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, targets[distance(out_iterators.first, i)]);
     vector<EdgeWeight> weights;
     for (auto t : startTask)
     {
@@ -974,7 +945,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         continue;
       if (m_requestCancel)
         return Cancelled;
-      string const & nextMwm = startContext.getOutgoingMwmName((out_iterators.first+j)->second);
+      string const & nextMwm = startContext.getOutgoingMwmName((out_iterators.first+j)->m_outgoingIndex);
       RoutingMappingPtrT nextMapping;
       nextMapping = m_indexManager.GetMappingByName(nextMwm, m_pIndex);
       // If we don't this routing file, we skip this path
@@ -982,8 +953,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         continue;
       MappingGuard nextMappingGuard(nextMapping);
       UNUSED_VALUE(nextMappingGuard);
-      size_t tNodeId = (out_iterators.first+j)->first;
-      size_t nextNodeId = FindNextMwmNode(startMapping, tNodeId, nextMapping);
+      size_t tNodeId = (out_iterators.first+j)->m_nodeId;
+      size_t nextNodeId = FindNextMwmNode(*(out_iterators.first+j), nextMapping);
       if (nextNodeId == INVALID_NODE_ID)
         continue;
       checkedOuts.insert(make_pair(tNodeId, startMapping->GetName()));
@@ -1034,7 +1005,13 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         auto current_out_iterators = currentContext.GetOutgoingIterators();
 
         // find income number
-        auto const iit = find(current_in_iterators.first, current_in_iterators.second, cross.startNode.m_node.forward_node_id);
+        auto iit = current_in_iterators.first;
+        while (iit < current_in_iterators.second)
+        {
+          if (iit->m_nodeId == cross.startNode.m_node.forward_node_id)
+            break;
+          ++iit;
+        }
         ASSERT(iit != current_in_iterators.second, ());
 
         // find outs
@@ -1048,7 +1025,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
               continue;
             if (m_requestCancel)
               return Cancelled;
-            string const & nextMwm = currentContext.getOutgoingMwmName(oit->second);
+            string const & nextMwm = currentContext.getOutgoingMwmName(oit->m_outgoingIndex);
             RoutingMappingPtrT nextMapping;
 
             nextMapping = m_indexManager.GetMappingByName(nextMwm, m_pIndex);
@@ -1057,17 +1034,17 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
             MappingGuard nextMappingGuard(nextMapping);
             UNUSED_VALUE(nextMappingGuard);
-            size_t const tNodeId = oit->first;
+            size_t const tNodeId = oit->m_nodeId;
             auto const outNode = make_pair(tNodeId, currentMapping->GetName());
             if (checkedOuts.find(outNode)!=checkedOuts.end())
               continue;
             checkedOuts.insert(outNode);
-            size_t nextNodeId = FindNextMwmNode(currentMapping, tNodeId, nextMapping);
+            size_t nextNodeId = FindNextMwmNode(*oit, nextMapping);
             if(nextNodeId == INVALID_NODE_ID)
               continue;
             CheckedPathT tmpPath(topTask);
             FeatureGraphNode startNode, stopNode;
-            OsrmRouter::GenerateRoutingTaskFromNodeId(*iit, startNode);
+            OsrmRouter::GenerateRoutingTaskFromNodeId(iit->m_nodeId, startNode);
             OsrmRouter::GenerateRoutingTaskFromNodeId(tNodeId, stopNode);
             tmpPath.pop_back();
             tmpPath.push_back({currentMapping->GetName(), startNode, stopNode, outWeight});

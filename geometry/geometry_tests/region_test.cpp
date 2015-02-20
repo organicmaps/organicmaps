@@ -212,3 +212,23 @@ UNIT_TEST(Region_point_at_border_test)
   TEST(region.AtBorder(p4, 0.01), ("Point lies at the border"));
   TEST(region.AtBorder(p5, 0.01), ("Point lies at delta interval near the border"));
 }
+
+UNIT_TEST(Region_border_intersecion_Test)
+{
+  typedef m2::PointF P;
+  P const points[] = { P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0) };
+  m2::Region<P> region(points, points + ARRAY_SIZE(points));
+
+  P intersection;
+
+  TEST(region.FindIntersection(P(5.0, 5.0), P(15.0, 5.0), intersection), ());
+  TEST(intersection == P(10.0, 5.0), ());
+
+  TEST(region.FindIntersection(P(5.0, 5.0), P(15.0, 15.0), intersection), ());
+  TEST(intersection == P(10.0, 10.0), ());
+
+  TEST(region.FindIntersection(P(7.0, 7.0), P(7.0, 10.0), intersection), ());
+  TEST(intersection == P(7.0, 10.0), ());
+
+  TEST(!region.FindIntersection(P(5.0, 5.0), P(2.0, 2.0), intersection), ("This case has no intersection"));
+}
