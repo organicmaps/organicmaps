@@ -1,4 +1,4 @@
-#include "../../testing/testing.hpp"
+#include "../testing/testing.hpp"
 
 #include "osrm_test_tools.hpp"
 

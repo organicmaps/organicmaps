@@ -189,6 +189,9 @@ public:
     for (int i = si; i != ei; i += di)
     {
       m_mapping.GetSegmentByIndex(i, s);
+      if (!s.IsValid())
+        continue;
+
       auto s1 = min(s.m_pointStart, s.m_pointEnd);
       auto e1 = max(s.m_pointEnd, s.m_pointStart);
 
@@ -638,7 +641,7 @@ m2::PointD OsrmRouter::GetPointByNodeId(const size_t node_id, RoutingMappingPtrT
   else
     routingMapping->m_segMapping.GetSegmentByIndex(nSegs.second - 1, seg);
 
-  if (seg.m_fid == OsrmFtSegMapping::FtSeg::INVALID_FID)
+  if (!seg.IsValid())
     return m2::PointD::Zero();
 
   FeatureType ft;
@@ -1366,6 +1369,8 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
     auto const range = routingMapping->m_segMapping.GetSegmentsRange(trg);
     OsrmFtSegMapping::FtSeg seg;
     routingMapping->m_segMapping.GetSegmentByIndex(range.first, seg);
+    if (!seg.IsValid())
+      continue;
 
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(*m_pIndex, routingMapping->GetMwmId());

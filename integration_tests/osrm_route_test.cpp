@@ -1,4 +1,4 @@
-#include "../../testing/testing.hpp"
+#include "../testing/testing.hpp"
 
 #include "osrm_test_tools.hpp"
 
@@ -18,5 +18,11 @@ namespace
     shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
     integration::CalculateRouteAndTestRouteLength(routerComponents,  {37.409929478750627, 67.644798619710073},
                                                   {0., 0.}, {39.836562407458047, 65.774372510437971}, 253275.);
+  }
+  UNIT_TEST(UKRugbyStIvesRouteTest)
+  {
+    shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
+    integration::CalculateRouteAndTestRouteLength(routerComponents,  {-1.2653036222483705, 61.691304855049886},
+                                                  {0., 0.}, {-5.4799407508360218, 58.242809563579847}, 455902.);
   }
 }
