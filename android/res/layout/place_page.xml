@@ -14,8 +14,7 @@
       layout="@layout/details_place_page"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@+id/pp__buttons"
-      android:visibility="visible"/>
+      android:layout_above="@+id/pp__buttons"/>
 
   <include
       android:id="@+id/pp__buttons"
@@ -29,7 +28,7 @@
       layout="@layout/preview_place_page"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@id/pp__details"/>
+      android:layout_above="@id/pp__buttons"/>
 
   <View
       android:layout_width="match_parent"

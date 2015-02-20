@@ -2,16 +2,15 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AccelerateInterpolator;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
-import com.mapswithme.util.UiUtils;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 public class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
@@ -53,7 +52,6 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   @Override
   protected void initGestureDetector()
   {
-    // Gestures
     mGestureDetector = new GestureDetectorCompat(mPlacePage.getContext(), new GestureDetector.SimpleOnGestureListener()
     {
       private static final int Y_MIN = 1;
@@ -70,7 +68,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         {
           if (!mIsGestureHandled)
           {
-            if (distanceY < 0)
+            if (distanceY < 0f)
             {
               if (mPlacePage.getState() == State.FULL_PLACEPAGE)
                 mPlacePage.setState(State.PREVIEW_ONLY);
@@ -112,93 +110,133 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   protected void showPreview(final boolean show)
   {
     mPlacePage.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.GONE);
+    mPreview.setVisibility(View.VISIBLE);
+    mDetails.setVisibility(View.INVISIBLE);
     if (mIsPreviewVisible == show)
       return;
 
-    TranslateAnimation slide;
+    ValueAnimator animator;
     if (show)
     {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 1, 0);
-      mPreview.setVisibility(View.VISIBLE);
-    }
-    else
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);
-      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      animator = ValueAnimator.ofFloat(mPreview.getHeight(), 0f);
+      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
         @Override
-        public void onAnimationEnd(Animation animation)
+        public void onAnimationUpdate(ValueAnimator animation)
         {
-          mPlacePage.setVisibility(View.GONE);
+          ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
+          ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
         }
       });
     }
-    slide.setDuration(SHORT_ANIM_DURATION);
-    mPreview.startAnimation(slide);
-    mButtons.startAnimation(slide);
-    if (mVisibilityChangedListener != null)
-      mVisibilityChangedListener.onPreviewVisibilityChanged(show);
+    else
+    {
+      animator = ValueAnimator.ofFloat(0, mPreview.getHeight());
+      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+      {
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation)
+        {
+          ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
+          ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
+
+          if (1f - animation.getAnimatedFraction() < 0.01)
+          {
+            mPlacePage.setVisibility(View.INVISIBLE);
+            mPlacePage.setMapObject(null);
+          }
+        }
+      });
+    }
+    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setInterpolator(new AccelerateInterpolator());
+    animator.start();
 
     mIsPreviewVisible = show;
+    if (mVisibilityChangedListener != null)
+      mVisibilityChangedListener.onPreviewVisibilityChanged(mIsPreviewVisible);
   }
 
   @Override
   protected void showPlacePage(final boolean show)
   {
     mPlacePage.setVisibility(View.VISIBLE);
+    mDetails.setVisibility(View.VISIBLE);
     if (mIsPlacePageVisible == show)
       return; // if state is already same as we need
 
-    TranslateAnimation slide;
-    if (show) // slide up
+    ValueAnimator animator;
+    final float animHeight = mDetails.getHeight();
+    if (show)
     {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 1, 0);
-      slide.setDuration(SHORT_ANIM_DURATION);
-      mDetails.setVisibility(View.VISIBLE);
-    }
-    else // slide down
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);
-      slide.setDuration(SHORT_ANIM_DURATION);
-      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      animator = ValueAnimator.ofFloat(animHeight, 0f);
+      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
         @Override
-        public void onAnimationEnd(Animation animation)
+        public void onAnimationUpdate(ValueAnimator animation)
         {
-          mDetails.setVisibility(View.GONE);
+          ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+          ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - animHeight);
         }
       });
     }
-    mDetails.startAnimation(slide);
-    if (mVisibilityChangedListener != null)
-      mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
+    else
+    {
+      animator = ValueAnimator.ofFloat(0, animHeight);
+      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+      {
+        @Override
+        public void onAnimationUpdate(ValueAnimator animation)
+        {
+          ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+          ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - animHeight);
+
+          if (1f - animation.getAnimatedFraction() < 0.01)
+          {
+            mDetails.setVisibility(View.INVISIBLE);
+            ViewHelper.setTranslationY(mPreview, 0f);
+          }
+        }
+      });
+    }
+    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setInterpolator(new AccelerateInterpolator());
+    animator.start();
 
     mIsPlacePageVisible = show;
+    if (mVisibilityChangedListener != null)
+      mVisibilityChangedListener.onPlacePageVisibilityChanged(mIsPlacePageVisible);
   }
 
   @Override
   protected void hidePlacePage()
   {
-    final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, 1);
-    slideDown.setDuration(LONG_ANIM_DURATION);
-    slideDown.setAnimationListener(new UiUtils.SimpleAnimationListener()
+    final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
+    final ValueAnimator animator = ValueAnimator.ofFloat(0, animHeight);
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
-      public void onAnimationEnd(Animation animation)
+      public void onAnimationUpdate(ValueAnimator animation)
       {
-        mIsPlacePageVisible = false;
-        mIsPreviewVisible = false;
+        ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
 
-        mPlacePage.setVisibility(View.GONE);
-        if (mVisibilityChangedListener != null)
+        if (1f - animation.getAnimatedFraction() < 0.01)
         {
-          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
-          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
+          mIsPlacePageVisible = false;
+          mIsPreviewVisible = false;
+
+          mPlacePage.setVisibility(View.INVISIBLE);
+          ViewHelper.setTranslationY(mPlacePage, 0f);
+          if (mVisibilityChangedListener != null)
+          {
+            mVisibilityChangedListener.onPreviewVisibilityChanged(false);
+            mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
+          }
         }
       }
     });
-
-    mPlacePage.startAnimation(slideDown);
+    animator.setDuration(LONG_ANIM_DURATION);
+    animator.setInterpolator(new AccelerateInterpolator());
+    animator.start();
   }
 }

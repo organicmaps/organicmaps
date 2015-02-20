@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+  <RelativeLayout
+      android:id="@+id/rl__place_details"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_medium_and_half">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="?android:attr/listDivider"/>
+
+    <View
+        android:id="@+id/anchor_center"
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"/>
+
+    <LinearLayout
+        android:id="@+id/ll__details_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/anchor_center"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:id="@+id/ll__place_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:paddingTop="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv__place_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_large"
+            android:src="@drawable/ic_text_adress"/>
+
+        <TextView
+            android:id="@+id/tv__place_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv__place_name"
+            android:text="Some address"
+            android:textColor="@color/text_place_page"
+            android:textSize="@dimen/place_page_subtitle"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/ll__place_phone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          android:background="?attr/clickableBackground"
+          android:orientation="horizontal"
+          android:paddingBottom="@dimen/margin_small"
+          android:paddingTop="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv__place_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_large"
+            android:src="@drawable/ic_text_phone"/>
+
+        <TextView
+            android:id="@+id/tv__place_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9119992"
+            android:textColor="@color/text_place_page_blue"
+            android:textSize="@dimen/place_page_subtitle"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/ll__place_website"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/clickableBackground"
+          android:orientation="horizontal"
+          android:paddingBottom="@dimen/margin_small"
+          android:paddingTop="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv__place_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_large"
+            android:src="@drawable/ic_text_link"/>
+
+        <TextView
+            android:id="@+id/tv__place_website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="www.test.com"
+            android:textColor="@color/text_place_page_blue"
+            android:textSize="@dimen/place_page_subtitle"/>
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:id="@+id/ll__place_schedule"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/clickableBackground"
+          android:orientation="horizontal"
+          android:paddingBottom="@dimen/margin_small"
+          android:paddingTop="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv__place_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_large"
+            android:src="@drawable/ic_text_worktime"/>
+
+        <TextView
+            android:id="@+id/tv__place_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Пн-Пт     10:00-23:00"
+            android:textColor="@color/text_place_page"
+            android:textSize="@dimen/place_page_subtitle"/>
+      </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll__details_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/anchor_center"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:id="@+id/ll__place_latlon"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/clickableBackground"
+          android:orientation="horizontal"
+          android:paddingBottom="@dimen/margin_small"
+          android:paddingTop="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/iv__place_latlon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_large"
+            android:src="@drawable/ic_text_position"/>
+
+        <TextView
+            android:id="@+id/tv__place_latlon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="31.21345, 2.234 235"
+            android:textColor="@color/text_place_page"
+            android:textSize="@dimen/place_page_subtitle"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/ll__place_wifi"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_medium"
+          android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv__place_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_large"
+            android:src="@drawable/ic_text_wifi"/>
+
+        <TextView
+            android:id="@+id/tv__place_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textColor="@color/text_place_page"
+            android:textSize="@dimen/place_page_subtitle"/>
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl__bookmark_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll__details_left"
+        android:layout_marginTop="@dimen/margin_medium_and_half">
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:background="?attr/dividerHorizontal"/>
+
+      <ImageView
+          android:id="@+id/iv__bookmark"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="@dimen/margin_large"
+          android:layout_marginTop="@dimen/margin_medium_and_half"
+          android:src="@drawable/ic_text_bookmark"/>
+
+      <TextView
+          android:id="@+id/tv__bookmark_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignTop="@id/iv__bookmark"
+          android:layout_toRightOf="@id/iv__bookmark"
+          android:lineSpacingMultiplier="1.67"
+          android:text="Name"
+          android:textColor="@color/text_place_page_subtitle"
+          android:textSize="@dimen/place_page_sub_subtitle"/>
+
+      <EditText
+          android:id="@+id/et__bookmark_name"
+          style="@style/PlaceEditableParam"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tv__bookmark_title"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:layout_toRightOf="@id/iv__bookmark"
+          android:hint="@string/name"
+          android:inputType="textCapWords"
+          android:lineSpacingMultiplier="1.43"
+          android:singleLine="true"
+          android:textColor="@color/text_place_page"
+          android:textSize="@dimen/place_page_subtitle"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:layout_below="@id/et__bookmark_name"
+          android:layout_marginTop="@dimen/margin_small"
+          android:background="?attr/dividerHorizontal"/>
+
+      <TextView
+          android:id="@+id/tv__bookmark_group_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/et__bookmark_name"
+          android:layout_marginTop="@dimen/margin_medium_and_half"
+          android:layout_toRightOf="@id/iv__bookmark"
+          android:lineSpacingMultiplier="1.67"
+          android:text="Group"
+          android:textColor="@color/text_place_page_subtitle"
+          android:textSize="@dimen/place_page_sub_subtitle"/>
+
+      <LinearLayout
+          android:id="@+id/ll__group"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tv__bookmark_group_title"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:layout_toRightOf="@id/iv__bookmark"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv__bookmark_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_arrow_down"
+            android:lineSpacingMultiplier="1.43"
+            android:paddingRight="@dimen/margin_small"
+            android:text="Great group"
+            android:textColor="@color/text_place_page"
+            android:textSize="@dimen/place_page_subtitle"/>
+
+        <ImageView
+            android:id="@+id/iv__bookmark_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:src="@drawable/color_picker_red_on"/>
+      </LinearLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:layout_below="@id/ll__group"
+          android:layout_marginTop="@dimen/margin_small"
+          android:background="?android:attr/listDivider"/>
+
+      <TextView
+          android:id="@+id/tv__bookmark_notes_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/ll__group"
+          android:layout_marginTop="@dimen/margin_medium"
+          android:layout_toRightOf="@id/iv__bookmark"
+          android:lineSpacingMultiplier="1.67"
+          android:text="Notes"
+          android:textColor="@color/text_place_page_subtitle"
+          android:textSize="@dimen/place_page_sub_subtitle"/>
+
+      <EditText
+          android:id="@+id/et__bookmark_notes"
+          style="@style/PlaceEditableParam"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tv__bookmark_notes_title"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:layout_toRightOf="@id/iv__bookmark"
+          android:background="@null"
+          android:hint="Notes"
+          android:inputType="text"
+          android:lineSpacingMultiplier="1.43"
+          android:singleLine="true"
+          android:textColor="@color/text_place_page"
+          android:textSize="@dimen/place_page_subtitle"/>
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</ScrollView>

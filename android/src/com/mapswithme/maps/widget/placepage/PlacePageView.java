@@ -114,7 +114,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     initViews();
 
     initAnimationController(attrs, defStyleAttr);
-    setVisibility(View.GONE);
+    setVisibility(View.INVISIBLE);
   }
 
   private void initViews()

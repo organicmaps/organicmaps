@@ -24,8 +24,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/pp__preview"
       android:layout_marginBottom="56dp"
-      android:layout_marginTop="1px"
-      android:visibility="visible"/>
+      android:layout_marginTop="1px"/>
 
   <View
       android:layout_width="match_parent"

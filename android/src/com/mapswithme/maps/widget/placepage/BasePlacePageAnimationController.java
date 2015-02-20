@@ -26,6 +26,7 @@ public abstract class BasePlacePageAnimationController
   protected float mDownCoord;
   protected float mTouchSlop;
   // Visibility
+  // TODO consider removal
   protected boolean mIsPreviewVisible;
   protected boolean mIsPlacePageVisible;
   protected OnVisibilityChangedListener mVisibilityChangedListener;
