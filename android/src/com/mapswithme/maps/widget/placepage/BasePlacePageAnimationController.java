@@ -51,6 +51,8 @@ public abstract class BasePlacePageAnimationController
     mPlacePage = placePage;
     mPreview = (ViewGroup) placePage.findViewById(R.id.pp__preview);
     mDetails = (ViewGroup) placePage.findViewById(R.id.pp__details);
+    // we don't want to block details scrolling
+    mDetails.requestDisallowInterceptTouchEvent(true);
     mButtons = (ViewGroup) placePage.findViewById(R.id.pp__buttons);
     initGestureDetector();
 
@@ -66,7 +68,6 @@ public abstract class BasePlacePageAnimationController
 
   protected boolean onTouchEvent(@NonNull MotionEvent event)
   {
-//    mPlacePage.requestDisallowInterceptTouchEvent(false);
     return mGestureDetector.onTouchEvent(event);
   }
 }

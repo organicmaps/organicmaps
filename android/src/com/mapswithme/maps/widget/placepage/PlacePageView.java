@@ -174,6 +174,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     final TypedArray attrArray = getContext().obtainStyledAttributes(attrs, R.styleable.PlacePageView, defStyleAttr, 0);
     final int animationType = attrArray.getInt(R.styleable.PlacePageView_animationType, 0);
     attrArray.recycle();
+    // switch with values from "animationType" from attrs.xml
     switch (animationType)
     {
     case 0:
@@ -183,8 +184,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
       mAnimationController = new TopPlacePageAnimationController(this);
       break;
     case 2:
-      // FIXME
-      mAnimationController = new TopPlacePageAnimationController(this);
+      mAnimationController = new LeftFloatPlacePageAnimationController(this);
       break;
     case 3:
       mAnimationController = new LeftFullAnimationController(this);
