@@ -1,7 +1,7 @@
 /*******************************************************************************
  The MIT License (MIT)
 
- Copyright (c) 2014 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
+ Copyright (c) 2015 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@
 
 #include "message_queue.h"
 #include "FileStorageQueue/fsq.h"
+#include "location.h"
 
 #include <string>
 #include <map>
@@ -65,7 +66,7 @@ class Stats final {
   // Called by file storage engine to upload file with collected data.
   // Should return true if upload has been successful.
   // TODO(AlexZ): Refactor FSQ to make this method private.
-  bool OnFileReady(const std::string& full_path_to_file, uint64_t file_size);
+  bool OnFileReady(const std::string& full_path_to_file);
 
   static Stats& Instance();
 
@@ -82,25 +83,35 @@ class Stats final {
   Stats& SetClientId(const std::string& unique_client_id);
 
   void LogEvent(std::string const& event_name);
+  void LogEvent(std::string const& event_name, Location const& location);
 
   void LogEvent(std::string const& event_name, std::string const& event_value);
+  void LogEvent(std::string const& event_name, std::string const& event_value, Location const& location);
 
   void LogEvent(std::string const& event_name, TStringMap const& value_pairs);
+  void LogEvent(std::string const& event_name, TStringMap const& value_pairs, Location const& location);
 
   // Forcedly tries to upload all stored data to the server.
   void Upload();
 };
 
-inline void LogEvent(std::string const& event_name) {
-  Stats::Instance().LogEvent(event_name);
+inline void LogEvent(std::string const& event_name) { Stats::Instance().LogEvent(event_name); }
+inline void LogEvent(std::string const& event_name, Location const& location) {
+  Stats::Instance().LogEvent(event_name, location);
 }
 
 inline void LogEvent(std::string const& event_name, std::string const& event_value) {
   Stats::Instance().LogEvent(event_name, event_value);
 }
+inline void LogEvent(std::string const& event_name, std::string const& event_value, Location const& location) {
+  Stats::Instance().LogEvent(event_name, event_value, location);
+}
 
 inline void LogEvent(std::string const& event_name, TStringMap const& value_pairs) {
   Stats::Instance().LogEvent(event_name, value_pairs);
+}
+inline void LogEvent(std::string const& event_name, TStringMap const& value_pairs, Location const& location) {
+  Stats::Instance().LogEvent(event_name, value_pairs, location);
 }
 
 }  // namespace alohalytics

@@ -1,7 +1,7 @@
 /*******************************************************************************
  The MIT License (MIT)
 
- Copyright (c) 2014 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
+ Copyright (c) 2015 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,6 @@ class Logger {
   Logger(const char* file, int line) { out_ << file << ':' << line << ": "; }
 
   ~Logger() {
-//    out_ << std::endl;
 #if defined(__OBJC__)
     NSLog(@"Alohalytics: %s", out_.str().c_str());
 #elif defined(ANDROID)
@@ -65,7 +64,8 @@ class Logger {
 
   template <typename T, typename... ARGS>
   void Log(const T& arg1, const ARGS&... others) {
-    out_ << arg1 << ' ';
+    Log(arg1);
+    out_ << ' ';
     Log(others...);
   }
 

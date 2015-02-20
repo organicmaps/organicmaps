@@ -1,7 +1,7 @@
 /*******************************************************************************
 The MIT License (MIT)
 
-Copyright (c) 2014 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
+Copyright (c) 2015 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -39,6 +39,8 @@ using namespace alohalytics;
 extern JavaVM* GetJVM();
 
 namespace {
+
+static constexpr double kDefaultAndroidVerticalAccuracy = 0.0;
 
 template <typename POINTER, typename DELETER>
 unique_ptr<POINTER, DELETER> MakePointerScopeGuard(POINTER* x, DELETER t) {
@@ -81,6 +83,28 @@ string ToStdString(JNIEnv* env, jstring str) {
   return result;
 }
 
+// keyValuePairs can be null!
+TStringMap FillMapHelper(JNIEnv* env, jobjectArray keyValuePairs) {
+  TStringMap map;
+  if (keyValuePairs) {
+    const jsize count = env->GetArrayLength(keyValuePairs);
+    string key;
+    for (jsize i = 0; i < count; ++i) {
+      const jstring jni_string = static_cast<jstring>(env->GetObjectArrayElement(keyValuePairs, i));
+      if ((i + 1) % 2) {
+        key = ToStdString(env, jni_string);
+        map[key] = "";
+      } else {
+        map[key] = ToStdString(env, jni_string);
+      }
+      if (jni_string) {
+        env->DeleteLocalRef(jni_string);
+      }
+    }
+  }
+  return map;
+}
+
 }  // namespace
 
 extern "C" {
@@ -96,20 +120,43 @@ JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_logEvent__Ljava_lang_Stri
 
 JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2_3Ljava_lang_String_2(
     JNIEnv* env, jclass, jstring eventName, jobjectArray keyValuePairs) {
-  const jsize count = env->GetArrayLength(keyValuePairs);
-  TStringMap map;
-  string key;
-  for (jsize i = 0; i < count; ++i) {
-    const jstring jni_string = static_cast<jstring>(env->GetObjectArrayElement(keyValuePairs, i));
-    if ((i + 1) % 2) {
-      key = ToStdString(env, jni_string);
-      map[key] = "";
-    } else {
-      map[key] = ToStdString(env, jni_string);
-    }
-    if (jni_string) env->DeleteLocalRef(jni_string);
+  LogEvent(ToStdString(env, eventName), FillMapHelper(env, keyValuePairs));
+}
+
+JNIEXPORT void JNICALL
+    Java_org_alohalytics_Statistics_logEvent__Ljava_lang_String_2_3Ljava_lang_String_2ZJDDFZDZFZFB(
+        JNIEnv* env,
+        jclass,
+        jstring eventName,
+        jobjectArray keyValuePairs,
+        jboolean hasLatLon,
+        jlong timestamp,
+        jdouble lat,
+        jdouble lon,
+        jfloat accuracy,
+        jboolean hasAltitude,
+        jdouble altitude,
+        jboolean hasBearing,
+        jfloat bearing,
+        jboolean hasSpeed,
+        jfloat speed,
+        jbyte source) {
+  alohalytics::Location l;
+  if (hasLatLon) {
+    l.SetLatLon(timestamp, lat, lon, accuracy);
+    l.SetSource((alohalytics::Location::Source)source);
   }
-  LogEvent(ToStdString(env, eventName), map);
+  if (hasAltitude) {
+    l.SetAltitude(altitude, kDefaultAndroidVerticalAccuracy);
+  }
+  if (hasBearing) {
+    l.SetBearing(bearing);
+  }
+  if (hasSpeed) {
+    l.SetSpeed(speed);
+  }
+
+  LogEvent(ToStdString(env, eventName), FillMapHelper(env, keyValuePairs), l);
 }
 
 #define CLEAR_AND_RETURN_FALSE_ON_EXCEPTION \
@@ -134,8 +181,7 @@ JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_setupCPP(JNIEnv* env,
   g_httpTransportClass = static_cast<jclass>(env->NewGlobalRef(httpTransportClass));
   RETURN_ON_EXCEPTION
   g_httpTransportClass_run =
-      env->GetStaticMethodID(g_httpTransportClass,
-                             "run",
+      env->GetStaticMethodID(g_httpTransportClass, "run",
                              "(Lorg/alohalytics/HttpTransport$Params;)Lorg/alohalytics/HttpTransport$Params;");
   RETURN_ON_EXCEPTION
   g_httpParamsClass = env->FindClass("org/alohalytics/HttpTransport$Params");
@@ -203,8 +249,8 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     const auto jniPostData = MakePointerScopeGuard(env->NewByteArray(post_body_.size()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-    env->SetByteArrayRegion(
-        jniPostData.get(), 0, post_body_.size(), reinterpret_cast<const jbyte*>(post_body_.data()));
+    env->SetByteArrayRegion(jniPostData.get(), 0, post_body_.size(),
+                            reinterpret_cast<const jbyte*>(post_body_.data()));
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), dataField, jniPostData.get());
@@ -255,8 +301,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 
-  const static jfieldID debugModeField =
-      env->GetFieldID(g_httpParamsClass, "debugMode", "Z");
+  const static jfieldID debugModeField = env->GetFieldID(g_httpParamsClass, "debugMode", "Z");
   env->SetBooleanField(httpParamsObject.get(), debugModeField, debug_mode_);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 

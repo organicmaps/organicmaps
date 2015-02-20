@@ -26,7 +26,7 @@
 
 #include <stdio.h>  // popen
 #include <fstream>
-#include <iostream> // std::cerr
+#include <iostream>  // std::cerr
 
 #ifdef _MSC_VER
 #define popen _popen

@@ -3,16 +3,19 @@ CONFIG *= console c++11
 CONFIG -= app_bundle qt
 
 SOURCES += examples/cpp/example.cc \
-           src/alohalytics.cc \
+           src/cpp/alohalytics.cc \
 
 HEADERS += src/alohalytics.h \
+           src/event_base.h \
            src/http_client.h \
            src/gzip_wrapper.h \
+           src/logger.h \
+           src/location.h \
 
 QMAKE_LFLAGS *= -lz
 
 macx-* {
-  OBJECTIVE_SOURCES += src/http_client_apple.mm
+  OBJECTIVE_SOURCES += src/apple/http_client_apple.mm
   QMAKE_OBJECTIVE_CFLAGS *= -fobjc-arc
   QMAKE_LFLAGS *=  -framework Foundation
 }

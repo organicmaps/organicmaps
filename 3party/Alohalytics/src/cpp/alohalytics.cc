@@ -1,7 +1,7 @@
 /*******************************************************************************
  The MIT License (MIT)
 
- Copyright (c) 2014 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
+ Copyright (c) 2015 Alexander Zolotarev <me@alex.bio> from Minsk, Belarus
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,10 @@
 #include "../cereal/include/types/string.hpp"
 #include "../cereal/include/types/map.hpp"
 
-#define LOG_IF_DEBUG(...) if (debug_mode_) { alohalytics::Logger().Log(__VA_ARGS__); }
+#define LOG_IF_DEBUG(...)                   \
+  if (debug_mode_) {                        \
+    alohalytics::Logger().Log(__VA_ARGS__); \
+  }
 
 namespace alohalytics {
 
@@ -46,7 +49,7 @@ struct NoOpDeleter {
   void operator()(T*) {}
 };
 
-  // Use alohalytics::Stats::Instance() to access statistics engine.
+// Use alohalytics::Stats::Instance() to access statistics engine.
 Stats::Stats() : message_queue_(*this) {}
 
 bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debug_mode) {
@@ -55,7 +58,7 @@ bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debu
   request.set_post_body(std::move(buffer), "application/alohalytics-binary-blob");
 
   try {
-    return request.RunHTTPRequest() && 200 == request.error_code();
+    return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
   } catch (const std::exception& ex) {
     if (debug_mode) {
       ALOG("Exception while trying to upload file", ex.what());
@@ -85,13 +88,19 @@ void Stats::OnMessage(const std::string& message, size_t dropped_events) {
 // Called by file storage engine to upload file with collected data.
 // Should return true if upload has been successful.
 // TODO(AlexZ): Refactor FSQ to make this method private.
-bool Stats::OnFileReady(const std::string& full_path_to_file, uint64_t file_size) {
+bool Stats::OnFileReady(const std::string& full_path_to_file) {
   if (upload_url_.empty()) {
-    LOG_IF_DEBUG("Warning: upload server url was not set and file of", file_size, "bytes was not uploaded.");
+    LOG_IF_DEBUG("Warning: upload server url was not set and file", full_path_to_file, "was not uploaded.");
     return false;
   }
   if (unique_client_id_event_.empty()) {
     LOG_IF_DEBUG("Warning: unique client ID is not set so statistics was not uploaded.");
+    return false;
+  }
+  // TODO(AlexZ): Refactor to use crossplatform and safe/non-throwing version.
+  const uint64_t file_size = bricks::FileSystem::GetFileSize(full_path_to_file);
+  if (0 == file_size) {
+    LOG_IF_DEBUG("ERROR: Trying to upload file of size 0?", full_path_to_file);
     return false;
   }
 
@@ -145,8 +154,8 @@ Stats& Stats::SetStoragePath(const std::string& full_path_to_storage_with_a_slas
       LOG_IF_DEBUG("Active file size:", status.appended_file_size);
       const size_t count = status.finalized.queue.size();
       if (count) {
-        LOG_IF_DEBUG(
-            count, "files with total size of", status.finalized.total_size, "bytes are waiting for upload.");
+        LOG_IF_DEBUG(count, "files with total size of", status.finalized.total_size,
+                     "bytes are waiting for upload.");
       }
     }
     const size_t memory_events_count = memory_storage_.size();
@@ -176,16 +185,28 @@ Stats& Stats::SetClientId(const std::string& unique_client_id) {
   return *this;
 }
 
+static inline void LogEventImpl(AlohalyticsBaseEvent const& event, MessageQueue<Stats>& msq) {
+  std::ostringstream sstream;
+  {
+    // unique_ptr is used to correctly serialize polymorphic types.
+    cereal::BinaryOutputArchive(sstream) << std::unique_ptr<AlohalyticsBaseEvent const, NoOpDeleter>(&event);
+  }
+  msq.PushMessage(std::move(sstream.str()));
+}
+
 void Stats::LogEvent(std::string const& event_name) {
   LOG_IF_DEBUG("LogEvent:", event_name);
   AlohalyticsKeyEvent event;
   event.key = event_name;
-  std::ostringstream sstream;
-  {
-    // unique_ptr is used to correctly serialize polymorphic types.
-    cereal::BinaryOutputArchive(sstream) << std::unique_ptr<AlohalyticsBaseEvent, NoOpDeleter>(&event);
-  }
-  message_queue_.PushMessage(std::move(sstream.str()));
+  LogEventImpl(event, message_queue_);
+}
+
+void Stats::LogEvent(std::string const& event_name, Location const& location) {
+  LOG_IF_DEBUG("LogEvent:", event_name, location.ToDebugString());
+  AlohalyticsKeyLocationEvent event;
+  event.key = event_name;
+  event.location = location;
+  LogEventImpl(event, message_queue_);
 }
 
 void Stats::LogEvent(std::string const& event_name, std::string const& event_value) {
@@ -193,9 +214,16 @@ void Stats::LogEvent(std::string const& event_name, std::string const& event_val
   AlohalyticsKeyValueEvent event;
   event.key = event_name;
   event.value = event_value;
-  std::ostringstream sstream;
-  { cereal::BinaryOutputArchive(sstream) << std::unique_ptr<AlohalyticsBaseEvent, NoOpDeleter>(&event); }
-  message_queue_.PushMessage(std::move(sstream.str()));
+  LogEventImpl(event, message_queue_);
+}
+
+void Stats::LogEvent(std::string const& event_name, std::string const& event_value, Location const& location) {
+  LOG_IF_DEBUG("LogEvent:", event_name, "=", event_value, location.ToDebugString());
+  AlohalyticsKeyValueLocationEvent event;
+  event.key = event_name;
+  event.value = event_value;
+  event.location = location;
+  LogEventImpl(event, message_queue_);
 }
 
 void Stats::LogEvent(std::string const& event_name, TStringMap const& value_pairs) {
@@ -203,9 +231,16 @@ void Stats::LogEvent(std::string const& event_name, TStringMap const& value_pair
   AlohalyticsKeyPairsEvent event;
   event.key = event_name;
   event.pairs = value_pairs;
-  std::ostringstream sstream;
-  { cereal::BinaryOutputArchive(sstream) << std::unique_ptr<AlohalyticsBaseEvent, NoOpDeleter>(&event); }
-  message_queue_.PushMessage(std::move(sstream.str()));
+  LogEventImpl(event, message_queue_);
+}
+
+void Stats::LogEvent(std::string const& event_name, TStringMap const& value_pairs, Location const& location) {
+  LOG_IF_DEBUG("LogEvent:", event_name, "=", value_pairs, location.ToDebugString());
+  AlohalyticsKeyPairsLocationEvent event;
+  event.key = event_name;
+  event.pairs = value_pairs;
+  event.location = location;
+  LogEventImpl(event, message_queue_);
 }
 
 // Forcedly tries to upload all stored data to the server.

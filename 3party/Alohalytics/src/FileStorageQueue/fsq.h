@@ -413,7 +413,9 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
       if (next_file) {
         //      const FileProcessingResult result = processor_.OnFileReady(*next_file.get(),
         //      time_manager_.Now());
-        const bool successfully_processed = processor_.OnFileReady(next_file->full_path_name, next_file->size);
+        // AlexZ: we can't trust next_file->size here. Debugging shows that it can be greater than the real file size.
+        // TODO: refactor FSQ or capture a bug.
+        const bool successfully_processed = processor_.OnFileReady(next_file->full_path_name);
         // Important to clear force_processing_, in a locked way.
         {
           std::unique_lock<std::mutex> lock(status_mutex_);

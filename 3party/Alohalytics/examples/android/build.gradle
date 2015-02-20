@@ -17,7 +17,7 @@ apply plugin: 'com.android.application'
 
 dependencies {
   // This one is needed to get Google Play advertising ID if Google Play Services are available on the device.
-  compile 'com.google.android.gms:play-services-location:+'
+  compile 'com.google.android.gms:play-services-base:+'
 }
 
 android {

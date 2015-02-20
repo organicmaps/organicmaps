@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.alohalytics.demoapp" >
 
-    <!-- This permission is needed if you want to access IMEI -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- This one is needed to upload statistics to the server -->
+    <!-- REQUIRED to upload statistics to the server -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- OPTIONAL to access IMEI -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- OPTIONAL to access network state on install/update/launch events -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- OPTIONAL to access location on install/update/launch -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -22,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Used to automatically upload statistics using WiFi. -->
+        <!-- OPTIONAL to automatically upload statistics when connected to WiFi. -->
         <receiver
             android:name="org.alohalytics.ConnectivityChangedReceiver"
             android:enabled="true"
