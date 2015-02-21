@@ -44,7 +44,7 @@ class UserMarkContainer : public df::UserMarksProvider
                         , private noncopyable
 {
 public:
-  using UserMarksListT = deque<unique_ptr<UserMark>>;
+  using TUserMarksList = deque<unique_ptr<UserMark>>;
 
   UserMarkContainer(double layerDepth, UserMarkType type, Framework & fm);
   virtual ~UserMarkContainer();
@@ -97,7 +97,7 @@ private:
 private:
   bitset<4> m_flags;
   double m_layerDepth;
-  UserMarksListT m_userMarks;
+  TUserMarksList m_userMarks;
   UserMarkType m_type;
 };
 

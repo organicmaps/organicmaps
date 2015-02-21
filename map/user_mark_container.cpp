@@ -318,7 +318,13 @@ void UserMarkContainer::DeleteUserMark(size_t index)
 {
   SetDirty();
   ASSERT_LESS(index, m_userMarks.size(), ());
-  DeleteItem(m_userMarks, index);
+  if (index < m_userMarks.size())
+  {
+    delete m_userMarks[index];
+    m_userMarks.erase(m_userMarks.begin() + index);
+  }
+  else
+    LOG(LWARNING, ("Trying to delete non-existing item at index", index));
 }
 
 SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)
