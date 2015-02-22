@@ -8,7 +8,7 @@
     <landscape>
       <anchor vertical="center" horizontal="right"/>
       <relative vertical="bottom" horizontal="right"/>
-      <offset x="70.4" y="10.5"/>
+      <offset x="6" y="42"/>
     </landscape>
   </ruler>
   <compass>
@@ -20,7 +20,7 @@
     <landscape>
       <anchor vertical="center" horizontal="center"/>
       <relative vertical="bottom" horizontal="left"/>
-      <offset x="18" y="11.4"/>
+      <offset x="27" y="57"/>
     </landscape>
   </compass>
   <copyright>
@@ -32,7 +32,7 @@
     <landscape>
       <anchor vertical="center" horizontal="right"/>
       <relative vertical="bottom" horizontal="right"/>
-      <offset x="70.4" y="10.5"/>
+      <offset x="6" y="42"/>
     </landscape>
   </copyright>
   <country_status>

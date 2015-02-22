@@ -6,23 +6,24 @@
 
 #include "../std/map.hpp"
 
-namespace df
+namespace gui
 {
 
-struct GuiPosition
+struct Position
 {
-  GuiPosition(m2::PointF const & pt, dp::Anchor anchor)
+  Position() : m_pixelPivot(m2::PointF::Zero()), m_anchor(dp::Center) {}
+  Position(m2::PointF const & pt, dp::Anchor anchor)
     : m_pixelPivot(pt)
     , m_anchor(anchor) {}
 
-  m2::PointF const m_pixelPivot;
-  dp::Anchor const m_anchor;
+  m2::PointF m_pixelPivot;
+  dp::Anchor m_anchor;
 };
 
 class PositionResolver
 {
 public:
-  GuiPosition Resolve(int w, int h) const;
+  Position Resolve(int w, int h, double vs) const;
   void AddAnchor(dp::Anchor anchor);
   void AddRelative(dp::Anchor anchor);
   void SetOffsetX(float x);
@@ -34,10 +35,10 @@ private:
   m2::PointF m_offset = m2::PointF::Zero();
 };
 
-class GuiSkin
+class Skin
 {
 public:
-  enum class GuiElement
+  enum class ElementName
   {
     CountryStatus,
     Ruler,
@@ -45,19 +46,22 @@ public:
     Copyright
   };
 
-  explicit GuiSkin(ReaderPtr<Reader> const & reader);
+  explicit Skin(ReaderPtr<Reader> const & reader, double visualScale);
 
-  GuiPosition ResolvePosition(GuiElement name);
+  Position ResolvePosition(ElementName name);
   void Resize(int w, int h);
+  int GetWidth() const { return m_displayWidth; }
+  int GetHeight() const { return m_displayHeight; }
 
 private:
   /// TResolversPair.first - Portrait (when weight < height)
   /// TResolversPair.second - Landscape (when weight >= height)
   typedef pair<PositionResolver, PositionResolver> TResolversPair;
-  map<GuiElement, TResolversPair> m_resolvers;
+  map<ElementName, TResolversPair> m_resolvers;
 
   int m_displayWidth;
   int m_displayHeight;
+  double m_vs;
 };
 
 ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType);

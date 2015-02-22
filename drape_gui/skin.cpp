@@ -1,12 +1,11 @@
-#include "gui_skin.hpp"
-#include "visual_params.hpp"
+#include "skin.hpp"
 
 #include "../platform/platform.hpp"
 #include "../coding/parse_xml.hpp"
 #include "../base/string_utils.hpp"
 #include "../std/function.hpp"
 
-namespace df
+namespace gui
 {
 
 namespace
@@ -118,7 +117,7 @@ private:
 class SkinLoader
 {
 public:
-  explicit SkinLoader(map<GuiSkin::GuiElement, pair<PositionResolver, PositionResolver> > & skin)
+  explicit SkinLoader(map<Skin::ElementName, pair<PositionResolver, PositionResolver> > & skin)
     : m_skin(skin) {}
 
   bool Push(string const & element)
@@ -130,13 +129,13 @@ public:
 
       m_inElement = true;
       if (element == "ruler")
-        m_currentElement = GuiSkin::GuiElement::Ruler;
+        m_currentElement = Skin::ElementName::Ruler;
       else if (element == "compass")
-        m_currentElement = GuiSkin::GuiElement::Compass;
+        m_currentElement = Skin::ElementName::Compass;
       else if (element == "copyright")
-        m_currentElement = GuiSkin::GuiElement::Copyright;
+        m_currentElement = Skin::ElementName::Copyright;
       else if (element == "country_status")
-        m_currentElement = GuiSkin::GuiElement::CountryStatus;
+        m_currentElement = Skin::ElementName::CountryStatus;
       else
         ASSERT(false, ());
     }
@@ -196,19 +195,19 @@ private:
   bool m_inConfiguration = false;
   bool m_inElement = false;
 
-  GuiSkin::GuiElement m_currentElement = GuiSkin::GuiElement::Ruler;
+  Skin::ElementName m_currentElement = Skin::ElementName::Ruler;
   ResolverParser m_parser;
 
-  map<GuiSkin::GuiElement, pair<PositionResolver, PositionResolver> > & m_skin;
+  map<Skin::ElementName, pair<PositionResolver, PositionResolver> > & m_skin;
 };
 
 }
 
-GuiPosition PositionResolver::Resolve(int w, int h) const
+Position PositionResolver::Resolve(int w, int h, double vs) const
 {
   float resultX = w / 2.0f;
   float resultY = h / 2.0f;
-  m2::PointF offset = m_offset * df::VisualParams::Instance().GetVisualScale();
+  m2::PointF offset = m_offset * vs;
 
   if (m_resolveAnchor & dp::Left)
    resultX = offset.x;
@@ -224,7 +223,7 @@ GuiPosition PositionResolver::Resolve(int w, int h) const
   else
    resultY += offset.y;
 
-  return GuiPosition(m2::PointF(resultX, resultY), m_elementAnchor);
+  return Position(m2::PointF(resultX, resultY), m_elementAnchor);
 }
 
 void PositionResolver::AddAnchor(dp::Anchor anchor)
@@ -247,7 +246,8 @@ void PositionResolver::SetOffsetY(float y)
   m_offset.y = y;
 }
 
-GuiSkin::GuiSkin(ReaderPtr<Reader> const & reader)
+Skin::Skin(ReaderPtr<Reader> const & reader, double visualScale)
+  : m_vs(visualScale)
 {
   SkinLoader loader(m_resolvers);
   ReaderSource<ReaderPtr<Reader> > source(reader);
@@ -255,14 +255,14 @@ GuiSkin::GuiSkin(ReaderPtr<Reader> const & reader)
     LOG(LERROR, ("Error parsing gui skin"));
 }
 
-GuiPosition GuiSkin::ResolvePosition(GuiElement name)
+Position Skin::ResolvePosition(ElementName name)
 {
   TResolversPair const & resolvers = m_resolvers[name];
   PositionResolver const & resolver = (m_displayWidth < m_displayHeight) ? resolvers.first : resolvers.second;
-  return resolver.Resolve(m_displayWidth, m_displayHeight);
+  return resolver.Resolve(m_displayWidth, m_displayHeight, m_vs);
 }
 
-void GuiSkin::Resize(int w, int h)
+void Skin::Resize(int w, int h)
 {
   m_displayWidth = w;
   m_displayHeight = h;
@@ -274,7 +274,7 @@ ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
   ReaderPtr<Reader> reader;
   try
   {
-    reader = pl.GetReader("resource-default/" + deviceType + ".ui");
+    reader = pl.GetReader("resources-default/" + deviceType + ".ui");
   }
   catch(FileAbsentException & e)
   {
@@ -285,7 +285,7 @@ ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
   {
     try
     {
-      reader = pl.GetReader("resource-default/default.ui");
+      reader = pl.GetReader("resources-default/default.ui");
     }
     catch(FileAbsentException & e)
     {
