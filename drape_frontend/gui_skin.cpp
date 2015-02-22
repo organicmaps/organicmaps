@@ -1,10 +1,9 @@
 #include "gui_skin.hpp"
 #include "visual_params.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../coding/parse_xml.hpp"
 #include "../platform/platform.hpp"
-
+#include "../coding/parse_xml.hpp"
+#include "../base/string_utils.hpp"
 #include "../std/function.hpp"
 
 namespace df
@@ -85,21 +84,12 @@ public:
       ASSERT(m_element == Element::Offset, ());
       m_resolver.SetOffsetY(ParseFloat(value));
     }
-    else if (attr == "vertical")
+    else if (attr == "vertical" || attr == "horizontal")
     {
       if (m_element == Element::Anchor)
-        m_resolver.SetAnchorVertical(ParseValueAnchor(value));
+        m_resolver.AddAnchor(ParseValueAnchor(value));
       else if (m_element == Element::Relative)
-        m_resolver.SetRelativeVertical(ParseValueAnchor(value));
-      else
-        ASSERT(false, ());
-    }
-    else if (attr == "horizontal")
-    {
-      if (m_element == Element::Anchor)
-        m_resolver.SetAnchorHorizontal(ParseValueAnchor(value));
-      else if (m_element == Element::Relative)
-        m_resolver.SetRelativeHorizontal(ParseValueAnchor(value));
+        m_resolver.AddRelative(ParseValueAnchor(value));
       else
         ASSERT(false, ());
     }
@@ -128,7 +118,7 @@ private:
 class SkinLoader
 {
 public:
-  SkinLoader(map<GuiSkin::GuiElement, pair<PositionResolver, PositionResolver> > & skin)
+  explicit SkinLoader(map<GuiSkin::GuiElement, pair<PositionResolver, PositionResolver> > & skin)
     : m_skin(skin) {}
 
   bool Push(string const & element)
@@ -237,22 +227,12 @@ GuiPosition PositionResolver::Resolve(int w, int h) const
   return GuiPosition(m2::PointF(resultX, resultY), m_elementAnchor);
 }
 
-void PositionResolver::SetAnchorVertical(dp::Anchor anchor)
+void PositionResolver::AddAnchor(dp::Anchor anchor)
 {
   m_elementAnchor = MergeAnchors(m_elementAnchor, anchor);
 }
 
-void PositionResolver::SetAnchorHorizontal(dp::Anchor anchor)
-{
-  m_elementAnchor = MergeAnchors(m_elementAnchor, anchor);
-}
-
-void PositionResolver::SetRelativeVertical(dp::Anchor anchor)
-{
-  m_resolveAnchor = MergeAnchors(m_resolveAnchor, anchor);
-}
-
-void PositionResolver::SetRelativeHorizontal(dp::Anchor anchor)
+void PositionResolver::AddRelative(dp::Anchor anchor)
 {
   m_resolveAnchor = MergeAnchors(m_resolveAnchor, anchor);
 }

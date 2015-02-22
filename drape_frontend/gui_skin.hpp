@@ -1,9 +1,8 @@
 #pragma once
 
-#include "../coding/reader.hpp"
-
 #include "../drape/drape_global.hpp"
 #include "../geometry/point2d.hpp"
+#include "../coding/reader.hpp"
 
 #include "../std/map.hpp"
 
@@ -23,13 +22,9 @@ struct GuiPosition
 class PositionResolver
 {
 public:
-  PositionResolver() = default;
-
   GuiPosition Resolve(int w, int h) const;
-  void SetAnchorVertical(dp::Anchor anchor);
-  void SetAnchorHorizontal(dp::Anchor anchor);
-  void SetRelativeVertical(dp::Anchor anchor);
-  void SetRelativeHorizontal(dp::Anchor anchor);
+  void AddAnchor(dp::Anchor anchor);
+  void AddRelative(dp::Anchor anchor);
   void SetOffsetX(float x);
   void SetOffsetY(float y);
 
@@ -50,7 +45,7 @@ public:
     Copyright
   };
 
-  GuiSkin(ReaderPtr<Reader> const & reader);
+  explicit GuiSkin(ReaderPtr<Reader> const & reader);
 
   GuiPosition ResolvePosition(GuiElement name);
   void Resize(int w, int h);

@@ -1,50 +1,50 @@
 <root>
-	<ruler>
-		<portrait>
-			<anchor vertical="center" horizontal="right"/>
-			<relative vertical="bottom" horizontal="right"/>
-			<offset x="6" y="42"/>
-		</portrait>
-		<landscape>
-			<anchor vertical="center" horizontal="right"/>
-			<relative vertical="bottom" horizontal="right"/>
-			<offset x="70.4" y="10.5"/>
-		</landscape>
-	</ruler>
-	<compass>
-		<portrait>
-			<anchor vertical="center" horizontal="center"/>
-			<relative vertical="bottom" horizontal="left"/>
-			<offset x="27" y="57"/>
-		</portrait>
-		<landscape>
-			<anchor vertical="center" horizontal="center"/>
-			<relative vertical="bottom" horizontal="left"/>
-			<offset x="18" y="11.4"/>
-		</landscape>
-	</compass>
-	<copyright>
-		<portrait>
-			<anchor vertical="center" horizontal="right"/>
-			<relative vertical="bottom" horizontal="right"/>
-			<offset x="6" y="42"/>
-		</portrait>
-		<landscape>
-			<anchor vertical="center" horizontal="right"/>
-			<relative vertical="bottom" horizontal="right"/>
-			<offset x="70.4" y="10.5"/>
-		</landscape>
-	</copyright>
-	<country_status>
-		<portrait>
-			<anchor vertical="center" horizontal="center"/>
-			<relative vertical="center" horizontal="center"/>
-			<offset x="0" y="0"/>
-		</portrait>
-		<landscape>
-			<anchor vertical="center" horizontal="center"/>
-			<relative vertical="center" horizontal="center"/>
-			<offset x="0" y="0"/>
-		</landscape>
-	</country_status>
+  <ruler>
+    <portrait>
+      <anchor vertical="center" horizontal="right"/>
+      <relative vertical="bottom" horizontal="right"/>
+      <offset x="6" y="42"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="center" horizontal="right"/>
+      <relative vertical="bottom" horizontal="right"/>
+      <offset x="70.4" y="10.5"/>
+    </landscape>
+  </ruler>
+  <compass>
+    <portrait>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="bottom" horizontal="left"/>
+      <offset x="27" y="57"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="bottom" horizontal="left"/>
+      <offset x="18" y="11.4"/>
+    </landscape>
+  </compass>
+  <copyright>
+    <portrait>
+      <anchor vertical="center" horizontal="right"/>
+      <relative vertical="bottom" horizontal="right"/>
+      <offset x="6" y="42"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="center" horizontal="right"/>
+      <relative vertical="bottom" horizontal="right"/>
+      <offset x="70.4" y="10.5"/>
+    </landscape>
+  </copyright>
+  <country_status>
+    <portrait>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="center" horizontal="center"/>
+      <offset x="0" y="0"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="center" horizontal="center"/>
+      <offset x="0" y="0"/>
+    </landscape>
+  </country_status>
 </root>
