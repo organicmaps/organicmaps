@@ -139,13 +139,13 @@ namespace m2
       double v = ((x12 - x11) * (y21 - y11) + (y12 - y11) * (x11 - x21)) / ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22 - y21));
       PointT p(x21 + (x22 - x21) * v, y21 + (y22 - y21) * v);
 
-      if (!(((p.x >= x11) && (p.x <= x12)) || ((p.x <= x11)&&(p.x >= x12))))
+      if (!(((p.x >= x11) && (p.x <= x12)) || ((p.x <= x11) && (p.x >= x12))))
         return false;
-      if (!(((p.x >= x21) && (p.x <= x22)) || ((p.x <= x21)&&(p.x >= x22))))
+      if (!(((p.x >= x21) && (p.x <= x22)) || ((p.x <= x21) && (p.x >= x22))))
         return false;
-      if (!(((p.y >= y11) && (p.y <= y12)) || ((p.y <= y11)&&(p.y >= y12))))
+      if (!(((p.y >= y11) && (p.y <= y12)) || ((p.y <= y11) && (p.y >= y12))))
         return false;
-      if (!(((p.y >= y21) && (p.y <= y22)) || ((p.y <= y21)&&(p.y >= y22))))
+      if (!(((p.y >= y21) && (p.y <= y22)) || ((p.y <= y21) && (p.y >= y22))))
         return false;
 
       pt = p;
@@ -220,17 +220,17 @@ namespace m2
       return Contains(pt, typename TraitsT::EqualType());
     }
 
-    //Finds point of intersection with border
+    /// Finds point of intersection with the section.
     bool FindIntersection(PointT const & point1, PointT const & point2, PointT & result) const
     {
-      size_t const numPoints = m_points.size();
-      PointT prev = m_points[numPoints - 1];
-      for (size_t i = 0; i < numPoints; ++i)
+      if (m_points.empty())
+        return false;
+      PointT const * prev = &m_points.back();
+      for (PointT const & curr : m_points)
       {
-        PointT const curr = m_points[i];
-        if (IsIntersect(point1, point2, prev, curr, result))
+        if (IsIntersect(point1, point2, *prev, curr, result))
           return true;
-        prev = curr;
+        prev = &curr;
       }
       return false;
     }

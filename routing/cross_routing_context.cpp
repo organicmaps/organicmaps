@@ -7,41 +7,43 @@ namespace routing
 
 uint32_t const g_coordBits = POINT_COORD_BITS;
 
-void OutgoingCrossNode::Save(Writer &w)
+void OutgoingCrossNode::Save(Writer &w) const
 {
-  w.Write(&m_nodeId, sizeof(m_nodeId));
-  uint64_t const point = PointToInt64(m_point, g_coordBits);
-  w.Write(&point, sizeof(point));
-  w.Write(&m_outgoingIndex, sizeof(m_outgoingIndex));
+  uint64_t point = PointToInt64(m_point, g_coordBits);
+  char buff[sizeof(m_nodeId) + sizeof(point) + sizeof(m_outgoingIndex)];
+  *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]) = m_nodeId;
+  *reinterpret_cast<decltype(point) *>(&(buff[sizeof(m_nodeId)])) = point;
+  *reinterpret_cast<decltype(m_outgoingIndex) *>(&(buff[sizeof(m_nodeId) + sizeof(point)])) = m_outgoingIndex;
+  w.Write(buff, sizeof(buff));
+
 }
 
 size_t OutgoingCrossNode::Load(const Reader &r, size_t pos)
 {
-  r.Read(pos, &m_nodeId, sizeof(m_nodeId));
-  pos += sizeof(m_nodeId);
-  uint64_t point;
-  r.Read(pos, &point, sizeof(point));
-  m_point = Int64ToPoint(point, g_coordBits);
-  pos += sizeof(point);
-  r.Read(pos, &m_outgoingIndex, sizeof(m_outgoingIndex));
-  return pos + sizeof(m_outgoingIndex);
+  char buff[sizeof(m_nodeId) + sizeof(uint64_t) + sizeof(m_outgoingIndex)];
+  r.Read(pos, buff, sizeof(buff));
+  m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
+  m_point = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
+  m_outgoingIndex = *reinterpret_cast<decltype(m_outgoingIndex) *>(&(buff[sizeof(m_nodeId) + sizeof(uint64_t)]));
+  return pos + sizeof(buff);
 }
 
-void IngoingCrossNode::Save(Writer &w)
+void IngoingCrossNode::Save(Writer &w) const
 {
-  w.Write(&m_nodeId, sizeof(m_nodeId));
-  uint64_t const point = PointToInt64(m_point, g_coordBits);
-  w.Write(&point, sizeof(point));
+  uint64_t point = PointToInt64(m_point, g_coordBits);
+  char buff[sizeof(m_nodeId) + sizeof(point)];
+  *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]) = m_nodeId;
+  *reinterpret_cast<decltype(point) *>(&(buff[sizeof(m_nodeId)])) = point;
+  w.Write(buff, sizeof(buff));
 }
 
 size_t IngoingCrossNode::Load(const Reader &r, size_t pos)
 {
-  r.Read(pos, &m_nodeId, sizeof(m_nodeId));
-  pos += sizeof(m_nodeId);
-  uint64_t point;
-  r.Read(pos, &point, sizeof(point));
-  m_point = Int64ToPoint(point, g_coordBits);
-  return pos + sizeof(point);
+  char buff[sizeof(m_nodeId) + sizeof(uint64_t)];
+  r.Read(pos, buff, sizeof(buff));
+  m_nodeId = *reinterpret_cast<decltype(m_nodeId) *>(&buff[0]);
+  m_point = Int64ToPoint(*reinterpret_cast<uint64_t *>(&(buff[sizeof(m_nodeId)])), g_coordBits);
+  return pos + sizeof(buff);
 }
 
 size_t CrossRoutingContextReader::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const

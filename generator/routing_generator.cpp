@@ -108,7 +108,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           if (outStart == outEnd)
             continue;
           m2::PointD intersection = m2::PointD::Zero();
-          for (auto segment : data.m_segments)
+          for (auto const & segment : data.m_segments)
             if (border.FindIntersection({segment.lon1, segment.lat1}, {segment.lon2, segment.lat2}, intersection))
               break;
           if (intersection == m2::PointD::Zero())

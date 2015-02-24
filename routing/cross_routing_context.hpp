@@ -10,8 +10,8 @@
 namespace routing
 {
 using WritedEdgeWeightT = uint32_t;
-static const WritedEdgeWeightT INVALID_CONTEXT_EDGE_WEIGHT = std::numeric_limits<WritedEdgeWeightT>::max();
-static const WritedEdgeWeightT INVALID_CONTEXT_EDGE_NODE_ID = std::numeric_limits<uint32_t>::max();
+static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_WEIGHT = std::numeric_limits<WritedEdgeWeightT>::max();
+static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_NODE_ID = std::numeric_limits<uint32_t>::max();
 
 struct IngoingCrossNode
 {
@@ -21,7 +21,7 @@ struct IngoingCrossNode
   IngoingCrossNode() : m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID), m_point(m2::PointD::Zero()) {}
   IngoingCrossNode(uint32_t nodeId, m2::PointD const & point) : m_nodeId(nodeId), m_point(point) {}
 
-  void Save(Writer & w);
+  void Save(Writer & w) const;
 
   size_t Load(Reader const & r, size_t pos);
 };
@@ -37,7 +37,7 @@ struct OutgoingCrossNode
                                                                                      m_point(point),
                                                                                      m_outgoingIndex(static_cast<unsigned char>(index)){}
 
-  void Save(Writer & w);
+  void Save(Writer & w) const;
 
   size_t Load(Reader const & r, size_t pos);
 };
