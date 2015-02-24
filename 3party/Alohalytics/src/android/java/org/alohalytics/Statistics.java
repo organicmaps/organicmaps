@@ -73,10 +73,11 @@ public class Statistics {
     }
     final SharedPreferences prefs = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
     Location lastKnownLocation = null;
-    if (SystemInfo.hasPermission("android.permission.ACCESS_FINE_LOCATION", context)) {
+    if (SystemInfo.hasPermission(android.Manifest.permission.ACCESS_FINE_LOCATION, context)) {
       // Requires ACCESS_FINE_LOCATION permission.
       final LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-      lastKnownLocation = (lm == null) ? null : lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+      if (lm != null)
+        lastKnownLocation = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
     }
     // Is it a real new install?
     if (id.second && installTime == updateTime) {
@@ -95,7 +96,7 @@ public class Statistics {
       SystemInfo.getDeviceInfoAsync(context);
       prefs.edit().putLong(PREF_APP_UPDATE_TIME, updateTime).apply();
     }
-    logEvent("$launch", SystemInfo.hasPermission("android.permission.ACCESS_NETWORK_STATE", context)
+    logEvent("$launch", SystemInfo.hasPermission(android.Manifest.permission.ACCESS_NETWORK_STATE, context)
         ? SystemInfo.getConnectionInfo(context) : null, lastKnownLocation);
   }
 
