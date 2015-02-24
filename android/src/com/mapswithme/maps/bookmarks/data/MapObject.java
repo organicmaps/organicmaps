@@ -25,22 +25,12 @@ public abstract class MapObject
     mMetadata = new Metadata();
   }
 
-  private static boolean isEmpty(String s)
-  {
-    return (s == null || s.length() == 0);
-  }
-
   public void setDefaultIfEmpty(Resources res)
   {
-    if (isEmpty(mName))
-    {
-      if (isEmpty(mTypeName))
-        mName = res.getString(R.string.dropped_pin);
-      else
-        mName = mTypeName;
-    }
+    if (TextUtils.isEmpty(mName))
+      mName = TextUtils.isEmpty(mTypeName) ? res.getString(R.string.dropped_pin) : mTypeName;
 
-    if (isEmpty(mTypeName))
+    if (TextUtils.isEmpty(mTypeName))
       mTypeName = res.getString(R.string.placepage_unsorted);
   }
 
@@ -64,30 +54,15 @@ public abstract class MapObject
   {
     if (this == obj)
       return true;
-    if (obj == null)
+    if (obj == null ||
+        getClass() != obj.getClass())
       return false;
-    if (getClass() != obj.getClass())
-      return false;
+
     final MapObject other = (MapObject) obj;
-    if (Double.doubleToLongBits(mLat) != Double.doubleToLongBits(other.mLat))
-      return false;
-    if (Double.doubleToLongBits(mLon) != Double.doubleToLongBits(other.mLon))
-      return false;
-    if (mName == null)
-    {
-      if (other.mName != null)
-        return false;
-    }
-    else if (!mName.equals(other.mName))
-      return false;
-    if (mTypeName == null)
-    {
-      if (other.mTypeName != null)
-        return false;
-    }
-    else if (!mTypeName.equals(other.mTypeName))
-      return false;
-    return true;
+    return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
+        Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat) &&
+        TextUtils.equals(mName, other.mName) &&
+        TextUtils.equals(mTypeName, other.mTypeName);
   }
 
   public double getScale() { return 0; }
@@ -204,9 +179,7 @@ public abstract class MapObject
     public void setDefaultIfEmpty(Resources res)
     {
       if (TextUtils.isEmpty(mName))
-      {
         mName = res.getString(R.string.my_position);
-      }
     }
   }
 
