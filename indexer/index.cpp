@@ -193,4 +193,5 @@ bool Index::FeaturesLoaderGuard::IsWorld() const
 void Index::FeaturesLoaderGuard::GetFeature(uint32_t offset, FeatureType & ft)
 {
   m_vector.Get(offset, ft);
+  ft.SetID(FeatureID(m_lock.GetID(), offset));
 }

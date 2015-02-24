@@ -14,6 +14,7 @@ public abstract class MapObject
   protected double mLat;
   protected double mLon;
   protected String mTypeName;
+  protected Metadata mMetadata;
 
   public MapObject(String name, double lat, double lon, String typeName)
   {
@@ -21,6 +22,7 @@ public abstract class MapObject
     mLat = lat;
     mLon = lon;
     mTypeName = typeName;
+    mMetadata = new Metadata();
   }
 
   private static boolean isEmpty(String s)
@@ -108,6 +110,16 @@ public abstract class MapObject
 
   public String getPoiTypeName() { return mTypeName; }
 
+  public void addMetadata(int type, String value)
+  {
+    mMetadata.addMetadata(type, value);
+  }
+
+  public String getMetadata(Metadata.MetadataType type)
+  {
+    return mMetadata.getMetadata(type);
+  }
+
   public abstract MapObjectType getType();
 
   public static enum MapObjectType implements Serializable
@@ -177,8 +189,6 @@ public abstract class MapObject
 
   public static class MyPosition extends MapObject
   {
-
-
     public MyPosition(String name, double lat, double lon)
     {
       super(name, lat, lon, "");

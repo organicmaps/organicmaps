@@ -1677,7 +1677,7 @@ OEPointerT GetClosestToPivot(list<OEPointerT> const & l, m2::PointD const & pxPo
 #endif // USE_DRAPE
 
 bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
-                              search::AddressInfo & info) const
+                              search::AddressInfo & info, feature::FeatureMetadata & metadata) const
 {
 #ifndef USE_DRAPE
   graphics::OverlayElement::UserInfo ui;
@@ -1713,6 +1713,9 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
 
     FeatureType ft;
     guard.GetFeature(ui.m_offset, ft);
+
+    ft.ParseMetadata();
+    metadata = ft.GetMetadata();
 
     // @TODO experiment with other pivots
     ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
@@ -1817,7 +1820,8 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
     bool needMark = false;
     m2::PointD pxPivot;
     search::AddressInfo info;
-    if (GetVisiblePOI(pxPoint, pxPivot, info))
+    feature::FeatureMetadata metadata;
+    if (GetVisiblePOI(pxPoint, pxPivot, info, metadata))
       needMark = true;
     else if (isLongPress)
     {
@@ -1831,6 +1835,7 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
       PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
       poiMark->SetPtOrg(m_navigator.PtoG(pxPivot));
       poiMark->SetInfo(info);
+      poiMark->SetMetadata(metadata);
       mark = poiMark;
     }
   }

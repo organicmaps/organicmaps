@@ -7,6 +7,7 @@
 #include "../std/string.hpp"
 #include "../std/limits.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/vector.hpp"
 
 namespace feature
 {
@@ -49,6 +50,15 @@ namespace feature
     {
       auto it = m_metadata.find(type);
       return (it == m_metadata.end()) ? string() : it->second;
+    }
+
+    vector<EMetadataType> GetPresentTypes() const
+    {
+      vector<EMetadataType> types;
+      for (auto item: m_metadata)
+        types.push_back(static_cast<EMetadataType>(item.first));
+
+      return types;
     }
 
     void Drop(EMetadataType type)

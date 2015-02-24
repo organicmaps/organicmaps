@@ -16,7 +16,7 @@ public class Framework
   {
     public void onApiPointActivated(double lat, double lon, String name, String id);
 
-    public void onPoiActivated(String name, String type, String address, double lat, double lon);
+    public void onPoiActivated(String name, String type, String address, double lat, double lon, int[] metaTypes, String[] metaValues);
 
     public void onBookmarkActivated(int category, int bookmarkIndex);
 

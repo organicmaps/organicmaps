@@ -90,7 +90,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
-import android.os.Debug;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationHelper.LocationListener, OnBalloonListener,
@@ -1337,9 +1336,12 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon)
+  public void onPoiActivated(final String name, final String type, final String address, final double lat, final double lon,
+                             final int[] metaTypes, final String[] metaValues)
   {
     final MapObject poi = new MapObject.Poi(name, lat, lon, type);
+    for (int i = 0; i < metaTypes.length; i++)
+      poi.addMetadata(metaTypes[i], metaValues[i]);
 
     runOnUiThread(new Runnable()
     {

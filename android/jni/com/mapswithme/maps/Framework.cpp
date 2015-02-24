@@ -821,7 +821,8 @@ extern "C"
   }
 
   // POI
-  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint, search::AddressInfo const & addrInfo)
+  void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint,
+      search::AddressInfo const & addrInfo, feature::FeatureMetadata const & metadata)
   {
     JNIEnv * jniEnv = jni::GetEnv();
 
@@ -831,10 +832,22 @@ extern "C"
     const double lon = MercatorBounds::XToLon(globalPoint.x);
     const double lat = MercatorBounds::YToLat(globalPoint.y);
 
-    const char * signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V";
+    const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
+    const jintArray j_metaTypes = jniEnv->NewIntArray(metadata.Size());
+    jint * arr = jniEnv->GetIntArrayElements(j_metaTypes, 0);
+    const jobjectArray j_metaValues = jniEnv->NewObjectArray(metadata.Size(), jni::GetStringClass(jniEnv), 0);
+    for (int i = 0; i < metaTypes.size(); i++)
+    {
+      arr[i] = metaTypes[i];
+      feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
+      jniEnv->SetObjectArrayElement(j_metaValues, i, jni::ToJavaString(jniEnv, metadata.Get(metaType)));
+    }
+    jniEnv->ReleaseIntArrayElements(j_metaTypes, arr, 0);
+
+    const char * signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD[I[Ljava/lang/String;)V";
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
                                                       "onPoiActivated", signature);
-    jniEnv->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon);
+    jniEnv->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon, j_metaTypes, j_metaValues);
   }
 
   // Bookmark
@@ -879,7 +892,7 @@ extern "C"
     case UserMark::POI:
       {
         PoiMarkPoint const * poiMark = CastMark<PoiMarkPoint>(mark);
-        CallOnPoiActivatedListener(obj, mark->GetOrg(), poiMark->GetInfo());
+        CallOnPoiActivatedListener(obj, mark->GetOrg(), poiMark->GetInfo(), poiMark->GetMetadata());
       }
       break;
     case UserMark::SEARCH:

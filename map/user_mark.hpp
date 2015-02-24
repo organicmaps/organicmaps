@@ -2,6 +2,8 @@
 
 #include "../geometry/point2d.hpp"
 
+#include "../indexer/feature.hpp"
+
 #include "../search/result.hpp"
 
 #include "../std/string.hpp"
@@ -123,6 +125,10 @@ public:
 
   search::AddressInfo const & GetInfo() const { return m_info; }
   void SetInfo(search::AddressInfo const & info) { m_info = info; }
+
+  feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
+  void SetMetadata(feature::FeatureMetadata const & metadata) { m_metadata = metadata; }
+
   virtual UserMarkCopy * Copy() const
   {
     return new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container));
@@ -130,6 +136,7 @@ public:
 
 protected:
   search::AddressInfo m_info;
+  feature::FeatureMetadata m_metadata;
 };
 
 class PoiMarkPoint : public SearchMarkPoint
