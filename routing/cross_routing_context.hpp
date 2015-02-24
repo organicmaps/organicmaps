@@ -15,11 +15,11 @@ static WritedEdgeWeightT const INVALID_CONTEXT_EDGE_NODE_ID = std::numeric_limit
 
 struct IngoingCrossNode
 {
-  uint32_t m_nodeId;
   m2::PointD m_point;
+  uint32_t m_nodeId;
 
-  IngoingCrossNode() : m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID), m_point(m2::PointD::Zero()) {}
-  IngoingCrossNode(uint32_t nodeId, m2::PointD const & point) : m_nodeId(nodeId), m_point(point) {}
+  IngoingCrossNode() : m_point(m2::PointD::Zero()), m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID) {}
+  IngoingCrossNode(uint32_t nodeId, m2::PointD const & point) :m_point(point), m_nodeId(nodeId) {}
 
   void Save(Writer & w) const;
 
@@ -28,13 +28,13 @@ struct IngoingCrossNode
 
 struct OutgoingCrossNode
 {
-  uint32_t m_nodeId;
   m2::PointD m_point;
+  uint32_t m_nodeId;
   unsigned char m_outgoingIndex;
 
-  OutgoingCrossNode() : m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID), m_point(m2::PointD::Zero()), m_outgoingIndex(0) {}
-  OutgoingCrossNode(uint32_t nodeId, size_t const index, m2::PointD const & point) : m_nodeId(nodeId),
-                                                                                     m_point(point),
+  OutgoingCrossNode() : m_point(m2::PointD::Zero()), m_nodeId(INVALID_CONTEXT_EDGE_NODE_ID), m_outgoingIndex(0) {}
+  OutgoingCrossNode(uint32_t nodeId, size_t const index, m2::PointD const & point) : m_point(point),
+                                                                                     m_nodeId(nodeId),
                                                                                      m_outgoingIndex(static_cast<unsigned char>(index)){}
 
   void Save(Writer & w) const;

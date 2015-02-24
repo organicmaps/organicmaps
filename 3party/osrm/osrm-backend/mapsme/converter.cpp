@@ -151,14 +151,14 @@ void GenerateRoutingIndex(const std::string & fPath)
           CHECK(data.shortcut == shortcuts.back(), ());
 
           auto const last = edgesData.back();
-          if (data.distance <= last)
+          if (static_cast<uint32_t>(data.distance) <= last)
           {
             if (!edgeId.empty() && data.shortcut)
             {
               CHECK(shortcuts.back(), ());
               unsigned oldId = node - bits::ZigZagDecode(edgeId.back());
 
-              if (data.distance == last)
+              if (static_cast<uint32_t>(data.distance) == last)
                 edgeId.back() = compressId(min(oldId, data.id));
               else
                 edgeId.back() = compressId(data.id);
@@ -266,7 +266,6 @@ void GenerateRoutingIndex(const std::string & fPath)
   std::cout << "Check edges data ...";
   bool error = false;
 
-  typedef vector<QueryEdge::EdgeData> EdgeDataT;
   assert(facade.GetNumberOfEdges() == facadeNew.GetNumberOfEdges());
   for (uint32_t i = 0; i < facade.GetNumberOfNodes(); ++i)
   {

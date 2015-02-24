@@ -104,7 +104,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
         {
-          bool const outStart = border.Contains({ startSeg.lon1, startSeg.lat1 }), outEnd = border.Contains({ endSeg.lon2, endSeg.lat2 });
+          bool const outStart = border.Contains({ startSeg.lon1, startSeg.lat1 });
+          bool const outEnd = border.Contains({ endSeg.lon2, endSeg.lat2 });
           if (outStart == outEnd)
             continue;
           m2::PointD intersection = m2::PointD::Zero();

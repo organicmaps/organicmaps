@@ -28,7 +28,7 @@ UNIT_TEST(TestContextSerialization)
   auto ins = newContext.GetIngoingIterators();
   TEST_EQUAL(distance(ins.first,ins.second), 2, ());
   TEST_EQUAL(ins.first->m_nodeId, 1, ());
-  TEST_EQUAL(((++ins.first)->m_nodeId), 2, ());
+  TEST_EQUAL((++ins.first)->m_nodeId, 2, ());
 
   auto outs = newContext.GetOutgoingIterators();
   TEST_EQUAL(distance(outs.first,outs.second), 2, ());

@@ -5,7 +5,7 @@
 namespace routing
 {
 
-uint32_t const g_coordBits = POINT_COORD_BITS;
+static uint32_t const g_coordBits = POINT_COORD_BITS;
 
 void OutgoingCrossNode::Save(Writer &w) const
 {
@@ -61,18 +61,17 @@ void CrossRoutingContextReader::Load(Reader const & r)
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
   m_ingoingNodes.resize(size);
-  for (int i = 0; i < size; ++i)
-  {
-    pos = m_ingoingNodes[i].Load(r, pos);
-  }
+
+  for (auto & node : m_ingoingNodes)
+    pos = node.Load(r, pos);
 
   r.Read(pos, &size, sizeof(size));
   pos += sizeof(size);
   m_outgoingNodes.resize(size);
-  for (int i = 0; i < size; ++i)
-  {
-    pos = m_outgoingNodes[i].Load(r, pos);
-  }
+
+  for (auto & node : m_outgoingNodes)
+    pos = node.Load(r, pos);
+
   size_t const adjMatrixSize = sizeof(WritedEdgeWeightT) * m_ingoingNodes.size() * m_outgoingNodes.size();
   mp_reader = unique_ptr<Reader>(r.CreateSubReader(pos, adjMatrixSize));
   pos += adjMatrixSize;
@@ -130,17 +129,14 @@ void CrossRoutingContextWriter::Save(Writer & w)
 {
   uint32_t size = static_cast<uint32_t>(m_ingoingNodes.size());
   w.Write(&size, sizeof(size));
-  for (int i = 0; i < size; ++i)
-  {
-    m_ingoingNodes[i].Save(w);
-  }
+  for (auto const & node : m_ingoingNodes)
+    node.Save(w);
 
   size = static_cast<uint32_t>(m_outgoingNodes.size());
   w.Write(&size, sizeof(size));
-  for (int i = 0; i < size; ++i)
-  {
-    m_outgoingNodes[i].Save(w);
-  }
+
+  for (auto const & node : m_outgoingNodes)
+    node.Save(w);
 
   CHECK(m_adjacencyMatrix.size() == m_outgoingNodes.size()*m_ingoingNodes.size(), ());
   w.Write(&m_adjacencyMatrix[0], sizeof(m_adjacencyMatrix[0]) * m_adjacencyMatrix.size());
