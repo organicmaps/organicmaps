@@ -41,10 +41,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static MWMApplication mSelf;
 
   private boolean mAreStatsInitialised;
-  private boolean mIsYota = false;
-
-  // We check how old is modified date of our MapsWithMe folder
-  private final static long TIME_DELTA = 5 * 1000;
+  private boolean mIsYota;
 
   public MWMApplication()
   {
