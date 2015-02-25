@@ -127,16 +127,14 @@ public class ArrowView extends ImageView
   {
     super.onSizeChanged(w, h, oldw, oldh);
 
-    mWidth = w - getPaddingLeft() - getPaddingRight();
-    mHeight = h - getPaddingBottom() - getPaddingTop();
+    mWidth = getWidth();
+    mHeight = getHeight();
   }
 
   @Override
   protected void onDraw(Canvas canvas)
   {
     canvas.save();
-    final float side = Math.min(mWidth, mHeight);
-    canvas.translate((mWidth - side) / 2, (mHeight - side) / 2);
     canvas.rotate(-mCurrentAngle, mWidth / 2, mHeight / 2);
     super.onDraw(canvas);
     canvas.restore();
