@@ -1960,7 +1960,7 @@ void Framework::BuildRoute(m2::PointD const & destination)
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
   {
-    CallRouteBuilded(IRouter::NoCurrentPosition);
+    CallRouteBuilded(IRouter::NoCurrentPosition, vector<storage::TIndex>());
     return;
   }
 
@@ -1977,9 +1977,14 @@ void Framework::BuildRoute(m2::PointD const & destination)
         ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
       }
       else
-        RemoveRoute();
+      {
+        vector<storage::TIndex> absentFiles;
+        for(string const & name : route.GetAbsentCountries())
+          absentFiles.push_back(m_storage.FindIndexByFile(name));
 
-      CallRouteBuilded(code);
+        RemoveRoute();
+        CallRouteBuilded(code, absentFiles);
+      }
     });
 }
 
@@ -2050,23 +2055,11 @@ void Framework::MatchLocationToRoute(location::GpsInfo & location, location::Rou
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void Framework::CallRouteBuilded(IRouter::ResultCode code)
+void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentFiles)
 {
   if (code == IRouter::Cancelled)
-    return;
-
-  if (m_routingCallback)
-  {
-    if (code == IRouter::NoError)
-      m_routingCallback(true, "", false);
-    else
-    {
-      bool openDownloader = false;
-      if (code == IRouter::InconsistentMWMandRoute || code == IRouter::RouteFileNotExist)
-        openDownloader = true;
-      m_routingCallback(false, GetRoutingErrorMessage(code), openDownloader);
-    }
-  }
+    return;  
+  m_routingCallback(code, absentFiles);
 }
 
 string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)

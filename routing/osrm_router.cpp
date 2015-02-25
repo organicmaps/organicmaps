@@ -740,9 +740,24 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   RoutingMappingPtrT targetMapping = m_indexManager.GetMappingByPoint(finalPt, m_pIndex);
 
   if (!startMapping->IsValid())
+  {
+    route.AddAbsentCountry(startMapping->GetName());
     return startMapping->GetError();
+  }
   if (!targetMapping->IsValid())
+  {
+    // Check if target is a neighbour
+    startMapping->LoadCrossContext();
+    MY_SCOPE_GUARD(startMappingGuard, [&]() {startMapping->FreeCrossContext();});
+    auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
+    for (auto i = out_iterators.first; i != out_iterators.second; ++i)
+      if (startMapping->m_crossContext.getOutgoingMwmName(i->m_outgoingIndex) == targetMapping->GetName())
+      {
+        route.AddAbsentCountry(targetMapping->GetName());
+        return targetMapping->GetError();
+      }
     return targetMapping->GetError();
+  }
 
   MappingGuard startMappingGuard(startMapping);
   MappingGuard finalMappingGuard(targetMapping);
@@ -823,6 +838,40 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     MY_SCOPE_GUARD(startMappingGuard, [&]() {startMapping->FreeCrossContext();});
     targetMapping->LoadCrossContext();
     MY_SCOPE_GUARD(targetMappingGuard, [&]() {targetMapping->FreeCrossContext();});
+
+    // Check if mwms are neighbours
+    bool left_neighbour = false, right_neighbour = false;
+    auto start_out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
+    auto target_out_iterators = targetMapping->m_crossContext.GetOutgoingIterators();
+    for (auto i = start_out_iterators.first; i != start_out_iterators.second; ++i)
+      if (startMapping->m_crossContext.getOutgoingMwmName(i->m_outgoingIndex) == targetMapping->GetName())
+      {
+        right_neighbour = true;
+        break;
+      }
+    for (auto i = target_out_iterators.first; i != target_out_iterators.second; ++i)
+      if (targetMapping->m_crossContext.getOutgoingMwmName(i->m_outgoingIndex) == startMapping->GetName())
+      {
+        left_neighbour = true;
+        break;
+      }
+    if (!left_neighbour && !right_neighbour)
+    {
+      LOG(LWARNING, ("MWMs not a neighbours!"));
+      return RouteNotFound;
+    }
+    else if (right_neighbour && !left_neighbour)
+    {
+      route.AddAbsentCountry(targetMapping->GetName());
+      return RouteNotFound;
+    }
+    else if (!right_neighbour && left_neighbour)
+    {
+      route.AddAbsentCountry(startMapping->GetName());
+      return RouteNotFound;
+    }
+
+    LOG(LINFO, ("Mwms are neighbours"));
 
     // Load source data
     auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();

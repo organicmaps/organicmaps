@@ -111,6 +111,12 @@ public:
 
   bool IsCurrentOnEnd() const;
 
+  /// Add country name if we have no country filename to make route
+  void AddAbsentCountry(string const & name) {m_absentCountries.push_back(name);}
+
+  /// Get absent file list of a routing files for shortest path finding
+  vector<string> const & GetAbsentCountries() const {return m_absentCountries;}
+
 private:
   /// @param[in]  predictDistance   Predict distance from previous FindProjection call (meters).
   IterT FindProjection(m2::RectD const & posRect, double predictDistance = -1.0) const;
@@ -130,6 +136,8 @@ private:
   string m_router;
   m2::PolylineD m_poly;
   string m_name;
+
+  vector<string> m_absentCountries;
 
   /// Accumulated cache of segments length in meters.
   vector<double> m_segDistance;

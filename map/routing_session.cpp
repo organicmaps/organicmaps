@@ -49,9 +49,8 @@ void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::Result
   threads::MutexGuard guard(m_routeSessionMutexInner);
   UNUSED_VALUE(guard);
 
-  if (e == IRouter::NoError)
-    m_rs.AssignRoute(route);
-  else
+  m_rs.AssignRoute(route);
+  if (e != IRouter::NoError)
     m_rs.m_state = RouteNotReady;
 
   m_callback(m_rs.m_route, e);
@@ -173,8 +172,10 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
 void RoutingSession::AssignRoute(Route & route)
 {
-  ASSERT(route.IsValid(), ());
-  m_state = RouteNotStarted;
+  if (route.IsValid())
+    m_state = RouteNotStarted;
+  else
+    m_state = RoutingNotActive;
   m_route.Swap(route);
 }
 

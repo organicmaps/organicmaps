@@ -40,6 +40,7 @@ void Route::Swap(Route & rhs)
   swap(m_turns, rhs.m_turns);
   swap(m_times, rhs.m_times);
   m_turnsGeom.swap(rhs.m_turnsGeom);
+  m_absentCountries.swap(rhs.m_absentCountries);
 }
 
 void Route::SetTurnInstructions(TurnsT & v)

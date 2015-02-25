@@ -496,7 +496,7 @@ public:
   //@{
   bool IsRoutingActive() const;
   void BuildRoute(m2::PointD const & destination);
-  typedef function<void (bool, string const &, bool)> TRouteBuildingCallback;
+  typedef function<void (routing::IRouter::ResultCode, vector<storage::TIndex> const &)> TRouteBuildingCallback;
   void SetRouteBuildingListener(TRouteBuildingCallback const & callback);
   void FollowRoute();
   void CloseRouting();
@@ -507,7 +507,7 @@ private:
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
   void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo) const;
-  void CallRouteBuilded(routing::IRouter::ResultCode code);
+  void CallRouteBuilded(routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentFiles);
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
