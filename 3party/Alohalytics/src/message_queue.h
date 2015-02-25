@@ -176,9 +176,6 @@ class MessageQueue final {
   // The number of events that have been overwritten due to buffer overflow.
   size_t number_of_dropped_events_ = 0;
 
-  // The thread in which the consuming process is running.
-  std::thread consumer_thread_;
-
   // To minimize the time for which the message emitting thread is blocked for,
   // the buffer uses three "pointers":
   // 1) `tail_`: The index of the next element to be exported and removed from the buffer.
@@ -198,6 +195,10 @@ class MessageQueue final {
 
   // For safe thread destruction.
   bool destructing_ = false;
+
+  // The thread in which the consuming process is running.
+  // Should be the last class member initialization-order-wise.
+  std::thread consumer_thread_;
 };
 
 #endif  // MESSAGE_QUEUE_H

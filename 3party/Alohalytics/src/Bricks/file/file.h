@@ -158,7 +158,7 @@ struct FileSystem {
                                   std::function<bool(const std::string&)> lambda) {
 #ifdef _MSC_VER
     WIN32_FIND_DATAA find_data;
-    HANDLE handle = ::FindFirstFileA(directory.c_str(), &find_data);
+    HANDLE handle = ::FindFirstFileA((directory + "\\*.*").c_str(), &find_data);
     if (handle == INVALID_HANDLE_VALUE) {
       return;
     }

@@ -465,10 +465,12 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
   std::unique_ptr<typename T_FILE_SYSTEM::OutputFile> current_file_;
   std::string current_file_name_;
 
-  std::thread worker_thread_;
   bool processing_suspended_ = false;
   bool force_processing_ = false;
   bool force_worker_thread_shutdown_ = false;
+
+  // `worker_thread_` should be the last class member, since it should be initialized last.
+  std::thread worker_thread_;
 
   FSQ(const FSQ&) = delete;
   FSQ(FSQ&&) = delete;
