@@ -22,7 +22,8 @@ public:
     Resize,
     ClearUserMarkLayer,
     ChangeUserMarkLayerVisibility,
-    UpdateUserMarkLayer
+    UpdateUserMarkLayer,
+    GuiLayerRecached
   };
 
   Message();

@@ -5,8 +5,11 @@
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
+#include "drape_gui/layer_render.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
+
 
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
@@ -211,6 +214,24 @@ private:
 #ifdef DEBUG
   bool m_inProcess;
 #endif
+};
+
+class GuiLayerRecachedMessage : public Message
+{
+public:
+  GuiLayerRecachedMessage(dp::TransferPointer<gui::LayerRenderer> renderer)
+    : m_renderer(move(renderer))
+  {
+    SetType(GuiLayerRecached);
+  }
+
+  dp::MasterPointer<gui::LayerRenderer> AcceptRenderer()
+  {
+    return dp::MasterPointer<gui::LayerRenderer>(m_renderer);
+  }
+
+private:
+  dp::TransferPointer<gui::LayerRenderer> m_renderer;
 };
 
 } // namespace df

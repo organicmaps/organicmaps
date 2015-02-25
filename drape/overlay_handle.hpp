@@ -39,8 +39,8 @@ public:
 
   bool IsIntersect(ScreenBase const & screen, OverlayHandle const & h) const;
 
+  virtual bool RequiresIndexes() const { return true; }
   uint16_t * IndexStorage(uint16_t size);
-  size_t GetIndexCount() const;
   void GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const;
   virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
 

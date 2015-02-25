@@ -185,7 +185,11 @@ void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
 void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutator,
                                       RefPointer<AttributeBufferMutator> attrMutator)
 {
-  m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
+  if (!indexMutator.IsNull())
+    m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
+
+  if (attrMutator.IsNull())
+    return;
 
   typedef AttributeBufferMutator::TMutateData TMutateData;
   typedef AttributeBufferMutator::TMutateNodes TMutateNodes;

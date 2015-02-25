@@ -27,6 +27,31 @@ RefPointer<VertexArrayBuffer> RenderBucket::GetBuffer()
   return m_buffer.GetRefPointer();
 }
 
+TransferPointer<VertexArrayBuffer> RenderBucket::MoveBuffer()
+{
+  return m_buffer.Move();
+}
+
+size_t RenderBucket::GetOverlayHandlesCount() const
+{
+  return m_overlay.size();
+}
+
+TransferPointer<OverlayHandle> RenderBucket::PopOverlayHandle()
+{
+  ASSERT(!m_overlay.empty(), ());
+  size_t lastElement = m_overlay.size() - 1;
+  swap(m_overlay[0], m_overlay[lastElement]);
+  TransferPointer<OverlayHandle> h = m_overlay[lastElement].Move();
+  m_overlay.resize(lastElement);
+  return h;
+}
+
+RefPointer<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index)
+{
+  return m_overlay[index].GetRefPointer();
+}
+
 void RenderBucket::AddOverlayHandle(TransferPointer<OverlayHandle> handle)
 {
   m_overlay.push_back(MasterPointer<OverlayHandle>(handle));
@@ -47,6 +72,8 @@ void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
 
 void RenderBucket::Render(ScreenBase const & screen)
 {
+  ASSERT(!m_buffer.IsNull(), ());
+
   if (!m_overlay.empty())
   {
     // in simple case when overlay is symbol each element will be contains 6 indexes

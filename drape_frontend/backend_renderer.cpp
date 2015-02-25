@@ -26,9 +26,10 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  MapDataProvider const & model)
   : m_model(model)
   , m_engineContext(commutator)
+  , m_texturesManager(textureManager)
+  , m_guiCacher("default", df::VisualParams::Instance().GetVisualScale())
   , m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
-  , m_texturesManager(textureManager)
 {
   m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
@@ -55,6 +56,15 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       ScreenBase const & screen = msg->GetScreen();
       set<TileKey> const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
+      break;
+    }
+  case Message::Resize:
+    {
+      ResizeMessage * msg = df::CastMessage<ResizeMessage>(message);
+      df::Viewport const & v = msg->GetViewport();
+      m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
+      GuiLayerRecachedMessage * outputMsg = new GuiLayerRecachedMessage(m_guiCacher.Recache(m_texturesManager));
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg));
       break;
     }
   case Message::InvalidateReadManagerRect:

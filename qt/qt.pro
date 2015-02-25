@@ -64,6 +64,8 @@ CLASSIFICATOR_RES.path = $$DATADIR
 CLASSIFICATOR_RES.files = ../data/classificator.txt \
                           ../data/types.txt \
                           ../data/drules_proto.bin
+DEFAULT_SKIN_RES.path = $$RESDIR/resources-default
+DEFAULT_SKIN_RES.files = $$RESDIR/resources-default/default.ui
 MDPI_SKIN_RES.path = $$DATADIR/resources-mdpi
 MDPI_SKIN_RES.files = ../data/resources-mdpi/basic.skn ../data/resources-mdpi/symbols.png
 XHDPI_SKIN_RES.path = $$DATADIR/resources-xhdpi
@@ -85,7 +87,7 @@ OTHER_RES.files += ../data/fonts_blacklist.txt \
 MWM_RES.path = $$DATADIR
 MWM_RES.files = ../data/World.mwm ../data/WorldCoasts.mwm
 
-ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
+ALL_RESOURCES = OTHER_RES CLASSIFICATOR_RES DEFAULT_SKIN_RES MDPI_SKIN_RES XHDPI_SKIN_RES FONT_RES MWM_RES
 
 linux* {
   INSTALLS += $$ALL_RESOURCES

@@ -66,20 +66,16 @@ uint16_t * OverlayHandle::IndexStorage(uint16_t size)
   return &m_indexes[0];
 }
 
-size_t OverlayHandle::GetIndexCount() const
-{
-  return m_indexes.size();
-}
-
 void OverlayHandle::GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const
 {
   ASSERT_EQUAL(m_isVisible, true, ());
   mutator->AppendIndexes(&m_indexes[0], m_indexes.size());
 }
 
-void OverlayHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, const ScreenBase & screen) const
+void OverlayHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, ScreenBase const & screen) const
 {
   UNUSED_VALUE(mutator);
+  UNUSED_VALUE(screen);
 }
 
 bool OverlayHandle::HasDynamicAttributes() const

@@ -18,7 +18,11 @@ public:
   ~RenderBucket();
 
   RefPointer<VertexArrayBuffer> GetBuffer();
+  TransferPointer<VertexArrayBuffer> MoveBuffer();
 
+  size_t GetOverlayHandlesCount() const;
+  TransferPointer<OverlayHandle> PopOverlayHandle();
+  RefPointer<OverlayHandle> GetOverlayHandle(size_t index);
   void AddOverlayHandle(TransferPointer<OverlayHandle> handle);
 
   void Update(ScreenBase const & modelView);

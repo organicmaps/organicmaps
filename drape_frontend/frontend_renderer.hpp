@@ -14,13 +14,14 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/render_group.hpp"
 
+#include "drape_gui/layer_render.hpp"
+
 #include "drape/pointers.hpp"
 #include "drape/glstate.hpp"
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/gpu_program_manager.hpp"
 #include "drape/oglcontextfactory.hpp"
 #include "drape/overlay_tree.hpp"
-
 #include "drape/uniform_values_storage.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -102,6 +103,7 @@ private:
 private:
   vector<RenderGroup *> m_renderGroups;
   vector<UserMarkRenderGroup *> m_userMarkRenderGroups;
+  dp::MasterPointer<gui::LayerRenderer> m_guiRenderer;
 
   dp::UniformValuesStorage m_generalUniforms;
 

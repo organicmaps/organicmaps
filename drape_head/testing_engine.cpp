@@ -541,8 +541,9 @@ void TestingEngine::OnFlushData(dp::GLState const & state, dp::TransferPointer<d
   dp::MasterPointer<dp::RenderBucket> bucket(vao);
   bucket->GetBuffer()->Build(m_programManager->GetProgram(state.GetProgramIndex()));
   m_scene[state].push_back(bucket);
-  bucket->ForEachOverlay([this](dp::OverlayHandle * handle)
+  for (size_t i = 0; i < bucket->GetOverlayHandlesCount(); ++i)
   {
+    dp::RefPointer<dp::OverlayHandle> handle = bucket->GetOverlayHandle(i);
     handle->Update(m_modelView);
     if (handle->IsValid())
     {
@@ -550,7 +551,7 @@ void TestingEngine::OnFlushData(dp::GLState const & state, dp::TransferPointer<d
       m_rects.resize(m_rects.size() + 1);
       handle->GetPixelShape(m_modelView, m_rects.back());
     }
-  });
+  };
 }
 
 void TestingEngine::ClearScene()

@@ -17,6 +17,7 @@ using glm::distance;
 using glm::translate;
 using glm::rotate;
 using glm::scale;
+using glm::transpose;
 
 using glm::value_ptr;
 

@@ -153,6 +153,8 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       RefreshModelView();
       ResolveTileKeys();
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                dp::MovePointer<Message>(new ResizeMessage(m_viewport)));
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
       break;
     }
@@ -205,6 +207,14 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       UserMarkRenderGroup * group = FindUserMarkRenderGroup(m->GetKey(), true);
       ASSERT(group != nullptr, ());
       group->SetIsVisible(m->IsVisible());
+      break;
+    }
+  case Message::GuiLayerRecached:
+    {
+      GuiLayerRecachedMessage * msg = df::CastMessage<GuiLayerRecachedMessage>(message);
+      m_guiRenderer.Destroy();
+      m_guiRenderer = msg->AcceptRenderer();
+      m_guiRenderer->Build(m_gpuProgramManager.GetRefPointer());
       break;
     }
   default:
@@ -289,6 +299,10 @@ void FrontendRenderer::RenderScene()
       group->Render(m_view);
     }
   }
+
+  GLFunctions::glClearDepth();
+  if (!m_guiRenderer.IsNull())
+    m_guiRenderer->Render(m_gpuProgramManager.GetRefPointer(), m_view);
 
 #ifdef DRAW_INFO
   AfterDrawFrame();
