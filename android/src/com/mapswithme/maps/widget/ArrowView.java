@@ -57,7 +57,7 @@ public class ArrowView extends ImageView
   {
     super(context, attrs);
 
-    setImageResource(R.drawable.ic_direction);
+    setImageResource(R.drawable.ic_direction_pagepreview);
   }
 
   public void setDrawCircle(boolean draw)

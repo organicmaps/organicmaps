@@ -40,6 +40,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -52,7 +53,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
   private TextView mTvTitle;
   private TextView mTvSubtitle;
   private TextView mTvOpened;
-  private ImageView mAvDirection;
+  private ArrowView mAvDirection;
   private TextView mTvDistance;
   // Place page details
   private ViewGroup mPpDetails;
@@ -127,7 +128,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     mTvSubtitle = (TextView) ppPreview.findViewById(R.id.tv__subtitle);
     mTvOpened = (TextView) ppPreview.findViewById(R.id.tv__opened_till);
     mTvDistance = (TextView) ppPreview.findViewById(R.id.tv__straight_distance);
-    mAvDirection = (ImageView) ppPreview.findViewById(R.id.iv__direction);
+    mAvDirection = (ArrowView) ppPreview.findViewById(R.id.av__direction);
     // TODO direction arrow & screen
 
     mPpDetails = (ViewGroup) mView.findViewById(R.id.pp__details);
@@ -287,8 +288,6 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     mTvSubtitle.setText(mMapObject.getPoiTypeName());
     // TODO
     //    mTvOpened
-    //    mTvDistance
-    //    mAvDirection
   }
 
   private void refreshDetails()
@@ -326,6 +325,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
         mMapObject.setLat(l.getLatitude());
         mMapObject.setLon(l.getLongitude());
         refreshLatLon();
+        mAvDirection.setVisibility(View.GONE);
       }
       else
       {
@@ -337,7 +337,10 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
           mTvDistance.setText(distanceAndAzimuth.getDistance());
         }
         else
+        {
+          mAvDirection.setVisibility(View.GONE);
           mTvDistance.setVisibility(View.GONE);
+        }
       }
     }
   }
@@ -364,7 +367,8 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
 
         if (da.getAthimuth() >= 0)
         {
-          // TODO update direction
+          mAvDirection.setVisibility(View.VISIBLE);
+          mAvDirection.setAzimut(da.getAthimuth());
         }
       }
     }
