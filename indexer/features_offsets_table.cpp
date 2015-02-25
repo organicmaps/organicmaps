@@ -1,5 +1,7 @@
 #include "features_offsets_table.hpp"
 
+#include "../indexer/data_header.hpp"
+#include "../indexer/features_vector.hpp"
 #include "../coding/file_writer.hpp"
 #include "../base/assert.hpp"
 #include "../base/scope_guard.hpp"
@@ -48,6 +50,31 @@ namespace feature
     if (!handle.IsValid())
       return unique_ptr<FeaturesOffsetsTable>();
     return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(std::move(handle)));
+  }
+
+  // static
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
+      FilesMappingContainer const & container)
+  {
+    if (container.IsExist(FEATURES_OFFSETS_TABLE_FILE_TAG))
+      return Load(container);
+
+    if (!container.IsExist(HEADER_FILE_TAG))
+      return unique_ptr<FeaturesOffsetsTable>();
+
+    FilesContainerR cont(container.GetName());
+    DataHeader header;
+    header.Load(cont.GetReader(HEADER_FILE_TAG));
+
+    Builder builder;
+    FeaturesVector(cont, header).ForEachOffset([&builder] (FeatureType const &, uint32_t offset)
+    {
+      builder.PushOffset(offset);
+    });
+    unique_ptr<FeaturesOffsetsTable> table(Build(builder));
+    FilesContainerW writeCont(container.GetName(), FileWriter::OP_WRITE_EXISTING);
+    table->Save(writeCont);
+    return table;
   }
 
   void FeaturesOffsetsTable::Save(FilesContainerW & container)

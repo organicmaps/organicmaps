@@ -57,6 +57,21 @@ namespace feature
     ///         when it's not possible to load FeaturesOffsetsTable.
     static unique_ptr<FeaturesOffsetsTable> Load(FilesMappingContainer const & container);
 
+    /// Loads FeaturesOffsetsTable from FilesMappingContainer. Note
+    /// that some part of a file referenced by container will be
+    /// mapped to the memory and used by internal structures of
+    /// FeaturesOffsetsTable.
+    /// If there is no FeaturesOffsetsTable section in the container,
+    /// the function builds it from section devoted to features.
+    ///
+    /// \warning May take a lot of time if there is no precomputed section
+    ///
+    /// \param container a container with a section devoted to
+    ///                  FeaturesOffsetsTable
+    /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
+    ///         when it's not possible to create FeaturesOffsetsTable.
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(FilesMappingContainer const & container);
+
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
 

@@ -47,6 +47,27 @@ namespace feature
     TEST_EQUAL(static_cast<uint64_t>(1024), table->GetFeatureOffset(7), ());
   }
 
+  UNIT_TEST(FeaturesOffsetsTable_CreateIfNotExistsAndLoad)
+  {
+    Platform & p = GetPlatform();
+    FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
+    if (baseContainer.IsExist(FEATURES_OFFSETS_TABLE_FILE_TAG))
+      FilesContainerW(baseContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING).DeleteSection(FEATURES_OFFSETS_TABLE_FILE_TAG);
+    FilesMappingContainer mappingContainer(baseContainer.GetFileName());
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(mappingContainer));
+    TEST(table.get(), ());
+
+    feature::DataHeader header;
+    header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
+
+    uint64_t builderSize = 0;
+    FeaturesVector(baseContainer, header).ForEachOffset([&builderSize](FeatureType const & /* type */, uint64_t)
+    {
+      ++builderSize;
+    });
+    TEST_EQUAL(builderSize, table->size(), ());
+  }
+
   UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
   {
     Platform & p = GetPlatform();
@@ -55,10 +76,8 @@ namespace feature
     feature::DataHeader header;
     header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
 
-    FeaturesVector features(baseContainer, header);
-
     FeaturesOffsetsTable::Builder builder;
-    features.ForEachOffset([&builder](FeatureType /* type */, uint64_t offset)
+    FeaturesVector(baseContainer, header).ForEachOffset([&builder](FeatureType const & /* type */, uint64_t offset)
                            {
                              builder.PushOffset(offset);
                            });
