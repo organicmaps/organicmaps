@@ -5,11 +5,10 @@
 #undef new
 #endif
 
-#include <mutex>
+#include <memory>
 
-using std::lock_guard;
-using std::mutex;
-using std::unique_lock;
+using std::make_shared;
+using std::shared_ptr;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

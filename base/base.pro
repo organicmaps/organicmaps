@@ -9,74 +9,76 @@ include($$ROOT_DIR/common.pri)
 
 SOURCES += \
     base.cpp \
-    logging.cpp \
-    thread.cpp \
-    string_utils.cpp \
     commands_queue.cpp \
-    shared_buffer_manager.cpp \
     condition.cpp \
+    exception.cpp \
+    fence_manager.cpp \
+    internal/message.cpp \
+    logging.cpp \
     lower_case.cpp \
     normalize_unicode.cpp \
-    runner.cpp \
-    timer.cpp \
-    internal/message.cpp \
-    exception.cpp \
-    threaded_container.cpp \
-    resource_pool.cpp \
-    fence_manager.cpp \
-    strings_bundle.cpp \
-    string_format.cpp \
     object_tracker.cpp \
-    scheduled_task.cpp \
-    thread_pool.cpp \
     pseudo_random.cpp \
-    src_point.cpp
+    resource_pool.cpp \
+    runner.cpp \
+    scheduled_task.cpp \
+    shared_buffer_manager.cpp \
+    src_point.cpp \
+    string_format.cpp \
+    string_utils.cpp \
+    strings_bundle.cpp \
+    thread.cpp \
+    thread_pool.cpp \
+    threaded_container.cpp \
+    timer.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \
+    array_adapters.hpp \
     assert.hpp \
-    const_helper.hpp \
-    internal/fast_mutex.hpp \
-    math.hpp \
-    pseudo_random.hpp \
-    scope_guard.hpp \
-    macros.hpp \
     base.hpp \
-    src_point.hpp \
     bits.hpp \
+    buffer_vector.hpp \
+    cache.hpp \
+    commands_queue.hpp \
+    condition.hpp \
+    const_helper.hpp \
     exception.hpp \
-    internal/message.hpp \
+    fence_manager.hpp \
     internal/fast_mutex.hpp \
+    internal/fast_mutex.hpp \
+    internal/message.hpp \
+    limited_priority_queue.hpp \
     logging.hpp \
+    macros.hpp \
+    math.hpp \
+    matrix.hpp \
+    mem_trie.hpp \
+    mru_cache.hpp \
+    mutex.hpp \
+    object_tracker.hpp \
+    pseudo_random.hpp \
+    regexp.hpp \
+    resource_pool.hpp \
+    rolling_hash.hpp \
+    runner.hpp \
+    scheduled_task.hpp \
+    scope_guard.hpp \
+    set_operations.hpp \
+    shared_buffer_manager.hpp \
+    src_point.hpp \
+    stats.hpp \
+    std_serialization.hpp \
+    stl_add.hpp \
+    stl_iterator.hpp \
+    string_format.hpp \
+    string_utils.hpp \
+    strings_bundle.hpp \
     swap.hpp \
     thread.hpp \
-    mutex.hpp \
-    string_utils.hpp \
-    rolling_hash.hpp \
-    stl_add.hpp \
-    timer.hpp \
-    cache.hpp \
-    matrix.hpp \
-    set_operations.hpp \
-    condition.hpp \
-    commands_queue.hpp \
-    stats.hpp \
-    shared_buffer_manager.hpp \
-    buffer_vector.hpp \
-    array_adapters.hpp \
-    runner.hpp \
-    mru_cache.hpp \
+    thread_pool.hpp \
     threaded_container.hpp \
     threaded_list.hpp \
-    resource_pool.hpp \
-    limited_priority_queue.hpp \
     threaded_priority_queue.hpp \
-    std_serialization.hpp \
-    fence_manager.hpp \
-    strings_bundle.hpp \
-    string_format.hpp \
-    object_tracker.hpp \
-    regexp.hpp \
-    scheduled_task.hpp \
-    thread_pool.hpp \
-    stl_iterator.hpp \
+    timer.hpp \
+    worker_thread.hpp \

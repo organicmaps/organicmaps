@@ -66,4 +66,9 @@ namespace my
 #define UINT64_LO(x) (static_cast<uint32_t>(x & 0xFFFFFFFF))
 #define UINT64_HI(x) (static_cast<uint32_t>(x >> 32))
 
-
+#define DISALLOW_COPY_AND_MOVE(className)            \
+private:                                             \
+  className(const className &) = delete;             \
+  className(className &&) = delete;                  \
+  className & operator=(const className &) = delete; \
+  className & operator=(className &&) = delete;

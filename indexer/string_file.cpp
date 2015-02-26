@@ -1,11 +1,5 @@
 #include "string_file.hpp"
 
-#include "../coding/read_write_utils.hpp"
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
-
-#include "../base/logging.hpp"
-
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 
@@ -79,26 +73,16 @@ void StringsFile::IteratorT::increment()
 }
 
 StringsFile::StringsFile(string const & fPath)
+  : m_workerThread(1 /* maxTasks */)
 {
   m_writer.reset(new FileWriter(fPath));
 }
 
 void StringsFile::Flush()
 {
-  // store starting offset
-  uint64_t const pos = m_writer->Pos();
-  m_offsets.push_back(make_pair(pos, pos));
-
-  // sort strings
-  sort(m_strings.begin(), m_strings.end());
-
-  // write strings to file
-  for_each(m_strings.begin(), m_strings.end(), bind(&StringT::Write<FileWriter>, _1, ref(*m_writer)));
-
-  // store end offset
-  m_offsets.back().second = m_writer->Pos();
-
-  m_strings.clear();
+  shared_ptr<SortAndDumpStringsTask> task(
+      new SortAndDumpStringsTask(*m_writer, m_offsets, m_strings));
+  m_workerThread.Push(task);
 }
 
 bool StringsFile::PushNextValue(size_t i)
@@ -126,6 +110,8 @@ bool StringsFile::PushNextValue(size_t i)
 void StringsFile::EndAdding()
 {
   Flush();
+
+  m_workerThread.RunUntilIdleAndStop();
 
   m_writer->Flush();
 }

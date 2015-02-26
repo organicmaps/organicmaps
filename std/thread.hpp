@@ -5,11 +5,9 @@
 #undef new
 #endif
 
-#include <mutex>
+#include <thread>
 
-using std::lock_guard;
-using std::mutex;
-using std::unique_lock;
+using std::thread;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW
