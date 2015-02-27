@@ -351,6 +351,24 @@ string FeatureType::GetRoadNumber() const
   return m_params.ref;
 }
 
+bool FeatureType::HasInternet() const
+{
+  bool res = false;
+
+  ForEachType([&res](uint32_t type)
+  {
+    if (!res)
+    {
+      static const uint32_t t1 = classif().GetTypeByPath({"internet_access"});
+
+      ftype::TruncValue(type, 1);
+      res = (type == t1);
+    }
+  });
+
+  return res;
+}
+
 namespace
 {
   class DoCalcDistance

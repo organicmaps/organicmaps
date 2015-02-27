@@ -261,6 +261,8 @@ public:
   uint8_t GetRank() const;
   uint32_t GetPopulation() const;
   string GetRoadNumber() const;
+  bool HasInternet() const;
+
   inline feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
   inline feature::FeatureMetadata & GetMetadata() { return m_metadata; }
 
