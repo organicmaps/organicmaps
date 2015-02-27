@@ -1,9 +1,10 @@
 #include "qt/search_panel.hpp"
 #include "qt/draw_widget.hpp"
 
-#include "map/measurement_utils.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/user_mark_container.hpp"
+
+#include "platform/measurement_utils.hpp"
 
 #include "std/bind.hpp"
 

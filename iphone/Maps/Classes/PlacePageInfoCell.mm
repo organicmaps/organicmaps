@@ -5,7 +5,7 @@
 #import "MapsAppDelegate.h"
 #import "Framework.h"
 #include "../../../platform/settings.hpp"
-#include "../../../map/measurement_utils.hpp"
+#include "../../../platform/measurement_utils.hpp"
 #include "../../../geometry/distance_on_sphere.hpp"
 #import "ContextViews.h"
 

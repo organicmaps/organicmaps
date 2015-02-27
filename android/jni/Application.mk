@@ -1,9 +1,9 @@
 NDK_TOOLCHAIN_VERSION := clang3.5
 APP_PLATFORM := android-9
 APP_STL := c++_static
-#APP_CPPFLAGS += -std=c++11
-# for gcc 4.6
-#APP_CPPFLAGS += -D__GXX_EXPERIMENTAL_CXX0X__ -D_GLIBCXX_USE_C99_STDINT_TR1
+
+# libc++-specific issues: -std=c++11" is turned on by default.
+
 # for gcc 4.8+
 APP_CPPFLAGS += -Wno-deprecated-register
 

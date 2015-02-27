@@ -2,6 +2,7 @@
 #include "testing/testregister.hpp"
 
 #include "base/exception.hpp"
+#include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/src_point.hpp"
 
@@ -20,7 +21,8 @@ namespace my
 {
   inline void OnTestFailed(SrcPoint const & srcPoint, string const & msg)
   {
-    cerr << "FAILED" << endl << srcPoint.FileName() << ":" << srcPoint.Line() << " " << msg << endl;
+    LOG(LINFO, ("FAILED"));
+    LOG(LINFO, (srcPoint.FileName(), ":", srcPoint.Line(), msg));
     MYTHROW(TestFailureException, (srcPoint.FileName(), srcPoint.Line(), msg));
   }
 }

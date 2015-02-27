@@ -7,9 +7,11 @@
 
 #include "std/iostream.hpp"
 #include "std/iomanip.hpp"
+#include "std/mutex.hpp"
 #include "std/sstream.hpp"
 #include "std/target_os.hpp"
 #include "std/windows.hpp"
+
 
 namespace my
 {
@@ -104,11 +106,23 @@ namespace my
 
     std::cerr << out.str();
 
+
+  }
+  void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg)
+  {
+    static mutex mtx;
+    lock_guard<mutex> lock(mtx);
+
+    ostringstream out;
+    out << msg << endl;
+    std::cerr << out.str();
+
 #ifdef OMIM_OS_WINDOWS
     OutputDebugStringA(out.str().c_str());
 #endif
     LogCheckIfErrorLevel(level);
   }
+
 #endif
 
   LogMessageFn LogMessage = &LogMessageDefault;

@@ -18,120 +18,16 @@ MY_PREBUILT_LIBS_PATH := ../../../omim-android-$(OMIM_CONFIG)-$(TARGET_ARCH_ABI)
 # Avoid clean errors due to missing external static libs
 ifneq ($(MAKECMDGOALS),clean)
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := osrm
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libosrm.a
-include $(PREBUILT_STATIC_LIBRARY)
+define add_prebuild_static_lib
+  include $(CLEAR_VARS)
+  LOCAL_MODULE := $1
+  LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/lib$1.a
+  include $(PREBUILT_STATIC_LIBRARY)
+endef
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := protobuf
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libprotobuf.a
-include $(PREBUILT_STATIC_LIBRARY)
+prebuild_static_libs := osrm protobuf tomcrypt jansson bzip2 zlib fribidi freetype expat base coding geometry anim platform graphics indexer storage search routing gui map stats_client succinct
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := succinct
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libsuccinct.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := tomcrypt
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libtomcrypt.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := jansson
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libjansson.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := bzip2
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libbzip2.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := zlib
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libzlib.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := fribidi
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libfribidi.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := freetype
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libfreetype.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := expat
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libexpat.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := base
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libbase.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := coding
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libcoding.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := geometry
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libgeometry.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := anim
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libanim.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := platform
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libplatform.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := graphics
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libgraphics.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := indexer
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libindexer.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := storage
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libstorage.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := search
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libsearch.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := routing
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/librouting.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := gui
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libgui.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := map
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libmap.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := stats_client
-LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libstats_client.a
-include $(PREBUILT_STATIC_LIBRARY)
+$(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 
 endif
 

@@ -53,7 +53,8 @@ def write_local_properties(sdkDir, ndkDir):
 
     # copy files to folders
     subfolders = ['YoPme',
-                  'YoPme2']
+                  'YoPme2',
+                  'UnitTests']
 
     for folder in subfolders:
         dstFold = os.path.join(androidRoot, folder)

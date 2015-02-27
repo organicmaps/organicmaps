@@ -21,6 +21,7 @@ namespace my
 
   /// @return Pointer to previous message function.
   LogMessageFn SetLogMessageFn(LogMessageFn fn);
+  void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, string const & msg);
 }
 
 using ::my::LDEBUG;

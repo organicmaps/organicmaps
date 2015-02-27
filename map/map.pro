@@ -32,7 +32,6 @@ HEADERS += \
     tile.hpp \
     tile_cache.hpp \
     ruler.hpp \
-    measurement_utils.hpp \
     simple_render_policy.hpp \
     proto_to_styles.hpp \
     queued_renderer.hpp \
@@ -87,7 +86,6 @@ SOURCES += \
     tile_cache.cpp \
     tile.cpp \
     ruler.cpp \
-    measurement_utils.cpp \
     window_handle.cpp \
     simple_render_policy.cpp \
     proto_to_styles.cpp \

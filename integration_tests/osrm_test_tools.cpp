@@ -15,8 +15,21 @@
 
 #include "search/search_engine.hpp"
 
+#include <sys/resource.h>
+
 
 using namespace routing;
+
+namespace
+{
+  void ChangeMaxNumberOfOpenFiles(size_t n)
+  {
+    struct rlimit rlp;
+    getrlimit(RLIMIT_NOFILE, &rlp);
+    rlp.rlim_cur = n;
+    setrlimit(RLIMIT_NOFILE, &rlp);
+  }
+}
 
 namespace integration
 {
@@ -33,12 +46,15 @@ namespace integration
 
   shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<string> const & mapNames)
   {
+    size_t const maxOpenFileNumber = 1024;
+    ChangeMaxNumberOfOpenFiles(maxOpenFileNumber);
     shared_ptr<model::FeaturesFetcher> featuresFetcher(new model::FeaturesFetcher);
     featuresFetcher->InitClassificator();
 
     for (auto const mapName : mapNames)
     {
-      if (featuresFetcher->AddMap(mapName) == -1)
+      pair<MwmSet::MwmLock, bool> result = featuresFetcher->RegisterMap(mapName);
+      if (!result.second)
       {
         ASSERT(false, ());
         return nullptr;
@@ -63,9 +79,9 @@ namespace integration
                          languages::GetCurrentOrig()));
       return searchEngine;
     }
-    catch (RootException const &)
+    catch (RootException const &e)
     {
-      ASSERT(false, ());
+      LOG(LCRITICAL, ("Error:", e.what(), " while creating searchEngine."));
       return nullptr;
     }
   }

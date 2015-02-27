@@ -1,13 +1,13 @@
+#include "map/location_state.hpp"
 #include "map/routing_session.hpp"
-#include "map/measurement_utils.hpp"
 
 #include "indexer/mercator.hpp"
 
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/internal/file_data.hpp"
 
-#include "map/location_state.hpp"
 
 using namespace location;
 

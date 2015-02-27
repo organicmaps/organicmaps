@@ -40,6 +40,9 @@ int main(int argc, char * argv[])
 #endif
 
   my::g_LogLevel = LINFO;
+#if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX)
+  my::SetLogMessageFn(my::LogMessageTests);
+#endif
 
   vector<string> testNames;
   vector<bool> testResults;
@@ -85,7 +88,7 @@ int main(int argc, char * argv[])
     if (!g_bLastTestOK)
     {
       // Somewhere else global variables have been reset.
-      cerr << "\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!" << endl;
+      LOG(LERROR, ("\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!"));
       return 5;
     }
 
@@ -96,7 +99,7 @@ int main(int argc, char * argv[])
 
       if (g_bLastTestOK)
       {
-        cerr << "OK" << endl;
+        LOG(LINFO, ("OK"));
       }
       else
       {
@@ -114,13 +117,13 @@ int main(int argc, char * argv[])
     }
     catch (std::exception const & ex)
     {
-      cerr << "FAILED" << endl << "<<<Exception thrown [" << ex.what() << "].>>>" << endl;
+      LOG(LERROR, ("FAILED", "<<<Exception thrown [", ex.what(), "].>>>"));
       testResults[iTest] = false;
       ++numFailedTests;
     }
     catch (...)
     {
-      cerr << "FAILED" << endl << "<<<Unknown exception thrown.>>>" << endl;
+      LOG(LERROR, ("FAILED<<<Unknown exception thrown.>>>"));
       testResults[iTest] = false;
       ++numFailedTests;
     }
@@ -129,18 +132,18 @@ int main(int argc, char * argv[])
 
   if (numFailedTests == 0)
   {
-    cerr << endl << "All tests passed." << endl << flush;
+    LOG(LINFO, ("All tests passed."));
     return 0;
   }
   else
   {
-    cerr << endl << numFailedTests << " tests failed:" << endl;
+    LOG(LINFO, (numFailedTests, " tests failed:"));
     for (size_t i = 0; i < testNames.size(); ++i)
     {
       if (!testResults[i])
         cerr << testNames[i] << endl;
     }
-    cerr << "Some tests FAILED." << endl << flush;
+    LOG(LINFO, ("Some tests FAILED."));
     return 1;
   }
 }

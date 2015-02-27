@@ -28,10 +28,12 @@ win32*|linux* {
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    platform_test.cpp \
+    apk_test.cpp \
+    downloader_test.cpp \
     jansson_test.cpp \
     language_test.cpp \
-    downloader_test.cpp \
-    video_timer_test.cpp \
-    apk_test.cpp \
     location_test.cpp \
+    measurement_tests.cpp \
+    platform_test.cpp \
+    video_timer_test.cpp \
+

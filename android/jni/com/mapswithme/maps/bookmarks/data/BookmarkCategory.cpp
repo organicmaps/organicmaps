@@ -1,5 +1,6 @@
 #include "../../Framework.hpp"
-#include "map/measurement_utils.hpp"
+
+#include "platform/measurement_utils.hpp"
 
 #include "../../../core/jni_helper.hpp"
 

@@ -1,8 +1,6 @@
 #include "search/intermediate_result.hpp"
 #include "search/geometry_utils.hpp"
 
-#include "map/measurement_utils.hpp"
-
 #include "storage/country_info.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
@@ -12,6 +10,8 @@
 #include "indexer/categories_holder.hpp"
 
 #include "geometry/angles.hpp"
+
+#include "platform/measurement_utils.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"

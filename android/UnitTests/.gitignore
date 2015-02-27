@@ -1,0 +1,9 @@
+.gradle
+.idea
+.DS_Store
+bin
+build
+gen
+libs
+obj
+local.properties

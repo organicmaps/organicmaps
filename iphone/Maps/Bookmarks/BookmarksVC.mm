@@ -11,8 +11,10 @@
 
 #include "Framework.h"
 
-#include "../../../map/measurement_utils.hpp"
+#include "../../../platform/measurement_utils.hpp"
+
 #include "../../../geometry/distance_on_sphere.hpp"
+
 #include "../../../coding/zip_creator.hpp"
 #include "../../../coding/internal/file_data.hpp"
 

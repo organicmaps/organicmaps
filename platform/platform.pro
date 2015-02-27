@@ -68,6 +68,7 @@ HEADERS += \
     http_request.hpp \
     http_thread_callback.hpp \
     location.hpp \
+    measurement_utils.hpp \
     platform.hpp \
     preferred_languages.hpp \
     servers_list.hpp \
@@ -78,6 +79,7 @@ SOURCES += \
     chunks_download_strategy.cpp \
     file_logging.cpp \
     http_request.cpp \
+    measurement_utils.cpp \
     platform.cpp \
     preferred_languages.cpp \
     servers_list.cpp \

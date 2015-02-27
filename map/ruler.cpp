@@ -1,10 +1,10 @@
 #include "map/ruler.hpp"
 #include "map/framework.hpp"
-#include "map/measurement_utils.hpp"
 #include "map/alfa_animation_task.hpp"
 
 #include "anim/controller.hpp"
 
+#include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
 #include "gui/controller.hpp"

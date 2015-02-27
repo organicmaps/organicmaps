@@ -10,7 +10,6 @@
 #include "../platform/Platform.hpp"
 
 #include "map/framework.hpp"
-#include "map/measurement_utils.hpp"
 #include "map/user_mark.hpp"
 
 #include "gui/controller.hpp"
@@ -23,8 +22,9 @@
 
 #include "geometry/angles.hpp"
 
-#include "platform/platform.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/location.hpp"
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "storage/storage_defines.hpp"

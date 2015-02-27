@@ -5,10 +5,10 @@
 #else
   #include "../drape_frontend/visual_params.hpp"
 #endif // USE_DRAPE
+
 #include "map/benchmark_provider.hpp"
 #include "map/benchmark_engine.hpp"
 #include "map/geourl_process.hpp"
-#include "map/measurement_utils.hpp"
 #include "map/dialog_settings.hpp"
 #include "map/ge0_parser.hpp"
 
@@ -36,6 +36,7 @@
 
 #include "gui/controller.hpp"
 
+#include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/platform.hpp"

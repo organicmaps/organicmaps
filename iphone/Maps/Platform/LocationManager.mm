@@ -1,7 +1,6 @@
 #import "LocationManager.h"
 
-#include "../../map/measurement_utils.hpp"
-
+#include "../../platform/measurement_utils.hpp"
 #include "../../platform/settings.hpp"
 
 #include "../../base/math.hpp"
