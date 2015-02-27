@@ -10,7 +10,15 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:padding="@dimen/margin_medium_and_half">
+      android:paddingBottom="@dimen/margin_medium_and_half"
+      android:paddingLeft="@dimen/margin_medium_and_half"
+      android:paddingRight="@dimen/margin_medium_and_half">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="@dimen/margin_medium_and_half"
+        android:background="?android:attr/listDivider"/>
 
     <LinearLayout
         android:id="@+id/ll__place_name"
@@ -167,7 +175,7 @@
         android:id="@+id/rl__bookmark_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium_and_half">
+        android:paddingTop="@dimen/margin_medium_and_half">
 
       <ImageView
           android:id="@+id/iv__bookmark"

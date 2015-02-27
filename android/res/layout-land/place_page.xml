@@ -29,7 +29,7 @@
   <View
       android:layout_width="match_parent"
       android:layout_height="1px"
-      android:layout_below="@id/pp__details"
+      android:layout_above="@id/pp__buttons"
       android:background="?android:attr/listDivider"/>
 
   <include

@@ -70,16 +70,16 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           {
             if (distanceY < 0f)
             {
-              if (mPlacePage.getState() == State.FULL_PLACEPAGE)
-                mPlacePage.setState(State.PREVIEW_ONLY);
-              else
+              if (mPlacePage.getState() == State.PREVIEW)
               {
-                mPlacePage.setState(State.HIDDEN);
                 Framework.deactivatePopup();
+                mPlacePage.setState(State.HIDDEN);
               }
+              else
+                mPlacePage.setState(State.PREVIEW);
             }
             else
-              mPlacePage.setState(State.FULL_PLACEPAGE);
+              mPlacePage.setState(State.DETAILS);
 
             mIsGestureHandled = true;
           }
@@ -96,10 +96,10 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         if (mDownCoord < mPreview.getY() && mDownCoord < mDetails.getY())
           return false;
 
-        if (mPlacePage.getState() == State.FULL_PLACEPAGE)
-          mPlacePage.setState(State.PREVIEW_ONLY);
+        if (mPlacePage.getState() == State.PREVIEW)
+          mPlacePage.setState(State.DETAILS);
         else
-          mPlacePage.setState(State.FULL_PLACEPAGE);
+          mPlacePage.setState(State.PREVIEW);
 
         return true;
       }
@@ -107,18 +107,35 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   }
 
   @Override
-  protected void showPreview(final boolean show)
+  void setState(State currentState, State newState)
+  {
+    switch (newState)
+    {
+    case HIDDEN:
+      hidePlacePage();
+      break;
+    case PREVIEW:
+      showPreview(currentState);
+      break;
+    case BOOKMARK:
+      showBookmark(currentState);
+      break;
+    case DETAILS:
+      showDetails(currentState);
+      break;
+    }
+  }
+
+  protected void showPreview(final State currentState)
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
-    mDetails.setVisibility(View.INVISIBLE);
-    if (mIsPreviewVisible == show)
-      return;
 
     ValueAnimator animator;
-    if (show)
+    if (currentState == State.HIDDEN)
     {
-      animator = ValueAnimator.ofFloat(mPreview.getHeight(), 0f);
+      mDetails.setVisibility(View.INVISIBLE);
+      animator = ValueAnimator.ofFloat(mPreview.getHeight() + mButtons.getHeight(), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
         @Override
@@ -131,88 +148,88 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     }
     else
     {
-      animator = ValueAnimator.ofFloat(0, mPreview.getHeight());
+      final float detailsHeight = mDetails.getHeight();
+      animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(mPreview), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
         @Override
         public void onAnimationUpdate(ValueAnimator animation)
         {
           ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
-          ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
+          ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue() + detailsHeight);
 
-          if (1f - animation.getAnimatedFraction() < 0.01)
-          {
-            mPlacePage.setVisibility(View.INVISIBLE);
-            mPlacePage.setMapObject(null);
-          }
+          if (animation.getAnimatedFraction() > .99f)
+            mDetails.setVisibility(View.INVISIBLE);
         }
       });
     }
     animator.setDuration(SHORT_ANIM_DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
-
-    mIsPreviewVisible = show;
-    if (mVisibilityChangedListener != null)
-      mVisibilityChangedListener.onPreviewVisibilityChanged(mIsPreviewVisible);
   }
 
-  @Override
-  protected void showPlacePage(final boolean show)
+  protected void showDetails(final State currentState)
   {
     mPlacePage.setVisibility(View.VISIBLE);
+    mPreview.setVisibility(View.VISIBLE);
     mDetails.setVisibility(View.VISIBLE);
-    if (mIsPlacePageVisible == show)
-      return; // if state is already same as we need
 
     ValueAnimator animator;
-    final float animHeight = mDetails.getHeight();
-    if (show)
-    {
-      animator = ValueAnimator.ofFloat(animHeight, 0f);
-      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-      {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation)
-        {
-          ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
-          ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - animHeight);
-        }
-      });
-    }
+    final float bookmarkHeight = mBookmarkDetails.getHeight();
+    final float detailsHeight = mDetails.getHeight();
+    if (currentState == State.PREVIEW)
+      animator = ValueAnimator.ofFloat(detailsHeight, bookmarkHeight);
     else
+      animator = ValueAnimator.ofFloat(0f, bookmarkHeight);
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
-      animator = ValueAnimator.ofFloat(0, animHeight);
-      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
       {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animation)
-        {
-          ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
-          ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - animHeight);
+        ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsHeight);
+        ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+      }
+    });
 
-          if (1f - animation.getAnimatedFraction() < 0.01)
-          {
-            mDetails.setVisibility(View.INVISIBLE);
-            ViewHelper.setTranslationY(mPreview, 0f);
-          }
-        }
-      });
-    }
     animator.setDuration(SHORT_ANIM_DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
-
-    mIsPlacePageVisible = show;
-    if (mVisibilityChangedListener != null)
-      mVisibilityChangedListener.onPlacePageVisibilityChanged(mIsPlacePageVisible);
   }
 
-  @Override
+  void showBookmark(final State currentState)
+  {
+    mPlacePage.setVisibility(View.VISIBLE);
+    mPreview.setVisibility(View.VISIBLE);
+    mDetails.setVisibility(View.VISIBLE);
+    mBookmarkDetails.setVisibility(View.VISIBLE);
+
+    ValueAnimator animator;
+    final float bookmarkHeight = mBookmarkDetails.getHeight();
+    final float detailsHeight = mDetails.getHeight();
+
+    if (currentState == State.DETAILS)
+      animator = ValueAnimator.ofFloat(bookmarkHeight, 0f);
+    else
+      animator = ValueAnimator.ofFloat(detailsHeight, 0f);
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
+      {
+        ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsHeight);
+        ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+      }
+    });
+
+    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setInterpolator(new AccelerateInterpolator());
+    animator.start();
+  }
+
   protected void hidePlacePage()
   {
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
-    final ValueAnimator animator = ValueAnimator.ofFloat(0, animHeight);
+    final ValueAnimator animator = ValueAnimator.ofFloat(0f, animHeight);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -220,13 +237,13 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       {
         ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
 
-        if (1f - animation.getAnimatedFraction() < 0.01)
+        if (animation.getAnimatedFraction() > .99f)
         {
           mIsPlacePageVisible = false;
           mIsPreviewVisible = false;
 
           mPlacePage.setVisibility(View.INVISIBLE);
-          ViewHelper.setTranslationY(mPlacePage, 0f);
+          ViewHelper.setTranslationY(mPlacePage, 0);
           if (mVisibilityChangedListener != null)
           {
             mVisibilityChangedListener.onPreviewVisibilityChanged(false);
@@ -235,7 +252,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         }
       }
     });
-    animator.setDuration(LONG_ANIM_DURATION);
+    animator.setDuration(SHORT_ANIM_DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
   }

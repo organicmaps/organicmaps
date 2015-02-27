@@ -5,11 +5,11 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AccelerateInterpolator;
 
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
-import com.mapswithme.util.UiUtils;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 public class LeftFullAnimationController extends BasePlacePageAnimationController
 {
@@ -81,50 +81,69 @@ public class LeftFullAnimationController extends BasePlacePageAnimationControlle
     });
   }
 
+
   @Override
-  protected void showPreview(final boolean show)
+  void setState(State currentState, State newState)
   {
-    showPlacePage(show);
+    switch (newState)
+    {
+    case HIDDEN:
+      hidePlacePage();
+      break;
+    case BOOKMARK:
+    case DETAILS:
+    case PREVIEW:
+      showPlacePage(currentState, newState);
+      break;
+    }
   }
 
-  @Override
-  protected void showPlacePage(final boolean show)
+  protected void showPlacePage(final State currentState, final State newState)
   {
-    if (mIsPlacePageVisible == show)
-      return;
-
-    TranslateAnimation slide;
-    if (show)
+    mPlacePage.setVisibility(View.VISIBLE);
+    mBookmarkDetails.setVisibility(newState == State.BOOKMARK ? View.VISIBLE : View.GONE);
+    if (currentState == State.HIDDEN)
     {
-      slide = UiUtils.generateRelativeSlideAnimation(-1, 0, 0, 0);
-    }
-    else
-    {
-      slide = UiUtils.generateRelativeSlideAnimation(0, -1, 0, 0);
-      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      ValueAnimator animator = ValueAnimator.ofFloat(-mPlacePage.getWidth(), 0f);
+      animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
         @Override
-        public void onAnimationEnd(Animation animation)
+        public void onAnimationUpdate(ValueAnimator animation)
         {
-          mIsPlacePageVisible = false;
-          mIsPreviewVisible = false;
-          mPlacePage.setVisibility(View.GONE);
+          ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
         }
       });
+
+      animator.setDuration(SHORT_ANIM_DURATION);
+      animator.setInterpolator(new AccelerateInterpolator());
+      animator.start();
     }
-    slide.setDuration(LONG_ANIM_DURATION);
-    mPlacePage.startAnimation(slide);
-    mPlacePage.setVisibility(View.VISIBLE);
-    if (mVisibilityChangedListener != null)
-    {
-      mVisibilityChangedListener.onPlacePageVisibilityChanged(true);
-      mIsPlacePageVisible = true;
-    }
+    mVisibilityChangedListener.onPlacePageVisibilityChanged(true);
+    mVisibilityChangedListener.onPreviewVisibilityChanged(true);
   }
 
-  @Override
   protected void hidePlacePage()
   {
-    showPlacePage(false);
+    ValueAnimator animator;
+    animator = ValueAnimator.ofFloat(0f, -mPlacePage.getWidth());
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+    {
+      @Override
+      public void onAnimationUpdate(ValueAnimator animation)
+      {
+        ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
+
+        if (animation.getAnimatedFraction() > 0.99f)
+        {
+          mPlacePage.setVisibility(View.INVISIBLE);
+          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
+          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
+        }
+      }
+    });
+
+    animator.setDuration(SHORT_ANIM_DURATION);
+    animator.setInterpolator(new AccelerateInterpolator());
+    animator.start();
   }
 }

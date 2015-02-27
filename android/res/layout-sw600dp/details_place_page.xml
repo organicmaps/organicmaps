@@ -193,8 +193,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll__details_left"
-        android:paddingTop="@dimen/margin_medium_and_half"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:paddingTop="@dimen/margin_medium_and_half">
 
       <View
           android:layout_width="match_parent"

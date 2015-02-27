@@ -68,7 +68,6 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
   private TextView mTvSchedule;
   private LinearLayout mLlWifi;
   // Bookmark
-  private RelativeLayout mRlBookmarkDetails;
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
   private EditText mEtBookmarkNotes;
@@ -89,8 +88,9 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
   public static enum State
   {
     HIDDEN,
-    PREVIEW_ONLY,
-    FULL_PLACEPAGE
+    PREVIEW,
+    BOOKMARK,
+    DETAILS
   }
 
   public PlacePageView(Context context)
@@ -150,7 +150,6 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
 
-    mRlBookmarkDetails = (RelativeLayout) mPpDetails.findViewById(R.id.rl__bookmark_details);
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(this);
     mEtBookmarkNotes = (EditText) mPpDetails.findViewById(R.id.et__bookmark_notes);
@@ -176,9 +175,6 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     {
     case 0:
       mAnimationController = new BottomPlacePageAnimationController(this);
-      break;
-    case 1:
-      mAnimationController = new TopPlacePageAnimationController(this);
       break;
     case 2:
       mAnimationController = new LeftFloatPlacePageAnimationController(this);
@@ -208,22 +204,12 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
 
   public void setState(State state)
   {
+    if (mMapObject != null && mMapObject.getType() == MapObjectType.BOOKMARK && state == State.DETAILS)
+      state = State.BOOKMARK;
+
     if (mCurrentState != state)
     {
-      // Do some transitions
-      if (mCurrentState == State.HIDDEN && state == State.PREVIEW_ONLY)
-        mAnimationController.showPreview(true);
-      else if (mCurrentState == State.PREVIEW_ONLY && state == State.FULL_PLACEPAGE)
-        mAnimationController.showPlacePage(true);
-      else if (mCurrentState == State.PREVIEW_ONLY && state == State.HIDDEN)
-        mAnimationController.showPreview(false);
-      else if (mCurrentState == State.FULL_PLACEPAGE && state == State.PREVIEW_ONLY)
-        mAnimationController.showPlacePage(false);
-      else if (mCurrentState == State.FULL_PLACEPAGE && state == State.HIDDEN)
-        mAnimationController.hidePlacePage();
-      else
-        return;
-
+      mAnimationController.setState(mCurrentState, state);
       mCurrentState = state;
     }
   }
@@ -258,39 +244,27 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     {
       mMapObject.setDefaultIfEmpty(getResources());
 
+      refreshPreview();
+      refreshDetails();
       switch (mMapObject.getType())
       {
-      case POI:
-        refreshPreview();
-        refreshDetails();
-        refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
-        refreshBookmarkDetails(false);
-        refreshButtons(false);
-        break;
       case BOOKMARK:
-        refreshPreview();
-        refreshDetails();
         refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
         refreshBookmarkDetails(true);
         refreshButtons(false);
         break;
+      case POI:
       case ADDITIONAL_LAYER:
-        refreshPreview();
-        refreshDetails();
         refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
         refreshBookmarkDetails(false);
         refreshButtons(false);
         break;
       case API_POINT:
-        refreshPreview();
-        refreshDetails();
         refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
         refreshBookmarkDetails(false);
-        refreshButtons(false);
+        refreshButtons(true);
         break;
       case MY_POSITION:
-        refreshPreview();
-        refreshDetails();
         refreshMyPosition(LocationHelper.INSTANCE.getLastLocation());
         refreshBookmarkDetails(false);
         refreshButtons(false);
@@ -304,16 +278,13 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     if (isBookmark)
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
-      mRlBookmarkDetails.setVisibility(View.VISIBLE);
       mEtBookmarkName.setText(bookmark.getName());
       mEtBookmarkNotes.setText(bookmark.getBookmarkDescription());
+      mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
     }
     else
-    {
-      mRlBookmarkDetails.setVisibility(View.GONE);
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_off);
-    }
   }
 
   private void refreshPreview()
@@ -329,9 +300,9 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     refreshLatLon();
     refreshMetadataOrHide(Metadata.MetadataType.FMD_URL, mLlWebsite, mTvWebsite);
     refreshMetadataOrHide(Metadata.MetadataType.FMD_PHONE_NUMBER, mLlPhone, mTvPhone);
+    // TODO parse schedule (natively?)
     refreshMetadataOrHide(Metadata.MetadataType.FMD_OPEN_HOURS, mLlSchedule, mTvSchedule);
     refreshMetadataOrHide(Metadata.MetadataType.FMD_INTERNET, mLlWifi, null);
-    // TODO refresh full details
   }
 
   private void refreshButtons(boolean showBackButton)
@@ -446,7 +417,8 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     {
       setMapObject(null);
 
-      mAnimationController.hidePlacePage();
+      // FIXME
+//      mAnimationController.hidePlacePage();
     }
   }
 
@@ -506,6 +478,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
 
         BookmarkManager.INSTANCE.deleteBookmark((Bookmark) mMapObject);
         setMapObject(p);
+        setState(State.DETAILS);
       }
       else
       {
@@ -513,6 +486,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
         final Bookmark newBmk = BookmarkManager.INSTANCE.getBookmark(BookmarkManager.INSTANCE.addNewBookmark(
             mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
         setMapObject(newBmk);
+        setState(State.BOOKMARK);
       }
       Framework.invalidate();
       break;

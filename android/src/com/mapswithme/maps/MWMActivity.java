@@ -1323,7 +1323,7 @@ public class MWMActivity extends NvEventQueueActivity
           if (!mPlacePage.hasMapObject(apiPoint))
           {
             mPlacePage.setMapObject(apiPoint);
-            mPlacePage.setState(State.PREVIEW_ONLY);
+            mPlacePage.setState(State.PREVIEW);
             mIvStartRouting.setVisibility(View.VISIBLE);
             mTvStartRouting.setVisibility(View.VISIBLE);
             mPbRoutingProgress.setVisibility(View.GONE);
@@ -1352,7 +1352,7 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mPlacePage.hasMapObject(poi))
         {
           mPlacePage.setMapObject(poi);
-          mPlacePage.setState(State.PREVIEW_ONLY);
+          mPlacePage.setState(State.PREVIEW);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mTvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
@@ -1376,7 +1376,7 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mPlacePage.hasMapObject(b))
         {
           mPlacePage.setMapObject(b);
-          mPlacePage.setState(State.PREVIEW_ONLY);
+          mPlacePage.setState(State.PREVIEW);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mTvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
@@ -1403,7 +1403,7 @@ public class MWMActivity extends NvEventQueueActivity
           if (!mPlacePage.hasMapObject(mypos))
           {
             mPlacePage.setMapObject(mypos);
-            mPlacePage.setState(State.PREVIEW_ONLY);
+            mPlacePage.setState(State.PREVIEW);
             mIvStartRouting.setVisibility(View.GONE);
             mTvStartRouting.setVisibility(View.GONE);
             mPbRoutingProgress.setVisibility(View.GONE);
@@ -1428,7 +1428,7 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mPlacePage.hasMapObject(sr))
         {
           mPlacePage.setMapObject(sr);
-          mPlacePage.setState(State.PREVIEW_ONLY);
+          mPlacePage.setState(State.PREVIEW);
           mIvStartRouting.setVisibility(View.VISIBLE);
           mTvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
@@ -1609,7 +1609,7 @@ public class MWMActivity extends NvEventQueueActivity
       setVerticalToolbarVisible(false);
       result = true;
     }
-    if (mPlacePage.getState() == State.FULL_PLACEPAGE)
+    if (mPlacePage.getState() == State.BOOKMARK)
     {
       Framework.deactivatePopup();
       hideInfoView();

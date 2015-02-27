@@ -37,7 +37,8 @@
         android:layout_below="@id/tv__subtitle"
         android:gravity="center_vertical"
         android:textColor="@color/text_place_page_subtitle"
-        android:textSize="@dimen/place_page_subtitle"/>
+        android:textSize="@dimen/place_page_subtitle"
+        android:visibility="gone"/>
 
   </RelativeLayout>
 
