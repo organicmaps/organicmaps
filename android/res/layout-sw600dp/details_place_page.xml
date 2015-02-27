@@ -37,7 +37,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          android:paddingTop="@dimen/margin_small">
+          android:paddingTop="@dimen/margin_small"
+          android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv__place_name"
@@ -51,7 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv__place_name"
-            android:text="Some address"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
       </LinearLayout>
@@ -77,7 +77,6 @@
             android:id="@+id/tv__place_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="9119992"
             android:textColor="@color/text_place_page_blue"
             android:textSize="@dimen/place_page_subtitle"/>
       </LinearLayout>
@@ -102,7 +101,6 @@
             android:id="@+id/tv__place_website"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="www.test.com"
             android:textColor="@color/text_place_page_blue"
             android:textSize="@dimen/place_page_subtitle"/>
       </LinearLayout>
@@ -128,7 +126,6 @@
             android:id="@+id/tv__place_schedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Пн-Пт     10:00-23:00"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
       </LinearLayout>
@@ -163,7 +160,6 @@
             android:id="@+id/tv__place_latlon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="31.21345, 2.234 235"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
       </LinearLayout>
@@ -186,7 +182,6 @@
             android:id="@+id/tv__place_wifi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Yes"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
       </LinearLayout>
@@ -198,7 +193,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll__details_left"
-        android:layout_marginTop="@dimen/margin_medium_and_half">
+        android:paddingTop="@dimen/margin_medium_and_half"
+        android:visibility="invisible">
 
       <View
           android:layout_width="match_parent"
@@ -220,7 +216,7 @@
           android:layout_alignTop="@id/iv__bookmark"
           android:layout_toRightOf="@id/iv__bookmark"
           android:lineSpacingMultiplier="1.67"
-          android:text="Name"
+          android:text="@string/name"
           android:textColor="@color/text_place_page_subtitle"
           android:textSize="@dimen/place_page_sub_subtitle"/>
 
@@ -254,7 +250,7 @@
           android:layout_marginTop="@dimen/margin_medium_and_half"
           android:layout_toRightOf="@id/iv__bookmark"
           android:lineSpacingMultiplier="1.67"
-          android:text="Group"
+          android:text="@string/set"
           android:textColor="@color/text_place_page_subtitle"
           android:textSize="@dimen/place_page_sub_subtitle"/>
 
@@ -276,7 +272,6 @@
             android:drawableRight="@drawable/ic_arrow_down"
             android:lineSpacingMultiplier="1.43"
             android:paddingRight="@dimen/margin_small"
-            android:text="Great group"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
 
@@ -303,7 +298,7 @@
           android:layout_marginTop="@dimen/margin_medium"
           android:layout_toRightOf="@id/iv__bookmark"
           android:lineSpacingMultiplier="1.67"
-          android:text="Notes"
+          android:text="@string/description"
           android:textColor="@color/text_place_page_subtitle"
           android:textSize="@dimen/place_page_sub_subtitle"/>
 

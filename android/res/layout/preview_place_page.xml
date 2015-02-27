@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="TEST TITLE"
         android:textColor="@color/text_place_page"
         android:textSize="@dimen/place_page_title"/>
 
@@ -31,7 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__title"
-        android:text="TEST subtitle"
         android:textColor="@color/text_place_page_subtitle"
         android:textSize="@dimen/place_page_subtitle"/>
 
@@ -40,9 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__subtitle"
-        android:drawableLeft="@drawable/ic_open"
         android:gravity="center_vertical"
-        android:text="TEST schedule"
         android:textColor="@color/text_place_page_subtitle"
         android:textSize="@dimen/place_page_subtitle"/>
 
@@ -52,7 +48,6 @@
       android:id="@+id/tv__straight_distance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="TEST"
       android:textSize="@dimen/place_page_subtitle"/>
 
   <com.mapswithme.maps.widget.ArrowView
