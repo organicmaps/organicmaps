@@ -45,6 +45,15 @@ namespace feature
     TEST_EQUAL(static_cast<uint64_t>(510), table->GetFeatureOffset(5), ());
     TEST_EQUAL(static_cast<uint64_t>(513), table->GetFeatureOffset(6), ());
     TEST_EQUAL(static_cast<uint64_t>(1024), table->GetFeatureOffset(7), ());
+
+    TEST_EQUAL(static_cast<size_t>(0), table->GetFeatureIndexbyOffset(1), ());
+    TEST_EQUAL(static_cast<size_t>(1), table->GetFeatureIndexbyOffset(4), ());
+    TEST_EQUAL(static_cast<size_t>(2), table->GetFeatureIndexbyOffset(17), ());
+    TEST_EQUAL(static_cast<size_t>(3), table->GetFeatureIndexbyOffset(128), ());
+    TEST_EQUAL(static_cast<size_t>(4), table->GetFeatureIndexbyOffset(129), ());
+    TEST_EQUAL(static_cast<size_t>(5), table->GetFeatureIndexbyOffset(510), ());
+    TEST_EQUAL(static_cast<size_t>(6), table->GetFeatureIndexbyOffset(513), ());
+    TEST_EQUAL(static_cast<size_t>(7), table->GetFeatureIndexbyOffset(1024), ());
   }
 
   UNIT_TEST(FeaturesOffsetsTable_CreateIfNotExistsAndLoad)
@@ -65,6 +74,11 @@ namespace feature
     {
       ++builderSize;
     });
+    TEST_EQUAL(builderSize, table->size(), ());
+
+    table = unique_ptr<FeaturesOffsetsTable>();
+    FilesMappingContainer newReadContainer(baseContainer.GetFileName());
+    table = unique_ptr<FeaturesOffsetsTable>(FeaturesOffsetsTable::Load(newReadContainer));
     TEST_EQUAL(builderSize, table->size(), ());
   }
 

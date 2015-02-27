@@ -84,6 +84,10 @@ namespace feature
     /// \return offset a feature
     uint64_t GetFeatureOffset(size_t index) const;
 
+    /// \param offset offset of a feature
+    /// \return index of a feature
+    size_t GetFeatureIndexbyOffset(uint64_t offset) const;
+
     /// \return number of features offsets in a table.
     inline uint64_t size() const
     {

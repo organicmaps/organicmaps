@@ -90,4 +90,29 @@ namespace feature
     ASSERT_LESS(index, size(), ("Index out of bounds", index, size()));
     return m_table.select(index);
   }
+
+  size_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint64_t offset) const
+  {
+    ASSERT_LESS_OR_EQUAL(offset, m_table.select(size() - 1), ("Offset out of bounds", offset,
+                                                     m_table.select(size() - 1)));
+
+    //Binary search in elias_fano list
+    size_t first = 0, last = size();
+    size_t count = last - first, step, current;
+    while (count > 0)
+    {
+      step = count / 2;
+      current = first + step;
+      if (m_table.select(current) < offset)
+      {
+        first = ++current;
+        count -= step + 1;
+      }
+      else
+        count = step;
+    }
+    return current;
+
+  }
+
 }  // namespace feature
