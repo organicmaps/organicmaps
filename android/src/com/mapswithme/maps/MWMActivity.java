@@ -1633,14 +1633,22 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    if (requestCode == BookmarkActivity.REQUEST_CODE_EDIT_BOOKMARK && resultCode == RESULT_OK)
+    if (resultCode == RESULT_OK)
     {
-      final Point bmk = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
-      onBookmarkActivated(bmk.x, bmk.y);
+      if (requestCode == BookmarkActivity.REQUEST_CODE_EDIT_BOOKMARK)
+      {
+        final Point bmk = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+        onBookmarkActivated(bmk.x, bmk.y);
+      }
+      else if (requestCode == BookmarkActivity.REQUEST_CODE_SET)
+      {
+        final Point pin = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+        final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(pin.x, pin.y);
+        mPlacePage.setMapObject(bookmark);
+      }
+
+      super.onActivityResult(requestCode, resultCode, data);
     }
-
-    super.onActivityResult(requestCode, resultCode, data);
-
   }
 
   @Override

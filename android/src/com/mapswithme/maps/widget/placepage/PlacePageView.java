@@ -30,6 +30,8 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.bookmarks.BookmarkActivity;
+import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -38,6 +40,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.ShareAction;
@@ -155,6 +158,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     mEtBookmarkNotes = (EditText) mPpDetails.findViewById(R.id.et__bookmark_notes);
     mEtBookmarkNotes.setOnEditorActionListener(this);
     mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
+    mTvBookmarkGroup.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) mView.findViewById(R.id.pp__buttons);
     mRlApiBack = (RelativeLayout) ppButtons.findViewById(R.id.rl__api_back);
@@ -281,6 +285,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
       mEtBookmarkName.setText(bookmark.getName());
       mEtBookmarkNotes.setText(bookmark.getBookmarkDescription());
       mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
+      mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
     }
     else
@@ -418,7 +423,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
       setMapObject(null);
 
       // FIXME
-//      mAnimationController.hidePlacePage();
+      //      mAnimationController.hidePlacePage();
     }
   }
 
@@ -520,9 +525,22 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
     case R.id.ll__place_schedule:
       // TODO expand/collapse schedule if needed
       break;
+    case R.id.tv__bookmark_group:
+      selectBookmarkSet();
+      break;
     default:
       break;
     }
+  }
+
+  private void selectBookmarkSet()
+  {
+    final Activity activity = (Activity) getContext();
+    final Bookmark bookmark = (Bookmark) mMapObject;
+    final Intent intent = new Intent(activity, ChooseBookmarkCategoryActivity.class)
+        .putExtra(BookmarkActivity.PIN_SET, bookmark.getCategoryId())
+        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+    activity.startActivityForResult(intent, BookmarkActivity.REQUEST_CODE_SET);
   }
 
   private void selectBookmarkColor()
