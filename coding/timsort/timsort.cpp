@@ -1183,7 +1183,8 @@ static void timMergeCollapse(timMergeState *aState, cmpFunc *aCmpCb)
     {
         n = aState->mPendingRunCnt - 2;
 
-        if (n > 0 && sSlice[n-1].mLen <= sSlice[n].mLen + sSlice[n+1].mLen)
+        if ((n > 0 && sSlice[n-1].mLen <= sSlice[n].mLen + sSlice[n+1].mLen) ||
+            (n-1 > 0 && sSlice[n-2].mLen <= sSlice[n].mLen + sSlice[n-1].mLen))
         {
             if (sSlice[n-1].mLen < sSlice[n+1].mLen)
             {
