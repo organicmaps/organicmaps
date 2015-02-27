@@ -51,11 +51,10 @@ private:
 
     Node * GetMove(CharT const & c)
     {
-      Node ** node = &m_moves[c];
-      if (*node)
-        return *node;
-      *node = new Node();
-      return *node;
+      Node *& node = m_moves[c];
+      if (!node)
+        node = new Node();
+      return node;
     }
 
     void AddValue(const ValueT & value) { m_values.push_back(value); }

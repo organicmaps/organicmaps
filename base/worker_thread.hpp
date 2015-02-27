@@ -3,9 +3,9 @@
 #include "macros.hpp"
 
 #include "../std/condition_variable.hpp"
-#include "../std/memory.hpp"
 #include "../std/mutex.hpp"
 #include "../std/queue.hpp"
+#include "../std/shared_ptr.hpp"
 #include "../std/thread.hpp"
 
 namespace my

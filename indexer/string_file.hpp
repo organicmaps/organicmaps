@@ -61,6 +61,11 @@ public:
     }
   };
 
+  using StringsListT = vector<StringT>;
+
+  // Contains start and end offsets of file portions.
+  using OffsetsListT = vector<pair<uint64_t, uint64_t>>;
+
   /// This class encapsulates a task to efficiently sort a bunch of
   /// strings and writes them in a sorted oreder.
   class SortAndDumpStringsTask
@@ -75,8 +80,7 @@ public:
     ///                to the list.
     /// \param strings Vector of strings that should be sorted. Internal data is moved out from
     ///                strings, so it'll become empty after ctor.
-    SortAndDumpStringsTask(FileWriter & writer, vector<pair<uint64_t, uint64_t>> & offsets,
-                           std::vector<StringsFile::StringT> & strings)
+    SortAndDumpStringsTask(FileWriter & writer, OffsetsListT & offsets, StringsListT & strings)
         : m_writer(writer), m_offsets(offsets)
     {
       strings.swap(m_strings);
@@ -99,7 +103,7 @@ public:
       }
 
       uint64_t const spos = m_writer.Pos();
-      m_writer.Write(&memBuffer[0], memBuffer.size());
+      m_writer.Write(memBuffer.data(), memBuffer.size());
       uint64_t const epos = m_writer.Pos();
       m_offsets.push_back(make_pair(spos, epos));
       m_writer.Flush();
@@ -107,8 +111,8 @@ public:
 
   private:
     FileWriter & m_writer;
-    vector<pair<uint64_t, uint64_t>> & m_offsets;
-    vector<StringsFile::StringT> m_strings;
+    OffsetsListT & m_offsets;
+    StringsListT m_strings;
 
     DISALLOW_COPY_AND_MOVE(SortAndDumpStringsTask);
   };
@@ -153,10 +157,8 @@ private:
   void Flush();
   bool PushNextValue(size_t i);
 
-  vector<StringT> m_strings;
-
-  // Contains start and end offsets of file portions.
-  vector<pair<uint64_t, uint64_t> > m_offsets;
+  StringsListT m_strings;
+  OffsetsListT m_offsets;
 
   // A worker thread that sorts and writes groups of strings.  The
   // whole process looks like a pipeline, i.e. main thread accumulates

@@ -2,30 +2,32 @@
 
 #include "../worker_thread.hpp"
 
-#include "../../std/memory.hpp"
+#include "../../std/shared_ptr.hpp"
 #include "../../std/vector.hpp"
 
 struct Task
 {
-  Task(vector<int> & buffer, int index) : m_buffer(buffer), m_index(index) {}
+  Task(vector<size_t> & buffer, size_t index) : m_buffer(buffer), m_index(index) {}
 
   void operator()() const { m_buffer.push_back(m_index); }
 
-  vector<int> & m_buffer;
-  int m_index;
+  vector<size_t> & m_buffer;
+  size_t m_index;
 };
 
 UNIT_TEST(WorkerThread_Basic)
 {
-  my::WorkerThread<Task> thread(5 /* maxTasks */);
+  size_t const kNumTasks = 10;
+  size_t const kMaxTasksInQueue = 5;
 
-  vector<int> buffer;
+  my::WorkerThread<Task> thread(kMaxTasksInQueue);
 
-  for (int i = 0; i < 10; ++i)
+  vector<size_t> buffer;
+  for (size_t i = 0; i < kNumTasks; ++i)
     thread.Push(make_shared<Task>(buffer, i));
   thread.RunUntilIdleAndStop();
 
-  TEST_EQUAL(static_cast<size_t>(10), buffer.size(), ());
+  TEST_EQUAL(kNumTasks, buffer.size(), ());
   for (size_t i = 0; i < buffer.size(); ++i)
-    TEST_EQUAL(static_cast<int>(i), buffer[i], ());
+    TEST_EQUAL(i, buffer[i], ());
 }
