@@ -7,7 +7,7 @@ TEMPLATE = app
 
 ROOT_DIR = ../..
 DEPENDENCIES = map gui routing search storage graphics indexer platform anim geometry coding base \
-               freetype fribidi expat protobuf tomcrypt jansson zlib osrm stats_client
+               freetype fribidi expat protobuf tomcrypt jansson zlib osrm stats_client succinct
 
 drape {
   DEPENDENCIES *= drape_frontend drape
