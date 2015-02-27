@@ -145,9 +145,9 @@ public:
       : m_base(base), m_origBase(alignBase), m_size(size), m_origSize(origSize)
     {
     }
-    Handle(Handle && h)
+    Handle(Handle && h) : Handle()
     {
-      Assign(std::move(h));
+      Assign(move(h));
     }
     ~Handle();
 

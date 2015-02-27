@@ -5,6 +5,7 @@
 
 #include "../../base/logging.hpp"
 #include "../../base/string_utils.hpp"
+#include "../../base/scope_guard.hpp"
 
 
 UNIT_TEST(FilesContainer_Smoke)
@@ -231,6 +232,51 @@ UNIT_TEST(FilesMappingContainer_Handle)
   }
 
   FileWriter::DeleteFileX(fName);
+}
+
+UNIT_TEST(FilesMappingContainer_MoveHandle)
+{
+  static uint8_t const kNumMapTests = 200;
+  class HandleWrapper
+  {
+  public:
+    HandleWrapper(FilesMappingContainer::Handle&& handle) : m_handle(move(handle))
+    {
+      TEST(m_handle.IsValid(), ());
+    }
+
+  private:
+    FilesMappingContainer::Handle m_handle;
+  };
+
+  string const containerPath = "file_container.tmp";
+  string const tagName = "dummy";
+
+  MY_SCOPE_GUARD(deleteContainerFileGuard, bind(&FileWriter::DeleteFileX, cref(containerPath)));
+
+  {
+    FilesContainerW writer(containerPath);
+    FileWriter w = writer.GetWriter(tagName);
+    w.Write(tagName.c_str(), tagName.size());
+  }
+
+  {
+    FilesMappingContainer cont(containerPath);
+
+    FilesMappingContainer::Handle h1 = cont.Map(tagName);
+    TEST(h1.IsValid(), ());
+
+    FilesMappingContainer::Handle h2(move(h1));
+    TEST(h2.IsValid(), ());
+    TEST(!h1.IsValid(), ());
+
+    for (int i = 0; i < kNumMapTests; ++i)
+    {
+      FilesMappingContainer::Handle parent_handle = cont.Map(tagName);
+      HandleWrapper tmp(move(parent_handle));
+    }
+
+  }
 }
 
 UNIT_TEST(FilesMappingContainer_Smoke)
