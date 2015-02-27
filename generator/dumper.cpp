@@ -40,16 +40,15 @@ namespace feature
         ++m_namesCount;
 
       m_currFeatureTypes.clear();
-      f.ForEachTypeRef(*this);
+      f.ForEachType([this](uint32_t type)
+      {
+        m_currFeatureTypes.push_back(type);
+      });
       CHECK(!m_currFeatureTypes.empty(), ("Feature without any type???"));
-      pair<value_type::iterator, bool> found = m_stats.insert(make_pair(m_currFeatureTypes, 1));
+
+      auto found = m_stats.insert(make_pair(m_currFeatureTypes, 1));
       if (!found.second)
         found.first->second++;
-    }
-
-    void operator()(uint32_t type)
-    {
-      m_currFeatureTypes.push_back(type);
     }
   };
 

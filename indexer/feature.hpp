@@ -103,8 +103,8 @@ public:
     return m_center;
   }
 
-  template <typename FunctorT>
-  void ForEachTypeRef(FunctorT & f) const
+  template <typename ToDo>
+  void ForEachType(ToDo f) const
   {
     ParseTypes();
 

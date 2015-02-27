@@ -38,19 +38,6 @@ namespace stats
   {
     MapInfo & m_info;
 
-    class ProcessType
-    {
-      MapInfo & m_info;
-      uint32_t m_size;
-
-    public:
-      ProcessType(MapInfo & info, uint32_t sz) : m_info(info), m_size(sz) {}
-      void operator() (uint32_t type)
-      {
-        m_info.AddToSet(TypeTag(type), m_size, m_info.m_byClassifType);
-      }
-    };
-
   public:
     AccumulateStatistic(MapInfo & info) : m_info(info) {}
 
@@ -75,8 +62,10 @@ namespace stats
 
       m_info.AddToSet(f.GetFeatureType(), allSize, m_info.m_byGeomType);
 
-      ProcessType doProcess(m_info, allSize);
-      f.ForEachTypeRef(doProcess);
+      f.ForEachType([this, allSize](uint32_t type)
+      {
+        m_info.AddToSet(TypeTag(type), allSize, m_info.m_byClassifType);
+      });
     }
   };
 

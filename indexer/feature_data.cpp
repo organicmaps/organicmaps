@@ -17,7 +17,10 @@ using namespace feature;
 TypesHolder::TypesHolder(FeatureBase const & f)
 : m_size(0), m_geoType(f.GetFeatureType())
 {
-  f.ForEachTypeRef(*this);
+  f.ForEachType([this](uint32_t type)
+  {
+    this->operator()(type);
+  });
 }
 
 string TypesHolder::DebugPrint() const
