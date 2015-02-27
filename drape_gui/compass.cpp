@@ -45,7 +45,7 @@ namespace
       }
     }
 
-    virtual bool RequiresIndexes() const override { return false; }
+    virtual bool IndexesRequired() const override { return false; }
 
     virtual m2::RectD GetPixelRect(ScreenBase const & screen) const override
     {

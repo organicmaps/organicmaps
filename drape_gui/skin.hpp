@@ -46,7 +46,7 @@ public:
     Copyright
   };
 
-  explicit Skin(ReaderPtr<Reader> const & reader, double visualScale);
+  Skin(ReaderPtr<Reader> const & reader, double visualScale);
 
   Position ResolvePosition(ElementName name);
   void Resize(int w, int h);

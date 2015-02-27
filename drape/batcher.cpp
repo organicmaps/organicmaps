@@ -43,7 +43,7 @@ public:
   uint16_t * GetIndexStorage(uint16_t size, uint16_t & startIndex)
   {
     startIndex = m_buffer->GetStartIndexValue();
-    if (m_overlay.IsNull() || !m_overlay->RequiresIndexes())
+    if (m_overlay.IsNull() || !m_overlay->IndexesRequired())
     {
       m_indexStorage.resize(size);
       return &m_indexStorage[0];
@@ -54,7 +54,7 @@ public:
 
   void SubmitIndexes()
   {
-    if (m_overlay.IsNull() || !m_overlay->RequiresIndexes())
+    if (m_overlay.IsNull() || !m_overlay->IndexesRequired())
       m_buffer->UploadIndexes(&m_indexStorage[0], m_indexStorage.size());
   }
 

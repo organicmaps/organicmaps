@@ -34,7 +34,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProg
 {
   Handle * handle = static_cast<Handle *>(m_implHandle.GetRaw());
   handle->Update(screen);
-  if (!(handle->IsVisible() && handle->IsValid()))
+  if (!(handle->IsValid() && handle->IsVisible()))
     return;
 
   dp::RefPointer<dp::GpuProgram> prg = mng->GetProgram(m_state.GetProgramIndex());
