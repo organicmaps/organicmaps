@@ -468,14 +468,11 @@ namespace qt
       // Get POI under cursor or nearest address by point.
       m2::PointD dummy;
       search::AddressInfo info;
-      if (m_framework->GetVisiblePOI(pt, dummy, info))
-      {
+      feature::FeatureMetadata metadata;
+      if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
         add_string(menu, "POI");
-      }
       else
-      {
         m_framework->GetAddressInfoForPixelPoint(pt, info);
-      }
 
       // Get feature types under cursor.
       vector<string> types;
