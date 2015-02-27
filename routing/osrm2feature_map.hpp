@@ -2,6 +2,12 @@
 
 #include "../coding/file_container.hpp"
 
+#include "../base/scope_guard.hpp"
+
+#include "../indexer/features_offsets_table.hpp"
+
+#include "../3party/succinct/rs_bit_vector.hpp"
+
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/unordered_map.hpp"
@@ -83,109 +89,75 @@ namespace OsrmMappingTypes {
   };
 #pragma pack (pop)
 }
+class OsrmFtSegMapping;
 
 class OsrmFtSegBackwardIndex
 {
-  typedef pair<uint32_t, uint32_t> IndexRecordTypeT;
-  vector<IndexRecordTypeT> m_index;
+  succinct::rs_bit_vector m_rankIndex;
+  succinct::elias_fano_compressed_list m_nodeIds;
+  unique_ptr<feature::FeaturesOffsetsTable> m_table;
 
-  void Save(FilesMappingContainer const & parentCont)
+  FilesMappingContainer::Handle m_handleNodes;
+  FilesMappingContainer::Handle m_handleBits;
+
+  template <class T> void ClearContainer(T & t)
   {
-    const indexName = parentCont.GetName()+FTSEG_MAPPING_BACKWARD_INDEX;
-    Platform & pl = GetPlatform();
-    string const fPath = pl.WritablePathForFile(indexName);
-    if (!pl.IsFileExistsByFullPath(fPath))
+    T().swap(t);
+  }
+
+  void Save(FilesContainerW & container)
+  {
     {
-      return;
+      string const nodesFileName = container.GetFileName() + "." FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG;
+      MY_SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(nodesFileName)));
+      succinct::mapper::freeze(m_nodeIds, nodesFileName.c_str());
+      container.Write(nodesFileName, FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG);
     }
-
-    FilesContainerW container(fName);
-    FileWriter w = container.GetWriter(VERSION_FILE_TAG);
-    WriterSrc wrt(w);
-
-    FileReader r2 = parentCont.GetReader(VERSION_FILE_TAG);
-    ReaderSrc src2(r2);
-
-    ver::WriteTimestamp(wrt, ver::ReadTimestamp(src2));
-
-    size_t count = static_cast<uint32_t>(m_index.size());
-    FileWriter w2 = container.GetWriter(FTSEG_MAPPING_BACKWARD_INDEX);
-    WriterSrc wrt2(w2);
-    WriteVarUint<uint32_t>(wrt2, count);
-    for(size_t i = 0; i < count; ++i)
     {
-      WriteVarUint<uint32_t>(src, m_index[i].first);
-      WriteVarUint<uint32_t>(src, m_index[i].second);
+      string const bitsFileName = container.GetFileName() + "." FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG;
+      MY_SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(bitsFileName)));
+      succinct::mapper::freeze(m_nodeIds, bitsFileName.c_str());
+      container.Write(bitsFileName, FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG);
     }
   }
 
-  bool Load(FilesMappingContainer const & parentCont)
+  bool Load(FilesMappingContainer const & container)
   {
-    const indexName = parentCont.GetName()+FTSEG_MAPPING_BACKWARD_INDEX;
-    Platform & pl = GetPlatform();
-    string const fPath = pl.WritablePathForFile(indexName);
-    if (!pl.IsFileExistsByFullPath(fPath))
-    {
+    if (!container.IsExist(FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG) || !container.IsExist(FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG))
       return false;
-    }
-    // Open new container and check that file has equal timestamp.
-    FilesMappingContainer container;
-    container.Open(fPath);
-    {
-      FileReader r1 = container.GetReader(VERSION_FILE_TAG);
-      ReaderSrc src1(r1);
-      ModelReaderPtr r2 = parentCont.GetReader(VERSION_FILE_TAG);
-      ReaderSrc src2(r2.GetPtr());
+    m_handleNodes.Assign(container.Map(FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG));
+    ASSERT(m_handleNodes.IsValid(), ());
+    succinct::mapper::map(m_nodeIds, m_handleNodes.GetData<char>());
 
-      if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
-        return false;
-    }
+    m_handleBits.Assign(container.Map(FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG));
+    ASSERT(m_handleBits.IsValid(), ());
+    succinct::mapper::map(m_rankIndex, m_handleBits.GetData<char>());
 
-    FileReader r = container.GetReader(FTSEG_MAPPING_BACKWARD_INDEX);
-    ReaderSource<FileReader> src(r);
-    uint32_t const count = ReadVarUint<uint32_t>(src);
-    for(size_t i = 0; i < count; ++i)
-    {
-      uint32_t fid = ReadVarUint<uint32_t>(src);
-      uint32_t index = ReadVarUint<uint32_t>(src);
-      m_index[i] = make_pair(fid, index);
-    }
     return true;
   }
 
 public:
-  void Construct(succinct::elias_fano_compressed_list const & segments, FilesMappingContainer const & parentCont)
+  void Construct(OsrmFtSegMapping const & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
+
+  uint32_t GetNodeIdByFid(uint32_t const fid) const
   {
-    if (Load(parentCont))
-      return;
-    size_t const count = segments.size();
-    m_index.resize(count);
-    for (size_t i = 0; i < count; ++i)
-    {
-      OsrmMappingTypes::FtSeg s(segments[i]);
-      m_index[i] = make_pair(s.m_fid, i);
-    }
-    sort(m_index.begin(), m_index.end(), [](IndexRecordTypeT const & a, IndexRecordTypeT const & b)
-    {
-     return a.first < b.first;
-    });
-    Save(parentCont);
+    if (!m_table)
+      return INVALID_NODE_ID;
+    size_t index = m_table->GetFeatureIndexbyOffset(fid);
+    if (index == m_table->size())
+      return INVALID_NODE_ID;
+    size_t node_index = m_rankIndex.rank(index);
+    ASSERT_LESS(node_index, m_nodeIds.size(), ());
+    return m_nodeIds[node_index];
   }
 
-  void GetIndexesByFid(uint32_t const fid, vector<size_t> & results) const
+  void Clear()
   {
-    size_t const start = distance(m_index.begin(), lower_bound(m_index.begin(), m_index.end(), make_pair(fid, 0),
-                                                               [](IndexRecordTypeT const & a, IndexRecordTypeT const & b)
-                                                               {
-                                                                return a.first < b.first;
-                                                               }));
-    size_t stop = start;
-    while (stop<m_index.size() && m_index[stop].first == fid)
-    {
-      results.push_back(m_index[stop].second);
-      ++stop;
-    }
-    return;
+    ClearContainer(m_nodeIds);
+    ClearContainer(m_rankIndex);
+    m_table = unique_ptr<feature::FeaturesOffsetsTable>();
+    m_handleNodes.Unmap();
+    m_handleBits.Unmap();
   }
 
 };

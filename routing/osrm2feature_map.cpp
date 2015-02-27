@@ -119,6 +119,8 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
   }
 
   Map(cont);
+
+  m_backwardIndex.Construct(*this, m_offsets.back().m_nodeId, cont);
 }
 
 void OsrmFtSegMapping::Map(FilesMappingContainer & cont)
@@ -126,7 +128,6 @@ void OsrmFtSegMapping::Map(FilesMappingContainer & cont)
   m_handle.Assign(cont.Map(ROUTING_FTSEG_FILE_TAG));
   ASSERT(m_handle.IsValid(), ());
   succinct::mapper::map(m_segments, m_handle.GetData<char>());
-  m_backwardIndex.Construct(m_segments, cont);
 }
 
 void OsrmFtSegMapping::Unmap()
@@ -191,13 +192,14 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
   {
     OsrmMappingTypes::FtSeg const & seg = *(*it);
     vector<size_t> results;
-    m_backwardIndex.GetIndexesByFid(seg.m_fid, results);
+    uint32_t nodeId = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
 
-    for (size_t i : results)
+    auto range = GetSegmentsRange(nodeId);
+    for (int i = range.first; i < range.second; ++i)
     {
       OsrmMappingTypes::FtSeg const s(m_segments[i]);
-
-      ASSERT(s.m_fid == seg.m_fid, ());
+      if (s.m_fid != seg.m_fid)
+        continue;
 
       if (s.m_pointStart <= s.m_pointEnd)
       {
@@ -316,6 +318,75 @@ void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
   succinct::elias_fano_compressed_list compressed(m_buffer);
   succinct::mapper::freeze(compressed, fName.c_str());
   cont.Write(fName, ROUTING_FTSEG_FILE_TAG);
+}
+
+void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const uint32_t maxNodeId, FilesMappingContainer & routingFile)
+{
+  Clear();
+  // Calculate data file pathes
+  string const routingName = routingFile.GetName();
+  string const mwmName(routingName, 0, routingName.find(ROUTING_FILE_EXTENSION));
+  FilesMappingContainer mwmContainer(mwmName);
+  mwmContainer.Open(mwmName);
+  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(mwmContainer);
+
+  if (Load(routingFile))
+    return;
+
+  // Generate temporary index to speedup processing
+  map<uint64_t, uint32_t> temporaryBackwardIndex;
+  for (uint32_t i = 0; i < maxNodeId; ++i)
+  {
+    auto indexes = mapping.GetSegmentsRange(i);
+    for (size_t j = indexes.first; j < indexes.second; ++j)
+    {
+      OsrmMappingTypes::FtSeg seg;
+      mapping.GetSegmentByIndex(j, seg);
+      temporaryBackwardIndex.insert(make_pair(seg.m_fid, i));
+    }
+  }
+
+  // Create final index
+  vector<bool> inIndex(m_table->size(), false);
+  vector<uint32_t> nodeIds;
+
+  for (size_t i = 0; i < m_table->size(); ++i)
+  {
+    uint64_t fid = m_table->GetFeatureOffset(i);
+    auto it = temporaryBackwardIndex.find(fid);
+    if (it != temporaryBackwardIndex.end())
+    {
+      inIndex[i] = true;
+      nodeIds.push_back(it->second);
+    }
+  }
+
+  // Pack and save index
+  succinct::elias_fano_compressed_list(nodeIds).swap(m_nodeIds);
+  succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
+  LOG(LINFO, ("Writing section to data file", routingName));
+  routingFile.Close();
+  FilesContainerW writer(routingName);
+  Save(writer);
+  writer.Finish();
+  routingFile.Open(routingName);
+  LOG(LINFO, ("Writing section to data file DONE", routingName));
+
+
+  //    if (Load(parentCont))
+  //      return;
+  //    size_t const count = segments.size();
+  //    m_index.resize(count);
+  //    for (size_t i = 0; i < count; ++i)
+  //    {
+  //      OsrmMappingTypes::FtSeg s(segments[i]);
+  //      m_index[i] = make_pair(s.m_fid, i);
+  //    }
+  //    sort(m_index.begin(), m_index.end(), [](IndexRecordTypeT const & a, IndexRecordTypeT const & b)
+  //    {
+  //     return a.first < b.first;
+  //    });
+  //    Save(parentCont);
 }
 
 }

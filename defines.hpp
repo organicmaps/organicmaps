@@ -25,7 +25,8 @@
 
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
-#define FTSEG_MAPPING_BACKWARD_INDEX "bftseg"
+#define FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG "bftsegnodes"
+#define FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG "bftsegbits"
 
 //Secret word to unlock experimental features in production builds
 #define ROUTING_SECRET_UNLOCKING_WORD "?ariadna"
