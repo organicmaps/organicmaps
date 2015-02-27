@@ -7,7 +7,7 @@
 
 #include "std/cstring.hpp"
 
-#define CHECK_VBO_BOUNDS
+//#define CHECK_VBO_BOUNDS
 
 namespace dp
 {

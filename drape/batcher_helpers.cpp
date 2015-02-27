@@ -28,7 +28,12 @@ public:
 
 protected:
   uint16_t GetCounter() { return m_counter++; }
-  void ResetCounter() { m_counter = 0; }
+  void ResetCounter()
+  {
+    m_counter = 0;
+    m_minStriptCounter = 0;
+  }
+
   uint16_t const m_startIndex;
 
   int16_t GetCWNormalizer()
@@ -91,8 +96,7 @@ public:
     : IndexGenerator(startIndex)
     , m_vertexStride(vertexStride)
     , m_indexPerStrip(indexPerStrip)
-    , m_base(0)
-    , m_minStriptCounter(0) {}
+    , m_base(0) {}
 
   uint16_t operator()()
   {
@@ -101,7 +105,6 @@ public:
     if (counter + 1 == m_indexPerStrip)
     {
       m_base += m_vertexStride;
-      m_minStriptCounter = 0;
       ResetCounter();
     }
 
@@ -112,7 +115,6 @@ private:
   uint16_t m_vertexStride;
   uint16_t m_indexPerStrip;
   uint16_t m_base;
-  uint16_t m_minStriptCounter;
 };
 
 } // namespace

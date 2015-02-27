@@ -259,4 +259,7 @@ void GLFunctions::glDrawElements(uint16_t indexCount) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
 
-int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name) { return 0; }
+int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
+{
+  return MOCK_CALL(glGetBufferParameter(target, name));
+}
