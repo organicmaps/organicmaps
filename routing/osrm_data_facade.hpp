@@ -4,8 +4,6 @@
 
 #include "../defines.hpp"
 
-
-
 #include "../coding/file_container.hpp"
 #include "../coding/read_write_utils.hpp"
 
@@ -230,7 +228,6 @@ public:
 template <class EdgeDataT> class OsrmDataFacade : public OsrmRawDataFacade<EdgeDataT>
 {
   typedef OsrmRawDataFacade<EdgeDataT> super;
-  CrossRoutingContextReader m_crossContext;
 
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
@@ -261,14 +258,6 @@ public:
 
     LoadRawData(m_handleEdgeData.GetData<char>(), m_handleEdgeId.GetData<char>(), m_handleShortcuts.GetData<char>(), m_handleFanoMatrix.GetData<char>());
 
-    if (container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
-    {
-      m_crossContext.Load(container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
-    }
-    else
-    {
-      //LOG(LINFO, ("Old routing file version! Have no crossMwm information!"));
-    }
   }
 
   void Clear()
@@ -278,11 +267,6 @@ public:
     m_handleEdgeId.Unmap();
     m_handleShortcuts.Unmap();
     m_handleFanoMatrix.Unmap();
-  }
-
-  CrossRoutingContextReader const & getRoutingContext()
-  {
-    return m_crossContext;
   }
 };
 

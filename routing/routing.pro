@@ -12,21 +12,23 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/Include
 
 SOURCES += \
-    turns.cpp \
-    route.cpp \
+    cross_routing_context.cpp \
     osrm_router.cpp \
     osrm_online_router.cpp \
     osrm2feature_map.cpp \
+    route.cpp \
+    routing_mapping.cpp \
+    turns.cpp \
     vehicle_model.cpp \
-    cross_routing_context.cpp \
 
 HEADERS += \
-    turns.hpp \
-    route.hpp \
-    router.hpp \
+    cross_routing_context.hpp \
     osrm_router.hpp \
     osrm_online_router.hpp \
     osrm_data_facade.hpp \
     osrm2feature_map.hpp \
+    route.hpp \
+    router.hpp \
+    routing_mapping.h \
+    turns.hpp \
     vehicle_model.hpp \
-    cross_routing_context.hpp \

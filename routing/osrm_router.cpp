@@ -11,14 +11,14 @@
 #include "../indexer/mercator.hpp"
 #include "../indexer/index.hpp"
 #include "../indexer/scales.hpp"
-#include "../indexer/mwm_version.hpp"
 #include "../indexer/search_string_utils.hpp"
 
 #include "../coding/reader_wrapper.hpp"
 
 #include "../base/logging.hpp"
-#include "../base/timer.hpp"
 #include "../base/math.hpp"
+#include "../base/scope_guard.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/algorithm.hpp"
 
@@ -361,76 +361,7 @@ RoutingMappingPtrT RoutingIndexManager::GetMappingByName(string const & fName, I
   return new_mapping;
 }
 
-RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
-  : m_mapCounter(0), m_facadeCounter(0), m_baseName(fName),
-    m_isValid(true), m_error(IRouter::ResultCode::NoError)
-{
-  Platform & pl = GetPlatform();
-  string const mwmName = m_baseName + DATA_FILE_EXTENSION;
-  string const fPath = pl.WritablePathForFile(mwmName + ROUTING_FILE_EXTENSION);
-  if (!pl.IsFileExistsByFullPath(fPath))
-  {
-    m_isValid = false;
-    m_error = IRouter::ResultCode::RouteFileNotExist;
-    return;
-  }
-  // Open new container and check that mwm and routing have equal timestamp.
-  LOG(LDEBUG, ("Load routing index for file:", fPath));
-  m_container.Open(fPath);
-  {
-    FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
-    ReaderSrc src1(r1);
-    ModelReaderPtr r2 = FilesContainerR(pl.GetReader(mwmName)).GetReader(VERSION_FILE_TAG);
-    ReaderSrc src2(r2.GetPtr());
 
-    if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
-    {
-      m_container.Close();
-      m_isValid = false;
-      m_error = IRouter::ResultCode::InconsistentMWMandRoute;
-      return;
-    }
-    m_segMapping.Load(m_container);
-  }
-
-  m_mwmId = pIndex->GetMwmIdByName(mwmName);
-}
-
-RoutingMapping::~RoutingMapping()
-{
-  // Clear data while m_container is valid.
-  m_dataFacade.Clear();
-  m_segMapping.Clear();
-  m_container.Close();
-}
-
-void RoutingMapping::Map()
-{
-  ++m_mapCounter;
-  if (!m_segMapping.IsMapped())
-    m_segMapping.Map(m_container);
-}
-
-void RoutingMapping::Unmap()
-{
-  --m_mapCounter;
-  if (m_mapCounter < 1 && m_segMapping.IsMapped())
-    m_segMapping.Unmap();
-}
-
-void RoutingMapping::LoadFacade()
-{
-  if (!m_facadeCounter)
-    m_dataFacade.Load(m_container);
-  ++m_facadeCounter;
-}
-
-void RoutingMapping::FreeFacade()
-{
-  --m_facadeCounter;
-  if (!m_facadeCounter)
-    m_dataFacade.Clear();
-}
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
   : m_pIndex(index), m_indexManager(fn), m_isFinalChanged(false),
@@ -644,8 +575,7 @@ size_t OsrmRouter::FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingM
 {
   m2::PointD startPoint = startNode.m_point;
 
-  CrossRoutingContextReader const & targetContext = targetMapping->m_dataFacade.getRoutingContext();
-  auto income_iters = targetContext.GetIngoingIterators();
+  auto income_iters = targetMapping->m_crossContext.GetIngoingIterators();
   for (auto i = income_iters.first; i < income_iters.second; ++i)
   {
     m2::PointD targetPoint = i->m_point;
@@ -744,7 +674,7 @@ class OsrmRouter::LastCrossFinder
 
 public:
   LastCrossFinder(RoutingMappingPtrT & mapping, FeatureGraphNodeVecT const & targetTask)
-    : m_targetContext(mapping->m_dataFacade.getRoutingContext()),
+    : m_targetContext(mapping->m_crossContext),
       m_mwmName(mapping->GetName())
   {
     auto income_iterators = m_targetContext.GetIngoingIterators();
@@ -889,10 +819,13 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   else //4.2 Multiple mwm case
   {
     LOG(LINFO, ("Multiple mwm routing case"));
+    startMapping->LoadCrossContext();
+    MY_SCOPE_GUARD(startMappingGuard, [&]() {startMapping->FreeCrossContext();});
+    targetMapping->LoadCrossContext();
+    MY_SCOPE_GUARD(targetMappingGuard, [&]() {targetMapping->FreeCrossContext();});
 
     // Load source data
-    CrossRoutingContextReader const & startContext = startMapping->m_dataFacade.getRoutingContext();
-    auto out_iterators = startContext.GetOutgoingIterators();
+    auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
     MultiroutingTaskPointT sources(1), targets(distance(out_iterators.first, out_iterators.second));
 
     for (auto i = out_iterators.first; i < out_iterators.second; ++i)
@@ -945,14 +878,14 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         continue;
       if (m_requestCancel)
         return Cancelled;
-      string const & nextMwm = startContext.getOutgoingMwmName((out_iterators.first+j)->m_outgoingIndex);
+      string const & nextMwm = startMapping->m_crossContext.getOutgoingMwmName((out_iterators.first+j)->m_outgoingIndex);
       RoutingMappingPtrT nextMapping;
       nextMapping = m_indexManager.GetMappingByName(nextMwm, m_pIndex);
       // If we don't this routing file, we skip this path
       if (!nextMapping->IsValid())
         continue;
-      MappingGuard nextMappingGuard(nextMapping);
-      UNUSED_VALUE(nextMappingGuard);
+      nextMapping->LoadCrossContext();
+      MY_SCOPE_GUARD(nextMappingGuard, [&]() {nextMapping->FreeCrossContext();});
       size_t tNodeId = (out_iterators.first+j)->m_nodeId;
       size_t nextNodeId = FindNextMwmNode(*(out_iterators.first+j), nextMapping);
       if (nextNodeId == INVALID_NODE_ID)
@@ -983,7 +916,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       }
     }
 
-    // Process tasks from tasks queu
+    // Process tasks from tasks queue
     if (!crossTasks.empty())
     {
       while (getPathWeight(crossTasks.top())<finalWeight)
@@ -998,9 +931,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         currentMapping = m_indexManager.GetMappingByName(cross.mwmName, m_pIndex);
         ASSERT(currentMapping->IsValid(), ());
 
-        MappingGuard currentMappingGuard(currentMapping);
-        UNUSED_VALUE(currentMappingGuard);
-        CrossRoutingContextReader const & currentContext = currentMapping->m_dataFacade.getRoutingContext();
+        currentMapping->LoadCrossContext();
+        MY_SCOPE_GUARD(currentMappingGuard, [&]() {currentMapping->FreeCrossContext();});
+        CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
         auto current_in_iterators = currentContext.GetIngoingIterators();
         auto current_out_iterators = currentContext.GetOutgoingIterators();
 
@@ -1032,13 +965,14 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
             if (!nextMapping->IsValid())
               continue;
 
-            MappingGuard nextMappingGuard(nextMapping);
-            UNUSED_VALUE(nextMappingGuard);
             size_t const tNodeId = oit->m_nodeId;
             auto const outNode = make_pair(tNodeId, currentMapping->GetName());
             if (checkedOuts.find(outNode)!=checkedOuts.end())
               continue;
             checkedOuts.insert(outNode);
+
+            nextMapping->LoadCrossContext();
+            MY_SCOPE_GUARD(nextMappingGuard, [&]() {nextMapping->FreeCrossContext();});
             size_t nextNodeId = FindNextMwmNode(*oit, nextMapping);
             if(nextNodeId == INVALID_NODE_ID)
               continue;
