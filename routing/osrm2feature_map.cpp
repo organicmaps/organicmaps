@@ -310,7 +310,7 @@ void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
     }
 
     // Write padding to make next elias_fano start address multiple of 4.
-    writer.WritePadding(4);
+    writer.WritePaddingByEnd(4);
   }
 
   string const fName = cont.GetFileName() + "." ROUTING_FTSEG_FILE_TAG;

@@ -269,7 +269,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
     ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));
     rw::ReadAndWrite(src, w);
-    w.WritePadding(4);
+    w.WritePaddingByEnd(4);
   }
 
   mapping.Save(routingCont);
@@ -338,7 +338,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   FileWriter w = routingCont.GetWriter(ROUTING_CROSS_CONTEXT_TAG);
   size_t const start_size = w.Pos();
   crossContext.Save(w);
-  w.WritePadding(4);
+  w.WritePaddingByEnd(4);
   LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
 
   routingCont.Finish();

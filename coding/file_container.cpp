@@ -355,20 +355,24 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
   if (m_bNeedRewrite)
   {
     m_bNeedRewrite = false;
-    ASSERT ( !m_info.empty(), () );
+    ASSERT(!m_info.empty(), ());
 
     uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
-    m_info.push_back(Info(tag, curr));
-
     FileWriter writer(m_name, FileWriter::OP_WRITE_EXISTING, true);
     writer.Seek(curr);
+    writer.WritePaddingByPos(kSectionAlignment);
+    m_info.push_back(Info(tag, writer.Pos()));
+    ASSERT(m_info.back().m_offset % kSectionAlignment == 0, ());
     return writer;
   }
   else
   {
-    uint64_t const curr = SaveCurrentSize();
-    m_info.push_back(Info(tag, curr));
-    return FileWriter(m_name, FileWriter::OP_APPEND);
+    SaveCurrentSize();
+    FileWriter writer(m_name, FileWriter::OP_APPEND);
+    writer.WritePaddingByPos(kSectionAlignment);
+    m_info.push_back(Info(tag, writer.Pos()));
+    ASSERT(m_info.back().m_offset % kSectionAlignment == 0, ());
+    return writer;
   }
 }
 

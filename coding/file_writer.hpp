@@ -35,7 +35,9 @@ public:
   int64_t Pos() const;
   void Write(void const * p, size_t size);
 
-  void WritePadding(size_t factor);
+  void WritePaddingByEnd(size_t factor);
+
+  void WritePaddingByPos(size_t factor);
 
   uint64_t Size() const;
   void Flush();
@@ -48,6 +50,9 @@ public:
 
 private:
   typedef my::FileData fdata_t;
+
+  void WritePadding(uint64_t offset, uint64_t factor);
+
   unique_ptr<fdata_t> m_pFileData;
   bool m_bTruncOnClose;
 };

@@ -1,7 +1,6 @@
 #include "file_writer.hpp"
 #include "internal/file_data.hpp"
 
-
 FileWriter::FileWriter(FileWriter const & rhs)
 : Writer(*this), m_bTruncOnClose(rhs.m_bTruncOnClose)
 {
@@ -40,18 +39,9 @@ void FileWriter::Write(void const * p, size_t size)
   m_pFileData->Write(p, size);
 }
 
-void FileWriter::WritePadding(size_t factor)
-{
-  ASSERT(factor > 1, ());
+void FileWriter::WritePaddingByEnd(size_t factor) { WritePadding(Size(), factor); }
 
-  uint64_t sz = Size();
-  sz = ((sz + factor - 1) / factor) * factor - sz;
-  if (sz > 0)
-  {
-    vector<uint8_t> buffer(sz);
-    Write(buffer.data(), sz);
-  }
-}
+void FileWriter::WritePaddingByPos(size_t factor) { WritePadding(Pos(), factor); }
 
 string FileWriter::GetName() const
 {
@@ -83,3 +73,12 @@ void FileWriter::DeleteFileX(string const & fName)
   (void)my::DeleteFileX(fName);
 }
 
+void FileWriter::WritePadding(uint64_t offset, uint64_t factor)
+{
+  ASSERT(factor > 1, ());
+  uint64_t const padding = ((offset + factor - 1) / factor) * factor - offset;
+  if (!padding)
+    return;
+  vector<uint8_t> buffer(padding);
+  Write(buffer.data(), buffer.size());
+}

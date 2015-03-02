@@ -12,6 +12,13 @@ class FilesContainerBase
 public:
   typedef string Tag;
 
+  /// Alignment of each new section that will be added to a file
+  /// container, i.e. section's offset in bytes will be a multiple of
+  /// this value.
+  ///
+  /// WARNING! Existing sections may not be properly aligned.
+  static uint64_t const kSectionAlignment = 8;
+
   bool IsExist(Tag const & tag) const
   {
     return GetInfo(tag) != 0;
