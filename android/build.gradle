@@ -172,7 +172,7 @@ android {
       def runTask = "run$task"
       def installTask = "install$task"
       project.task(type: Exec, "${runTask}", dependsOn: "${installTask}") {
-        def component = "com.mapswithme.maps.pro/com.mapswithme.maps.DownloadResourcesActivity"
+        def component = "$applicationId/com.mapswithme.maps.DownloadResourcesActivity"
         executable "sh"
         args "-c", "adb shell am start -n ${component}"
       }
