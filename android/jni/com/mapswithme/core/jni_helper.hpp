@@ -7,9 +7,13 @@
 #include "../../../../../std/string.hpp"
 #include "../../../../../std/shared_ptr.hpp"
 
+// cache MapIndex jclass
+extern jclass g_indexClazz;
 
 namespace jni
 {
+//  jclass FindClass(char const * name);
+
   /// @name Some examples of signature:
   /// "()V" - void function returning void;
   /// "(Ljava/lang/String;)V" - String function returning void;

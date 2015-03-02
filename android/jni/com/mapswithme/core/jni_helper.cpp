@@ -3,13 +3,20 @@
 
 #include "../../../../../base/assert.hpp"
 
-
 static JavaVM * g_jvm = 0;
-
 extern JavaVM * GetJVM()
 {
   return g_jvm;
 }
+
+// TODO refactor cached jclass to smth more
+// TODO finish this logic after refactoring
+// cached classloader that can be used to find classes & methods from native threads.
+//static shared_ptr<jobject> g_classLoader;
+//static jmethodID g_findClassMethod;
+
+// caching is necessary to create class from native threads
+jclass g_indexClazz;
 
 // @TODO remove after refactoring. Needed for NVidia code
 void InitNVEvent(JavaVM * jvm);
@@ -24,6 +31,23 @@ extern "C"
     jni::InitAssertLog();
     // @TODO remove line below after refactoring
     InitNVEvent(jvm);
+
+    JNIEnv * env = jni::GetEnv();
+    // TODO
+    // init classloader & findclass methodID.
+//    auto randomClass = env->FindClass("com/mapswithme/maps/MapStorage");
+//    jclass classClass = env->GetObjectClass(randomClass);
+//    auto classLoaderClass = env->FindClass("java/lang/ClassLoader");
+//    auto getClassLoaderMethod = env->GetMethodID(classClass, "getClassLoader",
+//                                             "()Ljava/lang/ClassLoader;");
+//    g_classLoader = jni::make_global_ref(env->CallObjectMethod(randomClass, getClassLoaderMethod));
+//    ASSERT(*g_classLoader, ("Classloader can't be 0"));
+//    g_findClassMethod = env->GetMethodID(classLoaderClass, "findClass",
+//                                    "(Ljava/lang/String;)Ljava/lang/Class;");
+//    ASSERT(g_findClassMethod, ("FindClass methodId can't be 0"));
+    g_indexClazz = static_cast<jclass>(env->NewGlobalRef(env->FindClass("com/mapswithme/maps/MapStorage$Index")));
+    ASSERT(g_indexClazz, ("Index class not found!"));
+
     return JNI_VERSION_1_6;
   }
 
@@ -31,12 +55,22 @@ extern "C"
   JNI_OnUnload(JavaVM *, void *)
   {
     g_jvm = 0;
+    jni::GetEnv()->DeleteGlobalRef(g_indexClazz);
   }
 } // extern "C"
 
-
 namespace jni
 {
+  //
+//  jclass FindClass(char const * name)
+//  {
+//    JNIEnv * env = GetEnv();
+//    jstring className = env->NewStringUTF(name);
+//    jclass clazz = static_cast<jclass>(GetEnv()->CallObjectMethod(*g_classLoader, g_findClassMethod, className));
+//    env->DeleteLocalRef(className);
+//    return clazz;
+//  }
+
   jmethodID GetJavaMethodID(JNIEnv * env, jobject obj, char const * fn, char const * sig)
   {
     ASSERT(env, ("JNIEnv can't be 0"));
@@ -50,6 +84,7 @@ namespace jni
     return mid;
   }
 
+  // @TODO uncomment, test & use?
   /*
   jobject CreateJavaObject(JNIEnv * env, char const * klassName, char const * sig, ...)
   {
@@ -184,5 +219,4 @@ namespace jni
                               static_cast<jint>(point.x),
                               static_cast<jint>(point.y));
   }
-
 } // namespace jni
