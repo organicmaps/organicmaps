@@ -860,7 +860,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     Framework & f = GetFramework();
     search::AddressInfo info;
     m2::PointD pxPivot;
-    if (f.GetVisiblePOI(f.GtoP([self pinPoint]), pxPivot, info))
+    feature::FeatureMetadata metadata;
+    if (f.GetVisiblePOI(f.GtoP([self pinPoint]), pxPivot, info, metadata))
     {
       return [self nonEmptyTitle:info.GetPinName()];
     }
