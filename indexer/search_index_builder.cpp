@@ -5,6 +5,7 @@
 #include "search_trie.hpp"
 #include "search_string_utils.hpp"
 #include "string_file.hpp"
+#include "string_file_values.hpp"
 #include "classificator.hpp"
 #include "feature_visibility.hpp"
 #include "categories_holder.hpp"
@@ -20,15 +21,19 @@
 #include "../coding/writer.hpp"
 #include "../coding/reader_writer_ops.hpp"
 
+#include "../base/assert.hpp"
+#include "../base/timer.hpp"
+#include "../base/scope_guard.hpp"
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
-#include "../std/unordered_map.hpp"
 #include "../std/fstream.hpp"
 #include "../std/initializer_list.hpp"
+#include "../std/limits.hpp"
+#include "../std/unordered_map.hpp"
+#include "../std/vector.hpp"
 
 #define SYNONYMS_FILE "synonyms.txt"
 
@@ -84,20 +89,21 @@ public:
   }
 };
 
+template<typename StringsFileT>
 struct FeatureNameInserter
 {
   SynonymsHolder * m_synonyms;
-  StringsFile & m_names;
-  StringsFile::ValueT m_val;
+  StringsFileT & m_names;
+  typename StringsFileT::ValueT m_val;
 
-  FeatureNameInserter(SynonymsHolder * synonyms, StringsFile & names)
+  FeatureNameInserter(SynonymsHolder * synonyms, StringsFileT & names)
     : m_synonyms(synonyms), m_names(names)
   {
   }
 
   void AddToken(signed char lang, strings::UniString const & s) const
   {
-    m_names.AddString(StringsFile::StringT(s, lang, m_val));
+    m_names.AddString(typename StringsFileT::StringT(s, lang, m_val));
   }
 
 private:
@@ -141,22 +147,19 @@ public:
   }
 };
 
-class FeatureInserter
+template <typename ValueT>
+struct ValueBuilder;
+
+template <>
+struct ValueBuilder<SerializedFeatureInfoValue>
 {
-  SynonymsHolder * m_synonyms;
-  StringsFile & m_names;
-
-  CategoriesHolder const & m_categories;
-
-  typedef StringsFile::ValueT ValueT;
   typedef search::trie::ValueReader SaverT;
   SaverT m_valueSaver;
 
-  pair<int, int> m_scales;
+  ValueBuilder(serial::CodingParams const & cp) : m_valueSaver(cp) {}
 
-
-  void MakeValue(FeatureType const & f, feature::TypesHolder const & types,
-                 uint64_t pos, ValueT & value) const
+  void MakeValue(FeatureType const & f, feature::TypesHolder const & types, uint64_t pos,
+                 SerializedFeatureInfoValue & value) const
   {
     SaverT::ValueType v;
     v.m_featureId = static_cast<uint32_t>(pos);
@@ -166,9 +169,36 @@ class FeatureInserter
     v.m_rank = feature::GetSearchRank(types, v.m_pt, f.GetPopulation());
 
     // write to buffer
-    PushBackByteSink<ValueT> sink(value);
+    PushBackByteSink<SerializedFeatureInfoValue::ValueT> sink(value.m_value);
     m_valueSaver.Save(sink, v);
   }
+};
+
+template <>
+struct ValueBuilder<FeatureIndexValue>
+{
+  void MakeValue(FeatureType const & /* f */, feature::TypesHolder const & /* types */,
+                 uint64_t pos, FeatureIndexValue & value) const
+  {
+    ASSERT_LESS(pos, numeric_limits<uint32_t>::max(), ());
+    value.m_value = static_cast<uint32_t>(pos);
+  }
+};
+
+template <typename StringsFileT>
+class FeatureInserter
+{
+  SynonymsHolder * m_synonyms;
+  StringsFileT & m_names;
+
+  CategoriesHolder const & m_categories;
+
+  typedef typename StringsFileT::ValueT ValueT;
+  typedef search::trie::ValueReader SaverT;
+
+  pair<int, int> m_scales;
+
+  ValueBuilder<ValueT> const & m_valueBuilder;
 
   /// There are 3 different ways of search index skipping:
   /// - skip features in any case (m_skipFeatures)
@@ -276,17 +306,16 @@ class FeatureInserter
   };
 
 public:
-  FeatureInserter(SynonymsHolder * synonyms, StringsFile & names,
-                  CategoriesHolder const & catHolder,
-                  serial::CodingParams const & cp,
-                  pair<int, int> const & scales)
+  FeatureInserter(SynonymsHolder * synonyms, StringsFileT & names,
+                  CategoriesHolder const & catHolder, pair<int, int> const & scales,
+                  ValueBuilder<ValueT> const & valueBuilder)
     : m_synonyms(synonyms), m_names(names),
-      m_categories(catHolder), m_valueSaver(cp), m_scales(scales)
+      m_categories(catHolder), m_scales(scales), m_valueBuilder(valueBuilder)
   {
   }
 
   void operator() (FeatureType const & f, uint64_t pos) const
-  {       
+  {
     feature::TypesHolder types(f);
 
     static SkipIndexing skipIndex;
@@ -297,8 +326,9 @@ public:
 
     // Init inserter with serialized value.
     // Insert synonyms only for countries and states (maybe will add cities in future).
-    FeatureNameInserter inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0, m_names);
-    MakeValue(f, types, pos, inserter.m_val);
+    FeatureNameInserter<StringsFileT> inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0,
+                                               m_names);
+    m_valueBuilder.MakeValue(f, types, pos, inserter.m_val);
 
     // Skip types for features without names.
     if (!f.ForEachNameRef(inserter))
@@ -332,6 +362,41 @@ public:
   }
 };
 
+template <typename FeatureInserterT>
+struct FeatureInserterAdapter
+{
+  FeatureInserterAdapter(FeatureInserterT & inserter) : m_inserter(inserter), m_index(0) {}
+
+  void operator()(FeatureType const & f, uint64_t pos)
+  {
+    m_inserter(f, m_index++);
+  }
+
+  FeatureInserterT & m_inserter;
+  uint64_t m_index;
+};
+
+void AddFeatureNameIndexPairs(FilesContainerR const & container,
+                              CategoriesHolder & categoriesHolder,
+                              StringsFile<FeatureIndexValue> & stringsFile)
+{
+  feature::DataHeader header;
+  header.Load(container.GetReader(HEADER_FILE_TAG));
+  FeaturesVector features(container, header);
+
+  ValueBuilder<FeatureIndexValue> valueBuilder;
+
+  unique_ptr<SynonymsHolder> synonyms;
+  if (header.GetType() == feature::DataHeader::world)
+    synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
+
+  FeatureInserter<StringsFile<FeatureIndexValue>> inserter(
+      synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder);
+
+  FeatureInserterAdapter<FeatureInserter<StringsFile<FeatureIndexValue>>> adapter(inserter);
+  features.ForEachOffset(adapter);
+}
+
 void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & catHolder,
                       Writer & writer, string const & tmpFilePath)
 {
@@ -341,30 +406,33 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
     FeaturesVector featuresV(cont, header);
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
+    ValueBuilder<SerializedFeatureInfoValue> valueBuilder(cp);
 
     unique_ptr<SynonymsHolder> synonyms;
     if (header.GetType() == feature::DataHeader::world)
       synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 
-    StringsFile names(tmpFilePath);
+    StringsFile<SerializedFeatureInfoValue> names(tmpFilePath);
 
-    featuresV.ForEachOffset(FeatureInserter(synonyms.get(), names,
-                                            catHolder, cp, header.GetScaleRange()));
+    featuresV.ForEachOffset(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
+        synonyms.get(), names, catHolder, header.GetScaleRange(), valueBuilder));
 
     names.EndAdding();
     names.OpenForRead();
 
-    trie::Build(writer, names.Begin(), names.End(), trie::builder::EmptyEdgeBuilder());
+    trie::Build<Writer, typename StringsFile<SerializedFeatureInfoValue>::IteratorT,
+                trie::builder::EmptyEdgeBuilder, ValueList<SerializedFeatureInfoValue>>(
+        writer, names.Begin(), names.End(), trie::builder::EmptyEdgeBuilder());
 
     // at this point all readers of StringsFile should be dead
   }
 
   FileWriter::DeleteFileX(tmpFilePath);
 }
+}  // namespace
 
-}
-
-bool indexer::BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
+namespace indexer {
+bool BuildSearchIndexFromDatFile(string const & datFile, bool forceRebuild)
 {
   LOG(LINFO, ("Start building search index. Bits = ", search::POINT_CODING_BITS));
 
@@ -412,3 +480,74 @@ bool indexer::BuildSearchIndexFromDatFile(string const & datFile, bool forceRebu
   LOG(LINFO, ("End building search index."));
   return true;
 }
+
+bool AddCompresedSearchIndexSection(string const & fName, bool forceRebuild)
+{
+  Platform & platform = GetPlatform();
+
+  FilesContainerR readContainer(platform.GetReader(fName));
+  if (readContainer.IsExist(COMPRESSED_SEARCH_INDEX_FILE_TAG) && !forceRebuild)
+    return true;
+
+  string const indexFile = platform.WritablePathForFile("compressed-search-index.tmp");
+  MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFile));
+
+  try
+  {
+    {
+      FileWriter indexWriter(indexFile);
+      BuildCompressedSearchIndex(readContainer, indexWriter);
+    }
+    {
+      FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
+      FileWriter writer = writeContainer.GetWriter(COMPRESSED_SEARCH_INDEX_FILE_TAG);
+      rw_ops::Reverse(FileReader(indexFile), writer);
+    }
+  }
+  catch (Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Error while reading file: ", e.Msg()));
+    return false;
+  }
+  catch (Writer::Exception const & e)
+  {
+    LOG(LERROR, ("Error writing index file: ", e.Msg()));
+    return false;
+  }
+
+  return true;
+}
+
+void BuildCompressedSearchIndex(FilesContainerR & container, Writer & indexWriter)
+{
+  Platform & platform = GetPlatform();
+
+  LOG(LINFO, ("Start building compressed search index for", container.GetFileName()));
+  my::Timer timer;
+
+  string stringsFilePath = platform.WritablePathForFile("strings.tmp");
+  StringsFile<FeatureIndexValue> stringsFile(stringsFilePath);
+  MY_SCOPE_GUARD(stringsFileGuard, bind(&FileWriter::DeleteFileX, stringsFilePath));
+
+  CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
+
+  AddFeatureNameIndexPairs(container, categoriesHolder, stringsFile);
+
+  stringsFile.EndAdding();
+
+  LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
+
+  stringsFile.OpenForRead();
+  trie::Build<Writer, typename StringsFile<FeatureIndexValue>::IteratorT,
+              trie::builder::EmptyEdgeBuilder, ValueList<FeatureIndexValue>>(
+      indexWriter, stringsFile.Begin(), stringsFile.End(), trie::builder::EmptyEdgeBuilder());
+
+  LOG(LINFO, ("End building compressed search index, elapsed seconds:", timer.ElapsedSeconds()));
+}
+
+void BuildCompressedSearchIndex(string const & fName, Writer & indexWriter)
+{
+  FilesContainerR container(GetPlatform().GetReader(fName));
+  BuildCompressedSearchIndex(container, indexWriter);
+}
+}  // namespace indexer

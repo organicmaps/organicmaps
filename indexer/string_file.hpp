@@ -14,12 +14,12 @@
 #include "../std/functional.hpp"
 #include "../std/unique_ptr.hpp"
 
-
+template <typename TValue>
 class StringsFile
 {
 public:
-  typedef buffer_vector<uint8_t, 32> ValueT;
-  typedef uint32_t IdT;
+  using ValueT = TValue;
+  using IdT = uint32_t;
 
   class StringT
   {
@@ -28,12 +28,15 @@ public:
 
   public:
     StringT() {}
-    StringT(strings::UniString const & name, signed char lang, ValueT const & val)
-      : m_val(val)
+    StringT(strings::UniString const & name, signed char lang, ValueT const & val) : m_val(val)
     {
       m_name.reserve(name.size() + 1);
       m_name.push_back(static_cast<uint8_t>(lang));
       m_name.append(name.begin(), name.end());
+    }
+
+    StringT(strings::UniString const & langName, ValueT const & val) : m_name(langName), m_val(val)
+    {
     }
 
     uint32_t GetKeySize() const { return m_name.size(); }
@@ -43,16 +46,42 @@ public:
 
     ValueT const & GetValue() const { return m_val; }
 
-    template <class TCont> void SerializeValue(TCont & cont) const
+    bool operator<(StringT const & name) const
     {
-      cont.assign(m_val.begin(), m_val.end());
+      if (m_name != name.m_name)
+        return m_name < name.m_name;
+      return m_val < name.m_val;
     }
 
-    bool operator < (StringT const & name) const;
-    bool operator == (StringT const & name) const;
+    bool operator==(StringT const & name) const
+    {
+      return m_name == name.m_name && m_val == name.m_val;
+    }
 
-    template <class TWriter> IdT Write(TWriter & writer) const;
-    template <class TReader> void Read(TReader & src);
+    template <class TWriter>
+    IdT Write(TWriter & writer) const
+    {
+      IdT const pos = static_cast<IdT>(writer.Pos());
+      CHECK_EQUAL(static_cast<uint64_t>(pos), writer.Pos(), ());
+
+      rw::Write(writer, m_name);
+      m_val.Write(writer);
+
+      return pos;
+    }
+
+    template <class TReader>
+    void Read(TReader & src)
+    {
+      rw::Read(src, m_name);
+      m_val.Read(src);
+    }
+
+    template <class TCont>
+    void SerializeValue(TCont & cont) const
+    {
+      m_val.Serialize(cont);
+    }
 
     void Swap(StringT & r)
     {
@@ -98,7 +127,7 @@ public:
         trie.ForEach([&memWriter](const strings::UniString & s, const ValueT & v)
                      {
                        rw::Write(memWriter, s);
-                       rw::WriteVectorOfPOD(memWriter, v);
+                       v.Write(memWriter);
                      });
       }
 
@@ -126,8 +155,7 @@ public:
     inline bool IsValid() const { return (!m_end && !IsEnd()); }
 
   public:
-    IteratorT(StringsFile & file, bool isEnd)
-      : m_file(file), m_end(isEnd)
+    IteratorT(StringsFile & file, bool isEnd) : m_file(file), m_end(isEnd)
     {
       // Additional check in case for empty sequence.
       if (!m_end)
@@ -173,8 +201,104 @@ private:
 
     QValue(StringT const & s, size_t i) : m_string(s), m_index(i) {}
 
-    inline bool operator > (QValue const & rhs) const { return !(m_string < rhs.m_string); }
+    inline bool operator>(QValue const & rhs) const { return !(m_string < rhs.m_string); }
   };
 
-  priority_queue<QValue, vector<QValue>, greater<QValue> > m_queue;
+  priority_queue<QValue, vector<QValue>, greater<QValue>> m_queue;
 };
+
+template <typename ValueT>
+void StringsFile<ValueT>::AddString(StringT const & s)
+{
+  size_t const maxSize = 1000000;
+
+  if (m_strings.size() >= maxSize)
+    Flush();
+
+  m_strings.push_back(s);
+}
+
+template <typename ValueT>
+bool StringsFile<ValueT>::IteratorT::IsEnd() const
+{
+  return m_file.m_queue.empty();
+}
+
+template <typename ValueT>
+typename StringsFile<ValueT>::StringT StringsFile<ValueT>::IteratorT::dereference() const
+{
+  ASSERT(IsValid(), ());
+  return m_file.m_queue.top().m_string;
+}
+
+template <typename ValueT>
+void StringsFile<ValueT>::IteratorT::increment()
+{
+  ASSERT(IsValid(), ());
+  int const index = m_file.m_queue.top().m_index;
+
+  m_file.m_queue.pop();
+
+  if (!m_file.PushNextValue(index))
+    m_end = IsEnd();
+}
+
+template <typename ValueT>
+StringsFile<ValueT>::StringsFile(string const & fPath)
+    : m_workerThread(1 /* maxTasks */)
+{
+  m_writer.reset(new FileWriter(fPath));
+}
+
+template <typename ValueT>
+void StringsFile<ValueT>::Flush()
+{
+  shared_ptr<SortAndDumpStringsTask> task(
+      new SortAndDumpStringsTask(*m_writer, m_offsets, m_strings));
+  m_workerThread.Push(task);
+}
+
+template <typename ValueT>
+bool StringsFile<ValueT>::PushNextValue(size_t i)
+{
+  // reach the end of the portion file
+  if (m_offsets[i].first >= m_offsets[i].second)
+    return false;
+
+  // init source to needed offset
+  ReaderSource<FileReader> src(*m_reader);
+  src.Skip(m_offsets[i].first);
+
+  // read string
+  StringT s;
+  s.Read(src);
+
+  // update offset
+  m_offsets[i].first = src.Pos();
+
+  // push value to queue
+  m_queue.push(QValue(s, i));
+  return true;
+}
+
+template <typename ValueT>
+void StringsFile<ValueT>::EndAdding()
+{
+  Flush();
+
+  m_workerThread.RunUntilIdleAndStop();
+
+  m_writer->Flush();
+}
+
+template <typename ValueT>
+void StringsFile<ValueT>::OpenForRead()
+{
+  string const fPath = m_writer->GetName();
+  m_writer.reset();
+
+  m_reader.reset(new FileReader(fPath));
+
+  for (size_t i = 0; i < m_offsets.size(); ++i)
+    PushNextValue(i);
+}

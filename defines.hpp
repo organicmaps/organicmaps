@@ -15,6 +15,7 @@
 #define METADATA_FILE_TAG "meta"
 #define METADATA_INDEX_FILE_TAG "metaidx"
 #define FEATURES_OFFSETS_TABLE_FILE_TAG "offsets"
+#define COMPRESSED_SEARCH_INDEX_FILE_TAG "csdx"
 
 #define ROUTING_MATRIX_FILE_TAG "mercedes"
 #define ROUTING_EDGEDATA_FILE_TAG "daewoo"

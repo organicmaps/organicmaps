@@ -54,11 +54,12 @@ struct KeyValuePair
 
   uint32_t GetKeySize() const { return m_key.size(); }
   trie::TrieChar const * GetKeyData() const { return m_key.data(); }
+  uint32_t GetValue() const { return m_value; }
 
   template <class TCont> void SerializeValue(TCont & cont) const
   {
-    cont.resize(4);
-    memcpy(cont.data(), &m_value, 4);
+    cont.resize(sizeof(m_value));
+    memcpy(cont.data(), &m_value, sizeof(m_value));
   }
 
   bool operator == (KeyValuePair const & p) const
@@ -113,6 +114,49 @@ struct MaxValueCalc
   }
 };
 
+class CharValueList
+{
+public:
+  CharValueList(const string & s) : m_string(s) {}
+
+  size_t size() const { return m_string.size(); }
+
+  template <typename SinkT>
+  void Dump(SinkT & sink) const
+  {
+    sink.Write(m_string.data(), m_string.size());
+  }
+
+private:
+  string m_string;
+};
+
+class Uint32ValueList
+{
+public:
+  Uint32ValueList() : m_size(0) {}
+
+  void Append(uint32_t value)
+  {
+    size_t const originalSize = m_value.size();
+    m_value.resize(originalSize + sizeof(value));
+    memcpy(m_value.data() + originalSize, &value, sizeof(value));
+    ++m_size;
+  }
+
+  uint32_t size() const { return m_size; }
+
+  template <typename SinkT>
+  void Dump(SinkT & sink) const
+  {
+    sink.Write(&m_value[0], m_value.size());
+  }
+
+private:
+  vector<uint8_t> m_value;
+  uint32_t m_size;
+};
+
 }  // unnamed namespace
 
 #define ZENC bits::ZigZagEncode
@@ -132,8 +176,9 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
                   "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij", "i4"),
     ChildNodeInfo(true, 5, "a", "5z")
   };
-  trie::builder::WriteNode(sink, 0, 3, "123", 3,
-                           &children[0], &children[0] + ARRAY_SIZE(children));
+
+  CharValueList valueList("123");
+  trie::builder::WriteNode(sink, 0, valueList, &children[0], &children[0] + ARRAY_SIZE(children));
   uint8_t const expected [] =
   {
     BOOST_BINARY(11000101),                                                 // Header: [0b11] [0b000101]
@@ -202,7 +247,9 @@ UNIT_TEST(TrieBuilder_Build)
 
     vector<uint8_t> serial;
     PushBackByteSink<vector<uint8_t> > sink(serial);
-    trie::Build(sink, v.begin(), v.end(), trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
+    trie::Build<PushBackByteSink<vector<uint8_t> >, typename vector<KeyValuePair>::iterator,
+                trie::builder::MaxValueEdgeBuilder<MaxValueCalc>, Uint32ValueList>(
+        sink, v.begin(), v.end(), trie::builder::MaxValueEdgeBuilder<MaxValueCalc>());
     reverse(serial.begin(), serial.end());
     // LOG(LINFO, (serial.size(), vs));
 

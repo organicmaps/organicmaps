@@ -44,7 +44,6 @@ SOURCES += \
     search_delimiters.cpp \
     search_index_builder.cpp \
     search_string_utils.cpp \
-    string_file.cpp \
     types_mapping.cpp \
 
 HEADERS += \
@@ -94,6 +93,7 @@ HEADERS += \
     search_string_utils.hpp \
     search_trie.hpp \
     string_file.hpp \
+    string_file_values.hpp \
     tesselator_decl.hpp \
     tree_structure.hpp \
     types_mapping.hpp \

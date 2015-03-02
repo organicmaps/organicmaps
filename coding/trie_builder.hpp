@@ -1,7 +1,10 @@
 #pragma once
-#include "../coding/byte_stream.hpp"
-#include "../coding/varint.hpp"
+
+#include "byte_stream.hpp"
+#include "varint.hpp"
+
 #include "../base/buffer_vector.hpp"
+
 #include "../std/algorithm.hpp"
 
 // Trie format:
@@ -39,27 +42,25 @@ namespace trie
 {
 namespace builder
 {
-
-template <typename SinkT, typename ChildIterT>
-void WriteNode(SinkT & sink, TrieChar baseChar, uint32_t const valueCount,
-               void const * const valuesDataSize, uint32_t const valuesSize,
-               ChildIterT const begChild, ChildIterT const endChild,
-               bool isRoot = false)
+template <typename SinkT, typename ChildIterT, typename ValueListT>
+void WriteNode(SinkT & sink, TrieChar baseChar, ValueListT & valueList,
+               ChildIterT const begChild, ChildIterT const endChild, bool isRoot = false)
 {
   if (begChild == endChild && !isRoot)
   {
     // Leaf node.
-    sink.Write(valuesDataSize, valuesSize);
+    valueList.Dump(sink);
     return;
   }
   uint32_t const childCount = endChild - begChild;
+  uint32_t const valueCount = valueList.size();
   uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
-  sink.Write(valuesDataSize, valuesSize);
+  valueList.Dump(sink);
   for (ChildIterT it = begChild; it != endChild; /*++it*/)
   {
     uint8_t header = (it->IsLeaf() ? 128 : 0);
@@ -70,9 +71,9 @@ void WriteNode(SinkT & sink, TrieChar baseChar, uint32_t const valueCount,
     uint32_t const diff0 = bits::ZigZagEncode(int32_t(edge[0] - baseChar));
     if (edgeSize == 1 && (diff0 & ~63U) == 0)
     {
-        header |= 64;
-        header |= diff0;
-        WriteToSink(sink, header);
+      header |= 64;
+      header |= diff0;
+      WriteToSink(sink, header);
     }
     else
     {
@@ -102,20 +103,6 @@ void WriteNode(SinkT & sink, TrieChar baseChar, uint32_t const valueCount,
   }
 }
 
-template <typename SinkT, typename ChildIterT>
-void WriteNodeReverse(SinkT & sink, TrieChar baseChar, uint32_t const valueCount,
-                      void const * const valuesDataSize, uint32_t const valuesSize,
-                      ChildIterT const begChild, ChildIterT const endChild,
-                      bool isRoot = false)
-{
-  typedef buffer_vector<uint8_t, 64> OutStorageType;
-  OutStorageType out;
-  PushBackByteSink<OutStorageType> outSink(out);
-  WriteNode(outSink, baseChar, valueCount, valuesDataSize, valuesSize, begChild, endChild, isRoot);
-  reverse(out.begin(), out.end());
-  sink.Write(out.data(), out.size());
-}
-
 struct ChildInfo
 {
   bool m_isLeaf;
@@ -136,20 +123,34 @@ struct ChildInfo
   uint32_t GetEdgeValueSize() const { return m_edgeValue.size(); }
 };
 
-template <class EdgeBuilderT>
+template <class EdgeBuilderT, class ValueListT>
 struct NodeInfo
 {
   uint64_t m_begPos;
   TrieChar m_char;
   vector<ChildInfo> m_children;
-  buffer_vector<uint8_t, 32> m_values;
-  uint32_t m_valueCount;
+  ValueListT m_valueList;
   EdgeBuilderT m_edgeBuilder;
 
-  NodeInfo() : m_valueCount(0) {}
+  NodeInfo() : m_begPos(0), m_char(0) {}
   NodeInfo(uint64_t pos, TrieChar trieChar, EdgeBuilderT const & edgeBuilder)
-    : m_begPos(pos), m_char(trieChar), m_valueCount(0), m_edgeBuilder(edgeBuilder) {}
+      : m_begPos(pos), m_char(trieChar), m_edgeBuilder(edgeBuilder)
+  {
+  }
 };
+
+template <typename SinkT, typename EdgeBuilderT, typename ValueListT>
+void WriteNodeReverse(SinkT & sink, TrieChar baseChar, NodeInfo<EdgeBuilderT, ValueListT> & node,
+                      bool isRoot = false)
+{
+  typedef buffer_vector<uint8_t, 64> OutStorageType;
+  OutStorageType out;
+  PushBackByteSink<OutStorageType> outSink(out);
+  WriteNode(outSink, baseChar, node.m_valueList, node.m_children.rbegin(), node.m_children.rend(),
+            isRoot);
+  reverse(out.begin(), out.end());
+  sink.Write(out.data(), out.size());
+}
 
 template <typename SinkT, class NodesT>
 void PopNodes(SinkT & sink, NodesT & nodes, int nodesToPop)
@@ -161,9 +162,8 @@ void PopNodes(SinkT & sink, NodesT & nodes, int nodesToPop)
     NodeInfoType & node = nodes.back();
     NodeInfoType & prevNode = nodes[nodes.size() - 2];
 
-    if (node.m_valueCount == 0 && node.m_children.size() <= 1)
+    if (node.m_valueList.size() == 0 && node.m_children.size() <= 1)
     {
-      ASSERT(node.m_values.empty(), ());
       ASSERT_EQUAL(node.m_children.size(), 1, ());
       ChildInfo & child = node.m_children[0];
       prevNode.m_children.push_back(ChildInfo(child.m_isLeaf, child.m_size, node.m_char));
@@ -171,9 +171,7 @@ void PopNodes(SinkT & sink, NodesT & nodes, int nodesToPop)
     }
     else
     {
-      WriteNodeReverse(sink, node.m_char, node.m_valueCount,
-                       node.m_values.data(), node.m_values.size(),
-                       node.m_children.rbegin(), node.m_children.rend());
+      WriteNodeReverse(sink, node.m_char, node);
       prevNode.m_children.push_back(ChildInfo(node.m_children.empty(),
                                               static_cast<uint32_t>(sink.Pos() - node.m_begPos),
                                               node.m_char));
@@ -231,12 +229,12 @@ struct MaxValueEdgeBuilder
 
 }  // namespace builder
 
-template <typename SinkT, typename IterT, class EdgeBuilderT>
+template <typename SinkT, typename IterT, typename EdgeBuilderT, typename ValueListT>
 void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & edgeBuilder)
 {
   typedef buffer_vector<TrieChar, 32> TrieString;
   typedef buffer_vector<uint8_t, 32> TrieValue;
-  typedef builder::NodeInfo<EdgeBuilderT> NodeInfoT;
+  typedef builder::NodeInfo<EdgeBuilderT, ValueListT> NodeInfoT;
 
   buffer_vector<NodeInfoT, 32> nodes;
   nodes.push_back(NodeInfoT(sink.Pos(), DEFAULT_CHAR, edgeBuilder));
@@ -264,12 +262,10 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
 
     uint64_t const pos = sink.Pos();
     for (size_t i = nCommon; i < key.size(); ++i)
-      nodes.push_back(builder::NodeInfo<EdgeBuilderT>(pos, key[i], edgeBuilder));
+      nodes.push_back(NodeInfoT(pos, key[i], edgeBuilder));
+    nodes.back().m_valueList.Append(e.GetValue());
 
     e.SerializeValue(value);
-    nodes.back().m_values.insert(nodes.back().m_values.end(),
-                                 value.begin(), value.end());
-    nodes.back().m_valueCount += 1;
     nodes.back().m_edgeBuilder.AddValue(value.data(), value.size());
 
     prevKey.swap(key);
@@ -280,10 +276,7 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
   builder::PopNodes(sink, nodes, nodes.size() - 1);
 
   // Write the root.
-  WriteNodeReverse(sink, DEFAULT_CHAR, nodes.back().m_valueCount,
-                   nodes.back().m_values.data(), nodes.back().m_values.size(),
-                   nodes.back().m_children.rbegin(), nodes.back().m_children.rend(),
-                   true);
+  WriteNodeReverse(sink, DEFAULT_CHAR /* baseChar */, nodes.back(), true /* isRoot */);
 }
 
 }  // namespace trie
