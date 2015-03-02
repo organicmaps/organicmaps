@@ -27,6 +27,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.country.ActiveCountryTree;
+import com.mapswithme.country.BaseDownloadAdapter;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.country.DownloadFragment;
 import com.mapswithme.country.StorageOptions;
@@ -59,6 +61,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
+import com.mapswithme.maps.data.RoutingResultCodes;
 import com.mapswithme.maps.downloader.DownloadHelper;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPredictor;
@@ -1592,6 +1595,9 @@ public class MWMActivity extends NvEventQueueActivity
   private void closeRouting()
   {
     mPlacePage.bringToFront();
+    mIvStartRouting.setVisibility(View.VISIBLE);
+    mTvStartRouting.setVisibility(View.VISIBLE);
+    mPbRoutingProgress.setVisibility(View.GONE);
     mRlRoutingBox.clearAnimation();
     UiUtils.hide(mRlRoutingBox, mPbRoutingProgress, mRlTurnByTurnBox);
     mRlStartRouting.setVisibility(View.VISIBLE);
@@ -1646,20 +1652,19 @@ public class MWMActivity extends NvEventQueueActivity
         final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(pin.x, pin.y);
         mPlacePage.setMapObject(bookmark);
       }
-
-      super.onActivityResult(requestCode, resultCode, data);
     }
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
-  public void onRoutingEvent(final boolean isSuccess, final String message, final boolean openDownloader)
+  public void onRoutingEvent(final int resultCode, final Index[] missingCountries)
   {
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        if (isSuccess)
+        if (resultCode == RoutingResultCodes.NO_ERROR)
         {
           mRlTurnByTurnBox.setVisibility(View.GONE);
           ViewHelper.setAlpha(mLayoutRoutingGo, 1);
@@ -1678,24 +1683,26 @@ public class MWMActivity extends NvEventQueueActivity
         }
         else
         {
+          final Pair<String, String> titleMessage = RoutingResultCodes.getDialogTitleSubtitle(resultCode);
           AlertDialog.Builder builder = new AlertDialog.Builder(MWMActivity.this)
-              .setMessage(message)
+              .setTitle(titleMessage.first)
+              .setMessage(titleMessage.second)
               .setCancelable(true);
-          if (openDownloader)
+          if (missingCountries != null && missingCountries.length != 0)
           {
+            final View countryView = getLayoutInflater().inflate(R.layout.download_item_dialog, null);
+            ((TextView) countryView.findViewById(R.id.tv__title)).setText(MapStorage.INSTANCE.countryName(missingCountries[0]));
+            final String size = BaseDownloadAdapter.getSizeString(MapStorage.INSTANCE.
+                countryRemoteSizeInBytes(missingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING));
+            ((TextView) countryView.findViewById(R.id.tv__size)).setText(size);
             builder
-                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+                .setView(countryView)
+                .setPositiveButton(R.string.download, new Dialog.OnClickListener()
                 {
                   @Override
                   public void onClick(DialogInterface dialog, int which)
                   {
-                    final Location location = LocationHelper.INSTANCE.getLastLocation();
-                    if (location != null)
-                    {
-                      final Index currentIndex = Framework.nativeGetCountryIndex(location.getLatitude(), location.getLongitude());
-                      if (currentIndex != null)
-                        ActiveCountryTree.downloadMapForIndex(currentIndex, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-                    }
+                    ActiveCountryTree.downloadMapForIndex(missingCountries[0], StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
                     showDownloader(true);
                     closeRouting();
                     dialog.dismiss();

@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.DownloadHelper;
@@ -35,7 +36,7 @@ import com.nineoldandroids.view.ViewHelper;
 
 import java.lang.ref.WeakReference;
 
-abstract class BaseDownloadAdapter extends BaseAdapter
+public abstract class BaseDownloadAdapter extends BaseAdapter
 {
   static final int TYPE_GROUP = 0;
   static final int TYPE_COUNTRY_GROUP = 1;
@@ -892,11 +893,11 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
   }
 
-  protected String getSizeString(long size)
+  public static String getSizeString(long size)
   {
     if (size > Constants.MB)
-      return (size + Constants.MB / 2) / Constants.MB + " " + mFragment.getString(R.string.mb);
+      return (size + Constants.MB / 2) / Constants.MB + " " + MWMApplication.get().getString(R.string.mb);
     else
-      return (size + Constants.KB - 1) / Constants.KB + " " + mFragment.getString(R.string.kb);
+      return (size + Constants.KB - 1) / Constants.KB + " " + MWMApplication.get().getString(R.string.kb);
   }
 }

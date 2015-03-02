@@ -919,12 +919,25 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId);
   }
 
-  void CallRoutingListener(shared_ptr<jobject> obj, bool isSuccess, string const & messageID, bool openDownloader)
+  void CallRoutingListener(shared_ptr<jobject> obj, int errorCode, vector<storage::TIndex> const & absentCountries)
   {
     JNIEnv * jniEnv = jni::GetEnv();
-    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingEvent", "(ZLjava/lang/String;Z)V");
+    // cache methodID - it cannot change after class is loaded.
+    // http://developer.android.com/training/articles/perf-jni.html#jclass_jmethodID_and_jfieldID more details here
+    static const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingEvent", "(I[Lcom/mapswithme/maps/MapStorage$Index;)V");
     ASSERT(methodId, ());
-    jniEnv->CallVoidMethod(*obj.get(), methodId, isSuccess, jni::ToJavaString(jniEnv, messageID), openDownloader);
+
+    jobjectArray const countriesJava = jniEnv->NewObjectArray(absentCountries.size(), g_indexClazz, 0);
+    for (int i = 0; i < absentCountries.size(); i++)
+    {
+      jobject country = storage::ToJava(absentCountries[i]);
+      jniEnv->SetObjectArrayElement(countriesJava, i, country);
+      jniEnv->DeleteLocalRef(country);
+    }
+
+    jniEnv->CallVoidMethod(*obj.get(), methodId, errorCode, countriesJava);
+
+    jniEnv->DeleteLocalRef(countriesJava);
   }
 
   /// @name JNI EXPORTS
@@ -1286,7 +1299,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
-    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2, _3));
+    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
   }
 
   JNIEXPORT void JNICALL

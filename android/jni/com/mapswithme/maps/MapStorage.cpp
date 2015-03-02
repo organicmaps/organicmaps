@@ -169,10 +169,10 @@ namespace storage
   {
     JNIEnv * env = jni::GetEnv();
 
-    jclass klass = env->FindClass("com/mapswithme/maps/MapStorage$Index");
+    jclass const klass = g_indexClazz;
     ASSERT(klass, ());
 
-    jmethodID methodID = env->GetMethodID(klass, "<init>", "(III)V");
+    jmethodID static const methodID = env->GetMethodID(klass, "<init>", "(III)V");
     ASSERT(methodID, ());
 
     return env->NewObject(klass, methodID,

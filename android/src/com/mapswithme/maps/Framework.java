@@ -29,7 +29,7 @@ public class Framework
 
   public interface RoutingListener
   {
-    void onRoutingEvent(boolean isSuccess, String message, boolean openDownloader);
+    void onRoutingEvent(int errorCode, Index[] missingCountries);
   }
 
   // this class is just bridge between Java and C++ worlds, we must not create it
