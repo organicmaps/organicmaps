@@ -43,6 +43,7 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
+import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -208,6 +209,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
 
   public void setState(State state)
   {
+    InputUtils.hideKeyboard(mEtBookmarkName);
     if (mMapObject != null && mMapObject.getType() == MapObjectType.BOOKMARK && state == State.DETAILS)
       state = State.BOOKMARK;
 
