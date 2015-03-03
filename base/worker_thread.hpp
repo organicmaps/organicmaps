@@ -1,6 +1,7 @@
 #pragma once
 
 #include "macros.hpp"
+#include "thread_checker.hpp"
 
 #include "../std/condition_variable.hpp"
 #include "../std/mutex.hpp"
@@ -22,7 +23,12 @@ public:
   {
   }
 
-  ~WorkerThread() { CHECK(!m_workerThread.joinable(), ()); }
+  ~WorkerThread() {
+    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    if (IsRunning())
+      RunUntilIdleAndStop();
+    CHECK(!IsRunning(), ());
+  }
 
   /// Pushes new task into worker thread's queue. If the queue is
   /// full, current thread is blocked.
@@ -30,7 +36,8 @@ public:
   /// \param task A callable object that will be called by worker thread.
   void Push(shared_ptr<Task> task)
   {
-    CHECK(m_workerThread.joinable(), ());
+    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    CHECK(IsRunning(), ());
     unique_lock<mutex> lock(m_mutex);
     m_condNotFull.wait(lock, [this]()
                        {
@@ -44,12 +51,20 @@ public:
   /// terminates worker thread.
   void RunUntilIdleAndStop()
   {
+    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    CHECK(IsRunning(), ());
     {
       lock_guard<mutex> lock(m_mutex);
       m_shouldFinish = true;
       m_condNonEmpty.notify_one();
     }
     m_workerThread.join();
+  }
+
+  /// \return True if worker thread is running, false otherwise.
+  inline bool IsRunning() const {
+    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    return m_workerThread.joinable();
   }
 
 private:
@@ -86,6 +101,8 @@ private:
   condition_variable m_condNotFull;
   condition_variable m_condNonEmpty;
   thread m_workerThread;
+
+  ThreadChecker m_threadChecker;
 
   DISALLOW_COPY_AND_MOVE(WorkerThread);
 };  // class WorkerThread

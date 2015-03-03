@@ -7,6 +7,8 @@
 
 #include <thread>
 
+namespace this_thread = std::this_thread;
+
 using std::thread;
 
 #ifdef DEBUG_NEW

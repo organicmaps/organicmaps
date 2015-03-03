@@ -31,3 +31,20 @@ UNIT_TEST(WorkerThread_Basic)
   for (size_t i = 0; i < buffer.size(); ++i)
     TEST_EQUAL(i, buffer[i], ());
 }
+
+UNIT_TEST(WorkerThread_NoStopCall)
+{
+  size_t const kNumTasks = 10;
+  size_t const kMaxTasksInQueue = 5;
+  vector<size_t> buffer;
+
+  {
+    my::WorkerThread<Task> thread(kMaxTasksInQueue);
+    for (size_t i = 0; i < kNumTasks; ++i)
+      thread.Push(make_shared<Task>(buffer, i));
+  }
+
+  TEST_EQUAL(kNumTasks, buffer.size(), ());
+  for (size_t i = 0; i < buffer.size(); ++i)
+    TEST_EQUAL(i, buffer[i], ());
+}

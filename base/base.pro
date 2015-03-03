@@ -28,6 +28,7 @@ SOURCES += \
     string_utils.cpp \
     strings_bundle.cpp \
     thread.cpp \
+    thread_checker.cpp \
     thread_pool.cpp \
     threaded_container.cpp \
     timer.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     strings_bundle.hpp \
     swap.hpp \
     thread.hpp \
+    thread_checker.hpp \
     thread_pool.hpp \
     threaded_container.hpp \
     threaded_list.hpp \
