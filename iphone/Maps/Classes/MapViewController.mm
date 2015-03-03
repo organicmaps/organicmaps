@@ -740,11 +740,11 @@
         layout.DownloadMap(idx, static_cast<TMapOptions>(opt));
       }
     });
-
-    f.SetRouteBuildingListener([self, &f](bool isSuccess, string const & message, bool openDownloader)
+    
+    f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries)
     {
       [self.containerView.placePage showBuildingRoutingActivity:NO];
-      if (isSuccess)
+      if (code == routing::IRouter::ResultCode::NoError)
       {
         f.GetBalloonManager().RemovePin();
         f.GetBalloonManager().Dismiss();
@@ -772,10 +772,11 @@
       }
       else
       {
-        if (openDownloader)
-          [self showDownloaderDialogWithMessageID:message];
-        else
-          [self showDialogWithMessageID:message];
+//        TODO
+//        if (openDownloader)
+//          [self showDownloaderDialogWithMessageID:message];
+//        else
+//          [self showDialogWithMessageID:message];
       }
     });
   }
