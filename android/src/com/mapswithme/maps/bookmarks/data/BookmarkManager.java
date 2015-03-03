@@ -42,18 +42,7 @@ public enum BookmarkManager
 
   private native void nativeDeleteTrack(int cat, int trk);
 
-  public int addBookmarkToLastEditedCategory(String name, double lat, double lon)
-  {
-    Statistics.INSTANCE.trackBookmarkCreated();
-    return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
-  }
-
-  public int getLastEditedCategory()
-  {
-    return nativeGetLastEditedCategory();
-  }
-
-  public native void deleteBookmark(int c, int b);
+  private native void deleteBookmark(int c, int b);
 
   public BookmarkCategory getCategoryById(int id)
   {
@@ -93,15 +82,6 @@ public enum BookmarkManager
     return getCategoryById(cat).getBookmark(bmk);
   }
 
-  private native int createCategory(String name);
-
-  public int createCategory(Bookmark bookmark, String newName)
-  {
-    final int cat = createCategory(newName);
-    bookmark.setCategoryId(cat);
-    return cat;
-  }
-
   public void setCategoryName(BookmarkCategory cat, String newName)
   {
     cat.setName(newName);
@@ -111,15 +91,18 @@ public enum BookmarkManager
   {
     final int cat = getLastEditedCategory();
     final int bmk = addBookmarkToLastEditedCategory(name, lat, lon);
+    Statistics.INSTANCE.trackBookmarkCreated();
 
     return new Pair<>(cat, bmk);
   }
 
+  public native int createCategory(String name);
+
   public native void showBookmarkOnMap(int c, int b);
 
-  public native String saveToKMZFile(int catID, String tmpPath);
+  public native String saveToKmzFile(int catID, String tmpPath);
 
-  public native int nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
+  public native int addBookmarkToLastEditedCategory(String name, double lat, double lon);
 
-  public native int nativeGetLastEditedCategory();
+  public native int getLastEditedCategory();
 }

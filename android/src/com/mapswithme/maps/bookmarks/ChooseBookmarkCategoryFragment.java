@@ -98,13 +98,6 @@ public class ChooseBookmarkCategoryFragment extends MWMListFragment
       });
     }
 
-    public void createCategoryIfNeeded()
-    {
-      if (mAddButton.getVisibility() == View.INVISIBLE &&
-          mNewLayout.getVisibility() == View.VISIBLE)
-        createCategory();
-    }
-
     private void createCategory()
     {
       final Editable e = mNewName.getText();
@@ -117,14 +110,18 @@ public class ChooseBookmarkCategoryFragment extends MWMListFragment
 
     private void createCategory(String name)
     {
-      final int index = BookmarkManager.INSTANCE.createCategory(getBookmarkFromIntent(), name);
+      final int category = BookmarkManager.INSTANCE.createCategory(name);
+      getBookmarkFromIntent().setCategoryId(category);
 
-      getActivity().getIntent().putExtra(BookmarkActivity.PIN_SET, index)
-          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(index, 0));
+      getActivity().getIntent().putExtra(BookmarkActivity.PIN_SET, category)
+          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, 0));
+
+      getArguments().putInt(BookmarkActivity.PIN_SET, category);
+      getArguments().putParcelable(BookmarkActivity.PIN, new ParcelablePoint(category, 0));
 
       switchToAddButton();
 
-      mAdapter.chooseItem(index);
+      mAdapter.chooseItem(category);
 
       Statistics.INSTANCE.trackGroupCreated();
     }

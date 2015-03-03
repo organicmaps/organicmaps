@@ -87,7 +87,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_addBookmarkToLastEditedCategory(
       JNIEnv * env, jobject thiz, jstring name, double lat, double lon)
   {
     const m2::PointD glbPoint(MercatorBounds::FromLatLon(lat, lon));
@@ -98,7 +98,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedCategory(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getLastEditedCategory(
         JNIEnv * env, jobject thiz)
   {
     return frm()->LastEditedBMCategory();

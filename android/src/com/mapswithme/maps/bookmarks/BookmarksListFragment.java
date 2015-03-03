@@ -237,7 +237,7 @@ public class BookmarksListFragment extends MWMListFragment
     assignCategoryParams();
 
     String path = MWMApplication.get().getTempPath();
-    final String name = BookmarkManager.INSTANCE.saveToKMZFile(mEditedSet.getId(), path);
+    final String name = BookmarkManager.INSTANCE.saveToKmzFile(mEditedSet.getId(), path);
     if (name == null)
     {
       // some error occurred
