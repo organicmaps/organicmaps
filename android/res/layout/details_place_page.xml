@@ -234,7 +234,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/tv__bookmark_group_title"
-          android:layout_marginTop="@dimen/margin_tiny"
           android:layout_toRightOf="@id/iv__bookmark"
           android:gravity="center_vertical"
           android:orientation="horizontal">
@@ -244,8 +243,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
             android:drawableRight="@drawable/ic_arrow_down"
             android:lineSpacingMultiplier="1.43"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small"
             android:paddingRight="@dimen/margin_small"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
@@ -254,7 +256,9 @@
             android:id="@+id/iv__bookmark_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:padding="@dimen/margin_small"
+            android:background="?android:selectableItemBackground"
             android:src="@drawable/color_picker_red_on"/>
       </LinearLayout>
 
@@ -262,7 +266,6 @@
           android:layout_width="match_parent"
           android:layout_height="1px"
           android:layout_below="@id/ll__group"
-          android:layout_marginTop="@dimen/margin_small"
           android:background="?android:attr/listDivider"/>
 
       <TextView
