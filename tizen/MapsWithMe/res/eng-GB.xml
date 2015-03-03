@@ -114,7 +114,7 @@
 	<!-- Show on first launch -->
 	<text id="IDS_DISAGREE">I disagree</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_WIFI">WiFi/Internet</text>
+	<text id="IDS_WIFI">WiFi</text>
 	<!-- Update map suggestion -->
 	<text id="IDS_ROUTING_MAP_OUTDATED">Please update the map to create a route</text>
 	<!-- Update maps suggestion -->

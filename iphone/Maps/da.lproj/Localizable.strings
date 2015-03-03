@@ -620,7 +620,7 @@
 "pref_calibration_title" = "Kalibrering af kompas";
 
 /* Search Suggestion */
-"wifi" = "WiFi/Internet";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Venligst opdatér kortet for at oprette en rute.";

@@ -106,7 +106,7 @@
 	<text id="IDS_PREF_ZOOM_TITLE">Botões de zoom</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Mostrar no ecrã</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_WIFI">WiFi/Internet</text>
+	<text id="IDS_WIFI">WiFi</text>
 	<!-- Update map suggestion -->
 	<text id="IDS_ROUTING_MAP_OUTDATED">Por favor, atualize o mapa para criar uma rota.</text>
 	<!-- Update maps suggestion -->

@@ -106,7 +106,7 @@
 	<text id="IDS_PREF_ZOOM_TITLE">Pulsanti per lo zoom</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Condividi la mia location</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_WIFI">WiFi/Internet</text>
+	<text id="IDS_WIFI">WiFi</text>
 	<!-- Update map suggestion -->
 	<text id="IDS_ROUTING_MAP_OUTDATED">Aggiorna la mappa per creare un itinerario.</text>
 	<!-- Update maps suggestion -->

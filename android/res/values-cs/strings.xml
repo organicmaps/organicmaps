@@ -396,7 +396,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi/Internet</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pro funkci vytváření tras je nutné aktualizovat mapu.</string>
 	<!-- Update maps suggestion -->

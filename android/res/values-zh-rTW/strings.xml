@@ -379,7 +379,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">無線網絡/互聯網</string>
+	<string name="wifi">無線網絡</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">請更新地圖以創建一條路線。</string>
 	<!-- Update maps suggestion -->

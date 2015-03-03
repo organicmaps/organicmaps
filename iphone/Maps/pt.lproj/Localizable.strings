@@ -620,7 +620,7 @@
 "pref_calibration_title" = "Calibração de bússola";
 
 /* Search Suggestion */
-"wifi" = "WiFi/Internet";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Por favor, atualize o mapa para criar uma rota.";

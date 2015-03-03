@@ -2781,28 +2781,28 @@ tr:okyanus
 sv:ocean
 
 internet_access|internet_access-wlan
-en:Wi-Fi|wifi|3Internet
-cs:Wi-Fi|wifi|3Internet
-sk:Wi-Fi|wifi|3Internet
-de:Wi-Fi|wifi|3Internet
-es:Wi-Fi|wifi|3Internet
-fr:Wi-Fi|wifi|3Internet
-it:Wi-Fi|wifi|3Internet
-ja:無線LAN|3インターネット|Wi-Fi|wifi|3Internet
-ko:Wi-Fi 인터넷|3인터넷|wifi|3Internet
-nl:Wi-Fi|wifi|3Internet
-ru:Wi-Fi|3Интернет|вайфай|wifi|Internet
-uk:Wi-Fi|3Інтернет|wifi|Internet
-zh-Hant:無線網絡|3互聯網|Wi-Fi|wifi|3Internet
-pl:Wi-Fi|wifi|3Internet
-pt:Wi-Fi|wifi|3Internet
-hu:Wi-Fi|wifi|3Internet
-th:Wi-Fi|3อินเทอร์เน็ต|wifi|3Internet
-zh-Hans:无线网络|3互联网|Wi-Fi|wifi|3Internet
-ar:واي فاي|الإنترنت|Wi-Fi|wifi|3Internet
-da:Wi-Fi|wifi|3Internet
-tr:Wi-Fi|wifi|3Internet
-sv:Wi-Fi|wifi|3Internet
+en:WiFi|3Internet
+cs:WiFi|3Internet
+sk:WiFi|3Internet
+de:WiFi|3Internet
+es:WiFi|3Internet
+fr:WiFi|3Internet
+it:WiFi|3Internet
+ja:無線LAN|3インターネット|WiFi|3Internet
+ko:WiFi 인터넷|3인터넷|3Internet
+nl:WiFi|3Internet
+ru:WiFi|3Интернет|вайфай|Internet
+uk:WiFi|3Інтернет|Internet
+zh-Hant:無線網絡|3互聯網|WiFi|3Internet
+pl:WiFi|3Internet
+pt:WiFi|3Internet
+hu:WiFi|3Internet
+th:WiFi|3อินเทอร์เน็ต|3Internet
+zh-Hans:无线网络|3互联网|WiFi|3Internet
+ar:واي فاي|الإنترنت|WiFi|3Internet
+da:WiFi|3Internet
+tr:WiFi|3Internet
+sv:WiFi|3Internet
 
 natural-beach
 en:beach

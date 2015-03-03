@@ -620,7 +620,7 @@
 "pref_calibration_title" = "Kompass-Kalibrierung";
 
 /* Search Suggestion */
-"wifi" = "WiFi/Internet";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Bitte aktualisieren Sie die Karte, um eine Route zu erzeugen.";

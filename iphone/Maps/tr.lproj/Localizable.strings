@@ -620,7 +620,7 @@
 "pref_calibration_title" = "Pusula kalibrasyonu";
 
 /* Search Suggestion */
-"wifi" = "WiFi/İnternet";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.";

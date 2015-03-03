@@ -400,7 +400,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калибровка компаса</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">WiFi/Интернет</string>
+	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</string>
 	<!-- Update maps suggestion -->

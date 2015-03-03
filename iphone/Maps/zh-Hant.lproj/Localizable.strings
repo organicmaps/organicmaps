@@ -620,7 +620,7 @@
 "pref_calibration_title" = "指南針校準";
 
 /* Search Suggestion */
-"wifi" = "無線網絡/互聯網";
+"wifi" = "無線網絡";
 
 /* Update map suggestion */
 "routing_map_outdated" = "請更新地圖以創建一條路線。";

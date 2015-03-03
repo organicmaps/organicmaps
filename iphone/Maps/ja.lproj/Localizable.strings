@@ -620,7 +620,7 @@
 "pref_calibration_title" = "コンパスの調整";
 
 /* Search Suggestion */
-"wifi" = "無線LAN/インターネット";
+"wifi" = "無線LAN";
 
 /* Update map suggestion */
 "routing_map_outdated" = "ルートを作成するためにマップを更新してください。";

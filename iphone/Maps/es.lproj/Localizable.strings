@@ -620,7 +620,7 @@
 "pref_calibration_title" = "Calibrado de la brújula";
 
 /* Search Suggestion */
-"wifi" = "WiFi/Internet";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Por favor, actualiza el mapa para crear una ruta.";

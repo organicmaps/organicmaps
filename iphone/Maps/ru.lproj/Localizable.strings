@@ -620,7 +620,7 @@
 "pref_calibration_title" = "Калибровка компаса";
 
 /* Search Suggestion */
-"wifi" = "WiFi/Интернет";
+"wifi" = "WiFi";
 
 /* Update map suggestion */
 "routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
