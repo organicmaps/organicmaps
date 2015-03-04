@@ -1731,6 +1731,60 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
   return false;
 }
 
+namespace
+{
+
+/// POI - is a point or area feature.
+class DoFindClosestPOI
+{
+  m2::PointD const & m_pt;
+  double m_distMeters;
+  FeatureID m_id;
+
+public:
+  DoFindClosestPOI(m2::PointD const & pt, double tresholdMeters)
+    : m_pt(pt), m_distMeters(tresholdMeters)
+  {
+  }
+
+  void operator() (FeatureType & ft)
+  {
+    if (ft.GetFeatureType() == feature::GEOM_LINE)
+      return;
+
+    double const dist = MercatorBounds::DistanceOnEarth(m_pt, feature::GetCenter(ft));
+    if (dist < m_distMeters)
+    {
+      m_distMeters = dist;
+      m_id = ft.GetID();
+    }
+  }
+
+  void LoadMetadata(model::FeaturesFetcher const & model, feature::FeatureMetadata & metadata) const
+  {
+    if (!m_id.IsValid())
+      return;
+
+    Index::FeaturesLoaderGuard guard(model.GetIndex(), m_id.m_mwm);
+
+    FeatureType ft;
+    guard.GetFeature(m_id.m_offset, ft);
+
+    ft.ParseMetadata();
+    metadata = ft.GetMetadata();
+  }
+};
+
+}
+
+void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::FeatureMetadata & metadata) const
+{
+  DoFindClosestPOI doFind(pt, 1.1 /* search radius in meters */);
+  m_model.ForEachFeature(m2::RectD(pt, pt), doFind, scales::GetUpperScale() /* scale level for POI */);
+
+  doFind.LoadMetadata(m_model, metadata);
+}
+
 Animator & Framework::GetAnimator()
 {
   return m_animator;
