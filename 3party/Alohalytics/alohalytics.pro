@@ -15,7 +15,10 @@ HEADERS += src/alohalytics.h \
 QMAKE_LFLAGS *= -lz
 
 macx-* {
-  OBJECTIVE_SOURCES += src/apple/http_client_apple.mm
+  HEADERS += src/alohalytics_objc.h
+  OBJECTIVE_SOURCES += src/apple/http_client_apple.mm \
+                       src/apple/alohalytics_objc.mm \
+
   QMAKE_OBJECTIVE_CFLAGS *= -fobjc-arc
   QMAKE_LFLAGS *=  -framework Foundation
 }

@@ -82,15 +82,13 @@ public class Statistics {
     // Is it a real new install?
     if (id.second && installTime == updateTime) {
       logEvent("$install", new String[]{"version", versionName,
-          "secondsBeforeLaunch", String.valueOf((System.currentTimeMillis() - installTime) / 1000)},
-          lastKnownLocation);
+          "millisEpochInstalled", String.valueOf(installTime)}, lastKnownLocation);
       // Collect device info once on start.
       SystemInfo.getDeviceInfoAsync(context);
       prefs.edit().putLong(PREF_APP_UPDATE_TIME, updateTime).apply();
     } else if (updateTime != installTime && updateTime != prefs.getLong(PREF_APP_UPDATE_TIME, 0)) {
       logEvent("$update", new String[]{"version", versionName,
-          "secondsBeforeLaunch", String.valueOf((System.currentTimeMillis() - updateTime) / 1000),
-          "userAgeInSeconds", String.valueOf((System.currentTimeMillis() - installTime) / 1000)},
+          "millisEpochUpdated", String.valueOf(updateTime), "millisEpochInstalled", String.valueOf(installTime)},
           lastKnownLocation);
       // Also collect device info on update.
       SystemInfo.getDeviceInfoAsync(context);

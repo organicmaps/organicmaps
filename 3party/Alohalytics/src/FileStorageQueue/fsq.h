@@ -200,6 +200,10 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
   // Example: App just got updated, or a large external download has just been successfully completed.
   //
   // Use `ResumeProcessing()` in other cases.
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // TODO(AlexZ): Refactor it as this method fails sometimes when force_finalize_current_file == true and when it is called from the main app thread.
+  // As a result, after calling PushMessage(urgentEvent); ForceProcessing(true); urgentEvent is either lost or not sent to the server even if connection was available at that moment.
+  // Some facts: current_file_name_ is empty and status_.appended_file_timestamp is 0 at that time.
   void ForceProcessing(bool force_finalize_current_file = false) {
     std::unique_lock<std::mutex> lock(status_mutex_);
     if (force_finalize_current_file || status_.finalized.queue.empty()) {

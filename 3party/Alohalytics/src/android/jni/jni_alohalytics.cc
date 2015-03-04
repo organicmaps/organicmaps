@@ -194,8 +194,8 @@ JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_setupCPP(JNIEnv* env,
   // Initialize statistics engine at the end of setup function, as it can use globals above.
   Stats::Instance()
       .SetClientId(ToStdString(env, installationId))
-      .SetStoragePath(ToStdString(env, storagePath))
-      .SetServerUrl(ToStdString(env, serverUrl));
+      .SetServerUrl(ToStdString(env, serverUrl))
+      .SetStoragePath(ToStdString(env, storagePath));
 }
 
 JNIEXPORT void JNICALL Java_org_alohalytics_Statistics_debugCPP(JNIEnv* env, jclass, jboolean enableDebug) {

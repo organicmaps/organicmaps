@@ -67,7 +67,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
       NSString * path = [NSString stringWithUTF8String:post_file_.c_str()];
       const unsigned long long file_size = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&err].fileSize;
       if (err) {
-        error_code_ = err.code;
+        error_code_ = static_cast<int>(err.code);
         if (debug_mode_) {
           ALOG("ERROR", error_code_, [err.localizedDescription UTF8String]);
         }
@@ -83,7 +83,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     NSData * url_data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
 
     if (response) {
-      error_code_ = response.statusCode;
+      error_code_ = static_cast<int>(response.statusCode);
       url_received_ = [response.URL.absoluteString UTF8String];
       if (url_data) {
         if (received_file_.empty()) {
@@ -96,7 +96,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
       return true;
     }
     // Request has failed if we are here.
-    error_code_ = err.code;
+    error_code_ = static_cast<int>(err.code);
     if (debug_mode_) {
       ALOG("ERROR", error_code_, ':', [err.localizedDescription UTF8String], "while connecting to", url_requested_);
     }

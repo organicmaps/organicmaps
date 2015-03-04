@@ -23,6 +23,7 @@
  *******************************************************************************/
 
 #import "ViewController.h"
+#import "alohalytics_objc.h"
 
 @interface ViewController ()
 
@@ -32,12 +33,15 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  // Do any additional setup after loading the view, typically from a nib.
+  const CLLocationCoordinate2D coord = {12.12345678, -32.12345678};
+  CLLocation * l = [[CLLocation alloc] initWithCoordinate:coord altitude:42.42424242 horizontalAccuracy:2.123456
+      verticalAccuracy:12.123456 course:90.12345678 speed:1.2345678 timestamp:[NSDate date]];
+  [Alohalytics logEvent:@"ViewControllerDidLoad" withDictionary:[NSBundle mainBundle].infoDictionary atLocation:l];
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
-  // Dispose of any resources that can be recreated.
+  [Alohalytics logEvent:@"didReceiveMemoryWarning"];
 }
 
 @end

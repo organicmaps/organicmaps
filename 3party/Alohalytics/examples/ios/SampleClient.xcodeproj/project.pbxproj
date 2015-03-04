@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B4A80811A9C9D9800A02435 /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B4A80801A9C9D9800A02435 /* alohalytics.cc */; };
+		6B4A80821A9C9D9800A02435 /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B4A80801A9C9D9800A02435 /* alohalytics.cc */; };
+		6BB30D5A1A8E5F8600BAE535 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD1AAFC1A8E5AD8000CB093 /* libz.dylib */; };
+		6BD1AAF31A8E571A000CB093 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */; };
+		6BD1AAF41A8E571A000CB093 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */; };
+		6BD1AAF51A8E571A000CB093 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BD1AAF21A8E571A000CB093 /* http_client_apple.mm */; };
+		6BD1AAF61A8E571A000CB093 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6BD1AAF21A8E571A000CB093 /* http_client_apple.mm */; };
+		6BD1AAFD1A8E5AD8000CB093 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BD1AAFC1A8E5AD8000CB093 /* libz.dylib */; };
+		6BDB7FDC1AA4884B0036C3CB /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDB7FDB1AA4884B0036C3CB /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6BDEF0571A3CF2D100054FAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDEF0561A3CF2D100054FAC /* main.m */; };
 		6BDEF05A1A3CF2D100054FAC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDEF0591A3CF2D100054FAC /* AppDelegate.m */; };
 		6BDEF05D1A3CF2D100054FAC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDEF05C1A3CF2D100054FAC /* ViewController.m */; };
@@ -27,6 +36,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6B4A80801A9C9D9800A02435 /* alohalytics.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = alohalytics.cc; path = ../../../src/cpp/alohalytics.cc; sourceTree = "<group>"; };
+		6B4A80831A9C9DB100A02435 /* alohalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alohalytics.h; path = ../../../src/alohalytics.h; sourceTree = "<group>"; };
+		6B4A80841A9C9DB100A02435 /* event_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = event_base.h; path = ../../../src/event_base.h; sourceTree = "<group>"; };
+		6B4A80851A9C9DB100A02435 /* http_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = http_client.h; path = ../../../src/http_client.h; sourceTree = "<group>"; };
+		6B4A80861A9C9DB100A02435 /* location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = location.h; path = ../../../src/location.h; sourceTree = "<group>"; };
+		6B4A80871A9C9DB100A02435 /* logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = logger.h; path = ../../../src/logger.h; sourceTree = "<group>"; };
+		6BD1AAE71A8E53EC000CB093 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = alohalytics_objc.mm; path = ../../../src/apple/alohalytics_objc.mm; sourceTree = "<group>"; };
+		6BD1AAF21A8E571A000CB093 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = http_client_apple.mm; path = ../../../src/apple/http_client_apple.mm; sourceTree = "<group>"; };
+		6BD1AAF71A8E57B1000CB093 /* alohalytics_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alohalytics_objc.h; path = ../../../src/alohalytics_objc.h; sourceTree = "<group>"; };
+		6BD1AAFB1A8E5ABE000CB093 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6BD1AAFC1A8E5AD8000CB093 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6BD1AAFE1A8E5AF7000CB093 /* gzip_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gzip_wrapper.h; path = ../../../src/gzip_wrapper.h; sourceTree = "<group>"; };
+		6BDB7FDB1AA4884B0036C3CB /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6BDEF0511A3CF2D100054FAC /* SampleClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BDEF0551A3CF2D100054FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BDEF0561A3CF2D100054FAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -34,9 +57,7 @@
 		6BDEF0591A3CF2D100054FAC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6BDEF05B1A3CF2D100054FAC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6BDEF05C1A3CF2D100054FAC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		6BDEF05F1A3CF2D100054FAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6BDEF0611A3CF2D100054FAC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6BDEF0641A3CF2D100054FAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6BDEF06A1A3CF2D100054FAC /* SampleClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BDEF06F1A3CF2D100054FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BDEF0701A3CF2D100054FAC /* SampleClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleClientTests.m; sourceTree = "<group>"; };
@@ -47,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BDB7FDC1AA4884B0036C3CB /* AdSupport.framework in Frameworks */,
+				6BD1AAFD1A8E5AD8000CB093 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,12 +77,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BB30D5A1A8E5F8600BAE535 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6BD1AAF81A8E57B8000CB093 /* Alohalytics */ = {
+			isa = PBXGroup;
+			children = (
+				6B4A80831A9C9DB100A02435 /* alohalytics.h */,
+				6B4A80841A9C9DB100A02435 /* event_base.h */,
+				6B4A80851A9C9DB100A02435 /* http_client.h */,
+				6B4A80861A9C9DB100A02435 /* location.h */,
+				6B4A80871A9C9DB100A02435 /* logger.h */,
+				6B4A80801A9C9D9800A02435 /* alohalytics.cc */,
+				6BD1AAFE1A8E5AF7000CB093 /* gzip_wrapper.h */,
+				6BD1AAF71A8E57B1000CB093 /* alohalytics_objc.h */,
+				6BD1AAF11A8E571A000CB093 /* alohalytics_objc.mm */,
+				6BD1AAF21A8E571A000CB093 /* http_client_apple.mm */,
+			);
+			name = Alohalytics;
+			sourceTree = "<group>";
+		};
 		6BDEF0481A3CF2D100054FAC = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +122,7 @@
 		6BDEF0531A3CF2D100054FAC /* SampleClient */ = {
 			isa = PBXGroup;
 			children = (
+				6BD1AAF81A8E57B8000CB093 /* Alohalytics */,
 				6BDEF0581A3CF2D100054FAC /* AppDelegate.h */,
 				6BDEF0591A3CF2D100054FAC /* AppDelegate.m */,
 				6BDEF05B1A3CF2D100054FAC /* ViewController.h */,
@@ -96,6 +138,8 @@
 		6BDEF0541A3CF2D100054FAC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6BDB7FDB1AA4884B0036C3CB /* AdSupport.framework */,
+				6BD1AAFC1A8E5AD8000CB093 /* libz.dylib */,
 				6BDEF0551A3CF2D100054FAC /* Info.plist */,
 				6BDEF0561A3CF2D100054FAC /* main.m */,
 			);
@@ -181,7 +225,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 6BDEF0481A3CF2D100054FAC;
 			productRefGroup = 6BDEF0521A3CF2D100054FAC /* Products */;
@@ -220,6 +263,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BDEF05D1A3CF2D100054FAC /* ViewController.m in Sources */,
+				6BD1AAF31A8E571A000CB093 /* alohalytics_objc.mm in Sources */,
+				6BD1AAF51A8E571A000CB093 /* http_client_apple.mm in Sources */,
+				6B4A80811A9C9D9800A02435 /* alohalytics.cc in Sources */,
 				6BDEF05A1A3CF2D100054FAC /* AppDelegate.m in Sources */,
 				6BDEF0571A3CF2D100054FAC /* main.m in Sources */,
 			);
@@ -230,6 +276,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BDEF0711A3CF2D100054FAC /* SampleClientTests.m in Sources */,
+				6BD1AAF41A8E571A000CB093 /* alohalytics_objc.mm in Sources */,
+				6BD1AAF61A8E571A000CB093 /* http_client_apple.mm in Sources */,
+				6B4A80821A9C9D9800A02435 /* alohalytics.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +296,7 @@
 		6BDEF05E1A3CF2D100054FAC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6BDEF05F1A3CF2D100054FAC /* Base */,
+				6BD1AAE71A8E53EC000CB093 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -255,7 +304,7 @@
 		6BDEF0631A3CF2D100054FAC /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6BDEF0641A3CF2D100054FAC /* Base */,
+				6BD1AAFB1A8E5ABE000CB093 /* en */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -282,6 +331,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1.0;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -324,6 +374,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.0;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

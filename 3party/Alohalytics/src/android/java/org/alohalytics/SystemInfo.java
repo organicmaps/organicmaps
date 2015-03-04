@@ -62,6 +62,8 @@ public class SystemInfo {
       public void run() {
         collectIds(context);
         collectDeviceDetails(context);
+        // Force statistics uploading as if user immediately uninstalls the app we won't even know about installation.
+        Statistics.forceUpload();
       }
     }).start();
   }
@@ -128,8 +130,6 @@ public class SystemInfo {
     }
 
     Statistics.logEvent("$androidIds", ids.mPairs);
-    // Force statistics uploading as if user immediately uninstalls the app we won't even know about installation.
-    Statistics.forceUpload();
   }
 
   private static void collectDeviceDetails(Context context) {

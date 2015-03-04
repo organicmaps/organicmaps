@@ -69,7 +69,8 @@ inline std::string ReadFileAsString(std::string const& file_name) {
     const std::streampos size = fi.tellg();
     std::string buffer(static_cast<const size_t>(size), '\0');
     fi.seekg(0);
-    if (fi.read(&buffer[0], size).good()) {
+    // TODO(AlexZ): Check if file size is bigger than std::streamsize.
+    if (fi.read(&buffer[0], static_cast<std::streamsize>(size)).good()) {
       return buffer;
     } else {
       // TODO(dkorolev): Ask Alex whether there's a better way than what I have here with two exceptions.
