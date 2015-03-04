@@ -6,10 +6,10 @@
 #import "UIKitCategories.h"
 #import "AppInfo.h"
 #import "LocalNotificationManager.h"
-#import <MRGService/MRGService.h>
 
 #include <sys/xattr.h>
 
+#import <MRGService/MRGService.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 #include "../../../storage/storage_defines.hpp"
@@ -17,6 +17,8 @@
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
 #include "../../../platform/preferred_languages.hpp"
+
+#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 
@@ -97,6 +99,15 @@ void InitLocalizedStrings()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Initialize Alohalytics statistics engine.
+#ifndef OMIM_PRODUCTION
+  [Alohalytics setDebugMode:YES];
+  NSString * serverUrl = @"http://localhost:8080/dev";
+#else
+  NSString * serverUrl = @"http://localhost:8080/2";
+#endif
+  [Alohalytics setup:serverUrl andFirstLaunch:[MapsAppDelegate isFirstAppLaunch] withLaunchOptions:launchOptions];
+
   [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
 
   [AppInfo sharedInfo]; // we call it to init -firstLaunchDate

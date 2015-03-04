@@ -17,7 +17,9 @@ HEADERS += $$ROOT_DIR/3party/Alohalytics/src/alohalytics.h \
            $$ROOT_DIR/3party/Alohalytics/src/logger.h \
 
 macx-*|iphone* {
-  OBJECTIVE_SOURCES += $$ROOT_DIR/3party/Alohalytics/src/apple/http_client_apple.mm
+  HEADERS += $$ROOT_DIR/3party/Alohalytics/src/alohalytics_objc.h
+  OBJECTIVE_SOURCES += $$ROOT_DIR/3party/Alohalytics/src/apple/http_client_apple.mm \
+                       $$ROOT_DIR/3party/Alohalytics/src/apple/alohalytics_objc.mm
   QMAKE_OBJECTIVE_CFLAGS += -fobjc-arc
 } else:linux*|win* {
   SOURCES += $$ROOT_DIR/3party/Alohalytics/src/posix/http_client_curl.cc
