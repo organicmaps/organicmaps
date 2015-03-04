@@ -16,9 +16,10 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
 		6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */; };
+		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
+		6BDCBF4A1AA7590D004DAE48 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
@@ -69,7 +70,6 @@
 		97D40C08184CFA4100A1D572 /* ImagesPro.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */; };
 		97D40C0A184D031900A1D572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97D40C09184D031900A1D572 /* Images.xcassets */; };
 		97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
-		97DD585C18A8EB130079837E /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_6.0.0.a */; };
 		97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
@@ -197,6 +197,7 @@
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
 		6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
+		6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.0.0.a; path = Statistics/libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -300,7 +301,6 @@
 		97D092B8190AA69700FF645B /* SmallCompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SmallCompassView.mm; sourceTree = "<group>"; };
 		97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesPro.xcassets; sourceTree = SOURCE_ROOT; };
 		97D40C09184D031900A1D572 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = SOURCE_ROOT; };
-		97DD585A18A8EB120079837E /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		97DD585B18A8EB120079837E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		97DEA09018D706C300C5F963 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		97DEA09418D75BB000C5F963 /* ContextViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextViews.h; sourceTree = "<group>"; };
@@ -477,11 +477,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BDCBF4A1AA7590D004DAE48 /* libAppsFlyerLib.a in Frameworks */,
+				6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */,
 				6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */,
 				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
-				6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
 				B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */,
@@ -499,7 +500,6 @@
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
-				97DD585C18A8EB130079837E /* libFlurry_6.0.0.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,6 +600,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */,
 				6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */,
 				6BBD66B21A695722005FF58D /* MRGService.framework */,
 				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
@@ -815,7 +816,6 @@
 				97C9851C186AE3C500AF7E9E /* Reachability.m */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
-				97DD585A18A8EB120079837E /* libFlurry_6.0.0.a */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
 			);
 			path = Statistics;
@@ -1395,11 +1395,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -1521,11 +1518,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -1615,11 +1609,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -1710,11 +1701,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -1833,11 +1821,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -1932,11 +1917,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2030,11 +2012,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2127,11 +2106,8 @@
 				INFOPLIST_FILE = MAPSME.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"${SRCROOT}/Statistics/**",
-					"${SRCROOT}",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/GoogleAnalytics",
+					"$(PROJECT_DIR)/Statistics",
 					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
