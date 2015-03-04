@@ -3,7 +3,6 @@
 #import "Preferences.h"
 #import "LocationManager.h"
 #import "Statistics.h"
-#import <MobileAppTracker/MobileAppTracker.h>
 #import "UIKitCategories.h"
 #import "AppInfo.h"
 #import "LocalNotificationManager.h"
@@ -71,26 +70,6 @@ void InitLocalizedStrings()
   return [[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY];
 }
 
-- (void)initMAT
-{
-  NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
-  NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
-
-  // Account Configuration info - must be set
-  [MobileAppTracker initializeWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
-
-  // Used to pass us the IFA, enables highly accurate 1-to-1 attribution.
-  // Required for many advertising networks.
-  NSUUID * ifa = [AppInfo sharedInfo].advertisingId;
-  [MobileAppTracker setAppleAdvertisingIdentifier:ifa advertisingTrackingEnabled:(ifa != nil)];
-
-  // Only if you have pre-existing users before MAT SDK implementation, identify these users
-  // using this code snippet.
-  // Otherwise, pre-existing users will be counted as new installs the first time they run your app.
-  if (![MapsAppDelegate isFirstAppLaunch])
-    [MobileAppTracker setExistingUser:YES];
-}
-
 - (void)initMRGService
 {
   NSInteger appId = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppID"] integerValue];
@@ -145,7 +124,6 @@ void InitLocalizedStrings()
 
   [self customizeAppearance];
 
-  [self initMAT];
   [self initMRGService];
 
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
@@ -259,9 +237,6 @@ void InitLocalizedStrings()
   [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
   [FBAppEvents activateApp];
 
-  // MAT will not function without the measureSession call included
-  [MobileAppTracker measureSession];
-
 #ifdef OMIM_FULL
   [[AccountManager sharedManager] applicationDidBecomeActive:application];
 #endif
@@ -343,9 +318,6 @@ void InitLocalizedStrings()
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-  // AlexZ: do we really need this? Need to ask them with a letter
-  [MobileAppTracker applicationDidOpenURL:[url absoluteString] sourceApplication:sourceApplication];
-
 #ifdef OMIM_FULL
   [[AccountManager sharedManager] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 #endif
