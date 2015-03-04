@@ -19,8 +19,8 @@
 		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
 		6BBD66B31A695722005FF58D /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B11A695722005FF58D /* MobileAppTracker.framework */; };
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
-		6BBD66B51A6957EE005FF58D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
 		97354B6E196EDD3A00352536 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B6D196EDD3A00352536 /* AccountManager.m */; };
+		6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
@@ -199,6 +199,7 @@
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6BBD66B11A695722005FF58D /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileAppTracker.framework; path = Statistics/MobileAppTracker.framework; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
+		6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -482,8 +483,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BBD66B51A6957EE005FF58D /* FacebookSDK.framework in Frameworks */,
 				6BBD66B31A695722005FF58D /* MobileAppTracker.framework in Frameworks */,
+				6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */,
 				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
@@ -606,6 +607,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */,
 				6BBD66B11A695722005FF58D /* MobileAppTracker.framework */,
 				6BBD66B21A695722005FF58D /* MRGService.framework */,
 				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
