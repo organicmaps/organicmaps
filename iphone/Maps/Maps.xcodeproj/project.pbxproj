@@ -18,7 +18,6 @@
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		6B948E1F1A25533C00229BD5 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
-		97354B6E196EDD3A00352536 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B6D196EDD3A00352536 /* AccountManager.m */; };
 		6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
@@ -204,8 +203,6 @@
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MAPSME.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MAPSME.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		97354B6C196EDD3A00352536 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
-		97354B6D196EDD3A00352536 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
 		974386D81934CBAC00FD5659 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		974386DB19373EA400FD5659 /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
 		974386DC19373EA400FD5659 /* ToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastView.m; sourceTree = "<group>"; };
@@ -644,8 +641,6 @@
 			children = (
 				EDC5C541175F2CA600420E92 /* ShareActionSheet.h */,
 				EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */,
-				97354B6C196EDD3A00352536 /* AccountManager.h */,
-				97354B6D196EDD3A00352536 /* AccountManager.m */,
 			);
 			name = "Login & sharing";
 			sourceTree = "<group>";
@@ -1248,7 +1243,6 @@
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				9778E99D191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
 				974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */,
-				97354B6E196EDD3A00352536 /* AccountManager.m in Sources */,
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
@@ -1334,7 +1328,6 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -1462,7 +1455,6 @@
 					DEBUG,
 					_DEBUG,
 					TARGET_OS_IPHONE,
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1562,7 +1554,6 @@
 					TARGET_OS_IPHONE,
 					DEBUG,
 					_DEBUG,
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1658,7 +1649,6 @@
 					DEBUG,
 					_DEBUG,
 					TARGET_OS_IPHONE,
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1781,7 +1771,6 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -1881,7 +1870,6 @@
 					NDEBUG,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -1980,7 +1968,6 @@
 					_RELEASE,
 					TARGET_OS_IPHONE,
 					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
@@ -2078,7 +2065,6 @@
 					RELEASE,
 					_RELEASE,
 					"NS_BLOCK_ASSERTIONS=1",
-					OMIM_FULL,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;

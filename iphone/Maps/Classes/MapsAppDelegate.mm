@@ -6,7 +6,6 @@
 #import "UIKitCategories.h"
 #import "AppInfo.h"
 #import "LocalNotificationManager.h"
-#import "AccountManager.h"
 #import <MRGService/MRGService.h>
 
 #include <sys/xattr.h>
@@ -237,10 +236,6 @@ void InitLocalizedStrings()
   [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
   [FBAppEvents activateApp];
 
-#ifdef OMIM_FULL
-  [[AccountManager sharedManager] applicationDidBecomeActive:application];
-#endif
-
   f.GetLocationState()->InvalidatePosition();
 }
 
@@ -318,10 +313,6 @@ void InitLocalizedStrings()
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-#ifdef OMIM_FULL
-  [[AccountManager sharedManager] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
-#endif
-
   NSString * scheme = url.scheme;
 
   m_scheme = scheme;
