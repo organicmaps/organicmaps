@@ -192,7 +192,6 @@
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		49DE1CA213437D7A00A93417 /* libbzip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbzip2.a; sourceTree = SOURCE_ROOT; };
 		6B948E141A254C9800229BD5 /* ExternalLibs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExternalLibs; sourceTree = "<group>"; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
@@ -348,22 +347,12 @@
 		ED48BBB917C2B1E2003E7E92 /* CircleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleView.mm; sourceTree = "<group>"; };
 		EDB811A1175E1A9C00E36BF2 /* TwoButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoButtonsView.h; sourceTree = "<group>"; };
 		EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoButtonsView.m; sourceTree = "<group>"; };
-		EDBB18B716972B0600AF0742 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
 		EDC5C541175F2CA600420E92 /* ShareActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareActionSheet.h; path = Classes/ShareActionSheet.h; sourceTree = "<group>"; };
 		EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = ShareActionSheet.mm; path = Classes/ShareActionSheet.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
-		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
-		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
-		EE12020211CD464100ABDD5D /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexpat.a; sourceTree = SOURCE_ROOT; };
-		EE12020311CD464100ABDD5D /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = SOURCE_ROOT; };
-		EE12020411CD464100ABDD5D /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
-		EE12020511CD464100ABDD5D /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libindexer.a; sourceTree = SOURCE_ROOT; };
-		EE12020611CD464100ABDD5D /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmap.a; sourceTree = SOURCE_ROOT; };
-		EE12020811CD464100ABDD5D /* libgraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgraphics.a; sourceTree = SOURCE_ROOT; };
 		EE16192B126E374500622BD0 /* RenderContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderContext.hpp; path = Classes/RenderContext.hpp; sourceTree = SOURCE_ROOT; };
 		EE164810135CEE49003B8A3E /* 06_code2000.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_code2000.ttf; path = ../../data/06_code2000.ttf; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
-		EE5A34E5156FCB9500E34FFE /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgui.a; sourceTree = SOURCE_ROOT; };
 		EE7F297C1219ECA300EB67A9 /* RenderBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; name = RenderBuffer.hpp; path = Classes/RenderBuffer.hpp; sourceTree = SOURCE_ROOT; };
 		EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderBuffer.mm; path = Classes/RenderBuffer.mm; sourceTree = SOURCE_ROOT; };
 		EE7F297E1219ECA300EB67A9 /* RenderContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = RenderContext.mm; path = Classes/RenderContext.mm; sourceTree = SOURCE_ROOT; };
@@ -374,10 +363,8 @@
 		EEA615E9134C4968003A9827 /* 05_khmeros.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 05_khmeros.ttf; path = ../../data/05_khmeros.ttf; sourceTree = SOURCE_ROOT; };
 		EEB7E22111E9079400080A68 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EED10A4411F78D120095FAD4 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		EEF5745412DE1AD50082F472 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = SOURCE_ROOT; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
-		EEFFB4E715DCDD8A00BACE1C /* libanim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libanim.a; sourceTree = SOURCE_ROOT; };
 		F785EB3E16386FC4003A38A8 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkCell.h; path = Bookmarks/BookmarkCell.h; sourceTree = SOURCE_ROOT; };
 		F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarkCell.mm; path = Bookmarks/BookmarkCell.mm; sourceTree = SOURCE_ROOT; };
 		F7B90CD11521E6D100C054EE /* CustomNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationView.h; sourceTree = "<group>"; };
@@ -416,7 +403,6 @@
 		F7E7BA3E16723CD200B4492E /* hotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotel.png; sourceTree = "<group>"; };
 		F7E7BA3F16723CD200B4492E /* hotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hotel@2x.png"; sourceTree = "<group>"; };
 		F7FDD822147F30CC005900FA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
-		FA04373112CAB83F00017494 /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstorage.a; sourceTree = SOURCE_ROOT; };
 		FA054610155C465E001F4E37 /* SelectSetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectSetVC.h; path = Bookmarks/SelectSetVC.h; sourceTree = SOURCE_ROOT; };
 		FA054611155C465E001F4E37 /* SelectSetVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SelectSetVC.mm; path = Bookmarks/SelectSetVC.mm; sourceTree = SOURCE_ROOT; };
 		FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
@@ -426,7 +412,6 @@
 		FA140650162A6288002BC1ED /* eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eye@2x.png"; path = "Bookmarks/eye@2x.png"; sourceTree = SOURCE_ROOT; };
 		FA29FDA8141E77F8004ADF66 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Preferences.h; path = Settings/Preferences.h; sourceTree = "<group>"; };
 		FA29FDA9141E77F8004ADF66 /* Preferences.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Preferences.mm; path = Settings/Preferences.mm; sourceTree = "<group>"; };
-		FA2EF9C613630C3B00E3E484 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libplatform.a; sourceTree = SOURCE_ROOT; };
 		FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CustomAlertView.mm; sourceTree = "<group>"; };
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
 		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -444,10 +429,8 @@
 		FA7B439D198BEEC400FA887E /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
 		FA971562150920C600916690 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA99CB72147089B100689A9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FAA0F162196AC14100E01C3F /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = librouting.a; sourceTree = "<group>"; };
 		FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskFreeSpace.h; sourceTree = "<group>"; };
 		FAA5C2A0144F135F005337F6 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Platform/LocationManager.h; sourceTree = "<group>"; };
 		FAA5C2A1144F135F005337F6 /* LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationManager.mm; path = Platform/LocationManager.mm; sourceTree = "<group>"; };
@@ -457,12 +440,9 @@
 		FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarksRootVC.mm; path = Bookmarks/BookmarksRootVC.mm; sourceTree = SOURCE_ROOT; };
 		FAAEA7D4161D8D3100CCD661 /* BookmarksRootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarksRootVC.h; path = Bookmarks/BookmarksRootVC.h; sourceTree = SOURCE_ROOT; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
-		FAAFD698139D9C6B000AE70C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsearch.a; sourceTree = SOURCE_ROOT; };
 		FAB09895148E2F1500892860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAB0FC6019251E85003B396F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAB9D5D91992B981003F6A52 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
-		FAF29846146EEF4A00FF0057 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = SOURCE_ROOT; };
 		FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_regular.ttf; path = ../../data/00_roboto_regular.ttf; sourceTree = "<group>"; };
 		FAF457E415597BC100DCCC49 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		FAF457E615597D4600DCCC49 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
@@ -567,7 +547,6 @@
 				FA065FC61286143F00FEA989 /* External Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				FA1DE68411E15D4E00C6D69A /* Static Libraries */,
 				8D1107310486CEB800E47090 /* MAPSME.plist */,
 			);
 			indentWidth = 2;
@@ -859,33 +838,6 @@
 				FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */,
 			);
 			name = "Resources-iPad";
-			sourceTree = "<group>";
-		};
-		FA1DE68411E15D4E00C6D69A /* Static Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				FAA0F162196AC14100E01C3F /* librouting.a */,
-				EDBB18B716972B0600AF0742 /* libzlib.a */,
-				EE5A34E5156FCB9500E34FFE /* libgui.a */,
-				FAF29846146EEF4A00FF0057 /* libprotobuf.a */,
-				FAEA8B291437CA80002A6737 /* libjansson.a */,
-				FAAFD698139D9C6B000AE70C /* libsearch.a */,
-				FA2EF9C613630C3B00E3E484 /* libplatform.a */,
-				49DE1CA213437D7A00A93417 /* libbzip2.a */,
-				FA8F8937132D5DB00048E3FE /* libtomcrypt.a */,
-				EEF5745412DE1AD50082F472 /* libfribidi.a */,
-				FA04373112CAB83F00017494 /* libstorage.a */,
-				EE1201FF11CD464100ABDD5D /* libbase.a */,
-				EE12020011CD464100ABDD5D /* libcoding.a */,
-				EE12020211CD464100ABDD5D /* libexpat.a */,
-				EE12020311CD464100ABDD5D /* libfreetype.a */,
-				EE12020411CD464100ABDD5D /* libgeometry.a */,
-				EE12020511CD464100ABDD5D /* libindexer.a */,
-				EE12020611CD464100ABDD5D /* libmap.a */,
-				EE12020811CD464100ABDD5D /* libgraphics.a */,
-				EEFFB4E715DCDD8A00BACE1C /* libanim.a */,
-			);
-			name = "Static Libraries";
 			sourceTree = "<group>";
 		};
 		FA34BEC71338D6DB00FFB2A7 /* Common */ = {
