@@ -1779,8 +1779,12 @@ public:
 
 void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::FeatureMetadata & metadata) const
 {
+  m2::RectD rect(pt, pt);
+  double const inf = MercatorBounds::GetCellID2PointAbsEpsilon();
+  rect.Inflate(inf, inf);
+
   DoFindClosestPOI doFind(pt, 1.1 /* search radius in meters */);
-  m_model.ForEachFeature(m2::RectD(pt, pt), doFind, scales::GetUpperScale() /* scale level for POI */);
+  m_model.ForEachFeature(rect, doFind, scales::GetUpperScale() /* scale level for POI */);
 
   doFind.LoadMetadata(m_model, metadata);
 }
