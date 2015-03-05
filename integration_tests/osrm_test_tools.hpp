@@ -52,7 +52,7 @@ namespace integration
   void TestRouteLength(shared_ptr<routing::Route> const route, double referenceRouteLength, double routeLenInaccuracy = 0.01);
   void CalculateRouteAndTestRouteLength(shared_ptr<OsrmRouterComponents> routerComponents, m2::PointD const & startPt,
                                         m2::PointD const & startDr, m2::PointD const & finalPt, double referenceRouteLength,
-                                        double routeLenInaccuracy = 0.01);
+                                        double routeLenInaccuracy = 0.07);
 
   class TestTurn
   {

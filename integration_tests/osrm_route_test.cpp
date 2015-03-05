@@ -17,12 +17,36 @@ namespace
   {
     shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
     integration::CalculateRouteAndTestRouteLength(routerComponents,  {37.409929478750627, 67.644798619710073},
-                                                  {0., 0.}, {39.836562407458047, 65.774372510437971}, 253275.);
+                                                  {0., 0.}, {39.836562407458047, 65.774372510437971}, 239426.);
   }
+
   UNIT_TEST(UKRugbyStIvesRouteTest)
   {
     shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
     integration::CalculateRouteAndTestRouteLength(routerComponents,  {-1.2653036222483705, 61.691304855049886},
                                                   {0., 0.}, {-5.4799407508360218, 58.242809563579847}, 455902.);
+  }
+
+  UNIT_TEST(RussiaMoscowLenigradskiy39ItalySienaCenterRouteTest)
+  {
+    shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
+    integration::CalculateRouteAndTestRouteLength(routerComponents,  {37.537596024929826, 67.536160359657288},
+                                                  {0., 0.}, {11.327927635052676, 48.166256203616726}, 2870710.);
+  }
+
+  UNIT_TEST(RussiaMoscowLenigradskiy39EnglandLondonCenterRouteTest)
+  {
+    //@todo put down a correct route length when router is fixed
+    shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
+    integration::CalculateRouteAndTestRouteLength(routerComponents,  {37.537572384446207, 67.536189683408367},
+                                                  {0., 0.}, {-0.084976483156808751, 60.298304898120428}, 1000.);
+  }
+
+  UNIT_TEST(RussiaMoscowLenigradskiy39RepublicOfSouthAfricaCapeTownCenterRouteTest)
+  {
+    //@todo put down a correct route length when router is fixed
+    shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
+    integration::CalculateRouteAndTestRouteLength(routerComponents,  {37.537543510152318, 67.536217686389165},
+                                                  {0., 0.}, {18.542688617866236, -36.095015335418523}, 1000.);
   }
 }
