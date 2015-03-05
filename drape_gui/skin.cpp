@@ -1,4 +1,5 @@
 #include "skin.hpp"
+#include "drape_gui.hpp"
 
 #include "../platform/platform.hpp"
 #include "../coding/parse_xml.hpp"
@@ -246,8 +247,7 @@ void PositionResolver::SetOffsetY(float y)
   m_offset.y = y;
 }
 
-Skin::Skin(ReaderPtr<Reader> const & reader, double visualScale)
-  : m_vs(visualScale)
+Skin::Skin(ReaderPtr<Reader> const & reader)
 {
   SkinLoader loader(m_resolvers);
   ReaderSource<ReaderPtr<Reader> > source(reader);
@@ -259,7 +259,7 @@ Position Skin::ResolvePosition(ElementName name)
 {
   TResolversPair const & resolvers = m_resolvers[name];
   PositionResolver const & resolver = (m_displayWidth < m_displayHeight) ? resolvers.first : resolvers.second;
-  return resolver.Resolve(m_displayWidth, m_displayHeight, m_vs);
+  return resolver.Resolve(m_displayWidth, m_displayHeight, DrapeGui::Instance().GetScaleFactor());
 }
 
 void Skin::Resize(int w, int h)

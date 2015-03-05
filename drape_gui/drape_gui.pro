@@ -12,11 +12,21 @@ HEADERS += \
     skin.hpp \
     compass.hpp \
     shape.hpp \
-    layer_render.hpp
+    layer_render.hpp \
+    ruler.hpp \
+    ruler_helper.hpp \
+    drape_gui.hpp \
+    gui_text.hpp \
+    ruler_text.hpp
 
 SOURCES += \
     skin.cpp \
     compass.cpp \
     shape.cpp \
-    layer_render.cpp
+    layer_render.cpp \
+    ruler.cpp \
+    ruler_helper.cpp \
+    drape_gui.cpp \
+    gui_text.cpp \
+    ruler_text.cpp
 

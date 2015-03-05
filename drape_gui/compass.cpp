@@ -24,9 +24,8 @@ namespace
   class CompassHandle : public Handle
   {
   public:
-    CompassHandle(glsl::vec2 const & pivot)
-      : Handle(FeatureID(), dp::Center, 0.0)
-      , m_pivot(pivot)
+    CompassHandle(m2::PointF const & pivot)
+      : Handle(dp::Center, pivot)
     {
     }
 
@@ -44,22 +43,6 @@ namespace
         m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
       }
     }
-
-    virtual bool IndexesRequired() const override { return false; }
-
-    virtual m2::RectD GetPixelRect(ScreenBase const & screen) const override
-    {
-      return m2::RectD();
-    }
-
-    virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
-    {
-      UNUSED_VALUE(screen);
-      UNUSED_VALUE(rects);
-    }
-
-  private:
-    glsl::vec2 m_pivot;
   };
 }
 
@@ -80,7 +63,6 @@ void Compass::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Textu
   };
 
   dp::GLState state(gpu::COMPASS_PROGRAM, dp::GLState::UserMarkLayer);
-  state.SetBlending(dp::Blending(true));
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);
@@ -102,7 +84,7 @@ void Compass::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Textu
 
   provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes));
   batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
-                               dp::MovePointer<dp::OverlayHandle>(new CompassHandle(glsl::ToVec2(m_position.m_pixelPivot))));
+                               dp::MovePointer<dp::OverlayHandle>(new CompassHandle(m_position.m_pixelPivot)));
 }
 
 uint16_t Compass::GetVertexCount() const

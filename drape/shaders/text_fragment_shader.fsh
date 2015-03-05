@@ -1,3 +1,4 @@
+
 varying vec2 v_colorTexCoord;
 varying vec2 v_outlineColorTexCoord;
 varying vec2 v_maskTexCoord;
@@ -37,8 +38,8 @@ vec4 without_outline(vec4 base, float alpha)
 {
   if (alpha > GLYPH_MIN_VALUE)
   {
-    float oFactor = smoothstep(GLYPH_MIN_VALUE, GLYPH_MAX_VALUE, alpha );
-    return mix(base, vec4(1, 1, 1, 0), oFactor);
+    float oFactor = smoothstep(GLYPH_MIN_VALUE, GLYPH_MAX_VALUE, alpha);
+    return mix(base, vec4(0, 0, 0, 0), oFactor);
   }
   return base;
 }
@@ -51,9 +52,9 @@ void main (void)
 
   vec4 finalColor;
   if (outline.a > 0.1)
-    finalColor = colorize(base, outline, 1.0 - base.a * alpha);
+    finalColor = colorize(base, outline, 1.0 - alpha);
   else
-    finalColor = without_outline(base, 1.0 - base.a * alpha);
+    finalColor = without_outline(base, 1.0 - alpha);
 
   gl_FragColor = finalColor;
 }

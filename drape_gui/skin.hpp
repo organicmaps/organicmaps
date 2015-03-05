@@ -46,7 +46,7 @@ public:
     Copyright
   };
 
-  Skin(ReaderPtr<Reader> const & reader, double visualScale);
+  explicit Skin(ReaderPtr<Reader> const & reader);
 
   Position ResolvePosition(ElementName name);
   void Resize(int w, int h);
@@ -61,7 +61,6 @@ private:
 
   int m_displayWidth;
   int m_displayHeight;
-  double m_vs;
 };
 
 ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType);

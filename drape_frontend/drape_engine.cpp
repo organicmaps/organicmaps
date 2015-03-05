@@ -3,6 +3,8 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape_gui/drape_gui.hpp"
+
 #include "drape/texture_manager.hpp"
 
 #include "std/bind.hpp"
@@ -17,6 +19,17 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
   : m_viewport(viewport)
 {
   VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
+
+  gui::DrapeGui::TScaleFactorFn scaleFn = []
+  {
+    return VisualParams::Instance().GetVisualScale();
+  };
+  gui::DrapeGui::TGeneralizationLevelFn gnLvlFn = [](ScreenBase const & screen)
+  {
+    return GetDrawTileScale(screen);
+  };
+
+  gui::DrapeGui::Instance().Init(scaleFn, gnLvlFn);
 
   m_textureManager = dp::MasterPointer<dp::TextureManager>(new dp::TextureManager());
   m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());

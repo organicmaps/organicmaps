@@ -139,7 +139,7 @@ void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvi
   InsertTriangles<TriangleListOfStripBatch>(state, params, handle, vertexStride);
 }
 
-void Batcher::StartSession(flush_fn const & flusher)
+void Batcher::StartSession(TFlushFn const & flusher)
 {
   m_flushInterface = flusher;
 }
@@ -147,7 +147,7 @@ void Batcher::StartSession(flush_fn const & flusher)
 void Batcher::EndSession()
 {
   Flush();
-  m_flushInterface = flush_fn();
+  m_flushInterface = TFlushFn();
 }
 
 void Batcher::ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer)

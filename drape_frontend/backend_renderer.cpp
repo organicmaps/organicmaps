@@ -27,7 +27,7 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   : m_model(model)
   , m_engineContext(commutator)
   , m_texturesManager(textureManager)
-  , m_guiCacher("default", df::VisualParams::Instance().GetVisualScale())
+  , m_guiCacher("default")
   , m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
 {

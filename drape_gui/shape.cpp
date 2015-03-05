@@ -10,6 +10,29 @@ void Shape::SetPosition(gui::Position const & position)
   m_position = position;
 }
 
+void Handle::SetProjection(int w, int h)
+{
+  array<float, 16> m;
+  dp::MakeProjection(m, 0.0f, w, h, 0.0f);
+  m_uniforms.SetMatrix4x4Value("projection", m.data());
+}
+
+bool Handle::IndexesRequired() const
+{
+  return false;
+}
+
+m2::RectD Handle::GetPixelRect(const ScreenBase & screen) const
+{
+  return m2::RectD();
+}
+
+void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects & rects) const
+{
+  UNUSED_VALUE(screen);
+  UNUSED_VALUE(rects);
+}
+
 ShapeRenderer::ShapeRenderer(dp::GLState const & state,
                              dp::TransferPointer<dp::VertexArrayBuffer> buffer,
                              dp::TransferPointer<dp::OverlayHandle> implHandle)
@@ -51,13 +74,6 @@ void ShapeRenderer::Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProg
   }
 
   m_buffer->Render();
-}
-
-void Handle::SetProjection(int w, int h)
-{
-  array<float, 16> m;
-  dp::MakeProjection(m, 0.0f, w, h, 0.0f);
-  m_uniforms.SetMatrix4x4Value("projection", m.data());
 }
 
 }

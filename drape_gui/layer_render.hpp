@@ -3,9 +3,10 @@
 #include "skin.hpp"
 #include "shape.hpp"
 
-#include "../geometry/screenbase.hpp"
 #include "../drape/texture_manager.hpp"
 #include "../drape/gpu_program_manager.hpp"
+
+#include "../geometry/screenbase.hpp"
 
 #include "../std/unique_ptr.hpp"
 
@@ -40,10 +41,14 @@ private:
 class LayerCacher
 {
 public:
-  LayerCacher(string const & deviceType, double vs);
+  LayerCacher(string const & deviceType);
 
   void Resize(int w, int h);
   dp::TransferPointer<LayerRenderer> Recache(dp::RefPointer<dp::TextureManager> textures);
+
+private:
+  void CacheShape(dp::Batcher::TFlushFn const & flushFn, dp::RefPointer<dp::Batcher> batcher,
+                  dp::RefPointer<dp::TextureManager> mng, Shape && shape, Skin::ElementName element);
 
 private:
   unique_ptr<Skin> m_skin;

@@ -44,8 +44,8 @@ public:
                          TransferPointer<OverlayHandle> handle, uint8_t vertexStride);
 
 
-  typedef function<void (GLState const &, TransferPointer<RenderBucket> )> flush_fn;
-  void StartSession(flush_fn const & flusher);
+  typedef function<void (GLState const &, TransferPointer<RenderBucket> )> TFlushFn;
+  void StartSession(TFlushFn const & flusher);
   void EndSession();
 
 private:
@@ -64,7 +64,7 @@ private:
   void Flush();
 
 private:
-  flush_fn m_flushInterface;
+  TFlushFn m_flushInterface;
 
 private:
   typedef map<GLState, MasterPointer<RenderBucket> > buckets_t;

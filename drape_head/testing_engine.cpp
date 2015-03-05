@@ -12,6 +12,9 @@
 #include "drape_frontend/circle_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
 
+#include "drape_gui/drape_gui.hpp"
+#include "drape_gui/gui_text.hpp"
+
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -33,6 +36,48 @@
 
 namespace df
 {
+
+class DummyGuiText
+{
+public:
+  DummyGuiText(m2::PointF const & base, string const & text)
+    : m_base(base)
+    , m_text(text)
+  {
+  }
+
+  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+  {
+    gui::GuiText textCacher(dp::LeftBottom);
+    textCacher.SetMaxLength(10);
+    dp::RefPointer<dp::Texture> maskTexture = textCacher.SetAlphabet(m_text, textures);
+
+    dp::FontDecl font(dp::Color(0, 0, 0, 255), 14);
+    buffer_vector<gui::GuiText::StaticVertex, 32> statData;
+    dp::RefPointer<dp::Texture> colorTexure = textCacher.Precache(statData, font, textures);
+
+    glsl::vec2 offset = glsl::ToVec2(m_base);
+    for (gui::GuiText::StaticVertex & v : statData)
+      v.m_position = glsl::vec3(v.m_position.xy() + offset, v.m_position.z);
+
+    buffer_vector<gui::GuiText::DynamicVertex, 32> dynData;
+    textCacher.SetText(dynData, m_text);
+    ASSERT_EQUAL(statData.size(), dynData.size(), ());
+
+    dp::AttributeProvider provider(2, dynData.size());
+    provider.InitStream(0, gui::GuiText::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
+    provider.InitStream(1, gui::GuiText::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
+
+    dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+    state.SetColorTexture(colorTexure);
+    state.SetMaskTexture(maskTexture);
+    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+  }
+
+private:
+  m2::PointF m_base;
+  string m_text;
+};
 
 class DummyStippleElement : public MapShape
 {
@@ -74,7 +119,6 @@ public:
 
     dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(region.GetTexture());
-    state.SetBlending(dp::Blending(true));
 
     batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider));
   }
@@ -111,7 +155,6 @@ public:
 
     dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(region.GetTexture());
-    state.SetBlending(dp::Blending(true));
 
     batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider));
   }
@@ -258,6 +301,19 @@ TestingEngine::TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfac
 {
   m_contextFactory->getDrawContext()->makeCurrent();
   df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
+
+  gui::DrapeGui::TScaleFactorFn scaleFn = []()
+  {
+    return df::VisualParams::Instance().GetVisualScale();
+  };
+
+  gui::DrapeGui::TGeneralizationLevelFn genLvlFn = [](ScreenBase const & screen)
+  {
+    return df::GetDrawTileScale(screen);
+  };
+
+  gui::DrapeGui::Instance().Init(scaleFn, genLvlFn);
+
   GLFunctions::Init();
 
   dp::TextureManager::Params params;
@@ -294,9 +350,7 @@ void TestingEngine::Draw()
   static bool isInitialized = false;
   if (!isInitialized)
   {
-    m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
     DrawImpl();
-    m_batcher->EndSession();
     m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
     DrawRects();
     m_batcher->EndSession();
@@ -359,11 +413,12 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 
 void TestingEngine::DrawImpl()
 {
-  FontDecl fd;
+  m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
+  dp::FontDecl fd;
   fd.m_color = dp::Color::Black();
   fd.m_outlineColor = dp::Color::White();
   fd.m_size = 32.0f;
-  FontDecl auxFd;
+  dp::FontDecl auxFd;
   auxFd.m_color = dp::Color(0, 80, 240, 255);
   auxFd.m_outlineColor = dp::Color::Transparent();
   auxFd.m_size = 20.0f;
@@ -389,7 +444,7 @@ void TestingEngine::DrawImpl()
   ptvp.m_baseGtoPScale = 1.0f / m_modelView.GetScale();
   ptvp.m_depth = 100.0f;
   ptvp.m_text = "Some text";
-  ptvp.m_textFont = FontDecl(dp::Color::Black(), 40, dp::Color::Red());
+  ptvp.m_textFont = dp::FontDecl(dp::Color::Black(), 40, dp::Color::Red());
 
   PathTextShape(spline, ptvp).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
   LineViewParams lvp;
@@ -451,6 +506,25 @@ void TestingEngine::DrawImpl()
     p.m_depth = 0.0f;
     AreaShape(move(trg), p).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
   }
+  m_batcher->EndSession();
+
+  m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
+  {
+    vector<m2::PointD> path;
+    path.push_back(m2::PointD(120.0f, 30.0f));
+    path.push_back(m2::PointD(125.0f, 30.0f));
+    m2::SharedSpline spl(path);
+
+    LineViewParams lvpl = lvp;
+    lvpl.m_pattern.clear();
+    lvpl.m_depth = -10.0f;
+    lvpl.m_width = 2.0f;
+    LineShape(spl, lvpl).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+    DummyGuiText tt(m2::PointF(120.0f, 30.0f), "200 km");
+    tt.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
+  m_batcher->EndSession();
 }
 
 void TestingEngine::DrawRects()

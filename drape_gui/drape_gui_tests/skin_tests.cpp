@@ -2,10 +2,12 @@
 #include "../../testing/testing.hpp"
 
 #include "../skin.hpp"
+#include "../drape_gui.hpp"
 
 UNIT_TEST(ParseDefaultSkinTest)
 {
-  gui::Skin skin(gui::ResolveGuiSkinFile("default"), 2.0);
+  gui::DrapeGui::Instance().Init([]{ return 2.0; }, [] (ScreenBase const &) { return 6.0f; });
+  gui::Skin skin(gui::ResolveGuiSkinFile("default"));
   float width = 600.0f;
   float height = 800.0f;
   skin.Resize(width, height);

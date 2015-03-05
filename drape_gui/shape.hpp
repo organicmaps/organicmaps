@@ -29,13 +29,23 @@ protected:
 class Handle : public dp::OverlayHandle
 {
 public:
-  Handle(FeatureID const & id, dp::Anchor anchor, double p) : dp::OverlayHandle(id, anchor, p) {}
+  Handle(dp::Anchor anchor, m2::PointF const & pivot)
+    : dp::OverlayHandle(FeatureID(), anchor, 0.0)
+    , m_pivot(glsl::ToVec2(pivot))
+  {
+  }
+
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
   void SetProjection(int w, int h);
 
+  virtual bool IndexesRequired() const override;
+  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const override;
+  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const override;
+
 protected:
   dp::UniformValuesStorage m_uniforms;
+  glsl::vec2 const m_pivot;
 };
 
 class ShapeRenderer
