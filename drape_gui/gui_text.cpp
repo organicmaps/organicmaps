@@ -121,14 +121,17 @@ dp::RefPointer<dp::Texture> GuiText::Precache(buffer_vector<StaticVertex, 32> & 
 
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
-  float depth = 0.0f;
 
-  for (size_t i = 0; i < m_maxLength; ++i)
+  size_t vertexCount = 4 * m_maxLength;
+  buffer.resize(vertexCount, StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
+
+  float depth = 0.0f;
+  for (size_t i = 0; i < vertexCount; i += 4)
   {
-    buffer.push_back(StaticVertex(glsl::vec3(0.0, 0.0, depth), colorTex, outlineTex));
-    buffer.push_back(StaticVertex(glsl::vec3(0.0, 0.0, depth), colorTex, outlineTex));
-    buffer.push_back(StaticVertex(glsl::vec3(0.0, 0.0, depth), colorTex, outlineTex));
-    buffer.push_back(StaticVertex(glsl::vec3(0.0, 0.0, depth), colorTex, outlineTex));
+    buffer[i + 0].m_position.z = depth;
+    buffer[i + 1].m_position.z = depth;
+    buffer[i + 2].m_position.z = depth;
+    buffer[i + 3].m_position.z = depth;
     depth += 10.0f;
   }
 

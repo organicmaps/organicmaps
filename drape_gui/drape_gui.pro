@@ -17,7 +17,7 @@ HEADERS += \
     ruler_helper.hpp \
     drape_gui.hpp \
     gui_text.hpp \
-    ruler_text.hpp
+    ruler_text.hpp \
 
 SOURCES += \
     skin.cpp \
@@ -28,5 +28,5 @@ SOURCES += \
     ruler_helper.cpp \
     drape_gui.cpp \
     gui_text.cpp \
-    ruler_text.cpp
+    ruler_text.cpp \
 

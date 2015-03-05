@@ -5,7 +5,7 @@
 namespace fribidi
 {
 
-strings::UniString log2vis(const strings::UniString & str)
+strings::UniString log2vis(strings::UniString const & str)
 {
   size_t const count = str.size();
   if (count == 0)

@@ -95,28 +95,22 @@ void Ruler::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Texture
   glsl::vec2 texCoord = glsl::ToVec2(reg.GetTexRect().Center());
   float h = RulerHelper::Instance().GetRulerHalfHeight();
 
+  glsl::vec2 normals[] =
+  {
+    glsl::vec2(-1.0, 0.0),
+    glsl::vec2(1.0, 0.0),
+  };
+
   dp::Anchor anchor = m_position.m_anchor;
   if (anchor & dp::Left)
-  {
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), glsl::vec2(0.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), glsl::vec2(0.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), glsl::vec2(1.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), glsl::vec2(1.0, 0.0), texCoord));
-  }
+    normals[0] = glsl::vec2(0.0, 0.0);
   else if (anchor & dp::Right)
-  {
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), glsl::vec2(-1.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), glsl::vec2(-1.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), glsl::vec2(0.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), glsl::vec2(0.0, 0.0), texCoord));
-  }
-  else
-  {
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), glsl::vec2(-1.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), glsl::vec2(-1.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), glsl::vec2(1.0, 0.0), texCoord));
-    data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), glsl::vec2(1.0, 0.0), texCoord));
-  }
+    normals[1] = glsl::vec2(0.0, 0.0);
+
+  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), normals[0], texCoord));
+  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), normals[0], texCoord));
+  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, h), normals[1], texCoord));
+  data.push_back(RulerVertex(pivot + glsl::vec2(0.0, -h), normals[1], texCoord));
 
   dp::GLState state(gpu::RULER_PROGRAM, dp::GLState::UserMarkLayer);
   state.SetColorTexture(reg.GetTexture());
