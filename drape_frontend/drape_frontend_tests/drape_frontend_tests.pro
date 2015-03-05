@@ -4,7 +4,7 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_frontend coding platform drape base fribidi expat
+DEPENDENCIES = drape_frontend coding platform drape base expat
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 
@@ -16,5 +16,4 @@ macx-* {
 SOURCES += \
   ../../testing/testingmain.cpp \
   memory_feature_index_tests.cpp \
-  fribidi_tests.cpp \
   object_pool_tests.cpp \

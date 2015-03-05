@@ -1,5 +1,3 @@
-#pragma once
-
 #include "base/string_utils.hpp"
 
 #include "3party/fribidi/lib/fribidi.h"
@@ -7,7 +5,7 @@
 namespace fribidi
 {
 
-strings::UniString log2vis(strings::UniString const & str)
+strings::UniString log2vis(const strings::UniString & str)
 {
   size_t const count = str.size();
   if (count == 0)

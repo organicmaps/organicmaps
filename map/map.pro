@@ -33,7 +33,6 @@ HEADERS += \
     navigator_utils.hpp \
     pin_click_manager.hpp \
     rotate_screen_task.hpp \
-    ruler.hpp \
     track.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
@@ -63,7 +62,6 @@ SOURCES += \
     navigator_utils.cpp \
     pin_click_manager.cpp \
     rotate_screen_task.cpp \
-    ruler.cpp \
     track.cpp \
     user_mark.cpp \
     user_mark_container.cpp \

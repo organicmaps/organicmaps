@@ -1,7 +1,8 @@
 #include "base/SRC_FIRST.hpp"
 #include "testing/testing.hpp"
 
-#include "drape_frontend/fribidi.hpp"
+#include "drape/fribidi.hpp"
+
 
 UNIT_TEST(FribidiDirection)
 {

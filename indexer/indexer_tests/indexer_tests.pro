@@ -37,3 +37,4 @@ SOURCES += \
     test_polylines.cpp \
     test_type.cpp \
     visibility_test.cpp \
+    measurement_tests.cpp \

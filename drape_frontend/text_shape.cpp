@@ -114,7 +114,7 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
 }
 
 void TextShape::DrawSubString(StraightTextLayout const & layout,
-                              df::FontDecl const & font,
+                              dp::FontDecl const & font,
                               glsl::vec2 const & baseOffset,
                               dp::RefPointer<dp::Batcher> batcher,
                               dp::RefPointer<dp::TextureManager> textures) const
@@ -133,7 +133,6 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
                dynamicBuffer);
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetBlending(dp::Blending(true));
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());

@@ -2,7 +2,6 @@
 #include "map/country_status_display.hpp"
 #include "map/compass_arrow.hpp"
 #include "map/framework.hpp"
-#include "map/ruler.hpp"
 #include "map/alfa_animation_task.hpp"
 
 #include "anim/task.hpp"

@@ -76,7 +76,7 @@ void Extract(::LineDefProto const * lineRule,
   }
 }
 
-void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, df::FontDecl &params)
+void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, dp::FontDecl &params)
 {
   params.m_color = ToDrapeColor(capRule->color());
   params.m_size = max(8.0, capRule->height() * df::VisualParams::Instance().GetVisualScale());
@@ -122,7 +122,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
                                             double depth,
                                             TextViewParams & params) const
 {
-  FontDecl decl;
+  dp::FontDecl decl;
   CaptionDefProtoToFontDecl(primaryProto, decl);
 
   params.m_anchor = GetAnchor(primaryProto);
@@ -133,7 +133,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
   if (secondaryProto)
   {
-    FontDecl auxDecl;
+    dp::FontDecl auxDecl;
     CaptionDefProtoToFontDecl(secondaryProto, auxDecl);
 
     params.m_secondaryText = m_captions.GetAuxText();
@@ -300,7 +300,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
   if (pCaptionRule != NULL && pCaptionRule->height() > 2 &&
       !m_captions.GetPathName().empty() && isWay)
   {
-    FontDecl fontDecl;
+    dp::FontDecl fontDecl;
     CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
 
     PathTextViewParams params;
@@ -360,7 +360,7 @@ void ApplyLineFeature::Finish()
     viewParams.m_anchor = dp::Center;
     viewParams.m_featureID = FeatureID();
     viewParams.m_primaryText = roadNumber;
-    viewParams.m_primaryTextFont = FontDecl(dp::Color::RoadNumberOutline(), textHeight, dp::Color::White());
+    viewParams.m_primaryTextFont = dp::FontDecl(dp::Color::RoadNumberOutline(), textHeight, dp::Color::White());
 
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())

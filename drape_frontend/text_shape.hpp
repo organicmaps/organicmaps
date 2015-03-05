@@ -18,7 +18,7 @@ public:
 
   void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
 private:
-  void DrawSubString(StraightTextLayout const & layout, df::FontDecl const & font,
+  void DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
                      glsl::vec2 const & baseOffset, dp::RefPointer<dp::Batcher> batcher,
                      dp::RefPointer<dp::TextureManager> textures) const;
 
