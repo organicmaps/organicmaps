@@ -951,9 +951,8 @@ void Framework::ClearAllCaches()
 
 void Framework::MemoryWarning()
 {
-  ClearAllCaches();
-
   LOG(LINFO, ("MemoryWarning"));
+  ClearAllCaches();
 }
 
 void Framework::EnterBackground()

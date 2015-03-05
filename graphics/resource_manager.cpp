@@ -73,7 +73,6 @@ namespace graphics
       res.m_indices->lock();
       res.m_vertices->lock();
     }
-
     return res;
   }
 

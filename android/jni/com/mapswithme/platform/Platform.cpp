@@ -55,6 +55,29 @@ string Platform::UniqueClientId() const
   return res;
 }
 
+string Platform::GetMemoryInfo() const
+{
+  JNIEnv * env = jni::GetEnv();
+  if (!env)
+  {
+    LOG(LWARNING, ("Can't get JNIEnv"));
+    return string("");
+  }
+
+  jclass memLoggingClass = env->FindClass("com/mapswithme/util/log/MemLogging");
+  ASSERT(memLoggingClass, ());
+
+  jmethodID getMemoryInfoId = env->GetStaticMethodID(memLoggingClass, "GetMemoryInfo", "()Ljava/lang/String;");
+  ASSERT(getMemoryInfoId, ());
+
+  jstring memInfoString = (jstring)env->CallStaticObjectMethod(memLoggingClass, getMemoryInfoId);
+  ASSERT(memInfoString, ());
+
+  string res = jni::ToNativeString(env, memInfoString);
+
+  return res;
+}
+
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   android::Platform::RunOnGuiThreadImpl(fn);

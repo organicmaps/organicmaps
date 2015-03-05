@@ -30,6 +30,7 @@
 #include "../../../map/user_mark.hpp"
 #include "../../../map/country_status_display.hpp"
 #include "../../../platform/settings.hpp"
+#include "../../../platform/file_logging.hpp"
 
 #define ALERT_VIEW_FACEBOOK 1
 #define ALERT_VIEW_APPSTORE 2
@@ -133,6 +134,7 @@
       [m_predictor reset:info];
     Framework & frm = GetFramework();
     frm.OnLocationUpdate(info);
+    LogMemoryInfo();
 
     [self showPopover];
     [self updateRoutingInfo];

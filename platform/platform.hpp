@@ -164,6 +164,10 @@ public:
 
   bool IsTablet() const { return m_isTablet; }
 
+  /// @return information about kinds of memory which are relevant for a platform
+  /// This methid is implemented for iOS and Android only
+  string GetMemoryInfo() const;
+
 private:
   void GetSystemFontNames(FilesList & res) const;
 };

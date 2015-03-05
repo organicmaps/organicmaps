@@ -3,15 +3,11 @@
 #include <android/log.h>
 #include <cassert>
 
-#include "../../../../../base/assert.hpp"
 #include "../../../../../base/logging.hpp"
 #include "../../../../../base/exception.hpp"
 #include "../../../../../coding/file_writer.hpp"
 #include "../../../../../platform/platform.hpp"
-
-#include "../../../../../std/unique_ptr.hpp"
-
-//#define MWM_LOG_TO_FILE
+#include "../../../../../platform/file_logging.hpp"
 
 
 namespace jni
@@ -36,28 +32,10 @@ void AndroidLogMessage(LogLevel l, SrcPoint const & src, string const & s)
   __android_log_write(pr, "MapsWithMe_JNI", out.c_str());
 }
 
-void AndroidLogToFile(LogLevel l, SrcPoint const & src, string const & s)
-{
-  static unique_ptr<FileWriter> file;
-
-  if (file == NULL)
-  {
-    if (GetPlatform().WritableDir().empty())
-      return;
-
-    file.reset(new FileWriter(GetPlatform().WritablePathForFile("logging.txt")));
-  }
-
-  string srcString = DebugPrint(src) + " " + s + "\n";
-
-  file->Write(srcString.c_str(), srcString.size());
-  file->Flush();
-}
-
 void AndroidAssertMessage(SrcPoint const & src, string const & s)
 {
 #if defined(MWM_LOG_TO_FILE)
-  AndroidLogToFile(LERROR, src, s);
+  LogMessageFile(LERROR, src, s);
 #else
   AndroidLogMessage(LERROR, src, s);
 #endif
@@ -72,7 +50,7 @@ void AndroidAssertMessage(SrcPoint const & src, string const & s)
 void InitSystemLog()
 {
 #if defined(MWM_LOG_TO_FILE)
-  SetLogMessageFn(&AndroidLogToFile);
+  SetLogMessageFn(&LogMessageFile);
 #else
   SetLogMessageFn(&AndroidLogMessage);
 #endif

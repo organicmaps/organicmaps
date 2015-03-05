@@ -15,6 +15,8 @@
 
 #include "../../../../../base/logging.hpp"
 
+#include "../../../../../platform/file_logging.hpp"
+
 
 extern "C"
 {
@@ -52,6 +54,7 @@ extern "C"
     if (speed > 0.0)
       info.m_speed = speed;
 
+    LogMemoryInfo();    
     g_framework->OnLocationUpdated(info);
   }
 

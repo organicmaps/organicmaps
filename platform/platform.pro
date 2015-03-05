@@ -71,7 +71,8 @@ HEADERS += \
     http_thread_callback.hpp \
     chunks_download_strategy.hpp \
     servers_list.hpp \
-    constants.hpp
+    constants.hpp \
+    file_logging.hpp \
 
 SOURCES += \
     preferred_languages.cpp \
@@ -80,4 +81,5 @@ SOURCES += \
     http_request.cpp \
     chunks_download_strategy.cpp \
     platform.cpp \
-    servers_list.cpp
+    servers_list.cpp \
+    file_logging.cpp \

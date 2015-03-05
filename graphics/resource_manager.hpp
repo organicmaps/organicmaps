@@ -6,7 +6,6 @@
 #include "data_formats.hpp"
 #include "defines.hpp"
 
-//#include "../base/mutex.hpp"
 #include "../base/resource_pool.hpp"
 
 #include "../std/shared_ptr.hpp"

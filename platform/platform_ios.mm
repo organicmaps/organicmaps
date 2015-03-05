@@ -15,6 +15,8 @@
   #define IFT_ETHER 0x6 /* Ethernet CSMACD */
 #endif
 
+#import <mach/mach.h>
+
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSPathUtilities.h>
@@ -143,6 +145,29 @@ static void PerformImpl(void * obj)
   Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);
   (*f)();
   delete f;
+}
+
+string Platform::GetMemoryInfo() const
+{
+  struct task_basic_info info;
+  mach_msg_type_number_t size = sizeof(info);
+  kern_return_t const kerr = task_info(mach_task_self(),
+                                 TASK_BASIC_INFO,
+                                 (task_info_t)&info,
+                                 &size);
+  stringstream ss;
+  if (kerr == KERN_SUCCESS)
+  {
+    ss << "Memory info: Resident_size = " << info.resident_size / 1024
+      << "KB; virtual_size = " << info.resident_size / 1024 << "KB; suspend_count = " << info.suspend_count
+      << " policy = " << info.policy;
+    return ss.str();
+  }
+  else
+  {
+    ss << "Error with task_info(): " << mach_error_string(kerr);
+    return ss.str();
+  }
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)

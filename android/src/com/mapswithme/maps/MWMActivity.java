@@ -75,7 +75,6 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
-import com.mapswithme.util.log.MemLogging;
 import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -153,7 +152,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private LocationPredictor mLocationPredictor;
   private LikesManager mLikesManager;
 
-  private MemLogging mMemLogging;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -582,7 +580,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     mLikesManager = new LikesManager(this);
-    mMemLogging = new MemLogging(this);
     restoreRoutingState(savedInstanceState);
   }
 
@@ -1029,14 +1026,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mPlacePage.onResume();
     mLocationPredictor.resume();
     mLikesManager.showLikeDialogs();
-    mMemLogging.startLogging();
   }
 
   @Override
   protected void onPause()
   {
-    mMemLogging.stopLogging();
-
     pauseLocation();
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();

@@ -4,8 +4,7 @@
 
 #include "../../platform/settings.hpp"
 #include "../../platform/platform.hpp"
-
-#include "../../base/logging.hpp"
+#include "../../platform/file_logging.hpp"
 
 
 /// Used to trick iOs and enable multithreading support with non-native pthreads.
@@ -19,6 +18,9 @@
 
 int main(int argc, char * argv[])
 {
+#ifdef MWM_LOG_TO_FILE
+  my::SetLogMessageFn(LogMessageFile);
+#endif
   LOG(LINFO, ("maps.me started, detected CPU cores:", GetPlatform().CpuCores()));
 
   int retVal;
