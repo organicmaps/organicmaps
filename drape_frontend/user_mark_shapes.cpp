@@ -108,7 +108,6 @@ void CacheUserMarks(UserMarksProvider const * provider,
   }
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::UserMarkLayer);
-  state.SetBlending(true);
   state.SetColorTexture(region.GetTexture());
   dp::AttributeProvider attribProvider(1, buffer.size());
   attribProvider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(buffer.data()));

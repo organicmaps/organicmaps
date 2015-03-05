@@ -10,7 +10,7 @@ namespace dp
 
 struct Blending
 {
-  Blending(bool isEnabled = false);
+  Blending(bool isEnabled = true);
 
   void Apply() const;
 

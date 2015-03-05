@@ -291,7 +291,6 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   }
 
   dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
-  state.SetBlending(true);
   state.SetColorTexture(colorRegion.GetTexture());
   state.SetMaskTexture(maskRegion.GetTexture());
 

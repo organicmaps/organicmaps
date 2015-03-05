@@ -47,7 +47,6 @@ void CircleShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::T
   }
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetBlending(dp::Blending(true));
   state.SetColorTexture(region.GetTexture());
 
   double handleSize = 2 * m_params.m_radius;

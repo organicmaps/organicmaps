@@ -45,7 +45,6 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
   };
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetBlending(dp::Blending(true));
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);

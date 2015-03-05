@@ -60,9 +60,8 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
 
   dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
-  state.SetBlending(dp::Blending(true));
 
-  dp::AttributeProvider provider(1, 4 * buffer.size());
+  dp::AttributeProvider provider(1, buffer.size());
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(buffer.data()));
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
 }
