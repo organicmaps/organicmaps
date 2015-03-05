@@ -29,6 +29,11 @@ LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libprotobuf.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := succinct
+LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libsuccinct.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := tomcrypt
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libtomcrypt.a
 include $(PREBUILT_STATIC_LIBRARY)
@@ -137,7 +142,7 @@ include $(CLEAR_VARS)
 LOCAL_CPP_FEATURES += exceptions rtti
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := map gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf osrm stats_client
+LOCAL_STATIC_LIBRARIES := map gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf osrm stats_client succinct
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)

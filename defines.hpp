@@ -4,6 +4,7 @@
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
 #define FONT_FILE_EXTENSION ".ttf"
 #define OSM2FEATURE_FILE_EXTENSION ".osm2ft"
+#define EXTENSION_TMP ".tmp"
 
 #define DATA_FILE_TAG "dat"
 #define GEOMETRY_FILE_TAG "geom"
@@ -14,7 +15,6 @@
 #define VERSION_FILE_TAG "version"
 #define METADATA_FILE_TAG "meta"
 #define METADATA_INDEX_FILE_TAG "metaidx"
-#define FEATURES_OFFSETS_TABLE_FILE_TAG "offsets"
 #define COMPRESSED_SEARCH_INDEX_FILE_TAG "csdx"
 
 #define ROUTING_MATRIX_FILE_TAG "mercedes"
@@ -25,8 +25,10 @@
 
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
 #define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
-#define FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG "bftsegnodes"
-#define FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG "bftsegbits"
+
+#define FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT ".bftsegnodes"
+#define FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT ".bftsegbits"
+#define FEATURES_OFFSETS_TABLE_FILE_EXT ".offsets"
 
 //Secret word to unlock experimental features in production builds
 #define ROUTING_SECRET_UNLOCKING_WORD "?ariadna"

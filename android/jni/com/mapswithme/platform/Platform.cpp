@@ -11,6 +11,7 @@
 
 #include "../../../../../std/algorithm.hpp"
 
+#include <sys/stat.h>
 
 string Platform::UniqueClientId() const
 {
@@ -53,6 +54,14 @@ string Platform::UniqueClientId() const
   }
 
   return res;
+}
+
+string Platform::WritablePathForFileIndexes(string const & country_name) const
+{
+  string dir = WritableDir() + country_name + '/';
+  if (!IsFileExistsByFullPath(dir))
+    mkdir(dir.c_str(), 0755);
+  return dir;
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)

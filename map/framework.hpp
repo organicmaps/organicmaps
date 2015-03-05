@@ -170,6 +170,8 @@ public:
   void DeleteCountry(storage::TIndex const & index, storage::TMapOptions opt);
   /// options - flags that signal about parts of map that must be downloaded
   void DownloadCountry(storage::TIndex const & index, storage::TMapOptions opt);
+  /// Deletes user calculated indexes on country updates
+  void DeleteCountryIndexes(storage::TIndex const & index);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
   string GetCountryName(storage::TIndex const & index) const;

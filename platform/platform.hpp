@@ -60,6 +60,8 @@ public:
   string WritableDir() const { return m_writableDir; }
   /// @return full path to file in user's writable directory
   string WritablePathForFile(string const & file) const { return WritableDir() + file; }
+  /// @return full path to indexes directory for country file. Creates directory if it's not exists.
+  string WritablePathForFileIndexes(string const & country_name) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
   string ResourcesDir() const { return m_resourcesDir; }

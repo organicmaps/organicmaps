@@ -78,6 +78,15 @@ Platform::Platform()
   [pool release];
 }
 
+string Platform::WritablePathForFileIndexes(string const & country_name) const
+{
+
+  string dir = m_writableDir + country_name.c_str() + '/';
+  if (!IsFileExistsByFullPath(dir))
+    ::mkdir(dir.c_str(), 0755);
+  return dir;
+}
+
 int Platform::CpuCores() const
 {
   int mib[2], numCPU = 0;

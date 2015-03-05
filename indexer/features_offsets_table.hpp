@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../coding/file_container.hpp"
+#include "../coding/mmap_reader.hpp"
+#include "../defines.hpp"
 #include "../std/stdint.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
@@ -51,11 +53,10 @@ namespace feature
     /// mapped to the memory and used by internal structures of
     /// FeaturesOffsetsTable.
     ///
-    /// \param container a container with a section devoted to
-    ///                  FeaturesOffsetsTable
+    /// \param countryName a countryName to save index file to
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to load FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> Load(FilesMappingContainer const & container);
+    static unique_ptr<FeaturesOffsetsTable> Load(string const & countryName);
 
     /// Loads FeaturesOffsetsTable from FilesMappingContainer. Note
     /// that some part of a file referenced by container will be
@@ -66,19 +67,18 @@ namespace feature
     ///
     /// \warning May take a lot of time if there is no precomputed section
     ///
-    /// \param container a container with a section devoted to
-    ///                  FeaturesOffsetsTable
+    /// \param countryName a country to create index to
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to create FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(FilesMappingContainer const & container);
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(string const & countryName);
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
 
     /// Serializes current instance to a section in container.
     ///
-    /// \param container a container current instance will be serialized to
-    void Save(FilesContainerW & container);
+    /// \param countryName a name of the country to create data
+    void Save(string const & countryName);
 
     /// \param index index of a feature
     /// \return offset a feature
@@ -102,13 +102,21 @@ namespace feature
       return succinct::mapper::size_of(m_table);
     }
 
+    /// Delete temporary index file
+    static void CleanIndexFiles(string const & countryName)
+    {
+      FileWriter::DeleteFileX(GetIndexFileName(countryName));
+    }
+
   private:
+    static string GetIndexFileName(string const & countryName);
+
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);
 
-    FeaturesOffsetsTable(FilesMappingContainer::Handle && handle);
+    FeaturesOffsetsTable(string const &);
 
     succinct::elias_fano m_table;
 
-    FilesMappingContainer::Handle m_handle;
+    unique_ptr<MmapReader> m_pSrc;
   };
 }  // namespace feature

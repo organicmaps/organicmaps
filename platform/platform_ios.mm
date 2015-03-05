@@ -3,6 +3,7 @@
 #include "constants.hpp"
 
 #include "../coding/file_reader.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -47,6 +48,15 @@ Platform::Platform()
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
 
   [pool release];
+}
+
+
+string Platform::WritablePathForFileIndexes(string const & country_name) const
+{
+  string dir = m_writableDir + country_name.c_str() + '/';
+  if (!IsFileExistsByFullPath(dir))
+    ::mkdir(dir.c_str(), 0755);
+  return dir;
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)

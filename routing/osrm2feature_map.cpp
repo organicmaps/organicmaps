@@ -3,6 +3,8 @@
 #include "../defines.hpp"
 
 #include "../coding/varint.hpp"
+#include "../coding/internal/file_data.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
@@ -320,17 +322,49 @@ void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
   cont.Write(fName, ROUTING_FTSEG_FILE_TAG);
 }
 
+void OsrmFtSegBackwardIndex::Save(string const & countryName)
+{
+  string dir = GetPlatform().WritablePathForFileIndexes(countryName);
+  {
+    string const nodesFileName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT;
+    string const nodesFileNameTmp = nodesFileName + EXTENSION_TMP;
+    succinct::mapper::freeze(m_nodeIds, nodesFileNameTmp.c_str());
+    my::RenameFileX(nodesFileNameTmp, nodesFileName);
+  }
+  {
+    string const bitsFileName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT;
+    string const bitsFileNameTmp = bitsFileName + EXTENSION_TMP;
+    succinct::mapper::freeze(m_rankIndex, bitsFileNameTmp.c_str());
+    my::RenameFileX(bitsFileNameTmp, bitsFileName);
+  }
+}
+
+bool OsrmFtSegBackwardIndex::Load(string const & countryName)
+{
+  string dir = GetPlatform().WritablePathForFileIndexes(countryName);
+  string const nodesName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT;
+  string const bitsName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT;
+  uint64_t size;
+  if (! GetPlatform().GetFileSizeByFullPath(nodesName, size) || ! GetPlatform().GetFileSizeByFullPath(bitsName, size))
+    return false;
+  m_pMappedNodes = unique_ptr<MmapReader>(new MmapReader(nodesName));
+  m_pMappedBits = unique_ptr<MmapReader>(new MmapReader(bitsName));
+
+  succinct::mapper::map(m_nodeIds, reinterpret_cast<char const *>(m_pMappedNodes->Data()));
+  succinct::mapper::map(m_rankIndex, reinterpret_cast<char const *>(m_pMappedBits->Data()));
+
+  return true;
+}
+
 void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const uint32_t maxNodeId, FilesMappingContainer & routingFile)
 {
   Clear();
   // Calculate data file pathes
   string const routingName = routingFile.GetName();
-  string const mwmName(routingName, 0, routingName.find(ROUTING_FILE_EXTENSION));
-  FilesMappingContainer mwmContainer(mwmName);
-  mwmContainer.Open(mwmName);
-  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(mwmContainer);
+  string const name(routingName, routingName.rfind(my::GetNativeSeparator())+1, routingName.find(DATA_FILE_EXTENSION) -routingName.rfind(my::GetNativeSeparator())-1);
+  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(name);
 
-  if (Load(routingFile))
+  if (Load(name))
     return;
 
   // Generate temporary index to speedup processing
@@ -365,28 +399,8 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
   succinct::elias_fano_compressed_list(nodeIds).swap(m_nodeIds);
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
   LOG(LINFO, ("Writing section to data file", routingName));
-  routingFile.Close();
-  FilesContainerW writer(routingName);
-  Save(writer);
-  writer.Finish();
-  routingFile.Open(routingName);
-  LOG(LINFO, ("Writing section to data file DONE", routingName));
 
-
-  //    if (Load(parentCont))
-  //      return;
-  //    size_t const count = segments.size();
-  //    m_index.resize(count);
-  //    for (size_t i = 0; i < count; ++i)
-  //    {
-  //      OsrmMappingTypes::FtSeg s(segments[i]);
-  //      m_index[i] = make_pair(s.m_fid, i);
-  //    }
-  //    sort(m_index.begin(), m_index.end(), [](IndexRecordTypeT const & a, IndexRecordTypeT const & b)
-  //    {
-  //     return a.first < b.first;
-  //    });
-  //    Save(parentCont);
+  Save(name);
 }
 
 }

@@ -58,12 +58,11 @@ namespace feature
 
   UNIT_TEST(FeaturesOffsetsTable_CreateIfNotExistsAndLoad)
   {
+    string const testFileName = "minsk-pass";
     Platform & p = GetPlatform();
-    FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
-    if (baseContainer.IsExist(FEATURES_OFFSETS_TABLE_FILE_TAG))
-      FilesContainerW(baseContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING).DeleteSection(FEATURES_OFFSETS_TABLE_FILE_TAG);
-    FilesMappingContainer mappingContainer(baseContainer.GetFileName());
-    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(mappingContainer));
+    FilesContainerR baseContainer(p.GetReader(testFileName + DATA_FILE_EXTENSION));
+    FeaturesOffsetsTable::CleanIndexFiles(testFileName);
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(testFileName));
     TEST(table.get(), ());
 
     feature::DataHeader header;
@@ -77,13 +76,13 @@ namespace feature
     TEST_EQUAL(builderSize, table->size(), ());
 
     table = unique_ptr<FeaturesOffsetsTable>();
-    FilesMappingContainer newReadContainer(baseContainer.GetFileName());
-    table = unique_ptr<FeaturesOffsetsTable>(FeaturesOffsetsTable::Load(newReadContainer));
+    table = unique_ptr<FeaturesOffsetsTable>(FeaturesOffsetsTable::Load(testFileName));
     TEST_EQUAL(builderSize, table->size(), ());
   }
 
   UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
   {
+    string const testFileName = "test_file";
     Platform & p = GetPlatform();
     FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
 
@@ -100,7 +99,7 @@ namespace feature
     TEST(table.get(), ());
     TEST_EQUAL(builder.size(), table->size(), ());
 
-    string const testFile = p.WritablePathForFile("test_file" DATA_FILE_EXTENSION);
+    string const testFile = p.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
     MY_SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
 
     // Store table in a temporary data file.
@@ -111,19 +110,16 @@ namespace feature
       // table section.
       baseContainer.ForEachTag([&baseContainer, &testContainer](string const & tag)
                                {
-                                 if (tag != FEATURES_OFFSETS_TABLE_FILE_TAG)
                                    testContainer.Write(baseContainer.GetReader(tag), tag);
                                });
-      table->Save(testContainer);
+      table->Save("test_file");
       testContainer.Finish();
     }
 
     // Load table from the temporary data file.
     {
-      FilesMappingContainer testContainer(testFile);
-      MY_SCOPE_GUARD(testContainerGuard, bind(&FilesMappingContainer::Close, &testContainer));
-
-      unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(testContainer));
+      MY_SCOPE_GUARD(testTableGuard, [&testFileName](){FeaturesOffsetsTable::CleanIndexFiles(testFileName);});
+      unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(testFileName));
       TEST(loadedTable.get(), ());
 
       TEST_EQUAL(table->size(), loadedTable->size(), ());

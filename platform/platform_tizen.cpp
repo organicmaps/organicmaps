@@ -10,6 +10,7 @@
 #include <sys/types.h>
 
 #include "../coding/file_reader.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include "../base/logging.hpp"
 
@@ -41,6 +42,14 @@ Platform::Platform()
   m_flags[HAS_BOOKMARKS] = true;
   m_flags[HAS_ROTATION] = true;
   m_flags[HAS_ROUTING] = true;
+}
+
+string Platform::WritablePathForFileIndexes(string const & country_name) const
+{
+  string dir = WritableDir() + country_name + my::GetNativeSeparator();
+  if (!IsFileExistsByFullPath(dir))
+    Tizen::Io::Directory::Create(dir.c_str(), true);
+  return dir;
 }
 
 int Platform::CpuCores() const

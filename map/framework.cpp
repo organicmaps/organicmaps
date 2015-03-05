@@ -307,6 +307,20 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 
     m_storage.NotifyStatusChanged(index);
   }
+
+  DeleteCountryIndexes(index);
+}
+
+void Framework::DeleteCountryIndexes(TIndex const & index)
+{
+  string const & file = m_storage.CountryByIndex(index).Name();
+  //Remove all indexes
+  m_routingSession.Reset();
+  Platform::FilesList files;
+  Platform const & pl = GetPlatform();
+  pl.GetFilesByRegExp(pl.WritablePathForFileIndexes(file), "*", files);
+  for (auto const & file : files)
+    my::DeleteFileX(file);
 }
 
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)

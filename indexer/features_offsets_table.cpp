@@ -3,10 +3,12 @@
 #include "../indexer/data_header.hpp"
 #include "../indexer/features_vector.hpp"
 #include "../coding/file_writer.hpp"
+#include "../coding/internal/file_data.hpp"
+#include "../platform/platform.hpp"
 #include "../base/assert.hpp"
 #include "../base/scope_guard.hpp"
 #include "../std/string.hpp"
-#include "../defines.hpp"
+
 
 namespace feature
 {
@@ -21,10 +23,10 @@ namespace feature
   {
   }
 
-  FeaturesOffsetsTable::FeaturesOffsetsTable(FilesMappingContainer::Handle && handle)
-      : m_handle(move(handle))
+  FeaturesOffsetsTable::FeaturesOffsetsTable(string const & fileName)
   {
-    succinct::mapper::map(m_table, m_handle.GetData<char>());
+    m_pSrc = unique_ptr<MmapReader>(new MmapReader(fileName));
+    succinct::mapper::map(m_table, reinterpret_cast<char const *>(m_pSrc->Data()));
   }
 
   // static
@@ -43,26 +45,29 @@ namespace feature
   }
 
   // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(
-      FilesMappingContainer const & container)
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & countryName)
   {
-    FilesMappingContainer::Handle handle(container.Map(FEATURES_OFFSETS_TABLE_FILE_TAG));
-    if (!handle.IsValid())
+    string const fileName  = GetIndexFileName(countryName);
+    uint64_t size;
+    if (!GetPlatform().GetFileSizeByFullPath(fileName, size))
       return unique_ptr<FeaturesOffsetsTable>();
-    return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(std::move(handle)));
+    return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(fileName));
   }
 
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      FilesMappingContainer const & container)
+      string const & countryName)
   {
-    if (container.IsExist(FEATURES_OFFSETS_TABLE_FILE_TAG))
-      return Load(container);
+    string const fileName = GetIndexFileName(countryName);
+    uint64_t size;
+    if (GetPlatform().GetFileSizeByFullPath(fileName,size))
+      return Load(countryName);
 
-    if (!container.IsExist(HEADER_FILE_TAG))
+    string const mwmName = GetPlatform().WritablePathForFile(countryName + DATA_FILE_EXTENSION);
+    FilesContainerR cont(mwmName);
+    if (!cont.IsExist(HEADER_FILE_TAG))
       return unique_ptr<FeaturesOffsetsTable>();
 
-    FilesContainerR cont(container.GetName());
     DataHeader header;
     header.Load(cont.GetReader(HEADER_FILE_TAG));
 
@@ -72,17 +77,16 @@ namespace feature
       builder.PushOffset(offset);
     });
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
-    FilesContainerW writeCont(container.GetName(), FileWriter::OP_WRITE_EXISTING);
-    table->Save(writeCont);
+    table->Save(countryName);
     return table;
   }
 
-  void FeaturesOffsetsTable::Save(FilesContainerW & container)
+  void FeaturesOffsetsTable::Save(string const & countryName)
   {
-    string const fileName = container.GetFileName() + "." FEATURES_OFFSETS_TABLE_FILE_TAG;
-    MY_SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(fileName)));
-    succinct::mapper::freeze(m_table, fileName.c_str());
-    container.Write(fileName, FEATURES_OFFSETS_TABLE_FILE_TAG);
+    string const fileName = GetIndexFileName(countryName);
+    string const fileNameTmp = fileName + EXTENSION_TMP;
+    succinct::mapper::freeze(m_table, fileNameTmp.c_str());
+    my::RenameFileX(fileNameTmp, fileName);
   }
 
   uint64_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const
@@ -113,6 +117,11 @@ namespace feature
     }
     return current;
 
+  }
+
+  string FeaturesOffsetsTable::GetIndexFileName(string const & countryName)
+  {
+    return GetPlatform().WritablePathForFileIndexes(countryName) + countryName + FEATURES_OFFSETS_TABLE_FILE_EXT;
   }
 
 }  // namespace feature

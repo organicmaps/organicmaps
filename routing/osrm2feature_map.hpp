@@ -1,8 +1,11 @@
 #pragma once
 
 #include "../coding/file_container.hpp"
+#include "../coding/mmap_reader.hpp"
 
 #include "../base/scope_guard.hpp"
+
+#include "../platform/platform.hpp"
 
 #include "../indexer/features_offsets_table.hpp"
 
@@ -97,44 +100,16 @@ class OsrmFtSegBackwardIndex
   succinct::elias_fano_compressed_list m_nodeIds;
   unique_ptr<feature::FeaturesOffsetsTable> m_table;
 
-  FilesMappingContainer::Handle m_handleNodes;
-  FilesMappingContainer::Handle m_handleBits;
+  unique_ptr<MmapReader> m_pMappedNodes, m_pMappedBits;
 
   template <class T> void ClearContainer(T & t)
   {
     T().swap(t);
   }
 
-  void Save(FilesContainerW & container)
-  {
-    {
-      string const nodesFileName = container.GetFileName() + "." FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG;
-      MY_SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(nodesFileName)));
-      succinct::mapper::freeze(m_nodeIds, nodesFileName.c_str());
-      container.Write(nodesFileName, FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG);
-    }
-    {
-      string const bitsFileName = container.GetFileName() + "." FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG;
-      MY_SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(bitsFileName)));
-      succinct::mapper::freeze(m_nodeIds, bitsFileName.c_str());
-      container.Write(bitsFileName, FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG);
-    }
-  }
+  void Save(string const & countryName);
 
-  bool Load(FilesMappingContainer const & container)
-  {
-    if (!container.IsExist(FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG) || !container.IsExist(FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG))
-      return false;
-    m_handleNodes.Assign(container.Map(FTSEG_MAPPING_BACKWARD_INDEX_NODES_TAG));
-    ASSERT(m_handleNodes.IsValid(), ());
-    succinct::mapper::map(m_nodeIds, m_handleNodes.GetData<char>());
-
-    m_handleBits.Assign(container.Map(FTSEG_MAPPING_BACKWARD_INDEX_BITS_TAG));
-    ASSERT(m_handleBits.IsValid(), ());
-    succinct::mapper::map(m_rankIndex, m_handleBits.GetData<char>());
-
-    return true;
-  }
+  bool Load(string const & container);
 
 public:
   void Construct(OsrmFtSegMapping const & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
@@ -156,8 +131,8 @@ public:
     ClearContainer(m_nodeIds);
     ClearContainer(m_rankIndex);
     m_table = unique_ptr<feature::FeaturesOffsetsTable>();
-    m_handleNodes.Unmap();
-    m_handleBits.Unmap();
+    m_pMappedBits = nullptr;
+    m_pMappedNodes = nullptr;
   }
 
 };
