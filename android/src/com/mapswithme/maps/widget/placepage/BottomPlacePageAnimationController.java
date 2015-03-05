@@ -29,7 +29,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       mDownCoord = event.getRawY();
       break;
     case MotionEvent.ACTION_MOVE:
-      if (mDownCoord < mPreview.getY() || mDownCoord > mButtons.getY())
+      if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons))
         return false;
       if (Math.abs(mDownCoord - event.getRawY()) > mTouchSlop)
         return true;
@@ -42,7 +42,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   @Override
   protected boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    if (mDownCoord < mPreview.getY() || mDownCoord > mButtons.getY())
+    if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons))
       return false;
 
     super.onTouchEvent(event);
@@ -93,7 +93,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
-        if (mDownCoord < mPreview.getY() && mDownCoord < mDetails.getY())
+        if (mDownCoord < ViewHelper.getY(mPreview) && mDownCoord < ViewHelper.getY(mDetails))
           return false;
 
         if (mPlacePage.getState() == State.PREVIEW)

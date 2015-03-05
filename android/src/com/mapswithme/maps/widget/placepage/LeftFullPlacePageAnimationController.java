@@ -11,9 +11,9 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-public class LeftFullAnimationController extends BasePlacePageAnimationController
+public class LeftFullPlacePageAnimationController extends BasePlacePageAnimationController
 {
-  public LeftFullAnimationController(@NonNull PlacePageView placePage)
+  public LeftFullPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
   }

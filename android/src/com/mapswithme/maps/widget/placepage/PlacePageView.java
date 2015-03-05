@@ -49,7 +49,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
-public class PlacePageView extends LinearLayout implements View.OnClickListener, View.OnLongClickListener, TextView.OnEditorActionListener
+public class PlacePageView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener, TextView.OnEditorActionListener
 {
   private LayoutInflater mInflater;
   // Preview
@@ -109,7 +109,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
 
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
-    super(context, attrs, defStyleAttr);
+    super(context, attrs);
 
     mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name),
         Context.MODE_PRIVATE).getBoolean(PREF_USE_DMS, false);
@@ -185,7 +185,7 @@ public class PlacePageView extends LinearLayout implements View.OnClickListener,
       mAnimationController = new LeftFloatPlacePageAnimationController(this);
       break;
     case 3:
-      mAnimationController = new LeftFullAnimationController(this);
+      mAnimationController = new LeftFullPlacePageAnimationController(this);
       break;
     }
   }

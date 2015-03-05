@@ -243,7 +243,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?android:selectableItemBackground"
+            android:background="?attr/clickableBackground"
             android:drawableRight="@drawable/ic_arrow_down"
             android:lineSpacingMultiplier="1.43"
             android:paddingTop="@dimen/margin_small"
@@ -258,7 +258,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_small"
             android:padding="@dimen/margin_small"
-            android:background="?android:selectableItemBackground"
+            android:background="?attr/clickableBackground"
             android:src="@drawable/color_picker_red_on"/>
       </LinearLayout>
 
