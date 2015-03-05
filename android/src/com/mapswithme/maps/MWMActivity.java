@@ -1063,15 +1063,15 @@ public class MWMActivity extends NvEventQueueActivity
     return 0;
   }
 
-  @SuppressWarnings("deprecation")
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final double angles[] = {magneticNorth, trueNorth};
-    LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), angles);
-    nativeCompassUpdated(time, angles[0], angles[1], accuracy);
+    final int rotation = getWindowManager().getDefaultDisplay().getRotation();
+    magneticNorth = LocationUtils.correctCompassAngle(rotation, magneticNorth);
+    trueNorth = LocationUtils.correctCompassAngle(rotation, trueNorth);
+    final double north = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
 
-    final double north = (angles[1] >= 0.0) ? angles[1] : angles[0];
+    nativeCompassUpdated(time, magneticNorth, trueNorth, accuracy);
     if (mPlacePage.getState() != State.HIDDEN)
       mPlacePage.refreshAzimuth(north);
   }

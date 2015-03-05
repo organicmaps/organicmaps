@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,6 +17,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -71,40 +74,6 @@ public final class UiUtils
       show(views);
     else
       hide(views);
-  }
-
-  public static void animateAndHide(final View target, Animation anim)
-  {
-    anim.setAnimationListener(new AnimationListener()
-    {
-
-      @Override
-      public void onAnimationStart(Animation animation)
-      {}
-
-      @Override
-      public void onAnimationRepeat(Animation animation)
-      {}
-
-      @Override
-      public void onAnimationEnd(Animation animation)
-      {
-        try
-        {
-          hide(target);
-        } catch (final Exception e)
-        {
-          // ignore
-        }
-      }
-    });
-    target.startAnimation(anim);
-  }
-
-  public static void showAndAnimate(final View target, Animation anim)
-  {
-    show(target);
-    target.startAnimation(anim);
   }
 
   public static TranslateAnimation generateRelativeSlideAnimation(float fromX, float toX, float fromY, float toY)
@@ -165,7 +134,7 @@ public final class UiUtils
   }
 
   @SuppressLint("DefaultLocale")
-  public static final int colorByName(String name, int defColor)
+  public static int colorByName(String name, int defColor)
   {
     if (COLOR_MAP.containsKey(name.trim().toLowerCase()))
       return COLOR_MAP.get(name);
@@ -173,7 +142,7 @@ public final class UiUtils
       return defColor;
   }
 
-  private static final Map<String, Integer> COLOR_MAP = new HashMap<String, Integer>();
+  private static final Map<String, Integer> COLOR_MAP = new HashMap<>();
 
   static
   {
@@ -373,6 +342,19 @@ public final class UiUtils
   public static void showHomeUpButton(Toolbar toolbar)
   {
     toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+  }
+
+  public static void lockScreenOrientation(Activity activity)
+  {
+    if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    else
+      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+  }
+
+  public static void unlockScreenOrientation(FragmentActivity activity)
+  {
+    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
   }
 
   // utility class

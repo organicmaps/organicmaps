@@ -17,7 +17,7 @@ public class LocationUtils
   /**
    * Correct compass angles due to display orientation.
    */
-  public static void correctCompassAngles(int displayOrientation, double angles[])
+  public static double correctCompassAngle(int displayOrientation, double angle)
   {
     double correction = 0;
     switch (displayOrientation)
@@ -33,14 +33,11 @@ public class LocationUtils
       break;
     }
 
-    for (int i = 0; i < angles.length; ++i)
-    {
-      if (angles[i] >= 0.0)
-      {
-        // negative values (like -1.0) should remain negative (indicates that no direction available)
-        angles[i] = correctAngle(angles[i], correction);
-      }
-    }
+    // negative values (like -1.0) should remain negative (indicates that no direction available)
+    if (angle >= 0.0)
+      angle = correctAngle(angle, correction);
+
+    return angle;
   }
 
   public static double correctAngle(double angle, double correction)

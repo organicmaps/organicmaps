@@ -52,6 +52,7 @@
 
   <dimen name="place_page_height">51dp</dimen>
   <dimen name="place_page_button_height">55dp</dimen>
+  <dimen name="place_page_title_big">32sp</dimen>
   <dimen name="place_page_title">20sp</dimen>
   <dimen name="place_page_subtitle">14sp</dimen>
   <dimen name="place_page_sub_subtitle">12sp</dimen>
@@ -75,5 +76,12 @@
   <dimen name="routing_button_width">51dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
   <dimen name="panel_width">400dp</dimen>
+  <!-- direction fragment -->
+  <dimen name="margin_direction_small">8dp</dimen>
+  <dimen name="margin_direction_big">40dp</dimen>
+  <dimen name="margin_direction_left">32dp</dimen>
+  <dimen name="margin_direction_top">40dp</dimen>
+  <dimen name="margin_direction_mid">24dp</dimen>
+  <dimen name="margin_direction_around_center">0dp</dimen>
 
 </resources>

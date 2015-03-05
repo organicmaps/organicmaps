@@ -30,6 +30,14 @@
 
   <dimen name="routing_pp_height">63dp</dimen>
 
+  <!-- direction fragment -->
+  <dimen name="margin_direction_small">12dp</dimen>
+  <dimen name="margin_direction_big">80dp</dimen>
+  <dimen name="margin_direction_left">40dp</dimen>
+  <dimen name="margin_direction_top">32dp</dimen>
+  <dimen name="margin_direction_mid">36dp</dimen>
+  <dimen name="margin_direction_around_center">40dp</dimen>
+
   <bool name="isTablet">true</bool>
 
 </resources>

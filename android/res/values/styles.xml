@@ -53,6 +53,12 @@
     <item name="android:textViewStyle">@style/MwmText</item>
   </style>
 
+  <style name="MwmMain.Dialog.DialogFragment.Fullscreen" parent="Theme.AppCompat">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:windowBackground">@color/semitransparent_black</item>
+  </style>
+
   <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
     <item name="android:background">@drawable/bg_btn_zoom</item>
     <item name="android:scaleType">center</item>
@@ -148,6 +154,13 @@
   <style name="MwmRatingBar" parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
+  </style>
+
+  <style name="DirectionTitle" parent="android:Widget.TextView">
+    <item name="android:fontFamily">@string/robotoRegular</item>
+    <item name="android:lines">1</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:textSize">@dimen/place_page_title_big</item>
   </style>
 
 </resources>

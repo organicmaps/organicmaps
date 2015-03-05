@@ -2,10 +2,9 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-
-import com.mapswithme.maps.R;
 
 public class ArrowView extends ImageView
 {
@@ -56,8 +55,6 @@ public class ArrowView extends ImageView
   public ArrowView(Context context, AttributeSet attrs)
   {
     super(context, attrs);
-
-    setImageResource(R.drawable.ic_direction_pagepreview);
   }
 
   public void setDrawCircle(boolean draw)
@@ -132,7 +129,7 @@ public class ArrowView extends ImageView
   }
 
   @Override
-  protected void onDraw(Canvas canvas)
+  protected void onDraw(@NonNull Canvas canvas)
   {
     canvas.save();
     canvas.rotate(-mCurrentAngle, mWidth / 2, mHeight / 2);

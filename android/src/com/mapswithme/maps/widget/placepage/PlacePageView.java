@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -132,6 +133,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvOpened = (TextView) ppPreview.findViewById(R.id.tv__opened_till);
     mTvDistance = (TextView) ppPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) ppPreview.findViewById(R.id.av__direction);
+    mAvDirection.setOnClickListener(this);
+    mAvDirection.setImageResource(R.drawable.ic_direction_pagepreview);
 
     mPpDetails = (ViewGroup) mView.findViewById(R.id.pp__details);
     mLlAddress = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_name);
@@ -530,6 +533,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.tv__bookmark_group:
       selectBookmarkSet();
       break;
+    case R.id.av__direction:
+      showBigDirection();
+      break;
     default:
       break;
     }
@@ -571,6 +577,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     });
 
     dialogFragment.show(((FragmentActivity) getContext()).getSupportFragmentManager(), null);
+  }
+
+  private void showBigDirection()
+  {
+    final FragmentActivity hostActivity = (FragmentActivity) getContext();
+    final DirectionFragment fragment = (DirectionFragment) Fragment.instantiate(hostActivity, DirectionFragment.class.getName(), null);
+    fragment.setMapObject(mMapObject);
+    fragment.show(hostActivity.getSupportFragmentManager(), null);
   }
 
   @Override
