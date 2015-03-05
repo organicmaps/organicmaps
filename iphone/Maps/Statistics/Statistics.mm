@@ -55,26 +55,6 @@
     [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
 }
 
-- (void)applicationWillResignActive
-{
-}
-
-- (void)applicationWillTerminate
-{
-}
-
-- (void)applicationDidEnterBackground
-{
-}
-
-- (void)applicationWillEnterForeground
-{
-}
-
-- (void)applicationDidBecomeActive
-{
-}
-
 - (BOOL)enabled
 {
 #ifdef DEBUG

@@ -11,12 +11,6 @@
 - (void)logApiUsage:(NSString *)programName;
 - (void)logLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(double)horizontalAccuracy verticalAccuracy:(double)verticalAccuracy;
 
-- (void)applicationWillTerminate;
-- (void)applicationDidEnterBackground;
-- (void)applicationWillResignActive;
-- (void)applicationWillEnterForeground;
-- (void)applicationDidBecomeActive;
-
 + (id)instance;
 
 @property (nonatomic, readonly) BOOL enabled;

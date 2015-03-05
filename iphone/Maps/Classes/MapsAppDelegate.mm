@@ -161,14 +161,14 @@ void InitLocalizedStrings()
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-  [[Statistics instance] applicationWillTerminate];
+  [Alohalytics logEvent:@"$applicationWillTerminate"];
 
 	[self.m_mapViewController onTerminate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-  [[Statistics instance] applicationDidEnterBackground];
+  [Alohalytics logEvent:@"$applicationDidEnterBackground"];
 
 	[self.m_mapViewController onEnterBackground];
   if (m_activeDownloadsCounter)
@@ -182,12 +182,12 @@ void InitLocalizedStrings()
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-  [[Statistics instance] applicationWillResignActive];
+  [Alohalytics logEvent:@"$applicationWillResignActive"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-  [[Statistics instance] applicationWillEnterForeground];
+  [Alohalytics logEvent:@"$applicationWillEnterForeground"];
 
   [self.m_locationManager orientationChanged];
   [self.m_mapViewController onEnterForeground];
@@ -195,7 +195,7 @@ void InitLocalizedStrings()
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  [[Statistics instance] applicationDidBecomeActive];
+  [Alohalytics logEvent:@"$applicationDidBecomeActive"];
 
   Framework & f = GetFramework();
   if (m_geoURL)
