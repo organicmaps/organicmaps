@@ -147,13 +147,14 @@ tizen{
 
 }
 
-linux-g++* {
+linux-* {
   QMAKE_CFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_CXXFLAGS *= -fdata-sections -ffunction-sections
   QMAKE_LFLAGS *= -Wl,--gc-sections -Wl,-Bsymbolic-functions
-  QMAKE_CFLAGS_RELEASE *= -ffloat-store
-  QMAKE_CXXFLAGS_RELEASE *= -ffloat-store
-
+  linux-g++* {
+    QMAKE_CFLAGS_RELEASE *= -ffloat-store
+    QMAKE_CXXFLAGS_RELEASE *= -ffloat-store
+  }
   # debian build requirements
   CONFIG(production) {
     QMAKE_CFLAGS_RELEASE = -g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security

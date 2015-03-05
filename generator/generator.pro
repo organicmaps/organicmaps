@@ -39,7 +39,6 @@ HEADERS += \
     feature_merger.hpp \
     xml_element.hpp \
     osm_element.hpp \
-    data_generator.hpp \
     feature_generator.hpp \
     first_pass_parser.hpp \
     data_cache_file.hpp \
