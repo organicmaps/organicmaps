@@ -77,11 +77,9 @@ public:
       m_val.Read(src);
     }
 
-    template <class TCont>
-    void SerializeValue(TCont & cont) const
-    {
-      m_val.Serialize(cont);
-    }
+    inline void const * value_data() const { return m_val.data(); }
+
+    inline size_t value_size() const { return m_val.size(); }
 
     void Swap(StringT & r)
     {
@@ -210,9 +208,9 @@ private:
 template <typename ValueT>
 void StringsFile<ValueT>::AddString(StringT const & s)
 {
-  size_t const maxSize = 1000000;
+  size_t const kMaxSize = 1000000;
 
-  if (m_strings.size() >= maxSize)
+  if (m_strings.size() >= kMaxSize)
     Flush();
 
   m_strings.push_back(s);

@@ -32,12 +32,9 @@ struct FeatureIndexValue
     m_value = ReadPrimitiveFromSource<uint32_t>(reader);
   }
 
-  template <typename TCont>
-  void Serialize(TCont & cont) const
-  {
-    cont.resize(sizeof(m_value));
-    memcpy(cont.data(), &m_value, sizeof(m_value));
-  }
+  inline void const * data() const { return &m_value; }
+
+  inline size_t size() const { return sizeof(m_value); }
 
   bool operator<(FeatureIndexValue const & value) const { return m_value < value.m_value; }
 
@@ -65,11 +62,9 @@ struct SerializedFeatureInfoValue
     rw::ReadVectorOfPOD(reader, m_value);
   }
 
-  template <typename TCont>
-  void Serialize(TCont & cont) const
-  {
-    cont.assign(m_value.begin(), m_value.end());
-  }
+  inline void const * data() const { return m_value.data(); }
+
+  inline size_t size() const { return m_value.size() * sizeof(ValueT::value_type); }
 
   bool operator<(SerializedFeatureInfoValue const & value) const { return m_value < value.m_value; }
 
@@ -107,7 +102,15 @@ public:
     m_offsets.push_back(value.m_value);
   }
 
+  /// This method returns number of values in the current instance of
+  /// ValueList<FeatureIndexValue>, but as these values are actually
+  /// features indices and can be dumped as a single serialized
+  /// compressed bit vector, this method returns 1 when there're at
+  /// least one feature's index in the list - so, compressed bit
+  /// vector will be built and serialized - and 0 otherwise.
   size_t size() const { return m_offsets.empty() ? 0 : 1; }
+
+  bool empty() const { return m_offsets.empty(); }
 
   template <typename SinkT>
   void Dump(SinkT & sink) const
@@ -137,6 +140,8 @@ public:
   }
 
   size_t size() const { return m_size; }
+
+  bool empty() const { return !m_size; }
 
   template <typename SinkT>
   void Dump(SinkT & sink) const

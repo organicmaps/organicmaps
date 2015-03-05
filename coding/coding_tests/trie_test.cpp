@@ -56,11 +56,9 @@ struct KeyValuePair
   trie::TrieChar const * GetKeyData() const { return m_key.data(); }
   uint32_t GetValue() const { return m_value; }
 
-  template <class TCont> void SerializeValue(TCont & cont) const
-  {
-    cont.resize(sizeof(m_value));
-    memcpy(cont.data(), &m_value, sizeof(m_value));
-  }
+  inline void const * value_data() const { return &m_value; }
+
+  inline size_t value_size() const { return sizeof(m_value); }
 
   bool operator == (KeyValuePair const & p) const
   {
@@ -121,6 +119,8 @@ public:
 
   size_t size() const { return m_string.size(); }
 
+  bool empty() const { return m_string.empty(); }
+
   template <typename SinkT>
   void Dump(SinkT & sink) const
   {
@@ -134,27 +134,25 @@ private:
 class Uint32ValueList
 {
 public:
-  Uint32ValueList() : m_size(0) {}
+  using BufferT = vector<uint32_t>;
 
   void Append(uint32_t value)
   {
-    size_t const originalSize = m_value.size();
-    m_value.resize(originalSize + sizeof(value));
-    memcpy(m_value.data() + originalSize, &value, sizeof(value));
-    ++m_size;
+    m_values.push_back(value);
   }
 
-  uint32_t size() const { return m_size; }
+  uint32_t size() const { return m_values.size(); }
+
+  bool empty() const { return m_values.empty(); }
 
   template <typename SinkT>
   void Dump(SinkT & sink) const
   {
-    sink.Write(&m_value[0], m_value.size());
+    sink.Write(m_values.data(), m_values.size() * sizeof(BufferT::value_type));
   }
 
 private:
-  vector<uint8_t> m_value;
-  uint32_t m_size;
+  BufferT m_values;
 };
 
 }  // unnamed namespace

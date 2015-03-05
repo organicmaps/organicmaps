@@ -369,6 +369,8 @@ struct FeatureInserterAdapter
 
   void operator()(FeatureType const & f, uint64_t pos)
   {
+    /// @todo After VNG's refactoring the whole class should go away
+    ///       since pos will be replaced by a feature's index.
     m_inserter(f, m_index++);
   }
 

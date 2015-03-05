@@ -43,7 +43,7 @@ namespace trie
 namespace builder
 {
 template <typename SinkT, typename ChildIterT, typename ValueListT>
-void WriteNode(SinkT & sink, TrieChar baseChar, ValueListT & valueList,
+void WriteNode(SinkT & sink, TrieChar baseChar, ValueListT const & valueList,
                ChildIterT const begChild, ChildIterT const endChild, bool isRoot = false)
 {
   if (begChild == endChild && !isRoot)
@@ -140,8 +140,8 @@ struct NodeInfo
 };
 
 template <typename SinkT, typename EdgeBuilderT, typename ValueListT>
-void WriteNodeReverse(SinkT & sink, TrieChar baseChar, NodeInfo<EdgeBuilderT, ValueListT> & node,
-                      bool isRoot = false)
+void WriteNodeReverse(SinkT & sink, TrieChar baseChar,
+                      NodeInfo<EdgeBuilderT, ValueListT> const & node, bool isRoot = false)
 {
   typedef buffer_vector<uint8_t, 64> OutStorageType;
   OutStorageType out;
@@ -162,7 +162,7 @@ void PopNodes(SinkT & sink, NodesT & nodes, int nodesToPop)
     NodeInfoType & node = nodes.back();
     NodeInfoType & prevNode = nodes[nodes.size() - 2];
 
-    if (node.m_valueList.size() == 0 && node.m_children.size() <= 1)
+    if (node.m_valueList.empty() && node.m_children.size() <= 1)
     {
       ASSERT_EQUAL(node.m_children.size(), 1, ());
       ChildInfo & child = node.m_children[0];
@@ -233,14 +233,12 @@ template <typename SinkT, typename IterT, typename EdgeBuilderT, typename ValueL
 void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & edgeBuilder)
 {
   typedef buffer_vector<TrieChar, 32> TrieString;
-  typedef buffer_vector<uint8_t, 32> TrieValue;
   typedef builder::NodeInfo<EdgeBuilderT, ValueListT> NodeInfoT;
 
   buffer_vector<NodeInfoT, 32> nodes;
   nodes.push_back(NodeInfoT(sink.Pos(), DEFAULT_CHAR, edgeBuilder));
 
   TrieString prevKey;
-  TrieValue value;
 
   typedef typename IterT::value_type ElementT;
   ElementT prevE;
@@ -265,8 +263,7 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
       nodes.push_back(NodeInfoT(pos, key[i], edgeBuilder));
     nodes.back().m_valueList.Append(e.GetValue());
 
-    e.SerializeValue(value);
-    nodes.back().m_edgeBuilder.AddValue(value.data(), value.size());
+    nodes.back().m_edgeBuilder.AddValue(e.value_data(), e.value_size());
 
     prevKey.swap(key);
     prevE.Swap(e);
