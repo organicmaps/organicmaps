@@ -49,9 +49,9 @@ Platform::Platform()
   [pool release];
 }
 
-void Platform::MkDir(string const & directory_name) const
+void Platform::MkDir(string const & dirName) const
 {
-  ::mkdir(directory_name.c_str(), 0755);
+  ::mkdir(dirName.c_str(), 0755);
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)

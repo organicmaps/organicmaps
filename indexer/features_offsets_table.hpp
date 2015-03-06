@@ -117,6 +117,6 @@ namespace feature
 
     succinct::elias_fano m_table;
 
-    unique_ptr<MmapReader> m_pSrc;
+    unique_ptr<MmapReader> m_pReader;
   };
 }  // namespace feature

@@ -277,7 +277,6 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
     }
 
   }
-  FileWriter::DeleteFileX(containerPath);
 }
 
 UNIT_TEST(FilesMappingContainer_Smoke)

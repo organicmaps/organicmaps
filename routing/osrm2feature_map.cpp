@@ -193,7 +193,6 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
   for (auto it = segments.begin(); it != segments.end(); ++it)
   {
     OsrmMappingTypes::FtSeg const & seg = *(*it);
-    vector<size_t> results;
     uint32_t nodeId = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
 
     auto range = GetSegmentsRange(nodeId);
@@ -281,11 +280,11 @@ void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT nodeId, FtSegVectorT const & da
   size_t const count = data.size();
 
   if (count == 0)
-    m_buffer.push_back(OsrmMappingTypes::FtSeg(OsrmMappingTypes::FtSeg::INVALID_FID, 0, 1).Store());
+    m_buffer.emplace_back(OsrmMappingTypes::FtSeg(OsrmMappingTypes::FtSeg::INVALID_FID, 0, 1).Store());
   else
   {
     for (size_t i = 0; i < count; ++i)
-      m_buffer.push_back(data[i].Store());
+      m_buffer.emplace_back(data[i].Store());
   }
 
   if (count > 1)
@@ -295,7 +294,7 @@ void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT nodeId, FtSegVectorT const & da
     uint32_t const off = static_cast<uint32_t>(m_lastOffset);
     CHECK_EQUAL(m_lastOffset, off, ());
 
-    m_offsets.push_back(OsrmMappingTypes::SegOffset(nodeId, off));
+    m_offsets.emplace_back(OsrmMappingTypes::SegOffset(nodeId, off));
   }
 }
 void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
@@ -324,7 +323,7 @@ void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
 
 void OsrmFtSegBackwardIndex::Save(string const & countryName)
 {
-  string dir = GetPlatform().WritablePathForFileIndexes(countryName);
+  string const dir = GetPlatform().WritablePathForCountryIndexes(countryName);
   {
     string const nodesFileName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT;
     string const nodesFileNameTmp = nodesFileName + EXTENSION_TMP;
@@ -341,14 +340,14 @@ void OsrmFtSegBackwardIndex::Save(string const & countryName)
 
 bool OsrmFtSegBackwardIndex::Load(string const & countryName)
 {
-  string dir = GetPlatform().WritablePathForFileIndexes(countryName);
+  string const dir = GetPlatform().WritablePathForCountryIndexes(countryName);
   string const nodesName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT;
   string const bitsName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT;
   uint64_t size;
   if (!GetPlatform().GetFileSizeByFullPath(nodesName, size) || !GetPlatform().GetFileSizeByFullPath(bitsName, size))
     return false;
-  m_pMappedNodes = unique_ptr<MmapReader>(new MmapReader(nodesName));
-  m_pMappedBits = unique_ptr<MmapReader>(new MmapReader(bitsName));
+  m_pMappedNodes.reset(new MmapReader(nodesName));
+  m_pMappedBits.reset(new MmapReader(bitsName));
 
   succinct::mapper::map(m_nodeIds, reinterpret_cast<char const *>(m_pMappedNodes->Data()));
   succinct::mapper::map(m_rankIndex, reinterpret_cast<char const *>(m_pMappedBits->Data()));
@@ -368,7 +367,7 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
     return;
 
   // Generate temporary index to speedup processing
-  map<uint64_t, uint32_t> temporaryBackwardIndex;
+  unordered_map<uint64_t, uint32_t> temporaryBackwardIndex;
   for (uint32_t i = 0; i < maxNodeId; ++i)
   {
     auto indexes = mapping.GetSegmentsRange(i);
@@ -398,8 +397,8 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
   // Pack and save index
   succinct::elias_fano_compressed_list(nodeIds).swap(m_nodeIds);
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
-  LOG(LINFO, ("Writing section to data file", routingName));
 
+  LOG(LINFO, ("Writing section to data file", routingName));
   Save(name);
 }
 
@@ -419,9 +418,9 @@ void OsrmFtSegBackwardIndex::Clear()
 {
   ClearContainer(m_nodeIds);
   ClearContainer(m_rankIndex);
-  m_table = unique_ptr<feature::FeaturesOffsetsTable>();
-  m_pMappedBits = nullptr;
-  m_pMappedNodes = nullptr;
+  m_table.reset();
+  m_pMappedBits.reset();
+  m_pMappedNodes.reset();
 }
 
 }

@@ -25,8 +25,8 @@ namespace feature
 
   FeaturesOffsetsTable::FeaturesOffsetsTable(string const & fileName)
   {
-    m_pSrc = unique_ptr<MmapReader>(new MmapReader(fileName));
-    succinct::mapper::map(m_table, reinterpret_cast<char const *>(m_pSrc->Data()));
+    m_pReader.reset(new MmapReader(fileName));
+    succinct::mapper::map(m_table, reinterpret_cast<char const *>(m_pReader->Data()));
   }
 
   // static
@@ -97,29 +97,26 @@ namespace feature
 
   size_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint64_t offset) const
   {
+    ASSERT_GREATER(size(), 0, ("We must not ask empty table"));
     ASSERT_LESS_OR_EQUAL(offset, m_table.select(size() - 1), ("Offset out of bounds", offset,
                                                      m_table.select(size() - 1)));
+    ASSERT_GREATER_OR_EQUAL(offset, m_table.select(0), ("Offset out of bounds", offset,
+                                                        m_table.select(size() - 1)));
     //Binary search in elias_fano list
-    size_t first = 0, last = size();
-    size_t count = last - first, step, current;
-    while (count > 0)
-    {
-      step = count / 2;
-      current = first + step;
-      if (m_table.select(current) < offset)
-      {
-        first = ++current;
-        count -= step + 1;
-      }
+    size_t leftBound = 0, rightBound = size();
+    while (leftBound + 1 < rightBound) {
+      size_t middle = leftBound + (rightBound - leftBound) / 2;
+      if (m_table.select(middle) <= offset)
+        leftBound = middle;
       else
-        count = step;
+        rightBound = middle;
     }
-    return current;
+    return leftBound;
   }
 
   string FeaturesOffsetsTable::GetIndexFileName(string const & countryName)
   {
-    return GetPlatform().WritablePathForFileIndexes(countryName) + countryName + FEATURES_OFFSETS_TABLE_FILE_EXT;
+    return GetPlatform().WritablePathForCountryIndexes(countryName) + countryName + FEATURES_OFFSETS_TABLE_FILE_EXT;
   }
 
 }  // namespace feature

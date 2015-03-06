@@ -318,7 +318,7 @@ void Framework::DeleteCountryIndexes(TIndex const & index)
   m_routingSession.Reset();
   Platform::FilesList files;
   Platform const & pl = GetPlatform();
-  pl.GetFilesByRegExp(pl.WritablePathForFileIndexes(file), "*", files);
+  pl.GetFilesByRegExp(pl.WritablePathForCountryIndexes(file), "*", files);
   for (auto const & file : files)
     my::DeleteFileX(file);
 }

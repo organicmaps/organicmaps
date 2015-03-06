@@ -61,13 +61,15 @@ public:
   /// @return full path to file in user's writable directory
   string WritablePathForFile(string const & file) const { return WritableDir() + file; }
   /// @return full path to indexes directory for country file. Creates directory if it's not exists.
-  string WritablePathForFileIndexes(string const & country_name) const;
+  string WritablePathForCountryIndexes(string const & country_name) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
   string ResourcesDir() const { return m_resourcesDir; }
 
   /// Creates directory at filesystem
-  void MkDir(string const & directory_name) const;
+  void MkDir(string const & dirName) const;
+
+  /// @TODO create join method for string concatenation
 
   /// @return path for directory with temporary files with slash at the end
   string TmpDir() const { return m_tmpDir; }

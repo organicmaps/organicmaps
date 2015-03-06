@@ -95,9 +95,9 @@ string Platform::DeviceName() const
   return OMIM_OS_NAME;
 }
 
-string Platform::WritablePathForFileIndexes(string const & country_name) const
+string Platform::WritablePathForCountryIndexes(string const & fileName) const
 {
-  string dir = WritableDir() + country_name + my::GetNativeSeparator();
+  string dir = WritableDir() + fileName + my::GetNativeSeparator();
   if (!IsFileExistsByFullPath(dir))
     MkDir(dir);
   return dir;

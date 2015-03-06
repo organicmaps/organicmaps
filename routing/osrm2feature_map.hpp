@@ -3,18 +3,18 @@
 #include "../coding/file_container.hpp"
 #include "../coding/mmap_reader.hpp"
 
-#include "../base/scope_guard.hpp"
+#include "../indexer/features_offsets_table.hpp"
 
 #include "../platform/platform.hpp"
 
-#include "../indexer/features_offsets_table.hpp"
-
-#include "../3party/succinct/rs_bit_vector.hpp"
+#include "../base/scope_guard.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/unordered_map.hpp"
 #include "../std/utility.hpp"
+
+#include "../3party/succinct/rs_bit_vector.hpp"
 
 #include "../3party/succinct/elias_fano_compressed_list.hpp"
 
@@ -117,7 +117,6 @@ public:
   uint32_t GetNodeIdByFid(uint32_t const fid) const;
 
   void Clear();
-
 };
 
 class OsrmFtSegMapping

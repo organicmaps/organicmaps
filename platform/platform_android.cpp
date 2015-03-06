@@ -11,7 +11,7 @@
 #include "../base/string_utils.hpp"
 
 #include <unistd.h>     // for sysconf
-
+#include <sys/stat.h>
 
 Platform::Platform()
 {
@@ -244,9 +244,9 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-void Platform::MkDir(string const & directory_name) const
+void Platform::MkDir(string const & dirName) const
 {
-  mkdir(directory_name.c_str(), 0755);
+  ::mkdir(dirName.c_str(), 0755);
 }
 
 namespace

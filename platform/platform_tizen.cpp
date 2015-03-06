@@ -43,9 +43,9 @@ Platform::Platform()
   m_flags[HAS_ROUTING] = true;
 }
 
-void Platform::MkDir(string const & directory_name) const
+void Platform::MkDir(string const & dirName) const
 {
-  Tizen::Io::Directory::Create(directory_name.c_str(), true);
+  Tizen::Io::Directory::Create(dirName.c_str(), true);
 }
 
 int Platform::CpuCores() const
