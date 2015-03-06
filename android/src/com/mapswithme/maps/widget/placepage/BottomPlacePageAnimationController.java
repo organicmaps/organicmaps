@@ -70,13 +70,8 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           {
             if (distanceY < 0f)
             {
-              if (mPlacePage.getState() == State.PREVIEW)
-              {
-                Framework.deactivatePopup();
-                mPlacePage.setState(State.HIDDEN);
-              }
-              else
-                mPlacePage.setState(State.PREVIEW);
+              Framework.deactivatePopup();
+              mPlacePage.setState(State.HIDDEN);
             }
             else
               mPlacePage.setState(State.DETAILS);
