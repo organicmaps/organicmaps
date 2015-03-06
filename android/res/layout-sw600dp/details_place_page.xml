@@ -144,6 +144,7 @@
           android:id="@+id/ll__place_latlon"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
           android:background="?attr/clickableBackground"
           android:orientation="horizontal"
           android:paddingBottom="@dimen/margin_small"
@@ -192,7 +193,7 @@
         android:id="@+id/rl__bookmark_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll__details_left"
+        android:layout_below="@id/ll__details_right"
         android:paddingTop="@dimen/margin_medium_and_half"
         android:visibility="invisible">
 
@@ -271,9 +272,9 @@
             android:background="?android:selectableItemBackground"
             android:drawableRight="@drawable/ic_arrow_down"
             android:lineSpacingMultiplier="1.43"
-            android:paddingTop="@dimen/margin_small"
             android:paddingBottom="@dimen/margin_small"
             android:paddingRight="@dimen/margin_small"
+            android:paddingTop="@dimen/margin_small"
             android:textColor="@color/text_place_page"
             android:textSize="@dimen/place_page_subtitle"/>
 
@@ -282,8 +283,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_small"
-            android:padding="@dimen/margin_small"
             android:background="?android:selectableItemBackground"
+            android:padding="@dimen/margin_small"
             android:src="@drawable/color_picker_red_on"/>
       </LinearLayout>
 
