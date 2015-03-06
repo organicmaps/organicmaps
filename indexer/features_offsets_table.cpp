@@ -45,9 +45,8 @@ namespace feature
   }
 
   // static
-  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & countryName)
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & fileName)
   {
-    string const fileName  = GetIndexFileName(countryName);
     uint64_t size;
     if (!GetPlatform().GetFileSizeByFullPath(fileName, size))
       return unique_ptr<FeaturesOffsetsTable>();
@@ -56,34 +55,30 @@ namespace feature
 
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::CreateIfNotExistsAndLoad(
-      string const & countryName)
+      string const & fileName, FilesContainerR const & mwmFileContainer)
   {
-    string const fileName = GetIndexFileName(countryName);
     uint64_t size;
     if (GetPlatform().GetFileSizeByFullPath(fileName,size))
-      return Load(countryName);
+      return Load(fileName);
 
-    string const mwmName = GetPlatform().WritablePathForFile(countryName + DATA_FILE_EXTENSION);
-    FilesContainerR cont(mwmName);
-    if (!cont.IsExist(HEADER_FILE_TAG))
+    if (!mwmFileContainer.IsExist(HEADER_FILE_TAG))
       return unique_ptr<FeaturesOffsetsTable>();
 
     DataHeader header;
-    header.Load(cont.GetReader(HEADER_FILE_TAG));
+    header.Load(mwmFileContainer.GetReader(HEADER_FILE_TAG));
 
     Builder builder;
-    FeaturesVector(cont, header).ForEachOffset([&builder] (FeatureType const &, uint32_t offset)
+    FeaturesVector(mwmFileContainer, header).ForEachOffset([&builder] (FeatureType const &, uint32_t offset)
     {
       builder.PushOffset(offset);
     });
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
-    table->Save(countryName);
+    table->Save(fileName);
     return table;
   }
 
-  void FeaturesOffsetsTable::Save(string const & countryName)
+  void FeaturesOffsetsTable::Save(string const & fileName)
   {
-    string const fileName = GetIndexFileName(countryName);
     string const fileNameTmp = fileName + EXTENSION_TMP;
     succinct::mapper::freeze(m_table, fileNameTmp.c_str());
     my::RenameFileX(fileNameTmp, fileName);
@@ -111,12 +106,7 @@ namespace feature
       else
         rightBound = middle;
     }
+    ASSERT_EQUAL(offset, m_table.select(leftBound), ("Can't find offset", offset, "in the table"));
     return leftBound;
   }
-
-  string FeaturesOffsetsTable::GetIndexFileName(string const & countryName)
-  {
-    return GetPlatform().WritablePathForCountryIndexes(countryName) + countryName + FEATURES_OFFSETS_TABLE_FILE_EXT;
-  }
-
 }  // namespace feature

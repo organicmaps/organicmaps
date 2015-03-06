@@ -53,10 +53,10 @@ namespace feature
     /// mapped to the memory and used by internal structures of
     /// FeaturesOffsetsTable.
     ///
-    /// \param countryName a countryName to save index file to
+    /// \param fileName a full path of the file to load or store data
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to load FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> Load(string const & countryName);
+    static unique_ptr<FeaturesOffsetsTable> Load(string const & fileName);
 
     /// Loads FeaturesOffsetsTable from FilesMappingContainer. Note
     /// that some part of a file referenced by container will be
@@ -67,18 +67,19 @@ namespace feature
     ///
     /// \warning May take a lot of time if there is no precomputed section
     ///
-    /// \param countryName a country to create index to
+    /// \param fileName a full path of the file to load or store data
+    /// \param mwmFileContainer mwm container to read features data (if we need to construct them)
     /// \return a pointer to an instance of FeaturesOffsetsTable or nullptr
     ///         when it's not possible to create FeaturesOffsetsTable.
-    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(string const & countryName);
+    static unique_ptr<FeaturesOffsetsTable> CreateIfNotExistsAndLoad(string const & fileName, FilesContainerR const & mwmFileContainer);
 
     FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;
     FeaturesOffsetsTable const & operator=(FeaturesOffsetsTable const &) = delete;
 
     /// Serializes current instance to a section in container.
     ///
-    /// \param countryName a name of the country to create data
-    void Save(string const & countryName);
+    /// \param fileName a full path of the file to store data
+    void Save(string const & fileName);
 
     /// \param index index of a feature
     /// \return offset a feature
@@ -102,15 +103,7 @@ namespace feature
       return succinct::mapper::size_of(m_table);
     }
 
-    /// Delete temporary index file (only for features offsets table)
-    static void CleanIndexFile(string const & countryName)
-    {
-      FileWriter::DeleteFileX(GetIndexFileName(countryName));
-    }
-
   private:
-    static string GetIndexFileName(string const & countryName);
-
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);
 
     FeaturesOffsetsTable(string const &);

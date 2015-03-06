@@ -61,7 +61,9 @@ public:
   /// @return full path to file in user's writable directory
   string WritablePathForFile(string const & file) const { return WritableDir() + file; }
   /// @return full path to indexes directory for country file. Creates directory if it's not exists.
-  string WritablePathForCountryIndexes(string const & country_name) const;
+  string WritablePathForCountryIndexes(string const & mwmName) const;
+  /// @return generate full path to index based on mwmName and index extension
+  string GetIndexFileName(string const & mwmName, string const & extension) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
   string ResourcesDir() const { return m_resourcesDir; }

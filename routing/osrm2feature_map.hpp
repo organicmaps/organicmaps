@@ -107,9 +107,9 @@ class OsrmFtSegBackwardIndex
     T().swap(t);
   }
 
-  void Save(string const & countryName);
+  void Save(string const & nodesFileName, string const & bitsFileName);
 
-  bool Load(string const & container);
+  bool Load(string const & nodesFileName, string const & bitsFileName);
 
 public:
   void Construct(OsrmFtSegMapping const & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);

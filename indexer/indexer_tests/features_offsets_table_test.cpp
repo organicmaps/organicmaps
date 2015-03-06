@@ -61,9 +61,10 @@ namespace feature
     string const testFileName = "minsk-pass";
     Platform & p = GetPlatform();
     FilesContainerR baseContainer(p.GetReader(testFileName + DATA_FILE_EXTENSION));
-    FeaturesOffsetsTable::CleanIndexFile(testFileName);
-    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(testFileName));
-    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FeaturesOffsetsTable::CleanIndexFile, cref(testFileName)));
+    const string indexFile = p.GetIndexFileName(testFileName, FEATURES_OFFSETS_TABLE_FILE_EXT);
+    FileWriter::DeleteFileX(indexFile);
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(indexFile, baseContainer));
+    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
     TEST(table.get(), ());
 
     feature::DataHeader header;
@@ -77,7 +78,7 @@ namespace feature
     TEST_EQUAL(builderSize, table->size(), ());
 
     table = unique_ptr<FeaturesOffsetsTable>();
-    table = unique_ptr<FeaturesOffsetsTable>(FeaturesOffsetsTable::Load(testFileName));
+    table = unique_ptr<FeaturesOffsetsTable>(FeaturesOffsetsTable::Load(indexFile));
     TEST_EQUAL(builderSize, table->size(), ());
   }
 
@@ -86,6 +87,7 @@ namespace feature
     string const testFileName = "test_file";
     Platform & p = GetPlatform();
     FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
+    const string indexFile = p.GetIndexFileName(testFileName, FEATURES_OFFSETS_TABLE_FILE_EXT);
 
     feature::DataHeader header;
     header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
@@ -102,7 +104,7 @@ namespace feature
 
     string const testFile = p.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
     MY_SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
-    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FeaturesOffsetsTable::CleanIndexFile, cref(testFileName)));
+    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
 
     // Store table in a temporary data file.
     {
@@ -114,14 +116,14 @@ namespace feature
                                {
                                    testContainer.Write(baseContainer.GetReader(tag), tag);
                                });
-      table->Save(testFileName);
+      table->Save(indexFile);
       testContainer.Finish();
     }
 
     // Load table from the temporary data file.
     {
-      MY_SCOPE_GUARD(testTableGuard, bind(&FeaturesOffsetsTable::CleanIndexFile, cref(testFileName)));
-      unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(testFileName));
+      MY_SCOPE_GUARD(testTableGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
+      unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
       TEST(loadedTable.get(), ());
 
       TEST_EQUAL(table->size(), loadedTable->size(), ());

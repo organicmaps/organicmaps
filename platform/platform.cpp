@@ -95,10 +95,15 @@ string Platform::DeviceName() const
   return OMIM_OS_NAME;
 }
 
-string Platform::WritablePathForCountryIndexes(string const & fileName) const
+string Platform::WritablePathForCountryIndexes(string const & mwmName) const
 {
-  string dir = WritableDir() + fileName + my::GetNativeSeparator();
+  string dir = WritableDir() + mwmName + my::GetNativeSeparator();
   if (!IsFileExistsByFullPath(dir))
     MkDir(dir);
   return dir;
+}
+
+string Platform::GetIndexFileName(string const & mwmName, string const & extension) const
+{
+  return GetPlatform().WritablePathForCountryIndexes(mwmName) + mwmName + extension;
 }
