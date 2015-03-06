@@ -66,6 +66,9 @@ public:
   /// @return resource dir (on some platforms it's differ from Writable dir)
   string ResourcesDir() const { return m_resourcesDir; }
 
+  /// Creates directory at filesystem
+  void MkDir(string const & directory_name) const;
+
   /// @return path for directory with temporary files with slash at the end
   string TmpDir() const { return m_tmpDir; }
   /// @return full path to file in the temporary directory

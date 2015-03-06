@@ -244,6 +244,11 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
+void Platform::MkDir(string const & directory_name) const
+{
+  mkdir(directory_name.c_str(), 0755);
+}
+
 namespace
 {
   class SelfDeleteRoutine : public threads::IRoutine

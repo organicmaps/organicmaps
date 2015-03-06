@@ -2,6 +2,7 @@
 
 #include "../coding/sha2.hpp"
 #include "../coding/base64.hpp"
+#include "../coding/file_name_utils.hpp"
 
 #include "../base/logging.hpp"
 
@@ -92,4 +93,12 @@ void Platform::GetFilesByExt(string const & directory, string const & ext, Files
 string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;
+}
+
+string Platform::WritablePathForFileIndexes(string const & country_name) const
+{
+  string dir = WritableDir() + country_name + my::GetNativeSeparator();
+  if (!IsFileExistsByFullPath(dir))
+    MkDir(dir);
+  return dir;
 }

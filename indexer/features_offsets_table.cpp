@@ -99,7 +99,6 @@ namespace feature
   {
     ASSERT_LESS_OR_EQUAL(offset, m_table.select(size() - 1), ("Offset out of bounds", offset,
                                                      m_table.select(size() - 1)));
-
     //Binary search in elias_fano list
     size_t first = 0, last = size();
     size_t count = last - first, step, current;
@@ -116,7 +115,6 @@ namespace feature
         count = step;
     }
     return current;
-
   }
 
   string FeaturesOffsetsTable::GetIndexFileName(string const & countryName)

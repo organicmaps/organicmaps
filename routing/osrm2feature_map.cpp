@@ -197,7 +197,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
     uint32_t nodeId = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
 
     auto range = GetSegmentsRange(nodeId);
-    for (int i = range.first; i < range.second; ++i)
+    for (int i = range.first; i != range.second; ++i)
     {
       OsrmMappingTypes::FtSeg const s(m_segments[i]);
       if (s.m_fid != seg.m_fid)
@@ -345,7 +345,7 @@ bool OsrmFtSegBackwardIndex::Load(string const & countryName)
   string const nodesName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT;
   string const bitsName = dir + countryName + FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT;
   uint64_t size;
-  if (! GetPlatform().GetFileSizeByFullPath(nodesName, size) || ! GetPlatform().GetFileSizeByFullPath(bitsName, size))
+  if (!GetPlatform().GetFileSizeByFullPath(nodesName, size) || !GetPlatform().GetFileSizeByFullPath(bitsName, size))
     return false;
   m_pMappedNodes = unique_ptr<MmapReader>(new MmapReader(nodesName));
   m_pMappedBits = unique_ptr<MmapReader>(new MmapReader(bitsName));
@@ -372,7 +372,7 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
   for (uint32_t i = 0; i < maxNodeId; ++i)
   {
     auto indexes = mapping.GetSegmentsRange(i);
-    for (size_t j = indexes.first; j < indexes.second; ++j)
+    for (size_t j = indexes.first; j != indexes.second; ++j)
     {
       OsrmMappingTypes::FtSeg seg;
       mapping.GetSegmentByIndex(j, seg);
@@ -401,6 +401,27 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
   LOG(LINFO, ("Writing section to data file", routingName));
 
   Save(name);
+}
+
+uint32_t OsrmFtSegBackwardIndex::GetNodeIdByFid(const uint32_t fid) const
+{
+  if (!m_table)
+    return INVALID_NODE_ID;
+  size_t const index = m_table->GetFeatureIndexbyOffset(fid);
+  if (index == m_table->size())
+    return INVALID_NODE_ID;
+  size_t node_index = m_rankIndex.rank(index);
+  ASSERT_LESS(node_index, m_nodeIds.size(), ());
+  return m_nodeIds[node_index];
+}
+
+void OsrmFtSegBackwardIndex::Clear()
+{
+  ClearContainer(m_nodeIds);
+  ClearContainer(m_rankIndex);
+  m_table = unique_ptr<feature::FeaturesOffsetsTable>();
+  m_pMappedBits = nullptr;
+  m_pMappedNodes = nullptr;
 }
 
 }

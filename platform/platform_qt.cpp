@@ -56,6 +56,11 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
+void Platform::MkDir(string const & directory_name) const
+{
+  QDir().mkdir(directory_name.c_str());
+}
+
 
 extern Platform & GetPlatform()
 {

@@ -4,7 +4,6 @@
 #include "../base/logging.hpp"
 
 #include "../coding/file_writer.hpp"
-#include "../coding/file_name_utils.hpp"
 
 #include "../std/windows.hpp"
 #include "../std/bind.hpp"
@@ -85,12 +84,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Writable Directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp Directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
-}
-
-string Platform::WritablePathForFileIndexes(string const & country_name) const
-{
-  string dir = WritableDir() + country_name + my::GetNativeSeparator();
-  return dir;
 }
 
 bool Platform::IsFileExistsByFullPath(string const & filePath)

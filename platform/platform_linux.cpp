@@ -2,7 +2,6 @@
 
 #include "../base/logging.hpp"
 #include "../coding/file_reader.hpp"
-#include "../coding/file_name_utils.hpp"
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -89,14 +88,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Tmp directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings directory:", m_settingsDir));
   LOG(LDEBUG, ("Client ID:", UniqueClientId()));
-}
-
-string Platform::WritablePathForFileIndexes(string const & country_name) const
-{
-  string dir = WritableDir() + country_name + my::GetNativeSeparator();
-  if (!IsFileExistsByFullPath(dir))
-    mkdir(dir.c_str(), 0755);
-  return dir;
 }
 
 int Platform::CpuCores() const

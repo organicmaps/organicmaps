@@ -114,26 +114,9 @@ class OsrmFtSegBackwardIndex
 public:
   void Construct(OsrmFtSegMapping const & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
 
-  uint32_t GetNodeIdByFid(uint32_t const fid) const
-  {
-    if (!m_table)
-      return INVALID_NODE_ID;
-    size_t index = m_table->GetFeatureIndexbyOffset(fid);
-    if (index == m_table->size())
-      return INVALID_NODE_ID;
-    size_t node_index = m_rankIndex.rank(index);
-    ASSERT_LESS(node_index, m_nodeIds.size(), ());
-    return m_nodeIds[node_index];
-  }
+  uint32_t GetNodeIdByFid(uint32_t const fid) const;
 
-  void Clear()
-  {
-    ClearContainer(m_nodeIds);
-    ClearContainer(m_rankIndex);
-    m_table = unique_ptr<feature::FeaturesOffsetsTable>();
-    m_pMappedBits = nullptr;
-    m_pMappedNodes = nullptr;
-  }
+  void Clear();
 
 };
 

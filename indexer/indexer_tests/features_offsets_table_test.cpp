@@ -61,8 +61,9 @@ namespace feature
     string const testFileName = "minsk-pass";
     Platform & p = GetPlatform();
     FilesContainerR baseContainer(p.GetReader(testFileName + DATA_FILE_EXTENSION));
-    FeaturesOffsetsTable::CleanIndexFiles(testFileName);
+    FeaturesOffsetsTable::CleanIndexFile(testFileName);
     unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::CreateIfNotExistsAndLoad(testFileName));
+    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FeaturesOffsetsTable::CleanIndexFile, cref(testFileName)));
     TEST(table.get(), ());
 
     feature::DataHeader header;
@@ -101,6 +102,7 @@ namespace feature
 
     string const testFile = p.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
     MY_SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
+    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FeaturesOffsetsTable::CleanIndexFile, cref(testFileName)));
 
     // Store table in a temporary data file.
     {
@@ -112,13 +114,13 @@ namespace feature
                                {
                                    testContainer.Write(baseContainer.GetReader(tag), tag);
                                });
-      table->Save("test_file");
+      table->Save(testFileName);
       testContainer.Finish();
     }
 
     // Load table from the temporary data file.
     {
-      MY_SCOPE_GUARD(testTableGuard, [&testFileName](){FeaturesOffsetsTable::CleanIndexFiles(testFileName);});
+      MY_SCOPE_GUARD(testTableGuard, bind(&FeaturesOffsetsTable::CleanIndexFile, cref(testFileName)));
       unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(testFileName));
       TEST(loadedTable.get(), ());
 

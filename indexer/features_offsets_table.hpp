@@ -102,8 +102,8 @@ namespace feature
       return succinct::mapper::size_of(m_table);
     }
 
-    /// Delete temporary index file
-    static void CleanIndexFiles(string const & countryName)
+    /// Delete temporary index file (only for features offsets table)
+    static void CleanIndexFile(string const & countryName)
     {
       FileWriter::DeleteFileX(GetIndexFileName(countryName));
     }
