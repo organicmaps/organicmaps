@@ -77,15 +77,32 @@ extern "C"
        JNIEnv * env, jobject thiz, jint id, jint index, jclass bookmarkClazz)
   {
     // Bookmark(int categoryId, int bookmarkId, String name)
-    static jmethodID cId = env->GetMethodID(bookmarkClazz, "<init>", "(IILjava/lang/String;)V");
+    jmethodID static const cId = env->GetMethodID(bookmarkClazz, "<init>", "(IILjava/lang/String;)V");
 
     BookmarkCategory * category = getBmCategory(id);
     Bookmark const * nBookmark = category->GetBookmark(index);
 
     ASSERT(nBookmark, ("Bookmark must not be null with index:)", index));
 
-    return env->NewObject(bookmarkClazz, cId,
-        id, index, jni::ToJavaString(env, nBookmark->GetName()));
+    feature::FeatureMetadata metadata;
+    frm()->FindClosestPOIMetadata(nBookmark->GetOrg(), metadata);
+
+    jmethodID static const addId = env->GetMethodID(bookmarkClazz, "addMetadata", "(ILjava/lang/String;)V");
+
+    jobject jBookmark = env->NewObject(bookmarkClazz, cId,
+                                id, index, jni::ToJavaString(env, nBookmark->GetName()));
+
+    const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
+    for (int i = 0; i < metaTypes.size(); i++)
+    {
+      feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
+      jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
+      env->CallVoidMethod(jBookmark, addId, metaType, metaString);
+      // TODO use unique_ptrs for autoallocation of local refs
+      env->DeleteLocalRef(metaString);
+    }
+
+    return jBookmark;
   }
 
   static uint32_t shift(uint32_t v, uint8_t bitCount) { return v << bitCount; }

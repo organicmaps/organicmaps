@@ -45,6 +45,7 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -474,31 +475,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       selectBookmarkColor();
       break;
     case R.id.rl__bookmark:
-      if (mMapObject == null)
-        return;
-      if (mMapObject.getType() == MapObjectType.BOOKMARK)
-      {
-        MapObject p;
-        if (mBookmarkedMapObject != null &&
-            mBookmarkedMapObject.getLat() == mMapObject.getLat() &&
-            mBookmarkedMapObject.getLon() == mMapObject.getLon()) // use cached POI of bookmark, if it corresponds to current object
-          p = mBookmarkedMapObject;
-        else
-          p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
-
-        BookmarkManager.INSTANCE.deleteBookmark((Bookmark) mMapObject);
-        setMapObject(p);
-        setState(State.DETAILS);
-      }
-      else
-      {
-        mBookmarkedMapObject = mMapObject;
-        final Bookmark newBmk = BookmarkManager.INSTANCE.getBookmark(BookmarkManager.INSTANCE.addNewBookmark(
-            mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
-        setMapObject(newBmk);
-        setState(State.BOOKMARK);
-      }
-      Framework.invalidate();
+      toggleIsBookmark();
       break;
     case R.id.rl__share:
       ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
@@ -539,6 +516,34 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     default:
       break;
     }
+  }
+
+  private void toggleIsBookmark()
+  {
+    if (mMapObject == null)
+      return;
+    if (mMapObject.getType() == MapObjectType.BOOKMARK)
+    {
+      MapObject p;
+      if (mBookmarkedMapObject != null && LocationUtils.areLatLonEqual(mMapObject, mBookmarkedMapObject))
+        // use cached POI of bookmark, if it corresponds to current object
+        p = mBookmarkedMapObject;
+      else
+        p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
+
+      BookmarkManager.INSTANCE.deleteBookmark((Bookmark) mMapObject);
+      setMapObject(p);
+      setState(State.DETAILS);
+    }
+    else
+    {
+      mBookmarkedMapObject = mMapObject;
+      final Bookmark newBmk = BookmarkManager.INSTANCE.getBookmark(BookmarkManager.INSTANCE.addNewBookmark(
+          mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+      setMapObject(newBmk);
+      setState(State.BOOKMARK);
+    }
+    Framework.invalidate();
   }
 
   private void selectBookmarkSet()
