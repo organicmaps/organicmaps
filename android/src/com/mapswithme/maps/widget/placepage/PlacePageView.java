@@ -53,7 +53,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class PlacePageView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener, TextView.OnEditorActionListener
 {
-  private LayoutInflater mInflater;
   // Preview
   private TextView mTvTitle;
   private TextView mTvSubtitle;
@@ -116,7 +115,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name),
         Context.MODE_PRIVATE).getBoolean(PREF_USE_DMS, false);
 
-    mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     initViews();
 
     initAnimationController(attrs, defStyleAttr);
@@ -125,10 +123,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   private void initViews()
   {
-    View mView = mInflater.inflate(R.layout.place_page, this, true);
-    mView.setOnClickListener(this);
+    LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
 
-    ViewGroup ppPreview = (ViewGroup) mView.findViewById(R.id.pp__preview);
+    ViewGroup ppPreview = (ViewGroup) findViewById(R.id.pp__preview);
     mTvTitle = (TextView) ppPreview.findViewById(R.id.tv__title);
     mTvSubtitle = (TextView) ppPreview.findViewById(R.id.tv__subtitle);
     mTvOpened = (TextView) ppPreview.findViewById(R.id.tv__opened_till);
@@ -137,7 +134,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAvDirection.setOnClickListener(this);
     mAvDirection.setImageResource(R.drawable.ic_direction_pagepreview);
 
-    mPpDetails = (ViewGroup) mView.findViewById(R.id.pp__details);
+    mPpDetails = (ViewGroup) findViewById(R.id.pp__details);
     mLlAddress = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_name);
     mTvAddress = (TextView) mPpDetails.findViewById(R.id.tv__place_address);
     mLlPhone = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_phone);
@@ -165,7 +162,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
     mTvBookmarkGroup.setOnClickListener(this);
 
-    ViewGroup ppButtons = (ViewGroup) mView.findViewById(R.id.pp__buttons);
+    ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
     mRlApiBack = (RelativeLayout) ppButtons.findViewById(R.id.rl__api_back);
     mRlApiBack.setOnClickListener(this);
     final ViewGroup bookmarkGroup = (ViewGroup) ppButtons.findViewById(R.id.rl__bookmark);
