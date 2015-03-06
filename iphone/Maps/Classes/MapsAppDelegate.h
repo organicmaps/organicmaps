@@ -22,6 +22,7 @@ extern NSString * const MapsStatusChangedNotification;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;
+- (UIWindow *)window;
 
 - (void)disableStandby;
 - (void)enableStandby;

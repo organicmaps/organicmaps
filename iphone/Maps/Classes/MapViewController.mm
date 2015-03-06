@@ -15,6 +15,7 @@
 #import "RouteView.h"
 #import "CountryTreeVC.h"
 #import "Reachability.h"
+#import "MWMAlertViewController.h"
 
 #import "../../Common/CustomAlertView.h"
 
@@ -801,9 +802,13 @@
 
 - (void)showDownloaderDialogWithMessageID:(string const &)message
 {
-  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
-  alertView.tag = ALERT_VIEW_DOWNLOADER;
-  [alertView show];
+  
+  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
+  [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
+
+//  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
+//  alertView.tag = ALERT_VIEW_DOWNLOADER;
+//  [alertView show];
 }
 
 #pragma mark - Getters
@@ -1217,10 +1222,12 @@
       }
       break;
     }
+    
     default:
       break;
   }
 }
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
