@@ -25,12 +25,12 @@ public class LeftFullPlacePageAnimationController extends BasePlacePageAnimation
     {
     case MotionEvent.ACTION_DOWN:
       mIsGestureHandled = false;
-      mDownCoord = event.getRawX();
+      mDownCoord = event.getX();
       break;
     case MotionEvent.ACTION_MOVE:
       if (mDownCoord > mPlacePage.getRight())
         return false;
-      if (Math.abs(mDownCoord - event.getRawX()) > mTouchSlop)
+      if (Math.abs(mDownCoord - event.getX()) > mTouchSlop)
         return true;
       break;
     }
