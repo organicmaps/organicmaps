@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <include layout="@layout/place_page_land"/>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1px"
+      android:layout_below="@+id/pp__preview"
+      android:background="?android:attr/listDivider"/>
+
+  <include
+      android:id="@+id/pp__preview"
+      layout="@layout/preview_place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_place_page_back"/>
+
+  <include
+      android:id="@+id/pp__details"
+      layout="@layout/details_place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/pp__preview"
+      android:layout_marginBottom="56dp"
+      android:layout_marginTop="1px"/>
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1px"
+      android:layout_above="@id/pp__buttons"
+      android:background="?android:attr/listDivider"/>
+
+  <include
+      android:id="@+id/pp__buttons"
+      layout="@layout/buttons_place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"/>
 
 </merge>
