@@ -6,7 +6,7 @@ namespace my
 
 void GetNameWithoutExt(string & name)
 {
-  string::size_type const i = name.find_last_of(".");
+  string::size_type const i = name.rfind('.');
   if (i != string::npos)
     name.erase(i);
 }
