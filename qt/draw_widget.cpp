@@ -97,6 +97,10 @@ namespace qt
       else
         layout.DownloadMap(idx, static_cast<storage::TMapOptions>(opt));
      });
+
+    m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
+    {
+    });
   }
 
   DrawWidget::~DrawWidget()
