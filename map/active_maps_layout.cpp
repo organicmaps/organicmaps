@@ -355,7 +355,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 
   if (newStatus == TStatus::EOnDisk)
   {
-    m_framework.DeleteCountryIndexes(index);
     if (group != TGroup::EUpToDate)
     {
       // Here we handle

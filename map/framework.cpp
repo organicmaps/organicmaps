@@ -306,21 +306,23 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
       m_routingSession.DeleteIndexFile(file.GetFileWithExt(TMapOptions::ECarRouting));
 
     m_storage.NotifyStatusChanged(index);
-  }
 
-  DeleteCountryIndexes(index);
+    DeleteCountryIndexes(m_storage.CountryFileNameWithoutExt(index));
+  }
 }
 
-void Framework::DeleteCountryIndexes(TIndex const & index)
+void Framework::DeleteCountryIndexes(string const & mwmName)
 {
-  string const & file = m_storage.CountryByIndex(index).Name();
-  //Remove all indexes
   m_routingSession.Reset();
+
   Platform::FilesList files;
   Platform const & pl = GetPlatform();
-  pl.GetFilesByRegExp(pl.WritablePathForCountryIndexes(file), "*", files);
+  string const path = pl.WritablePathForCountryIndexes(mwmName);
+
+  /// @todo We need correct regexp for any file (not including "." and "..").
+  pl.GetFilesByRegExp(path, mwmName + "\\..*", files);
   for (auto const & file : files)
-    my::DeleteFileX(file);
+    (void) my::DeleteFileX(path + file);
 }
 
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)
@@ -391,6 +393,10 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
     routingName = GetPlatform().WritableDir() + routingName;
     VERIFY(my::RenameFileX(routingName + READY_FILE_EXTENSION, routingName), ());
   }
+
+  string countryName(fileName);
+  my::GetNameWithoutExt(countryName);
+  DeleteCountryIndexes(countryName);
 }
 
 void Framework::AddMaps()
