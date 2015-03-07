@@ -2042,6 +2042,7 @@ void Framework::BuildRoute(m2::PointD const & destination)
   m_routingSession.BuildRoute(state->Position(), destination,
     [this] (Route const & route, IRouter::ResultCode code)
     {
+      vector<storage::TIndex> absentFiles;
       if (code == IRouter::NoError)
       {
         InsertRoute(route);
@@ -2050,13 +2051,12 @@ void Framework::BuildRoute(m2::PointD const & destination)
       }
       else
       {
-        vector<storage::TIndex> absentFiles;
         for(string const & name : route.GetAbsentCountries())
           absentFiles.push_back(m_storage.FindIndexByFile(name));
 
         RemoveRoute();
-        CallRouteBuilded(code, absentFiles);
       }
+      CallRouteBuilded(code, absentFiles);
     });
 }
 
