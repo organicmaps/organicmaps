@@ -353,15 +353,21 @@ bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & b
 void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const uint32_t maxNodeId, FilesMappingContainer & routingFile)
 {
   Clear();
+
   // Calculate data file pathes
   Platform const & p = GetPlatform();
+
+  /// @todo Find more suitable way to get mwm file name.
   string const routingName = routingFile.GetName();
-  string const name(routingName, routingName.rfind(my::GetNativeSeparator()) + 1,
-                    routingName.find(DATA_FILE_EXTENSION) - routingName.rfind(my::GetNativeSeparator()) - 1);
+  string const mwmName(routingName, 0, routingName.rfind(ROUTING_FILE_EXTENSION));
+  size_t const sepIndex = routingName.rfind(my::GetNativeSeparator());
+  string const name(routingName,  sepIndex + 1, routingName.rfind(DATA_FILE_EXTENSION) - sepIndex - 1);
+
   string const offsetsIndexName = p.GetIndexFileName(name, FEATURES_OFFSETS_TABLE_FILE_EXT);
   string const bitsFileName = p.GetIndexFileName(name, FTSEG_MAPPING_BACKWARD_INDEX_BITS_EXT);
   string const nodesFileName = p.GetIndexFileName(name, FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT);
-  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(offsetsIndexName, FilesContainerR(name + DATA_FILE_EXTENSION));
+
+  m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(offsetsIndexName, FilesContainerR(mwmName));
 
   if (Load(bitsFileName, nodesFileName))
     return;
