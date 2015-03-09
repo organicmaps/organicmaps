@@ -113,7 +113,6 @@ function merge_coasts() {
   # Generate temporary coastlines file in the coasts intermediate dir
   log "TIMEMARK" "Generate coastlines"
   $GENERATOR_TOOL -intermediate_data_path=$INTCOASTSDIR -node_storage=map -make_coasts -fail_on_coasts=$FAIL_ON_COASTS --osm_file_type=o5m --osm_file_name=$COASTS_FILE
-  log "TIMEMARK" "Generate coastlines done"
 }
 
 
