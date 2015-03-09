@@ -221,6 +221,11 @@ if [[ $1 == "--generate" || $1 == "--continue" || $1 == "--full" ]]; then
   $GENERATOR_TOOL -data_path=$DATA_PATH -generate_search_index -output=World
   log "TIMEMARK" "Generate world search index done"
 
+  # Generate mwm.routing files
+  log "TIMEMARK" "Generate mwm.routing files"
+  bash routes_from_mwm_and_osrm.sh
+  log "TIMEMARK" "Generate mwm.routing files done"
+
   # Update countries list
   log "TIMEMARK" "Update countries list"
   $GENERATOR_TOOL -generate_update
