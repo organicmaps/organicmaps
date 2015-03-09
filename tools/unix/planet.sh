@@ -44,11 +44,11 @@ function forky() {
   done
 }
 
-# logger 
+# logger
 function log() {
    local prefix="[$(date +%Y/%m/%d\ %H:%M:%S)]: "
    echo "${prefix} $@" >&2
-} 
+}
 
 log "TIMEMARK" "Start"
 
