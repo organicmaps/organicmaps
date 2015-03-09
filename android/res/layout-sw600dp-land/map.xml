@@ -4,12 +4,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-  <android.view.SurfaceView
-      android:id="@+id/map_surfaceview"
+  <FrameLayout
+      android:id="@+id/map_fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="bottom|center_horizontal"
-      android:background="@android:color/transparent"/>
+      android:layout_height="match_parent"/>
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"

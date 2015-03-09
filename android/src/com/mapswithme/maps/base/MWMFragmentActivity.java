@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 import ru.mail.mrgservice.MRGService;
@@ -17,6 +18,12 @@ public class MWMFragmentActivity extends ActionBarActivity
   @Override
   protected void onCreate(Bundle arg0)
   {
+    // Use full-screen on Kindle Fire only
+    if (Utils.isAmazonDevice())
+    {
+      getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+    }
     super.onCreate(arg0);
 
     MWMApplication.get().initStats();

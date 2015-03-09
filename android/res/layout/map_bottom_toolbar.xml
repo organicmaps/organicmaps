@@ -12,12 +12,11 @@
       android:layout_weight="1">
 
     <ImageButton
-        android:id="@+id/map_button_myposition"
+        android:id="@+id/btn__myposition"
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
         android:layout_gravity="center"
-        android:onClick="onMyPositionClicked"
         android:src="@drawable/ic_my_position"/>
 
   </FrameLayout>
@@ -28,11 +27,11 @@
       android:layout_weight="1">
 
     <ImageButton
+        android:id="@+id/btn__search"
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
         android:layout_gravity="center"
-        android:onClick="onSearchClicked"
         android:src="@drawable/ic_search"/>
 
   </FrameLayout>
@@ -43,11 +42,11 @@
       android:layout_weight="1">
 
     <ImageButton
+        android:id="@+id/btn__bookmarks"
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
         android:layout_gravity="center"
-        android:onClick="onBookmarksClicked"
         android:src="@drawable/ic_bookmark"/>
 
   </FrameLayout>
@@ -58,11 +57,11 @@
       android:layout_weight="1">
 
     <ImageButton
+        android:id="@+id/btn__more"
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
         android:layout_gravity="center"
-        android:onClick="onMoreClicked"
         android:src="@drawable/ic_settings"/>
 
   </FrameLayout>

@@ -357,6 +357,20 @@ public final class UiUtils
     activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
   }
 
+  public static void showAlertDialog(Activity activity, int titleId)
+  {
+    new AlertDialog.Builder(activity)
+        .setCancelable(false)
+        .setMessage(titleId)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
+        })
+        .create()
+        .show();
+  }
+
   // utility class
   private UiUtils()
   {}

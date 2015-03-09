@@ -907,7 +907,7 @@ void InitNVEvent(JavaVM* vm)
   };
 
   jclass k;
-  k = (env)->FindClass ("com/nvidia/devtech/NvEventQueueActivity");
+  k = (env)->FindClass ("com/nvidia/devtech/NvEventQueueFragment");
   (env)->RegisterNatives(k, methods, dimof(methods));
 
   s_InitEGL.QueryID(env, k);

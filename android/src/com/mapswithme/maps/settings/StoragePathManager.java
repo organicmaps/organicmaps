@@ -134,7 +134,7 @@ public class StoragePathManager
 
   public void updateExternalStorages()
   {
-    ArrayList<String> paths = new ArrayList<String>();
+    ArrayList<String> paths = new ArrayList<>();
 
     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
       parseKitkatStorages(paths);
@@ -247,17 +247,17 @@ public class StoragePathManager
 
   public boolean moveBookmarks()
   {
-    ArrayList<String> pathes = new ArrayList<String>();
+    ArrayList<String> paths = new ArrayList<>();
     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
-      parseStorages(pathes);
+      parseStorages(paths);
 
-    ArrayList<String> approvedPathes = new ArrayList<String>();
-    for (String path : pathes)
+    ArrayList<String> approvedPaths = new ArrayList<>();
+    for (String path : paths)
     {
       String mwmPath = path + Constants.MWM_DIR_POSTFIX;
       File f = new File(mwmPath);
       if (f.exists() || f.canRead() || f.isDirectory())
-        approvedPathes.add(mwmPath);
+        approvedPaths.add(mwmPath);
     }
     final String settingsDir = Framework.nativeGetSettingsDir();
     final String writableDir = Framework.nativeGetWritableDir();
@@ -266,9 +266,9 @@ public class StoragePathManager
 
     LinkedHashSet<File> bookmarks = new LinkedHashSet<File>();
     if (!settingsDir.equals(writableDir))
-      approvedPathes.add(writableDir);
+      approvedPaths.add(writableDir);
 
-    for (String path : approvedPathes)
+    for (String path : approvedPaths)
     {
       if (!path.equals(settingsDir))
         accumulateFiles(path, bookmarkFileExt, bookmarks);

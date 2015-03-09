@@ -1,56 +1,48 @@
 package com.nvidia.devtech;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMFragmentActivity;
+import com.mapswithme.maps.base.MWMFragment;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 
-public abstract class NvEventQueueActivity extends MWMFragmentActivity implements View.OnTouchListener
+public abstract class NvEventQueueFragment extends MWMFragment implements View.OnTouchListener, View.OnFocusChangeListener
 {
-  private static final String TAG = "NvEventQueueActivity";
+  private static final String TAG = NvEventQueueFragment.class.getSimpleName();
 
   private final Logger mLog = StubLogger.get();
 
-  private EglWrapper mEglWrapper = null;
-  protected SurfaceHolder m_cachedSurfaceHolder = null;
-  private int m_surfaceWidth = 0;
-  private int m_surfaceHeight = 0;
+  private EglWrapper mEglWrapper;
+  protected SurfaceHolder mCachedSurfaceHolder;
+  private int mSurfaceWidth;
+  private int mSurfaceHeight;
 
-  private int m_displayDensity = 0;
+  private int mDisplayDensity;
 
-  private int m_fixedWidth = 0;
-  private int m_fixedHeight = 0;
+  private boolean mIsNativeLaunched;
 
-  private boolean m_nativeLaunched = false;
-
-  public void setFixedSize(int fw, int fh)
-  {
-    m_fixedWidth = fw;
-    m_fixedHeight = fh;
-  }
-
-  public int getDisplayDensity()
-  {
-    return m_displayDensity;
-  }
+  private int mLastPointerId;
 
   public int getSurfaceWidth()
   {
-    return m_surfaceWidth;
+    return mSurfaceWidth;
   }
 
   public int getSurfaceHeight()
   {
-    return m_surfaceHeight;
+    return mSurfaceHeight;
   }
 
   protected native boolean onCreateNative();
@@ -78,99 +70,95 @@ public abstract class NvEventQueueActivity extends MWMFragmentActivity implement
   public native boolean multiTouchEvent(int action, boolean hasFirst,
                                         boolean hasSecond, int x0, int y0, int x1, int y1, MotionEvent event);
 
-  @SuppressWarnings("deprecation")
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
-    final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.map_surfaceview);
+    final DisplayMetrics metrics = new DisplayMetrics();
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    mDisplayDensity = metrics.densityDpi;
+    mIsNativeLaunched = true;
+    onCreateNative();
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  {
+    return super.onCreateView(inflater, container, savedInstanceState);
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  {
+    super.onViewCreated(view, savedInstanceState);
+    final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
+    surfaceView.setOnFocusChangeListener(this);
     surfaceView.setOnTouchListener(this);
 
     final SurfaceHolder holder = surfaceView.getHolder();
-    holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
-
-    final DisplayMetrics metrics = new DisplayMetrics();
-    getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    m_displayDensity = metrics.densityDpi;
-
     holder.addCallback(new Callback()
     {
       @Override
       public void surfaceCreated(SurfaceHolder holder)
       {
-        m_cachedSurfaceHolder = holder;
-        if (m_fixedWidth != 0 && m_fixedHeight != 0)
-          holder.setFixedSize(m_fixedWidth, m_fixedHeight);
-        onSurfaceCreatedNative(m_surfaceWidth, m_surfaceHeight, getDisplayDensity());
+        mCachedSurfaceHolder = holder;
+        onSurfaceCreatedNative(mSurfaceWidth, mSurfaceHeight, mDisplayDensity);
       }
 
       @Override
       public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
       {
-        m_cachedSurfaceHolder = holder;
-        m_surfaceWidth = width;
-        m_surfaceHeight = height;
-        onSurfaceChangedNative(m_surfaceWidth, m_surfaceHeight, getDisplayDensity());
+        mCachedSurfaceHolder = holder;
+        mSurfaceWidth = width;
+        mSurfaceHeight = height;
+        onSurfaceChangedNative(mSurfaceWidth, mSurfaceHeight, mDisplayDensity);
       }
 
       @Override
       public void surfaceDestroyed(SurfaceHolder holder)
       {
-        m_cachedSurfaceHolder = null;
+        mCachedSurfaceHolder = null;
         onSurfaceDestroyedNative();
       }
     });
-
-    m_nativeLaunched = true;
-    onCreateNative();
   }
 
   @Override
-  protected void onStart()
+  public void onStart()
   {
     super.onStart();
-    if (m_nativeLaunched)
-      onStartNative();
+    onStartNative();
   }
 
   @Override
-  protected void onRestart()
-  {
-    super.onRestart();
-    if (m_nativeLaunched)
-      onRestartNative();
-  }
-
-  @Override
-  protected void onResume()
+  public void onResume()
   {
     super.onResume();
-    if (m_nativeLaunched)
-      onResumeNative();
+    onResumeNative();
+    onFocusChangedNative(true);
   }
 
   @Override
-  public void onWindowFocusChanged(boolean hasFocus)
+  public void onFocusChange(View v, boolean hasFocus)
   {
-    if (m_nativeLaunched)
-      onFocusChangedNative(hasFocus);
-    super.onWindowFocusChanged(hasFocus);
+    onFocusChangedNative(hasFocus);
   }
 
   @Override
-  protected void onPause()
+  public void onPause()
   {
     super.onPause();
-    if (m_nativeLaunched)
-      onPauseNative();
+    onPauseNative();
+    onFocusChangedNative(getActivity().hasWindowFocus());
   }
 
   @Override
-  protected void onStop()
+  public void onStop()
   {
     super.onStop();
-    if (m_nativeLaunched)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || !getActivity().isChangingConfigurations())
+      // if configuration is changed - EGL shouldn't be reinitialized
       onStopNative();
   }
 
@@ -178,29 +166,25 @@ public abstract class NvEventQueueActivity extends MWMFragmentActivity implement
   public void onDestroy()
   {
     super.onDestroy();
-    if (m_nativeLaunched)
-    {
-      onDestroyNative();
-      CleanupEGL();
-    }
+    onStopNative();
+    onDestroyNative();
+    CleanupEGL();
   }
-
-  private int m_lastPointerId = 0;
-
 
   @Override
   public boolean onTouch(View v, MotionEvent event)
   {
+    // TODO refactor ?
     final int count = event.getPointerCount();
 
-    if (!m_nativeLaunched || count == 0)
-      return super.onTouchEvent(event);
+    if (!mIsNativeLaunched || count == 0)
+      return false;
 
     switch (count)
     {
     case 1:
     {
-      m_lastPointerId = event.getPointerId(0);
+      mLastPointerId = event.getPointerId(0);
 
       final int x0 = (int) event.getX();
       final int y0 = (int) event.getY();
@@ -215,7 +199,7 @@ public abstract class NvEventQueueActivity extends MWMFragmentActivity implement
       final int x1 = (int) event.getX(1);
       final int y1 = (int) event.getY(1);
 
-      if (event.getPointerId(0) == m_lastPointerId)
+      if (event.getPointerId(0) == mLastPointerId)
         return multiTouchEvent(event.getAction(), true, true,
             x0, y0, x1, y1, event);
       else
@@ -230,6 +214,7 @@ public abstract class NvEventQueueActivity extends MWMFragmentActivity implement
    *
    * @return True if successful
    */
+  @SuppressWarnings("UnusedDeclaration")
   protected boolean InitEGL()
   {
     mEglWrapper = EglWrapper.GetEgl(mLog);
@@ -237,21 +222,22 @@ public abstract class NvEventQueueActivity extends MWMFragmentActivity implement
   }
 
   /**
-   * Called to clean up m_egl. This function should not be called by the
-   * inheriting activity, but can be overridden if needed.
+   * Called to clean up EGL. This function should not be called by the
+   * inheriting fragment, but can be overridden if needed.
    */
   protected boolean CleanupEGL()
   {
     return mEglWrapper != null && mEglWrapper.TerminateEGL();
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   protected boolean CreateSurfaceEGL()
   {
-    if (!mEglWrapper.CreateSurfaceEGL(m_cachedSurfaceHolder))
+    if (!mEglWrapper.CreateSurfaceEGL(mCachedSurfaceHolder))
       return false;
 
-    m_surfaceHeight = mEglWrapper.GetSurfaceHeight();
-    m_surfaceWidth = mEglWrapper.GetSurfaceWidth();
+    mSurfaceHeight = mEglWrapper.GetSurfaceHeight();
+    mSurfaceWidth = mEglWrapper.GetSurfaceWidth();
     return true;
   }
 
@@ -259,37 +245,49 @@ public abstract class NvEventQueueActivity extends MWMFragmentActivity implement
    * Destroys the EGLSurface used for rendering. This function should not be
    * called by the inheriting activity, but can be overridden if needed.
    */
+  @SuppressWarnings("UnusedDeclaration")
   protected boolean DestroySurfaceEGL()
   {
     return mEglWrapper.DestroySurfaceEGL();
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public boolean BindSurfaceAndContextEGL()
   {
     return mEglWrapper.Bind();
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public boolean UnbindSurfaceAndContextEGL()
   {
     return mEglWrapper.Unbind();
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public boolean SwapBuffersEGL()
   {
     return mEglWrapper.SwapBuffersEGL();
   }
 
+  @SuppressWarnings("UnusedDeclaration")
   public int GetErrorEGL()
   {
     return mEglWrapper.GetErrorEGL();
   }
 
-  public void OnRenderingInitialized()
-  {
-  }
+  @SuppressWarnings("UnusedDeclaration")
+  public void OnRenderingInitialized() {}
 
+  @SuppressWarnings("UnusedDeclaration")
   public void ReportUnsupported()
   {
     Log.i(TAG, "this phone GPU is unsupported");
+  }
+
+  @SuppressWarnings("UnusedDeclaration")
+  public void finish()
+  {
+    if (isAdded())
+      getActivity().finish();
   }
 }

@@ -19,14 +19,14 @@
 extern "C"
 {
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeOnLocationError(JNIEnv * env, jobject thiz,
+  Java_com_mapswithme_maps_MapFragment_nativeOnLocationError(JNIEnv * env, jobject thiz,
       int errorCode)
   {
     g_framework->OnLocationError(errorCode);
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeLocationUpdated(JNIEnv * env, jobject thiz,
+  Java_com_mapswithme_maps_MapFragment_nativeLocationUpdated(JNIEnv * env, jobject thiz,
       jlong time, jdouble lat, jdouble lon,
       jfloat accuracy, jdouble altitude, jfloat speed, jfloat bearing)
   {
@@ -60,7 +60,7 @@ extern "C"
 #pragma clang optimize off
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeCompassUpdated(JNIEnv * env, jobject thiz,
+  Java_com_mapswithme_maps_MapFragment_nativeCompassUpdated(JNIEnv * env, jobject thiz,
       jlong time, jdouble magneticNorth, jdouble trueNorth, jdouble accuracy)
   {
     location::CompassInfo info;
@@ -100,7 +100,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_MapFragment_nativeConnectDownloadButton(JNIEnv * env, jobject thiz)
   {
     CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
 
@@ -114,7 +114,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz, jobject idx, jint options)
+  Java_com_mapswithme_maps_MapFragment_nativeDownloadCountry(JNIEnv * env, jobject thiz, jobject idx, jint options)
   {
     storage::TIndex index = storage::ToNative(idx);
     storage::ActiveMapsLayout & layout = storage_utils::GetMapLayout();
@@ -125,44 +125,27 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeStorageConnected(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_MapFragment_nativeStorageConnected(JNIEnv * env, jobject thiz)
   {
     android::Platform::Instance().OnExternalStorageStatusChanged(true);
     g_framework->AddLocalMaps();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeStorageDisconnected(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_MapFragment_nativeStorageDisconnected(JNIEnv * env, jobject thiz)
   {
     android::Platform::Instance().OnExternalStorageStatusChanged(false);
     g_framework->RemoveLocalMaps();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeScale(JNIEnv * env, jobject thiz, jdouble k)
+  Java_com_mapswithme_maps_MapFragment_nativeScale(JNIEnv * env, jobject thiz, jdouble k)
   {
     g_framework->Scale(static_cast<double>(k));
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeIsInChina(JNIEnv * env, jobject thiz,
-                                                       jdouble lat, jdouble lon)
-  {
-    char const * arr[] = { "cn", "hk", "mo" };
-
-    string const code = g_framework->GetCountryCode(lat, lon);
-    LOG(LDEBUG, ("Current country ISO code = ", code));
-
-    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-      if (code == arr[i])
-        return true;
-
-    return false;
-  }
-
-
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MWMActivity_showMapForUrl(JNIEnv * env, jobject thiz, jstring url)
+  Java_com_mapswithme_maps_MapFragment_showMapForUrl(JNIEnv * env, jobject thiz, jstring url)
   {
     return g_framework->ShowMapForURL(jni::ToNativeString(env, url));
   }

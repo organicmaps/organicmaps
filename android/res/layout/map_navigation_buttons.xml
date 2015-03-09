@@ -31,7 +31,6 @@
       android:layout_height="@dimen/zoom_buttom_size"
       android:layout_alignParentRight="true"
       android:layout_below="@id/anchor_center"
-      android:onClick="onPlusClicked"
       android:src="@drawable/ic_zoom_in"/>
 
   <ImageButton
@@ -41,7 +40,6 @@
       android:layout_height="@dimen/zoom_buttom_size"
       android:layout_alignParentRight="true"
       android:layout_below="@+id/map_button_plus"
-      android:onClick="onMinusClicked"
       android:src="@drawable/ic_zoom_out"/>
 
 </RelativeLayout>

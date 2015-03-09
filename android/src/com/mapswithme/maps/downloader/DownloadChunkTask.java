@@ -226,7 +226,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       return false;
     } finally
     {
-      //Log.i(TAG, "End downloading chunk " + getChunkID());
+      //Log.i(FRAGMENT_TAG, "End downloading chunk " + getChunkID());
 
       if (urlConnection != null)
         urlConnection.disconnect();

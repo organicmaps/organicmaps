@@ -169,7 +169,7 @@ public class Egl10Wrapper extends BaseEglWrapper
   {
     if (holder == null)
     {
-      LogIt("createEGLSurface failed, m_cachedSurfaceHolder is null");
+      LogIt("createEGLSurface failed, mCachedSurfaceHolder is null");
       return false;
     }
 

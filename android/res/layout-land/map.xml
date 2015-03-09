@@ -5,12 +5,10 @@
                 android:layout_height="match_parent"
                 android:gravity="bottom">
 
-  <android.view.SurfaceView
-      android:id="@+id/map_surfaceview"
+  <FrameLayout
+      android:id="@+id/map_fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="bottom|center_horizontal"
-      android:background="@android:color/transparent"/>
+      android:layout_height="match_parent"/>
 
   <include
       android:id="@+id/toolbar_search"
