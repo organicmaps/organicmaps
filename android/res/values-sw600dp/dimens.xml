@@ -38,6 +38,4 @@
   <dimen name="margin_direction_mid">36dp</dimen>
   <dimen name="margin_direction_around_center">40dp</dimen>
 
-  <bool name="isTablet">true</bool>
-
 </resources>
