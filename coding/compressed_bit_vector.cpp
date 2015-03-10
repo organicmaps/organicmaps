@@ -8,7 +8,9 @@
 
 #include "../base/assert.hpp"
 #include "../base/bits.hpp"
+
 #include "../std/cmath.hpp"
+#include "../std/unique_ptr.hpp"
 
 namespace {
   vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)
@@ -398,11 +400,11 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     uint64_t cntElements = VarintDecode(reader, decodeOffset);
     uint64_t encSizesBytesize = VarintDecode(reader, decodeOffset);
     vector<uint32_t> bitsUsedVec;
-    Reader * arithDecReader = reader.CreateSubReader(decodeOffset, encSizesBytesize);
+    unique_ptr<Reader> arithDecReader(reader.CreateSubReader(decodeOffset, encSizesBytesize));
     ArithmeticDecoder arithDec(*arithDecReader, distrTable);
     for (uint64_t i = 0; i < cntElements; ++i) bitsUsedVec.push_back(arithDec.Decode());
     decodeOffset += encSizesBytesize;
-    Reader * bitReaderReader = reader.CreateSubReader(decodeOffset, serialSize - decodeOffset);
+    unique_ptr<Reader> bitReaderReader(reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
     BitSource bitReader(*bitReaderReader);
     int64_t prevOnePos = -1;
     for (uint64_t i = 0; i < cntElements; ++i)
@@ -444,17 +446,17 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     vector<uint32_t> distrTable1 = SerialFreqsToDistrTable(reader, decodeOffset, freqs1Cnt);
     uint64_t cntElements0 = VarintDecode(reader, decodeOffset), cntElements1 = VarintDecode(reader, decodeOffset);
     uint64_t enc0SizesBytesize = VarintDecode(reader, decodeOffset), enc1SizesBytesize = VarintDecode(reader, decodeOffset);
-    Reader * arithDec0Reader = reader.CreateSubReader(decodeOffset, enc0SizesBytesize);
+    unique_ptr<Reader> arithDec0Reader(reader.CreateSubReader(decodeOffset, enc0SizesBytesize));
     ArithmeticDecoder arithDec0(*arithDec0Reader, distrTable0);
     vector<uint32_t> bitsSizes0;
     for (uint64_t i = 0; i < cntElements0; ++i) bitsSizes0.push_back(arithDec0.Decode());
     decodeOffset += enc0SizesBytesize;
-    Reader * arithDec1Reader = reader.CreateSubReader(decodeOffset, enc1SizesBytesize);
+    unique_ptr<Reader> arithDec1Reader(reader.CreateSubReader(decodeOffset, enc1SizesBytesize));
     ArithmeticDecoder arith_dec1(*arithDec1Reader, distrTable1);
     vector<uint32_t> bitsSizes1;
     for (uint64_t i = 0; i < cntElements1; ++i) bitsSizes1.push_back(arith_dec1.Decode());
     decodeOffset += enc1SizesBytesize;
-    Reader * bitReaderReader = reader.CreateSubReader(decodeOffset, serialSize - decodeOffset);
+    unique_ptr<Reader> bitReaderReader(reader.CreateSubReader(decodeOffset, serialSize - decodeOffset));
     BitSource bitReader(*bitReaderReader);
     uint64_t sum = 0, i0 = 0, i1 = 0;
     while (i0 < cntElements0 && i1 < cntElements1)
