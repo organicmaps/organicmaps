@@ -806,9 +806,13 @@
 
 - (void)showDownloaderDialogWithCountries:(vector<storage::TIndex> const &)countries {
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
-  alert.delegate = self.downloaderManager;
-  [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
+  if (countries.size()) {
+    self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
+    alert.delegate = self.downloaderManager;
+    [alert presentAlertWithType:MWMAlertTypeDownloadTransitMap];
+  } else {
+    [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
+  }
 }
 
 #pragma mark - Getters

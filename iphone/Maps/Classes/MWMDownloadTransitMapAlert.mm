@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMDownloadAllMapsAlert.h"
+#import "MWMDownloadTransitMapAlert.h"
 #import "MWMAlertViewController.h"
 #import "MWMAlertEntity.h"
 #import "UIKitCategories.h"
 #import "MWMAlertViewControllerDelegate.h"
 #import "ActiveMapsVC.h"
 
-@interface MWMDownloadAllMapsAlert ()
+@interface MWMDownloadTransitMapAlert ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *messageLabel;
 @property (nonatomic, weak) IBOutlet UIButton *notNowButton;
@@ -24,10 +24,12 @@
 @property (nonatomic, weak) IBOutlet UIView *specsView;
 @end
 
-@implementation MWMDownloadAllMapsAlert
+static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
+
+@implementation MWMDownloadTransitMapAlert
 
 + (instancetype)alert {
-  MWMDownloadAllMapsAlert *alert = [[[NSBundle mainBundle] loadNibNamed:@"MWMDownloadAllMapsAlert" owner:self options:nil] firstObject];
+  MWMDownloadTransitMapAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:self options:nil] firstObject];
   return alert;
 }
 

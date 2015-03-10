@@ -7,6 +7,7 @@
 //
 
 #import "MWMAlert.h"
+#import "MWMDownloadTransitMapAlert.h"
 #import "MWMDownloadAllMapsAlert.h"
 
 @class MWMAlertEntity;
@@ -15,6 +16,9 @@
 
 + (MWMAlert *)alertWithType:(MWMAlertType)type {
   switch (type) {
+    case MWMAlertTypeDownloadTransitMap: {
+      return [MWMDownloadTransitMapAlert alert];
+    }
     case MWMAlertTypeDownloadAllMaps: {
       return [MWMDownloadAllMapsAlert alert];
     }
@@ -22,7 +26,7 @@
 }
 
 - (void)configureWithEntity:(MWMAlertEntity *)entity {
-  [self doesNotRecognizeSelector:_cmd];
+//  [self doesNotRecognizeSelector:_cmd];
 }
 
 @end

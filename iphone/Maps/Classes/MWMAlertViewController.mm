@@ -7,7 +7,7 @@
 //
 
 #import "MWMAlertViewController.h"
-#import "MWMDownloadAllMapsAlert.h"
+#import "MWMDownloadTransitMapAlert.h"
 #import "MWMAlertEntity.h"
 #import "MWMAlertViewControllerDelegate.h"
 

@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, MWMAlertType) {
-  MWMAlertTypeDownloadAllMaps
+  MWMAlertTypeDownloadAllMaps,
+  MWMAlertTypeDownloadTransitMap
 };
 
 @class MWMAlertViewController;
