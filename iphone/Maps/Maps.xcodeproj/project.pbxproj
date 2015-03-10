@@ -1678,6 +1678,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";

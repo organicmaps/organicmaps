@@ -6,6 +6,7 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <ifaddrs.h>
 #include <net/if_dl.h>
 #include <net/if.h>
