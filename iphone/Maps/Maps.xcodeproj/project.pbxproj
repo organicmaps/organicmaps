@@ -1318,6 +1318,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel";
@@ -1374,6 +1375,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
@@ -1441,6 +1443,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg";
@@ -1532,6 +1535,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg";
@@ -1624,6 +1628,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me dbg";
@@ -1745,6 +1750,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me beta";
@@ -1841,6 +1847,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = maps.me;
@@ -1936,6 +1943,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel";
@@ -2030,6 +2038,7 @@
 					"-lexpat",
 					"-lprotobuf",
 					"-losrm",
+					"-lsuccinct",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "maps.me rel";
