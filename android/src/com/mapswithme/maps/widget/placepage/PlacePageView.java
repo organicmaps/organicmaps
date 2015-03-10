@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -230,6 +231,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (!hasMapObject(mo))
     {
+      Log.d("TEST", "Set map object : " + mo);
       mMapObject = mo;
       refreshViews();
     }

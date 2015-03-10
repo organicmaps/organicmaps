@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.Context;
+import android.os.Parcel;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -23,6 +24,19 @@ public class Bookmark extends MapObject
     mName = name;
     mIcon = getIconInternal();
     getXY();
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeInt(mCategoryId);
+    dest.writeInt(mBookmark);
+    dest.writeString(mName);
+  }
+
+  protected Bookmark(Parcel source)
+  {
+    this(source.readInt(), source.readInt(), source.readString());
   }
 
   private native ParcelablePointD getXY(int c, long b);

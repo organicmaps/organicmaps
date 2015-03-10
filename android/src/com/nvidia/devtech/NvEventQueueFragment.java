@@ -94,7 +94,6 @@ public abstract class NvEventQueueFragment extends MWMFragment implements View.O
     super.onViewCreated(view, savedInstanceState);
     final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
     surfaceView.setOnFocusChangeListener(this);
-    surfaceView.setOnTouchListener(this);
 
     final SurfaceHolder holder = surfaceView.getHolder();
     holder.addCallback(new Callback()

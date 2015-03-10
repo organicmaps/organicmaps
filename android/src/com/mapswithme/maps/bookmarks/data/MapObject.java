@@ -1,14 +1,14 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.res.Resources;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 
-import java.io.Serializable;
-
-public abstract class MapObject
+public abstract class MapObject implements Parcelable
 {
   protected String mName;
   protected double mLat;
@@ -97,7 +97,67 @@ public abstract class MapObject
 
   public abstract MapObjectType getType();
 
-  public static enum MapObjectType implements Serializable
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(getType().toString());
+    dest.writeString(mName);
+    dest.writeDouble(mLat);
+    dest.writeDouble(mLon);
+    dest.writeString(mTypeName);
+    dest.writeParcelable(mMetadata, 0);
+  }
+
+  public static final Creator<MapObject> CREATOR = new Creator<MapObject>()
+  {
+    @Override
+    public MapObject createFromParcel(Parcel source)
+    {
+      return readFromParcel(source);
+    }
+
+    @Override
+    public MapObject[] newArray(int size)
+    {
+      return new MapObject[size];
+    }
+  };
+
+  protected static MapObject readFromParcel(Parcel source)
+  {
+    final MapObjectType type = MapObjectType.valueOf(source.readString());
+    switch (type)
+    {
+    case POI:
+      return new Poi(source);
+    case ADDITIONAL_LAYER:
+      return new SearchResult(source);
+    case MY_POSITION:
+      return new MyPosition(source);
+    case API_POINT:
+      return new ApiPoint(source);
+    case BOOKMARK:
+      return new Bookmark(source);
+    }
+    return null;
+  }
+
+  protected MapObject(Parcel source)
+  {
+    mName = source.readString();
+    mLat = source.readDouble();
+    mLon = source.readDouble();
+    mTypeName = source.readString();
+    mMetadata = source.readParcelable(Metadata.class.getClassLoader());
+  }
+
+  public static enum MapObjectType
   {
     POI,
     API_POINT,
@@ -111,6 +171,11 @@ public abstract class MapObject
     public Poi(String name, double lat, double lon, String typeName)
     {
       super(name, lat, lon, typeName);
+    }
+
+    protected Poi(Parcel source)
+    {
+      super(source);
     }
 
     @Override
@@ -133,6 +198,11 @@ public abstract class MapObject
       super(name, lat, lon, type);
     }
 
+    protected SearchResult(Parcel source)
+    {
+      super(source);
+    }
+
     @Override
     public MapObjectType getType()
     {
@@ -148,6 +218,19 @@ public abstract class MapObject
     {
       super(name, lat, lon, poiType);
       mId = id;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeString(mId);
+    }
+
+    protected ApiPoint(Parcel source)
+    {
+      super(source);
+      mId = source.readString();
     }
 
     @Override
@@ -167,6 +250,11 @@ public abstract class MapObject
     public MyPosition(String name, double lat, double lon)
     {
       super(name, lat, lon, "");
+    }
+
+    protected MyPosition(Parcel source)
+    {
+      super(source);
     }
 
     @Override

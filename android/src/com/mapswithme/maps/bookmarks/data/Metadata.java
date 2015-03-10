@@ -1,9 +1,12 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Metadata
+public class Metadata implements Parcelable
 {
   // values MUST correspond to definitions from feature_meta.hpp
   public enum MetadataType
@@ -79,4 +82,46 @@ public class Metadata
   {
     return mMetadataMap.get(type);
   }
+
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeInt(mMetadataMap.size());
+    for (Map.Entry<MetadataType, String> metaEntry : mMetadataMap.entrySet())
+    {
+      dest.writeInt(metaEntry.getKey().mMetaType);
+      dest.writeString(metaEntry.getValue());
+    }
+  }
+
+  public static Metadata readFromParcel(Parcel source)
+  {
+    final Metadata metadata = new Metadata();
+    final int size = source.readInt();
+    for (int i = 0; i < size; i++)
+      metadata.addMetadata(source.readInt(), source.readString());
+    return metadata;
+  }
+
+  public static final Creator<Metadata> CREATOR = new Creator<Metadata>()
+  {
+    @Override
+    public Metadata createFromParcel(Parcel source)
+    {
+      return readFromParcel(source);
+    }
+
+    @Override
+    public Metadata[] newArray(int size)
+    {
+      return new Metadata[size];
+    }
+  };
 }

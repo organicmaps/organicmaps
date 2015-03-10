@@ -98,6 +98,10 @@ public class MWMActivity extends MWMFragmentActivity
   private final static String EXTRA_COUNTRY_INDEX = "country_index";
   // Need it for search
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
+  // Instance state
+  private static final String STATE_ROUTE_FOLLOWED = "RouteFollowed";
+  private static final String STATE_PP_OPENED = "PpOpened";
+  private static final String STATE_MAP_OBJECT = "MapObject";
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
   private BroadcastReceiver mExternalStorageReceiver;
@@ -606,6 +610,7 @@ public class MWMActivity extends MWMFragmentActivity
       getSupportFragmentManager().beginTransaction().
           replace(R.id.map_fragment_container, mMapFragment, MapFragment.FRAGMENT_TAG).commit();
     }
+    findViewById(R.id.map_fragment_container).setOnTouchListener(this);
   }
 
   private void setupToolbars()
@@ -706,6 +711,40 @@ public class MWMActivity extends MWMFragmentActivity
     Framework.nativeClearBalloonListeners();
 
     super.onDestroy();
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState)
+  {
+    if (mRlTurnByTurnBox.getVisibility() == View.VISIBLE)
+      outState.putBoolean(STATE_ROUTE_FOLLOWED, true);
+    else if (mPlacePage.getState() != State.HIDDEN)
+    {
+      outState.putBoolean(STATE_PP_OPENED, true);
+      outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
+    }
+
+    super.onSaveInstanceState(outState);
+  }
+
+  @Override
+  protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
+  {
+    if (savedInstanceState.getBoolean(STATE_ROUTE_FOLLOWED))
+    {
+      if (Framework.nativeIsRoutingActive())
+      {
+        mRlTurnByTurnBox.setVisibility(View.VISIBLE);
+        mRlRoutingBox.setVisibility(View.GONE);
+      }
+    }
+    else if (savedInstanceState.getBoolean(STATE_PP_OPENED))
+    {
+      mPlacePage.setState(State.PREVIEW);
+      mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
+    }
+
+    super.onRestoreInstanceState(savedInstanceState);
   }
 
   @Override
@@ -1448,13 +1487,12 @@ public class MWMActivity extends MWMFragmentActivity
       setVerticalToolbarVisible(false);
       result = true;
     }
-    if (mPlacePage.getState() == State.BOOKMARK)
+    if (mPlacePage.getState() == State.DETAILS || mPlacePage.getState() == State.BOOKMARK)
     {
       Framework.deactivatePopup();
       hideInfoView();
       result = true;
     }
-    // TODO pass fragment touch
     result |= mMapFragment.onTouch(view, event);
     return result;
   }
