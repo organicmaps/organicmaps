@@ -2,7 +2,8 @@
 
 ROOT_DIR = ../..
 DEPENDENCIES = generator routing storage indexer platform geometry coding base \
-               osrm gflags expat sgitess jansson protobuf tomcrypt o5mreader
+               osrm gflags expat sgitess jansson protobuf tomcrypt o5mreader \
+               succinct
 
 include($$ROOT_DIR/common.pri)
 
