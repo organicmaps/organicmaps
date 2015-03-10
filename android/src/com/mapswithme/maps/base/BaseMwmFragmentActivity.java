@@ -71,7 +71,8 @@ public class BaseMwmFragmentActivity extends ActionBarActivity
   protected void onResume()
   {
     super.onResume();
-    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName()
+        + ":" + com.mapswithme.util.UiUtils.deviceOrientationAsString(this));
   }
 
   @Override

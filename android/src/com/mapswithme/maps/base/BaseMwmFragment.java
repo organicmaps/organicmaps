@@ -8,7 +8,8 @@ public class BaseMwmFragment extends Fragment
   public void onResume()
   {
     super.onResume();
-    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName()
+        + ":" + com.mapswithme.util.UiUtils.deviceOrientationAsString(getActivity()));
   }
 
   @Override

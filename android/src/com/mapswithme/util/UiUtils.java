@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -369,6 +370,19 @@ public final class UiUtils
         })
         .create()
         .show();
+  }
+
+  public static String deviceOrientationAsString(Activity activity)
+  {
+    String rotation = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? "|" : "-";
+    switch (activity.getWindowManager().getDefaultDisplay().getRotation())
+    {
+    case Surface.ROTATION_0: rotation += "0"; break;
+    case Surface.ROTATION_90: rotation += "90"; break;
+    case Surface.ROTATION_180: rotation += "180"; break;
+    case Surface.ROTATION_270: rotation += "270"; break;
+    }
+    return rotation;
   }
 
   // utility class
