@@ -9,7 +9,7 @@
 - (void)logInAppMessageEvent:(NSString *)eventName imageType:(NSString *)imageType;
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters;
 - (void)logApiUsage:(NSString *)programName;
-- (void)logLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(double)horizontalAccuracy verticalAccuracy:(double)verticalAccuracy;
+- (void)logLocation:(CLLocation *)location;
 
 + (id)instance;
 

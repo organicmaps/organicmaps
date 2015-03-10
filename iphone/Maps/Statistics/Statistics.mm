@@ -3,6 +3,8 @@
 #include "../../../platform/settings.hpp"
 #import "Flurry.h"
 #import "AppInfo.h"
+// TODO(AlexZ): Remove duplicate logging of Flurry events when we don't need it any more.
+#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 @implementation Statistics
 
@@ -16,7 +18,7 @@
   }
 }
 
-- (void)logLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(double)horizontalAccuracy verticalAccuracy:(double)verticalAccuracy
+- (void)logLocation:(CLLocation *)location
 {
   if (self.enabled)
   {
@@ -24,7 +26,10 @@
     if (!lastUpdate || [[NSDate date] timeIntervalSinceDate:lastUpdate] > (60 * 60 * 3))
     {
       lastUpdate = [NSDate date];
-      [Flurry setLatitude:latitude longitude:longitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy];
+      CLLocationCoordinate2D const coord = location.coordinate;
+      [Flurry setLatitude:coord.latitude longitude:coord.longitude horizontalAccuracy:location.horizontalAccuracy verticalAccuracy:location.verticalAccuracy];
+      // TODO(AlexZ)
+      [Alohalytics logEvent:@"Flurry:logLocation" atLocation:location];
     }
   }
 }
@@ -32,12 +37,18 @@
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
   if (self.enabled)
+  {
     [Flurry logEvent:eventName withParameters:parameters];
+    // TODO(AlexZ)
+    [Alohalytics logEvent:[NSString stringWithFormat:@"Flurry:%@", eventName] withDictionary:parameters];
+  }
 }
 
 - (void)logEvent:(NSString *)eventName
 {
   [self logEvent:eventName withParameters:nil];
+  // TODO(AlexZ)
+  [Alohalytics logEvent:[NSString stringWithFormat:@"Flurry:%@", eventName]];
 }
 
 - (void)logInAppMessageEvent:(NSString *)eventName imageType:(NSString *)imageType

@@ -7,6 +7,7 @@
 #include "../../base/math.hpp"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
+#import "Statistics.h"
 
 @implementation LocationManager
 
@@ -187,6 +188,8 @@
   [self location:newLocation toGpsInfo:newInfo];
   for (id observer in m_observers)
     [observer onLocationUpdate:newInfo];
+  // TODO(AlexZ): Temporary, remove in the future.
+  [[Statistics instance] logLocation:newLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
