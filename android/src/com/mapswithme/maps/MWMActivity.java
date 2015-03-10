@@ -622,6 +622,7 @@ public class MWMActivity extends MWMFragmentActivity
     mBottomToolbar.findViewById(R.id.btn__search).setOnClickListener(this);
     mBottomToolbar.findViewById(R.id.btn__bookmarks).setOnClickListener(this);
     mLocationButton = (ImageButton) mBottomToolbar.findViewById(R.id.btn__myposition);
+    mLocationButton.setOnClickListener(this);
     mVerticalToolbar = (ViewGroup) findViewById(R.id.map_bottom_vertical_toolbar);
     mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
@@ -694,8 +695,7 @@ public class MWMActivity extends MWMFragmentActivity
           final double[] latLon = Framework.getScreenRectCenter();
           final double zoom = Framework.getDrawScale();
 
-          final LocationState locState = LocationState.INSTANCE;
-          final int locationStateMode = locState.getLocationStateMode();
+          final int locationStateMode = LocationState.INSTANCE.getLocationStateMode();
 
           if (locationStateMode > LocationState.NOT_FOLLOW)
             Yota.showLocation(getApplicationContext(), zoom);
@@ -1497,8 +1497,7 @@ public class MWMActivity extends MWMFragmentActivity
 
   private void switchNextLocationState()
   {
-    final LocationState state = LocationState.INSTANCE;
-    state.switchToNextMode();
+    LocationState.INSTANCE.switchToNextMode();
   }
 
   @Override
