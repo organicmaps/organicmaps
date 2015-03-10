@@ -9,11 +9,12 @@
 #import "MWMAlertViewController.h"
 #import "MWMDownloadAllMapsAlert.h"
 #import "MWMAlertEntity.h"
+#import "MWMAlertViewControllerDelegate.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
 @interface MWMAlertViewController ()
-@property (nonatomic, weak) UIViewController *ownerViewController;
+@property (nonatomic, weak, readwrite) UIViewController *ownerViewController;
 @end
 
 @implementation MWMAlertViewController
@@ -36,13 +37,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)presentAlertWithType:(MWMAlertType)type {
   MWMAlert *alert = [MWMAlert alertWithType:type];
   alert.alertController = self;
-  MWMAlertEntity *entity = [[MWMAlertEntity alloc] init];
-  entity.title = @"Download all maps";
-  entity.message = @"hihihihihihihihihi hihihihihi hihihihihih ihihihihihihi hihihihih ihihihihih ihihihihihihihihi hihihihihihihihi hihihihihihihi hihihihihihihi hihihihihihi hihihihihi hihihihihi hihihihihi hihihihihi";
-  entity.contry = @"adbsgndlkgndklsnfkldsnglfdksjnglkdfsgjn";
-  entity.location = @"dkjsgnkdsnjglkdsng";
-  entity.size = @"1000";
-  
+  MWMAlertEntity *entity = [MWMAlertEntity entityWithType:MWMAlertEntityTypeDownloader];
+  entity.contry = self.delegate.countryName;
+  entity.size = self.delegate.size;
   [alert configureWithEntity:entity];
   [self.view addSubview:alert];
   alert.center = self.view.center;

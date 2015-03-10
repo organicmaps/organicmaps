@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "MWMAlert.h"
+@protocol MWMAlertViewControllerDelegate;
 
 @interface MWMAlertViewController : UIViewController
+
+@property (nonatomic, weak) id<MWMAlertViewControllerDelegate> delegate;
+@property (nonatomic, weak, readonly) UIViewController *ownerViewController;
+
 - (instancetype)initWithViewController:(UIViewController *)viewController;
 - (void)presentAlertWithType:(MWMAlertType)type;
 - (void)close;
+
 @end

@@ -400,8 +400,6 @@ void InitLocalizedStrings()
   [UIApplication sharedApplication].applicationIconBadgeNumber = [[notification userInfo][@"OutOfDate"] integerValue];
 }
 
-#warning Переделать
-
 - (UIWindow *)window {
   return self->m_window;
 }

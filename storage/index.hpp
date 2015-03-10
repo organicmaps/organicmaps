@@ -23,7 +23,7 @@ namespace storage
               m_country == other.m_country &&
               m_region == other.m_region);
     }
-
+     
     bool operator!=(TIndex const & other) const
     {
       return !(*this == other);

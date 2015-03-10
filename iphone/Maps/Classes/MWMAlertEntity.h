@@ -7,11 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#include "../../../std/vector.hpp"
+#include "../../../map/country_status_display.hpp"
+
+typedef NS_ENUM(NSUInteger, MWMAlertEntityType) {
+  MWMAlertEntityTypeDownloader
+};
 
 @interface MWMAlertEntity : NSObject
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, copy) NSString *contry;
 @property (nonatomic, copy) NSString *location;
-@property (nonatomic, copy) NSString *size;
+@property (nonatomic, assign) NSUInteger size;
+
++ (instancetype)entityWithType:(MWMAlertEntityType)type;
+
 @end

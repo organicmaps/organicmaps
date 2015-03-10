@@ -7,7 +7,9 @@
 //
 
 #import "MWMAlertEntity.h"
-#include <string>
+#include <vector>
+#include "../../../map/country_status_display.hpp"
+#include <iostream>
 
 @interface MWMAlertEntity ()
 
@@ -16,16 +18,22 @@
 
 @implementation MWMAlertEntity
 
-- (instancetype)initWithCallbackString:(const std::string &)string {
-  self = [super init];
-  if (self) {
-    [self processCallbackString:string];
++ (instancetype)entityWithType:(MWMAlertEntityType)type {
+  MWMAlertEntity *entity = [[MWMAlertEntity alloc] init];
+  switch (type) {
+    case MWMAlertEntityTypeDownloader:
+      [self setupEntityDownloaderAlert:entity];
+      break;
   }
-  return self;
+  return entity;
 }
 
-- (void)processCallbackString:(const std::string &)string {
-  
++ (void)setupEntityDownloaderAlert:(MWMAlertEntity *)entity {
+  entity.title = @"Download all maps along your route";
+  entity.message = @"Creating routes between regions is only possible when all the maps are downloaded and updates";
+  entity.location = @"Chammpagne";
 }
+
+
 
 @end

@@ -10,6 +10,8 @@
 #import "MWMAlertViewController.h"
 #import "MWMAlertEntity.h"
 #import "UIKitCategories.h"
+#import "MWMAlertViewControllerDelegate.h"
+#import "ActiveMapsVC.h"
 
 @interface MWMDownloadAllMapsAlert ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
@@ -34,7 +36,7 @@
 - (void)configureWithEntity:(MWMAlertEntity *)entity {
   self.titleLabel.text = entity.title;
   self.messageLabel.text = entity.message;
-  self.sizeLabel.text = entity.size;
+  self.sizeLabel.text = [NSString stringWithFormat:@"%@ MB",@(entity.size)];
   self.locationLabel.text = entity.location;
   self.countryLabel.text = entity.contry;
   [self configureViewSize];
@@ -52,7 +54,7 @@
 - (void)configureSpecsViewSize {
   const CGFloat topSpecsViewOffset = 12.;
   const CGFloat bottonSpecsViewOffset = 10.;
-  const CGFloat middleSpecsViewOffset = 15.;
+  const CGFloat middleSpecsViewOffset = 10.;
   const CGFloat specsViewHeight = topSpecsViewOffset + bottonSpecsViewOffset + middleSpecsViewOffset + self.countryLabel.frame.size.height + self.locationLabel.frame.size.height;
   [self.specsView setHeight:specsViewHeight];
   [self.locationLabel setMinY:topSpecsViewOffset];
@@ -79,7 +81,11 @@
 }
 
 - (IBAction)downloadButtonTap:(id)sender {
+  [self.alertController.delegate downloadMaps];
   [self.alertController close];
+  ActiveMapsVC *activeMapsViewController = [[ActiveMapsVC alloc] init];
+  [self.alertController.ownerViewController.navigationController pushViewController:activeMapsViewController animated:YES];
+ 
 }
 
 @end

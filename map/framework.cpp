@@ -2141,7 +2141,7 @@ void Framework::MatchLocationToRoute(location::GpsInfo & location, location::Rou
 void Framework::CallRouteBuilded(IRouter::ResultCode code, vector<storage::TIndex> const & absentFiles)
 {
   if (code == IRouter::Cancelled)
-    return;  
+    return;
   m_routingCallback(code, absentFiles);
 }
 

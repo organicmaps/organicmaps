@@ -16,6 +16,7 @@
 #import "CountryTreeVC.h"
 #import "Reachability.h"
 #import "MWMAlertViewController.h"
+#import "MWMAlertDownloaderManager.h"
 
 #import "../../Common/CustomAlertView.h"
 
@@ -80,6 +81,7 @@
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
+@property (nonatomic, strong) MWMAlertDownloaderManager *downloaderManager;
 
 @end
 
@@ -149,7 +151,7 @@
 
     if (res.IsValid())
     {
-      NSMutableDictionary *routeInfo = [NSMutableDictionary new];
+      NSMutableDictionary *routeInfo = [NSMutableDictionary dictionary];
       routeInfo[@"timeToTarget"] = @(res.m_time);
       routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
       routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
@@ -740,39 +742,41 @@
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries)
     {
       [self.containerView.placePage showBuildingRoutingActivity:NO];
-      if (code == routing::IRouter::ResultCode::NoError)
-      {
-        f.GetBalloonManager().RemovePin();
-        f.GetBalloonManager().Dismiss();
-        [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
-        [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
-        [self performAfterDelay:0.3 block:^{
-          [self.routeView setState:RouteViewStateInfo animated:YES];
-          [self updateRoutingInfo];
-        }];
-
-        bool isDisclaimerApproved = false;
-        (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
-        if (!isDisclaimerApproved)
-        {
-          NSString * title;
-          NSString * message;
-          if (SYSTEM_VERSION_IS_LESS_THAN(@"7.0"))
-            message = L(@"routing_disclaimer");
-          else
-            title = L(@"routing_disclaimer");
-          UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
-          alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
-          [alert show];
+      
+      switch (code) {
+        case routing::IRouter::ResultCode::NoError: {
+          f.GetBalloonManager().RemovePin();
+          f.GetBalloonManager().Dismiss();
+          [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+          [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
+          [self performAfterDelay:0.3 block:^{
+            [self.routeView setState:RouteViewStateInfo animated:YES];
+            [self updateRoutingInfo];
+          }];
+          
+          bool isDisclaimerApproved = false;
+          (void)Settings::Get("IsDisclaimerApproved", isDisclaimerApproved);
+          if (!isDisclaimerApproved)
+          {
+            NSString * title;
+            NSString * message;
+            if (SYSTEM_VERSION_IS_LESS_THAN(@"7.0"))
+              message = L(@"routing_disclaimer");
+            else
+              title = L(@"routing_disclaimer");
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
+            alert.tag = ALERT_VIEW_ROUTING_DISCLAIMER;
+            [alert show];
+          }
+          break;
         }
-      }
-      else
-      {
-//        TODO
-//        if (openDownloader)
-//          [self showDownloaderDialogWithMessageID:message];
-//        else
-//          [self showDialogWithMessageID:message];
+          
+        case routing::IRouter::ResultCode::RouteFileNotExist: {
+          [self showDownloaderDialogWithCountries:absentCountries];
+          break;
+        }
+        default:
+          break;
       }
     });
   }
@@ -800,15 +804,11 @@
   [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
 }
 
-- (void)showDownloaderDialogWithMessageID:(string const &)message
-{
-  
+- (void)showDownloaderDialogWithCountries:(vector<storage::TIndex> const &)countries {
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
+  self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
+  alert.delegate = self.downloaderManager;
   [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
-
-//  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"cancel") otherButtonTitles:L(@"ok"), nil];
-//  alertView.tag = ALERT_VIEW_DOWNLOADER;
-//  [alertView show];
 }
 
 #pragma mark - Getters

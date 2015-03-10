@@ -10,14 +10,9 @@
 
 - (void)performAfterDelay:(NSTimeInterval)delay block:(void (^)(void))block
 {
-#warning Переписать
-  
-  [self performSelector:@selector(fireBlockAfterDelay:) withObject:[block copy] afterDelay:delay];
-}
-
-- (void)fireBlockAfterDelay:(void (^)(void))block
-{
-  block();
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    block();
+  });
 }
 
 @end
