@@ -6,6 +6,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -127,9 +129,11 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     mPreview.setVisibility(View.VISIBLE);
 
     ValueAnimator animator;
+    Interpolator interpolator;
     if (currentState == State.HIDDEN)
     {
       mDetails.setVisibility(View.INVISIBLE);
+      interpolator = new OvershootInterpolator();
       animator = ValueAnimator.ofFloat(mPreview.getHeight() + mButtons.getHeight(), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
@@ -138,12 +142,20 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
         {
           ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
           ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
+
+          if (animation.getAnimatedFraction() > .99f)
+          {
+            mIsPlacePageVisible = false;
+            mIsPreviewVisible = true;
+            notifyVisibilityListener();
+          }
         }
       });
     }
     else
     {
       final float detailsHeight = mDetails.getHeight();
+      interpolator = new AccelerateInterpolator();
       animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(mPreview), 0f);
       animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
       {
@@ -154,12 +166,17 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue() + detailsHeight);
 
           if (animation.getAnimatedFraction() > .99f)
+          {
             mDetails.setVisibility(View.INVISIBLE);
+            mIsPlacePageVisible = false;
+            mIsPreviewVisible = true;
+            notifyVisibilityListener();
+          }
         }
       });
     }
     animator.setDuration(SHORT_ANIM_DURATION);
-    animator.setInterpolator(new AccelerateInterpolator());
+    animator.setInterpolator(interpolator);
     animator.start();
   }
 
@@ -176,6 +193,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       animator = ValueAnimator.ofFloat(detailsHeight, bookmarkHeight);
     else
       animator = ValueAnimator.ofFloat(0f, bookmarkHeight);
+
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
@@ -183,6 +201,12 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       {
         ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsHeight);
         ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+
+        if (animation.getAnimatedFraction() > .99f)
+        {
+          mIsPreviewVisible = mIsPlacePageVisible = true;
+          notifyVisibilityListener();
+        }
       }
     });
 
@@ -213,6 +237,12 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       {
         ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsHeight);
         ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
+
+        if (animation.getAnimatedFraction() > .99f)
+        {
+          mIsPreviewVisible = mIsPlacePageVisible = true;
+          notifyVisibilityListener();
+        }
       }
     });
 
@@ -234,16 +264,11 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
 
         if (animation.getAnimatedFraction() > .99f)
         {
-          mIsPlacePageVisible = false;
-          mIsPreviewVisible = false;
+          mIsPreviewVisible = mIsPlacePageVisible = false;
 
           mPlacePage.setVisibility(View.INVISIBLE);
           ViewHelper.setTranslationY(mPlacePage, 0);
-          if (mVisibilityChangedListener != null)
-          {
-            mVisibilityChangedListener.onPreviewVisibilityChanged(false);
-            mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
-          }
+          notifyVisibilityListener();
         }
       }
     });

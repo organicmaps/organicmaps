@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.Location;
 import android.os.Build;
@@ -110,6 +111,7 @@ public class MWMActivity extends MWMFragmentActivity
   private ImageButton mLocationButton;
   // map
   private MapFragment mMapFragment;
+  private View mNavigationButtons;
   // Place page
   private PlacePageView mPlacePage;
   private View mRlStartRouting;
@@ -387,7 +389,7 @@ public class MWMActivity extends MWMFragmentActivity
       if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) != null) // search is already shown
         return;
       setVerticalToolbarVisible(false);
-      hideInfoView();
+      hidePlacePage();
       Framework.deactivatePopup();
       popFragment();
 
@@ -410,7 +412,7 @@ public class MWMActivity extends MWMFragmentActivity
         (mVerticalToolbar.getVisibility() != View.VISIBLE && !showVerticalToolbar))
       return;
 
-    hideInfoView();
+    hidePlacePage();
     Framework.deactivatePopup();
     popFragment();
 
@@ -522,7 +524,7 @@ public class MWMActivity extends MWMFragmentActivity
         return;
       setVerticalToolbarVisible(false);
       popFragment();
-      hideInfoView();
+      hidePlacePage();
       SearchController.getInstance().cancel();
 
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -644,8 +646,9 @@ public class MWMActivity extends MWMFragmentActivity
       });
     }
 
-    findViewById(R.id.map_button_plus).setOnClickListener(this);
-    findViewById(R.id.map_button_minus).setOnClickListener(this);
+    mNavigationButtons = findViewById(R.id.navigation_buttons_container_ref);
+    mNavigationButtons.findViewById(R.id.map_button_plus).setOnClickListener(this);
+    mNavigationButtons.findViewById(R.id.map_button_minus).setOnClickListener(this);
   }
 
   private void setupPlacePage()
@@ -1113,7 +1116,7 @@ public class MWMActivity extends MWMFragmentActivity
   {
     if (mPlacePage.getState() != State.HIDDEN)
     {
-      hideInfoView();
+      hidePlacePage();
       Framework.deactivatePopup();
     }
     else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
@@ -1308,7 +1311,7 @@ public class MWMActivity extends MWMFragmentActivity
     });
   }
 
-  private void hideInfoView()
+  private void hidePlacePage()
   {
     mPlacePage.setState(State.HIDDEN);
     mPlacePage.setMapObject(null);
@@ -1324,7 +1327,7 @@ public class MWMActivity extends MWMFragmentActivity
         @Override
         public void run()
         {
-          hideInfoView();
+          hidePlacePage();
           Framework.deactivatePopup();
         }
       });
@@ -1335,12 +1338,33 @@ public class MWMActivity extends MWMFragmentActivity
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
     setVerticalToolbarVisible(false);
+    if (!isVisible)
+    {
+      Framework.deactivatePopup();
+      hidePlacePage();
+    }
+    if (previewIntersectsBottomMenu())
+      mBottomToolbar.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+  }
+
+  private boolean previewIntersectsBottomMenu()
+  {
+    return !(getResources().getBoolean(R.bool.isBigTablet) ||
+        (getResources().getBoolean(R.bool.isTablet) && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
     setVerticalToolbarVisible(false);
+    if (placePageIntersectsZoomButtons())
+      mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+  }
+
+  private boolean placePageIntersectsZoomButtons()
+  {
+    return !(getResources().getBoolean(R.bool.isBigTablet) ||
+        (getResources().getBoolean(R.bool.isTablet) && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
   @Override
@@ -1490,7 +1514,7 @@ public class MWMActivity extends MWMFragmentActivity
     if (mPlacePage.getState() == State.DETAILS || mPlacePage.getState() == State.BOOKMARK)
     {
       Framework.deactivatePopup();
-      hideInfoView();
+      hidePlacePage();
       result = true;
     }
     result |= mMapFragment.onTouch(view, event);
@@ -1549,7 +1573,7 @@ public class MWMActivity extends MWMFragmentActivity
           mRlRoutingBox.setVisibility(View.VISIBLE);
           mRlRoutingBox.bringToFront();
 
-          hideInfoView();
+          hidePlacePage();
           Framework.deactivatePopup();
           updateRoutingDistance();
         }

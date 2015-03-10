@@ -111,6 +111,12 @@ public class LeftFullPlacePageAnimationController extends BasePlacePageAnimation
         public void onAnimationUpdate(ValueAnimator animation)
         {
           ViewHelper.setTranslationX(mPlacePage, (Float) animation.getAnimatedValue());
+
+          if (animation.getAnimatedFraction() > .99f)
+          {
+            mIsPlacePageVisible = mIsPreviewVisible = true;
+            notifyVisibilityListener();
+          }
         }
       });
 
@@ -118,8 +124,6 @@ public class LeftFullPlacePageAnimationController extends BasePlacePageAnimation
       animator.setInterpolator(new AccelerateInterpolator());
       animator.start();
     }
-    mVisibilityChangedListener.onPlacePageVisibilityChanged(true);
-    mVisibilityChangedListener.onPreviewVisibilityChanged(true);
   }
 
   protected void hidePlacePage()
@@ -136,8 +140,8 @@ public class LeftFullPlacePageAnimationController extends BasePlacePageAnimation
         if (animation.getAnimatedFraction() > 0.99f)
         {
           mPlacePage.setVisibility(View.INVISIBLE);
-          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
-          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
+          mIsPlacePageVisible = mIsPreviewVisible = false;
+          notifyVisibilityListener();
         }
       }
     });

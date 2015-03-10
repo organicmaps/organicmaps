@@ -86,4 +86,13 @@ public abstract class BasePlacePageAnimationController
   {
     return mGestureDetector.onTouchEvent(event);
   }
+
+  protected void notifyVisibilityListener()
+  {
+    if (mVisibilityChangedListener != null)
+    {
+      mVisibilityChangedListener.onPreviewVisibilityChanged(mIsPreviewVisible);
+      mVisibilityChangedListener.onPlacePageVisibilityChanged(mIsPlacePageVisible);
+    }
+  }
 }
