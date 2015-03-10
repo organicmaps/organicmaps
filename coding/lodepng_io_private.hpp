@@ -174,11 +174,22 @@ protected:
 
     void init()
     {
-      unsigned char buf[30];
-      m_reader.Read(0, buf, 30);
-//        io_error_if(fread(buf, 1, 30, get()) != 30,
-//                    "lodepng_check_validity: fail to read file");
-      m_decoder.inspect(buf, 30);
+      // 29 bytes are required to read: 8-bytes PNG magic, 4-bytes
+      // chunk length, 4-bytes chunk type, 4-bytes width, 4-bytes
+      // height, 1-byte bit depth, 1-byte color type, 1-byte
+      // compression type, 1-byte filter type and 1-byte interlace
+      // type.
+      //
+      // 4 more bytes are needed if CRC32 sum should be checked.
+      size_t const kMinSize = 29;
+      size_t const kMaxSize = kMinSize + 4;
+
+      unsigned char buf[kMaxSize];
+      size_t const size = m_decoder.settings.ignoreCrc ? kMinSize : kMaxSize;
+      m_reader.Read(0, buf, size);
+      // io_error_if(fread(buf, 1, 30, get()) != 30,
+      //             "lodepng_check_validity: fail to read file");
+      m_decoder.inspect(buf, size);
     }
 
 public:
