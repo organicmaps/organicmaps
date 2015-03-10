@@ -233,8 +233,10 @@ bool AlmostEqual(string const & str1, string const & str2, size_t mismatchedCoun
     mis = mismatch(mis.first, str1End, mis.second);
     if (mis.first == str1End && mis.second == str2End)
       return true;
-    ++mis.first;
-    ++mis.second;
+    if (mis.first != str1End)
+      ++mis.first;
+    if (mis.second != str2End)
+      ++mis.second;
   }
   return false;
 }
