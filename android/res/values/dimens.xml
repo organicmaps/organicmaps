@@ -83,5 +83,8 @@
   <dimen name="margin_direction_top">40dp</dimen>
   <dimen name="margin_direction_mid">24dp</dimen>
   <dimen name="margin_direction_around_center">0dp</dimen>
+  <dimen name="text_direction_dist">52sp</dimen>
+  <dimen name="text_direction_subtitle">22sp</dimen>
+  <dimen name="text_direction_title">58sp</dimen>
 
 </resources>

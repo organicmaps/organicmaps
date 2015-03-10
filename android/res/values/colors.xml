@@ -12,11 +12,9 @@
 
   <drawable name="semitransparent_white">#30FFFFFF</drawable>
 
-  <color name="semitransparent_white">#30FFFFFF</color>
-
-  <drawable name="semitransparent_black">#30000000</drawable>
-
+  <color name="semitransparent_white">#99FFFFFF</color>
   <color name="semitransparent_black">#60000000</color>
+  <color name="semitransparent_black_dark">#BB000000</color>
 
   <color name="search_background_gray">#efeff4</color>
 
