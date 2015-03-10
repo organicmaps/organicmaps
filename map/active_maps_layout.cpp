@@ -21,6 +21,8 @@ ActiveMapsLayout::~ActiveMapsLayout()
 
 void ActiveMapsLayout::Init(vector<string> const & maps)
 {
+  Clear();
+
   Storage & storage = GetStorage();
   for (auto const & file : maps)
   {
