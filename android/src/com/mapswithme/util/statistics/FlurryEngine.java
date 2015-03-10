@@ -11,6 +11,8 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
+// TODO(AlexZ): Temporary duplicate all flurry events to check statistics quality.
+// Remove it when not needed any more.
 public class FlurryEngine extends StatisticsEngine
 {
 
@@ -38,12 +40,16 @@ public class FlurryEngine extends StatisticsEngine
     Utils.checkNotNull(mKey);
     Utils.checkNotNull(activity);
     FlurryAgent.onStartSession(activity);
+    // TODO(AlexZ)
+    org.alohalytics.Statistics.logEvent("Flurry:", "onStartSession");
   }
 
   @Override
   public void onEndActivity(Activity activity)
   {
     FlurryAgent.onEndSession(activity);
+    // TODO(AlexZ)
+    org.alohalytics.Statistics.logEvent("Flurry:", "onEndSession");
   }
 
   @Override
@@ -51,8 +57,16 @@ public class FlurryEngine extends StatisticsEngine
   {
     Utils.checkNotNull(event);
     if (event.hasParams())
+    {
       FlurryAgent.logEvent(event.getName(), event.getParams());
+      // TODO(AlexZ)
+      org.alohalytics.Statistics.logEvent("Flurry:" + event.getName(), event.getParams());
+    }
     else
+    {
       FlurryAgent.logEvent(event.getName());
+      // TODO(AlexZ)
+      org.alohalytics.Statistics.logEvent("Flurry:" + event.getName());
+    }
   }
 }
