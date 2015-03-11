@@ -359,7 +359,7 @@ namespace qt
     GetBalloonManager().OnShowMark(m_framework->GetUserMark(pt, m_wasLongClick));
   }
 
-  void DrawWidget::OnActivateMark(UserMarkCopy * pCopy)
+  void DrawWidget::OnActivateMark(unique_ptr<UserMarkCopy> pCopy)
   {
     UserMark const * pMark = pCopy->GetUserMark();
     m_framework->ActivateUserMark(pMark);

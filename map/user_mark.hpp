@@ -6,8 +6,9 @@
 
 #include "../search/result.hpp"
 
-#include "../std/string.hpp"
 #include "../std/noncopyable.hpp"
+#include "../std/string.hpp"
+#include "../std/unique_ptr.hpp"
 
 class UserMarkContainer;
 class PaintOverlayEvent;
@@ -40,7 +41,7 @@ public:
   void GetLatLon(double & lat, double & lon) const;
   virtual bool IsCustomDrawable() const { return false;}
   virtual Type GetMarkType() const = 0;
-  virtual UserMarkCopy * Copy() const = 0;
+  virtual unique_ptr<UserMarkCopy> Copy() const = 0;
 
 protected:
   m2::PointD m_ptOrg;
@@ -95,9 +96,10 @@ public:
   string const & GetID() const   { return m_id; }
   void SetID(string const & id)  { m_id = id; }
 
-  virtual UserMarkCopy * Copy() const
+  unique_ptr<UserMarkCopy> Copy() const override
   {
-    return new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_ptOrg, m_container));
+    return unique_ptr<UserMarkCopy>(
+        new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_ptOrg, m_container)));
   }
 
 private:
@@ -129,9 +131,10 @@ public:
   feature::FeatureMetadata const & GetMetadata() const { return m_metadata; }
   void SetMetadata(feature::FeatureMetadata const & metadata) { m_metadata = metadata; }
 
-  virtual UserMarkCopy * Copy() const
+  unique_ptr<UserMarkCopy> Copy() const override
   {
-    return new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container));
+    return unique_ptr<UserMarkCopy>(
+        new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container)));
   }
 
 protected:
@@ -146,9 +149,9 @@ public:
     : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
 
   UserMark::Type GetMarkType() const { return POI; }
-  virtual UserMarkCopy * Copy() const
+  unique_ptr<UserMarkCopy> Copy() const override
   {
-    return new UserMarkCopy(this, false);
+    return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
   }
 
   void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }

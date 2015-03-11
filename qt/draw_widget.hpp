@@ -112,7 +112,7 @@ namespace qt
     void StartPressTask(m2::PointD const & pt, unsigned ms);
     bool KillPressTask();
     void OnPressTaskEvent(m2::PointD const & pt, unsigned ms);
-    void OnActivateMark(UserMarkCopy * pCopy);
+    void OnActivateMark(unique_ptr<UserMarkCopy> pCopy);
 
   protected:
     /// @name Overriden from base_type.

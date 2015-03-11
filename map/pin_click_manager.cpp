@@ -28,7 +28,7 @@ void PinClickManager::Hide()
 void PinClickManager::OnShowMark(UserMark const * mark)
 {
   if (mark != NULL)
-    OnActivateUserMark(mark->Copy());
+    m_userMarkListener(mark->Copy());
   SetBalloonVisible(mark != NULL);
 }
 
@@ -55,11 +55,6 @@ void PinClickManager::ClearListeners()
 {
   m_userMarkListener = TUserMarkListener();
   m_dismissListener = TDismissListener();
-}
-
-void PinClickManager::OnActivateUserMark(UserMarkCopy * mark)
-{
-  m_userMarkListener(mark);
 }
 
 void PinClickManager::OnDismiss()

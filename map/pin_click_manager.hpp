@@ -5,8 +5,9 @@
 
 #include "../geometry/point2d.hpp"
 
-#include "../std/shared_ptr.hpp"
 #include "../std/function.hpp"
+#include "../std/shared_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 
 class Framework;
@@ -19,7 +20,6 @@ class PinClickManager
 {
   Framework & m_f;
 
-  void OnActivateUserMark(UserMarkCopy * mark);
   void OnDismiss();
 
   void SetBalloonVisible(bool isVisible);
@@ -41,7 +41,7 @@ private:
   /// @name Platform dependent listeners to show special activities.
   //@{
   // You must delete UserMarkCopy obtained by this callback
-  typedef function<void (UserMarkCopy *)> TUserMarkListener;
+  typedef function<void (unique_ptr<UserMarkCopy>)> TUserMarkListener;
   TUserMarkListener m_userMarkListener;
   typedef function<void (void)> TDismissListener;
   TDismissListener m_dismissListener;
