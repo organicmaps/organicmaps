@@ -254,6 +254,7 @@ class HouseDetector
 
 public:
   HouseDetector(Index const * pIndex);
+  ~HouseDetector();
 
   uint32_t GetBuildingType() const;
 

@@ -302,6 +302,8 @@ HouseDetector::HouseDetector(Index const * pIndex)
   SetMetres2Mercator(360.0 / 40.0E06);
 }
 
+HouseDetector::~HouseDetector() { ClearCaches(); }
+
 void HouseDetector::SetMetres2Mercator(double factor)
 {
   m_metres2Mercator = factor;
