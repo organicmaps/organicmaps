@@ -1,9 +1,22 @@
 #include "../../testing/testing.hpp"
+
 #include "../osrm_router.hpp"
+
+#include "../../indexer/features_offsets_table.hpp"
 #include "../../indexer/mercator.hpp"
+
+#include "../../coding/file_writer.hpp"
+
+#include "../../platform/platform.hpp"
 
 #include "../../defines.hpp"
 
+#include "../../base/scope_guard.hpp"
+
+#include "../../std/bind.hpp"
+#include "../../std/string.hpp"
+#include "../../std/unique_ptr.hpp"
+#include "../../std/vector.hpp"
 
 using namespace routing;
 
@@ -13,7 +26,7 @@ namespace
 typedef vector<OsrmFtSegMappingBuilder::FtSegVectorT> InputDataT;
 typedef vector< vector<OsrmNodeIdT> > NodeIdDataT;
 typedef vector< pair<size_t, size_t> > RangeDataT;
-
+typedef OsrmMappingTypes::FtSeg SegT;
 
 void TestNodeId(OsrmFtSegMapping const & mapping, NodeIdDataT const & test)
 {
@@ -38,6 +51,27 @@ void TestMapping(InputDataT const & data,
                  NodeIdDataT const & nodeIds,
                  RangeDataT const & ranges)
 {
+  static char const ftSegsPath[] = "test1.tmp";
+  string const featuresOffsetsTablePath =
+      GetPlatform().GetIndexFileName(ftSegsPath, FEATURES_OFFSETS_TABLE_FILE_EXT);
+  MY_SCOPE_GUARD(ftSegsFileDeleter, bind(FileWriter::DeleteFileX, ftSegsPath));
+  MY_SCOPE_GUARD(featuresOffsetsTableFileDeleter,
+                 bind(FileWriter::DeleteFileX, featuresOffsetsTablePath));
+
+  {
+    // Prepare fake features offsets table for input data, just push all
+    // segments feature ids as offsets.
+    feature::FeaturesOffsetsTable::Builder tableBuilder;
+    for (auto const & segVector : data)
+    {
+      for (auto const & seg : segVector)
+        tableBuilder.PushOffset(seg.m_fid);
+    }
+    unique_ptr<feature::FeaturesOffsetsTable> table =
+        feature::FeaturesOffsetsTable::Build(tableBuilder);
+    table->Save(featuresOffsetsTablePath);
+  }
+
   OsrmFtSegMappingBuilder builder;
   for (OsrmNodeIdT nodeId = 0; nodeId < data.size(); ++nodeId)
     builder.Append(nodeId, data[nodeId]);
@@ -45,14 +79,13 @@ void TestMapping(InputDataT const & data,
   TestNodeId(builder, nodeIds);
   TestSegmentRange(builder, ranges);
 
-  string const fName = "test1.tmp";
   {
-    FilesContainerW w(fName);
+    FilesContainerW w(ftSegsPath);
     builder.Save(w);
   }
 
   {
-    FilesMappingContainer cont(fName);
+    FilesMappingContainer cont(ftSegsPath);
     OsrmFtSegMapping mapping;
     mapping.Load(cont);
 
@@ -70,11 +103,7 @@ void TestMapping(InputDataT const & data,
       TEST_EQUAL(count, data[node].size(), ());
     }
   }
-
-  FileWriter::DeleteFileX(fName);
 }
-
-typedef OsrmMappingTypes::FtSeg SegT;
 
 bool TestFtSeg(SegT const & s)
 {
