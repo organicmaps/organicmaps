@@ -14,8 +14,8 @@
 #include "../../base/logging.hpp"
 #include "../../base/std_serialization.hpp"
 
-#include "../../std/scoped_ptr.hpp"
 #include "../../std/bind.hpp"
+#include "../../std/unique_ptr.hpp"
 
 #include <QtCore/QCoreApplication>
 
@@ -34,12 +34,12 @@ using namespace downloader;
 class DownloadObserver
 {
   bool m_progressWasCalled;
-  HttpRequest::StatusT * m_status;
+  unique_ptr<HttpRequest::StatusT> m_status;
   // Interrupt download after this number of chunks
   int m_chunksToFail;
 
 public:
-  DownloadObserver() : m_status(0), m_chunksToFail(-1)
+  DownloadObserver() : m_chunksToFail(-1)
   {
     Reset();
     my::g_LogLevel = LDEBUG;
@@ -53,21 +53,19 @@ public:
   void Reset()
   {
     m_progressWasCalled = false;
-    if (m_status)
-      delete m_status;
-    m_status = 0;
+    m_status.reset();
   }
 
   void TestOk()
   {
     TEST(m_progressWasCalled, ("Download progress wasn't called"));
-    TEST_NOT_EQUAL(m_status, 0, ());
+    TEST(m_status.get(), ());
     TEST_EQUAL(*m_status, HttpRequest::ECompleted, ());
   }
 
   void TestFailed()
   {
-    TEST_NOT_EQUAL(m_status, 0, ());
+    TEST(m_status.get(), ());
     TEST_EQUAL(*m_status, HttpRequest::EFailed, ());
   }
 
@@ -91,8 +89,8 @@ public:
 
   void OnDownloadFinish(HttpRequest & request)
   {
-    TEST_EQUAL(m_status, 0, ());
-    m_status = new HttpRequest::StatusT(request.Status());
+    TEST(!m_status.get(), ());
+    m_status.reset(new HttpRequest::StatusT(request.Status()));
     TEST(*m_status == HttpRequest::EFailed || *m_status == HttpRequest::ECompleted, ());
     QCoreApplication::quit();
   }
