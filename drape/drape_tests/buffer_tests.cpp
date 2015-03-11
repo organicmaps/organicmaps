@@ -6,6 +6,8 @@
 #include "../data_buffer.hpp"
 #include "../index_buffer.hpp"
 
+#include "../../std/cstdlib.hpp"
+
 #include <gmock/gmock.h>
 
 using namespace emul;
@@ -62,12 +64,14 @@ UNIT_TEST(UploadDataTest)
 
 UNIT_TEST(ParticalUploadDataTest)
 {
-  float part1Data[3 * 30];
-  for (int i = 0; i < 3 * 30; ++i)
+  size_t const kPart1Size = 3 * 30;
+  float part1Data[kPart1Size];
+  for (int i = 0; i < kPart1Size; ++i)
     part1Data[i] = (float)i;
 
-  float part2Data[3 * 100];
-  for (int i = 0; i < 3 * 100; ++i)
+  size_t const kPart2Size = 3 * 100;
+  float part2Data[kPart2Size];
+  for (int i = 0; i < kPart2Size; ++i)
     part2Data[i] = (float)i;
 
   InSequence s;
