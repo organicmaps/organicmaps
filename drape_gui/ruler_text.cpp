@@ -21,7 +21,7 @@ namespace
       : Handle(anchor, pivot)
     {
       SetIsVisible(true);
-      m_textView.Reset(new GuiText(anchor));
+      m_textView.Reset(new MutableLabel(anchor));
     }
 
     ~RulerTextHandle()
@@ -50,14 +50,14 @@ namespace
       if (!helper.IsTextDirty())
         return;
 
-      buffer_vector<GuiText::DynamicVertex, 32> buffer;
+      buffer_vector<MutableLabel::DynamicVertex, 128> buffer;
       m_textView->SetText(buffer, helper.GetRulerText());
 
-      size_t byteCount = buffer.size() * sizeof(GuiText::DynamicVertex);
+      size_t byteCount = buffer.size() * sizeof(MutableLabel::DynamicVertex);
       void * dataPointer = mutator->AllocateMutationBuffer(byteCount);
       memcpy(dataPointer, buffer.data(), byteCount);
 
-      dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(GuiText::DynamicVertex::GetBindingInfo().GetID());
+      dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(MutableLabel::DynamicVertex::GetBindingInfo().GetID());
 
       dp::MutateNode mutateNode;
       mutateNode.m_data = dp::MakeStackRefPointer(dataPointer);
@@ -65,13 +65,13 @@ namespace
       mutator->AddMutation(offsetNode.first, mutateNode);
     }
 
-    dp::RefPointer<GuiText> GetTextView()
+    dp::RefPointer<MutableLabel> GetTextView()
     {
       return m_textView.GetRefPointer();
     }
 
   private:
-    dp::MasterPointer<GuiText> m_textView;
+    dp::MasterPointer<MutableLabel> m_textView;
   };
 }
 
@@ -85,20 +85,20 @@ void RulerText::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   m2::PointF rulerTextPivot = m_position.m_pixelPivot + m2::PointF(0.0, RulerHelper::Instance().GetVerticalTextOffset());
   dp::Anchor anchor = static_cast<dp::Anchor>((m_position.m_anchor & (dp::Right | dp::Left)) | dp::Bottom);
   RulerTextHandle * handle = new RulerTextHandle(anchor, rulerTextPivot);
-  dp::RefPointer<GuiText> textView = handle->GetTextView();
+  dp::RefPointer<MutableLabel> textView = handle->GetTextView();
   dp::RefPointer<dp::Texture> maskTexture = textView->SetAlphabet(m_alphabet, tex);
   textView->SetMaxLength(m_maxLength);
 
-  buffer_vector<GuiText::StaticVertex, 32> statData;
-  buffer_vector<GuiText::DynamicVertex, 32> dynData;
+  buffer_vector<MutableLabel::StaticVertex, 128> statData;
+  buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
   dp::RefPointer<dp::Texture> colorTexture = textView->Precache(statData, dp::FontDecl(FontColor, FontSize * DrapeGui::Instance().GetScaleFactor()), tex);
 
   ASSERT_EQUAL(GetVertexCount(), statData.size(), ());
   dynData.resize(statData.size());
 
   dp::AttributeProvider provider(2, statData.size());
-  provider.InitStream(0, GuiText::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
-  provider.InitStream(1, GuiText::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
+  provider.InitStream(0, MutableLabel::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
+  provider.InitStream(1, MutableLabel::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::UserMarkLayer);
   state.SetColorTexture(colorTexture);

@@ -37,10 +37,45 @@
 namespace df
 {
 
-class DummyGuiText
+class DummyLabel
 {
 public:
-  DummyGuiText(m2::PointF const & base, string const & text)
+  DummyLabel(m2::PointF const & base, string const & text, dp::Anchor anchor, dp::FontDecl const & font)
+    : m_base(base)
+    , m_text(text)
+    , m_anchor(anchor)
+    , m_font(font)
+  {
+  }
+
+  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+  {
+    gui::StaticLabel::LabelResult result;
+    gui::StaticLabel::CacheStaticText(m_text, "\n", m_anchor, m_font, textures, result);
+    for (gui::StaticLabel::Vertex & v : result.m_buffer)
+      v.m_position = glsl::vec3(glsl::ToVec2(m_base), v.m_position.z);
+
+    dp::AttributeProvider provider(1, result.m_buffer.size());
+    provider.InitStream(0, gui::StaticLabel::Vertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(result.m_buffer.data()));
+
+    dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
+    state.SetColorTexture(result.m_colorTexture);
+    state.SetMaskTexture(result.m_maskTexture);
+
+    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+  }
+
+private:
+  m2::PointF m_base;
+  string const & m_text;
+  dp::Anchor m_anchor;
+  dp::FontDecl m_font;
+};
+
+class DummyMutableLabel
+{
+public:
+  DummyMutableLabel(m2::PointF const & base, string const & text)
     : m_base(base)
     , m_text(text)
   {
@@ -48,25 +83,25 @@ public:
 
   void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
   {
-    gui::GuiText textCacher(dp::LeftBottom);
+    gui::MutableLabel textCacher(dp::LeftBottom);
     textCacher.SetMaxLength(10);
     dp::RefPointer<dp::Texture> maskTexture = textCacher.SetAlphabet(m_text, textures);
 
     dp::FontDecl font(dp::Color(0, 0, 0, 255), 14);
-    buffer_vector<gui::GuiText::StaticVertex, 32> statData;
+    buffer_vector<gui::MutableLabel::StaticVertex, 128> statData;
     dp::RefPointer<dp::Texture> colorTexure = textCacher.Precache(statData, font, textures);
 
     glsl::vec2 offset = glsl::ToVec2(m_base);
-    for (gui::GuiText::StaticVertex & v : statData)
+    for (gui::MutableLabel::StaticVertex & v : statData)
       v.m_position = glsl::vec3(v.m_position.xy() + offset, v.m_position.z);
 
-    buffer_vector<gui::GuiText::DynamicVertex, 32> dynData;
+    buffer_vector<gui::MutableLabel::DynamicVertex, 128> dynData;
     textCacher.SetText(dynData, m_text);
     ASSERT_EQUAL(statData.size(), dynData.size(), ());
 
     dp::AttributeProvider provider(2, dynData.size());
-    provider.InitStream(0, gui::GuiText::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
-    provider.InitStream(1, gui::GuiText::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
+    provider.InitStream(0, gui::MutableLabel::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
+    provider.InitStream(1, gui::MutableLabel::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
 
     dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
     state.SetColorTexture(colorTexure);
@@ -413,7 +448,8 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 
 void TestingEngine::DrawImpl()
 {
-  m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
+  dp::Batcher::TFlushFn flushFn = bind(&df::TestingEngine::OnFlushData, this, _1, _2);
+  m_batcher->StartSession(flushFn);
   dp::FontDecl fd;
   fd.m_color = dp::Color::Black();
   fd.m_outlineColor = dp::Color::White();
@@ -508,7 +544,7 @@ void TestingEngine::DrawImpl()
   }
   m_batcher->EndSession();
 
-  m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
+  m_batcher->StartSession(flushFn);
   {
     vector<m2::PointD> path;
     path.push_back(m2::PointD(120.0f, 30.0f));
@@ -521,8 +557,34 @@ void TestingEngine::DrawImpl()
     lvpl.m_width = 2.0f;
     LineShape(spl, lvpl).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-    DummyGuiText tt(m2::PointF(120.0f, 30.0f), "200 km");
+    DummyMutableLabel tt(m2::PointF(120.0f, 30.0f), "200 km");
     tt.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  }
+  m_batcher->EndSession();
+
+  m_batcher->StartSession(flushFn);
+  {
+    {
+      vector<m2::PointD> path;
+      path.push_back(m2::PointD(110.0f, 25.0f));
+      path.push_back(m2::PointD(130.0f, 25.0f));
+      m2::SharedSpline spl(path);
+
+      LineViewParams lvpl = lvp;
+      lvpl.m_pattern.clear();
+      lvpl.m_depth = -10.0f;
+      lvpl.m_width = 2.0f;
+      LineShape(spl, lvpl).Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+    }
+
+    dp::FontDecl font(dp::Color::Black(), 14);
+
+    DummyLabel(m2::PointF(110.0f, 25.0f), "Top\nText", dp::LeftTop, font)
+        .Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+    DummyLabel(m2::PointF(120.0f, 25.0f), "Center\nText", dp::Center, font)
+        .Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+    DummyLabel(m2::PointF(130.0f, 25.0f), "Bottom\nText", dp::RightBottom, font)
+        .Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
   }
   m_batcher->EndSession();
 }

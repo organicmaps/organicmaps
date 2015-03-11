@@ -20,6 +20,7 @@ namespace dp
 
 uint32_t const STIPPLE_TEXTURE_SIZE = 1024;
 uint32_t const COLOR_TEXTURE_SIZE = 1024;
+size_t const INVALID_GLYPH_GROUP = static_cast<size_t>(-1);
 
 bool TextureManager::BaseRegion::IsValid() const
 {
@@ -133,6 +134,45 @@ void TextureManager::GetRegionBase(RefPointer<Texture> tex, TextureManager::Base
     m_nothingToUpload.clear();
 }
 
+size_t TextureManager::FindCharGroup(strings::UniChar const & c)
+{
+  auto const iter = lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c, [](GlyphGroup const & g, strings::UniChar const & c)
+  {
+    return g.m_endChar < c;
+  });
+  ASSERT(iter != m_glyphGroups.end(), ());
+  return distance(m_glyphGroups.begin(), iter);
+}
+
+void TextureManager::FillResultBuffer(strings::UniString const & text, GlyphGroup & group, TGlyphsBuffer & regions)
+{
+  if (group.m_texture.IsNull())
+    AllocateGlyphTexture(group);
+
+  dp::RefPointer<dp::Texture> texture = group.m_texture.GetRefPointer();
+  regions.reserve(text.size());
+  for (strings::UniChar const & c : text)
+  {
+    GlyphRegion reg;
+    GetRegionBase(texture, reg, GlyphKey(c));
+    regions.push_back(reg);
+  }
+}
+
+bool TextureManager::CheckCharGroup(strings::UniChar const & c, size_t & groupIndex)
+{
+  size_t currentIndex = FindCharGroup(c);
+  if (groupIndex == INVALID_GLYPH_GROUP)
+    groupIndex = currentIndex;
+  else if (groupIndex != currentIndex)
+  {
+    groupIndex = INVALID_GLYPH_GROUP;
+    return false;
+  }
+
+  return true;
+}
+
 TextureManager::TextureManager()
 {
   m_nothingToUpload.test_and_set();
@@ -204,45 +244,56 @@ void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
   GetRegionBase(m_colorTexture.GetRefPointer(), region, ColorKey(color));
 }
 
-void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
+void TextureManager::GetGlyphRegions(TMultilineText const & text,
+                                     TMultilineGlyphsBuffer & buffers)
 {
-  size_t const INVALID_GROUP = static_cast<size_t>(-1);
-  size_t groupIndex = INVALID_GROUP;
-  for (strings::UniChar const & c : text)
+  size_t groupIndex = INVALID_GLYPH_GROUP;
+  bool continueGroupFind = true;
+  for (strings::UniString const & str : text)
   {
-    auto const iter = lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c, [](GlyphGroup const & g, strings::UniChar const & c)
+    for (strings::UniChar const & c : str)
     {
-      return g.m_endChar < c;
-    });
-    ASSERT(iter != m_glyphGroups.end(), ());
-    size_t currentIndex = distance(m_glyphGroups.begin(), iter);
-    if (groupIndex == INVALID_GROUP)
-      groupIndex = currentIndex;
-    else if (groupIndex != currentIndex)
-    {
-      groupIndex = INVALID_GROUP;
-      break;
+      continueGroupFind = CheckCharGroup(c, groupIndex);
+      if (!continueGroupFind)
+        break;
     }
+
+    if (!continueGroupFind)
+      break;
   }
 
-  regions.reserve(text.size());
-  if (groupIndex == INVALID_GROUP)
+  buffers.resize(text.size());
+  if (groupIndex != INVALID_GLYPH_GROUP)
   {
-    /// TODO some magic with hybrid textures
+    ASSERT_EQUAL(buffers.size(), text.size(), ());
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+      strings::UniString const & str = text[i];
+      TGlyphsBuffer & buffer = buffers[i];
+      FillResultBuffer(str, m_glyphGroups[groupIndex], buffer);
+    }
   }
   else
   {
-    GlyphGroup & group = m_glyphGroups[groupIndex];
-    if (group.m_texture.IsNull())
-      AllocateGlyphTexture(group);
+    /// TODO some magic with hybrid textures
+  }
+}
 
-    RefPointer<Texture> texture = group.m_texture.GetRefPointer();
-    for (strings::UniChar const & c : text)
-    {
-      GlyphRegion reg;
-      GetRegionBase(texture, reg, GlyphKey(c));
-      regions.push_back(reg);
-    }
+void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
+{
+  size_t groupIndex = INVALID_GLYPH_GROUP;
+  for (strings::UniChar const & c : text)
+  {
+    if (!CheckCharGroup(c, groupIndex))
+      break;
+  }
+
+  regions.reserve(text.size());
+  if (groupIndex != INVALID_GLYPH_GROUP)
+    FillResultBuffer(text, m_glyphGroups[groupIndex], regions);
+  else
+  {
+    /// TODO some magic with hybrid textures
   }
 }
 

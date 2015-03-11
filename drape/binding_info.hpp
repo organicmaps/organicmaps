@@ -10,11 +10,11 @@ namespace dp
 
 struct BindingDecl
 {
-  string    m_attributeName;
-  uint8_t   m_componentCount;
-  glConst   m_componentType;
-  uint8_t   m_stride;
-  uint16_t  m_offset;
+  string  m_attributeName;
+  uint8_t m_componentCount;
+  glConst m_componentType;
+  uint8_t m_stride;
+  uint8_t m_offset;
 
   bool operator != (BindingDecl const & other) const;
   bool operator < (BindingDecl const & other) const;

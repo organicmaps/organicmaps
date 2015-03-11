@@ -76,10 +76,14 @@ public:
   void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
 
-  typedef buffer_vector<GlyphRegion, 32> TGlyphsBuffer;
+  typedef buffer_vector<strings::UniString, 3> TMultilineText;
+  typedef buffer_vector<GlyphRegion, 128> TGlyphsBuffer;
+  typedef buffer_vector<TGlyphsBuffer, 3> TMultilineGlyphsBuffer;
+
+  void GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers);
   void GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions);
 
-  /// On some devices OpenGL driver can't resolve situation when we upload on texture from on thread
+  /// On some devices OpenGL driver can't resolve situation when we upload on texture from one thread
   /// and use this texture to render on other thread. By this we move UpdateDynamicTextures call into render thread
   /// If you implement some kind of dynamic texture, you must synchronyze UploadData and index creation operations
   void UpdateDynamicTextures();
@@ -101,6 +105,9 @@ private:
 
   void AllocateGlyphTexture(TextureManager::GlyphGroup & group) const;
   void GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
+  size_t FindCharGroup(strings::UniChar const & c);
+  bool CheckCharGroup(strings::UniChar const & c, size_t & groupIndex);
+  void FillResultBuffer(strings::UniString const & text, GlyphGroup & group, TGlyphsBuffer & regions);
 
 private:
   MasterPointer<Texture> m_symbolTexture;

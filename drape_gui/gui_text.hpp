@@ -11,7 +11,44 @@
 namespace gui
 {
 
-class GuiText
+class StaticLabel
+{
+public:
+  struct Vertex
+  {
+    Vertex() = default;
+    Vertex(glsl::vec3 const & pos, glsl::vec2 const & normal, glsl::vec2 const & color,
+           glsl::vec2 const & outline, glsl::vec2 const & mask)
+      : m_position(pos)
+      , m_normal(normal)
+      , m_colorTexCoord(color)
+      , m_outlineColorTexCoord(outline)
+      , m_maskTexCoord(mask)
+    {
+    }
+
+    static dp::BindingInfo const & GetBindingInfo();
+
+    glsl::vec3 m_position;
+    glsl::vec2 m_normal;
+    glsl::vec2 m_colorTexCoord;
+    glsl::vec2 m_outlineColorTexCoord;
+    glsl::vec2 m_maskTexCoord;
+  };
+
+  struct LabelResult
+  {
+    dp::RefPointer<dp::Texture> m_colorTexture;
+    dp::RefPointer<dp::Texture> m_maskTexture;
+    buffer_vector<Vertex, 128> m_buffer;
+  };
+
+  static void CacheStaticText(string const & text, char const * delim,
+                              dp::Anchor anchor, dp::FontDecl const & font,
+                              dp::RefPointer<dp::TextureManager> mng, LabelResult & result);
+};
+
+class MutableLabel
 {
 public:
   struct StaticVertex
@@ -46,13 +83,13 @@ public:
     glsl::vec2 m_maskTexCoord;
   };
 
-  GuiText(dp::Anchor anchor);
+  MutableLabel(dp::Anchor anchor);
 
   void SetMaxLength(uint16_t maxLength);
   dp::RefPointer<dp::Texture> SetAlphabet(string const & alphabet, dp::RefPointer<dp::TextureManager> mng);
-  dp::RefPointer<dp::Texture> Precache(buffer_vector<StaticVertex, 32> & buffer, dp::FontDecl const & font,
+  dp::RefPointer<dp::Texture> Precache(buffer_vector<StaticVertex, 128> & buffer, dp::FontDecl const & font,
                                        dp::RefPointer<dp::TextureManager> mng);
-  void SetText(buffer_vector<DynamicVertex, 32> & buffer, string text) const;
+  void SetText(buffer_vector<DynamicVertex, 128> & buffer, string text) const;
 
 private:
   dp::Anchor m_anchor;
