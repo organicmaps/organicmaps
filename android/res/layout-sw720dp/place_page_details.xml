@@ -5,6 +5,6 @@
             android:background="@android:color/white"
             android:orientation="vertical">
 
-  <include layout="@layout/details_huge"/>
+  <include layout="@layout/place_page_details_common"/>
 
 </ScrollView>

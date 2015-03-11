@@ -1196,8 +1196,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
           {
             mPlacePage.setMapObject(apiPoint);
             mPlacePage.setState(State.PREVIEW);
-            mIvStartRouting.setVisibility(View.VISIBLE);
-            mTvStartRouting.setVisibility(View.VISIBLE);
+            mRlStartRouting.setVisibility(View.VISIBLE);
             mPbRoutingProgress.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
               fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1225,8 +1224,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         {
           mPlacePage.setMapObject(poi);
           mPlacePage.setState(State.PREVIEW);
-          mIvStartRouting.setVisibility(View.VISIBLE);
-          mTvStartRouting.setVisibility(View.VISIBLE);
+          mRlStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1249,8 +1247,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         {
           mPlacePage.setMapObject(b);
           mPlacePage.setState(State.PREVIEW);
-          mIvStartRouting.setVisibility(View.VISIBLE);
-          mTvStartRouting.setVisibility(View.VISIBLE);
+          mRlStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1276,9 +1273,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
           {
             mPlacePage.setMapObject(mypos);
             mPlacePage.setState(State.PREVIEW);
-            mIvStartRouting.setVisibility(View.GONE);
-            mTvStartRouting.setVisibility(View.GONE);
-            mPbRoutingProgress.setVisibility(View.GONE);
+            mRlStartRouting.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
               fadeMap(FADE_VIEW_ALPHA, 0);
           }
@@ -1301,8 +1296,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         {
           mPlacePage.setMapObject(sr);
           mPlacePage.setState(State.PREVIEW);
-          mIvStartRouting.setVisibility(View.VISIBLE);
-          mTvStartRouting.setVisibility(View.VISIBLE);
+          mRlStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);

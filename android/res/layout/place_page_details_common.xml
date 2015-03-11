@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <LinearLayout
+      android:id="@+id/rl__place_details"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingLeft="@dimen/margin_medium_and_half"
+      android:paddingRight="@dimen/margin_medium_and_half"
+      android:paddingTop="@dimen/margin_medium_and_half">
+
+    <include layout="@layout/place_page_placename"/>
+
+    <include layout="@layout/place_page_phone"/>
+
+    <include layout="@layout/place_page_website"/>
+
+    <include layout="@layout/place_page_schedule"/>
+
+    <include layout="@layout/place_page_latlon"/>
+
+    <include layout="@layout/place_page_wifi"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/margin_medium_and_half"
+        android:background="?attr/dividerHorizontal"/>
+
+    <include
+        layout="@layout/place_page_bookmark_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl__details_attrs"/>
+
+  </LinearLayout>
+
+</merge>

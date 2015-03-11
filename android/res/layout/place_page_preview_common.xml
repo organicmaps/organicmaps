@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_small_and_half"
-    android:paddingLeft="@dimen/margin_medium"
-    android:paddingRight="@dimen/margin_medium"
-    android:paddingTop="@dimen/margin_medium_and_half">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
   <RelativeLayout
       android:layout_width="0dp"
@@ -19,6 +10,8 @@
         android:id="@+id/tv__title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textColor="@color/text_place_page"
         android:textSize="@dimen/place_page_title"/>
 
@@ -46,6 +39,7 @@
       android:id="@+id/tv__straight_distance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:textColor="@color/text_place_page"
       android:textSize="@dimen/place_page_subtitle"/>
 
   <com.mapswithme.maps.widget.ArrowView
@@ -56,5 +50,5 @@
       android:clickable="true"
       android:padding="@dimen/margin_small"/>
 
-</LinearLayout>
+</merge>
 

@@ -18,7 +18,7 @@
 
   <com.mapswithme.maps.widget.placepage.PlacePageView
       android:id="@+id/info_box"
-      android:layout_width="450dp"
+      android:layout_width="360dp"
       android:layout_height="match_parent"
       android:background="@android:color/white"
       placePage:animationType="leftFull"/>

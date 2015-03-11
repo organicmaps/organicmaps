@@ -9,14 +9,14 @@
 
   <include
       android:id="@+id/pp__preview"
-      layout="@layout/preview_place_page"
+      layout="@layout/place_page_preview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@drawable/bg_place_page_back"/>
 
   <include
       android:id="@+id/pp__details"
-      layout="@layout/details_place_page"
+      layout="@layout/place_page_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/pp__preview"
@@ -31,9 +31,9 @@
 
   <include
       android:id="@+id/pp__buttons"
-      layout="@layout/buttons_place_page"
+      layout="@layout/place_page_buttons"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="56dp"
       android:layout_alignParentBottom="true"/>
 
 </merge>

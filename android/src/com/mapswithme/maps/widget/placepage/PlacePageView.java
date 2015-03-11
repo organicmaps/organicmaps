@@ -75,10 +75,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
+  private TextView mTvBookmarkNotes;
   private EditText mEtBookmarkNotes;
   private TextView mTvBookmarkGroup;
   // Place page buttons
-  private RelativeLayout mRlApiBack;
+  private LinearLayout mLlApiBack;
   private ImageView mIvBookmark;
   // Animations
   private BasePlacePageAnimationController mAnimationController;
@@ -157,14 +158,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(this);
+    mTvBookmarkNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes_title);
     mEtBookmarkNotes = (EditText) mPpDetails.findViewById(R.id.et__bookmark_notes);
     mEtBookmarkNotes.setOnEditorActionListener(this);
     mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
     mTvBookmarkGroup.setOnClickListener(this);
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons);
-    mRlApiBack = (RelativeLayout) ppButtons.findViewById(R.id.rl__api_back);
-    mRlApiBack.setOnClickListener(this);
+    mLlApiBack = (LinearLayout) ppButtons.findViewById(R.id.rl__api_back);
+    mLlApiBack.setOnClickListener(this);
     final ViewGroup bookmarkGroup = (ViewGroup) ppButtons.findViewById(R.id.rl__bookmark);
     bookmarkGroup.setOnClickListener(this);
     mIvBookmark = (ImageView) bookmarkGroup.findViewById(R.id.iv__bookmark);
@@ -286,7 +288,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     {
       final Bookmark bookmark = (Bookmark) mMapObject;
       mEtBookmarkName.setText(bookmark.getName());
-      mEtBookmarkNotes.setText(bookmark.getBookmarkDescription());
+      final String notes = bookmark.getBookmarkDescription();
+      mEtBookmarkNotes.setText(notes);
+      mTvBookmarkNotes.setVisibility(notes.isEmpty() ? View.INVISIBLE : View.VISIBLE);
       mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
       mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
@@ -317,9 +321,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (showBackButton ||
         (ParsedMmwRequest.hasRequest() && ParsedMmwRequest.getCurrentRequest().isPickPointMode()))
-      mRlApiBack.setVisibility(View.VISIBLE);
+      mLlApiBack.setVisibility(View.VISIBLE);
     else
-      mRlApiBack.setVisibility(View.GONE);
+      mLlApiBack.setVisibility(View.GONE);
   }
 
   public void refreshLocation(Location l)
@@ -639,9 +643,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         bookmark.setParams(name, null, bookmark.getBookmarkDescription());
         break;
       case R.id.et__bookmark_notes:
-        // TODO multiline notes & webview
+        // TODO webview if content is html
         bookmark = (Bookmark) mMapObject;
         final String notes = mEtBookmarkNotes.getText().toString().trim();
+        mTvBookmarkNotes.setVisibility(notes.isEmpty() ? View.INVISIBLE : View.VISIBLE);
         final String oldNotes = bookmark.getBookmarkDescription().trim();
 
         if (!TextUtils.equals(notes, oldNotes))

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll__place_website"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/clickableBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/margin_small"
+    android:paddingTop="@dimen/margin_small"
+    android:visibility="gone">
+
+  <ImageView
+      android:id="@+id/iv__place_website"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="@dimen/margin_large"
+      android:src="@drawable/ic_text_link"/>
+
+  <TextView
+      android:id="@+id/tv__place_website"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/text_place_page_blue"
+      android:textSize="@dimen/place_page_subtitle"/>
+</LinearLayout>
