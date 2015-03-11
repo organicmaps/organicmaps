@@ -105,7 +105,7 @@ TSignedWord DiffMyersSimple(TSrcVector const & A,
       if (x == static_cast<TSignedWord>(A.size()) && x - k == static_cast<TSignedWord>(B.size()))
         return d;
     }
-    tmpSink.Write(&V[maxPatchSize + d], (2 * d + 1) * sizeof(TSignedWord));
+    tmpSink.Write(&V[maxPatchSize - d], (2 * d + 1) * sizeof(TSignedWord));
   }
   return -1;
 }
