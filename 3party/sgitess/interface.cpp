@@ -177,7 +177,7 @@ namespace tess
   void Tesselator::add(Vertex const & v)
   {
     int id = m_impl->m_disp->create(v);
-    GLdouble coords[2] = {v.x, v.y};
+    GLdouble coords[3] = {v.x, v.y, 0};
     gluTessVertex(m_impl->m_tess, coords, (GLvoid*)id);
   }
 }
