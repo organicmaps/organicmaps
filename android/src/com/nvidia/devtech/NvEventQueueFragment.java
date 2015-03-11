@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMFragment;
+import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 
-public abstract class NvEventQueueFragment extends MWMFragment implements View.OnTouchListener, View.OnFocusChangeListener
+public abstract class NvEventQueueFragment extends BaseMwmFragment implements View.OnTouchListener, View.OnFocusChangeListener
 {
   private static final String TAG = NvEventQueueFragment.class.getSimpleName();
 

@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.mapswithme.maps.base.MWMFragmentActivity;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 
-public class DownloadActivity extends MWMFragmentActivity
+public class DownloadActivity extends BaseMwmFragmentActivity
 {
   private DownloadFragment mDownloadFragment;
 

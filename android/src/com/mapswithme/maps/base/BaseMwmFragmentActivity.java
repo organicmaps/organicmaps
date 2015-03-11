@@ -13,7 +13,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 import ru.mail.mrgservice.MRGService;
 
-public class MWMFragmentActivity extends ActionBarActivity
+public class BaseMwmFragmentActivity extends ActionBarActivity
 {
   @Override
   protected void onCreate(Bundle arg0)

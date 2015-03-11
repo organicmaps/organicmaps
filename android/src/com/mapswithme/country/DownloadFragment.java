@@ -12,11 +12,11 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMListFragment;
+import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.UiUtils;
 
-public class DownloadFragment extends MWMListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
+public class DownloadFragment extends BaseMwmListFragment implements View.OnClickListener, ActiveCountryTree.ActiveCountryListener, OnBackPressListener
 {
   private ExtendedDownloadAdapterWrapper mExtendedAdapter;
   private DownloadedAdapter mDownloadedAdapter;

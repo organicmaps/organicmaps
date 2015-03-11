@@ -46,7 +46,7 @@ import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMmwRequest;
-import com.mapswithme.maps.base.MWMFragmentActivity;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -84,7 +84,7 @@ import java.io.Serializable;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
-public class MWMActivity extends MWMFragmentActivity
+public class MWMActivity extends BaseMwmFragmentActivity
     implements LocationHelper.LocationListener, OnBalloonListener, View.OnTouchListener, BasePlacePageAnimationController.OnVisibilityChangedListener,
     OnClickListener, Framework.RoutingListener, MapFragment.MapRenderingListener
 {

@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMListFragment;
+import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.InputUtils;
@@ -30,7 +30,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
-public class SearchFragment extends MWMListFragment implements View.OnClickListener, LocationHelper.LocationListener, OnBackPressListener
+public class SearchFragment extends BaseMwmListFragment implements View.OnClickListener, LocationHelper.LocationListener, OnBackPressListener
 {
   // These constants should be equal with
   // Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.

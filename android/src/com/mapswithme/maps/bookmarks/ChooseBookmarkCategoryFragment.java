@@ -15,13 +15,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMListFragment;
+import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.util.statistics.Statistics;
 
-public class ChooseBookmarkCategoryFragment extends MWMListFragment
+public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment
 {
   private FooterHelper mFooterHelper;
   private ChooseBookmarkCategoryAdapter mAdapter;

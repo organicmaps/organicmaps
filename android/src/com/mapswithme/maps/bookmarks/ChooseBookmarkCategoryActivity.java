@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.mapswithme.maps.base.MWMFragmentActivity;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
-public class ChooseBookmarkCategoryActivity extends MWMFragmentActivity
+public class ChooseBookmarkCategoryActivity extends BaseMwmFragmentActivity
 {
   @Override
   protected void onCreate(Bundle arg0)

@@ -8,7 +8,7 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
-public abstract class MWMListFragment extends ListFragment
+public abstract class BaseMwmListFragment extends ListFragment
 {
   private Toolbar mToolbar;
 
@@ -27,5 +27,16 @@ public abstract class MWMListFragment extends ListFragment
     return mToolbar;
   }
 
-  // TODO collect some statistics
+  public void onResume()
+  {
+    super.onResume();
+    org.alohalytics.Statistics.logEvent("$onResume", this.getClass().getSimpleName());
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+  }
 }

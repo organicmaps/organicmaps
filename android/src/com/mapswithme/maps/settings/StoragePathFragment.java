@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
 
-import com.mapswithme.maps.base.MWMListFragment;
+import com.mapswithme.maps.base.BaseMwmListFragment;
 
-public class StoragePathFragment extends MWMListFragment implements StoragePathManager.SetStoragePathListener
+public class StoragePathFragment extends BaseMwmListFragment implements StoragePathManager.SetStoragePathListener
 {
   private StoragePathManager mPathManager = new StoragePathManager();
   private StoragePathAdapter mAdapter;

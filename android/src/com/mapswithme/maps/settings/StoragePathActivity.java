@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMFragmentActivity;
+import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
-public class StoragePathActivity extends MWMFragmentActivity
+public class StoragePathActivity extends BaseMwmFragmentActivity
 {
   @Override
   protected void onCreate(Bundle savedInstanceState)

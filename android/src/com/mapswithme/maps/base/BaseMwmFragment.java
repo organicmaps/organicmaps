@@ -1,28 +1,9 @@
 package com.mapswithme.maps.base;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class MWMFragment extends Fragment
+public class BaseMwmFragment extends Fragment
 {
-  @Override
-  public void onCreate(Bundle arg0)
-  {
-    super.onCreate(arg0);
-  }
-
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-  }
-
-  @Override
-  public void onStop()
-  {
-    super.onStop();
-  }
-
   @Override
   public void onResume()
   {

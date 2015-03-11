@@ -24,7 +24,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMListFragment;
+import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -32,7 +32,7 @@ import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.util.ShareAction;
 
-public class BookmarksListFragment extends MWMListFragment
+public class BookmarksListFragment extends BaseMwmListFragment
 {
   public static final String TAG = "BookmarkListActivity";
 

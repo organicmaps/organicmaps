@@ -11,10 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MWMListFragment;
+import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
-public class BookmarkCategoriesFragment extends MWMListFragment
+public class BookmarkCategoriesFragment extends BaseMwmListFragment
 {
   private int mSelectedPosition;
 
