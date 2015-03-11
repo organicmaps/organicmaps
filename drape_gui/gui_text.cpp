@@ -41,49 +41,38 @@ namespace
     return glsl::vec2(xOffset, yOffset);
   }
 
-  void FillPositionDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+  void FillCommonDecl(dp::BindingDecl & decl, string const & name, uint8_t compCount, uint8_t stride, uint8_t offset)
   {
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 3;
+    decl.m_attributeName = name;
+    decl.m_componentCount = compCount;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_stride = stride;
     decl.m_offset = offset;
+  }
+
+  void FillPositionDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+  {
+    FillCommonDecl(decl, "a_position", 3, stride, offset);
   }
 
   void FillNormalDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
   {
-    decl.m_attributeName = "a_normal";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_stride = stride;
-    decl.m_offset = offset;
+    FillCommonDecl(decl, "a_normal", 2, stride, offset);
   }
 
   void FillColorDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
   {
-    decl.m_attributeName = "a_colorTexCoord";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_stride = stride;
-    decl.m_offset = offset;
+    FillCommonDecl(decl, "a_colorTexCoord", 2, stride, offset);
   }
 
   void FillOutlineDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
   {
-    decl.m_attributeName = "a_outlineColorTexCoord";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_stride = stride;
-    decl.m_offset = offset;
+    FillCommonDecl(decl, "a_outlineColorTexCoord", 2, stride, offset);
   }
 
   void FillMaskDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
   {
-    decl.m_attributeName = "a_maskTexCoord";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_stride = stride;
-    decl.m_offset = offset;
+    FillCommonDecl(decl, "a_maskTexCoord", 2, stride, offset);
   }
 }
 
@@ -113,8 +102,8 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 }
 
 
-void StaticLabel::CacheStaticText(string const & text, const char * delim,
-                             dp::Anchor anchor, const dp::FontDecl & font,
+void StaticLabel::CacheStaticText(string const & text, char const * delim,
+                             dp::Anchor anchor, dp::FontDecl const & font,
                              dp::RefPointer<dp::TextureManager> mng, LabelResult & result)
 {
   ASSERT(!text.empty(), ());
@@ -152,15 +141,15 @@ void StaticLabel::CacheStaticText(string const & text, const char * delim,
   mng->GetColorRegion(font.m_outlineColor, outline);
   ASSERT(color.GetTexture().GetRaw() == outline.GetTexture().GetRaw(), ());
 
-  glsl::vec2 cTex = glsl::ToVec2(color.GetTexRect().Center());
-  glsl::vec2 oTex = glsl::ToVec2(outline.GetTexRect().Center());
+  glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
+  glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
 
   float textRatio = font.m_size * DrapeGui::Instance().GetScaleFactor() / BASE_GLYPH_HEIGHT;
 
-  buffer_vector<float, 3> lineLengths;
+  buffer_vector<float, 4> lineLengths;
   lineLengths.resize(buffers.size());
 
-  buffer_vector<size_t, 3> ranges;
+  buffer_vector<size_t, 4> ranges;
 
   float fullHeight = 0.0;
   float prevLineHeight = 0.0;
@@ -186,7 +175,7 @@ void StaticLabel::CacheStaticText(string const & text, const char * delim,
       glsl::vec3 position = glsl::vec3(0.0, 0.0, depth);
 
       for (size_t v = 0; v < normals.size(); ++v)
-        rb.push_back(Vertex(position, pen + normals[v], cTex, oTex, maskTex[v]));
+        rb.push_back(Vertex(position, pen + normals[v], colorTex, outlineTex, maskTex[v]));
 
       float const advance = glyph.GetAdvanceX() * textRatio;
       currentLineLength += advance;
@@ -223,10 +212,7 @@ void StaticLabel::CacheStaticText(string const & text, const char * delim,
 
     size_t endIndex = ranges[i];
     for (size_t i = startIndex; i < endIndex; ++i)
-    {
-      Vertex & v = rb[i];
-      v.m_normal = v.m_normal + glsl::vec2(xOffset, yOffset);
-    }
+      rb[i].m_normal = rb[i].m_normal + glsl::vec2(xOffset, yOffset);
 
     startIndex = endIndex;
   }

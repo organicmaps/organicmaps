@@ -20,7 +20,7 @@ namespace dp
 
 uint32_t const STIPPLE_TEXTURE_SIZE = 1024;
 uint32_t const COLOR_TEXTURE_SIZE = 1024;
-size_t const INVALID_GLYPH_GROUP = static_cast<size_t>(-1);
+size_t const INVALID_GLYPH_GROUP = numeric_limits<size_t>::max();
 
 bool TextureManager::BaseRegion::IsValid() const
 {

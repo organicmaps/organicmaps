@@ -55,14 +55,15 @@ public:
     for (gui::StaticLabel::Vertex & v : result.m_buffer)
       v.m_position = glsl::vec3(glsl::ToVec2(m_base), v.m_position.z);
 
-    dp::AttributeProvider provider(1, result.m_buffer.size());
-    provider.InitStream(0, gui::StaticLabel::Vertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(result.m_buffer.data()));
+    dp::AttributeProvider provider(1 /* streamCount */, result.m_buffer.size());
+    provider.InitStream(0 /* streamIndex */, gui::StaticLabel::Vertex::GetBindingInfo(),
+                        dp::MakeStackRefPointer<void>(result.m_buffer.data()));
 
     dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
     state.SetColorTexture(result.m_colorTexture);
     state.SetMaskTexture(result.m_maskTexture);
 
-    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4 /* vertexStride */);
   }
 
 private:
@@ -100,8 +101,10 @@ public:
     ASSERT_EQUAL(statData.size(), dynData.size(), ());
 
     dp::AttributeProvider provider(2, dynData.size());
-    provider.InitStream(0, gui::MutableLabel::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
-    provider.InitStream(1, gui::MutableLabel::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
+    provider.InitStream(0 /* streamIndex */, gui::MutableLabel::StaticVertex::GetBindingInfo(),
+                        dp::MakeStackRefPointer<void>(statData.data()));
+    provider.InitStream(1 /* streamIndex */, gui::MutableLabel::DynamicVertex::GetBindingInfo(),
+                        dp::MakeStackRefPointer<void>(dynData.data()));
 
     dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
     state.SetColorTexture(colorTexure);

@@ -76,9 +76,9 @@ public:
   void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region);
   void GetColorRegion(Color const & color, ColorRegion & region);
 
-  typedef buffer_vector<strings::UniString, 3> TMultilineText;
+  typedef buffer_vector<strings::UniString, 4> TMultilineText;
   typedef buffer_vector<GlyphRegion, 128> TGlyphsBuffer;
-  typedef buffer_vector<TGlyphsBuffer, 3> TMultilineGlyphsBuffer;
+  typedef buffer_vector<TGlyphsBuffer, 4> TMultilineGlyphsBuffer;
 
   void GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers);
   void GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions);
