@@ -368,6 +368,7 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
   string const nodesFileName = p.GetIndexFileName(name, FTSEG_MAPPING_BACKWARD_INDEX_NODES_EXT);
 
   m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(offsetsIndexName, FilesContainerR(mwmName));
+  CHECK(m_table.get(), ("Can't get FeaturesOffsetsTable for", mwmName));
 
   if (Load(bitsFileName, nodesFileName))
     return;

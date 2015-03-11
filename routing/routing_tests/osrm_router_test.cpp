@@ -59,8 +59,16 @@ void TestMapping(InputDataT const & data,
                  bind(FileWriter::DeleteFileX, featuresOffsetsTablePath));
 
   {
-    // Prepare fake features offsets table for input data, just push all
-    // segments feature ids as offsets.
+    // Prepare fake features offsets table for input data, because
+    // OsrmFtSegMapping::Load() loads routing index and creates
+    // additional helper indexes and some of them require
+    // FeatureOffsetsTable existence.
+    //
+    // As instantiation of FeatureOffsetsTable requires complete MWM
+    // file with features or at least already searialized
+    // FeatureOffsetsTable, the purpose of this code is to prepare a
+    // file with serialized FeatureOffsetsTable and feed it to
+    // OsrmFtSegMapping.
     feature::FeaturesOffsetsTable::Builder tableBuilder;
     for (auto const & segVector : data)
     {
