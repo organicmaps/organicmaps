@@ -3,6 +3,7 @@
 #include "../coding/sha2.hpp"
 #include "../coding/base64.hpp"
 #include "../coding/file_name_utils.hpp"
+#include "../coding/writer.hpp"
 
 #include "../base/logging.hpp"
 
@@ -99,7 +100,10 @@ string Platform::WritablePathForCountryIndexes(string const & mwmName) const
 {
   string dir = WritableDir() + mwmName + my::GetNativeSeparator();
   if (!IsFileExistsByFullPath(dir))
-    MkDir(dir);
+    if (MkDir(dir) != Platform::ERR_OK)
+    {
+      MYTHROW(Writer::CreateDirException, ("Can't create directory:", dir));
+    }
   return dir;
 }
 

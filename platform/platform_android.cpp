@@ -244,10 +244,14 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-void Platform::MkDir(string const & dirName) const
+Platform::EError Platform::MkDir(string const & dirName) const
 {
   if (mkdir(dirName.c_str(), 0755))
+  {
     LOG(LWARNING, ("Can't create directory: ", dirName));
+    return Platform::ERR_UNKNOWN;
+  }
+  return Platform::ERR_OK;
 }
 
 namespace

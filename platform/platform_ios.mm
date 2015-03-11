@@ -50,9 +50,11 @@ Platform::Platform()
   [pool release];
 }
 
-void Platform::MkDir(string const & dirName) const
+Platform::EError Platform::MkDir(string const & dirName) const
 {
-  ::mkdir(dirName.c_str(), 0755);
+  if (::mkdir(dirName.c_str(), 0755))
+    return Platform::ERR_UNKNOWN;
+  return Platform::ERR_OK;
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)

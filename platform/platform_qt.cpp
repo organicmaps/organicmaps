@@ -3,6 +3,7 @@
 
 #include "../coding/file_reader.hpp"
 
+#include "../base/logging.hpp"
 #include "../base/regexp.hpp"
 
 #include "../std/target_os.hpp"
@@ -56,9 +57,14 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
-void Platform::MkDir(string const & dirName) const
+Platform::EError Platform::MkDir(string const & dirName) const
 {
-  QDir().mkdir(dirName.c_str());
+  if(!QDir().mkdir(dirName.c_str()))
+  {
+    LOG(LWARNING, ("Can't create directory: ", dirName));
+    return Platform::ERR_UNKNOWN;
+  }
+  return Platform::ERR_OK;
 }
 
 

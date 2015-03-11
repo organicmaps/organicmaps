@@ -18,6 +18,7 @@ public:
   DECLARE_EXCEPTION(WriteException, Exception);
   DECLARE_EXCEPTION(PosException, Exception);
   DECLARE_EXCEPTION(SeekException, Exception);
+  DECLARE_EXCEPTION(CreateDirException, Exception);
 
   virtual ~Writer() {}
   virtual void Seek(int64_t pos) = 0;

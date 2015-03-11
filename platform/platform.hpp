@@ -18,6 +18,13 @@ DECLARE_EXCEPTION(NotImplementedException, RootException);
 
 class Platform
 {
+public:
+  enum EError
+  {
+    ERR_OK = 0,
+    ERR_UNKNOWN = 1
+  };
+  
 protected:
   /// Usually read-only directory for application resources
   string m_resourcesDir;
@@ -60,7 +67,8 @@ public:
   string WritableDir() const { return m_writableDir; }
   /// @return full path to file in user's writable directory
   string WritablePathForFile(string const & file) const { return WritableDir() + file; }
-  /// @return full path to indexes directory for country file. Creates directory if it's not exists.
+  /// @return full path to indexes directory for country file.
+  /// Creates directory if it's not exists. Throw Writer::CreateDirException if can't create.
   string WritablePathForCountryIndexes(string const & mwmName) const;
   /// @return generate full path to index based on mwmName and index extension
   string GetIndexFileName(string const & mwmName, string const & extension) const;
@@ -69,7 +77,7 @@ public:
   string ResourcesDir() const { return m_resourcesDir; }
 
   /// Creates directory at filesystem
-  void MkDir(string const & dirName) const;
+  EError MkDir(string const & dirName) const;
 
   /// @TODO create join method for string concatenation
 

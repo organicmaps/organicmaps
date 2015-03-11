@@ -32,6 +32,8 @@ Platform::Platform()
       string const repoPath = bundlePath + "/../../../omim/data/";
       if (IsFileExistsByFullPath(repoPath))
         m_resourcesDir = repoPath;
+      else
+        m_resourcesDir = "./data/";
     }
     m_writableDir = m_resourcesDir;
   }
