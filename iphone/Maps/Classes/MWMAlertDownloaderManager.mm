@@ -13,7 +13,6 @@
   vector<storage::TIndex> _indexes;
 }
 
-
 - (instancetype)initWithMapsIndexes:(const vector<storage::TIndex> &)indexes {
   self = [super init];
   if (self) {
@@ -27,6 +26,5 @@
 - (void)downloadMaps {
   GetFramework().GetCountryTree().GetActiveMapLayout().DownloadMap(_indexes[0], storage::TMapOptions::EMapWithCarRouting);
 }
-
 
 @end

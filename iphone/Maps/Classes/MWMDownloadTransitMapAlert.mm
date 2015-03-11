@@ -36,8 +36,6 @@ static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert
 #pragma mark - Configure
 
 - (void)configureWithEntity:(MWMAlertEntity *)entity {
-  self.titleLabel.text = entity.title;
-  self.messageLabel.text = entity.message;
   self.sizeLabel.text = [NSString stringWithFormat:@"%@ MB",@(entity.size)];
   self.locationLabel.text = entity.location;
   self.countryLabel.text = entity.contry;
@@ -58,9 +56,9 @@ static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert
   const CGFloat bottonSpecsViewOffset = 10.;
   const CGFloat middleSpecsViewOffset = 10.;
   const CGFloat specsViewHeight = topSpecsViewOffset + bottonSpecsViewOffset + middleSpecsViewOffset + self.countryLabel.frame.size.height + self.locationLabel.frame.size.height;
-  [self.specsView setHeight:specsViewHeight];
-  [self.locationLabel setMinY:topSpecsViewOffset];
-  [self.countryLabel setMinY:self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + middleSpecsViewOffset];
+  self.specsView.height = specsViewHeight;
+  self.locationLabel.minY = topSpecsViewOffset;
+  self.countryLabel.minY = self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + middleSpecsViewOffset;
 }
 
 - (void)configureMaintViewSize {
@@ -69,12 +67,12 @@ static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert
   const CGFloat thirdMainViewOffset = 20.;
   const CGFloat bottomMainViewOffset = 52.;
   const CGFloat mainViewHeight = topMainViewOffset + self.titleLabel.frame.size.height + secondMainViewOffset + self.messageLabel.frame.size.height + thirdMainViewOffset + self.specsView.frame.size.height + bottomMainViewOffset;
-  [self setHeight:mainViewHeight];
-  [self.titleLabel setMinY:topMainViewOffset];
-  [self.messageLabel setMinY:self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + secondMainViewOffset];
-  [self.specsView setMinY:self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + thirdMainViewOffset];
-  [self.notNowButton setMinY:self.specsView.frame.origin.y + self.specsView.frame.size.height];
-  [self.downloadButton setMinY:self.notNowButton.frame.origin.y];
+  self.height = mainViewHeight;
+  self.titleLabel.minY = topMainViewOffset;
+  self.messageLabel.minY = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + secondMainViewOffset;
+  self.specsView.minY = self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + thirdMainViewOffset;
+  self.notNowButton.minY = self.specsView.frame.origin.y + self.specsView.frame.size.height;
+  self.downloadButton.minY = self.notNowButton.frame.origin.y;
 }
 #pragma mark - Actions
 
@@ -83,11 +81,22 @@ static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert
 }
 
 - (IBAction)downloadButtonTap:(id)sender {
+  [self downloadMaps];
+}
+
+- (IBAction)specsViewTap:(id)sender {
+  [UIView animateWithDuration:0.2f animations:^{
+    self.specsView.backgroundColor = [UIColor colorWithRed:211/255. green:209/255. blue:205/255. alpha:1.];
+  } completion:^(BOOL finished) {
+    [self downloadMaps];
+  }];
+}
+
+- (void)downloadMaps {
   [self.alertController.delegate downloadMaps];
   [self.alertController close];
   ActiveMapsVC *activeMapsViewController = [[ActiveMapsVC alloc] init];
   [self.alertController.ownerViewController.navigationController pushViewController:activeMapsViewController animated:YES];
- 
 }
 
 @end

@@ -11,6 +11,8 @@
 @class MWMAlertEntity;
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
+
 + (instancetype)alert;
 - (void)configureWithEntity:(MWMAlertEntity *)entity;
+
 @end

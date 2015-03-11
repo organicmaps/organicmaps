@@ -29,7 +29,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.view.frame = self.ownerViewController.view.bounds;
+  self.view.frame = UIApplication.sharedApplication.delegate.window.bounds;
 }
 
 #pragma mark - Actions
@@ -37,25 +37,33 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)presentAlertWithType:(MWMAlertType)type {
   MWMAlert *alert = [MWMAlert alertWithType:type];
   alert.alertController = self;
-  MWMAlertEntity *entity = [MWMAlertEntity entityWithType:MWMAlertEntityTypeDownloader];
-  entity.contry = self.delegate.countryName;
-  entity.size = self.delegate.size;
-  [alert configureWithEntity:entity];
-  [self.view addSubview:alert];
-  alert.center = self.view.center;
+  switch (type) {
+    case MWMAlertTypeDownloadTransitMap: {
+      MWMAlertEntity *entity = [[MWMAlertEntity alloc] init];
+      entity.contry = self.delegate.countryName;
+      entity.size = self.delegate.size;
+      [alert configureWithEntity:entity];
+      break;
+    }
+    case MWMAlertTypeDownloadAllMaps:
+      
+      break;
+  }
   [self.ownerViewController addChildViewController:self];
   self.view.center = self.ownerViewController.view.center;
   self.view.userInteractionEnabled = YES;
   [self.ownerViewController.view addSubview:self.view];
-  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.view];
+  [self.view addSubview:alert];
+  alert.center = self.view.center;
+  if ([[[UIDevice currentDevice] systemVersion] intValue] > 6) {
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.view];
+  }
 }
 
 - (void)close {
   self.ownerViewController.view.userInteractionEnabled = YES;
   [self.view removeFromSuperview];
-  [self.view removeFromSuperview];
   [self removeFromParentViewController];
 }
-
 
 @end

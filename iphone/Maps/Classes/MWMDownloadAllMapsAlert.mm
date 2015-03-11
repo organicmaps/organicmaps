@@ -25,7 +25,28 @@ static NSString * const kDownloadAllMapsAlertNibName = @"MWMDownloadAllMapsAlert
 
 + (instancetype)alert {
   MWMDownloadAllMapsAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadAllMapsAlertNibName owner:self options:nil] firstObject];
+  [alert configureViewSize];
   return alert;
+}
+
+- (void)configureViewSize {
+  [self.titleLabel sizeToFit];
+  [self.messageLabel sizeToFit];
+  [self configureMainViewSize];
+}
+
+- (void)configureMainViewSize {
+  const CGFloat topMainViewOffset = 17.;
+  const CGFloat secondMainViewOffset = 14.;
+  const CGFloat thirdMainViewOffset = 20.;
+  const CGFloat bottomMainViewOffset = 52.;
+  const CGFloat mainViewHeight = topMainViewOffset + self.titleLabel.height + secondMainViewOffset + self.messageLabel.height + thirdMainViewOffset + self.specsView.height + bottomMainViewOffset;
+  self.autoresizesSubviews = YES;
+  self.height = mainViewHeight;
+  self.titleLabel.minY = topMainViewOffset;
+  self.messageLabel.minY = self.titleLabel.minY + self.titleLabel.height + secondMainViewOffset;
+  self.specsView.minY = self.messageLabel.minY + self.messageLabel.height + thirdMainViewOffset;
+  self.notNowButton.minY = self.specsView.minY + self.specsView.height;
 }
 
 - (IBAction)notNowButtonTap:(id)sender {
@@ -41,14 +62,5 @@ static NSString * const kDownloadAllMapsAlertNibName = @"MWMDownloadAllMapsAlert
     [self.alertController.ownerViewController.navigationController pushViewController:viewController animated:YES];
   }];
 }
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

@@ -11,7 +11,10 @@
 @protocol MWMAlertViewControllerDelegate <NSObject>
 
 @required
+
 - (void)downloadMaps;
+
 @property (nonatomic, copy) NSString *countryName;
 @property (nonatomic, assign) NSUInteger size;
+
 @end

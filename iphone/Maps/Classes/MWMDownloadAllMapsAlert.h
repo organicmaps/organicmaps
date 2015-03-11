@@ -9,5 +9,7 @@
 #import "MWMAlert.h"
 
 @interface MWMDownloadAllMapsAlert : MWMAlert
+
 + (instancetype)alert;
+
 @end

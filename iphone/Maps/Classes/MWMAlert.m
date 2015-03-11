@@ -26,7 +26,7 @@
 }
 
 - (void)configureWithEntity:(MWMAlertEntity *)entity {
-//  [self doesNotRecognizeSelector:_cmd];
+  [self doesNotRecognizeSelector:_cmd];
 }
 
 @end
