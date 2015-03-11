@@ -66,7 +66,7 @@ UNIT_TEST(ParticalUploadDataTest)
   for (int i = 0; i < 3 * 30; ++i)
     part1Data[i] = (float)i;
 
-  float part2Data[3 * 70];
+  float part2Data[3 * 100];
   for (int i = 0; i < 3 * 100; ++i)
     part2Data[i] = (float)i;
 
