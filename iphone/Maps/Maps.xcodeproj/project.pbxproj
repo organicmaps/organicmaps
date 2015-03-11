@@ -1066,7 +1066,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = N9X2A789QT;
+						DevelopmentTeam = XMK5825GXK;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
