@@ -175,7 +175,7 @@ namespace cereal
   //! Saving for POD types to portable binary
   template<class T> inline
   typename std::enable_if<std::is_arithmetic<T>::value, void>::type
-  save(PortableBinaryOutputArchive & ar, T const & t)
+  CEREAL_SAVE_FUNCTION_NAME(PortableBinaryOutputArchive & ar, T const & t)
   {
     static_assert( !std::is_floating_point<T>::value ||
                    (std::is_floating_point<T>::value && std::numeric_limits<T>::is_iec559),
@@ -186,7 +186,7 @@ namespace cereal
   //! Loading for POD types from portable binary
   template<class T> inline
   typename std::enable_if<std::is_arithmetic<T>::value, void>::type
-  load(PortableBinaryInputArchive & ar, T & t)
+  CEREAL_LOAD_FUNCTION_NAME(PortableBinaryInputArchive & ar, T & t)
   {
     static_assert( !std::is_floating_point<T>::value ||
                    (std::is_floating_point<T>::value && std::numeric_limits<T>::is_iec559),
@@ -197,7 +197,7 @@ namespace cereal
   //! Serializing NVP types to portable binary
   template <class Archive, class T> inline
   CEREAL_ARCHIVE_RESTRICT(PortableBinaryInputArchive, PortableBinaryOutputArchive)
-  serialize( Archive & ar, NameValuePair<T> & t )
+  CEREAL_SERIALIZE_FUNCTION_NAME( Archive & ar, NameValuePair<T> & t )
   {
     ar( t.value );
   }
@@ -205,14 +205,14 @@ namespace cereal
   //! Serializing SizeTags to portable binary
   template <class Archive, class T> inline
   CEREAL_ARCHIVE_RESTRICT(PortableBinaryInputArchive, PortableBinaryOutputArchive)
-  serialize( Archive & ar, SizeTag<T> & t )
+  CEREAL_SERIALIZE_FUNCTION_NAME( Archive & ar, SizeTag<T> & t )
   {
     ar( t.size );
   }
 
   //! Saving binary data to portable binary
   template <class T> inline
-  void save(PortableBinaryOutputArchive & ar, BinaryData<T> const & bd)
+  void CEREAL_SAVE_FUNCTION_NAME(PortableBinaryOutputArchive & ar, BinaryData<T> const & bd)
   {
     typedef typename std::remove_pointer<T>::type TT;
     static_assert( !std::is_floating_point<TT>::value ||
@@ -224,7 +224,7 @@ namespace cereal
 
   //! Loading binary data from portable binary
   template <class T> inline
-  void load(PortableBinaryInputArchive & ar, BinaryData<T> & bd)
+  void CEREAL_LOAD_FUNCTION_NAME(PortableBinaryInputArchive & ar, BinaryData<T> & bd)
   {
     typedef typename std::remove_pointer<T>::type TT;
     static_assert( !std::is_floating_point<TT>::value ||
@@ -238,5 +238,8 @@ namespace cereal
 // register archives for polymorphic support
 CEREAL_REGISTER_ARCHIVE(cereal::PortableBinaryOutputArchive)
 CEREAL_REGISTER_ARCHIVE(cereal::PortableBinaryInputArchive)
+
+// tie input and output archives together
+CEREAL_SETUP_ARCHIVE_TRAITS(cereal::PortableBinaryInputArchive, cereal::PortableBinaryOutputArchive)
 
 #endif // CEREAL_ARCHIVES_PORTABLE_BINARY_HPP_

@@ -334,6 +334,14 @@ namespace rapidxml
             }
             return true;
         }
+
+        template<class Ch>
+        inline bool preserve_space(xml_node<Ch>* node)
+        {
+            const Ch preserve_value[] = { Ch('p'), Ch('r'), Ch('e'), Ch('s'), Ch('e'), Ch('r'), Ch('v'), Ch('e') };
+            const xml_attribute<Ch>* space = node->first_attribute("xml:space");
+            return space && internal::compare(space->value(), space->value_size(), preserve_value, sizeof(preserve_value) / sizeof(Ch), true);
+        }
     }
     //! \endcond
 
@@ -1566,7 +1574,7 @@ namespace rapidxml
         // - replacing XML character entity references with proper characters (&apos; &amp; &quot; &lt; &gt; &#...;)
         // - condensing whitespace sequences to single space character
         template<class StopPred, class StopPredPure, int Flags>
-        static Ch *skip_and_expand_character_refs(Ch *&text)
+        static Ch *skip_and_expand_character_refs(Ch *&text, bool preserve_space)
         {
             // If entity translation, whitespace condense and whitespace trimming is disabled, use plain skip
             if (Flags & parse_no_entity_translation &&
@@ -1691,7 +1699,7 @@ namespace rapidxml
                 }
 
                 // If whitespace condensing is enabled
-                if (Flags & parse_normalize_whitespace)
+                if ((Flags & parse_normalize_whitespace) && !preserve_space)
                 {
                     // Test if condensing is needed
                     if (whitespace_pred::test(*src))
@@ -1942,15 +1950,17 @@ namespace rapidxml
             if (!(Flags & parse_trim_whitespace))
                 text = contents_start;
 
+            const bool preserve_space =  internal::preserve_space(node);
+
             // Skip until end of data
             Ch *value_ = text, *end;
-            if (Flags & parse_normalize_whitespace)
-                end = skip_and_expand_character_refs<text_pred, text_pure_with_ws_pred, Flags>(text);
+            if ((Flags & parse_normalize_whitespace) && !preserve_space)
+                end = skip_and_expand_character_refs<text_pred, text_pure_with_ws_pred, Flags>(text, false);
             else
-                end = skip_and_expand_character_refs<text_pred, text_pure_no_ws_pred, Flags>(text);
+                end = skip_and_expand_character_refs<text_pred, text_pure_no_ws_pred, Flags>(text, preserve_space);
 
             // Trim trailing whitespace if flag is set; leading was already trimmed by whitespace skip after >
-            if (Flags & parse_trim_whitespace)
+            if ((Flags & parse_trim_whitespace) && !preserve_space)
             {
                 if (Flags & parse_normalize_whitespace)
                 {
@@ -2187,6 +2197,12 @@ namespace rapidxml
                 case Ch('<'):
                     if (text[1] == Ch('/'))
                     {
+                        Ch *contents_end = 0;
+                        if (internal::preserve_space(node))
+                        {
+                            contents_end = text;
+                        }
+
                         // Node closing
                         text += 2;      // Skip '</'
                         if (Flags & parse_validate_closing_tags)
@@ -2207,6 +2223,12 @@ namespace rapidxml
                         if (*text != Ch('>'))
                             RAPIDXML_PARSE_ERROR("expected >", text);
                         ++text;     // Skip '>'
+
+                        if (contents_end && contents_end != contents_start)
+                        {
+                            node->value(contents_start, contents_end - contents_start);
+                            node->value()[node->value_size()] = Ch('\0');
+                        }
                         return;     // Node closed, finished parsing contents
                     }
                     else
@@ -2275,9 +2297,9 @@ namespace rapidxml
                 Ch *value_ = text, *end;
                 const int AttFlags = Flags & ~parse_normalize_whitespace;   // No whitespace normalization in attributes
                 if (quote == Ch('\''))
-                    end = skip_and_expand_character_refs<attribute_value_pred<Ch('\'')>, attribute_value_pure_pred<Ch('\'')>, AttFlags>(text);
+                    end = skip_and_expand_character_refs<attribute_value_pred<Ch('\'')>, attribute_value_pure_pred<Ch('\'')>, AttFlags>(text, false);
                 else
-                    end = skip_and_expand_character_refs<attribute_value_pred<Ch('"')>, attribute_value_pure_pred<Ch('"')>, AttFlags>(text);
+                    end = skip_and_expand_character_refs<attribute_value_pred<Ch('"')>, attribute_value_pure_pred<Ch('"')>, AttFlags>(text, false);
 
                 // Set attribute value
                 attribute->value(value_, end - value_);

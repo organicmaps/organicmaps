@@ -47,7 +47,7 @@ namespace cereal
       template<class T>
         void operator()(T const & value) const
         {
-          ar( _CEREAL_NVP("data", value) );
+          ar( CEREAL_NVP_("data", value) );
         }
 
       Archive & ar;
@@ -69,7 +69,7 @@ namespace cereal
       if(N == target)
       {
         H value;
-        ar( _CEREAL_NVP("data", value) );
+        ar( CEREAL_NVP_("data", value) );
         variant = value;
       }
       else
@@ -80,22 +80,22 @@ namespace cereal
 
   //! Saving for boost::variant
   template <class Archive, typename... VariantTypes> inline
-  void save( Archive & ar, boost::variant<VariantTypes...> const & variant )
+  void CEREAL_SAVE_FUNCTION_NAME( Archive & ar, boost::variant<VariantTypes...> const & variant )
   {
     int32_t which = variant.which();
-    ar( _CEREAL_NVP("which", which) );
+    ar( CEREAL_NVP_("which", which) );
     variant_detail::variant_save_visitor<Archive> visitor(ar);
     variant.apply_visitor(visitor);
   }
 
   //! Loading for boost::variant
   template <class Archive, typename... VariantTypes> inline
-  void load( Archive & ar, boost::variant<VariantTypes...> & variant )
+  void CEREAL_LOAD_FUNCTION_NAME( Archive & ar, boost::variant<VariantTypes...> & variant )
   {
     typedef typename boost::variant<VariantTypes...>::types types;
 
     int32_t which;
-    ar( _CEREAL_NVP("which", which) );
+    ar( CEREAL_NVP_("which", which) );
     if(which >= boost::mpl::size<types>::value)
       throw Exception("Invalid 'which' selector when deserializing boost::variant");
 

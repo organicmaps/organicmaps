@@ -73,28 +73,28 @@ namespace cereal
 
   //! Saving for std::set
   template <class Archive, class K, class C, class A> inline
-  void save( Archive & ar, std::set<K, C, A> const & set )
+  void CEREAL_SAVE_FUNCTION_NAME( Archive & ar, std::set<K, C, A> const & set )
   {
     set_detail::save( ar, set );
   }
 
   //! Loading for std::set
   template <class Archive, class K, class C, class A> inline
-  void load( Archive & ar, std::set<K, C, A> & set )
+  void CEREAL_LOAD_FUNCTION_NAME( Archive & ar, std::set<K, C, A> & set )
   {
     set_detail::load( ar, set );
   }
 
   //! Saving for std::multiset
   template <class Archive, class K, class C, class A> inline
-  void save( Archive & ar, std::multiset<K, C, A> const & multiset )
+  void CEREAL_SAVE_FUNCTION_NAME( Archive & ar, std::multiset<K, C, A> const & multiset )
   {
     set_detail::save( ar, multiset );
   }
 
   //! Loading for std::multiset
   template <class Archive, class K, class C, class A> inline
-  void load( Archive & ar, std::multiset<K, C, A> & multiset )
+  void CEREAL_LOAD_FUNCTION_NAME( Archive & ar, std::multiset<K, C, A> & multiset )
   {
     set_detail::load( ar, multiset );
   }

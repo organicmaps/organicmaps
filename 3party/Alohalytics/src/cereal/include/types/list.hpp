@@ -37,7 +37,7 @@ namespace cereal
 {
   //! Saving for std::list
   template <class Archive, class T, class A> inline
-  void save( Archive & ar, std::list<T, A> const & list )
+  void CEREAL_SAVE_FUNCTION_NAME( Archive & ar, std::list<T, A> const & list )
   {
     ar( make_size_tag( static_cast<size_type>(list.size()) ) );
 
@@ -47,7 +47,7 @@ namespace cereal
 
   //! Loading for std::list
   template <class Archive, class T, class A> inline
-  void load( Archive & ar, std::list<T, A> & list )
+  void CEREAL_LOAD_FUNCTION_NAME( Archive & ar, std::list<T, A> & list )
   {
     size_type size;
     ar( make_size_tag( size ) );

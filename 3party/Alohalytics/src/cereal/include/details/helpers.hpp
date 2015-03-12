@@ -37,6 +37,7 @@
 #include <unordered_map>
 #include <stdexcept>
 
+#include "../macros.hpp"
 #include "../details/static_object.hpp"
 
 namespace cereal
@@ -46,15 +47,15 @@ namespace cereal
   /*! @ingroup Utility */
   struct Exception : public std::runtime_error
   {
-    Exception( const std::string & what_ ) : std::runtime_error(what_) {}
-    Exception( const char * what_ ) : std::runtime_error(what_) {}
+    explicit Exception( const std::string & what_ ) : std::runtime_error(what_) {}
+    explicit Exception( const char * what_ ) : std::runtime_error(what_) {}
   };
 
   // ######################################################################
   //! The size type used by cereal
   /*! To ensure compatability between 32, 64, etc bit machines, we need to use
-   * a fixed size type instead of size_t, which may vary from machine to
-   * machine. */
+      a fixed size type instead of size_t, which may vary from machine to
+      machine. */
   using size_type = uint64_t;
 
   // forward decls
@@ -64,7 +65,7 @@ namespace cereal
   // ######################################################################
   namespace detail
   {
-    struct NameValuePairCore {};
+    struct NameValuePairCore {}; //!< Traits struct for NVPs
   }
 
   //! For holding name value pairs
@@ -108,7 +109,7 @@ namespace cereal
       @endcode
 
       There is a slight amount of overhead to creating NameValuePairs, so there
-      is a third method which will elide the names when they are not needed by
+      is a third method which will elide the names when they are not used by
       the Archive:
 
       @code{.cpp}
@@ -134,16 +135,14 @@ namespace cereal
   class NameValuePair : detail::NameValuePairCore
   {
     private:
-      // If we get passed an RValue, we'll just make a local copy if it here
-      // otherwise, we store a reference.  If we were passed an array, don't
-      // decay the type - keep it as an array, and then proceed as normal
-      // with the RValue business
-      using DT = typename std::conditional<std::is_array<typename std::remove_reference<T>::type>::value,
-                                           typename std::remove_cv<T>::type,
-                                           typename std::decay<T>::type>::type;
-      using Type = typename std::conditional<std::is_rvalue_reference<T>::value,
-                                             DT,
-                                             typename std::add_lvalue_reference<DT>::type>::type;
+      // If we get passed an array, keep the type as is, otherwise store
+      // a reference if we were passed an l value reference, else copy the value
+      using Type = typename std::conditional<std::is_array<typename std::remove_reference<T>::type>::value,
+                                             typename std::remove_cv<T>::type,
+                                             typename std::conditional<std::is_lvalue_reference<T>::value,
+                                                                       T,
+                                                                       typename std::decay<T>::type>::type>::type;
+
       // prevent nested nvps
       static_assert( !std::is_base_of<detail::NameValuePairCore, T>::value,
                      "Cannot pair a name to a NameValuePair" );
@@ -155,9 +154,9 @@ namespace cereal
                    the value can be both loaded and saved to.  If you pass an r-value reference,
                    the NameValuePair will store a copy of it instead of a reference.  Thus you should
                    only pass r-values in cases where this makes sense, such as the result of some
-                   size() call.  In either case, any constness will be stripped away
-      @internal */
-      NameValuePair( char const * n, T && v ) : name(n), value(const_cast<Type>(v)) {}
+                   size() call.
+          @internal */
+      NameValuePair( char const * n, T && v ) : name(n), value(std::forward<T>(v)) {}
 
       char const * name;
       Type value;
@@ -193,7 +192,7 @@ namespace cereal
   /*! For use in inteneral generic typing functions which have an
       Archive type declared
       @internal */
-#define _CEREAL_NVP(name, value) ::cereal::make_nvp<Archive>(name, value)
+  #define CEREAL_NVP_(name, value) ::cereal::make_nvp<Archive>(name, value)
 
   // ######################################################################
   //! A wrapper around data that can be serialized in a binary fashion
@@ -211,9 +210,9 @@ namespace cereal
                                          const void *,
                                          void *>::type;
 
-    BinaryData( T && d, uint64_t s ) : data(d), size(s) {}
+    BinaryData( T && d, uint64_t s ) : data(std::forward<T>(d)), size(s) {}
 
-    PT data;   //!< pointer to beginning of data
+    PT data;       //!< pointer to beginning of data
     uint64_t size; //!< size in bytes
   };
 
@@ -221,15 +220,18 @@ namespace cereal
   namespace detail
   {
     // base classes for type checking
-    struct OutputArchiveBase {};
-    struct InputArchiveBase {};
+    /* The rtti virtual function only exists to enable an archive to
+       be used in a polymorphic fashion, if necessary.  See the
+       archive adapters for an example of this */
+    class OutputArchiveBase { private: virtual void rtti(){} };
+    class InputArchiveBase { private: virtual void rtti(){} };
 
     // forward decls for polymorphic support
     template <class Archive, class T> struct polymorphic_serialization_support;
     struct adl_tag;
 
     // used during saving pointers
-    static const int32_t msb_32bit = 0x80000000;
+    static const int32_t msb_32bit  = 0x80000000;
     static const int32_t msb2_32bit = 0x40000000;
   }
 
@@ -246,15 +248,14 @@ namespace cereal
   class SizeTag
   {
     private:
-      // If we get passed an RValue, we'll just make a local copy if it here
-      // otherwise, we store a reference
-      using DT = typename std::decay<T>::type;
-      using Type = typename std::conditional<std::is_rvalue_reference<T>::value,
-                                             DT,
-                                             typename std::add_lvalue_reference<DT>::type>::type;
+      // Store a reference if passed an lvalue reference, otherwise
+      // make a copy of the data
+      using Type = typename std::conditional<std::is_lvalue_reference<T>::value,
+                                             T,
+                                             typename std::decay<T>::type>::type;
 
     public:
-      SizeTag( T && sz ) : size(const_cast<Type>(sz)) {}
+      SizeTag( T && sz ) : size(std::forward<T>(sz)) {}
 
       Type size;
   };
@@ -283,28 +284,26 @@ namespace cereal
   template <class Key, class Value>
   struct MapItem
   {
-    using DecayKey = typename std::decay<Key>::type;
     using KeyType = typename std::conditional<
-      std::is_rvalue_reference<Key>::value,
-      DecayKey,
-      typename std::add_lvalue_reference<DecayKey>::type>::type;
+      std::is_lvalue_reference<Key>::value,
+      Key,
+      typename std::decay<Key>::type>::type;
 
-    using DecayValue = typename std::decay<Value>::type;
-    using ValueType =  typename std::conditional<
-      std::is_rvalue_reference<Value>::value,
-      DecayValue,
-      typename std::add_lvalue_reference<DecayValue>::type>::type;
+    using ValueType = typename std::conditional<
+      std::is_lvalue_reference<Value>::value,
+      Value,
+      typename std::decay<Value>::type>::type;
 
     //! Construct a MapItem from a key and a value
     /*! @internal */
-    MapItem( Key && key_, Value && value_ ) : key(const_cast<KeyType>(key_)), value(const_cast<ValueType>(value_)) {}
+    MapItem( Key && key_, Value && value_ ) : key(std::forward<Key>(key_)), value(std::forward<Value>(value_)) {}
 
     KeyType key;
     ValueType value;
 
     //! Serialize the MapItem with the NVPs "key" and "value"
     template <class Archive> inline
-    void serialize(Archive & archive)
+    void CEREAL_SERIALIZE_FUNCTION_NAME(Archive & archive)
     {
       archive( make_nvp<Archive>("key",   key),
                make_nvp<Archive>("value", value) );
@@ -322,129 +321,33 @@ namespace cereal
 
   namespace detail
   {
-    // ######################################################################
-    //! Holds all registered version information
-    struct Versions
-    {
-      std::unordered_map<std::size_t, std::uint32_t> mapping;
-    }; // struct Versions
+    //! Tag for Version, which due to its anonymous namespace, becomes a different
+    //! type in each translation unit
+    /*! This allows CEREAL_CLASS_VERSION to be safely called in a header file */
+    namespace{ struct version_binding_tag {}; }
 
+    // ######################################################################
     //! Version information class
     /*! This is the base case for classes that have not been explicitly
         registered */
-    template <class T> struct Version
+    template <class T, class BindingTag = version_binding_tag> struct Version
     {
       static const std::uint32_t version = 0;
       // we don't need to explicitly register these types since they
       // always get a version number of 0
     };
 
-    #ifdef CEREAL_FUTURE_EXPERIMENTAL
-    // ######################################################################
-    //! A class that can store any type
-    /*! This is inspired by boost::any and is intended to be a very light-weight
-        replacement for internal use only.
-
-        This class is only here as a candidate for issue #46 (see github) and
-        should be considered unsupported until a future version of cereal.
-        */
-    class Any
+    //! Holds all registered version information
+    struct Versions
     {
-      private:
-        //! Convenience alias for decay
-        template <class T>
-        using ST = typename std::decay<T>::type;
+      std::unordered_map<std::size_t, std::uint32_t> mapping;
 
-        struct Base
-        {
-          virtual ~Base() {}
-          virtual std::unique_ptr<Base> clone() const = 0;
-        };
-
-        template <class T>
-        struct Derived : Base
-        {
-          template <class U>
-          Derived( U && data ) : value( std::forward<U>( data ) ) {}
-
-          std::unique_ptr<Base> clone() const
-          {
-            return std::unique_ptr<Base>( new Derived<T>( value ) );
-          }
-
-          T value;
-        };
-
-      public:
-        //! Construct from any type
-        template <class T> inline
-        Any( T && data ) :
-          itsPtr( new Derived<ST<T>>( std::forward<T>( data ) ) )
-        { }
-
-        //! Convert to any type, if possible
-        /*! Attempts to perform the conversion if possible,
-            otherwise throws an exception.
-
-            @throw Exception if conversion is not possible (see get() for more info)
-            @tparam The requested type to convert to */
-        template <class T> inline
-        operator T()
-        {
-          return get<ST<T>>();
-        }
-
-        Any() : itsPtr() {}
-        Any( Any & other ) : itsPtr( other.clone() ) {}
-        Any( Any const & other ) : itsPtr( other.clone() ) {}
-        Any( Any && other ) : itsPtr( std::move( other.itsPtr ) ) {}
-
-        Any & operator=( Any const & other )
-        {
-          if( itsPtr == other.itsPtr ) return *this;
-
-          auto cloned = other.clone();
-          itsPtr = std::move( cloned );
-
-          return *this;
-        }
-
-        Any & operator=( Any && other )
-        {
-          if( itsPtr == other.itsPtr ) return *this;
-
-          itsPtr = std::move( other.itsPtr );
-
-          return *this;
-        }
-
-      protected:
-        //! Get the contained type as type T
-        /*! @tparam T The requested type to convert to
-            @return The type converted to T
-            @throw Exception if conversion is impossible */
-        template <class T>
-        ST<T> & get()
-        {
-          auto * derived = dynamic_cast<Derived<ST<T>> *>( itsPtr.get() );
-
-          if( !derived )
-            throw ::cereal::Exception( "Invalid conversion requested on ASDFA" );
-
-          return derived->value;
-        }
-
-        //! Clones the held data if it exists
-        std::unique_ptr<Base> clone() const
-        {
-          if( itsPtr ) return itsPtr->clone();
-          else return {};
-        }
-
-      private:
-        std::unique_ptr<Base> itsPtr;
-    }; // struct Any
-    #endif // CEREAL_FUTURE_EXPERIMENTAL
+      std::uint32_t find( std::size_t hash, std::uint32_t version )
+      {
+        const auto result = mapping.emplace( hash, version );
+        return result.first->second;
+      }
+    }; // struct Versions
   } // namespace detail
 } // namespace cereal
 

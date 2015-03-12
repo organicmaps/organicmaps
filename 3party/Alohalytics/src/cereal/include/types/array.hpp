@@ -40,7 +40,7 @@ namespace cereal
   template <class Archive, class T, size_t N> inline
   typename std::enable_if<traits::is_output_serializable<BinaryData<T>, Archive>::value
                           && std::is_arithmetic<T>::value, void>::type
-  save( Archive & ar, std::array<T, N> const & array )
+  CEREAL_SAVE_FUNCTION_NAME( Archive & ar, std::array<T, N> const & array )
   {
     ar( binary_data( array.data(), sizeof(array) ) );
   }
@@ -50,7 +50,7 @@ namespace cereal
   template <class Archive, class T, size_t N> inline
   typename std::enable_if<traits::is_input_serializable<BinaryData<T>, Archive>::value
                           && std::is_arithmetic<T>::value, void>::type
-  load( Archive & ar, std::array<T, N> & array )
+  CEREAL_LOAD_FUNCTION_NAME( Archive & ar, std::array<T, N> & array )
   {
     ar( binary_data( array.data(), sizeof(array) ) );
   }
@@ -59,7 +59,7 @@ namespace cereal
   template <class Archive, class T, size_t N> inline
   typename std::enable_if<!traits::is_output_serializable<BinaryData<T>, Archive>::value
                           || !std::is_arithmetic<T>::value, void>::type
-  save( Archive & ar, std::array<T, N> const & array )
+  CEREAL_SAVE_FUNCTION_NAME( Archive & ar, std::array<T, N> const & array )
   {
     for( auto const & i : array )
       ar( i );
@@ -69,7 +69,7 @@ namespace cereal
   template <class Archive, class T, size_t N> inline
   typename std::enable_if<!traits::is_input_serializable<BinaryData<T>, Archive>::value
                           || !std::is_arithmetic<T>::value, void>::type
-  load( Archive & ar, std::array<T, N> & array )
+  CEREAL_LOAD_FUNCTION_NAME( Archive & ar, std::array<T, N> & array )
   {
     for( auto & i : array )
       ar( i );
