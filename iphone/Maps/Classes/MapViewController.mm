@@ -775,6 +775,12 @@
           [self showDownloaderDialogWithCountries:absentCountries];
           break;
         }
+        
+        case routing::IRouter::ResultCode::RouteNotFound: {
+          [self showRouteNotFoundDialogWithCountries:absentCountries];
+          break;
+        }
+          
         default:
           break;
       }
@@ -812,6 +818,13 @@
     [alert presentAlertWithType:MWMAlertTypeDownloadTransitMap];
   } else {
     [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
+  }
+}
+
+- (void)showRouteNotFoundDialogWithCountries:(vector<storage::TIndex> const &)countries {
+  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
+  if (!countries.size()) {
+    [alert presentAlertWithType:MWMAlertTypeRouteNotFoundDefault];
   }
 }
 

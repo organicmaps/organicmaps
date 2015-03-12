@@ -10,7 +10,8 @@
 
 typedef NS_ENUM(NSUInteger, MWMAlertType) {
   MWMAlertTypeDownloadAllMaps,
-  MWMAlertTypeDownloadTransitMap
+  MWMAlertTypeDownloadTransitMap,
+  MWMAlertTypeRouteNotFoundDefault
 };
 
 @class MWMAlertViewController;

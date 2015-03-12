@@ -18,7 +18,6 @@
 - (instancetype)initWithMapsIndexes:(const vector<storage::TIndex>&)indexes;
 
 @property (nonatomic, copy) NSString *countryName;
-@property (nonatomic, copy) NSString *placeName;
 @property (nonatomic, assign) NSUInteger size;
 
 @end

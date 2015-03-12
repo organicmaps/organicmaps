@@ -9,6 +9,7 @@
 #import "MWMAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMDownloadAllMapsAlert.h"
+#import "MWMRouteNotFoundDefaultAlert.h"
 
 @class MWMAlertEntity;
 
@@ -21,6 +22,9 @@
     }
     case MWMAlertTypeDownloadAllMaps: {
       return [MWMDownloadAllMapsAlert alert];
+    }
+    case MWMAlertTypeRouteNotFoundDefault: {
+      return [MWMRouteNotFoundDefaultAlert alert];
     }
   }
 }
