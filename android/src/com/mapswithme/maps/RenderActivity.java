@@ -44,7 +44,15 @@ public abstract class RenderActivity extends MWMFragmentActivity
   }
 
   @Override
-  protected void onCreate(Bundle b)
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  {
+    super.onViewCreated(view, savedInstanceState);
+    final SurfaceView surfaceView = (SurfaceView) view.findViewById(R.id.map_surfaceview);
+    surfaceView.getHolder().addCallback(this);
+  }
+
+  @Override
+  public void onCreate(Bundle b)
   {
     super.onCreate(b);
     final DisplayMetrics metrics = new DisplayMetrics();
