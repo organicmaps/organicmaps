@@ -2033,6 +2033,11 @@ bool Framework::IsRoutingActive() const
   return m_routingSession.IsActive();
 }
 
+bool Framework::IsRouteBuilt() const
+{
+  return m_routingSession.IsBuilt();
+}
+
 void Framework::BuildRoute(m2::PointD const & destination)
 {
   shared_ptr<State> const & state = GetLocationState();

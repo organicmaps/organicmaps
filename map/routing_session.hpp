@@ -55,6 +55,7 @@ public:
 
   bool IsActive() const;
   bool IsNavigable() const;
+  bool IsBuilt() const;
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);

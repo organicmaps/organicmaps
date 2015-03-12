@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -103,6 +104,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private static final String STATE_ROUTE_FOLLOWED = "RouteFollowed";
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
+  private static final String STATE_MENU_OPENED = "MenuOpened";
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
   private BroadcastReceiver mExternalStorageReceiver;
@@ -547,7 +549,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState)
+  public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
@@ -575,14 +577,44 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
       if (value.equals(SCREENSHOTS_TASK_LOCATE))
-      {
         switchNextLocationState();
-      }
     }
 
     mLocationPredictor = new LocationPredictor(new Handler(), this);
     mLikesManager = new LikesManager(this);
     mMemLogging = new MemLogging(this);
+    restoreRoutingState(savedInstanceState);
+  }
+
+  private void restoreRoutingState(@Nullable Bundle savedInstanceState)
+  {
+    if (Framework.nativeIsRoutingActive())
+    {
+      if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_ROUTE_FOLLOWED))
+      {
+        updateRoutingDistance();
+        mRlTurnByTurnBox.setVisibility(View.VISIBLE);
+        mRlRoutingBox.setVisibility(View.GONE);
+      }
+      else if (Framework.nativeIsRouteBuilt())
+      {
+        updateRoutingDistance();
+        mRlRoutingBox.setVisibility(View.VISIBLE);
+        mRlTurnByTurnBox.setVisibility(View.GONE);
+      }
+      else if (savedInstanceState != null)
+      {
+        final MapObject object = savedInstanceState.getParcelable(STATE_MAP_OBJECT);
+        if (object != null)
+        {
+          mPlacePage.setState(State.PREVIEW);
+          mPlacePage.setMapObject(object);
+        }
+        mIvStartRouting.setVisibility(View.GONE);
+        mTvStartRouting.setVisibility(View.GONE);
+        mPbRoutingProgress.setVisibility(View.VISIBLE);
+      }
+    }
   }
 
   private void initViews()
@@ -719,13 +751,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(Bundle outState)
   {
-    if (mRlTurnByTurnBox.getVisibility() == View.VISIBLE)
-      outState.putBoolean(STATE_ROUTE_FOLLOWED, true);
-    else if (mPlacePage.getState() != State.HIDDEN)
+
+    if (mPlacePage.getState() != State.HIDDEN)
     {
       outState.putBoolean(STATE_PP_OPENED, true);
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
+    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
+      outState.putBoolean(STATE_MENU_OPENED, true);
 
     super.onSaveInstanceState(outState);
   }
@@ -733,19 +766,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
   {
-    if (savedInstanceState.getBoolean(STATE_ROUTE_FOLLOWED))
-    {
-      if (Framework.nativeIsRoutingActive())
-      {
-        mRlTurnByTurnBox.setVisibility(View.VISIBLE);
-        mRlRoutingBox.setVisibility(View.GONE);
-      }
-    }
-    else if (savedInstanceState.getBoolean(STATE_PP_OPENED))
+    if (savedInstanceState.getBoolean(STATE_PP_OPENED))
     {
       mPlacePage.setState(State.PREVIEW);
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
     }
+    else if (savedInstanceState.getBoolean(STATE_MENU_OPENED))
+      setVerticalToolbarVisible(true);
 
     super.onRestoreInstanceState(savedInstanceState);
   }
@@ -999,10 +1026,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     SearchController.getInstance().onResume();
     mPlacePage.onResume();
-    tryResumeRouting();
     mLocationPredictor.resume();
     mLikesManager.showLikeDialogs();
-
     mMemLogging.startLogging();
   }
 
@@ -1017,15 +1042,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     super.onPause();
     mLocationPredictor.pause();
     mLikesManager.cancelLikeDialogs();
-  }
-
-  private void tryResumeRouting()
-  {
-    if (Framework.nativeIsRoutingActive())
-    {
-      updateRoutingDistance();
-      mRlRoutingBox.setVisibility(View.VISIBLE);
-    }
   }
 
   private void updateExternalStorageState()

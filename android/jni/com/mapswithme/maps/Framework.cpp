@@ -1220,6 +1220,12 @@ extern "C"
     return frm()->IsRoutingActive();
   }
 
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass thiz)
+  {
+    return frm()->IsRouteBuilt();
+  }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass thiz)
   {

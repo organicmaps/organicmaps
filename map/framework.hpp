@@ -499,6 +499,7 @@ public:
   /// @name Routing mode
   //@{
   bool IsRoutingActive() const;
+  bool IsRouteBuilt() const;
   void BuildRoute(m2::PointD const & destination);
   typedef function<void (routing::IRouter::ResultCode, vector<storage::TIndex> const &)> TRouteBuildingCallback;
   void SetRouteBuildingListener(TRouteBuildingCallback const & callback);
