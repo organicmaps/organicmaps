@@ -12,7 +12,6 @@ SOURCES += \
     engine_context.cpp \
     memory_feature_index.cpp \
     message_queue.cpp \
-    message.cpp \
     threads_commutator.cpp \
     message_acceptor.cpp \
     backend_renderer.cpp \

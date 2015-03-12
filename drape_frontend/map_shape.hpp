@@ -26,9 +26,9 @@ class MapShapeReadedMessage : public Message
 public:
   MapShapeReadedMessage(TileKey const & key, dp::TransferPointer<MapShape> shape)
     : m_key(key), m_shape(shape)
-  {
-    SetType(MapShapeReaded);
-  }
+  {}
+
+  Type GetType() const override { return Message::MapShapeReaded; }
 
   ~MapShapeReadedMessage()
   {
