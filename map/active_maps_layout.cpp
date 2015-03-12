@@ -10,13 +10,17 @@ namespace storage
 ActiveMapsLayout::ActiveMapsLayout(Framework & framework)
   : m_framework(framework)
 {
+#ifndef OMIM_OS_DESKTOP
   m_subscribeSlotID = GetStorage().Subscribe(bind(&ActiveMapsLayout::StatusChangedCallback, this, _1),
                                              bind(&ActiveMapsLayout::ProgressChangedCallback, this, _1, _2));
+#endif
 }
 
 ActiveMapsLayout::~ActiveMapsLayout()
 {
+#ifndef OMIM_OS_DESKTOP
   GetStorage().Unsubscribe(m_subscribeSlotID);
+#endif
 }
 
 void ActiveMapsLayout::Init(vector<string> const & maps)
