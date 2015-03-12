@@ -1167,17 +1167,8 @@
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleView.mm; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
-		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
-		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
-		EE12020211CD464100ABDD5D /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexpat.a; sourceTree = SOURCE_ROOT; };
-		EE12020311CD464100ABDD5D /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = SOURCE_ROOT; };
-		EE12020411CD464100ABDD5D /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgeometry.a; sourceTree = SOURCE_ROOT; };
-		EE12020511CD464100ABDD5D /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libindexer.a; sourceTree = SOURCE_ROOT; };
-		EE12020611CD464100ABDD5D /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmap.a; sourceTree = SOURCE_ROOT; };
-		EE12020811CD464100ABDD5D /* libgraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgraphics.a; sourceTree = SOURCE_ROOT; };
 		EE164810135CEE49003B8A3E /* 06_code2000.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 06_code2000.ttf; path = ../../data/06_code2000.ttf; sourceTree = SOURCE_ROOT; };
 		EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unicode_blocks.txt; path = ../../data/unicode_blocks.txt; sourceTree = "<group>"; };
-		EE5A34E5156FCB9500E34FFE /* libgui.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libgui.a; sourceTree = SOURCE_ROOT; };
 		EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 01_dejavusans.ttf; path = ../../data/01_dejavusans.ttf; sourceTree = SOURCE_ROOT; };
 		EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "03_jomolhari-id-a3d.ttf"; path = "../../data/03_jomolhari-id-a3d.ttf"; sourceTree = SOURCE_ROOT; };
 		EEA615E8134C4968003A9827 /* 04_padauk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 04_padauk.ttf; path = ../../data/04_padauk.ttf; sourceTree = SOURCE_ROOT; };
