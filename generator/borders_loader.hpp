@@ -5,6 +5,9 @@
 
 #include "../std/string.hpp"
 
+#define BORDERS_DIR "borders/"
+#define BORDERS_EXTENSION ".borders"
+
 namespace borders
 {
   typedef m2::RegionD Region;

@@ -23,8 +23,6 @@
 #include "../std/bind.hpp"
 
 
-#define BORDERS_DIR "borders/"
-#define BORDERS_EXTENSION ".borders"
 #define POLYGONS_FILE "polygons.lst"
 
 

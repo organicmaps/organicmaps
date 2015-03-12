@@ -223,7 +223,7 @@ int main(int argc, char ** argv)
     {
       osm::GenerateBordersFromOsm(FLAGS_generate_borders,
                                   path + FLAGS_output + ".osm",
-                                  path + FLAGS_output + ".borders");
+                                  path + FLAGS_output + BORDERS_EXTENSION);
     }
     else
     {
