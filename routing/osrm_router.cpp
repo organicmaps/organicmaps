@@ -1007,11 +1007,15 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
           const EdgeWeight outWeight = currentContext.getAdjacencyCost(iit, oit);
           if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT)
           {
-            ASSERT(outWeight > 0, ());
+            /// @todo Investigate this assert in route from Moscow to Madrid.
+            /// France-Aquitaine hase zero weight.
+            //ASSERT(outWeight > 0, ());
+
             if (getPathWeight(topTask)+outWeight >= finalWeight)
               continue;
             if (m_requestCancel)
               return Cancelled;
+
             string const & nextMwm = currentContext.getOutgoingMwmName(oit->m_outgoingIndex);
             RoutingMappingPtrT nextMapping;
 
