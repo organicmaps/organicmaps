@@ -414,15 +414,7 @@ namespace qt
       else if (e->modifiers() & Qt::ShiftModifier)
       {
         if (m_framework->IsRoutingActive())
-        {
-          static int counter = 0;
-          if (counter % 2 == 0)
-            m_framework->FollowRoute();
-          else
-            m_framework->CloseRouting();
-
-          counter++;
-        }
+          m_framework->CloseRouting();
         else
           m_framework->BuildRoute(m_framework->PtoG(pt));
       }
