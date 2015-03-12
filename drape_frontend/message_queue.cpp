@@ -28,12 +28,26 @@ dp::TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
   return msg.Move();
 }
 
-void MessageQueue::PushMessage(dp::TransferPointer<Message> message)
+void MessageQueue::PushMessage(dp::TransferPointer<Message> message, MessagePriority priority)
 {
   threads::ConditionGuard guard(m_condition);
 
   bool wasEmpty = m_messages.empty();
-  m_messages.push_back(dp::MasterPointer<Message>(message));
+  switch (priority)
+  {
+  case MessagePriority::Normal:
+    {
+      m_messages.push_back(dp::MasterPointer<Message>(message));
+      break;
+    }
+  case MessagePriority::High:
+    {
+      m_messages.insert(m_messages.begin(), dp::MasterPointer<Message>(message));
+      break;
+    }
+  default:
+    ASSERT(false, ("Unknown message priority type"));
+  }
 
   if (wasEmpty)
     guard.Signal();

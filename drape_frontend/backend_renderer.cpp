@@ -64,7 +64,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       df::Viewport const & v = msg->GetViewport();
       m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
       GuiLayerRecachedMessage * outputMsg = new GuiLayerRecachedMessage(m_guiCacher.Recache(m_texturesManager));
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg));
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg), MessagePriority::High);
       break;
     }
   case Message::InvalidateReadManagerRect:
@@ -161,7 +161,7 @@ void BackendRenderer::InitGLDependentResource()
 void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)
 {
   GLFunctions::glFlush();
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, message);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, message, MessagePriority::Normal);
 }
 
 } // namespace df

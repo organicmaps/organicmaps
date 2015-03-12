@@ -21,11 +21,18 @@ public:
     ClearUserMarkLayer,
     ChangeUserMarkLayerVisibility,
     UpdateUserMarkLayer,
-    GuiLayerRecached
+    GuiLayerRecached,
+    RenderingEnabled
   };
 
   virtual ~Message() {}
   virtual Type GetType() const { return Unknown; }
+};
+
+enum class MessagePriority
+{
+  Normal,
+  High
 };
 
 } // namespace df

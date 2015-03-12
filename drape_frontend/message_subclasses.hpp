@@ -237,4 +237,18 @@ private:
   dp::TransferPointer<gui::LayerRenderer> m_renderer;
 };
 
+class RenderingEnabledMessage : public Message
+{
+public:
+  RenderingEnabledMessage(bool const isEnabled)
+    : m_isEnabled(isEnabled) {}
+
+  Type GetType() const override { return Message::RenderingEnabled; }
+
+  bool isSuspended() const { return m_isEnabled; }
+
+private:
+  bool m_isEnabled;
+};
+
 } // namespace df

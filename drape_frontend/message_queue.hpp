@@ -6,7 +6,7 @@
 
 #include "base/condition.hpp"
 
-#include "std/list.hpp"
+#include "std/deque.hpp"
 
 namespace df
 {
@@ -18,7 +18,7 @@ public:
 
   /// if queue is empty than return NULL
   dp::TransferPointer<Message> PopMessage(unsigned maxTimeWait);
-  void PushMessage(dp::TransferPointer<Message> message);
+  void PushMessage(dp::TransferPointer<Message> message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
 
@@ -27,7 +27,7 @@ private:
 
 private:
   threads::Condition m_condition;
-  list<dp::MasterPointer<Message> > m_messages;
+  deque<dp::MasterPointer<Message> > m_messages;
 };
 
 } // namespace df

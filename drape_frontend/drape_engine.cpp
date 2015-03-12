@@ -60,31 +60,42 @@ void DrapeEngine::Resize(int w, int h)
 
   m_viewport.SetViewport(0, 0, w, h);
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new ResizeMessage(m_viewport)));
+                                  dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
+                                  MessagePriority::High);
 }
 
 void DrapeEngine::UpdateCoverage(ScreenBase const & screen)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new UpdateModelViewMessage(screen)));
+                                  dp::MovePointer<Message>(new UpdateModelViewMessage(screen)),
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new ClearUserMarkLayerMessage(tileKey)));
+                                  dp::MovePointer<Message>(new ClearUserMarkLayerMessage(tileKey)),
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new ChangeUserMarkLayerVisibilityMessage(tileKey, isVisible)));
+                                  dp::MovePointer<Message>(new ChangeUserMarkLayerVisibilityMessage(tileKey, isVisible)),
+                                  MessagePriority::Normal);
 }
 
 void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  dp::MovePointer<Message>(new UpdateUserMarkLayerMessage(tileKey, provider)));
+                                  dp::MovePointer<Message>(new UpdateUserMarkLayerMessage(tileKey, provider)),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::SetRenderingEnabled(bool const isEnabled)
+{
+  m_threadCommutator->PostMessageBroadcast(dp::MovePointer<Message>(new RenderingEnabledMessage(isEnabled)),
+                                           MessagePriority::High);
 }
 
 } // namespace df

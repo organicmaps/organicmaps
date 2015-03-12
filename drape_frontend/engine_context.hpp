@@ -8,6 +8,7 @@ namespace df
 {
 
 class Message;
+enum class MessagePriority;
 class MapShape;
 struct TileKey;
 
@@ -23,7 +24,7 @@ public:
   void EndReadTile(TileKey const & key);
 
 private:
-  void PostMessage(Message * message);
+  void PostMessage(Message * message, MessagePriority priority);
 
 private:
   dp::RefPointer<ThreadsCommutator> m_commutator;

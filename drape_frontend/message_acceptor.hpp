@@ -24,7 +24,7 @@ protected:
 private:
   friend class ThreadsCommutator;
 
-  void PostMessage(dp::TransferPointer<Message> message);
+  void PostMessage(dp::TransferPointer<Message> message, MessagePriority priority);
 
 private:
   MessageQueue m_messageQueue;

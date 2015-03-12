@@ -16,9 +16,9 @@ void MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
   message.Destroy();
 }
 
-void MessageAcceptor::PostMessage(dp::TransferPointer<Message> message)
+void MessageAcceptor::PostMessage(dp::TransferPointer<Message> message, MessagePriority priority)
 {
-  m_messageQueue.PushMessage(message);
+  m_messageQueue.PushMessage(message, priority);
 }
 
 void MessageAcceptor::CloseQueue()

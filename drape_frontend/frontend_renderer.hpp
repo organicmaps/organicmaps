@@ -112,6 +112,8 @@ private:
   set<TileKey> m_tiles;
 
   dp::OverlayTree m_overlayTree;
+
+  bool m_isEnabled;
 };
 
 } // namespace df

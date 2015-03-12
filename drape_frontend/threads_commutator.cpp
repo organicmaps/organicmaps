@@ -12,12 +12,20 @@ void ThreadsCommutator::RegisterThread(ThreadName name, MessageAcceptor * accept
   VERIFY(m_acceptors.insert(make_pair(name, acceptor)).second, ());
 }
 
-void ThreadsCommutator::PostMessage(ThreadName name, dp::TransferPointer<Message> message)
+void ThreadsCommutator::PostMessage(ThreadName name, dp::TransferPointer<Message> message, MessagePriority priority)
 {
   acceptors_map_t::iterator it = m_acceptors.find(name);
   ASSERT(it != m_acceptors.end(), ());
   if (it != m_acceptors.end())
-    it->second->PostMessage(message);
+    it->second->PostMessage(message, priority);
+}
+
+void ThreadsCommutator::PostMessageBroadcast(dp::TransferPointer<Message> message, MessagePriority priority)
+{
+  for (auto it = m_acceptors.cbegin(); it != m_acceptors.cend(); ++it)
+  {
+    it->second->PostMessage(message, priority);
+  }
 }
 
 } // namespace df

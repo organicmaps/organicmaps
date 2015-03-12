@@ -41,6 +41,7 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
+  , m_isEnabled(true)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -153,9 +154,11 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       RefreshModelView();
       ResolveTileKeys();
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new ResizeMessage(m_viewport)));
+                                dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
+                                MessagePriority::Normal);
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
+                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
+                                MessagePriority::Normal);
       break;
     }
 
@@ -166,7 +169,8 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       RefreshModelView();
       ResolveTileKeys();
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
+                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
+                                MessagePriority::Normal);
       break;
     }
 
@@ -179,7 +183,9 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       InvalidateRenderGroups(keyStorage);
 
       Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, dp::MovePointer(msgToBackend));
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                dp::MovePointer(msgToBackend),
+                                MessagePriority::Normal);
       break;
     }
 

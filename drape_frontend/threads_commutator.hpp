@@ -7,6 +7,7 @@ namespace df
 {
 
 class Message;
+enum class MessagePriority;
 class MessageAcceptor;
 
 class ThreadsCommutator
@@ -19,11 +20,12 @@ public:
   };
 
   void RegisterThread(ThreadName name, MessageAcceptor *acceptor);
-  void PostMessage(ThreadName name, dp::TransferPointer<Message> message);
+  void PostMessage(ThreadName name, dp::TransferPointer<Message> message, MessagePriority priority);
+  void PostMessageBroadcast(dp::TransferPointer<Message> message, MessagePriority priority);
 
 private:
   typedef map<ThreadName, MessageAcceptor *> acceptors_map_t;
-   acceptors_map_t m_acceptors;
+  acceptors_map_t m_acceptors;
 };
 
 } // namespace df

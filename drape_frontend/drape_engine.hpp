@@ -34,6 +34,8 @@ public:
   void ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible);
   void UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider);
 
+  void SetRenderingEnabled(bool const isEnabled);
+
 private:
   dp::MasterPointer<FrontendRenderer> m_frontend;
   dp::MasterPointer<BackendRenderer>  m_backend;
