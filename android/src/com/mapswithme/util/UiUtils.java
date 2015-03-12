@@ -385,6 +385,16 @@ public final class UiUtils
     return rotation;
   }
 
+  public static boolean isSmallTablet()
+  {
+    return MWMApplication.get().getResources().getBoolean(R.bool.isSmallTablet);
+  }
+
+  public static boolean isBigTablet()
+  {
+    return MWMApplication.get().getResources().getBoolean(R.bool.isBigTablet);
+  }
+
   // utility class
   private UiUtils()
   {}

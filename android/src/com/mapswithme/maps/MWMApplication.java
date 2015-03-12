@@ -17,6 +17,7 @@ import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -107,7 +108,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath, getOBBGooglePath(),
         BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
-        mIsYota, getResources().getBoolean(R.bool.isTablet));
+        mIsYota, UiUtils.isSmallTablet() || UiUtils.isBigTablet());
 
     ActiveCountryTree.addListener(this);
 

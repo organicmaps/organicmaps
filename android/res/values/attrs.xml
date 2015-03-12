@@ -17,7 +17,7 @@
   </declare-styleable>
 
   <!-- 7 inch tablet -->
-  <bool name="isTablet">false</bool>
+  <bool name="isSmallTablet">false</bool>
   <!-- 10 inch tablet -->
   <bool name="isBigTablet">false</bool>
 
