@@ -255,11 +255,13 @@
   [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
-- (void)onUserMarkClicked:(UserMarkCopy *)mark
+- (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
   if (self.searchView.state != SearchViewStateFullscreen)
   {
-    [self.containerView.placePage showUserMark:mark];
+    // This function will take ownership for the passed user mark pointer.
+    [self.containerView.placePage showUserMark:mark.release()];
+
     [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
   }
 }
@@ -658,7 +660,7 @@
   {
     Framework & f = GetFramework();
 
-    typedef void (*UserMarkActivatedFnT)(id, SEL, UserMarkCopy *);
+    typedef void (*UserMarkActivatedFnT)(id, SEL, unique_ptr<UserMarkCopy>);
     typedef void (*PlacePageDismissedFnT)(id, SEL);
 
     PinClickManager & manager = f.GetBalloonManager();
@@ -1102,7 +1104,10 @@
 {
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(bookmarkAndCategory.second);
-  [self.containerView.placePage showUserMark:bookmark->Copy()];
+
+  // This function will take ownership for the passed user mark pointer.
+  [self.containerView.placePage showUserMark:bookmark->Copy().release()];
+
   [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
 }
 

@@ -1058,7 +1058,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     }
 
     size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
-    m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
+    m_mark = category->GetBookmark(bookmarkIndex)->Copy();
   }
   else
   {
@@ -1066,8 +1066,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
     BookmarkData data = BookmarkData([[self newBookmarkName] UTF8String], framework.LastEditedBMType());
     size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
     BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
-    m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
+    m_mark = category->GetBookmark(bookmarkIndex)->Copy();
   }
+
   framework.ActivateUserMark([self userMark]);
   framework.Invalidate();
 
