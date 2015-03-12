@@ -9,14 +9,15 @@
 #import "MWMDownloadAllMapsAlert.h"
 #import "MWMAlertViewController.h"
 #import "CountryTreeVC.h"
+#import "MWMDownloadAllMapsAlert+Configure.h"
 
 @interface MWMDownloadAllMapsAlert ()
-@property (nonatomic, weak) IBOutlet UIView *specsView;
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak) IBOutlet UIButton *notNowButton;
-@property (nonatomic, weak) IBOutlet UIButton *downloadButton;
-@property (nonatomic, weak) IBOutlet UILabel *downloadMapsLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UIView *specsView;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *messageLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UIButton *notNowButton;
+@property (nonatomic, weak, readwrite) IBOutlet UIButton *downloadButton;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *downloadMapsLabel;
 @end
 
 static NSString * const kDownloadAllMapsAlertNibName = @"MWMDownloadAllMapsAlert";
@@ -25,29 +26,11 @@ static NSString * const kDownloadAllMapsAlertNibName = @"MWMDownloadAllMapsAlert
 
 + (instancetype)alert {
   MWMDownloadAllMapsAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadAllMapsAlertNibName owner:self options:nil] firstObject];
-  [alert configureViewSize];
+  [alert configure];
   return alert;
 }
 
-- (void)configureViewSize {
-  [self.titleLabel sizeToFit];
-  [self.messageLabel sizeToFit];
-  [self configureMainViewSize];
-}
-
-- (void)configureMainViewSize {
-  const CGFloat topMainViewOffset = 17.;
-  const CGFloat secondMainViewOffset = 14.;
-  const CGFloat thirdMainViewOffset = 20.;
-  const CGFloat bottomMainViewOffset = 52.;
-  const CGFloat mainViewHeight = topMainViewOffset + self.titleLabel.height + secondMainViewOffset + self.messageLabel.height + thirdMainViewOffset + self.specsView.height + bottomMainViewOffset;
-  self.autoresizesSubviews = YES;
-  self.height = mainViewHeight;
-  self.titleLabel.minY = topMainViewOffset;
-  self.messageLabel.minY = self.titleLabel.minY + self.titleLabel.height + secondMainViewOffset;
-  self.specsView.minY = self.messageLabel.minY + self.messageLabel.height + thirdMainViewOffset;
-  self.notNowButton.minY = self.specsView.minY + self.specsView.height;
-}
+#pragma mark - Actions
 
 - (IBAction)notNowButtonTap:(id)sender {
   [self.alertController close];

@@ -15,4 +15,12 @@
 + (instancetype)alert;
 - (void)configureWithEntity:(MWMAlertEntity *)entity;
 
+@property (nonatomic, weak, readonly) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak, readonly) IBOutlet UILabel *messageLabel;
+@property (nonatomic, weak, readonly) IBOutlet UIButton *notNowButton;
+@property (nonatomic, weak, readonly) IBOutlet UIButton *downloadButton;
+@property (nonatomic, weak, readonly) IBOutlet UILabel *sizeLabel;
+@property (nonatomic, weak, readonly) IBOutlet UILabel *countryLabel;
+@property (nonatomic, weak, readonly) IBOutlet UIView *specsView;
+
 @end

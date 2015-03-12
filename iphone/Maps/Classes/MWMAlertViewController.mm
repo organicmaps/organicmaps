@@ -40,7 +40,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   switch (type) {
     case MWMAlertTypeDownloadTransitMap: {
       MWMAlertEntity *entity = [[MWMAlertEntity alloc] init];
-      entity.contry = self.delegate.countryName;
+      entity.country = self.delegate.countryName;
       entity.size = self.delegate.size;
       [alert configureWithEntity:entity];
       break;
@@ -51,19 +51,31 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   }
   [self.ownerViewController addChildViewController:self];
   self.view.center = self.ownerViewController.view.center;
-  self.view.userInteractionEnabled = YES;
   [self.ownerViewController.view addSubview:self.view];
   [self.view addSubview:alert];
   alert.center = self.view.center;
-  if ([[[UIDevice currentDevice] systemVersion] intValue] > 6) {
-    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.view];
-  }
 }
 
 - (void)close {
   self.ownerViewController.view.userInteractionEnabled = YES;
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
+}
+
+- (IBAction)backgroundTap:(UITapGestureRecognizer *)sender {
+  return;
+}
+
+- (IBAction)backgroundSwipe:(UISwipeGestureRecognizer *)sender {
+  return;
+}
+
+- (IBAction)backgroundPinch:(id)sender {
+  return;
+}
+
+- (IBAction)backgroundPan:(id)sender {
+  return;
 }
 
 @end

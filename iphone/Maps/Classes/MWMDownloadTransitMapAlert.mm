@@ -9,19 +9,18 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMAlertViewController.h"
 #import "MWMAlertEntity.h"
-#import "UIKitCategories.h"
 #import "MWMAlertViewControllerDelegate.h"
 #import "ActiveMapsVC.h"
+#import "MWMDownloadTransitMapAlert+Configure.h"
 
 @interface MWMDownloadTransitMapAlert ()
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak) IBOutlet UIButton *notNowButton;
-@property (nonatomic, weak) IBOutlet UIButton *downloadButton;
-@property (nonatomic, weak) IBOutlet UILabel *sizeLabel;
-@property (nonatomic, weak) IBOutlet UILabel *locationLabel;
-@property (nonatomic, weak) IBOutlet UILabel *countryLabel;
-@property (nonatomic, weak) IBOutlet UIView *specsView;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *messageLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UIButton *notNowButton;
+@property (nonatomic, weak, readwrite) IBOutlet UIButton *downloadButton;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *sizeLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UILabel *countryLabel;
+@property (nonatomic, weak, readwrite) IBOutlet UIView *specsView;
 @end
 
 static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
@@ -33,47 +32,12 @@ static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert
   return alert;
 }
 
-#pragma mark - Configure
-
 - (void)configureWithEntity:(MWMAlertEntity *)entity {
   self.sizeLabel.text = [NSString stringWithFormat:@"%@ MB",@(entity.size)];
-  self.locationLabel.text = entity.location;
-  self.countryLabel.text = entity.contry;
-  [self configureViewSize];
+  self.countryLabel.text = entity.country;
+  [self configure];
 }
 
-- (void)configureViewSize {
-  [self.messageLabel sizeToFit];
-  [self.titleLabel sizeToFit];
-  [self.countryLabel sizeToFit];
-  [self.locationLabel sizeToFit];
-  [self configureSpecsViewSize];
-  [self configureMaintViewSize];
-}
-
-- (void)configureSpecsViewSize {
-  const CGFloat topSpecsViewOffset = 12.;
-  const CGFloat bottonSpecsViewOffset = 10.;
-  const CGFloat middleSpecsViewOffset = 10.;
-  const CGFloat specsViewHeight = topSpecsViewOffset + bottonSpecsViewOffset + middleSpecsViewOffset + self.countryLabel.frame.size.height + self.locationLabel.frame.size.height;
-  self.specsView.height = specsViewHeight;
-  self.locationLabel.minY = topSpecsViewOffset;
-  self.countryLabel.minY = self.locationLabel.frame.origin.y + self.locationLabel.frame.size.height + middleSpecsViewOffset;
-}
-
-- (void)configureMaintViewSize {
-  const CGFloat topMainViewOffset = 17.;
-  const CGFloat secondMainViewOffset = 14.;
-  const CGFloat thirdMainViewOffset = 20.;
-  const CGFloat bottomMainViewOffset = 52.;
-  const CGFloat mainViewHeight = topMainViewOffset + self.titleLabel.frame.size.height + secondMainViewOffset + self.messageLabel.frame.size.height + thirdMainViewOffset + self.specsView.frame.size.height + bottomMainViewOffset;
-  self.height = mainViewHeight;
-  self.titleLabel.minY = topMainViewOffset;
-  self.messageLabel.minY = self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + secondMainViewOffset;
-  self.specsView.minY = self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + thirdMainViewOffset;
-  self.notNowButton.minY = self.specsView.frame.origin.y + self.specsView.frame.size.height;
-  self.downloadButton.minY = self.notNowButton.frame.origin.y;
-}
 #pragma mark - Actions
 
 - (IBAction)notNowButtonTap:(id)sender {

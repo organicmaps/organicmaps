@@ -119,6 +119,8 @@
 		F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m */; };
 		F63CC8B11AAF0E600019338C /* MWMDownloadAllMapsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63CC8B01AAF0E600019338C /* MWMDownloadAllMapsAlert.mm */; };
 		F63CC8B31AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63CC8B21AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib */; };
+		F6613E001AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m */; };
+		F6613E041AB199D000C67437 /* MWMDownloadTransitMapAlert+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.m */; };
 		F6A85A201AAB1175003667A2 /* MWMAlertDownloaderManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A85A1F1AAB1175003667A2 /* MWMAlertDownloaderManager.mm */; };
 		F6BAADD81AB058AE0095D0C7 /* MWMAlertEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BAADD71AB058AE0095D0C7 /* MWMAlertEntity.mm */; };
 		F6DBF9A01AA75B6D00F2EC2C /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6DBF99F1AA75B6D00F2EC2C /* MWMDownloadTransitMapAlert.xib */; };
@@ -381,6 +383,10 @@
 		F63CC8AF1AAF0E600019338C /* MWMDownloadAllMapsAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MWMDownloadAllMapsAlert.h; sourceTree = "<group>"; };
 		F63CC8B01AAF0E600019338C /* MWMDownloadAllMapsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloadAllMapsAlert.mm; sourceTree = "<group>"; };
 		F63CC8B21AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadAllMapsAlert.xib; sourceTree = "<group>"; };
+		F6613DFE1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMDownloadAllMapsAlert+Configure.h"; sourceTree = "<group>"; };
+		F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWMDownloadAllMapsAlert+Configure.m"; sourceTree = "<group>"; };
+		F6613E021AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMDownloadTransitMapAlert+Configure.h"; sourceTree = "<group>"; };
+		F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWMDownloadTransitMapAlert+Configure.m"; sourceTree = "<group>"; };
 		F6A85A1E1AAB1175003667A2 /* MWMAlertDownloaderManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MWMAlertDownloaderManager.h; sourceTree = "<group>"; };
 		F6A85A1F1AAB1175003667A2 /* MWMAlertDownloaderManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlertDownloaderManager.mm; sourceTree = "<group>"; };
 		F6A85A211AAB1408003667A2 /* MWMAlertViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -842,8 +848,27 @@
 				F63CC8AF1AAF0E600019338C /* MWMDownloadAllMapsAlert.h */,
 				F63CC8B01AAF0E600019338C /* MWMDownloadAllMapsAlert.mm */,
 				F63CC8B21AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib */,
+				F6613E011AB1987C00C67437 /* Configure */,
 			);
 			name = DownloadAllMaps;
+			sourceTree = "<group>";
+		};
+		F6613E011AB1987C00C67437 /* Configure */ = {
+			isa = PBXGroup;
+			children = (
+				F6613DFE1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.h */,
+				F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m */,
+			);
+			name = Configure;
+			sourceTree = "<group>";
+		};
+		F6613E051AB199D900C67437 /* Configure */ = {
+			isa = PBXGroup;
+			children = (
+				F6613E021AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.h */,
+				F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.m */,
+			);
+			name = Configure;
 			sourceTree = "<group>";
 		};
 		F6A85A161AA9CAAD003667A2 /* DownloadTransitMap */ = {
@@ -852,6 +877,7 @@
 				F6DBF9B11AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.h */,
 				F6DBF9B21AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.mm */,
 				F6DBF99F1AA75B6D00F2EC2C /* MWMDownloadTransitMapAlert.xib */,
+				F6613E051AB199D900C67437 /* Configure */,
 			);
 			name = DownloadTransitMap;
 			sourceTree = "<group>";
@@ -1066,7 +1092,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = XMK5825GXK;
+						DevelopmentTeam = N9X2A789QT;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1226,6 +1252,7 @@
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				976D86F119C877E600C920EF /* MapCell.mm in Sources */,
 				977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
+				F6613E041AB199D000C67437 /* MWMDownloadTransitMapAlert+Configure.m in Sources */,
 				B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
@@ -1275,6 +1302,7 @@
 				97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
+				F6613E001AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m in Sources */,
 				977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */,
