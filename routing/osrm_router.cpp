@@ -842,6 +842,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     MY_SCOPE_GUARD(targetMappingGuard, [&]() {targetMapping->FreeCrossContext();});
 
     // Check if mwms are neighbours
+    /*
     bool left_neighbour = false, right_neighbour = false;
     auto start_out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
     auto target_out_iterators = targetMapping->m_crossContext.GetOutgoingIterators();
@@ -857,6 +858,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         left_neighbour = true;
         break;
       }
+
     if (!left_neighbour && !right_neighbour)
     {
       LOG(LWARNING, ("MWMs not a neighbours!"));
@@ -874,6 +876,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     }
 
     LOG(LINFO, ("Mwms are neighbours"));
+    */
 
     // Load source data
     auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
@@ -1128,7 +1131,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
     {
       PathData const & path_data = routingResult.m_routePath.unpacked_path_segments[i][j];
 
-      if (j > 0)
+      if (j > 0 && !points.empty())
       {
         Route::TurnItem t;
         t.m_index = points.size() - 1;
@@ -1138,7 +1141,6 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
                          mapping, t);
         if (t.m_turn != turns::NoTurn)
           turnsDir.push_back(t);
-
 
         // osrm multiple seconds to 10, so we need to divide it back
         double const sTime = TIME_OVERHEAD * path_data.segment_duration / 10.0;
