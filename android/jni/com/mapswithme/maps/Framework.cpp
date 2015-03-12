@@ -891,7 +891,7 @@ extern "C"
     env->CallVoidMethod(*obj.get(), methodId, lat, lon);
   }
 
-  void CallOnUserMarkActivated(shared_ptr<jobject> obj, UserMarkCopy * markCopy)
+  void CallOnUserMarkActivated(shared_ptr<jobject> obj, unique_ptr<UserMarkCopy> markCopy)
   {
     ::Framework * fm = frm();
     UserMark const * mark = markCopy->GetUserMark();
