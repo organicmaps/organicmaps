@@ -6,7 +6,7 @@
 #include "../std/string.hpp"
 
 #define BORDERS_DIR "borders/"
-#define BORDERS_EXTENSION ".borders"
+#define BORDERS_EXTENSION ".poly"
 
 namespace borders
 {
