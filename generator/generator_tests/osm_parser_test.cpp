@@ -180,28 +180,3 @@ UNIT_TEST(OsmRawData_SmokeTest)
   relations = osmData.RelationsByTag(OsmTag("boundary", "administrative"));
   TEST_EQUAL(relations.size(), 2, ());
 }
-
-UNIT_TEST(BordersGenerator)
-{
-  string const inputFile("BordersTestInputFile");
-  string const outputFile("BordersTestOutputFile");
-
-  { // create input file
-    FileWriter f(inputFile);
-    f.Write(gOsmXml, ARRAY_SIZE(gOsmXml) - 1);  // -1 to skip last zero
-  }
-
-  GenerateBordersFromOsm("ISO3166-1", inputFile, outputFile);
-  vector<m2::RegionD> borders;
-  LoadBorders(outputFile, borders);
-  TEST_EQUAL(borders.size(), 2, ());
-
-  GenerateBordersFromOsm("admin_level=4", inputFile, outputFile);
-  borders.clear();
-  LoadBorders(outputFile, borders);
-  TEST_EQUAL(borders.size(), 1, ());
-
-
-  FileWriter::DeleteFileX(inputFile);
-  FileWriter::DeleteFileX(outputFile);
-}

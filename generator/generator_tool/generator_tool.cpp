@@ -50,9 +50,6 @@ DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_string(intermediate_data_path, "", "Path to stored nodes, ways, relations.");
 DEFINE_bool(generate_world, false, "Generate separate world file");
 DEFINE_bool(split_by_polygons, false, "Use countries borders to split planet by regions and countries");
-DEFINE_string(generate_borders, "",
-            "Create binary country .borders file for osm xml file given in 'output' parameter,"
-            "specify tag name and optional value: ISO3166-1 or admin_level=4");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count");
 DEFINE_bool(dump_prefixes, false, "Prints statistics on feature's' name prefixes");
 DEFINE_bool(dump_search_tokens, false, "Print statistics on search tokens.");
@@ -62,7 +59,6 @@ DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
-DEFINE_string(export_poly_path, "", "Output dir for osm .poly files created from .borders (countires are read from polygons.lst)");
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
 DEFINE_string(osm_file_name, "", "Input osm area file");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
@@ -217,20 +213,6 @@ int main(int argc, char ** argv)
     update::UpdateCountries(path);
   }
 
-  if (!FLAGS_generate_borders.empty())
-  {
-    if (!FLAGS_output.empty())
-    {
-      osm::GenerateBordersFromOsm(FLAGS_generate_borders,
-                                  path + FLAGS_output + ".osm",
-                                  path + FLAGS_output + BORDERS_EXTENSION);
-    }
-    else
-    {
-      LOG(LINFO, ("Please specify osm country borders file in 'output' command line parameter."));
-    }
-  }
-
   string const datFile = path + FLAGS_output + DATA_FILE_EXTENSION;
 
   if (FLAGS_calc_statistics)
@@ -265,13 +247,6 @@ int main(int argc, char ** argv)
 
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);
-
-  if (!FLAGS_export_poly_path.empty())
-  {
-    borders::CountriesContainerT countries;
-    borders::LoadCountriesList(path, countries);
-    borders::ExportOSMPolylines(FLAGS_export_poly_path, countries);
-  }
 
   if (!FLAGS_osrm_file_name.empty())
     routing::BuildRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
