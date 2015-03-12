@@ -23,7 +23,7 @@ void PaintEvent::cancel()
 bool PaintEvent::isCancelled() const
 {
   if (m_env)
-    return m_env->isCancelled();
+    return m_env->IsCancelled();
   else
     return m_isCancelled;
 }

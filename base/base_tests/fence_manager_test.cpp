@@ -11,7 +11,7 @@ void add_int(core::CommandsQueue::Environment const & env,
              int ms)
 {
   threads::Sleep(ms);
-  if (env.isCancelled())
+  if (env.IsCancelled())
     return;
   i += a;
   LOG(LINFO, ("add_int result:", i));

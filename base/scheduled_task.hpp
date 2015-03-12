@@ -21,17 +21,22 @@ class ScheduledTask
 
   public:
     Routine(fn_t const & fn, unsigned ms, threads::Condition * cond);
+
     virtual void Do();
     virtual void Cancel();
   };
 
+  /// The construction and destruction order is strict here: m_cond is
+  /// used by m_routine and m_routine is used by m_thread.
+  threads::Condition m_cond;
   unique_ptr<Routine> const m_routine;
   threads::Thread m_thread;
-  threads::Condition m_cond;
 
 public:
   /// Constructor by function and time in miliseconds.
   ScheduledTask(fn_t const & fn, unsigned ms);
+
+  ~ScheduledTask();
 
   /// @name Task could be cancelled before time elapses.
   //@{

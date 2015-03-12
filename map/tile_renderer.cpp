@@ -199,7 +199,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
   drawer->screen()->resetOverlay();
   drawer->screen()->copyFramebufferToImage(tileTarget);
 
-  if (!env.isCancelled())
+  if (!env.IsCancelled())
   {
     if (glQueue)
       glQueue->completeCommands();
@@ -210,7 +210,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
       glQueue->cancelCommands();
   }
 
-  if (env.isCancelled())
+  if (env.IsCancelled())
   {
     texturePool->Free(tileTarget);
   }

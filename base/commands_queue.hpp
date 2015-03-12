@@ -4,6 +4,7 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
+#include "cancellable.hpp"
 #include "thread.hpp"
 #include "threaded_list.hpp"
 
@@ -26,27 +27,18 @@ namespace core
     /// - task functor should check the IsCancelled()
     ///   on the reasonable small interval and cancel
     ///   it's work upon receiving "true".
-    class Environment
+    class Environment : public my::Cancellable
     {
     private:
-
       int m_threadNum;
-      bool m_isCancelled;
 
     protected:
-
       explicit Environment(int threadNum);
-
-      void cancel(); //< call this from the control thread
-                     //< to cancel execution of the tasks
 
       friend class Routine;
 
     public:
-
       int threadNum() const; //< number of the thread, which is executing the commands
-      bool isCancelled() const; //< command should ping this flag to see,
-                                //  whether it should cancel execution
     };
 
     /// single commmand

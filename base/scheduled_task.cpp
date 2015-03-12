@@ -45,6 +45,11 @@ ScheduledTask::ScheduledTask(fn_t const & fn, unsigned ms)
   m_thread.Create(m_routine.get());
 }
 
+ScheduledTask::~ScheduledTask()
+{
+  CancelBlocking();
+}
+
 bool ScheduledTask::CancelNoBlocking()
 {
   if (m_cond.TryLock())

@@ -10,18 +10,8 @@
 namespace core
 {
   CommandsQueue::Environment::Environment(int threadNum)
-    : m_threadNum(threadNum), m_isCancelled(false)
+    : m_threadNum(threadNum)
   {}
-
-  void CommandsQueue::Environment::cancel()
-  {
-    m_isCancelled = true;
-  }
-
-  bool CommandsQueue::Environment::isCancelled() const
-  {
-    return m_isCancelled;
-  }
 
   int CommandsQueue::Environment::threadNum() const
   {
@@ -99,7 +89,7 @@ namespace core
       if (m_parent->m_commands.IsCancelled())
         break;
 
-      m_env.m_isCancelled = false;
+      m_env.Reset();
 
       cmd->perform(m_env);
 
@@ -115,7 +105,7 @@ namespace core
 
   void CommandsQueue::Routine::Cancel()
   {
-    m_env.cancel();
+    m_env.Cancel();
 
     // performing cancellation tasks
     for(list<shared_ptr<Command> >::const_iterator it = m_parent->m_cancelCommands.begin();
@@ -128,7 +118,7 @@ namespace core
 
   void CommandsQueue::Routine::CancelCommand()
   {
-    m_env.cancel();
+    m_env.Cancel();
   }
 
   CommandsQueue::Executor::Executor() : m_routine(0)

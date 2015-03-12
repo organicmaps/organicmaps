@@ -1,9 +1,10 @@
 #pragma once
 
+#include "cancellable.hpp"
 #include "condition.hpp"
 #include "timer.hpp"
 
-struct ThreadedContainer
+struct ThreadedContainer : public my::Cancellable
 {
 protected:
 
@@ -11,14 +12,12 @@ protected:
   double m_WaitTime;
 
   mutable threads::Condition m_Cond;
-  bool m_IsCancelled;
 
 public:
-
   ThreadedContainer();
 
-  void Cancel();
-  bool IsCancelled() const;
+  /// Cancellable overrides:
+  void Cancel() override;
 
   double WaitTime() const;
 };

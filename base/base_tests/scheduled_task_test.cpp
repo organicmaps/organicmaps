@@ -2,29 +2,28 @@
 
 #include "../scheduled_task.hpp"
 
+#include "../../std/atomic.hpp"
 #include "../../std/bind.hpp"
 
 
 namespace
 {
-  void add_int(int & val, int a)
-  {
-    val += a;
-  }
+void add_int(atomic<int> & val, int a) { val += a; }
 
-  void mul_int(int & val, int b)
-  {
-    val *= b;
-  }
+void mul_int(atomic<int> & val, int b)
+{
+  int value = val;
+  while (!val.compare_exchange_weak(value, value * b))
+    ;
 }
-
+}  // namespace
 
 /// @todo Next tests are based on assumptions that some delays are suitable for
 /// performing needed checks, before a task will fire.
 
 UNIT_TEST(ScheduledTask_Smoke)
 {
-  int val = 0;
+  atomic<int> val(0);
 
   ScheduledTask t(bind(&add_int, ref(val), 10), 1000);
 
@@ -38,7 +37,7 @@ UNIT_TEST(ScheduledTask_Smoke)
 
 UNIT_TEST(ScheduledTask_CancelInfinite)
 {
-  int val = 2;
+  atomic<int> val(2);
 
   ScheduledTask t0(bind(&add_int, ref(val), 10), static_cast<unsigned>(-1));
 
@@ -49,7 +48,7 @@ UNIT_TEST(ScheduledTask_CancelInfinite)
 
 UNIT_TEST(ScheduledTask_Cancel)
 {
-  int val = 2;
+  atomic<int> val(2);
 
   ScheduledTask t0(bind(&add_int, ref(val), 10), 500);
   ScheduledTask t1(bind(&mul_int, ref(val), 2), 1000);
@@ -66,7 +65,7 @@ UNIT_TEST(ScheduledTask_Cancel)
 
 UNIT_TEST(ScheduledTask_NoWaitInCancel)
 {
-  int val = 2;
+  atomic<int> val(2);
 
   ScheduledTask t0(bind(&add_int, ref(val), 10), 1000);
   ScheduledTask t1(bind(&mul_int, ref(val), 3), 500);

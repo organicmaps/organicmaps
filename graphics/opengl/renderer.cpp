@@ -308,7 +308,7 @@ namespace graphics
     bool Renderer::isCancelled() const
     {
       if (m_env)
-        return m_env->isCancelled();
+        return m_env->IsCancelled();
       else
         return false;
     }

@@ -41,6 +41,7 @@ HEADERS += \
     bits.hpp \
     buffer_vector.hpp \
     cache.hpp \
+    cancellable.hpp \
     commands_queue.hpp \
     condition.hpp \
     const_helper.hpp \

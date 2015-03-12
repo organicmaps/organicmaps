@@ -135,13 +135,10 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
 
   while(true)
   {
-    cond.Lock();
-
+    threads::ConditionGuard guard(cond);
     if (finishCounter == TASK_COUNT)
       break;
-
-    cond.Wait();
-    cond.Unlock();
+    guard.Wait();
   }
 }
 

@@ -7,23 +7,29 @@
 
 #include "../../base/logging.hpp"
 
+#include "../../std/mutex.hpp"
 
 struct ThreadedListProcessor : public threads::IRoutine
 {
-  ThreadedList<int> * m_p;
-  list<int> * m_res;
+  ThreadedList<int> & m_p;
+  mutex & m_resMutex;
+  list<int> & m_res;
   int m_id;
 
-  ThreadedListProcessor(ThreadedList<int> * p, list<int> * res, int id)
-    : m_p(p), m_res(res), m_id(id)
-  {}
+  ThreadedListProcessor(ThreadedList<int> & p, mutex & resMutex, list<int> & res, int id)
+      : m_p(p), m_resMutex(resMutex), m_res(res), m_id(id)
+  {
+  }
 
   virtual void Do()
   {
-    while (!m_p->IsCancelled())
+    while (!m_p.IsCancelled())
     {
-      int res = m_p->Front(true);
-      m_res->push_back(res);
+      int res = m_p.Front(true /* doPop */);
+      {
+        lock_guard<mutex> resGuard(m_resMutex);
+        m_res.push_back(res);
+      }
       LOG(LINFO, (m_id, " thread got ", res));
       threads::Sleep(10);
     }
@@ -33,20 +39,26 @@ struct ThreadedListProcessor : public threads::IRoutine
 
 struct ThreadedPriorityQueueProcessor : public threads::IRoutine
 {
-  ThreadedPriorityQueue<int> * m_p;
-  list<int> * m_res;
+  ThreadedPriorityQueue<int> & m_p;
+  mutex & m_resMutex;
+  list<int> & m_res;
   int m_id;
 
-  ThreadedPriorityQueueProcessor(ThreadedPriorityQueue<int> * p, list<int> * res, int id)
-    : m_p(p), m_res(res), m_id(id)
-  {}
+  ThreadedPriorityQueueProcessor(ThreadedPriorityQueue<int> & p, mutex & resMutex, list<int> & res,
+                                 int id)
+      : m_p(p), m_resMutex(resMutex), m_res(res), m_id(id)
+  {
+  }
 
   virtual void Do()
   {
-    while (!m_p->IsCancelled())
+    while (!m_p.IsCancelled())
     {
-      int res = m_p->Top(true);
-      m_res->push_back(res);
+      int res = m_p.Top(true /* doPop */);
+      {
+        lock_guard<mutex> resGuard(m_resMutex);
+        m_res.push_back(res);
+      }
       LOG(LINFO, (m_id, " thread got ", res));
       threads::Sleep(10);
     }
@@ -54,22 +66,23 @@ struct ThreadedPriorityQueueProcessor : public threads::IRoutine
   }
 };
 
-
 UNIT_TEST(ThreadedList)
 {
   list<int> l;
+
+  mutex resMutex;
   list<int> res;
 
   ThreadedList<int> p;
 
   threads::Thread t0;
-  t0.Create(new ThreadedListProcessor(&p, &res, 0));
+  t0.Create(new ThreadedListProcessor(p, resMutex, res, 0));
 
   threads::Thread t1;
-  t1.Create(new ThreadedListProcessor(&p, &res, 1));
+  t1.Create(new ThreadedListProcessor(p, resMutex, res, 1));
 
   threads::Thread t2;
-  t2.Create(new ThreadedListProcessor(&p, &res, 2));
+  t2.Create(new ThreadedListProcessor(p, resMutex, res, 2));
 
   p.PushBack(0);
   threads::Sleep(200);
@@ -80,34 +93,35 @@ UNIT_TEST(ThreadedList)
   p.PushBack(2);
   threads::Sleep(200);
 
+  p.Cancel();
+
+  t0.Join();
+  t1.Join();
+  t2.Join();
+
   TEST_EQUAL(res.front(), 0, ());
   res.pop_front();
   TEST_EQUAL(res.front(), 1, ());
   res.pop_front();
   TEST_EQUAL(res.front(), 2, ());
   res.pop_front();
-
-  p.Cancel();
-
-  t0.Join();
-  t1.Join();
-  t2.Join();
 }
 
 UNIT_TEST(ThreadedPriorityQueue)
 {
+  mutex resMutex;
   list<int> res;
 
   ThreadedPriorityQueue<int> p;
 
   threads::Thread t0;
-  t0.Create(new ThreadedPriorityQueueProcessor(&p, &res, 0));
+  t0.Create(new ThreadedPriorityQueueProcessor(p, resMutex, res, 0));
 
   threads::Thread t1;
-  t1.Create(new ThreadedPriorityQueueProcessor(&p, &res, 1));
+  t1.Create(new ThreadedPriorityQueueProcessor(p, resMutex, res, 1));
 
   threads::Thread t2;
-  t2.Create(new ThreadedPriorityQueueProcessor(&p, &res, 2));
+  t2.Create(new ThreadedPriorityQueueProcessor(p, resMutex, res, 2));
 
   p.Push(0);
   threads::Sleep(200);
@@ -118,17 +132,17 @@ UNIT_TEST(ThreadedPriorityQueue)
   p.Push(2);
   threads::Sleep(200);
 
+  p.Cancel();
+
+  t0.Join();
+  t1.Join();
+  t2.Join();
+
   TEST_EQUAL(res.front(), 0, ());
   res.pop_front();
   TEST_EQUAL(res.front(), 1, ());
   res.pop_front();
   TEST_EQUAL(res.front(), 2, ());
   res.pop_front();
-
-  p.Cancel();
-
-  t0.Join();
-  t1.Join();
-  t2.Join();
 }
 
