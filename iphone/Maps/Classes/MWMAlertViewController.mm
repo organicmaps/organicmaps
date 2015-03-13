@@ -52,7 +52,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
       break;
     }
     case MWMAlertTypeDownloadAllMaps:
-    case MWMAlertTypeRouteNotFoundDefault:
+    case MWMAlertTypeRouteNotFound:
       
       break;
   }

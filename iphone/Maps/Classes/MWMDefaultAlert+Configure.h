@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMRouteNotFoundDefaultAlert.h"
+#import "MWMDefaultAlert.h"
 
-@interface MWMRouteNotFoundDefaultAlert (Configure)
+@interface MWMDefaultAlert (Configure)
 
 - (void)configure;
 

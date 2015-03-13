@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMRouteNotFoundDefaultAlert+Configure.h"
+#import "MWMDefaultAlert+Configure.h"
 #import "UIKitCategories.h"
 
-@implementation MWMRouteNotFoundDefaultAlert (Configure)
+@implementation MWMDefaultAlert (Configure)
 
 - (void)configure {
   [self.messageLabel sizeToFit];
@@ -19,7 +19,7 @@
 - (void)configureViewSize {
   const CGFloat topMainViewOffset = 17.;
   const CGFloat minMainViewHeight = 144.;
-  const CGFloat actualMainViewHeight = topMainViewOffset + self.messageLabel.height + self.okButton.height;
+  const CGFloat actualMainViewHeight = 2 * topMainViewOffset + self.messageLabel.height + self.okButton.height;
   self.height = actualMainViewHeight >= minMainViewHeight ? actualMainViewHeight : minMainViewHeight;
   self.messageLabel.minY = topMainViewOffset;
   self.deviderLine.minY = self.height - self.okButton.height;

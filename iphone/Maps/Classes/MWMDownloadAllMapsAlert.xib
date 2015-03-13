@@ -18,13 +18,9 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.81999999999999995" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating routes between regions  is only possible when all the transit maps are downloaded and updated." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e9b-ae-kho">
-                    <rect key="frame" x="23" y="54" width="234" height="52"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.81999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_download_maps_along"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" id="BTz-50-QHZ">
                     <rect key="frame" x="0.0" y="126" width="280" height="49"/>
@@ -62,10 +58,23 @@
                         <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="later"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="notNowButtonTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="aSV-CD-2PF"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creating routes between regions  is only possible when all the transit maps are downloaded and updated." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e9b-ae-kho">
+                    <rect key="frame" x="23" y="54" width="234" height="52"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.81999999999999995" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="routing_requires_all_map"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -9,7 +9,7 @@
 #import "MWMAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMDownloadAllMapsAlert.h"
-#import "MWMRouteNotFoundDefaultAlert.h"
+#import "MWMDefaultAlert.h"
 
 @class MWMAlertEntity;
 
@@ -17,15 +17,33 @@
 
 + (MWMAlert *)alertWithType:(MWMAlertType)type {
   switch (type) {
-    case MWMAlertTypeDownloadTransitMap: {
+    case MWMAlertTypeDownloadTransitMap:
       return [MWMDownloadTransitMapAlert alert];
-    }
-    case MWMAlertTypeDownloadAllMaps: {
+    
+    case MWMAlertTypeDownloadAllMaps:
       return [MWMDownloadAllMapsAlert alert];
-    }
-    case MWMAlertTypeRouteNotFoundDefault: {
-      return [MWMRouteNotFoundDefaultAlert alert];
-    }
+    
+    case MWMAlertTypeRouteNotFound:
+      return [MWMDefaultAlert routeNotFoundAlert];
+    
+    case MWMAlertTypeStartPointNotFound:
+      return [MWMDefaultAlert startPointNotFoundAlert];
+      
+    case MWMAlertTypeEndPointNotFound:
+      return [MWMDefaultAlert endPointNotFoundAlert];
+      
+    case MWMAlertTypeInconsistentMWMandRoute:
+      return [MWMDownloadAllMapsAlert alert];
+      
+    case MWMAlertTypeInternalError:
+      return [MWMDefaultAlert internalErrorAlert];
+      
+    case MWMAlertTypeNoCurrentPosition:
+      return [MWMDefaultAlert noCurrentPositionAlert];
+      
+    case MWMAlertTypePointsInDifferentMWM:
+      return [MWMDefaultAlert pointsInDifferentMWMAlert];
+      
   }
 }
 

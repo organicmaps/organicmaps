@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMRouteNotFoundDefaultAlert">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMDefaultAlert">
             <rect key="frame" x="0.0" y="0.0" width="280" height="144"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -24,6 +24,9 @@
                         <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="okButtonTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="9SC-xP-DxK"/>
                     </connections>

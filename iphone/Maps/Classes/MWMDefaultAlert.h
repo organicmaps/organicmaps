@@ -8,9 +8,14 @@
 
 #import "MWMAlert.h"
 
-@interface MWMRouteNotFoundDefaultAlert : MWMAlert
+@interface MWMDefaultAlert : MWMAlert
 
-+ (instancetype)alert;
++ (instancetype)routeNotFoundAlert;
++ (instancetype)endPointNotFoundAlert;
++ (instancetype)startPointNotFoundAlert;
++ (instancetype)internalErrorAlert;
++ (instancetype)noCurrentPositionAlert;
++ (instancetype)pointsInDifferentMWMAlert;
 
 @property (nonatomic, weak, readonly) IBOutlet UILabel *messageLabel;
 @property (nonatomic, weak, readonly) IBOutlet UIButton *okButton;

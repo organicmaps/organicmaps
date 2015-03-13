@@ -771,15 +771,39 @@
           break;
         }
           
-        case routing::IRouter::ResultCode::RouteFileNotExist: {
-          [self showDownloaderDialogWithCountries:absentCountries];
+        case routing::IRouter::ResultCode::RouteFileNotExist:
+          [self presentDownloaderAlertWithType:MWMAlertTypeDownloadAllMaps countries:absentCountries];
           break;
-        }
         
-        case routing::IRouter::ResultCode::RouteNotFound: {
-          [self showRouteNotFoundDialogWithCountries:absentCountries];
+        case routing::IRouter::ResultCode::RouteNotFound:
+          [self presentDownloaderAlertWithType:MWMAlertTypeRouteNotFound countries:absentCountries];
           break;
-        }
+        
+        case routing::IRouter::ResultCode::PointsInDifferentMWM:
+          [self presentDefaultAlertWithType:MWMAlertTypePointsInDifferentMWM];
+          break;
+          
+        case routing::IRouter::ResultCode::InconsistentMWMandRoute:
+          [self presentDownloaderAlertWithType:MWMAlertTypeInconsistentMWMandRoute countries:absentCountries];
+          break;
+          
+        case routing::IRouter::ResultCode::InternalError:
+          [self presentDefaultAlertWithType:MWMAlertTypeInternalError];
+          break;
+          
+        case routing::IRouter::ResultCode::NoCurrentPosition:
+          [self presentDefaultAlertWithType:MWMAlertTypeNoCurrentPosition];
+          break;
+          
+        case routing::IRouter::ResultCode::Cancelled:
+          break;
+          
+        case routing::IRouter::ResultCode::EndPointNotFound:
+          [self presentDefaultAlertWithType:MWMAlertTypeEndPointNotFound];
+          break;
+        case routing::IRouter::ResultCode::StartPointNotFound:
+          [self presentDefaultAlertWithType:MWMAlertTypeStartPointNotFound];
+          break;
           
         default:
           break;
@@ -810,25 +834,22 @@
   [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
 }
 
-- (void)showDownloaderDialogWithCountries:(vector<storage::TIndex> const &)countries {
-  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
+- (void)presentDownloaderAlertWithType:(MWMAlertType)type countries:(vector<storage::TIndex> const&)countries {
   if (countries.size()) {
-    [self presentAlert:alert withCountriest:countries];
+    [self presentDownloaderAlertWithCountries:countries];
   } else {
-    [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
+    [self presentDefaultAlertWithType:type];
   }
+  
 }
 
-- (void)showRouteNotFoundDialogWithCountries:(vector<storage::TIndex> const &)countries {
+- (void)presentDefaultAlertWithType:(MWMAlertType)type {
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  if (countries.size()) {
-    [self presentAlert:alert withCountriest:countries];
-  } else {
-    [alert presentAlertWithType:MWMAlertTypeRouteNotFoundDefault];
-  }
+  [alert presentAlertWithType:type];
 }
 
-- (void)presentAlert:(MWMAlertViewController *)alert withCountriest:(vector<storage::TIndex> const&)countries {
+- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const&)countries {
+  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
   self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
   alert.delegate = self.downloaderManager;
   [alert presentAlertWithType:MWMAlertTypeDownloadTransitMap];
