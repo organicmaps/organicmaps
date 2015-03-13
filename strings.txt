@@ -6795,7 +6795,7 @@
     tags = android, ios
     comment = Text for routing error dialog
     en = Creating a route requires all the maps from your location to destination downloaded and updated.
-    ru = Загрузи все карты по пути следования
+    ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
     uk = Для створення маршруту необхідно щоб всі карти, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.
     vi = Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.
     tr = Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.

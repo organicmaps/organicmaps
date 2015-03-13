@@ -494,7 +494,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_additional_data">Загрузи данные для построения маршрутов</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_requires_all_map">Загрузи все карты по пути следования</string>
+	<string name="routing_requires_all_map">Для создания маршрута необходимо загрузить и обновить все карты на пути следования.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Недостаточно места</string>
 	<!-- Text for routing error dialog -->

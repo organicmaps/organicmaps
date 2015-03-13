@@ -761,7 +761,7 @@
 "routing_get_additional_data" = "Загрузи данные для построения маршрутов";
 
 /* Text for routing error dialog */
-"routing_requires_all_map" = "Загрузи все карты по пути следования";
+"routing_requires_all_map" = "Для создания маршрута необходимо загрузить и обновить все карты на пути следования.";
 
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Недостаточно места";
