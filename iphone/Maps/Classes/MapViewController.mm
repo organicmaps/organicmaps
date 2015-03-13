@@ -840,7 +840,6 @@
   } else {
     [self presentDefaultAlertWithType:type];
   }
-  
 }
 
 - (void)presentDefaultAlertWithType:(MWMAlertType)type {
