@@ -39,6 +39,7 @@ SOURCES += \
     map_data_provider.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
+    base_renderer.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -76,3 +77,4 @@ HEADERS += \
     map_data_provider.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \
+    base_renderer.hpp

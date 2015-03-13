@@ -21,7 +21,6 @@ public:
 
   void RegisterThread(ThreadName name, MessageAcceptor *acceptor);
   void PostMessage(ThreadName name, dp::TransferPointer<Message> message, MessagePriority priority);
-  void PostMessageBroadcast(dp::TransferPointer<Message> message, MessagePriority priority);
 
 private:
   typedef map<ThreadName, MessageAcceptor *> acceptors_map_t;

@@ -15,10 +15,15 @@ public:
   virtual ~MessageAcceptor() {}
 
 protected:
+  virtual ~MessageAcceptor(){}
+
   virtual void AcceptMessage(dp::RefPointer<Message> message) = 0;
 
   /// Must be called by subclass on message target thread
   void ProcessSingleMessage(unsigned maxTimeWait = -1);
+
+  void CancelMessageWaiting();
+
   void CloseQueue();
 
 private:

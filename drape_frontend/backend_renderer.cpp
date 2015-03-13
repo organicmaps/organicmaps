@@ -138,10 +138,15 @@ BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(rende
 void BackendRenderer::Routine::Do()
 {
   m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
+  GLFunctions::Init();
+
   m_renderer.InitGLDependentResource();
 
   while (!IsCancelled())
+  {
     m_renderer.ProcessSingleMessage();
+    m_renderer.CheckRenderingEnabled();
+  }
 
   m_renderer.ReleaseResources();
 }

@@ -897,11 +897,16 @@ void Framework::EnterBackground()
 #ifndef OMIM_OS_ANDROID
   ClearAllCaches();
 #endif
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->SetRenderingEnabled(false);
 }
 
 void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
+
+  if (!m_drapeEngine.IsNull())
+    m_drapeEngine->SetRenderingEnabled(true);
 }
 
 void Framework::ShowAll()

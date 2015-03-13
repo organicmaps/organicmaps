@@ -10,13 +10,13 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 
 #include "std/shared_ptr.hpp"
 #include "std/set.hpp"
+#include "std/function.hpp"
 
 namespace df
 {
@@ -235,20 +235,6 @@ public:
 
 private:
   dp::TransferPointer<gui::LayerRenderer> m_renderer;
-};
-
-class RenderingEnabledMessage : public Message
-{
-public:
-  RenderingEnabledMessage(bool const isEnabled)
-    : m_isEnabled(isEnabled) {}
-
-  Type GetType() const override { return Message::RenderingEnabled; }
-
-  bool isSuspended() const { return m_isEnabled; }
-
-private:
-  bool m_isEnabled;
 };
 
 } // namespace df

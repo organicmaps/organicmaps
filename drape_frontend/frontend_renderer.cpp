@@ -41,7 +41,6 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
-  , m_isEnabled(true)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -446,6 +445,8 @@ void FrontendRenderer::Routine::Do()
 
     context->present();
     timer.Reset();
+
+    CheckRenderingEnabled();
   }
 
   m_renderer.ReleaseResources();

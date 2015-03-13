@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/message_acceptor.hpp"
+#include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/viewport.hpp"
 #include "drape_frontend/map_data_provider.hpp"
@@ -26,7 +26,7 @@ class ThreadsCommutator;
 class BatchersPool;
 class ReadManager;
 
-class BackendRenderer : public MessageAcceptor
+class BackendRenderer : public BaseRenderer
 {
 public:
   BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,

@@ -20,13 +20,5 @@ void ThreadsCommutator::PostMessage(ThreadName name, dp::TransferPointer<Message
     it->second->PostMessage(message, priority);
 }
 
-void ThreadsCommutator::PostMessageBroadcast(dp::TransferPointer<Message> message, MessagePriority priority)
-{
-  for (auto it = m_acceptors.cbegin(); it != m_acceptors.cend(); ++it)
-  {
-    it->second->PostMessage(message, priority);
-  }
-}
-
 } // namespace df
 

@@ -16,7 +16,7 @@ class MessageQueue
 public:
   ~MessageQueue();
 
-  /// if queue is empty than return NULL
+  /// if queue is empty then return NULL
   dp::TransferPointer<Message> PopMessage(unsigned maxTimeWait);
   void PushMessage(dp::TransferPointer<Message> message, MessagePriority priority);
   void CancelWait();

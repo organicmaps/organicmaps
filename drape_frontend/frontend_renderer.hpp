@@ -3,12 +3,12 @@
 #include "base/thread.hpp"
 
 #ifdef DRAW_INFO
-  #include "../base/timer.hpp"
-  #include "../std/vector.hpp"
-  #include "../std/numeric.hpp"
+  #include "base/timer.hpp"
+  #include "std/vector.hpp"
+  #include "std/numeric.hpp"
 #endif
 
-#include "drape_frontend/message_acceptor.hpp"
+#include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/backend_renderer.hpp"
@@ -33,7 +33,10 @@ namespace dp { class RenderBucket; }
 namespace df
 {
 
-class FrontendRenderer : public MessageAcceptor
+struct RenderingEnablingContext;
+
+
+class FrontendRenderer : public BaseRenderer
 {
 public:
   FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
@@ -112,8 +115,6 @@ private:
   set<TileKey> m_tiles;
 
   dp::OverlayTree m_overlayTree;
-
-  bool m_isEnabled;
 };
 
 } // namespace df

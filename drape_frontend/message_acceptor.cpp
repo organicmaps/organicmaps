@@ -27,4 +27,9 @@ void MessageAcceptor::CloseQueue()
   m_messageQueue.ClearQuery();
 }
 
+void MessageAcceptor::CancelMessageWaiting()
+{
+  m_messageQueue.CancelWait();
+}
+
 } // namespace df
