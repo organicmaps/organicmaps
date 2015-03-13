@@ -79,7 +79,7 @@ namespace
     threads::SimpleThreadPool pool(count);
 
     for (size_t i = 0; i < count; ++i)
-      pool.Add(new FeaturesLoader(src));
+      pool.Add(make_unique<FeaturesLoader>(src));
 
     pool.Join();
   }

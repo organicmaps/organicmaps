@@ -11,6 +11,9 @@ class Message;
 
 class MessageAcceptor
 {
+public:
+  virtual ~MessageAcceptor() {}
+
 protected:
   virtual void AcceptMessage(dp::RefPointer<Message> message) = 0;
 

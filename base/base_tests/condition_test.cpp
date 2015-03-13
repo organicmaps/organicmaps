@@ -25,10 +25,10 @@ UNIT_TEST(Condition_Test)
   ThreadedList<int> l;
 
   threads::Thread t0;
-  t0.Create(new ConditionThread(&l));
+  t0.Create(make_unique<ConditionThread>(&l));
 
   threads::Thread t1;
-  t1.Create(new ConditionThread(&l));
+  t1.Create(make_unique<ConditionThread>(&l));
 
   l.Cancel();
   t0.Join();

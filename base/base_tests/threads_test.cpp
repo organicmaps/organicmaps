@@ -44,13 +44,13 @@ UNIT_TEST(Simple_Threads)
   Vector vec;
 
   threads::Thread reader;
-  bool ok = reader.Create(new GeneratorThread(vec));
+  bool ok = reader.Create(make_unique<GeneratorThread>(vec));
   TEST( ok, ("Create Generator thread") );
 
   reader.Join();
 
   threads::Thread writer;
-  ok = writer.Create(new ReaderThread(vec));
+  ok = writer.Create(make_unique<ReaderThread>(vec));
   TEST( ok, ("Create Reader thread") );
 
   writer.Join();

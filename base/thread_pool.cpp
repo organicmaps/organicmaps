@@ -11,11 +11,12 @@ namespace threads
 {
   namespace
   {
-    typedef function<threads::IRoutine * ()> pop_routine_fn;
+    typedef function<threads::IRoutine *()> TPopRoutineFn;
+
     class PoolRoutine : public IRoutine
     {
     public:
-      PoolRoutine(const pop_routine_fn & popFn, const finish_routine_fn & finishFn)
+      PoolRoutine(const TPopRoutineFn & popFn, const TFinishRoutineFn & finishFn)
         : m_popFn(popFn)
         , m_finishFn(finishFn)
       {
@@ -39,24 +40,20 @@ namespace threads
       }
 
     private:
-      pop_routine_fn m_popFn;
-      finish_routine_fn m_finishFn;
+      TPopRoutineFn m_popFn;
+      TFinishRoutineFn m_finishFn;
     };
   }
 
   class ThreadPool::Impl
   {
   public:
-    Impl(size_t size, const finish_routine_fn & finishFn)
-      : m_finishFn(finishFn)
+    Impl(size_t size, const TFinishRoutineFn & finishFn) : m_finishFn(finishFn), m_threads(size)
     {
-      m_threads.resize(size);
-      for (size_t i = 0; i < size; ++i)
+      for (auto & thread : m_threads)
       {
-        thread_info_t info = make_pair(new threads::Thread(), new PoolRoutine(bind(&ThreadPool::Impl::PopFront, this),
-                                                                              m_finishFn));
-        info.first->Create(info.second);
-        m_threads[i] = info;
+        thread.reset(new threads::Thread());
+        thread->Create(make_unique<PoolRoutine>(bind(&ThreadPool::Impl::PopFront, this), m_finishFn));
       }
     }
 
@@ -84,18 +81,14 @@ namespace threads
     {
       m_tasks.Cancel();
 
-      for (size_t i = 0; i < m_threads.size(); ++i)
-        m_threads[i].second->Cancel();
-
-      for (size_t i = 0; i < m_threads.size(); ++i)
-      {
-        m_threads[i].first->Cancel();
-        delete m_threads[i].second;
-        delete m_threads[i].first;
-      }
-
+      for (auto & thread : m_threads)
+        thread->Cancel();
       m_threads.clear();
-      m_tasks.ProcessList([this] (list<threads::IRoutine *> & tasks) { FinishTasksOnStop(tasks); });
+
+      m_tasks.ProcessList([this](list<threads::IRoutine *> & tasks)
+                          {
+                            FinishTasksOnStop(tasks);
+                          });
       m_tasks.Clear();
     }
 
@@ -112,13 +105,12 @@ namespace threads
 
   private:
     ThreadedList<threads::IRoutine *> m_tasks;
-    finish_routine_fn m_finishFn;
+    TFinishRoutineFn m_finishFn;
 
-    typedef pair<threads::Thread *, threads::IRoutine *> thread_info_t;
-    vector<thread_info_t> m_threads;
+    vector<unique_ptr<threads::Thread>> m_threads;
   };
 
-  ThreadPool::ThreadPool(size_t size, const finish_routine_fn & finishFn)
+  ThreadPool::ThreadPool(size_t size, const TFinishRoutineFn & finishFn)
     : m_impl(new Impl(size, finishFn)) {}
 
   ThreadPool::~ThreadPool()

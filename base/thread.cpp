@@ -1,5 +1,4 @@
 #include "thread.hpp"
-#include "assert.hpp"
 
 #include "../base/logging.hpp"
 
@@ -16,7 +15,7 @@ namespace threads
 namespace
 {
 /// Prepares worker thread and runs routine.
-void RunRoutine(IRoutine * routine)
+void RunRoutine(shared_ptr<IRoutine> routine)
 {
 #if defined(OMIM_OS_ANDROID)
   AndroidThreadAttachToJVM();
@@ -32,7 +31,6 @@ void RunRoutine(IRoutine * routine)
 
 /////////////////////////////////////////////////////////////////////
 // Thread wrapper implementation
-Thread::Thread() : m_routine(0) {}
 
 Thread::~Thread()
 {
@@ -45,21 +43,22 @@ Thread::~Thread()
     m_thread.detach();
 }
 
-bool Thread::Create(IRoutine * pRoutine)
+bool Thread::Create(unique_ptr<IRoutine> && routine)
 {
   ASSERT(!m_routine, ("Current implementation doesn't allow to reuse thread"));
   thread routineThread;
   try
   {
-    routineThread = thread(&RunRoutine, pRoutine);
+    m_routine.reset(routine.release());
+    routineThread = thread(&RunRoutine, m_routine);
   }
   catch (exception & e)
   {
     LOG(LERROR, ("Thread creation failed with error:", e.what()));
+    m_routine.reset();
     return false;
   }
   m_thread = move(routineThread);
-  m_routine = pRoutine;
   return true;
 }
 
@@ -69,6 +68,7 @@ void Thread::Cancel()
     return;
   m_routine->Cancel();
   Join();
+  m_routine.reset();
 }
 
 void Thread::Join()
@@ -77,35 +77,23 @@ void Thread::Join()
     m_thread.join();
 }
 
+IRoutine * Thread::GetRoutine() { return m_routine.get(); }
+
 SimpleThreadPool::SimpleThreadPool(size_t reserve) { m_pool.reserve(reserve); }
 
-SimpleThreadPool::~SimpleThreadPool()
+void SimpleThreadPool::Add(unique_ptr<IRoutine> && routine)
 {
-  for (size_t i = 0; i < m_pool.size(); ++i)
-  {
-    delete m_pool[i].first;
-    delete m_pool[i].second;
-  }
-}
-
-void SimpleThreadPool::Add(IRoutine * pRoutine)
-{
-  ValueT v;
-  v.first = new Thread();
-  v.second = pRoutine;
-
-  m_pool.push_back(v);
-
-  v.first->Create(pRoutine);
+  m_pool.emplace_back(new Thread());
+  m_pool.back()->Create(move(routine));
 }
 
 void SimpleThreadPool::Join()
 {
-  for (size_t i = 0; i < m_pool.size(); ++i)
-    m_pool[i].first->Join();
+  for (auto & thread : m_pool)
+    thread->Join();
 }
 
-IRoutine * SimpleThreadPool::GetRoutine(size_t i) const { return m_pool[i].second; }
+IRoutine * SimpleThreadPool::GetRoutine(size_t i) const { return m_pool[i]->GetRoutine(); }
 
 void Sleep(size_t ms) { this_thread::sleep_for(milliseconds(ms)); }
 

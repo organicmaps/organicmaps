@@ -121,25 +121,20 @@ namespace core
     m_env.Cancel();
   }
 
-  CommandsQueue::Executor::Executor() : m_routine(0)
-  {}
-
   void CommandsQueue::Executor::Cancel()
   {
-    if (m_routine != 0)
+    if (m_thread.GetRoutine())
       m_thread.Cancel();
-    delete m_routine;
-    m_routine = 0;
   }
 
   void CommandsQueue::Executor::CancelCommand()
   {
-    m_routine->CancelCommand();
+    Routine * routine = m_thread.GetRoutineAs<Routine>();
+    routine->CancelCommand();
   }
 
   CommandsQueue::CommandsQueue(size_t executorsCount)
-    : m_executors(new Executor[executorsCount]), m_executorsCount(executorsCount),
-      m_activeCommands(0)
+      : m_executors(executorsCount), m_activeCommands(0)
   {
   }
 
@@ -153,26 +148,21 @@ namespace core
   {
     m_commands.Cancel();
 
-    for (size_t i = 0; i < m_executorsCount; ++i)
-      m_executors[i].Cancel();
-
-    delete [] m_executors;
-    m_executors = 0;
+    for (auto & executor : m_executors)
+      executor.Cancel();
+    m_executors.clear();
   }
 
   void CommandsQueue::CancelCommands()
   {
-    for (size_t i = 0; i < m_executorsCount; ++i)
-      m_executors[i].CancelCommand();
+    for (auto & executor : m_executors)
+      executor.CancelCommand();
   }
 
   void CommandsQueue::Start()
   {
-    for (size_t i = 0; i < m_executorsCount; ++i)
-    {
-      m_executors[i].m_routine = new CommandsQueue::Routine(this, i);
-      m_executors[i].m_thread.Create(m_executors[i].m_routine);
-    }
+    for (size_t i = 0; i < m_executors.size(); ++i)
+      m_executors[i].m_thread.Create(make_unique<Routine>(this, i));
   }
 
   void CommandsQueue::AddCommand(shared_ptr<Command> const & cmd)
@@ -232,11 +222,14 @@ namespace core
     /// to prevent the situation when Executor could start processing some command
     /// between "operation A" and "operation B" which could lead to underflow of m_activeCommands
 
-    m_commands.ProcessList([this] (list<shared_ptr<CommandsQueue::Command> > & l) { ClearImpl(l); });
+    m_commands.ProcessList([this](list<shared_ptr<CommandsQueue::Command> > & l)
+                           {
+                             ClearImpl(l);
+                           });
   }
 
   size_t CommandsQueue::ExecutorsCount() const
   {
-    return m_executorsCount;
+    return m_executors.size();
   }
 }

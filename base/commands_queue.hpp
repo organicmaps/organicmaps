@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../std/function.hpp"
-#include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
+#include "../std/vector.hpp"
 
 #include "cancellable.hpp"
 #include "thread.hpp"
@@ -15,11 +15,9 @@ namespace core
   class CommandsQueue
   {
   private:
-
     class Routine;
 
   public:
-
     struct Command;
 
     /// execution environment for single command
@@ -68,11 +66,9 @@ namespace core
     struct Chain
     {
     private:
-
       list<function_t> m_fns;
 
     public:
-
       Chain();
 
       Chain(function_t const & fn)
@@ -94,11 +90,9 @@ namespace core
     struct Command : BaseCommand
     {
     private:
-
       function_t m_fn;
 
     public:
-
       Command(bool isWaitable = false);
 
       template <typename tt>
@@ -110,21 +104,20 @@ namespace core
     };
 
   private:
-
     /// single execution routine
     class Routine : public threads::IRoutine
     {
     private:
-
       CommandsQueue * m_parent;
       Environment m_env;
 
     public:
-
       Routine(CommandsQueue * parent, size_t idx);
 
-      void Do();
-      void Cancel();
+      /// threads::IRoutine overrides:
+      void Do() override;
+      void Cancel() override;
+
       void CancelCommand();
     };
 
@@ -132,14 +125,12 @@ namespace core
     struct Executor
     {
       threads::Thread m_thread;
-      Routine * m_routine;
-      Executor();
+
       void Cancel();
       void CancelCommand();
     };
 
-    Executor * m_executors;
-    size_t m_executorsCount;
+    vector<Executor> m_executors;
     ThreadedList<shared_ptr<Command> > m_commands;
 
     list<shared_ptr<Command> > m_initCommands;
@@ -158,7 +149,6 @@ namespace core
     void ClearImpl(list<shared_ptr<Command> > & l);
 
   public:
-
     CommandsQueue(size_t executorsCount);
     ~CommandsQueue();
 

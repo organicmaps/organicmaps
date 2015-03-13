@@ -303,29 +303,32 @@ set<TileKey> & FrontendRenderer::GetTileKeyStorage()
 
 void FrontendRenderer::StartThread()
 {
-  m_selfThread.Create(this);
+  m_selfThread.Create(make_unique<Routine>(*this));
 }
 
 void FrontendRenderer::StopThread()
 {
-  IRoutine::Cancel();
+  m_selfThread.GetRoutine()->Cancel();
   CloseQueue();
   m_selfThread.Join();
 }
 
-void FrontendRenderer::ThreadMain()
+FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
+
+void FrontendRenderer::Routine::Do()
 {
-  dp::OGLContext * context = m_contextFactory->getDrawContext();
+  dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
   context->makeCurrent();
 
   my::Timer timer;
-  //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
+  // double processingTime = InitAvarageTimePerMessage; // By init we think that one message
+  // processed by 1ms
 
   timer.Reset();
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
-    RenderScene();
+    m_renderer.RenderScene();
 
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
 
@@ -334,29 +337,24 @@ void FrontendRenderer::ThreadMain()
 
     while (availableTime > 0)
     {
-      ProcessSingleMessage(availableTime * 1000.0);
+      m_renderer.ProcessSingleMessage(availableTime * 1000.0);
       availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
-      //messageCount++;
+      // messageCount++;
     }
 
-    //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
+    // processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
 
     context->present();
     timer.Reset();
   }
 
-  ReleaseResources();
+  m_renderer.ReleaseResources();
 }
 
 void FrontendRenderer::ReleaseResources()
 {
   DeleteRenderData();
   m_gpuProgramManager.Destroy();
-}
-
-void FrontendRenderer::Do()
-{
-  ThreadMain();
 }
 
 void FrontendRenderer::DeleteRenderData()

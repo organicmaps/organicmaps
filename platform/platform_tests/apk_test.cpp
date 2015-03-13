@@ -111,7 +111,7 @@ UNIT_TEST(ApkReader_Multithreaded)
   threads::SimpleThreadPool pool(count);
 
   for (size_t i = 0; i < count; ++i)
-    pool.Add(new ApkTester(path));
+    pool.Add(make_unique<ApkTester>(path));
 
   pool.Join();
 

@@ -256,26 +256,23 @@ Platform::EError Platform::MkDir(string const & dirName) const
 
 namespace
 {
-  class SelfDeleteRoutine : public threads::IRoutine
-  {
-    typedef Platform::TFunctor FnT;
-    FnT m_fn;
+class FunctorWrapper : public threads::IRoutine
+{
+  Platform::TFunctor m_fn;
 
-  public:
-    SelfDeleteRoutine(FnT const & fn) : m_fn(fn) {}
+public:
+  FunctorWrapper(Platform::TFunctor const & fn) : m_fn(fn) {}
 
-    virtual void Do()
-    {
-      m_fn();
-      delete this;
-    }
-  };
+  void Do() override { m_fn(); }
+};
 }
 
 void Platform::RunAsync(TFunctor const & fn, Priority p)
 {
   UNUSED_VALUE(p);
 
-  // We don't need to store thread handler in POSIX. Just create and run.
-  threads::Thread().Create(new SelfDeleteRoutine(fn));
+  // We don't need to store thread handler in POSIX, just create and
+  // run.  Unfortunately we can't use std::async() here since it
+  // doesn't attach to JVM threads.
+  threads::Thread().Create(make_unique<FunctorWrapper>(fn));
 }

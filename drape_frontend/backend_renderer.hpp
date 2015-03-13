@@ -25,15 +25,14 @@ class ThreadsCommutator;
 class BatchersPool;
 class ReadManager;
 
-class BackendRenderer : public MessageAcceptor,
-                        public threads::IRoutine
+class BackendRenderer : public MessageAcceptor
 {
 public:
   BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                   MapDataProvider const & model);
 
-  ~BackendRenderer();
+  ~BackendRenderer() override;
 
 private:
   MapDataProvider m_model;
@@ -51,11 +50,21 @@ private:
     //             ThreadPart              //
     /////////////////////////////////////////
 private:
+  class Routine : public threads::IRoutine
+  {
+   public:
+    Routine(BackendRenderer & renderer);
+
+    // threads::IRoutine overrides:
+    void Do() override;
+
+   private:
+    BackendRenderer & m_renderer;
+  };
+
   void StartThread();
   void StopThread();
-  void ThreadMain();
   void ReleaseResources();
-  virtual void Do();
 
   void InitGLDependentResource();
   void FlushGeometry(dp::TransferPointer<Message> message);

@@ -243,29 +243,31 @@ bool BenchmarkEngine::NextBenchmarkCommand()
 
 void BenchmarkEngine::Start()
 {
-  m_thread.Create(this);
+  m_thread.Create(make_unique<Routine>(*this));
 }
 
-void BenchmarkEngine::Do()
+BenchmarkEngine::Routine::Routine(BenchmarkEngine & engine) : m_engine(engine) {}
+
+void BenchmarkEngine::Routine::Do()
 {
-  PrepareMaps();
+  m_engine.PrepareMaps();
 
   int benchMarkCount = 1;
   (void) Settings::Get("BenchmarkCyclesCount", benchMarkCount);
 
   for (int i = 0; i < benchMarkCount; ++i)
   {
-    DoGetBenchmarks doGet(*this);
+    DoGetBenchmarks doGet(m_engine);
     ForEachBenchmarkRecord(doGet);
 
-    m_curBenchmark = 0;
+    m_engine.m_curBenchmark = 0;
 
-    m_benchmarksTimer.Reset();
-    m_startTime = my::FormatCurrentTime();
+    m_engine.m_benchmarksTimer.Reset();
+    m_engine.m_startTime = my::FormatCurrentTime();
 
-    MarkBenchmarkResultsStart();
-    while (NextBenchmarkCommand()){};
+    m_engine.MarkBenchmarkResultsStart();
+    while (m_engine.NextBenchmarkCommand()){};
 
-    m_benchmarks.clear();
+    m_engine.m_benchmarks.clear();
   }
 }

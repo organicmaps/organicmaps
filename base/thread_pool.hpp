@@ -8,12 +8,12 @@ namespace threads
 {
   class IRoutine;
 
-  typedef function<void (threads::IRoutine *)> finish_routine_fn;
+  typedef function<void(threads::IRoutine *)> TFinishRoutineFn;
 
   class ThreadPool
   {
   public:
-    ThreadPool(size_t size, const finish_routine_fn & finishFn);
+    ThreadPool(size_t size, const TFinishRoutineFn & finishFn);
     ~ThreadPool();
 
     // ThreadPool will not delete routine. You can delete it in finish_routine_fn if need

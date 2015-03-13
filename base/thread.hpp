@@ -1,11 +1,13 @@
 #pragma once
 
+#include "../base/assert.hpp"
 #include "../base/cancellable.hpp"
 #include "../base/macros.hpp"
 
 #include "../std/target_os.hpp"
 
 #include "../std/noncopyable.hpp"
+#include "../std/shared_ptr.hpp"
 #include "../std/stdint.hpp"
 #include "../std/thread.hpp"
 #include "../std/unique_ptr.hpp"
@@ -21,46 +23,63 @@ namespace threads
 class IRoutine : public my::Cancellable
 {
 public:
-  /// Performing the main task
+  /// Perform the main task.
   virtual void Do() = 0;
 };
 
-/// wrapper for Create and Terminate threads API
+/// A wrapper for system threads API.
+///
+/// Thread class manages lifetime of a running IRoutine and guarantees
+/// that it will be possible to access the IRoutine after
+/// Thread::Create()call until destruction of a Thread object.  In the
+/// latter case, system thread will be responsible for deletion of a
+/// IRoutine.
 class Thread
 {
   thread m_thread;
-  IRoutine * m_routine;
+  shared_ptr<IRoutine> m_routine;
 
 public:
-  Thread();
-
   ~Thread();
 
   /// Run thread immediately.
-  /// @param pRoutine is owned by Thread class
-  bool Create(IRoutine * pRoutine);
+  /// @param routine Routine that will be executed on m_thread and destroyed by
+  ///                the current Thread instance or by the m_thread, if
+  ///                it will be detached during the execution of routine.
+  bool Create(unique_ptr<IRoutine> && routine);
 
-  /// Calling the IRoutine::Cancel method, and Join'ing with the task execution.
+  /// Calling the IRoutine::Cancel method, and Join'ing with the task
+  /// execution.  After that, routine is deleted.
   void Cancel();
 
   /// Wait for thread ending.
   void Join();
 
-private:
-  DISALLOW_COPY_AND_MOVE(Thread);
+  /// \return Pointer to the routine.
+  IRoutine * GetRoutine();
+
+  /// \return Pointer to the routine converted to T *.  When it's not
+  ///         possible to convert routine to the T *, release version
+  ///         returns nullptr, debug version fails.
+  template <typename T>
+  T * GetRoutineAs()
+  {
+    ASSERT(m_routine.get(), ("Routine is not set"));
+    T * ptr = dynamic_cast<T *>(m_routine.get());
+    ASSERT(ptr, ("Can't convert IRoutine* to", TO_STRING(T) "*"));
+    return ptr;
+  }
 };
 
 /// Simple threads container. Takes ownership for every added IRoutine.
 class SimpleThreadPool : public noncopyable
 {
-  typedef pair<Thread *, IRoutine *> ValueT;
-  vector<ValueT> m_pool;
+  vector<unique_ptr<Thread>> m_pool;
 
 public:
   SimpleThreadPool(size_t reserve = 0);
-  ~SimpleThreadPool();
 
-  void Add(IRoutine * pRoutine);
+  void Add(unique_ptr<IRoutine> && routine);
   void Join();
 
   IRoutine * GetRoutine(size_t i) const;

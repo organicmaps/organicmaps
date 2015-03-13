@@ -32,15 +32,14 @@ namespace dp { class RenderBucket; }
 namespace df
 {
 
-class FrontendRenderer : public MessageAcceptor,
-                         public threads::IRoutine
+class FrontendRenderer : public MessageAcceptor
 {
 public:
   FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                    Viewport viewport);
 
-  ~FrontendRenderer();
+  ~FrontendRenderer() override;
 
 #ifdef DRAW_INFO
   double m_tpf;
@@ -71,12 +70,21 @@ private:
   void InvalidateRenderGroups(set<TileKey> & keyStorage);
 
 private:
+  class Routine : public threads::IRoutine
+  {
+   public:
+    Routine(FrontendRenderer & renderer);
+
+    // threads::IRoutine overrides:
+    void Do() override;
+
+   private:
+    FrontendRenderer & m_renderer;
+  };
+
   void StartThread();
   void StopThread();
-  void ThreadMain();
   void ReleaseResources();
-
-  virtual void Do();
 
 private:
   void DeleteRenderData();

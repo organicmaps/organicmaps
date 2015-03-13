@@ -86,26 +86,14 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 /////////////////////////////////////////
 void BackendRenderer::StartThread()
 {
-  m_selfThread.Create(this);
+  m_selfThread.Create(make_unique<Routine>(*this));
 }
 
 void BackendRenderer::StopThread()
 {
-  IRoutine::Cancel();
+  m_selfThread.GetRoutine()->Cancel();
   CloseQueue();
   m_selfThread.Join();
-}
-
-void BackendRenderer::ThreadMain()
-{
-  m_contextFactory->getResourcesUploadContext()->makeCurrent();
-
-  InitGLDependentResource();
-
-  while (!IsCancelled())
-    ProcessSingleMessage();
-
-  ReleaseResources();
 }
 
 void BackendRenderer::ReleaseResources()
@@ -119,9 +107,17 @@ void BackendRenderer::ReleaseResources()
   m_textures.Destroy();
 }
 
-void BackendRenderer::Do()
+BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}
+
+void BackendRenderer::Routine::Do()
 {
-  ThreadMain();
+  m_renderer.m_contextFactory->getResourcesUploadContext()->makeCurrent();
+  m_renderer.InitGLDependentResource();
+
+  while (!IsCancelled())
+    m_renderer.ProcessSingleMessage();
+
+  m_renderer.ReleaseResources();
 }
 
 void BackendRenderer::InitGLDependentResource()

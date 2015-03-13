@@ -18,7 +18,7 @@ class Framework;
 /// - Feeds the Framework with the paint tasks he wants to performs
 /// - Wait until each tasks completion
 /// - Measure the time of each task and save the result
-class BenchmarkEngine : public threads::IRoutine
+class BenchmarkEngine
 {
   threads::Thread m_thread;
 
@@ -45,6 +45,18 @@ class BenchmarkEngine : public threads::IRoutine
     string m_name;
   };
 
+  class Routine : public threads::IRoutine
+  {
+   public:
+    Routine(BenchmarkEngine & engine);
+
+    // threads::IRoutine overrides:
+    void Do() override;
+
+   private:
+    BenchmarkEngine & m_engine;
+  };
+
   vector<Benchmark> m_benchmarks;
   size_t m_curBenchmark;
 
@@ -59,8 +71,6 @@ class BenchmarkEngine : public threads::IRoutine
   void MarkBenchmarkResultsEnd();
 
   void PrepareMaps();
-
-  void Do();
 
   friend class DoGetBenchmarks;
 

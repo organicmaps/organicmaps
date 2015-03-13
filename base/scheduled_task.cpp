@@ -1,48 +1,48 @@
 #include "scheduled_task.hpp"
 #include "timer.hpp"
 
+#include "../base/logging.hpp"
+
+#include "../std/algorithm.hpp"
+#include "../std/chrono.hpp"
+
 ScheduledTask::Routine::Routine(fn_t const & fn,
                                 unsigned ms,
-                                threads::Condition * cond)
+                                condition_variable & condVar)
   : m_fn(fn),
     m_ms(ms),
-    m_pCond(cond)
+    m_condVar(condVar)
 {}
 
 void ScheduledTask::Routine::Do()
 {
-  m_pCond->Lock();
+  unique_lock<mutex> lock(m_mutex);
 
-  unsigned msLeft = m_ms;
-
-  while (!IsCancelled())
+  milliseconds timeLeft(m_ms);
+  while (!IsCancelled() && timeLeft != milliseconds::zero())
   {
     my::Timer t;
-
-    if (m_pCond->Wait(msLeft))
-      break;
-
-    msLeft -= (unsigned)(t.ElapsedSeconds() * 1000);
+    m_condVar.wait_for(lock, timeLeft, [this]()
+                       {
+                         return IsCancelled();
+                       });
+    milliseconds timeElapsed(static_cast<unsigned>(t.ElapsedSeconds() * 1000));
+    timeLeft -= min(timeLeft, timeElapsed);
   }
 
   if (!IsCancelled())
     m_fn();
-
-  m_pCond->Unlock();
 }
 
 void ScheduledTask::Routine::Cancel()
 {
   threads::IRoutine::Cancel();
-
-  m_pCond->Signal();
-  m_pCond->Unlock();
+  m_condVar.notify_one();
 }
 
 ScheduledTask::ScheduledTask(fn_t const & fn, unsigned ms)
-  : m_routine(new Routine(fn, ms, &m_cond))
 {
-  m_thread.Create(m_routine.get());
+  m_thread.Create(make_unique<Routine>(fn, ms, m_condVar));
 }
 
 ScheduledTask::~ScheduledTask()
@@ -52,16 +52,13 @@ ScheduledTask::~ScheduledTask()
 
 bool ScheduledTask::CancelNoBlocking()
 {
-  if (m_cond.TryLock())
-  {
-    m_thread.Cancel();
-    return true;
-  }
-  return false;
+  if (!m_thread.GetRoutine())
+    return false;
+  m_thread.GetRoutine()->Cancel();
+  return true;
 }
 
 void ScheduledTask::CancelBlocking()
 {
-  m_cond.Lock();
   m_thread.Cancel();
 }

@@ -76,13 +76,13 @@ UNIT_TEST(ThreadedList)
   ThreadedList<int> p;
 
   threads::Thread t0;
-  t0.Create(new ThreadedListProcessor(p, resMutex, res, 0));
+  t0.Create(make_unique<ThreadedListProcessor>(p, resMutex, res, 0));
 
   threads::Thread t1;
-  t1.Create(new ThreadedListProcessor(p, resMutex, res, 1));
+  t1.Create(make_unique<ThreadedListProcessor>(p, resMutex, res, 1));
 
   threads::Thread t2;
-  t2.Create(new ThreadedListProcessor(p, resMutex, res, 2));
+  t2.Create(make_unique<ThreadedListProcessor>(p, resMutex, res, 2));
 
   p.PushBack(0);
   threads::Sleep(200);
@@ -115,13 +115,13 @@ UNIT_TEST(ThreadedPriorityQueue)
   ThreadedPriorityQueue<int> p;
 
   threads::Thread t0;
-  t0.Create(new ThreadedPriorityQueueProcessor(p, resMutex, res, 0));
+  t0.Create(make_unique<ThreadedPriorityQueueProcessor>(p, resMutex, res, 0));
 
   threads::Thread t1;
-  t1.Create(new ThreadedPriorityQueueProcessor(p, resMutex, res, 1));
+  t1.Create(make_unique<ThreadedPriorityQueueProcessor>(p, resMutex, res, 1));
 
   threads::Thread t2;
-  t2.Create(new ThreadedPriorityQueueProcessor(p, resMutex, res, 2));
+  t2.Create(make_unique<ThreadedPriorityQueueProcessor>(p, resMutex, res, 2));
 
   p.Push(0);
   threads::Sleep(200);

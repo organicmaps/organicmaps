@@ -1,11 +1,12 @@
 #pragma once
 
-#include "thread.hpp"
 #include "condition.hpp"
+#include "thread.hpp"
 
+#include "../std/condition_variable.hpp"
 #include "../std/function.hpp"
+#include "../std/mutex.hpp"
 #include "../std/unique_ptr.hpp"
-
 
 /// Class, which performs any function when the specified
 /// amount of time is elapsed.
@@ -17,19 +18,21 @@ class ScheduledTask
   {
     fn_t m_fn;
     unsigned m_ms;
-    threads::Condition * m_pCond;
+
+    condition_variable & m_condVar;
+    mutex m_mutex;
 
   public:
-    Routine(fn_t const & fn, unsigned ms, threads::Condition * cond);
+    Routine(fn_t const & fn, unsigned ms, condition_variable & condVar);
 
     virtual void Do();
     virtual void Cancel();
   };
 
   /// The construction and destruction order is strict here: m_cond is
-  /// used by m_routine and m_routine is used by m_thread.
-  threads::Condition m_cond;
-  unique_ptr<Routine> const m_routine;
+  /// used by routine that will be executed on m_thread.
+  mutex m_mutex;
+  condition_variable m_condVar;
   threads::Thread m_thread;
 
 public:
