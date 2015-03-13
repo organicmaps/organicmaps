@@ -1,0 +1,885 @@
+#include "osm_time_range.hpp"
+
+#include <chrono>
+#include <iomanip>
+#include <ios>
+#include <vector>
+
+//#define BOOST_SPIRIT_DEBUG 1
+#define BOOST_SPIRIT_USE_PHOENIX_V3
+#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/repository/include/qi_subrule.hpp>
+#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/spirit/include/phoenix_fusion.hpp>
+#include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/spirit/include/phoenix_statement.hpp>
+#include <boost/spirit/include/phoenix_bind.hpp>
+#include <boost/fusion/adapted/struct/adapt_struct.hpp>
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wshorten-64-to-32"
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/gregorian/gregorian.hpp>
+#pragma clang diagnostic pop
+
+
+
+namespace osmoh {
+
+  std::ostream & operator << (std::ostream & s, Time const & t)
+  {
+    bool event = t.flags & Time::eSunrise || t.flags & Time::eSunset;
+    if (event)
+      s << ((t.flags & Time::eSunrise) ? "sunrise" : "sunset") << " (";
+    std::ios_base::fmtflags sf = s.flags();
+    if (t.flags & (Time::ePlus | Time::eMinus))
+      s << ((t.flags & Time::ePlus) ? "+" : "-");
+    if (t.flags & Time::eHours)
+      s << std::setw(2) << std::setfill('0') << (int)t.hours;
+    if (t.flags & Time::eMinutes)
+      s << ":" << std::setw(2) << std::setfill('0') << (int)t.minutes;
+    s.flags(sf);
+    if (event)
+      s << ")";
+    return s;
+  }
+
+  std::ostream & operator << (std::ostream & s, TimeSpan const & span)
+  {
+    s << span.from;
+    if (span.to.flags)
+      s << '-' << span.to;
+    if (span.flags == Time::ePlus)
+      s << "...";
+    if (span.flags == Time::eExt)
+      s << '/' << span.period;
+
+    return s;
+  }
+
+  std::ostream & operator << (std::ostream & s, Weekdays const & w)
+  {
+    char const * wdays[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
+    for (size_t i = 0; i < 7; ++i) {
+      if (w.weekdays & (1 << i)) {
+        if (w.weekdays & ((1 << i) - 1))
+          s << ',';
+        s << wdays[i];
+      }
+    }
+
+    if (w.nth) {
+      s << "[";
+
+      uint8_t a = w.nth & 0xFF;
+      for (size_t i = 0; i < 4; ++i) {
+        if (a & (1 << i)) {
+          if (a & ((1 << i) - 1))
+            s << ',';
+          s << (i + 1);
+        }
+      }
+
+      a = (w.nth >> 8) & 0xFF;
+      for (size_t i = 0; i < 4; ++i) {
+        if (a & (1 << i)) {
+          if (a & ((1 << i) - 1))
+            s << ',';
+          s << '-' << (i + 1);
+        }
+      }
+
+      s << "]";
+    }
+
+    if (w.offset)
+      s << ' ' << w.offset << " day(s)";
+    return s;
+  }
+
+  std::ostream & operator << (std::ostream & s, State const & w)
+  {
+    char const * st[] = {"unknown", "closed", "open"};
+    s << ' ' << st[w.state] << " " << w.comment;
+    return s;
+  }
+
+  std::ostream & operator << (std::ostream & s, TimeRule const & w)
+  {
+    for (auto const & e : w.weekdays)
+      s << e;
+    if (!w.weekdays.empty() && !w.timespan.empty())
+      s << ' ';
+    for (auto const & e : w.timespan)
+      s << e;
+
+    return s << w.state;
+  }
+
+  boost::posix_time::time_period make_time_period(boost::gregorian::date const & d, osmoh::TimeSpan const & ts)
+  {
+    using boost::posix_time::ptime;
+    using boost::posix_time::hours;
+    using boost::posix_time::minutes;
+    using boost::posix_time::time_period;
+
+    ptime sunrise(d, hours(6));
+    ptime sunset(d, hours(19));
+
+    ptime t1, t2;
+
+    if (ts.from.flags & osmoh::Time::eSunrise)
+      t1 = sunrise;
+    else if (ts.from.flags & osmoh::Time::eSunset)
+      t1 = sunset;
+    else
+      t1 = ptime(d, hours((ts.from.flags & osmoh::Time::eHours) ? ts.from.hours : 0) + minutes((ts.from.flags & osmoh::Time::eMinutes) ? ts.from.minutes : 0));
+
+    t2 = t1;
+
+    if (ts.to.flags & osmoh::Time::eSunrise)
+      t2 = sunrise;
+    else if (ts.to.flags & osmoh::Time::eSunset)
+      t2 = sunset;
+    else
+    {
+      t2 = ptime(d, hours((ts.to.flags & osmoh::Time::eHours) ? ts.to.hours : 24) + minutes((ts.to.flags & osmoh::Time::eMinutes) ? ts.to.minutes : 0));
+      if (t2 < t1)
+        t2 += hours(24);
+    }
+
+    return time_period(t1, t2);
+  }
+
+} // namespace osmoh
+
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+ osmoh::Time,
+ (uint8_t, hours)
+ (uint8_t, minutes)
+ (uint8_t, flags)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+ osmoh::TimeSpan,
+ (osmoh::Time, from)
+ (osmoh::Time, to)
+ (uint8_t, flags)
+ (osmoh::Time, period)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+ osmoh::Weekdays,
+ (uint8_t, weekdays)
+ (uint16_t, nth)
+ (int32_t, offset)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+ osmoh::State,
+ (uint8_t, state)
+ (std::string, comment)
+)
+
+BOOST_FUSION_ADAPT_STRUCT
+(
+ osmoh::TimeRule,
+ (std::vector<osmoh::Weekdays>, weekdays)
+ (std::vector<osmoh::TimeSpan>, timespan)
+ (osmoh::State, state)
+ (uint8_t, int_flags)
+)
+
+namespace {
+  namespace qi = boost::spirit::qi;
+  namespace phx = boost::phoenix;
+  namespace repo = boost::spirit::repository;
+
+  namespace charset = boost::spirit::standard_wide;
+  using space_type = charset::space_type;
+
+
+  class test_impl
+  {
+  public:
+    template <typename T>
+    struct result { typedef void type; };
+
+    template <typename Arg>
+    void operator() (const Arg & a) const
+    {
+      std::cout << a << " \t(" << typeid(a).name() << ")" << std::endl;
+    }
+  };
+  phx::function<test_impl> const test = test_impl();
+
+  class dash_ : public qi::symbols<char>
+  {
+  public:
+    dash_()
+    {
+      add
+      ("-")
+      /* not standard */
+      ("–")("~")("～")("〜")
+      ;
+    }
+  } dash;
+
+  class event_ : public qi::symbols<char, uint8_t>
+  {
+  public:
+    event_()
+    {
+      add
+      ("dawn", osmoh::Time::eSunrise)("sunrise", osmoh::Time::eSunrise)("sunset", osmoh::Time::eSunset)("dusk", osmoh::Time::eSunset)
+      ;
+    }
+  } event;
+
+  struct wdays_ : qi::symbols<char, unsigned>
+  {
+    wdays_()
+    {
+      add
+      ("Mo", 0)("Tu", 1)("We", 2)("Th", 3)("Fr", 4)("Sa", 5)("Su", 6)
+      /* not standard */
+      ("MO", 0)("TU", 1)("WE", 2)("TH", 3)("FR", 4)("SA", 5)("SU", 6)
+      ;
+    }
+  } wdays;
+
+  struct month_ : qi::symbols<char, unsigned>
+  {
+    month_()
+    {
+      add
+      ("jan", 1)("feb", 2)("mar", 3)("apr",  4)("may",  5)("jun",  6)
+      ("jul", 7)("aug", 8)("sep", 9)("oct", 10)("nov", 11)("dec", 12)
+      ;
+    }
+  } month;
+
+  struct hours_ : qi::symbols<char, uint8_t>
+  {
+    hours_()
+    {
+      add
+      ( "0",  0)( "1",  1)( "2",  2)( "3",  3)( "4",  4)( "5",  5)( "6",  6)( "7",  7)( "8",  8)( "9",  9) /* not standard */
+      ("00",  0)("01",  1)("02",  2)("03",  3)("04",  4)("05",  5)("06",  6)("07",  7)("08",  8)("09",  9)
+      ("10", 10)("11", 11)("12", 12)("13", 13)("14", 14)("15", 15)("16", 16)("17", 17)("18", 18)("19", 19)
+      ("20", 20)("21", 21)("22", 22)("23", 23)("24", 24)
+      ;
+    }
+  } hours;
+
+  struct exthours_ : qi::symbols<char, uint8_t>
+  {
+    exthours_()
+    {
+      add
+      ( "0",  0)( "1",  1)( "2",  2)( "3",  3)( "4",  4)( "5",  5)( "6",  6)( "7",  7)( "8",  8)( "9",  9) /* not standard */
+      ("00",  0)("01",  1)("02",  2)("03",  3)("04",  4)("05",  5)("06",  6)("07",  7)("08",  8)("09",  9)
+      ("10", 10)("11", 11)("12", 12)("13", 13)("14", 14)("15", 15)("16", 16)("17", 17)("18", 18)("19", 19)
+      ("20", 20)("21", 21)("22", 22)("23", 23)("24", 24)("25", 25)("26", 26)("27", 27)("28", 28)("29", 29)
+      ("30", 30)("31", 31)("32", 32)("33", 33)("34", 34)("35", 35)("36", 36)("37", 37)("38", 38)("39", 39)
+      ("40", 40)("41", 41)("42", 42)("43", 43)("44", 44)("45", 45)("46", 46)("47", 47)("48", 48)
+      ;
+    }
+  } exthours;
+
+  struct minutes_ : qi::symbols<char, uint8_t>
+  {
+    minutes_()
+    {
+      add
+      ( "0",  0)( "1",  1)( "2",  2)( "3",  3)( "4",  4)( "5",  5)( "6",  6)( "7",  7)( "8",  8)( "9",  9) /* not standard */
+      ("00",  0)("01",  1)("02",  2)("03",  3)("04",  4)("05",  5)("06",  6)("07",  7)("08",  8)("09",  9)
+      ("10", 10)("11", 11)("12", 12)("13", 13)("14", 14)("15", 15)("16", 16)("17", 17)("18", 18)("19", 19)
+      ("20", 20)("21", 21)("22", 22)("23", 23)("24", 24)("25", 25)("26", 26)("27", 27)("28", 28)("29", 29)
+      ("30", 30)("31", 31)("32", 32)("33", 33)("34", 34)("35", 35)("36", 36)("37", 37)("38", 38)("39", 39)
+      ("40", 40)("41", 41)("42", 42)("43", 43)("44", 44)("45", 45)("46", 46)("47", 47)("48", 48)("49", 49)
+      ("50", 50)("51", 51)("52", 52)("53", 53)("54", 54)("55", 55)("56", 56)("57", 57)("58", 58)("59", 59)
+      ;
+    }
+  } minutes;
+
+  struct weeknum_ : qi::symbols<char, unsigned>
+  {
+    weeknum_()
+    {
+      add       ( "1",  1)( "2",  2)( "3",  3)( "4",  4)( "5",  5)( "6",  6)( "7",  7)( "8",  8)( "9",  9)
+                ("01",  1)("02",  2)("03",  3)("04",  4)("05",  5)("06",  6)("07",  7)("08",  8)("09",  9)
+      ("10", 10)("11", 11)("12", 12)("13", 13)("14", 14)("15", 15)("16", 16)("17", 17)("18", 18)("19", 19)
+      ("20", 20)("21", 21)("22", 22)("23", 23)("24", 24)("25", 25)("26", 26)("27", 27)("28", 28)("29", 29)
+      ("30", 30)("31", 31)("32", 32)("33", 33)("34", 34)("35", 35)("36", 36)("37", 37)("38", 38)("39", 39)
+      ("40", 40)("41", 41)("42", 42)("43", 43)("44", 44)("45", 45)("46", 46)("47", 47)("48", 48)("49", 49)
+      ("50", 50)("51", 51)("52", 52)("53", 53)
+      ;
+    }
+  } weeknum;
+
+  struct daynum_ : qi::symbols<char, unsigned>
+  {
+    daynum_()
+    {
+      add       ("1",  1)("2",  2)("3",  3)("4",  4)("5",  5)("6",  6)("7",  7)("8",  8)("9",  9)
+      ("10", 10)("11", 11)("12", 12)("13", 13)("14", 14)("15", 15)("16", 16)("17", 17)("18", 18)("19", 19)
+      ("20", 20)("21", 21)("22", 22)("23", 23)("24", 24)("25", 25)("26", 26)("27", 27)("28", 28)("29", 29)
+      ("30", 30)("31", 31)
+      ;
+    }
+  } daynum;
+
+  template <class Iterator>
+  class year_selector_parser : public qi::grammar<Iterator, space_type>
+  {
+  protected:
+    qi::rule<Iterator, space_type> year;
+    qi::rule<Iterator, space_type> year_range;
+    qi::rule<Iterator, space_type> main;
+  public:
+    year_selector_parser() : year_selector_parser::base_type(main)
+    {
+      using qi::uint_;
+      using qi::lit;
+      using charset::char_;
+
+      static const qi::int_parser<unsigned, 10, 4, 4> _4digit = {};
+
+      year %= _4digit;
+      year_range %=
+          (year >> dash >> year >> '/' >> uint_)
+        | (year >> dash >> year)
+        | year >> char_('+')
+        | year
+      ;
+      main %= year_range % ',';
+    }
+  };
+
+  template <typename Iterator>
+  class week_selector_parser : public qi::grammar<Iterator, space_type>
+  {
+  protected:
+    qi::rule<Iterator, space_type> week;
+    qi::rule<Iterator, space_type> year_range;
+    qi::rule<Iterator, space_type> main;
+  public:
+    week_selector_parser() : week_selector_parser::base_type(main)
+    {
+      using qi::uint_;
+      using qi::lit;
+      using charset::char_;
+
+      week %= (weeknum >> dash >> weeknum >> '/' >> uint_)
+        | (weeknum >> dash >> weeknum)
+        | weeknum
+      ;
+
+      main %= charset::no_case[lit("week")] >> week % ',';
+    }
+  };
+
+  template <typename Iterator>
+  class month_selector_parser : public qi::grammar<Iterator, space_type>
+  {
+  protected:
+    qi::rule<Iterator, space_type> date;
+    qi::rule<Iterator, space_type> day_offset;
+    qi::rule<Iterator, space_type> date_with_offsets;
+    qi::rule<Iterator, space_type> monthday_range;
+    qi::rule<Iterator, space_type> month_range;
+    qi::rule<Iterator, space_type> main;
+  public:
+    month_selector_parser() : month_selector_parser::base_type(main)
+    {
+      using qi::int_;
+      using qi::lit;
+      using qi::double_;
+      using qi::lexeme;
+      using charset::char_;
+
+      static const qi::int_parser<unsigned, 10, 4, 4> year = {};
+
+      day_offset %= (char_('+') | char_('-')) >> int_ >> charset::no_case[(lit("days") | lit("day"))];
+
+      date %= charset::no_case[(-year >> month >> daynum)]
+        | (-year >> charset::no_case[lit("easter")])
+        | daynum >> lit(' ')
+      ;
+
+      date_with_offsets %= date >> -((char_('+') | char_('-')) >> wdays) >> -day_offset;
+
+      monthday_range %= (date_with_offsets >> dash >> date_with_offsets)
+        | (date_with_offsets >> '+')
+        | date_with_offsets
+        | charset::no_case[(-year >> month >> dash >> month >> '/' >> int_)]
+        | charset::no_case[(-year >> month >> dash >> month)]
+        | charset::no_case[(-year >> month)]
+      ;
+
+      month_range %= charset::no_case[(month >> dash >> month)]
+        | charset::no_case[month]
+      ;
+
+      main %= (monthday_range % ',')
+        | (month_range % ',')
+      ;
+
+      BOOST_SPIRIT_DEBUG_NODE(main);
+      BOOST_SPIRIT_DEBUG_NODE(month_range);
+      BOOST_SPIRIT_DEBUG_NODE(monthday_range);
+      BOOST_SPIRIT_DEBUG_NODE(date_with_offsets);
+      BOOST_SPIRIT_DEBUG_NODE(date);
+      BOOST_SPIRIT_DEBUG_NODE(day_offset);
+
+    }
+  };
+
+
+  template <typename Iterator>
+  class weekday_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::Weekdays>(), space_type>
+  {
+  protected:
+    qi::rule<Iterator, uint8_t(), space_type> nth;
+    qi::rule<Iterator, uint16_t(), space_type> nth_entry;
+    qi::rule<Iterator, int32_t(), space_type, qi::locals<int8_t>> day_offset;
+    qi::rule<Iterator, space_type> holyday;
+    qi::rule<Iterator, space_type> holiday_sequence;
+    qi::rule<Iterator, osmoh::Weekdays(), space_type> weekday_range;
+    qi::rule<Iterator, std::vector<osmoh::Weekdays>(), space_type> weekday_sequence;
+    qi::rule<Iterator, std::vector<osmoh::Weekdays>(), space_type> main;
+  public:
+    weekday_selector_parser() : weekday_selector_parser::base_type(main)
+    {
+      using qi::_a;
+      using qi::_1;
+      using qi::_2;
+      using qi::_val;
+      using qi::lit;
+      using qi::ushort_;
+      using boost::phoenix::at_c;
+
+      nth %= ushort_(1) | ushort_(2) | ushort_(3) | ushort_(4) | ushort_(5);
+
+      nth_entry =
+          (nth >> dash >> nth) [_val |= ((2 << ((_2-1)-(_1-1))) - 1) << (_1-1)]
+        | (lit('-') >> nth) [_val |= (0x0100 << (_1 - 1))]
+        | nth [_val |= (1 << (_1 - 1))]
+      ;
+
+      day_offset = (lit('+')[_a = 1] | lit('-') [_a = -1]) >> ushort_[_val = _1*_a] >> charset::no_case[(lit("days") | lit("day"))];
+      holyday %= (charset::no_case[lit("SH")] >> -day_offset) | charset::no_case[lit("PH")];
+      holiday_sequence %= holyday % ',';
+      weekday_range =
+          (wdays[at_c<0>(_val) |= (1<<_1)] >> '[' >> nth_entry[at_c<1>(_val) |= _1] % ',' >> ']' >> day_offset[at_c<2>(_val) = _1])
+        | (wdays[at_c<0>(_val) |= (1<<_1)] >> '[' >> nth_entry[at_c<1>(_val) |= _1] % ',' >> ']')
+        | (wdays >> dash >> wdays) [at_c<0>(_val) |= ((2 << ((_2)-(_1))) - 1) << (_1)]
+        | wdays[at_c<0>(_val) |= (1<<_1)]
+      ;
+      weekday_sequence %= weekday_range % ',';
+      main =
+          (holiday_sequence >> -lit(',') >> weekday_sequence[_val = _1])
+        | weekday_sequence[_val = _1] >> -(-lit(',') >> holiday_sequence)
+        | holiday_sequence
+      ;
+
+      BOOST_SPIRIT_DEBUG_NODE(main);
+      BOOST_SPIRIT_DEBUG_NODE(weekday_sequence);
+      BOOST_SPIRIT_DEBUG_NODE(weekday_range);
+      BOOST_SPIRIT_DEBUG_NODE(holiday_sequence);
+
+    }
+  };
+
+  template <typename Iterator>
+  class time_selector_parser : public qi::grammar<Iterator, std::vector<osmoh::TimeSpan>(), space_type>
+  {
+  protected:
+    qi::rule<Iterator, osmoh::Time(), space_type> hour_minutes;
+    qi::rule<Iterator, osmoh::Time(), space_type> extended_hour_minutes;
+    qi::rule<Iterator, osmoh::Time(), space_type> variable_time;
+    qi::rule<Iterator, osmoh::Time(), space_type> extended_time;
+    qi::rule<Iterator, osmoh::Time(), space_type> time;
+    qi::rule<Iterator, osmoh::TimeSpan(), space_type> timespan;
+    qi::rule<Iterator, std::vector<osmoh::TimeSpan>(), space_type> main;
+
+    class validate_timespan_impl
+    {
+    public:
+      template <typename T>
+      struct result { typedef bool type; };
+
+      bool operator() (osmoh::TimeSpan const & ts) const
+      {
+        using boost::posix_time::ptime;
+        using boost::posix_time::time_duration;
+        using boost::posix_time::hours;
+        using boost::posix_time::minutes;
+        using boost::posix_time::time_period;
+
+        bool result = true;
+        if (ts.period.flags)
+        {
+          time_period tp = osmoh::make_time_period(boost::gregorian::day_clock::local_day(), ts);
+          result = (tp.length() >= time_duration(ts.period.hours, ts.period.minutes, 0 /* seconds */));
+        }
+
+        return result;
+      }
+    };
+
+  public:
+    time_selector_parser() : time_selector_parser::base_type(main)
+    {
+      using qi::int_;
+      using qi::_1;
+      using qi::_2;
+      using qi::_3;
+      using qi::_a;
+      using qi::_val;
+      using qi::lit;
+      using qi::_pass;
+      using charset::char_;
+      using boost::phoenix::at_c;
+
+      phx::function<validate_timespan_impl> const validate_timespan = validate_timespan_impl();
+
+      hour_minutes =
+        hours[at_c<0>(_val) = _1,
+              at_c<2>(_val) |= osmoh::Time::eHours]
+        >> (lit(':') | lit("：") | lit('.'))
+        >> minutes[at_c<1>(_val) = _1,
+                   at_c<2>(_val) |= osmoh::Time::eMinutes]
+      ;
+
+      extended_hour_minutes =
+        exthours[at_c<0>(_val) = _1,
+              at_c<2>(_val) |= osmoh::Time::eHours]
+        >> (lit(':') | lit("：") | lit('.'))
+        >> minutes[at_c<1>(_val) = _1,
+                   at_c<2>(_val) |= osmoh::Time::eMinutes]
+      ;
+
+      variable_time =
+         (lit('(')
+           >> event[at_c<2>(_val) |= _1]
+           >> (
+                 char_('+')[at_c<2>(_val) |= osmoh::Time::ePlus]
+               | char_('-')[at_c<2>(_val) |= osmoh::Time::eMinus]
+              )
+           >> hour_minutes[at_c<2>(_1) |= at_c<2>(_val), _val = _1]
+           >> lit(')')
+         )
+        | event[at_c<2>(_val) |= _1]
+      ;
+
+      extended_time %=
+        extended_hour_minutes
+      | variable_time
+      ;
+
+      time %=
+        hour_minutes
+      | variable_time
+      ;
+
+
+      timespan =
+          (time >> lit('-') >> extended_time >> '/' >> hour_minutes)
+            [at_c<0>(_val) = _1, at_c<1>(_val) = _2, at_c<2>(_val) |= osmoh::Time::eExt,
+             at_c<3>(_val) = _3]
+        | (time >> lit('-') >> extended_time >> '/' >> minutes)
+            [at_c<0>(_val) = _1, at_c<1>(_val) = _2, at_c<2>(_val) |= osmoh::Time::eExt,
+             at_c<1>(at_c<3>(_val)) = _3, at_c<2>(at_c<3>(_val)) = osmoh::Time::eMinutes]
+        | (time >> lit('-') >> extended_time >> char_('+'))
+            [at_c<0>(_val) = _1, at_c<1>(_val) = _2, at_c<2>(_val) |= osmoh::Time::ePlus]
+      | (time >> dash >> extended_time)
+            [at_c<0>(_val) = _1, at_c<1>(_val) = _2]
+        | (time >> char_('+'))
+            [at_c<0>(_val) = _1, at_c<2>(_val) |= osmoh::Time::ePlus]
+        | time [at_c<0>(_val) = _1]
+      ;
+      main %= timespan[_pass = validate_timespan(_1)] % ',';
+
+      BOOST_SPIRIT_DEBUG_NODE(main);
+      BOOST_SPIRIT_DEBUG_NODE(timespan);
+      BOOST_SPIRIT_DEBUG_NODE(time);
+      BOOST_SPIRIT_DEBUG_NODE(extended_time);
+      BOOST_SPIRIT_DEBUG_NODE(variable_time);
+      BOOST_SPIRIT_DEBUG_NODE(extended_hour_minutes);
+    }
+  };
+
+  template <typename Iterator>
+  class selectors_parser : public qi::grammar<Iterator, osmoh::TimeRule(), space_type>
+  {
+  protected:
+    weekday_selector_parser<Iterator> weekday_selector;
+    time_selector_parser<Iterator> time_selector;
+    year_selector_parser<Iterator> year_selector;
+    month_selector_parser<Iterator> month_selector;
+    week_selector_parser<Iterator> week_selector;
+
+    qi::rule<Iterator, std::string(), space_type> comment;
+    qi::rule<Iterator, osmoh::TimeRule(), space_type> small_range_selectors;
+    qi::rule<Iterator, space_type> wide_range_selectors;
+    qi::rule<Iterator, osmoh::TimeRule(), space_type> main;
+  public:
+    selectors_parser() : selectors_parser::base_type(main)
+    {
+      using qi::_1;
+      using qi::_val;
+      using qi::lit;
+      using qi::lexeme;
+      using charset::char_;
+      using boost::phoenix::at_c;
+      using osmoh::State;
+
+
+      comment %= lexeme['"' >> +(char_ - '"') >> '"'];
+      wide_range_selectors = -year_selector >> -month_selector >> -week_selector >> -lit(':') | (comment >> ':');
+      small_range_selectors = -weekday_selector[at_c<0>(_val) = _1] >> -time_selector[at_c<1>(_val) = _1];
+
+      main =
+        lit("24/7")[at_c<0>(at_c<2>(_val)) = State::eOpen]
+        | (wide_range_selectors >> small_range_selectors[_val = _1, at_c<0>(at_c<2>(_val)) = State::eOpen])
+      ;
+      BOOST_SPIRIT_DEBUG_NODE(main);
+      BOOST_SPIRIT_DEBUG_NODE(small_range_selectors);
+      BOOST_SPIRIT_DEBUG_NODE(wide_range_selectors);
+    }
+  };
+
+  template <typename Iterator>
+  class time_domain_parser : public qi::grammar<Iterator, std::vector<osmoh::TimeRule>(), space_type, qi::locals<qi::rule<Iterator, space_type>*>>
+  {
+  protected:
+    selectors_parser<Iterator> selector_sequence;
+
+    qi::rule<Iterator, std::string(), space_type> comment;
+    qi::rule<Iterator, space_type> separator;
+    qi::rule<Iterator, space_type> base_separator;
+    qi::rule<Iterator, osmoh::TimeRule(), space_type> rule_sequence;
+    qi::rule<Iterator, osmoh::State(), space_type> rule_modifier;
+    qi::rule<Iterator, std::vector<osmoh::TimeRule>(), space_type, qi::locals<qi::rule<Iterator, space_type>*>> main;
+
+  public:
+    time_domain_parser() : time_domain_parser::base_type(main)
+    {
+      using qi::lit;
+      using qi::lexeme;
+      using qi::_1;
+      using qi::_a;
+      using qi::_val;
+      using charset::char_;
+      using boost::phoenix::at_c;
+      using qi::lazy;
+      using qi::eps;
+      using osmoh::State;
+
+      comment %= lexeme['"' >> +(char_ - '"') >> '"'] | lexeme['(' >> +(char_ - ')') >> ')'];
+      base_separator = lit(';') | lit("||");
+      separator = lit(';') | lit("||") | lit(',');
+
+      rule_modifier =
+          (charset::no_case[lit("open")][at_c<0>(_val) = State::eOpen] >> -comment[at_c<1>(_val) = _1])
+        | ((charset::no_case[lit("closed") | lit("off")])[at_c<0>(_val) = State::eClosed] >> -comment[at_c<1>(_val) = _1])
+        | (charset::no_case[lit("unknown")][at_c<0>(_val) = State::eUnknown] >> -comment[at_c<1>(_val) = _1])
+        | comment[at_c<0>(_val) = State::eUnknown, at_c<1>(_val) = _1]
+      ;
+
+      rule_sequence =
+        selector_sequence[_val = _1] >> -rule_modifier[at_c<2>(_val) = _1, at_c<3>(_val) = 1];
+
+      main %= rule_sequence[_a = phx::val(&base_separator), phx::if_(at_c<3>(_1) || phx::size(at_c<1>(_1)))[_a = phx::val(&separator)]] % lazy(*_a);
+
+      BOOST_SPIRIT_DEBUG_NODE(main);
+      BOOST_SPIRIT_DEBUG_NODE(rule_sequence);
+      BOOST_SPIRIT_DEBUG_NODE(rule_modifier);
+    }
+  };
+
+  template <typename Iterator>
+  bool parse_timerange(Iterator first, Iterator last, std::vector<osmoh::TimeRule> & context)
+  {
+    using qi::double_;
+    using qi::phrase_parse;
+    using charset::space;
+
+    time_domain_parser<Iterator> time_domain;
+
+    bool r = phrase_parse(
+                          first,       /* start iterator */
+                          last,        /* end iterator */
+                          time_domain, /* the parser */
+                          space,       /* the skip-parser */
+                          context      /* result storage */
+                          );
+
+    if (first != last) // fail if we did not get a full match
+      return false;
+    return r;
+  }
+
+  bool check_weekday(osmoh::Weekdays const & wd, boost::gregorian::date const & d)
+  {
+    using namespace boost::gregorian;
+
+    bool hit = false;
+    typedef nth_day_of_the_week_in_month nth_dow;
+    if (wd.nth)
+    {
+      for (uint8_t i = 0; (wd.weekdays & (0xFF ^ ((1 << i) - 1))); ++i)
+      {
+        if (!(wd.weekdays & (1 << i)))
+          continue;
+
+        uint8_t a = wd.nth & 0xFF;
+        for (size_t j = 0; (a & (0xFF ^ ((1 << j) - 1))); ++j)
+        {
+          if (a & (1 << j))
+          {
+            nth_dow ndm(nth_dow::week_num(j + 1), nth_dow::day_of_week_type((i + 1 == 7) ? 0 : (i + 1)), d.month());
+            hit |= (d == ndm.get_date(d.year()));
+          }
+        }
+        a = (wd.nth >> 8) & 0xFF;
+        for (size_t j = 0; (a & (0xFF ^ ((1 << j) - 1))); ++j)
+        {
+          if (a & (1 << j))
+          {
+            last_day_of_the_week_in_month lwdm(nth_dow::day_of_week_type((i + 1 == 7) ? 0 : (i + 1)), d.month());
+            hit |= (d == ((lwdm.get_date(d.year()) - weeks(j)) + days(wd.offset)));
+          }
+        }
+      }
+    }
+    else
+    {
+      for (uint8_t i = 0; (wd.weekdays & (0xFF ^ ((1 << i) - 1))); ++i)
+      {
+        if (!(wd.weekdays & (1 << i)))
+          continue;
+        hit |= (d.day_of_week() == ((i + 1 == 7) ? 0 : (i + 1)));
+      }
+    }
+//    std::cout << d.day_of_week() << " " <<  d << " --> " << wd << (hit ? " hit" : " miss") << std::endl; // very useful in debug
+    return hit;
+  }
+
+  bool check_timespan(osmoh::TimeSpan const &ts, boost::gregorian::date const & d, boost::posix_time::ptime const & p)
+  {
+    using boost::posix_time::ptime;
+    using boost::posix_time::hours;
+    using boost::posix_time::minutes;
+    using boost::posix_time::time_period;
+
+    time_period tp = osmoh::make_time_period(d, ts);
+//    std::cout << ts << "\t" << tp << "(" << p << ")" << (tp.contains(p) ? " hit" : " miss") << std::endl; // very useful in debug
+    return tp.contains(p);
+  }
+
+  bool check_rule(osmoh::TimeRule const & r, std::tm const & stm, std::ostream * hitcontext = nullptr)
+  {
+    bool next = false;
+
+    // check 24/7
+    if (r.weekdays.empty() && r.timespan.empty() && r.state.state == osmoh::State::eOpen)
+      return true;
+
+    boost::gregorian::date date = boost::gregorian::date_from_tm(stm);
+    boost::posix_time::ptime pt = boost::posix_time::ptime_from_tm(stm);
+
+    next = r.weekdays.empty();
+    for (auto const & wd : r.weekdays)
+    {
+      if (check_weekday(wd, date))
+      {
+        if (hitcontext)
+          *hitcontext << wd << " ";
+        next = true;
+      }
+    }
+    if (!next)
+      return next;
+    
+    next = r.timespan.empty();
+    for (auto const & ts : r.timespan)
+    {
+      if (check_timespan(ts, date, pt))
+      {
+        if (hitcontext)
+          *hitcontext << ts << " ";
+        next = true;
+      }
+    }
+    return next && !(r.timespan.empty() && r.weekdays.empty());
+  }
+
+
+} // anonymouse namespace
+
+OSMTimeRange::OSMTimeRange(std::string const & rules)
+: m_sourceString(rules)
+, m_valid(false)
+, m_state(osmoh::State::eUnknown)
+{
+  parse();
+}
+
+void OSMTimeRange::parse()
+{
+  m_valid = parse_timerange(m_sourceString.begin(), m_sourceString.end(), m_rules);
+}
+
+OSMTimeRange & OSMTimeRange::operator () (time_t timestamp)
+{
+  std::tm stm = *localtime(&timestamp);
+
+  osmoh::State::EState true_state[3][3] = {
+    {osmoh::State::eUnknown, osmoh::State::eClosed, osmoh::State::eOpen},
+    {osmoh::State::eClosed , osmoh::State::eClosed, osmoh::State::eOpen},
+    {osmoh::State::eOpen   , osmoh::State::eClosed, osmoh::State::eOpen}
+  };
+
+  osmoh::State::EState false_state[3][3] = {
+    {osmoh::State::eUnknown, osmoh::State::eOpen   , osmoh::State::eClosed},
+    {osmoh::State::eClosed , osmoh::State::eClosed , osmoh::State::eClosed},
+    {osmoh::State::eOpen   , osmoh::State::eOpen   , osmoh::State::eOpen}
+  };
+
+  m_state = osmoh::State::eUnknown;
+  m_comment = std::string();
+
+  for (auto const & el : m_rules)
+  {
+    bool hit = false;
+    if ((hit = check_rule(el, stm)))
+    {
+      m_state = true_state[m_state][el.state.state];
+      m_comment = el.state.comment;
+    }
+    else
+    {
+      m_state = false_state[m_state][el.state.state];
+    }
+//    char const * st[] = {"unknown", "closed", "open"};
+//    std::cout << "-[" << hit << "]-------------------[" << el << "]: " << st[m_state] << "--------------------" << std::endl; // very useful in debug
+  }
+  return *this;
+}
+
+OSMTimeRange & OSMTimeRange::operator () (std::string const & timestr, char const * timefmt)
+{
+  std::tm when = {0};
+  std::stringstream ss(timestr);
+  ss >> std::get_time(&when, timefmt);
+  return this->operator()(std::mktime(&when));
+}

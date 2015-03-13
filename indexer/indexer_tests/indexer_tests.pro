@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = indexer platform geometry coding base protobuf tomcrypt
+DEPENDENCIES = indexer platform geometry coding base protobuf tomcrypt opening_hours
 include($$ROOT_DIR/common.pri)
 
 QT *= core
@@ -32,6 +32,7 @@ SOURCES += \
     interval_index_test.cpp \
     mercator_test.cpp \
     mwm_set_test.cpp \
+    opening_hours_test.cpp \
     point_to_int64_test.cpp \
     scales_test.cpp \
     search_string_utils_test.cpp \

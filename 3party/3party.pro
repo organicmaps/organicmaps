@@ -3,7 +3,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS = freetype fribidi zlib bzip2 jansson tomcrypt protobuf osrm expat \
-    succinct
+    succinct opening_hours \
+
 
 !iphone*:!tizen*:!android* {
   SUBDIRS += gflags   \
