@@ -752,7 +752,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   protected void onSaveInstanceState(Bundle outState)
   {
     if (mRlTurnByTurnBox.getVisibility() == View.VISIBLE)
-      outState.putBoolean(STATE_ROUTE_FOLLOWED,true);
+      outState.putBoolean(STATE_ROUTE_FOLLOWED, true);
     if (mPlacePage.getState() != State.HIDDEN)
     {
       outState.putBoolean(STATE_PP_OPENED, true);
@@ -1214,6 +1214,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
             mPlacePage.setMapObject(apiPoint);
             mPlacePage.setState(State.PREVIEW);
             mRlStartRouting.setVisibility(View.VISIBLE);
+            mTvStartRouting.setVisibility(View.VISIBLE);
+            mIvStartRouting.setVisibility(View.VISIBLE);
             mPbRoutingProgress.setVisibility(View.GONE);
             if (popFragment() && isMapFaded())
               fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1242,6 +1244,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mPlacePage.setMapObject(poi);
           mPlacePage.setState(State.PREVIEW);
           mRlStartRouting.setVisibility(View.VISIBLE);
+          mTvStartRouting.setVisibility(View.VISIBLE);
+          mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1265,6 +1269,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mPlacePage.setMapObject(b);
           mPlacePage.setState(State.PREVIEW);
           mRlStartRouting.setVisibility(View.VISIBLE);
+          mTvStartRouting.setVisibility(View.VISIBLE);
+          mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
@@ -1314,6 +1320,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mPlacePage.setMapObject(sr);
           mPlacePage.setState(State.PREVIEW);
           mRlStartRouting.setVisibility(View.VISIBLE);
+          mTvStartRouting.setVisibility(View.VISIBLE);
+          mIvStartRouting.setVisibility(View.VISIBLE);
           mPbRoutingProgress.setVisibility(View.GONE);
           if (popFragment() && isMapFaded())
             fadeMap(FADE_VIEW_ALPHA, 0);
