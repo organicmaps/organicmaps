@@ -16,7 +16,6 @@
 #include "../base/macros.hpp"
 #include "../base/stl_add.hpp"
 
-#include "../std/unique_ptr.hpp"
 #include "../std/algorithm.hpp"
 
 ////////////////////////////////////////////////////////////////////////
@@ -138,7 +137,7 @@ void UserMarkContainer::ForEachInRect(m2::RectD const & rect, ToDo toDo) const
 {
   for (size_t i = 0; i < m_userMarks.size(); ++i)
     if (rect.IsPointInside(m_userMarks[i]->GetOrg()))
-      toDo(m_userMarks[i]);
+      toDo(m_userMarks[i].get());
 }
 
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
@@ -166,9 +165,6 @@ void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cach
 
 void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 {
-  for (size_t i = skipCount; i < m_userMarks.size(); ++i)
-    delete m_userMarks[i];
-
   if (skipCount < m_userMarks.size())
     m_userMarks.erase(m_userMarks.begin() + skipCount, m_userMarks.end());
 }
@@ -202,9 +198,8 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
 
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
-  unique_ptr<UserMark> mark(AllocateUserMark(ptOrg));
-  m_userMarks.push_front(mark.get());
-  return mark.release();
+  m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
+  return m_userMarks.front().get();
 }
 
 size_t UserMarkContainer::GetUserMarkCount() const
@@ -215,40 +210,38 @@ size_t UserMarkContainer::GetUserMarkCount() const
 UserMark const * UserMarkContainer::GetUserMark(size_t index) const
 {
   ASSERT_LESS(index, m_userMarks.size(), ());
-  return m_userMarks[index];
+  return m_userMarks[index].get();
 }
 
 UserMark * UserMarkContainer::GetUserMark(size_t index)
 {
   ASSERT_LESS(index, m_userMarks.size(), ());
-  return m_userMarks[index];
+  return m_userMarks[index].get();
 }
 
 void UserMarkContainer::DeleteUserMark(size_t index)
 {
   ASSERT_LESS(index, m_userMarks.size(), ());
   if (index < m_userMarks.size())
-  {
-    delete m_userMarks[index];
     m_userMarks.erase(m_userMarks.begin() + index);
-  }
   else
-  {
     LOG(LWARNING, ("Trying to delete non-existing item at index", index));
-  }
 }
 
 void UserMarkContainer::DeleteUserMark(UserMark const * mark)
 {
-  UserMarksListT::iterator it = find(m_userMarks.begin(), m_userMarks.end(), mark);
-  if (it != m_userMarks.end())
-    DeleteUserMark(distance(m_userMarks.begin(), it));
+  size_t index = FindUserMark(mark);
+  if (index != m_userMarks.size())
+    DeleteUserMark(index);
 }
 
 size_t UserMarkContainer::FindUserMark(UserMark const * mark)
 {
-  return distance(m_userMarks.begin(),
-                  find(m_userMarks.begin(), m_userMarks.end(), mark));
+  auto it = find_if(m_userMarks.begin(), m_userMarks.end(), [&mark](unique_ptr<UserMark> const & p)
+                    {
+                      return p.get() == mark;
+                    });
+  return distance(m_userMarks.begin(), it);
 }
 
 SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)

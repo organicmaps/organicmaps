@@ -9,6 +9,7 @@
 
 #include "../std/deque.hpp"
 #include "../std/noncopyable.hpp"
+#include "../std/unique_ptr.hpp"
 
 class Framework;
 
@@ -26,7 +27,7 @@ namespace graphics
 class UserMarkContainer : private noncopyable
 {
 public:
-  using UserMarksListT = deque<UserMark *>;
+  using UserMarksListT = deque<unique_ptr<UserMark>>;
 
   class Controller
   {

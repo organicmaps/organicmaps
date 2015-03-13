@@ -12,7 +12,7 @@
 #include "../../coding/internal/file_data.hpp"
 
 #include "../../std/fstream.hpp"
-
+#include "../../std/unique_ptr.hpp"
 
 namespace
 {
@@ -567,7 +567,7 @@ UNIT_TEST(Bookmarks_InnerFolder)
 UNIT_TEST(BookmarkCategory_EmptyName)
 {
   Framework framework;
-  BookmarkCategory * pCat = new BookmarkCategory("", framework);
+  unique_ptr<BookmarkCategory> pCat(new BookmarkCategory("", framework));
   pCat->AddBookmark(m2::PointD(0, 0), BookmarkData("", "placemark-red"));
   pCat->SaveToKMLFile();
 
