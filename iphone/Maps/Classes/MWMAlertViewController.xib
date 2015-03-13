@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMAlertViewController">
             <connections>
+                <outlet property="tap" destination="4vk-W8-gn2" id="ZVV-4d-foZ"/>
                 <outlet property="view" destination="PTX-3C-07U" id="OUb-QU-9sV"/>
             </connections>
         </placeholder>

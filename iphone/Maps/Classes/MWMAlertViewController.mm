@@ -13,8 +13,9 @@
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
-@interface MWMAlertViewController ()
+@interface MWMAlertViewController () <UIGestureRecognizerDelegate>
 @property (nonatomic, weak, readwrite) UIViewController *ownerViewController;
+@property (nonatomic, weak) IBOutlet UITapGestureRecognizer *tap;
 @end
 
 @implementation MWMAlertViewController
@@ -30,6 +31,11 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.frame = UIApplication.sharedApplication.delegate.window.bounds;
+  
+  //Need only for iOS 5
+  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 6) {
+    self.tap.delegate = self;
+  }
 }
 
 #pragma mark - Actions
@@ -77,6 +83,15 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (IBAction)backgroundPan:(id)sender {
   return;
+}
+
+#pragma mark - Gesture Recognizer Delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+  if ([touch.view isKindOfClass:[UIControl class]]) {
+    [(UIButton *)touch.view sendActionsForControlEvents:UIControlEventTouchUpInside];
+  }
+  return YES;
 }
 
 @end

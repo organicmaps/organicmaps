@@ -813,9 +813,7 @@
 - (void)showDownloaderDialogWithCountries:(vector<storage::TIndex> const &)countries {
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
   if (countries.size()) {
-    self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
-    alert.delegate = self.downloaderManager;
-    [alert presentAlertWithType:MWMAlertTypeDownloadTransitMap];
+    [self presentAlert:alert withCountriest:countries];
   } else {
     [alert presentAlertWithType:MWMAlertTypeDownloadAllMaps];
   }
@@ -823,9 +821,17 @@
 
 - (void)showRouteNotFoundDialogWithCountries:(vector<storage::TIndex> const &)countries {
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  if (!countries.size()) {
+  if (countries.size()) {
+    [self presentAlert:alert withCountriest:countries];
+  } else {
     [alert presentAlertWithType:MWMAlertTypeRouteNotFoundDefault];
   }
+}
+
+- (void)presentAlert:(MWMAlertViewController *)alert withCountriest:(vector<storage::TIndex> const&)countries {
+  self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
+  alert.delegate = self.downloaderManager;
+  [alert presentAlertWithType:MWMAlertTypeDownloadTransitMap];
 }
 
 #pragma mark - Getters
