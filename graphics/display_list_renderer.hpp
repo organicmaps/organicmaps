@@ -29,9 +29,12 @@ namespace graphics
     typedef gl::BaseTexture const * TextureRef;
     typedef pair<gl::BufferObject const *, gl::BufferObject const *> StorageRef;
 
-    typedef map<TextureRef, pair<int, shared_ptr<FreeTextureCmd> > > DelayedFreeTextureMap;
-    typedef map<StorageRef, pair<int, shared_ptr<FreeStorageCmd> > > DelayedFreeStorageMap;
-    typedef map<StorageRef, pair<int, shared_ptr<DiscardStorageCmd> > > DelayedDiscardStorageMap;
+    template <typename TKey, typename TCommand>
+    using DelayedCommandMap = map<TKey, pair<int, shared_ptr<TCommand>>>;
+
+    using DelayedFreeTextureMap = DelayedCommandMap<TextureRef, FreeTextureCmd>;
+    using DelayedFreeStorageMap = DelayedCommandMap<StorageRef, FreeStorageCmd>;
+    using DelayedDiscardStorageMap = DelayedCommandMap<StorageRef, DiscardStorageCmd>;
 
     DelayedFreeTextureMap m_freeTextureCmds;
     DelayedFreeStorageMap m_freeStorageCmds;

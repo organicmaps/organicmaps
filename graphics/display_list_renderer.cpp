@@ -3,6 +3,22 @@
 
 namespace graphics
 {
+
+  namespace
+  {
+    template<typename TKey, typename TCommand>
+    void InsertFreeCommand(DisplayListRenderer::DelayedCommandMap<TKey, TCommand> & map,
+                           TKey const & key, shared_ptr<TCommand> const & command)
+    {
+      /// Before free resource call we must (and it is) call drawGeometry with this resource
+      /// It creates node in DelayedCommandMap with empty FreeCommand and sets counter to 1
+      /// or simply increments counter. Here we check that node exists
+      auto it = map.find(key);
+      ASSERT(it != map.end(), ());
+      it->second.second = command;
+    }
+  }
+
   DisplayListRenderer::DisplayListRenderer(Params const & p)
     : base_t(p),
       m_displayList(0)
@@ -18,13 +34,13 @@ namespace graphics
   void DisplayListRenderer::removeStorageRef(StorageRef const & storage)
   {
 #ifdef DEBUG
-    for (DelayedDiscardStorageMap::value_type const & v : m_discardStorageCmds)
+    for (auto const & v : m_discardStorageCmds)
     {
       ASSERT(v.second.first > 0, ());
       ASSERT(v.second.second != nullptr, ());
     }
 
-    for (DelayedFreeStorageMap::value_type const & v : m_freeStorageCmds)
+    for (auto const & v : m_freeStorageCmds)
     {
       ASSERT(v.second.first > 0, ());
       ASSERT(v.second.second != nullptr, ());
@@ -153,13 +169,8 @@ namespace graphics
 
       command->m_texture = texture;
       command->m_texturePool = texturePool;
-
-      /// Before free texture call we must (and it is) call drawGeometry with this texture
-      /// It's create node in DelayedFreeTextureMap with empty FreeCommand and set counter to 1
-      /// or simple increment counter. Here we check, that node exists
-      DelayedFreeTextureMap::iterator it = m_freeTextureCmds.find(texture.get());
-      ASSERT(it != m_freeTextureCmds.end(), ());
-      it->second.second = command;
+      TextureRef texRef = texture.get();
+      InsertFreeCommand(m_freeTextureCmds, texRef, command);
     }
     else
       base_t::freeTexture(texture, texturePool);
@@ -176,13 +187,7 @@ namespace graphics
       command->m_storagePool = storagePool;
 
       StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
-
-      /// Before free texture call we must (and it is) call drawGeometry with this storage
-      /// It's create node in DelayedFreeStorageMap with empty FreeCommand and set counter to 1
-      /// or simple increment counter. Here we check, that node exists
-      DelayedFreeStorageMap::iterator it = m_freeStorageCmds.find(sref);
-      ASSERT(it != m_freeStorageCmds.end(), ());
-      it->second.second = command;
+      InsertFreeCommand(m_freeStorageCmds, sref, command);
     }
     else
       base_t::freeStorage(storage, storagePool);
@@ -211,13 +216,7 @@ namespace graphics
       cmd->m_storage = storage;
 
       StorageRef sref(storage.m_vertices.get(), storage.m_indices.get());
-
-      /// Before free texture call we must (and it is) call drawGeometry with this storage
-      /// It's create node in DelayedFreeStorageMap with empty FreeCommand and set counter to 1
-      /// or simple increment counter. Here we check, that node exists
-      DelayedDiscardStorageMap::iterator it = m_discardStorageCmds.find(sref);
-      ASSERT(it != m_discardStorageCmds.end(), ());
-      it->second.second = cmd;
+      InsertFreeCommand(m_discardStorageCmds, sref, cmd);
     }
     else
       base_t::discardStorage(storage);
