@@ -6,6 +6,8 @@
 #include "interval_index_builder.hpp"
 #include "cell_id.hpp"
 
+#include "../defines.hpp"
+
 #include "../coding/dd_vector.hpp"
 #include "../coding/file_sort.hpp"
 #include "../coding/var_serial_vector.hpp"
@@ -147,12 +149,13 @@ inline void IndexScales(uint32_t bucketsCount,
     LOG(LINFO, ("Building scale index for bucket:", bucket));
 
     uint32_t numFeatures = 0;
+    string const cells2featureFile = tmpFilePrefix + CELL2FEATURE_SORTED_EXT;
     {
-      FileWriter cellsToFeaturesWriter(tmpFilePrefix + ".c2f.sorted");
+      FileWriter cellsToFeaturesWriter(cells2featureFile);
 
       typedef FileSorter<CellFeaturePair, WriterFunctor<FileWriter> > SorterType;
       WriterFunctor<FileWriter> out(cellsToFeaturesWriter);
-      SorterType sorter(1024*1024, tmpFilePrefix + ".c2f.tmp", out);
+      SorterType sorter(1024*1024, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
       featuresVector.ForEachOffset(
             FeatureCoverer<SorterType>(skipped, bucket, codingScale, sorter, numFeatures));
       // LOG(LINFO, ("Sorting..."));
@@ -161,7 +164,7 @@ inline void IndexScales(uint32_t bucketsCount,
 
     // LOG(LINFO, ("Indexing..."));
     {
-      FileReader reader(tmpFilePrefix + ".c2f.sorted");
+      FileReader reader(cells2featureFile);
       uint64_t const numCells = reader.Size() / sizeof(CellFeaturePair);
       DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
       LOG(LINFO, ("Being indexed", "features:", numFeatures, "cells:", numCells,
@@ -171,7 +174,7 @@ inline void IndexScales(uint32_t bucketsCount,
                          RectId::DEPTH_LEVELS * 2 + 1);
     }
 
-    FileWriter::DeleteFileX(tmpFilePrefix + ".c2f.sorted");
+    FileWriter::DeleteFileX(cells2featureFile);
     // LOG(LINFO, ("Indexing done."));
     recordWriter.FinishRecord();
   }

@@ -92,7 +92,8 @@ namespace feature
 
     unique_ptr<FileWriter> m_MetadataWriter;
 
-    vector<pair<uint32_t, uint32_t>> m_MetadataIndex;
+    struct MetadataIndexValueT { uint32_t key, value; };
+    vector<MetadataIndexValueT> m_MetadataIndex;
 
     DataHeader m_header;
 
@@ -154,13 +155,21 @@ namespace feature
         FileWriter::DeleteFileX(trgFile);
       }
 
+      {
+        FileWriter w = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
+        for (auto const & v : m_MetadataIndex)
+        {
+          WriteToSink(w, v.key);
+          WriteToSink(w, v.value);
+        }
+      }
 
-      FileWriter metadata_index = m_writer.GetWriter(METADATA_INDEX_FILE_TAG);
-      metadata_index.Write(m_MetadataIndex.data(), m_MetadataIndex.size()*(sizeof(uint32_t)*2));
       m_MetadataWriter->Flush();
       m_writer.Write(m_MetadataWriter->GetName(), METADATA_FILE_TAG);
 
       m_writer.Finish();
+
+      FileWriter::DeleteFileX(m_MetadataWriter->GetName());
 
       if (m_header.GetType() == DataHeader::country)
       {
@@ -498,7 +507,7 @@ namespace feature
         if (!fb.GetMetadata().Empty())
         {
           uint64_t offset = m_MetadataWriter->Pos();
-          m_MetadataIndex.push_back(make_pair(ftID, static_cast<uint32_t>(offset)));
+          m_MetadataIndex.push_back({ ftID, static_cast<uint32_t>(offset) });
           fb.GetMetadata().SerializeToMWM(*m_MetadataWriter);
         }
 

@@ -12,19 +12,21 @@ namespace indexer
   {
     try
     {
-      // First - open container for writing (it can be reallocated).
-      FilesContainerW writeCont(datFile, FileWriter::OP_WRITE_EXISTING);
-      FileWriter writer = writeCont.GetWriter(INDEX_FILE_TAG);
+      string const idxFileName(tmpFile + GEOM_INDEX_TMP_EXT);
+      {
+        FilesContainerR readCont(datFile);
 
-      // Second - open container for reading.
-      FilesContainerR readCont(datFile);
+        feature::DataHeader header;
+        header.Load(readCont.GetReader(HEADER_FILE_TAG));
 
-      feature::DataHeader header;
-      header.Load(readCont.GetReader(HEADER_FILE_TAG));
+        FeaturesVector featuresVector(readCont, header);
+        FileWriter writer(idxFileName);
 
-      FeaturesVector featuresVector(readCont, header);
+        BuildIndex(header.GetLastScale() + 1, header.GetLastScale(), featuresVector, writer, tmpFile);
+      }
 
-      BuildIndex(header.GetLastScale() + 1, header.GetLastScale(), featuresVector, writer, tmpFile);
+      FilesContainerW(datFile, FileWriter::OP_WRITE_EXISTING).Write(idxFileName, INDEX_FILE_TAG);
+      FileWriter::DeleteFileX(idxFileName);
     }
     catch (Reader::Exception const & e)
     {

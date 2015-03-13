@@ -39,6 +39,11 @@
 #define BOOKMARKS_FILE_EXTENSION ".kml"
 #define ROUTING_FILE_EXTENSION ".routing"
 
+#define GEOM_INDEX_TMP_EXT ".geomidx.tmp"
+#define CELL2FEATURE_SORTED_EXT ".c2f.sorted"
+#define CELL2FEATURE_TMP_EXT ".c2f.tmp"
+
+
 #define COUNTRIES_FILE  "countries.txt"
 
 #define WORLD_FILE_NAME "World"
