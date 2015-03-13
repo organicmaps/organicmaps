@@ -751,7 +751,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(Bundle outState)
   {
-
+    if (mRlTurnByTurnBox.getVisibility() == View.VISIBLE)
+      outState.putBoolean(STATE_ROUTE_FOLLOWED,true);
     if (mPlacePage.getState() != State.HIDDEN)
     {
       outState.putBoolean(STATE_PP_OPENED, true);
