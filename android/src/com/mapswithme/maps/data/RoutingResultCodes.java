@@ -29,9 +29,8 @@ public class RoutingResultCodes
       break;
     case INCONSISTENT_MWM_ROUTE:
     case ROUTING_FILE_NOT_EXIST:
-      // FIXME use correct translated title
-      titleRes = R.string.get_it_now;
-      messageRes = R.string.routing_failed_has_no_routing_file;
+      titleRes = R.string.routing_download_maps_along;
+      messageRes = R.string.routing_requires_all_map;
       break;
     case START_POINT_NOT_FOUND:
       messageRes = R.string.routing_failed_start_point_not_found;

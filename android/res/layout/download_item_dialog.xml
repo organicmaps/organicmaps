@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="20dp"
     android:layout_width="match_parent"
-    android:layout_marginTop="20dp"
-    android:layout_height="60dp">
+    android:layout_height="wrap_content">
 
-  <View
-      android:id="@+id/divider_top"
-      android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:background="?android:attr/listDivider"/>
-
-  <TextView
-      android:id="@+id/tv__title"
+  <RelativeLayout
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_below="@id/divider_top"
-      android:layout_marginLeft="@dimen/margin_medium_and_half"
-      android:layout_marginTop="@dimen/margin_small"
-      android:maxLines="1"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-      android:textColor="@android:color/black"/>
+      android:layout_height="60dp"
+      android:background="@color/divider_standard">
 
-  <TextView
-      android:id="@+id/tv__subtitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignLeft="@id/tv__title"
-      android:layout_below="@id/tv__title"
-      android:maxLines="1"
-      android:textAppearance="@style/TextAppearance.AppCompat"/>
+    <View
+        android:id="@+id/divider_top"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="?android:attr/listDivider"/>
 
-  <TextView
-      android:id="@+id/tv__size"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/tv__title"
-      android:layout_alignParentRight="true"
-      android:layout_marginRight="@dimen/margin_medium_and_half"
-      android:maxLines="1"
-      android:textAppearance="@style/TextAppearance.AppCompat"
-      android:textColor="@color/downloader_green"/>
+    <TextView
+        android:id="@+id/tv__title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/margin_medium_and_half"
+        android:layout_centerVertical="true"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"/>
 
-  <View
-      android:id="@+id/divider_bottom"
-      android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:layout_marginTop="59dp"
-      android:background="?android:attr/listDivider"/>
+    <TextView
+        android:id="@+id/tv__size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_medium_and_half"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/downloader_green"/>
 
-</RelativeLayout>
+    <View
+        android:id="@+id/divider_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/listDivider"/>
+
+  </RelativeLayout>
+
+</FrameLayout>
 
