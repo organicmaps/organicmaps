@@ -1346,7 +1346,7 @@ void OsrmRouter::GetPossibleTurns(NodeID node,
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     m2::PointD const p2 = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
-    ASSERT_EQUAL(p, ft.GetPoint(seg.m_pointStart), ());
+    ASSERT(m2::AlmostEqual(p, ft.GetPoint(seg.m_pointStart)), ());
 
     double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
 
