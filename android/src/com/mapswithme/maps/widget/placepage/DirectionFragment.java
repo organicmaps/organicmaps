@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.UiUtils;
 
 public class DirectionFragment extends DialogFragment implements LocationHelper.LocationListener
 {
@@ -44,6 +44,15 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     final View root = inflater.inflate(R.layout.fragment_direction, container, false);
+    root.setOnTouchListener(new View.OnTouchListener()
+    {
+      @Override
+      public boolean onTouch(View v, MotionEvent event)
+      {
+        dismiss();
+        return false;
+      }
+    });
     initViews(root);
     return root;
   }
@@ -79,7 +88,6 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
     super.onResume();
     LocationHelper.INSTANCE.addLocationListener(this);
     refreshViews();
-    UiUtils.lockScreenOrientation(getActivity());
   }
 
   @Override
@@ -87,7 +95,6 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
   {
     super.onPause();
     LocationHelper.INSTANCE.removeLocationListener(this);
-    UiUtils.unlockScreenOrientation(getActivity());
   }
 
   @Override

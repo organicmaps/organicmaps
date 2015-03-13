@@ -345,19 +345,6 @@ public final class UiUtils
     toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
   }
 
-  public static void lockScreenOrientation(Activity activity)
-  {
-    if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    else
-      activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-  }
-
-  public static void unlockScreenOrientation(FragmentActivity activity)
-  {
-    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-  }
-
   public static void showAlertDialog(Activity activity, int titleId)
   {
     new AlertDialog.Builder(activity)

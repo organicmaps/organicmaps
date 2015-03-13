@@ -91,7 +91,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private boolean mIsLatLonDms;
   private static final String PREF_USE_DMS = "use_dms";
 
-  public static enum State
+  public enum State
   {
     HIDDEN,
     PREVIEW,
