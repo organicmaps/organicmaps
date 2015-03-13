@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Click g+ to tell your friends about the app.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Download maps along route";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Get map";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Download updated map and routing data to get all MAPS.ME features.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Get routing data";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Additional data required to create routes from your location.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Creating a route requires all the maps from your location to destination downloaded and updated.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Not enough space";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "You need to download %@ MB, but only %@ MB are available.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "You are going to download %@ MB using Mobile Data (in Roaming). This may result in additional charges, depending on your operator mobile data plan.";

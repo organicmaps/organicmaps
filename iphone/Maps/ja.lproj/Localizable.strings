@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "g+をクリックして友達にこのアプリを教えてあげましょう。";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "ルート上の地図をダウンロード";
+
+/* Text for routing error dialog */
+"routing_download_map" = "地図を入手";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、MAPS.MEの全機能をご利用ください。";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "ルートデータを入手";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "現在位置からのルート作成に必要な追加データです。";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "ルートの作成には現在位置から目的地までのすべての地図をダウンロードし、最新のものにする必要があります。";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "空き容量が足りません";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "%@ MBダウンロードする必要がありますが、%@ MBしか空いていません。";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "携帯のデータ通信（ローミング）を使用して%@ MBダウンロードしようとしています。これにより、ご利用の通信会社の携帯データプランによっては追加料金が発生する可能性があります。";

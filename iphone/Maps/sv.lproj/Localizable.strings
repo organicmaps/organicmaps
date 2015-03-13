@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Klicka på g+ för att berätta om appen för dina vänner.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Ladda ned kartor längs vägen";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Hämta karta";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla MAPS.ME funktioner.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Hämta navigeringsdata";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Ytterligare data krävs för att skapa navigeringsvägar från din plats";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "För lite utrymme kvar";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Du behöver ladda ner %@ MB men du har bara %@ MB tillgänglig";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Du kommer ladda ner %@ MB med mobildata (i roamingläge). Detta kan resultera i extra kostnader beroende på din operatörs mobildataplan.";

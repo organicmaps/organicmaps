@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Нажмите g+, чтобы рассказать друзьям о приложении";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Загрузите все карты по пути следования";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Загрузи карту";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Загрузи карту и маршруты, чтобы получить доступ ко всем возможностям приложения.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Загрузи маршруты";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Загрузи данные для построения маршрутов";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Загрузи все карты по пути следования";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Недостаточно места";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Необходимо загрузить %@ МБ, но есть место только для %@ МБ";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "(Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета";

@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Klik op g+ om je vrienden te informeren over de app.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Download kaarten op de route";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Krijg kaart";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Download bijgewerkte kaart en routegegevens om alle functies van MAPS.ME te krijgen.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Krijg routegegevens";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Aanvullende gegevens die nodig zijn om routes te maken vanaf uw locatie.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Niet genoeg ruimte";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "U dient %@ MB te downloaden, maar er is slechts %@ MB beschikbaar.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "U gaat %@ MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.";

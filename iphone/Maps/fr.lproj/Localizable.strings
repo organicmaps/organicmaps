@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Clique sur g+ pour parler de l'appli à tes amis.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Téléchargez des cartes le long du trajet";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Téléchargez des cartes";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Recevez des données de routage";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "la création d'un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Pas assez d'espace";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Vous devez télécharger %@ Mo, mais seulement %@ Mo sont disponibles.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Vous allez télécharger 2 840 Mo à l'aide de données mobiles (frais d' itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.";

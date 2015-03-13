@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Klick auf g+, um deinen Freunden über die App zu erzählen.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Karten entlang der Route herunterladen";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Karte abrufen";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Laden Sie die aktualisierte Karte und Daten der Routenplanung herunter, um alle MAPS.ME-Funktionen zu nutzen.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Routenplanungsdaten abrufen";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Es sind Zusatzdaten erforderlich, um eine Routenplanung ab Ihrem Standort zu erstellen.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Zum Erstellen einer Route müssen alle Karten von Ihrem Standort bis zum Zielt heruntergeladen und aktualisiert worden sein.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Nicht genug Speicherplatz";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Der Download erfordert %@ MB, es sind jedoch nur %@ MB verfügbar.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Sie sind im Begriff, %@ MB unter Nutzung von Mobile Data (in Roaming) herunterzuladen. Dies kann je nach dem Anbieter Ihres mobilen Datentarifs zusätzliche Kosten verursachen.";

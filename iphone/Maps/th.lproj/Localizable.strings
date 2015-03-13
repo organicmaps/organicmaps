@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "คลิก g+ เพื่อบอกเพื่อน ๆ ของคุณเกี่ยวกับแอป";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "ดาวน์โหลดแผนที่ตามเส้นทาง";
+
+/* Text for routing error dialog */
+"routing_download_map" = "รับแผนที่";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "ดาวน์โหลดแผนที่มีการอัปเดตและการกำหนดเส้นทางข้อมูลเพื่อรับฟีเจอร์ MAPS.ME ทั้งหมด";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "รับข้อมูลการกำหนดเส้นทาง";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "ข้อมูลเพิ่มเติมที่จำเป็นสำหรับการสร้างเส้นทางจากสถานที่ตั้งของคุณ";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "มีพื้นที่ไม่เพียงพอ";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "คุณจำเป็นต้องดาวน์โหลด %@ MB แต่สามารถใช้ได้เพียง %@ MB เท่านั้น";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "คุณกำลังจะดาวน์โหลด %@ MB โดยการใช้ข้อมูลโทรศัพท์มือถือ (ในการใช้งานข้ามเขต) นี่อาจส่งผลในการคิดค่าบริการเพิ่มเติมโดยขึ้นอยู่กับแผนการใช้ข้อมูลโทรศัพท์มือถือของผู้ให้บริการของคุณ";

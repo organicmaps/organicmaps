@@ -477,4 +477,20 @@
 	<string name="rating_send_feedback">Odoslať spätnú väzbu</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Stiahnite si mapy pozdĺž trasy</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Stiahnuť mapu</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Získať trasové dáta</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Dodatočné údaje potrebné na vytvorenie trasy zo vašej polohy.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Nedostatok miesta</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Musíte stiahnuť %1$s MB, ale k dispozícií máte len %2$s MB.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Veľkosť súboru je %s MB, ktoré stiahnete prostredníctvom Mobilných Dát (v Roamingu). Toto môže mať za následok dodatočné poplatky, v závislosti od dátových taríf vášho mobilného operátora.</string>
 </resources>

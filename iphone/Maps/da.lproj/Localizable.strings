@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Klik g+ for at fortælle dine venner om app'en.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Download kort på vejen";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Få kort";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Få routing data";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Yderligere data er påkrævet for at oprette ruter fra din placering.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Ikke nok plads";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Du skal downloade %@ MB, men kun %@ MB er tilgængeligt.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.";

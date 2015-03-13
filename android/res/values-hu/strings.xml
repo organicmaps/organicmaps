@@ -473,4 +473,22 @@
 	<string name="rating_send_feedback">Visszajelzés elküldése</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Kattints a g+-ra és mesélj barátaidnak az alkalmazásról</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Tölts le térképeket az útvonal mellett</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Térkép megszerzése</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Frissített térkép és útvonaltervezési adatok letöltése az összes MAPS.ME tulajdonság megszerzése érdekében.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Útvonaltervezési adatok megszerzése</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">További adatok szükségesek a kiinduló pontról történő útvonaltervezéshez</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Nincs elég hely</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">%1$s MB-t kell letöltened, de csak %2$s MB hely szabad.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">%s MB-nyi adatot készül letölteni mobilján (roamingon) keresztül. Ez további költségekkel járhat, a mobilcsomagjától függően.</string>
 </resources>

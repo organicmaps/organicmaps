@@ -474,4 +474,22 @@
 	<string name="rating_send_feedback">ส่งข้อเสนอแนะ</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">คลิก g+ เพื่อบอกเพื่อน ๆ ของคุณเกี่ยวกับแอป</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">ดาวน์โหลดแผนที่ตามเส้นทาง</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">รับแผนที่</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">ดาวน์โหลดแผนที่มีการอัปเดตและการกำหนดเส้นทางข้อมูลเพื่อรับฟีเจอร์ MAPS.ME ทั้งหมด</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">รับข้อมูลการกำหนดเส้นทาง</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">ข้อมูลเพิ่มเติมที่จำเป็นสำหรับการสร้างเส้นทางจากสถานที่ตั้งของคุณ</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">มีพื้นที่ไม่เพียงพอ</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">คุณจำเป็นต้องดาวน์โหลด %1$s MB แต่สามารถใช้ได้เพียง %2$s MB เท่านั้น</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">คุณกำลังจะดาวน์โหลด %s MB โดยการใช้ข้อมูลโทรศัพท์มือถือ (ในการใช้งานข้ามเขต) นี่อาจส่งผลในการคิดค่าบริการเพิ่มเติมโดยขึ้นอยู่กับแผนการใช้ข้อมูลโทรศัพท์มือถือของผู้ให้บริการของคุณ</string>
 </resources>

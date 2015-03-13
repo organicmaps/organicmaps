@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "g+를 클릭하여 이 앱에 대해 친구들에게 말하세요.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "경로를 따라 지도 다운로드";
+
+/* Text for routing error dialog */
+"routing_download_map" = "지도 가져오기";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 MAPS.ME 기능을 가져옵니다.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "라우팅 데이터 가져오기";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "추가 데이터는 사용자의 위치에서 경로를 생성하도록 필요합니다.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "여유 공간 부족";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "%@ MB를 다운로드해야 하지만 %@ MB만 사용할 수 있습니다.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "모바일 데이터(로밍시)를 사용하여 2840MB를 다운로드할 것입니다. 이는 운영자 모바일 데이터 계획에 따라 추가 요금이 발생할 수 있습니다.";

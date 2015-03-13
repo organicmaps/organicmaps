@@ -473,4 +473,22 @@
 	<string name="rating_send_feedback">Wyślij opinię</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Kliknij g+, aby powiedzieć swoim znajomym o tej apce.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Pobierz mapy wzdłuż trasy</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Pobierz mapę</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Pobierz zaktualizowaną mapę i dane ustalania tras, by mieć dostęp do wszystkich funkcji MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Pobierz dane ustalania tras</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Dodatkowe dane wymagane do tworzenia tras z Twojej lokalizacji.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Brak wolnego miejsca</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Musisz pobrać %1$s MB, lecz dostępne jest tylko %2$s MB.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">%s MB do pobrania przy wykorzystaniu danych mobilnych (w roamingu). Może to oznaczać dodatkowe opłaty w zależności od planu danych mobilnych Twojego dostawcy usług.</string>
 </resources>

@@ -483,4 +483,22 @@
 	<string name="rating_send_feedback">Envoyez vos commentaires</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Clique sur g+ pour parler de l\&#39;appli à tes amis.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Téléchargez des cartes le long du trajet</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Téléchargez des cartes</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">des cartes actualisées et des données de routage pour obtenir toutes les fonctionnalités de MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Recevez des données de routage</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">des données supplémentaires nécessaires pour créer des itinéraires depuis votre localisation.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">la création d\&#39;un itinéraire nécessite que toutes les cartes de votre localisation vers votre destination soient téléchargées et actualisées.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Pas assez d\&#39;espace</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Vous devez télécharger %1$s Mo, mais seulement %2$s Mo sont disponibles.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Vous allez télécharger 2 840 Mo à l\&#39;aide de données mobiles (frais d\&#39; itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.</string>
 </resources>

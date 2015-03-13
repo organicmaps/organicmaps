@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "點擊g+向您的朋友們告知這款應用。";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "下載沿線地圖";
+
+/* Text for routing error dialog */
+"routing_download_map" = "獲取地圖";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "下載更新的地圖和路線數據，獲取所有MAPS.ME的特色功能。";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "獲取所需的路線數據";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "更多數據，從您的位置創建路線。";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "創建路線需要下載並更新好所有從您的位置到目的地的地圖。";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "空間不夠";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "您需要下載%@ MB，但只有%@ MB空間。";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "您將使用移動數據下載%@ MB（漫遊）。這取決於您的移動數據方案運營商，可能會產生額外的費用。";

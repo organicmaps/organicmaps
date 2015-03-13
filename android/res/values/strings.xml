@@ -485,4 +485,22 @@
 	<string name="rating_send_feedback">Send feedback</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Click g+ to tell your friends about the app.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Download maps along route</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Get map</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Download updated map and routing data to get all MAPS.ME features.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Get routing data</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Additional data required to create routes from your location.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Creating a route requires all the maps from your location to destination downloaded and updated.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Not enough space</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">You need to download %1$s MB, but only %2$s MB are available.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">You are going to download %s MB using Mobile Data (in Roaming). This may result in additional charges, depending on your operator mobile data plan.</string>
 </resources>

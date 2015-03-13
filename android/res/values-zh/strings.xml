@@ -476,4 +476,22 @@
 	<string name="rating_send_feedback">发送反馈</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">点击g+向您的朋友们告知这款应用。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">下载沿线地图</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">获取地图</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">下载更新的地图和路线数据，获取所有MAPS.ME的特色功能。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">获取所需的路线数据</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">更多数据，从您的位置创建路线。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">创建路线需要下载并更新好所有从您的位置到目的地的地图。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">空间不够</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">您需要下载%1$s MB，但只有%2$s MB空间。</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">您将使用移动数据下载%s MB（漫游）。这取决于您的移动数据方案运营商，可能会产生额外的费用。</string>
 </resources>

@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Kliknutím na tlačidlo g + povedzte o aplikácii svojim priateľom.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Stiahnite si mapy pozdĺž trasy";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Stiahnuť mapu";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Získať trasové dáta";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Dodatočné údaje potrebné na vytvorenie trasy zo vašej polohy.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Creating a route requires all the maps from your location to destination downloaded and updated.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Nedostatok miesta";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Musíte stiahnuť %@ MB, ale k dispozícií máte len %@ MB.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Veľkosť súboru je %@ MB, ktoré stiahnete prostredníctvom Mobilných Dát (v Roamingu). Toto môže mať za následok dodatočné poplatky, v závislosti od dátových taríf vášho mobilného operátora.";

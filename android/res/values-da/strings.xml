@@ -472,4 +472,22 @@
 	<string name="rating_send_feedback">Send feedback</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Klik g+ for at fortælle dine venner om app\&#39;en.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Download kort på vejen</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Få kort</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Download opdaterede kort og routing data for at få alle MAPS.ME funktioner.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Få routing data</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Yderligere data er påkrævet for at oprette ruter fra din placering.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Ikke nok plads</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Du skal downloade %1$s MB, men kun %2$s MB er tilgængeligt.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Du kommer til at downloade %s MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.</string>
 </resources>

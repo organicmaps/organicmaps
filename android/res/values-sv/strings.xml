@@ -472,4 +472,22 @@
 	<string name="rating_send_feedback">Skicka återkoppling</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Klicka på g+ för att berätta om appen för dina vänner.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Ladda ned kartor längs vägen</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Hämta karta</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla MAPS.ME funktioner.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Hämta navigeringsdata</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Ytterligare data krävs för att skapa navigeringsvägar från din plats</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">För lite utrymme kvar</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Du behöver ladda ner %1$s MB men du har bara %2$s MB tillgänglig</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Du kommer ladda ner %s MB med mobildata (i roamingläge). Detta kan resultera i extra kostnader beroende på din operatörs mobildataplan.</string>
 </resources>

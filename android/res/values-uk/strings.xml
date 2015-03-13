@@ -477,4 +477,22 @@
 	<string name="rating_send_feedback">Надіслати відгук</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Щоб розповісти своїм друзям про програму, клацніть g+.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Завантажити карти з дороги</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Отримати карту</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Завантажте оновлену карту та дані про маршрут, щоб отримати всі можливості MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Отримати дані про маршрут</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Щоб створювати маршрути від вашого місцезнаходження, потрібно додаткові дані</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі карти, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Недостатньо місця</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Вам треба завантажити %1$s Мб, а доступно лише %2$s Мб.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Ви збираєтесь завантажити %s MB з використанням послуги передачі даних (у роумінгу). Це може потребувати додаткової оплати, в залежності від вашого мобільного оператора та умов використання вашого тарифного плану.</string>
 </resources>

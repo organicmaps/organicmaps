@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Kliknij g+, aby powiedzieć swoim znajomym o tej apce.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Pobierz mapy wzdłuż trasy";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Pobierz mapę";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Pobierz zaktualizowaną mapę i dane ustalania tras, by mieć dostęp do wszystkich funkcji MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Pobierz dane ustalania tras";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Dodatkowe dane wymagane do tworzenia tras z Twojej lokalizacji.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Brak wolnego miejsca";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Musisz pobrać %@ MB, lecz dostępne jest tylko %@ MB.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "%@ MB do pobrania przy wykorzystaniu danych mobilnych (w roamingu). Może to oznaczać dodatkowe opłaty w zależności od planu danych mobilnych Twojego dostawcy usług.";

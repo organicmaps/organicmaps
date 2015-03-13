@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "اضغط على g+ لتخبر أصدقاءك عن التطبيق.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "تنزيل الخرائط على طول الطريق";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Scarica la mappa";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Ottieni i dati del percorso";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "dati aggiuntivi richiesti per creare i percorsi dalla tua posizione.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Spazio non sufficiente";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Devi scaricare %@ MB, ma lo spazio disponibile è di soli %@ MB.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Stai per scaricare 2840MB tramite la rete cellulare (in roaming). Questo potrebbe comportare costi aggiuntivi, in base al piano dati del tuo operatore mobile.";

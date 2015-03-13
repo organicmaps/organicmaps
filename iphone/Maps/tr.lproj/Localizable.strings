@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Arkadaşlarına uygulamayı duyurmak için g+'ya tıkla.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Rota üzerindeki haritaları indir";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Harita alın";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Tüm MAPS.ME özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Rota verileri edin";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Konumunuzdan rota oluşturmak için ilave verileri edinin.";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Yeterli alan yok";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "%@ MB indirmeniz gerekiyor fakat sadece %@ MB boş alan mevcut.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "%@ MB boyutunda veriyi Mobil Veri (Roaming) kullanarak indireceksiniz. Bu mobil operatör veri planınıza göre ilave ödeme gerektirebilir.";

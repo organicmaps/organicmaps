@@ -469,4 +469,22 @@
 	<string name="rating_send_feedback">Envie seu comentário</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Clique em g+ para contar aos seus amigos sobre o app.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Descarregue mapas ao longo do trajeto</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Obter mapa</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Baixe o mapa e os dados de itinerário atualizados para obter todos os recursos do MAPS.ME.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Obter dados de itinerário</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">São necessários dados adicionais para criar rotas a partir da sua localização.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">É necessário baixar e atualizar todos os mapas da sua localização até o destino para criar uma rota.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Espaço insuficiente</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">É necessário baixar %1$s MB, mas há apenas %2$s MB disponíveis.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">Você fará o download de %s MB através de Dados Móveis (em Roaming). Isto poderá resultar em cobranças adicionais, dependendo do seu plano de dados móveis.</string>
 </resources>

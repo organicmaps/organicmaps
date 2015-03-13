@@ -462,4 +462,22 @@
 	<string name="rating_send_feedback">Feedback verzenden</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Klik op g+ om je vrienden te informeren over de app.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Download kaarten op de route</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Krijg kaart</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Download bijgewerkte kaart en routegegevens om alle functies van MAPS.ME te krijgen.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Krijg routegegevens</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Aanvullende gegevens die nodig zijn om routes te maken vanaf uw locatie.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Niet genoeg ruimte</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">U dient %1$s MB te downloaden, maar er is slechts %2$s MB beschikbaar.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">U gaat %s MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.</string>
 </resources>

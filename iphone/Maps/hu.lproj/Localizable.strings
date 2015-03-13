@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Kattints a g+-ra és mesélj barátaidnak az alkalmazásról";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Tölts le térképeket az útvonal mellett";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Térkép megszerzése";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Frissített térkép és útvonaltervezési adatok letöltése az összes MAPS.ME tulajdonság megszerzése érdekében.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Útvonaltervezési adatok megszerzése";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "További adatok szükségesek a kiinduló pontról történő útvonaltervezéshez";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Útvonal tervezéséhez a kiindulási pont és a célútvonal összes térképét szükséges letölteni és frissíteni.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Nincs elég hely";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "%@ MB-t kell letöltened, de csak %@ MB hely szabad.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "%@ MB-nyi adatot készül letölteni mobilján (roamingon) keresztül. Ez további költségekkel járhat, a mobilcsomagjától függően.";

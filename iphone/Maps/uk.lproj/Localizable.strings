@@ -744,3 +744,30 @@
 
 /* Text for g+ dialog */
 "rating_google_plus" = "Щоб розповісти своїм друзям про програму, клацніть g+.";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Завантажити карти з дороги";
+
+/* Text for routing error dialog */
+"routing_download_map" = "Отримати карту";
+
+/* Text for routing error dialog */
+"routing_download_map_and_routing" = "Завантажте оновлену карту та дані про маршрут, щоб отримати всі можливості MAPS.ME.";
+
+/* Text for routing error dialog */
+"routing_get_routing_data" = "Отримати дані про маршрут";
+
+/* Text for routing error dialog */
+"routing_get_additional_data" = "Щоб створювати маршрути від вашого місцезнаходження, потрібно додаткові дані";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Для створення маршруту необхідно щоб всі карти, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.";
+
+/* Text for routing error dialog */
+"routing_not_enough_space" = "Недостатньо місця";
+
+/* Text for routing error dialog */
+"routing_download_more_than_avail" = "Вам треба завантажити %@ Мб, а доступно лише %@ Мб.";
+
+/* Text for routing error dialog */
+"routing_download_roaming" = "Ви збираєтесь завантажити %@ MB з використанням послуги передачі даних (у роумінгу). Це може потребувати додаткової оплати, в залежності від вашого мобільного оператора та умов використання вашого тарифного плану.";

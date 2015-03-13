@@ -483,4 +483,22 @@
 	<string name="rating_send_feedback">Напишите нам</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Нажмите g+, чтобы рассказать друзьям о приложении</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Загрузите все карты по пути следования</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Загрузи карту</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Загрузи карту и маршруты, чтобы получить доступ ко всем возможностям приложения.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Загрузи маршруты</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Загрузи данные для построения маршрутов</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Загрузи все карты по пути следования</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Недостаточно места</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">Необходимо загрузить %1$s МБ, но есть место только для %2$s МБ</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">(Будет загружено %s MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета</string>
 </resources>

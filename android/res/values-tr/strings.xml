@@ -476,4 +476,22 @@
 	<string name="rating_send_feedback">Geribildirim gönder</string>
 	<!-- Text for g+ dialog -->
 	<string name="rating_google_plus">Arkadaşlarına uygulamayı duyurmak için g+\&#39;ya tıkla.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_maps_along">Rota üzerindeki haritaları indir</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map">Harita alın</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_map_and_routing">Tüm MAPS.ME özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_routing_data">Rota verileri edin</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_get_additional_data">Konumunuzdan rota oluşturmak için ilave verileri edinin.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_requires_all_map">Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_not_enough_space">Yeterli alan yok</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_more_than_avail">%1$s MB indirmeniz gerekiyor fakat sadece %2$s MB boş alan mevcut.</string>
+	<!-- Text for routing error dialog -->
+	<string name="routing_download_roaming">%s MB boyutunda veriyi Mobil Veri (Roaming) kullanarak indireceksiniz. Bu mobil operatör veri planınıza göre ilave ödeme gerektirebilir.</string>
 </resources>
