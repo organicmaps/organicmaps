@@ -33,7 +33,7 @@ public:
       if (!value.empty())
         m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_CUISINE, value);
     }
-    else if (k == "phone")
+    else if (k == "phone" || k == "contact:phone")
     {
       string const & value = ValidateAndFormat_phone(v);
       if (!value.empty())
@@ -50,6 +50,12 @@ public:
       string const & value = ValidateAndFormat_url(v);
       if (!value.empty())
         m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_URL, value);
+    }
+    else if (k == "website" || k == "contact:website")
+    {
+      string const & value = ValidateAndFormat_url(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_WEBSITE, value);
     }
     else if (k == "operator")
     {

@@ -19,18 +19,19 @@ namespace feature
   public:
     enum EMetadataType {
       FMD_CUISINE = 1,
-      FMD_OPEN_HOURS,
-      FMD_PHONE_NUMBER,
-      FMD_FAX_NUMBER,
-      FMD_STARS,
-      FMD_OPERATOR,
-      FMD_URL,
-      FMD_INTERNET,
-      FMD_ELE,
-      FMD_TURN_LANES,
-      FMD_TURN_LANES_FORWARD,
-      FMD_TURN_LANES_BACKWARD,
-      FMD_EMAIL
+      FMD_OPEN_HOURS = 2,
+      FMD_PHONE_NUMBER = 3,
+      FMD_FAX_NUMBER = 4,
+      FMD_STARS = 5,
+      FMD_OPERATOR = 6,
+      FMD_URL = 7,
+      FMD_WEBSITE = 8,
+      FMD_INTERNET = 9,
+      FMD_ELE = 10,
+      FMD_TURN_LANES = 11,
+      FMD_TURN_LANES_FORWARD = 12,
+      FMD_TURN_LANES_BACKWARD = 13,
+      FMD_EMAIL = 14
     };
 
     bool Add(EMetadataType type, string const & s)
