@@ -40,7 +40,7 @@ public:
   void Flush();
   void Truncate(uint64_t sz);
 
-  string GetName() const { return m_FileName; }
+  string const & GetName() const { return m_FileName; }
 
 private:
 

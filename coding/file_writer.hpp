@@ -46,7 +46,7 @@ public:
 
   static void DeleteFileX(string const & fName);
 
-  string GetName() const;
+  string const & GetName() const;
 
 private:
   typedef my::FileData fdata_t;

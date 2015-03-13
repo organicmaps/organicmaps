@@ -43,7 +43,7 @@ void FileWriter::WritePaddingByEnd(size_t factor) { WritePadding(Size(), factor)
 
 void FileWriter::WritePaddingByPos(size_t factor) { WritePadding(Pos(), factor); }
 
-string FileWriter::GetName() const
+string const & FileWriter::GetName() const
 {
   return m_pFileData->GetName();
 }
