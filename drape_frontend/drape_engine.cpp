@@ -96,32 +96,10 @@ void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvide
 
 void DrapeEngine::SetRenderingEnabled(bool const isEnabled)
 {
-  SetRenderingEnabled(m_frontend.GetRefPointer(), isEnabled);
-  SetRenderingEnabled(m_backend.GetRefPointer(), isEnabled);
+  m_frontend->SetRenderingEnabled(isEnabled);
+  m_backend->SetRenderingEnabled(isEnabled);
 
   LOG(LDEBUG, (isEnabled ? "Rendering enabled" : "Rendering disabled"));
-}
-
-void DrapeEngine::SetRenderingEnabled(dp::RefPointer<BaseRenderer> renderer, bool const isEnabled)
-{
-  // here we have to wait for finishing of message processing
-  mutex completionMutex;
-  condition_variable completionCondition;
-  bool notified = false;
-  auto completionHandler = [&]()
-  {
-    unique_lock<mutex> lock(completionMutex);
-    notified = true;
-    completionCondition.notify_one();
-  };
-
-  renderer->SetRenderingEnabled(isEnabled, completionHandler);
-
-  unique_lock<mutex> lock(completionMutex);
-  while (!notified) // loop to avoid spurious wakeups
-  {
-    completionCondition.wait(lock);
-  }
 }
 
 } // namespace df

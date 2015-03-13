@@ -23,8 +23,8 @@ public:
   void PostMessage(ThreadName name, dp::TransferPointer<Message> message, MessagePriority priority);
 
 private:
-  typedef map<ThreadName, MessageAcceptor *> acceptors_map_t;
-  acceptors_map_t m_acceptors;
+  typedef map<ThreadName, MessageAcceptor *> TAcceptorsMap;
+  TAcceptorsMap m_acceptors;
 };
 
 } // namespace df

@@ -43,8 +43,6 @@ private:
   dp::MasterPointer<dp::TextureManager> m_textureManager;
 
   Viewport m_viewport;
-
-  void SetRenderingEnabled(dp::RefPointer<BaseRenderer> renderer, bool const isEnabled);
 };
 
 } // namespace df

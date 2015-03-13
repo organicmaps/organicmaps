@@ -21,12 +21,12 @@ EngineContext::EngineContext(dp::RefPointer<ThreadsCommutator> commutator)
 
 void EngineContext::BeginReadTile(TileKey const & key)
 {
-  PostMessage(new TileReadStartMessage(key), MessagePriority::Normal);
+  PostMessage(new TileReadStartMessage(key));
 }
 
 void EngineContext::InsertShape(TileKey const & key, dp::TransferPointer<MapShape> shape)
 {
-  PostMessage(new MapShapeReadedMessage(key, shape), MessagePriority::Normal);
+  PostMessage(new MapShapeReadedMessage(key, shape));
 }
 
 void EngineContext::EndReadTile(TileKey const & key)
@@ -63,12 +63,14 @@ void EngineContext::EndReadTile(TileKey const & key)
   InsertShape(key, dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
 #endif
 
-  PostMessage(new TileReadEndMessage(key), MessagePriority::Normal);
+  PostMessage(new TileReadEndMessage(key));
 }
 
-void EngineContext::PostMessage(Message * message, MessagePriority priority)
+void EngineContext::PostMessage(Message * message)
 {
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, dp::MovePointer(message), priority);
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            dp::MovePointer(message),
+                            MessagePriority::Normal);
 }
 
 } // namespace df

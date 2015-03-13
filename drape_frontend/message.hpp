@@ -21,8 +21,7 @@ public:
     ClearUserMarkLayer,
     ChangeUserMarkLayerVisibility,
     UpdateUserMarkLayer,
-    GuiLayerRecached,
-    RenderingEnabled
+    GuiLayerRecached
   };
 
   virtual ~Message() {}

@@ -9,72 +9,72 @@ INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 DEFINES += DRAW_INFO
 
 SOURCES += \
-    engine_context.cpp \
-    memory_feature_index.cpp \
-    message_queue.cpp \
-    threads_commutator.cpp \
-    message_acceptor.cpp \
-    backend_renderer.cpp \
-    read_mwm_task.cpp \
-    batchers_pool.cpp \
-    frontend_renderer.cpp \
-    drape_engine.cpp \
-    area_shape.cpp \
-    read_manager.cpp \
-    tile_info.cpp \
-    stylist.cpp \
-    line_shape.cpp \
-    rule_drawer.cpp \
-    viewport.cpp \
-    tile_key.cpp \
     apply_feature_functors.cpp \
-    visual_params.cpp \
-    poi_symbol_shape.cpp \
+    area_shape.cpp \
+    backend_renderer.cpp \
+    base_renderer.cpp \
+    batchers_pool.cpp \
     circle_shape.cpp \
-    render_group.cpp \
-    text_shape.cpp \
-    path_text_shape.cpp \
-    path_symbol_shape.cpp \
-    text_layout.cpp \
+    drape_engine.cpp \
+    engine_context.cpp \
+    frontend_renderer.cpp \
+    line_shape.cpp \
     map_data_provider.cpp \
+    memory_feature_index.cpp \
+    message_acceptor.cpp \
+    message_queue.cpp \
+    path_symbol_shape.cpp \
+    path_text_shape.cpp \
+    poi_symbol_shape.cpp \
+    read_manager.cpp \
+    read_mwm_task.cpp \
+    render_group.cpp \
+    rule_drawer.cpp \
+    stylist.cpp \
+    text_layout.cpp \
+    text_shape.cpp \
+    threads_commutator.cpp \
+    tile_info.cpp \
+    tile_key.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
-    base_renderer.cpp
+    viewport.cpp \
+    visual_params.cpp \
 
 HEADERS += \
-    engine_context.hpp \
-    memory_feature_index.hpp \
-    tile_info.hpp \
-    message_queue.hpp \
-    message.hpp \
-    threads_commutator.hpp \
-    message_acceptor.hpp \
-    backend_renderer.hpp \
-    read_mwm_task.hpp \
-    message_subclasses.hpp \
-    map_shape.hpp \
-    batchers_pool.hpp \
-    frontend_renderer.hpp \
-    drape_engine.hpp \
-    area_shape.hpp \
-    read_manager.hpp \
-    stylist.hpp \
-    line_shape.hpp \
-    shape_view_params.hpp \
-    rule_drawer.hpp \
-    viewport.hpp \
-    tile_key.hpp \
     apply_feature_functors.hpp \
-    visual_params.hpp \
-    poi_symbol_shape.hpp \
+    area_shape.hpp \
+    backend_renderer.hpp \
+    base_renderer.hpp \
+    batchers_pool.hpp \
     circle_shape.hpp \
-    render_group.hpp \
-    text_shape.hpp \
-    path_text_shape.hpp \
-    path_symbol_shape.hpp \
-    text_layout.hpp \
+    drape_engine.hpp \
+    engine_context.hpp \
+    frontend_renderer.hpp \
     intrusive_vector.hpp \
+    line_shape.hpp \
     map_data_provider.hpp \
+    map_shape.hpp \
+    memory_feature_index.hpp \
+    message.hpp \
+    message_acceptor.hpp \
+    message_queue.hpp \
+    message_subclasses.hpp \
+    path_symbol_shape.hpp \
+    path_text_shape.hpp \
+    poi_symbol_shape.hpp \
+    read_manager.hpp \
+    read_mwm_task.hpp \
+    render_group.hpp \
+    rule_drawer.hpp \
+    shape_view_params.hpp \
+    stylist.hpp \
+    text_layout.hpp \
+    text_shape.hpp \
+    threads_commutator.hpp \
+    tile_info.hpp \
+    tile_key.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \
-    base_renderer.hpp
+    viewport.hpp \
+    visual_params.hpp \

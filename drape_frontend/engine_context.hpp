@@ -7,9 +7,8 @@
 namespace df
 {
 
-class Message;
-enum class MessagePriority;
 class MapShape;
+class Message;
 struct TileKey;
 
 class EngineContext
@@ -24,7 +23,7 @@ public:
   void EndReadTile(TileKey const & key);
 
 private:
-  void PostMessage(Message * message, MessagePriority priority);
+  void PostMessage(Message * message);
 
 private:
   dp::RefPointer<ThreadsCommutator> m_commutator;
