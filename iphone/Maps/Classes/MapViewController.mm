@@ -507,6 +507,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)onTerminate
 {
   GetFramework().SaveState();
+  [(EAGLView *)self.view deallocateNative];
 }
 
 - (void)onEnterBackground

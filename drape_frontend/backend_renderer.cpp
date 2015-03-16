@@ -5,10 +5,8 @@
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
-#include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 
-#include "drape/oglcontextfactory.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "platform/platform.hpp"
@@ -24,12 +22,11 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                                  dp::RefPointer<dp::TextureManager> textureManager,
                                  MapDataProvider const & model)
-  : m_model(model)
+  : BaseRenderer(commutator, oglcontextfactory)
+  , m_model(model)
   , m_engineContext(commutator)
   , m_texturesManager(textureManager)
   , m_guiCacher("default")
-  , m_commutator(commutator)
-  , m_contextFactory(oglcontextfactory)
 {
   m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));

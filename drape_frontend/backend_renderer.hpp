@@ -8,8 +8,6 @@
 #include "drape_gui/layer_render.hpp"
 #include "drape/pointers.hpp"
 
-#include "base/thread.hpp"
-
 namespace dp
 {
 
@@ -22,7 +20,6 @@ namespace df
 {
 
 class Message;
-class ThreadsCommutator;
 class BatchersPool;
 class ReadManager;
 
@@ -50,9 +47,9 @@ private:
 private:
   void AcceptMessage(dp::RefPointer<Message> message);
 
-    /////////////////////////////////////////
-    //             ThreadPart              //
-    /////////////////////////////////////////
+  /////////////////////////////////////////
+  //             ThreadPart              //
+  /////////////////////////////////////////
 private:
   class Routine : public threads::IRoutine
   {
@@ -72,11 +69,6 @@ private:
 
   void InitGLDependentResource();
   void FlushGeometry(dp::TransferPointer<Message> message);
-
-private:
-  threads::Thread m_selfThread;
-  dp::RefPointer<ThreadsCommutator> m_commutator;
-  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
 };
 
 } // namespace df

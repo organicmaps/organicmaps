@@ -1,14 +1,38 @@
 #include "base_renderer.hpp"
+#include "threads_commutator.hpp"
 #include "../std/utility.hpp"
+
+#include "../base/logging.hpp"
+
 
 namespace df
 {
 
-BaseRenderer::BaseRenderer()
-  : m_isEnabled(true)
+BaseRenderer::BaseRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+                           dp::RefPointer<dp::OGLContextFactory> oglcontextfactory)
+  : m_commutator(commutator)
+  , m_contextFactory(oglcontextfactory)
+  , m_isEnabled(true)
   , m_renderingEnablingCompletionHandler(nullptr)
   , m_wasNotified(false)
 {
+}
+
+void BaseRenderer::StartThread()
+{
+  m_selfThread.Create(this);
+}
+
+void BaseRenderer::StopThread()
+{
+  IRoutine::Cancel();
+
+  if (!m_isEnabled)
+  {
+    WakeUp();
+  }
+  CloseQueue();
+  m_selfThread.Join();
 }
 
 void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
@@ -44,9 +68,7 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled, TCompletionHandler 
   if (isEnabled)
   {
     // wake up rendering thread
-    lock_guard<mutex> lock(m_renderingEnablingMutex);
-    m_wasNotified = true;
-    m_renderingEnablingCondition.notify_one();
+    WakeUp();
   }
   else
   {
@@ -85,6 +107,13 @@ void BaseRenderer::Notify()
     m_renderingEnablingCompletionHandler();
 
   m_renderingEnablingCompletionHandler = nullptr;
+}
+
+void BaseRenderer::WakeUp()
+{
+  lock_guard<mutex> lock(m_renderingEnablingMutex);
+  m_wasNotified = true;
+  m_renderingEnablingCondition.notify_one();
 }
 
 } // namespace df

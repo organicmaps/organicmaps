@@ -226,6 +226,11 @@ public:
   GuiLayerRecachedMessage(dp::TransferPointer<gui::LayerRenderer> renderer)
     : m_renderer(renderer) {}
 
+  ~GuiLayerRecachedMessage()
+  {
+    m_renderer.Destroy();
+  }
+
   Type GetType() const override { return Message::GuiLayerRecached; }
 
   dp::MasterPointer<gui::LayerRenderer> AcceptRenderer()

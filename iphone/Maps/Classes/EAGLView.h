@@ -23,6 +23,7 @@ namespace dp
 
 - (void)initRenderPolicy;
 - (void)setMapStyle:(MapStyle)mapStyle;
+- (void)deallocateNative;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
 

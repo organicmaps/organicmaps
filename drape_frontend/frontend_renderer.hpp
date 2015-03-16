@@ -20,7 +20,6 @@
 #include "drape/glstate.hpp"
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/gpu_program_manager.hpp"
-#include "drape/oglcontextfactory.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/uniform_values_storage.hpp"
 
@@ -32,9 +31,6 @@ namespace dp { class RenderBucket; }
 
 namespace df
 {
-
-struct RenderingEnablingContext;
-
 
 class FrontendRenderer : public BaseRenderer
 {
@@ -96,12 +92,9 @@ private:
   void DeleteRenderData();
 
 private:
-  dp::RefPointer<ThreadsCommutator> m_commutator;
-  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
   dp::RefPointer<dp::TextureManager> m_textureManager;
 
   dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
-  threads::Thread m_selfThread;
 
 private:
   vector<RenderGroup *> m_renderGroups;

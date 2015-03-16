@@ -36,8 +36,7 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                                    dp::RefPointer<dp::TextureManager> textureManager,
                                    Viewport viewport)
-  : m_commutator(commutator)
-  , m_contextFactory(oglcontextfactory)
+  : BaseRenderer(commutator, oglcontextfactory)
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
@@ -426,7 +425,7 @@ void FrontendRenderer::Routine::Do()
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
-    m_textureManager->UpdateDynamicTextures();
+    m_renderer.m_textureManager->UpdateDynamicTextures();
     m_renderer.RenderScene();
 
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
@@ -446,7 +445,7 @@ void FrontendRenderer::Routine::Do()
     context->present();
     timer.Reset();
 
-    CheckRenderingEnabled();
+    m_renderer.CheckRenderingEnabled();
   }
 
   m_renderer.ReleaseResources();
