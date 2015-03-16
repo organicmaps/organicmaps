@@ -298,7 +298,7 @@ TIndex const & ActiveMapsLayout::GetCoreIndex(TGroup const & group, int position
   return GetItemInGroup(group, position).m_index;
 }
 
-string const ActiveMapsLayout::GetFormatedCountryName(TIndex const & index)
+string const ActiveMapsLayout::GetFormatedCountryName(TIndex const & index) const
 {
   string group, country;
   GetStorage().GetGroupAndCountry(index, group, country);

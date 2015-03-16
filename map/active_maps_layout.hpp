@@ -78,7 +78,7 @@ public:
 
   ///@{ For CountryStatusDisplay only
   TIndex const & GetCoreIndex(TGroup const & group, int position) const;
-  string const GetFormatedCountryName(TIndex const & index);
+  string const GetFormatedCountryName(TIndex const & index) const;
   ///@}
 
   bool IsDownloadingActive() const;
