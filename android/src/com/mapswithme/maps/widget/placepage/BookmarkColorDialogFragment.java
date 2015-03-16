@@ -23,7 +23,7 @@ public class BookmarkColorDialogFragment extends DialogFragment
   public static final String ICON_TYPE = "ExtraIconType";
 
   private String mIconType;
-
+  
   interface OnBookmarkColorChangeListener
   {
     void onBookmarkColorSet(int colorPos);

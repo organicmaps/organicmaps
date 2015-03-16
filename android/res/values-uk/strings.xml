@@ -495,4 +495,184 @@
 	<string name="routing_download_more_than_avail">Вам треба завантажити %1$s Мб, а доступно лише %2$s Мб.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Ви збираєтесь завантажити %s MB з використанням послуги передачі даних (у роумінгу). Це може потребувати додаткової оплати, в залежності від вашого мобільного оператора та умов використання вашого тарифного плану.</string>
+	<!-- Cuisine -->
+	<string name="cuisine_regional">регіональна кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_pizza">піца</string>
+	<!-- Cuisine -->
+	<string name="cuisine_burger">бургер</string>
+	<!-- Cuisine -->
+	<string name="cuisine_italian">італійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_chinese">китайська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_coffee_shop">кав\&#39;ярня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_sandwich">сендвіч</string>
+	<!-- Cuisine -->
+	<string name="cuisine_german">німецька кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_japanese">японська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_kebab">кебаб</string>
+	<!-- Cuisine -->
+	<string name="cuisine_mexican">мексиканська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_indian">індійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_american">американська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_french">французька кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_ice_cream">морозиво</string>
+	<!-- Cuisine -->
+	<string name="cuisine_asian">азіатська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_chicken">курка</string>
+	<!-- Cuisine -->
+	<string name="cuisine_greek">грецька кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_thai">тайська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_international">міжнародна кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_sushi">суші</string>
+	<!-- Cuisine -->
+	<string name="cuisine_fish_and_chips">риба зі смаженою картоплею</string>
+	<!-- Cuisine -->
+	<string name="cuisine_turkish">турецька кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_seafood">морська їжа</string>
+	<!-- Cuisine -->
+	<string name="cuisine_steak_house">стейк хаус</string>
+	<!-- Cuisine -->
+	<string name="cuisine_spanish">іспанська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_fish">риба</string>
+	<!-- Cuisine -->
+	<string name="cuisine_vietnamese">в\&#39;єтнамська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_noodle">вермішель</string>
+	<!-- Cuisine -->
+	<string name="cuisine_vegetarian">вегетеріанська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_korean">корейська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_friture">фритюр</string>
+	<!-- Cuisine -->
+	<string name="cuisine_barbecue">шашлик</string>
+	<!-- Cuisine -->
+	<string name="cuisine_bavarian">баварська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_ramen">рамен</string>
+	<!-- Cuisine -->
+	<string name="cuisine_italian_pizza">італійська, піца</string>
+	<!-- Cuisine -->
+	<string name="cuisine_mediterranean">середземноморська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_donut">пончик</string>
+	<!-- Cuisine -->
+	<string name="cuisine_beef_bowl">тарілка з яловичиною</string>
+	<!-- Cuisine -->
+	<string name="cuisine_cake">торт</string>
+	<!-- Cuisine -->
+	<string name="cuisine_crepe">креп</string>
+	<!-- Cuisine -->
+	<string name="cuisine_heuriger">хурігер</string>
+	<!-- Cuisine -->
+	<string name="cuisine_lebanese">ліванська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_steak">стейк</string>
+	<!-- Cuisine -->
+	<string name="cuisine_local">місцева кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_curry">каррі</string>
+	<!-- Cuisine -->
+	<string name="cuisine_filipino">філіпінська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_russian">російська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_breakfast">сніданок</string>
+	<!-- Cuisine -->
+	<string name="cuisine_tapas">тапас</string>
+	<!-- Cuisine -->
+	<string name="cuisine_bbq">шашлик</string>
+	<!-- Cuisine -->
+	<string name="cuisine_bagel">бублик</string>
+	<!-- Cuisine -->
+	<string name="cuisine_pasta">паста</string>
+	<!-- Cuisine -->
+	<string name="cuisine_buschenschank">бушеншанк</string>
+	<!-- Cuisine -->
+	<string name="cuisine_sausage">сосика</string>
+	<!-- Cuisine -->
+	<string name="cuisine_portuguese">португальська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_grill">гриль</string>
+	<!-- Cuisine -->
+	<string name="cuisine_pancake">млинець</string>
+	<!-- Cuisine -->
+	<string name="cuisine_malagasy">малагасійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_polish">польська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_diner">обід</string>
+	<!-- Cuisine -->
+	<string name="cuisine_african">африканська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_doughnut">пончик</string>
+	<!-- Cuisine -->
+	<string name="cuisine_georgian">грузинська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_croatian">сербська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_arab">арабська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_balkan">балканська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_brazilian">бразильська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_caribbean">карибська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_austrian">австрійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_vegan">вегетеріанська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_argentinian">аргентинська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_persian">перська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_soba">собська</string>
+	<!-- Cuisine -->
+	<string name="cuisine_malaysian">малазійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_indonesian">індонезійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_ethiopian">ефіопська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_deli">делійська</string>
+	<!-- Cuisine -->
+	<string name="cuisine_irish">ірландська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_hungarian">угорська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_lao">лаоська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_coffee">кава</string>
+	<!-- Cuisine -->
+	<string name="cuisine_hotdog">хот-дог</string>
+	<!-- Cuisine -->
+	<string name="cuisine_oriental">східна кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_savory_pancakes">пікантні оладки</string>
+	<!-- Cuisine -->
+	<string name="cuisine_moroccan">марокканська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_barbeque">шашлик</string>
+	<!-- Cuisine -->
+	<string name="cuisine_peruvian">перувійська кухня</string>
+	<!-- Cuisine -->
+	<string name="cuisine_fine_dining">вишукана їжа</string>
+	<!-- Cuisine -->
+	<string name="cuisine_tea">чай</string>
 </resources>
