@@ -22,13 +22,12 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                                  dp::RefPointer<dp::TextureManager> textureManager,
                                  MapDataProvider const & model)
-  : BaseRenderer(commutator, oglcontextfactory)
+  : BaseRenderer(ThreadsCommutator::ResourceUploadThread, commutator, oglcontextfactory)
   , m_model(model)
   , m_engineContext(commutator)
   , m_texturesManager(textureManager)
   , m_guiCacher("default")
 {
-  m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
   m_readManager.Reset(new ReadManager(m_engineContext, m_model));
 
@@ -97,6 +96,11 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
         CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texturesManager);
       msg->EndProcess();
       m_batchersPool->ReleaseBatcher(key);
+      break;
+    }
+  case Message::StopRendering:
+    {
+      ProcessStopRenderingMessage();
       break;
     }
   default:

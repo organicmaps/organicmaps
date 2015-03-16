@@ -1,6 +1,7 @@
 #pragma once
 
 #include "message_acceptor.hpp"
+#include "threads_commutator.hpp"
 #include "../base/thread.hpp"
 #include "../drape/oglcontextfactory.hpp"
 
@@ -12,15 +13,14 @@
 namespace df
 {
 
-class ThreadsCommutator;
-
 class BaseRenderer : public MessageAcceptor,
                      public threads::IRoutine
 {
 public:
   using TCompletionHandler = function<void()>;
 
-  BaseRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+  BaseRenderer(ThreadsCommutator::ThreadName name,
+               dp::RefPointer<ThreadsCommutator> commutator,
                dp::RefPointer<dp::OGLContextFactory> oglcontextfactory);
 
   void SetRenderingEnabled(bool const isEnabled);
@@ -32,10 +32,13 @@ protected:
 
   void StartThread();
   void StopThread();
+
   void CheckRenderingEnabled();
+  void ProcessStopRenderingMessage();
 
 private:
   threads::Thread m_selfThread;
+  ThreadsCommutator::ThreadName m_threadName;
 
   mutex m_renderingEnablingMutex;
   condition_variable m_renderingEnablingCondition;

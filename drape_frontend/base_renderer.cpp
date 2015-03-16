@@ -1,21 +1,21 @@
 #include "base_renderer.hpp"
-#include "threads_commutator.hpp"
+#include "message_subclasses.hpp"
 #include "../std/utility.hpp"
-
-#include "../base/logging.hpp"
-
 
 namespace df
 {
 
-BaseRenderer::BaseRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name,
+                           dp::RefPointer<ThreadsCommutator> commutator,
                            dp::RefPointer<dp::OGLContextFactory> oglcontextfactory)
   : m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
+  , m_threadName(name)
   , m_isEnabled(true)
   , m_renderingEnablingCompletionHandler(nullptr)
   , m_wasNotified(false)
 {
+  m_commutator->RegisterThread(m_threadName, this);
 }
 
 void BaseRenderer::StartThread()
@@ -25,13 +25,18 @@ void BaseRenderer::StartThread()
 
 void BaseRenderer::StopThread()
 {
-  IRoutine::Cancel();
+  // send message to stop rendering in render thread
+  m_commutator->PostMessage(m_threadName,
+                            dp::MovePointer<Message>(new StopRenderingMessage()),
+                            MessagePriority::High);
 
+  // wake up render thread if necessary
   if (!m_isEnabled)
   {
     WakeUp();
   }
-  CloseQueue();
+
+  // wait for render thread completion
   m_selfThread.Join();
 }
 
@@ -114,6 +119,12 @@ void BaseRenderer::WakeUp()
   lock_guard<mutex> lock(m_renderingEnablingMutex);
   m_wasNotified = true;
   m_renderingEnablingCondition.notify_one();
+}
+
+void BaseRenderer::ProcessStopRenderingMessage()
+{
+  CloseQueue();
+  IRoutine::Cancel();
 }
 
 } // namespace df

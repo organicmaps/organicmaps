@@ -242,4 +242,11 @@ private:
   dp::TransferPointer<gui::LayerRenderer> m_renderer;
 };
 
+class StopRenderingMessage : public Message
+{
+public:
+  StopRenderingMessage(){}
+  Type GetType() const override { return Message::StopRendering; }
+};
+
 } // namespace df

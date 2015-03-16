@@ -36,7 +36,7 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                    dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                                    dp::RefPointer<dp::TextureManager> textureManager,
                                    Viewport viewport)
-  : BaseRenderer(commutator, oglcontextfactory)
+  : BaseRenderer(ThreadsCommutator::RenderThread, commutator, oglcontextfactory)
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
@@ -46,10 +46,9 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   m_fps = 0.0;
 #endif
 
-  m_commutator->RegisterThread(ThreadsCommutator::RenderThread, this);
-
   RefreshProjection();
   RefreshModelView();
+
   StartThread();
 }
 
@@ -219,6 +218,11 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       m_guiRenderer.Destroy();
       m_guiRenderer = msg->AcceptRenderer();
       m_guiRenderer->Build(m_gpuProgramManager.GetRefPointer());
+      break;
+    }
+  case Message::StopRendering:
+    {
+      ProcessStopRenderingMessage();
       break;
     }
   default:
