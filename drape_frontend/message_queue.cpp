@@ -37,12 +37,12 @@ void MessageQueue::PushMessage(dp::TransferPointer<Message> message, MessagePrio
   {
   case MessagePriority::Normal:
     {
-      m_messages.push_back(dp::MasterPointer<Message>(message));
+      m_messages.emplace_back(message);
       break;
     }
   case MessagePriority::High:
     {
-      m_messages.insert(m_messages.begin(), dp::MasterPointer<Message>(message));
+      m_messages.emplace_front(message);
       break;
     }
   default:
