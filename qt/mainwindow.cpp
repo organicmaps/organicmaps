@@ -53,7 +53,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 {
   // Always runs on the first desktop
   auto const desktop(QApplication::desktop());
-  setGeometry(desktop->screenGeometry(0));
+  setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
   m_pDrawWidget = new DrawWidget(this);
   QSurfaceFormat format = m_pDrawWidget->requestedFormat();
