@@ -256,7 +256,8 @@ void Stats::Upload() {
   }
   LOG_IF_DEBUG("Forcing statistics uploading.");
   if (file_storage_queue_) {
-    file_storage_queue_->ForceProcessing();
+    // Upload all data, including 'current' file.
+    file_storage_queue_->ForceProcessing(true);
   } else {
     std::string buffer = unique_client_id_event_;
     // TODO(AlexZ): thread-safety?
@@ -269,6 +270,7 @@ void Stats::Upload() {
     if (!UploadBuffer(upload_url_, std::move(buffer), debug_mode_)) {
       // If failed, merge events we tried to upload with possible new ones.
       memory_storage_.splice(memory_storage_.end(), std::move(copy));
+      LOG_IF_DEBUG("Failed to upload in-memory statistics.");
     }
   }
 }

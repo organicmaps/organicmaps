@@ -24,70 +24,105 @@
 
 #include "../http_client.h"
 
-#include <stdio.h>  // popen
+#include <array>
 #include <fstream>
 #include <iostream>  // std::cerr
+#include <stdexcept> // std::runtime_error
+#include <stdio.h>  // popen
 
 #ifdef _MSC_VER
 #define popen _popen
 #define pclose _pclose
+#else
+#include <unistd.h> // close
 #endif
 
 // Used as a test stub for basic HTTP client implementation.
-
+// Make sure that you have curl installed in the PATH.
+// TODO(AlexZ): Not a production-ready implementation.
 namespace alohalytics {
+
+struct ScopedTmpFileDeleter {
+  std::string file;
+  ~ScopedTmpFileDeleter() {
+    if (!file.empty()) {
+      ::remove(file.c_str());
+    }
+  }
+};
 
 std::string RunCurl(const std::string& cmd) {
   FILE* pipe = ::popen(cmd.c_str(), "r");
   assert(pipe);
-  char s[8 * 1024];
-  ::fgets(s, sizeof(s) / sizeof(s[0]), pipe);
+  std::array<char, 8 * 1024> s;
+  std::string result;
+  while (nullptr != ::fgets(s.data(), s.size(), pipe)) {
+    result += s.data();
+  }
   const int err = ::pclose(pipe);
   if (err) {
-    std::cerr << "Error " << err << " while calling " << cmd << std::endl;
+    throw std::runtime_error("Error " + std::to_string(err) + " while calling " + cmd);
   }
-  return s;
+  return result;
 }
 
-// Not fully implemented.
 bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   // Last 3 chars in server's response will be http status code
-  std::string cmd = "curl -s -w '%{http_code}' ";
+  static constexpr size_t kCurlHttpCodeSize = 3;
+  std::string cmd = "curl --max-redirs 0 -s -w '%{http_code}' ";
   if (!content_type_.empty()) {
     cmd += "-H 'Content-Type: application/json' ";
   }
+
+  ScopedTmpFileDeleter deleter;
   if (!post_body_.empty()) {
     // POST body through tmp file to avoid breaking command line.
-    char tmp_file[L_tmpnam];
 #ifdef _MSC_VER
+    char tmp_file[L_tmpnam];
     ::tmpnam_s(tmp_file, L_tmpnam);
 #else
-    ::tmpnam(tmp_file);
+    char tmp_file[] = "/tmp/alohalyticstmp-XXXXXX";
+    int fd = ::mkstemp(tmp_file); // tmpnam is deprecated and insecure.
+    if (fd < 0) {
+      std::cerr << "Error: failed to create temporary file." << std::endl;
+      return false;
+    }
+    ::close(fd);
 #endif
-    std::ofstream(tmp_file) << post_body_;
-    post_file_ = tmp_file;
+    deleter.file = tmp_file;
+    if (!(std::ofstream(deleter.file) << post_body_).good()) {
+      std::cerr << "Error: failed to write into a temporary file." << std::endl;
+      return false;
+    }
+    post_file_ = deleter.file;
   }
   if (!post_file_.empty()) {
     cmd += "--data-binary @" + post_file_ + " ";
   }
 
   cmd += url_requested_;
-  server_response_ = RunCurl(cmd);
+  try {
+    server_response_ = RunCurl(cmd);
+    error_code_ = -1;
+    std::string & s = server_response_;
+    if (s.size() < kCurlHttpCodeSize) {
+      return false;
+    }
+    // Extract http status code from the last response line.
+    error_code_ = std::stoi(s.substr(s.size() - kCurlHttpCodeSize));
+    s.resize(s.size() - kCurlHttpCodeSize);
 
-  // Clean up tmp file if any was created.
-  if (!post_body_.empty() && !post_file_.empty()) {
-    ::remove(post_file_.c_str());
+    if (!received_file_.empty()) {
+      std::ofstream file(received_file_);
+      file.exceptions(std::ios::failbit | std::ios::badbit);
+      file << server_response_;
+    }
+  } catch (std::exception const & ex) {
+    std::cerr << "Exception " << ex.what() << std::endl;
+    return false;
   }
-
-  // TODO(AlexZ): Detect if we did not make any connection and return false.
-  // Extract http status code from the last response line.
-  error_code_ = std::stoi(server_response_.substr(server_response_.size() - 3));
-  server_response_.resize(server_response_.size() - 4);
-
-  if (!received_file_.empty()) {
-    std::ofstream(received_file_) << server_response_;
-  }
-
+  // Should be safe here as we disabled redirects in curl's command line.
+  url_received_ = url_requested_;
   return true;
 }
 
