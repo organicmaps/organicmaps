@@ -8,10 +8,11 @@
 
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMAlertViewController.h"
-#import "MWMAlertEntity.h"
 #import "MWMAlertViewControllerDelegate.h"
 #import "ActiveMapsVC.h"
 #import "MWMDownloadTransitMapAlert+Configure.h"
+
+typedef void (^MWMDownloaderBlock)();
 
 @interface MWMDownloadTransitMapAlert ()
 @property (nonatomic, weak, readwrite) IBOutlet UILabel *titleLabel;
@@ -21,27 +22,30 @@
 @property (nonatomic, weak, readwrite) IBOutlet UILabel *sizeLabel;
 @property (nonatomic, weak, readwrite) IBOutlet UILabel *countryLabel;
 @property (nonatomic, weak, readwrite) IBOutlet UIView *specsView;
+@property (nonatomic, copy) MWMDownloaderBlock downloaderBlock;
 @end
 
-static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
+static NSString * const kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert";
+extern UIColor * const kActiveDownloaderViewColor;
 
 @implementation MWMDownloadTransitMapAlert
 
-+ (instancetype)alert {
++ (instancetype)alertWithCountries:(const vector<storage::TIndex> &)countries {
   MWMDownloadTransitMapAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:self options:nil] firstObject];
+  ActiveMapsLayout& layout = GetFramework().GetCountryTree().GetActiveMapLayout();
+  alert.countryLabel.text = [NSString stringWithUTF8String:layout.GetFormatedCountryName(countries[0]).c_str()];
+  alert.sizeLabel.text = [NSString stringWithFormat:@"%@ %@", @(layout.GetCountrySize(countries[0], storage::TMapOptions::EMapWithCarRouting).second/(1024 * 1024)), L(@"mb")];
+  alert.downloaderBlock = ^{
+    layout.DownloadMap(countries[0], storage::TMapOptions::EMapWithCarRouting);
+  };
+  [alert configure];
   return alert;
-}
-
-- (void)configureWithEntity:(MWMAlertEntity *)entity {
-  self.sizeLabel.text = [NSString stringWithFormat:@"%@ MB",@(entity.size)];
-  self.countryLabel.text = entity.country;
-  [self configure];
 }
 
 #pragma mark - Actions
 
 - (IBAction)notNowButtonTap:(id)sender {
-  [self.alertController close];
+  [self.alertController closeAlert];
 }
 
 - (IBAction)downloadButtonTap:(id)sender {
@@ -50,15 +54,15 @@ static NSString * kDownloadTransitMapAlertNibName = @"MWMDownloadTransitMapAlert
 
 - (IBAction)specsViewTap:(id)sender {
   [UIView animateWithDuration:0.2f animations:^{
-    self.specsView.backgroundColor = [UIColor colorWithRed:211/255. green:209/255. blue:205/255. alpha:1.];
+    self.specsView.backgroundColor = kActiveDownloaderViewColor;
   } completion:^(BOOL finished) {
     [self downloadMaps];
   }];
 }
 
 - (void)downloadMaps {
-  [self.alertController.delegate downloadMaps];
-  [self.alertController close];
+  self.downloaderBlock();
+  [self.alertController closeAlert];
   ActiveMapsVC *activeMapsViewController = [[ActiveMapsVC alloc] init];
   [self.alertController.ownerViewController.navigationController pushViewController:activeMapsViewController animated:YES];
 }

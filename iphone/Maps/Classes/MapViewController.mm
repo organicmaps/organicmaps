@@ -16,7 +16,6 @@
 #import "CountryTreeVC.h"
 #import "Reachability.h"
 #import "MWMAlertViewController.h"
-#import "MWMAlertDownloaderManager.h"
 
 #import "../../Common/CustomAlertView.h"
 
@@ -81,7 +80,6 @@
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
-@property (nonatomic, strong) MWMAlertDownloaderManager *downloaderManager;
 
 @end
 
@@ -151,21 +149,24 @@
 
     if (res.IsValid())
     {
-      NSMutableDictionary *routeInfo = [NSMutableDictionary dictionary];
-      routeInfo[@"timeToTarget"] = @(res.m_time);
-      routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
-      routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
-      routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
-      routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
-      routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
+      NSMutableDictionary *routeInfo = [@{
+                                   @"timeToTarget" : @(res.m_time),
+                                   @"targetDistance" : [NSString stringWithUTF8String:res.m_distToTarget.c_str()],
+                                   @"targetMetrics" : [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()],
+                                   @"turnDistance" : [NSString stringWithUTF8String:res.m_distToTurn.c_str()],
+                                   @"turnMetrics" : [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()],
+                                   @"turnType" : [self turnTypeToImage:res.m_turn]
+                                   } mutableCopy];
       static NSNumber * turnTypeValue;
       if (res.m_turn == routing::turns::EnterRoundAbout)
         turnTypeValue = @(res.m_exitNum);
       else if (res.m_turn != routing::turns::StayOnRoundAbout)
         turnTypeValue = nil;
-      if (turnTypeValue)
-        routeInfo[@"turnTypeValue"] = turnTypeValue;
-      [self.routeView updateWithInfo:routeInfo];
+      if (turnTypeValue) {
+        [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
+      }
+      
+      [self.routeView updateWithInfo:routeInfo.copy];
     }
   }
 }
@@ -771,41 +772,17 @@
           break;
         }
           
-        case routing::IRouter::ResultCode::RouteFileNotExist:
-          [self presentDownloaderAlertWithType:MWMAlertTypeDownloadAllMaps countries:absentCountries];
-          break;
-        
-        case routing::IRouter::ResultCode::RouteNotFound:
-          [self presentDownloaderAlertWithType:MWMAlertTypeRouteNotFound countries:absentCountries];
-          break;
-        
-        case routing::IRouter::ResultCode::PointsInDifferentMWM:
-          [self presentDefaultAlertWithType:MWMAlertTypePointsInDifferentMWM];
+        case routing::IRouter::RouteFileNotExist:
+        case routing::IRouter::RouteNotFound:
+        case routing::IRouter::InconsistentMWMandRoute:
+          [self presentDownloaderAlert:code countries:absentCountries];
           break;
           
-        case routing::IRouter::ResultCode::InconsistentMWMandRoute:
-          [self presentDownloaderAlertWithType:MWMAlertTypeInconsistentMWMandRoute countries:absentCountries];
-          break;
-          
-        case routing::IRouter::ResultCode::InternalError:
-          [self presentDefaultAlertWithType:MWMAlertTypeInternalError];
-          break;
-          
-        case routing::IRouter::ResultCode::NoCurrentPosition:
-          [self presentDefaultAlertWithType:MWMAlertTypeNoCurrentPosition];
-          break;
-          
-        case routing::IRouter::ResultCode::Cancelled:
-          break;
-          
-        case routing::IRouter::ResultCode::EndPointNotFound:
-          [self presentDefaultAlertWithType:MWMAlertTypeEndPointNotFound];
-          break;
-        case routing::IRouter::ResultCode::StartPointNotFound:
-          [self presentDefaultAlertWithType:MWMAlertTypeStartPointNotFound];
+        case routing::IRouter::Cancelled:
           break;
           
         default:
+          [self presentDefaultAlert:code];
           break;
       }
     });
@@ -834,24 +811,18 @@
   [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
 }
 
-- (void)presentDownloaderAlertWithType:(MWMAlertType)type countries:(vector<storage::TIndex> const&)countries {
+- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries {
   if (countries.size()) {
-    [self presentDownloaderAlertWithCountries:countries];
+    MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
+    [alert presentDownloaderAlertWithCountries:countries];
   } else {
-    [self presentDefaultAlertWithType:type];
+    [self presentDefaultAlert:type];
   }
 }
 
-- (void)presentDefaultAlertWithType:(MWMAlertType)type {
+- (void)presentDefaultAlert:(routing::IRouter::ResultCode)type {
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  [alert presentAlertWithType:type];
-}
-
-- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const&)countries {
-  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-  self.downloaderManager = [[MWMAlertDownloaderManager alloc] initWithMapsIndexes:countries];
-  alert.delegate = self.downloaderManager;
-  [alert presentAlertWithType:MWMAlertTypeDownloadTransitMap];
+  [alert presentAlert:type];
 }
 
 #pragma mark - Getters

@@ -9,6 +9,8 @@
 #import "UILabel+RuntimeAttributes.h"
 #import "UIKitCategories.h"
 
+// Runtime attributes for setting localized text in Xib.
+
 @implementation UILabel (RuntimeAttributes)
 
 - (void)setLocalizedText:(NSString *)localizedText {

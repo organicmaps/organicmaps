@@ -8,25 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, MWMAlertType) {
-  MWMAlertTypeDownloadAllMaps,
-  MWMAlertTypeDownloadTransitMap,
-  MWMAlertTypeRouteNotFound,
-  MWMAlertTypePointsInDifferentMWM,
-  MWMAlertTypeInconsistentMWMandRoute,
-  MWMAlertTypeInternalError,
-  MWMAlertTypeNoCurrentPosition,
-  MWMAlertTypeEndPointNotFound,
-  MWMAlertTypeStartPointNotFound
-};
+#include "../../../routing/router.hpp"
+#include "../../../std/vector.hpp"
+#include "../../../storage/storage.hpp"
 
 @class MWMAlertViewController;
-@class MWMAlertEntity;
 
 @interface MWMAlert : UIView
 @property (nonatomic, weak) MWMAlertViewController *alertController;
 
-+ (MWMAlert *)alertWithType:(MWMAlertType)type;
-- (void)configureWithEntity:(MWMAlertEntity *)entity;
++ (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
++ (MWMAlert *)downloaderAlertWithCountries:(vector<storage::TIndex> const&)countries;
 
 @end

@@ -36,17 +36,16 @@
                                 <action selector="downloadMapsButtonTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="4BO-Hf-EUE"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Download maps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0a5-pt-lJD">
-                            <rect key="frame" x="0.0" y="16" width="280" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Champagne-Ardenne" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fuw-Ys-Jmu">
+                            <rect key="frame" x="23" y="15" width="239" height="19"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.81999999999999995" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_maps"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="eFe-Uk-Foc">
-                            <rect key="frame" x="31" y="14" width="16" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.96862745098039216" green="0.96078431372549022" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
@@ -94,13 +93,13 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="downloadButton" destination="qq0-AY-zm6" id="VFS-uN-baX"/>
-                <outlet property="downloadMapsLabel" destination="0a5-pt-lJD" id="BRq-Gn-f93"/>
+                <outlet property="downloadMapsLabel" destination="Fuw-Ys-Jmu" id="wF3-tV-mqR"/>
                 <outlet property="messageLabel" destination="e9b-ae-kho" id="4TS-hw-lG0"/>
                 <outlet property="notNowButton" destination="Mxy-pG-5oc" id="rPh-od-SvP"/>
                 <outlet property="specsView" destination="BTz-50-QHZ" id="UAw-2W-iu5"/>
                 <outlet property="titleLabel" destination="Pcv-OL-Jdp" id="L51-Oh-h8b"/>
             </connections>
-            <point key="canvasLocation" x="342" y="261"/>
+            <point key="canvasLocation" x="342" y="260.5"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

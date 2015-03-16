@@ -21,6 +21,8 @@
 @end
 
 static NSString * const kDownloadAllMapsAlertNibName = @"MWMDownloadAllMapsAlert";
+extern UIColor * const kActiveDownloaderViewColor;
+static NSInteger const kNodePositionForDownloadMaps = -1;
 
 @implementation MWMDownloadAllMapsAlert
 
@@ -33,15 +35,15 @@ static NSString * const kDownloadAllMapsAlertNibName = @"MWMDownloadAllMapsAlert
 #pragma mark - Actions
 
 - (IBAction)notNowButtonTap:(id)sender {
-  [self.alertController close];
+  [self.alertController closeAlert];
 }
 
 - (IBAction)downloadMapsButtonTap:(id)sender {
   [UIView animateWithDuration:0.2f animations:^{
-    self.specsView.backgroundColor = [UIColor colorWithRed:211/255. green:209/255. blue:205/255. alpha:1.];
+    self.specsView.backgroundColor = kActiveDownloaderViewColor;
   } completion:^(BOOL finished) {
-    [self.alertController close];
-    CountryTreeVC *viewController = [[CountryTreeVC alloc] initWithNodePosition:-1];
+    [self.alertController closeAlert];
+    CountryTreeVC *viewController = [[CountryTreeVC alloc] initWithNodePosition:kNodePositionForDownloadMaps];
     [self.alertController.ownerViewController.navigationController pushViewController:viewController animated:YES];
   }];
 }

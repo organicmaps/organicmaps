@@ -47,7 +47,6 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return [self defaultAlertWithLocalizedText:@"routing_failed_cross_mwm_building"];
 }
 
-
 + (instancetype)defaultAlertWithLocalizedText:(NSString *)text {
   MWMDefaultAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
   alert.messageLabel.localizedText = text;
@@ -58,7 +57,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 #pragma mark - Actions
 
 - (IBAction)okButtonTap:(id)sender {
-  [self.alertController close];
+  [self.alertController closeAlert];
 }
 
 @end

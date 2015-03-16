@@ -8,9 +8,9 @@
   return NSStringFromClass(self);
 }
 
-- (void)performAfterDelay:(NSTimeInterval)delay block:(void (^)(void))block
+- (void)performAfterDelay:(NSTimeInterval)delayInSec block:(void (^)(void))block
 {
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSec * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     block();
   });
 }

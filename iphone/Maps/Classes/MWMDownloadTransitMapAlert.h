@@ -8,12 +8,12 @@
 
 #import "MWMAlert.h"
 
-@class MWMAlertEntity;
+#include "../../../std/vector.hpp"
+#include "../../../storage/storage.hpp"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)alert;
-- (void)configureWithEntity:(MWMAlertEntity *)entity;
++ (instancetype)alertWithCountries:(vector<storage::TIndex> const &)countries;
 
 @property (nonatomic, weak, readonly) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak, readonly) IBOutlet UILabel *messageLabel;

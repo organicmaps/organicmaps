@@ -21,7 +21,7 @@
 
 - (void)configureSpecsViewSize {
   const CGFloat topSpecsViewOffset = 16.;
-  const CGFloat specsViewHeight = 2 *topSpecsViewOffset + self.countryLabel.frame.size.height;
+  const CGFloat specsViewHeight = 2 * topSpecsViewOffset + self.countryLabel.frame.size.height;
   self.specsView.height = specsViewHeight;
   self.countryLabel.minY = topSpecsViewOffset;
   self.sizeLabel.center = CGPointMake(self.sizeLabel.center.x, self.countryLabel.center.y);

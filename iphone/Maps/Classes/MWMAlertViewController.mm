@@ -8,8 +8,6 @@
 
 #import "MWMAlertViewController.h"
 #import "MWMDownloadTransitMapAlert.h"
-#import "MWMAlertEntity.h"
-#import "MWMAlertViewControllerDelegate.h"
 
 static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController";
 
@@ -30,9 +28,9 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.view.frame = UIApplication.sharedApplication.delegate.window.bounds;
+  self.view.frame = UIApplication.sharedApplication.keyWindow.bounds;
   
-  //Need only for iOS 5
+  // Need only for iOS 5.
   if ([[[UIDevice currentDevice] systemVersion] integerValue] < 6) {
     self.tap.delegate = self;
   }
@@ -40,22 +38,18 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Actions
 
-- (void)presentAlertWithType:(MWMAlertType)type {
-  MWMAlert *alert = [MWMAlert alertWithType:type];
+- (void)presentDownloaderAlertWithCountries:(const vector<storage::TIndex> &)countries {
+  MWMAlert *alert = [MWMAlert downloaderAlertWithCountries:countries];
+  [self displayAlert:alert];
+}
+
+- (void)presentAlert:(routing::IRouter::ResultCode)type {
+  MWMAlert *alert = [MWMAlert alert:type];
+  [self displayAlert:alert];
+}
+
+- (void)displayAlert:(MWMAlert *)alert {
   alert.alertController = self;
-  switch (type) {
-    case MWMAlertTypeDownloadTransitMap: {
-      MWMAlertEntity *entity = [[MWMAlertEntity alloc] init];
-      entity.country = self.delegate.countryName;
-      entity.size = self.delegate.size;
-      [alert configureWithEntity:entity];
-      break;
-    }
-    case MWMAlertTypeDownloadAllMaps:
-    case MWMAlertTypeRouteNotFound:
-      
-      break;
-  }
   [self.ownerViewController addChildViewController:self];
   self.view.center = self.ownerViewController.view.center;
   [self.ownerViewController.view addSubview:self.view];
@@ -63,11 +57,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   alert.center = self.view.center;
 }
 
-- (void)close {
+- (void)closeAlert {
   self.ownerViewController.view.userInteractionEnabled = YES;
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
 }
+
+#pragma mark - Gesture intercepter
 
 - (IBAction)backgroundTap:(UITapGestureRecognizer *)sender {
   return;
@@ -89,7 +85,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
   if ([touch.view isKindOfClass:[UIControl class]]) {
-    [(UIButton *)touch.view sendActionsForControlEvents:UIControlEventTouchUpInside];
+    [(UIControl *)touch.view sendActionsForControlEvents:UIControlEventTouchUpInside];
   }
   return YES;
 }

@@ -23,7 +23,6 @@
   const CGFloat thirdMainViewOffset = 20.;
   const CGFloat bottomMainViewOffset = 52.;
   const CGFloat mainViewHeight = topMainViewOffset + self.titleLabel.height + secondMainViewOffset + self.messageLabel.height + thirdMainViewOffset + self.specsView.height + bottomMainViewOffset;
-  self.autoresizesSubviews = YES;
   self.height = mainViewHeight;
   self.titleLabel.minY = topMainViewOffset;
   self.messageLabel.minY = self.titleLabel.minY + self.titleLabel.height + secondMainViewOffset;

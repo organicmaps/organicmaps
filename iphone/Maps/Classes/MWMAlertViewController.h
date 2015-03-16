@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "MWMAlert.h"
-@protocol MWMAlertViewControllerDelegate;
+
+#include "../../../routing/router.hpp"
+#include "../../../std/vector.hpp"
+#include "../../../storage/storage.hpp"
 
 @interface MWMAlertViewController : UIViewController
 
-@property (nonatomic, weak) id<MWMAlertViewControllerDelegate> delegate;
 @property (nonatomic, weak, readonly) UIViewController *ownerViewController;
 
 - (instancetype)initWithViewController:(UIViewController *)viewController;
-- (void)presentAlertWithType:(MWMAlertType)type;
-- (void)close;
+- (void)presentAlert:(routing::IRouter::ResultCode)type;
+- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const&)countries;
+- (void)closeAlert;
 
 @end

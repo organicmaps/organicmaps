@@ -116,20 +116,18 @@
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		F613FA7A1AB336D6002394D4 /* MWMDefaultAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F613FA781AB336D6002394D4 /* MWMDefaultAlert.mm */; };
-		F613FA7B1AB336D6002394D4 /* MWMDefaultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F613FA791AB336D6002394D4 /* MWMDefaultAlert.xib */; };
-		F613FA7F1AB336F3002394D4 /* MWMDefaultAlert+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = F613FA7E1AB336F3002394D4 /* MWMDefaultAlert+Configure.m */; };
+		F613FA6A1AB1FCA8002394D4 /* MWMDefaultAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F613FA691AB1FCA8002394D4 /* MWMDefaultAlert.mm */; };
+		F613FA6C1AB1FD97002394D4 /* MWMDefaultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F613FA6B1AB1FD97002394D4 /* MWMDefaultAlert.xib */; };
+		F613FA701AB2002F002394D4 /* MWMDefaultAlert+Configure.mm in Sources */ = {isa = PBXBuildFile; fileRef = F613FA6F1AB2002F002394D4 /* MWMDefaultAlert+Configure.mm */; };
 		F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m */; };
 		F63CC8B11AAF0E600019338C /* MWMDownloadAllMapsAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63CC8B01AAF0E600019338C /* MWMDownloadAllMapsAlert.mm */; };
 		F63CC8B31AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63CC8B21AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib */; };
-		F6613E001AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m */; };
-		F6613E041AB199D000C67437 /* MWMDownloadTransitMapAlert+Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.m */; };
-		F6A85A201AAB1175003667A2 /* MWMAlertDownloaderManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A85A1F1AAB1175003667A2 /* MWMAlertDownloaderManager.mm */; };
-		F6BAADD81AB058AE0095D0C7 /* MWMAlertEntity.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BAADD71AB058AE0095D0C7 /* MWMAlertEntity.mm */; };
+		F6613E001AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.mm */; };
+		F6613E041AB199D000C67437 /* MWMDownloadTransitMapAlert+Configure.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.mm */; };
 		F6DBF9A01AA75B6D00F2EC2C /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6DBF99F1AA75B6D00F2EC2C /* MWMDownloadTransitMapAlert.xib */; };
 		F6DBF9AC1AA847ED00F2EC2C /* MWMAlertViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9AA1AA847ED00F2EC2C /* MWMAlertViewController.mm */; };
 		F6DBF9AD1AA847ED00F2EC2C /* MWMAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6DBF9AB1AA847ED00F2EC2C /* MWMAlertViewController.xib */; };
-		F6DBF9B01AA85E3500F2EC2C /* MWMAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9AF1AA85E3500F2EC2C /* MWMAlert.m */; };
+		F6DBF9B01AA85E3500F2EC2C /* MWMAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9AF1AA85E3500F2EC2C /* MWMAlert.mm */; };
 		F6DBF9B31AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B21AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.mm */; };
 		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
@@ -381,31 +379,27 @@
 		EED10A4411F78D120095FAD4 /* MapViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapViewController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_blacklist.txt; path = ../../data/fonts_blacklist.txt; sourceTree = "<group>"; };
 		EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fonts_whitelist.txt; path = ../../data/fonts_whitelist.txt; sourceTree = "<group>"; };
-		F613FA771AB336D6002394D4 /* MWMDefaultAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert.h; sourceTree = "<group>"; };
-		F613FA781AB336D6002394D4 /* MWMDefaultAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDefaultAlert.mm; sourceTree = "<group>"; };
-		F613FA791AB336D6002394D4 /* MWMDefaultAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDefaultAlert.xib; sourceTree = "<group>"; };
-		F613FA7D1AB336F3002394D4 /* MWMDefaultAlert+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMDefaultAlert+Configure.h"; sourceTree = "<group>"; };
-		F613FA7E1AB336F3002394D4 /* MWMDefaultAlert+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWMDefaultAlert+Configure.m"; sourceTree = "<group>"; };
+		F613FA681AB1FCA8002394D4 /* MWMDefaultAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert.h; sourceTree = "<group>"; };
+		F613FA691AB1FCA8002394D4 /* MWMDefaultAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDefaultAlert.mm; sourceTree = "<group>"; };
+		F613FA6B1AB1FD97002394D4 /* MWMDefaultAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDefaultAlert.xib; sourceTree = "<group>"; };
+		F613FA6E1AB2002F002394D4 /* MWMDefaultAlert+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMDefaultAlert+Configure.h"; sourceTree = "<group>"; };
+		F613FA6F1AB2002F002394D4 /* MWMDefaultAlert+Configure.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMDefaultAlert+Configure.mm"; sourceTree = "<group>"; };
 		F62404F91AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F62404FA1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		F63CC8AF1AAF0E600019338C /* MWMDownloadAllMapsAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MWMDownloadAllMapsAlert.h; sourceTree = "<group>"; };
 		F63CC8B01AAF0E600019338C /* MWMDownloadAllMapsAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloadAllMapsAlert.mm; sourceTree = "<group>"; };
 		F63CC8B21AAF0E8D0019338C /* MWMDownloadAllMapsAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadAllMapsAlert.xib; sourceTree = "<group>"; };
 		F6613DFE1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMDownloadAllMapsAlert+Configure.h"; sourceTree = "<group>"; };
-		F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWMDownloadAllMapsAlert+Configure.m"; sourceTree = "<group>"; };
+		F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMDownloadAllMapsAlert+Configure.mm"; sourceTree = "<group>"; };
 		F6613E021AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMDownloadTransitMapAlert+Configure.h"; sourceTree = "<group>"; };
-		F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWMDownloadTransitMapAlert+Configure.m"; sourceTree = "<group>"; };
-		F6A85A1E1AAB1175003667A2 /* MWMAlertDownloaderManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MWMAlertDownloaderManager.h; sourceTree = "<group>"; };
-		F6A85A1F1AAB1175003667A2 /* MWMAlertDownloaderManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlertDownloaderManager.mm; sourceTree = "<group>"; };
+		F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMDownloadTransitMapAlert+Configure.mm"; sourceTree = "<group>"; };
 		F6A85A211AAB1408003667A2 /* MWMAlertViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewControllerDelegate.h; sourceTree = "<group>"; };
-		F6BAADD61AB058AE0095D0C7 /* MWMAlertEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertEntity.h; sourceTree = "<group>"; };
-		F6BAADD71AB058AE0095D0C7 /* MWMAlertEntity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlertEntity.mm; sourceTree = "<group>"; };
 		F6DBF99F1AA75B6D00F2EC2C /* MWMDownloadTransitMapAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadTransitMapAlert.xib; sourceTree = "<group>"; };
 		F6DBF9A91AA847ED00F2EC2C /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
 		F6DBF9AA1AA847ED00F2EC2C /* MWMAlertViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MWMAlertViewController.mm; sourceTree = "<group>"; };
 		F6DBF9AB1AA847ED00F2EC2C /* MWMAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAlertViewController.xib; sourceTree = "<group>"; };
-		F6DBF9AE1AA85E3500F2EC2C /* MWMAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlert.h; sourceTree = "<group>"; };
-		F6DBF9AF1AA85E3500F2EC2C /* MWMAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMAlert.m; sourceTree = "<group>"; };
+		F6DBF9AE1AA85E3500F2EC2C /* MWMAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = MWMAlert.h; sourceTree = "<group>"; };
+		F6DBF9AF1AA85E3500F2EC2C /* MWMAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlert.mm; sourceTree = "<group>"; };
 		F6DBF9B11AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloadTransitMapAlert.h; sourceTree = "<group>"; };
 		F6DBF9B21AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MWMDownloadTransitMapAlert.mm; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
@@ -557,8 +551,7 @@
 				46F26CD710F623BA00ECCA39 /* EAGLView.mm */,
 				1D3623240D0F684500981E51 /* MapsAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MapsAppDelegate.mm */,
-				46F8A2EB10EB63040045521A /* MapViewController.h */,
-				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
+				F613FA741AB330AF002394D4 /* MapViewController */,
 				FAF457E415597BC100DCCC49 /* Framework.h */,
 				FAF457E615597D4600DCCC49 /* Framework.cpp */,
 				97DEA09018D706C300C5F963 /* Common.h */,
@@ -850,24 +843,33 @@
 			path = Statistics;
 			sourceTree = "<group>";
 		};
-		F613FA761AB336B8002394D4 /* DefaultAlert */ = {
+		F613FA671AB1FBD1002394D4 /* DefaultAlert */ = {
 			isa = PBXGroup;
 			children = (
-				F613FA771AB336D6002394D4 /* MWMDefaultAlert.h */,
-				F613FA781AB336D6002394D4 /* MWMDefaultAlert.mm */,
-				F613FA791AB336D6002394D4 /* MWMDefaultAlert.xib */,
-				F613FA7C1AB336E8002394D4 /* Configure */,
+				F613FA681AB1FCA8002394D4 /* MWMDefaultAlert.h */,
+				F613FA691AB1FCA8002394D4 /* MWMDefaultAlert.mm */,
+				F613FA6B1AB1FD97002394D4 /* MWMDefaultAlert.xib */,
+				F613FA6D1AB2000F002394D4 /* Configure */,
 			);
 			name = DefaultAlert;
 			sourceTree = "<group>";
 		};
-		F613FA7C1AB336E8002394D4 /* Configure */ = {
+		F613FA6D1AB2000F002394D4 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-				F613FA7D1AB336F3002394D4 /* MWMDefaultAlert+Configure.h */,
-				F613FA7E1AB336F3002394D4 /* MWMDefaultAlert+Configure.m */,
+				F613FA6E1AB2002F002394D4 /* MWMDefaultAlert+Configure.h */,
+				F613FA6F1AB2002F002394D4 /* MWMDefaultAlert+Configure.mm */,
 			);
 			name = Configure;
+			sourceTree = "<group>";
+		};
+		F613FA741AB330AF002394D4 /* MapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				46F8A2EB10EB63040045521A /* MapViewController.h */,
+				EED10A4411F78D120095FAD4 /* MapViewController.mm */,
+			);
+			name = MapViewController;
 			sourceTree = "<group>";
 		};
 		F63CC8AE1AAF0E350019338C /* DownloadAllMaps */ = {
@@ -885,7 +887,7 @@
 			isa = PBXGroup;
 			children = (
 				F6613DFE1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.h */,
-				F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m */,
+				F6613DFF1AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.mm */,
 			);
 			name = Configure;
 			sourceTree = "<group>";
@@ -894,7 +896,7 @@
 			isa = PBXGroup;
 			children = (
 				F6613E021AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.h */,
-				F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.m */,
+				F6613E031AB199CF00C67437 /* MWMDownloadTransitMapAlert+Configure.mm */,
 			);
 			name = Configure;
 			sourceTree = "<group>";
@@ -910,15 +912,6 @@
 			name = DownloadTransitMap;
 			sourceTree = "<group>";
 		};
-		F6BAADD91AB058BD0095D0C7 /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				F6BAADD61AB058AE0095D0C7 /* MWMAlertEntity.h */,
-				F6BAADD71AB058AE0095D0C7 /* MWMAlertEntity.mm */,
-			);
-			name = Entity;
-			sourceTree = "<group>";
-		};
 		F6DBF99E1AA75AA700F2EC2C /* Custom Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -927,13 +920,10 @@
 				F6DBF9AA1AA847ED00F2EC2C /* MWMAlertViewController.mm */,
 				F6DBF9AB1AA847ED00F2EC2C /* MWMAlertViewController.xib */,
 				F6DBF9AE1AA85E3500F2EC2C /* MWMAlert.h */,
-				F6DBF9AF1AA85E3500F2EC2C /* MWMAlert.m */,
+				F6DBF9AF1AA85E3500F2EC2C /* MWMAlert.mm */,
 				F63CC8AE1AAF0E350019338C /* DownloadAllMaps */,
 				F6A85A161AA9CAAD003667A2 /* DownloadTransitMap */,
-				F613FA761AB336B8002394D4 /* DefaultAlert */,
-				F6A85A1E1AAB1175003667A2 /* MWMAlertDownloaderManager.h */,
-				F6A85A1F1AAB1175003667A2 /* MWMAlertDownloaderManager.mm */,
-				F6BAADD91AB058BD0095D0C7 /* Entity */,
+				F613FA671AB1FBD1002394D4 /* DefaultAlert */,
 			);
 			name = "Custom Alert";
 			sourceTree = "<group>";
@@ -1121,7 +1111,7 @@
 				ORGANIZATIONNAME = MapsWithMe;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = N9X2A789QT;
+						DevelopmentTeam = XMK5825GXK;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1207,7 +1197,6 @@
 				978F9247183B6671000D6C7C /* Main_iPhone.storyboard in Resources */,
 				FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */,
 				FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */,
-				F613FA7B1AB336D6002394D4 /* MWMDefaultAlert.xib in Resources */,
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
 				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
 				F6DBF9AD1AA847ED00F2EC2C /* MWMAlertViewController.xib in Resources */,
@@ -1234,6 +1223,7 @@
 				F7E7BA311672328F00B4492E /* pharmacy@2x.png in Resources */,
 				F7E7BA321672328F00B4492E /* police.png in Resources */,
 				F7E7BA331672328F00B4492E /* police@2x.png in Resources */,
+				F613FA6C1AB1FD97002394D4 /* MWMDefaultAlert.xib in Resources */,
 				F7E7BA341672328F00B4492E /* post.png in Resources */,
 				F7E7BA351672328F00B4492E /* post@2x.png in Resources */,
 				F7E7BA361672328F00B4492E /* shop.png in Resources */,
@@ -1282,7 +1272,7 @@
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				976D86F119C877E600C920EF /* MapCell.mm in Sources */,
 				977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
-				F6613E041AB199D000C67437 /* MWMDownloadTransitMapAlert+Configure.m in Sources */,
+				F6613E041AB199D000C67437 /* MWMDownloadTransitMapAlert+Configure.mm in Sources */,
 				B08AA8CE1A24C7BC00810B1C /* LocalNotificationInfoProvider.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */,
@@ -1292,12 +1282,14 @@
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
+				F613FA701AB2002F002394D4 /* MWMDefaultAlert+Configure.mm in Sources */,
 				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				9750841F199501F100A7457D /* ImageDownloader.m in Sources */,
 				978F9253183BD530000D6C7C /* NavigationController.mm in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.m in Sources */,
 				97C9851E186AE3C500AF7E9E /* Reachability.m in Sources */,
+				F613FA6A1AB1FCA8002394D4 /* MWMDefaultAlert.mm in Sources */,
 				977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
@@ -1310,7 +1302,6 @@
 				97A8001418B2140A000C07A2 /* SearchResultCell.m in Sources */,
 				97F0817E19AF72590098FB0B /* BadgeView.m in Sources */,
 				97A8002718B2741C000C07A2 /* SearchCell.m in Sources */,
-				F6BAADD81AB058AE0095D0C7 /* MWMAlertEntity.mm in Sources */,
 				97908B2C19658767003DD7C6 /* SearchCategoryCell.m in Sources */,
 				9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */,
 				B08AA8DA1A26299A00810B1C /* TimeUtils.m in Sources */,
@@ -1323,7 +1314,6 @@
 				978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */,
 				B0E1FCDC1A23399E00A8E08B /* RouteOverallInfoView.m in Sources */,
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
-				F613FA7F1AB336F3002394D4 /* MWMDefaultAlert+Configure.m in Sources */,
 				F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.m in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */,
@@ -1333,7 +1323,7 @@
 				97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
-				F6613E001AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.m in Sources */,
+				F6613E001AB1987300C67437 /* MWMDownloadAllMapsAlert+Configure.mm in Sources */,
 				977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				B0FBFA2B1A515B4C0086819E /* TableViewController.m in Sources */,
@@ -1343,14 +1333,12 @@
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
-				F6A85A201AAB1175003667A2 /* MWMAlertDownloaderManager.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
-				F6DBF9B01AA85E3500F2EC2C /* MWMAlert.m in Sources */,
+				F6DBF9B01AA85E3500F2EC2C /* MWMAlert.mm in Sources */,
 				9773DB8F198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */,
 				F63CC8B11AAF0E600019338C /* MWMDownloadAllMapsAlert.mm in Sources */,
-				F613FA7A1AB336D6002394D4 /* MWMDefaultAlert.mm in Sources */,
 				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				F6DBF9B31AA8611A00F2EC2C /* MWMDownloadTransitMapAlert.mm in Sources */,
