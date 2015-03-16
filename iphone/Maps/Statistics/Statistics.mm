@@ -13,7 +13,8 @@
   if (self.enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
-    [Flurry setCrashReportingEnabled:YES];
+    // Commented by AlexZ as I don't see any crashes in Flurry console.
+    //[Flurry setCrashReportingEnabled:YES];
     [Flurry setSessionReportsOnPauseEnabled:NO];
   }
 }
