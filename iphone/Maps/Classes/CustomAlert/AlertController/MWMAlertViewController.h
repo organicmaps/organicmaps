@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MWMAlert.h"
 
-#include "../../../routing/router.hpp"
-#include "../../../std/vector.hpp"
-#include "../../../storage/storage.hpp"
+#include "../../../../../routing/router.hpp"
+#include "../../../../../std/vector.hpp"
+#include "../../../../../storage/storage.hpp"
 
 @interface MWMAlertViewController : UIViewController
 

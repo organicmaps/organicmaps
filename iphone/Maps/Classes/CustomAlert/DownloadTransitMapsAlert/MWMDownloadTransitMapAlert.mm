@@ -8,7 +8,6 @@
 
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMAlertViewController.h"
-#import "MWMAlertViewControllerDelegate.h"
 #import "ActiveMapsVC.h"
 #import "MWMDownloadTransitMapAlert+Configure.h"
 
@@ -68,7 +67,3 @@ extern UIColor * const kActiveDownloaderViewColor;
 }
 
 @end
-
-
-
-

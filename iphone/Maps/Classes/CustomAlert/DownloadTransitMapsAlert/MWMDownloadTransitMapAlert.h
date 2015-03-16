@@ -8,8 +8,8 @@
 
 #import "MWMAlert.h"
 
-#include "../../../std/vector.hpp"
-#include "../../../storage/storage.hpp"
+#include "../../../../../std/vector.hpp"
+#include "../../../../../storage/storage.hpp"
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
