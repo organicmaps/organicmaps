@@ -34,7 +34,16 @@ void RunRoutine(IRoutine * routine)
 // Thread wrapper implementation
 Thread::Thread() : m_routine(0) {}
 
-Thread::~Thread() { Join(); }
+Thread::~Thread()
+{
+  // @todo (ygorshenin@): in general, it's not a good practice to
+  // implicitly detach thread since detached threads work in
+  // background, consume system resources and make it hard to reason
+  // about program. Thus, all places where Thread is instantiated
+  // should be fixed to explicitly detach thread.
+  if (m_thread.joinable())
+    m_thread.detach();
+}
 
 bool Thread::Create(IRoutine * pRoutine)
 {
