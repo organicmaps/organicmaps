@@ -18,12 +18,13 @@ public class Metadata implements Parcelable
     FMD_STARS(5),
     FMD_OPERATOR(6),
     FMD_URL(7),
-    FMD_INTERNET(8),
-    FMD_ELE(9),
-    FMD_TURN_LANES(10),
-    FMD_TURN_LANES_FORWARD(11),
-    FMD_TURN_LANES_BACKWARD(12),
-    FMD_EMAIL(13);
+    FMD_WEBSITE(8),
+    FMD_INTERNET(9),
+    FMD_ELE(10),
+    FMD_TURN_LANES(11),
+    FMD_TURN_LANES_FORWARD(12),
+    FMD_TURN_LANES_BACKWARD(13),
+    FMD_EMAIL(14);
 
     private int mMetaType;
 
@@ -82,7 +83,6 @@ public class Metadata implements Parcelable
   {
     return mMetadataMap.get(type);
   }
-
 
   @Override
   public int describeContents()

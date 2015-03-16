@@ -28,6 +28,7 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
@@ -72,6 +73,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private LinearLayout mLlSchedule;
   private TextView mTvSchedule;
   private LinearLayout mLlWifi;
+  private LinearLayout mLlEmail;
+  private TextView mTvEmail;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -133,7 +136,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvDistance = (TextView) ppPreview.findViewById(R.id.tv__straight_distance);
     mAvDirection = (ArrowView) ppPreview.findViewById(R.id.av__direction);
     mAvDirection.setOnClickListener(this);
-    mAvDirection.setImageResource(R.drawable.ic_direction_pagepreview);
+    mAvDirection.setImageResource(R.drawable.selector_direction);
 
     mPpDetails = (ViewGroup) findViewById(R.id.pp__details);
     mLlAddress = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_name);
@@ -155,6 +158,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mLlWifi = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wifi);
     mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
+    mLlEmail = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_email);
+    mLlEmail.setOnClickListener(this);
+    mTvEmail = (TextView) mLlEmail.findViewById(R.id.tv__place_email);
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(this);
@@ -302,9 +308,29 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private void refreshPreview()
   {
     mTvTitle.setText(mMapObject.getName());
-    mTvSubtitle.setText(mMapObject.getPoiTypeName());
+    String subtitle = mMapObject.getPoiTypeName();
+    final String cuisine = mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE);
+    if (cuisine != null)
+      subtitle += ", " + translateCuisine(cuisine);
+    mTvSubtitle.setText(subtitle);
     mAvDirection.setVisibility(View.GONE);
-    // TODO show/hide mTvOpened after schedule will be parsed
+    // TODO show/hide mTvOpened after schedule fill be parsed
+  }
+
+  public String translateCuisine(String cuisine)
+  {
+    if (!TextUtils.isEmpty(cuisine))
+    {
+      // cuisines translations can contain unsupported symbols, and res ids
+      // replace them with supported "_"( so ';', ', ' and ' ' are replaced with underlines)
+      final String res = cuisine.replace(';', '_').replace(", ", "_").replace(' ', '_').toLowerCase();
+      // and "cuisine_" prefix
+      int resId = getResources().getIdentifier("cuisine_" + res, "string", BuildConfig.APPLICATION_ID);
+      if (resId != 0)
+        return getResources().getString(resId);
+    }
+
+    return cuisine;
   }
 
   private void refreshDetails()
@@ -314,7 +340,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     refreshMetadataOrHide(Metadata.MetadataType.FMD_PHONE_NUMBER, mLlPhone, mTvPhone);
     // TODO parse schedule (natively?)
     refreshMetadataOrHide(Metadata.MetadataType.FMD_OPEN_HOURS, mLlSchedule, mTvSchedule);
-    refreshMetadataOrHide(Metadata.MetadataType.FMD_INTERNET, mLlWifi, null);
+    refreshMetadataOrHide(Metadata.MetadataType.FMD_EMAIL, mLlEmail, null);
   }
 
   private void refreshButtons(boolean showBackButton)

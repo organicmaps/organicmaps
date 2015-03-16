@@ -62,6 +62,8 @@
 
         <include layout="@layout/place_page_wifi"/>
 
+        <include layout="@layout/place_page_email"/>
+
       </LinearLayout>
 
     </RelativeLayout>
