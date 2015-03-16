@@ -21,12 +21,14 @@
   #include <QtGui/QMenu>
   #include <QtGui/QMenuBar>
   #include <QtGui/QToolBar>
+  #include <QtGui/qdesktopwidget.h>
 #else
   #include <QtWidgets/QAction>
   #include <QtWidgets/QDockWidget>
   #include <QtWidgets/QMenu>
   #include <QtWidgets/QMenuBar>
   #include <QtWidgets/QToolBar>
+  #include <QtWidgets/qdesktopwidget.h>
 #endif
 
 
@@ -49,6 +51,10 @@ namespace qt
 
 MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
+  // Always runs on the first desktop
+  auto const desktop(QApplication::desktop());
+  setGeometry(desktop->screenGeometry(0));
+
   m_pDrawWidget = new DrawWidget(this);
   QSurfaceFormat format = m_pDrawWidget->requestedFormat();
 
