@@ -1532,7 +1532,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   ft1.ParseGeometry(FeatureType::BEST_GEOMETRY);
   ft2.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), 2, ());
+  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), FEATURES_NEAR_TURN_M, ());
 
   m2::PointD const p = ft1.GetPoint(seg1.m_pointEnd);
   m2::PointD const p1 = GetPointForTurnAngle(seg1, ft1, p,
