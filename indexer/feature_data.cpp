@@ -44,6 +44,7 @@ namespace
 class UselessTypesChecker
 {
   vector<uint32_t> m_types;
+  size_t m_count1;
 
   template <size_t N, size_t M>
   void AddTypes(char const * (&arr)[N][M])
@@ -57,6 +58,10 @@ class UselessTypesChecker
 public:
   UselessTypesChecker()
   {
+    // Fill types that will be taken into account last,
+    // when we have many types for POI.
+
+    // 1-arity
     char const * arr1[][1] = {
       { "building" },
       { "hwtag" },
@@ -64,12 +69,31 @@ public:
     };
 
     AddTypes(arr1);
+    m_count1 = m_types.size();
+
+    // 2-arity
+    char const * arr2[][2] = {
+      { "amenity", "atm" }
+    };
+
+    AddTypes(arr2);
   }
 
   bool operator() (uint32_t t) const
   {
+    auto const end1 = m_types.begin() + m_count1;
+
+    // check 2-arity types
+    ftype::TruncValue(t, 2);
+    if (find(end1, m_types.end(), t) != m_types.end())
+      return true;
+
+    // check 1-arity types
     ftype::TruncValue(t, 1);
-    return (find(m_types.begin(), m_types.end(), t) != m_types.end());
+    if (find(m_types.begin(), end1, t) != end1)
+      return true;
+
+    return false;
   }
 };
 
@@ -80,7 +104,7 @@ void TypesHolder::SortBySpec()
   if (m_size < 2)
     return;
 
-  // do very simple thing - put "very common" types to the end
+  // Put "very common" types to the end of possible PP-description types.
   static UselessTypesChecker checker;
   (void) RemoveIfKeepValid(m_types, m_types + m_size, bind<bool>(cref(checker), _1));
 }
