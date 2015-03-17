@@ -198,7 +198,7 @@ int LoaderImpl::GetScaleIndex(int scale, offsets_t const & offsets) const
   if (scale == -1)
   {
     // Choose the best geometry for the last visible scale.
-    int i = offsets.size()-1;
+    int i = static_cast<int>(offsets.size()-1);
     while (i >= 0 && offsets[i] == s_InvalidOffset) --i;
     if (i >= 0)
       return i;
@@ -207,7 +207,7 @@ int LoaderImpl::GetScaleIndex(int scale, offsets_t const & offsets) const
   }
   else
   {
-    for (size_t i = 0; i < m_Info.GetScalesCount(); ++i)
+    for (int i = 0; i < m_Info.GetScalesCount(); ++i)
       if (scale <= m_Info.GetScale(i))
       {
         if (offsets[i] != s_InvalidOffset)
@@ -268,7 +268,7 @@ namespace
 
 void LoaderImpl::ParseHeader2()
 {
-  uint8_t ptsCount, ptsMask, trgCount, trgMask;
+  uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
 
   uint8_t const commonH = Header();
   BitSource bitSource(DataPtr() + m_Header2Offset);
@@ -311,7 +311,7 @@ void LoaderImpl::ParseHeader2()
       src = ArrayByteSource(serial::LoadInnerPath(
                               start, ptsCount, GetDefCodingParams(), m_pF->m_points));
 
-      m_pF->m_innerStats.m_points = src.PtrC() - start;
+      m_pF->m_innerStats.m_points = static_cast<uint32_t>(src.PtrC() - start);
     }
     else
       ReadOffsets(src, ptsMask, m_ptsOffsets);
@@ -329,7 +329,7 @@ void LoaderImpl::ParseHeader2()
       src = ArrayByteSource(serial::LoadInnerTriangles(
                               start, trgCount, GetDefCodingParams(), points));
 
-      m_pF->m_innerStats.m_strips = src.PtrC() - start;
+      m_pF->m_innerStats.m_strips = static_cast<uint32_t>(src.PtrC() - start);
 
       for (uint8_t i = 2; i < trgCount; ++i)
       {
@@ -342,7 +342,7 @@ void LoaderImpl::ParseHeader2()
       ReadOffsets(src, trgMask, m_trgOffsets);
   }
 
-  m_pF->m_innerStats.m_size = src.PtrC() - DataPtr();
+  m_pF->m_innerStats.m_size = static_cast<uint32_t>(src.PtrC() - DataPtr());
 }
 
 uint32_t LoaderImpl::ParseGeometry(int scale)

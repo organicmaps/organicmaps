@@ -59,7 +59,7 @@ namespace feature
     {
       STATIC_ASSERT(sizeof(typename TCont::value_type) == 1);
 
-      uint32_t const count = cont.size();
+      uint32_t const count = static_cast<uint32_t>(cont.size());
       WriteVarUint(sink, count);
       if (count > 0)
         sink.Write(&cont[0], count);

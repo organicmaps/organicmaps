@@ -15,7 +15,7 @@ template <
     typename T,
     class TReader,
     typename TSize = uint32_t,
-    typename TDifference = typename make_signed<TSize>::type
+    typename TDifference = ptrdiff_t
     > class DDVector
 {
 public:
@@ -170,7 +170,7 @@ private:
     if ((sz % sizeof(T)) != 0)
       MYTHROW(OpenException, (sz, sizeof(T)));
 
-    m_Size = sz / sizeof(T);
+    m_Size = static_cast<size_type>(sz / sizeof(T));
   }
 
   // TODO: Refactor me to use Reader by pointer.

@@ -132,7 +132,7 @@ private:
   }
 
   string const m_TmpFileName;
-  uint32_t const m_BufferCapacity;
+  size_t const m_BufferCapacity;
   OutputSinkT & m_OutputSink;
   unique_ptr<FileWriter> m_pTmpWriter;
   vector<T> m_Buffer;

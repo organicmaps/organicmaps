@@ -140,7 +140,7 @@ void LoaderCurrent::ParseHeader2()
 
       src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_pF->m_points));
 
-      m_pF->m_innerStats.m_points = src.PtrC() - start;
+      m_pF->m_innerStats.m_points = static_cast<uint32_t>(src.PtrC() - start);
     }
     else
     {
@@ -160,7 +160,7 @@ void LoaderCurrent::ParseHeader2()
       FeatureType::points_t points;
       src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, points));
 
-      m_pF->m_innerStats.m_strips = src.PtrC() - start;
+      m_pF->m_innerStats.m_strips = static_cast<uint32_t>(src.PtrC() - start);
 
       for (uint8_t i = 2; i < trgCount; ++i)
       {
@@ -173,7 +173,7 @@ void LoaderCurrent::ParseHeader2()
       ReadOffsets(src, trgMask, m_trgOffsets);
   }
 
-  m_pF->m_innerStats.m_size = src.PtrC() - DataPtr();
+  m_pF->m_innerStats.m_size = static_cast<uint32_t>(src.PtrC() - DataPtr());
 }
 
 uint32_t LoaderCurrent::ParseGeometry(int scale)
@@ -259,7 +259,8 @@ void LoaderCurrent::ParseMetadata()
     typedef pair<uint32_t, uint32_t> IdxElementT;
     DDVector<IdxElementT, FilesContainerR::ReaderT> idx(m_Info.GetMetadataIndexReader());
     
-    auto it = lower_bound(idx.begin(), idx.end()
+    auto it = lower_bound(idx.begin(),
+                          idx.end()
                           , make_pair(uint32_t(m_pF->m_id.m_offset), uint32_t(0))
                           , [](IdxElementT const & v1, IdxElementT const & v2) { return v1.first < v2.first; }
                           );

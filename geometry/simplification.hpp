@@ -90,7 +90,7 @@ template <typename DistanceF, typename IterT, typename OutT>
 void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end,
                          double epsilon, DistanceF dist, OutT out)
 {
-  int32_t const n = end - beg;
+  int32_t const n = static_cast<int32_t>(end - beg);
   if (n <= 2)
   {
     for (IterT it = beg; it != end; ++it)

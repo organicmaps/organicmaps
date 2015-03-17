@@ -100,9 +100,9 @@ size_t RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
   m_container[type].push_back(p);
 
   vector<uint32_t> & v = m_rules[scale][type];
-  v.push_back(m_container[type].size()-1);
+  v.push_back(static_cast<uint32_t>(m_container[type].size()-1));
 
-  size_t const ret = v.size() - 1;
+  int const ret = static_cast<int>(v.size() - 1);
   ASSERT ( Find(Key(scale, type, ret)) == p, (ret) );
   return ret;
 }
@@ -288,7 +288,7 @@ namespace
     void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule)
     {
       size_t const i = m_holder.AddRule(scale, type, new TRule(rule));
-      Key k(scale, type, i);
+      Key k(scale, type, static_cast<int>(i));
 
       p->SetVisibilityOnScale(true, scale);
       k.SetPriority(rule.priority());
@@ -313,7 +313,7 @@ namespace
 
           using namespace proto_rules;
 
-          for (size_t k = 0; k < de.lines_size(); ++k)
+          for (int k = 0; k < de.lines_size(); ++k)
             AddRule<Line>(p, de.scale(), line, de.lines(k));
 
           if (de.has_area())

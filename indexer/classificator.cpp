@@ -328,7 +328,7 @@ pair<int, int> ClassifObject::GetDrawScaleRange() const
   if (!IsDrawableAny())
     return make_pair(-1, -1);
 
-  size_t const count = m_visibility.size();
+  int const count = static_cast<int>(m_visibility.size());
 
   int left = -1;
   for (int i = 0; i < count; ++i)
