@@ -149,14 +149,13 @@
 
     if (res.IsValid())
     {
-      NSMutableDictionary *routeInfo = [@{
-                                   @"timeToTarget" : @(res.m_time),
-                                   @"targetDistance" : [NSString stringWithUTF8String:res.m_distToTarget.c_str()],
-                                   @"targetMetrics" : [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()],
-                                   @"turnDistance" : [NSString stringWithUTF8String:res.m_distToTurn.c_str()],
-                                   @"turnMetrics" : [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()],
-                                   @"turnType" : [self turnTypeToImage:res.m_turn]
-                                   } mutableCopy];
+      NSMutableDictionary *routeInfo = [NSMutableDictionary dictionaryWithCapacity:7];
+      routeInfo[@"timeToTarget"] = @(res.m_time);
+      routeInfo[@"targetDistance"] = [NSString stringWithUTF8String:res.m_distToTarget.c_str()];
+      routeInfo[@"targetMetrics"] = [NSString stringWithUTF8String:res.m_targetUnitsSuffix.c_str()];
+      routeInfo[@"turnDistance"] = [NSString stringWithUTF8String:res.m_distToTurn.c_str()];
+      routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
+      routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
       static NSNumber * turnTypeValue;
       if (res.m_turn == routing::turns::EnterRoundAbout)
         turnTypeValue = @(res.m_exitNum);
@@ -166,7 +165,7 @@
         [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
       }
       
-      [self.routeView updateWithInfo:routeInfo.copy];
+      [self.routeView updateWithInfo:routeInfo];
     }
   }
 }
