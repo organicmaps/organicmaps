@@ -149,8 +149,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvWebsite = (TextView) mPpDetails.findViewById(R.id.tv__place_website);
     mLlLatlon = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_latlon);
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-      mLlLatlon.setOnLongClickListener(this);
     mLlLatlon.setOnClickListener(this);
     mLlSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
     mLlSchedule.setOnClickListener(this);
@@ -161,6 +159,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mLlEmail = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_email);
     mLlEmail.setOnClickListener(this);
     mTvEmail = (TextView) mLlEmail.findViewById(R.id.tv__place_email);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+    {
+      mLlLatlon.setOnLongClickListener(this);
+      mLlAddress.setOnLongClickListener(this);
+      mLlPhone.setOnLongClickListener(this);
+      mLlWebsite.setOnLongClickListener(this);
+      mLlSchedule.setOnLongClickListener(this);
+      mLlEmail.setOnLongClickListener(this);
+    }
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
     mEtBookmarkName.setOnEditorActionListener(this);
@@ -624,29 +631,48 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     final PopupMenu popup = new PopupMenu(getContext(), v);
     final Menu menu = popup.getMenu();
-    final double lat = mMapObject.getLat();
-    final double lon = mMapObject.getLon();
+    String[] arr = null;
+    switch (v.getId())
+    {
+    case R.id.ll__place_latlon:
+      final double lat = mMapObject.getLat();
+      final double lon = mMapObject.getLon();
+
+      arr = new String[]{
+          Framework.nativeFormatLatLon(lat, lon, false),
+          Framework.nativeFormatLatLon(lat, lon, true)};
+
+      break;
+    case R.id.ll__place_website:
+      arr = new String[]{mTvWebsite.getText().toString()};
+      break;
+    case R.id.ll__place_email:
+      arr = new String[]{mTvEmail.getText().toString()};
+      break;
+    case R.id.ll__place_phone:
+      arr = new String[]{mTvPhone.getText().toString()};
+      break;
+    case R.id.ll__place_schedule:
+      arr = new String[]{mTvSchedule.getText().toString()};
+      break;
+    }
 
     final String copyText = getResources().getString(android.R.string.copy);
-    final String arrCoord[] = {
-        Framework.nativeFormatLatLon(lat, lon, false),
-        Framework.nativeFormatLatLon(lat, lon, true)};
+    for (int i = 0; i < arr.length; i++)
+      menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, arr[i]));
 
-    menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
-    menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
-    menu.add(Menu.NONE, 2, 2, android.R.string.cancel);
-
+    final String[] finalArr = arr;
     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
     {
       @Override
       public boolean onMenuItemClick(MenuItem item)
       {
         final int id = item.getItemId();
-        if (id >= 0 && id < 2)
+        if (id >= 0 && id < 1)
         {
           final Context ctx = getContext();
-          Utils.copyTextToClipboard(ctx, arrCoord[id]);
-          Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, arrCoord[id]));
+          Utils.copyTextToClipboard(ctx, finalArr[id]);
+          Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, finalArr[id]));
         }
         return true;
       }

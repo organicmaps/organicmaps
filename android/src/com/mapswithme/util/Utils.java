@@ -1,6 +1,5 @@
 package com.mapswithme.util;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
@@ -138,15 +137,14 @@ public class Utils
     if (null == object) throw new NullPointerException("Argument here must not be NULL");
   }
 
-  @SuppressLint("NewApi")
   @SuppressWarnings("deprecation")
   public static void copyTextToClipboard(Context context, String text)
   {
-    if (apiLowerThan(11))
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
     {
-      final android.text.ClipboardManager clipbord =
+      final android.text.ClipboardManager clipboard =
           (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-      clipbord.setText(text);
+      clipboard.setText(text);
     }
     else
     {
