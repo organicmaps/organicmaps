@@ -30,6 +30,7 @@
   [super layoutSubviews];
 
   self.titleLabel.width = self.width - self.titleLabel.minX - 20;
+  self.titleLabel.minX = self.iconImageView.minX + self.iconImageView.width + 5;
   
   CGFloat const offset = 12.5;
   self.separatorView.width = self.width - 2 * offset;
