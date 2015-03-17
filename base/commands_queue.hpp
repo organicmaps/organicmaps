@@ -30,15 +30,15 @@ namespace core
     class Environment : public my::Cancellable
     {
     private:
-      int m_threadNum;
+      size_t m_threadNum;
 
     protected:
-      explicit Environment(int threadNum);
+      explicit Environment(size_t threadNum);
 
       friend class Routine;
 
     public:
-      int threadNum() const; //< number of the thread, which is executing the commands
+      size_t threadNum() const; //< number of the thread, which is executing the commands
     };
 
     /// single commmand
@@ -121,7 +121,7 @@ namespace core
 
     public:
 
-      Routine(CommandsQueue * parent, int idx);
+      Routine(CommandsQueue * parent, size_t idx);
 
       void Do();
       void Cancel();
@@ -163,7 +163,7 @@ namespace core
     ~CommandsQueue();
 
     /// Number of executors in this queue
-    int ExecutorsCount() const;
+    size_t ExecutorsCount() const;
 
     /// Adding different types of commands
     /// @{

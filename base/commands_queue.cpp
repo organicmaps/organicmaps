@@ -9,11 +9,11 @@
 
 namespace core
 {
-  CommandsQueue::Environment::Environment(int threadNum)
+  CommandsQueue::Environment::Environment(size_t threadNum)
     : m_threadNum(threadNum)
   {}
 
-  int CommandsQueue::Environment::threadNum() const
+  size_t CommandsQueue::Environment::threadNum() const
   {
     return m_threadNum;
   }
@@ -69,7 +69,7 @@ namespace core
     finish();
   }
 
-  CommandsQueue::Routine::Routine(CommandsQueue * parent, int idx)
+  CommandsQueue::Routine::Routine(CommandsQueue * parent, size_t idx)
     : m_parent(parent), m_env(idx)
   {}
 
@@ -235,7 +235,7 @@ namespace core
     m_commands.ProcessList([this] (list<shared_ptr<CommandsQueue::Command> > & l) { ClearImpl(l); });
   }
 
-  int CommandsQueue::ExecutorsCount() const
+  size_t CommandsQueue::ExecutorsCount() const
   {
     return m_executorsCount;
   }
