@@ -18,7 +18,7 @@ VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 
 # Additional include directories, common to most projects.
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
-INCLUDEPATH *= $$ROOT_DIR/3party/glm/
+INCLUDEPATH *= $$ROOT_DIR/3party/glm
 
 # hack for Qt5 qmake to make it faster
 CONFIG -= depend_includepath
@@ -178,18 +178,6 @@ win32-g++ {
 }
 
 macx-* {
-  # minimum supported Mac OS X version
-  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
-  QMAKE_CFLAGS *= -mmacosx-version-min=10.6
-  QMAKE_CXXFLAGS *= -mmacosx-version-min=10.6
-  # replace 10.5 with 10.6
-  QMAKE_CFLAGS_X86_64 -= -mmacosx-version-min=10.5
-  QMAKE_CXXFLAGS_X86_64 -= -mmacosx-version-min=10.5
-  QMAKE_CFLAGS_X86_64 += -mmacosx-version-min=10.6    # CXX is made based on CFLAGS
-  QMAKE_OBJECTIVE_CFLAGS_X86_64 -= -mmacosx-version-min=10.5
-  QMAKE_OBJECTIVE_CFLAGS_X86_64 += -mmacosx-version-min=10.6
-  QMAKE_LFLAGS_X86_64 -= -mmacosx-version-min=10.5
-  QMAKE_LFLAGS_X86_64 += -mmacosx-version-min=10.6
   QMAKE_LFLAGS *= -dead_strip
 
 #  macx-clang {
