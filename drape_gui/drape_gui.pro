@@ -9,24 +9,22 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 HEADERS += \
-    skin.hpp \
     compass.hpp \
-    shape.hpp \
+    drape_gui.hpp \
+    gui_text.hpp \
     layer_render.hpp \
     ruler.hpp \
     ruler_helper.hpp \
-    drape_gui.hpp \
-    gui_text.hpp \
-    ruler_text.hpp \
+    shape.hpp \
+    skin.hpp \
 
 SOURCES += \
-    skin.cpp \
     compass.cpp \
-    shape.cpp \
+    drape_gui.cpp \
+    gui_text.cpp \
     layer_render.cpp \
     ruler.cpp \
     ruler_helper.cpp \
-    drape_gui.cpp \
-    gui_text.cpp \
-    ruler_text.cpp \
+    shape.cpp \
+    skin.cpp \
 

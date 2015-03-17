@@ -13,19 +13,6 @@
 namespace gui
 {
 
-class Shape
-{
-public:
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> tex) const = 0;
-  virtual uint16_t GetVertexCount() const = 0;
-  virtual uint16_t GetIndexCount() const = 0;
-
-  void SetPosition(gui::Position const & position);
-
-protected:
-  gui::Position m_position;
-};
-
 class Handle : public dp::OverlayHandle
 {
 public:
@@ -37,8 +24,6 @@ public:
 
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
-  void SetProjection(int w, int h);
-
   virtual bool IndexesRequired() const override;
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const override;
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const override;
@@ -48,20 +33,45 @@ protected:
   glsl::vec2 const m_pivot;
 };
 
-class ShapeRenderer
+class ShapeRenderer final
 {
 public:
-  ShapeRenderer(dp::GLState const & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer,
-                dp::TransferPointer<dp::OverlayHandle> implHandle);
   ~ShapeRenderer();
+
+  dp::Batcher::TFlushFn GetFlushRoutine();
 
   void Build(dp::RefPointer<dp::GpuProgramManager> mng);
   void Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProgramManager> mng);
 
 private:
-  dp::GLState m_state;
-  dp::MasterPointer<dp::VertexArrayBuffer> m_buffer;
-  dp::MasterPointer<dp::OverlayHandle> m_implHandle;
+  struct ShapeInfo
+  {
+    ShapeInfo(dp::GLState const & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer,
+              dp::TransferPointer<dp::OverlayHandle> handle)
+      : m_state(state)
+      , m_buffer(buffer)
+      , m_handle(handle)
+    {
+    }
+
+    dp::GLState m_state;
+    dp::MasterPointer<dp::VertexArrayBuffer> m_buffer;
+    dp::MasterPointer<dp::OverlayHandle> m_handle;
+  };
+
+  vector<ShapeInfo> m_shapes;
+};
+
+class Shape
+{
+public:
+  virtual ~Shape() {}
+
+  virtual dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const = 0;
+  void SetPosition(gui::Position const & position);
+
+protected:
+  gui::Position m_position;
 };
 
 }

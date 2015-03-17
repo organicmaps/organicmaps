@@ -46,7 +46,7 @@ namespace
   };
 }
 
-void Compass::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> tex) const
+dp::TransferPointer<ShapeRenderer> Compass::Draw(dp::RefPointer<dp::TextureManager> tex) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("compass-image", region);
@@ -83,18 +83,15 @@ void Compass::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Textu
   texDecl.m_stride = posDecl.m_stride;
 
   provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes));
-  batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
-                               dp::MovePointer<dp::OverlayHandle>(new CompassHandle(m_position.m_pixelPivot)));
-}
 
-uint16_t Compass::GetVertexCount() const
-{
-  return 4;
-}
+  ShapeRenderer * renderer = new ShapeRenderer();
+  dp::Batcher batcher(6, 4);
+  batcher.StartSession(renderer->GetFlushRoutine());
+  batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
+                              dp::MovePointer<dp::OverlayHandle>(new CompassHandle(m_position.m_pixelPivot)));
+  batcher.EndSession();
 
-uint16_t Compass::GetIndexCount() const
-{
-  return 6;
+  return dp::MovePointer(renderer);
 }
 
 }

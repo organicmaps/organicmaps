@@ -32,10 +32,10 @@ private:
   void DestroyRenderers();
 
   friend class LayerCacher;
-  void AddShapeRenderer(ShapeRenderer * shape);
+  void AddShapeRenderer(dp::TransferPointer<ShapeRenderer> shape);
 
 private:
-  vector<ShapeRenderer *> m_renderers;
+  vector<dp::MasterPointer<ShapeRenderer> > m_renderers;
 };
 
 class LayerCacher
@@ -47,8 +47,7 @@ public:
   dp::TransferPointer<LayerRenderer> Recache(dp::RefPointer<dp::TextureManager> textures);
 
 private:
-  void CacheShape(dp::Batcher::TFlushFn const & flushFn, dp::RefPointer<dp::Batcher> batcher,
-                  dp::RefPointer<dp::TextureManager> mng, Shape && shape, Skin::ElementName element);
+  dp::TransferPointer<ShapeRenderer> CacheShape(dp::RefPointer<dp::TextureManager> mng, Shape && shape, Skin::ElementName element);
 
 private:
   unique_ptr<Skin> m_skin;
