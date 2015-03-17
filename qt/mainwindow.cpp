@@ -17,18 +17,18 @@
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QAction>
+  #include <QtGui/QDesktopWidget>
   #include <QtGui/QDockWidget>
   #include <QtGui/QMenu>
   #include <QtGui/QMenuBar>
   #include <QtGui/QToolBar>
-  #include <QtGui/qdesktopwidget.h>
 #else
   #include <QtWidgets/QAction>
+  #include <QtWidgets/QDesktopWidget>
   #include <QtWidgets/QDockWidget>
   #include <QtWidgets/QMenu>
   #include <QtWidgets/QMenuBar>
   #include <QtWidgets/QToolBar>
-  #include <QtWidgets/qdesktopwidget.h>
 #endif
 
 
@@ -52,7 +52,7 @@ namespace qt
 MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
   // Always runs on the first desktop
-  auto const desktop(QApplication::desktop());
+  QDesktopWidget const * desktop(QApplication::desktop());
   setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
   m_pDrawWidget = new DrawWidget(this);
