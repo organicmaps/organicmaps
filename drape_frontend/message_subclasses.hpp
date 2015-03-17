@@ -89,20 +89,6 @@ private:
   Viewport m_viewport;
 };
 
-class UpdateModelViewMessage : public Message
-{
-public:
-  UpdateModelViewMessage(ScreenBase const & screen)
-    : m_screen(screen) {}
-
-  Type GetType() const override { return Message::UpdateModelView; }
-
-  ScreenBase const & GetScreen() const { return m_screen; }
-
-private:
-  ScreenBase m_screen;
-};
-
 class InvalidateRectMessage : public Message
 {
 public:
@@ -117,19 +103,22 @@ private:
   m2::RectD m_rect;
 };
 
-class UpdateReadManagerMessage : public UpdateModelViewMessage
+class UpdateReadManagerMessage : public Message
 {
 public:
   UpdateReadManagerMessage(ScreenBase const & screen, set<TileKey> const & tiles)
-    : UpdateModelViewMessage(screen)
-    , m_tiles(tiles) {}
+    : m_screen(screen)
+    , m_tiles(tiles)
+  {}
 
   Type GetType() const override { return Message::UpdateReadManager; }
 
   set<TileKey> const & GetTiles() const { return m_tiles; }
+  ScreenBase const & GetScreen() const { return m_screen; }
 
 private:
   set<TileKey> m_tiles;
+  ScreenBase m_screen;
 };
 
 class InvalidateReadManagerRectMessage : public Message

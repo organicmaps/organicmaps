@@ -13,7 +13,6 @@ public:
     TileReadEnded,
     FlushTile,
     MapShapeReaded,
-    UpdateModelView,
     UpdateReadManager,
     InvalidateRect,
     InvalidateReadManagerRect,

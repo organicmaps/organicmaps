@@ -40,6 +40,7 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
+  , m_modelViewChanged(false)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -153,18 +154,6 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
                                 MessagePriority::Normal);
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
-                                MessagePriority::Normal);
-      break;
-    }
-
-  case Message::UpdateModelView:
-    {
-      UpdateModelViewMessage * coverMessage = df::CastMessage<UpdateModelViewMessage>(message);
-      m_view = coverMessage->GetScreen();
-      RefreshModelView();
-      ResolveTileKeys();
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
                                 MessagePriority::Normal);
@@ -431,6 +420,7 @@ void FrontendRenderer::Routine::Do()
     context->setDefaultFramebuffer();
     m_renderer.m_textureManager->UpdateDynamicTextures();
     m_renderer.RenderScene();
+    m_renderer.ProcessModelViewUpdating();
 
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
 
@@ -465,6 +455,28 @@ void FrontendRenderer::DeleteRenderData()
 {
   DeleteRange(m_renderGroups, DeleteFunctor());
   DeleteRange(m_userMarkRenderGroups, DeleteFunctor());
+}
+
+void FrontendRenderer::UpdateModelView(ScreenBase const & screen)
+{
+  lock_guard<mutex> lock(m_modelViewMutex);
+  m_modelViewChanged = true;
+  m_newView = screen;
+}
+
+void FrontendRenderer::ProcessModelViewUpdating()
+{
+  if (m_modelViewChanged)
+  {
+    lock_guard<mutex> lock(m_modelViewMutex);
+    m_view = m_newView;
+    RefreshModelView();
+    ResolveTileKeys();
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
+                              MessagePriority::Normal);
+    m_modelViewChanged = false;
+  }
 }
 
 } // namespace df

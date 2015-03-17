@@ -55,6 +55,8 @@ public:
   void AfterDrawFrame();
 #endif
 
+  void UpdateModelView(ScreenBase const & screen);
+
 protected:
   virtual void AcceptMessage(dp::RefPointer<Message> message);
 
@@ -90,6 +92,7 @@ private:
 
 private:
   void DeleteRenderData();
+  void ProcessModelViewUpdating();
 
 private:
   dp::RefPointer<dp::TextureManager> m_textureManager;
@@ -106,6 +109,10 @@ private:
   Viewport m_viewport;
   ScreenBase m_view;
   set<TileKey> m_tiles;
+
+  ScreenBase m_newView;
+  mutex m_modelViewMutex;
+  bool m_modelViewChanged;
 
   dp::OverlayTree m_overlayTree;
 };
