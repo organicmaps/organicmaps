@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -528,7 +529,13 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.ll__place_phone:
       Intent intent = new Intent(Intent.ACTION_DIAL);
       intent.setData(Uri.parse("tel:" + mTvPhone.getText()));
-      getContext().startActivity(intent);
+      try
+      {
+        getContext().startActivity(intent);
+      } catch (ActivityNotFoundException e)
+      {
+        e.printStackTrace();
+      }
       break;
     case R.id.ll__place_website:
       intent = new Intent(Intent.ACTION_VIEW);
