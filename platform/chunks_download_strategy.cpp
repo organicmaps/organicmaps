@@ -189,7 +189,7 @@ ChunksDownloadStrategy::NextChunk(string & outUrl, RangeT & range)
     switch (m_chunks[i].m_status)
     {
     case CHUNK_FREE:
-      server->m_chunkIndex = i;
+      server->m_chunkIndex = static_cast<int>(i);
       outUrl = server->m_url;
 
       range.first = m_chunks[i].m_pos;
