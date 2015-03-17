@@ -55,7 +55,7 @@ public:
     if (size == 0)
       return;
     ASSERT_LESS_OR_EQUAL(pos + size, reader.Size(), (pos, size, reader.Size()));
-    m_Stats.m_ReadSize(size);
+    m_Stats.m_ReadSize(static_cast<uint32_t>(size));
     char * pDst = static_cast<char *>(p);
     uint64_t pageNum = pos >> m_LogPageSize;
     size_t const firstPageOffset = static_cast<size_t>(pos - (pageNum << m_LogPageSize));

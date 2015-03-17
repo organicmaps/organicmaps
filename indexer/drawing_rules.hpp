@@ -63,7 +63,7 @@ namespace drule
   public:
     ~RulesHolder();
 
-    size_t AddRule(int scale, rule_type_t type, BaseRule * p);
+    Key AddRule(int scale, rule_type_t type, BaseRule * p);
 
     void Clean();
 

@@ -92,7 +92,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
       size_t const toRead = min(ZIP_FILE_BUFFER_SIZE, fileSize - currSize);
       file.Read(currSize, &buffer[0], toRead);
 
-      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))
+      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], static_cast<uint32_t>(toRead)))
         return false;
 
       currSize += toRead;

@@ -38,8 +38,8 @@ uint64_t BlobIndexer::AddBlob(string const & blob)
   if (m_currentChunk.size() + blob.size() > m_maxUncompressedChunkSize)
     FlushChunk();
 
-  m_blobChunkAndOffset.push_back(
-        (m_chunkOffset.size() << BITS_IN_CHUNK_SIZE) + m_currentChunk.size());
+  m_blobChunkAndOffset.push_back(static_cast<uint32_t>(
+        (m_chunkOffset.size() << BITS_IN_CHUNK_SIZE) + m_currentChunk.size()));
 
   m_currentChunk.insert(m_currentChunk.end(), blob.begin(), blob.end());
 
@@ -55,7 +55,7 @@ void BlobIndexer::FlushChunk()
     m_writer.Write(compressedChunk.data(), compressedChunk.size());
     WriteToSink(m_writer, static_cast<uint32_t>(m_currentChunk.size()));
     uint32_t const chunkPrevOffset = (m_chunkOffset.empty() ? 0 : m_chunkOffset.back());
-    m_chunkOffset.push_back(compressedChunk.size() + 4 + chunkPrevOffset);
+    m_chunkOffset.push_back(static_cast<uint32_t>(compressedChunk.size() + 4 + chunkPrevOffset));
     m_currentChunk.clear();
   }
 }

@@ -259,8 +259,7 @@ void LoaderCurrent::ParseMetadata()
     typedef pair<uint32_t, uint32_t> IdxElementT;
     DDVector<IdxElementT, FilesContainerR::ReaderT> idx(m_Info.GetMetadataIndexReader());
     
-    auto it = lower_bound(idx.begin(),
-                          idx.end()
+    auto it = lower_bound(idx.begin(), idx.end()
                           , make_pair(uint32_t(m_pF->m_id.m_offset), uint32_t(0))
                           , [](IdxElementT const & v1, IdxElementT const & v2) { return v1.first < v2.first; }
                           );

@@ -105,7 +105,8 @@ CompressedVarnumVectorReader::CompressedVarnumVectorReader(Reader & reader)
   m_supportSums = VarintDecode(m_reader, offset) != 0;
   vector<uint32_t> sizesFreqs;
   uint64_t freqsCnt = VarintDecode(m_reader, offset);
-  for (uint32_t i = 0; i < freqsCnt; ++i) sizesFreqs.push_back(VarintDecode(m_reader, offset));
+  for (uint32_t i = 0; i < freqsCnt; ++i)
+    sizesFreqs.push_back(static_cast<uint32_t>(VarintDecode(m_reader, offset)));
   m_distrTable = FreqsToDistrTable(sizesFreqs);
   m_numsEncodedOffset = offset;
 

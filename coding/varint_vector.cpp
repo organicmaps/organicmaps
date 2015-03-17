@@ -56,7 +56,7 @@ void VectorBuilder::AddNum(uint64_t num)
   if (m_numsCount % m_numElemPerTableEntry == 0)
   {
     TableEntry tableEntry;
-    tableEntry.pos = m_serialNums.size();
+    tableEntry.pos = static_cast<uint32_t>(m_serialNums.size());
     tableEntry.sum = m_sum;
     m_selectTable.push_back(tableEntry);
   }
@@ -143,7 +143,7 @@ void Vector::FindByIndex(uint64_t index, uint32_t & serialPos, uint64_t & sumBef
     uint64_t num = VarintDecode(m_reader, numOffset);
     sum += num;
   }
-  serialPos = numOffset - m_serialNumsOffset;
+  serialPos = static_cast<uint32_t>(numOffset - m_serialNumsOffset);
   sumBefore = sum;
 }
 
@@ -191,7 +191,7 @@ void Vector::FindBySum(uint64_t sum, uint32_t & serialPos, uint64_t & sumBefore,
     ++countBefore;
   }
 
-  serialPos = numOffset - m_serialNumsOffset;
+  serialPos = static_cast<uint32_t>(numOffset - m_serialNumsOffset);
   sumBefore = numsSum;
 }
 
@@ -201,7 +201,7 @@ void Vector::Read(uint32_t & serialPos, uint64_t & num)
 
   uint64_t numOffset = m_serialNumsOffset + serialPos;
   num = VarintDecode(m_reader, numOffset);
-  serialPos = numOffset - m_serialNumsOffset;
+  serialPos = static_cast<uint32_t>(numOffset - m_serialNumsOffset);
 }
 
 }

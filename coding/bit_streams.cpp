@@ -59,7 +59,7 @@ uint64_t BitSource::Read(uint32_t readSize)
   // Second read, does an extra read using m_reader.
   if (readSize > 0)
   {
-    uint32_t read_byte_size = m_serialCur + sizeof(m_bits) <= m_serialEnd ? sizeof(m_bits) : m_serialEnd - m_serialCur;
+    size_t read_byte_size = m_serialCur + sizeof(m_bits) <= m_serialEnd ? sizeof(m_bits) : m_serialEnd - m_serialCur;
     m_reader.Read(m_serialCur, &m_bits, read_byte_size);
     m_serialCur += read_byte_size;
     m_bitsSize += read_byte_size * 8;

@@ -92,7 +92,7 @@ void RulesHolder::Clean()
   m_rules.clear();
 }
 
-size_t RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
+Key RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
 {
   ASSERT ( 0 <= scale && scale <= scales::GetUpperStyleScale(), (scale) );
   ASSERT ( 0 <= type && type < count_of_rules, () );
@@ -103,8 +103,9 @@ size_t RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
   v.push_back(static_cast<uint32_t>(m_container[type].size()-1));
 
   int const ret = static_cast<int>(v.size() - 1);
-  ASSERT ( Find(Key(scale, type, ret)) == p, (ret) );
-  return ret;
+  Key k(scale, type, ret);
+  ASSERT ( Find(k) == p, (ret) );
+  return k;
 }
 
 BaseRule const * RulesHolder::Find(Key const & k) const
@@ -287,9 +288,7 @@ namespace
     template <class TRule, class TProtoRule>
     void AddRule(ClassifObject * p, int scale, rule_type_t type, TProtoRule const & rule)
     {
-      size_t const i = m_holder.AddRule(scale, type, new TRule(rule));
-      Key k(scale, type, static_cast<int>(i));
-
+      Key k = m_holder.AddRule(scale, type, new TRule(rule));
       p->SetVisibilityOnScale(true, scale);
       k.SetPriority(rule.priority());
       p->AddDrawRule(k);

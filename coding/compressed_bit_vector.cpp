@@ -16,7 +16,7 @@ namespace {
   vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)
   {
     vector<uint32_t> freqs;
-    for (uint64_t i = 0; i < cnt; ++i) freqs.push_back(VarintDecode(reader, decodeOffset));
+    for (uint64_t i = 0; i < cnt; ++i) freqs.push_back(static_cast<uint32_t>(VarintDecode(reader, decodeOffset)));
     return FreqsToDistrTable(freqs);
   }
 }
@@ -383,12 +383,12 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
     bool is_empty = (header & 4) != 0;
     if (!is_empty)
     {
-      posOnes.push_back(header >> 3);
+      posOnes.push_back(static_cast<uint32_t>(header >> 3));
       prevOnePos = posOnes.back();
     }
     while (decodeOffset < serialSize)
     {
-      posOnes.push_back(prevOnePos + VarintDecode(reader, decodeOffset) + 1);
+      posOnes.push_back(static_cast<uint32_t>(prevOnePos + VarintDecode(reader, decodeOffset) + 1));
       prevOnePos = posOnes.back();
     }
   }
@@ -412,7 +412,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
       uint32_t bitsUsed = bitsUsedVec[i];
       uint64_t diff = 0;
       if (bitsUsed > 0) diff = ((uint64_t(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else diff = 1;
-      posOnes.push_back(prevOnePos + diff);
+      posOnes.push_back(static_cast<uint32_t>(prevOnePos + diff));
       prevOnePos += diff;
     }
     decodeOffset = serialSize;
@@ -431,7 +431,8 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
       if (!isFirstOne) zerosRangeSize = VarintDecode(reader, decodeOffset) + 1; else isFirstOne = false;
       uint64_t onesRangeSize = VarintDecode(reader, decodeOffset) + 1;
       sum += zerosRangeSize;
-      for (uint64_t i = sum; i < sum + onesRangeSize; ++i) posOnes.push_back(i);
+      for (uint64_t i = sum; i < sum + onesRangeSize; ++i)
+        posOnes.push_back(static_cast<uint32_t>(i));
       sum += onesRangeSize;
     }
   }
@@ -475,7 +476,7 @@ vector<uint32_t> DecodeCompressedBitVector(Reader & reader) {
       if (bitsUsed > 0) onesRangeSize = ((uint64_t(1) << (bitsUsed - 1)) | bitReader.Read(bitsUsed - 1)) + 1; else onesRangeSize = 1;
       ++i1;
       sum += zerosRangeSize;
-      for (uint64_t j = sum; j < sum + onesRangeSize; ++j) posOnes.push_back(j);
+      for (uint64_t j = sum; j < sum + onesRangeSize; ++j) posOnes.push_back(static_cast<uint32_t>(j));
       sum += onesRangeSize;
     }
     CHECK(i0 == cntElements0 && i1 == cntElements1, ());
