@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/iv__bookmark_color"
-        android:background="?android:selectableItemBackground"
+        android:background="?attr/clickableBackground"
         android:drawableRight="@drawable/ic_arrow_down"
         android:lineSpacingMultiplier="1.43"
         android:paddingBottom="@dimen/margin_small"
@@ -106,7 +106,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="-8dp"
-        android:background="?android:selectableItemBackground"
+        android:background="?attr/clickableBackground"
         android:padding="@dimen/margin_small"
         android:src="@drawable/color_picker_red_on"/>
   </RelativeLayout>

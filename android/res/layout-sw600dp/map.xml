@@ -120,8 +120,8 @@
   <include
       android:id="@+id/map_bottom_toolbar"
       layout="@layout/map_bottom_toolbar"
-      android:layout_width="@dimen/bottom_panel_width"
-      android:layout_height="280dp"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
       android:layout_alignParentBottom="true"
       android:layout_alignParentRight="true"/>
 

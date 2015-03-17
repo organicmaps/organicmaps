@@ -45,7 +45,7 @@
   <color name="text_place_page_subtitle">#9E9E9E</color>
   <color name="text_place_page_buttons">#189E4E</color>
   <color name="text_place_page_blue">#0288D1</color>
-  <color name="bg_top_panels">#ffffffff</color>
+  <color name="bg_top_panels">#f4ffffff</color>
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">@android:color/white</color>
 

@@ -14,19 +14,12 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_place_page_back"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@+id/pp__preview"
-        android:background="?android:attr/listDivider"/>
-
     <include
         android:id="@+id/pp__details"
         layout="@layout/place_page_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pp__preview"
-        android:layout_marginTop="1px"/>
+        android:layout_below="@id/pp__preview"/>
 
   </RelativeLayout>
 
@@ -37,12 +30,5 @@
       android:layout_height="56dp"
       android:layout_below="@id/rl__top"
       android:layout_marginTop="-56dp"/>
-
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1px"
-      android:layout_below="@id/rl__top"
-      android:layout_marginTop="-56dp"
-      android:background="?android:attr/listDivider"/>
 
 </merge>
