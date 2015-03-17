@@ -32,9 +32,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="0px"
         android:layout_marginTop="@dimen/margin_small"
-        android:background="?attr/dividerHorizontal"/>
+        android:layout_marginBottom="@dimen/margin_small"/>
 
     <include
         layout="@layout/place_page_bookmark_details"
