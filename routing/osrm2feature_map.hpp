@@ -22,8 +22,9 @@
 namespace routing
 {
 
-typedef uint32_t OsrmNodeIdT;
-extern OsrmNodeIdT const INVALID_NODE_ID;
+typedef uint32_t TOsrmNodeId;
+typedef vector<TOsrmNodeId> TNodesList;
+extern TOsrmNodeId const INVALID_NODE_ID;
 
 namespace OsrmMappingTypes {
 #pragma pack (push, 1)
@@ -70,7 +71,7 @@ namespace OsrmMappingTypes {
 
   struct SegOffset
   {
-    OsrmNodeIdT m_nodeId;
+    TOsrmNodeId m_nodeId;
     uint32_t m_offset;
 
     SegOffset() : m_nodeId(0), m_offset(0) {}
@@ -97,15 +98,10 @@ class OsrmFtSegMapping;
 class OsrmFtSegBackwardIndex
 {
   succinct::rs_bit_vector m_rankIndex;
-  succinct::elias_fano_compressed_list m_nodeIds;
+  vector<TNodesList> m_nodeIds;
   unique_ptr<feature::FeaturesOffsetsTable> m_table;
 
-  unique_ptr<MmapReader> m_pMappedNodes, m_pMappedBits;
-
-  template <class T> void ClearContainer(T & t)
-  {
-    T().swap(t);
-  }
+  unique_ptr<MmapReader> m_mappedBits;
 
   void Save(string const & nodesFileName, string const & bitsFileName);
 
@@ -114,7 +110,7 @@ class OsrmFtSegBackwardIndex
 public:
   void Construct(OsrmFtSegMapping const & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
 
-  uint32_t GetNodeIdByFid(uint32_t const fid) const;
+  TNodesList const &  GetNodeIdByFid(uint32_t const fid) const;
 
   void Clear();
 };
@@ -131,7 +127,7 @@ public:
   void Unmap();
   bool IsMapped() const;
 
-  template <class ToDo> void ForEachFtSeg(OsrmNodeIdT nodeId, ToDo toDo) const
+  template <class ToDo> void ForEachFtSeg(TOsrmNodeId nodeId, ToDo toDo) const
   {
     pair<size_t, size_t> r = GetSegmentsRange(nodeId);
     while (r.first != r.second)
@@ -143,7 +139,7 @@ public:
     }
   }
 
-  typedef unordered_map<uint64_t, pair<OsrmNodeIdT, OsrmNodeIdT> > OsrmNodesT;
+  typedef unordered_map<uint64_t, pair<TOsrmNodeId, TOsrmNodeId> > OsrmNodesT;
   void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, volatile bool const & requestCancel) const;
 
   void GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & seg) const;
@@ -151,7 +147,7 @@ public:
   /// @name For debug purpose only.
   //@{
   void DumpSegmentsByFID(uint32_t fID) const;
-  void DumpSegmentByNode(OsrmNodeIdT nodeId) const;
+  void DumpSegmentByNode(TOsrmNodeId nodeId) const;
   //@}
 
   /// @name For unit test purpose only.
@@ -159,7 +155,7 @@ public:
   /// @return STL-like range [s, e) of segments indexies for passed node.
   pair<size_t, size_t> GetSegmentsRange(uint32_t nodeId) const;
   /// @return Node id for segment's index.
-  OsrmNodeIdT GetNodeId(size_t segInd) const;
+  TOsrmNodeId GetNodeId(size_t segInd) const;
 
   size_t GetSegmentsCount() const { return m_segments.size(); }
   //@}
@@ -181,7 +177,7 @@ public:
 
   typedef vector<OsrmMappingTypes::FtSeg> FtSegVectorT;
 
-  void Append(OsrmNodeIdT nodeId, FtSegVectorT const & data);
+  void Append(TOsrmNodeId nodeId, FtSegVectorT const & data);
   void Save(FilesContainerW & cont) const;
 
 private:

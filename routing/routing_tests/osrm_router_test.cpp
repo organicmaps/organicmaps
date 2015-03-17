@@ -24,13 +24,13 @@ namespace
 {
 
 typedef vector<OsrmFtSegMappingBuilder::FtSegVectorT> InputDataT;
-typedef vector< vector<OsrmNodeIdT> > NodeIdDataT;
+typedef vector< vector<TOsrmNodeId> > NodeIdDataT;
 typedef vector< pair<size_t, size_t> > RangeDataT;
 typedef OsrmMappingTypes::FtSeg SegT;
 
 void TestNodeId(OsrmFtSegMapping const & mapping, NodeIdDataT const & test)
 {
-  for (OsrmNodeIdT nodeId = 0; nodeId < test.size(); ++nodeId)
+  for (TOsrmNodeId nodeId = 0; nodeId < test.size(); ++nodeId)
   {
     for (auto idx : test[nodeId])
       TEST_EQUAL(nodeId, mapping.GetNodeId(idx), ());
@@ -39,7 +39,7 @@ void TestNodeId(OsrmFtSegMapping const & mapping, NodeIdDataT const & test)
 
 void TestSegmentRange(OsrmFtSegMapping const & mapping, RangeDataT const & test)
 {
-  for (OsrmNodeIdT nodeId = 0; nodeId < test.size(); ++nodeId)
+  for (TOsrmNodeId nodeId = 0; nodeId < test.size(); ++nodeId)
   {
     // Input test range is { start, count } but we should pass [start, end).
     auto const & r = test[nodeId];
@@ -81,7 +81,7 @@ void TestMapping(InputDataT const & data,
   }
 
   OsrmFtSegMappingBuilder builder;
-  for (OsrmNodeIdT nodeId = 0; nodeId < data.size(); ++nodeId)
+  for (TOsrmNodeId nodeId = 0; nodeId < data.size(); ++nodeId)
     builder.Append(nodeId, data[nodeId]);
 
   TestNodeId(builder, nodeIds);
@@ -102,7 +102,7 @@ void TestMapping(InputDataT const & data,
 
     for (size_t i = 0; i < mapping.GetSegmentsCount(); ++i)
     {
-      OsrmNodeIdT const node = mapping.GetNodeId(i);
+      TOsrmNodeId const node = mapping.GetNodeId(i);
       size_t count = 0;
       mapping.ForEachFtSeg(node, [&] (OsrmMappingTypes::FtSeg const & s)
       {

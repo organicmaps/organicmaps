@@ -2,9 +2,10 @@
 
 #include "../defines.hpp"
 
-#include "../coding/varint.hpp"
-#include "../coding/internal/file_data.hpp"
 #include "../coding/file_name_utils.hpp"
+#include "../coding/internal/file_data.hpp"
+#include "../coding/read_write_utils.hpp"
+#include "../coding/varint.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
@@ -21,7 +22,7 @@
 namespace routing
 {
 
-OsrmNodeIdT const INVALID_NODE_ID = -1;
+TOsrmNodeId const INVALID_NODE_ID = -1;
 
 OsrmMappingTypes::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   : m_fid(fid),
@@ -116,7 +117,7 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
     m_offsets.resize(count);
     for (uint32_t i = 0; i < count; ++i)
     {
-      m_offsets[i].m_nodeId = ReadVarUint<OsrmNodeIdT>(src);
+      m_offsets[i].m_nodeId = ReadVarUint<TOsrmNodeId>(src);
       m_offsets[i].m_offset = ReadVarUint<uint32_t>(src);
     }
   }
@@ -155,7 +156,7 @@ void OsrmFtSegMapping::DumpSegmentsByFID(uint32_t fID) const
 #endif
 }
 
-void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
+void OsrmFtSegMapping::DumpSegmentByNode(TOsrmNodeId nodeId) const
 {
 #ifdef DEBUG
   ForEachFtSeg(nodeId, [] (OsrmMappingTypes::FtSeg const & s)
@@ -170,7 +171,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
 {
   auto addResFn = [&] (uint64_t seg, size_t idx, bool forward)
   {
-    OsrmNodeIdT const nodeId = GetNodeId(idx);
+    TOsrmNodeId const nodeId = GetNodeId(idx);
     auto it = res.insert({ seg, { forward ? nodeId : INVALID_NODE_ID,
                                   forward ? INVALID_NODE_ID : nodeId } });
     if (it.second)
@@ -194,32 +195,36 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
   for (auto it = segments.begin(); it != segments.end(); ++it)
   {
     OsrmMappingTypes::FtSeg const & seg = *(*it);
-    uint32_t nodeId = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
 
-    auto range = GetSegmentsRange(nodeId);
-    for (int i = range.first; i != range.second; ++i)
+    TNodesList const & nodeIds = m_backwardIndex.GetNodeIdByFid(seg.m_fid);
+
+    for (uint32_t nodeId : nodeIds)
     {
-      OsrmMappingTypes::FtSeg const s(m_segments[i]);
-      if (s.m_fid != seg.m_fid)
-        continue;
-
-      if (s.m_pointStart <= s.m_pointEnd)
+      auto const & range = GetSegmentsRange(nodeId);
+      for (int i = range.first; i != range.second; ++i)
       {
-        if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
+        OsrmMappingTypes::FtSeg const s(m_segments[i]);
+        if (s.m_fid != seg.m_fid)
+          continue;
+
+        if (s.m_pointStart <= s.m_pointEnd)
         {
-          if (addResFn(seg.Store(), i, true))
+          if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
           {
-            break;
+            if (addResFn(seg.Store(), i, true))
+            {
+              break;
+            }
           }
         }
-      }
-      else
-      {
-        if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
+        else
         {
-          if (addResFn(seg.Store(), i, false))
+          if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
           {
-            break;
+            if (addResFn(seg.Store(), i, false))
+            {
+              break;
+            }
           }
         }
       }
@@ -233,7 +238,7 @@ void OsrmFtSegMapping::GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & s
   OsrmMappingTypes::FtSeg(m_segments[idx]).Swap(seg);
 }
 
-pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(OsrmNodeIdT nodeId) const
+pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(TOsrmNodeId nodeId) const
 {
   SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), OsrmMappingTypes::SegOffset(nodeId, 0),
                                                [] (OsrmMappingTypes::SegOffset const & o, OsrmMappingTypes::SegOffset const & val)
@@ -250,7 +255,7 @@ pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(OsrmNodeIdT nodeId) cons
     return make_pair(start, start + 1);
 }
 
-OsrmNodeIdT OsrmFtSegMapping::GetNodeId(size_t segInd) const
+TOsrmNodeId OsrmFtSegMapping::GetNodeId(size_t segInd) const
 {
   SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), OsrmMappingTypes::SegOffset(segInd, 0),
                                                [] (OsrmMappingTypes::SegOffset const & o, OsrmMappingTypes::SegOffset const & val)
@@ -276,7 +281,7 @@ OsrmFtSegMappingBuilder::OsrmFtSegMappingBuilder()
 {
 }
 
-void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT nodeId, FtSegVectorT const & data)
+void OsrmFtSegMappingBuilder::Append(TOsrmNodeId nodeId, FtSegVectorT const & data)
 {
   size_t const count = data.size();
 
@@ -326,7 +331,12 @@ void OsrmFtSegBackwardIndex::Save(string const & nodesFileName, string const & b
 {
   {
     string const nodesFileNameTmp = nodesFileName + EXTENSION_TMP;
-    succinct::mapper::freeze(m_nodeIds, nodesFileNameTmp.c_str());
+    FileWriter nodesFile(nodesFileNameTmp);
+    WriteVarUint(nodesFile, static_cast<uint32_t>(m_nodeIds.size()));
+    for (auto const bucket : m_nodeIds)
+    {
+      rw::WriteVectorOfPOD(nodesFile, bucket);
+    }
     my::RenameFileX(nodesFileNameTmp, nodesFileName);
   }
   {
@@ -341,11 +351,19 @@ bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & b
   uint64_t size;
   if (!GetPlatform().GetFileSizeByFullPath(nodesFileName, size) || !GetPlatform().GetFileSizeByFullPath(bitsFileName, size))
     return false;
-  m_pMappedNodes.reset(new MmapReader(nodesFileName));
-  m_pMappedBits.reset(new MmapReader(bitsFileName));
+  m_mappedBits.reset(new MmapReader(bitsFileName));
 
-  succinct::mapper::map(m_nodeIds, reinterpret_cast<char const *>(m_pMappedNodes->Data()));
-  succinct::mapper::map(m_rankIndex, reinterpret_cast<char const *>(m_pMappedBits->Data()));
+  {
+    FileReader nodesFile(nodesFileName);
+    ReaderSource<FileReader> nodesSource(nodesFile);
+    uint32_t size = ReadVarUint<uint32_t>(nodesSource);
+    m_nodeIds.resize(size);
+    for (uint32_t i = 0; i < size; ++i)
+    {
+      rw::ReadVectorOfPOD(nodesSource, m_nodeIds[i]);
+    }
+  }
+  succinct::mapper::map(m_rankIndex, reinterpret_cast<char const *>(m_mappedBits->Data()));
 
   return true;
 }
@@ -374,7 +392,7 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
     return;
 
   // Generate temporary index to speedup processing
-  unordered_map<uint64_t, uint32_t> temporaryBackwardIndex;
+  unordered_multimap<uint64_t, uint32_t> temporaryBackwardIndex;
   for (uint32_t i = 0; i < maxNodeId; ++i)
   {
     auto indexes = mapping.GetSegmentsRange(i);
@@ -388,34 +406,35 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
 
   // Create final index
   vector<bool> inIndex(m_table->size(), false);
-  vector<uint32_t> nodeIds;
+  vector<TNodesList> nodeIds;
 
   for (size_t i = 0; i < m_table->size(); ++i)
   {
     uint64_t fid = m_table->GetFeatureOffset(i);
-    auto it = temporaryBackwardIndex.find(fid);
-    if (it != temporaryBackwardIndex.end())
+    auto it = temporaryBackwardIndex.equal_range(fid);
+    if (it.first != it.second)
     {
       inIndex[i] = true;
-      nodeIds.push_back(it->second);
+      TNodesList nodesList(distance(it.first, it.second));
+      for (auto & node: nodesList)
+        node = (it.first++)->second;
+      nodeIds.emplace_back(nodesList);
     }
   }
 
   // Pack and save index
-  succinct::elias_fano_compressed_list(nodeIds).swap(m_nodeIds);
+  nodeIds.swap(m_nodeIds);
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
 
   LOG(LINFO, ("Writing section to data file", routingName));
   Save(bitsFileName, nodesFileName);
 }
 
-uint32_t OsrmFtSegBackwardIndex::GetNodeIdByFid(const uint32_t fid) const
+TNodesList const & OsrmFtSegBackwardIndex::GetNodeIdByFid(const uint32_t fid) const
 {
-  if (!m_table)
-    return INVALID_NODE_ID;
+  ASSERT(m_table, ());
   size_t const index = m_table->GetFeatureIndexbyOffset(fid);
-  if (index == m_table->size())
-    return INVALID_NODE_ID;
+  ASSERT_LESS(index, m_table->size(), ("Can't find feature index in offsets table"));
   size_t node_index = m_rankIndex.rank(index);
   ASSERT_LESS(node_index, m_nodeIds.size(), ());
   return m_nodeIds[node_index];
@@ -423,11 +442,10 @@ uint32_t OsrmFtSegBackwardIndex::GetNodeIdByFid(const uint32_t fid) const
 
 void OsrmFtSegBackwardIndex::Clear()
 {
-  ClearContainer(m_nodeIds);
-  ClearContainer(m_rankIndex);
+  m_nodeIds.clear();
+  succinct::rs_bit_vector().swap(m_rankIndex);
   m_table.reset();
-  m_pMappedBits.reset();
-  m_pMappedNodes.reset();
+  m_mappedBits.reset();
 }
 
 }
