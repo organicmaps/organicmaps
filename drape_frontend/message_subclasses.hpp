@@ -107,8 +107,8 @@ class UpdateReadManagerMessage : public Message
 {
 public:
   UpdateReadManagerMessage(ScreenBase const & screen, set<TileKey> const & tiles)
-    : m_screen(screen)
-    , m_tiles(tiles)
+    : m_tiles(tiles)
+    , m_screen(screen)
   {}
 
   Type GetType() const override { return Message::UpdateReadManager; }

@@ -123,8 +123,13 @@ void BaseRenderer::WakeUp()
 
 void BaseRenderer::ProcessStopRenderingMessage()
 {
-  CloseQueue();
   IRoutine::Cancel();
+  CloseQueue();
+}
+
+bool BaseRenderer::CanReceiveMessage()
+{
+  return !IsCancelled();
 }
 
 } // namespace df

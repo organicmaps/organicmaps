@@ -36,6 +36,9 @@ protected:
   void ProcessStopRenderingMessage();
 
 private:
+  bool CanReceiveMessage() override;
+
+private:
   threads::Thread m_selfThread;
   ThreadsCommutator::ThreadName m_threadName;
 
