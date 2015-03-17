@@ -364,7 +364,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.bookmarkButton.midY = 44;
   }
   self.routeButton.midY = self.bookmarkButton.midY - 1;
-  self.routeButton.hidden = [self isMyPosition];
+  if (self.routingActivity.isAnimating) {
+    self.routeButton.hidden = YES;
+  } else {
+    self.routeButton.hidden = [self isMyPosition];
+  }
 }
 
 - (CGFloat)headerHeight
@@ -444,6 +448,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self setState:self.state animated:YES withCallback:YES];
     CGFloat const headerHeight = [self headerHeight];
     self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, self.backgroundView.height - headerHeight);
+  }
+  if (self.routingActivity.isAnimating) {
+    self.routingActivity.center = CGPointMake(self.routeButton.midX, self.routeButton.midY + INTEGRAL(2.5));
   }
 }
 
@@ -811,11 +818,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   m_bookmarkData = NULL;
 }
 
-- (void)showBuildingRoutingActivity:(BOOL)building
+- (void)showBuildingRoutingActivity:(BOOL)show
 {
-  if (building)
+  self.routeButton.hidden = show;
+  if (show)
   {
-    self.routeButton.hidden = YES;
     self.routingActivity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.routingActivity.center = CGPointMake(self.routeButton.midX, self.routeButton.midY + INTEGRAL(2.5));
     [self.routeButton.superview addSubview:self.routingActivity];
@@ -823,7 +830,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
   else
   {
-    self.routeButton.hidden = NO;
+    [self.routingActivity stopAnimating];
     [self.routingActivity removeFromSuperview];
   }
 }

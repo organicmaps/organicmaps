@@ -38,6 +38,6 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 @property (nonatomic, readonly) NSString * temporaryTitle;
 @property (nonatomic) BOOL statusBarIncluded;
 
-- (void)showBuildingRoutingActivity:(BOOL)buiding;
+- (void)showBuildingRoutingActivity:(BOOL)show;
 
 @end
