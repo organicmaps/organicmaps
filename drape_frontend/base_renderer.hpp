@@ -24,7 +24,6 @@ public:
                dp::RefPointer<dp::OGLContextFactory> oglcontextfactory);
 
   void SetRenderingEnabled(bool const isEnabled);
-  void ClearRenderingQueueSynchronously();
 
 protected:
   dp::RefPointer<ThreadsCommutator> m_commutator;
