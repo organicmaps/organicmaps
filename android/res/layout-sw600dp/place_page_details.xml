@@ -64,6 +64,8 @@
 
         <include layout="@layout/place_page_email"/>
 
+        <include layout="@layout/place_page_operator"/>
+
       </LinearLayout>
 
     </RelativeLayout>

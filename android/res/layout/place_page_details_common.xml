@@ -30,6 +30,8 @@
 
     <include layout="@layout/place_page_email"/>
 
+    <include layout="@layout/place_page_operator"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0px"

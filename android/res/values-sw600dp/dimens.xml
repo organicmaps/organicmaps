@@ -23,9 +23,7 @@
   <dimen name="sp_x_4">28sp</dimen>
   <dimen name="sp_x_5">35sp</dimen>
 
-  <dimen name="bottom_panel_height">70dp</dimen>
   <dimen name="bottom_panel_width">60dp</dimen>
-  <dimen name="bottom_button_width">60dp</dimen>
   <dimen name="bottom_item_height">56dp</dimen>
 
   <dimen name="routing_pp_height">63dp</dimen>

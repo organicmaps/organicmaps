@@ -76,6 +76,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private LinearLayout mLlWifi;
   private LinearLayout mLlEmail;
   private TextView mTvEmail;
+  private LinearLayout mLlOperator;
+  private TextView mTvOperator;
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
@@ -160,6 +162,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mLlEmail = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_email);
     mLlEmail.setOnClickListener(this);
     mTvEmail = (TextView) mLlEmail.findViewById(R.id.tv__place_email);
+    mLlOperator = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_operator);
+    mLlOperator.setOnClickListener(this);
+    mTvOperator = (TextView) mPpDetails.findViewById(R.id.tv__place_operator);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       mLlLatlon.setOnLongClickListener(this);
@@ -168,6 +173,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mLlWebsite.setOnLongClickListener(this);
       mLlSchedule.setOnLongClickListener(this);
       mLlEmail.setOnLongClickListener(this);
+      mLlOperator.setOnLongClickListener(this);
     }
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
@@ -330,12 +336,17 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (!TextUtils.isEmpty(cuisine))
     {
       // cuisines translations can contain unsupported symbols, and res ids
-      // replace them with supported "_"( so ';', ', ' and ' ' are replaced with underlines)
-      final String res = cuisine.replace(';', '_').replace(", ", "_").replace(' ', '_').toLowerCase();
-      // and "cuisine_" prefix
-      int resId = getResources().getIdentifier("cuisine_" + res, "string", BuildConfig.APPLICATION_ID);
-      if (resId != 0)
-        return getResources().getString(resId);
+      // replace them with supported "_"( so ', ' and ' ' are replaced with underlines)
+      final String[] cuisines = cuisine.split(";");
+      String result = "";
+      // search translations for each cuisine
+      for (String cuisineRaw : cuisines)
+      {
+        final String cuisineKey = cuisineRaw.replace(", ", "_").replace(' ', '_').toLowerCase();
+        int resId = getResources().getIdentifier("cuisine_" + cuisineKey, "string", BuildConfig.APPLICATION_ID);
+        result += resId == 0 ? cuisineRaw : getResources().getString(resId);
+      }
+      return result;
     }
 
     return cuisine;
@@ -344,11 +355,21 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private void refreshDetails()
   {
     refreshLatLon();
-    refreshMetadataOrHide(Metadata.MetadataType.FMD_URL, mLlWebsite, mTvWebsite);
-    refreshMetadataOrHide(Metadata.MetadataType.FMD_PHONE_NUMBER, mLlPhone, mTvPhone);
-    // TODO parse schedule (natively?)
-    refreshMetadataOrHide(Metadata.MetadataType.FMD_OPEN_HOURS, mLlSchedule, mTvSchedule);
-    refreshMetadataOrHide(Metadata.MetadataType.FMD_EMAIL, mLlEmail, null);
+    final String website = mMapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+    if (website != null)
+      refreshMetadataOrHide(website, mLlWebsite, mTvWebsite);
+    else
+      refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_URL), mLlWebsite, mTvWebsite);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mLlPhone, mTvPhone);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mLlEmail, mTvEmail);
+    refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mLlOperator, mTvOperator);
+
+    // TODO throw away parsing hack when data will be parsed correctly in core
+    final String rawSchedule = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    if (!TextUtils.isEmpty(rawSchedule))
+      refreshMetadataOrHide(rawSchedule.replace("; ", "\n").replace(';', '\n'), mLlSchedule, mTvSchedule);
+    else
+      refreshMetadataOrHide(null, mLlSchedule, mTvSchedule);
   }
 
   private void refreshButtons(boolean showBackButton)
@@ -410,9 +431,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       mTvLatlon.setText(latLon[0] + ", " + latLon[1]);
   }
 
-  private void refreshMetadataOrHide(Metadata.MetadataType metaType, LinearLayout metaLayout, TextView metaTv)
+  private void refreshMetadataOrHide(String metadata, LinearLayout metaLayout, TextView metaTv)
   {
-    final String metadata = mMapObject.getMetadata(metaType);
     if (!TextUtils.isEmpty(metadata))
     {
       metaLayout.setVisibility(View.VISIBLE);
@@ -554,6 +574,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     case R.id.av__direction:
       showBigDirection();
       break;
+    case R.id.ll__place_email:
+      intent = new Intent(Intent.ACTION_SENDTO);
+      intent.setData(Utils.buildMailUri(mTvEmail.getText().toString(), "", ""));
+      getContext().startActivity(intent);
+      break;
     default:
       break;
     }
@@ -661,6 +686,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       break;
     case R.id.ll__place_schedule:
       arr = new String[]{mTvSchedule.getText().toString()};
+      break;
+    case R.id.ll__place_operator:
+      arr = new String[]{mTvOperator.getText().toString()};
       break;
     }
 
