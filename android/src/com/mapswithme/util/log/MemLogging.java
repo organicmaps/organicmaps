@@ -11,27 +11,27 @@ import java.util.Date;
 
 public class MemLogging
 {
-  public static String GetMemoryInfo()
+  public static String getMemoryInfo()
   {
     final Debug.MemoryInfo debugMI = new Debug.MemoryInfo();
     Debug.getMemoryInfo(debugMI);
     final ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-    final Context content = MWMApplication.get().getApplicationContext();
     final ActivityManager activityManager =
-            (ActivityManager) content.getSystemService(content.ACTIVITY_SERVICE);
+            (ActivityManager) MWMApplication.get().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
     activityManager.getMemoryInfo(mi);
-    StringBuilder log = new StringBuilder("Memory info: " + 
-            " Debug.getNativeHeapSize() = " + Debug.getNativeHeapSize() / 1024 +
-            "KB; Debug.getNativeHeapAllocatedSize() = " + Debug.getNativeHeapAllocatedSize() / 1024 +
-            "KB; Debug.getNativeHeapFreeSize() = " + Debug.getNativeHeapFreeSize() / 1024 +
-            "KB; debugMI.getTotalPrivateDirty() = " + debugMI.getTotalPrivateDirty() +
-            "KB; debugMI.getTotalPss() = " + debugMI.getTotalPss() +
-            "KB; mi.availMem = " + mi.availMem / 1024 +
-            "KB; mi.threshold = " + mi.threshold / 1024 +
-            "KB; mi.lowMemory = " + mi.lowMemory);
+
+    StringBuilder log = new StringBuilder("Memory info: ");
+    log.append(" Debug.getNativeHeapSize() = ").append(Debug.getNativeHeapSize() / 1024)
+      .append("KB; Debug.getNativeHeapAllocatedSize() = ").append(Debug.getNativeHeapAllocatedSize() / 1024)
+      .append("KB; Debug.getNativeHeapFreeSize() = ").append(Debug.getNativeHeapFreeSize() / 1024)
+      .append("KB; debugMI.getTotalPrivateDirty() = ").append(debugMI.getTotalPrivateDirty())
+      .append("KB; debugMI.getTotalPss() = ").append(debugMI.getTotalPss())
+      .append("KB; mi.availMem = ").append(mi.availMem / 1024)
+      .append("KB; mi.threshold = ").append(mi.threshold / 1024)
+      .append("KB; mi.lowMemory = ").append(mi.lowMemory);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
     {
-      log.append(" mi.totalMem = " + mi.totalMem / 1024 + "KB.");
+      log.append(" mi.totalMem = ").append(mi.totalMem / 1024).append("KB;");
     }
     return log.toString();
   }

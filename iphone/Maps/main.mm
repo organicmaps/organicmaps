@@ -2,9 +2,9 @@
 #import <Foundation/Foundation.h>
 #import <Foundation/NSThread.h>
 
-#include "../../platform/settings.hpp"
-#include "../../platform/platform.hpp"
 #include "../../platform/file_logging.hpp"
+#include "../../platform/platform.hpp"
+#include "../../platform/settings.hpp"
 
 
 /// Used to trick iOs and enable multithreading support with non-native pthreads.

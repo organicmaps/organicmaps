@@ -3,11 +3,13 @@
 #include <android/log.h>
 #include <cassert>
 
-#include "../../../../../base/logging.hpp"
 #include "../../../../../base/exception.hpp"
+#include "../../../../../base/logging.hpp"
+
 #include "../../../../../coding/file_writer.hpp"
-#include "../../../../../platform/platform.hpp"
+
 #include "../../../../../platform/file_logging.hpp"
+#include "../../../../../platform/platform.hpp"
 
 
 namespace jni

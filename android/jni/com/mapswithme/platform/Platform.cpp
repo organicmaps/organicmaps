@@ -19,10 +19,7 @@ string Platform::UniqueClientId() const
   {
     JNIEnv * env = jni::GetEnv();
     if (!env)
-    {
-      LOG(LWARNING, ("Can't get JNIEnv"));
-      return "";
-    }
+      return string();
 
     jclass uuidClass = env->FindClass("java/util/UUID");
     ASSERT(uuidClass, ("Can't find java class java/util/UUID"));
@@ -58,31 +55,25 @@ string Platform::UniqueClientId() const
 string Platform::GetMemoryInfo() const
 {
   JNIEnv * env = jni::GetEnv();
-  if (!env)
-  {
-    LOG(LWARNING, ("Can't get JNIEnv"));
-    return string("");
-  }
+  if (env == nullptr)
+    return string();
 
-  jclass memLoggingClass = env->FindClass("com/mapswithme/util/log/MemLogging");
-  ASSERT(memLoggingClass, ());
+  static shared_ptr<jobject> classMemLogging = jni::make_global_ref(env->FindClass("com/mapswithme/util/log/MemLogging"));
+  ASSERT(classMemLogging, ());
 
-  jmethodID getMemoryInfoId = env->GetStaticMethodID(memLoggingClass, "GetMemoryInfo", "()Ljava/lang/String;");
+  static jmethodID const getMemoryInfoId = env->GetStaticMethodID(static_cast<jclass>(*classMemLogging.get()), "getMemoryInfo", "()Ljava/lang/String;");
   ASSERT(getMemoryInfoId, ());
 
-  jstring memInfoString = (jstring)env->CallStaticObjectMethod(memLoggingClass, getMemoryInfoId);
+  jstring const memInfoString = (jstring)env->CallStaticObjectMethod(static_cast<jclass>(*classMemLogging.get()), getMemoryInfoId);
   ASSERT(memInfoString, ());
 
-  string res = jni::ToNativeString(env, memInfoString);
-
-  return res;
+  return jni::ToNativeString(env, memInfoString);
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   android::Platform::RunOnGuiThreadImpl(fn);
 }
-
 namespace android
 {
   void Platform::Initialize(JNIEnv * env,

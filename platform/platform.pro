@@ -62,24 +62,24 @@ macx-*|iphone* {
 # common sources for all platforms
 
 HEADERS += \
-    platform.hpp \
-    location.hpp \
-    preferred_languages.hpp \
-    settings.hpp \
-    video_timer.hpp \
-    http_request.hpp \
-    http_thread_callback.hpp \
     chunks_download_strategy.hpp \
-    servers_list.hpp \
     constants.hpp \
     file_logging.hpp \
+    http_request.hpp \
+    http_thread_callback.hpp \
+    location.hpp \
+    platform.hpp \
+    preferred_languages.hpp \
+    servers_list.hpp \
+    settings.hpp \
+    video_timer.hpp \
 
 SOURCES += \
+    chunks_download_strategy.cpp \
+    file_logging.cpp \
+    http_request.cpp \
+    platform.cpp \
     preferred_languages.cpp \
+    servers_list.cpp \
     settings.cpp \
     video_timer.cpp \
-    http_request.cpp \
-    chunks_download_strategy.cpp \
-    platform.cpp \
-    servers_list.cpp \
-    file_logging.cpp \

@@ -4,18 +4,20 @@
 
 #include "../coding/file_reader.hpp"
 
-#include <sys/types.h>
+#include <ifaddrs.h>
+
+#import <mach/mach.h>
+
 #include <sys/socket.h>
 #include <sys/stat.h>
-#include <ifaddrs.h>
+#include <sys/types.h>
+
 #include <net/if_dl.h>
 #include <net/if.h>
 
 #if !defined(IFT_ETHER)
   #define IFT_ETHER 0x6 /* Ethernet CSMACD */
 #endif
-
-#import <mach/mach.h>
 
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSBundle.h>
@@ -161,13 +163,12 @@ string Platform::GetMemoryInfo() const
     ss << "Memory info: Resident_size = " << info.resident_size / 1024
       << "KB; virtual_size = " << info.resident_size / 1024 << "KB; suspend_count = " << info.suspend_count
       << " policy = " << info.policy;
-    return ss.str();
   }
   else
   {
     ss << "Error with task_info(): " << mach_error_string(kerr);
-    return ss.str();
   }
+  return ss.str();
 }
 
 void Platform::RunOnGuiThread(TFunctor const & fn)

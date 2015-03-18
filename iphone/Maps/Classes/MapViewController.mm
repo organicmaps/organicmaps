@@ -24,13 +24,16 @@
 
 #include "../../../anim/controller.hpp"
 #include "../../../gui/controller.hpp"
-#include "../../../platform/platform.hpp"
 #include "../Statistics/Statistics.h"
+
+#include "../../../map/country_status_display.hpp"
 #include "../../../map/dialog_settings.hpp"
 #include "../../../map/user_mark.hpp"
-#include "../../../map/country_status_display.hpp"
-#include "../../../platform/settings.hpp"
+
 #include "../../../platform/file_logging.hpp"
+#include "../../../platform/platform.hpp"
+#include "../../../platform/settings.hpp"
+
 
 #define ALERT_VIEW_FACEBOOK 1
 #define ALERT_VIEW_APPSTORE 2
@@ -134,7 +137,7 @@
       [m_predictor reset:info];
     Framework & frm = GetFramework();
     frm.OnLocationUpdate(info);
-    LogMemoryInfo();
+    LOG_MEMORY_INFO();
 
     [self showPopover];
     [self updateRoutingInfo];

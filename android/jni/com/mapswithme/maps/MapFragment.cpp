@@ -54,7 +54,7 @@ extern "C"
     if (speed > 0.0)
       info.m_speed = speed;
 
-    LogMemoryInfo();    
+    LOG_MEMORY_INFO();    
     g_framework->OnLocationUpdated(info);
   }
 
