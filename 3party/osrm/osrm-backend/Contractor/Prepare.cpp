@@ -366,10 +366,11 @@ bool Prepare::ParseArguments(int argc, char *argv[])
 
     // hidden options, will be allowed both on command line and in config file, but will not be
     // shown to the user
+    std::string string_input_path;
     boost::program_options::options_description hidden_options("Hidden options");
     hidden_options.add_options()(
         "input,i",
-        boost::program_options::value<boost::filesystem::path>(&input_path),
+        boost::program_options::value<std::string>(&string_input_path),
         "Input file in .osm, .osm.bz2 or .osm.pbf format");
 
     // positional option
@@ -419,6 +420,8 @@ bool Prepare::ParseArguments(int argc, char *argv[])
         SimpleLogger().Write() << "\n" << visible_options;
         return false;
     }
+
+    input_path = boost::filesystem::path(string_input_path);
 
     return true;
 }

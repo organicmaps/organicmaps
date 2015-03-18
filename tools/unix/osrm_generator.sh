@@ -17,26 +17,61 @@ EXTRACT_CFG="$OSRM_PATH/../extractor.ini"
 PREPARE="$BIN_PATH/osrm-prepare"
 PREPARE_CFG="$OSRM_PATH/../contractor.ini"
 MWM="$BIN_PATH/osrm-mapsme"
+LOG=./osrm_`date +%Y_%m_%d__%H_%M`.log
+
+# Writes all arguments with the current timestamp to LOG file. 
+log() 
+{
+   local prefix="[$(date +%Y/%m/%d\ %H:%M:%S)]: "
+   echo "${prefix} $@" >> $LOG
+}
+
+# Creation of a osrm file. First parameter is a full path to .pbf file.
+make_osrm ()
+{
+  "$EXTRACT" --config "$EXTRACT_CFG" --profile "$PROFILE" "$1"
+  local OSRM_FILE=${1%.pbf}.osrm
+  "$PREPARE" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
+  "$MWM" -i "$OSRM_FILE"
+}
+
+# Osrm file checker. Writes log message if the .osrm file created.
+# First parameter is a full path to .pbf file.
+check_osrm ()
+{
+  local FL=${1%.pbf}.osrm
+  if [ -f "$FL" ]; then
+     log "[OK] osrm created" "$FL"
+  else
+     log "[ERROR] osrm creation failed for" "$FL"
+  fi
+}
+
+# Osrm file cleaner. Remove a .osrm file for given source.
+# First parameter is a full path to .pbf file.
+clean_osrm ()
+{
+  local FL=${1%.pbf}.osrm
+  rm -f "$FL"
+}
 
 # extract and prepare use all available cores
 # mwm is very fast
 # so we don't parallel it
-
-echo Started at `date`
+echo -n > $LOG
+log "OSRM files processing started"
+# Recreate log file
 
 #pushd "$PROFILE_PATH"
 
-for file in "$DATA_PATH"/*.pbf
-do
-  # hack to fix boost options bug with spaces and & symbols
-  FILE_SPACES="${file/ /\ }"
-  FILE="${FILE_SPACES/&/\&\&}"
-  "$EXTRACT" --config "$EXTRACT_CFG" --profile "$PROFILE" "\"$FILE\""
-  "$PREPARE" --config "$PREPARE_CFG" --profile "$PROFILE" "\"${FILE/\.*/\.osrm}\""
-  FILE="${FILE_SPACES/&/\&}"
-  "$MWM" -i "${FILE/\.*/\.osrm}"
+COUNTRY_LIST=${COUNTRY_LIST-$(ls -1 $DATA_PATH/*.pbf)}
+
+echo "$COUNTRY_LIST" | while read file ; do
+  clean_osrm "$file"
+  make_osrm "$file"
+  check_osrm "$file"
 done
 
 #popd
 
-echo Finished at `date`
+log "OSRM generator finished"
