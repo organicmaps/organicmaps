@@ -108,7 +108,7 @@ class OsrmFtSegBackwardIndex
   bool Load(string const & nodesFileName, string const & bitsFileName);
 
 public:
-  void Construct(OsrmFtSegMapping const & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
+  void Construct(OsrmFtSegMapping & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
 
   TNodesList const &  GetNodeIdByFid(uint32_t const fid) const;
 

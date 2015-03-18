@@ -723,8 +723,8 @@ public:
 
     ASSERT(it != income_iterators.second, ());
 
-    const size_t targetNumber = distance(income_iterators.first, it);
-    const EdgeWeight targetWeight = m_weights[targetNumber];
+    size_t const targetNumber = distance(income_iterators.first, it);
+    EdgeWeight const targetWeight = m_weights[targetNumber];
     if (targetWeight == INVALID_EDGE_WEIGHT)
     {
       outCrossTask.weight = INVALID_EDGE_WEIGHT;
@@ -750,7 +750,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   {
     // Check if target is a neighbour
     startMapping->LoadCrossContext();
-    MY_SCOPE_GUARD(startMappingGuard, [&]() {startMapping->FreeCrossContext();});
     auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
     for (auto i = out_iterators.first; i != out_iterators.second; ++i)
       if (startMapping->m_crossContext.getOutgoingMwmName(i->m_outgoingIndex) == targetMapping->GetName())
@@ -808,6 +807,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   if (startMapping->GetName() == targetMapping->GetName())
   {
     LOG(LINFO, ("Single mwm routing case"));
+    m_indexManager.ForEachMapping([](pair<string, RoutingMappingPtrT> const & indexPair){indexPair.second->FreeCrossContext();});
     if (!FindSingleRoute(startTask, m_CachedTargetTask, startMapping->m_dataFacade, routingResult))
     {
       return RouteNotFound;
@@ -837,9 +837,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   {
     LOG(LINFO, ("Multiple mwm routing case"));
     startMapping->LoadCrossContext();
-    MY_SCOPE_GUARD(startMappingGuard, [&]() {startMapping->FreeCrossContext();});
     targetMapping->LoadCrossContext();
-    MY_SCOPE_GUARD(targetMappingGuard, [&]() {targetMapping->FreeCrossContext();});
 
     // Check if mwms are neighbours
     /*
@@ -939,7 +937,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       if (!nextMapping->IsValid())
         continue;
       nextMapping->LoadCrossContext();
-      MY_SCOPE_GUARD(nextMappingGuard, [&]() {nextMapping->FreeCrossContext();});
       size_t tNodeId = (out_iterators.first+j)->m_nodeId;
       size_t nextNodeId = FindNextMwmNode(*(out_iterators.first+j), nextMapping);
       if (nextNodeId == INVALID_NODE_ID)
@@ -986,7 +983,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         ASSERT(currentMapping->IsValid(), ());
 
         currentMapping->LoadCrossContext();
-        MY_SCOPE_GUARD(currentMappingGuard, [&]() {currentMapping->FreeCrossContext();});
         CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
         auto current_in_iterators = currentContext.GetIngoingIterators();
         auto current_out_iterators = currentContext.GetOutgoingIterators();
@@ -1004,12 +1000,10 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
         // find outs
         for (auto oit = current_out_iterators.first; oit != current_out_iterators.second; ++oit)
         {
-          const EdgeWeight outWeight = currentContext.getAdjacencyCost(iit, oit);
-          if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT)
+          EdgeWeight const outWeight = currentContext.getAdjacencyCost(iit, oit);
+          if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
           {
-            /// @todo Investigate this assert in route from Moscow to Madrid.
-            /// France-Aquitaine hase zero weight.
-            //ASSERT(outWeight > 0, ());
+            ASSERT(outWeight > 0, ("Looks' like .routing file is corrupted!"));
 
             if (getPathWeight(topTask)+outWeight >= finalWeight)
               continue;
@@ -1030,7 +1024,6 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
             checkedOuts.insert(outNode);
 
             nextMapping->LoadCrossContext();
-            MY_SCOPE_GUARD(nextMappingGuard, [&]() {nextMapping->FreeCrossContext();});
             size_t nextNodeId = FindNextMwmNode(*oit, nextMapping);
             if(nextNodeId == INVALID_NODE_ID)
               continue;
@@ -1052,7 +1045,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
               OsrmRouter::RoutePathCross targetCross;
               if(targetFinder.MakeLastCrossSegment(nextNodeId, targetCross))
               {
-                const EdgeWeight newWeight = getPathWeight(tmpPath) + targetCross.weight;
+                EdgeWeight const newWeight = getPathWeight(tmpPath) + targetCross.weight;
                 if (newWeight < finalWeight)
                 {
                   tmpPath.push_back(targetCross);
@@ -1074,6 +1067,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     // 5. Make generate answer
     if (finalWeight < INVALID_EDGE_WEIGHT)
     {
+      // Manually free all cross context allocations before geometry unpacking
+      m_indexManager.ForEachMapping([](pair<string, RoutingMappingPtrT> const & indexPair){indexPair.second->FreeCrossContext();});
       auto code = MakeRouteFromCrossesPath(finalPath, route);
       LOG(LINFO, ("Make final route", timer.ElapsedNano()));
       timer.Reset();

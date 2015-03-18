@@ -48,7 +48,7 @@ struct RoutingMapping
 private:
   size_t m_mapCounter;
   size_t m_facadeCounter;
-  size_t m_crossContextCounter;
+  bool m_crossContextLoaded;
   string m_baseName;
   FilesMappingContainer m_container;
   Index::MwmId m_mwmId;

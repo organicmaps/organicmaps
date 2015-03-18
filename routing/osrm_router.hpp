@@ -9,10 +9,11 @@
 #include "../indexer/index.hpp"
 #include "../base/mutex.hpp"
 
+#include "../std/atomic.hpp"
 #include "../std/function.hpp"
 #include "../std/numeric.hpp"
-#include "../std/atomic.hpp"
 #include "../std/queue.hpp"
+#include "../std/unordered_map.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 #include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
@@ -65,7 +66,7 @@ class RoutingIndexManager
 {
   CountryFileFnT m_countryFn;
 
-  map<string, RoutingMappingPtrT> m_mapping;
+  unordered_map<string, RoutingMappingPtrT> m_mapping;
 
 public:
   RoutingIndexManager(CountryFileFnT const & fn): m_countryFn(fn) {}
@@ -73,6 +74,12 @@ public:
   RoutingMappingPtrT GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
+  
+  template <class TFunctor>
+  void ForEachMapping(TFunctor toDo)
+  {
+    for_each(m_mapping.begin(), m_mapping.end(), toDo);
+  }
 
   void Clear()
   {

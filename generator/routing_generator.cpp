@@ -328,9 +328,9 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     for (auto i = in.first; i < in.second; ++i)
       for (auto j = out.first; j < out.second; ++j)
       {
-        if (*res != INVALID_EDGE_WEIGHT)
-          crossContext.setAdjacencyCost(i, j, *res);
-        ++res;
+        EdgeWeight const & edgeWeigth = *(res++);
+        if (edgeWeigth != INVALID_EDGE_WEIGHT && edgeWeigth > 0)
+          crossContext.setAdjacencyCost(i, j, edgeWeigth);
       }
     LOG(LINFO, ("Calculation of weight map between outgoing nodes DONE"));
   }

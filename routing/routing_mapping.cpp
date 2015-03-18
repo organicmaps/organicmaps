@@ -16,7 +16,7 @@ namespace routing
 {
 
 RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
-  : m_mapCounter(0), m_facadeCounter(0), m_crossContextCounter(0), m_baseName(fName),
+  : m_mapCounter(0), m_facadeCounter(0), m_crossContextLoaded(0), m_baseName(fName),
     m_isValid(true), m_error(IRouter::ResultCode::NoError)
 {
   Platform & pl = GetPlatform();
@@ -90,17 +90,18 @@ void RoutingMapping::FreeFacade()
 
 void RoutingMapping::LoadCrossContext()
 {
-  if (!m_crossContextCounter)
+  if (!m_crossContextLoaded)
     if (m_container.IsExist(ROUTING_CROSS_CONTEXT_TAG))
+    {
       m_crossContext.Load(m_container.GetReader(ROUTING_CROSS_CONTEXT_TAG));
-  ++m_crossContextCounter;
+      m_crossContextLoaded = true;
+    }
 }
 
 void RoutingMapping::FreeCrossContext()
 {
-  --m_crossContextCounter;
-  if (!m_crossContextCounter)
-    m_crossContext = CrossRoutingContextReader();
+  m_crossContextLoaded = false;
+  m_crossContext = CrossRoutingContextReader();
 }
 
 }

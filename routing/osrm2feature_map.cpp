@@ -122,8 +122,6 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
     }
   }
 
-  Map(cont);
-
   m_backwardIndex.Construct(*this, m_offsets.back().m_nodeId, cont);
 }
 
@@ -368,7 +366,7 @@ bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & b
   return true;
 }
 
-void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const uint32_t maxNodeId, FilesMappingContainer & routingFile)
+void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_t maxNodeId, FilesMappingContainer & routingFile)
 {
   Clear();
 
@@ -391,18 +389,22 @@ void OsrmFtSegBackwardIndex::Construct(const OsrmFtSegMapping & mapping, const u
   if (Load(bitsFileName, nodesFileName))
     return;
 
+  mapping.Map(routingFile);
+
   // Generate temporary index to speedup processing
   unordered_multimap<uint64_t, uint32_t> temporaryBackwardIndex;
   for (uint32_t i = 0; i < maxNodeId; ++i)
   {
     auto indexes = mapping.GetSegmentsRange(i);
-    for (size_t j = indexes.first; j != indexes.second; ++j)
+    for (; indexes.first != indexes.second; ++indexes.first)
     {
       OsrmMappingTypes::FtSeg seg;
-      mapping.GetSegmentByIndex(j, seg);
+      mapping.GetSegmentByIndex(indexes.first, seg);
       temporaryBackwardIndex.insert(make_pair(seg.m_fid, i));
     }
   }
+
+  mapping.Unmap();
 
   // Create final index
   vector<bool> inIndex(m_table->size(), false);
