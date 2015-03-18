@@ -68,7 +68,7 @@ void DrapeEngine::Resize(int w, int h)
 
 void DrapeEngine::UpdateCoverage(ScreenBase const & screen)
 {
-  m_frontend->UpdateModelView(screen);
+  m_frontend->SetModelView(screen);
 }
 
 void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)

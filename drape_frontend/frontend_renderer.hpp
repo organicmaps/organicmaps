@@ -55,7 +55,7 @@ public:
   void AfterDrawFrame();
 #endif
 
-  void UpdateModelView(ScreenBase const & screen);
+  void SetModelView(ScreenBase const & screen);
 
 protected:
   virtual void AcceptMessage(dp::RefPointer<Message> message);
@@ -92,7 +92,9 @@ private:
 
 private:
   void DeleteRenderData();
-  void ProcessModelViewUpdating();
+
+  // it applies new model-view matrix to the scene (this matrix will be used on next frame)
+  void UpdateScene();
 
 private:
   dp::RefPointer<dp::TextureManager> m_textureManager;

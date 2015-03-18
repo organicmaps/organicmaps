@@ -420,7 +420,7 @@ void FrontendRenderer::Routine::Do()
     context->setDefaultFramebuffer();
     m_renderer.m_textureManager->UpdateDynamicTextures();
     m_renderer.RenderScene();
-    m_renderer.ProcessModelViewUpdating();
+    m_renderer.UpdateScene();
 
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
 
@@ -457,18 +457,18 @@ void FrontendRenderer::DeleteRenderData()
   DeleteRange(m_userMarkRenderGroups, DeleteFunctor());
 }
 
-void FrontendRenderer::UpdateModelView(ScreenBase const & screen)
+void FrontendRenderer::SetModelView(ScreenBase const & screen)
 {
   lock_guard<mutex> lock(m_modelViewMutex);
   m_modelViewChanged = true;
   m_newView = screen;
 }
 
-void FrontendRenderer::ProcessModelViewUpdating()
+void FrontendRenderer::UpdateScene()
 {
+  lock_guard<mutex> lock(m_modelViewMutex);
   if (m_modelViewChanged)
   {
-    lock_guard<mutex> lock(m_modelViewMutex);
     m_view = m_newView;
     RefreshModelView();
     ResolveTileKeys();

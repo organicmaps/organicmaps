@@ -20,6 +20,8 @@ void MessageAcceptor::PostMessage(dp::TransferPointer<Message> message, MessageP
 {
   if (CanReceiveMessage())
     m_messageQueue.PushMessage(message, priority);
+  else
+    message.Destroy();
 }
 
 void MessageAcceptor::CloseQueue()
