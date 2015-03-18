@@ -117,7 +117,6 @@ double Track::GetLengthMeters() const
 
 void Track::Swap(Track & rhs)
 {
-  swap(m_isVisible, rhs.m_isVisible);
   swap(m_rect, rhs.m_rect);
   swap(m_outlines, rhs.m_outlines);
   m_name.swap(rhs.m_name);

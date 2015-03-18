@@ -130,6 +130,10 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEve
 {
 #ifndef USE_DRAPE
   /// TODO cutomize draw in UserMarkContainer for user Draw method
+  ASSERT(cat, ());
+  if (!cat->IsVisible())
+    return;
+
   Navigator const & navigator = m_framework.GetNavigator();
   ScreenBase const & screen = navigator.Screen();
 
@@ -275,14 +279,15 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 
   auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
   {
-    if (cat->IsVisible())
+    bool const isVisible = cat->IsVisible();
+    for (size_t j = 0; j < cat->GetTracksCount(); ++j)
     {
-      for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-      {
-        Track const * track = cat->GetTrack(j);
-        ASSERT(track, ());
+      Track const * track = cat->GetTrack(j);
+      ASSERT(track, ());
+      if (isVisible)
         trackUpdateFn(track);
-      }
+      else
+        track->CleanUp();
     }
   };
 

@@ -42,8 +42,7 @@ public:
   virtual ~Track();
 
   explicit Track(PolylineD const & polyline)
-    : m_isVisible(true),
-      m_polyline(polyline)
+    : m_polyline(polyline)
   {
     ASSERT_GREATER(polyline.GetSize(), 1, ());
 
@@ -63,8 +62,6 @@ public:
 
   /// @name Simple Getters-Setter
   //@{
-  bool IsVisible() const        { return m_isVisible; }
-  void SetVisible(bool visible) { m_isVisible = visible; }
 
   struct TrackOutline
   {
@@ -90,7 +87,6 @@ protected:
   void DeleteDisplayList() const;
 
 private:
-  bool m_isVisible = false;
   string m_name;
 
   vector<TrackOutline> m_outlines;
