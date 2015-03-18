@@ -18,6 +18,7 @@
     <TextView
         android:id="@+id/tv__subtitle"
         android:layout_width="wrap_content"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__title"
         android:textColor="@color/text_place_page_subtitle"
@@ -41,9 +42,19 @@
         android:numStars="5"
         android:stepSize="1"
         android:progressDrawable="@drawable/rating_bar_stars"
-        android:layout_marginLeft="@dimen/margin_small"
         android:layout_toRightOf="@id/tv__subtitle"
         android:layout_alignBottom="@id/tv__subtitle"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv__peak_elevation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_high_mountain"
+        android:layout_toRightOf="@id/tv__subtitle"
+        android:layout_alignBottom="@id/tv__subtitle"
+        android:textColor="@color/text_place_page_subtitle"
+        android:textSize="@dimen/place_page_subtitle"
         android:visibility="gone"/>
 
   </RelativeLayout>

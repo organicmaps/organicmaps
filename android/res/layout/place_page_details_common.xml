@@ -35,7 +35,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"/>
 
     <include

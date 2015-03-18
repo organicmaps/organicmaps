@@ -63,6 +63,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private RatingBar mRbStars;
+  private TextView mTvElevation;
   // Place page details
   private ViewGroup mPpDetails;
   private LinearLayout mLlAddress;
@@ -143,6 +144,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mAvDirection.setOnClickListener(this);
     mAvDirection.setImageResource(R.drawable.selector_direction);
     mRbStars = (RatingBar) ppPreview.findViewById(R.id.rb__stars);
+    mTvElevation = (TextView) ppPreview.findViewById(R.id.tv__peak_elevation);
 
     mPpDetails = (ViewGroup) findViewById(R.id.pp__details);
     mLlAddress = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_name);
@@ -375,6 +377,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       refreshMetadataOrHide(null, mLlSchedule, mTvSchedule);
 
     refreshMetadataStars(mMapObject.getMetadata(Metadata.MetadataType.FMD_STARS));
+
+    final String elevation = mMapObject.getMetadata(Metadata.MetadataType.FMD_ELE);
+    if (!TextUtils.isEmpty(elevation))
+    {
+      mTvElevation.setVisibility(View.VISIBLE);
+      mTvElevation.setText(elevation);
+    }
+    else
+      mTvElevation.setVisibility(View.GONE);
   }
 
   private void refreshButtons(boolean showBackButton)
