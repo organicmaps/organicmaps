@@ -6,8 +6,6 @@
 #include "../base/assert.hpp"
 #include "../base/bits.hpp"
 
-#include "../std/limits.hpp"
-
 vector<uint32_t> FreqsToDistrTable(vector<uint32_t> const & origFreqs)
 {
   uint64_t freqLowerBound = 0;
@@ -21,10 +19,8 @@ vector<uint32_t> FreqsToDistrTable(vector<uint32_t> const & origFreqs)
     for (uint32_t i = 0; i < origFreqs.size(); ++i)
     {
       uint32_t freq = origFreqs[i];
-      if (freq > 0 && freq < minFreq)
-        minFreq = freq;
-      if (freq > 0 && freq < freqLowerBound)
-        freq = static_cast<uint32_t>(freqLowerBound);
+      if (freq > 0 && freq < minFreq) minFreq = freq;
+      if (freq > 0 && freq < freqLowerBound) freq = freqLowerBound;
       freqs.push_back(freq);
       sum += freq;
       result.push_back(sum);
@@ -93,8 +89,7 @@ vector<uint8_t> ArithmeticEncoder::Finalize()
 
 void ArithmeticEncoder::PropagateCarry()
 {
-  ASSERT(m_output.size() > 0, ());
-  int i = static_cast<int>(m_output.size() - 1);
+  int i = m_output.size() - 1;
   while (i >= 0 && m_output[i] == 0xFF)
   {
     m_output[i] = 0;
@@ -117,8 +112,7 @@ ArithmeticDecoder::ArithmeticDecoder(Reader & reader, vector<uint32_t> const & d
 
 uint32_t ArithmeticDecoder::Decode()
 {
-  ASSERT(m_distrTable.size() <= numeric_limits<uint32_t>::max(), ());
-  uint32_t l = 0, r = static_cast<uint32_t>(m_distrTable.size()), m = 0;
+  uint32_t l = 0, r = m_distrTable.size(), m = 0;
   uint32_t shiftedSize = m_size >> DISTR_SHIFT;
   while (r - l > 1)
   {
