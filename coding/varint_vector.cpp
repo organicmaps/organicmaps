@@ -1,4 +1,6 @@
 #include "varint_vector.hpp"
+
+/*
 #include "writer.hpp"
 #include "reader.hpp"
 
@@ -205,3 +207,4 @@ void Vector::Read(uint32_t & serialPos, uint64_t & num)
 }
 
 }
+*/

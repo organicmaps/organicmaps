@@ -1,4 +1,6 @@
 #include "blob_storage.hpp"
+
+/*
 #include "reader.hpp"
 
 // File Format:
@@ -94,3 +96,4 @@ void BlobStorage::GetBlob(uint32_t i, string & blob) const
   else
     blob.assign(data.begin() + blobOffset, data.end());
 }
+*/

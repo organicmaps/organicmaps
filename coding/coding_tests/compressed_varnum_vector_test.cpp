@@ -1,6 +1,8 @@
 #include "../../testing/testing.hpp"
 
 #include "../compressed_varnum_vector.hpp"
+
+/*
 #include "../reader.hpp"
 #include "../writer.hpp"
 
@@ -76,3 +78,4 @@ UNIT_TEST(CompressedVarnumVector)
     }
   }
 }
+*/

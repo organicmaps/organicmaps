@@ -1,4 +1,6 @@
 #include "../../testing/testing.hpp"
+
+/*
 #include "../blob_storage.hpp"
 #include "../blob_indexer.hpp"
 
@@ -106,3 +108,4 @@ UNIT_TEST(BlobIndexerSerialTest)
   TEST_EQUAL(GetBlob(bs, 6), "World", ());
   TEST_EQUAL(GetBlob(bs, 7), "!", ());
 }
+*/

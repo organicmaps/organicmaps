@@ -1,4 +1,6 @@
 #pragma once
+
+/*
 #include "dd_vector.hpp"
 #include "polymorph_reader.hpp"
 #include "../std/function.hpp"
@@ -42,3 +44,4 @@ private:
   DDVector<uint32_t, PolymorphReader> m_blobInfo;
   DDVector<uint32_t, PolymorphReader> m_chunkOffset;
 };
+*/

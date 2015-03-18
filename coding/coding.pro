@@ -27,15 +27,15 @@ SOURCES += \
     mmap_reader.cpp \
     reader_streambuf.cpp \
     reader_writer_ops.cpp \
-    blob_indexer.cpp \
-    blob_storage.cpp \
+#    blob_indexer.cpp \
+#    blob_storage.cpp \
     uri.cpp \
     zip_creator.cpp \
     file_name_utils.cpp \
-    varint_vector.cpp \
+#    varint_vector.cpp \
     arithmetic_codec.cpp \
     compressed_bit_vector.cpp \
-    compressed_varnum_vector.cpp \
+#    compressed_varnum_vector.cpp \
     bit_streams.cpp \
 
 HEADERS += \
@@ -91,16 +91,16 @@ HEADERS += \
     reader_streambuf.hpp \
     reader_writer_ops.hpp \
     reader_wrapper.hpp \
-    blob_indexer.hpp \
-    blob_storage.hpp \
+#    blob_indexer.hpp \
+#    blob_storage.hpp \
     uri.hpp \
     zip_creator.hpp \
     file_name_utils.hpp \
     constants.hpp \
     matrix_traversal.hpp \
-    varint_vector.hpp \
+#    varint_vector.hpp \
     arithmetic_codec.hpp \
     compressed_bit_vector.hpp \
-    compressed_varnum_vector.hpp \
+#    compressed_varnum_vector.hpp \
     varint_misc.hpp \
     bit_streams.hpp \

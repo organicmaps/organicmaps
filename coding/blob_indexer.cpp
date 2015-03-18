@@ -1,5 +1,6 @@
 #include "blob_indexer.hpp"
 
+/*
 #include "../coding/writer.hpp"
 #include "../coding/write_to_sink.hpp"
 
@@ -70,3 +71,4 @@ BlobIndexer::~BlobIndexer()
     WriteToSink(m_writer, m_blobChunkAndOffset[i]);
   WriteToSink(m_writer, static_cast<uint32_t>(m_blobChunkAndOffset.size()));
 }
+*/

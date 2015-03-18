@@ -17,11 +17,11 @@ SOURCES += ../../testing/testingmain.cpp \
     base64_test.cpp \
     bit_shift_test.cpp \
     bit_streams_test.cpp \
-    blob_storage_test.cpp \
+#    blob_storage_test.cpp \
     bzip2_test.cpp \
     coder_util_test.cpp \
     compressed_bit_vector_test.cpp \
-    compressed_varnum_vector_test.cpp \
+#    compressed_varnum_vector_test.cpp \
     dd_vector_test.cpp \
     diff_test.cpp \
     endianness_test.cpp \
@@ -47,7 +47,7 @@ SOURCES += ../../testing/testingmain.cpp \
     var_record_reader_test.cpp \
     var_serial_vector_test.cpp \
     varint_test.cpp \
-    varint_vector_test.cpp \
+#    varint_vector_test.cpp \
     writer_test.cpp \
     zip_creator_test.cpp \
     zip_reader_test.cpp \

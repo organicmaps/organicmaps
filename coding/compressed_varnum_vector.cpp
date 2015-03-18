@@ -1,6 +1,8 @@
+#include "compressed_varnum_vector.hpp"
+
+/*
 #include "arithmetic_codec.hpp"
 #include "bit_streams.hpp"
-#include "compressed_varnum_vector.hpp"
 #include "reader.hpp"
 #include "writer.hpp"
 #include "varint_misc.hpp"
@@ -215,3 +217,4 @@ uint64_t CompressedVarnumVectorReader::Read()
   --m_decodeCtx->m_numsLeftInChunk;
   return num;
 }
+*/
