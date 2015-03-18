@@ -2,13 +2,13 @@
 
 #include "skin.hpp"
 
-#include "../drape/glsl_types.hpp"
 #include "../drape/batcher.hpp"
-#include "../drape/texture_manager.hpp"
-#include "../drape/overlay_handle.hpp"
+#include "../drape/glsl_types.hpp"
 #include "../drape/glstate.hpp"
-#include "../drape/vertex_array_buffer.hpp"
 #include "../drape/gpu_program_manager.hpp"
+#include "../drape/overlay_handle.hpp"
+#include "../drape/texture_manager.hpp"
+#include "../drape/vertex_array_buffer.hpp"
 
 namespace gui
 {
@@ -38,21 +38,17 @@ class ShapeRenderer final
 public:
   ~ShapeRenderer();
 
-  dp::Batcher::TFlushFn GetFlushRoutine();
-
   void Build(dp::RefPointer<dp::GpuProgramManager> mng);
   void Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProgramManager> mng);
+  void AddShape(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket);
 
 private:
   struct ShapeInfo
   {
     ShapeInfo(dp::GLState const & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer,
-              dp::TransferPointer<dp::OverlayHandle> handle)
-      : m_state(state)
-      , m_buffer(buffer)
-      , m_handle(handle)
-    {
-    }
+              dp::TransferPointer<dp::OverlayHandle> handle);
+
+    void Destroy();
 
     dp::GLState m_state;
     dp::MasterPointer<dp::VertexArrayBuffer> m_buffer;

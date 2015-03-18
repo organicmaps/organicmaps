@@ -6,6 +6,8 @@
 #include "drape/attribute_provider.hpp"
 #include "drape/overlay_handle.hpp"
 
+#include "base/macros.hpp"
+
 #include "std/map.hpp"
 #include "std/function.hpp"
 
@@ -19,6 +21,9 @@ class OverlayHandle;
 class Batcher
 {
 public:
+  static uint32_t const IndexCountPerQuad;
+  static uint32_t const VertexCountPerQuad;
+
   Batcher(uint32_t indexBufferSize = 9000, uint32_t vertexBufferSize = 10000);
   ~Batcher();
 
@@ -42,7 +47,6 @@ public:
   void InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride);
   void InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
                          TransferPointer<OverlayHandle> handle, uint8_t vertexStride);
-
 
   typedef function<void (GLState const &, TransferPointer<RenderBucket> )> TFlushFn;
   void StartSession(TFlushFn const & flusher);
@@ -78,6 +82,17 @@ class BatcherFactory
 {
 public:
   Batcher * GetNew() const { return new Batcher(); }
+};
+
+class SessionGuard
+{
+public:
+  SessionGuard(Batcher & batcher, Batcher::TFlushFn const & flusher);
+  ~SessionGuard();
+
+  DISALLOW_COPY_AND_MOVE(SessionGuard)
+private:
+  Batcher & m_batcher;
 };
 
 } // namespace dp

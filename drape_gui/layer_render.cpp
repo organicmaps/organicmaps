@@ -23,12 +23,12 @@ void LayerCacher::Resize(int w, int h)
 
 dp::TransferPointer<LayerRenderer> LayerCacher::Recache(dp::RefPointer<dp::TextureManager> textures)
 {
-  LayerRenderer * renderer = new LayerRenderer();
+  dp::MasterPointer<LayerRenderer> renderer(new LayerRenderer());
 
   renderer->AddShapeRenderer(CacheShape(textures, Compass(), Skin::ElementName::Compass));
   renderer->AddShapeRenderer(CacheShape(textures, Ruler(), Skin::ElementName::Ruler));
 
-  return dp::MovePointer(renderer);
+  return renderer.Move();
 }
 
 dp::TransferPointer<ShapeRenderer> LayerCacher::CacheShape(dp::RefPointer<dp::TextureManager> mng, Shape && shape, Skin::ElementName element)

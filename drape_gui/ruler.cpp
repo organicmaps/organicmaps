@@ -1,11 +1,13 @@
+#include "drape_gui.hpp"
+#include "gui_text.hpp"
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
-#include "gui_text.hpp"
-#include "drape_gui.hpp"
 
 #include "../drape/glsl_func.hpp"
 #include "../drape/glsl_types.hpp"
 #include "../drape/shader_def.hpp"
+
+#include "../std/bind.hpp"
 
 namespace gui
 {
@@ -67,7 +69,7 @@ public:
     SetIsVisible(true);
   }
 
-  virtual void Update(ScreenBase const & screen) override
+  void Update(ScreenBase const & screen) override
   {
     RulerHelper & helper = RulerHelper::Instance();
     SetIsVisible(helper.IsVisible(screen));
@@ -75,14 +77,14 @@ public:
       m_uniforms.SetFloatValue("u_length", helper.GetRulerPixelLength());
   }
 
-  virtual bool IndexesRequired() const override { return false; }
+  bool IndexesRequired() const override { return false; }
 
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const override
+  m2::RectD GetPixelRect(ScreenBase const & screen) const override
   {
     return m2::RectD();
   }
 
-  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const override
   {
     UNUSED_VALUE(screen);
     UNUSED_VALUE(rects);
@@ -104,10 +106,8 @@ public:
     m_textView.Destroy();
   }
 
-  virtual void Update(ScreenBase const & screen) override
+  void Update(ScreenBase const & screen) override
   {
-    UNUSED_VALUE(screen);
-
     SetIsVisible(RulerHelper::Instance().IsVisible(screen));
 
     if (!IsVisible())
@@ -117,7 +117,7 @@ public:
     m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
   }
 
-  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const override
+  void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const override
   {
     UNUSED_VALUE(screen);
 
@@ -153,14 +153,15 @@ private:
 
 dp::TransferPointer<ShapeRenderer> Ruler::Draw(dp::RefPointer<dp::TextureManager> tex) const
 {
-  ShapeRenderer * renderer = new ShapeRenderer;
-  DrawRuler(renderer, tex);
-  DrawText(renderer, tex);
+  dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer);
+  dp::RefPointer<ShapeRenderer> refRenderer = renderer.GetRefPointer();
+  DrawRuler(refRenderer, tex);
+  DrawText(refRenderer, tex);
 
-  return dp::MovePointer(renderer);
+  return renderer.Move();
 }
 
-void Ruler::DrawRuler(ShapeRenderer * renderer, dp::RefPointer<dp::TextureManager> tex) const
+void Ruler::DrawRuler(dp::RefPointer<ShapeRenderer> renderer, dp::RefPointer<dp::TextureManager> tex) const
 {
   buffer_vector<RulerVertex, 4> data;
 
@@ -194,21 +195,20 @@ void Ruler::DrawRuler(ShapeRenderer * renderer, dp::RefPointer<dp::TextureManage
   dp::AttributeProvider provider(1, 4);
   provider.InitStream(0, GetBindingInfo(), dp::MakeStackRefPointer<void>(data.data()));
 
-  dp::Batcher batcher(6, 4);
-  batcher.StartSession(renderer->GetFlushRoutine());
+  dp::Batcher batcher(dp::Batcher::IndexCountPerQuad, dp::Batcher::VertexCountPerQuad);
+  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2));
   batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
                               dp::MovePointer<dp::OverlayHandle>(new RulerHandle(m_position.m_anchor)));
-  batcher.EndSession();
 }
 
-void Ruler::DrawText(ShapeRenderer * renderer, dp::RefPointer<dp::TextureManager> tex) const
+void Ruler::DrawText(dp::RefPointer<ShapeRenderer> renderer, dp::RefPointer<dp::TextureManager> tex) const
 {
   string alphabet;
   size_t maxTextLength;
   RulerHelper::Instance().GetTextInitInfo(alphabet, maxTextLength);
 
-  uint32_t vertexCount = 4 * maxTextLength;
-  uint32_t indexCount = 6 * maxTextLength;
+  uint32_t vertexCount = dp::Batcher::VertexCountPerQuad * maxTextLength;
+  uint32_t indexCount = dp::Batcher::IndexCountPerQuad * maxTextLength;
 
   m2::PointF rulerTextPivot = m_position.m_pixelPivot + m2::PointF(0.0, RulerHelper::Instance().GetVerticalTextOffset());
   dp::Anchor anchor = static_cast<dp::Anchor>((m_position.m_anchor & (dp::Right | dp::Left)) | dp::Bottom);
@@ -218,24 +218,23 @@ void Ruler::DrawText(ShapeRenderer * renderer, dp::RefPointer<dp::TextureManager
   textView->SetMaxLength(maxTextLength);
 
   buffer_vector<MutableLabel::StaticVertex, 128> statData;
-  buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
   dp::RefPointer<dp::Texture> colorTexture = textView->Precache(statData, dp::FontDecl(FontColor, FontSize * DrapeGui::Instance().GetScaleFactor()), tex);
 
   ASSERT_EQUAL(vertexCount, statData.size(), ());
+  buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
   dynData.resize(statData.size());
 
-  dp::AttributeProvider provider(2, statData.size());
-  provider.InitStream(0, MutableLabel::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
-  provider.InitStream(1, MutableLabel::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
+  dp::AttributeProvider provider(2 /*stream count*/, statData.size());
+  provider.InitStream(0 /*stream index*/, MutableLabel::StaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(statData.data()));
+  provider.InitStream(1 /*stream index*/, MutableLabel::DynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynData.data()));
 
   dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::UserMarkLayer);
   state.SetColorTexture(colorTexture);
   state.SetMaskTexture(maskTexture);
 
   dp::Batcher batcher(indexCount, vertexCount);
-  batcher.StartSession(renderer->GetFlushRoutine());
-  batcher.InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer<dp::OverlayHandle>(handle), 4);
-  batcher.EndSession();
+  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2));
+  batcher.InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer<dp::OverlayHandle>(handle), dp::Batcher::VertexCountPerQuad);
 }
 
 }

@@ -29,26 +29,7 @@ void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects &
 ShapeRenderer::~ShapeRenderer()
 {
   for (ShapeInfo & shape : m_shapes)
-  {
-    shape.m_handle.Destroy();
-    shape.m_buffer.Destroy();
-  }
-}
-
-dp::Batcher::TFlushFn ShapeRenderer::GetFlushRoutine()
-{
-  dp::Batcher::TFlushFn flushFn = [this](dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket)
-  {
-    dp::MasterPointer<dp::RenderBucket> b(bucket);
-    ASSERT(b->GetOverlayHandlesCount() == 1, ());
-    dp::TransferPointer<dp::VertexArrayBuffer> buffer = b->MoveBuffer();
-    dp::TransferPointer<dp::OverlayHandle> transferH = b->PopOverlayHandle();
-    b.Destroy();
-
-    m_shapes.emplace_back(state, buffer, transferH);
-  };
-
-  return flushFn;
+    shape.Destroy();
 }
 
 void ShapeRenderer::Build(dp::RefPointer<dp::GpuProgramManager> mng)
@@ -89,6 +70,30 @@ void ShapeRenderer::Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProg
 
     shape.m_buffer->Render();
   }
+}
+
+void ShapeRenderer::AddShape(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket)
+{
+  dp::MasterPointer<dp::RenderBucket> b(bucket);
+  ASSERT(b->GetOverlayHandlesCount() == 1, ());
+  dp::TransferPointer<dp::VertexArrayBuffer> buffer = b->MoveBuffer();
+  dp::TransferPointer<dp::OverlayHandle> transferH = b->PopOverlayHandle();
+  b.Destroy();
+
+  m_shapes.emplace_back(state, buffer, transferH);
+}
+
+ShapeRenderer::ShapeInfo::ShapeInfo(const dp::GLState & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer, dp::TransferPointer<dp::OverlayHandle> handle)
+  : m_state(state)
+  , m_buffer(buffer)
+  , m_handle(handle)
+{
+}
+
+void ShapeRenderer::ShapeInfo::Destroy()
+{
+  m_handle.Destroy();
+  m_buffer.Destroy();
 }
 
 }

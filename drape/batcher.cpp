@@ -81,6 +81,8 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////
+uint32_t Batcher::IndexCountPerQuad = 6;
+uint32_t Batcher::VertexCountPerQuad = 4;
 
 Batcher::Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize)
   : m_indexBufferSize(indexBufferSize)
@@ -226,6 +228,17 @@ void Batcher::InsertTriangles(GLState const & state,
 
   if (!handle.IsNull())
     bucket->AddOverlayHandle(handle.Move());
+}
+
+SessionGuard::SessionGuard(Batcher & batcher, const Batcher::TFlushFn & flusher)
+  : m_batcher(batcher)
+{
+  m_batcher.StartSession(flusher);
+}
+
+SessionGuard::~SessionGuard()
+{
+  m_batcher.EndSession();
 }
 
 } // namespace dp

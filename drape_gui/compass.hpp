@@ -8,7 +8,7 @@ namespace gui
 class Compass : public Shape
 {
 public:
-  virtual dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const override;
+  dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const override;
 };
 
 }

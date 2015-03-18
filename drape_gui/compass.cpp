@@ -6,6 +6,8 @@
 
 #include "../drape/utils/vertex_decl.hpp"
 
+#include "../std/bind.hpp"
+
 namespace gui
 {
 
@@ -84,14 +86,13 @@ dp::TransferPointer<ShapeRenderer> Compass::Draw(dp::RefPointer<dp::TextureManag
 
   provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes));
 
-  ShapeRenderer * renderer = new ShapeRenderer();
-  dp::Batcher batcher(6, 4);
-  batcher.StartSession(renderer->GetFlushRoutine());
+  dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer());
+  dp::Batcher batcher(dp::Batcher::IndexCountPerQuad, dp::Batcher::VertexCountPerQuad);
+  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2));
   batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
                               dp::MovePointer<dp::OverlayHandle>(new CompassHandle(m_position.m_pixelPivot)));
-  batcher.EndSession();
 
-  return dp::MovePointer(renderer);
+  return renderer.Move();
 }
 
 }
