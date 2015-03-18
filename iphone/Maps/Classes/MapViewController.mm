@@ -813,7 +813,7 @@
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries {
   if (countries.size()) {
     MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-    [alert presentDownloaderAlertWithCountries:countries];
+    [alert presentDownloaderAlertWithCountrieIndex:countries[0]];
   } else {
     [self presentDefaultAlert:type];
   }

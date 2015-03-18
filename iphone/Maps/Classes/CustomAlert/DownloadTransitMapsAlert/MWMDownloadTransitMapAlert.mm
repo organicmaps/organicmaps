@@ -29,13 +29,13 @@ extern UIColor * const kActiveDownloaderViewColor;
 
 @implementation MWMDownloadTransitMapAlert
 
-+ (instancetype)alertWithCountries:(const vector<storage::TIndex> &)countries {
++ (instancetype)alertWithCountrieIndex:(const storage::TIndex)index {
   MWMDownloadTransitMapAlert *alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:self options:nil] firstObject];
   ActiveMapsLayout& layout = GetFramework().GetCountryTree().GetActiveMapLayout();
-  alert.countryLabel.text = [NSString stringWithUTF8String:layout.GetFormatedCountryName(countries[0]).c_str()];
-  alert.sizeLabel.text = [NSString stringWithFormat:@"%@ %@", @(layout.GetCountrySize(countries[0], storage::TMapOptions::EMapWithCarRouting).second/(1024 * 1024)), L(@"mb")];
+  alert.countryLabel.text = [NSString stringWithUTF8String:layout.GetFormatedCountryName(index).c_str()];
+  alert.sizeLabel.text = [NSString stringWithFormat:@"%@ %@", @(layout.GetCountrySize(index, storage::TMapOptions::EMapWithCarRouting).second/(1024 * 1024)), L(@"mb")];
   alert.downloaderBlock = ^{
-    layout.DownloadMap(countries[0], storage::TMapOptions::EMapWithCarRouting);
+    layout.DownloadMap(index, storage::TMapOptions::EMapWithCarRouting);
   };
   [alert configure];
   return alert;

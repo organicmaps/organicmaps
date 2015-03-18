@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #include "../../../../../routing/router.hpp"
-#include "../../../../../std/vector.hpp"
 #include "../../../../../storage/storage.hpp"
 
 @class MWMAlertViewController;
@@ -18,6 +17,6 @@
 @property (nonatomic, weak) MWMAlertViewController *alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
-+ (MWMAlert *)downloaderAlertWithCountries:(vector<storage::TIndex> const&)countries;
++ (MWMAlert *)downloaderAlertWithCountrieIndex:(const storage::TIndex&)index;
 
 @end

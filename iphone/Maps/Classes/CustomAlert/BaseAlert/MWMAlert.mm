@@ -15,8 +15,8 @@ extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/25
 
 @implementation MWMAlert
 
-+ (MWMAlert *)downloaderAlertWithCountries:(const vector<storage::TIndex> &)countries {
-  return [MWMDownloadTransitMapAlert alertWithCountries:countries];
++ (MWMAlert *)downloaderAlertWithCountrieIndex:(const storage::TIndex&)index {
+  return [MWMDownloadTransitMapAlert alertWithCountrieIndex:index];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type {

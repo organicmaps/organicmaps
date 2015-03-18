@@ -13,7 +13,7 @@
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)alertWithCountries:(vector<storage::TIndex> const &)countries;
++ (instancetype)alertWithCountrieIndex:(const storage::TIndex)index;
 
 @property (nonatomic, weak, readonly) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak, readonly) IBOutlet UILabel *messageLabel;

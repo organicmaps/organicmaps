@@ -38,8 +38,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Actions
 
-- (void)presentDownloaderAlertWithCountries:(const vector<storage::TIndex> &)countries {
-  MWMAlert *alert = [MWMAlert downloaderAlertWithCountries:countries];
+- (void)presentDownloaderAlertWithCountrieIndex:(const storage::TIndex&)index {
+  MWMAlert *alert = [MWMAlert downloaderAlertWithCountrieIndex:index];
   [self displayAlert:alert];
 }
 

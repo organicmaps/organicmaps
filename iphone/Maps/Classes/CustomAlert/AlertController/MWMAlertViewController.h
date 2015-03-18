@@ -10,7 +10,6 @@
 #import "MWMAlert.h"
 
 #include "../../../../../routing/router.hpp"
-#include "../../../../../std/vector.hpp"
 #include "../../../../../storage/storage.hpp"
 
 @interface MWMAlertViewController : UIViewController
@@ -19,7 +18,7 @@
 
 - (instancetype)initWithViewController:(UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
-- (void)presentDownloaderAlertWithCountries:(vector<storage::TIndex> const&)countries;
+- (void)presentDownloaderAlertWithCountrieIndex:(const storage::TIndex&)index;
 - (void)closeAlert;
 
 @end
