@@ -61,10 +61,10 @@ private:
 class Shape
 {
 public:
+  Shape(gui::Position const & position) : m_position(position) {}
   virtual ~Shape() {}
 
   virtual dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const = 0;
-  void SetPosition(gui::Position const & position);
 
 protected:
   gui::Position m_position;

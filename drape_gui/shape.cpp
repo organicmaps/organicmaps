@@ -5,11 +5,6 @@
 namespace gui
 {
 
-void Shape::SetPosition(gui::Position const & position)
-{
-  m_position = position;
-}
-
 bool Handle::IndexesRequired() const
 {
   return false;

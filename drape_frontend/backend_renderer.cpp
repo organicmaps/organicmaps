@@ -59,7 +59,8 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       ResizeMessage * msg = df::CastMessage<ResizeMessage>(message);
       df::Viewport const & v = msg->GetViewport();
       m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
-      GuiLayerRecachedMessage * outputMsg = new GuiLayerRecachedMessage(m_guiCacher.Recache(m_texturesManager));
+      dp::TransferPointer<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(gui::Skin::AllElements,m_texturesManager);
+      GuiLayerRecachedMessage * outputMsg = new GuiLayerRecachedMessage(layerRenderer);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg), MessagePriority::High);
       break;
     }

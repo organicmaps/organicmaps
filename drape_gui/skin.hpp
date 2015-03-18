@@ -38,16 +38,18 @@ private:
 class Skin
 {
 public:
-  enum class ElementName
+  enum ElementName
   {
-    CountryStatus,
-    Ruler,
-    Compass,
-    Copyright
+    CountryStatus = 0x1,
+    Ruler = CountryStatus << 1,
+    Compass = Ruler << 1,
+    Copyright = Compass << 1,
+    AllElements = CountryStatus | Ruler | Compass | Copyright
   };
 
   explicit Skin(ReaderPtr<Reader> const & reader);
 
+  /// @param name - must be single flag, not combination
   Position ResolvePosition(ElementName name);
   void Resize(int w, int h);
   int GetWidth() const { return m_displayWidth; }

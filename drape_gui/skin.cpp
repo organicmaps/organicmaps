@@ -257,6 +257,8 @@ Skin::Skin(ReaderPtr<Reader> const & reader)
 
 Position Skin::ResolvePosition(ElementName name)
 {
+  // check that name have only one bit
+  ASSERT((static_cast<int>(name) & (static_cast<int>(name) - 1)) == 0,());
   TResolversPair const & resolvers = m_resolvers[name];
   PositionResolver const & resolver = (m_displayWidth < m_displayHeight) ? resolvers.first : resolvers.second;
   return resolver.Resolve(m_displayWidth, m_displayHeight, DrapeGui::Instance().GetScaleFactor());

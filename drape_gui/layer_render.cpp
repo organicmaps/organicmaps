@@ -8,6 +8,8 @@
 
 #include "../base/stl_add.hpp"
 
+#include "../std/bind.hpp"
+
 namespace gui
 {
 
@@ -21,20 +23,24 @@ void LayerCacher::Resize(int w, int h)
   m_skin->Resize(w, h);
 }
 
-dp::TransferPointer<LayerRenderer> LayerCacher::Recache(dp::RefPointer<dp::TextureManager> textures)
+dp::TransferPointer<LayerRenderer> LayerCacher::Recache(Skin::ElementName names, dp::RefPointer<dp::TextureManager> textures)
 {
   dp::MasterPointer<LayerRenderer> renderer(new LayerRenderer());
 
-  renderer->AddShapeRenderer(CacheShape(textures, Compass(), Skin::ElementName::Compass));
-  renderer->AddShapeRenderer(CacheShape(textures, Ruler(), Skin::ElementName::Ruler));
+  if (names & Skin::Compass)
+    renderer->AddShapeRenderer(Skin::Compass, Compass(m_skin->ResolvePosition(Skin::Compass)).Draw(textures));
+  if (names & Skin::Ruler)
+    renderer->AddShapeRenderer(Skin::Ruler, Ruler(m_skin->ResolvePosition(Skin::Ruler)).Draw(textures));
+  if (names & Skin::CountryStatus)
+  {
+    // TODO UVR
+  }
+  if (names & Skin::Copyright)
+  {
+    // TODO UVR
+  }
 
   return renderer.Move();
-}
-
-dp::TransferPointer<ShapeRenderer> LayerCacher::CacheShape(dp::RefPointer<dp::TextureManager> mng, Shape && shape, Skin::ElementName element)
-{
-  shape.SetPosition(m_skin->ResolvePosition(element));
-  return shape.Draw(mng);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -46,19 +52,28 @@ LayerRenderer::~LayerRenderer()
 
 void LayerRenderer::Build(dp::RefPointer<dp::GpuProgramManager> mng)
 {
-  for_each(m_renderers.begin(), m_renderers.end(), [mng](dp::MasterPointer<ShapeRenderer> r)
-  {
-    r->Build(mng);
-  });
+  for (TRenderers::value_type & r : m_renderers)
+    r.second->Build(mng);
 }
 
 void LayerRenderer::Render(dp::RefPointer<dp::GpuProgramManager> mng, ScreenBase const & screen)
 {
   RulerHelper::Instance().Update(screen);
-  for_each(m_renderers.begin(), m_renderers.end(), [&screen, mng](dp::MasterPointer<ShapeRenderer> r)
+  for (TRenderers::value_type & r : m_renderers)
+    r.second->Render(screen, mng);
+}
+
+void LayerRenderer::Merge(dp::RefPointer<LayerRenderer> other)
+{
+  for (TRenderers::value_type & r : other->m_renderers)
   {
-    r->Render(screen, mng);
-  });
+    TRenderers::iterator it = m_renderers.find(r.first);
+    if (it != m_renderers.end())
+      it->second.Destroy();
+    m_renderers[r.first] = r.second;
+  }
+
+  other->m_renderers.clear();
 }
 
 void LayerRenderer::DestroyRenderers()
@@ -66,9 +81,9 @@ void LayerRenderer::DestroyRenderers()
   DeleteRange(m_renderers, dp::MasterPointerDeleter());
 }
 
-void LayerRenderer::AddShapeRenderer(dp::TransferPointer<ShapeRenderer> shape)
+void LayerRenderer::AddShapeRenderer(Skin::ElementName name, dp::TransferPointer<ShapeRenderer> shape)
 {
-  m_renderers.emplace_back(shape);
+  VERIFY(m_renderers.insert(make_pair(name, dp::MasterPointer<ShapeRenderer>(shape))).second, ());
 }
 
 }
