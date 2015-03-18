@@ -33,6 +33,19 @@
         android:textSize="@dimen/place_page_subtitle"
         android:visibility="gone"/>
 
+    <RatingBar
+        style="?android:attr/ratingBarStyleSmall"
+        android:id="@+id/rb__stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
+        android:progressDrawable="@drawable/rating_bar_stars"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_toRightOf="@id/tv__subtitle"
+        android:layout_alignBottom="@id/tv__subtitle"
+        android:visibility="gone"/>
+
   </RelativeLayout>
 
   <TextView
