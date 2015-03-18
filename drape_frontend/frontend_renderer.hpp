@@ -114,7 +114,6 @@ private:
 
   ScreenBase m_newView;
   mutex m_modelViewMutex;
-  bool m_modelViewChanged;
 
   dp::OverlayTree m_overlayTree;
 };

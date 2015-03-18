@@ -40,7 +40,6 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
-  , m_modelViewChanged(false)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -460,14 +459,13 @@ void FrontendRenderer::DeleteRenderData()
 void FrontendRenderer::SetModelView(ScreenBase const & screen)
 {
   lock_guard<mutex> lock(m_modelViewMutex);
-  m_modelViewChanged = true;
   m_newView = screen;
 }
 
 void FrontendRenderer::UpdateScene()
 {
   lock_guard<mutex> lock(m_modelViewMutex);
-  if (m_modelViewChanged)
+  if (m_view != m_newView)
   {
     m_view = m_newView;
     RefreshModelView();
@@ -475,7 +473,6 @@ void FrontendRenderer::UpdateScene()
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
                               MessagePriority::Normal);
-    m_modelViewChanged = false;
   }
 }
 
