@@ -84,15 +84,15 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   try
   {
     my::FileData file(filePath, my::FileData::OP_READ);
-    size_t const fileSize = file.Size();
+    uint64_t const fileSize = file.Size();
 
-    size_t currSize = 0;
+    uint64_t currSize = 0;
     while (currSize < fileSize)
     {
-      size_t const toRead = min(ZIP_FILE_BUFFER_SIZE, fileSize - currSize);
+      unsigned int const toRead = min(ZIP_FILE_BUFFER_SIZE, static_cast<unsigned int>(fileSize - currSize));
       file.Read(currSize, &buffer[0], toRead);
 
-      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], static_cast<uint32_t>(toRead)))
+      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))
         return false;
 
       currSize += toRead;
