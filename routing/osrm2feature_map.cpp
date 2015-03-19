@@ -395,7 +395,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
   mapping.Map(routingFile);
 
   // Generate temporary index to speedup processing
-  unordered_multimap<uint64_t, uint32_t> temporaryBackwardIndex;
+  unordered_map<uint32_t, TNodesList> temporaryBackwardIndex;
   for (uint32_t i = 0; i < maxNodeId; ++i)
   {
     auto indexes = mapping.GetSegmentsRange(i);
@@ -403,7 +403,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
     {
       OsrmMappingTypes::FtSeg seg;
       mapping.GetSegmentByIndex(indexes.first, seg);
-      temporaryBackwardIndex.insert(make_pair(seg.m_fid, i));
+      temporaryBackwardIndex[seg.m_fid].push_back(i);;
     }
   }
 
@@ -412,26 +412,20 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
 
   // Create final index
   vector<bool> inIndex(m_table->size(), false);
-  vector<TNodesList> nodeIds;
+  m_nodeIds.reserve(temporaryBackwardIndex.size());
 
   for (size_t i = 0; i < m_table->size(); ++i)
   {
-    uint64_t fid = m_table->GetFeatureOffset(i);
-    auto it = temporaryBackwardIndex.equal_range(fid);
-    if (it.first != it.second)
+    uint32_t fid = m_table->GetFeatureOffset(i);
+    auto it = temporaryBackwardIndex.find(fid);
+    if (it != temporaryBackwardIndex.end())
     {
       inIndex[i] = true;
-      TNodesList nodesList(distance(it.first, it.second));
-      for (auto & node: nodesList)
-        node = (it.first++)->second;
-      nodeIds.emplace_back(nodesList);
+      m_nodeIds.emplace_back(move(it->second));
     }
-    // Cleaning index because we have no free space on old devices.
-    temporaryBackwardIndex.erase(fid);
   }
 
   // Pack and save index
-  nodeIds.swap(m_nodeIds);
   succinct::rs_bit_vector(inIndex).swap(m_rankIndex);
 
   LOG(LINFO, ("Writing section to data file", routingName));

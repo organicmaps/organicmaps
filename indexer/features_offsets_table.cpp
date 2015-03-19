@@ -13,7 +13,7 @@
 
 namespace feature
 {
-  void FeaturesOffsetsTable::Builder::PushOffset(uint64_t const offset)
+  void FeaturesOffsetsTable::Builder::PushOffset(uint32_t const offset)
   {
     ASSERT(m_offsets.empty() || m_offsets.back() < offset, ());
     m_offsets.push_back(offset);
@@ -33,13 +33,13 @@ namespace feature
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Build(Builder & builder)
   {
-    vector<uint64_t> const & offsets = builder.m_offsets;
+    vector<uint32_t> const & offsets = builder.m_offsets;
 
-    uint64_t const numOffsets = offsets.size();
-    uint64_t const maxOffset = offsets.empty() ? 0 : offsets.back();
+    size_t const numOffsets = offsets.size();
+    uint32_t const maxOffset = offsets.empty() ? 0 : offsets.back();
 
     succinct::elias_fano::elias_fano_builder elias_fano_builder(maxOffset, numOffsets);
-    for (uint64_t offset : offsets)
+    for (uint32_t offset : offsets)
       elias_fano_builder.push_back(offset);
 
     return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(elias_fano_builder));
@@ -88,13 +88,13 @@ namespace feature
     my::RenameFileX(fileNameTmp, fileName);
   }
 
-  uint64_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const
+  uint32_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const
   {
     ASSERT_LESS(index, size(), ("Index out of bounds", index, size()));
     return m_table.select(index);
   }
 
-  size_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint64_t offset) const
+  size_t FeaturesOffsetsTable::GetFeatureIndexbyOffset(uint32_t offset) const
   {
     ASSERT_GREATER(size(), 0, ("We must not ask empty table"));
     ASSERT_LESS_OR_EQUAL(offset, m_table.select(size() - 1), ("Offset out of bounds", offset,

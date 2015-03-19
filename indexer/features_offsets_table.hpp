@@ -27,18 +27,18 @@ namespace feature
       /// greater than all previously added offsets.
       ///
       /// \param offset a feature's offset in a MWM file
-      void PushOffset(uint64_t offset);
+      void PushOffset(uint32_t offset);
 
       /// \return number of already accumulated offsets
-      inline uint64_t size() const
+      inline size_t size() const
       {
-        return static_cast<uint64_t>(m_offsets.size());
+        return m_offsets.size();
       }
 
     private:
       friend class FeaturesOffsetsTable;
 
-      vector<uint64_t> m_offsets;
+      vector<uint32_t> m_offsets;
     };
 
     /// Builds FeaturesOffsetsTable from the strictly increasing
@@ -83,22 +83,22 @@ namespace feature
 
     /// \param index index of a feature
     /// \return offset a feature
-    uint64_t GetFeatureOffset(size_t index) const;
+    uint32_t GetFeatureOffset(size_t index) const;
 
     /// \param offset offset of a feature
     /// \return index of a feature
-    size_t GetFeatureIndexbyOffset(uint64_t offset) const;
+    size_t GetFeatureIndexbyOffset(uint32_t offset) const;
 
     /// \return number of features offsets in a table.
-    inline uint64_t size() const
+    inline size_t size() const
     {
-      return m_table.num_ones();
+      return static_cast<size_t>(m_table.num_ones());
     }
 
     /// \return byte size of a table, may be slightly different from a
     ///         real byte size in memory or on disk due to alignment, but
     ///         can be used in benchmarks, logging, etc.
-    inline uint64_t byte_size()
+    inline size_t byte_size()
     {
       return succinct::mapper::size_of(m_table);
     }
