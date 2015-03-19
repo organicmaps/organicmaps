@@ -77,7 +77,7 @@ bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
     MapsWithMe_LatLonToString(tmpLat, tmpLon, urlPrefix + 0, 9);
     parser.DecodeLatLon(urlPrefix, tmpLat, tmpLon);
   }
-  if (abs(lat - tmpLat) <= latEps && abs(lon - tmpLon) <= lonEps)
+  if (fabs(lat - tmpLat) <= latEps && fabs(lon - tmpLon) <= lonEps)
     return true;
   return false;
 }
