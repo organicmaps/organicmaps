@@ -2,19 +2,21 @@
 
 #include "drape/drape_tests/glmock_functions.hpp"
 
-#include "drape/gpu_buffer.hpp"
 #include "drape/data_buffer.hpp"
+#include "drape/gpu_buffer.hpp"
 #include "drape/index_buffer.hpp"
 
 #include "std/cstdlib.hpp"
+#include "std/unique_ptr.hpp"
 
 #include <gmock/gmock.h>
 
 using namespace emul;
-using ::testing::_;
-using ::testing::Return;
-using ::testing::InSequence;
 using namespace dp;
+
+using ::testing::_;
+using ::testing::InSequence;
+using ::testing::Return;
 
 UNIT_TEST(CreateDestroyDataBufferTest)
 {
@@ -25,9 +27,8 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  DataBuffer * buffer = new DataBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
-  buffer->MoveToGPU();
-  delete buffer;
+  unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
+  buffer->MoveToGPU(GPUBuffer::ElementBuffer);
 }
 
 UNIT_TEST(CreateDestroyIndexBufferTest)
@@ -39,9 +40,8 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  DataBuffer * buffer = new IndexBuffer(100);
-  buffer->MoveToGPU();
-  delete buffer;
+  unique_ptr<DataBuffer> buffer(new IndexBuffer(100));
+  buffer->MoveToGPU(GPUBuffer::IndexBuffer);
 }
 
 UNIT_TEST(UploadDataTest)
@@ -50,18 +50,17 @@ UNIT_TEST(UploadDataTest)
   for (int i = 0; i < 3 * 100; ++i)
     data[i] = (float)i;
 
-  DataBuffer * buffer = new DataBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
+  unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetСpuBuffer()->Data(), gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetBuffer()->Data(), gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  buffer->UploadData(data, 100);
-  buffer->MoveToGPU();
-  delete buffer;
+  buffer->GetBuffer()->UploadData(data, 100);
+  buffer->MoveToGPU(GPUBuffer::ElementBuffer);
 }
 
 UNIT_TEST(ParticalUploadDataTest)
@@ -76,30 +75,28 @@ UNIT_TEST(ParticalUploadDataTest)
   for (int i = 0; i < kPart2Size; ++i)
     part2Data[i] = (float)i;
 
-  DataBuffer * buffer = new DataBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
+  unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetСpuBuffer()->Data(), gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetBuffer()->Data(), gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  TEST_EQUAL(buffer->GetCapacity(), 100, ());
-  TEST_EQUAL(buffer->GetAvailableSize(), 100, ());
-  TEST_EQUAL(buffer->GetCurrentSize(), 0, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetCapacity(), 100, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 100, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 0, ());
 
-  buffer->UploadData(part1Data, 30);
-  TEST_EQUAL(buffer->GetCapacity(), 100, ());
-  TEST_EQUAL(buffer->GetAvailableSize(), 70, ());
-  TEST_EQUAL(buffer->GetCurrentSize(), 30, ());
+  buffer->GetBuffer()->UploadData(part1Data, 30);
+  TEST_EQUAL(buffer->GetBuffer()->GetCapacity(), 100, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 70, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 30, ());
 
-  buffer->UploadData(part2Data, 70);
-  TEST_EQUAL(buffer->GetCapacity(), 100, ());
-  TEST_EQUAL(buffer->GetAvailableSize(), 0, ());
-  TEST_EQUAL(buffer->GetCurrentSize(), 100, ());
+  buffer->GetBuffer()->UploadData(part2Data, 70);
+  TEST_EQUAL(buffer->GetBuffer()->GetCapacity(), 100, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 0, ());
+  TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 100, ());
 
-  buffer->MoveToGPU();
-
-  delete buffer;
+  buffer->MoveToGPU(GPUBuffer::ElementBuffer);
 }

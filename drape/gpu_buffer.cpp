@@ -72,11 +72,6 @@ void GPUBuffer::UploadData(void const * data, uint16_t elementCount)
 #endif
 }
 
-void GPUBuffer::Seek(uint16_t elementNumber)
-{
-  TBase::Seek(elementNumber);
-}
-
 void GPUBuffer::Bind()
 {
   GLFunctions::glBindBuffer(m_bufferID, glTarget(m_t));
@@ -151,54 +146,5 @@ void GPUBuffer::Resize(void const * data, uint16_t elementCount)
     dp::GPUMemTracker::Inst().SetUsed("VBO", m_bufferID, GetCurrentSize() * GetElementSize());
 #endif
 }
-
-////////////////////////////////////////////////////////////////////////////
-GPUBufferMapper::GPUBufferMapper(RefPointer<GPUBuffer> buffer)
-  : m_buffer(buffer)
-{
-#ifdef DEBUG
-  if (m_buffer->m_t == GPUBuffer::ElementBuffer)
-  {
-    ASSERT(m_mappedDataBuffer == 0, ());
-    m_mappedDataBuffer = m_buffer->m_bufferID;
-  }
-  else
-  {
-    ASSERT(m_mappedIndexBuffer == 0, ());
-    m_mappedIndexBuffer = m_buffer->m_bufferID;
-  }
-#endif
-
-  m_buffer->Bind();
-  m_gpuPtr = m_buffer->Map();
-}
-
-GPUBufferMapper::~GPUBufferMapper()
-{
-#ifdef DEBUG
-  if (m_buffer->m_t == GPUBuffer::ElementBuffer)
-  {
-    ASSERT(m_mappedDataBuffer == m_buffer->m_bufferID, ());
-    m_mappedDataBuffer = 0;
-  }
-  else
-  {
-    ASSERT(m_mappedIndexBuffer == m_buffer->m_bufferID, ());
-    m_mappedIndexBuffer = 0;
-  }
-#endif
-
-  m_buffer->Unmap();
-}
-
-void GPUBufferMapper::UpdateData(void const * data, uint16_t elementOffset, uint16_t elementCount)
-{
-  m_buffer->UpdateData(m_gpuPtr, data, elementOffset, elementCount);
-}
-
-#ifdef DEBUG
-  uint32_t GPUBufferMapper::m_mappedDataBuffer;
-  uint32_t GPUBufferMapper::m_mappedIndexBuffer;
-#endif
 
 } // namespace dp
