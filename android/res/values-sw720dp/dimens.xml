@@ -5,6 +5,8 @@
     <dimen name="dialog_max_height">600dp</dimen>
     <dimen name="drawer_item_height">96dp</dimen>
 
+    <dimen name="bottom_panel_height">70dp</dimen>
+
     <dimen name="dp_x_1">8dp</dimen>
     <dimen name="dp_x_2">16dp</dimen>
     <dimen name="dp_x_3">24dp</dimen>

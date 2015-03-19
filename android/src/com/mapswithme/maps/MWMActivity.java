@@ -1330,8 +1330,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private boolean previewIntersectsBottomMenu()
   {
-    return !UiUtils.isBigTablet() ||
-        (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
   @Override
@@ -1344,8 +1343,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private boolean placePageIntersectsZoomButtons()
   {
-    return !UiUtils.isBigTablet() ||
-        (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }
 
   @Override
