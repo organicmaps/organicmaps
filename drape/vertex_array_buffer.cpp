@@ -34,6 +34,19 @@ VertexArrayBuffer::~VertexArrayBuffer()
 
 void VertexArrayBuffer::Preflush()
 {
+  /// buffers are ready, so moving them from CPU to GPU
+  for(auto & buffer : m_staticBuffers)
+  {
+    buffer.second->MoveToGPU();
+  }
+
+  for(auto & buffer : m_dynamicBuffers)
+  {
+    buffer.second->MoveToGPU();
+  }
+
+  m_indexBuffer->MoveToGPU();
+
   GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
@@ -76,9 +89,13 @@ void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const *
 {
   RefPointer<DataBuffer> buffer;
   if (!bindingInfo.IsDynamic())
+  {
     buffer = GetOrCreateStaticBuffer(bindingInfo);
+  }
   else
+  {
     buffer = GetOrCreateDynamicBuffer(bindingInfo);
+  }
   buffer->UploadData(data, count);
 }
 
@@ -124,7 +141,7 @@ RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & 
   if (it == buffers->end())
   {
     MasterPointer<DataBuffer> & buffer = (*buffers)[bindingInfo];
-    buffer.Reset(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
+    buffer.Reset(new DataBuffer(GPUBuffer::ElementBuffer, bindingInfo.GetElementSize(), m_dataBufferSize));
     return buffer.GetRefPointer();
   }
 
@@ -198,7 +215,7 @@ void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutato
   {
     RefPointer<DataBuffer> buffer = GetDynamicBuffer(it->first);
     ASSERT(!buffer.IsNull(), ());
-    GPUBufferMapper mapper(buffer);
+    GPUBufferMapper mapper(buffer->GetGpuBuffer());
     TMutateNodes const & nodes = it->second;
 
     for (size_t i = 0; i < nodes.size(); ++i)

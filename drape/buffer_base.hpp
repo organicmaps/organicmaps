@@ -14,9 +14,10 @@ public:
   uint16_t GetCurrentSize() const;
   uint16_t GetAvailableSize() const;
 
+  uint8_t GetElementSize() const;
+
 protected:
   void Resize(uint16_t elementCount);
-  uint8_t GetElementSize() const;
   void Seek(uint16_t elementNumber);
   void UploadData(uint16_t elementCount);
 

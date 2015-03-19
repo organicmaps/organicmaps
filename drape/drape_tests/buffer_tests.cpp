@@ -25,7 +25,8 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  GPUBuffer * buffer = new DataBuffer(3 * sizeof(float), 100);
+  DataBuffer * buffer = new DataBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
+  buffer->MoveToGPU();
   delete buffer;
 }
 
@@ -38,7 +39,8 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  GPUBuffer * buffer = new IndexBuffer(100);
+  DataBuffer * buffer = new IndexBuffer(100);
+  buffer->MoveToGPU();
   delete buffer;
 }
 
@@ -48,17 +50,17 @@ UNIT_TEST(UploadDataTest)
   for (int i = 0; i < 3 * 100; ++i)
     data[i] = (float)i;
 
+  DataBuffer * buffer = new DataBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
+
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, gl_const::GLDynamicDraw));
-  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), data, 0));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetСpuBuffer()->Data(), gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  GPUBuffer * buffer = new GPUBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
   buffer->UploadData(data, 100);
+  buffer->MoveToGPU();
   delete buffer;
 }
 
@@ -74,18 +76,15 @@ UNIT_TEST(ParticalUploadDataTest)
   for (int i = 0; i < kPart2Size; ++i)
     part2Data[i] = (float)i;
 
+  DataBuffer * buffer = new DataBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
+
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, gl_const::GLDynamicDraw));
-  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * 30 * sizeof(float), part1Data, 0));
-  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * 70 * sizeof(float), part2Data, 3 * 30 * sizeof(float)));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetСpuBuffer()->Data(), gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  GPUBuffer * buffer = new GPUBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
   TEST_EQUAL(buffer->GetCapacity(), 100, ());
   TEST_EQUAL(buffer->GetAvailableSize(), 100, ());
   TEST_EQUAL(buffer->GetCurrentSize(), 0, ());
@@ -95,10 +94,12 @@ UNIT_TEST(ParticalUploadDataTest)
   TEST_EQUAL(buffer->GetAvailableSize(), 70, ());
   TEST_EQUAL(buffer->GetCurrentSize(), 30, ());
 
-  buffer->UploadData(part2Data , 70);
+  buffer->UploadData(part2Data, 70);
   TEST_EQUAL(buffer->GetCapacity(), 100, ());
   TEST_EQUAL(buffer->GetAvailableSize(), 0, ());
   TEST_EQUAL(buffer->GetCurrentSize(), 100, ());
+
+  buffer->MoveToGPU();
 
   delete buffer;
 }

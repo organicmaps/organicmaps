@@ -4,13 +4,13 @@ namespace dp
 {
 
 IndexBuffer::IndexBuffer(uint16_t capacity)
-  : GPUBuffer(GPUBuffer::IndexBuffer, sizeof(uint16_t), capacity)
+  : DataBuffer(GPUBuffer::IndexBuffer, sizeof(uint16_t), capacity)
 {
 }
 
 void IndexBuffer::UploadData(uint16_t const * data, uint16_t size)
 {
-  GPUBuffer::UploadData((void *)data, size);
+  DataBuffer::UploadData((void *)data, size);
 }
 
 void IndexBuffer::UpdateData(uint16_t const * data, uint16_t size)

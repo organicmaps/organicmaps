@@ -10,7 +10,7 @@ namespace dp
 {
 
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint16_t capacity)
-  : base_t(elementSize, capacity)
+  : TBase(elementSize, capacity)
 {
   uint32_t memorySize = my::NextPowOf2(GetCapacity() * GetElementSize());
   m_memory = SharedBufferManager::instance().reserveSharedBuffer(memorySize);
@@ -23,7 +23,7 @@ CPUBuffer::~CPUBuffer()
   SharedBufferManager::instance().freeSharedBuffer(m_memory->size(), m_memory);
 }
 
-void CPUBuffer::UploadData(void const * data, uint16_t elementCount)
+void CPUBuffer::UploadData(void const * data, uint16_t elementCount, bool const advanceCursor)
 {
   uint32_t byteCountToCopy = GetElementSize() * elementCount;
 #ifdef DEBUG
@@ -32,14 +32,20 @@ void CPUBuffer::UploadData(void const * data, uint16_t elementCount)
 #endif
 
   memcpy(GetCursor(), data, byteCountToCopy);
-  base_t::UploadData(elementCount);
+  TBase::UploadData(elementCount);
+
+  if (advanceCursor)
+  {
+    uint32_t offsetFromBegin = GetElementSize() * GetCurrentSize();
+    m_memoryCursor = NonConstData() + offsetFromBegin;
+  }
 }
 
 void CPUBuffer::Seek(uint16_t elementNumber)
 {
   uint32_t offsetFromBegin = GetElementSize() * elementNumber;
   ASSERT(Data() + offsetFromBegin <= Data() + m_memory->size(), ());
-  base_t::Seek(elementNumber);
+  TBase::Seek(elementNumber);
   m_memoryCursor = NonConstData() + offsetFromBegin;
 }
 

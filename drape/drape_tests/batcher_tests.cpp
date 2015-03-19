@@ -84,30 +84,22 @@ public:
       vaoAcceptor.m_vao[i].Destroy();
   }
 
-  void ExpectBufferCreation(uint16_t vertxeCount, uint16_t indexCount,
+  void ExpectBufferCreation(uint16_t vertexCount, uint16_t indexCount,
                             MemoryComparer const & indexCmp, MemoryComparer const & vertexCmp)
   {
     InSequence seq;
 
-    // Index buffer creation
-    EXPECTGL(glGenBuffer()).WillOnce(Return(m_indexBufferID));
-    EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
-    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
-
-    // upload indexes
-    EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
-    EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, indexCount * sizeof(unsigned short), _, 0))
-        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
-
     // data buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_dataBufferID));
     EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
-    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
-
-    // upload data
-    EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
-    EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, vertxeCount * sizeof(float), _, 0))
+    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, vertexCount * sizeof(float), _, gl_const::GLDynamicDraw))
         .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmpSubBuffer));
+
+    // Index buffer creation
+    EXPECTGL(glGenBuffer()).WillOnce(Return(m_indexBufferID));
+    EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
+    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, indexCount * sizeof(unsigned short), _, gl_const::GLDynamicDraw))
+        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
 
     EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
     EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
@@ -265,29 +257,25 @@ namespace
       currentNode.m_indexBufferID = m_bufferIDCounter++;
       currentNode.m_vertexBufferID = m_bufferIDCounter++;
 
-      // Index buffer creation
-      EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
-      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
-      EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
-
-      m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
-      MemoryComparer * indexComparer = m_comparators.back();
-      // upload indexes
-      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
-      EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, 0))
-          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
-
       // data buffer creation
       EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_vertexBufferID));
       EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
-      EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
 
       m_comparators.push_back(new MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
       MemoryComparer * vertexComparer = m_comparators.back();
-      // upload data
-      EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
-      EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, 0))
+
+      EXPECTGL(glBufferData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, gl_const::GLDynamicDraw))
               .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmpSubBuffer));
+
+      // Index buffer creation
+      EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
+      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
+
+      m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
+      MemoryComparer * indexComparer = m_comparators.back();
+
+      EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, gl_const::GLDynamicDraw))
+          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
 
       EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
       EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));

@@ -10,12 +10,12 @@ namespace dp
 
 class CPUBuffer : public BufferBase
 {
-  typedef BufferBase base_t;
+  typedef BufferBase TBase;
 public:
   CPUBuffer(uint8_t elementSize, uint16_t capacity);
   ~CPUBuffer();
 
-  void UploadData(void const * data, uint16_t elementCount);
+  void UploadData(void const * data, uint16_t elementCount, bool const advanceCursor);
   // Set memory cursor on element with number == "elementNumber"
   // Element numbers start from 0
   void Seek(uint16_t elementNumber);

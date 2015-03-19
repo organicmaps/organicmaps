@@ -30,6 +30,11 @@ glConst glTarget(GPUBuffer::Target t)
 }
 
 GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
+  : GPUBuffer(t, nullptr, elementSize, capacity)
+{
+}
+
+GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint16_t capacity)
   : TBase(elementSize, capacity)
   , m_t(t)
 #ifdef DEBUG
@@ -37,9 +42,8 @@ GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
 #endif
 {
   m_bufferID = GLFunctions::glGenBuffer();
-  Resize(capacity);
+  Resize(data, capacity);
 }
-
 GPUBuffer::~GPUBuffer()
 {
   GLFunctions::glBindBuffer(0, glTarget(m_t));
@@ -71,6 +75,11 @@ void GPUBuffer::UploadData(void const * data, uint16_t elementCount)
 #if defined(TRACK_GPU_MEM)
   dp::GPUMemTracker::Inst().SetUsed("VBO", m_bufferID, (currentSize + elementCount) * elementSize);
 #endif
+}
+
+void GPUBuffer::Seek(uint16_t elementNumber)
+{
+  TBase::Seek(elementNumber);
 }
 
 void GPUBuffer::Bind()
@@ -130,15 +139,21 @@ void GPUBuffer::Unmap()
     GLFunctions::glUnmapBuffer(glTarget(m_t));
 }
 
-void GPUBuffer::Resize(uint16_t elementCount)
+void GPUBuffer::Resize(void const * data, uint16_t elementCount)
 {
   TBase::Resize(elementCount);
   Bind();
-  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, gl_const::GLDynamicDraw);
+  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), data, gl_const::GLDynamicDraw);
+
+  if (data != nullptr)
+    TBase::UploadData(elementCount);
+
 #if defined(TRACK_GPU_MEM)
   dp::GPUMemTracker & memTracker = dp::GPUMemTracker::Inst();
   memTracker.RemoveDeallocated("VBO", m_bufferID);
   memTracker.AddAllocated("VBO", m_bufferID, GetCapacity() * GetElementSize());
+  if (data != nullptr)
+    dp::GPUMemTracker::Inst().SetUsed("VBO", m_bufferID, GetCurrentSize() * GetElementSize());
 #endif
 }
 

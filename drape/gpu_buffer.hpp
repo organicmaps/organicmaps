@@ -18,10 +18,12 @@ public:
 
 public:
   GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity);
+  GPUBuffer(Target t, void const * data, uint8_t elementSize, uint16_t capacity);
   ~GPUBuffer();
 
   void UploadData(void const * data, uint16_t elementCount);
   void Bind();
+  void Seek(uint16_t elementNumber);
 
 protected:
   void * Map();
@@ -29,7 +31,7 @@ protected:
   void Unmap();
 
   /// discard old data
-  void Resize(uint16_t elementCount);
+  void Resize(void const * data, uint16_t elementCount);
 
 private:
   friend class GPUBufferMapper;

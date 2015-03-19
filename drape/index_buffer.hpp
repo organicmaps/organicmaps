@@ -1,11 +1,11 @@
 #pragma once
 
-#include "drape/gpu_buffer.hpp"
+#include "drape/data_buffer.hpp"
 
 namespace dp
 {
 
-class IndexBuffer : public GPUBuffer
+class IndexBuffer : public DataBuffer
 {
 public:
   IndexBuffer(uint16_t capacity);
