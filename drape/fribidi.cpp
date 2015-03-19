@@ -19,9 +19,11 @@ strings::UniString log2vis(strings::UniString const & str)
 
   FriBidiParType dir = FRIBIDI_PAR_LTR;  // requested base direction
 
-  log2visMutex.lock();
-  fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
-  log2visMutex.unlock();
+  // call fribidi_log2vis synchronously
+  {
+    lock_guard<mutex> lock(log2visMutex);
+    fribidi_log2vis(&str[0], count, &dir, &res[0], 0, 0, 0);
+  }
 
   return res;
 }
