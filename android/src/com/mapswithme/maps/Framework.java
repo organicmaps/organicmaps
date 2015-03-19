@@ -12,29 +12,30 @@ import com.mapswithme.util.Constants;
  */
 public class Framework
 {
+  @SuppressWarnings("unused")
   public interface OnBalloonListener
   {
-    public void onApiPointActivated(double lat, double lon, String name, String id);
+    void onApiPointActivated(double lat, double lon, String name, String id);
 
-    public void onPoiActivated(String name, String type, String address, double lat, double lon, int[] metaTypes, String[] metaValues);
+    void onPoiActivated(String name, String type, String address, double lat, double lon, int[] metaTypes, String[] metaValues);
 
-    public void onBookmarkActivated(int category, int bookmarkIndex);
+    void onBookmarkActivated(int category, int bookmarkIndex);
 
-    public void onMyPositionActivated(double lat, double lon);
+    void onMyPositionActivated(double lat, double lon);
 
-    public void onAdditionalLayerActivated(String name, String type, double lat, double lon);
+    void onAdditionalLayerActivated(String name, String type, double lat, double lon, int[] metaTypes, String[] metaValues);
 
-    public void onDismiss();
+    void onDismiss();
   }
 
+  @SuppressWarnings("unused")
   public interface RoutingListener
   {
     void onRoutingEvent(int errorCode, Index[] missingCountries);
   }
 
   // this class is just bridge between Java and C++ worlds, we must not create it
-  private Framework()
-  {}
+  private Framework() {}
 
   public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
   {
@@ -99,10 +100,9 @@ public class Framework
 
   public native static void nativeSetWritableDir(String newPath);
 
-  public native static void nativeLoadbookmarks();
+  public native static void nativeLoadBookmarks();
 
-  /// @name Routing.
-  //@{
+  // Routing.
   public native static boolean nativeIsRoutingActive();
 
   public native static boolean nativeIsRouteBuilt();
@@ -116,7 +116,7 @@ public class Framework
   public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);
-  //@}
+  //
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);
 

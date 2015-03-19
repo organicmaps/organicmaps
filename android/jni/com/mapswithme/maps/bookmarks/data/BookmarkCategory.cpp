@@ -84,23 +84,10 @@ extern "C"
 
     ASSERT(nBookmark, ("Bookmark must not be null with index:)", index));
 
-    feature::FeatureMetadata metadata;
-    frm()->FindClosestPOIMetadata(nBookmark->GetOrg(), metadata);
-
-    jmethodID static const addId = env->GetMethodID(bookmarkClazz, "addMetadata", "(ILjava/lang/String;)V");
-
     jobject jBookmark = env->NewObject(bookmarkClazz, cId,
                                 id, index, jni::ToJavaString(env, nBookmark->GetName()));
 
-    const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
-    for (int i = 0; i < metaTypes.size(); i++)
-    {
-      feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
-      jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
-      env->CallVoidMethod(jBookmark, addId, metaType, metaString);
-      // TODO use unique_ptrs for autoallocation of local refs
-      env->DeleteLocalRef(metaString);
-    }
+    g_framework->InjectMetadata(env, jBookmark, nBookmark);
 
     return jBookmark;
   }

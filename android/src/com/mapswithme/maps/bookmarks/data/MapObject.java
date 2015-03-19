@@ -90,6 +90,12 @@ public abstract class MapObject implements Parcelable
     mMetadata.addMetadata(type, value);
   }
 
+  public void addMetadata(int[] types, String[] values)
+  {
+    for (int i = 0; i < types.length; i++)
+      addMetadata(types[i], values[i]);
+  }
+
   public String getMetadata(Metadata.MetadataType type)
   {
     return mMetadata.getMetadata(type);

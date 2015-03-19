@@ -794,7 +794,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         {
           popFragment();
           MapObject.SearchResult result = new MapObject.SearchResult(0);
-          onAdditionalLayerActivated(result.getName(), result.getPoiTypeName(), result.getLat(), result.getLon());
+          activateMapObject(result);
         }
         else
           onDismiss();
@@ -1205,21 +1205,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
         @Override
         public void run()
         {
-          mPlacePage.bringToFront();
           final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
-          final ApiPoint apiPoint = new ApiPoint(name, id, poiType, lat, lon);
-
-          if (!mPlacePage.hasMapObject(apiPoint))
-          {
-            mPlacePage.setMapObject(apiPoint);
-            mPlacePage.setState(State.PREVIEW);
-            mRlStartRouting.setVisibility(View.VISIBLE);
-            mTvStartRouting.setVisibility(View.VISIBLE);
-            mIvStartRouting.setVisibility(View.VISIBLE);
-            mPbRoutingProgress.setVisibility(View.GONE);
-            if (popFragment() && isMapFaded())
-              fadeMap(FADE_VIEW_ALPHA, 0);
-          }
+          activateMapObject(new ApiPoint(name, id, poiType, lat, lon));
         }
       });
     }
@@ -1230,26 +1217,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
                              final int[] metaTypes, final String[] metaValues)
   {
     final MapObject poi = new MapObject.Poi(name, lat, lon, type);
-    for (int i = 0; i < metaTypes.length; i++)
-      poi.addMetadata(metaTypes[i], metaValues[i]);
+    poi.addMetadata(metaTypes, metaValues);
 
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        mPlacePage.bringToFront();
-        if (!mPlacePage.hasMapObject(poi))
-        {
-          mPlacePage.setMapObject(poi);
-          mPlacePage.setState(State.PREVIEW);
-          mRlStartRouting.setVisibility(View.VISIBLE);
-          mTvStartRouting.setVisibility(View.VISIBLE);
-          mIvStartRouting.setVisibility(View.VISIBLE);
-          mPbRoutingProgress.setVisibility(View.GONE);
-          if (popFragment() && isMapFaded())
-            fadeMap(FADE_VIEW_ALPHA, 0);
-        }
+        activateMapObject(poi);
       }
     });
   }
@@ -1262,19 +1237,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        mPlacePage.bringToFront();
-        final Bookmark b = BookmarkManager.INSTANCE.getBookmark(category, bookmarkIndex);
-        if (!mPlacePage.hasMapObject(b))
-        {
-          mPlacePage.setMapObject(b);
-          mPlacePage.setState(State.PREVIEW);
-          mRlStartRouting.setVisibility(View.VISIBLE);
-          mTvStartRouting.setVisibility(View.VISIBLE);
-          mIvStartRouting.setVisibility(View.VISIBLE);
-          mPbRoutingProgress.setVisibility(View.GONE);
-          if (popFragment() && isMapFaded())
-            fadeMap(FADE_VIEW_ALPHA, 0);
-        }
+        activateMapObject(BookmarkManager.INSTANCE.getBookmark(category, bookmarkIndex));
       }
     });
   }
@@ -1291,43 +1254,42 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         if (!Framework.nativeIsRoutingActive())
         {
-          mPlacePage.bringToFront();
-          if (!mPlacePage.hasMapObject(mypos))
-          {
-            mPlacePage.setMapObject(mypos);
-            mPlacePage.setState(State.PREVIEW);
-            mRlStartRouting.setVisibility(View.GONE);
-            if (popFragment() && isMapFaded())
-              fadeMap(FADE_VIEW_ALPHA, 0);
-          }
+          activateMapObject(mypos);
+          mRlStartRouting.setVisibility(View.GONE);
         }
       }
     });
   }
 
   @Override
-  public void onAdditionalLayerActivated(final String name, final String type, final double lat, final double lon)
+  public void onAdditionalLayerActivated(final String name, final String type, final double lat, final double lon, final int[] metaTypes, final String[] metaValues)
   {
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        mPlacePage.bringToFront();
         final MapObject sr = new MapObject.SearchResult(name, type, lat, lon);
-        if (!mPlacePage.hasMapObject(sr))
-        {
-          mPlacePage.setMapObject(sr);
-          mPlacePage.setState(State.PREVIEW);
-          mRlStartRouting.setVisibility(View.VISIBLE);
-          mTvStartRouting.setVisibility(View.VISIBLE);
-          mIvStartRouting.setVisibility(View.VISIBLE);
-          mPbRoutingProgress.setVisibility(View.GONE);
-          if (popFragment() && isMapFaded())
-            fadeMap(FADE_VIEW_ALPHA, 0);
-        }
+        sr.addMetadata(metaTypes, metaValues);
+        activateMapObject(sr);
       }
     });
+  }
+
+  private void activateMapObject(MapObject object)
+  {
+    mPlacePage.bringToFront();
+    if (!mPlacePage.hasMapObject(object))
+    {
+      mPlacePage.setMapObject(object);
+      mPlacePage.setState(State.PREVIEW);
+      mRlStartRouting.setVisibility(View.VISIBLE);
+      mTvStartRouting.setVisibility(View.VISIBLE);
+      mIvStartRouting.setVisibility(View.VISIBLE);
+      mPbRoutingProgress.setVisibility(View.GONE);
+      if (popFragment() && isMapFaded())
+        fadeMap(FADE_VIEW_ALPHA, 0);
+    }
   }
 
   private void hidePlacePage()

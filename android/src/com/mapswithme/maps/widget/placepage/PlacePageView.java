@@ -159,7 +159,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     mTvLatlon = (TextView) mPpDetails.findViewById(R.id.tv__place_latlon);
     mLlLatlon.setOnClickListener(this);
     mLlSchedule = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_schedule);
-    mLlSchedule.setOnClickListener(this);
     mTvSchedule = (TextView) mPpDetails.findViewById(R.id.tv__place_schedule);
     mLlWifi = (LinearLayout) mPpDetails.findViewById(R.id.ll__place_wifi);
     mIvColor = (ImageView) mPpDetails.findViewById(R.id.iv__bookmark_color);
@@ -598,9 +597,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         website = "http://" + website;
       intent.setData(Uri.parse(website));
       getContext().startActivity(intent);
-      break;
-    case R.id.ll__place_schedule:
-      // TODO expand/collapse schedule if needed
       break;
     case R.id.tv__bookmark_group:
       selectBookmarkSet();

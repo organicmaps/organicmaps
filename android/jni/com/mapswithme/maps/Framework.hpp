@@ -153,6 +153,9 @@ namespace android
     int AddActiveMapsListener(shared_ptr<jobject> obj);
     void RemoveActiveMapsListener(int slotID);
 
+    // Fills mapobject's metadata from UserMark
+    void InjectMetadata(JNIEnv * env, jobject const mapObject, UserMark const * userMark);
+
   public:
     virtual void ItemStatusChanged(int childPosition);
     virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);

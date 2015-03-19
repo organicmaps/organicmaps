@@ -296,7 +296,7 @@ public class StoragePathManager
       }
     }
 
-    Framework.nativeLoadbookmarks();
+    Framework.nativeLoadBookmarks();
 
     return true;
   }
