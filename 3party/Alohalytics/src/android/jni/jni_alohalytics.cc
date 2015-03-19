@@ -267,6 +267,16 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 
+  const static jfieldID contentEncodingField =
+      env->GetFieldID(g_httpParamsClass, "contentEncoding", "Ljava/lang/String;");
+  if (!content_encoding_.empty()) {
+    const auto jniContentEncoding = MakePointerScopeGuard(env->NewStringUTF(content_encoding_.c_str()), deleteLocalRef);
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+
+    env->SetObjectField(httpParamsObject.get(), contentEncodingField, jniContentEncoding.get());
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  }
+
   if (!user_agent_.empty()) {
     const static jfieldID userAgentField =
         env->GetFieldID(g_httpParamsClass, "userAgent", "Ljava/lang/String;");
@@ -335,7 +345,15 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
       static_cast<jstring>(env->GetObjectField(response, contentTypeField)), deleteLocalRef);
   CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   if (jniContentType) {
-    content_type_ = std::move(ToStdString(env, jniContentType.get()));
+    content_type_received_ = std::move(ToStdString(env, jniContentType.get()));
+  }
+
+  // contentEncodingField is already cached above.
+  const auto jniContentEncoding = MakePointerScopeGuard(
+      static_cast<jstring>(env->GetObjectField(response, contentEncodingField)), deleteLocalRef);
+  CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  if (jniContentEncoding) {
+    content_encoding_received_ = std::move(ToStdString(env, jniContentEncoding.get()));
   }
 
   // dataField is already cached above.

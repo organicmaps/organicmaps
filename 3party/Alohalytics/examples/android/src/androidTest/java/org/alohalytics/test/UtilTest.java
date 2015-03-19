@@ -31,8 +31,13 @@ import java.io.FileNotFoundException;
 
 public class UtilTest extends InstrumentationTestCase {
 
+  @Override
+  protected void setUp() {
+    new File(org.alohalytics.test.HttpTransportTest.CACHE_DIR).mkdirs();
+  }
+
   private String getFullWritablePathForFile(String fileName) {
-    return getInstrumentation().getContext().getCacheDir().getAbsolutePath() + "/" + fileName;
+    return org.alohalytics.test.HttpTransportTest.CACHE_DIR + fileName;
   }
 
   public void testReadAndWriteStringToFile() throws Exception {

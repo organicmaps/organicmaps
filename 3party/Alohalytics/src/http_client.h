@@ -47,6 +47,9 @@ class HTTPClientPlatformWrapper {
   // Data we received from the server if output_file_ wasn't initialized.
   std::string server_response_;
   std::string content_type_;
+  std::string content_type_received_;
+  std::string content_encoding_;
+  std::string content_encoding_received_;
   std::string user_agent_;
   std::string post_body_;
   bool debug_mode_ = false;
@@ -84,19 +87,23 @@ class HTTPClientPlatformWrapper {
     return *this;
   }
   // This method is mutually exclusive with set_post_file().
-  HTTPClientPlatformWrapper& set_post_body(const std::string& post_body, const std::string& content_type) {
+  HTTPClientPlatformWrapper& set_post_body(const std::string& post_body, const std::string& content_type,
+                                           const std::string& content_encoding = "") {
     post_body_ = post_body;
     content_type_ = content_type;
+    content_encoding_ = content_encoding;
     // TODO (dkorolev) replace with exceptions as discussed offline.
     assert(post_file_.empty());
     return *this;
   }
   // Move version to avoid string copying.
   // This method is mutually exclusive with set_post_file().
-  HTTPClientPlatformWrapper& set_post_body(std::string&& post_body, const std::string& content_type) {
-    post_body_ = post_body;
+  HTTPClientPlatformWrapper& set_post_body(std::string&& post_body, const std::string& content_type,
+                                           const std::string& content_encoding = "") {
+    post_body_ = std::move(post_body);
     post_file_.clear();
     content_type_ = content_type;
+    content_encoding_ = content_encoding;
     return *this;
   }
 

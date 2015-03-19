@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
       std::cout << ptr->ToString() << std::endl;
     }
   } catch (const std::exception& ex) {
-    std::cerr << "Exception: " << ex.what() << std::endl;
+    std::cerr << "Exception: " << ex.what() << " in file " << argv[1] << std::endl;
     return -1;
   }
   return 0;

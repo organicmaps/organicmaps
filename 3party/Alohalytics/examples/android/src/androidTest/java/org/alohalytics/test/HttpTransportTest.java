@@ -39,8 +39,15 @@ public class HttpTransportTest extends InstrumentationTestCase {
     HttpTransport.TIMEOUT_IN_MILLISECONDS = 3000;
   }
 
+  public static final String CACHE_DIR = "/data/data/org.alohalytics.demoapp/cache/";
+
+  @Override
+  protected void setUp() {
+    new File(CACHE_DIR).mkdirs();
+  }
+
   private String getFullWritablePathForFile(String fileName) {
-    return getInstrumentation().getContext().getCacheDir().getAbsolutePath() + "/" + fileName;
+    return CACHE_DIR + fileName;
   }
 
   public void testGetIntoMemory() throws Exception {
@@ -72,9 +79,8 @@ public class HttpTransportTest extends InstrumentationTestCase {
     final HttpTransport.Params r = HttpTransport.run(p);
     assertEquals(200, r.httpResponseCode);
     final String receivedBody = new String(r.data);
-    // Server mirrors our content which we have gzipped.
-    assertTrue(receivedBody, receivedBody.contains("\"Content-Encoding\": \"gzip\""));
-    assertTrue(receivedBody, receivedBody.contains("data:application/octet-stream;base64,H4sIAAAAAAAAAPNIzcnJ11EIzy/KSVEEANDDSuwNAAAA"));
+    // Server mirrors our content.
+    assertTrue(receivedBody, receivedBody.contains(postBody));
   }
 
   public void testPostMissingContentType() throws Exception {
@@ -132,8 +138,7 @@ public class HttpTransportTest extends InstrumentationTestCase {
       // TODO(AlexZ): Think about using data field in the future for error pages (404 etc)
       //assertNull(r.data);
       final String receivedBody = Util.ReadFileAsUtf8String(p.outputFilePath);
-      assertTrue(receivedBody, receivedBody.contains("\"Content-Encoding\": \"gzip\""));
-      assertTrue(receivedBody, receivedBody.contains("data:application/octet-stream;base64,H4sIAAAAAAAAAMsoKSmw0tfPAFJJmXl6+UXp+gX5xSUAYum2hhcAAAA="));
+      assertTrue(receivedBody, receivedBody.contains("\"data\": \"http://httpbin.org/post\""));
     } finally {
       (new File(p.outputFilePath)).delete();
     }

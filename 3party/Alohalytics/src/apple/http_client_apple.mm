@@ -38,7 +38,6 @@ SOFTWARE.
 
 #include "../http_client.h"
 #include "../logger.h"
-#include "../gzip_wrapper.h"
 
 #define TIMEOUT_IN_SECONDS 30.0
 
@@ -53,14 +52,13 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
 
     if (!content_type_.empty())
       [request setValue:[NSString stringWithUTF8String:content_type_.c_str()] forHTTPHeaderField:@"Content-Type"];
+    if (!content_encoding_.empty())
+      [request setValue:[NSString stringWithUTF8String:content_encoding_.c_str()] forHTTPHeaderField:@"Content-Encoding"];
     if (!user_agent_.empty())
       [request setValue:[NSString stringWithUTF8String:user_agent_.c_str()] forHTTPHeaderField:@"User-Agent"];
 
     if (!post_body_.empty()) {
-      // TODO(AlexZ): Compress data in file queue impl, before calling this method, to use less disk space in offline.
-      const std::string compressed = Gzip(post_body_);
-      request.HTTPBody = [NSData dataWithBytes:compressed.data() length:compressed.size()];
-      [request setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+      request.HTTPBody = [NSData dataWithBytes:post_body_.data() length:post_body_.size()];
       request.HTTPMethod = @"POST";
     } else if (!post_file_.empty()) {
       NSError * err = nil;
@@ -85,6 +83,14 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     if (response) {
       error_code_ = static_cast<int>(response.statusCode);
       url_received_ = [response.URL.absoluteString UTF8String];
+      NSString * content = [response.allHeaderFields objectForKey:@"Content-Type"];
+      if (content) {
+        content_type_received_ = [content UTF8String];
+      }
+      NSString * encoding = [response.allHeaderFields objectForKey:@"Content-Encoding"];
+      if (encoding) {
+        content_encoding_received_ = [encoding UTF8String];
+      }
       if (url_data) {
         if (received_file_.empty()) {
           server_response_.assign(reinterpret_cast<char const *>(url_data.bytes), url_data.length);

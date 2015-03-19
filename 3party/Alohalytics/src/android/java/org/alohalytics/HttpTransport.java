@@ -36,7 +36,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.zip.GZIPOutputStream;
 
 public class HttpTransport {
 
@@ -52,8 +51,8 @@ public class HttpTransport {
       Log.d(TAG, "Connecting to " + p.url);
     try {
       connection = (HttpURLConnection) new URL(p.url).openConnection(); // NullPointerException, MalformedUrlException, IOException
-      // TODO(AlexZ): Customize redirects following in the future implementation for safer transfers.
-      connection.setInstanceFollowRedirects(true);
+      // We DO NOT follow any redirects for safer data transfer.
+      connection.setInstanceFollowRedirects(false);
       connection.setConnectTimeout(TIMEOUT_IN_MILLISECONDS);
       connection.setReadTimeout(TIMEOUT_IN_MILLISECONDS);
       connection.setUseCaches(false);
@@ -66,27 +65,20 @@ public class HttpTransport {
           throw new NullPointerException("Please set Content-Type for POST requests.");
         }
         connection.setRequestProperty("Content-Type", p.contentType);
+        if (p.contentEncoding != null) {
+          connection.setRequestProperty("Content-Encoding", p.contentEncoding);
+        }
         connection.setDoOutput(true);
         if (p.data != null) {
-          // Use gzip compression for memory-only transfers.
-          // TODO(AlexZ): Move compression to the lower file-level (file storage queue) to save device space.
-          final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-          final GZIPOutputStream zos = new GZIPOutputStream(bos);
-          try {
-            zos.write(p.data);
-          } finally {
-            zos.close();
-          }
-          connection.setFixedLengthStreamingMode(bos.size());
-          connection.setRequestProperty("Content-Encoding", "gzip");
+          connection.setFixedLengthStreamingMode(p.data.length);
           final OutputStream os = connection.getOutputStream();
           try {
-            os.write(bos.toByteArray());
+            os.write(p.data);
           } finally {
             os.close();
           }
           if (p.debugMode)
-            Log.d(TAG, "Sent POST with gzipped content of size " + bos.size());
+            Log.d(TAG, "Sent POST with content of size " + p.data.length);
         } else {
           final File file = new File(p.inputFilePath);
           assert (file.length() == (int) file.length());
@@ -110,6 +102,7 @@ public class HttpTransport {
         Log.d(TAG, "Received HTTP " + p.httpResponseCode + " from server.");
       p.receivedUrl = connection.getURL().toString();
       p.contentType = connection.getContentType();
+      p.contentEncoding = connection.getContentEncoding();
       // This implementation receives any data only if we have HTTP::OK (200).
       if (p.httpResponseCode == HttpURLConnection.HTTP_OK) {
         OutputStream ostream;
@@ -158,8 +151,11 @@ public class HttpTransport {
     // Can be different from url in case of redirects.
     public String receivedUrl = null;
     // SHOULD be specified for any POST request (any request where we send data to the server).
-    // On return, contains received Content-Type
+    // On return, contains received Content-Type or null.
     public String contentType = null;
+    // Can be specified for any POST request (any request where we send data to the server).
+    // On return, contains received Content-Encoding or null.
+    public String contentEncoding = null;
     // GET if null and inputFilePath is null.
     // Sent in POST otherwise.
     public byte[] data = null;

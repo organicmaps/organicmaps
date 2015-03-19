@@ -31,6 +31,7 @@
 #include "../http_client.h"
 #include "../logger.h"
 #include "../event_base.h"
+#include "../gzip_wrapper.h"
 
 #include "../cereal/include/archives/binary.hpp"
 #include "../cereal/include/types/string.hpp"
@@ -55,13 +56,15 @@ Stats::Stats() : message_queue_(*this) {}
 bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debug_mode) {
   HTTPClientPlatformWrapper request(url);
   request.set_debug_mode(debug_mode);
-  request.set_post_body(std::move(buffer), "application/alohalytics-binary-blob");
 
   try {
+    // TODO(AlexZ): Refactor FileStorageQueue to automatically append ID and gzip files, so we don't need
+    // temporary memory buffer any more and files take less space.
+    request.set_post_body(alohalytics::Gzip(buffer), "application/alohalytics-binary-blob", "gzip");
     return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
   } catch (const std::exception& ex) {
     if (debug_mode) {
-      ALOG("Exception while trying to upload file", ex.what());
+      ALOG("Exception while trying to UploadBuffer", ex.what());
     }
   }
   return false;
@@ -81,6 +84,8 @@ void Stats::OnMessage(const std::string& message, size_t dropped_events) {
     static const size_t kMaxEventsInMemory = 2048;
     if (container.size() > kMaxEventsInMemory) {
       container.pop_front();
+      LOG_IF_DEBUG("Warning: maximum numbers of events in memory (", kMaxEventsInMemory,
+                   ") was reached and the oldest one was dropped.");
     }
   }
 }

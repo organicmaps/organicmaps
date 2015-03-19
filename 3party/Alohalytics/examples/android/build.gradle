@@ -22,12 +22,12 @@ dependencies {
 
 android {
   compileSdkVersion 21
-  buildToolsVersion '21.1.1'
+  buildToolsVersion '22'
 
   defaultConfig {
     applicationId 'org.alohalytics.demoapp'
     minSdkVersion 9
-    targetSdkVersion 21
+    targetSdkVersion 22
     versionCode 1
     versionName '1.0'
 
@@ -35,7 +35,7 @@ android {
       moduleName 'alohalytics'
       stl 'c++_static'
       cFlags '-frtti -fexceptions'
-      ldLibs 'log', 'atomic'
+      ldLibs 'log', 'atomic', 'z'
     }
   }
 
