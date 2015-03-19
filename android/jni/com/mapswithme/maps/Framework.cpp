@@ -770,17 +770,16 @@ namespace android
   }
 
   // Fills mapobject's metadata from UserMark
-  void Framework::InjectMetadata(JNIEnv * env, jobject const mapObject, UserMark const * userMark)
+  void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, UserMark const * userMark)
   {
     feature::FeatureMetadata metadata;
     frm()->FindClosestPOIMetadata(userMark->GetOrg(), metadata);
 
-    jclass const mapObjClazz = env->GetObjectClass(mapObject);
-    static jmethodID const addId = env->GetMethodID(mapObjClazz, "addMetadata", "(ILjava/lang/String;)V");
+    static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
     ASSERT ( addId, () );
 
     const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
-    for (int i = 0; i < metaTypes.size(); i++)
+    for (size_t i = 0; i < metaTypes.size(); i++)
     {
       feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
       jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
@@ -818,7 +817,7 @@ extern "C"
     jint * arr = env->GetIntArrayElements(j_metaTypes, 0);
     const jobjectArray j_metaValues = env->NewObjectArray(metadata.Size(), jni::GetStringClass(env), 0);
 
-    for (int i = 0; i < metaTypes.size(); i++)
+    for (size_t i = 0; i < metaTypes.size(); i++)
     {
       arr[i] = metaTypes[i];
       feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
@@ -986,7 +985,7 @@ extern "C"
     ASSERT(methodId, ());
 
     jobjectArray const countriesJava = env->NewObjectArray(absentCountries.size(), g_indexClazz, 0);
-    for (int i = 0; i < absentCountries.size(); i++)
+    for (size_t i = 0; i < absentCountries.size(); i++)
     {
       jobject country = storage::ToJava(absentCountries[i]);
       env->SetObjectArrayElement(countriesJava, i, country);
@@ -1175,7 +1174,7 @@ extern "C"
     static jfieldID const lonId = env->GetFieldID(javaClazz, "mLon", "D");
     env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(mark->GetOrg().x));
 
-    g_framework->InjectMetadata(env, jsearchResult, mark);
+    g_framework->InjectMetadata(env, javaClazz, jsearchResult, mark);
   }
 
   JNIEXPORT void JNICALL
@@ -1305,17 +1304,21 @@ extern "C"
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetMapObjectForPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
-    search::AddressInfo info;
-
-    frm()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
+    PoiMarkPoint const * poiMark = frm()->GetAddressMark(MercatorBounds::FromLatLon(lat, lon));
 
     jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/MapObject$Poi");
     static jmethodID const methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
 
-    return env->NewObject(klass, methodID,
-                          jni::ToJavaString(env, info.GetPinName()),
-                          lat, lon,
-                          jni::ToJavaString(env, info.GetPinType()));
+    jobject const mapObject = env->NewObject(klass, methodID,
+                                                        jni::ToJavaString(env, poiMark->GetInfo().GetPinName()),
+                                                        lat, lon,
+                                                        jni::ToJavaString(env, poiMark->GetInfo().GetPinType()));
+    ASSERT(mapObject, ());
+
+
+    g_framework->InjectMetadata(env, klass, mapObject, poiMark);
+
+    return mapObject;
   }
 
   JNIEXPORT void JNICALL

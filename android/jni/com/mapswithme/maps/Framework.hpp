@@ -154,7 +154,7 @@ namespace android
     void RemoveActiveMapsListener(int slotID);
 
     // Fills mapobject's metadata from UserMark
-    void InjectMetadata(JNIEnv * env, jobject const mapObject, UserMark const * userMark);
+    void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);
 
   public:
     virtual void ItemStatusChanged(int childPosition);

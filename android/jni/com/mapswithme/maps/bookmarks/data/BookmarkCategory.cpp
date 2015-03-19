@@ -87,7 +87,7 @@ extern "C"
     jobject jBookmark = env->NewObject(bookmarkClazz, cId,
                                 id, index, jni::ToJavaString(env, nBookmark->GetName()));
 
-    g_framework->InjectMetadata(env, jBookmark, nBookmark);
+    g_framework->InjectMetadata(env, bookmarkClazz, jBookmark, nBookmark);
 
     return jBookmark;
   }
