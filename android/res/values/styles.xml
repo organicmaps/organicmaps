@@ -159,6 +159,7 @@
   <style name="DirectionTitle" parent="android:Widget.TextView">
     <item name="android:fontFamily">@string/robotoRegular</item>
     <item name="android:lines">1</item>
+    <item name="android:ellipsize">end</item>
     <item name="android:textColor">@android:color/white</item>
     <item name="android:textSize">@dimen/place_page_title_big</item>
   </style>

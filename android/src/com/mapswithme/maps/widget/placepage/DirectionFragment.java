@@ -60,7 +60,6 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
   private void initViews(View root)
   {
     mAvDirection = (ArrowView) root.findViewById(R.id.av__direction);
-    mAvDirection.setImageResource(R.drawable.diection_big);
     mTvTitle = (TextView) root.findViewById(R.id.tv__title);
     mTvSubtitle = (TextView) root.findViewById(R.id.tv__subtitle);
     mTvDistance = (TextView) root.findViewById(R.id.tv__straight_distance);
