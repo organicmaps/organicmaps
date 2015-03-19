@@ -23,7 +23,7 @@ CPUBuffer::~CPUBuffer()
   SharedBufferManager::instance().freeSharedBuffer(m_memory->size(), m_memory);
 }
 
-void CPUBuffer::UploadData(void const * data, uint16_t elementCount, bool const advanceCursor)
+void CPUBuffer::UploadData(void const * data, uint16_t elementCount)
 {
   uint32_t byteCountToCopy = GetElementSize() * elementCount;
 #ifdef DEBUG
@@ -33,12 +33,6 @@ void CPUBuffer::UploadData(void const * data, uint16_t elementCount, bool const 
 
   memcpy(GetCursor(), data, byteCountToCopy);
   TBase::UploadData(elementCount);
-
-  if (advanceCursor)
-  {
-    uint32_t offsetFromBegin = GetElementSize() * GetCurrentSize();
-    m_memoryCursor = NonConstData() + offsetFromBegin;
-  }
 }
 
 void CPUBuffer::Seek(uint16_t elementNumber)

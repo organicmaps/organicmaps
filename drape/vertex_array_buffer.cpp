@@ -89,13 +89,10 @@ void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const *
 {
   RefPointer<DataBuffer> buffer;
   if (!bindingInfo.IsDynamic())
-  {
     buffer = GetOrCreateStaticBuffer(bindingInfo);
-  }
   else
-  {
     buffer = GetOrCreateDynamicBuffer(bindingInfo);
-  }
+
   buffer->UploadData(data, count);
 }
 

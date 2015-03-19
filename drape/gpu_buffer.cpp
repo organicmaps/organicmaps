@@ -29,11 +29,6 @@ glConst glTarget(GPUBuffer::Target t)
   return gl_const::GLElementArrayBuffer;
 }
 
-GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
-  : GPUBuffer(t, nullptr, elementSize, capacity)
-{
-}
-
 GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint16_t capacity)
   : TBase(elementSize, capacity)
   , m_t(t)

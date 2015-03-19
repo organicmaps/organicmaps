@@ -374,7 +374,7 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
       {
         CPUBuffer & cpuBuffer = cpuBuffers[i];
         ASSERT(cpuBuffer.GetCurrentElementNumber() == 1, ());
-        cpuBuffer.UploadData(streams->GetRawPointer(i), batchVertexCount, false /* advanceCursor */);
+        cpuBuffer.UploadData(streams->GetRawPointer(i), batchVertexCount);
 
         // now in cpuBuffer we have correct "fan" created from second part of data
         // first vertex of cpuBuffer if the first vertex of params, second vertex is
@@ -421,7 +421,7 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
           /// + last vertex of currently uploaded data.
           cpuBuffers.push_back(CPUBuffer(binding.GetElementSize(), (vertexCount + 2) - batchVertexCount));
           CPUBuffer & cpuBuffer = cpuBuffers.back();
-          cpuBuffer.UploadData(rawDataPointer, 1, false /* advanceCursor */);
+          cpuBuffer.UploadData(rawDataPointer, 1);
         }
 
         // advance on uploadVertexCount - 1 to copy last vertex also into next VAO with

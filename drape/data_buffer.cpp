@@ -23,13 +23,27 @@ void DataBuffer::UploadData(void const * data, uint16_t elementCount)
   if (!m_cpuBuffer.IsNull())
   {
     ASSERT(m_gpuBuffer.IsNull(), ("GPU buffer must not exist until CPU buffer is alive"));
-    m_cpuBuffer->UploadData(data, elementCount, true /* advanceCursor */);
+    m_cpuBuffer->UploadData(data, elementCount);
+    uint16_t const newOffset = m_cpuBuffer->GetCurrentSize();
+    m_cpuBuffer->Seek(newOffset);
   }
   else
   {
-    ASSERT(m_cpuBuffer.IsNull(), ("CPU buffer must not exist if GPU buffer is created"));
+    ASSERT(!m_gpuBuffer.IsNull(), ("GPU buffer must be alive here"));
     m_gpuBuffer->UploadData(data, elementCount);
   }
+}
+
+BufferBase const * DataBuffer::GetActiveBuffer() const
+{
+  if (!m_cpuBuffer.IsNull())
+  {
+    ASSERT(m_gpuBuffer.IsNull(), ());
+    return m_cpuBuffer.GetRaw();
+  }
+
+  ASSERT(!m_gpuBuffer.IsNull(), ());
+  return m_gpuBuffer.GetRaw();
 }
 
 void DataBuffer::Seek(uint16_t elementNumber)
@@ -42,32 +56,17 @@ void DataBuffer::Seek(uint16_t elementNumber)
 
 uint16_t DataBuffer::GetCapacity() const
 {
-  if (!m_cpuBuffer.IsNull())
-  {
-    return m_cpuBuffer->GetCapacity();
-  }
-
-  return m_gpuBuffer->GetCapacity();
+  return GetActiveBuffer()->GetCapacity();
 }
 
 uint16_t DataBuffer::GetCurrentSize() const
 {
-  if (!m_cpuBuffer.IsNull())
-  {
-    return m_cpuBuffer->GetCurrentSize();
-  }
-
-  return m_gpuBuffer->GetCurrentSize();
+  return GetActiveBuffer()->GetCurrentSize();
 }
 
 uint16_t DataBuffer::GetAvailableSize() const
 {
-  if (!m_cpuBuffer.IsNull())
-  {
-    return m_cpuBuffer->GetAvailableSize();
-  }
-
-  return m_gpuBuffer->GetAvailableSize();
+  return GetActiveBuffer()->GetAvailableSize();
 }
 
 void DataBuffer::Bind()

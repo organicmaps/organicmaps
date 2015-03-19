@@ -17,7 +17,6 @@ public:
   };
 
 public:
-  GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity);
   GPUBuffer(Target t, void const * data, uint8_t elementSize, uint16_t capacity);
   ~GPUBuffer();
 

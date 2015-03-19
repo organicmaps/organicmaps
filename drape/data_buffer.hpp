@@ -27,6 +27,9 @@ public:
   dp::RefPointer<GPUBuffer> GetGpuBuffer() const;
   dp::RefPointer<CPUBuffer> GetСpuBuffer() const;
 
+protected:
+  BufferBase const * GetActiveBuffer() const;
+
 private:
   dp::MasterPointer<GPUBuffer> m_gpuBuffer;
   dp::MasterPointer<CPUBuffer> m_cpuBuffer;
