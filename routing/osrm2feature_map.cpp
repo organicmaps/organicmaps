@@ -328,6 +328,7 @@ void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
 void OsrmFtSegBackwardIndex::Save(string const & nodesFileName, string const & bitsFileName)
 {
   {
+    LOG(LINFO, ("Saving routing nodes index to ", nodesFileName));
     string const nodesFileNameTmp = nodesFileName + EXTENSION_TMP;
     FileWriter nodesFile(nodesFileNameTmp);
     WriteVarUint(nodesFile, static_cast<uint32_t>(m_nodeIds.size()));
@@ -338,6 +339,7 @@ void OsrmFtSegBackwardIndex::Save(string const & nodesFileName, string const & b
     my::RenameFileX(nodesFileNameTmp, nodesFileName);
   }
   {
+    LOG(LINFO, ("Saving features routing bits to ", bitsFileName));
     string const bitsFileNameTmp = bitsFileName + EXTENSION_TMP;
     succinct::mapper::freeze(m_rankIndex, bitsFileNameTmp.c_str());
     my::RenameFileX(bitsFileNameTmp, bitsFileName);
@@ -389,6 +391,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
   if (Load(bitsFileName, nodesFileName))
     return;
 
+  LOG(LINFO, ("Backward routing index is absent! Creating new one."));
   mapping.Map(routingFile);
 
   // Generate temporary index to speedup processing
@@ -405,6 +408,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
   }
 
   mapping.Unmap();
+  LOG(LINFO, ("Temporary index constructed"));
 
   // Create final index
   vector<bool> inIndex(m_table->size(), false);
@@ -422,6 +426,8 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
         node = (it.first++)->second;
       nodeIds.emplace_back(nodesList);
     }
+    // Cleaning index because we have no free space on old devices.
+    temporaryBackwardIndex.erase(fid);
   }
 
   // Pack and save index

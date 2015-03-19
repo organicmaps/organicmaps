@@ -6,6 +6,7 @@
 #include "../coding/internal/file_data.hpp"
 #include "../platform/platform.hpp"
 #include "../base/assert.hpp"
+#include "../base/logging.hpp"
 #include "../base/scope_guard.hpp"
 #include "../std/string.hpp"
 
@@ -61,6 +62,8 @@ namespace feature
     if (GetPlatform().GetFileSizeByFullPath(fileName,size))
       return Load(fileName);
 
+    LOG(LINFO, ("Features offsets table is absent! Creating a new one."));
+
     if (!mwmFileContainer.IsExist(HEADER_FILE_TAG))
       return unique_ptr<FeaturesOffsetsTable>();
 
@@ -79,6 +82,7 @@ namespace feature
 
   void FeaturesOffsetsTable::Save(string const & fileName)
   {
+    LOG(LINFO, ("Saving features offsets table to ", fileName));
     string const fileNameTmp = fileName + EXTENSION_TMP;
     succinct::mapper::freeze(m_table, fileNameTmp.c_str());
     my::RenameFileX(fileNameTmp, fileName);
