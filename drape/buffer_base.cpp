@@ -49,4 +49,10 @@ void BufferBase::UploadData(uint16_t elementCount)
   m_size += elementCount;
 }
 
+void BufferBase::SetDataSize(uint16_t elementCount)
+{
+  ASSERT(elementCount <= m_capacity, ());
+  m_size = elementCount;
+}
+
 } // namespace dp

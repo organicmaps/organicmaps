@@ -21,6 +21,7 @@ public:
 protected:
   void Resize(uint16_t elementCount);
   void UploadData(uint16_t elementCount);
+  void SetDataSize(uint16_t elementCount);
 
 private:
   uint8_t m_elementSize;

@@ -135,8 +135,9 @@ void GPUBuffer::Resize(void const * data, uint16_t elementCount)
   Bind();
   GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), data, gl_const::GLDynamicDraw);
 
+  // if we have set up data already (in glBufferData), we have to call SetDataSize
   if (data != nullptr)
-    TBase::UploadData(elementCount);
+    SetDataSize(elementCount);
 
 #if defined(TRACK_GPU_MEM)
   dp::GPUMemTracker & memTracker = dp::GPUMemTracker::Inst();
