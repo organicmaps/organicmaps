@@ -28,6 +28,7 @@ SOURCES += \
   matrix_test.cpp \
   mem_trie_test.cpp \
   mru_cache_test.cpp \
+  observer_list_test.cpp \
   regexp_test.cpp \
   rolling_hash_test.cpp \
   scheduled_task_test.cpp \

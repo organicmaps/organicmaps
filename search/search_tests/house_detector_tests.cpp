@@ -184,7 +184,7 @@ UNIT_TEST(HS_StreetsMerge)
   Index index;
   m2::RectD rect;
 
-  TEST(index.Add("minsk-pass.mwm", rect), ());
+  TEST(index.Register("minsk-pass.mwm", rect), ());
 
   {
     search::HouseDetector houser(&index);
@@ -272,7 +272,7 @@ UNIT_TEST(HS_FindHouseSmoke)
 
   Index index;
   m2::RectD rect;
-  index.Add("minsk-pass.mwm", rect);
+  index.Register("minsk-pass.mwm", rect);
 
   {
     vector<string> streetName(1, "Московская улица");
@@ -374,7 +374,7 @@ UNIT_TEST(HS_MWMSearch)
 
   Index index;
   m2::RectD rect;
-  if (!index.Add(country + ".mwm", rect))
+  if (!index.Register(country + ".mwm", rect))
   {
     LOG(LWARNING, ("MWM file not found"));
     return;

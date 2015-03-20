@@ -32,14 +32,14 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-int FeaturesFetcher::AddMap(string const & file)
+int FeaturesFetcher::RegisterMap(string const & file)
 {
   int version = -1;
 
   try
   {
     m2::RectD r;
-    version = m_multiIndex.AddMap(file, r);
+    version = m_multiIndex.RegisterMap(file, r);
 
     if (version != -1)
       m_rect.Add(r);
@@ -54,10 +54,9 @@ int FeaturesFetcher::AddMap(string const & file)
   return version;
 }
 
-void FeaturesFetcher::RemoveMap(string const & file)
-{
-  m_multiIndex.Remove(file);
-}
+void FeaturesFetcher::DeregisterMap(string const & file) { m_multiIndex.Deregister(file); }
+
+void FeaturesFetcher::DeregisterAllMaps() { m_multiIndex.DeregisterAll(); }
 
 bool FeaturesFetcher::DeleteMap(string const & file)
 {
@@ -66,12 +65,7 @@ bool FeaturesFetcher::DeleteMap(string const & file)
 
 bool FeaturesFetcher::UpdateMap(string const & file, m2::RectD & rect)
 {
-  return (m_multiIndex.UpdateMap(file, rect) >= 0);
-}
-
-void FeaturesFetcher::RemoveAll()
-{
-  m_multiIndex.RemoveAll();
+  return m_multiIndex.UpdateMap(file, rect) >= 0;
 }
 
 //void FeaturesFetcher::Clean()

@@ -1,19 +1,20 @@
 #pragma once
 #include "cell_id.hpp"
 #include "data_factory.hpp"
-#include "mwm_set.hpp"
 #include "feature_covering.hpp"
 #include "features_vector.hpp"
+#include "mwm_set.hpp"
 #include "scale_index.hpp"
 
 #include "../coding/file_container.hpp"
 
 #include "../defines.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/unordered_set.hpp"
-#include "../std/algorithm.hpp"
+#include "../base/observer_list.hpp"
 
+#include "../std/algorithm.hpp"
+#include "../std/unordered_set.hpp"
+#include "../std/vector.hpp"
 
 class MwmValue : public MwmSet::MwmValueBase
 {
@@ -39,6 +40,16 @@ protected:
   virtual void UpdateMwmInfo(MwmId id);
 
 public:
+  class Observer
+  {
+  public:
+    virtual ~Observer() {}
+
+    virtual void OnMapRegistered(string const & file) {}
+    virtual void OnMapUpdated(string const & file) {}
+    virtual void OnMapDeleted(string const & file) {}
+  };
+
   Index();
   ~Index();
 
@@ -59,13 +70,33 @@ public:
     string GetFileName() const;
   };
 
-  /// @return mwm format version or -1 if file isn't suitable (greater version).
-  int AddMap(string const & fileName, m2::RectD & rect);
-  /// @return mwm format version or
-  /// -1 if file isn't suitable (greater version).
-  /// -2 if file is busy now (delayed update).
+  /// Registers new map.
+  ///
+  /// \return mwm format version or -1 if file isn't suitable (greater
+  /// version).
+  int RegisterMap(string const & fileName, m2::RectD & rect);
+
+  /// Replaces map file corresponding to fileName with a new one, when
+  /// it's possible - no clients of the map file. Otherwise, update
+  /// will be delayed.
+  ///
+  /// \return mwm format version or -1 if file isn't suitable (greater
+  /// version).  -2 if file is busy now (delayed update).
   int UpdateMap(string const & fileName, m2::RectD & rect);
+
+  /// Deletes map both from file system and internal tables, also,
+  /// deletes all files related to the map. If map was successfully
+  /// deleted, notifies observers.
+  ///
+  /// \param fileName A fileName denoting the map to be deleted, may
+  ///                 be a full path or a short path relative to
+  ///                 executable's directories.
+  //// \return True if map was successfully deleted.
   bool DeleteMap(string const & fileName);
+
+  bool AddObserver(Observer & observer);
+
+  bool RemoveObserver(Observer & observer);
 
 private:
 
@@ -245,9 +276,8 @@ public:
   MwmId GetMwmIdByName(string const & name) const
   {
       Index * p = const_cast<Index *>(this);
+      lock_guard<mutex> lock(p->m_lock);
 
-      threads::MutexGuard guard(p->m_lock);
-      UNUSED_VALUE(guard);
       ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identifier"));
       return p->GetIdByName(name);
   }
@@ -351,4 +381,6 @@ private:
       f(lock, cov, scale);
     }
   }
+
+  my::ObserverList<Observer> m_observers;
 };

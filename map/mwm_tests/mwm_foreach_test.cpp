@@ -250,7 +250,7 @@ void RunTest(string const & file)
 {
   model::FeaturesFetcher src1;
   src1.InitClassificator();
-  src1.AddMap(file);
+  src1.RegisterMap(file);
 
   vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());

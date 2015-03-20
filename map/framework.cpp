@@ -84,17 +84,17 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
 }
 
-int Framework::AddMap(string const & file)
+int Framework::RegisterMap(string const & file)
 {
   LOG(LINFO, ("Loading map:", file));
 
-  int const version = m_model.AddMap(file);
+  int const version = m_model.RegisterMap(file);
   if (version == feature::DataHeader::v1)
   {
     // Now we do force delete of old (April 2011) maps.
     LOG(LINFO, ("Deleting old map:", file));
 
-    RemoveMap(file);
+    DeregisterMap(file);
     VERIFY(my::DeleteFileX(GetPlatform().WritablePathForFile(file)), ());
 
     return -1;
@@ -103,10 +103,7 @@ int Framework::AddMap(string const & file)
   return version;
 }
 
-void Framework::RemoveMap(string const & file)
-{
-  m_model.RemoveMap(file);
-}
+void Framework::DeregisterMap(string const & file) { m_model.DeregisterMap(file); }
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
@@ -262,7 +259,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Search engine initialized"));
 
 #ifndef OMIM_OS_ANDROID
-  AddMaps();
+  RegisterAllMaps();
 #endif
   LOG(LDEBUG, ("Maps initialized"));
 
@@ -401,7 +398,7 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
   DeleteCountryIndexes(countryName);
 }
 
-void Framework::AddMaps()
+void Framework::RegisterAllMaps()
 {
   //ASSERT(m_model.IsEmpty(), ());
 
@@ -409,9 +406,9 @@ void Framework::AddMaps()
 
   vector<string> maps;
   GetMaps(maps);
-  for_each(maps.begin(), maps.end(), [&] (string const & file)
+  for_each(maps.begin(), maps.end(), [&](string const & file)
   {
-    int const v = AddMap(file);
+    int const v = RegisterMap(file);
     if (v != -1 && v < minVersion)
       minVersion = v;
   });
@@ -421,10 +418,10 @@ void Framework::AddMaps()
   GetSearchEngine()->SupportOldFormat(minVersion < feature::DataHeader::v3);
 }
 
-void Framework::RemoveMaps()
+void Framework::DeregisterAllMaps()
 {
   m_countryTree.Clear();
-  m_model.RemoveAll();
+  m_model.DeregisterAllMaps();
 }
 
 void Framework::LoadBookmarks()

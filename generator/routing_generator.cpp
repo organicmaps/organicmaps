@@ -226,7 +226,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
   Index index;
   m2::RectD rect;
-  if (!index.Add(mwmFile, rect))
+  if (!index.Register(mwmFile, rect))
   {
     LOG(LCRITICAL, ("MWM file not found"));
     return;

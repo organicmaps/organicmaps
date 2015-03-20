@@ -1,43 +1,54 @@
 #pragma once
 #include "../geometry/rect2d.hpp"
 
-#include "../base/mutex.hpp"
-
 #include "../std/deque.hpp"
+#include "../std/mutex.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
-
 
 /// Information about stored mwm.
 class MwmInfo
 {
 public:
-  MwmInfo();
-
-  m2::RectD m_limitRect;    ///< Limit rect of mwm.
-  uint8_t m_minScale;       ///< Min zoom level of mwm.
-  uint8_t m_maxScale;       ///< Max zoom level of mwm.
-
-  inline bool IsExist() const
+  enum MwmTypeT
   {
-    return (m_status == STATUS_ACTIVE || m_status == STATUS_UPDATE);
-  }
-  inline bool IsActive() const { return (m_status == STATUS_ACTIVE); }
-
-  enum MwmTypeT { COUNTRY, WORLD, COASTS };
-  MwmTypeT GetType() const;
+    COUNTRY,
+    WORLD,
+    COASTS
+  };
 
   enum Status
   {
-    STATUS_ACTIVE,
-    STATUS_TO_REMOVE,
-    STATUS_REMOVED,
-    STATUS_UPDATE
+    STATUS_UP_TO_DATE,            ///< Mwm is registered and up-to-date
+    STATUS_MARKED_TO_DEREGISTER,  ///< Mwm is marked to be deregistered as soon as possible
+    STATUS_DEREGISTERED,          ///< Mwm is deregistered
+    STATUS_PENDING_UPDATE         ///< Mwm is registered but there're a pending update to it
   };
 
-  uint8_t m_lockCount;      ///< Number of locks.
-  uint8_t m_status;         ///< Current country status.
+  MwmInfo();
+
+  m2::RectD m_limitRect;  ///< Limit rect of mwm.
+  uint8_t m_minScale;     ///< Min zoom level of mwm.
+  uint8_t m_maxScale;     ///< Max zoom level of mwm.
+
+  inline bool IsRegistered() const
+  {
+    return m_status == STATUS_UP_TO_DATE || m_status == STATUS_PENDING_UPDATE;
+  }
+
+  inline bool IsUpToDate() const { return m_status == STATUS_UP_TO_DATE; }
+
+  MwmTypeT GetType() const;
+
+  inline void SetStatus(Status status) { m_status = status; }
+
+  inline Status GetStatus() const { return m_status; }
+
+  uint8_t m_lockCount;  ///< Number of locks.
+
+private:
+  Status m_status;  ///< Current country status.
 };
 
 class MwmSet
@@ -70,37 +81,39 @@ public:
     MwmValueBase * m_pValue;
   };
 
-  /// Add new map.
+  /// Registers new map in the set.
   /// @param[in]  fileName  File name (without full path) of country.
   /// @param[out] rect      Limit rect of country.
   /// @return Map format version or -1 if not added (already exists).
   //@{
 protected:
-  int AddImpl(string const & fileName, m2::RectD & rect);
+  int RegisterImpl(string const & fileName, m2::RectD & rect);
 
 public:
-  int Add(string const & fileName, m2::RectD & rect);
+  int Register(string const & fileName, m2::RectD & rect);
   //@}
 
   /// Used in unit tests only.
-  inline void Add(string const & fileName)
+  inline void Register(string const & fileName)
   {
     m2::RectD dummy;
-    CHECK(Add(fileName, dummy), ());
+    CHECK(Register(fileName, dummy), ());
   }
 
   /// @name Remove mwm.
   //@{
 protected:
+  /// Deregisters map from the set when it' possible. Note that
+  /// underlying file is not deleted.
   /// @return true - map is free; false - map is busy
   //@{
-  bool RemoveImpl(MwmId id);
-  bool RemoveImpl(string const & fileName);
+  bool DeregisterImpl(MwmId id);
+  bool DeregisterImpl(string const & fileName);
   //@}
 
 public:
-  void Remove(string const & fileName);
-  void RemoveAll();
+  void Deregister(string const & fileName);
+  void DeregisterAll();
   //@}
 
   /// @param[in] file File name without extension.
@@ -152,6 +165,8 @@ protected:
   virtual void UpdateMwmInfo(MwmId id);
 
   vector<MwmInfo> m_info;
+
   vector<string> m_name;
-  threads::Mutex m_lock;
+
+  mutex m_lock;
 };

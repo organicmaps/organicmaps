@@ -7,10 +7,11 @@
 #include "../../base/exception.hpp"
 #include "../../base/logging.hpp"
 
-#include "../../std/target_os.hpp"
-#include "../../std/fstream.hpp"
-#include "../../std/exception.hpp"
 #include "../../std/cerrno.hpp"
+#include "../../std/cstring.hpp"
+#include "../../std/exception.hpp"
+#include "../../std/fstream.hpp"
+#include "../../std/target_os.hpp"
 
 #ifdef OMIM_OS_WINDOWS
   #include <io.h>
@@ -221,23 +222,24 @@ bool GetFileSize(string const & fName, uint64_t & sz)
 
 namespace
 {
-  bool CheckRemoveResult(int res, string const & fName)
-  {
-    if (0 != res)
-    {
-      // additional check if file really was removed correctly
-      uint64_t dummy;
-      if (GetFileSize(fName, dummy))
-      {
-        LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
-      }
+bool CheckFileOperationResult(int res, string const & fName)
+{
+  if (!res)
+    return true;
+#if !defined(OMIM_OS_TIZEN)
+  LOG(LWARNING, ("File operation error for file:", fName, "-", strerror(errno)));
+#endif
 
-      return false;
-    }
-    else
-      return true;
+  // additional check if file really was removed correctly
+  uint64_t dummy;
+  if (GetFileSize(fName, dummy))
+  {
+    LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
   }
+
+  return false;
 }
+}  // namespace
 
 bool DeleteFileX(string const & fName)
 {
@@ -249,7 +251,7 @@ bool DeleteFileX(string const & fName)
   res = remove(fName.c_str());
 #endif
 
-  return CheckRemoveResult(res, fName);
+  return CheckFileOperationResult(res, fName);
 }
 
 bool RenameFileX(string const & fOld, string const & fNew)
@@ -262,7 +264,7 @@ bool RenameFileX(string const & fOld, string const & fNew)
   res = rename(fOld.c_str(), fNew.c_str());
 #endif
 
-  return CheckRemoveResult(res, fOld);
+  return CheckFileOperationResult(res, fOld);
 }
 
 bool CopyFileX(string const & fOld, string const & fNew)

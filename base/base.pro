@@ -59,6 +59,7 @@ HEADERS += \
     mru_cache.hpp \
     mutex.hpp \
     object_tracker.hpp \
+    observer_list.hpp \
     pseudo_random.hpp \
     regexp.hpp \
     resource_pool.hpp \

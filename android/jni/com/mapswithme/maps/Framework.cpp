@@ -542,12 +542,12 @@ namespace android
 
   void Framework::AddLocalMaps()
   {
-    m_work.AddMaps();
+    m_work.RegisterAllMaps();
   }
 
   void Framework::RemoveLocalMaps()
   {
-    m_work.RemoveMaps();
+    m_work.DeregisterAllMaps();
   }
 
   void Framework::GetMapsWithoutSearch(vector<string> & out) const

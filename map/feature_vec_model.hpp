@@ -8,7 +8,6 @@
 #include "../coding/reader.hpp"
 #include "../coding/buffer_reader.hpp"
 
-
 namespace model
 {
 //#define USE_BUFFER_READER
@@ -33,11 +32,24 @@ namespace model
     /// @param[in] file Name of mwm file with extension.
     //@{
     /// @return MWM format version for file or -1 if error and map was not added
-    int AddMap(string const & file);
-    void RemoveMap(string const & file);
-    void RemoveAll();
+    int RegisterMap(string const & file);
 
+    /// Deregisters map denoted by file from internal records.
+    void DeregisterMap(string const & file);
+
+    /// Deregisters all registered maps.
+    void DeregisterAllMaps();
+
+    /// Deletes all files related to map denoted by file.
+    ///
+    /// \return True if map was successfully deleted.
     bool DeleteMap(string const & file);
+
+    /// Tries to update map denoted by file. If map is used right now,
+    /// update will be delayed.
+    ///
+    /// \return True when map was successfully updated, false when update
+    ///         was delayed or when update's version is not good.
     bool UpdateMap(string const & file, m2::RectD & rect);
     //@}
 

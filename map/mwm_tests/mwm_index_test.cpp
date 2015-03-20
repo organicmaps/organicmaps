@@ -39,7 +39,7 @@ public:
 bool RunTest(string const & fileName, int lowS, int highS)
 {
   model::FeaturesFetcher src;
-  if (src.AddMap(fileName) == -1)
+  if (src.RegisterMap(fileName) == -1)
     return false;
 
   CheckNonEmptyGeometry doCheck;

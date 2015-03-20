@@ -125,14 +125,14 @@ struct MapsCollector
 
 void BenchmarkEngine::PrepareMaps()
 {
-  // remove all previously added maps in framework constructor
-  m_framework->RemoveMaps();
+  // Deregister all previously registered maps in framework constructor.
+  m_framework->DeregisterAllMaps();
 
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
   for_each(collector.m_maps.begin(), collector.m_maps.end(),
-           bind(&Framework::AddMap, m_framework, _1));
+           bind(&Framework::RegisterMap, m_framework, _1));
 }
 
 BenchmarkEngine::BenchmarkEngine(Framework * fw)

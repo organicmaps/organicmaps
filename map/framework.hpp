@@ -148,7 +148,7 @@ protected:
 
   void ClearAllCaches();
 
-  void RemoveMap(string const & file);
+  void DeregisterMap(string const & file);
 
   /// Deletes user calculated indexes on country updates
   void DeleteCountryIndexes(string const & mwmName);
@@ -162,13 +162,20 @@ public:
   /// @param[out] maps  File names without path.
   void GetMaps(vector<string> & maps) const;
 
-  void AddMaps();
-  void RemoveMaps();
+  /// Registers all local map files in internal indexes.
+  void RegisterAllMaps();
 
+  /// Deregisters all registered map files.
+  void DeregisterAllMaps();
+
+  /// Registers local map file in internal indexes.
+  ///
   /// @return Inner mwm data version from header or -1 in case of error.
-  int AddMap(string const & file);
+  int RegisterMap(string const & file);
   //@}
 
+  /// Deletes all disk files corresponding to country.
+  ///
   /// @name This functions is used by Downloader UI.
   //@{
   /// options - flags that signal about parts of map that must be deleted

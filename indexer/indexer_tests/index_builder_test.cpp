@@ -58,7 +58,7 @@ UNIT_TEST(BuildIndexTest)
   {
     // Check that index actually works.
     Index index;
-    index.Add(fileName);
+    index.Register(fileName);
 
     // Make sure that index is actually parsed.
     NoopFunctor fn;

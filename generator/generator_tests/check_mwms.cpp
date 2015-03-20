@@ -23,7 +23,7 @@ UNIT_TEST(CheckMWM_LoadAll)
   {
     try
     {
-      m.AddMap(s);
+      m.RegisterMap(s);
     }
     catch (RootException const & ex)
     {

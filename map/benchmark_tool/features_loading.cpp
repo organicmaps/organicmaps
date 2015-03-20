@@ -109,7 +109,7 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, All
     return;
 
   model::FeaturesFetcher src;
-  src.AddMap(file);
+  src.RegisterMap(file);
 
   RunBenchmark(src, header.GetBounds(), scaleR, res);
 }
