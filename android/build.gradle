@@ -1,6 +1,6 @@
 buildscript {
   repositories {
-    mavenCentral()
+    jcenter()
   }
 
   dependencies {
@@ -10,15 +10,19 @@ buildscript {
 
 allprojects {
   repositories {
-    mavenCentral()
+    jcenter()
   }
 }
 
 apply plugin: 'com.android.application'
 
-
 dependencies {
-  compile libSupportV4, libSupportV7, libGooglePlayServicesLocation, libGooglePlayServicesPlus, libNineOldAndroids, libFacebookSdk
+  // android support libs
+  compile libSupportV4, libSupportV7
+  // google play services
+  compile libGmsLocation, libGmsPlus, libGmsAnalytics
+  // 3-party
+  compile libNineOldAndroids, libFacebookSdk
   compile fileTree(dir: '3rd_party', include: '*.jar', exclude: 'mrgsmanifest.jar')
 }
 
