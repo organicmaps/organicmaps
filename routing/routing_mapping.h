@@ -41,9 +41,9 @@ struct RoutingMapping
 
   IRouter::ResultCode GetError() const {return m_error;}
 
-  string GetName() const {return m_baseName;}
+  string const & GetName() const {return m_baseName;}
 
-  Index::MwmId GetMwmId() const {return m_mwmId;}
+  Index::MwmId const & GetMwmId() const {return m_mwmId;}
 
 private:
   size_t m_mapCounter;

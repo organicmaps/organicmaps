@@ -22,7 +22,7 @@
 namespace routing
 {
 
-TOsrmNodeId const INVALID_NODE_ID = -1;
+TOsrmNodeId const INVALID_NODE_ID = numeric_limits<TOsrmNodeId>::max();
 
 OsrmMappingTypes::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   : m_fid(fid),

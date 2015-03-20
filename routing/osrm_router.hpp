@@ -138,9 +138,10 @@ public:
   /*!
    * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
    * \param nodeId osrm node idetifier
+   * \param isStartNode true if this node will first in the path
    * \param taskNode output point task for router
    */
-  static void GenerateRoutingTaskFromNodeId(const size_t nodeId, FeatureGraphNode & taskNode);
+  static void GenerateRoutingTaskFromNodeId(const NodeID nodeId, bool const isStartNode, FeatureGraphNode & taskNode);
 
   void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 

@@ -313,13 +313,16 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     auto in = crossContext.GetIngoingIterators();
     auto out = crossContext.GetOutgoingIterators();
     MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
-    for (auto i = in.first; i < in.second; ++i)
+    size_t index = 0;
+    // Fill sources and targets with forward search task for ingoing (true) and backward search task (false) for outgoing nodes
+    for (auto i = in.first; i != in.second; ++i, ++index)
     {
-      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, sources[distance(in.first, i)]);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, true, sources[index]);
     }
-    for (auto i = out.first; i < out.second; ++i)
+    index = 0;
+    for (auto i = out.first; i != out.second; ++i, ++index)
     {
-      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, targets[distance(out.first, i)]);
+      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, false, targets[index]);
     }
 
     vector<EdgeWeight> costs;

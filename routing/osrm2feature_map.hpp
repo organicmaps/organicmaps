@@ -9,10 +9,11 @@
 
 #include "../base/scope_guard.hpp"
 
+#include "../std/limits.hpp"
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
 #include "../std/unordered_map.hpp"
 #include "../std/utility.hpp"
+#include "../std/vector.hpp"
 
 #include "../3party/succinct/rs_bit_vector.hpp"
 
@@ -34,7 +35,7 @@ namespace OsrmMappingTypes {
     uint16_t m_pointStart;
     uint16_t m_pointEnd;
 
-    static const uint32_t INVALID_FID = -1;
+    static const uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
 
     // No need to initialize something her (for vector<FtSeg>).
     FtSeg() {}
