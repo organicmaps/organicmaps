@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MRGServiceParams.h"
 
 @protocol MRGSAdmanDelegate;
 
@@ -27,13 +28,24 @@
 
 /**
  *  Получение объекта, с помощью которого происходит отображение рекламной витрины и баннеров.
+ *  Параметры витрины и баннера будут взяты из объекта настроек, который был указан при инициализации MRGS.
  *
  *  @return Экземпляр класса MRGSAdman.
  */
 + (instancetype)sharedInstance;
 
 /**
+ *  Получение объекта, с помощью которого происходит отображение рекламной витрины и баннеров.
+ *
+ *  @param params Настройки для отображения витрины и баннера.
+ *
+ *  @return Экземпляр класса MRGSAdman
+ */
+- (instancetype)initWithParams:(MRGSAdmanParams *)params;
+
+/**
  *  Загрузка данных для витрины.
+ *  @warning Данные загружаются для текущего пользователя. Если нужно выдать бонус за оффер, то убедитесь что пользователь авторизован (вызван метод - (BOOL)authorizationUserWithId:(NSString*)ref у MRGSUsers).
  */
 - (void)loadShowcaseData;
 
@@ -87,61 +99,64 @@
 /**
  *  Метод, который вызывается при успешной загрузке данных для витрины.
  *
+ *  @param mrgsAdman        Экземпляр Adman для работы с витриной или баннером.
  *  @param hasNotifications Флаг, говорящий о том, что в витрине есть выделенные банеры. Этот флаг можно использовать для отображения значка оповещения на кнопке открытия витрины (например, восклицательный знак).
  */
-- (void)mrgsAdmanDidReceiveShowcaseDataAndFoundNotifications:(BOOL)hasNotifications;
+- (void)mrgsAdman:(MRGSAdman *)mrgsAdman didReceiveShowcaseDataAndFoundNotifications:(BOOL)hasNotifications;
 
 /**
  *  Метод, который вызывается при успешной загрузке данных для полноэкранного баннера.
+ *
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
  */
-- (void)mrgsAdmanDidReceiveFullscreenBannerData;
+- (void)mrgsAdmanDidReceiveFullscreenBannerData:(MRGSAdman *)mrgsAdman;
 
 @optional
 /**
  *  Метод, который вызывается при возникновении ошибки загрузки данных для витрины.
  *
- *  @param error Описание ошибки.
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
+ *  @param error     Описание ошибки.
  */
-- (void)mrgsAdmanDidFailToReceiveShowcaseDataWithError:(NSError *)error;
+- (void)mrgsAdman:(MRGSAdman *)mrgsAdman didFailToReceiveShowcaseDataWithError:(NSError *)error;
 
 /**
  *  Метод, который вызывается при возникновении ошибки загрузки данных для полноэкранного баннера.
  *
- *  @param error Описание ошибки.
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
+ *  @param error     Описание ошибки.
  */
-- (void)mrgsAdmanDidFailToReceiveFullscreenBannerDataWithError:(NSError *)error;
+- (void)mrgsAdman:(MRGSAdman *)mrgsAdman didFailToReceiveFullscreenBannerDataWithError:(NSError *)error;
 
 /**
  *  Метод, который вызывется при закрытии пользователем витрины.
+ *
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
  */
-- (void)mrgsAdmanShowcaseClosed;
+- (void)mrgsAdmanShowcaseClosed:(MRGSAdman *)mrgsAdman;
 
 /**
  *  Метод, который вызывется при закрытии пользователем полноэкранного баннера.
+ *
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
  */
-
-- (void)mrgsAdmanFullscreenBannerClosed;
+- (void)mrgsAdmanFullscreenBannerClosed:(MRGSAdman *)mrgsAdman;
 
 /**
  *  Метод, который вызывается в случае отсутствия информации для отображения на витрине.
  *
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
  *  @discussion Вызывается как в случае возникновения ошибки при загрузке данных (при вызове метода -(void)loadShowcaseData), так и в случае получения успешного ответа от сервера об отсутствии данных.
  */
-- (void)mrgsAdmanShowcaseHasNoAds;
+- (void)mrgsAdmanShowcaseHasNoAds:(MRGSAdman *)mrgsAdman;
 
 /**
  *  Метод, который вызывается в случае отсутствия информации для отображения на полноэкранном баннере.
  *
+ *  @param mrgsAdman Экземпляр Adman для работы с витриной или баннером.
  *  @discussion Вызывается как в случае возникновения ошибки при загрузке данных (при вызове метода -(void)loadFullscreenBannerData), так и в случае получения успешного ответа от сервера об отсутствии данных.
  */
-- (void)mrgsAdmanFullscreenBannerHasNoAds;
-
-/**
- *  Метод, который вызывается при успешной загрузке данных для полноэкранного баннера.
- *
- *  @param hasNotifications  Флаг наличия новых данных с момента последнего просмотра.
- */
-- (void)mrgsAdmanDidReceiveFullscreenBannerDataAndFoundNotifications:(BOOL)hasNotifications DEPRECATED_ATTRIBUTE;
+- (void)mrgsAdmanFullscreenBannerHasNoAds:(MRGSAdman *)mrgsAdman;
 
 @end
 

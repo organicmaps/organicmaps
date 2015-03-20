@@ -1,4 +1,4 @@
-//  $Id: MRGServiceInit.h 6360 2014-12-22 12:06:15Z a.grachev $
+//  $Id: MRGServiceInit.h 6555 2015-02-20 07:39:31Z a.grachev $
 //  MRGServiceInit.h
 //  MRGServiceFramework
 //
@@ -90,8 +90,7 @@
  *	@param appId Id приложения.
  *	@param secret Секретный ключ приложения
  *  @param delegate MRGSServerDataDelegate
- *	@see MRGServiceWithAppId:andSecret:andDelegate:andOptions:
-*/
+ */
 + (void)MRGServiceWithAppId:(int)appId
                   andSecret:(NSString*)secret
                 andDelegate:(id<MRGSServerDataDelegate>)delegate;
