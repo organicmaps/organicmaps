@@ -105,6 +105,8 @@ namespace qt
 
     Framework & GetFramework() { return *m_framework.get(); }
 
+    void SetMapStyle(MapStyle mapStyle);
+
   protected:
     VideoTimer * CreateVideoTimer();
 
@@ -149,5 +151,7 @@ namespace qt
     bool m_emulatingLocation;
 
     PinClickManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
+
+    void InitRenderPolicy();
   };
 }

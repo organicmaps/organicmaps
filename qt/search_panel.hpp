@@ -63,6 +63,8 @@ private slots:
 
   void OnAnimationTimer();
   void OnClearButton();
+
+  bool TryChangeMapStyleCmd(QString const & str);
 };
 
 }

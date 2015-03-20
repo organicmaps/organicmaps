@@ -18,8 +18,6 @@
 #include "../../../../../graphics/opengl/framebuffer.hpp"
 #include "../../../../../graphics/opengl/opengl.hpp"
 
-#include "../../../../../indexer/drawing_rules.hpp"
-
 #include "../../../../../coding/file_container.hpp"
 #include "../../../../../coding/file_name_utils.hpp"
 
@@ -69,7 +67,10 @@ namespace android
      m_isCleanSingleClick(false),
      m_doLoadState(true),
      m_lastCompass(0.0),
-     m_wasLongClick(false)
+     m_wasLongClick(false),
+     m_densityDpi(0),
+     m_screenWidth(0),
+     m_screenHeight(0)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
     g_framework = this;
@@ -116,7 +117,7 @@ namespace android
   {
     m_work.SaveState();
     LOG(LINFO, ("Clearing current render policy."));
-    m_work.SetRenderPolicy(0);
+    m_work.SetRenderPolicy(nullptr);
     m_work.EnterBackground();
   }
 
@@ -149,7 +150,7 @@ namespace android
     params.m_density = dens[bestRangeIndex].second;
   }
 
-  bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
+  bool Framework::InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight)
   {
     graphics::ResourceManager::Params rmParams;
 
@@ -163,7 +164,6 @@ namespace android
     rpParams.m_rmParams = rmParams;
     rpParams.m_primaryRC = make_shared<android::RenderContext>();
 
-    char const * suffix = 0;
     SetBestDensity(densityDpi, rpParams);
 
     rpParams.m_skinName = "basic.skn";
@@ -176,10 +176,6 @@ namespace android
     {
       m_work.SetRenderPolicy(CreateRenderPolicy(rpParams));
       m_work.InitGuiSubsystem();
-      if (m_doLoadState)
-        LoadState();
-      else
-        m_doLoadState = true;
     }
     catch (graphics::gl::platform_unsupported const & e)
     {
@@ -187,10 +183,44 @@ namespace android
       return false;
     }
 
+    return true;
+  }
+
+  bool Framework::InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight)
+  {
+    if (!InitRenderPolicyImpl(densityDpi, screenWidth, screenHeight))
+      return false;
+
+    if (m_doLoadState)
+      LoadState();
+    else
+      m_doLoadState = true;
+
     m_work.SetUpdatesEnabled(true);
     m_work.EnterForeground();
 
+    m_densityDpi = densityDpi;
+    m_screenWidth = screenWidth;
+    m_screenHeight = screenHeight;
+
     return true;
+  }
+
+  void Framework::SetMapStyle(MapStyle mapStyle)
+  {
+    if (m_work.GetMapStyle() == mapStyle)
+      return;
+
+    // drop old render policy
+    m_work.SetRenderPolicy(nullptr);
+
+    m_work.SetMapStyle(mapStyle);
+
+    // construct new render policy
+    if (!InitRenderPolicyImpl(m_densityDpi, m_screenWidth, m_screenHeight))
+      return;
+
+    m_work.SetUpdatesEnabled(true);
   }
 
   Storage & Framework::Storage()
@@ -1394,5 +1424,12 @@ extern "C"
     env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
 
     return jLatLon;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_setMapStyle(JNIEnv * env, jclass thiz, jint mapStyle)
+  {
+    MapStyle const val = static_cast<MapStyle>(mapStyle);
+    android::Platform::RunOnGuiThreadImpl(bind(&android::Framework::SetMapStyle, g_framework, val));
   }
 } // extern "C"

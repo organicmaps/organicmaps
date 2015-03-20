@@ -2,8 +2,6 @@
 #include "classificator.hpp"
 #include "drawing_rules.hpp"
 
-#include "../defines.hpp"
-
 #include "../platform/platform.hpp"
 
 #include "../coding/reader_streambuf.hpp"
@@ -13,7 +11,7 @@
 #include "../std/iostream.hpp"
 
 
-namespace classificator
+namespace
 {
   void ReadCommon(Reader * classificator,
                   Reader * types)
@@ -37,7 +35,10 @@ namespace classificator
       c.ReadTypesMapping(s);
     }
   }
+}
 
+namespace classificator
+{
   void Load()
   {
     LOG(LDEBUG, ("Reading of classificator started"));
@@ -47,13 +48,7 @@ namespace classificator
     ReadCommon(p.GetReader("classificator.txt"),            
                p.GetReader("types.txt"));
 
-    //LOG(LINFO, ("Reading of drawing rules"));
-    drule::RulesHolder & rules = drule::rules();
-
-    // Load from proto buffer binary file.
-    string buffer;
-    ModelReaderPtr(p.GetReader(DRAWING_RULES_BIN_FILE)).ReadAsString(buffer);
-    rules.LoadFromBinaryProto(buffer);
+    drule::LoadRules();
 
     LOG(LDEBUG, ("Reading of classificator finished"));
   }

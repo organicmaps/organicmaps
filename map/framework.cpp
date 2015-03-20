@@ -23,6 +23,7 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
+#include "../indexer/classificator_loader.hpp"
 
 /// @todo Probably it's better to join this functionality.
 //@{
@@ -1524,6 +1525,17 @@ void Framework::CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextF
   OnSize(w, h);
 }
 #endif // USE_DRAPE
+
+void Framework::SetMapStyle(MapStyle mapStyle)
+{
+  drule::SetCurrentMapStyle(mapStyle);
+  drule::LoadRules();
+}
+
+MapStyle Framework::GetMapStyle() const
+{
+  return drule::GetCurrentMapStyle();
+}
 
 void Framework::SetupMeasurementSystem()
 {

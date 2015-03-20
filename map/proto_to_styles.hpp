@@ -12,6 +12,8 @@ class SymbolRuleProto;
 class CaptionDefProto;
 class CircleRuleProto;
 
+graphics::Color ConvertColor(uint32_t c);
+
 void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info & dest);
 void ConvertStyle(AreaRuleProto const * pSrc, graphics::Brush::Info & dest);
 void ConvertStyle(SymbolRuleProto const * pSrc, graphics::Icon::Info & dest);

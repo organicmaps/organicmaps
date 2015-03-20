@@ -13,6 +13,7 @@
   #include "../../graphics/resource_manager.hpp"
   #include "../../graphics/opengl/opengl.hpp"
   #include "../../graphics/data_formats.hpp"
+  #include "../../indexer/classificator_loader.hpp"
 #else
   #import "../Platform/opengl/iosOGLContextFactory.h"
 #endif
@@ -62,6 +63,12 @@
     }
     
     renderContext->makeCurrent();
+
+    typedef void (*drawFrameFn)(id, SEL);
+    SEL drawFrameSel = @selector(drawFrame);
+    drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
+    
+    videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
 #else
     dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new iosOGLContextFactory(eaglLayer));
     m_factory.Reset(factory);
@@ -77,12 +84,6 @@
   NSLog(@"EAGLView initRenderPolicy Started");
   
 #ifndef USE_DRAPE
-  typedef void (*drawFrameFn)(id, SEL);
-  SEL drawFrameSel = @selector(drawFrame);
-  drawFrameFn drawFrameImpl = (drawFrameFn)[self methodForSelector:drawFrameSel];
-
-  videoTimer = CreateIOSVideoTimer(bind(drawFrameImpl, self, drawFrameSel));
-
   graphics::ResourceManager::Params rmParams;
   rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
   rmParams.m_texFormat = graphics::Data4Bpp;
@@ -90,7 +91,6 @@
   RenderPolicy::Params rpParams;
 
   UIScreen * screen = [UIScreen mainScreen];
-  CGRect frameRect = screen.applicationFrame;
   CGRect screenRect = screen.bounds;
 
   double vs = self.contentScaleFactor;
@@ -124,7 +124,6 @@
   frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
 
   Framework & f = GetFramework();
-  f.OnSize(frameRect.size.width * vs, frameRect.size.height * vs);
   f.SetRenderPolicy(renderPolicy);
   f.InitGuiSubsystem();
 #else
@@ -133,6 +132,37 @@
 #endif
 
   NSLog(@"EAGLView initRenderPolicy Ended");
+}
+
+- (void)setMapStyle:(MapStyle)mapStyle
+{
+  Framework & f = GetFramework();
+  
+  if (f.GetMapStyle() == mapStyle)
+    return;
+  
+  NSLog(@"EAGLView setMapStyle Started");
+  
+  renderContext->makeCurrent();
+  
+  /// drop old render policy
+  f.SetRenderPolicy(nullptr);
+  frameBuffer.reset();
+
+  f.SetMapStyle(mapStyle);
+  
+  /// init new render policy
+  [self initRenderPolicy];
+  
+  /// restore render policy screen
+  CGFloat const scale = self.contentScaleFactor;
+  CGSize const s = self.bounds.size;
+  [self onSize:s.width * scale withHeight:s.height * scale];
+  
+  /// update framework
+  f.SetUpdatesEnabled(true);
+  
+  NSLog(@"EAGLView setMapStyle Ended");
 }
 
 - (void)onSize:(int)width withHeight:(int)height

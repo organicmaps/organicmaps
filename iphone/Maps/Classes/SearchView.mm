@@ -393,9 +393,33 @@ static void onSearchResultCallback(search::Results const & results)
   [self setState:SearchViewStateHidden animated:YES withCallback:YES];
 }
 
+// TODO: This code only for demonstration purposes and will be removed soon
+- (bool)tryChangeMapStyleCmd:(NSString*)str
+{
+  // Hook for shell command on change map style
+  bool const isDark = [str isEqualToString: @"mapstyle:dark"];
+  bool const isLight = isDark ? false : [str isEqualToString: @"mapstyle:light"];
+  
+  if (!isDark && !isLight)
+    return false;
+
+  // close Search panel
+  [self searchBarDidPressCancelButton:nil];
+    
+  // change map style
+  MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleLight;
+  [[MapsAppDelegate theApp] setMapStyle: mapStyle];
+    
+  return true;
+}
+
 - (void)textFieldTextChanged:(id)sender
 {
   NSString * newText = self.searchBar.textField.text;
+  
+  // TODO: This code only for demonstration purposes and will be removed soon
+  if ([self tryChangeMapStyleCmd: newText])
+    return;
 
   if ([newText length])
   {

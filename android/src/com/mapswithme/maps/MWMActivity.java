@@ -100,6 +100,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private final static String EXTRA_COUNTRY_INDEX = "country_index";
   // Need it for search
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
+  // Need it for change map style
+  private static final String EXTRA_SET_MAP_STYLE = "set_map_style";
   // Instance state
   private static final String STATE_ROUTE_FOLLOWED = "RouteFollowed";
   private static final String STATE_PP_OPENED = "PpOpened";
@@ -165,6 +167,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     final Intent mapIntent = new Intent(context, MWMActivity.class);
     mapIntent.putExtra(EXTRA_SEARCH_RES_SINGLE, single);
+    context.startActivity(mapIntent);
+    // Next we need to handle intent
+  }
+
+  public static void setMapStyle(Context context, int mapStyle)
+  {
+    final Intent mapIntent = new Intent(context, MWMActivity.class);
+    mapIntent.putExtra(EXTRA_SET_MAP_STYLE, mapStyle);
     context.startActivity(mapIntent);
     // Next we need to handle intent
   }
@@ -777,6 +787,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
         }
         else
           onDismiss();
+      }
+      else if (intent.hasExtra(EXTRA_SET_MAP_STYLE))
+      {
+        final int mapStyle = intent.getIntExtra(EXTRA_SET_MAP_STYLE, Framework.MAP_STYLE_LIGHT);
+        Framework.setMapStyle(mapStyle);
       }
     }
   }

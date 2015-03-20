@@ -12,6 +12,8 @@
 #include "../../../../../base/scheduled_task.hpp"
 #include "../../../../../base/strings_bundle.hpp"
 
+#include "../../../../../indexer/map_style.hpp"
+
 #include "../../../../../std/shared_ptr.hpp"
 #include "../../../../../std/map.hpp"
 
@@ -62,6 +64,10 @@ namespace android
     unique_ptr<ScheduledTask> m_scheduledTask;
     bool m_wasLongClick;
 
+    int m_densityDpi;
+    int m_screenWidth;
+    int m_screenHeight;
+
     void StartTouchTask(double x, double y, unsigned ms);
     bool KillTouchTask();
     void OnProcessTouchTask(double x, double y, unsigned ms);
@@ -69,6 +75,8 @@ namespace android
     string m_searchQuery;
 
     void SetBestDensity(int densityDpi, RenderPolicy::Params & params);
+
+    bool InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight);
 
   public:
     Framework();
@@ -91,6 +99,8 @@ namespace android
 
     bool InitRenderPolicy(int densityDpi, int screenWidth, int screenHeight);
     void DeleteRenderPolicy();
+
+    void SetMapStyle(MapStyle mapStyle);
 
     void Resize(int w, int h);
 

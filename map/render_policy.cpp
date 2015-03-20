@@ -4,6 +4,7 @@
 #include "window_handle.hpp"
 #include "tiling_render_policy_st.hpp"
 #include "tiling_render_policy_mt.hpp"
+#include "proto_to_styles.hpp"
 
 #include "../anim/controller.hpp"
 #include "../anim/task.hpp"
@@ -28,7 +29,7 @@ RenderPolicy::~RenderPolicy()
 
 RenderPolicy::RenderPolicy(Params const & p,
                            size_t idCacheSize)
-  : m_bgColor(0xEE, 0xEE, 0xDD, 0xFF),
+  : m_bgColor(ConvertColor(drule::rules().GetBgColor())),
     m_primaryRC(p.m_primaryRC),
     m_doForceUpdate(false),
     m_density(p.m_density),

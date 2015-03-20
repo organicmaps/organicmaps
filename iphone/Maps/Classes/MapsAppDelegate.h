@@ -3,6 +3,8 @@
 #import "NavigationController.h"
 #import "MapsObservers.h"
 
+#include "../../indexer/map_style.hpp"
+
 @class MapViewController;
 @class LocationManager;
 
@@ -30,5 +32,7 @@ extern NSString * const MapsStatusChangedNotification;
 - (void)enableDownloadIndicator;
 
 - (void)showMap;
+
+- (void)setMapStyle:(MapStyle)mapStyle;
 
 @end

@@ -318,6 +318,12 @@ void InitLocalizedStrings()
   [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+
+- (void)setMapStyle:(MapStyle)mapStyle
+{
+  [self.m_mapViewController setMapStyle: mapStyle];
+}
+
 - (void)customizeAppearance
 {
   NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];

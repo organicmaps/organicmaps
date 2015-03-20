@@ -9,7 +9,7 @@
 
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
-
+#include "../../indexer/map_style.hpp"
 
 namespace search { struct AddressInfo; }
 
@@ -44,6 +44,8 @@ namespace search { struct AddressInfo; }
 - (IBAction)onMyPositionClicked:(id)sender;
 
 - (void)dismissPopover;
+
+- (void)setMapStyle:(MapStyle)mapStyle;
 
 @property (nonatomic) UIView * zoomButtonsView;
 @property (nonatomic, strong) UIPopoverController * popoverVC;

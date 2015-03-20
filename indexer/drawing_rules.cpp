@@ -5,11 +5,24 @@
 #include "classificator.hpp"
 #include "drules_include.hpp"
 
+#include "../defines.hpp"
+
 #include "../std/bind.hpp"
 #include "../std/iterator_facade.hpp"
 
+#include "../platform/platform.hpp"
+#include "../platform/settings.hpp"
+
+#include "../base/logging.hpp"
+
 #include <google/protobuf/text_format.h>
 
+namespace
+{
+  uint32_t const DEFAULT_BG_COLOR = 0xEEEEDD;
+
+  char const * const MAP_STYLE_KEY = "MapStyleKey";
+}
 
 namespace drule {
 
@@ -74,6 +87,10 @@ CircleRuleProto const * BaseRule::GetCircle() const
   return 0;
 }
 
+RulesHolder::RulesHolder()
+  : m_bgColor(DEFAULT_BG_COLOR)
+{}
+
 RulesHolder::~RulesHolder()
 {
   Clean();
@@ -120,6 +137,11 @@ BaseRule const * RulesHolder::Find(Key const & k) const
     return m_container[k.m_type][v[k.m_index]];
   else
     return 0;
+}
+
+uint32_t RulesHolder::GetBgColor() const
+{
+  return m_bgColor;
 }
 
 void RulesHolder::ClearCaches()
@@ -337,6 +359,57 @@ namespace
       m_names.pop_back();
     }
   };
+
+  uint32_t GetBackgroundColor(ContainerProto const & cont)
+  {
+    // WARNING!
+    // Background color is not specified in current format.
+    // Therefore, we use color of "natural-land" area element as background color.
+    // If such element is not present or if the element is not area then we use default background color
+
+    uint32_t backgroundColor = DEFAULT_BG_COLOR;
+
+    // Find the "natural-land" classification element
+    for (int i = 0; i < cont.cont_size(); ++i)
+    {
+      ClassifElementProto const & ce = cont.cont(i);
+      if (ce.name() == "natural-land")
+      {
+        // Take any area draw element
+        for (int j = 0; j < ce.element_size(); ++j)
+        {
+          DrawElementProto const & de = ce.element(j);
+          if (de.has_area())
+          {
+            // Take the color of the draw element
+            AreaRuleProto const & rule = de.area();
+            if (rule.has_color())
+            {
+              backgroundColor = rule.color();
+              break;
+            }
+          }
+        }
+        break;
+      }
+    }
+
+    return backgroundColor;
+  }
+
+  string GetRulesFile(MapStyle mapStyle)
+  {
+    switch (mapStyle)
+    {
+    case MapStyleLight:
+      return DRAWING_RULES_LIGHT_BIN_FILE;
+    case MapStyleDark:
+      return DRAWING_RULES_DARK_BIN_FILE;
+    default:
+      LOG(LWARNING, ("Unknown map style, use light instead"));
+      return DRAWING_RULES_LIGHT_BIN_FILE;
+    }
+  }
 }
 
 void RulesHolder::LoadFromBinaryProto(string const & s)
@@ -348,6 +421,31 @@ void RulesHolder::LoadFromBinaryProto(string const & s)
   CHECK ( doSet.m_cont.ParseFromString(s), ("Error in proto loading!") );
 
   classif().GetMutableRoot()->ForEachObject(bind<void>(ref(doSet), _1));
+
+  m_bgColor = GetBackgroundColor(doSet.m_cont);
+}
+
+void LoadRules()
+{
+  string const rulesFile = GetRulesFile(GetCurrentMapStyle());
+
+  string buffer;
+  ModelReaderPtr(GetPlatform().GetReader(rulesFile)).ReadAsString(buffer);
+
+  rules().LoadFromBinaryProto(buffer);
+}
+
+MapStyle GetCurrentMapStyle()
+{
+  int mapStyle;
+  if (!Settings::Get(MAP_STYLE_KEY, mapStyle))
+    mapStyle = MapStyleLight;
+  return static_cast<MapStyle>(mapStyle);
+}
+
+void SetCurrentMapStyle(MapStyle mapStyle)
+{
+  Settings::Set(MAP_STYLE_KEY, static_cast<int>(mapStyle));
 }
 
 }

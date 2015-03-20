@@ -79,6 +79,7 @@ HEADERS += \
     interval_index.hpp \
     interval_index_builder.hpp \
     interval_index_iface.hpp \
+    map_style.hpp \
     mercator.hpp \
     mwm_set.hpp \
     mwm_version.hpp \

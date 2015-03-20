@@ -246,45 +246,51 @@ namespace qt
 #ifndef USE_DRAPE
       m_videoTimer.reset(CreateVideoTimer());
 
-      shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
-
-      graphics::ResourceManager::Params rmParams;
-      rmParams.m_texFormat = graphics::Data8Bpp;
-      rmParams.m_texRtFormat = graphics::Data4Bpp;
-      rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
-
-      RenderPolicy::Params rpParams;
-
-
-      QRect const & geometry = QApplication::desktop()->geometry();
-      rpParams.m_screenWidth = L2D(geometry.width());
-      rpParams.m_screenHeight = L2D(geometry.height());
-
-      if (m_ratio >= 1.5 || QApplication::desktop()->physicalDpiX() >= 180)
-        rpParams.m_density = graphics::EDensityXHDPI;
-      else
-        rpParams.m_density = graphics::EDensityMDPI;
-
-      rpParams.m_videoTimer = m_videoTimer.get();
-      rpParams.m_useDefaultFB = true;
-      rpParams.m_rmParams = rmParams;
-      rpParams.m_primaryRC = primaryRC;
-      rpParams.m_skinName = "basic.skn";
-
-      try
-      {
-        m_framework->SetRenderPolicy(CreateRenderPolicy(rpParams));
-        m_framework->InitGuiSubsystem();
-      }
-      catch (graphics::gl::platform_unsupported const & e)
-      {
-        LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
-        /// @todo Show "Please Update Drivers" dialog and close the program.
-      }
-#endif // USE_DRAPE
+      InitRenderPolicy();
+#endif
 
       m_isInitialized = true;
     }
+  }
+
+  void DrawWidget::InitRenderPolicy()
+  {
+#ifndef USE_DRAPE
+    shared_ptr<qt::gl::RenderContext> primaryRC(new qt::gl::RenderContext(this));
+
+    graphics::ResourceManager::Params rmParams;
+    rmParams.m_texFormat = graphics::Data8Bpp;
+    rmParams.m_texRtFormat = graphics::Data4Bpp;
+    rmParams.m_videoMemoryLimit = GetPlatform().VideoMemoryLimit();
+
+    RenderPolicy::Params rpParams;
+
+    QRect const & geometry = QApplication::desktop()->geometry();
+    rpParams.m_screenWidth = L2D(geometry.width());
+    rpParams.m_screenHeight = L2D(geometry.height());
+
+    if (m_ratio >= 1.5 || QApplication::desktop()->physicalDpiX() >= 180)
+      rpParams.m_density = graphics::EDensityXHDPI;
+    else
+      rpParams.m_density = graphics::EDensityMDPI;
+
+    rpParams.m_videoTimer = m_videoTimer.get();
+    rpParams.m_useDefaultFB = true;
+    rpParams.m_rmParams = rmParams;
+    rpParams.m_primaryRC = primaryRC;
+    rpParams.m_skinName = "basic.skn";
+
+    try
+    {
+      m_framework->SetRenderPolicy(CreateRenderPolicy(rpParams));
+      m_framework->InitGuiSubsystem();
+    }
+    catch (graphics::gl::platform_unsupported const & e)
+    {
+      LOG(LERROR, ("OpenGL platform is unsupported, reason: ", e.what()));
+      /// @todo Show "Please Update Drivers" dialog and close the program.
+    }
+#endif // USE_DRAPE
   }
 
   void DrawWidget::resizeGL(int w, int h)
@@ -663,5 +669,24 @@ namespace qt
   void DrawWidget::QueryMaxScaleMode()
   {
     m_framework->XorQueryMaxScaleMode();
+  }
+
+  void DrawWidget::SetMapStyle(MapStyle mapStyle)
+  {
+#ifndef USE_DRAPE
+    if (m_framework->GetMapStyle() == mapStyle)
+      return;
+
+    makeCurrent();
+
+    m_framework->SetRenderPolicy(nullptr);
+
+    m_framework->SetMapStyle(mapStyle);
+
+    // init new render policy
+    InitRenderPolicy();
+
+    m_framework->SetUpdatesEnabled(true);
+#endif
   }
 }

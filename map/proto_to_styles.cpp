@@ -7,15 +7,15 @@
 
 namespace
 {
-  graphics::Color ConvertColor(int c)
-  {
-    return graphics::Color::fromXRGB(c, 255 - (c >> 24));
-  }
-
   double ConvertWidth(double w, double scale)
   {
     return max(w * scale, 1.0);
   }
+}
+
+graphics::Color ConvertColor(uint32_t c)
+{
+  return graphics::Color::fromXRGB(c, 255 - (c >> 24));
 }
 
 void ConvertStyle(LineDefProto const * pSrc, double scale, graphics::Pen::Info & dest)

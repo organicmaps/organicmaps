@@ -150,9 +150,34 @@ void SearchPanel::OnSearchResult(ResultsT * res)
   }
 }
 
+// TODO: This code only for demonstration purposes and will be removed soon
+bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
+{
+  // Hook for shell command on change map style
+  bool const isDark = (str == "mapstyle:dark");
+  bool const isLight = isDark ? false : (str == "mapstyle:light");
+
+  if (!isDark && !isLight)
+    return false;
+
+  // close Search panel
+  m_pEditor->setText("");
+  parentWidget()->hide();
+
+  // change color scheme for the Map activity
+  MapStyle const mapStyle = isDark ? MapStyleDark : MapStyleLight;
+  m_pDrawWidget->SetMapStyle(mapStyle);
+
+  return true;
+}
+
 void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
+
+  // TODO: This code only for demonstration purposes and will be removed soon
+  if (TryChangeMapStyleCmd(normalized))
+    return;
 
   // search even with empty query
   if (!normalized.isEmpty())

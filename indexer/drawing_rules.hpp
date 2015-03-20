@@ -1,6 +1,8 @@
 #pragma once
 #include "drawing_rule_def.hpp"
 
+#include "map_style.hpp"
+
 #include "../base/base.hpp"
 #include "../base/buffer_vector.hpp"
 
@@ -60,7 +62,10 @@ namespace drule
     typedef map<int32_t, array<vector<uint32_t>, count_of_rules> > rules_map_t;
     rules_map_t m_rules;
 
+    uint32_t m_bgColor;
+
   public:
+    RulesHolder();
     ~RulesHolder();
 
     Key AddRule(int scale, rule_type_t type, BaseRule * p);
@@ -71,6 +76,8 @@ namespace drule
     void ResizeCaches(size_t Size);
 
     BaseRule const * Find(Key const & k) const;
+
+    uint32_t GetBgColor() const;
 
 #ifdef OMIM_OS_DESKTOP
     void LoadFromTextProto(string const & buffer);
@@ -97,4 +104,9 @@ namespace drule
   };
 
   RulesHolder & rules();
+
+  void LoadRules();
+
+  MapStyle GetCurrentMapStyle();
+  void SetCurrentMapStyle(MapStyle mapStyle);
 }

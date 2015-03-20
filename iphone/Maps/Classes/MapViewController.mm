@@ -561,6 +561,12 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   f.EnterBackground();
 }
 
+- (void)setMapStyle:(MapStyle)mapStyle
+{
+  EAGLView * v = (EAGLView *)self.view;
+  [v setMapStyle: mapStyle];
+}
+
 - (void)onEnterForeground
 {
   // Notify about entering foreground (should be called on the first launch too).

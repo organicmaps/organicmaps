@@ -16,6 +16,7 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
+		4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
 		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
@@ -210,6 +211,7 @@
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
 		6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.0.0.a; path = Statistics/libFlurry_6.0.0.a; sourceTree = "<group>"; };
@@ -950,6 +952,7 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				978D4A30199A11E600D72CA7 /* faq.html */,
 				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
@@ -1219,6 +1222,7 @@
 				FA99CB73147089B100689A9A /* Localizable.strings in Resources */,
 				F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */,
 				FAAEA7D1161BD26600CCD661 /* synonyms.txt in Resources */,
+				4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */,
 				FA140651162A6288002BC1ED /* empty@2x.png in Resources */,
 				F61579361AC2CEB60032D8E9 /* MWMRateAlert.xib in Resources */,
 				F67BBB581AC54A7800D162C7 /* MWMFeedbackAlert.xib in Resources */,

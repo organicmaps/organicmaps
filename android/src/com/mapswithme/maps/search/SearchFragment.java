@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -130,6 +131,28 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     return mSearchEt.getText().toString();
   }
 
+  // TODO: This code only for demonstration purposes and will be removed soon
+  private boolean tryChangeMapStyleCmd(String str)
+  {
+    // Hook for shell command on change map style
+    final boolean isDark = str.equals("mapstyle:dark");
+    final boolean isLight = isDark ? false : str.equals("mapstyle:light");
+
+    if (!isDark && !isLight)
+      return false;
+
+    // close Search panel
+    mSearchEt.setText(null);
+    InputUtils.hideKeyboard(mSearchEt);
+    getActivity().onBackPressed();
+
+    // change map style for the Map activity
+    final int mapStyle = isDark ? Framework.MAP_STYLE_DARK : Framework.MAP_STYLE_LIGHT;
+    MWMActivity.setMapStyle(getActivity(), mapStyle);
+
+    return true;
+  }
+
   private void setUpView(ViewGroup root)
   {
     mVoiceInput = root.findViewById(R.id.search_voice_input);
@@ -144,6 +167,10 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
       @Override
       public void afterTextChanged(Editable s)
       {
+        // TODO: This code only for demonstration purposes and will be removed soon
+        if (tryChangeMapStyleCmd(s.toString()))
+          return;
+
         if (runSearch() == QUERY_EMPTY)
           showCategories();
 

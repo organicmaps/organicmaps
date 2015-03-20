@@ -58,7 +58,8 @@
 
 #define EXTERNAL_RESOURCES_FILE "external_resources.txt"
 
-#define DRAWING_RULES_BIN_FILE "drules_proto.bin"
+#define DRAWING_RULES_LIGHT_BIN_FILE "drules_proto.bin"
+#define DRAWING_RULES_DARK_BIN_FILE "drules_proto_dark.bin"
 
 /// How many langs we're supporting on indexing stage
 #define MAX_SUPPORTED_LANGUAGES 64

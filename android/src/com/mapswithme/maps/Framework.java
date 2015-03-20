@@ -12,6 +12,9 @@ import com.mapswithme.util.Constants;
  */
 public class Framework
 {
+  public static final int MAP_STYLE_LIGHT = 0;
+  public static final int MAP_STYLE_DARK = 1;
+
   @SuppressWarnings("unused")
   public interface OnBalloonListener
   {
@@ -130,4 +133,6 @@ public class Framework
   public native static void downloadCountry(Index idx);
 
   public native static double[] predictLocation(double lat, double lon, double accuracy, double bearing, double speed, double elapsedSeconds);
+
+  public native static void setMapStyle(int mapStyle);
 }

@@ -2,6 +2,7 @@
 
 
 #include "../../std/shared_ptr.hpp"
+#include "../../indexer/map_style.hpp"
 
 #ifndef USE_DRAPE
 
@@ -52,6 +53,7 @@ namespace dp
 }
 
 - (void)initRenderPolicy;
+- (void)setMapStyle:(MapStyle)mapStyle;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
 

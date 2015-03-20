@@ -40,6 +40,8 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
+#include "../indexer/map_style.hpp"
+
 #include "../base/strings_bundle.hpp"
 
 #include "../std/vector.hpp"
@@ -234,6 +236,9 @@ public:
 #else
   void CreateDrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
 #endif // USE_DRAPE
+
+  void SetMapStyle(MapStyle mapStyle);
+  MapStyle GetMapStyle() const;
 
   InformationDisplay & GetInformationDisplay();
   CountryStatusDisplay * GetCountryStatusDisplay() const;
