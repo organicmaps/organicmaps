@@ -692,7 +692,7 @@ namespace android
       return;
 
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodID = jni::GetJavaMethodID(env,
+    jmethodID const methodID = jni::GetJavaMethodID(env,
                                                     *m_javaCountryListener,
                                                     "onItemStatusChanged",
                                                     "(I)V");
@@ -707,7 +707,7 @@ namespace android
       return;
 
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const methodID = jni::GetJavaMethodID(env,
+    jmethodID const methodID = jni::GetJavaMethodID(env,
                                                     *m_javaCountryListener,
                                                     "onItemProgressChanged",
                                                     "(I[J)V");
@@ -722,19 +722,20 @@ namespace android
     JNIEnv * env = jni::GetEnv();
     for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
     {
-      static jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
+      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryGroupChanged", "(IIII)V");
       ASSERT ( methodID, () );
 
       env->CallVoidMethod(*(it->second), methodID, oldGroup, oldPosition, newGroup, newPosition);
     }
   }
+
   void Framework::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position,
                                        TStatus const & oldStatus, TStatus const & newStatus)
   {
     JNIEnv * env = jni::GetEnv();
     for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
     {
-      static jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
+      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryStatusChanged", "(IIII)V");
       ASSERT ( methodID, () );
 
       env->CallVoidMethod(*(it->second), methodID, group, position,
@@ -748,7 +749,7 @@ namespace android
     JNIEnv * env = jni::GetEnv();
     for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
     {
-      static jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
+      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryOptionsChanged", "(IIII)V");
       ASSERT ( methodID, () );
 
       env->CallVoidMethod(*(it->second), methodID, group, position,
@@ -762,7 +763,7 @@ namespace android
     JNIEnv * env = jni::GetEnv();
     for (TListenerMap::const_iterator it = m_javaActiveMapListeners.begin(); it != m_javaActiveMapListeners.end(); ++it)
     {
-      static jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
+      jmethodID const methodID = jni::GetJavaMethodID(env, *(it->second), "onCountryProgressChanged", "(II[J)V");
       ASSERT ( methodID, () );
 
       env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
