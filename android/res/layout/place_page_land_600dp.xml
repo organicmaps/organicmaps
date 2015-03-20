@@ -5,7 +5,7 @@
       android:id="@+id/rl__top"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="56dp">
+      android:layout_marginBottom="@dimen/place_page_buttons_height">
 
     <include
         android:id="@+id/pp__preview"
@@ -27,7 +27,7 @@
       android:id="@+id/pp__buttons"
       layout="@layout/place_page_buttons"
       android:layout_width="match_parent"
-      android:layout_height="56dp"
+      android:layout_height="wrap_content"
       android:layout_below="@id/rl__top"
       android:layout_marginTop="-56dp"/>
 

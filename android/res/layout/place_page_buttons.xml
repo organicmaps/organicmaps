@@ -16,7 +16,7 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/place_page_buttons_height"
       android:baselineAligned="false"
       android:orientation="horizontal"
       android:paddingLeft="@dimen/margin_small_and_half"
@@ -24,131 +24,64 @@
 
     <LinearLayout
         android:id="@+id/rl__api_back"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:background="?attr/clickableBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small"
+        style="@style/PlacePageButton"
         android:visibility="gone">
 
       <ImageView
           android:id="@+id/iv__api_back"
-          android:layout_width="24dp"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:contentDescription="share"
-          android:paddingBottom="@dimen/margin_medium"
-          android:paddingTop="@dimen/margin_medium"
-          android:scaleType="center"
+          style="@style/PlacePageButtonImage"
+          android:contentDescription="@string/back"
           android:src="@drawable/ic_back"/>
 
       <TextView
           android:id="@+id/tv__api_back"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_micro"
-          android:text="@string/back"
-          android:textAllCaps="true"
-          android:textColor="@color/text_place_page_buttons"
-          android:textSize="10sp"/>
+          style="@style/PlacePageButtonText"
+          android:text="@string/back"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/rl__share"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:background="?attr/clickableBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small">
+        style="@style/PlacePageButton">
 
       <ImageView
           android:id="@+id/iv__share"
-          android:layout_width="24dp"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:contentDescription="share"
-          android:paddingBottom="@dimen/margin_medium"
-          android:paddingTop="@dimen/margin_medium"
-          android:scaleType="center"
+          style="@style/PlacePageButtonImage"
+          android:contentDescription="@string/share"
           android:src="@drawable/ic_share"/>
 
       <TextView
           android:id="@+id/tv__share"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_micro"
-          android:text="@string/share"
-          android:textAllCaps="true"
-          android:textColor="@color/text_place_page_buttons"
-          android:textSize="10sp"/>
+          style="@style/PlacePageButtonText"
+          android:text="@string/share"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/rl__bookmark"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:background="?attr/clickableBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small">
+        style="@style/PlacePageButton">
 
       <ImageView
           android:id="@+id/iv__bookmark"
-          android:layout_width="24dp"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:contentDescription="bookmark"
-          android:paddingBottom="@dimen/margin_medium"
-          android:paddingTop="@dimen/margin_medium"
-          android:scaleType="center"
+          style="@style/PlacePageButtonImage"
+          android:contentDescription="@string/bookmark"
           android:src="@drawable/ic_bookmark_off"/>
 
       <TextView
           android:id="@+id/tv__bookmark"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_micro"
-          android:textAllCaps="true"
-          android:text="BOOKMARK"
-          android:textColor="@color/text_place_page_buttons"
-          android:textSize="10sp"/>
+          style="@style/PlacePageButtonText"
+          android:text="@string/bookmark"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/rl__route"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:background="?attr/clickableBackground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_small"
-        android:paddingTop="@dimen/margin_small">
+        style="@style/PlacePageButton">
 
       <ImageView
           android:id="@+id/iv__route"
-          android:layout_width="24dp"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          android:contentDescription="share"
-          android:paddingBottom="@dimen/margin_medium"
-          android:paddingTop="@dimen/margin_medium"
-          android:scaleType="center"
+          style="@style/PlacePageButtonImage"
+          android:contentDescription="@string/route"
           android:src="@drawable/ic_route"/>
 
       <ProgressBar
@@ -159,13 +92,8 @@
 
       <TextView
           android:id="@+id/tv__route"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_micro"
-          android:textAllCaps="true"
-          android:text="@string/route"
-          android:textColor="@color/text_place_page_buttons"
-          android:textSize="10sp"/>
+          style="@style/PlacePageButtonText"
+          android:text="@string/route"/>
 
     </LinearLayout>
 

@@ -158,21 +158,9 @@
 
   <style name="DirectionTitle" parent="android:Widget.TextView">
     <item name="android:fontFamily">@string/robotoRegular</item>
-    <item name="android:lines">1</item>
-    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
     <item name="android:textSize">@dimen/place_page_title_big</item>
-  </style>
-
-  <style name="PlacePagePreview">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">56dp</item>
-    <item name="android:gravity">center_vertical</item>
-    <item name="android:orientation">horizontal</item>
-    <item name="android:paddingBottom">@dimen/margin_small_and_half</item>
-    <item name="android:paddingLeft">@dimen/margin_medium_and_half</item>
-    <item name="android:paddingRight">@dimen/margin_medium_and_half</item>
-    <item name="android:paddingTop">@dimen/margin_medium_and_half</item>
   </style>
 
 </resources>

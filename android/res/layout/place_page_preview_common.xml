@@ -18,9 +18,9 @@
     <TextView
         android:id="@+id/tv__subtitle"
         android:layout_width="wrap_content"
-        android:layout_marginRight="@dimen/margin_medium"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv__title"
+        android:layout_marginRight="@dimen/margin_medium"
         android:textColor="@color/text_place_page_subtitle"
         android:textSize="@dimen/place_page_subtitle"/>
 
@@ -35,24 +35,25 @@
         android:visibility="gone"/>
 
     <RatingBar
-        style="?android:attr/ratingBarStyleSmall"
         android:id="@+id/rb__stars"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1"
-        android:progressDrawable="@drawable/rating_bar_stars"
-        android:layout_toRightOf="@id/tv__subtitle"
         android:layout_alignBottom="@id/tv__subtitle"
+        android:layout_marginBottom="@dimen/margin_micro"
+        android:layout_toRightOf="@id/tv__subtitle"
+        android:numStars="5"
+        android:progressDrawable="@drawable/rating_bar_stars"
+        android:stepSize="1"
         android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv__peak_elevation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_high_mountain"
-        android:layout_toRightOf="@id/tv__subtitle"
         android:layout_alignBottom="@id/tv__subtitle"
+        android:layout_toRightOf="@id/tv__subtitle"
+        android:drawableLeft="@drawable/ic_high_mountain"
         android:textColor="@color/text_place_page_subtitle"
         android:textSize="@dimen/place_page_subtitle"
         android:visibility="gone"/>
@@ -62,8 +63,8 @@
   <TextView
       android:id="@+id/tv__straight_distance"
       android:layout_width="72dp"
-      android:gravity="right"
       android:layout_height="wrap_content"
+      android:gravity="right"
       android:textColor="@color/text_place_page"
       android:textSize="@dimen/place_page_subtitle"/>
 
@@ -71,8 +72,8 @@
       android:id="@+id/av__direction"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:clickable="true"
       android:layout_marginRight="-8dp"
+      android:clickable="true"
       android:padding="@dimen/margin_small"/>
 
 </merge>

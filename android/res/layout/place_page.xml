@@ -2,24 +2,32 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
   <include
+      android:id="@+id/pp__preview"
+      layout="@layout/place_page_preview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/pp__buttons"/>
+
+  <include
       android:id="@+id/pp__details"
       layout="@layout/place_page_details"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@+id/pp__buttons"/>
 
+  <View
+      android:id="@+id/view_bottom_white"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/place_page_buttons_height"
+      android:layout_alignParentBottom="true"
+      android:background="@color/bg_top_panels"
+      android:visibility="gone"/>
+
   <include
       android:id="@+id/pp__buttons"
       layout="@layout/place_page_buttons"
       android:layout_width="match_parent"
-      android:layout_height="56dp"
-      android:layout_alignParentBottom="true"/>
-
-  <include
-      android:id="@+id/pp__preview"
-      layout="@layout/place_page_preview"
-      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@id/pp__buttons"/>
+      android:layout_alignParentBottom="true"/>
 
 </merge>

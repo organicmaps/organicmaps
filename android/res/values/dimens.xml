@@ -58,6 +58,7 @@
   <dimen name="place_page_sub_subtitle">12sp</dimen>
   <dimen name="place_page_button_size">47dp</dimen>
   <dimen name="place_page_button_size_small">42dp</dimen>
+  <dimen name="place_page_buttons_height">56dp</dimen>
 
   <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="bottom_button_width">113dp</dimen>

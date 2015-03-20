@@ -10,15 +10,19 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 public class BottomPlacePageAnimationController extends BasePlacePageAnimationController
 {
+  private final View mViewBottomHack;
+
   public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
+    mViewBottomHack = mPlacePage.findViewById(R.id.view_bottom_white);
   }
 
   @Override
@@ -132,6 +136,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     Interpolator interpolator;
     if (currentState == State.HIDDEN)
     {
+      mViewBottomHack.setVisibility(View.GONE);
       mDetails.setVisibility(View.INVISIBLE);
       interpolator = new OvershootInterpolator();
       animator = ValueAnimator.ofFloat(mPreview.getHeight() + mButtons.getHeight(), 0f);
@@ -143,11 +148,16 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue());
           ViewHelper.setTranslationY(mButtons, (Float) animation.getAnimatedValue());
 
-          if (animation.getAnimatedFraction() > .99f)
+          final float fraction = animation.getAnimatedFraction();
+          if (fraction > .5f)
           {
-            mIsPlacePageVisible = false;
-            mIsPreviewVisible = true;
-            notifyVisibilityListener();
+            mViewBottomHack.setVisibility(View.VISIBLE);
+            if (animation.getAnimatedFraction() > .99f)
+            {
+              mIsPlacePageVisible = false;
+              mIsPreviewVisible = true;
+              notifyVisibilityListener();
+            }
           }
         }
       });
@@ -255,6 +265,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
     final ValueAnimator animator = ValueAnimator.ofFloat(0f, animHeight);
+    mViewBottomHack.setVisibility(View.GONE);
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
