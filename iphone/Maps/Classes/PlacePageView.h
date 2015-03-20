@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 
 @interface PlacePageView : SolidTouchView <LocationObserver>
 
-- (void)showUserMark:(UserMarkCopy *)mark;
+- (void)showUserMark:(unique_ptr<UserMarkCopy> &&)mark;
 
 - (void)setState:(PlacePageState)state animated:(BOOL)animated withCallback:(BOOL)withCallback;
 @property (nonatomic, readonly) PlacePageState state;

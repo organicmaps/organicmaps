@@ -267,9 +267,7 @@
 {
   if (self.searchView.state != SearchViewStateFullscreen)
   {
-    // This function will take ownership for the passed user mark pointer.
-    [self.containerView.placePage showUserMark:mark.release()];
-
+    [self.containerView.placePage showUserMark:std::move(mark)];
     [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
   }
 }
@@ -1128,9 +1126,7 @@
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(bookmarkAndCategory.second);
 
-  // This function will take ownership for the passed user mark pointer.
-  [self.containerView.placePage showUserMark:bookmark->Copy().release()];
-
+  [self.containerView.placePage showUserMark:bookmark->Copy()];
   [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
 }
 

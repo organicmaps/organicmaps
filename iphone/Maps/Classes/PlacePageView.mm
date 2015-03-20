@@ -787,12 +787,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
   webViewIsLoaded = NO;
 }
 
-- (void)showUserMark:(UserMarkCopy *)mark
+- (void)showUserMark:(unique_ptr<UserMarkCopy> &&)mark
 {
   [self clearCachedProperties];
   self.temporaryTitle = nil;
 
-  m_mark.reset(mark);
+  m_mark.reset(mark.release());
   m_cachedMark = m_mark;
 
   UserMark const * innerMark = [self userMark];
