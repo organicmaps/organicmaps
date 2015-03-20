@@ -683,4 +683,6 @@
 	<string name="cuisine_fine_dining">fine dining</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">tea</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">bookmark</string>
 </resources>

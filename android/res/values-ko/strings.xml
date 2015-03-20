@@ -658,4 +658,6 @@
 	<string name="cuisine_fine_dining">고급 식당</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">차</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">북마크</string>
 </resources>

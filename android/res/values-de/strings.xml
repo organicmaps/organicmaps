@@ -665,4 +665,6 @@
 	<string name="cuisine_fine_dining">Feinkost/feine Speisen/gehobene Küche</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">Tee</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">lesezeichen</string>
 </resources>

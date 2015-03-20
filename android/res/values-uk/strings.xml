@@ -675,4 +675,6 @@
 	<string name="cuisine_fine_dining">вишукана їжа</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">чай</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">мітка</string>
 </resources>

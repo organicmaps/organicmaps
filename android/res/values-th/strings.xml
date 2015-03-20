@@ -672,4 +672,6 @@
 	<string name="cuisine_fine_dining">อาหารหรูหรา</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">ชา</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">บุ๊กมาร์ก</string>
 </resources>

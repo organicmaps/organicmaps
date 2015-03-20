@@ -671,4 +671,6 @@
 	<string name="cuisine_fine_dining">wyrafinowana kuchnia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">herbata</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">zakładka</string>
 </resources>

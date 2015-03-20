@@ -9892,3 +9892,36 @@
     el = τσάι
     ar = شاي
     he = תה
+
+  [bookmark]
+    tags = android, ios
+    comment = bookmark button text
+    en = bookmark
+    ru = метка
+    uk = мітка
+    tr = i̇şaretle
+    es = marcador
+    sv = bokmärke
+    sk = záložka
+    pt = favorito
+    ro = marcaj
+    pl = zakładka
+    ko = 북마크
+    in = bookmark
+    hu = könyvjelző
+    de = lesezeichen
+    fr = signet
+    nl = markeren
+    fi = kirjanmerkki
+    da = bogmærke
+    cs = záložka
+    it = segnalibro
+    no = bokmerk
+    zh-Hant = 書簽
+    zh-Hans = 书签
+    vi = đánh dấu
+    th = บุ๊กมาร์ก
+    ja = お気に入り
+    el = σελιδοδείκτης
+    ar = ملصق
+    he = סימניה

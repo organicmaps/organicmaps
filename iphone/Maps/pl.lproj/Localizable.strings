@@ -1041,3 +1041,6 @@
 
 /* Cuisine */
 "cuisine_tea" = "herbata";
+
+/* bookmark button text */
+"bookmark" = "zakładka";

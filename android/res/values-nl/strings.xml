@@ -660,4 +660,6 @@
 	<string name="cuisine_fine_dining">heerlijk dineren</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">thee</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">markeren</string>
 </resources>

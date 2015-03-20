@@ -670,4 +670,6 @@
 	<string name="cuisine_fine_dining">elegant restaurang</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">te</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">bokmärke</string>
 </resources>

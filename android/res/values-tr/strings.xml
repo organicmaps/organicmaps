@@ -674,4 +674,6 @@
 	<string name="cuisine_fine_dining">yemek_düzeni</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">çay</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">i̇şaretle</string>
 </resources>

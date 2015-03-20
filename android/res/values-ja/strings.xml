@@ -667,4 +667,6 @@
 	<string name="cuisine_fine_dining">高級料理</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">紅茶</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">お気に入り</string>
 </resources>

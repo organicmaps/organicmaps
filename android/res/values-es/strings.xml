@@ -661,4 +661,6 @@
 	<string name="cuisine_fine_dining">cena buena</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">té</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">marcador</string>
 </resources>

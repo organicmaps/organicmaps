@@ -667,4 +667,6 @@
 	<string name="cuisine_fine_dining">ristorante elegante</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">tè</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">segnalibro</string>
 </resources>

@@ -667,4 +667,6 @@
 	<string name="cuisine_fine_dining">alta gastronomia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">chá</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">favorito</string>
 </resources>

@@ -681,4 +681,6 @@
 	<string name="cuisine_fine_dining">restaurant gastronomique</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">thé</string>
+	<!-- bookmark button text -->
+	<string name="bookmark">signet</string>
 </resources>
