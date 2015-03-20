@@ -188,7 +188,7 @@ bool VertexArrayBuffer::IsFilled() const
 
 void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
 {
-  ASSERT(count <= m_indexBuffer->GetAvailableSize(), ());
+  ASSERT(count <= m_indexBuffer->GetBuffer()->GetAvailableSize(), ());
   m_indexBuffer->UploadData(data, count);
 }
 
