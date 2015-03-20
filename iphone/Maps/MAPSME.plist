@@ -8,8 +8,6 @@
 	<string>***REMOVED***</string>
 	<key>MRGServiceAppID</key>
 	<integer>148</integer>
-	<key>MRGServiceAppleAppID</key>
-	<string>510623322</string>
 	<key>LocalNotificationsFileName</key>
 	<string>LocalNotifications</string>
 	<key>CFBundleDevelopmentRegion</key>

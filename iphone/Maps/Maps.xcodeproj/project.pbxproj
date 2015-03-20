@@ -19,7 +19,6 @@
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
 		6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */; };
 		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
-		6BDCBF4A1AA7590D004DAE48 /* libAppsFlyerLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
@@ -206,7 +205,6 @@
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		6B948E141A254C9800229BD5 /* ExternalLibs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExternalLibs; sourceTree = "<group>"; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
 		6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BDCBF4A1AA7590D004DAE48 /* libAppsFlyerLib.a in Frameworks */,
 				6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */,
 				6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */,
 				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
@@ -806,14 +803,6 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
-		B00511071A1102FE00A61AA4 /* MRGService */ = {
-			isa = PBXGroup;
-			children = (
-				6B948E141A254C9800229BD5 /* ExternalLibs */,
-			);
-			path = MRGService;
-			sourceTree = "<group>";
-		};
 		B0E1FCD61A23386D00A8E08B /* Route */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,7 +819,6 @@
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				B00511071A1102FE00A61AA4 /* MRGService */,
 				97C98521186AE3CF00AF7E9E /* AppInfo.h */,
 				97C98520186AE3CF00AF7E9E /* AppInfo.mm */,
 				97C9851D186AE3C500AF7E9E /* Reachability.h */,
@@ -1481,7 +1469,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -1606,7 +1593,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -1698,7 +1684,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -1791,7 +1776,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -1913,7 +1897,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2010,7 +1993,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2106,7 +2088,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2201,7 +2182,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
-					"$(PROJECT_DIR)/Statistics/MRGService/ExternalLibs/AppsFlyer",
 				);
 				PROVISIONING_PROFILE = "";
 			};

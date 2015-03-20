@@ -85,15 +85,7 @@ void InitLocalizedStrings()
   mrgsParams.crashReportEnabled = YES;
   mrgsParams.allowPushNotificationHooks = YES;
   
-  NSString * appleAppId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppleAppID"];
-  MRGSAppsFlyerParams * appsFlyerParams = [[MRGSAppsFlyerParams alloc] initWithDevKey:@"***REMOVED***" andAppleAppId:appleAppId];
-#ifdef DEBUG
-  appsFlyerParams.debug = YES;
-#endif
-
-  NSArray * externalParams = @[appsFlyerParams];
-  
-  [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:externalParams delegate:nil];
+  [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:@[] delegate:nil];
   [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
 }
 
