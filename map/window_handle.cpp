@@ -41,6 +41,7 @@ void WindowHandle::checkedFrameFn()
 WindowHandle::~WindowHandle()
 {
   m_videoTimer->stop();
+  m_videoTimer->setFrameFn(m_frameFn);
 }
 
 bool WindowHandle::needRedraw() const
