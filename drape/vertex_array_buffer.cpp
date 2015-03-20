@@ -36,14 +36,10 @@ void VertexArrayBuffer::Preflush()
 {
   /// buffers are ready, so moving them from CPU to GPU
   for(auto & buffer : m_staticBuffers)
-  {
     buffer.second->MoveToGPU(GPUBuffer::ElementBuffer);
-  }
 
   for(auto & buffer : m_dynamicBuffers)
-  {
     buffer.second->MoveToGPU(GPUBuffer::ElementBuffer);
-  }
 
   m_indexBuffer->MoveToGPU(GPUBuffer::IndexBuffer);
 
