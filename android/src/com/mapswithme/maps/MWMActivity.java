@@ -1595,6 +1595,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
                   public void onClick(DialogInterface dialog, int which)
                   {
                     closeRouting();
+                    if (RoutingResultCodes.isDownloadable(resultCode))
+                      showDownloader(false);
                     dialog.dismiss();
                   }
                 });

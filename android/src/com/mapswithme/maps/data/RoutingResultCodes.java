@@ -51,4 +51,9 @@ public class RoutingResultCodes
 
     return new Pair<>(titleRes == 0 ? "" : MWMApplication.get().getString(titleRes), MWMApplication.get().getString(messageRes));
   }
+
+  public static boolean isDownloadable(int resultCode)
+  {
+    return resultCode == INCONSISTENT_MWM_ROUTE || resultCode == ROUTING_FILE_NOT_EXIST;
+  }
 }
