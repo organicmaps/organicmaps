@@ -20,7 +20,7 @@ public:
   void operator() (uint32_t id) const
   {
     FeatureType ft;
-    m_loader.Get(id, ft);
+    m_loader.GetByIndex(id, ft);
 
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;

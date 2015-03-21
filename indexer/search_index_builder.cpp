@@ -158,11 +158,11 @@ struct ValueBuilder<SerializedFeatureInfoValue>
 
   ValueBuilder(serial::CodingParams const & cp) : m_valueSaver(cp) {}
 
-  void MakeValue(FeatureType const & f, feature::TypesHolder const & types, uint64_t pos,
+  void MakeValue(FeatureType const & f, feature::TypesHolder const & types, uint32_t ind,
                  SerializedFeatureInfoValue & value) const
   {
     SaverT::ValueType v;
-    v.m_featureId = static_cast<uint32_t>(pos);
+    v.m_featureId = ind;
 
     // get BEST geometry rect of feature
     v.m_pt = feature::GetCenter(f);
@@ -178,10 +178,9 @@ template <>
 struct ValueBuilder<FeatureIndexValue>
 {
   void MakeValue(FeatureType const & /* f */, feature::TypesHolder const & /* types */,
-                 uint64_t pos, FeatureIndexValue & value) const
+                 uint32_t ind, FeatureIndexValue & value) const
   {
-    ASSERT_LESS(pos, numeric_limits<uint32_t>::max(), ());
-    value.m_value = static_cast<uint32_t>(pos);
+    value.m_value = ind;
   }
 };
 
@@ -314,7 +313,7 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f, uint64_t pos) const
+  void operator() (FeatureType const & f, uint32_t ind) const
   {
     feature::TypesHolder types(f);
 
@@ -328,7 +327,7 @@ public:
     // Insert synonyms only for countries and states (maybe will add cities in future).
     FeatureNameInserter<StringsFileT> inserter(skipIndex.IsCountryOrState(types) ? m_synonyms : 0,
                                                m_names);
-    m_valueBuilder.MakeValue(f, types, pos, inserter.m_val);
+    m_valueBuilder.MakeValue(f, types, ind, inserter.m_val);
 
     // Skip types for features without names.
     if (!f.ForEachNameRef(inserter))
@@ -362,28 +361,12 @@ public:
   }
 };
 
-template <typename FeatureInserterT>
-struct FeatureInserterAdapter
-{
-  FeatureInserterAdapter(FeatureInserterT & inserter) : m_inserter(inserter), m_index(0) {}
-
-  void operator()(FeatureType const & f, uint64_t pos)
-  {
-    /// @todo After VNG's refactoring the whole class should go away
-    ///       since pos will be replaced by a feature's index.
-    m_inserter(f, m_index++);
-  }
-
-  FeatureInserterT & m_inserter;
-  uint64_t m_index;
-};
-
 void AddFeatureNameIndexPairs(FilesContainerR const & container,
                               CategoriesHolder & categoriesHolder,
                               StringsFile<FeatureIndexValue> & stringsFile)
 {
   feature::DataHeader header;
-  header.Load(container.GetReader(HEADER_FILE_TAG), version::unknownFormat);
+  header.Load(container.GetReader(HEADER_FILE_TAG));
   FeaturesVector features(container, header);
 
   ValueBuilder<FeatureIndexValue> valueBuilder;
@@ -395,8 +378,7 @@ void AddFeatureNameIndexPairs(FilesContainerR const & container,
   FeatureInserter<StringsFile<FeatureIndexValue>> inserter(
       synonyms.get(), stringsFile, categoriesHolder, header.GetScaleRange(), valueBuilder);
 
-  FeatureInserterAdapter<FeatureInserter<StringsFile<FeatureIndexValue>>> adapter(inserter);
-  features.ForEachOffset(adapter);
+  features.ForEach(inserter);
 }
 
 void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & catHolder,
@@ -404,7 +386,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 {
   {
     feature::DataHeader header;
-    header.Load(cont.GetReader(HEADER_FILE_TAG), version::unknownFormat);
+    header.Load(cont.GetReader(HEADER_FILE_TAG));
     FeaturesVector featuresV(cont, header);
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
@@ -416,7 +398,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     StringsFile<SerializedFeatureInfoValue> names(tmpFilePath);
 
-    featuresV.ForEachOffset(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
+    featuresV.ForEach(FeatureInserter<StringsFile<SerializedFeatureInfoValue>>(
         synonyms.get(), names, catHolder, header.GetScaleRange(), valueBuilder));
 
     names.EndAdding();

@@ -1340,7 +1340,7 @@ void Framework::ShowSearchResult(search::Result const & res)
       Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
 
       FeatureType ft;
-      guard.GetFeature(id.m_offset, ft);
+      guard.GetFeatureByIndex(id.m_ind, ft);
 
       scale = GetFeatureViewportScale(TypesHolder(ft));
       center = GetCenter(ft, scale);
@@ -1810,7 +1810,7 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
     Index::FeaturesLoaderGuard guard(m_model.GetIndex(), ui.m_mwmID);
 
     FeatureType ft;
-    guard.GetFeature(ui.m_offset, ft);
+    guard.GetFeatureByIndex(ui.m_fID, ft);
 
     ft.ParseMetadata();
     metadata = ft.GetMetadata();
@@ -1866,7 +1866,7 @@ public:
     Index::FeaturesLoaderGuard guard(model.GetIndex(), m_id.m_mwmId);
 
     FeatureType ft;
-    guard.GetFeature(m_id.m_offset, ft);
+    guard.GetFeatureByIndex(m_id.m_ind, ft);
 
     ft.ParseMetadata();
     metadata = ft.GetMetadata();

@@ -75,7 +75,7 @@ public:
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t const count = ft.GetPointsCount();
-    uint32_t const offset = ft.GetID().m_offset;
+    uint32_t const featureId = ft.GetID().m_ind;
     ASSERT_GREATER(count, 1, ());
     for (size_t i = 1; i < count; ++i)
     {
@@ -87,7 +87,7 @@ public:
       if (d < res.m_dist)
       {
         res.m_dist = d;
-        res.m_fid = offset;
+        res.m_fid = featureId;
         res.m_segIdx = i - 1;
         res.m_point = pt;
       }
@@ -128,7 +128,7 @@ public:
 
     Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
     FeatureType ft;
-    loader.GetFeature(s.m_fid, ft);
+    loader.GetFeatureByIndex(s.m_fid, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     double distMeters = 0.0;
@@ -208,7 +208,7 @@ public:
 
     Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
     FeatureType ft;
-    loader.GetFeature(seg.m_fid, ft);
+    loader.GetFeatureByIndex(seg.m_fid, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
@@ -281,7 +281,7 @@ public:
         OsrmMappingTypes::FtSeg const & node_seg = segments[idx];
         FeatureType feature;
         Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
-        loader.GetFeature(node_seg.m_fid, feature);
+        loader.GetFeatureByIndex(node_seg.m_fid, feature);
         feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
         m2::PointD const featureDirection = feature.GetPoint(node_seg.m_pointEnd) - feature.GetPoint(node_seg.m_pointStart);
         bool const sameDirection = (m2::DotProduct(featureDirection, m_direction) / (featureDirection.Length() * m_direction.Length()) > 0);
@@ -377,7 +377,7 @@ void FindGraphNodeOffsets(size_t const nodeId, m2::PointD const & point,
 
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(*pIndex, mapping->GetMwmId());
-    loader.GetFeature(s.m_fid, ft);
+    loader.GetFeatureByIndex(s.m_fid, ft);
 
     Point2PhantomNode::Candidate mappedSeg;
     Point2PhantomNode::FindNearestSegment(ft, point, mappedSeg);
@@ -768,7 +768,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(*m_pIndex, mapping->GetMwmId());
-        loader.GetFeature(seg.m_fid, ft);
+        loader.GetFeatureByIndex(seg.m_fid, ft);
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
         auto startIdx = seg.m_pointStart;

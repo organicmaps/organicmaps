@@ -5,6 +5,7 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
+#include "indexer/unique_index.hpp"
 
 #include "coding/file_container.hpp"
 
@@ -80,36 +81,9 @@ public:
 
 private:
 
-  template <typename F>
-  class ReadMWMFunctor
+  template <typename F> class ReadMWMFunctor
   {
-    class ImplFunctor : private noncopyable
-    {
-      FeaturesVector const & m_V;
-      F & m_F;
-      unordered_set<uint32_t> m_offsets;
-      MwmId m_mwmID;
-
-    public:
-      ImplFunctor(FeaturesVector const & v, F & f, MwmId mwmID)
-        : m_V(v), m_F(f), m_mwmID(mwmID)
-      {
-      }
-
-      void operator() (uint32_t offset)
-      {
-        if (m_offsets.insert(offset).second)
-        {
-          FeatureType feature;
-
-          m_V.Get(offset, feature);
-          feature.SetID(FeatureID(m_mwmID, offset));
-
-          m_F(feature);
-        }
-      }
-    };
-
+    F & m_f;
   public:
     ReadMWMFunctor(F & f) : m_f(f) {}
 
@@ -135,37 +109,31 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implF(fv, m_f, handle.GetId());
-        for (size_t i = 0; i < interval.size(); ++i)
-          index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
+        CheckUniqueIndexes checkUnique;
+        MwmId const mwmID = handle.GetId();
+
+        for (auto const & i : interval)
+        {
+          index.ForEachInIntervalAndScale([&] (uint32_t ind)
+          {
+            if (checkUnique(ind))
+            {
+              FeatureType feature;
+
+              fv.GetByIndex(ind, feature);
+              feature.SetID(FeatureID(mwmID, ind));
+
+              m_f(feature);
+            }
+          }, i.first, i.second, scale);
+        }
       }
     }
-
-  private:
-    F & m_f;
   };
 
-  template <typename F>
-  class ReadFeatureIndexFunctor
+  template <typename F> class ReadFeatureIndexFunctor
   {
-    struct ImplFunctor : private noncopyable
-    {
-    public:
-      ImplFunctor(F & f, MwmId id) : m_f(f), m_id(id) {}
-
-      void operator() (uint32_t offset)
-      {
-        ASSERT(m_id.IsAlive(), ());
-        if (m_offsets.insert(offset).second)
-          m_f(FeatureID(m_id, offset));
-      }
-
-    private:
-      F & m_f;
-      MwmId m_id;
-      unordered_set<uint32_t> m_offsets;
-    };
-
+    F & m_f;
   public:
     ReadFeatureIndexFunctor(F & f) : m_f(f) {}
 
@@ -188,14 +156,19 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implF(m_f, handle.GetId());
-        for (size_t i = 0; i < interval.size(); ++i)
-          index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
+        CheckUniqueIndexes checkUnique;
+        MwmId const mwmID = handle.GetId();
+
+        for (auto const & i : interval)
+        {
+          index.ForEachInIntervalAndScale([&] (uint32_t ind)
+          {
+            if (checkUnique(ind))
+              m_f(FeatureID(mwmID, ind));
+          }, i.first, i.second, scale);
+        }
       }
     }
-
-  private:
-    F & m_f;
   };
 
 public:
@@ -246,7 +219,7 @@ public:
     inline MwmSet::MwmId GetId() const { return m_handle.GetId(); }
     string GetCountryFileName() const;
     bool IsWorld() const;
-    void GetFeature(uint32_t offset, FeatureType & ft);
+    void GetFeatureByIndex(uint32_t ind, FeatureType & ft);
 
   private:
     MwmHandle m_handle;
@@ -269,6 +242,7 @@ public:
   }
 
 private:
+
   // "features" must be sorted using FeatureID::operator< as predicate
   template <typename F>
   size_t ReadFeatureRange(F & f, vector<FeatureID> const & features, size_t index) const
@@ -286,7 +260,7 @@ private:
         FeatureID const & featureId = features[result];
         FeatureType featureType;
 
-        featureReader.Get(featureId.m_offset, featureType);
+        featureReader.GetByIndex(featureId.m_ind, featureType);
         featureType.SetID(featureId);
 
         f(featureType);

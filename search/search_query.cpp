@@ -593,7 +593,7 @@ namespace impl
       if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
         m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.m_mwmId));
 
-      m_pFV->GetFeature(id.m_offset, f);
+      m_pFV->GetFeatureByIndex(id.m_ind, f);
       f.SetID(id);
 
       m_query.GetBestMatchName(f, name);
@@ -1680,7 +1680,7 @@ namespace impl
 
       // load feature
       FeatureType f;
-      m_vector.Get(v.m_featureId, f);
+      m_vector.GetByIndex(v.m_featureId, f);
 
       using namespace ftypes;
 

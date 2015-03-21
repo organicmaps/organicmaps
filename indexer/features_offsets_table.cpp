@@ -46,13 +46,18 @@ namespace feature
     return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(elias_fano_builder));
   }
 
+  unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::LoadImpl(string const & fileName)
+  {
+    return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(fileName));
+  }
+
   // static
   unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & fileName)
   {
     uint64_t size;
     if (!GetPlatform().GetFileSizeByFullPath(fileName, size))
       return unique_ptr<FeaturesOffsetsTable>();
-    return unique_ptr<FeaturesOffsetsTable>(new FeaturesOffsetsTable(fileName));
+    return LoadImpl(fileName);
   }
 
   // static
@@ -60,24 +65,19 @@ namespace feature
       string const & fileName, platform::LocalCountryFile const & localFile)
   {
     uint64_t size;
-    if (GetPlatform().GetFileSizeByFullPath(fileName,size))
-      return Load(fileName);
+    if (GetPlatform().GetFileSizeByFullPath(fileName, size))
+      return LoadImpl(fileName);
+
+    LOG(LINFO, ("Creating features offset table file", fileName));
 
     FilesContainerR mwmFileContainer(localFile.GetPath(TMapOptions::EMap));
 
-    LOG(LINFO, ("Features offsets table is absent! Creating a new one."));
-
-    if (!mwmFileContainer.IsExist(HEADER_FILE_TAG))
-      return unique_ptr<FeaturesOffsetsTable>();
-
-    DataHeader header;
-    header.Load(mwmFileContainer.GetReader(HEADER_FILE_TAG));
-
     Builder builder;
-    FeaturesVector(mwmFileContainer, header).ForEachOffset([&builder] (FeatureType const &, uint32_t offset)
+    FeaturesVector::ForEachOffset(mwmFileContainer.GetReader(DATA_FILE_TAG), [&builder] (uint32_t offset)
     {
       builder.PushOffset(offset);
     });
+
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
     table->Save(fileName);
     return table;

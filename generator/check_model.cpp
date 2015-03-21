@@ -23,7 +23,7 @@ namespace check_model
     header.Load(cont.GetReader(HEADER_FILE_TAG));
 
     FeaturesVector vec(cont, header);
-    vec.ForEachOffset([&] (FeatureType const & ft, uint32_t)
+    vec.ForEach([&] (FeatureType const & ft, uint32_t)
     {
       TypesHolder types(ft);
 

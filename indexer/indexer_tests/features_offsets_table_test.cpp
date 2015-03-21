@@ -79,7 +79,7 @@ namespace feature
     header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
 
     uint64_t builderSize = 0;
-    FeaturesVector(baseContainer, header).ForEachOffset([&builderSize](FeatureType const & /* type */, uint64_t)
+    FeaturesVector(baseContainer, header).ForEach([&builderSize](FeatureType const & /*ft*/, uint32_t /*ind*/)
     {
       ++builderSize;
     });
@@ -100,14 +100,11 @@ namespace feature
     FilesContainerR baseContainer(p.GetReader("minsk-pass" DATA_FILE_EXTENSION));
     const string indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
 
-    feature::DataHeader header;
-    header.Load(baseContainer.GetReader(HEADER_FILE_TAG));
-
     FeaturesOffsetsTable::Builder builder;
-    FeaturesVector(baseContainer, header).ForEachOffset([&builder](FeatureType const & /* type */, uint64_t offset)
-                           {
-                             builder.PushOffset(offset);
-                           });
+    FeaturesVector::ForEachOffset(baseContainer.GetReader(DATA_FILE_TAG), [&builder](uint64_t offset)
+    {
+      builder.PushOffset(offset);
+    });
 
     unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
     TEST(table.get(), ());
@@ -124,9 +121,9 @@ namespace feature
       // Just copy all sections except a possibly existing offsets
       // table section.
       baseContainer.ForEachTag([&baseContainer, &testContainer](string const & tag)
-                               {
-                                   testContainer.Write(baseContainer.GetReader(tag), tag);
-                               });
+      {
+        testContainer.Write(baseContainer.GetReader(tag), tag);
+      });
       table->Save(indexFile);
       testContainer.Finish();
     }

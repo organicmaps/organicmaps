@@ -24,13 +24,13 @@ namespace graphics
     struct UserInfo
     {
       MwmSet::MwmId m_mwmID;
-      uint32_t m_offset;
+      uint32_t m_fID;
 
-      UserInfo() : m_offset(0) {}
+      UserInfo() : m_fID(0) {}
       inline bool IsValid() const { return m_mwmID.IsAlive(); }
       inline bool operator== (UserInfo const & a) const
       {
-        return IsValid() && (a.m_mwmID == m_mwmID) && (a.m_offset == m_offset);
+        return IsValid() && (a.m_mwmID == m_mwmID) && (a.m_fID == m_fID);
       }
     };
 

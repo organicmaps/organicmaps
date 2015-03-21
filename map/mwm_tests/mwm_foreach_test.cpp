@@ -49,12 +49,12 @@ protected:
   void add(FeatureType const & f) const
   {
     TEST(f.GetID().IsValid(), ());
-    m_cont.push_back(f.GetID().m_offset);
+    m_cont.push_back(f.GetID().m_ind);
   }
 
-  void add(FeatureType const &, uint32_t offset) const
+  void add(FeatureType const &, uint32_t ind) const
   {
-    m_cont.push_back(offset);
+    m_cont.push_back(ind);
   }
 
 public:
@@ -167,10 +167,10 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f, uint64_t offset) const
+  void operator() (FeatureType const & f, uint32_t ind) const
   {
     if (is_drawable(f) && is_intersect(f))
-      add(f, offset);
+      add(f, ind);
   }
 };
 
@@ -228,20 +228,20 @@ bool compare_sequence(TCont const & etalon, TCont const & test, TCompare comp, s
 class FindOffset
 {
   int m_level;
-  uint32_t m_offset;
+  uint32_t m_index;
 
 public:
-  FindOffset(int level, uint32_t offset)
-    : m_level(level), m_offset(offset)
+  FindOffset(int level, uint32_t ind)
+    : m_level(level), m_index(ind)
   {}
 
-  void operator() (FeatureType const & f, uint64_t offset)
+  void operator() (FeatureType const & f, uint32_t ind)
   {
-    if (offset == m_offset)
+    if (ind == m_index)
     {
       TEST(IsDrawable(f, m_level), ());
 
-      LOG(LINFO, ("Feature offset:", offset));
+      LOG(LINFO, ("Feature index:", ind));
       LOG(LINFO, ("Feature:", f));
     }
   }

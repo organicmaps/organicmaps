@@ -93,10 +93,10 @@ IRoadGraph::RoadInfo & FeaturesRoadGraph::RoadInfoCache::Find(FeatureID const & 
 {
   auto itr = m_cache.find(featureId.m_mwmId);
   if (itr != m_cache.end())
-    return itr->second->Find(featureId.m_offset, found);
+    return itr->second->Find(featureId.m_ind, found);
 
   itr = m_cache.insert(make_pair(featureId.m_mwmId, make_unique<TMwmFeatureCache>(kPowOfTwoForFeatureCacheSize))).first;
-  return itr->second->Find(featureId.m_offset, found);
+  return itr->second->Find(featureId.m_ind, found);
 }
 
 void FeaturesRoadGraph::RoadInfoCache::Clear()
@@ -236,7 +236,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
   Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
-  loader.GetFeature(featureId.m_offset, ft);
+  loader.GetFeatureByIndex(featureId.m_ind, ft);
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

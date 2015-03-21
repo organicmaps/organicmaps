@@ -2,9 +2,11 @@
 
 #include "platform/platform.hpp"
 
-#include "base/logging.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
+
+#include "base/logging.hpp"
+
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -91,8 +93,8 @@ bool Index::FeaturesLoaderGuard::IsWorld() const
   return m_handle.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
 }
 
-void Index::FeaturesLoaderGuard::GetFeature(uint32_t offset, FeatureType & ft)
+void Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t ind, FeatureType & ft)
 {
-  m_vector.Get(offset, ft);
-  ft.SetID(FeatureID(m_handle.GetId(), offset));
+  m_vector.GetByIndex(ind, ft);
+  ft.SetID(FeatureID(m_handle.GetId(), ind));
 }

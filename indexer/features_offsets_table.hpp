@@ -100,8 +100,9 @@ namespace feature
 
   private:
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);
+    FeaturesOffsetsTable(string const & fileName);
 
-    FeaturesOffsetsTable(string const &);
+    static unique_ptr<FeaturesOffsetsTable> LoadImpl(string const & fileName);
 
     succinct::elias_fano m_table;
 

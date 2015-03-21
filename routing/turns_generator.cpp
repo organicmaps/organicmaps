@@ -113,8 +113,8 @@ public:
     static CarModel const carModel;
     if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
       return;
-    uint32_t const offset = ft.GetID().m_offset;
-    for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(offset))
+    uint32_t const featureId = ft.GetID().m_ind;
+    for (auto const n : m_routingMapping.m_segMapping.GetNodeIdByFid(featureId))
       n_nodeIds.push_back(n);
   }
 
@@ -138,9 +138,10 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
       GetSegment(outgoingNode, routingMapping, GetFirstSegmentPointIndex);
   if (!seg.IsValid())
     return ftypes::HighwayClass::Error;
+
   Index::FeaturesLoaderGuard loader(index, routingMapping.GetMwmId());
   FeatureType ft;
-  loader.GetFeature(seg.m_fid, ft);
+  loader.GetFeatureByIndex(seg.m_fid, ft);
   return ftypes::GetHighwayClass(ft);
 }
 
@@ -420,7 +421,7 @@ void GetPossibleTurns(Index const & index, NodeID node, m2::PointD const & ingoi
 
     FeatureType ft;
     Index::FeaturesLoaderGuard loader(index, routingMapping.GetMwmId());
-    loader.GetFeature(seg.m_fid, ft);
+    loader.GetFeatureByIndex(seg.m_fid, ft);
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     m2::PointD const outgoingPoint = ft.GetPoint(
@@ -482,7 +483,7 @@ vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingM
   {
     FeatureType ft1;
     Index::FeaturesLoaderGuard loader1(index, routingMapping.GetMwmId());
-    loader1.GetFeature(seg1.m_fid, ft1);
+    loader1.GetFeatureByIndex(seg1.m_fid, ft1);
 
     using feature::Metadata;
     ft1.ParseMetadata();
@@ -731,8 +732,8 @@ void GetTurnDirection(Index const & index, TurnInfo & turnInfo, TurnItem & turn)
   FeatureType ingoingFeature, outgoingFeature;
   Index::FeaturesLoaderGuard ingoingLoader(index, turnInfo.m_routeMapping.GetMwmId());
   Index::FeaturesLoaderGuard outgoingLoader(index, turnInfo.m_routeMapping.GetMwmId());
-  ingoingLoader.GetFeature(turnInfo.m_ingoingSegment.m_fid, ingoingFeature);
-  outgoingLoader.GetFeature(turnInfo.m_outgoingSegment.m_fid, outgoingFeature);
+  ingoingLoader.GetFeatureByIndex(turnInfo.m_ingoingSegment.m_fid, ingoingFeature);
+  outgoingLoader.GetFeatureByIndex(turnInfo.m_outgoingSegment.m_fid, outgoingFeature);
 
   ingoingFeature.ParseGeometry(FeatureType::BEST_GEOMETRY);
   outgoingFeature.ParseGeometry(FeatureType::BEST_GEOMETRY);

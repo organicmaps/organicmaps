@@ -260,11 +260,11 @@ void LoaderCurrent::ParseMetadata()
     DDVector<IdxElementT, FilesContainerR::ReaderT> idx(m_Info.GetMetadataIndexReader());
     
     auto it = lower_bound(idx.begin(), idx.end()
-                          , make_pair(uint32_t(m_pF->m_id.m_offset), uint32_t(0))
+                          , make_pair(uint32_t(m_pF->m_id.m_ind), uint32_t(0))
                           , [](IdxElementT const & v1, IdxElementT const & v2) { return v1.first < v2.first; }
                           );
 
-    if (it != idx.end() && m_pF->m_id.m_offset == it->first)
+    if (it != idx.end() && m_pF->m_id.m_ind == it->first)
     {
       ReaderSource<FilesContainerR::ReaderT> reader(m_Info.GetMetadataReader());
       reader.Skip(it->second);

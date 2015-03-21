@@ -242,7 +242,7 @@ void FeatureLoader::CreateLoader(MwmSet::MwmId const & mwmId)
 void FeatureLoader::Load(FeatureID const & id, FeatureType & f)
 {
   CreateLoader(id.m_mwmId);
-  m_pGuard->GetFeature(id.m_offset, f);
+  m_pGuard->GetFeatureByIndex(id.m_ind, f);
 }
 
 void FeatureLoader::Free()

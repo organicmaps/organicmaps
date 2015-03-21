@@ -67,7 +67,9 @@ namespace feature
     //@{
     void Save(FileWriter & w) const;
 
-    void Load(ModelReaderPtr const & r, version::Format format = version::unknownFormat);
+    /// Use lastFormat as a default value for indexes building.
+    /// Pass the valid format from wmw in all other cases.
+    void Load(ModelReaderPtr const & r, version::Format format = version::lastFormat);
     void LoadV1(ModelReaderPtr const & r);
     //@}
 

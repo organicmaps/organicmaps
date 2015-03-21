@@ -20,24 +20,24 @@ enum EGeomType
 struct FeatureID
 {
   MwmSet::MwmId m_mwmId;
-  uint32_t m_offset;
+  uint32_t m_ind;
 
-  FeatureID() : m_offset(0) {}
-  FeatureID(MwmSet::MwmId const & mwmId, uint32_t offset) : m_mwmId(mwmId), m_offset(offset) {}
+  FeatureID() : m_ind(0) {}
+  FeatureID(MwmSet::MwmId const & mwmId, uint32_t ind) : m_mwmId(mwmId), m_ind(ind) {}
 
   bool IsValid() const { return m_mwmId.IsAlive(); }
 
   inline bool operator<(FeatureID const & r) const
   {
     if (m_mwmId == r.m_mwmId)
-      return m_offset < r.m_offset;
+      return m_ind < r.m_ind;
     else
       return m_mwmId < r.m_mwmId;
   }
 
   inline bool operator==(FeatureID const & r) const
   {
-    return m_mwmId == r.m_mwmId && m_offset == r.m_offset;
+    return (m_mwmId == r.m_mwmId && m_ind == r.m_ind);
   }
 
   inline bool operator!=(FeatureID const & r) const { return !(*this == r); }

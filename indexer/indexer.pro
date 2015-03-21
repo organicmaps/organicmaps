@@ -101,6 +101,7 @@ HEADERS += \
     tesselator_decl.hpp \
     tree_structure.hpp \
     types_mapping.hpp \
+    unique_index.hpp \
 
 OTHER_FILES += drules_struct.proto
 

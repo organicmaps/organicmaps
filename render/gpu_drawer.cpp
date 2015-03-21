@@ -14,7 +14,7 @@ namespace
   graphics::OverlayElement::UserInfo ToUserInfo(FeatureID const & id)
   {
     graphics::OverlayElement::UserInfo info;
-    info.m_offset = id.m_offset;
+    info.m_fID = id.m_ind;
     info.m_mwmID = id.m_mwmId;
     return info;
   }

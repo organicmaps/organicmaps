@@ -23,6 +23,7 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+
 namespace covering
 {
 class CellFeaturePair
@@ -100,7 +101,7 @@ public:
   }
 
   template <class TFeature>
-  void operator() (TFeature const & f, uint32_t offset) const
+  void operator() (TFeature const & f, uint32_t ind) const
   {
     m_scalesIdx = 0;
     uint32_t minScaleClassif = feature::GetMinDrawableScaleClassifOnly(f);
@@ -113,14 +114,14 @@ public:
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(f, offset, bucket, bucket == minScaleClassif /* needReset */))
+      if (!FeatureShouldBeIndexed(f, bucket, bucket == minScaleClassif /* needReset */))
       {
         continue;
       }
 
       vector<int64_t> const cells = covering::CoverFeature(f, m_codingDepth, 250);
       for (int64_t cell : cells)
-        m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, offset), bucket));
+        m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, ind), bucket));
 
       m_featuresInBucket[bucket] += 1;
       m_cellsInBucket[bucket] += cells.size();
@@ -136,8 +137,7 @@ private:
   //   -- it is allowed by the classificator.
   // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t offset, uint32_t scale,
-                              bool needReset) const
+  bool FeatureShouldBeIndexed(TFeature const & f, uint32_t scale, bool needReset) const
   {
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
@@ -212,7 +212,7 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     TSorter sorter(1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2FEATURE_TMP_EXT, out);
     vector<uint32_t> featuresInBucket(bucketsCount);
     vector<uint32_t> cellsInBucket(bucketsCount);
-    featuresVector.ForEachOffset(
+    featuresVector.ForEach(
         FeatureCoverer<TSorter>(header, sorter, featuresInBucket, cellsInBucket));
     sorter.SortAndFinish();
 

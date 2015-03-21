@@ -15,7 +15,8 @@ enum Format
   v2,      // November 2011 (store type index, instead of raw type in mwm)
   v3,      // March 2013 (store type index, instead of raw type in search data)
   v4,      // April 2015 (distinguish и and й in search index)
-  lastFormat = v4
+  v5,      // July 2015 (feature id is the index in vector now).
+  lastFormat = v5
 };
 
 struct MwmVersion
