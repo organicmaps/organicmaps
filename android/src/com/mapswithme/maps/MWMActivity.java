@@ -75,6 +75,7 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -1318,6 +1319,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
+    AlohaHelper.logClick(AlohaHelper.PP_OPEN);
     setVerticalToolbarVisible(false);
     if (placePageIntersectsZoomButtons())
       mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
@@ -1333,42 +1335,55 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     switch (v.getId())
     {
-
     case R.id.btn_share:
+      AlohaHelper.logClick(AlohaHelper.MENU_SHARE);
       setVerticalToolbarVisible(false);
       shareMyLocation();
       break;
     case R.id.btn_settings:
+      AlohaHelper.logClick(AlohaHelper.MENU_SETTINGS);
       setVerticalToolbarVisible(false);
       startActivity(new Intent(this, SettingsActivity.class));
       break;
     case R.id.btn_download_maps:
+      AlohaHelper.logClick(AlohaHelper.MENU_DOWNLOADER);
       setVerticalToolbarVisible(false);
       showDownloader(false);
       break;
     case R.id.rl__route:
+      AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
       buildRoute();
       break;
     case R.id.iv__routing_close:
+      AlohaHelper.logClick(AlohaHelper.ROUTING_GO_CLOSE);
+      closeRouting();
+      break;
     case R.id.btn__close:
+      AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
       closeRouting();
       break;
     case R.id.rl__routing_go:
+      AlohaHelper.logClick(AlohaHelper.ROUTING_GO);
       followRoute();
       break;
     case R.id.map_button_plus:
+      AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
       mMapFragment.nativeScale(3.0 / 2);
       break;
     case R.id.map_button_minus:
+      AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
       mMapFragment.nativeScale(2 / 3.0);
       break;
     case R.id.btn__more:
+      AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
       setVerticalToolbarVisible(true);
       break;
     case R.id.btn__search:
+      AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
       showSearchIfUpdated();
       break;
     case R.id.btn__bookmarks:
+      AlohaHelper.logClick(AlohaHelper.TOOLBAR_BOOKMARKS);
       showBookmarks();
       break;
     case R.id.btn__myposition:

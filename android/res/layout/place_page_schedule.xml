@@ -9,6 +9,7 @@
     android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_small"
     android:paddingTop="@dimen/margin_small"
+    android:tag="schedule"
     android:visibility="gone">
 
   <ImageView

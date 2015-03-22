@@ -54,6 +54,7 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -606,9 +607,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       selectBookmarkColor();
       break;
     case R.id.rl__bookmark:
+      AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
       toggleIsBookmark();
       break;
     case R.id.rl__share:
+      AlohaHelper.logClick(AlohaHelper.PP_SHARE);
       ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
       break;
     case R.id.rl__api_back:
@@ -652,6 +655,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       selectBookmarkSet();
       break;
     case R.id.av__direction:
+      AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
       showBigDirection();
       break;
     case R.id.ll__place_email:
@@ -741,6 +745,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   @Override
   public boolean onLongClick(View v)
   {
+    final Object tag = v.getTag();
+    final String tagStr = tag == null ? "" : tag.toString();
+    AlohaHelper.logLongClick(tagStr);
+
     final PopupMenu popup = new PopupMenu(getContext(), v);
     final Menu menu = popup.getMenu();
     final List<String> items = new ArrayList<>();
@@ -784,6 +792,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
           final Context ctx = getContext();
           Utils.copyTextToClipboard(ctx, items.get(id));
           Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
+          AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
         }
         return true;
       }

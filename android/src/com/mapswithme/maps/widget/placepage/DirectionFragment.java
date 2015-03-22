@@ -17,6 +17,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.statistics.AlohaHelper;
 
 public class DirectionFragment extends DialogFragment implements LocationHelper.LocationListener
 {
@@ -46,6 +47,7 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
       public boolean onTouch(View v, MotionEvent event)
       {
         dismiss();
+        AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW_CLOSE);
         return false;
       }
     });

@@ -33,6 +33,7 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import ru.mail.mrgservice.MRGService;
@@ -305,26 +306,29 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     if (key.equals(getString(R.string.pref_rate_app)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_RATE);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_RATE);
       UiUtils.openAppInMarket(this, BuildConfig.REVIEW_URL);
     }
     else if (key.equals(getString(R.string.pref_contact)))
     {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.MAIL_INFO);
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_CONTACT_US);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_CONTACT_US);
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_INFO, "", ""));
       startActivity(intent);
     }
     else if (key.equals(getString(R.string.pref_subscribe)))
     {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.MAIL_SUBSCRIBE);
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_MAIL_SUBSCRIBE);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_MAIL_SUBSCRIBE);
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_SUBSCRIBE, getString(R.string.subscribe_me_subject), getString(R.string.subscribe_me_body)));
       startActivity(intent);
     }
     else if (key.equals(getString(R.string.pref_report_bug)))
     {
-      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.REPORT_BUG);
-
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_REPORT_BUG);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_REPORT_BUG);
       final Intent intent = new Intent(Intent.ACTION_SEND);
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       intent.putExtra(Intent.EXTRA_EMAIL, new String[]{BuildConfig.SUPPORT_MAIL});
@@ -337,26 +341,31 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     else if (key.equals(getString(R.string.pref_like_fb)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_FB);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_FB);
       UiUtils.showFacebookPage(this);
     }
     else if (key.equals(getString(R.string.pref_follow_twitter)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_TWITTER);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_TWITTER);
       UiUtils.showTwitterPage(this);
     }
     else if (key.equals(getString(R.string.pref_help)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_HELP);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_HELP);
       showWebViewDialogWithUrl(FAQ_HTML_URL, getString(R.string.help));
     }
     else if (key.equals(getString(R.string.pref_copyright)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_COPYRIGHT);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_COPYRIGHT);
       showWebViewDialogWithUrl(COPYRIGHT_HTML_URL, getString(R.string.copyright));
     }
     else if (key.equals(getString(R.string.pref_about)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_ABOUT);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_ABOUT);
       showDialogWithData(getString(R.string.about_text),
           String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
     }
@@ -386,6 +395,13 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         return true;
       }
     }
+    else if (key.equals(getString(R.string.pref_community)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_COMMUNITY);
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_COMMUNITY);
+    }
+    else if (key.equals(getString(R.string.pref_settings)))
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_CHANGE_SETTING);
 
     return false;
   }
@@ -395,7 +411,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   {
     final String key = preference.getKey();
     if (key.equals(getString(R.string.pref_munits)))
+    {
       UnitLocale.setUnits(Integer.parseInt((String) newValue));
+      AlohaHelper.logClick(AlohaHelper.SETTINGS_CHANGE_UNITS);
+    }
     else if (key.equals(getString(R.string.pref_allow_stat)))
       Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
     else if (key.equals(getString(R.string.pref_zoom_btns_enabled)))

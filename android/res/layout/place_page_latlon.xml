@@ -8,7 +8,8 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/margin_small"
-    android:paddingTop="@dimen/margin_small">
+    android:paddingTop="@dimen/margin_small"
+    android:tag="latlon">
 
   <ImageView
       android:id="@+id/iv__place_latlon"

@@ -31,8 +31,8 @@ public enum Statistics
   private final Logger mLogger = BuildConfig.DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
 
   // Statistics counters
-  private int mBookmarksCreated = 0;
-  private int mSharedTimes = 0;
+  private int mBookmarksCreated;
+  private int mSharedTimes;
 
   public static class EventName
   {
@@ -52,18 +52,22 @@ public enum Statistics
     public static final String WIFI_CONNECTED = "Wifi connected";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN = "Download country notification shown";
     public static final String DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED = "Download country notification clicked";
+    // settings
+    public static final String SETTINGS_CONTACT_US = "Send mail at info@maps.me";
+    public static final String SETTINGS_MAIL_SUBSCRIBE = "Settings. Subscribed";
+    public static final String SETTINGS_REPORT_BUG = "Settings. Bug reported";
     public static final String SETTINGS_RATE = "Settings. Rate app called";
-    public static final String MAIL_INFO = "Send mail at info@maps.me";
-    public static final String MAIL_SUBSCRIBE = "Settings. Subscribed";
-    public static final String REPORT_BUG = "Settings. Bug reported";
     public static final String SETTINGS_FB = "Settings. Go to FB.";
     public static final String SETTINGS_TWITTER = "Settings. Go to twitter.";
     public static final String SETTINGS_HELP = "Settings. Help.";
     public static final String SETTINGS_ABOUT = "Settings. About.";
     public static final String SETTINGS_COPYRIGHT = "Settings. Copyright.";
+    public static final String SETTINGS_COMMUNITY = "Settings. Community.";
+    public static final String SETTINGS_CHANGE_SETTING= "Settings. Change settings.";
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
+    //
     public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
     public static final String APP_ACTIVATED = "Application activated.";
     public static final String PLUS_DIALOG_LATER = "GPlus dialog cancelled.";
