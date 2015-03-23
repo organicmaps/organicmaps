@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -81,9 +82,17 @@ public class LeftFullPlacePageAnimationController extends BasePlacePageAnimation
     });
   }
 
+  @Override
+  public void setState(State state, MapObject.MapObjectType type)
+  {
+    if (state == State.PREVIEW && type == MapObject.MapObjectType.BOOKMARK)
+      state = State.BOOKMARK;
+
+    super.setState(state, type);
+  }
 
   @Override
-  void setState(State currentState, State newState)
+  void animateStateChange(State currentState, State newState)
   {
     switch (newState)
     {

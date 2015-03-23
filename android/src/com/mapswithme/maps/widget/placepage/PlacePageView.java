@@ -94,7 +94,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private BasePlacePageAnimationController mAnimationController;
   // Data
   private MapObject mMapObject;
-  private State mCurrentState = State.HIDDEN;
 
   private MapObject mBookmarkedMapObject;
   private boolean mIsLatLonDms;
@@ -231,20 +230,14 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
   public State getState()
   {
-    return mCurrentState;
+    return mAnimationController.getState();
   }
 
   public void setState(State state)
   {
     InputUtils.hideKeyboard(mEtBookmarkName);
-    if (mMapObject != null && mMapObject.getType() == MapObjectType.BOOKMARK && state == State.DETAILS)
-      state = State.BOOKMARK;
-
-    if (mCurrentState != state)
-    {
-      mAnimationController.setState(mCurrentState, state);
-      mCurrentState = state;
-    }
+    if (mMapObject != null)
+      mAnimationController.setState(state, mMapObject.getType());
   }
 
   public MapObject getMapObject()

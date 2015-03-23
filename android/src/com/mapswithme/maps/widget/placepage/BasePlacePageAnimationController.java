@@ -8,6 +8,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 
 /**
@@ -17,6 +18,8 @@ public abstract class BasePlacePageAnimationController
 {
   protected static final int SHORT_ANIM_DURATION = 200;
   protected static final int LONG_ANIM_DURATION = 400;
+
+  private State mState = State.HIDDEN;
 
   protected PlacePageView mPlacePage;
   protected ViewGroup mPreview;
@@ -73,7 +76,24 @@ public abstract class BasePlacePageAnimationController
     mTouchSlop = ViewConfiguration.get(mPlacePage.getContext()).getScaledTouchSlop();
   }
 
-  abstract void setState(State mCurrentState, State state);
+  public void setState(State state, MapObject.MapObjectType type)
+  {
+    State newState;
+    if (type == MapObject.MapObjectType.BOOKMARK && state == State.DETAILS)
+      newState = State.BOOKMARK;
+    else
+      newState = state;
+
+    animateStateChange(mState, newState);
+    mState = newState;
+  }
+
+  abstract void animateStateChange(State currentState, State newState);
+
+  public State getState()
+  {
+    return mState;
+  }
 
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
   {

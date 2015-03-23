@@ -108,7 +108,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   }
 
   @Override
-  void setState(State currentState, State newState)
+  void animateStateChange(State currentState, State newState)
   {
     switch (newState)
     {
