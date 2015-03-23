@@ -53,7 +53,7 @@ public class SearchController implements OnClickListener
       @Override
       public void onClick(View v)
       {
-        exitSearch();
+        exitSearchAndApi();
       }
     });
     mSearchBox = (ViewGroup) mSearchToolbar.findViewById(R.id.search_box);
@@ -97,7 +97,7 @@ public class SearchController implements OnClickListener
       UiUtils.hide(mSearchToolbar);
     }
     else if (R.id.search_image_clear == id)
-      exitSearch();
+      exitSearchAndApi();
     else
       throw new IllegalArgumentException("Unknown id");
   }
@@ -105,9 +105,7 @@ public class SearchController implements OnClickListener
   public void cancelApiCall()
   {
     if (ParsedMmwRequest.hasRequest())
-    {
       ParsedMmwRequest.setCurrentRequest(null);
-    }
     Framework.nativeClearApiPoints();
   }
 
@@ -121,16 +119,16 @@ public class SearchController implements OnClickListener
     return mQuery;
   }
 
-  public void cancel()
+  public void cancelSearch()
   {
     setQuery(null);
     Framework.cleanSearchLayerOnMap();
   }
 
-  private void exitSearch()
+  private void exitSearchAndApi()
   {
     cancelApiCall();
-    cancel();
+    cancelSearch();
     mSearchQueryTV.setText(null);
     UiUtils.hide(mSearchToolbar);
   }

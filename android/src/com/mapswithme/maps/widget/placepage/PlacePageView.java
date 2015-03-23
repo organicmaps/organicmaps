@@ -562,9 +562,16 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
       break;
     case R.id.rl__api_back:
-      if (ParsedMmwRequest.hasRequest() && ParsedMmwRequest.getCurrentRequest().isPickPointMode())
-        ParsedMmwRequest.getCurrentRequest().setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getName(), "");
-      ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
+      final Activity activity = (Activity) getContext();
+      if (ParsedMmwRequest.hasRequest())
+      {
+        final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
+        if (request.isPickPointMode())
+          request.setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getName(), "");
+        request.sendResponseAndFinish(activity, true);
+      }
+      else
+        activity.finish();
       break;
     case R.id.ll__place_latlon:
       mIsLatLonDms = !mIsLatLonDms;

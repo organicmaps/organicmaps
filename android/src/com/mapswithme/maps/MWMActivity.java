@@ -525,7 +525,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       setVerticalToolbarVisible(false);
       popFragment();
       hidePlacePage();
-      SearchController.getInstance().cancel();
+      SearchController.getInstance().cancelSearch();
 
       FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
       Fragment fragment = new DownloadFragment();

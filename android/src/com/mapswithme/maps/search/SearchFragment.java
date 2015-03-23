@@ -270,7 +270,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
   @Override
   public boolean onBackPressed()
   {
-    SearchController.getInstance().cancel();
+    SearchController.getInstance().cancelSearch();
     return false;
   }
 
@@ -380,7 +380,7 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
     case R.id.search_image_clear:
       mSearchEt.setText(null);
       SearchController.getInstance().cancelApiCall();
-      SearchController.getInstance().cancel();
+      SearchController.getInstance().cancelSearch();
       InputUtils.hideKeyboard(mSearchEt);
       break;
     case R.id.search_voice_input:
