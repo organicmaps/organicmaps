@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <include
+      android:id="@+id/rl__routing_box"
+      layout="@layout/map_routing_box"/>
+
+  <include
+      android:id="@+id/layout__turn_instructions"
+      layout="@layout/map_turn_instructions"
+      android:visibility="gone"/>
+
+</merge>

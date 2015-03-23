@@ -151,6 +151,14 @@
     <item name="android:background">@drawable/ic_bg_light</item>
   </style>
 
+  <style name="MwmPanelShadow">
+    <item name="android:paddingLeft">4dp</item>
+    <item name="android:paddingRight">4dp</item>
+    <item name="android:paddingBottom">5dp</item>
+    <item name="android:paddingTop">3dp</item>
+    <item name="android:background">@drawable/ic_bg_pp</item>
+  </style>
+
   <style name="MwmRatingBar" parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>

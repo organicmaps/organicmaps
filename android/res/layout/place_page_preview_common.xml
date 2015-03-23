@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="5"
+        android:maxLines="@integer/pp_title_lines"
         android:textColor="@color/text_place_page"
         android:textSize="@dimen/place_page_title"/>
 

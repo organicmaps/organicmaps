@@ -1320,9 +1320,16 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
     if (previewIntersectsBottomMenu())
       mBottomToolbar.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+    if (previewIntersectsZoomButtons())
+      mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
   }
 
   private boolean previewIntersectsBottomMenu()
+  {
+    return !(UiUtils.isBigTablet() || UiUtils.isSmallTablet());
+  }
+
+  private boolean previewIntersectsZoomButtons()
   {
     return !(UiUtils.isBigTablet() || (UiUtils.isSmallTablet() && getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE));
   }

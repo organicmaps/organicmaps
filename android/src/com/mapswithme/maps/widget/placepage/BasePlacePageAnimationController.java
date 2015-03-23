@@ -84,8 +84,11 @@ public abstract class BasePlacePageAnimationController
     else
       newState = state;
 
-    animateStateChange(mState, newState);
-    mState = newState;
+    if (newState != mState)
+    {
+      animateStateChange(mState, newState);
+      mState = newState;
+    }
   }
 
   abstract void animateStateChange(State currentState, State newState);
