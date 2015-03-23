@@ -36,8 +36,11 @@
 // or in application:willFinishLaunchingWithOptions:
 + (void)setup:(NSString *)serverUrl withLaunchOptions:(NSDictionary *)options;
 // Alternative to the previous setup method if you integrated Alohalytics after initial release
-// and don't want to count app upgrades as new installs (and definitely know that it's an already existing user).
-+ (void)setup:(NSString *)serverUrl andFirstLaunch:(BOOL)isFirstLaunch withLaunchOptions:(NSDictionary *)options;
+// and don't want to count app upgrades as new installs (and definitely know that it's an already existing
+// user).
++ (void)setup:(NSString *)serverUrl
+       andFirstLaunch:(BOOL)isFirstLaunch
+    withLaunchOptions:(NSDictionary *)options;
 + (void)forceUpload;
 + (void)logEvent:(NSString *)event;
 + (void)logEvent:(NSString *)event atLocation:(CLLocation *)location;

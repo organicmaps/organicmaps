@@ -270,7 +270,8 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   const static jfieldID contentEncodingField =
       env->GetFieldID(g_httpParamsClass, "contentEncoding", "Ljava/lang/String;");
   if (!content_encoding_.empty()) {
-    const auto jniContentEncoding = MakePointerScopeGuard(env->NewStringUTF(content_encoding_.c_str()), deleteLocalRef);
+    const auto jniContentEncoding =
+        MakePointerScopeGuard(env->NewStringUTF(content_encoding_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), contentEncodingField, jniContentEncoding.get());

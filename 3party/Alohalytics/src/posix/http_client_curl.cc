@@ -26,15 +26,15 @@
 
 #include <array>
 #include <fstream>
-#include <iostream>  // std::cerr
-#include <stdexcept> // std::runtime_error
-#include <stdio.h>  // popen
+#include <iostream>   // std::cerr
+#include <stdexcept>  // std::runtime_error
+#include <stdio.h>    // popen
 
 #ifdef _MSC_VER
 #define popen _popen
 #define pclose _pclose
 #else
-#include <unistd.h> // close
+#include <unistd.h>  // close
 #endif
 
 // Used as a test stub for basic HTTP client implementation.
@@ -84,13 +84,13 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
 
   ScopedTmpFileDeleter deleter;
   if (!post_body_.empty()) {
-    // POST body through tmp file to avoid breaking command line.
+// POST body through tmp file to avoid breaking command line.
 #ifdef _MSC_VER
     char tmp_file[L_tmpnam];
     ::tmpnam_s(tmp_file, L_tmpnam);
 #else
     char tmp_file[] = "/tmp/alohalyticstmp-XXXXXX";
-    int fd = ::mkstemp(tmp_file); // tmpnam is deprecated and insecure.
+    int fd = ::mkstemp(tmp_file);  // tmpnam is deprecated and insecure.
     if (fd < 0) {
       std::cerr << "Error: failed to create temporary file." << std::endl;
       return false;
@@ -113,7 +113,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     // TODO(AlexZ): Do not store data in memory if received_file_ was specified.
     server_response_ = RunCurl(cmd);
     error_code_ = -1;
-    std::string & s = server_response_;
+    std::string& s = server_response_;
     if (s.size() < kCurlHttpCodeSize) {
       return false;
     }
@@ -126,7 +126,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
       file.exceptions(std::ios::failbit | std::ios::badbit);
       file << server_response_;
     }
-  } catch (std::exception const & ex) {
+  } catch (std::exception const& ex) {
     std::cerr << "Exception " << ex.what() << std::endl;
     return false;
   }

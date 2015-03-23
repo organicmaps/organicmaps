@@ -87,7 +87,8 @@ class HTTPClientPlatformWrapper {
     return *this;
   }
   // This method is mutually exclusive with set_post_file().
-  HTTPClientPlatformWrapper& set_post_body(const std::string& post_body, const std::string& content_type,
+  HTTPClientPlatformWrapper& set_post_body(const std::string& post_body,
+                                           const std::string& content_type,
                                            const std::string& content_encoding = "") {
     post_body_ = post_body;
     content_type_ = content_type;
@@ -98,7 +99,8 @@ class HTTPClientPlatformWrapper {
   }
   // Move version to avoid string copying.
   // This method is mutually exclusive with set_post_file().
-  HTTPClientPlatformWrapper& set_post_body(std::string&& post_body, const std::string& content_type,
+  HTTPClientPlatformWrapper& set_post_body(std::string&& post_body,
+                                           const std::string& content_type,
                                            const std::string& content_encoding = "") {
     post_body_ = std::move(post_body);
     post_file_.clear();

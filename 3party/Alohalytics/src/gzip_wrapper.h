@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
-#include <cstring> // std::memset
+#include <cstring>  // std::memset
 #include <string>
 #include <vector>
 #include <zlib.h>
@@ -37,9 +37,7 @@ struct GzipErrorException : public std::exception {
   GzipErrorException(int err, const char* msg) {
     msg_ = std::string("ERROR ") + std::to_string(err) + " while gzipping with zlib. " + (msg ? msg : "");
   }
-  virtual char const* what() const noexcept {
-    return msg_.c_str();
-  }
+  virtual char const* what() const noexcept { return msg_.c_str(); }
 };
 
 // Throws GzipErrorException on any gzip processing error.
@@ -75,9 +73,7 @@ struct GunzipErrorException : public std::exception {
   GunzipErrorException(int err, const char* msg) {
     msg_ = std::string("ERROR ") + std::to_string(err) + " while gzipping with zlib. " + (msg ? msg : "");
   }
-  virtual char const* what() const noexcept {
-    return msg_.c_str();
-  }
+  virtual char const* what() const noexcept { return msg_.c_str(); }
 };
 
 // Throws GunzipErrorException on any gunzip processing error.
