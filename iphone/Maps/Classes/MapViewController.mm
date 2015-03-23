@@ -292,10 +292,10 @@
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
   CGFloat const scaleFactor = self.view.contentScaleFactor;
-  m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
+  m2::PointD const pxClicked(point.x * scaleFactor, point.y * scaleFactor);
 
   Framework & f = GetFramework();
-  f.GetBalloonManager().OnShowMark(f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick));
+  f.GetBalloonManager().OnShowMark(f.GetUserMark(pxClicked, isLongClick));
 }
 
 - (void)onSingleTap:(NSValueWrapper *)point
