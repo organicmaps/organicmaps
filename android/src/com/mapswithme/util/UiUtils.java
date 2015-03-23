@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -17,7 +16,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -350,6 +348,20 @@ public final class UiUtils
     new AlertDialog.Builder(activity)
         .setCancelable(false)
         .setMessage(titleId)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
+        })
+        .create()
+        .show();
+  }
+
+  public static void showAlertDialog(Activity activity, String title)
+  {
+    new AlertDialog.Builder(activity)
+        .setCancelable(false)
+        .setMessage(title)
         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override

@@ -290,7 +290,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
             }
 
             @Override
-            public void moveFilesFailed()
+            public void moveFilesFailed(int errorCode)
             {
               UiUtils.showAlertDialog(MWMActivity.this, R.string.kitkat_migrate_failed);
             }
@@ -316,7 +316,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
             }
 
             @Override
-            public void moveFilesFailed()
+            public void moveFilesFailed(int errorCode)
             {
               UiUtils.showAlertDialog(MWMActivity.this, R.string.move_lite_maps_to_pro_failed);
             }

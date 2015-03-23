@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.mapswithme.maps.base.BaseMwmListFragment;
+import com.mapswithme.util.UiUtils;
 
 public class StoragePathFragment extends BaseMwmListFragment implements StoragePathManager.SetStoragePathListener
 {
@@ -65,8 +66,8 @@ public class StoragePathFragment extends BaseMwmListFragment implements StorageP
   }
 
   @Override
-  public void moveFilesFailed()
+  public void moveFilesFailed(int errorCode)
   {
-    //
+    UiUtils.showAlertDialog(getActivity(), "Failed to move maps with internal error :" + errorCode + ". Please contact us at bugs@maps.me and send this error code.");
   }
 }

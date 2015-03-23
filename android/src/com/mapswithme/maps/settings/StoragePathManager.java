@@ -44,8 +44,14 @@ public class StoragePathManager
   {
     void moveFilesFinished(String newPath);
 
-    void moveFilesFailed();
+    void moveFilesFailed(int errorCode);
   }
+  public static final int NO_ERROR = 0;
+  public static final int UNKNOWN_LITE_PRO_ERROR = 1;
+  public static final int IOEXCEPTION_ERROR = 2;
+  public static final int NULL_ERROR = 4;
+  public static final int NOT_A_DIR_ERROR = 5;
+  public static final int UNKNOWN_KITKAT_ERROR = 6;
 
   private static String TAG = StoragePathManager.class.getName();
 
@@ -346,11 +352,11 @@ public class StoragePathManager
               }
 
               @Override
-              public void moveFilesFailed()
+              public void moveFilesFailed(int errorCode)
               {
                 updateExternalStorages();
                 if (mStorageListener != null)
-                  mStorageListener.moveFilesFailed();
+                  mStorageListener.moveFilesFailed(errorCode);
               }
             }, item, oldItem, R.string.wait_several_minutes);
 
@@ -400,7 +406,7 @@ public class StoragePathManager
       }
     }
 
-    listener.moveFilesFailed();
+    listener.moveFilesFailed(UNKNOWN_KITKAT_ERROR);
   }
 
   public void moveMapsLiteToPro(Context context, SetStoragePathListener listener)
@@ -428,7 +434,7 @@ public class StoragePathManager
       }
     }
 
-    listener.moveFilesFailed();
+    listener.moveFilesFailed(UNKNOWN_LITE_PRO_ERROR);
   }
 
   public boolean containsLiteMapsOnSdcard()
@@ -444,7 +450,7 @@ public class StoragePathManager
     task.execute("");
   }
 
-  private static boolean doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
+  private static int doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
   {
     final String fullNewPath = getItemFullPath(newStorage);
 
@@ -452,7 +458,7 @@ public class StoragePathManager
     if (oldStorage == null)
     {
       Log.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
-      return false;
+      return NULL_ERROR;
     }
 
     final String fullOldPath = getItemFullPath(oldStorage);
@@ -478,6 +484,7 @@ public class StoragePathManager
           if (pathname.getName().endsWith(postfix))
             return true;
         }
+        Log.w(TAG, "Move maps. Old files dir is empty: " + oldDir);
         return false;
       }
     });
@@ -486,7 +493,7 @@ public class StoragePathManager
     if (internalFiles == null)
     {
       Log.w(TAG, "Source path is not a directory: " + fullOldPath);
-      return false;
+      return NOT_A_DIR_ERROR;
     }
 
     try
@@ -498,9 +505,10 @@ public class StoragePathManager
       }
     } catch (IOException e)
     {
+      e.printStackTrace();
       for (File moveFile : internalFiles)
         new File(fullNewPath + moveFile.getName()).delete();
-      return false;
+      return IOEXCEPTION_ERROR;
     }
 
     Framework.nativeSetWritableDir(fullNewPath);
@@ -508,7 +516,7 @@ public class StoragePathManager
     for (File moveFile : internalFiles)
       moveFile.delete();
 
-    return true;
+    return NO_ERROR;
   }
 
   private static void copyFile(File source, File dest) throws IOException
@@ -527,7 +535,7 @@ public class StoragePathManager
     }
   }
 
-  private class MoveFilesTask extends AsyncTask<String, Void, Boolean>
+  private class MoveFilesTask extends AsyncTask<String, Void, Integer>
   {
     private final ProgressDialog mDlg;
     private final StoragePathAdapter.StorageItem mNewStorage;
@@ -555,13 +563,13 @@ public class StoragePathManager
     }
 
     @Override
-    protected Boolean doInBackground(String... params)
+    protected Integer doInBackground(String... params)
     {
       return doMoveMaps(mNewStorage, mOldStorage);
     }
 
     @Override
-    protected void onPostExecute(Boolean result)
+    protected void onPostExecute(Integer result)
     {
       // Using dummy try-catch because of the following:
       // http://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager
@@ -573,10 +581,10 @@ public class StoragePathManager
         e.printStackTrace();
       }
 
-      if (result)
+      if (result == NO_ERROR)
         mListener.moveFilesFinished(mNewStorage.mPath);
       else
-        mListener.moveFilesFailed();
+        mListener.moveFilesFailed(result);
 
       updateExternalStorages();
     }
