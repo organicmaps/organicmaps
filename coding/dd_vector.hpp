@@ -1,11 +1,8 @@
 #pragma once
 #include "reader.hpp"
-#include "varint.hpp"
 
 #include "../base/assert.hpp"
-#include "../base/base.hpp"
 #include "../base/exception.hpp"
-#include "../base/src_point.hpp"
 
 #include "../std/type_traits.hpp"
 #include "../std/iterator_facade.hpp"
@@ -14,14 +11,13 @@
 template <
     typename T,
     class TReader,
-    typename TSize = uint32_t,
-    typename TDifference = ptrdiff_t
+    typename TSize = uint32_t
     > class DDVector
 {
 public:
   typedef T value_type;
   typedef TSize size_type;
-  typedef TDifference difference_type;
+  typedef typename make_signed<size_type>::type difference_type;
   typedef TReader ReaderType;
 
   DECLARE_EXCEPTION(OpenException, RootException);
@@ -63,6 +59,7 @@ public:
     const_iterator(ReaderType const * pReader, size_type i, size_type size)
       : m_pReader(pReader), m_I(i), m_bValueRead(false), m_Size(size)
     {
+      ASSERT(static_cast<difference_type>(m_Size) >= 0, ());
     }
 #else
     const_iterator(ReaderType const * pReader, size_type i)
@@ -96,7 +93,8 @@ public:
       ASSERT_LESS_OR_EQUAL(it.m_I, it.m_Size, (it.m_bValueRead));
       ASSERT_EQUAL(m_Size, it.m_Size, (m_I, it.m_I, m_bValueRead, it.m_bValueRead));
       ASSERT(m_pReader == it.m_pReader, (m_I, m_Size, it.m_I, it.m_Size));
-      return it.m_I - m_I;
+      return (static_cast<difference_type>(it.m_I) -
+              static_cast<difference_type>(m_I));
     }
 
     void increment()
