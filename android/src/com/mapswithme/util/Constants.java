@@ -33,8 +33,6 @@ public class Constants
     public static final String MAIL_MAPSME_RATING = "rating@maps.me";
 
     public static final String DATA_SCHEME_FILE = "file";
-    public static final String FEATURES_JSON = "http://application.server/android/features.json";
-    public static final String FEATURES_JSON_TEST = "http://application.server/android/test.json";
 
     private Url() {}
   }

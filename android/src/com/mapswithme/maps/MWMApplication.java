@@ -252,7 +252,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       updateLaunchNumbers();
       updateSessionsNumber();
       initMrgs();
-      WorkerService.startActionUpdateAds(this);
       PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
       org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);

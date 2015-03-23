@@ -7,10 +7,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
-import com.mapswithme.maps.ads.AdsManager;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
@@ -25,7 +23,6 @@ public class WorkerService extends IntentService
 {
   public static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
   public static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
-  public static final String ACTION_UPDATE_MENU_ADS = "com.mapswithme.maps.action.ads.update";
 
   /**
    * Starts this service to perform check update action with the given parameters. If the
@@ -53,16 +50,6 @@ public class WorkerService extends IntentService
     context.startService(intent);
   }
 
-  /**
-   * Starts this service to perform advertisements update for bottom menu.
-   */
-  public static void startActionUpdateAds(Context context)
-  {
-    final Intent intent = new Intent(context, WorkerService.class);
-    intent.setAction(WorkerService.ACTION_UPDATE_MENU_ADS);
-    context.startService(intent);
-  }
-
   public WorkerService()
   {
     super("WorkerService");
@@ -82,9 +69,6 @@ public class WorkerService extends IntentService
         break;
       case ACTION_DOWNLOAD_COUNTRY:
         handleActionCheckLocation();
-        break;
-      case ACTION_UPDATE_MENU_ADS:
-        updateMenuAds();
         break;
       }
     }
@@ -169,12 +153,4 @@ public class WorkerService extends IntentService
       }
     }
   }
-
-  private void updateMenuAds()
-  {
-    AdsManager.updateFeatures();
-    final Intent broadcast = new Intent(ACTION_UPDATE_MENU_ADS);
-    LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
-  }
-
 }
