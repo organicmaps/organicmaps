@@ -38,12 +38,19 @@ namespace alohalytics {
 
 typedef std::map<std::string, std::string> TStringMap;
 
+struct MQMessage {
+  std::string message;
+  MQMessage(std::string&& msg) : message(msg) {}
+  bool force_upload;
+  explicit MQMessage(bool force_upload = false) : force_upload(force_upload) {}
+};
+
 class Stats final {
   std::string upload_url_;
   // Stores already serialized and ready-to-append event with unique client id.
   // NOTE: Statistics will not be uploaded if unique client id was not set.
   std::string unique_client_id_event_;
-  MessageQueue<Stats> message_queue_;
+  MessageQueue<Stats, MQMessage> message_queue_;
   typedef fsq::FSQ<fsq::Config<Stats>> TFileStorageQueue;
   // TODO(AlexZ): Refactor storage queue so it can store messages in memory if no file directory was set.
   std::unique_ptr<TFileStorageQueue> file_storage_queue_;
@@ -61,7 +68,7 @@ class Stats final {
  public:
   // Processes messages passed from UI in message queue's own thread.
   // TODO(AlexZ): Refactor message queue to make this method private.
-  void OnMessage(const std::string& message, size_t dropped_events);
+  void OnMessage(const MQMessage& message, size_t dropped_events);
 
   // Called by file storage engine to upload file with collected data.
   // Should return true if upload has been successful.
