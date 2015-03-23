@@ -6,7 +6,6 @@
 
 #include "../search/result.hpp"
 
-#include "../std/noncopyable.hpp"
 #include "../std/string.hpp"
 #include "../std/unique_ptr.hpp"
 
@@ -21,8 +20,11 @@ namespace graphics
 
 class UserMarkCopy;
 
-class UserMark : private noncopyable
+class UserMark
 {
+  UserMark(UserMark const &) = delete;
+  UserMark& operator=(UserMark const &) = delete;
+
 public:
   enum class Type
   {
@@ -33,12 +35,20 @@ public:
     MY_POSITION
   };
 
-  UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
-  virtual ~UserMark();
+  UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
+    : m_ptOrg(ptOrg), m_container(container)
+  {
+  }
 
-  UserMarkContainer const * GetContainer() const;
-  m2::PointD const & GetOrg() const;
-  void GetLatLon(double & lat, double & lon) const;
+  virtual ~UserMark() {}
+
+  UserMarkContainer const * GetContainer() const { return m_container; }
+  m2::PointD const & GetOrg() const { return m_ptOrg; }
+  void GetLatLon(double & lat, double & lon) const
+  {
+    lon = MercatorBounds::XToLon(m_ptOrg.x);
+    lat = MercatorBounds::YToLat(m_ptOrg.y);
+  }
   virtual bool IsCustomDrawable() const { return false;}
   virtual Type GetMarkType() const = 0;
   virtual unique_ptr<UserMarkCopy> Copy() const = 0;
@@ -97,7 +107,7 @@ public:
   {
   }
 
-  UserMark::Type GetMarkType() const { return UserMark::Type::API; }
+  UserMark::Type GetMarkType() const override { return UserMark::Type::API; }
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
@@ -139,7 +149,7 @@ public:
   {
   }
 
-  UserMark::Type GetMarkType() const { return UserMark::Type::SEARCH; }
+  UserMark::Type GetMarkType() const override { return UserMark::Type::SEARCH; }
 
   search::AddressInfo const & GetInfo() const { return m_info; }
   void SetInfo(search::AddressInfo const & info) { m_info = info; }
@@ -173,7 +183,7 @@ public:
   PoiMarkPoint(UserMarkContainer * container)
     : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
 
-  UserMark::Type GetMarkType() const { return UserMark::Type::POI; }
+  UserMark::Type GetMarkType() const override { return UserMark::Type::POI; }
   unique_ptr<UserMarkCopy> Copy() const override
   {
     return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
@@ -190,12 +200,10 @@ public:
 
 class MyPositionMarkPoint : public PoiMarkPoint
 {
-  typedef PoiMarkPoint base_t;
 public:
-  MyPositionMarkPoint(UserMarkContainer * container)
-    : base_t(container) {}
+  MyPositionMarkPoint(UserMarkContainer * container) : PoiMarkPoint(container) {}
 
-  UserMark::Type GetMarkType() const { return UserMark::Type::MY_POSITION; }
+  UserMark::Type GetMarkType() const override { return UserMark::Type::MY_POSITION; }
   virtual void FillLogEvent(TEventContainer & details) const override
   {
     PoiMarkPoint::FillLogEvent(details);

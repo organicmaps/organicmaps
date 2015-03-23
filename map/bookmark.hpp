@@ -89,7 +89,7 @@ public:
   void SetData(BookmarkData const & data) { m_data = data; }
   BookmarkData const & GetData() const { return m_data; }
 
-  virtual Type GetMarkType() const { return UserMark::Type::BOOKMARK; }
+  virtual Type GetMarkType() const override { return UserMark::Type::BOOKMARK; }
   virtual void FillLogEvent(TEventContainer & details) const override;
 
   string const & GetName() const { return m_data.GetName(); }

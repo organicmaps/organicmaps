@@ -117,7 +117,6 @@ SOURCES += \
     track.cpp \
     alfa_animation_task.cpp \
     user_mark_container.cpp \
-    user_mark.cpp \
     user_mark_dl_cache.cpp \
     anim_phase_chain.cpp \
     pin_click_manager.cpp \
