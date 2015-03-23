@@ -245,7 +245,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       cell = [[PlacePageShareCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageShareCell className]];
 
     cell.delegate = self;
-    if ([self isMarkOfType:UserMark::API])
+    if ([self isMarkOfType:UserMark::Type::API])
       cell.apiAppTitle = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
     else
       cell.apiAppTitle = nil;
@@ -842,12 +842,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (BOOL)isMyPosition
 {
-  return [self isMarkOfType:UserMark::MY_POSITION];
+  return [self isMarkOfType:UserMark::Type::MY_POSITION];
 }
 
 - (BOOL)isBookmark
 {
-  return [self isMarkOfType:UserMark::BOOKMARK];
+  return [self isMarkOfType:UserMark::Type::BOOKMARK];
 }
 
 - (m2::PointD)pinPoint
@@ -893,7 +893,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
       _title = [self nonEmptyTitle:bookmark->GetName()];
     }
-    else if ([self isMarkOfType:UserMark::API])
+    else if ([self isMarkOfType:UserMark::Type::API])
     {
       ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>([self userMark]);
       _title = [self nonEmptyTitle:apiMark->GetName()];
@@ -1001,7 +1001,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (needUpdateAddressInfo)
   {
     needUpdateAddressInfo = NO;
-    if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH] || [self isMyPosition])
+    if ([self isMarkOfType:UserMark::Type::POI] || [self isMarkOfType:UserMark::Type::SEARCH] || [self isMyPosition])
     {
       SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
       m_addressInfo = mark->GetInfo();

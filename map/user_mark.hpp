@@ -24,7 +24,7 @@ class UserMarkCopy;
 class UserMark : private noncopyable
 {
 public:
-  enum Type
+  enum class Type
   {
     API,
     SEARCH,
@@ -88,7 +88,7 @@ public:
   {
   }
 
-  UserMark::Type GetMarkType() const { return API; }
+  UserMark::Type GetMarkType() const { return UserMark::Type::API; }
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
@@ -123,7 +123,7 @@ public:
   {
   }
 
-  UserMark::Type GetMarkType() const { return SEARCH; }
+  UserMark::Type GetMarkType() const { return UserMark::Type::SEARCH; }
 
   search::AddressInfo const & GetInfo() const { return m_info; }
   void SetInfo(search::AddressInfo const & info) { m_info = info; }
@@ -148,7 +148,7 @@ public:
   PoiMarkPoint(UserMarkContainer * container)
     : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
 
-  UserMark::Type GetMarkType() const { return POI; }
+  UserMark::Type GetMarkType() const { return UserMark::Type::POI; }
   unique_ptr<UserMarkCopy> Copy() const override
   {
     return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
@@ -165,7 +165,7 @@ public:
   MyPositionMarkPoint(UserMarkContainer * container)
     : base_t(container) {}
 
-  UserMark::Type GetMarkType() const { return MY_POSITION; }
+  UserMark::Type GetMarkType() const { return UserMark::Type::MY_POSITION; }
 };
 
 class ICustomDrawable : public UserMark

@@ -89,7 +89,7 @@ public:
   void SetData(BookmarkData const & data) { m_data = data; }
   BookmarkData const & GetData() const { return m_data; }
 
-  virtual Type GetMarkType() const { return BOOKMARK; }
+  virtual Type GetMarkType() const { return UserMark::Type::BOOKMARK; }
 
   string const & GetName() const { return m_data.GetName(); }
   void SetName(string const & name) { m_data.SetName(name); }

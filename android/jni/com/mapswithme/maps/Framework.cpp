@@ -926,7 +926,7 @@ extern "C"
 
     switch (mark->GetMarkType())
     {
-    case UserMark::API:
+    case UserMark::Type::API:
       {
         double lat, lon;
         mark->GetLatLon(lat, lon);
@@ -934,7 +934,7 @@ extern "C"
         break;
       }
 
-    case UserMark::BOOKMARK:
+    case UserMark::Type::BOOKMARK:
       {
         BookmarkAndCategory bmAndCat = fm->FindBookmark(mark);
         if (IsValid(bmAndCat))
@@ -942,14 +942,14 @@ extern "C"
         break;
       }
 
-    case UserMark::POI:
+    case UserMark::Type::POI:
       {
         PoiMarkPoint const * poiMark = CastMark<PoiMarkPoint>(mark);
         CallOnPoiActivatedListener(obj, mark->GetOrg(), poiMark->GetInfo(), poiMark->GetMetadata());
         break;
       }
 
-    case UserMark::SEARCH:
+    case UserMark::Type::SEARCH:
       {
         SearchMarkPoint const * searchMark = CastMark<SearchMarkPoint>(mark);
         feature::FeatureMetadata metadata;
@@ -958,7 +958,7 @@ extern "C"
         break;
       }
 
-    case UserMark::MY_POSITION:
+    case UserMark::Type::MY_POSITION:
       {
         double lat, lon;
         mark->GetLatLon(lat, lon);
