@@ -3,8 +3,8 @@
 #include "drape/font_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_of_colors.hpp"
-
 #include "drape/glfunctions.hpp"
+#include "drape/utils/glyph_usage_tracker.hpp"
 
 #include "platform/platform.hpp"
 
@@ -140,7 +140,9 @@ size_t TextureManager::FindCharGroup(strings::UniChar const & c)
   {
     return g.m_endChar < c;
   });
-  ASSERT(iter != m_glyphGroups.end(), ());
+  if (iter == m_glyphGroups.end())
+    return INVALID_GLYPH_GROUP;
+
   return distance(m_glyphGroups.begin(), iter);
 }
 
@@ -162,10 +164,22 @@ void TextureManager::FillResultBuffer(strings::UniString const & text, GlyphGrou
 bool TextureManager::CheckCharGroup(strings::UniChar const & c, size_t & groupIndex)
 {
   size_t currentIndex = FindCharGroup(c);
+  if (currentIndex == INVALID_GLYPH_GROUP)
+  {
+#if defined(TRACK_GLYPH_USAGE)
+    GlyphUsageTracker::Instance().AddInvalidGlyph(c);
+#endif
+    groupIndex = INVALID_GLYPH_GROUP;
+    return false;
+  }
+
   if (groupIndex == INVALID_GLYPH_GROUP)
     groupIndex = currentIndex;
   else if (groupIndex != currentIndex)
   {
+#if defined(TRACK_GLYPH_USAGE)
+    GlyphUsageTracker::Instance().AddUnexpectedGlyph(c, currentIndex, groupIndex);
+#endif
     groupIndex = INVALID_GLYPH_GROUP;
     return false;
   }

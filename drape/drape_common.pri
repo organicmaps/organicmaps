@@ -39,6 +39,7 @@ SOURCES += \
     $$DRAPE_DIR/texture_of_colors.cpp \
     $$DRAPE_DIR/uniform_value.cpp \
     $$DRAPE_DIR/uniform_values_storage.cpp \
+    $$DRAPE_DIR/utils/glyph_usage_tracker.cpp \
     $$DRAPE_DIR/utils/gpu_mem_tracker.cpp \
     $$DRAPE_DIR/utils/projection.cpp \
     $$DRAPE_DIR/utils/vertex_decl.cpp \
@@ -91,6 +92,7 @@ HEADERS += \
     $$DRAPE_DIR/texture_of_colors.hpp \
     $$DRAPE_DIR/uniform_value.hpp \
     $$DRAPE_DIR/uniform_values_storage.hpp \
+    $$DRAPE_DIR/utils/glyph_usage_tracker.hpp \
     $$DRAPE_DIR/utils/gpu_mem_tracker.hpp \
     $$DRAPE_DIR/utils/projection.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \

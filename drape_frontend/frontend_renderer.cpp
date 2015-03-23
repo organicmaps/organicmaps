@@ -3,6 +3,7 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
 
@@ -84,6 +85,10 @@ void FrontendRenderer::AfterDrawFrame()
 #if defined(TRACK_GPU_MEM)
     string report = dp::GPUMemTracker::Inst().Report();
     LOG(LINFO, (report));
+#endif
+#if defined(TRACK_GLYPH_USAGE)
+    string glyphReport = dp::GlyphUsageTracker::Instance().Report();
+    LOG(LINFO, (glyphReport));
 #endif
   }
 }
