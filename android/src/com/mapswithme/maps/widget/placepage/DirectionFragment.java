@@ -20,6 +20,8 @@ import com.mapswithme.util.LocationUtils;
 
 public class DirectionFragment extends DialogFragment implements LocationHelper.LocationListener
 {
+  private static final String EXTRA_MAP_OBJECT = "MapObject";
+
   private ArrowView mAvDirection;
   private TextView mTvTitle;
   private TextView mTvSubtitle;
@@ -32,12 +34,6 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
   {
     super.onCreate(savedInstanceState);
     setStyle(DialogFragment.STYLE_NORMAL, R.style.MwmMain_Dialog_DialogFragment_Fullscreen);
-  }
-
-  @Override
-  public void onSaveInstanceState(Bundle outState)
-  {
-    super.onSaveInstanceState(outState);
   }
 
   @Override
@@ -54,7 +50,17 @@ public class DirectionFragment extends DialogFragment implements LocationHelper.
       }
     });
     initViews(root);
+    if (savedInstanceState != null)
+      setMapObject(savedInstanceState.<MapObject>getParcelable(EXTRA_MAP_OBJECT));
+
     return root;
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    outState.putParcelable(EXTRA_MAP_OBJECT, mMapObject);
+    super.onSaveInstanceState(outState);
   }
 
   private void initViews(View root)
