@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -248,7 +250,12 @@ public class Utils
       writer.write("Android version: " + Build.VERSION.SDK_INT + "\n");
       writer.write("Device: " + getDeviceModel() + "\n");
       writer.write("App version: " + BuildConfig.APPLICATION_ID + " " + BuildConfig.VERSION_NAME + "\n");
-      writer.write("Locale : " + Locale.getDefault() + "\n\n");
+      writer.write("Locale : " + Locale.getDefault());
+      writer.write("\nNetworks : ");
+      final ConnectivityManager manager = (ConnectivityManager) MWMApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+      for (NetworkInfo info : manager.getAllNetworkInfo())
+        writer.write(info.toString());
+      writer.write("\n\n");
 
       String cmd = "logcat -d -v time";
       Process process = Runtime.getRuntime().exec(cmd);

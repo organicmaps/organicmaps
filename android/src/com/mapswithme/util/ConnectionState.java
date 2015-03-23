@@ -8,49 +8,25 @@ import com.mapswithme.maps.MWMApplication;
 
 public class ConnectionState
 {
-  public static final int NOT_CONNECTED = 0;
-  public static final int CONNECTED_BY_3G = 1;
-  public static final int CONNECTED_BY_WIFI = 2;
-  public static final int CONNECTED_BY_WIFI_AND_3G = CONNECTED_BY_3G & CONNECTED_BY_WIFI;
-  private static final String TYPE_WIFI = "WIFI";
-  private static final String TYPE_MOBILE = "MOBILE";
-
-  private static int getState()
+  private static boolean isNetworkConnected(int networkType)
   {
-    boolean isWifiConnected = false;
-    boolean isMobileConnected = false;
-
-    ConnectivityManager cm = (ConnectivityManager) MWMApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-    for (NetworkInfo ni : netInfo)
-    {
-      if (ni.getTypeName().equalsIgnoreCase(TYPE_WIFI) && ni.isConnected())
-          isWifiConnected = true;
-      if (ni.getTypeName().equalsIgnoreCase(TYPE_MOBILE) && ni.isConnected())
-          isMobileConnected = true;
-    }
-    if (isWifiConnected && isMobileConnected)
-      return CONNECTED_BY_WIFI_AND_3G;
-    else if (isMobileConnected)
-      return CONNECTED_BY_3G;
-    else if (isWifiConnected)
-      return CONNECTED_BY_WIFI;
-
-    return NOT_CONNECTED;
+    final ConnectivityManager manager = (ConnectivityManager) MWMApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+    final NetworkInfo info = manager.getActiveNetworkInfo();
+    return info != null && info.getType() == networkType && info.isConnected();
   }
 
-  public static boolean is3GConnected()
+  public static boolean is3gConnected()
   {
-    return (getState() & CONNECTED_BY_3G) == CONNECTED_BY_3G;
+    return isNetworkConnected(ConnectivityManager.TYPE_MOBILE);
   }
 
   public static boolean isWifiConnected()
   {
-    return (getState() & CONNECTED_BY_WIFI) == CONNECTED_BY_WIFI;
+    return isNetworkConnected(ConnectivityManager.TYPE_WIFI);
   }
 
   public static boolean isConnected()
   {
-    return getState() != NOT_CONNECTED;
+    return isNetworkConnected(ConnectivityManager.TYPE_WIFI) || isNetworkConnected(ConnectivityManager.TYPE_MOBILE);
   }
 }
