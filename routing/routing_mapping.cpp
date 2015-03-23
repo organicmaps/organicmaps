@@ -14,10 +14,13 @@
 
 namespace routing
 {
-
 RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
-  : m_mapCounter(0), m_facadeCounter(0), m_crossContextLoaded(0), m_baseName(fName),
-    m_isValid(true), m_error(IRouter::ResultCode::NoError)
+    : m_mapCounter(0),
+      m_facadeCounter(0),
+      m_crossContextLoaded(0),
+      m_baseName(fName),
+      m_isValid(true),
+      m_error(IRouter::ResultCode::NoError)
 {
   Platform & pl = GetPlatform();
   string const mwmName = m_baseName + DATA_FILE_EXTENSION;

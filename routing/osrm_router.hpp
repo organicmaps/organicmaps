@@ -74,7 +74,7 @@ public:
   RoutingMappingPtrT GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
 
   RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
-  
+
   template <class TFunctor>
   void ForEachMapping(TFunctor toDo)
   {
@@ -141,7 +141,8 @@ public:
    * \param isStartNode true if this node will first in the path
    * \param taskNode output point task for router
    */
-  static void GenerateRoutingTaskFromNodeId(const NodeID nodeId, bool const isStartNode, FeatureGraphNode & taskNode);
+  static void GenerateRoutingTaskFromNodeId(const NodeID nodeId, bool const isStartNode,
+                                            FeatureGraphNode & taskNode);
 
   void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 

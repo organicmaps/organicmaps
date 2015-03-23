@@ -21,7 +21,6 @@
 
 namespace routing
 {
-
 TOsrmNodeId const INVALID_NODE_ID = numeric_limits<TOsrmNodeId>::max();
 
 OsrmMappingTypes::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
@@ -368,7 +367,8 @@ bool OsrmFtSegBackwardIndex::Load(string const & nodesFileName, string const & b
   return true;
 }
 
-void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_t maxNodeId, FilesMappingContainer & routingFile)
+void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_t maxNodeId,
+                                       FilesMappingContainer & routingFile)
 {
   Clear();
 
@@ -403,7 +403,7 @@ void OsrmFtSegBackwardIndex::Construct(OsrmFtSegMapping & mapping, const uint32_
     {
       OsrmMappingTypes::FtSeg seg;
       mapping.GetSegmentByIndex(indexes.first, seg);
-      temporaryBackwardIndex[seg.m_fid].push_back(i);;
+      temporaryBackwardIndex[seg.m_fid].push_back(i);
     }
   }
 

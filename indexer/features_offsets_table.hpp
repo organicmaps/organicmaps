@@ -30,10 +30,7 @@ namespace feature
       void PushOffset(uint32_t offset);
 
       /// \return number of already accumulated offsets
-      inline size_t size() const
-      {
-        return m_offsets.size();
-      }
+      inline size_t size() const { return m_offsets.size(); }
 
     private:
       friend class FeaturesOffsetsTable;
@@ -90,18 +87,12 @@ namespace feature
     size_t GetFeatureIndexbyOffset(uint32_t offset) const;
 
     /// \return number of features offsets in a table.
-    inline size_t size() const
-    {
-      return static_cast<size_t>(m_table.num_ones());
-    }
+    inline size_t size() const { return static_cast<size_t>(m_table.num_ones()); }
 
     /// \return byte size of a table, may be slightly different from a
     ///         real byte size in memory or on disk due to alignment, but
     ///         can be used in benchmarks, logging, etc.
-    inline size_t byte_size()
-    {
-      return succinct::mapper::size_of(m_table);
-    }
+    inline size_t byte_size() { return succinct::mapper::size_of(m_table); }
 
   private:
     FeaturesOffsetsTable(succinct::elias_fano::elias_fano_builder & builder);

@@ -314,7 +314,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
     auto out = crossContext.GetOutgoingIterators();
     MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
     size_t index = 0;
-    // Fill sources and targets with forward search task for ingoing (true) and backward search task (false) for outgoing nodes
+    // Fill sources and targets with start node task for ingoing (true) and target node task
+    // (false) for outgoing nodes
     for (auto i = in.first; i != in.second; ++i, ++index)
     {
       OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, true, sources[index]);

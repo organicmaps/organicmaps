@@ -35,7 +35,7 @@ namespace OsrmMappingTypes {
     uint16_t m_pointStart;
     uint16_t m_pointEnd;
 
-    static const uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
+    static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
 
     // No need to initialize something her (for vector<FtSeg>).
     FtSeg() {}
@@ -109,7 +109,8 @@ class OsrmFtSegBackwardIndex
   bool Load(string const & nodesFileName, string const & bitsFileName);
 
 public:
-  void Construct(OsrmFtSegMapping & mapping, uint32_t const maxNodeId, FilesMappingContainer & routingFile);
+  void Construct(OsrmFtSegMapping & mapping, uint32_t const maxNodeId,
+                 FilesMappingContainer & routingFile);
 
   TNodesList const &  GetNodeIdByFid(uint32_t const fid) const;
 
