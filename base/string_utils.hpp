@@ -191,11 +191,9 @@ inline string to_string(char const * s)
   return s;
 }
 
-template <typename T> string to_string(T t)
+template <typename T> inline string to_string(T t)
 {
-  ostringstream ss;
-  ss << t;
-  return ss.str();
+  return std::to_string(t);
 }
 
 namespace impl
