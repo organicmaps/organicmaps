@@ -458,6 +458,7 @@ public:
   shared_ptr<location::State> const & GetLocationState() const;
   void ActivateUserMark(UserMark const * mark, bool needAnim = true);
   bool HasActiveUserMark() const;
+  UserMark const * GetUserMarkWithoutLogging(m2::PointD const & pxPoint, bool isLongPress);
   UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress);
   PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;

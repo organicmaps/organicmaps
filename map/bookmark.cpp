@@ -53,6 +53,13 @@ shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
   return CreateDefaultPinAnim(fm, m_animScaleFactor);
 }
 
+void Bookmark::FillLogEvent(TEventContainer & details) const
+{
+  UserMark::FillLogEvent(details);
+  details.emplace("markType", "BOOKMARK");
+  details.emplace("name", GetData().GetName());
+}
+
 void BookmarkCategory::AddTrack(Track & track)
 {
   m_tracks.push_back(track.CreatePersistent());

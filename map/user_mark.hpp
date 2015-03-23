@@ -42,6 +42,15 @@ public:
   virtual bool IsCustomDrawable() const { return false;}
   virtual Type GetMarkType() const = 0;
   virtual unique_ptr<UserMarkCopy> Copy() const = 0;
+  // Need it to calculate POI rank from all taps to features via statistics.
+  typedef map<string, string> TEventContainer;
+  virtual void FillLogEvent(TEventContainer & details) const
+  {
+    double lat, lon;
+    GetLatLon(lat, lon);
+    details.emplace("lat", strings::to_string(lat));
+    details.emplace("lon", strings::to_string(lon));
+  }
 
 protected:
   m2::PointD m_ptOrg;
@@ -102,6 +111,13 @@ public:
         new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_ptOrg, m_container)));
   }
 
+  virtual void FillLogEvent(TEventContainer & details) const override
+  {
+    UserMark::FillLogEvent(details);
+    details.emplace("markType", "API");
+    details.emplace("name", GetName());
+  }
+
 private:
   string m_name;
   string m_id;
@@ -137,6 +153,15 @@ public:
         new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container)));
   }
 
+  virtual void FillLogEvent(TEventContainer & details) const override
+  {
+    UserMark::FillLogEvent(details);
+    details.emplace("markType", "SEARCH");
+    details.emplace("name", m_info.GetPinName());
+    details.emplace("type", m_info.GetPinType());
+    details.emplace("metaData", m_metadata.Empty() ? "0" : "1");
+  }
+
 protected:
   search::AddressInfo m_info;
   feature::FeatureMetadata m_metadata;
@@ -153,6 +178,11 @@ public:
   {
     return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
   }
+  virtual void FillLogEvent(TEventContainer & details) const override
+  {
+    SearchMarkPoint::FillLogEvent(details);
+    details.emplace("markType", "POI");
+  }
 
   void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
   void SetName(string const & name) { m_info.m_name = name; }
@@ -166,6 +196,11 @@ public:
     : base_t(container) {}
 
   UserMark::Type GetMarkType() const { return UserMark::Type::MY_POSITION; }
+  virtual void FillLogEvent(TEventContainer & details) const override
+  {
+    PoiMarkPoint::FillLogEvent(details);
+    details.emplace("markType", "MY_POSITION");
+  }
 };
 
 class ICustomDrawable : public UserMark

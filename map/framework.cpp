@@ -59,6 +59,7 @@
 #include "../api/internal/c/api-client-internals.h"
 #include "../api/src/c/api-client.h"
 
+#include "../3party/Alohalytics/src/alohalytics.h"
 
 #define KMZ_EXTENSION ".kmz"
 
@@ -1864,6 +1865,17 @@ namespace
 }
 
 UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
+{
+  // The main idea is to calculate POI rank based on the frequency users are clicking them.
+  UserMark const * mark = GetUserMarkWithoutLogging(pxPoint, isLongPress);
+  alohalytics::TStringMap details {{"isLongPress", isLongPress ? "1" : "0"}};
+  if (mark)
+    mark->FillLogEvent(details);
+  alohalytics::Stats::Instance().LogEvent("$GetUserMark", details);
+  return mark;
+}
+
+UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint, bool isLongPress)
 {
   DisconnectMyPositionUpdate();
   m2::AnyRectD rect;
