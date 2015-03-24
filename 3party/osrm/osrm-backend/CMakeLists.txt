@@ -34,15 +34,11 @@ OPTION(BUILD_TOOLS "Build OSRM tools" OFF)
 
 include_directories(${CMAKE_SOURCE_DIR}/Include/)
 
-add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/Util/FingerPrint.cpp FingerPrint.cpp.alwaysbuild
-  COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_SOURCE_DIR}
+add_custom_target(FingerPrintConfigure ALL
+  ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_SOURCE_DIR}
     -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FingerPrint-Config.cmake
-  DEPENDS
-    ${CMAKE_SOURCE_DIR}/Util/FingerPrint.cpp.in
   COMMENT "Configuring FingerPrint.cpp"
   VERBATIM)
-
-add_custom_target(FingerPrintConfigure DEPENDS ${CMAKE_SOURCE_DIR}/Util/FingerPrint.cpp)
 
 set(BOOST_COMPONENTS date_time filesystem iostreams program_options regex system thread)
 
