@@ -1330,14 +1330,14 @@
     {
       [UIView animateWithDuration:0.3 animations:^{
         if (GetFramework().IsRoutingActive())
-          self.routeView.minY = self.searchView.searchBar.maxY - 20;
+          self.routeViewWrapper.minY = self.searchView.searchBar.maxY - 20;
       }];
     }
     else if (self.searchView.state == SearchViewStateHidden)
     {
       [UIView animateWithDuration:0.3 animations:^{
         if (GetFramework().IsRoutingActive())
-          self.routeView.minY = 0;
+          self.routeViewWrapper.minY = 0;
       }];
     }
   }
