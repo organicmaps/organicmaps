@@ -21,7 +21,10 @@ DrapeGui & DrapeGui::Instance()
   return s_gui;
 }
 
-RulerHelper & DrapeGui::GetRulerHelper() { return Instance().GetRulerHelperImpl(); }
+RulerHelper & DrapeGui::GetRulerHelper()
+{
+  return Instance().GetRulerHelperImpl();
+}
 
 CountryStatusHelper & DrapeGui::GetCountryStatusHelper()
 {

@@ -19,7 +19,7 @@ HEADERS += \
     skin.hpp \
     country_status.hpp \
     country_status_helper.hpp \
-    button.hpp
+    button.hpp \
 
 SOURCES += \
     compass.cpp \
@@ -32,5 +32,5 @@ SOURCES += \
     skin.cpp \
     country_status.cpp \
     country_status_helper.cpp \
-    button.cpp
+    button.cpp \
 
