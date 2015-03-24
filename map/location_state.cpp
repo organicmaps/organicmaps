@@ -24,6 +24,7 @@
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
+#include "../../3party/Alohalytics/src/alohalytics.h"
 
 
 namespace location
@@ -306,23 +307,29 @@ bool State::IsModeHasPosition() const
 
 void State::SwitchToNextMode()
 {
+  string const kAlohalyticsClickEvent = "$onClick";
   Mode currentMode = GetMode();
   Mode newMode = currentMode;
+
   if (!IsInRouting())
   {
     switch (currentMode)
     {
     case UnknownPosition:
+      alohalytics::LogEvent(kAlohalyticsClickEvent, "@UnknownPosition");
       newMode = PendingPosition;
       break;
     case PendingPosition:
+      alohalytics::LogEvent(kAlohalyticsClickEvent, "@PendingPosition");
       newMode = UnknownPosition;
       m_afterPendingMode = Follow;
       break;
     case NotFollow:
+      alohalytics::LogEvent(kAlohalyticsClickEvent, "@NotFollow");
       newMode = Follow;
       break;
     case Follow:
+      alohalytics::LogEvent(kAlohalyticsClickEvent, "@Follow");
       if (IsRotationActive())
         newMode = RotateAndFollow;
       else
@@ -332,11 +339,10 @@ void State::SwitchToNextMode()
       }
       break;
     case RotateAndFollow:
-      {
-        newMode = UnknownPosition;
-        m_afterPendingMode = Follow;
-        break;
-      }
+      alohalytics::LogEvent(kAlohalyticsClickEvent, "@RotateAndFollow");
+      newMode = UnknownPosition;
+      m_afterPendingMode = Follow;
+      break;
     }
   }
   else

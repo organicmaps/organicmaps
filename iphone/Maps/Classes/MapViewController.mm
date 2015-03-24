@@ -16,6 +16,7 @@
 #import "CountryTreeVC.h"
 #import "Reachability.h"
 #import "MWMAlertViewController.h"
+#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 #import "../../Common/CustomAlertView.h"
 
@@ -41,6 +42,8 @@
 #define ALERT_VIEW_ROUTING_DISCLAIMER 7
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
+
+extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 @interface NSValueWrapper : NSObject
 
@@ -279,11 +282,13 @@
 
 - (IBAction)zoomInPressed:(id)sender
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
   GetFramework().Scale(2.0);
 }
 
 - (IBAction)zoomOutPressed:(id)sender
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
   GetFramework().Scale(0.5);
 }
 
@@ -1027,16 +1032,25 @@
 - (void)toolbar:(ToolbarView *)toolbar didPressItemWithName:(NSString *)itemName
 {
   if ([itemName isEqualToString:@"Location"])
+  {
     [self onMyPositionClicked:nil];
+  }
   else if ([itemName isEqualToString:@"Search"])
+  {
+     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
     [self.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
+  }
   else if ([itemName isEqualToString:@"Bookmarks"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
     BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Menu"])
+  {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
     [self.bottomMenu setMenuHidden:NO animated:YES];
+  }
 }
 
 #pragma mark - Routing
@@ -1142,16 +1156,19 @@
 {
   if ([itemName isEqualToString:@"Maps"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
     CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Settings"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
     SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Share"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
     CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
     if (location)
     {

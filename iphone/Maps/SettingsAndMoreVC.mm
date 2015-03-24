@@ -10,6 +10,9 @@
 #import "WebViewController.h"
 #import "CommunityVC.h"
 #import "RichTextVC.h"
+#import "../../3party/Alohalytics/src/alohalytics_objc.h"
+
+extern NSString * const kAlohalyticsTapEventKey;
 
 @interface SettingsAndMoreVC () <MFMailComposeViewControllerDelegate>
 
@@ -125,34 +128,41 @@
   NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
   if ([itemId isEqualToString:@"About"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"about"];
     [self about];
   }
   else if ([itemId isEqualToString:@"Community"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"community"];
     CommunityVC * vc = [[CommunityVC alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemId isEqualToString:@"RateApp"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self rateApp];
   }
   else if ([itemId isEqualToString:@"Settings"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsMiles"];
     SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemId isEqualToString:@"ReportBug"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"reportABug"];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self reportBug];
   }
   else if ([itemId isEqualToString:@"Help"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"help"];
     [self help];
   }
   else if ([itemId isEqualToString:@"Copyright"])
   {
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"copyright"];
     [self copyright];
   }
 }
