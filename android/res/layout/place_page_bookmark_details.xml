@@ -132,7 +132,7 @@
       android:layout_marginBottom="@dimen/margin_medium"
       android:layout_marginTop="@dimen/margin_tiny"
       android:layout_toRightOf="@id/iv__bookmark"
-      android:inputType="text"
+      android:inputType="textMultiLine"
       android:lineSpacingMultiplier="1.43"
       android:textColor="@color/text_place_page"
       android:textSize="@dimen/place_page_subtitle"/>

@@ -3,7 +3,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/bg_top_panels"
-            android:orientation="vertical">
+            android:overScrollMode="never">
 
   <RelativeLayout
       android:id="@+id/rl__place_details"

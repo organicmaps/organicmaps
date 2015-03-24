@@ -12,16 +12,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,11 +56,15 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class PlacePageView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener, TextView.OnEditorActionListener
+
+public class PlacePageView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener
 {
   // Preview
   private TextView mTvTitle;
+  private Toolbar mToolbar;
   private TextView mTvSubtitle;
   private TextView mTvOpened;
   private ArrowView mAvDirection;
@@ -136,6 +143,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     ViewGroup ppPreview = (ViewGroup) findViewById(R.id.pp__preview);
     mTvTitle = (TextView) ppPreview.findViewById(R.id.tv__title);
+    mToolbar = (Toolbar) findViewById(R.id.toolbar);
     mTvSubtitle = (TextView) ppPreview.findViewById(R.id.tv__subtitle);
     mTvOpened = (TextView) ppPreview.findViewById(R.id.tv__opened_till);
     mTvDistance = (TextView) ppPreview.findViewById(R.id.tv__straight_distance);
@@ -180,10 +188,28 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
-    mEtBookmarkName.setOnEditorActionListener(this);
     mTvBookmarkNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes_title);
     mEtBookmarkNotes = (EditText) mPpDetails.findViewById(R.id.et__bookmark_notes);
-    mEtBookmarkNotes.setOnEditorActionListener(this);
+    mEtBookmarkNotes.addTextChangedListener(new TextWatcher()
+    {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after)
+      {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        mTvBookmarkNotes.setVisibility(s.length() == 0 ? View.VISIBLE : View.INVISIBLE);
+      }
+
+      @Override
+      public void afterTextChanged(Editable s)
+      {
+
+      }
+    });
     mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
     mTvBookmarkGroup.setOnClickListener(this);
 
@@ -249,9 +275,26 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     if (!hasMapObject(mo))
     {
+      if (mMapObject instanceof Bookmark)
+        storeBookmarkDetails();
+
       mMapObject = mo;
       refreshViews();
     }
+  }
+
+  private void storeBookmarkDetails()
+  {
+    final Bookmark bookmark = (Bookmark) mMapObject;
+    final String name = mEtBookmarkName.getText().toString();
+    final String oldName = bookmark.getName();
+    final String notes = Html.toHtml(mEtBookmarkNotes.getText());
+    final String oldNotes = bookmark.getBookmarkDescription();
+    if (!oldNotes.equals(notes))
+      Statistics.INSTANCE.trackDescriptionChanged();
+
+    if (!name.equals(oldName) || !oldNotes.equals(notes))
+      bookmark.setParams(name, null, notes);
   }
 
   public boolean hasMapObject(MapObject mo)
@@ -306,8 +349,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       final Bookmark bookmark = (Bookmark) mMapObject;
       mEtBookmarkName.setText(bookmark.getName());
       final String notes = bookmark.getBookmarkDescription();
-      mEtBookmarkNotes.setText(notes);
-      mTvBookmarkNotes.setVisibility(notes.isEmpty() ? View.INVISIBLE : View.VISIBLE);
+      mEtBookmarkNotes.setText(Html.fromHtml(notes));
+      mEtBookmarkNotes.setMovementMethod(LinkMovementMethod.getInstance());
+      mTvBookmarkNotes.setVisibility(notes.isEmpty() ? View.VISIBLE : View.INVISIBLE);
       mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
       mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
@@ -319,6 +363,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   private void refreshPreview()
   {
     mTvTitle.setText(mMapObject.getName());
+    if (mToolbar != null)
+      mToolbar.setTitle(mMapObject.getName());
     String subtitle = mMapObject.getPoiTypeName();
     final String cuisine = mMapObject.getMetadata(Metadata.MetadataType.FMD_CUISINE);
     if (cuisine != null)
@@ -693,40 +739,36 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   {
     final PopupMenu popup = new PopupMenu(getContext(), v);
     final Menu menu = popup.getMenu();
-    String[] arr = null;
+    final List<String> items = new ArrayList<>();
     switch (v.getId())
     {
     case R.id.ll__place_latlon:
       final double lat = mMapObject.getLat();
       final double lon = mMapObject.getLon();
-
-      arr = new String[]{
-          Framework.nativeFormatLatLon(lat, lon, false),
-          Framework.nativeFormatLatLon(lat, lon, true)};
-
+      items.add(Framework.nativeFormatLatLon(lat, lon, false));
+      items.add(Framework.nativeFormatLatLon(lat, lon, true));
       break;
     case R.id.ll__place_website:
-      arr = new String[]{mTvWebsite.getText().toString()};
+      items.add(mTvWebsite.getText().toString());
       break;
     case R.id.ll__place_email:
-      arr = new String[]{mTvEmail.getText().toString()};
+      items.add(mTvEmail.getText().toString());
       break;
     case R.id.ll__place_phone:
-      arr = new String[]{mTvPhone.getText().toString()};
+      items.add(mTvPhone.getText().toString());
       break;
     case R.id.ll__place_schedule:
-      arr = new String[]{mTvSchedule.getText().toString()};
+      items.add(mTvSchedule.getText().toString());
       break;
     case R.id.ll__place_operator:
-      arr = new String[]{mTvOperator.getText().toString()};
+      items.add(mTvOperator.getText().toString());
       break;
     }
 
     final String copyText = getResources().getString(android.R.string.copy);
-    for (int i = 0; i < arr.length; i++)
-      menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, arr[i]));
+    for (int i = 0; i < items.size(); i++)
+      menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));
 
-    final String[] finalArr = arr;
     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
     {
       @Override
@@ -736,8 +778,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
         if (id >= 0 && id < 1)
         {
           final Context ctx = getContext();
-          Utils.copyTextToClipboard(ctx, finalArr[id]);
-          Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, finalArr[id]));
+          Utils.copyTextToClipboard(ctx, items.get(id));
+          Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
         }
         return true;
       }
@@ -745,33 +787,5 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
     popup.show();
     return true;
-  }
-
-  @Override
-  public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-  {
-    if (actionId == EditorInfo.IME_ACTION_DONE)
-    {
-      switch (v.getId())
-      {
-      case R.id.et__bookmark_name:
-        Bookmark bookmark = (Bookmark) mMapObject;
-        final String name = mEtBookmarkName.getText().toString().trim();
-        bookmark.setParams(name, null, bookmark.getBookmarkDescription());
-        break;
-      case R.id.et__bookmark_notes:
-        // TODO webview if content is html
-        bookmark = (Bookmark) mMapObject;
-        final String notes = mEtBookmarkNotes.getText().toString().trim();
-        mTvBookmarkNotes.setVisibility(notes.isEmpty() ? View.INVISIBLE : View.VISIBLE);
-        final String oldNotes = bookmark.getBookmarkDescription().trim();
-
-        if (!TextUtils.equals(notes, oldNotes))
-          Statistics.INSTANCE.trackDescriptionChanged();
-        bookmark.setParams(mEtBookmarkName.getText().toString(), null, notes);
-        break;
-      }
-    }
-    return false;
   }
 }

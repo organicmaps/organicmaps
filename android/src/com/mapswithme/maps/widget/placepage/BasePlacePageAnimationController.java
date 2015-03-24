@@ -3,9 +3,9 @@ package com.mapswithme.maps.widget.placepage;
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -23,7 +23,7 @@ public abstract class BasePlacePageAnimationController
 
   protected PlacePageView mPlacePage;
   protected ViewGroup mPreview;
-  protected ViewGroup mDetails;
+  protected ScrollView mDetails;
   protected ViewGroup mBookmarkDetails;
   protected ViewGroup mButtons;
   // Gestures
@@ -39,9 +39,9 @@ public abstract class BasePlacePageAnimationController
 
   public interface OnVisibilityChangedListener
   {
-    public void onPreviewVisibilityChanged(boolean isVisible);
+    void onPreviewVisibilityChanged(boolean isVisible);
 
-    public void onPlacePageVisibilityChanged(boolean isVisible);
+    void onPlacePageVisibilityChanged(boolean isVisible);
   }
 
   abstract void initGestureDetector();
@@ -50,26 +50,8 @@ public abstract class BasePlacePageAnimationController
   {
     mPlacePage = placePage;
     mPreview = (ViewGroup) placePage.findViewById(R.id.pp__preview);
-    mDetails = (ViewGroup) placePage.findViewById(R.id.pp__details);
+    mDetails = (ScrollView) placePage.findViewById(R.id.pp__details);
     mBookmarkDetails = (ViewGroup) mDetails.findViewById(R.id.rl__bookmark_details);
-    mBookmarkDetails.setOnTouchListener(new View.OnTouchListener()
-    {
-      @Override
-      public boolean onTouch(View v, MotionEvent event)
-      {
-        switch (event.getAction())
-        {
-        case MotionEvent.ACTION_DOWN:
-          mBookmarkDetails.getParent().requestDisallowInterceptTouchEvent(true);
-          break;
-        case MotionEvent.ACTION_CANCEL:
-        case MotionEvent.ACTION_UP:
-          mBookmarkDetails.getParent().requestDisallowInterceptTouchEvent(false);
-          break;
-        }
-        return false;
-      }
-    });
     mButtons = (ViewGroup) placePage.findViewById(R.id.pp__buttons);
     initGestureDetector();
 

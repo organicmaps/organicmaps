@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,17 +13,34 @@ import android.view.animation.OvershootInterpolator;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
+import com.mapswithme.util.UiUtils;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-public class BottomPlacePageAnimationController extends BasePlacePageAnimationController
+public class BottomPlacePageAnimationController extends BasePlacePageAnimationController implements View.OnLayoutChangeListener
 {
+  private int mDetailsTop;
   private final View mViewBottomHack;
+  private final Toolbar mToolbar;
 
   public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
     mViewBottomHack = mPlacePage.findViewById(R.id.view_bottom_white);
+    mToolbar = (Toolbar) mPlacePage.findViewById(R.id.toolbar);
+    if (mToolbar != null)
+    {
+      mDetailsTop = mToolbar.getHeight();
+      UiUtils.showHomeUpButton(mToolbar);
+      mToolbar.setNavigationOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          mPlacePage.setState(State.HIDDEN);
+        }
+      });
+    }
   }
 
   @Override
@@ -35,9 +53,12 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
       mDownCoord = event.getY();
       break;
     case MotionEvent.ACTION_MOVE:
-      if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons))
+      final float yDiff = mDownCoord - event.getY();
+      if (mDownCoord < ViewHelper.getY(mPreview) || mDownCoord > ViewHelper.getY(mButtons) ||
+          (mDownCoord > ViewHelper.getY(mDetails) && mDownCoord < ViewHelper.getY(mButtons) &&
+              (mDetails.getHeight() != mDetails.getChildAt(0).getHeight() && (mDetails.getScrollY() != 0 || yDiff > 0))))
         return false;
-      if (Math.abs(mDownCoord - event.getY()) > mTouchSlop)
+      if (Math.abs(yDiff) > mTouchSlop)
         return true;
       break;
     }
@@ -131,6 +152,9 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   {
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
+    mDetails.addOnLayoutChangeListener(this);
+    if (mToolbar != null)
+      mToolbar.setVisibility(View.GONE);
 
     ValueAnimator animator;
     Interpolator interpolator;
@@ -214,6 +238,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
 
         if (animation.getAnimatedFraction() > .99f)
         {
+          refreshToolbarVisibility();
           mIsPreviewVisible = mIsPlacePageVisible = true;
           notifyVisibilityListener();
         }
@@ -250,6 +275,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
 
         if (animation.getAnimatedFraction() > .99f)
         {
+          refreshToolbarVisibility();
           mIsPreviewVisible = mIsPlacePageVisible = true;
           notifyVisibilityListener();
         }
@@ -261,8 +287,18 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     animator.start();
   }
 
+  private void refreshToolbarVisibility()
+  {
+    if (mToolbar != null)
+      mToolbar.setVisibility(ViewHelper.getY(mDetails) < mPreview.getHeight() ? View.VISIBLE : View.GONE);
+  }
+
   protected void hidePlacePage()
   {
+    if (mToolbar != null)
+      mToolbar.setVisibility(View.GONE);
+
+    mDetails.removeOnLayoutChangeListener(this);
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
     final ValueAnimator animator = ValueAnimator.ofFloat(0f, animHeight);
     mViewBottomHack.setVisibility(View.GONE);
@@ -286,5 +322,15 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     animator.setDuration(SHORT_ANIM_DURATION);
     animator.setInterpolator(new AccelerateInterpolator());
     animator.start();
+  }
+
+  @Override
+  public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+  {
+    if (mDetails.getVisibility() == View.VISIBLE && v.getId() == mDetails.getId() && top != oldTop)
+    {
+      ViewHelper.setTranslationY(mPreview, -mDetails.getHeight());
+      refreshToolbarVisibility();
+    }
   }
 }
