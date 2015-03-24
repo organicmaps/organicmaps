@@ -26,6 +26,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -332,12 +333,11 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
   private boolean checkLiteProPackages()
   {
-    if (!MWMApplication.get().isYota() &&
+    if (!Yota.isFirstYota() &&
         (getPackageIntent(Constants.Package.MWM_LITE_PACKAGE) != null ||
             getPackageIntent(Constants.Package.MWM_SAMSUNG_PACKAGE) != null))
-    {
       Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
-    }
+
     return false;
   }
 

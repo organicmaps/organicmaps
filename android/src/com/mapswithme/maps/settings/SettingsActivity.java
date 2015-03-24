@@ -97,7 +97,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   private void storagePathSetup()
   {
     PreferenceScreen screen = (PreferenceScreen) findPreference(getString(R.string.pref_settings));
-    if (Yota.isYota())
+    if (Yota.isFirstYota())
       screen.removePreference(mStoragePreference);
     else if (mPathManager.hasMoreThanOneStorage())
       screen.addPreference(mStoragePreference);
@@ -110,7 +110,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
   {
     final PreferenceScreen screen = (PreferenceScreen) findPreference(getString(R.string.pref_settings));
     final Preference yopPreference = findPreference(getString(R.string.pref_yota));
-    if (!Yota.isYota())
+    if (!Yota.isFirstYota())
       screen.removePreference(yopPreference);
     else
     {

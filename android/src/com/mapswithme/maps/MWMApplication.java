@@ -2,7 +2,6 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -13,11 +12,11 @@ import android.util.Log;
 import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.CountryItem;
 import com.mapswithme.maps.background.Notifier;
-import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -42,7 +41,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   private static MWMApplication mSelf;
 
   private boolean mAreStatsInitialised;
-  private boolean mIsYota;
 
   public MWMApplication()
   {
@@ -96,8 +94,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   {
     super.onCreate();
 
-    mIsYota = Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
-
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
 
@@ -108,7 +104,7 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath, getOBBGooglePath(),
         BuildConfig.FLAVOR, BuildConfig.BUILD_TYPE,
-        mIsYota, UiUtils.isSmallTablet() || UiUtils.isBigTablet());
+        Yota.isFirstYota(), UiUtils.isSmallTablet() || UiUtils.isBigTablet());
 
     ActiveCountryTree.addListener(this);
 
@@ -197,11 +193,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
   public double getForegroundTime()
   {
     return nativeGetDouble(FOREGROUND_TIME_SETTING, 0);
-  }
-
-  public boolean isYota()
-  {
-    return mIsYota;
   }
 
   static

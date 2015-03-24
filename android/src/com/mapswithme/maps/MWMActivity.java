@@ -712,29 +712,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void setupYota()
   {
     final View yopmeButton = findViewById(R.id.yop_it);
-    if (!Yota.isYota())
-      yopmeButton.setVisibility(View.INVISIBLE);
+    if (Yota.isFirstYota())
+      yopmeButton.setOnClickListener(this);
     else
-    {
-      yopmeButton.setOnClickListener(new OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          final double[] latLon = Framework.getScreenRectCenter();
-          final double zoom = Framework.getDrawScale();
-
-          final int locationStateMode = LocationState.INSTANCE.getLocationStateMode();
-
-          if (locationStateMode > LocationState.NOT_FOLLOW)
-            Yota.showLocation(getApplicationContext(), zoom);
-          else
-            Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locationStateMode == LocationState.NOT_FOLLOW);
-
-          Statistics.INSTANCE.trackBackscreenCall("Map");
-        }
-      });
-    }
+      yopmeButton.setVisibility(View.INVISIBLE);
   }
 
   @Override
@@ -766,8 +747,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     if (savedInstanceState.getBoolean(STATE_PP_OPENED))
     {
-      mPlacePage.setState(State.PREVIEW);
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
+      mPlacePage.setState(State.PREVIEW);
     }
     else if (savedInstanceState.getBoolean(STATE_MENU_OPENED))
       setVerticalToolbarVisible(true);
@@ -1392,6 +1373,19 @@ public class MWMActivity extends BaseMwmFragmentActivity
       break;
     case R.id.btn__myposition:
       switchNextLocationState();
+      break;
+    case R.id.yop_it:
+      final double[] latLon = Framework.getScreenRectCenter();
+      final double zoom = Framework.getDrawScale();
+
+      final int locationStateMode = LocationState.INSTANCE.getLocationStateMode();
+
+      if (locationStateMode > LocationState.NOT_FOLLOW)
+        Yota.showLocation(getApplicationContext(), zoom);
+      else
+        Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locationStateMode == LocationState.NOT_FOLLOW);
+
+      Statistics.INSTANCE.trackBackscreenCall("Map");
       break;
     default:
       break;

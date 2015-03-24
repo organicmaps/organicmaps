@@ -10,9 +10,9 @@ import com.mapswithme.maps.location.LocationHelper;
 
 public class Yota
 {
-  public static boolean isYota()
+  public static boolean isFirstYota()
   {
-    return Build.DEVICE.contains(Constants.DEVICE_YOTAPHONE);
+    return Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
   }
 
   private final static String YOPME_AUTHORITY = "com.mapswithme.yopme";
