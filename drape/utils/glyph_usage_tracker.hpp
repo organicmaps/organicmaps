@@ -5,8 +5,9 @@
 #include "../../std/set.hpp"
 #include "../../std/list.hpp"
 #include "../../std/mutex.hpp"
+#include "../../std/unordered_set.hpp"
 
-#define TRACK_GLYPH_USAGE
+//#define TRACK_GLYPH_USAGE
 
 namespace dp
 {
@@ -16,11 +17,11 @@ class GlyphUsageTracker
 public:
   static GlyphUsageTracker & Instance();
 
-  void AddInvalidGlyph(strings::UniChar const & c);
-  void AddUnexpectedGlyph(strings::UniChar const & c, size_t const group, size_t const expectedGroup);
+  void AddInvalidGlyph(strings::UniString const & str, strings::UniChar const & c);
+  void AddUnexpectedGlyph(strings::UniString const & str, strings::UniChar const & c,
+                          size_t const group, size_t const expectedGroup);
 
   string Report();
-
 
 private:
   GlyphUsageTracker() = default;
@@ -39,6 +40,8 @@ private:
   };
   using UnexpectedGlyphs = map<strings::UniChar, UnexpectedGlyphData>;
   UnexpectedGlyphs m_unexpectedGlyphs;
+
+  unordered_set<string> m_processedStrings;
 
   mutex m_mutex;
 };

@@ -1,13 +1,14 @@
 #pragma once
 
-#include "base/string_utils.hpp"
-
 #include "drape/color.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
 #include "drape/glyph_manager.hpp"
 
-#include "../std/atomic.hpp"
+#include "base/string_utils.hpp"
+
+#include "std/atomic.hpp"
+#include "std/unordered_set.hpp"
 
 namespace dp
 {
@@ -101,13 +102,45 @@ private:
     MasterPointer<Texture> m_texture;
   };
 
-  uint32_t m_maxTextureSize;
+  struct HybridGlyphGroup
+  {
+    unordered_set<strings::UniChar> m_glyphs;
+    MasterPointer<Texture> m_texture;
+  };
 
-  void AllocateGlyphTexture(TextureManager::GlyphGroup & group) const;
+  uint32_t m_maxTextureSize;
+  uint32_t m_maxGlypsCount;
+
+  MasterPointer<Texture> AllocateGlyphTexture() const;
   void GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
-  size_t FindCharGroup(strings::UniChar const & c);
-  bool CheckCharGroup(strings::UniChar const & c, size_t & groupIndex);
-  void FillResultBuffer(strings::UniString const & text, GlyphGroup & group, TGlyphsBuffer & regions);
+
+  size_t FindGlyphsGroup(strings::UniChar const & c) const;
+  size_t FindGlyphsGroup(strings::UniString const & text, size_t const defaultGroup) const;
+  size_t FindGlyphsGroup(TMultilineText const & text) const;
+
+  size_t FindHybridGlyphsGroup(strings::UniString const & text);
+  size_t FindHybridGlyphsGroup(TMultilineText const & text);
+
+  bool CheckHybridGroup(strings::UniString const & text, HybridGlyphGroup const & group) const;
+  size_t GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const;
+
+  void MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group);
+
+  template<typename TGlyphGroup, typename TTextureKey>
+  void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
+  {
+    if (group.m_texture.IsNull())
+      group.m_texture = AllocateGlyphTexture();
+
+    dp::RefPointer<dp::Texture> texture = group.m_texture.GetRefPointer();
+    regions.reserve(text.size());
+    for (strings::UniChar const & c : text)
+    {
+      GlyphRegion reg;
+      GetRegionBase(texture, reg, TTextureKey(c));
+      regions.push_back(reg);
+    }
+  }
 
 private:
   MasterPointer<Texture> m_symbolTexture;
@@ -117,7 +150,7 @@ private:
   MasterPointer<GlyphManager> m_glyphManager;
 
   buffer_vector<GlyphGroup, 64> m_glyphGroups;
-  buffer_vector<MasterPointer<Texture>, 4> m_hybridGlyphGroups;
+  buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;
 
   atomic_flag m_nothingToUpload;
 };

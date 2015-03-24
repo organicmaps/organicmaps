@@ -30,7 +30,7 @@ string GlyphUsageTracker::Report()
   ss << " Unexpected glyphs: {\n";
   for (auto const & it : m_unexpectedGlyphs)
   {
-    ss << "   glyph = " << it.first << ", usages = " << it.second.counter << ", group = " << it.second.group << ", expected groups = { ";
+    ss << "   glyph = " << it.first << ", unique usages = " << it.second.counter << ", group = " << it.second.group << ", expected groups = { ";
     for (auto const & gr : it.second.expectedGroups)
       ss << gr << " ";
     ss << "}\n";
@@ -41,20 +41,29 @@ string GlyphUsageTracker::Report()
   return ss.str();
 }
 
-void GlyphUsageTracker::AddInvalidGlyph(strings::UniChar const & c)
+void GlyphUsageTracker::AddInvalidGlyph(strings::UniString const & str, strings::UniChar const & c)
 {
   lock_guard<mutex> lock(m_mutex);
+
+  if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
+    return;
 
   auto it = m_invalidGlyphs.find(c);
   if (it != m_invalidGlyphs.end())
     it->second++;
   else
     m_invalidGlyphs.insert(make_pair(c, 1));
+
+  m_processedStrings.insert(strings::ToUtf8(str));
 }
 
-void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniChar const & c, size_t const group, size_t const expectedGroup)
+void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniString const & str, strings::UniChar const & c,
+                                           size_t const group, size_t const expectedGroup)
 {
   lock_guard<mutex> lock(m_mutex);
+
+  if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
+    return;
 
   auto it = m_unexpectedGlyphs.find(c);
   if (it != m_unexpectedGlyphs.end())
@@ -72,6 +81,8 @@ void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniChar const & c, size_t co
     data.counter = 1;
     m_unexpectedGlyphs.insert(make_pair(c, data));
   }
+
+  m_processedStrings.insert(strings::ToUtf8(str));
 }
 
 } // namespace dp

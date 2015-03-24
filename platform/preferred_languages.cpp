@@ -49,7 +49,7 @@ void GetSystemPreferred(vector<string> & languages)
 {
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   // Mac and iOS implementation
-  /*CFArrayRef langs = CFLocaleCopyPreferredLanguages();
+  CFArrayRef langs = CFLocaleCopyPreferredLanguages();
   char buf[30];
   for (CFIndex i = 0; i < CFArrayGetCount(langs); ++i)
   {
@@ -57,8 +57,7 @@ void GetSystemPreferred(vector<string> & languages)
     CFStringGetCString(strRef, buf, 30, kCFStringEncodingUTF8);
     languages.push_back(buf);
   }
-  CFRelease(langs);*/
-  languages.emplace_back("zh");
+  CFRelease(langs);
 
 #elif defined(OMIM_OS_WINDOWS)
   // if we're on Vista or above, take list of preferred languages

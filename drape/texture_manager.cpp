@@ -22,6 +22,16 @@ uint32_t const STIPPLE_TEXTURE_SIZE = 1024;
 uint32_t const COLOR_TEXTURE_SIZE = 1024;
 size_t const INVALID_GLYPH_GROUP = numeric_limits<size_t>::max();
 
+// number of glyphs (since 0) which will be in each texture
+size_t const DUPLICATED_GLYPHS_COUNT = 128;
+
+TextureManager::TextureManager()
+  : m_maxTextureSize(0)
+  , m_maxGlypsCount(0)
+{
+  m_nothingToUpload.test_and_set();
+}
+
 bool TextureManager::BaseRegion::IsValid() const
 {
   return !m_info.IsNull() && !m_texture.IsNull();
@@ -113,15 +123,16 @@ void TextureManager::UpdateDynamicTextures()
       g.m_texture->UpdateState();
   });
 
-  for_each(m_hybridGlyphGroups.begin(), m_hybridGlyphGroups.end(), [](MasterPointer<Texture> texture)
+  for_each(m_hybridGlyphGroups.begin(), m_hybridGlyphGroups.end(), [](HybridGlyphGroup & g)
   {
-    texture->UpdateState();
+    if (!g.m_texture.IsNull())
+      g.m_texture->UpdateState();
   });
 }
 
-void TextureManager::AllocateGlyphTexture(TextureManager::GlyphGroup & group) const
+MasterPointer<Texture> TextureManager::AllocateGlyphTexture() const
 {
-  group.m_texture.Reset(new FontTexture(m2::PointU(m_maxTextureSize, m_maxTextureSize), m_glyphManager.GetRefPointer()));
+  return MasterPointer<Texture>(new FontTexture(m2::PointU(m_maxTextureSize, m_maxTextureSize), m_glyphManager.GetRefPointer()));
 }
 
 void TextureManager::GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key)
@@ -134,62 +145,142 @@ void TextureManager::GetRegionBase(RefPointer<Texture> tex, TextureManager::Base
     m_nothingToUpload.clear();
 }
 
-size_t TextureManager::FindCharGroup(strings::UniChar const & c)
+size_t TextureManager::FindGlyphsGroup(strings::UniChar const & c) const
 {
   auto const iter = lower_bound(m_glyphGroups.begin(), m_glyphGroups.end(), c, [](GlyphGroup const & g, strings::UniChar const & c)
   {
     return g.m_endChar < c;
   });
+
   if (iter == m_glyphGroups.end())
     return INVALID_GLYPH_GROUP;
 
   return distance(m_glyphGroups.begin(), iter);
 }
 
-void TextureManager::FillResultBuffer(strings::UniString const & text, GlyphGroup & group, TGlyphsBuffer & regions)
+size_t TextureManager::FindGlyphsGroup(strings::UniString const & text, size_t const defaultGroup) const
 {
-  if (group.m_texture.IsNull())
-    AllocateGlyphTexture(group);
-
-  dp::RefPointer<dp::Texture> texture = group.m_texture.GetRefPointer();
-  regions.reserve(text.size());
+  size_t groupIndex = defaultGroup;
   for (strings::UniChar const & c : text)
   {
-    GlyphRegion reg;
-    GetRegionBase(texture, reg, GlyphKey(c));
-    regions.push_back(reg);
+    // skip glyphs which can be duplicated
+    if (c < DUPLICATED_GLYPHS_COUNT)
+      continue;
+
+    size_t currentIndex = FindGlyphsGroup(c);
+
+    // an invalid glyph found
+    if (currentIndex == INVALID_GLYPH_GROUP)
+    {
+#if defined(TRACK_GLYPH_USAGE)
+      GlyphUsageTracker::Instance().AddInvalidGlyph(text, c);
+#endif
+      return INVALID_GLYPH_GROUP;
+    }
+
+    // check if each glyph in text id in one group
+    if (groupIndex == INVALID_GLYPH_GROUP)
+      groupIndex = currentIndex;
+    else if (groupIndex != currentIndex)
+    {
+#if defined(TRACK_GLYPH_USAGE)
+      GlyphUsageTracker::Instance().AddUnexpectedGlyph(text, c, currentIndex, groupIndex);
+#endif
+      return INVALID_GLYPH_GROUP;
+    }
   }
+
+  // all glyphs in duplicated range
+  if (groupIndex == INVALID_GLYPH_GROUP)
+    groupIndex = FindGlyphsGroup(text[0]);
+
+  return groupIndex;
 }
 
-bool TextureManager::CheckCharGroup(strings::UniChar const & c, size_t & groupIndex)
+size_t TextureManager::FindGlyphsGroup(TMultilineText const & text) const
 {
-  size_t currentIndex = FindCharGroup(c);
-  if (currentIndex == INVALID_GLYPH_GROUP)
+  size_t groupIndex = INVALID_GLYPH_GROUP;
+  for (strings::UniString const & str : text)
   {
-#if defined(TRACK_GLYPH_USAGE)
-    GlyphUsageTracker::Instance().AddInvalidGlyph(c);
-#endif
-    groupIndex = INVALID_GLYPH_GROUP;
-    return false;
+    size_t currentIndex = FindGlyphsGroup(str, groupIndex);
+    if (currentIndex == INVALID_GLYPH_GROUP)
+      return INVALID_GLYPH_GROUP;
+
+    if (groupIndex == INVALID_GLYPH_GROUP)
+      groupIndex = currentIndex;
+    else if (groupIndex != currentIndex)
+      return INVALID_GLYPH_GROUP;
   }
 
-  if (groupIndex == INVALID_GLYPH_GROUP)
-    groupIndex = currentIndex;
-  else if (groupIndex != currentIndex)
-  {
-#if defined(TRACK_GLYPH_USAGE)
-    GlyphUsageTracker::Instance().AddUnexpectedGlyph(c, currentIndex, groupIndex);
-#endif
-    groupIndex = INVALID_GLYPH_GROUP;
-    return false;
-  }
+  return groupIndex;
+}
+
+bool TextureManager::CheckHybridGroup(strings::UniString const & text, HybridGlyphGroup const & group) const
+{
+  for (strings::UniChar const & c : text)
+    if (group.m_glyphs.find(c) == group.m_glyphs.end())
+      return false;
 
   return true;
 }
 
-TextureManager::TextureManager()
+size_t TextureManager::GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const
 {
-  m_nothingToUpload.test_and_set();
+  size_t cnt = 0;
+  for (strings::UniChar const & c : text)
+    if (group.m_glyphs.find(c) == group.m_glyphs.end())
+      cnt++;
+
+  return cnt;
+}
+
+void TextureManager::MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group)
+{
+  for (strings::UniChar const & c : text)
+    group.m_glyphs.emplace(c);
+}
+
+size_t TextureManager::FindHybridGlyphsGroup(strings::UniString const & text)
+{
+  if (m_hybridGlyphGroups.empty())
+  {
+    m_hybridGlyphGroups.push_back(HybridGlyphGroup());
+    return 0;
+  }
+
+  // if we have got the only hybrid texture (in most cases it is) we can omit checking of glyphs usage
+  size_t const glyphsCount = m_hybridGlyphGroups.back().m_glyphs.size() + text.size();
+  if (m_hybridGlyphGroups.size() == 1 && glyphsCount < m_maxGlypsCount)
+    return 0;
+
+  // looking for a hybrid texture which contains text entirely
+  for (size_t i = 0; i < m_hybridGlyphGroups.size() - 1; i++)
+    if (CheckHybridGroup(text, m_hybridGlyphGroups[i]))
+      return i;
+
+  // check if we can contain text in the last hybrid texture
+  size_t const unfoundChars = GetNumberOfUnfoundCharacters(text, m_hybridGlyphGroups.back());
+  size_t const newCharsCount = m_hybridGlyphGroups.back().m_glyphs.size() + unfoundChars;
+  if (newCharsCount < m_maxGlypsCount)
+    return m_hybridGlyphGroups.size() - 1;
+
+  // nothing helps insert new hybrid group
+  m_hybridGlyphGroups.push_back(HybridGlyphGroup());
+  return m_hybridGlyphGroups.size() - 1;
+}
+
+size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text)
+{
+  size_t cnt = 0;
+  for (strings::UniString const & str : text)
+    cnt += str.size();
+
+  strings::UniString combinedString;
+  combinedString.reserve(cnt);
+  for (strings::UniString const & str : text)
+    combinedString.append(str.begin(), str.end());
+
+  return FindHybridGlyphsGroup(combinedString);
 }
 
 void TextureManager::Init(Params const & params)
@@ -210,8 +301,8 @@ void TextureManager::Init(Params const & params)
   uint32_t const avarageGlyphSquare = baseGlyphHeight * baseGlyphHeight;
 
   m_glyphGroups.push_back(GlyphGroup());
-  uint32_t glyphCount = ceil(0.9 * textureSquare / avarageGlyphSquare);
-  m_glyphManager->ForEachUnicodeBlock([this, glyphCount](strings::UniChar const & start, strings::UniChar const & end)
+  m_maxGlypsCount = ceil(0.9 * textureSquare / avarageGlyphSquare);
+  m_glyphManager->ForEachUnicodeBlock([this](strings::UniChar const & start, strings::UniChar const & end)
   {
     if (m_glyphGroups.empty())
     {
@@ -222,7 +313,7 @@ void TextureManager::Init(Params const & params)
     GlyphGroup & group = m_glyphGroups.back();
     ASSERT_LESS_OR_EQUAL(group.m_endChar, start, ());
 
-    if (end - group.m_startChar < glyphCount)
+    if (end - group.m_startChar < m_maxGlypsCount)
       group.m_endChar = end;
     else
       m_glyphGroups.push_back(GlyphGroup(start, end));
@@ -240,7 +331,10 @@ void TextureManager::Release()
     g.m_texture.Destroy();
   });
 
-  DeleteRange(m_hybridGlyphGroups, MasterPointerDeleter());
+  DeleteRange(m_hybridGlyphGroups, [](HybridGlyphGroup & g)
+  {
+    g.m_texture.Destroy();
+  });
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
@@ -261,53 +355,49 @@ void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
 void TextureManager::GetGlyphRegions(TMultilineText const & text,
                                      TMultilineGlyphsBuffer & buffers)
 {
-  size_t groupIndex = INVALID_GLYPH_GROUP;
-  bool continueGroupFind = true;
-  for (strings::UniString const & str : text)
-  {
-    for (strings::UniChar const & c : str)
-    {
-      continueGroupFind = CheckCharGroup(c, groupIndex);
-      if (!continueGroupFind)
-        break;
-    }
-
-    if (!continueGroupFind)
-      break;
-  }
+  size_t groupIndex = FindGlyphsGroup(text);
 
   buffers.resize(text.size());
+  ASSERT_EQUAL(buffers.size(), text.size(), ());
   if (groupIndex != INVALID_GLYPH_GROUP)
   {
-    ASSERT_EQUAL(buffers.size(), text.size(), ());
     for (size_t i = 0; i < text.size(); ++i)
     {
       strings::UniString const & str = text[i];
       TGlyphsBuffer & buffer = buffers[i];
-      FillResultBuffer(str, m_glyphGroups[groupIndex], buffer);
+      FillResultBuffer<GlyphGroup, GlyphKey>(str, m_glyphGroups[groupIndex], buffer);
     }
   }
   else
   {
-    /// TODO some magic with hybrid textures
+    size_t hybridGroupIndex = FindHybridGlyphsGroup(text);
+    ASSERT(hybridGroupIndex != INVALID_GLYPH_GROUP, (""));
+
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+      strings::UniString const & str = text[i];
+      TGlyphsBuffer & buffer = buffers[i];
+
+      MarkCharactersUsage(str, m_hybridGlyphGroups[hybridGroupIndex]);
+      FillResultBuffer<HybridGlyphGroup, GlyphKey>(str, m_hybridGlyphGroups[hybridGroupIndex], buffer);
+    }
   }
 }
 
 void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
 {
-  size_t groupIndex = INVALID_GLYPH_GROUP;
-  for (strings::UniChar const & c : text)
-  {
-    if (!CheckCharGroup(c, groupIndex))
-      break;
-  }
+  size_t groupIndex = FindGlyphsGroup(text, INVALID_GLYPH_GROUP);
 
   regions.reserve(text.size());
   if (groupIndex != INVALID_GLYPH_GROUP)
-    FillResultBuffer(text, m_glyphGroups[groupIndex], regions);
+    FillResultBuffer<GlyphGroup, GlyphKey>(text, m_glyphGroups[groupIndex], regions);
   else
   {
-    /// TODO some magic with hybrid textures
+    size_t hybridGroupIndex = FindHybridGlyphsGroup(text);
+    ASSERT(hybridGroupIndex != INVALID_GLYPH_GROUP, (""));
+
+    MarkCharactersUsage(text, m_hybridGlyphGroups[hybridGroupIndex]);
+    FillResultBuffer<HybridGlyphGroup, GlyphKey>(text, m_hybridGlyphGroups[hybridGroupIndex], regions);
   }
 }
 
