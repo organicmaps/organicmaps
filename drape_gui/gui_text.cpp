@@ -4,7 +4,9 @@
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
 
+#include "../drape/glsl_func.hpp"
 #include "../drape/fribidi.hpp"
+#include "../drape/shader_def.hpp"
 
 #include "../std/unique_ptr.hpp"
 #include "../std/algorithm.hpp"
@@ -14,12 +16,12 @@ namespace gui
 
 namespace
 {
-  static float const BASE_GLYPH_HEIGHT = 20.0f;
+static float const BASE_GLYPH_HEIGHT = 20.0f;
 
-  glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float textRatio,
-                               array<glsl::vec2, 4> & normals, array<glsl::vec2, 4> & maskTexCoord)
-  {
-    m2::PointF pixelSize = m2::PointF(glyph.GetPixelSize()) * textRatio;
+glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float textRatio,
+                             array<glsl::vec2, 4> & normals, array<glsl::vec2, 4> & maskTexCoord)
+{
+  m2::PointF pixelSize = m2::PointF(glyph.GetPixelSize()) * textRatio;
     m2::RectF const & r = glyph.GetTexRect();
 
     float xOffset = glyph.GetOffsetX() * textRatio;
@@ -101,6 +103,9 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
   return *info.get();
 }
 
+StaticLabel::LabelResult::LabelResult() : m_state(gpu::TEXT_PROGRAM, dp::GLState::Gui) {}
+
+char const * StaticLabel::DefaultDelim = "\n";
 
 void StaticLabel::CacheStaticText(string const & text, char const * delim,
                              dp::Anchor anchor, dp::FontDecl const & font,
@@ -178,11 +183,17 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
         rb.push_back(Vertex(position, pen + normals[v], colorTex, outlineTex, maskTex[v]));
 
       float const advance = glyph.GetAdvanceX() * textRatio;
-      currentLineLength += advance;
       prevLineHeight = max(prevLineHeight, offsets.y + glyph.GetPixelHeight() * textRatio);
       pen += glsl::vec2(advance, glyph.GetAdvanceY() * textRatio);
 
       depth += 10.0f;
+      if (j == 0)
+        currentLineLength += (glyph.GetPixelSize().x * textRatio + offsets.x);
+      else
+        currentLineLength += advance;
+
+      if (j == regions.size() - 1)
+        currentLineLength += offsets.x;
     }
 
     ranges.push_back(rb.size());
@@ -212,13 +223,16 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
 
     size_t endIndex = ranges[i];
     for (size_t i = startIndex; i < endIndex; ++i)
+    {
       rb[i].m_normal = rb[i].m_normal + glsl::vec2(xOffset, yOffset);
+      result.m_boundRect.Add(glsl::ToPoint(rb[i].m_normal));
+    }
 
     startIndex = endIndex;
   }
 
-  result.m_maskTexture = buffers[0][0].GetTexture();
-  result.m_colorTexture = color.GetTexture();
+  result.m_state.SetColorTexture(color.GetTexture());
+  result.m_state.SetMaskTexture(buffers[0][0].GetTexture());
 }
 
 dp::BindingInfo const & MutableLabel::StaticVertex::GetBindingInfo()
@@ -262,6 +276,8 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
   return *info.get();
 }
 
+MutableLabel::PrecacheResult::PrecacheResult() : m_state(gpu::TEXT_PROGRAM, dp::GLState::Gui) {}
+
 MutableLabel::MutableLabel(dp::Anchor anchor)
   : m_anchor(anchor)
 {
@@ -298,38 +314,39 @@ dp::RefPointer<dp::Texture> MutableLabel::SetAlphabet(string const & alphabet, d
   return m_alphabet[0].second.GetTexture();
 }
 
-dp::RefPointer<dp::Texture> MutableLabel::Precache(buffer_vector<StaticVertex, 128> & buffer,
-                                                   dp::FontDecl const & font,
-                                                   dp::RefPointer<dp::TextureManager> mng)
+void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & result,
+                            dp::RefPointer<dp::TextureManager> mng)
 {
-  m_textRatio = font.m_size * DrapeGui::Instance().GetScaleFactor() / BASE_GLYPH_HEIGHT;
+  SetMaxLength(params.m_maxLength);
+  result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
+  m_textRatio = params.m_font.m_size * DrapeGui::Instance().GetScaleFactor() / BASE_GLYPH_HEIGHT;
 
   dp::TextureManager::ColorRegion color;
   dp::TextureManager::ColorRegion outlineColor;
 
-  mng->GetColorRegion(font.m_color, color);
-  mng->GetColorRegion(font.m_outlineColor, outlineColor);
+  mng->GetColorRegion(params.m_font.m_color, color);
+  mng->GetColorRegion(params.m_font.m_outlineColor, outlineColor);
+  result.m_state.SetColorTexture(color.GetTexture());
 
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outlineColor.GetTexRect().Center());
 
   size_t vertexCount = 4 * m_maxLength;
-  buffer.resize(vertexCount, StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
+  result.m_buffer.resize(vertexCount,
+                         StaticVertex(glsl::vec3(0.0, 0.0, 0.0), colorTex, outlineTex));
 
   float depth = 0.0f;
   for (size_t i = 0; i < vertexCount; i += 4)
   {
-    buffer[i + 0].m_position.z = depth;
-    buffer[i + 1].m_position.z = depth;
-    buffer[i + 2].m_position.z = depth;
-    buffer[i + 3].m_position.z = depth;
+    result.m_buffer[i + 0].m_position.z = depth;
+    result.m_buffer[i + 1].m_position.z = depth;
+    result.m_buffer[i + 2].m_position.z = depth;
+    result.m_buffer[i + 3].m_position.z = depth;
     depth += 10.0f;
   }
-
-  return color.GetTexture();
 }
 
-void MutableLabel::SetText(buffer_vector<DynamicVertex, 128> & buffer, string text) const
+void MutableLabel::SetText(LabelResult & result, string text) const
 {
   if (text.size() > m_maxLength)
     text = text.erase(m_maxLength - 3) + "...";
@@ -358,7 +375,7 @@ void MutableLabel::SetText(buffer_vector<DynamicVertex, 128> & buffer, string te
       ASSERT_EQUAL(normals.size(), maskTex.size(), ());
 
       for (size_t i = 0; i < normals.size(); ++i)
-        buffer.push_back(DynamicVertex(pen + normals[i], maskTex[i]));
+        result.m_buffer.push_back(DynamicVertex(pen + normals[i], maskTex[i]));
 
       float const advance = glyph.GetAdvanceX() * m_textRatio;
       length += advance + offsets.x;
@@ -378,11 +395,110 @@ void MutableLabel::SetText(buffer_vector<DynamicVertex, 128> & buffer, string te
   else if (m_anchor & dp::Bottom)
     anchorModifyer.y = 0;
 
-  for (DynamicVertex & v : buffer)
+  for (DynamicVertex & v : result.m_buffer)
+  {
     v.m_normal += anchorModifyer;
+    result.m_boundRect.Add(glsl::ToPoint(v.m_normal));
+  }
 
-  for (size_t i = buffer.size(); i < 4 * m_maxLength; ++i)
-    buffer.push_back(DynamicVertex(glsl::vec2(0.0, 0.0), glsl::vec2(0.0, 0.0)));
+  for (size_t i = result.m_buffer.size(); i < 4 * m_maxLength; ++i)
+    result.m_buffer.push_back(DynamicVertex(glsl::vec2(0.0, 0.0), glsl::vec2(0.0, 0.0)));
+}
+
+m2::PointF MutableLabel::GetAvarageSize() const
+{
+  float h = 0, w = 0;
+  for (TAlphabetNode const & node : m_alphabet)
+  {
+    dp::TextureManager::GlyphRegion const & reg = node.second;
+    m2::PointF size = m2::PointF(reg.GetPixelSize()) * m_textRatio;
+    w += size.x;
+    h = max(h, size.y);
+  }
+
+  w /= m_alphabet.size();
+
+  return m2::PointF(w, h);
+}
+
+MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, const m2::PointF & pivot)
+    : TBase(anchor, pivot, m2::PointF::Zero())
+{
+  m_textView.Reset(new MutableLabel(anchor));
+}
+
+MutableLabelHandle::~MutableLabelHandle() { m_textView.Destroy(); }
+
+void MutableLabelHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator,
+                                              ScreenBase const & screen) const
+{
+  UNUSED_VALUE(screen);
+
+  if (!IsContentDirty())
+    return;
+
+  MutableLabel::LabelResult result;
+  m_textView->SetText(result, GetContent());
+  m_size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
+
+  size_t byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
+  void * dataPointer = mutator->AllocateMutationBuffer(byteCount);
+  memcpy(dataPointer, result.m_buffer.data(), byteCount);
+
+  dp::BindingInfo const & binding = MutableLabel::DynamicVertex::GetBindingInfo();
+  dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(binding.GetID());
+
+  dp::MutateNode mutateNode;
+  mutateNode.m_data = dp::MakeStackRefPointer(dataPointer);
+  mutateNode.m_region = offsetNode.second;
+  mutator->AddMutation(offsetNode.first, mutateNode);
+}
+
+dp::RefPointer<MutableLabel> MutableLabelHandle::GetTextView()
+{
+  return m_textView.GetRefPointer();
+}
+
+void MutableLabelHandle::UpdateSize(m2::PointF const & size) { m_size = size; }
+
+void MutableLabelDrawer::Draw(Params const & params, dp::RefPointer<dp::TextureManager> mng,
+                              dp::Batcher::TFlushFn const & flushFn)
+{
+  uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
+  uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
+
+  ASSERT(params.m_handleCreator != nullptr, ());
+  dp::MasterPointer<MutableLabelHandle> handle(
+      params.m_handleCreator(params.m_anchor, params.m_pivot));
+
+  MutableLabel::PrecacheParams preCacheP;
+  preCacheP.m_alphabet = params.m_alphabet;
+  preCacheP.m_font = params.m_font;
+  preCacheP.m_maxLength = params.m_maxLength;
+
+  MutableLabel::PrecacheResult staticData;
+
+  handle->GetTextView()->Precache(preCacheP, staticData, mng);
+  handle->UpdateSize(handle->GetTextView()->GetAvarageSize());
+
+  ASSERT_EQUAL(vertexCount, staticData.m_buffer.size(), ());
+  buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
+  dynData.resize(staticData.m_buffer.size());
+
+  dp::BindingInfo const & sBinding = MutableLabel::StaticVertex::GetBindingInfo();
+  dp::BindingInfo const & dBinding = MutableLabel::DynamicVertex::GetBindingInfo();
+  dp::AttributeProvider provider(2 /*stream count*/, staticData.m_buffer.size());
+  provider.InitStream(0 /*stream index*/, sBinding,
+                      dp::MakeStackRefPointer<void>(staticData.m_buffer.data()));
+  provider.InitStream(1 /*stream index*/, dBinding, dp::MakeStackRefPointer<void>(dynData.data()));
+
+  {
+    dp::Batcher batcher(indexCount, vertexCount);
+    dp::SessionGuard guard(batcher, flushFn);
+    batcher.InsertListOfStrip(staticData.m_state, dp::MakeStackRefPointer(&provider),
+                              dp::MovePointer<dp::OverlayHandle>(handle.Release()),
+                              dp::Batcher::VertexPerQuad);
+  }
 }
 
 }

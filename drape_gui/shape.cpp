@@ -1,9 +1,23 @@
 #include "shape.hpp"
 
+#include "../drape/glsl_func.hpp"
 #include "../drape/utils/projection.hpp"
 
 namespace gui
 {
+Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
+    : dp::OverlayHandle(FeatureID(), anchor, 0.0), m_pivot(glsl::ToVec2(pivot)), m_size(size)
+{
+}
+
+void Handle::Update(const ScreenBase & screen)
+{
+  using namespace glsl;
+
+  if (IsVisible())
+    m_uniforms.SetMatrix4x4Value("modelView",
+                                 value_ptr(transpose(translate(mat4(), vec3(m_pivot, 0.0)))));
+}
 
 bool Handle::IndexesRequired() const
 {
@@ -23,14 +37,18 @@ void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects &
 
 ShapeRenderer::~ShapeRenderer()
 {
-  for (ShapeInfo & shape : m_shapes)
-    shape.Destroy();
+  ForEachShapeInfo([](ShapeControl::ShapeInfo & info)
+                   {
+                     info.Destroy();
+                   });
 }
 
 void ShapeRenderer::Build(dp::RefPointer<dp::GpuProgramManager> mng)
 {
-  for (ShapeInfo & shape : m_shapes)
-    shape.m_buffer->Build(mng->GetProgram(shape.m_state.GetProgramIndex()));
+  ForEachShapeInfo([mng](ShapeControl::ShapeInfo & info) mutable
+                   {
+                     info.m_buffer->Build(mng->GetProgram(info.m_state.GetProgramIndex()));
+                   });
 }
 
 void ShapeRenderer::Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProgramManager> mng)
@@ -42,53 +60,82 @@ void ShapeRenderer::Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProg
   dp::UniformValuesStorage uniformStorage;
   uniformStorage.SetMatrix4x4Value("projection", m.data());
 
-  for (ShapeInfo & shape : m_shapes)
-  {
-    Handle * handle = static_cast<Handle *>(shape.m_handle.GetRaw());
-    handle->Update(screen);
-    if (!(handle->IsValid() && handle->IsVisible()))
-      return;
+  ForEachShapeInfo(
+      [&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable
+      {
+        Handle * handle = info.m_handle.GetRaw();
+        handle->Update(screen);
+        if (!(handle->IsValid() && handle->IsVisible()))
+          return;
 
-    dp::RefPointer<dp::GpuProgram> prg = mng->GetProgram(shape.m_state.GetProgramIndex());
-    prg->Bind();
-    dp::ApplyState(shape.m_state, prg);
-    dp::ApplyUniforms(handle->GetUniforms(), prg);
-    dp::ApplyUniforms(uniformStorage, prg);
+        dp::RefPointer<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgramIndex());
+        prg->Bind();
+        dp::ApplyState(info.m_state, prg);
+        dp::ApplyUniforms(handle->GetUniforms(), prg);
+        dp::ApplyUniforms(uniformStorage, prg);
 
-    if (handle->HasDynamicAttributes())
-    {
-      dp::AttributeBufferMutator mutator;
-      dp::RefPointer<dp::AttributeBufferMutator> mutatorRef = dp::MakeStackRefPointer(&mutator);
-      handle->GetAttributeMutation(mutatorRef, screen);
-      shape.m_buffer->ApplyMutation(dp::MakeStackRefPointer<dp::IndexBufferMutator>(nullptr), mutatorRef);
-    }
+        if (handle->HasDynamicAttributes())
+        {
+          dp::AttributeBufferMutator mutator;
+          dp::RefPointer<dp::AttributeBufferMutator> mutatorRef = dp::MakeStackRefPointer(&mutator);
+          handle->GetAttributeMutation(mutatorRef, screen);
+          info.m_buffer->ApplyMutation(dp::MakeStackRefPointer<dp::IndexBufferMutator>(nullptr),
+                                       mutatorRef);
+        }
 
-    shape.m_buffer->Render();
-  }
+        info.m_buffer->Render();
+      });
 }
 
 void ShapeRenderer::AddShape(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket)
 {
-  dp::MasterPointer<dp::RenderBucket> b(bucket);
-  ASSERT(b->GetOverlayHandlesCount() == 1, ());
-  dp::TransferPointer<dp::VertexArrayBuffer> buffer = b->MoveBuffer();
-  dp::TransferPointer<dp::OverlayHandle> transferH = b->PopOverlayHandle();
-  b.Destroy();
-
-  m_shapes.emplace_back(state, buffer, transferH);
+  m_shapes.push_back(ShapeControl());
+  m_shapes.back().AddShape(state, bucket);
 }
 
-ShapeRenderer::ShapeInfo::ShapeInfo(const dp::GLState & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer, dp::TransferPointer<dp::OverlayHandle> handle)
-  : m_state(state)
-  , m_buffer(buffer)
-  , m_handle(handle)
+void ShapeRenderer::AddShapeControl(ShapeControl && control) { m_shapes.push_back(move(control)); }
+
+void ShapeRenderer::ForEachShapeControl(TShapeControlEditFn const & fn)
+{
+  for_each(m_shapes.begin(), m_shapes.end(), fn);
+}
+
+void ShapeRenderer::ForEachShapeInfo(ShapeRenderer::TShapeInfoEditFn const & fn)
+{
+  ForEachShapeControl([&fn](ShapeControl & shape)
+                      {
+                        for_each(shape.m_shapesInfo.begin(), shape.m_shapesInfo.end(), fn);
+                      });
+}
+
+ShapeControl::ShapeInfo::ShapeInfo(dp::GLState const & state,
+                                   dp::TransferPointer<dp::VertexArrayBuffer> buffer,
+                                   dp::TransferPointer<Handle> handle)
+    : m_state(state), m_buffer(buffer), m_handle(handle)
 {
 }
 
-void ShapeRenderer::ShapeInfo::Destroy()
+void ShapeControl::ShapeInfo::Destroy()
 {
   m_handle.Destroy();
   m_buffer.Destroy();
 }
 
+void ShapeControl::AddShape(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket)
+{
+  dp::MasterPointer<dp::RenderBucket> b(bucket);
+  ASSERT(b->GetOverlayHandlesCount() == 1, ());
+  dp::TransferPointer<dp::VertexArrayBuffer> buffer = b->MoveBuffer();
+  dp::TransferPointer<dp::OverlayHandle> transferH = b->PopOverlayHandle();
+  dp::OverlayHandle * handle = dp::MasterPointer<dp::OverlayHandle>(transferH).Release();
+  b.Destroy();
+
+  ASSERT(dynamic_cast<Handle *>(handle) != nullptr, ());
+
+  m_shapesInfo.push_back(ShapeInfo());
+  ShapeInfo & info = m_shapesInfo.back();
+  info.m_state = state;
+  info.m_buffer = dp::MasterPointer<dp::VertexArrayBuffer>(buffer);
+  info.m_handle = dp::MasterPointer<Handle>(static_cast<Handle *>(handle));
+}
 }

@@ -48,7 +48,8 @@ public:
 
   void Resize(int w, int h);
   /// @param names - can be combinations of single flags, or equal AllElements
-  dp::TransferPointer<LayerRenderer> Recache(Skin::ElementName names, dp::RefPointer<dp::TextureManager> textures);
+  dp::TransferPointer<LayerRenderer> Recache(Skin::ElementName names,
+                                             dp::RefPointer<dp::TextureManager> textures);
 
 private:
   unique_ptr<Skin> m_skin;

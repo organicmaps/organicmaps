@@ -1,12 +1,15 @@
 #pragma once
 
-#include "../drape/drape_global.hpp"
-#include "../drape/binding_info.hpp"
-#include "../drape/texture_manager.hpp"
-#include "../drape/glsl_types.hpp"
+#include "shape.hpp"
 
-#include "../std/utility.hpp"
+#include "../drape/binding_info.hpp"
+#include "../drape/drape_global.hpp"
+#include "../drape/glsl_types.hpp"
+#include "../drape/glstate.hpp"
+#include "../drape/texture_manager.hpp"
+
 #include "../std/stdint.hpp"
+#include "../std/utility.hpp"
 
 namespace gui
 {
@@ -14,6 +17,7 @@ namespace gui
 class StaticLabel
 {
 public:
+  static char const * DefaultDelim;
   struct Vertex
   {
     Vertex() = default;
@@ -38,15 +42,19 @@ public:
 
   struct LabelResult
   {
-    dp::RefPointer<dp::Texture> m_colorTexture;
-    dp::RefPointer<dp::Texture> m_maskTexture;
+    LabelResult();
+
+    dp::GLState m_state;
     buffer_vector<Vertex, 128> m_buffer;
+    m2::RectF m_boundRect;
   };
 
   static void CacheStaticText(string const & text, char const * delim,
                               dp::Anchor anchor, dp::FontDecl const & font,
                               dp::RefPointer<dp::TextureManager> mng, LabelResult & result);
 };
+
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 class MutableLabel
 {
@@ -85,11 +93,36 @@ public:
 
   MutableLabel(dp::Anchor anchor);
 
+  struct PrecacheParams
+  {
+    string m_alphabet;
+    size_t m_maxLength;
+    dp::FontDecl m_font;
+  };
+
+  struct PrecacheResult
+  {
+    PrecacheResult();
+
+    dp::GLState m_state;
+    buffer_vector<StaticVertex, 128> m_buffer;
+  };
+
+  void Precache(PrecacheParams const & params, PrecacheResult & result,
+                dp::RefPointer<dp::TextureManager> mng);
+
+  struct LabelResult
+  {
+    buffer_vector<DynamicVertex, 128> m_buffer;
+    m2::RectD m_boundRect;
+  };
+
+  void SetText(LabelResult & result, string text) const;
+  m2::PointF GetAvarageSize() const;
+
+private:
   void SetMaxLength(uint16_t maxLength);
   dp::RefPointer<dp::Texture> SetAlphabet(string const & alphabet, dp::RefPointer<dp::TextureManager> mng);
-  dp::RefPointer<dp::Texture> Precache(buffer_vector<StaticVertex, 128> & buffer, dp::FontDecl const & font,
-                                       dp::RefPointer<dp::TextureManager> mng);
-  void SetText(buffer_vector<DynamicVertex, 128> & buffer, string text) const;
 
 private:
   dp::Anchor m_anchor;
@@ -101,4 +134,45 @@ private:
   TAlphabet m_alphabet;
 };
 
+class MutableLabelHandle : public Handle
+{
+  typedef Handle TBase;
+
+public:
+  MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot);
+  ~MutableLabelHandle();
+
+  void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator,
+                            ScreenBase const & screen) const override;
+
+  dp::RefPointer<MutableLabel> GetTextView();
+  void UpdateSize(m2::PointF const & size);
+
+protected:
+  virtual bool IsContentDirty() const = 0;
+  virtual string GetContent() const = 0;
+
+private:
+  dp::MasterPointer<MutableLabel> m_textView;
+};
+
+class MutableLabelDrawer
+{
+public:
+  using TCreatoreResult = dp::TransferPointer<MutableLabelHandle>;
+  using THandleCreator = function<TCreatoreResult(dp::Anchor, m2::PointF const & /*pivot*/)>;
+
+  struct Params
+  {
+    dp::Anchor m_anchor;
+    dp::FontDecl m_font;
+    m2::PointF m_pivot;
+    string m_alphabet;
+    size_t m_maxLength;
+    THandleCreator m_handleCreator;
+  };
+
+  static void Draw(Params const & params, dp::RefPointer<dp::TextureManager> mng,
+                   dp::Batcher::TFlushFn const & flushFn);
+};
 }

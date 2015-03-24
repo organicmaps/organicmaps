@@ -17,6 +17,9 @@ HEADERS += \
     ruler_helper.hpp \
     shape.hpp \
     skin.hpp \
+    country_status.hpp \
+    country_status_helper.hpp \
+    button.hpp
 
 SOURCES += \
     compass.cpp \
@@ -27,4 +30,7 @@ SOURCES += \
     ruler_helper.cpp \
     shape.cpp \
     skin.cpp \
+    country_status.cpp \
+    country_status_helper.cpp \
+    button.cpp
 

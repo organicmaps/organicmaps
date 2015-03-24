@@ -105,12 +105,6 @@ RulerHelper::RulerHelper()
 {
 }
 
-RulerHelper & RulerHelper::Instance()
-{
-  static RulerHelper s_helper;
-  return s_helper;
-}
-
 void RulerHelper::Update(ScreenBase const & screen)
 {
   m2::PointD pivot = screen.PixelRect().Center();

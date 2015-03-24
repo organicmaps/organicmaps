@@ -32,7 +32,8 @@ public:
     GeometryLayer,
     DynamicGeometry,
     OverlayLayer,
-    UserMarkLayer
+    UserMarkLayer,
+    Gui
   };
 
   GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);

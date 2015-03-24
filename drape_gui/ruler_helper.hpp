@@ -10,7 +10,7 @@ namespace gui
 class RulerHelper
 {
 public:
-  static RulerHelper & Instance();
+  RulerHelper();
 
   void Update(ScreenBase const & screen);
   bool IsVisible(ScreenBase const & screen) const;
@@ -23,8 +23,6 @@ public:
   void GetTextInitInfo(string & alphabet, size_t & size) const;
 
 private:
-  RulerHelper();
-
   double CalcMetresDiff(double value);
 
 private:

@@ -59,11 +59,8 @@ public:
     provider.InitStream(0 /* streamIndex */, gui::StaticLabel::Vertex::GetBindingInfo(),
                         dp::MakeStackRefPointer<void>(result.m_buffer.data()));
 
-    dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-    state.SetColorTexture(result.m_colorTexture);
-    state.SetMaskTexture(result.m_maskTexture);
-
-    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4 /* vertexStride */);
+    batcher->InsertListOfStrip(result.m_state, dp::MakeStackRefPointer(&provider),
+                               4 /* vertexStride */);
   }
 
 private:
@@ -85,31 +82,29 @@ public:
   void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
   {
     gui::MutableLabel textCacher(dp::LeftBottom);
-    textCacher.SetMaxLength(10);
-    dp::RefPointer<dp::Texture> maskTexture = textCacher.SetAlphabet(m_text, textures);
+    gui::MutableLabel::PrecacheParams p;
+    p.m_maxLength = 10;
+    p.m_alphabet = m_text;
+    p.m_font = dp::FontDecl(dp::Color(0, 0, 0, 255), 14);
 
-    dp::FontDecl font(dp::Color(0, 0, 0, 255), 14);
-    buffer_vector<gui::MutableLabel::StaticVertex, 128> statData;
-    dp::RefPointer<dp::Texture> colorTexure = textCacher.Precache(statData, font, textures);
+    gui::MutableLabel::PrecacheResult staticData;
+    textCacher.Precache(p, staticData, textures);
 
     glsl::vec2 offset = glsl::ToVec2(m_base);
-    for (gui::MutableLabel::StaticVertex & v : statData)
+    for (gui::MutableLabel::StaticVertex & v : staticData.m_buffer)
       v.m_position = glsl::vec3(v.m_position.xy() + offset, v.m_position.z);
 
-    buffer_vector<gui::MutableLabel::DynamicVertex, 128> dynData;
-    textCacher.SetText(dynData, m_text);
-    ASSERT_EQUAL(statData.size(), dynData.size(), ());
+    gui::MutableLabel::LabelResult dynResult;
+    textCacher.SetText(dynResult, m_text);
+    ASSERT_EQUAL(staticData.m_buffer.size(), dynResult.m_buffer.size(), ());
 
-    dp::AttributeProvider provider(2, dynData.size());
+    dp::AttributeProvider provider(2, dynResult.m_buffer.size());
     provider.InitStream(0 /* streamIndex */, gui::MutableLabel::StaticVertex::GetBindingInfo(),
-                        dp::MakeStackRefPointer<void>(statData.data()));
+                        dp::MakeStackRefPointer<void>(staticData.m_buffer.data()));
     provider.InitStream(1 /* streamIndex */, gui::MutableLabel::DynamicVertex::GetBindingInfo(),
-                        dp::MakeStackRefPointer<void>(dynData.data()));
+                        dp::MakeStackRefPointer<void>(dynResult.m_buffer.data()));
 
-    dp::GLState state(gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-    state.SetColorTexture(colorTexure);
-    state.SetMaskTexture(maskTexture);
-    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+    batcher->InsertListOfStrip(staticData.m_state, dp::MakeStackRefPointer(&provider), 4);
   }
 
 private:

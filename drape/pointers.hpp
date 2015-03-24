@@ -18,7 +18,7 @@ public:
   void Ref(T * p, bool needDestroyCheck)
   {
     threads::MutexGuard g(m_mutex);
-    if (p == NULL)
+    if (p == nullptr)
       return;
 
     map_t::iterator it = m_countMap.find(p);
@@ -79,7 +79,7 @@ template <typename T>
 class DrapePointer
 {
 public:
-  DrapePointer() : m_p(NULL) { SET_CHECK_FLAG(true); }
+  DrapePointer() : m_p(nullptr) { SET_CHECK_FLAG(true); }
 
   bool operator==(DrapePointer<T> const & other) const
   {
@@ -94,8 +94,7 @@ protected:
     REF_POINTER(m_p, GET_CHECK_FLAG(*this));
   }
 
-  DrapePointer(DrapePointer<T> const & other)
-    : m_p(NULL)
+  DrapePointer(DrapePointer<T> const & other) : m_p(nullptr)
   {
     SET_CHECK_FLAG(GET_CHECK_FLAG(other));
     Reset(other.GetNonConstRaw());
@@ -113,7 +112,7 @@ protected:
     DESTROY_POINTER(m_p);
     delete m_p;
     DEREF_POINTER(m_p);
-    m_p = NULL;
+    m_p = nullptr;
   }
 
   void Reset(T * p)
@@ -131,7 +130,7 @@ protected:
   // Need to be const for copy constructor and assigment operator of TransfromPointer
   void SetToNull() const
   {
-    ResetImpl(NULL);
+    ResetImpl(nullptr);
   }
 
 private:
@@ -172,12 +171,12 @@ public:
 
   ~TransferPointer()
   {
-    ASSERT(base_t::GetRaw() == NULL, ());
+    ASSERT(base_t::GetRaw() == nullptr, ());
     Destroy();
   }
   void Destroy() { base_t::Destroy(); }
   // IsNull need for test
-  bool IsNull()  { return base_t::GetRaw() == NULL; }
+  bool IsNull() { return base_t::GetRaw() == nullptr; }
 
 private:
   friend class MasterPointer<T>;
@@ -194,13 +193,13 @@ class RefPointer : public DrapePointer<T>
   typedef DrapePointer<T> base_t;
 public:
   RefPointer() : base_t() {}
-  ~RefPointer() { base_t::Reset(NULL); }
+  ~RefPointer() { base_t::Reset(nullptr); }
 
   template <typename Y>
   RefPointer(RefPointer<Y> const & p) : base_t(p.GetNonConstRaw(), GET_CHECK_FLAG(p)) {}
 
   bool IsContentLess(RefPointer<T> const & other) const { return *GetRaw() < *other.GetRaw(); }
-  bool IsNull() const          { return base_t::GetRaw() == NULL; }
+  bool IsNull() const { return base_t::GetRaw() == nullptr; }
   T * operator->()             { return base_t::GetRaw(); }
   T const * operator->() const { return base_t::GetRaw(); }
   T * GetRaw()                 { return base_t::GetRaw(); }
@@ -217,51 +216,71 @@ template <typename T>
 RefPointer<T> MakeStackRefPointer(T * p) { return RefPointer<T>(p, false); }
 
 template <typename T>
+RefPointer<void> StackVoidRef(T * p)
+{
+  return MakeStackRefPointer<void>(p);
+}
+
+template <typename T>
 class MasterPointer : public DrapePointer<T>
 {
-  typedef DrapePointer<T> base_t;
+  typedef DrapePointer<T> TBase;
+
 public:
-  MasterPointer() : base_t() {}
-  explicit MasterPointer(T * p) : base_t(p) {}
+  MasterPointer() : TBase() {}
+  explicit MasterPointer(T * p) : TBase(p) {}
   explicit MasterPointer(TransferPointer<T> & transferPointer)
   {
     Reset(transferPointer.GetRaw());
-    transferPointer.Reset(NULL);
+    transferPointer.Reset(nullptr);
+  }
+
+  explicit MasterPointer(TransferPointer<T> && transferPointer)
+  {
+    Reset(transferPointer.GetRaw());
+    transferPointer.Reset(nullptr);
   }
 
   ~MasterPointer()
   {
-    base_t::Reset(NULL);
+    TBase::Reset(nullptr);
   }
 
   RefPointer<T> GetRefPointer() const
   {
-    return RefPointer<T>(base_t::GetNonConstRaw());
+    return RefPointer<T>(TBase::GetNonConstRaw());
   }
 
   TransferPointer<T> Move()
   {
     TransferPointer<T> result(GetRaw());
-    base_t::Reset(NULL);
+    TBase::Reset(nullptr);
     return result;
   }
 
   void Destroy()
   {
-    Reset(NULL);
+    Reset(nullptr);
   }
 
   void Reset(T * p)
   {
-    base_t::Destroy();
-    base_t::Reset(p);
+    TBase::Destroy();
+    TBase::Reset(p);
   }
 
-  bool IsNull() const          { return base_t::GetRaw() == NULL; }
-  T * operator->()             { return base_t::GetRaw(); }
-  T const * operator->() const { return base_t::GetRaw(); }
-  T * GetRaw()                 { return base_t::GetRaw(); }
-  T const * GetRaw() const     { return base_t::GetRaw(); }
+  T * Release()
+  {
+    T * result = GetRaw();
+    TBase::Reset(nullptr);
+    return result;
+  }
+
+  bool IsNull() const { return TBase::GetRaw() == nullptr; }
+  T * operator->() { return TBase::GetRaw(); }
+  T const * operator->() const { return TBase::GetRaw(); }
+  T * GetRaw() { return TBase::GetRaw(); }
+  T const * GetRaw() const { return TBase::GetRaw(); }
 };
 
 template<typename T>

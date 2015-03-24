@@ -208,9 +208,13 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::GuiLayerRecached:
     {
       GuiLayerRecachedMessage * msg = df::CastMessage<GuiLayerRecachedMessage>(message);
-      m_guiRenderer.Destroy();
-      m_guiRenderer = msg->AcceptRenderer();
-      m_guiRenderer->Build(m_gpuProgramManager.GetRefPointer());
+      dp::MasterPointer<gui::LayerRenderer> renderer = msg->AcceptRenderer();
+      renderer->Build(m_gpuProgramManager.GetRefPointer());
+      if (m_guiRenderer.IsNull())
+        m_guiRenderer = dp::MasterPointer<gui::LayerRenderer>(renderer.Move());
+      else
+        m_guiRenderer->Merge(renderer.GetRefPointer());
+      renderer.Destroy();
       break;
     }
   case Message::StopRendering:

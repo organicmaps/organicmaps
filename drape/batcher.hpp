@@ -21,8 +21,8 @@ class OverlayHandle;
 class Batcher
 {
 public:
-  static uint32_t const IndexCountPerQuad;
-  static uint32_t const VertexCountPerQuad;
+  static uint32_t const IndexPerQuad;
+  static uint32_t const VertexPerQuad;
 
   Batcher(uint32_t indexBufferSize = 9000, uint32_t vertexBufferSize = 10000);
   ~Batcher();

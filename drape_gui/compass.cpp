@@ -26,8 +26,8 @@ namespace
   class CompassHandle : public Handle
   {
   public:
-    CompassHandle(m2::PointF const & pivot)
-      : Handle(dp::Center, pivot)
+    CompassHandle(m2::PointF const & pivot, m2::PointF const & size)
+        : Handle(dp::Center, pivot, size)
     {
     }
 
@@ -64,7 +64,7 @@ dp::TransferPointer<ShapeRenderer> Compass::Draw(dp::RefPointer<dp::TextureManag
     CompassVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  dp::GLState state(gpu::COMPASS_PROGRAM, dp::GLState::UserMarkLayer);
+  dp::GLState state(gpu::COMPASS_PROGRAM, dp::GLState::Gui);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);
@@ -86,11 +86,14 @@ dp::TransferPointer<ShapeRenderer> Compass::Draw(dp::RefPointer<dp::TextureManag
 
   provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes));
 
+  m2::PointF compassSize = region.GetPixelSize();
+  dp::MasterPointer<dp::OverlayHandle> handle(
+      new CompassHandle(m_position.m_pixelPivot, compassSize));
+
   dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer());
-  dp::Batcher batcher(dp::Batcher::IndexCountPerQuad, dp::Batcher::VertexCountPerQuad);
+  dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
   dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2));
-  batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
-                              dp::MovePointer<dp::OverlayHandle>(new CompassHandle(m_position.m_pixelPivot)));
+  batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider), handle.Move());
 
   return renderer.Move();
 }
