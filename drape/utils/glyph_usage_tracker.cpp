@@ -30,8 +30,10 @@ string GlyphUsageTracker::Report()
   ss << " Unexpected glyphs: {\n";
   for (auto const & it : m_unexpectedGlyphs)
   {
-    ss << "   glyph = " << it.first << ", unique usages = " << it.second.counter << ", group = " << it.second.group << ", expected groups = { ";
-    for (auto const & gr : it.second.expectedGroups)
+    ss << "   glyph = " << it.first << ", unique usages = " << it.second.m_counter
+       << ", group = " << it.second.m_group << ", expected groups = { ";
+
+    for (auto const & gr : it.second.m_expectedGroups)
       ss << gr << " ";
     ss << "}\n";
   }
@@ -48,11 +50,7 @@ void GlyphUsageTracker::AddInvalidGlyph(strings::UniString const & str, strings:
   if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
     return;
 
-  auto it = m_invalidGlyphs.find(c);
-  if (it != m_invalidGlyphs.end())
-    it->second++;
-  else
-    m_invalidGlyphs.insert(make_pair(c, 1));
+  ++m_invalidGlyphs[c];
 
   m_processedStrings.insert(strings::ToUtf8(str));
 }
@@ -65,22 +63,10 @@ void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniString const & str, strin
   if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
     return;
 
-  auto it = m_unexpectedGlyphs.find(c);
-  if (it != m_unexpectedGlyphs.end())
-  {
-    ASSERT(it->second.group == group, (""));
-    it->second.counter++;
-    if (it->second.expectedGroups.find(expectedGroup) == it->second.expectedGroups.end())
-      it->second.expectedGroups.emplace(expectedGroup);
-  }
-  else
-  {
-    UnexpectedGlyphData data;
-    data.group = group;
-    data.expectedGroups.emplace(expectedGroup);
-    data.counter = 1;
-    m_unexpectedGlyphs.insert(make_pair(c, data));
-  }
+  UnexpectedGlyphData & data = m_unexpectedGlyphs[c];
+  ++data.m_counter;
+  data.m_expectedGroups.emplace(expectedGroup);
+  data.m_group = group;
 
   m_processedStrings.insert(strings::ToUtf8(str));
 }

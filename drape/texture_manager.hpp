@@ -1,9 +1,10 @@
 #pragma once
 
 #include "drape/color.hpp"
+#include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
-#include "drape/glyph_manager.hpp"
+#include "drape/font_texture.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -115,18 +116,17 @@ private:
   void GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
 
   size_t FindGlyphsGroup(strings::UniChar const & c) const;
-  size_t FindGlyphsGroup(strings::UniString const & text, size_t const defaultGroup) const;
+  size_t FindGlyphsGroup(strings::UniString const & text) const;
   size_t FindGlyphsGroup(TMultilineText const & text) const;
 
   size_t FindHybridGlyphsGroup(strings::UniString const & text);
   size_t FindHybridGlyphsGroup(TMultilineText const & text);
 
-  bool CheckHybridGroup(strings::UniString const & text, HybridGlyphGroup const & group) const;
   size_t GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const;
 
   void MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group);
 
-  template<typename TGlyphGroup, typename TTextureKey>
+  template<typename TGlyphGroup>
   void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
   {
     if (group.m_texture.IsNull())
@@ -137,8 +137,32 @@ private:
     for (strings::UniChar const & c : text)
     {
       GlyphRegion reg;
-      GetRegionBase(texture, reg, TTextureKey(c));
+      GetRegionBase(texture, reg, GlyphKey(c));
       regions.push_back(reg);
+    }
+  }
+
+  static constexpr size_t GetInvalidGlyphGroup();
+
+  template<typename TText, typename TBuffer>
+  void CalcGlyphRegions(TText const & text, TBuffer & buffers,
+                        function<void(TText const &, TBuffer &, GlyphGroup &)> callback,
+                        function<void(TText const &, TBuffer &, HybridGlyphGroup &)> hybridCallback)
+  {
+    size_t const groupIndex = FindGlyphsGroup(text);
+    if (groupIndex != GetInvalidGlyphGroup())
+    {
+      GlyphGroup & group = m_glyphGroups[groupIndex];
+      if (callback != nullptr)
+        callback(text, buffers, group);
+    }
+    else
+    {
+      size_t const hybridGroupIndex = FindHybridGlyphsGroup(text);
+      ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
+      HybridGlyphGroup & group = m_hybridGlyphGroups[hybridGroupIndex];
+      if (hybridCallback != nullptr)
+        hybridCallback(text, buffers, group);
     }
   }
 

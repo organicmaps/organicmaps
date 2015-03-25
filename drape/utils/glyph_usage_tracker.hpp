@@ -34,9 +34,9 @@ private:
 
   struct UnexpectedGlyphData
   {
-    size_t counter;
-    size_t group;
-    set<size_t> expectedGroups;
+    size_t m_counter = 0;
+    size_t m_group = 0;
+    set<size_t> m_expectedGroups;
   };
   using UnexpectedGlyphs = map<strings::UniChar, UnexpectedGlyphData>;
   UnexpectedGlyphs m_unexpectedGlyphs;
