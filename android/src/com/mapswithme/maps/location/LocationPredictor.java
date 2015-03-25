@@ -15,9 +15,8 @@ public class LocationPredictor
   private Handler mHandler;
 
   private LocationHelper.LocationListener mListener;
-  private Location mLastLocation;
-  private boolean mGeneratePredictions;
-  // TODO variable ISNT really changed anywhere.
+  private Location mLastLocation = null;
+  private boolean mGeneratePredictions = false;
   private int mPredictionCount;
   private int mConnectionSlot;
 
@@ -82,32 +81,42 @@ public class LocationPredictor
     if (mode < LocationState.NOT_FOLLOW)
       mLastLocation = null;
 
-    mGeneratePredictions = mode == LocationState.ROTATE_AND_FOLLOW;
+    mGeneratePredictions = (mode == LocationState.ROTATE_AND_FOLLOW);
     resetHandler();
+  }
+
+  private boolean isPredict()
+  {
+    return mLastLocation != null && mGeneratePredictions;
   }
 
   private void resetHandler()
   {
     mPredictionCount = 0;
+
     mHandler.removeCallbacks(mRunnable);
-    if (mLastLocation != null && mGeneratePredictions)
+
+    if (isPredict())
       mHandler.postDelayed(mRunnable, PREDICTION_INTERVAL);
   }
 
   private boolean generatePrediction()
   {
-    if (mLastLocation == null || !mGeneratePredictions)
+    if (!isPredict())
       return false;
 
     if (mPredictionCount < MAX_PREDICTION_COUNT)
     {
+      ++mPredictionCount;
+
       Location info = new Location(mLastLocation);
       info.setTime(System.currentTimeMillis());
 
-      long elapsedMillis = info.getTime() - mLastLocation.getTime();
+      final long elapsedMillis = info.getTime() - mLastLocation.getTime();
 
-      double[] newLatLon = Framework.predictLocation(info.getLatitude(), info.getLongitude(), info.getAccuracy(), info.getBearing(),
-          info.getSpeed(), elapsedMillis / 1000.0);
+      double[] newLatLon = Framework.predictLocation(info.getLatitude(), info.getLongitude(),
+              info.getAccuracy(), info.getBearing(),
+              info.getSpeed(), elapsedMillis / 1000.0);
       info.setLatitude(newLatLon[0]);
       info.setLongitude(newLatLon[1]);
 

@@ -5,6 +5,7 @@
 
 #include "../../../map/location_state.hpp"
 
+
 namespace
 {
   NSTimeInterval const PREDICTION_INTERVAL = 0.2; // in seconds
@@ -32,12 +33,13 @@ namespace
     m_timer = nil;
     m_gpsInfoIsValid = false;
     m_generatePredictions = false;
-    m_predictionCount = 0;
-    
+
     m_connectionSlot = GetFramework().GetLocationState()->AddStateModeListener([self](location::State::Mode mode)
     {
-      m_generatePredictions = mode == location::State::RotateAndFollow;
-      m_gpsInfoIsValid = mode < location::State::NotFollow ? false : m_gpsInfoIsValid;
+      m_generatePredictions = (mode == location::State::RotateAndFollow);
+      if (mode < location::State::NotFollow)
+        m_gpsInfoIsValid = false;
+
       [self resetTimer];
     });
   }
@@ -60,22 +62,27 @@ namespace
     m_lastGpsInfo.m_source = location::EPredictor;
   }
   else
-  {
     m_gpsInfoIsValid = false;
-  }
+
   [self resetTimer];
+}
+
+-(bool)isPredict
+{
+  return m_gpsInfoIsValid && m_generatePredictions;
 }
 
 -(void)resetTimer
 {
   m_predictionCount = 0;
+
   if (m_timer != nil)
   {
     [m_timer invalidate];
     m_timer = nil;
   }
   
-  if (m_gpsInfoIsValid && m_generatePredictions)
+  if ([self isPredict])
   {
     m_timer = [NSTimer scheduledTimerWithTimeInterval:PREDICTION_INTERVAL
                                                target:self
@@ -87,13 +94,13 @@ namespace
 
 -(void)timerFired
 {
-  if (!(m_gpsInfoIsValid && m_generatePredictions))
+  if (![self isPredict])
     return;
   
-  if (m_lastGpsInfo.HasBearing() && m_lastGpsInfo.HasSpeed() && m_predictionCount < MAX_PREDICTION_COUNT)
+  if (m_predictionCount < MAX_PREDICTION_COUNT)
   {
     ++m_predictionCount;
-    
+
     location::GpsInfo info = m_lastGpsInfo;
     info.m_timestamp = my::Timer::LocalTime();
     ::Framework::PredictLocation(info.m_latitude, info.m_longitude, info.m_horizontalAccuracy, info.m_bearing,
