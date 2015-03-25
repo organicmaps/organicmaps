@@ -858,7 +858,6 @@ extern "C"
 
     const jstring j_name = jni::ToJavaString(env, addrInfo.GetPinName());
     const jstring j_type = jni::ToJavaString(env, addrInfo.GetPinType());
-    const jstring j_address = jni::ToJavaString(env, addrInfo.FormatAddress());
     const double lon = MercatorBounds::XToLon(globalPoint.x);
     const double lat = MercatorBounds::YToLat(globalPoint.y);
 
@@ -867,9 +866,8 @@ extern "C"
     const char * signature = "(Ljava/lang/String;Ljava/lang/String;DD[I[Ljava/lang/String;)V";
     static jmethodID const methodId = jni::GetJavaMethodID(env, *obj.get(),
                                                       "onAdditionalLayerActivated", signature);
-    env->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon, meta.first, meta.second);
+    env->CallVoidMethod(*obj.get(), methodId, j_name, j_type, lat, lon, meta.first, meta.second);
 
-    env->DeleteLocalRef(j_address);
     env->DeleteLocalRef(j_type);
     env->DeleteLocalRef(j_name);
 
