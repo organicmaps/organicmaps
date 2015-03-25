@@ -657,5 +657,5 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tea">茶</string>
 	<!-- bookmark button text -->
-	<string name="bookmark">書簽</string>
+	<string name="bookmark">書籤</string>
 </resources>

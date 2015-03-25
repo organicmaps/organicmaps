@@ -675,5 +675,5 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tea">شاي</string>
 	<!-- bookmark button text -->
-	<string name="bookmark">ملصق</string>
+	<string name="bookmark">إشارة مرجعية</string>
 </resources>

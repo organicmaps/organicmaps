@@ -9899,7 +9899,7 @@
     en = bookmark
     ru = метка
     uk = мітка
-    tr = i̇şaretle
+    tr = yer i̇mi
     es = marcador
     sv = bokmärke
     sk = záložka
@@ -9917,11 +9917,11 @@
     cs = záložka
     it = segnalibro
     no = bokmerk
-    zh-Hant = 書簽
+    zh-Hant = 書籤
     zh-Hans = 书签
     vi = đánh dấu
     th = บุ๊กมาร์ก
     ja = お気に入り
     el = σελιδοδείκτης
-    ar = ملصق
+    ar = إشارة مرجعية
     he = סימניה
