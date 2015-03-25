@@ -491,183 +491,183 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Du kommer til at downloade %s MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.</string>
 	<!-- Cuisine -->
-	<string name="cuisine_regional">regional køkken</string>
+	<string name="cuisine_regional">regionalt køkken</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pizza">pizza</string>
 	<!-- Cuisine -->
 	<string name="cuisine_burger">burger</string>
 	<!-- Cuisine -->
-	<string name="cuisine_italian">italiensk køkken</string>
+	<string name="cuisine_italian">italiensk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_chinese">kinesisk køkken</string>
+	<string name="cuisine_chinese">kinesisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">coffee_shop</string>
+	<string name="cuisine_coffee_shop">café</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">sandwich</string>
 	<!-- Cuisine -->
-	<string name="cuisine_german">tysk køkken</string>
+	<string name="cuisine_german">tysk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_japanese">japansk køkken</string>
+	<string name="cuisine_japanese">japansk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_kebab">kebab</string>
 	<!-- Cuisine -->
-	<string name="cuisine_mexican">mexikansk køkken</string>
+	<string name="cuisine_mexican">mexicansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_indian">indisk køkken</string>
+	<string name="cuisine_indian">indisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_american">amerikansk køkken</string>
+	<string name="cuisine_american">amerikansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_french">fransk køkken</string>
+	<string name="cuisine_french">fransk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_ice_cream">is</string>
 	<!-- Cuisine -->
-	<string name="cuisine_asian">asiatisk køkken</string>
+	<string name="cuisine_asian">asiatisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_chicken">kylling</string>
 	<!-- Cuisine -->
-	<string name="cuisine_greek">græsk køkken</string>
+	<string name="cuisine_greek">græsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_thai">thailansk køkken</string>
+	<string name="cuisine_thai">thailandsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_international">internationalt køkken</string>
+	<string name="cuisine_international">international</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sushi">sushi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish_and_chips">fish and chips</string>
 	<!-- Cuisine -->
-	<string name="cuisine_turkish">tyrkisk køkken</string>
+	<string name="cuisine_turkish">tyrkisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_seafood">fisk og skaldyr</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak_house">bøfhus</string>
+	<string name="cuisine_steak_house">steakhouse</string>
 	<!-- Cuisine -->
-	<string name="cuisine_spanish">spansk køkken</string>
+	<string name="cuisine_spanish">spansk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish">fisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">vietnamesisk køkken</string>
+	<string name="cuisine_vietnamese">vietnamesisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">nudler</string>
+	<string name="cuisine_noodles">nudler</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">vegetarisk køkken</string>
+	<string name="cuisine_vegetarian">vegetarretter</string>
 	<!-- Cuisine -->
-	<string name="cuisine_korean">koreansk køkken</string>
+	<string name="cuisine_korean">koreansk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_friture">friture</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbecue">grill</string>
+	<string name="cuisine_barbecue">barbecue</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bavarian">bavarisk køkken</string>
+	<string name="cuisine_bavarian">bavarisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_ramen">ramen</string>
 	<!-- Cuisine -->
 	<string name="cuisine_italian_pizza">italiensk, pizza</string>
 	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">fra_middelhavet køkken</string>
+	<string name="cuisine_mediterranean">middelhavskost</string>
 	<!-- Cuisine -->
-	<string name="cuisine_donut">donut</string>
+	<string name="cuisine_donut">donuts</string>
 	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">bøfgryde</string>
+	<string name="cuisine_beef_bowl">gyudon</string>
 	<!-- Cuisine -->
-	<string name="cuisine_cake">kage</string>
+	<string name="cuisine_cake">kager</string>
 	<!-- Cuisine -->
-	<string name="cuisine_crepe">crepe</string>
+	<string name="cuisine_crepe">crepes</string>
 	<!-- Cuisine -->
 	<string name="cuisine_heuriger">heuriger</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lebanese">libanesisk køkken</string>
+	<string name="cuisine_lebanese">libanesisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_steak">bøf</string>
 	<!-- Cuisine -->
 	<string name="cuisine_local">lokalt køkken</string>
 	<!-- Cuisine -->
-	<string name="cuisine_curry">kurry</string>
+	<string name="cuisine_curry">karryretter</string>
 	<!-- Cuisine -->
-	<string name="cuisine_filipino">filipinsk køkken</string>
+	<string name="cuisine_filipino">filippinsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_russian">russisk køkken</string>
+	<string name="cuisine_russian">russisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_breakfast">morgenmad</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
+	<string name="cuisine_bbq">BBQ</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bagel">bagel</string>
+	<string name="cuisine_bagel">bagels</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">pasta</string>
 	<!-- Cuisine -->
 	<string name="cuisine_buschenschank">buschenschank</string>
 	<!-- Cuisine -->
-	<string name="cuisine_sausage">pølse</string>
+	<string name="cuisine_sausage">pølser</string>
 	<!-- Cuisine -->
-	<string name="cuisine_portuguese">portugisisk køkken</string>
+	<string name="cuisine_portuguese">portugisisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_grill">grill</string>
 	<!-- Cuisine -->
-	<string name="cuisine_pancake">pandekage</string>
+	<string name="cuisine_pancake">pandekager</string>
 	<!-- Cuisine -->
-	<string name="cuisine_malagasy">madagaskisk køkken</string>
+	<string name="cuisine_malagasy">madagaskisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_polish">polsk køkken</string>
+	<string name="cuisine_polish">polsk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_diner">diner</string>
 	<!-- Cuisine -->
-	<string name="cuisine_african">afrikansk køkken</string>
+	<string name="cuisine_african">afrikansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_doughnut">doughnut</string>
+	<string name="cuisine_doughnut">doughnuts</string>
 	<!-- Cuisine -->
-	<string name="cuisine_georgian">georgisk køkken</string>
+	<string name="cuisine_georgian">georgisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_croatian">kroatisk køkken</string>
+	<string name="cuisine_croatian">kroatisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_arab">arabisk køkken</string>
+	<string name="cuisine_arab">arabisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkan køkken</string>
+	<string name="cuisine_balkan">balkansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_brazilian">brasiliansk køkken</string>
+	<string name="cuisine_brazilian">brasiliansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_caribbean">karibisk køkken</string>
+	<string name="cuisine_caribbean">caribisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_austrian">østrigsk køkken</string>
+	<string name="cuisine_austrian">østrigsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vegan">vegan køkken</string>
+	<string name="cuisine_vegan">vegansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_argentinian">argentinsk køkken</string>
+	<string name="cuisine_argentinian">argentinsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_persian">persisk køkken</string>
+	<string name="cuisine_persian">persisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_soba">soba</string>
 	<!-- Cuisine -->
-	<string name="cuisine_malaysian">malaysisk køkken</string>
+	<string name="cuisine_malaysian">malaysisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_indonesian">indonesisk køkken</string>
+	<string name="cuisine_indonesian">indonesisk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">etiopisk køkken</string>
+	<string name="cuisine_ethiopian">etiopisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_deli">deli</string>
 	<!-- Cuisine -->
-	<string name="cuisine_irish">irsk køkken</string>
+	<string name="cuisine_irish">irsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_hungarian">ungarsk køkken</string>
+	<string name="cuisine_hungarian">ungarsk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">lao køkken</string>
+	<string name="cuisine_lao_cuisine">laotisk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">kaffe</string>
 	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hotdog</string>
+	<string name="cuisine_hotdog">hotdogs</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">orientalsk køkken</string>
+	<string name="cuisine_far_eastern_cusine">orientalsk</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">madpandekager</string>
 	<!-- Cuisine -->
-	<string name="cuisine_moroccan">marokansk køkken</string>
+	<string name="cuisine_moroccan">marokkansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbeque">grill</string>
+	<string name="cuisine_barbeque">barbecue</string>
 	<!-- Cuisine -->
-	<string name="cuisine_peruvian">peruviansk køkken</string>
+	<string name="cuisine_peruvian">peruviansk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">fornem middig</string>
+	<string name="cuisine_fine_dining">eksklusiv</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">te</string>
 	<!-- bookmark button text -->

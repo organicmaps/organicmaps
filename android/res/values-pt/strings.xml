@@ -544,7 +544,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">cozinha vietnamita</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">macarrão</string>
+	<string name="cuisine_noodles">macarrão</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">cozinha vegetariana</string>
 	<!-- Cuisine -->
@@ -584,7 +584,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_russian">cozinha russa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_breakfast">café_da_manhã</string>
+	<string name="cuisine_breakfast">café da manhã</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
@@ -648,13 +648,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">cozinha húngara</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">cozinha laosiana</string>
+	<string name="cuisine_lao_cuisine">cozinha laosiana</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">café</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">cachorro-quente</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">cozinha oriental</string>
+	<string name="cuisine_far_eastern_cusine">cozinha oriental</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">panquecas salgadas</string>
 	<!-- Cuisine -->

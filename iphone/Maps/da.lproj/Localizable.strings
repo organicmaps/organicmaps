@@ -773,7 +773,7 @@
 "routing_download_roaming" = "Du kommer til at downloade %@ MB ved at bruge mobilt data (i roaming). Dette kan resultere i yderligere omkostninger alt afhængigt din operatørs mobile dataplan.";
 
 /* Cuisine */
-"cuisine_regional" = "regional køkken";
+"cuisine_regional" = "regionalt køkken";
 
 /* Cuisine */
 "cuisine_pizza" = "pizza";
@@ -782,55 +782,55 @@
 "cuisine_burger" = "burger";
 
 /* Cuisine */
-"cuisine_italian" = "italiensk køkken";
+"cuisine_italian" = "italiensk";
 
 /* Cuisine */
-"cuisine_chinese" = "kinesisk køkken";
+"cuisine_chinese" = "kinesisk";
 
 /* Cuisine */
-"cuisine_coffee_shop" = "coffee_shop";
+"cuisine_coffee_shop" = "café";
 
 /* Cuisine */
 "cuisine_sandwich" = "sandwich";
 
 /* Cuisine */
-"cuisine_german" = "tysk køkken";
+"cuisine_german" = "tysk";
 
 /* Cuisine */
-"cuisine_japanese" = "japansk køkken";
+"cuisine_japanese" = "japansk";
 
 /* Cuisine */
 "cuisine_kebab" = "kebab";
 
 /* Cuisine */
-"cuisine_mexican" = "mexikansk køkken";
+"cuisine_mexican" = "mexicansk";
 
 /* Cuisine */
-"cuisine_indian" = "indisk køkken";
+"cuisine_indian" = "indisk";
 
 /* Cuisine */
-"cuisine_american" = "amerikansk køkken";
+"cuisine_american" = "amerikansk";
 
 /* Cuisine */
-"cuisine_french" = "fransk køkken";
+"cuisine_french" = "fransk";
 
 /* Cuisine */
 "cuisine_ice_cream" = "is";
 
 /* Cuisine */
-"cuisine_asian" = "asiatisk køkken";
+"cuisine_asian" = "asiatisk";
 
 /* Cuisine */
 "cuisine_chicken" = "kylling";
 
 /* Cuisine */
-"cuisine_greek" = "græsk køkken";
+"cuisine_greek" = "græsk";
 
 /* Cuisine */
-"cuisine_thai" = "thailansk køkken";
+"cuisine_thai" = "thailandsk";
 
 /* Cuisine */
-"cuisine_international" = "internationalt køkken";
+"cuisine_international" = "international";
 
 /* Cuisine */
 "cuisine_sushi" = "sushi";
@@ -839,40 +839,40 @@
 "cuisine_fish_and_chips" = "fish and chips";
 
 /* Cuisine */
-"cuisine_turkish" = "tyrkisk køkken";
+"cuisine_turkish" = "tyrkisk";
 
 /* Cuisine */
 "cuisine_seafood" = "fisk og skaldyr";
 
 /* Cuisine */
-"cuisine_steak_house" = "bøfhus";
+"cuisine_steak_house" = "steakhouse";
 
 /* Cuisine */
-"cuisine_spanish" = "spansk køkken";
+"cuisine_spanish" = "spansk";
 
 /* Cuisine */
 "cuisine_fish" = "fisk";
 
 /* Cuisine */
-"cuisine_vietnamese" = "vietnamesisk køkken";
+"cuisine_vietnamese" = "vietnamesisk";
 
 /* Cuisine */
-"cuisine_noodle" = "nudler";
+"cuisine_noodles" = "nudler";
 
 /* Cuisine */
-"cuisine_vegetarian" = "vegetarisk køkken";
+"cuisine_vegetarian" = "vegetarretter";
 
 /* Cuisine */
-"cuisine_korean" = "koreansk køkken";
+"cuisine_korean" = "koreansk";
 
 /* Cuisine */
 "cuisine_friture" = "friture";
 
 /* Cuisine */
-"cuisine_barbecue" = "grill";
+"cuisine_barbecue" = "barbecue";
 
 /* Cuisine */
-"cuisine_bavarian" = "bavarisk køkken";
+"cuisine_bavarian" = "bavarisk";
 
 /* Cuisine */
 "cuisine_ramen" = "ramen";
@@ -881,25 +881,25 @@
 "cuisine_italian_pizza" = "italiensk, pizza";
 
 /* Cuisine */
-"cuisine_mediterranean" = "fra_middelhavet køkken";
+"cuisine_mediterranean" = "middelhavskost";
 
 /* Cuisine */
-"cuisine_donut" = "donut";
+"cuisine_donut" = "donuts";
 
 /* Cuisine */
-"cuisine_beef_bowl" = "bøfgryde";
+"cuisine_beef_bowl" = "gyudon";
 
 /* Cuisine */
-"cuisine_cake" = "kage";
+"cuisine_cake" = "kager";
 
 /* Cuisine */
-"cuisine_crepe" = "crepe";
+"cuisine_crepe" = "crepes";
 
 /* Cuisine */
 "cuisine_heuriger" = "heuriger";
 
 /* Cuisine */
-"cuisine_lebanese" = "libanesisk køkken";
+"cuisine_lebanese" = "libanesisk";
 
 /* Cuisine */
 "cuisine_steak" = "bøf";
@@ -908,13 +908,13 @@
 "cuisine_local" = "lokalt køkken";
 
 /* Cuisine */
-"cuisine_curry" = "kurry";
+"cuisine_curry" = "karryretter";
 
 /* Cuisine */
-"cuisine_filipino" = "filipinsk køkken";
+"cuisine_filipino" = "filippinsk";
 
 /* Cuisine */
-"cuisine_russian" = "russisk køkken";
+"cuisine_russian" = "russisk";
 
 /* Cuisine */
 "cuisine_breakfast" = "morgenmad";
@@ -923,10 +923,10 @@
 "cuisine_tapas" = "tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "grill";
+"cuisine_bbq" = "BBQ";
 
 /* Cuisine */
-"cuisine_bagel" = "bagel";
+"cuisine_bagel" = "bagels";
 
 /* Cuisine */
 "cuisine_pasta" = "pasta";
@@ -935,109 +935,109 @@
 "cuisine_buschenschank" = "buschenschank";
 
 /* Cuisine */
-"cuisine_sausage" = "pølse";
+"cuisine_sausage" = "pølser";
 
 /* Cuisine */
-"cuisine_portuguese" = "portugisisk køkken";
+"cuisine_portuguese" = "portugisisk";
 
 /* Cuisine */
 "cuisine_grill" = "grill";
 
 /* Cuisine */
-"cuisine_pancake" = "pandekage";
+"cuisine_pancake" = "pandekager";
 
 /* Cuisine */
-"cuisine_malagasy" = "madagaskisk køkken";
+"cuisine_malagasy" = "madagaskisk";
 
 /* Cuisine */
-"cuisine_polish" = "polsk køkken";
+"cuisine_polish" = "polsk";
 
 /* Cuisine */
 "cuisine_diner" = "diner";
 
 /* Cuisine */
-"cuisine_african" = "afrikansk køkken";
+"cuisine_african" = "afrikansk";
 
 /* Cuisine */
-"cuisine_doughnut" = "doughnut";
+"cuisine_doughnut" = "doughnuts";
 
 /* Cuisine */
-"cuisine_georgian" = "georgisk køkken";
+"cuisine_georgian" = "georgisk";
 
 /* Cuisine */
-"cuisine_croatian" = "kroatisk køkken";
+"cuisine_croatian" = "kroatisk";
 
 /* Cuisine */
-"cuisine_arab" = "arabisk køkken";
+"cuisine_arab" = "arabisk";
 
 /* Cuisine */
-"cuisine_balkan" = "balkan køkken";
+"cuisine_balkan" = "balkansk";
 
 /* Cuisine */
-"cuisine_brazilian" = "brasiliansk køkken";
+"cuisine_brazilian" = "brasiliansk";
 
 /* Cuisine */
-"cuisine_caribbean" = "karibisk køkken";
+"cuisine_caribbean" = "caribisk";
 
 /* Cuisine */
-"cuisine_austrian" = "østrigsk køkken";
+"cuisine_austrian" = "østrigsk";
 
 /* Cuisine */
-"cuisine_vegan" = "vegan køkken";
+"cuisine_vegan" = "vegansk";
 
 /* Cuisine */
-"cuisine_argentinian" = "argentinsk køkken";
+"cuisine_argentinian" = "argentinsk";
 
 /* Cuisine */
-"cuisine_persian" = "persisk køkken";
+"cuisine_persian" = "persisk";
 
 /* Cuisine */
 "cuisine_soba" = "soba";
 
 /* Cuisine */
-"cuisine_malaysian" = "malaysisk køkken";
+"cuisine_malaysian" = "malaysisk";
 
 /* Cuisine */
-"cuisine_indonesian" = "indonesisk køkken";
+"cuisine_indonesian" = "indonesisk";
 
 /* Cuisine */
-"cuisine_ethiopian" = "etiopisk køkken";
+"cuisine_ethiopian" = "etiopisk";
 
 /* Cuisine */
 "cuisine_deli" = "deli";
 
 /* Cuisine */
-"cuisine_irish" = "irsk køkken";
+"cuisine_irish" = "irsk";
 
 /* Cuisine */
-"cuisine_hungarian" = "ungarsk køkken";
+"cuisine_hungarian" = "ungarsk";
 
 /* Cuisine */
-"cuisine_lao" = "lao køkken";
+"cuisine_lao_cuisine" = "laotisk";
 
 /* Cuisine */
 "cuisine_coffee" = "kaffe";
 
 /* Cuisine */
-"cuisine_hotdog" = "hotdog";
+"cuisine_hotdog" = "hotdogs";
 
 /* Cuisine */
-"cuisine_oriental" = "orientalsk køkken";
+"cuisine_far_eastern_cusine" = "orientalsk";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "madpandekager";
 
 /* Cuisine */
-"cuisine_moroccan" = "marokansk køkken";
+"cuisine_moroccan" = "marokkansk";
 
 /* Cuisine */
-"cuisine_barbeque" = "grill";
+"cuisine_barbeque" = "barbecue";
 
 /* Cuisine */
-"cuisine_peruvian" = "peruviansk køkken";
+"cuisine_peruvian" = "peruviansk";
 
 /* Cuisine */
-"cuisine_fine_dining" = "fornem middig";
+"cuisine_fine_dining" = "eksklusiv";
 
 /* Cuisine */
 "cuisine_tea" = "te";

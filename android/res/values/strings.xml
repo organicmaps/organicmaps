@@ -560,7 +560,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">vietnamese</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">noodle</string>
+	<string name="cuisine_noodles">noodles</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">vegetarian</string>
 	<!-- Cuisine -->
@@ -664,13 +664,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">hungarian</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">lao</string>
+	<string name="cuisine_lao_cuisine">lao cuisine</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">coffee</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hotdog</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">oriental</string>
+	<string name="cuisine_far_eastern_cusine">far eastern cusine</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">savory pancakes</string>
 	<!-- Cuisine -->

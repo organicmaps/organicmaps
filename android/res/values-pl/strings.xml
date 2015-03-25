@@ -494,9 +494,9 @@
 	<!-- Cuisine -->
 	<string name="cuisine_regional">kuchnia regionalna</string>
 	<!-- Cuisine -->
-	<string name="cuisine_pizza">pizza</string>
+	<string name="cuisine_pizza">pizzeria</string>
 	<!-- Cuisine -->
-	<string name="cuisine_burger">burger</string>
+	<string name="cuisine_burger">burgery</string>
 	<!-- Cuisine -->
 	<string name="cuisine_italian">kuchnia włoska</string>
 	<!-- Cuisine -->
@@ -504,7 +504,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_coffee_shop">kawiarnia</string>
 	<!-- Cuisine -->
-	<string name="cuisine_sandwich">kanapka</string>
+	<string name="cuisine_sandwich">kanapki</string>
 	<!-- Cuisine -->
 	<string name="cuisine_german">kuchnia niemiecka</string>
 	<!-- Cuisine -->
@@ -520,7 +520,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_french">kuchnia francuska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_ice_cream">lody</string>
+	<string name="cuisine_ice_cream">lodziarnia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_asian">kuchnia azjatycka</string>
 	<!-- Cuisine -->
@@ -544,41 +544,41 @@
 	<!-- Cuisine -->
 	<string name="cuisine_spanish">kuchnia hiszpańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_fish">ryba</string>
+	<string name="cuisine_fish">ryby</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">kuchnia wietnamska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">makaron_nudle</string>
+	<string name="cuisine_noodles">noodle</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">kuchnia wegetariańska</string>
 	<!-- Cuisine -->
 	<string name="cuisine_korean">kuchnia koreańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_friture">smażona</string>
+	<string name="cuisine_friture">smażalnia</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbecue">grill</string>
+	<string name="cuisine_barbecue">dania z grilla</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bavarian">kuchnia bawarska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_ramen">makaron_ramen</string>
+	<string name="cuisine_ramen">zupa ramen</string>
 	<!-- Cuisine -->
 	<string name="cuisine_italian_pizza">włoska, pizza</string>
 	<!-- Cuisine -->
 	<string name="cuisine_mediterranean">kuchnia śródziemnomorska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_donut">pączek</string>
+	<string name="cuisine_donut">pączki</string>
 	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">rosół wołowy</string>
+	<string name="cuisine_beef_bowl">gyūdon</string>
 	<!-- Cuisine -->
-	<string name="cuisine_cake">ciasto</string>
+	<string name="cuisine_cake">ciasta</string>
 	<!-- Cuisine -->
-	<string name="cuisine_crepe">naleśnik</string>
+	<string name="cuisine_crepe">naleśnikarnia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_heuriger">heuriger</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">kuchnia libańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak">stek</string>
+	<string name="cuisine_steak">steki</string>
 	<!-- Cuisine -->
 	<string name="cuisine_local">kuchnia lokalna</string>
 	<!-- Cuisine -->
@@ -588,23 +588,23 @@
 	<!-- Cuisine -->
 	<string name="cuisine_russian">kuchnia rosyjska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_breakfast">śniadanie</string>
+	<string name="cuisine_breakfast">śniadaniarnia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
+	<string name="cuisine_bbq">dania z grilla</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bagel">obwarzanek</string>
+	<string name="cuisine_bagel">bajgle</string>
 	<!-- Cuisine -->
-	<string name="cuisine_pasta">spagetti</string>
+	<string name="cuisine_pasta">makarony</string>
 	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
+	<string name="cuisine_buschenschank">winiarnia</string>
 	<!-- Cuisine -->
-	<string name="cuisine_sausage">kiełbasa</string>
+	<string name="cuisine_sausage">kiełbasiarnia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_portuguese">kuchnia portugalska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_grill">grill</string>
+	<string name="cuisine_grill">dania z grilla</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pancake">naleśnik</string>
 	<!-- Cuisine -->
@@ -612,11 +612,11 @@
 	<!-- Cuisine -->
 	<string name="cuisine_polish">kuchnia polska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_diner">obiad</string>
+	<string name="cuisine_diner">bar szybkiej obsługi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">kuchnia afrykańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_doughnut">pączek</string>
+	<string name="cuisine_doughnut">pączki</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">kuchnia gruzińska</string>
 	<!-- Cuisine -->
@@ -652,25 +652,25 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">kuchnia węgierska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">kuchnia laoska</string>
+	<string name="cuisine_lao_cuisine">kuchnia laoska</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">kawa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_hotdog">hot-dog</string>
+	<string name="cuisine_hotdog">hot-dogi</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">kuchnia orientalna</string>
+	<string name="cuisine_far_eastern_cusine">kuchnia orientalna</string>
 	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">placki</string>
+	<string name="cuisine_savory_pancakes">wytrawne naleśniki</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">kuchnia marokańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbeque">grill</string>
+	<string name="cuisine_barbeque">dania z grilla</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">kuchnia peruwiańska</string>
 	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">wyrafinowana kuchnia</string>
+	<string name="cuisine_fine_dining">wykwintna kuchnia</string>
 	<!-- Cuisine -->
-	<string name="cuisine_tea">herbata</string>
+	<string name="cuisine_tea">herbaciarnia</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">zakładka</string>
 </resources>

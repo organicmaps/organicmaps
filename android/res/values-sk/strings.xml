@@ -494,13 +494,13 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Veľkosť súboru je %s MB, ktoré stiahnete prostredníctvom Mobilných Dát (v Roamingu). Toto môže mať za následok dodatočné poplatky, v závislosti od dátových taríf vášho mobilného operátora.</string>
 	<!-- Cuisine -->
-	<string name="cuisine_regional">regionálne</string>
+	<string name="cuisine_regional">regionálna kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pizza">pizza</string>
 	<!-- Cuisine -->
 	<string name="cuisine_burger">hamburger</string>
 	<!-- Cuisine -->
-	<string name="cuisine_italian">talianská kuchyňa</string>
+	<string name="cuisine_italian">talianska kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">čína</string>
 	<!-- Cuisine -->
@@ -510,7 +510,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_german">nemecká kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_japanese">japónska kuchyňa</string>
+	<string name="cuisine_japanese">japonská kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_kebab">kebab</string>
 	<!-- Cuisine -->
@@ -524,17 +524,17 @@
 	<!-- Cuisine -->
 	<string name="cuisine_ice_cream">zmrzlina</string>
 	<!-- Cuisine -->
-	<string name="cuisine_asian">ázijska kuchyňa</string>
+	<string name="cuisine_asian">ázijská kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_chicken">kurča</string>
 	<!-- Cuisine -->
 	<string name="cuisine_greek">grécka kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_thai">thaiská kuchyňa</string>
+	<string name="cuisine_thai">thajská kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_international">medzinárodné jedlá</string>
 	<!-- Cuisine -->
-	<string name="cuisine_sushi">sushi</string>
+	<string name="cuisine_sushi">suši</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish_and_chips">ryba s hranolkami</string>
 	<!-- Cuisine -->
@@ -544,39 +544,39 @@
 	<!-- Cuisine -->
 	<string name="cuisine_steak_house">steak house</string>
 	<!-- Cuisine -->
-	<string name="cuisine_spanish">španielská kuchyňa</string>
+	<string name="cuisine_spanish">španielska kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish">ryby</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">vietnamská kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">rezance</string>
+	<string name="cuisine_noodles">rezance</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">vegetariánske jedlá</string>
 	<!-- Cuisine -->
-	<string name="cuisine_korean">kórejska kuchyňa</string>
+	<string name="cuisine_korean">kórejská kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_friture">vyprážané</string>
+	<string name="cuisine_friture">vyprážané jedlá</string>
 	<!-- Cuisine -->
 	<string name="cuisine_barbecue">gril</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bavarian">bavorská kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_ramen">ramien</string>
+	<string name="cuisine_ramen">rámen (japonská rezancová polievka)</string>
 	<!-- Cuisine -->
-	<string name="cuisine_italian_pizza">talianská kuchyňa; pizza</string>
+	<string name="cuisine_italian_pizza">talianska kuchyňa; pizza</string>
 	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">stredozemná kuchyňa</string>
+	<string name="cuisine_mediterranean">stredomorská kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_donut">šiška</string>
+	<string name="cuisine_donut">šišky</string>
 	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">misa howädzieho</string>
+	<string name="cuisine_beef_bowl">misa hovädzieho</string>
 	<!-- Cuisine -->
-	<string name="cuisine_cake">torta</string>
+	<string name="cuisine_cake">koláče</string>
 	<!-- Cuisine -->
-	<string name="cuisine_crepe">crepe</string>
+	<string name="cuisine_crepe">palacinky</string>
 	<!-- Cuisine -->
-	<string name="cuisine_heuriger">burčiak</string>
+	<string name="cuisine_heuriger">heuriger</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanonská kuchyňa</string>
 	<!-- Cuisine -->
@@ -596,11 +596,11 @@
 	<!-- Cuisine -->
 	<string name="cuisine_bbq">gril</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bagel">žemľa</string>
+	<string name="cuisine_bagel">bagely</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">cestoviny</string>
 	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
+	<string name="cuisine_buschenschank">viecha</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sausage">klobása</string>
 	<!-- Cuisine -->
@@ -608,7 +608,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_grill">gril</string>
 	<!-- Cuisine -->
-	<string name="cuisine_pancake">palacinka</string>
+	<string name="cuisine_pancake">lievance</string>
 	<!-- Cuisine -->
 	<string name="cuisine_malagasy">madagaskarská kuchyňa</string>
 	<!-- Cuisine -->
@@ -618,7 +618,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_african">africká kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_doughnut">šiška</string>
+	<string name="cuisine_doughnut">šišky</string>
 	<!-- Cuisine -->
 	<string name="cuisine_georgian">gruzínska kuchyňa</string>
 	<!-- Cuisine -->
@@ -642,7 +642,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_soba">soba</string>
 	<!-- Cuisine -->
-	<string name="cuisine_malaysian">malajzská kuchyňa</string>
+	<string name="cuisine_malaysian">malajzijská kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_indonesian">indonézska kuchyňa</string>
 	<!-- Cuisine -->
@@ -654,13 +654,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">maďarská kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">laoská kuchyňa</string>
+	<string name="cuisine_lao_cuisine">laoská kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">káva</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">párok v rožku</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">orientálna kuchyňa</string>
+	<string name="cuisine_far_eastern_cusine">orientálna kuchyňa</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">pikantné palacinky</string>
 	<!-- Cuisine -->
@@ -670,7 +670,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">peruánska kuchyňa</string>
 	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">elegantné stolovanie</string>
+	<string name="cuisine_fine_dining">exkluzívna reštaurácia</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">čaj</string>
 	<!-- bookmark button text -->

@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "vietnamesisk mat";
 
 /* Cuisine */
-"cuisine_noodle" = "nudlar";
+"cuisine_noodles" = "nudlar";
 
 /* Cuisine */
 "cuisine_vegetarian" = "vegetarisk mat";
@@ -872,7 +872,7 @@
 "cuisine_barbecue" = "grillat";
 
 /* Cuisine */
-"cuisine_bavarian" = "bayerskt mat";
+"cuisine_bavarian" = "bayersk mat";
 
 /* Cuisine */
 "cuisine_ramen" = "ramen";
@@ -881,13 +881,13 @@
 "cuisine_italian_pizza" = "italiensk, pizza";
 
 /* Cuisine */
-"cuisine_mediterranean" = "medelhavet mat";
+"cuisine_mediterranean" = "medelhavsmat";
 
 /* Cuisine */
 "cuisine_donut" = "munk";
 
 /* Cuisine */
-"cuisine_beef_bowl" = "kött skål";
+"cuisine_beef_bowl" = "biff donburi";
 
 /* Cuisine */
 "cuisine_cake" = "tårta";
@@ -896,7 +896,7 @@
 "cuisine_crepe" = "crêpe";
 
 /* Cuisine */
-"cuisine_heuriger" = "heuriger";
+"cuisine_heuriger" = "vintaverna (heuriger)";
 
 /* Cuisine */
 "cuisine_lebanese" = "libanesisk mat";
@@ -923,7 +923,7 @@
 "cuisine_tapas" = "tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "grill";
+"cuisine_bbq" = "grillat";
 
 /* Cuisine */
 "cuisine_bagel" = "bagel";
@@ -932,7 +932,7 @@
 "cuisine_pasta" = "pasta";
 
 /* Cuisine */
-"cuisine_buschenschank" = "buschenschank";
+"cuisine_buschenschank" = "vintaverna";
 
 /* Cuisine */
 "cuisine_sausage" = "korv";
@@ -962,7 +962,7 @@
 "cuisine_doughnut" = "munk";
 
 /* Cuisine */
-"cuisine_georgian" = "georgiansk mat";
+"cuisine_georgian" = "georgisk mat";
 
 /* Cuisine */
 "cuisine_croatian" = "kroatisk mat";
@@ -971,7 +971,7 @@
 "cuisine_arab" = "arabisk mat";
 
 /* Cuisine */
-"cuisine_balkan" = "balkan mat";
+"cuisine_balkan" = "balkansk mat";
 
 /* Cuisine */
 "cuisine_brazilian" = "brasiliansk mat";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "ungersk mat";
 
 /* Cuisine */
-"cuisine_lao" = "laotisk mat";
+"cuisine_lao_cuisine" = "laotisk mat";
 
 /* Cuisine */
 "cuisine_coffee" = "kaffe";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "varmkorv";
 
 /* Cuisine */
-"cuisine_oriental" = "orientalisk mat";
+"cuisine_far_eastern_cusine" = "orientalisk mat";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "fyllda pannkakor";
@@ -1037,7 +1037,7 @@
 "cuisine_peruvian" = "peruansk mat";
 
 /* Cuisine */
-"cuisine_fine_dining" = "elegant restaurang";
+"cuisine_fine_dining" = "lyxrestaurang";
 
 /* Cuisine */
 "cuisine_tea" = "te";

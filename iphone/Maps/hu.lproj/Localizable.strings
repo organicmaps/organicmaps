@@ -779,7 +779,7 @@
 "cuisine_pizza" = "pizza";
 
 /* Cuisine */
-"cuisine_burger" = "burger";
+"cuisine_burger" = "hamburger";
 
 /* Cuisine */
 "cuisine_italian" = "olasz konyha";
@@ -818,7 +818,7 @@
 "cuisine_ice_cream" = "jégkrém";
 
 /* Cuisine */
-"cuisine_asian" = "ázsiai konyha";
+"cuisine_asian" = "ázsiai és közel-keleti konyha";
 
 /* Cuisine */
 "cuisine_chicken" = "csirke";
@@ -833,7 +833,7 @@
 "cuisine_international" = "nemzetközi konyha";
 
 /* Cuisine */
-"cuisine_sushi" = "sushi";
+"cuisine_sushi" = "szusi";
 
 /* Cuisine */
 "cuisine_fish_and_chips" = "hal és sültkrumpli";
@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "vietnami konyha";
 
 /* Cuisine */
-"cuisine_noodle" = "tészta";
+"cuisine_noodles" = "tészta";
 
 /* Cuisine */
 "cuisine_vegetarian" = "vegetáriánus konyha";
@@ -866,7 +866,7 @@
 "cuisine_korean" = "koreai konyha";
 
 /* Cuisine */
-"cuisine_friture" = "fagyasztott ételek";
+"cuisine_friture" = "olajban sütött ételek";
 
 /* Cuisine */
 "cuisine_barbecue" = "barbecue";
@@ -875,10 +875,10 @@
 "cuisine_bavarian" = "bajor konyha";
 
 /* Cuisine */
-"cuisine_ramen" = "ramen";
+"cuisine_ramen" = "rámen";
 
 /* Cuisine */
-"cuisine_italian_pizza" = "olasz, pizza";
+"cuisine_italian_pizza" = "olasz konyha, pizza";
 
 /* Cuisine */
 "cuisine_mediterranean" = "mediterrán konyha";
@@ -887,16 +887,16 @@
 "cuisine_donut" = "fánk";
 
 /* Cuisine */
-"cuisine_beef_bowl" = "marha  tál";
+"cuisine_beef_bowl" = "gyúdon";
 
 /* Cuisine */
 "cuisine_cake" = "torta";
 
 /* Cuisine */
-"cuisine_crepe" = "palacsinta";
+"cuisine_crepe" = "francia palacsinta";
 
 /* Cuisine */
-"cuisine_heuriger" = "idei";
+"cuisine_heuriger" = "heuriger";
 
 /* Cuisine */
 "cuisine_lebanese" = "libanoni konyha";
@@ -911,7 +911,7 @@
 "cuisine_curry" = "curry";
 
 /* Cuisine */
-"cuisine_filipino" = "filippín konyha";
+"cuisine_filipino" = "filippínó konyha";
 
 /* Cuisine */
 "cuisine_russian" = "orosz konyha";
@@ -923,7 +923,7 @@
 "cuisine_tapas" = "tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "bbq";
+"cuisine_bbq" = "grill";
 
 /* Cuisine */
 "cuisine_bagel" = "bagel";
@@ -932,7 +932,7 @@
 "cuisine_pasta" = "tészta";
 
 /* Cuisine */
-"cuisine_buschenschank" = "borkimérés";
+"cuisine_buschenschank" = "borozó";
 
 /* Cuisine */
 "cuisine_sausage" = "kolbász";
@@ -953,7 +953,7 @@
 "cuisine_polish" = "lengyel konyha";
 
 /* Cuisine */
-"cuisine_diner" = "étkezde";
+"cuisine_diner" = "étkező";
 
 /* Cuisine */
 "cuisine_african" = "afrikai konyha";
@@ -986,7 +986,7 @@
 "cuisine_vegan" = "vegán konyha";
 
 /* Cuisine */
-"cuisine_argentinian" = "argentín konyha";
+"cuisine_argentinian" = "argentin konyha";
 
 /* Cuisine */
 "cuisine_persian" = "perzsa konyha";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "magyar konyha";
 
 /* Cuisine */
-"cuisine_lao" = "lao konyha";
+"cuisine_lao_cuisine" = "laoszi konyha";
 
 /* Cuisine */
 "cuisine_coffee" = "kávé";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "hotdog";
 
 /* Cuisine */
-"cuisine_oriental" = "keleti konyha";
+"cuisine_far_eastern_cusine" = "keleti konyha";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "sós palacsinta";
@@ -1037,7 +1037,7 @@
 "cuisine_peruvian" = "perui konyha";
 
 /* Cuisine */
-"cuisine_fine_dining" = "fine dining";
+"cuisine_fine_dining" = "exkluzív étterem";
 
 /* Cuisine */
 "cuisine_tea" = "tea";

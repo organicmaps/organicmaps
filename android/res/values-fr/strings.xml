@@ -502,33 +502,33 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">Vous allez télécharger 2 840 Mo à l\&#39;aide de données mobiles (frais d\&#39; itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.</string>
 	<!-- Cuisine -->
-	<string name="cuisine_regional">cuisine régional</string>
+	<string name="cuisine_regional">cuisine régionale</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pizza">pizza</string>
 	<!-- Cuisine -->
 	<string name="cuisine_burger">hamburger</string>
 	<!-- Cuisine -->
-	<string name="cuisine_italian">cuisine italien</string>
+	<string name="cuisine_italian">cuisine italienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_chinese">cuisine chinois</string>
+	<string name="cuisine_chinese">cuisine chinoise</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee_shop">café</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">sandwich</string>
 	<!-- Cuisine -->
-	<string name="cuisine_german">cuisine allemand</string>
+	<string name="cuisine_german">cuisine allemande</string>
 	<!-- Cuisine -->
-	<string name="cuisine_japanese">cuisine japonais</string>
+	<string name="cuisine_japanese">cuisine japonaise</string>
 	<!-- Cuisine -->
 	<string name="cuisine_kebab">kebab</string>
 	<!-- Cuisine -->
-	<string name="cuisine_mexican">cuisine mexicain</string>
+	<string name="cuisine_mexican">cuisine mexicaine</string>
 	<!-- Cuisine -->
-	<string name="cuisine_indian">cuisine Indien</string>
+	<string name="cuisine_indian">cuisine indienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_american">cuisine américain</string>
+	<string name="cuisine_american">cuisine américaine</string>
 	<!-- Cuisine -->
-	<string name="cuisine_french">cuisine français</string>
+	<string name="cuisine_french">cuisine française</string>
 	<!-- Cuisine -->
 	<string name="cuisine_ice_cream">crème glacée</string>
 	<!-- Cuisine -->
@@ -540,45 +540,45 @@
 	<!-- Cuisine -->
 	<string name="cuisine_thai">cuisine thaï</string>
 	<!-- Cuisine -->
-	<string name="cuisine_international">cuisine international</string>
+	<string name="cuisine_international">cuisine internationale</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sushi">sushi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish_and_chips">fish and chips</string>
 	<!-- Cuisine -->
-	<string name="cuisine_turkish">cuisine turc</string>
+	<string name="cuisine_turkish">cuisine turque</string>
 	<!-- Cuisine -->
 	<string name="cuisine_seafood">fruits de mer</string>
 	<!-- Cuisine -->
-	<string name="cuisine_steak_house">grilladerie</string>
+	<string name="cuisine_steak_house">grillades</string>
 	<!-- Cuisine -->
-	<string name="cuisine_spanish">cuisine espagnol</string>
+	<string name="cuisine_spanish">cuisine espagnole</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish">poisson</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vietnamese">cuisine vietnamien</string>
+	<string name="cuisine_vietnamese">cuisine vietnamienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">nouille</string>
+	<string name="cuisine_noodles">nouilles</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vegetarian">cuisine végétarien</string>
+	<string name="cuisine_vegetarian">cuisine végétarienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_korean">cuisine coréen</string>
+	<string name="cuisine_korean">cuisine coréenne</string>
 	<!-- Cuisine -->
 	<string name="cuisine_friture">friture</string>
 	<!-- Cuisine -->
 	<string name="cuisine_barbecue">barbecue</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bavarian">cuisine bavarois</string>
+	<string name="cuisine_bavarian">cuisine bavaroise</string>
 	<!-- Cuisine -->
 	<string name="cuisine_ramen">râmen</string>
 	<!-- Cuisine -->
 	<string name="cuisine_italian_pizza">italien, pizza</string>
 	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">cuisine méditerranéen</string>
+	<string name="cuisine_mediterranean">cuisine méditerranéenne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_donut">beignet</string>
+	<string name="cuisine_donut">donuts</string>
 	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">bol de bœuf</string>
+	<string name="cuisine_beef_bowl">donburi de bœuf</string>
 	<!-- Cuisine -->
 	<string name="cuisine_cake">gâteau</string>
 	<!-- Cuisine -->
@@ -586,15 +586,15 @@
 	<!-- Cuisine -->
 	<string name="cuisine_heuriger">heuriger</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lebanese">cuisine libanais</string>
+	<string name="cuisine_lebanese">cuisine libanaise</string>
 	<!-- Cuisine -->
 	<string name="cuisine_steak">steak</string>
 	<!-- Cuisine -->
-	<string name="cuisine_local">cuisine local</string>
+	<string name="cuisine_local">cuisine locale</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">curry</string>
 	<!-- Cuisine -->
-	<string name="cuisine_filipino">cuisine filipino</string>
+	<string name="cuisine_filipino">cuisine philippine</string>
 	<!-- Cuisine -->
 	<string name="cuisine_russian">cuisine russe</string>
 	<!-- Cuisine -->
@@ -602,7 +602,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">bbq</string>
+	<string name="cuisine_bbq">barbecue</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bagel">bagel</string>
 	<!-- Cuisine -->
@@ -612,71 +612,71 @@
 	<!-- Cuisine -->
 	<string name="cuisine_sausage">saucisse</string>
 	<!-- Cuisine -->
-	<string name="cuisine_portuguese">cuisine portugais</string>
+	<string name="cuisine_portuguese">cuisine portugaise</string>
 	<!-- Cuisine -->
-	<string name="cuisine_grill">griller</string>
+	<string name="cuisine_grill">grill</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pancake">crêpe</string>
 	<!-- Cuisine -->
 	<string name="cuisine_malagasy">cuisine malgache</string>
 	<!-- Cuisine -->
-	<string name="cuisine_polish">cuisine polonais</string>
+	<string name="cuisine_polish">cuisine polonaise</string>
 	<!-- Cuisine -->
-	<string name="cuisine_diner">diner</string>
+	<string name="cuisine_diner">diner américain</string>
 	<!-- Cuisine -->
-	<string name="cuisine_african">cuisine africain</string>
+	<string name="cuisine_african">cuisine africaine</string>
 	<!-- Cuisine -->
-	<string name="cuisine_doughnut">beignet</string>
+	<string name="cuisine_doughnut">donuts</string>
 	<!-- Cuisine -->
-	<string name="cuisine_georgian">cuisine géorgien</string>
+	<string name="cuisine_georgian">cuisine géorgienne</string>
 	<!-- Cuisine -->
 	<string name="cuisine_croatian">cuisine croate</string>
 	<!-- Cuisine -->
 	<string name="cuisine_arab">cuisine arabe</string>
 	<!-- Cuisine -->
-	<string name="cuisine_balkan">cuisine balkanique</string>
+	<string name="cuisine_balkan">cuisine des Balkans</string>
 	<!-- Cuisine -->
-	<string name="cuisine_brazilian">cuisine brésilien</string>
+	<string name="cuisine_brazilian">cuisine brésilienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_caribbean">cuisine caraïbes</string>
+	<string name="cuisine_caribbean">cuisine des Caraïbes</string>
 	<!-- Cuisine -->
-	<string name="cuisine_austrian">cuisine autrichien</string>
+	<string name="cuisine_austrian">cuisine autrichienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vegan">cuisine végétalien</string>
+	<string name="cuisine_vegan">cuisine végétalienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_argentinian">cuisine argentin</string>
+	<string name="cuisine_argentinian">cuisine argentine</string>
 	<!-- Cuisine -->
-	<string name="cuisine_persian">cuisine persan</string>
+	<string name="cuisine_persian">cuisine persane</string>
 	<!-- Cuisine -->
 	<string name="cuisine_soba">soba</string>
 	<!-- Cuisine -->
-	<string name="cuisine_malaysian">cuisine malaysian</string>
+	<string name="cuisine_malaysian">cuisine malaisienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_indonesian">cuisine indonésien</string>
+	<string name="cuisine_indonesian">cuisine indonésienne</string>
 	<!-- Cuisine -->
-	<string name="cuisine_ethiopian">cuisine éthiopien</string>
+	<string name="cuisine_ethiopian">cuisine éthiopienne</string>
 	<!-- Cuisine -->
 	<string name="cuisine_deli">charcuterie</string>
 	<!-- Cuisine -->
-	<string name="cuisine_irish">cuisine irlandais</string>
+	<string name="cuisine_irish">cuisine irlandaise</string>
 	<!-- Cuisine -->
-	<string name="cuisine_hungarian">cuisine hongrois</string>
+	<string name="cuisine_hungarian">cuisine hongroise</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">cuisine lao</string>
+	<string name="cuisine_lao_cuisine">cuisine laotienne</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">café</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">hot-dog</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">cuisine oriental</string>
+	<string name="cuisine_far_eastern_cusine">cuisine orientale</string>
 	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">crêpe savoureuse</string>
+	<string name="cuisine_savory_pancakes">crêpes salées</string>
 	<!-- Cuisine -->
-	<string name="cuisine_moroccan">cuisine marocain</string>
+	<string name="cuisine_moroccan">cuisine marocaine</string>
 	<!-- Cuisine -->
 	<string name="cuisine_barbeque">barbecue</string>
 	<!-- Cuisine -->
-	<string name="cuisine_peruvian">cuisine péruvien</string>
+	<string name="cuisine_peruvian">cuisine péruvienne</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fine_dining">restaurant gastronomique</string>
 	<!-- Cuisine -->

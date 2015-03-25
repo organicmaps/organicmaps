@@ -776,10 +776,10 @@
 "cuisine_regional" = "регіональна кухня";
 
 /* Cuisine */
-"cuisine_pizza" = "піца";
+"cuisine_pizza" = "піцерія";
 
 /* Cuisine */
-"cuisine_burger" = "бургер";
+"cuisine_burger" = "бургери";
 
 /* Cuisine */
 "cuisine_italian" = "італійська кухня";
@@ -791,7 +791,7 @@
 "cuisine_coffee_shop" = "кав'ярня";
 
 /* Cuisine */
-"cuisine_sandwich" = "сендвіч";
+"cuisine_sandwich" = "сандвічі";
 
 /* Cuisine */
 "cuisine_german" = "німецька кухня";
@@ -800,7 +800,7 @@
 "cuisine_japanese" = "японська кухня";
 
 /* Cuisine */
-"cuisine_kebab" = "кебаб";
+"cuisine_kebab" = "кебаби";
 
 /* Cuisine */
 "cuisine_mexican" = "мексиканська кухня";
@@ -821,7 +821,7 @@
 "cuisine_asian" = "азіатська кухня";
 
 /* Cuisine */
-"cuisine_chicken" = "курка";
+"cuisine_chicken" = "страви з курки";
 
 /* Cuisine */
 "cuisine_greek" = "грецька кухня";
@@ -845,31 +845,31 @@
 "cuisine_seafood" = "морська їжа";
 
 /* Cuisine */
-"cuisine_steak_house" = "стейк хаус";
+"cuisine_steak_house" = "стейк-хаус";
 
 /* Cuisine */
 "cuisine_spanish" = "іспанська кухня";
 
 /* Cuisine */
-"cuisine_fish" = "риба";
+"cuisine_fish" = "рибний ресторан";
 
 /* Cuisine */
 "cuisine_vietnamese" = "в'єтнамська кухня";
 
 /* Cuisine */
-"cuisine_noodle" = "вермішель";
+"cuisine_noodles" = "вермішель";
 
 /* Cuisine */
-"cuisine_vegetarian" = "вегетеріанська кухня";
+"cuisine_vegetarian" = "вегетаріанська кухня";
 
 /* Cuisine */
 "cuisine_korean" = "корейська кухня";
 
 /* Cuisine */
-"cuisine_friture" = "фритюр";
+"cuisine_friture" = "страви у фритюрі";
 
 /* Cuisine */
-"cuisine_barbecue" = "шашлик";
+"cuisine_barbecue" = "барбекю";
 
 /* Cuisine */
 "cuisine_bavarian" = "баварська кухня";
@@ -878,31 +878,31 @@
 "cuisine_ramen" = "рамен";
 
 /* Cuisine */
-"cuisine_italian_pizza" = "італійська, піца";
+"cuisine_italian_pizza" = "італійська кухня, піцерія";
 
 /* Cuisine */
 "cuisine_mediterranean" = "середземноморська кухня";
 
 /* Cuisine */
-"cuisine_donut" = "пончик";
+"cuisine_donut" = "пончики";
 
 /* Cuisine */
 "cuisine_beef_bowl" = "тарілка з яловичиною";
 
 /* Cuisine */
-"cuisine_cake" = "торт";
+"cuisine_cake" = "кондитерська";
 
 /* Cuisine */
 "cuisine_crepe" = "креп";
 
 /* Cuisine */
-"cuisine_heuriger" = "хурігер";
+"cuisine_heuriger" = "винна таверна (хойригер)";
 
 /* Cuisine */
 "cuisine_lebanese" = "ліванська кухня";
 
 /* Cuisine */
-"cuisine_steak" = "стейк";
+"cuisine_steak" = "стейки";
 
 /* Cuisine */
 "cuisine_local" = "місцева кухня";
@@ -911,31 +911,31 @@
 "cuisine_curry" = "каррі";
 
 /* Cuisine */
-"cuisine_filipino" = "філіпінська кухня";
+"cuisine_filipino" = "філіппінська кухня";
 
 /* Cuisine */
 "cuisine_russian" = "російська кухня";
 
 /* Cuisine */
-"cuisine_breakfast" = "сніданок";
+"cuisine_breakfast" = "сніданки";
 
 /* Cuisine */
-"cuisine_tapas" = "тапас";
+"cuisine_tapas" = "тапас-бар";
 
 /* Cuisine */
-"cuisine_bbq" = "шашлик";
+"cuisine_bbq" = "барбекю";
 
 /* Cuisine */
-"cuisine_bagel" = "бублик";
+"cuisine_bagel" = "випічка";
 
 /* Cuisine */
 "cuisine_pasta" = "паста";
 
 /* Cuisine */
-"cuisine_buschenschank" = "бушеншанк";
+"cuisine_buschenschank" = "домашня таверна (бушеншанк)";
 
 /* Cuisine */
-"cuisine_sausage" = "сосика";
+"cuisine_sausage" = "сосисочна";
 
 /* Cuisine */
 "cuisine_portuguese" = "португальська кухня";
@@ -944,7 +944,7 @@
 "cuisine_grill" = "гриль";
 
 /* Cuisine */
-"cuisine_pancake" = "млинець";
+"cuisine_pancake" = "млинці";
 
 /* Cuisine */
 "cuisine_malagasy" = "малагасійська кухня";
@@ -953,13 +953,13 @@
 "cuisine_polish" = "польська кухня";
 
 /* Cuisine */
-"cuisine_diner" = "обід";
+"cuisine_diner" = "дайнер";
 
 /* Cuisine */
 "cuisine_african" = "африканська кухня";
 
 /* Cuisine */
-"cuisine_doughnut" = "пончик";
+"cuisine_doughnut" = "пончики";
 
 /* Cuisine */
 "cuisine_georgian" = "грузинська кухня";
@@ -983,7 +983,7 @@
 "cuisine_austrian" = "австрійська кухня";
 
 /* Cuisine */
-"cuisine_vegan" = "вегетеріанська кухня";
+"cuisine_vegan" = "веганська кухня";
 
 /* Cuisine */
 "cuisine_argentinian" = "аргентинська кухня";
@@ -992,10 +992,10 @@
 "cuisine_persian" = "перська кухня";
 
 /* Cuisine */
-"cuisine_soba" = "собська";
+"cuisine_soba" = "соба";
 
 /* Cuisine */
-"cuisine_malaysian" = "малазійська кухня";
+"cuisine_malaysian" = "малайзійська кухня";
 
 /* Cuisine */
 "cuisine_indonesian" = "індонезійська кухня";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "ефіопська кухня";
 
 /* Cuisine */
-"cuisine_deli" = "делійська";
+"cuisine_deli" = "делікатеси";
 
 /* Cuisine */
 "cuisine_irish" = "ірландська кухня";
@@ -1013,16 +1013,16 @@
 "cuisine_hungarian" = "угорська кухня";
 
 /* Cuisine */
-"cuisine_lao" = "лаоська кухня";
+"cuisine_lao_cuisine" = "лаоська кухня";
 
 /* Cuisine */
-"cuisine_coffee" = "кава";
+"cuisine_coffee" = "кав'ярня";
 
 /* Cuisine */
-"cuisine_hotdog" = "хот-дог";
+"cuisine_hotdog" = "хот-доги";
 
 /* Cuisine */
-"cuisine_oriental" = "східна кухня";
+"cuisine_far_eastern_cusine" = "східна кухня";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "пікантні оладки";
@@ -1031,16 +1031,16 @@
 "cuisine_moroccan" = "марокканська кухня";
 
 /* Cuisine */
-"cuisine_barbeque" = "шашлик";
+"cuisine_barbeque" = "барбекю";
 
 /* Cuisine */
-"cuisine_peruvian" = "перувійська кухня";
+"cuisine_peruvian" = "перуанська кухня";
 
 /* Cuisine */
-"cuisine_fine_dining" = "вишукана їжа";
+"cuisine_fine_dining" = "ресторан високої кухні";
 
 /* Cuisine */
-"cuisine_tea" = "чай";
+"cuisine_tea" = "чайна";
 
 /* bookmark button text */
 "bookmark" = "мітка";

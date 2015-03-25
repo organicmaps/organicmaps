@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "อาหารเวียดนาม";
 
 /* Cuisine */
-"cuisine_noodle" = "บะหมี่";
+"cuisine_noodles" = "บะหมี่";
 
 /* Cuisine */
 "cuisine_vegetarian" = "อาหารมังสวิรัติ";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "อาหารเอธิโอเปีย";
 
 /* Cuisine */
-"cuisine_deli" = "อาหารเดลี";
+"cuisine_deli" = "อาหารพิเศษ";
 
 /* Cuisine */
 "cuisine_irish" = "อาหารไอริช";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "อาหารฮังการี";
 
 /* Cuisine */
-"cuisine_lao" = "อาหารลาว";
+"cuisine_lao_cuisine" = "อาหารลาว";
 
 /* Cuisine */
 "cuisine_coffee" = "กาแฟ";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "ฮอทดอก";
 
 /* Cuisine */
-"cuisine_oriental" = "อาหารโอเรียนทอล";
+"cuisine_far_eastern_cusine" = "อาหารโอเรียนทอล";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "แพนเค้กแบบเค็ม";

@@ -773,7 +773,7 @@
 "routing_download_roaming" = "Vous allez télécharger 2 840 Mo à l'aide de données mobiles (frais d' itinérance). Cela peut entraîner des frais additionnels, en fonction du plan de données mobiles proposé par votre opérateur.";
 
 /* Cuisine */
-"cuisine_regional" = "cuisine régional";
+"cuisine_regional" = "cuisine régionale";
 
 /* Cuisine */
 "cuisine_pizza" = "pizza";
@@ -782,10 +782,10 @@
 "cuisine_burger" = "hamburger";
 
 /* Cuisine */
-"cuisine_italian" = "cuisine italien";
+"cuisine_italian" = "cuisine italienne";
 
 /* Cuisine */
-"cuisine_chinese" = "cuisine chinois";
+"cuisine_chinese" = "cuisine chinoise";
 
 /* Cuisine */
 "cuisine_coffee_shop" = "café";
@@ -794,25 +794,25 @@
 "cuisine_sandwich" = "sandwich";
 
 /* Cuisine */
-"cuisine_german" = "cuisine allemand";
+"cuisine_german" = "cuisine allemande";
 
 /* Cuisine */
-"cuisine_japanese" = "cuisine japonais";
+"cuisine_japanese" = "cuisine japonaise";
 
 /* Cuisine */
 "cuisine_kebab" = "kebab";
 
 /* Cuisine */
-"cuisine_mexican" = "cuisine mexicain";
+"cuisine_mexican" = "cuisine mexicaine";
 
 /* Cuisine */
-"cuisine_indian" = "cuisine Indien";
+"cuisine_indian" = "cuisine indienne";
 
 /* Cuisine */
-"cuisine_american" = "cuisine américain";
+"cuisine_american" = "cuisine américaine";
 
 /* Cuisine */
-"cuisine_french" = "cuisine français";
+"cuisine_french" = "cuisine française";
 
 /* Cuisine */
 "cuisine_ice_cream" = "crème glacée";
@@ -830,7 +830,7 @@
 "cuisine_thai" = "cuisine thaï";
 
 /* Cuisine */
-"cuisine_international" = "cuisine international";
+"cuisine_international" = "cuisine internationale";
 
 /* Cuisine */
 "cuisine_sushi" = "sushi";
@@ -839,31 +839,31 @@
 "cuisine_fish_and_chips" = "fish and chips";
 
 /* Cuisine */
-"cuisine_turkish" = "cuisine turc";
+"cuisine_turkish" = "cuisine turque";
 
 /* Cuisine */
 "cuisine_seafood" = "fruits de mer";
 
 /* Cuisine */
-"cuisine_steak_house" = "grilladerie";
+"cuisine_steak_house" = "grillades";
 
 /* Cuisine */
-"cuisine_spanish" = "cuisine espagnol";
+"cuisine_spanish" = "cuisine espagnole";
 
 /* Cuisine */
 "cuisine_fish" = "poisson";
 
 /* Cuisine */
-"cuisine_vietnamese" = "cuisine vietnamien";
+"cuisine_vietnamese" = "cuisine vietnamienne";
 
 /* Cuisine */
-"cuisine_noodle" = "nouille";
+"cuisine_noodles" = "nouilles";
 
 /* Cuisine */
-"cuisine_vegetarian" = "cuisine végétarien";
+"cuisine_vegetarian" = "cuisine végétarienne";
 
 /* Cuisine */
-"cuisine_korean" = "cuisine coréen";
+"cuisine_korean" = "cuisine coréenne";
 
 /* Cuisine */
 "cuisine_friture" = "friture";
@@ -872,7 +872,7 @@
 "cuisine_barbecue" = "barbecue";
 
 /* Cuisine */
-"cuisine_bavarian" = "cuisine bavarois";
+"cuisine_bavarian" = "cuisine bavaroise";
 
 /* Cuisine */
 "cuisine_ramen" = "râmen";
@@ -881,13 +881,13 @@
 "cuisine_italian_pizza" = "italien, pizza";
 
 /* Cuisine */
-"cuisine_mediterranean" = "cuisine méditerranéen";
+"cuisine_mediterranean" = "cuisine méditerranéenne";
 
 /* Cuisine */
-"cuisine_donut" = "beignet";
+"cuisine_donut" = "donuts";
 
 /* Cuisine */
-"cuisine_beef_bowl" = "bol de bœuf";
+"cuisine_beef_bowl" = "donburi de bœuf";
 
 /* Cuisine */
 "cuisine_cake" = "gâteau";
@@ -899,19 +899,19 @@
 "cuisine_heuriger" = "heuriger";
 
 /* Cuisine */
-"cuisine_lebanese" = "cuisine libanais";
+"cuisine_lebanese" = "cuisine libanaise";
 
 /* Cuisine */
 "cuisine_steak" = "steak";
 
 /* Cuisine */
-"cuisine_local" = "cuisine local";
+"cuisine_local" = "cuisine locale";
 
 /* Cuisine */
 "cuisine_curry" = "curry";
 
 /* Cuisine */
-"cuisine_filipino" = "cuisine filipino";
+"cuisine_filipino" = "cuisine philippine";
 
 /* Cuisine */
 "cuisine_russian" = "cuisine russe";
@@ -923,7 +923,7 @@
 "cuisine_tapas" = "tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "bbq";
+"cuisine_bbq" = "barbecue";
 
 /* Cuisine */
 "cuisine_bagel" = "bagel";
@@ -938,10 +938,10 @@
 "cuisine_sausage" = "saucisse";
 
 /* Cuisine */
-"cuisine_portuguese" = "cuisine portugais";
+"cuisine_portuguese" = "cuisine portugaise";
 
 /* Cuisine */
-"cuisine_grill" = "griller";
+"cuisine_grill" = "grill";
 
 /* Cuisine */
 "cuisine_pancake" = "crêpe";
@@ -950,19 +950,19 @@
 "cuisine_malagasy" = "cuisine malgache";
 
 /* Cuisine */
-"cuisine_polish" = "cuisine polonais";
+"cuisine_polish" = "cuisine polonaise";
 
 /* Cuisine */
-"cuisine_diner" = "diner";
+"cuisine_diner" = "diner américain";
 
 /* Cuisine */
-"cuisine_african" = "cuisine africain";
+"cuisine_african" = "cuisine africaine";
 
 /* Cuisine */
-"cuisine_doughnut" = "beignet";
+"cuisine_doughnut" = "donuts";
 
 /* Cuisine */
-"cuisine_georgian" = "cuisine géorgien";
+"cuisine_georgian" = "cuisine géorgienne";
 
 /* Cuisine */
 "cuisine_croatian" = "cuisine croate";
@@ -971,49 +971,49 @@
 "cuisine_arab" = "cuisine arabe";
 
 /* Cuisine */
-"cuisine_balkan" = "cuisine balkanique";
+"cuisine_balkan" = "cuisine des Balkans";
 
 /* Cuisine */
-"cuisine_brazilian" = "cuisine brésilien";
+"cuisine_brazilian" = "cuisine brésilienne";
 
 /* Cuisine */
-"cuisine_caribbean" = "cuisine caraïbes";
+"cuisine_caribbean" = "cuisine des Caraïbes";
 
 /* Cuisine */
-"cuisine_austrian" = "cuisine autrichien";
+"cuisine_austrian" = "cuisine autrichienne";
 
 /* Cuisine */
-"cuisine_vegan" = "cuisine végétalien";
+"cuisine_vegan" = "cuisine végétalienne";
 
 /* Cuisine */
-"cuisine_argentinian" = "cuisine argentin";
+"cuisine_argentinian" = "cuisine argentine";
 
 /* Cuisine */
-"cuisine_persian" = "cuisine persan";
+"cuisine_persian" = "cuisine persane";
 
 /* Cuisine */
 "cuisine_soba" = "soba";
 
 /* Cuisine */
-"cuisine_malaysian" = "cuisine malaysian";
+"cuisine_malaysian" = "cuisine malaisienne";
 
 /* Cuisine */
-"cuisine_indonesian" = "cuisine indonésien";
+"cuisine_indonesian" = "cuisine indonésienne";
 
 /* Cuisine */
-"cuisine_ethiopian" = "cuisine éthiopien";
+"cuisine_ethiopian" = "cuisine éthiopienne";
 
 /* Cuisine */
 "cuisine_deli" = "charcuterie";
 
 /* Cuisine */
-"cuisine_irish" = "cuisine irlandais";
+"cuisine_irish" = "cuisine irlandaise";
 
 /* Cuisine */
-"cuisine_hungarian" = "cuisine hongrois";
+"cuisine_hungarian" = "cuisine hongroise";
 
 /* Cuisine */
-"cuisine_lao" = "cuisine lao";
+"cuisine_lao_cuisine" = "cuisine laotienne";
 
 /* Cuisine */
 "cuisine_coffee" = "café";
@@ -1022,19 +1022,19 @@
 "cuisine_hotdog" = "hot-dog";
 
 /* Cuisine */
-"cuisine_oriental" = "cuisine oriental";
+"cuisine_far_eastern_cusine" = "cuisine orientale";
 
 /* Cuisine */
-"cuisine_savory_pancakes" = "crêpe savoureuse";
+"cuisine_savory_pancakes" = "crêpes salées";
 
 /* Cuisine */
-"cuisine_moroccan" = "cuisine marocain";
+"cuisine_moroccan" = "cuisine marocaine";
 
 /* Cuisine */
 "cuisine_barbeque" = "barbecue";
 
 /* Cuisine */
-"cuisine_peruvian" = "cuisine péruvien";
+"cuisine_peruvian" = "cuisine péruvienne";
 
 /* Cuisine */
 "cuisine_fine_dining" = "restaurant gastronomique";

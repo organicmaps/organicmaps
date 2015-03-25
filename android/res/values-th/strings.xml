@@ -549,7 +549,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">อาหารเวียดนาม</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">บะหมี่</string>
+	<string name="cuisine_noodles">บะหมี่</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">อาหารมังสวิรัติ</string>
 	<!-- Cuisine -->
@@ -647,19 +647,19 @@
 	<!-- Cuisine -->
 	<string name="cuisine_ethiopian">อาหารเอธิโอเปีย</string>
 	<!-- Cuisine -->
-	<string name="cuisine_deli">อาหารเดลี</string>
+	<string name="cuisine_deli">อาหารพิเศษ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_irish">อาหารไอริช</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">อาหารฮังการี</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">อาหารลาว</string>
+	<string name="cuisine_lao_cuisine">อาหารลาว</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">กาแฟ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">ฮอทดอก</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">อาหารโอเรียนทอล</string>
+	<string name="cuisine_far_eastern_cusine">อาหารโอเรียนทอล</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">แพนเค้กแบบเค็ม</string>
 	<!-- Cuisine -->

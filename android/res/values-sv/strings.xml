@@ -547,7 +547,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">vietnamesisk mat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">nudlar</string>
+	<string name="cuisine_noodles">nudlar</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">vegetarisk mat</string>
 	<!-- Cuisine -->
@@ -557,23 +557,23 @@
 	<!-- Cuisine -->
 	<string name="cuisine_barbecue">grillat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bavarian">bayerskt mat</string>
+	<string name="cuisine_bavarian">bayersk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_ramen">ramen</string>
 	<!-- Cuisine -->
 	<string name="cuisine_italian_pizza">italiensk, pizza</string>
 	<!-- Cuisine -->
-	<string name="cuisine_mediterranean">medelhavet mat</string>
+	<string name="cuisine_mediterranean">medelhavsmat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_donut">munk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_beef_bowl">kött skål</string>
+	<string name="cuisine_beef_bowl">biff donburi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_cake">tårta</string>
 	<!-- Cuisine -->
 	<string name="cuisine_crepe">crêpe</string>
 	<!-- Cuisine -->
-	<string name="cuisine_heuriger">heuriger</string>
+	<string name="cuisine_heuriger">vintaverna (heuriger)</string>
 	<!-- Cuisine -->
 	<string name="cuisine_lebanese">libanesisk mat</string>
 	<!-- Cuisine -->
@@ -591,13 +591,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_tapas">tapas</string>
 	<!-- Cuisine -->
-	<string name="cuisine_bbq">grill</string>
+	<string name="cuisine_bbq">grillat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_bagel">bagel</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pasta">pasta</string>
 	<!-- Cuisine -->
-	<string name="cuisine_buschenschank">buschenschank</string>
+	<string name="cuisine_buschenschank">vintaverna</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sausage">korv</string>
 	<!-- Cuisine -->
@@ -617,13 +617,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_doughnut">munk</string>
 	<!-- Cuisine -->
-	<string name="cuisine_georgian">georgiansk mat</string>
+	<string name="cuisine_georgian">georgisk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_croatian">kroatisk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_arab">arabisk mat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_balkan">balkan mat</string>
+	<string name="cuisine_balkan">balkansk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_brazilian">brasiliansk mat</string>
 	<!-- Cuisine -->
@@ -651,13 +651,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">ungersk mat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">laotisk mat</string>
+	<string name="cuisine_lao_cuisine">laotisk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">kaffe</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">varmkorv</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">orientalisk mat</string>
+	<string name="cuisine_far_eastern_cusine">orientalisk mat</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">fyllda pannkakor</string>
 	<!-- Cuisine -->
@@ -667,7 +667,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">peruansk mat</string>
 	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">elegant restaurang</string>
+	<string name="cuisine_fine_dining">lyxrestaurang</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">te</string>
 	<!-- bookmark button text -->

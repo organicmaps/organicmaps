@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "vietnamese";
 
 /* Cuisine */
-"cuisine_noodle" = "noodle";
+"cuisine_noodles" = "noodles";
 
 /* Cuisine */
 "cuisine_vegetarian" = "vegetarian";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "hungarian";
 
 /* Cuisine */
-"cuisine_lao" = "lao";
+"cuisine_lao_cuisine" = "lao cuisine";
 
 /* Cuisine */
 "cuisine_coffee" = "coffee";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "hotdog";
 
 /* Cuisine */
-"cuisine_oriental" = "oriental";
+"cuisine_far_eastern_cusine" = "far eastern cusine";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "savory pancakes";

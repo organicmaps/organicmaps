@@ -773,19 +773,19 @@
 "routing_download_roaming" = "Stáhnete přes mobilní data (v roamingu) %@ MB. To může mít za následek další poplatky v závislosti na vašem mobilním datovém tarifu.";
 
 /* Cuisine */
-"cuisine_regional" = "regionální  kuchyně";
+"cuisine_regional" = "regionální kuchyně";
 
 /* Cuisine */
 "cuisine_pizza" = "pizza";
 
 /* Cuisine */
-"cuisine_burger" = "hamburger";
+"cuisine_burger" = "burger";
 
 /* Cuisine */
-"cuisine_italian" = "italská  kuchyně";
+"cuisine_italian" = "italská kuchyně";
 
 /* Cuisine */
-"cuisine_chinese" = "čínská  kuchyně";
+"cuisine_chinese" = "čínská kuchyně";
 
 /* Cuisine */
 "cuisine_coffee_shop" = "kavárna";
@@ -794,52 +794,52 @@
 "cuisine_sandwich" = "sendvič";
 
 /* Cuisine */
-"cuisine_german" = "německá  kuchyně";
+"cuisine_german" = "německá kuchyně";
 
 /* Cuisine */
-"cuisine_japanese" = "japonská  kuchyně";
+"cuisine_japanese" = "japonská kuchyně";
 
 /* Cuisine */
 "cuisine_kebab" = "kebab";
 
 /* Cuisine */
-"cuisine_mexican" = "mexická  kuchyně";
+"cuisine_mexican" = "mexická kuchyně";
 
 /* Cuisine */
-"cuisine_indian" = "indická  kuchyně";
+"cuisine_indian" = "indická kuchyně";
 
 /* Cuisine */
-"cuisine_american" = "americká  kuchyně";
+"cuisine_american" = "americká kuchyně";
 
 /* Cuisine */
-"cuisine_french" = "francouzská  kuchyně";
+"cuisine_french" = "francouzská kuchyně";
 
 /* Cuisine */
 "cuisine_ice_cream" = "zmrzlina";
 
 /* Cuisine */
-"cuisine_asian" = "asijská  kuchyně";
+"cuisine_asian" = "asijská kuchyně";
 
 /* Cuisine */
 "cuisine_chicken" = "kuře";
 
 /* Cuisine */
-"cuisine_greek" = "řecká  kuchyně";
+"cuisine_greek" = "řecká kuchyně";
 
 /* Cuisine */
-"cuisine_thai" = "thajská  kuchyně";
+"cuisine_thai" = "thajská kuchyně";
 
 /* Cuisine */
-"cuisine_international" = "mezinárodní  kuchyně";
+"cuisine_international" = "mezinárodní kuchyně";
 
 /* Cuisine */
 "cuisine_sushi" = "suši";
 
 /* Cuisine */
-"cuisine_fish_and_chips" = "ryba a hranolky";
+"cuisine_fish_and_chips" = "fish and chips";
 
 /* Cuisine */
-"cuisine_turkish" = "turecká  kuchyně";
+"cuisine_turkish" = "turecká kuchyně";
 
 /* Cuisine */
 "cuisine_seafood" = "mořské plody";
@@ -848,31 +848,31 @@
 "cuisine_steak_house" = "steaková restaurace";
 
 /* Cuisine */
-"cuisine_spanish" = "španělská  kuchyně";
+"cuisine_spanish" = "španělská kuchyně";
 
 /* Cuisine */
 "cuisine_fish" = "ryba";
 
 /* Cuisine */
-"cuisine_vietnamese" = "vietnamská  kuchyně";
+"cuisine_vietnamese" = "vietnamská kuchyně";
 
 /* Cuisine */
-"cuisine_noodle" = "nudle";
+"cuisine_noodles" = "nudle";
 
 /* Cuisine */
-"cuisine_vegetarian" = "vegetariánská  kuchyně";
+"cuisine_vegetarian" = "vegetariánská kuchyně";
 
 /* Cuisine */
-"cuisine_korean" = "korejská  kuchyně";
+"cuisine_korean" = "korejská kuchyně";
 
 /* Cuisine */
-"cuisine_friture" = "friture";
+"cuisine_friture" = "smažené pokrmy";
 
 /* Cuisine */
-"cuisine_barbecue" = "rošt";
+"cuisine_barbecue" = "grilované pokrmy";
 
 /* Cuisine */
-"cuisine_bavarian" = "bavorská  kuchyně";
+"cuisine_bavarian" = "bavorská kuchyně";
 
 /* Cuisine */
 "cuisine_ramen" = "ramen";
@@ -881,49 +881,49 @@
 "cuisine_italian_pizza" = "italská, pizza";
 
 /* Cuisine */
-"cuisine_mediterranean" = "středomořská  kuchyně";
+"cuisine_mediterranean" = "středomořská kuchyně";
 
 /* Cuisine */
 "cuisine_donut" = "kobliha";
 
 /* Cuisine */
-"cuisine_beef_bowl" = "hovězí mísa";
+"cuisine_beef_bowl" = "miska hovězího";
 
 /* Cuisine */
 "cuisine_cake" = "dort";
 
 /* Cuisine */
-"cuisine_crepe" = "francouzská palačinka";
+"cuisine_crepe" = "crêpe";
 
 /* Cuisine */
 "cuisine_heuriger" = "heuriger";
 
 /* Cuisine */
-"cuisine_lebanese" = "libanonská  kuchyně";
+"cuisine_lebanese" = "libanonská kuchyně";
 
 /* Cuisine */
 "cuisine_steak" = "steak";
 
 /* Cuisine */
-"cuisine_local" = "místní  kuchyně";
+"cuisine_local" = "místní kuchyně";
 
 /* Cuisine */
 "cuisine_curry" = "kari";
 
 /* Cuisine */
-"cuisine_filipino" = "filipínská  kuchyně";
+"cuisine_filipino" = "filipínská kuchyně";
 
 /* Cuisine */
-"cuisine_russian" = "ruská  kuchyně";
+"cuisine_russian" = "ruská kuchyně";
 
 /* Cuisine */
 "cuisine_breakfast" = "snídaně";
 
 /* Cuisine */
-"cuisine_tapas" = "chuťovky";
+"cuisine_tapas" = "tapas";
 
 /* Cuisine */
-"cuisine_bbq" = "piknik";
+"cuisine_bbq" = "barbecue";
 
 /* Cuisine */
 "cuisine_bagel" = "bagel";
@@ -938,106 +938,106 @@
 "cuisine_sausage" = "klobása";
 
 /* Cuisine */
-"cuisine_portuguese" = "portugalská  kuchyně";
+"cuisine_portuguese" = "portugalská kuchyně";
 
 /* Cuisine */
-"cuisine_grill" = "grill";
+"cuisine_grill" = "gril";
 
 /* Cuisine */
 "cuisine_pancake" = "palačinka";
 
 /* Cuisine */
-"cuisine_malagasy" = "madagaskarská  kuchyně";
+"cuisine_malagasy" = "madagaskarská kuchyně";
 
 /* Cuisine */
-"cuisine_polish" = "polská  kuchyně";
+"cuisine_polish" = "polská kuchyně";
 
 /* Cuisine */
 "cuisine_diner" = "večeře";
 
 /* Cuisine */
-"cuisine_african" = "africká  kuchyně";
+"cuisine_african" = "africká kuchyně";
 
 /* Cuisine */
 "cuisine_doughnut" = "kobliha";
 
 /* Cuisine */
-"cuisine_georgian" = "gruzínská  kuchyně";
+"cuisine_georgian" = "gruzínská kuchyně";
 
 /* Cuisine */
-"cuisine_croatian" = "chorvatská  kuchyně";
+"cuisine_croatian" = "chorvatská kuchyně";
 
 /* Cuisine */
-"cuisine_arab" = "arabská  kuchyně";
+"cuisine_arab" = "arabská kuchyně";
 
 /* Cuisine */
-"cuisine_balkan" = "balkánská  kuchyně";
+"cuisine_balkan" = "balkánská kuchyně";
 
 /* Cuisine */
-"cuisine_brazilian" = "brazilská  kuchyně";
+"cuisine_brazilian" = "brazilská kuchyně";
 
 /* Cuisine */
-"cuisine_caribbean" = "karibská  kuchyně";
+"cuisine_caribbean" = "karibská kuchyně";
 
 /* Cuisine */
-"cuisine_austrian" = "rakouská  kuchyně";
+"cuisine_austrian" = "rakouská kuchyně";
 
 /* Cuisine */
-"cuisine_vegan" = "vegan  kuchyně";
+"cuisine_vegan" = "veganská kuchyně";
 
 /* Cuisine */
-"cuisine_argentinian" = "argentinská  kuchyně";
+"cuisine_argentinian" = "argentinská kuchyně";
 
 /* Cuisine */
-"cuisine_persian" = "perská  kuchyně";
+"cuisine_persian" = "perská kuchyně";
 
 /* Cuisine */
 "cuisine_soba" = "soba";
 
 /* Cuisine */
-"cuisine_malaysian" = "malajská  kuchyně";
+"cuisine_malaysian" = "malajsijská kuchyně";
 
 /* Cuisine */
-"cuisine_indonesian" = "indonéská  kuchyně";
+"cuisine_indonesian" = "indonéská kuchyně";
 
 /* Cuisine */
-"cuisine_ethiopian" = "etiopská  kuchyně";
+"cuisine_ethiopian" = "etiopská kuchyně";
 
 /* Cuisine */
 "cuisine_deli" = "lahůdky";
 
 /* Cuisine */
-"cuisine_irish" = "irská  kuchyně";
+"cuisine_irish" = "irská kuchyně";
 
 /* Cuisine */
-"cuisine_hungarian" = "maďarská  kuchyně";
+"cuisine_hungarian" = "maďarská kuchyně";
 
 /* Cuisine */
-"cuisine_lao" = "laoská  kuchyně";
+"cuisine_lao_cuisine" = "laoská kuchyně";
 
 /* Cuisine */
 "cuisine_coffee" = "káva";
 
 /* Cuisine */
-"cuisine_hotdog" = "párek v rohlíku";
+"cuisine_hotdog" = "hot dog";
 
 /* Cuisine */
-"cuisine_oriental" = "orientální  kuchyně";
+"cuisine_far_eastern_cusine" = "orientální kuchyně";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "pikantní palačinky";
 
 /* Cuisine */
-"cuisine_moroccan" = "marocká  kuchyně";
+"cuisine_moroccan" = "marocká kuchyně";
 
 /* Cuisine */
-"cuisine_barbeque" = "rošť";
+"cuisine_barbeque" = "barbecue";
 
 /* Cuisine */
-"cuisine_peruvian" = "peruánská  kuchyně";
+"cuisine_peruvian" = "peruánská kuchyně";
 
 /* Cuisine */
-"cuisine_fine_dining" = "exkluzivní kuchyně";
+"cuisine_fine_dining" = "zážitková gastronomie";
 
 /* Cuisine */
 "cuisine_tea" = "čaj";

@@ -773,7 +773,7 @@
 "routing_download_roaming" = "%@ MB boyutunda veriyi Mobil Veri (Roaming) kullanarak indireceksiniz. Bu mobil operatör veri planınıza göre ilave ödeme gerektirebilir.";
 
 /* Cuisine */
-"cuisine_regional" = "bölgesel mutfağı";
+"cuisine_regional" = "bölgesel mutfak";
 
 /* Cuisine */
 "cuisine_pizza" = "pizza";
@@ -827,10 +827,10 @@
 "cuisine_greek" = "yunan mutfağı";
 
 /* Cuisine */
-"cuisine_thai" = "tay mutfağı";
+"cuisine_thai" = "tayland mutfağı";
 
 /* Cuisine */
-"cuisine_international" = "uluslararası mutfağı";
+"cuisine_international" = "uluslararası mutfak";
 
 /* Cuisine */
 "cuisine_sushi" = "suşi";
@@ -839,7 +839,7 @@
 "cuisine_fish_and_chips" = "balık ve patates cipsi";
 
 /* Cuisine */
-"cuisine_turkish" = "türk mutfağı mutfağı";
+"cuisine_turkish" = "türk mutfağı";
 
 /* Cuisine */
 "cuisine_seafood" = "deniz ürünleri";
@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "vietnam mutfağı";
 
 /* Cuisine */
-"cuisine_noodle" = "erişte";
+"cuisine_noodles" = "erişte";
 
 /* Cuisine */
 "cuisine_vegetarian" = "vejetaryen mutfağı";
@@ -890,10 +890,10 @@
 "cuisine_beef_bowl" = "biftek tabağı";
 
 /* Cuisine */
-"cuisine_cake" = "cake";
+"cuisine_cake" = "pasta";
 
 /* Cuisine */
-"cuisine_crepe" = "crepe";
+"cuisine_crepe" = "krep";
 
 /* Cuisine */
 "cuisine_heuriger" = "heuriger";
@@ -905,7 +905,7 @@
 "cuisine_steak" = "biftek";
 
 /* Cuisine */
-"cuisine_local" = "yerel mutfağı";
+"cuisine_local" = "yerel mutfak";
 
 /* Cuisine */
 "cuisine_curry" = "köri";
@@ -914,7 +914,7 @@
 "cuisine_filipino" = "filipino mutfağı";
 
 /* Cuisine */
-"cuisine_russian" = "rusya mutfağı";
+"cuisine_russian" = "rus mutfağı";
 
 /* Cuisine */
 "cuisine_breakfast" = "kahvaltı";
@@ -953,7 +953,7 @@
 "cuisine_polish" = "polonya mutfağı";
 
 /* Cuisine */
-"cuisine_diner" = "lokanta";
+"cuisine_diner" = "vagon restoran";
 
 /* Cuisine */
 "cuisine_african" = "afrika mutfağı";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "etiyopya mutfağı";
 
 /* Cuisine */
-"cuisine_deli" = "meze";
+"cuisine_deli" = "Şarküteri";
 
 /* Cuisine */
 "cuisine_irish" = "irlanda mutfağı";
@@ -1013,16 +1013,16 @@
 "cuisine_hungarian" = "macar mutfağı";
 
 /* Cuisine */
-"cuisine_lao" = "lao mutfağı";
+"cuisine_lao_cuisine" = "lao mutfağı";
 
 /* Cuisine */
 "cuisine_coffee" = "kahve";
 
 /* Cuisine */
-"cuisine_hotdog" = "sosis";
+"cuisine_hotdog" = "sosisli";
 
 /* Cuisine */
-"cuisine_oriental" = "doğu mutfağı";
+"cuisine_far_eastern_cusine" = "doğu mutfağı";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "açma";
@@ -1031,13 +1031,13 @@
 "cuisine_moroccan" = "fas mutfağı";
 
 /* Cuisine */
-"cuisine_barbeque" = "barbeque";
+"cuisine_barbeque" = "barbekü";
 
 /* Cuisine */
 "cuisine_peruvian" = "peru mutfağı";
 
 /* Cuisine */
-"cuisine_fine_dining" = "yemek_düzeni";
+"cuisine_fine_dining" = "birinci sınıf restoran";
 
 /* Cuisine */
 "cuisine_tea" = "çay";

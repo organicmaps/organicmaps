@@ -544,7 +544,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">ベトナム料理</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">麺類</string>
+	<string name="cuisine_noodles">麺類</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">ベジタリアン料理</string>
 	<!-- Cuisine -->
@@ -642,19 +642,19 @@
 	<!-- Cuisine -->
 	<string name="cuisine_ethiopian">エチオピア料理</string>
 	<!-- Cuisine -->
-	<string name="cuisine_deli">デリ料理</string>
+	<string name="cuisine_deli">デリ</string>
 	<!-- Cuisine -->
 	<string name="cuisine_irish">アイルランド料理</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">ハンガリー料理</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">ラオス料理</string>
+	<string name="cuisine_lao_cuisine">ラオス料理</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">コーヒー</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">ホットドッグ</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">東洋の料理</string>
+	<string name="cuisine_far_eastern_cusine">東洋の料理</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">おいしいホットケーキ</string>
 	<!-- Cuisine -->

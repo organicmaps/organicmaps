@@ -533,7 +533,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">越南菜</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">面</string>
+	<string name="cuisine_noodles">面</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">素菜</string>
 	<!-- Cuisine -->
@@ -631,19 +631,19 @@
 	<!-- Cuisine -->
 	<string name="cuisine_ethiopian">埃塞俄比亞菜</string>
 	<!-- Cuisine -->
-	<string name="cuisine_deli">熟食菜</string>
+	<string name="cuisine_deli">熟食店</string>
 	<!-- Cuisine -->
 	<string name="cuisine_irish">愛爾蘭菜</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">匈牙利菜</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">老撾菜</string>
+	<string name="cuisine_lao_cuisine">老撾菜</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">咖啡</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">熱狗</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">東方菜</string>
+	<string name="cuisine_far_eastern_cusine">東方菜</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">鹹的 煎餅</string>
 	<!-- Cuisine -->

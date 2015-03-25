@@ -776,10 +776,10 @@
 "cuisine_regional" = "cocina regional";
 
 /* Cuisine */
-"cuisine_pizza" = "pizza";
+"cuisine_pizza" = "pizzas";
 
 /* Cuisine */
-"cuisine_burger" = "hamburguesa";
+"cuisine_burger" = "hamburguesas";
 
 /* Cuisine */
 "cuisine_italian" = "cocina italiana";
@@ -791,7 +791,7 @@
 "cuisine_coffee_shop" = "cafetería";
 
 /* Cuisine */
-"cuisine_sandwich" = "sándwich";
+"cuisine_sandwich" = "sándwiches";
 
 /* Cuisine */
 "cuisine_german" = "cocina alemana";
@@ -800,7 +800,7 @@
 "cuisine_japanese" = "cocina japonesa";
 
 /* Cuisine */
-"cuisine_kebab" = "kebab";
+"cuisine_kebab" = "kebabs";
 
 /* Cuisine */
 "cuisine_mexican" = "cocina mexicana";
@@ -815,13 +815,13 @@
 "cuisine_french" = "cocina francesa";
 
 /* Cuisine */
-"cuisine_ice_cream" = "helado";
+"cuisine_ice_cream" = "helados";
 
 /* Cuisine */
 "cuisine_asian" = "cocina asiática";
 
 /* Cuisine */
-"cuisine_chicken" = "pollo";
+"cuisine_chicken" = "pollos";
 
 /* Cuisine */
 "cuisine_greek" = "cocina griega";
@@ -842,7 +842,7 @@
 "cuisine_turkish" = "cocina turca";
 
 /* Cuisine */
-"cuisine_seafood" = "marisco";
+"cuisine_seafood" = "mariscos";
 
 /* Cuisine */
 "cuisine_steak_house" = "asador";
@@ -851,13 +851,13 @@
 "cuisine_spanish" = "cocina española";
 
 /* Cuisine */
-"cuisine_fish" = "pescado";
+"cuisine_fish" = "pescados";
 
 /* Cuisine */
 "cuisine_vietnamese" = "cocina vietnamita";
 
 /* Cuisine */
-"cuisine_noodle" = "tallarines";
+"cuisine_noodles" = "tallarines";
 
 /* Cuisine */
 "cuisine_vegetarian" = "cocina vegetariana";
@@ -878,22 +878,22 @@
 "cuisine_ramen" = "ramen";
 
 /* Cuisine */
-"cuisine_italian_pizza" = "italiana, pizza";
+"cuisine_italian_pizza" = "cocina italiana, pizzas";
 
 /* Cuisine */
 "cuisine_mediterranean" = "cocina mediterránea";
 
 /* Cuisine */
-"cuisine_donut" = "dónut";
+"cuisine_donut" = "rosquillas";
 
 /* Cuisine */
 "cuisine_beef_bowl" = "gyūdon";
 
 /* Cuisine */
-"cuisine_cake" = "tarta";
+"cuisine_cake" = "tartas";
 
 /* Cuisine */
-"cuisine_crepe" = "crepe";
+"cuisine_crepe" = "crepes";
 
 /* Cuisine */
 "cuisine_heuriger" = "heuriger";
@@ -902,7 +902,7 @@
 "cuisine_lebanese" = "cocina libanesa";
 
 /* Cuisine */
-"cuisine_steak" = "filete";
+"cuisine_steak" = "filetes";
 
 /* Cuisine */
 "cuisine_local" = "cocina local";
@@ -917,7 +917,7 @@
 "cuisine_russian" = "cocina rusa";
 
 /* Cuisine */
-"cuisine_breakfast" = "desayuno";
+"cuisine_breakfast" = "desayunos";
 
 /* Cuisine */
 "cuisine_tapas" = "tapas";
@@ -929,13 +929,13 @@
 "cuisine_bagel" = "bágel";
 
 /* Cuisine */
-"cuisine_pasta" = "pasta";
+"cuisine_pasta" = "pastas";
 
 /* Cuisine */
 "cuisine_buschenschank" = "buschenschank";
 
 /* Cuisine */
-"cuisine_sausage" = "sausage";
+"cuisine_sausage" = "salchichas";
 
 /* Cuisine */
 "cuisine_portuguese" = "cocina portuguesa";
@@ -944,7 +944,7 @@
 "cuisine_grill" = "parrilla";
 
 /* Cuisine */
-"cuisine_pancake" = "tortita";
+"cuisine_pancake" = "tortitas";
 
 /* Cuisine */
 "cuisine_malagasy" = "cocina malgache";
@@ -959,7 +959,7 @@
 "cuisine_african" = "cocina africana";
 
 /* Cuisine */
-"cuisine_doughnut" = "dónut";
+"cuisine_doughnut" = "rosquillas";
 
 /* Cuisine */
 "cuisine_georgian" = "cocina georgiana";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "cocina etíope";
 
 /* Cuisine */
-"cuisine_deli" = "charcutería";
+"cuisine_deli" = "delicatesen";
 
 /* Cuisine */
 "cuisine_irish" = "cocina irlandesa";
@@ -1013,16 +1013,16 @@
 "cuisine_hungarian" = "cocina húngara";
 
 /* Cuisine */
-"cuisine_lao" = "cocina laosiana";
+"cuisine_lao_cuisine" = "cocina laosiana";
 
 /* Cuisine */
 "cuisine_coffee" = "café";
 
 /* Cuisine */
-"cuisine_hotdog" = "perrito caliente";
+"cuisine_hotdog" = "perritos calientes";
 
 /* Cuisine */
-"cuisine_oriental" = "cocina oriental";
+"cuisine_far_eastern_cusine" = "cocina oriental";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "tortitas saladas";
@@ -1037,7 +1037,7 @@
 "cuisine_peruvian" = "cocina peruana";
 
 /* Cuisine */
-"cuisine_fine_dining" = "cena buena";
+"cuisine_fine_dining" = "restaurante elegante";
 
 /* Cuisine */
 "cuisine_tea" = "té";

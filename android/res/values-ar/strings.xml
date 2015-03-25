@@ -551,7 +551,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">مطبخ فيتنامي</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">الشعرية</string>
+	<string name="cuisine_noodles">الشعرية</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">مطبخ نباتي</string>
 	<!-- Cuisine -->
@@ -649,19 +649,19 @@
 	<!-- Cuisine -->
 	<string name="cuisine_ethiopian">مطبخ إثيوبي</string>
 	<!-- Cuisine -->
-	<string name="cuisine_deli">مطبخ ديلي</string>
+	<string name="cuisine_deli">أطعمة مبردة</string>
 	<!-- Cuisine -->
 	<string name="cuisine_irish">مطبخ إيرلندي</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">مطبخ مجري</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">مطبخ لاوي</string>
+	<string name="cuisine_lao_cuisine">مطبخ لاوي</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">قهوة</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">هوت دوغ</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">مطبخ شرقي</string>
+	<string name="cuisine_far_eastern_cusine">مطبخ شرقي</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">بان كيك السافوري</string>
 	<!-- Cuisine -->

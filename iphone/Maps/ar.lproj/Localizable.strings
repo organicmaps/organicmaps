@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "مطبخ فيتنامي";
 
 /* Cuisine */
-"cuisine_noodle" = "الشعرية";
+"cuisine_noodles" = "الشعرية";
 
 /* Cuisine */
 "cuisine_vegetarian" = "مطبخ نباتي";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "مطبخ إثيوبي";
 
 /* Cuisine */
-"cuisine_deli" = "مطبخ ديلي";
+"cuisine_deli" = "أطعمة مبردة";
 
 /* Cuisine */
 "cuisine_irish" = "مطبخ إيرلندي";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "مطبخ مجري";
 
 /* Cuisine */
-"cuisine_lao" = "مطبخ لاوي";
+"cuisine_lao_cuisine" = "مطبخ لاوي";
 
 /* Cuisine */
 "cuisine_coffee" = "قهوة";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "هوت دوغ";
 
 /* Cuisine */
-"cuisine_oriental" = "مطبخ شرقي";
+"cuisine_far_eastern_cusine" = "مطبخ شرقي";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "بان كيك السافوري";

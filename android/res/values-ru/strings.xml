@@ -512,7 +512,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_chinese">китайская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee_shop">кофейня</string>
+	<string name="cuisine_coffee_shop">кафе</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sandwich">сэндвичи</string>
 	<!-- Cuisine -->
@@ -558,11 +558,11 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">вьетнамская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">лапшичная</string>
+	<string name="cuisine_noodles">лапшичная</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">вегетарианская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_korean">корейская кухня</string>
+	<string name="cuisine_korean">корейская</string>
 	<!-- Cuisine -->
 	<string name="cuisine_friture">блюда во фритюре</string>
 	<!-- Cuisine -->
@@ -582,7 +582,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_cake">кондитерская</string>
 	<!-- Cuisine -->
-	<string name="cuisine_crepe">блинная</string>
+	<string name="cuisine_crepe">тонкие блинчики</string>
 	<!-- Cuisine -->
 	<string name="cuisine_heuriger">винная таверна (хойригер)</string>
 	<!-- Cuisine -->
@@ -622,7 +622,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_polish">польская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_diner">обеды</string>
+	<string name="cuisine_diner">дайнер</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">африканская кухня</string>
 	<!-- Cuisine -->
@@ -642,13 +642,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_austrian">австрийская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_vegan">вегетарианская кухня</string>
+	<string name="cuisine_vegan">веганская  кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_argentinian">аргентинская кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_persian">иранская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_soba">лапшичная (соба)</string>
+	<string name="cuisine_soba">соба</string>
 	<!-- Cuisine -->
 	<string name="cuisine_malaysian">малазийская кухня</string>
 	<!-- Cuisine -->
@@ -662,17 +662,17 @@
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">венгерская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">лаоская кухня</string>
+	<string name="cuisine_lao_cuisine">лаоская кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_coffee">кафетерий</string>
+	<string name="cuisine_coffee">кофейня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hotdog">хот-доги</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">восточная кухня</string>
+	<string name="cuisine_far_eastern_cusine">восточная кухня</string>
 	<!-- Cuisine -->
-	<string name="cuisine_savory_pancakes">блинная</string>
+	<string name="cuisine_savory_pancakes">несладкие блинчики</string>
 	<!-- Cuisine -->
-	<string name="cuisine_moroccan">морокканскя кухня</string>
+	<string name="cuisine_moroccan">морокканская кухня</string>
 	<!-- Cuisine -->
 	<string name="cuisine_barbeque">барбекю</string>
 	<!-- Cuisine -->

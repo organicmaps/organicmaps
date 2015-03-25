@@ -773,7 +773,7 @@
 "routing_download_roaming" = "Veľkosť súboru je %@ MB, ktoré stiahnete prostredníctvom Mobilných Dát (v Roamingu). Toto môže mať za následok dodatočné poplatky, v závislosti od dátových taríf vášho mobilného operátora.";
 
 /* Cuisine */
-"cuisine_regional" = "regionálne";
+"cuisine_regional" = "regionálna kuchyňa";
 
 /* Cuisine */
 "cuisine_pizza" = "pizza";
@@ -782,7 +782,7 @@
 "cuisine_burger" = "hamburger";
 
 /* Cuisine */
-"cuisine_italian" = "talianská kuchyňa";
+"cuisine_italian" = "talianska kuchyňa";
 
 /* Cuisine */
 "cuisine_chinese" = "čína";
@@ -797,7 +797,7 @@
 "cuisine_german" = "nemecká kuchyňa";
 
 /* Cuisine */
-"cuisine_japanese" = "japónska kuchyňa";
+"cuisine_japanese" = "japonská kuchyňa";
 
 /* Cuisine */
 "cuisine_kebab" = "kebab";
@@ -818,7 +818,7 @@
 "cuisine_ice_cream" = "zmrzlina";
 
 /* Cuisine */
-"cuisine_asian" = "ázijska kuchyňa";
+"cuisine_asian" = "ázijská kuchyňa";
 
 /* Cuisine */
 "cuisine_chicken" = "kurča";
@@ -827,13 +827,13 @@
 "cuisine_greek" = "grécka kuchyňa";
 
 /* Cuisine */
-"cuisine_thai" = "thaiská kuchyňa";
+"cuisine_thai" = "thajská kuchyňa";
 
 /* Cuisine */
 "cuisine_international" = "medzinárodné jedlá";
 
 /* Cuisine */
-"cuisine_sushi" = "sushi";
+"cuisine_sushi" = "suši";
 
 /* Cuisine */
 "cuisine_fish_and_chips" = "ryba s hranolkami";
@@ -848,7 +848,7 @@
 "cuisine_steak_house" = "steak house";
 
 /* Cuisine */
-"cuisine_spanish" = "španielská kuchyňa";
+"cuisine_spanish" = "španielska kuchyňa";
 
 /* Cuisine */
 "cuisine_fish" = "ryby";
@@ -857,16 +857,16 @@
 "cuisine_vietnamese" = "vietnamská kuchyňa";
 
 /* Cuisine */
-"cuisine_noodle" = "rezance";
+"cuisine_noodles" = "rezance";
 
 /* Cuisine */
 "cuisine_vegetarian" = "vegetariánske jedlá";
 
 /* Cuisine */
-"cuisine_korean" = "kórejska kuchyňa";
+"cuisine_korean" = "kórejská kuchyňa";
 
 /* Cuisine */
-"cuisine_friture" = "vyprážané";
+"cuisine_friture" = "vyprážané jedlá";
 
 /* Cuisine */
 "cuisine_barbecue" = "gril";
@@ -875,28 +875,28 @@
 "cuisine_bavarian" = "bavorská kuchyňa";
 
 /* Cuisine */
-"cuisine_ramen" = "ramien";
+"cuisine_ramen" = "rámen (japonská rezancová polievka)";
 
 /* Cuisine */
-"cuisine_italian_pizza" = "talianská kuchyňa; pizza";
+"cuisine_italian_pizza" = "talianska kuchyňa; pizza";
 
 /* Cuisine */
-"cuisine_mediterranean" = "stredozemná kuchyňa";
+"cuisine_mediterranean" = "stredomorská kuchyňa";
 
 /* Cuisine */
-"cuisine_donut" = "šiška";
+"cuisine_donut" = "šišky";
 
 /* Cuisine */
-"cuisine_beef_bowl" = "misa howädzieho";
+"cuisine_beef_bowl" = "misa hovädzieho";
 
 /* Cuisine */
-"cuisine_cake" = "torta";
+"cuisine_cake" = "koláče";
 
 /* Cuisine */
-"cuisine_crepe" = "crepe";
+"cuisine_crepe" = "palacinky";
 
 /* Cuisine */
-"cuisine_heuriger" = "burčiak";
+"cuisine_heuriger" = "heuriger";
 
 /* Cuisine */
 "cuisine_lebanese" = "libanonská kuchyňa";
@@ -926,13 +926,13 @@
 "cuisine_bbq" = "gril";
 
 /* Cuisine */
-"cuisine_bagel" = "žemľa";
+"cuisine_bagel" = "bagely";
 
 /* Cuisine */
 "cuisine_pasta" = "cestoviny";
 
 /* Cuisine */
-"cuisine_buschenschank" = "buschenschank";
+"cuisine_buschenschank" = "viecha";
 
 /* Cuisine */
 "cuisine_sausage" = "klobása";
@@ -944,7 +944,7 @@
 "cuisine_grill" = "gril";
 
 /* Cuisine */
-"cuisine_pancake" = "palacinka";
+"cuisine_pancake" = "lievance";
 
 /* Cuisine */
 "cuisine_malagasy" = "madagaskarská kuchyňa";
@@ -959,7 +959,7 @@
 "cuisine_african" = "africká kuchyňa";
 
 /* Cuisine */
-"cuisine_doughnut" = "šiška";
+"cuisine_doughnut" = "šišky";
 
 /* Cuisine */
 "cuisine_georgian" = "gruzínska kuchyňa";
@@ -995,7 +995,7 @@
 "cuisine_soba" = "soba";
 
 /* Cuisine */
-"cuisine_malaysian" = "malajzská kuchyňa";
+"cuisine_malaysian" = "malajzijská kuchyňa";
 
 /* Cuisine */
 "cuisine_indonesian" = "indonézska kuchyňa";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "maďarská kuchyňa";
 
 /* Cuisine */
-"cuisine_lao" = "laoská kuchyňa";
+"cuisine_lao_cuisine" = "laoská kuchyňa";
 
 /* Cuisine */
 "cuisine_coffee" = "káva";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "párok v rožku";
 
 /* Cuisine */
-"cuisine_oriental" = "orientálna kuchyňa";
+"cuisine_far_eastern_cusine" = "orientálna kuchyňa";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "pikantné palacinky";
@@ -1037,7 +1037,7 @@
 "cuisine_peruvian" = "peruánska kuchyňa";
 
 /* Cuisine */
-"cuisine_fine_dining" = "elegantné stolovanie";
+"cuisine_fine_dining" = "exkluzívna reštaurácia";
 
 /* Cuisine */
 "cuisine_tea" = "čaj";

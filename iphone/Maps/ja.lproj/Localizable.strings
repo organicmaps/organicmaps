@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "ベトナム料理";
 
 /* Cuisine */
-"cuisine_noodle" = "麺類";
+"cuisine_noodles" = "麺類";
 
 /* Cuisine */
 "cuisine_vegetarian" = "ベジタリアン料理";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "エチオピア料理";
 
 /* Cuisine */
-"cuisine_deli" = "デリ料理";
+"cuisine_deli" = "デリ";
 
 /* Cuisine */
 "cuisine_irish" = "アイルランド料理";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "ハンガリー料理";
 
 /* Cuisine */
-"cuisine_lao" = "ラオス料理";
+"cuisine_lao_cuisine" = "ラオス料理";
 
 /* Cuisine */
 "cuisine_coffee" = "コーヒー";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "ホットドッグ";
 
 /* Cuisine */
-"cuisine_oriental" = "東洋の料理";
+"cuisine_far_eastern_cusine" = "東洋の料理";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "おいしいホットケーキ";

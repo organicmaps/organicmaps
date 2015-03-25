@@ -857,7 +857,7 @@
 "cuisine_vietnamese" = "越南菜";
 
 /* Cuisine */
-"cuisine_noodle" = "面";
+"cuisine_noodles" = "面";
 
 /* Cuisine */
 "cuisine_vegetarian" = "素菜";
@@ -1004,7 +1004,7 @@
 "cuisine_ethiopian" = "埃塞俄比亞菜";
 
 /* Cuisine */
-"cuisine_deli" = "熟食菜";
+"cuisine_deli" = "熟食店";
 
 /* Cuisine */
 "cuisine_irish" = "愛爾蘭菜";
@@ -1013,7 +1013,7 @@
 "cuisine_hungarian" = "匈牙利菜";
 
 /* Cuisine */
-"cuisine_lao" = "老撾菜";
+"cuisine_lao_cuisine" = "老撾菜";
 
 /* Cuisine */
 "cuisine_coffee" = "咖啡";
@@ -1022,7 +1022,7 @@
 "cuisine_hotdog" = "熱狗";
 
 /* Cuisine */
-"cuisine_oriental" = "東方菜";
+"cuisine_far_eastern_cusine" = "東方菜";
 
 /* Cuisine */
 "cuisine_savory_pancakes" = "鹹的 煎餅";

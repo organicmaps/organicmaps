@@ -495,7 +495,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_roaming">%s MB boyutunda veriyi Mobil Veri (Roaming) kullanarak indireceksiniz. Bu mobil operatör veri planınıza göre ilave ödeme gerektirebilir.</string>
 	<!-- Cuisine -->
-	<string name="cuisine_regional">bölgesel mutfağı</string>
+	<string name="cuisine_regional">bölgesel mutfak</string>
 	<!-- Cuisine -->
 	<string name="cuisine_pizza">pizza</string>
 	<!-- Cuisine -->
@@ -531,15 +531,15 @@
 	<!-- Cuisine -->
 	<string name="cuisine_greek">yunan mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_thai">tay mutfağı</string>
+	<string name="cuisine_thai">tayland mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_international">uluslararası mutfağı</string>
+	<string name="cuisine_international">uluslararası mutfak</string>
 	<!-- Cuisine -->
 	<string name="cuisine_sushi">suşi</string>
 	<!-- Cuisine -->
 	<string name="cuisine_fish_and_chips">balık ve patates cipsi</string>
 	<!-- Cuisine -->
-	<string name="cuisine_turkish">türk mutfağı mutfağı</string>
+	<string name="cuisine_turkish">türk mutfağı</string>
 	<!-- Cuisine -->
 	<string name="cuisine_seafood">deniz ürünleri</string>
 	<!-- Cuisine -->
@@ -551,7 +551,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_vietnamese">vietnam mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_noodle">erişte</string>
+	<string name="cuisine_noodles">erişte</string>
 	<!-- Cuisine -->
 	<string name="cuisine_vegetarian">vejetaryen mutfağı</string>
 	<!-- Cuisine -->
@@ -573,9 +573,9 @@
 	<!-- Cuisine -->
 	<string name="cuisine_beef_bowl">biftek tabağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_cake">cake</string>
+	<string name="cuisine_cake">pasta</string>
 	<!-- Cuisine -->
-	<string name="cuisine_crepe">crepe</string>
+	<string name="cuisine_crepe">krep</string>
 	<!-- Cuisine -->
 	<string name="cuisine_heuriger">heuriger</string>
 	<!-- Cuisine -->
@@ -583,13 +583,13 @@
 	<!-- Cuisine -->
 	<string name="cuisine_steak">biftek</string>
 	<!-- Cuisine -->
-	<string name="cuisine_local">yerel mutfağı</string>
+	<string name="cuisine_local">yerel mutfak</string>
 	<!-- Cuisine -->
 	<string name="cuisine_curry">köri</string>
 	<!-- Cuisine -->
 	<string name="cuisine_filipino">filipino mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_russian">rusya mutfağı</string>
+	<string name="cuisine_russian">rus mutfağı</string>
 	<!-- Cuisine -->
 	<string name="cuisine_breakfast">kahvaltı</string>
 	<!-- Cuisine -->
@@ -615,7 +615,7 @@
 	<!-- Cuisine -->
 	<string name="cuisine_polish">polonya mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_diner">lokanta</string>
+	<string name="cuisine_diner">vagon restoran</string>
 	<!-- Cuisine -->
 	<string name="cuisine_african">afrika mutfağı</string>
 	<!-- Cuisine -->
@@ -649,29 +649,29 @@
 	<!-- Cuisine -->
 	<string name="cuisine_ethiopian">etiyopya mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_deli">meze</string>
+	<string name="cuisine_deli">Şarküteri</string>
 	<!-- Cuisine -->
 	<string name="cuisine_irish">irlanda mutfağı</string>
 	<!-- Cuisine -->
 	<string name="cuisine_hungarian">macar mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_lao">lao mutfağı</string>
+	<string name="cuisine_lao_cuisine">lao mutfağı</string>
 	<!-- Cuisine -->
 	<string name="cuisine_coffee">kahve</string>
 	<!-- Cuisine -->
-	<string name="cuisine_hotdog">sosis</string>
+	<string name="cuisine_hotdog">sosisli</string>
 	<!-- Cuisine -->
-	<string name="cuisine_oriental">doğu mutfağı</string>
+	<string name="cuisine_far_eastern_cusine">doğu mutfağı</string>
 	<!-- Cuisine -->
 	<string name="cuisine_savory_pancakes">açma</string>
 	<!-- Cuisine -->
 	<string name="cuisine_moroccan">fas mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_barbeque">barbeque</string>
+	<string name="cuisine_barbeque">barbekü</string>
 	<!-- Cuisine -->
 	<string name="cuisine_peruvian">peru mutfağı</string>
 	<!-- Cuisine -->
-	<string name="cuisine_fine_dining">yemek_düzeni</string>
+	<string name="cuisine_fine_dining">birinci sınıf restoran</string>
 	<!-- Cuisine -->
 	<string name="cuisine_tea">çay</string>
 	<!-- bookmark button text -->
