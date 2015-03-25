@@ -1,6 +1,7 @@
 
 #import "SearchBar.h"
 #import "Framework.h"
+#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 @interface SearchBar ()
 
@@ -12,6 +13,8 @@
 @property (nonatomic) SolidTouchImageView * fieldBackgroundView;
 
 @end
+
+extern NSString * const kAlohalyticsTapEventKey;
 
 @implementation SearchBar
 
@@ -62,6 +65,7 @@
 
 - (void)cancelButtonPressed:(id)sender
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"searchCancel"];
   [self.delegate searchBarDidPressCancelButton:self];
 }
 
