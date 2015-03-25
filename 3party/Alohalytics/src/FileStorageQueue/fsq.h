@@ -287,6 +287,8 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
       current_file_name_ =
           T_FILE_SYSTEM::JoinPath(working_directory_, T_FILE_NAMING_STRATEGY::current.GenerateFileName(now));
       // TODO(dkorolev): This relies on OutputFile being std::ofstream. Fine for now anyway.
+      // AlexZ: Correctly close file before recreating it in case when GenerateFileName() returns equal file name.
+      current_file_.reset(nullptr);
       current_file_.reset(new typename T_FILE_SYSTEM::OutputFile(current_file_name_,
                                                                  std::ofstream::trunc | std::ofstream::binary));
       status_.appended_file_timestamp = now;
