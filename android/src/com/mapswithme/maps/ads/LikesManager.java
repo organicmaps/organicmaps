@@ -12,10 +12,10 @@ import java.util.Arrays;
 
 public class LikesManager
 {
-  public static final Integer[] GPLAY_NEW_USERS = new Integer[]{3, 7, 10, 15, 21};
-  public static final Integer[] GPLUS_NEW_USERS = new Integer[]{11, 20, 30, 40, 50};
-  public static final Integer[] GPLAY_OLD_USERS = new Integer[]{1, 7, 10, 15, 21};
-  public static final Integer[] GPLUS_OLD_USERS = new Integer[]{4, 14, 24, 34, 44};
+  public static final Integer[] GPLAY_NEW_USERS = new Integer[]{3, 10, 21};
+  public static final Integer[] GPLUS_NEW_USERS = new Integer[]{11, 30, 50};
+  public static final Integer[] GPLAY_OLD_USERS = new Integer[]{1, 10, 21};
+  public static final Integer[] GPLUS_OLD_USERS = new Integer[]{4, 24, 44};
 
   private static final long DIALOG_DELAY_MILLIS = 30000;
 
