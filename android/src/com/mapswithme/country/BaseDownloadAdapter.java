@@ -697,7 +697,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
   protected void onCountryStatusChanged(int position)
   {
     final CountryItem item = getItem(position);
-    if (item != null)
+    if (item != null && mFragment.isAdded())
     {
       // use this hard reset, because of caching different ViewHolders according to item's type
       mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
@@ -714,7 +714,7 @@ public abstract class BaseDownloadAdapter extends BaseAdapter
    */
   protected void onCountryProgress(int position, long current, long total)
   {
-    if (mListView == null)
+    if (mListView == null || !mFragment.isAdded())
       return;
 
     // do update only one item's view; don't call notifyDataSetChanged

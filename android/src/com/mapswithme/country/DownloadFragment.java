@@ -125,7 +125,7 @@ public class DownloadFragment extends BaseMwmListFragment implements View.OnClic
 
   private void updateToolbar()
   {
-    if (mTvUpdateAll == null)
+    if (mTvUpdateAll == null || !isAdded())
       return;
     if (mMode == MODE_DISABLED)
     {
