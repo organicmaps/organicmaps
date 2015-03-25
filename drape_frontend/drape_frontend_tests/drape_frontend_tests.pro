@@ -17,3 +17,4 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   memory_feature_index_tests.cpp \
   object_pool_tests.cpp \
+  tile_utils_tests.cpp \

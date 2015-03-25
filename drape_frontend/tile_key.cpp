@@ -44,4 +44,11 @@ m2::RectD TileKey::GetGlobalRect() const
   return m2::RectD (startX, startY, startX + rectSize, startY + rectSize);
 }
 
+string DebugPrint(TileKey const & key)
+{
+  ostringstream out;
+  out << "[x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = " << key.m_zoomLevel << "]";
+  return out.str();
+}
+
 } //namespace df

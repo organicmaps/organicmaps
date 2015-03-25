@@ -18,6 +18,9 @@ struct TileKey
   int m_x;
   int m_y;
   int m_zoomLevel;
+
+private:
+  friend string DebugPrint(TileKey const & );
 };
 
 } // namespace df
