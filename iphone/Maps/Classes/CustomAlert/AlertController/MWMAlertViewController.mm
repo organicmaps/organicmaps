@@ -28,8 +28,6 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.view.frame = UIApplication.sharedApplication.keyWindow.bounds;
-  
   // Need only for iOS 5.
   if ([[[UIDevice currentDevice] systemVersion] integerValue] < 6) {
     self.tap.delegate = self;
@@ -38,8 +36,18 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Actions
 
-- (void)presentDownloaderAlertWithCountrieIndex:(const storage::TIndex&)index {
-  MWMAlert *alert = [MWMAlert downloaderAlertWithCountrieIndex:index];
+- (void)presentRateAlert {
+  MWMAlert *alert = [MWMAlert rateAlert];
+  [self displayAlert:alert];
+}
+
+- (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount {
+  MWMAlert *alert = [MWMAlert feedbackAlertWithStarsCount:starsCount];
+  [self displayAlert:alert];
+}
+
+- (void)presentDownloaderAlertWithCountryIndex:(const storage::TIndex&)index {
+  MWMAlert *alert = [MWMAlert downloaderAlertWithCountryIndex:index];
   [self displayAlert:alert];
 }
 
@@ -53,6 +61,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self.ownerViewController addChildViewController:self];
   self.view.center = self.ownerViewController.view.center;
   [self.ownerViewController.view addSubview:self.view];
+  [[[[UIApplication sharedApplication] delegate] window] addSubview:self.view];
+  self.view.frame = [[[[UIApplication sharedApplication] delegate] window] frame];
   [self.view addSubview:alert];
   alert.center = self.view.center;
 }

@@ -577,9 +577,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   Reachability * reachability = [Reachability reachabilityForInternetConnection];
   if ([reachability isReachable])
   {
-    if (dlg_settings::ShouldShow(dlg_settings::AppStore))
-      [self showAppStoreRatingMenu];
-    else if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
+    if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
       [self showFacebookRatingMenu];
   }
 }
@@ -821,7 +819,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 - (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries {
   if (countries.size()) {
     MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
-    [alert presentDownloaderAlertWithCountrieIndex:countries[0]];
+    [alert presentDownloaderAlertWithCountryIndex:countries[0]];
   } else {
     [self presentDefaultAlert:type];
   }
@@ -1202,24 +1200,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   switch (alertView.tag)
   {
-    case ALERT_VIEW_APPSTORE:
-    {
-      if (buttonIndex == 0)
-      {
-        dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::Never);
-      }
-      else if (buttonIndex == 1)
-      {
-        dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
-        [[UIApplication sharedApplication] rateVersionFrom:@"ios_pro_popup"];
-      }
-      else if (buttonIndex == 2)
-      {
-        dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::Later);
-      }
-
-      break;
-    }
     case ALERT_VIEW_FACEBOOK:
     {
       if (buttonIndex == 0)
@@ -1430,17 +1410,6 @@ NSInteger compareAddress(id l, id r, void * context)
   Framework & f = GetFramework();
   if (!f.SetUpdatesEnabled(true))
     f.Invalidate();
-}
-
-- (void)showAppStoreRatingMenu
-{
-  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"App Store"
-                                                       message:L(@"appStore_message")
-                                                      delegate:self
-                                             cancelButtonTitle:L(@"no_thanks")
-                                             otherButtonTitles:L(@"ok"), L(@"remind_me_later"), nil];
-  alertView.tag = ALERT_VIEW_APPSTORE;
-  [alertView show];
 }
 
 - (void)showFacebookRatingMenu

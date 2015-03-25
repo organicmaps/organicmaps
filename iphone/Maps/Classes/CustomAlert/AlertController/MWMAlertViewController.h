@@ -18,7 +18,9 @@
 
 - (instancetype)initWithViewController:(UIViewController *)viewController;
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
-- (void)presentDownloaderAlertWithCountrieIndex:(const storage::TIndex&)index;
+- (void)presentDownloaderAlertWithCountryIndex:(const storage::TIndex&)index;
+- (void)presentRateAlert;
+- (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount;
 - (void)closeAlert;
 
 @end

@@ -13,14 +13,6 @@
 
 @interface MWMDownloadTransitMapAlert : MWMAlert
 
-+ (instancetype)alertWithCountrieIndex:(const storage::TIndex)index;
-
-@property (nonatomic, weak, readonly) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak, readonly) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak, readonly) IBOutlet UIButton *notNowButton;
-@property (nonatomic, weak, readonly) IBOutlet UIButton *downloadButton;
-@property (nonatomic, weak, readonly) IBOutlet UILabel *sizeLabel;
-@property (nonatomic, weak, readonly) IBOutlet UILabel *countryLabel;
-@property (nonatomic, weak, readonly) IBOutlet UIView *specsView;
++ (instancetype)alertWithCountryIndex:(const storage::TIndex)index;
 
 @end

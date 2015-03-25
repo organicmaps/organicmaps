@@ -10,13 +10,23 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMDownloadAllMapsAlert.h"
 #import "MWMDefaultAlert.h"
+#import "MWMFeedbackAlert.h"
+#import "MWMRateAlert.h"
 
 extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/255. green:209/255. blue:205/255. alpha:1.];
 
 @implementation MWMAlert
 
-+ (MWMAlert *)downloaderAlertWithCountrieIndex:(const storage::TIndex&)index {
-  return [MWMDownloadTransitMapAlert alertWithCountrieIndex:index];
++ (MWMAlert *)rateAlert {
+  return [MWMRateAlert alert];
+}
+
++ (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount {
+  return [MWMFeedbackAlert alertWithStarsCount:starsCount];
+}
+
++ (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index {
+  return [MWMDownloadTransitMapAlert alertWithCountryIndex:index];
 }
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type {

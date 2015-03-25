@@ -8,14 +8,14 @@
 
 #import "MWMDefaultAlert.h"
 #import "MWMAlertViewController.h"
-#import "MWMDefaultAlert+Configure.h"
 #import "UILabel+RuntimeAttributes.h"
+#import "UIKitCategories.h"
 
 @interface MWMDefaultAlert ()
 
-@property (nonatomic, weak, readwrite) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak, readwrite) IBOutlet UIButton *okButton;
-@property (nonatomic, weak, readwrite) IBOutlet UIView *deviderLine;
+@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
+@property (nonatomic, weak) IBOutlet UIButton *okButton;
+@property (nonatomic, weak) IBOutlet UIView *deviderLine;
 
 @end
 
@@ -58,6 +58,23 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 - (IBAction)okButtonTap:(id)sender {
   [self.alertController closeAlert];
+}
+
+#pragma mark - Configure
+
+- (void)configure {
+  [self.messageLabel sizeToFit];
+  [self configureViewSize];
+}
+
+- (void)configureViewSize {
+  const CGFloat topMainViewOffset = 17.;
+  const CGFloat minMainViewHeight = 144.;
+  const CGFloat actualMainViewHeight = 2 * topMainViewOffset + self.messageLabel.height + self.okButton.height;
+  self.height = actualMainViewHeight >= minMainViewHeight ? actualMainViewHeight : minMainViewHeight;
+  self.messageLabel.minY = topMainViewOffset;
+  self.deviderLine.minY = self.height - self.okButton.height;
+  self.okButton.minY = self.deviderLine.minY + self.deviderLine.height;
 }
 
 @end

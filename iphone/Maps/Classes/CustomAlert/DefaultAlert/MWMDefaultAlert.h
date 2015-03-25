@@ -17,8 +17,4 @@
 + (instancetype)noCurrentPositionAlert;
 + (instancetype)pointsInDifferentMWMAlert;
 
-@property (nonatomic, weak, readonly) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak, readonly) IBOutlet UIButton *okButton;
-@property (nonatomic, weak, readonly) IBOutlet UIView *deviderLine;
-
 @end

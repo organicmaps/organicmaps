@@ -18,7 +18,7 @@ extern NSString * const MapsStatusChangedNotification;
   UIAlertView * m_loadingAlertView;
 }
 
-@property (nonatomic, strong) IBOutlet MapViewController * m_mapViewController;
+@property (nonatomic, weak) IBOutlet MapViewController * m_mapViewController;
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;

@@ -6,6 +6,8 @@
 #import "UIKitCategories.h"
 #import "AppInfo.h"
 #import "LocalNotificationManager.h"
+#import "MWMAlertViewController.h"
+#import "Reachability.h"
 
 #include <sys/xattr.h>
 
@@ -21,6 +23,11 @@
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
+static NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
+extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
+static NSString * const kUDSessionsCountKey = @"SessionsCount";
+static NSString * const kUDFirstVersionKey = @"FirstVersion";
+static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -86,7 +93,7 @@ void InitLocalizedStrings()
   mrgsParams.allowPushNotificationHooks = YES;
   
   [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:@[] delegate:nil];
-  [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:[NSDate date]];
+  [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:NSDate.date];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -107,7 +114,8 @@ void InitLocalizedStrings()
     [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"IFA" : [AppInfo sharedInfo].advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
 
   InitLocalizedStrings();
-
+  
+  [self shouldShowRateAlert];
   [self.m_mapViewController onEnterForeground];
 
   [Preferences setup:self.m_mapViewController];
@@ -390,6 +398,104 @@ void InitLocalizedStrings()
 - (void)outOfDateCountriesCountChanged:(NSNotification *)notification
 {
   [UIApplication sharedApplication].applicationIconBadgeNumber = [[notification userInfo][@"OutOfDate"] integerValue];
+}
+
+- (UIWindow *)window
+{
+  return m_window;
+}
+
+#pragma mark - Rate alert logic
+
+- (void)showRateAlert
+{
+  if (!Reachability.reachabilityForInternetConnection.isReachable)
+    return;
+  
+  UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];
+  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:topViewController];
+  [alert presentRateAlert];
+  [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastRateRequestDate];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)shouldShowRateAlert
+{
+  NSUInteger const kMaximumSessionCountForShowingAlert = 21;
+  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
+  BOOL alreadyRated = [standartDefaults boolForKey:kUDAlreadyRatedKey];
+  if (alreadyRated)
+    return;
+  
+  NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
+  if (sessionCount > kMaximumSessionCountForShowingAlert)
+    return;
+  
+  NSDate *lastRateDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
+  NSUInteger daysFromLastRate = [self.class daysBetweenNowAndDate:lastRateDate];
+  // Do not show more than one alert per day.
+  if (lastRateDate != nil && daysFromLastRate == 0)
+    return;
+  
+  // Get days spent after last launch. lastLaunchDate may be nil, then dayAgo == 0.
+  NSDate *lastLaunchDate = [standartDefaults objectForKey:kUDLastLaunchDateKey];
+  NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  if (self.class.isFirstAppLaunch)
+  {
+    // It's first launch for new user.
+    [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
+    sessionCount = 1;
+  }
+  else
+  {
+    NSString *firstVersion = [standartDefaults stringForKey:kUDFirstVersionKey];
+    if (!firstVersion.length || [self version:currentVersion greaterThanVersion:firstVersion])
+    {
+      // User just got updated. Show alert, if it first session or if 90 days spent.
+      if (daysFromLastRate >= 90 || daysFromLastRate == 0)
+        [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
+    }
+    else
+    {
+      // It's new user.
+      NSUInteger daysFromLastLaunch = [self.class daysBetweenNowAndDate:lastLaunchDate];
+      if (daysFromLastLaunch > 0)
+        sessionCount++;
+      if (sessionCount == 3 || sessionCount == 10 || sessionCount == kMaximumSessionCountForShowingAlert)
+        [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
+    }
+  }
+  [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
+  [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
+  [standartDefaults synchronize];
+}
+
+- (BOOL)version:(NSString *)first greaterThanVersion:(NSString *)second
+{
+  NSArray *f = [first componentsSeparatedByString:@"."];
+  NSArray *s = [second componentsSeparatedByString:@"."];
+  NSUInteger iter = 0;
+  while (f.count > iter && s.count > iter)
+  {
+    if ([(NSString*)f[iter] integerValue] == [(NSString*)s[iter] integerValue])
+      iter++;
+    else
+      return [(NSString*)f[iter] integerValue] > [(NSString*)s[iter] integerValue];
+  }
+  return f.count > s.count;
+}
+
++ (NSInteger)daysBetweenNowAndDate:(NSDate*)fromDate
+{
+  if (!fromDate)
+    return 0;
+  
+  NSDate *now = NSDate.date;
+  NSCalendar *calendar = [NSCalendar currentCalendar];
+  [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate interval:NULL forDate:fromDate];
+  [calendar rangeOfUnit:NSCalendarUnitDay startDate:&now interval:NULL forDate:now];
+  NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:fromDate toDate:now options:0];
+  return difference.day;
 }
 
 @end

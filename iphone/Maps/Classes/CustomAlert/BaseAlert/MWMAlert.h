@@ -17,6 +17,8 @@
 @property (nonatomic, weak) MWMAlertViewController *alertController;
 
 + (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
-+ (MWMAlert *)downloaderAlertWithCountrieIndex:(const storage::TIndex&)index;
++ (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index;
++ (MWMAlert *)rateAlert;
++ (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
 
 @end
