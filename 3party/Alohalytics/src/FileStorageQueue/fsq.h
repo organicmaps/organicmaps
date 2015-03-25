@@ -156,15 +156,6 @@ class FSQ final : public CONFIG::T_FILE_NAMING_STRATEGY,
     } else {
       const T_TIMESTAMP now = time_manager_.Now();
       const uint64_t message_size_in_bytes = T_FILE_APPEND_STRATEGY::MessageSizeInBytes(message);
-      {
-        // Take current message size into consideration when making file finalization decision.
-        status_.appended_file_size += message_size_in_bytes;
-        const bool should_finalize = T_FINALIZE_STRATEGY::ShouldFinalize(status_, now);
-        status_.appended_file_size -= message_size_in_bytes;
-        if (should_finalize) {
-          FinalizeCurrentFile();
-        }
-      }
       EnsureCurrentFileIsOpen(now);
       if (!current_file_ || current_file_->bad()) {
         throw FSQException();
