@@ -10,6 +10,7 @@ import android.widget.ScrollView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
+import com.nineoldandroids.animation.ValueAnimator;
 
 /**
  * Class is responsible for animations of PP(place page) and PPP(place page preview).
@@ -99,5 +100,10 @@ public abstract class BasePlacePageAnimationController
       mVisibilityChangedListener.onPreviewVisibilityChanged(mIsPreviewVisible);
       mVisibilityChangedListener.onPlacePageVisibilityChanged(mIsPlacePageVisible);
     }
+  }
+
+  protected boolean isAnimationCompleted(ValueAnimator animation)
+  {
+    return animation.getAnimatedFraction() > .99f;
   }
 }

@@ -128,7 +128,7 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
         {
           ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
 
-          if (animation.getAnimatedFraction() > 0.99f)
+          if (isAnimationCompleted(animation))
           {
             mIsPlacePageVisible = mIsPreviewVisible = true;
             notifyVisibilityListener();
@@ -153,7 +153,7 @@ public class LeftFloatPlacePageAnimationController extends BasePlacePageAnimatio
       {
         ViewHelper.setTranslationY(mPlacePage, (Float) animation.getAnimatedValue());
 
-        if (animation.getAnimatedFraction() > 0.99f)
+        if (isAnimationCompleted(animation))
         {
           mPlacePage.setVisibility(View.INVISIBLE);
           mIsPlacePageVisible = mIsPreviewVisible = false;
