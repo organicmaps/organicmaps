@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../base/buffer_vector.hpp"
+#include "../std/string.hpp"
 
 namespace gui
 {
@@ -24,9 +25,9 @@ public:
 
   size_t GetComponentCount() const;
   Control const & GetControl(size_t index) const;
-  float GetControlMargin() const;
+  static float GetControlMargin();
 
-  void GetProgressInfo(string & alphabet, size_t & maxLength);
+  static void GetProgressInfo(string & alphabet, size_t & maxLength);
   string GetProgressValue() const;
 
   int GetState() const;

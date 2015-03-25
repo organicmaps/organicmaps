@@ -4,78 +4,82 @@
 #include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
 
-#include "../drape/glsl_func.hpp"
 #include "../drape/fribidi.hpp"
+#include "../drape/glsl_func.hpp"
 #include "../drape/shader_def.hpp"
 
-#include "../std/unique_ptr.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/static_assert.hpp"
+#include "../std/type_traits.hpp"
+#include "../std/unique_ptr.hpp"
 
 namespace gui
 {
 
 namespace
 {
+
 static float const BASE_GLYPH_HEIGHT = 20.0f;
 
 glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float textRatio,
                              array<glsl::vec2, 4> & normals, array<glsl::vec2, 4> & maskTexCoord)
 {
-  m2::PointF pixelSize = m2::PointF(glyph.GetPixelSize()) * textRatio;
-    m2::RectF const & r = glyph.GetTexRect();
+  m2::PointF const pixelSize = m2::PointF(glyph.GetPixelSize()) * textRatio;
+  m2::RectF const & r = glyph.GetTexRect();
 
-    float xOffset = glyph.GetOffsetX() * textRatio;
-    float yOffset = glyph.GetOffsetY() * textRatio;
+  float const xOffset = glyph.GetOffsetX() * textRatio;
+  float const yOffset = glyph.GetOffsetY() * textRatio;
 
-    float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
-    float const bottomVector = -yOffset;
+  float const upVector = -static_cast<int32_t>(pixelSize.y) - yOffset;
+  float const bottomVector = -yOffset;
 
-    normals[0] = glsl::vec2(xOffset, bottomVector);
-    normals[1] = glsl::vec2(xOffset, upVector);
-    normals[2] = glsl::vec2(pixelSize.x + xOffset, bottomVector);
-    normals[3] = glsl::vec2(pixelSize.x + xOffset, upVector);
+  normals[0] = glsl::vec2(xOffset, bottomVector);
+  normals[1] = glsl::vec2(xOffset, upVector);
+  normals[2] = glsl::vec2(pixelSize.x + xOffset, bottomVector);
+  normals[3] = glsl::vec2(pixelSize.x + xOffset, upVector);
 
-    maskTexCoord[0] = glsl::ToVec2(r.LeftTop());
-    maskTexCoord[1] = glsl::ToVec2(r.LeftBottom());
-    maskTexCoord[2] = glsl::ToVec2(r.RightTop());
-    maskTexCoord[3] = glsl::ToVec2(r.RightBottom());
+  maskTexCoord[0] = glsl::ToVec2(r.LeftTop());
+  maskTexCoord[1] = glsl::ToVec2(r.LeftBottom());
+  maskTexCoord[2] = glsl::ToVec2(r.RightTop());
+  maskTexCoord[3] = glsl::ToVec2(r.RightBottom());
 
-    return glsl::vec2(xOffset, yOffset);
-  }
+  return glsl::vec2(xOffset, yOffset);
+}
 
-  void FillCommonDecl(dp::BindingDecl & decl, string const & name, uint8_t compCount, uint8_t stride, uint8_t offset)
-  {
-    decl.m_attributeName = name;
-    decl.m_componentCount = compCount;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_stride = stride;
-    decl.m_offset = offset;
-  }
+void FillCommonDecl(dp::BindingDecl & decl, string const & name, uint8_t compCount, uint8_t stride, uint8_t offset)
+{
+  decl.m_attributeName = name;
+  decl.m_componentCount = compCount;
+  decl.m_componentType = gl_const::GLFloatType;
+  decl.m_stride = stride;
+  decl.m_offset = offset;
+}
 
-  void FillPositionDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
-  {
-    FillCommonDecl(decl, "a_position", 3, stride, offset);
-  }
+void FillPositionDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+{
+  FillCommonDecl(decl, "a_position", 3, stride, offset);
+}
 
-  void FillNormalDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
-  {
-    FillCommonDecl(decl, "a_normal", 2, stride, offset);
-  }
+void FillNormalDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+{
+  FillCommonDecl(decl, "a_normal", 2, stride, offset);
+}
 
-  void FillColorDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
-  {
-    FillCommonDecl(decl, "a_colorTexCoord", 2, stride, offset);
-  }
+void FillColorDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+{
+  FillCommonDecl(decl, "a_colorTexCoord", 2, stride, offset);
+}
 
-  void FillOutlineDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
-  {
-    FillCommonDecl(decl, "a_outlineColorTexCoord", 2, stride, offset);
-  }
+void FillOutlineDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+{
+  FillCommonDecl(decl, "a_outlineColorTexCoord", 2, stride, offset);
+}
 
-  void FillMaskDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
-  {
-    FillCommonDecl(decl, "a_maskTexCoord", 2, stride, offset);
-  }
+void FillMaskDecl(dp::BindingDecl & decl, uint8_t stride, uint8_t offset)
+{
+  FillCommonDecl(decl, "a_maskTexCoord", 2, stride, offset);
+}
+
 }
 
 dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
@@ -442,8 +446,10 @@ void MutableLabelHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBuffer
   m_size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
 
   size_t byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
-  void * dataPointer = mutator->AllocateMutationBuffer(byteCount);
-  memcpy(dataPointer, result.m_buffer.data(), byteCount);
+
+  MutableLabel::DynamicVertex * dataPointer =
+      reinterpret_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
+  copy(result.m_buffer.begin(), result.m_buffer.end(), dataPointer);
 
   dp::BindingInfo const & binding = MutableLabel::DynamicVertex::GetBindingInfo();
   dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(binding.GetID());

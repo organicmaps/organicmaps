@@ -81,8 +81,6 @@ private:
 };
 
 ////////////////////////////////////////////////////////////////
-uint32_t const Batcher::IndexPerQuad = 6;
-uint32_t const Batcher::VertexPerQuad = 4;
 
 Batcher::Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize)
   : m_indexBufferSize(indexBufferSize)

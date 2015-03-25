@@ -1,12 +1,13 @@
 #include "button.hpp"
 #include "country_status.hpp"
 #include "country_status_helper.hpp"
-#include "gui_text.hpp"
 #include "drape_gui.hpp"
+#include "gui_text.hpp"
 
 #include "../drape/batcher.hpp"
 #include "../drape/glsl_func.hpp"
 
+#include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 
 namespace gui
@@ -65,7 +66,7 @@ public:
 protected:
   bool IsContentDirty() const override { return m_contentDirty; }
 
-  string GetContent() const override { return m_value; }
+  string const & GetContent() const override { return m_value; }
 
 private:
   int m_state;
@@ -86,7 +87,7 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
   StaticLabel::CacheStaticText(text, "\n", anchor, dp::FontDecl(dp::Color::Black(), 18), mng,
                                result);
   size_t vertexCount = result.m_buffer.size();
-  ASSERT(vertexCount % 4 == 0, ());
+  ASSERT(vertexCount % dp::Batcher::VertexPerQuad == 0, ());
   size_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
   dp::AttributeProvider provider(1 /*stream count*/, vertexCount);
@@ -134,24 +135,23 @@ dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::Textur
     switch (control.m_type)
     {
       case CountryStatusHelper::Button:
-      {
-        Button::THandleCreator handleCreator = bind(&CreateHandle, state, _1, _2);
-        ShapeControl shapeControl;
-        Button::Params params;
-        params.m_anchor = m_position.m_anchor;
-        params.m_label = control.m_label;
-        params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
-        params.m_minWidth = 300;
-        params.m_maxWidth = 600;
-        params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
-        params.m_bodyHandleCreator = handleCreator;
-        params.m_labelHandleCreator = handleCreator;
+        {
+          Button::THandleCreator handleCreator = bind(&CreateHandle, state, _1, _2);
+          ShapeControl shapeControl;
+          Button::Params params;
+          params.m_anchor = m_position.m_anchor;
+          params.m_label = control.m_label;
+          params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
+          params.m_minWidth = 300;
+          params.m_maxWidth = 600;
+          params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
+          params.m_bodyHandleCreator = handleCreator;
+          params.m_labelHandleCreator = handleCreator;
 
-        Button button(params);
-        button.Draw(shapeControl, tex);
-        renderer->AddShapeControl(move(shapeControl));
-      }
-      break;
+          Button::Draw(params, shapeControl, tex);
+          renderer->AddShapeControl(move(shapeControl));
+        }
+        break;
       case CountryStatusHelper::Label:
         DrawLabelControl(control.m_label, m_position.m_anchor, flushFn, tex, state);
         break;
@@ -165,28 +165,30 @@ dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::Textur
   }
 
   buffer_vector<float, 4> heights;
-  float summaryHeight = 0.0f;
+  float totalHeight = 0.0f;
 
-  ArrangeShapes(renderer.GetRefPointer(), [&heights, &summaryHeight](ShapeControl & shape)
+  ArrangeShapes(renderer.GetRefPointer(), [&heights, &totalHeight](ShapeControl & shape)
   {
     float height = 0.0f;
     for (ShapeControl::ShapeInfo & info : shape.m_shapesInfo)
       height = max(height, info.m_handle->GetSize().y);
 
     heights.push_back(height);
-    summaryHeight += height;
+    totalHeight += height;
   });
 
+  ASSERT(!heights.empty(), ());
+
   float const controlMargin = helper.GetControlMargin();
-  summaryHeight += controlMargin * (heights.size() - 1);
-  float halfHeight = summaryHeight / 2.0f;
+  totalHeight += controlMargin * (heights.size() - 1);
+  float halfHeight = totalHeight * 0.5f;
   glsl::vec2 pen(m_position.m_pixelPivot.x, m_position.m_pixelPivot.y - halfHeight);
   size_t controlIndex = 0;
 
   ArrangeShapes(renderer.GetRefPointer(), [&](ShapeControl & shape)
   {
     float const h = heights[controlIndex];
-    float const halfH = h / 2.0f;
+    float const halfH = h * 0.5f;
     ++controlIndex;
 
     for (ShapeControl::ShapeInfo & info : shape.m_shapesInfo)

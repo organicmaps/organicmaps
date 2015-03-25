@@ -108,14 +108,14 @@ public:
     buffer_vector<StaticVertex, 128> m_buffer;
   };
 
-  void Precache(PrecacheParams const & params, PrecacheResult & result,
-                dp::RefPointer<dp::TextureManager> mng);
-
   struct LabelResult
   {
     buffer_vector<DynamicVertex, 128> m_buffer;
     m2::RectD m_boundRect;
   };
+
+  void Precache(PrecacheParams const & params, PrecacheResult & result,
+                dp::RefPointer<dp::TextureManager> mng);
 
   void SetText(LabelResult & result, string text) const;
   m2::PointF GetAvarageSize() const;
@@ -150,7 +150,7 @@ public:
 
 protected:
   virtual bool IsContentDirty() const = 0;
-  virtual string GetContent() const = 0;
+  virtual string const & GetContent() const = 0;
 
 private:
   dp::MasterPointer<MutableLabel> m_textView;

@@ -10,22 +10,17 @@
 namespace gui
 {
 
-Button::Button(Params const & params)
-  : m_params(params)
-{
-}
-
-void Button::Draw(ShapeControl & control, dp::RefPointer<dp::TextureManager> texture)
+void Button::Draw(Params const & params, ShapeControl & control, dp::RefPointer<dp::TextureManager> texture)
 {
   StaticLabel::LabelResult result;
-  StaticLabel::CacheStaticText(m_params.m_label, StaticLabel::DefaultDelim, m_params.m_anchor,
-                               m_params.m_labelFont, texture, result);
+  StaticLabel::CacheStaticText(params.m_label, StaticLabel::DefaultDelim, params.m_anchor,
+                               params.m_labelFont, texture, result);
 
   float textWidth = result.m_boundRect.SizeX();
-  float halfWidth = my::clamp(textWidth, m_params.m_minWidth, m_params.m_maxWidth) / 2.0f;
-  float halfHeight = result.m_boundRect.SizeY() / 2.0f;
-  float halfWM = halfWidth + m_params.m_margin;
-  float halfHM = halfHeight + m_params.m_margin;
+  float halfWidth = my::clamp(textWidth, params.m_minWidth, params.m_maxWidth) * 0.5f;
+  float halfHeight = result.m_boundRect.SizeY() * 0.5f;
+  float halfWM = halfWidth + params.m_margin;
+  float halfHM = halfHeight + params.m_margin;
 
   // Cache button
   {
@@ -46,14 +41,14 @@ void Button::Draw(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex
         gpu::SolidTexturingVertex(position, glsl::vec2(halfWM, -halfHM), texCoord)};
 
     glsl::vec2 normalOffset(0.0f, 0.0f);
-    if (m_params.m_anchor & dp::Left)
+    if (params.m_anchor & dp::Left)
       normalOffset.x = halfWidth;
-    else if (m_params.m_anchor & dp::Right)
+    else if (params.m_anchor & dp::Right)
       normalOffset.x = -halfWidth;
 
-    if (m_params.m_anchor & dp::Top)
+    if (params.m_anchor & dp::Top)
       normalOffset.x = halfHeight;
-    else if (m_params.m_anchor & dp::Bottom)
+    else if (params.m_anchor & dp::Bottom)
       normalOffset.x = -halfHeight;
 
     for (gpu::SolidTexturingVertex & v : vertexes)
@@ -64,11 +59,11 @@ void Button::Draw(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex
                         dp::StackVoidRef(vertexes));
 
     m2::PointF buttonSize(halfWM + halfWM, halfHM + halfHM);
-    ASSERT(m_params.m_bodyHandleCreator, ());
+    ASSERT(params.m_bodyHandleCreator, ());
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
-                                m_params.m_bodyHandleCreator(m_params.m_anchor, buttonSize));
+                                params.m_bodyHandleCreator(params.m_anchor, buttonSize));
   }
 
   // Cache text
@@ -81,13 +76,13 @@ void Button::Draw(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex
     provider.InitStream(0 /*stream index*/, StaticLabel::Vertex::GetBindingInfo(),
                         dp::StackVoidRef(result.m_buffer.data()));
 
-    ASSERT(m_params.m_labelHandleCreator, ());
+    ASSERT(params.m_labelHandleCreator, ());
     m2::PointF textSize(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
     dp::MasterPointer<dp::OverlayHandle> handle;
     dp::Batcher batcher(indexCount, vertexCount);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertListOfStrip(result.m_state, dp::MakeStackRefPointer(&provider),
-                              m_params.m_labelHandleCreator(m_params.m_anchor, textSize),
+                              params.m_labelHandleCreator(params.m_anchor, textSize),
                               dp::Batcher::VertexPerQuad);
   }
 }

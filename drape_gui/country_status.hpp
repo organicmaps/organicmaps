@@ -7,7 +7,7 @@ namespace gui
 class CountryStatus : public Shape
 {
 public:
-  CountryStatus(Position position) : Shape(position) {}
+  CountryStatus(Position const & position) : Shape(position) {}
   dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const override;
 };
 

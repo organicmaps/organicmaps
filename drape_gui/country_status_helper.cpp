@@ -21,7 +21,7 @@ CountryStatusHelper::Control const & CountryStatusHelper::GetControl(size_t inde
   return m_controls[index];
 }
 
-float CountryStatusHelper::GetControlMargin() const
+float CountryStatusHelper::GetControlMargin()
 {
   return 5.0f * DrapeGui::Instance().GetScaleFactor();
 }

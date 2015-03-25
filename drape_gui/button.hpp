@@ -19,17 +19,13 @@ public:
     dp::FontDecl m_labelFont;
     dp::Anchor m_anchor;
 
-    float m_minWidth;
-    float m_maxWidth;
-    float m_margin;
+    float m_minWidth = 0.0f;
+    float m_maxWidth = 0.0f;
+    float m_margin = 0.0f;
     THandleCreator m_bodyHandleCreator;
     THandleCreator m_labelHandleCreator;
   };
 
-  Button(Params const & params);
-  void Draw(ShapeControl & control, dp::RefPointer<dp::TextureManager> texture);
-
-private:
-  Params m_params;
+  static void Draw(Params const & params, ShapeControl & control, dp::RefPointer<dp::TextureManager> texture);
 };
 }

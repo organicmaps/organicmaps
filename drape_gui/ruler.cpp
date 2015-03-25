@@ -99,7 +99,7 @@ public:
 
 protected:
   bool IsContentDirty() const override { return DrapeGui::GetRulerHelper().IsTextDirty(); }
-  string GetContent() const override { return DrapeGui::GetRulerHelper().GetRulerText(); }
+  string const & GetContent() const override { return DrapeGui::GetRulerHelper().GetRulerText(); }
 };
 
 }

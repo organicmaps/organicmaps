@@ -1,9 +1,9 @@
-#include "layer_render.hpp"
 #include "compass.hpp"
 #include "country_status.hpp"
+#include "drape_gui.hpp"
+#include "layer_render.hpp"
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
-#include "drape_gui.hpp"
 
 #include "../drape/batcher.hpp"
 #include "../drape/render_bucket.hpp"
@@ -72,10 +72,10 @@ void LayerRenderer::Merge(dp::RefPointer<LayerRenderer> other)
 {
   for (TRenderers::value_type & r : other->m_renderers)
   {
-    TRenderers::iterator it = m_renderers.find(r.first);
-    if (it != m_renderers.end())
-      it->second.Destroy();
-    m_renderers[r.first] = r.second;
+    dp::MasterPointer<ShapeRenderer> & guiElement = m_renderers[r.first];
+    if (!guiElement.IsNull())
+      guiElement.Destroy();
+    guiElement = r.second;
   }
 
   other->m_renderers.clear();

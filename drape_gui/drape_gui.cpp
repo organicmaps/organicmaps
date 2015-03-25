@@ -1,6 +1,6 @@
+#include "country_status_helper.hpp"
 #include "drape_gui.hpp"
 #include "ruler_helper.hpp"
-#include "country_status_helper.hpp"
 
 #include "../base/assert.hpp"
 

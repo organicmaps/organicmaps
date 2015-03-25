@@ -9,7 +9,9 @@ include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 HEADERS += \
-    compass.hpp \
+    button.hpp \
+    country_status.hpp \
+    country_status_helper.hpp \
     drape_gui.hpp \
     gui_text.hpp \
     layer_render.hpp \
@@ -17,12 +19,12 @@ HEADERS += \
     ruler_helper.hpp \
     shape.hpp \
     skin.hpp \
-    country_status.hpp \
-    country_status_helper.hpp \
-    button.hpp \
+    compass.hpp \
 
 SOURCES += \
-    compass.cpp \
+    button.cpp \
+    country_status.cpp \
+    country_status_helper.cpp \
     drape_gui.cpp \
     gui_text.cpp \
     layer_render.cpp \
@@ -30,7 +32,5 @@ SOURCES += \
     ruler_helper.cpp \
     shape.cpp \
     skin.cpp \
-    country_status.cpp \
-    country_status_helper.cpp \
-    button.cpp \
+    compass.cpp \
 
