@@ -54,7 +54,13 @@ namespace storage
     : m_index(index), m_init(opt), m_left(opt)
   {
     m_pFile = &(storage.CountryByIndex(index).GetFile());
-    m_current = (m_init & TMapOptions::ECarRouting ? TMapOptions::ECarRouting : TMapOptions::EMapOnly);
+
+    // Don't queue files with 0-size on server (empty or absent).
+    // Downloader has lots of assertions about it.
+    if ((m_init & TMapOptions::ECarRouting) && (m_pFile->GetRemoteSize(TMapOptions::ECarRouting) > 0))
+      m_current = TMapOptions::ECarRouting;
+    else
+      m_init = m_current = m_left = TMapOptions::EMapOnly;
   }
 
   void Storage::QueuedCountry::AddOptions(TMapOptions opt)
