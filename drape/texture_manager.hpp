@@ -125,6 +125,8 @@ private:
   size_t GetNumberOfUnfoundCharacters(strings::UniString const & text, HybridGlyphGroup const & group) const;
 
   void MarkCharactersUsage(strings::UniString const & text, HybridGlyphGroup & group);
+  /// it's a dummy method to support generic code
+  void MarkCharactersUsage(strings::UniString const & text, GlyphGroup & group) {}
 
   template<typename TGlyphGroup>
   void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
@@ -142,29 +144,52 @@ private:
     }
   }
 
-  static constexpr size_t GetInvalidGlyphGroup();
+  template<typename TGlyphGroup>
+  void FillResults(strings::UniString const & text, TGlyphsBuffer & buffers, TGlyphGroup & group)
+  {
+    MarkCharactersUsage(text, group);
+    FillResultBuffer<TGlyphGroup>(text, group, buffers);
+  }
+
+  template<typename TGlyphGroup>
+  void FillResults(TMultilineText const & text, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
+  {
+     buffers.resize(text.size());
+     for (size_t i = 0; i < text.size(); ++i)
+     {
+       strings::UniString const & str = text[i];
+       TGlyphsBuffer & buffer = buffers[i];
+       FillResults<TGlyphGroup>(str, buffer, group);
+     }
+  }
 
   template<typename TText, typename TBuffer>
-  void CalcGlyphRegions(TText const & text, TBuffer & buffers,
-                        function<void(TText const &, TBuffer &, GlyphGroup &)> callback,
-                        function<void(TText const &, TBuffer &, HybridGlyphGroup &)> hybridCallback)
+  void CalcGlyphRegions(TText const & text, TBuffer & buffers)
   {
     size_t const groupIndex = FindGlyphsGroup(text);
     if (groupIndex != GetInvalidGlyphGroup())
     {
       GlyphGroup & group = m_glyphGroups[groupIndex];
-      if (callback != nullptr)
-        callback(text, buffers, group);
+      FillResults<GlyphGroup>(text, buffers, group);
     }
     else
     {
       size_t const hybridGroupIndex = FindHybridGlyphsGroup(text);
       ASSERT(hybridGroupIndex != GetInvalidGlyphGroup(), ());
       HybridGlyphGroup & group = m_hybridGlyphGroups[hybridGroupIndex];
-      if (hybridCallback != nullptr)
-        hybridCallback(text, buffers, group);
+      FillResults<HybridGlyphGroup>(text, buffers, group);
     }
   }
+
+  template<typename TGlyphGroups>
+  void UpdateGlyphTextures(TGlyphGroups & groups)
+  {
+    for (auto & g : groups)
+      if (!g.m_texture.IsNull())
+        g.m_texture->UpdateState();
+  }
+
+  static constexpr size_t GetInvalidGlyphGroup();
 
 private:
   MasterPointer<Texture> m_symbolTexture;

@@ -133,13 +133,8 @@ void TextureManager::UpdateDynamicTextures()
   m_colorTexture->UpdateState();
   m_stipplePenTexture->UpdateState();
 
-  for (GlyphGroup & g : m_glyphGroups)
-    if (!g.m_texture.IsNull())
-      g.m_texture->UpdateState();
-
-  for (HybridGlyphGroup & g : m_hybridGlyphGroups)
-    if (!g.m_texture.IsNull())
-      g.m_texture->UpdateState();
+  UpdateGlyphTextures(m_glyphGroups);
+  UpdateGlyphTextures(m_hybridGlyphGroups);
 }
 
 MasterPointer<Texture> TextureManager::AllocateGlyphTexture() const
@@ -339,47 +334,12 @@ void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
 
 void TextureManager::GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers)
 {
-  auto cb = [this](TMultilineText const & text, TMultilineGlyphsBuffer & buffers, GlyphGroup & group)
-  {
-    buffers.resize(text.size());
-    for (size_t i = 0; i < text.size(); ++i)
-    {
-      strings::UniString const & str = text[i];
-      TGlyphsBuffer & buffer = buffers[i];
-      FillResultBuffer<GlyphGroup>(str, group, buffer);
-    }
-  };
-
-  auto hypridCb = [this](TMultilineText const & text, TMultilineGlyphsBuffer & buffers, HybridGlyphGroup & group)
-  {
-    buffers.resize(text.size());
-    for (size_t i = 0; i < text.size(); ++i)
-    {
-      strings::UniString const & str = text[i];
-      TGlyphsBuffer & buffer = buffers[i];
-
-      MarkCharactersUsage(str, group);
-      FillResultBuffer<HybridGlyphGroup>(str, group, buffer);
-    }
-  };
-
-  CalcGlyphRegions<TMultilineText, TMultilineGlyphsBuffer>(text, buffers, cb, hypridCb);
+  CalcGlyphRegions<TMultilineText, TMultilineGlyphsBuffer>(text, buffers);
 }
 
 void TextureManager::GetGlyphRegions(strings::UniString const & text, TGlyphsBuffer & regions)
 {
-  auto cb = [this](strings::UniString const & text, TGlyphsBuffer & regions, GlyphGroup & group)
-  {
-    FillResultBuffer<GlyphGroup>(text, group, regions);
-  };
-
-  auto hypridCb = [this](strings::UniString const & text, TGlyphsBuffer & regions, HybridGlyphGroup & group)
-  {
-    MarkCharactersUsage(text, group);
-    FillResultBuffer<HybridGlyphGroup>(text, group, regions);
-  };
-
-  CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, regions, cb, hypridCb);
+  CalcGlyphRegions<strings::UniString, TGlyphsBuffer>(text, regions);
 }
 
 constexpr size_t TextureManager::GetInvalidGlyphGroup()
