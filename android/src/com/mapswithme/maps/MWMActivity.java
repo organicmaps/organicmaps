@@ -1296,7 +1296,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     setVerticalToolbarVisible(false);
     if (!isVisible)
+    {
       Framework.deactivatePopup();
+      mPlacePage.setMapObject(null);
+    }
     if (previewIntersectsBottomMenu())
       mBottomToolbar.setVisibility(isVisible ? View.GONE : View.VISIBLE);
     if (previewIntersectsZoomButtons())

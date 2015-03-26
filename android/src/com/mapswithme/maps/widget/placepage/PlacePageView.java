@@ -281,15 +281,19 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     if (!hasMapObject(mo))
     {
       if (mMapObject instanceof Bookmark)
-        storeBookmarkDetails();
+        storeBookmarkDetails(mo);
 
       mMapObject = mo;
       refreshViews();
     }
   }
 
-  private void storeBookmarkDetails()
+  private void storeBookmarkDetails(MapObject newMapObject)
   {
+    // no need to store current bookmark if the same is set
+    if (newMapObject instanceof Bookmark && LocationUtils.areLatLonEqual(newMapObject, mMapObject))
+      return;
+
     final Bookmark bookmark = (Bookmark) mMapObject;
     final String name = mEtBookmarkName.getText().toString();
     final String oldName = bookmark.getName();
@@ -652,6 +656,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       getContext().startActivity(intent);
       break;
     case R.id.tv__bookmark_group:
+      storeBookmarkDetails(null);
       selectBookmarkSet();
       break;
     case R.id.av__direction:
