@@ -72,7 +72,7 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_saveToKMZFile(
+  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_saveToKmzFile(
       JNIEnv * env, jobject thiz, jint catID, jstring tmpPath)
   {
     BookmarkCategory * pCat = frm()->GetBmCategory(catID);
