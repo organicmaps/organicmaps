@@ -23,7 +23,7 @@ public enum BookmarkManager
       new Icon("placemark-orange", "placemark-orange", R.drawable.color_picker_orange_off, R.drawable.color_picker_orange_on)
   };
 
-  private BookmarkManager()
+  BookmarkManager()
   {
     loadBookmarks();
   }

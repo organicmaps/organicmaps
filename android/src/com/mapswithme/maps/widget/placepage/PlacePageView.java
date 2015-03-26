@@ -674,6 +674,7 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       return;
     if (mMapObject.getType() == MapObjectType.BOOKMARK)
     {
+      final Bookmark currentBookmark = (Bookmark) mMapObject;
       MapObject p;
       if (mBookmarkedMapObject != null && LocationUtils.areLatLonEqual(mMapObject, mBookmarkedMapObject))
         // use cached POI of bookmark, if it corresponds to current object
@@ -681,9 +682,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       else
         p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
 
-      BookmarkManager.INSTANCE.deleteBookmark((Bookmark) mMapObject);
       setMapObject(p);
       setState(State.DETAILS);
+      BookmarkManager.INSTANCE.deleteBookmark(currentBookmark);
     }
     else
     {
