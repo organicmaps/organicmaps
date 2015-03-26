@@ -10,12 +10,14 @@
 #import "PlacePageBookmarkDescriptionCell.h"
 #import "ColorPickerView.h"
 #import "Statistics.h"
+#import "../../3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "../../base/string_utils.hpp"
 #include "../../platform/platform.hpp"
 #include "../../search/result.hpp"
 #include "../../std/shared_ptr.hpp"
 
+extern NSString * const kAlohalyticsTapEventKey;
 
 typedef NS_ENUM(NSUInteger, CellRow)
 {
@@ -437,7 +439,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if ([locationManager enabledOnMap])
       [locationManager start:self];
     if (state == PlacePageStateOpened)
+    {
+      [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppOpen"];
       [locationManager triggerCompass];
+    }
   }
 }
 
@@ -764,6 +769,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)routeButtonPressed:(UIButton *)sender
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppRoute"];
   [self.delegate placePageViewDidStartRouting:self];
 }
 
@@ -1054,6 +1060,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)addBookmark
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppBookmark"];
   Framework & framework = GetFramework();
   if (m_bookmarkData)
   {
@@ -1093,6 +1100,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)shareCellDidPressShareButton:(PlacePageShareCell *)cell
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"ppShare"];
   [self.delegate placePageView:self willShareText:self.title point:[self pinPoint]];
 }
 

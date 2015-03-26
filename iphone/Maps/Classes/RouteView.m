@@ -4,6 +4,9 @@
 #import "TimeUtils.h"
 #import "RouteOverallInfoView.h"
 #import "NextTurnPhoneView.h"
+#import "../../3party/Alohalytics/src/alohalytics_objc.h"
+
+extern NSString * const kAlohalyticsTapEventKey;
 
 @interface RouteView ()
 
@@ -126,11 +129,23 @@
 
 - (void)closeButtonPressed:(id)sender
 {
+  switch (self.state)
+  {
+    case RouteViewStateInfo:
+      [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"routeClose"];
+      break;
+    case RouteViewStateTurnInstructions:
+      [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"routeGoClose"];
+      break;
+    default:
+      break;
+  }
   [self.delegate routeViewDidCancelRouting:self];
 }
 
 - (void)startButtonPressed:(id)sender
 {
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"routeGo"];
   [self.delegate routeViewDidStartFollowing:self];
 }
 
