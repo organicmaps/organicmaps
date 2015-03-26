@@ -31,8 +31,7 @@
 
     <include
         android:id="@+id/rl__routing_box"
-        layout="@layout/map_routing_box"
-        android:background="@color/bg_top_panels"/>
+        layout="@layout/map_routing_box"/>
 
     <include
         android:id="@+id/layout__turn_instructions"

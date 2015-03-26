@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <style name="MwmPanelShadow">
+    <item name="android:paddingLeft">4dp</item>
+    <item name="android:paddingRight">4dp</item>
+    <item name="android:paddingBottom">5dp</item>
+    <item name="android:paddingTop">3dp</item>
+    <item name="android:background">@drawable/ic_bg_pp</item>
+  </style>
+
   <style name="MwmToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="displayOptions">showHome|homeAsUp|showTitle</item>
     <item name="android:background">@drawable/ic_bg_toolbar</item>
