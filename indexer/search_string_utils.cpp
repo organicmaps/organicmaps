@@ -4,7 +4,7 @@
 
 strings::UniString search::FeatureTypeToString(uint32_t type)
 {
-  string s = "!type:" + strings::to_string(type);
+  string const s = "!type:" + strings::to_string(type);
   return strings::UniString(s.begin(), s.end());
 }
 
