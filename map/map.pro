@@ -63,7 +63,6 @@ SOURCES += \
     pin_click_manager.cpp \
     rotate_screen_task.cpp \
     track.cpp \
-    user_mark.cpp \
     user_mark_container.cpp \
 
 !iphone*:!tizen*:!android* {

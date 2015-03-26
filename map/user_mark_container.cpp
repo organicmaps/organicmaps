@@ -110,7 +110,7 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
     for (size_t i = 0; i < m_userMarks.size(); ++i)
     {
       if (rect.IsPointInside(m_userMarks[i]->GetOrg()))
-        f(m_userMarks[i]);
+         f(m_userMarks[i].get());
     }
   }
   return mark;
@@ -209,8 +209,8 @@ bool UserMarkContainer::IsDrawable() const
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
   SetDirty();
-  m_userMarks.push_back(AllocateUserMark(ptOrg));
-  return m_userMarks.back();
+  m_userMarks.push_back(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
+  return m_userMarks.back().get();
 }
 
 size_t UserMarkContainer::GetUserMarkCount() const
@@ -221,7 +221,7 @@ size_t UserMarkContainer::GetUserMarkCount() const
 UserMark const * UserMarkContainer::GetUserMark(size_t index) const
 {
   ASSERT_LESS(index, m_userMarks.size(), ());
-  return m_userMarks[index];
+  return m_userMarks[index].get();
 }
 
 UserMarkType UserMarkContainer::GetType() const
@@ -233,15 +233,12 @@ UserMark * UserMarkContainer::GetUserMarkForEdit(size_t index)
 {
   SetDirty();
   ASSERT_LESS(index, m_userMarks.size(), ());
-  return m_userMarks[index];
+  return m_userMarks[index].get();
 }
 
 void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 {
   SetDirty();
-  for (size_t i = skipCount; i < m_userMarks.size(); ++i)
-    delete m_userMarks[i];
-
   if (skipCount < m_userMarks.size())
     m_userMarks.erase(m_userMarks.begin() + skipCount, m_userMarks.end());
 }
@@ -319,10 +316,7 @@ void UserMarkContainer::DeleteUserMark(size_t index)
   SetDirty();
   ASSERT_LESS(index, m_userMarks.size(), ());
   if (index < m_userMarks.size())
-  {
-    delete m_userMarks[index];
     m_userMarks.erase(m_userMarks.begin() + index);
-  }
   else
     LOG(LWARNING, ("Trying to delete non-existing item at index", index));
 }

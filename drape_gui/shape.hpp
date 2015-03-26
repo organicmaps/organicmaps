@@ -87,10 +87,7 @@ private:
 };
 
 void ArrangeShapes(dp::RefPointer<ShapeRenderer> renderer,
-                   ShapeRenderer::TShapeControlEditFn const & fn)
-{
-  renderer->ForEachShapeControl(fn);
-}
+                   ShapeRenderer::TShapeControlEditFn const & fn);
 
 class Shape
 {

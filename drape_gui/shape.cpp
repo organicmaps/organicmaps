@@ -138,4 +138,10 @@ void ShapeControl::AddShape(dp::GLState const & state, dp::TransferPointer<dp::R
   info.m_buffer = dp::MasterPointer<dp::VertexArrayBuffer>(buffer);
   info.m_handle = dp::MasterPointer<Handle>(static_cast<Handle *>(handle));
 }
+
+void ArrangeShapes(dp::RefPointer<ShapeRenderer> renderer, ShapeRenderer::TShapeControlEditFn const & fn)
+{
+  renderer->ForEachShapeControl(fn);
+}
+
 }

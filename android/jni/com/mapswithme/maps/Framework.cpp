@@ -699,31 +699,33 @@ void Framework::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group
 
     env->CallVoidMethod(*(it->second), methodID, group, position, storage_utils::ToArray(env, progress));
   }
+}
 
-  // Fills mapobject's metadata from UserMark
-  void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, UserMark const * userMark)
+// Fills mapobject's metadata from UserMark
+void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const mapObject, UserMark const * userMark)
+{
+  using feature::Metadata;
+
+  Metadata metadata;
+  frm()->FindClosestPOIMetadata(userMark->GetOrg(), metadata);
+
+  static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
+  ASSERT ( addId, () );
+
+  for (auto const t : metadata.GetPresentTypes())
   {
-    using feature::Metadata;
-
-    Metadata metadata;
-    frm()->FindClosestPOIMetadata(userMark->GetOrg(), metadata);
-
-    static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
-    ASSERT ( addId, () );
-
-    for (auto const t : metadata.GetPresentTypes())
-    {
-      // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
-      // Upcoming change: how to pass opening hours (parsed) into Editor's UI? How to get edited changes back?
-      jstring metaString = t == Metadata::FMD_WIKIPEDIA ?
-                           jni::ToJavaString(env, metadata.GetWikiURL()) :
-                           jni::ToJavaString(env, metadata.Get(t));
-      env->CallVoidMethod(mapObject, addId, t, metaString);
-      // TODO use unique_ptrs for autoallocation of local refs
-      env->DeleteLocalRef(metaString);
-    }
+    // TODO: It is not a good idea to pass raw strings to UI. Calling separate getters should be a better way.
+    // Upcoming change: how to pass opening hours (parsed) into Editor's UI? How to get edited changes back?
+    jstring metaString = t == Metadata::FMD_WIKIPEDIA ?
+                         jni::ToJavaString(env, metadata.GetWikiURL()) :
+                         jni::ToJavaString(env, metadata.Get(t));
+    env->CallVoidMethod(mapObject, addId, t, metaString);
+    // TODO use unique_ptrs for autoallocation of local refs
+    env->DeleteLocalRef(metaString);
   }
 }
+
+} // namespace android
 
 template <class T>
 T const * CastMark(UserMark const * data)
