@@ -29,6 +29,7 @@ public class Bookmark extends MapObject
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
+    dest.writeString(getType().toString());
     dest.writeInt(mCategoryId);
     dest.writeInt(mBookmark);
     dest.writeString(mName);
