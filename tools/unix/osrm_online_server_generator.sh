@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -u -x
+set -u -x -e
 
 export STXXLCFG=~/.stxxl
 
@@ -14,8 +14,8 @@ PREPARE="$BIN_PATH/osrm-prepare"
 PREPARE_CFG="$OSRM_PATH/../contractor.ini"
 
 echo Started at `date`
-
-"$EXTRACT" --config "$EXTRACT_CFG" --profile "$PROFILE" "\"$PLANET_FILE\""
-"$PREPARE" --config "$PREPARE_CFG" --profile "$PROFILE" "\"${PLANET_FILE/\.*/\.osrm}\""
-
+FILENAME=`basename "$PLANET_FILE"`
+DIR=`dirname "$PLANET_FILE"`
+"$EXTRACT" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PLANET_FILE"
+"$PREPARE" --config "$PREPARE_CFG" --profile "$PROFILE" "$DIR/${FILENAME/\.*/.osrm}"
 echo Finished at `date`

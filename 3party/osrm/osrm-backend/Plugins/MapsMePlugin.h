@@ -11,8 +11,6 @@
 #include "../Util/StringUtil.h"
 #include "../Util/TimingUtil.h"
 
-#include <cstdlib>
-
 #include <algorithm>
 #include <memory>
 #include <unordered_map>
@@ -48,17 +46,16 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
         /// @return false If point is in country.
         bool operator() (size_t id)
         {
-
-          std::vector<m2::RegionD> const & rgnV = m_regions[id];
-          for (size_t i = 0; i < rgnV.size(); ++i)
-          {
-            if (rgnV[i].Contains(m_pt))
+            auto it = find_if(m_regions[id].begin(), m_regions[id].end(),
+                              [&](m2::RegionD const & region)
             {
-              m_res = id;
-              return false;
-            }
-          }
-          return true;
+                    if (region.Contains(m_pt))
+            {
+                    m_res = id;
+                    return true;
+        }
+        });
+            return it == m_regions[id].end();
         }
     };
 
