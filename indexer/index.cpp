@@ -123,7 +123,6 @@ int Index::RegisterMap(string const & fileName, m2::RectD & rect)
     }
   }
 
-  lock_guard<mutex> lock(m_lock);
   int rv = Register(fileName, rect);
   if (rv >= 0)
     m_observers.ForEach(&Observer::OnMapRegistered, fileName);
@@ -132,12 +131,14 @@ int Index::RegisterMap(string const & fileName, m2::RectD & rect)
 
 bool Index::DeleteMap(string const & fileName)
 {
-  lock_guard<mutex> lock(m_lock);
+  {
+    lock_guard<mutex> lock(m_lock);
 
-  if (!DeregisterImpl(fileName))
-    return false;
+    if (!DeregisterImpl(fileName))
+      return false;
 
-  DeleteMapFiles(GetFullPath(fileName), true);
+    DeleteMapFiles(GetFullPath(fileName), true);
+  }
   m_observers.ForEach(&Observer::OnMapDeleted, fileName);
   return true;
 }
@@ -154,17 +155,21 @@ bool Index::RemoveObserver(Observer & observer)
 
 int Index::UpdateMap(string const & fileName, m2::RectD & rect)
 {
-  lock_guard<mutex> lock(m_lock);
-
-  MwmId const id = GetIdByName(fileName);
-  if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
+  int rv = -1;
   {
-    m_info[id].SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
-    return -2;
-  }
+    lock_guard<mutex> lock(m_lock);
 
-  ReplaceFileWithReady(fileName);
-  int rv = RegisterImpl(fileName, rect);
+    MwmId const id = GetIdByName(fileName);
+    if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
+    {
+      m_info[id].SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
+      return -2;
+    }
+
+    ReplaceFileWithReady(fileName);
+
+    rv = RegisterImpl(fileName, rect);
+  }
   if (rv >= 0)
     m_observers.ForEach(&Observer::OnMapUpdated, fileName);
   return rv;

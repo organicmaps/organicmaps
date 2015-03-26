@@ -23,18 +23,34 @@ void CheckedDeleteFile(string const & file)
 class Observer : public Index::Observer
 {
 public:
-  Observer() : m_map_registered_calls(0), m_map_updated_calls(0), m_map_deleted_calls(0) {}
+  Observer(string const & file)
+      : m_file(file), m_map_registered_calls(0), m_map_updated_calls(0), m_map_deleted_calls(0)
+  {
+  }
 
   // Index::Observer overrides:
-  void OnMapRegistered(string const & file) override { ++m_map_registered_calls; }
-  void OnMapUpdated(string const & file) override { ++m_map_updated_calls; }
-  void OnMapDeleted(string const & file) override { ++m_map_deleted_calls; }
+  void OnMapRegistered(string const & file) override
+  {
+    CHECK_EQUAL(m_file, file, ());
+    ++m_map_registered_calls;
+  }
+  void OnMapUpdated(string const & file) override
+  {
+    CHECK_EQUAL(m_file, file, ());
+    ++m_map_updated_calls;
+  }
+  void OnMapDeleted(string const & file) override
+  {
+    CHECK_EQUAL(m_file, file, ());
+    ++m_map_deleted_calls;
+  }
 
   int map_registered_calls() const { return m_map_registered_calls; }
   int map_updated_calls() const { return m_map_updated_calls; }
   int map_deleted_calls() const { return m_map_deleted_calls; }
 
 private:
+  string const m_file;
   int m_map_registered_calls;
   int m_map_updated_calls;
   int m_map_deleted_calls;
@@ -65,19 +81,19 @@ UNIT_TEST(Index_MwmStatusNotifications)
   MY_SCOPE_GUARD(testMapGuard, bind(&CheckedDeleteFile, testMapPath));
 
   Index index;
-  Observer observer;
+  Observer observer(testMapName);
   index.AddObserver(observer);
 
   TEST_EQUAL(0, observer.map_registered_calls(), ());
   m2::RectD dummyRect;
 
   // Check that observers are triggered after map registration.
-  TEST_LESS_OR_EQUAL(0, index.RegisterMap(testMapPath, dummyRect), ());
+  TEST_LESS_OR_EQUAL(0, index.RegisterMap(testMapName, dummyRect), ());
   TEST_EQUAL(1, observer.map_registered_calls(), ());
 
   // Check that map can't registered twice and observers aren't
   // triggered.
-  TEST_EQUAL(-1, index.RegisterMap(testMapPath, dummyRect), ());
+  TEST_EQUAL(-1, index.RegisterMap(testMapName, dummyRect), ());
   TEST_EQUAL(1, observer.map_registered_calls(), ());
 
   TEST(my::CopyFileX(testMapPath, testMapUpdatePath), ());

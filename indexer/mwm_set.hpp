@@ -31,6 +31,7 @@ public:
   m2::RectD m_limitRect;  ///< Limit rect of mwm.
   uint8_t m_minScale;     ///< Min zoom level of mwm.
   uint8_t m_maxScale;     ///< Max zoom level of mwm.
+  uint8_t m_lockCount;    ///< Number of locks.
 
   inline bool IsRegistered() const
   {
@@ -44,8 +45,6 @@ public:
   inline void SetStatus(Status status) { m_status = status; }
 
   inline Status GetStatus() const { return m_status; }
-
-  uint8_t m_lockCount;  ///< Number of locks.
 
 private:
   Status m_status;  ///< Current country status.
