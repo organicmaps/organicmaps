@@ -19,17 +19,84 @@
 #include <string>
 #include <vector>
 
-#include "../../../../generator/country_loader.hpp"
+#include "../../../../base/string_utils.hpp"
+#include "../../../../coding/file_container.hpp"
+#include "../../../../coding/read_write_utils.hpp"
+#include "../../../../defines.hpp"
+#include "../../../../geometry/region2d.hpp"
+#include "../../../../indexer/geometry_serialization.hpp"
 #include "../../../../indexer/mercator.hpp"
+#include "../../../../storage/country_decl.hpp"
+#include "../../../../storage/country_polygon.hpp"
 
 template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 {
-  public:
-    explicit MapsMePlugin(DataFacadeT *facade, std::string const & baseDir) : descriptor_string("mapsme"), facade(facade)
+    class GetByPoint
     {
+        m2::PointD const & m_pt;
+        std::vector<std::vector<m2::RegionD> > const & m_regions;
+
+    public:
+        size_t m_res;
+
+        GetByPoint(std::vector<std::vector<m2::RegionD> > const & regions, m2::PointD const & pt)
+            : m_pt(pt), m_regions(regions),  m_res(-1)
+        {
+        }
+
+        /// @param[in] id Index in m_countries.
+        /// @return false If point is in country.
+        bool operator() (size_t id)
+        {
+
+          std::vector<m2::RegionD> const & rgnV = m_regions[id];
+          for (size_t i = 0; i < rgnV.size(); ++i)
+          {
+            if (rgnV[i].Contains(m_pt))
+            {
+              m_res = id;
+              return false;
+            }
+          }
+          return true;
+        }
+    };
+
+public:
+    explicit MapsMePlugin(DataFacadeT *facade, std::string const & baseDir) : descriptor_string("mapsme"), facade(facade),
+        m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
+    {
+        ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
+        rw::Read(src, m_countries);
+        m_regions.resize(m_countries.size());
+        for (size_t i = 0; i < m_countries.size(); ++i)
+        {
+            std::vector<m2::RegionD> & rgnV = m_regions[i];
+
+            // load regions from file
+            ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(i)));
+
+            uint32_t const count = ReadVarUint<uint32_t>(src);
+            for (size_t j = 0; j < count; ++j)
+            {
+                vector<m2::PointD> points;
+                serial::LoadOuterPath(src, serial::CodingParams(), points);
+
+                rgnV.push_back(m2::RegionD());
+                rgnV.back().Assign(points.begin(), points.end());
+            }
+
+        }
         search_engine_ptr = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
-        CHECK(borders::LoadCountriesList(baseDir, m_countries),
-            ("Error loading country polygons files"));
+    }
+
+    template <class ToDo>
+    void ForEachCountry(m2::PointD const & pt, ToDo & toDo) const
+    {
+      for (size_t i = 0; i < m_countries.size(); ++i)
+        if (m_countries[i].m_rect.IsPointInside(pt))
+          if (!toDo(i))
+            return;
     }
 
     virtual ~MapsMePlugin() {}
@@ -109,20 +176,13 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
           {
             PathData const & path_data = raw_route.unpacked_path_segments[i][j];
             FixedPointCoordinate const coord = facade->GetCoordinateOfNode(path_data.node);
-            string mwmName;
-            m2::PointD mercatorPoint(MercatorBounds::LonToX(coord.lon/1000000.0), MercatorBounds::LatToY(coord.lat/1000000.0));
-            m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
-            {
-              bool inside = false;
-              c.m_regions.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](m2::RegionD const & region)
-              {
-                if (region.Contains(mercatorPoint))
-                  inside = true;
-              });
-              if (inside)
-                mwmName = c.m_name;
-            });
-            usedMwms.insert(mwmName);
+            storage::CountryInfo info;
+            m2::PointD pt = MercatorBounds::FromLatLon(coord.lat/1000000.0, coord.lon/1000000.0);
+            GetByPoint doGet(m_regions, pt);
+            ForEachCountry(pt, doGet);
+
+            if (doGet.m_res != -1)
+              usedMwms.insert(m_countries[doGet.m_res].m_name);
           }
         }
 
@@ -135,7 +195,9 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 
   private:
     std::unique_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
-    borders::CountriesContainerT m_countries;
+    std::vector<storage::CountryDef> m_countries;
+    std::vector<std::vector<m2::RegionD>> m_regions;
     std::string descriptor_string;
     DataFacadeT *facade;
+    FilesContainerR m_reader;
 };

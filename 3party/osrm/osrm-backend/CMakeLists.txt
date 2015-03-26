@@ -33,6 +33,7 @@ OPTION(WITH_TOOLS "Build OSRM tools" OFF)
 OPTION(BUILD_TOOLS "Build OSRM tools" OFF)
 
 include_directories(${CMAKE_SOURCE_DIR}/Include/)
+include_directories(${CMAKE_SOURCE_DIR}/../../jansson/src/)
 
 add_custom_target(FingerPrintConfigure ALL
   ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_SOURCE_DIR}
@@ -72,7 +73,7 @@ file(GLOB LibOSRMGlob Library/*.cpp)
 
 file(GLOB MapsMeSources mapsme/*.cpp)
 file(GLOB MapsMeHeaders mapsme/*.h)
-file(GLOB MapsMeGenerator ../../../generator/country_loader.cpp)
+file(GLOB MapsMeGenerator ../../../storage/country.cpp ../../../storage/country_decl.cpp ../../../storage/country_info.cpp)
 
 set(
   OSRMSources
@@ -190,11 +191,13 @@ target_link_libraries(osrm-prepare ${Boost_LIBRARIES})
 target_link_libraries(osrm-routed ${Boost_LIBRARIES} ${OPTIONAL_SOCKET_LIBS} OSRM
                       debug "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libcoding.a"
                             "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libbase.a"
-                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libindexer.a"
                             "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libgeometry.a"
+                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libindexer.a"
+                            "${CMAKE_SOURCE_DIR}/../../../../omim-build-debug/out/debug/libjansson.a"
                       general "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libcoding.a"
-                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libindexer.a"
                               "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libgeometry.a"
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libindexer.a"
+                              "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libjansson.a"
                               "${CMAKE_SOURCE_DIR}/../../../../omim-build-release/out/release/libbase.a")
 target_link_libraries(osrm-datastore ${Boost_LIBRARIES})
 

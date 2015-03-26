@@ -22,8 +22,86 @@
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
 
+
+#define POLYGONS_FILE "polygons.lst"
+
+
 namespace borders
 {
+
+class PolygonLoader
+{
+  CountryPolygons m_polygons;
+  m2::RectD m_rect;
+
+  string const & m_baseDir;
+  CountriesContainerT & m_countries;
+
+public:
+  PolygonLoader(string const & baseDir, CountriesContainerT & countries)
+    : m_baseDir(baseDir), m_countries(countries) {}
+
+  void operator() (string const & name)
+  {
+    if (m_polygons.m_name.empty())
+      m_polygons.m_name = name;
+
+    vector<m2::RegionD> borders;
+    if (osm::LoadBorders(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, borders))
+    {
+      for (size_t i = 0; i < borders.size(); ++i)
+      {
+        m2::RectD const rect(borders[i].GetRect());
+        m_rect.Add(rect);
+        m_polygons.m_regions.Add(borders[i], rect);
+      }
+    }
+  }
+
+  void Finish()
+  {
+    if (!m_polygons.IsEmpty())
+    {
+      ASSERT_NOT_EQUAL ( m_rect, m2::RectD::GetEmptyRect(), () );
+      m_countries.Add(m_polygons, m_rect);
+    }
+
+    m_polygons.Clear();
+    m_rect.MakeEmpty();
+  }
+};
+
+template <class ToDo>
+void ForEachCountry(string const & baseDir, ToDo & toDo)
+{
+  ifstream stream((baseDir + POLYGONS_FILE).c_str());
+  string line;
+
+  while (stream.good())
+  {
+    std::getline(stream, line);
+    if (line.empty())
+      continue;
+
+    // in polygons file every country is a separate string
+    toDo(line);
+    toDo.Finish();
+  }
+}
+
+bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
+{
+  countries.Clear();
+
+  LOG(LINFO, ("Loading countries."));
+
+  PolygonLoader loader(baseDir, countries);
+  ForEachCountry(baseDir, loader);
+
+  LOG(LINFO, ("Countries loaded:", countries.GetSize()));
+
+  return !countries.IsEmpty();
+}
 
 class PackedBordersGenerator
 {
@@ -41,7 +119,7 @@ public:
   void operator() (string const & name)
   {
     vector<m2::RegionD> borders;
-    if (borders::LoadBorders(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, borders))
+    if (osm::LoadBorders(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, borders))
     {
       // use index in vector as tag
       FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));

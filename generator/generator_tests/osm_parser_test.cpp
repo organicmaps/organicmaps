@@ -2,7 +2,6 @@
 
 #include "../osm_xml_parser.hpp"
 #include "../borders_generator.hpp"
-#include "../country_loader.hpp"
 
 #include "../../coding/reader.hpp"
 #include "../../coding/parse_xml.hpp"
@@ -10,7 +9,6 @@
 #include "../../coding/file_writer.hpp"
 
 using namespace osm;
-using namespace borders;
 
 static char const gOsmXml[] =
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
