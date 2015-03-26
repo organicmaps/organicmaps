@@ -368,6 +368,11 @@ public:
     }
   }
 
+  inline void insert(const_iterator where, value_type const & value)
+  {
+    insert(where, &value, &value + 1);
+  }
+
 private:
   void SwitchToDynamic()
   {

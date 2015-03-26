@@ -164,6 +164,36 @@ UNIT_TEST(BufferVectorInsert)
   }
 }
 
+UNIT_TEST(BufferVectorInsertSingleValue)
+{
+  buffer_vector<char, 3> v;
+  v.insert(v.end(), 'x');
+  TEST_EQUAL(v.size(), 1, ());
+  TEST_EQUAL(v[0], 'x', ());
+
+  v.insert(v.begin(), 'y');
+  TEST_EQUAL(v.size(), 2, ());
+  TEST_EQUAL(v[0], 'y', ());
+  TEST_EQUAL(v[1], 'x', ());
+
+  v.insert(v.begin() + 1, 'z');
+  TEST_EQUAL(v.size(), 3, ());
+  TEST_EQUAL(v[0], 'y', ());
+  TEST_EQUAL(v[1], 'z', ());
+  TEST_EQUAL(v[2], 'x', ());
+  // Switch to dynamic.
+  v.insert(v.begin() + 1, 'q');
+  TEST_EQUAL(v.size(), 4, ());
+  TEST_EQUAL(v[0], 'y', ());
+  TEST_EQUAL(v[1], 'q', ());
+  TEST_EQUAL(v[2], 'z', ());
+  TEST_EQUAL(v[3], 'x', ());
+
+  v.insert(v.end() - 1, 'c');
+  TEST_EQUAL(v[3], 'c', ());
+  TEST_EQUAL(v[4], 'x', ());
+}
+
 UNIT_TEST(BufferVectorAppend)
 {
   for (size_t initialLength = 0; initialLength < 20; ++initialLength)
