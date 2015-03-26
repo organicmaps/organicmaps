@@ -1,12 +1,10 @@
 #pragma once
 #include "../base/string_utils.hpp"
-#include "../base/base.hpp"
 
 namespace search
 {
 
-using strings::UniChar;
-
+// This function should be used for all search strings normalization.
 inline strings::UniString NormalizeAndSimplifyString(string const & s)
 {
   strings::UniString uniS = strings::MakeLowerCase(strings::MakeUniString(s));

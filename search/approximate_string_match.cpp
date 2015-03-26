@@ -8,6 +8,8 @@
 namespace search
 {
 
+using strings::UniChar;
+
 uint32_t DefaultMatchCost::Cost10(UniChar) const
 {
   return 256;

@@ -36,13 +36,13 @@ void PushMatchCost(PriorityQueyeT & q, uint32_t maxCost, uint32_t a, uint32_t b,
 class DefaultMatchCost
 {
 public:
-  uint32_t Cost10(UniChar a) const;
-  uint32_t Cost01(UniChar b) const;
-  uint32_t Cost11(UniChar a, UniChar b) const;
-  uint32_t Cost12(UniChar a, UniChar const * pB) const;
-  uint32_t Cost21(UniChar const * pA, UniChar b) const;
-  uint32_t Cost22(UniChar const * pA, UniChar const * pB) const;
-  uint32_t SwapCost(UniChar a1, UniChar a2) const;
+  uint32_t Cost10(strings::UniChar a) const;
+  uint32_t Cost01(strings::UniChar b) const;
+  uint32_t Cost11(strings::UniChar a, strings::UniChar b) const;
+  uint32_t Cost12(strings::UniChar a, strings::UniChar const * pB) const;
+  uint32_t Cost21(strings::UniChar const * pA, strings::UniChar b) const;
+  uint32_t Cost22(strings::UniChar const * pA, strings::UniChar const * pB) const;
+  uint32_t SwapCost(strings::UniChar a1, strings::UniChar a2) const;
 };
 
 template <typename CharT, typename CostF>
