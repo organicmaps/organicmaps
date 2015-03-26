@@ -1296,10 +1296,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     setVerticalToolbarVisible(false);
     if (!isVisible)
-    {
       Framework.deactivatePopup();
-      hidePlacePage();
-    }
     if (previewIntersectsBottomMenu())
       mBottomToolbar.setVisibility(isVisible ? View.GONE : View.VISIBLE);
     if (previewIntersectsZoomButtons())

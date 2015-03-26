@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <include
-      android:id="@+id/pp__preview"
-      layout="@layout/place_page_preview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/pp__buttons"/>
-
-  <include
-      android:id="@+id/pp__details"
-      layout="@layout/place_page_details"
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@+id/pp__buttons"
-      android:layout_marginTop="56dp"/>
+      android:orientation="vertical">
 
-  <View
-      android:id="@+id/view_bottom_white"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/place_page_buttons_height"
-      android:layout_alignParentBottom="true"
-      android:background="@color/bg_top_panels"
-      android:visibility="gone"/>
+    <include
+        android:id="@+id/pp__preview"
+        layout="@layout/place_page_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <include
+        android:id="@+id/pp__details"
+        layout="@layout/place_page_details"/>
+
+  </LinearLayout>
 
   <include
       android:id="@+id/pp__buttons"
@@ -31,14 +25,5 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"/>
-
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="@color/base_green"
-      android:visibility="gone"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MwmToolbar"/>
 
 </merge>
