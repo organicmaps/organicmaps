@@ -5,9 +5,9 @@
 #undef new
 #endif
 
-#include <boost/array.hpp>
+#include <array>
 
-using boost::array;
+using std::array;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW
