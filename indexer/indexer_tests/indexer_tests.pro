@@ -34,6 +34,7 @@ SOURCES += \
     mwm_set_test.cpp \
     point_to_int64_test.cpp \
     scales_test.cpp \
+    search_string_utils_test.cpp \
     sort_and_merge_intervals_test.cpp \
     test_polylines.cpp \
     test_type.cpp \
