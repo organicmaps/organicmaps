@@ -20,13 +20,13 @@
 #include <QtCore/QCoreApplication>
 
 
-#define TEST_URL1 "http://scout.mapswithme.com:34568/unit_tests/1.txt"
-#define TEST_URL_404 "http://scout.mapswithme.com:34568/unit_tests/notexisting_unittest"
-#define TEST_URL_PERMANENT "http://scout.mapswithme.com:34568/unit_tests/permanent"
+#define TEST_URL1 "http://scout.alex.bio:34568/unit_tests/1.txt"
+#define TEST_URL_404 "http://scout.alex.bio:34568/unit_tests/notexisting_unittest"
+#define TEST_URL_PERMANENT "http://scout.alex.bio:34568/unit_tests/permanent"
 #define TEST_URL_INVALID_HOST "http://not-valid-host123532.ath.cx"
-#define TEST_URL_BIG_FILE "http://scout.mapswithme.com:34568/unit_tests/47kb.file"
+#define TEST_URL_BIG_FILE "http://scout.alex.bio:34568/unit_tests/47kb.file"
 #define TEST_URL_HTTPS "https://github.com"
-#define TEST_URL_POST "http://scout.mapswithme.com:34568/unit_tests/post.php"
+#define TEST_URL_POST "http://scout.alex.bio:34568/unit_tests/post.php"
 
 using namespace downloader;
 

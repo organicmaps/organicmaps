@@ -13,9 +13,9 @@
 // #define MWM_LOG_TO_FILE
 
 // Writing information about free memory to log file.
-#ifdef DEBUG
-# define OMIM_ENABLE_LOG_MEMORY_INFO
-#endif
+// #ifdef DEBUG
+// # define OMIM_ENABLE_LOG_MEMORY_INFO
+// #endif
 
 void LogMessageFile(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg);
 void LogMemoryInfo();
