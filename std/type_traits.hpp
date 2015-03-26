@@ -26,6 +26,13 @@ using std::is_signed;
 using std::is_unsigned;
 using std::is_floating_point;
 using std::is_integral;
+using std::is_arithmetic;
+using std::is_pod;
+
+/// @todo clang on linux doesn't have is_trivially_copyable.
+#ifndef OMIM_OS_LINUX
+using std::is_trivially_copyable;
+#endif
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

@@ -1,8 +1,7 @@
-#include "../SRC_FIRST.hpp"
-
 #include "../../testing/testing.hpp"
 
 #include "../buffer_vector.hpp"
+#include "../string_utils.hpp"
 
 
 namespace
@@ -243,4 +242,65 @@ UNIT_TEST(BufferVectorEquality)
   TEST_EQUAL(v2, v3, ());
   v1.push_back(999);
   TEST_NOT_EQUAL(v1, v2, ());
+}
+
+namespace
+{
+
+struct CopyCtorChecker
+{
+  string m_s;
+
+  CopyCtorChecker() = default;
+  CopyCtorChecker(char const * s) : m_s(s) {}
+  CopyCtorChecker(CopyCtorChecker const & rhs)
+  {
+    TEST(rhs.m_s.empty(), ("Copy ctor is called only in resize with default element"));
+  }
+  CopyCtorChecker(CopyCtorChecker && rhs) = default;
+  CopyCtorChecker & operator=(CopyCtorChecker const &)
+  {
+    TEST(false, ("Assigment operator should not be called"));
+    return *this;
+  }
+};
+
+void swap(CopyCtorChecker & r1, CopyCtorChecker & r2)
+{
+  r1.m_s.swap(r2.m_s);
+}
+
+typedef buffer_vector<CopyCtorChecker, 2> VectorT;
+
+VectorT GetVector()
+{
+  VectorT v;
+  v.push_back("0");
+  v.push_back("1");
+  return v;
+}
+
+void TestVector(VectorT const & v, size_t sz)
+{
+  TEST_EQUAL(v.size(), sz, ());
+  for (size_t i = 0; i < sz; ++i)
+    TEST_EQUAL(v[i].m_s, strings::to_string(i), ());
+}
+
+}
+
+UNIT_TEST(BufferVectorMove)
+{
+  VectorT v1 = GetVector();
+  TestVector(v1, 2);
+
+  v1.push_back("2");
+  TestVector(v1, 3);
+
+  VectorT v2(move(v1));
+  TestVector(v2, 3);
+
+  VectorT().swap(v1);
+  v1 = move(v2);
+  TestVector(v1, 3);
 }

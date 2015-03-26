@@ -1,9 +1,13 @@
 #pragma once
 #include "assert.hpp"
 #include "swap.hpp"
+#include "stl_iterator.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
+#include "../std/type_traits.hpp"
+#include "../std/utility.hpp"
+#include "../std/cstring.hpp"       // for memcpy
 
 
 template <class T, size_t N> class buffer_vector
@@ -13,6 +17,39 @@ private:
   T m_static[N];
   size_t m_size;
   vector<T> m_dynamic;
+
+  inline bool IsDynamic() const { return m_size == USE_DYNAMIC; }
+
+  /// @todo clang on linux doesn't have is_trivially_copyable.
+#ifndef OMIM_OS_LINUX
+  template <class U = T>
+  typename enable_if<is_trivially_copyable<U>::value, void>::type
+  MoveStatic(buffer_vector<T, N> & rhs)
+  {
+    memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
+  }
+  template <class U = T>
+  typename enable_if<!is_trivially_copyable<U>::value, void>::type
+  MoveStatic(buffer_vector<T, N> & rhs)
+  {
+    for (size_t i = 0; i < rhs.m_size; ++i)
+      Swap(m_static[i], rhs.m_static[i]);
+  }
+#else
+  template <class U = T>
+  typename enable_if<is_pod<U>::value, void>::type
+  MoveStatic(buffer_vector<T, N> & rhs)
+  {
+    memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
+  }
+  template <class U = T>
+  typename enable_if<!is_pod<U>::value, void>::type
+  MoveStatic(buffer_vector<T, N> & rhs)
+  {
+    for (size_t i = 0; i < rhs.m_size; ++i)
+      Swap(m_static[i], rhs.m_static[i]);
+  }
+#endif
 
 public:
   typedef T value_type;
@@ -34,15 +71,39 @@ public:
   }
 
   template <typename IterT>
-  explicit buffer_vector(IterT beg, IterT end) : m_size(0)
+  buffer_vector(IterT beg, IterT end) : m_size(0)
   {
     assign(beg, end);
+  }
+
+  buffer_vector(buffer_vector<T, N> const &) = default;
+  buffer_vector & operator=(buffer_vector<T, N> const &) = default;
+
+  buffer_vector(buffer_vector<T, N> && rhs)
+    : m_size(rhs.m_size), m_dynamic(move(rhs.m_dynamic))
+  {
+    if (!IsDynamic())
+      MoveStatic(rhs);
+
+    rhs.m_size = 0;
+  }
+
+  buffer_vector & operator=(buffer_vector<T, N> && rhs)
+  {
+    m_size = rhs.m_size;
+    m_dynamic = move(rhs.m_dynamic);
+
+    if (!IsDynamic())
+      MoveStatic(rhs);
+
+    rhs.m_size = 0;
+    return *this;
   }
 
   template <typename IterT>
   void append(IterT beg, IterT end)
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.insert(m_dynamic.end(), beg, end);
     else
     {
@@ -64,7 +125,7 @@ public:
   template <typename IterT>
   void assign(IterT beg, IterT end)
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.assign(beg, end);
     else
     {
@@ -75,13 +136,13 @@ public:
 
   void reserve(size_t n)
   {
-    if (m_size == USE_DYNAMIC || n > N)
+    if (IsDynamic() || n > N)
       m_dynamic.reserve(n);
   }
 
   void resize_no_init(size_t n)
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.resize(n);
     else
     {
@@ -99,7 +160,7 @@ public:
 
   void resize(size_t n, T c = T())
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.resize(n, c);
     else
     {
@@ -122,7 +183,7 @@ public:
 
   void clear()
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.clear();
     else
       m_size = 0;
@@ -136,7 +197,7 @@ public:
   //@{
   T const * data() const
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
     {
       ASSERT ( !m_dynamic.empty(), () );
       return &m_dynamic[0];
@@ -147,7 +208,7 @@ public:
 
   T * data()
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
     {
       ASSERT ( !m_dynamic.empty(), () );
       return &m_dynamic[0];
@@ -163,8 +224,8 @@ public:
   T       * end()       { return data() + size(); }
   //@}
 
-  bool empty() const { return (m_size == USE_DYNAMIC ? m_dynamic.empty() : m_size == 0); }
-  size_t size() const { return (m_size == USE_DYNAMIC ? m_dynamic.size() : m_size); }
+  bool empty() const { return (IsDynamic() ? m_dynamic.empty() : m_size == 0); }
+  size_t size() const { return (IsDynamic() ? m_dynamic.size() : m_size); }
 
   T const & front() const
   {
@@ -208,7 +269,7 @@ public:
 
   void push_back(T const & t)
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.push_back(t);
     else
     {
@@ -225,9 +286,28 @@ public:
     }
   }
 
+  void push_back(T && t)
+  {
+    if (IsDynamic())
+      m_dynamic.push_back(move(t));
+    else
+    {
+      if (m_size < N)
+        Swap(m_static[m_size++], t);
+      else
+      {
+        ASSERT_EQUAL(m_size, N, ());
+        m_dynamic.reserve(N + 1);
+        SwitchToDynamic();
+        m_dynamic.push_back(move(t));
+        ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
+      }
+    }
+  }
+
   void pop_back()
   {
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.pop_back();
     else
     {
@@ -242,7 +322,7 @@ public:
     ASSERT_GREATER_OR_EQUAL(pos, 0, ());
     ASSERT_LESS_OR_EQUAL(pos, static_cast<ptrdiff_t>(size()), ());
 
-    if (m_size == USE_DYNAMIC)
+    if (IsDynamic())
       m_dynamic.insert(m_dynamic.begin() + pos, beg, end);
     else
     {
