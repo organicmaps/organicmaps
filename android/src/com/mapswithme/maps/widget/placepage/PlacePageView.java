@@ -692,7 +692,15 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       final Bookmark newBmk = BookmarkManager.INSTANCE.getBookmark(BookmarkManager.INSTANCE.addNewBookmark(
           mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
       setMapObject(newBmk);
-      setState(State.BOOKMARK);
+      // FIXME this hack is necessary to get correct views height in animation controller. remove after further investigation.
+      post(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          setState(State.BOOKMARK);
+        }
+      });
     }
     Framework.invalidate();
   }

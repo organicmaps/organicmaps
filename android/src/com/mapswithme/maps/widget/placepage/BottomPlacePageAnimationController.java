@@ -199,6 +199,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           if (isAnimationCompleted(animation))
           {
             mDetails.setVisibility(View.INVISIBLE);
+            mBookmarkDetails.setVisibility(View.INVISIBLE);
             mIsPlacePageVisible = false;
             mIsPreviewVisible = true;
             notifyVisibilityListener();
@@ -218,19 +219,22 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     mDetails.setVisibility(View.VISIBLE);
 
     ValueAnimator animator;
+    final float detailsFullHeight = mDetails.getChildAt(0).getHeight();
+    final float detailsScreenHeight = mDetails.getHeight();
     final float bookmarkHeight = mBookmarkDetails.getHeight();
-    final float detailsHeight = mDetails.getHeight();
+    final float bookmarkScreenHeight = bookmarkHeight - (detailsFullHeight - detailsScreenHeight);
+
     if (currentState == State.PREVIEW)
-      animator = ValueAnimator.ofFloat(detailsHeight, bookmarkHeight);
+      animator = ValueAnimator.ofFloat(detailsScreenHeight, bookmarkScreenHeight);
     else
-      animator = ValueAnimator.ofFloat(0f, bookmarkHeight);
+      animator = ValueAnimator.ofFloat(0f, bookmarkScreenHeight);
 
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsHeight);
+        ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsScreenHeight);
         ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
 
         if (isAnimationCompleted(animation))
@@ -238,6 +242,8 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           refreshToolbarVisibility();
           mIsPreviewVisible = mIsPlacePageVisible = true;
           notifyVisibilityListener();
+          if (currentState == State.BOOKMARK)
+            mBookmarkDetails.setVisibility(View.INVISIBLE);
         }
       }
     });
@@ -255,19 +261,22 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     mBookmarkDetails.setVisibility(View.VISIBLE);
 
     ValueAnimator animator;
+    final float detailsFullHeight = mDetails.getChildAt(0).getHeight();
+    final float detailsScreenHeight = mDetails.getHeight();
     final float bookmarkHeight = mBookmarkDetails.getHeight();
-    final float detailsHeight = mDetails.getHeight();
+    final float bookmarkScreenHeight = bookmarkHeight - (detailsFullHeight - detailsScreenHeight);
 
     if (currentState == State.DETAILS)
-      animator = ValueAnimator.ofFloat(bookmarkHeight, 0f);
+      animator = ValueAnimator.ofFloat(bookmarkScreenHeight, 0f);
     else
-      animator = ValueAnimator.ofFloat(detailsHeight, 0f);
+      animator = ValueAnimator.ofFloat(detailsScreenHeight, 0f);
+
     animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
     {
       @Override
       public void onAnimationUpdate(ValueAnimator animation)
       {
-        ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsHeight);
+        ViewHelper.setTranslationY(mPreview, (Float) animation.getAnimatedValue() - detailsScreenHeight);
         ViewHelper.setTranslationY(mDetails, (Float) animation.getAnimatedValue());
 
         if (isAnimationCompleted(animation))
@@ -311,6 +320,7 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
           mIsPreviewVisible = mIsPlacePageVisible = false;
 
           mPlacePage.setVisibility(View.INVISIBLE);
+          mBookmarkDetails.setVisibility(View.INVISIBLE);
           ViewHelper.setTranslationY(mPlacePage, 0);
           notifyVisibilityListener();
         }
@@ -324,9 +334,9 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
   @Override
   public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
   {
-    if (mDetails.getVisibility() == View.VISIBLE && v.getId() == mDetails.getId() && top != oldTop)
+    if (mState == State.BOOKMARK && v.getId() == mDetails.getId() && top != oldTop)
     {
-      ViewHelper.setTranslationY(mPreview, -mDetails.getHeight());
+      ViewHelper.setTranslationY(mPreview, -mDetails.getChildAt(0).getHeight());
       refreshToolbarVisibility();
     }
   }

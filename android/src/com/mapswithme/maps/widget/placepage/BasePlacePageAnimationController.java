@@ -20,7 +20,7 @@ public abstract class BasePlacePageAnimationController
   protected static final int SHORT_ANIM_DURATION = 200;
   protected static final int LONG_ANIM_DURATION = 400;
 
-  private State mState = State.HIDDEN;
+  protected State mState = State.HIDDEN;
 
   protected PlacePageView mPlacePage;
   protected ViewGroup mPreview;
