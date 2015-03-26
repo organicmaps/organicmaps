@@ -43,9 +43,11 @@ public:
   ~Thread();
 
   /// Run thread immediately.
-  /// @param routine Routine that will be executed on m_thread and destroyed by
-  ///                the current Thread instance or by the m_thread, if
-  ///                it will be detached during the execution of routine.
+  ///
+  /// @param routine Routine that will be executed on m_thread and
+  ///                destroyed by the current Thread instance or by
+  ///                the m_thread, if it is detached during the
+  ///                execution of routine.
   bool Create(unique_ptr<IRoutine> && routine);
 
   /// Calling the IRoutine::Cancel method, and Join'ing with the task

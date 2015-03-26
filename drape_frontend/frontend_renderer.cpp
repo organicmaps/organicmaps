@@ -321,8 +321,7 @@ void FrontendRenderer::Routine::Do()
   context->makeCurrent();
 
   my::Timer timer;
-  // double processingTime = InitAvarageTimePerMessage; // By init we think that one message
-  // processed by 1ms
+  //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 
   timer.Reset();
   while (!IsCancelled())
@@ -339,10 +338,10 @@ void FrontendRenderer::Routine::Do()
     {
       m_renderer.ProcessSingleMessage(availableTime * 1000.0);
       availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
-      // messageCount++;
+      //messageCount++;
     }
 
-    // processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
+    //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
 
     context->present();
     timer.Reset();
