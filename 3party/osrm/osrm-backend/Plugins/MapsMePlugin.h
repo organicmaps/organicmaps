@@ -31,44 +31,45 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 {
     class GetByPoint
     {
-        m2::PointD const & m_pt;
-        std::vector<std::vector<m2::RegionD> > const & m_regions;
+        m2::PointD const &m_pt;
+        std::vector<std::vector<m2::RegionD>> const &m_regions;
 
-    public:
+      public:
         size_t m_res;
 
-        GetByPoint(std::vector<std::vector<m2::RegionD> > const & regions, m2::PointD const & pt)
-            : m_pt(pt), m_regions(regions),  m_res(-1)
+        GetByPoint(std::vector<std::vector<m2::RegionD>> const &regions, m2::PointD const &pt)
+            : m_pt(pt), m_regions(regions), m_res(-1)
         {
         }
 
         /// @param[in] id Index in m_countries.
         /// @return false If point is in country.
-        bool operator() (size_t id)
+        bool operator()(size_t id)
         {
-            auto it = find_if(m_regions[id].begin(), m_regions[id].end(),
-                              [&](m2::RegionD const & region)
-            {
+            auto it =
+                find_if(m_regions[id].begin(), m_regions[id].end(), [&](m2::RegionD const &region)
+                        {
                     if (region.Contains(m_pt))
-            {
-                    m_res = id;
-                    return true;
-        }
-        });
+                    {
+                        m_res = id;
+                        return true;
+                    }
+                });
             return it == m_regions[id].end();
         }
     };
 
-public:
-    explicit MapsMePlugin(DataFacadeT *facade, std::string const & baseDir) : descriptor_string("mapsme"), facade(facade),
-        m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
+  public:
+    explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir)
+        : descriptor_string("mapsme"), facade(facade),
+          m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
     {
         ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
         rw::Read(src, m_countries);
         m_regions.resize(m_countries.size());
         for (size_t i = 0; i < m_countries.size(); ++i)
         {
-            std::vector<m2::RegionD> & rgnV = m_regions[i];
+            std::vector<m2::RegionD> &rgnV = m_regions[i];
 
             // load regions from file
             ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(i)));
@@ -82,18 +83,16 @@ public:
                 rgnV.push_back(m2::RegionD());
                 rgnV.back().Assign(points.begin(), points.end());
             }
-
         }
         search_engine_ptr = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
     }
 
-    template <class ToDo>
-    void ForEachCountry(m2::PointD const & pt, ToDo & toDo) const
+    template <class ToDo> void ForEachCountry(m2::PointD const &pt, ToDo &toDo) const
     {
-      for (size_t i = 0; i < m_countries.size(); ++i)
-        if (m_countries[i].m_rect.IsPointInside(pt))
-          if (!toDo(i))
-            return;
+        for (size_t i = 0; i < m_countries.size(); ++i)
+            if (m_countries[i].m_rect.IsPointInside(pt))
+                if (!toDo(i))
+                    return;
     }
 
     virtual ~MapsMePlugin() {}
@@ -112,8 +111,7 @@ public:
         RawRouteData raw_route;
         raw_route.check_sum = facade->GetCheckSum();
 
-        if (std::any_of(begin(route_parameters.coordinates),
-                        end(route_parameters.coordinates),
+        if (std::any_of(begin(route_parameters.coordinates), end(route_parameters.coordinates),
                         [&](FixedPointCoordinate coordinate)
                         {
                 return !coordinate.isValid();
@@ -163,24 +161,25 @@ public:
         }
         reply.status = http::Reply::ok;
 
-        //Get mwm names
+        // Get mwm names
         set<string> usedMwms;
 
         for (auto i : osrm::irange<std::size_t>(0, raw_route.unpacked_path_segments.size()))
         {
-          size_t const n = raw_route.unpacked_path_segments[i].size();
-          for (size_t j = 0; j < n; ++j)
-          {
-            PathData const & path_data = raw_route.unpacked_path_segments[i][j];
-            FixedPointCoordinate const coord = facade->GetCoordinateOfNode(path_data.node);
-            storage::CountryInfo info;
-            m2::PointD pt = MercatorBounds::FromLatLon(coord.lat/1000000.0, coord.lon/1000000.0);
-            GetByPoint doGet(m_regions, pt);
-            ForEachCountry(pt, doGet);
+            size_t const n = raw_route.unpacked_path_segments[i].size();
+            for (size_t j = 0; j < n; ++j)
+            {
+                PathData const &path_data = raw_route.unpacked_path_segments[i][j];
+                FixedPointCoordinate const coord = facade->GetCoordinateOfNode(path_data.node);
+                storage::CountryInfo info;
+                m2::PointD pt =
+                    MercatorBounds::FromLatLon(coord.lat / 1000000.0, coord.lon / 1000000.0);
+                GetByPoint doGet(m_regions, pt);
+                ForEachCountry(pt, doGet);
 
-            if (doGet.m_res != -1)
-              usedMwms.insert(m_countries[doGet.m_res].m_name);
-          }
+                if (doGet.m_res != -1)
+                    usedMwms.insert(m_countries[doGet.m_res].m_name);
+            }
         }
 
         JSON::Object json_object;
