@@ -163,13 +163,14 @@ int Index::UpdateMap(string const & fileName, m2::RectD & rect)
     if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
     {
       m_info[id].SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
-      return -2;
+      rv = -2;
+    } else {
+      ReplaceFileWithReady(fileName);
+      rv = RegisterImpl(fileName, rect);
     }
-
-    ReplaceFileWithReady(fileName);
-
-    rv = RegisterImpl(fileName, rect);
   }
+  if (rv != -1)
+    m_observers.ForEach(&Observer::OnMapUpdateIsReady, fileName);
   if (rv >= 0)
     m_observers.ForEach(&Observer::OnMapUpdated, fileName);
   return rv;

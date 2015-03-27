@@ -40,13 +40,25 @@ protected:
   virtual void UpdateMwmInfo(MwmId id);
 
 public:
+  /// An Observer interface to MwmSet. Note that these functions can
+  /// be called from *ANY* thread because most signals are sent when
+  /// some thread releases its MwmLock, so overrides must be as fast
+  /// as possible and non-blocking when it's possible.
   class Observer
   {
   public:
     virtual ~Observer() {}
 
+    /// Called when a map is registered for a first time.
     virtual void OnMapRegistered(string const & file) {}
+
+    /// Called when update for a map is downloaded.
+    virtual void OnMapUpdateIsReady(string const & file) {}
+
+    /// Called when update for a map is applied.
     virtual void OnMapUpdated(string const & file) {}
+
+    /// Called when map is deleted.
     virtual void OnMapDeleted(string const & file) {}
   };
 

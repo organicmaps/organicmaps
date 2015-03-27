@@ -24,7 +24,11 @@ class Observer : public Index::Observer
 {
 public:
   Observer(string const & file)
-      : m_file(file), m_map_registered_calls(0), m_map_updated_calls(0), m_map_deleted_calls(0)
+      : m_file(file),
+        m_map_registered_calls(0),
+        m_map_update_is_ready_calls(0),
+        m_map_updated_calls(0),
+        m_map_deleted_calls(0)
   {
   }
 
@@ -34,11 +38,19 @@ public:
     CHECK_EQUAL(m_file, file, ());
     ++m_map_registered_calls;
   }
+
+  void OnMapUpdateIsReady(string const & file) override
+  {
+    CHECK_EQUAL(m_file, file, ());
+    ++m_map_update_is_ready_calls;
+  }
+
   void OnMapUpdated(string const & file) override
   {
     CHECK_EQUAL(m_file, file, ());
     ++m_map_updated_calls;
   }
+
   void OnMapDeleted(string const & file) override
   {
     CHECK_EQUAL(m_file, file, ());
@@ -46,12 +58,14 @@ public:
   }
 
   int map_registered_calls() const { return m_map_registered_calls; }
+  int map_update_is_ready_calls() const { return m_map_update_is_ready_calls; }
   int map_updated_calls() const { return m_map_updated_calls; }
   int map_deleted_calls() const { return m_map_deleted_calls; }
 
 private:
   string const m_file;
   int m_map_registered_calls;
+  int m_map_update_is_ready_calls;
   int m_map_updated_calls;
   int m_map_deleted_calls;
 };
@@ -100,8 +114,10 @@ UNIT_TEST(Index_MwmStatusNotifications)
   MY_SCOPE_GUARD(testMapUpdateGuard, bind(&CheckedDeleteFile, testMapUpdatePath));
 
   // Check that observers are notified when map is deleted.
+  TEST_EQUAL(0, observer.map_update_is_ready_calls(), ());
   TEST_EQUAL(0, observer.map_updated_calls(), ());
   TEST_LESS_OR_EQUAL(0, index.UpdateMap(testMapName, dummyRect), ());
+  TEST_EQUAL(1, observer.map_update_is_ready_calls(), ());
   TEST_EQUAL(1, observer.map_updated_calls(), ());
 
   // Check that observers are notified when map is deleted.
