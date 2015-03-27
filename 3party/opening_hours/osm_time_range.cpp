@@ -28,7 +28,7 @@ namespace osmoh {
 
   std::ostream & operator << (std::ostream & s, Time const & t)
   {
-    bool event = t.flags & Time::eSunrise || t.flags & Time::eSunset;
+    bool event = (t.flags & Time::eSunrise) || (t.flags & Time::eSunset);
     if (event)
       s << ((t.flags & Time::eSunrise) ? "sunrise" : "sunset") << " (";
     std::ios_base::fmtflags sf = s.flags();
@@ -59,8 +59,11 @@ namespace osmoh {
 
   std::ostream & operator << (std::ostream & s, Weekdays const & w)
   {
-    char const * wdays[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
-    for (size_t i = 0; i < 7; ++i) {
+    static char const * wdays[] = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
+    static uint8_t const kDaysInWeek = 7;
+    static uint8_t const kWeeksInMonth = 5;
+
+    for (size_t i = 0; i < kDaysInWeek; ++i) {
       if (w.weekdays & (1 << i)) {
         if (w.weekdays & ((1 << i) - 1))
           s << ',';
@@ -72,7 +75,7 @@ namespace osmoh {
       s << "[";
 
       uint8_t a = w.nth & 0xFF;
-      for (size_t i = 0; i < 4; ++i) {
+      for (size_t i = 0; i < kWeeksInMonth; ++i) {
         if (a & (1 << i)) {
           if (a & ((1 << i) - 1))
             s << ',';
@@ -81,7 +84,7 @@ namespace osmoh {
       }
 
       a = (w.nth >> 8) & 0xFF;
-      for (size_t i = 0; i < 4; ++i) {
+      for (size_t i = 0; i < kWeeksInMonth; ++i) {
         if (a & (1 << i)) {
           if (a & ((1 << i) - 1))
             s << ',';
@@ -99,7 +102,7 @@ namespace osmoh {
 
   std::ostream & operator << (std::ostream & s, State const & w)
   {
-    char const * st[] = {"unknown", "closed", "open"};
+    static char const * st[] = {"unknown", "closed", "open"};
     s << ' ' << st[w.state] << " " << w.comment;
     return s;
   }
@@ -123,6 +126,7 @@ namespace osmoh {
     using boost::posix_time::minutes;
     using boost::posix_time::time_period;
 
+    /// TODO(yershov@): Need create code for calculate real values
     ptime sunrise(d, hours(6));
     ptime sunset(d, hours(19));
 
@@ -250,6 +254,8 @@ namespace {
       ("Mo", 0)("Tu", 1)("We", 2)("Th", 3)("Fr", 4)("Sa", 5)("Su", 6)
       /* not standard */
       ("MO", 0)("TU", 1)("WE", 2)("TH", 3)("FR", 4)("SA", 5)("SU", 6)
+      ("MON", 0)("TUE", 1)("WED", 2)("THU", 3)("FRI", 4)("SAT", 5)("SUN", 6)
+      ("Mon", 0)("Tue", 1)("Wed", 2)("Thu", 3)("Fri", 4)("Sat", 5)("Sun", 6)
       ;
     }
   } wdays;
