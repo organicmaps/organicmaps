@@ -278,7 +278,6 @@ public:
       else
       {
         ASSERT_EQUAL(m_size, N, ());
-        m_dynamic.reserve(N + 1);
         SwitchToDynamic();
         m_dynamic.push_back(t);
         ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
@@ -297,7 +296,6 @@ public:
       else
       {
         ASSERT_EQUAL(m_size, N, ());
-        m_dynamic.reserve(N + 1);
         SwitchToDynamic();
         m_dynamic.push_back(move(t));
         ASSERT_EQUAL(m_dynamic.size(), N + 1, ());

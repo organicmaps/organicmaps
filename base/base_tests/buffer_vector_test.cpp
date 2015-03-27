@@ -74,12 +74,9 @@ UNIT_TEST(BufferVectorSwap)
     TEST_EQUAL ( v1[0][0], 666, () );
     TEST_EQUAL ( dd1, v1[0].data(), () );
 
-    // resize from 1 to 7 => will push_back v[0] to new place
-    // (??? but can stay at the same place ???)
     v1.resize(7);
     TEST_EQUAL ( v1[0].size(), 1, () );
     TEST_EQUAL ( v1[0][0], 666, () );
-    TEST_NOT_EQUAL ( dd1, v1[0].data(), () );
   }
 
   {
