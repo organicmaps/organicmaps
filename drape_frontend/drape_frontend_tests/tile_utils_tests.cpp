@@ -38,6 +38,8 @@ UNIT_TEST(TileUtils_MinificationTest)
   df::CalcTilesCoverage(tileKeys, 10 /* targetZoom */, output3);
   TEST_EQUAL(output3.size(), 1, ());
   TEST_EQUAL(*output3.begin(), df::TileKey(-88, 75, 10), ());
+
+  TEST_EQUAL(df::IsTileAbove(key, df::TileKey(250, 150, 11)), true, ());
 }
 
 UNIT_TEST(TileUtils_MagnificationTest)
@@ -71,6 +73,9 @@ UNIT_TEST(TileUtils_MagnificationTest)
 
   TEST_EQUAL(output2.size(), 16, ());
   TEST_EQUAL(output2, expectedResult2, ());
+
+  for (df::TileKey const & k : expectedResult)
+    TEST_EQUAL(df::IsTileBelow(key, k), true, ());
 }
 
 }

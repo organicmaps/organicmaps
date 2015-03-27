@@ -55,7 +55,7 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-RenderGroupComparator::RenderGroupComparator(set<TileKey> const & activeTiles)
+RenderGroupComparator::RenderGroupComparator(TTilesCollection const & activeTiles)
   : m_activeTiles(activeTiles)
   , m_needGroupMergeOperation(false)
   , m_needBucketsMergeOperation(false)
@@ -68,6 +68,12 @@ void RenderGroupComparator::ResetInternalState()
   m_needGroupMergeOperation = false;
 }
 
+bool RenderGroupComparator::NeedToDelete(TileKey const & key)
+{
+  auto const & tileIt = m_activeTiles.find(key);
+  return tileIt == m_activeTiles.end();
+}
+
 bool RenderGroupComparator::operator()(RenderGroup const * l, RenderGroup const * r)
 {
   dp::GLState const & lState = l->GetState();
@@ -76,10 +82,10 @@ bool RenderGroupComparator::operator()(RenderGroup const * l, RenderGroup const 
   TileKey const & lKey = l->GetTileKey();
   TileKey const & rKey = r->GetTileKey();
 
-  if (!l->IsPendingOnDelete() && (l->IsEmpty() || m_activeTiles.find(lKey) == m_activeTiles.end()))
+  if (!l->IsPendingOnDelete() && (l->IsEmpty() || NeedToDelete(lKey)))
     l->DeleteLater();
 
-  if (!r->IsPendingOnDelete() && (r->IsEmpty() || m_activeTiles.find(rKey) == m_activeTiles.end()))
+  if (!r->IsPendingOnDelete() && (r->IsEmpty() || NeedToDelete(rKey)))
     r->DeleteLater();
 
   bool lPendingOnDelete = l->IsPendingOnDelete();

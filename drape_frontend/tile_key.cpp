@@ -5,8 +5,8 @@
 namespace df
 {
 
-TileKey::TileKey() :
-  m_x(-1), m_y(-1), m_zoomLevel(-1)
+TileKey::TileKey()
+  : m_x(-1), m_y(-1), m_zoomLevel(-1)
 {
 }
 
@@ -28,8 +28,8 @@ bool TileKey::operator <(TileKey const & other) const
 bool TileKey::operator ==(TileKey const & other) const
 {
   return m_x == other.m_x &&
-      m_y == other.m_y &&
-      m_zoomLevel == other.m_zoomLevel;
+         m_y == other.m_y &&
+         m_zoomLevel == other.m_zoomLevel;
 }
 
 m2::RectD TileKey::GetGlobalRect() const

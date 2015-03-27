@@ -17,14 +17,14 @@ namespace
 
 struct LessCoverageCell
 {
-  bool operator()(shared_ptr<TileInfo> const & l, TileKey const & r) const
+  bool operator()(shared_ptr<TileInfo> const & l, TTilePair const & r) const
   {
-    return l->GetTileKey() < r;
+    return l->GetTileKey() < r.first;
   }
 
-  bool operator()(TileKey const & l, shared_ptr<TileInfo> const & r) const
+  bool operator()(TTilePair const & l, shared_ptr<TileInfo> const & r) const
   {
-    return l < r->GetTileKey();
+    return l.first < r->GetTileKey();
   }
 };
 
@@ -46,17 +46,23 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   myPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles)
+void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles)
 {
   if (screen == m_currentViewport)
     return;
+
+  auto newTilesTask = [this, &screen](TTilePair const & tileKey)
+  {
+    int const newScale = df::GetTileScaleBase(screen);
+    if (newScale == tileKey.first.m_zoomLevel)
+      PushTaskBackForTileKey(tileKey);
+  };
 
   if (MustDropAllTiles(screen))
   {
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
     m_tileInfos.clear();
-
-    for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1));
+    for_each(tiles.begin(), tiles.end(), newTilesTask);
   }
   else
   {
@@ -70,7 +76,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
                    back_inserter(outdatedTiles), LessCoverageCell());
 
     // Find rects that go in into viewport
-    buffer_vector<TileKey, 8> inputRects;
+    buffer_vector<TTilePair, 8> inputRects;
 #ifdef _MSC_VER
     vs_bug::
 #endif
@@ -80,12 +86,12 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1));
-    for_each(inputRects.begin(),  inputRects.end(),  bind(&ReadManager::PushTaskBackForTileKey, this, _1));
+    for_each(inputRects.begin(), inputRects.end(), newTilesTask);
   }
   m_currentViewport = screen;
 }
 
-void ReadManager::Invalidate(set<TileKey> const & keyStorage)
+void ReadManager::Invalidate(TTilesCollection const & keyStorage)
 {
   for (auto & info : m_tileInfos)
   {
@@ -118,7 +124,7 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
   return (oldScale != newScale) || !m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect());
 }
 
-void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
+void ReadManager::PushTaskBackForTileKey(TTilePair const & tileKey)
 {
   shared_ptr<TileInfo> tileInfo(new TileInfo(EngineContext(tileKey, m_commutator)));
   m_tileInfos.insert(tileInfo);

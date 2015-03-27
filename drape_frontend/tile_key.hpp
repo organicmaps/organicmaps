@@ -5,10 +5,19 @@
 namespace df
 {
 
+enum TileStatus
+{
+  Unknown = 0,
+  Rendered,
+  Requested,
+  Clipped
+};
+
 struct TileKey
 {
   TileKey();
   TileKey(int x, int y, int zoomLevel);
+  TileKey(int x, int y, int zoomLevel, TileStatus status);
 
   bool operator < (TileKey const & other) const;
   bool operator == (TileKey const & other) const;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/glstate.hpp"
@@ -61,16 +61,18 @@ private:
 class RenderGroupComparator
 {
 public:
-  RenderGroupComparator(set<TileKey> const & activeTiles);
+  RenderGroupComparator(TTilesCollection const & activeTiles);
 
   void ResetInternalState();
 
   bool operator()(RenderGroup const * l, RenderGroup const * r);
 
 private:
-  set<TileKey> const & m_activeTiles;
+  TTilesCollection const & m_activeTiles;
   bool m_needGroupMergeOperation;
   bool m_needBucketsMergeOperation;
+
+  bool NeedToDelete(TileKey const & key);
 };
 
 class UserMarkRenderGroup : public BaseRenderGroup

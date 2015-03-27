@@ -67,11 +67,11 @@ private:
   void RefreshModelView();
 
   void ResolveTileKeys();
-  void ResolveTileKeys(set<TileKey> & keyStorage, m2::RectD const & rect);
-  void ResolveTileKeys(set<TileKey> & keyStorage, int tileScale);
-  set<TileKey> & GetTileKeyStorage();
+  void ResolveTileKeys(TTilesCollection & keyStorage, m2::RectD const & rect);
+  void ResolveTileKeys(TTilesCollection & keyStorage, int tileScale);
+  TTilesCollection & GetTileKeyStorage();
 
-  void InvalidateRenderGroups(set<TileKey> & keyStorage);
+  void InvalidateRenderGroups(TTilesCollection & keyStorage);
   UserMarkRenderGroup * FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
 
 private:
@@ -97,9 +97,13 @@ private:
   // it applies new model-view matrix to the scene (this matrix will be used on next frame)
   void UpdateScene();
 
+  void CreateTileRenderGroup(dp::GLState const & state,
+                             dp::MasterPointer<dp::RenderBucket> & renderBucket,
+                             TileKey const & newTile);
+  void CleanKeyStorage(TTilesCollection & keyStorage);
+
 private:
   dp::RefPointer<dp::TextureManager> m_textureManager;
-
   dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
 
 private:
@@ -112,7 +116,7 @@ private:
 
   Viewport m_viewport;
   ScreenBase m_view;
-  set<TileKey> m_tiles;
+  TTilesCollection m_tiles;
 
   ScreenBase m_newView;
   mutex m_modelViewMutex;

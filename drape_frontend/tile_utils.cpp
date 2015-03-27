@@ -1,7 +1,6 @@
 #include <tile_utils.hpp>
 
 #include "../base/assert.hpp"
-#include "../std/cmath.hpp"
 
 namespace df
 {
@@ -18,7 +17,7 @@ int Minificate(int coord, int zoom, int targetZoom)
     return coord >> z;
 
   // here we iteratively minificate zoom
-  int c = abs(coord);
+  int c = -coord;
   while (z > 0)
   {
     c = (c >> 1) + ((c % 2) != 0 ? 1 : 0);
@@ -27,18 +26,34 @@ int Minificate(int coord, int zoom, int targetZoom)
   return -c;
 }
 
-}
+} // namespace
 
 void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, set<TileKey> & tiles)
 {
-  if (tileKey.m_zoomLevel == targetZoom)
+  CalcTilesCoverage(tileKey, targetZoom, [&tiles](TileKey const & tileKey)
+  {
     tiles.emplace(tileKey);
+  });
+}
+
+void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, set<TileKey> & tiles)
+{
+  for(TileKey const & tileKey : tileKeys)
+    CalcTilesCoverage(tileKey, targetZoom, tiles);
+}
+
+void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, function<void(TileKey const &)> processTile)
+{
+  ASSERT(processTile != nullptr, ());
+
+  if (tileKey.m_zoomLevel == targetZoom)
+    processTile(tileKey);
   else if (tileKey.m_zoomLevel > targetZoom)
   {
     // minification
-    tiles.emplace(Minificate(tileKey.m_x, tileKey.m_zoomLevel, targetZoom),
-                  Minificate(tileKey.m_y, tileKey.m_zoomLevel, targetZoom),
-                  targetZoom);
+    processTile(TileKey(Minificate(tileKey.m_x, tileKey.m_zoomLevel, targetZoom),
+                        Minificate(tileKey.m_y, tileKey.m_zoomLevel, targetZoom),
+                        targetZoom));
   }
   else
   {
@@ -49,14 +64,36 @@ void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, set<TileKey> & t
     int const startY = tileKey.m_y << z;
     for (int x = 0; x < tilesInRow; x++)
       for (int y = 0; y < tilesInRow; y++)
-        tiles.emplace(startX + x, startY + y, targetZoom);
+        processTile(TileKey(startX + x, startY + y, targetZoom));
   }
 }
 
-void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, set<TileKey> & tiles)
+bool IsTileAbove(TileKey const & tileKey, TileKey const & targetTileKey)
 {
-  for(TileKey const & tileKey : tileKeys)
-    CalcTilesCoverage(tileKey, targetZoom, tiles);
+  if (tileKey.m_zoomLevel <= targetTileKey.m_zoomLevel)
+    return false;
+
+  int const x = Minificate(tileKey.m_x, tileKey.m_zoomLevel, targetTileKey.m_zoomLevel);
+  if (x != targetTileKey.m_x)
+    return false;
+
+  int const y = Minificate(tileKey.m_y, tileKey.m_zoomLevel, targetTileKey.m_zoomLevel);
+  return y == targetTileKey.m_y;
+}
+
+bool IsTileBelow(TileKey const & tileKey, TileKey const & targetTileKey)
+{
+  if (tileKey.m_zoomLevel >= targetTileKey.m_zoomLevel)
+    return false;
+
+  int const z = targetTileKey.m_zoomLevel - tileKey.m_zoomLevel;
+  int const tilesInRow = 1 << z;
+  int const startX = tileKey.m_x << z;
+  if (targetTileKey.m_x < startX || targetTileKey.m_x >= startX + tilesInRow)
+    return false;
+
+  int const startY = tileKey.m_y << z;
+  return targetTileKey.m_y >= startY && targetTileKey.m_y < startY + tilesInRow;
 }
 
 } // namespace df

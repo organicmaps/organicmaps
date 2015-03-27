@@ -3,7 +3,7 @@
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/viewport.hpp"
-#include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -108,33 +108,33 @@ private:
 class UpdateReadManagerMessage : public Message
 {
 public:
-  UpdateReadManagerMessage(ScreenBase const & screen, set<TileKey> const & tiles)
+  UpdateReadManagerMessage(ScreenBase const & screen, TTilesCollection const & tiles)
     : m_tiles(tiles)
     , m_screen(screen)
   {}
 
   Type GetType() const override { return Message::UpdateReadManager; }
 
-  set<TileKey> const & GetTiles() const { return m_tiles; }
+  TTilesCollection const & GetTiles() const { return m_tiles; }
   ScreenBase const & GetScreen() const { return m_screen; }
 
 private:
-  set<TileKey> m_tiles;
+  TTilesCollection m_tiles;
   ScreenBase m_screen;
 };
 
 class InvalidateReadManagerRectMessage : public Message
 {
 public:
-  InvalidateReadManagerRectMessage(set<TileKey> const & tiles)
+  InvalidateReadManagerRectMessage(TTilesCollection const & tiles)
     : m_tiles(tiles) {}
 
   Type GetType() const override { return Message::InvalidateReadManagerRect; }
 
-  set<TileKey> const & GetTilesForInvalidate() const { return m_tiles; }
+  TTilesCollection const & GetTilesForInvalidate() const { return m_tiles; }
 
 private:
-  set<TileKey> m_tiles;
+  TTilesCollection m_tiles;
 };
 
 template <typename T>

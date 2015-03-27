@@ -4,6 +4,7 @@
 #include "drape_frontend/memory_feature_index.hpp"
 #include "drape_frontend/read_mwm_task.hpp"
 #include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -26,8 +27,8 @@ class ReadManager
 public:
   ReadManager(dp::RefPointer<ThreadsCommutator> commutator, MapDataProvider & model);
 
-  void UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles);
-  void Invalidate(set<TileKey> const & keyStorage);
+  void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles);
+  void Invalidate(TTilesCollection const & keyStorage);
   void Stop();
 
   static size_t ReadCount();

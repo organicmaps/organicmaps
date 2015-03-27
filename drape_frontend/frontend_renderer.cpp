@@ -131,11 +131,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       program->Bind();
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
-      {
-        RenderGroup * group = new RenderGroup(state, key);
-        group->AddBucket(bucket.Move());
-        m_renderGroups.push_back(group);
-      }
+        CreateTileRenderGroup(state, bucket, key);
       else
       {
         UserMarkRenderGroup * group = FindUserMarkRenderGroup(key, true);
@@ -172,7 +168,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
 
-      set<TileKey> keyStorage;
+      TTilesCollection keyStorage;
       ResolveTileKeys(keyStorage, m->GetRect());
       InvalidateRenderGroups(keyStorage);
 
@@ -228,6 +224,56 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     }
   default:
     ASSERT(false, ());
+  }
+}
+
+void FrontendRenderer::CreateTileRenderGroup(dp::GLState const & state,
+                                             dp::MasterPointer<dp::RenderBucket> & renderBucket,
+                                             TileKey const & newTile)
+{
+  TTilesCollection & tiles = GetTileKeyStorage();
+  auto const & tileIt = tiles.find(newTile);
+
+  // skip obsolete tiles
+  if (tileIt == tiles.end() || df::GetTileScaleBase(m_view) != newTile.m_zoomLevel)
+  {
+    renderBucket.Destroy();
+    return;
+  }
+
+  // clip tiles below loaded one
+  for (auto it = tiles.begin(); it != tiles.end(); ++it)
+    if (it->second == TileStatus::Rendered && IsTileBelow(newTile, it->first))
+      it->second = TileStatus::Clipped;
+
+  // clip tiles above loaded one
+  for (auto it = tiles.begin(); it != tiles.end(); ++it)
+    if (it->second == TileStatus::Rendered && IsTileAbove(newTile, it->first))
+      it->second = TileStatus::Clipped;
+
+  // create a render group for visible tiles
+  if (tileIt->second != TileStatus::Clipped)
+  {
+    RenderGroup * group = new RenderGroup(state, newTile);
+    group->AddBucket(renderBucket.Move());
+    m_renderGroups.push_back(group);
+    tileIt->second = TileStatus::Rendered;
+  }
+  else
+    renderBucket.Destroy();
+
+  // clean storage from clipped tiles
+  CleanKeyStorage(tiles);
+}
+
+void FrontendRenderer::CleanKeyStorage(TTilesCollection & keyStorage)
+{
+  for(auto it = keyStorage.begin(); it != keyStorage.end();)
+  {
+    if (it->second == TileStatus::Clipped)
+      it = keyStorage.erase(it);
+    else
+      ++it;
   }
 }
 
@@ -350,37 +396,45 @@ void FrontendRenderer::ResolveTileKeys()
   ResolveTileKeys(GetTileKeyStorage(), df::GetTileScaleBase(m_view));
 }
 
-void FrontendRenderer::ResolveTileKeys(set<TileKey> & keyStorage, m2::RectD const & rect)
+void FrontendRenderer::ResolveTileKeys(TTilesCollection & keyStorage, m2::RectD const & rect)
 {
   ResolveTileKeys(keyStorage, df::GetTileScaleBase(rect));
 }
 
-void FrontendRenderer::ResolveTileKeys(set<TileKey> & keyStorage, int tileScale)
+void FrontendRenderer::ResolveTileKeys(TTilesCollection & keyStorage, int tileScale)
 {
   // equal for x and y
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
   double const rectSize = range / (1 << tileScale);
 
-  m2::RectD const & clipRect   = m_view.ClipRect();
+  m2::RectD const & clipRect = m_view.ClipRect();
 
   int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
   int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
   int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
   int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
 
-  keyStorage.clear();
+  // clip all tiles which are out of viewport
+  for (auto it = keyStorage.begin(); it != keyStorage.end(); ++it)
+    if (!clipRect.IsIntersect(it->first.GetGlobalRect()))
+      it->second = TileStatus::Clipped;
+
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
     {
+      // request new tile
       TileKey key(tileX, tileY, tileScale);
-      if (clipRect.IsIntersect(key.GetGlobalRect()))
-        keyStorage.insert(key);
+      if (clipRect.IsIntersect(key.GetGlobalRect()) && keyStorage.find(key) == keyStorage.end())
+        keyStorage.insert(make_pair(key, TileStatus::Requested));
     }
   }
+
+  // clean storage from clipped tiles
+  CleanKeyStorage(keyStorage);
 }
 
-void FrontendRenderer::InvalidateRenderGroups(set<TileKey> & keyStorage)
+void FrontendRenderer::InvalidateRenderGroups(TTilesCollection & keyStorage)
 {
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
@@ -390,7 +444,7 @@ void FrontendRenderer::InvalidateRenderGroups(set<TileKey> & keyStorage)
   }
 }
 
-set<TileKey> & FrontendRenderer::GetTileKeyStorage()
+TTilesCollection & FrontendRenderer::GetTileKeyStorage()
 {
   return m_tiles;
 }

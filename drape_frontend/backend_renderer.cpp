@@ -68,7 +68,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       UpdateReadManagerMessage * msg = df::CastMessage<UpdateReadManagerMessage>(message);
       ScreenBase const & screen = msg->GetScreen();
-      set<TileKey> const & tiles = msg->GetTiles();
+      TTilesCollection const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
       storage::TIndex cnt;
       if (!tiles.empty() && (*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
