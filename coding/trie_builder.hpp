@@ -246,7 +246,7 @@ void Build(SinkT & sink, IterT const beg, IterT const end, EdgeBuilderT const & 
   for (IterT it = beg; it != end; ++it)
   {
     ElementT e = *it;
-    if (e == prevE && it != beg)
+    if (it != beg && e == prevE)
       continue;
 
     TrieChar const * const pKeyData = e.GetKeyData();
