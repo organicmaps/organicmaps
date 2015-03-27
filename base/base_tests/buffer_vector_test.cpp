@@ -275,8 +275,8 @@ typedef buffer_vector<CopyCtorChecker, 2> VectorT;
 VectorT GetVector()
 {
   VectorT v;
-  v.push_back("0");
-  v.push_back("1");
+  v.emplace_back("0");
+  v.emplace_back("1");
   return v;
 }
 
@@ -294,7 +294,7 @@ UNIT_TEST(BufferVectorMove)
   VectorT v1 = GetVector();
   TestVector(v1, 2);
 
-  v1.push_back("2");
+  v1.emplace_back("2");
   TestVector(v1, 3);
 
   VectorT v2(move(v1));

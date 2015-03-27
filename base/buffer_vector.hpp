@@ -316,6 +316,28 @@ public:
     }
   }
 
+  template <class... Args>
+  void emplace_back(Args &&... args)
+  {
+    if (IsDynamic())
+      m_dynamic.emplace_back(args...);
+    else
+    {
+      if (m_size < N)
+      {
+        value_type v(args...);
+        Swap(v, m_static[m_size++]);
+      }
+      else
+      {
+        ASSERT_EQUAL(m_size, N, ());
+        SwitchToDynamic();
+        m_dynamic.emplace_back(args...);
+        ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
+      }
+    }
+  }
+
   template <typename IterT> void insert(const_iterator where, IterT beg, IterT end)
   {
     ptrdiff_t const pos = where - data();
