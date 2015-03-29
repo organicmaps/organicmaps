@@ -21,6 +21,7 @@ public:
     ChangeUserMarkLayerVisibility,
     UpdateUserMarkLayer,
     GuiLayerRecached,
+    GuiRecache,
     StopRendering
   };
 

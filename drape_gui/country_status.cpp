@@ -19,7 +19,7 @@ class CountryStatusHandle : public Handle
   typedef Handle TBase;
 
 public:
-  CountryStatusHandle(int state, dp::Anchor anchor, m2::PointF const & size)
+  CountryStatusHandle(CountryStatusHelper::ECountryState const state, dp::Anchor anchor, m2::PointF const & size)
       : Handle(anchor, m2::PointF::Zero(), size), m_state(state)
   {
   }
@@ -31,7 +31,7 @@ public:
   }
 
 private:
-  int m_state;
+  CountryStatusHelper::ECountryState m_state;
 };
 
 class CountryProgressHandle : public MutableLabelHandle
@@ -39,7 +39,7 @@ class CountryProgressHandle : public MutableLabelHandle
   using TBase = MutableLabelHandle;
 
 public:
-  CountryProgressHandle(dp::Anchor anchor, int state)
+  CountryProgressHandle(dp::Anchor anchor, CountryStatusHelper::ECountryState const state)
       : MutableLabelHandle(anchor, m2::PointF::Zero()), m_state(state)
   {
   }
@@ -69,19 +69,20 @@ protected:
   string const & GetContent() const override { return m_value; }
 
 private:
-  int m_state;
+  CountryStatusHelper::ECountryState m_state;
   bool m_contentDirty;
   string m_value;
 };
 
-dp::TransferPointer<dp::OverlayHandle> CreateHandle(int state, dp::Anchor anchor,
+dp::TransferPointer<dp::OverlayHandle> CreateHandle(CountryStatusHelper::ECountryState const state,
+                                                    dp::Anchor anchor,
                                                     m2::PointF const & size)
 {
   return dp::MovePointer<dp::OverlayHandle>(new CountryStatusHandle(state, anchor, size));
 }
 
 void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
-                      dp::RefPointer<dp::TextureManager> mng, int state)
+                      dp::RefPointer<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
 {
   StaticLabel::LabelResult result;
   StaticLabel::CacheStaticText(text, "\n", anchor, dp::FontDecl(dp::Color::Black(), 18), mng,
@@ -103,7 +104,7 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
 }
 
 void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
-                         dp::RefPointer<dp::TextureManager> mng, int state)
+                         dp::RefPointer<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
 {
   MutableLabelDrawer::Params params;
   CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
@@ -123,44 +124,48 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
 
 dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::TextureManager> tex) const
 {
+  CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
+  if (helper.GetComponentCount() == 0)
+    return dp::MovePointer<ShapeRenderer>(nullptr);
+
+  CountryStatusHelper::ECountryState const state = helper.GetState();
+  ASSERT(state != CountryStatusHelper::COUNTRY_STATE_LOADED, ());
+
   dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer());
   dp::Batcher::TFlushFn flushFn = bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2);
-
-  CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
-  int const state = helper.GetState();
 
   for (size_t i = 0; i < helper.GetComponentCount(); ++i)
   {
     CountryStatusHelper::Control const & control = helper.GetControl(i);
     switch (control.m_type)
     {
-      case CountryStatusHelper::Button:
-        {
-          Button::THandleCreator handleCreator = bind(&CreateHandle, state, _1, _2);
-          ShapeControl shapeControl;
-          Button::Params params;
-          params.m_anchor = m_position.m_anchor;
-          params.m_label = control.m_label;
-          params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
-          params.m_minWidth = 300;
-          params.m_maxWidth = 600;
-          params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
-          params.m_bodyHandleCreator = handleCreator;
-          params.m_labelHandleCreator = handleCreator;
+    case CountryStatusHelper::CONTROL_TYPE_BUTTON:
+      {
+        Button::THandleCreator handleCreator = bind(&CreateHandle, state, _1, _2);
+        ShapeControl shapeControl;
+        Button::Params params;
+        params.m_anchor = m_position.m_anchor;
+        params.m_label = control.m_label;
+        params.m_labelFont = dp::FontDecl(dp::Color::White(), 16);
+        params.m_minWidth = 300;
+        params.m_maxWidth = 600;
+        params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
+        params.m_bodyHandleCreator = handleCreator;
+        params.m_labelHandleCreator = handleCreator;
 
-          Button::Draw(params, shapeControl, tex);
-          renderer->AddShapeControl(move(shapeControl));
-        }
-        break;
-      case CountryStatusHelper::Label:
-        DrawLabelControl(control.m_label, m_position.m_anchor, flushFn, tex, state);
-        break;
-      case CountryStatusHelper::Progress:
-        DrawProgressControl(m_position.m_anchor, flushFn, tex, state);
-        break;
-      default:
-        ASSERT(false, ());
-        break;
+        Button::Draw(params, shapeControl, tex);
+        renderer->AddShapeControl(move(shapeControl));
+      }
+      break;
+    case CountryStatusHelper::CONTROL_TYPE_LABEL:
+      DrawLabelControl(control.m_label, m_position.m_anchor, flushFn, tex, state);
+      break;
+    case CountryStatusHelper::CONTROL_TYPE_PROGRESS:
+      DrawProgressControl(m_position.m_anchor, flushFn, tex, state);
+      break;
+    default:
+      ASSERT(false, ());
+      break;
     }
   }
 

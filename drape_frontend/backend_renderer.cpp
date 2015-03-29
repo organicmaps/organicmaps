@@ -1,11 +1,14 @@
 #include "drape_frontend/backend_renderer.hpp"
-#include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/batchers_pool.hpp"
-#include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/user_mark_shapes.hpp"
-
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/user_mark_shapes.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "drape_gui/drape_gui.hpp"
+
+#include "indexer/scales.hpp"
 
 #include "drape/texture_manager.hpp"
 
@@ -24,19 +27,34 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
                                  MapDataProvider const & model)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, commutator, oglcontextfactory)
   , m_model(model)
-  , m_engineContext(commutator)
   , m_texturesManager(textureManager)
   , m_guiCacher("default")
 {
   m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
-  m_readManager.Reset(new ReadManager(m_engineContext, m_model));
+  m_readManager.Reset(new ReadManager(commutator, m_model));
+
+  gui::DrapeGui::Instance().SetRecacheSlot([this](gui::Skin::ElementName elements)
+  {
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              dp::MovePointer<Message>(new GuiRecacheMessage(elements)),
+                              MessagePriority::Normal);
+  });
 
   StartThread();
 }
 
 BackendRenderer::~BackendRenderer()
 {
+  gui::DrapeGui::Instance().ClearRecacheSlot();
   StopThread();
+}
+
+void BackendRenderer::RecacheGui(gui::Skin::ElementName elements)
+{
+  using TLayerRenderer = dp::TransferPointer<gui::LayerRenderer>;
+  TLayerRenderer layerRenderer = m_guiCacher.Recache(elements, m_texturesManager);
+  dp::TransferPointer<Message> outputMsg = dp::MovePointer<Message>(new GuiLayerRecachedMessage(layerRenderer));
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, outputMsg, MessagePriority::High);
 }
 
 /////////////////////////////////////////
@@ -52,6 +70,11 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       ScreenBase const & screen = msg->GetScreen();
       set<TileKey> const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
+      storage::TIndex cnt;
+      if (!tiles.empty() && (*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
+        cnt = m_model.FindCountry(screen.ClipRect().Center());
+
+      gui::DrapeGui::Instance().SetCountryIndex(cnt);
       break;
     }
   case Message::Resize:
@@ -59,10 +82,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       ResizeMessage * msg = df::CastMessage<ResizeMessage>(message);
       df::Viewport const & v = msg->GetViewport();
       m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
-      dp::TransferPointer<gui::LayerRenderer> layerRenderer =
-          m_guiCacher.Recache(gui::Skin::AllElements, m_texturesManager);
-      GuiLayerRecachedMessage * outputMsg = new GuiLayerRecachedMessage(layerRenderer);
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg), MessagePriority::High);
+      RecacheGui(gui::Skin::AllElements);
       break;
     }
   case Message::InvalidateReadManagerRect:
@@ -71,6 +91,9 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
     }
+  case Message::GuiRecache:
+    RecacheGui(CastMessage<GuiRecacheMessage>(message)->GetElements());
+    break;
   case Message::TileReadStarted:
     m_batchersPool->ReserveBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
     break;

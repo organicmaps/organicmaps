@@ -5,10 +5,11 @@
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/user_marks_provider.hpp"
 
-#include "drape_gui/layer_render.hpp"
-
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
+
+#include "drape_gui/layer_render.hpp"
+#include "drape_gui/skin.hpp"
 
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
@@ -229,6 +230,24 @@ public:
 
 private:
   dp::TransferPointer<gui::LayerRenderer> m_renderer;
+};
+
+class GuiRecacheMessage : public Message
+{
+public:
+  GuiRecacheMessage(gui::Skin::ElementName elements)
+    : m_elements(elements)
+  {
+  }
+
+  Type GetType() const override { return Message::GuiRecache;}
+  gui::Skin::ElementName GetElements() const
+  {
+    return m_elements;
+  }
+
+private:
+  gui::Skin::ElementName m_elements;
 };
 
 class StopRenderingMessage : public Message

@@ -2,7 +2,6 @@
 
 #include "qt/slider_ctrl.hpp"
 
-#include "map/country_status_display.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "render/render_policy.hpp"
@@ -56,19 +55,9 @@ namespace qt
     manager.ConnectUserMarkListener(bind(&DrawWidget::OnActivateMark, this, _1));
     manager.ConnectDismissListener(&DummyDismiss);
 
-    ///@TODO UVR
-    //m_framework->GetCountryStatusDisplay()->SetDownloadCountryListener([this] (storage::TIndex const & idx, int opt)
-    //{
-    // storage::ActiveMapsLayout & layout = m_framework->GetCountryTree().GetActiveMapLayout();
-    //  if (opt == -1)
-    //    layout.RetryDownloading(idx);
-    //  else
-    //    layout.DownloadMap(idx, static_cast<storage::TMapOptions>(opt));
-    //});
-
-    //m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
-    //{
-    //});
+    m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
+    {
+    });
   }
 
   DrawWidget::~DrawWidget()

@@ -31,16 +31,12 @@ public:
   };
 
   CountryTree() = default;
-  explicit CountryTree(Framework & framework);
+  explicit CountryTree(shared_ptr<ActiveMapsLayout> activeMaps);
 
   CountryTree(CountryTree const & other) = delete;
   ~CountryTree();
 
   CountryTree & operator=(CountryTree const & other);
-
-  /// @param[in]  Sorted vector of current .mwm files.
-  void Init(vector<ActiveMapsLayout::TLocalFilePtr> const & maps);
-  void Clear();
 
   ActiveMapsLayout & GetActiveMapLayout();
   ActiveMapsLayout const & GetActiveMapLayout() const;
@@ -96,7 +92,7 @@ private:
 
 private:
   int m_subscribeSlotID = 0;
-  mutable shared_ptr<ActiveMapsLayout> m_layout;
+  shared_ptr<ActiveMapsLayout> m_layout;
 
   buffer_vector<TIndex, 16> m_levelItems;
 

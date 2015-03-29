@@ -89,6 +89,9 @@ void LayerRenderer::DestroyRenderers()
 void LayerRenderer::AddShapeRenderer(Skin::ElementName name,
                                      dp::TransferPointer<ShapeRenderer> shape)
 {
+  if (shape.IsNull())
+    return;
+
   VERIFY(m_renderers.insert(make_pair(name, dp::MasterPointer<ShapeRenderer>(shape))).second, ());
 }
 

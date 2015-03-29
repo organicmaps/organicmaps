@@ -14,13 +14,10 @@
 namespace df
 {
 
-DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
-                         Viewport const & viewport,
-                         MapDataProvider const & model,
-                         double vs)
-  : m_viewport(viewport)
+DrapeEngine::DrapeEngine(Params const & params)
+  : m_viewport(params.m_viewport)
 {
-  VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
+  VisualParams::Init(params.m_vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
 
   gui::DrapeGui::TScaleFactorFn scaleFn = []
   {
@@ -31,20 +28,23 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory,
     return GetDrawTileScale(screen);
   };
 
-  gui::DrapeGui::Instance().Init(scaleFn, gnLvlFn);
+  gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
+  guiSubsystem.Init(scaleFn, gnLvlFn);
+  guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.GetRaw(), _1));
+  guiSubsystem.SetStorageAccessor(params.m_storageAccessor);
 
   m_textureManager = dp::MasterPointer<dp::TextureManager>(new dp::TextureManager());
   m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
   dp::RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
   m_frontend = dp::MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
-                                                                        contextfactory,
+                                                                        params.m_factory,
                                                                         m_textureManager.GetRefPointer(),
                                                                         m_viewport));
   m_backend =  dp::MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
-                                                                      contextfactory,
+                                                                      params.m_factory,
                                                                       m_textureManager.GetRefPointer(),
-                                                                      model));
+                                                                      params.m_model));
 }
 
 DrapeEngine::~DrapeEngine()

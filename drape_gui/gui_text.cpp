@@ -156,23 +156,23 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
   float textRatio = font.m_size * DrapeGui::Instance().GetScaleFactor() / BASE_GLYPH_HEIGHT;
 
   buffer_vector<float, 4> lineLengths;
-  lineLengths.resize(buffers.size());
+  lineLengths.reserve(buffers.size());
 
   buffer_vector<size_t, 4> ranges;
+  ranges.reserve(buffers.size());
 
   float fullHeight = 0.0;
   float prevLineHeight = 0.0;
-  float firstLineHeight = 0.0;
 
   buffer_vector<Vertex, 128> & rb = result.m_buffer;
-
-  for (size_t i = 0; i < buffers.size(); ++i)
+  for (int i = static_cast<int>(buffers.size()) - 1; i >= 0; --i)
   {
     dp::TextureManager::TGlyphsBuffer & regions = buffers[i];
-    float & currentLineLength = lineLengths[i];
+    lineLengths.push_back(0.0f);
+    float & currentLineLength = lineLengths.back();
 
     float depth = 0.0;
-    glsl::vec2 pen(0.0, prevLineHeight);
+    glsl::vec2 pen(0.0, -fullHeight);
     prevLineHeight = 0.0;
     for (size_t j = 0; j < regions.size(); ++j)
     {
@@ -202,19 +202,16 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
 
     ranges.push_back(rb.size());
 
-    if (i == 0)
-      firstLineHeight = prevLineHeight;
-
     fullHeight += prevLineHeight;
   }
 
-  float const halfHeight = fullHeight / 2.0f;
+  float const halfHeight = 0.5f * fullHeight;
 
-  float yOffset = firstLineHeight - fullHeight / 2.0f;
+  float yOffset = halfHeight;
   if (anchor & dp::Top)
-    yOffset = firstLineHeight;
+    yOffset = fullHeight;
   else if (anchor & dp::Bottom)
-    yOffset -= halfHeight;
+    yOffset = 0.0f;
 
   size_t startIndex = 0;
   for (size_t i = 0; i < ranges.size(); ++i)

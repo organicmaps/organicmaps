@@ -1,9 +1,8 @@
 #pragma once
 
 #include "drape_frontend/base_renderer.hpp"
-#include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/viewport.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/viewport.hpp"
 
 #include "drape_gui/layer_render.hpp"
 #include "drape/pointers.hpp"
@@ -34,8 +33,10 @@ public:
   ~BackendRenderer() override;
 
 private:
+  void RecacheGui(gui::Skin::ElementName elements);
+
+private:
   MapDataProvider m_model;
-  EngineContext m_engineContext;
   dp::MasterPointer<BatchersPool> m_batchersPool;
   dp::MasterPointer<ReadManager>  m_readManager;
   dp::RefPointer<dp::TextureManager> m_texturesManager;

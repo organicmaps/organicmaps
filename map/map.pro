@@ -20,6 +20,7 @@ HEADERS += \
     change_viewport_task.hpp \
     compass_arrow.hpp \
     country_tree.hpp \
+    events.hpp \
     feature_vec_model.hpp \
     framework.hpp \
     ge0_parser.hpp \
@@ -29,15 +30,16 @@ HEADERS += \
     move_screen_task.hpp \
     mwm_url.hpp \
     navigator.hpp \
-    navigator_utils.hpp \
     pin_click_manager.hpp \
-    rotate_screen_task.hpp \
+    route_track.hpp \
+    routing_session.hpp \
+    storage_bridge.hpp \
     track.hpp \
     user_mark.hpp \
     user_mark_container.hpp \
 
 SOURCES += \
-    ../api/src/c/api-client.c \
+   ../api/src/c/api-client.c \
     active_maps_layout.cpp \
     address_finder.cpp \
     alfa_animation_task.cpp \
@@ -57,9 +59,10 @@ SOURCES += \
     move_screen_task.cpp \
     mwm_url.cpp \
     navigator.cpp \
-    navigator_utils.cpp \
     pin_click_manager.cpp \
-    rotate_screen_task.cpp \
+    route_track.cpp \
+    routing_session.cpp \
+    storage_bridge.cpp \
     track.cpp \
     user_mark_container.cpp \
 

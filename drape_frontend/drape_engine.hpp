@@ -9,7 +9,10 @@
 
 #include "geometry/screenbase.hpp"
 
+#include "base/strings_bundle.hpp"
+
 namespace dp { class OGLContextFactory; }
+namespace gui { class StorageAccessor; }
 
 namespace df
 {
@@ -21,10 +24,32 @@ class Viewport;
 class DrapeEngine
 {
 public:
-  DrapeEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-              Viewport const & viewport,
-              MapDataProvider const & model,
-              double vs);
+  struct Params
+  {
+    Params(dp::RefPointer<dp::OGLContextFactory> factory,
+           dp::RefPointer<StringsBundle> stringBundle,
+           dp::RefPointer<gui::StorageAccessor> storageAccessor,
+           Viewport const & viewport,
+           MapDataProvider const & model,
+           double vs)
+      : m_factory(factory)
+      , m_stringsBundle(stringBundle)
+      , m_storageAccessor(storageAccessor)
+      , m_viewport(viewport)
+      , m_model(model)
+      , m_vs(vs)
+    {
+    }
+
+    dp::RefPointer<dp::OGLContextFactory> m_factory;
+    dp::RefPointer<StringsBundle> m_stringsBundle;
+    dp::RefPointer<gui::StorageAccessor> m_storageAccessor;
+    Viewport m_viewport;
+    MapDataProvider m_model;
+    double m_vs = 1.0f;
+  };
+
+  DrapeEngine(Params const & params);
   ~DrapeEngine();
 
   void Resize(int w, int h);

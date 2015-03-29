@@ -40,9 +40,9 @@ inline TIndex GetIndexParent(TIndex const & index)
   return parent;
 }
 
-CountryTree::CountryTree(Framework & framework)
+CountryTree::CountryTree(shared_ptr<ActiveMapsLayout> activeMaps)
 {
-  m_layout.reset(new ActiveMapsLayout(framework));
+  m_layout = activeMaps;
   ConnectToCoreStorage();
 }
 
@@ -63,19 +63,6 @@ CountryTree & CountryTree::operator=(CountryTree const & other)
   ConnectToCoreStorage();
 
   return *this;
-}
-
-void CountryTree::Init(vector<ActiveMapsLayout::TLocalFilePtr> const & maps)
-{
-  ASSERT(IsValid(), ());
-  m_layout->Init(maps);
-}
-
-void CountryTree::Clear()
-{
-  ASSERT(IsValid(), ());
-  ResetRoot();
-  m_layout->Clear();
 }
 
 ActiveMapsLayout & CountryTree::GetActiveMapLayout()
