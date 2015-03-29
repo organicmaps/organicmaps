@@ -167,7 +167,6 @@ Framework::Framework()
     m_width(0),
     m_height(0),
     m_animController(new anim::Controller),
-    m_informationDisplay(this),
     m_bmManager(*this),
     m_balloonManager(*this),
     m_fixedSearchResults(0),
