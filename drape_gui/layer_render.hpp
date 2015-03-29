@@ -52,6 +52,9 @@ public:
                                              dp::RefPointer<dp::TextureManager> textures);
 
 private:
+  Position GetPos(Skin::ElementName name);
+
+private:
   unique_ptr<Skin> m_skin;
 };
 

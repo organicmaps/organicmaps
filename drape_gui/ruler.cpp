@@ -15,9 +15,6 @@ namespace gui
 namespace
 {
 
-static size_t const FontSize = 7;
-static dp::Color const FontColor = dp::Color(0x4D, 0x4D, 0x4D, 0xCC);
-
 struct RulerVertex
 {
   RulerVertex() = default;
@@ -119,7 +116,7 @@ void Ruler::DrawRuler(ShapeControl & control, dp::RefPointer<dp::TextureManager>
   buffer_vector<RulerVertex, 4> data;
 
   dp::TextureManager::ColorRegion reg;
-  tex->GetColorRegion(dp::Color(0x4D, 0x4D, 0x4D, 0xCC), reg);
+  tex->GetColorRegion(DrapeGui::GetGuiTextFont().m_color, reg);
 
   glsl::vec2 pivot = glsl::ToVec2(m_position.m_pixelPivot);
   glsl::vec2 texCoord = glsl::ToVec2(reg.GetTexRect().Center());
@@ -169,7 +166,7 @@ void Ruler::DrawText(ShapeControl & control, dp::RefPointer<dp::TextureManager> 
       static_cast<dp::Anchor>((m_position.m_anchor & (dp::Right | dp::Left)) | dp::Bottom);
   params.m_alphabet = alphabet;
   params.m_maxLength = maxTextLength;
-  params.m_font = dp::FontDecl(FontColor, FontSize * DrapeGui::Instance().GetScaleFactor());
+  params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0, helper.GetVerticalTextOffset());
   params.m_handleCreator = [](dp::Anchor anchor, m2::PointF const & pivot)
   {

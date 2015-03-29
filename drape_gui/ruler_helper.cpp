@@ -132,9 +132,10 @@ void RulerHelper::Update(ScreenBase const & screen)
   }
 }
 
-bool RulerHelper::IsVisible(const ScreenBase & screen) const
+bool RulerHelper::IsVisible(ScreenBase const & screen) const
 {
-  return DrapeGui::Instance().GetGeneralization(screen) > 4;
+  DrapeGui & gui = DrapeGui::Instance();
+  return !gui.IsCopyrightActive() && gui.GetGeneralization(screen) > 4;
 }
 
 float RulerHelper::GetRulerHalfHeight() const

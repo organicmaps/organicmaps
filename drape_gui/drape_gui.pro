@@ -10,6 +10,8 @@ INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 HEADERS += \
     button.hpp \
+    compass.hpp \
+    copyright_label.hpp \
     country_status.hpp \
     country_status_helper.hpp \
     drape_gui.hpp \
@@ -19,10 +21,11 @@ HEADERS += \
     ruler_helper.hpp \
     shape.hpp \
     skin.hpp \
-    compass.hpp \
 
 SOURCES += \
     button.cpp \
+    compass.cpp \
+    copyright_label.cpp \
     country_status.cpp \
     country_status_helper.cpp \
     drape_gui.cpp \
@@ -32,5 +35,4 @@ SOURCES += \
     ruler_helper.cpp \
     shape.cpp \
     skin.cpp \
-    compass.cpp \
 

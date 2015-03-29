@@ -241,10 +241,7 @@ public:
   }
 
   Type GetType() const override { return Message::GuiRecache;}
-  gui::Skin::ElementName GetElements() const
-  {
-    return m_elements;
-  }
+  gui::Skin::ElementName GetElements() const { return m_elements; }
 
 private:
   gui::Skin::ElementName m_elements;

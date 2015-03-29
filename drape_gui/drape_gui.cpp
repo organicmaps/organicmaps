@@ -40,6 +40,12 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelper()
   return Instance().GetCountryStatusHelperImpl();
 }
 
+dp::FontDecl const & DrapeGui::GetGuiTextFont()
+{
+  static dp::FontDecl font(dp::Color(0x4D, 0x4D, 0x4D, 0xDD), 7 * DrapeGui::Instance().GetScaleFactor());
+  return font;
+}
+
 void DrapeGui::Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const & gnLvlFn)
 {
   ASSERT(m_impl == nullptr, ());

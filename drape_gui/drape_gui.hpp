@@ -51,6 +51,8 @@ public:
   static RulerHelper & GetRulerHelper();
   static CountryStatusHelper & GetCountryStatusHelper();
 
+  static dp::FontDecl const & GetGuiTextFont();
+
   void Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const & gnLvlFn);
   void SetLocalizator(TLocalizeStringFn const & fn);
   void SetStorageAccessor(dp::RefPointer<gui::StorageAccessor> accessor);
@@ -65,6 +67,9 @@ public:
   void EmitRecacheSignal(Skin::ElementName elements);
   void ClearRecacheSlot();
 
+  bool IsCopyrightActive() const { return m_isCopyrightActive; }
+  void DeactivateCopyright() { m_isCopyrightActive = false; }
+
 private:
   RulerHelper & GetRulerHelperImpl();
   CountryStatusHelper & GetCountryStatusHelperImpl();
@@ -72,6 +77,7 @@ private:
 private:
   struct Impl;
   unique_ptr<Impl> m_impl;
+  bool m_isCopyrightActive = true;
 };
 
 }

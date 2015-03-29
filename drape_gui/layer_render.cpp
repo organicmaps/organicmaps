@@ -1,4 +1,5 @@
 #include "compass.hpp"
+#include "copyright_label.hpp"
 #include "country_status.hpp"
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
@@ -68,26 +69,36 @@ dp::TransferPointer<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
   dp::MasterPointer<LayerRenderer> renderer(new LayerRenderer());
 
   if (names & Skin::Compass)
-    renderer->AddShapeRenderer(Skin::Compass,
-                               Compass(m_skin->ResolvePosition(Skin::Compass)).Draw(textures));
-  if (names & Skin::Ruler)
-    renderer->AddShapeRenderer(Skin::Ruler,
-                               Ruler(m_skin->ResolvePosition(Skin::Ruler)).Draw(textures));
-  if (names & Skin::CountryStatus)
-    renderer->AddShapeRenderer(
-        Skin::CountryStatus,
-        CountryStatus(m_skin->ResolvePosition(Skin::CountryStatus)).Draw(textures));
-  if (names & Skin::Copyright)
   {
-    // TODO UVR
+    renderer->AddShapeRenderer(Skin::Compass,
+                               Compass(GetPos(Skin::Compass)).Draw(textures));
   }
+
+  if (names & Skin::Ruler)
+  {
+    renderer->AddShapeRenderer(Skin::Ruler,
+                               Ruler(GetPos(Skin::Ruler)).Draw(textures));
+  }
+
+  if (names & Skin::CountryStatus)
+  {
+    renderer->AddShapeRenderer(Skin::CountryStatus,
+                               CountryStatus(GetPos(Skin::CountryStatus)).Draw(textures));
+  }
+
+  if (DrapeGui::Instance().IsCopyrightActive() && (names & Skin::Copyright))
+  {
+    renderer->AddShapeRenderer(Skin::Copyright,
+                               CopyrightLabel(GetPos(Skin::Copyright)).Draw(textures));
+  }
+
 
 #ifdef DEBUG
   MutableLabelDrawer::Params params;
   params.m_alphabet = "Scale: 1234567890";
   params.m_maxLength = 10;
   params.m_anchor = dp::LeftBottom;
-  params.m_font = dp::FontDecl(dp::Color::Black(), 14);
+  params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = m2::PointF::Zero();
   params.m_handleCreator = [](dp::Anchor, m2::PointF const &)
   {
@@ -101,6 +112,11 @@ dp::TransferPointer<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
 #endif
 
   return renderer.Move();
+}
+
+Position LayerCacher::GetPos(Skin::ElementName name)
+{
+  return m_skin->ResolvePosition(name);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
