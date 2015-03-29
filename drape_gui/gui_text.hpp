@@ -149,11 +149,13 @@ public:
   void UpdateSize(m2::PointF const & size);
 
 protected:
-  virtual bool IsContentDirty() const = 0;
-  virtual string const & GetContent() const = 0;
+  void SetContent(string && content);
+  void SetContent(string const & content);
 
 private:
   dp::MasterPointer<MutableLabel> m_textView;
+  mutable bool m_isContentDirty;
+  string m_content;
 };
 
 class MutableLabelDrawer

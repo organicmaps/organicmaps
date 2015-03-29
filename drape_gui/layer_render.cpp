@@ -1,6 +1,7 @@
 #include "compass.hpp"
 #include "country_status.hpp"
 #include "drape_gui.hpp"
+#include "gui_text.hpp"
 #include "layer_render.hpp"
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
@@ -14,6 +15,42 @@
 
 namespace gui
 {
+
+namespace
+{
+
+class ScaleLabelHandle : public MutableLabelHandle
+{
+  using TBase = MutableLabelHandle;
+public:
+  ScaleLabelHandle()
+    : TBase(dp::LeftBottom, m2::PointF::Zero())
+    , m_scale(0)
+  {
+    SetIsVisible(true);
+  }
+
+  void Update(ScreenBase const & screen) override
+  {
+    int newScale = DrapeGui::Instance().GetGeneralization(screen);
+    if (m_scale != newScale)
+    {
+      m_scale = newScale;
+      SetContent("Scale : " + strings::to_string(m_scale));
+    }
+
+    float vs = DrapeGui::Instance().GetScaleFactor();
+    m2::PointF offset(10.0f * vs, 30.0f * vs);
+
+    SetPivot(glsl::ToVec2(m2::PointF(screen.PixelRect().LeftBottom()) + offset));
+    TBase::Update(screen);
+  }
+
+private:
+  int m_scale;
+};
+
+}
 
 LayerCacher::LayerCacher(string const & deviceType)
 {
@@ -44,6 +81,24 @@ dp::TransferPointer<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
   {
     // TODO UVR
   }
+
+#ifdef DEBUG
+  MutableLabelDrawer::Params params;
+  params.m_alphabet = "Scale: 1234567890";
+  params.m_maxLength = 10;
+  params.m_anchor = dp::LeftBottom;
+  params.m_font = dp::FontDecl(dp::Color::Black(), 14);
+  params.m_pivot = m2::PointF::Zero();
+  params.m_handleCreator = [](dp::Anchor, m2::PointF const &)
+  {
+    return dp::MovePointer<MutableLabelHandle>(new ScaleLabelHandle());
+  };
+
+  dp::MasterPointer<ShapeRenderer> scaleRenderer(new ShapeRenderer());
+  MutableLabelDrawer::Draw(params, textures, bind(&ShapeRenderer::AddShape, scaleRenderer.GetRaw(), _1, _2));
+
+  renderer->AddShapeRenderer(Skin::ScaleLabel, scaleRenderer.Move());
+#endif
 
   return renderer.Move();
 }

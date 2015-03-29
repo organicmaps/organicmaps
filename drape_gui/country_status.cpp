@@ -49,29 +49,13 @@ public:
     CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
     SetIsVisible(helper.IsVisibleForState(m_state));
     if (IsVisible())
-    {
-      string v = helper.GetProgressValue();
-      if (m_value != v)
-      {
-        m_value = move(v);
-        m_contentDirty = true;
-      }
-      else
-        m_contentDirty = false;
-    }
+      SetContent(helper.GetProgressValue());
 
     TBase::Update(screen);
   }
 
-protected:
-  bool IsContentDirty() const override { return m_contentDirty; }
-
-  string const & GetContent() const override { return m_value; }
-
 private:
   CountryStatusHelper::ECountryState m_state;
-  bool m_contentDirty;
-  string m_value;
 };
 
 dp::TransferPointer<dp::OverlayHandle> CreateHandle(CountryStatusHelper::ECountryState const state,

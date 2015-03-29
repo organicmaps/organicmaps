@@ -435,11 +435,12 @@ void MutableLabelHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBuffer
 {
   UNUSED_VALUE(screen);
 
-  if (!IsContentDirty())
+  if (!m_isContentDirty)
     return;
 
+  m_isContentDirty = false;
   MutableLabel::LabelResult result;
-  m_textView->SetText(result, GetContent());
+  m_textView->SetText(result, m_content);
   m_size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
 
   size_t byteCount = result.m_buffer.size() * sizeof(MutableLabel::DynamicVertex);
@@ -463,6 +464,24 @@ dp::RefPointer<MutableLabel> MutableLabelHandle::GetTextView()
 }
 
 void MutableLabelHandle::UpdateSize(m2::PointF const & size) { m_size = size; }
+
+void MutableLabelHandle::SetContent(string && content)
+{
+  if (m_content != content)
+  {
+    m_isContentDirty = true;
+    m_content = content;
+  }
+}
+
+void MutableLabelHandle::SetContent(string const & content)
+{
+  if (m_content != content)
+  {
+    m_isContentDirty = true;
+    m_content = content;
+  }
+}
 
 void MutableLabelDrawer::Draw(Params const & params, dp::RefPointer<dp::TextureManager> mng,
                               dp::Batcher::TFlushFn const & flushFn)

@@ -41,10 +41,12 @@ public:
   enum ElementName
   {
     CountryStatus = 0x1,
-    Ruler = CountryStatus << 1,
-    Compass = Ruler << 1,
-    Copyright = Compass << 1,
-    AllElements = CountryStatus | Ruler | Compass | Copyright
+    Ruler         = 0x2,
+    Compass       = 0x4,
+    Copyright     = 0x8,
+    AllElements   = CountryStatus | Ruler | Compass | Copyright,
+    // It's drawing only in debug and not depend from elements flag. It's not part of "AllElements"
+    ScaleLabel    = 0x8000
   };
 
   explicit Skin(ReaderPtr<Reader> const & reader);
