@@ -142,7 +142,7 @@
 "country_status_added_to_queue" = "^\nдобавлено в чергу завантаження";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Завантажується\n^\n^%";
+"country_status_downloading" = "Завантажується\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Завантажити мапу\n(^ ^)";

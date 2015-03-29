@@ -142,7 +142,7 @@
 "country_status_added_to_queue" = "^\nをダウンロードキューに追加しました";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "^\n^%\nをダウンロード中";
+"country_status_downloading" = "^\n^\nをダウンロード中";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "地図をダウンロード\n(^ ^)";
