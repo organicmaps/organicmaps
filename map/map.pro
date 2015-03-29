@@ -19,7 +19,6 @@ HEADERS += \
     bookmark_manager.hpp \
     change_viewport_task.hpp \
     compass_arrow.hpp \
-    country_status_display.hpp \
     country_tree.hpp \
     feature_vec_model.hpp \
     framework.hpp \
@@ -48,7 +47,6 @@ SOURCES += \
     bookmark_manager.cpp \
     change_viewport_task.cpp \
     compass_arrow.cpp \
-    country_status_display.cpp \
     country_tree.cpp \
     feature_vec_model.cpp \
     framework.cpp \

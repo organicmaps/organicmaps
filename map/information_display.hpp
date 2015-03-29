@@ -16,7 +16,6 @@ namespace location
 }
 
 class Framework;
-class CountryStatusDisplay;
 class CompassArrow;
 class Ruler;
 
@@ -32,7 +31,6 @@ class InformationDisplay
   ///@TODO UVR
   //gui::Controller * m_controller;
 
-  shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
   shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
   ///@TODO UVR
@@ -43,7 +41,6 @@ class InformationDisplay
   void InitDebugLabel();
   void InitLocationState(Framework * fw);
   void InitCompassArrow(Framework * fw);
-  void InitCountryStatusDisplay(Framework * fw);
 
   void InitCopyright(Framework * fw);
 
@@ -80,8 +77,6 @@ public:
   shared_ptr<location::State> const & locationState() const;
 
   void setEmptyCountryIndex(storage::TIndex const & idx);
-
-  shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
 
   void ResetRouteMatchingInfo();
 

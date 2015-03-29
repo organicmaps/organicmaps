@@ -22,7 +22,6 @@
 #include "anim/controller.hpp"
 #include "../Statistics/Statistics.h"
 
-#include "map/country_status_display.hpp"
 #include "map/user_mark.hpp"
 
 #include "platform/file_logging.hpp"

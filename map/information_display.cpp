@@ -1,5 +1,4 @@
 #include "map/information_display.hpp"
-#include "map/country_status_display.hpp"
 #include "map/compass_arrow.hpp"
 #include "map/framework.hpp"
 #include "map/alfa_animation_task.hpp"
@@ -33,7 +32,6 @@ InformationDisplay::InformationDisplay(Framework * fw)
   //m_fontDesc.m_color = Color(0x4D, 0x4D, 0x4D, 0xCC);
 
   InitRuler(fw);
-  InitCountryStatusDisplay(fw);
   InitCompassArrow(fw);
   InitLocationState(fw);
   InitDebugLabel();
@@ -57,18 +55,6 @@ void InformationDisplay::InitRuler(Framework * fw)
 
 //  m_ruler.reset(new Ruler(p));
 //  m_ruler->setIsVisible(false);
-}
-
-void InformationDisplay::InitCountryStatusDisplay(Framework * fw)
-{
-  ///@TODO UVR
-//  CountryStatusDisplay::Params p(fw->GetCountryTree().GetActiveMapLayout());
-
-//  p.m_pivot = m2::PointD(0, 0);
-//  p.m_position = EPosCenter;
-//  p.m_depth = countryStatusDepth;
-
-//  m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
 }
 
 void InformationDisplay::InitCopyright(Framework * fw)
@@ -267,12 +253,6 @@ void InformationDisplay::setEmptyCountryIndex(storage::TIndex const & idx)
 {
   ///@TODO UVR
   //m_countryStatusDisplay->SetCountryIndex(idx);
-}
-
-shared_ptr<CountryStatusDisplay> const & InformationDisplay::countryStatusDisplay() const
-{
-  ///@TODO UVR
-  return nullptr;//m_countryStatusDisplay;
 }
 
 shared_ptr<location::State> const & InformationDisplay::locationState() const
