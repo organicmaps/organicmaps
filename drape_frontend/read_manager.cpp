@@ -30,10 +30,10 @@ struct LessCoverageCell
 
 } // namespace
 
-ReadManager::ReadManager(EngineContext & context, MapDataProvider & model)
-  : m_context(context)
+ReadManager::ReadManager(dp::RefPointer<ThreadsCommutator> commutator, MapDataProvider & model)
+  : m_commutator(commutator)
   , m_model(model)
-  , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model, m_context))
+  , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
 {
   m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
@@ -61,7 +61,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
   else
   {
     // Find rects that go out from viewport
-    buffer_vector<tileinfo_ptr, 8> outdatedTiles;
+    buffer_vector<TTileInfoPtr, 8> outdatedTiles;
 #ifdef _MSC_VER
     vs_bug::
 #endif
@@ -87,7 +87,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
 
 void ReadManager::Invalidate(set<TileKey> const & keyStorage)
 {
-  tile_set_t::iterator it = m_tileInfos.begin();
+  TTileSet::iterator it = m_tileInfos.begin();
   for (; it != m_tileInfos.end(); ++it)
   {
     if (keyStorage.find((*it)->GetTileKey()) != keyStorage.end())
@@ -121,26 +121,26 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
 {
-  tileinfo_ptr tileInfo(new TileInfo(tileKey));
+  TTileInfoPtr tileInfo(new TileInfo(EngineContext(tileKey, m_commutator)));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
   task->Init(tileInfo);
   m_pool->PushBack(task);
 }
 
-void ReadManager::PushTaskFront(tileinfo_ptr const & tileToReread)
+void ReadManager::PushTaskFront(TTileInfoPtr const & tileToReread)
 {
   ReadMWMTask * task = myPool.Get();
   task->Init(tileToReread);
   m_pool->PushFront(task);
 }
 
-void ReadManager::CancelTileInfo(tileinfo_ptr const & tileToCancel)
+void ReadManager::CancelTileInfo(TTileInfoPtr const & tileToCancel)
 {
   tileToCancel->Cancel(m_memIndex);
 }
 
-void ReadManager::ClearTileInfo(tileinfo_ptr const & tileToClear)
+void ReadManager::ClearTileInfo(TTileInfoPtr const & tileToClear)
 {
   CancelTileInfo(tileToClear);
   m_tileInfos.erase(tileToClear);

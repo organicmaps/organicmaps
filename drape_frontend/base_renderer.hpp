@@ -2,8 +2,10 @@
 
 #include "message_acceptor.hpp"
 #include "threads_commutator.hpp"
-#include "../base/thread.hpp"
+
 #include "../drape/oglcontextfactory.hpp"
+
+#include "../base/thread.hpp"
 
 #include "../std/atomic.hpp"
 #include "../std/condition_variable.hpp"

@@ -13,12 +13,11 @@
 namespace df
 {
 
-RuleDrawer::RuleDrawer(drawer_callback_fn const & fn, TileKey const & tileKey, EngineContext & context)
+RuleDrawer::RuleDrawer(TDrawerCallback const & fn, EngineContext & context)
   : m_callback(fn)
-  , m_tileKey(tileKey)
   , m_context(context)
 {
-  m_globalRect = m_tileKey.GetGlobalRect();
+  m_globalRect = context.GetTileKey().GetGlobalRect();
 
   int32_t tileSize = df::VisualParams::Instance().GetTileSize();
   m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
@@ -47,23 +46,24 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
 #endif
 
+  int zoomLevel = m_context.GetTileKey().m_zoomLevel;
+
   if (s.AreaStyleExists())
   {
-    ApplyAreaFeature apply(m_context, m_tileKey, f.GetID(), s.GetCaptionDescription());
-    f.ForEachTriangleRef(apply, m_tileKey.m_zoomLevel);
+    ApplyAreaFeature apply(m_context, f.GetID(), s.GetCaptionDescription());
+    f.ForEachTriangleRef(apply, zoomLevel);
 
     if (s.PointStyleExists())
-      apply(feature::GetCenter(f, m_tileKey.m_zoomLevel));
+      apply(feature::GetCenter(f, zoomLevel));
 
     s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
     apply.Finish();
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_context, m_tileKey, f.GetID(),
-                           s.GetCaptionDescription(),
+    ApplyLineFeature apply(m_context, f.GetID(), s.GetCaptionDescription(),
                            m_currentScaleGtoP);
-    f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
+    f.ForEachPointRef(apply, zoomLevel);
 
     if (apply.HasGeometry())
       s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
@@ -72,8 +72,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
-    ApplyPointFeature apply(m_context, m_tileKey, f.GetID(), s.GetCaptionDescription());
-    f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
+    ApplyPointFeature apply(m_context, f.GetID(), s.GetCaptionDescription());
+    f.ForEachPointRef(apply, zoomLevel);
 
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
     apply.Finish();

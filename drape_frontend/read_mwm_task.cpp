@@ -4,11 +4,9 @@
 
 namespace df
 {
-ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model,
-                         EngineContext & context)
+ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model)
   : m_memIndex(memIndex)
   , m_model(model)
-  , m_context(context)
 {
 #ifdef DEBUG
   m_checker = false;
@@ -42,7 +40,7 @@ void ReadMWMTask::Do()
   try
   {
     tileInfo->ReadFeatureIndex(m_model);
-    tileInfo->ReadFeatures(m_model, m_memIndex, m_context);
+    tileInfo->ReadFeatures(m_model, m_memIndex);
   }
   catch (TileInfo::ReadCanceledException & ex)
   {

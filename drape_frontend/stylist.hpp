@@ -56,9 +56,9 @@ public:
 
   CaptionDescription const & GetCaptionDescription() const;
 
-  typedef pair<drule::BaseRule const *, double> rule_wrapper_t;
-  typedef function<void (rule_wrapper_t const &)> rule_callback_t;
-  void ForEachRule(rule_callback_t const & fn);
+  using TRuleWrapper = pair<drule::BaseRule const *, double>;
+  using TRuleCallback = function<void (TRuleWrapper const &)>;
+  void ForEachRule(TRuleCallback const & fn);
 
   bool IsEmpty() const;
 
@@ -75,7 +75,7 @@ private:
   CaptionDescription & GetCaptionDescriptionImpl();
 
 private:
-  typedef buffer_vector<rule_wrapper_t, 8> rules_t;
+  typedef buffer_vector<TRuleWrapper, 8> rules_t;
   rules_t m_rules;
 
   uint8_t m_state;

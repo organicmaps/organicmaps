@@ -1,15 +1,14 @@
-#include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/engine_context.hpp"
-#include "drape_frontend/stylist.hpp"
-#include "drape_frontend/rule_drawer.hpp"
 #include "drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/rule_drawer.hpp"
+#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/tile_info.hpp"
 
 #include "indexer/scales.hpp"
 
 #include "base/scope_guard.hpp"
 
 #include "std/bind.hpp"
-
 
 namespace
 {
@@ -37,20 +36,19 @@ struct IDsAccumulator
 namespace df
 {
 
-TileInfo::TileInfo(TileKey const & key)
-  : m_key(key)
+TileInfo::TileInfo(EngineContext const & context)
+  : m_context(context)
   , m_isCanceled(false)
 {}
 
 m2::RectD TileInfo::GetGlobalRect() const
 {
-  return m_key.GetGlobalRect();
+  return GetTileKey().GetGlobalRect();
 }
 
 void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 {
-  threads::MutexGuard guard(m_mutex);
-  UNUSED_VALUE(guard);
+  lock_guard<mutex> lock(m_mutex);
 
   if (DoNeedReadIndex())
   {
@@ -61,8 +59,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 }
 
 void TileInfo::ReadFeatures(MapDataProvider const & model,
-                            MemoryFeatureIndex & memIndex,
-                            EngineContext & context)
+                            MemoryFeatureIndex & memIndex)
 {
   CheckCanceled();
   vector<size_t> indexes;
@@ -70,15 +67,15 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
 
   if (!indexes.empty())
   {
-    context.BeginReadTile(m_key);
+    m_context.BeginReadTile();
 
     // Reading can be interrupted by exception throwing
-    MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &context, m_key));
+    MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &m_context));
 
     vector<FeatureID> featuresToRead;
     for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_key, context);
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_context);
     model.ReadFeatures(ref(drawer), featuresToRead);
   }
 }
@@ -86,8 +83,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
 void TileInfo::Cancel(MemoryFeatureIndex & memIndex)
 {
   m_isCanceled = true;
-  threads::MutexGuard guard(m_mutex);
-  UNUSED_VALUE(guard);
+  lock_guard<mutex> lock(m_mutex);
   memIndex.RemoveFeatures(m_featureInfo);
 }
 
@@ -112,7 +108,7 @@ bool TileInfo::DoNeedReadIndex() const
 
 void TileInfo::RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes)
 {
-  threads::MutexGuard guard(m_mutex);
+  lock_guard<mutex> lock(m_mutex);
   memIndex.ReadFeaturesRequest(m_featureInfo, featureIndexes);
 }
 
@@ -125,7 +121,8 @@ void TileInfo::CheckCanceled() const
 int TileInfo::GetZoomLevel() const
 {
   int const upperScale = scales::GetUpperScale();
-  return (m_key.m_zoomLevel <= upperScale ? m_key.m_zoomLevel : upperScale);
+  int const zoomLevel = m_context.GetTileKey().m_zoomLevel;
+  return (zoomLevel <= upperScale ? zoomLevel : upperScale);
 }
 
 } // namespace df

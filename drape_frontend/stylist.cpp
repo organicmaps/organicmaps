@@ -133,7 +133,7 @@ public:
   bool m_iconFinded;
   bool m_captionWithoutOffsetFinded;
   bool m_auxCaptionFinded;
-  buffer_vector<Stylist::rule_wrapper_t, 8> m_rules;
+  buffer_vector<Stylist::TRuleWrapper, 8> m_rules;
 
 private:
   void Init()
@@ -286,7 +286,7 @@ CaptionDescription const & Stylist::GetCaptionDescription() const
   return m_captionDescriptor;
 }
 
-void Stylist::ForEachRule(Stylist::rule_callback_t const & fn)
+void Stylist::ForEachRule(Stylist::TRuleCallback const & fn)
 {
   typedef rules_t::const_iterator const_iter;
   for (const_iter it = m_rules.begin(); it != m_rules.end(); ++it)

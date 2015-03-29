@@ -108,10 +108,9 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 
 } // namespace
 
-BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey,
-                                   FeatureID const & id, CaptionDescription const & caption)
+BaseApplyFeature::BaseApplyFeature(EngineContext & context, FeatureID const & id,
+                                   CaptionDescription const & caption)
   : m_context(context)
-  , m_tileKey(tileKey)
   , m_id(id)
   , m_captions(caption)
 {
@@ -143,9 +142,9 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
 
 // ============================================= //
 
-ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey,
-                                     FeatureID const & id, CaptionDescription const & captions)
-  : TBase(context, tileKey, id, captions)
+ApplyPointFeature::ApplyPointFeature(EngineContext & context, FeatureID const & id,
+                                     CaptionDescription const & captions)
+  : TBase(context, id, captions)
   , m_hasPoint(false)
   , m_symbolDepth(dp::minDepth)
   , m_circleDepth(dp::minDepth)
@@ -160,7 +159,7 @@ void ApplyPointFeature::operator()(m2::PointD const & point)
   m_centerPoint = point;
 }
 
-void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
+void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 {
   if (m_hasPoint == false)
     return;
@@ -174,7 +173,7 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     TextViewParams params;
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
+      m_context.InsertShape(dp::MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
   }
 
   SymbolRuleProto const * symRule =  pRule->GetSymbol();
@@ -206,7 +205,7 @@ void ApplyPointFeature::Finish()
     params.m_radius = m_circleRule->radius();
 
     CircleShape * shape = new CircleShape(m_centerPoint, params);
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
+    m_context.InsertShape(dp::MovePointer<MapShape>(shape));
   }
   else if (m_symbolRule)
   {
@@ -215,15 +214,15 @@ void ApplyPointFeature::Finish()
     params.m_symbolName = m_symbolRule->name();
 
     PoiSymbolShape * shape = new PoiSymbolShape(m_centerPoint, params);
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
+    m_context.InsertShape(dp::MovePointer<MapShape>(shape));
   }
 }
 
 // ============================================= //
 
-ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, TileKey tileKey,
-                                   FeatureID const & id, CaptionDescription const & captions)
-  : TBase(context, tileKey, id, captions)
+ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, FeatureID const & id,
+                                   CaptionDescription const & captions)
+  : TBase(context, id, captions)
 {
 }
 
@@ -242,7 +241,7 @@ void ApplyAreaFeature::operator()(m2::PointD const & p1, m2::PointD const & p2, 
   }
 }
 
-void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
+void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 {
   drule::BaseRule const * pRule = rule.first;
   double const depth = rule.second;
@@ -255,7 +254,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     params.m_color = ToDrapeColor(areaRule->color());
 
     AreaShape * shape = new AreaShape(move(m_triangles), params);
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
+    m_context.InsertShape(dp::MovePointer<MapShape>(shape));
   }
   else
     TBase::ProcessRule(rule);
@@ -263,10 +262,10 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 
 // ============================================= //
 
-ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey,
-                                   FeatureID const & id, CaptionDescription const & captions,
+ApplyLineFeature::ApplyLineFeature(EngineContext & context, FeatureID const & id,
+                                   CaptionDescription const & captions,
                                    double currentScaleGtoP)
-  : TBase(context, tileKey, id, captions)
+  : TBase(context, id, captions)
   , m_currentScaleGtoP(currentScaleGtoP)
 {
 }
@@ -284,7 +283,7 @@ bool ApplyLineFeature::HasGeometry() const
   return m_spline->IsValid();
 }
 
-void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
+void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
 {
   ASSERT(HasGeometry(), ());
   drule::BaseRule const * pRule = rule.first;
@@ -309,7 +308,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_spline, params)));
+    m_context.InsertShape(dp::MovePointer<MapShape>(new PathTextShape(m_spline, params)));
   }
 
   if (pLineRule != NULL)
@@ -325,7 +324,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_step = symRule.step() * mainScale;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params)));
+      m_context.InsertShape(dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params)));
     }
     else
     {
@@ -333,7 +332,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       Extract(pLineRule, params);
       params.m_depth = depth;
       params.m_baseGtoPScale = m_currentScaleGtoP;
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline, params)));
+      m_context.InsertShape(dp::MovePointer<MapShape>(new LineShape(m_spline, params)));
     }
   }
 }
@@ -365,7 +364,7 @@ void ApplyLineFeature::Finish()
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())
     {
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new TextShape(it.m_pos, viewParams)));
+      m_context.InsertShape(dp::MovePointer<MapShape>(new TextShape(it.m_pos, viewParams)));
       it.Advance(splineStep);
     }
   }

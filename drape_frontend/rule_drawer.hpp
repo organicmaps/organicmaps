@@ -16,20 +16,18 @@ namespace df
 
 class EngineContext;
 class Stylist;
-typedef function<void (FeatureType const &, Stylist &)> drawer_callback_fn;
+typedef function<void (FeatureType const &, Stylist &)> TDrawerCallback;
 
 class RuleDrawer
 {
 public:
-  RuleDrawer(drawer_callback_fn const & fn,
-             TileKey const & tileKey,
+  RuleDrawer(TDrawerCallback const & fn,
              EngineContext & context);
 
   void operator() (FeatureType const & f);
 
 private:
-  drawer_callback_fn m_callback;
-  TileKey m_tileKey;
+  TDrawerCallback m_callback;
   EngineContext & m_context;
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
