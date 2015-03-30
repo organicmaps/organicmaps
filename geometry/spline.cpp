@@ -11,7 +11,7 @@ Spline::Spline(vector<PointD> const & path)
 {
   ASSERT(path.size() > 1, ("Wrong path size!"));
   m_position.assign(path.begin(), path.end());
-  int cnt = m_position.size() - 1;
+  size_t cnt = m_position.size() - 1;
   m_direction = vector<PointD>(cnt);
   m_length = vector<double>(cnt);
 
