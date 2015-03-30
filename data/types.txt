@@ -991,3 +991,5 @@ junction|roundabout
 highway|speed_camera
 shop|beauty
 shop|sports
+route|ferry|motor_vehicle
+railway|rail|motor_vehicle

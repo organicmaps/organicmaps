@@ -581,6 +581,7 @@ world  +
         proposed  -
         rail  +
             bridge  -
+            motor_vehicle  -
             tunnel  -
             {}
         razed  -
@@ -639,6 +640,7 @@ world  +
         {}
     route  +
         ferry  +
+            motor_vehicle  -
             motorcar  -
             {}
         {}

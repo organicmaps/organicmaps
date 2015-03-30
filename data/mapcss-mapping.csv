@@ -991,3 +991,5 @@ junction|roundabout;[junction=roundabout];;name;int_name;990;
 highway|speed_camera;[highway=speed_camera];;name;int_name;991;
 shop|beauty;[shop=beauty];;name;int_name;992;
 shop|sports;[shop=sports];;name;int_name;993;
+route|ferry|motor_vehicle;[route=ferry];;name;int_name;994;
+railway|rail|motor_vehicle;[railway=rail];;name;int_name;995;

@@ -49777,6 +49777,265 @@ cont {
   }
 }
 cont {
+  name: "railway-rail-motor_vehicle"
+  element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 13421772
+      priority: 1171
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 13421772
+      priority: 1171
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.0
+      color: 13421772
+      priority: 1234
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.85
+      color: 12303291
+      priority: 1256
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 3.0
+      color: 8947848
+      priority: 1207
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 1.8
+      color: 15658734
+      priority: 1295
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 1.8
+      color: 8947848
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1331
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 16207
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 4.0
+      color: 6710886
+      priority: 1301
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 2.4
+      color: 15658734
+      priority: 1367
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 2.4
+      color: 6710886
+      dashdot {
+        dd: 9.0
+        dd: 9.0
+      }
+      priority: 1370
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 16301
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.4
+      color: 15658734
+      priority: 1626
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 4.0
+      color: 6710886
+      priority: 1521
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 2.4
+      color: 6710886
+      dashdot {
+        dd: 12.0
+        dd: 12.0
+      }
+      priority: 1659
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 16626
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 4.4
+      color: 6710886
+      priority: 1563
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 3.2
+      color: 15658734
+      priority: 1689
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 3.2
+      color: 6710886
+      dashdot {
+        dd: 12.0
+        dd: 12.0
+      }
+      priority: 1737
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 16563
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.4
+      color: 6710886
+      priority: 1563
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 3.2
+      color: 15658734
+      priority: 1689
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 3.2
+      color: 6710886
+      dashdot {
+        dd: 12.0
+        dd: 12.0
+      }
+      priority: 1737
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 16563
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 4.4
+      color: 6710886
+      priority: 1563
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 3.2
+      color: 15658734
+      priority: 1689
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 3.2
+      color: 6710886
+      dashdot {
+        dd: 12.0
+        dd: 12.0
+      }
+      priority: 1737
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    path_text {
+      primary {
+        height: 12
+        color: 3364317
+        stroke_color: 16777215
+      }
+      priority: 16563
+    }
+  }
+}
+cont {
   name: "railway-razed"
   element {
     scale: 16
@@ -56429,6 +56688,149 @@ cont {
 }
 cont {
   name: "route-ferry"
+  element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1174
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1174
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1376
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1412
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1475
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 7.0
+        dd: 5.0
+      }
+      priority: 1650
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1837
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1927
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1927
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1927
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "route-ferry-motor_vehicle"
   element {
     scale: 10
     lines {

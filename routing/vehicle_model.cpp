@@ -47,14 +47,21 @@ CarModel::CarModel()
 
 VehicleModel::VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits)
   : m_maxSpeed(0),
-    m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" })),
-    m_ferryType(c.GetTypeByPath({ "route", "ferry", "motorcar" }))
+    m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
 {
   for (size_t i = 0; i < speedLimits.size(); ++i)
   {
     m_maxSpeed = max(m_maxSpeed, speedLimits[i].m_speed);
     m_types[c.GetTypeByPath(vector<string>(speedLimits[i].m_types, speedLimits[i].m_types + 2))] = speedLimits[i];
   }
+
+  initializer_list<char const *> arr[] = {
+    { "route", "ferry", "motorcar" },
+    { "route", "ferry", "motor_vehicle" },
+    { "railway", "rail", "motor_vehicle" },
+  };
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_addRoadTypes.push_back(c.GetTypeByPath(arr[i]));
 }
 
 double VehicleModel::GetSpeed(FeatureType const & f) const
@@ -109,7 +116,7 @@ bool VehicleModel::IsRoad(vector<uint32_t> const & types) const
 
 bool VehicleModel::IsRoad(uint32_t type) const
 {
-  return (type == m_ferryType ||
+  return (find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
           m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end());
 }
 

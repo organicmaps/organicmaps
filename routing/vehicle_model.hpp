@@ -1,4 +1,6 @@
 #pragma once
+#include "../base/buffer_vector.hpp"
+
 #include "../std/unordered_map.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
@@ -51,7 +53,8 @@ private:
   typedef unordered_map<uint32_t, SpeedForType> TypesT;
   TypesT m_types;
 
-  uint32_t m_onewayType, m_ferryType;
+  buffer_vector<uint32_t, 4> m_addRoadTypes;
+  uint32_t m_onewayType;
 };
 
 class CarModel : public VehicleModel
