@@ -95,11 +95,19 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     RecacheGui(CastMessage<GuiRecacheMessage>(message)->GetElements());
     break;
   case Message::TileReadStarted:
-    m_batchersPool->ReserveBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
-    break;
+    {
+      m_batchersPool->ReserveBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
+      break;
+    }
   case Message::TileReadEnded:
-    m_batchersPool->ReleaseBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
-    break;
+    {
+      TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
+      m_batchersPool->ReleaseBatcher(msg->GetKey());
+
+      TileReadEndMessage * outputMsg = new TileReadEndMessage(msg->GetKey());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg), MessagePriority::Normal);
+      break;
+    }
   case Message::MapShapeReaded:
     {
       MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);

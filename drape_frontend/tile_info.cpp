@@ -61,17 +61,17 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 void TileInfo::ReadFeatures(MapDataProvider const & model,
                             MemoryFeatureIndex & memIndex)
 {
+  m_context.BeginReadTile();
+
+  // Reading can be interrupted by exception throwing
+  MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &m_context));
+
   CheckCanceled();
   vector<size_t> indexes;
   RequestFeatures(memIndex, indexes);
 
   if (!indexes.empty())
   {
-    m_context.BeginReadTile();
-
-    // Reading can be interrupted by exception throwing
-    MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &m_context));
-
     vector<FeatureID> featuresToRead;
     for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 

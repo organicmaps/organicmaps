@@ -79,8 +79,8 @@ void FrontendRenderer::AfterDrawFrame()
 
     m_tpf = accumulate(m_tpfs.begin(), m_tpfs.end(), 0.0) / m_tpfs.size();
 
-    //LOG(LINFO, ("Average Fps : ", m_fps));
-    //LOG(LINFO, ("Average Tpf : ", m_tpf));
+    LOG(LINFO, ("Average Fps : ", m_fps));
+    LOG(LINFO, ("Average Tpf : ", m_tpf));
 
 #if defined(TRACK_GPU_MEM)
     string report = dp::GPUMemTracker::Inst().Report();
@@ -141,6 +141,15 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       break;
     }
 
+  case Message::TileReadEnded:
+    {
+      TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
+      TileKey const & key = msg->GetKey();
+      if (!IsUserMarkLayer(key))
+        FinishTileRenderGroup(key);
+      break;
+    }
+
   case Message::Resize:
     {
       ResizeMessage * rszMsg = df::CastMessage<ResizeMessage>(message);
@@ -153,13 +162,13 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       ResolveTileKeys();
 
       TTilesCollection tiles;
-      m_tileTree.GetRequestedTiles(tiles);
+      m_tileTree.GetTilesCollection(tiles, df::GetTileScaleBase(m_view));
 
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
                                 MessagePriority::Normal);
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, tiles)),
+                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, move(tiles))),
                                 MessagePriority::Normal);
       break;
     }
@@ -237,10 +246,7 @@ void FrontendRenderer::CreateTileRenderGroup(dp::GLState const & state,
   auto onAddTile = [&state, &renderBucket, this](TileKey const & tileKey, TileStatus tileStatus)
   {
     if (tileStatus == TileStatus::Rendered)
-    {
       AddToRenderGroup(m_renderGroups, state, renderBucket, tileKey);
-      LOG(LINFO, ("Render tile", tileKey, tileStatus));
-    }
     else if (tileStatus == TileStatus::Deferred)
       OnAddDeferredTile(tileKey, tileStatus);
     else
@@ -251,31 +257,30 @@ void FrontendRenderer::CreateTileRenderGroup(dp::GLState const & state,
   auto onDeferTile = [&state, &renderBucket, this](TileKey const & tileKey, TileStatus tileStatus)
   {
     AddToRenderGroup(m_deferredRenderGroups, state, renderBucket, tileKey);
-    LOG(LINFO, ("Defer tile", tileKey, tileStatus));
   };
 
   // removing tiles
   auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
   {
     OnRemoveTile(tileKey, tileStatus);
-    LOG(LINFO, ("Remove tile", tileKey, tileStatus));
   };
 
   bool const result = m_tileTree.ProcessTile(newTile, onAddTile, onRemoveTile, onDeferTile);
   if (!result)
-  {
     renderBucket.Destroy();
-    LOG(LINFO, ("Skip tile", newTile));
-  }
+}
 
-  LOG(LINFO, ("Deferred count = ", m_deferredRenderGroups.size()));
-  if (m_deferredRenderGroups.size() != 0)
+void FrontendRenderer::FinishTileRenderGroup(TileKey const & newTile)
+{
+  auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
   {
-    LOG(LINFO, ("Zoom level: ", df::GetTileScaleBase(m_view)));
-    LOG(LINFO, ("Tile tree: ", m_tileTree));
-    LOG(LINFO, ("Rendered tiles: ", m_renderGroups));
-    LOG(LINFO, ("Deferred tiles: ", m_deferredRenderGroups));
-  }
+    OnRemoveTile(tileKey, tileStatus);
+  };
+  auto onAddDeferredTile = [this](TileKey const & tileKey, TileStatus tileStatus)
+  {
+    OnAddDeferredTile(tileKey, tileStatus);
+  };
+  m_tileTree.FinishTile(newTile, onAddDeferredTile, onRemoveTile);
 }
 
 void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
@@ -301,8 +306,6 @@ void FrontendRenderer::OnAddDeferredTile(TileKey const & tileKey, TileStatus til
     else
       ++it;
   }
-
-  LOG(LINFO, ("Add deferred tile", tileKey, tileStatus));
 }
 
 void FrontendRenderer::OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus)
@@ -463,14 +466,15 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
   auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
   {
     OnRemoveTile(tileKey, tileStatus);
-    LOG(LINFO, ("Clip tile", tileKey, tileStatus));
   };
-
-  m_tileTree.ClipByRect(clipRect, bind(&FrontendRenderer::OnAddDeferredTile, this, _1, _2),
-                        onRemoveTile);
+  auto onAddDeferredTile = [this](TileKey const & tileKey, TileStatus tileStatus)
+  {
+    OnAddDeferredTile(tileKey, tileStatus);
+  };
+  m_tileTree.ClipByRect(clipRect, onAddDeferredTile, onRemoveTile);
 
   // request new tiles
-  m_tileTree.BeginRequesting(tileScale);
+  m_tileTree.BeginRequesting(tileScale, onRemoveTile);
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
@@ -480,9 +484,7 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
         m_tileTree.RequestTile(key);
     }
   }
-  m_tileTree.EndRequesting();
-
-  //LOG(LINFO, (m_tileTree));
+  m_tileTree.EndRequesting(onRemoveTile);
 }
 
 void FrontendRenderer::StartThread()
@@ -581,10 +583,10 @@ void FrontendRenderer::UpdateScene()
     ResolveTileKeys();
 
     TTilesCollection tiles;
-    m_tileTree.GetRequestedTiles(tiles);
+    m_tileTree.GetTilesCollection(tiles, df::GetTileScaleBase(m_view));
 
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, tiles)),
+                              dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, move(tiles))),
                               MessagePriority::Normal);
   }
 }

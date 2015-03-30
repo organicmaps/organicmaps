@@ -108,8 +108,8 @@ private:
 class UpdateReadManagerMessage : public Message
 {
 public:
-  UpdateReadManagerMessage(ScreenBase const & screen, TTilesCollection const & tiles)
-    : m_tiles(tiles)
+  UpdateReadManagerMessage(ScreenBase const & screen, TTilesCollection && tiles)
+    : m_tiles(move(tiles))
     , m_screen(screen)
   {}
 

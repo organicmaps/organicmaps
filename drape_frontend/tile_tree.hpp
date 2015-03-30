@@ -20,49 +20,53 @@ public:
 
   using TTileHandler = function<void(TileKey const &, TileStatus)>;
 
-  void BeginRequesting(int const zoomLevel);
+  void BeginRequesting(int const zoomLevel, TTileHandler const & removeTile);
   void RequestTile(TileKey const & tileKey);
-  void EndRequesting();
+  void EndRequesting(TTileHandler const & removeTile);
 
   bool ProcessTile(TileKey const & tileKey, TTileHandler const & addTile,
                    TTileHandler const & removeTile, TTileHandler const & deferTile);
-  void ClipByRect(m2::RectD const & rect, TTileHandler const & addTile,
+
+  void FinishTile(TileKey const & tileKey, TTileHandler const & addDeferredTile,
+                  TTileHandler const & removeTile);
+
+  void ClipByRect(m2::RectD const & rect, TTileHandler const & addDeferredTile,
                   TTileHandler const & removeTile);
   void Clear();
 
-  bool ContainsTileKey(TileKey const & tileKey);
-  void GetRequestedTiles(TTilesCollection & tiles);
+  void GetTilesCollection(TTilesCollection & tiles, int const zoomLevel);
 
 private:
   struct Node;
   using TNodePtr = unique_ptr<Node>;
 
   void InsertToNode(TNodePtr const & node, TileKey const & tileKey);
-  void AbortRequestedTiles(TNodePtr const & node, int const zoomLevel);
+  void AbortTiles(TNodePtr const & node, int const zoomLevel, TTileHandler const & removeTile);
 
-  void FindRequestedTiles(TNodePtr const & node, TTilesCollection & tiles);
-  bool ContainsTileKey(TNodePtr const & node, TileKey const & tileKey);
+  void FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel);
 
   void ClipNode(TNodePtr const & node, m2::RectD const & rect,
                 TTileHandler const & removeTile);
+  void CheckDeferredTiles(TNodePtr const & node, TTileHandler const & addTile,
+                          TTileHandler const & removeTile);
 
   void RemoveTile(TNodePtr const & node, TTileHandler const & removeTile);
 
   bool ProcessNode(TNodePtr const & node, TileKey const & tileKey,
                    TTileHandler const & addTile, TTileHandler const & removeTile,
                    TTileHandler const & deferTile);
+  bool FinishNode(TNodePtr const & node, TileKey const & tileKey);
 
   void DeleteTilesBelow(TNodePtr const & node, TTileHandler const & removeTile);
   void DeleteTilesAbove(TNodePtr const & node, TTileHandler const & addTile,
                         TTileHandler const & removeTile);
 
   void SimplifyTree(TTileHandler const & removeTile);
-  void SimplifyTree(TNodePtr const & node, TTileHandler const & removeTile);
+  void ClearEmptyLevels(TNodePtr const & node, TTileHandler const & removeTile);
   bool ClearObsoleteTiles(TNodePtr const & node, TTileHandler const & removeTile);
-  void CheckDeferredTiles(TNodePtr const & node, TTileHandler const & addTile,
-                          TTileHandler const & removeTile);
 
-  bool HaveChildrenSameStatus(TNodePtr const & node, TileStatus tileStatus);
+  bool HaveChildrenSameStatus(TNodePtr const & node, TileStatus tileStatus) const;
+  bool HaveGrandchildrenSameZoomLevel(TNodePtr const & node) const;
 
 private:
   struct Node

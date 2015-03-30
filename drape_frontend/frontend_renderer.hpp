@@ -99,6 +99,7 @@ private:
   void CreateTileRenderGroup(dp::GLState const & state,
                              dp::MasterPointer<dp::RenderBucket> & renderBucket,
                              TileKey const & newTile);
+  void FinishTileRenderGroup(TileKey const & newTile);
   void AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
                         dp::GLState const & state,
                         dp::MasterPointer<dp::RenderBucket> & renderBucket,
