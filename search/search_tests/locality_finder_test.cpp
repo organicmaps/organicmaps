@@ -1,6 +1,8 @@
 #include "../../testing/testing.hpp"
 
+#include "../../indexer/data_header.hpp"
 #include "../../indexer/index.hpp"
+
 #include "../locality_finder.hpp"
 
 namespace
@@ -33,7 +35,8 @@ UNIT_TEST(LocalityFinder)
 {
   Index index;
   m2::RectD rect;
-  TEST(index.Register("World.mwm", rect), ());
+  feature::DataHeader::Version version;
+  TEST(index.Register("World.mwm", rect, version), ());
 
   search::LocalityFinder finder(&index);
   finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));

@@ -32,26 +32,25 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-int FeaturesFetcher::RegisterMap(string const & file)
+bool FeaturesFetcher::RegisterMap(string const & file, feature::DataHeader::Version & version)
 {
-  int version = -1;
-
   try
   {
     m2::RectD r;
-    version = m_multiIndex.RegisterMap(file, r);
-
-    if (version != -1)
-      m_rect.Add(r);
-    else
-      LOG(LWARNING, ("Can't add map", file, "Probably it's already added or has newer data version."));
+    if (!m_multiIndex.RegisterMap(file, r, version))
+    {
+      LOG(LWARNING,
+          ("Can't add map", file, "Probably it's already added or has newer data version."));
+      return false;
+    }
+    m_rect.Add(r);
+    return true;
   }
   catch (RootException const & e)
   {
     LOG(LERROR, ("IO error while adding ", file, " map. ", e.what()));
+    return false;
   }
-
-  return version;
 }
 
 void FeaturesFetcher::DeregisterMap(string const & file) { m_multiIndex.Deregister(file); }
@@ -65,7 +64,8 @@ bool FeaturesFetcher::DeleteMap(string const & file)
 
 bool FeaturesFetcher::UpdateMap(string const & file, m2::RectD & rect)
 {
-  return m_multiIndex.UpdateMap(file, rect) >= 0;
+  feature::DataHeader::Version version;
+  return m_multiIndex.UpdateMap(file, rect, version);
 }
 
 //void FeaturesFetcher::Clean()

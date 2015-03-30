@@ -9,10 +9,11 @@
 #include "../routing/osrm_router.hpp"
 #include "../routing/cross_routing_context.hpp"
 
-#include "../indexer/index.hpp"
 #include "../indexer/classificator_loader.hpp"
+#include "../indexer/data_header.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
+#include "../indexer/index.hpp"
 #include "../indexer/mercator.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"
@@ -226,7 +227,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
   Index index;
   m2::RectD rect;
-  if (!index.Register(mwmFile, rect))
+  feature::DataHeader::Version version;
+  if (!index.Register(mwmFile, rect, version))
   {
     LOG(LCRITICAL, ("MWM file not found"));
     return;

@@ -1,4 +1,6 @@
 #include "../../testing/testing.hpp"
+
+#include "../data_header.hpp"
 #include "../index.hpp"
 
 #include "../../coding/file_name_utils.hpp"
@@ -75,7 +77,8 @@ UNIT_TEST(Index_Parse)
   Index index;
 
   m2::RectD dummyRect;
-  index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION, dummyRect);
+  feature::DataHeader::Version dummyVersion;
+  index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION, dummyRect, dummyVersion);
 
   // Make sure that index is actually parsed.
   NoopFunctor fn;
@@ -100,14 +103,15 @@ UNIT_TEST(Index_MwmStatusNotifications)
 
   TEST_EQUAL(0, observer.map_registered_calls(), ());
   m2::RectD dummyRect;
+  feature::DataHeader::Version dummyVersion;
 
   // Check that observers are triggered after map registration.
-  TEST_LESS_OR_EQUAL(0, index.RegisterMap(testMapName, dummyRect), ());
+  TEST(index.RegisterMap(testMapName, dummyRect, dummyVersion), ());
   TEST_EQUAL(1, observer.map_registered_calls(), ());
 
   // Check that map can't registered twice and observers aren't
   // triggered.
-  TEST_EQUAL(-1, index.RegisterMap(testMapName, dummyRect), ());
+  TEST(!index.RegisterMap(testMapName, dummyRect, dummyVersion), ());
   TEST_EQUAL(1, observer.map_registered_calls(), ());
 
   TEST(my::CopyFileX(testMapPath, testMapUpdatePath), ());
@@ -116,7 +120,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
   // Check that observers are notified when map is deleted.
   TEST_EQUAL(0, observer.map_update_is_ready_calls(), ());
   TEST_EQUAL(0, observer.map_updated_calls(), ());
-  TEST_LESS_OR_EQUAL(0, index.UpdateMap(testMapName, dummyRect), ());
+  TEST_EQUAL(Index::UPDATE_STATUS_OK, index.UpdateMap(testMapName, dummyRect, dummyVersion), ());
   TEST_EQUAL(1, observer.map_update_is_ready_calls(), ());
   TEST_EQUAL(1, observer.map_updated_calls(), ());
 

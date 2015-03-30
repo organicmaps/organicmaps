@@ -11,12 +11,14 @@ namespace
   class TestMwmSet : public MwmSet
   {
   protected:
-    virtual int GetInfo(string const & path, MwmInfo & info) const
+    virtual bool GetVersion(string const & path, MwmInfo & info,
+                            feature::DataHeader::Version & version) const
     {
       int n = path[0] - '0';
       info.m_maxScale = n;
       info.m_limitRect = m2::RectD(0, 0, 1, 1);
-      return 1;
+      version = feature::DataHeader::lastVersion;
+      return true;
     }
     virtual MwmValue * CreateValue(string const &) const
     {

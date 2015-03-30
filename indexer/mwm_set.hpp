@@ -1,4 +1,7 @@
 #pragma once
+
+#include "data_header.hpp"
+
 #include "../geometry/rect2d.hpp"
 
 #include "../std/deque.hpp"
@@ -83,20 +86,25 @@ public:
   /// Registers new map in the set.
   /// @param[in]  fileName  File name (without full path) of country.
   /// @param[out] rect      Limit rect of country.
-  /// @return Map format version or -1 if not added (already exists).
+  /// @param[out] version   Version of the file.
+  ///
+  /// @return True when map is registered, false otherwise - map already
+  /// exists or it's not possible to get mwm's version.
   //@{
 protected:
-  int RegisterImpl(string const & fileName, m2::RectD & rect);
+  bool RegisterImpl(string const & fileName, m2::RectD & rect,
+                    feature::DataHeader::Version & version);
 
 public:
-  int Register(string const & fileName, m2::RectD & rect);
+  bool Register(string const & fileName, m2::RectD & rect, feature::DataHeader::Version & version);
   //@}
 
   /// Used in unit tests only.
   inline void Register(string const & fileName)
   {
-    m2::RectD dummy;
-    CHECK(Register(fileName, dummy), ());
+    m2::RectD dummyRect;
+    feature::DataHeader::Version dummyVersion;
+    CHECK(Register(fileName, dummyRect, dummyVersion), ());
   }
 
   /// @name Remove mwm.
@@ -126,8 +134,10 @@ public:
   void ClearCache();
 
 protected:
-  /// @return mwm format version
-  virtual int GetInfo(string const & name, MwmInfo & info) const = 0;
+  /// @return True when it's possible to get file format version - in
+  ///         this case version is set to the file format version.
+  virtual bool GetVersion(string const & name, MwmInfo & info,
+                          feature::DataHeader::Version & version) const = 0;
   virtual MwmValueBase * CreateValue(string const & name) const = 0;
 
   void Cleanup();

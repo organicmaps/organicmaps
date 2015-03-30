@@ -2,6 +2,7 @@
 
 #include "../../map/feature_vec_model.hpp"
 
+#include "../../indexer/data_header.hpp"
 #include "../../indexer/interval_index.hpp"
 
 #include "../../platform/platform.hpp"
@@ -23,7 +24,8 @@ UNIT_TEST(CheckMWM_LoadAll)
   {
     try
     {
-      m.RegisterMap(s);
+      feature::DataHeader::Version version;
+      m.RegisterMap(s, version);
     }
     catch (RootException const & ex)
     {

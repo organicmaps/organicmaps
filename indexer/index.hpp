@@ -30,16 +30,23 @@ public:
   string GetFileName() const;
 };
 
-
 class Index : public MwmSet
 {
 protected:
-  /// @return mwm format version or -1 if file isn't suitable (greater version).
-  virtual int GetInfo(string const & name, MwmInfo & info) const;
-  virtual MwmValue * CreateValue(string const & name) const;
-  virtual void UpdateMwmInfo(MwmId id);
+  // MwmSet overrides:
+  bool GetVersion(string const & name, MwmInfo & info,
+                  feature::DataHeader::Version & version) const override;
+  MwmValue * CreateValue(string const & name) const override;
+  void UpdateMwmInfo(MwmId id) override;
 
 public:
+  enum UpdateStatus
+  {
+    UPDATE_STATUS_OK,
+    UPDATE_STATUS_BAD_FILE,
+    UPDATE_STATUS_UPDATE_DELAYED
+  };
+
   /// An Observer interface to MwmSet. Note that these functions can
   /// be called from *ANY* thread because most signals are sent when
   /// some thread releases its MwmLock, so overrides must be as fast
@@ -84,17 +91,24 @@ public:
 
   /// Registers new map.
   ///
-  /// \return mwm format version or -1 if file isn't suitable (greater
-  /// version).
-  int RegisterMap(string const & fileName, m2::RectD & rect);
+  /// \return True if map was successfully registered. In this case
+  ///         version is set to the file format version. Otherwise
+  ///         returns false and version is not modified. This means
+  ///         that file isn't suitable, for example, because of
+  ///         greater version.
+  bool RegisterMap(string const & fileName, m2::RectD & rect,
+                   feature::DataHeader::Version & version);
 
   /// Replaces map file corresponding to fileName with a new one, when
   /// it's possible - no clients of the map file. Otherwise, update
   /// will be delayed.
   ///
-  /// \return mwm format version or -1 if file isn't suitable (greater
-  /// version).  -2 if file is busy now (delayed update).
-  int UpdateMap(string const & fileName, m2::RectD & rect);
+  /// \return UPDATE_STATUS_OK, when map file have updated, as a side effect
+  ///         sets version to an mwm format version.
+  ///         UPDATE_STATUS_BAD_FILE when file isn't suitable for update.
+  ///         UPDATE_STATUS_UPDATE_DELAYED when update is delayed.
+  UpdateStatus UpdateMap(string const & fileName, m2::RectD & rect,
+                         feature::DataHeader::Version & version);
 
   /// Deletes map both from file system and internal tables, also,
   /// deletes all files related to the map. If map was successfully

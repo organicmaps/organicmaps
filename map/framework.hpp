@@ -25,6 +25,8 @@
 #include "routing_session.hpp"
 #include "country_tree.hpp"
 
+#include "../indexer/data_header.hpp"
+
 #include "../search/search_engine.hpp"
 
 #include "../storage/storage.hpp"
@@ -170,8 +172,9 @@ public:
 
   /// Registers local map file in internal indexes.
   ///
-  /// @return Inner mwm data version from header or -1 in case of error.
-  int RegisterMap(string const & file);
+  /// @return True and inner mwm data version from header in version
+  ///         or false in case of errors.
+  bool RegisterMap(string const & file, feature::DataHeader::Version & version);
   //@}
 
   /// Deletes all disk files corresponding to country.

@@ -1,5 +1,7 @@
 #include "../../testing/testing.hpp"
 
+#include "../../indexer/data_header.hpp"
+
 #include "../../map/framework.hpp"
 
 #include "../../search/result.hpp"
@@ -398,7 +400,8 @@ UNIT_TEST(Bookmarks_AddressInfo)
   // Maps added in constructor (we need minsk-pass.mwm only)
   Framework fm;
   fm.DeregisterAllMaps();
-  fm.RegisterMap("minsk-pass.mwm");
+  feature::DataHeader::Version version;
+  fm.RegisterMap("minsk-pass.mwm", version);
 
   fm.OnSize(800, 600);
 

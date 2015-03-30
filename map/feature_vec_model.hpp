@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../indexer/data_header.hpp"
 #include "../indexer/index.hpp"
 
 #include "../geometry/rect2d.hpp"
@@ -30,9 +31,10 @@ namespace model
     void InitClassificator();
 
     /// @param[in] file Name of mwm file with extension.
-    //@{
-    /// @return MWM format version for file or -1 if error and map was not added
-    int RegisterMap(string const & file);
+    //{@
+    /// @return True when map was successfully registered, also, sets
+    ///         version to the file format version.
+    bool RegisterMap(string const & file, feature::DataHeader::Version & version);
 
     /// Deregisters map denoted by file from internal records.
     void DeregisterMap(string const & file);

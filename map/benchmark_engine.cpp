@@ -1,6 +1,8 @@
 #include "benchmark_engine.hpp"
 #include "framework.hpp"
 
+#include "../indexer/data_header.hpp"
+
 #include "../platform/settings.hpp"
 #include "../platform/platform.hpp"
 
@@ -131,8 +133,9 @@ void BenchmarkEngine::PrepareMaps()
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
+  feature::DataHeader::Version version;
   for_each(collector.m_maps.begin(), collector.m_maps.end(),
-           bind(&Framework::RegisterMap, m_framework, _1));
+           bind(&Framework::RegisterMap, m_framework, _1, version));
 }
 
 BenchmarkEngine::BenchmarkEngine(Framework * fw)

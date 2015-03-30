@@ -8,10 +8,11 @@
 
 #include "../../geometry/distance_on_sphere.hpp"
 
-#include "../../indexer/ftypes_matcher.hpp"
-#include "../../indexer/scales.hpp"
-#include "../../indexer/index.hpp"
 #include "../../indexer/classificator_loader.hpp"
+#include "../../indexer/data_header.hpp"
+#include "../../indexer/ftypes_matcher.hpp"
+#include "../../indexer/index.hpp"
+#include "../../indexer/scales.hpp"
 
 #include "../../std/iostream.hpp"
 #include "../../std/fstream.hpp"
@@ -183,8 +184,8 @@ UNIT_TEST(HS_StreetsMerge)
 
   Index index;
   m2::RectD rect;
-
-  TEST(index.Register("minsk-pass.mwm", rect), ());
+  feature::DataHeader::Version version;
+  TEST(index.Register("minsk-pass.mwm", rect, version), ());
 
   {
     search::HouseDetector houser(&index);
@@ -272,7 +273,8 @@ UNIT_TEST(HS_FindHouseSmoke)
 
   Index index;
   m2::RectD rect;
-  index.Register("minsk-pass.mwm", rect);
+  feature::DataHeader::Version version;
+  index.Register("minsk-pass.mwm", rect, version);
 
   {
     vector<string> streetName(1, "Московская улица");
@@ -374,7 +376,8 @@ UNIT_TEST(HS_MWMSearch)
 
   Index index;
   m2::RectD rect;
-  if (!index.Register(country + ".mwm", rect))
+  feature::DataHeader::Version version;
+  if (!index.Register(country + ".mwm", rect, version))
   {
     LOG(LWARNING, ("MWM file not found"));
     return;

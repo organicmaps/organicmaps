@@ -84,11 +84,13 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
 }
 
-int Framework::RegisterMap(string const & file)
+bool Framework::RegisterMap(string const & file, feature::DataHeader::Version & version)
 {
   LOG(LINFO, ("Loading map:", file));
 
-  int const version = m_model.RegisterMap(file);
+  if (!m_model.RegisterMap(file, version))
+    return false;
+
   if (version == feature::DataHeader::v1)
   {
     // Now we do force delete of old (April 2011) maps.
@@ -97,10 +99,11 @@ int Framework::RegisterMap(string const & file)
     DeregisterMap(file);
     VERIFY(my::DeleteFileX(GetPlatform().WritablePathForFile(file)), ());
 
-    return -1;
+    version = feature::DataHeader::unknownVersion;
+    return false;
   }
 
-  return version;
+  return true;
 }
 
 void Framework::DeregisterMap(string const & file) { m_model.DeregisterMap(file); }
@@ -408,9 +411,9 @@ void Framework::RegisterAllMaps()
   GetMaps(maps);
   for_each(maps.begin(), maps.end(), [&](string const & file)
   {
-    int const v = RegisterMap(file);
-    if (v != -1 && v < minVersion)
-      minVersion = v;
+    feature::DataHeader::Version version;
+    if (RegisterMap(file, version) && version < minVersion)
+      minVersion = version;
   });
 
   m_countryTree.Init(maps);

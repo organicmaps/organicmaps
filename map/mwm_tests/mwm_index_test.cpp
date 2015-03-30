@@ -39,7 +39,8 @@ public:
 bool RunTest(string const & fileName, int lowS, int highS)
 {
   model::FeaturesFetcher src;
-  if (src.RegisterMap(fileName) == -1)
+  feature::DataHeader::Version version;
+  if (!src.RegisterMap(fileName, version) || version == feature::DataHeader::unknownVersion)
     return false;
 
   CheckNonEmptyGeometry doCheck;
@@ -52,7 +53,6 @@ bool RunTest(string const & fileName, int lowS, int highS)
 
   return true;
 }
-
 }
 
 UNIT_TEST(ForEachFeatureID_Test)

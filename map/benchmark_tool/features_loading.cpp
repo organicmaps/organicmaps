@@ -3,6 +3,7 @@
 #include "../feature_vec_model.hpp"
 
 #include "../../indexer/data_factory.hpp"
+#include "../../indexer/data_header.hpp"
 #include "../../indexer/feature_visibility.hpp"
 #include "../../indexer/scales.hpp"
 
@@ -109,7 +110,8 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, All
     return;
 
   model::FeaturesFetcher src;
-  src.RegisterMap(file);
+  feature::DataHeader::Version version;
+  src.RegisterMap(file, version);
 
   RunBenchmark(src, header.GetBounds(), scaleR, res);
 }

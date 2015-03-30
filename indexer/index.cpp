@@ -1,5 +1,4 @@
 #include "index.hpp"
-#include "data_header.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -41,23 +40,23 @@ string Index::MwmLock::GetFileName() const
 // Index implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-int Index::GetInfo(string const & name, MwmInfo & info) const
+bool Index::GetVersion(string const & name, MwmInfo & info,
+                       feature::DataHeader::Version & version) const
 {
   MwmValue value(name);
 
   feature::DataHeader const & h = value.GetHeader();
-  if (h.IsMWMSuitable())
-  {
-    info.m_limitRect = h.GetBounds();
+  if (!h.IsMWMSuitable())
+    return false;
 
-    pair<int, int> const scaleR = h.GetScaleRange();
-    info.m_minScale = static_cast<uint8_t>(scaleR.first);
-    info.m_maxScale = static_cast<uint8_t>(scaleR.second);
+  info.m_limitRect = h.GetBounds();
 
-    return h.GetVersion();
-  }
-  else
-    return -1;
+  pair<int, int> const scaleR = h.GetScaleRange();
+  info.m_minScale = static_cast<uint8_t>(scaleR.first);
+  info.m_maxScale = static_cast<uint8_t>(scaleR.second);
+
+  version = h.GetVersion();
+  return true;
 }
 
 MwmValue * Index::CreateValue(string const & name) const
@@ -105,28 +104,30 @@ namespace
   }
 }
 
-int Index::RegisterMap(string const & fileName, m2::RectD & rect)
+bool Index::RegisterMap(string const & fileName, m2::RectD & rect,
+                        feature::DataHeader::Version & version)
 {
   if (GetPlatform().IsFileExistsByFullPath(GetFullPath(fileName + READY_FILE_EXTENSION)))
   {
-    int const ret = UpdateMap(fileName, rect);
-    switch (ret)
+    UpdateStatus status = UpdateMap(fileName, rect, version);
+    switch (status)
     {
-    case -1:
-      return -1;
-    case -2:
-      // Not dangerous, but it's strange when adding existing maps.
-      ASSERT(false, ());
-      return feature::DataHeader::v3;
-    default:
-      return ret;
+      case UPDATE_STATUS_OK:
+        return true;
+      case UPDATE_STATUS_BAD_FILE:
+        return false;
+      case UPDATE_STATUS_UPDATE_DELAYED:
+        // Not dangerous, but it's strange when adding existing maps.
+        ASSERT(false, ());
+        version = feature::DataHeader::v3;
+        return true;
     }
   }
 
-  int rv = Register(fileName, rect);
-  if (rv >= 0)
-    m_observers.ForEach(&Observer::OnMapRegistered, fileName);
-  return rv;
+  if (!Register(fileName, rect, version))
+    return false;
+  m_observers.ForEach(&Observer::OnMapRegistered, fileName);
+  return true;
 }
 
 bool Index::DeleteMap(string const & fileName)
@@ -153,9 +154,10 @@ bool Index::RemoveObserver(Observer & observer)
   return m_observers.Remove(observer);
 }
 
-int Index::UpdateMap(string const & fileName, m2::RectD & rect)
+Index::UpdateStatus Index::UpdateMap(string const & fileName, m2::RectD & rect,
+                                     feature::DataHeader::Version & version)
 {
-  int rv = -1;
+  UpdateStatus status = UPDATE_STATUS_OK;
   {
     lock_guard<mutex> lock(m_lock);
 
@@ -163,17 +165,19 @@ int Index::UpdateMap(string const & fileName, m2::RectD & rect)
     if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
     {
       m_info[id].SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
-      rv = -2;
-    } else {
+      status = UPDATE_STATUS_UPDATE_DELAYED;
+    }
+    else
+    {
       ReplaceFileWithReady(fileName);
-      rv = RegisterImpl(fileName, rect);
+      status = RegisterImpl(fileName, rect, version) ? UPDATE_STATUS_OK : UPDATE_STATUS_BAD_FILE;
     }
   }
-  if (rv != -1)
+  if (status != UPDATE_STATUS_BAD_FILE)
     m_observers.ForEach(&Observer::OnMapUpdateIsReady, fileName);
-  if (rv >= 0)
+  if (status == UPDATE_STATUS_OK)
     m_observers.ForEach(&Observer::OnMapUpdated, fileName);
-  return rv;
+  return status;
 }
 
 void Index::UpdateMwmInfo(MwmId id)

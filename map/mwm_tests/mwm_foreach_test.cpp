@@ -250,7 +250,9 @@ void RunTest(string const & file)
 {
   model::FeaturesFetcher src1;
   src1.InitClassificator();
-  src1.RegisterMap(file);
+
+  feature::DataHeader::Version version;
+  src1.RegisterMap(file, version);
 
   vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());

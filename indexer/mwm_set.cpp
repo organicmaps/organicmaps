@@ -102,7 +102,8 @@ MwmSet::MwmId MwmSet::GetIdByName(string const & name)
   return INVALID_MWM_ID;
 }
 
-int MwmSet::Register(string const & fileName, m2::RectD & rect)
+bool MwmSet::Register(string const & fileName, m2::RectD & rect,
+                      feature::DataHeader::Version & version)
 {
   lock_guard<mutex> lock(m_lock);
 
@@ -110,23 +111,23 @@ int MwmSet::Register(string const & fileName, m2::RectD & rect)
   if (id != INVALID_MWM_ID)
   {
     if (m_info[id].IsRegistered())
-      LOG(LWARNING, ("Trying to add already added map", fileName));
+      LOG(LWARNING, ("Trying to add already registered map", fileName));
     else
       m_info[id].SetStatus(MwmInfo::STATUS_UP_TO_DATE);
 
-    return -1;
+    return false;
   }
 
-  return RegisterImpl(fileName, rect);
+  return RegisterImpl(fileName, rect, version);
 }
 
-int MwmSet::RegisterImpl(string const & fileName, m2::RectD & rect)
+bool MwmSet::RegisterImpl(string const & fileName, m2::RectD & rect,
+                          feature::DataHeader::Version & version)
 {
   // this function can throw an exception for bad mwm file
   MwmInfo info;
-  int const version = GetInfo(fileName, info);
-  if (version == -1)
-    return -1;
+  if (!GetVersion(fileName, info, version))
+    return false;
 
   info.SetStatus(MwmInfo::STATUS_UP_TO_DATE);
 
@@ -135,8 +136,8 @@ int MwmSet::RegisterImpl(string const & fileName, m2::RectD & rect)
   m_info[id] = info;
 
   rect = info.m_limitRect;
-  ASSERT ( rect.IsValid(), () );
-  return version;
+  ASSERT(rect.IsValid(), ());
+  return true;
 }
 
 bool MwmSet::DeregisterImpl(MwmId id)

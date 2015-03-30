@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../base/logging.hpp"
+
 #include "../std/algorithm.hpp"
 #include "../std/mutex.hpp"
 #include "../std/vector.hpp"
@@ -17,7 +19,10 @@ public:
     lock_guard<mutex> lock(m_observersLock);
     auto it = find(m_observers.begin(), m_observers.end(), &observer);
     if (it != m_observers.end())
+    {
+      LOG(LWARNING, ("Can't add the same observer twice:", &observer));
       return false;
+    }
     m_observers.push_back(&observer);
     return true;
   }
@@ -27,7 +32,10 @@ public:
     lock_guard<mutex> lock(m_observersLock);
     auto it = find(m_observers.begin(), m_observers.end(), &observer);
     if (it == m_observers.end())
+    {
+      LOG(LWARNING, ("Can't remove non-registered observer:", &observer));
       return false;
+    }
     m_observers.erase(it);
     return true;
   }
