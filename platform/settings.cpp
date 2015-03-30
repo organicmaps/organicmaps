@@ -15,6 +15,7 @@
 
 #include "../std/sstream.hpp"
 #include "../std/iostream.hpp"
+#include "../std/cmath.hpp"
 
 
 #define FIRST_LAUNCH_KEY "FirstLaunchOnDate"
@@ -117,7 +118,12 @@ namespace Settings
       istringstream in(s);
       size_t count = 0;
       while (in.good() && count < N)
-        in >> arr[count++];
+      {
+        in >> arr[count];
+        if (!std::isfinite(arr[count]))
+          return false;
+        ++count;
+      }
 
       return (!in.fail() && count == N);
     }
@@ -141,9 +147,12 @@ namespace Settings
     if (!impl::FromStringArray(str, val))
       return false;
 
-    rect = m2::AnyRectD(m2::PointD(val[0], val[1]),
-                       ang::AngleD(val[2]),
-                       m2::RectD(val[3], val[4], val[5], val[6]));
+    // Will get an assertion in DEBUG and false return in RELEASE.
+    m2::RectD const r(val[3], val[4], val[5], val[6]);
+    if (!r.IsValid())
+      return false;
+
+    rect = m2::AnyRectD(m2::PointD(val[0], val[1]), ang::AngleD(val[2]), r);
     return true;
   }
 
@@ -160,8 +169,9 @@ namespace Settings
     if (!impl::FromStringArray(str, val))
       return false;
 
+    // Will get an assertion in DEBUG and false return in RELEASE.
     rect = m2::RectD(val[0], val[1], val[2], val[3]);
-    return true;
+    return rect.IsValid();
   }
 
   template <> string ToString<bool>(bool const & v)
