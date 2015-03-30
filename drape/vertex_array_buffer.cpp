@@ -49,6 +49,11 @@ void VertexArrayBuffer::Preflush()
 
 void VertexArrayBuffer::Render()
 {
+  RenderRange(IndicesRange{ 0, m_indexBuffer->GetBuffer()->GetCurrentSize() });
+}
+
+void VertexArrayBuffer::RenderRange(IndicesRange const & range)
+{
   if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && m_indexBuffer->GetBuffer()->GetCurrentSize() > 0)
   {
     ASSERT(!m_program.IsNull(), ("Somebody not call Build. It's very bad. Very very bad"));
@@ -61,7 +66,7 @@ void VertexArrayBuffer::Render()
 
     BindDynamicBuffers();
     m_indexBuffer->GetBuffer()->Bind();
-    GLFunctions::glDrawElements(m_indexBuffer->GetBuffer()->GetCurrentSize());
+    GLFunctions::glDrawElements(range.m_idxCount, range.m_idxStart);
   }
 }
 
@@ -179,6 +184,11 @@ uint16_t VertexArrayBuffer::GetStartIndexValue() const
 uint16_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingInfo)
 {
   return GetOrCreateDynamicBuffer(bindingInfo)->GetBuffer()->GetCurrentSize();
+}
+
+uint16_t VertexArrayBuffer::GetIndexCount() const
+{
+  return m_indexBuffer->GetBuffer()->GetCurrentSize();
 }
 
 bool VertexArrayBuffer::IsFilled() const

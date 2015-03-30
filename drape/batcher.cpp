@@ -95,48 +95,49 @@ Batcher::~Batcher()
     it->second.Destroy();
 }
 
-void Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params)
+IndicesRange Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params)
 {
-  InsertTriangleList(state, params, MovePointer<OverlayHandle>(NULL));
+  return InsertTriangleList(state, params, MovePointer<OverlayHandle>(NULL));
 }
 
-void Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
+IndicesRange Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
                                  TransferPointer<OverlayHandle> handle)
 {
-  InsertTriangles<TriangleListBatch>(state, params, handle);
+  return InsertTriangles<TriangleListBatch>(state, params, handle);
 }
 
-void Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params)
+IndicesRange Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params)
 {
-  InsertTriangleStrip(state, params, MovePointer<OverlayHandle>(NULL));
+  return InsertTriangleStrip(state, params, MovePointer<OverlayHandle>(NULL));
 }
 
-void Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                                  TransferPointer<OverlayHandle> handle)
+IndicesRange Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                                          TransferPointer<OverlayHandle> handle)
 {
-  InsertTriangles<TriangleStripBatch>(state, params, handle);
+  return InsertTriangles<TriangleStripBatch>(state, params, handle);
 }
 
-void Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params)
+IndicesRange Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params)
 {
-  InsertTriangleFan(state, params, MovePointer<OverlayHandle>(NULL));
+  return InsertTriangleFan(state, params, MovePointer<OverlayHandle>(NULL));
 }
 
-void Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
-                                TransferPointer<OverlayHandle> handle)
+IndicesRange Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
+                                        TransferPointer<OverlayHandle> handle)
 {
-  InsertTriangles<TriangleFanBatch>(state, params, handle);
+  return InsertTriangles<TriangleFanBatch>(state, params, handle);
 }
 
-void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride)
+IndicesRange Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                                        uint8_t vertexStride)
 {
-  InsertListOfStrip(state, params, MovePointer<OverlayHandle>(NULL), vertexStride);
+  return InsertListOfStrip(state, params, MovePointer<OverlayHandle>(NULL), vertexStride);
 }
 
-void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                       TransferPointer<OverlayHandle> handle, uint8_t vertexStride)
+IndicesRange Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                                        TransferPointer<OverlayHandle> handle, uint8_t vertexStride)
 {
-  InsertTriangles<TriangleListOfStripBatch>(state, params, handle, vertexStride);
+  return InsertTriangles<TriangleListOfStripBatch>(state, params, handle, vertexStride);
 }
 
 void Batcher::StartSession(TFlushFn const & flusher)
@@ -196,13 +197,13 @@ void Batcher::Flush()
 }
 
 template <typename TBatcher>
-void Batcher::InsertTriangles(GLState const & state,
-                              RefPointer<AttributeProvider> params,
-                              TransferPointer<OverlayHandle> transferHandle,
-                              uint8_t vertexStride)
+IndicesRange Batcher::InsertTriangles(GLState const & state, RefPointer<AttributeProvider> params,
+                                      TransferPointer<OverlayHandle> transferHandle, uint8_t vertexStride)
 {
   RefPointer<RenderBucket> bucket = GetBucket(state);
   RefPointer<VertexArrayBuffer> vao = bucket->GetBuffer();
+  IndicesRange range;
+  range.m_idxStart = vao->GetIndexCount();
 
   MasterPointer<OverlayHandle> handle(transferHandle);
 
@@ -226,6 +227,9 @@ void Batcher::InsertTriangles(GLState const & state,
 
   if (!handle.IsNull())
     bucket->AddOverlayHandle(handle.Move());
+
+  range.m_idxCount = vao->GetIndexCount() - range.m_idxStart;
+  return range;
 }
 
 SessionGuard::SessionGuard(Batcher & batcher, const Batcher::TFlushFn & flusher)

@@ -13,6 +13,12 @@
 namespace dp
 {
 
+struct IndicesRange
+{
+  uint16_t m_idxStart;
+  uint16_t m_idxCount;
+};
+
 class VertexArrayBuffer
 {
   typedef map<BindingInfo, MasterPointer<DataBuffer> > TBuffersMap;
@@ -28,6 +34,7 @@ public:
   /// OES_vertex_array_object create OpenGL resource that belong only one GL context (which was created by)
   /// by this reason Build/Bind and Render must be called only on Frontendrendere thread
   void Render();
+  void RenderRange(IndicesRange const & range);
   void Build(RefPointer<GpuProgram> program);
   ///@}
 
@@ -35,6 +42,7 @@ public:
   uint16_t GetAvailableIndexCount() const;
   uint16_t GetStartIndexValue() const;
   uint16_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
+  uint16_t GetIndexCount() const;
   bool IsFilled() const;
 
   void UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count);

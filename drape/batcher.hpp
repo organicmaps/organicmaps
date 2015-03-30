@@ -1,10 +1,11 @@
 #pragma once
 
-#include "drape/pointers.hpp"
-#include "drape/glstate.hpp"
-#include "drape/render_bucket.hpp"
 #include "drape/attribute_provider.hpp"
+#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
+#include "drape/pointers.hpp"
+#include "drape/render_bucket.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
 #include "base/macros.hpp"
 
@@ -32,33 +33,30 @@ public:
   void SetIndexBufferSize(uint32_t indexBufferSize) { m_indexBufferSize = indexBufferSize; }
   void SetVertexBufferSize(uint32_t vertexBufferSize) { m_vertexBufferSize = vertexBufferSize; }
 
-  void InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params);
-  void InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
-                          TransferPointer<OverlayHandle> handle);
+  IndicesRange InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params);
+  IndicesRange InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
+                                  TransferPointer<OverlayHandle> handle);
 
-  void InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params);
-  void InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                           TransferPointer<OverlayHandle> handle);
+  IndicesRange InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params);
+  IndicesRange InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                                   TransferPointer<OverlayHandle> handle);
 
-  void InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params);
-  void InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
-                         TransferPointer<OverlayHandle> handle);
+  IndicesRange InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params);
+  IndicesRange InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
+                                 TransferPointer<OverlayHandle> handle);
 
-  void InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride);
-  void InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                         TransferPointer<OverlayHandle> handle, uint8_t vertexStride);
+  IndicesRange InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride);
+  IndicesRange InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                                 TransferPointer<OverlayHandle> handle, uint8_t vertexStride);
 
   typedef function<void (GLState const &, TransferPointer<RenderBucket> )> TFlushFn;
   void StartSession(TFlushFn const & flusher);
   void EndSession();
 
 private:
-
   template<typename TBacher>
-  void InsertTriangles(GLState const & state,
-                       RefPointer<AttributeProvider> params,
-                       TransferPointer<OverlayHandle> handle,
-                       uint8_t vertexStride = 0);
+  IndicesRange InsertTriangles(GLState const & state, RefPointer<AttributeProvider> params,
+                               TransferPointer<OverlayHandle> handle, uint8_t vertexStride = 0);
 
   class CallbacksWrapper;
   void ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer);

@@ -359,6 +359,7 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
   vector<CPUBuffer> cpuBuffers;
   while (streams->IsDataExists())
   {
+    ChangeBuffer(true);
     uint16_t vertexCount = streams->GetVertexCount();
     uint16_t batchVertexCount = BatchIndexes(vertexCount);
 
@@ -429,8 +430,6 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
         streams->Advance(batchVertexCount - 1);
       }
     }
-
-    ChangeBuffer(true);
   }
 }
 
