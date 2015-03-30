@@ -11,6 +11,7 @@
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/tile_tree.hpp"
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/my_position.hpp"
@@ -67,12 +68,10 @@ private:
   void RefreshModelView();
 
   void ResolveTileKeys();
-  void ResolveTileKeys(TTilesCollection & keyStorage, m2::RectD const & rect);
-  void ResolveTileKeys(TTilesCollection & keyStorage, int tileScale);
-  TTilesCollection & GetTileKeyStorage();
+  void ResolveTileKeys(m2::RectD const & rect);
+  void ResolveTileKeys(int tileScale);
 
-  void InvalidateRenderGroups(TTilesCollection & keyStorage);
-  UserMarkRenderGroup * FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
+  unique_ptr<UserMarkRenderGroup> & FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
 
 private:
   class Routine : public threads::IRoutine
@@ -100,15 +99,22 @@ private:
   void CreateTileRenderGroup(dp::GLState const & state,
                              dp::MasterPointer<dp::RenderBucket> & renderBucket,
                              TileKey const & newTile);
-  void CleanKeyStorage(TTilesCollection & keyStorage);
+  void AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
+                        dp::GLState const & state,
+                        dp::MasterPointer<dp::RenderBucket> & renderBucket,
+                        TileKey const & newTile);
+
+  void OnAddDeferredTile(TileKey const & tileKey, TileStatus tileStatus);
+  void OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus);
 
 private:
   dp::RefPointer<dp::TextureManager> m_textureManager;
   dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
 
 private:
-  vector<RenderGroup *> m_renderGroups;
-  vector<UserMarkRenderGroup *> m_userMarkRenderGroups;
+  vector<unique_ptr<RenderGroup>> m_renderGroups;
+  vector<unique_ptr<RenderGroup>> m_deferredRenderGroups;
+  vector<unique_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
   dp::MasterPointer<gui::LayerRenderer> m_guiRenderer;
   dp::MasterPointer<MyPosition> m_myPositionMark;
 
@@ -116,12 +122,16 @@ private:
 
   Viewport m_viewport;
   ScreenBase m_view;
-  TTilesCollection m_tiles;
+
+  TileTree m_tileTree;
 
   ScreenBase m_newView;
   mutex m_modelViewMutex;
 
   dp::OverlayTree m_overlayTree;
+
+private:
+  friend string DebugPrint(vector<unique_ptr<RenderGroup>> const & groups);
 };
 
 } // namespace df

@@ -7,14 +7,13 @@
 namespace df
 {
 
-using TTilesCollection = map<TileKey, TileStatus>;
-using TTilePair = pair<TileKey, TileStatus>;
+using TTilesCollection = set<TileKey>;
 
 /// this function determines the coverage of a tile in specified zoom level
-void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, set<TileKey> & tiles);
+void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, TTilesCollection & tiles);
 
 /// this function determines the coverage of tiles in specified zoom level
-void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, set<TileKey> & tiles);
+void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, TTilesCollection & tiles);
 
 /// this function determines the coverage of a tile in specified zoom level. Each new tile can be processed
 /// in processTile callback
@@ -25,6 +24,9 @@ bool IsTileAbove(TileKey const & tileKey, TileKey const & targetTileKey);
 
 /// this function checks if targetTileKey is below tileKey
 bool IsTileBelow(TileKey const & tileKey, TileKey const & targetTileKey);
+
+/// this function returns parent tile on specified zoom level
+TileKey GetParentTile(TileKey const & tileKey, int targetZoom);
 
 } // namespace df
 

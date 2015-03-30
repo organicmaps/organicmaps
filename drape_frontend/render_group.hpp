@@ -8,6 +8,7 @@
 
 #include "std/vector.hpp"
 #include "std/set.hpp"
+#include "std/unique_ptr.hpp"
 
 class ScreenBase;
 namespace dp { class OverlayTree; }
@@ -61,18 +62,15 @@ private:
 class RenderGroupComparator
 {
 public:
-  RenderGroupComparator(TTilesCollection const & activeTiles);
+  RenderGroupComparator();
 
   void ResetInternalState();
 
-  bool operator()(RenderGroup const * l, RenderGroup const * r);
+  bool operator()(unique_ptr<RenderGroup> const & l, unique_ptr<RenderGroup> const & r);
 
 private:
-  TTilesCollection const & m_activeTiles;
   bool m_needGroupMergeOperation;
   bool m_needBucketsMergeOperation;
-
-  bool NeedToDelete(TileKey const & key);
 };
 
 class UserMarkRenderGroup : public BaseRenderGroup

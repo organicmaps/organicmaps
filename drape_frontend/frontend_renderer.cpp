@@ -79,8 +79,8 @@ void FrontendRenderer::AfterDrawFrame()
 
     m_tpf = accumulate(m_tpfs.begin(), m_tpfs.end(), 0.0) / m_tpfs.size();
 
-    LOG(LINFO, ("Average Fps : ", m_fps));
-    LOG(LINFO, ("Average Tpf : ", m_tpf));
+    //LOG(LINFO, ("Average Fps : ", m_fps));
+    //LOG(LINFO, ("Average Tpf : ", m_tpf));
 
 #if defined(TRACK_GPU_MEM)
     string report = dp::GPUMemTracker::Inst().Report();
@@ -94,27 +94,27 @@ void FrontendRenderer::AfterDrawFrame()
 }
 #endif
 
-UserMarkRenderGroup * FrontendRenderer::FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed)
+unique_ptr<UserMarkRenderGroup> & FrontendRenderer::FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed)
 {
-  auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](UserMarkRenderGroup * g)
+  auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](unique_ptr<UserMarkRenderGroup> const & g)
   {
     return g->GetTileKey() == tileKey;
   });
 
   if (it != m_userMarkRenderGroups.end())
   {
-    ASSERT((*it) != nullptr, ());
+    ASSERT((*it).get() != nullptr, ());
     return *it;
   }
 
   if (createIfNeed)
   {
-    UserMarkRenderGroup * group = new UserMarkRenderGroup(dp::GLState(0, dp::GLState::UserMarkLayer), tileKey);
-    m_userMarkRenderGroups.push_back(group);
-    return group;
+    m_userMarkRenderGroups.emplace_back(new UserMarkRenderGroup(dp::GLState(0, dp::GLState::UserMarkLayer), tileKey));
+    return m_userMarkRenderGroups.back();
   }
 
-  return nullptr;
+  static unique_ptr<UserMarkRenderGroup> emptyRenderGroup;
+  return emptyRenderGroup;
 }
 
 void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
@@ -134,8 +134,8 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
         CreateTileRenderGroup(state, bucket, key);
       else
       {
-        UserMarkRenderGroup * group = FindUserMarkRenderGroup(key, true);
-        ASSERT(group != nullptr, ());
+        unique_ptr<UserMarkRenderGroup> & group = FindUserMarkRenderGroup(key, true);
+        ASSERT(group.get() != nullptr, ());
         group->SetRenderBucket(state, bucket.Move());
       }
       break;
@@ -151,11 +151,15 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       RefreshProjection();
       RefreshModelView();
       ResolveTileKeys();
+
+      TTilesCollection tiles;
+      m_tileTree.GetRequestedTiles(tiles);
+
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
                                 MessagePriority::Normal);
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
+                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, tiles)),
                                 MessagePriority::Normal);
       break;
     }
@@ -169,8 +173,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
 
       TTilesCollection keyStorage;
-      ResolveTileKeys(keyStorage, m->GetRect());
-      InvalidateRenderGroups(keyStorage);
+      // TODO: implement invalidation
 
       Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -182,17 +185,16 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::ClearUserMarkLayer:
     {
       TileKey const & tileKey = df::CastMessage<ClearUserMarkLayerMessage>(message)->GetKey();
-      auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](UserMarkRenderGroup * g)
+      auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](unique_ptr<UserMarkRenderGroup> const & g)
       {
         return g->GetTileKey() == tileKey;
       });
 
       if (it != m_userMarkRenderGroups.end())
       {
-        UserMarkRenderGroup * group = *it;
-        ASSERT(group != nullptr, ());
+        unique_ptr<UserMarkRenderGroup> & group = *it;
+        ASSERT(group.get() != nullptr, ());
         m_userMarkRenderGroups.erase(it);
-        delete group;
       }
 
       break;
@@ -200,8 +202,8 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::ChangeUserMarkLayerVisibility:
     {
       ChangeUserMarkLayerVisibilityMessage * m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
-      UserMarkRenderGroup * group = FindUserMarkRenderGroup(m->GetKey(), true);
-      ASSERT(group != nullptr, ());
+      unique_ptr<UserMarkRenderGroup> & group = FindUserMarkRenderGroup(m->GetKey(), true);
+      ASSERT(group.get() != nullptr, ());
       group->SetIsVisible(m->IsVisible());
       break;
     }
@@ -231,47 +233,90 @@ void FrontendRenderer::CreateTileRenderGroup(dp::GLState const & state,
                                              dp::MasterPointer<dp::RenderBucket> & renderBucket,
                                              TileKey const & newTile)
 {
-  TTilesCollection & tiles = GetTileKeyStorage();
-  auto const & tileIt = tiles.find(newTile);
+  // adding tiles to render
+  auto onAddTile = [&state, &renderBucket, this](TileKey const & tileKey, TileStatus tileStatus)
+  {
+    if (tileStatus == TileStatus::Rendered)
+    {
+      AddToRenderGroup(m_renderGroups, state, renderBucket, tileKey);
+      LOG(LINFO, ("Render tile", tileKey, tileStatus));
+    }
+    else if (tileStatus == TileStatus::Deferred)
+      OnAddDeferredTile(tileKey, tileStatus);
+    else
+      ASSERT(false, ());
+  };
 
-  // skip obsolete tiles
-  if (tileIt == tiles.end() || df::GetTileScaleBase(m_view) != newTile.m_zoomLevel)
+  // deferring tiles
+  auto onDeferTile = [&state, &renderBucket, this](TileKey const & tileKey, TileStatus tileStatus)
+  {
+    AddToRenderGroup(m_deferredRenderGroups, state, renderBucket, tileKey);
+    LOG(LINFO, ("Defer tile", tileKey, tileStatus));
+  };
+
+  // removing tiles
+  auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
+  {
+    OnRemoveTile(tileKey, tileStatus);
+    LOG(LINFO, ("Remove tile", tileKey, tileStatus));
+  };
+
+  bool const result = m_tileTree.ProcessTile(newTile, onAddTile, onRemoveTile, onDeferTile);
+  if (!result)
   {
     renderBucket.Destroy();
-    return;
+    LOG(LINFO, ("Skip tile", newTile));
   }
 
-  // clip tiles below loaded one
-  for (auto it = tiles.begin(); it != tiles.end(); ++it)
-    if (it->second == TileStatus::Rendered && IsTileBelow(newTile, it->first))
-      it->second = TileStatus::Clipped;
-
-  // clip tiles above loaded one
-  for (auto it = tiles.begin(); it != tiles.end(); ++it)
-    if (it->second == TileStatus::Rendered && IsTileAbove(newTile, it->first))
-      it->second = TileStatus::Clipped;
-
-  // create a render group for visible tiles
-  if (tileIt->second != TileStatus::Clipped)
+  LOG(LINFO, ("Deferred count = ", m_deferredRenderGroups.size()));
+  if (m_deferredRenderGroups.size() != 0)
   {
-    RenderGroup * group = new RenderGroup(state, newTile);
-    group->AddBucket(renderBucket.Move());
-    m_renderGroups.push_back(group);
-    tileIt->second = TileStatus::Rendered;
+    LOG(LINFO, ("Zoom level: ", df::GetTileScaleBase(m_view)));
+    LOG(LINFO, ("Tile tree: ", m_tileTree));
+    LOG(LINFO, ("Rendered tiles: ", m_renderGroups));
+    LOG(LINFO, ("Deferred tiles: ", m_deferredRenderGroups));
   }
-  else
-    renderBucket.Destroy();
-
-  // clean storage from clipped tiles
-  CleanKeyStorage(tiles);
 }
 
-void FrontendRenderer::CleanKeyStorage(TTilesCollection & keyStorage)
+void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
+                                        dp::GLState const & state,
+                                        dp::MasterPointer<dp::RenderBucket> & renderBucket,
+                                        TileKey const & newTile)
 {
-  for(auto it = keyStorage.begin(); it != keyStorage.end();)
+  unique_ptr<RenderGroup> group(new RenderGroup(state, newTile));
+  group->AddBucket(renderBucket.Move());
+  groups.emplace_back(move(group));
+}
+
+void FrontendRenderer::OnAddDeferredTile(TileKey const & tileKey, TileStatus tileStatus)
+{
+  ASSERT(tileStatus == TileStatus::Deferred, ());
+  for(auto it = m_deferredRenderGroups.begin(); it != m_deferredRenderGroups.end();)
   {
-    if (it->second == TileStatus::Clipped)
-      it = keyStorage.erase(it);
+    if ((*it)->GetTileKey() == tileKey)
+    {
+      m_renderGroups.emplace_back(move(*it));
+      it = m_deferredRenderGroups.erase(it);
+    }
+    else
+      ++it;
+  }
+
+  LOG(LINFO, ("Add deferred tile", tileKey, tileStatus));
+}
+
+void FrontendRenderer::OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus)
+{
+  for(auto it = m_renderGroups.begin(); it != m_renderGroups.end(); ++it)
+  {
+    if ((*it)->GetTileKey() == tileKey)
+      (*it)->DeleteLater();
+  }
+
+  for(auto it = m_deferredRenderGroups.begin(); it != m_deferredRenderGroups.end();)
+  {
+    if ((*it)->GetTileKey() == tileKey)
+      it = m_deferredRenderGroups.erase(it);
     else
       ++it;
   }
@@ -283,20 +328,20 @@ void FrontendRenderer::RenderScene()
   BeforeDrawFrame();
 #endif
 
-  RenderGroupComparator comparator(GetTileKeyStorage());
+  RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
 
   m_overlayTree.StartOverlayPlacing(m_view);
   size_t eraseCount = 0;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
-    RenderGroup * group = m_renderGroups[i];
+    unique_ptr<RenderGroup> & group = m_renderGroups[i];
     if (group->IsEmpty())
       continue;
 
     if (group->IsPendingOnDelete())
     {
-      delete group;
+      group.reset();
       ++eraseCount;
       continue;
     }
@@ -322,7 +367,7 @@ void FrontendRenderer::RenderScene()
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
-    RenderGroup * group = m_renderGroups[i];
+    unique_ptr<RenderGroup> & group = m_renderGroups[i];
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
@@ -345,9 +390,9 @@ void FrontendRenderer::RenderScene()
 
   GLFunctions::glClearDepth();
 
-  for (UserMarkRenderGroup * group : m_userMarkRenderGroups)
+  for (unique_ptr<UserMarkRenderGroup> & group : m_userMarkRenderGroups)
   {
-    ASSERT(group != nullptr, ());
+    ASSERT(group.get() != nullptr, ());
     if (group->IsVisible())
     {
       dp::GLState const & state = group->GetState();
@@ -393,15 +438,15 @@ void FrontendRenderer::RefreshModelView()
 
 void FrontendRenderer::ResolveTileKeys()
 {
-  ResolveTileKeys(GetTileKeyStorage(), df::GetTileScaleBase(m_view));
+  ResolveTileKeys(df::GetTileScaleBase(m_view));
 }
 
-void FrontendRenderer::ResolveTileKeys(TTilesCollection & keyStorage, m2::RectD const & rect)
+void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect)
 {
-  ResolveTileKeys(keyStorage, df::GetTileScaleBase(rect));
+  ResolveTileKeys(df::GetTileScaleBase(rect));
 }
 
-void FrontendRenderer::ResolveTileKeys(TTilesCollection & keyStorage, int tileScale)
+void FrontendRenderer::ResolveTileKeys(int tileScale)
 {
   // equal for x and y
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
@@ -415,38 +460,29 @@ void FrontendRenderer::ResolveTileKeys(TTilesCollection & keyStorage, int tileSc
   int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
 
   // clip all tiles which are out of viewport
-  for (auto it = keyStorage.begin(); it != keyStorage.end(); ++it)
-    if (!clipRect.IsIntersect(it->first.GetGlobalRect()))
-      it->second = TileStatus::Clipped;
+  auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
+  {
+    OnRemoveTile(tileKey, tileStatus);
+    LOG(LINFO, ("Clip tile", tileKey, tileStatus));
+  };
 
+  m_tileTree.ClipByRect(clipRect, bind(&FrontendRenderer::OnAddDeferredTile, this, _1, _2),
+                        onRemoveTile);
+
+  // request new tiles
+  m_tileTree.BeginRequesting(tileScale);
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
     {
-      // request new tile
       TileKey key(tileX, tileY, tileScale);
-      if (clipRect.IsIntersect(key.GetGlobalRect()) && keyStorage.find(key) == keyStorage.end())
-        keyStorage.insert(make_pair(key, TileStatus::Requested));
+      if (clipRect.IsIntersect(key.GetGlobalRect()))
+        m_tileTree.RequestTile(key);
     }
   }
+  m_tileTree.EndRequesting();
 
-  // clean storage from clipped tiles
-  CleanKeyStorage(keyStorage);
-}
-
-void FrontendRenderer::InvalidateRenderGroups(TTilesCollection & keyStorage)
-{
-  for (size_t i = 0; i < m_renderGroups.size(); ++i)
-  {
-    RenderGroup * group = m_renderGroups[i];
-    if (keyStorage.find(group->GetTileKey()) != keyStorage.end())
-      group->DeleteLater();
-  }
-}
-
-TTilesCollection & FrontendRenderer::GetTileKeyStorage()
-{
-  return m_tiles;
+  //LOG(LINFO, (m_tileTree));
 }
 
 void FrontendRenderer::StartThread()
@@ -523,8 +559,10 @@ void FrontendRenderer::ReleaseResources()
 
 void FrontendRenderer::DeleteRenderData()
 {
-  DeleteRange(m_renderGroups, DeleteFunctor());
-  DeleteRange(m_userMarkRenderGroups, DeleteFunctor());
+  m_renderGroups.clear();
+  m_deferredRenderGroups.clear();
+  m_userMarkRenderGroups.clear();
+  m_tileTree.Clear();
 }
 
 void FrontendRenderer::SetModelView(ScreenBase const & screen)
@@ -541,10 +579,24 @@ void FrontendRenderer::UpdateScene()
     m_view = m_newView;
     RefreshModelView();
     ResolveTileKeys();
+
+    TTilesCollection tiles;
+    m_tileTree.GetRequestedTiles(tiles);
+
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)),
+                              dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, tiles)),
                               MessagePriority::Normal);
   }
+}
+
+string DebugPrint(vector<unique_ptr<RenderGroup>> const & groups)
+{
+  ostringstream out;
+  out << "\n{\n";
+  for (auto it = groups.begin(); it != groups.end(); ++it)
+    out << DebugPrint((*it)->GetTileKey()) << "\n";
+  out << "}\n";
+  return out.str();
 }
 
 } // namespace df

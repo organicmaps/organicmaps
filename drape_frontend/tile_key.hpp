@@ -5,12 +5,12 @@
 namespace df
 {
 
-enum TileStatus
+enum class TileStatus
 {
   Unknown = 0,
   Rendered,
   Requested,
-  Clipped
+  Deferred
 };
 
 struct TileKey
@@ -29,7 +29,9 @@ struct TileKey
   int m_zoomLevel;
 
 private:
-  friend string DebugPrint(TileKey const & );
+  friend string DebugPrint(TileKey const & key);
 };
+
+string DebugPrint(TileStatus status);
 
 } // namespace df

@@ -51,4 +51,22 @@ string DebugPrint(TileKey const & key)
   return out.str();
 }
 
+string DebugPrint(TileStatus status)
+{
+  switch (status)
+  {
+    case TileStatus::Unknown:
+      return "Unknown";
+    case TileStatus::Rendered:
+      return "Rendered";
+    case TileStatus::Requested:
+      return "Requested";
+    case TileStatus::Deferred:
+      return "Deferred";
+    default:
+      ASSERT(false, ());
+  }
+  return "";
+}
+
 } //namespace df
