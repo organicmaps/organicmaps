@@ -96,14 +96,14 @@ private:
   // it applies new model-view matrix to the scene (this matrix will be used on next frame)
   void UpdateScene();
 
-  void CreateTileRenderGroup(dp::GLState const & state,
-                             dp::MasterPointer<dp::RenderBucket> & renderBucket,
-                             TileKey const & newTile);
-  void FinishTileRenderGroup(TileKey const & newTile);
   void AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
                         dp::GLState const & state,
                         dp::MasterPointer<dp::RenderBucket> & renderBucket,
                         TileKey const & newTile);
+  void OnAddRenderGroup(TileKey const & tileKey, dp::GLState const & state,
+                        dp::MasterPointer<dp::RenderBucket> & renderBucket);
+  void OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
+                          dp::MasterPointer<dp::RenderBucket> & renderBucket);
 
   void OnAddDeferredTile(TileKey const & tileKey, TileStatus tileStatus);
   void OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus);

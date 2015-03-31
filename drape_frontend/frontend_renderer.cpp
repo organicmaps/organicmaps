@@ -50,12 +50,17 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   RefreshProjection();
   RefreshModelView();
 
+  m_tileTree.SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, this, _1, _2, _3),
+                         bind(&FrontendRenderer::OnDeferRenderGroup, this, _1, _2, _3),
+                         bind(&FrontendRenderer::OnAddDeferredTile, this, _1, _2),
+                         bind(&FrontendRenderer::OnRemoveTile, this, _1, _2));
   StartThread();
 }
 
 FrontendRenderer::~FrontendRenderer()
 {
   StopThread();
+  m_tileTree.ResetHandlers();
 }
 
 #ifdef DRAW_INFO
@@ -131,7 +136,11 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       program->Bind();
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
-        CreateTileRenderGroup(state, bucket, key);
+      {
+        bool const result = m_tileTree.ProcessTile(key, state, bucket);
+        if (!result)
+          bucket.Destroy();
+      }
       else
       {
         unique_ptr<UserMarkRenderGroup> & group = FindUserMarkRenderGroup(key, true);
@@ -146,7 +155,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
       TileKey const & key = msg->GetKey();
       if (!IsUserMarkLayer(key))
-        FinishTileRenderGroup(key);
+        m_tileTree.FinishTile(key);
       break;
     }
 
@@ -238,51 +247,6 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   }
 }
 
-void FrontendRenderer::CreateTileRenderGroup(dp::GLState const & state,
-                                             dp::MasterPointer<dp::RenderBucket> & renderBucket,
-                                             TileKey const & newTile)
-{
-  // adding tiles to render
-  auto onAddTile = [&state, &renderBucket, this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    if (tileStatus == TileStatus::Rendered)
-      AddToRenderGroup(m_renderGroups, state, renderBucket, tileKey);
-    else if (tileStatus == TileStatus::Deferred)
-      OnAddDeferredTile(tileKey, tileStatus);
-    else
-      ASSERT(false, ());
-  };
-
-  // deferring tiles
-  auto onDeferTile = [&state, &renderBucket, this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    AddToRenderGroup(m_deferredRenderGroups, state, renderBucket, tileKey);
-  };
-
-  // removing tiles
-  auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    OnRemoveTile(tileKey, tileStatus);
-  };
-
-  bool const result = m_tileTree.ProcessTile(newTile, onAddTile, onRemoveTile, onDeferTile);
-  if (!result)
-    renderBucket.Destroy();
-}
-
-void FrontendRenderer::FinishTileRenderGroup(TileKey const & newTile)
-{
-  auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    OnRemoveTile(tileKey, tileStatus);
-  };
-  auto onAddDeferredTile = [this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    OnAddDeferredTile(tileKey, tileStatus);
-  };
-  m_tileTree.FinishTile(newTile, onAddDeferredTile, onRemoveTile);
-}
-
 void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
                                         dp::GLState const & state,
                                         dp::MasterPointer<dp::RenderBucket> & renderBucket,
@@ -291,6 +255,18 @@ void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups
   unique_ptr<RenderGroup> group(new RenderGroup(state, newTile));
   group->AddBucket(renderBucket.Move());
   groups.emplace_back(move(group));
+}
+
+void FrontendRenderer::OnAddRenderGroup(TileKey const & tileKey, dp::GLState const & state,
+                                        dp::MasterPointer<dp::RenderBucket> & renderBucket)
+{
+  AddToRenderGroup(m_renderGroups, state, renderBucket, tileKey);
+}
+
+void FrontendRenderer::OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
+                                          dp::MasterPointer<dp::RenderBucket> & renderBucket)
+{
+  AddToRenderGroup(m_deferredRenderGroups, state, renderBucket, tileKey);
 }
 
 void FrontendRenderer::OnAddDeferredTile(TileKey const & tileKey, TileStatus tileStatus)
@@ -463,18 +439,10 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
   int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
 
   // clip all tiles which are out of viewport
-  auto onRemoveTile = [this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    OnRemoveTile(tileKey, tileStatus);
-  };
-  auto onAddDeferredTile = [this](TileKey const & tileKey, TileStatus tileStatus)
-  {
-    OnAddDeferredTile(tileKey, tileStatus);
-  };
-  m_tileTree.ClipByRect(clipRect, onAddDeferredTile, onRemoveTile);
+  m_tileTree.ClipByRect(clipRect);
 
   // request new tiles
-  m_tileTree.BeginRequesting(tileScale, onRemoveTile);
+  m_tileTree.BeginRequesting(tileScale);
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
@@ -484,7 +452,7 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
         m_tileTree.RequestTile(key);
     }
   }
-  m_tileTree.EndRequesting(onRemoveTile);
+  m_tileTree.EndRequesting();
 }
 
 void FrontendRenderer::StartThread()
