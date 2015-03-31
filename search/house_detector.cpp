@@ -15,6 +15,7 @@
 #include "../std/set.hpp"
 #include "../std/bind.hpp"
 #include "../std/numeric.hpp"
+#include "../std/transform_iterator.hpp"
 
 #ifdef DEBUG
 #include "../platform/platform.hpp"

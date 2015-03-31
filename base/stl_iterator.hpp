@@ -2,11 +2,6 @@
 
 #include "../std/iterator_facade.hpp"
 
-#include <boost/iterator/transform_iterator.hpp>
-
-using boost::make_transform_iterator;
-
-
 namespace detail
 {
 
