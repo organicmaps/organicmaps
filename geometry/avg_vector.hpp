@@ -96,7 +96,7 @@ namespace math
   public:
     LowPassVector() : m_factor(0.15)
     {
-      m_val.assign(T());
+      m_val.fill(T());
     }
     void SetFactor(T t) { m_factor = t; }
 
