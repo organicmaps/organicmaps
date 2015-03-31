@@ -266,6 +266,11 @@ public class SystemInfo {
   }
 
   public static boolean hasPermission(final String permission, final Context context) {
-    return PackageManager.PERMISSION_GRANTED == context.checkCallingOrSelfPermission(permission);
+    try {
+      return PackageManager.PERMISSION_GRANTED == context.checkCallingOrSelfPermission(permission);
+    } catch (Exception ex) {
+      handleException(ex);
+      return false;
+    }
   }
 }
