@@ -2,6 +2,8 @@
 
 #include "osrm_test_tools.hpp"
 
+#include "../indexer/mercator.hpp"
+
 using namespace routing;
 
 namespace
@@ -48,5 +50,19 @@ namespace
     shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
     integration::CalculateRouteAndTestRouteLength(routerComponents,  {37.537543510152318, 67.536217686389165},
                                                   {0., 0.}, {18.542688617866236, -36.095015335418523}, 1000.);
+  }
+
+  UNIT_TEST(ArbatBaliCrimeanForwardCrossMwmTest)
+  {
+    shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
+    integration::CalculateRouteAndTestRouteLength(routerComponents,  {MercatorBounds::LonToX(34.804955), MercatorBounds::LatToY(46.152324)},
+                                                  {0., 0.}, {MercatorBounds::LonToX(35.369712), MercatorBounds::LatToY(45.356971)}, 105000.);
+  }
+
+  UNIT_TEST(ArbatBaliCrimeanBackwardCrossTest)
+  {
+    shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
+    integration::CalculateRouteAndTestRouteLength(routerComponents, {MercatorBounds::LonToX(35.369712), MercatorBounds::LatToY(45.356971)},
+                                                  {0., 0.}, {MercatorBounds::LonToX(34.804955), MercatorBounds::LatToY(46.152324)}, 105000.);
   }
 }

@@ -54,18 +54,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   CHECK(borders::LoadCountriesList(baseDir, m_countries),
       ("Error loading country polygons files"));
   {
-    vector<m2::RegionD> tmpRegionBorders;
     m_countries.ForEach([&](borders::CountryPolygons const & c)
     {
       if (c.m_name == countryName)
       {
         c.m_regions.ForEach([&](m2::RegionD const & region)
         {
-          m2::RegionD finalBorder;
-          finalBorder.Data().reserve(region.Data().size());
-          for (auto p = region.Begin(); p<region.End(); ++p)
-            finalBorder.AddPoint({MercatorBounds::XToLon(p->x), MercatorBounds::YToLat(p->y)});
-          regionBorders.emplace_back(move(finalBorder));
+          regionBorders.push_back(region);
         });
       }
     });
@@ -104,33 +99,41 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
         {
-          bool const outStart = border.Contains({ startSeg.lon1, startSeg.lat1 });
-          bool const outEnd = border.Contains({ endSeg.lon2, endSeg.lat2 });
+          bool const outStart = border.Contains({ MercatorBounds::LonToX(startSeg.lon1), MercatorBounds::LatToY(startSeg.lat1) });
+          bool const outEnd = border.Contains({ MercatorBounds::LonToX(endSeg.lon2), MercatorBounds::LatToY(endSeg.lat2) });
           if (outStart == outEnd)
             continue;
           m2::PointD intersection = m2::PointD::Zero();
           for (auto const & segment : data.m_segments)
-            if (border.FindIntersection({segment.lon1, segment.lat1}, {segment.lon2, segment.lat2}, intersection))
+            if (border.FindIntersection({MercatorBounds::LonToX(segment.lon1), MercatorBounds::LatToY(segment.lat1)}, {MercatorBounds::LonToX(segment.lon2), MercatorBounds::LatToY(segment.lat2)}, intersection))
               break;
           if (intersection == m2::PointD::Zero())
             continue;
+          else
+            // for old format compatibility
+            intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
           if (outStart && !outEnd)
           {
             string mwmName;
-            m2::PointD mercatorPoint(MercatorBounds::LonToX(endSeg.lon2), MercatorBounds::LatToY(endSeg.lat2));
+            m2::PointD const mercatorPoint(MercatorBounds::LonToX(endSeg.lon2), MercatorBounds::LatToY(endSeg.lat2));
             m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
             {
-              bool inside = false;
+              if (c.m_name == countryName)
+                return;
               c.m_regions.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](m2::RegionD const & region)
               {
+                // Sometimes Contains make errors for cases near the border.
                 if (region.Contains(mercatorPoint))
-                  inside = true;
+                  mwmName = c.m_name;
+                else
+                  if (region.AtBorder(mercatorPoint,0.01))
+                      mwmName = c.m_name;
               });
-              if (inside)
-                mwmName = c.m_name;
             });
-            if (!mwmName.empty() && mwmName != mwmFile)
+            if (!mwmName.empty())
               crossContext.addOutgoingNode(nodeId, mwmName, intersection);
+            else
+              LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
           }
           else if (!outStart && outEnd)
             crossContext.addIngoingNode(nodeId, intersection);
