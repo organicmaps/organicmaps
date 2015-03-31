@@ -199,6 +199,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.removeLocationListener(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
+    mLocationPredictor.pause();
   }
 
   private void listenLocationUpdates()
@@ -206,6 +207,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.addLocationListener(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
+    mLocationPredictor.resume();
   }
 
   /**
@@ -1021,7 +1023,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
     SearchController.getInstance().onResume();
     mPlacePage.onResume();
-    mLocationPredictor.resume();
     mLikesManager.showLikeDialogs();
   }
 
@@ -1032,7 +1033,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     stopWatchingExternalStorage();
     stopWatchingCompassStatusUpdate();
     super.onPause();
-    mLocationPredictor.pause();
     mLikesManager.cancelLikeDialogs();
   }
 
