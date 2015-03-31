@@ -133,9 +133,8 @@ void BenchmarkEngine::PrepareMaps()
   // add only maps needed for benchmarks
   MapsCollector collector;
   ForEachBenchmarkRecord(collector);
-  feature::DataHeader::Version version;
   for_each(collector.m_maps.begin(), collector.m_maps.end(),
-           bind(&Framework::RegisterMap, m_framework, _1, version));
+           bind(&Framework::RegisterMap, m_framework, _1));
 }
 
 BenchmarkEngine::BenchmarkEngine(Framework * fw)

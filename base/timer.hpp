@@ -25,6 +25,14 @@ public:
 };
 
 string FormatCurrentTime();
+
+/// Generates timestamp for a specified day.
+/// \param year  The number of years since 1900.
+/// \param month The number of month since January, in the range 0 to 11.
+/// \param day   The day of the month, in the range 1 to 31.
+/// \return Timestamp.
+uint32_t GenerateTimestamp(int year, int month, int day);
+
 uint32_t TodayAsYYMMDD();
 
 /// Always creates strings in UTC time: 1997-07-16T07:30:15Z

@@ -10,20 +10,21 @@
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
 
+namespace {
 
-typedef feature::DataHeader FHeaderT;
+using FHeaderT = feature::DataHeader;
+
+}  // namespace
 
 void LoadMapHeader(FilesContainerR const & cont, FHeaderT & header)
 {
   ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
+  version::MwmVersion version;
 
-  if (!cont.IsExist(VERSION_FILE_TAG))
-    header.LoadVer1(headerReader);
+  if (version::ReadVersion(cont, version))
+    header.Load(headerReader, version.format);
   else
-  {
-    ModelReaderPtr verReader = cont.GetReader(VERSION_FILE_TAG);
-    header.Load(headerReader, static_cast<FHeaderT::Version>(ver::ReadVersion(verReader)));
-  }
+    header.LoadV1(headerReader);
 }
 
 void LoadMapHeader(ModelReaderPtr const & reader, FHeaderT & header)
@@ -33,23 +34,13 @@ void LoadMapHeader(ModelReaderPtr const & reader, FHeaderT & header)
 
 void IndexFactory::Load(FilesContainerR const & cont)
 {
+  ReadVersion(cont, m_version);
   LoadMapHeader(cont, m_header);
 }
 
 IntervalIndexIFace * IndexFactory::CreateIndex(ModelReaderPtr reader)
 {
-  IntervalIndexIFace * p;
-
-  switch (m_header.GetVersion())
-  {
-  case FHeaderT::v1:
-    p = new old_101::IntervalIndex<uint32_t, ModelReaderPtr>(reader);
-    break;
-
-  default:
-    p = new IntervalIndex<ModelReaderPtr>(reader);
-    break;
-  }
-
-  return p;
+  if (m_version.format == version::v1)
+    return new old_101::IntervalIndex<uint32_t, ModelReaderPtr>(reader);
+  return new IntervalIndex<ModelReaderPtr>(reader);
 }

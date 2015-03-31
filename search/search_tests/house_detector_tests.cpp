@@ -183,9 +183,9 @@ UNIT_TEST(HS_StreetsMerge)
   classificator::Load();
 
   Index index;
-  m2::RectD rect;
-  feature::DataHeader::Version version;
-  TEST(index.Register("minsk-pass.mwm", rect, version), ());
+  pair<MwmSet::MwmLock, bool> p = index.Register("minsk-pass.mwm");
+  TEST(p.first.IsLocked(), ());
+  TEST(p.second, ());
 
   {
     search::HouseDetector houser(&index);
@@ -272,9 +272,9 @@ UNIT_TEST(HS_FindHouseSmoke)
   classificator::Load();
 
   Index index;
-  m2::RectD rect;
-  feature::DataHeader::Version version;
-  index.Register("minsk-pass.mwm", rect, version);
+  pair<MwmSet::MwmLock, bool> p = index.Register("minsk-pass.mwm");
+  TEST(p.first.IsLocked(), ());
+  TEST(p.second, ());
 
   {
     vector<string> streetName(1, "Московская улица");
@@ -375,13 +375,13 @@ UNIT_TEST(HS_MWMSearch)
   }
 
   Index index;
-  m2::RectD rect;
-  feature::DataHeader::Version version;
-  if (!index.Register(country + ".mwm", rect, version))
+  pair<MwmSet::MwmLock, bool> p = index.Register(country + ".mwm");
+  if (!p.second)
   {
     LOG(LWARNING, ("MWM file not found"));
     return;
   }
+  TEST(p.first.IsLocked(), ());
 
   CollectStreetIDs streetIDs;
   index.ForEachInScale(streetIDs, scales::GetUpperScale());

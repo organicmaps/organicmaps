@@ -60,11 +60,15 @@ string FormatCurrentTime()
   return s;
 }
 
+uint32_t GenerateTimestamp(int year, int month, int day) {
+  return (year - 100) * 10000 + (month + 1) * 100 + day;
+}
+
 uint32_t TodayAsYYMMDD()
 {
   time_t rawTime = time(NULL);
   tm * pTm = gmtime(&rawTime);
-  return (pTm->tm_year - 100) * 10000 + (pTm->tm_mon + 1) * 100 + pTm->tm_mday;
+  return GenerateTimestamp(pTm->tm_year, pTm->tm_mon, pTm->tm_mday);
 }
 
 namespace

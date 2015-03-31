@@ -22,6 +22,7 @@
 
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/feature.hpp"
+#include "../indexer/mwm_version.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/classificator_loader.hpp"
 
@@ -84,26 +85,29 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
 }
 
-bool Framework::RegisterMap(string const & file, feature::DataHeader::Version & version)
+pair<MwmSet::MwmLock, bool> Framework::RegisterMap(string const & file)
 {
   LOG(LINFO, ("Loading map:", file));
 
-  if (!m_model.RegisterMap(file, version))
-    return false;
+  pair<MwmSet::MwmLock, bool> p = m_model.RegisterMap(file);
+  if (!p.second)
+    return p;
+  MwmSet::MwmLock & lock = p.first;
+  ASSERT(lock.IsLocked(), ());
 
-  if (version == feature::DataHeader::v1)
+  MwmInfo const & info = lock.GetInfo();
+
+  if (info.m_version.format == version::v1)
   {
     // Now we do force delete of old (April 2011) maps.
     LOG(LINFO, ("Deleting old map:", file));
 
     DeregisterMap(file);
     VERIFY(my::DeleteFileX(GetPlatform().WritablePathForFile(file)), ());
-
-    version = feature::DataHeader::unknownVersion;
-    return false;
+    return make_pair(MwmSet::MwmLock(), false);
   }
 
-  return true;
+  return p;
 }
 
 void Framework::DeregisterMap(string const & file) { m_model.DeregisterMap(file); }
@@ -379,9 +383,12 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
       }
 
     // Add downloaded map.
-    m2::RectD rect;
-    if (m_model.UpdateMap(fileName, rect))
-      InvalidateRect(rect, true);
+    pair<MwmSet::MwmLock, Index::UpdateStatus> p = m_model.UpdateMap(fileName);
+    if (p.second == Index::UPDATE_STATUS_OK) {
+      MwmSet::MwmLock & lock = p.first;
+      ASSERT(lock.IsLocked(), ());
+      InvalidateRect(lock.GetInfo().m_limitRect, true);
+    }
 
     GetSearchEngine()->ClearViewportsCache();
   }
@@ -411,14 +418,18 @@ void Framework::RegisterAllMaps()
   GetMaps(maps);
   for_each(maps.begin(), maps.end(), [&](string const & file)
   {
-    feature::DataHeader::Version version;
-    if (RegisterMap(file, version) && version < minVersion)
-      minVersion = version;
+    pair<MwmSet::MwmLock, bool> p = RegisterMap(file);
+    if (p.second)
+    {
+      MwmSet::MwmLock & lock = p.first;
+      ASSERT(lock.IsLocked(), ());
+      minVersion = min(minVersion, static_cast<int>(lock.GetInfo().m_version.format));
+    }
   });
 
   m_countryTree.Init(maps);
 
-  GetSearchEngine()->SupportOldFormat(minVersion < feature::DataHeader::v3);
+  GetSearchEngine()->SupportOldFormat(minVersion < version::v3);
 }
 
 void Framework::DeregisterAllMaps()

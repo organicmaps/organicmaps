@@ -34,9 +34,12 @@ void doTests2(search::LocalityFinder & finder, vector<m2::PointD> const & input,
 UNIT_TEST(LocalityFinder)
 {
   Index index;
-  m2::RectD rect;
-  feature::DataHeader::Version version;
-  TEST(index.Register("World.mwm", rect, version), ());
+  pair<MwmSet::MwmLock, bool> p = index.Register("World.mwm");
+  TEST(p.second, ());
+  MwmSet::MwmLock & lock = p.first;
+  TEST(lock.IsLocked(), ());
+  MwmInfo const & info = index.GetMwmInfo(lock.GetId());
+  m2::RectD const & rect = info.m_limitRect;
 
   search::LocalityFinder finder(&index);
   finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));
@@ -57,7 +60,7 @@ UNIT_TEST(LocalityFinder)
   // Tets one viewport based on whole map
   doTests(finder, input, results);
 
-  // Test two viewport based on quaters of worl map
+  // Test two viewport based on quaters of world map
   m2::RectD rect1;
   rect1.setMinX(rect.minX());
   rect1.setMinY(rect.minY());

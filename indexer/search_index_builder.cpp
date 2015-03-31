@@ -383,7 +383,7 @@ void AddFeatureNameIndexPairs(FilesContainerR const & container,
                               StringsFile<FeatureIndexValue> & stringsFile)
 {
   feature::DataHeader header;
-  header.Load(container.GetReader(HEADER_FILE_TAG));
+  header.Load(container.GetReader(HEADER_FILE_TAG), version::unknownFormat);
   FeaturesVector features(container, header);
 
   ValueBuilder<FeatureIndexValue> valueBuilder;
@@ -404,7 +404,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 {
   {
     feature::DataHeader header;
-    header.Load(cont.GetReader(HEADER_FILE_TAG));
+    header.Load(cont.GetReader(HEADER_FILE_TAG), version::unknownFormat);
     FeaturesVector featuresV(cont, header);
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));

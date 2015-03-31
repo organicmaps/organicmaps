@@ -93,7 +93,8 @@ namespace feature
     WriteVarInt(w, static_cast<int32_t>(m_type));
   }
 
-  void DataHeader::Load(ModelReaderPtr const & r, Version ver /*= unknownVersion*/)
+  void DataHeader::Load(ModelReaderPtr const & r,
+                        version::Format format /* = version::unknownFormat */)
   {
     ReaderSource<ModelReaderPtr> src(r);
     m_codingParams.Load(src);
@@ -105,7 +106,7 @@ namespace feature
     LoadBytes(src, m_langs);
 
     m_type = static_cast<MapType>(ReadVarInt<int32_t>(src));
-    m_ver = ver;
+    m_format = format;
 
     if (!IsMWMSuitable())
     {
@@ -117,7 +118,7 @@ namespace feature
     // Place all new serializable staff here.
   }
 
-  void DataHeader::LoadVer1(ModelReaderPtr const & r)
+  void DataHeader::LoadV1(ModelReaderPtr const & r)
   {
     ReaderSource<ModelReaderPtr> src(r);
     int64_t const base = ReadPrimitiveFromSource<int64_t>(src);
@@ -132,6 +133,6 @@ namespace feature
 
     m_type = country;
 
-    m_ver = v1;
+    m_format = version::v1;
   }
 }

@@ -218,7 +218,7 @@ FeatureLoader::~FeatureLoader()
 
 void FeatureLoader::CreateLoader(size_t mwmID)
 {
-  if (m_pGuard == 0 || mwmID != m_pGuard->GetID())
+  if (m_pGuard == 0 || mwmID != m_pGuard->GetId())
   {
     delete m_pGuard;
     m_pGuard = new Index::FeaturesLoaderGuard(*m_pIndex, mwmID);

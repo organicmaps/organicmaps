@@ -24,8 +24,9 @@ UNIT_TEST(CheckMWM_LoadAll)
   {
     try
     {
-      feature::DataHeader::Version version;
-      m.RegisterMap(s, version);
+      pair<MwmSet::MwmLock, bool> p = m.RegisterMap(s);
+      TEST(p.first.IsLocked(), ());
+      TEST(p.second, ());
     }
     catch (RootException const & ex)
     {

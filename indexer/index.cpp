@@ -27,21 +27,10 @@ string MwmValue::GetFileName() const
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-// Index::MwmLock implementation
-//////////////////////////////////////////////////////////////////////////////////
-
-string Index::MwmLock::GetFileName() const
-{
-  MwmValue * p = GetValue();
-  return (p ? p->GetFileName() : string());
-}
-
-//////////////////////////////////////////////////////////////////////////////////
 // Index implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Index::GetVersion(string const & name, MwmInfo & info,
-                       feature::DataHeader::Version & version) const
+bool Index::GetVersion(string const & name, MwmInfo & info)
 {
   MwmValue value(name);
 
@@ -54,8 +43,8 @@ bool Index::GetVersion(string const & name, MwmInfo & info,
   pair<int, int> const scaleR = h.GetScaleRange();
   info.m_minScale = static_cast<uint8_t>(scaleR.first);
   info.m_maxScale = static_cast<uint8_t>(scaleR.second);
+  info.m_version = value.GetMwmVersion();
 
-  version = h.GetVersion();
   return true;
 }
 
@@ -104,30 +93,28 @@ namespace
   }
 }
 
-bool Index::RegisterMap(string const & fileName, m2::RectD & rect,
-                        feature::DataHeader::Version & version)
+pair<MwmSet::MwmLock, bool> Index::RegisterMap(string const & fileName)
 {
   if (GetPlatform().IsFileExistsByFullPath(GetFullPath(fileName + READY_FILE_EXTENSION)))
   {
-    UpdateStatus status = UpdateMap(fileName, rect, version);
-    switch (status)
+    pair<MwmSet::MwmLock, UpdateStatus> updateResult = UpdateMap(fileName);
+    switch (updateResult.second)
     {
       case UPDATE_STATUS_OK:
-        return true;
+        return make_pair(move(updateResult.first), true);
       case UPDATE_STATUS_BAD_FILE:
-        return false;
+        return make_pair(move(updateResult.first), false);
       case UPDATE_STATUS_UPDATE_DELAYED:
         // Not dangerous, but it's strange when adding existing maps.
         ASSERT(false, ());
-        version = feature::DataHeader::v3;
-        return true;
+        return make_pair(move(updateResult.first), true);
     }
   }
 
-  if (!Register(fileName, rect, version))
-    return false;
-  m_observers.ForEach(&Observer::OnMapRegistered, fileName);
-  return true;
+  pair<MwmSet::MwmLock, bool> result = Register(fileName);
+  if (result.second)
+    m_observers.ForEach(&Observer::OnMapRegistered, fileName);
+  return result;
 }
 
 bool Index::DeleteMap(string const & fileName)
@@ -154,10 +141,11 @@ bool Index::RemoveObserver(Observer & observer)
   return m_observers.Remove(observer);
 }
 
-Index::UpdateStatus Index::UpdateMap(string const & fileName, m2::RectD & rect,
-                                     feature::DataHeader::Version & version)
+pair<MwmSet::MwmLock, Index::UpdateStatus> Index::UpdateMap(string const & fileName)
 {
-  UpdateStatus status = UPDATE_STATUS_OK;
+  pair<MwmSet::MwmLock, UpdateStatus> result;
+  result.second = UPDATE_STATUS_BAD_FILE;
+
   {
     lock_guard<mutex> lock(m_lock);
 
@@ -165,19 +153,24 @@ Index::UpdateStatus Index::UpdateMap(string const & fileName, m2::RectD & rect,
     if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
     {
       m_info[id].SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
-      status = UPDATE_STATUS_UPDATE_DELAYED;
+      result.first = GetLock(id);
+      result.second = UPDATE_STATUS_UPDATE_DELAYED;
     }
     else
     {
       ReplaceFileWithReady(fileName);
-      status = RegisterImpl(fileName, rect, version) ? UPDATE_STATUS_OK : UPDATE_STATUS_BAD_FILE;
+      pair<MwmSet::MwmLock, bool> registerResult = RegisterImpl(fileName);
+      if (registerResult.second) {
+        result.first = move(registerResult.first);
+        result.second = UPDATE_STATUS_OK;
+      }
     }
   }
-  if (status != UPDATE_STATUS_BAD_FILE)
+  if (result.second != UPDATE_STATUS_BAD_FILE)
     m_observers.ForEach(&Observer::OnMapUpdateIsReady, fileName);
-  if (status == UPDATE_STATUS_OK)
+  if (result.second == UPDATE_STATUS_OK)
     m_observers.ForEach(&Observer::OnMapUpdated, fileName);
-  return status;
+  return result;
 }
 
 void Index::UpdateMwmInfo(MwmId id)
@@ -214,19 +207,26 @@ void Index::UpdateMwmInfo(MwmId id)
 //////////////////////////////////////////////////////////////////////////////////
 
 Index::FeaturesLoaderGuard::FeaturesLoaderGuard(Index const & parent, MwmId id)
-  : m_lock(parent, id),
-    /// @note This guard is suitable when mwm is loaded
-    m_vector(m_lock.GetValue()->m_cont, m_lock.GetValue()->GetHeader())
+    : m_lock(const_cast<Index &>(parent), id),
+      /// @note This guard is suitable when mwm is loaded
+      m_vector(m_lock.GetValue<MwmValue>()->m_cont, m_lock.GetValue<MwmValue>()->GetHeader())
 {
+}
+
+string Index::FeaturesLoaderGuard::GetFileName() const
+{
+  if (!m_lock.IsLocked())
+    return string();
+  return m_lock.GetValue<MwmValue>()->GetFileName();
 }
 
 bool Index::FeaturesLoaderGuard::IsWorld() const
 {
-  return (m_lock.GetValue()->GetHeader().GetType() == feature::DataHeader::world);
+  return m_lock.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
 }
 
 void Index::FeaturesLoaderGuard::GetFeature(uint32_t offset, FeatureType & ft)
 {
   m_vector.Get(offset, ft);
-  ft.SetID(FeatureID(m_lock.GetID(), offset));
+  ft.SetID(FeatureID(m_lock.GetId(), offset));
 }

@@ -32,24 +32,27 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-bool FeaturesFetcher::RegisterMap(string const & file, feature::DataHeader::Version & version)
+pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(string const & file)
 {
   try
   {
-    m2::RectD r;
-    if (!m_multiIndex.RegisterMap(file, r, version))
+    pair<MwmSet::MwmLock, bool> p = m_multiIndex.RegisterMap(file);
+    if (!p.second)
     {
       LOG(LWARNING,
           ("Can't add map", file, "Probably it's already added or has newer data version."));
-      return false;
+      return p;
     }
-    m_rect.Add(r);
-    return true;
+    MwmSet::MwmLock & lock = p.first;
+    if (!lock.IsLocked())
+      return p;
+    m_rect.Add(lock.GetInfo().m_limitRect);
+    return p;
   }
   catch (RootException const & e)
   {
     LOG(LERROR, ("IO error while adding ", file, " map. ", e.what()));
-    return false;
+    return make_pair(MwmSet::MwmLock(), false);
   }
 }
 
@@ -62,10 +65,9 @@ bool FeaturesFetcher::DeleteMap(string const & file)
   return m_multiIndex.DeleteMap(file);
 }
 
-bool FeaturesFetcher::UpdateMap(string const & file, m2::RectD & rect)
+pair<MwmSet::MwmLock, Index::UpdateStatus> FeaturesFetcher::UpdateMap(string const & file)
 {
-  feature::DataHeader::Version version;
-  return m_multiIndex.UpdateMap(file, rect, version);
+  return m_multiIndex.UpdateMap(file);
 }
 
 //void FeaturesFetcher::Clean()

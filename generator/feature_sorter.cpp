@@ -118,7 +118,7 @@ namespace feature
       // write version information
       {
         FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
-        ver::WriteVersion(w);
+        version::WriteVersion(w);
       }
 
       // write own mwm header

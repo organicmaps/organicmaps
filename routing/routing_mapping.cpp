@@ -40,7 +40,13 @@ RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
     ModelReaderPtr r2 = FilesContainerR(pl.GetReader(mwmName)).GetReader(VERSION_FILE_TAG);
     ReaderSrc src2(r2.GetPtr());
 
-    if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
+    version::MwmVersion version1;
+    version::ReadVersion(src1, version1);
+
+    version::MwmVersion version2;
+    version::ReadVersion(src2, version2);
+
+    if (version1.timestamp != version2.timestamp)
     {
       m_container.Close();
       m_isValid = false;

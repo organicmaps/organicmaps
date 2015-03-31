@@ -1,6 +1,7 @@
 #pragma once
 
 #include "coding_params.hpp"
+#include "mwm_version.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -59,24 +60,15 @@ namespace feature
 
     pair<int, int> GetScaleRange() const;
 
-    enum Version
-    {
-      unknownVersion = -1,
-      v1 = 0,     // April 2011
-      v2,         // November 2011 (store type index, instead of raw type in mwm)
-      v3,         // March 2013 (store type index, instead of raw type in search data)
-      lastVersion = v3
-    };
-
-    inline Version GetVersion() const { return m_ver; }
-    inline bool IsMWMSuitable() const { return (m_ver <= lastVersion); }
+    inline version::Format GetFormat() const { return m_format; }
+    inline bool IsMWMSuitable() const { return m_format <= version::lastFormat; }
 
     /// @name Serialization
     //@{
     void Save(FileWriter & w) const;
 
-    void Load(ModelReaderPtr const & r, Version ver = unknownVersion);
-    void LoadVer1(ModelReaderPtr const & r);
+    void Load(ModelReaderPtr const & r, version::Format format = version::unknownFormat);
+    void LoadV1(ModelReaderPtr const & r);
     //@}
 
     enum MapType
@@ -90,7 +82,7 @@ namespace feature
     inline MapType GetType() const { return m_type; }
 
   private:
-    Version m_ver;
+    version::Format m_format;
     MapType m_type;
   };
 }

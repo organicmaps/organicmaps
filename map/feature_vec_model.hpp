@@ -9,6 +9,8 @@
 #include "../coding/reader.hpp"
 #include "../coding/buffer_reader.hpp"
 
+#include "../base/macros.hpp"
+
 namespace model
 {
 //#define USE_BUFFER_READER
@@ -30,11 +32,16 @@ namespace model
   public:
     void InitClassificator();
 
-    /// @param[in] file Name of mwm file with extension.
-    //{@
-    /// @return True when map was successfully registered, also, sets
-    ///         version to the file format version.
-    bool RegisterMap(string const & file, feature::DataHeader::Version & version);
+      /// Registers new map.
+    ///
+    /// \return A pair of MwmLock and a flag. MwmLock is locked iff map
+    ///         with fileName was created or already exists.  Flag is
+    ///         set when a new map was registered. Thus, there are
+    ///         three main cases:
+    ///         * map already exists       - returns active lock and unset flag
+    ///         * a new map was registered - returns active lock and set flag
+    ///         * can't register new map   - returns inactive lock and unset flag
+    WARN_UNUSED_RESULT pair<MwmSet::MwmLock, bool> RegisterMap(string const & file);
 
     /// Deregisters map denoted by file from internal records.
     void DeregisterMap(string const & file);
@@ -47,12 +54,17 @@ namespace model
     /// \return True if map was successfully deleted.
     bool DeleteMap(string const & file);
 
-    /// Tries to update map denoted by file. If map is used right now,
-    /// update will be delayed.
+    /// Replaces map file corresponding to fileName with a new one, when
+    /// it's possible - no clients of the map file. Otherwise, update
+    /// will be delayed.
     ///
-    /// \return True when map was successfully updated, false when update
-    ///         was delayed or when update's version is not good.
-    bool UpdateMap(string const & file, m2::RectD & rect);
+    /// \return * map file have been updated - returns active lock and
+    ///           UPDATE_STATUS_OK
+    ///         * update is delayed because map is busy - returns active lock and
+    ///           UPDATE_STATUS_UPDATE_DELAYED
+    ///         * file isn't suitable for update - returns inactive lock and
+    ///           UPDATE_STATUS_BAD_FILE
+    WARN_UNUSED_RESULT pair<MwmSet::MwmLock, Index::UpdateStatus> UpdateMap(string const & file);
     //@}
 
     //void Clean();

@@ -3,11 +3,14 @@
 
 #include "../defines.hpp"
 
+#include "../base/assert.hpp"
 #include "../base/logging.hpp"
-#include "../base/macros.hpp"
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
+
+// static
+MwmSet::MwmId const MwmSet::INVALID_MWM_ID = static_cast<MwmSet::MwmId>(-1);
 
 MwmInfo::MwmInfo() : m_lockCount(0), m_status(STATUS_DEREGISTERED)
 {
@@ -23,17 +26,54 @@ MwmInfo::MwmTypeT MwmInfo::GetType() const
   return COASTS;
 }
 
+MwmSet::MwmLock::MwmLock() : m_mwmSet(nullptr), m_mwmId(MwmSet::INVALID_MWM_ID), m_value(nullptr) {}
+
 MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId)
-  : m_mwmSet(mwmSet), m_id(mwmId), m_pValue(mwmSet.LockValue(mwmId))
+    : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(m_mwmSet->LockValue(m_mwmId))
 {
+}
+
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, string const & fileName)
+    : m_mwmSet(&mwmSet), m_mwmId(MwmSet::INVALID_MWM_ID), m_value(nullptr)
+{
+  lock_guard<mutex> lock(m_mwmSet->m_lock);
+  m_mwmId = m_mwmSet->GetIdByName(fileName);
+  if (m_mwmId != MwmSet::INVALID_MWM_ID)
+    m_value = m_mwmSet->LockValueImpl(m_mwmId);
+}
+
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, MwmValueBase * value)
+    : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
+{
+}
+
+MwmSet::MwmLock::MwmLock(MwmLock && lock)
+    : m_mwmSet(lock.m_mwmSet), m_mwmId(lock.m_mwmId), m_value(lock.m_value)
+{
+  lock.m_mwmId = 0;
+  lock.m_mwmId = MwmSet::INVALID_MWM_ID;
+  lock.m_value = 0;
 }
 
 MwmSet::MwmLock::~MwmLock()
 {
-  if (m_pValue)
-    m_mwmSet.UnlockValue(m_id, m_pValue);
+  if (m_mwmSet && m_value)
+    m_mwmSet->UnlockValue(m_mwmId, m_value);
 }
 
+MwmInfo const & MwmSet::MwmLock::GetInfo() const
+{
+  ASSERT(IsLocked(), ("MwmLock is not active."));
+  return m_mwmSet->GetMwmInfo(m_mwmId);
+}
+
+MwmSet::MwmLock & MwmSet::MwmLock::operator=(MwmLock && lock)
+{
+  swap(m_mwmSet, lock.m_mwmSet);
+  swap(m_mwmId, lock.m_mwmId);
+  swap(m_value, lock.m_value);
+  return *this;
+}
 
 MwmSet::MwmSet(size_t cacheSize)
   : m_cacheSize(cacheSize)
@@ -102,8 +142,7 @@ MwmSet::MwmId MwmSet::GetIdByName(string const & name)
   return INVALID_MWM_ID;
 }
 
-bool MwmSet::Register(string const & fileName, m2::RectD & rect,
-                      feature::DataHeader::Version & version)
+pair<MwmSet::MwmLock, bool> MwmSet::Register(string const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
 
@@ -114,20 +153,18 @@ bool MwmSet::Register(string const & fileName, m2::RectD & rect,
       LOG(LWARNING, ("Trying to add already registered map", fileName));
     else
       m_info[id].SetStatus(MwmInfo::STATUS_UP_TO_DATE);
-
-    return false;
+    return make_pair(GetLock(id), false);
   }
 
-  return RegisterImpl(fileName, rect, version);
+  return RegisterImpl(fileName);
 }
 
-bool MwmSet::RegisterImpl(string const & fileName, m2::RectD & rect,
-                          feature::DataHeader::Version & version)
+pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(string const & fileName)
 {
   // this function can throw an exception for bad mwm file
   MwmInfo info;
-  if (!GetVersion(fileName, info, version))
-    return false;
+  if (!GetVersion(fileName, info))
+    return make_pair(MwmLock(), false);
 
   info.SetStatus(MwmInfo::STATUS_UP_TO_DATE);
 
@@ -135,9 +172,7 @@ bool MwmSet::RegisterImpl(string const & fileName, m2::RectD & rect,
   m_name[id] = fileName;
   m_info[id] = info;
 
-  rect = info.m_limitRect;
-  ASSERT(rect.IsValid(), ());
-  return true;
+  return make_pair(GetLock(id), true);
 }
 
 bool MwmSet::DeregisterImpl(MwmId id)
@@ -207,10 +242,21 @@ void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
   info = m_info;
 }
 
+MwmInfo const & MwmSet::GetMwmInfo(MwmId id) const
+{
+  MwmSet * p = const_cast<MwmSet *>(this);
+  lock_guard<mutex> lock(p->m_lock);
+  return m_info[id];
+}
+
 MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id)
 {
   lock_guard<mutex> lock(m_lock);
+  return LockValueImpl(id);
+}
 
+MwmSet::MwmValueBase * MwmSet::LockValueImpl(MwmId id)
+{
   ASSERT_LESS(id, m_info.size(), ());
   if (id >= m_info.size())
     return NULL;
@@ -237,7 +283,11 @@ MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id)
 void MwmSet::UnlockValue(MwmId id, MwmValueBase * p)
 {
   lock_guard<mutex> lock(m_lock);
+  UnlockValueImpl(id, p);
+}
 
+void MwmSet::UnlockValueImpl(MwmId id, MwmValueBase * p)
+{
   ASSERT(p, (id));
   ASSERT_LESS(id, m_info.size(), ());
   if (id >= m_info.size() || p == 0)

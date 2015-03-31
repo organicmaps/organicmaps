@@ -32,8 +32,7 @@ DrapeSurface::DrapeSurface()
   Platform & pl = GetPlatform();
   pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
 
-  feature::DataHeader::Version version;
-  for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::RegisterMap, &m_model, _1, version));
+  for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::RegisterMap, &m_model, _1));
   ///}
   ///
   m_navigator.LoadState();

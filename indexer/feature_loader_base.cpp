@@ -56,18 +56,11 @@ SharedLoadInfo::ReaderT SharedLoadInfo::GetTrianglesReader(int ind) const
 
 void SharedLoadInfo::CreateLoader()
 {
-  switch (m_header.GetVersion())
-  {
-  case DataHeader::v1:
+  if (m_header.GetFormat() == version::v1)
     m_pLoader = new old_101::feature::LoaderImpl(*this);
-    break;
-
-  default:
+  else
     m_pLoader = new LoaderCurrent(*this);
-    break;
-  }
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // LoaderBase implementation.

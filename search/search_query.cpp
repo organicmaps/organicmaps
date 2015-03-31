@@ -263,8 +263,8 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
     // Search only mwms that intersect with viewport (world always does).
     if (rect.IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
-      Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      if (MwmValue * pMwm = mwmLock.GetValue())
+      Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      if (MwmValue * pMwm = mwmLock.GetValue<MwmValue>())
       {
         FHeaderT const & header = pMwm->GetHeader();
         if (header.GetType() == FHeaderT::country)
@@ -575,7 +575,7 @@ namespace impl
     // For the best performance, incoming id's should be sorted by id.first (mwm file id).
     void LoadFeature(FeatureID const & id, FeatureType & f, string & name, string & country)
     {
-      if (m_pFV.get() == 0 || m_pFV->GetID() != id.m_mwm)
+      if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwm)
         m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.m_mwm));
 
       m_pFV->GetFeature(id.m_offset, f);
@@ -1613,8 +1613,8 @@ void Query::SearchAddress(Results & res)
 
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
-    Index::MwmLock mwmLock(*m_pIndex, mwmId);
-    MwmValue * pMwm = mwmLock.GetValue();
+    Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+    MwmValue * pMwm = mwmLock.GetValue<MwmValue>();
     if (pMwm &&
         pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == FHeaderT::world)
@@ -1666,8 +1666,11 @@ void Query::SearchAddress(Results & res)
         {
           for (MwmSet::MwmId id = 0; id < mwmInfo.size(); ++id)
           {
-            Index::MwmLock mwmLock(*m_pIndex, id);
-            if (m_pInfoGetter->IsBelongToRegion(mwmLock.GetFileName(), region.m_ids))
+            Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), id);
+            string fileName;
+            if (mwmLock.IsLocked())
+              fileName = mwmLock.GetValue<MwmValue>()->GetFileName();
+            if (m_pInfoGetter->IsBelongToRegion(fileName, region.m_ids))
               SearchInMWM(mwmLock, params);
           }
         }
@@ -2026,7 +2029,7 @@ void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, Vi
     // Search only mwms that intersect with viewport (world always does).
     if (m_viewport[vID].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
-      Index::MwmLock mwmLock(*m_pIndex, mwmId);
+      Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
       SearchInMWM(mwmLock, params, vID);
     }
   }
@@ -2067,7 +2070,7 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
 void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
                         ViewportID vID /*= DEFAULT_V*/)
 {
-  if (MwmValue * pMwm = mwmLock.GetValue())
+  if (MwmValue * pMwm = mwmLock.GetValue<MwmValue>())
   {
     if (pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
     {
@@ -2086,7 +2089,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
                                          trie::ValueReader(cp),
                                          trie::EdgeValueReader()));
 
-      MwmSet::MwmId const mwmId = mwmLock.GetID();
+      MwmSet::MwmId const mwmId = mwmLock.GetId();
       FeaturesFilter filter((vID == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[vID][mwmId], m_cancel);
 
       // Get categories for each token separately - find needed edge with categories.
@@ -2270,10 +2273,11 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t
 
     for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
     {
-      Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      string const s = mwmLock.GetFileName();
-
-      if (s == name[0] || s == name[1])
+      Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      string fileName;
+      if (mwmLock.IsLocked())
+        fileName = mwmLock.GetValue<MwmValue>()->GetFileName();
+      if (fileName == name[0] || fileName == name[1])
         SearchInMWM(mwmLock, params);
     }
 

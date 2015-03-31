@@ -10,10 +10,12 @@
 
 #include "../defines.hpp"
 
+#include "../base/macros.hpp"
 #include "../base/observer_list.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/unordered_set.hpp"
+#include "../std/utility.hpp"
 #include "../std/vector.hpp"
 
 class MwmValue : public MwmSet::MwmValueBase
@@ -25,6 +27,7 @@ public:
   explicit MwmValue(string const & name);
 
   inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
+  inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
 
   /// @return MWM file name without extension.
   string GetFileName() const;
@@ -34,8 +37,7 @@ class Index : public MwmSet
 {
 protected:
   // MwmSet overrides:
-  bool GetVersion(string const & name, MwmInfo & info,
-                  feature::DataHeader::Version & version) const override;
+  bool GetVersion(string const & name, MwmInfo & info) override;
   MwmValue * CreateValue(string const & name) const override;
   void UpdateMwmInfo(MwmId id) override;
 
@@ -72,43 +74,28 @@ public:
   Index();
   ~Index();
 
-  class MwmLock : public MwmSet::MwmLock
-  {
-    typedef MwmSet::MwmLock BaseT;
-  public:
-    MwmLock(Index const & index, MwmId mwmId)
-      : BaseT(const_cast<Index &>(index), mwmId) {}
-
-    inline MwmValue * GetValue() const
-    {
-      return static_cast<MwmValue *>(BaseT::GetValue());
-    }
-
-    /// @return MWM file name without extension.
-    /// If value is 0, an empty string returned.
-    string GetFileName() const;
-  };
-
   /// Registers new map.
   ///
-  /// \return True if map was successfully registered. In this case
-  ///         version is set to the file format version. Otherwise
-  ///         returns false and version is not modified. This means
-  ///         that file isn't suitable, for example, because of
-  ///         greater version.
-  bool RegisterMap(string const & fileName, m2::RectD & rect,
-                   feature::DataHeader::Version & version);
+  /// \return A pair of MwmLock and a flag. MwmLock is locked iff map
+  ///         with fileName was created or already exists.  Flag is
+  ///         set when a new map was registered. Thus, there are
+  ///         three main cases:
+  ///         * map already exists       - returns active lock and unset flag
+  ///         * a new map was registered - returns active lock and set flag
+  ///         * can't register new map   - returns inactive lock and unset flag
+  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterMap(string const & fileName);
 
   /// Replaces map file corresponding to fileName with a new one, when
   /// it's possible - no clients of the map file. Otherwise, update
   /// will be delayed.
   ///
-  /// \return UPDATE_STATUS_OK, when map file have updated, as a side effect
-  ///         sets version to an mwm format version.
-  ///         UPDATE_STATUS_BAD_FILE when file isn't suitable for update.
-  ///         UPDATE_STATUS_UPDATE_DELAYED when update is delayed.
-  UpdateStatus UpdateMap(string const & fileName, m2::RectD & rect,
-                         feature::DataHeader::Version & version);
+  /// \return * map file have been updated - returns active lock and
+  ///           UPDATE_STATUS_OK
+  ///         * update is delayed because map is busy - returns active lock and
+  ///           UPDATE_STATUS_UPDATE_DELAYED
+  ///         * file isn't suitable for update - returns inactive lock and
+  ///           UPDATE_STATUS_BAD_FILE
+  WARN_UNUSED_RESULT pair<MwmLock, UpdateStatus> UpdateMap(string const & fileName);
 
   /// Deletes map both from file system and internal tables, also,
   /// deletes all files related to the map. If map was successfully
@@ -161,7 +148,7 @@ private:
 
     void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * pValue = lock.GetValue();
+      MwmValue * pValue = lock.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -181,7 +168,7 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implF(fv, m_f, lock.GetID());
+        ImplFunctor implF(fv, m_f, lock.GetId());
         for (size_t i = 0; i < interval.size(); ++i)
           index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
       }
@@ -217,7 +204,7 @@ private:
 
     void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * pValue = lock.GetValue();
+      MwmValue * pValue = lock.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -234,7 +221,7 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implF(m_f, lock.GetID());
+        ImplFunctor implF(m_f, lock.GetId());
         for (size_t i = 0; i < interval.size(); ++i)
           index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
       }
@@ -286,17 +273,17 @@ public:
   /// Guard for loading features from particular MWM by demand.
   class FeaturesLoaderGuard
   {
-    MwmLock m_lock;
-    FeaturesVector m_vector;
-
   public:
     FeaturesLoaderGuard(Index const & parent, MwmId id);
 
-    inline MwmSet::MwmId GetID() const { return m_lock.GetID(); }
-    inline string GetFileName() const { return m_lock.GetFileName(); }
-
+    inline MwmSet::MwmId GetId() const { return m_lock.GetId(); }
+    string GetFileName() const;
     bool IsWorld() const;
     void GetFeature(uint32_t offset, FeatureType & ft);
+
+   private:
+    MwmLock m_lock;
+    FeaturesVector m_vector;
   };
 
   MwmId GetMwmIdByName(string const & name) const
@@ -320,8 +307,8 @@ public:
   {
     if (id != INVALID_MWM_ID)
     {
-      MwmLock lock(*this, id);
-      if (lock.GetValue())
+      MwmLock lock(const_cast<Index &>(*this), id);
+      if (lock.IsLocked())
       {
         covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
         ReadMWMFunctor<F> fn(f);
@@ -339,8 +326,8 @@ private:
     ASSERT_LESS(index, features.size(), ());
     size_t result = index;
     MwmId id = features[index].m_mwm;
-    MwmLock lock(*this, id);
-    MwmValue * pValue = lock.GetValue();
+    MwmLock lock(const_cast<Index &>(*this), id);
+    MwmValue * pValue = lock.GetValue<MwmValue>();
     if (pValue)
     {
       FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader());
@@ -386,7 +373,7 @@ private:
         {
         case MwmInfo::COUNTRY:
           {
-            MwmLock lock(*this, id);
+            MwmLock lock(const_cast<Index &>(*this), id);
             f(lock, cov, scale);
           }
           break;
@@ -404,13 +391,13 @@ private:
 
     if (worldID[0] < count)
     {
-      MwmLock lock(*this, worldID[0]);
+      MwmLock lock(const_cast<Index &>(*this), worldID[0]);
       f(lock, cov, scale);
     }
 
     if (worldID[1] < count)
     {
-      MwmLock lock(*this, worldID[1]);
+      MwmLock lock(const_cast<Index &>(*this), worldID[1]);
       f(lock, cov, scale);
     }
   }

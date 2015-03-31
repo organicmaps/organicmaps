@@ -63,8 +63,7 @@ namespace
     SourceT src;
     src.InitClassificator();
 
-    feature::DataHeader::Version version;
-    src.RegisterMap(file + DATA_FILE_EXTENSION, version);
+    src.RegisterMap(file + DATA_FILE_EXTENSION);
 
     // Check that country rect is valid and not infinity.
     m2::RectD const r = src.GetWorldRect();

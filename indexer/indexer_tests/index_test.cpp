@@ -75,10 +75,7 @@ private:
 UNIT_TEST(Index_Parse)
 {
   Index index;
-
-  m2::RectD dummyRect;
-  feature::DataHeader::Version dummyVersion;
-  index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION, dummyRect, dummyVersion);
+  index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION);
 
   // Make sure that index is actually parsed.
   NoopFunctor fn;
@@ -102,31 +99,49 @@ UNIT_TEST(Index_MwmStatusNotifications)
   index.AddObserver(observer);
 
   TEST_EQUAL(0, observer.map_registered_calls(), ());
-  m2::RectD dummyRect;
-  feature::DataHeader::Version dummyVersion;
 
   // Check that observers are triggered after map registration.
-  TEST(index.RegisterMap(testMapName, dummyRect, dummyVersion), ());
-  TEST_EQUAL(1, observer.map_registered_calls(), ());
+  {
+    pair<MwmSet::MwmLock, bool> p = index.RegisterMap(testMapName);
+    TEST(p.first.IsLocked(), ());
+    TEST(p.second, ());
+    TEST_EQUAL(1, observer.map_registered_calls(), ());
+  }
 
   // Check that map can't registered twice and observers aren't
   // triggered.
-  TEST(!index.RegisterMap(testMapName, dummyRect, dummyVersion), ());
-  TEST_EQUAL(1, observer.map_registered_calls(), ());
+  {
+    pair<MwmSet::MwmLock, bool> p  = index.RegisterMap(testMapName);
+    TEST(p.first.IsLocked(), ());
+    TEST(!p.second, ());
+    TEST_EQUAL(1, observer.map_registered_calls(), ());
+  }
 
   TEST(my::CopyFileX(testMapPath, testMapUpdatePath), ());
   MY_SCOPE_GUARD(testMapUpdateGuard, bind(&CheckedDeleteFile, testMapUpdatePath));
 
   // Check that observers are notified when map is deleted.
-  TEST_EQUAL(0, observer.map_update_is_ready_calls(), ());
-  TEST_EQUAL(0, observer.map_updated_calls(), ());
-  TEST_EQUAL(Index::UPDATE_STATUS_OK, index.UpdateMap(testMapName, dummyRect, dummyVersion), ());
-  TEST_EQUAL(1, observer.map_update_is_ready_calls(), ());
-  TEST_EQUAL(1, observer.map_updated_calls(), ());
+  {
+    TEST_EQUAL(0, observer.map_update_is_ready_calls(), ());
+    TEST_EQUAL(0, observer.map_updated_calls(), ());
+    pair<MwmSet::MwmLock, Index::UpdateStatus> p = index.UpdateMap(testMapName);
+    TEST(p.first.IsLocked(), ());
+    TEST_EQUAL(Index::UPDATE_STATUS_OK, p.second, ());
+    TEST_EQUAL(1, observer.map_update_is_ready_calls(), ());
+    TEST_EQUAL(1, observer.map_updated_calls(), ());
+  }
 
-  // Check that observers are notified when map is deleted.
-  TEST_EQUAL(0, observer.map_deleted_calls(), ());
-  TEST(index.DeleteMap(testMapName), ());
+  // Try to delete map in presence of active lock. Map should be
+  // marked "to be removed" but can't be deleted.
+  {
+    MwmSet::MwmLock lock(index, testMapName);
+    TEST(lock.IsLocked(), ());
+
+    TEST(!index.DeleteMap(testMapName), ());
+    TEST_EQUAL(0, observer.map_deleted_calls(), ());
+  }
+
+  // Check that observers are notified when lock is destroyed.
   TEST_EQUAL(1, observer.map_deleted_calls(), ());
 
   index.RemoveObserver(observer);

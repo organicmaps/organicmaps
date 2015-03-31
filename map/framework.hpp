@@ -174,7 +174,7 @@ public:
   ///
   /// @return True and inner mwm data version from header in version
   ///         or false in case of errors.
-  bool RegisterMap(string const & file, feature::DataHeader::Version & version);
+  pair<MwmSet::MwmLock, bool> RegisterMap(string const & file);
   //@}
 
   /// Deletes all disk files corresponding to country.

@@ -11,15 +11,15 @@ namespace
   class TestMwmSet : public MwmSet
   {
   protected:
-    virtual bool GetVersion(string const & path, MwmInfo & info,
-                            feature::DataHeader::Version & version) const
+    virtual bool GetVersion(string const & path, MwmInfo & info)
     {
       int n = path[0] - '0';
       info.m_maxScale = n;
       info.m_limitRect = m2::RectD(0, 0, 1, 1);
-      version = feature::DataHeader::lastVersion;
+      info.m_version.format = version::lastFormat;
       return true;
     }
+
     virtual MwmValue * CreateValue(string const &) const
     {
       return new MwmValue();
@@ -53,8 +53,8 @@ UNIT_TEST(MwmSetSmokeTest)
   {
     MwmSet::MwmLock lock0(mwmSet, 0);
     MwmSet::MwmLock lock1(mwmSet, 1);
-    TEST(lock0.GetValue() != NULL, ());
-    TEST(lock1.GetValue() == NULL, ());
+    TEST(lock0.IsLocked(), ());
+    TEST(!lock1.IsLocked(), ());
   }
 
   mwmSet.Register("3");
@@ -69,7 +69,7 @@ UNIT_TEST(MwmSetSmokeTest)
 
   {
     MwmSet::MwmLock lock(mwmSet, 1);
-    TEST(lock.GetValue() != NULL, ());
+    TEST(lock.IsLocked(), ());
     mwmSet.Deregister("3");
     mwmSet.Register("4");
   }

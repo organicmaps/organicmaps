@@ -39,8 +39,14 @@ public:
 bool RunTest(string const & fileName, int lowS, int highS)
 {
   model::FeaturesFetcher src;
-  feature::DataHeader::Version version;
-  if (!src.RegisterMap(fileName, version) || version == feature::DataHeader::unknownVersion)
+  pair<MwmSet::MwmLock, bool> p = src.RegisterMap(fileName);
+  if (!p.second)
+    return false;
+  MwmSet::MwmLock & lock = p.first;
+  ASSERT(lock.IsLocked(), ());
+
+  version::Format version = lock.GetInfo().m_version.format;
+  if (version == version::unknownFormat)
     return false;
 
   CheckNonEmptyGeometry doCheck;

@@ -14,10 +14,10 @@ namespace my
 #define ARRAY_SIZE(X) sizeof(::my::impl::ArraySize(X))
 
 // Make class noncopyable.
-#define NONCOPYABLE(class_name)								\
-private:													\
-    class_name const & operator = (class_name const &);		\
-    class_name(class_name const &);
+#define NONCOPYABLE(class_name)                              \
+private:                                                     \
+  class_name const & operator=(class_name const &) = delete; \
+  class_name(class_name const &) = delete
 /////////////////////////////////////////////////////////////
 
 #define TO_STRING_IMPL(x) #x
@@ -72,3 +72,9 @@ private:                                             \
   className(className &&) = delete;                  \
   className & operator=(const className &) = delete; \
   className & operator=(className &&) = delete;
+
+#if defined(__GNUC__)
+#define WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+#else
+#define WARN_UNUSED_RESULT
+#endif  // defined(__GNUC__)

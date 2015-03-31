@@ -2,18 +2,36 @@
 
 #include "../std/stdint.hpp"
 
-
-class ModelReaderPtr;
-class Writer;
+class FilesContainerR;
 class ReaderSrc;
+class Writer;
 
-namespace ver
+namespace version
 {
-  void WriteVersion(Writer & w);
+enum Format
+{
+  unknownFormat = -1,
+  v1 = 0,  // April 2011
+  v2,      // November 2011 (store type index, instead of raw type in mwm)
+  v3,      // March 2013 (store type index, instead of raw type in search data)
+  lastFormat = v3
+};
 
-  /// @return See feature::DataHeader::Version for more details.
-  uint32_t ReadVersion(ModelReaderPtr const & r);
+struct MwmVersion {
+  MwmVersion();
 
-  /// @return Data timestamp in yymmdd format.
-  uint32_t ReadTimestamp(ReaderSrc & src);
-}
+  Format format;
+  uint32_t timestamp;
+};
+
+/// Writes latest format and current timestamp to the writer.
+void WriteVersion(Writer & w);
+
+/// Reads mwm version from src.
+void ReadVersion(ReaderSrc & src, MwmVersion & version);
+
+/// \return True when version was successfully parsed from container,
+///         otherwise returns false. In the latter case version is
+///         unchanged.
+bool ReadVersion(FilesContainerR const & container, MwmVersion & version);
+}  // namespace version
