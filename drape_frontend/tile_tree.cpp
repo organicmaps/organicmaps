@@ -68,19 +68,19 @@ void TileTree::ClipByRect(m2::RectD const & rect)
   SimplifyTree();
 }
 
-bool TileTree::ProcessTile(TileKey const & tileKey, dp::GLState const & state,
-                           dp::MasterPointer<dp::RenderBucket> & bucket)
+bool TileTree::ProcessTile(TileKey const & tileKey, int const zoomLevel,
+                           dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket)
 {
-  bool const result = ProcessNode(m_root, tileKey, state, bucket);
+  bool const result = ProcessNode(m_root, tileKey, zoomLevel, state, bucket);
   if (result)
       SimplifyTree();
 
   return result;
 }
 
-void TileTree::FinishTile(TileKey const & tileKey)
+void TileTree::FinishTile(TileKey const & tileKey, int const zoomLevel)
 {
-  if (FinishNode(m_root, tileKey))
+  if (FinishNode(m_root, tileKey, zoomLevel))
   {
     CheckDeferredTiles(m_root);
     SimplifyTree();
@@ -226,16 +226,17 @@ void TileTree::RemoveTile(TNodePtr const & node)
   node->m_tileStatus = TileStatus::Unknown;
 }
 
-bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey,
+bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel,
                            dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket)
 {
   for (TNodePtr & childNode : node->m_children)
   {
     if (tileKey == childNode->m_tileKey)
     {
-      // skip unknown tiles. A tile can get such status if it becomes invalid before
-      // BR finished its processing
-      if (childNode->m_tileStatus == TileStatus::Unknown)
+      // skip unknown tiles and tiles from different zoom level
+      // A tile can get Unknown status if it becomes invalid before BR finished its processing
+      if (childNode->m_tileStatus == TileStatus::Unknown ||
+          childNode->m_tileKey.m_zoomLevel != zoomLevel)
         return false;
 
       // remove all tiles below current
@@ -263,12 +264,12 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey,
       return true;
     }
     else if (IsTileBelow(childNode->m_tileKey, tileKey))
-      return ProcessNode(childNode, tileKey, state, bucket);
+      return ProcessNode(childNode, tileKey, zoomLevel, state, bucket);
   }
   return false;
 }
 
-bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey)
+bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel)
 {
   bool changed = false;
   for (TNodePtr & childNode : node->m_children)
@@ -278,11 +279,13 @@ bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey)
       // here a tile has finished, but we hadn't got any data from BR. It means that
       // this tile is empty, so we remove all his descendants and him
       childNode->m_tileStatus = TileStatus::Unknown;
-      DeleteTilesBelow(childNode);
+      if (childNode->m_tileKey.m_zoomLevel >= zoomLevel)
+        DeleteTilesBelow(childNode);
+
       changed = true;
     }
 
-    changed |= FinishNode(childNode, tileKey);
+    changed |= FinishNode(childNode, tileKey, zoomLevel);
   }
   return changed;
 }
@@ -347,6 +350,18 @@ void TileTree::ClearEmptyLevels(TNodePtr const & node)
       newChildren.splice(newChildren.begin(), childNode->m_children);
     }
     node->m_children.swap(newChildren);
+  }
+
+  // remove unkhown nodes without children
+  for (auto it = node->m_children.begin(); it != node->m_children.end();)
+  {
+    if((*it)->m_tileStatus == TileStatus::Unknown && (*it)->m_children.empty())
+    {
+       RemoveTile(*it);
+       it = node->m_children.erase(it);
+    }
+    else
+      ++it;
   }
 
   for (TNodePtr & childNode : node->m_children)

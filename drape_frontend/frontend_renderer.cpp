@@ -137,7 +137,8 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
       {
-        bool const result = m_tileTree.ProcessTile(key, state, bucket);
+        int const zoomLevel = df::GetTileScaleBase(m_view);
+        bool const result = m_tileTree.ProcessTile(key, zoomLevel, state, bucket);
         if (!result)
           bucket.Destroy();
       }
@@ -155,7 +156,10 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
       TileKey const & key = msg->GetKey();
       if (!IsUserMarkLayer(key))
-        m_tileTree.FinishTile(key);
+      {
+        int const zoomLevel = df::GetTileScaleBase(m_view);
+        m_tileTree.FinishTile(key, zoomLevel);
+      }
       break;
     }
 

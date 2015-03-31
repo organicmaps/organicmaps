@@ -44,10 +44,10 @@ public:
   void EndRequesting();
 
   /// this method processes received from BR tile
-  bool ProcessTile(TileKey const & tileKey, dp::GLState const & state,
-                   dp::MasterPointer<dp::RenderBucket> & bucket);
+  bool ProcessTile(TileKey const & tileKey, int const zoomLevel,
+                   dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket);
   /// this method processes a message about finishing tile on BR
-  void FinishTile(TileKey const & tileKey);
+  void FinishTile(TileKey const & tileKey, int const zoomLevel);
 
   /// this method performs clipping by rectangle
   void ClipByRect(m2::RectD const & rect);
@@ -73,9 +73,9 @@ private:
 
   void RemoveTile(TNodePtr const & node);
 
-  bool ProcessNode(TNodePtr const & node, TileKey const & tileKey,
+  bool ProcessNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel,
                    dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket);
-  bool FinishNode(TNodePtr const & node, TileKey const & tileKey);
+  bool FinishNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel);
 
   void DeleteTilesBelow(TNodePtr const & node);
   void DeleteTilesAbove(TNodePtr const & node);
