@@ -45,6 +45,7 @@ public:
     : m_memIndex(memIndex)
     , m_model(model) {}
 
+  /// Caller must handle object life cycle
   ReadMWMTask * GetNew() const
   {
     return new ReadMWMTask(m_memIndex, m_model);

@@ -7,6 +7,7 @@
 #include "../storage/index.hpp"
 #include "../storage/storage_defines.hpp"
 
+/// Provide access to Storage in DrapeGui subsystem. Need to CountryStatus buttons
 class StorageBridge : public gui::StorageAccessor
                     , public storage::ActiveMapsLayout::ActiveMapsListener
 {

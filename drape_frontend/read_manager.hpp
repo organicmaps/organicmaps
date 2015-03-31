@@ -21,8 +21,6 @@ namespace df
 class MapDataProvider;
 class CoverageUpdateDescriptor;
 
-typedef shared_ptr<TileInfo> TTileInfoPtr;
-
 class ReadManager
 {
 public:
@@ -39,7 +37,7 @@ private:
   bool MustDropAllTiles(ScreenBase const & screen) const;
 
   void PushTaskBackForTileKey(TileKey const & tileKey);
-  void PushTaskFront(TTileInfoPtr const & tileToReread);
+  void PushTaskFront(shared_ptr<TileInfo> const & tileToReread);
 
 private:
   MemoryFeatureIndex m_memIndex;
@@ -51,21 +49,21 @@ private:
 
   ScreenBase m_currentViewport;
 
-  struct LessByTileKey
+  struct LessByTileInfo
   {
-    bool operator ()(TTileInfoPtr const & l, TTileInfoPtr const & r) const
+    bool operator ()(shared_ptr<TileInfo> const & l, shared_ptr<TileInfo> const & r) const
     {
       return *l < *r;
     }
   };
 
-  using TTileSet = set<TTileInfoPtr, LessByTileKey>;
+  using TTileSet = set<shared_ptr<TileInfo>, LessByTileInfo>;
   TTileSet m_tileInfos;
 
   ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
 
-  void CancelTileInfo(TTileInfoPtr const & tileToCancel);
-  void ClearTileInfo(TTileInfoPtr const & tileToClear);
+  void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
+  void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
 };
 
 } // namespace df

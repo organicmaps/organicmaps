@@ -46,7 +46,7 @@ public:
     dp::RefPointer<gui::StorageAccessor> m_storageAccessor;
     Viewport m_viewport;
     MapDataProvider m_model;
-    double m_vs = 1.0f;
+    double m_vs;
   };
 
   DrapeEngine(Params const & params);

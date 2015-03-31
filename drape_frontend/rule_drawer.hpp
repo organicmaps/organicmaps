@@ -16,11 +16,11 @@ namespace df
 
 class EngineContext;
 class Stylist;
-typedef function<void (FeatureType const &, Stylist &)> TDrawerCallback;
 
 class RuleDrawer
 {
 public:
+  using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   RuleDrawer(TDrawerCallback const & fn,
              EngineContext & context);
 

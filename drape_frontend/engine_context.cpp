@@ -22,12 +22,12 @@ EngineContext::EngineContext(TileKey tileKey, dp::RefPointer<ThreadsCommutator> 
 
 void EngineContext::BeginReadTile()
 {
-  PostMessage(new TileReadStartMessage(m_tileKey));
+  PostMessage(dp::MovePointer<Message>(new TileReadStartMessage(m_tileKey)));
 }
 
 void EngineContext::InsertShape(dp::TransferPointer<MapShape> shape)
 {
-  PostMessage(new MapShapeReadedMessage(m_tileKey, shape));
+  PostMessage(dp::MovePointer<Message>(new MapShapeReadedMessage(m_tileKey, shape)));
 }
 
 void EngineContext::EndReadTile()
@@ -64,13 +64,12 @@ void EngineContext::EndReadTile()
   InsertShape(key, dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
 #endif
 
-  PostMessage(new TileReadEndMessage(m_tileKey));
+  PostMessage(dp::MovePointer<Message>(new TileReadEndMessage(m_tileKey)));
 }
 
-void EngineContext::PostMessage(Message * message)
+void EngineContext::PostMessage(dp::TransferPointer<Message> message)
 {
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            dp::MovePointer(message),
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, message,
                             MessagePriority::Normal);
 }
 

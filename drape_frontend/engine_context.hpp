@@ -25,7 +25,7 @@ public:
   void EndReadTile();
 
 private:
-  void PostMessage(Message * message);
+  void PostMessage(dp::TransferPointer<Message> message);
 
 private:
   TileKey m_tileKey;

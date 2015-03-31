@@ -61,7 +61,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
   else
   {
     // Find rects that go out from viewport
-    buffer_vector<TTileInfoPtr, 8> outdatedTiles;
+    buffer_vector<shared_ptr<TileInfo>, 8> outdatedTiles;
 #ifdef _MSC_VER
     vs_bug::
 #endif
@@ -87,13 +87,12 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
 
 void ReadManager::Invalidate(set<TileKey> const & keyStorage)
 {
-  TTileSet::iterator it = m_tileInfos.begin();
-  for (; it != m_tileInfos.end(); ++it)
+  for (auto & info : m_tileInfos)
   {
-    if (keyStorage.find((*it)->GetTileKey()) != keyStorage.end())
+    if (keyStorage.find(info->GetTileKey()) != keyStorage.end())
     {
-      CancelTileInfo(*it);
-      PushTaskFront(*it);
+      CancelTileInfo(info);
+      PushTaskFront(info);
     }
   }
 }
@@ -121,26 +120,26 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
 {
-  TTileInfoPtr tileInfo(new TileInfo(EngineContext(tileKey, m_commutator)));
+  shared_ptr<TileInfo> tileInfo(new TileInfo(EngineContext(tileKey, m_commutator)));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
   task->Init(tileInfo);
   m_pool->PushBack(task);
 }
 
-void ReadManager::PushTaskFront(TTileInfoPtr const & tileToReread)
+void ReadManager::PushTaskFront(shared_ptr<TileInfo> const & tileToReread)
 {
   ReadMWMTask * task = myPool.Get();
   task->Init(tileToReread);
   m_pool->PushFront(task);
 }
 
-void ReadManager::CancelTileInfo(TTileInfoPtr const & tileToCancel)
+void ReadManager::CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel)
 {
   tileToCancel->Cancel(m_memIndex);
 }
 
-void ReadManager::ClearTileInfo(TTileInfoPtr const & tileToClear)
+void ReadManager::ClearTileInfo(shared_ptr<TileInfo> const & tileToClear)
 {
   CancelTileInfo(tileToClear);
   m_tileInfos.erase(tileToClear);

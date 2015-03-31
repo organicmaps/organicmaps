@@ -14,18 +14,17 @@ namespace df
 class MapDataProvider
 {
 public:
-  using TReadIdCallback = function<void (FeatureID const &)>;
-  using TReadFeatureCallback = function<void (FeatureType const &)>;
-  using TReadFeaturesFn = function<void (TReadFeatureCallback const & , vector<FeatureID> const &)>;
-  using TReadIDsFn = function<void (TReadIdCallback const & , m2::RectD const &, int)>;
+  template <typename T> using TReadCallback = function<void (T const &)>;
+  using TReadFeaturesFn = function<void (TReadCallback<FeatureType> const & , vector<FeatureID> const &)>;
+  using TReadIDsFn = function<void (TReadCallback<FeatureID> const & , m2::RectD const &, int)>;
   using TResolveCountryFn = function<storage::TIndex (m2::PointF const &)>;
 
   MapDataProvider(TReadIDsFn const & idsReader,
                   TReadFeaturesFn const & featureReader,
                   TResolveCountryFn const & countryResolver);
 
-  void ReadFeaturesID(TReadIdCallback const & fn, m2::RectD const & r, int scale) const;
-  void ReadFeatures(TReadFeatureCallback const & fn, vector<FeatureID> const & ids) const;
+  void ReadFeaturesID(TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) const;
+  void ReadFeatures(TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) const;
 
   storage::TIndex FindCountry(m2::PointF const & pt);
 

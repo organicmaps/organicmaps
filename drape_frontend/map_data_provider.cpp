@@ -12,12 +12,12 @@ MapDataProvider::MapDataProvider(TReadIDsFn const & idsReader,
 {
 }
 
-void MapDataProvider::ReadFeaturesID(TReadIdCallback const & fn, m2::RectD const & r, int scale) const
+void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) const
 {
   m_idsReader(fn, r, scale);
 }
 
-void MapDataProvider::ReadFeatures(TReadFeatureCallback const & fn, vector<FeatureID> const & ids) const
+void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) const
 {
   m_featureReader(fn, ids);
 }

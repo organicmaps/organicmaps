@@ -9,6 +9,7 @@
 #include "base/exception.hpp"
 #include "base/mutex.hpp"
 
+#include "std/atomic.hpp"
 #include "std/mutex.hpp"
 #include "std/noncopyable.hpp"
 #include "std/vector.hpp"
@@ -50,7 +51,7 @@ private:
   EngineContext m_context;
   vector<FeatureInfo> m_featureInfo;
 
-  bool m_isCanceled;
+  atomic<bool> m_isCanceled;
   mutex m_mutex;
 };
 

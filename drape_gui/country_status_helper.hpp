@@ -4,6 +4,7 @@
 
 #include "../base/buffer_vector.hpp"
 
+#include "../std/atomic.hpp"
 #include "../std/string.hpp"
 #include "../std/unique_ptr.hpp"
 
@@ -55,6 +56,10 @@ public:
 
   void SetState(ECountryState state);
   ECountryState GetState() const;
+  /// CountryStatusHandle work on FrontendRenderer and call this function to check "is visible"
+  /// or state has already changed.
+  /// State changes from BackendRenderer thread, when recache operation started.
+  /// In that moment no need to show old CountryStatus
   bool IsVisibleForState(ECountryState state) const;
 
   size_t GetComponentCount() const;
@@ -78,7 +83,7 @@ private:
   string FormatTryAgain();
 
 private:
-  ECountryState m_state;
+  atomic<ECountryState> m_state;
   buffer_vector<Control, 4> m_controls;
   dp::RefPointer<StorageAccessor> m_accessor;
 };

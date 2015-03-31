@@ -24,13 +24,14 @@ public:
   BaseApplyFeature(EngineContext & context, FeatureID const & id,
                    CaptionDescription const & captions);
 
+  virtual ~BaseApplyFeature() {}
+
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
                             double depth,
                             TextViewParams & params) const;
 
-protected:
   EngineContext & m_context;
   FeatureID m_id;
   CaptionDescription const & m_captions;

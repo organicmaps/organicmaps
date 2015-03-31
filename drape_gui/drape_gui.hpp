@@ -21,7 +21,7 @@ class CountryStatusHelper;
 class StorageAccessor
 {
 public:
-  using TSlotFn = function<void (void)>;
+  using TSlotFn = function<void ()>;
 
   virtual ~StorageAccessor() {}
   virtual string GetCurrentCountryName() const = 0;

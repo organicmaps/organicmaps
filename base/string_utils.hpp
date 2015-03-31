@@ -53,6 +53,7 @@ void AsciiToLower(string & s);
 // TODO(AlexZ): current boost impl uses default std::locale() to trim.
 // In general, it does not work for any unicode whitespace except ASCII U+0020 one.
 void Trim(string & s);
+/// Remove any characters that contain in "anyOf" on left and right side of string s
 void Trim(string & s, char const * anyOf);
 
 void MakeLowerCaseInplace(string & s);

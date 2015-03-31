@@ -39,12 +39,12 @@ void FormatMapSize(uint64_t sizeInBytes, string & units, size_t & sizeToDownload
   int const kbInBytes = 1024;
   if (sizeInBytes > mbInBytes)
   {
-    sizeToDownload = (sizeInBytes + (mbInBytes >> 1)) / mbInBytes;
+    sizeToDownload = (sizeInBytes + mbInBytes - 1) / mbInBytes;
     units = "MB";
   }
   else if (sizeInBytes > kbInBytes)
   {
-    sizeToDownload = (sizeInBytes + (kbInBytes >> 1)) / kbInBytes;
+    sizeToDownload = (sizeInBytes + kbInBytes -1) / kbInBytes;
     units = "KB";
   }
   else
@@ -61,7 +61,7 @@ char const * DownloadingLabelID = "country_status_downloading";
 char const * DownloadingFailedID = "country_status_download_failed";
 char const * InQueueID = "country_status_added_to_queue";
 
-}
+} // namespace
 
 ////////////////////////////////////////////////////////////
 
@@ -148,7 +148,8 @@ string CountryStatusHelper::GetProgressValue() const
 void CountryStatusHelper::FillControlsForState()
 {
   m_controls.clear();
-  switch (m_state)
+  ECountryState state = m_state;
+  switch (state)
   {
   case COUNTRY_STATE_EMPTY:
     FillControlsForEmpty();
@@ -198,7 +199,7 @@ void CountryStatusHelper::FillControlsForLoading()
   {
     string secondLabel = text.substr(secondPos + 1);
     strings::Trim(secondLabel , "\n ");
-    m_controls.push_back(MakeLabel(secondLabel ));
+    m_controls.push_back(MakeLabel(secondLabel));
   }
 }
 
