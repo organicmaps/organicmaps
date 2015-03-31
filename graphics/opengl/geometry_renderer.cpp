@@ -184,7 +184,10 @@ namespace graphics
 
       prg->setStorage(m_storage);
       prg->setVertexDecl(Vertex::getVertexDecl());
-      prg->makeCurrent();
+
+      /// When the binders leave the scope the buffer object will be unbound.
+      shared_ptr<gl::BufferObject::Binder> bindVerticesBuf, bindIndicesBuf;
+      prg->makeCurrent(bindVerticesBuf, bindIndicesBuf);
 
       if (m_texture)
         m_texture->makeCurrent();
@@ -278,8 +281,10 @@ namespace graphics
     {
       if (m_storage.m_vertices && m_storage.m_indices)
       {
-        m_storage.m_vertices->unlock();
-        m_storage.m_indices->unlock();
+        /// When the binders leave the scope the buffer object will be unbound.
+        shared_ptr<gl::BufferObject::Binder> bindVerticesBuf, bindIndicesBuf;
+        m_storage.m_vertices->unlock(bindVerticesBuf);
+        m_storage.m_indices->unlock(bindIndicesBuf);
 
         /// In multithreaded resource usage scenarios the suggested way to see
         /// resource update made in one thread to the another thread is

@@ -11,7 +11,7 @@ namespace graphics
     {
     private:
 
-      unsigned m_target;
+      unsigned const m_target;
       unsigned int m_id;
       unsigned int m_size;
       void * m_gpuData;
@@ -20,6 +20,20 @@ namespace graphics
       shared_ptr<vector<unsigned char> > m_sharedBuffer;
 
     public:
+      class Binder;
+      void makeCurrent(shared_ptr<Binder> & bindBuf);
+
+      class Binder
+      {
+        friend void BufferObject::makeCurrent(shared_ptr<Binder> & bindBuf);
+        unsigned int const m_target;
+
+        Binder(unsigned int target, unsigned int id);
+        Binder(const Binder &) = delete;
+        Binder const & operator=(const Binder &) = delete;
+      public:
+        ~Binder();
+      };
 
       BufferObject(unsigned target);
       BufferObject(size_t size, unsigned target);
@@ -28,10 +42,10 @@ namespace graphics
       void resize(size_t size);
       size_t size() const;
 
-      void makeCurrent();
 
-      void * lock();
-      void unlock();
+
+      void * lock(shared_ptr<Binder> & bindBuf);
+      void unlock(shared_ptr<Binder> & bindBuf);
       void discard();
 
       void * glPtr();

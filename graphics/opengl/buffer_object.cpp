@@ -2,6 +2,7 @@
 #include "../../base/logging.hpp"
 #include "../../base/assert.hpp"
 #include "../../base/shared_buffer_manager.hpp"
+#include "../../base/macros.hpp"
 
 #include "../../std/list.hpp"
 
@@ -12,6 +13,21 @@ namespace graphics
 {
   namespace gl
   {
+    BufferObject::Binder::Binder(unsigned int target, unsigned int id)
+      : m_target(target)
+    {
+      OGLCHECK(glBindBufferFn(target, id));
+    }
+
+    BufferObject::Binder::~Binder()
+    {
+#ifdef OMIM_OS_IPHONE
+      OGLCHECK(glBindBufferFn(m_target, 0));
+#else
+      UNUSED_VALUE(m_target);
+#endif
+    }
+
     BufferObject::BufferObject(unsigned target)
       : m_target(target),
         m_size(0),
@@ -44,7 +60,10 @@ namespace graphics
         discard();
 
         m_size = size;
-        makeCurrent();
+
+        /// When bindBuf leaves the scope the buffer object will be unbound.
+        shared_ptr<Binder> bindBuf;
+        makeCurrent(bindBuf);
         if (g_isBufferObjectsSupported)
         {
           OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
@@ -79,7 +98,7 @@ namespace graphics
       return m_gpuData;
     }
 
-    void * BufferObject::lock()
+    void * BufferObject::lock(shared_ptr<Binder> & bindBuf)
     {
       ASSERT(!m_isLocked, ());
       m_isLocked = true;
@@ -87,7 +106,7 @@ namespace graphics
       if (g_isMapBufferSupported)
       {
         m_isUsingMapBuffer = true;
-        makeCurrent();
+        makeCurrent(bindBuf);
         OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
         if (graphics::gl::g_hasContext)
           m_gpuData = glMapBufferFn(m_target, GL_WRITE_ONLY_MWM);
@@ -109,7 +128,7 @@ namespace graphics
       return m_gpuData;
     }
 
-    void BufferObject::unlock()
+    void BufferObject::unlock(shared_ptr<Binder> & bindBuf)
     {
       ASSERT(m_isLocked, ());
       m_isLocked = false;
@@ -118,7 +137,7 @@ namespace graphics
       {
         ASSERT(m_gpuData != 0, ("BufferObject is not locked"));
 
-        makeCurrent();
+        makeCurrent(bindBuf);
 
         if (g_isMapBufferSupported && m_isUsingMapBuffer)
         {
@@ -164,7 +183,7 @@ namespace graphics
         return 0;
     }
 
-    void BufferObject::makeCurrent()
+    void BufferObject::makeCurrent(shared_ptr<Binder> & bindBuf)
     {
       if (!g_isBufferObjectsSupported)
         return;
@@ -172,8 +191,7 @@ namespace graphics
 /*#ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif*/
-        OGLCHECK(glBindBufferFn(m_target, m_id));
+      bindBuf.reset(new BufferObject::Binder(m_target, m_id));
     }
-
   }
 }

@@ -54,10 +54,13 @@ namespace graphics
 
       if (m_storage.isValid())
       {
+        /// When the binders leave the scope the buffer object will be unbound.
+        shared_ptr<gl::BufferObject::Binder> bindVerticesBuf, bindIndicesBuf;
+
         if (!m_storage.m_vertices->isLocked())
-          m_storage.m_vertices->lock();
+          m_storage.m_vertices->lock(bindVerticesBuf);
         if (!m_storage.m_indices->isLocked())
-          m_storage.m_indices->lock();
+          m_storage.m_indices->lock(bindIndicesBuf);
 
         m_decl->initStream(&m_vertexStream,
                            (unsigned char*)m_storage.m_vertices->data());

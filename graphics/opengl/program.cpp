@@ -403,7 +403,7 @@ namespace graphics
       }
     }
 
-    void Program::makeCurrent()
+    void Program::makeCurrent(shared_ptr<gl::BufferObject::Binder> & bindVerticesBuf, shared_ptr<gl::BufferObject::Binder> & bindIndicesBuf)
     {
       if (m_changed)
       {
@@ -412,11 +412,11 @@ namespace graphics
         m_changed = false;
       }
 
-      m_storage.m_vertices->makeCurrent();
+      m_storage.m_vertices->makeCurrent(bindVerticesBuf);
 
       applyAttributes();
 
-      m_storage.m_indices->makeCurrent();
+      m_storage.m_indices->makeCurrent(bindIndicesBuf);
 
       applyUniforms();
     }
@@ -426,6 +426,7 @@ namespace graphics
       m_changed = true;
     }
   }
+
 }
 
 

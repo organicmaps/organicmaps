@@ -70,8 +70,10 @@ namespace graphics
 
     if (m_useSingleThreadedOGL)
     {
-      res.m_indices->lock();
-      res.m_vertices->lock();
+      /// When the binders leave the scope the buffer object will be unbound.
+      shared_ptr<gl::BufferObject::Binder> bindVerticesBuf, bindIndicesBuf;
+      res.m_indices->lock(bindIndicesBuf);
+      res.m_vertices->lock(bindVerticesBuf);
     }
     return res;
   }
@@ -80,15 +82,17 @@ namespace graphics
   {
     if (m_useSingleThreadedOGL)
     {
+      /// When the binders leave the scope the buffer object will be unbound.
+      shared_ptr<gl::BufferObject::Binder> bindVerticesBuf, bindIndicesBuf;
       if (e.m_indices->isLocked())
-        e.m_indices->unlock();
+        e.m_indices->unlock(bindIndicesBuf);
 
-      e.m_indices->lock();
+      e.m_indices->lock(bindIndicesBuf);
 
       if (e.m_vertices->isLocked())
-        e.m_vertices->unlock();
+        e.m_vertices->unlock(bindVerticesBuf);
 
-      e.m_vertices->lock();
+      e.m_vertices->lock(bindVerticesBuf);
     }
   }
 
