@@ -49,26 +49,22 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
         {
             auto it =
                 find_if(m_regions[id].begin(), m_regions[id].end(), [&](m2::RegionD const &region)
-                        {
-                    if (region.Contains(m_pt))
-                    {
-                        m_res = id;
-                        return true;
-                    }
-                });
-            return it == m_regions[id].end();
+                        { return region.Contains(m_pt);});
+            if (it == m_regions[id].end())
+                    return true;
+            m_res = id;
+            return false;
         }
     };
 
   public:
-    explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir, std::string const & osrmFile)
+    explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir, std::string const & nodeDataFile)
         : m_descriptorString("mapsme"), m_facade(facade),
           m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
     {
-
-        if (!osrm::LoadNodeDataFromFile(osrmFile.substr(osrmFile.begin(),osrmFile.length()-5) + ".nodeData", m_nodeData))
+        if (!osrm::LoadNodeDataFromFile(nodeDataFile, m_nodeData))
         {
-          LOG(LCRITICAL, ("Can't load node data"));
+          SimpleLogger().Write(logDEBUG) << "Can't load node data";
           return;
         }
         ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
@@ -76,8 +72,6 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
         m_regions.resize(m_countries.size());
         for (size_t i = 0; i < m_countries.size(); ++i)
         {
-            std::vector<m2::RegionD> &rgnV = m_regions[i];
-
             // load regions from file
             ReaderSource<ModelReaderPtr> src(m_reader.GetReader(strings::to_string(i)));
 
@@ -87,8 +81,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
                 vector<m2::PointD> points;
                 serial::LoadOuterPath(src, serial::CodingParams(), points);
 
-                rgnV.push_back(m2::RegionD());
-                rgnV.back().Assign(points.begin(), points.end());
+                m_regions[i].emplace_back(move(m2::RegionD(points.begin(), points.end())));
             }
         }
         m_searchEngine = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
@@ -138,15 +131,6 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 
         for (unsigned i = 0; i < raw_route.raw_via_node_coordinates.size(); ++i)
         {
-            if (checksum_OK && i < route_parameters.hints.size() &&
-                !route_parameters.hints[i].empty())
-            {
-                ObjectEncoder::DecodeFromBase64(route_parameters.hints[i], phantom_node_vector[i]);
-                if (phantom_node_vector[i].isValid(m_facade->GetNumberOfNodes()))
-                {
-                    continue;
-                }
-            }
             m_facade->FindPhantomNodeForCoordinate(raw_route.raw_via_node_coordinates[i],
                                                  phantom_node_vector[i],
                                                  route_parameters.zoom_level);
@@ -178,12 +162,10 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
             {
                 PathData const &path_data = raw_route.unpacked_path_segments[i][j];
                 auto const & data = m_nodeData[path_data.node];
-                auto const & startSeg = data.m_segments.front();
-                FixedPointCoordinate const coord = m_facade->GetCoordinateOfNode(path_data.node);
-                storage::CountryInfo info;
-                LOG(LINFO, ("COORD ",startSeg.lat1, startSeg.lon1));
-                m2::PointD pt =
-                    MercatorBounds::FromLatLon(startSeg.lat1, startSeg.lon1);
+                if (data.m_segments.empty())
+                    continue;
+                auto const & seg = data.m_segments.front();
+                m2::PointD pt = MercatorBounds::FromLatLon(seg.lat1, seg.lon1);
                 GetByPoint doGet(m_regions, pt);
                 ForEachCountry(pt, doGet);
 

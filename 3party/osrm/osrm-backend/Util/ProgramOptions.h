@@ -60,6 +60,8 @@ inline void populate_base_path(ServerPaths &server_paths)
         BOOST_ASSERT(server_paths.find("hsgrdata") != server_paths.end());
         server_paths["nodesdata"] = base_string + ".nodes";
         BOOST_ASSERT(server_paths.find("nodesdata") != server_paths.end());
+        server_paths["enodesdata"] = base_string + ".nodeData";
+        BOOST_ASSERT(server_paths.find("nodesdata") != server_paths.end());
         server_paths["edgesdata"] = base_string + ".edges";
         BOOST_ASSERT(server_paths.find("edgesdata") != server_paths.end());
         server_paths["geometries"] = base_string + ".geometry";

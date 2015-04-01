@@ -81,7 +81,7 @@ OSRM_impl::OSRM_impl(ServerPaths server_paths, const bool use_shared_memory)
     RegisterPlugin(new TimestampPlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new ViaRoutePlugin<BaseDataFacade<QueryEdge::EdgeData>>(query_data_facade));
     RegisterPlugin(new MapsMePlugin<BaseDataFacade<QueryEdge::EdgeData>>(
-        query_data_facade, server_paths["borders"].string(), server_paths["hsgrdata"].string()));
+        query_data_facade, server_paths["borders"].string(), server_paths["enodesdata"].string()));
 }
 
 OSRM_impl::~OSRM_impl()
