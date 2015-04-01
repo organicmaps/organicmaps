@@ -3,6 +3,7 @@
 #include "BasePlugin.h"
 
 #include "../Algorithms/ObjectToBase64.h"
+#include "../DataStructures/EdgeBasedNodeData.h"
 #include "../DataStructures/JSONContainer.h"
 #include "../DataStructures/QueryEdge.h"
 #include "../DataStructures/SearchEngine.h"
@@ -60,10 +61,16 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
     };
 
   public:
-    explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir)
-        : descriptor_string("mapsme"), facade(facade),
+    explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir, std::string const & osrmFile)
+        : m_descriptorString("mapsme"), m_facade(facade),
           m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
     {
+
+        if (!osrm::LoadNodeDataFromFile(osrmFile.substr(osrmFile.begin(),osrmFile.length()-5) + ".nodeData", m_nodeData))
+        {
+          LOG(LCRITICAL, ("Can't load node data"));
+          return;
+        }
         ReaderSource<ModelReaderPtr> src(m_reader.GetReader(PACKED_POLYGONS_INFO_TAG));
         rw::Read(src, m_countries);
         m_regions.resize(m_countries.size());
@@ -84,7 +91,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
                 rgnV.back().Assign(points.begin(), points.end());
             }
         }
-        search_engine_ptr = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
+        m_searchEngine = osrm::make_unique<SearchEngine<DataFacadeT>>(facade);
     }
 
     template <class ToDo> void ForEachCountry(m2::PointD const &pt, ToDo &toDo) const
@@ -97,7 +104,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 
     virtual ~MapsMePlugin() {}
 
-    const std::string GetDescriptor() const final { return descriptor_string; }
+    const std::string GetDescriptor() const final { return m_descriptorString; }
 
     void HandleRequest(const RouteParameters &route_parameters, http::Reply &reply) final
     {
@@ -109,7 +116,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
         }
 
         RawRouteData raw_route;
-        raw_route.check_sum = facade->GetCheckSum();
+        raw_route.check_sum = m_facade->GetCheckSum();
 
         if (std::any_of(begin(route_parameters.coordinates), end(route_parameters.coordinates),
                         [&](FixedPointCoordinate coordinate)
@@ -135,12 +142,12 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
                 !route_parameters.hints[i].empty())
             {
                 ObjectEncoder::DecodeFromBase64(route_parameters.hints[i], phantom_node_vector[i]);
-                if (phantom_node_vector[i].isValid(facade->GetNumberOfNodes()))
+                if (phantom_node_vector[i].isValid(m_facade->GetNumberOfNodes()))
                 {
                     continue;
                 }
             }
-            facade->FindPhantomNodeForCoordinate(raw_route.raw_via_node_coordinates[i],
+            m_facade->FindPhantomNodeForCoordinate(raw_route.raw_via_node_coordinates[i],
                                                  phantom_node_vector[i],
                                                  route_parameters.zoom_level);
         }
@@ -153,7 +160,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
             raw_route.segment_end_coordinates.emplace_back(current_phantom_node_pair);
         }
 
-        search_engine_ptr->alternative_path(raw_route.segment_end_coordinates.front(), raw_route);
+        m_searchEngine->alternative_path(raw_route.segment_end_coordinates.front(), raw_route);
 
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)
         {
@@ -170,10 +177,13 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
             for (size_t j = 0; j < n; ++j)
             {
                 PathData const &path_data = raw_route.unpacked_path_segments[i][j];
-                FixedPointCoordinate const coord = facade->GetCoordinateOfNode(path_data.node);
+                auto const & data = m_nodeData[path_data.node];
+                auto const & startSeg = data.m_segments.front();
+                FixedPointCoordinate const coord = m_facade->GetCoordinateOfNode(path_data.node);
                 storage::CountryInfo info;
+                LOG(LINFO, ("COORD ",startSeg.lat1, startSeg.lon1));
                 m2::PointD pt =
-                    MercatorBounds::FromLatLon(coord.lat / 1000000.0, coord.lon / 1000000.0);
+                    MercatorBounds::FromLatLon(startSeg.lat1, startSeg.lon1);
                 GetByPoint doGet(m_regions, pt);
                 ForEachCountry(pt, doGet);
 
@@ -190,10 +200,11 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
     }
 
   private:
-    std::unique_ptr<SearchEngine<DataFacadeT>> search_engine_ptr;
+    std::unique_ptr<SearchEngine<DataFacadeT>> m_searchEngine;
     std::vector<storage::CountryDef> m_countries;
     std::vector<std::vector<m2::RegionD>> m_regions;
-    std::string descriptor_string;
-    DataFacadeT *facade;
+    std::string m_descriptorString;
+    DataFacadeT * m_facade;
     FilesContainerR m_reader;
+    osrm::NodeDataVectorT m_nodeData;
 };
