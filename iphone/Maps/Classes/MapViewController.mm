@@ -1064,6 +1064,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   [UIApplication sharedApplication].idleTimerDisabled = YES;
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
+  self.zoomButtonsView.hidden = NO;
   GetFramework().FollowRoute();
 }
 
@@ -1076,6 +1077,10 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   [UIApplication sharedApplication].idleTimerDisabled = NO;
   GetFramework().CloseRouting();
+  bool zoomButtonsEnabled;
+  if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
+    zoomButtonsEnabled = false;
+  self.zoomButtonsView.hidden = !zoomButtonsEnabled;
   [self.routeView setState:RouteViewStateHidden animated:YES];
 }
 

@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
-    bool on = false;
+    bool on = true;
     (void)Settings::Get("ZoomButtonsEnabled", on);
     customCell.switchButton.on = on;
     customCell.titleLabel.text = L(@"pref_zoom_title");
