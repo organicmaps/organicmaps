@@ -36,12 +36,7 @@
 #include "../../../platform/settings.hpp"
 
 
-#define ALERT_VIEW_FACEBOOK 1
-#define ALERT_VIEW_APPSTORE 2
-#define ALERT_VIEW_DOWNLOADER 5
 #define ALERT_VIEW_ROUTING_DISCLAIMER 7
-#define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
-#define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
@@ -573,13 +568,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
   if (self.isViewLoaded && self.view.window)
     [self invalidate]; // only invalidate when map is displayed on the screen
-
-  Reachability * reachability = [Reachability reachabilityForInternetConnection];
-  if ([reachability isReachable])
-  {
-    if (dlg_settings::ShouldShow(dlg_settings::FacebookDlg))
-      [self showFacebookRatingMenu];
-  }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1205,27 +1193,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   switch (alertView.tag)
   {
-    case ALERT_VIEW_FACEBOOK:
-    {
-      if (buttonIndex == 0)
-      {
-        dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::Never);
-      }
-      else if (buttonIndex == 1)
-      {
-        dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::OK);
-
-        NSString * url = [NSString stringWithFormat:FACEBOOK_SCHEME];
-        if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]])
-          url = [NSString stringWithFormat:FACEBOOK_URL];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-      }
-      else if (buttonIndex == 2)
-      {
-        dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::Later);
-      }
-      break;
-    }
     case ALERT_VIEW_ROUTING_DISCLAIMER:
     {
       if (buttonIndex == alertView.cancelButtonIndex)
@@ -1415,17 +1382,6 @@ NSInteger compareAddress(id l, id r, void * context)
   Framework & f = GetFramework();
   if (!f.SetUpdatesEnabled(true))
     f.Invalidate();
-}
-
-- (void)showFacebookRatingMenu
-{
-  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Facebook"
-                                                       message:L(@"share_on_facebook_text")
-                                                      delegate:self
-                                             cancelButtonTitle:L(@"no_thanks")
-                                             otherButtonTitles:L(@"ok"), L(@"remind_me_later"),  nil];
-  alertView.tag = ALERT_VIEW_FACEBOOK;
-  [alertView show];
 }
 
 - (void)destroyPopover

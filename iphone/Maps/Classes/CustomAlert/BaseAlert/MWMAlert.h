@@ -20,5 +20,6 @@
 + (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount;
++ (MWMAlert *)facebookAlert;
 
 @end

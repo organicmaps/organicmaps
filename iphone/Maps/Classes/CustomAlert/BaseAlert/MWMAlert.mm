@@ -12,25 +12,36 @@
 #import "MWMDefaultAlert.h"
 #import "MWMFeedbackAlert.h"
 #import "MWMRateAlert.h"
+#import "MWMFacebookAlert.h"
 
 extern UIColor * const kActiveDownloaderViewColor = [UIColor colorWithRed:211/255. green:209/255. blue:205/255. alpha:1.];
 
 @implementation MWMAlert
 
-+ (MWMAlert *)rateAlert {
++ (MWMAlert *)rateAlert
+{
   return [MWMRateAlert alert];
 }
 
-+ (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount {
++ (MWMAlert *)facebookAlert
+{
+  return [MWMFacebookAlert alert];
+}
+
++ (MWMAlert *)feedbackAlertWithStarsCount:(NSUInteger)starsCount
+{
   return [MWMFeedbackAlert alertWithStarsCount:starsCount];
 }
 
-+ (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index {
++ (MWMAlert *)downloaderAlertWithCountryIndex:(const storage::TIndex&)index
+{
   return [MWMDownloadTransitMapAlert alertWithCountryIndex:index];
 }
 
-+ (MWMAlert *)alert:(routing::IRouter::ResultCode)type {
-  switch (type) {
++ (MWMAlert *)alert:(routing::IRouter::ResultCode)type
+{
+  switch (type)
+  {
       
     case routing::IRouter::NoCurrentPosition:
       return [MWMDefaultAlert noCurrentPositionAlert];

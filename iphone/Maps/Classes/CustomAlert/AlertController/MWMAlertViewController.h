@@ -20,6 +20,7 @@
 - (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentDownloaderAlertWithCountryIndex:(const storage::TIndex&)index;
 - (void)presentRateAlert;
+- (void)presentFacebookAlert;
 - (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount;
 - (void)closeAlert;
 

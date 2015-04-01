@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapsAppDelegate.mm */; };
 		1D60589B0D05DD56006BFB54 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.mm */; };
-		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
@@ -17,7 +17,6 @@
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
-		6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */; };
 		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
@@ -127,8 +126,13 @@
 		F64F19A11AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19921AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib */; };
 		F64F19A31AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */; };
 		F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */; };
+		F6775ECE1ACC1B8800A377EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */; };
 		F67BBB571AC54A7800D162C7 /* MWMFeedbackAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BBB551AC54A7800D162C7 /* MWMFeedbackAlert.mm */; };
 		F67BBB581AC54A7800D162C7 /* MWMFeedbackAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */; };
+		F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */; };
+		F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */; };
 		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
@@ -208,7 +212,6 @@
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
 		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
-		6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
 		6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.0.0.a; path = Statistics/libFlurry_6.0.0.a; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -397,9 +400,15 @@
 		F64F19961AB81A00006EAF7E /* MWMDownloadTransitMapAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloadTransitMapAlert.h; sourceTree = "<group>"; };
 		F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloadTransitMapAlert.mm; sourceTree = "<group>"; };
 		F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadTransitMapAlert.xib; sourceTree = "<group>"; };
+		F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
 		F67BBB541AC54A7800D162C7 /* MWMFeedbackAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFeedbackAlert.h; sourceTree = "<group>"; };
 		F67BBB551AC54A7800D162C7 /* MWMFeedbackAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFeedbackAlert.mm; sourceTree = "<group>"; };
 		F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMFeedbackAlert.xib; sourceTree = "<group>"; };
+		F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Statistics/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Statistics/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		F6BC1E501ACBF98600EF0360 /* MWMFacebookAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFacebookAlert.h; sourceTree = "<group>"; };
+		F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFacebookAlert.mm; sourceTree = "<group>"; };
+		F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMFacebookAlert.xib; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		F785EB3E16386FC4003A38A8 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkCell.h; path = Bookmarks/BookmarkCell.h; sourceTree = SOURCE_ROOT; };
@@ -494,8 +503,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */,
-				6BDCBF471AA7561B004DAE48 /* FacebookSDK.framework in Frameworks */,
+				F6775ECE1ACC1B8800A377EC /* FacebookSDK.framework in Frameworks */,
+				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
+				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
 				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
@@ -510,7 +522,6 @@
 				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
 				97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */,
 				97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */,
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
@@ -615,8 +626,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */,
+				F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */,
+				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
 				6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */,
-				6BDCBF461AA7561B004DAE48 /* FacebookSDK.framework */,
 				6BBD66B21A695722005FF58D /* MRGService.framework */,
 				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
@@ -854,6 +867,7 @@
 			isa = PBXGroup;
 			children = (
 				F64F19801AB81A00006EAF7E /* AlertController */,
+				F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */,
 				F67BBB531AC54A7800D162C7 /* FeedbackAlert */,
 				F64F19841AB81A00006EAF7E /* BaseAlert */,
 				F61579301AC2CE760032D8E9 /* RateAlert */,
@@ -921,6 +935,16 @@
 				F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */,
 			);
 			path = FeedbackAlert;
+			sourceTree = "<group>";
+		};
+		F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */ = {
+			isa = PBXGroup;
+			children = (
+				F6BC1E501ACBF98600EF0360 /* MWMFacebookAlert.h */,
+				F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */,
+				F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */,
+			);
+			path = FacebookAlert;
 			sourceTree = "<group>";
 		};
 		FA065FC61286143F00FEA989 /* External Resources */ = {
@@ -1211,6 +1235,7 @@
 				F7E7BA291672328F00B4492E /* food@2x.png in Resources */,
 				F7E7BA2A1672328F00B4492E /* fuel.png in Resources */,
 				F7E7BA2B1672328F00B4492E /* fuel@2x.png in Resources */,
+				F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */,
 				F7E7BA2C1672328F00B4492E /* hospital.png in Resources */,
 				F7E7BA2D1672328F00B4492E /* hospital@2x.png in Resources */,
 				F7E7BA2E1672328F00B4492E /* parking.png in Resources */,
@@ -1266,6 +1291,7 @@
 				97A0EEFA192F3B43009B2779 /* BottomMenu.mm in Sources */,
 				978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */,
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
+				F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */,
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				F64F199D1AB81A00006EAF7E /* MWMDefaultAlert.mm in Sources */,
 				976D86F119C877E600C920EF /* MapCell.mm in Sources */,

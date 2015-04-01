@@ -12,6 +12,7 @@
 #include <sys/xattr.h>
 
 #import <MRGService/MRGService.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 #include "../../../storage/storage_defines.hpp"
@@ -23,11 +24,14 @@
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 
 NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
+// Alert keys.
 static NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
 extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
 static NSString * const kUDSessionsCountKey = @"SessionsCount";
 static NSString * const kUDFirstVersionKey = @"FirstVersion";
 static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
+extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
+static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -115,7 +119,6 @@ void InitLocalizedStrings()
 
   InitLocalizedStrings();
   
-  [self shouldShowRateAlert];
   [self.m_mapViewController onEnterForeground];
 
   [Preferences setup:self.m_mapViewController];
@@ -148,10 +151,26 @@ void InitLocalizedStrings()
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
     [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
   [notificationManager updateLocalNotifications];
+  
+  if (self.class.isFirstAppLaunch)
+  {
+    [self firstLaunchSetup];
+  }
+  else
+  {
+    [self incrementSessionCount];
+    [self shouldShowRateAlert];
+    [self shouldShowFacebookAlert];
+  }
+  [[NSUserDefaults standardUserDefaults] synchronize];
+  
 
   [UIApplication sharedApplication].applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
-
-  return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
+  
+  if (!self.isIOS7OrLater)
+    return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
+ 
+  return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -196,6 +215,8 @@ void InitLocalizedStrings()
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   [Alohalytics logEvent:@"$applicationDidBecomeActive"];
+  if (self.isIOS7OrLater)
+    [FBSDKAppEvents activateApp];
 
   Framework & f = GetFramework();
   if (m_geoURL)
@@ -244,8 +265,11 @@ void InitLocalizedStrings()
   m_mwmURL = nil;
   m_fileURL = nil;
 
-  [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
-  [FBAppEvents activateApp];
+  if (!self.isIOS7OrLater)
+  {
+    [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
+    [FBAppEvents activateApp];
+  }
 
   f.GetLocationState()->InvalidatePosition();
 }
@@ -346,8 +370,10 @@ void InitLocalizedStrings()
     return YES;
   }
   NSLog(@"Scheme %@ is not supported", scheme);
-
-  return NO;
+  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+    return NO;
+  
+  return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 - (void)showLoadFileAlertIsSuccessful:(BOOL)successful
@@ -405,7 +431,86 @@ void InitLocalizedStrings()
   return m_window;
 }
 
-#pragma mark - Rate alert logic
+- (BOOL)isIOS7OrLater
+{
+  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+    return NO;
+    
+  return YES;
+}
+
+#pragma mark - Alert logic
+
+- (void)firstLaunchSetup
+{
+  NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
+  [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
+  [standartDefaults setInteger:1 forKey:kUDSessionsCountKey];
+  [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
+}
+
+- (void)incrementSessionCount
+{
+  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
+  NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
+  NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
+  if (sessionCount > kMaximumSessionCountForShowingShareAlert)
+    return;
+  
+  NSDate *lastLaunchDate = [standartDefaults objectForKey:kUDLastLaunchDateKey];
+  NSUInteger daysFromLastLaunch = [self.class daysBetweenNowAndDate:lastLaunchDate];
+  if (daysFromLastLaunch > 0)
+  {
+    sessionCount++;
+    [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
+    [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
+  }
+}
+
+#pragma mark - Facebook
+
+- (void)showFacebookAlert
+{
+  if (!Reachability.reachabilityForInternetConnection.isReachable)
+    return;
+  
+  UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];
+  MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:topViewController];
+  [alert presentFacebookAlert];
+  [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastShareRequstDate];
+}
+
+- (void)shouldShowFacebookAlert
+{
+  NSUInteger const kMaximumSessionCountForShowingShareAlert = 50;
+  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
+  BOOL alreadyShared = [standartDefaults boolForKey:kUDAlreadySharedKey];
+  if (alreadyShared)
+    return;
+  
+  NSUInteger sessionCount = [standartDefaults integerForKey:kUDSessionsCountKey];
+  if (sessionCount > kMaximumSessionCountForShowingShareAlert)
+    return;
+  
+  NSDate *lastShareRequestDate = [standartDefaults objectForKey:kUDLastShareRequstDate];
+  NSUInteger daysFromLastShareRequest = [self.class daysBetweenNowAndDate:lastShareRequestDate];
+  if (lastShareRequestDate != nil && daysFromLastShareRequest == 0)
+    return;
+  
+  if (!self.userIsNew)
+  {
+    if (sessionCount == 5 || sessionCount == 30 || sessionCount == kMaximumSessionCountForShowingShareAlert)
+      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showFacebookAlert) userInfo:nil repeats:NO];
+  }
+  else
+  {
+    if (sessionCount == 10 || sessionCount == 30 || sessionCount == kMaximumSessionCountForShowingShareAlert)
+      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showFacebookAlert) userInfo:nil repeats:NO];
+  }
+}
+
+#pragma mark - Rate
 
 - (void)showRateAlert
 {
@@ -416,7 +521,6 @@ void InitLocalizedStrings()
   MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:topViewController];
   [alert presentRateAlert];
   [[NSUserDefaults standardUserDefaults] setObject:NSDate.date forKey:kUDLastRateRequestDate];
-  [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)shouldShowRateAlert
@@ -431,43 +535,34 @@ void InitLocalizedStrings()
   if (sessionCount > kMaximumSessionCountForShowingAlert)
     return;
   
-  NSDate *lastRateDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
-  NSUInteger daysFromLastRate = [self.class daysBetweenNowAndDate:lastRateDate];
+  NSDate *lastRateRequestDate = [standartDefaults objectForKey:kUDLastRateRequestDate];
+  NSUInteger daysFromLastRateRequest = [self.class daysBetweenNowAndDate:lastRateRequestDate];
   // Do not show more than one alert per day.
-  if (lastRateDate != nil && daysFromLastRate == 0)
+  if (lastRateRequestDate != nil && daysFromLastRateRequest == 0)
     return;
   
-  // Get days spent after last launch. lastLaunchDate may be nil, then dayAgo == 0.
-  NSDate *lastLaunchDate = [standartDefaults objectForKey:kUDLastLaunchDateKey];
-  NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-  if (self.class.isFirstAppLaunch)
+  if (!self.userIsNew)
   {
-    // It's first launch for new user.
-    [standartDefaults setObject:currentVersion forKey:kUDFirstVersionKey];
-    sessionCount = 1;
+    // User just got updated. Show alert, if it first session or if 90 days spent.
+    if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
+      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
   }
   else
   {
-    NSString *firstVersion = [standartDefaults stringForKey:kUDFirstVersionKey];
-    if (!firstVersion.length || [self version:currentVersion greaterThanVersion:firstVersion])
-    {
-      // User just got updated. Show alert, if it first session or if 90 days spent.
-      if (daysFromLastRate >= 90 || daysFromLastRate == 0)
-        [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
-    }
-    else
-    {
-      // It's new user.
-      NSUInteger daysFromLastLaunch = [self.class daysBetweenNowAndDate:lastLaunchDate];
-      if (daysFromLastLaunch > 0)
-        sessionCount++;
-      if (sessionCount == 3 || sessionCount == 10 || sessionCount == kMaximumSessionCountForShowingAlert)
-        [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
-    }
+    // It's new user.
+    if (sessionCount == 3 || sessionCount == 10 || sessionCount == kMaximumSessionCountForShowingAlert)
+      [NSTimer scheduledTimerWithTimeInterval:30. target:self selector:@selector(showRateAlert) userInfo:nil repeats:NO];
   }
-  [standartDefaults setInteger:sessionCount forKey:kUDSessionsCountKey];
-  [standartDefaults setObject:NSDate.date forKey:kUDLastLaunchDateKey];
-  [standartDefaults synchronize];
+}
+
+- (BOOL)userIsNew
+{
+  NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSString *firstVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kUDFirstVersionKey];
+  if (!firstVersion.length || [self version:currentVersion greaterThanVersion:firstVersion])
+    return NO;
+  
+  return YES;
 }
 
 - (BOOL)version:(NSString *)first greaterThanVersion:(NSString *)second

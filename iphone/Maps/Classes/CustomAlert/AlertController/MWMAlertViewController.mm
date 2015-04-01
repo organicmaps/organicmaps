@@ -18,45 +18,60 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 @implementation MWMAlertViewController
 
-- (instancetype)initWithViewController:(UIViewController *)viewController {
+- (instancetype)initWithViewController:(UIViewController *)viewController
+{
   self = [super initWithNibName:kAlertControllerNibIdentifier bundle:nil];
-  if (self) {
+  if (self)
+  {
     self.ownerViewController = viewController;
   }
   return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
   // Need only for iOS 5.
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 6) {
+  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 6)
+  {
     self.tap.delegate = self;
   }
 }
 
 #pragma mark - Actions
 
-- (void)presentRateAlert {
+- (void)presentRateAlert
+{
   MWMAlert *alert = [MWMAlert rateAlert];
   [self displayAlert:alert];
 }
 
-- (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount {
+- (void)presentFacebookAlert
+{
+  MWMAlert *alert = [MWMAlert facebookAlert];
+  [self displayAlert:alert];
+}
+
+- (void)presentFeedbackAlertWithStarsCount:(NSUInteger)starsCount
+{
   MWMAlert *alert = [MWMAlert feedbackAlertWithStarsCount:starsCount];
   [self displayAlert:alert];
 }
 
-- (void)presentDownloaderAlertWithCountryIndex:(const storage::TIndex&)index {
+- (void)presentDownloaderAlertWithCountryIndex:(const storage::TIndex&)index
+{
   MWMAlert *alert = [MWMAlert downloaderAlertWithCountryIndex:index];
   [self displayAlert:alert];
 }
 
-- (void)presentAlert:(routing::IRouter::ResultCode)type {
+- (void)presentAlert:(routing::IRouter::ResultCode)type
+{
   MWMAlert *alert = [MWMAlert alert:type];
   [self displayAlert:alert];
 }
 
-- (void)displayAlert:(MWMAlert *)alert {
+- (void)displayAlert:(MWMAlert *)alert
+{
   alert.alertController = self;
   [self.ownerViewController addChildViewController:self];
   self.view.center = self.ownerViewController.view.center;
@@ -67,7 +82,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   alert.center = self.view.center;
 }
 
-- (void)closeAlert {
+- (void)closeAlert
+{
   self.ownerViewController.view.userInteractionEnabled = YES;
   [self.view removeFromSuperview];
   [self removeFromParentViewController];
@@ -75,26 +91,32 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Gesture intercepter
 
-- (IBAction)backgroundTap:(UITapGestureRecognizer *)sender {
+- (IBAction)backgroundTap:(UITapGestureRecognizer *)sender
+{
   return;
 }
 
-- (IBAction)backgroundSwipe:(UISwipeGestureRecognizer *)sender {
+- (IBAction)backgroundSwipe:(UISwipeGestureRecognizer *)sender
+{
   return;
 }
 
-- (IBAction)backgroundPinch:(id)sender {
+- (IBAction)backgroundPinch:(id)sender
+{
   return;
 }
 
-- (IBAction)backgroundPan:(id)sender {
+- (IBAction)backgroundPan:(id)sender
+{
   return;
 }
 
 #pragma mark - Gesture Recognizer Delegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-  if ([touch.view isKindOfClass:[UIControl class]]) {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+  if ([touch.view isKindOfClass:[UIControl class]])
+  {
     [(UIControl *)touch.view sendActionsForControlEvents:UIControlEventTouchUpInside];
   }
   return YES;
