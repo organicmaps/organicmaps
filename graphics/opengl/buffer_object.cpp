@@ -193,10 +193,9 @@ namespace graphics
 
     void BufferObject::Bind()
     {
-      if (!g_isBufferObjectsSupported)
+      if (!g_isBufferObjectsSupported || m_bound)
         return;
-      if (m_bound)
-        return;
+
       OGLCHECK(glBindBufferFn(m_target, m_id));
       m_bound = true;
     }

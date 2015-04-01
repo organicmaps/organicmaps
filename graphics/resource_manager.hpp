@@ -54,6 +54,22 @@ namespace graphics
     void BeforeMerge(gl::Storage const & e);
   };
 
+
+  struct StoragePoolTraits : BasePoolTraits<gl::Storage, TStorageFactory>
+  {
+    StoragePoolTraits(TStorageFactory const & factory) : BasePoolTraits(factory) {}
+    virtual void Free(gl::Storage const & elem)
+    {
+#ifdef OMIM_OS_IPHONE
+      /// Any buffer in the pool may be reused on any thread.
+      /// So it should be unbound if it goes to the pool.
+      ASSERT(!elem.m_vertices->IsBound(), ());
+      ASSERT(!elem.m_indices->IsBound(), ());
+#endif
+      BasePoolTraits::Free(elem);
+    }
+  };
+
   /// ---- Texture Pools ----
 
   /// Basic texture pool traits
@@ -79,7 +95,7 @@ namespace graphics
   /// ---- Storage Pools ----
 
   /// Basic storage traits
-  typedef BasePoolTraits<gl::Storage, TStorageFactory> TBaseStoragePoolTraits;
+  typedef StoragePoolTraits TBaseStoragePoolTraits;
 
   /// Fixed-Size mergeable storage pool
   typedef SeparateFreePoolTraits<TStorageFactory, TBaseStoragePoolTraits> TSeparateFreeStoragePoolTraits;

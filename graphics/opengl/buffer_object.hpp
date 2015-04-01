@@ -24,7 +24,7 @@ namespace graphics
 
     public:
       class Binder;
-      /// Bind the buffer object to the current thread.
+      /// Binds the buffer object to the current thread.
       /// The buffer object will be unbound from the current thread on calling the destructor of Binder in case of iOS.
       void makeCurrent(Binder & binder);
 
@@ -50,18 +50,19 @@ namespace graphics
       size_t size() const;
 
       /// Multithreading notes for Bind and Unbind methods:
-      /// 1. If method Bind calls from a thread, method Unbind shell be called from the same thread.
-      /// 2. After the buffer object is unbound (Unbind calls) the instance of it can be reused from another thread.
+      /// 1. Method Unbind should be called from the same thread on which method Bind was called.
+      /// 2. After Unbind() call current instance can be used by other threads.
       /// Bind the buffer object to the current thread.
       void Bind();
-      /// Unbind the buffer object from the current thread only for iOS.
+      /// Unbinds the buffer object from the current thread only for iOS.
       void Unbind();
+      bool IsBound() const { return m_bound; }
 
       /// This method locks the instance of a buffer object and return a pointer to a GPU buffer.
-      /// Notes. The buffer object is being bound to the caller thread in this method.
-      /// It shell not be unbound untill unlock is called.
+      /// Notes. The buffer object will be bound to the current thread.
+      /// It shall not be unbound untill unlock is called.
       void * lock();
-      /// Inform gl that the instance of a buffer object is released and unbind it.
+      /// Informs gl that the instance of a buffer object is released and unbind it.
       void unlock();
       void discard();
 
