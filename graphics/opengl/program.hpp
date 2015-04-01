@@ -66,6 +66,7 @@ namespace graphics
                         math::Matrix<float, N, N> const & m);
 
     public:
+
       DECLARE_EXCEPTION(Exception, RootException);
       DECLARE_EXCEPTION(LinkException, Exception);
 
@@ -94,7 +95,7 @@ namespace graphics
 
       void setStorage(Storage const & storage);
 
-      void makeCurrent(shared_ptr<gl::BufferObject::Binder> & bindVerticesBuf, shared_ptr<gl::BufferObject::Binder> & bindIndicesBuf);
+      void makeCurrent(gl::BufferObject::Binder & verticesBufBinder, gl::BufferObject::Binder & indicesBufBinder);
       void riseChangedFlag();
     };
   }

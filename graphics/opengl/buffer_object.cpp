@@ -13,19 +13,17 @@ namespace graphics
 {
   namespace gl
   {
-    BufferObject::Binder::Binder(unsigned int target, unsigned int id)
-      : m_target(target)
+    void BufferObject::Binder::Reset(BufferObject * bufferObj)
     {
-      OGLCHECK(glBindBufferFn(target, id));
+      ASSERT(bufferObj, ());
+      m_bufferObj = bufferObj;
+      bufferObj->Bind();
     }
 
     BufferObject::Binder::~Binder()
     {
-#ifdef OMIM_OS_IPHONE
-      OGLCHECK(glBindBufferFn(m_target, 0));
-#else
-      UNUSED_VALUE(m_target);
-#endif
+      if (m_bufferObj != nullptr)
+        m_bufferObj->Unbind();
     }
 
     BufferObject::BufferObject(unsigned target)
@@ -44,7 +42,8 @@ namespace graphics
         m_size(0),
         m_gpuData(0),
         m_isLocked(false),
-        m_isUsingMapBuffer(false)
+        m_isUsingMapBuffer(false),
+        m_bound(false)
     {
       if (g_isBufferObjectsSupported)
         OGLCHECK(glGenBuffersFn(1, &m_id));
@@ -61,9 +60,9 @@ namespace graphics
 
         m_size = size;
 
-        /// When bindBuf leaves the scope the buffer object will be unbound.
-        shared_ptr<Binder> bindBuf;
-        makeCurrent(bindBuf);
+        /// When binder leaves the scope the buffer object will be unbound.
+        Binder binder;
+        makeCurrent(binder);
         if (g_isBufferObjectsSupported)
         {
           OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
@@ -98,7 +97,7 @@ namespace graphics
       return m_gpuData;
     }
 
-    void * BufferObject::lock(shared_ptr<Binder> & bindBuf)
+    void * BufferObject::lock()
     {
       ASSERT(!m_isLocked, ());
       m_isLocked = true;
@@ -106,7 +105,7 @@ namespace graphics
       if (g_isMapBufferSupported)
       {
         m_isUsingMapBuffer = true;
-        makeCurrent(bindBuf);
+        Bind();
         OGLCHECK(glBufferDataFn(m_target, m_size, 0, GL_DYNAMIC_DRAW));
         if (graphics::gl::g_hasContext)
           m_gpuData = glMapBufferFn(m_target, GL_WRITE_ONLY_MWM);
@@ -128,7 +127,7 @@ namespace graphics
       return m_gpuData;
     }
 
-    void BufferObject::unlock(shared_ptr<Binder> & bindBuf)
+    void BufferObject::unlock()
     {
       ASSERT(m_isLocked, ());
       m_isLocked = false;
@@ -137,7 +136,7 @@ namespace graphics
       {
         ASSERT(m_gpuData != 0, ("BufferObject is not locked"));
 
-        makeCurrent(bindBuf);
+        Bind();
 
         if (g_isMapBufferSupported && m_isUsingMapBuffer)
         {
@@ -160,6 +159,7 @@ namespace graphics
 
         m_gpuData = 0;
       }
+      Unbind();
     }
 
     void BufferObject::discard()
@@ -183,15 +183,35 @@ namespace graphics
         return 0;
     }
 
-    void BufferObject::makeCurrent(shared_ptr<Binder> & bindBuf)
+    void BufferObject::makeCurrent(Binder & binder)
     {
-      if (!g_isBufferObjectsSupported)
-        return;
-
 /*#ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif*/
-      bindBuf.reset(new BufferObject::Binder(m_target, m_id));
+      binder.Reset(this);
+    }
+
+    void BufferObject::Bind()
+    {
+      if (!g_isBufferObjectsSupported)
+        return;
+      if (m_bound)
+        return;
+      OGLCHECK(glBindBufferFn(m_target, m_id));
+      m_bound = true;
+    }
+
+    void BufferObject::Unbind()
+    {
+      if (!m_bound)
+        return;
+
+      m_bound = false;
+#ifdef OMIM_OS_IPHONE
+      OGLCHECK(glBindBufferFn(m_target, 0));
+#else
+      UNUSED_VALUE(m_target);
+#endif
     }
   }
 }

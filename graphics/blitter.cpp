@@ -59,14 +59,11 @@ namespace graphics
       return;
     }
 
-    /// When the binders leave the scope the buffer objects will be unbound.
-    shared_ptr<gl::BufferObject::Binder> bindIndicesBuf, bindVericesBuf;
-
     /// TODO : Bad lock/unlock checking pattern. Should refactor
     if (!storage.m_vertices->isLocked())
-      storage.m_vertices->lock(bindVericesBuf);
+      storage.m_vertices->lock();
     if (!storage.m_indices->isLocked())
-      storage.m_indices->lock(bindIndicesBuf);
+      storage.m_indices->lock();
 
     gl::Vertex * pointsData = (gl::Vertex*)storage.m_vertices->data();
 
