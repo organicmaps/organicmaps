@@ -96,7 +96,7 @@ void DrapeGui::SetStorageAccessor(dp::RefPointer<StorageAccessor> accessor)
   ASSERT(m_impl != nullptr, ());
   accessor->SetStatusChangedCallback([this]
   {
-    SendRecacheSignal(Skin::CountryStatus);
+    EmitRecacheSignal(Skin::CountryStatus);
   });
 
   CountryStatusHelper & cntHelpet = GetCountryStatusHelperImpl();
