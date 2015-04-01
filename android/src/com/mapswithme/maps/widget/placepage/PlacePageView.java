@@ -324,26 +324,28 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
 
       refreshPreview();
       refreshDetails();
+      final Location loc = LocationHelper.INSTANCE.getLastLocation();
+
       switch (mMapObject.getType())
       {
       case BOOKMARK:
-        refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
+        refreshDistanceToObject(loc);
         refreshBookmarkDetails(true);
         refreshButtons(false);
         break;
       case POI:
       case ADDITIONAL_LAYER:
-        refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
+        refreshDistanceToObject(loc);
         refreshBookmarkDetails(false);
         refreshButtons(false);
         break;
       case API_POINT:
-        refreshDistanceToObject(LocationHelper.INSTANCE.getLastLocation());
+        refreshDistanceToObject(loc);
         refreshBookmarkDetails(false);
         refreshButtons(true);
         break;
       case MY_POSITION:
-        refreshMyPosition(LocationHelper.INSTANCE.getLastLocation());
+        refreshMyPosition(loc);
         refreshBookmarkDetails(false);
         refreshButtons(false);
         break;
@@ -455,30 +457,34 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       refreshDistanceToObject(l);
   }
 
-  private void refreshMyPosition(Location myLocation)
+  private void refreshMyPosition(Location l)
   {
-    final StringBuilder builder = new StringBuilder();
-    if (myLocation.hasAltitude())
-      builder.append(Framework.nativeFormatAltitude(myLocation.getAltitude()));
-    if (myLocation.hasSpeed())
-      builder.append("   ").
-          append(Framework.nativeFormatSpeed(myLocation.getSpeed()));
-    mTvSubtitle.setText(builder.toString());
-
     mTvDistance.setVisibility(View.GONE);
 
-    mMapObject.setLat(myLocation.getLatitude());
-    mMapObject.setLon(myLocation.getLongitude());
+    if (l == null)
+      return;
+
+    final StringBuilder builder = new StringBuilder();
+    if (l.hasAltitude())
+      builder.append(Framework.nativeFormatAltitude(l.getAltitude()));
+    if (l.hasSpeed())
+      builder.append("   ").
+          append(Framework.nativeFormatSpeed(l.getSpeed()));
+    mTvSubtitle.setText(builder.toString());
+
+    mMapObject.setLat(l.getLatitude());
+    mMapObject.setLon(l.getLongitude());
     refreshLatLon();
   }
 
-  private void refreshDistanceToObject(Location myLocation)
+  private void refreshDistanceToObject(Location l)
   {
-    if (myLocation != null)
+    if (l != null)
     {
       mTvDistance.setVisibility(View.VISIBLE);
-      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(),
-          mMapObject.getLon(), myLocation.getLatitude(), myLocation.getLongitude(), 0.0);
+      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(
+              mMapObject.getLat(), mMapObject.getLon(),
+              l.getLatitude(), l.getLongitude(), 0.0);
       mTvDistance.setText(distanceAndAzimuth.getDistance());
     }
     else
