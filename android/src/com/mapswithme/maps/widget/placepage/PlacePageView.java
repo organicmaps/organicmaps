@@ -759,6 +759,10 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   @Override
   public boolean onLongClick(View v)
   {
+    /// @todo Review this code in case of API level < 11.
+    if (Utils.apiLowerThan(11))
+      return true;
+
     final Object tag = v.getTag();
     final String tagStr = tag == null ? "" : tag.toString();
     AlohaHelper.logLongClick(tagStr);
