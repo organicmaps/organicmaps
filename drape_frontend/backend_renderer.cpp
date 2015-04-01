@@ -37,7 +37,7 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               dp::MovePointer<Message>(new GuiRecacheMessage(elements)),
-                              MessagePriority::Normal);
+                              MessagePriority::High);
   });
 
   StartThread();
@@ -187,6 +187,11 @@ void BackendRenderer::InitGLDependentResource()
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
   m_texturesManager->Init(params);
+
+  dp::MasterPointer<MyPosition> position(new MyPosition(m_texturesManager));
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            dp::MovePointer<Message>(new MyPositionShapeMessage(position.Move())),
+                            MessagePriority::High);
 }
 
 void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)

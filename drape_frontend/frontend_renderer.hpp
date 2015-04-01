@@ -13,6 +13,7 @@
 #include "drape_frontend/tile_info.hpp"
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/render_group.hpp"
+#include "drape_frontend/my_position.hpp"
 
 #include "drape_gui/layer_render.hpp"
 
@@ -105,6 +106,7 @@ private:
   vector<RenderGroup *> m_renderGroups;
   vector<UserMarkRenderGroup *> m_userMarkRenderGroups;
   dp::MasterPointer<gui::LayerRenderer> m_guiRenderer;
+  dp::MasterPointer<MyPosition> m_myPositionMark;
 
   dp::UniformValuesStorage m_generalUniforms;
 

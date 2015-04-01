@@ -22,6 +22,7 @@ class OverlayHandle;
 class Batcher
 {
 public:
+  static uint32_t const IndexPerTriangle = 3;
   static uint32_t const IndexPerQuad = 6;
   static uint32_t const VertexPerQuad = 4;
 

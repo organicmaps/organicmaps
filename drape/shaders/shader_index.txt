@@ -3,3 +3,5 @@ LINE_PROGRAM line_vertex_shader.vsh line_fragment_shader.fsh
 TEXT_PROGRAM text_vertex_shader.vsh text_fragment_shader.fsh
 COMPASS_PROGRAM compass_vertex_shader.vsh texturing_fragment_shader.fsh
 RULER_PROGRAM ruler_vertex_shader.vsh texturing_fragment_shader.fsh
+ACCURACY_PROGRAM position_accuracy_shader.vsh texturing_fragment_shader.fsh
+MY_POSITION_PROGRAM my_position_shader.vsh texturing_fragment_shader.fsh

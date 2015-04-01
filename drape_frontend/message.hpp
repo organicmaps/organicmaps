@@ -22,6 +22,7 @@ public:
     UpdateUserMarkLayer,
     GuiLayerRecached,
     GuiRecache,
+    MyPositionShape,
     StopRendering
   };
 

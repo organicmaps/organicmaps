@@ -164,6 +164,10 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       break;
     }
 
+  case Message::MyPositionShape:
+    m_myPositionMark = CastMessage<MyPositionShapeMessage>(message)->AcceptShape();
+    break;
+
   case Message::InvalidateRect:
     {
       InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
@@ -276,7 +280,11 @@ void FrontendRenderer::RenderScene()
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
+    {
       GLFunctions::glClearDepth();
+      if (!m_myPositionMark.IsNull())
+        m_myPositionMark->Render(m_view, m_gpuProgramManager.GetRefPointer(), m_generalUniforms);
+    }
 
     prevLayer = layer;
     ASSERT_LESS_OR_EQUAL(prevLayer, layer, ());

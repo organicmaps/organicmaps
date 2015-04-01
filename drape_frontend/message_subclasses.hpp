@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/my_position.hpp"
 #include "drape_frontend/message.hpp"
 #include "drape_frontend/viewport.hpp"
 #include "drape_frontend/tile_key.hpp"
@@ -245,6 +246,25 @@ public:
 
 private:
   gui::Skin::ElementName m_elements;
+};
+
+class MyPositionShapeMessage : public Message
+{
+public:
+  MyPositionShapeMessage(dp::TransferPointer<MyPosition> shape)
+    : m_shape(shape)
+  {
+  }
+
+  Type GetType() const override { return Message::MyPositionShape; }
+
+  dp::MasterPointer<MyPosition> AcceptShape()
+  {
+    return dp::MasterPointer<MyPosition>(m_shape);
+  }
+
+private:
+  dp::TransferPointer<MyPosition> m_shape;
 };
 
 class StopRenderingMessage : public Message

@@ -21,3 +21,5 @@ OTHER_FILES += \
     shaders/text_vertex_shader.vsh \
     shaders/compass_vertex_shader.vsh \
     shaders/ruler_vertex_shader.vsh \
+    shaders/position_accuracy_shader.vsh \
+    shaders/my_position_shader.vsh
