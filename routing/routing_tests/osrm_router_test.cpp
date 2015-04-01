@@ -96,6 +96,7 @@ void TestMapping(InputDataT const & data,
     FilesMappingContainer cont(ftSegsPath);
     OsrmFtSegMapping mapping;
     mapping.Load(cont);
+    mapping.Map(cont);
 
     TestNodeId(mapping, nodeIds);
     TestSegmentRange(mapping, ranges);
