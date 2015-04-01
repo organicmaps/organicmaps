@@ -470,7 +470,7 @@ void MutableLabelHandle::SetContent(string && content)
   if (m_content != content)
   {
     m_isContentDirty = true;
-    m_content = content;
+    m_content = move(content);
   }
 }
 
