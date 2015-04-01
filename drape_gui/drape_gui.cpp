@@ -120,11 +120,4 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelperImpl()
   return m_impl->m_countryHelper;
 }
 
-void DrapeGui::SendRecacheSignal(Skin::ElementName elemetns)
-{
-  ASSERT(m_impl != nullptr, ());
-  if (m_impl->m_recacheSlot)
-    m_impl->m_recacheSlot(elemetns);
-}
-
 }

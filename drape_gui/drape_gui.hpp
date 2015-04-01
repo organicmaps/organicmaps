@@ -69,8 +69,6 @@ private:
   RulerHelper & GetRulerHelperImpl();
   CountryStatusHelper & GetCountryStatusHelperImpl();
 
-  void SendRecacheSignal(Skin::ElementName elements);
-
 private:
   struct Impl;
   unique_ptr<Impl> m_impl;

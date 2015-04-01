@@ -181,10 +181,10 @@ void CountryStatusHelper::FillControlsForLoading()
   ASSERT(m_controls.empty(), ());
   string text = GetLocalizedString(DownloadingLabelID);
   size_t firstPos = text.find('^');
-  size_t secondPos = text.find('^', firstPos + 1);
-
   ASSERT(firstPos != string::npos, ());
+  size_t secondPos = text.find('^', firstPos + 1);
   ASSERT(secondPos != string::npos, ());
+
   if (firstPos != 0)
   {
     string firstLabel = text.substr(0, firstPos);
