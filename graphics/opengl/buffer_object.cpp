@@ -1,13 +1,14 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../base/logging.hpp"
+#include "buffer_object.hpp"
+#include "opengl.hpp"
+
 #include "../../base/assert.hpp"
-#include "../../base/shared_buffer_manager.hpp"
+#include "../../base/logging.hpp"
 #include "../../base/macros.hpp"
+#include "../../base/shared_buffer_manager.hpp"
+#include "../../base/SRC_FIRST.hpp"
 
 #include "../../std/list.hpp"
 
-#include "opengl.hpp"
-#include "buffer_object.hpp"
 
 namespace graphics
 {
@@ -16,6 +17,8 @@ namespace graphics
     void BufferObject::Binder::Reset(BufferObject * bufferObj)
     {
       ASSERT(bufferObj, ());
+      ASSERT(!bufferObj->IsBound(), ());
+
       m_bufferObj = bufferObj;
       bufferObj->Bind();
     }
