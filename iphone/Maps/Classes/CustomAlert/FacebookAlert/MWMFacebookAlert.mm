@@ -15,7 +15,7 @@ static NSString * const kFacebookAlertNibName = @"MWMFacebookAlert";
 static NSString * const kFacebookAppName = @"https://fb.me/918866338157497";
 static NSString * const kFacebookURL = @"http://www.facebook.com/MapsWithMe";
 static NSString * const kFacebookScheme = @"fb://profile/111923085594432";
-static NSString * const kFacebookAlertPreviewImage = @"http://maps.me/images/fb-1.png";
+static NSString * const kFacebookAlertPreviewImage = @"http://ru3.mapswithme.com/fb-1.png";
 extern NSString * const kUDAlreadySharedKey;
 
 @interface MWMFacebookAlert ()
