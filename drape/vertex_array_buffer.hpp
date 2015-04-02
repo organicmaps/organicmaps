@@ -63,7 +63,11 @@ private:
   void BindDynamicBuffers() const;
   void BindBuffers(TBuffersMap const & buffers) const;
 
+  DataBufferBase & GetIndexBuffer();
+  DataBufferBase const & GetIndexBuffer() const;
+
 private:
+  /// m_VAO - VertexArrayObject name/identificator
   int m_VAO;
   TBuffersMap m_staticBuffers;
   TBuffersMap m_dynamicBuffers;

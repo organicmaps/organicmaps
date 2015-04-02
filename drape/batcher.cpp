@@ -4,6 +4,7 @@
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
 #include "std/bind.hpp"
 
@@ -90,9 +91,7 @@ Batcher::Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize)
 
 Batcher::~Batcher()
 {
-  buckets_t::iterator it = m_buckets.begin();
-  for (; it != m_buckets.end(); ++it)
-    it->second.Destroy();
+  DeleteRange(m_buckets, MasterPointerDeleter());
 }
 
 IndicesRange Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params)
@@ -165,7 +164,7 @@ void Batcher::ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFille
 
 RefPointer<RenderBucket> Batcher::GetBucket(GLState const & state)
 {
-  buckets_t::iterator it = m_buckets.find(state);
+  TBuckets::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
     return it->second.GetRefPointer();
 
@@ -187,11 +186,12 @@ void Batcher::FinalizeBucket(GLState const & state)
 void Batcher::Flush()
 {
   ASSERT(m_flushInterface != NULL, ());
-  for (buckets_t::iterator it = m_buckets.begin(); it != m_buckets.end(); ++it)
+  for_each(m_buckets.begin(), m_buckets.end(), [this](TBuckets::value_type & bucket)
   {
-    it->second->GetBuffer()->Preflush();
-    m_flushInterface(it->first, it->second.Move());
-  }
+    ASSERT(!bucket.second.IsNull(), ());
+    bucket.second->GetBuffer()->Preflush();
+    m_flushInterface(bucket.first, bucket.second.Move());
+  });
 
   m_buckets.clear();
 }

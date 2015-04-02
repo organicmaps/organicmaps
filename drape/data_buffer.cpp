@@ -16,6 +16,7 @@ DataBuffer::~DataBuffer()
 
 dp::RefPointer<DataBufferBase> DataBuffer::GetBuffer() const
 {
+  ASSERT(!m_impl.IsNull(), ());
   return m_impl.GetRefPointer();
 }
 

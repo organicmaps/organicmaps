@@ -41,6 +41,7 @@ void VertexArrayBuffer::Preflush()
   for(auto & buffer : m_dynamicBuffers)
     buffer.second->MoveToGPU(GPUBuffer::ElementBuffer);
 
+  ASSERT(!m_indexBuffer.IsNull(), ());
   m_indexBuffer->MoveToGPU(GPUBuffer::IndexBuffer);
 
   GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
@@ -49,12 +50,12 @@ void VertexArrayBuffer::Preflush()
 
 void VertexArrayBuffer::Render()
 {
-  RenderRange(IndicesRange{ 0, m_indexBuffer->GetBuffer()->GetCurrentSize() });
+  RenderRange({ 0, GetIndexBuffer().GetCurrentSize() });
 }
 
 void VertexArrayBuffer::RenderRange(IndicesRange const & range)
 {
-  if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && m_indexBuffer->GetBuffer()->GetCurrentSize() > 0)
+  if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && GetIndexCount() > 0)
   {
     ASSERT(!m_program.IsNull(), ("Somebody not call Build. It's very bad. Very very bad"));
     /// if OES_vertex_array_object is supported than all bindings already saved in VAO
@@ -65,7 +66,7 @@ void VertexArrayBuffer::RenderRange(IndicesRange const & range)
       BindStaticBuffers();
 
     BindDynamicBuffers();
-    m_indexBuffer->GetBuffer()->Bind();
+    GetIndexBuffer().Bind();
     GLFunctions::glDrawElements(range.m_idxCount, range.m_idxStart);
   }
 }
@@ -148,7 +149,7 @@ RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & 
 
 uint16_t VertexArrayBuffer::GetAvailableIndexCount() const
 {
-  return m_indexBuffer->GetBuffer()->GetAvailableSize();
+  return GetIndexBuffer().GetAvailableSize();
 }
 
 uint16_t VertexArrayBuffer::GetAvailableVertexCount() const
@@ -188,7 +189,7 @@ uint16_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingIn
 
 uint16_t VertexArrayBuffer::GetIndexCount() const
 {
-  return m_indexBuffer->GetBuffer()->GetCurrentSize();
+  return GetIndexBuffer().GetCurrentSize();
 }
 
 bool VertexArrayBuffer::IsFilled() const
@@ -198,15 +199,18 @@ bool VertexArrayBuffer::IsFilled() const
 
 void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
 {
-  ASSERT(count <= m_indexBuffer->GetBuffer()->GetAvailableSize(), ());
-  m_indexBuffer->UploadData(data, count);
+  ASSERT(count <= GetIndexBuffer().GetAvailableSize(), ());
+  GetIndexBuffer().UploadData(data, count);
 }
 
 void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutator,
                                       RefPointer<AttributeBufferMutator> attrMutator)
 {
   if (!indexMutator.IsNull())
+  {
+    ASSERT(!m_indexBuffer.IsNull(), ());
     m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
+  }
 
   if (attrMutator.IsNull())
     return;
@@ -269,6 +273,18 @@ void VertexArrayBuffer::BindBuffers(TBuffersMap const & buffers) const
                                             decl.m_offset);
     }
   }
+}
+
+DataBufferBase & VertexArrayBuffer::GetIndexBuffer()
+{
+  ASSERT(!m_indexBuffer.IsNull(), ());
+  return *(m_indexBuffer->GetBuffer().GetRaw());
+}
+
+DataBufferBase const & VertexArrayBuffer::GetIndexBuffer() const
+{
+  ASSERT(!m_indexBuffer.IsNull(), ());
+  return *(m_indexBuffer->GetBuffer().GetRaw());
 }
 
 } // namespace dp

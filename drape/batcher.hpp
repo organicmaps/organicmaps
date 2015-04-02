@@ -70,8 +70,8 @@ private:
   TFlushFn m_flushInterface;
 
 private:
-  typedef map<GLState, MasterPointer<RenderBucket> > buckets_t;
-  buckets_t m_buckets;
+  using TBuckets = map<GLState, MasterPointer<RenderBucket>>;
+  TBuckets m_buckets;
 
   uint32_t m_indexBufferSize;
   uint32_t m_vertexBufferSize;

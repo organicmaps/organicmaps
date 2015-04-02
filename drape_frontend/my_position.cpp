@@ -108,14 +108,16 @@ void MyPosition::CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng)
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;
-  buffer.push_back(Vertex{ glsl::vec2(0.0f, 0.0f), colorCoord });
+  // TODO UVR, change on emplace_back afer rebase on master
+  buffer.push_back({ glsl::vec2(0.0f, 0.0f), colorCoord });
 
   glsl::vec2 startNormal(0.0f, 1.0f);
 
   for (size_t i = 0; i < TriangleCount + 1; ++i)
   {
     glsl::vec2 rotatedNormal = glsl::rotate(startNormal, -(i * etalonSector));
-    buffer.push_back(Vertex{ rotatedNormal, colorCoord });
+    // TODO UVR, change on emplace_back afer rebase on master
+    buffer.push_back({ rotatedNormal, colorCoord });
   }
 
   dp::GLState state(gpu::ACCURACY_PROGRAM, dp::GLState::OverlayLayer);

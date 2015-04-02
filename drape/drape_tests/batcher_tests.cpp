@@ -48,10 +48,10 @@ public:
   {
   }
 
-  using TBatcherCallFn = function<void (Batcher *, GLState const &, RefPointer<AttributeProvider>)>;
+  template <typename TBatcherCall>
   void RunTest(float * vertexes, uint16_t * indexes,
                uint16_t vertexCount, uint16_t vertexComponentCount,
-               uint16_t indexCount, TBatcherCallFn const & fn)
+               uint16_t indexCount, TBatcherCall const & fn)
   {
     int const vertexSize = vertexCount * vertexComponentCount;
     MemoryComparer const dataCmp(vertexes, vertexSize * sizeof(float));
@@ -134,8 +134,7 @@ UNIT_TEST(BatchLists_Test)
     indexes[i] = i;
 
   BatcherExpectations expectations;
-  BatcherExpectations::TBatcherCallFn fn = [](Batcher * batcher, GLState const & state,
-                                              RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
   {
     batcher->InsertTriangleList(state, p);
   };
@@ -155,8 +154,7 @@ UNIT_TEST(BatchListOfStript_4stride)
     { 0, 1, 2, 1, 3, 2, 4, 5, 6, 5, 7, 6, 8, 9, 10, 9, 11, 10};
 
   BatcherExpectations expectations;
-  BatcherExpectations::TBatcherCallFn fn = [](Batcher * batcher, GLState const & state,
-                                              RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
   {
     batcher->InsertListOfStrip(state, p, dp::Batcher::VertexPerQuad);
   };
@@ -185,8 +183,7 @@ UNIT_TEST(BatchListOfStript_5stride)
       12, 13, 14 };
 
   BatcherExpectations expectations;
-  BatcherExpectations::TBatcherCallFn fn = [](Batcher * batcher, GLState const & state,
-                                              RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
   {
     batcher->InsertListOfStrip(state, p, 5);
   };
@@ -217,8 +214,7 @@ UNIT_TEST(BatchListOfStript_6stride)
       15, 17, 16};
 
   BatcherExpectations expectations;
-  BatcherExpectations::TBatcherCallFn fn = [](Batcher * batcher, GLState const & state,
-                                              RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
   {
     batcher->InsertListOfStrip(state, p, 6);
   };
