@@ -5,6 +5,14 @@
 UNIT_TEST(OpeningHours_Parse)
 {
   {
+    OSMTimeRange oh("06:00-09:00/03");
+    TEST(oh.IsValid(), ("Incorrect schedule string"));
+  }
+  {
+    OSMTimeRange oh("06:00-07:00/03");
+    TEST(oh.IsValid() == false, ());
+  }
+  {
     OSMTimeRange oh("sunrise-sunset");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
   }
@@ -22,10 +30,6 @@ UNIT_TEST(OpeningHours_Parse)
   }
   {
     OSMTimeRange oh("06:00-07:00+");
-    TEST(oh.IsValid(), ("Incorrect schedule string"));
-  }
-  {
-    OSMTimeRange oh("06:00-07:00/03");
     TEST(oh.IsValid(), ("Incorrect schedule string"));
   }
   {

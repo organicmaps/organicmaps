@@ -23,6 +23,10 @@ namespace osmoh {
     uint8_t flags;
 
     Time() : hours(0), minutes(0), flags(eNone) {}
+    inline Time & Hours(uint8_t h) { hours = h; flags |= eHours; return *this; }
+    inline Time & Minutes(uint8_t m) { minutes = m; flags |= eMinutes; return *this; }
+    inline Time & Sunset() { flags = eSunset; return *this; }
+    inline Time & Sunrise() { flags = eSunrise; return *this; }
 
     friend std::ostream & operator << (std::ostream & s, Time const & t);
   };
@@ -75,7 +79,6 @@ namespace osmoh {
     State state;
     uint8_t int_flags = 0;
   };
-
 } // namespace osmoh
 
 class OSMTimeRange
