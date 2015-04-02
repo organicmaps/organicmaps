@@ -12,7 +12,7 @@ namespace gui
 
 namespace
 {
-  float const CopyrightVisibleTime = 3.0f;
+  double const COPYRIGHT_VISIBLE_TIME = 3.0f;
 
   class CopyrightHandle : public Handle
   {
@@ -36,7 +36,7 @@ namespace
         m_firstRender = false;
         m_timer.Reset();
       }
-      else if (m_timer.ElapsedSeconds() > CopyrightVisibleTime)
+      else if (m_timer.ElapsedSeconds() > COPYRIGHT_VISIBLE_TIME)
       {
         DrapeGui::Instance().DeactivateCopyright();
         SetIsVisible(false);
@@ -71,9 +71,8 @@ dp::TransferPointer<ShapeRenderer> CopyrightLabel::Draw(dp::RefPointer<dp::Textu
   size_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
   m2::PointF size(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  dp::MasterPointer<dp::OverlayHandle> handle(new CopyrightHandle(m_position.m_anchor,
-                                                                  m_position.m_pixelPivot,
-                                                                  size));
+  dp::MasterPointer<dp::OverlayHandle> handle(
+        new CopyrightHandle(m_position.m_anchor, m_position.m_pixelPivot, size));
 
   dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer());
   dp::Batcher batcher(indexCount, vertexCount);
