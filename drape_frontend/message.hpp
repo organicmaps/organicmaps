@@ -11,6 +11,7 @@ public:
     Unknown,
     TileReadStarted,
     TileReadEnded,
+    FinishReading,
     FlushTile,
     MapShapeReaded,
     UpdateReadManager,

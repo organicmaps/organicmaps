@@ -99,7 +99,7 @@ void FrontendRenderer::AfterDrawFrame()
 }
 #endif
 
-unique_ptr<UserMarkRenderGroup> & FrontendRenderer::FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed)
+unique_ptr<UserMarkRenderGroup> const & FrontendRenderer::FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed)
 {
   auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](unique_ptr<UserMarkRenderGroup> const & g)
   {
@@ -137,29 +137,22 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
       {
-        int const zoomLevel = df::GetTileScaleBase(m_view);
-        bool const result = m_tileTree.ProcessTile(key, zoomLevel, state, bucket);
-        if (!result)
+        if (!m_tileTree.ProcessTile(key, df::GetTileScaleBase(m_view), state, bucket))
           bucket.Destroy();
       }
       else
       {
-        unique_ptr<UserMarkRenderGroup> & group = FindUserMarkRenderGroup(key, true);
+        auto const & group = FindUserMarkRenderGroup(key, true);
         ASSERT(group.get() != nullptr, ());
         group->SetRenderBucket(state, bucket.Move());
       }
       break;
     }
 
-  case Message::TileReadEnded:
+  case Message::FinishReading:
     {
-      TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
-      TileKey const & key = msg->GetKey();
-      if (!IsUserMarkLayer(key))
-      {
-        int const zoomLevel = df::GetTileScaleBase(m_view);
-        m_tileTree.FinishTile(key, zoomLevel);
-      }
+      FinishReadingMessage * msg = df::CastMessage<FinishReadingMessage>(message);
+      m_tileTree.FinishTiles(msg->GetTiles(), df::GetTileScaleBase(m_view));
       break;
     }
 
@@ -224,7 +217,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::ChangeUserMarkLayerVisibility:
     {
       ChangeUserMarkLayerVisibilityMessage * m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
-      unique_ptr<UserMarkRenderGroup> & group = FindUserMarkRenderGroup(m->GetKey(), true);
+      auto const & group = FindUserMarkRenderGroup(m->GetKey(), true);
       ASSERT(group.get() != nullptr, ());
       group->SetIsVisible(m->IsVisible());
       break;
@@ -290,10 +283,11 @@ void FrontendRenderer::OnAddDeferredTile(TileKey const & tileKey, TileStatus til
 
 void FrontendRenderer::OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus)
 {
-  for(auto it = m_renderGroups.begin(); it != m_renderGroups.end(); ++it)
+  UNUSED_VALUE(tileStatus);
+  for(auto const & group : m_renderGroups)
   {
-    if ((*it)->GetTileKey() == tileKey)
-      (*it)->DeleteLater();
+    if (group->GetTileKey() == tileKey)
+      group->DeleteLater();
   }
 
   for(auto it = m_deferredRenderGroups.begin(); it != m_deferredRenderGroups.end();)
@@ -348,9 +342,8 @@ void FrontendRenderer::RenderScene()
   GLFunctions::glClear();
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
-  for (size_t i = 0; i < m_renderGroups.size(); ++i)
+  for (auto const & group : m_renderGroups)
   {
-    unique_ptr<RenderGroup> & group = m_renderGroups[i];
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
@@ -561,16 +554,6 @@ void FrontendRenderer::UpdateScene()
                               dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, move(tiles))),
                               MessagePriority::Normal);
   }
-}
-
-string DebugPrint(vector<unique_ptr<RenderGroup>> const & groups)
-{
-  ostringstream out;
-  out << "\n{\n";
-  for (auto it = groups.begin(); it != groups.end(); ++it)
-    out << DebugPrint((*it)->GetTileKey()) << "\n";
-  out << "}\n";
-  return out.str();
 }
 
 } // namespace df

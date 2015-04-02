@@ -129,4 +129,11 @@ void UserMarkRenderGroup::Render(ScreenBase const & screen)
     m_renderBucket->Render(screen);
 }
 
+string DebugPrint(RenderGroup const & group)
+{
+  ostringstream out;
+  out << DebugPrint(group.GetTileKey());
+  return out.str();
+}
+
 } // namespace df

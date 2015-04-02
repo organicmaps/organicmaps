@@ -10,8 +10,6 @@
 #include "base/mutex.hpp"
 
 #include "std/atomic.hpp"
-#include "std/mutex.hpp"
-#include "std/noncopyable.hpp"
 #include "std/vector.hpp"
 
 class FeatureType;

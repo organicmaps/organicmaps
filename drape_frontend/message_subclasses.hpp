@@ -19,6 +19,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/set.hpp"
 #include "std/function.hpp"
+#include "std/utility.hpp"
 
 namespace df
 {
@@ -51,6 +52,21 @@ public:
     : BaseTileMessage(key) {}
 
   Type GetType() const override { return Message::TileReadEnded; }
+};
+
+class FinishReadingMessage : public Message
+{
+public:
+  template<typename T> FinishReadingMessage(T && tiles)
+    : m_tiles(forward<T>(tiles))
+  {}
+
+  Type GetType() const override { return Message::FinishReading; }
+
+  TTilesCollection & GetTiles() { return m_tiles; }
+
+private:
+  TTilesCollection m_tiles;
 };
 
 class FlushRenderBucketMessage : public BaseTileMessage

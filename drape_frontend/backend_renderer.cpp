@@ -103,9 +103,14 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
       m_batchersPool->ReleaseBatcher(msg->GetKey());
-
-      TileReadEndMessage * outputMsg = new TileReadEndMessage(msg->GetKey());
-      m_commutator->PostMessage(ThreadsCommutator::RenderThread, dp::MovePointer<df::Message>(outputMsg), MessagePriority::Normal);
+      break;
+    }
+  case Message::FinishReading:
+    {
+      FinishReadingMessage * msg = df::CastMessage<FinishReadingMessage>(message);
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                dp::MovePointer<df::Message>(new FinishReadingMessage(move(msg->GetTiles()))),
+                                MessagePriority::Normal);
       break;
     }
   case Message::MapShapeReaded:

@@ -67,6 +67,11 @@ void EngineContext::EndReadTile()
   PostMessage(dp::MovePointer<Message>(new TileReadEndMessage(m_tileKey)));
 }
 
+void EngineContext::FinishReading(TTilesCollection const & finishedTiles)
+{
+  PostMessage(new FinishReadingMessage(finishedTiles));
+}
+
 void EngineContext::PostMessage(dp::TransferPointer<Message> message)
 {
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, message,

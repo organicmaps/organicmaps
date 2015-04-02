@@ -13,6 +13,8 @@
 
 #include "base/thread_pool.hpp"
 
+#include "std/atomic.hpp"
+#include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 
@@ -62,6 +64,10 @@ private:
   TTileSet m_tileInfos;
 
   ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
+
+  atomic<int> m_counter;
+  set<TileKey> m_finishedTiles;
+  mutex m_finishedTilesMutex;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);

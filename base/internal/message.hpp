@@ -6,6 +6,7 @@
 #include "std/set.hpp"
 #include "std/sstream.hpp"
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 #include "std/initializer_list.hpp"
@@ -25,6 +26,7 @@ template <typename T> inline string DebugPrint(vector<T> const & v);
 template <typename T> inline string DebugPrint(set<T> const & v);
 template <typename U, typename V> inline string DebugPrint(map<U,V> const & v);
 template <typename T> inline string DebugPrint(initializer_list<T> const & v);
+template <typename T> inline string DebugPrint(unique_ptr<T> const & v);
 //@}
 
 
@@ -113,6 +115,13 @@ template <typename T> inline string DebugPrint(T const & t)
 {
   ostringstream out;
   out << t;
+  return out.str();
+}
+
+template <typename T> inline string DebugPrint(unique_ptr<T> const & v)
+{
+  ostringstream out;
+  out << DebugPrint(*v);
   return out.str();
 }
 

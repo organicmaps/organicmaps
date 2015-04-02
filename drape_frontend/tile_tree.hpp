@@ -46,8 +46,8 @@ public:
   /// this method processes received from BR tile
   bool ProcessTile(TileKey const & tileKey, int const zoomLevel,
                    dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket);
-  /// this method processes a message about finishing tile on BR
-  void FinishTile(TileKey const & tileKey, int const zoomLevel);
+  /// this method processes a message about finishing reading tiles on BR
+  void FinishTiles(TTilesCollection const & tiles, int const zoomLevel);
 
   /// this method performs clipping by rectangle
   void ClipByRect(m2::RectD const & rect);

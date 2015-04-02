@@ -34,6 +34,7 @@ ReadManager::ReadManager(dp::RefPointer<ThreadsCommutator> commutator, MapDataPr
   : m_commutator(commutator)
   , m_model(model)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
+  , m_counter(0)
 {
   m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
@@ -42,6 +43,21 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 {
   ASSERT(dynamic_cast<ReadMWMTask *>(task) != NULL, ());
   ReadMWMTask * t = static_cast<ReadMWMTask *>(task);
+
+  // add finished tile to collection
+  {
+    lock_guard<mutex> lock(m_finishedTilesMutex);
+    m_finishedTiles.emplace(t->GetTileKey());
+
+    ASSERT(m_counter > 0, ());
+    --m_counter;
+    if (m_counter == 0)
+    {
+      m_context.FinishReading(m_finishedTiles);
+      m_finishedTiles.clear();
+    }
+  }
+
   t->Reset();
   myPool.Return(t);
 }
@@ -53,6 +69,8 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
 
   if (MustDropAllTiles(screen))
   {
+    m_counter += tiles.size();
+
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
     m_tileInfos.clear();
     for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1));
@@ -76,6 +94,8 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
     set_difference(tiles.begin(), tiles.end(),
                    m_tileInfos.begin(), m_tileInfos.end(),
                    back_inserter(inputRects), LessCoverageCell());
+
+    m_counter += (inputRects.size() + (m_tileInfos.size() - outdatedTiles.size()));
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1));

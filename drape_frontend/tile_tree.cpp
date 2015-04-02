@@ -78,9 +78,13 @@ bool TileTree::ProcessTile(TileKey const & tileKey, int const zoomLevel,
   return result;
 }
 
-void TileTree::FinishTile(TileKey const & tileKey, int const zoomLevel)
+void TileTree::FinishTiles(TTilesCollection const & tiles, int const zoomLevel)
 {
-  if (FinishNode(m_root, tileKey, zoomLevel))
+  bool changed = false;
+  for (TileKey const & tileKey : tiles)
+    changed |= FinishNode(m_root, tileKey, zoomLevel);
+
+  if (changed)
   {
     CheckDeferredTiles(m_root);
     SimplifyTree();
@@ -277,12 +281,13 @@ bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey, int co
     if (childNode->m_tileKey == tileKey && childNode->m_tileStatus == TileStatus::Requested)
     {
       // here a tile has finished, but we hadn't got any data from BR. It means that
-      // this tile is empty, so we remove all his descendants and him
-      childNode->m_tileStatus = TileStatus::Unknown;
+      // this tile is empty, so we mark this tile as rendered
+      childNode->m_tileStatus = TileStatus::Rendered;
+      childNode->m_isRemoved = false;
       if (childNode->m_tileKey.m_zoomLevel >= zoomLevel)
         DeleteTilesBelow(childNode);
 
-      changed = true;
+      return true;
     }
 
     changed |= FinishNode(childNode, tileKey, zoomLevel);

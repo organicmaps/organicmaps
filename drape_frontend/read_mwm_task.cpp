@@ -48,4 +48,13 @@ void ReadMWMTask::Do()
   }
 }
 
+TileKey ReadMWMTask::GetTileKey() const
+{
+  shared_ptr<TileInfo> tileInfo = m_tileInfo.lock();
+  if (tileInfo == NULL)
+    return TileKey();
+
+  return tileInfo->GetTileKey();
+}
+
 } // namespace df

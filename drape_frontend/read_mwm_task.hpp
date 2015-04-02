@@ -25,6 +25,7 @@ public:
 
   void Init(weak_ptr<TileInfo> const & tileInfo);
   void Reset();
+  TileKey GetTileKey() const;
 
 private:
   weak_ptr<TileInfo> m_tileInfo;

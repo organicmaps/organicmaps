@@ -57,6 +57,9 @@ private:
   vector<dp::MasterPointer<dp::RenderBucket> > m_renderBuckets;
 
   mutable bool m_pendingOnDelete;
+
+private:
+  friend string DebugPrint(RenderGroup const & group);
 };
 
 class RenderGroupComparator

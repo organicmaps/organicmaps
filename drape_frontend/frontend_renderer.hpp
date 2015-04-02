@@ -71,7 +71,7 @@ private:
   void ResolveTileKeys(m2::RectD const & rect);
   void ResolveTileKeys(int tileScale);
 
-  unique_ptr<UserMarkRenderGroup> & FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
+  unique_ptr<UserMarkRenderGroup> const & FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
 
 private:
   class Routine : public threads::IRoutine
@@ -130,9 +130,6 @@ private:
   mutex m_modelViewMutex;
 
   dp::OverlayTree m_overlayTree;
-
-private:
-  friend string DebugPrint(vector<unique_ptr<RenderGroup>> const & groups);
 };
 
 } // namespace df
