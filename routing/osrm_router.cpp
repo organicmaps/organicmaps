@@ -698,9 +698,13 @@ public:
     }
   }
 
-  bool IsValid()
+  OsrmRouter::ResultCode GetError() const
   {
-    return (!m_weights.empty());
+    if (m_sources.empty())
+      return OsrmRouter::RouteFileNotExist;
+    if (m_weights.empty())
+      return OsrmRouter::EndPointNotFound;
+    return OsrmRouter::NoError;
   }
 
   bool MakeLastCrossSegment(size_t const incomeNodeId, OsrmRouter::RoutePathCross & outCrossTask)
@@ -866,6 +870,12 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
     MultiroutingTaskPointT sources(1), targets(distance(mwmOutsIter.first, mwmOutsIter.second));
 
+    if (targets.empty())
+    {
+      route.AddAbsentCountry(startMapping->GetName());
+      return RouteFileNotExist;
+    }
+
     size_t index = 0;
     for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j, ++index)
       OsrmRouter::GenerateRoutingTaskFromNodeId(j->m_nodeId, false /*isStartNode*/, targets[index]);
@@ -889,8 +899,13 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     // Load target data
     LastCrossFinder targetFinder(targetMapping, m_CachedTargetTask);
 
-    if(!targetFinder.IsValid())
-      return EndPointNotFound;
+    ResultCode const targetResult = targetFinder.GetError();
+    if (targetResult != NoError)
+    {
+      if (targetResult == RouteFileNotExist)
+        route.AddAbsentCountry(targetMapping->GetName());
+      return targetResult;
+    }
 
     EdgeWeight finalWeight = INVALID_EDGE_WEIGHT;
     CheckedPathT finalPath;
