@@ -34,7 +34,7 @@ namespace graphics
         friend void BufferObject::makeCurrent(Binder & binder);
         BufferObject * m_bufferObj;
 
-        void Reset(BufferObject * bufferObj);
+        void Reset(BufferObject & bufferObj);
 
       public:
         Binder() : m_bufferObj(nullptr) {}

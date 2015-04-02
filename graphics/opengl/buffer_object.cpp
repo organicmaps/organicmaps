@@ -14,13 +14,12 @@ namespace graphics
 {
   namespace gl
   {
-    void BufferObject::Binder::Reset(BufferObject * bufferObj)
+    void BufferObject::Binder::Reset(BufferObject & bufferObj)
     {
-      ASSERT(bufferObj, ());
-      ASSERT(!bufferObj->IsBound(), ());
+      ASSERT(!bufferObj.IsBound(), ());
 
-      m_bufferObj = bufferObj;
-      bufferObj->Bind();
+      m_bufferObj = &bufferObj;
+      m_bufferObj->Bind();
     }
 
     BufferObject::Binder::~Binder()
@@ -191,7 +190,7 @@ namespace graphics
 /*#ifndef OMIM_OS_ANDROID
       if (m_id != current())
 #endif*/
-      binder.Reset(this);
+      binder.Reset(*this);
     }
 
     void BufferObject::Bind()
