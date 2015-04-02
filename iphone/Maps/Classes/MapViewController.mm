@@ -583,7 +583,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [self.view addSubview:self.zoomButtonsView];
   self.zoomButtonsView.minY = IPAD ? 560 : 176;
   self.zoomButtonsView.maxX = self.zoomButtonsView.superview.width;
-  bool zoomButtonsEnabled = true;
+  bool zoomButtonsEnabled;
   if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
     zoomButtonsEnabled = false;
   self.zoomButtonsView.hidden = !zoomButtonsEnabled;
