@@ -99,13 +99,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
         {
-          bool const outStart = border.Contains({ MercatorBounds::LonToX(startSeg.lon1), MercatorBounds::LatToY(startSeg.lat1) });
-          bool const outEnd = border.Contains({ MercatorBounds::LonToX(endSeg.lon2), MercatorBounds::LatToY(endSeg.lat2) });
+          bool const outStart = border.Contains(MercatorBounds::FromLatLon(startSeg.lat1, startSeg.lon1));
+          bool const outEnd = border.Contains(MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2));
           if (outStart == outEnd)
             continue;
           m2::PointD intersection = m2::PointD::Zero();
           for (auto const & segment : data.m_segments)
-            if (border.FindIntersection({MercatorBounds::LonToX(segment.lon1), MercatorBounds::LatToY(segment.lat1)}, {MercatorBounds::LonToX(segment.lon2), MercatorBounds::LatToY(segment.lat2)}, intersection))
+            if (border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1), MercatorBounds::FromLatLon(segment.lat2, segment.lon2), intersection))
               break;
           if (intersection == m2::PointD::Zero())
             continue;
@@ -115,7 +115,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
           if (outStart && !outEnd)
           {
             string mwmName;
-            m2::PointD const mercatorPoint(MercatorBounds::LonToX(endSeg.lon2), MercatorBounds::LatToY(endSeg.lat2));
+            m2::PointD const mercatorPoint(MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2));
             m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
             {
               if (c.m_name == countryName)
@@ -126,7 +126,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
                 if (region.Contains(mercatorPoint))
                   mwmName = c.m_name;
                 else
-                  if (region.AtBorder(mercatorPoint,0.01))
+                  if (region.AtBorder(mercatorPoint, 0.01 /*Near border accuracy. In mercator.*/))
                       mwmName = c.m_name;
               });
             });

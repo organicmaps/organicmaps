@@ -55,14 +55,14 @@ namespace
   UNIT_TEST(ArbatBaliCrimeanForwardCrossMwmTest)
   {
     shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
-    integration::CalculateRouteAndTestRouteLength(routerComponents,  {MercatorBounds::LonToX(34.804955), MercatorBounds::LatToY(46.152324)},
-                                                  {0., 0.}, {MercatorBounds::LonToX(35.369712), MercatorBounds::LatToY(45.356971)}, 105000.);
+    integration::CalculateRouteAndTestRouteLength(routerComponents,  MercatorBounds::FromLatLon(46.152324, 34.804955),
+                                                  {0., 0.}, MercatorBounds::FromLatLon(45.35697, 35.369712), 105000.);
   }
 
   UNIT_TEST(ArbatBaliCrimeanBackwardCrossTest)
   {
     shared_ptr<integration::OsrmRouterComponents> routerComponents = integration::GetAllMaps();
-    integration::CalculateRouteAndTestRouteLength(routerComponents, {MercatorBounds::LonToX(35.369712), MercatorBounds::LatToY(45.356971)},
-                                                  {0., 0.}, {MercatorBounds::LonToX(34.804955), MercatorBounds::LatToY(46.152324)}, 105000.);
+    integration::CalculateRouteAndTestRouteLength(routerComponents, MercatorBounds::FromLatLon(45.356971, 35.369712),
+                                                  {0., 0.}, MercatorBounds::FromLatLon(46.152324, 34.804955), 105000.);
   }
 }
