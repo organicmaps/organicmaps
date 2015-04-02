@@ -208,7 +208,9 @@ BOOST_FUSION_ADAPT_STRUCT
  (uint8_t, int_flags)
 )
 
-namespace {
+namespace
+{
+
   namespace qi = boost::spirit::qi;
   namespace phx = boost::phoenix;
   namespace repo = boost::spirit::repository;
@@ -265,11 +267,8 @@ namespace {
       (L"пн", 0)(L"вт", 1)(L"ср", 2)(L"чт", 3)(L"пт", 4)(L"сб", 5)(L"вс", 6) // ru
       (L"пн.", 0)(L"вт.", 1)(L"ср.", 2)(L"чт.", 3)(L"пт.", 4)(L"сб.", 5)(L"вс.", 6) // ru
       (L"lu", 0)(L"ma", 1)(L"me", 2)(L"je", 3)(L"ve", 4)(L"sa", 5)(L"di", 6) // fr
-//      ("lun", 0)("mar", 1)("mer", 2)("jeu", 3)("ven", 4)("sam", 5)("dim", 6) // fr
       (L"lu", 0)(L"ma", 1)(L"me", 2)(L"gi", 3)(L"ve", 4)(L"sa", 5)(L"do", 6) // it
-//      ("lun", 0)("mar", 1)("mer", 2)("gio", 3)("ven", 4)("sab", 5)("dom", 6) // it
       (L"lu", 0)(L"ma", 1)(L"mi", 2)(L"ju", 3)(L"vie", 4)(L"sá", 5)(L"do", 6) // sp
-//      ("lun", 0)("mar", 1)("mié", 2)("jue", 3)("vie", 4)("sáb", 5)("dom", 6) // sp
       (L"週一", 0)(L"週二", 1)(L"週三", 2)(L"週四", 3)(L"週五", 4)(L"週六", 5)(L"週日", 6) // ch traditional
       (L"senin", 0)(L"selasa", 1)(L"rabu", 2)(L"kamis", 3)(L"jum'at", 4)(L"sabtu", 5)(L"minggu", 6) // indonesian
 
@@ -379,8 +378,7 @@ namespace {
       static const qi::int_parser<unsigned, 10, 4, 4> _4digit = {};
 
       year %= _4digit;
-      year_range %=
-          (year >> dash >> year >> '/' >> uint_)
+      year_range %= (year >> dash >> year >> '/' >> uint_)
         | (year >> dash >> year)
         | year >> char_('+')
         | year
@@ -454,9 +452,7 @@ namespace {
         | charset::no_case[month]
       ;
 
-      main %= (monthday_range % ',')
-               | (month_range % ',')
-      ;
+      main %= (monthday_range % ',') | (month_range % ',');
 
       BOOST_SPIRIT_DEBUG_NODE(main);
       BOOST_SPIRIT_DEBUG_NODE(month_range);
@@ -494,25 +490,25 @@ namespace {
 
       nth %= ushort_(1) | ushort_(2) | ushort_(3) | ushort_(4) | ushort_(5);
 
-      nth_entry =
-          (nth >> dash >> nth) [_val |= ((2 << ((_2-1)-(_1-1))) - 1) << (_1-1)]
+      nth_entry = (nth >> dash >> nth) [_val |= ((2 << ((_2-1)-(_1-1))) - 1) << (_1-1)]
         | (lit('-') >> nth) [_val |= (0x0100 << (_1 - 1))]
         | nth [_val |= (1 << (_1 - 1))]
       ;
 
-      day_offset = (lit('+')[_a = 1] | lit('-') [_a = -1]) >> ushort_[_val = _1*_a] >> charset::no_case[(lit("days") | lit("day"))];
-      holyday %= (charset::no_case[lit("SH")] >> -day_offset) | charset::no_case[lit("PH")];
+      day_offset = (lit('+')[_a = 1] | lit('-') [_a = -1]) >> ushort_[_val = _1*_a] >> charset::no_case[(lit(L"days") | lit(L"day"))];
+      holyday %= (charset::no_case[lit(L"SH")] >> -day_offset) | charset::no_case[lit(L"PH")];
       holiday_sequence %= holyday % ',';
-      weekday_range =
-          (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)] >> '[' >> nth_entry[at_c<1>(_val) |= _1] % ',' >> ']' >> day_offset[at_c<2>(_val) = _1])
-        | (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)] >> '[' >> nth_entry[at_c<1>(_val) |= _1] % ',' >> ']')
+      weekday_range = (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)]
+                       >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L',' >> L']' >> day_offset[at_c<2>(_val) = _1])
+        | (charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)] >> L'[' >> nth_entry[at_c<1>(_val) |= _1] % L',' >> L']')
         | charset::no_case[(wdays >> dash >> wdays)] [at_c<0>(_val) |= ((2 << ((_2)-(_1))) - 1) << (_1)]
         | charset::no_case[wdays][at_c<0>(_val) |= (1<<_1)]
       ;
-      weekday_sequence %= (weekday_range % ',') >> !qi::no_skip[charset::alpha] >> -lit(':');
-      main =
-          (holiday_sequence >> -lit(',') >> weekday_sequence[_val = _1])
-        | weekday_sequence[_val = _1] >> -(-lit(',') >> holiday_sequence)
+
+      weekday_sequence %= (weekday_range % L',') >> !qi::no_skip[charset::alpha] >> -lit(L':');
+
+      main = (holiday_sequence >> -lit(L',') >> weekday_sequence[_val = _1])
+        | weekday_sequence[_val = _1] >> -(-lit(L',') >> holiday_sequence)
         | holiday_sequence
       ;
 
@@ -577,20 +573,20 @@ namespace {
 
       phx::function<validate_timespan_impl> const validate_timespan = validate_timespan_impl();
 
-      hour_minutes =
-           hours[at_c<0>(_val) = _1,
-              at_c<2>(_val) |= osmoh::Time::eHours]
-        || (((lit(':') | lit("：") | lit('.')) >> minutes[at_c<1>(_val) = _1, at_c<2>(_val) |= osmoh::Time::eMinutes])
+      hour_minutes = hours[at_c<0>(_val) = _1, at_c<2>(_val) |= osmoh::Time::eHours]
+        || (((lit(':') | lit("：") | lit('.')) >> minutes[at_c<1>(_val) = _1,
+                                                         at_c<2>(_val) |= osmoh::Time::eMinutes])
             ^ charset::no_case[lit('h') | lit("hs") | lit("hrs") | lit("uhr")]
-            ^ (charset::no_case[lit("am")][_a = 0] | charset::no_case[lit("pm")][_a = 1])[phx::if_(at_c<0>(_val) <= 12)[at_c<0>(_val) += (12 * _a)]])
+            ^ (charset::no_case[lit("am")][_a = 0] | charset::no_case[lit("pm")][_a = 1])
+                [phx::if_(at_c<0>(_val) <= 12)[at_c<0>(_val) += (12 * _a)]])
       ;
 
-      extended_hour_minutes =
-        exthours[at_c<0>(_val) = _1,
-              at_c<2>(_val) |= osmoh::Time::eHours]
-        || (((lit(':') | lit("：") | lit('.')) >> minutes[at_c<1>(_val) = _1, at_c<2>(_val) |= osmoh::Time::eMinutes])
+      extended_hour_minutes = exthours[at_c<0>(_val) = _1, at_c<2>(_val) |= osmoh::Time::eHours]
+        || (((lit(':') | lit("：") | lit('.')) >> minutes[at_c<1>(_val) = _1,
+                                                         at_c<2>(_val) |= osmoh::Time::eMinutes])
             ^ charset::no_case[lit('h') | lit("hs") | lit("hrs") | lit("uhr")]
-            ^ (charset::no_case[lit("am")][_a = 0] | charset::no_case[lit("pm")][_a = 1])[phx::if_(at_c<0>(_val) <= 12)[at_c<0>(_val) += (12 * _a)]])
+            ^ (charset::no_case[lit("am")][_a = 0] | charset::no_case[lit("pm")][_a = 1])
+                [phx::if_(at_c<0>(_val) <= 12)[at_c<0>(_val) += (12 * _a)]])
       ;
 
       variable_time =
@@ -606,16 +602,9 @@ namespace {
         | charset::no_case[event][at_c<2>(_val) |= _1]
       ;
 
-      extended_time %=
-        extended_hour_minutes
-      | variable_time
-      ;
+      extended_time %= extended_hour_minutes | variable_time;
 
-      time %=
-        hour_minutes
-      | variable_time
-      ;
-
+      time %= hour_minutes | variable_time;
 
       timespan =
           (time >> dash >> extended_time >> L'/' >> hour_minutes)
@@ -626,12 +615,13 @@ namespace {
              at_c<1>(at_c<3>(_val)) = _3, at_c<2>(at_c<3>(_val)) = osmoh::Time::eMinutes]
         | (time >> dash >> extended_time >> char_(L'+'))
             [at_c<0>(_val) = _1, at_c<1>(_val) = _2, at_c<2>(_val) |= osmoh::Time::ePlus]
-      | (time >> dash >> extended_time)
+        | (time >> dash >> extended_time)
             [at_c<0>(_val) = _1, at_c<1>(_val) = _2]
         | (time >> char_(L'+'))
             [at_c<0>(_val) = _1, at_c<2>(_val) |= osmoh::Time::ePlus]
         | time [at_c<0>(_val) = _1]
       ;
+
       main %= timespan[_pass = validate_timespan(_1)] % ',';
 
       BOOST_SPIRIT_DEBUG_NODE(main);
@@ -735,10 +725,12 @@ namespace {
         | comment[at_c<0>(_val) = State::eUnknown, at_c<1>(_val) = _1]
       ;
 
-      rule_sequence =
-        selector_sequence[_val = _1] >> -rule_modifier[at_c<2>(_val) = _1, at_c<3>(_val) = 1];
+      rule_sequence = selector_sequence[_val = _1]
+        >> -rule_modifier[at_c<2>(_val) = _1, at_c<3>(_val) = 1];
 
-      main %= -(lit("opening_hours") >> lit('=')) >> rule_sequence[_a = phx::val(&base_separator), phx::if_(at_c<3>(_1) || phx::size(at_c<1>(_1)))[_a = phx::val(&separator)]] % lazy(*_a);
+      main %= -(lit("opening_hours") >> lit('='))
+        >> rule_sequence[_a = phx::val(&base_separator),
+                              phx::if_(at_c<3>(_1) || phx::size(at_c<1>(_1)))[_a = phx::val(&separator)]] % lazy(*_a);
 
       BOOST_SPIRIT_DEBUG_NODE(main);
       BOOST_SPIRIT_DEBUG_NODE(rule_sequence);
@@ -815,7 +807,8 @@ namespace {
         hit |= (d.day_of_week() == ((i + 1 == 7) ? 0 : (i + 1)));
       }
     }
-//    std::cout << d.day_of_week() << " " <<  d << " --> " << wd << (hit ? " hit" : " miss") << std::endl; // very useful in debug
+    /* very useful in debug */
+//    std::cout << d.day_of_week() << " " <<  d << " --> " << wd << (hit ? " hit" : " miss") << std::endl;
     return hit;
   }
 
@@ -829,8 +822,9 @@ namespace {
 
     time_period tp1 = osmoh::make_time_period(d-days(1), ts);
     time_period tp2 = osmoh::make_time_period(d, ts);
-//    std::cout << ts << "\t" << tp1 << "(" << p << ")" << (tp1.contains(p) ? " hit" : " miss") << std::endl; // very useful in debug
-//    std::cout << ts << "\t" << tp2 << "(" << p << ")" << (tp2.contains(p) ? " hit" : " miss") << std::endl; // very useful in debug
+    /* very useful in debug */
+//    std::cout << ts << "\t" << tp1 << "(" << p << ")" << (tp1.contains(p) ? " hit" : " miss") << std::endl;
+//    std::cout << ts << "\t" << tp2 << "(" << p << ")" << (tp2.contains(p) ? " hit" : " miss") << std::endl;
     return tp1.contains(p) || tp2.contains(p);
   }
 
@@ -920,8 +914,9 @@ OSMTimeRange & OSMTimeRange::operator () (time_t timestamp)
     {
       m_state = false_state[m_state][el.state.state];
     }
+    /* very useful in debug */
 //    char const * st[] = {"unknown", "closed", "open"};
-//    std::cout << "-[" << hit << "]-------------------[" << el << "]: " << st[m_state] << "--------------------" << std::endl; // very useful in debug
+//    std::cout << "-[" << hit << "]-------------------[" << el << "]: " << st[m_state] << "--------------------" << std::endl;
   }
   return *this;
 }

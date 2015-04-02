@@ -4,10 +4,13 @@
 #include <vector>
 #include <iostream>
 
-namespace osmoh {
-  class Time {
+namespace osmoh
+{
+  class Time
+  {
   public:
-    enum EFlags {
+    enum EFlags
+    {
       eNone = 0,
       eHours = 1,
       eMinutes = 2,
