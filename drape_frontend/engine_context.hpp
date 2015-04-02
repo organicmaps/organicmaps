@@ -23,7 +23,6 @@ public:
   /// It will be proccessed and delete later
   void InsertShape(dp::TransferPointer<MapShape> shape);
   void EndReadTile();
-  void FinishReading(TTilesCollection const & finishedTiles);
 
 private:
   void PostMessage(dp::TransferPointer<Message> message);

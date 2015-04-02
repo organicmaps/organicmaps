@@ -68,9 +68,10 @@ private:
   void RefreshModelView();
 
   void ResolveTileKeys();
-  void ResolveTileKeys(m2::RectD const & rect);
   void ResolveTileKeys(int tileScale);
+  int GetCurrentZoomLevel() const;
 
+  //TODO(@kuznetsov): return new ref-pointer here
   unique_ptr<UserMarkRenderGroup> const & FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
 
 private:
@@ -105,8 +106,8 @@ private:
   void OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
                           dp::MasterPointer<dp::RenderBucket> & renderBucket);
 
-  void OnAddDeferredTile(TileKey const & tileKey, TileStatus tileStatus);
-  void OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus);
+  void OnActivateTile(TileKey const & tileKey);
+  void OnRemoveTile(TileKey const & tileKey);
 
 private:
   dp::RefPointer<dp::TextureManager> m_textureManager;
@@ -124,7 +125,7 @@ private:
   Viewport m_viewport;
   ScreenBase m_view;
 
-  TileTree m_tileTree;
+  unique_ptr<TileTree> m_tileTree;
 
   ScreenBase m_newView;
   mutex m_modelViewMutex;

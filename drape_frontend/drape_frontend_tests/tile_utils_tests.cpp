@@ -56,7 +56,6 @@ UNIT_TEST(TileUtils_MagnificationTest)
     df::TileKey(4, 11, 4), df::TileKey(5, 11, 4), df::TileKey(6, 11, 4), df::TileKey(7, 11, 4)
   };
 
-  TEST_EQUAL(output.size(), 16, ());
   TEST_EQUAL(output, expectedResult, ());
 
   df::TileKey key2(-1 /* x */, -2 /* y */, 2 /* zoom level */);
@@ -71,7 +70,6 @@ UNIT_TEST(TileUtils_MagnificationTest)
     df::TileKey(-4, -5, 4), df::TileKey(-3, -5, 4), df::TileKey(-2, -5, 4), df::TileKey(-1, -5, 4)
   };
 
-  TEST_EQUAL(output2.size(), 16, ());
   TEST_EQUAL(output2, expectedResult2, ());
 
   for (df::TileKey const & k : expectedResult)

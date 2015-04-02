@@ -7,6 +7,8 @@
 #include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
 
+#include "indexer/scales.hpp"
+
 #include "geometry/any_rect2d.hpp"
 
 #include "base/timer.hpp"
@@ -14,6 +16,7 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/cmath.hpp"
 
@@ -41,6 +44,7 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   , m_textureManager(textureManager)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
+  , m_tileTree(new TileTree())
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -50,17 +54,16 @@ FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   RefreshProjection();
   RefreshModelView();
 
-  m_tileTree.SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, this, _1, _2, _3),
-                         bind(&FrontendRenderer::OnDeferRenderGroup, this, _1, _2, _3),
-                         bind(&FrontendRenderer::OnAddDeferredTile, this, _1, _2),
-                         bind(&FrontendRenderer::OnRemoveTile, this, _1, _2));
+  m_tileTree->SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, this, _1, _2, _3),
+                          bind(&FrontendRenderer::OnDeferRenderGroup, this, _1, _2, _3),
+                          bind(&FrontendRenderer::OnActivateTile, this, _1),
+                          bind(&FrontendRenderer::OnRemoveTile, this, _1));
   StartThread();
 }
 
 FrontendRenderer::~FrontendRenderer()
 {
   StopThread();
-  m_tileTree.ResetHandlers();
 }
 
 #ifdef DRAW_INFO
@@ -137,12 +140,12 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
       {
-        if (!m_tileTree.ProcessTile(key, df::GetTileScaleBase(m_view), state, bucket))
+        if (!m_tileTree->ProcessTile(key, GetCurrentZoomLevel(), state, bucket))
           bucket.Destroy();
       }
       else
       {
-        auto const & group = FindUserMarkRenderGroup(key, true);
+        unique_ptr<UserMarkRenderGroup> const & group = FindUserMarkRenderGroup(key, true);
         ASSERT(group.get() != nullptr, ());
         group->SetRenderBucket(state, bucket.Move());
       }
@@ -152,7 +155,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::FinishReading:
     {
       FinishReadingMessage * msg = df::CastMessage<FinishReadingMessage>(message);
-      m_tileTree.FinishTiles(msg->GetTiles(), df::GetTileScaleBase(m_view));
+      m_tileTree->FinishTiles(msg->GetTiles(), GetCurrentZoomLevel());
       break;
     }
 
@@ -168,7 +171,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       ResolveTileKeys();
 
       TTilesCollection tiles;
-      m_tileTree.GetTilesCollection(tiles, df::GetTileScaleBase(m_view));
+      m_tileTree->GetTilesCollection(tiles, GetCurrentZoomLevel());
 
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
@@ -185,15 +188,14 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 
   case Message::InvalidateRect:
     {
-      InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
+      // TODO(@kuznetsov): implement invalidation
 
-      TTilesCollection keyStorage;
-      // TODO: implement invalidation
-
-      Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer(msgToBackend),
-                                MessagePriority::Normal);
+      //InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
+      //TTilesCollection keyStorage;
+      //Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
+      //m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+      //                          dp::MovePointer(msgToBackend),
+      //                          MessagePriority::Normal);
       break;
     }
 
@@ -207,8 +209,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 
       if (it != m_userMarkRenderGroups.end())
       {
-        unique_ptr<UserMarkRenderGroup> & group = *it;
-        ASSERT(group.get() != nullptr, ());
+        ASSERT((*it).get() != nullptr, ());
         m_userMarkRenderGroups.erase(it);
       }
 
@@ -217,7 +218,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::ChangeUserMarkLayerVisibility:
     {
       ChangeUserMarkLayerVisibilityMessage * m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
-      auto const & group = FindUserMarkRenderGroup(m->GetKey(), true);
+      unique_ptr<UserMarkRenderGroup> const & group = FindUserMarkRenderGroup(m->GetKey(), true);
       ASSERT(group.get() != nullptr, ());
       group->SetIsVisible(m->IsVisible());
       break;
@@ -251,7 +252,7 @@ void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups
 {
   unique_ptr<RenderGroup> group(new RenderGroup(state, newTile));
   group->AddBucket(renderBucket.Move());
-  groups.emplace_back(move(group));
+  groups.push_back(move(group));
 }
 
 void FrontendRenderer::OnAddRenderGroup(TileKey const & tileKey, dp::GLState const & state,
@@ -266,37 +267,38 @@ void FrontendRenderer::OnDeferRenderGroup(TileKey const & tileKey, dp::GLState c
   AddToRenderGroup(m_deferredRenderGroups, state, renderBucket, tileKey);
 }
 
-void FrontendRenderer::OnAddDeferredTile(TileKey const & tileKey, TileStatus tileStatus)
+void FrontendRenderer::OnActivateTile(TileKey const & tileKey)
 {
-  ASSERT(tileStatus == TileStatus::Deferred, ());
   for(auto it = m_deferredRenderGroups.begin(); it != m_deferredRenderGroups.end();)
   {
     if ((*it)->GetTileKey() == tileKey)
     {
-      m_renderGroups.emplace_back(move(*it));
+      m_renderGroups.push_back(move(*it));
       it = m_deferredRenderGroups.erase(it);
     }
     else
+    {
       ++it;
+    }
   }
 }
 
-void FrontendRenderer::OnRemoveTile(TileKey const & tileKey, TileStatus tileStatus)
+void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
 {
-  UNUSED_VALUE(tileStatus);
   for(auto const & group : m_renderGroups)
   {
     if (group->GetTileKey() == tileKey)
       group->DeleteLater();
   }
 
-  for(auto it = m_deferredRenderGroups.begin(); it != m_deferredRenderGroups.end();)
+  auto removePredicate = [&tileKey](unique_ptr<RenderGroup> const & group)
   {
-    if ((*it)->GetTileKey() == tileKey)
-      it = m_deferredRenderGroups.erase(it);
-    else
-      ++it;
-  }
+    return group->GetTileKey() == tileKey;
+  };
+  m_deferredRenderGroups.erase(remove_if(m_deferredRenderGroups.begin(),
+                                         m_deferredRenderGroups.end(),
+                                         removePredicate),
+                               m_deferredRenderGroups.end());
 }
 
 void FrontendRenderer::RenderScene()
@@ -342,7 +344,7 @@ void FrontendRenderer::RenderScene()
   GLFunctions::glClear();
 
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
-  for (auto const & group : m_renderGroups)
+  for (unique_ptr<RenderGroup> const & group : m_renderGroups)
   {
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
@@ -366,7 +368,7 @@ void FrontendRenderer::RenderScene()
 
   GLFunctions::glClearDepth();
 
-  for (unique_ptr<UserMarkRenderGroup> & group : m_userMarkRenderGroups)
+  for (unique_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
     if (group->IsVisible())
@@ -412,14 +414,17 @@ void FrontendRenderer::RefreshModelView()
   m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 }
 
-void FrontendRenderer::ResolveTileKeys()
+int FrontendRenderer::GetCurrentZoomLevel() const
 {
-  ResolveTileKeys(df::GetTileScaleBase(m_view));
+  //TODO(@kuznetsov): revise it
+  int const upperScale = scales::GetUpperScale();
+  int const zoomLevel = GetDrawTileScale(m_view);
+  return(zoomLevel <= upperScale ? zoomLevel : upperScale);
 }
 
-void FrontendRenderer::ResolveTileKeys(m2::RectD const & rect)
+void FrontendRenderer::ResolveTileKeys()
 {
-  ResolveTileKeys(df::GetTileScaleBase(rect));
+  ResolveTileKeys(GetCurrentZoomLevel());
 }
 
 void FrontendRenderer::ResolveTileKeys(int tileScale)
@@ -435,21 +440,18 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
   int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
   int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
 
-  // clip all tiles which are out of viewport
-  m_tileTree.ClipByRect(clipRect);
-
   // request new tiles
-  m_tileTree.BeginRequesting(tileScale);
+  m_tileTree->BeginRequesting(tileScale, clipRect);
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
     {
       TileKey key(tileX, tileY, tileScale);
       if (clipRect.IsIntersect(key.GetGlobalRect()))
-        m_tileTree.RequestTile(key);
+        m_tileTree->RequestTile(key);
     }
   }
-  m_tileTree.EndRequesting();
+  m_tileTree->EndRequesting();
 }
 
 void FrontendRenderer::StartThread()
@@ -526,10 +528,10 @@ void FrontendRenderer::ReleaseResources()
 
 void FrontendRenderer::DeleteRenderData()
 {
+  m_tileTree.reset();
   m_renderGroups.clear();
   m_deferredRenderGroups.clear();
   m_userMarkRenderGroups.clear();
-  m_tileTree.Clear();
 }
 
 void FrontendRenderer::SetModelView(ScreenBase const & screen)
@@ -548,7 +550,7 @@ void FrontendRenderer::UpdateScene()
     ResolveTileKeys();
 
     TTilesCollection tiles;
-    m_tileTree.GetTilesCollection(tiles, df::GetTileScaleBase(m_view));
+    m_tileTree->GetTilesCollection(tiles, GetCurrentZoomLevel());
 
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, move(tiles))),

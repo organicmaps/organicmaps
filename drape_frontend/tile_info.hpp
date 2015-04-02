@@ -7,9 +7,9 @@
 #include "indexer/feature_decl.hpp"
 
 #include "base/exception.hpp"
-#include "base/mutex.hpp"
 
 #include "std/atomic.hpp"
+#include "std/mutex.hpp"
 #include "std/vector.hpp"
 
 class FeatureType;
@@ -27,7 +27,6 @@ public:
 
   TileInfo(EngineContext const & context);
 
-  void ReadFeatureIndex(MapDataProvider const & model);
   void ReadFeatures(MapDataProvider const & model,
                     MemoryFeatureIndex & memIndex);
   void Cancel(MemoryFeatureIndex & memIndex);
@@ -37,6 +36,7 @@ public:
   bool operator <(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
 
 private:
+  void ReadFeatureIndex(MapDataProvider const & model);
   void ProcessID(FeatureID const & id);
   void InitStylist(FeatureType const & f, Stylist & s);
   void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);

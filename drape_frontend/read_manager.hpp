@@ -65,12 +65,13 @@ private:
 
   ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
 
-  atomic<int> m_counter;
+  int m_counter;
   set<TileKey> m_finishedTiles;
   mutex m_finishedTilesMutex;
 
   void CancelTileInfo(shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(shared_ptr<TileInfo> const & tileToClear);
+  void IncreaseCounter(int value);
 };
 
 } // namespace df

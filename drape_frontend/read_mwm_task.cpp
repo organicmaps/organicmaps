@@ -1,7 +1,5 @@
 #include "drape_frontend/read_mwm_task.hpp"
 
-#include "std/shared_ptr.hpp"
-
 namespace df
 {
 ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model)
@@ -13,7 +11,7 @@ ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, MapDataProvider & model)
 #endif
 }
 
-void ReadMWMTask::Init(weak_ptr<TileInfo> const & tileInfo)
+void ReadMWMTask::Init(shared_ptr<TileInfo> const & tileInfo)
 {
   m_tileInfo = tileInfo;
 #ifdef DEBUG
@@ -26,6 +24,7 @@ void ReadMWMTask::Reset()
 #ifdef DEBUG
   m_checker = false;
 #endif
+  m_tileInfo.reset();
 }
 
 void ReadMWMTask::Do()
@@ -33,16 +32,13 @@ void ReadMWMTask::Do()
 #ifdef DEBUG
   ASSERT(m_checker, ());
 #endif
-  shared_ptr<TileInfo> tileInfo = m_tileInfo.lock();
-  if (tileInfo == NULL)
-    return;
 
+  ASSERT(m_tileInfo != nullptr, ());
   try
   {
-    tileInfo->ReadFeatureIndex(m_model);
-    tileInfo->ReadFeatures(m_model, m_memIndex);
+    m_tileInfo->ReadFeatures(m_model, m_memIndex);
   }
-  catch (TileInfo::ReadCanceledException & ex)
+  catch (TileInfo::ReadCanceledException &)
   {
     return;
   }
@@ -50,11 +46,8 @@ void ReadMWMTask::Do()
 
 TileKey ReadMWMTask::GetTileKey() const
 {
-  shared_ptr<TileInfo> tileInfo = m_tileInfo.lock();
-  if (tileInfo == NULL)
-    return TileKey();
-
-  return tileInfo->GetTileKey();
+  ASSERT(m_tileInfo != nullptr, ());
+  return m_tileInfo->GetTileKey();
 }
 
 } // namespace df

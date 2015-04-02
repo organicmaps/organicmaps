@@ -63,7 +63,8 @@ public:
 
   Type GetType() const override { return Message::FinishReading; }
 
-  TTilesCollection & GetTiles() { return m_tiles; }
+  TTilesCollection const & GetTiles() { return m_tiles; }
+  TTilesCollection & MoveTiles() { return m_tiles; }
 
 private:
   TTilesCollection m_tiles;

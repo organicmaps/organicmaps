@@ -1,4 +1,5 @@
 #include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "platform/platform.hpp"
@@ -44,16 +45,21 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   ASSERT(dynamic_cast<ReadMWMTask *>(task) != NULL, ());
   ReadMWMTask * t = static_cast<ReadMWMTask *>(task);
 
-  // add finished tile to collection
+  // finish tiles
   {
     lock_guard<mutex> lock(m_finishedTilesMutex);
+
+    // add finished tile to collection
     m_finishedTiles.emplace(t->GetTileKey());
 
+    // decrement counter
     ASSERT(m_counter > 0, ());
     --m_counter;
     if (m_counter == 0)
     {
-      m_context.FinishReading(m_finishedTiles);
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                dp::MovePointer<Message>(new FinishReadingMessage(m_finishedTiles)),
+                                MessagePriority::Normal);
       m_finishedTiles.clear();
     }
   }
@@ -69,7 +75,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
 
   if (MustDropAllTiles(screen))
   {
-    m_counter += tiles.size();
+    IncreaseCounter(static_cast<int>(tiles.size()));
 
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::CancelTileInfo, this, _1));
     m_tileInfos.clear();
@@ -95,7 +101,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, TTilesCollection con
                    m_tileInfos.begin(), m_tileInfos.end(),
                    back_inserter(inputRects), LessCoverageCell());
 
-    m_counter += (inputRects.size() + (m_tileInfos.size() - outdatedTiles.size()));
+    IncreaseCounter(static_cast<int>(inputRects.size() + (m_tileInfos.size() - outdatedTiles.size())));
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1));
@@ -162,6 +168,12 @@ void ReadManager::ClearTileInfo(shared_ptr<TileInfo> const & tileToClear)
 {
   CancelTileInfo(tileToClear);
   m_tileInfos.erase(tileToClear);
+}
+
+void ReadManager::IncreaseCounter(int value)
+{
+  lock_guard<mutex> lock(m_finishedTilesMutex);
+  m_counter += value;
 }
 
 } // namespace df

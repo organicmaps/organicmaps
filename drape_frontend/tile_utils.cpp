@@ -1,6 +1,7 @@
 #include "tile_utils.hpp"
 
 #include "../base/assert.hpp"
+#include "../base/stl_add.hpp"
 
 namespace df
 {
@@ -18,9 +19,12 @@ int Minificate(int coord, int zoom, int targetZoom)
 
   // here we iteratively minificate zoom
   int c = -coord;
+  ASSERT(c > 0, ());
   while (z > 0)
   {
-    c = (c >> 1) + ((c % 2) != 0 ? 1 : 0);
+    // c = c / 2 + 1, if c is odd
+    // c = c / 2, if c is even
+    c = (c + 1) >> 1;
     z--;
   }
   return -c;
@@ -30,10 +34,7 @@ int Minificate(int coord, int zoom, int targetZoom)
 
 void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, TTilesCollection & tiles)
 {
-  CalcTilesCoverage(tileKey, targetZoom, [&tiles](TileKey const & tileKey)
-  {
-    tiles.emplace(tileKey);
-  });
+  CalcTilesCoverage(tileKey, targetZoom, MakeInsertFunctor(tiles));
 }
 
 void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, TTilesCollection & tiles)
@@ -42,7 +43,7 @@ void CalcTilesCoverage(set<TileKey> const & tileKeys, int targetZoom, TTilesColl
     CalcTilesCoverage(tileKey, targetZoom, tiles);
 }
 
-void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, function<void(TileKey const &)> processTile)
+void CalcTilesCoverage(TileKey const & tileKey, int targetZoom, function<void(TileKey const &)> const & processTile)
 {
   ASSERT(processTile != nullptr, ());
 

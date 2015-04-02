@@ -66,6 +66,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
   // Reading can be interrupted by exception throwing
   MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &m_context));
 
+  ReadFeatureIndex(model);
+
   CheckCanceled();
   vector<size_t> indexes;
   RequestFeatures(memIndex, indexes);
@@ -96,6 +98,7 @@ void TileInfo::ProcessID(FeatureID const & id)
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
+  //TODO(@kuznetsov): m_context.GetTileKey().m_zoomLevel?
   df::InitStylist(f, GetZoomLevel(), s);
 }
 

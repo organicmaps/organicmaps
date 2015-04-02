@@ -15,58 +15,58 @@
 namespace df
 {
 
-/// this class implements K-d tree of visible tiles
+/// This class implements K-d tree of visible tiles.
 class TileTree
 {
 public:
   TileTree();
   ~TileTree();
 
-  using TTileHandler = function<void(TileKey const &, TileStatus)>;
+  using TTileHandler = function<void(TileKey const &)>;
   using TRenderGroupHandler = function<void(TileKey const &, dp::GLState const &,
                                             dp::MasterPointer<dp::RenderBucket> &)>;
 
-  /// addRenderGroup is called when render group can be created by a tile and rendered at once
-  /// deferRenderGroup is called when render group can be created by a tile but has to be deferred
-  /// addDeferredTile is called when previously deferred tile can be rendered
-  /// removeTile is called when a tile must be removed from rendering
+  /// This method sets following handlers:
+  /// addRenderGroup is called when render group can be created by a tile and rendered at once,
+  /// deferRenderGroup is called when render group can be created by a tile but has to be deferred,
+  /// activateTile is called when previously deferred tile can be rendered,
+  /// removeTile is called when a tile must be removed from rendering.
   void SetHandlers(TRenderGroupHandler const & addRenderGroup,
                    TRenderGroupHandler const & deferRenderGroup,
-                   TTileHandler const & addDeferredTile,
+                   TTileHandler const & activateTile,
                    TTileHandler const & removeTile);
-  void ResetHandlers();
 
-  /// this method must be called before requesting bunch of tiles
-  void BeginRequesting(int const zoomLevel);
-  /// request a new tile
+  /// This method must be called before requesting bunch of tiles.
+  void BeginRequesting(int const zoomLevel, m2::RectD const & clipRect);
+  /// This method requests a new tile.
   void RequestTile(TileKey const & tileKey);
-  /// this method must be called after requesting bunch of tiles
+  /// This method must be called after requesting bunch of tiles.
   void EndRequesting();
 
-  /// this method processes received from BR tile
+  /// This method processes received from BR (backend renderer) tile.
   bool ProcessTile(TileKey const & tileKey, int const zoomLevel,
                    dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket);
-  /// this method processes a message about finishing reading tiles on BR
+  /// This method processes a message about finishing reading tiles on BR.
   void FinishTiles(TTilesCollection const & tiles, int const zoomLevel);
 
-  /// this method performs clipping by rectangle
-  void ClipByRect(m2::RectD const & rect);
-
-  /// clear all entire structure of tree. DO NOT call removeTile handlers,
-  /// so all external storages of tiles must be cleared manually
-  void Clear();
-
-  /// it returns actual tile collection to send to BR
-  void GetTilesCollection(TTilesCollection & tiles, int const zoomLevel);
+  /// It returns actual tile collection to send to BR.
+  void GetTilesCollection(TTilesCollection & tiles, int const zoomLevel) const;
 
 private:
   struct Node;
   using TNodePtr = unique_ptr<Node>;
 
+  void ResetHandlers();
+
   void InsertToNode(TNodePtr const & node, TileKey const & tileKey);
+  void InsertToCurrentNode(TNodePtr const & node, TileKey const & tileKey);
+  void InsertToNodeAbove(TNodePtr const & node, TileKey const & tileKey);
+  void InsertToNodeBelow(TNodePtr const & node, TileKey const & tileKey, int const childrenZoomLevel);
   void AbortTiles(TNodePtr const & node, int const zoomLevel);
 
-  void FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel);
+  void ClipByRect(m2::RectD const & rect);
+
+  void FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel) const;
 
   void ClipNode(TNodePtr const & node, m2::RectD const & rect);
   void CheckDeferredTiles(TNodePtr const & node);
@@ -78,7 +78,7 @@ private:
   bool FinishNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel);
 
   void DeleteTilesBelow(TNodePtr const & node);
-  void DeleteTilesAbove(TNodePtr const & node);
+  void TryDeleteTileAbove(TNodePtr const & node);
 
   void SimplifyTree();
   void ClearEmptyLevels(TNodePtr const & node);
@@ -87,7 +87,6 @@ private:
   bool HaveChildrenSameStatus(TNodePtr const & node, TileStatus tileStatus) const;
   bool HaveGrandchildrenSameZoomLevel(TNodePtr const & node) const;
 
-private:
   struct Node
   {
     TileKey m_tileKey;
@@ -102,12 +101,11 @@ private:
   };
 
   TNodePtr m_root;
-  TRenderGroupHandler m_addRenderGroup;
-  TRenderGroupHandler m_deferRenderGroup;
-  TTileHandler m_addDeferredTile;
-  TTileHandler m_removeTile;
+  TRenderGroupHandler m_addRenderGroupHandler;
+  TRenderGroupHandler m_deferRenderGroupHandler;
+  TTileHandler m_activateTileHandler;
+  TTileHandler m_removeTileHandler;
 
-private:
   friend void DebugPrintNode(TileTree::TNodePtr const & node, ostringstream & out, string const & offset);
   friend string DebugPrint(TileTree const & tileTree);
 };

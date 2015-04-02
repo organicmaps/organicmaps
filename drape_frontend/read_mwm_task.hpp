@@ -8,7 +8,7 @@
 #include "base/object_tracker.hpp"
 #endif
 
-#include "std/weak_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace df
 {
@@ -23,12 +23,12 @@ public:
 
   virtual void Do();
 
-  void Init(weak_ptr<TileInfo> const & tileInfo);
+  void Init(shared_ptr<TileInfo> const & tileInfo);
   void Reset();
   TileKey GetTileKey() const;
 
 private:
-  weak_ptr<TileInfo> m_tileInfo;
+  shared_ptr<TileInfo> m_tileInfo;
   MemoryFeatureIndex & m_memIndex;
   MapDataProvider & m_model;
 

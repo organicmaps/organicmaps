@@ -13,36 +13,31 @@ TileTree::TileTree()
 
 TileTree::~TileTree()
 {
-  m_root.reset();
   ResetHandlers();
 }
 
 void TileTree::SetHandlers(TRenderGroupHandler const & addRenderGroup,
                            TRenderGroupHandler const & deferRenderGroup,
-                           TTileHandler const & addDeferredTile,
+                           TTileHandler const & activateTile,
                            TTileHandler const & removeTile)
 {
-  m_addRenderGroup = addRenderGroup;
-  m_deferRenderGroup = deferRenderGroup;
-  m_addDeferredTile = addDeferredTile;
-  m_removeTile = removeTile;
+  m_addRenderGroupHandler = addRenderGroup;
+  m_deferRenderGroupHandler = deferRenderGroup;
+  m_activateTileHandler = activateTile;
+  m_removeTileHandler = removeTile;
 }
 
 void TileTree::ResetHandlers()
 {
-  m_addRenderGroup = nullptr;
-  m_deferRenderGroup = nullptr;
-  m_addDeferredTile = nullptr;
-  m_removeTile = nullptr;
+  m_addRenderGroupHandler = nullptr;
+  m_deferRenderGroupHandler = nullptr;
+  m_activateTileHandler = nullptr;
+  m_removeTileHandler = nullptr;
 }
 
-void TileTree::Clear()
+void TileTree::BeginRequesting(int const zoomLevel, m2::RectD const & clipRect)
 {
-  m_root.reset(new Node());
-}
-
-void TileTree::BeginRequesting(int const zoomLevel)
-{
+  ClipByRect(clipRect);
   AbortTiles(m_root, zoomLevel);
 }
 
@@ -56,7 +51,7 @@ void TileTree::EndRequesting()
   SimplifyTree();
 }
 
-void TileTree::GetTilesCollection(TTilesCollection & tiles, int const zoomLevel)
+void TileTree::GetTilesCollection(TTilesCollection & tiles, int const zoomLevel) const
 {
   FillTilesCollection(m_root, tiles, zoomLevel);
 }
@@ -73,7 +68,7 @@ bool TileTree::ProcessTile(TileKey const & tileKey, int const zoomLevel,
 {
   bool const result = ProcessNode(m_root, tileKey, zoomLevel, state, bucket);
   if (result)
-      SimplifyTree();
+    SimplifyTree();
 
   return result;
 }
@@ -108,76 +103,94 @@ void TileTree::InsertToNode(TNodePtr const & node, TileKey const & tileKey)
   {
     // here zoom level of node's children less than new tile's zoom level
     // so we are looking for node to insert new tile recursively
-
-    // looking for parent node
-    auto parentNodeIt = find_if(node->m_children.begin(), node->m_children.end(), [&tileKey](TNodePtr const & n)
-    {
-      return IsTileBelow(n->m_tileKey, tileKey);
-    });
-
-    // insert to parent node
-    if (parentNodeIt == node->m_children.end())
-    {
-      TileKey parentTileKey = GetParentTile(tileKey, childrenZoomLevel);
-      node->m_children.emplace_back(TNodePtr(new Node(parentTileKey, TileStatus::Unknown)));
-      InsertToNode(node->m_children.back(), tileKey);
-    }
-    else
-      InsertToNode(*parentNodeIt, tileKey);
+    InsertToNodeBelow(node, tileKey, childrenZoomLevel);
   }
   else if (tileKey.m_zoomLevel < childrenZoomLevel)
   {
     // here zoom level of node's children more than new tile's zoom level
     // so we paste new tile and redistribute children of current node
     // between new tile and his siblings
-
-    list<TNodePtr> newChildren;
-    newChildren.emplace_back(new Node(tileKey, TileStatus::Requested));
-    for (auto it = node->m_children.begin(); it != node->m_children.end(); ++it)
-    {
-      // looking for parent node
-      TileKey parentTileKey = GetParentTile((*it)->m_tileKey, tileKey.m_zoomLevel);
-      auto parentNodeIt = find_if(newChildren.begin(), newChildren.end(), [&parentTileKey](TNodePtr const & n)
-      {
-        return n->m_tileKey == parentTileKey;
-      });
-
-      // insert to parent node
-      if (parentNodeIt == newChildren.end())
-      {
-        newChildren.emplace_back(TNodePtr(new Node(parentTileKey, TileStatus::Unknown)));
-        newChildren.back()->m_children.emplace_back(move(*it));
-      }
-      else
-        (*parentNodeIt)->m_children.emplace_back(move(*it));
-    }
-    node->m_children.swap(newChildren);
+    InsertToNodeAbove(node, tileKey);
   }
   else
   {
     // here zoom level of node's children equals to new tile's zoom level
     // so we insert new tile if we haven't got one
+    InsertToCurrentNode(node, tileKey);
+  }
+}
 
-    auto it = find_if(node->m_children.begin(), node->m_children.end(), [&tileKey](TNodePtr const & n)
+void TileTree::InsertToCurrentNode(TNodePtr const & node, TileKey const & tileKey)
+{
+  auto it = find_if(node->m_children.begin(), node->m_children.end(), [&tileKey](TNodePtr const & n)
+  {
+    return n->m_tileKey == tileKey;
+  });
+  if (it != node->m_children.end())
+  {
+    if ((*it)->m_tileStatus == TileStatus::Unknown)
     {
-      return n->m_tileKey == tileKey;
+      (*it)->m_tileStatus = TileStatus::Requested;
+      (*it)->m_isRemoved = false;
+    }
+  }
+  else
+  {
+    node->m_children.emplace_back(TNodePtr(new Node(tileKey, TileStatus::Requested)));
+  }
+}
+
+void TileTree::InsertToNodeAbove(TNodePtr const & node, TileKey const & tileKey)
+{
+  list<TNodePtr> newChildren;
+  newChildren.emplace_back(TNodePtr(new Node(tileKey, TileStatus::Requested)));
+  for (auto it = node->m_children.begin(); it != node->m_children.end(); ++it)
+  {
+    // looking for parent node
+    TileKey const parentTileKey = GetParentTile((*it)->m_tileKey, tileKey.m_zoomLevel);
+    auto parentNodeIt = find_if(newChildren.begin(), newChildren.end(), [&parentTileKey](TNodePtr const & n)
+    {
+      return n->m_tileKey == parentTileKey;
     });
-    if (it != node->m_children.end())
+
+    // insert to parent node
+    if (parentNodeIt == newChildren.end())
     {
-      if ((*it)->m_tileStatus == TileStatus::Unknown)
-      {
-        (*it)->m_tileStatus = TileStatus::Requested;
-        (*it)->m_isRemoved = false;
-      }
+      newChildren.emplace_back(TNodePtr(new Node(parentTileKey, TileStatus::Unknown)));
+      newChildren.back()->m_children.emplace_back(move(*it));
     }
     else
-      node->m_children.emplace_back(TNodePtr(new Node(tileKey, TileStatus::Requested)));
+    {
+      (*parentNodeIt)->m_children.emplace_back(move(*it));
+    }
+  }
+  node->m_children.swap(newChildren);
+}
+
+void TileTree::InsertToNodeBelow(TNodePtr const & node, TileKey const & tileKey, int const childrenZoomLevel)
+{
+  // looking for parent node
+  auto parentNodeIt = find_if(node->m_children.begin(), node->m_children.end(), [&tileKey](TNodePtr const & n)
+  {
+    return IsTileBelow(n->m_tileKey, tileKey);
+  });
+
+  // insert to parent node
+  if (parentNodeIt == node->m_children.end())
+  {
+    TileKey parentTileKey = GetParentTile(tileKey, childrenZoomLevel);
+    node->m_children.emplace_back(TNodePtr(new Node(parentTileKey, TileStatus::Unknown)));
+    InsertToNode(node->m_children.back(), tileKey);
+  }
+  else
+  {
+    InsertToNode(*parentNodeIt, tileKey);
   }
 }
 
 void TileTree::AbortTiles(TNodePtr const & node, int const zoomLevel)
 {
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
     if (childNode->m_tileKey.m_zoomLevel != zoomLevel)
     {
@@ -191,9 +204,9 @@ void TileTree::AbortTiles(TNodePtr const & node, int const zoomLevel)
   }
 }
 
-void TileTree::FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel)
+void TileTree::FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel) const
 {
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
     if (childNode->m_tileStatus != TileStatus::Unknown && childNode->m_tileKey.m_zoomLevel == zoomLevel)
       tiles.insert(childNode->m_tileKey);
@@ -223,8 +236,8 @@ void TileTree::ClipNode(TNodePtr const & node, m2::RectD const & rect)
 
 void TileTree::RemoveTile(TNodePtr const & node)
 {
-  if (m_removeTile != nullptr && !node->m_isRemoved)
-    m_removeTile(node->m_tileKey, node->m_tileStatus);
+  if (m_removeTileHandler != nullptr && !node->m_isRemoved)
+    m_removeTileHandler(node->m_tileKey);
 
   node->m_isRemoved = true;
   node->m_tileStatus = TileStatus::Unknown;
@@ -233,7 +246,7 @@ void TileTree::RemoveTile(TNodePtr const & node)
 bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel,
                            dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket)
 {
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
     if (tileKey == childNode->m_tileKey)
     {
@@ -250,20 +263,20 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int c
       if (node->m_tileStatus == TileStatus::Rendered)
       {
         childNode->m_tileStatus = TileStatus::Deferred;
-        if (m_deferRenderGroup != nullptr)
-          m_deferRenderGroup(childNode->m_tileKey, state, bucket);
+        if (m_deferRenderGroupHandler != nullptr)
+          m_deferRenderGroupHandler(childNode->m_tileKey, state, bucket);
         childNode->m_isRemoved = false;
       }
       else
       {
         childNode->m_tileStatus = TileStatus::Rendered;
-        if (m_addRenderGroup != nullptr)
-          m_addRenderGroup(childNode->m_tileKey, state, bucket);
+        if (m_addRenderGroupHandler != nullptr)
+          m_addRenderGroupHandler(childNode->m_tileKey, state, bucket);
         childNode->m_isRemoved = false;
       }
 
-      // try to remove tiles above
-      DeleteTilesAbove(node);
+      // try to remove tile above
+      TryDeleteTileAbove(node);
 
       return true;
     }
@@ -276,7 +289,7 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int c
 bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel)
 {
   bool changed = false;
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
     if (childNode->m_tileKey == tileKey && childNode->m_tileStatus == TileStatus::Requested)
     {
@@ -284,6 +297,7 @@ bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey, int co
       // this tile is empty, so we mark this tile as rendered
       childNode->m_tileStatus = TileStatus::Rendered;
       childNode->m_isRemoved = false;
+
       if (childNode->m_tileKey.m_zoomLevel >= zoomLevel)
         DeleteTilesBelow(childNode);
 
@@ -297,7 +311,7 @@ bool TileTree::FinishNode(TNodePtr const & node, TileKey const & tileKey, int co
 
 void TileTree::DeleteTilesBelow(TNodePtr const & node)
 {
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
     RemoveTile(childNode);
     DeleteTilesBelow(childNode);
@@ -305,23 +319,23 @@ void TileTree::DeleteTilesBelow(TNodePtr const & node)
   node->m_children.clear();
 }
 
-void TileTree::DeleteTilesAbove(TNodePtr const & node)
+void TileTree::TryDeleteTileAbove(TNodePtr const & node)
 {
   if (node->m_tileStatus == TileStatus::Requested || node->m_children.empty())
     return;
 
   // check if all child tiles are ready
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
     if (childNode->m_tileStatus == TileStatus::Requested)
       return;
 
   // add deferred tiles
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
     if (childNode->m_tileStatus == TileStatus::Deferred)
     {
-      if (m_addDeferredTile != nullptr)
-        m_addDeferredTile(childNode->m_tileKey, childNode->m_tileStatus);
+      if (m_activateTileHandler != nullptr)
+        m_activateTileHandler(childNode->m_tileKey);
 
       childNode->m_tileStatus = TileStatus::Rendered;
       childNode->m_isRemoved = false;
@@ -349,7 +363,7 @@ void TileTree::ClearEmptyLevels(TNodePtr const & node)
 
     // move grandchildren to grandfather
     list<TNodePtr> newChildren;
-    for (TNodePtr & childNode : node->m_children)
+    for (TNodePtr const & childNode : node->m_children)
     {
       RemoveTile(childNode);
       newChildren.splice(newChildren.begin(), childNode->m_children);
@@ -357,7 +371,7 @@ void TileTree::ClearEmptyLevels(TNodePtr const & node)
     node->m_children.swap(newChildren);
   }
 
-  // remove unkhown nodes without children
+  // remove unknown nodes without children
   for (auto it = node->m_children.begin(); it != node->m_children.end();)
   {
     if((*it)->m_tileStatus == TileStatus::Unknown && (*it)->m_children.empty())
@@ -369,19 +383,19 @@ void TileTree::ClearEmptyLevels(TNodePtr const & node)
       ++it;
   }
 
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
     ClearEmptyLevels(childNode);
 }
 
 bool TileTree::ClearObsoleteTiles(TNodePtr const & node)
 {
   bool canClear = true;
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
     canClear &= ClearObsoleteTiles(childNode);
 
   if (canClear)
   {
-    for (TNodePtr & childNode : node->m_children)
+    for (TNodePtr const & childNode : node->m_children)
       RemoveTile(childNode);
 
     node->m_children.clear();
@@ -392,7 +406,7 @@ bool TileTree::ClearObsoleteTiles(TNodePtr const & node)
 
 bool TileTree::HaveChildrenSameStatus(TNodePtr const & node, TileStatus tileStatus) const
 {
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
     if (childNode->m_tileStatus != tileStatus)
       return false;
 
@@ -404,41 +418,34 @@ bool TileTree::HaveGrandchildrenSameZoomLevel(TNodePtr const & node) const
   if (node->m_children.empty())
     return true;
 
-  // retrieve grandchildren zoon level
   int zoomLevel = -1;
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
-    if (!childNode->m_children.empty())
-    {
-      zoomLevel = childNode->m_children.front()->m_tileKey.m_zoomLevel;
-      break;
-    }
+    if (childNode->m_children.empty())
+      continue;
+
+    int z = childNode->m_children.front()->m_tileKey.m_zoomLevel;
+
+    if (zoomLevel != -1 && zoomLevel != z)
+      return false;
+
+    zoomLevel = z;
   }
-
-  // have got grandchildren?
-  if (zoomLevel == -1)
-    return true;
-
-  for (TNodePtr & childNode : node->m_children)
-    for (TNodePtr & grandchildNode : childNode->m_children)
-      if (zoomLevel != grandchildNode->m_tileKey.m_zoomLevel)
-        return false;
-
   return true;
 }
 
 void TileTree::CheckDeferredTiles(TNodePtr const & node)
 {
-  for (TNodePtr & childNode : node->m_children)
+  for (TNodePtr const & childNode : node->m_children)
   {
-    DeleteTilesAbove(childNode);
+    TryDeleteTileAbove(childNode);
     CheckDeferredTiles(childNode);
   }
 }
 
 void DebugPrintNode(TileTree::TNodePtr const & node, ostringstream & out, string const & offset)
 {
-  for (TileTree::TNodePtr & childNode : node->m_children)
+  for (TileTree::TNodePtr const & childNode : node->m_children)
   {
     out << offset << "{ " << DebugPrint(childNode->m_tileKey) << ", "
         << DebugPrint(childNode->m_tileStatus) << (childNode->m_isRemoved ? ", removed" : "") << "}\n";

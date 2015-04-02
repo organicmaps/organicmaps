@@ -121,7 +121,10 @@ template <typename T> inline string DebugPrint(T const & t)
 template <typename T> inline string DebugPrint(unique_ptr<T> const & v)
 {
   ostringstream out;
-  out << DebugPrint(*v);
+  if (v.get() != nullptr)
+    out << DebugPrint(*v);
+  else
+    out << DebugPrint("null");
   return out.str();
 }
 

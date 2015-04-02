@@ -33,7 +33,7 @@ void EngineContext::InsertShape(dp::TransferPointer<MapShape> shape)
 void EngineContext::EndReadTile()
 {
 #ifdef DRAW_TILE_NET
-  m2::RectD r = key.GetGlobalRect();
+  m2::RectD r = m_tileKey.GetGlobalRect();
   vector<m2::PointD> path;
   path.push_back(r.LeftBottom());
   path.push_back(r.LeftTop());
@@ -50,26 +50,21 @@ void EngineContext::EndReadTile()
   p.m_width = 5;
   p.m_join = dp::RoundJoin;
 
-  InsertShape(key, dp::MovePointer<df::MapShape>(new LineShape(spline, p)));
+  InsertShape(dp::MovePointer<df::MapShape>(new LineShape(spline, p)));
 
   df::TextViewParams tp;
   tp.m_anchor = dp::Center;
-  tp.m_depth = 20000;
-  tp.m_primaryText = strings::to_string(key.m_x) + " " +
-                     strings::to_string(key.m_y) + " " +
-                     strings::to_string(key.m_zoomLevel);
+  tp.m_depth = 0;
+  tp.m_primaryText = strings::to_string(m_tileKey.m_x) + " " +
+                     strings::to_string(m_tileKey.m_y) + " " +
+                     strings::to_string(m_tileKey.m_zoomLevel);
 
-  tp.m_primaryTextFont = df::FontDecl(dp::Color::Red(), 30);
+  tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
-  InsertShape(key, dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
+  InsertShape(dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
 #endif
 
   PostMessage(dp::MovePointer<Message>(new TileReadEndMessage(m_tileKey)));
-}
-
-void EngineContext::FinishReading(TTilesCollection const & finishedTiles)
-{
-  PostMessage(new FinishReadingMessage(finishedTiles));
 }
 
 void EngineContext::PostMessage(dp::TransferPointer<Message> message)

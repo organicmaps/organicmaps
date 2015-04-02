@@ -109,7 +109,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       FinishReadingMessage * msg = df::CastMessage<FinishReadingMessage>(message);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                dp::MovePointer<df::Message>(new FinishReadingMessage(move(msg->GetTiles()))),
+                                dp::MovePointer<df::Message>(new FinishReadingMessage(move(msg->MoveTiles()))),
                                 MessagePriority::Normal);
       break;
     }
