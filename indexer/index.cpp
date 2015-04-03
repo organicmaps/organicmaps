@@ -66,8 +66,8 @@ Index::~Index()
 
 namespace
 {
-// Deletes map file denoted by @path and all temporary files related
-// to it.
+  // Deletes map file denoted by @path and all temporary files related
+  // to it.
   void DeleteMapFiles(string const & path, bool deleteReady)
   {
     (void)my::DeleteFileX(path);
@@ -136,7 +136,7 @@ bool Index::AddObserver(Observer & observer)
   return m_observers.Add(observer);
 }
 
-bool Index::RemoveObserver(Observer & observer)
+bool Index::RemoveObserver(Observer const & observer)
 {
   return m_observers.Remove(observer);
 }

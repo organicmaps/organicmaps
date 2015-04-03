@@ -92,7 +92,7 @@ pair<MwmSet::MwmLock, bool> Framework::RegisterMap(string const & file)
   pair<MwmSet::MwmLock, bool> p = m_model.RegisterMap(file);
   if (!p.second)
     return p;
-  MwmSet::MwmLock & lock = p.first;
+  MwmSet::MwmLock const & lock = p.first;
   ASSERT(lock.IsLocked(), ());
 
   MwmInfo const & info = lock.GetInfo();
@@ -383,9 +383,9 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
       }
 
     // Add downloaded map.
-    pair<MwmSet::MwmLock, Index::UpdateStatus> p = m_model.UpdateMap(fileName);
+    pair<MwmSet::MwmLock, Index::UpdateStatus> const p = m_model.UpdateMap(fileName);
     if (p.second == Index::UPDATE_STATUS_OK) {
-      MwmSet::MwmLock & lock = p.first;
+      MwmSet::MwmLock const & lock = p.first;
       ASSERT(lock.IsLocked(), ());
       InvalidateRect(lock.GetInfo().m_limitRect, true);
     }
@@ -418,10 +418,10 @@ void Framework::RegisterAllMaps()
   GetMaps(maps);
   for_each(maps.begin(), maps.end(), [&](string const & file)
   {
-    pair<MwmSet::MwmLock, bool> p = RegisterMap(file);
+    pair<MwmSet::MwmLock, bool> const p = RegisterMap(file);
     if (p.second)
     {
-      MwmSet::MwmLock & lock = p.first;
+      MwmSet::MwmLock const & lock = p.first;
       ASSERT(lock.IsLocked(), ());
       minVersion = min(minVersion, static_cast<int>(lock.GetInfo().m_version.format));
     }

@@ -183,7 +183,7 @@ UNIT_TEST(HS_StreetsMerge)
   classificator::Load();
 
   Index index;
-  pair<MwmSet::MwmLock, bool> p = index.Register("minsk-pass.mwm");
+  pair<MwmSet::MwmLock, bool> const p = index.Register("minsk-pass.mwm");
   TEST(p.first.IsLocked(), ());
   TEST(p.second, ());
 
@@ -272,7 +272,7 @@ UNIT_TEST(HS_FindHouseSmoke)
   classificator::Load();
 
   Index index;
-  pair<MwmSet::MwmLock, bool> p = index.Register("minsk-pass.mwm");
+  pair<MwmSet::MwmLock, bool> const p = index.Register("minsk-pass.mwm");
   TEST(p.first.IsLocked(), ());
   TEST(p.second, ());
 
@@ -375,7 +375,7 @@ UNIT_TEST(HS_MWMSearch)
   }
 
   Index index;
-  pair<MwmSet::MwmLock, bool> p = index.Register(country + ".mwm");
+  pair<MwmSet::MwmLock, bool> const p = index.Register(country + ".mwm");
   if (!p.second)
   {
     LOG(LWARNING, ("MWM file not found"));

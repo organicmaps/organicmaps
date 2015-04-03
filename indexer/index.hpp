@@ -72,7 +72,7 @@ public:
   };
 
   Index();
-  ~Index();
+  ~Index() override;
 
   /// Registers a new map.
   ///
@@ -110,7 +110,7 @@ public:
 
   bool AddObserver(Observer & observer);
 
-  bool RemoveObserver(Observer & observer);
+  bool RemoveObserver(Observer const & observer);
 
 private:
 
@@ -149,7 +149,7 @@ private:
 
     void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * pValue = lock.GetValue<MwmValue>();
+      MwmValue * const pValue = lock.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -205,7 +205,7 @@ private:
 
     void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
     {
-      MwmValue * pValue = lock.GetValue<MwmValue>();
+      MwmValue * const pValue = lock.GetValue<MwmValue>();
       if (pValue)
       {
         feature::DataHeader const & header = pValue->GetHeader();
@@ -308,7 +308,7 @@ public:
   {
     if (id != INVALID_MWM_ID)
     {
-      MwmLock lock(const_cast<Index &>(*this), id);
+      MwmLock const lock(const_cast<Index &>(*this), id);
       if (lock.IsLocked())
       {
         covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
@@ -327,8 +327,8 @@ private:
     ASSERT_LESS(index, features.size(), ());
     size_t result = index;
     MwmId id = features[index].m_mwm;
-    MwmLock lock(const_cast<Index &>(*this), id);
-    MwmValue * pValue = lock.GetValue<MwmValue>();
+    MwmLock const lock(const_cast<Index &>(*this), id);
+    MwmValue * const pValue = lock.GetValue<MwmValue>();
     if (pValue)
     {
       FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader());
@@ -374,7 +374,7 @@ private:
         {
         case MwmInfo::COUNTRY:
           {
-            MwmLock lock(const_cast<Index &>(*this), id);
+            MwmLock const lock(const_cast<Index &>(*this), id);
             f(lock, cov, scale);
           }
           break;
@@ -392,13 +392,13 @@ private:
 
     if (worldID[0] < count)
     {
-      MwmLock lock(const_cast<Index &>(*this), worldID[0]);
+      MwmLock const lock(const_cast<Index &>(*this), worldID[0]);
       f(lock, cov, scale);
     }
 
     if (worldID[1] < count)
     {
-      MwmLock lock(const_cast<Index &>(*this), worldID[1]);
+      MwmLock const lock(const_cast<Index &>(*this), worldID[1]);
       f(lock, cov, scale);
     }
   }

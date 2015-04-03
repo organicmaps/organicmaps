@@ -17,7 +17,7 @@ public:
   bool Add(TObserver & observer)
   {
     lock_guard<mutex> lock(m_observersLock);
-    auto it = find(m_observers.begin(), m_observers.end(), &observer);
+    auto const it = find(m_observers.begin(), m_observers.end(), &observer);
     if (it != m_observers.end())
     {
       LOG(LWARNING, ("Can't add the same observer twice:", &observer));
@@ -30,7 +30,7 @@ public:
   bool Remove(TObserver const & observer)
   {
     lock_guard<mutex> lock(m_observersLock);
-    auto it = find(m_observers.begin(), m_observers.end(), &observer);
+    auto const it = find(m_observers.begin(), m_observers.end(), &observer);
     if (it == m_observers.end())
     {
       LOG(LWARNING, ("Can't remove non-registered observer:", &observer));

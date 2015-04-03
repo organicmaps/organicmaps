@@ -34,9 +34,9 @@ void doTests2(search::LocalityFinder & finder, vector<m2::PointD> const & input,
 UNIT_TEST(LocalityFinder)
 {
   Index index;
-  pair<MwmSet::MwmLock, bool> p = index.Register("World.mwm");
+  pair<MwmSet::MwmLock, bool> const p = index.Register("World.mwm");
   TEST(p.second, ());
-  MwmSet::MwmLock & lock = p.first;
+  MwmSet::MwmLock const & lock = p.first;
   TEST(lock.IsLocked(), ());
   MwmInfo const & info = index.GetMwmInfo(lock.GetId());
   m2::RectD const & rect = info.m_limitRect;

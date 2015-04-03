@@ -67,7 +67,7 @@ uint32_t GenerateTimestamp(int year, int month, int day) {
 uint32_t TodayAsYYMMDD()
 {
   time_t rawTime = time(NULL);
-  tm * pTm = gmtime(&rawTime);
+  tm const * const pTm = gmtime(&rawTime);
   CHECK(pTm, ("Can't get current date."));
   return GenerateTimestamp(pTm->tm_year, pTm->tm_mon, pTm->tm_mday);
 }

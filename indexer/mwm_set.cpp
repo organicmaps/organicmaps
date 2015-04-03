@@ -224,7 +224,7 @@ void MwmSet::DeregisterAll()
 
 bool MwmSet::IsLoaded(string const & file) const
 {
-  MwmSet * p = const_cast<MwmSet *>(this);
+  MwmSet * const p = const_cast<MwmSet *>(this);
   lock_guard<mutex> lock(p->m_lock);
 
   MwmId const id = p->GetIdByName(file + DATA_FILE_EXTENSION);
@@ -233,7 +233,7 @@ bool MwmSet::IsLoaded(string const & file) const
 
 void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
 {
-  MwmSet * p = const_cast<MwmSet *>(this);
+  MwmSet * const p = const_cast<MwmSet *>(this);
   lock_guard<mutex> lock(p->m_lock);
 
   for (MwmId i = 0; i < m_info.size(); ++i)

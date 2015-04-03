@@ -39,13 +39,13 @@ public:
 bool RunTest(string const & fileName, int lowS, int highS)
 {
   model::FeaturesFetcher src;
-  pair<MwmSet::MwmLock, bool> p = src.RegisterMap(fileName);
+  pair<MwmSet::MwmLock, bool> const p = src.RegisterMap(fileName);
   if (!p.second)
     return false;
-  MwmSet::MwmLock & lock = p.first;
+  MwmSet::MwmLock const & lock = p.first;
   ASSERT(lock.IsLocked(), ());
 
-  version::Format version = lock.GetInfo().m_version.format;
+  version::Format const version = lock.GetInfo().m_version.format;
   if (version == version::unknownFormat)
     return false;
 

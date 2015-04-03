@@ -24,7 +24,7 @@ UNIT_TEST(CheckMWM_LoadAll)
   {
     try
     {
-      pair<MwmSet::MwmLock, bool> p = m.RegisterMap(s);
+      pair<MwmSet::MwmLock, bool> const p = m.RegisterMap(s);
       TEST(p.first.IsLocked(), ());
       TEST(p.second, ());
     }

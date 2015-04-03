@@ -263,8 +263,8 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
     // Search only mwms that intersect with viewport (world always does).
     if (rect.IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
-      Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
-      if (MwmValue * pMwm = mwmLock.GetValue<MwmValue>())
+      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      if (MwmValue * const pMwm = mwmLock.GetValue<MwmValue>())
       {
         FHeaderT const & header = pMwm->GetHeader();
         if (header.GetType() == FHeaderT::country)
@@ -1613,8 +1613,8 @@ void Query::SearchAddress(Results & res)
 
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
-    Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
-    MwmValue * pMwm = mwmLock.GetValue<MwmValue>();
+    Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+    MwmValue * const pMwm = mwmLock.GetValue<MwmValue>();
     if (pMwm &&
         pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == FHeaderT::world)
@@ -1666,7 +1666,7 @@ void Query::SearchAddress(Results & res)
         {
           for (MwmSet::MwmId id = 0; id < mwmInfo.size(); ++id)
           {
-            Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), id);
+            Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), id);
             string fileName;
             if (mwmLock.IsLocked())
               fileName = mwmLock.GetValue<MwmValue>()->GetFileName();
@@ -2029,7 +2029,7 @@ void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, Vi
     // Search only mwms that intersect with viewport (world always does).
     if (m_viewport[vID].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
-      Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
       SearchInMWM(mwmLock, params, vID);
     }
   }
@@ -2070,7 +2070,7 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
 void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
                         ViewportID vID /*= DEFAULT_V*/)
 {
-  if (MwmValue * pMwm = mwmLock.GetValue<MwmValue>())
+  if (MwmValue const * const pMwm = mwmLock.GetValue<MwmValue>())
   {
     if (pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
     {
@@ -2273,7 +2273,7 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t
 
     for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
     {
-      Index::MwmLock mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
       string fileName;
       if (mwmLock.IsLocked())
         fileName = mwmLock.GetValue<MwmValue>()->GetFileName();
