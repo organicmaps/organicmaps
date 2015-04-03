@@ -15,4 +15,4 @@ then
   PV=pv
 fi
 
-$PV ../../../omim-maps/$2.osm.bz2 | bzip2 -d | $GENERATOR_TOOL --osrm_file_name=../../../omim-maps/$2.osrm --output=$2
+$PV ../../../omim-maps/$2.osm.bz2 | bzip2 -d | $GENERATOR_TOOL --make_routing --make_cross_section --osrm_file_name=../../../omim-maps/$2.osrm --output=$2

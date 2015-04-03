@@ -60,6 +60,8 @@ DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from c
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
 DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
+DEFINE_bool(make_routing, false, "Make routing info based on osrm file");
+DEFINE_bool(make_cross_section, false, "Make corss section in routing file for cross mwm routing");
 DEFINE_string(osm_file_name, "", "Input osm area file");
 DEFINE_string(osm_file_type, "xml", "Input osm area file type [xml, o5m]");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
@@ -248,8 +250,11 @@ int main(int argc, char ** argv)
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);
 
-  if (!FLAGS_osrm_file_name.empty())
+  if (!FLAGS_osrm_file_name.empty() && FLAGS_make_routing)
     routing::BuildRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
+
+  if (!FLAGS_osrm_file_name.empty() && FLAGS_make_cross_section)
+    routing::BuildCrossRoutingIndex(path, FLAGS_output, FLAGS_osrm_file_name);
 
   return 0;
 }

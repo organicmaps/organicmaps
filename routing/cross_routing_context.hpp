@@ -78,7 +78,7 @@ class CrossRoutingContextWriter
   size_t GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
 
 public:
-  void Save(Writer & w);
+  void Save(Writer & w) const;
 
   void addIngoingNode(size_t const nodeId, m2::PointD const & point);
 

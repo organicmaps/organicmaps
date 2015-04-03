@@ -34,55 +34,32 @@ namespace routing
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 
-void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
+bool LoadIndexes(string const & mwmFile, string const & osrmFile, osrm::NodeDataVectorT & nodeData, gen::OsmID2FeatureID & osm2ft)
 {
-  classificator::Load();
-
-  string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
-  Index index;
-  m2::RectD rect;
-  if (!index.Add(mwmFile, rect))
+  if (!osrm::LoadNodeDataFromFile(osrmFile + ".nodeData", nodeData))
   {
-    LOG(LCRITICAL, ("MWM file not found"));
-    return;
+    LOG(LCRITICAL, ("Can't load node data"));
+    return false;
   }
-
-  vector<m2::RegionD> regionBorders;
-  routing::CrossRoutingContextWriter crossContext;
-  LOG(LINFO, ("Loading countries borders"));
-  borders::CountriesContainerT m_countries;
-  CHECK(borders::LoadCountriesList(baseDir, m_countries),
-      ("Error loading country polygons files"));
-  {
-    m_countries.ForEach([&](borders::CountryPolygons const & c)
-    {
-      if (c.m_name == countryName)
-      {
-        c.m_regions.ForEach([&](m2::RegionD const & region)
-        {
-          regionBorders.push_back(region);
-        });
-      }
-    });
-  }
-
-  gen::OsmID2FeatureID osm2ft;
   {
     FileReader reader(mwmFile + OSM2FEATURE_FILE_EXTENSION);
     ReaderSource<FileReader> src(reader);
     osm2ft.Read(src);
   }
+  return true;
+}
 
-  osrm::NodeDataVectorT nodeData;
-  if (!osrm::LoadNodeDataFromFile(osrmFile + ".nodeData", nodeData))
+void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft, borders::CountriesContainerT const & m_countries, string const & countryName, routing::CrossRoutingContextWriter & crossContext)
+{
+  vector<m2::RegionD> regionBorders;
+  m_countries.ForEach([&](borders::CountryPolygons const & c)
   {
-    LOG(LCRITICAL, ("Can't load node data"));
-    return;
-  }
-
-  OsrmFtSegMappingBuilder mapping;
-
-  uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0, stored = 0;
+    if (c.m_name == countryName)
+      c.m_regions.ForEach([&regionBorders](m2::RegionD const & region)
+      {
+        regionBorders.push_back(region);
+      });
+  });
 
   for (size_t nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
@@ -109,13 +86,15 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
               break;
           if (intersection == m2::PointD::Zero())
             continue;
-          else
-            // for old format compatibility
-            intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
-          if (outStart && !outEnd)
+
+          // for old format compatibility
+          intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
+          if (!outStart && outEnd)
+            crossContext.addIngoingNode(nodeId, intersection);
+          else if (outStart && !outEnd)
           {
             string mwmName;
-            m2::PointD const mercatorPoint(MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2));
+            m2::PointD const & mercatorPoint = MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2);
             m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
             {
               if (c.m_name == countryName)
@@ -123,11 +102,8 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
               c.m_regions.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](m2::RegionD const & region)
               {
                 // Sometimes Contains make errors for cases near the border.
-                if (region.Contains(mercatorPoint))
+                if (region.Contains(mercatorPoint) || region.AtBorder(mercatorPoint, 0.01 /*Near border accuracy. In mercator.*/))
                   mwmName = c.m_name;
-                else
-                  if (region.AtBorder(mercatorPoint, 0.01 /*Near border accuracy. In mercator.*/))
-                      mwmName = c.m_name;
               });
             });
             if (!mwmName.empty())
@@ -135,11 +111,139 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
             else
               LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
           }
-          else if (!outStart && outEnd)
-            crossContext.addIngoingNode(nodeId, intersection);
         }
       }
     }
+  }
+}
+
+void LoadRoutingFacade(string const & osrmFile, OsrmRawDataFacade<QueryEdge::EdgeData> & facade)
+{
+  ReaderSource<ModelReaderPtr> edgeSource(new FileReader(osrmFile + "." + ROUTING_EDGEDATA_FILE_TAG));
+  vector<char> edgeBuffer(static_cast<size_t>(edgeSource.Size()));
+  edgeSource.Read(&edgeBuffer[0], edgeSource.Size());
+
+  ReaderSource<ModelReaderPtr> edgeIdsSource(new FileReader(osrmFile + "." + ROUTING_EDGEID_FILE_TAG));
+  vector<char> edgeIdsBuffer(static_cast<size_t>(edgeIdsSource.Size()));
+  edgeIdsSource.Read(&edgeIdsBuffer[0], edgeIdsSource.Size());
+
+  ReaderSource<ModelReaderPtr> shortcutsSource(new FileReader(osrmFile + "." + ROUTING_SHORTCUTS_FILE_TAG));
+  vector<char> shortcutsBuffer(static_cast<size_t>(shortcutsSource.Size()));
+  shortcutsSource.Read(&shortcutsBuffer[0], shortcutsSource.Size());
+
+  ReaderSource<ModelReaderPtr> matrixSource(new FileReader(osrmFile + "." + ROUTING_MATRIX_FILE_TAG));
+  vector<char> matrixBuffer(static_cast<size_t>(matrixSource.Size()));
+  matrixSource.Read(&matrixBuffer[0], matrixSource.Size());
+
+  facade.LoadRawData(edgeBuffer.data(), edgeIdsBuffer.data(), shortcutsBuffer.data(), matrixBuffer.data());
+}
+
+void CalculateCrossAdjacency(OsrmRawDataFacade<QueryEdge::EdgeData> & facade, routing::CrossRoutingContextWriter & crossContext)
+{
+  LOG(LINFO, ("Calculating weight map between outgoing nodes"));
+  crossContext.reserveAdjacencyMatrix();
+  auto const & in = crossContext.GetIngoingIterators();
+  auto const & out = crossContext.GetOutgoingIterators();
+  MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
+  size_t index = 0;
+  // Fill sources and targets with start node task for ingoing (true) and target node task
+  // (false) for outgoing nodes
+  for (auto i = in.first; i != in.second; ++i, ++index)
+    OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, true, sources[index]);
+
+  index = 0;
+  for (auto i = out.first; i != out.second; ++i, ++index)
+    OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, false, targets[index]);
+
+  vector<EdgeWeight> costs;
+  OsrmRouter::FindWeightsMatrix(sources, targets, facade, costs);
+  auto res = costs.begin();
+  for (auto i = in.first; i != in.second; ++i)
+    for (auto j = out.first; j != out.second; ++j)
+    {
+      EdgeWeight const & edgeWeigth = *(res++);
+      if (edgeWeigth != INVALID_EDGE_WEIGHT && edgeWeigth > 0)
+        crossContext.setAdjacencyCost(i, j, edgeWeigth);
+    }
+  LOG(LINFO, ("Calculation of weight map between outgoing nodes DONE"));
+}
+
+void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, string const & mwmFile)
+{
+  LOG(LINFO, ("Collect all data into one file..."));
+  string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
+
+  FilesContainerW routingCont(fPath, FileWriter::OP_WRITE_EXISTING);
+
+  {
+    // Write version for routing file that is equal to correspondent mwm file.
+    FilesContainerR mwmCont(mwmFile);
+
+    FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
+    ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));
+    rw::ReadAndWrite(src, w);
+    w.WritePaddingByEnd(4);
+  }
+
+  FileWriter w = routingCont.GetWriter(ROUTING_CROSS_CONTEXT_TAG);
+  size_t const start_size = w.Pos();
+  crossContext.Save(w);
+  w.WritePaddingByEnd(4);
+  LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
+
+  routingCont.Finish();
+}
+
+void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
+{
+  LOG(LINFO, ("Cross mwm routing section builder"));
+  string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
+  osrm::NodeDataVectorT nodeData;
+  gen::OsmID2FeatureID osm2ft;
+  if (!LoadIndexes(mwmFile, osrmFile, nodeData, osm2ft))
+    return;
+
+  routing::CrossRoutingContextWriter crossContext;
+  LOG(LINFO, ("Loading countries borders"));
+  borders::CountriesContainerT m_countries;
+  CHECK(borders::LoadCountriesList(baseDir, m_countries),
+        ("Error loading country polygons files"));
+
+  FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
+
+  // Load routing facade
+  OsrmRawDataFacade<QueryEdge::EdgeData> facade;
+  LoadRoutingFacade(osrmFile, facade);
+  CalculateCrossAdjacency(facade, crossContext);
+
+  WriteCrossSection(crossContext, mwmFile);
+}
+
+void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
+{
+  classificator::Load();
+
+  string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
+  Index index;
+  m2::RectD rect;
+  if (!index.Add(mwmFile, rect))
+  {
+    LOG(LCRITICAL, ("MWM file not found"));
+    return;
+  }
+
+  osrm::NodeDataVectorT nodeData;
+  gen::OsmID2FeatureID osm2ft;
+  if (!LoadIndexes(mwmFile, osrmFile, nodeData, osm2ft))
+    return;
+
+  OsrmFtSegMappingBuilder mapping;
+
+  uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0, stored = 0;
+
+  for (size_t nodeId = 0; nodeId < nodeData.size(); ++nodeId)
+  {
+    auto const & data = nodeData[nodeId];
 
     OsrmFtSegMappingBuilder::FtSegVectorT vec;
 
@@ -263,7 +367,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   LOG(LINFO, ("Collect all data into one file..."));
   string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
 
-  FilesContainerW routingCont(fPath);
+  FilesContainerW routingCont(fPath /*, FileWriter::OP_APPEND*/);
 
   {
     // Write version for routing file that is equal to correspondent mwm file.
@@ -288,65 +392,6 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
   appendFile(ROUTING_EDGEDATA_FILE_TAG);
   appendFile(ROUTING_MATRIX_FILE_TAG);
   appendFile(ROUTING_EDGEID_FILE_TAG);
-
-  {
-    // Load routing facade
-    OsrmRawDataFacade<QueryEdge::EdgeData> facade;
-
-    ReaderSource<ModelReaderPtr> edgeSource(new FileReader(osrmFile + "." + ROUTING_EDGEDATA_FILE_TAG));
-    vector<char> edgeBuffer(static_cast<size_t>(edgeSource.Size()));
-    edgeSource.Read(&edgeBuffer[0], edgeSource.Size());
-
-    ReaderSource<ModelReaderPtr> edgeIdsSource(new FileReader(osrmFile + "." + ROUTING_EDGEID_FILE_TAG));
-    vector<char> edgeIdsBuffer(static_cast<size_t>(edgeIdsSource.Size()));
-    edgeIdsSource.Read(&edgeIdsBuffer[0], edgeIdsSource.Size());
-
-    ReaderSource<ModelReaderPtr> shortcutsSource(new FileReader(osrmFile + "." + ROUTING_SHORTCUTS_FILE_TAG));
-    vector<char> shortcutsBuffer(static_cast<size_t>(shortcutsSource.Size()));
-    shortcutsSource.Read(&shortcutsBuffer[0], shortcutsSource.Size());
-
-    ReaderSource<ModelReaderPtr> matrixSource(new FileReader(osrmFile + "." + ROUTING_MATRIX_FILE_TAG));
-    vector<char> matrixBuffer(static_cast<size_t>(matrixSource.Size()));
-    matrixSource.Read(&matrixBuffer[0], matrixSource.Size());
-
-    facade.LoadRawData(edgeBuffer.data(), edgeIdsBuffer.data(), shortcutsBuffer.data(), matrixBuffer.data());
-
-    LOG(LINFO, ("Calculating weight map between outgoing nodes"));
-    crossContext.reserveAdjacencyMatrix();
-    auto in = crossContext.GetIngoingIterators();
-    auto out = crossContext.GetOutgoingIterators();
-    MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
-    size_t index = 0;
-    // Fill sources and targets with start node task for ingoing (true) and target node task
-    // (false) for outgoing nodes
-    for (auto i = in.first; i != in.second; ++i, ++index)
-    {
-      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, true, sources[index]);
-    }
-    index = 0;
-    for (auto i = out.first; i != out.second; ++i, ++index)
-    {
-      OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, false, targets[index]);
-    }
-
-    vector<EdgeWeight> costs;
-    OsrmRouter::FindWeightsMatrix(sources, targets, facade, costs);
-    auto res = costs.begin();
-    for (auto i = in.first; i < in.second; ++i)
-      for (auto j = out.first; j < out.second; ++j)
-      {
-        EdgeWeight const & edgeWeigth = *(res++);
-        if (edgeWeigth != INVALID_EDGE_WEIGHT && edgeWeigth > 0)
-          crossContext.setAdjacencyCost(i, j, edgeWeigth);
-      }
-    LOG(LINFO, ("Calculation of weight map between outgoing nodes DONE"));
-  }
-
-  FileWriter w = routingCont.GetWriter(ROUTING_CROSS_CONTEXT_TAG);
-  size_t const start_size = w.Pos();
-  crossContext.Save(w);
-  w.WritePaddingByEnd(4);
-  LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
 
   routingCont.Finish();
 

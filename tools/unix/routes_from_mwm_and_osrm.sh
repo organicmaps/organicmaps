@@ -12,4 +12,9 @@ else
   GENERATOR_TOOL=~/omim-build-release/out/release/generator_tool
 fi
 
-ls "$OSRM_DIR"/*.osrm | parallel -t -v "V=`basename -s .osrm {}`; $GENERATOR_TOOL --osrm_file_name={} --data_path=$DATA_DIR --output={/.}"
+NUM_INSTANCES=8
+
+OSRM_LIST=${OSRM_LIST-$(ls -1 $OSRM_DIR/*.osrm | xargs -d "\n" basename -s .osrm)}
+
+echo "$OSRM_LIST" |  xargs -d "\n" -P $NUM_INSTANCES -I % $GENERATOR_TOOL --make_routing --make_cross_section --osrm_file_name=$OSRM_DIR/%.osrm --data_path=$DATA_DIR --output=%
+

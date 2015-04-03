@@ -125,7 +125,7 @@ size_t CrossRoutingContextWriter::GetIndexInAdjMatrix(IngoingEdgeIteratorT ingoi
   return m_outgoingNodes.size() * ingoing_index + outgoing_index;
 }
 
-void CrossRoutingContextWriter::Save(Writer & w)
+void CrossRoutingContextWriter::Save(Writer & w) const
 {
   uint32_t size = static_cast<uint32_t>(m_ingoingNodes.size());
   w.Write(&size, sizeof(size));
