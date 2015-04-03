@@ -259,11 +259,11 @@ MwmSet::MwmValueBase * MwmSet::LockValueImpl(MwmId id)
 {
   ASSERT_LESS(id, m_info.size(), ());
   if (id >= m_info.size())
-    return NULL;
+    return nullptr;
 
   UpdateMwmInfo(id);
   if (!m_info[id].IsUpToDate())
-    return NULL;
+    return nullptr;
 
   ++m_info[id].m_lockCount;
 

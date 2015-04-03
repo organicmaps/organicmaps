@@ -37,7 +37,7 @@ class Index : public MwmSet
 {
 protected:
   // MwmSet overrides:
-  bool GetVersion(string const & name, MwmInfo & info) override;
+  bool GetVersion(string const & name, MwmInfo & info) const override;
   MwmValue * CreateValue(string const & name) const override;
   void UpdateMwmInfo(MwmId id) override;
 
@@ -61,50 +61,51 @@ public:
     /// Called when a map is registered for a first time.
     virtual void OnMapRegistered(string const & file) {}
 
-    /// Called when update for a map is downloaded.
+    /// Called when an update for a map is downloaded.
     virtual void OnMapUpdateIsReady(string const & file) {}
 
-    /// Called when update for a map is applied.
+    /// Called when an update for a map is applied.
     virtual void OnMapUpdated(string const & file) {}
 
-    /// Called when map is deleted.
+    /// Called when a map is deleted.
     virtual void OnMapDeleted(string const & file) {}
   };
 
   Index();
   ~Index();
 
-  /// Registers new map.
+  /// Registers a new map.
   ///
-  /// \return A pair of MwmLock and a flag. MwmLock is locked iff map
-  ///         with fileName was created or already exists.  Flag is
-  ///         set when a new map was registered. Thus, there are
-  ///         three main cases:
-  ///         * map already exists       - returns active lock and unset flag
-  ///         * a new map was registered - returns active lock and set flag
-  ///         * can't register new map   - returns inactive lock and unset flag
+  /// \return A pair of an MwmLock and a flag. MwmLock is locked iff the
+  ///         map with fileName was created or already exists. Flag
+  ///         is set when the map was registered for a first
+  ///         time. Thus, there are three main cases:
+  ///
+  ///         * the map already exists - returns active lock and unset flag
+  ///         * the map was already registered - returns active lock and set flag
+  ///         * the map can't be registered - returns inactive lock and unset flag
   WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterMap(string const & fileName);
 
-  /// Replaces map file corresponding to fileName with a new one, when
+  /// Replaces a map file corresponding to fileName with a new one, when
   /// it's possible - no clients of the map file. Otherwise, update
   /// will be delayed.
   ///
-  /// \return * map file have been updated - returns active lock and
+  /// \return * the map file have been updated - returns active lock and
   ///           UPDATE_STATUS_OK
-  ///         * update is delayed because map is busy - returns active lock and
+  ///         * update is delayed because the map is busy - returns active lock and
   ///           UPDATE_STATUS_UPDATE_DELAYED
-  ///         * file isn't suitable for update - returns inactive lock and
+  ///         * the file isn't suitable for update - returns inactive lock and
   ///           UPDATE_STATUS_BAD_FILE
   WARN_UNUSED_RESULT pair<MwmLock, UpdateStatus> UpdateMap(string const & fileName);
 
-  /// Deletes map both from file system and internal tables, also,
-  /// deletes all files related to the map. If map was successfully
+  /// Deletes a map both from the file system and internal tables, also,
+  /// deletes all files related to the map. If the map was successfully
   /// deleted, notifies observers.
   ///
   /// \param fileName A fileName denoting the map to be deleted, may
   ///                 be a full path or a short path relative to
   ///                 executable's directories.
-  //// \return True if map was successfully deleted.
+  //// \return True if the map was successfully deleted.
   bool DeleteMap(string const & fileName);
 
   bool AddObserver(Observer & observer);

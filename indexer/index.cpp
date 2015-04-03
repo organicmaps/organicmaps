@@ -30,7 +30,7 @@ string MwmValue::GetFileName() const
 // Index implementation
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Index::GetVersion(string const & name, MwmInfo & info)
+bool Index::GetVersion(string const & name, MwmInfo & info) const
 {
   MwmValue value(name);
 

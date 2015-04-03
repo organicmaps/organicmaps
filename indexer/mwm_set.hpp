@@ -105,17 +105,16 @@ public:
     NONCOPYABLE(MwmLock);
   };
 
-  /// Registers new map in the set.
+  /// Registers a new map.
   ///
-  /// \param fileName File name (without full path) of country.
+  /// \return A pair of an MwmLock and a flag. MwmLock is locked iff the
+  ///         map with fileName was created or already exists. Flag
+  ///         is set when the map was registered for a first
+  ///         time. Thus, there are three main cases:
   ///
-  /// \return A pair of MwmLock and a flag. MwmLock is locked iff map
-  ///         with fileName was created or already exists.  Flag is
-  ///         set when a new map was registered. Thus, there are
-  ///         three main cases:
-  ///         * map already exists       - returns active lock and unset flag
-  ///         * a new map was registered - returns active lock and set flag
-  ///         * can't register new map   - returns inactive lock and unset flag
+  ///         * the map already exists - returns active lock and unset flag
+  ///         * the map was already registered - returns active lock and set flag
+  ///         * the map can't be registered - returns inactive lock and unset flag
   //@{
 protected:
   WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterImpl(string const & fileName);
@@ -127,9 +126,10 @@ public:
   /// @name Remove mwm.
   //@{
 protected:
-  /// Deregisters map from the set when it' possible. Note that
+  /// Deregisters a map from the set when it's possible. Note that an
   /// underlying file is not deleted.
-  /// @return true - map is free; false - map is busy
+  ///
+  /// @return true when the map was deregistered.
   //@{
   bool DeregisterImpl(MwmId id);
   bool DeregisterImpl(string const & fileName);
@@ -157,7 +157,7 @@ public:
 protected:
   /// @return True when it's possible to get file format version - in
   ///         this case version is set to the file format version.
-  virtual bool GetVersion(string const & name, MwmInfo & info) = 0;
+  virtual bool GetVersion(string const & name, MwmInfo & info) const = 0;
   virtual MwmValueBase * CreateValue(string const & name) const = 0;
 
   void Cleanup();

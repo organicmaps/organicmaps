@@ -11,7 +11,7 @@ namespace
   class TestMwmSet : public MwmSet
   {
   protected:
-    virtual bool GetVersion(string const & path, MwmInfo & info)
+    bool GetVersion(string const & path, MwmInfo & info) const override
     {
       int n = path[0] - '0';
       info.m_maxScale = n;
@@ -20,7 +20,7 @@ namespace
       return true;
     }
 
-    virtual MwmValue * CreateValue(string const &) const
+    MwmValue * CreateValue(string const &) const override
     {
       return new MwmValue();
     }

@@ -27,7 +27,7 @@ public:
     return true;
   }
 
-  bool Remove(TObserver & observer)
+  bool Remove(TObserver const & observer)
   {
     lock_guard<mutex> lock(m_observersLock);
     auto it = find(m_observers.begin(), m_observers.end(), &observer);

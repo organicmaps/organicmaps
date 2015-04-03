@@ -170,7 +170,7 @@ public:
   /// Deregisters all registered map files.
   void DeregisterAllMaps();
 
-  /// Registers local map file in internal indexes.
+  /// Registers a local map file in internal indexes.
   ///
   /// @return True and inner mwm data version from header in version
   ///         or false in case of errors.

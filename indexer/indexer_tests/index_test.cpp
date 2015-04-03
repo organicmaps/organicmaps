@@ -100,7 +100,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
 
   TEST_EQUAL(0, observer.map_registered_calls(), ());
 
-  // Check that observers are triggered after map registration.
+  // Checks that observers are triggered after map registration.
   {
     pair<MwmSet::MwmLock, bool> p = index.RegisterMap(testMapName);
     TEST(p.first.IsLocked(), ());
@@ -108,7 +108,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
     TEST_EQUAL(1, observer.map_registered_calls(), ());
   }
 
-  // Check that map can't registered twice and observers aren't
+  // Checks that map can't registered twice and observers aren't
   // triggered.
   {
     pair<MwmSet::MwmLock, bool> p  = index.RegisterMap(testMapName);
@@ -120,7 +120,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
   TEST(my::CopyFileX(testMapPath, testMapUpdatePath), ());
   MY_SCOPE_GUARD(testMapUpdateGuard, bind(&CheckedDeleteFile, testMapUpdatePath));
 
-  // Check that observers are notified when map is deleted.
+  // Checks that observers are notified when map is deleted.
   {
     TEST_EQUAL(0, observer.map_update_is_ready_calls(), ());
     TEST_EQUAL(0, observer.map_updated_calls(), ());
@@ -131,7 +131,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
     TEST_EQUAL(1, observer.map_updated_calls(), ());
   }
 
-  // Try to delete map in presence of active lock. Map should be
+  // Tries to delete map in presence of active lock. Map should be
   // marked "to be removed" but can't be deleted.
   {
     MwmSet::MwmLock lock(index, testMapName);
@@ -141,7 +141,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
     TEST_EQUAL(0, observer.map_deleted_calls(), ());
   }
 
-  // Check that observers are notified when lock is destroyed.
+  // Checks that observers are notified when all locks are destroyed.
   TEST_EQUAL(1, observer.map_deleted_calls(), ());
 
   index.RemoveObserver(observer);
