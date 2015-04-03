@@ -5,13 +5,18 @@
 #include <map>
 #include <locale>
 
+#define BOOST_TEST_MODULE OpeningHours
+
+#if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wshorten-64-to-32"
-#define BOOST_TEST_MODULE OpeningHours
 #include <boost/test/included/unit_test.hpp>
-#include <boost/spirit/include/qi.hpp>
 #pragma clang diagnostic pop
+#else
+#include <boost/test/included/unit_test.hpp>
+#endif
 
+#include <boost/spirit/include/qi.hpp>
 
 template <typename Char, typename Parser>
 bool test(Char const* in, Parser const& p, bool full_match = true)

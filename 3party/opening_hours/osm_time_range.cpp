@@ -17,12 +17,16 @@
 #include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 
+#if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wshorten-64-to-32"
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
 #pragma clang diagnostic pop
-
+#else
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/gregorian/gregorian.hpp>
+#endif
 
 
 namespace osmoh
