@@ -130,6 +130,7 @@ namespace core
   void CommandsQueue::Executor::CancelCommand()
   {
     Routine * routine = m_thread.GetRoutineAs<Routine>();
+    CHECK(routine, ());
     routine->CancelCommand();
   }
 
