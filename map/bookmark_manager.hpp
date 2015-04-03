@@ -26,8 +26,6 @@ class BookmarkManager : private noncopyable
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-  void DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const;
-
   void SaveState() const;
   void LoadState();
 
@@ -65,11 +63,7 @@ public:
   void DeleteBmCategory(CategoryIter i);
   bool DeleteBmCategory(size_t index);
 
-  //void ActivateMark(UserMark const * mark, bool needAnim);
-  //bool UserMarkHasActive() const;
-  //bool IsUserMarkActive(UserMark const * container) const;
-
-  typedef function<m2::AnyRectD const & (UserMarkContainer::Type)> TTouchRectHolder;
+  typedef function<m2::AnyRectD const & (UserMarkType)> TTouchRectHolder;
 
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;

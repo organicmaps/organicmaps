@@ -55,107 +55,6 @@ void BookmarkManager::LoadState()
   Settings::Get(BOOKMARK_TYPE, m_lastType);
 }
 
-namespace
-{
-
-class LazyMatrixCalc
-{
-  ScreenBase const & m_screen;
-  double & m_lastScale;
-
-  typedef ScreenBase::MatrixT MatrixT;
-  MatrixT m_matrix;
-  double m_resScale;
-  bool m_scaleChanged;
-
-  void CalcScaleG2P()
-  {
-    // Check whether viewport scale changed since the last drawing.
-    m_scaleChanged = false;
-    double const d = m_lastScale / m_screen.GetScale();
-    if (d >= 2.0 || d <= 0.5)
-    {
-      m_scaleChanged = true;
-      m_lastScale = m_screen.GetScale();
-    }
-
-    // GtoP matrix for scaling only (with change Y-axis direction).
-    m_resScale = 1.0 / m_lastScale;
-    m_matrix = math::Scale(math::Identity<double, 3>(), m_resScale, -m_resScale);
-  }
-
-public:
-  LazyMatrixCalc(ScreenBase const & screen, double & lastScale)
-    : m_screen(screen), m_lastScale(lastScale), m_resScale(0.0)
-  {
-  }
-
-  bool IsScaleChanged()
-  {
-    if (m_resScale == 0.0)
-      CalcScaleG2P();
-    return m_scaleChanged;
-  }
-
-  MatrixT const & GetScaleG2P()
-  {
-    if (m_resScale == 0.0)
-      CalcScaleG2P();
-    return m_matrix;
-  }
-
-  MatrixT const & GetFinalG2P()
-  {
-    if (m_resScale == 0.0)
-    {
-      // Final GtoP matrix for drawing track's display lists.
-      m_resScale = m_lastScale / m_screen.GetScale();
-      m_matrix =
-          math::Shift(
-            math::Scale(
-              math::Rotate(math::Identity<double, 3>(), m_screen.GetAngle()),
-            m_resScale, m_resScale),
-          m_screen.GtoP(m2::PointD(0.0, 0.0)));
-    }
-    return m_matrix;
-  }
-};
-
-}
-
-void BookmarkManager::PrepareToShutdown()
-{
-  m_routeRenderer->PrepareToShutdown();
-}
-
-void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const
-{
-///@TODO UVR
-//#ifndef USE_DRAPE
-//  /// TODO cutomize draw in UserMarkContainer for user Draw method
-//  ASSERT(cat, ());
-//  if (!cat->IsVisible())
-//    return;
-//  Navigator const & navigator = m_framework.GetNavigator();
-//  ScreenBase const & screen = navigator.Screen();
-
-//  Drawer * pDrawer = e.GetDrawer();
-//  graphics::Screen * pScreen = pDrawer->screen();
-
-//  LazyMatrixCalc matrix(screen, m_lastScale);
-
-//  // Draw tracks.
-//  for (size_t i = 0; i < cat->GetTracksCount(); ++i)
-//  {
-//    Track const * track = cat->GetTrack(i);
-//    if (track->HasDisplayList())
-//      track->Draw(pScreen, matrix.GetFinalG2P());
-//  }
-
-//  cat->Draw(e, m_cache);
-//#endif // USE_DRAPE
-}
-
 void BookmarkManager::ClearItems()
 {
   for_each(m_categories.begin(), m_categories.end(), DeleteFunctor());
@@ -208,7 +107,7 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
   BookmarkCategory::Guard guard(*cat);
   Bookmark const * bm = static_cast<Bookmark const *>(guard.m_controller.GetUserMark(bmIndex));
   BookmarkData data = bm->GetData();
-  m2::PointD ptOrg = bm->GetOrg();
+  m2::PointD ptOrg = bm->GetPivot();
 
   guard.m_controller.DeleteUserMark(bmIndex);
   cat->SaveToKMLFile();
@@ -257,65 +156,6 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
   return (m_categories.size()-1);
 }
 
-void BookmarkManager::DrawItems(Drawer * drawer) const
-{
-  //@TODO UVR
-  //ASSERT(m_cache != NULL, ());
-  //ASSERT(m_framework.GetLocationState(), ());
-
-  //ScreenBase const & screen = m_framework.GetNavigator().Screen();
-  //m2::RectD const limitRect = screen.ClipRect();
-
-  //LazyMatrixCalc matrix(screen, m_lastScale);
-
-  //double const drawScale = m_framework.GetDrawScale();
-  //double const visualScale = m_framework.GetVisualScale();
-  //location::RouteMatchingInfo const & matchingInfo = m_framework.GetLocationState()->GetRouteMatchingInfo();
-
-  //auto trackUpdateFn = [&](Track const * track)
-  //{
-  //  ASSERT(track, ());
-  //  if (limitRect.IsIntersect(track->GetLimitRect()))
-  //    track->CreateDisplayList(m_bmScreen, matrix.GetScaleG2P(), matrix.IsScaleChanged(), drawScale, visualScale, matchingInfo);
-  //  else
-  //    track->CleanUp();
-  //};
-
-  //auto dlUpdateFn = [&trackUpdateFn] (BookmarkCategory const * cat)
-  //{
-  //  bool const isVisible = cat->IsVisible();
-  //  for (size_t j = 0; j < cat->GetTracksCount(); ++j)
-  //  {
-  //    Track const * track = cat->GetTrack(j);
-  //    ASSERT(track, ());
-  //    if (isVisible)
-  //      trackUpdateFn(track);
-  //    else
-  //      track->CleanUp();
-  //  }
-  //};
-
-  // Update track's display lists.
-  //for (size_t i = 0; i < m_categories.size(); ++i)
-  //{
-  //  BookmarkCategory const * cat = m_categories[i];
-  //  ASSERT(cat, ());
-  //  dlUpdateFn(cat);
-  //}
-
-  //graphics::Screen * pScreen = GPUDrawer::GetScreen(drawer);
-  //pScreen->beginFrame();
-
-  //PaintOverlayEvent event(drawer, screen);
-  //for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
-  //for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
-  //m_routeRenderer->Render(pScreen, screen);
-  //m_selection.Draw(event, m_cache);
-
-  //pScreen->endFrame();
-#endif // USE_DRAPE
-}
-
 void BookmarkManager::DeleteBmCategory(CategoryIter i)
 {
   BookmarkCategory * cat = *i;
@@ -337,26 +177,6 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
   else
     return false;
 }
-
-///@TODO UVR
-//void BookmarkManager::ActivateMark(UserMark const * mark, bool needAnim)
-//{
-//  m_selection.ActivateMark(mark, needAnim);
-//}
-
-//bool BookmarkManager::UserMarkHasActive() const
-//{
-//  return m_selection.IsActive();
-//}
-
-//bool BookmarkManager::IsUserMarkActive(UserMark const * mark) const
-//{
-//  if (mark == nullptr)
-//    return false;
-
-//  return (m_selection.m_container == mark->GetContainer() &&
-//          m_selection.m_ptOrg.EqualDxDy(mark->GetOrg(), 1.0E-4));
-//}
 
 namespace
 {

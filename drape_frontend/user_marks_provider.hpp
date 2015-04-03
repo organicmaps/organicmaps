@@ -11,6 +11,30 @@
 namespace df
 {
 
+class UserPointMark
+{
+public:
+  virtual ~UserPointMark() {}
+  virtual m2::PointD const & GetPivot() const = 0;
+  virtual string GetSymbolName() const  = 0;
+  virtual dp::Anchor GetAnchor() const = 0;
+  virtual float GetDepth() const = 0;
+};
+
+class UserLineMark
+{
+public:
+  virtual ~UserLineMark() {}
+
+  virtual dp::Color const & GetColor() const = 0;
+  virtual float GetWidth() const = 0;
+
+  /// Line geometry enumeration
+  virtual bool HasPoint() const = 0;
+  virtual m2::PointD const & GetCurrentPoint() const = 0;
+  virtual void Advance() const = 0;
+};
+
 class UserMarksProvider
 {
 public:
@@ -20,11 +44,15 @@ public:
   void BeginRead();
     bool IsDirty() const;
     virtual bool IsDrawable() const = 0;
-    virtual size_t GetCount() const = 0;
-    virtual m2::PointD const & GetPivot(size_t index) const = 0;
-    virtual string const & GetSymbolName(size_t index) const = 0;
-    virtual dp::Anchor GetAnchor(size_t index) const = 0;
-    virtual float GetDepth(size_t index) const = 0;
+
+    virtual size_t GetPointCount() const = 0;
+    /// never store UserPointMark reference
+    virtual UserPointMark const * GetUserPointMark(size_t index) const = 0;
+
+    virtual size_t GetLineCount() const = 0;
+    /// never store UserLineMark reference
+    virtual UserLineMark const * GetUserLineMark(size_t index) const = 0;
+    virtual
   void EndRead();
 
   void IncrementCounter();

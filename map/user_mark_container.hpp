@@ -58,22 +58,26 @@ public:
   static PoiMarkPoint * UserMarkForPoi();
   static MyPositionMarkPoint * UserMarkForMyPostion();
 
-  /// newer save reference on UserMarksController
+  /// never save reference on UserMarksController
   UserMarksController & RequestController();
   void ReleaseController();
 
   ////////////////////////////////////////////////////////////
-  size_t GetCount() const;
-  m2::PointD const & GetPivot(size_t index) const;
-  float GetDepth(size_t index) const;
-  dp::Anchor GetAnchor(size_t index) const;
+  /// Render info
+  virtual size_t GetPointCount() const;
+  virtual df::UserPointMark const * GetUserPointMark(size_t index) const;
 
-  /// @TODO uvr : send event to drape to change visibility
+  virtual size_t GetLineCount() const;
+  virtual df::UserLineMark const * GetUserLineMark(size_t index) const;
+  ////////////////////////////////////////////////////////////
+
+  float GetPointDepth() const;
+
   bool IsVisible() const;
-  virtual bool IsDrawable() const;
-  virtual size_t GetUserMarkCount() const;
-  virtual UserMark const * GetUserMark(size_t index) const;
-  virtual UserMarkType GetType() const override final;
+  bool IsDrawable() const override;
+  size_t GetUserMarkCount() const override;
+  UserMark const * GetUserMark(size_t index) const override;
+  UserMarkType GetType() const override final;
 
 protected:
   /// UserMarksController implementation
@@ -106,8 +110,6 @@ class SearchUserMarkContainer : public UserMarkContainer
 public:
   SearchUserMarkContainer(double layerDepth, Framework & framework);
 
-  string const & GetSymbolName(size_t index) const;
-
 protected:
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };
@@ -116,8 +118,6 @@ class ApiUserMarkContainer : public UserMarkContainer
 {
 public:
   ApiUserMarkContainer(double layerDepth, Framework & framework);
-
-  string const & GetSymbolName(size_t index) const;
 
 protected:
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);

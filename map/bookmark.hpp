@@ -66,57 +66,50 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public style::StyledPoint
+class Bookmark : public UserMark, public style::StyledPoint
 {
-  BookmarkData m_data;
-  double m_animScaleFactor;
-
+  using TBase = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(ptOrg, container), m_animScaleFactor(1.0)
-  {
-  }
+  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
-    : StyledPoint(ptOrg, container), m_data(data), m_animScaleFactor(1.0)
-  {
-  }
+  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
+           UserMarkContainer * container);
 
-  void SetData(BookmarkData const & data) { m_data = data; }
+  void SetData(BookmarkData const & data);
+  BookmarkData const & GetData() const;
 
-  BookmarkData const & GetData() const { return m_data; }
+  dp::Anchor GetAnchor() const override;
+  string GetSymbolName() const override;
 
-  virtual Type GetMarkType() const override { return UserMark::Type::BOOKMARK; }
-  virtual void FillLogEvent(TEventContainer & details) const override;
+  Type GetMarkType() const override;
+  void FillLogEvent(TEventContainer & details) const override;
 
-  string const & GetName() const { return m_data.GetName(); }
-  void SetName(string const & name) { m_data.SetName(name); }
+  string const & GetName() const;
+  void SetName(string const & name);
   /// @return Now its a bookmark color - name of icon file
-  string const & GetType() const { return m_data.GetType(); }
+  string const & GetType() const;
+  void SetType(string const & type);
+  m2::RectD GetViewport() const;
 
-  void SetType(string const & type) { m_data.SetType(type); }
-
-  m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
-
-  string const & GetDescription() const { return m_data.GetDescription(); }
-  void SetDescription(string const & description) { m_data.SetDescription(description); }
+  string const & GetDescription() const;
+  void SetDescription(string const & description);
 
   /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
-  time_t GetTimeStamp() const { return m_data.GetTimeStamp(); }
-  void SetTimeStamp(time_t timeStamp) { m_data.SetTimeStamp(timeStamp); }
+  time_t GetTimeStamp() const;
+  void SetTimeStamp(time_t timeStamp);
 
-  double GetScale() const { return m_data.GetScale(); }
-  void SetScale(double scale) { m_data.SetScale(scale); }
+  double GetScale() const;
+  void SetScale(double scale);
 
   unique_ptr<UserMarkCopy> Copy() const override;
 
-  //virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const;
-  virtual double GetAnimScaleFactor() const;
-  virtual m2::PointD const & GetPixelOffset() const;
-  shared_ptr<anim::Task> CreateAnimTask(Framework & fm);
-
   // StyledPoint overrides:
+  double GetAnimScaleFactor() const override;
+  m2::PointD const & GetPixelOffset() const override; 
   string const & GetStyle() const override { return m_data.GetType(); }
+
+private:
+  BookmarkData m_data;
 };
 
 class BookmarkCategory : public UserMarkContainer
@@ -156,13 +149,9 @@ public:
   BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
-  virtual string const & GetSymbolName(size_t index) const;
-  virtual dp::Anchor GetAnchor(size_t index) const;
-
-  void ClearBookmarks();
-  void ClearTracks();
-
   static string GetDefaultType();
+
+  void ClearTracks();
 
   /// @name Tracks routine.
   //@{

@@ -30,26 +30,45 @@
 #include "std/algorithm.hpp"
 #include "std/auto_ptr.hpp"
 
+
+Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
+  : TBase(ptOrg, container)
+{
+}
+
+Bookmark::Bookmark(BookmarkData const & data, m2::PointD const & ptOrg, UserMarkContainer * container)
+  : TBase(ptOrg, container)
+  , m_data(data)
+{
+}
+
+void Bookmark::SetData(BookmarkData const & data)
+{
+  m_data = data;
+}
+
+BookmarkData const & Bookmark::GetData() const
+{ return m_data;
+}
+
+dp::Anchor Bookmark::GetAnchor() const
+{
+  return dp::Bottom;
+}
+
+string Bookmark::GetSymbolName() const
+{
+  return GetType();
+}
+
+UserMark::Type Bookmark::GetMarkType() const
+{
+  return UserMark::Type::BOOKMARK;
+}
+
 unique_ptr<UserMarkCopy> Bookmark::Copy() const
 {
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
-}
-
-double Bookmark::GetAnimScaleFactor() const
-{
-  return m_animScaleFactor;
-}
-
-m2::PointD const & Bookmark::GetPixelOffset() const
-{
-  static m2::PointD s_offset(0.0, 3.0);
-  return s_offset;
-}
-
-shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
-{
-  m_animScaleFactor = 0.0;
-  return CreateDefaultPinAnim(fm, m_animScaleFactor);
 }
 
 void Bookmark::FillLogEvent(TEventContainer & details) const
@@ -58,6 +77,63 @@ void Bookmark::FillLogEvent(TEventContainer & details) const
   details.emplace("markType", "BOOKMARK");
   details.emplace("name", GetData().GetName());
 }
+
+string const & Bookmark::GetName() const
+{
+  return m_data.GetName();
+}
+
+void Bookmark::SetName(string const & name)
+{
+  m_data.SetName(name);
+}
+
+string const & Bookmark::GetType() const
+{
+  return m_data.GetType();
+}
+
+void Bookmark::SetType(string const & type)
+{
+  m_data.SetType(type);
+}
+
+m2::RectD Bookmark::GetViewport() const
+{
+  return m2::RectD(GetPivot(), GetPivot());
+}
+
+string const & Bookmark::GetDescription() const
+{
+  return m_data.GetDescription();
+}
+
+void Bookmark::SetDescription(string const & description)
+{
+  m_data.SetDescription(description);
+}
+
+time_t Bookmark::GetTimeStamp() const
+{
+  return m_data.GetTimeStamp();
+}
+
+void Bookmark::SetTimeStamp(time_t timeStamp)
+{
+  m_data.SetTimeStamp(timeStamp);
+}
+
+double Bookmark::GetScale() const
+{
+  return m_data.GetScale();
+}
+
+void Bookmark::SetScale(double scale)
+{
+  m_data.SetScale(scale);
+}
+
+//////////////////////////////////////////////////////////////////
 
 void BookmarkCategory::AddTrack(Track & track)
 {
@@ -68,64 +144,6 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
 {
   return (index < m_tracks.size() ? m_tracks[index] : 0);
 }
-
-//void BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm)
-//{
-//  UserMark * mark = base_t::GetController().CreateUserMark(ptOrg);
-//  static_cast<Bookmark *>(mark)->SetData(bm);
-//}
-
-//void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
-//{
-//  Controller & c = base_t::GetController();
-//  ASSERT_LESS (index, c.GetUserMarkCount(), ());
-//  if (index < c.GetUserMarkCount())
-//  {
-//    Bookmark * mark = static_cast<Bookmark *>(c.GetUserMarkForEdit(index));
-//    mark->SetData(bm);
-//  }
-//}
-
-//void BookmarkCategory::DeleteBookmark(size_t index)
-//{
-//  base_t::Controller & c = base_t::GetController();
-//  ASSERT_LESS(index, c.GetUserMarkCount(), ());
-//  UserMark const * markForDelete = c.GetUserMark(index);
-
-//  int animIndex = -1;
-//  for (size_t i = 0; i < m_anims.size(); ++i)
-//  {
-//    anim_node_t const & anim = m_anims[i];
-//    if (anim.first == markForDelete)
-//    {
-//      anim.second->Cancel();
-//      animIndex = i;
-//      break;
-//    }
-//  }
-
-//  if (animIndex != -1)
-//    m_anims.erase(m_anims.begin() + animIndex);
-
-//  c.DeleteUserMark(index);
-//}
-
-//size_t BookmarkCategory::GetBookmarksCount() const
-//{
-//  return base_t::GetController().GetUserMarkCount();
-//}
-
-//Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
-//{
-//  base_t::Controller const & c = base_t::GetController();
-//  return static_cast<Bookmark const *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
-//}
-
-//Bookmark * BookmarkCategory::GetBookmark(size_t index)
-//{
-//  base_t::Controller & c = base_t::GetController();
-//  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMarkForEdit(index) : 0);
-//}
 
 BookmarkCategory::BookmarkCategory(string const & name, Framework & framework)
   : TBase(0.0/*graphics::bookmarkDepth*/, UserMarkType::BOOKMARK_MARK, framework)
@@ -138,28 +156,9 @@ BookmarkCategory::~BookmarkCategory()
   ClearTracks();
 }
 
-string const & BookmarkCategory::GetSymbolName(size_t index) const
-{
-  Bookmark const * bm = static_cast<Bookmark const *>(GetUserMark(index));
-  return bm->GetData().GetType();
-}
-
-dp::Anchor BookmarkCategory::GetAnchor(size_t index) const
-{
-  UNUSED_VALUE(index);
-  return dp::Bottom;
-}
-
-void BookmarkCategory::ClearBookmarks()
-{
-  RequestController().Clear();
-  ReleaseController();
-}
-
 void BookmarkCategory::ClearTracks()
 {
-  for_each(m_tracks.begin(), m_tracks.end(), DeleteFunctor());
-  m_tracks.clear();
+  DeleteRange(m_tracks, DeleteFunctor());
 }
 
 namespace
@@ -735,7 +734,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     }
 
     s << "    <styleUrl>#" << bm->GetType() << "</styleUrl>\n"
-      << "    <Point><coordinates>" << PointToString(bm->GetOrg()) << "</coordinates></Point>\n";
+      << "    <Point><coordinates>" << PointToString(bm->GetPivot()) << "</coordinates></Point>\n";
 
     double const scale = bm->GetScale();
     if (scale != -1.0)

@@ -73,7 +73,7 @@ void CacheUserMarks(UserMarksProvider const * provider,
                     dp::RefPointer<dp::Batcher> batcher,
                     dp::RefPointer<dp::TextureManager> textures)
 {
-  size_t markCount = provider->GetCount();
+  size_t markCount = provider->GetPointCount();
   if (markCount == 0)
     return;
 
@@ -88,14 +88,24 @@ void CacheUserMarks(UserMarksProvider const * provider,
   buffer_vector<gpu::SolidTexturingVertex, 1024> buffer;
   buffer.reserve(vertexCount);
 
-  dp::TextureManager::SymbolRegion region;
+  vector<UserPointMark const *> marks;
   for (size_t i = 0; i < markCount; ++i)
+    marks.push_back(provider->GetUserPointMark(i));
+
+  sort(marks.begin(), marks.end(), [](UserPointMark const * v1, UserPointMark const * v2)
   {
-    textures->GetSymbolRegion(provider->GetSymbolName(i), region);
+    return v1->GetPivot().y < v2->GetPivot().y;
+  });
+
+  dp::TextureManager::SymbolRegion region;
+  for (size_t i = 0; i < marks.size(); ++i)
+  {
+    UserPointMark const * pointMark = marks[i];
+    textures->GetSymbolRegion(pointMark->GetSymbolName(), region);
     m2::RectF const & texRect = region.GetTexRect();
     m2::PointF pxSize = region.GetPixelSize();
-    dp::Anchor anchor = provider->GetAnchor(i);
-    glsl::vec3 pos = glsl::vec3(glsl::ToVec2(provider->GetPivot(i)), provider->GetDepth(i));
+    dp::Anchor anchor = pointMark->GetAnchor();
+    glsl::vec3 pos = glsl::vec3(glsl::ToVec2(pointMark->GetPivot()), pointMark->GetDepth() + 10 * (markCount - i));
 
     glsl::vec2 left, right, up, down;
     AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);

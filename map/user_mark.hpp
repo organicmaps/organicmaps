@@ -2,9 +2,13 @@
 
 #include "search/result.hpp"
 
+#include "drape_frontend/user_marks_provider.hpp"
+
 #include "indexer/feature.hpp"
 
 #include "geometry/point2d.hpp"
+
+#include "base/macros.hpp"
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
@@ -12,15 +16,11 @@
 
 
 class UserMarkContainer;
-class PaintOverlayEvent;
-class UserMarkDLCache;
 class UserMarkCopy;
 
-class UserMark
+class UserMark : public df::UserPointMark
 {
-  UserMark(UserMark const &) = delete;
-  UserMark& operator=(UserMark const &) = delete;
-
+  DISALLOW_COPY_AND_MOVE(UserMark)
 public:
   enum class Type
   {
@@ -32,32 +32,24 @@ public:
     DEBUG_MARK
   };
 
-  UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : m_ptOrg(ptOrg), m_container(container)
-  {
-  }
+  UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
 
   virtual ~UserMark() {}
 
-  UserMarkContainer const * GetContainer() const { return m_container; }
-  m2::PointD const & GetOrg() const { return m_ptOrg; }
-  void GetLatLon(double & lat, double & lon) const
-  {
-    lon = MercatorBounds::XToLon(m_ptOrg.x);
-    lat = MercatorBounds::YToLat(m_ptOrg.y);
-  }
-  virtual bool IsCustomDrawable() const { return false;}
+  ///////////////////////////////////////////////////////
+  /// df::UserPointMark
+  m2::PointD const & GetPivot() const override;
+  dp::Anchor GetAnchor() const override;
+  float GetDepth() const override;
+  ///////////////////////////////////////////////////////
+
+  UserMarkContainer const * GetContainer() const;
+  void GetLatLon(double & lat, double & lon) const;
   virtual Type GetMarkType() const = 0;
   virtual unique_ptr<UserMarkCopy> Copy() const = 0;
   // Need it to calculate POI rank from all taps to features via statistics.
-  typedef map<string, string> TEventContainer;
-  virtual void FillLogEvent(TEventContainer & details) const
-  {
-    double lat, lon;
-    GetLatLon(lat, lon);
-    details["lat"] = strings::to_string(lat);
-    details["lon"] = strings::to_string(lon);
-  }
+  using TEventContainer = map<string, string>;
+  virtual void FillLogEvent(TEventContainer & details) const;
 
 protected:
   m2::PointD m_ptOrg;
@@ -67,23 +59,42 @@ protected:
 class UserMarkCopy
 {
 public:
-  UserMarkCopy(UserMark const * srcMark, bool needDestroy = true)
-    : m_srcMark(srcMark)
-    , m_needDestroy(needDestroy)
-  {
-  }
+  UserMarkCopy(UserMark const * srcMark, bool needDestroy = true);
+  ~UserMarkCopy();
 
-  ~UserMarkCopy()
-  {
-    if (m_needDestroy)
-      delete m_srcMark;
-  }
-
-  UserMark const * GetUserMark() const { return m_srcMark; }
+  UserMark const * GetUserMark() const;
 
 private:
   UserMark const * m_srcMark;
   bool m_needDestroy;
+};
+
+class ApiMarkPoint : public UserMark
+{
+public:
+  ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
+
+  ApiMarkPoint(string const & name,
+           string const & id,
+           m2::PointD const & ptOrg,
+           UserMarkContainer * container);
+
+  string GetSymbolName() const override;
+  UserMark::Type GetMarkType() const override;
+
+  string const & GetName() const;
+  void SetName(string const & name);
+
+  string const & GetID() const;
+  void SetID(string const & id);
+
+  unique_ptr<UserMarkCopy> Copy() const override;
+
+  virtual void FillLogEvent(TEventContainer & details) const override;
+
+private:
+  string m_name;
+  string m_id;
 };
 
 class DebugMarkPoint : public UserMark
@@ -113,39 +124,22 @@ class SearchMarkPoint : public UserMark
 public:
   SearchMarkPoint(search::AddressInfo const & info,
            m2::PointD const & ptOrg,
-           UserMarkContainer * container)
-    : UserMark(ptOrg, container)
-    , m_info(info)
-  {
-  }
+           UserMarkContainer * container);
 
-  SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-    : UserMark(ptOrg, container)
-  {
-  }
+  SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
 
-  UserMark::Type GetMarkType() const override { return UserMark::Type::SEARCH; }
+  string GetSymbolName() const override;
+  UserMark::Type GetMarkType() const override;
 
-  search::AddressInfo const & GetInfo() const { return m_info; }
-  void SetInfo(search::AddressInfo const & info) { m_info = info; }
+  search::AddressInfo const & GetInfo() const;
+  void SetInfo(search::AddressInfo const & info);
 
-  feature::Metadata const & GetMetadata() const { return m_metadata; }
-  void SetMetadata(feature::Metadata && metadata) { m_metadata = move(metadata); }
+  feature::Metadata const & GetMetadata() const;
+  void SetMetadata(feature::Metadata && metadata);
 
-  unique_ptr<UserMarkCopy> Copy() const override
-  {
-    return unique_ptr<UserMarkCopy>(
-        new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container)));
-  }
+  unique_ptr<UserMarkCopy> Copy() const override;
 
-  virtual void FillLogEvent(TEventContainer & details) const override
-  {
-    UserMark::FillLogEvent(details);
-    details["markType"] = "SEARCH";
-    details["name"] = m_info.GetPinName();
-    details["type"] = m_info.GetPinType();
-    details["metaData"] = m_metadata.Empty() ? "0" : "1";
-  }
+  virtual void FillLogEvent(TEventContainer & details) const override;
 
 protected:
   search::AddressInfo m_info;
@@ -155,43 +149,20 @@ protected:
 class PoiMarkPoint : public SearchMarkPoint
 {
 public:
-  PoiMarkPoint(UserMarkContainer * container)
-    : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
+  PoiMarkPoint(UserMarkContainer * container);
+  UserMark::Type GetMarkType() const override;
+  unique_ptr<UserMarkCopy> Copy() const override;
+  virtual void FillLogEvent(TEventContainer & details) const override;
 
-  UserMark::Type GetMarkType() const override { return UserMark::Type::POI; }
-  unique_ptr<UserMarkCopy> Copy() const override
-  {
-    return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
-  }
-  virtual void FillLogEvent(TEventContainer & details) const override
-  {
-    SearchMarkPoint::FillLogEvent(details);
-    details["markType"] = "POI";
-  }
-
-  void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
-  void SetName(string const & name) { m_info.m_name = name; }
+  void SetPtOrg(m2::PointD const & ptOrg);
+  void SetName(string const & name);
 };
 
 class MyPositionMarkPoint : public PoiMarkPoint
 {
 public:
-  MyPositionMarkPoint(UserMarkContainer * container) : PoiMarkPoint(container) {}
+  MyPositionMarkPoint(UserMarkContainer * container);
 
-  UserMark::Type GetMarkType() const override { return UserMark::Type::MY_POSITION; }
-  virtual void FillLogEvent(TEventContainer & details) const override
-  {
-    PoiMarkPoint::FillLogEvent(details);
-    details["markType"] = "MY_POSITION";
-  }
-};
-
-class ICustomDrawable : public UserMark
-{
-public:
-  ICustomDrawable(m2::PointD const & ptOrg, UserMarkContainer * container) : UserMark(ptOrg, container) {}
-  bool IsCustomDrawable() const { return true; }
-  //virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const = 0;
-  virtual double GetAnimScaleFactor() const = 0;
-  virtual m2::PointD const & GetPixelOffset() const = 0;
+  UserMark::Type GetMarkType() const override;
+  virtual void FillLogEvent(TEventContainer & details) const override;
 };

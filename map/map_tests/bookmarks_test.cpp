@@ -135,7 +135,7 @@ char const * kmlString =
     TEST_EQUAL(bm->GetTimeStamp(), 524214643, ());
 
     bm = static_cast<Bookmark const *>(cat.GetUserMark(1));
-    m2::PointD org = bm->GetOrg();
+    m2::PointD org = bm->GetPivot();
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.566765, ());
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.900047, ());
     TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
@@ -144,7 +144,7 @@ char const * kmlString =
     TEST_EQUAL(bm->GetTimeStamp(), 888888888, ());
 
     bm = static_cast<Bookmark const *>(cat.GetUserMark(0));
-    org = bm->GetOrg();
+    org = bm->GetPivot();
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.551532, ());
     TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.89306, ());
     TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
@@ -606,7 +606,7 @@ char const * kmlString3 =
       return false;
     if (b1.GetType() != b2.GetType())
       return false;
-    if (!m2::AlmostEqualULPs(b1.GetOrg(), b2.GetOrg()))
+    if (!m2::AlmostEqualULPs(b1.GetPivot(), b2.GetPivot()))
       return false;
     if (!my::AlmostEqualULPs(b1.GetScale(), b2.GetScale()))
       return false;

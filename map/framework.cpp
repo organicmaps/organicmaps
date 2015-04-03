@@ -1863,8 +1863,8 @@ StringsBundle const & Framework::GetStringsBundle()
 
 string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 {
-  double lat = MercatorBounds::YToLat(bmk->GetOrg().y);
-  double lon = MercatorBounds::XToLon(bmk->GetOrg().x);
+  double lat = MercatorBounds::YToLat(bmk->GetPivot().y);
+  double lon = MercatorBounds::XToLon(bmk->GetPivot().x);
   return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetName() : "");
 }
 

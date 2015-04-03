@@ -16,25 +16,6 @@
 
 namespace
 {
-//  class PinAnimation : public AnimPhaseChain
-//  {
-//  public:
-//    PinAnimation(Framework & f)
-//      : AnimPhaseChain(f, m_scale)
-//      , m_scale(0.0)
-//    {
-//      InitDefaultPinAnim(this);
-//    }
-
-//    double GetScale() const
-//    {
-//      return m_scale;
-//    }
-
-//  private:
-//    double m_scale;
-//  };
-
   class FindMarkFunctor
   {
   public:
@@ -48,7 +29,7 @@ namespace
 
     void operator()(UserMark * mark)
     {
-      m2::PointD const & org = mark->GetOrg();
+      m2::PointD const & org = mark->GetPivot();
       if (m_rect.IsPointInside(org))
       {
         double minDCandidate = m_globalCenter.SquareLength(org);
@@ -109,7 +90,7 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
     FindMarkFunctor f(&mark, d, rect);
     for (size_t i = 0; i < m_userMarks.size(); ++i)
     {
-      if (rect.IsPointInside(m_userMarks[i]->GetOrg()))
+      if (rect.IsPointInside(m_userMarks[i]->GetPivot()))
          f(m_userMarks[i].get());
     }
   }
@@ -174,26 +155,31 @@ void UserMarkContainer::ReleaseController()
   }
 }
 
-size_t UserMarkContainer::GetCount() const
+size_t UserMarkContainer::GetPointCount() const
 {
-  return m_userMarks.size();
+  return GetUserMarkCount();
 }
 
-m2::PointD const & UserMarkContainer::GetPivot(size_t index) const
+df::UserPointMark const * UserMarkContainer::GetUserPointMark(size_t index) const
 {
-  return GetUserMark(index)->GetOrg();
+  return GetUserMark(index);
 }
 
-float UserMarkContainer::GetDepth(size_t index) const
+size_t UserMarkContainer::GetLineCount() const
+{
+  return 0;
+}
+
+df::UserLineMark const * UserMarkContainer::GetUserLineMark(size_t index) const
 {
   UNUSED_VALUE(index);
+  ASSERT(false, ());
+  return nullptr;
+}
+
+float UserMarkContainer::GetPointDepth() const
+{
   return m_layerDepth;
-}
-
-dp::Anchor UserMarkContainer::GetAnchor(size_t index) const
-{
-  UNUSED_VALUE(index);
-  return dp::Center;
 }
 
 bool UserMarkContainer::IsVisible() const
@@ -326,13 +312,6 @@ SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & 
 {
 }
 
-string const & SearchUserMarkContainer::GetSymbolName(size_t index) const
-{
-  UNUSED_VALUE(index);
-  static string s_symbol = "search-result";
-  return s_symbol;
-}
-
 UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 {
   return new SearchMarkPoint(ptOrg, this);
@@ -341,13 +320,6 @@ UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
   : UserMarkContainer(layerDepth, UserMarkType::API_MARK, framework)
 {
-}
-
-string const & ApiUserMarkContainer::GetSymbolName(size_t index) const
-{
-  UNUSED_VALUE(index);
-  static string s_symbol = "api-result";
-  return s_symbol;
 }
 
 UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
