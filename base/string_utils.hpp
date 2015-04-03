@@ -32,13 +32,13 @@ public:
 /// Performs full case folding for string to make it search-compatible according
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/CaseFolding.txt
 /// For implementation @see base/lower_case.cpp
-void MakeLowerCase(UniString & s);
+void MakeLowerCaseInplace(UniString & s);
 UniString MakeLowerCase(UniString const & s);
 
 /// Performs NFKD - Compatibility decomposition for Unicode according
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt
 /// For implementation @see base/normilize_unicode.cpp
-void Normalize(UniString & s);
+void NormalizeInplace(UniString & s);
 UniString Normalize(UniString const & s);
 
 /// Counts number of start symbols in string s (that is not lower and not normalized) that maches
@@ -50,7 +50,7 @@ size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 void AsciiToLower(string & s);
 void Trim(string & s);
 
-void MakeLowerCase(string & s);
+void MakeLowerCaseInplace(string & s);
 string MakeLowerCase(string const & s);
 bool EqualNoCase(string const & s1, string const & s2);
 

@@ -39,7 +39,7 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
       break;
     }
   }
-  MakeLowerCase(uniString);
+  MakeLowerCaseInplace(uniString);
   // Just after lower casing is a correct place to avoid normalization for specific chars.
   static auto const isSpecificChar = [](UniChar c) -> bool
   {
@@ -52,7 +52,7 @@ inline strings::UniString NormalizeAndSimplifyString(string const & s)
     auto j = find_if(i, end, isSpecificChar);
     // We don't check if (j != i) because UniString and Normalize handle it correctly.
     UniString normString(i, j);
-    Normalize(normString);
+    NormalizeInplace(normString);
     result.insert(result.end(), normString.begin(), normString.end());
     if (j == end)
       break;

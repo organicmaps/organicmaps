@@ -174,7 +174,7 @@ static size_t w(UniChar c, UniChar * buf)
   return 0;
 }
 
-void MakeLowerCase(UniString & s)
+void MakeLowerCaseInplace(UniString & s)
 {
   size_t const size = s.size();
 
@@ -211,8 +211,8 @@ size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr)
 
     UniString strCharNorm;
     strCharNorm.push_back(s[sIdx++]);
-    MakeLowerCase(strCharNorm);
-    Normalize(strCharNorm);
+    MakeLowerCaseInplace(strCharNorm);
+    NormalizeInplace(strCharNorm);
 
     for (size_t i = 0; i < strCharNorm.size(); ++i)
     {

@@ -87,15 +87,15 @@ bool to_double(char const * s, double & d)
 UniString MakeLowerCase(UniString const & s)
 {
   UniString result(s);
-  MakeLowerCase(result);
+  MakeLowerCaseInplace(result);
   return result;
 }
 
-void MakeLowerCase(string & s)
+void MakeLowerCaseInplace(string & s)
 {
   UniString uniStr;
   utf8::unchecked::utf8to32(s.begin(), s.end(), back_inserter(uniStr));
-  MakeLowerCase(uniStr);
+  MakeLowerCaseInplace(uniStr);
   s.clear();
   utf8::unchecked::utf32to8(uniStr.begin(), uniStr.end(), back_inserter(s));
 }
@@ -103,14 +103,14 @@ void MakeLowerCase(string & s)
 string MakeLowerCase(string const & s)
 {
   string result(s);
-  MakeLowerCase(result);
+  MakeLowerCaseInplace(result);
   return result;
 }
 
 UniString Normalize(UniString const & s)
 {
   UniString result(s);
-  Normalize(result);
+  NormalizeInplace(result);
   return result;
 }
 

@@ -120,7 +120,7 @@ public:
 ParsedNumber::ParsedNumber(string const & number, bool american)
   : m_fullN(number)
 {
-  strings::MakeLowerCase(m_fullN);
+  strings::MakeLowerCaseInplace(m_fullN);
 
   char * curr;
   m_startN = strtol(number.c_str(), &curr, 10);
