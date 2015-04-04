@@ -17,15 +17,16 @@
 
 if [ $# -lt 1 ]; then
 	echo ''
-	echo "Usage: $0 \<file.o5m\>"
-	echo "To build routing: $0 \<file.o5m\> \<profile.lua\>"
+	echo "Usage: $0 \<file.o5m/bz2\>"
+	echo "To build routing: $0 \<file.o5m/bz2\> \<profile.lua\>"
 	echo ''
 	exit 0
 fi
 SOURCE_FILE="$1"
+SOURCE_TYPE="${1##*.}"
 BASE_NAME="${SOURCE_FILE%%.*}"
 [ ! -d "$TARGET" ] && TARGET="$(dirname "$SOURCE_FILE")"
-[ ! -d "$OMIM_PATH/data" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
+[ ! -d "$OMIM_PATH" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
 DATA_PATH="$OMIM_PATH/data/"
 
 if [ $# -gt 1 ]; then
@@ -51,24 +52,38 @@ if [ -z "$GENERATOR_TOOL" ]; then
 	done
 fi
 
-if [[ ! -x "$GENERATOR_TOOL" ]]; then
+if [ ! -x "$GENERATOR_TOOL" ]; then
 	echo "No generator_tool found in ${IT_PATHS_ARRAY[*]}"
 	exit 1
 fi
-echo TOOL: $GENERATOR_TOOL
+echo "Using tool: $GENERATOR_TOOL"
 
-if [[ "`uname`" == 'Darwin' ]]; then
+if [ "$(uname)" == "Darwin" ]; then
 	INTDIR=$(mktemp -d -t mwmgen)
 else
 	INTDIR=$(mktemp -d)
 fi
 
+fail() {
+	rm -r "$INTDIR"
+	[ -n "$1" ] && echo "$1"
+	exit 3
+}
+
 if [ "$MODE" == "mwm" ]; then
 
-	INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --osm_file_type=o5m --osm_file_name=$SOURCE_FILE --node_storage=map"
-	$GENERATOR_TOOL $INTDIR_FLAG --preprocess=true
-
-	$GENERATOR_TOOL --data_path=$TARGET --user_resource_path=$DATA_PATH $INTDIR_FLAG --generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true --output=$BASE_NAME
+	INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
+	GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
+	if [ "$SOURCE_TYPE" == "o5m" ]; then
+		INTDIR_FLAG="$INTDIR_FLAG --osm_file_type=o5m --osm_file_name=$SOURCE_FILE"
+		$GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
+		$GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
+	elif [ "$SOURCE_TYPE" == "bz2" ]; then
+		bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --preprocess=true || fail "Preprocessing failed"
+		bzcat "$SOURCE_FILE" | $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
+	else
+		fail "Unsupported source type: $SOURCE_TYPE"
+	fi
 
 elif [ "$MODE" == "routing" ]; then
 
@@ -78,7 +93,7 @@ elif [ "$MODE" == "routing" ]; then
 		echo "Please compile OSRM binaries to $OSRM_BUILD_PATH"
 		exit 1
 	fi
-	if [ ! -r "$BASE_NAME.mwm" ]; then
+	if [ ! -r "$TARGET/$BASE_NAME.mwm" ]; then
 		echo "Please build mwm file beforehand"
 		exit 1
 	fi
@@ -110,11 +125,15 @@ elif [ "$MODE" == "routing" ]; then
 		OSMCONVERT="$INTDIR/osmconvert"
 		wget -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
 	fi
-	$OSMCONVERT $SOURCE_FILE -o=$PBF
-	"$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
+	if [ "$SOURCE_TYPE" == "bz2" ]; then
+		bzcat "$SOURCE_FILE" | $OSMCONVERT - -o=$PBF || fail "Converting to PBF failed"
+	else
+		$OSMCONVERT "$SOURCE_FILE" -o=$PBF || fail "Converting to PBF failed"
+	fi
+	"$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF" || fail
 	rm "$PBF"
-	"$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM"
-	"$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM"
+	"$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM" || fail
+	"$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM" || fail
 	# create fake poly file
 	POLY="$TARGET/borders/$BASE_NAME.poly"
 	if [ ! -r "$POLY" ]; then
@@ -136,7 +155,7 @@ EOPOLY
 		fi
 		echo "$BASE_NAME" > "$TARGET/polygons.lst"
 	fi
-	$GENERATOR_TOOL --osrm_file_name=$OSRM --data_path=$TARGET --user_resource_path=$DATA_PATH --output=$BASE_NAME
+	$GENERATOR_TOOL --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
 	if [ -n "$POLY_DIR" ]; then
 		# remove fake poly
 		rm "$POLY"
@@ -151,4 +170,4 @@ EOPOLY
 
 fi
 
-rm -r $INTDIR
+rm -r "$INTDIR"
