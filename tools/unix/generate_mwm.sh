@@ -22,17 +22,20 @@ if [ $# -lt 1 ]; then
   echo ''
   exit 0
 fi
+
+fail() {
+  [ -n "$INTDIR" ] && rm -r "$INTDIR"
+  [ -n "$1" ] && echo "$1" >&2
+  exit 1
+}
+
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
 BASE_NAME="${SOURCE_FILE%%.*}"
 [ -z "$TARGET" ] && TARGET="$(dirname "$SOURCE_FILE")"
+[ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
 [ -z "$OMIM_PATH" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
 DATA_PATH="$OMIM_PATH/data/"
-
-if [ ! -d "$TARGET" ]; then
-	echo "$TARGET should be a writable folder"
-	exit 1
-fi
 
 if [ $# -gt 1 ]; then
   MODE=routing
@@ -57,10 +60,7 @@ if [ -z "$GENERATOR_TOOL" ]; then
   done
 fi
 
-if [ ! -x "$GENERATOR_TOOL" ]; then
-  echo "No generator_tool found in ${IT_PATHS_ARRAY[*]}" >&2
-  exit 1
-fi
+[ ! -x "$GENERATOR_TOOL" ] && fail "No generator_tool found in ${IT_PATHS_ARRAY[*]}"
 echo "Using tool: $GENERATOR_TOOL"
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -68,12 +68,6 @@ if [ "$(uname)" == "Darwin" ]; then
 else
   INTDIR=$(mktemp -d)
 fi
-
-fail() {
-  rm -r "$INTDIR"
-  [ -n "$1" ] && echo "$1" >&2
-  exit 3
-}
 
 if [ "$MODE" == "mwm" ]; then
 
@@ -94,14 +88,8 @@ elif [ "$MODE" == "routing" ]; then
 
   [ -z "$OSRM_PATH" ] && OSRM_PATH="$OMIM_PATH/3party/osrm/osrm-backend"
   [ -z "$OSRM_BUILD_PATH" ] && OSRM_BUILD_PATH="$OSRM_PATH/build"
-  if [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ]; then
-    echo "Please compile OSRM binaries to $OSRM_BUILD_PATH" >&2
-    exit 1
-  fi
-  if [ ! -r "$TARGET/$BASE_NAME.mwm" ]; then
-    echo "Please build mwm file beforehand" >&2
-    exit 1
-  fi
+  [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
+  [ ! -r "$TARGET/$BASE_NAME.mwm" ] && fail "Please build mwm file beforehand"
 
   [ -z "$OSRM_THREADS" ] && OSRM_THREADS=15
   [ -z "$OSRM_MEMORY" ] && OSRM_MEMORY=50
@@ -113,13 +101,10 @@ elif [ "$MODE" == "routing" ]; then
   if [ -r "$2" ]; then
     PROFILE="$2"
   else
-    echo "$2 is not a profile, using standard car.lua"
+    echo "$2 is not a profile, using standard car.lua" >&2
     PROFILE="$OSRM_PATH/profiles/car.lua"
   fi
-  if [ ! -r "$PROFILE" ]; then
-    echo "Lua profile $PROFILE is not found" >&2
-    exit 1
-  fi
+  [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
 
   PBF="$INTDIR/$BASENAME.pbf"
   OSRM="$INTDIR/$BASENAME.osrm"
