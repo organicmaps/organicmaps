@@ -36,6 +36,7 @@ BASE_NAME="${SOURCE_FILE%%.*}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
 [ -z "$OMIM_PATH" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
 DATA_PATH="$OMIM_PATH/data/"
+[ ! -r "${DATA_PATH}types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 
 if [ $# -gt 1 ]; then
   MODE=routing
@@ -70,7 +71,7 @@ else
 fi
 
 if [ "$MODE" == "mwm" ]; then
-
+  # Create MWM file
   INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
   GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
   if [ "$SOURCE_TYPE" == "o5m" ]; then
@@ -85,7 +86,7 @@ if [ "$MODE" == "mwm" ]; then
   fi
 
 elif [ "$MODE" == "routing" ]; then
-
+  # Create .mwm.routing file
   [ -z "$OSRM_PATH" ] && OSRM_PATH="$OMIM_PATH/3party/osrm/osrm-backend"
   [ -z "$OSRM_BUILD_PATH" ] && OSRM_BUILD_PATH="$OSRM_PATH/build"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
@@ -129,7 +130,7 @@ elif [ "$MODE" == "routing" ]; then
   if [ ! -r "$POLY" ]; then
     POLY_DIR="$(dirname "$POLY")"
     mkdir -p "$POLY_DIR"
-    cat > "$POLY" <<'EOPOLY'
+    cat > "$POLY" <<EOPOLY
 fake
 1
 	-180.0	-90.0
@@ -157,7 +158,6 @@ EOPOLY
       rm -r "$POLY_DIR"
     fi
   fi
-
 fi
 
 rm -r "$INTDIR"
