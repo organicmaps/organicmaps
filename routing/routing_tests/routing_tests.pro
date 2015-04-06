@@ -1,4 +1,4 @@
-# Routing lib unit tests
+ # Routing lib unit tests
 
 TARGET = routing_tests
 CONFIG += console warn_on
@@ -19,7 +19,13 @@ win32* : LIBS *= -lShell32
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  osrm_router_test.cpp \
-  vehicle_model_test.cpp \
   cross_routing_tests.cpp \
+  dijkstra_router_test.cpp \
+  features_road_graph_test.cpp \
+  osrm_router_test.cpp \
+  road_graph_builder.cpp \
+  vehicle_model_test.cpp \
 
+HEADERS += \
+  features_road_graph_test.hpp \
+  road_graph_builder.hpp \
