@@ -28,6 +28,7 @@ fail() {
   [ -n "$1" ] && echo "$1" >&2
   exit 1
 }
+trap fail SIGINT SIGTERM
 
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
