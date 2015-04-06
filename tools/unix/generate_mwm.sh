@@ -15,6 +15,8 @@
 # Cross-borders routing index is not created, since we don't assume
 # the source file to be one of the pre-defined countries.
 
+set -u
+
 if [ $# -lt 1 ]; then
   echo ''
   echo "Usage: $0 \<file.o5m/bz2\>"
@@ -24,7 +26,7 @@ if [ $# -lt 1 ]; then
 fi
 
 fail() {
-  [ -n "$INTDIR" ] && rm -r "$INTDIR"
+  [ -n "${INTDIR-}" ] && rm -r "$INTDIR"
   [ $# -gt 0 ] && echo "$@" >&2
   exit 1
 }
@@ -33,9 +35,9 @@ trap fail SIGINT SIGTERM
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
 BASE_NAME="${SOURCE_FILE%%.*}"
-[ -z "$TARGET" ] && TARGET="$(dirname "$SOURCE_FILE")"
+TARGET="${TARGET:-$(dirname "$SOURCE_FILE")}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
-[ -z "$OMIM_PATH" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
+OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="$OMIM_PATH/data/"
 [ ! -r "${DATA_PATH}types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
 
@@ -45,16 +47,16 @@ else
   MODE=mwm
 fi
 
-if [ -z "$GENERATOR_TOOL" ]; then
+if [ -z "${GENERATOR_TOOL-}" ]; then
   # find generator_tool. Supply your own priority dir if needed
   IT_PATHS_ARRAY=()
-  for i in $BUILD_PATH $OMIM_PATH $OMIM_PATH/../*omim*elease* $OMIM_PATH/../*omim*ebug; do
+  for i in ${BUILD_PATH-} $OMIM_PATH $OMIM_PATH/../*omim*elease* $OMIM_PATH/../*omim*ebug; do
     if [ -d "$i/out" ]; then
       IT_PATHS_ARRAY+=("$i/out/release/generator_tool" "$i/out/debug/generator_tool")
     fi
   done
 
-  for i in "$BUILD_PATH/generator_tool" ${IT_PATHS_ARRAY[@]}; do
+  for i in "${BUILD_PATH:+$BUILD_PATH/generator_tool}" ${IT_PATHS_ARRAY[@]}; do
     if [ -x "$i" ]; then
       GENERATOR_TOOL="$i"
       break
@@ -62,7 +64,7 @@ if [ -z "$GENERATOR_TOOL" ]; then
   done
 fi
 
-[ ! -x "$GENERATOR_TOOL" ] && fail "No generator_tool found in ${IT_PATHS_ARRAY[*]}"
+[ -z ${GENERATOR_TOOL-} -o ! -x "${GENERATOR_TOOL-}" ] && fail "No generator_tool found in ${IT_PATHS_ARRAY[*]}"
 echo "Using tool: $GENERATOR_TOOL"
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -88,13 +90,13 @@ if [ "$MODE" == "mwm" ]; then
 
 elif [ "$MODE" == "routing" ]; then
   # Create .mwm.routing file
-  [ -z "$OSRM_PATH" ] && OSRM_PATH="$OMIM_PATH/3party/osrm/osrm-backend"
-  [ -z "$OSRM_BUILD_PATH" ] && OSRM_BUILD_PATH="$OSRM_PATH/build"
+  OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
+  OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
   [ ! -r "$TARGET/$BASE_NAME.mwm" ] && fail "Please build mwm file beforehand"
 
-  [ -z "$OSRM_THREADS" ] && OSRM_THREADS=15
-  [ -z "$OSRM_MEMORY" ] && OSRM_MEMORY=50
+  OSRM_THREADS=${OSRM_THREADS:-15}
+  OSRM_MEMORY=${OSRM_MEMORY:-50}
   EXTRACT_CFG="$INTDIR/extractor.ini"
   PREPARE_CFG="$INTDIR/contractor.ini"
   echo "threads = $OSRM_THREADS" > "$EXTRACT_CFG"
@@ -108,19 +110,19 @@ elif [ "$MODE" == "routing" ]; then
   fi
   [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
 
-  PBF="$INTDIR/$BASENAME.pbf"
-  OSRM="$INTDIR/$BASENAME.osrm"
+  PBF="$INTDIR/tmp.pbf"
+  OSRM="$INTDIR/tmp.osrm"
   export STXXLCFG=~/.stxxl
   # just a guess
-  OSMCONVERT=~/osmctools/osmconvert
-  if [ ! -x $OSMCONVERT ]; then
+  OSMCONVERT="${OSMCONVERT:-~/osmctools/osmconvert}"
+  if [ ! -x "$OSMCONVERT" ]; then
     OSMCONVERT="$INTDIR/osmconvert"
     wget -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
   fi
   if [ "$SOURCE_TYPE" == "bz2" ]; then
     bzcat "$SOURCE_FILE" | $OSMCONVERT - -o=$PBF || fail "Converting to PBF failed"
   else
-    $OSMCONVERT "$SOURCE_FILE" -o=$PBF || fail "Converting to PBF failed"
+    "$OSMCONVERT" "$SOURCE_FILE" -o=$PBF || fail "Converting to PBF failed"
   fi
   "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF" || fail
   rm "$PBF"
@@ -148,7 +150,7 @@ EOPOLY
     echo "$BASE_NAME" > "$TARGET/polygons.lst"
   fi
   $GENERATOR_TOOL --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
-  if [ -n "$POLY_DIR" ]; then
+  if [ -n "${POLY_DIR-}" ]; then
     # remove fake poly
     rm "$POLY"
     rm "$TARGET/polygons.lst"
