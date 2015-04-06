@@ -25,9 +25,14 @@ fi
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
 BASE_NAME="${SOURCE_FILE%%.*}"
-[ ! -d "$TARGET" ] && TARGET="$(dirname "$SOURCE_FILE")"
-[ ! -d "$OMIM_PATH" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
+[ -z "$TARGET" ] && TARGET="$(dirname "$SOURCE_FILE")"
+[ -z "$OMIM_PATH" ] && OMIM_PATH="$(cd "$(dirname "$0")/../.."; pwd)"
 DATA_PATH="$OMIM_PATH/data/"
+
+if [ ! -d "$TARGET" ]; then
+	echo "$TARGET should be a writable folder"
+	exit 1
+fi
 
 if [ $# -gt 1 ]; then
   MODE=routing
@@ -87,8 +92,8 @@ if [ "$MODE" == "mwm" ]; then
 
 elif [ "$MODE" == "routing" ]; then
 
-  [ ! -d "$OSRM_PATH" ] && OSRM_PATH="$OMIM_PATH/3party/osrm/osrm-backend"
-  [ ! -d "$OSRM_BUILD_PATH" ] && OSRM_BUILD_PATH="$OSRM_PATH/build"
+  [ -z "$OSRM_PATH" ] && OSRM_PATH="$OMIM_PATH/3party/osrm/osrm-backend"
+  [ -z "$OSRM_BUILD_PATH" ] && OSRM_BUILD_PATH="$OSRM_PATH/build"
   if [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ]; then
     echo "Please compile OSRM binaries to $OSRM_BUILD_PATH" >&2
     exit 1
