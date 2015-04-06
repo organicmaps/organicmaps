@@ -62,10 +62,7 @@ void WriteVersion(Writer & w)
   WriteVarUint(w, generatorStartTime);
 }
 
-void ReadVersion(ReaderSrc & src, MwmVersion & version)
-{
-  ReadVersionT(src, version);
-}
+void ReadVersion(ReaderSrc & src, MwmVersion & version) { ReadVersionT(src, version); }
 
 bool ReadVersion(FilesContainerR const & container, MwmVersion & version)
 {

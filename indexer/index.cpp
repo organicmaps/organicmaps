@@ -131,15 +131,9 @@ bool Index::DeleteMap(string const & fileName)
   return true;
 }
 
-bool Index::AddObserver(Observer & observer)
-{
-  return m_observers.Add(observer);
-}
+bool Index::AddObserver(Observer & observer) { return m_observers.Add(observer); }
 
-bool Index::RemoveObserver(Observer const & observer)
-{
-  return m_observers.Remove(observer);
-}
+bool Index::RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
 pair<MwmSet::MwmLock, Index::UpdateStatus> Index::UpdateMap(string const & fileName)
 {
@@ -160,7 +154,8 @@ pair<MwmSet::MwmLock, Index::UpdateStatus> Index::UpdateMap(string const & fileN
     {
       ReplaceFileWithReady(fileName);
       pair<MwmSet::MwmLock, bool> registerResult = RegisterImpl(fileName);
-      if (registerResult.second) {
+      if (registerResult.second)
+      {
         result.first = move(registerResult.first);
         result.second = UPDATE_STATUS_OK;
       }

@@ -111,7 +111,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
   // Checks that map can't registered twice and observers aren't
   // triggered.
   {
-    pair<MwmSet::MwmLock, bool> const p  = index.RegisterMap(testMapName);
+    pair<MwmSet::MwmLock, bool> const p = index.RegisterMap(testMapName);
     TEST(p.first.IsLocked(), ());
     TEST(!p.second, ());
     TEST_EQUAL(1, observer.map_registered_calls(), ());

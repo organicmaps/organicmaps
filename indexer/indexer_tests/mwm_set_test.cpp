@@ -20,10 +20,7 @@ namespace
       return true;
     }
 
-    MwmValue * CreateValue(string const &) const override
-    {
-      return new MwmValue();
-    }
+    MwmValue * CreateValue(string const &) const override { return new MwmValue(); }
 
   public:
     ~TestMwmSet()

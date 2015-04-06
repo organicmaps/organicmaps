@@ -384,7 +384,8 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 
     // Add downloaded map.
     pair<MwmSet::MwmLock, Index::UpdateStatus> const p = m_model.UpdateMap(fileName);
-    if (p.second == Index::UPDATE_STATUS_OK) {
+    if (p.second == Index::UPDATE_STATUS_OK)
+    {
       MwmSet::MwmLock const & lock = p.first;
       ASSERT(lock.IsLocked(), ());
       InvalidateRect(lock.GetInfo().m_limitRect, true);

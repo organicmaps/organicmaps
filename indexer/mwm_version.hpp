@@ -17,7 +17,8 @@ enum Format
   lastFormat = v3
 };
 
-struct MwmVersion {
+struct MwmVersion
+{
   MwmVersion();
 
   Format format;

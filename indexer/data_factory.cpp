@@ -10,8 +10,8 @@
 #include "../coding/file_reader.hpp"
 #include "../coding/file_container.hpp"
 
-namespace {
-
+namespace
+{
 using FHeaderT = feature::DataHeader;
 
 }  // namespace

@@ -60,7 +60,8 @@ string FormatCurrentTime()
   return s;
 }
 
-uint32_t GenerateTimestamp(int year, int month, int day) {
+uint32_t GenerateTimestamp(int year, int month, int day)
+{
   return (year - 100) * 10000 + (month + 1) * 100 + day;
 }
 

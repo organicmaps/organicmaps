@@ -282,25 +282,25 @@ public:
     bool IsWorld() const;
     void GetFeature(uint32_t offset, FeatureType & ft);
 
-   private:
+  private:
     MwmLock m_lock;
     FeaturesVector m_vector;
   };
 
   MwmId GetMwmIdByName(string const & name) const
   {
-      // const_cast<> is used here and in some other methods not only
-      // to lock/unlock mutex, which can be circumvented by marking
-      // the mutex as mutable, but also to call MwmSet::GetIdByName()
-      // method which is non-constant by design, because it updates
-      // MWM info for all registered MWMs.
-      //
-      // TODO (y@): probably a better design is possible, investigate it.
-      Index * p = const_cast<Index *>(this);
-      lock_guard<mutex> lock(p->m_lock);
+    // const_cast<> is used here and in some other methods not only
+    // to lock/unlock mutex, which can be circumvented by marking
+    // the mutex as mutable, but also to call MwmSet::GetIdByName()
+    // method which is non-constant by design, because it updates
+    // MWM info for all registered MWMs.
+    //
+    // TODO (y@): probably a better design is possible, investigate it.
+    Index * p = const_cast<Index *>(this);
+    lock_guard<mutex> lock(p->m_lock);
 
-      ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identifier"));
-      return p->GetIdByName(name);
+    ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identifier"));
+    return p->GetIdByName(name);
   }
 
   template <typename F>

@@ -33,11 +33,11 @@ public:
 
   MwmInfo();
 
-  m2::RectD m_limitRect;                   ///< Limit rect of mwm.
-  uint8_t m_minScale;                      ///< Min zoom level of mwm.
-  uint8_t m_maxScale;                      ///< Max zoom level of mwm.
-  uint8_t m_lockCount;                     ///< Number of locks.
-  version::MwmVersion m_version;           ///< Mwm file version.
+  m2::RectD m_limitRect;          ///< Limit rect of mwm.
+  uint8_t m_minScale;             ///< Min zoom level of mwm.
+  uint8_t m_maxScale;             ///< Max zoom level of mwm.
+  uint8_t m_lockCount;            ///< Number of locks.
+  version::MwmVersion m_version;  ///< Mwm file version.
 
   inline bool IsRegistered() const
   {
