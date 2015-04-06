@@ -7,6 +7,8 @@
 #include "../features_road_graph.hpp"
 #include "../route.hpp"
 
+#include "../../indexer/classificator_loader.hpp"
+
 #include "../../base/logging.hpp"
 #include "../../base/macros.hpp"
 
@@ -25,7 +27,9 @@ void TestDijkstraRouterMock(RoadPos (&finalPos)[finalPosSize],
   InitRoadGraphMockSourceWithTest2(*graph);
 
   DijkstraRouter router;
+
   router.SetRoadGraph(graph);
+
   router.SetFinalRoadPos(vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)));
   vector<RoadPos> result;
   router.CalculateRoute(vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)), result);
@@ -67,6 +71,8 @@ void TestDijkstraRouterMWM(RoadPos (&finalPos)[finalPosSize],
 
 UNIT_TEST(Dijkstra_Router_City_Simple)
 {
+  classificator::Load();
+
   // Uncomment to see debug log.
   //my::g_LogLevel = LDEBUG;
 
@@ -90,6 +96,8 @@ UNIT_TEST(Dijkstra_Router_City_Simple)
 
 UNIT_TEST(Dijkstra_Router_City_ReallyFunnyLoop)
 {
+  classificator::Load();
+
   // Uncomment to see debug log.
   //my::g_LogLevel = LDEBUG;
 

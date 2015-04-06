@@ -19,6 +19,7 @@ win32* : LIBS *= -lShell32
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  astar_router_test.cpp \
   cross_routing_tests.cpp \
   dijkstra_router_test.cpp \
   features_road_graph_test.cpp \

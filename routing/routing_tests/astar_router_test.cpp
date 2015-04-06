@@ -7,6 +7,8 @@
 #include "../features_road_graph.hpp"
 #include "../route.hpp"
 
+#include "../../indexer/classificator_loader.hpp"
+
 #include "../../base/logging.hpp"
 #include "../../base/macros.hpp"
 
@@ -67,6 +69,8 @@ void TestAStarRouterMWM(RoadPos (&finalPos)[finalPosSize],
 
 UNIT_TEST(AStar_Router_City_Simple)
 {
+  classificator::Load();
+
   // Uncomment to see debug log.
   //my::g_LogLevel = LDEBUG;
 
@@ -90,6 +94,8 @@ UNIT_TEST(AStar_Router_City_Simple)
 
 UNIT_TEST(AStar_Router_City_ReallyFunnyLoop)
 {
+  classificator::Load();
+
   // Uncomment to see debug log.
   //my::g_LogLevel = LDEBUG;
 
