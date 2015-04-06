@@ -143,7 +143,7 @@ void RoadGraphRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallbac
 
   Route route(GetName());
   m_pRoadGraph->ReconstructPath(routePos, route);
-  callback(route, InternalError);
+  callback(route, NoError);
 }
 
 } // namespace routing
