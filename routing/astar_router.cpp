@@ -13,6 +13,8 @@ static double const MAX_SPEED = 36.11111111111; // m/s
 void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 {
   ASSERT_GREATER(finalPos.size(), 0, ());
+  m_entries.clear();
+  PossiblePathQueueT().swap(m_queue);
   for (size_t i = 0; i < finalPos.size(); ++i)
   {
     pair<ShortPathSetT::iterator, bool> t = m_entries.insert(ShortestPath(finalPos[i]));
