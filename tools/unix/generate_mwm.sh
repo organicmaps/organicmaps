@@ -25,7 +25,7 @@ fi
 
 fail() {
   [ -n "$INTDIR" ] && rm -r "$INTDIR"
-  [ -n "$1" ] && echo "$1" >&2
+  [ $# -gt 0 ] && echo "$@" >&2
   exit 1
 }
 trap fail SIGINT SIGTERM
@@ -156,7 +156,7 @@ EOPOLY
       mv "$POLY_DIR/polygons.lst" "$TARGET"
     fi
     if [ -z "$(ls -A "$POLY_DIR")" ]; then
-      rm -r "$POLY_DIR"
+      rmdir "$POLY_DIR"
     fi
   fi
 fi
