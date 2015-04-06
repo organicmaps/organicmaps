@@ -8,6 +8,7 @@
 #include "../indexer/scales.hpp"
 #include "../indexer/classificator_loader.hpp"
 
+#include "../base/assert.hpp"
 #include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
@@ -44,8 +45,7 @@ pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(string const & file)
       return p;
     }
     MwmSet::MwmLock & lock = p.first;
-    if (!lock.IsLocked())
-      return p;
+    ASSERT(lock.IsLocked(), ("Mwm lock invariant violation."));
     m_rect.Add(lock.GetInfo().m_limitRect);
     return p;
   }
