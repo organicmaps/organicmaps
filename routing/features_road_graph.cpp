@@ -292,7 +292,17 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
       ft1.SwapGeometry(ft2);
   }
 
-  route.SetGeometry(poly.rbegin(), poly.rend());
+
+  if (poly.size() > 1)
+  {
+    Route::TurnsT turnsDir;
+    Route::TimesT times;
+    times.push_back(Route::TimeItemT(poly.size() - 1, 100500)); //TODO make proper time and turns calculation
+    turnsDir.push_back(Route::TurnItem(poly.size() - 1, turns::ReachedYourDestination));
+    route.SetGeometry(poly.rbegin(), poly.rend());
+    route.SetTurnInstructions(turnsDir);
+    route.SetSectionTimes(times);
+  }
 }
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
