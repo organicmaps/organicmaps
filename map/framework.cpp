@@ -16,6 +16,7 @@
 
 #include "routing/route.hpp"
 #include "routing/osrm_router.hpp"
+#include "routing/astar_router.hpp"
 
 #include "search/search_engine.hpp"
 #include "search/result.hpp"
@@ -275,10 +276,11 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
-  m_routingSession.SetRouter(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
+  m_routingSession.SetRouter(new AStarRouter(&m_model.GetIndex()));
+  /*m_routingSession.SetRouter(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
   {
     return GetSearchEngine()->GetCountryFile(pt);
-  }));
+  }));*/
   LOG(LDEBUG, ("Routing engine initialized"));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));

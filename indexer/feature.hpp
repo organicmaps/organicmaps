@@ -305,6 +305,12 @@ public:
 
   void SwapGeometry(FeatureType & r);
 
+  inline void SwapPoints(buffer_vector<m2::PointD, 32> & points) const
+  {
+    ASSERT(m_bPointsParsed, ());
+    return m_points.swap(points);
+  }
+
 private:
   void ParseAll(int scale) const;
 

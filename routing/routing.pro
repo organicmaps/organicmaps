@@ -20,6 +20,11 @@ SOURCES += \
     routing_mapping.cpp \
     turns.cpp \
     vehicle_model.cpp \
+    astar_router.cpp \
+    dijkstra_router.cpp \
+    features_road_graph.cpp \
+    road_graph_router.cpp \
+    road_graph.cpp
 
 HEADERS += \
     cross_routing_context.hpp \
@@ -32,3 +37,8 @@ HEADERS += \
     routing_mapping.h \
     turns.hpp \
     vehicle_model.hpp \
+    astar_router.hpp \
+    dijkstra_router.hpp \
+    features_road_graph.hpp \
+    road_graph_router.hpp \
+    road_graph.hpp
