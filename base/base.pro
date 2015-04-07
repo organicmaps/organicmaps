@@ -47,8 +47,6 @@ HEADERS += \
     const_helper.hpp \
     exception.hpp \
     fence_manager.hpp \
-    internal/fast_mutex.hpp \
-    internal/fast_mutex.hpp \
     internal/message.hpp \
     limited_priority_queue.hpp \
     logging.hpp \
