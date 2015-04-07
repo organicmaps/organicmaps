@@ -82,7 +82,7 @@ void FeatureRoadGraphTester::FeatureID2Name(routing::RoadPos & pos)
   int id = 0;
   VERIFY(strings::to_int(name, id), (name));
 
-  pos = RoadPos(static_cast<uint32_t>(id), pos.IsForward(), pos.GetPointId());
+  pos = RoadPos(static_cast<uint32_t>(id), pos.IsForward(), pos.GetSegmentId());
 }
 
 void FeatureRoadGraphTester::FeatureID2Name(IRoadGraph::TurnsVectorT & vec)
@@ -100,15 +100,15 @@ void FeatureRoadGraphTester::FeatureID2Name(vector<routing::RoadPos> & vec)
 void FeatureRoadGraphTester::Name2FeatureID(vector<routing::RoadPos> & vec)
 {
   for (size_t i = 0; i < vec.size(); ++i)
-    vec[i] = RoadPos(m_mapping.GetId(strings::to_string(vec[i].GetFeatureId())),
-                     vec[i].IsForward(),
-                     vec[i].GetPointId());
+    vec[i] = RoadPos(m_mapping.GetId(strings::to_string(vec[i].GetFeatureId())), vec[i].IsForward(),
+                     vec[i].GetSegmentId());
 }
 
 void FeatureRoadGraphTester::GetPossibleTurns(RoadPos const & pos, IRoadGraph::TurnsVectorT & vec, bool noOptimize/* = true*/)
 {
   m_graph->GetPossibleTurns(RoadPos(m_mapping.GetId(strings::to_string(pos.GetFeatureId())),
-                                    pos.IsForward(), pos.GetPointId()), vec, noOptimize);
+                                    pos.IsForward(), pos.GetSegmentId()),
+                            vec, noOptimize);
   FeatureID2Name(vec);
 }
 

@@ -4,17 +4,22 @@
 
 namespace routing_test
 {
+/// This struct represents road as a broken line.
 struct RoadInfo
 {
+  /// Points of a broken line representing the road.
   vector<m2::PointD> m_points;
-  double m_speedMS;
-  bool m_bothSides;
 
-  RoadInfo() : m_speedMS(0.0), m_bothSides(false) {}
+  /// Speed on the road.
+  double m_speedMS;
+
+  /// True when it's possible to move in both directions on the orad.
+  bool m_bidirectional;
+
+  RoadInfo() : m_speedMS(0.0), m_bidirectional(false) {}
+
   void Swap(RoadInfo & r);
 };
-
-inline void swap(RoadInfo & r1, RoadInfo & r2) { r1.Swap(r2); }
 
 class RoadGraphMockSource : public routing::IRoadGraph
 {

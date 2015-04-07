@@ -84,8 +84,8 @@ double AStarRouter::HeuristicCostEstimate(AStarRouter::ShortestPath const * s1, 
   /// @todo support of more than one goals
   ASSERT_GREATER(goals.size(), 0, ());
 
-  m2::PointD const & b = (*goals.begin()).GetEndCoordinates();
-  m2::PointD const & e = s1->GetPos().GetEndCoordinates();
+  m2::PointD const & b = (*goals.begin()).GetSegEndpoint();
+  m2::PointD const & e = s1->GetPos().GetSegEndpoint();
 
   return ms::DistanceOnEarth(MercatorBounds::YToLat(b.y),
                              MercatorBounds::XToLon(b.x),
@@ -95,9 +95,8 @@ double AStarRouter::HeuristicCostEstimate(AStarRouter::ShortestPath const * s1, 
 
 double AStarRouter::DistanceBetween(ShortestPath const * p1, ShortestPath const * p2)
 {
-
-  m2::PointD const & b = p1->GetPos().GetEndCoordinates();
-  m2::PointD const & e = p2->GetPos().GetEndCoordinates();
+  m2::PointD const & b = p1->GetPos().GetSegEndpoint();
+  m2::PointD const & e = p2->GetPos().GetSegEndpoint();
   return ms::DistanceOnEarth(MercatorBounds::YToLat(b.y),
                              MercatorBounds::XToLon(b.x),
                              MercatorBounds::YToLat(e.y),

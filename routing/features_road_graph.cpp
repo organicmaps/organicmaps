@@ -141,7 +141,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
   bool const isForward = pos.IsForward();
   int const inc = isForward ? -1 : 1;
 
-  int startID = pos.GetPointId();
+  int startID = pos.GetSegmentId();
   ASSERT_GREATER(count, 1, ());
   ASSERT_LESS(startID, count, ());
   if (!isForward)
@@ -216,7 +216,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
     if (isForward)
     {
       double distance = 0;
-      for (int i = pos.GetPointId(); i > 0; --i)
+      for (int i = pos.GetSegmentId(); i > 0; --i)
         distance += CalcDistanceMeters(fc.m_points[i], fc.m_points[i - 1]);
 
       thisTurn.m_pos = RoadPos(ftID, true, count - 2, fc.m_points[count - 1]);
@@ -227,7 +227,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
     else if (!fc.m_isOneway)
     {
       double distance = 0;
-      for (size_t i = pos.GetPointId(); i < count - 1; ++i)
+      for (size_t i = pos.GetSegmentId(); i < count - 1; ++i)
         distance += CalcDistanceMeters(fc.m_points[i], fc.m_points[i + 1]);
 
       thisTurn.m_pos = RoadPos(ftID, false, 0, fc.m_points[0]);
@@ -267,14 +267,14 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     if (diffIDs)
     {
       LoadFeature(pos2.GetFeatureId(), ft2);
-      lastPt = ft2.GetPoint(pos2.GetPointId() + (pos2.IsForward() ? 1 : 0));
+      lastPt = ft2.GetPoint(pos2.GetSegEndPointId());
     }
     else
-      lastPt = ft1.GetPoint(pos2.GetPointId() + (pos1.IsForward() ? 1 : 0));
+      lastPt = ft1.GetPoint(pos2.GetSegEndPointId());
 
     // Accumulate points from start point id to pt.
     int const inc = pos1.IsForward() ? -1 : 1;
-    int ptID = pos1.GetPointId() + (pos1.IsForward() ? 0 : 1);
+    int ptID = pos1.GetSegStartPointId();
     m2::PointD pt;
     do
     {
