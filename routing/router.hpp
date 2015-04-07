@@ -38,11 +38,8 @@ public:
   virtual void ClearState() {}
   virtual void ActivateAdditionalFeatures() {}
 
-  virtual void CalculateRoute(
-      m2::PointD const & startingPt,
-      m2::PointD const & direction,
-      m2::PointD const & finalPt,
-      ReadyCallback const & callback) = 0;
+  virtual void CalculateRoute(m2::PointD const & startingPt, m2::PointD const & direction,
+                              m2::PointD const & finalPt, ReadyCallback const & callback) = 0;
 };
 
 }

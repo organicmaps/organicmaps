@@ -22,14 +22,13 @@ public:
   RoadGraphRouter(Index const * pIndex);
   ~RoadGraphRouter();
 
-  virtual void CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos, vector<RoadPos> & route) = 0;
+  virtual void CalculateRouteOnMwm(vector<RoadPos> const & startPos,
+                                   vector<RoadPos> const & finalPos, vector<RoadPos> & route) = 0;
   virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
 
-  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPt,
-                                        m2::PointD const & startDr,
+  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr,
                                         m2::PointD const & finalPt,
-                                        CancelFlagT const & requestCancel,
-                                        Route & route);
+                                        CancelFlagT const & requestCancel, Route & route);
 
 protected:
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);

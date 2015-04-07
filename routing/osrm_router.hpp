@@ -144,10 +144,10 @@ public:
   void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 
 protected:
-  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
-                                       FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping,
+  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point,
+                                       m2::PointD const & direction, FeatureGraphNodeVecT & res,
+                                       size_t maxCount, RoutingMappingPtrT const & mapping,
                                        CancelFlagT const & requestCancel);
-
 
   size_t FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingMappingPtrT const & targetMapping);
 
@@ -162,11 +162,15 @@ protected:
    * \param turnsGeom output turns geometry
    * \return OSRM routing errors if any
    */
-  ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping, vector<m2::PointD> & points,
-                                CancelFlagT const & requestCancel, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
+  ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult,
+                                RoutingMappingPtrT const & mapping, vector<m2::PointD> & points,
+                                CancelFlagT const & requestCancel, Route::TurnsT & turnsDir,
+                                Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
 
   void CalculateRouteAsync(ReadyCallback const & callback);
-  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt,CancelFlagT const & requestCancel, Route & route) override;
+  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr,
+                                m2::PointD const & finalPt, CancelFlagT const & requestCancel,
+                                Route & route) override;
 
 private:
   typedef pair<size_t,string> MwmOutT;
@@ -204,7 +208,8 @@ private:
    * \param route class to render final route
    * \return NoError or error code
    */
-  ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, CancelFlagT const & requestCancel, Route & route);
+  ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, CancelFlagT const & requestCancel,
+                                      Route & route);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,

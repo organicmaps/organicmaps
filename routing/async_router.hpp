@@ -8,7 +8,6 @@
 
 namespace routing
 {
-
 class AsyncRouter : public IRouter
 {
 public:
@@ -24,11 +23,8 @@ public:
   /// @param direction start direction for routers with high cost of the turnarounds
   /// @param finalPt target point for route
   /// @param callback function to return routing result
-  void CalculateRoute(
-      m2::PointD const & startPt,
-      m2::PointD const & direction,
-      m2::PointD const & finalPt,
-      ReadyCallback const & callback) override;
+  void CalculateRoute(m2::PointD const & startPt, m2::PointD const & direction,
+                      m2::PointD const & finalPt, ReadyCallback const & callback) override;
 
   /// Interrupt routing and clear buffers
   virtual void ClearState();
@@ -42,11 +38,9 @@ public:
   /// @param finalPt target point for route
   /// @param requestCancel interruption flag. You must stop processing when it is true.
   /// @param callback function to return routing result
-  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPt,
-                                        m2::PointD const & startDr,
+  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr,
                                         m2::PointD const & finalPt,
-                                        CancelFlagT const & requestCancel,
-                                        Route & route) = 0;
+                                        CancelFlagT const & requestCancel, Route & route) = 0;
 
 private:
   void CalculateRouteAsync(ReadyCallback const & callback);
@@ -58,5 +52,4 @@ private:
 
   m2::PointD m_startPt, m_finalPt, m_startDr;
 };
-
 }

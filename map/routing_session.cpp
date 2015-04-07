@@ -16,12 +16,11 @@ namespace routing
 
 static int const ON_ROUTE_MISSED_COUNT = 5;
 
-
 RoutingSession::RoutingSession()
-  : m_router(nullptr)
-  , m_route(string())
-  , m_state(RoutingNotActive)
-  , m_endPoint(m2::PointD::Zero())
+    : m_router(nullptr),
+      m_route(string()),
+      m_state(RoutingNotActive),
+      m_endPoint(m2::PointD::Zero())
 {
 }
 
@@ -43,7 +42,8 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
 
   // Use old-style callback constraction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint, DoReadyCallback(*this, callback, m_routeSessionMutex));
+  m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
+                           DoReadyCallback(*this, callback, m_routeSessionMutex));
 }
 
 void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)

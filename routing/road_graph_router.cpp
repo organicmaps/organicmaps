@@ -108,10 +108,10 @@ bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
 }
 
 AsyncRouter::ResultCode RoadGraphRouter::CalculateRouteImpl(m2::PointD const & startPt,
-                                      m2::PointD const & startDr,
-                                      m2::PointD const & finalPt,
-                                      CancelFlagT const & requestCancel,
-                                      Route & route)
+                                                            m2::PointD const & startDr,
+                                                            m2::PointD const & finalPt,
+                                                            CancelFlagT const & requestCancel,
+                                                            Route & route)
 {
   // We can make easy turnaround when walking. So we will not use direction for route calculation
   UNUSED_VALUE(startDr);
