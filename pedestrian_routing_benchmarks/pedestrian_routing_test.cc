@@ -11,7 +11,8 @@
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 
-UNIT_TEST(PedestrianRouting_UK)
+
+void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featureIdFinal, uint32_t segIdFinal)
 {
   string const kMapName = "UK_England";
   classificator::Load();
@@ -26,12 +27,27 @@ UNIT_TEST(PedestrianRouting_UK)
 
   router.SetRoadGraph(new routing::FeaturesRoadGraph(&index, id));
 
-  vector<routing::RoadPos> startPos = {{59231052, true, 8}, {59231052, false, 8}};
-  vector<routing::RoadPos> finalPos = {{49334376, true, 0}, {49334376, false, 0}};
+  vector<routing::RoadPos> startPos = {{featureIdStart, true, segIdStart}, {featureIdStart, false, segIdStart}};
+  vector<routing::RoadPos> finalPos = {{featureIdFinal, true, segIdFinal}, {featureIdFinal, false, segIdFinal}};
   router.SetFinalRoadPos(finalPos);
 
   vector<routing::RoadPos> route;
   LOG(LINFO, ("Calculating routing..."));
   router.CalculateRoute(startPos, route);
   LOG(LINFO, ("Route length:", route.size()));
+}
+
+UNIT_TEST(PedestrianRouting_UK_Long1)
+{
+  TestTwoPoints(59231052, 8, 49334376, 0);
+}
+
+UNIT_TEST(PedestrianRouting_UK_Medium1)
+{
+  TestTwoPoints(3038057, 0, 45899679, 3);
+}
+
+UNIT_TEST(PedestrianRouting_UK_Short1)
+{
+  TestTwoPoints(3038057, 0, 3032688, 3);
 }
