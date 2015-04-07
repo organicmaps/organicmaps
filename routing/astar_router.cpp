@@ -87,20 +87,14 @@ double AStarRouter::HeuristicCostEstimate(AStarRouter::ShortestPath const * s1, 
   m2::PointD const & b = (*goals.begin()).GetSegEndpoint();
   m2::PointD const & e = s1->GetPos().GetSegEndpoint();
 
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(b.y),
-                             MercatorBounds::XToLon(b.x),
-                             MercatorBounds::YToLat(e.y),
-                             MercatorBounds::XToLon(e.x)) / MAX_SPEED;
+  return MercatorBounds::DistanceOnEarth(b, e) / MAX_SPEED;
 }
 
 double AStarRouter::DistanceBetween(ShortestPath const * p1, ShortestPath const * p2)
 {
   m2::PointD const & b = p1->GetPos().GetSegEndpoint();
   m2::PointD const & e = p2->GetPos().GetSegEndpoint();
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(b.y),
-                             MercatorBounds::XToLon(b.x),
-                             MercatorBounds::YToLat(e.y),
-                             MercatorBounds::XToLon(e.x));
+  return MercatorBounds::DistanceOnEarth(b, e);
 }
 
 void AStarRouter::ReconstructRoute(ShortestPath const * path, vector<RoadPos> & route) const
