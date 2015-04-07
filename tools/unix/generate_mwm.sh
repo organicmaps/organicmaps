@@ -26,11 +26,9 @@ if [ $# -lt 1 ]; then
 fi
 
 fail() {
-  [ -n "${INTDIR-}" ] && rm -r "$INTDIR"
   [ $# -gt 0 ] && echo "$@" >&2
   exit 1
 }
-trap fail SIGINT SIGTERM
 
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
@@ -72,6 +70,7 @@ if [ "$(uname)" == "Darwin" ]; then
 else
   INTDIR=$(mktemp -d)
 fi
+trap "rm -rf \"${INTDIR}\"" EXIT SIGINT SIGTERM
 
 if [ "$MODE" == "mwm" ]; then
   # Create MWM file
@@ -162,5 +161,3 @@ EOPOLY
     fi
   fi
 fi
-
-rm -r "$INTDIR"
