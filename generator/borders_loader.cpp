@@ -22,8 +22,8 @@
 #include "../std/vector.hpp"
 #include "../std/bind.hpp"
 
-
-#define POLYGONS_FILE "polygons.lst"
+#include "../../boost/boost/filesystem.hpp"
+namespace fs = boost::filesystem;
 
 
 namespace borders
@@ -34,27 +34,22 @@ class PolygonLoader
   CountryPolygons m_polygons;
   m2::RectD m_rect;
 
-  string const & m_baseDir;
   CountriesContainerT & m_countries;
 
 public:
-  PolygonLoader(string const & baseDir, CountriesContainerT & countries)
-    : m_baseDir(baseDir), m_countries(countries) {}
+  PolygonLoader(CountriesContainerT & countries)
+    : m_countries(countries) {}
 
-  void operator() (string const & name)
+  void operator() (string const & name, vector<m2::RegionD> & borders)
   {
     if (m_polygons.m_name.empty())
       m_polygons.m_name = name;
 
-    vector<m2::RegionD> borders;
-    if (osm::LoadBorders(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, borders))
+    for (size_t i = 0; i < borders.size(); ++i)
     {
-      for (size_t i = 0; i < borders.size(); ++i)
-      {
-        m2::RectD const rect(borders[i].GetRect());
-        m_rect.Add(rect);
-        m_polygons.m_regions.Add(borders[i], rect);
-      }
+      m2::RectD const rect(borders[i].GetRect());
+      m_rect.Add(rect);
+      m_polygons.m_regions.Add(borders[i], rect);
     }
   }
 
@@ -74,18 +69,21 @@ public:
 template <class ToDo>
 void ForEachCountry(string const & baseDir, ToDo & toDo)
 {
-  ifstream stream((baseDir + POLYGONS_FILE).c_str());
-  string line;
+  string bordersDir = baseDir + BORDERS_DIR;
+  ASSERT(fs::exists(bordersDir) && fs::is_directory(bordersDir), ("Cannot read borders directory", bordersDir));
 
-  while (stream.good())
+  fs::directory_iterator end_iter;
+  for (fs::directory_iterator dir_iter(bordersDir); dir_iter != end_iter; ++dir_iter)
   {
-    std::getline(stream, line);
-    if (line.empty())
-      continue;
-
-    // in polygons file every country is a separate string
-    toDo(line);
-    toDo.Finish();
+    if (fs::is_regular_file(dir_iter->status()) && dir_iter->path().filename().string().find(BORDERS_EXTENSION) != string::npos)
+    {
+      vector<m2::RegionD> borders;
+      if (osm::LoadBorders(dir_iter->path().string(), borders))
+      {
+        toDo(dir_iter->path().stem().string(), borders);
+        toDo.Finish();
+      }
+    }
   }
 }
 
@@ -95,7 +93,7 @@ bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
 
   LOG(LINFO, ("Loading countries."));
 
-  PolygonLoader loader(baseDir, countries);
+  PolygonLoader loader(countries);
   ForEachCountry(baseDir, loader);
 
   LOG(LINFO, ("Countries loaded:", countries.GetSize()));
@@ -106,53 +104,48 @@ bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
 class PackedBordersGenerator
 {
   FilesContainerW m_writer;
-  string const & m_baseDir;
 
   vector<storage::CountryDef> m_polys;
 
 public:
   PackedBordersGenerator(string const & baseDir)
-    : m_writer(baseDir + PACKED_POLYGONS_FILE), m_baseDir(baseDir)
+    : m_writer(baseDir + PACKED_POLYGONS_FILE)
   {
   }
 
-  void operator() (string const & name)
+  void operator() (string const & name, vector<m2::RegionD> & borders)
   {
-    vector<m2::RegionD> borders;
-    if (osm::LoadBorders(m_baseDir + BORDERS_DIR + name + BORDERS_EXTENSION, borders))
+    // use index in vector as tag
+    FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
+    serial::CodingParams cp;
+
+    uint32_t const count = static_cast<uint32_t>(borders.size());
+
+    // calc rect
+    m2::RectD rect;
+    for (uint32_t i = 0; i < count; ++i)
+      rect.Add(borders[i].GetRect());
+
+    // store polygon info
+    m_polys.push_back(storage::CountryDef(name, rect));
+
+    // write polygons as paths
+    WriteVarUint(w, count);
+    for (uint32_t i = 0; i < count; ++i)
     {
-      // use index in vector as tag
-      FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
-      serial::CodingParams cp;
+      typedef vector<m2::PointD> VectorT;
+      typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
 
-      uint32_t const count = static_cast<uint32_t>(borders.size());
+      VectorT const & in = borders[i].Data();
+      VectorT out;
 
-      // calc rect
-      m2::RectD rect;
-      for (uint32_t i = 0; i < count; ++i)
-        rect.Add(borders[i].GetRect());
+      /// @todo Choose scale level for simplification.
+      double const eps = my::sq(scales::GetEpsilonForSimplify(10));
+      DistanceT dist;
+      SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
+                          AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));
 
-      // store polygon info
-      m_polys.push_back(storage::CountryDef(name, rect));
-
-      // write polygons as paths
-      WriteVarUint(w, count);
-      for (uint32_t i = 0; i < count; ++i)
-      {
-        typedef vector<m2::PointD> VectorT;
-        typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
-
-        VectorT const & in = borders[i].Data();
-        VectorT out;
-
-        /// @todo Choose scale level for simplification.
-        double const eps = my::sq(scales::GetEpsilonForSimplify(10));
-        DistanceT dist;
-        SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
-                            AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));
-
-        serial::SaveOuterPath(out, cp, w);
-      }
+      serial::SaveOuterPath(out, cp, w);
     }
   }
 

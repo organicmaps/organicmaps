@@ -17,10 +17,6 @@
 
 #include "../std/fstream.hpp"
 
-#define POLYGONS_FILE "polygons.lst"
-#define BORDERS_DIR "borders/"
-#define BORDERS_EXTENSION ".kml"
-
 #define MIN_SIMPLIFIED_POINTS_COUNT 4
 
 namespace feature
