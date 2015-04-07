@@ -51,13 +51,12 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
       GetPointsAroundSeg(index, id, featureIdStart, segIdStart);
   vector<routing::RoadPos> finalPos = {{featureIdFinal, true, segIdFinal, finalBounds.second},
                                        {featureIdFinal, false, segIdFinal, finalBounds.first}};
-  router.SetFinalRoadPos(finalPos);
 
   vector<routing::RoadPos> route;
 
   my::Timer timer;
   LOG(LINFO, ("Calculating routing..."));
-  router.CalculateRoute(startPos, route);
+  router.CalculateRouteOnMwm(startPos, finalPos, route);
   LOG(LINFO, ("Route length:", route.size()));
   LOG(LINFO, ("Elapsed:", timer.ElapsedSeconds(), "seconds"));
 }

@@ -10,22 +10,7 @@
 namespace routing
 {
 
-static double const kMaxSpeedMPS = 5000.0 / 3600; // m/s
-
-void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
-{
-#if defined(DEBUG)
-  for (auto const & roadPos : finalPos)
-    LOG(LDEBUG, ("AStarRouter::SetFinalRoadPos(): finalPos:", roadPos));
-#endif  // defined(DEBUG)
-
-  ASSERT_GREATER(finalPos.size(), 0, ());
-  m_bestDistance.clear();
-  for (auto const & roadPos : finalPos)
-  {
-    VERIFY(m_bestDistance.insert({roadPos, 0.0}).second, ());
-  }
-}
+static double const kMaxSpeedMPS = 5000.0 / 3600;
 
 // This implementation is based on the view that the A* algorithm
 // is equivalent to Dijkstra's algorithm that is run on a reweighted
@@ -39,11 +24,23 @@ void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 //
 // The vertices of the graph are of type RoadPos.
 // The edges of the graph are of type PossibleTurn.
-void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route)
+void AStarRouter::CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos, vector<RoadPos> & route)
 {
 #if defined(DEBUG)
+  for (auto const & roadPos : finalPos)
+    LOG(LDEBUG, ("AStarRouter::CalculateRouteOnMwm(): finalPos:", roadPos));
+#endif  // defined(DEBUG)
+
+  ASSERT_GREATER(finalPos.size(), 0, ());
+  m_bestDistance.clear();
+  for (auto const & roadPos : finalPos)
+  {
+    VERIFY(m_bestDistance.insert({roadPos, 0.0}).second, ());
+  }
+
+#if defined(DEBUG)
   for (auto const & roadPos : startPos)
-    LOG(LDEBUG, ("AStarRouter::CalculateRoute(): startPos:", roadPos));
+    LOG(LDEBUG, ("AStarRouter::CalculateRouteOnMwm(): startPos:", roadPos));
 #endif // defined(DEBUG)
 
   route.clear();

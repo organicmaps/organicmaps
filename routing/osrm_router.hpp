@@ -87,7 +87,7 @@ public:
   }
 };
 
-class OsrmRouter : public IRouter
+class OsrmRouter : public AsyncRouter
 {
 public:
 
@@ -110,9 +110,6 @@ public:
   OsrmRouter(Index const * index, CountryFileFnT const & fn);
 
   virtual string GetName() const;
-  virtual void ClearState();
-  virtual void SetFinalPoint(m2::PointD const & finalPt);
-  virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
 
   /*! Find single shortest path in a single MWM between 2 sets of edges
    * \param source: vector of source edges to make path
@@ -148,7 +145,8 @@ public:
 
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
-                                       FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping);
+                                       FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const  & mapping,
+                                       CancelFlagT const & requestCancel);
 
 
   size_t FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingMappingPtrT const & targetMapping);
@@ -158,16 +156,17 @@ protected:
    * \param routingResult OSRM routing result structure to annotate
    * \param mapping Feature mappings
    * \param points Unpacked point pathes
+   * \param requestCancel flag to stop calculation
    * \param turnsDir output turns annotation storage
    * \param times output times annotation storage
    * \param turnsGeom output turns geometry
    * \return OSRM routing errors if any
    */
-  ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping,
-                                vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
+  ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping, vector<m2::PointD> & points,
+                                CancelFlagT const & requestCancel, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
 
   void CalculateRouteAsync(ReadyCallback const & callback);
-  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route);
+  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt,CancelFlagT const & requestCancel, Route & route) override;
 
 private:
   typedef pair<size_t,string> MwmOutT;
@@ -201,10 +200,11 @@ private:
   /*!
    * \brief Makes route (points turns and other annotations) and submits it to @route class
    * \param path vector of pathes through mwms
+   * \param requestCancel flag to terminate processing
    * \param route class to render final route
    * \return NoError or error code
    */
-  ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
+  ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, CancelFlagT const & requestCancel, Route & route);
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,
@@ -241,15 +241,8 @@ private:
 
   RoutingIndexManager m_indexManager;
 
-  bool m_isFinalChanged;
   m2::PointD m_startPt, m_finalPt, m_startDr;
   FeatureGraphNodeVecT m_cachedFinalNodes;
-
-  threads::Mutex m_paramsMutex;
-  threads::Mutex m_routeMutex;
-  atomic_flag m_isReadyThread;
-
-  volatile bool m_requestCancel;
 
   // Additional features unlocking engine
   bool m_additionalFeatures;

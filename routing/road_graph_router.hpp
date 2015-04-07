@@ -1,6 +1,6 @@
 #pragma once
 
-#include "router.hpp"
+#include "async_router.hpp"
 #include "road_graph.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -16,20 +16,20 @@ namespace routing
 
 class IVehicleModel;
 
-class RoadGraphRouter : public IRouter
+class RoadGraphRouter : public AsyncRouter
 {
 public:
   RoadGraphRouter(Index const * pIndex);
   ~RoadGraphRouter();
 
-  virtual void SetFinalPoint(m2::PointD const & finalPt);
-  //virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback);
-  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
-
-
-  virtual void SetFinalRoadPos(vector<RoadPos> const & finalPos) = 0;
-  virtual void CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route) = 0;
+  virtual void CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos, vector<RoadPos> & route) = 0;
   virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
+
+  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPt,
+                                        m2::PointD const & startDr,
+                                        m2::PointD const & finalPt,
+                                        CancelFlagT const & requestCancel,
+                                        Route & route);
 
 protected:
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);

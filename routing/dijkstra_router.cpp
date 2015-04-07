@@ -9,7 +9,7 @@ namespace routing
 DijkstraRouter::ShortestPath const * const DijkstraRouter::ShortestPath::FINAL_POS
   = reinterpret_cast<ShortestPath const *>(1);
 
-void DijkstraRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
+void DijkstraRouter::CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos, vector<RoadPos> & route)
 {
   m_entries = PathSet();
   m_queue = PossiblePathQueue();
@@ -20,10 +20,6 @@ void DijkstraRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
     ASSERT(t.second, ());
     m_queue.push(PossiblePath(0.0, &*t.first, ShortestPath::FINAL_POS));
   }
-}
-
-void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route)
-{
   route.clear();
   set<RoadPos> startSet(startPos.begin(), startPos.end());
   set<uint32_t> startFeatureSet;

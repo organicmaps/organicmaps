@@ -258,7 +258,7 @@ public:
     node.m_node.reverse_weight = 0;
   }
 
-  void MakeResult(FeatureGraphNodeVecT & res, size_t maxCount,volatile bool const & requestCancel)
+  void MakeResult(FeatureGraphNodeVecT & res, size_t maxCount,AsyncRouter::CancelFlagT const & requestCancel)
   {
     if (m_mwmId == numeric_limits<uint32_t>::max())
       return;
@@ -364,10 +364,9 @@ RoutingMappingPtrT RoutingIndexManager::GetMappingByName(string const & fName, I
 
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
-  : m_pIndex(index), m_indexManager(fn), m_isFinalChanged(false),
-    m_requestCancel(false), m_additionalFeatures(false)
+  : m_pIndex(index), m_indexManager(fn),
+    m_additionalFeatures(false)
 {
-  m_isReadyThread.clear();
 #ifdef DEBUG
   m_additionalFeatures = true;
 #endif
@@ -375,112 +374,7 @@ OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
 
 string OsrmRouter::GetName() const
 {
-  return "mapsme";
-}
-
-void OsrmRouter::ClearState()
-{
-  m_requestCancel = true;
-
-  threads::MutexGuard guard(m_routeMutex);
-  UNUSED_VALUE(guard);
-
-  m_cachedFinalNodes.clear();
-
-  m_indexManager.Clear();
-}
-
-void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
-{
-  {
-    threads::MutexGuard guard(m_paramsMutex);
-    UNUSED_VALUE(guard);
-
-    m_finalPt = finalPt;
-    m_isFinalChanged = true;
-
-    m_requestCancel = true;
-  }
-}
-
-void OsrmRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback, m2::PointD const & direction)
-{
-  {
-    threads::MutexGuard guard(m_paramsMutex);
-    UNUSED_VALUE(guard);
-
-    m_startPt = startPt;
-    m_startDr = direction;
-
-    m_requestCancel = true;
-  }
-
-  GetPlatform().RunAsync(bind(&OsrmRouter::CalculateRouteAsync, this, callback));
-}
-
-void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
-{
-  if (m_isReadyThread.test_and_set())
-    return;
-
-  Route route(GetName());
-  ResultCode code;
-
-  threads::MutexGuard guard(m_routeMutex);
-  UNUSED_VALUE(guard);
-
-  m_isReadyThread.clear();
-
-  m2::PointD startPt, finalPt, startDr;
-  {
-    threads::MutexGuard params(m_paramsMutex);
-    UNUSED_VALUE(params);
-
-    startPt = m_startPt;
-    finalPt = m_finalPt;
-    startDr = m_startDr;
-
-    if (m_isFinalChanged)
-      m_cachedFinalNodes.clear();
-    m_isFinalChanged = false;
-
-    m_requestCancel = false;
-  }
-
-  try
-  {
-    code = CalculateRouteImpl(startPt, startDr, finalPt, route);
-    switch (code)
-    {
-    case StartPointNotFound:
-      LOG(LWARNING, ("Can't find start or end node"));
-      break;
-    case EndPointNotFound:
-      LOG(LWARNING, ("Can't find end point node"));
-      break;
-    case PointsInDifferentMWM:
-      LOG(LWARNING, ("Points are in different MWMs"));
-      break;
-    case RouteNotFound:
-      LOG(LWARNING, ("Route not found"));
-      break;
-    case RouteFileNotExist:
-      LOG(LWARNING, ("There are no routing file"));
-      break;
-
-    default:
-      break;
-    }
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Routing index is absent or incorrect. Error while loading routing index:", e.Msg()));
-    code = InternalError;
-
-    m_indexManager.Clear();
-  }
-
-  GetPlatform().RunOnGuiThread(bind(callback, route, code));
+  return "vehicle";
 }
 
 namespace
@@ -589,7 +483,7 @@ size_t OsrmRouter::FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingM
   return INVALID_NODE_ID;
 }
 
-OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route)
+OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const & path, CancelFlagT const & requestCancel, Route & route)
 {
   Route::TurnsT TurnsDir;
   Route::TimesT Times;
@@ -623,7 +517,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
     Route::TimesT mwmTimes;
     vector<m2::PointD> mwmPoints;
     turns::TurnsGeomT mwmTurnsGeom;
-    MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
+    MakeTurnAnnotation(routingResult, mwmMapping, mwmPoints, requestCancel, mwmTurnsDir, mwmTimes, mwmTurnsGeom);
 
     // And connect it to result route
     for (auto turn : mwmTurnsDir)
@@ -722,11 +616,13 @@ public:
   }
 };
 
-OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, Route & route)
+OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt, CancelFlagT const & requestCancel, Route & route)
 {
   my::HighResTimer timer(true);
   RoutingMappingPtrT startMapping = m_indexManager.GetMappingByPoint(startPt, m_pIndex);
   RoutingMappingPtrT targetMapping = m_indexManager.GetMappingByPoint(finalPt, m_pIndex);
+
+  m_indexManager.Clear(); // TODO (Dragunov) make proper index manager cleaning
 
   if (!startMapping->IsValid())
   {
@@ -763,7 +659,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
                                              startDr,
                                              startTask,
                                              MAX_NODE_CANDIDATES,
-                                             startMapping);
+                                             startMapping,
+                                             requestCancel);
     if (code != NoError)
       return code;
   }
@@ -775,13 +672,14 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
                                                m2::PointD::Zero(),
                                                m_CachedTargetTask,
                                                MAX_NODE_CANDIDATES,
-                                               targetMapping);
+                                               targetMapping,
+                                               requestCancel);
       if (code != NoError)
         return code;
       m_CachedTargetPoint = finalPt;
     }
   }
-  if (m_requestCancel)
+  if (requestCancel)
     return Cancelled;
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
@@ -802,7 +700,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     {
       return RouteNotFound;
     }
-    if (m_requestCancel)
+    if (requestCancel)
     {
       return Cancelled;
     }
@@ -814,7 +712,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     vector<m2::PointD> points;
     turns::TurnsGeomT turnsGeom;
 
-    MakeTurnAnnotation(routingResult, startMapping, points, turnsDir, times, turnsGeom);
+    MakeTurnAnnotation(routingResult, startMapping, points, requestCancel, turnsDir, times, turnsGeom);
 
     route.SetGeometry(points.begin(), points.end());
     route.SetTurnInstructions(turnsDir);
@@ -893,7 +791,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     if (weights.empty())
       return StartPointNotFound;
 
-    if (m_requestCancel)
+    if (requestCancel)
       return Cancelled;
 
     // Load target data
@@ -921,7 +819,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     {
       if (weights[j] == INVALID_EDGE_WEIGHT)
         continue;
-      if (m_requestCancel)
+      if (requestCancel)
         return Cancelled;
       string const & nextMwm =
           startMapping->m_crossContext.getOutgoingMwmName((mwmOutsIter.first + j)->m_outgoingIndex);
@@ -966,7 +864,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     {
       while (getPathWeight(crossTasks.top())<finalWeight)
       {
-        if (m_requestCancel)
+        if (requestCancel)
           return Cancelled;
         CheckedPathT const topTask = crossTasks.top();
         crossTasks.pop();
@@ -1001,7 +899,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
             if (getPathWeight(topTask)+outWeight >= finalWeight)
               continue;
-            if (m_requestCancel)
+            if (requestCancel)
               return Cancelled;
 
             string const & nextMwm = currentContext.getOutgoingMwmName(oit->m_outgoingIndex);
@@ -1067,7 +965,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
                                     {
                                       indexPair.second->FreeCrossContext();
                                     });
-      auto code = MakeRouteFromCrossesPath(finalPath, route);
+      auto code = MakeRouteFromCrossesPath(finalPath, requestCancel, route);
       LOG(LINFO, ("Make final route", timer.ElapsedNano()));
       timer.Reset();
       return code;
@@ -1102,7 +1000,13 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
   return nextPnt;
 }
 
-OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping, vector<m2::PointD> & points, Route::TurnsT & turnsDir,Route::TimesT & times, turns::TurnsGeomT & turnsGeom)
+OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & routingResult,
+                                                      RoutingMappingPtrT const & mapping,
+                                                      vector<m2::PointD> & points,
+                                                      CancelFlagT const & requestCancel,
+                                                      Route::TurnsT & turnsDir,
+                                                      Route::TimesT & times,
+                                                      turns::TurnsGeomT & turnsGeom)
 {
   typedef OsrmMappingTypes::FtSeg SegT;
   SegT const & segBegin = routingResult.m_sourceEdge.m_seg;
@@ -1119,7 +1023,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
 #endif
   for (auto i : osrm::irange<size_t>(0, routingResult.m_routePath.unpacked_path_segments.size()))
   {
-    if (m_requestCancel)
+    if (requestCancel)
       return Cancelled;
 
     // Get all the coordinates for the computed route
@@ -1694,7 +1598,7 @@ void OsrmRouter::FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & t
 }
 
 IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
-                                                 FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const & mapping)
+                                                 FeatureGraphNodeVecT & res, size_t maxCount, RoutingMappingPtrT const & mapping, CancelFlagT const & requestCancel)
 {
   Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
   getter.SetPoint(point);
@@ -1706,7 +1610,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
   if (!getter.HasCandidates())
     return StartPointNotFound;
 
-  getter.MakeResult(res, maxCount, m_requestCancel);
+  getter.MakeResult(res, maxCount, requestCancel);
   return NoError;
 }
 

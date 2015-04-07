@@ -142,7 +142,7 @@ public:
   }
 
   typedef unordered_map<uint64_t, pair<TOsrmNodeId, TOsrmNodeId> > OsrmNodesT;
-  void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, volatile bool const & requestCancel) const;
+  void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, atomic<bool> const & requestCancel) const;
 
   void GetSegmentByIndex(size_t idx, OsrmMappingTypes::FtSeg & seg) const;
 

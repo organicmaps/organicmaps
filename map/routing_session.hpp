@@ -86,6 +86,7 @@ private:
   unique_ptr<IRouter> m_router;
   Route m_route;
   State m_state;
+  m2::PointD m_endPoint;
 
   mutable threads::Mutex m_routeSessionMutex;
 

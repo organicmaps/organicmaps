@@ -21,6 +21,7 @@ RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(string())
   , m_state(RoutingNotActive)
+  , m_endPoint(m2::PointD::Zero())
 {
 }
 
@@ -29,19 +30,20 @@ void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const 
 {
   ASSERT(m_router != nullptr, ());
   m_lastGoodPosition = startPoint;
-  m_router->SetFinalPoint(endPoint);
+  m_endPoint = endPoint;
   RebuildRoute(startPoint, callback);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
 {
   ASSERT(m_router != nullptr, ());
+  ASSERT_NOT_EQUAL(m_endPoint, m2::PointD::Zero(), ("End point was not set"));
   Reset();
   m_state = RouteBuilding;
 
   // Use old-style callback constraction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(startPoint, DoReadyCallback(*this, callback, m_routeSessionMutex), startPoint - m_lastGoodPosition);
+  m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint, DoReadyCallback(*this, callback, m_routeSessionMutex));
 }
 
 void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)

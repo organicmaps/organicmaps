@@ -107,43 +107,41 @@ bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
   return (m_pRoadGraph && dynamic_cast<FeaturesRoadGraph const *>(m_pRoadGraph.get())->GetMwmID() == mwmID);
 }
 
-void RoadGraphRouter::SetFinalPoint(m2::PointD const & finalPt)
+AsyncRouter::ResultCode RoadGraphRouter::CalculateRouteImpl(m2::PointD const & startPt,
+                                      m2::PointD const & startDr,
+                                      m2::PointD const & finalPt,
+                                      CancelFlagT const & requestCancel,
+                                      Route & route)
 {
+  // We can make easy turnaround when walking. So we will not use direction for route calculation
+  UNUSED_VALUE(startDr);
+
   vector<RoadPos> finalPos;
-  size_t const mwmID = GetRoadPos(finalPt, finalPos);
+  size_t mwmID = GetRoadPos(finalPt, finalPos);
 
-  if (!finalPos.empty())
-  {
-    if (!IsMyMWM(mwmID))
-      m_pRoadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
+  if (!finalPos.empty() && !IsMyMWM(mwmID))
+    m_pRoadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
-    SetFinalRoadPos(finalPos);
-  }
-}
-
-//void RoadGraphRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback)
-void RoadGraphRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction)
-{
   if (!m_pRoadGraph)
-    return;
+    return EndPointNotFound;
 
   vector<RoadPos> startPos;
-  size_t const mwmID = GetRoadPos(startingPt, startPos);
+  mwmID = GetRoadPos(startPt, startPos);
 
   if (startPos.empty() || !IsMyMWM(mwmID))
-    return;
+    return StartPointNotFound;
 
   my::Timer timer;
   timer.Reset();
 
   vector<RoadPos> routePos;
-  CalculateRoute(startPos, routePos);
+
+  CalculateRouteOnMwm(startPos, finalPos, routePos);
 
   LOG(LINFO, ("Route calculation time: ", timer.ElapsedSeconds()));
 
-  Route route(GetName());
   m_pRoadGraph->ReconstructPath(routePos, route);
-  callback(route, NoError);
+  return NoError;
 }
 
 } // namespace routing

@@ -24,7 +24,8 @@ SOURCES += \
     dijkstra_router.cpp \
     features_road_graph.cpp \
     road_graph_router.cpp \
-    road_graph.cpp
+    road_graph.cpp \
+    async_router.cpp \
 
 HEADERS += \
     cross_routing_context.hpp \
@@ -41,4 +42,5 @@ HEADERS += \
     dijkstra_router.hpp \
     features_road_graph.hpp \
     road_graph_router.hpp \
-    road_graph.hpp
+    road_graph.hpp \
+    async_router.hpp \
