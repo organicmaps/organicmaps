@@ -41,7 +41,12 @@ public:
 
   inline size_t GetMwmID() const { return m_mwmID; }
 
-  double GetCacheMiss() const { return (double)m_cacheMiss / (double)m_cacheAccess; }
+  double GetCacheMiss() const
+  {
+    if (m_cacheAccess == 0)
+      return 0.0;
+    return (double)m_cacheMiss / (double)m_cacheAccess;
+  }
 
 private:
   friend class CrossFeaturesLoader;
