@@ -7,18 +7,18 @@
 
 namespace routing
 {
-RoadPos::RoadPos(uint32_t featureId, bool forward, size_t segmentId, m2::PointD const & p)
-    : m_featureId((featureId << 1) + (forward ? 1 : 0)), m_segmentId(segmentId), m_segEndpoint(p)
+RoadPos::RoadPos(uint32_t featureId, bool forward, size_t segId, m2::PointD const & p)
+    : m_featureId((featureId << 1) + (forward ? 1 : 0)), m_segId(segId), m_segEndpoint(p)
 {
   ASSERT_LESS(featureId, 1U << 31, ());
-  ASSERT_LESS(segmentId, numeric_limits<uint32_t>::max(), ());
+  ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
 }
 
 string DebugPrint(RoadPos const & r)
 {
   ostringstream ss;
   ss << "{ featureId: " << r.GetFeatureId() << ", isForward: " << r.IsForward()
-     << ", segmentId:" << r.m_segmentId << "}";
+     << ", segId:" << r.m_segId << "}";
   return ss.str();
 }
 

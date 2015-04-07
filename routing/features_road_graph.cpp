@@ -141,7 +141,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
   bool const isForward = pos.IsForward();
   int const inc = isForward ? -1 : 1;
 
-  int startID = pos.GetSegmentId();
+  int startID = pos.GetSegId();
   ASSERT_GREATER(count, 1, ());
   ASSERT_LESS(startID, count, ());
   if (!isForward)
@@ -216,7 +216,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
     if (isForward)
     {
       double distance = 0;
-      for (int i = pos.GetSegmentId(); i > 0; --i)
+      for (int i = pos.GetSegId(); i > 0; --i)
         distance += CalcDistanceMeters(fc.m_points[i], fc.m_points[i - 1]);
 
       thisTurn.m_pos = RoadPos(ftID, true, count - 2, fc.m_points[count - 1]);
@@ -227,7 +227,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
     else if (!fc.m_isOneway)
     {
       double distance = 0;
-      for (size_t i = pos.GetSegmentId(); i < count - 1; ++i)
+      for (size_t i = pos.GetSegId(); i < count - 1; ++i)
         distance += CalcDistanceMeters(fc.m_points[i], fc.m_points[i + 1]);
 
       thisTurn.m_pos = RoadPos(ftID, false, 0, fc.m_points[0]);

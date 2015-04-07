@@ -4,16 +4,16 @@
 
 namespace routing_test
 {
-/// This struct represents road as a broken line.
+/// This struct represents road as a polyline.
 struct RoadInfo
 {
-  /// Points of a broken line representing the road.
+  /// Points of a polyline representing the road.
   vector<m2::PointD> m_points;
 
   /// Speed on the road.
   double m_speedMS;
 
-  /// True when it's possible to move in both directions on the orad.
+  /// Indicates whether the road is bidirectional.
   bool m_bidirectional;
 
   RoadInfo() : m_speedMS(0.0), m_bidirectional(false) {}

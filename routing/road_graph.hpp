@@ -10,32 +10,32 @@ namespace routing
 {
 class Route;
 
-/// Defines position on a feature with direction.
+/// Defines position on a feature which represents a road with direction.
 class RoadPos
 {
 public:
-  RoadPos() : m_featureId(0), m_segmentId(0), m_segEndpoint(0, 0) {}
-  RoadPos(uint32_t featureId, bool forward, size_t segmentId,
+  RoadPos() : m_featureId(0), m_segId(0), m_segEndpoint(0, 0) {}
+  RoadPos(uint32_t featureId, bool forward, size_t segId,
           m2::PointD const & p = m2::PointD::Zero());
 
   uint32_t GetFeatureId() const { return m_featureId >> 1; }
   bool IsForward() const { return (m_featureId & 1) != 0; }
-  uint32_t GetSegmentId() const { return m_segmentId; }
-  uint32_t GetSegStartPointId() const { return m_segmentId + (IsForward() ? 0 : 1); }
-  uint32_t GetSegEndPointId() const { return m_segmentId + (IsForward() ? 1 : 0); }
+  uint32_t GetSegId() const { return m_segId; }
+  uint32_t GetSegStartPointId() const { return m_segId + (IsForward() ? 0 : 1); }
+  uint32_t GetSegEndPointId() const { return m_segId + (IsForward() ? 1 : 0); }
   m2::PointD const & GetSegEndpoint() const { return m_segEndpoint; }
 
   bool operator==(RoadPos const & r) const
   {
-    return (m_featureId == r.m_featureId && m_segmentId == r.m_segmentId);
+    return (m_featureId == r.m_featureId && m_segId == r.m_segId);
   }
 
   bool operator<(RoadPos const & r) const
   {
     if (m_featureId != r.m_featureId)
       return m_featureId < r.m_featureId;
-    if (m_segmentId != r.m_segmentId)
-      return m_segmentId < r.m_segmentId;
+    if (m_segId != r.m_segId)
+      return m_segId < r.m_segId;
     return false;
   }
 
@@ -45,8 +45,8 @@ private:
   // Feature on which position is defined.
   uint32_t m_featureId;
 
-  // Ordinal number of a segment on the road.
-  uint32_t m_segmentId;
+  // Ordinal number of the segment on the road.
+  uint32_t m_segId;
 
   // End-point of the segment on the road.
   m2::PointD m_segEndpoint;

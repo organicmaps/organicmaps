@@ -1,5 +1,7 @@
 #include "road_graph_builder.hpp"
 
+#include "../../base/logging.hpp"
+
 #include "../../std/algorithm.hpp"
 
 using namespace routing;
@@ -16,34 +18,30 @@ void RoadInfo::Swap(RoadInfo & r)
 void RoadGraphMockSource::AddRoad(RoadInfo & rd)
 {
   /// @todo Do ASSERT for RoadInfo params.
+  uint32_t const roadId = m_roads.size();
 
-  uint32_t const id = m_roads.size();
-
-  // Count of sections! (not points)
-  size_t const count = rd.m_points.size();
-  ASSERT_GREATER(count, 1, ());
-
-  for (size_t i = 0; i < count; ++i)
+  if (rd.m_points.size() < 2)
   {
-    TurnsMapT::iterator j = m_turns.insert(make_pair(rd.m_points[i], TurnsVectorT())).first;
+    LOG(LERROR, ("Empty road"));
+    return;
+  }
 
+  size_t const numSegments = rd.m_points.size() - 1;
+  ASSERT_GREATER(numSegments, 0, ());
+
+  for (size_t segId = 0; segId < numSegments; ++segId)
+  {
     PossibleTurn t;
     t.m_startPoint = rd.m_points.front();
     t.m_endPoint = rd.m_points.back();
     t.m_speed = rd.m_speedMS;
 
-    if (i > 0)
+    t.m_pos = RoadPos(roadId, true /* forward */, segId, rd.m_points[segId + 1] /* segEndPoint */);
+    m_turns[t.m_pos.GetSegEndpoint()].push_back(t);
+    if (rd.m_bidirectional)
     {
-      t.m_pos = RoadPos(id /* featureId */, true /* forward */, i - 1 /* segmentId */,
-                        rd.m_points[i] /* segEndPoint */);
-      j->second.push_back(t);
-    }
-
-    if (rd.m_bidirectional && (i < count - 1))
-    {
-      t.m_pos = RoadPos(id /* featureId */, false /* forward */, i /* segmentId */,
-                        rd.m_points[i] /* segEndPoint */);
-      j->second.push_back(t);
+      t.m_pos = RoadPos(roadId, false /* forward */, segId, rd.m_points[segId] /* segEndPoint */);
+      m_turns[t.m_pos.GetSegEndpoint()].push_back(t);
     }
   }
 
@@ -60,7 +58,7 @@ void RoadGraphMockSource::GetPossibleTurns(RoadPos const & pos, TurnsVectorT & t
   vector<m2::PointD> const & points = m_roads[fID].m_points;
 
   int const inc = pos.IsForward() ? -1 : 1;
-  int startID = pos.GetSegmentId();
+  int startID = pos.GetSegId();
   int const count = static_cast<int>(points.size());
 
   if (!pos.IsForward())
