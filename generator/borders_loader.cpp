@@ -45,11 +45,11 @@ public:
     if (m_polygons.m_name.empty())
       m_polygons.m_name = name;
 
-    for (size_t i = 0; i < borders.size(); ++i)
+    for (const m2::RegionD & border : borders)
     {
-      m2::RectD const rect(borders[i].GetRect());
+      m2::RectD const rect(border.GetRect());
       m_rect.Add(rect);
-      m_polygons.m_regions.Add(borders[i], rect);
+      m_polygons.m_regions.Add(border, rect);
     }
   }
 
@@ -119,24 +119,22 @@ public:
     FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
     serial::CodingParams cp;
 
-    uint32_t const count = static_cast<uint32_t>(borders.size());
-
     // calc rect
     m2::RectD rect;
-    for (uint32_t i = 0; i < count; ++i)
-      rect.Add(borders[i].GetRect());
+    for (const m2::RegionD & border : borders)
+      rect.Add(border.GetRect());
 
     // store polygon info
     m_polys.push_back(storage::CountryDef(name, rect));
 
     // write polygons as paths
-    WriteVarUint(w, count);
-    for (uint32_t i = 0; i < count; ++i)
+    WriteVarUint(w, borders.size());
+    for (const m2::RegionD & border : borders)
     {
       typedef vector<m2::PointD> VectorT;
       typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
 
-      VectorT const & in = borders[i].Data();
+      VectorT const & in = border.Data();
       VectorT out;
 
       /// @todo Choose scale level for simplification.
