@@ -40,7 +40,7 @@ public:
   PolygonLoader(CountriesContainerT & countries)
     : m_countries(countries) {}
 
-  void operator() (string const & name, vector<m2::RegionD> & borders)
+  void operator() (string const & name, const vector<m2::RegionD> & borders)
   {
     if (m_polygons.m_name.empty())
       m_polygons.m_name = name;
@@ -113,7 +113,7 @@ public:
   {
   }
 
-  void operator() (string const & name, vector<m2::RegionD> & borders)
+  void operator() (string const & name, const vector<m2::RegionD> & borders)
   {
     // use index in vector as tag
     FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
