@@ -20,14 +20,8 @@ void RoadGraphMockSource::AddRoad(RoadInfo & rd)
   /// @todo Do ASSERT for RoadInfo params.
   uint32_t const roadId = m_roads.size();
 
-  if (rd.m_points.size() < 2)
-  {
-    LOG(LERROR, ("Empty road"));
-    return;
-  }
-
+  ASSERT_GREATER_OR_EQUAL(rd.m_points.size(), 2, ("Empty road"));
   size_t const numSegments = rd.m_points.size() - 1;
-  ASSERT_GREATER(numSegments, 0, ());
 
   for (size_t segId = 0; segId < numSegments; ++segId)
   {
