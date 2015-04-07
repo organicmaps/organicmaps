@@ -143,19 +143,11 @@ fake
 END
 END
 EOPOLY
-    if [ -r "$TARGET/polygons.lst" ]; then
-      mv "$TARGET/polygons.lst" "$POLY_DIR"
-    fi
-    echo "$BASE_NAME" > "$TARGET/polygons.lst"
   fi
   $GENERATOR_TOOL --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
   if [ -n "${POLY_DIR-}" ]; then
     # remove fake poly
     rm "$POLY"
-    rm "$TARGET/polygons.lst"
-    if [ -r "$POLY_DIR/polygons.lst" ]; then
-      mv "$POLY_DIR/polygons.lst" "$TARGET"
-    fi
     if [ -z "$(ls -A "$POLY_DIR")" ]; then
       rmdir "$POLY_DIR"
     fi
