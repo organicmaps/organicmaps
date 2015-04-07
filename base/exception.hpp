@@ -1,9 +1,9 @@
 #pragma once
-#include "internal/message.hpp"
-#include "macros.hpp"
+#include "base/internal/message.hpp"
+#include "base/macros.hpp"
 
-#include "../std/exception.hpp"
-#include "../std/string.hpp"
+#include "std/exception.hpp"
+#include "std/string.hpp"
 
 class RootException : public exception
 {

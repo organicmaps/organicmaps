@@ -1,8 +1,8 @@
 #pragma once
 
-#include "assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS_NATIVE)
   #include "../std/windows.hpp"

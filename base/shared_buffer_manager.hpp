@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../base/mutex.hpp"
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/list.hpp"
-#include "../std/map.hpp"
+#include "base/mutex.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/list.hpp"
+#include "std/map.hpp"
 
 class SharedBufferManager
 {

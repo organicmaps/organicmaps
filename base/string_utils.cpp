@@ -1,10 +1,10 @@
-#include "string_utils.hpp"
-#include "assert.hpp"
+#include "base/string_utils.hpp"
+#include "base/assert.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/iterator.hpp"
-#include "../std/cmath.hpp"
-#include "../std/iomanip.hpp"
+#include "std/target_os.hpp"
+#include "std/iterator.hpp"
+#include "std/cmath.hpp"
+#include "std/iomanip.hpp"
 
 #include <boost/algorithm/string.hpp> // boost::trim
 

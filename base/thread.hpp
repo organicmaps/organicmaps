@@ -1,18 +1,18 @@
 #pragma once
 
-#include "../base/assert.hpp"
-#include "../base/cancellable.hpp"
-#include "../base/macros.hpp"
+#include "base/assert.hpp"
+#include "base/cancellable.hpp"
+#include "base/macros.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
-#include "../std/noncopyable.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/stdint.hpp"
-#include "../std/thread.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/noncopyable.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/stdint.hpp"
+#include "std/thread.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 #ifdef OMIM_OS_WINDOWS
 #include "../std/windows.hpp"  // for DWORD

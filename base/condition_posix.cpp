@@ -1,13 +1,13 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #if !defined(OMIM_OS_WINDOWS_NATIVE)
 
-#include "condition.hpp"
-#include "mutex.hpp"
+#include "base/condition.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/stdint.hpp"
-#include "../std/systime.hpp"
-#include "../std/errno.hpp"
+#include "std/stdint.hpp"
+#include "std/systime.hpp"
+#include "std/errno.hpp"
 
 #include <pthread.h>
 

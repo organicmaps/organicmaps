@@ -1,7 +1,7 @@
 #pragma once
 
-#include "threaded_container.hpp"
-#include "../std/queue.hpp"
+#include "base/threaded_container.hpp"
+#include "std/queue.hpp"
 
 template <typename T>
 class ThreadedPriorityQueue : public ThreadedContainer

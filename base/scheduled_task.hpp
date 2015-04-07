@@ -1,12 +1,12 @@
 #pragma once
 
-#include "condition.hpp"
-#include "thread.hpp"
+#include "base/condition.hpp"
+#include "base/thread.hpp"
 
-#include "../std/condition_variable.hpp"
-#include "../std/function.hpp"
-#include "../std/mutex.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/condition_variable.hpp"
+#include "std/function.hpp"
+#include "std/mutex.hpp"
+#include "std/unique_ptr.hpp"
 
 /// Class, which performs any function when the specified
 /// amount of time is elapsed.

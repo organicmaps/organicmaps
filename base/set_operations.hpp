@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 // Similar to set_difference(), but if element is present n times in the first sequence and once in
 // the second sequence, all n copies are filtered, insted of one.

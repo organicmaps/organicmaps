@@ -1,4 +1,4 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #if defined(OMIM_OS_WINDOWS_NATIVE)
   #include "condition_windows_native.cpp"

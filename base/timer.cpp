@@ -1,13 +1,13 @@
-#include "timer.hpp"
-#include "assert.hpp"
-#include "macros.hpp"
+#include "base/timer.hpp"
+#include "base/assert.hpp"
+#include "base/macros.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/systime.hpp"
-#include "../std/cstdio.hpp"
-#include "../std/sstream.hpp"
-#include "../std/iomanip.hpp"
-#include "../std/algorithm.hpp"
+#include "std/target_os.hpp"
+#include "std/systime.hpp"
+#include "std/cstdio.hpp"
+#include "std/sstream.hpp"
+#include "std/iomanip.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace my

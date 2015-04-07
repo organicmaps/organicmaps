@@ -1,4 +1,4 @@
-#include "strings_bundle.hpp"
+#include "base/strings_bundle.hpp"
 
 
 void StringsBundle::SetDefaultString(string const & name, string const & value)

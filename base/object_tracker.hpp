@@ -1,9 +1,9 @@
 #pragma once
 
-#include "base.hpp"
-#include "mutex.hpp"
+#include "base/base.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 
 #define TRACKER_MULTITHREADED

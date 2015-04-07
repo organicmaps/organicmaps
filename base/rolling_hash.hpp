@@ -1,10 +1,10 @@
 #pragma once
-#include "assert.hpp"
-#include "base.hpp"
-#include "bits.hpp"
-#include "math.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/bits.hpp"
+#include "base/math.hpp"
 #ifdef DEBUG
-#include "../std/queue.hpp"
+#include "std/queue.hpp"
 #endif
 
 

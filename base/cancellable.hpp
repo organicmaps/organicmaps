@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../std/atomic.hpp"
+#include "std/atomic.hpp"
 
 namespace my
 {

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../base/base.hpp"
-#include "../base/assert.hpp"
+#include "base/base.hpp"
+#include "base/assert.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/functional.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/functional.hpp"
+#include "std/vector.hpp"
 
 namespace my
 {

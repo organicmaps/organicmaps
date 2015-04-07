@@ -1,4 +1,4 @@
-#include "message.hpp"
+#include "base/internal/message.hpp"
 
 string DebugPrint(string const & t)
 {

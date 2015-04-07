@@ -1,9 +1,9 @@
 #pragma once
-#include "base.hpp"
-#include "macros.hpp"
+#include "base/base.hpp"
+#include "base/macros.hpp"
 
-#include "../std/string.hpp"
-#include "../std/sstream.hpp"
+#include "std/string.hpp"
+#include "std/sstream.hpp"
 
 
 namespace strings

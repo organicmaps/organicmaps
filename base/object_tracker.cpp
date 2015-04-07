@@ -1,8 +1,8 @@
-#include "object_tracker.hpp"
-#include "assert.hpp"
-#include "logging.hpp"
+#include "base/object_tracker.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #ifndef OMIM_OS_WINDOWS
   #include <signal.h>

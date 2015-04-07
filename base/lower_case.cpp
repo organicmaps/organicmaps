@@ -2,7 +2,7 @@
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/CaseFolding.txt
 /// This beautiful code has been inspired by Zurich area in 2011 (Alex Zolotarev).
 
-#include "string_utils.hpp"
+#include "base/string_utils.hpp"
 
 namespace strings
 {

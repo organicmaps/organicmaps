@@ -1,10 +1,10 @@
 #pragma once
 
-#include "condition.hpp"
-#include "logging.hpp"
-#include "../std/list.hpp"
+#include "base/condition.hpp"
+#include "base/logging.hpp"
+#include "std/list.hpp"
 
-#include "threaded_container.hpp"
+#include "base/threaded_container.hpp"
 
 template <typename T>
 class ThreadedList : public ThreadedContainer

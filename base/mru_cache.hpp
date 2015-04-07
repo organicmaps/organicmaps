@@ -1,10 +1,10 @@
 #pragma once
 
-#include "assert.hpp"
-#include "logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
-#include "../std/list.hpp"
-#include "../std/map.hpp"
+#include "std/list.hpp"
+#include "std/map.hpp"
 
 
 namespace my

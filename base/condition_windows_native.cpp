@@ -1,11 +1,11 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #ifdef OMIM_OS_WINDOWS_NATIVE
 
-#include "condition.hpp"
-#include "mutex.hpp"
+#include "base/condition.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/windows.hpp"
+#include "std/windows.hpp"
 
 typedef void (WINAPI *InitFn)(PCONDITION_VARIABLE);
 typedef void (WINAPI *WakeFn)(PCONDITION_VARIABLE);

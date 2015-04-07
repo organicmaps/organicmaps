@@ -1,11 +1,11 @@
-#include "thread_pool.hpp"
+#include "base/thread_pool.hpp"
 
-#include "thread.hpp"
-#include "threaded_list.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/utility.hpp"
-#include "../std/bind.hpp"
+#include "std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/bind.hpp"
 
 namespace threads
 {

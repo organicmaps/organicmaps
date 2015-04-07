@@ -1,8 +1,8 @@
 #pragma once
-#include "assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/type_traits.hpp"
-#include "../std/stdint.hpp"
+#include "std/type_traits.hpp"
+#include "std/stdint.hpp"
 
 
 namespace bits

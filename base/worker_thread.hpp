@@ -1,13 +1,13 @@
 #pragma once
 
-#include "macros.hpp"
-#include "thread_checker.hpp"
+#include "base/macros.hpp"
+#include "base/thread_checker.hpp"
 
-#include "../std/condition_variable.hpp"
-#include "../std/mutex.hpp"
-#include "../std/queue.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/thread.hpp"
+#include "std/condition_variable.hpp"
+#include "std/mutex.hpp"
+#include "std/queue.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/thread.hpp"
 
 namespace my
 {

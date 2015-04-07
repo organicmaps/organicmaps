@@ -1,7 +1,7 @@
-#include "src_point.hpp"
+#include "base/src_point.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/sstream.hpp"
+#include "std/algorithm.hpp"
+#include "std/sstream.hpp"
 
 
 namespace my

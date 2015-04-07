@@ -1,8 +1,8 @@
 #pragma once
 
-#include "macros.hpp"
+#include "base/macros.hpp"
 
-#include "../std/thread.hpp"
+#include "std/thread.hpp"
 
 /// This class remembers id of a thread on which it was created, and
 /// then can be used to verify that CalledOnOriginalThread() is called

@@ -1,6 +1,6 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "resource_pool.hpp"
+#include "base/resource_pool.hpp"
 
 BasePoolElemFactory::BasePoolElemFactory(char const * resName,
                                          size_t elemSize,

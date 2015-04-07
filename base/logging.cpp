@@ -1,15 +1,15 @@
-#include "assert.hpp"
-#include "logging.hpp"
-#include "macros.hpp"
-#include "timer.hpp"
-#include "thread.hpp"
-#include "mutex.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/timer.hpp"
+#include "base/thread.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/iostream.hpp"
-#include "../std/iomanip.hpp"
-#include "../std/sstream.hpp"
-#include "../std/target_os.hpp"
-#include "../std/windows.hpp"
+#include "std/iostream.hpp"
+#include "std/iomanip.hpp"
+#include "std/sstream.hpp"
+#include "std/target_os.hpp"
+#include "std/windows.hpp"
 
 namespace my
 {

@@ -1,9 +1,9 @@
-#include "thread.hpp"
+#include "base/thread.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/chrono.hpp"
-#include "../std/exception.hpp"
+#include "std/chrono.hpp"
+#include "std/exception.hpp"
 
 #if defined(OMIM_OS_ANDROID)
 void AndroidThreadAttachToJVM();

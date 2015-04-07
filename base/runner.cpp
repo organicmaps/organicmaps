@@ -1,6 +1,6 @@
-#include "runner.hpp"
-#include "logging.hpp"
-#include "exception.hpp"
+#include "base/runner.hpp"
+#include "base/logging.hpp"
+#include "base/exception.hpp"
 
 void threads::IRunner::CallAndCatchAll(RunnerFuncT const & f)
 {

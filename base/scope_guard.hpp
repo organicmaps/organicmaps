@@ -3,7 +3,7 @@
 /// @brief	See http://gzip.rsdn.ru/forum/Message.aspx?mid=389127&only=1.
 
 #pragma once
-#include "base.hpp"
+#include "base/base.hpp"
 
 namespace my
 {

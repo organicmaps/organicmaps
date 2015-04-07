@@ -1,9 +1,9 @@
 #pragma once
-#include "base.hpp"
-#include "internal/message.hpp"
-#include "src_point.hpp"
+#include "base/base.hpp"
+#include "base/internal/message.hpp"
+#include "base/src_point.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 namespace my

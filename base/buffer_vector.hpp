@@ -1,12 +1,12 @@
 #pragma once
-#include "assert.hpp"
-#include "swap.hpp"
-#include "stl_iterator.hpp"
+#include "base/assert.hpp"
+#include "base/swap.hpp"
+#include "base/stl_iterator.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
-#include "../std/type_traits.hpp"
-#include "../std/utility.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
+#include "std/type_traits.hpp"
+#include "std/utility.hpp"
 #include "../std/cstring.hpp"       // for memcpy
 
 

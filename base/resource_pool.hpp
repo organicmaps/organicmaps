@@ -1,12 +1,12 @@
 #pragma once
 
-#include "thread.hpp"
-#include "threaded_list.hpp"
-#include "logging.hpp"
-#include "assert.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
+#include "base/logging.hpp"
+#include "base/assert.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/bind.hpp"
+#include "std/unique_ptr.hpp"
 
 struct BasePoolElemFactory
 {

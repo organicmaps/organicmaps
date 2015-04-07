@@ -1,9 +1,9 @@
 #pragma once
 
-#include "math.hpp"
+#include "base/math.hpp"
 
-#include "../std/iomanip.hpp"
-#include "../std/initializer_list.hpp"
+#include "std/iomanip.hpp"
+#include "std/initializer_list.hpp"
 
 
 namespace math

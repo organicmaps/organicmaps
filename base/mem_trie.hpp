@@ -1,9 +1,9 @@
 #pragma once
 
-#include "macros.hpp"
+#include "base/macros.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
+#include "std/map.hpp"
+#include "std/vector.hpp"
 
 namespace my
 {

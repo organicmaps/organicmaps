@@ -1,11 +1,11 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/assert.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
-#include "commands_queue.hpp"
+#include "base/commands_queue.hpp"
 
 namespace core
 {

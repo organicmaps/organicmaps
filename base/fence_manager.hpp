@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../base/condition.hpp"
-#include "../base/mutex.hpp"
+#include "base/condition.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/map.hpp"
-#include "../std/list.hpp"
+#include "std/map.hpp"
+#include "std/list.hpp"
 
 class FenceManager
 {

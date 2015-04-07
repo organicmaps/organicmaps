@@ -1,8 +1,8 @@
 #pragma once
-#include "base.hpp"
+#include "base/base.hpp"
 
-#include "../std/sstream.hpp"
-#include "../std/string.hpp"
+#include "std/sstream.hpp"
+#include "std/string.hpp"
 
 
 namespace my

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
-#include "../std/stdint.hpp"
-#include "../std/sstream.hpp"
-#include "../std/limits.hpp"
+#include "std/string.hpp"
+#include "std/stdint.hpp"
+#include "std/sstream.hpp"
+#include "std/limits.hpp"
 
-#include "../3party/utfcpp/source/utf8/unchecked.h"
+#include "3party/utfcpp/source/utf8/unchecked.h"
 
 
 /// All methods work with strings in utf-8 format

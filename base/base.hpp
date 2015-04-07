@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/stdint.hpp"
-#include "../std/static_assert.hpp"
+#include "std/stdint.hpp"
+#include "std/static_assert.hpp"
 
 #if defined(DEBUG) || defined(_DEBUG) || defined(NRELEASE) || defined(QT_DEBUG)
 #define MY_DEBUG_DEFINED 1
@@ -37,4 +37,4 @@ STATIC_ASSERT(MY_DEBUG_DEFINED || MY_RELEASE_DEFINED);
 #endif
 
 // platform macroses
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"

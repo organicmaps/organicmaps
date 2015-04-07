@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../std/stdint.hpp"
-#include "../std/string.hpp"
-#include "../std/ctime.hpp"
-#include "../std/chrono.hpp"
+#include "std/stdint.hpp"
+#include "std/string.hpp"
+#include "std/ctime.hpp"
+#include "std/chrono.hpp"
 
 
 namespace my

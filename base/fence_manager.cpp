@@ -1,7 +1,7 @@
-#include "fence_manager.hpp"
+#include "base/fence_manager.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 FenceManager::FenceManager(int conditionPoolSize)
   : m_currentFence(0),

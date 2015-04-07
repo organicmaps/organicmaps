@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/vector.hpp"
+#include "std/function.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/vector.hpp"
 
-#include "cancellable.hpp"
-#include "thread.hpp"
-#include "threaded_list.hpp"
+#include "base/cancellable.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
 
 namespace core
 {

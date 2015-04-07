@@ -1,9 +1,9 @@
-#include "base.hpp"
-#include "assert.hpp"
-#include "exception.hpp"
+#include "base/base.hpp"
+#include "base/assert.hpp"
+#include "base/exception.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/iostream.hpp"
+#include "std/target_os.hpp"
+#include "std/iostream.hpp"
 
 #include <cassert>
 

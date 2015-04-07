@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/string.hpp"
-#include "../std/map.hpp"
+#include "std/string.hpp"
+#include "std/map.hpp"
 
 
 class StringsBundle

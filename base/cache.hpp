@@ -1,8 +1,8 @@
-#include "assert.hpp"
-#include "base.hpp"
-#include "../std/type_traits.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "std/type_traits.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace my
 {

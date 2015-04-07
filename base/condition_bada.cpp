@@ -1,8 +1,8 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #ifdef OMIM_OS_BADA
 
-#include "condition.hpp"
+#include "base/condition.hpp"
 
 #include <FBaseRtThreadMonitor.h>
 

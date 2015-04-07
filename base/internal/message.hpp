@@ -1,13 +1,13 @@
 #pragma once
-#include "../../std/iterator.hpp"
-#include "../../std/list.hpp"
-#include "../../std/map.hpp"
-#include "../../std/set.hpp"
-#include "../../std/sstream.hpp"
-#include "../../std/string.hpp"
-#include "../../std/utility.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/initializer_list.hpp"
+#include "std/iterator.hpp"
+#include "std/list.hpp"
+#include "std/map.hpp"
+#include "std/set.hpp"
+#include "std/sstream.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
+#include "std/initializer_list.hpp"
 
 
 /// @name Declarations.

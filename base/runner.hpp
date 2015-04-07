@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 namespace threads
 {
