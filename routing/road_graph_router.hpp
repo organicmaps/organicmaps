@@ -26,11 +26,9 @@ public:
                                    vector<RoadPos> const & finalPos, vector<RoadPos> & route) = 0;
   virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
 
-  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & startDr,
-                                        m2::PointD const & finalPt,
-                                        CancelFlagT const & requestCancel, Route & route);
-
-protected:
+  protected:
+  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                                        m2::PointD const & finalPoint, Route & route) override;
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
   bool IsMyMWM(size_t mwmID) const;
 

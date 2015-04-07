@@ -33,17 +33,6 @@ namespace
 
 namespace integration
 {
-  class OsrmRouterWrapper : public OsrmRouter
-  {
-  public:
-    OsrmRouterWrapper(Index const * index, CountryFileFnT const & fn) : OsrmRouter(index, fn) {}
-    ResultCode CalculateRouteSync(m2::PointD const & startPt, m2::PointD const & startDr,
-                                  m2::PointD const & finalPt, Route & route)
-    {
-      return CalculateRouteImpl(startPt, startDr, finalPt, route);
-    }
-  };
-
   shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<string> const & mapNames)
   {
     size_t const maxOpenFileNumber = 1024;
@@ -86,13 +75,13 @@ namespace integration
     }
   }
 
-  shared_ptr<OsrmRouterWrapper> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
+  shared_ptr<OsrmRouter> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
                                              shared_ptr<search::Engine> searchEngine)
   {
     ASSERT(featuresFetcher, ());
     ASSERT(searchEngine, ());
 
-    shared_ptr<OsrmRouterWrapper> osrmRouter(new OsrmRouterWrapper(&featuresFetcher->GetIndex(),
+    shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&featuresFetcher->GetIndex(),
                                                      [searchEngine]  (m2::PointD const & pt)
     {
       return searchEngine->GetCountryFile(pt);
@@ -107,11 +96,11 @@ namespace integration
       : m_featuresFetcher(CreateFeaturesFetcher(mapNames)),
         m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
         m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
-    OsrmRouterWrapper * GetOsrmRouter() const { return m_osrmRouter.get(); }
+    OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
   private:
     shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
     shared_ptr<search::Engine> m_searchEngine;
-    shared_ptr<OsrmRouterWrapper> m_osrmRouter;
+    shared_ptr<OsrmRouter> m_osrmRouter;
   };
 
   void GetMapNames(vector<string> & maps)
@@ -149,7 +138,7 @@ namespace integration
                               m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt)
   {
     ASSERT(routerComponents, ());
-    OsrmRouterWrapper * osrmRouter = routerComponents->GetOsrmRouter();
+    OsrmRouter * osrmRouter = routerComponents->GetOsrmRouter();
     ASSERT(osrmRouter, ());
     shared_ptr<Route> route(new Route("mapsme"));
     OsrmRouter::ResultCode result = osrmRouter->CalculateRouteSync(startPt, startDr, finalPt, *route.get());

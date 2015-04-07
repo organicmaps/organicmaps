@@ -12,16 +12,16 @@ AsyncRouter::AsyncRouter()
   m_isReadyThread.clear();
 }
 
-void AsyncRouter::CalculateRoute(m2::PointD const & startPt, m2::PointD const & direction,
-                                 m2::PointD const & finalPt, ReadyCallback const & callback)
+void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
+                                 m2::PointD const & finalPoint, ReadyCallback const & callback)
 {
   {
     threads::MutexGuard guard(m_paramsMutex);
     UNUSED_VALUE(guard);
 
-    m_startPt = startPt;
-    m_startDr = direction;
-    m_finalPt = finalPt;
+    m_startPoint = startPoint;
+    m_startDirection = direction;
+    m_finalPoint = finalPoint;
 
     m_requestCancel = true;
   }
@@ -50,21 +50,21 @@ void AsyncRouter::CalculateRouteAsync(ReadyCallback const & callback)
 
   m_isReadyThread.clear();
 
-  m2::PointD startPt, finalPt, startDr;
+  m2::PointD startPoint, finalPoint, startDirection;
   {
     threads::MutexGuard params(m_paramsMutex);
     UNUSED_VALUE(params);
 
-    startPt = m_startPt;
-    finalPt = m_finalPt;
-    startDr = m_startDr;
+    startPoint = m_startPoint;
+    finalPoint = m_finalPoint;
+    startDirection = m_startDirection;
 
     m_requestCancel = false;
   }
 
   try
   {
-    code = CalculateRouteImpl(startPt, startDr, finalPt, m_requestCancel, route);
+    code = CalculateRouteImpl(startPoint, startDirection, finalPoint, route);
     switch (code)
     {
       case StartPointNotFound:
