@@ -40,12 +40,12 @@ public:
   PolygonLoader(CountriesContainerT & countries)
     : m_countries(countries) {}
 
-  void operator() (string const & name, const vector<m2::RegionD> & borders)
+  void operator() (string const & name, vector<m2::RegionD> const & borders)
   {
     if (m_polygons.m_name.empty())
       m_polygons.m_name = name;
 
-    for (const m2::RegionD & border : borders)
+    for (m2::RegionD const & border : borders)
     {
       m2::RectD const rect(border.GetRect());
       m_rect.Add(rect);
@@ -113,7 +113,7 @@ public:
   {
   }
 
-  void operator() (string const & name, const vector<m2::RegionD> & borders)
+  void operator() (string const & name, vector<m2::RegionD> const & borders)
   {
     // use index in vector as tag
     FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
@@ -121,7 +121,7 @@ public:
 
     // calc rect
     m2::RectD rect;
-    for (const m2::RegionD & border : borders)
+    for (m2::RegionD const & border : borders)
       rect.Add(border.GetRect());
 
     // store polygon info
@@ -129,7 +129,7 @@ public:
 
     // write polygons as paths
     WriteVarUint(w, borders.size());
-    for (const m2::RegionD & border : borders)
+    for (m2::RegionD const & border : borders)
     {
       typedef vector<m2::PointD> VectorT;
       typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
