@@ -17,8 +17,11 @@ VERSION_MINOR = 4
 VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 
 # Additional include directories, common to most projects.
+INCLUDEPATH *= $$ROOT_DIR
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
 INCLUDEPATH *= $$ROOT_DIR/3party/glm
+
+
 
 # hack for Qt5 qmake to make it faster
 CONFIG -= depend_includepath

@@ -1,21 +1,21 @@
-#include "kml_parser.hpp"
-#include "feature_sorter.hpp"
+#include "generator/kml_parser.hpp"
+#include "generator/feature_sorter.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
-#include "../coding/parse_xml.hpp"
-#include "../coding/file_reader.hpp"
+#include "coding/parse_xml.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/cellid.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/cellid.hpp"
 
-#include "../indexer/cell_id.hpp"
-#include "../indexer/mercator.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/covering.hpp"
+#include "indexer/cell_id.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/covering.hpp"
 
-#include "../std/fstream.hpp"
+#include "std/fstream.hpp"
 
 #define MIN_SIMPLIFIED_POINTS_COUNT 4
 

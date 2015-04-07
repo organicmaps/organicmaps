@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../geometry/region2d.hpp"
-#include "../geometry/tree4d.hpp"
+#include "geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 #define BORDERS_DIR "borders/"
 #define BORDERS_EXTENSION ".poly"

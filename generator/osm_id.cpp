@@ -1,8 +1,8 @@
-#include "osm_id.hpp"
+#include "generator/osm_id.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/sstream.hpp"
+#include "std/sstream.hpp"
 
 
 namespace osm

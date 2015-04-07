@@ -1,13 +1,13 @@
 #pragma once
 
-#include "osm_id.hpp"
+#include "generator/osm_id.hpp"
 
-#include "../indexer/feature.hpp"
+#include "indexer/feature.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/read_write_utils.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/read_write_utils.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 namespace serial { class CodingParams; }

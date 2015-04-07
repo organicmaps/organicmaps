@@ -1,11 +1,11 @@
 #pragma once
-#include "osm_decl.hpp"
+#include "generator/osm_decl.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/map.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
 
 template <class THolder>

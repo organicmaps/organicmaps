@@ -1,9 +1,9 @@
 #pragma once
-#include "feature_emitter_iface.hpp"
-#include "feature_builder.hpp"
+#include "generator/feature_emitter_iface.hpp"
+#include "generator/feature_builder.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
+#include "std/map.hpp"
+#include "std/vector.hpp"
 
 
 /// Feature builder class that used while feature type processing and merging.

@@ -1,10 +1,10 @@
 #pragma once
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/map.hpp"
 
-#include "../std/iostream.hpp"
-#include "../std/exception.hpp"
+#include "std/iostream.hpp"
+#include "std/exception.hpp"
 
 struct XMLElement
 {

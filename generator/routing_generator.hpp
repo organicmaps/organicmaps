@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/set.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/set.hpp"
 
 namespace routing
 {

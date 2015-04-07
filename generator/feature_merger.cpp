@@ -1,9 +1,9 @@
-#include "feature_merger.hpp"
+#include "generator/feature_merger.hpp"
 
-#include "../indexer/feature.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/point_to_int64.hpp"
-#include "../indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/point_to_int64.hpp"
+#include "indexer/classificator.hpp"
 
 
 MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)

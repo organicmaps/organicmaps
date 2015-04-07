@@ -1,14 +1,14 @@
-#include "unpack_mwm.hpp"
+#include "generator/unpack_mwm.hpp"
 
-#include "../coding/file_container.hpp"
-#include "../coding/file_writer.hpp"
-#include "../coding/read_write_utils.hpp"
+#include "coding/file_container.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/read_write_utils.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 
 void UnpackMwm(string const & filePath)

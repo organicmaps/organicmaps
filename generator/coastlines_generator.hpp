@@ -1,11 +1,11 @@
 #pragma once
 
-#include "feature_merger.hpp"
+#include "generator/feature_merger.hpp"
 
-#include "../indexer/cell_id.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../geometry/tree4d.hpp"
-#include "../geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
+#include "geometry/region2d.hpp"
 
 
 class FeatureBuilder1;

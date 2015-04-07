@@ -1,10 +1,10 @@
-#include "osm_decl.hpp"
+#include "generator/osm_decl.hpp"
 
-#include "../indexer/classificator.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 
 void progress_policy::Begin(string const & /*name*/, size_t factor)

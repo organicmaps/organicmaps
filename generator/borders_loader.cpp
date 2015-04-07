@@ -1,29 +1,29 @@
-#include "borders_loader.hpp"
-#include "borders_generator.hpp"
+#include "generator/borders_loader.hpp"
+#include "generator/borders_generator.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../storage/country_polygon.hpp"
+#include "storage/country_polygon.hpp"
 
-#include "../indexer/geometry_serialization.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/mercator.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../geometry/simplification.hpp"
-#include "../geometry/distance.hpp"
+#include "geometry/simplification.hpp"
+#include "geometry/distance.hpp"
 
-#include "../coding/file_container.hpp"
-#include "../coding/read_write_utils.hpp"
-#include "../coding/file_name_utils.hpp"
+#include "coding/file_container.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/fstream.hpp"
-#include "../std/vector.hpp"
-#include "../std/bind.hpp"
+#include "std/fstream.hpp"
+#include "std/vector.hpp"
+#include "std/bind.hpp"
 
 
 namespace borders

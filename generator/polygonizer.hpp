@@ -1,20 +1,20 @@
 #pragma once
 
-#include "borders_loader.hpp"
-#include "feature_builder.hpp"
+#include "generator/borders_loader.hpp"
+#include "generator/feature_builder.hpp"
 
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/cell_id.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../base/base.hpp"
-#include "../base/buffer_vector.hpp"
-#include "../base/macros.hpp"
+#include "base/base.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/macros.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 #ifndef PARALLEL_POLYGONIZER

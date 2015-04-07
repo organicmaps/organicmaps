@@ -1,17 +1,17 @@
-#include "tesselator.hpp"
+#include "generator/tesselator.hpp"
 
-#include "../indexer/geometry_coding.hpp"
+#include "indexer/geometry_coding.hpp"
 
-#include "../geometry/robust_orientation.hpp"
+#include "geometry/robust_orientation.hpp"
 
-#include "../coding/writer.hpp"
+#include "coding/writer.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
-#include "../std/queue.hpp"
+#include "std/queue.hpp"
 
-#include "../3party/sgitess/interface.h"
+#include "3party/sgitess/interface.h"
 
 
 namespace tesselator

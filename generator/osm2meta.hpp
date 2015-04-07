@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../indexer/feature_data.hpp"
-#include "../indexer/classificator.hpp"
-#include "../indexer/ftypes_matcher.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 class MetadataTagProcessor

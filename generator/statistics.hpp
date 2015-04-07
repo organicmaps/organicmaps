@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../indexer/feature.hpp"
+#include "indexer/feature.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 
 namespace stats

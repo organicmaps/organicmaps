@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../coding/mmap_reader.hpp"
+#include "coding/mmap_reader.hpp"
 
-#include "../std/iostream.hpp"
-#include "../std/type_traits.hpp"
+#include "std/iostream.hpp"
+#include "std/type_traits.hpp"
 
 /// Used to store all world nodes inside temporary index file.
 /// To find node by id, just calculate offset inside index file:

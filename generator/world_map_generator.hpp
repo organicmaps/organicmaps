@@ -1,10 +1,10 @@
 #pragma once
 
-#include "feature_merger.hpp"
+#include "generator/feature_merger.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
 
 /// Process FeatureBuilder1 for world map. Main functions:

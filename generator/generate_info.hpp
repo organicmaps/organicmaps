@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace feature
 {

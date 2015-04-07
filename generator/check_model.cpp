@@ -1,12 +1,12 @@
-#include "check_model.hpp"
+#include "generator/check_model.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../indexer/features_vector.hpp"
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_visibility.hpp"
+#include "indexer/features_vector.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 using namespace feature;

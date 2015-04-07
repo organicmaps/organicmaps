@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../coding/read_write_utils.hpp"
+#include "coding/read_write_utils.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/utility.hpp"
-#include "../std/algorithm.hpp"
+#include "std/utility.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace gen

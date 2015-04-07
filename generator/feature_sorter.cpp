@@ -1,26 +1,26 @@
-#include "feature_sorter.hpp"
-#include "feature_generator.hpp"
-#include "feature_builder.hpp"
-#include "tesselator.hpp"
-#include "gen_mwm_info.hpp"
+#include "generator/feature_sorter.hpp"
+#include "generator/feature_generator.hpp"
+#include "generator/feature_builder.hpp"
+#include "generator/tesselator.hpp"
+#include "generator/gen_mwm_info.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../indexer/data_header.hpp"
-#include "../indexer/feature_processor.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/feature_impl.hpp"
-#include "../indexer/geometry_serialization.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/mwm_version.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/feature_processor.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/mwm_version.hpp"
 
-#include "../geometry/polygon.hpp"
+#include "geometry/polygon.hpp"
 
-#include "../coding/internal/file_data.hpp"
-#include "../coding/file_container.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/file_container.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
 
 

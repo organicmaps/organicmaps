@@ -1,21 +1,21 @@
-#include "dumper.hpp"
+#include "generator/dumper.hpp"
 
-#include "../indexer/search_delimiters.hpp"
-#include "../indexer/search_string_utils.hpp"
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_processor.hpp"
-#include "../indexer/search_trie.hpp"
+#include "indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_processor.hpp"
+#include "indexer/search_trie.hpp"
 
-#include "../coding/multilang_utf8_string.hpp"
+#include "coding/multilang_utf8_string.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
-#include "../std/iostream.hpp"
-#include "../std/map.hpp"
-#include "../std/queue.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
+#include "std/iostream.hpp"
+#include "std/map.hpp"
+#include "std/queue.hpp"
+#include "std/vector.hpp"
 
 namespace feature
 {

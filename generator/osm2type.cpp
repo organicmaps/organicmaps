@@ -1,18 +1,18 @@
-#include "osm2type.hpp"
-#include "osm2meta.hpp"
-#include "xml_element.hpp"
+#include "generator/osm2type.hpp"
+#include "generator/osm2meta.hpp"
+#include "generator/xml_element.hpp"
 
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_visibility.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/math.hpp"
+#include "base/assert.hpp"
+#include "base/string_utils.hpp"
+#include "base/math.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/bind.hpp"
-#include "../std/function.hpp"
-#include "../std/initializer_list.hpp"
+#include "std/vector.hpp"
+#include "std/bind.hpp"
+#include "std/function.hpp"
+#include "std/initializer_list.hpp"
 
 #include <QtCore/QString>
 

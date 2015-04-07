@@ -1,17 +1,17 @@
 #pragma once
 
-#include "osm_decl.hpp"
+#include "generator/osm_decl.hpp"
 
-#include "../coding/file_reader_stream.hpp"
-#include "../coding/file_writer_stream.hpp"
+#include "coding/file_reader_stream.hpp"
+#include "coding/file_writer_stream.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/limits.hpp"
-#include "../std/exception.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/limits.hpp"
+#include "std/exception.hpp"
 
 
 /// Classes for reading and writing any data in file with map of offsets for

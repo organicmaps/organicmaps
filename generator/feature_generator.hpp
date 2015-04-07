@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 
 class FeatureBuilder1;

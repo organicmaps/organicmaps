@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../base/std_serialization.hpp"
-#include "../base/assert.hpp"
+#include "base/std_serialization.hpp"
+#include "base/assert.hpp"
 
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 
 #define NODES_FILE "nodes.dat"

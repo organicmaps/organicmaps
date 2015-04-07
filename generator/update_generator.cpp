@@ -1,19 +1,19 @@
-#include "update_generator.hpp"
+#include "generator/update_generator.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../storage/country.hpp"
+#include "storage/country.hpp"
 
-#include "../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
-#include "../base/timer.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/timer.hpp"
 
-#include "../std/iterator.hpp"
+#include "std/iterator.hpp"
 
 using namespace storage;
 

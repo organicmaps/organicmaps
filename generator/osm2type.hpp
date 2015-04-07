@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../indexer/feature_data.hpp"
+#include "indexer/feature_data.hpp"
 
 
 struct XMLElement;

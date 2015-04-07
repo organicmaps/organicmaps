@@ -1,16 +1,16 @@
-#include "coastlines_generator.hpp"
-#include "feature_builder.hpp"
+#include "generator/coastlines_generator.hpp"
+#include "generator/feature_builder.hpp"
 
-#include "../indexer/point_to_int64.hpp"
+#include "indexer/point_to_int64.hpp"
 
-#include "../geometry/region2d/binary_operators.hpp"
+#include "geometry/region2d/binary_operators.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
-#include "../3party/gflags/src/gflags/gflags.h"
+#include "3party/gflags/src/gflags/gflags.h"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 typedef m2::RegionI RegionT;

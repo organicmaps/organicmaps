@@ -1,17 +1,17 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "statistics.hpp"
+#include "generator/statistics.hpp"
 
-#include "../indexer/feature_processor.hpp"
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_impl.hpp"
-#include "../indexer/data_factory.hpp"
+#include "indexer/feature_processor.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/data_factory.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
-#include "../std/iostream.hpp"
-#include "../std/iomanip.hpp"
+#include "std/iostream.hpp"
+#include "std/iomanip.hpp"
 
 
 using namespace feature;

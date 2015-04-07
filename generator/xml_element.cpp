@@ -1,10 +1,10 @@
-#include "xml_element.hpp"
+#include "generator/xml_element.hpp"
 
-#include "../coding/parse_xml.hpp"
-#include "../base/string_utils.hpp"
+#include "coding/parse_xml.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/cstdio.hpp"
-#include "../std/algorithm.hpp"
+#include "std/cstdio.hpp"
+#include "std/algorithm.hpp"
 
 
 void XMLElement::AddKV(string const & k, string const & v)

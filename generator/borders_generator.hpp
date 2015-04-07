@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../geometry/region2d.hpp"
-#include "../geometry/point2d.hpp"
+#include "geometry/region2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 namespace osm
 {

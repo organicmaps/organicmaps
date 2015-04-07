@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../base/exception.hpp"
+#include "base/exception.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include "../std/set.hpp"
-#include "../std/string.hpp"
+#include "std/vector.hpp"
+#include "std/map.hpp"
+#include "std/set.hpp"
+#include "std/string.hpp"
 
 namespace osm
 {

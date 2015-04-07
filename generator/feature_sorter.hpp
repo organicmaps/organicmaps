@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/simplification.hpp"
-#include "../geometry/distance.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/simplification.hpp"
+#include "geometry/distance.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 namespace feature

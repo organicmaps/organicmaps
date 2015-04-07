@@ -1,20 +1,20 @@
-#include "feature_builder.hpp"
+#include "generator/feature_builder.hpp"
 
-#include "../routing/vehicle_model.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../indexer/feature_impl.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/geometry_serialization.hpp"
-#include "../indexer/coding_params.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/coding_params.hpp"
 
-#include "../geometry/region2d.hpp"
+#include "geometry/region2d.hpp"
 
-#include "../coding/byte_stream.hpp"
+#include "coding/byte_stream.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/cstring.hpp"
-#include "../std/algorithm.hpp"
+#include "std/cstring.hpp"
+#include "std/algorithm.hpp"
 
 
 using namespace feature;

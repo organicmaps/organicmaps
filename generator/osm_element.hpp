@@ -1,23 +1,23 @@
 #pragma once
 
-#include "osm2type.hpp"
-#include "xml_element.hpp"
-#include "feature_builder.hpp"
-#include "ways_merger.hpp"
+#include "generator/osm2type.hpp"
+#include "generator/xml_element.hpp"
+#include "generator/feature_builder.hpp"
+#include "generator/ways_merger.hpp"
 
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../geometry/tree4d.hpp"
+#include "geometry/tree4d.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
-#include "../base/cache.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
+#include "base/cache.hpp"
 
-#include "../std/unordered_set.hpp"
-#include "../std/list.hpp"
+#include "std/unordered_set.hpp"
+#include "std/list.hpp"
 
 
 /// @param  TEmitter  Feature accumulating policy
