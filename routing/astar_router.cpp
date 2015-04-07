@@ -1,9 +1,9 @@
 #include "astar_router.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/timer.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 #include "../indexer/mercator.hpp"
-
 
 namespace routing
 {
@@ -12,6 +12,10 @@ static double const MAX_SPEED = 36.11111111111; // m/s
 
 void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 {
+  LOG(LINFO, ("AStarRouter::SetFinalRoadPos() call"));
+  for (auto const & roadPos : finalPos)
+    LOG(LINFO, ("AStarRouter::SetFinalRoadPos(): finalPos:", DebugPrint(roadPos)));
+
   ASSERT_GREATER(finalPos.size(), 0, ());
   m_entries.clear();
   PossiblePathQueueT().swap(m_queue);
@@ -26,6 +30,11 @@ void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 
 void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route)
 {
+  my::Timer timer;
+  LOG(LINFO, ("AStarRouter::CalculateRoute() call start"));
+  for (auto const & roadPos : startPos)
+    LOG(LINFO, ("AStarRouter::CalculateRoute(): startPos:", DebugPrint(roadPos)));
+
   route.clear();
   set<RoadPos> startSet(startPos.begin(), startPos.end());
   set<uint32_t> startFeatureSet;
@@ -46,6 +55,7 @@ void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPo
     if (bStartFeature && startSet.find(current->GetPos()) != startSet.end())
     {
       ReconstructRoute(current, route);
+      LOG(LINFO, ("AStarRouter::CalculateRoute() call finish: elapsed:", timer.ElapsedSeconds()));
       return;
     }
 
@@ -76,6 +86,7 @@ void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPo
   }
 
   LOG(LDEBUG, ("No route found!"));
+  LOG(LINFO, ("AStarRouter::CalculateRoute() call finish: elapsed:", timer.ElapsedSeconds()));
   // Route not found.
 }
 
