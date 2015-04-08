@@ -186,9 +186,9 @@ void RoutingSession::AssignRoute(Route & route)
   m_route.Swap(route);
 }
 
-void RoutingSession::SetRouter(IRouter * router)
+void RoutingSession::SetRouter(unique_ptr<IRouter> && router)
 {
-  m_router.reset(new AsyncRouter(router));
+  m_router.reset(new AsyncRouter(move(router)));
 }
 
 void RoutingSession::DeleteIndexFile(string const & fileName)

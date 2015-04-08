@@ -108,13 +108,9 @@ bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
 }
 
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
-                                           m2::PointD const & startDirection,
-                                           m2::PointD const & finalPoint,
-                                           Route & route)
+                                                    m2::PointD const & /* startDirection */,
+                                                    m2::PointD const & finalPoint, Route & route)
 {
-  // We can make easy turnaround when walking. So we will not use direction for route calculation
-  UNUSED_VALUE(startDirection);
-
   vector<RoadPos> finalPos;
   size_t mwmID = GetRoadPos(finalPoint, finalPos);
 
@@ -135,7 +131,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 
   vector<RoadPos> routePos;
 
-  CalculateRouteOnMwm(startPos, finalPos, routePos);
+  CalculateM2MRoute(startPos, finalPos, routePos);
 
   LOG(LINFO, ("Route calculation time: ", timer.ElapsedSeconds()));
 

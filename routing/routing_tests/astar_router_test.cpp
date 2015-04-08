@@ -29,9 +29,9 @@ void TestAStarRouterMock(RoadPos (&finalPos)[finalPosSize],
   AStarRouter router;
   router.SetRoadGraph(graph);
   vector<RoadPos> result;
-  router.CalculateRouteOnMwm(vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)),
-                             vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)),
-                             result);
+  router.CalculateM2MRoute(vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)),
+                           vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)),
+                           result);
   TEST_EQUAL(vector<RoadPos>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), result, ());
 }
 
@@ -54,7 +54,7 @@ void TestAStarRouterMWM(RoadPos (&finalPos)[finalPosSize],
   tester.Name2FeatureID(startV);
 
   vector<RoadPos> result;
-  router.CalculateRouteOnMwm(startV, finalV, result);
+  router.CalculateM2MRoute(startV, finalV, result);
   LOG(LDEBUG, (result));
 
   Route route(router.GetName());

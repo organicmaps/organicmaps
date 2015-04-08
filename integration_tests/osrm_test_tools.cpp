@@ -76,14 +76,14 @@ namespace integration
   }
 
   shared_ptr<OsrmRouter> CreateOsrmRouter(shared_ptr<model::FeaturesFetcher> featuresFetcher,
-                                             shared_ptr<search::Engine> searchEngine)
+                                          shared_ptr<search::Engine> searchEngine)
   {
     ASSERT(featuresFetcher, ());
     ASSERT(searchEngine, ());
 
     shared_ptr<OsrmRouter> osrmRouter(new OsrmRouter(&featuresFetcher->GetIndex(),
-                                                     [searchEngine]  (m2::PointD const & pt)
-    {
+                                                     [searchEngine](m2::PointD const & pt)
+                                                     {
       return searchEngine->GetCountryFile(pt);
     }));
     return osrmRouter;
@@ -97,6 +97,7 @@ namespace integration
         m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
         m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
     OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
+
   private:
     shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
     shared_ptr<search::Engine> m_searchEngine;
@@ -141,7 +142,8 @@ namespace integration
     OsrmRouter * osrmRouter = routerComponents->GetOsrmRouter();
     ASSERT(osrmRouter, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    OsrmRouter::ResultCode result = osrmRouter->CalculateRoute(startPt, startDr, finalPt, *route.get());
+    OsrmRouter::ResultCode result =
+        osrmRouter->CalculateRoute(startPt, startDr, finalPt, *route.get());
     return RouteResultT(route, result);
   }
 

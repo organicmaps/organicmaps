@@ -27,6 +27,12 @@
 #include "3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
 #include "3party/osrm/osrm-backend/RoutingAlgorithms/NToMManyToManyRouting.h"
 
+#define INTERRUPT_WHEN_CANCELLED() \
+  do                               \
+  {                                \
+    if (IsCancelled())             \
+      return Cancelled;            \
+  } while (false)
 
 namespace routing
 {
@@ -363,7 +369,8 @@ RoutingMappingPtrT RoutingIndexManager::GetMappingByName(string const & fName, I
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
     : m_pIndex(index), m_indexManager(fn)
-{}
+{
+}
 
 string OsrmRouter::GetName() const
 {
@@ -618,8 +625,7 @@ public:
 
 OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   m2::PointD const & startDirection,
-                                                  m2::PointD const & finalPoint,
-                                                  Route & route)
+                                                  m2::PointD const & finalPoint, Route & route)
 {
   my::HighResTimer timer(true);
   RoutingMappingPtrT startMapping = m_indexManager.GetMappingByPoint(startPoint, m_pIndex);
@@ -673,7 +679,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
       m_CachedTargetPoint = finalPoint;
     }
   }
-  ROUTING_CANCEL_INTERRUPT_CHECK;
+  INTERRUPT_WHEN_CANCELLED();
 
   LOG(LINFO, ("Duration of the start/stop points lookup", timer.ElapsedNano()));
   timer.Reset();
@@ -693,7 +699,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       return RouteNotFound;
     }
-    ROUTING_CANCEL_INTERRUPT_CHECK;
+    INTERRUPT_WHEN_CANCELLED();
 
     // 5. Restore route.
 
@@ -702,8 +708,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     vector<m2::PointD> points;
     turns::TurnsGeomT turnsGeom;
 
-    MakeTurnAnnotation(routingResult, startMapping, points, turnsDir, times,
-                       turnsGeom);
+    MakeTurnAnnotation(routingResult, startMapping, points, turnsDir, times, turnsGeom);
 
     route.SetGeometry(points.begin(), points.end());
     route.SetTurnInstructions(turnsDir);
@@ -781,7 +786,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
     if (weights.empty())
       return StartPointNotFound;
-    ROUTING_CANCEL_INTERRUPT_CHECK;
+    INTERRUPT_WHEN_CANCELLED();
 
     // Load target data
     LastCrossFinder targetFinder(targetMapping, m_CachedTargetTask);
@@ -808,7 +813,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       if (weights[j] == INVALID_EDGE_WEIGHT)
         continue;
-      ROUTING_CANCEL_INTERRUPT_CHECK;
+      INTERRUPT_WHEN_CANCELLED();
       string const & nextMwm =
           startMapping->m_crossContext.getOutgoingMwmName((mwmOutsIter.first + j)->m_outgoingIndex);
       RoutingMappingPtrT nextMapping;
@@ -852,7 +857,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       while (getPathWeight(crossTasks.top())<finalWeight)
       {
-        ROUTING_CANCEL_INTERRUPT_CHECK;
+        INTERRUPT_WHEN_CANCELLED();
         CheckedPathT const topTask = crossTasks.top();
         crossTasks.pop();
         RoutePathCross const cross = topTask.back();
@@ -886,7 +891,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
             if (getPathWeight(topTask)+outWeight >= finalWeight)
               continue;
-            ROUTING_CANCEL_INTERRUPT_CHECK;
+            INTERRUPT_WHEN_CANCELLED();
 
             string const & nextMwm = currentContext.getOutgoingMwmName(oit->m_outgoingIndex);
             RoutingMappingPtrT nextMapping;
@@ -986,10 +991,12 @@ m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
   return nextPnt;
 }
 
-OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
-    RawRoutingResultT const & routingResult, RoutingMappingPtrT const & mapping,
-    vector<m2::PointD> & points, Route::TurnsT & turnsDir,
-    Route::TimesT & times, turns::TurnsGeomT & turnsGeom)
+OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & routingResult,
+                                                      RoutingMappingPtrT const & mapping,
+                                                      vector<m2::PointD> & points,
+                                                      Route::TurnsT & turnsDir,
+                                                      Route::TimesT & times,
+                                                      turns::TurnsGeomT & turnsGeom)
 {
   typedef OsrmMappingTypes::FtSeg SegT;
   SegT const & segBegin = routingResult.m_sourceEdge.m_seg;
@@ -1006,7 +1013,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(
 #endif
   for (auto i : osrm::irange<size_t>(0, routingResult.m_routePath.unpacked_path_segments.size()))
   {
-    ROUTING_CANCEL_INTERRUPT_CHECK;
+    INTERRUPT_WHEN_CANCELLED();
 
     // Get all the coordinates for the computed route
     size_t const n = routingResult.m_routePath.unpacked_path_segments[i].size();

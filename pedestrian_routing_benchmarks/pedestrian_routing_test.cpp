@@ -56,7 +56,7 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
 
   my::Timer timer;
   LOG(LINFO, ("Calculating routing..."));
-  router.CalculateRouteOnMwm(startPos, finalPos, route);
+  router.CalculateM2MRoute(startPos, finalPos, route);
   LOG(LINFO, ("Route length:", route.size()));
   LOG(LINFO, ("Elapsed:", timer.ElapsedSeconds(), "seconds"));
 }

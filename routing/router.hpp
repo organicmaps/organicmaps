@@ -7,8 +7,6 @@
 #include "std/function.hpp"
 #include "std/string.hpp"
 
-#define ROUTING_CANCEL_INTERRUPT_CHECK if (IsCancelled()) return Cancelled;
-
 namespace routing
 {
 
@@ -43,14 +41,15 @@ public:
   /// It will be called in separate thread and only one function will processed in same time.
   /// @warning please support Cancellable interface calls. You must stop processing when it is true.
   ///
-  /// @param startPt point to start routing
-  /// @param direction start direction for routers with high cost of the turnarounds
-  /// @param finalPt target point for route
+  /// @param startPoint point to start routing
+  /// @param startDirection start direction for routers with high cost of the turnarounds
+  /// @param finalPoint target point for route
   /// @param route result route
   /// @return ResultCode error code or NoError if route was initialised
   /// @see Cancellable
-  virtual ResultCode CalculateRoute(m2::PointD const & startingPt, m2::PointD const & startDirection,
-                                    m2::PointD const & finalPt, Route & route) = 0;
+  virtual ResultCode CalculateRoute(m2::PointD const & startPoint,
+                                    m2::PointD const & startDirection,
+                                    m2::PointD const & finalPoint, Route & route) = 0;
 };
 
 }

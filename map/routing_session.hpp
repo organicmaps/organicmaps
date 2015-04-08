@@ -45,7 +45,7 @@ public:
    */
 
   RoutingSession();
-  void SetRouter(IRouter * router);
+  void SetRouter(unique_ptr<IRouter> && router);
 
   typedef function<void (Route const &, IRouter::ResultCode)> TReadyCallbackFn;
 
@@ -64,7 +64,8 @@ public:
   void DeleteIndexFile(string const & fileName);
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  void ActivateAdditionalFeatures() {} //TODO (Dragunov) Make activation of the pedestrian routing
+  // TODO (Dragunov) Make activation of the pedestrian routing
+  void ActivateAdditionalFeatures() {}
 
 private:
   struct DoReadyCallback

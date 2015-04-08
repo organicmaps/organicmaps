@@ -9,7 +9,8 @@ namespace routing
 DijkstraRouter::ShortestPath const * const DijkstraRouter::ShortestPath::FINAL_POS
   = reinterpret_cast<ShortestPath const *>(1);
 
-void DijkstraRouter::CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos, vector<RoadPos> & route)
+void DijkstraRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
+                                       vector<RoadPos> const & finalPos, vector<RoadPos> & route)
 {
   m_entries = PathSet();
   m_queue = PossiblePathQueue();

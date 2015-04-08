@@ -1,27 +1,24 @@
 #include "async_router.hpp"
 
-#include "../base/macros.hpp"
 #include "../platform/platform.hpp"
+#include "../base/macros.hpp"
 #include "../base/logging.hpp"
 
 namespace routing
 {
-AsyncRouter::AsyncRouter(IRouter * router) : m_router(router)
+AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router) : m_router(move(router))
 {
   m_isReadyThread.clear();
 }
 
-AsyncRouter::~AsyncRouter()
-{
-  ClearState();
-}
+AsyncRouter::~AsyncRouter() { ClearState(); }
 
 void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
                                  m2::PointD const & finalPoint, ReadyCallback const & callback)
 {
   ASSERT(m_router, ());
   {
-    threads::MutexGuard guard(m_paramsMutex);
+    lock_guard<mutex> guard(m_paramsMutex);
     UNUSED_VALUE(guard);
 
     m_startPoint = startPoint;
@@ -31,7 +28,7 @@ void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const
     m_router->Cancel();
   }
 
-  GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteAsync, this, callback));
+  GetPlatform().RunAsync(bind(&AsyncRouter::CalculateRouteImpl, this, callback));
 }
 
 void AsyncRouter::ClearState()
@@ -39,12 +36,11 @@ void AsyncRouter::ClearState()
   ASSERT(m_router, ());
   m_router->Cancel();
 
-  threads::MutexGuard guard(m_routeMutex);
-  UNUSED_VALUE(guard);
+  lock_guard<mutex> guard(m_routeMutex);
   m_router->ClearState();
 }
 
-void AsyncRouter::CalculateRouteAsync(ReadyCallback const & callback)
+void AsyncRouter::CalculateRouteImpl(ReadyCallback const & callback)
 {
   if (m_isReadyThread.test_and_set())
     return;
@@ -52,15 +48,13 @@ void AsyncRouter::CalculateRouteAsync(ReadyCallback const & callback)
   Route route(m_router->GetName());
   IRouter::ResultCode code;
 
-  threads::MutexGuard guard(m_routeMutex);
-  UNUSED_VALUE(guard);
+  lock_guard<mutex> guard(m_routeMutex);
 
   m_isReadyThread.clear();
 
   m2::PointD startPoint, finalPoint, startDirection;
   {
-    threads::MutexGuard params(m_paramsMutex);
-    UNUSED_VALUE(params);
+    lock_guard<mutex> params(m_paramsMutex);
 
     startPoint = m_startPoint;
     finalPoint = m_finalPoint;

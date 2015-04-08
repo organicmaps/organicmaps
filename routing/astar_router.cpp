@@ -9,7 +9,6 @@
 
 namespace routing
 {
-
 static double const kMaxSpeedMPS = 5000.0 / 3600;
 
 // This implementation is based on the view that the A* algorithm
@@ -24,11 +23,12 @@ static double const kMaxSpeedMPS = 5000.0 / 3600;
 //
 // The vertices of the graph are of type RoadPos.
 // The edges of the graph are of type PossibleTurn.
-void AStarRouter::CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos, vector<RoadPos> & route)
+void AStarRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
+                                    vector<RoadPos> const & finalPos, vector<RoadPos> & route)
 {
 #if defined(DEBUG)
   for (auto const & roadPos : finalPos)
-    LOG(LDEBUG, ("AStarRouter::CalculateRouteOnMwm(): finalPos:", roadPos));
+    LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): finalPos:", roadPos));
 #endif  // defined(DEBUG)
 
   ASSERT_GREATER(finalPos.size(), 0, ());
@@ -40,7 +40,7 @@ void AStarRouter::CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<R
 
 #if defined(DEBUG)
   for (auto const & roadPos : startPos)
-    LOG(LDEBUG, ("AStarRouter::CalculateRouteOnMwm(): startPos:", roadPos));
+    LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): startPos:", roadPos));
 #endif // defined(DEBUG)
 
   route.clear();

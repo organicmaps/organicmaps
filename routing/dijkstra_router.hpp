@@ -20,9 +20,8 @@ public:
   DijkstraRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
 
   virtual string GetName() const { return "routeme"; }
-  virtual void CalculateRouteOnMwm(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
-                                   vector<RoadPos> & route);
-
+  virtual void CalculateM2MRoute(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
+                                 vector<RoadPos> & route);
 
 private:
   class ShortestPath

@@ -9,7 +9,6 @@ namespace downloader { class HttpRequest; }
 
 namespace routing
 {
-
 class OsrmOnlineRouter : public AsyncRouter
 {
   m2::PointD m_finalPt;

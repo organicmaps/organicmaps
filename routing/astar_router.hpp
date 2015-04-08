@@ -15,9 +15,9 @@ public:
   AStarRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
 
   virtual string GetName() const { return "pedestrian"; }
-  void CalculateRouteOnMwm(vector<RoadPos> const & startPos,
-                           vector<RoadPos> const & finalPos,
-                           vector<RoadPos> & route) override;
+  // TODO (Dragunov) ResultCode returning
+  void CalculateM2MRoute(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
+                         vector<RoadPos> & route) override;
 
 protected:
 

@@ -166,8 +166,8 @@ protected:
    */
   ResultCode MakeTurnAnnotation(RawRoutingResultT const & routingResult,
                                 RoutingMappingPtrT const & mapping, vector<m2::PointD> & points,
-                                Route::TurnsT & turnsDir,
-                                Route::TimesT & times, turns::TurnsGeomT & turnsGeom);
+                                Route::TurnsT & turnsDir, Route::TimesT & times,
+                                turns::TurnsGeomT & turnsGeom);
 
 private:
   typedef pair<size_t,string> MwmOutT;

@@ -276,7 +276,7 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
-  m_routingSession.SetRouter(new AStarRouter(&m_model.GetIndex()));
+  m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
   /*m_routingSession.SetRouter(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
   {
     return GetSearchEngine()->GetCountryFile(pt);
