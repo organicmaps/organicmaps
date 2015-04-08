@@ -12,7 +12,8 @@
 namespace
 {
 
-routing::VehicleModel::SpeedForType s_testLimits[] = {
+routing::VehicleModel::InitListT const s_testLimits =
+{
   { {"highway", "trunk"},          150 },
   { {"highway", "primary"},        120 },
   { {"highway", "secondary"},      80 },
@@ -22,10 +23,7 @@ routing::VehicleModel::SpeedForType s_testLimits[] = {
 class TestVehicleModel : public routing::VehicleModel
 {
 public:
-  TestVehicleModel()
-    : VehicleModel(classif(), vector<VehicleModel::SpeedForType>(s_testLimits, s_testLimits + ARRAY_SIZE(s_testLimits)))
-  {
-  }
+  TestVehicleModel() : VehicleModel(classif(), s_testLimits) {}
 };
 
 uint32_t GetType(char const * s0, char const * s1 = 0, char const * s2 = 0)
@@ -40,21 +38,23 @@ uint32_t GetOnewayType()
   return GetType("hwtag", "oneway");
 }
 
-void CheckSpeed(vector<uint32_t> types, double expectedSpeed)
+void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed)
 {
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
-  for (size_t i = 0; i < types.size(); ++i)
-    h(types[i]);
+  for (uint32_t t : types)
+    h(t);
+
   TEST_EQUAL(vehicleModel.GetSpeed(h), expectedSpeed, ());
 }
 
-void CheckOneWay(vector<uint32_t> types, bool expectedValue)
+void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
 {
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
-  for (size_t i = 0; i < types.size(); ++i)
-    h(types[i]);
+  for (uint32_t t : types)
+    h(t);
+
   TEST_EQUAL(vehicleModel.IsOneWay(h), expectedValue, ());
 }
 
@@ -70,14 +70,14 @@ UNIT_TEST(VehicleModel_MaxSpeed)
 
 UNIT_TEST(VehicleModel_Speed)
 {
-  CheckSpeed(vector<uint32_t>(1, GetType("highway", "secondary", "bridge")), 80.0);
-  CheckSpeed(vector<uint32_t>(1, GetType("highway", "secondary", "tunnel")), 80.0);
-  CheckSpeed(vector<uint32_t>(1, GetType("highway", "secondary")), 80.0);
-  CheckSpeed(vector<uint32_t>(1, GetType("highway")), 0.0);
+  CheckSpeed({ GetType("highway", "secondary", "bridge") }, 80.0);
+  CheckSpeed({ GetType("highway", "secondary", "tunnel") }, 80.0);
+  CheckSpeed({ GetType("highway", "secondary") }, 80.0);
+  CheckSpeed({ GetType("highway") }, 0.0);
 
-  CheckSpeed(vector<uint32_t>(1, GetType("highway", "trunk")), 150.0);
-  CheckSpeed(vector<uint32_t>(1, GetType("highway", "primary")), 120.0);
-  CheckSpeed(vector<uint32_t>(1, GetType("highway", "residential")), 50.0);
+  CheckSpeed({ GetType("highway", "trunk") }, 150.0);
+  CheckSpeed({ GetType("highway", "primary") }, 120.0);
+  CheckSpeed({ GetType("highway", "residential") }, 50.0);
 }
 
 UNIT_TEST(VehicleModel_Speed_MultiTypes)
@@ -85,56 +85,36 @@ UNIT_TEST(VehicleModel_Speed_MultiTypes)
   uint32_t const typeTunnel = GetType("highway", "secondary", "tunnel");
   uint32_t const typeSecondary = GetType("highway", "secondary");
   uint32_t const typeHighway = GetType("highway");
-  {
-    uint32_t types[] = { typeTunnel, typeSecondary };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-  }
-  {
-    uint32_t types[] = { typeTunnel, typeHighway };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-  }
-  {
-    uint32_t types[] = { typeHighway, typeTunnel };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-  }
-  {
-    uint32_t types[] = { typeHighway, typeHighway };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 0.0);
-  }
+
+  CheckSpeed({ typeTunnel, typeSecondary }, 80.0);
+  CheckSpeed({ typeTunnel, typeHighway }, 80.0);
+  CheckSpeed({ typeHighway, typeTunnel }, 80.0);
+  CheckSpeed({ typeHighway, typeHighway }, 0.0);
 }
 
 UNIT_TEST(VehicleModel_OneWay)
 {
-  {
-    uint32_t types[] = { GetType("highway", "secondary", "bridge"), GetOnewayType() };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-    CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
-  }
-  {
-    uint32_t types[] = { GetOnewayType(), GetType("highway", "secondary", "bridge") };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-    CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
-  }
-  {
-    uint32_t types[] = { GetOnewayType() };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 0.0);
-    CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
-  }
+  uint32_t const typeBridge = GetType("highway", "secondary", "bridge");
+  uint32_t const typeOneway = GetOnewayType();
+
+  CheckSpeed({ typeBridge, typeOneway }, 80.0);
+  CheckOneWay({ typeBridge, typeOneway }, true);
+  CheckSpeed({ typeOneway, typeBridge }, 80.0);
+  CheckOneWay({ typeOneway, typeBridge }, true);
+
+  CheckSpeed({ typeOneway }, 0.0);
+  CheckOneWay({ typeOneway }, true);
 }
 
 UNIT_TEST(VehicleModel_DifferentSpeeds)
 {
-  {
-    uint32_t types[] = { GetType("highway", "secondary"), GetType("highway", "primary") };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-  }
-  {
-    uint32_t types[] = { GetType("highway", "primary"), GetType("highway", "secondary") };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-  }
-  {
-    uint32_t types[] = { GetType("highway", "primary"), GetOnewayType(), GetType("highway", "secondary") };
-    CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
-    CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
-  }
+  uint32_t const typeSecondary = GetType("highway", "secondary");
+  uint32_t const typePrimary = GetType("highway", "primary");
+  uint32_t const typeOneway = GetOnewayType();
+
+  CheckSpeed({ typeSecondary, typePrimary }, 80.0);
+  CheckSpeed({ typePrimary, typeSecondary }, 80.0);
+
+  CheckSpeed({ typePrimary, typeOneway, typeSecondary }, 80.0);
+  CheckOneWay({ typePrimary, typeOneway, typeSecondary }, true);
 }

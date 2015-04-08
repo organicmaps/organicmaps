@@ -1,11 +1,11 @@
 #pragma once
 #include "base/buffer_vector.hpp"
 
+#include "std/initializer_list.hpp"
+#include "std/stdint.hpp"
 #include "std/unordered_map.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
-#include "std/stdint.hpp"
-
 
 class Classificator;
 class FeatureType;
@@ -33,8 +33,9 @@ public:
     char const * m_types[2];
     double m_speed;
   };
+  typedef initializer_list<SpeedForType> InitListT;
 
-  VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits);
+  VehicleModel(Classificator const & c, InitListT const & speedLimits);
 
   virtual double GetSpeed(FeatureType const & f) const;
   virtual double GetMaxSpeed() const { return m_maxSpeed; }
@@ -50,7 +51,7 @@ public:
 private:
   double m_maxSpeed;
 
-  typedef unordered_map<uint32_t, SpeedForType> TypesT;
+  typedef unordered_map<uint32_t, double> TypesT;
   TypesT m_types;
 
   buffer_vector<uint32_t, 4> m_addRoadTypes;

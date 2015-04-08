@@ -9,11 +9,11 @@
 #include "std/limits.hpp"
 #include "std/initializer_list.hpp"
 
-
 namespace routing
 {
 
-initializer_list<VehicleModel::SpeedForType> const s_carLimits = {
+VehicleModel::InitListT const s_carLimits =
+{
   { {"highway", "motorway"},       90 },
   { {"highway", "trunk"},          85 },
   { {"highway", "motorway_link"},  75 },
@@ -39,20 +39,19 @@ initializer_list<VehicleModel::SpeedForType> const s_carLimits = {
   //{ {"highway", "construction"},   40 },
 };
 
-
 CarModel::CarModel()
   : VehicleModel(classif(), s_carLimits)
 {
 }
 
-VehicleModel::VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits)
+VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT const & speedLimits)
   : m_maxSpeed(0),
     m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
 {
-  for (size_t i = 0; i < speedLimits.size(); ++i)
+  for (auto const & v : speedLimits)
   {
-    m_maxSpeed = max(m_maxSpeed, speedLimits[i].m_speed);
-    m_types[c.GetTypeByPath(vector<string>(speedLimits[i].m_types, speedLimits[i].m_types + 2))] = speedLimits[i];
+    m_maxSpeed = max(m_maxSpeed, v.m_speed);
+    m_types[c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2))] = v.m_speed;
   }
 
   initializer_list<char const *> arr[] = {
@@ -77,7 +76,7 @@ double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto it = m_types.find(type);
     if (it != m_types.end())
-      speed = min(speed, it->second.m_speed);
+      speed = min(speed, it->second);
   }
   if (speed <= m_maxSpeed)
     return speed;
