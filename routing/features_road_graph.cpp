@@ -285,7 +285,7 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
 
       ptID += inc;
 
-    } while (!m2::AlmostEqual(pt, lastPt));
+    } while (ptID >= 0 && ptID < ft1.GetPointsCount() && !m2::AlmostEqual(pt, lastPt));
 
     // Assign current processing feature.
     if (diffIDs)

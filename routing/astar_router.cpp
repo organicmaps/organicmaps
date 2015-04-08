@@ -1,13 +1,15 @@
 #include "astar_router.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 #include "../indexer/mercator.hpp"
+#include "../std/algorithm.hpp"
 
 namespace routing
 {
 
-static double const MAX_SPEED = 36.11111111111; // m/s
+static double const kMaxSpeed = 5000.0 / 3600; // m/s
 
 void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 {
@@ -17,17 +19,27 @@ void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 #endif  // defined(DEBUG)
 
   ASSERT_GREATER(finalPos.size(), 0, ());
-  m_entries.clear();
-  PossiblePathQueueT().swap(m_queue);
-  for (size_t i = 0; i < finalPos.size(); ++i)
+  m_bestDistance.clear();
+  for (auto const & roadPos : finalPos)
   {
-    pair<ShortPathSetT::iterator, bool> t = m_entries.insert(ShortestPath(finalPos[i]));
-    ASSERT(t.second, ());
-    m_queue.push(PossiblePath(&*t.first));
+    pair<RoadPosToDoubleMapT::iterator, bool> t = m_bestDistance.insert({roadPos, 0.0});
+    UNUSED_VALUE(t);
+    ASSERT_EQUAL(t.second, true, ());
   }
-
 }
 
+// This implementation is based on the view that the A* algorithm
+// is equivalent to Dijkstra's algorithm that is run on a reweighted
+// version of the graph. If an edge (v, w) has length l(v, w), its reduced
+// cost is l_r(v, w) = l(v, w) + pi(w) - pi(v), where pi() is any function
+// that ensures l_r(v, w) >= 0 for every edge. We set pi() to calculate
+// the shortest possible distance to a goal node, and this is a common
+// heuristic that people use in A*.
+// Refer to this paper for more information:
+// http://research.microsoft.com/pubs/154937/soda05.pdf
+//
+// The vertices of the graph are of type RoadPos.
+// The edges of the graph are of type PossibleTurn.
 void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route)
 {
 #if defined(DEBUG)
@@ -36,87 +48,97 @@ void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPo
 #endif // defined(DEBUG)
 
   route.clear();
-  set<RoadPos> startSet(startPos.begin(), startPos.end());
-  set<uint32_t> startFeatureSet;
-  for (vector<RoadPos>::const_iterator it = startPos.begin(); it != startPos.end(); ++it)
-    startFeatureSet.insert(it->GetFeatureId());
+  vector<uint32_t> sortedStartFeatures(startPos.size());
+  for (size_t i = 0; i < startPos.size(); ++i)
+    sortedStartFeatures[i] = startPos[i].GetFeatureId();
+  sort(sortedStartFeatures.begin(), sortedStartFeatures.end());
+  sortedStartFeatures.resize(unique(sortedStartFeatures.begin(), sortedStartFeatures.end()) - sortedStartFeatures.begin());
+
+  vector<RoadPos> sortedStartPos(startPos.begin(), startPos.end());
+  sort(sortedStartPos.begin(), sortedStartPos.end());
+
+  VertexQueueT().swap(m_queue);
+  for (RoadPosToDoubleMapT::const_iterator it = m_bestDistance.begin(); it != m_bestDistance.end(); ++it)
+    m_queue.push(Vertex(it->first));
 
   while (!m_queue.empty())
   {
-    PossiblePath const & currPath = m_queue.top();
-    double const fScore = currPath.m_fScore;
-    ShortestPath const * current = currPath.m_path;
-    current->RemovedFromOpenSet();
+    Vertex const v = m_queue.top();
     m_queue.pop();
 
-    current->SetVisited();
+    if (v.GetReducedDist() > m_bestDistance[v.GetPos()])
+      continue;
 
-    bool const bStartFeature = startFeatureSet.find(current->GetPos().GetFeatureId()) != startFeatureSet.end();
-    if (bStartFeature && startSet.find(current->GetPos()) != startSet.end())
+    /// @todo why do we even need this?
+    bool bStartFeature = binary_search(sortedStartFeatures.begin(), sortedStartFeatures.end(), v.GetPos().GetFeatureId());
+
+    if (bStartFeature && binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
     {
-      ReconstructRoute(current, route);
+      ReconstructRoute(v.GetPos(), route);
       return;
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_pRoadGraph->GetPossibleTurns(current->GetPos(), turns, bStartFeature);
+    m_pRoadGraph->GetPossibleTurns(v.GetPos(), turns, bStartFeature);
     for (IRoadGraph::TurnsVectorT::const_iterator it = turns.begin(); it != turns.end(); ++it)
     {
       PossibleTurn const & turn = *it;
-      pair<ShortPathSetT::iterator, bool> t = m_entries.insert(ShortestPath(turn.m_pos, current));
-      if (t.second || !t.first->IsVisited())
-      {
-        ShortestPath const * nextPath = &*t.first;
-        ASSERT_GREATER(turn.m_speed, 0.0, ());
-        double nextScoreG = fScore + turn.m_secondsCovered;//DistanceBetween(current, nextPath) / turn.m_speed;
+      ASSERT_GREATER(turn.m_speed, 0.0, ()); /// @todo why?
+      Vertex const w = Vertex(turn.m_pos);
+      if (v.GetPos() == w.GetPos())
+        continue;
+      double len = DistanceBetween(&v, &w) / kMaxSpeed;
+      double piV = HeuristicCostEstimate(&v, sortedStartPos);
+      double piW = HeuristicCostEstimate(&w, sortedStartPos);
+      double newReducedDist = v.GetReducedDist() + len + piW - piV;
 
-        if (!nextPath->IsInOpenSet() || nextScoreG < nextPath->GetScoreG())
-        {
-          nextPath->SetParent(current);
-          nextPath->SetScoreG(nextScoreG);
-          if (!nextPath->IsInOpenSet())
-          {
-            m_queue.push(PossiblePath(nextPath, nextScoreG + HeuristicCostEstimate(nextPath, startSet)));
-            nextPath->AppendedIntoOpenSet();
-          }
-        }
-      }
+      RoadPosToDoubleMapT::const_iterator t = m_bestDistance.find(turn.m_pos);
+      if (t != m_bestDistance.end() && newReducedDist >= t->second)
+        continue;
+
+      w.SetReducedDist(newReducedDist);
+      m_bestDistance[w.GetPos()] = newReducedDist;
+      RoadPosParentMapT::iterator pit = m_parent.find(w.GetPos());
+      m_parent[w.GetPos()] = v.GetPos();
+      m_queue.push(w);
     }
+
   }
 
   LOG(LDEBUG, ("No route found!"));
   // Route not found.
 }
 
-double AStarRouter::HeuristicCostEstimate(AStarRouter::ShortestPath const * s1, set<RoadPos> const & goals)
+double AStarRouter::HeuristicCostEstimate(Vertex const * v, vector<RoadPos> const & goals)
 {
-  /// @todo support of more than one goals
+  // @todo support of more than one goal
   ASSERT_GREATER(goals.size(), 0, ());
 
-  m2::PointD const & b = (*goals.begin()).GetSegEndpoint();
-  m2::PointD const & e = s1->GetPos().GetSegEndpoint();
+  m2::PointD const & b = goals[0].GetSegEndpoint();
+  m2::PointD const & e = v->GetPos().GetSegEndpoint();
 
-  return MercatorBounds::DistanceOnEarth(b, e) / MAX_SPEED;
+  return MercatorBounds::DistanceOnEarth(b, e) / kMaxSpeed;
 }
 
-double AStarRouter::DistanceBetween(ShortestPath const * p1, ShortestPath const * p2)
+double AStarRouter::DistanceBetween(Vertex const * v1, Vertex const * v2)
 {
-  m2::PointD const & b = p1->GetPos().GetSegEndpoint();
-  m2::PointD const & e = p2->GetPos().GetSegEndpoint();
+  m2::PointD const & b = v1->GetPos().GetSegEndpoint();
+  m2::PointD const & e = v2->GetPos().GetSegEndpoint();
   return MercatorBounds::DistanceOnEarth(b, e);
 }
 
-void AStarRouter::ReconstructRoute(ShortestPath const * path, vector<RoadPos> & route) const
+void AStarRouter::ReconstructRoute(RoadPos const & destination, vector<RoadPos> & route) const
 {
-  ShortestPath const * p = path;
+  RoadPos rp = destination;
 
-  while (p)
+  LOG(LDEBUG, ("A-star has found a route"));
+  while (true)
   {
-    route.push_back(p->GetPos());
-    if (p->GetParentEntry())
-      p = p->GetParentEntry();
-    else
-      p = 0;
+    route.push_back(rp);
+    RoadPosParentMapT::const_iterator it = m_parent.find(rp);
+    if (it == m_parent.end())
+      break;
+    rp = it->second;
   }
 }
 

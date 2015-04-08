@@ -30,6 +30,11 @@ public:
     return (m_featureId == r.m_featureId && m_segId == r.m_segId);
   }
 
+  bool operator!=(RoadPos const & r) const
+  {
+    return (m_featureId != r.m_featureId || m_segId != r.m_segId);
+  }
+
   bool operator<(RoadPos const & r) const
   {
     if (m_featureId != r.m_featureId)

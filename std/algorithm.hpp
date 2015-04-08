@@ -7,6 +7,7 @@
 
 #include <algorithm>
 
+using std::binary_search;
 using std::equal;
 using std::find;
 using std::find_if;

@@ -2,6 +2,7 @@
 
 #include "road_graph_router.hpp"
 #include "../std/queue.hpp"
+#include "../std/map.hpp"
 
 namespace routing
 {
@@ -18,71 +19,47 @@ public:
 
 protected:
 
-  class ShortestPath
+  // Vertex is what is going to be put in the priority queue
+  class Vertex
   {
   public:
-    explicit ShortestPath(RoadPos pos, ShortestPath const * pParentEntry = NULL, double gScore = 0.0)
-      : m_pos(pos), m_pParentEntry(pParentEntry), m_gScore(gScore), m_isInOpenSet(false), m_isVisited(false) {}
+    explicit Vertex(RoadPos pos, Vertex const * parent = NULL, double dist = 0.0)
+      : m_pos(pos), m_parent(parent), m_reducedDist(dist) {}
 
-    bool operator < (ShortestPath const & e) const
+    bool operator < (Vertex const & v) const
     {
-      return m_pos < e.m_pos;
+      return m_reducedDist > v.m_reducedDist;
     }
 
     RoadPos GetPos() const { return m_pos; }
-    ShortestPath const * GetParentEntry() const { return m_pParentEntry; }
-    bool IsVisited() const { return m_isVisited; }
-    void SetParent(ShortestPath const * pParentEntry) const
+    inline void SetParent(Vertex const * parent) const
     {
-      ASSERT_NOT_EQUAL(this, pParentEntry, ());
-      m_pParentEntry = pParentEntry;
+      ASSERT_NOT_EQUAL(this, parent, ());
+      m_parent = parent;
     }
+    inline Vertex const * GetParent() const { return m_parent; }
 
-    void SetVisited() const { m_isVisited = true; }
-
-    void AppendedIntoOpenSet() const { m_isInOpenSet = true; }
-    void RemovedFromOpenSet() const { m_isInOpenSet = false; }
-    bool IsInOpenSet() const { return m_isInOpenSet; }
-
-    inline void SetScoreG(double g) const { m_gScore = g; }
-    inline double GetScoreG() const { return m_gScore; }
+    inline void SetReducedDist(double dist) const { m_reducedDist = dist; }
+    inline double GetReducedDist() const { return m_reducedDist; }
 
   private:
     RoadPos m_pos;
-    mutable ShortestPath const * m_pParentEntry;
-    mutable double m_gScore;
-    mutable bool m_isInOpenSet;
-    mutable bool m_isVisited;
+    mutable Vertex const * m_parent;
+    mutable double m_reducedDist;
   };
 
-  struct PossiblePath
-  {
-    ShortestPath const * m_path;
-    double m_fScore;
+  double HeuristicCostEstimate(Vertex const * v, vector<RoadPos> const & goals);
+  double DistanceBetween(Vertex const * v1, Vertex const * v2);
+  void ReconstructRoute(RoadPos const & destination, vector<RoadPos> & route) const;
 
-    explicit PossiblePath(ShortestPath const * path, double fScore = 0.0) : m_path(path), m_fScore(fScore) {}
+  typedef priority_queue<Vertex> VertexQueueT;
+  VertexQueueT m_queue;
 
-    bool operator < (PossiblePath const & p) const
-    {
-      if (m_fScore != p.m_fScore)
-        return m_fScore > p.m_fScore;
+  typedef map<RoadPos, double> RoadPosToDoubleMapT;
+  RoadPosToDoubleMapT m_bestDistance;
 
-      if (m_path->GetScoreG() != p.m_path->GetScoreG())
-        return m_path->GetScoreG() > p.m_path->GetScoreG();
-
-      return !(m_path < p.m_path);
-    }
-  };
-
-  double HeuristicCostEstimate(ShortestPath const * s1, set<RoadPos> const & goals);
-  double DistanceBetween(ShortestPath const * p1, ShortestPath const * p2);
-  void ReconstructRoute(ShortestPath const * path, vector<RoadPos> & route) const;
-
-  typedef priority_queue<PossiblePath> PossiblePathQueueT;
-  PossiblePathQueueT m_queue;
-
-  typedef set<ShortestPath> ShortPathSetT;
-  ShortPathSetT m_entries;
+  typedef map<RoadPos, RoadPos> RoadPosParentMapT;
+  RoadPosParentMapT m_parent;
 };
 
 
