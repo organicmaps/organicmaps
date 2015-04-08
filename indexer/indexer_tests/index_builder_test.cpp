@@ -12,6 +12,7 @@
 
 #include "../../coding/file_container.hpp"
 
+#include "../../base/macros.hpp"
 #include "../../base/stl_add.hpp"
 
 
@@ -58,7 +59,7 @@ UNIT_TEST(BuildIndexTest)
   {
     // Check that index actually works.
     Index index;
-    index.Register(fileName);
+    UNUSED_VALUE(index.Register(fileName));
 
     // Make sure that index is actually parsed.
     NoopFunctor fn;

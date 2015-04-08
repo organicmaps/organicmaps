@@ -14,6 +14,7 @@
 #include "../../geometry/robust_orientation.hpp"
 
 #include "../../base/logging.hpp"
+#include "../../base/macros.hpp"
 
 #include "../../std/string.hpp"
 #include "../../std/algorithm.hpp"
@@ -251,7 +252,7 @@ void RunTest(string const & file)
   model::FeaturesFetcher src1;
   src1.InitClassificator();
 
-  src1.RegisterMap(file);
+  UNUSED_VALUE(src1.RegisterMap(file));
 
   vector<m2::RectD> rects;
   rects.push_back(src1.GetWorldRect());

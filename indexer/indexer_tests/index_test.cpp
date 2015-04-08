@@ -75,7 +75,7 @@ private:
 UNIT_TEST(Index_Parse)
 {
   Index index;
-  index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION);
+  UNUSED_VALUE(index.RegisterMap("minsk-pass" DATA_FILE_EXTENSION));
 
   // Make sure that index is actually parsed.
   NoopFunctor fn;

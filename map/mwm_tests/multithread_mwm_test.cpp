@@ -4,8 +4,8 @@
 
 #include "../../indexer/scales.hpp"
 
+#include "../../base/macros.hpp"
 #include "../../base/thread.hpp"
-
 
 namespace
 {
@@ -63,7 +63,7 @@ namespace
     SourceT src;
     src.InitClassificator();
 
-    src.RegisterMap(file + DATA_FILE_EXTENSION);
+    UNUSED_VALUE(src.RegisterMap(file + DATA_FILE_EXTENSION));
 
     // Check that country rect is valid and not infinity.
     m2::RectD const r = src.GetWorldRect();

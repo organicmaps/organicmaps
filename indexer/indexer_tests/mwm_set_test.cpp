@@ -1,6 +1,8 @@
 #include "../../testing/testing.hpp"
+
 #include "../mwm_set.hpp"
 
+#include "../../base/macros.hpp"
 
 namespace
 {
@@ -36,9 +38,9 @@ UNIT_TEST(MwmSetSmokeTest)
   TestMwmSet mwmSet;
   vector<MwmInfo> info;
 
-  mwmSet.Register("0");
-  mwmSet.Register("1");
-  mwmSet.Register("2");
+  UNUSED_VALUE(mwmSet.Register("0"));
+  UNUSED_VALUE(mwmSet.Register("1"));
+  UNUSED_VALUE(mwmSet.Register("2"));
   mwmSet.Deregister("1");
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 3, ());
@@ -54,7 +56,7 @@ UNIT_TEST(MwmSetSmokeTest)
     TEST(!lock1.IsLocked(), ());
   }
 
-  mwmSet.Register("3");
+  UNUSED_VALUE(mwmSet.Register("3"));
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 3, ());
   TEST(info[0].IsUpToDate(), ());
@@ -68,7 +70,7 @@ UNIT_TEST(MwmSetSmokeTest)
     MwmSet::MwmLock lock(mwmSet, 1);
     TEST(lock.IsLocked(), ());
     mwmSet.Deregister("3");
-    mwmSet.Register("4");
+    UNUSED_VALUE(mwmSet.Register("4"));
   }
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 4, ());
@@ -80,7 +82,7 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST(info[3].IsUpToDate(), ());
   TEST_EQUAL(info[3].m_maxScale, 4, ());
 
-  mwmSet.Register("5");
+  UNUSED_VALUE(mwmSet.Register("5"));
   mwmSet.GetMwmInfo(info);
   TEST_EQUAL(info.size(), 4, ());
   TEST(info[0].IsUpToDate(), ());

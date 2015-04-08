@@ -9,8 +9,8 @@
 
 #include "../../platform/platform.hpp"
 
+#include "../../base/macros.hpp"
 #include "../../base/timer.hpp"
-
 
 namespace bench
 {
@@ -110,7 +110,7 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleR, All
     return;
 
   model::FeaturesFetcher src;
-  src.RegisterMap(file);
+  UNUSED_VALUE(src.RegisterMap(file));
 
   RunBenchmark(src, header.GetBounds(), scaleR, res);
 }
