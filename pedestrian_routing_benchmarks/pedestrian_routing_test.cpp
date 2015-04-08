@@ -7,6 +7,7 @@
 #include "../routing/features_road_graph.hpp"
 
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 #include "../base/timer.hpp"
 
 #include "../std/string.hpp"
@@ -33,8 +34,7 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
   Index index;
   routing::AStarRouter router(&index);
 
-  m2::RectD rect;
-  index.AddMap(kMapName + DATA_FILE_EXTENSION, rect);
+  UNUSED_VALUE(index.RegisterMap(kMapName + DATA_FILE_EXTENSION));
   TEST(index.IsLoaded(kMapName), ());
   MwmSet::MwmId id = index.GetMwmIdByName(kMapName + DATA_FILE_EXTENSION);
   TEST_NOT_EQUAL(static_cast<size_t>(-1), id, ());

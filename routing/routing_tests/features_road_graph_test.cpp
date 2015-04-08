@@ -64,8 +64,8 @@ FeatureRoadGraphTester::FeatureRoadGraphTester(string const & name)
 {
   classificator::Load();
 
-  m2::RectD rect;
-  if (!m_index.Add(name, rect))
+  pair<MwmSet::MwmLock, bool> p = m_index.RegisterMap(name);
+  if (!p.second)
   {
     LOG(LERROR, ("MWM file not found"));
     return;
