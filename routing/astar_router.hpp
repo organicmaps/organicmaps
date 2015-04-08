@@ -1,8 +1,9 @@
 #pragma once
 
 #include "road_graph_router.hpp"
-#include "../std/queue.hpp"
 #include "../std/map.hpp"
+#include "../std/queue.hpp"
+
 
 namespace routing
 {
@@ -23,8 +24,8 @@ protected:
   class Vertex
   {
   public:
-    explicit Vertex(RoadPos pos, Vertex const * parent = NULL, double dist = 0.0)
-      : m_pos(pos), m_parent(parent), m_reducedDist(dist) {}
+    explicit Vertex(RoadPos pos, double dist = 0.0)
+      : m_pos(pos), m_reducedDist(dist) {}
 
     bool operator < (Vertex const & v) const
     {
@@ -32,28 +33,18 @@ protected:
     }
 
     RoadPos GetPos() const { return m_pos; }
-    inline void SetParent(Vertex const * parent) const
-    {
-      ASSERT_NOT_EQUAL(this, parent, ());
-      m_parent = parent;
-    }
-    inline Vertex const * GetParent() const { return m_parent; }
 
-    inline void SetReducedDist(double dist) const { m_reducedDist = dist; }
+    inline void SetReducedDist(double dist) { m_reducedDist = dist; }
     inline double GetReducedDist() const { return m_reducedDist; }
 
   private:
     RoadPos m_pos;
-    mutable Vertex const * m_parent;
-    mutable double m_reducedDist;
+    double m_reducedDist;
   };
 
-  double HeuristicCostEstimate(Vertex const * v, vector<RoadPos> const & goals);
-  double DistanceBetween(Vertex const * v1, Vertex const * v2);
+  double HeuristicCostEstimate(Vertex const & v, vector<RoadPos> const & goals);
+  double DistanceBetween(Vertex const & v1, Vertex const & v2);
   void ReconstructRoute(RoadPos const & destination, vector<RoadPos> & route) const;
-
-  typedef priority_queue<Vertex> VertexQueueT;
-  VertexQueueT m_queue;
 
   typedef map<RoadPos, double> RoadPosToDoubleMapT;
   RoadPosToDoubleMapT m_bestDistance;

@@ -1,15 +1,16 @@
 #include "astar_router.hpp"
 
+#include "../indexer/mercator.hpp"
+#include "../geometry/distance_on_sphere.hpp"
 #include "../base/logging.hpp"
 #include "../base/macros.hpp"
-#include "../geometry/distance_on_sphere.hpp"
-#include "../indexer/mercator.hpp"
 #include "../std/algorithm.hpp"
+
 
 namespace routing
 {
 
-static double const kMaxSpeed = 5000.0 / 3600; // m/s
+static double const kMaxSpeedMPS = 5000.0 / 3600; // m/s
 
 void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
 {
@@ -22,9 +23,7 @@ void AStarRouter::SetFinalRoadPos(vector<RoadPos> const & finalPos)
   m_bestDistance.clear();
   for (auto const & roadPos : finalPos)
   {
-    pair<RoadPosToDoubleMapT::iterator, bool> t = m_bestDistance.insert({roadPos, 0.0});
-    UNUSED_VALUE(t);
-    ASSERT_EQUAL(t.second, true, ());
+    VERIFY(m_bestDistance.insert({roadPos, 0.0}).second, ());
   }
 }
 
@@ -57,40 +56,40 @@ void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPo
   vector<RoadPos> sortedStartPos(startPos.begin(), startPos.end());
   sort(sortedStartPos.begin(), sortedStartPos.end());
 
-  VertexQueueT().swap(m_queue);
-  for (RoadPosToDoubleMapT::const_iterator it = m_bestDistance.begin(); it != m_bestDistance.end(); ++it)
-    m_queue.push(Vertex(it->first));
+  priority_queue<Vertex> queue;
+  for (auto const & p : m_bestDistance)
+    queue.push(Vertex(p.first));
 
-  while (!m_queue.empty())
+  while (!queue.empty())
   {
-    Vertex const v = m_queue.top();
-    m_queue.pop();
+    Vertex const v = queue.top();
+    queue.pop();
 
     if (v.GetReducedDist() > m_bestDistance[v.GetPos()])
       continue;
 
     /// @todo why do we even need this?
-    bool bStartFeature = binary_search(sortedStartFeatures.begin(), sortedStartFeatures.end(), v.GetPos().GetFeatureId());
+    bool isStartFeature = binary_search(sortedStartFeatures.begin(), sortedStartFeatures.end(), v.GetPos().GetFeatureId());
 
-    if (bStartFeature && binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
+    if (isStartFeature && binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
     {
       ReconstructRoute(v.GetPos(), route);
       return;
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_pRoadGraph->GetPossibleTurns(v.GetPos(), turns, bStartFeature);
+    m_pRoadGraph->GetPossibleTurns(v.GetPos(), turns, isStartFeature);
     for (IRoadGraph::TurnsVectorT::const_iterator it = turns.begin(); it != turns.end(); ++it)
     {
       PossibleTurn const & turn = *it;
       ASSERT_GREATER(turn.m_speed, 0.0, ()); /// @todo why?
-      Vertex const w = Vertex(turn.m_pos);
+      Vertex w(turn.m_pos);
       if (v.GetPos() == w.GetPos())
         continue;
-      double len = DistanceBetween(&v, &w) / kMaxSpeed;
-      double piV = HeuristicCostEstimate(&v, sortedStartPos);
-      double piW = HeuristicCostEstimate(&w, sortedStartPos);
-      double newReducedDist = v.GetReducedDist() + len + piW - piV;
+      double const len = DistanceBetween(v, w) / kMaxSpeedMPS;
+      double const piV = HeuristicCostEstimate(v, sortedStartPos);
+      double const piW = HeuristicCostEstimate(w, sortedStartPos);
+      double const newReducedDist = v.GetReducedDist() + len + piW - piV;
 
       RoadPosToDoubleMapT::const_iterator t = m_bestDistance.find(turn.m_pos);
       if (t != m_bestDistance.end() && newReducedDist >= t->second)
@@ -98,32 +97,29 @@ void AStarRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPo
 
       w.SetReducedDist(newReducedDist);
       m_bestDistance[w.GetPos()] = newReducedDist;
-      RoadPosParentMapT::iterator pit = m_parent.find(w.GetPos());
       m_parent[w.GetPos()] = v.GetPos();
-      m_queue.push(w);
+      queue.push(w);
     }
-
   }
 
   LOG(LDEBUG, ("No route found!"));
-  // Route not found.
 }
 
-double AStarRouter::HeuristicCostEstimate(Vertex const * v, vector<RoadPos> const & goals)
+double AStarRouter::HeuristicCostEstimate(Vertex const & v, vector<RoadPos> const & goals)
 {
   // @todo support of more than one goal
   ASSERT_GREATER(goals.size(), 0, ());
 
   m2::PointD const & b = goals[0].GetSegEndpoint();
-  m2::PointD const & e = v->GetPos().GetSegEndpoint();
+  m2::PointD const & e = v.GetPos().GetSegEndpoint();
 
-  return MercatorBounds::DistanceOnEarth(b, e) / kMaxSpeed;
+  return MercatorBounds::DistanceOnEarth(b, e) / kMaxSpeedMPS;
 }
 
-double AStarRouter::DistanceBetween(Vertex const * v1, Vertex const * v2)
+double AStarRouter::DistanceBetween(Vertex const & v1, Vertex const & v2)
 {
-  m2::PointD const & b = v1->GetPos().GetSegEndpoint();
-  m2::PointD const & e = v2->GetPos().GetSegEndpoint();
+  m2::PointD const & b = v1.GetPos().GetSegEndpoint();
+  m2::PointD const & e = v2.GetPos().GetSegEndpoint();
   return MercatorBounds::DistanceOnEarth(b, e);
 }
 
