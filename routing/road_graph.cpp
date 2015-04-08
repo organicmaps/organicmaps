@@ -18,7 +18,7 @@ string DebugPrint(RoadPos const & r)
 {
   ostringstream ss;
   ss << "{ featureId: " << r.GetFeatureId() << ", isForward: " << r.IsForward()
-     << ", segId:" << r.m_segId << "}";
+     << ", segId:" << r.m_segId << ", segEndpoint:" << DebugPrint(r.m_segEndpoint) << "}";
   return ss.str();
 }
 
