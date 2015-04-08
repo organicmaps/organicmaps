@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/async_router.hpp"
 #include "routing/router.hpp"
 
 #include "geometry/point2d.hpp"
@@ -9,7 +10,7 @@ namespace downloader { class HttpRequest; }
 namespace routing
 {
 
-class OsrmOnlineRouter : public IRouter
+class OsrmOnlineRouter : public AsyncRouter
 {
   m2::PointD m_finalPt;
 

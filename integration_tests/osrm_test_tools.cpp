@@ -141,7 +141,7 @@ namespace integration
     OsrmRouter * osrmRouter = routerComponents->GetOsrmRouter();
     ASSERT(osrmRouter, ());
     shared_ptr<Route> route(new Route("mapsme"));
-    OsrmRouter::ResultCode result = osrmRouter->CalculateRouteSync(startPt, startDr, finalPt, *route.get());
+    OsrmRouter::ResultCode result = osrmRouter->CalculateRoute(startPt, startDr, finalPt, *route.get());
     return RouteResultT(route, result);
   }
 

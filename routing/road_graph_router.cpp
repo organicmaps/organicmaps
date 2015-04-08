@@ -107,10 +107,10 @@ bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
   return (m_pRoadGraph && dynamic_cast<FeaturesRoadGraph const *>(m_pRoadGraph.get())->GetMwmID() == mwmID);
 }
 
-AsyncRouter::ResultCode RoadGraphRouter::CalculateRouteImpl(m2::PointD const & startPoint,
-                                                            m2::PointD const & startDirection,
-                                                            m2::PointD const & finalPoint,
-                                                            Route & route)
+IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
+                                           m2::PointD const & startDirection,
+                                           m2::PointD const & finalPoint,
+                                           Route & route)
 {
   // We can make easy turnaround when walking. So we will not use direction for route calculation
   UNUSED_VALUE(startDirection);

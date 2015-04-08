@@ -101,7 +101,7 @@ void OsrmOnlineRouter::OnRouteReceived(downloader::HttpRequest & request, ReadyC
       {
         LOG(LINFO, ("Received route with", route.size(), "points"));
         Route result(GetName(), route, routeName + " " + my::FormatCurrentTime());
-        callback(result, NoError);
+        callback(result, IRouter::NoError);
       }
     }
     catch (my::Json::Exception const & ex)

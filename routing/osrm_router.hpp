@@ -87,7 +87,7 @@ public:
   }
 };
 
-class OsrmRouter : public AsyncRouter
+class OsrmRouter : public IRouter
 {
 public:
 
@@ -110,6 +110,11 @@ public:
   OsrmRouter(Index const * index, CountryFileFnT const & fn);
 
   virtual string GetName() const;
+
+  ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                            m2::PointD const & finalPoint, Route & route) override;
+
+  virtual void ClearState();
 
   /*! Find single shortest path in a single MWM between 2 sets of edges
    * \param source: vector of source edges to make path
@@ -140,8 +145,6 @@ public:
    */
   static void GenerateRoutingTaskFromNodeId(const NodeID nodeId, bool const isStartNode,
                                             FeatureGraphNode & taskNode);
-
-  void ActivateAdditionalFeatures() {m_additionalFeatures = true;}
 
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point,
@@ -204,10 +207,6 @@ private:
    */
   ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
 
-  ResultCode CalculateRouteImpl(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                                m2::PointD const & finalPoint, Route & route) override;
-
-
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
   void GetPossibleTurns(NodeID node,
                         m2::PointD const & p1,
@@ -246,9 +245,6 @@ private:
 
   m2::PointD m_startPt, m_finalPt, m_startDr;
   FeatureGraphNodeVecT m_cachedFinalNodes;
-
-  // Additional features unlocking engine
-  bool m_additionalFeatures;
 };
 
 }

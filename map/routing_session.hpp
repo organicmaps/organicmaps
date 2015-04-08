@@ -64,7 +64,7 @@ public:
   void DeleteIndexFile(string const & fileName);
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
-  void ActivateAdditionalFeatures() {m_router->ActivateAdditionalFeatures();}
+  void ActivateAdditionalFeatures() {} //TODO (Dragunov) Make activation of the pedestrian routing
 
 private:
   struct DoReadyCallback
@@ -83,7 +83,7 @@ private:
   void AssignRoute(Route & route);
 
 private:
-  unique_ptr<IRouter> m_router;
+  unique_ptr<AsyncRouter> m_router;
   Route m_route;
   State m_state;
   m2::PointD m_endPoint;

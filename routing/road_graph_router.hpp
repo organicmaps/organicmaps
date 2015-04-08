@@ -1,6 +1,6 @@
 #pragma once
 
-#include "async_router.hpp"
+#include "router.hpp"
 #include "road_graph.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -16,7 +16,7 @@ namespace routing
 
 class IVehicleModel;
 
-class RoadGraphRouter : public AsyncRouter
+class RoadGraphRouter : public IRouter
 {
 public:
   RoadGraphRouter(Index const * pIndex);
@@ -26,9 +26,10 @@ public:
                                    vector<RoadPos> const & finalPos, vector<RoadPos> & route) = 0;
   virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
 
+  virtual ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                                    m2::PointD const & finalPoint, Route & route) override;
+
   protected:
-  virtual ResultCode CalculateRouteImpl(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                                        m2::PointD const & finalPoint, Route & route) override;
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
   bool IsMyMWM(size_t mwmID) const;
 

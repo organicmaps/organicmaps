@@ -40,7 +40,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
   Reset();
   m_state = RouteBuilding;
 
-  // Use old-style callback constraction, because lambda constructs buggy function on Android
+  // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
   m_router->CalculateRoute(startPoint, startPoint - m_lastGoodPosition, m_endPoint,
                            DoReadyCallback(*this, callback, m_routeSessionMutex));
@@ -188,7 +188,7 @@ void RoutingSession::AssignRoute(Route & route)
 
 void RoutingSession::SetRouter(IRouter * router)
 {
-  m_router.reset(router);
+  m_router.reset(new AsyncRouter(router));
 }
 
 void RoutingSession::DeleteIndexFile(string const & fileName)
