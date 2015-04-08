@@ -45,12 +45,22 @@ public:
   bool IsOneWay(feature::TypesHolder const & types) const;
 
   bool IsRoad(FeatureType const & f) const;
-  bool IsRoad(vector<uint32_t> const & types) const;
+  template <class TList> bool IsRoad(TList const & types) const
+  {
+    for (uint32_t t : types)
+      if (IsRoad(t))
+        return true;
+    return false;
+  }
   bool IsRoad(uint32_t type) const;
 
-private:
+protected:
+  template <size_t N>
+  void SetAdditionalRoadTypes(Classificator const & c, initializer_list<char const *> (&arr)[N]);
+
   double m_maxSpeed;
 
+private:
   typedef unordered_map<uint32_t, double> TypesT;
   TypesT m_types;
 
@@ -62,6 +72,19 @@ class CarModel : public VehicleModel
 {
 public:
   CarModel();
+};
+
+class PedestrianModel : public VehicleModel
+{
+  uint32_t m_noFootType;
+
+  bool IsFoot(feature::TypesHolder const & types) const;
+
+public:
+  PedestrianModel();
+
+  virtual double GetSpeed(FeatureType const & f) const;
+  virtual bool IsOneWay(FeatureType const &) const { return false; }
 };
 
 }

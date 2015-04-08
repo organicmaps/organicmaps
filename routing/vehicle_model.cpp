@@ -35,14 +35,31 @@ VehicleModel::InitListT const s_carLimits =
   //{ {"highway", "shuttle_train"},  10 },
   //{ {"highway", "ferry"},          5  },
   //{ {"highway", "default"},        10 },
-  /// @todo: check type
+  /// @todo: Check type
   //{ {"highway", "construction"},   40 },
 };
 
-CarModel::CarModel()
-  : VehicleModel(classif(), s_carLimits)
+VehicleModel::InitListT const s_pedestrianLimits =
 {
-}
+  { {"highway", "primary"},        5 },
+  { {"highway", "primary_link"},   5 },
+  { {"highway", "secondary"},      5 },
+  { {"highway", "secondary_link"}, 5 },
+  { {"highway", "tertiary"},       5 },
+  { {"highway", "tertiary_link"},  5 },
+  { {"highway", "residential"},    5 },
+  { {"highway", "pedestrian"},     5 },
+  { {"highway", "unclassified"},   5 },
+  { {"highway", "service"},        5 },
+  { {"highway", "living_street"},  5 },
+  { {"highway", "road"},           5 },
+  { {"highway", "track"},          5 },
+  { {"highway", "path"},           5 },
+  { {"highway", "steps"},          5 },
+  { {"highway", "pedestrian"},     5 },
+  { {"highway", "footway"},        5 },
+};
+
 
 VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT const & speedLimits)
   : m_maxSpeed(0),
@@ -53,13 +70,12 @@ VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT cons
     m_maxSpeed = max(m_maxSpeed, v.m_speed);
     m_types[c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2))] = v.m_speed;
   }
+}
 
-  initializer_list<char const *> arr[] = {
-    { "route", "ferry", "motorcar" },
-    { "route", "ferry", "motor_vehicle" },
-    { "railway", "rail", "motor_vehicle" },
-  };
-  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+template <size_t N>
+void VehicleModel::SetAdditionalRoadTypes(Classificator const & c, initializer_list<char const *> (&arr)[N])
+{
+  for (size_t i = 0; i < N; ++i)
     m_addRoadTypes.push_back(c.GetTypeByPath(arr[i]));
 }
 
@@ -96,27 +112,57 @@ bool VehicleModel::IsOneWay(feature::TypesHolder const & types) const
 
 bool VehicleModel::IsRoad(FeatureType const & f) const
 {
-  feature::TypesHolder types(f);
-  for (uint32_t t : types)
-    if (IsRoad(t))
-      return true;
-
-  return false;
-}
-
-bool VehicleModel::IsRoad(vector<uint32_t> const & types) const
-{
-  for (uint32_t t : types)
-    if (IsRoad(t))
-      return true;
-
-  return false;
+  return IsRoad(feature::TypesHolder(f));
 }
 
 bool VehicleModel::IsRoad(uint32_t type) const
 {
   return (find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
           m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end());
+}
+
+
+CarModel::CarModel()
+  : VehicleModel(classif(), s_carLimits)
+{
+  initializer_list<char const *> arr[] =
+  {
+    { "route", "ferry", "motorcar" },
+    { "route", "ferry", "motor_vehicle" },
+    { "railway", "rail", "motor_vehicle" },
+  };
+
+  SetAdditionalRoadTypes(classif(), arr);
+}
+
+
+PedestrianModel::PedestrianModel()
+  : VehicleModel(classif(), s_pedestrianLimits),
+    m_noFootType(0)   /// @todo Add additional no-foot type
+{
+  initializer_list<char const *> arr[] =
+  {
+    { "route", "ferry" },
+    { "man_made", "pier" },
+  };
+
+  SetAdditionalRoadTypes(classif(), arr);
+}
+
+bool PedestrianModel::IsFoot(feature::TypesHolder const & types) const
+{
+  return (find(types.begin(), types.end(), m_noFootType) == types.end());
+}
+
+double PedestrianModel::GetSpeed(FeatureType const & f) const
+{
+  feature::TypesHolder types(f);
+
+  // Fixed speed: 5 km/h.
+  if (IsFoot(types) && IsRoad(types))
+    return m_maxSpeed;
+  else
+    return 0.0;
 }
 
 }

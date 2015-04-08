@@ -10,6 +10,7 @@
 
 #include "../base/logging.hpp"
 
+
 namespace routing
 {
 
@@ -25,7 +26,7 @@ uint32_t crossCheck = 0;
 
 
 FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
-  : m_pIndex(pIndex), m_mwmID(mwmID), m_vehicleModel(new CarModel()), m_cache(FEATURE_CACHE_SIZE),
+  : m_pIndex(pIndex), m_mwmID(mwmID), m_vehicleModel(new PedestrianModel()), m_cache(FEATURE_CACHE_SIZE),
     m_cacheMiss(0), m_cacheAccess(0)
 {
 }
@@ -292,13 +293,15 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
       ft1.SwapGeometry(ft2);
   }
 
-
   if (poly.size() > 1)
   {
     Route::TurnsT turnsDir;
     Route::TimesT times;
-    times.push_back(Route::TimeItemT(poly.size() - 1, 100500)); //TODO make proper time and turns calculation
+
+    /// @todo Make proper time and turns calculation.
+    times.push_back(Route::TimeItemT(poly.size() - 1, 100500));
     turnsDir.push_back(Route::TurnItem(poly.size() - 1, turns::ReachedYourDestination));
+
     route.SetGeometry(poly.rbegin(), poly.rend());
     route.SetTurnInstructions(turnsDir);
     route.SetSectionTimes(times);

@@ -1,13 +1,16 @@
 #pragma once
-
 #include "road_graph.hpp"
 #include "vehicle_model.hpp"
 
 #include "../indexer/feature_data.hpp"
+
 #include "../geometry/point2d.hpp"
+
+#include "../base/cache.hpp"
+
 #include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
-#include "../base/cache.hpp"
+
 
 class Index;
 class FeatureType;
