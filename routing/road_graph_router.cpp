@@ -131,12 +131,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 
   vector<RoadPos> routePos;
 
-  CalculateM2MRoute(startPos, finalPos, routePos);
+  IRouter::ResultCode resultCode = CalculateRouteM2M(startPos, finalPos, routePos);
 
-  LOG(LINFO, ("Route calculation time: ", timer.ElapsedSeconds()));
+  LOG(LINFO, ("Route calculation time:", timer.ElapsedSeconds(), "result code:", resultCode));
 
   m_pRoadGraph->ReconstructPath(routePos, route);
-  return NoError;
+  return resultCode;
 }
 
 } // namespace routing

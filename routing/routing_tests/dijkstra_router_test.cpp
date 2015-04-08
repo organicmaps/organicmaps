@@ -31,9 +31,10 @@ void TestDijkstraRouterMock(RoadPos (&finalPos)[finalPosSize],
   router.SetRoadGraph(graph);
 
   vector<RoadPos> result;
-  router.CalculateM2MRoute(vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)),
-                           vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)),
-                           result);
+  IRouter::ResultCode resultCode = router.CalculateRouteM2M(
+      vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)),
+      vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)), result);
+  TEST_EQUAL(IRouter::NoError, resultCode, ());
   TEST_EQUAL(vector<RoadPos>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), result, ());
 }
 
@@ -56,7 +57,8 @@ void TestDijkstraRouterMWM(RoadPos (&finalPos)[finalPosSize],
   tester.Name2FeatureID(startV);
 
   vector<RoadPos> result;
-  router.CalculateM2MRoute(startV, finalV, result);
+  IRouter::ResultCode resultCode = router.CalculateRouteM2M(startV, finalV, result);
+  TEST_EQUAL(IRouter::NoError, resultCode, ());
   LOG(LDEBUG, (result));
 
   Route route(router.GetName());

@@ -22,12 +22,12 @@ public:
   RoadGraphRouter(Index const * pIndex);
   ~RoadGraphRouter();
 
-  virtual void CalculateM2MRoute(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
-                                 vector<RoadPos> & route) = 0;
-  virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
-
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, Route & route) override;
+  virtual ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos,
+                                       vector<RoadPos> const & finalPos,
+                                       vector<RoadPos> & route) = 0;
+  virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
 
 protected:
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);

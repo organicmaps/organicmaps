@@ -9,8 +9,9 @@ namespace routing
 DijkstraRouter::ShortestPath const * const DijkstraRouter::ShortestPath::FINAL_POS
   = reinterpret_cast<ShortestPath const *>(1);
 
-void DijkstraRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
-                                       vector<RoadPos> const & finalPos, vector<RoadPos> & route)
+IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & startPos,
+                                                      vector<RoadPos> const & finalPos,
+                                                      vector<RoadPos> & route)
 {
   m_entries = PathSet();
   m_queue = PossiblePathQueue();
@@ -62,7 +63,7 @@ void DijkstraRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
       for (ShortestPath const * pE = pEntry; pE != ShortestPath::FINAL_POS; pE = pE->GetParentEntry())
         route.push_back(pE->GetPos());
       LOG(LDEBUG, (route));
-      return;
+      return IRouter::NoError;
     }
 
     IRoadGraph::TurnsVectorT turns;
@@ -81,9 +82,7 @@ void DijkstraRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
       }
     }
   }
-
-  LOG(LDEBUG, ("No route found!"));
-  // Route not found.
+  return IRouter::RouteNotFound;
 }
 
 

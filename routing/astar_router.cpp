@@ -23,8 +23,9 @@ static double const kMaxSpeedMPS = 5000.0 / 3600;
 //
 // The vertices of the graph are of type RoadPos.
 // The edges of the graph are of type PossibleTurn.
-void AStarRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
-                                    vector<RoadPos> const & finalPos, vector<RoadPos> & route)
+IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & startPos,
+                                                   vector<RoadPos> const & finalPos,
+                                                   vector<RoadPos> & route)
 {
 #if defined(DEBUG)
   for (auto const & roadPos : finalPos)
@@ -71,7 +72,7 @@ void AStarRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
     if (isStartFeature && binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
     {
       ReconstructRoute(v.GetPos(), route);
-      return;
+      return IRouter::NoError;
     }
 
     IRoadGraph::TurnsVectorT turns;
@@ -98,8 +99,7 @@ void AStarRouter::CalculateM2MRoute(vector<RoadPos> const & startPos,
       queue.push(w);
     }
   }
-
-  LOG(LDEBUG, ("No route found!"));
+  return IRouter::RouteNotFound;
 }
 
 double AStarRouter::HeuristicCostEstimate(Vertex const & v, vector<RoadPos> const & goals)

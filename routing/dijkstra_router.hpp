@@ -19,9 +19,12 @@ class DijkstraRouter : public RoadGraphRouter
 public:
   DijkstraRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
 
-  virtual string GetName() const { return "routeme"; }
-  virtual void CalculateM2MRoute(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
-                                 vector<RoadPos> & route);
+  // IRouter overrides:
+  string GetName() const override { return "routeme"; }
+
+  // RoadGraphRouter overrides:
+  ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
+                               vector<RoadPos> & route) override;
 
 private:
   class ShortestPath
