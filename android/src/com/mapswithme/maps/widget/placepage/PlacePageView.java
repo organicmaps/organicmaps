@@ -1,5 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -763,11 +764,11 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   }
 
   @Override
+  @SuppressLint("NewApi")
   public boolean onLongClick(View v)
   {
-    /// @todo Review this code in case of API level < 11.
-    if (Utils.apiLowerThan(11))
-      return true;
+    // This callback is invoked only for API level >= 11.
+    // See initViews function for more details.
 
     final Object tag = v.getTag();
     final String tagStr = tag == null ? "" : tag.toString();

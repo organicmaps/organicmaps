@@ -15,8 +15,8 @@ public class LocationPredictor
   private Handler mHandler;
 
   private LocationHelper.LocationListener mListener;
-  private Location mLastLocation = null;
-  private boolean mGeneratePredictions = false;
+  private Location mLastLocation;
+  private boolean mGeneratePredictions;
   private int mPredictionCount;
   private int mConnectionSlot;
 
