@@ -1,9 +1,9 @@
-#include "display_list_cache.hpp"
+#include "gui/display_list_cache.hpp"
 
-#include "../graphics/screen.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/glyph.hpp"
-#include "../graphics/depth_constants.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/glyph.hpp"
+#include "graphics/depth_constants.hpp"
 
 
 using namespace graphics;

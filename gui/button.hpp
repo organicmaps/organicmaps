@@ -1,11 +1,11 @@
 #pragma once
 
-#include "element.hpp"
-#include "text_view.hpp"
+#include "gui/element.hpp"
+#include "gui/text_view.hpp"
 
-#include "../std/function.hpp"
-#include "../std/string.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/function.hpp"
+#include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 
 
 namespace graphics

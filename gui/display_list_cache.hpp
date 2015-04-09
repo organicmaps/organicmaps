@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "../graphics/glyph_cache.hpp"
+#include "graphics/glyph_cache.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace graphics

@@ -1,12 +1,12 @@
-#include "cached_text_view.hpp"
-#include "controller.hpp"
+#include "gui/cached_text_view.hpp"
+#include "gui/controller.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../graphics/glyph.hpp"
-#include "../graphics/screen.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/glyph_layout.hpp"
+#include "graphics/glyph.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/glyph_layout.hpp"
 
 
 using namespace graphics;

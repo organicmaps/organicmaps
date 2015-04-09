@@ -1,9 +1,9 @@
-#include "controller.hpp"
-#include "element.hpp"
+#include "gui/controller.hpp"
+#include "gui/element.hpp"
 
-#include "../graphics/screen.hpp"
+#include "graphics/screen.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 namespace gui

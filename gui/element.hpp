@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../graphics/overlay_element.hpp"
-#include "../graphics/color.hpp"
-#include "../graphics/font_desc.hpp"
+#include "graphics/overlay_element.hpp"
+#include "graphics/color.hpp"
+#include "graphics/font_desc.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 
 namespace graphics

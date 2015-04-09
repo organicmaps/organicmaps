@@ -1,7 +1,7 @@
-#include "element.hpp"
-#include "controller.hpp"
+#include "gui/element.hpp"
+#include "gui/controller.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace gui

@@ -1,14 +1,14 @@
-#include "../../qt_tstfrm/gui_test_widget.hpp"
+#include "qt_tstfrm/gui_test_widget.hpp"
 
-#include "../button.hpp"
-#include "../text_view.hpp"
-#include "../image_view.hpp"
-#include "../cached_text_view.hpp"
+#include "gui/button.hpp"
+#include "gui/text_view.hpp"
+#include "gui/image_view.hpp"
+#include "gui/cached_text_view.hpp"
 
-#include "../../graphics/display_list.hpp"
+#include "graphics/display_list.hpp"
 
-#include "../../map/country_status_display.hpp"
-#include "../../map/framework.hpp"
+#include "map/country_status_display.hpp"
+#include "map/framework.hpp"
 
 
 struct ButtonTest

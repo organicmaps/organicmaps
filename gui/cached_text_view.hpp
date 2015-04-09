@@ -1,14 +1,14 @@
 #pragma once
 
-#include "element.hpp"
+#include "gui/element.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/matrix.hpp"
+#include "base/string_utils.hpp"
+#include "base/matrix.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/function.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/function.hpp"
 
 
 namespace graphics

@@ -1,12 +1,12 @@
-#include "image_view.hpp"
-#include "controller.hpp"
+#include "gui/image_view.hpp"
+#include "gui/controller.hpp"
 
-#include "../graphics/screen.hpp"
-#include "../graphics/display_list.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/display_list.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
 
 namespace gui

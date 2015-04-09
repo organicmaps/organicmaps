@@ -1,11 +1,11 @@
-#include "text_view.hpp"
-#include "controller.hpp"
+#include "gui/text_view.hpp"
+#include "gui/controller.hpp"
 
-#include "../graphics/display_list.hpp"
-#include "../graphics/screen.hpp"
-#include "../graphics/straight_text_element.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/straight_text_element.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
 
 namespace gui

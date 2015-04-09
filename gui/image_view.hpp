@@ -1,10 +1,10 @@
 #pragma once
 
-#include "element.hpp"
+#include "gui/element.hpp"
 
-#include "../graphics/image.hpp"
+#include "graphics/image.hpp"
 
-#include "../std/unique_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 
 namespace graphics

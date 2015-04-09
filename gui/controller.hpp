@@ -1,17 +1,17 @@
 #pragma once
 
-#include "display_list_cache.hpp"
+#include "gui/display_list_cache.hpp"
 
-#include "../graphics/defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/strings_bundle.hpp"
+#include "base/strings_bundle.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/function.hpp"
-#include "../std/list.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/function.hpp"
+#include "std/list.hpp"
 
 
 namespace graphics
