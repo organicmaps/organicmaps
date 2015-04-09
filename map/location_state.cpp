@@ -1,30 +1,30 @@
-#include "location_state.hpp"
-#include "navigator.hpp"
-#include "framework.hpp"
-#include "move_screen_task.hpp"
+#include "map/location_state.hpp"
+#include "map/navigator.hpp"
+#include "map/framework.hpp"
+#include "map/move_screen_task.hpp"
 
 #ifndef USE_DRAPE
-#include "../graphics/display_list.hpp"
-#include "../graphics/icon.hpp"
-#include "../graphics/depth_constants.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/icon.hpp"
+#include "graphics/depth_constants.hpp"
 #endif // USE_DRAPE
 
-#include "../anim/controller.hpp"
-#include "../anim/task.hpp"
-#include "../anim/angle_interpolation.hpp"
-#include "../anim/segment_interpolation.hpp"
+#include "anim/controller.hpp"
+#include "anim/task.hpp"
+#include "anim/angle_interpolation.hpp"
+#include "anim/segment_interpolation.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../indexer/mercator.hpp"
-#include "../indexer/scales.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/scales.hpp"
 
-#include "../platform/location.hpp"
-#include "../platform/settings.hpp"
+#include "platform/location.hpp"
+#include "platform/settings.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/transformations.hpp"
-#include "../../3party/Alohalytics/src/alohalytics.h"
+#include "geometry/rect2d.hpp"
+#include "geometry/transformations.hpp"
+#include "3party/Alohalytics/src/alohalytics.h"
 
 
 namespace location

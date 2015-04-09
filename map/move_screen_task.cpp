@@ -1,6 +1,6 @@
-#include "move_screen_task.hpp"
+#include "map/move_screen_task.hpp"
 
-#include "framework.hpp"
+#include "map/framework.hpp"
 
 MoveScreenTask::MoveScreenTask(Framework * framework,
                                m2::PointD const & startPt,

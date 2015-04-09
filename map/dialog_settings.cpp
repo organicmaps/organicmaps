@@ -1,8 +1,8 @@
-#include "dialog_settings.hpp"
+#include "map/dialog_settings.hpp"
 
-#include "../platform/settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 
 namespace dlg_settings

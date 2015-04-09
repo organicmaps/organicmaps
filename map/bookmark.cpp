@@ -1,30 +1,30 @@
-#include "bookmark.hpp"
-#include "track.hpp"
-#include "anim_phase_chain.hpp"
+#include "map/bookmark.hpp"
+#include "map/track.hpp"
+#include "map/anim_phase_chain.hpp"
 
-#include "framework.hpp"
+#include "map/framework.hpp"
 
-#include "../anim/controller.hpp"
+#include "anim/controller.hpp"
 
-#include "../base/scope_guard.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../graphics/depth_constants.hpp"
+#include "graphics/depth_constants.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "coding/file_reader.hpp"
 #include "../coding/parse_xml.hpp"  // LoadFromKML
-#include "../coding/internal/file_data.hpp"
-#include "../coding/hex.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/hex.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/string_utils.hpp"
+#include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/fstream.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/auto_ptr.hpp"
+#include "std/fstream.hpp"
+#include "std/algorithm.hpp"
+#include "std/auto_ptr.hpp"
 
 unique_ptr<UserMarkCopy> Bookmark::Copy() const
 {

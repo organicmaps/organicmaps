@@ -1,6 +1,6 @@
-#include "anim_phase_chain.hpp"
+#include "map/anim_phase_chain.hpp"
 
-#include "framework.hpp"
+#include "map/framework.hpp"
 
 AnimPhase::AnimPhase(double endScale, double timeInterval)
   : m_endScale(endScale)

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "events.hpp"
+#include "map/events.hpp"
 
-#include "../indexer/drawing_rule_def.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/data_header.hpp"
-#include "../indexer/feature_data.hpp"
+#include "indexer/drawing_rule_def.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/feature_data.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../graphics/glyph_cache.hpp"
+#include "graphics/glyph_cache.hpp"
 
 class ScreenBase;
 

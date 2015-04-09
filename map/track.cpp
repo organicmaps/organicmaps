@@ -1,21 +1,21 @@
-#include "track.hpp"
+#include "map/track.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../graphics/screen.hpp"
-#include "../graphics/pen.hpp"
-#include "../graphics/depth_constants.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/defines.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/pen.hpp"
+#include "graphics/depth_constants.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/defines.hpp"
 
-#include "../geometry/distance.hpp"
-#include "../geometry/simplification.hpp"
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/simplification.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../base/timer.hpp"
-#include "../base/logging.hpp"
+#include "base/timer.hpp"
+#include "base/logging.hpp"
 
-#include "../map/location_state.hpp"
+#include "map/location_state.hpp"
 
 
 Track::~Track()

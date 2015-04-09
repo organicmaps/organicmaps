@@ -1,22 +1,22 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "tile_renderer.hpp"
-#include "window_handle.hpp"
+#include "map/tile_renderer.hpp"
+#include "map/window_handle.hpp"
 
-#include "../graphics/opengl/opengl.hpp"
-#include "../graphics/opengl/gl_render_context.hpp"
-#include "../graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
-#include "../graphics/packets_queue.hpp"
-#include "../graphics/defines.hpp"
+#include "graphics/packets_queue.hpp"
+#include "graphics/defines.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/condition.hpp"
-#include "../base/shared_buffer_manager.hpp"
+#include "base/logging.hpp"
+#include "base/condition.hpp"
+#include "base/shared_buffer_manager.hpp"
 
 namespace
 {

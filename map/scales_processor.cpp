@@ -1,9 +1,9 @@
-#include "scales_processor.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../indexer/mercator.hpp"
-#include "../indexer/scales.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/scales.hpp"
 
 
 /// Note! Default tile size value should be equal with

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "track.hpp"
+#include "map/track.hpp"
 
-#include "../routing/turns.hpp"
+#include "routing/turns.hpp"
 
-#include "../map/location_state.hpp"
+#include "map/location_state.hpp"
 
 class RouteTrack : public Track
 {

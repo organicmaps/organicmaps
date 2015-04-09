@@ -1,5 +1,5 @@
-#include "rotate_screen_task.hpp"
-#include "framework.hpp"
+#include "map/rotate_screen_task.hpp"
+#include "map/framework.hpp"
 
 RotateScreenTask::RotateScreenTask(Framework * framework,
                                    double startAngle,

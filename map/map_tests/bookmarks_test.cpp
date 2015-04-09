@@ -1,20 +1,20 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../indexer/data_header.hpp"
+#include "indexer/data_header.hpp"
 
-#include "../../map/framework.hpp"
+#include "map/framework.hpp"
 
-#include "../../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../../platform/platform.hpp"
-#include "../../platform/preferred_languages.hpp"
+#include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
-#include "../../graphics/color.hpp"
+#include "graphics/color.hpp"
 
-#include "../../coding/internal/file_data.hpp"
+#include "coding/internal/file_data.hpp"
 
-#include "../../std/fstream.hpp"
-#include "../../std/unique_ptr.hpp"
+#include "std/fstream.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace
 {

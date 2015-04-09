@@ -1,18 +1,18 @@
-#include "navigator.hpp"
+#include "map/navigator.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../platform/settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../geometry/angles.hpp"
-#include "../geometry/transformations.hpp"
-#include "../geometry/point2d.hpp"
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/angles.hpp"
+#include "geometry/transformations.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/function.hpp"
-#include "../std/bind.hpp"
+#include "std/function.hpp"
+#include "std/bind.hpp"
 
 
 namespace

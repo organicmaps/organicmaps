@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../graphics/pen.hpp"
-#include "../graphics/brush.hpp"
-#include "../graphics/icon.hpp"
-#include "../graphics/circle.hpp"
-#include "../graphics/font_desc.hpp"
+#include "graphics/pen.hpp"
+#include "graphics/brush.hpp"
+#include "graphics/icon.hpp"
+#include "graphics/circle.hpp"
+#include "graphics/font_desc.hpp"
 
 class LineDefProto;
 class AreaRuleProto;

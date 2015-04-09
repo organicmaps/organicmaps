@@ -1,5 +1,5 @@
-#include "change_viewport_task.hpp"
-#include "framework.hpp"
+#include "map/change_viewport_task.hpp"
+#include "map/framework.hpp"
 
 ChangeViewportTask::ChangeViewportTask(m2::AnyRectD const & startRect,
                                        m2::AnyRectD const & endRect,

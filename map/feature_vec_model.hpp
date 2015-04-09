@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../indexer/data_header.hpp"
-#include "../indexer/index.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/index.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../coding/reader.hpp"
-#include "../coding/buffer_reader.hpp"
+#include "coding/reader.hpp"
+#include "coding/buffer_reader.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
 namespace model
 {

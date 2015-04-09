@@ -1,8 +1,8 @@
 #pragma once
 
-#include "tile.hpp"
-#include "../base/mutex.hpp"
-#include "../std/map.hpp"
+#include "map/tile.hpp"
+#include "base/mutex.hpp"
+#include "std/map.hpp"
 
 class TileSet
 {

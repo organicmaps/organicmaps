@@ -1,14 +1,14 @@
 #pragma once
-#include "benchmark_provider.hpp"
+#include "map/benchmark_provider.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/timer.hpp"
-#include "../base/thread.hpp"
+#include "base/timer.hpp"
+#include "base/thread.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
 
 class Framework;

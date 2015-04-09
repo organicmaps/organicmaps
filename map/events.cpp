@@ -1,4 +1,4 @@
-#include "events.hpp"
+#include "map/events.hpp"
 
 #ifndef USE_DRAPE
 PaintEvent::PaintEvent(Drawer * drawer,

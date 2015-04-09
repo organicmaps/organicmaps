@@ -1,20 +1,20 @@
-#include "country_status_display.hpp"
-#include "framework.hpp"
+#include "map/country_status_display.hpp"
+#include "map/framework.hpp"
 
-#include "../gui/controller.hpp"
-#include "../gui/button.hpp"
-#include "../gui/text_view.hpp"
+#include "gui/controller.hpp"
+#include "gui/button.hpp"
+#include "gui/text_view.hpp"
 
-#include "../graphics/overlay_renderer.hpp"
-#include "../graphics/display_list.hpp"
+#include "graphics/overlay_renderer.hpp"
+#include "graphics/display_list.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/thread.hpp"
-#include "../base/string_format.hpp"
+#include "base/thread.hpp"
+#include "base/string_format.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/sstream.hpp"
+#include "std/bind.hpp"
+#include "std/sstream.hpp"
 
 
 using namespace storage;

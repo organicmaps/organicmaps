@@ -1,16 +1,16 @@
-#include "simple_render_policy.hpp"
-#include "events.hpp"
-#include "drawer.hpp"
-#include "window_handle.hpp"
-#include "scales_processor.hpp"
+#include "map/simple_render_policy.hpp"
+#include "map/events.hpp"
+#include "map/drawer.hpp"
+#include "map/window_handle.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../graphics/overlay.hpp"
-#include "../graphics/opengl/opengl.hpp"
-#include "../graphics/render_context.hpp"
+#include "graphics/overlay.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/render_context.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
 
 using namespace graphics;

@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../ge0_parser.hpp"
-#include "../mwm_url.hpp"
+#include "map/ge0_parser.hpp"
+#include "map/mwm_url.hpp"
 
-#include "../../api/internal/c/api-client-internals.h"
-#include "../../api/src/c/api-client.h"
+#include "api/internal/c/api-client-internals.h"
+#include "api/src/c/api-client.h"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
 
 using url_scheme::Ge0Parser;

@@ -1,21 +1,21 @@
-#include "feature_styler.hpp"
-#include "geometry_processors.hpp"
-#include "proto_to_styles.hpp"
+#include "map/feature_styler.hpp"
+#include "map/geometry_processors.hpp"
+#include "map/proto_to_styles.hpp"
 
-#include "../indexer/drawing_rules.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/drules_include.hpp"
+#include "indexer/drawing_rules.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/drules_include.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../graphics/glyph_cache.hpp"
+#include "graphics/glyph_cache.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/iterator_facade.hpp"
+#include "std/iterator_facade.hpp"
 
 namespace
 {

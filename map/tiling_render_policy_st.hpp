@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic_tiling_render_policy.hpp"
+#include "map/basic_tiling_render_policy.hpp"
 
 class TilingRenderPolicyST : public BasicTilingRenderPolicy
 {

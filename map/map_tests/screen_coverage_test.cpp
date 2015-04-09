@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../screen_coverage.hpp"
+#include "map/screen_coverage.hpp"
 
-#include "../coverage_generator.hpp"
-#include "../tile_renderer.hpp"
-#include "../../yg/rendercontext.hpp"
-#include "../../std/bind.hpp"
-#include "../../platform/platform.hpp"
-#include "../../yg/internal/opengl.hpp"
+#include "map/coverage_generator.hpp"
+#include "map/tile_renderer.hpp"
+#include "yg/rendercontext.hpp"
+#include "std/bind.hpp"
+#include "platform/platform.hpp"
+#include "yg/internal/opengl.hpp"
 
 class RenderContextMock : public yg::gl::RenderContext
 {

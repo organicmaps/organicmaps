@@ -1,16 +1,16 @@
 #pragma once
 
-#include "active_maps_layout.hpp"
+#include "map/active_maps_layout.hpp"
 
-#include "../gui/element.hpp"
-#include "../storage/storage_defines.hpp"
+#include "gui/element.hpp"
+#include "storage/storage_defines.hpp"
 
 #ifdef OMIM_OS_ANDROID
   #include "../base/mutex.hpp"
 #endif
 
-#include "../std/unique_ptr.hpp"
-#include "../std/target_os.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/target_os.hpp"
 
 namespace gui
 {

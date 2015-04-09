@@ -1,14 +1,14 @@
-#include "measurement_utils.hpp"
+#include "map/measurement_utils.hpp"
 
-#include "../platform/settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/math.hpp"
+#include "base/string_utils.hpp"
+#include "base/math.hpp"
 
-#include "../std/iomanip.hpp"
-#include "../std/sstream.hpp"
+#include "std/iomanip.hpp"
+#include "std/sstream.hpp"
 
 
 using namespace Settings;

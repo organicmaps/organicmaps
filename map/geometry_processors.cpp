@@ -1,6 +1,6 @@
-#include "geometry_processors.hpp"
+#include "map/geometry_processors.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace gp
 {

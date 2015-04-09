@@ -1,9 +1,9 @@
-#include "user_mark_dl_cache.hpp"
+#include "map/user_mark_dl_cache.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../graphics/display_list.hpp"
-#include "../graphics/screen.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/screen.hpp"
 
 namespace
 {

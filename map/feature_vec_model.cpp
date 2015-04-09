@@ -1,17 +1,17 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../indexer/cell_coverer.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/classificator_loader.hpp"
+#include "indexer/cell_coverer.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/classificator_loader.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 namespace model

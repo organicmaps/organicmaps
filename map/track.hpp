@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../geometry/polyline2d.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/polyline2d.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../graphics/color.hpp"
-#include "../graphics/defines.hpp"
+#include "graphics/color.hpp"
+#include "graphics/defines.hpp"
 
-#include "../std/noncopyable.hpp"
+#include "std/noncopyable.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 
 class Navigator;

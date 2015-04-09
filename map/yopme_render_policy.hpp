@@ -1,7 +1,7 @@
 #pragma once
 
-#include "render_policy.hpp"
-#include "../std/shared_ptr.hpp"
+#include "map/render_policy.hpp"
+#include "std/shared_ptr.hpp"
 
 class Drawer;
 class YopmeRP : public RenderPolicy

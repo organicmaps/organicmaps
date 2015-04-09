@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../route_track.hpp"
+#include "map/route_track.hpp"
 
 UNIT_TEST(ClipArrowBodyAndGetArrowDirection)
 {

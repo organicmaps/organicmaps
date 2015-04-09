@@ -1,14 +1,14 @@
-#include "tiling_render_policy_st.hpp"
+#include "map/tiling_render_policy_st.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../graphics/opengl/opengl.hpp"
-#include "../graphics/render_context.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/render_context.hpp"
 
-#include "window_handle.hpp"
-#include "queued_renderer.hpp"
-#include "tile_renderer.hpp"
-#include "coverage_generator.hpp"
+#include "map/window_handle.hpp"
+#include "map/queued_renderer.hpp"
+#include "map/tile_renderer.hpp"
+#include "map/coverage_generator.hpp"
 
 using namespace graphics;
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../base/threaded_list.hpp"
-#include "../graphics/opengl/renderer.hpp"
+#include "base/threaded_list.hpp"
+#include "graphics/opengl/renderer.hpp"
 
 namespace graphics
 {

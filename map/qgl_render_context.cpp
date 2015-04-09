@@ -1,9 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "qgl_render_context.hpp"
+#include "map/qgl_render_context.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <QtOpenGL/QGLContext>
 #include <QtOpenGL/QGLWidget>

@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../navigator.hpp"
+#include "map/navigator.hpp"
 
-#include "../../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../../std/cmath.hpp"
-#include "../../std/bind.hpp"
+#include "std/cmath.hpp"
+#include "std/bind.hpp"
 
 
 // -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15

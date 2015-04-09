@@ -1,13 +1,13 @@
-#include "basic_tiling_render_policy.hpp"
+#include "map/basic_tiling_render_policy.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "tile_renderer.hpp"
-#include "coverage_generator.hpp"
-#include "queued_renderer.hpp"
-#include "scales_processor.hpp"
+#include "map/tile_renderer.hpp"
+#include "map/coverage_generator.hpp"
+#include "map/queued_renderer.hpp"
+#include "map/scales_processor.hpp"
 
 
 BasicTilingRenderPolicy::BasicTilingRenderPolicy(Params const & p,

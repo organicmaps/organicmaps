@@ -1,16 +1,16 @@
-#include "coverage_generator.hpp"
-#include "tile_renderer.hpp"
-#include "tile_set.hpp"
+#include "map/coverage_generator.hpp"
+#include "map/tile_renderer.hpp"
+#include "map/tile_set.hpp"
 
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
-#include "../graphics/opengl/gl_render_context.hpp"
-#include "../graphics/display_list.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
+#include "graphics/display_list.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 CoverageGenerator::CoverageGenerator(TileRenderer * tileRenderer,

@@ -1,14 +1,14 @@
-#include "ge0_parser.hpp"
-#include "mwm_url.hpp"
+#include "map/ge0_parser.hpp"
+#include "map/mwm_url.hpp"
 
-#include "../api/internal/c/api-client-internals.h"
+#include "api/internal/c/api-client-internals.h"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../coding/url_encode.hpp"
+#include "coding/url_encode.hpp"
 
-#include "../base/math.hpp"
-#include "../base/string_utils.hpp"
+#include "base/math.hpp"
+#include "base/string_utils.hpp"
 
 namespace url_scheme
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../anim/task.hpp"
+#include "anim/task.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 class Framework;
 

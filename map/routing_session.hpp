@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../routing/router.hpp"
-#include "../routing/route.hpp"
+#include "routing/router.hpp"
+#include "routing/route.hpp"
 
-#include "../platform/location.hpp"
+#include "platform/location.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/polyline2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/polyline2d.hpp"
 
-#include "../std/unique_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
-#include "../base/mutex.hpp"
+#include "base/mutex.hpp"
 
 
 namespace location {   class RouteMatchingInfo;}

@@ -1,12 +1,12 @@
-#include "animator.hpp"
-#include "rotate_screen_task.hpp"
-#include "change_viewport_task.hpp"
-#include "move_screen_task.hpp"
-#include "framework.hpp"
+#include "map/animator.hpp"
+#include "map/rotate_screen_task.hpp"
+#include "map/change_viewport_task.hpp"
+#include "map/move_screen_task.hpp"
+#include "map/framework.hpp"
 
-#include "../anim/controller.hpp"
+#include "anim/controller.hpp"
 
-#include "../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
 Animator::Animator(Framework * framework)
   : m_framework(framework)

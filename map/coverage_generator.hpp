@@ -1,21 +1,21 @@
 #pragma once
 
-#include "render_policy.hpp"
-#include "tiler.hpp"
-#include "tile.hpp"
-#include "window_handle.hpp"
+#include "map/render_policy.hpp"
+#include "map/tiler.hpp"
+#include "map/tile.hpp"
+#include "map/window_handle.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../graphics/overlay.hpp"
+#include "graphics/overlay.hpp"
 
-#include "../base/thread.hpp"
-#include "../base/threaded_list.hpp"
-#include "../base/mutex.hpp"
-#include "../base/commands_queue.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
+#include "base/mutex.hpp"
+#include "base/commands_queue.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
 class TileRenderer;
 class TileCache;

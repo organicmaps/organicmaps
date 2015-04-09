@@ -1,21 +1,21 @@
-#include "bookmark_manager.hpp"
-#include "framework.hpp"
-#include "user_mark.hpp"
+#include "map/bookmark_manager.hpp"
+#include "map/framework.hpp"
+#include "map/user_mark.hpp"
 
-#include "../graphics/depth_constants.hpp"
+#include "graphics/depth_constants.hpp"
 
-#include "../platform/platform.hpp"
-#include "../platform/settings.hpp"
+#include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/target_os.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/target_os.hpp"
+#include "std/vector.hpp"
 
 
 BookmarkManager::BookmarkManager(Framework & f)

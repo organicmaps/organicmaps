@@ -1,14 +1,14 @@
 #pragma once
 
-#include "tile.hpp"
-#include "tiler.hpp"
+#include "map/tile.hpp"
+#include "map/tiler.hpp"
 
-#include "../graphics/resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "../base/mru_cache.hpp"
-#include "../base/mutex.hpp"
+#include "base/mru_cache.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace graphics
 {

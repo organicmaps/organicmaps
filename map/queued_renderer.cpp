@@ -1,6 +1,6 @@
-#include "queued_renderer.hpp"
+#include "map/queued_renderer.hpp"
 
-#include "../graphics/opengl/opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 QueuedRenderer::QueuedRenderer(int pipelinesCount,
                                shared_ptr<graphics::RenderContext> const & rc)

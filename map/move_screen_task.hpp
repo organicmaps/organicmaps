@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../anim/segment_interpolation.hpp"
+#include "anim/segment_interpolation.hpp"
 
 class Framework;
 

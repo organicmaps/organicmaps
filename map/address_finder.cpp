@@ -1,12 +1,12 @@
-#include "framework.hpp"
+#include "map/framework.hpp"
 
-#include "../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/categories_holder.hpp"
 
-#include "../platform/preferred_languages.hpp"
+#include "platform/preferred_languages.hpp"
 
 
 namespace

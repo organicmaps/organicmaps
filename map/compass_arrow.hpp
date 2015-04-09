@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../gui/element.hpp"
+#include "gui/element.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 
 namespace anim

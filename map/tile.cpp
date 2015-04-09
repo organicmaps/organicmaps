@@ -1,6 +1,6 @@
-#include "tile.hpp"
+#include "map/tile.hpp"
 
-#include "../graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
 Tile::Tile()
 {}

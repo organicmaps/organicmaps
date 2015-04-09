@@ -1,10 +1,10 @@
 #pragma once
-#include "bookmark.hpp"
-#include "user_mark_container.hpp"
-#include "user_mark_dl_cache.hpp"
-#include "route_track.hpp"
+#include "map/bookmark.hpp"
+#include "map/user_mark_container.hpp"
+#include "map/user_mark_dl_cache.hpp"
+#include "map/route_track.hpp"
 
-#include "../std/unique_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 class Framework;
 class PaintEvent;

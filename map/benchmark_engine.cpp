@@ -1,15 +1,15 @@
-#include "benchmark_engine.hpp"
-#include "framework.hpp"
+#include "map/benchmark_engine.hpp"
+#include "map/framework.hpp"
 
-#include "../indexer/data_header.hpp"
+#include "indexer/data_header.hpp"
 
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/file_container.hpp"
-#include "../coding/reader_streambuf.hpp"
+#include "coding/file_container.hpp"
+#include "coding/reader_streambuf.hpp"
 
-#include "../std/fstream.hpp"
+#include "std/fstream.hpp"
 
 
 class DoGetBenchmarks

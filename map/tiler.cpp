@@ -1,9 +1,9 @@
-#include "tiler.hpp"
-#include "scales_processor.hpp"
+#include "map/tiler.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 Tiler::RectInfo::RectInfo()

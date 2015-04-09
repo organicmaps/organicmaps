@@ -1,25 +1,25 @@
-#include "ruler.hpp"
-#include "framework.hpp"
-#include "measurement_utils.hpp"
-#include "alfa_animation_task.hpp"
+#include "map/ruler.hpp"
+#include "map/framework.hpp"
+#include "map/measurement_utils.hpp"
+#include "map/alfa_animation_task.hpp"
 
-#include "../anim/controller.hpp"
+#include "anim/controller.hpp"
 
-#include "../platform/settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../graphics/glyph.hpp"
-#include "../graphics/brush.hpp"
-#include "../graphics/screen.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/uniforms_holder.hpp"
+#include "graphics/glyph.hpp"
+#include "graphics/brush.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/uniforms_holder.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 
 using namespace graphics;

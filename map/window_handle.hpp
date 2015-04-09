@@ -1,13 +1,13 @@
 #pragma once
 
-#include "events.hpp"
-#include "drawer.hpp"
+#include "map/events.hpp"
+#include "map/drawer.hpp"
 
-#include "../platform/video_timer.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace graphics

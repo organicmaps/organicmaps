@@ -1,22 +1,22 @@
-#include "user_mark_container.hpp"
+#include "map/user_mark_container.hpp"
 
-#include "drawer.hpp"
-#include "framework.hpp"
-#include "anim_phase_chain.hpp"
+#include "map/drawer.hpp"
+#include "map/framework.hpp"
+#include "map/anim_phase_chain.hpp"
 
-#include "../graphics/display_list.hpp"
-#include "../graphics/screen.hpp"
-#include "../graphics/depth_constants.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/depth_constants.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../anim/task.hpp"
-#include "../anim/controller.hpp"
+#include "anim/task.hpp"
+#include "anim/controller.hpp"
 
-#include "../base/macros.hpp"
-#include "../base/stl_add.hpp"
+#include "base/macros.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 ////////////////////////////////////////////////////////////////////////
 

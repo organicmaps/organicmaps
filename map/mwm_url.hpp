@@ -1,10 +1,10 @@
 #pragma once
 
-#include "user_mark_container.hpp"
+#include "map/user_mark_container.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 class ScalesProcessor;
 

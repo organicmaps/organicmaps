@@ -1,8 +1,8 @@
-#include "proto_to_styles.hpp"
+#include "map/proto_to_styles.hpp"
 
-#include "../indexer/drules_include.hpp"
+#include "indexer/drules_include.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace

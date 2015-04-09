@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../geometry/screenbase.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 class Tiler

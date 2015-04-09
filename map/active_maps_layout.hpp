@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../storage/storage_defines.hpp"
-#include "../storage/index.hpp"
+#include "storage/storage_defines.hpp"
+#include "storage/index.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include "../std/function.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/map.hpp"
+#include "std/function.hpp"
 
 
 class Framework;

@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../framework.hpp"
-#include "../mwm_url.hpp"
+#include "map/framework.hpp"
+#include "map/mwm_url.hpp"
 
-#include "../../coding/uri.hpp"
+#include "coding/uri.hpp"
 
-#include "../../base/string_format.hpp"
-#include "../../base/pseudo_random.hpp"
+#include "base/string_format.hpp"
+#include "base/pseudo_random.hpp"
 
 
 using namespace url_scheme;

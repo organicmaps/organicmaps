@@ -1,25 +1,25 @@
-#include "information_display.hpp"
-#include "drawer.hpp"
-#include "country_status_display.hpp"
-#include "compass_arrow.hpp"
-#include "framework.hpp"
-#include "ruler.hpp"
-#include "alfa_animation_task.hpp"
+#include "map/information_display.hpp"
+#include "map/drawer.hpp"
+#include "map/country_status_display.hpp"
+#include "map/compass_arrow.hpp"
+#include "map/framework.hpp"
+#include "map/ruler.hpp"
+#include "map/alfa_animation_task.hpp"
 
-#include "../anim/task.hpp"
-#include "../anim/controller.hpp"
+#include "anim/task.hpp"
+#include "anim/controller.hpp"
 
-#include "../gui/controller.hpp"
-#include "../gui/button.hpp"
-#include "../gui/cached_text_view.hpp"
+#include "gui/controller.hpp"
+#include "gui/button.hpp"
+#include "gui/cached_text_view.hpp"
 
-#include "../graphics/defines.hpp"
-#include "../graphics/depth_constants.hpp"
-#include "../graphics/display_list.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/depth_constants.hpp"
+#include "graphics/display_list.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
 
 using namespace graphics;

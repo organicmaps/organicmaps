@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../measurement_utils.hpp"
+#include "map/measurement_utils.hpp"
 
-#include "../../platform/settings.hpp"
+#include "platform/settings.hpp"
 
 
 using namespace MeasurementUtils;

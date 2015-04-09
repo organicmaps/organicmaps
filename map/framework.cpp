@@ -1,67 +1,67 @@
-#include "framework.hpp"
+#include "map/framework.hpp"
 #ifndef USE_DRAPE
   #include "feature_processor.hpp"
   #include "drawer.hpp"
 #else
   #include "../drape_frontend/visual_params.hpp"
 #endif // USE_DRAPE
-#include "benchmark_provider.hpp"
-#include "benchmark_engine.hpp"
-#include "geourl_process.hpp"
-#include "measurement_utils.hpp"
-#include "dialog_settings.hpp"
-#include "ge0_parser.hpp"
+#include "map/benchmark_provider.hpp"
+#include "map/benchmark_engine.hpp"
+#include "map/geourl_process.hpp"
+#include "map/measurement_utils.hpp"
+#include "map/dialog_settings.hpp"
+#include "map/ge0_parser.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../routing/route.hpp"
-#include "../routing/osrm_router.hpp"
+#include "routing/route.hpp"
+#include "routing/osrm_router.hpp"
 
-#include "../search/search_engine.hpp"
-#include "../search/result.hpp"
+#include "search/search_engine.hpp"
+#include "search/result.hpp"
 
-#include "../indexer/categories_holder.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/mwm_version.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/classificator_loader.hpp"
+#include "indexer/categories_holder.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/mwm_version.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/classificator_loader.hpp"
 
 /// @todo Probably it's better to join this functionality.
 //@{
-#include "../indexer/feature_algo.hpp"
-#include "../indexer/feature_utils.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature_utils.hpp"
 //@}
 
-#include "../anim/controller.hpp"
+#include "anim/controller.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../platform/settings.hpp"
-#include "../platform/preferred_languages.hpp"
-#include "../platform/platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/preferred_languages.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/internal/file_data.hpp"
-#include "../coding/zip_reader.hpp"
-#include "../coding/url_encode.hpp"
-#include "../coding/file_name_utils.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/zip_reader.hpp"
+#include "coding/url_encode.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../geometry/angles.hpp"
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/angles.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../graphics/depth_constants.hpp"
+#include "graphics/depth_constants.hpp"
 
-#include "../base/math.hpp"
-#include "../base/timer.hpp"
-#include "../base/scope_guard.hpp"
+#include "base/math.hpp"
+#include "base/timer.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/target_os.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/target_os.hpp"
+#include "std/vector.hpp"
 
-#include "../api/internal/c/api-client-internals.h"
-#include "../api/src/c/api-client.h"
+#include "api/internal/c/api-client-internals.h"
+#include "api/src/c/api-client.h"
 
-#include "../3party/Alohalytics/src/alohalytics.h"
+#include "3party/Alohalytics/src/alohalytics.h"
 
 #define KMZ_EXTENSION ".kmz"
 

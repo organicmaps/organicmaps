@@ -1,14 +1,14 @@
 #pragma once
 
-#include "feature_info.hpp"
+#include "map/feature_info.hpp"
 
-#include "../graphics/color.hpp"
-#include "../graphics/screen.hpp"
+#include "graphics/color.hpp"
+#include "graphics/screen.hpp"
 
-#include "../std/list.hpp"
-#include "../std/string.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/map.hpp"
+#include "std/list.hpp"
+#include "std/string.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/map.hpp"
 
 class ScreenBase;
 

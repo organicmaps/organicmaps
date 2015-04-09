@@ -1,6 +1,6 @@
 #pragma once
-#include "../base/base.hpp"
-#include "../std/string.hpp"
+#include "base/base.hpp"
+#include "std/string.hpp"
 
 
 namespace url_scheme

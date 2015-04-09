@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../gui/button.hpp"
+#include "gui/button.hpp"
 
-#include "../graphics/font_desc.hpp"
+#include "graphics/font_desc.hpp"
 
-#include "../storage/index.hpp"
+#include "storage/index.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/timer.hpp"
+#include "base/timer.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace location

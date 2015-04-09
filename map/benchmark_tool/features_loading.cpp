@@ -1,16 +1,16 @@
-#include "api.hpp"
+#include "map/benchmark_tool/api.hpp"
 
-#include "../feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../../indexer/data_factory.hpp"
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/scales.hpp"
+#include "indexer/data_factory.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../base/macros.hpp"
-#include "../../base/timer.hpp"
+#include "base/macros.hpp"
+#include "base/timer.hpp"
 
 namespace bench
 {

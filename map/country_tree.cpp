@@ -1,8 +1,8 @@
-#include "country_tree.hpp"
+#include "map/country_tree.hpp"
 
-#include "framework.hpp"
+#include "map/framework.hpp"
 
-#include "../storage/storage.hpp"
+#include "storage/storage.hpp"
 
 namespace storage
 {

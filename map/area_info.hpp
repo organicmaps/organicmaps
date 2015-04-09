@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/algorithm.hpp"
+#include "std/vector.hpp"
+#include "std/algorithm.hpp"
 
 namespace di
 {

@@ -1,16 +1,16 @@
-#include "mwm_url.hpp"
-#include "scales_processor.hpp"
+#include "map/mwm_url.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../indexer/mercator.hpp"
-#include "../indexer/scales.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/scales.hpp"
 
-#include "../coding/uri.hpp"
+#include "coding/uri.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 
 namespace url_scheme

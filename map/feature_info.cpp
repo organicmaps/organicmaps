@@ -1,5 +1,5 @@
-#include "feature_info.hpp"
-#include "../indexer/feature.hpp"
+#include "map/feature_info.hpp"
+#include "indexer/feature.hpp"
 
 
 namespace di

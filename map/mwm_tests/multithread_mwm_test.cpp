@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../map/feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../base/macros.hpp"
-#include "../../base/thread.hpp"
+#include "base/macros.hpp"
+#include "base/thread.hpp"
 
 namespace
 {

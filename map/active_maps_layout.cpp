@@ -1,7 +1,7 @@
-#include "active_maps_layout.hpp"
-#include "framework.hpp"
+#include "map/active_maps_layout.hpp"
+#include "map/framework.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace storage

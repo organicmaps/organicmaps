@@ -1,13 +1,13 @@
 #pragma once
-#include "bookmark.hpp"
+#include "map/bookmark.hpp"
 
-#include "../graphics/defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/function.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 
 class Framework;

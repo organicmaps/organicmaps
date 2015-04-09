@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../anim/anyrect_interpolation.hpp"
+#include "anim/anyrect_interpolation.hpp"
 
 class Framework;
 

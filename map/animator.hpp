@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/any_rect2d.hpp"
-#include "../anim/task.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/any_rect2d.hpp"
+#include "anim/task.hpp"
 
 class Framework;
 class RotateScreenTask;

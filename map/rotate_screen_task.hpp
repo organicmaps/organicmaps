@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../anim/angle_interpolation.hpp"
+#include "anim/angle_interpolation.hpp"
 
 class Framework;
 

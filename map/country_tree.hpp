@@ -1,15 +1,15 @@
 #pragma once
 
-#include "active_maps_layout.hpp"
+#include "map/active_maps_layout.hpp"
 
-#include "../storage/index.hpp"
-#include "../storage/storage_defines.hpp"
+#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
-#include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/function.hpp"
+#include "std/shared_ptr.hpp"
 
 class Framework;
 

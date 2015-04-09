@@ -1,55 +1,55 @@
 #pragma once
 
-#include "events.hpp"
+#include "map/events.hpp"
 #ifndef USE_DRAPE
   #include "render_policy.hpp"
   #include "window_handle.hpp"
 #else
-  #include "../drape/oglcontextfactory.hpp"
-  #include "../drape_frontend/drape_engine.hpp"
+  #include "drape/oglcontextfactory.hpp"
+  #include "drape_frontend/drape_engine.hpp"
 #endif // USE_DRAPE
-#include "feature_vec_model.hpp"
-#include "information_display.hpp"
-#include "location_state.hpp"
-#include "navigator.hpp"
-#include "animator.hpp"
-#include "scales_processor.hpp"
+#include "map/feature_vec_model.hpp"
+#include "map/information_display.hpp"
+#include "map/location_state.hpp"
+#include "map/navigator.hpp"
+#include "map/animator.hpp"
+#include "map/scales_processor.hpp"
 
-#include "bookmark.hpp"
-#include "bookmark_manager.hpp"
-#include "pin_click_manager.hpp"
+#include "map/bookmark.hpp"
+#include "map/bookmark_manager.hpp"
+#include "map/pin_click_manager.hpp"
 
-#include "mwm_url.hpp"
-#include "move_screen_task.hpp"
-#include "track.hpp"
-#include "routing_session.hpp"
-#include "country_tree.hpp"
+#include "map/mwm_url.hpp"
+#include "map/move_screen_task.hpp"
+#include "map/track.hpp"
+#include "map/routing_session.hpp"
+#include "map/country_tree.hpp"
 
-#include "../indexer/data_header.hpp"
+#include "indexer/data_header.hpp"
 
-#include "../search/search_engine.hpp"
+#include "search/search_engine.hpp"
 
-#include "../storage/storage.hpp"
+#include "storage/storage.hpp"
 
-#include "../platform/location.hpp"
+#include "platform/location.hpp"
 
 #ifndef USE_DRAPE
-  #include "../graphics/defines.hpp"
-  #include "../graphics/screen.hpp"
-  #include "../graphics/color.hpp"
+  #include "graphics/defines.hpp"
+  #include "graphics/screen.hpp"
+  #include "graphics/color.hpp"
 #endif // USE_DRAPE
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../indexer/map_style.hpp"
+#include "indexer/map_style.hpp"
 
-#include "../base/strings_bundle.hpp"
+#include "base/strings_bundle.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/target_os.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/target_os.hpp"
 
 namespace search
 {

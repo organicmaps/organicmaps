@@ -1,13 +1,13 @@
-#include "api.hpp"
+#include "map/benchmark_tool/api.hpp"
 
-#include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/data_factory.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/data_factory.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../std/iostream.hpp"
+#include "std/iostream.hpp"
 
-#include "../../3party/gflags/src/gflags/gflags.h"
+#include "3party/gflags/src/gflags/gflags.h"
 
 
 DEFINE_string(input, "", "MWM file name in the data directory");

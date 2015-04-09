@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../indexer/drawing_rules.hpp"
+#include "indexer/drawing_rules.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 class FeatureType;
 

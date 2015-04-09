@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../base/math.hpp"
-#include "../graphics/defines.hpp"
+#include "base/math.hpp"
+#include "graphics/defines.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace graphics
 {

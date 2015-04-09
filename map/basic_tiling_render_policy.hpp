@@ -1,12 +1,12 @@
 #pragma once
 
-#include "render_policy.hpp"
+#include "map/render_policy.hpp"
 
-#include "../graphics/overlay.hpp"
+#include "graphics/overlay.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 
 class TileRenderer;

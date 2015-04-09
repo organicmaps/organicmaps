@@ -1,12 +1,12 @@
-#include "feature_processor.hpp"
-#include "geometry_processors.hpp"
-#include "feature_info.hpp"
+#include "map/feature_processor.hpp"
+#include "map/geometry_processors.hpp"
+#include "map/feature_info.hpp"
 #ifndef USE_DRAPE
-#include "drawer.hpp"
+#include "map/drawer.hpp"
 #endif // USE_DRAPE
 
-#include "../indexer/feature_impl.hpp"
-#include "../indexer/feature_algo.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/feature_algo.hpp"
 
 
 namespace fwork

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../indexer/feature.hpp"
+#include "indexer/feature.hpp"
 
-#include "../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../std/string.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 
 class UserMarkContainer;
 class PaintOverlayEvent;

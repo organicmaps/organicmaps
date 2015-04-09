@@ -1,24 +1,24 @@
-#include "drawer.hpp"
-#include "proto_to_styles.hpp"
-#include "feature_styler.hpp"
+#include "map/drawer.hpp"
+#include "map/proto_to_styles.hpp"
+#include "map/feature_styler.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
-#include "../indexer/drawing_rules.hpp"
-#include "../indexer/scales.hpp"
+#include "indexer/drawing_rules.hpp"
+#include "indexer/scales.hpp"
 
-#include "../graphics/defines.hpp"
-#include "../graphics/screen.hpp"
-#include "../graphics/resource_manager.hpp"
-#include "../graphics/straight_text_element.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/straight_text_element.hpp"
 
-#include "../indexer/drules_include.hpp"
-#include "../indexer/feature.hpp"
+#include "indexer/drules_include.hpp"
+#include "indexer/feature.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/logging.hpp"
+#include "base/buffer_vector.hpp"
 
 Drawer::Params::Params()
   : m_visualScale(1)

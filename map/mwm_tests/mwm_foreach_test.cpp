@@ -1,23 +1,23 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../map/feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/scales.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/feature_processor.hpp"
-#include "../../indexer/classificator.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/feature_processor.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../../geometry/rect_intersect.hpp"
-#include "../../geometry/robust_orientation.hpp"
+#include "geometry/rect_intersect.hpp"
+#include "geometry/robust_orientation.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/algorithm.hpp"
+#include "std/string.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace

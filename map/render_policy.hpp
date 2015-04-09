@@ -1,13 +1,13 @@
 #pragma once
 
-#include "drawer.hpp"
+#include "map/drawer.hpp"
 
-#include "../graphics/color.hpp"
+#include "graphics/color.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/function.hpp"
+#include "std/shared_ptr.hpp"
 
 
 class PaintEvent;

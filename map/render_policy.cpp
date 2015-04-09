@@ -1,23 +1,23 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "render_policy.hpp"
-#include "window_handle.hpp"
-#include "tiling_render_policy_st.hpp"
-#include "tiling_render_policy_mt.hpp"
-#include "proto_to_styles.hpp"
+#include "map/render_policy.hpp"
+#include "map/window_handle.hpp"
+#include "map/tiling_render_policy_st.hpp"
+#include "map/tiling_render_policy_mt.hpp"
+#include "map/proto_to_styles.hpp"
 
-#include "../anim/controller.hpp"
-#include "../anim/task.hpp"
+#include "anim/controller.hpp"
+#include "anim/task.hpp"
 
-#include "../graphics/opengl/opengl.hpp"
-#include "../graphics/opengl/gl_render_context.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
 
-#include "../indexer/scales.hpp"
-#include "../indexer/drawing_rules.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/drawing_rules.hpp"
 
-#include "../platform/video_timer.hpp"
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
+#include "platform/video_timer.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
 RenderPolicy::~RenderPolicy()
 {

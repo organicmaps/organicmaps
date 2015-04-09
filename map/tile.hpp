@@ -1,10 +1,10 @@
 #pragma once
 
-#include "tiler.hpp"
+#include "map/tiler.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace graphics
 {

@@ -1,13 +1,13 @@
 #pragma once
-#include "scales_processor.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../anim/task.hpp"
+#include "anim/task.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).

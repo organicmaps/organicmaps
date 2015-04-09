@@ -1,15 +1,15 @@
-#include "compass_arrow.hpp"
-#include "framework.hpp"
-#include "alfa_animation_task.hpp"
+#include "map/compass_arrow.hpp"
+#include "map/framework.hpp"
+#include "map/alfa_animation_task.hpp"
 
-#include "../anim/controller.hpp"
+#include "anim/controller.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../graphics/display_list.hpp"
-#include "../graphics/screen.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/screen.hpp"
 
 
 using namespace graphics;

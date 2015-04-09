@@ -1,6 +1,6 @@
 #pragma once
 
-#include "render_policy.hpp"
+#include "map/render_policy.hpp"
 
 class SimpleRenderPolicy : public RenderPolicy
 {

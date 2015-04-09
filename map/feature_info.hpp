@@ -1,14 +1,14 @@
 #pragma once
 
-#include "feature_styler.hpp"
-#include "path_info.hpp"
-#include "area_info.hpp"
+#include "map/feature_styler.hpp"
+#include "map/path_info.hpp"
+#include "map/area_info.hpp"
 
-#include "../indexer/feature_decl.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/list.hpp"
+#include "std/list.hpp"
 
 
 namespace graphics { class GlyphCache; }

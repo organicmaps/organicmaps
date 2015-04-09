@@ -1,15 +1,15 @@
-#include "geourl_process.hpp"
+#include "map/geourl_process.hpp"
 
-#include "../indexer/scales.hpp"
-#include "../indexer/mercator.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../coding/uri.hpp"
+#include "coding/uri.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/regexp.hpp"
-#include "../base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/regexp.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 namespace url_scheme

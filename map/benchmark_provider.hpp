@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
-#include "../std/list.hpp"
+#include "geometry/rect2d.hpp"
+#include "std/list.hpp"
 
 struct BenchmarkRectProvider
 {

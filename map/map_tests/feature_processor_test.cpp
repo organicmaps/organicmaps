@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../feature_processor.hpp"
-#include "../geometry_processors.hpp"
+#include "map/feature_processor.hpp"
+#include "map/geometry_processors.hpp"
 
-#include "../../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 

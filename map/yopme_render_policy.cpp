@@ -1,20 +1,20 @@
-#include "yopme_render_policy.hpp"
-#include "window_handle.hpp"
-#include "scales_processor.hpp"
+#include "map/yopme_render_policy.hpp"
+#include "map/window_handle.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../graphics/opengl/framebuffer.hpp"
-#include "../graphics/render_context.hpp"
-#include "../graphics/blitter.hpp"
-#include "../graphics/pen.hpp"
-#include "../graphics/display_list.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+#include "graphics/render_context.hpp"
+#include "graphics/blitter.hpp"
+#include "graphics/pen.hpp"
+#include "graphics/display_list.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 using namespace graphics;

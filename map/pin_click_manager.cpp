@@ -1,19 +1,19 @@
-#include "pin_click_manager.hpp"
-#include "framework.hpp"
+#include "map/pin_click_manager.hpp"
+#include "map/framework.hpp"
 
-#include "../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../anim/task.hpp"
-#include "../anim/controller.hpp"
+#include "anim/task.hpp"
+#include "anim/controller.hpp"
 
-#include "../graphics/depth_constants.hpp"
-#include "../graphics/opengl/base_texture.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/icon.hpp"
+#include "graphics/depth_constants.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/icon.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
 
 PinClickManager::PinClickManager(Framework & f)

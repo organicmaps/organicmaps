@@ -1,12 +1,12 @@
-#include "tiling_render_policy_mt.hpp"
+#include "map/tiling_render_policy_mt.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../graphics/render_context.hpp"
+#include "graphics/render_context.hpp"
 
-#include "window_handle.hpp"
-#include "tile_renderer.hpp"
-#include "coverage_generator.hpp"
+#include "map/window_handle.hpp"
+#include "map/tile_renderer.hpp"
+#include "map/coverage_generator.hpp"
 
 using namespace graphics;
 

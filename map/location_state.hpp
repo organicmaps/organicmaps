@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../gui/element.hpp"
+#include "gui/element.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/timer.hpp"
+#include "base/timer.hpp"
 
-#include "../routing/turns.hpp"
+#include "routing/turns.hpp"
 
-#include "../std/function.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/map.hpp"
+#include "std/function.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/map.hpp"
 
 
 class Framework;

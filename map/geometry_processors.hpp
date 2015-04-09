@@ -1,19 +1,19 @@
 #pragma once
 
-#include "area_info.hpp"
-#include "path_info.hpp"
+#include "map/area_info.hpp"
+#include "map/path_info.hpp"
 
 #include "../indexer/cell_id.hpp" // CoordPointT
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
-#include "../geometry/rect_intersect.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/rect_intersect.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/list.hpp"
-#include "../std/limits.hpp"
+#include "std/list.hpp"
+#include "std/limits.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 class ScreenBase;
 

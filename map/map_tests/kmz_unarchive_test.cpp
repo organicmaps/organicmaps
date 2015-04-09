@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../coding/zip_reader.hpp"
-#include "../../map/framework.hpp"
-#include "../../platform/platform.hpp"
-#include "../../base/scope_guard.hpp"
+#include "coding/zip_reader.hpp"
+#include "map/framework.hpp"
+#include "platform/platform.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/iostream.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/iostream.hpp"
 
 UNIT_TEST(Open_KMZ_Test)
 {

@@ -1,15 +1,15 @@
-#include "route_track.hpp"
+#include "map/route_track.hpp"
 
-#include "../map/location_state.hpp"
+#include "map/location_state.hpp"
 
-#include "../graphics/screen.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/depth_constants.hpp"
-#include "../graphics/pen.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/display_list.hpp"
+#include "graphics/depth_constants.hpp"
+#include "graphics/pen.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../std/array.hpp"
+#include "std/array.hpp"
 
 namespace
 {

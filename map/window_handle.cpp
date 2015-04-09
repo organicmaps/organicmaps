@@ -1,5 +1,5 @@
-#include "window_handle.hpp"
-#include "render_policy.hpp"
+#include "map/window_handle.hpp"
+#include "map/render_policy.hpp"
 
 WindowHandle::WindowHandle() :
   m_hasPendingUpdates(false),

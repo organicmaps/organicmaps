@@ -1,5 +1,5 @@
-#include "alfa_animation_task.hpp"
-#include "framework.hpp"
+#include "map/alfa_animation_task.hpp"
+#include "map/framework.hpp"
 
 
 AlfaAnimationTask::AlfaAnimationTask(double start, double end,

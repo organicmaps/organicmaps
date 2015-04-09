@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../map/feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../../indexer/scales.hpp"
-#include "../../indexer/classificator_loader.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/classificator_loader.hpp"
 
 
 namespace
