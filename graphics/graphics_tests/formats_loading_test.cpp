@@ -1,14 +1,14 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
-#include "../../coding/lodepng_io.hpp"
-#include "../../platform/platform.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
+#include "coding/lodepng_io.hpp"
+#include "platform/platform.hpp"
 
 #include <boost/gil/gil_all.hpp>
 #include <boost/mpl/vector_c.hpp>
-#include "../../std/iostream.hpp"
-#include "../../std/iomanip.hpp"
+#include "std/iostream.hpp"
+#include "std/iomanip.hpp"
 
-#include "../texture.hpp"
+#include "graphics/texture.hpp"
 
 namespace gil = boost::gil;
 namespace mpl = boost::mpl;

@@ -1,16 +1,16 @@
 #pragma once
 
-#include "color.hpp"
+#include "graphics/color.hpp"
 
-#include "defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/mutex.hpp"
+#include "base/string_utils.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/utility.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
 
 
 namespace graphics

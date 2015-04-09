@@ -1,15 +1,15 @@
 #pragma once
 
-#include "opengl/storage.hpp"
+#include "graphics/opengl/storage.hpp"
 
-#include "geometry_batcher.hpp"
+#include "graphics/geometry_batcher.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 class ScreenBase;
 

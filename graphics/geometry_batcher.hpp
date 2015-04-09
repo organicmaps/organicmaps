@@ -1,23 +1,23 @@
 #pragma once
 
-#include "opengl/vertex.hpp"
-#include "opengl/buffer_object.hpp"
-#include "opengl/renderbuffer.hpp"
-#include "opengl/framebuffer.hpp"
-#include "opengl/storage.hpp"
+#include "graphics/opengl/vertex.hpp"
+#include "graphics/opengl/buffer_object.hpp"
+#include "graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+#include "graphics/opengl/storage.hpp"
 
-#include "pipeline_manager.hpp"
-#include "resource_cache.hpp"
-#include "resource_manager.hpp"
+#include "graphics/pipeline_manager.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/list.hpp"
-#include "../std/function.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/list.hpp"
+#include "std/function.hpp"
 
-#include "../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
 namespace graphics
 {

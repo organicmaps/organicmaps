@@ -1,5 +1,5 @@
-#include "packets_queue.hpp"
-#include "../base/logging.hpp"
+#include "graphics/packets_queue.hpp"
+#include "base/logging.hpp"
 
 namespace graphics
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace graphics
 {

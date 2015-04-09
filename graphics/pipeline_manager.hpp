@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "../std/function.hpp"
-#include "../std/vector.hpp"
-#include "../std/queue.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/function.hpp"
+#include "std/vector.hpp"
+#include "std/queue.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "opengl/vertex.hpp"
+#include "graphics/opengl/vertex.hpp"
 
-#include "display_list_renderer.hpp"
-#include "resource.hpp"
-#include "geometry_pipeline.hpp"
+#include "graphics/display_list_renderer.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/geometry_pipeline.hpp"
 
 namespace graphics
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../geometry/screenbase.hpp"
-#include "../std/shared_ptr.hpp"
+#include "geometry/screenbase.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace yg
 {

@@ -1,6 +1,6 @@
-#include "circle_element.hpp"
+#include "graphics/circle_element.hpp"
 
-#include "overlay_renderer.hpp"
+#include "graphics/overlay_renderer.hpp"
 
 namespace graphics
 {

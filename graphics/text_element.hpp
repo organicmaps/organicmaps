@@ -1,9 +1,9 @@
 #pragma once
-#include "overlay_element.hpp"
-#include "font_desc.hpp"
+#include "graphics/overlay_element.hpp"
+#include "graphics/font_desc.hpp"
 
-#include "../base/matrix.hpp"
-#include "../base/string_utils.hpp"
+#include "base/matrix.hpp"
+#include "base/string_utils.hpp"
 
 
 namespace graphics

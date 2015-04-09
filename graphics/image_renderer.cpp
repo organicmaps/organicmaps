@@ -1,10 +1,10 @@
-#include "image_renderer.hpp"
-#include "resource.hpp"
+#include "graphics/image_renderer.hpp"
+#include "graphics/resource.hpp"
 
-#include "opengl/base_texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/macros.hpp"
+#include "base/assert.hpp"
+#include "base/macros.hpp"
 
 namespace graphics
 {

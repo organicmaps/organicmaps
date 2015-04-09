@@ -1,13 +1,13 @@
-#include "buffer_object.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/buffer_object.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../base/assert.hpp"
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
-#include "../../base/shared_buffer_manager.hpp"
-#include "../../base/SRC_FIRST.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/shared_buffer_manager.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "../../std/list.hpp"
+#include "std/list.hpp"
 
 
 namespace graphics

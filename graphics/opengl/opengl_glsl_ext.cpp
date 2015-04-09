@@ -1,9 +1,9 @@
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "opengl_glsl_impl.hpp"
+#include "graphics/opengl/opengl_glsl_impl.hpp"
 
-#include "../../base/matrix.hpp"
-#include "../../platform/platform.hpp"
+#include "base/matrix.hpp"
+#include "platform/platform.hpp"
 
 namespace graphics
 {

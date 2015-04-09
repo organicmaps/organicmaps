@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
-#include "resource.hpp"
+#include "graphics/resource.hpp"
 
 namespace graphics
 {

@@ -1,10 +1,10 @@
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/string_utils.hpp"
-#include "../../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace graphics
 {

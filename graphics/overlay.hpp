@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/any_rect2d.hpp"
-#include "../geometry/point2d.hpp"
-#include "../geometry/tree4d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/tree4d.hpp"
 
-#include "../base/matrix.hpp"
-#include "../base/mutex.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/matrix.hpp"
+#include "base/mutex.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/list.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/list.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace graphics

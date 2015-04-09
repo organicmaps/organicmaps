@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
 namespace graphics
 {

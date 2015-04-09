@@ -1,11 +1,11 @@
-#include "program.hpp"
-#include "shader.hpp"
-#include "buffer_object.hpp"
-#include "defines_conv.hpp"
-#include "../../base/thread.hpp"
+#include "graphics/opengl/program.hpp"
+#include "graphics/opengl/shader.hpp"
+#include "graphics/opengl/buffer_object.hpp"
+#include "graphics/opengl/defines_conv.hpp"
+#include "base/thread.hpp"
 
-#include "../../std/bind.hpp"
-#include "../vertex_decl.hpp"
+#include "std/bind.hpp"
+#include "graphics/vertex_decl.hpp"
 
 namespace graphics
 {

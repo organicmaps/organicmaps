@@ -1,12 +1,12 @@
-#include "defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../coding/file_name_utils.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../base/macros.hpp"
-#include "../base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/logging.hpp"
 
-#include "../std/string.hpp"
-#include "../std/cstring.hpp"
+#include "std/string.hpp"
+#include "std/cstring.hpp"
 
 
 namespace graphics

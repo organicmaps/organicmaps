@@ -1,12 +1,12 @@
 #pragma once
 
-#include "uniforms_holder.hpp"
-#include "defines.hpp"
-#include "display_list_renderer.hpp"
-#include "opengl/base_texture.hpp"
-#include "opengl/buffer_object.hpp"
+#include "graphics/uniforms_holder.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/display_list_renderer.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/buffer_object.hpp"
 
-#include "../std/set.hpp"
+#include "std/set.hpp"
 
 namespace graphics
 {

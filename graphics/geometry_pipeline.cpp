@@ -1,7 +1,7 @@
-#include "geometry_pipeline.hpp"
-#include "resource_manager.hpp"
-#include "resource_cache.hpp"
-#include "opengl/buffer_object.hpp"
+#include "graphics/geometry_pipeline.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/opengl/buffer_object.hpp"
 
 namespace graphics
 {

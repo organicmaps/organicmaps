@@ -1,12 +1,12 @@
-#include "path_renderer.hpp"
-#include "resource.hpp"
-#include "pen.hpp"
-#include "resource_cache.hpp"
-#include "path_view.hpp"
+#include "graphics/path_renderer.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/pen.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/path_view.hpp"
 
-#include "opengl/base_texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 namespace graphics
 {

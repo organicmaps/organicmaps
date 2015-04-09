@@ -1,14 +1,14 @@
-#include "shape_renderer.hpp"
-#include "pen.hpp"
-#include "brush.hpp"
-#include "resource.hpp"
-#include "resource_cache.hpp"
+#include "graphics/shape_renderer.hpp"
+#include "graphics/pen.hpp"
+#include "graphics/brush.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/resource_cache.hpp"
 
-#include "opengl/base_texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 namespace graphics
 {

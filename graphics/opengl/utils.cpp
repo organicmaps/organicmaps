@@ -1,9 +1,9 @@
-#include "defines.hpp"
-#include "utils.hpp"
+#include "graphics/opengl/defines.hpp"
+#include "graphics/opengl/utils.hpp"
 
-#include "opengl/opengl.hpp"
+#include "graphics/opengl/opengl/opengl.hpp"
 
-#include "../std/target_os.hpp"
+#include "graphics/std/target_os.hpp"
 
 namespace graphics
 {

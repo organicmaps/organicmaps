@@ -1,7 +1,7 @@
-#include "../../base/shared_buffer_manager.hpp"
+#include "base/shared_buffer_manager.hpp"
 
-#include "opengl.hpp"
-#include "managed_texture.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/managed_texture.hpp"
 
 namespace graphics
 {

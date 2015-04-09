@@ -1,19 +1,19 @@
-#include "resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "opengl/opengl.hpp"
-#include "opengl/base_texture.hpp"
-#include "opengl/data_traits.hpp"
-#include "opengl/storage.hpp"
-#include "opengl/texture.hpp"
-#include "opengl/buffer_object.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/data_traits.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/texture.hpp"
+#include "graphics/opengl/buffer_object.hpp"
 
-#include "skin_loader.hpp"
+#include "graphics/skin_loader.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/parse_xml.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/parse_xml.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/exception.hpp"
+#include "base/logging.hpp"
+#include "base/exception.hpp"
 
 namespace graphics
 {

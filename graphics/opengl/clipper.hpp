@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../geometry/rect2d.hpp"
-#include "renderer.hpp"
+#include "geometry/rect2d.hpp"
+#include "graphics/opengl/renderer.hpp"
 
 namespace graphics
 {

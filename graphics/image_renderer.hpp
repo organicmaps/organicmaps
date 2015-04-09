@@ -1,7 +1,7 @@
 #pragma once
 
-#include "shape_renderer.hpp"
-#include "defines.hpp"
+#include "graphics/shape_renderer.hpp"
+#include "graphics/defines.hpp"
 
 namespace graphics
 {

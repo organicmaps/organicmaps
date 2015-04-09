@@ -1,13 +1,13 @@
 #pragma once
 
-#include "text_renderer.hpp"
-#include "overlay.hpp"
-#include "circle_element.hpp"
-#include "symbol_element.hpp"
-#include "straight_text_element.hpp"
+#include "graphics/text_renderer.hpp"
+#include "graphics/overlay.hpp"
+#include "graphics/circle_element.hpp"
+#include "graphics/symbol_element.hpp"
+#include "graphics/straight_text_element.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/map.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/map.hpp"
 
 
 namespace graphics

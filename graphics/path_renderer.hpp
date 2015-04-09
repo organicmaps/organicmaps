@@ -1,7 +1,7 @@
 #pragma once
 
-#include "area_renderer.hpp"
-#include "../geometry/point2d.hpp"
+#include "graphics/area_renderer.hpp"
+#include "geometry/point2d.hpp"
 
 namespace graphics
 {

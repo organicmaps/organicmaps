@@ -1,10 +1,10 @@
-#include "skin_loader.hpp"
-#include "resource_manager.hpp"
-#include "resource_cache.hpp"
-#include "resource.hpp"
-#include "icon.hpp"
+#include "graphics/skin_loader.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/icon.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 namespace graphics
 {

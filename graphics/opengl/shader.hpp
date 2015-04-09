@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../base/exception.hpp"
+#include "base/exception.hpp"
 
-#include "../defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

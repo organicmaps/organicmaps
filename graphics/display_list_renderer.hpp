@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
-#include "opengl/storage.hpp"
-#include "opengl/base_texture.hpp"
-#include "opengl/geometry_renderer.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/geometry_renderer.hpp"
 
 namespace graphics
 {

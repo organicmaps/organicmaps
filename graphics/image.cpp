@@ -1,10 +1,10 @@
-#include "image.hpp"
+#include "graphics/image.hpp"
 
-#include "opengl/data_traits.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/lodepng_io.hpp"
+#include "coding/lodepng_io.hpp"
 
 namespace gil = boost::gil;
 

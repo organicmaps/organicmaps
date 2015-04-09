@@ -1,14 +1,14 @@
 #pragma once
 
-#include "uniforms_holder.hpp"
+#include "graphics/uniforms_holder.hpp"
 
-#include "../base/fence_manager.hpp"
+#include "base/fence_manager.hpp"
 
-#include "../base/threaded_list.hpp"
-#include "../base/mutex.hpp"
-#include "../base/condition.hpp"
+#include "base/threaded_list.hpp"
+#include "base/mutex.hpp"
+#include "base/condition.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace graphics
 {

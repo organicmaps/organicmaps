@@ -1,17 +1,17 @@
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../resource_manager.hpp"
-#include "../render_context.hpp"
-#include "../coordinates.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/render_context.hpp"
+#include "graphics/coordinates.hpp"
 
-#include "renderer.hpp"
-#include "data_traits.hpp"
-#include "utils.hpp"
-#include "framebuffer.hpp"
-#include "renderbuffer.hpp"
-#include "base_texture.hpp"
-#include "program.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/renderer.hpp"
+#include "graphics/opengl/data_traits.hpp"
+#include "graphics/opengl/utils.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+#include "graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/program.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

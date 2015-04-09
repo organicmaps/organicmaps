@@ -1,11 +1,11 @@
-#include "overlay.hpp"
-#include "overlay_renderer.hpp"
+#include "graphics/overlay.hpp"
+#include "graphics/overlay_renderer.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/vector.hpp"
+#include "std/bind.hpp"
+#include "std/vector.hpp"
 
 
 namespace graphics

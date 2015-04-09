@@ -1,7 +1,7 @@
-#include "glyph_cache.hpp"
-#include "glyph_cache_impl.hpp"
+#include "graphics/glyph_cache.hpp"
+#include "graphics/glyph_cache_impl.hpp"
 
-#include "../3party/fribidi/lib/fribidi.h"
+#include "3party/fribidi/lib/fribidi.h"
 
 
 namespace graphics

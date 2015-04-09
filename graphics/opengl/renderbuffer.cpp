@@ -1,11 +1,11 @@
-#include "renderbuffer.hpp"
-#include "opengl.hpp"
-#include "utils.hpp"
+#include "graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/utils.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/assert.hpp"
 
-#include "../../std/list.hpp"
+#include "std/list.hpp"
 
 namespace graphics
 {

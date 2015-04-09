@@ -7,7 +7,7 @@
 #include <agg_scanline_u.h>
 #include <agg_ellipse.h>
 
-#include "opengl/data_traits.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
 template <typename Traits>
 struct AggTraits

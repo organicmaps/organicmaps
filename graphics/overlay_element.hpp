@@ -1,15 +1,15 @@
 #pragma once
 
-#include "defines.hpp"
-#include "color.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/color.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/any_rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
-#include "../base/matrix.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/matrix.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/bitset.hpp"
+#include "std/bitset.hpp"
 
 
 namespace graphics

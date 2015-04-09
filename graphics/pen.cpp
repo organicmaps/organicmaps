@@ -1,13 +1,13 @@
-#include "pen.hpp"
+#include "graphics/pen.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/iterator.hpp"
-#include "../std/numeric.hpp"
+#include "std/algorithm.hpp"
+#include "std/iterator.hpp"
+#include "std/numeric.hpp"
 
-#include "opengl/data_traits.hpp"
-#include "agg_traits.hpp"
+#include "graphics/opengl/data_traits.hpp"
+#include "graphics/agg_traits.hpp"
 
 namespace graphics
 {

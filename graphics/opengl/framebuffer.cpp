@@ -1,12 +1,12 @@
-#include "framebuffer.hpp"
-#include "renderbuffer.hpp"
-#include "opengl.hpp"
-#include "utils.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+#include "graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/utils.hpp"
 
-#include "../render_target.hpp"
+#include "graphics/render_target.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../std/list.hpp"
+#include "base/logging.hpp"
+#include "std/list.hpp"
 
 
 namespace graphics

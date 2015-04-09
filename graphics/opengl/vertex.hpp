@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../color.hpp"
-#include "../vertex_decl.hpp"
+#include "graphics/color.hpp"
+#include "graphics/vertex_decl.hpp"
 
-#include "../../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
 namespace graphics
 {

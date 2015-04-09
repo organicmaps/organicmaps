@@ -1,12 +1,12 @@
 #pragma once
 
-#include "resource.hpp"
-#include "icon.hpp"
-#include "color.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/icon.hpp"
+#include "graphics/color.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 namespace graphics
 {

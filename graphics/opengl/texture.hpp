@@ -1,13 +1,13 @@
 #pragma once
 
-#include "managed_texture.hpp"
-#include "data_traits.hpp"
+#include "graphics/opengl/managed_texture.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
-#include "../image.hpp"
+#include "graphics/image.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../coding/lodepng_io.hpp"
+#include "coding/lodepng_io.hpp"
 
 namespace gil = boost::gil;
 namespace mpl = boost::mpl;

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "program.hpp"
-#include "shader.hpp"
+#include "graphics/opengl/program.hpp"
+#include "graphics/opengl/shader.hpp"
 
-#include "../../std/shared_ptr.hpp"
-#include "../../std/map.hpp"
-#include "../../std/string.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/map.hpp"
+#include "std/string.hpp"
 
 namespace graphics
 {

@@ -1,7 +1,7 @@
-#include "text_path.hpp"
-#include "glyph_cache.hpp"
+#include "graphics/text_path.hpp"
+#include "graphics/glyph_cache.hpp"
 
-#include "../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
 
 namespace graphics

@@ -1,8 +1,8 @@
-#include "shader.hpp"
-#include "defines_conv.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/shader.hpp"
+#include "graphics/opengl/defines_conv.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 
 namespace graphics

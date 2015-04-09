@@ -1,9 +1,9 @@
 #pragma once
 
-#include "path_view.hpp"
+#include "graphics/path_view.hpp"
 
-#include "../base/matrix.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/matrix.hpp"
+#include "base/buffer_vector.hpp"
 
 
 namespace graphics

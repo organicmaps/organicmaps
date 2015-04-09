@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "../std/map.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/map.hpp"
 
-#include "../geometry/packer.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/packer.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "resource.hpp"
-#include "packets_queue.hpp"
-#include "defines.hpp"
-#include "resource_manager.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/packets_queue.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/resource_manager.hpp"
 
 namespace graphics
 {

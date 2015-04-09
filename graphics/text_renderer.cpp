@@ -1,13 +1,13 @@
-#include "text_renderer.hpp"
-#include "overlay.hpp"
-#include "resource_manager.hpp"
-#include "glyph.hpp"
+#include "graphics/text_renderer.hpp"
+#include "graphics/overlay.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/glyph.hpp"
 
-#include "../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 
 namespace graphics

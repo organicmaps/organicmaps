@@ -1,9 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "font_desc.hpp"
+#include "graphics/font_desc.hpp"
 
-#include "../std/cmath.hpp"
-#include "../std/algorithm.hpp"
+#include "std/cmath.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace graphics

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../std/shared_ptr.hpp"
-#include "../render_target.hpp"
-#include "../data_formats.hpp"
+#include "std/shared_ptr.hpp"
+#include "graphics/render_target.hpp"
+#include "graphics/data_formats.hpp"
 
 namespace graphics
 {

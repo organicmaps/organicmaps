@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../defines.hpp"
-#include "opengl.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

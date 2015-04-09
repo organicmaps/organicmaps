@@ -1,27 +1,27 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../3party/sgitess/interface.h"
+#include "base/SRC_FIRST.hpp"
+#include "3party/sgitess/interface.h"
 
-#include "../../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../../graphics/screen.hpp"
-#include "../../graphics/pen.hpp"
-#include "../../graphics/circle.hpp"
-#include "../../graphics/brush.hpp"
-#include "../../graphics/text_element.hpp"
-#include "../../graphics/straight_text_element.hpp"
-#include "../../graphics/path_text_element.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/pen.hpp"
+#include "graphics/circle.hpp"
+#include "graphics/brush.hpp"
+#include "graphics/text_element.hpp"
+#include "graphics/straight_text_element.hpp"
+#include "graphics/path_text_element.hpp"
 
-#include "../../graphics/opengl/utils.hpp"
-#include "../../graphics/opengl/opengl.hpp"
+#include "graphics/opengl/utils.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../qt_tstfrm/macros.hpp"
+#include "qt_tstfrm/macros.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 #include <QtGui/QKeyEvent>
 
-#include "../../base/math.hpp"
-#include "../../base/string_utils.hpp"
-#include "../../std/shared_ptr.hpp"
+#include "base/math.hpp"
+#include "base/string_utils.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace
 {

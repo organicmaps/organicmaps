@@ -1,6 +1,6 @@
-#include "render_target.hpp"
-#include "coordinates.hpp"
-#include "defines.hpp"
+#include "graphics/render_target.hpp"
+#include "graphics/coordinates.hpp"
+#include "graphics/defines.hpp"
 
 namespace graphics
 {

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "glyph_cache.hpp"
-#include "freetype.hpp"
+#include "graphics/glyph_cache.hpp"
+#include "graphics/freetype.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../coding/reader.hpp"
+#include "coding/reader.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace graphics

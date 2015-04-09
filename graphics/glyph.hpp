@@ -1,7 +1,7 @@
 #pragma once
 
-#include "resource.hpp"
-#include "glyph_cache.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/glyph_cache.hpp"
 
 namespace graphics
 {

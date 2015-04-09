@@ -1,7 +1,7 @@
-#include "vertex.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/vertex.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
 namespace graphics
 {

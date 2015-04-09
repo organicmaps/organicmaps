@@ -1,11 +1,11 @@
-#include "overlay_renderer.hpp"
-#include "straight_text_element.hpp"
-#include "path_text_element.hpp"
-#include "symbol_element.hpp"
-#include "circle_element.hpp"
-#include "circled_symbol.hpp"
-#include "overlay.hpp"
-#include "resource_manager.hpp"
+#include "graphics/overlay_renderer.hpp"
+#include "graphics/straight_text_element.hpp"
+#include "graphics/path_text_element.hpp"
+#include "graphics/symbol_element.hpp"
+#include "graphics/circle_element.hpp"
+#include "graphics/circled_symbol.hpp"
+#include "graphics/overlay.hpp"
+#include "graphics/resource_manager.hpp"
 
 
 namespace graphics

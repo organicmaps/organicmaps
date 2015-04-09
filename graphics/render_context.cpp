@@ -1,5 +1,5 @@
-#include "../base/SRC_FIRST.hpp"
-#include "render_context.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "graphics/render_context.hpp"
 
 namespace graphics
 {

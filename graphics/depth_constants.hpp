@@ -1,6 +1,6 @@
 #pragma once
 
-#include "defines.hpp"
+#include "graphics/defines.hpp"
 
 namespace graphics
 {

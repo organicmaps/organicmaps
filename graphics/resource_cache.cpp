@@ -1,14 +1,14 @@
-#include "resource_cache.hpp"
+#include "graphics/resource_cache.hpp"
 
-#include "opengl/texture.hpp"
-#include "opengl/data_traits.hpp"
+#include "graphics/opengl/texture.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
-#include "resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/numeric.hpp"
+#include "std/bind.hpp"
+#include "std/numeric.hpp"
 
 namespace graphics
 {

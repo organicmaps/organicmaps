@@ -1,9 +1,9 @@
-#include "text_element.hpp"
-#include "overlay_renderer.hpp"
-#include "glyph.hpp"
-#include "glyph_layout.hpp"
+#include "graphics/text_element.hpp"
+#include "graphics/overlay_renderer.hpp"
+#include "graphics/glyph.hpp"
+#include "graphics/glyph_layout.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace graphics

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "../std/map.hpp"
-#include "../base/matrix.hpp"
-#include "defines.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/map.hpp"
+#include "base/matrix.hpp"
+#include "graphics/defines.hpp"
 
 namespace graphics
 {

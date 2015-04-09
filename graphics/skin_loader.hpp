@@ -1,11 +1,11 @@
 /// @author Siarhei Rachytski
 #pragma once
 
-#include "defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../std/list.hpp"
-#include "../std/shared_ptr.hpp"
+#include "geometry/rect2d.hpp"
+#include "std/list.hpp"
+#include "std/shared_ptr.hpp"
 
 /// @example
 /// <?xml version="1.0" ?>

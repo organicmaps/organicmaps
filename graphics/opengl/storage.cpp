@@ -1,7 +1,7 @@
-#include "storage.hpp"
-#include "buffer_object.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/buffer_object.hpp"
 
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

@@ -1,17 +1,17 @@
 #pragma once
 
-#include "opengl/storage.hpp"
-#include "opengl/program_manager.hpp"
-#include "glyph_cache.hpp"
-#include "data_formats.hpp"
-#include "defines.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/program_manager.hpp"
+#include "graphics/glyph_cache.hpp"
+#include "graphics/data_formats.hpp"
+#include "graphics/defines.hpp"
 
-#include "../base/resource_pool.hpp"
+#include "base/resource_pool.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/map.hpp"
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/map.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 
 namespace graphics

@@ -1,10 +1,10 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "circle.hpp"
-#include "opengl/data_traits.hpp"
-#include "agg_traits.hpp"
+#include "graphics/circle.hpp"
+#include "graphics/opengl/data_traits.hpp"
+#include "graphics/agg_traits.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
 namespace graphics
 {

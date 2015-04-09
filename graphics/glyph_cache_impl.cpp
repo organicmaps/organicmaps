@@ -1,14 +1,14 @@
-#include "glyph_cache_impl.hpp"
-#include "freetype.hpp"
+#include "graphics/glyph_cache_impl.hpp"
+#include "graphics/freetype.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/reader.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/cstring.hpp"
+#include "std/bind.hpp"
+#include "std/cstring.hpp"
 
 #include <freetype/ftcache.h>
 

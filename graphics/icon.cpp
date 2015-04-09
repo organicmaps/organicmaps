@@ -1,4 +1,4 @@
-#include "icon.hpp"
+#include "graphics/icon.hpp"
 
 namespace graphics
 {

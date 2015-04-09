@@ -1,5 +1,5 @@
-#include "program_manager.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/program_manager.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

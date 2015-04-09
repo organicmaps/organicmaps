@@ -1,17 +1,17 @@
-#include "pipeline_manager.hpp"
-#include "resource_cache.hpp"
-#include "resource_manager.hpp"
+#include "graphics/pipeline_manager.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "opengl/buffer_object.hpp"
+#include "graphics/opengl/buffer_object.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/iterator.hpp"
-#include "../std/bind.hpp"
-#include "../std/numeric.hpp"
-#include "../std/utility.hpp"
+#include "std/iterator.hpp"
+#include "std/bind.hpp"
+#include "std/numeric.hpp"
+#include "std/utility.hpp"
 
 namespace graphics
 {

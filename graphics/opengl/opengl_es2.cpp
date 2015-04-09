@@ -1,5 +1,5 @@
-#include "opengl.hpp"
-#include "opengl_glsl_impl.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/opengl_glsl_impl.hpp"
 
 namespace graphics
 {

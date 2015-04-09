@@ -1,8 +1,8 @@
 #pragma once
 
-#include "path_renderer.hpp"
-#include "../geometry/rect2d.hpp"
-#include "../geometry/any_rect2d.hpp"
+#include "graphics/path_renderer.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
 namespace graphics
 {

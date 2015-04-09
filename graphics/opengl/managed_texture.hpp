@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../../geometry/rect2d.hpp"
-#include "../../geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../../std/vector.hpp"
-#include "../../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
-#include "base_texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
 namespace graphics
 {

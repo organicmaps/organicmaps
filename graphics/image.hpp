@@ -1,11 +1,11 @@
 #pragma once
 
-#include "defines.hpp"
-#include "resource.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/resource.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
 namespace graphics
 {

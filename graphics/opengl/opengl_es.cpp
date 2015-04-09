@@ -1,4 +1,4 @@
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 #ifdef OMIM_OS_ANDROID
   #define GL_GLEXT_PROTOTYPES

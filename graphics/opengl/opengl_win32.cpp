@@ -1,8 +1,8 @@
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 //#include "../../3party/GL/glext.h"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace graphics
@@ -55,7 +55,7 @@ namespace graphics
         string const extName = string(name) + "EXT";  \
         AssignGLProc(hInst, extName.c_str(), fn);     \
       }
-#include "gl_procedures.inl"
+#include "graphics/opengl/gl_procedures.inl"
 #undef DEFINE_GL_PROC
 
       // glFlush is a globally defined function

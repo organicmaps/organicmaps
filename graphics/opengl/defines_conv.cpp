@@ -1,5 +1,5 @@
-#include "defines_conv.hpp"
-#include "../../base/macros.hpp"
+#include "graphics/opengl/defines_conv.hpp"
+#include "base/macros.hpp"
 
 namespace graphics
 {

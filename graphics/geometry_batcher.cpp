@@ -1,22 +1,22 @@
-#include "geometry_batcher.hpp"
-#include "color.hpp"
-#include "resource_manager.hpp"
-#include "resource_cache.hpp"
+#include "graphics/geometry_batcher.hpp"
+#include "graphics/color.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/resource_cache.hpp"
 
-#include "opengl/base_texture.hpp"
-#include "opengl/utils.hpp"
-#include "opengl/opengl.hpp"
-#include "opengl/gl_render_context.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/utils.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/math.hpp"
-#include "../base/mutex.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/math.hpp"
+#include "base/mutex.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 namespace graphics
 {

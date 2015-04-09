@@ -1,16 +1,16 @@
 #pragma once
 
-#include "glyph_cache.hpp"
-#include "defines.hpp"
-#include "text_path.hpp"
-#include "font_desc.hpp"
+#include "graphics/glyph_cache.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/text_path.hpp"
+#include "graphics/font_desc.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/point2d.hpp"
-#include "../geometry/any_rect2d.hpp"
-#include "../geometry/angles.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/any_rect2d.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 
 namespace graphics

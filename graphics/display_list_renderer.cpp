@@ -1,5 +1,5 @@
-#include "display_list_renderer.hpp"
-#include "display_list.hpp"
+#include "graphics/display_list_renderer.hpp"
+#include "graphics/display_list.hpp"
 
 namespace graphics
 {

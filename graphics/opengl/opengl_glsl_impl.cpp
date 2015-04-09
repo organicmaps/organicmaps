@@ -1,11 +1,11 @@
-#include "opengl_glsl_impl.hpp"
+#include "graphics/opengl/opengl_glsl_impl.hpp"
 
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../base/matrix.hpp"
-#include "../../base/thread.hpp"
+#include "base/matrix.hpp"
+#include "base/thread.hpp"
 
-#include "../../std/memcpy.hpp"
+#include "std/memcpy.hpp"
 
 namespace graphics
 {

@@ -1,9 +1,9 @@
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "symbol_element.hpp"
-#include "resource.hpp"
-#include "icon.hpp"
-#include "overlay_renderer.hpp"
+#include "graphics/symbol_element.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/icon.hpp"
+#include "graphics/overlay_renderer.hpp"
 
 namespace graphics
 {

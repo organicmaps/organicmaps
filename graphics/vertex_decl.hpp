@@ -1,10 +1,10 @@
 #pragma once
 
-#include "defines.hpp"
-#include "vertex_stream.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/vertex_stream.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 namespace graphics
 {

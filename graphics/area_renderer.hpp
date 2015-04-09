@@ -1,6 +1,6 @@
 #pragma once
 
-#include "blitter.hpp"
+#include "graphics/blitter.hpp"
 
 namespace graphics
 {

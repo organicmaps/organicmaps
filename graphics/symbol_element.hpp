@@ -1,7 +1,7 @@
 #pragma once
 
-#include "overlay_element.hpp"
-#include "icon.hpp"
+#include "graphics/overlay_element.hpp"
+#include "graphics/icon.hpp"
 
 namespace graphics
 {

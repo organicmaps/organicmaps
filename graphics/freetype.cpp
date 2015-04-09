@@ -1,4 +1,4 @@
-#include "freetype.hpp"
+#include "graphics/freetype.hpp"
 
 #undef __FTERRORS_H__
 #define FT_ERRORDEF(e, v, s) {e, s},

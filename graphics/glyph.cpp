@@ -1,8 +1,8 @@
-#include "glyph.hpp"
-#include "glyph_cache.hpp"
-#include "agg_traits.hpp"
+#include "graphics/glyph.hpp"
+#include "graphics/glyph_cache.hpp"
+#include "graphics/agg_traits.hpp"
 
-#include "opengl/data_traits.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
 namespace graphics
 {

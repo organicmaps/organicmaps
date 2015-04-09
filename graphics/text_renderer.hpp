@@ -1,13 +1,13 @@
 #pragma once
 
-#include "image_renderer.hpp"
-#include "defines.hpp"
-#include "font_desc.hpp"
-#include "text_element.hpp"
+#include "graphics/image_renderer.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/font_desc.hpp"
+#include "graphics/text_element.hpp"
 
-#include "../geometry/tree4d.hpp"
+#include "geometry/tree4d.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 
 namespace graphics

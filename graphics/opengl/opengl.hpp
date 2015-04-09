@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../std/target_os.hpp"
-#include "../../base/logging.hpp"
+#include "std/target_os.hpp"
+#include "base/logging.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 #if defined(OMIM_OS_WINDOWS)
   #include "../../std/windows.hpp"
@@ -64,8 +64,8 @@
   #define OPENGL_CALLING_CONVENTION
 #endif
 
-#include "../../base/src_point.hpp"
-#include "../../std/exception.hpp"
+#include "base/src_point.hpp"
+#include "std/exception.hpp"
 
 
 namespace graphics

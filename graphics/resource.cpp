@@ -1,6 +1,6 @@
-#include "resource.hpp"
+#include "graphics/resource.hpp"
 
-#include "opengl/data_traits.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
 namespace graphics
 {

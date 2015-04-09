@@ -1,4 +1,4 @@
-#include "coordinates.hpp"
+#include "graphics/coordinates.hpp"
 
 namespace graphics
 {

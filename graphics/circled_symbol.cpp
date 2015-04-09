@@ -1,4 +1,4 @@
-#include "circled_symbol.hpp"
+#include "graphics/circled_symbol.hpp"
 
 namespace graphics
 {

@@ -1,8 +1,8 @@
-#include "glyph_layout.hpp"
-#include "resource.hpp"
+#include "graphics/glyph_layout.hpp"
+#include "graphics/resource.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
+#include "base/logging.hpp"
+#include "base/math.hpp"
 
 
 namespace graphics

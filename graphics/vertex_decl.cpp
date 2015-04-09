@@ -1,7 +1,7 @@
-#include "vertex_decl.hpp"
-#include "defines.hpp"
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "graphics/vertex_decl.hpp"
+#include "graphics/defines.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 namespace graphics
 {

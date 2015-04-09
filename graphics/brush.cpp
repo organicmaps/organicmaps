@@ -1,5 +1,5 @@
-#include "brush.hpp"
-#include "opengl/data_traits.hpp"
+#include "graphics/brush.hpp"
+#include "graphics/opengl/data_traits.hpp"
 
 namespace graphics
 {

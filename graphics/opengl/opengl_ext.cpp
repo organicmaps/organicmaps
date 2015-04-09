@@ -1,4 +1,4 @@
-#include "opengl.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

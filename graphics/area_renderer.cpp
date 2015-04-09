@@ -1,10 +1,10 @@
-#include "area_renderer.hpp"
-#include "brush.hpp"
-#include "resource_cache.hpp"
+#include "graphics/area_renderer.hpp"
+#include "graphics/brush.hpp"
+#include "graphics/resource_cache.hpp"
 
-#include "opengl/base_texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 namespace graphics
 {

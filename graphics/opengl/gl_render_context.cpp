@@ -1,7 +1,7 @@
-#include "../resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "gl_render_context.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {

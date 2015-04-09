@@ -1,5 +1,5 @@
-#include "overlay_element.hpp"
-#include "overlay_renderer.hpp"
+#include "graphics/overlay_element.hpp"
+#include "graphics/overlay_renderer.hpp"
 
 
 namespace graphics

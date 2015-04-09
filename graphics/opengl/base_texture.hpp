@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../geometry/rect2d.hpp"
-#include "../../geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../render_target.hpp"
-#include "../packets_queue.hpp"
+#include "graphics/render_target.hpp"
+#include "graphics/packets_queue.hpp"
 
 namespace graphics
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "resource.hpp"
-#include "color.hpp"
+#include "graphics/resource.hpp"
+#include "graphics/color.hpp"
 
 namespace graphics
 {

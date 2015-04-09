@@ -1,17 +1,17 @@
 #pragma once
 
-#include "opengl.hpp"
-#include "storage.hpp"
-#include "buffer_object.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/buffer_object.hpp"
 
-#include "../defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../../base/matrix.hpp"
-#include "../../base/exception.hpp"
+#include "base/matrix.hpp"
+#include "base/exception.hpp"
 
-#include "../../std/shared_ptr.hpp"
-#include "../../std/function.hpp"
-#include "../../std/string.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/function.hpp"
+#include "std/string.hpp"
 
 namespace graphics
 {

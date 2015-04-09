@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../std/shared_ptr.hpp"
-#include "../render_context.hpp"
-#include "program_manager.hpp"
-#include "storage.hpp"
+#include "std/shared_ptr.hpp"
+#include "graphics/render_context.hpp"
+#include "graphics/opengl/program_manager.hpp"
+#include "graphics/opengl/storage.hpp"
 
 namespace graphics
 {

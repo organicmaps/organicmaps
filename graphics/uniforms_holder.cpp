@@ -1,6 +1,6 @@
-#include "uniforms_holder.hpp"
+#include "graphics/uniforms_holder.hpp"
 
-#include "../std/utility.hpp"
+#include "std/utility.hpp"
 
 namespace graphics
 {

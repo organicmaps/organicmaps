@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
-#include "../shape_renderer.hpp"
-#include "../../base/math.hpp"
+#include "testing/testing.hpp"
+#include "graphics/shape_renderer.hpp"
+#include "base/math.hpp"
 
 using namespace graphics;
 

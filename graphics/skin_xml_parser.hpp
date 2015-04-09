@@ -1,13 +1,13 @@
 /// @author Alex Zolotarev
 #pragma once
 
-#include "resource_style.hpp"
-#include "../geometry/rect2d.hpp"
-#include "../base/base.hpp"
-#include "../std/string.hpp"
-#include "../coding/strutil.hpp"
+#include "graphics/resource_style.hpp"
+#include "geometry/rect2d.hpp"
+#include "base/base.hpp"
+#include "std/string.hpp"
+#include "coding/strutil.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "base/start_mem_debug.hpp"
 
 /// @example
 /// <font>

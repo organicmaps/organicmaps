@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
-#include "opengl/storage.hpp"
-#include "opengl/program.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/program.hpp"
 
-#include "defines.hpp"
-#include "vertex_decl.hpp"
-#include "resource_cache.hpp"
-#include "resource_manager.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/vertex_decl.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/resource_manager.hpp"
 
 namespace graphics
 {

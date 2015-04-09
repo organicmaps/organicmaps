@@ -1,9 +1,9 @@
-#include "straight_text_element.hpp"
-#include "overlay_renderer.hpp"
+#include "graphics/straight_text_element.hpp"
+#include "graphics/overlay_renderer.hpp"
 
-#include "../std/iterator.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/cstring.hpp"
+#include "std/iterator.hpp"
+#include "std/algorithm.hpp"
+#include "std/cstring.hpp"
 
 
 namespace graphics

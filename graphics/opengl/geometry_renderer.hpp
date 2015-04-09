@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../defines.hpp"
-#include "../resource_cache.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/resource_cache.hpp"
 
-#include "clipper.hpp"
+#include "graphics/opengl/clipper.hpp"
 
-#include "../../base/threaded_list.hpp"
+#include "base/threaded_list.hpp"
 
-#include "../../std/shared_ptr.hpp"
-#include "../../std/function.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/function.hpp"
 
 namespace graphics
 {

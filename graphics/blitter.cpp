@@ -1,19 +1,19 @@
-#include "opengl/base_texture.hpp"
-#include "opengl/buffer_object.hpp"
-#include "opengl/utils.hpp"
-#include "opengl/storage.hpp"
-#include "opengl/vertex.hpp"
-#include "opengl/texture.hpp"
+#include "graphics/opengl/base_texture.hpp"
+#include "graphics/opengl/buffer_object.hpp"
+#include "graphics/opengl/utils.hpp"
+#include "graphics/opengl/storage.hpp"
+#include "graphics/opengl/vertex.hpp"
+#include "graphics/opengl/texture.hpp"
 
-#include "blitter.hpp"
-#include "resource_manager.hpp"
-#include "defines.hpp"
+#include "graphics/blitter.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/defines.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 
 namespace graphics

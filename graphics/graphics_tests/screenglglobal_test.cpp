@@ -1,10 +1,10 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../graphics/screen.hpp"
-#include "../../graphics/pen.hpp"
-#include "../../geometry/screenbase.hpp"
-#include "../../geometry/point2d.hpp"
-#include "../../std/vector.hpp"
-#include "../../qt_tstfrm/macros.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/pen.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/point2d.hpp"
+#include "std/vector.hpp"
+#include "qt_tstfrm/macros.hpp"
 
 namespace
 {

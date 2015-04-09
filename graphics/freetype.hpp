@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 // Put all needed FT includes in one place
 #include <ft2build.h>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "symbol_element.hpp"
-#include "circle_element.hpp"
+#include "graphics/symbol_element.hpp"
+#include "graphics/circle_element.hpp"
 
 namespace graphics
 {

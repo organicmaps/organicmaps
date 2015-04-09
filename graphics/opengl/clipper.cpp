@@ -1,8 +1,8 @@
-#include "../../std/bind.hpp"
-#include "../../base/logging.hpp"
+#include "std/bind.hpp"
+#include "base/logging.hpp"
 
-#include "clipper.hpp"
-#include "opengl.hpp"
+#include "graphics/opengl/clipper.hpp"
+#include "graphics/opengl/opengl.hpp"
 
 namespace graphics
 {
