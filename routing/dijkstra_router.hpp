@@ -19,16 +19,5 @@ public:
   // RoadGraphRouter overrides:
   ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
                                vector<RoadPos> & route) override;
-
-private:
-  struct Vertex
-  {
-    Vertex(RoadPos const & pos, double dist) : pos(pos), dist(dist) {}
-
-    bool operator<(Vertex const & v) const { return dist > v.dist; }
-
-    RoadPos pos;
-    double dist;
-  };
 };
 }  // namespace routing

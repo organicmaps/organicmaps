@@ -40,6 +40,15 @@ void ReconstructPath(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
   }
 }
 
+struct Vertex
+{
+  Vertex(RoadPos const & pos, double dist) : pos(pos), dist(dist) {}
+
+  bool operator<(Vertex const & v) const { return dist > v.dist; }
+
+  RoadPos pos;
+  double dist;
+};
 }  // namespace
 
 IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & startPos,
@@ -48,10 +57,10 @@ IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & st
 {
   priority_queue<Vertex> queue;
 
-  // Upper bound on a distance from start positions to a position.
+  // Upper bound on the distance from start positions to current vertex.
   map<RoadPos, double> dist;
 
-  // Parent in a search tree.
+  // Parent in the search tree.
   map<RoadPos, RoadPos> parent;
 
   vector<uint32_t> sortedStartFeatures(startPos.size());
@@ -87,6 +96,9 @@ IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & st
       RoadPos const & pos = turn.m_pos;
       if (v.pos == pos)
         continue;
+      // TODO (@gorshenin): distance must be measured in time units,
+      // so it possibly worth to divide distance by the pedestrian's
+      // speed.
       double const d =
           v.dist + MercatorBounds::DistanceOnEarth(v.pos.GetSegEndpoint(), pos.GetSegEndpoint());
       auto it = dist.find(pos);
