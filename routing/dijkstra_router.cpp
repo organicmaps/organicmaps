@@ -83,14 +83,13 @@ IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & st
     if (v.dist > dist[v.pos])
       continue;
 
-    bool const isStartFeature = Contains(sortedStartFeatures, v.pos.GetFeatureId());
-    if (isStartFeature && Contains(sortedStartPos, v.pos))
+    if (Contains(sortedStartFeatures, v.pos.GetFeatureId()) && Contains(sortedStartPos, v.pos))
     {
       ReconstructPath(v.pos, parent, route);
       return IRouter::NoError;
     }
     IRoadGraph::TurnsVectorT turns;
-    m_roadGraph->GetPossibleTurns(v.pos, turns, isStartFeature);
+    m_roadGraph->GetNearestTurns(v.pos, turns);
     for (PossibleTurn const & turn : turns)
     {
       RoadPos const & pos = turn.m_pos;

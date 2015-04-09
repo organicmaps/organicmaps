@@ -66,17 +66,16 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     if (v.GetReducedDist() > m_bestDistance[v.GetPos()])
       continue;
 
-    /// @todo why do we even need this?
-    bool isStartFeature = binary_search(sortedStartFeatures.begin(), sortedStartFeatures.end(), v.GetPos().GetFeatureId());
-
-    if (isStartFeature && binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
+    if (binary_search(sortedStartFeatures.begin(), sortedStartFeatures.end(),
+                      v.GetPos().GetFeatureId()) &&
+        binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
     {
       ReconstructRoute(v.GetPos(), route);
       return IRouter::NoError;
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_roadGraph->GetPossibleTurns(v.GetPos(), turns, isStartFeature);
+    m_roadGraph->GetNearestTurns(v.GetPos(), turns);
     for (IRoadGraph::TurnsVectorT::const_iterator it = turns.begin(); it != turns.end(); ++it)
     {
       PossibleTurn const & turn = *it;

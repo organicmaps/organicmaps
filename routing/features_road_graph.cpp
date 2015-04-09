@@ -130,113 +130,82 @@ void FeaturesRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
   ASSERT_GREATER(ft.GetPointsCount(), 1, (id));
 }
 
-void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns, bool noOptimize /*= true*/)
+void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
 {
-  uint32_t const ftID = pos.GetFeatureId();
+  uint32_t const featureId = pos.GetFeatureId();
   FeatureType ft;
-  CachedFeature const fc = GetCachedFeature(ftID, ft, true);
+  CachedFeature const fc = GetCachedFeature(featureId, ft, true);
 
   if (fc.m_speed <= 0.0)
     return;
 
-  int const count = static_cast<int>(fc.m_points.size());
-  bool const isForward = pos.IsForward();
-  int const inc = isForward ? -1 : 1;
+  size_t const numPoints = fc.m_points.size();
+  if (numPoints < 2)
+    return;
 
-  int startID = pos.GetSegId();
-  ASSERT_GREATER(count, 1, ());
-  ASSERT_LESS(startID, count, ());
-  if (!isForward)
-    ++startID;
+  bool const isForward = pos.IsForward();
+
+  uint32_t const segId = pos.GetSegId();
+  uint32_t const startPointId = pos.GetSegStartPointId();
+  uint32_t const endPointId = pos.GetSegEndPointId();
+  ASSERT_LESS(startPointId, numPoints, ());
+  ASSERT_LESS(endPointId, numPoints, ());
 
   PossibleTurn thisTurn;
   thisTurn.m_speed = fc.m_speed;
-  thisTurn.m_startPoint = fc.m_points[0];
-  thisTurn.m_endPoint = fc.m_points[count - 1];
+  thisTurn.m_startPoint = fc.m_points.front();
+  thisTurn.m_endPoint = fc.m_points.back();
 
-  double distance = 0.0;
-  double time = 0.0;
-  for (int i = startID; i >= 0 && i < count; i += inc)
+  double const segmentDistance =
+      CalcDistanceMeters(fc.m_points[startPointId], fc.m_points[endPointId]);
+  double const segmentTime = segmentDistance / fc.m_speed;
+
+  m2::PointD const & startPoint = fc.m_points[startPointId];
+
+  // Find possible turns to startPoint from other features.
+  CrossFeaturesLoader crossLoader(featureId, *this, startPoint, turns);
+  m_pIndex->ForEachInRect(
+      crossLoader, m2::RectD(startPoint.x - READ_CROSS_EPSILON, startPoint.y - READ_CROSS_EPSILON,
+                             startPoint.x + READ_CROSS_EPSILON, startPoint.y + READ_CROSS_EPSILON),
+      READ_ROAD_SCALE);
+
+  indexCheck++;
+
+  if (crossLoader.GetCount() > 0)
+    indexFound++;
+
+  // Push turn points for this feature.
+  if (isForward && segId > 0)
   {
-    ASSERT_GREATER(i - inc, -1, ());
-    ASSERT_LESS(i - inc, count, ());
-
-    double const segmentDistance = CalcDistanceMeters(fc.m_points[i], fc.m_points[i - inc]);
-    distance += segmentDistance;
-    time += segmentDistance / fc.m_speed;
-
-    m2::PointD const & pt = fc.m_points[i];
-
-    // Find possible turns to point[i] from other features.
-    size_t const last = turns.size();
-    CrossFeaturesLoader crossLoader(ftID, *this, pt, turns);
-    m_pIndex->ForEachInRect(crossLoader,
-                            m2::RectD(pt.x - READ_CROSS_EPSILON, pt.y - READ_CROSS_EPSILON,
-                                      pt.x + READ_CROSS_EPSILON, pt.y + READ_CROSS_EPSILON),
-                            READ_ROAD_SCALE);
-
-    indexCheck++;
-
-    if (crossLoader.GetCount() > 0)
-      indexFound++;
-
-    // Skip if there are no turns on point
-    if (/*crossLoader.GetCount() > 0 ||*/ noOptimize)
-    {
-      // Push turn points for this feature.
-      if (isForward)
-      {
-        if (i > 0)
-        {
-          thisTurn.m_pos = RoadPos(ftID, true, i - 1, pt);
-          turns.push_back(thisTurn);
-        }
-      }
-      else
-      {
-        if (!fc.m_isOneway && (i != count - 1))
-        {
-          thisTurn.m_pos = RoadPos(ftID, false, i, pt);
-          turns.push_back(thisTurn);
-        }
-      }
-    }
-
-    // Update distance and time information.
-    for (size_t j = last; j < turns.size(); ++j)
-    {
-      turns[j].m_metersCovered = distance;
-      turns[j].m_secondsCovered = time;
-      turns[j].m_speed = DEFAULT_SPEED_MS;
-    }
+    thisTurn.m_pos = RoadPos(featureId, isForward, segId - 1, startPoint);
+    turns.push_back(thisTurn);
+  }
+  else if (!isForward && !fc.m_isOneway && segId + 2 < numPoints)
+  {
+    thisTurn.m_pos = RoadPos(featureId, isForward, segId + 1, startPoint);
+    turns.push_back(thisTurn);
   }
 
-  // Check cycle
-  if (m2::AlmostEqual(fc.m_points[0], fc.m_points[count - 1]))
+  // Update distance and time information.
+  for (PossibleTurn & turn : turns)
   {
-    /// @todo calculate distance and speed
-    if (isForward)
-    {
-      double distance = 0;
-      for (int i = pos.GetSegId(); i > 0; --i)
-        distance += CalcDistanceMeters(fc.m_points[i], fc.m_points[i - 1]);
+    turn.m_metersCovered = segmentDistance;
+    turn.m_secondsCovered = segmentTime;
+    turn.m_speed = DEFAULT_SPEED_MS;
+  }
 
-      thisTurn.m_pos = RoadPos(ftID, true, count - 2, fc.m_points[count - 1]);
-      thisTurn.m_metersCovered = distance;
-      thisTurn.m_secondsCovered = distance / DEFAULT_SPEED_MS;
-      turns.push_back(thisTurn);
-    }
-    else if (!fc.m_isOneway)
-    {
-      double distance = 0;
-      for (size_t i = pos.GetSegId(); i < count - 1; ++i)
-        distance += CalcDistanceMeters(fc.m_points[i], fc.m_points[i + 1]);
-
-      thisTurn.m_pos = RoadPos(ftID, false, 0, fc.m_points[0]);
-      thisTurn.m_metersCovered = distance;
-      thisTurn.m_secondsCovered = distance / DEFAULT_SPEED_MS;
-      turns.push_back(thisTurn);
-    }
+  // Check cycle.
+  if (!m2::AlmostEqual(fc.m_points.front(), fc.m_points.back()))
+    return;
+  if (isForward && segId == 0)
+  {
+    thisTurn.m_pos = RoadPos(featureId, isForward, numPoints - 2, fc.m_points.back());
+    turns.push_back(thisTurn);
+  }
+  else if (!isForward && !fc.m_isOneway && segId + 2 == numPoints)
+  {
+    thisTurn.m_pos = RoadPos(featureId, isForward, 0, fc.m_points.front());
+    turns.push_back(thisTurn);
   }
 }
 

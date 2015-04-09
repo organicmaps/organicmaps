@@ -33,8 +33,9 @@ class FeaturesRoadGraph : public IRoadGraph
 public:
   FeaturesRoadGraph(Index const * pIndex, size_t mwmID);
 
-  virtual void GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns, bool noOptimize = true);
-  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
+  // IRoadGraph overrides:
+  void GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns) override;
+  void ReconstructPath(RoadPosVectorT const & positions, Route & route) override;
 
   static uint32_t GetStreetReadScale();
 

@@ -104,11 +104,11 @@ void FeatureRoadGraphTester::Name2FeatureID(vector<routing::RoadPos> & vec)
                      vec[i].GetSegId());
 }
 
-void FeatureRoadGraphTester::GetPossibleTurns(RoadPos const & pos, IRoadGraph::TurnsVectorT & vec, bool noOptimize/* = true*/)
+void FeatureRoadGraphTester::GetPossibleTurns(RoadPos const & pos, IRoadGraph::TurnsVectorT & vec)
 {
-  m_graph->GetPossibleTurns(RoadPos(m_mapping.GetId(strings::to_string(pos.GetFeatureId())),
+  m_graph->GetNearestTurns(RoadPos(m_mapping.GetId(strings::to_string(pos.GetFeatureId())),
                                     pos.IsForward(), pos.GetSegId()),
-                            vec, noOptimize);
+                            vec);
   FeatureID2Name(vec);
 }
 
@@ -161,7 +161,7 @@ UNIT_TEST(FRG_TurnsTest_MWM1)
 
   {
     IRoadGraph::TurnsVectorT vec;
-    tester.GetPossibleTurns(RoadPos(1, false, 0), vec, false);
+    tester.GetPossibleTurns(RoadPos(1, false, 0), vec);
     TEST_EQUAL(vec.size(), 3, ());
     TEST(TestResult(vec, RoadPos(1, false, 2), 10), ());
     TEST(TestResult(vec, RoadPos(0, true, 1), 10), ());
@@ -175,7 +175,7 @@ UNIT_TEST(FRG_TurnsTest_MWM2)
 
   {
     IRoadGraph::TurnsVectorT vec;
-    tester.GetPossibleTurns(RoadPos(0, false, 0), vec, false);
+    tester.GetPossibleTurns(RoadPos(0, false, 0), vec);
     TEST_EQUAL(vec.size(), 8, ());
     TEST(TestResult(vec, RoadPos(0, false, 1), -1), ());
     TEST(TestResult(vec, RoadPos(0, false, 2), -1), ());
@@ -189,7 +189,7 @@ UNIT_TEST(FRG_TurnsTest_MWM2)
 
   {
     IRoadGraph::TurnsVectorT vec;
-    tester.GetPossibleTurns(RoadPos(8, true, 0), vec, false);
+    tester.GetPossibleTurns(RoadPos(8, true, 0), vec);
     TEST_EQUAL(vec.size(), 2, ());
     TEST(TestResult(vec, RoadPos(1, true, 1), -1), ());
     TEST(TestResult(vec, RoadPos(8, true, 5), -1), ());
@@ -197,7 +197,7 @@ UNIT_TEST(FRG_TurnsTest_MWM2)
 
   {
     IRoadGraph::TurnsVectorT vec;
-    tester.GetPossibleTurns(RoadPos(2, true, 1), vec, false);
+    tester.GetPossibleTurns(RoadPos(2, true, 1), vec);
     TEST_EQUAL(vec.size(), 4, ());
     TEST(TestResult(vec, RoadPos(3, true, 0), -1), ());
     TEST(TestResult(vec, RoadPos(3, false, 1), -1), ());
@@ -207,7 +207,7 @@ UNIT_TEST(FRG_TurnsTest_MWM2)
 
   {
     IRoadGraph::TurnsVectorT vec;
-    tester.GetPossibleTurns(RoadPos(3, false, 0), vec, false);
+    tester.GetPossibleTurns(RoadPos(3, false, 0), vec);
     TEST_EQUAL(vec.size(), 5, ());
     TEST(TestResult(vec, RoadPos(3, false, 1), -1), ());
     TEST(TestResult(vec, RoadPos(3, false, 2), -1), ());
@@ -231,7 +231,7 @@ UNIT_TEST(FRG_TurnsTest_MWM2)
 
   {
     IRoadGraph::TurnsVectorT vec;
-    tester.GetPossibleTurns(RoadPos(8, true, 3), vec, false);
+    tester.GetPossibleTurns(RoadPos(8, true, 3), vec);
     TEST_EQUAL(vec.size(), 7, ());
     TEST(TestResult(vec, RoadPos(8, true, 2), -1), ());
     TEST(TestResult(vec, RoadPos(5, true, 0), -1), ());

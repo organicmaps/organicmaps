@@ -90,9 +90,10 @@ public:
 
   virtual ~IRoadGraph() {}
 
-  /// Find all feature sections (turns), that route to the "pos" section.
-  virtual void GetPossibleTurns(RoadPos const & pos, TurnsVectorT & turns,
-                                bool noOptimize = true) = 0;
+  /// Finds all nearest feature sections (turns), that route to the
+  /// "pos" section.
+  virtual void GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns) = 0;
+
   /// Construct route by road positions (doesn't include first and last section).
   virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route) = 0;
 };

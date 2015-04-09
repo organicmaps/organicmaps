@@ -43,8 +43,7 @@ void RoadGraphMockSource::AddRoad(RoadInfo & rd)
   m_roads.back().Swap(rd);
 }
 
-void RoadGraphMockSource::GetPossibleTurns(RoadPos const & pos, TurnsVectorT & turns,
-                                           bool /*noOptimize = true*/)
+void RoadGraphMockSource::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
 {
   uint32_t const fID = pos.GetFeatureId();
   ASSERT_LESS(fID, m_roads.size(), ());
