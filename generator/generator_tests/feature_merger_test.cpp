@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../feature_merger.hpp"
+#include "generator/feature_merger.hpp"
 
 
 namespace

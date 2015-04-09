@@ -1,15 +1,15 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../xml_element.hpp"
-#include "../osm2type.hpp"
+#include "generator/xml_element.hpp"
+#include "generator/osm2type.hpp"
 
-#include "../../routing/vehicle_model.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../../indexer/feature_data.hpp"
-#include "../../indexer/classificator.hpp"
-#include "../../indexer/classificator_loader.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
 
-#include "../../std/iostream.hpp"
+#include "std/iostream.hpp"
 
 
 namespace

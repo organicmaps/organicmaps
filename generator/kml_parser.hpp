@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include "generator/std/string.hpp"
 
 class PolygonsContainerT;
 

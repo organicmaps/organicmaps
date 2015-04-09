@@ -1,14 +1,14 @@
-#include "../tesselator.hpp"
+#include "generator/tesselator.hpp"
 
-#include "../../indexer/geometry_serialization.hpp"
-#include "../../indexer/mercator.hpp"
-#include "../../indexer/point_to_int64.hpp"
-#include "../../indexer/coding_params.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/point_to_int64.hpp"
+#include "indexer/coding_params.hpp"
 
-#include "../../coding/reader.hpp"
-#include "../../coding/writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
 
 namespace

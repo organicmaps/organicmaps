@@ -1,10 +1,10 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../feature_builder.hpp"
+#include "generator/feature_builder.hpp"
 
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/classificator.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/classificator.hpp"
 
 
 namespace

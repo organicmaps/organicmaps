@@ -1,10 +1,10 @@
-#include "../../testing/testing.hpp"
-#include "../../base/logging.hpp"
+#include "testing/testing.hpp"
+#include "base/logging.hpp"
 
-#include "../../indexer/classificator_loader.hpp"
-#include "../../generator/osm2meta.hpp"
-#include "../../coding/writer.hpp"
-#include "../../coding/reader.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "generator/osm2meta.hpp"
+#include "coding/writer.hpp"
+#include "coding/reader.hpp"
 
 UNIT_TEST(Metadata_ValidateAndFormat_stars)
 {

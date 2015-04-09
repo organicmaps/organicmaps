@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../map/feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/interval_index.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/interval_index.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 UNIT_TEST(CheckMWM_LoadAll)

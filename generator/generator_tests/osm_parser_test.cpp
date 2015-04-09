@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../osm_xml_parser.hpp"
-#include "../borders_generator.hpp"
+#include "generator/osm_xml_parser.hpp"
+#include "generator/borders_generator.hpp"
 
-#include "../../coding/reader.hpp"
-#include "../../coding/parse_xml.hpp"
-#include "../../coding/file_reader.hpp"
-#include "../../coding/file_writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/parse_xml.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 
 using namespace osm;
 

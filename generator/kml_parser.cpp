@@ -1,21 +1,21 @@
-#include "generator/kml_parser.hpp"
-#include "generator/feature_sorter.hpp"
+#include "generator/generator/kml_parser.hpp"
+#include "generator/generator/feature_sorter.hpp"
 
-#include "base/string_utils.hpp"
-#include "base/logging.hpp"
+#include "generator/base/string_utils.hpp"
+#include "generator/base/logging.hpp"
 
-#include "coding/parse_xml.hpp"
-#include "coding/file_reader.hpp"
+#include "generator/coding/parse_xml.hpp"
+#include "generator/coding/file_reader.hpp"
 
-#include "geometry/rect2d.hpp"
-#include "geometry/cellid.hpp"
+#include "generator/geometry/rect2d.hpp"
+#include "generator/geometry/cellid.hpp"
 
-#include "indexer/cell_id.hpp"
-#include "indexer/mercator.hpp"
-#include "indexer/feature.hpp"
-#include "indexer/covering.hpp"
+#include "generator/indexer/cell_id.hpp"
+#include "generator/indexer/mercator.hpp"
+#include "generator/indexer/feature.hpp"
+#include "generator/indexer/covering.hpp"
 
-#include "std/fstream.hpp"
+#include "generator/std/fstream.hpp"
 
 #define MIN_SIMPLIFIED_POINTS_COUNT 4
 

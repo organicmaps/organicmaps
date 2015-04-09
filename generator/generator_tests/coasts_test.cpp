@@ -1,16 +1,16 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../feature_builder.hpp"
-#include "../feature_sorter.hpp"
-#include "../feature_generator.hpp"
+#include "generator/feature_builder.hpp"
+#include "generator/feature_sorter.hpp"
+#include "generator/feature_generator.hpp"
 
-#include "../../indexer/mercator.hpp"
-#include "../../indexer/cell_id.hpp"
-#include "../../indexer/scales.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/cell_id.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../geometry/cellid.hpp"
+#include "geometry/cellid.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace

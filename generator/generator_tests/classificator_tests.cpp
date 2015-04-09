@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../indexer/classificator.hpp"
-#include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/feature_visibility.hpp"
-#include "../../indexer/feature_data.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/feature_data.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace

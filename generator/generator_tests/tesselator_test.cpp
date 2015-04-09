@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../tesselator.hpp"
+#include "generator/tesselator.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace
