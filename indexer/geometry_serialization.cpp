@@ -1,14 +1,14 @@
-#include "geometry_serialization.hpp"
-#include "mercator.hpp"
-#include "point_to_int64.hpp"
-#include "geometry_coding.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/point_to_int64.hpp"
+#include "indexer/geometry_coding.hpp"
 
-#include "../geometry/pointu_to_uint64.hpp"
+#include "geometry/pointu_to_uint64.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
-#include "../std/iterator.hpp"
-#include "../std/stack.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
+#include "std/iterator.hpp"
+#include "std/stack.hpp"
 
 
 namespace serial

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/stdint.hpp"
-#include "../std/function.hpp"
+#include "std/stdint.hpp"
+#include "std/function.hpp"
 
 
 class IntervalIndexIFace

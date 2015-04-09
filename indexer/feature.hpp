@@ -1,13 +1,13 @@
 #pragma once
-#include "cell_id.hpp"
-#include "feature_data.hpp"
+#include "indexer/cell_id.hpp"
+#include "indexer/feature_data.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 namespace feature

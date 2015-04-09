@@ -1,10 +1,10 @@
 #pragma once
-#include "point_to_int64.hpp"
+#include "indexer/point_to_int64.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 
 class FeatureType;

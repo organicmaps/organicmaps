@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scale_index_builder.hpp"
+#include "indexer/scale_index_builder.hpp"
 
 namespace indexer
 {

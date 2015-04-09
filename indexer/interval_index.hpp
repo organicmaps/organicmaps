@@ -1,15 +1,15 @@
 #pragma once
-#include "interval_index_iface.hpp"
+#include "indexer/interval_index_iface.hpp"
 
-#include "../coding/endianness.hpp"
-#include "../coding/byte_stream.hpp"
-#include "../coding/reader.hpp"
-#include "../coding/varint.hpp"
+#include "coding/endianness.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/reader.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/static_assert.hpp"
+#include "std/static_assert.hpp"
 
 
 class IntervalIndexBase : public IntervalIndexIFace

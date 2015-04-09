@@ -1,22 +1,22 @@
 #pragma once
-#include "cell_id.hpp"
-#include "data_factory.hpp"
-#include "feature_covering.hpp"
-#include "features_vector.hpp"
-#include "mwm_set.hpp"
-#include "scale_index.hpp"
+#include "indexer/cell_id.hpp"
+#include "indexer/data_factory.hpp"
+#include "indexer/feature_covering.hpp"
+#include "indexer/features_vector.hpp"
+#include "indexer/mwm_set.hpp"
+#include "indexer/scale_index.hpp"
 
-#include "../coding/file_container.hpp"
+#include "coding/file_container.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../base/macros.hpp"
-#include "../base/observer_list.hpp"
+#include "base/macros.hpp"
+#include "base/observer_list.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/unordered_set.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/unordered_set.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 class MwmValue : public MwmSet::MwmValueBase
 {

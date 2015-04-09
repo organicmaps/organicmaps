@@ -1,7 +1,7 @@
-#include "drawing_rule_def.hpp"
+#include "indexer/drawing_rule_def.hpp"
 
-#include "../std/iterator.hpp"
-#include "../std/algorithm.hpp"
+#include "std/iterator.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace drule

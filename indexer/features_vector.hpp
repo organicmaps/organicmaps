@@ -1,8 +1,8 @@
 #pragma once
-#include "feature.hpp"
-#include "feature_loader_base.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_loader_base.hpp"
 
-#include "../coding/var_record_reader.hpp"
+#include "coding/var_record_reader.hpp"
 
 
 /// Note! This class is NOT Thread-Safe.

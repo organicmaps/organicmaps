@@ -1,5 +1,5 @@
-#include "../../testing/testing.hpp"
-#include "../scales.hpp"
+#include "testing/testing.hpp"
+#include "indexer/scales.hpp"
 
 
 using namespace scales;

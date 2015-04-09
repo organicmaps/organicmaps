@@ -1,12 +1,12 @@
-#include "feature.hpp"
-#include "feature_visibility.hpp"
-#include "feature_loader_base.hpp"
-#include "classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/feature_loader_base.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../geometry/distance.hpp"
-#include "../geometry/robust_orientation.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/robust_orientation.hpp"
 
-#include "../platform/preferred_languages.hpp"
+#include "platform/preferred_languages.hpp"
 
 #include "../defines.hpp" // just for file extensions
 

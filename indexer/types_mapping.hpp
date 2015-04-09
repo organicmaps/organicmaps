@@ -1,9 +1,9 @@
 #pragma once
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include "../std/iostream.hpp"
+#include "std/vector.hpp"
+#include "std/map.hpp"
+#include "std/iostream.hpp"
 
 
 class IndexAndTypeMapping

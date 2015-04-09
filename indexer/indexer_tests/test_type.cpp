@@ -1,8 +1,8 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../classificator.hpp"
+#include "indexer/classificator.hpp"
 
 namespace
 {

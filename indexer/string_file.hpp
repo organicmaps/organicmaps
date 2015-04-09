@@ -1,18 +1,18 @@
 #pragma once
 
-#include "../coding/file_writer.hpp"
-#include "../coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../base/macros.hpp"
-#include "../base/mem_trie.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/worker_thread.hpp"
+#include "base/macros.hpp"
+#include "base/mem_trie.hpp"
+#include "base/string_utils.hpp"
+#include "base/worker_thread.hpp"
 
-#include "../coding/read_write_utils.hpp"
-#include "../std/iterator_facade.hpp"
-#include "../std/queue.hpp"
-#include "../std/functional.hpp"
-#include "../std/unique_ptr.hpp"
+#include "coding/read_write_utils.hpp"
+#include "std/iterator_facade.hpp"
+#include "std/queue.hpp"
+#include "std/functional.hpp"
+#include "std/unique_ptr.hpp"
 
 template <typename TValue>
 class StringsFile

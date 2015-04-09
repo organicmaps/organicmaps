@@ -1,10 +1,10 @@
-#include "geometry_coding.hpp"
+#include "indexer/geometry_coding.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/stl_add.hpp"
+#include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/complex.hpp"
-#include "../std/vector.hpp"
+#include "std/complex.hpp"
+#include "std/vector.hpp"
 
 
 namespace

@@ -1,8 +1,8 @@
 #pragma once
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
 
 struct MercatorBounds

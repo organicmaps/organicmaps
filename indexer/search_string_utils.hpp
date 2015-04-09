@@ -1,7 +1,7 @@
 #pragma once
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 namespace search
 {

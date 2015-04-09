@@ -1,13 +1,13 @@
 #pragma once
-#include "../interval_index_iface.hpp"
+#include "indexer/interval_index_iface.hpp"
 
-#include "../../coding/endianness.hpp"
+#include "coding/endianness.hpp"
 
-#include "../../base/assert.hpp"
-#include "../../base/base.hpp"
-#include "../../base/macros.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/macros.hpp"
 
-#include "../../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 
 namespace old_101 {

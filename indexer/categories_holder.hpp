@@ -1,11 +1,11 @@
 #pragma once
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include "../std/string.hpp"
-#include "../std/iostream.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/map.hpp"
+#include "std/string.hpp"
+#include "std/iostream.hpp"
+#include "std/shared_ptr.hpp"
 
 
 class Reader;

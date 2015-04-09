@@ -1,13 +1,13 @@
-#include "mwm_set.hpp"
-#include "scales.hpp"
+#include "indexer/mwm_set.hpp"
+#include "indexer/scales.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 // static
 MwmSet::MwmId const MwmSet::INVALID_MWM_ID = static_cast<MwmSet::MwmId>(-1);

@@ -1,21 +1,21 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../geometry_coding.hpp"
-#include "../point_to_int64.hpp"
-#include "../mercator.hpp"
-#include "../coding_params.hpp"
+#include "indexer/geometry_coding.hpp"
+#include "indexer/point_to_int64.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/coding_params.hpp"
 
-#include "test_polylines.hpp"
+#include "indexer/indexer_tests/test_polylines.hpp"
 
-#include "../../geometry/geometry_tests/large_polygon.hpp"
-#include "../../geometry/distance.hpp"
-#include "../../geometry/simplification.hpp"
+#include "geometry/geometry_tests/large_polygon.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/simplification.hpp"
 
-#include "../../coding/byte_stream.hpp"
-#include "../../coding/varint.hpp"
-#include "../../coding/writer.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/varint.hpp"
+#include "coding/writer.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 typedef m2::PointU PU;

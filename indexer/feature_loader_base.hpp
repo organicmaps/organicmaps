@@ -1,10 +1,10 @@
 #pragma once
-#include "coding_params.hpp"
-#include "data_header.hpp"
+#include "indexer/coding_params.hpp"
+#include "indexer/data_header.hpp"
 
-#include "../coding/file_container.hpp"
+#include "coding/file_container.hpp"
 
-#include "../std/noncopyable.hpp"
+#include "std/noncopyable.hpp"
 
 
 class FeatureType;

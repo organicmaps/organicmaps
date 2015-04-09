@@ -1,4 +1,4 @@
-#include "scale_index.hpp"
+#include "indexer/scale_index.hpp"
 
 
 /// Using default one to one mapping.

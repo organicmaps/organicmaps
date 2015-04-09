@@ -1,17 +1,17 @@
 #pragma once
-#include "feature_decl.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../coding/multilang_utf8_string.hpp"
-#include "../coding/value_opt_string.hpp"
-#include "../coding/reader.hpp"
+#include "coding/multilang_utf8_string.hpp"
+#include "coding/value_opt_string.hpp"
+#include "coding/reader.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/algorithm.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/algorithm.hpp"
 
-#include "feature_meta.hpp"
+#include "indexer/feature_meta.hpp"
 
 class FeatureBase;
 

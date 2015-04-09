@@ -1,14 +1,14 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "feature_loader_101.hpp"
+#include "indexer/old/feature_loader_101.hpp"
 
-#include "../classificator.hpp"
-#include "../feature.hpp"
-#include "../scales.hpp"
-#include "../geometry_serialization.hpp"
-#include "../coding_params.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/coding_params.hpp"
 
-#include "../../coding/byte_stream.hpp"
+#include "coding/byte_stream.hpp"
 
 
 namespace old_101 { namespace feature {

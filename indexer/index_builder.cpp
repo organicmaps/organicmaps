@@ -1,9 +1,9 @@
-#include "index_builder.hpp"
-#include "features_vector.hpp"
+#include "indexer/index_builder.hpp"
+#include "indexer/features_vector.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace indexer

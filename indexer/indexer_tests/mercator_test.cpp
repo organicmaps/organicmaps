@@ -1,12 +1,12 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../../base/math.hpp"
-#include "../../base/macros.hpp"
-#include "../../base/logging.hpp"
+#include "base/math.hpp"
+#include "base/macros.hpp"
+#include "base/logging.hpp"
 
 
 UNIT_TEST(Mercator_Grid)

@@ -1,16 +1,16 @@
 #pragma once
 
-#include "mwm_version.hpp"
+#include "indexer/mwm_version.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../std/deque.hpp"
-#include "../std/mutex.hpp"
-#include "../std/string.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/deque.hpp"
+#include "std/mutex.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 /// Information about stored mwm.
 class MwmInfo

@@ -1,11 +1,10 @@
-#include "index.hpp"
+#include "indexer/index.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
-
-#include "../coding/file_name_utils.hpp"
-#include "../coding/internal/file_data.hpp"
+#include "base/logging.hpp"
+#include "coding/file_name_utils.hpp"
+#include "coding/internal/file_data.hpp"
 
 
 //////////////////////////////////////////////////////////////////////////////////

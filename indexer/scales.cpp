@@ -1,9 +1,9 @@
-#include "scales.hpp"
-#include "mercator.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace scales

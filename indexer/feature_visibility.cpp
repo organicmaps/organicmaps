@@ -1,11 +1,11 @@
-#include "feature_visibility.hpp"
-#include "classificator.hpp"
-#include "feature.hpp"
-#include "scales.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/array.hpp"
+#include "std/array.hpp"
 
 
 namespace

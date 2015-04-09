@@ -1,10 +1,10 @@
-#include "cell_id.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../geometry/pointu_to_uint64.hpp"
+#include "geometry/pointu_to_uint64.hpp"
 
-#include "../base/bits.hpp"
+#include "base/bits.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace

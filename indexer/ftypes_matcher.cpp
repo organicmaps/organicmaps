@@ -1,8 +1,8 @@
-#include "ftypes_matcher.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../indexer/feature.hpp"
-#include "../indexer/feature_data.hpp"
-#include "../indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/classificator.hpp"
 
 
 namespace ftypes

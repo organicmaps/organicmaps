@@ -1,6 +1,6 @@
-#include "search_string_utils.hpp"
+#include "indexer/search_string_utils.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
 strings::UniString search::FeatureTypeToString(uint32_t type)
 {

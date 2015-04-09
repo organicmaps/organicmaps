@@ -1,14 +1,14 @@
-#include "feature_utils.hpp"
-#include "feature_visibility.hpp"
-#include "classificator.hpp"
-#include "feature_data.hpp"
-#include "scales.hpp"
+#include "indexer/feature_utils.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/scales.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 namespace feature

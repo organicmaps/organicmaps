@@ -1,15 +1,15 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../features_offsets_table.hpp"
-#include "../data_header.hpp"
-#include "../features_vector.hpp"
+#include "indexer/features_offsets_table.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/features_vector.hpp"
 
-#include "../../platform/platform.hpp"
-#include "../../coding/file_container.hpp"
-#include "../../base/scope_guard.hpp"
-#include "../../std/bind.hpp"
-#include "../../std/string.hpp"
-#include "../../defines.hpp"
+#include "platform/platform.hpp"
+#include "coding/file_container.hpp"
+#include "base/scope_guard.hpp"
+#include "std/bind.hpp"
+#include "std/string.hpp"
+#include "defines.hpp"
 
 namespace feature
 {

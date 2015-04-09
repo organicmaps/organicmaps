@@ -1,8 +1,8 @@
 #pragma once
-#include "data_header.hpp"
-#include "mwm_version.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/mwm_version.hpp"
 
-#include "../coding/reader.hpp"
+#include "coding/reader.hpp"
 
 
 class FilesContainerR;

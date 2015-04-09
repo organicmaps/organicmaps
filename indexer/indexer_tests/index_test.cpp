@@ -1,20 +1,20 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../data_header.hpp"
-#include "../index.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/index.hpp"
 
-#include "../../coding/file_name_utils.hpp"
-#include "../../coding/internal/file_data.hpp"
+#include "coding/file_name_utils.hpp"
+#include "coding/internal/file_data.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
-#include "../../base/scope_guard.hpp"
-#include "../../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/scope_guard.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/bind.hpp"
-#include "../../std/string.hpp"
+#include "std/bind.hpp"
+#include "std/string.hpp"
 
 void CheckedDeleteFile(string const & file)
 {

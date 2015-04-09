@@ -1,10 +1,10 @@
 #pragma once
 
-#include "geometry_serialization.hpp"
+#include "indexer/geometry_serialization.hpp"
 
-#include "../coding/reader.hpp"
-#include "../coding/trie.hpp"
-#include "../coding/trie_reader.hpp"
+#include "coding/reader.hpp"
+#include "coding/trie.hpp"
+#include "coding/trie_reader.hpp"
 
 
 namespace search

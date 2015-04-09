@@ -1,8 +1,8 @@
-#include "types_mapping.hpp"
-#include "classificator.hpp"
+#include "indexer/types_mapping.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/stl_add.hpp"
+#include "base/string_utils.hpp"
+#include "base/stl_add.hpp"
 
 
 void IndexAndTypeMapping::Clear()

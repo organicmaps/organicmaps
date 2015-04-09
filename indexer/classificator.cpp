@@ -1,12 +1,12 @@
-#include "classificator.hpp"
-#include "tree_structure.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/tree_structure.hpp"
 
-#include "../base/macros.hpp"
-#include "../base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/iterator.hpp"
+#include "std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/iterator.hpp"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

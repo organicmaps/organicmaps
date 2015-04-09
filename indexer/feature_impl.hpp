@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../base/macros.hpp"
-#include "../base/assert.hpp"
+#include "base/macros.hpp"
+#include "base/assert.hpp"
 
-#include "../std/string.hpp"
-#include "../std/cstring.hpp"
+#include "std/string.hpp"
+#include "std/cstring.hpp"
 
 
 namespace strings { class UniString; }

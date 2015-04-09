@@ -1,5 +1,5 @@
 #pragma once
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
-#include "drules_struct.pb.h"
+#include "indexer/drules_struct.pb.h"

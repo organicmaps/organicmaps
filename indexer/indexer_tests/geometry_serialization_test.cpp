@@ -1,15 +1,15 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "test_polylines.hpp"
+#include "indexer/indexer_tests/test_polylines.hpp"
 
-#include "../geometry_serialization.hpp"
-#include "../coding_params.hpp"
-#include "../mercator.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/coding_params.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../../coding/reader.hpp"
-#include "../../coding/byte_stream.hpp"
+#include "coding/reader.hpp"
+#include "coding/byte_stream.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 // Copy-Paste from feature_builder.cpp

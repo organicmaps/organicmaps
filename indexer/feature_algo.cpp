@@ -1,7 +1,7 @@
-#include "feature_algo.hpp"
-#include "feature.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace feature

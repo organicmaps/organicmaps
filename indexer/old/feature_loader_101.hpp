@@ -1,5 +1,5 @@
 #pragma once
-#include "../feature_loader_base.hpp"
+#include "indexer/feature_loader_base.hpp"
 
 
 namespace old_101 { namespace feature

@@ -1,21 +1,21 @@
 #pragma once
 
-#include "geometry_coding.hpp"
-#include "tesselator_decl.hpp"
-#include "point_to_int64.hpp"
-#include "coding_params.hpp"
+#include "indexer/geometry_coding.hpp"
+#include "indexer/tesselator_decl.hpp"
+#include "indexer/point_to_int64.hpp"
+#include "indexer/coding_params.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../coding/reader.hpp"
-#include "../coding/writer.hpp"
-#include "../coding/varint.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+#include "coding/varint.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
-#include "../base/buffer_vector.hpp"
-#include "../base/stl_add.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 
 
 namespace serial

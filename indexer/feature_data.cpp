@@ -1,11 +1,11 @@
-#include "feature_data.hpp"
-#include "feature_impl.hpp"
-#include "classificator.hpp"
-#include "feature.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 using namespace feature;

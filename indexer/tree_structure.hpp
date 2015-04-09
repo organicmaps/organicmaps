@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/iostream.hpp"
+#include "std/iostream.hpp"
 
 
 namespace tree

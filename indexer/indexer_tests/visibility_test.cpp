@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../feature_data.hpp"
-#include "../feature_visibility.hpp"
-#include "../classificator.hpp"
-#include "../classificator_loader.hpp"
-#include "../scales.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 UNIT_TEST(VisibleScales_Smoke)

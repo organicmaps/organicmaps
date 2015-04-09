@@ -1,19 +1,19 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
-#include "drawing_rules.hpp"
-#include "scales.hpp"
-#include "classificator.hpp"
-#include "drules_include.hpp"
+#include "indexer/drawing_rules.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/drules_include.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/iterator_facade.hpp"
+#include "std/bind.hpp"
+#include "std/iterator_facade.hpp"
 
-#include "../platform/platform.hpp"
-#include "../platform/settings.hpp"
+#include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 #include <google/protobuf/text_format.h>
 

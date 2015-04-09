@@ -1,19 +1,19 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../index.hpp"
-#include "../index_builder.hpp"
-#include "../classificator_loader.hpp"
-#include "../features_vector.hpp"
-#include "../scales.hpp"
+#include "indexer/index.hpp"
+#include "indexer/index_builder.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/features_vector.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../defines.hpp"
+#include "defines.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../coding/file_container.hpp"
+#include "coding/file_container.hpp"
 
-#include "../../base/macros.hpp"
-#include "../../base/stl_add.hpp"
+#include "base/macros.hpp"
+#include "base/stl_add.hpp"
 
 
 UNIT_TEST(BuildIndexTest)

@@ -1,7 +1,7 @@
-#include "coding_params.hpp"
-#include "point_to_int64.hpp"
+#include "indexer/coding_params.hpp"
+#include "indexer/point_to_int64.hpp"
 
-#include "../geometry/pointu_to_uint64.hpp"
+#include "geometry/pointu_to_uint64.hpp"
 
 
 namespace serial

@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../ftypes_matcher.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../../indexer/index.hpp"
-#include "../../indexer/classificator.hpp"
+#include "indexer/index.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 namespace
 {

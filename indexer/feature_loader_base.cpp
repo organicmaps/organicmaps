@@ -1,14 +1,14 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "feature_loader_base.hpp"
-#include "feature_loader.hpp"
-#include "feature_impl.hpp"
+#include "indexer/feature_loader_base.hpp"
+#include "indexer/feature_loader.hpp"
+#include "indexer/feature_impl.hpp"
 
-#include "old/feature_loader_101.hpp"
+#include "indexer/old/feature_loader_101.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../coding/byte_stream.hpp"
+#include "coding/byte_stream.hpp"
 
 
 namespace feature

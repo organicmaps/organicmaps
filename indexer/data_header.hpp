@@ -1,11 +1,11 @@
 #pragma once
 
-#include "coding_params.hpp"
-#include "mwm_version.hpp"
+#include "indexer/coding_params.hpp"
+#include "indexer/mwm_version.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 
 class ModelReaderPtr;

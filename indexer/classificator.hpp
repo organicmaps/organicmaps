@@ -1,15 +1,15 @@
 #pragma once
-#include "drawing_rule_def.hpp"
-#include "types_mapping.hpp"
-#include "scales.hpp"
-#include "feature_decl.hpp"
+#include "indexer/drawing_rule_def.hpp"
+#include "indexer/types_mapping.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/iostream.hpp"
-#include "../std/bitset.hpp"
-#include "../std/noncopyable.hpp"
-#include "../std/initializer_list.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/iostream.hpp"
+#include "std/bitset.hpp"
+#include "std/noncopyable.hpp"
+#include "std/initializer_list.hpp"
 
 
 class ClassifObject;

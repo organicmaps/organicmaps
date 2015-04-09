@@ -1,26 +1,26 @@
 #pragma once
-#include "scale_index.hpp"
-#include "feature_covering.hpp"
-#include "feature_visibility.hpp"
-#include "feature.hpp"
-#include "interval_index_builder.hpp"
-#include "cell_id.hpp"
+#include "indexer/scale_index.hpp"
+#include "indexer/feature_covering.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/interval_index_builder.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../coding/dd_vector.hpp"
-#include "../coding/file_sort.hpp"
-#include "../coding/var_serial_vector.hpp"
-#include "../coding/writer.hpp"
+#include "coding/dd_vector.hpp"
+#include "coding/file_sort.hpp"
+#include "coding/var_serial_vector.hpp"
+#include "coding/writer.hpp"
 
-#include "../base/base.hpp"
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
+#include "base/base.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/utility.hpp"
-#include "../std/unordered_set.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/unordered_set.hpp"
 
 
 class CellFeaturePair

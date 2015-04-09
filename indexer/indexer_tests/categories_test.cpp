@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../categories_holder.hpp"
+#include "indexer/categories_holder.hpp"
 
-#include "../../indexer/classificator.hpp"
-#include "../../indexer/classificator_loader.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
 
-#include "../../coding/multilang_utf8_string.hpp"
+#include "coding/multilang_utf8_string.hpp"
 
-#include "../../std/sstream.hpp"
+#include "std/sstream.hpp"
 
 
 char const * TEST_STRING =  "amenity-bench\n"

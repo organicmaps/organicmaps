@@ -1,4 +1,4 @@
-#include "test_polylines.hpp"
+#include "indexer/indexer_tests/test_polylines.hpp"
 
 namespace index_test
 {

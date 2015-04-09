@@ -1,9 +1,9 @@
 #pragma once
 
-#include "cell_id.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../std/queue.hpp"
-#include "../std/vector.hpp"
+#include "std/queue.hpp"
+#include "std/vector.hpp"
 
 // TODO: Move neccessary functions to geometry/covering_utils.hpp and delete this file.
 

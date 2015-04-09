@@ -1,12 +1,12 @@
-#include "feature_covering.hpp"
-#include "cell_coverer.hpp"
-#include "cell_id.hpp"
-#include "feature.hpp"
-#include "scales.hpp"
+#include "indexer/feature_covering.hpp"
+#include "indexer/cell_coverer.hpp"
+#include "indexer/cell_id.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
 
-#include "../geometry/covering_utils.hpp"
+#include "geometry/covering_utils.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 namespace

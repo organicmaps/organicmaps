@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
-#include "../interval_index.hpp"
-#include "../interval_index_builder.hpp"
-#include "../../coding/reader.hpp"
-#include "../../coding/writer.hpp"
-#include "../../base/macros.hpp"
-#include "../../base/stl_add.hpp"
-#include "../../std/utility.hpp"
-#include "../../std/vector.hpp"
+#include "testing/testing.hpp"
+#include "indexer/interval_index.hpp"
+#include "indexer/interval_index_builder.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+#include "base/macros.hpp"
+#include "base/stl_add.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace
 {

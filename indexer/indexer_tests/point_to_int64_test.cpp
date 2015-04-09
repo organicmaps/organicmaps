@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "test_polylines.hpp"
+#include "indexer/indexer_tests/test_polylines.hpp"
 
-#include "../cell_id.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/cmath.hpp"
-#include "../../std/utility.hpp"
+#include "std/cmath.hpp"
+#include "std/utility.hpp"
 
 
 namespace

@@ -1,6 +1,6 @@
-#include "mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
 double MercatorBounds::minX = -180;
 double MercatorBounds::maxX = 180;

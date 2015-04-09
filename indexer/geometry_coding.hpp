@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../coding/varint.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/base.hpp"
-#include "../base/bits.hpp"
-#include "../base/array_adapters.hpp"
+#include "base/base.hpp"
+#include "base/bits.hpp"
+#include "base/array_adapters.hpp"
 
 //@{
 inline uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)

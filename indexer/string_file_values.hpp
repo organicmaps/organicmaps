@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../coding/compressed_bit_vector.hpp"
-#include "../coding/read_write_utils.hpp"
-#include "../coding/write_to_sink.hpp"
+#include "coding/compressed_bit_vector.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/write_to_sink.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 /// Following classes are supposed to be used with StringsFile. They
 /// allow to write/read them, compare or serialize to an in-memory

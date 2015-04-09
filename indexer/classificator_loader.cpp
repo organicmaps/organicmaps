@@ -1,14 +1,14 @@
-#include "classificator_loader.hpp"
-#include "classificator.hpp"
-#include "drawing_rules.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/drawing_rules.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/reader_streambuf.hpp"
+#include "coding/reader_streambuf.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/iostream.hpp"
+#include "std/iostream.hpp"
 
 
 namespace

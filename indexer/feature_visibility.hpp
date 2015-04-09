@@ -1,14 +1,14 @@
 #pragma once
 
-#include "drawing_rule_def.hpp"
-#include "feature_decl.hpp"
+#include "indexer/drawing_rule_def.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/utility.hpp"
-#include "../std/initializer_list.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/initializer_list.hpp"
 
 
 class FeatureBase;

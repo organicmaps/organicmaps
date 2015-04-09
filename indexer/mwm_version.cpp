@@ -1,17 +1,17 @@
-#include "mwm_version.hpp"
-#include "data_header.hpp"
+#include "indexer/mwm_version.hpp"
+#include "indexer/data_header.hpp"
 
-#include "../coding/file_container.hpp"
-#include "../coding/reader_wrapper.hpp"
-#include "../coding/varint.hpp"
-#include "../coding/writer.hpp"
+#include "coding/file_container.hpp"
+#include "coding/reader_wrapper.hpp"
+#include "coding/varint.hpp"
+#include "coding/writer.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/timer.hpp"
+#include "base/logging.hpp"
+#include "base/timer.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../std/ctime.hpp"
+#include "std/ctime.hpp"
 
 namespace version
 {

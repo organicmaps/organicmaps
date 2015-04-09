@@ -1,14 +1,14 @@
-#include "features_offsets_table.hpp"
+#include "indexer/features_offsets_table.hpp"
 
-#include "../indexer/data_header.hpp"
-#include "../indexer/features_vector.hpp"
-#include "../coding/file_writer.hpp"
-#include "../coding/internal/file_data.hpp"
-#include "../platform/platform.hpp"
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
-#include "../base/scope_guard.hpp"
-#include "../std/string.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/features_vector.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
+#include "platform/platform.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/scope_guard.hpp"
+#include "std/string.hpp"
 
 
 namespace feature

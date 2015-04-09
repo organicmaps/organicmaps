@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../geometry/cellid.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/cellid.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/utility.hpp"
+#include "std/utility.hpp"
 
 
 #define POINT_COORD_BITS 30

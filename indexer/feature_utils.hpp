@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
 
 namespace feature

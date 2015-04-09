@@ -1,6 +1,6 @@
-#include "feature_decl.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../std/sstream.hpp"
+#include "std/sstream.hpp"
 
 
 string DebugPrint(FeatureID const & id)

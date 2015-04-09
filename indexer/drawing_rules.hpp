@@ -1,17 +1,17 @@
 #pragma once
-#include "drawing_rule_def.hpp"
+#include "indexer/drawing_rule_def.hpp"
 
-#include "map_style.hpp"
+#include "indexer/map_style.hpp"
 
-#include "../base/base.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/base.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
-#include "../std/array.hpp"
-#include "../std/string.hpp"
-#include "../std/iostream.hpp"
-#include "../std/target_os.hpp"
+#include "std/map.hpp"
+#include "std/vector.hpp"
+#include "std/array.hpp"
+#include "std/string.hpp"
+#include "std/iostream.hpp"
+#include "std/target_os.hpp"
 
 
 class LineDefProto;

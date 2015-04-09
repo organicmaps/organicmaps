@@ -1,14 +1,14 @@
 #pragma once
 
-#include "data_factory.hpp"
-#include "interval_index_iface.hpp"
+#include "indexer/data_factory.hpp"
+#include "indexer/interval_index_iface.hpp"
 
-#include "../coding/var_serial_vector.hpp"
+#include "coding/var_serial_vector.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 
 /// Index bucket <--> Draw scale range.

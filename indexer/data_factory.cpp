@@ -1,14 +1,14 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "data_factory.hpp"
-#include "interval_index.hpp"
-#include "old/interval_index_101.hpp"
-#include "mwm_version.hpp"
+#include "indexer/data_factory.hpp"
+#include "indexer/interval_index.hpp"
+#include "indexer/old/interval_index_101.hpp"
+#include "indexer/mwm_version.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_container.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_container.hpp"
 
 namespace
 {

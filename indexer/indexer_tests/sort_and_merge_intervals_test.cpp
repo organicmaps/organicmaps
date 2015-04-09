@@ -1,5 +1,5 @@
-#include "../../testing/testing.hpp"
-#include "../feature_covering.hpp"
+#include "testing/testing.hpp"
+#include "indexer/feature_covering.hpp"
 
 UNIT_TEST(SortAndMergeIntervals_1Interval)
 {

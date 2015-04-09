@@ -1,14 +1,14 @@
 #pragma once
 
-#include "data_header.hpp"
-#include "features_vector.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/features_vector.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_container.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_container.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 namespace feature

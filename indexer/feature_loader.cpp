@@ -1,18 +1,18 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "feature_loader.hpp"
-#include "feature.hpp"
-#include "scales.hpp"
-#include "geometry_serialization.hpp"
-#include "classificator.hpp"
+#include "indexer/feature_loader.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/geometry_serialization.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../geometry/pointu_to_uint64.hpp"
+#include "geometry/pointu_to_uint64.hpp"
 
-#include "../coding/byte_stream.hpp"
-#include "../coding/dd_vector.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/dd_vector.hpp"
 
-#include "../base/logging.hpp"
-#include "../defines.hpp"
+#include "base/logging.hpp"
+#include "defines.hpp"
 
 namespace feature
 {

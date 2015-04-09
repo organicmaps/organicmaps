@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../mwm_set.hpp"
+#include "indexer/mwm_set.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
 namespace
 {

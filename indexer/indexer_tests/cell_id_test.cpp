@@ -1,10 +1,10 @@
-#include "../cell_id.hpp"
-#include "../../testing/testing.hpp"
-#include "../../coding/hex.hpp"
-#include "../../base/pseudo_random.hpp"
-#include "../../std/cmath.hpp"
-#include "../../std/string.hpp"
-#include "../../std/cmath.hpp"
+#include "indexer/cell_id.hpp"
+#include "testing/testing.hpp"
+#include "coding/hex.hpp"
+#include "base/pseudo_random.hpp"
+#include "std/cmath.hpp"
+#include "std/string.hpp"
+#include "std/cmath.hpp"
 
 typedef m2::CellId<30> CellIdT;
 

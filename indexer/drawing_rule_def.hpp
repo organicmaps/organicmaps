@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 
 namespace drule

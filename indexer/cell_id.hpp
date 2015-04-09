@@ -1,8 +1,8 @@
 #pragma once
-#include "mercator.hpp"
-#include "point_to_int64.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/point_to_int64.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 
 template <int MinX, int MinY, int MaxX, int MaxY>

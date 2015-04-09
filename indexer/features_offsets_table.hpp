@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../coding/file_container.hpp"
-#include "../coding/mmap_reader.hpp"
-#include "../defines.hpp"
-#include "../std/stdint.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/vector.hpp"
-#include "../3party/succinct/elias_fano.hpp"
-#include "../3party/succinct/mapper.hpp"
+#include "coding/file_container.hpp"
+#include "coding/mmap_reader.hpp"
+#include "defines.hpp"
+#include "std/stdint.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
+#include "3party/succinct/elias_fano.hpp"
+#include "3party/succinct/mapper.hpp"
 
 namespace feature
 {
