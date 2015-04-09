@@ -23,6 +23,8 @@ public:
   // RoadGraphRouter overrides:
   ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
                                vector<RoadPos> & route) override;
+  ResultCode CalculateRouteBidirectional(vector<RoadPos> const & startPos,
+                                   vector<RoadPos> const & finalPos, vector<RoadPos> & route);
 };
 
 
