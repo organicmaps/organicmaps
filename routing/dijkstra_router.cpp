@@ -1,89 +1,103 @@
 #include "dijkstra_router.hpp"
-#include "../base/assert.hpp"
+
+#include "../indexer/mercator.hpp"
+
 #include "../base/logging.hpp"
-#include "../std/set.hpp"
+
+#include "../std/algorithm.hpp"
+#include "../std/map.hpp"
+#include "../std/queue.hpp"
 
 namespace routing
 {
+namespace
+{
+template <typename E>
+void SortUnique(vector<E> & v)
+{
+  sort(v.begin(), v.end());
+  v.resize(unique(v.begin(), v.end()) - v.begin());
+}
 
-DijkstraRouter::ShortestPath const * const DijkstraRouter::ShortestPath::FINAL_POS
-  = reinterpret_cast<ShortestPath const *>(1);
+template <typename E>
+bool Contains(vector<E> const & v, E const & e)
+{
+  return binary_search(v.begin(), v.end(), e);
+}
+
+void ReconstructPath(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
+                     vector<RoadPos> & route)
+{
+  route.clear();
+  RoadPos cur = v;
+  while (true)
+  {
+    route.push_back(cur);
+    auto it = parent.find(cur);
+    if (it == parent.end())
+      break;
+    cur = it->second;
+  }
+}
+
+}  // namespace
 
 IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & startPos,
                                                       vector<RoadPos> const & finalPos,
                                                       vector<RoadPos> & route)
 {
-  m_entries = PathSet();
-  m_queue = PossiblePathQueue();
+  priority_queue<Vertex> queue;
 
-  for (size_t i = 0; i < finalPos.size(); ++i)
+  // Upper bound on a distance from start positions to a position.
+  map<RoadPos, double> dist;
+
+  // Parent in a search tree.
+  map<RoadPos, RoadPos> parent;
+
+  vector<uint32_t> sortedStartFeatures(startPos.size());
+  for (size_t i = 0; i < startPos.size(); ++i)
+    sortedStartFeatures[i] = startPos[i].GetFeatureId();
+  SortUnique(sortedStartFeatures);
+
+  vector<RoadPos> sortedStartPos(startPos.begin(), startPos.end());
+  SortUnique(sortedStartPos);
+
+  for (RoadPos const & fp : finalPos)
+    dist[fp] = 0.0;
+  for (auto const & p : dist)
+    queue.push(Vertex(p.first, 0.0 /* distance */));
+
+  while (!queue.empty())
   {
-    pair<PathSet::iterator, bool> t = m_entries.insert(ShortestPath(finalPos[i]));
-    ASSERT(t.second, ());
-    m_queue.push(PossiblePath(0.0, &*t.first, ShortestPath::FINAL_POS));
-  }
-  route.clear();
-  set<RoadPos> startSet(startPos.begin(), startPos.end());
-  set<uint32_t> startFeatureSet;
-  for (vector<RoadPos>::const_iterator it = startPos.begin(); it != startPos.end(); ++it)
-    startFeatureSet.insert(it->GetFeatureId());
-  while (!m_queue.empty())
-  {
-    double const cost = m_queue.top().m_cost;
-    ShortestPath const * const pEntry = m_queue.top().m_pEntry;
-    ShortestPath const * const pParentEntry = m_queue.top().m_pParentEntry;
-    m_queue.pop();
-
-    LOG(LDEBUG, ("Visiting", pEntry->GetPos(), "with cost", cost));
-
-    if (pEntry->IsVisited())
-    {
-      LOG(LDEBUG, ("Already visited before, skipping."));
+    Vertex const v = queue.top();
+    queue.pop();
+    if (v.dist > dist[v.pos])
       continue;
-    }
-    pEntry->SetParentAndMarkVisited(pParentEntry);
 
-#ifdef DEBUG
-    if (pParentEntry == ShortestPath::FINAL_POS)
+    bool const isStartFeature = Contains(sortedStartFeatures, v.pos.GetFeatureId());
+    if (isStartFeature && Contains(sortedStartPos, v.pos))
     {
-      LOG(LDEBUG, ("Setting parent to", "FINAL_POS"));
-    }
-    else
-    {
-      LOG(LDEBUG, ("Setting parent to", pParentEntry->GetPos()));
-    }
-#endif
-
-    bool const bStartFeature = startFeatureSet.find(pEntry->GetPos().GetFeatureId()) != startFeatureSet.end();
-
-    if (bStartFeature && startSet.find(pEntry->GetPos()) != startSet.end())
-    {
-      LOG(LDEBUG, ("Found result!"));
-      // Reached one of the starting points!
-      for (ShortestPath const * pE = pEntry; pE != ShortestPath::FINAL_POS; pE = pE->GetParentEntry())
-        route.push_back(pE->GetPos());
-      LOG(LDEBUG, (route));
+      ReconstructPath(v.pos, parent, route);
       return IRouter::NoError;
     }
-
     IRoadGraph::TurnsVectorT turns;
-    m_roadGraph->GetPossibleTurns(pEntry->GetPos(), turns, bStartFeature);
-    LOG(LDEBUG, ("Getting all turns", turns));
-    for (IRoadGraph::TurnsVectorT::const_iterator iTurn = turns.begin(); iTurn != turns.end(); ++iTurn)
+    m_roadGraph->GetPossibleTurns(v.pos, turns, isStartFeature);
+    for (PossibleTurn const & turn : turns)
     {
-      PossibleTurn const & turn = *iTurn;
-      pair<PathSet::iterator, bool> t = m_entries.insert(ShortestPath(turn.m_pos));
-      if (t.second || !t.first->IsVisited())
+      RoadPos const & pos = turn.m_pos;
+      if (v.pos == pos)
+        continue;
+      double const d =
+          v.dist + MercatorBounds::DistanceOnEarth(v.pos.GetSegEndpoint(), pos.GetSegEndpoint());
+      auto it = dist.find(pos);
+      if (it == dist.end() || d < it->second)
       {
-        // We've either never pushed or never poped this road before.
-        double nextCost = cost + turn.m_secondsCovered;
-        m_queue.push(PossiblePath(nextCost, &*t.first, pEntry));
-        LOG(LDEBUG, ("Pushing", t.first->GetPos(), "with cost", nextCost));
+        dist[pos] = d;
+        parent[pos] = v.pos;
+        queue.push(Vertex(pos, d));
       }
     }
   }
   return IRouter::RouteNotFound;
 }
-
-
-} // namespace routing
+}  // namespace routing
