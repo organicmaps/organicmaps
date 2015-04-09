@@ -50,19 +50,25 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
         [NSURL URLWithString:[NSString stringWithUTF8String:url_requested_.c_str()]]
         cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
 
-    if (!content_type_.empty())
+    request.HTTPMethod = [NSString stringWithUTF8String:http_method_.c_str()];
+    if (!content_type_.empty()) {
       [request setValue:[NSString stringWithUTF8String:content_type_.c_str()] forHTTPHeaderField:@"Content-Type"];
-    if (!content_encoding_.empty())
+    }
+    if (!content_encoding_.empty()) {
       [request setValue:[NSString stringWithUTF8String:content_encoding_.c_str()] forHTTPHeaderField:@"Content-Encoding"];
-    if (!user_agent_.empty())
+    }
+    if (!user_agent_.empty()) {
       [request setValue:[NSString stringWithUTF8String:user_agent_.c_str()] forHTTPHeaderField:@"User-Agent"];
-
-    if (!post_body_.empty()) {
-      request.HTTPBody = [NSData dataWithBytes:post_body_.data() length:post_body_.size()];
-      request.HTTPMethod = @"POST";
-    } else if (!post_file_.empty()) {
+    }
+    if (!basic_auth_user_.empty()) {
+      NSData * loginAndPassword = [[NSString stringWithUTF8String:(basic_auth_user_ + ":" + basic_auth_password_).c_str()] dataUsingEncoding:NSUTF8StringEncoding];
+      [request setValue:[NSString stringWithFormat:@"Basic %@", [loginAndPassword base64Encoding]] forHTTPHeaderField:@"Authorization"];
+    }
+    if (!body_data_.empty()) {
+      request.HTTPBody = [NSData dataWithBytes:body_data_.data() length:body_data_.size()];
+    } else if (!body_file_.empty()) {
       NSError * err = nil;
-      NSString * path = [NSString stringWithUTF8String:post_file_.c_str()];
+      NSString * path = [NSString stringWithUTF8String:body_file_.c_str()];
       const unsigned long long file_size = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&err].fileSize;
       if (err) {
         error_code_ = static_cast<int>(err.code);
@@ -72,7 +78,6 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
         return false;
       }
       request.HTTPBodyStream = [NSInputStream inputStreamWithFileAtPath:path];
-      request.HTTPMethod = @"POST";
       [request setValue:[NSString stringWithFormat:@"%llu", file_size] forHTTPHeaderField:@"Content-Length"];
     }
 

@@ -40,6 +40,7 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public static final String CACHE_DIR = "/data/data/org.alohalytics.demoapp/cache/";
+  public static final String HTTPBIN_POST_URL = "http://httpbin.org/post";
 
   @Override
   protected void setUp() {
@@ -72,10 +73,9 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public void testPostFromMemoryIntoMemory() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
     final String postBody = "Hello, World!";
-    p.data = postBody.getBytes();
-    p.contentType = "application/octet-stream";
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setData(postBody.getBytes(), "application/octet-stream", "POST");
     final HttpTransport.Params r = HttpTransport.run(p);
     assertEquals(200, r.httpResponseCode);
     final String receivedBody = new String(r.data);
@@ -83,10 +83,21 @@ public class HttpTransportTest extends InstrumentationTestCase {
     assertTrue(receivedBody, receivedBody.contains(postBody));
   }
 
+  public void testPutFromMemoryIntoMemory() throws Exception {
+    final String putBody = "This is HTTP PUT request";
+    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/put");
+    p.setData(putBody.getBytes(), "application/octet-stream", "PUT");
+    final HttpTransport.Params r = HttpTransport.run(p);
+    assertEquals(200, r.httpResponseCode);
+    final String receivedBody = new String(r.data);
+    // Server mirrors our content.
+    assertTrue(receivedBody, receivedBody.contains(putBody));
+  }
+
   public void testPostMissingContentType() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
-    p.data = "Hello, World!".getBytes();
     // here is missing p.contentType = "application/octet-stream";
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setData("Hello, World!".getBytes(), null, "POST");
     boolean caughtException = false;
     try {
       final HttpTransport.Params r = HttpTransport.run(p);
@@ -98,9 +109,8 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public void testPostFromInvalidFile() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
-    p.inputFilePath = getFullWritablePathForFile("this_file_should_not_exist");
-    p.contentType = "text/plain";
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setInputFilePath(getFullWritablePathForFile("this_file_should_not_exist"), "text/plain", "POST");
     boolean caughtException = false;
     try {
       final HttpTransport.Params r = HttpTransport.run(p);
@@ -112,9 +122,8 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public void testPostFromFileIntoMemory() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
-    p.inputFilePath = getFullWritablePathForFile("some_input_test_file_for_http_post");
-    p.contentType = "text/plain";
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setInputFilePath(getFullWritablePathForFile("some_input_test_file_for_http_post"), "text/plain", "POST");
     try {
       // Use file name as a test string for the post body.
       Util.WriteStringToFile(p.inputFilePath, p.inputFilePath);
@@ -128,27 +137,25 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public void testPostFromMemoryIntoFile() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setData(HTTPBIN_POST_URL.getBytes(), "text/plain", "POST");
     p.outputFilePath = getFullWritablePathForFile("some_output_test_file_for_http_post");
-    p.data = p.url.getBytes(); // Use server url as a test string for the post body.
-    p.contentType = "text/plain";
     try {
       final HttpTransport.Params r = HttpTransport.run(p);
       assertEquals(200, r.httpResponseCode);
       // TODO(AlexZ): Think about using data field in the future for error pages (404 etc)
       //assertNull(r.data);
       final String receivedBody = Util.ReadFileAsUtf8String(p.outputFilePath);
-      assertTrue(receivedBody, receivedBody.contains("\"data\": \"http://httpbin.org/post\""));
+      assertTrue(receivedBody, receivedBody.contains("\"data\": \"" + HTTPBIN_POST_URL + "\""));
     } finally {
       (new File(p.outputFilePath)).delete();
     }
   }
 
   public void testPostFromFileIntoFile() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
-    p.inputFilePath = getFullWritablePathForFile("some_complex_input_test_file_for_http_post");
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setInputFilePath(getFullWritablePathForFile("some_complex_input_test_file_for_http_post"), "text/plain", "POST");
     p.outputFilePath = getFullWritablePathForFile("some_complex_output_test_file_for_http_post");
-    p.contentType = "text/plain";
     final String postBodyToSend = "Aloha, this text should pass from one file to another. Mahalo!";
     try {
       Util.WriteStringToFile(postBodyToSend, p.inputFilePath);
@@ -178,10 +185,10 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public void testHttpRedirect302() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/redirect-to?url=/get");
+    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/redirect-to?url=http%3A%2F%2Falohalytics.org%2F");
     final HttpTransport.Params r = HttpTransport.run(p);
-    assertEquals(200, r.httpResponseCode);
-    assertEquals(r.receivedUrl, "http://httpbin.org/get");
+    assertEquals(302, r.httpResponseCode);
+    assertEquals(r.receivedUrl, "http://alohalytics.org/");
     assertTrue(!r.url.equals(r.receivedUrl));
   }
 
@@ -194,20 +201,12 @@ public class HttpTransportTest extends InstrumentationTestCase {
     assertTrue(receivedBody.contains(p.userAgent));
   }
 
-  // Default HTTPUrlConnection implementation doesn't automatically follow http <==> https redirects
-  public void disabled_testHttpRedirect301FromHttpToHttps() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://github.com");
-    final HttpTransport.Params r = HttpTransport.run(p);
-    assertEquals(200, r.httpResponseCode);
-    assertEquals(r.receivedUrl, "https://github.com/");
-    assertTrue(r.url.equals(r.receivedUrl));
-  }
-
   public void testHttpRedirect301() throws Exception {
     final HttpTransport.Params p = new HttpTransport.Params("http://maps.me");
     final HttpTransport.Params r = HttpTransport.run(p);
-    assertEquals(200, r.httpResponseCode);
-    assertEquals(r.receivedUrl, "http://maps.me/en/home");
+    // Client should not follow redirects automatically.
+    assertEquals(301, r.httpResponseCode);
+    assertEquals(r.receivedUrl, "http://maps.me/en/");
     assertTrue(!r.url.equals(r.receivedUrl));
   }
 
@@ -225,9 +224,8 @@ public class HttpTransportTest extends InstrumentationTestCase {
   }
 
   public void testPostFromEmptyFileIntoMemory() throws Exception {
-    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/post");
-    p.inputFilePath = getFullWritablePathForFile("empty_input_test_file_for_http_post");
-    p.contentType = "text/plain";
+    final HttpTransport.Params p = new HttpTransport.Params(HTTPBIN_POST_URL);
+    p.setInputFilePath(getFullWritablePathForFile("empty_input_test_file_for_http_post"), "text/plain", "POST");
     try {
       Util.WriteStringToFile("", p.inputFilePath);
       final HttpTransport.Params r = HttpTransport.run(p);
@@ -246,6 +244,19 @@ public class HttpTransportTest extends InstrumentationTestCase {
     assertEquals(200, r.httpResponseCode);
     assertEquals(p.url, r.receivedUrl);
     assertEquals("application/json", r.contentType);
+  }
+
+  public void testHttpBasicAuth() throws Exception {
+    final String user = "user";
+    final String password = "password";
+    final HttpTransport.Params p = new HttpTransport.Params("http://httpbin.org/basic-auth/" + user + "/" + password);
+    p.basicAuthUser = user;
+    p.basicAuthPassword = password;
+    final HttpTransport.Params r = HttpTransport.run(p);
+    assertEquals(200, r.httpResponseCode);
+    assertEquals(p.url, r.receivedUrl);
+    final String receivedBody = new String(r.data);
+    assertTrue(receivedBody, receivedBody.contains("\"authenticated\": true"));
   }
 
 }

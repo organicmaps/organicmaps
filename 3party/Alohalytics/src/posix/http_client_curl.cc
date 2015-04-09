@@ -74,17 +74,20 @@ std::string RunCurl(const std::string& cmd) {
 bool HTTPClientPlatformWrapper::RunHTTPRequest() {
   // Last 3 chars in server's response will be http status code
   static constexpr size_t kCurlHttpCodeSize = 3;
-  std::string cmd = "curl --max-redirs 0 -s -w '%{http_code}' ";
+  std::string cmd = "curl --max-redirs 0 -s -w '%{http_code}' -X " + http_method_ + " ";
   if (!content_type_.empty()) {
     cmd += "-H 'Content-Type: " + content_type_ + "' ";
   }
   if (!content_encoding_.empty()) {
     cmd += "-H 'Content-Encoding: " + content_encoding_ + "' ";
   }
+  if (!basic_auth_user_.empty()) {
+    cmd += "-u '" + basic_auth_user_ + ":" + basic_auth_password_ + "' ";
+  }
 
   ScopedTmpFileDeleter deleter;
-  if (!post_body_.empty()) {
-// POST body through tmp file to avoid breaking command line.
+  if (!body_data_.empty()) {
+    // POST body through tmp file to avoid breaking command line.
 #ifdef _MSC_VER
     char tmp_file[L_tmpnam];
     ::tmpnam_s(tmp_file, L_tmpnam);
@@ -98,14 +101,14 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     ::close(fd);
 #endif
     deleter.file = tmp_file;
-    if (!(std::ofstream(deleter.file) << post_body_).good()) {
+    if (!(std::ofstream(deleter.file) << body_data_).good()) {
       std::cerr << "Error: failed to write into a temporary file." << std::endl;
       return false;
     }
-    post_file_ = deleter.file;
+    body_file_ = deleter.file;
   }
-  if (!post_file_.empty()) {
-    cmd += "--data-binary @" + post_file_ + " ";
+  if (!body_file_.empty()) {
+    cmd += "--data-binary @" + body_file_ + " ";
   }
 
   cmd += url_requested_;

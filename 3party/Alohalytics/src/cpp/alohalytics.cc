@@ -60,7 +60,7 @@ bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debu
   try {
     // TODO(AlexZ): Refactor FileStorageQueue to automatically append ID and gzip files, so we don't need
     // temporary memory buffer any more and files take less space.
-    request.set_post_body(alohalytics::Gzip(buffer), "application/alohalytics-binary-blob", "gzip");
+    request.set_body_data(alohalytics::Gzip(buffer), "application/alohalytics-binary-blob", "POST", "gzip");
     return request.RunHTTPRequest() && 200 == request.error_code() && !request.was_redirected();
   } catch (const std::exception& ex) {
     if (debug_mode) {

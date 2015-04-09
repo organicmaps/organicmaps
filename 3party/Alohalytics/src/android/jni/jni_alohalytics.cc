@@ -25,6 +25,7 @@ SOFTWARE.
 #include <jni.h>
 #include <string>
 #include <memory>
+#include <cassert>
 
 #include "../../alohalytics.h"
 #include "../../http_client.h"
@@ -245,15 +246,26 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
 
   // Cache it on the first call.
   const static jfieldID dataField = env->GetFieldID(g_httpParamsClass, "data", "[B");
-  if (!post_body_.empty()) {
-    const auto jniPostData = MakePointerScopeGuard(env->NewByteArray(post_body_.size()), deleteLocalRef);
+  if (!body_data_.empty()) {
+    const auto jniPostData = MakePointerScopeGuard(env->NewByteArray(body_data_.size()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
-    env->SetByteArrayRegion(jniPostData.get(), 0, post_body_.size(),
-                            reinterpret_cast<const jbyte*>(post_body_.data()));
+    env->SetByteArrayRegion(jniPostData.get(), 0, body_data_.size(),
+                            reinterpret_cast<const jbyte*>(body_data_.data()));
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), dataField, jniPostData.get());
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  }
+
+  assert(http_method_.empty());
+  const static jfieldID httpMethodField =
+      env->GetFieldID(g_httpParamsClass, "httpMethod", "Ljava/lang/String;");
+  {
+    const auto jniHttpMethod = MakePointerScopeGuard(env->NewStringUTF(http_method_.c_str()), deleteLocalRef);
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+
+    env->SetObjectField(httpParamsObject.get(), httpMethodField, jniHttpMethod.get());
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 
@@ -289,11 +301,11 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 
-  if (!post_file_.empty()) {
+  if (!body_file_.empty()) {
     const static jfieldID inputFilePathField =
         env->GetFieldID(g_httpParamsClass, "inputFilePath", "Ljava/lang/String;");
 
-    const auto jniInputFilePath = MakePointerScopeGuard(env->NewStringUTF(post_file_.c_str()), deleteLocalRef);
+    const auto jniInputFilePath = MakePointerScopeGuard(env->NewStringUTF(body_file_.c_str()), deleteLocalRef);
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), inputFilePathField, jniInputFilePath.get());
@@ -309,6 +321,30 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
 
     env->SetObjectField(httpParamsObject.get(), outputFilePathField, jniOutputFilePath.get());
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  }
+
+  if (!basic_auth_user_.empty()) {
+    const static jfieldID basicAuthUserField =
+        env->GetFieldID(g_httpParamsClass, "basicAuthUser", "Ljava/lang/String;");
+
+    const auto jniBasicAuthUser =
+        MakePointerScopeGuard(env->NewStringUTF(basic_auth_user_.c_str()), deleteLocalRef);
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+
+    env->SetObjectField(httpParamsObject.get(), basicAuthUserField, jniBasicAuthUser.get());
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+  }
+
+  if (!basic_auth_password_.empty()) {
+    const static jfieldID basicAuthPasswordField =
+        env->GetFieldID(g_httpParamsClass, "basicAuthPassword", "Ljava/lang/String;");
+
+    const auto jniBasicAuthPassword =
+        MakePointerScopeGuard(env->NewStringUTF(basic_auth_password_.c_str()), deleteLocalRef);
+    CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
+
+    env->SetObjectField(httpParamsObject.get(), basicAuthPasswordField, jniBasicAuthPassword.get());
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 

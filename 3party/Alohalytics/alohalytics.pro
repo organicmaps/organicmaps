@@ -22,3 +22,11 @@ macx-* {
   QMAKE_OBJECTIVE_CFLAGS *= -fobjc-arc
   QMAKE_LFLAGS *=  -framework Foundation
 }
+
+linux-* {
+  SOURCES += src/posix/http_client_curl.cc
+}
+
+android-* {
+  SOURCES += src/android/jni/jni_alohalytics.cc
+}

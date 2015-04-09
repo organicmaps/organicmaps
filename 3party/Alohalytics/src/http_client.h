@@ -26,7 +26,6 @@ SOFTWARE.
 #define HTTP_CLIENT_H
 
 #include <string>
-#include <cassert>
 
 namespace alohalytics {
 
@@ -41,7 +40,7 @@ class HTTPClientPlatformWrapper {
   // Contains final content's url taking redirects (if any) into an account.
   std::string url_received_;
   int error_code_ = kNotInitialized;
-  std::string post_file_;
+  std::string body_file_;
   // Used instead of server_reply_ if set.
   std::string received_file_;
   // Data we received from the server if output_file_ wasn't initialized.
@@ -51,7 +50,10 @@ class HTTPClientPlatformWrapper {
   std::string content_encoding_;
   std::string content_encoding_received_;
   std::string user_agent_;
-  std::string post_body_;
+  std::string body_data_;
+  std::string http_method_ = "GET";
+  std::string basic_auth_user_;
+  std::string basic_auth_password_;
   bool debug_mode_ = false;
 
   HTTPClientPlatformWrapper(const HTTPClientPlatformWrapper&) = delete;
@@ -69,12 +71,20 @@ class HTTPClientPlatformWrapper {
     url_requested_ = url;
     return *this;
   }
-  // This method is mutually exclusive with set_post_body().
-  HTTPClientPlatformWrapper& set_post_file(const std::string& post_file, const std::string& content_type) {
-    post_file_ = post_file;
+  HTTPClientPlatformWrapper& set_http_method(const std::string& method) {
+    http_method_ = method;
+    return *this;
+  }
+  // This method is mutually exclusive with set_body_data().
+  HTTPClientPlatformWrapper& set_body_file(const std::string& body_file,
+                                           const std::string& content_type,
+                                           const std::string& http_method = "POST",
+                                           const std::string& content_encoding = "") {
+    body_file_ = body_file;
+    body_data_.clear();
     content_type_ = content_type;
-    // TODO (dkorolev) replace with exceptions as discussed offline.
-    assert(post_body_.empty());
+    http_method_ = http_method;
+    content_encoding_ = content_encoding;
     return *this;
   }
   // If set, stores server reply in file specified.
@@ -86,26 +96,35 @@ class HTTPClientPlatformWrapper {
     user_agent_ = user_agent;
     return *this;
   }
-  // This method is mutually exclusive with set_post_file().
-  HTTPClientPlatformWrapper& set_post_body(const std::string& post_body,
+  // This method is mutually exclusive with set_body_file().
+  HTTPClientPlatformWrapper& set_body_data(const std::string& body_data,
                                            const std::string& content_type,
+                                           const std::string& http_method = "POST",
                                            const std::string& content_encoding = "") {
-    post_body_ = post_body;
+    body_data_ = body_data;
+    body_file_.clear();
     content_type_ = content_type;
+    http_method_ = http_method;
     content_encoding_ = content_encoding;
-    // TODO (dkorolev) replace with exceptions as discussed offline.
-    assert(post_file_.empty());
     return *this;
   }
   // Move version to avoid string copying.
-  // This method is mutually exclusive with set_post_file().
-  HTTPClientPlatformWrapper& set_post_body(std::string&& post_body,
+  // This method is mutually exclusive with set_body_file().
+  HTTPClientPlatformWrapper& set_body_data(std::string&& body_data,
                                            const std::string& content_type,
+                                           const std::string& http_method = "POST",
                                            const std::string& content_encoding = "") {
-    post_body_ = std::move(post_body);
-    post_file_.clear();
+    body_data_ = std::move(body_data);
+    body_file_.clear();
     content_type_ = content_type;
+    http_method_ = http_method;
     content_encoding_ = content_encoding;
+    return *this;
+  }
+  // HTTP Basic Auth.
+  HTTPClientPlatformWrapper& set_user_and_password(const std::string& user, const std::string& password) {
+    basic_auth_user_ = user;
+    basic_auth_password_ = password;
     return *this;
   }
 
