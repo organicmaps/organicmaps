@@ -25,6 +25,7 @@ uint32_t crossFound = 0;
 uint32_t crossCheck = 0;
 
 
+/// @todo Factor out vehicle model as a parameter for the features graph.
 FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
   : m_pIndex(pIndex), m_mwmID(mwmID), m_vehicleModel(new PedestrianModel()), m_cache(FEATURE_CACHE_SIZE),
     m_cacheMiss(0), m_cacheAccess(0)
@@ -299,8 +300,8 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     Route::TimesT times;
 
     /// @todo Make proper time and turns calculation.
-    times.push_back(Route::TimeItemT(poly.size() - 1, 100500));
-    turnsDir.push_back(Route::TurnItem(poly.size() - 1, turns::ReachedYourDestination));
+    times.emplace_back(poly.size() - 1, 100500);
+    turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
 
     route.SetGeometry(poly.rbegin(), poly.rend());
     route.SetTurnInstructions(turnsDir);

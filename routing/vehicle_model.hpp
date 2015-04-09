@@ -20,8 +20,11 @@ class IVehicleModel
 public:
   virtual ~IVehicleModel() {}
 
+  /// @return Allowed speed in KMpH.
+  /// 0 means that is's forbidden to drive on this feature or it's not a road at all.
   virtual double GetSpeed(FeatureType const & f) const = 0;
   virtual double GetMaxSpeed() const = 0;
+
   virtual bool IsOneWay(FeatureType const & f) const = 0;
 };
 
@@ -30,16 +33,19 @@ class VehicleModel : public IVehicleModel
 public:
   struct SpeedForType
   {
-    char const * m_types[2];
-    double m_speed;
+    char const * m_types[2];  /// 2-arity road type
+    double m_speedKMpH;       /// max allowed speed on this road type
   };
   typedef initializer_list<SpeedForType> InitListT;
 
   VehicleModel(Classificator const & c, InitListT const & speedLimits);
 
-  virtual double GetSpeed(FeatureType const & f) const;
-  virtual double GetMaxSpeed() const { return m_maxSpeed; }
-  virtual bool IsOneWay(FeatureType const & f) const;
+  /// @name Overrides from IVehicleModel.
+  //@{
+  double GetSpeed(FeatureType const & f) const override;
+  double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
+  bool IsOneWay(FeatureType const & f) const override;
+  //@}
 
   double GetSpeed(feature::TypesHolder const & types) const;
   bool IsOneWay(feature::TypesHolder const & types) const;
@@ -55,14 +61,14 @@ public:
   bool IsRoad(uint32_t type) const;
 
 protected:
-  template <size_t N>
-  void SetAdditionalRoadTypes(Classificator const & c, initializer_list<char const *> (&arr)[N]);
+  /// Used in derived class constructors only. Not for public use.
+  void SetAdditionalRoadTypes(Classificator const & c,
+                              initializer_list<char const *> const * arr, size_t sz);
 
-  double m_maxSpeed;
+  double m_maxSpeedKMpH;
 
 private:
-  typedef unordered_map<uint32_t, double> TypesT;
-  TypesT m_types;
+  unordered_map<uint32_t, double> m_types;
 
   buffer_vector<uint32_t, 4> m_addRoadTypes;
   uint32_t m_onewayType;
@@ -83,8 +89,11 @@ class PedestrianModel : public VehicleModel
 public:
   PedestrianModel();
 
-  virtual double GetSpeed(FeatureType const & f) const;
-  virtual bool IsOneWay(FeatureType const &) const { return false; }
+  /// @name Overrides from VehicleModel.
+  //@{
+  double GetSpeed(FeatureType const & f) const override;
+  bool IsOneWay(FeatureType const &) const override { return false; }
+  //@}
 };
 
 }

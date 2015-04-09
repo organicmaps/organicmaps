@@ -39,43 +39,45 @@ VehicleModel::InitListT const s_carLimits =
   //{ {"highway", "construction"},   40 },
 };
 
+static int const kPedestrianSpeedKMpH = 5;
+
 VehicleModel::InitListT const s_pedestrianLimits =
 {
-  { {"highway", "primary"},        5 },
-  { {"highway", "primary_link"},   5 },
-  { {"highway", "secondary"},      5 },
-  { {"highway", "secondary_link"}, 5 },
-  { {"highway", "tertiary"},       5 },
-  { {"highway", "tertiary_link"},  5 },
-  { {"highway", "residential"},    5 },
-  { {"highway", "pedestrian"},     5 },
-  { {"highway", "unclassified"},   5 },
-  { {"highway", "service"},        5 },
-  { {"highway", "living_street"},  5 },
-  { {"highway", "road"},           5 },
-  { {"highway", "track"},          5 },
-  { {"highway", "path"},           5 },
-  { {"highway", "steps"},          5 },
-  { {"highway", "pedestrian"},     5 },
-  { {"highway", "footway"},        5 },
+  { {"highway", "primary"},        kPedestrianSpeedKMpH },
+  { {"highway", "primary_link"},   kPedestrianSpeedKMpH },
+  { {"highway", "secondary"},      kPedestrianSpeedKMpH },
+  { {"highway", "secondary_link"}, kPedestrianSpeedKMpH },
+  { {"highway", "tertiary"},       kPedestrianSpeedKMpH },
+  { {"highway", "tertiary_link"},  kPedestrianSpeedKMpH },
+  { {"highway", "residential"},    kPedestrianSpeedKMpH },
+  { {"highway", "pedestrian"},     kPedestrianSpeedKMpH },
+  { {"highway", "unclassified"},   kPedestrianSpeedKMpH },
+  { {"highway", "service"},        kPedestrianSpeedKMpH },
+  { {"highway", "living_street"},  kPedestrianSpeedKMpH },
+  { {"highway", "road"},           kPedestrianSpeedKMpH },
+  { {"highway", "track"},          kPedestrianSpeedKMpH },
+  { {"highway", "path"},           kPedestrianSpeedKMpH },
+  { {"highway", "steps"},          kPedestrianSpeedKMpH },
+  { {"highway", "pedestrian"},     kPedestrianSpeedKMpH },
+  { {"highway", "footway"},        kPedestrianSpeedKMpH },
 };
 
 
 VehicleModel::VehicleModel(Classificator const & c, VehicleModel::InitListT const & speedLimits)
-  : m_maxSpeed(0),
+  : m_maxSpeedKMpH(0),
     m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
 {
   for (auto const & v : speedLimits)
   {
-    m_maxSpeed = max(m_maxSpeed, v.m_speed);
-    m_types[c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2))] = v.m_speed;
+    m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
+    m_types[c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2))] = v.m_speedKMpH;
   }
 }
 
-template <size_t N>
-void VehicleModel::SetAdditionalRoadTypes(Classificator const & c, initializer_list<char const *> (&arr)[N])
+void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
+                                          initializer_list<char const *> const * arr, size_t sz)
 {
-  for (size_t i = 0; i < N; ++i)
+  for (size_t i = 0; i < sz; ++i)
     m_addRoadTypes.push_back(c.GetTypeByPath(arr[i]));
 }
 
@@ -86,7 +88,7 @@ double VehicleModel::GetSpeed(FeatureType const & f) const
 
 double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
 {
-  double speed = m_maxSpeed * 2;
+  double speed = m_maxSpeedKMpH * 2;
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
@@ -94,7 +96,7 @@ double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
     if (it != m_types.end())
       speed = min(speed, it->second);
   }
-  if (speed <= m_maxSpeed)
+  if (speed <= m_maxSpeedKMpH)
     return speed;
 
   return 0.0;
@@ -117,8 +119,8 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
 
 bool VehicleModel::IsRoad(uint32_t type) const
 {
-  return (find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
-          m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end());
+  return find(m_addRoadTypes.begin(), m_addRoadTypes.end(), type) != m_addRoadTypes.end() ||
+         m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
 }
 
 
@@ -132,7 +134,7 @@ CarModel::CarModel()
     { "railway", "rail", "motor_vehicle" },
   };
 
-  SetAdditionalRoadTypes(classif(), arr);
+  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
 
@@ -146,21 +148,20 @@ PedestrianModel::PedestrianModel()
     { "man_made", "pier" },
   };
 
-  SetAdditionalRoadTypes(classif(), arr);
+  SetAdditionalRoadTypes(classif(), arr, ARRAY_SIZE(arr));
 }
 
 bool PedestrianModel::IsFoot(feature::TypesHolder const & types) const
 {
-  return (find(types.begin(), types.end(), m_noFootType) == types.end());
+  return find(types.begin(), types.end(), m_noFootType) == types.end();
 }
 
 double PedestrianModel::GetSpeed(FeatureType const & f) const
 {
   feature::TypesHolder types(f);
 
-  // Fixed speed: 5 km/h.
   if (IsFoot(types) && IsRoad(types))
-    return m_maxSpeed;
+    return m_maxSpeedKMpH;
   else
     return 0.0;
 }
