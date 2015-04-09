@@ -183,7 +183,7 @@ namespace
   public:
     class TypeChecker
     {
-      vector<uint32_t> m_localities, m_streets;
+      vector<uint32_t> m_localities, m_streets, m_buildings;
       int m_localityScale;
 
       template <size_t count, size_t ind>
@@ -233,6 +233,10 @@ namespace
           { "highway", "service" }
         };
 
+        char const * arrBuilding[][1] = {
+          { "building" }
+        };
+
         FillMatch(arrLocalities, m_localities);
         m_localityScale = 0;
         for (size_t i = 0; i < m_localities.size(); ++i)
@@ -242,6 +246,7 @@ namespace
         }
 
         FillMatch(arrStreet, m_streets);
+        FillMatch(arrBuilding, m_buildings);
       }
 
       int GetLocalitySearchScale() const { return m_localityScale; }
@@ -254,12 +259,11 @@ namespace
       {
         return IsMatchImpl(m_streets, types);
       }
-      /*
+
       bool IsBuilding(feature::TypesHolder const & types) const
       {
         return IsMatchImpl(m_buildings, types);
       }
-      */
 
       double GetLocalityDivideFactor(feature::TypesHolder const & types) const
       {
@@ -368,6 +372,8 @@ namespace
 
         if (info.m_house.empty())
           info.m_house = m_cont[i].m_house;
+
+        info.m_isBuilding = info.m_isBuilding || m_checker.IsBuilding(m_cont[i].m_types);
 
         if (info.m_name.empty())
         {
