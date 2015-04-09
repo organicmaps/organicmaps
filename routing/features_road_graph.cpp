@@ -253,6 +253,8 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
   FeatureType ft1;
   vector<m2::PointD> poly;
 
+  double trackTime = 0;
+
   // Initialize starting point.
   LoadFeature(positions.back().GetFeatureId(), ft1);
 
@@ -278,16 +280,24 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     int const inc = pos1.IsForward() ? -1 : 1;
     int ptID = pos1.GetSegStartPointId();
     m2::PointD pt;
+    m2::PointD beforePt = ft1.GetPoint(ptID);
+    double segmentLength = 0.0;
     do
     {
       pt = ft1.GetPoint(ptID);
       poly.push_back(pt);
+      segmentLength += CalcDistanceMeters(pt, beforePt);
+      beforePt = pt;
 
       LOG(LDEBUG, (pt, pos1.GetFeatureId(), ptID));
 
       ptID += inc;
 
     } while (ptID >= 0 && ptID < ft1.GetPointsCount() && !m2::AlmostEqual(pt, lastPt));
+
+    segmentLength += CalcDistanceMeters(lastPt, beforePt);
+    // Calculation total feature time. Seconds.
+    trackTime += 3.6 /* normalization to seconds*/ * segmentLength / m_vehicleModel->GetSpeed(ft1);
 
     // Assign current processing feature.
     if (diffIDs)
@@ -299,8 +309,7 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     Route::TurnsT turnsDir;
     Route::TimesT times;
 
-    /// @todo Make proper time and turns calculation.
-    times.emplace_back(poly.size() - 1, 100500);
+    times.emplace_back(poly.size() - 1, trackTime);
     turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
 
     route.SetGeometry(poly.rbegin(), poly.rend());
