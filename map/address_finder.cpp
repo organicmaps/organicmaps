@@ -342,7 +342,7 @@ namespace
 
   public:
     DoGetAddressInfo(m2::PointD const & pt, int scale, TypeChecker const & checker,
-                     double (&arrRadius) [3])
+                     double const (&arrRadius) [3])
       : DoGetAddressBase(pt, scale, checker)
     {
       for (size_t i = 0; i < 3; ++i)
@@ -470,7 +470,7 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::Addr
   // use upper scale to get address by point (buildings, streets and POIs are visible).
   int const scale = scales::GetUpperScale();
 
-  double addressR[] = {
+  double const addressR[] = {
     15.0,   // radius to search point POI's
     100.0,  // radius to search street names
     5.0     // radius to search building numbers (POI's)
