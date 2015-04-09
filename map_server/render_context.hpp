@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../graphics/opengl/gl_render_context.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
 
 namespace srv
 {

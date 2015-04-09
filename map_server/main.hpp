@@ -1,8 +1,8 @@
-#include "render_context.hpp"
+#include "map_server/render_context.hpp"
 
-#include "../map/render_policy.hpp"
-#include "../map/framework.hpp"
-#include "../platform/video_timer.hpp"
+#include "map/render_policy.hpp"
+#include "map/framework.hpp"
+#include "platform/video_timer.hpp"
 
 #include <qjsonrpcservice.h>
 #include <QGLPixelBuffer>

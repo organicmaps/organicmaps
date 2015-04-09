@@ -1,23 +1,23 @@
-#include "main.hpp"
-#include "render_context.hpp"
+#include "map_server/main.hpp"
+#include "map_server/render_context.hpp"
 
-#include "../graphics/resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../map/render_policy.hpp"
-#include "../map/simple_render_policy.hpp"
-#include "../map/framework.hpp"
+#include "map/render_policy.hpp"
+#include "map/simple_render_policy.hpp"
+#include "map/framework.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 #include <qjsonrpcservice.h>
 
-#include "../../3party/gflags/src/gflags/gflags.h"
+#include "3party/gflags/src/gflags/gflags.h"
 
 #include <QtOpenGL/QGLPixelBuffer>
 #include <QtCore/QBuffer>
