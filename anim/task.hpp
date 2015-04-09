@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../std/map.hpp"
-#include "../std/list.hpp"
-#include "../std/function.hpp"
+#include "std/map.hpp"
+#include "std/list.hpp"
+#include "std/function.hpp"
 
-#include "../base/mutex.hpp"
+#include "base/mutex.hpp"
 
 namespace anim
 {

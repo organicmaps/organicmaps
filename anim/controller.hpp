@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
-#include "../base/thread.hpp"
-#include "../base/threaded_list.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
 
 namespace anim
 {

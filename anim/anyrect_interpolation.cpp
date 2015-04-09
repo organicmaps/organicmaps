@@ -1,6 +1,6 @@
-#include "anyrect_interpolation.hpp"
+#include "anim/anyrect_interpolation.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 namespace anim
 {

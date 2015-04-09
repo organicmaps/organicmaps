@@ -1,5 +1,5 @@
-#include "segment_interpolation.hpp"
-#include "controller.hpp"
+#include "anim/segment_interpolation.hpp"
+#include "anim/controller.hpp"
 
 
 namespace anim

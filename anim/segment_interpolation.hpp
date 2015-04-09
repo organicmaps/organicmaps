@@ -1,8 +1,8 @@
 #pragma once
 
-#include "task.hpp"
+#include "anim/task.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
 
 namespace anim

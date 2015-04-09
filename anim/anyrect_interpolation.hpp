@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../geometry/any_rect2d.hpp"
-#include "angle_interpolation.hpp"
-#include "segment_interpolation.hpp"
-#include "value_interpolation.hpp"
+#include "geometry/any_rect2d.hpp"
+#include "anim/angle_interpolation.hpp"
+#include "anim/segment_interpolation.hpp"
+#include "anim/value_interpolation.hpp"
 
 namespace anim
 {

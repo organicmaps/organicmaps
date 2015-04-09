@@ -1,9 +1,9 @@
-#include "angle_interpolation.hpp"
-#include "controller.hpp"
+#include "anim/angle_interpolation.hpp"
+#include "anim/controller.hpp"
 
-#include "../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace anim

@@ -1,10 +1,10 @@
-#include "controller.hpp"
-#include "task.hpp"
+#include "anim/controller.hpp"
+#include "anim/task.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/timer.hpp"
+#include "base/assert.hpp"
+#include "base/timer.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace anim

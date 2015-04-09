@@ -1,4 +1,4 @@
-#include "value_interpolation.hpp"
+#include "anim/value_interpolation.hpp"
 
 namespace anim
 {
