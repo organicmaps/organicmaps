@@ -82,8 +82,7 @@ namespace di
     //}
 
     string houseNumber;
-    static ftypes::IsBuildingChecker const isBuilding;
-    if (isBuilding(f))
+    if (ftypes::IsBuildingChecker::Instance()(f))
     {
       houseNumber = f.GetHouseNumber();
       // Mark houses without names/numbers so user can select them by single tap.

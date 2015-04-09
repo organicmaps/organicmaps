@@ -160,6 +160,12 @@ IsBuildingChecker::IsBuildingChecker()
   m_types.push_back(c.GetTypeByPath({ "building", "address" }));
 }
 
+IsBuildingChecker const & IsBuildingChecker::Instance()
+{
+  static const IsBuildingChecker inst;
+  return inst;
+}
+
 IsLocalityChecker::IsLocalityChecker()
 {
   Classificator const & c = classif();

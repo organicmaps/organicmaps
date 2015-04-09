@@ -80,16 +80,16 @@ public:
 
 class IsLinkChecker : public BaseChecker
 {
-public:
   IsLinkChecker();
+public:
   static IsLinkChecker const & Instance();
 };
 
 class IsBuildingChecker : public BaseChecker
 {
-public:
   IsBuildingChecker();
-
+public:
+  static IsBuildingChecker const & Instance();
   uint32_t GetMainType() const { return m_types[0]; }
 };
 

@@ -262,8 +262,7 @@ class SecondPassParser : public BaseOSMParser
   unique_ptr<FileWriter> m_addrWriter;
   bool NeedWriteAddress(FeatureParams const & params) const
   {
-    static ftypes::IsBuildingChecker const checker;
-    return m_addrWriter && checker(params.m_Types);
+    return m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_Types);
   }
 
   class Place

@@ -760,7 +760,7 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
       House const * h = houses[i].m_house;
       (res.*addFn)(MakeResult(impl::PreResult2(h->GetPosition(),
                                                h->GetNumber() + ", " + houses[i].m_street->GetName(),
-                                               m_houseDetector.GetBuildingType())));
+                                               ftypes::IsBuildingChecker::Instance().GetMainType())));
     }
   }
 }
