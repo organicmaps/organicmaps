@@ -524,6 +524,7 @@ public:
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:
+  void SetRouter(routing::RouterType type);
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);

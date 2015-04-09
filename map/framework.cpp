@@ -276,13 +276,10 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
-#ifdef DEBUG
-  m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
+#ifdef USE_PEDESTRIAN_ROUTER
+  SetRouter(RouterType::Pedestrian);
 #else
-  m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
-  {
-    return GetSearchEngine()->GetCountryFile(pt);
-  })));
+  SetRouter(RouterType::Vehicle);
 #endif
   LOG(LDEBUG, ("Routing engine initialized"));
 
@@ -1238,17 +1235,14 @@ bool Framework::Search(search::SearchParams const & params)
   if (params.m_query == ROUTING_SECRET_UNLOCKING_WORD)
   {
     LOG(LINFO, ("Pedestrian routing mode enabled"));
-    //m_routingSession.ActivateAdditionalFeatures();
-    m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
+    SetRouter(RouterType::Pedestrian);
     return false;
   }
   if (params.m_query == ROUTING_SECRET_LOCKING_WORD)
   {
-    m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
-    {
-      return GetSearchEngine()->GetCountryFile(pt);
-    })));
     LOG(LINFO, ("Vehicle routing mode enabled"));
+    SetRouter(RouterType::Vehicle);
+    return false;
   }
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
@@ -2129,6 +2123,17 @@ void Framework::SetRouteBuildingListener(TRouteBuildingCallback const & callback
 void Framework::FollowRoute()
 {
   GetLocationState()->StartRouteFollow();
+}
+
+void Framework::SetRouter(RouterType type)
+{
+  if (type == RouterType::Pedestrian)
+    m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
+  else
+    m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this] (m2::PointD const & pt)
+    {
+      return GetSearchEngine()->GetCountryFile(pt);
+    })));
 }
 
 void Framework::RemoveRoute()

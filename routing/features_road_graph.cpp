@@ -279,23 +279,23 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     // Accumulate points from start point id to pt.
     int const inc = pos1.IsForward() ? -1 : 1;
     int ptID = pos1.GetSegStartPointId();
-    m2::PointD pt;
-    m2::PointD beforePt = ft1.GetPoint(ptID);
+    m2::PointD curPoint;
+    m2::PointD prevPoint = ft1.GetPoint(ptID);
     double segmentLength = 0.0;
     do
     {
-      pt = ft1.GetPoint(ptID);
-      poly.push_back(pt);
-      segmentLength += CalcDistanceMeters(pt, beforePt);
-      beforePt = pt;
+      curPoint = ft1.GetPoint(ptID);
+      poly.push_back(curPoint);
+      segmentLength += CalcDistanceMeters(curPoint, prevPoint);
+      prevPoint = curPoint;
 
-      LOG(LDEBUG, (pt, pos1.GetFeatureId(), ptID));
+      LOG(LDEBUG, (curPoint, pos1.GetFeatureId(), ptID));
 
       ptID += inc;
 
-    } while (ptID >= 0 && ptID < ft1.GetPointsCount() && !m2::AlmostEqual(pt, lastPt));
+    } while (ptID >= 0 && ptID < ft1.GetPointsCount() && !m2::AlmostEqual(curPoint, lastPt));
 
-    segmentLength += CalcDistanceMeters(lastPt, beforePt);
+    segmentLength += CalcDistanceMeters(lastPt, prevPoint);
     // Calculation total feature time. Seconds.
     trackTime += 3.6 /* normalization to seconds*/ * segmentLength / m_vehicleModel->GetSpeed(ft1);
 
