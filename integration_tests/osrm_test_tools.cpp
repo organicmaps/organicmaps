@@ -1,19 +1,19 @@
-#include "osrm_test_tools.hpp"
+#include "integration_tests/osrm_test_tools.hpp"
 
-#include "../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../indexer/index.hpp"
+#include "indexer/index.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../routing/route.hpp"
+#include "routing/route.hpp"
 
-#include "../map/feature_vec_model.hpp"
+#include "map/feature_vec_model.hpp"
 
-#include "../platform/platform.hpp"
-#include "../platform/preferred_languages.hpp"
+#include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
-#include "../search/search_engine.hpp"
+#include "search/search_engine.hpp"
 
 
 using namespace routing;

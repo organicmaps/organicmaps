@@ -1,8 +1,8 @@
-#include "../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "osrm_test_tools.hpp"
+#include "integration_tests/osrm_test_tools.hpp"
 
-#include "../routing/route.hpp"
+#include "routing/route.hpp"
 
 
 using namespace routing;

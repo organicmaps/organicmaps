@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../std/shared_ptr.hpp"
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/set.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/set.hpp"
 
-#include "../routing/osrm_router.hpp"
+#include "routing/osrm_router.hpp"
 
 /*
  * These tests are developed to simplify routing integration tests writing.
