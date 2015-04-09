@@ -1,12 +1,12 @@
 #pragma once
 
-#include "point2d.hpp"
-#include "rect2d.hpp"
-#include "distance.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/distance.hpp"
 
-#include "../base/internal/message.hpp"
+#include "base/internal/message.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 namespace m2

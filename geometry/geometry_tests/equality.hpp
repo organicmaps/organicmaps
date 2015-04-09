@@ -1,8 +1,8 @@
 #pragma once
-#include "../../base/math.hpp"
+#include "base/math.hpp"
 
-#include "../angles.hpp"
-#include "../rect2d.hpp"
+#include "geometry/angles.hpp"
+#include "geometry/rect2d.hpp"
 
 namespace test
 {

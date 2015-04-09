@@ -1,8 +1,8 @@
-#include "spline.hpp"
+#include "geometry/spline.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/numeric.hpp"
+#include "std/numeric.hpp"
 
 namespace m2
 {

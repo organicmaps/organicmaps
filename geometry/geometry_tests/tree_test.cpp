@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../tree4d.hpp"
+#include "geometry/tree4d.hpp"
 
 
 namespace

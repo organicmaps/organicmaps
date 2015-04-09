@@ -1,5 +1,5 @@
 #pragma once
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
 // namespace ms - "math on sphere", similar to the namespaces m2 and mn.
 namespace ms

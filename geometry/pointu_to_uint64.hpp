@@ -1,8 +1,8 @@
 #pragma once
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../base/bits.hpp"
-#include "point2d.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/bits.hpp"
+#include "geometry/point2d.hpp"
 
 namespace m2
 {

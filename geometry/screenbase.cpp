@@ -1,10 +1,10 @@
-#include "screenbase.hpp"
-#include "transformations.hpp"
-#include "angles.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/transformations.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/cmath.hpp"
+#include "std/cmath.hpp"
 
 
 ScreenBase::ScreenBase() :

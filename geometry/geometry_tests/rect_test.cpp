@@ -1,6 +1,6 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
-#include "../rect2d.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
+#include "geometry/rect2d.hpp"
 
 UNIT_TEST(Rect_Intersect)
 {

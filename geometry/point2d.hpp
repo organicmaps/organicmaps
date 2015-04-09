@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../base/math.hpp"
-#include "../base/matrix.hpp"
-#include "../std/cmath.hpp"
-#include "../std/sstream.hpp"
-#include "../std/typeinfo.hpp"
-#include "../std/array.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/math.hpp"
+#include "base/matrix.hpp"
+#include "std/cmath.hpp"
+#include "std/sstream.hpp"
+#include "std/typeinfo.hpp"
+#include "std/array.hpp"
 
 
 namespace m2

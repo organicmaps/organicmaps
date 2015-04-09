@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
-#include "../distance.hpp"
-#include "../point2d.hpp"
+#include "testing/testing.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/point2d.hpp"
 
 template <class PointT>
 void FloatingPointsTest()

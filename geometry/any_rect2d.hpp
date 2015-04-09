@@ -1,11 +1,11 @@
 #pragma once
 
-#include "point2d.hpp"
-#include "rect2d.hpp"
-#include "rect_intersect.hpp"
-#include "angles.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/rect_intersect.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
 
 namespace m2

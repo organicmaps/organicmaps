@@ -1,12 +1,12 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "equality.hpp"
+#include "geometry/geometry_tests/equality.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../angles.hpp"
+#include "geometry/angles.hpp"
 
 
 using namespace test;

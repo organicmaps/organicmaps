@@ -1,12 +1,12 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "test_regions.hpp"
+#include "geometry/geometry_tests/test_regions.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../region2d/binary_operators.hpp"
+#include "geometry/region2d/binary_operators.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace

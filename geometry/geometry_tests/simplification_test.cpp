@@ -1,18 +1,18 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../simplification.hpp"
+#include "geometry/simplification.hpp"
 
-#include "../../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../geometry/distance.hpp"
-#include "../../geometry/point2d.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
-#include "../../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/limits.hpp"
-#include "../../std/vector.hpp"
+#include "std/limits.hpp"
+#include "std/vector.hpp"
 
 namespace
 {
@@ -166,7 +166,7 @@ UNIT_TEST(Simpfication_DP_DegenerateTrg)
   CheckDPStrict(arr2, ARRAY_SIZE(arr2), 1.0, 4);
 }
 
-#include "large_polygon.hpp"
+#include "geometry/geometry_tests/large_polygon.hpp"
 
 m2::PointD const * LargePolylineTestData::m_Data = LargePolygon::kLargePolygon;
 size_t LargePolylineTestData::m_Size = ARRAY_SIZE(LargePolygon::kLargePolygon);

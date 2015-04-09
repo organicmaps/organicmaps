@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../any_rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
-#include "../../std/cmath.hpp"
+#include "std/cmath.hpp"
 
 UNIT_TEST(AnyRect_TestConvertTo)
 {

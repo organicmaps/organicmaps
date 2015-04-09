@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
-#include "../distance_on_sphere.hpp"
-#include "../../base/math.hpp"
+#include "testing/testing.hpp"
+#include "geometry/distance_on_sphere.hpp"
+#include "base/math.hpp"
 
 UNIT_TEST(DistanceOnSphere)
 {

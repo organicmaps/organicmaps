@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
-#include "equality.hpp"
-#include "../point2d.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
+#include "geometry/geometry_tests/equality.hpp"
+#include "geometry/point2d.hpp"
 
 UNIT_TEST(Point_Rotate)
 {

@@ -1,8 +1,8 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "robust_orientation.hpp"
+#include "geometry/robust_orientation.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
 extern "C"
 {

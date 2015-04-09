@@ -1,10 +1,10 @@
 #pragma once
-#include "point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
-#include "../std/limits.hpp"
-#include "../std/static_assert.hpp"
+#include "std/limits.hpp"
+#include "std/static_assert.hpp"
 
 
 namespace m2

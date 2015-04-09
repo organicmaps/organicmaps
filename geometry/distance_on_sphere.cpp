@@ -1,6 +1,6 @@
-#include "distance_on_sphere.hpp"
-#include "../base/math.hpp"
-#include "../std/algorithm.hpp"
+#include "geometry/distance_on_sphere.hpp"
+#include "base/math.hpp"
+#include "std/algorithm.hpp"
 
 double ms::DistanceOnSphere(double lat1Deg, double lon1Deg, double lat2Deg, double lon2Deg)
 {

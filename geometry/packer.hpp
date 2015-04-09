@@ -1,11 +1,11 @@
 #pragma once
 
-#include "rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/list.hpp"
-#include "../std/map.hpp"
-#include "../std/function.hpp"
-#include "../std/queue.hpp"
+#include "std/list.hpp"
+#include "std/map.hpp"
+#include "std/function.hpp"
+#include "std/queue.hpp"
 
 
 namespace m2

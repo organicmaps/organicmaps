@@ -1,5 +1,5 @@
-#include "boost_concept.hpp"
-#include "binary_operators.hpp"
+#include "geometry/region2d/boost_concept.hpp"
+#include "geometry/region2d/binary_operators.hpp"
 
 
 namespace m2

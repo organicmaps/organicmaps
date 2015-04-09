@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../base/math.hpp"
-#include "../base/assert.hpp"
+#include "base/math.hpp"
+#include "base/assert.hpp"
 
-#include "../std/deque.hpp"
-#include "../std/array.hpp"
-#include "../std/cstring.hpp"
+#include "std/deque.hpp"
+#include "std/array.hpp"
+#include "std/cstring.hpp"
 
 
 namespace math

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "point2d.hpp"
-#include "rect2d.hpp"
-#include "any_rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
 
 class ScreenBase

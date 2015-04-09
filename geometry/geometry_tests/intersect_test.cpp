@@ -1,11 +1,11 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "equality.hpp"
+#include "geometry/geometry_tests/equality.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../geometry/rect_intersect.hpp"
-#include "../../geometry/angles.hpp"
+#include "geometry/rect_intersect.hpp"
+#include "geometry/angles.hpp"
 
 
 using namespace test;

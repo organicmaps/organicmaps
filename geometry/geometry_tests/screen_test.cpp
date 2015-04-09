@@ -1,9 +1,9 @@
-#include "equality.hpp"
+#include "geometry/geometry_tests/equality.hpp"
 
-#include "../screenbase.hpp"
-#include "../transformations.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
 
 using namespace test;

@@ -1,11 +1,11 @@
 #pragma once
-#include "../geometry/point2d.hpp"
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../base/buffer_vector.hpp"
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
-#include "../std/algorithm.hpp"
+#include "geometry/point2d.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/logging.hpp"
+#include "base/math.hpp"
+#include "std/algorithm.hpp"
 
 namespace covering
 {

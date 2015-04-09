@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
-#include "equality.hpp"
-#include "../spline.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
+#include "geometry/geometry_tests/equality.hpp"
+#include "geometry/spline.hpp"
 
 using m2::Spline;
 using m2::PointD;

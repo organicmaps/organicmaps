@@ -1,13 +1,13 @@
 #pragma once
 
-#include "rect2d.hpp"
-#include "point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/logging.hpp"
+#include "base/stl_add.hpp"
+#include "base/logging.hpp"
 
-#include "../std/sstream.hpp"
-#include "../std/kdtree.hpp"
+#include "std/sstream.hpp"
+#include "std/kdtree.hpp"
 
 
 namespace m4

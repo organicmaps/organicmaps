@@ -1,7 +1,7 @@
 #pragma once
 
-#include "rect2d.hpp"
-#include "point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
 
 namespace m2
 {

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "robust_orientation.hpp"
+#include "geometry/robust_orientation.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../base/math.hpp"
-#include "../base/stl_add.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/math.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/iterator.hpp"
+#include "std/iterator.hpp"
 
 
 template <typename IsVisibleF>

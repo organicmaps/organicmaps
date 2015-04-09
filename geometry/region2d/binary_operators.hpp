@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../region2d.hpp"
+#include "geometry/region2d.hpp"
 
-#include "../../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 namespace m2

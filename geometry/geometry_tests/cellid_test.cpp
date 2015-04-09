@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
-#include "../cellid.hpp"
-#include "../../std/algorithm.hpp"
-#include "../../std/string.hpp"
+#include "testing/testing.hpp"
+#include "geometry/cellid.hpp"
+#include "std/algorithm.hpp"
+#include "std/string.hpp"
 
 UNIT_TEST(CellID_Parent)
 {

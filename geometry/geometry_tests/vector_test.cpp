@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../avg_vector.hpp"
+#include "geometry/avg_vector.hpp"
 
 
 namespace

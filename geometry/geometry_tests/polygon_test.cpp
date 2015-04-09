@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../polygon.hpp"
-#include "../point2d.hpp"
+#include "geometry/polygon.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace

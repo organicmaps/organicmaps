@@ -1,12 +1,12 @@
 #pragma once
-#include "../base/base.hpp"
-#include "../base/stl_add.hpp"
-#include "../base/logging.hpp"
+#include "base/base.hpp"
+#include "base/stl_add.hpp"
+#include "base/logging.hpp"
 
-#include "../std/iterator.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/iterator.hpp"
+#include "std/algorithm.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 // Polyline simplification algorithms.
 //

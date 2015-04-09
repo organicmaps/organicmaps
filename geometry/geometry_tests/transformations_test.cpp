@@ -1,9 +1,9 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "../../testing/testing.hpp"
-#include "../../base/matrix.hpp"
-#include "../../geometry/point2d.hpp"
-#include "../transformations.hpp"
+#include "testing/testing.hpp"
+#include "base/matrix.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/transformations.hpp"
 
 UNIT_TEST(Transformations_Shift)
 {

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/matrix.hpp"
+#include "base/matrix.hpp"
 
 
 /// v` = v * M, v = [x, y, 1]

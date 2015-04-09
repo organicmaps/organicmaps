@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../region2d.hpp"
+#include "geometry/region2d.hpp"
 
 
 namespace {

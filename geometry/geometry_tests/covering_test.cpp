@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
-#include "../cellid.hpp"
-#include "../covering.hpp"
-#include "../covering_utils.hpp"
-#include "../point2d.hpp"
-#include "../../base/stl_add.hpp"
+#include "testing/testing.hpp"
+#include "geometry/cellid.hpp"
+#include "geometry/covering.hpp"
+#include "geometry/covering_utils.hpp"
+#include "geometry/point2d.hpp"
+#include "base/stl_add.hpp"
 
 
 // TODO: Add covering unit tests here.

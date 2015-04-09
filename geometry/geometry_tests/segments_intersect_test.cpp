@@ -1,5 +1,5 @@
-#include "../../testing/testing.hpp"
-#include "../point2d.hpp"
+#include "testing/testing.hpp"
+#include "geometry/point2d.hpp"
 
 typedef m2::PointD P;
 

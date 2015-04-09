@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
-#include "point2d.hpp"
+#include "geometry/point2d.hpp"
 
 namespace m2
 {

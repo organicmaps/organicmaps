@@ -1,5 +1,5 @@
-#include "../../testing/testing.hpp"
-#include "../pointu_to_uint64.hpp"
+#include "testing/testing.hpp"
+#include "geometry/pointu_to_uint64.hpp"
 
 UNIT_TEST(PointUToUint64_0)
 {

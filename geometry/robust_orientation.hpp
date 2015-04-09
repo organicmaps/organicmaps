@@ -1,8 +1,8 @@
 #pragma once
 
-#include "point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
 
 namespace m2 { namespace robust

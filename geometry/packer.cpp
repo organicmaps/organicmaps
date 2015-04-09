@@ -1,7 +1,7 @@
-#include "packer.hpp"
+#include "geometry/packer.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 namespace m2
 {

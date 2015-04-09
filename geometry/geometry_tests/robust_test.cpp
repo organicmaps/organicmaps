@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../robust_orientation.hpp"
+#include "geometry/robust_orientation.hpp"
 
 
 typedef m2::PointD P;
