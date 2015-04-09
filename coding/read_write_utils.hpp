@@ -1,11 +1,11 @@
 #pragma once
 
-#include "varint.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 //#include "../std/type_traits.hpp"
 
 

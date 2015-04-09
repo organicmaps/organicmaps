@@ -1,7 +1,7 @@
-#include "bit_streams.hpp"
+#include "coding/bit_streams.hpp"
 
-#include "reader.hpp"
-#include "writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 BitSink::BitSink(Writer & writer)
   : m_writer(writer), m_lastByte(0), m_size(0) {}

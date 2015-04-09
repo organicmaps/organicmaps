@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../value_opt_string.hpp"
+#include "coding/value_opt_string.hpp"
 
-#include "../reader.hpp"
-#include "../writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 
 namespace

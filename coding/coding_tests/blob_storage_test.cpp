@@ -1,17 +1,17 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
 /*
-#include "../blob_storage.hpp"
-#include "../blob_indexer.hpp"
+#include "coding/blob_storage.hpp"
+#include "coding/blob_indexer.hpp"
 
-#include "compressor_test_utils.hpp"
+#include "coding/coding_tests/compressor_test_utils.hpp"
 
-#include "../../coding/reader.hpp"
-#include "../../coding/writer.hpp"
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace
 {

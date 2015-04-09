@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../coding/zip_creator.hpp"
-#include "../../coding/zip_reader.hpp"
-#include "../../coding/internal/file_data.hpp"
-#include "../../coding/file_writer.hpp"
-#include "../../coding/constants.hpp"
+#include "coding/zip_creator.hpp"
+#include "coding/zip_reader.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/constants.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 
 namespace

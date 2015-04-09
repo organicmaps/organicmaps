@@ -1,10 +1,10 @@
-#include "arithmetic_codec.hpp"
+#include "coding/arithmetic_codec.hpp"
 
-#include "writer.hpp"
-#include "reader.hpp"
+#include "coding/writer.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/bits.hpp"
+#include "base/assert.hpp"
+#include "base/bits.hpp"
 
 vector<uint32_t> FreqsToDistrTable(vector<uint32_t> const & origFreqs)
 {

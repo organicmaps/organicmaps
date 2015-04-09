@@ -1,6 +1,6 @@
 #pragma once
-#include "../../testing/testing.hpp"
-#include "../reader.hpp"
+#include "testing/testing.hpp"
+#include "coding/reader.hpp"
 
 
 namespace

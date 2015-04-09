@@ -30,8 +30,8 @@ freely, subject to the following restrictions:
 #include <stdlib.h>
 #include <string.h>
 
-#include "reader.hpp"
-#include "writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /* Code Sections                                                              */
@@ -1495,7 +1495,7 @@ More complex examples can be found in:
 -------------------------
 
 ////////////////////////////////////////////////////////////////////////////////
-#include "lodepng.h"
+#include "coding/lodepng.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -1536,7 +1536,7 @@ int main(int argc, char *argv[])
 ------------------------
 
 ////////////////////////////////////////////////////////////////////////////////
-#include "lodepng.h"
+#include "coding/lodepng.h"
 #include <iostream>
 
 int main(int argc, char *argv[])
@@ -1577,7 +1577,7 @@ int main(int argc, char *argv[])
 
 This example loads the PNG in 1 function call
 
-#include "lodepng.h"
+#include "coding/lodepng.h"
 
 int main(int argc, char *argv[])
 {

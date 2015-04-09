@@ -1,8 +1,8 @@
 #pragma once
-#include "coder.hpp"
-#include "../base/base.hpp"
-#include "../base/exception.hpp"
-#include "../std/string.hpp"
+#include "coding/coder.hpp"
+#include "base/base.hpp"
+#include "base/exception.hpp"
+#include "std/string.hpp"
 
 template <typename FixedSizeCoderT, typename SrcCharT>
 void FixedDstSizeCodeToString(FixedSizeCoderT coder, SrcCharT * pSrc, size_t srcSize, string & dst)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "hex.hpp"
+#include "coding/hex.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 inline string UrlEncode(string const & rawUrl)

@@ -3,12 +3,12 @@
 
 #pragma once
 
-#include "reader.hpp"
-#include "writer.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
-#include "../base/assert.hpp"
-#include "../std/stdint.hpp"
-#include "../std/vector.hpp"
+#include "base/assert.hpp"
+#include "std/stdint.hpp"
+#include "std/vector.hpp"
 
 // Encode Varint by appending to vector of bytes.
 inline void VarintEncode(vector<uint8_t> & dst, uint64_t n)

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "byte_stream.hpp"
-#include "varint.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 // Trie format:
 // [1: header]

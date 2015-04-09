@@ -1,7 +1,7 @@
-#include "gzip_compressor.hpp"
-#include "coder_util.hpp"
-#include "../base/assert.hpp"
-#include "../3party/zlib/zlib.h"
+#include "coding/gzip_compressor.hpp"
+#include "coding/coder_util.hpp"
+#include "base/assert.hpp"
+#include "3party/zlib/zlib.h"
 
 size_t DecompressGZipIntoFixedSize(char const * pSrc, size_t srcSize, char * pDst, size_t dstSize)
 {

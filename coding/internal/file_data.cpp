@@ -1,24 +1,24 @@
-#include "file_data.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "../reader.hpp" // For Reader exceptions.
 #include "../writer.hpp" // For Writer exceptions.
-#include "../constants.hpp"
+#include "coding/constants.hpp"
 
-#include "../../base/exception.hpp"
-#include "../../base/logging.hpp"
+#include "base/exception.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/cerrno.hpp"
-#include "../../std/cstring.hpp"
-#include "../../std/exception.hpp"
-#include "../../std/fstream.hpp"
-#include "../../std/target_os.hpp"
+#include "std/cerrno.hpp"
+#include "std/cstring.hpp"
+#include "std/exception.hpp"
+#include "std/fstream.hpp"
+#include "std/target_os.hpp"
 
 #ifdef OMIM_OS_WINDOWS
   #include <io.h>
 #endif
 
 #ifdef OMIM_OS_TIZEN
-#include "../../tizen/inc/FIo.hpp"
+#include "tizen/inc/FIo.hpp"
 #endif
 
 

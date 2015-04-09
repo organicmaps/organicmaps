@@ -1,10 +1,10 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../compressed_bit_vector.hpp"
-#include "../reader.hpp"
-#include "../writer.hpp"
+#include "coding/compressed_bit_vector.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
-#include "../../base/pseudo_random.hpp"
+#include "base/pseudo_random.hpp"
 
 
 using namespace rnd;

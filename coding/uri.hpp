@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../std/function.hpp"
-#include "../std/string.hpp"
+#include "std/function.hpp"
+#include "std/string.hpp"
 
 
 namespace url_scheme

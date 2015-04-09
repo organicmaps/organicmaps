@@ -1,10 +1,10 @@
 #pragma once
-#include "byte_stream.hpp"
-#include "reader.hpp"
-#include "varint.hpp"
-#include "../base/base.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/reader.hpp"
+#include "coding/varint.hpp"
+#include "base/base.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 inline uint32_t VarRecordSizeReaderVarint(ArrayByteSource & source)
 {

@@ -1,6 +1,6 @@
-#include "file_reader.hpp"
-#include "reader_cache.hpp"
-#include "internal/file_data.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/reader_cache.hpp"
+#include "coding/internal/file_data.hpp"
 
 #ifndef LOG_FILE_READER_STATS
 #define LOG_FILE_READER_STATS 0

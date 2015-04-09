@@ -1,8 +1,8 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "coder_test.hpp"
-#include "../bzip2_compressor.hpp"
+#include "coding/coding_tests/coder_test.hpp"
+#include "coding/bzip2_compressor.hpp"
 
 namespace
 {

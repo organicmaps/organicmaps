@@ -1,17 +1,17 @@
-#include "../../testing/testing.hpp"
-#include "../trie.hpp"
-#include "../trie_builder.hpp"
-#include "../trie_reader.hpp"
-#include "../byte_stream.hpp"
-#include "../write_to_sink.hpp"
+#include "testing/testing.hpp"
+#include "coding/trie.hpp"
+#include "coding/trie_builder.hpp"
+#include "coding/trie_reader.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/write_to_sink.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/algorithm.hpp"
-#include "../../std/scoped_ptr.hpp"
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/cstring.hpp"
+#include "std/algorithm.hpp"
+#include "std/scoped_ptr.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/cstring.hpp"
 
 #include <boost/utility/binary.hpp>
 

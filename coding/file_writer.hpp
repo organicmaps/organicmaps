@@ -1,7 +1,7 @@
 #pragma once
-#include "writer.hpp"
-#include "../base/base.hpp"
-#include "../std/unique_ptr.hpp"
+#include "coding/writer.hpp"
+#include "base/base.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace my { class FileData; }
 

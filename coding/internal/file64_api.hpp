@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../base/base.hpp"
+#include "base/base.hpp"
 
 #if defined(OMIM_OS_WINDOWS_NATIVE)
   #define fseek64 _fseeki64
@@ -32,4 +32,4 @@
 
 #endif
 
-#include "../../std/cstdio.hpp"
+#include "std/cstdio.hpp"

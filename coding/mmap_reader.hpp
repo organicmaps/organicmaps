@@ -1,8 +1,8 @@
 #pragma once
 
-#include "reader.hpp"
+#include "coding/reader.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 /// @TODO Add Windows support
 class MmapReader : public ModelReader

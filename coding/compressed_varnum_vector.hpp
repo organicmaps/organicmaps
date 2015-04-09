@@ -5,9 +5,9 @@
 #pragma once
 
 /*
-#include "../std/function.hpp"
-#include "../std/stdint.hpp"
-#include "../std/vector.hpp"
+#include "std/function.hpp"
+#include "std/stdint.hpp"
+#include "std/vector.hpp"
 
 // Forward declarations.
 class Reader;

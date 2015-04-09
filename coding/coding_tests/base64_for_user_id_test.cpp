@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/pseudo_random.hpp"
+#include "base/logging.hpp"
+#include "base/pseudo_random.hpp"
 
-#include "../base64.hpp"
+#include "coding/base64.hpp"
 
 using namespace base64_for_user_ids;
 

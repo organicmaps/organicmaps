@@ -1,10 +1,10 @@
 #pragma once
-#include "trie.hpp"
-#include "../coding/reader.hpp"
-#include "../coding/varint.hpp"
-#include "../base/assert.hpp"
-#include "../base/bits.hpp"
-#include "../base/macros.hpp"
+#include "coding/trie.hpp"
+#include "coding/reader.hpp"
+#include "coding/varint.hpp"
+#include "base/assert.hpp"
+#include "base/bits.hpp"
+#include "base/macros.hpp"
 
 namespace trie
 {

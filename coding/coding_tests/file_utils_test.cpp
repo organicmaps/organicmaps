@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../file_name_utils.hpp"
+#include "coding/file_name_utils.hpp"
 
 
 UNIT_TEST(FileName_Smoke)

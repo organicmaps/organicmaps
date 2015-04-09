@@ -1,16 +1,16 @@
-#include "compressed_varnum_vector.hpp"
+#include "coding/compressed_varnum_vector.hpp"
 
 /*
-#include "arithmetic_codec.hpp"
-#include "bit_streams.hpp"
-#include "reader.hpp"
-#include "writer.hpp"
-#include "varint_misc.hpp"
+#include "coding/arithmetic_codec.hpp"
+#include "coding/bit_streams.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+#include "coding/varint_misc.hpp"
 
-#include "../base/bits.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/vector.hpp"
+#include "base/bits.hpp"
+#include "std/algorithm.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 //namespace {
 //  vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)

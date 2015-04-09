@@ -1,10 +1,10 @@
 #pragma once
 
-#include "file_reader.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../base/exception.hpp"
+#include "base/exception.hpp"
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 
 class ZipFileReader : public FileReader

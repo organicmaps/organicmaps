@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
-#include "../file_sort.hpp"
-#include "../write_to_sink.hpp"
-#include "../reader.hpp"
-#include "../../base/pseudo_random.hpp"
+#include "testing/testing.hpp"
+#include "coding/file_sort.hpp"
+#include "coding/write_to_sink.hpp"
+#include "coding/reader.hpp"
+#include "base/pseudo_random.hpp"
 
 namespace
 {

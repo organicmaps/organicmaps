@@ -1,8 +1,8 @@
-#include "reader_streambuf.hpp"
-#include "reader.hpp"
-#include "file_writer.hpp"
+#include "coding/reader_streambuf.hpp"
+#include "coding/reader.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 ReaderStreamBuf::ReaderStreamBuf(Reader * p)

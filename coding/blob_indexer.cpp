@@ -1,11 +1,11 @@
-#include "blob_indexer.hpp"
+#include "coding/blob_indexer.hpp"
 
 /*
-#include "../coding/writer.hpp"
-#include "../coding/write_to_sink.hpp"
+#include "coding/writer.hpp"
+#include "coding/write_to_sink.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 
 BlobIndexer::BlobIndexer(Writer & writer,

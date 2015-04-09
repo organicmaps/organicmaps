@@ -1,10 +1,10 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../hex.hpp"
+#include "coding/hex.hpp"
 
-#include "../../base/pseudo_random.hpp"
+#include "base/pseudo_random.hpp"
 
-#include "../../std/string.hpp"
+#include "std/string.hpp"
 
 
 UNIT_TEST(GoldenRecode)

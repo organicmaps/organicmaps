@@ -1,7 +1,7 @@
-#include "timsort.hpp"
+#include "coding/timsort/timsort.hpp"
 
-#include "../../std/cstring.hpp"
-#include "../../std/cstdlib.hpp"
+#include "std/cstring.hpp"
+#include "std/cstdlib.hpp"
 
 typedef int cmpFunc(const void *, const void *);
 

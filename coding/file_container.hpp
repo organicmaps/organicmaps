@@ -1,10 +1,10 @@
 #pragma once
-#include "file_reader.hpp"
-#include "file_writer.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/noncopyable.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/noncopyable.hpp"
 
 
 class FilesContainerBase

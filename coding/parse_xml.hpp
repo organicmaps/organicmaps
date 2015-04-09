@@ -1,8 +1,8 @@
 #pragma once
 
-#include "internal/xmlparser.hpp"
+#include "coding/internal/xmlparser.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 
 template <typename XMLDispatcherT, typename SequenceT>

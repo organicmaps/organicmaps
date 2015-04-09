@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../url_encode.hpp"
+#include "coding/url_encode.hpp"
 
 char const * orig1 = "http://google.com/main_index.php";
 char const * enc1 = "http%3A%2F%2Fgoogle.com%2Fmain_index.php";

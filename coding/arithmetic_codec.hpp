@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include "../std/stdint.hpp"
-#include "../std/vector.hpp"
+#include "std/stdint.hpp"
+#include "std/vector.hpp"
 
 // Forward declarations.
 class Reader;

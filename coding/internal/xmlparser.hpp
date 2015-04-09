@@ -2,9 +2,9 @@
 
 #define XML_STATIC
 
-#include "expat_impl.h"
+#include "coding/internal/expat_impl.h"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 template <typename DispatcherT>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "reader.hpp"
+#include "coding/reader.hpp"
 
 
 /// Reader wrapper to avoid penalty on copy and polymorphic SubReader creation.

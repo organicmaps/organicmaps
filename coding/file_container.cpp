@@ -1,9 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "file_container.hpp"
-#include "read_write_utils.hpp"
-#include "write_to_sink.hpp"
-#include "internal/file_data.hpp"
+#include "coding/file_container.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/write_to_sink.hpp"
+#include "coding/internal/file_data.hpp"
 
 #ifndef OMIM_OS_WINDOWS
   #include <unistd.h>

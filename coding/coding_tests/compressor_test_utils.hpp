@@ -1,7 +1,7 @@
 #pragma once
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 
 namespace coding

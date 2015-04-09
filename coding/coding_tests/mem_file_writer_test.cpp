@@ -1,10 +1,10 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../writer.hpp"
-#include "../file_writer.hpp"
+#include "coding/writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
 
 UNIT_TEST(MemWriterEmpty)

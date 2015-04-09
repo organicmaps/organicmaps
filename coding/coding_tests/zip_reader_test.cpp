@@ -1,10 +1,10 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../zip_reader.hpp"
-#include "../file_writer.hpp"
+#include "coding/zip_reader.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
 static char const zipBytes[] = "PK\003\004\n\0\0\0\0\0\222\226\342>\302\032"
 "x\372\005\0\0\0\005\0\0\0\b\0\034\0te"

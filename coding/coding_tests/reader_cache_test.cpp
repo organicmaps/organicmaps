@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../reader_cache.hpp"
-#include "../reader.hpp"
+#include "coding/reader_cache.hpp"
+#include "coding/reader.hpp"
 
-#include "../../base/pseudo_random.hpp"
+#include "base/pseudo_random.hpp"
 
 
 namespace

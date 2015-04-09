@@ -1,10 +1,10 @@
-#include "varint_vector.hpp"
+#include "coding/varint_vector.hpp"
 
 /*
-#include "writer.hpp"
-#include "reader.hpp"
+#include "coding/writer.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 
 namespace varint

@@ -1,11 +1,11 @@
 #pragma once
-#include "file64_api.hpp"
+#include "coding/internal/file64_api.hpp"
 
-#include "../../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/target_os.hpp"
-#include "../../std/noncopyable.hpp"
+#include "std/string.hpp"
+#include "std/target_os.hpp"
+#include "std/noncopyable.hpp"
 
 #ifdef OMIM_OS_TIZEN
 namespace Tizen

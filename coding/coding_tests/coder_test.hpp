@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../testing/testing.hpp"
-#include "../coder.hpp"
+#include "testing/testing.hpp"
+#include "coding/coder.hpp"
 
 // TODO: void CoderRandomTest(Coder & encoder, Coder & decoder);
 // TODO: void CoderTextTest(Coder & encoder, Coder & decoder);

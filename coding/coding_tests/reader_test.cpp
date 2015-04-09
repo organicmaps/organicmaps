@@ -1,14 +1,14 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "reader_test.hpp"
+#include "coding/coding_tests/reader_test.hpp"
 
-#include "../file_reader.hpp"
-#include "../file_writer.hpp"
-#include "../buffer_reader.hpp"
-#include "../reader_streambuf.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/buffer_reader.hpp"
+#include "coding/reader_streambuf.hpp"
 
-#include "../../std/iostream.hpp"
-#include "../../std/cstring.hpp"
+#include "std/iostream.hpp"
+#include "std/cstring.hpp"
 
 
 namespace

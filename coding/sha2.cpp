@@ -1,7 +1,7 @@
-#include "sha2.hpp"
-#include "hex.hpp"
+#include "coding/sha2.hpp"
+#include "coding/hex.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
 #include <tomcrypt.h>
 

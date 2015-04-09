@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../coding/streams.hpp"
-#include "../coding/file_reader.hpp"
+#include "coding/streams.hpp"
+#include "coding/file_reader.hpp"
 
 
 class FileReaderStream : public stream::ReaderStream<ReaderSource<FileReader> >

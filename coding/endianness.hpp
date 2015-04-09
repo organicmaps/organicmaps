@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../std/type_traits.hpp"
+#include "std/type_traits.hpp"
 
 
 // #define ENDIAN_IS_BIG

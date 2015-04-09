@@ -1,13 +1,13 @@
 #pragma once
 
 /*
-#include "dd_vector.hpp"
-#include "polymorph_reader.hpp"
-#include "../std/function.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/string.hpp"
-#include "../base/base.hpp"
-#include "../base/exception.hpp"
+#include "coding/dd_vector.hpp"
+#include "coding/polymorph_reader.hpp"
+#include "std/function.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/string.hpp"
+#include "base/base.hpp"
+#include "base/exception.hpp"
 
 class Reader;
 

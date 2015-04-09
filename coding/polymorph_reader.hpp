@@ -1,6 +1,6 @@
 #pragma once
-#include "../coding/reader.hpp"
-#include "../std/unique_ptr.hpp"
+#include "coding/reader.hpp"
+#include "std/unique_ptr.hpp"
 
 class PolymorphReader
 {

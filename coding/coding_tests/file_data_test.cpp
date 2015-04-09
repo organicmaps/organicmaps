@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../internal/file_data.hpp"
-#include "../writer.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/writer.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 namespace

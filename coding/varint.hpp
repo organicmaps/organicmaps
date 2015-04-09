@@ -1,13 +1,13 @@
 #pragma once
 
-#include "write_to_sink.hpp"
+#include "coding/write_to_sink.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../base/bits.hpp"
-#include "../base/exception.hpp"
-#include "../base/stl_add.hpp"
-#include "../std/type_traits.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/bits.hpp"
+#include "base/exception.hpp"
+#include "base/stl_add.hpp"
+#include "std/type_traits.hpp"
 
 
 /// This function writes, using optimal bytes count.

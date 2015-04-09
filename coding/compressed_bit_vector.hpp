@@ -21,10 +21,10 @@
 
 #pragma once
 
-#include "../base/assert.hpp"
-#include "../std/iterator.hpp"
-#include "../std/stdint.hpp"
-#include "../std/vector.hpp"
+#include "base/assert.hpp"
+#include "std/iterator.hpp"
+#include "std/stdint.hpp"
+#include "std/vector.hpp"
 
 // Forward declare used Reader/Writer.
 class Reader;

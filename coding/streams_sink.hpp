@@ -1,10 +1,10 @@
 #pragma once
 
-#include "streams_common.hpp"
-#include "reader.hpp"
-#include "write_to_sink.hpp"
+#include "coding/streams_common.hpp"
+#include "coding/reader.hpp"
+#include "coding/write_to_sink.hpp"
 
-#include "../std/type_traits.hpp"
+#include "std/type_traits.hpp"
 
 
 namespace stream

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "varint.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/assert.hpp"
+#include "base/string_utils.hpp"
+#include "base/assert.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 class StringNumericOptimal

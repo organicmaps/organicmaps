@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../file_container.hpp"
-#include "../varint.hpp"
+#include "coding/file_container.hpp"
+#include "coding/varint.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/string_utils.hpp"
-#include "../../base/scope_guard.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/scope_guard.hpp"
 
 
 UNIT_TEST(FilesContainer_Smoke)

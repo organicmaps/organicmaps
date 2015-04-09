@@ -1,7 +1,7 @@
-#include "blob_storage.hpp"
+#include "coding/blob_storage.hpp"
 
 /*
-#include "reader.hpp"
+#include "coding/reader.hpp"
 
 // File Format:
 // Blobs are grouped together in chunks and then chunks are compressed.

@@ -1,13 +1,13 @@
 #pragma once
-#include "endianness.hpp"
+#include "coding/endianness.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/exception.hpp"
+#include "base/assert.hpp"
+#include "base/exception.hpp"
 
-#include "../std/shared_array.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/string.hpp"
-#include "../std/cstring.hpp"
+#include "std/shared_array.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/cstring.hpp"
 
 
 // Base class for random-access Reader. Not thread-safe.

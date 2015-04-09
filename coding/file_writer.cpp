@@ -1,5 +1,5 @@
-#include "file_writer.hpp"
-#include "internal/file_data.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
 FileWriter::FileWriter(FileWriter const & rhs)
 : Writer(*this), m_bTruncOnClose(rhs.m_bTruncOnClose)

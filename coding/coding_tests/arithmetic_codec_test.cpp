@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../arithmetic_codec.hpp"
-#include "../reader.hpp"
+#include "coding/arithmetic_codec.hpp"
+#include "coding/reader.hpp"
 
-#include "../../base/pseudo_random.hpp"
+#include "base/pseudo_random.hpp"
 
 
 UNIT_TEST(ArithmeticCodec)

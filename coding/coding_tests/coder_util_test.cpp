@@ -1,8 +1,8 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../coder_util.hpp"
-#include "../../base/logging.hpp"
+#include "coding/coder_util.hpp"
+#include "base/logging.hpp"
 
 //namespace
 //{

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "reader.hpp"
-#include "write_to_sink.hpp"
+#include "coding/reader.hpp"
+#include "coding/write_to_sink.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/string.hpp"
-#include "../std/utility.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
 
 
 template <class WriterT> class VarSerialVectorWriter

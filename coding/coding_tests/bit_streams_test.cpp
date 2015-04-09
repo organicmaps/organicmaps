@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../bit_streams.hpp"
-#include "../reader.hpp"
-#include "../writer.hpp"
+#include "coding/bit_streams.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
-#include "../../base/pseudo_random.hpp"
+#include "base/pseudo_random.hpp"
 
-#include "../../std/utility.hpp"
-#include "../../std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 
 using namespace rnd;

@@ -1,12 +1,12 @@
 #pragma once
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../base/exception.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/shared_ptr.hpp"
-#include "../std/cstring.hpp"
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "base/exception.hpp"
+#include "std/algorithm.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/cstring.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 // Generic Writer. Not thread-safe.
 // When SubWriter is used, pos can negative, so int64_t is used to store pos.

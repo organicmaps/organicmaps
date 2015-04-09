@@ -1,14 +1,14 @@
-#include "../../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../coding/reader_writer_ops.hpp"
-#include "../../coding/file_reader.hpp"
-#include "../../coding/file_writer.hpp"
-#include "../../coding/read_write_utils.hpp"
-#include "../../coding/byte_stream.hpp"
+#include "coding/reader_writer_ops.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/byte_stream.hpp"
 
-#include "../../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace

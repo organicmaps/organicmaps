@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../sha2.hpp"
+#include "coding/sha2.hpp"
 
 UNIT_TEST(Sha2_256)
 {

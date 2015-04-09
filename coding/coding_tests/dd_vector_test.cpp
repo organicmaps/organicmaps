@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../dd_vector.hpp"
-#include "../reader.hpp"
+#include "coding/dd_vector.hpp"
+#include "coding/reader.hpp"
 
 
 UNIT_TEST(DDVector_Smoke)

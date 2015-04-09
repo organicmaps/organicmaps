@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../base/base.hpp"
-#include "../base/assert.hpp"
+#include "base/base.hpp"
+#include "base/assert.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 namespace stream
 {

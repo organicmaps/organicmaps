@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/stdint.hpp"
-#include "../std/iostream.hpp"
+#include "std/stdint.hpp"
+#include "std/iostream.hpp"
 
 class Reader;
 class Writer;

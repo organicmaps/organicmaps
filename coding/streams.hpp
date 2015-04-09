@@ -1,5 +1,5 @@
 #pragma once
-#include "streams_common.hpp"
+#include "coding/streams_common.hpp"
 
 namespace stream
 {

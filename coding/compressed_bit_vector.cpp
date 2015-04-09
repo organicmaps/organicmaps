@@ -1,16 +1,16 @@
-#include "compressed_bit_vector.hpp"
+#include "coding/compressed_bit_vector.hpp"
 
-#include "arithmetic_codec.hpp"
-#include "bit_streams.hpp"
-#include "reader.hpp"
-#include "writer.hpp"
-#include "varint_misc.hpp"
+#include "coding/arithmetic_codec.hpp"
+#include "coding/bit_streams.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
+#include "coding/varint_misc.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/bits.hpp"
+#include "base/assert.hpp"
+#include "base/bits.hpp"
 
-#include "../std/cmath.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/cmath.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace {
   vector<uint32_t> SerialFreqsToDistrTable(Reader & reader, uint64_t & decodeOffset, uint64_t cnt)

@@ -1,9 +1,9 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../../std/limits.hpp"
+#include "std/limits.hpp"
 
-#include "../bit_shift.hpp"
+#include "coding/bit_shift.hpp"
 
 
 UNIT_TEST(BitShift)

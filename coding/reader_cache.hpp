@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../base/base.hpp"
-#include "../base/cache.hpp"
-#include "../base/stats.hpp"
+#include "base/base.hpp"
+#include "base/cache.hpp"
+#include "base/stats.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/cstring.hpp"
-#include "../std/algorithm.hpp"
+#include "std/vector.hpp"
+#include "std/cstring.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace impl

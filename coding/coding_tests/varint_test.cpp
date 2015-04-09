@@ -1,10 +1,10 @@
-#include "../varint.hpp"
-#include "../../testing/testing.hpp"
+#include "coding/varint.hpp"
+#include "testing/testing.hpp"
 
-#include "../byte_stream.hpp"
+#include "coding/byte_stream.hpp"
 
-#include "../../base/macros.hpp"
-#include "../../base/stl_add.hpp"
+#include "base/macros.hpp"
+#include "base/stl_add.hpp"
 
 
 namespace

@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../timsort/timsort.hpp"
+#include "coding/timsort/timsort.hpp"
 
-#include "../../std/algorithm.hpp"
-#include "../../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 int intCmp(void const * plhs, void const * prhs)
 {

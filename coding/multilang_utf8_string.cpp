@@ -1,6 +1,6 @@
-#include "multilang_utf8_string.hpp"
+#include "coding/multilang_utf8_string.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
 static char const * gLangs[] = {
     "default",

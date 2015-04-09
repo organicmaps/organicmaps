@@ -1,7 +1,7 @@
 #pragma once
-#include "coder.hpp"
-#include "../base/base.hpp"
-#include "../base/exception.hpp"
+#include "coding/coder.hpp"
+#include "base/base.hpp"
+#include "base/exception.hpp"
 
 DECLARE_EXCEPTION(CompressGZipException, StringCodingException);
 DECLARE_EXCEPTION(DecompressGZipException, StringCodingException);

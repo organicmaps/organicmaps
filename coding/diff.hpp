@@ -1,10 +1,10 @@
 #pragma once
-#include "diff_patch_common.hpp"
-#include "../base/assert.hpp"
-#include "../base/base.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/unordered_map.hpp"
-#include "../std/vector.hpp"
+#include "coding/diff_patch_common.hpp"
+#include "base/assert.hpp"
+#include "base/base.hpp"
+#include "std/algorithm.hpp"
+#include "std/unordered_map.hpp"
+#include "std/vector.hpp"
 
 namespace diff
 {

@@ -1,7 +1,7 @@
 #pragma once
-#include "reader.hpp"
-#include "../base/base.hpp"
-#include "../std/shared_ptr.hpp"
+#include "coding/reader.hpp"
+#include "base/base.hpp"
+#include "std/shared_ptr.hpp"
 
 // FileReader, cheap to copy, not thread safe.
 // It is assumed that file is not modified during FireReader lifetime,

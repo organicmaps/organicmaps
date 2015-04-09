@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../coding/streams.hpp"
-#include "../coding/file_writer.hpp"
+#include "coding/streams.hpp"
+#include "coding/file_writer.hpp"
 
 class FileWriterStream : public stream::WriterStream<FileWriter>
 {

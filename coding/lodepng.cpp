@@ -28,7 +28,7 @@ The manual and changelog can be found in the header file "lodepng.h"
 You are free to name this file lodepng.cpp or lodepng.c depending on your usage.
 */
 
-#include "lodepng.hpp"
+#include "coding/lodepng.hpp"
 
 #define VERSION_STRING "20100314"
 

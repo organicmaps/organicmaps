@@ -1,17 +1,17 @@
-#include "../var_serial_vector.hpp"
+#include "coding/var_serial_vector.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../coding/byte_stream.hpp"
-#include "../../coding/hex.hpp"
-#include "../../coding/reader.hpp"
-#include "../../coding/writer.hpp"
+#include "coding/byte_stream.hpp"
+#include "coding/hex.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
-#include "../../base/macros.hpp"
-#include "../../base/pseudo_random.hpp"
+#include "base/macros.hpp"
+#include "base/pseudo_random.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 
 char const kHexSerial[] = "03000000" "01000000" "04000000" "06000000" "616263646566";

@@ -1,7 +1,7 @@
-#include "mmap_reader.hpp"
+#include "coding/mmap_reader.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/cstring.hpp"
+#include "std/target_os.hpp"
+#include "std/cstring.hpp"
 
 // @TODO we don't support windows at the moment
 #ifndef OMIM_OS_WINDOWS

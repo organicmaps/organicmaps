@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../endianness.hpp"
+#include "coding/endianness.hpp"
 
 
 UNIT_TEST(Endianness1Byte)

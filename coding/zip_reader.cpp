@@ -1,14 +1,14 @@
-#include "zip_reader.hpp"
+#include "coding/zip_reader.hpp"
 
-#include "../base/scope_guard.hpp"
-#include "../base/logging.hpp"
+#include "base/scope_guard.hpp"
+#include "base/logging.hpp"
 
-#include "../coding/file_writer.hpp"
-#include "../coding/constants.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/constants.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
-#include "../3party/zlib/contrib/minizip/unzip.h"
+#include "3party/zlib/contrib/minizip/unzip.h"
 
 
 ZipFileReader::ZipFileReader(string const & container, string const & file,

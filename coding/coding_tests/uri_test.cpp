@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
-#include "../uri.hpp"
-#include "../../base/macros.hpp"
-#include "../../std/bind.hpp"
-#include "../../std/queue.hpp"
-#include "../../std/utility.hpp"
+#include "testing/testing.hpp"
+#include "coding/uri.hpp"
+#include "base/macros.hpp"
+#include "std/bind.hpp"
+#include "std/queue.hpp"
+#include "std/utility.hpp"
 
 using url_scheme::Uri;
 

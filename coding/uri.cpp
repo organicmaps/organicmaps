@@ -1,7 +1,7 @@
-#include "uri.hpp"
-#include "url_encode.hpp"
+#include "coding/uri.hpp"
+#include "coding/url_encode.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 
 namespace url_scheme

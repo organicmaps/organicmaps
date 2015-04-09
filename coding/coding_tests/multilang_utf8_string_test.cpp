@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../multilang_utf8_string.hpp"
+#include "coding/multilang_utf8_string.hpp"
 
-#include "../../3party/utfcpp/source/utf8.h"
+#include "3party/utfcpp/source/utf8.h"
 
 
 namespace

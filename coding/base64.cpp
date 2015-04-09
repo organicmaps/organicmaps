@@ -1,8 +1,8 @@
-#include "base64.hpp"
+#include "coding/base64.hpp"
 
-#include "../3party/tomcrypt/src/headers/tomcrypt.h"
-#include "../3party/tomcrypt/src/headers/tomcrypt_misc.h"
-#include "../base/assert.hpp"
+#include "3party/tomcrypt/src/headers/tomcrypt.h"
+#include "3party/tomcrypt/src/headers/tomcrypt_misc.h"
+#include "base/assert.hpp"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wreorder"

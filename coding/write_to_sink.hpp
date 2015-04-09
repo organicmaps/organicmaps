@@ -1,8 +1,8 @@
 #pragma once
 
-#include "endianness.hpp"
+#include "coding/endianness.hpp"
 
-#include "../std/type_traits.hpp"
+#include "std/type_traits.hpp"
 
 
 template <class TSink, typename T>

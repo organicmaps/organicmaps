@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
 /*
-#include "../varint_vector.hpp"
-#include "../writer.hpp"
-#include "../reader.hpp"
+#include "coding/varint_vector.hpp"
+#include "coding/writer.hpp"
+#include "coding/reader.hpp"
 
-#include "../../base/pseudo_random.hpp"
+#include "base/pseudo_random.hpp"
 
 
 using namespace varint;

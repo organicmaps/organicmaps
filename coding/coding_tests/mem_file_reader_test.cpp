@@ -1,8 +1,8 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../reader.hpp"
-#include "../../base/macros.hpp"
+#include "coding/reader.hpp"
+#include "base/macros.hpp"
 
 UNIT_TEST(MemReaderSimple)
 {
