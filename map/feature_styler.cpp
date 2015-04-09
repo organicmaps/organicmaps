@@ -5,6 +5,7 @@
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/drules_include.hpp"
 
@@ -80,7 +81,15 @@ namespace di
     //    m_primaryText.clear();
     //}
 
-    string houseNumber = f.GetHouseNumber();
+    string houseNumber;
+    static ftypes::IsBuildingChecker const isBuilding;
+    if (isBuilding(f))
+    {
+      houseNumber = f.GetHouseNumber();
+      // Mark houses without names/numbers so user can select them by single tap.
+      if (houseNumber.empty() && m_primaryText.empty())
+        houseNumber = "·";
+    }
     bool const hasName = !m_primaryText.empty() || !houseNumber.empty();
 
     m_refText = f.GetRoadNumber();
