@@ -32,6 +32,7 @@
 
 //Secret word to unlock experimental features in production builds
 #define ROUTING_SECRET_UNLOCKING_WORD "?ariadna"
+#define ROUTING_SECRET_LOCKING_WORD "?minos"
 
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"

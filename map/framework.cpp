@@ -276,11 +276,14 @@ Framework::Framework()
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
+#ifdef DEBUG
   m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
-  /*m_routingSession.SetRouter(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
+#else
+  m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
   {
     return GetSearchEngine()->GetCountryFile(pt);
-  }));*/
+  })));
+#endif
   LOG(LDEBUG, ("Routing engine initialized"));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
@@ -1234,9 +1237,18 @@ bool Framework::Search(search::SearchParams const & params)
 {
   if (params.m_query == ROUTING_SECRET_UNLOCKING_WORD)
   {
-    LOG(LINFO, ("Cross mwm routing mode enabled"));
-    m_routingSession.ActivateAdditionalFeatures();
+    LOG(LINFO, ("Pedestrian routing mode enabled"));
+    //m_routingSession.ActivateAdditionalFeatures();
+    m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
     return false;
+  }
+  if (params.m_query == ROUTING_SECRET_LOCKING_WORD)
+  {
+    m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
+    {
+      return GetSearchEngine()->GetCountryFile(pt);
+    })));
+    LOG(LINFO, ("Vehicle routing mode enabled"));
   }
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
