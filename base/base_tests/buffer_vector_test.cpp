@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../buffer_vector.hpp"
-#include "../string_utils.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/string_utils.hpp"
 
 
 namespace

@@ -1,11 +1,11 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../thread.hpp"
-#include "../threaded_list.hpp"
-#include "../condition.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
+#include "base/condition.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 struct ConditionThread : public threads::IRoutine
 {

@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../mutex.hpp"
-#include "../thread.hpp"
-#include "../thread_pool.hpp"
-#include "../condition.hpp"
+#include "base/mutex.hpp"
+#include "base/thread.hpp"
+#include "base/thread_pool.hpp"
+#include "base/condition.hpp"
 
-#include "../../std/vector.hpp"
-#include "../../std/bind.hpp"
+#include "std/vector.hpp"
+#include "std/bind.hpp"
 
 namespace
 {

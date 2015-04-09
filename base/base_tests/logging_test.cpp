@@ -1,10 +1,10 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/utility.hpp"
-#include "../../std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 
 namespace

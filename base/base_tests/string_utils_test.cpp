@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../string_utils.hpp"
-#include "../logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/iomanip.hpp"
-#include "../../std/fstream.hpp"
-#include "../../std/bind.hpp"
-#include "../../std/unordered_map.hpp"
+#include "std/iomanip.hpp"
+#include "std/fstream.hpp"
+#include "std/bind.hpp"
+#include "std/unordered_map.hpp"
 
 
 /// internal function in base

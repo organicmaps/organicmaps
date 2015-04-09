@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../timer.hpp"
-#include "../logging.hpp"
+#include "base/timer.hpp"
+#include "base/logging.hpp"
 
 
 UNIT_TEST(Timer_Seconds)

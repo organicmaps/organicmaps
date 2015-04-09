@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../limited_priority_queue.hpp"
+#include "base/limited_priority_queue.hpp"
 
 
 using namespace my;

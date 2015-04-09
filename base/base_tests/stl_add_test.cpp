@@ -1,10 +1,10 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../macros.hpp"
+#include "base/macros.hpp"
 
-#include "../stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/deque.hpp"
+#include "std/deque.hpp"
 
 
 UNIT_TEST(STLAdd_IsSorted)

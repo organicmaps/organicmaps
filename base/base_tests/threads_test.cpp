@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../thread.hpp"
+#include "base/thread.hpp"
 
-#include "../../std/vector.hpp"
+#include "std/vector.hpp"
 
 
 typedef std::vector<int> Vector;

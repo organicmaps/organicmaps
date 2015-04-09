@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../scope_guard.hpp"
+#include "base/scope_guard.hpp"
 
 static bool b = false;
 

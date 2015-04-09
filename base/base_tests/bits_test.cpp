@@ -1,8 +1,8 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../bits.hpp"
-#include "../../std/cstdlib.hpp"
+#include "base/bits.hpp"
+#include "std/cstdlib.hpp"
 
 namespace
 {

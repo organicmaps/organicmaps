@@ -1,13 +1,13 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../threaded_list.hpp"
-#include "../threaded_priority_queue.hpp"
-#include "../thread.hpp"
+#include "base/threaded_list.hpp"
+#include "base/threaded_priority_queue.hpp"
+#include "base/thread.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/mutex.hpp"
+#include "std/mutex.hpp"
 
 struct ThreadedListProcessor : public threads::IRoutine
 {

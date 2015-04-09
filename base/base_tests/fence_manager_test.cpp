@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
-#include "../commands_queue.hpp"
-#include "../fence_manager.hpp"
-#include "../../std/bind.hpp"
+#include "testing/testing.hpp"
+#include "base/commands_queue.hpp"
+#include "base/fence_manager.hpp"
+#include "std/bind.hpp"
 
 void add_int(core::CommandsQueue::Environment const & env,
              int fenceID,

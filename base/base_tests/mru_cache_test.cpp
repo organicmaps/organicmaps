@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../mru_cache.hpp"
+#include "base/mru_cache.hpp"
 
 UNIT_TEST(MRUCache_Test)
 {

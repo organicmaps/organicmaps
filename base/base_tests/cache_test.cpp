@@ -1,7 +1,7 @@
-#include "../../testing/testing.hpp"
-#include "../cache.hpp"
-#include "../macros.hpp"
-#include "../stl_add.hpp"
+#include "testing/testing.hpp"
+#include "base/cache.hpp"
+#include "base/macros.hpp"
+#include "base/stl_add.hpp"
 
 UNIT_TEST(CacheSmoke)
 {

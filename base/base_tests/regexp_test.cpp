@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../regexp.hpp"
+#include "base/regexp.hpp"
 
-#include "../../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
 
 UNIT_TEST(RegExp_Or)

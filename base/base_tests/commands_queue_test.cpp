@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
-#include "../commands_queue.hpp"
-#include "../macros.hpp"
-#include "../thread.hpp"
-#include "../logging.hpp"
+#include "testing/testing.hpp"
+#include "base/commands_queue.hpp"
+#include "base/macros.hpp"
+#include "base/thread.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/atomic.hpp"
-#include "../../std/bind.hpp"
+#include "std/atomic.hpp"
+#include "std/bind.hpp"
 
 void add_int(core::CommandsQueue::Environment const & env,
              atomic<int> & i,

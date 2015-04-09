@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../scheduled_task.hpp"
+#include "base/scheduled_task.hpp"
 
-#include "../../std/atomic.hpp"
-#include "../../std/bind.hpp"
+#include "std/atomic.hpp"
+#include "std/bind.hpp"
 
 
 namespace

@@ -1,8 +1,8 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../const_helper.hpp"
-#include "../../std/typeinfo.hpp"
+#include "base/const_helper.hpp"
+#include "std/typeinfo.hpp"
 
 UNIT_TEST(ConstHelper)
 {

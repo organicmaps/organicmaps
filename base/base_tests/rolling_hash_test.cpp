@@ -1,10 +1,10 @@
-#include "../../testing/benchmark.hpp"
-#include "../../testing/testing.hpp"
-#include "../rolling_hash.hpp"
+#include "testing/benchmark.hpp"
+#include "testing/testing.hpp"
+#include "base/rolling_hash.hpp"
 
-#include "../base.hpp"
-#include "../logging.hpp"
-#include "../macros.hpp"
+#include "base/base.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
 
 namespace

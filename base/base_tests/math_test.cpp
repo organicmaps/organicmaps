@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
-#include "../math.hpp"
-#include "../../std/limits.hpp"
+#include "testing/testing.hpp"
+#include "base/math.hpp"
+#include "std/limits.hpp"
 
 #include <boost/math/special_functions/next.hpp>
 

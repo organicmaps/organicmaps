@@ -1,9 +1,9 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../../base/base.hpp"
-#include "../../base/exception.hpp"
-#include "../../base/logging.hpp"
+#include "base/base.hpp"
+#include "base/exception.hpp"
+#include "base/logging.hpp"
 
 
 UNIT_TEST(Assert_Smoke)

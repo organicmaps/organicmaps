@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../matrix.hpp"
+#include "base/matrix.hpp"
 
 
 UNIT_TEST(Matrix_Inverse_Simple)

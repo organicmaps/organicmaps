@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../worker_thread.hpp"
+#include "base/worker_thread.hpp"
 
-#include "../../std/shared_ptr.hpp"
-#include "../../std/vector.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/vector.hpp"
 
 struct Task
 {

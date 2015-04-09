@@ -1,5 +1,5 @@
-#include "../../testing/testing.hpp"
-#include "../string_format.hpp"
+#include "testing/testing.hpp"
+#include "base/string_format.hpp"
 
 UNIT_TEST(StringFormat_Smoke)
 {

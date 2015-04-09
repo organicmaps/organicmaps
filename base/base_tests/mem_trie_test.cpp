@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../mem_trie.hpp"
+#include "base/mem_trie.hpp"
 
-#include "../../std/algorithm.hpp"
-#include "../../std/string.hpp"
-#include "../../std/utility.hpp"
-#include "../../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 UNIT_TEST(MemTrie_Basic)
 {
