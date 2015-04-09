@@ -43,7 +43,7 @@
 #import <MRGService/MRGSNotificationManager.h>
 
 #import <MRGService/MRGSMobileAppTracker.h>
-#import <MRGService/MRGSGoogleanalytics.h>
+#import <MRGService/MRGSGoogleAnalytics.h>
 #import <MRGService/MRGSAppsFlyer.h>
 #import <MRGService/MRGSFlurry.h>
 #import <MRGService/MRGSAdman.h>
