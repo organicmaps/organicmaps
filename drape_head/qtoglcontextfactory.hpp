@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../drape/oglcontextfactory.hpp"
-#include "qtoglcontext.hpp"
+#include "drape/oglcontextfactory.hpp"
+#include "drape_head/qtoglcontext.hpp"
 
 #include <QtGui/QWindow>
 

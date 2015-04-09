@@ -1,4 +1,4 @@
-#include "mainwindow.hpp"
+#include "drape_head/mainwindow.hpp"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])

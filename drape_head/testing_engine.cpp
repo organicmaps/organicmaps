@@ -1,33 +1,33 @@
-#include "testing_engine.hpp"
+#include "drape_head/testing_engine.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../platform/platform.hpp"
+#include "coding/file_reader.hpp"
+#include "platform/platform.hpp"
 
-#include "../drape/utils/vertex_decl.hpp"
-#include "../drape/glsl_types.hpp"
-#include "../drape/vertex_array_buffer.hpp"
-#include "../drape/shader_def.hpp"
-#include "../drape/overlay_tree.hpp"
-#include "../drape/stipple_pen_resource.hpp"
+#include "drape/utils/vertex_decl.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/vertex_array_buffer.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/overlay_tree.hpp"
+#include "drape/stipple_pen_resource.hpp"
 
-#include "../drape_frontend/visual_params.hpp"
-#include "../drape_frontend/line_shape.hpp"
-#include "../drape_frontend/text_shape.hpp"
-#include "../drape_frontend/path_text_shape.hpp"
-#include "../drape_frontend/path_symbol_shape.hpp"
-#include "../drape_frontend/area_shape.hpp"
-#include "../drape_frontend/circle_shape.hpp"
+#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/text_shape.hpp"
+#include "drape_frontend/path_text_shape.hpp"
+#include "drape_frontend/path_symbol_shape.hpp"
+#include "drape_frontend/area_shape.hpp"
+#include "drape_frontend/circle_shape.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/timer.hpp"
+#include "base/stl_add.hpp"
+#include "base/timer.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/function.hpp"
-#include "../std/vector.hpp"
+#include "std/bind.hpp"
+#include "std/function.hpp"
+#include "std/vector.hpp"
 
-#include "../../3party/jansson/myjansson.hpp"
+#include "3party/jansson/myjansson.hpp"
 
 namespace df
 {

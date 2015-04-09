@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../drape/pointers.hpp"
-#include "../drape/oglcontextfactory.hpp"
-#include "../drape/batcher.hpp"
-#include "../drape/gpu_program_manager.hpp"
-#include "../drape/uniform_values_storage.hpp"
-#include "../drape/texture_manager.hpp"
+#include "drape/pointers.hpp"
+#include "drape/oglcontextfactory.hpp"
+#include "drape/batcher.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/uniform_values_storage.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../drape_frontend/viewport.hpp"
-#include "../drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/viewport.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 #include <QObject>
 #include <QEvent>

@@ -1,6 +1,6 @@
-#include "mainwindow.hpp"
+#include "drape_head/mainwindow.hpp"
 
-#include "drape_surface.hpp"
+#include "drape_head/drape_surface.hpp"
 
 #include <QtWidgets/QWidget>
 

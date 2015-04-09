@@ -1,17 +1,17 @@
-#include "drape_surface.hpp"
+#include "drape_head/drape_surface.hpp"
 
-#include "../drape_frontend/viewport.hpp"
-#include "../drape_frontend/map_data_provider.hpp"
+#include "drape_frontend/viewport.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../drape/shader_def.hpp"
+#include "drape/shader_def.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/logging.hpp"
+#include "base/stl_add.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/cmath.hpp"
+#include "std/bind.hpp"
+#include "std/cmath.hpp"
 
 #include <QtGui/QMouseEvent>
 

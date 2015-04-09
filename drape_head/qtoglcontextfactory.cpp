@@ -1,6 +1,6 @@
-#include "qtoglcontextfactory.hpp"
+#include "drape_head/qtoglcontextfactory.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 QtOGLContextFactory::QtOGLContextFactory(QWindow * surface)
   : m_surface(surface)

@@ -1,21 +1,21 @@
 #pragma once
 
-#include "qtoglcontextfactory.hpp"
+#include "drape_head/qtoglcontextfactory.hpp"
 
-#include "../map/feature_vec_model.hpp"
-#include "../map/navigator.hpp"
-#include "../map/scales_processor.hpp"
+#include "map/feature_vec_model.hpp"
+#include "map/navigator.hpp"
+#include "map/scales_processor.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/gpu_program_manager.hpp"
-#include "../drape/uniform_values_storage.hpp"
+#include "drape/batcher.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/uniform_values_storage.hpp"
 
 //#define USE_TESTING_ENGINE
 #if defined(USE_TESTING_ENGINE)
-#include "testing_engine.hpp"
+#include "drape_head/testing_engine.hpp"
 #define DrapeEngine TestingEngine
 #else
-#include "../drape_frontend/drape_engine.hpp"
+#include "drape_frontend/drape_engine.hpp"
 #endif
 
 #include <QtGui/QWindow>
