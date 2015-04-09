@@ -1,13 +1,13 @@
 #pragma once
 
-#include "tile_key.hpp"
+#include "drape_frontend/tile_key.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/function.hpp"
-#include "../std/set.hpp"
-#include "../std/string.hpp"
+#include "std/function.hpp"
+#include "std/set.hpp"
+#include "std/string.hpp"
 
 class FeatureType;
 

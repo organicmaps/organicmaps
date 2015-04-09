@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../drape/pointers.hpp"
-#include "../std/map.hpp"
+#include "drape/pointers.hpp"
+#include "std/map.hpp"
 
 namespace df
 {

@@ -1,26 +1,26 @@
-#include "apply_feature_functors.hpp"
-#include "shape_view_params.hpp"
-#include "visual_params.hpp"
-#include "engine_context.hpp"
+#include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/engine_context.hpp"
 
-#include "area_shape.hpp"
-#include "line_shape.hpp"
-#include "text_shape.hpp"
-#include "poi_symbol_shape.hpp"
-#include "path_symbol_shape.hpp"
-#include "circle_shape.hpp"
-#include "path_text_shape.hpp"
+#include "drape_frontend/area_shape.hpp"
+#include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/text_shape.hpp"
+#include "drape_frontend/poi_symbol_shape.hpp"
+#include "drape_frontend/path_symbol_shape.hpp"
+#include "drape_frontend/circle_shape.hpp"
+#include "drape_frontend/path_text_shape.hpp"
 
-#include "../indexer/drawing_rules.hpp"
-#include "../indexer/drules_include.hpp"
+#include "indexer/drawing_rules.hpp"
+#include "indexer/drules_include.hpp"
 
-#include "../drape/color.hpp"
-#include "../drape/stipple_pen_resource.hpp"
+#include "drape/color.hpp"
+#include "drape/stipple_pen_resource.hpp"
 
-#include "../graphics/defines.hpp"
+#include "graphics/defines.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/utility.hpp"
+#include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 namespace df
 {

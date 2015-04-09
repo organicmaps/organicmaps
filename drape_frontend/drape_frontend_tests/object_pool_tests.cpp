@@ -1,7 +1,7 @@
-#include "../../base/SRC_FIRST.hpp"
-#include "../../testing/testing.hpp"
+#include "base/SRC_FIRST.hpp"
+#include "testing/testing.hpp"
 
-#include "../../drape/object_pool.hpp"
+#include "drape/object_pool.hpp"
 
 class vec2
 {

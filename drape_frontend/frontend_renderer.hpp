@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/thread.hpp"
+#include "base/thread.hpp"
 
 #ifdef DRAW_INFO
   #include "../base/timer.hpp"
@@ -8,24 +8,24 @@
   #include "../std/numeric.hpp"
 #endif
 
-#include "message_acceptor.hpp"
-#include "threads_commutator.hpp"
-#include "tile_info.hpp"
-#include "backend_renderer.hpp"
-#include "render_group.hpp"
+#include "drape_frontend/message_acceptor.hpp"
+#include "drape_frontend/threads_commutator.hpp"
+#include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/backend_renderer.hpp"
+#include "drape_frontend/render_group.hpp"
 
-#include "../drape/pointers.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/vertex_array_buffer.hpp"
-#include "../drape/gpu_program_manager.hpp"
-#include "../drape/oglcontextfactory.hpp"
-#include "../drape/overlay_tree.hpp"
+#include "drape/pointers.hpp"
+#include "drape/glstate.hpp"
+#include "drape/vertex_array_buffer.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/oglcontextfactory.hpp"
+#include "drape/overlay_tree.hpp"
 
-#include "../drape/uniform_values_storage.hpp"
+#include "drape/uniform_values_storage.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace dp { class RenderBucket; }
 

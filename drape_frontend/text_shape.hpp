@@ -1,10 +1,10 @@
 #pragma once
 
-#include "map_shape.hpp"
-#include "shape_view_params.hpp"
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../drape/glsl_types.hpp"
+#include "geometry/point2d.hpp"
+#include "drape/glsl_types.hpp"
 
 namespace df
 {

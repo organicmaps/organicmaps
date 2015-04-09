@@ -1,13 +1,13 @@
-#include "text_layout.hpp"
-#include "fribidi.hpp"
+#include "drape_frontend/text_layout.hpp"
+#include "drape_frontend/fribidi.hpp"
 
-#include "../drape/glsl_func.hpp"
+#include "drape/glsl_func.hpp"
 
-#include "../drape/overlay_handle.hpp"
+#include "drape/overlay_handle.hpp"
 
-#include "../std/numeric.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/numeric.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

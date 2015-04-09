@@ -1,13 +1,13 @@
 #pragma once
 
-#include "tile_key.hpp"
+#include "drape_frontend/tile_key.hpp"
 
-#include "../drape/pointers.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/render_bucket.hpp"
+#include "drape/pointers.hpp"
+#include "drape/glstate.hpp"
+#include "drape/render_bucket.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/set.hpp"
+#include "std/vector.hpp"
+#include "std/set.hpp"
 
 class ScreenBase;
 namespace dp { class OverlayTree; }

@@ -1,14 +1,14 @@
-#include "engine_context.hpp"
+#include "drape_frontend/engine_context.hpp"
 
 //#define DRAW_TILE_NET
 
-#include "message_subclasses.hpp"
-#include "map_shape.hpp"
+#include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/map_shape.hpp"
 #ifdef DRAW_TILE_NET
-#include "line_shape.hpp"
-#include "text_shape.hpp"
+#include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/text_shape.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 #endif
 
 namespace df

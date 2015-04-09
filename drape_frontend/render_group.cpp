@@ -1,9 +1,9 @@
-#include "render_group.hpp"
+#include "drape_frontend/render_group.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../geometry/screenbase.hpp"
+#include "base/stl_add.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

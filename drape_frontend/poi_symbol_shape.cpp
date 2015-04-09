@@ -1,12 +1,12 @@
-#include "poi_symbol_shape.hpp"
+#include "drape_frontend/poi_symbol_shape.hpp"
 
-#include "../drape/utils/vertex_decl.hpp"
-#include "../drape/attribute_provider.hpp"
-#include "../drape/texture_manager.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/batcher.hpp"
+#include "drape/utils/vertex_decl.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/glstate.hpp"
+#include "drape/batcher.hpp"
 
-#include "../drape/shader_def.hpp"
+#include "drape/shader_def.hpp"
 
 namespace df
 {

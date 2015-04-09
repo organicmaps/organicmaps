@@ -1,6 +1,6 @@
-#include "message.hpp"
+#include "drape_frontend/message.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 namespace df
 {

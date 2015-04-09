@@ -1,4 +1,4 @@
-#include "map_data_provider.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 
 namespace df
 {

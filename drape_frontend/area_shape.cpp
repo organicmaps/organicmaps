@@ -1,16 +1,16 @@
-#include "area_shape.hpp"
+#include "drape_frontend/area_shape.hpp"
 
-#include "../drape/shader_def.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/batcher.hpp"
-#include "../drape/attribute_provider.hpp"
-#include "../drape/texture_manager.hpp"
-#include "../drape/utils/vertex_decl.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/glstate.hpp"
+#include "drape/batcher.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
-#include "../base/buffer_vector.hpp"
-#include "../base/logging.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 namespace df
 {

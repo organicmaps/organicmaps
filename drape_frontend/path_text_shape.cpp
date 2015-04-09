@@ -1,24 +1,24 @@
-#include "path_text_shape.hpp"
-#include "text_layout.hpp"
-#include "visual_params.hpp"
-#include "intrusive_vector.hpp"
+#include "drape_frontend/path_text_shape.hpp"
+#include "drape_frontend/text_layout.hpp"
+#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/intrusive_vector.hpp"
 
-#include "../drape/shader_def.hpp"
-#include "../drape/attribute_provider.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/batcher.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/glstate.hpp"
+#include "drape/batcher.hpp"
 
-#include "../base/math.hpp"
-#include "../base/logging.hpp"
-#include "../base/stl_add.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/timer.hpp"
-#include "../base/matrix.hpp"
+#include "base/math.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
+#include "base/timer.hpp"
+#include "base/matrix.hpp"
 
-#include "../geometry/transformations.hpp"
+#include "geometry/transformations.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 using m2::Spline;
 

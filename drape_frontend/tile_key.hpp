@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
 namespace df
 {

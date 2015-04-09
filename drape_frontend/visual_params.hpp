@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/stdint.hpp"
+#include "std/stdint.hpp"
 
-#include "../std/noncopyable.hpp"
+#include "std/noncopyable.hpp"
 
 namespace df
 {

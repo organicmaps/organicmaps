@@ -1,11 +1,11 @@
-#include "drape_engine.hpp"
+#include "drape_frontend/drape_engine.hpp"
 
-#include "message_subclasses.hpp"
-#include "visual_params.hpp"
+#include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/visual_params.hpp"
 
-#include "../drape/texture_manager.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

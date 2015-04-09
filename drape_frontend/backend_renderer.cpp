@@ -1,18 +1,18 @@
-#include "backend_renderer.hpp"
-#include "read_manager.hpp"
-#include "batchers_pool.hpp"
-#include "visual_params.hpp"
-#include "map_shape.hpp"
+#include "drape_frontend/backend_renderer.hpp"
+#include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/batchers_pool.hpp"
+#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/map_shape.hpp"
 
-#include "threads_commutator.hpp"
-#include "message_subclasses.hpp"
+#include "drape_frontend/threads_commutator.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 
-#include "../drape/oglcontextfactory.hpp"
-#include "../drape/texture_manager.hpp"
+#include "drape/oglcontextfactory.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

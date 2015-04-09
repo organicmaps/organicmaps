@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../indexer/feature_decl.hpp"
-#include "../base/mutex.hpp"
+#include "indexer/feature_decl.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/set.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
-#include "../std/noncopyable.hpp"
+#include "std/set.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
+#include "std/noncopyable.hpp"
 
 namespace df
 {

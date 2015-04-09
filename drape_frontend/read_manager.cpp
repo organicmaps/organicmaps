@@ -1,13 +1,13 @@
-#include "read_manager.hpp"
-#include "visual_params.hpp"
+#include "drape_frontend/read_manager.hpp"
+#include "drape_frontend/visual_params.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/buffer_vector.hpp"
-#include "../base/stl_add.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/algorithm.hpp"
+#include "std/bind.hpp"
+#include "std/algorithm.hpp"
 
 namespace df
 {

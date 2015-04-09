@@ -1,18 +1,18 @@
 #pragma once
 
-#include "message.hpp"
-#include "viewport.hpp"
-#include "tile_key.hpp"
+#include "drape_frontend/message.hpp"
+#include "drape_frontend/viewport.hpp"
+#include "drape_frontend/tile_key.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../drape/glstate.hpp"
-#include "../drape/pointers.hpp"
-#include "../drape/render_bucket.hpp"
+#include "drape/glstate.hpp"
+#include "drape/pointers.hpp"
+#include "drape/render_bucket.hpp"
 
-#include "../std/shared_ptr.hpp"
-#include "../std/set.hpp"
+#include "std/shared_ptr.hpp"
+#include "std/set.hpp"
 
 namespace df
 {

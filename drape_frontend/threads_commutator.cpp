@@ -1,8 +1,8 @@
-#include "threads_commutator.hpp"
+#include "drape_frontend/threads_commutator.hpp"
 
-#include "message_acceptor.hpp"
+#include "drape_frontend/message_acceptor.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 namespace df
 {

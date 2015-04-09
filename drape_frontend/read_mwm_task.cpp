@@ -1,6 +1,6 @@
-#include "read_mwm_task.hpp"
+#include "drape_frontend/read_mwm_task.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace df
 {

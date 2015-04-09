@@ -1,14 +1,14 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../memory_feature_index.hpp"
+#include "drape_frontend/memory_feature_index.hpp"
 
-#include "../../base/thread.hpp"
-#include "../../base/thread_pool.hpp"
-#include "../../base/condition.hpp"
+#include "base/thread.hpp"
+#include "base/thread_pool.hpp"
+#include "base/condition.hpp"
 
-#include "../../std/vector.hpp"
-#include "../../std/set.hpp"
-#include "../../std/bind.hpp"
+#include "std/vector.hpp"
+#include "std/set.hpp"
+#include "std/bind.hpp"
 
 #include <cstdlib>
 #include <ctime>

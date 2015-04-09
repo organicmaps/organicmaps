@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../indexer/feature.hpp"
+#include "indexer/feature.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 namespace df
 {

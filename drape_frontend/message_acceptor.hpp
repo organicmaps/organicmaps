@@ -1,8 +1,8 @@
 #pragma once
 
-#include "message_queue.hpp"
+#include "drape_frontend/message_queue.hpp"
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
 namespace df
 {

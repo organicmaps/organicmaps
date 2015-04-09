@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../indexer/feature_data.hpp"
+#include "indexer/feature_data.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/function.hpp"
-#include "../std/string.hpp"
+#include "std/function.hpp"
+#include "std/string.hpp"
 
 class FeatureType;
 

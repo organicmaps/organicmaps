@@ -1,9 +1,9 @@
 #pragma once
 
-#include "map_shape.hpp"
-#include "shape_view_params.hpp"
+#include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 
-#include "../geometry/spline.hpp"
+#include "geometry/spline.hpp"
 
 namespace df
 {

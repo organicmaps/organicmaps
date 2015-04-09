@@ -1,12 +1,12 @@
 #pragma once
 
-#include "message.hpp"
+#include "drape_frontend/message.hpp"
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
-#include "../base/condition.hpp"
+#include "base/condition.hpp"
 
-#include "../std/list.hpp"
+#include "std/list.hpp"
 
 namespace df
 {

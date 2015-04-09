@@ -1,13 +1,13 @@
-#include "visual_params.hpp"
+#include "drape_frontend/visual_params.hpp"
 
-#include "../base/macros.hpp"
-#include "../base/math.hpp"
-#include "../base/assert.hpp"
+#include "base/macros.hpp"
+#include "base/math.hpp"
+#include "base/assert.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../std/limits.hpp"
-#include "../std/algorithm.hpp"
+#include "std/limits.hpp"
+#include "std/algorithm.hpp"
 
 namespace df
 {

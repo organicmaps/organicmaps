@@ -1,8 +1,8 @@
 #pragma once
 
-#include "threads_commutator.hpp"
+#include "drape_frontend/threads_commutator.hpp"
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
 namespace df
 {

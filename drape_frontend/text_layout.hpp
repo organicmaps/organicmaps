@@ -1,21 +1,21 @@
 #pragma once
 
-#include "shape_view_params.hpp"
-#include "intrusive_vector.hpp"
+#include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/intrusive_vector.hpp"
 
-#include "../drape/utils/vertex_decl.hpp"
-#include "../drape/glsl_types.hpp"
-#include "../drape/pointers.hpp"
-#include "../drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../geometry/spline.hpp"
-#include "../geometry/screenbase.hpp"
+#include "geometry/spline.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/buffer_vector.hpp"
+#include "base/string_utils.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace dp
 {

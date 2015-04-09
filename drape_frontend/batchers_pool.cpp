@@ -1,11 +1,11 @@
-#include "batchers_pool.hpp"
-#include "message_subclasses.hpp"
+#include "drape_frontend/batchers_pool.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 
-#include "../drape/batcher.hpp"
+#include "drape/batcher.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

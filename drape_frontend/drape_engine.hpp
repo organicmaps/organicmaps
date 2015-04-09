@@ -1,13 +1,13 @@
 #pragma once
 
-#include "frontend_renderer.hpp"
-#include "backend_renderer.hpp"
-#include "threads_commutator.hpp"
+#include "drape_frontend/frontend_renderer.hpp"
+#include "drape_frontend/backend_renderer.hpp"
+#include "drape_frontend/threads_commutator.hpp"
 
-#include "../drape/pointers.hpp"
-#include "../drape/texture_manager.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
 namespace dp { class OGLContextFactory; }
 

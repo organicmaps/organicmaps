@@ -1,12 +1,12 @@
-#include "stylist.hpp"
+#include "drape_frontend/stylist.hpp"
 
-#include "../indexer/feature.hpp"
-#include "../indexer/feature_visibility.hpp"
-#include "../indexer/drawing_rules.hpp"
-#include "../indexer/drules_include.hpp"
-#include "../indexer/scales.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_visibility.hpp"
+#include "indexer/drawing_rules.hpp"
+#include "indexer/drules_include.hpp"
+#include "indexer/scales.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

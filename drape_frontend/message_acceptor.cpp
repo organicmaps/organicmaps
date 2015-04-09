@@ -1,6 +1,6 @@
-#include "message_acceptor.hpp"
+#include "drape_frontend/message_acceptor.hpp"
 
-#include "message.hpp"
+#include "drape_frontend/message.hpp"
 
 namespace df
 {

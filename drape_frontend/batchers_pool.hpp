@@ -1,14 +1,14 @@
 #pragma once
 
-#include "tile_info.hpp"
+#include "drape_frontend/tile_info.hpp"
 
-#include "../drape/pointers.hpp"
-#include "../drape/object_pool.hpp"
-#include "../drape/batcher.hpp"
+#include "drape/pointers.hpp"
+#include "drape/object_pool.hpp"
+#include "drape/batcher.hpp"
 
-#include "../std/map.hpp"
-#include "../std/stack.hpp"
-#include "../std/function.hpp"
+#include "std/map.hpp"
+#include "std/stack.hpp"
+#include "std/function.hpp"
 
 namespace df
 {

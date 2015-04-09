@@ -1,13 +1,13 @@
 #pragma once
 
-#include "message_acceptor.hpp"
-#include "engine_context.hpp"
-#include "viewport.hpp"
-#include "map_data_provider.hpp"
+#include "drape_frontend/message_acceptor.hpp"
+#include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/viewport.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
-#include "../base/thread.hpp"
+#include "base/thread.hpp"
 
 namespace dp
 {

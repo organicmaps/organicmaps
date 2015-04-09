@@ -1,14 +1,14 @@
-#include "tile_info.hpp"
-#include "engine_context.hpp"
-#include "stylist.hpp"
-#include "rule_drawer.hpp"
-#include "map_data_provider.hpp"
+#include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/rule_drawer.hpp"
+#include "drape_frontend/map_data_provider.hpp"
 
-#include "../indexer/scales.hpp"
+#include "indexer/scales.hpp"
 
-#include "../base/scope_guard.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 namespace

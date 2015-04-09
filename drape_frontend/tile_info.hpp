@@ -1,15 +1,15 @@
 #pragma once
 
-#include "tile_key.hpp"
-#include "memory_feature_index.hpp"
+#include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/memory_feature_index.hpp"
 
-#include "../indexer/feature_decl.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../base/mutex.hpp"
-#include "../base/exception.hpp"
+#include "base/mutex.hpp"
+#include "base/exception.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/noncopyable.hpp"
+#include "std/vector.hpp"
+#include "std/noncopyable.hpp"
 
 class FeatureType;
 

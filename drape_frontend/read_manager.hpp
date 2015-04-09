@@ -1,19 +1,19 @@
 #pragma once
 
-#include "memory_feature_index.hpp"
-#include "engine_context.hpp"
-#include "tile_info.hpp"
-#include "read_mwm_task.hpp"
+#include "drape_frontend/memory_feature_index.hpp"
+#include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/read_mwm_task.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../drape/pointers.hpp"
-#include "../drape/object_pool.hpp"
+#include "drape/pointers.hpp"
+#include "drape/object_pool.hpp"
 
-#include "../base/thread_pool.hpp"
+#include "base/thread_pool.hpp"
 
-#include "../std/set.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/set.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace df
 {

@@ -1,5 +1,5 @@
-#include "viewport.hpp"
-#include "../drape/glfunctions.hpp"
+#include "drape_frontend/viewport.hpp"
+#include "drape/glfunctions.hpp"
 
 namespace df
 {

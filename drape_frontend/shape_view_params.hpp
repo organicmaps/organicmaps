@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../drape/drape_global.hpp"
-#include "../drape/color.hpp"
-#include "../drape/stipple_pen_resource.hpp"
+#include "drape/drape_global.hpp"
+#include "drape/color.hpp"
+#include "drape/stipple_pen_resource.hpp"
 
-#include "../indexer/feature_decl.hpp"
-#include "../geometry/point2d.hpp"
+#include "indexer/feature_decl.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 namespace df
 {

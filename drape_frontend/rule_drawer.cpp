@@ -1,14 +1,14 @@
-#include "rule_drawer.hpp"
-#include "stylist.hpp"
-#include "engine_context.hpp"
-#include "apply_feature_functors.hpp"
-#include "visual_params.hpp"
+#include "drape_frontend/rule_drawer.hpp"
+#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/apply_feature_functors.hpp"
+#include "drape_frontend/visual_params.hpp"
 
-#include "../indexer/feature.hpp"
-#include "../indexer/feature_algo.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 
-#include "../base/assert.hpp"
-#include "../std/bind.hpp"
+#include "base/assert.hpp"
+#include "std/bind.hpp"
 
 namespace df
 {

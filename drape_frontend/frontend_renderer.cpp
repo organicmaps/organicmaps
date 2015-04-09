@@ -1,15 +1,15 @@
-#include "frontend_renderer.hpp"
-#include "message_subclasses.hpp"
-#include "visual_params.hpp"
+#include "drape_frontend/frontend_renderer.hpp"
+#include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/visual_params.hpp"
 
-#include "../base/timer.hpp"
-#include "../base/assert.hpp"
-#include "../base/stl_add.hpp"
+#include "base/timer.hpp"
+#include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
-#include "../geometry/any_rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/cmath.hpp"
+#include "std/bind.hpp"
+#include "std/cmath.hpp"
 
 namespace df
 {

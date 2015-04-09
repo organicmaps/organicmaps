@@ -1,12 +1,12 @@
 #pragma once
 
-#include "stylist.hpp"
-#include "tile_key.hpp"
+#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/tile_key.hpp"
 
-#include "../indexer/point_to_int64.hpp"
+#include "indexer/point_to_int64.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/spline.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/spline.hpp"
 
 class CircleRuleProto;
 class SymbolRuleProto;

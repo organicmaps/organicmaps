@@ -1,14 +1,14 @@
 #pragma once
 
-#include "tile_info.hpp"
+#include "drape_frontend/tile_info.hpp"
 
-#include "../base/thread.hpp"
+#include "base/thread.hpp"
 
 #ifdef DEBUG
-#include "../base/object_tracker.hpp"
+#include "base/object_tracker.hpp"
 #endif
 
-#include "../std/weak_ptr.hpp"
+#include "std/weak_ptr.hpp"
 
 namespace df
 {

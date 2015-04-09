@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/stdint.hpp"
+#include "std/stdint.hpp"
 
 namespace df
 {

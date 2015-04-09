@@ -1,9 +1,9 @@
 #pragma once
 
-#include "message.hpp"
-#include "tile_info.hpp"
+#include "drape_frontend/message.hpp"
+#include "drape_frontend/tile_info.hpp"
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
 namespace dp
 {
