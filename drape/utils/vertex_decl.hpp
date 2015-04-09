@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../glsl_types.hpp"
-#include "../binding_info.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/binding_info.hpp"
 
-#include "../../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 namespace gpu
 {

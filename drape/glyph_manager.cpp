@@ -1,14 +1,14 @@
-#include "glyph_manager.hpp"
-#include "sdf_image.h"
+#include "drape/glyph_manager.hpp"
+#include "drape/sdf_image.h"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/reader.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
-#include "../base/timer.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/math.hpp"
+#include "base/timer.hpp"
 
 #include <ft2build.h>
 #include FT_TYPES_H

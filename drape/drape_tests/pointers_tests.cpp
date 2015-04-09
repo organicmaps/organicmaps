@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
-#include "../../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/shared_ptr.hpp"
 
 #include <gmock/gmock.h>
 

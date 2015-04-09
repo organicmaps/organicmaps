@@ -1,5 +1,5 @@
-#include "../../testing/testing.hpp"
-#include "../font_texture.hpp"
+#include "testing/testing.hpp"
+#include "drape/font_texture.hpp"
 
 UNIT_TEST(SimplePackTest)
 {

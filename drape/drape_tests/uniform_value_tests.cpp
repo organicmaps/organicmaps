@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../gpu_program_manager.hpp"
-#include "../gpu_program.hpp"
-#include "../shader_def.hpp"
-#include "../uniform_value.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/gpu_program.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/uniform_value.hpp"
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
-#include "../../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 #include <gmock/gmock.h>
 

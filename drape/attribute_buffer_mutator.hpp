@@ -1,12 +1,12 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "binding_info.hpp"
+#include "drape/pointers.hpp"
+#include "drape/binding_info.hpp"
 
-#include "../base/shared_buffer_manager.hpp"
+#include "base/shared_buffer_manager.hpp"
 
-#include "../std/stdint.hpp"
-#include "../std/map.hpp"
+#include "std/stdint.hpp"
+#include "std/map.hpp"
 
 namespace dp
 {

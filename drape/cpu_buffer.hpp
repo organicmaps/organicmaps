@@ -1,9 +1,9 @@
 #pragma once
 
-#include "buffer_base.hpp"
+#include "drape/buffer_base.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace dp
 {

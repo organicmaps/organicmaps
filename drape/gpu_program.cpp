@@ -1,8 +1,8 @@
-#include "gpu_program.hpp"
-#include "glfunctions.hpp"
+#include "drape/gpu_program.hpp"
+#include "drape/glfunctions.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #ifdef DEBUG
   #include "../std/map.hpp"

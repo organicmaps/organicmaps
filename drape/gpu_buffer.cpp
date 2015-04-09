@@ -1,10 +1,10 @@
-#include "gpu_buffer.hpp"
-#include "glfunctions.hpp"
-#include "glextensions_list.hpp"
+#include "drape/gpu_buffer.hpp"
+#include "drape/glfunctions.hpp"
+#include "drape/glextensions_list.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 namespace dp
 {

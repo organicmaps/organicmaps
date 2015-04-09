@@ -1,16 +1,16 @@
 #pragma once
 
-#include "drape_global.hpp"
-#include "pointers.hpp"
-#include "texture.hpp"
-#include "dynamic_texture.hpp"
+#include "drape/drape_global.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture.hpp"
+#include "drape/dynamic_texture.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace dp
 {

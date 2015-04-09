@@ -1,19 +1,19 @@
-#include "texture_manager.hpp"
-#include "symbols_texture.hpp"
-#include "font_texture.hpp"
-#include "stipple_pen_resource.hpp"
-#include "texture_of_colors.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/symbols_texture.hpp"
+#include "drape/font_texture.hpp"
+#include "drape/stipple_pen_resource.hpp"
+#include "drape/texture_of_colors.hpp"
 
-#include "glfunctions.hpp"
+#include "drape/glfunctions.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/file_name_utils.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/bind.hpp"
+#include "std/vector.hpp"
+#include "std/bind.hpp"
 
 namespace dp
 {

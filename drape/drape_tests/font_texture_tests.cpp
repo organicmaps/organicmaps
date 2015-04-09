@@ -1,19 +1,19 @@
-#include "../../testing/testing.hpp"
-#include "img.hpp"
-#include "dummy_texture.hpp"
+#include "testing/testing.hpp"
+#include "drape/drape_tests/img.hpp"
+#include "drape/drape_tests/dummy_texture.hpp"
 
-#include "../font_texture.hpp"
-#include "../glyph_manager.hpp"
+#include "drape/font_texture.hpp"
+#include "drape/glyph_manager.hpp"
 
-#include "../../platform/platform.hpp"
-#include "../../qt_tstfrm/test_main_loop.hpp"
+#include "platform/platform.hpp"
+#include "qt_tstfrm/test_main_loop.hpp"
 
-#include "../../std/bind.hpp"
+#include "std/bind.hpp"
 
 #include <QtGui/QPainter>
 #include <QtCore/QPoint>
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
 #include <gmock/gmock.h>
 

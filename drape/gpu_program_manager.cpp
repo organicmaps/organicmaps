@@ -1,8 +1,8 @@
-#include "gpu_program_manager.hpp"
-#include "shader_def.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/shader_def.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/assert.hpp"
+#include "base/stl_add.hpp"
+#include "base/assert.hpp"
 
 namespace dp
 {

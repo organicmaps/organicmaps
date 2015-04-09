@@ -1,5 +1,5 @@
-#include "buffer_base.hpp"
-#include "../base/assert.hpp"
+#include "drape/buffer_base.hpp"
+#include "base/assert.hpp"
 
 namespace dp
 {

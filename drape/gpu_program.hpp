@@ -1,10 +1,10 @@
 #pragma once
 
-#include "shader.hpp"
-#include "pointers.hpp"
-#include "glconstants.hpp"
+#include "drape/shader.hpp"
+#include "drape/pointers.hpp"
+#include "drape/glconstants.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 #ifdef DEBUG
   #include "../std/unique_ptr.hpp"

@@ -1,6 +1,6 @@
 #include <gmock/internal/gmock-internal-utils.h>
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
 namespace testing
 {

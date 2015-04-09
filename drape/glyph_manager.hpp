@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../base/shared_buffer_manager.hpp"
-#include "../base/string_utils.hpp"
+#include "base/shared_buffer_manager.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/unique_ptr.hpp"
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 namespace dp
 {

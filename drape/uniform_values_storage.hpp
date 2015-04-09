@@ -1,10 +1,10 @@
 #pragma once
 
-#include "uniform_value.hpp"
+#include "drape/uniform_value.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/function.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/function.hpp"
 
 namespace dp
 {

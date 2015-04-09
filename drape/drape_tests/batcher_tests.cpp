@@ -1,21 +1,21 @@
-#include "../../testing/testing.hpp"
-#include "memory_comparer.hpp"
+#include "testing/testing.hpp"
+#include "drape/drape_tests/memory_comparer.hpp"
 
-#include "../glconstants.hpp"
-#include "../batcher.hpp"
-#include "../gpu_program_manager.hpp"
-#include "../shader_def.hpp"
-#include "../vertex_array_buffer.hpp"
+#include "drape/glconstants.hpp"
+#include "drape/batcher.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
-#include "../../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/bind.hpp"
-#include "../../std/scoped_ptr.hpp"
-#include "../../std/cstring.hpp"
-#include "../../std/function.hpp"
-#include "../../std/bind.hpp"
+#include "std/bind.hpp"
+#include "std/scoped_ptr.hpp"
+#include "std/cstring.hpp"
+#include "std/function.hpp"
+#include "std/bind.hpp"
 
 #include <gmock/gmock.h>
 

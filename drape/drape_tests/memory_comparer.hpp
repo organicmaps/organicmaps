@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../../testing/testing.hpp"
-#include "../glconstants.hpp"
-#include "../../base/logging.hpp"
+#include "testing/testing.hpp"
+#include "drape/glconstants.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 namespace dp
 {

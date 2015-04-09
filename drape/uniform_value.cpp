@@ -1,7 +1,7 @@
-#include "uniform_value.hpp"
-#include "glfunctions.hpp"
-#include "../base/assert.hpp"
-#include "../std/cstring.hpp"
+#include "drape/uniform_value.hpp"
+#include "drape/glfunctions.hpp"
+#include "base/assert.hpp"
+#include "std/cstring.hpp"
 
 namespace dp
 {

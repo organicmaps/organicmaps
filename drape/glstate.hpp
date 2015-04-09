@@ -1,9 +1,9 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "texture.hpp"
-#include "gpu_program.hpp"
-#include "uniform_values_storage.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture.hpp"
+#include "drape/gpu_program.hpp"
+#include "drape/uniform_values_storage.hpp"
 
 namespace dp
 {

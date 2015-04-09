@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../base/assert.hpp"
-#include "../base/mutex.hpp"
+#include "base/assert.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace dp
 {

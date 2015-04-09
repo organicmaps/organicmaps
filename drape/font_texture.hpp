@@ -1,13 +1,13 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "texture.hpp"
-#include "glyph_manager.hpp"
-#include "dynamic_texture.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture.hpp"
+#include "drape/glyph_manager.hpp"
+#include "drape/dynamic_texture.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
+#include "std/map.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 namespace dp
 {

@@ -1,5 +1,5 @@
-#include "attribute_provider.hpp"
-#include "../base/assert.hpp"
+#include "drape/attribute_provider.hpp"
+#include "base/assert.hpp"
 
 #ifdef DEBUG
   #define INIT_CHECK_INFO(x) m_checkInfo = vector<bool>((vector<bool>::size_type)(x), false);

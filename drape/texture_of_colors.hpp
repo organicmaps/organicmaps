@@ -1,10 +1,10 @@
 #pragma once
 
-#include "texture.hpp"
-#include "color.hpp"
-#include "dynamic_texture.hpp"
+#include "drape/texture.hpp"
+#include "drape/color.hpp"
+#include "drape/dynamic_texture.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 namespace dp
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "binding_info.hpp"
+#include "drape/pointers.hpp"
+#include "drape/binding_info.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 namespace dp
 {

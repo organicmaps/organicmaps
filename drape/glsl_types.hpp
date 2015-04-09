@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
 #include <glm_config.hpp>
 #include <glm/vec2.hpp>

@@ -1,17 +1,17 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "img.hpp"
+#include "drape/drape_tests/img.hpp"
 
 #include <QtGui/QPainter>
 
-#include "../../qt_tstfrm/test_main_loop.hpp"
+#include "qt_tstfrm/test_main_loop.hpp"
 
-#include "../glyph_manager.hpp"
-#include "../../platform/platform.hpp"
+#include "drape/glyph_manager.hpp"
+#include "platform/platform.hpp"
 
-#include "../../std/cstring.hpp"
-#include "../../std/function.hpp"
-#include "../../std/bind.hpp"
+#include "std/cstring.hpp"
+#include "std/function.hpp"
+#include "std/bind.hpp"
 
 namespace
 {

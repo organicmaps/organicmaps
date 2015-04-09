@@ -1,4 +1,4 @@
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
 namespace emul
 {

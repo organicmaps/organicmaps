@@ -1,6 +1,6 @@
-#include "overlay_handle.hpp"
+#include "drape/overlay_handle.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
 namespace dp
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../std/noncopyable.hpp"
+#include "std/noncopyable.hpp"
 
 namespace dp
 {

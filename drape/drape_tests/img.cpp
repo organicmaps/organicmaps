@@ -1,4 +1,4 @@
-#include "img.hpp"
+#include "drape/drape_tests/img.hpp"
 
 void cleanUpQImageMemory(void * mem)
 {

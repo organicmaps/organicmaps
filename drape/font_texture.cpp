@@ -1,18 +1,18 @@
-#include "font_texture.hpp"
-#include "pointers.hpp"
-#include "utils/stb_image.h"
+#include "drape/font_texture.hpp"
+#include "drape/pointers.hpp"
+#include "drape/utils/stb_image.h"
 
-#include "../platform/platform.hpp"
-#include "../coding/reader.hpp"
+#include "platform/platform.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/map.hpp"
-#include "../std/bind.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/map.hpp"
+#include "std/bind.hpp"
 
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>

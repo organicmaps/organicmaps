@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
-#include "../gpu_buffer.hpp"
-#include "../data_buffer.hpp"
-#include "../index_buffer.hpp"
+#include "drape/gpu_buffer.hpp"
+#include "drape/data_buffer.hpp"
+#include "drape/index_buffer.hpp"
 
-#include "../../std/cstdlib.hpp"
+#include "std/cstdlib.hpp"
 
 #include <gmock/gmock.h>
 

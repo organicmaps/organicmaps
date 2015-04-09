@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "color.hpp"
-#include "pointers.hpp"
-#include "texture.hpp"
-#include "glyph_manager.hpp"
+#include "drape/color.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture.hpp"
+#include "drape/glyph_manager.hpp"
 
 namespace dp
 {

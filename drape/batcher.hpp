@@ -1,13 +1,13 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "glstate.hpp"
-#include "render_bucket.hpp"
-#include "attribute_provider.hpp"
-#include "overlay_handle.hpp"
+#include "drape/pointers.hpp"
+#include "drape/glstate.hpp"
+#include "drape/render_bucket.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/overlay_handle.hpp"
 
-#include "../std/map.hpp"
-#include "../std/function.hpp"
+#include "std/map.hpp"
+#include "std/function.hpp"
 
 namespace dp
 {

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "glfunctions.hpp"
+#include "drape/glfunctions.hpp"
 
-#include "../std/string.hpp"
-#include "../std/shared_array.hpp"
+#include "std/string.hpp"
+#include "std/shared_array.hpp"
 
 namespace dp
 {

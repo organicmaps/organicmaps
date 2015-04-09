@@ -1,17 +1,17 @@
 #pragma once
 
-#include "drape_global.hpp"
-#include "binding_info.hpp"
-#include "index_buffer_mutator.hpp"
-#include "attribute_buffer_mutator.hpp"
+#include "drape/drape_global.hpp"
+#include "drape/binding_info.hpp"
+#include "drape/index_buffer_mutator.hpp"
+#include "drape/attribute_buffer_mutator.hpp"
 
-#include "../indexer/feature_decl.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../geometry/screenbase.hpp"
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
 namespace dp
 {

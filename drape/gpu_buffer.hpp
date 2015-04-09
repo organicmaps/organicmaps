@@ -1,7 +1,7 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "buffer_base.hpp"
+#include "drape/pointers.hpp"
+#include "drape/buffer_base.hpp"
 
 namespace dp
 {

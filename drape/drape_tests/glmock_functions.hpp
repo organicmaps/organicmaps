@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../glconstants.hpp"
-#include "../../std/string.hpp"
+#include "drape/glconstants.hpp"
+#include "std/string.hpp"
 
 #include <gmock/gmock.h>
 

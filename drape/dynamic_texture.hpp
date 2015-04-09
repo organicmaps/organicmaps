@@ -1,7 +1,7 @@
 #pragma once
 
-#include "texture.hpp"
-#include "glconstants.hpp"
+#include "drape/texture.hpp"
+#include "drape/glconstants.hpp"
 
 namespace dp
 {

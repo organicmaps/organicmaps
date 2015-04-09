@@ -1,14 +1,14 @@
 #pragma once
 
-#include "index_buffer_mutator.hpp"
-#include "attribute_buffer_mutator.hpp"
-#include "pointers.hpp"
-#include "index_buffer.hpp"
-#include "data_buffer.hpp"
-#include "binding_info.hpp"
-#include "gpu_program.hpp"
+#include "drape/index_buffer_mutator.hpp"
+#include "drape/attribute_buffer_mutator.hpp"
+#include "drape/pointers.hpp"
+#include "drape/index_buffer.hpp"
+#include "drape/data_buffer.hpp"
+#include "drape/binding_info.hpp"
+#include "drape/gpu_program.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace dp
 {

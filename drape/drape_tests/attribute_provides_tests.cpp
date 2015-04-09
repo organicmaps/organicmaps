@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../attribute_provider.hpp"
+#include "drape/attribute_provider.hpp"
 
 #include <gmock/gmock.h>
 

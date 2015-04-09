@@ -1,14 +1,14 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "memory_comparer.hpp"
-#include "dummy_texture.hpp"
+#include "drape/drape_tests/memory_comparer.hpp"
+#include "drape/drape_tests/dummy_texture.hpp"
 
-#include "../glconstants.hpp"
-#include "../stipple_pen_resource.hpp"
-#include "../texture.hpp"
+#include "drape/glconstants.hpp"
+#include "drape/stipple_pen_resource.hpp"
+#include "drape/texture.hpp"
 
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
 #include <gmock/gmock.h>
 

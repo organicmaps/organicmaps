@@ -1,4 +1,4 @@
-#include "index_buffer.hpp"
+#include "drape/index_buffer.hpp"
 
 namespace dp
 {

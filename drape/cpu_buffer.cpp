@@ -1,10 +1,10 @@
-#include "cpu_buffer.hpp"
+#include "drape/cpu_buffer.hpp"
 
-#include "../base/math.hpp"
-#include "../base/shared_buffer_manager.hpp"
-#include "../base/assert.hpp"
+#include "base/math.hpp"
+#include "base/shared_buffer_manager.hpp"
+#include "base/assert.hpp"
 
-#include "../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 namespace dp
 {

@@ -1,17 +1,17 @@
-#include "../../testing/testregister.hpp"
-#include "../../testing/testing.hpp"
+#include "testing/testregister.hpp"
+#include "testing/testing.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/scope_guard.hpp"
+#include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../../std/algorithm.hpp"
-#include "../../std/iostream.hpp"
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/target_os.hpp"
-#include "../../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/iostream.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/target_os.hpp"
+#include "std/bind.hpp"
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP

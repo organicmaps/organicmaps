@@ -1,9 +1,9 @@
 #pragma once
 
-#include "texture.hpp"
+#include "drape/texture.hpp"
 
-#include "../std/string.hpp"
-#include "../std/map.hpp"
+#include "std/string.hpp"
+#include "std/map.hpp"
 
 namespace dp
 {

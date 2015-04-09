@@ -1,11 +1,11 @@
-#include "batcher.hpp"
-#include "cpu_buffer.hpp"
-#include "batcher_helpers.hpp"
-#include "vertex_array_buffer.hpp"
+#include "drape/batcher.hpp"
+#include "drape/cpu_buffer.hpp"
+#include "drape/batcher_helpers.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace dp
 {

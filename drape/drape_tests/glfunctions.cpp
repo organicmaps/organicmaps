@@ -1,7 +1,7 @@
-#include "../glfunctions.hpp"
-#include "glmock_functions.hpp"
+#include "drape/glfunctions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
-#include "../../base/assert.hpp"
+#include "base/assert.hpp"
 
 using namespace emul;
 

@@ -1,19 +1,19 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../drape/shader_def.hpp"
-#include "../../drape/shader.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/shader.hpp"
 
-#include "../glconstants.hpp"
+#include "drape/glconstants.hpp"
 
-#include "glmock_functions.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
 
-#include "../../base/scope_guard.hpp"
-#include "../../platform/platform.hpp"
+#include "base/scope_guard.hpp"
+#include "platform/platform.hpp"
 
-#include "../../std/sstream.hpp"
-#include "../../std/target_os.hpp"
-#include "../../std/vector.hpp"
-#include "../../std/string.hpp"
+#include "std/sstream.hpp"
+#include "std/target_os.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 #include <QtCore/QProcess>
 #include <QtCore/QDebug>

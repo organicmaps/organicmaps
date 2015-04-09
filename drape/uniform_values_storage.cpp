@@ -1,9 +1,9 @@
-#include "uniform_values_storage.hpp"
+#include "drape/uniform_values_storage.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 namespace dp
 {

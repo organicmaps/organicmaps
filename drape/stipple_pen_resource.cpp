@@ -1,12 +1,12 @@
-#include "stipple_pen_resource.hpp"
+#include "drape/stipple_pen_resource.hpp"
 
-#include "texture.hpp"
+#include "drape/texture.hpp"
 
-#include "../base/shared_buffer_manager.hpp"
+#include "base/shared_buffer_manager.hpp"
 
-#include "../std/numeric.hpp"
-#include "../std/sstream.hpp"
-#include "../std/cstring.hpp"
+#include "std/numeric.hpp"
+#include "std/sstream.hpp"
+#include "std/cstring.hpp"
 
 namespace dp
 {

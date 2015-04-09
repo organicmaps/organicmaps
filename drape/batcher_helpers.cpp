@@ -1,10 +1,10 @@
-#include "batcher_helpers.hpp"
-#include "attribute_provider.hpp"
-#include "cpu_buffer.hpp"
+#include "drape/batcher_helpers.hpp"
+#include "drape/attribute_provider.hpp"
+#include "drape/cpu_buffer.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 namespace dp
 {

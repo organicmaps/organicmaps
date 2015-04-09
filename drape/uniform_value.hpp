@@ -1,11 +1,11 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "gpu_program.hpp"
+#include "drape/pointers.hpp"
+#include "drape/gpu_program.hpp"
 
-#include "../std/string.hpp"
-#include "../std/shared_array.hpp"
-#include "../std/cstring.hpp"
+#include "std/string.hpp"
+#include "std/shared_array.hpp"
+#include "std/cstring.hpp"
 
 namespace dp
 {

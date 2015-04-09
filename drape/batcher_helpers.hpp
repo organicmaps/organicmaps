@@ -1,8 +1,8 @@
 #pragma once
 
-#include "pointers.hpp"
+#include "drape/pointers.hpp"
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 namespace dp
 {

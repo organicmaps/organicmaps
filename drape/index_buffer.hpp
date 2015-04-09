@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gpu_buffer.hpp"
+#include "drape/gpu_buffer.hpp"
 
 namespace dp
 {

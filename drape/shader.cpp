@@ -1,8 +1,8 @@
-#include "shader.hpp"
-#include "shader_def.hpp"
+#include "drape/shader.hpp"
+#include "drape/shader_def.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/string_utils.hpp"
+#include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 namespace dp
 {

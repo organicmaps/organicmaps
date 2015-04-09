@@ -1,8 +1,8 @@
 #pragma once
 
-#include "oglcontext.hpp"
+#include "drape/oglcontext.hpp"
 
-#include "../base/mutex.hpp"
+#include "base/mutex.hpp"
 
 namespace dp
 {

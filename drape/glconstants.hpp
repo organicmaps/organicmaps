@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../std/stdint.hpp"
+#include "std/stdint.hpp"
 
 typedef uint32_t glConst;
 

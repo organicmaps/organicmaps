@@ -20,13 +20,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "sdf_image.h"
+#include "drape/sdf_image.h"
 
-#include "../base/math.hpp"
-#include "../base/scope_guard.hpp"
+#include "base/math.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../std/limits.hpp"
-#include "../std/bind.hpp"
+#include "std/limits.hpp"
+#include "std/bind.hpp"
 
 namespace dp
 {

@@ -1,16 +1,16 @@
-#include "glfunctions.hpp"
-#include "glIncludes.hpp"
+#include "drape/glfunctions.hpp"
+#include "drape/glIncludes.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #ifdef DEBUG
-#include "../base/thread.hpp"
-#include "../base/mutex.hpp"
-#include "../std/map.hpp"
+#include "base/thread.hpp"
+#include "base/mutex.hpp"
+#include "std/map.hpp"
 #endif
 
-#include "../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 #ifndef OMIM_OS_WINDOWS
 #define APIENTRY

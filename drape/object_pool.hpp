@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../base/assert.hpp"
-#include "../base/mutex.hpp"
+#include "base/assert.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/list.hpp"
-#include "../std/set.hpp"
+#include "std/list.hpp"
+#include "std/set.hpp"
 
 template <typename T, typename Factory>
 class ObjectPool

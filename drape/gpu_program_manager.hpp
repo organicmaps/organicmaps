@@ -1,11 +1,11 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "gpu_program.hpp"
-#include "shader.hpp"
+#include "drape/pointers.hpp"
+#include "drape/gpu_program.hpp"
+#include "drape/shader.hpp"
 
-#include "../std/map.hpp"
-#include "../std/noncopyable.hpp"
+#include "std/map.hpp"
+#include "std/noncopyable.hpp"
 
 namespace dp
 {

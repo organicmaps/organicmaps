@@ -1,13 +1,13 @@
 #pragma once
 
-#include "pointers.hpp"
-#include "glconstants.hpp"
-#include "drape_global.hpp"
+#include "drape/pointers.hpp"
+#include "drape/glconstants.hpp"
+#include "drape/drape_global.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/stdint.hpp"
-#include "../std/function.hpp"
+#include "std/stdint.hpp"
+#include "std/function.hpp"
 
 namespace dp
 {

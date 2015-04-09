@@ -1,9 +1,9 @@
-#include "texture.hpp"
+#include "drape/texture.hpp"
 
-#include "glfunctions.hpp"
-#include "glextensions_list.hpp"
+#include "drape/glfunctions.hpp"
+#include "drape/glextensions_list.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
 #define ASSERT_ID ASSERT(GetID() != -1, ())
 

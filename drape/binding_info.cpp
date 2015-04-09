@@ -1,6 +1,6 @@
-#include "binding_info.hpp"
+#include "drape/binding_info.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 namespace dp
 {
@@ -8,7 +8,7 @@ namespace dp
 namespace
 {
 
-#include "glIncludes.hpp"
+#include "drape/glIncludes.hpp"
 uint16_t sizeOfType(glConst type)
 {
   if (type == gl_const::GLByteType || type == gl_const::GLUnsignedByteType)

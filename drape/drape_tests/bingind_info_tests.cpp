@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../drape/binding_info.hpp"
+#include "drape/binding_info.hpp"
 
 using namespace dp;
 

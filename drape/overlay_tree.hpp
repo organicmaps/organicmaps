@@ -1,9 +1,9 @@
 #pragma once
 
-#include "overlay_handle.hpp"
+#include "drape/overlay_handle.hpp"
 
-#include "../geometry/screenbase.hpp"
-#include "../geometry/tree4d.hpp"
+#include "geometry/screenbase.hpp"
+#include "geometry/tree4d.hpp"
 
 
 namespace dp

@@ -1,9 +1,9 @@
-#include "vertex_array_buffer.hpp"
-#include "glfunctions.hpp"
-#include "glextensions_list.hpp"
+#include "drape/vertex_array_buffer.hpp"
+#include "drape/glfunctions.hpp"
+#include "drape/glextensions_list.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/assert.hpp"
+#include "base/stl_add.hpp"
+#include "base/assert.hpp"
 
 namespace dp
 {

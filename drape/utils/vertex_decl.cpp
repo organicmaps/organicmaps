@@ -1,4 +1,4 @@
-#include "vertex_decl.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 namespace gpu
 {

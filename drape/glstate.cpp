@@ -1,8 +1,8 @@
-#include "glstate.hpp"
-#include "glfunctions.hpp"
+#include "drape/glstate.hpp"
+#include "drape/glfunctions.hpp"
 
-#include "../base/buffer_vector.hpp"
-#include "../std/bind.hpp"
+#include "base/buffer_vector.hpp"
+#include "std/bind.hpp"
 
 #define TEXTURE_BIT 0x1
 

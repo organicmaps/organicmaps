@@ -1,12 +1,12 @@
-#include "render_bucket.hpp"
+#include "drape/render_bucket.hpp"
 
-#include "overlay_handle.hpp"
-#include "attribute_buffer_mutator.hpp"
-#include "vertex_array_buffer.hpp"
-#include "overlay_tree.hpp"
+#include "drape/overlay_handle.hpp"
+#include "drape/attribute_buffer_mutator.hpp"
+#include "drape/vertex_array_buffer.hpp"
+#include "drape/overlay_tree.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../std/bind.hpp"
+#include "base/stl_add.hpp"
+#include "std/bind.hpp"
 
 namespace dp
 {

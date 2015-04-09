@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../pointers.hpp"
-#include "../texture.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture.hpp"
 
 class DummyTexture : public dp::Texture
 {

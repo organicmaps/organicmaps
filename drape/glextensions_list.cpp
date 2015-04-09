@@ -1,9 +1,9 @@
-#include "glextensions_list.hpp"
-#include "glfunctions.hpp"
+#include "drape/glextensions_list.hpp"
+#include "drape/glfunctions.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 namespace dp
 {

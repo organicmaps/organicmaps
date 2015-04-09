@@ -1,12 +1,12 @@
-#include "symbols_texture.hpp"
-#include "utils/stb_image.h"
+#include "drape/symbols_texture.hpp"
+#include "drape/utils/stb_image.h"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/reader.hpp"
-#include "../coding/parse_xml.hpp"
+#include "coding/reader.hpp"
+#include "coding/parse_xml.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 namespace dp
 {
