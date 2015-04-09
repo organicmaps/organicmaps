@@ -23,13 +23,12 @@ void TestDijkstraRouterMock(RoadPos (&finalPos)[finalPosSize],
                             RoadPos (&startPos)[startPosSize],
                             RoadPos (&expected)[expectedSize])
 {
-  RoadGraphMockSource * graph = new RoadGraphMockSource();
-  InitRoadGraphMockSourceWithTest2(*graph);
-
   DijkstraRouter router;
-
-  router.SetRoadGraph(graph);
-
+  {
+    unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
+    InitRoadGraphMockSourceWithTest2(*graph);
+    router.SetRoadGraph(move(graph));
+  }
   vector<RoadPos> result;
   IRouter::ResultCode resultCode = router.CalculateRouteM2M(
       vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)),
@@ -48,7 +47,7 @@ void TestDijkstraRouterMWM(RoadPos (&finalPos)[finalPosSize],
   FeatureRoadGraphTester tester("route_test2.mwm");
 
   DijkstraRouter router;
-  router.SetRoadGraph(tester.GetGraph());
+  router.SetRoadGraph(tester.StealGraph());
 
   vector<RoadPos> finalV(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos));
   tester.Name2FeatureID(finalV);
@@ -62,7 +61,7 @@ void TestDijkstraRouterMWM(RoadPos (&finalPos)[finalPosSize],
   LOG(LDEBUG, (result));
 
   Route route(router.GetName());
-  tester.GetGraph()->ReconstructPath(result, route);
+  router.GetGraph()->ReconstructPath(result, route);
   LOG(LDEBUG, (route));
   TEST_EQUAL(route.GetPoly().GetSize(), pointsCount, ());
 

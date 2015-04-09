@@ -20,7 +20,7 @@ public:
   DijkstraRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
 
   // IRouter overrides:
-  string GetName() const override { return "routeme"; }
+  string GetName() const override { return "dijkstra-pedestrian"; }
 
   // RoadGraphRouter overrides:
   ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,

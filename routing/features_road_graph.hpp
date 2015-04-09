@@ -1,23 +1,19 @@
 #pragma once
 
 #include "road_graph.hpp"
+#include "vehicle_model.hpp"
 
 #include "../indexer/feature_data.hpp"
 #include "../geometry/point2d.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
 #include "../base/cache.hpp"
-
 
 class Index;
 class FeatureType;
 
-
 namespace routing
 {
-
-class IVehicleModel;
-
 class FeaturesRoadGraph : public IRoadGraph
 {
   struct CachedFeature
@@ -58,11 +54,10 @@ private:
 private:
   Index const * m_pIndex;
   size_t m_mwmID;
-  scoped_ptr<IVehicleModel> m_vehicleModel;
+  unique_ptr<IVehicleModel> m_vehicleModel;
   my::Cache<uint32_t, CachedFeature> m_cache;
 
   uint32_t m_cacheMiss;
   uint32_t m_cacheAccess;
 };
-
 } // namespace routing

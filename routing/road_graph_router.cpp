@@ -104,7 +104,8 @@ size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 
 bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
 {
-  return (m_pRoadGraph && dynamic_cast<FeaturesRoadGraph const *>(m_pRoadGraph.get())->GetMwmID() == mwmID);
+  return m_roadGraph &&
+         dynamic_cast<FeaturesRoadGraph const *>(m_roadGraph.get())->GetMwmID() == mwmID;
 }
 
 IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoint,
@@ -115,9 +116,9 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   size_t mwmID = GetRoadPos(finalPoint, finalPos);
 
   if (!finalPos.empty() && !IsMyMWM(mwmID))
-    m_pRoadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
+    m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
-  if (!m_pRoadGraph)
+  if (!m_roadGraph)
     return EndPointNotFound;
 
   vector<RoadPos> startPos;
@@ -135,7 +136,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 
   LOG(LINFO, ("Route calculation time:", timer.ElapsedSeconds(), "result code:", resultCode));
 
-  m_pRoadGraph->ReconstructPath(routePos, route);
+  m_roadGraph->ReconstructPath(routePos, route);
   return resultCode;
 }
 

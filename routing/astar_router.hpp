@@ -15,7 +15,7 @@ public:
   AStarRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
 
   // IRouter overrides:
-  string GetName() const override { return "pedestrian"; }
+  string GetName() const override { return "astar-pedestrian"; }
 
   // RoadGraphRouter overrides:
   ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,

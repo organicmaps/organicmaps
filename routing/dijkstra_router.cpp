@@ -67,7 +67,7 @@ IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & st
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_pRoadGraph->GetPossibleTurns(pEntry->GetPos(), turns, bStartFeature);
+    m_roadGraph->GetPossibleTurns(pEntry->GetPos(), turns, bStartFeature);
     LOG(LDEBUG, ("Getting all turns", turns));
     for (IRoadGraph::TurnsVectorT::const_iterator iTurn = turns.begin(); iTurn != turns.end(); ++iTurn)
     {

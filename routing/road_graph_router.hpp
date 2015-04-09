@@ -1,21 +1,18 @@
 #pragma once
 
-#include "router.hpp"
 #include "road_graph.hpp"
+#include "router.hpp"
+#include "vehicle_model.hpp"
 
 #include "../geometry/point2d.hpp"
 
+#include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
-#include "../std/scoped_ptr.hpp"
-
 
 class Index;
 
 namespace routing
 {
-
-class IVehicleModel;
-
 class RoadGraphRouter : public IRouter
 {
 public:
@@ -27,15 +24,16 @@ public:
   virtual ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos,
                                        vector<RoadPos> const & finalPos,
                                        vector<RoadPos> & route) = 0;
-  virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
+  virtual void SetRoadGraph(unique_ptr<IRoadGraph> && roadGraph) { m_roadGraph = move(roadGraph); }
+  inline IRoadGraph * GetGraph() { return m_roadGraph.get(); }
 
 protected:
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
   bool IsMyMWM(size_t mwmID) const;
 
-  scoped_ptr<IRoadGraph> m_pRoadGraph;
-  scoped_ptr<IVehicleModel> m_vehicleModel;
-  Index const * m_pIndex;
+  unique_ptr<IRoadGraph> m_roadGraph;
+  unique_ptr<IVehicleModel> m_vehicleModel;
+  Index const * m_pIndex;  // non-owning ptr
 };
 
 } // namespace routing

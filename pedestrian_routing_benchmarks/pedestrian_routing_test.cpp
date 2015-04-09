@@ -39,7 +39,7 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
   MwmSet::MwmId id = index.GetMwmIdByName(kMapName + DATA_FILE_EXTENSION);
   TEST_NOT_EQUAL(static_cast<size_t>(-1), id, ());
 
-  router.SetRoadGraph(new routing::FeaturesRoadGraph(&index, id));
+  router.SetRoadGraph(make_unique<routing::FeaturesRoadGraph>(&index, id));
 
   pair<m2::PointD, m2::PointD> startBounds =
       GetPointsAroundSeg(index, id, featureIdStart, segIdStart);

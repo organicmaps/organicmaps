@@ -24,7 +24,7 @@ public:
 
 class FeatureRoadGraphTester
 {
-  routing::FeaturesRoadGraph * m_graph;
+  unique_ptr<routing::FeaturesRoadGraph> m_graph;
   Name2IdMapping m_mapping;
   Index m_index;
 
@@ -33,7 +33,7 @@ class FeatureRoadGraphTester
 public:
   FeatureRoadGraphTester(string const & name);
 
-  routing::FeaturesRoadGraph * GetGraph() { return m_graph; }
+  unique_ptr<routing::FeaturesRoadGraph> StealGraph() { return move(m_graph); }
 
   void FeatureID2Name(routing::IRoadGraph::TurnsVectorT & vec);
   void FeatureID2Name(vector<routing::RoadPos> & vec);

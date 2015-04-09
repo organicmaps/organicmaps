@@ -76,7 +76,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_pRoadGraph->GetPossibleTurns(v.GetPos(), turns, isStartFeature);
+    m_roadGraph->GetPossibleTurns(v.GetPos(), turns, isStartFeature);
     for (IRoadGraph::TurnsVectorT::const_iterator it = turns.begin(); it != turns.end(); ++it)
     {
       PossibleTurn const & turn = *it;

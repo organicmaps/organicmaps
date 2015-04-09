@@ -71,7 +71,7 @@ FeatureRoadGraphTester::FeatureRoadGraphTester(string const & name)
     return;
   }
 
-  m_graph = new FeaturesRoadGraph(&m_index, 0);
+  m_graph.reset(new FeaturesRoadGraph(&m_index, 0));
 
   m_index.ForEachInRect(m_mapping, MercatorBounds::FullRect(), m_graph->GetStreetReadScale());
 }
