@@ -1,8 +1,8 @@
-#include "road_graph_router.hpp"
 #include "features_road_graph.hpp"
+#include "nearest_finder.hpp"
+#include "road_graph_router.hpp"
 #include "route.hpp"
 #include "vehicle_model.hpp"
-#include "nearest_finder.hpp"
 
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
@@ -11,7 +11,6 @@
 #include "../geometry/distance.hpp"
 
 #include "../base/timer.hpp"
-
 #include "../base/logging.hpp"
 
 namespace
@@ -28,14 +27,17 @@ RoadGraphRouter::~RoadGraphRouter()
 }
 
 RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel)
-  : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex) {}
+    : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex)
+{
+}
 
 size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
-  NearestFinder finder(pt, m2::PointD::Zero() /* undirected */, m_vehicleModel);
-  m_pIndex->ForEachInRect(finder,
-                          MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
-                          FeaturesRoadGraph::GetStreetReadScale());
+  NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, m_vehicleModel);
+  auto f = [&finder](FeatureType & ft) { finder.AddInformationSource(ft); };
+  m_pIndex->ForEachInRect(
+      f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
+      FeaturesRoadGraph::GetStreetReadScale());
 
   finder.MakeResult(pos, MAX_ROAD_CANDIDATES);
   return finder.GetMwmID();

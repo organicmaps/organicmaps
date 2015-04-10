@@ -131,9 +131,10 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     if (v.dist > bestDistance[v.pos])
       continue;
 
-    /// We need the original start position because it contains the projection point to the road feature.
+    /// We need the original start position because it contains the projection point to the road
+    /// feature.
     auto pos = lower_bound(sortedStartPos.begin(), sortedStartPos.end(), v.pos);
-    if (pos != sortedStartPos.end() && *pos==v.pos)
+    if (pos != sortedStartPos.end() && *pos == v.pos)
     {
       ReconstructRoute(*pos, parent, route);
       return IRouter::NoError;

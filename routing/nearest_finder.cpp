@@ -1,9 +1,12 @@
 #include "nearest_finder.hpp"
 
+#include "../geometry/distance.hpp"
+
+#include "../indexer/feature.hpp"
+
 namespace routing
 {
-
-void NearestFinder::operator()(const FeatureType &ft)
+void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
 {
   if (ft.GetFeatureType() != feature::GEOM_LINE || m_vehicleModel->GetSpeed(ft) == 0.0)
     return;
@@ -26,7 +29,7 @@ void NearestFinder::operator()(const FeatureType &ft)
     {
       res.m_dist = d;
       res.m_fid = ft.GetID().m_offset;
-      res.m_segIdx = i - 1;
+      res.m_segId = i - 1;
       res.m_point = pt;
       res.m_isOneway = m_vehicleModel->IsOneWay(ft);
 
@@ -40,11 +43,11 @@ void NearestFinder::operator()(const FeatureType &ft)
     m_candidates.push_back(res);
 }
 
-void NearestFinder::MakeResult(vector<RoadPos> &res, const size_t maxCount)
+void NearestRoadPosFinder::MakeResult(vector<RoadPos> & res, const size_t maxCount)
 {
-  if (m_mwmId == numeric_limits<uint32_t>::max())
+  if (m_mwmId == INVALID_MWWMID)
     return;
-  sort(m_candidates.begin(), m_candidates.end(), [] (Candidate const & r1, Candidate const & r2)
+  sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
     return (r1.m_dist < r2.m_dist);
   });
@@ -52,17 +55,17 @@ void NearestFinder::MakeResult(vector<RoadPos> &res, const size_t maxCount)
   res.clear();
   res.reserve(maxCount);
 
-  for (Candidate const & candidate: m_candidates)
+  for (Candidate const & candidate : m_candidates)
   {
     if (res.size() == maxCount)
       break;
-    res.push_back(RoadPos(candidate.m_fid, true, candidate.m_segIdx, candidate.m_point));
+    res.push_back(RoadPos(candidate.m_fid, true, candidate.m_segId, candidate.m_point));
     if (res.size() == maxCount)
       break;
     if (candidate.m_isOneway)
       continue;
-    res.push_back(RoadPos(candidate.m_fid, false, candidate.m_segIdx, candidate.m_point));
+    res.push_back(RoadPos(candidate.m_fid, false, candidate.m_segId, candidate.m_point));
   }
 }
 
-} //namespace routing
+}  // namespace routing

@@ -12,7 +12,10 @@ class AStarRouter : public RoadGraphRouter
 {
   typedef RoadGraphRouter BaseT;
 public:
-  AStarRouter(Index const * pIndex = 0) : BaseT(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel())) {}
+  AStarRouter(Index const * pIndex = 0)
+      : BaseT(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()))
+  {
+  }
 
   // IRouter overrides:
   string GetName() const override { return "astar-pedestrian"; }

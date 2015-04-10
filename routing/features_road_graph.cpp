@@ -17,7 +17,7 @@ namespace
 uint32_t const FEATURE_CACHE_SIZE = 10;
 uint32_t const READ_ROAD_SCALE = 13;
 double const READ_CROSS_EPSILON = 1.0E-4;
-double const NORMALIZE_TO_SECONDS = 3.6; /* 60 * 60 / 1000 m/s to km/h*/
+double const KMPH2MPS = 1000.0 / (60 * 60);
 
 uint32_t indexFound = 0;
 uint32_t indexCheck = 0;
@@ -258,12 +258,12 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     int const inc = pos1.IsForward() ? -1 : 1;
     int ptID = pos1.GetSegStartPointId();
     m2::PointD curPoint;
-    double segmentLength = 0.0;
+    double segmentLengthM = 0.0;
     do
     {
       curPoint = ft1.GetPoint(ptID);
       poly.push_back(curPoint);
-      segmentLength += CalcDistanceMeters(curPoint, prevPoint);
+      segmentLengthM += CalcDistanceMeters(curPoint, prevPoint);
       prevPoint = curPoint;
 
       LOG(LDEBUG, (curPoint, pos1.GetFeatureId(), ptID));
@@ -272,9 +272,9 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
 
     } while (ptID >= 0 && ptID < ft1.GetPointsCount() && !m2::AlmostEqual(curPoint, lastPt));
 
-    segmentLength += CalcDistanceMeters(lastPt, prevPoint);
+    segmentLengthM += CalcDistanceMeters(lastPt, prevPoint);
     // Calculation total feature time. Seconds.
-    trackTime += NORMALIZE_TO_SECONDS * segmentLength / m_vehicleModel->GetSpeed(ft1);
+    trackTime += segmentLengthM / (m_vehicleModel->GetSpeed(ft1) * KMPH2MPS);
 
     // Assign current processing feature.
     if (diffIDs)
@@ -282,9 +282,10 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
   }
 
   poly.push_back(positions.front().GetSegEndpoint());
-  trackTime += NORMALIZE_TO_SECONDS * CalcDistanceMeters(poly.back(), prevPoint) / m_vehicleModel->GetSpeed(ft1);
+  trackTime +=
+      CalcDistanceMeters(poly.back(), prevPoint) / (m_vehicleModel->GetSpeed(ft1) * KMPH2MPS);
 
-  ASSERT_GREATER(poly.size(), 1, ("Track with no points"));
+  ASSERT_GREATER(poly.size(), 1, ("Empty track"));
 
   if (poly.size() > 1)
   {
