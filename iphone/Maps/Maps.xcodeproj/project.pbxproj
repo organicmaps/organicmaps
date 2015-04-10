@@ -1448,7 +1448,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-drape-$(CURRENT_ARCH)/out/release\"";
@@ -1572,7 +1575,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-drape-$(CURRENT_ARCH)/out/debug\"";
@@ -1668,7 +1674,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"";
@@ -1760,7 +1769,10 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"";
@@ -1881,7 +1893,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
@@ -1977,7 +1992,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
@@ -2072,7 +2090,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"";
@@ -2166,7 +2187,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = ../../3party/boost;
+				HEADER_SEARCH_PATHS = (
+					../../3party/boost,
+					../../,
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"";

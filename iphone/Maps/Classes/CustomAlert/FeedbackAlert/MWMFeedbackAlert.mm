@@ -27,7 +27,7 @@
 @end
 
 static NSString * const kFeedbackAlertNibName = @"MWMFeedbackAlert";
-extern NSString * const kiOSEmail;
+static NSString * const kRateEmail = @"rating@maps.me";
 extern NSDictionary * const deviceNames;
 extern UIColor * const kActiveDownloaderViewColor;
 extern NSString * const kLocaleUsedInSupportEmails;
@@ -70,11 +70,11 @@ extern NSString * const kLocaleUsedInSupportEmails;
       MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
       mailController.mailComposeDelegate = self;
       [mailController setSubject:[NSString stringWithFormat:@"%@ : %@", L(@"rating_just_rated"),@(self.starsCount)]];
-      [mailController setToRecipients:@[kiOSEmail]];
+      [mailController setToRecipients:@[kRateEmail]];
       [mailController setMessageBody:text isHTML:NO];
       [self.alertController.ownerViewController presentViewController:mailController animated:YES completion:nil];
     } else {
-      NSString * text = [NSString stringWithFormat:L(@"email_error_body"), kiOSEmail];
+      NSString * text = [NSString stringWithFormat:L(@"email_error_body"), kRateEmail];
       [[[UIAlertView alloc] initWithTitle:L(@"email_error_title") message:text delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
     }
   }];

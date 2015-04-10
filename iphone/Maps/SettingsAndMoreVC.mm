@@ -19,9 +19,9 @@
 
 @end
 
+static NSString * const kiOSEmail = @"ios@maps.me";
 extern NSString * const kLocaleUsedInSupportEmails = @"en_gb";
 extern NSString * const kAlohalyticsTapEventKey;
-extern NSString * const kiOSEmail = @"ios@maps.me";
 extern NSDictionary * const deviceNames = @{@"x86_64" : @"Simulator",
                                      @"i386" : @"Simulator",
                                      @"iPod1,1" : @"iPod Touch",
