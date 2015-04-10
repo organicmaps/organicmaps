@@ -1,10 +1,10 @@
 #import "http_thread_apple.h"
 
-#include "http_thread_callback.hpp"
-#include "platform.hpp"
+#include "platform/http_thread_callback.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
 #ifdef OMIM_OS_IPHONE
   #include "../iphone/Maps/Classes/MapsAppDelegate.h"

@@ -1,12 +1,12 @@
-#include "servers_list.hpp"
-#include "http_request.hpp"
-#include "settings.hpp"
-#include "platform.hpp"
+#include "platform/servers_list.hpp"
+#include "platform/http_request.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/assert.hpp"
 
-#include "../3party/jansson/myjansson.hpp"
+#include "3party/jansson/myjansson.hpp"
 
 
 #define SETTINGS_SERVERS_KEY "LastBaseUrls"

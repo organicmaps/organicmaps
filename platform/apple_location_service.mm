@@ -1,9 +1,9 @@
-#include "location_service.hpp"
+#include "platform/location_service.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #import <CoreLocation/CoreLocation.h>
 

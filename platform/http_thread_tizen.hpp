@@ -1,6 +1,6 @@
 #pragma once
-#include "../../std/target_os.hpp"
-#include "../../std/noncopyable.hpp"
+#include "std/target_os.hpp"
+#include "std/noncopyable.hpp"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wignored-qualifiers"

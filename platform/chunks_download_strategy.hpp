@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/utility.hpp"
-#include "../std/stdint.hpp"
-#include "../std/static_assert.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/stdint.hpp"
+#include "std/static_assert.hpp"
 
 
 namespace downloader

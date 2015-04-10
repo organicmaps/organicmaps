@@ -1,13 +1,13 @@
-#include "platform.hpp"
-#include "constants.hpp"
+#include "platform/platform.hpp"
+#include "platform/constants.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/regexp.hpp"
+#include "base/logging.hpp"
+#include "base/regexp.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/algorithm.hpp"
+#include "std/target_os.hpp"
+#include "std/algorithm.hpp"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>

@@ -1,21 +1,21 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../http_request.hpp"
-#include "../chunks_download_strategy.hpp"
-#include "../platform.hpp"
+#include "platform/http_request.hpp"
+#include "platform/chunks_download_strategy.hpp"
+#include "platform/platform.hpp"
 
-#include "../../defines.hpp"
+#include "defines.hpp"
 
-#include "../../coding/sha2.hpp"
-#include "../../coding/file_reader.hpp"
-#include "../../coding/file_writer.hpp"
-#include "../../coding/internal/file_data.hpp"
+#include "coding/sha2.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/std_serialization.hpp"
+#include "base/logging.hpp"
+#include "base/std_serialization.hpp"
 
-#include "../../std/bind.hpp"
-#include "../../std/unique_ptr.hpp"
+#include "std/bind.hpp"
+#include "std/unique_ptr.hpp"
 
 #include <QtCore/QCoreApplication>
 

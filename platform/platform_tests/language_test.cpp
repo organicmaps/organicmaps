@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../preferred_languages.hpp"
+#include "platform/preferred_languages.hpp"
 
-#include "../../std/string.hpp"
+#include "std/string.hpp"
 
 
 UNIT_TEST(LangNormalize_Smoke)

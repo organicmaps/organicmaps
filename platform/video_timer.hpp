@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 /// Timer, synchronized to Vertical Sync
 class VideoTimer

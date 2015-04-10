@@ -1,10 +1,10 @@
-#include "file_logging.hpp"
+#include "platform/file_logging.hpp"
 
-#include "../std/mutex.hpp"
+#include "std/mutex.hpp"
 
-#include "../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
 namespace
 {

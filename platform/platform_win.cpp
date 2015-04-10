@@ -1,12 +1,12 @@
-#include "platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/scope_guard.hpp"
-#include "../base/logging.hpp"
+#include "base/scope_guard.hpp"
+#include "base/logging.hpp"
 
-#include "../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../std/windows.hpp"
-#include "../std/bind.hpp"
+#include "std/windows.hpp"
+#include "std/bind.hpp"
 
 #include <shlobj.h>
 

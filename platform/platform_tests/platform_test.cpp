@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../defines.hpp"
+#include "defines.hpp"
 
-#include "../../coding/file_writer.hpp"
-#include "../../coding/internal/file_data.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";

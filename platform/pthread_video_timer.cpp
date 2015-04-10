@@ -1,10 +1,10 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #ifndef OMIM_OS_WINDOWS_NATIVE
 
-#include "video_timer.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 #include <pthread.h>
 #include <sys/time.h>

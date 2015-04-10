@@ -1,8 +1,8 @@
-#include "platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #include <IOKit/IOKitLib.h>
 #include <Foundation/NSBundle.h>

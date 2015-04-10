@@ -1,8 +1,8 @@
-#include "location_service.hpp"
+#include "platform/location_service.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/vector.hpp"
-#include "../std/ctime.hpp"
+#include "std/target_os.hpp"
+#include "std/vector.hpp"
+#include "std/ctime.hpp"
 
 namespace
 {

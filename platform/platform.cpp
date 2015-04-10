@@ -1,11 +1,11 @@
-#include "platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/sha2.hpp"
-#include "../coding/base64.hpp"
-#include "../coding/file_name_utils.hpp"
-#include "../coding/writer.hpp"
+#include "coding/sha2.hpp"
+#include "coding/base64.hpp"
+#include "coding/file_name_utils.hpp"
+#include "coding/writer.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 string Platform::ReadPathForFile(string const & file, string searchScope) const

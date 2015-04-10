@@ -1,7 +1,7 @@
-#include "platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
-#include "../coding/file_reader.hpp"
+#include "base/logging.hpp"
+#include "coding/file_reader.hpp"
 
 #include <stdlib.h>
 #include <unistd.h>

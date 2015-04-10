@@ -1,21 +1,21 @@
-#include "settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../coding/reader_streambuf.hpp"
-#include "../coding/file_writer.hpp"
-#include "../coding/file_reader.hpp"
+#include "coding/reader_streambuf.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../geometry/rect2d.hpp"
-#include "../geometry/any_rect2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../std/sstream.hpp"
-#include "../std/iostream.hpp"
-#include "../std/cmath.hpp"
+#include "std/sstream.hpp"
+#include "std/iostream.hpp"
+#include "std/cmath.hpp"
 
 
 #define FIRST_LAUNCH_KEY "FirstLaunchOnDate"

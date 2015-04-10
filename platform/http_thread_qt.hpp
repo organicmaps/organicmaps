@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../std/string.hpp"
-#include "../std/stdint.hpp"
+#include "std/string.hpp"
+#include "std/stdint.hpp"
 
 #include <QObject>
 #include <QNetworkReply>

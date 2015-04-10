@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../location.hpp"
+#include "platform/location.hpp"
 
 
 UNIT_TEST(IsLatValid)

@@ -1,12 +1,12 @@
-#include "chunks_download_strategy.hpp"
+#include "platform/chunks_download_strategy.hpp"
 
-#include "../coding/file_writer.hpp"
-#include "../coding/file_reader.hpp"
-#include "../coding/varint.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace downloader

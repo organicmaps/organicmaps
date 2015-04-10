@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 // @todo this functionality is not located in logging.hpp since file_logging uses FileWriter which depends on coding lib.

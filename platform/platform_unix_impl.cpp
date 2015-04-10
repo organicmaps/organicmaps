@@ -1,12 +1,12 @@
-#include "platform.hpp"
-#include "platform_unix_impl.hpp"
+#include "platform/platform.hpp"
+#include "platform/platform_unix_impl.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/regexp.hpp"
+#include "base/logging.hpp"
+#include "base/regexp.hpp"
 
 #include <dirent.h>
 #include <sys/stat.h>
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <sys/mount.h>

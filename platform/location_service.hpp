@@ -1,6 +1,6 @@
 #pragma once
 
-#include "location.hpp"
+#include "platform/location.hpp"
 
 namespace location
 {

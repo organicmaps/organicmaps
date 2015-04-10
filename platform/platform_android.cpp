@@ -1,14 +1,14 @@
-#include "platform.hpp"
-#include "platform_unix_impl.hpp"
-#include "constants.hpp"
+#include "platform/platform.hpp"
+#include "platform/platform_unix_impl.hpp"
+#include "platform/constants.hpp"
 
-#include "../coding/zip_reader.hpp"
-#include "../coding/file_name_utils.hpp"
+#include "coding/zip_reader.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/thread.hpp"
-#include "../base/regexp.hpp"
-#include "../base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/thread.hpp"
+#include "base/regexp.hpp"
+#include "base/string_utils.hpp"
 
 #include <unistd.h>     // for sysconf
 #include <sys/stat.h>

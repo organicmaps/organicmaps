@@ -1,6 +1,6 @@
-#include "video_timer.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 VideoTimer::VideoTimer(TFrameFn fn) : m_frameFn(fn), m_state(EStopped)
 {}

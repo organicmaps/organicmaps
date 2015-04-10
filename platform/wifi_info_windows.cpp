@@ -1,13 +1,13 @@
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #ifdef OMIM_OS_WINDOWS
 
-#include "wifi_info.hpp"
+#include "platform/wifi_info.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/windows.hpp"
-#include "../std/cstdio.hpp"
+#include "std/windows.hpp"
+#include "std/cstdio.hpp"
 
 #include <winsock2.h>
 #include <iphlpapi.h>

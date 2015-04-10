@@ -1,19 +1,19 @@
-#include "http_request.hpp"
-#include "chunks_download_strategy.hpp"
-#include "http_thread_callback.hpp"
+#include "platform/http_request.hpp"
+#include "platform/chunks_download_strategy.hpp"
+#include "platform/http_thread_callback.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
 #ifdef DEBUG
-#include "../base/thread.hpp"
+#include "base/thread.hpp"
 #endif
 
-#include "../coding/internal/file_data.hpp"
-#include "../coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/unique_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 
 #ifdef OMIM_OS_IPHONE

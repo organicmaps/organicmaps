@@ -1,13 +1,13 @@
-#include "location_service.hpp"
-#include "wifi_info.hpp"
-#include "http_request.hpp"
+#include "platform/location_service.hpp"
+#include "platform/wifi_info.hpp"
+#include "platform/http_request.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/ctime.hpp"
+#include "std/bind.hpp"
+#include "std/ctime.hpp"
 
-#include "../3party/jansson/myjansson.hpp"
+#include "3party/jansson/myjansson.hpp"
 
 #define MWM_GEOLOCATION_SERVER "http://geolocation.server/"
 

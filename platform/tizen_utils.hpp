@@ -1,6 +1,6 @@
 #pragma once
-#include "../std/string.hpp"
-#include "../std/target_os.hpp"
+#include "std/string.hpp"
+#include "std/target_os.hpp"
 #include <FLocales.h>
 
 #ifdef OMIM_OS_TIZEN

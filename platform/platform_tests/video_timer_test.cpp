@@ -1,11 +1,11 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../video_timer.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../../base/thread.hpp"
-#include "../../base/logging.hpp"
+#include "base/thread.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/bind.hpp"
+#include "std/bind.hpp"
 
 
 void incrementValue(int & i)

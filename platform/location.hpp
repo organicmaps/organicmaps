@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../routing/turns.hpp"
+#include "routing/turns.hpp"
 
-#include "../std/string.hpp"
-#include "../std/cmath.hpp"
+#include "std/string.hpp"
+#include "std/cmath.hpp"
 
 
 namespace location

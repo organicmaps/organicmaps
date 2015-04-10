@@ -1,14 +1,14 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../coding/zip_reader.hpp"
-#include "../../coding/internal/file_data.hpp"
+#include "coding/zip_reader.hpp"
+#include "coding/internal/file_data.hpp"
 
-#include "../../base/thread.hpp"
-#include "../../base/logging.hpp"
+#include "base/thread.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/numeric.hpp"
+#include "std/numeric.hpp"
 
 
 namespace

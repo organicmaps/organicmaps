@@ -1,11 +1,11 @@
-#include "http_thread_qt.hpp"
-#include "http_thread_callback.hpp"
+#include "platform/http_thread_qt.hpp"
+#include "platform/http_thread_callback.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>

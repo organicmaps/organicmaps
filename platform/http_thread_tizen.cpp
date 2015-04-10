@@ -1,9 +1,9 @@
-#include "http_thread_tizen.hpp"
+#include "platform/http_thread_tizen.hpp"
 #include"../base/logging.hpp"
 
-#include "platform.hpp"
-#include "http_thread_callback.hpp"
-#include "tizen_utils.hpp"
+#include "platform/platform.hpp"
+#include "platform/http_thread_callback.hpp"
+#include "platform/tizen_utils.hpp"
 
 #include <FBaseColIEnumerator.h>
 

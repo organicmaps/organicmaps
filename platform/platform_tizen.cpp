@@ -9,12 +9,12 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "../coding/file_reader.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 #include <FAppApp.h>
-#include "../../tizen/inc/FIo.hpp"
+#include "tizen/inc/FIo.hpp"
 
 
 Platform::Platform()

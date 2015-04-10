@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 class WiFiInfo
 {

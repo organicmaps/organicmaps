@@ -1,8 +1,8 @@
-#include "platform.hpp"
-#include "platform_unix_impl.hpp"
-#include "constants.hpp"
+#include "platform/platform.hpp"
+#include "platform/platform_unix_impl.hpp"
+#include "platform/constants.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "coding/file_reader.hpp"
 
 #include <ifaddrs.h>
 

@@ -1,11 +1,11 @@
-#include "preferred_languages.hpp"
+#include "platform/preferred_languages.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
-#include "../std/target_os.hpp"
-#include "../std/set.hpp"
+#include "std/target_os.hpp"
+#include "std/set.hpp"
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <CoreFoundation/CFLocale.h>

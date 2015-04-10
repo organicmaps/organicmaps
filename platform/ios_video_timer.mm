@@ -1,6 +1,6 @@
-#include "video_timer.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #import <QuartzCore/CADisplayLink.h>
 #import <Foundation/NSRunLoop.h>

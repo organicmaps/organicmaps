@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../coding/reader.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/exception.hpp"
+#include "base/exception.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/utility.hpp"
-#include "../std/function.hpp"
-#include "../std/bitset.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/utility.hpp"
+#include "std/function.hpp"
+#include "std/bitset.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
 
 DECLARE_EXCEPTION(FileAbsentException, RootException);
