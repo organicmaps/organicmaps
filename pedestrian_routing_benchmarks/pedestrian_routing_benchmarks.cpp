@@ -48,7 +48,7 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
                                        {featureIdStart, false, segIdStart, startBounds.first}};
 
   pair<m2::PointD, m2::PointD> finalBounds =
-      GetPointsAroundSeg(index, id, featureIdStart, segIdStart);
+      GetPointsAroundSeg(index, id, featureIdFinal, segIdFinal);
   vector<routing::RoadPos> finalPos = {{featureIdFinal, true, segIdFinal, finalBounds.second},
                                        {featureIdFinal, false, segIdFinal, finalBounds.first}};
 
