@@ -64,6 +64,29 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
 
 UNIT_TEST(PedestrianRouting_UK_Long1) { TestTwoPoints(59231052, 8, 49334376, 0); }
 
+UNIT_TEST(PedestrianRouting_UK_Long2) { TestTwoPoints(2909201, 1, 86420951, 1); }
+
+UNIT_TEST(PedestrianRouting_UK_Long3) { TestTwoPoints(46185185, 1, 44584579, 4); }
+
+UNIT_TEST(PedestrianRouting_UK_Long4) { TestTwoPoints(42085288, 2, 52107406, 6); }
+
+UNIT_TEST(PedestrianRouting_UK_Long5) { TestTwoPoints(25581618, 31, 24932741, 3); }
+
+UNIT_TEST(PedestrianRouting_UK_Long6) { TestTwoPoints(87984202, 3, 84929880, 0); }
+
 UNIT_TEST(PedestrianRouting_UK_Medium1) { TestTwoPoints(3038057, 0, 45899679, 3); }
 
+UNIT_TEST(PedestrianRouting_UK_Medium2) { TestTwoPoints(42689385, 1, 14350838, 5); }
+
+UNIT_TEST(PedestrianRouting_UK_Medium3) { TestTwoPoints(43922917, 7, 44173940, 1); }
+
+UNIT_TEST(PedestrianRouting_UK_Medium4) { TestTwoPoints(45414223, 1, 46093762, 2); }
+
+UNIT_TEST(PedestrianRouting_UK_Medium5) { TestTwoPoints(45862427, 4, 4449317, 7); }
+
 UNIT_TEST(PedestrianRouting_UK_Short1) { TestTwoPoints(3038057, 0, 3032688, 3); }
+
+UNIT_TEST(PedestrianRouting_UK_Short2) { TestTwoPoints(2947484, 2, 44889742, 0); }
+
+UNIT_TEST(PedestrianRouting_UK_Short3) { TestTwoPoints(2931545, 0, 2969395, 0); }
+
