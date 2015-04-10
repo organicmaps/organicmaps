@@ -16,4 +16,4 @@ win32* : LIBS *= -lShell32
 
 SOURCES += \
   ../testing/testingmain.cpp \
-  pedestrian_routing_test.cpp \
+  pedestrian_routing_benchmarks.cpp \
