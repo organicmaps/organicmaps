@@ -10,6 +10,8 @@
 
 namespace routing
 {
+int const kCancelledPollPeriod = 100;
+
 namespace
 {
 template <typename E>
@@ -76,10 +78,20 @@ IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & st
   for (auto const & p : dist)
     queue.push(Vertex(p.first, 0.0 /* distance */));
 
+  int steps = 0;
+
   while (!queue.empty())
   {
+    ++steps;
+    if (steps % kCancelledPollPeriod == 0)
+    {
+      if (IsCancelled())
+        return IRouter::Cancelled;
+    }
+
     Vertex const v = queue.top();
     queue.pop();
+
     if (v.dist > dist[v.pos])
       continue;
 

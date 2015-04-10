@@ -8,8 +8,9 @@
 
 namespace routing
 {
-static double const kMaxSpeedMPS = 5000.0 / 3600;
-static double const kEpsilon = 1e-6;
+double const kMaxSpeedMPS = 5000.0 / 3600;
+double const kEpsilon = 1e-6;
+int const kCancelledPollPeriod = 100;
 
 namespace
 {
@@ -117,8 +118,17 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     queue.push(Vertex(rp, 0.0));
   }
 
+  int steps = 0;
+
   while (!queue.empty())
   {
+    ++steps;
+    if (steps % kCancelledPollPeriod == 0)
+    {
+      if (IsCancelled())
+        return IRouter::Cancelled;
+    }
+
     Vertex const v = queue.top();
     queue.pop();
 
