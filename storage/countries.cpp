@@ -1,11 +1,11 @@
-#include "countries.hpp"
-#include "simple_tree.hpp"
+#include "storage/countries.hpp"
+#include "storage/simple_tree.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../geometry/cellid.hpp"
+#include "geometry/cellid.hpp"
 
-#include "../std/iostream.hpp"
+#include "std/iostream.hpp"
 
 typedef m2::CellId<9> CountryCellId;
 

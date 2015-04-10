@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../simple_tree.hpp"
+#include "storage/simple_tree.hpp"
 
 
 namespace

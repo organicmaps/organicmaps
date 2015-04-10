@@ -1,11 +1,11 @@
 #pragma once
 
-#include "country_decl.hpp"
+#include "storage/country_decl.hpp"
 
-#include "../indexer/point_to_int64.hpp"
-#include "../indexer/coding_params.hpp"
+#include "indexer/point_to_int64.hpp"
+#include "indexer/coding_params.hpp"
 
-#include "../coding/read_write_utils.hpp"
+#include "coding/read_write_utils.hpp"
 
 
 namespace storage

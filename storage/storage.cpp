@@ -1,24 +1,24 @@
-#include "storage.hpp"
+#include "storage/storage.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../platform/platform.hpp"
-#include "../platform/servers_list.hpp"
-#include "../platform/settings.hpp"
+#include "platform/platform.hpp"
+#include "platform/servers_list.hpp"
+#include "platform/settings.hpp"
 
-#include "../coding/file_writer.hpp"
-#include "../coding/file_reader.hpp"
-#include "../coding/file_container.hpp"
-#include "../coding/url_encode.hpp"
-#include "../coding/file_name_utils.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_container.hpp"
+#include "coding/url_encode.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/target_os.hpp"
-#include "../std/bind.hpp"
-#include "../std/sstream.hpp"
+#include "std/algorithm.hpp"
+#include "std/target_os.hpp"
+#include "std/bind.hpp"
+#include "std/sstream.hpp"
 
 
 using namespace downloader;

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 namespace storage

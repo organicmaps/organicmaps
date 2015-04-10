@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../country_info.hpp"
-#include "../country.hpp"
+#include "storage/country_info.hpp"
+#include "storage/country.hpp"
 
-#include "../../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 using namespace storage;

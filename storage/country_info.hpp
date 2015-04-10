@@ -1,12 +1,12 @@
 #pragma once
 
-#include "country_decl.hpp"
+#include "storage/country_decl.hpp"
 
-#include "../geometry/region2d.hpp"
+#include "geometry/region2d.hpp"
 
-#include "../coding/file_container.hpp"
+#include "coding/file_container.hpp"
 
-#include "../base/cache.hpp"
+#include "base/cache.hpp"
 
 
 namespace storage

@@ -1,17 +1,17 @@
 #pragma once
 
-#include "storage_defines.hpp"
-#include "simple_tree.hpp"
-#include "country_decl.hpp"
+#include "storage/storage_defines.hpp"
+#include "storage/simple_tree.hpp"
+#include "storage/country_decl.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 
 namespace update { class SizeUpdater; }

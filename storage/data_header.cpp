@@ -1,14 +1,14 @@
-#include "data_header.hpp"
+#include "storage/data_header.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../indexer/cell_id.hpp"
+#include "indexer/cell_id.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "base/start_mem_debug.hpp"
 
 namespace feature
 {

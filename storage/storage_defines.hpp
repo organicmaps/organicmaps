@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../3party/enum_flags.hpp"
+#include "3party/enum_flags.hpp"
 
-#include "../std/stdint.hpp"
-#include "../std/utility.hpp"
+#include "std/stdint.hpp"
+#include "std/utility.hpp"
 
 namespace storage
 {

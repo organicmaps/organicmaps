@@ -1,10 +1,10 @@
-#include "data_header_reader.hpp"
-#include "data_header.hpp"
+#include "storage/data_header_reader.hpp"
+#include "storage/data_header.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "base/start_mem_debug.hpp"
 
 namespace feature
 {

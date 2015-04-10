@@ -1,14 +1,14 @@
-#include "country_info.hpp"
-#include "country_polygon.hpp"
-#include "country.hpp"
+#include "storage/country_info.hpp"
+#include "storage/country_polygon.hpp"
+#include "storage/country.hpp"
 
-#include "../indexer/geometry_serialization.hpp"
+#include "indexer/geometry_serialization.hpp"
 
-#include "../geometry/region2d.hpp"
+#include "geometry/region2d.hpp"
 
-#include "../coding/read_write_utils.hpp"
+#include "coding/read_write_utils.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
 
 namespace storage

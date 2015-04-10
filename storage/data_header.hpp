@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../base/std_serialization.hpp"
+#include "base/std_serialization.hpp"
 
-#include "../storage/defines.hpp"
+#include "storage/defines.hpp"
 
-#include "../coding/streams_sink.hpp"
+#include "coding/streams_sink.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/string.hpp"
-#include "../std/tuple.hpp"
+#include "std/string.hpp"
+#include "std/tuple.hpp"
 
-#include "../base/start_mem_debug.hpp"
+#include "base/start_mem_debug.hpp"
 
 namespace feature
 {   
@@ -66,4 +66,4 @@ namespace feature
 
 }
 
-#include "../base/stop_mem_debug.hpp"
+#include "base/stop_mem_debug.hpp"

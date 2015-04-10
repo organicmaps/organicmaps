@@ -1,10 +1,10 @@
-#include "country.hpp"
+#include "storage/country.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../3party/jansson/myjansson.hpp"
+#include "3party/jansson/myjansson.hpp"
 
 
 namespace storage

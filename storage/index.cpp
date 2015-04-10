@@ -1,6 +1,6 @@
-#include "index.hpp"
+#include "storage/index.hpp"
 
-#include "../std/sstream.hpp"
+#include "std/sstream.hpp"
 
 
 namespace storage

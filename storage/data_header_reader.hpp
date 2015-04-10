@@ -1,7 +1,7 @@
 #pragma once
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 class Writer;
 class Reader;

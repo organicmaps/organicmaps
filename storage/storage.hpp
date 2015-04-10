@@ -1,17 +1,17 @@
 #pragma once
 
-#include "storage_defines.hpp"
-#include "country.hpp"
-#include "index.hpp"
+#include "storage/storage_defines.hpp"
+#include "storage/country.hpp"
+#include "storage/index.hpp"
 
-#include "../platform/http_request.hpp"
+#include "platform/http_request.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/list.hpp"
-#include "../std/string.hpp"
-#include "../std/set.hpp"
-#include "../std/function.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/list.hpp"
+#include "std/string.hpp"
+#include "std/set.hpp"
+#include "std/function.hpp"
+#include "std/unique_ptr.hpp"
 
 
 namespace storage
