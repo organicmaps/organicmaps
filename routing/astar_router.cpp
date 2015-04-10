@@ -8,7 +8,6 @@
 
 namespace routing
 {
-
 static double const kMaxSpeedMPS = 5000.0 / 3600;
 static double const kEpsilon = 1e-6;
 
@@ -28,14 +27,14 @@ bool Contains(vector<E> const & v, E const & e)
 }
 
 void ReconstructRoute(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
-                     vector<RoadPos> & route)
+                      vector<RoadPos> & route)
 {
   route.clear();
   RoadPos cur = v;
-  LOG(LINFO, ("A-star has found a path"));
+  LOG(LDEBUG, ("A-star has found a path:"));
   while (true)
   {
-    LOG(LINFO, (cur));
+    LOG(LDEBUG, (cur));
     route.push_back(cur);
     auto it = parent.find(cur);
     if (it == parent.end())
@@ -45,9 +44,8 @@ void ReconstructRoute(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
 }
 
 void ReconstructRouteBidirectional(RoadPos const & v, RoadPos const & w,
-                                                map<RoadPos, RoadPos> const & parentV,
-                                                map<RoadPos, RoadPos> const & parentW,
-                                                vector<RoadPos> & route)
+                                   map<RoadPos, RoadPos> const & parentV,
+                                   map<RoadPos, RoadPos> const & parentW, vector<RoadPos> & route)
 {
   vector<RoadPos> routeV;
   ReconstructRoute(v, parentV, routeV);
@@ -55,6 +53,24 @@ void ReconstructRouteBidirectional(RoadPos const & v, RoadPos const & w,
   ReconstructRoute(w, parentW, routeW);
   route.insert(route.end(), routeV.rbegin(), routeV.rend());
   route.insert(route.end(), routeW.begin(), routeW.end());
+}
+
+double HeuristicCostEstimate(RoadPos const & p, vector<RoadPos> const & goals)
+{
+  // @todo support of more than one goal
+  ASSERT(!goals.empty(), ());
+
+  m2::PointD const & b = goals[0].GetSegEndpoint();
+  m2::PointD const & e = p.GetSegEndpoint();
+
+  return MercatorBounds::DistanceOnEarth(b, e) / kMaxSpeedMPS;
+}
+
+double DistanceBetween(RoadPos const & p1, RoadPos const & p2)
+{
+  m2::PointD const & b = p1.GetSegEndpoint();
+  m2::PointD const & e = p2.GetSegEndpoint();
+  return MercatorBounds::DistanceOnEarth(b, e);
 }
 
 // Vertex is what is going to be put in the priority queue. See the comment
@@ -86,8 +102,8 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
                                                    vector<RoadPos> const & finalPos,
                                                    vector<RoadPos> & route)
 {
-  ASSERT_GREATER(startPos.size(), 0, ());
-  ASSERT_GREATER(finalPos.size(), 0, ());
+  ASSERT(!startPos.empty(), ());
+  ASSERT(!finalPos.empty(), ());
 #if defined(DEBUG)
   for (auto const & roadPos : startPos)
     LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): startPos:", roadPos));
@@ -95,12 +111,10 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): finalPos:", roadPos));
 #endif  // defined(DEBUG)
 
-
   route.clear();
   vector<uint32_t> sortedStartFeatures(startPos.size());
   for (size_t i = 0; i < startPos.size(); ++i)
     sortedStartFeatures[i] = startPos[i].GetFeatureId();
-  sort(sortedStartFeatures.begin(), sortedStartFeatures.end());
   SortUnique(sortedStartFeatures);
 
   vector<RoadPos> sortedStartPos(startPos.begin(), startPos.end());
@@ -148,7 +162,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
       ASSERT(reducedLen >= -kEpsilon, ("Invariant violation!"));
       double const newReducedDist = v.dist + max(reducedLen, 0.0);
 
-      RoadPosToDoubleMapT::const_iterator t = bestDistance.find(turn.m_pos);
+      map<RoadPos, double>::const_iterator t = bestDistance.find(turn.m_pos);
       if (t != bestDistance.end() && newReducedDist >= t->second - kEpsilon)
         continue;
 
@@ -162,22 +176,4 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
   return IRouter::RouteNotFound;
 }
 
-double AStarRouter::HeuristicCostEstimate(RoadPos const & p, vector<RoadPos> const & goals)
-{
-  // @todo support of more than one goal
-  ASSERT_GREATER(goals.size(), 0, ());
-
-  m2::PointD const & b = goals[0].GetSegEndpoint();
-  m2::PointD const & e = p.GetSegEndpoint();
-
-  return MercatorBounds::DistanceOnEarth(b, e) / kMaxSpeedMPS;
-}
-
-double AStarRouter::DistanceBetween(RoadPos const & p1, RoadPos const & p2)
-{
-  m2::PointD const & b = p1.GetSegEndpoint();
-  m2::PointD const & e = p2.GetSegEndpoint();
-  return MercatorBounds::DistanceOnEarth(b, e);
-}
-
-} // namespace routing
+}  // namespace routing
