@@ -1,8 +1,8 @@
 #pragma once
 
 #include "gl_test_widget.hpp"
-#include "../../gui/controller.hpp"
-#include "../../base/strings_bundle.hpp"
+#include "gui/controller.hpp"
+#include "base/strings_bundle.hpp"
 #include <QMouseEvent>
 #include <QObject>
 #include <QTimerEvent>

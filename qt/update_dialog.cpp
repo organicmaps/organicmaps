@@ -1,13 +1,13 @@
-#include "update_dialog.hpp"
-#include "info_dialog.hpp"
+#include "qt/update_dialog.hpp"
+#include "qt/info_dialog.hpp"
 
-#include "../storage/storage_defines.hpp"
+#include "storage/storage_defines.hpp"
 
-#include "../platform/settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 #include <QtCore/QDateTime>
 

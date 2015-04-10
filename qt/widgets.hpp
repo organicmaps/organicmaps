@@ -2,7 +2,7 @@
 
 //#include "../qt_tstfrm/widgets.hpp"
 /*#include "../map/qgl_render_context.hpp"
-#include "../graphics/resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
 class Drawer;
 class VideoTimer;

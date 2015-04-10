@@ -1,12 +1,12 @@
-#include "test_main_loop.hpp"
+#include "qt_tstfrm/test_main_loop.hpp"
 
 #include <QtCore/QTimer>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
 
-#include "../base/scope_guard.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 namespace
 {

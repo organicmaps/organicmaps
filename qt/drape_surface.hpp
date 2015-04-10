@@ -1,9 +1,9 @@
 #pragma once
 
-#include "qtoglcontextfactory.hpp"
+#include "qt/qtoglcontextfactory.hpp"
 
-#include "../map/framework.hpp"
-#include "../drape_frontend/drape_engine.hpp"
+#include "map/framework.hpp"
+#include "drape_frontend/drape_engine.hpp"
 
 #include <QtGui/QWindow>
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../map/location_state.hpp"
-#include "../platform/location_service.hpp"
+#include "map/location_state.hpp"
+#include "platform/location_service.hpp"
 
-#include "../std/unique_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 #include <QtWidgets/QApplication>
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

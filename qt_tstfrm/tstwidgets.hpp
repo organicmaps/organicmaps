@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../graphics/opengl/texture.hpp"
-#include "../graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/texture.hpp"
+#include "graphics/opengl/renderbuffer.hpp"
 
-#include "../graphics/resource_manager.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "../map/drawer.hpp"
-#include "../map/qgl_render_context.hpp"
+#include "map/drawer.hpp"
+#include "map/qgl_render_context.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 #include <QtOpenGL/QGLWidget>
 

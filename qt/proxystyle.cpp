@@ -1,6 +1,6 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "proxystyle.hpp"
+#include "qt/proxystyle.hpp"
 
 
 ProxyStyle::ProxyStyle(QStyle * p)

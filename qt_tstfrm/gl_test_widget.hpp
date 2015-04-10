@@ -2,9 +2,9 @@
 
 #include "tstwidgets.hpp"
 
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../map/qgl_render_context.hpp"
+#include "map/qgl_render_context.hpp"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QApplication>

@@ -1,9 +1,9 @@
-#include "../base/SRC_FIRST.hpp"
+#include "base/SRC_FIRST.hpp"
 
-#include "slider_ctrl.hpp"
-#include "proxystyle.hpp"
+#include "qt/slider_ctrl.hpp"
+#include "qt/proxystyle.hpp"
 
-#include "../base/math.hpp"
+#include "base/math.hpp"
 
 
 namespace qt

@@ -1,6 +1,6 @@
-#include "info_dialog.hpp"
+#include "qt/info_dialog.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 #include <QtGui/QIcon>
 

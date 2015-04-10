@@ -1,8 +1,8 @@
-#include "about.hpp"
+#include "qt/about.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 #include <QtCore/QFile>
 #include <QtGui/QIcon>

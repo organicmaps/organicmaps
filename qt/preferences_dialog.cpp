@@ -1,6 +1,6 @@
-#include "preferences_dialog.hpp"
+#include "qt/preferences_dialog.hpp"
 
-#include "../platform/settings.hpp"
+#include "platform/settings.hpp"
 
 #include <QtGui/QIcon>
 

@@ -1,14 +1,14 @@
-#include "tstwidgets.hpp"
+#include "qt_tstfrm/tstwidgets.hpp"
 
-#include "../graphics/screen.hpp"
-#include "../graphics/resource_manager.hpp"
+#include "graphics/screen.hpp"
+#include "graphics/resource_manager.hpp"
 
-#include "../graphics/opengl/utils.hpp"
-#include "../graphics/opengl/framebuffer.hpp"
-#include "../graphics/opengl/renderbuffer.hpp"
-#include "../graphics/opengl/opengl.hpp"
+#include "graphics/opengl/utils.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+#include "graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
 namespace tst
 {

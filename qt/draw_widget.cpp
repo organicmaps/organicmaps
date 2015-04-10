@@ -1,18 +1,18 @@
-#include "draw_widget.hpp"
-#include "slider_ctrl.hpp"
+#include "qt/draw_widget.hpp"
+#include "qt/slider_ctrl.hpp"
 
-#include "../map/render_policy.hpp"
-#include "../map/country_status_display.hpp"
+#include "map/render_policy.hpp"
+#include "map/country_status_display.hpp"
 
-#include "../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../graphics/opengl/opengl.hpp"
-#include "../graphics/depth_constants.hpp"
+#include "graphics/opengl/opengl.hpp"
+#include "graphics/depth_constants.hpp"
 
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
 #include <QtCore/QLocale>
 

@@ -1,18 +1,18 @@
-#include "mainwindow.hpp"
-#include "info_dialog.hpp"
+#include "qt/mainwindow.hpp"
+#include "qt/info_dialog.hpp"
 
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
-#include "../base/object_tracker.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/object_tracker.hpp"
 
-#include "../coding/file_reader.hpp"
+#include "coding/file_reader.hpp"
 
-#include "../std/cstdio.hpp"
+#include "std/cstdio.hpp"
 
-#include "../3party/Alohalytics/src/alohalytics.h"
+#include "3party/Alohalytics/src/alohalytics.h"
 
 #include <QtCore/QLocale>
 #include <QtCore/QDir>

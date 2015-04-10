@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../map/window_handle.hpp"
-#include "../map/framework.hpp"
-#include "../map/navigator.hpp"
-#include "../map/qgl_render_context.hpp"
+#include "map/window_handle.hpp"
+#include "map/framework.hpp"
+#include "map/navigator.hpp"
+#include "map/qgl_render_context.hpp"
 
-#include "../base/scheduled_task.hpp"
+#include "base/scheduled_task.hpp"
 
-#include "../platform/video_timer.hpp"
+#include "platform/video_timer.hpp"
 
-#include "../std/unique_ptr.hpp"
+#include "std/unique_ptr.hpp"
 
 #include <QtCore/QTimer>
 #include <QtOpenGL/qgl.h>

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../search/result.hpp"
-#include "../search/params.hpp"
+#include "search/result.hpp"
+#include "search/params.hpp"
 
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 #include <QtGui/QPixmap>
 

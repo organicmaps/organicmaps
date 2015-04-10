@@ -1,22 +1,22 @@
-#include "mainwindow.hpp"
+#include "qt/mainwindow.hpp"
 
 #ifndef USE_DRAPE
-#include "draw_widget.hpp"
+#include "qt/draw_widget.hpp"
 #else
-#include "drape_surface.hpp"
+#include "qt/drape_surface.hpp"
 #endif
 
-#include "slider_ctrl.hpp"
-#include "about.hpp"
-#include "preferences_dialog.hpp"
-#include "search_panel.hpp"
+#include "qt/slider_ctrl.hpp"
+#include "qt/about.hpp"
+#include "qt/preferences_dialog.hpp"
+#include "qt/search_panel.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../platform/settings.hpp"
-#include "../platform/platform.hpp"
+#include "platform/settings.hpp"
+#include "platform/platform.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 #include <QtGui/QCloseEvent>
 
@@ -39,10 +39,10 @@
 #define IDM_PREFERENCES_DIALOG  1002
 
 #ifndef NO_DOWNLOADER
-#include "update_dialog.hpp"
-#include "info_dialog.hpp"
+#include "qt/update_dialog.hpp"
+#include "qt/info_dialog.hpp"
 
-#include "../indexer/classificator.hpp"
+#include "indexer/classificator.hpp"
 
 #include <QtCore/QFile>
 

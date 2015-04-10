@@ -1,5 +1,5 @@
 #pragma once
-#include "../map/framework.hpp"
+#include "map/framework.hpp"
 
 #include <QtWidgets/QApplication>
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)

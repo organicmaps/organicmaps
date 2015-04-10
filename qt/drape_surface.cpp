@@ -1,12 +1,12 @@
-#include "drape_surface.hpp"
+#include "qt/drape_surface.hpp"
 
-#include "../drape_frontend/viewport.hpp"
+#include "drape_frontend/viewport.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/logging.hpp"
+#include "base/stl_add.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/cmath.hpp"
+#include "std/bind.hpp"
+#include "std/cmath.hpp"
 
 #include <QtGui/QMouseEvent>
 
