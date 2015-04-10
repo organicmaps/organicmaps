@@ -17,7 +17,6 @@ namespace routing
 uint32_t const FEATURE_CACHE_SIZE = 10;
 uint32_t const READ_ROAD_SCALE = 13;
 double const READ_CROSS_EPSILON = 1.0E-4;
-double const DEFAULT_SPEED_MS = 15.0;
 
 uint32_t indexFound = 0;
 uint32_t indexCheck = 0;
@@ -140,8 +139,7 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
     return;
 
   size_t const numPoints = fc.m_points.size();
-  if (numPoints < 2)
-    return;
+  ASSERT_GREATER_OR_EQUAL(numPoints, 2, ("Incorrect road - only", numPoints, "points"));
 
   bool const isForward = pos.IsForward();
 
@@ -191,20 +189,23 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
   {
     turn.m_metersCovered = segmentDistance;
     turn.m_secondsCovered = segmentTime;
-    turn.m_speed = DEFAULT_SPEED_MS;
+    turn.m_speed = fc.m_speed;
   }
 
-  // Check cycle.
+  // Checks that the road is not a loop.
   if (!m2::AlmostEqual(fc.m_points.front(), fc.m_points.back()))
     return;
+
   if (isForward && segId == 0)
   {
-    thisTurn.m_pos = RoadPos(featureId, isForward, numPoints - 2, fc.m_points.back());
+    // It seems that it's possible to get from the last segment to the first.
+    thisTurn.m_pos = RoadPos(featureId, isForward, numPoints - 2 /* segId */, fc.m_points.back());
     turns.push_back(thisTurn);
   }
   else if (!isForward && !fc.m_isOneway && segId + 2 == numPoints)
   {
-    thisTurn.m_pos = RoadPos(featureId, isForward, 0, fc.m_points.front());
+    // It seems that it's possible to get from the first segment to the last.
+    thisTurn.m_pos = RoadPos(featureId, isForward, 0 /* segId */, fc.m_points.front());
     turns.push_back(thisTurn);
   }
 }

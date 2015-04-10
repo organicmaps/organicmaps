@@ -107,8 +107,8 @@ void FeatureRoadGraphTester::Name2FeatureID(vector<routing::RoadPos> & vec)
 void FeatureRoadGraphTester::GetPossibleTurns(RoadPos const & pos, IRoadGraph::TurnsVectorT & vec)
 {
   m_graph->GetNearestTurns(RoadPos(m_mapping.GetId(strings::to_string(pos.GetFeatureId())),
-                                    pos.IsForward(), pos.GetSegId()),
-                            vec);
+                                   pos.IsForward(), pos.GetSegId()),
+                           vec);
   FeatureID2Name(vec);
 }
 
