@@ -1,23 +1,23 @@
 #pragma once
 
-#include "cross_routing_context.hpp"
+#include "routing/cross_routing_context.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../coding/file_container.hpp"
-#include "../coding/read_write_utils.hpp"
+#include "coding/file_container.hpp"
+#include "coding/read_write_utils.hpp"
 
-#include "../base/bits.hpp"
+#include "base/bits.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
-#include "../3party/succinct/elias_fano.hpp"
-#include "../3party/succinct/elias_fano_compressed_list.hpp"
-#include "../3party/succinct/gamma_vector.hpp"
-#include "../3party/succinct/rs_bit_vector.hpp"
-#include "../3party/succinct/mapper.hpp"
-#include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
-#include "../3party/osrm/osrm-backend/DataStructures/TravelMode.h"
+#include "3party/succinct/elias_fano.hpp"
+#include "3party/succinct/elias_fano_compressed_list.hpp"
+#include "3party/succinct/gamma_vector.hpp"
+#include "3party/succinct/rs_bit_vector.hpp"
+#include "3party/succinct/mapper.hpp"
+#include "3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
+#include "3party/osrm/osrm-backend/DataStructures/TravelMode.h"
 
 namespace routing
 {

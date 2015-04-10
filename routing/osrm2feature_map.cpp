@@ -1,22 +1,22 @@
-#include "osrm2feature_map.hpp"
+#include "routing/osrm2feature_map.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 
-#include "../coding/file_name_utils.hpp"
-#include "../coding/internal/file_data.hpp"
-#include "../coding/read_write_utils.hpp"
-#include "../coding/varint.hpp"
+#include "coding/file_name_utils.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/varint.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
-#include "../base/scope_guard.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/math.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../std/fstream.hpp"
-#include "../std/sstream.hpp"
-#include "../std/unordered_map.hpp"
+#include "std/fstream.hpp"
+#include "std/sstream.hpp"
+#include "std/unordered_map.hpp"
 
-#include "../3party/succinct/mapper.hpp"
+#include "3party/succinct/mapper.hpp"
 
 
 namespace routing

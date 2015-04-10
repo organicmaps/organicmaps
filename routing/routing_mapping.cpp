@@ -1,16 +1,16 @@
-#include "routing_mapping.h"
+#include "routing/routing_mapping.h"
 
-#include "cross_routing_context.hpp"
-#include "osrm2feature_map.hpp"
-#include "osrm_data_facade.hpp"
+#include "routing/cross_routing_context.hpp"
+#include "routing/osrm2feature_map.hpp"
+#include "routing/osrm_data_facade.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../coding/reader_wrapper.hpp"
+#include "coding/reader_wrapper.hpp"
 
-#include "../indexer/mwm_version.hpp"
+#include "indexer/mwm_version.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
 namespace routing
 {

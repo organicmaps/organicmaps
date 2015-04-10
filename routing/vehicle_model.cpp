@@ -1,13 +1,13 @@
-#include "vehicle_model.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/ftypes_matcher.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../std/limits.hpp"
-#include "../std/initializer_list.hpp"
+#include "std/limits.hpp"
+#include "std/initializer_list.hpp"
 
 
 namespace routing

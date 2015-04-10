@@ -1,25 +1,25 @@
 #pragma once
 
-#include "../coding/file_container.hpp"
-#include "../coding/mmap_reader.hpp"
+#include "coding/file_container.hpp"
+#include "coding/mmap_reader.hpp"
 
-#include "../indexer/features_offsets_table.hpp"
+#include "indexer/features_offsets_table.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../base/scope_guard.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../std/limits.hpp"
-#include "../std/string.hpp"
-#include "../std/unordered_map.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/limits.hpp"
+#include "std/string.hpp"
+#include "std/unordered_map.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
-#include "../3party/succinct/rs_bit_vector.hpp"
+#include "3party/succinct/rs_bit_vector.hpp"
 
-#include "../3party/succinct/elias_fano_compressed_list.hpp"
+#include "3party/succinct/elias_fano_compressed_list.hpp"
 
-#include "../defines.hpp"
+#include "defines.hpp"
 namespace routing
 {
 

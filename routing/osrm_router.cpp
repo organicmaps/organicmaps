@@ -1,31 +1,31 @@
-#include "osrm_router.hpp"
-#include "vehicle_model.hpp"
+#include "routing/osrm_router.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../geometry/angles.hpp"
-#include "../geometry/distance.hpp"
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/angles.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/mercator.hpp"
-#include "../indexer/index.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/search_string_utils.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/index.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/search_string_utils.hpp"
 
-#include "../coding/reader_wrapper.hpp"
+#include "coding/reader_wrapper.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
-#include "../base/scope_guard.hpp"
-#include "../base/timer.hpp"
+#include "base/logging.hpp"
+#include "base/math.hpp"
+#include "base/scope_guard.hpp"
+#include "base/timer.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
-#include "../3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
-#include "../3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
-#include "../3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
-#include "../3party/osrm/osrm-backend/RoutingAlgorithms/NToMManyToManyRouting.h"
+#include "3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
+#include "3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
+#include "3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
+#include "3party/osrm/osrm-backend/RoutingAlgorithms/NToMManyToManyRouting.h"
 
 
 namespace routing

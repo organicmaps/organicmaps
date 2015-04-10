@@ -1,8 +1,8 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../routing/cross_routing_context.hpp"
-#include "../../coding/reader.hpp"
-#include "../../coding/writer.hpp"
+#include "routing/cross_routing_context.hpp"
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 
 namespace

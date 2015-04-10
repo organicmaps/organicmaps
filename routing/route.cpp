@@ -1,17 +1,17 @@
-#include "route.hpp"
+#include "routing/route.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../platform/location.hpp"
+#include "platform/location.hpp"
 
-#include "../geometry/angles.hpp"
-#include "../geometry/point2d.hpp"
+#include "geometry/angles.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/numeric.hpp"
+#include "std/numeric.hpp"
 
-#include "../map/location_state.hpp"
+#include "map/location_state.hpp"
 
 
 namespace routing

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/function.hpp"
-#include "../std/string.hpp"
+#include "std/function.hpp"
+#include "std/string.hpp"
 
 
 namespace routing

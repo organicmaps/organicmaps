@@ -1,22 +1,22 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../osrm_router.hpp"
+#include "routing/osrm_router.hpp"
 
-#include "../../indexer/features_offsets_table.hpp"
-#include "../../indexer/mercator.hpp"
+#include "indexer/features_offsets_table.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../../coding/file_writer.hpp"
+#include "coding/file_writer.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../defines.hpp"
+#include "defines.hpp"
 
-#include "../../base/scope_guard.hpp"
+#include "base/scope_guard.hpp"
 
-#include "../../std/bind.hpp"
-#include "../../std/string.hpp"
-#include "../../std/unique_ptr.hpp"
-#include "../../std/vector.hpp"
+#include "std/bind.hpp"
+#include "std/string.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 using namespace routing;
 

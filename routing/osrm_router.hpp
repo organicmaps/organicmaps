@@ -1,22 +1,22 @@
 #pragma once
 
-#include "osrm2feature_map.hpp"
-#include "osrm_data_facade.hpp"
-#include "route.hpp"
-#include "router.hpp"
-#include "routing_mapping.h"
+#include "routing/osrm2feature_map.hpp"
+#include "routing/osrm_data_facade.hpp"
+#include "routing/route.hpp"
+#include "routing/router.hpp"
+#include "routing/routing_mapping.h"
 
-#include "../indexer/index.hpp"
-#include "../base/mutex.hpp"
+#include "indexer/index.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/atomic.hpp"
-#include "../std/function.hpp"
-#include "../std/numeric.hpp"
-#include "../std/queue.hpp"
-#include "../std/unordered_map.hpp"
+#include "std/atomic.hpp"
+#include "std/function.hpp"
+#include "std/numeric.hpp"
+#include "std/queue.hpp"
+#include "std/unordered_map.hpp"
 
-#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
-#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
+#include "3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
+#include "3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
 
 namespace feature { class TypesHolder; }
 

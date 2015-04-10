@@ -1,10 +1,10 @@
 #pragma once
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/unordered_map.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
-#include "../std/stdint.hpp"
+#include "std/unordered_map.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
+#include "std/stdint.hpp"
 
 
 class Classificator;

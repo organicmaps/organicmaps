@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../vehicle_model.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../../indexer/classificator.hpp"
-#include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/feature.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/feature.hpp"
 
-#include "../../base/macros.hpp"
+#include "base/macros.hpp"
 
 
 namespace

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "turns.hpp"
+#include "routing/turns.hpp"
 
-#include "../geometry/polyline2d.hpp"
+#include "geometry/polyline2d.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
 
 
 namespace location

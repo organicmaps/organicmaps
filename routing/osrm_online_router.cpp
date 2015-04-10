@@ -1,18 +1,18 @@
-#include "osrm_online_router.hpp"
-#include "route.hpp"
+#include "routing/osrm_online_router.hpp"
+#include "routing/route.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../platform/http_request.hpp"
+#include "platform/http_request.hpp"
 
-#include "../base/timer.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/macros.hpp"
-#include "../base/logging.hpp"
+#include "base/timer.hpp"
+#include "base/string_utils.hpp"
+#include "base/macros.hpp"
+#include "base/logging.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
-#include "../3party/jansson/myjansson.hpp"
+#include "3party/jansson/myjansson.hpp"
 
 namespace routing
 {
