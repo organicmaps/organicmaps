@@ -28,6 +28,8 @@ class FeaturesRoadGraph : public IRoadGraph
     bool m_isOneway;
   };
 
+  // TODO (@gorshenin): ft is not set when feature is not loaded from
+  // cache, investigate how to fix this.
   CachedFeature const & GetCachedFeature(uint32_t const ftId, FeatureType & ft, bool fullLoad);
 
 public:
@@ -54,11 +56,6 @@ private:
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeed(FeatureType const & ft) const;
   void LoadFeature(uint32_t id, FeatureType & ft);
-
-  // Returns nearest turns when pos is traversed in forward (when
-  // isForward is set) or backward (when isForward is not set)
-  // direction.
-  void GetNearestTurnsImpl(RoadPos const & pos, bool isForward, vector<PossibleTurn> & turns);
 
   Index const * m_pIndex;
   size_t m_mwmID;
