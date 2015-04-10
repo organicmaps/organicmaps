@@ -8,7 +8,67 @@
 
 namespace routing
 {
+
 static double const kMaxSpeedMPS = 5000.0 / 3600;
+static double const kEpsilon = 1e-6;
+
+namespace
+{
+template <typename E>
+void SortUnique(vector<E> & v)
+{
+  sort(v.begin(), v.end());
+  v.resize(unique(v.begin(), v.end()) - v.begin());
+}
+
+template <typename E>
+bool Contains(vector<E> const & v, E const & e)
+{
+  return binary_search(v.begin(), v.end(), e);
+}
+
+void ReconstructRoute(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
+                     vector<RoadPos> & route)
+{
+  route.clear();
+  RoadPos cur = v;
+  LOG(LINFO, ("A-star has found a path"));
+  while (true)
+  {
+    LOG(LINFO, (cur));
+    route.push_back(cur);
+    auto it = parent.find(cur);
+    if (it == parent.end())
+      break;
+    cur = it->second;
+  }
+}
+
+void ReconstructRouteBidirectional(RoadPos const & v, RoadPos const & w,
+                                                map<RoadPos, RoadPos> const & parentV,
+                                                map<RoadPos, RoadPos> const & parentW,
+                                                vector<RoadPos> & route)
+{
+  vector<RoadPos> routeV;
+  ReconstructRoute(v, parentV, routeV);
+  vector<RoadPos> routeW;
+  ReconstructRoute(w, parentW, routeW);
+  route.insert(route.end(), routeV.rbegin(), routeV.rend());
+  route.insert(route.end(), routeW.begin(), routeW.end());
+}
+
+// Vertex is what is going to be put in the priority queue. See the comment
+// for CalculateRouteM2M for more information.
+struct Vertex
+{
+  Vertex(RoadPos const & pos, double dist) : pos(pos), dist(dist) {}
+
+  bool operator<(Vertex const & v) const { return dist > v.dist; }
+
+  RoadPos pos;
+  double dist;
+};
+}  // namespace
 
 // This implementation is based on the view that the A* algorithm
 // is equivalent to Dijkstra's algorithm that is run on a reweighted
@@ -26,111 +86,98 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
                                                    vector<RoadPos> const & finalPos,
                                                    vector<RoadPos> & route)
 {
+  ASSERT_GREATER(startPos.size(), 0, ());
+  ASSERT_GREATER(finalPos.size(), 0, ());
 #if defined(DEBUG)
+  for (auto const & roadPos : startPos)
+    LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): startPos:", roadPos));
   for (auto const & roadPos : finalPos)
     LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): finalPos:", roadPos));
 #endif  // defined(DEBUG)
 
-  ASSERT_GREATER(finalPos.size(), 0, ());
-  m_bestDistance.clear();
-  for (auto const & roadPos : finalPos)
-  {
-    VERIFY(m_bestDistance.insert({roadPos, 0.0}).second, ());
-  }
-
-#if defined(DEBUG)
-  for (auto const & roadPos : startPos)
-    LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): startPos:", roadPos));
-#endif  // defined(DEBUG)
 
   route.clear();
   vector<uint32_t> sortedStartFeatures(startPos.size());
   for (size_t i = 0; i < startPos.size(); ++i)
     sortedStartFeatures[i] = startPos[i].GetFeatureId();
   sort(sortedStartFeatures.begin(), sortedStartFeatures.end());
-  sortedStartFeatures.resize(unique(sortedStartFeatures.begin(), sortedStartFeatures.end()) - sortedStartFeatures.begin());
+  SortUnique(sortedStartFeatures);
 
   vector<RoadPos> sortedStartPos(startPos.begin(), startPos.end());
   sort(sortedStartPos.begin(), sortedStartPos.end());
 
+  map<RoadPos, double> bestDistance;
   priority_queue<Vertex> queue;
-  for (auto const & p : m_bestDistance)
-    queue.push(Vertex(p.first));
+  map<RoadPos, RoadPos> parent;
+  for (auto const & rp : finalPos)
+  {
+    VERIFY(bestDistance.insert({rp, 0.0}).second, ());
+    queue.push(Vertex(rp, 0.0));
+  }
 
   while (!queue.empty())
   {
     Vertex const v = queue.top();
     queue.pop();
 
-    if (v.GetReducedDist() > m_bestDistance[v.GetPos()])
+    if (v.dist > bestDistance[v.pos])
       continue;
 
-    if (binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
+    if (Contains(sortedStartPos, v.pos))
     {
-      ReconstructRoute(v.GetPos(), route);
+      ReconstructRoute(v.pos, parent, route);
       return IRouter::NoError;
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_roadGraph->GetNearestTurns(v.GetPos(), turns);
-    for (IRoadGraph::TurnsVectorT::const_iterator it = turns.begin(); it != turns.end(); ++it)
+    m_roadGraph->GetNearestTurns(v.pos, turns);
+    for (PossibleTurn const & turn : turns)
     {
-      PossibleTurn const & turn = *it;
       ASSERT_GREATER(turn.m_speed, 0.0, ()); /// @todo why?
-      Vertex w(turn.m_pos);
-      if (v.GetPos() == w.GetPos())
+      Vertex w(turn.m_pos, 0.0);
+      if (v.pos == w.pos)
         continue;
-      double const len = DistanceBetween(v, w) / kMaxSpeedMPS;
-      double const piV = HeuristicCostEstimate(v, sortedStartPos);
-      double const piW = HeuristicCostEstimate(w, sortedStartPos);
-      double const newReducedDist = v.GetReducedDist() + len + piW - piV;
+      double const len = DistanceBetween(v.pos, w.pos) / kMaxSpeedMPS;
+      double const piV = HeuristicCostEstimate(v.pos, sortedStartPos);
+      double const piW = HeuristicCostEstimate(w.pos, sortedStartPos);
+      double reducedLen = len + piW - piV;
+      // It is possible (and in fact happens often when both starting and ending
+      // points are on the same highway) that parent links form infinite
+      // loops because of precision errors that occur when the reduced edge length is
+      // close to zero. That is why kEpsilon is here.
+      ASSERT(reducedLen >= -kEpsilon, ("Invariant violation!"));
+      double const newReducedDist = v.dist + max(reducedLen, 0.0);
 
-      ASSERT(len + piW - piV >= 0, ("Invariant violation!"));
-
-      RoadPosToDoubleMapT::const_iterator t = m_bestDistance.find(turn.m_pos);
-      if (t != m_bestDistance.end() && newReducedDist >= t->second - 1e-6)
+      RoadPosToDoubleMapT::const_iterator t = bestDistance.find(turn.m_pos);
+      if (t != bestDistance.end() && newReducedDist >= t->second - kEpsilon)
         continue;
 
-      w.SetReducedDist(newReducedDist);
-      m_bestDistance[w.GetPos()] = newReducedDist;
-      m_parent[w.GetPos()] = v.GetPos();
+      w.dist = newReducedDist;
+      bestDistance[w.pos] = newReducedDist;
+      parent[w.pos] = v.pos;
       queue.push(w);
     }
   }
+
   return IRouter::RouteNotFound;
 }
 
-double AStarRouter::HeuristicCostEstimate(Vertex const & v, vector<RoadPos> const & goals)
+double AStarRouter::HeuristicCostEstimate(RoadPos const & p, vector<RoadPos> const & goals)
 {
   // @todo support of more than one goal
   ASSERT_GREATER(goals.size(), 0, ());
 
   m2::PointD const & b = goals[0].GetSegEndpoint();
-  m2::PointD const & e = v.GetPos().GetSegEndpoint();
+  m2::PointD const & e = p.GetSegEndpoint();
 
   return MercatorBounds::DistanceOnEarth(b, e) / kMaxSpeedMPS;
 }
 
-double AStarRouter::DistanceBetween(Vertex const & v1, Vertex const & v2)
+double AStarRouter::DistanceBetween(RoadPos const & p1, RoadPos const & p2)
 {
-  m2::PointD const & b = v1.GetPos().GetSegEndpoint();
-  m2::PointD const & e = v2.GetPos().GetSegEndpoint();
+  m2::PointD const & b = p1.GetSegEndpoint();
+  m2::PointD const & e = p2.GetSegEndpoint();
   return MercatorBounds::DistanceOnEarth(b, e);
 }
 
-void AStarRouter::ReconstructRoute(RoadPos const & destination, vector<RoadPos> & route) const
-{
-  RoadPos rp = destination;
-
-  LOG(LDEBUG, ("A-star has found a route"));
-  while (true)
-  {
-    route.push_back(rp);
-    RoadPosParentMapT::const_iterator it = m_parent.find(rp);
-    if (it == m_parent.end())
-      break;
-    rp = it->second;
-  }
-}
-
-}
+} // namespace routing
