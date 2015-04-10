@@ -144,7 +144,7 @@ CarModel::CarModel()
 
 PedestrianModel::PedestrianModel()
   : VehicleModel(classif(), s_pedestrianLimits),
-    m_noFootType(0)   /// @todo Add additional no-foot type
+    m_noFootType(classif().GetTypeByPath({ "hwtag", "nofoot" }))
 {
   initializer_list<char const *> arr[] =
   {

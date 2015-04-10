@@ -993,3 +993,4 @@ shop|beauty
 shop|sports
 route|ferry|motor_vehicle
 railway|rail|motor_vehicle
+hwtag|nofoot

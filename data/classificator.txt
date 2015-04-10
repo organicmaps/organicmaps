@@ -331,6 +331,7 @@ world  +
         {}
     hwtag  +
         lit  -
+        nofoot  -
         oneway  -
         private  -
         {}

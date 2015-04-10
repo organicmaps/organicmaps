@@ -993,3 +993,4 @@ shop|beauty;[shop=beauty];;name;int_name;992;
 shop|sports;[shop=sports];;name;int_name;993;
 route|ferry|motor_vehicle;[route=ferry];;name;int_name;994;
 railway|rail|motor_vehicle;[railway=rail];;name;int_name;995;
+hwtag|nofoot;[hwtag=nofoot];;name;int_name;996;

@@ -378,7 +378,7 @@ namespace ftype
     buffer_vector<uint32_t, 16> m_types;
 
   public:
-    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT };
+    enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT };
 
     CachedTypes()
     {
@@ -387,7 +387,12 @@ namespace ftype
       for (auto const & e : (StringIL[]) { {"entrance"}, {"highway"} })
         m_types.push_back(c.GetTypeByPath(e));
 
-      for (auto const & e : (StringIL[]) { {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"} })
+      StringIL arr[] =
+      {
+        {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
+        {"hwtag", "lit"}, {"hwtag", "nofoot"}
+      };
+      for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
     }
 
@@ -403,10 +408,11 @@ namespace ftype
   {
     /// Process synonym tags to match existing classificator types.
     /// @todo We are planning to rewrite classificator <-> tags matching.
-    TagProcessor(p).ApplyRules<void(string &, string &)>({
-      { "atm", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
-      { "restaurant", "yes", [](string &k, string &v){ k.swap(v); k = "amenity"; }},
-      { "hotel", "yes", [](string &k, string &v){ k.swap(v); k = "tourism"; }},
+    TagProcessor(p).ApplyRules<void(string &, string &)>(
+    {
+      { "atm", "yes", [](string &k, string &v) { k.swap(v); k = "amenity"; }},
+      { "restaurant", "yes", [](string &k, string &v) { k.swap(v); k = "amenity"; }},
+      { "hotel", "yes", [](string &k, string &v) { k.swap(v); k = "tourism"; }},
     });
 
     AddLayers(p);
@@ -461,12 +467,14 @@ namespace ftype
     for (size_t i = 0; i < params.m_Types.size(); ++i)
       if (types.IsHighway(params.m_Types[i]))
       {
-        TagProcessor(p).ApplyRules({
-          { "oneway", "yes", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
-          { "oneway", "1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY));} },
-          { "oneway", "-1", [&params](){params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true;} },
-          { "access", "private", [&params](){params.AddType(types.Get(CachedTypes::PRIVATE));} },
-          { "lit", "yes", [&params](){params.AddType(types.Get(CachedTypes::LIT));} },
+        TagProcessor(p).ApplyRules(
+        {
+          { "oneway", "yes", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
+          { "oneway", "1", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); }},
+          { "oneway", "-1", [&params]() { params.AddType(types.Get(CachedTypes::ONEWAY)); params.m_reverseGeometry = true; }},
+          { "access", "private", [&params]() { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
+          { "lit", "yes", [&params]() { params.AddType(types.Get(CachedTypes::LIT)); }},
+          { "foot", "no", [&params]() { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
         });
 
         break;
