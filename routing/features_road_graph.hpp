@@ -55,7 +55,11 @@ private:
   double GetSpeed(FeatureType const & ft) const;
   void LoadFeature(uint32_t id, FeatureType & ft);
 
-private:
+  // Returns nearest turns when pos is traversed in forward (when
+  // isForward is set) or backward (when isForward is not set)
+  // direction.
+  void GetNearestTurnsImpl(RoadPos const & pos, bool isForward, vector<PossibleTurn> & turns);
+
   Index const * m_pIndex;
   size_t m_mwmID;
   unique_ptr<IVehicleModel> m_vehicleModel;

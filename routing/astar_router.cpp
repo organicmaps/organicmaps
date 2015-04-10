@@ -6,7 +6,6 @@
 #include "../base/macros.hpp"
 #include "../std/algorithm.hpp"
 
-
 namespace routing
 {
 static double const kMaxSpeedMPS = 5000.0 / 3600;
@@ -42,7 +41,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
 #if defined(DEBUG)
   for (auto const & roadPos : startPos)
     LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): startPos:", roadPos));
-#endif // defined(DEBUG)
+#endif  // defined(DEBUG)
 
   route.clear();
   vector<uint32_t> sortedStartFeatures(startPos.size());
@@ -66,9 +65,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     if (v.GetReducedDist() > m_bestDistance[v.GetPos()])
       continue;
 
-    if (binary_search(sortedStartFeatures.begin(), sortedStartFeatures.end(),
-                      v.GetPos().GetFeatureId()) &&
-        binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
+    if (binary_search(sortedStartPos.begin(), sortedStartPos.end(), v.GetPos()))
     {
       ReconstructRoute(v.GetPos(), route);
       return IRouter::NoError;
@@ -88,8 +85,10 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
       double const piW = HeuristicCostEstimate(w, sortedStartPos);
       double const newReducedDist = v.GetReducedDist() + len + piW - piV;
 
+      ASSERT(len + piW - piV >= 0, ("Invariant violation!"));
+
       RoadPosToDoubleMapT::const_iterator t = m_bestDistance.find(turn.m_pos);
-      if (t != m_bestDistance.end() && newReducedDist >= t->second)
+      if (t != m_bestDistance.end() && newReducedDist >= t->second - 1e-6)
         continue;
 
       w.SetReducedDist(newReducedDist);

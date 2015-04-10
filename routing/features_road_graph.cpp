@@ -10,10 +10,10 @@
 
 #include "../base/logging.hpp"
 
-
 namespace routing
 {
-
+namespace
+{
 uint32_t const FEATURE_CACHE_SIZE = 10;
 uint32_t const READ_ROAD_SCALE = 13;
 double const READ_CROSS_EPSILON = 1.0E-4;
@@ -22,7 +22,7 @@ uint32_t indexFound = 0;
 uint32_t indexCheck = 0;
 uint32_t crossFound = 0;
 uint32_t crossCheck = 0;
-
+}  // namespace
 
 /// @todo Factor out vehicle model as a parameter for the features graph.
 FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
@@ -103,7 +103,7 @@ public:
         m_turns.push_back(t);
       }
 
-      if (!fc.m_isOneway && (i < count - 1))
+      if (i < count - 1)
       {
         ++m_count;
         t.m_pos = RoadPos(fID.m_offset, false, i, p);
@@ -131,83 +131,8 @@ void FeaturesRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
 
 void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
 {
-  uint32_t const featureId = pos.GetFeatureId();
-  FeatureType ft;
-  CachedFeature const fc = GetCachedFeature(featureId, ft, true);
-
-  if (fc.m_speed <= 0.0)
-    return;
-
-  size_t const numPoints = fc.m_points.size();
-  ASSERT_GREATER_OR_EQUAL(numPoints, 2, ("Incorrect road - only", numPoints, "points"));
-
-  bool const isForward = pos.IsForward();
-
-  uint32_t const segId = pos.GetSegId();
-  uint32_t const startPointId = pos.GetSegStartPointId();
-  uint32_t const endPointId = pos.GetSegEndPointId();
-  ASSERT_LESS(startPointId, numPoints, ());
-  ASSERT_LESS(endPointId, numPoints, ());
-
-  PossibleTurn thisTurn;
-  thisTurn.m_speed = fc.m_speed;
-  thisTurn.m_startPoint = fc.m_points.front();
-  thisTurn.m_endPoint = fc.m_points.back();
-
-  double const segmentDistance =
-      CalcDistanceMeters(fc.m_points[startPointId], fc.m_points[endPointId]);
-  double const segmentTime = segmentDistance / fc.m_speed;
-
-  m2::PointD const & startPoint = fc.m_points[startPointId];
-
-  // Find possible turns to startPoint from other features.
-  CrossFeaturesLoader crossLoader(featureId, *this, startPoint, turns);
-  m_pIndex->ForEachInRect(
-      crossLoader, m2::RectD(startPoint.x - READ_CROSS_EPSILON, startPoint.y - READ_CROSS_EPSILON,
-                             startPoint.x + READ_CROSS_EPSILON, startPoint.y + READ_CROSS_EPSILON),
-      READ_ROAD_SCALE);
-
-  indexCheck++;
-
-  if (crossLoader.GetCount() > 0)
-    indexFound++;
-
-  // Push turn points for this feature.
-  if (isForward && segId > 0)
-  {
-    thisTurn.m_pos = RoadPos(featureId, isForward, segId - 1, startPoint);
-    turns.push_back(thisTurn);
-  }
-  else if (!isForward && !fc.m_isOneway && segId + 2 < numPoints)
-  {
-    thisTurn.m_pos = RoadPos(featureId, isForward, segId + 1, startPoint);
-    turns.push_back(thisTurn);
-  }
-
-  // Update distance and time information.
-  for (PossibleTurn & turn : turns)
-  {
-    turn.m_metersCovered = segmentDistance;
-    turn.m_secondsCovered = segmentTime;
-    turn.m_speed = fc.m_speed;
-  }
-
-  // Checks that the road is not a loop.
-  if (!m2::AlmostEqual(fc.m_points.front(), fc.m_points.back()))
-    return;
-
-  if (isForward && segId == 0)
-  {
-    // It seems that it's possible to get from the last segment to the first.
-    thisTurn.m_pos = RoadPos(featureId, isForward, numPoints - 2 /* segId */, fc.m_points.back());
-    turns.push_back(thisTurn);
-  }
-  else if (!isForward && !fc.m_isOneway && segId + 2 == numPoints)
-  {
-    // It seems that it's possible to get from the first segment to the last.
-    thisTurn.m_pos = RoadPos(featureId, isForward, 0 /* segId */, fc.m_points.front());
-    turns.push_back(thisTurn);
-  }
+  GetNearestTurnsImpl(pos, true /* isForward */, turns);
+  GetNearestTurnsImpl(pos, false /* isForward */, turns);
 }
 
 void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
@@ -319,6 +244,81 @@ FeaturesRoadGraph::CachedFeature const & FeaturesRoadGraph::GetCachedFeature(
   m_cacheAccess++;
 
   return f;
+}
+
+void FeaturesRoadGraph::GetNearestTurnsImpl(RoadPos const & pos, bool isForward, vector<PossibleTurn> & turns)
+{
+  uint32_t const featureId = pos.GetFeatureId();
+  FeatureType ft;
+  CachedFeature const fc = GetCachedFeature(featureId, ft, true);
+
+  if (fc.m_speed <= 0.0)
+    return;
+
+  size_t const numPoints = fc.m_points.size();
+  ASSERT_GREATER_OR_EQUAL(numPoints, 2, ("Incorrect road - only", numPoints, "points"));
+
+  uint32_t const segId = pos.GetSegId();
+
+  PossibleTurn thisTurn;
+  thisTurn.m_speed = fc.m_speed;
+  thisTurn.m_startPoint = fc.m_points.front();
+  thisTurn.m_endPoint = fc.m_points.back();
+
+  double const segmentDistance = CalcDistanceMeters(fc.m_points[pos.GetSegStartPointId()],
+                                                    fc.m_points[pos.GetSegEndPointId()]);
+  double const segmentTime = segmentDistance / fc.m_speed;
+
+  m2::PointD const point = isForward ? fc.m_points[segId + 1] : fc.m_points[segId];
+
+  // Find possible turns to startPoint from other features.
+  CrossFeaturesLoader crossLoader(featureId, *this, point, turns);
+  m_pIndex->ForEachInRect(
+      crossLoader, m2::RectD(point.x - READ_CROSS_EPSILON, point.y - READ_CROSS_EPSILON,
+                             point.x + READ_CROSS_EPSILON, point.y + READ_CROSS_EPSILON),
+      READ_ROAD_SCALE);
+
+  indexCheck++;
+
+  if (crossLoader.GetCount() > 0)
+    indexFound++;
+
+  // Push turn points for this feature.
+  if (segId > 0)
+  {
+    thisTurn.m_pos = RoadPos(featureId, true /* isForward */, segId - 1, fc.m_points[segId]);
+    turns.push_back(thisTurn);
+  }
+  if (segId + 2 < numPoints)
+  {
+    thisTurn.m_pos = RoadPos(featureId, false /* isForward */, segId + 1, fc.m_points[segId + 1]);
+    turns.push_back(thisTurn);
+  }
+
+  // Update distance and time information.
+  for (PossibleTurn & turn : turns)
+  {
+    turn.m_metersCovered = segmentDistance;
+    turn.m_secondsCovered = segmentTime;
+    turn.m_speed = fc.m_speed;
+  }
+
+  // Checks that the road is not a loop.
+  if (!m2::AlmostEqual(fc.m_points.front(), fc.m_points.back()))
+    return;
+
+  if (segId == 0)
+  {
+    // It seems that it's possible to get from the last segment to the first.
+    thisTurn.m_pos = RoadPos(featureId, true /* isForward */, numPoints - 2 /* segId */, fc.m_points.back());
+    turns.push_back(thisTurn);
+  }
+  if (segId + 2 == numPoints)
+  {
+    // It seems that it's possible to get from the first segment to the last.
+    thisTurn.m_pos = RoadPos(featureId, false /* isForward */, 0 /* segId */, fc.m_points.front());
+    turns.push_back(thisTurn);
+  }
 }
 
 } // namespace routing
