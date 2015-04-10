@@ -1,7 +1,7 @@
 #pragma once
-#include "result.hpp"
+#include "search/result.hpp"
 
-#include "../indexer/feature_data.hpp"
+#include "indexer/feature_data.hpp"
 
 
 class FeatureType;

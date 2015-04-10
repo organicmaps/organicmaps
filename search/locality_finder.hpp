@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../indexer/index.hpp"
+#include "indexer/index.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
-#include "../geometry/tree4d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/tree4d.hpp"
 
-#include "../std/set.hpp"
+#include "std/set.hpp"
 
 
 class Index;

@@ -1,10 +1,10 @@
 #pragma once
-#include "search_common.hpp"
+#include "search/search_common.hpp"
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
 
 namespace search
 {

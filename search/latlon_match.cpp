@@ -1,13 +1,13 @@
-#include "latlon_match.hpp"
+#include "search/latlon_match.hpp"
 
-#include "../base/macros.hpp"
+#include "base/macros.hpp"
 
-#include "../std/array.hpp"
-#include "../std/cmath.hpp"
-#include "../std/cstdlib.hpp"
-#include "../std/cstring.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/utility.hpp"
+#include "std/array.hpp"
+#include "std/cmath.hpp"
+#include "std/cstdlib.hpp"
+#include "std/cstring.hpp"
+#include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 
 namespace search

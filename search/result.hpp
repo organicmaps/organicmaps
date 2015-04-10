@@ -1,12 +1,12 @@
 #pragma once
-#include "../indexer/feature_decl.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../geometry/rect2d.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/string.hpp"
+#include "std/string.hpp"
 
 
 namespace search

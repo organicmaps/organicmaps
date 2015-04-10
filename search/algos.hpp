@@ -1,8 +1,8 @@
 #pragma once
-#include "../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
 
 
 namespace search

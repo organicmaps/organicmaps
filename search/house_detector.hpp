@@ -1,14 +1,14 @@
 #pragma once
-#include "indexed_value.hpp"
+#include "search/indexed_value.hpp"
 
-#include "../indexer/feature_decl.hpp"
-#include "../indexer/index.hpp"
-#include "../indexer/ftypes_matcher.hpp"
+#include "indexer/feature_decl.hpp"
+#include "indexer/index.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/string.hpp"
-#include "../std/queue.hpp"
+#include "std/string.hpp"
+#include "std/queue.hpp"
 
 
 namespace search

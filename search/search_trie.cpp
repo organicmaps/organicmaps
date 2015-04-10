@@ -1,5 +1,5 @@
-#include "search_trie.hpp"
-#include ""
-#include "../coding/writer.hpp"
+#include "search/search_trie.hpp"
+#include "search"
+#include "coding/writer.hpp"
 
 void Build(FeaturesVector const & featuresVector, Writer & writer);

@@ -1,19 +1,19 @@
 #pragma once
-#include "search_common.hpp"
+#include "search/search_common.hpp"
 
-#include "../indexer/search_trie.hpp"
+#include "indexer/search_trie.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/stl_add.hpp"
-#include "../base/scope_guard.hpp"
-#include "../base/mutex.hpp"
+#include "base/string_utils.hpp"
+#include "base/stl_add.hpp"
+#include "base/scope_guard.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/unique_ptr.hpp"
-#include "../std/unordered_set.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
-#include "../std/target_os.hpp"
+#include "std/algorithm.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/unordered_set.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
+#include "std/target_os.hpp"
 
 //#include "../sparsehash/dense_hash_set.hpp"
 

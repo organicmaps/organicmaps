@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
-#include "../latlon_match.hpp"
-#include "../../std/utility.hpp"
+#include "testing/testing.hpp"
+#include "search/latlon_match.hpp"
+#include "std/utility.hpp"
 
 namespace
 {

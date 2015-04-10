@@ -1,6 +1,6 @@
-#include "geometry_utils.hpp"
+#include "search/geometry_utils.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
 
 namespace search

@@ -1,4 +1,4 @@
-#include "approximate_string_match.hpp"
+#include "search/approximate_string_match.hpp"
 
 // TODO: Сделать модель ошибок.
 // Учитывать соседние кнопки на клавиатуре.

@@ -1,11 +1,11 @@
-#include "keyword_lang_matcher.hpp"
+#include "search/keyword_lang_matcher.hpp"
 
-#include "../indexer/search_string_utils.hpp"
-#include "../indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
+#include "indexer/search_delimiters.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 namespace search

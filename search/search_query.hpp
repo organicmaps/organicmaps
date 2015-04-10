@@ -1,32 +1,32 @@
 #pragma once
-#include "intermediate_result.hpp"
-#include "keyword_lang_matcher.hpp"
+#include "search/intermediate_result.hpp"
+#include "search/keyword_lang_matcher.hpp"
 
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/search_trie.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/search_trie.hpp"
 #include "../indexer/index.hpp"   // for Index::MwmLock
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../base/buffer_vector.hpp"
-#include "../base/limited_priority_queue.hpp"
-#include "../base/string_utils.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/limited_priority_queue.hpp"
+#include "base/string_utils.hpp"
 
-#include "../std/map.hpp"
-#include "../std/string.hpp"
-#include "../std/unordered_set.hpp"
-#include "../std/vector.hpp"
+#include "std/map.hpp"
+#include "std/string.hpp"
+#include "std/unordered_set.hpp"
+#include "std/vector.hpp"
 
 
 #define HOUSE_SEARCH_TEST
 #define FIND_LOCALITY_TEST
 
 #ifdef HOUSE_SEARCH_TEST
-#include "house_detector.hpp"
+#include "search/house_detector.hpp"
 #endif
 
 #ifdef FIND_LOCALITY_TEST
-#include "locality_finder.hpp"
+#include "search/locality_finder.hpp"
 #endif
 
 

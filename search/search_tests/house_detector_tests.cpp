@@ -1,21 +1,21 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../house_detector.hpp"
+#include "search/house_detector.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../../geometry/distance_on_sphere.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/ftypes_matcher.hpp"
-#include "../../indexer/index.hpp"
-#include "../../indexer/scales.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/index.hpp"
+#include "indexer/scales.hpp"
 
-#include "../../std/iostream.hpp"
-#include "../../std/fstream.hpp"
+#include "std/iostream.hpp"
+#include "std/fstream.hpp"
 
 
 class StreetIDsByName

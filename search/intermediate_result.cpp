@@ -1,20 +1,20 @@
-#include "intermediate_result.hpp"
-#include "geometry_utils.hpp"
+#include "search/intermediate_result.hpp"
+#include "search/geometry_utils.hpp"
 
-#include "../map/measurement_utils.hpp"
+#include "map/measurement_utils.hpp"
 
-#include "../storage/country_info.hpp"
+#include "storage/country_info.hpp"
 
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/categories_holder.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/categories_holder.hpp"
 
-#include "../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
 
 namespace search

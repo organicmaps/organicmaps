@@ -1,27 +1,27 @@
-#include "algos.hpp"
-#include "house_detector.hpp"
-#include "search_common.hpp"
+#include "search/algos.hpp"
+#include "search/house_detector.hpp"
+#include "search/search_common.hpp"
 
-#include "../indexer/classificator.hpp"
-#include "../indexer/feature_impl.hpp"
+#include "indexer/feature_impl.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../geometry/angles.hpp"
-#include "../geometry/distance.hpp"
+#include "geometry/distance.hpp"
+#include "geometry/angles.hpp"
 
-#include "../base/limited_priority_queue.hpp"
-#include "../base/logging.hpp"
-#include "../base/stl_iterator.hpp"
+#include "base/logging.hpp"
+#include "base/stl_iterator.hpp"
+#include "base/limited_priority_queue.hpp"
 
-#include "../std/bind.hpp"
-#include "../std/numeric.hpp"
-#include "../std/set.hpp"
-#include "../std/transform_iterator.hpp"
+#include "std/bind.hpp"
+#include "std/numeric.hpp"
+#include "std/set.hpp"
+#include "std/transform_iterator.hpp"
 
 #ifdef DEBUG
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../std/fstream.hpp"
-#include "../std/iostream.hpp"
+#include "std/iostream.hpp"
+#include "std/fstream.hpp"
 #endif
 
 

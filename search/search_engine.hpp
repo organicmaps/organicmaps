@@ -1,17 +1,17 @@
 #pragma once
 
-#include "params.hpp"
-#include "result.hpp"
+#include "search/params.hpp"
+#include "search/result.hpp"
 
-#include "../geometry/rect2d.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../coding/reader.hpp"
+#include "coding/reader.hpp"
 
-#include "../base/mutex.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/unique_ptr.hpp"
-#include "../std/string.hpp"
-#include "../std/function.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/string.hpp"
+#include "std/function.hpp"
 
 
 class Index;

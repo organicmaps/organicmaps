@@ -1,7 +1,7 @@
-#include "locality_finder.hpp"
+#include "search/locality_finder.hpp"
 
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/features_vector.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/features_vector.hpp"
 
 
 namespace search

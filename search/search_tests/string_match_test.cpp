@@ -1,13 +1,13 @@
-#include "../../testing/testing.hpp"
-#include "../approximate_string_match.hpp"
+#include "testing/testing.hpp"
+#include "search/approximate_string_match.hpp"
 
-#include "match_cost_mock.hpp"
+#include "search/search_tests/match_cost_mock.hpp"
 
-#include "../../indexer/search_delimiters.hpp"
+#include "indexer/search_delimiters.hpp"
 
-#include "../../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/cstring.hpp"
+#include "std/cstring.hpp"
 
 
 using namespace search;

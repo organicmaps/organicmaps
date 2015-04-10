@@ -1,17 +1,17 @@
-#include "../../testing/testing.hpp"
-#include "../keyword_matcher.hpp"
+#include "testing/testing.hpp"
+#include "search/keyword_matcher.hpp"
 
-#include "../search_common.hpp"
+#include "search/search_common.hpp"
 
-#include "../../indexer/search_string_utils.hpp"
-#include "../../indexer/search_delimiters.hpp"
+#include "indexer/search_string_utils.hpp"
+#include "indexer/search_delimiters.hpp"
 
-#include "../../base/buffer_vector.hpp"
-#include "../../base/stl_add.hpp"
+#include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../std/scoped_ptr.hpp"
-#include "../../std/sstream.hpp"
-#include "../../std/vector.hpp"
+#include "std/scoped_ptr.hpp"
+#include "std/sstream.hpp"
+#include "std/vector.hpp"
 
 namespace
 {

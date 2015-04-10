@@ -1,25 +1,25 @@
-#include "search_engine.hpp"
-#include "search_query.hpp"
+#include "search/search_engine.hpp"
+#include "search/search_query.hpp"
 
-#include "../storage/country_info.hpp"
+#include "storage/country_info.hpp"
 
-#include "../indexer/categories_holder.hpp"
-#include "../indexer/search_string_utils.hpp"
-#include "../indexer/mercator.hpp"
-#include "../indexer/scales.hpp"
-#include "../indexer/classificator.hpp"
+#include "indexer/categories_holder.hpp"
+#include "indexer/search_string_utils.hpp"
+#include "indexer/mercator.hpp"
+#include "indexer/scales.hpp"
+#include "indexer/classificator.hpp"
 
-#include "../platform/platform.hpp"
+#include "platform/platform.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
-#include "../std/bind.hpp"
+#include "std/map.hpp"
+#include "std/vector.hpp"
+#include "std/bind.hpp"
 
-#include "../3party/Alohalytics/src/alohalytics.h"
+#include "3party/Alohalytics/src/alohalytics.h"
 
 
 namespace search

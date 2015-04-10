@@ -1,6 +1,6 @@
-#include "params.hpp"
+#include "search/params.hpp"
 
-#include "../coding/multilang_utf8_string.hpp"
+#include "coding/multilang_utf8_string.hpp"
 
 
 namespace search

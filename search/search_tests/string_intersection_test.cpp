@@ -1,12 +1,12 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../search_string_intersection.hpp"
+#include "search/search_string_intersection.hpp"
 
-#include "../../indexer/feature_covering.hpp"
+#include "indexer/feature_covering.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../std/cstdarg.hpp"
+#include "std/cstdarg.hpp"
 
 
 namespace

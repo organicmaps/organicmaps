@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../std/bind.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/vector.hpp"
-#include "../std/limits.hpp"
+#include "std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/vector.hpp"
+#include "std/limits.hpp"
 
 
 namespace search

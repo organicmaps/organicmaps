@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../indexer/data_header.hpp"
-#include "../../indexer/index.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/index.hpp"
 
-#include "../locality_finder.hpp"
+#include "search/locality_finder.hpp"
 
 namespace
 {

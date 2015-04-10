@@ -1,9 +1,9 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../algos.hpp"
+#include "search/algos.hpp"
 
-#include "../../std/algorithm.hpp"
-#include "../../std/iterator.hpp"
+#include "std/algorithm.hpp"
+#include "std/iterator.hpp"
 
 
 namespace
