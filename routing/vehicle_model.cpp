@@ -43,6 +43,10 @@ static int const kPedestrianSpeedKMpH = 5;
 
 VehicleModel::InitListT const s_pedestrianLimits =
 {
+  { {"highway", "motorway"},       kPedestrianSpeedKMpH },
+  { {"highway", "trunk"},          kPedestrianSpeedKMpH },
+  { {"highway", "motorway_link"},  kPedestrianSpeedKMpH },
+  { {"highway", "trunk_link"},     kPedestrianSpeedKMpH },
   { {"highway", "primary"},        kPedestrianSpeedKMpH },
   { {"highway", "primary_link"},   kPedestrianSpeedKMpH },
   { {"highway", "secondary"},      kPedestrianSpeedKMpH },
