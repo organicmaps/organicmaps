@@ -17,6 +17,7 @@ SOURCES += \
     cross_routing_context.cpp \
     dijkstra_router.cpp \
     features_road_graph.cpp \
+    nearest_finder.cpp \
     osrm2feature_map.cpp \
     osrm_online_router.cpp \
     osrm_router.cpp \
@@ -27,13 +28,13 @@ SOURCES += \
     turns.cpp \
     vehicle_model.cpp \
 
-
 HEADERS += \
     astar_router.hpp \
     async_router.hpp \
     cross_routing_context.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \
+    nearest_finder.hpp \
     osrm2feature_map.hpp \
     osrm_data_facade.hpp \
     osrm_online_router.hpp \

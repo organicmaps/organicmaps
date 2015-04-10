@@ -11,7 +11,7 @@ class DijkstraRouter : public RoadGraphRouter
   typedef RoadGraphRouter BaseT;
 
 public:
-  DijkstraRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
+  DijkstraRouter(Index const * pIndex = 0) : BaseT(pIndex,unique_ptr<IVehicleModel>(new PedestrianModel())) {}
 
   // IRouter overrides:
   string GetName() const override { return "pedestrian-dijkstra"; }

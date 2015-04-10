@@ -2,6 +2,7 @@
 #include "features_road_graph.hpp"
 #include "route.hpp"
 #include "vehicle_model.hpp"
+#include "nearest_finder.hpp"
 
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
@@ -13,93 +14,31 @@
 
 #include "../base/logging.hpp"
 
+namespace
+{
+size_t const MAX_ROAD_CANDIDATES = 2;
+double const FEATURE_BY_POINT_RADIUS_M = 100.0;
+}
 
 namespace routing
 {
-
-class Point2RoadPos
-{
-  m2::PointD m_point;
-  double m_minDist;
-  m2::PointD m_posBeg;
-  m2::PointD m_posEnd;
-  size_t m_segIdx;
-  bool m_isOneway;
-  FeatureID m_fID;
-  IVehicleModel const * m_vehicleModel;
-
-public:
-  Point2RoadPos(m2::PointD const & pt, IVehicleModel const * vehicleModel)
-    : m_point(pt), m_minDist(numeric_limits<double>::max()), m_vehicleModel(vehicleModel)
-  {
-  }
-
-  void operator() (FeatureType const & ft)
-  {
-    if (ft.GetFeatureType() != feature::GEOM_LINE)
-      return;
-
-    double const speed = m_vehicleModel->GetSpeed(ft);
-    if (speed <= 0.0)
-      return;
-
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-    size_t const count = ft.GetPointsCount() - 1;
-    for (size_t i = 0; i < count; ++i)
-    {
-      m2::DistanceToLineSquare<m2::PointD> segDist;
-      m2::PointD const & p1 = ft.GetPoint(i);
-      m2::PointD const & p2 = ft.GetPoint(i + 1);
-      segDist.SetBounds(p1, p2);
-      double const d = segDist(m_point);
-      if (d < m_minDist)
-      {
-        m_minDist = d;
-        m_segIdx = i;
-        m_fID = ft.GetID();
-        m_isOneway = m_vehicleModel->IsOneWay(ft);
-        m_posBeg = p1;
-        m_posEnd = p2;
-      }
-    }
-  }
-
-  size_t GetMwmID() const
-  {
-    return m_fID.m_mwm;
-  }
-
-  void GetResults(vector<RoadPos> & res)
-  {
-    if (m_fID.IsValid())
-    {
-      res.push_back(RoadPos(m_fID.m_offset, true, m_segIdx, m_posEnd));
-      if (!m_isOneway)
-        res.push_back(RoadPos(m_fID.m_offset, false, m_segIdx, m_posBeg));
-    }
-  }
-};
 
 RoadGraphRouter::~RoadGraphRouter()
 {
 }
 
-RoadGraphRouter::RoadGraphRouter(Index const * pIndex) :
-   m_vehicleModel(new CarModel()), m_pIndex(pIndex)
-{
-
-}
+RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel)
+  : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex) {}
 
 size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
-  Point2RoadPos getter(pt, m_vehicleModel.get());
-  m_pIndex->ForEachInRect(getter,
-                          MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 100.0),
+  NearestFinder finder(pt, m2::PointD::Zero() /* undirected */, m_vehicleModel);
+  m_pIndex->ForEachInRect(finder,
+                          MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
                           FeaturesRoadGraph::GetStreetReadScale());
 
-  getter.GetResults(pos);
-  return getter.GetMwmID();
+  finder.MakeResult(pos, MAX_ROAD_CANDIDATES);
+  return finder.GetMwmID();
 }
 
 bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
@@ -114,7 +53,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
 {
   vector<RoadPos> finalPos;
   size_t mwmID = GetRoadPos(finalPoint, finalPos);
-
   if (!finalPos.empty() && !IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 

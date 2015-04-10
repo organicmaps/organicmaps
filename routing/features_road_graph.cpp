@@ -17,6 +17,7 @@ namespace
 uint32_t const FEATURE_CACHE_SIZE = 10;
 uint32_t const READ_ROAD_SCALE = 13;
 double const READ_CROSS_EPSILON = 1.0E-4;
+double const NORMALIZE_TO_SECONDS = 3.6; /* 60 * 60 / 1000 m/s to km/h*/
 
 uint32_t indexFound = 0;
 uint32_t indexCheck = 0;
@@ -153,6 +154,9 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
   // Initialize starting point.
   LoadFeature(positions.back().GetFeatureId(), ft1);
 
+  m2::PointD prevPoint = positions.back().GetSegEndpoint();
+  poly.push_back(prevPoint);
+
   for (size_t i = count-1; i > 0; --i)
   {
     RoadPos const & pos1 = positions[i];
@@ -175,7 +179,6 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     int const inc = pos1.IsForward() ? -1 : 1;
     int ptID = pos1.GetSegStartPointId();
     m2::PointD curPoint;
-    m2::PointD prevPoint = ft1.GetPoint(ptID);
     double segmentLength = 0.0;
     do
     {
@@ -192,12 +195,17 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
 
     segmentLength += CalcDistanceMeters(lastPt, prevPoint);
     // Calculation total feature time. Seconds.
-    trackTime += 3.6 /* normalization to seconds*/ * segmentLength / m_vehicleModel->GetSpeed(ft1);
+    trackTime += NORMALIZE_TO_SECONDS * segmentLength / m_vehicleModel->GetSpeed(ft1);
 
     // Assign current processing feature.
     if (diffIDs)
       ft1.SwapGeometry(ft2);
   }
+
+  poly.push_back(positions.front().GetSegEndpoint());
+  trackTime += NORMALIZE_TO_SECONDS * CalcDistanceMeters(poly.back(), prevPoint) / m_vehicleModel->GetSpeed(ft1);
+
+  ASSERT_GREATER(poly.size(), 1, ("Track with no points"));
 
   if (poly.size() > 1)
   {

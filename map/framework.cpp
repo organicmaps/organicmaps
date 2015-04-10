@@ -2100,6 +2100,11 @@ void Framework::BuildRoute(m2::PointD const & destination)
       vector<storage::TIndex> absentFiles;
       if (code == IRouter::NoError)
       {
+        if(route.GetPoly().GetSize() < 2)
+        {
+          LOG(LWARNING, ("Invalide track for drawing. Have only ",route.GetPoly().GetSize(), "points"));
+          return;
+        }
         InsertRoute(route);
         GetLocationState()->RouteBuilded();
         ShowRectExVisibleScale(route.GetPoly().GetLimitRect());

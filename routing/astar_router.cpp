@@ -21,12 +21,6 @@ void SortUnique(vector<E> & v)
   v.resize(unique(v.begin(), v.end()) - v.begin());
 }
 
-template <typename E>
-bool Contains(vector<E> const & v, E const & e)
-{
-  return binary_search(v.begin(), v.end(), e);
-}
-
 void ReconstructRoute(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
                       vector<RoadPos> & route)
 {
@@ -135,9 +129,11 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     if (v.dist > bestDistance[v.pos])
       continue;
 
-    if (Contains(sortedStartPos, v.pos))
+    /// We need the original start position because it contains the projection point to the road feature.
+    auto pos = lower_bound(sortedStartPos.begin(), sortedStartPos.end(), v.pos);
+    if (pos != sortedStartPos.end() && *pos==v.pos)
     {
-      ReconstructRoute(v.pos, parent, route);
+      ReconstructRoute(*pos, parent, route);
       return IRouter::NoError;
     }
 

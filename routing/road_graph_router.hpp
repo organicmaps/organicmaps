@@ -16,7 +16,7 @@ namespace routing
 class RoadGraphRouter : public IRouter
 {
 public:
-  RoadGraphRouter(Index const * pIndex);
+  RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel);
   ~RoadGraphRouter();
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
@@ -32,7 +32,7 @@ protected:
   bool IsMyMWM(size_t mwmID) const;
 
   unique_ptr<IRoadGraph> m_roadGraph;
-  unique_ptr<IVehicleModel> m_vehicleModel;
+  unique_ptr<IVehicleModel> const m_vehicleModel;
   Index const * m_pIndex;  // non-owning ptr
 };
 
