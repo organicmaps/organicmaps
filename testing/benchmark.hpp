@@ -1,8 +1,8 @@
 #pragma once
-#include "testing.hpp"
-#include "testregister.hpp"
-#include "../base/timer.hpp"
-#include "../std/iostream.hpp"
+#include "testing/testing.hpp"
+#include "testing/testregister.hpp"
+#include "base/timer.hpp"
+#include "std/iostream.hpp"
 
 namespace my
 {

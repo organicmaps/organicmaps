@@ -1,5 +1,5 @@
 #pragma once
-#include "../std/vector.hpp"
+#include "std/vector.hpp"
 
 template <typename T> vector<T> Vec(T x0)
 {

@@ -1,12 +1,12 @@
 #pragma once
-#include "testregister.hpp"
+#include "testing/testregister.hpp"
 
-#include "../base/exception.hpp"
-#include "../base/math.hpp"
-#include "../base/src_point.hpp"
+#include "base/exception.hpp"
+#include "base/math.hpp"
+#include "base/src_point.hpp"
 
-#include "../std/iostream.hpp"
-#include "../std/string.hpp"
+#include "std/iostream.hpp"
+#include "std/string.hpp"
 
 
 #define UNIT_TEST(name) \

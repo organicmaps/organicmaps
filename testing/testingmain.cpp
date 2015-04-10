@@ -1,14 +1,14 @@
-#include "testregister.hpp"
-#include "testing.hpp"
+#include "testing/testregister.hpp"
+#include "testing/testing.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/regexp.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
+#include "base/regexp.hpp"
 
-#include "../std/iostream.hpp"
-#include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/target_os.hpp"
+#include "std/iostream.hpp"
+#include "std/string.hpp"
+#include "std/vector.hpp"
+#include "std/target_os.hpp"
 
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
