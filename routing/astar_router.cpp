@@ -10,7 +10,9 @@ namespace routing
 {
 double const kMaxSpeedMPS = 5000.0 / 3600;
 double const kEpsilon = 1e-6;
-int const kCancelledPollPeriod = 100;
+
+// Power of two to make the division faster.
+uint32_t const kCancelledPollPeriod = 128;
 
 namespace
 {
@@ -112,7 +114,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     queue.push(Vertex(rp, 0.0));
   }
 
-  int steps = 0;
+  uint32_t steps = 0;
 
   while (!queue.empty())
   {

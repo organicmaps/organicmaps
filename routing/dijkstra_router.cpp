@@ -10,7 +10,9 @@
 
 namespace routing
 {
-int const kCancelledPollPeriod = 100;
+
+// Power of two to make the division faster.
+uint32_t const kCancelledPollPeriod = 128;
 
 namespace
 {
@@ -78,7 +80,7 @@ IRouter::ResultCode DijkstraRouter::CalculateRouteM2M(vector<RoadPos> const & st
   for (auto const & p : dist)
     queue.push(Vertex(p.first, 0.0 /* distance */));
 
-  int steps = 0;
+  uint32_t steps = 0;
 
   while (!queue.empty())
   {
