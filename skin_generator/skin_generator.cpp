@@ -1,15 +1,15 @@
 #include "skin_generator.hpp"
 
-#include "../coding/lodepng_io.hpp"
+#include "coding/lodepng_io.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
+#include "base/logging.hpp"
+#include "base/math.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/iterator.hpp"
-#include "../std/fstream.hpp"
-#include "../std/iostream.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/iterator.hpp"
+#include "std/fstream.hpp"
+#include "std/iostream.hpp"
+#include "std/bind.hpp"
 
 #include <QtXml/QDomElement>
 #include <QtXml/QDomDocument>

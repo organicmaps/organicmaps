@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../../geometry/rect2d.hpp"
-#include "../../geometry/packer.hpp"
+#include "geometry/rect2d.hpp"
+#include "geometry/packer.hpp"
 
-#include "../../coding/writer.hpp"
+#include "coding/writer.hpp"
 
-#include "../../base/base.hpp"
+#include "base/base.hpp"
 
-#include "../../std/vector.hpp"
-#include "../../std/list.hpp"
-#include "../../std/string.hpp"
-#include "../../std/map.hpp"
+#include "std/vector.hpp"
+#include "std/list.hpp"
+#include "std/string.hpp"
+#include "std/map.hpp"
 
 #include <boost/gil/gil_all.hpp>
 
