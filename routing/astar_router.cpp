@@ -43,18 +43,6 @@ void ReconstructRoute(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
   }
 }
 
-void ReconstructRouteBidirectional(RoadPos const & v, RoadPos const & w,
-                                   map<RoadPos, RoadPos> const & parentV,
-                                   map<RoadPos, RoadPos> const & parentW, vector<RoadPos> & route)
-{
-  vector<RoadPos> routeV;
-  ReconstructRoute(v, parentV, routeV);
-  vector<RoadPos> routeW;
-  ReconstructRoute(w, parentW, routeW);
-  route.insert(route.end(), routeV.rbegin(), routeV.rend());
-  route.insert(route.end(), routeW.begin(), routeW.end());
-}
-
 double HeuristicCostEstimate(RoadPos const & p, vector<RoadPos> const & goals)
 {
   // @todo support of more than one goal
