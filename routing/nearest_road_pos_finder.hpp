@@ -6,6 +6,7 @@
 #include "../geometry/point2d.hpp"
 
 #include "../indexer/index.hpp"
+#include "../indexer/mwm_set.hpp"
 
 #include "../std/unique_ptr.hpp"
 #include "../std/vector.hpp"
@@ -18,7 +19,6 @@ namespace routing
 class NearestRoadPosFinder
 {
   static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::infinity();
-  static constexpr uint32_t INVALID_MWWMID = numeric_limits<uint32_t>::infinity();
 
   struct Candidate
   {
@@ -41,17 +41,16 @@ class NearestRoadPosFinder
   m2::PointD m_point;
   m2::PointD m_direction;
   unique_ptr<IVehicleModel> const & m_vehicleModel;
-  buffer_vector<Candidate, 128> m_candidates;
-  uint32_t m_mwmId;
+  vector<Candidate> m_candidates;
+  MwmSet::MwmId m_mwmId;
 
 public:
-
   NearestRoadPosFinder(m2::PointD const & point, m2::PointD const & direction,
                 unique_ptr<IVehicleModel> const & vehicleModel)
       : m_point(point),
         m_direction(direction),
         m_vehicleModel(vehicleModel),
-        m_mwmId(INVALID_MWWMID)
+        m_mwmId(MwmSet::INVALID_MWM_ID)
   {
   }
 
@@ -61,6 +60,6 @@ public:
 
   void MakeResult(vector<RoadPos> & res, size_t const maxCount);
 
-  inline uint32_t GetMwmID() const { return m_mwmId; }
+  inline MwmSet::MwmId GetMwmId() const { return m_mwmId; }
 };
 }

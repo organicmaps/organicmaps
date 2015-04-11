@@ -1,5 +1,5 @@
 #include "features_road_graph.hpp"
-#include "nearest_finder.hpp"
+#include "nearest_road_pos_finder.hpp"
 #include "road_graph_router.hpp"
 #include "route.hpp"
 #include "vehicle_model.hpp"
@@ -40,7 +40,7 @@ size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
       FeaturesRoadGraph::GetStreetReadScale());
 
   finder.MakeResult(pos, MAX_ROAD_CANDIDATES);
-  return finder.GetMwmID();
+  return finder.GetMwmId();
 }
 
 bool RoadGraphRouter::IsMyMWM(size_t mwmID) const

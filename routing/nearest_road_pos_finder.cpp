@@ -1,4 +1,4 @@
-#include "nearest_finder.hpp"
+#include "nearest_road_pos_finder.hpp"
 
 #include "../geometry/distance.hpp"
 
@@ -32,10 +32,8 @@ void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
       res.m_segId = i - 1;
       res.m_point = pt;
       res.m_isOneway = m_vehicleModel->IsOneWay(ft);
-
-      if (m_mwmId == numeric_limits<uint32_t>::max())
+      if (m_mwmId == MwmSet::INVALID_MWM_ID)
         m_mwmId = ft.GetID().m_mwm;
-      ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwm, ());
     }
   }
 
@@ -45,7 +43,7 @@ void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
 
 void NearestRoadPosFinder::MakeResult(vector<RoadPos> & res, const size_t maxCount)
 {
-  if (m_mwmId == INVALID_MWWMID)
+  if (m_mwmId == MwmSet::INVALID_MWM_ID)
     return;
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
