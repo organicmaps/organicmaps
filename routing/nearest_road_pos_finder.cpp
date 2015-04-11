@@ -4,6 +4,8 @@
 
 #include "../indexer/feature.hpp"
 
+#include "../base/assert.hpp"
+
 namespace routing
 {
 void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
@@ -34,6 +36,7 @@ void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
       res.m_isOneway = m_vehicleModel->IsOneWay(ft);
       if (m_mwmId == MwmSet::INVALID_MWM_ID)
         m_mwmId = ft.GetID().m_mwm;
+      ASSERT_EQUAL(ft.GetID().m_mwm, m_mwmId, ());
     }
   }
 
