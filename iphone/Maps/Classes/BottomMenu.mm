@@ -139,7 +139,7 @@
       self.imageDownloaders[itemId] = downloader;
 
       NSDictionary * links = item[@"IconURLs"];
-      NSString * key = [NSString stringWithFormat:@"%ix", (NSInteger)[UIScreen mainScreen].scale];
+      NSString * key = [NSString stringWithFormat:@"%lix", (long)[UIScreen mainScreen].scale];
       NSString * link = links[key];
       [downloader startDownloadingWithURL:[NSURL URLWithString:link]];
     }

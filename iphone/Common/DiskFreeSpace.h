@@ -13,7 +13,7 @@ uint64_t FreeDiskSpaceInBytes()
   }
   else
   {
-    NSLog(@"Error Obtaining Free File System Info: Domain = %@, Code = %d", [error domain], [error code]);
+    NSLog(@"Error Obtaining Free File System Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
     return 0;
   }
 }

@@ -101,7 +101,7 @@
 - (void)setDownloadProgress:(double)downloadProgress animated:(BOOL)animated
 {
   self.downloadProgress = downloadProgress;
-  self.statusLabel.text = [NSString stringWithFormat:@"%i%%", NSInteger(downloadProgress * 100)];
+  self.statusLabel.text = [NSString stringWithFormat:@"%li%%", long(downloadProgress * 100)];
   [self.progressView setProgress:downloadProgress animated:animated];
   if (!self.progressMode)
     [self setProgressMode:YES withAnimatedLayout:animated];

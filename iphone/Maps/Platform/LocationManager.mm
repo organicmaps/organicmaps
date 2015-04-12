@@ -194,7 +194,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-  NSLog(@"locationManager failed with error: %d, %@", error.code, error.description);
+  NSLog(@"locationManager failed with error: %ld, %@", (long)error.code, error.description);
   if (error.code == kCLErrorDenied)
   {
     for (id observer in m_observers)
