@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -103,6 +103,9 @@ class LIBPROTOC_EXPORT GeneratorContext {
   // "foo/" is included in these filenames.  The filename is not allowed to
   // contain "." or ".." components.
   virtual io::ZeroCopyOutputStream* Open(const string& filename) = 0;
+
+  // Similar to Open() but the output will be appended to the file if exists
+  virtual io::ZeroCopyOutputStream* OpenForAppend(const string& filename);
 
   // Creates a ZeroCopyOutputStream which will insert code into the given file
   // at the given insertion point.  See plugin.proto (plugin.pb.h) for more

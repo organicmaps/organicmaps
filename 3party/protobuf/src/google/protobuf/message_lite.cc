@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -278,7 +278,8 @@ bool MessageLite::AppendPartialToString(string* output) const {
   int old_size = output->size();
   int byte_size = ByteSize();
   STLStringResizeUninitialized(output, old_size + byte_size);
-  uint8* start = reinterpret_cast<uint8*>(string_as_array(output) + old_size);
+  uint8* start =
+      reinterpret_cast<uint8*>(io::mutable_string_data(output) + old_size);
   uint8* end = SerializeWithCachedSizesToArray(start);
   if (end - start != byte_size) {
     ByteSizeConsistencyError(byte_size, ByteSize(), end - start);

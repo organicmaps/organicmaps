@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -70,12 +70,10 @@ string EscapeJavadoc(const string& input) {
         }
         break;
       case '@':
-        // "{@" starts Javadoc markup.
-        if (prev == '{') {
-          result.append("&#64;");
-        } else {
-          result.push_back(c);
-        }
+        // '@' starts javadoc tags including the @deprecated tag, which will
+        // cause a compile-time error if inserted before a declaration that
+        // does not have a corresponding @Deprecated annotation.
+        result.append("&#64;");
         break;
       case '<':
         // Avoid interpretation as HTML.
@@ -117,8 +115,7 @@ static void WriteDocCommentBodyForLocation(
     // HTML-escape them so that they don't accidentally close the doc comment.
     comments = EscapeJavadoc(comments);
 
-    vector<string> lines;
-    SplitStringAllowEmpty(comments, "\n", &lines);
+    vector<string> lines = Split(comments, "\n");
     while (!lines.empty() && lines.back().empty()) {
       lines.pop_back();
     }

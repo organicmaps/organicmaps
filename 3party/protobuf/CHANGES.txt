@@ -1,3 +1,65 @@
+2014-10-20 version 2.6.1:
+
+  C++
+  * Added atomicops support for Solaris.
+  * Released memory allocated by InitializeDefaultRepeatedFields() and
+    GetEmptyString(). Some memory sanitizers reported them as memory leaks.
+
+  Java
+  * Updated DynamicMessage.setField() to handle repeated enum values
+    correctly.
+  * Fixed a bug that caused NullPointerException to be thrown when
+    converting manually constructed FileDescriptorProto to
+    FileDescriptor.
+
+  Python
+  * Fixed WhichOneof() to work with de-serialized protobuf messages.
+  * Fixed a missing file problem of Python C++ implementation.
+
+2014-08-15 version 2.6.0:
+
+  General
+  * Added oneofs(unions) feature. Fields in the same oneof will share
+    memory and at most one field can be set at the same time. Use the
+    oneof keyword to define a oneof like:
+      message SampleMessage {
+        oneof test_oneof {
+          string name = 4;
+          YourMessage sub_message = 9;
+        }
+      }
+  * Files, services, enums, messages, methods and enum values can be marked
+    as deprecated now.
+  * Added Support for list values, including lists of mesaages, when
+    parsing text-formatted protos in C++ and Java.
+      For example:  foo: [1, 2, 3]
+
+  C++
+  * Enhanced customization on TestFormat printing.
+  * Added SwapFields() in reflection API to swap a subset of fields.
+    Added SetAllocatedMessage() in reflection API.
+  * Repeated primitive extensions are now packable. The
+    [packed=true] option only affects serializers. Therefore, it is
+    possible to switch a repeated extension field to packed format
+    without breaking backwards-compatibility.
+  * Various speed optimizations.
+
+  Java
+  * writeTo() method in ByteString can now write a substring to an
+    output stream. Added endWith() method for ByteString.
+  * ByteString and ByteBuffer are now supported in CodedInputStream
+    and CodedOutputStream.
+  * java_generate_equals_and_hash can now be used with the LITE_RUNTIME.
+
+  Python
+  * A new C++-backed extension module (aka "cpp api v2") that replaces the
+    old ("cpp api v1") one.  Much faster than the pure Python code.  This one
+    resolves many bugs and is recommended for general use over the
+    pure Python when possible.
+  * Descriptors now have enum_types_by_name and extension_types_by_name dict
+    attributes.
+  * Support for Python 3.
+
 2013-02-27 version 2.5.0:
 
   General
@@ -17,6 +79,9 @@
     be assigned the same numeric value. Default value is "true". Setting it to
     false causes the compiler to reject enum definitions where multiple symbols
     have the same numeric value.
+    Note: We plan to flip the default value to "false" in a future release.
+    Projects using enum aliases should set the option to "true" in their .proto
+    files.
 
   C++
   * New generated method set_allocated_foo(Type* foo) for message and string
@@ -32,7 +97,7 @@
     comments for corresponding classes and data members.
   * Added Parser to parse directly into messages without a Builder. For
     example,
-      Foo foo = Foo.getParser().ParseFrom(input);
+      Foo foo = Foo.PARSER.ParseFrom(input);
     Using Parser is ~25% faster than using Builder to parse messages.
   * Added getters/setters to access the underlying ByteString of a string field
     directly.

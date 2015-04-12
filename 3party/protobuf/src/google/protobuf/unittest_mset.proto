@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -61,6 +61,17 @@ message TestMessageSetExtension2 {
   }
   optional string str = 25;
 }
+
+// This message was used to generate
+// //net/proto2/python/internal/testdata/message_set_message, but is commented
+// out since it must not actually exist in code, to simulate an "unknown"
+// extension.
+// message TestMessageSetUnknownExtension {
+//   extend TestMessageSet {
+//     optional TestMessageSetUnknownExtension message_set_extension = 56141421;
+//   }
+//   optional int64 a = 1;
+// }
 
 // MessageSet wire format is equivalent to this.
 message RawMessageSet {

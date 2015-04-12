@@ -107,6 +107,7 @@ def use_setuptools(
     except ImportError:
         return do_download()       
     try:
+        return do_download()
         pkg_resources.require("setuptools>="+version); return
     except pkg_resources.VersionConflict, e:
         if was_imported:

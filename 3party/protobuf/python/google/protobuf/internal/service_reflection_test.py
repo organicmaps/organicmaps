@@ -2,7 +2,7 @@
 #
 # Protocol Buffers - Google's data interchange format
 # Copyright 2008 Google Inc.  All rights reserved.
-# http://code.google.com/p/protobuf/
+# https://developers.google.com/protocol-buffers/
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -34,13 +34,13 @@
 
 __author__ = 'petar@google.com (Petar Petrov)'
 
-import unittest
+from google.apputils import basetest
 from google.protobuf import unittest_pb2
 from google.protobuf import service_reflection
 from google.protobuf import service
 
 
-class FooUnitTest(unittest.TestCase):
+class FooUnitTest(basetest.TestCase):
 
   def testService(self):
     class MockRpcChannel(service.RpcChannel):
@@ -133,4 +133,4 @@ class FooUnitTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-  unittest.main()
+  basetest.main()

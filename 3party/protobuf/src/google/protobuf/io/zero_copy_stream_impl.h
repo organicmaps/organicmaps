@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -344,6 +344,7 @@ class LIBPROTOBUF_EXPORT LimitingInputStream : public ZeroCopyInputStream {
  private:
   ZeroCopyInputStream* input_;
   int64 limit_;  // Decreases as we go, becomes negative if we overshoot.
+  int64 prior_bytes_read_;  // Bytes read on underlying stream at construction
 
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(LimitingInputStream);
 };

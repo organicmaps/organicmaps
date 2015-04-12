@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.google.protobuf</groupId>
   <artifactId>protobuf-java</artifactId>
-  <version>2.5.0</version>
+  <version>2.6.1</version>
   <packaging>bundle</packaging>
   <name>Protocol Buffer Java API</name>
   <description>
@@ -18,7 +18,7 @@
     extensible format.
   </description>
   <inceptionYear>2008</inceptionYear>
-  <url>http://code.google.com/p/protobuf</url>
+  <url>https://developers.google.com/protocol-buffers/</url>
   <licenses>
     <license>
       <name>New BSD license</name>
@@ -27,9 +27,9 @@
     </license>
   </licenses>
   <scm>
-    <url>http://code.google.com/p/protobuf/source/browse</url>
+    <url>https://github.com/google/protobuf</url>
     <connection>
-      scm:svn:http://protobuf.googlecode.com/svn/trunk/
+      scm:git:https://github.com/google/protobuf.git
     </connection>
   </scm>
   <dependencies>
@@ -104,6 +104,8 @@
                   <arg value="../src/google/protobuf/unittest_import.proto" />
                   <arg value="../src/google/protobuf/unittest_import_public.proto" />
                   <arg value="../src/google/protobuf/unittest_mset.proto" />
+                  <arg value="src/test/java/com/google/protobuf/lazy_fields_lite.proto" />
+                  <arg value="src/test/java/com/google/protobuf/lite_equals_and_hash.proto" />
                   <arg
                     value="src/test/java/com/google/protobuf/multiple_files_test.proto" />
                   <arg value="src/test/java/com/google/protobuf/nested_builders_test.proto" />
@@ -111,7 +113,13 @@
                   <arg value="src/test/java/com/google/protobuf/nested_extension_lite.proto" />
                   <arg value="src/test/java/com/google/protobuf/non_nested_extension.proto" />
                   <arg value="src/test/java/com/google/protobuf/non_nested_extension_lite.proto" />
+                  <arg value="src/test/java/com/google/protobuf/outer_class_name_test.proto" />
+                  <arg value="src/test/java/com/google/protobuf/outer_class_name_test2.proto" />
+                  <arg value="src/test/java/com/google/protobuf/outer_class_name_test3.proto" />
                   <arg value="src/test/java/com/google/protobuf/test_bad_identifiers.proto" />
+                  <arg value="src/test/java/com/google/protobuf/test_check_utf8.proto" />
+                  <arg value="src/test/java/com/google/protobuf/test_check_utf8_size.proto" />
+                  <arg value="src/test/java/com/google/protobuf/test_custom_options.proto" />
                   <arg
                     value="../src/google/protobuf/unittest_optimize_for.proto" />
                   <arg
@@ -138,7 +146,9 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>*</Export-Package>
+            <Bundle-DocURL>https://developers.google.com/protocol-buffers/</Bundle-DocURL>
+            <Bundle-SymbolicName>com.google.protobuf</Bundle-SymbolicName>
+            <Export-Package>com.google.protobuf;version=2.6.1</Export-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -177,6 +187,8 @@
                 <include>**/RopeByteString.java</include>
                 <include>**/Utf8.java</include>
                 <include>**/LazyField.java</include>
+                <include>**/LazyFieldLite.java</include>
+                <include>**/ProtocolStringList.java</include>
               </includes>
               <testIncludes>
                 <testInclude>**/LiteTest.java</testInclude>

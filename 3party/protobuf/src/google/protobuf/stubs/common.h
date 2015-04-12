@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -113,24 +113,24 @@ namespace internal {
 
 // The current version, represented as a single integer to make comparison
 // easier:  major * 10^6 + minor * 10^3 + micro
-#define GOOGLE_PROTOBUF_VERSION 2005000
+#define GOOGLE_PROTOBUF_VERSION 2006001
 
 // The minimum library version which works with the current version of the
 // headers.
-#define GOOGLE_PROTOBUF_MIN_LIBRARY_VERSION 2005000
+#define GOOGLE_PROTOBUF_MIN_LIBRARY_VERSION 2006000
 
 // The minimum header version which works with the current version of
 // the library.  This constant should only be used by protoc's C++ code
 // generator.
-static const int kMinHeaderVersionForLibrary = 2005000;
+static const int kMinHeaderVersionForLibrary = 2006000;
 
 // The minimum protoc version which works with the current version of the
 // headers.
-#define GOOGLE_PROTOBUF_MIN_PROTOC_VERSION 2005000
+#define GOOGLE_PROTOBUF_MIN_PROTOC_VERSION 2006000
 
 // The minimum header version which works with the current version of
 // protoc.  This constant should only be used in VerifyVersion().
-static const int kMinHeaderVersionForProtoc = 2005000;
+static const int kMinHeaderVersionForProtoc = 2006000;
 
 // Verifies that the headers and libraries are compatible.  Use the macro
 // below to call this.
@@ -685,6 +685,7 @@ class LIBPROTOBUF_EXPORT LogFinisher {
 #undef GOOGLE_LOG_IF
 
 #undef GOOGLE_CHECK
+#undef GOOGLE_CHECK_OK
 #undef GOOGLE_CHECK_EQ
 #undef GOOGLE_CHECK_NE
 #undef GOOGLE_CHECK_LT
@@ -711,6 +712,7 @@ class LIBPROTOBUF_EXPORT LogFinisher {
 
 #define GOOGLE_CHECK(EXPRESSION) \
   GOOGLE_LOG_IF(FATAL, !(EXPRESSION)) << "CHECK failed: " #EXPRESSION ": "
+#define GOOGLE_CHECK_OK(A) GOOGLE_CHECK(A)
 #define GOOGLE_CHECK_EQ(A, B) GOOGLE_CHECK((A) == (B))
 #define GOOGLE_CHECK_NE(A, B) GOOGLE_CHECK((A) != (B))
 #define GOOGLE_CHECK_LT(A, B) GOOGLE_CHECK((A) <  (B))
@@ -720,7 +722,8 @@ class LIBPROTOBUF_EXPORT LogFinisher {
 
 namespace internal {
 template<typename T>
-T* CheckNotNull(const char *file, int line, const char *name, T* val) {
+T* CheckNotNull(const char* /* file */, int /* line */,
+                const char* name, T* val) {
   if (val == NULL) {
     GOOGLE_LOG(FATAL) << name;
   }

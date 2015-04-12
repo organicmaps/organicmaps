@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -67,6 +67,14 @@ public class LazyStringArrayListTest extends TestCase {
     list.remove(1);
     assertSame(STRING_A, list.get(0));
     assertSame(STRING_C, list.get(1));
+
+    List<ByteString> byteStringList = list.asByteStringList();
+    assertEquals(BYTE_STRING_A, byteStringList.get(0));
+    assertEquals(BYTE_STRING_C, byteStringList.get(1));
+
+    // Underlying list should be transformed.
+    assertSame(byteStringList.get(0), list.getByteString(0));
+    assertSame(byteStringList.get(1), list.getByteString(1));
   }
 
   public void testJustByteString() {
@@ -83,6 +91,10 @@ public class LazyStringArrayListTest extends TestCase {
     list.remove(1);
     assertSame(BYTE_STRING_A, list.getByteString(0));
     assertSame(BYTE_STRING_C, list.getByteString(1));
+
+    List<ByteString> byteStringList = list.asByteStringList();
+    assertSame(BYTE_STRING_A, byteStringList.get(0));
+    assertSame(BYTE_STRING_C, byteStringList.get(1));
   }
 
   public void testConversionBackAndForth() {

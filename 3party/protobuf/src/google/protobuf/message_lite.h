@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -109,7 +109,8 @@ class LIBPROTOBUF_EXPORT MessageLite {
 
   // Parsing ---------------------------------------------------------
   // Methods for parsing in protocol buffer format.  Most of these are
-  // just simple wrappers around MergeFromCodedStream().
+  // just simple wrappers around MergeFromCodedStream().  Clear() will be called
+  // before merging the input.
 
   // Fill the message with a protocol buffer parsed from the given input
   // stream.  Returns false on a read error or if the input is in the

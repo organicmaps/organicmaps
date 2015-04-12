@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -36,7 +36,7 @@
 #include <errno.h>
 #include <vector>
 
-#include "../config.h"
+#include "config.h"
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN  // We only need minimal includes
@@ -115,8 +115,8 @@ void DefaultLogHandler(LogLevel level, const char* filename, int line,
   fflush(stderr);  // Needed on MSVC.
 }
 
-void NullLogHandler(LogLevel level, const char* filename, int line,
-                    const string& message) {
+void NullLogHandler(LogLevel /* level */, const char* /* filename */,
+                    int /* line */, const string& /* message */) {
   // Nothing.
 }
 

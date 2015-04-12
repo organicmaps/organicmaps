@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -50,12 +50,17 @@ message TestOptimizedForSize {
     optional int32 test_extension = 1234;
     optional TestRequiredOptimizedForSize test_extension2 = 1235;
   }
+
+  oneof foo {
+    int32 integer_field = 2;
+    string string_field = 3;
+  }
 }
 
 message TestRequiredOptimizedForSize {
   required int32 x = 1;
 }
- 
+
 message TestOptionalOptimizedForSize {
   optional TestRequiredOptimizedForSize o = 1;
 }

@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -52,6 +52,7 @@ public interface Message extends MessageLite, MessageOrBuilder {
 
   // (From MessageLite, re-declared here only for return type covariance.)
   Parser<? extends Message> getParserForType();
+
 
   // -----------------------------------------------------------------
   // Comparison and hashing
@@ -178,6 +179,12 @@ public interface Message extends MessageLite, MessageOrBuilder {
      * "clear" accessor method corresponding to the field.
      */
     Builder clearField(Descriptors.FieldDescriptor field);
+
+    /**
+     * Clears the oneof.  This is exactly equivalent to calling the generated
+     * "clear" accessor method corresponding to the oneof.
+     */
+    Builder clearOneof(Descriptors.OneofDescriptor oneof);
 
     /**
      * Sets an element of a repeated field to the given value.  The value must

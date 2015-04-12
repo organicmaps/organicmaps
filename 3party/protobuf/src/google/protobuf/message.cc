@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -32,7 +32,7 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
-#include <istream>
+#include <iostream>
 #include <stack>
 #include <google/protobuf/stubs/hash.h>
 
@@ -48,7 +48,7 @@
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
 #include <google/protobuf/stubs/strutil.h>
-#include <google/protobuf/stubs/map-util.h>
+#include <google/protobuf/stubs/map_util.h>
 #include <google/protobuf/stubs/stl_util.h>
 
 namespace google {
@@ -75,7 +75,7 @@ void Message::CheckTypeAndMergeFrom(const MessageLite& other) {
 void Message::CopyFrom(const Message& from) {
   const Descriptor* descriptor = GetDescriptor();
   GOOGLE_CHECK_EQ(from.GetDescriptor(), descriptor)
-    << ": Tried to copy from a message with a different type."
+    << ": Tried to copy from a message with a different type. "
        "to: " << descriptor->full_name() << ", "
        "from:" << from.GetDescriptor()->full_name();
   ReflectionOps::Copy(from, this);
@@ -100,7 +100,7 @@ void Message::FindInitializationErrors(vector<string>* errors) const {
 string Message::InitializationErrorString() const {
   vector<string> errors;
   FindInitializationErrors(&errors);
-  return JoinStrings(errors, ", ");
+  return Join(errors, ", ");
 }
 
 void Message::CheckInitialized() const {
@@ -149,7 +149,7 @@ int Message::ByteSize() const {
   return size;
 }
 
-void Message::SetCachedSize(int size) const {
+void Message::SetCachedSize(int /* size */) const {
   GOOGLE_LOG(FATAL) << "Message class \"" << GetDescriptor()->full_name()
              << "\" implements neither SetCachedSize() nor ByteSize().  "
                 "Must implement one or the other.";

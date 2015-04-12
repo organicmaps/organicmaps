@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -28,60 +28,23 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// Author: petar@google.com (Petar Petrov)
+// Author: Jacob Butcher (jbaum@google.com)
+//
+// Test file option java_string_check_utf8.
 
-#ifndef GOOGLE_PROTOBUF_PYTHON_DESCRIPTOR_H__
-#define GOOGLE_PROTOBUF_PYTHON_DESCRIPTOR_H__
+package proto2_test_check_utf8;
 
-#include <Python.h>
-#include <structmember.h>
+option java_outer_classname = "TestCheckUtf8";
+option java_string_check_utf8 = true;
 
-#include <google/protobuf/descriptor.h>
+message StringWrapper {
+  required string req = 1;
+  optional string opt = 2;
+  repeated string rep = 3;
+}
 
-#if PY_VERSION_HEX < 0x02050000 && !defined(PY_SSIZE_T_MIN)
-typedef int Py_ssize_t;
-#define PY_SSIZE_T_MAX INT_MAX
-#define PY_SSIZE_T_MIN INT_MIN
-#endif
-
-namespace google {
-namespace protobuf {
-namespace python {
-
-typedef struct {
-  PyObject_HEAD
-
-  // The proto2 descriptor that this object represents.
-  const google::protobuf::FieldDescriptor* descriptor;
-
-  // Full name of the field (PyString).
-  PyObject* full_name;
-
-  // Name of the field (PyString).
-  PyObject* name;
-
-  // C++ type of the field (PyLong).
-  PyObject* cpp_type;
-
-  // Name of the field (PyLong).
-  PyObject* label;
-
-  // Identity of the descriptor (PyLong used as a poiner).
-  PyObject* id;
-} CFieldDescriptor;
-
-extern PyTypeObject CFieldDescriptor_Type;
-
-extern PyTypeObject CDescriptorPool_Type;
-
-
-PyObject* Python_NewCDescriptorPool(PyObject* ignored, PyObject* args);
-PyObject* Python_BuildFile(PyObject* ignored, PyObject* args);
-bool InitDescriptor();
-google::protobuf::DescriptorPool* GetDescriptorPool();
-
-}  // namespace python
-}  // namespace protobuf
-
-}  // namespace google
-#endif  // GOOGLE_PROTOBUF_PYTHON_DESCRIPTOR_H__
+message BytesWrapper {
+  required bytes req = 1;
+  optional bytes opt = 2;
+  repeated bytes rep = 3;
+}

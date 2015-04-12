@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -56,7 +56,9 @@ void ReflectionOps::Merge(const Message& from, Message* to) {
 
   const Descriptor* descriptor = from.GetDescriptor();
   GOOGLE_CHECK_EQ(to->GetDescriptor(), descriptor)
-    << "Tried to merge messages of different types.";
+    << "Tried to merge messages of different types "
+    << "(merge " << descriptor->full_name()
+    << " to " << to->GetDescriptor()->full_name() << ")";
 
   const Reflection* from_reflection = from.GetReflection();
   const Reflection* to_reflection = to->GetReflection();

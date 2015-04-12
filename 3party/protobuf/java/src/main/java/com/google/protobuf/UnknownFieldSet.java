@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -90,6 +90,7 @@ public final class UnknownFieldSet implements MessageLite {
     this.fields = fields;
   }
   private Map<Integer, Field> fields;
+
 
   @Override
   public boolean equals(final Object other) {
@@ -365,6 +366,22 @@ public final class UnknownFieldSet implements MessageLite {
     /** Reset the builder to an empty set. */
     public Builder clear() {
       reinitialize();
+      return this;
+    }
+    
+    /** Clear fields from the set with a given field number. */
+    public Builder clearField(final int number) {
+      if (number == 0) {
+        throw new IllegalArgumentException("Zero is not a valid field number.");
+      }
+      if (lastField != null && lastFieldNumber == number) {
+        // Discard this.
+        lastField = null;
+        lastFieldNumber = 0;
+      }
+      if (fields.containsKey(number)) {
+        fields.remove(number);
+      }
       return this;
     }
 

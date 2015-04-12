@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -44,6 +44,11 @@ namespace compiler {
 CodeGenerator::~CodeGenerator() {}
 GeneratorContext::~GeneratorContext() {}
 
+io::ZeroCopyOutputStream*
+GeneratorContext::OpenForAppend(const string& filename) {
+  return NULL;
+}
+
 io::ZeroCopyOutputStream* GeneratorContext::OpenForInsert(
     const string& filename, const string& insertion_point) {
   GOOGLE_LOG(FATAL) << "This GeneratorContext does not support insertion.";
@@ -58,8 +63,7 @@ void GeneratorContext::ListParsedFiles(
 // Parses a set of comma-delimited name/value pairs.
 void ParseGeneratorParameter(const string& text,
                              vector<pair<string, string> >* output) {
-  vector<string> parts;
-  SplitStringUsing(text, ",", &parts);
+  vector<string> parts = Split(text, ",", true);
 
   for (int i = 0; i < parts.size(); i++) {
     string::size_type equals_pos = parts[i].find_first_of('=');

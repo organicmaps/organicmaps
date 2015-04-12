@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -34,6 +34,8 @@ import java.io.InputStream;
 
 /**
  * Abstract interface for parsing Protocol Messages.
+ *
+ * The implementation should be stateless and thread-safe.
  *
  * @author liujisi@google.com (Pherl Liu)
  */

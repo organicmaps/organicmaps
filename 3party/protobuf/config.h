@@ -4,41 +4,17 @@
 /* the name of <hash_map> */
 #define HASH_MAP_CLASS unordered_map
 
-/* the location of <hash_map> */
-#ifdef _MSC_VER
-  #define HASH_MAP_H <hash_map>
-#else
-  #if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-    #define HASH_MAP_H <unordered_map>
-  #else
-    #define HASH_MAP_H <tr1/unordered_map>
-  #endif
-#endif
+/* the location of <unordered_map> or <hash_map> */
+#define HASH_MAP_H <unordered_map>
 
 /* the namespace of hash_map/hash_set */
-#ifdef _MSC_VER
-  #define HASH_NAMESPACE stdext
-#else
-  #if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-    #define HASH_NAMESPACE std
-  #else
-    #define HASH_NAMESPACE std::tr1
-  #endif
-#endif
+#define HASH_NAMESPACE std
 
 /* the name of <hash_set> */
 #define HASH_SET_CLASS unordered_set
 
-/* the location of <hash_set> */
-#ifdef _MSC_VER
-  #define HASH_SET_H <hash_set>
-#else
-  #if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-    #define HASH_SET_H <unordered_set>
-  #else
-    #define HASH_SET_H <tr1/unordered_set>
-  #endif
-#endif
+/* the location of <unordered_set> or <hash_set> */
+#define HASH_SET_H <unordered_set>
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
@@ -120,7 +96,7 @@
 #define PACKAGE_NAME "Protocol Buffers"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Protocol Buffers 2.5.0"
+#define PACKAGE_STRING "Protocol Buffers 2.6.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "protobuf"
@@ -129,11 +105,14 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.5.0"
+#define PACKAGE_VERSION "2.6.1"
 
 /* Define to necessary symbol if this constant uses a non-standard name on
    your system. */
 /* #undef PTHREAD_CREATE_JOINABLE */
+
+/* 64bit enabled */
+/* #undef SOLARIS_64BIT_ENABLED */
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -161,7 +140,7 @@
 
 
 /* Version number of package */
-#define VERSION "2.5.0"
+#define VERSION "2.6.1"
 
 /* Define to 1 if on MINIX. */
 /* #undef _MINIX */

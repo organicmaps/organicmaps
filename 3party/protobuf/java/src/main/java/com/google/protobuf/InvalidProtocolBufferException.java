@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -110,5 +110,13 @@ public class InvalidProtocolBufferException extends IOException {
     return new InvalidProtocolBufferException(
       "Protocol message was too large.  May be malicious.  " +
       "Use CodedInputStream.setSizeLimit() to increase the size limit.");
+  }
+
+  static InvalidProtocolBufferException parseFailure() {
+    return new InvalidProtocolBufferException("Failed to parse the message.");
+  }
+
+  static InvalidProtocolBufferException invalidUtf8() {
+    return new InvalidProtocolBufferException("Protocol message had invalid UTF-8.");
   }
 }

@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -506,4 +506,22 @@ public class AbstractMessageTest extends TestCase {
         String.format("%s should have a different hash code from %s", m1, m2),
         m1.hashCode() == m2.hashCode());
   }
+
+  public void testCheckByteStringIsUtf8OnUtf8() {
+    ByteString byteString = ByteString.copyFromUtf8("some text");
+    AbstractMessageLite.checkByteStringIsUtf8(byteString);
+    // No exception thrown.
+  }
+
+  public void testCheckByteStringIsUtf8OnNonUtf8() {
+    ByteString byteString =
+        ByteString.copyFrom(new byte[]{(byte) 0x80}); // A lone continuation byte.
+    try {
+      AbstractMessageLite.checkByteStringIsUtf8(byteString);
+      fail("Expected AbstractMessageLite.checkByteStringIsUtf8 to throw IllegalArgumentException");
+    } catch (IllegalArgumentException exception) {
+      assertEquals("Byte string is not UTF-8.", exception.getMessage());
+    }
+  }
+
 }

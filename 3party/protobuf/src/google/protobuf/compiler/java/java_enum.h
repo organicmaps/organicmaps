@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -41,6 +41,12 @@
 
 namespace google {
 namespace protobuf {
+  namespace compiler {
+    namespace java {
+      class Context;           // context.h
+      class ClassNameResolver; // name_resolver.h
+    }
+  }
   namespace io {
     class Printer;             // printer.h
   }
@@ -52,7 +58,9 @@ namespace java {
 
 class EnumGenerator {
  public:
-  explicit EnumGenerator(const EnumDescriptor* descriptor);
+  explicit EnumGenerator(const EnumDescriptor* descriptor,
+                         bool immutable_api,
+                         Context* context);
   ~EnumGenerator();
 
   void Generate(io::Printer* printer);
@@ -72,6 +80,11 @@ class EnumGenerator {
     const EnumValueDescriptor* canonical_value;
   };
   vector<Alias> aliases_;
+
+  bool immutable_api_;
+
+  Context* context_;
+  ClassNameResolver* name_resolver_;
 
   bool CanUseEnumValues();
 

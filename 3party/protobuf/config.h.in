@@ -110,6 +110,9 @@
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
 
+/* 64bit enabled */
+#undef SOLARIS_64BIT_ENABLED
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
