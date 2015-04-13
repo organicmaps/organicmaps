@@ -1,7 +1,8 @@
 #pragma once
 
-#include "routing/router.hpp"
+#include "routing/async_router.hpp"
 #include "routing/route.hpp"
+#include "routing/router.hpp"
 
 #include "platform/location.hpp"
 

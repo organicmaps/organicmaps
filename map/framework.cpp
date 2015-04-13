@@ -14,9 +14,9 @@
 
 #include "defines.hpp"
 
-#include "routing/route.hpp"
-#include "routing/osrm_router.hpp"
 #include "routing/astar_router.hpp"
+#include "routing/osrm_router.hpp"
+#include "routing/route.hpp"
 
 #include "search/search_engine.hpp"
 #include "search/result.hpp"
