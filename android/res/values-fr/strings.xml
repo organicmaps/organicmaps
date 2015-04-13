@@ -438,7 +438,7 @@
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Les itinéraires entièrement contenus sur une seule carte peuvent être créés.</string>
 	<!-- RouteNotFound -->
-	<string name="routing_failed_route_not_found">Il n\&#39;existe aucun itinéraire entre l\&#39;origine et la destination choisies . Veuillez sélectionner un point de départ ou d\&#39;arrivée différent.</string>
+	<string name="routing_failed_route_not_found">Il n\&#39;existe aucun itinéraire entre l\&#39;origine et la destination choisies. Veuillez sélectionner un point de départ ou d\&#39;arrivée différent.</string>
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Une erreur interne s\&#39;est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.</string>
 	<!-- Context menu item for downloader. -->

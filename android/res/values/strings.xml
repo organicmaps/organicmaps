@@ -440,7 +440,7 @@
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Routes can only be created that are fully contained within a single map.</string>
 	<!-- RouteNotFound -->
-	<string name="routing_failed_route_not_found">There is no route found between the selected origin and destination.Please select a different start or end point.</string>
+	<string name="routing_failed_route_not_found">There is no route found between the selected origin and destination. Please select a different start or end point.</string>
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.</string>
 	<!-- Context menu item for downloader. -->

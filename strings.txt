@@ -5961,12 +5961,12 @@
     cs = Lze vytvářet jen takové trasy, které se nachází na území jediné mapy.
     ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
     de = Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.
-    da = Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort
+    da = Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort.
 
   [routing_failed_route_not_found]
     tags = android, ios
     comment = RouteNotFound
-    en = There is no route found between the selected origin and destination.Please select a different start or end point.
+    en = There is no route found between the selected origin and destination. Please select a different start or end point.
     tr = Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.
     ru = Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.
     uk = Неможливо прокласти маршрут між вибраними точками. Будь ласка, змініть початок і кінець маршруту.
@@ -5982,7 +5982,7 @@
     it = Non è stata trovata alcuna strada fra il punto di partenza e d'arrivo selezionati. Seleziona un punto di partenza e d'arrivo diversi.
     ja = 選択した出発地と目的地との間にルートが見つかりません。別の出発地点と到着地点を選択してください。
     nl = Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.
-    fr = Il n'existe aucun itinéraire entre l'origine et la destination choisies . Veuillez sélectionner un point de départ ou d'arrivée différent.
+    fr = Il n'existe aucun itinéraire entre l'origine et la destination choisies. Veuillez sélectionner un point de départ ou d'arrivée différent.
     zh-Hans = 找不到所选起点和终点间的路程。请选择不同的起点或终点。
     zh-Hant = 找不到所選起點和終點間的路程。請選擇不同的起點或終點。
     cs = Mezi zvoleným počátkem a cílem nebyla nalezena žádná trasa. Vyber, prosím, jiný počáteční nebo koncový bod.
