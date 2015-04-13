@@ -2,9 +2,10 @@
 #include "routing/route.hpp"
 #include "routing/vehicle_model.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/index.hpp"
+#include "indexer/scales.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
@@ -15,7 +16,6 @@ namespace routing
 namespace
 {
 uint32_t const FEATURE_CACHE_SIZE = 10;
-uint32_t const READ_ROAD_SCALE = 13;
 double const READ_CROSS_EPSILON = 1.0E-4;
 double const KMPH2MPS = 1000.0 / (60 * 60);
 
@@ -34,7 +34,7 @@ FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
 
 uint32_t FeaturesRoadGraph::GetStreetReadScale()
 {
-  return READ_ROAD_SCALE;
+  return scales::GetUpperScale();
 }
 
 class CrossFeaturesLoader
@@ -156,7 +156,7 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
   m_pIndex->ForEachInRect(crossLoader,
                           m2::RectD(point.x - READ_CROSS_EPSILON, point.y - READ_CROSS_EPSILON,
                                     point.x + READ_CROSS_EPSILON, point.y + READ_CROSS_EPSILON),
-                          READ_ROAD_SCALE);
+                          scales::GetUpperScale());
 
   indexCheck++;
 
