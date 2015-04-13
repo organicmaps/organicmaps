@@ -28,6 +28,7 @@
 #include <fstream>
 #include <iostream>   // std::cerr
 #include <stdexcept>  // std::runtime_error
+#include <assert.h>   // assert
 #include <stdio.h>    // popen
 
 #ifdef _MSC_VER
