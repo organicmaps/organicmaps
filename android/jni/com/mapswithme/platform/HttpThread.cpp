@@ -1,4 +1,4 @@
-#include "../../../../../platform/http_thread_callback.hpp"
+#include "platform/http_thread_callback.hpp"
 
 #include "../core/jni_helper.hpp"
 

@@ -4,12 +4,12 @@
 
 #include "../../../nv_event/nv_event.hpp"
 
-#include "../../../../../platform/settings.hpp"
+#include "platform/settings.hpp"
 
-#include "../../../../../base/logging.hpp"
-#include "../../../../../base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/stl_add.hpp"
 
-#include "../../../../../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 
 string Platform::UniqueClientId() const

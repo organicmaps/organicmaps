@@ -2,7 +2,7 @@
 
 #include <jni.h>
 
-#include "../../../../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
 
 namespace android
