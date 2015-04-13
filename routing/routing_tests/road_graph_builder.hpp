@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../road_graph.hpp"
+#include "routing/road_graph.hpp"
 
 namespace routing_test
 {

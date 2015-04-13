@@ -1,13 +1,13 @@
 #pragma once
 
-#include "road_graph.hpp"
-#include "router.hpp"
-#include "vehicle_model.hpp"
+#include "routing/road_graph.hpp"
+#include "routing/router.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/unique_ptr.hpp"
-#include "../std/vector.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 class Index;
 

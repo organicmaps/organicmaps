@@ -1,12 +1,12 @@
-#include "dijkstra_router.hpp"
+#include "routing/dijkstra_router.hpp"
 
-#include "../indexer/mercator.hpp"
+#include "indexer/mercator.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/map.hpp"
-#include "../std/queue.hpp"
+#include "std/algorithm.hpp"
+#include "std/map.hpp"
+#include "std/queue.hpp"
 
 namespace routing
 {

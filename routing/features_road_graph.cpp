@@ -1,14 +1,14 @@
-#include "features_road_graph.hpp"
-#include "route.hpp"
-#include "vehicle_model.hpp"
+#include "routing/features_road_graph.hpp"
+#include "routing/route.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../indexer/index.hpp"
-#include "../indexer/classificator.hpp"
-#include "../indexer/ftypes_matcher.hpp"
+#include "indexer/index.hpp"
+#include "indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../geometry/distance_on_sphere.hpp"
+#include "geometry/distance_on_sphere.hpp"
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
 namespace routing
 {

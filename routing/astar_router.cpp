@@ -1,10 +1,10 @@
-#include "astar_router.hpp"
+#include "routing/astar_router.hpp"
 
-#include "../indexer/mercator.hpp"
-#include "../geometry/distance_on_sphere.hpp"
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
-#include "../std/algorithm.hpp"
+#include "indexer/mercator.hpp"
+#include "geometry/distance_on_sphere.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "std/algorithm.hpp"
 
 namespace routing
 {

@@ -1,9 +1,9 @@
-#include "road_graph.hpp"
+#include "routing/road_graph.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../std/limits.hpp"
-#include "../std/sstream.hpp"
+#include "std/limits.hpp"
+#include "std/sstream.hpp"
 
 namespace routing
 {

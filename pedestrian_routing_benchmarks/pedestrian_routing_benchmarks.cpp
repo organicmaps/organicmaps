@@ -1,18 +1,18 @@
-#include "../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../indexer/index.hpp"
-#include "../indexer/classificator_loader.hpp"
+#include "indexer/index.hpp"
+#include "indexer/classificator_loader.hpp"
 
-#include "../routing/astar_router.hpp"
-#include "../routing/features_road_graph.hpp"
+#include "routing/astar_router.hpp"
+#include "routing/features_road_graph.hpp"
 
-#include "../base/logging.hpp"
-#include "../base/macros.hpp"
-#include "../base/timer.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/timer.hpp"
 
-#include "../std/string.hpp"
-#include "../std/utility.hpp"
-#include "../std/vector.hpp"
+#include "std/string.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 pair<m2::PointD, m2::PointD> GetPointsAroundSeg(Index & index, MwmSet::MwmId id, uint32_t featureId,
                                                 uint32_t segId)

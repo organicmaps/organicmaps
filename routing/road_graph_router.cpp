@@ -1,17 +1,17 @@
-#include "features_road_graph.hpp"
-#include "nearest_road_pos_finder.hpp"
-#include "road_graph_router.hpp"
-#include "route.hpp"
-#include "vehicle_model.hpp"
+#include "routing/features_road_graph.hpp"
+#include "routing/nearest_road_pos_finder.hpp"
+#include "routing/road_graph_router.hpp"
+#include "routing/route.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../indexer/feature.hpp"
-#include "../indexer/ftypes_matcher.hpp"
-#include "../indexer/index.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
+#include "indexer/index.hpp"
 
-#include "../geometry/distance.hpp"
+#include "geometry/distance.hpp"
 
-#include "../base/timer.hpp"
-#include "../base/logging.hpp"
+#include "base/timer.hpp"
+#include "base/logging.hpp"
 
 namespace
 {

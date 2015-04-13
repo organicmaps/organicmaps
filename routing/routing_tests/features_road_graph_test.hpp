@@ -1,9 +1,10 @@
 #pragma once
-#include "../features_road_graph.hpp"
 
-#include "../../indexer/index.hpp"
+#include "routing/features_road_graph.hpp"
 
-#include "../../std/scoped_ptr.hpp"
+#include "indexer/index.hpp"
+
+#include "std/scoped_ptr.hpp"
 
 
 namespace routing_test

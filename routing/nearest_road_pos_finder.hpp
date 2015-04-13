@@ -1,15 +1,15 @@
 #pragma once
 
-#include "road_graph.hpp"
-#include "vehicle_model.hpp"
+#include "routing/road_graph.hpp"
+#include "routing/vehicle_model.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../indexer/index.hpp"
-#include "../indexer/mwm_set.hpp"
+#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
-#include "../std/unique_ptr.hpp"
-#include "../std/vector.hpp"
+#include "std/unique_ptr.hpp"
+#include "std/vector.hpp"
 
 class FeatureType;
 

@@ -1,16 +1,16 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "road_graph_builder.hpp"
-#include "features_road_graph_test.hpp"
+#include "routing/routing_tests/road_graph_builder.hpp"
+#include "routing/routing_tests/features_road_graph_test.hpp"
 
-#include "../dijkstra_router.hpp"
-#include "../features_road_graph.hpp"
-#include "../route.hpp"
+#include "routing/dijkstra_router.hpp"
+#include "routing/features_road_graph.hpp"
+#include "routing/route.hpp"
 
-#include "../../indexer/classificator_loader.hpp"
+#include "indexer/classificator_loader.hpp"
 
-#include "../../base/logging.hpp"
-#include "../../base/macros.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
 
 
 using namespace routing;

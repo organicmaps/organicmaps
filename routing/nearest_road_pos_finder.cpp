@@ -1,10 +1,10 @@
-#include "nearest_road_pos_finder.hpp"
+#include "routing/nearest_road_pos_finder.hpp"
 
-#include "../geometry/distance.hpp"
+#include "geometry/distance.hpp"
 
-#include "../indexer/feature.hpp"
+#include "indexer/feature.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 namespace routing
 {

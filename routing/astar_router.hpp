@@ -1,8 +1,8 @@
 #pragma once
 
-#include "road_graph_router.hpp"
-#include "../std/map.hpp"
-#include "../std/queue.hpp"
+#include "routing/road_graph_router.hpp"
+#include "std/map.hpp"
+#include "std/queue.hpp"
 
 
 namespace routing

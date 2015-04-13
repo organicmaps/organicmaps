@@ -1,14 +1,14 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "features_road_graph_test.hpp"
+#include "routing/routing_tests/features_road_graph_test.hpp"
 
-#include "../route.hpp"
+#include "routing/route.hpp"
 
-#include "../../indexer/classificator_loader.hpp"
-#include "../../indexer/feature.hpp"
-#include "../../indexer/ftypes_matcher.hpp"
+#include "indexer/classificator_loader.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
-#include "../../base/logging.hpp"
+#include "base/logging.hpp"
 
 
 using namespace routing;
