@@ -64,10 +64,10 @@ public:
 
   ////////////////////////////////////////////////////////////
   /// Render info
-  virtual size_t GetPointCount() const;
+  virtual size_t GetUserPointCount() const;
   virtual df::UserPointMark const * GetUserPointMark(size_t index) const;
 
-  virtual size_t GetLineCount() const;
+  virtual size_t GetUserLineCount() const;
   virtual df::UserLineMark const * GetUserLineMark(size_t index) const;
   ////////////////////////////////////////////////////////////
 

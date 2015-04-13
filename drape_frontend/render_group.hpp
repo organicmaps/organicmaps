@@ -81,18 +81,13 @@ class UserMarkRenderGroup : public BaseRenderGroup
   typedef BaseRenderGroup TBase;
 
 public:
-  UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey);
+  UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey,
+                      dp::TransferPointer<dp::RenderBucket> bucket);
   ~UserMarkRenderGroup();
 
-  void SetIsVisible(bool isVisible);
-  bool IsVisible();
-
-  void Clear();
-  void SetRenderBucket(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket);
   void Render(ScreenBase const & screen);
 
 private:
-  bool m_isVisible;
   dp::MasterPointer<dp::RenderBucket> m_renderBucket;
 };
 

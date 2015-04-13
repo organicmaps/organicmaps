@@ -661,7 +661,8 @@ UNIT_TEST(TrackParsingTest_1)
     Track const * track = cat->GetTrack(i);
     TEST_EQUAL(names[i], track->GetName(), ());
     TEST(fabs(track->GetLengthMeters() - length[i]) < 1.0E-6, (track->GetLengthMeters(), length[i]));
-    TEST_EQUAL(col[i], track->GetMainColor(), ());
+    TEST_GREATER(track->GetLayerCount(), 0, ());
+    TEST_EQUAL(col[i], track->GetColor(0), ());
   }
 }
 
@@ -675,6 +676,7 @@ UNIT_TEST(TrackParsingTest_2)
   TEST_EQUAL(cat->GetTracksCount(), 1, ());
   Track const * track = cat->GetTrack(0);
   TEST_EQUAL(track->GetName(), "XY", ());
-  TEST_EQUAL(track->GetMainColor(), dp::Color(57, 255, 32, 255), ());
+  TEST_GREATER(track->GetLayerCount(), 0, ());
+  TEST_EQUAL(track->GetColor(0), dp::Color(57, 255, 32, 255), ());
 }
 

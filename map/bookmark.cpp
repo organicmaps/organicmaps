@@ -8,9 +8,6 @@
 
 #include "base/scope_guard.hpp"
 
-
-#include "graphics/depth_constants.hpp"
-
 #include "indexer/mercator.hpp"
 
 #include "coding/file_reader.hpp"
@@ -26,10 +23,10 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/fstream.hpp"
 #include "std/algorithm.hpp"
 #include "std/auto_ptr.hpp"
-
+#include "std/fstream.hpp"
+#include "std/iterator.hpp"
 
 Bookmark::Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : TBase(ptOrg, container)
@@ -135,14 +132,15 @@ void Bookmark::SetScale(double scale)
 
 //////////////////////////////////////////////////////////////////
 
-void BookmarkCategory::AddTrack(Track & track)
+void BookmarkCategory::AddTrack(unique_ptr<Track> && track)
 {
-  m_tracks.push_back(track.CreatePersistent());
+  SetDirty();
+  m_tracks.push_back(move(track));
 }
 
 Track const * BookmarkCategory::GetTrack(size_t index) const
 {
-  return (index < m_tracks.size() ? m_tracks[index] : 0);
+  return (index < m_tracks.size() ? m_tracks[index].get() : 0);
 }
 
 BookmarkCategory::BookmarkCategory(string const & name, Framework & framework)
@@ -156,32 +154,29 @@ BookmarkCategory::~BookmarkCategory()
   ClearTracks();
 }
 
+size_t BookmarkCategory::GetUserLineCount() const
+{
+  return m_tracks.size();
+}
+
+df::UserLineMark const * BookmarkCategory::GetUserLineMark(size_t index) const
+{
+  ASSERT_LESS(index, m_tracks.size(), ());
+  return m_tracks[index].get();
+}
+
 void BookmarkCategory::ClearTracks()
 {
-  DeleteRange(m_tracks, DeleteFunctor());
-}
-
-namespace
-{
-
-template <class T> void DeleteItem(vector<T> & v, size_t i)
-{
-  if (i < v.size())
-  {
-    delete v[i];
-    v.erase(v.begin() + i);
-  }
-  else
-  {
-    LOG(LWARNING, ("Trying to delete non-existing item at index", i));
-  }
-}
-
+  m_tracks.clear();
 }
 
 void BookmarkCategory::DeleteTrack(size_t index)
 {
-  DeleteItem(m_tracks, index);
+  RequestController();
+  SetDirty();
+  ASSERT_LESS(index, m_tracks.size(), ());
+  m_tracks.erase(next(m_tracks.begin(), index));
+  ReleaseController();
 }
 
 namespace
@@ -307,7 +302,10 @@ namespace
       {
         m2::PointD pt;
         if (ParsePoint(*cortegeIter, coordSeparator, pt))
-          m_points.Add(pt);
+        {
+          if (m_points.GetSize() == 0 || !(pt - m_points.Back()).IsAlmostZero())
+            m_points.Add(pt);
+        }
         ++cortegeIter;
       }
     }
@@ -417,14 +415,12 @@ namespace
           }
           else if (GEOMETRY_TYPE_LINE == m_geometryType)
           {
-            Track track(m_points);
-            track.SetName(m_name);
-
-            Track::TrackOutline trackOutline { 5.0f, m_trackColor };
-            track.AddOutline(&trackOutline, 1);
+            Track::Params params;
+            params.m_colors.push_back({ 5.0f, m_trackColor });
+            params.m_name = m_name;
 
             /// @todo Add description, style, timestamp
-            m_category.AddTrack(track);
+            m_category.AddTrack(make_unique<Track>(m_points, params));
           }
         }
         Reset();
@@ -710,7 +706,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
   // GetBookmarksCount() - 1, i.e. to the last bookmark in the
   // bookmarks list.
   for (size_t count = 0, i = GetUserMarkCount() - 1;
-       count < GetUserMarkCount(); ++count, --i)
+       count < GetUserPointCount(); ++count, --i)
   {
     Bookmark const * bm = static_cast<Bookmark const *>(GetUserMark(i));
     s << "  <Placemark>\n";
@@ -758,8 +754,10 @@ void BookmarkCategory::SaveToKML(ostream & s)
     SaveStringWithCDATA(s, track->GetName());
     s << "</name>\n";
 
+    ASSERT_GREATER(track->GetLayerCount(), 0, ());
+
     s << "<Style><LineStyle>";
-    dp::Color const & col = track->GetMainColor();
+    dp::Color const & col = track->GetColor(0);
     s << "<color>"
       << NumToHex(col.GetAlfa())
       << NumToHex(col.GetBlue())
@@ -768,7 +766,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     s << "</color>\n";
 
     s << "<width>"
-      << track->GetMainWidth();
+      << track->GetWidth(0);
     s << "</width>\n";
 
     s << "</LineStyle></Style>\n";

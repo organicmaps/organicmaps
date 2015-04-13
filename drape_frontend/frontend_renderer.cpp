@@ -102,29 +102,6 @@ void FrontendRenderer::AfterDrawFrame()
 }
 #endif
 
-unique_ptr<UserMarkRenderGroup> const & FrontendRenderer::FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed)
-{
-  auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](unique_ptr<UserMarkRenderGroup> const & g)
-  {
-    return g->GetTileKey() == tileKey;
-  });
-
-  if (it != m_userMarkRenderGroups.end())
-  {
-    ASSERT((*it).get() != nullptr, ());
-    return *it;
-  }
-
-  if (createIfNeed)
-  {
-    m_userMarkRenderGroups.emplace_back(new UserMarkRenderGroup(dp::GLState(0, dp::GLState::UserMarkLayer), tileKey));
-    return m_userMarkRenderGroups.back();
-  }
-
-  static unique_ptr<UserMarkRenderGroup> emptyRenderGroup;
-  return emptyRenderGroup;
-}
-
 void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 {
   switch (message->GetType())
@@ -144,11 +121,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
           bucket.Destroy();
       }
       else
-      {
-        unique_ptr<UserMarkRenderGroup> const & group = FindUserMarkRenderGroup(key, true);
-        ASSERT(group.get() != nullptr, ());
-        group->SetRenderBucket(state, bucket.Move());
-      }
+        m_userMarkRenderGroups.push_back(new UserMarkRenderGroup(state, key, bucket.Move()));
       break;
     }
 
@@ -202,25 +175,26 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   case Message::ClearUserMarkLayer:
     {
       TileKey const & tileKey = df::CastMessage<ClearUserMarkLayerMessage>(message)->GetKey();
-      auto it = find_if(m_userMarkRenderGroups.begin(), m_userMarkRenderGroups.end(), [&tileKey](unique_ptr<UserMarkRenderGroup> const & g)
+      auto const functor = [&tileKey](unique_ptr<UserMarkRenderGroup> const & g)
       {
         return g->GetTileKey() == tileKey;
-      });
+      };
 
-      if (it != m_userMarkRenderGroups.end())
-      {
-        ASSERT((*it).get() != nullptr, ());
-        m_userMarkRenderGroups.erase(it);
-      }
+      auto const iter = remove_if(m_userMarkRenderGroups.begin(),
+                                  m_userMarkRenderGroups.end(),
+                                  functor);
 
+      m_userMarkRenderGroups.erase(iter, m_userMarkRenderGroups.end());
       break;
     }
   case Message::ChangeUserMarkLayerVisibility:
     {
       ChangeUserMarkLayerVisibilityMessage * m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
-      unique_ptr<UserMarkRenderGroup> const & group = FindUserMarkRenderGroup(m->GetKey(), true);
-      ASSERT(group.get() != nullptr, ());
-      group->SetIsVisible(m->IsVisible());
+      TileKey const & key = m->GetKey();
+      if (m->IsVisible())
+        m_userMarkVisibility.insert(key);
+      else
+        m_userMarkVisibility.erase(key);
       break;
     }
   case Message::GuiLayerRecached:
@@ -371,7 +345,7 @@ void FrontendRenderer::RenderScene()
   for (unique_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
-    if (group->IsVisible())
+    if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
     {
       dp::GLState const & state = group->GetState();
       dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());

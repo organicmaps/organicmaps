@@ -71,9 +71,6 @@ private:
   void ResolveTileKeys(int tileScale);
   int GetCurrentZoomLevel() const;
 
-  //TODO(@kuznetsov): return new ref-pointer here
-  unique_ptr<UserMarkRenderGroup> const & FindUserMarkRenderGroup(TileKey const & tileKey, bool createIfNeed);
-
 private:
   class Routine : public threads::IRoutine
   {
@@ -117,6 +114,8 @@ private:
   vector<unique_ptr<RenderGroup>> m_renderGroups;
   vector<unique_ptr<RenderGroup>> m_deferredRenderGroups;
   vector<unique_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
+  set<TileKey> m_userMarkVisibility;
+
   dp::MasterPointer<gui::LayerRenderer> m_guiRenderer;
   dp::MasterPointer<MyPosition> m_myPositionMark;
 

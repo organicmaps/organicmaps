@@ -96,31 +96,17 @@ bool RenderGroupComparator::operator()(unique_ptr<RenderGroup> const & l, unique
   return false;
 }
 
-UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey)
+UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state,
+                                         TileKey const & tileKey,
+                                         dp::TransferPointer<dp::RenderBucket> bucket)
   : TBase(state, tileKey)
-  , m_isVisible(true)
+  , m_renderBucket(bucket)
 {
 }
 
 UserMarkRenderGroup::~UserMarkRenderGroup()
 {
   m_renderBucket.Destroy();
-}
-
-void UserMarkRenderGroup::SetIsVisible(bool isVisible)
-{
-  m_isVisible = isVisible;
-}
-
-bool UserMarkRenderGroup::IsVisible()
-{
-  return m_isVisible && !m_renderBucket.IsNull();
-}
-
-void UserMarkRenderGroup::SetRenderBucket(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket)
-{
-  m_state = state;
-  m_renderBucket = dp::MasterPointer<dp::RenderBucket>(bucket);
 }
 
 void UserMarkRenderGroup::Render(ScreenBase const & screen)

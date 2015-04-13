@@ -234,10 +234,9 @@ void BookmarkManager::UserMarksReleaseController(UserMarksController & controlle
   FindUserMarksContainer(controller.GetType())->ReleaseController();
 }
 
-void BookmarkManager::SetRouteTrack(RouteTrack & track)
+void BookmarkManager::SetRouteTrack(unique_ptr<RouteTrack> && track)
 {
-  m_routeTrack.reset();
-  m_routeTrack.reset(track.CreatePersistent());
+  m_routeTrack = move(track);
 }
 
 void BookmarkManager::ResetRouteTrack()

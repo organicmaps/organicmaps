@@ -115,11 +115,7 @@ private:
 class BookmarkCategory : public UserMarkContainer
 {
   typedef UserMarkContainer TBase;
-  /// @name Data
-  //@{
-  /// TODO move track into UserMarkContainer as a IDrawable custom data
-  vector<Track *> m_tracks;
-  //@}
+  vector<unique_ptr<Track>> m_tracks;
 
   string m_name;
   /// Stores file name from which category was loaded
@@ -149,14 +145,18 @@ public:
   BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
+  //////////////////////////////////////////////////////////////////////
+  size_t GetUserLineCount() const override;
+  df::UserLineMark const * GetUserLineMark(size_t index) const override;
+  //////////////////////////////////////////////////////////////////////
+
   static string GetDefaultType();
 
   void ClearTracks();
 
   /// @name Tracks routine.
   //@{
-  /// @note Move semantics is used here.
-  void AddTrack(Track & track);
+  void AddTrack(unique_ptr<Track> && track);
   Track const * GetTrack(size_t index) const;
   inline size_t GetTracksCount() const { return m_tracks.size(); }
   void DeleteTrack(size_t index);

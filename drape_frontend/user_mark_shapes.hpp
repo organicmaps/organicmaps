@@ -15,7 +15,7 @@ namespace df
   TileKey GetSearchTileKey();
   TileKey GetApiTileKey();
   TileKey GetBookmarkTileKey(size_t categoryIndex);
-  bool IsUserMarkLayer(const TileKey & tileKey);
+  bool IsUserMarkLayer(TileKey const & tileKey);
 
   void CacheUserMarks(UserMarksProvider const * provider, dp::RefPointer<dp::Batcher> batcher,
                       dp::RefPointer<dp::TextureManager> textures);

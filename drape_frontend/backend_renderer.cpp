@@ -127,6 +127,11 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       UpdateUserMarkLayerMessage * msg = df::CastMessage<UpdateUserMarkLayerMessage>(message);
       TileKey const & key = msg->GetKey();
+
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                dp::MovePointer<Message>(new ClearUserMarkLayerMessage(key)),
+                                MessagePriority::Normal);
+
       m_batchersPool->ReserveBatcher(key);
 
       UserMarksProvider const * marksProvider = msg->StartProcess();

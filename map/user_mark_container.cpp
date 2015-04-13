@@ -148,16 +148,16 @@ void UserMarkContainer::ReleaseController()
 
   if (IsDirty())
   {
-    if (GetUserMarkCount() == 0)
+    if (GetUserPointCount() == 0 && GetUserLineCount() == 0)
       engine->ClearUserMarksLayer(key);
     else
       engine->UpdateUserMarksLayer(key, this);
   }
 }
 
-size_t UserMarkContainer::GetPointCount() const
+size_t UserMarkContainer::GetUserPointCount() const
 {
-  return GetUserMarkCount();
+  return m_userMarks.size();
 }
 
 df::UserPointMark const * UserMarkContainer::GetUserPointMark(size_t index) const
@@ -165,7 +165,7 @@ df::UserPointMark const * UserMarkContainer::GetUserPointMark(size_t index) cons
   return GetUserMark(index);
 }
 
-size_t UserMarkContainer::GetLineCount() const
+size_t UserMarkContainer::GetUserLineCount() const
 {
   return 0;
 }
@@ -201,7 +201,7 @@ UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 
 size_t UserMarkContainer::GetUserMarkCount() const
 {
-  return m_userMarks.size();
+  return GetUserPointCount();
 }
 
 UserMark const * UserMarkContainer::GetUserMark(size_t index) const
