@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../../../storage/index.hpp"
+#include "storage/index.hpp"
 
 #include "../core/jni_helper.hpp"
 

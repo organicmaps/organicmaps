@@ -1,9 +1,9 @@
 #include "androidoglcontextfactory.h"
 #include "android_gl_utils.h"
 
-#include "../../../base/assert.hpp"
+#include "base/assert.hpp"
 
-#include "../../../std/algorithm.hpp"
+#include "std/algorithm.hpp"
 
 static EGLint * getConfigAttributesList()
 {

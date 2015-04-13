@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "../../../../../graphics/opengl/gl_render_context.hpp"
+#include "graphics/opengl/gl_render_context.hpp"
 
-#include "../../../../../std/shared_ptr.hpp"
+#include "std/shared_ptr.hpp"
 
 namespace android
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "androidoglcontext.hpp"
-#include "../../../drape/oglcontextfactory.hpp"
+#include "drape/oglcontextfactory.hpp"
 
 
 class AndroidOGLContextFactory : public OGLContextFactory

@@ -2,7 +2,7 @@
 
 #include <jni.h>
 
-#include "../../../../../platform/video_timer.hpp"
+#include "platform/video_timer.hpp"
 
 namespace android
 {

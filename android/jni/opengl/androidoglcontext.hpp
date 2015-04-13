@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../drape/oglcontext.hpp"
+#include "drape/oglcontext.hpp"
 
 #include <GLES2/gl2.h>
 #include <EGL/egl.h>

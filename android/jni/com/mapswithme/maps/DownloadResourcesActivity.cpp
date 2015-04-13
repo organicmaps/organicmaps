@@ -1,23 +1,23 @@
 #include "Framework.hpp"
 #include "MapStorage.hpp"
 
-#include "../../../../../defines.hpp"
+#include "defines.hpp"
 
-#include "../../../../../coding/url_encode.hpp"
-#include "../../../../../coding/reader_streambuf.hpp"
-#include "../../../../../coding/internal/file_data.hpp"
+#include "coding/url_encode.hpp"
+#include "coding/reader_streambuf.hpp"
+#include "coding/internal/file_data.hpp"
 
-#include "../../../../../platform/platform.hpp"
-#include "../../../../../platform/http_request.hpp"
-#include "../../../../../platform/servers_list.hpp"
+#include "platform/platform.hpp"
+#include "platform/http_request.hpp"
+#include "platform/servers_list.hpp"
 
-#include "../../../../../base/logging.hpp"
-#include "../../../../../base/string_utils.hpp"
+#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include "../../../../../std/vector.hpp"
-#include "../../../../../std/string.hpp"
-#include "../../../../../std/bind.hpp"
-#include "../../../../../std/shared_ptr.hpp"
+#include "std/vector.hpp"
+#include "std/string.hpp"
+#include "std/bind.hpp"
+#include "std/shared_ptr.hpp"
 
 
 using namespace downloader;

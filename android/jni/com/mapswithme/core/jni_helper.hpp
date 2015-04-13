@@ -2,10 +2,10 @@
 
 #include <jni.h>
 
-#include "../../../../../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../../../../../std/string.hpp"
-#include "../../../../../std/shared_ptr.hpp"
+#include "std/string.hpp"
+#include "std/shared_ptr.hpp"
 
 // cache MapIndex jclass
 extern jclass g_indexClazz;

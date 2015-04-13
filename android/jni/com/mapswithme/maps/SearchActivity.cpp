@@ -1,8 +1,8 @@
 #include "Framework.hpp"
 
-#include "../../../../../search/result.hpp"
+#include "search/result.hpp"
 
-#include "../../../../../base/thread.hpp"
+#include "base/thread.hpp"
 
 #include "../core/jni_helper.hpp"
 

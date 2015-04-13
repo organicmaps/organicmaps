@@ -9,13 +9,13 @@
 
 #include "../../../nv_event/nv_event.hpp"
 
-#include "../../../../../map/country_status_display.hpp"
+#include "map/country_status_display.hpp"
 
-#include "../../../../../storage/index.hpp"
+#include "storage/index.hpp"
 
-#include "../../../../../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../../../../../platform/file_logging.hpp"
+#include "platform/file_logging.hpp"
 
 
 extern "C"

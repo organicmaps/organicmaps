@@ -2,8 +2,8 @@
 
 #include "../core/jni_helper.hpp"
 
-#include "../../../../../base/assert.hpp"
-#include "../../../../../base/logging.hpp"
+#include "base/assert.hpp"
+#include "base/logging.hpp"
 
 
 android::VideoTimer * g_timer = 0;

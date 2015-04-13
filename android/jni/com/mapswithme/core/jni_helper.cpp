@@ -1,7 +1,7 @@
 #include "jni_helper.hpp"
 #include "logging.hpp"
 
-#include "../../../../../base/assert.hpp"
+#include "base/assert.hpp"
 
 static JavaVM * g_jvm = 0;
 extern JavaVM * GetJVM()

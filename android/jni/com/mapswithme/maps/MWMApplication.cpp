@@ -11,11 +11,11 @@
 
 #include "../platform/Platform.hpp"
 
-#include "../../../../../map/information_display.hpp"
-#include "../../../../../map/location_state.hpp"
-#include "../../../../../map/dialog_settings.hpp"
+#include "map/information_display.hpp"
+#include "map/location_state.hpp"
+#include "map/dialog_settings.hpp"
 
-#include "../../../../../platform/settings.hpp"
+#include "platform/settings.hpp"
 
 
 extern "C"

@@ -9,28 +9,28 @@
 
 #include "../platform/Platform.hpp"
 
-#include "../../../../../map/framework.hpp"
-#include "../../../../../map/measurement_utils.hpp"
-#include "../../../../../map/user_mark.hpp"
+#include "map/framework.hpp"
+#include "map/measurement_utils.hpp"
+#include "map/user_mark.hpp"
 
-#include "../../../../../gui/controller.hpp"
+#include "gui/controller.hpp"
 
-#include "../../../../../graphics/opengl/framebuffer.hpp"
-#include "../../../../../graphics/opengl/opengl.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+#include "graphics/opengl/opengl.hpp"
 
-#include "../../../../../coding/file_container.hpp"
-#include "../../../../../coding/file_name_utils.hpp"
+#include "coding/file_container.hpp"
+#include "coding/file_name_utils.hpp"
 
-#include "../../../../../geometry/angles.hpp"
+#include "geometry/angles.hpp"
 
-#include "../../../../../platform/platform.hpp"
-#include "../../../../../platform/location.hpp"
-#include "../../../../../platform/preferred_languages.hpp"
+#include "platform/platform.hpp"
+#include "platform/location.hpp"
+#include "platform/preferred_languages.hpp"
 
-#include "../../../../../storage/storage_defines.hpp"
+#include "storage/storage_defines.hpp"
 
-#include "../../../../../base/math.hpp"
-#include "../../../../../base/logging.hpp"
+#include "base/math.hpp"
+#include "base/logging.hpp"
 
 namespace
 {

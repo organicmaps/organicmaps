@@ -1,6 +1,6 @@
 #include "../Framework.hpp"
 
-#include "../../../../../../platform/settings.hpp"
+#include "platform/settings.hpp"
 
 
 extern "C"

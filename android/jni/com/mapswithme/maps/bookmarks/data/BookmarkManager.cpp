@@ -2,7 +2,7 @@
 
 #include "../../../core/jni_helper.hpp"
 
-#include "../../../../../../../coding/zip_creator.hpp"
+#include "coding/zip_creator.hpp"
 
 
 namespace

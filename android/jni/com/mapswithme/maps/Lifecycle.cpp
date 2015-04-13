@@ -8,8 +8,8 @@
 #include <jni.h>
 #include <android/log.h>
 #include "../../../nv_event/nv_event.hpp"
-#include "../../../../../base/logging.hpp"
-#include "../../../../../graphics/opengl/opengl.hpp"
+#include "base/logging.hpp"
+#include "graphics/opengl/opengl.hpp"
 #include "Framework.hpp"
 #include "../platform/Platform.hpp"
 
