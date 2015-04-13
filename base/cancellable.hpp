@@ -20,7 +20,7 @@ public:
   virtual void Cancel() { m_cancelled = true; }
 
   /// \return True is current activity is cancelled.
-  bool IsCancelled() const { return m_cancelled; }
+  virtual bool IsCancelled() const { return m_cancelled; }
 
 private:
   atomic<bool> m_cancelled;

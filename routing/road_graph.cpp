@@ -1,7 +1,8 @@
 #include "routing/road_graph.hpp"
 
 #include "base/assert.hpp"
-
+#include "geometry/distance_on_sphere.hpp"
+#include "indexer/mercator.hpp"
 #include "std/limits.hpp"
 #include "std/sstream.hpp"
 
@@ -20,6 +21,29 @@ string DebugPrint(RoadPos const & r)
   ss << "{ featureId: " << r.GetFeatureId() << ", isForward: " << r.IsForward()
      << ", segId:" << r.m_segId << ", segEndpoint:" << DebugPrint(r.m_segEndpoint) << "}";
   return ss.str();
+}
+
+// RoadGraph -------------------------------------------------------------------
+
+RoadGraph::RoadGraph(IRoadGraph & roadGraph) : m_roadGraph(roadGraph) {}
+
+void RoadGraph::GetAdjacencyListImpl(RoadPos const & v, vector<RoadEdge> & adj) const
+{
+  IRoadGraph::TurnsVectorT turns;
+  m_roadGraph.GetNearestTurns(v, turns);
+  for (PossibleTurn const & turn : turns)
+  {
+    RoadPos const & w = turn.m_pos;
+    adj.push_back(RoadEdge(w, HeuristicCostEstimate(v, w)));
+  }
+}
+
+double RoadGraph::HeuristicCostEstimateImpl(RoadPos const & v, RoadPos const & w) const
+{
+  static double const kMaxSpeedMPS = 5000.0 / 3600;
+  m2::PointD const & ve = v.GetSegEndpoint();
+  m2::PointD const & we = w.GetSegEndpoint();
+  return MercatorBounds::DistanceOnEarth(ve, we) / kMaxSpeedMPS;
 }
 
 }  // namespace routing

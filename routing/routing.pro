@@ -31,6 +31,8 @@ SOURCES += \
 HEADERS += \
     astar_router.hpp \
     async_router.hpp \
+    base/astar_algorithm.hpp \
+    base/graph.hpp \
     cross_routing_context.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \

@@ -1,9 +1,8 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
-
 #include "base/string_utils.hpp"
-
+#include "geometry/point2d.hpp"
+#include "routing/base/graph.hpp"
 #include "std/vector.hpp"
 
 namespace routing
@@ -96,6 +95,36 @@ public:
 
   /// Construct route by road positions (doesn't include first and last section).
   virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route) = 0;
+};
+
+// A class which represents an edge used by RoadGraph.
+struct RoadEdge
+{
+  RoadEdge(RoadPos const & target, double weight) : target(target), weight(weight) {}
+
+  inline RoadPos const & GetTarget() const { return target; }
+
+  inline double GetWeight() const { return weight; }
+
+  RoadPos const target;
+  double const weight;
+};
+
+// A wrapper around IGraph, which make it's possible to use IRoadGraph
+// with routing algorithms.
+class RoadGraph : public Graph<RoadPos, RoadEdge, RoadGraph>
+{
+public:
+  RoadGraph(IRoadGraph & roadGraph);
+
+private:
+  friend class Graph<RoadPos, RoadEdge, RoadGraph>;
+
+  // Graph<RoadPos, RoadEdge, RoadGraph> implementation:
+  void GetAdjacencyListImpl(RoadPos const & v, vector<RoadEdge> & adj) const;
+  double HeuristicCostEstimateImpl(RoadPos const & v, RoadPos const & w) const;
+
+  IRoadGraph & m_roadGraph;
 };
 
 }  // namespace routing
