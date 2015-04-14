@@ -6,7 +6,6 @@
 #include "base/macros.hpp"
 #include "std/algorithm.hpp"
 
-
 namespace routing
 {
 double const kMaxSpeedMPS = 5000.0 / 3600;
@@ -67,9 +66,8 @@ double DistanceBetween(RoadPos const & p1, RoadPos const & p2)
 }
 
 void ReconstructRouteBidirectional(RoadPos const & v, RoadPos const & w,
-                                                map<RoadPos, RoadPos> const & parentV,
-                                                map<RoadPos, RoadPos> const & parentW,
-                                                vector<RoadPos> & route)
+                                   map<RoadPos, RoadPos> const & parentV,
+                                   map<RoadPos, RoadPos> const & parentW, vector<RoadPos> & route)
 {
   vector<RoadPos> routeV;
   ReconstructRoute(v, parentV, routeV);
@@ -117,7 +115,6 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): finalPos:", roadPos));
 #endif  // defined(DEBUG)
 
-
   route.clear();
   vector<uint32_t> sortedStartFeatures(startPos.size());
   for (size_t i = 0; i < startPos.size(); ++i)
@@ -156,7 +153,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     // We need the original start position because it contains the projection point to the road
     // feature.
     auto pos = lower_bound(sortedStartPos.begin(), sortedStartPos.end(), v.pos);
-    if (pos != sortedStartPos.end() && *pos == v.pos)    
+    if (pos != sortedStartPos.end() && *pos == v.pos)
     {
       ReconstructRoute(*pos, parent, route);
       return IRouter::NoError;
@@ -199,8 +196,8 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
 
 /// @todo This may work incorrectly if (startPos.size() > 1) or (finalPos.size() > 1).
 IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> const & startPos,
-                                              vector<RoadPos> const & finalPos,
-                                              vector<RoadPos> & route)
+                                                             vector<RoadPos> const & finalPos,
+                                                             vector<RoadPos> & route)
 {
   ASSERT(!startPos.empty(), ());
   ASSERT(!finalPos.empty(), ());
@@ -299,7 +296,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
       swap(curBest, nxtBest);
       swap(pS, pT);
     }
-    
+
     double curTop = (*curBestDistance)[curQueue->top().pos];
     double nxtTop = (*nxtBestDistance)[nxtQueue->top().pos];
 
@@ -307,11 +304,10 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
                                : consistentHeuristicBackward(curQueue->top()));
     double pTopW = (curForward ? consistentHeuristicBackward(nxtQueue->top())
                                : consistentHeuristicForward(nxtQueue->top()));
-    
+
     if (foundAnyPath && curTop + nxtTop - pTopV + pS - pTopW + pT >= bestPathLength - kEpsilon)
     {
-      ReconstructRouteBidirectional(curBest.pos, nxtBest.pos, *curParent, *nxtParent,
-                                    route);
+      ReconstructRouteBidirectional(curBest.pos, nxtBest.pos, *curParent, *nxtParent, route);
       CHECK_GREATER(route.size(), 1U, ());
       if (!Contains(sortedFinalPos, route[0]))
         reverse(route.begin(), route.end());
@@ -336,10 +332,13 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
       if (v.pos == w.pos)
         continue;
       double const len = DistanceBetween(v.pos, w.pos) / kMaxSpeedMPS;
-      double const pV = (curForward ? consistentHeuristicForward(v) : consistentHeuristicBackward(v));
-      double const pW = (curForward ? consistentHeuristicForward(w) : consistentHeuristicBackward(w));
+      double const pV =
+          (curForward ? consistentHeuristicForward(v) : consistentHeuristicBackward(v));
+      double const pW =
+          (curForward ? consistentHeuristicForward(w) : consistentHeuristicBackward(w));
       double const reducedLen = len + pW - pV;
-      double const pRW = (curForward ? consistentHeuristicBackward(w) : consistentHeuristicForward(w));
+      double const pRW =
+          (curForward ? consistentHeuristicBackward(w) : consistentHeuristicForward(w));
       CHECK(reducedLen >= -kEpsilon, ("Invariant failed:", (len + pW - pV), "<", -kEpsilon));
       double newReducedDist = v.dist + max(reducedLen, 0.0);
 
@@ -352,7 +351,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
         double const distW = (*nxtBestDistance)[w.pos];
         double const curPathLength = newReducedDist + distW - pW + pS - pRW + pT;
         if (!foundAnyPath || bestPathLength > curPathLength)
-        {  
+        {
           bestPathLength = curPathLength;
           foundAnyPath = true;
           curBest = v;
@@ -371,5 +370,4 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
   return IRouter::RouteNotFound;
 }
 
-} // namespace routing
-
+}  // namespace routing
