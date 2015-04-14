@@ -8,6 +8,8 @@
 
 namespace routing
 {
+namespace
+{
 double const kMaxSpeedMPS = 5000.0 / 3600;
 double const kEpsilon = 1e-6;
 
@@ -15,8 +17,6 @@ double const kEpsilon = 1e-6;
 uint32_t const kCancelledPollPeriod = 128;
 uint32_t const kQueueSwitchPeriod = 128;
 
-namespace
-{
 template <typename E>
 void SortUnique(vector<E> & v)
 {
@@ -35,10 +35,8 @@ void ReconstructRoute(RoadPos const & v, map<RoadPos, RoadPos> const & parent,
 {
   route.clear();
   RoadPos cur = v;
-  LOG(LDEBUG, ("A-star has found a path:"));
   while (true)
   {
-    LOG(LDEBUG, (cur));
     route.push_back(cur);
     auto it = parent.find(cur);
     if (it == parent.end())
@@ -81,6 +79,7 @@ void ReconstructRouteBidirectional(RoadPos const & v, RoadPos const & w,
 // for CalculateRouteM2M for more information.
 struct Vertex
 {
+  Vertex() : dist(0.0) {}
   Vertex(RoadPos const & pos, double dist) : pos(pos), dist(dist) {}
 
   bool operator<(Vertex const & v) const { return dist > v.dist; }
@@ -88,13 +87,70 @@ struct Vertex
   RoadPos pos;
   double dist;
 };
+
+// BidirectionalStepContext keeps all the information that is needed to
+// search starting from one of the two directions. Its main
+// purpose is to make the code that changes directions more readable.
+struct BidirectionalStepContext
+{
+  BidirectionalStepContext(bool forward, vector<RoadPos> const & startPos,
+                           vector<RoadPos> const & finalPos)
+      : forward(forward), startPos(startPos), finalPos(finalPos)
+  {
+    bestVertex = forward ? Vertex(startPos[0], 0.0) : Vertex(finalPos[0], 0.0);
+    pS = ConsistentHeuristic(Vertex(startPos[0], 0.0));
+  }
+
+  double TopDistance() const
+  {
+    ASSERT(!queue.empty(), ());
+    auto it = bestDistance.find(queue.top().pos);
+    CHECK(it != bestDistance.end(), ());
+    return it->second;
+  }
+
+  // p_f(v) = 0.5*(π_f(v) - π_r(v)) + 0.5*π_r(t)
+  // p_r(v) = 0.5*(π_r(v) - π_f(v)) + 0.5*π_f(s)
+  // p_r(v) + p_f(v) = const. Note: this condition is called consistence.
+  double ConsistentHeuristic(Vertex const & v) const
+  {
+    double piF = HeuristicCostEstimate(v.pos, finalPos);
+    double piR = HeuristicCostEstimate(v.pos, startPos);
+    double const piRT = HeuristicCostEstimate(finalPos[0], startPos);
+    double const piFS = HeuristicCostEstimate(startPos[0], finalPos);
+    if (forward)
+    {
+      /// @todo careful: with this "return" here and below in the Backward case
+      /// the heuristic becomes inconsistent but still seems to work.
+      /// return HeuristicCostEstimate(v.pos, finalPos);
+      return 0.5 * (piF - piR + piRT);
+    }
+    else
+    {
+      // return HeuristicCostEstimate(v.pos, startPos);
+      return 0.5 * (piR - piF + piFS);
+    }
+  }
+
+  bool const forward;
+  vector<RoadPos> const & startPos;
+  vector<RoadPos> const & finalPos;
+
+  priority_queue<Vertex> queue;
+  map<RoadPos, double> bestDistance;
+  map<RoadPos, RoadPos> parent;
+  Vertex bestVertex;
+
+  double pS;
+};
+
 }  // namespace
 
 // This implementation is based on the view that the A* algorithm
 // is equivalent to Dijkstra's algorithm that is run on a reweighted
 // version of the graph. If an edge (v, w) has length l(v, w), its reduced
-// cost is l_r(v, w) = l(v, w) + pi(w) - pi(v), where pi() is any function
-// that ensures l_r(v, w) >= 0 for every edge. We set pi() to calculate
+// cost is l_r(v, w) = l(v, w) + π(w) - π(v), where π() is any function
+// that ensures l_r(v, w) >= 0 for every edge. We set π() to calculate
 // the shortest possible distance to a goal node, and this is a common
 // heuristic that people use in A*.
 // Refer to this paper for more information:
@@ -115,7 +171,6 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     LOG(LDEBUG, ("AStarRouter::CalculateM2MRoute(): finalPos:", roadPos));
 #endif  // defined(DEBUG)
 
-  route.clear();
   vector<uint32_t> sortedStartFeatures(startPos.size());
   for (size_t i = 0; i < startPos.size(); ++i)
     sortedStartFeatures[i] = startPos[i].GetFeatureId();
@@ -150,8 +205,8 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
     if (v.dist > bestDistance[v.pos])
       continue;
 
-    // We need the original start position because it contains the projection point to the road
-    // feature.
+    // We need the original start position because it contains
+    // the projection point to the road feature.
     auto pos = lower_bound(sortedStartPos.begin(), sortedStartPos.end(), v.pos);
     if (pos != sortedStartPos.end() && *pos == v.pos)
     {
@@ -208,75 +263,35 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
     LOG(LDEBUG, ("AStarRouter::CalculateRouteBidirectional(): finalPos:", roadPos));
 #endif  // defined(DEBUG)
 
-  route.clear();
+  BidirectionalStepContext forward(true /* forward */, startPos, finalPos);
+  BidirectionalStepContext backward(false /* forward */, startPos, finalPos);
 
-  vector<RoadPos> sortedStartPos(startPos.begin(), startPos.end());
-  sort(sortedStartPos.begin(), sortedStartPos.end());
-
-  vector<RoadPos> sortedFinalPos(finalPos.begin(), finalPos.end());
-  sort(sortedFinalPos.begin(), sortedFinalPos.end());
-
-  priority_queue<Vertex> queueForward;
-  priority_queue<Vertex> queueBackward;
-  map<RoadPos, double> bestDistanceForward;
-  map<RoadPos, double> bestDistanceBackward;
-  map<RoadPos, RoadPos> parentForward;
-  map<RoadPos, RoadPos> parentBackward;
-  for (auto const & rp : startPos)
-  {
-    VERIFY(bestDistanceForward.insert({rp, 0.0}).second, ());
-    queueForward.push(Vertex(rp, 0.0 /* distance */));
-  }
-  for (auto const & rp : finalPos)
-  {
-    VERIFY(bestDistanceBackward.insert({rp, 0.0}).second, ());
-    queueBackward.push(Vertex(rp, 0.0 /* distance */));
-  }
-
-  bool curForward = true;
-  priority_queue<Vertex> * curQueue = &queueForward;
-  priority_queue<Vertex> * nxtQueue = &queueBackward;
-  map<RoadPos, double> * curBestDistance = &bestDistanceForward;
-  map<RoadPos, double> * nxtBestDistance = &bestDistanceBackward;
-  map<RoadPos, RoadPos> * curParent = &parentForward;
-  map<RoadPos, RoadPos> * nxtParent = &parentBackward;
-  vector<RoadPos> * curSortedPos = &sortedStartPos;
-  vector<RoadPos> * nxtSortedPos = &sortedFinalPos;
-  Vertex curBest(startPos[0], 0.0 /* distance */);
-  Vertex nxtBest(finalPos[0], 0.0 /* distance */);
   bool foundAnyPath = false;
   double bestPathLength = 0.0;
 
-  // p_f(v) = 0.5*(pi_f(v) - pi_r(v)) + 0.5*pi_r(t)
-  // p_r(v) = 0.5*(pi_r(v) - pi_f(v)) + 0.5*pi_f(s)
-  // p_r(v) + p_f(v) = const. Note: this condition is called consistence.
-  auto consistentHeuristicForward = [&](Vertex const & v) -> double
+  for (auto const & rp : startPos)
   {
-    /// @todo careful: with this "return" here and below in the Backward case
-    /// the heuristic becomes inconsistent but still seems to work.
-    // return HeuristicCostEstimate(v.pos, finalPos);
-    static double const piRT = HeuristicCostEstimate(finalPos[0], startPos);
-    double piF = HeuristicCostEstimate(v.pos, finalPos);
-    double piR = HeuristicCostEstimate(v.pos, startPos);
-    return 0.5 * (piF - piR + piRT);
-  };
-  auto consistentHeuristicBackward = [&](Vertex const & v) -> double
+    VERIFY(forward.bestDistance.insert({rp, 0.0}).second, ());
+    forward.queue.push(Vertex(rp, 0.0 /* distance */));
+  }
+  for (auto const & rp : finalPos)
   {
-    // return HeuristicCostEstimate(v.pos, startPos);
-    static double const piS = HeuristicCostEstimate(startPos[0], finalPos);
-    double piF = HeuristicCostEstimate(v.pos, finalPos);
-    double piR = HeuristicCostEstimate(v.pos, startPos);
-    return 0.5 * (piR - piF + piS);
-  };
+    VERIFY(backward.bestDistance.insert({rp, 0.0}).second, ());
+    backward.queue.push(Vertex(rp, 0.0 /* distance */));
+  }
 
-  double pS = consistentHeuristicForward(Vertex(startPos[0], 0.0));
-  double pT = consistentHeuristicBackward(Vertex(finalPos[0], 0.0));
+  // To use the search code both for backward and forward directions
+  // we keep the pointers to everything related to the search in the
+  // 'current' and 'next' directions. Swapping these pointers indicates
+  // changing the end we are searching from.
+  BidirectionalStepContext * cur = &forward;
+  BidirectionalStepContext * nxt = &backward;
 
   // It is not necessary to check emptiness for both queues here
   // because if we have not found a path by the time one of the
   // queues is exhausted, we never will.
   uint32_t steps = 0;
-  while (!curQueue->empty() && !nxtQueue->empty())
+  while (!cur->queue.empty() && !nxt->queue.empty())
   {
     ++steps;
 
@@ -288,39 +303,36 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
 
     if (steps % kQueueSwitchPeriod == 0)
     {
-      curForward ^= true;
-      swap(curQueue, nxtQueue);
-      swap(curBestDistance, nxtBestDistance);
-      swap(curParent, nxtParent);
-      swap(curSortedPos, nxtSortedPos);
-      swap(curBest, nxtBest);
-      swap(pS, pT);
+      swap(cur, nxt);
     }
 
-    double curTop = (*curBestDistance)[curQueue->top().pos];
-    double nxtTop = (*nxtBestDistance)[nxtQueue->top().pos];
+    double const curTop = cur->TopDistance();
+    double const nxtTop = nxt->TopDistance();
+    double const pTopV = cur->ConsistentHeuristic(cur->queue.top());
+    double const pTopW = nxt->ConsistentHeuristic(nxt->queue.top());
 
-    double pTopV = (curForward ? consistentHeuristicForward(curQueue->top())
-                               : consistentHeuristicBackward(curQueue->top()));
-    double pTopW = (curForward ? consistentHeuristicBackward(nxtQueue->top())
-                               : consistentHeuristicForward(nxtQueue->top()));
-
-    if (foundAnyPath && curTop + nxtTop - pTopV + pS - pTopW + pT >= bestPathLength - kEpsilon)
+    // The intuition behind this is that we cannot obtain a path shorter
+    // than the left side of the inequality because that is how any path we find
+    // will look like (see comment for curPathLength below).
+    // We do not yet have the proof that we will not miss a good path by doing so.
+    if (foundAnyPath &&
+        curTop + nxtTop - pTopV + cur->pS - pTopW + nxt->pS >= bestPathLength - kEpsilon)
     {
-      ReconstructRouteBidirectional(curBest.pos, nxtBest.pos, *curParent, *nxtParent, route);
-      CHECK_GREATER(route.size(), 1U, ());
-      if (!Contains(sortedFinalPos, route[0]))
+      ReconstructRouteBidirectional(cur->bestVertex.pos, nxt->bestVertex.pos, cur->parent,
+                                    nxt->parent, route);
+      CHECK(!route.empty(), ());
+      if (cur->forward)
         reverse(route.begin(), route.end());
       ASSERT(Contains(sortedFinalPos, route[0]), ());
       ASSERT(Contains(sortedStartPos, route.back()), ());
-      LOG(LINFO, ("bidirectional steps made:", steps));
+      LOG(LDEBUG, ("Path found. Bidirectional steps made:", steps, "."));
       return IRouter::NoError;
     }
 
-    Vertex const v = curQueue->top();
-    curQueue->pop();
+    Vertex const v = cur->queue.top();
+    cur->queue.pop();
 
-    if (v.dist > (*curBestDistance)[v.pos])
+    if (v.dist > cur->bestDistance[v.pos])
       continue;
 
     IRoadGraph::TurnsVectorT turns;
@@ -332,37 +344,38 @@ IRouter::ResultCode AStarRouter::CalculateRouteBidirectional(vector<RoadPos> con
       if (v.pos == w.pos)
         continue;
       double const len = DistanceBetween(v.pos, w.pos) / kMaxSpeedMPS;
-      double const pV =
-          (curForward ? consistentHeuristicForward(v) : consistentHeuristicBackward(v));
-      double const pW =
-          (curForward ? consistentHeuristicForward(w) : consistentHeuristicBackward(w));
+      double const pV = cur->ConsistentHeuristic(v);
+      double const pW = cur->ConsistentHeuristic(w);
       double const reducedLen = len + pW - pV;
-      double const pRW =
-          (curForward ? consistentHeuristicBackward(w) : consistentHeuristicForward(w));
-      CHECK(reducedLen >= -kEpsilon, ("Invariant failed:", (len + pW - pV), "<", -kEpsilon));
+      double const pRW = nxt->ConsistentHeuristic(w);
+      CHECK(reducedLen >= -kEpsilon, ("Invariant failed:", reducedLen, "<", -kEpsilon));
       double newReducedDist = v.dist + max(reducedLen, 0.0);
 
-      map<RoadPos, double>::const_iterator t = curBestDistance->find(w.pos);
-      if (t != curBestDistance->end() && newReducedDist >= t->second - kEpsilon)
+      map<RoadPos, double>::const_iterator t = cur->bestDistance.find(w.pos);
+      if (t != cur->bestDistance.end() && newReducedDist >= t->second - kEpsilon)
         continue;
 
-      if (nxtBestDistance->find(w.pos) != nxtBestDistance->end())
+      if (nxt->bestDistance.find(w.pos) != nxt->bestDistance.end())
       {
-        double const distW = (*nxtBestDistance)[w.pos];
-        double const curPathLength = newReducedDist + distW - pW + pS - pRW + pT;
+        double const distW = nxt->bestDistance[w.pos];
+        // Length that the path we've just found has in the original graph:
+        // find the length of the path's parts in the reduced forward and backward
+        // graphs and remove the heuristic adjustments.
+        double const curPathLength = newReducedDist + distW - pW + cur->pS - pRW + nxt->pS;
+        // No epsilon here: it is ok to overshoot slightly.
         if (!foundAnyPath || bestPathLength > curPathLength)
         {
           bestPathLength = curPathLength;
           foundAnyPath = true;
-          curBest = v;
-          nxtBest = w;
+          cur->bestVertex = v;
+          nxt->bestVertex = w;
         }
       }
 
       w.dist = newReducedDist;
-      (*curBestDistance)[w.pos] = newReducedDist;
-      (*curParent)[w.pos] = v.pos;
-      curQueue->push(w);
+      cur->bestDistance[w.pos] = newReducedDist;
+      cur->parent[w.pos] = v.pos;
+      cur->queue.push(w);
     }
   }
 
