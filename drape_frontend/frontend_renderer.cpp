@@ -121,7 +121,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
           bucket.Destroy();
       }
       else
-        m_userMarkRenderGroups.push_back(new UserMarkRenderGroup(state, key, bucket.Move()));
+        m_userMarkRenderGroups.emplace_back(new UserMarkRenderGroup(state, key, bucket.Move()));
       break;
     }
 

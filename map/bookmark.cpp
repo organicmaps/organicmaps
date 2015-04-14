@@ -45,7 +45,8 @@ void Bookmark::SetData(BookmarkData const & data)
 }
 
 BookmarkData const & Bookmark::GetData() const
-{ return m_data;
+{
+  return m_data;
 }
 
 dp::Anchor Bookmark::GetAnchor() const

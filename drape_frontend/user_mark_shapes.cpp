@@ -87,6 +87,7 @@ void CacheUserPoints(UserMarksProvider const * provider,
   buffer.reserve(vertexCount);
 
   vector<UserPointMark const *> marks;
+  marks.reserve(markCount);
   for (size_t i = 0; i < markCount; ++i)
     marks.push_back(provider->GetUserPointMark(i));
 
