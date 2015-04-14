@@ -22,13 +22,14 @@ HEADERS += \
 
 SOURCES += \
     ../../testing/testingmain.cpp \
-    osm_parser_test.cpp \
-    feature_merger_test.cpp \
-    osm_type_test.cpp \
-    osm_id_test.cpp \
-    tesselator_test.cpp \
-    triangles_tree_coding_test.cpp \
+    check_mwms.cpp \
+    classificator_tests.cpp \
     coasts_test.cpp \
     feature_builder_test.cpp \
-    classificator_tests.cpp \
-    check_mwms.cpp \
+    feature_merger_test.cpp \
+    osm_id_test.cpp \
+    osm_o5m_source_test.cpp \
+    osm_parser_test.cpp \
+    osm_type_test.cpp \
+    tesselator_test.cpp \
+    triangles_tree_coding_test.cpp \
