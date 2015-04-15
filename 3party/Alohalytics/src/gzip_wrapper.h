@@ -71,7 +71,7 @@ inline std::string Gzip(const std::string& data_to_compress) {
 struct GunzipErrorException : public std::exception {
   std::string msg_;
   GunzipErrorException(int err, const char* msg) {
-    msg_ = std::string("ERROR ") + std::to_string(err) + " while gzipping with zlib. " + (msg ? msg : "");
+    msg_ = std::string("ERROR ") + std::to_string(err) + " while gunzipping with zlib. " + (msg ? msg : "");
   }
   virtual char const* what() const noexcept { return msg_.c_str(); }
 };
