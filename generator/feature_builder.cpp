@@ -193,7 +193,8 @@ namespace
 bool FeatureBuilder1::IsRoad() const
 {
   static routing::CarModel const carModel;
-  return carModel.IsRoad(m_params.m_Types);
+  static routing::PedestrianModel const pedModel;
+  return carModel.IsRoad(m_params.m_Types) || pedModel.IsRoad(m_params.m_Types);
 }
 
 bool FeatureBuilder1::PreSerialize()
