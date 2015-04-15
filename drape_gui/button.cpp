@@ -1,11 +1,11 @@
 #include "button.hpp"
 #include "gui_text.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/shader_def.hpp"
-#include "../drape/utils/vertex_decl.hpp"
+#include "drape/batcher.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace gui
 {

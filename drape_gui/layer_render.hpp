@@ -3,13 +3,13 @@
 #include "skin.hpp"
 #include "shape.hpp"
 
-#include "../drape/texture_manager.hpp"
-#include "../drape/gpu_program_manager.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/gpu_program_manager.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/map.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/map.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace gui
 {

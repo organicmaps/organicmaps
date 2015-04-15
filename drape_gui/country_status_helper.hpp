@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
-#include "../base/buffer_vector.hpp"
+#include "base/buffer_vector.hpp"
 
-#include "../std/atomic.hpp"
-#include "../std/string.hpp"
+#include "std/atomic.hpp"
+#include "std/string.hpp"
 
 namespace storage { struct TIndex; }
 

@@ -219,6 +219,11 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
   }
 }
 
+unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
+{
+  return make_unique<Routine>(*this);
+}
+
 void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
                                         dp::GLState const & state,
                                         dp::MasterPointer<dp::RenderBucket> & renderBucket,
@@ -426,18 +431,6 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
     }
   }
   m_tileTree->EndRequesting();
-}
-
-void FrontendRenderer::StartThread()
-{
-  m_selfThread.Create(make_unique<Routine>(*this));
-}
-
-void FrontendRenderer::StopThread()
-{
-  m_selfThread.GetRoutine()->Cancel();
-  CloseQueue();
-  m_selfThread.Join();
 }
 
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}

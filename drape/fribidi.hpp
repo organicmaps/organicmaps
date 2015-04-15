@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../base/string_utils.hpp"
+#include "base/string_utils.hpp"
 
-#include "../3party/fribidi/lib/fribidi.h"
+#include "3party/fribidi/lib/fribidi.h"
 
 namespace fribidi
 {

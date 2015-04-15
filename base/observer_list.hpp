@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../base/logging.hpp"
+#include "base/logging.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/mutex.hpp"
-#include "../std/vector.hpp"
+#include "std/algorithm.hpp"
+#include "std/mutex.hpp"
+#include "std/vector.hpp"
 
 namespace my
 {

@@ -11,9 +11,6 @@ class Message;
 
 class MessageAcceptor
 {
-public:
-  virtual ~MessageAcceptor() {}
-
 protected:
   virtual ~MessageAcceptor(){}
 

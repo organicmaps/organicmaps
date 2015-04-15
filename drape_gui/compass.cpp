@@ -1,12 +1,12 @@
 #include "compass.hpp"
 
-#include "../drape/glsl_types.hpp"
-#include "../drape/glsl_func.hpp"
-#include "../drape/shader_def.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/shader_def.hpp"
 
-#include "../drape/utils/vertex_decl.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace gui
 {

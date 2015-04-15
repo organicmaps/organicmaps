@@ -17,7 +17,6 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-
 namespace search
 {
 namespace impl

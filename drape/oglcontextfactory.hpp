@@ -5,7 +5,7 @@
 #include "base/condition.hpp"
 #include "base/assert.hpp"
 
-#include "/std/function.hpp"
+#include "std/function.hpp"
 
 namespace dp
 {

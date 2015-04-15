@@ -2,11 +2,11 @@
 
 #include "line_shape.hpp"
 
-#include "../drape/utils/vertex_decl.hpp"
-#include "../drape/shader_def.hpp"
-#include "../drape/attribute_provider.hpp"
+#include "drape/utils/vertex_decl.hpp"
+#include "drape/shader_def.hpp"
+#include "drape/attribute_provider.hpp"
 
-#include "../geometry/spline.hpp"
+#include "geometry/spline.hpp"
 
 namespace df
 {

@@ -1,10 +1,10 @@
 #include "skin.hpp"
 #include "drape_gui.hpp"
 
-#include "../platform/platform.hpp"
-#include "../coding/parse_xml.hpp"
-#include "../base/string_utils.hpp"
-#include "../std/function.hpp"
+#include "platform/platform.hpp"
+#include "coding/parse_xml.hpp"
+#include "base/string_utils.hpp"
+#include "std/function.hpp"
 
 namespace gui
 {

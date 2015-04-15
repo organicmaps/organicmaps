@@ -58,6 +58,7 @@ HEADERS += \
     $$DRAPE_DIR/cpu_buffer.hpp \
     $$DRAPE_DIR/data_buffer.hpp \
     $$DRAPE_DIR/data_buffer_impl.hpp \
+    $$DRAPE_DIR/depth_constants.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/dynamic_texture.hpp \
     $$DRAPE_DIR/font_texture.hpp \
@@ -82,7 +83,7 @@ HEADERS += \
     $$DRAPE_DIR/overlay_tree.hpp \
     $$DRAPE_DIR/pointers.hpp \
     $$DRAPE_DIR/render_bucket.hpp \
-    $$DRAPE_DIR/sdf_image.h \
+    $$DRAPE_DIR/sdf_image.hpp \
     $$DRAPE_DIR/shader.hpp \
     $$DRAPE_DIR/shader_def.hpp \
     $$DRAPE_DIR/stipple_pen_resource.hpp \
@@ -97,6 +98,5 @@ HEADERS += \
     $$DRAPE_DIR/utils/projection.hpp \
     $$DRAPE_DIR/utils/vertex_decl.hpp \
     $$DRAPE_DIR/vertex_array_buffer.hpp \
-    $$ROOT_DIR/stb_image/stb_image.h \
     $$ROOT_DIR/sdf_image/sdf_image.h \
-    $$PWD/depth_constants.hpp
+    $$ROOT_DIR/stb_image/stb_image.h \

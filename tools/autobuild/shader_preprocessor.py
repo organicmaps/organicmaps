@@ -145,7 +145,7 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
     fragmentShaders = [s for s in shaders if s.endswith(".fsh")]
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
     file.write("#include \"%s\"\n\n" % (defFile))
-    file.write("#include \"../std/utility.hpp\"\n\n")
+    file.write("#include \"std/utility.hpp\"\n\n")
 
     file.write("namespace gpu\n")
     file.write("{\n\n")

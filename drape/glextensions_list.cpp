@@ -9,7 +9,7 @@ namespace dp
 {
 
 #ifdef DEBUG
-  #include "../std/map.hpp"
+  #include "std/map.hpp"
 
   class GLExtensionsList::Impl
   {
@@ -43,7 +43,7 @@ namespace dp
     map<GLExtensionsList::ExtensionName, bool> m_supportedMap;
   };
 #else
-  #include "../std/set.hpp"
+  #include "std/set.hpp"
 
   class GLExtensionsList::Impl
   {

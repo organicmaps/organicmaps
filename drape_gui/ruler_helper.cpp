@@ -1,16 +1,17 @@
-#include "ruler_helper.hpp"
-#include "drape_gui.hpp"
+#include "drape_gui/ruler_helper.hpp"
+#include "drape_gui/drape_gui.hpp"
 
-#include "../platform/settings.hpp"
-#include "../indexer/mercator.hpp"
-#include "../indexer/measurement_utils.hpp"
-#include "../geometry/screenbase.hpp"
+#include "platform/settings.hpp"
+#include "platform/measurement_utils.hpp"
 
-#include "../base/macros.hpp"
+#include "indexer/mercator.hpp"
+#include "geometry/screenbase.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/numeric.hpp"
-#include "../std/iterator.hpp"
+#include "base/macros.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/numeric.hpp"
+#include "std/iterator.hpp"
 
 namespace gui
 {

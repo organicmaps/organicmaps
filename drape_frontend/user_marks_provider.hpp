@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../drape/drape_global.hpp"
+#include "drape/drape_global.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../base/mutex.hpp"
+#include "base/mutex.hpp"
 
-#include "../std/atomic.hpp"
+#include "std/atomic.hpp"
 
 namespace df
 {

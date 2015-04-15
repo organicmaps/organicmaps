@@ -9,8 +9,6 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "graphics/color.hpp"
-
 #include "coding/internal/file_data.hpp"
 
 #include "std/fstream.hpp"

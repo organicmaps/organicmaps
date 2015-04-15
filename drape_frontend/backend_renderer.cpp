@@ -49,6 +49,11 @@ BackendRenderer::~BackendRenderer()
   StopThread();
 }
 
+unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
+{
+  return make_unique<Routine>(*this);
+}
+
 void BackendRenderer::RecacheGui(gui::Skin::ElementName elements)
 {
   using TLayerRenderer = dp::TransferPointer<gui::LayerRenderer>;
@@ -155,18 +160,6 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 /////////////////////////////////////////
 //             ThreadPart              //
 /////////////////////////////////////////
-void BackendRenderer::StartThread()
-{
-  m_selfThread.Create(make_unique<Routine>(*this));
-}
-
-void BackendRenderer::StopThread()
-{
-  m_selfThread.GetRoutine()->Cancel();
-  CloseQueue();
-  m_selfThread.Join();
-}
-
 void BackendRenderer::ReleaseResources()
 {
   m_readManager->Stop();

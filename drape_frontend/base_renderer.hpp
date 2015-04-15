@@ -1,22 +1,22 @@
 #pragma once
 
-#include "message_acceptor.hpp"
-#include "threads_commutator.hpp"
-#include "tile_utils.hpp"
+#include "drape_frontend/message_acceptor.hpp"
+#include "drape_frontend/threads_commutator.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
-#include "../drape/oglcontextfactory.hpp"
-#include "../base/thread.hpp"
+#include "drape/oglcontextfactory.hpp"
 
-#include "../std/atomic.hpp"
-#include "../std/condition_variable.hpp"
-#include "../std/function.hpp"
-#include "../std/mutex.hpp"
+#include "base/thread.hpp"
+
+#include "std/atomic.hpp"
+#include "std/condition_variable.hpp"
+#include "std/function.hpp"
+#include "std/mutex.hpp"
 
 namespace df
 {
 
-class BaseRenderer : public MessageAcceptor,
-                     public threads::IRoutine
+class BaseRenderer : public MessageAcceptor
 {
 public:
   using TCompletionHandler = function<void()>;
@@ -36,6 +36,8 @@ protected:
 
   void CheckRenderingEnabled();
   void ProcessStopRenderingMessage();
+
+  virtual unique_ptr<threads::IRoutine> CreateRoutine() = 0;
 
 private:
   bool CanReceiveMessage() override;

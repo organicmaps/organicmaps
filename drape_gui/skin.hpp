@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../drape/drape_global.hpp"
-#include "../geometry/point2d.hpp"
-#include "../coding/reader.hpp"
+#include "drape/drape_global.hpp"
+#include "geometry/point2d.hpp"
+#include "coding/reader.hpp"
 
-#include "../std/map.hpp"
+#include "std/map.hpp"
 
 namespace gui
 {

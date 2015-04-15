@@ -2,8 +2,6 @@
 #include "map/framework.hpp"
 #include "map/user_mark.hpp"
 
-#include "graphics/depth_constants.hpp"
-
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 

@@ -61,6 +61,7 @@ public:
 
 protected:
   virtual void AcceptMessage(dp::RefPointer<Message> message);
+  unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:
   void RenderScene();
@@ -84,8 +85,6 @@ private:
     FrontendRenderer & m_renderer;
   };
 
-  void StartThread();
-  void StopThread();
   void ReleaseResources();
 
 private:

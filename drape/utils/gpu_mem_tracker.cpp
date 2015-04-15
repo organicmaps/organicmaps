@@ -1,7 +1,7 @@
-#include "gpu_mem_tracker.hpp"
+#include "drape/utils/gpu_mem_tracker.hpp"
 
-#include "../../std/tuple.hpp"
-#include "../../std/sstream.hpp"
+#include "std/tuple.hpp"
+#include "std/sstream.hpp"
 
 namespace dp
 {

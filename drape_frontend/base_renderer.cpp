@@ -1,7 +1,7 @@
-#include "base_renderer.hpp"
-#include "message_subclasses.hpp"
+#include "drape_frontend/base_renderer.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 
-#include "../std/utility.hpp"
+#include "std/utility.hpp"
 
 namespace df
 {
@@ -21,7 +21,7 @@ BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name,
 
 void BaseRenderer::StartThread()
 {
-  m_selfThread.Create(this);
+  m_selfThread.Create(CreateRoutine());
 }
 
 void BaseRenderer::StopThread()
@@ -124,13 +124,13 @@ void BaseRenderer::WakeUp()
 
 void BaseRenderer::ProcessStopRenderingMessage()
 {
-  IRoutine::Cancel();
+  m_selfThread.GetRoutine()->Cancel();
   CloseQueue();
 }
 
 bool BaseRenderer::CanReceiveMessage()
 {
-  return !IsCancelled();
+  return !m_selfThread.GetRoutine()->IsCancelled();
 }
 
 } // namespace df

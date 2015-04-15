@@ -1,17 +1,17 @@
 #include "gui_text.hpp"
 #include "drape_gui.hpp"
 
-#include "../base/string_utils.hpp"
-#include "../base/stl_add.hpp"
+#include "base/string_utils.hpp"
+#include "base/stl_add.hpp"
 
-#include "../drape/fribidi.hpp"
-#include "../drape/glsl_func.hpp"
-#include "../drape/shader_def.hpp"
+#include "drape/fribidi.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/shader_def.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/static_assert.hpp"
-#include "../std/type_traits.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/algorithm.hpp"
+#include "std/static_assert.hpp"
+#include "std/type_traits.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace gui
 {

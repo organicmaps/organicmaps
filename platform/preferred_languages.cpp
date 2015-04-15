@@ -12,12 +12,12 @@
   #include <CoreFoundation/CFString.h>
 
 #elif defined(OMIM_OS_WINDOWS)
-  #include "../std/windows.hpp"
+  #include "std/windows.hpp"
   // for XP it's not defined
   #define MUI_LANGUAGE_NAME 0x8
 
 #elif defined(OMIM_OS_LINUX)
-  #include "../std/cstdlib.hpp"
+  #include "std/cstdlib.hpp"
 
 #elif defined(OMIM_OS_ANDROID)
   /// Body for this function is inside android/jni sources

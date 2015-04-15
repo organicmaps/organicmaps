@@ -2,13 +2,13 @@
 
 #include "skin.hpp"
 
-#include "../storage/index.hpp"
-#include "../storage/storage_defines.hpp"
+#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
-#include "../drape/pointers.hpp"
+#include "drape/pointers.hpp"
 
-#include "../std/function.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/function.hpp"
+#include "std/unique_ptr.hpp"
 
 class ScreenBase;
 

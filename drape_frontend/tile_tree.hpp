@@ -3,14 +3,14 @@
 #include "tile_utils.hpp"
 #include "render_group.hpp"
 
-#include "../drape/glstate.hpp"
-#include "../drape/pointers.hpp"
-#include "../geometry/rect2d.hpp"
+#include "drape/glstate.hpp"
+#include "drape/pointers.hpp"
+#include "geometry/rect2d.hpp"
 
-#include "../std/function.hpp"
-#include "../std/list.hpp"
-#include "../std/sstream.hpp"
-#include "../std/unique_ptr.hpp"
+#include "std/function.hpp"
+#include "std/list.hpp"
+#include "std/sstream.hpp"
+#include "std/unique_ptr.hpp"
 
 namespace df
 {

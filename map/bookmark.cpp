@@ -11,7 +11,7 @@
 #include "indexer/mercator.hpp"
 
 #include "coding/file_reader.hpp"
-#include "../coding/parse_xml.hpp"  // LoadFromKML
+#include "coding/parse_xml.hpp"  // LoadFromKML
 #include "coding/internal/file_data.hpp"
 #include "coding/hex.hpp"
 

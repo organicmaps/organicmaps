@@ -32,6 +32,9 @@ public:
 
   ~BackendRenderer() override;
 
+protected:
+  unique_ptr<threads::IRoutine> CreateRoutine() override;
+
 private:
   void RecacheGui(gui::Skin::ElementName elements);
 
@@ -64,8 +67,6 @@ private:
     BackendRenderer & m_renderer;
   };
 
-  void StartThread();
-  void StopThread();
   void ReleaseResources();
 
   void InitGLDependentResource();

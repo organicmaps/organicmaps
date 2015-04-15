@@ -2,10 +2,10 @@
 
 #include "active_maps_layout.hpp"
 
-#include "../drape_gui/drape_gui.hpp"
+#include "drape_gui/drape_gui.hpp"
 
-#include "../storage/index.hpp"
-#include "../storage/storage_defines.hpp"
+#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
 
 /// Provide access to Storage in DrapeGui subsystem. Need to CountryStatus buttons
 class StorageBridge : public gui::StorageAccessor

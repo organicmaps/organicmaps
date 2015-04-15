@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../std/array.hpp"
+#include "std/array.hpp"
 
 namespace dp
 {

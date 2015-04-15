@@ -6,7 +6,7 @@
   #define CHECK_STREAMS CheckStreams()
   #define INIT_STREAM(x) InitCheckStream((x))
 #else
-  #include "../../base/macros.hpp"
+  #include "base/macros.hpp"
   #define INIT_CHECK_INFO(x) UNUSED_VALUE((x))
   #define CHECK_STREAMS
   #define INIT_STREAM(x) UNUSED_VALUE((x))

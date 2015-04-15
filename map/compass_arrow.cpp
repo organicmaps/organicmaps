@@ -4,15 +4,7 @@
 
 #include "anim/controller.hpp"
 
-#include "gui/controller.hpp"
-
 #include "geometry/transformations.hpp"
-
-#include "graphics/display_list.hpp"
-#include "graphics/screen.hpp"
-
-
-using namespace graphics;
 
 CompassArrow::Params::Params()
   : m_framework(0)

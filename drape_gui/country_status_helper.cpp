@@ -1,11 +1,11 @@
 #include "country_status_helper.hpp"
 #include "drape_gui.hpp"
 
-#include "../storage/index.hpp"
+#include "storage/index.hpp"
 
-#include "../base/stl_add.hpp"
-#include "../base/string_utils.hpp"
-#include "../base/string_format.hpp"
+#include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
+#include "base/string_format.hpp"
 
 namespace gui
 {

@@ -1,4 +1,4 @@
-#include "../../std/target_os.hpp"
+#include "std/target_os.hpp"
 
 #if defined(OMIM_OS_MAC)
   #include "config_mac.h"

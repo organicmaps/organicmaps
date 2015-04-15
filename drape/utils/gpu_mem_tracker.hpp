@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../base/mutex.hpp"
+#include "base/mutex.hpp"
 
-#include "../../std/map.hpp"
-#include "../../std/noncopyable.hpp"
+#include "std/map.hpp"
+#include "std/noncopyable.hpp"
 
 //#define TRACK_GPU_MEM
 

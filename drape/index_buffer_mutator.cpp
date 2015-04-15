@@ -1,8 +1,8 @@
 #include "drape/index_buffer_mutator.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
-#include "../std/cstring.hpp"    // for memcpy
-#include "../std/algorithm.hpp" // for max
+#include "std/cstring.hpp"    // for memcpy
+#include "std/algorithm.hpp" // for max
 
 namespace dp
 {

@@ -18,8 +18,6 @@
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/utils/projection.hpp"
 
-#include "graphics/defines.hpp"
-
 #include "std/algorithm.hpp"
 #include "std/utility.hpp"
 

@@ -1,11 +1,11 @@
 #include "my_position.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/depth_constants.hpp"
-#include "../drape/glsl_func.hpp"
-#include "../drape/glsl_types.hpp"
-#include "../drape/render_bucket.hpp"
-#include "../drape/shader_def.hpp"
+#include "drape/batcher.hpp"
+#include "drape/depth_constants.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/render_bucket.hpp"
+#include "drape/shader_def.hpp"
 
 namespace df
 {
@@ -15,6 +15,13 @@ namespace
 
 struct Vertex
 {
+  Vertex() = default;
+  Vertex(glsl::vec2 const & normal, glsl::vec2 const & texCoord)
+    : m_normal(normal)
+    , m_texCoord(texCoord)
+  {
+  }
+
   glsl::vec2 m_normal;
   glsl::vec2 m_texCoord;
 };
@@ -108,16 +115,14 @@ void MyPosition::CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng)
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;
-  // TODO UVR, change on emplace_back afer rebase on master
-  buffer.push_back({ glsl::vec2(0.0f, 0.0f), colorCoord });
+  buffer.emplace_back(glsl::vec2(0.0f, 0.0f), colorCoord);
 
   glsl::vec2 startNormal(0.0f, 1.0f);
 
   for (size_t i = 0; i < TriangleCount + 1; ++i)
   {
     glsl::vec2 rotatedNormal = glsl::rotate(startNormal, -(i * etalonSector));
-    // TODO UVR, change on emplace_back afer rebase on master
-    buffer.push_back({ rotatedNormal, colorCoord });
+    buffer.emplace_back(rotatedNormal, colorCoord);
   }
 
   dp::GLState state(gpu::ACCURACY_PROGRAM, dp::GLState::OverlayLayer);

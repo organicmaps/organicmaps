@@ -3,12 +3,12 @@
 #include "tile_key.hpp"
 #include "user_marks_provider.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/texture_manager.hpp"
+#include "drape/batcher.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../geometry/point2d.hpp"
+#include "geometry/point2d.hpp"
 
-#include "../std/function.hpp"
+#include "std/function.hpp"
 
 namespace df
 {

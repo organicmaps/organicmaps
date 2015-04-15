@@ -16,7 +16,7 @@
 #include "std/vector.hpp"
 
 #ifdef OMIM_OS_WINDOWS
-#include "../std/windows.hpp"  // for DWORD
+#include "std/windows.hpp"  // for DWORD
 #endif
 
 namespace threads

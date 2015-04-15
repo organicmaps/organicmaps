@@ -3,11 +3,11 @@
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
 
-#include "../drape/glsl_func.hpp"
-#include "../drape/glsl_types.hpp"
-#include "../drape/shader_def.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/shader_def.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace gui
 {

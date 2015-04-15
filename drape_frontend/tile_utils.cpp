@@ -1,7 +1,7 @@
 #include "tile_utils.hpp"
 
-#include "../base/assert.hpp"
-#include "../base/stl_add.hpp"
+#include "base/assert.hpp"
+#include "base/stl_add.hpp"
 
 namespace df
 {

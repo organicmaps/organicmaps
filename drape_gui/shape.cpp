@@ -1,7 +1,7 @@
 #include "shape.hpp"
 
-#include "../drape/glsl_func.hpp"
-#include "../drape/utils/projection.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/utils/projection.hpp"
 
 namespace gui
 {

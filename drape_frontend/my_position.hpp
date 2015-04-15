@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../drape/vertex_array_buffer.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/gpu_program_manager.hpp"
-#include "../drape/texture_manager.hpp"
-#include "../drape/uniform_values_storage.hpp"
+#include "drape/vertex_array_buffer.hpp"
+#include "drape/glstate.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/uniform_values_storage.hpp"
 
-#include "../geometry/screenbase.hpp"
+#include "geometry/screenbase.hpp"
 
 namespace df
 {

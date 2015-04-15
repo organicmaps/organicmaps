@@ -1,8 +1,10 @@
-#include "glyph_usage_tracker.hpp"
+#include "drape/utils/glyph_usage_tracker.hpp"
 
-#include "../../base/assert.hpp"
-#include "../../std/sstream.hpp"
-#include "../../platform/preferred_languages.hpp"
+#include "platform/preferred_languages.hpp"
+
+#include "base/assert.hpp"
+
+#include "std/sstream.hpp"
 
 namespace dp
 {

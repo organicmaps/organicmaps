@@ -1,6 +1,5 @@
-#include "map/user_mark_container.hpp"
-
 #include "map/framework.hpp"
+#include "map/user_mark_container.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/tile_key.hpp"

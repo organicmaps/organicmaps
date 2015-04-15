@@ -1,7 +1,7 @@
 #include "tile_tree.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/utility.hpp"
+#include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 namespace df
 {

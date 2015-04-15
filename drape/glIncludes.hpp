@@ -10,10 +10,10 @@
   #include <OpenGL/gl.h>
   #include <OpenGL/glext.h>
 #elif defined(OMIM_OS_WINDOWS)
-  #include "../std/windows.hpp"
+  #include "std/windows.hpp"
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>
-  #include "../3party/GL/glext.h"
+  #include "3party/GL/glext.h"
 #elif defined(OMIM_OS_ANDROID)
   #include <EGL/egl.h>
   #include <GLES2/gl2.h>

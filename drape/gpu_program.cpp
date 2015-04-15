@@ -5,7 +5,7 @@
 #include "base/logging.hpp"
 
 #ifdef DEBUG
-  #include "../std/map.hpp"
+  #include "std/map.hpp"
 #endif
 
 namespace dp

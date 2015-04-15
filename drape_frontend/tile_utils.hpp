@@ -1,8 +1,8 @@
 #pragma once
 
 #include "tile_key.hpp"
-#include "../std/function.hpp"
-#include "../std/set.hpp"
+#include "std/function.hpp"
+#include "std/set.hpp"
 
 namespace df
 {

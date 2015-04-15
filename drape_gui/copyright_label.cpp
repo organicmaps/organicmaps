@@ -3,9 +3,9 @@
 #include "gui_text.hpp"
 #include "ruler_helper.hpp"
 
-#include "../base/timer.hpp"
+#include "base/timer.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace gui
 {

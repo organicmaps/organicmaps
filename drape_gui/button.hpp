@@ -2,8 +2,8 @@
 
 #include "shape.hpp"
 
-#include "../std/function.hpp"
-#include "../std/string.hpp"
+#include "std/function.hpp"
+#include "std/string.hpp"
 
 namespace gui
 {

@@ -7,7 +7,7 @@
 #include "std/string.hpp"
 
 #ifdef DEBUG
-  #include "../std/unique_ptr.hpp"
+  #include "std/unique_ptr.hpp"
 #endif
 
 namespace dp

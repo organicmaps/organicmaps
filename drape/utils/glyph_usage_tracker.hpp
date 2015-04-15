@@ -1,11 +1,12 @@
 #pragma once
 
-#include "../../base/string_utils.hpp"
-#include "../../std/map.hpp"
-#include "../../std/set.hpp"
-#include "../../std/list.hpp"
-#include "../../std/mutex.hpp"
-#include "../../std/unordered_set.hpp"
+#include "base/string_utils.hpp"
+
+#include "std/map.hpp"
+#include "std/set.hpp"
+#include "std/list.hpp"
+#include "std/mutex.hpp"
+#include "std/unordered_set.hpp"
 
 //#define TRACK_GLYPH_USAGE
 

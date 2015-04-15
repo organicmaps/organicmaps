@@ -1,6 +1,6 @@
-#include "../../testing/testing.hpp"
+#include "testing/testing.hpp"
 
-#include "../../drape_frontend/tile_utils.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
 namespace
 {

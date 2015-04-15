@@ -2,14 +2,14 @@
 
 #include "shape.hpp"
 
-#include "../drape/binding_info.hpp"
-#include "../drape/drape_global.hpp"
-#include "../drape/glsl_types.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/texture_manager.hpp"
+#include "drape/binding_info.hpp"
+#include "drape/drape_global.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/glstate.hpp"
+#include "drape/texture_manager.hpp"
 
-#include "../std/stdint.hpp"
-#include "../std/utility.hpp"
+#include "std/stdint.hpp"
+#include "std/utility.hpp"
 
 namespace gui
 {

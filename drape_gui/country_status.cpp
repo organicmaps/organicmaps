@@ -4,11 +4,11 @@
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/glsl_func.hpp"
+#include "drape/batcher.hpp"
+#include "drape/glsl_func.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/bind.hpp"
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
 
 namespace gui
 {

@@ -2,7 +2,7 @@
 #include "drape_gui.hpp"
 #include "ruler_helper.hpp"
 
-#include "../base/assert.hpp"
+#include "base/assert.hpp"
 
 namespace gui
 {

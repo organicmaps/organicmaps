@@ -2,13 +2,13 @@
 
 #include "skin.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/glsl_types.hpp"
-#include "../drape/glstate.hpp"
-#include "../drape/gpu_program_manager.hpp"
-#include "../drape/overlay_handle.hpp"
-#include "../drape/texture_manager.hpp"
-#include "../drape/vertex_array_buffer.hpp"
+#include "drape/batcher.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/glstate.hpp"
+#include "drape/gpu_program_manager.hpp"
+#include "drape/overlay_handle.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
 namespace gui
 {

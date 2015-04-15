@@ -7,12 +7,12 @@
 #include "ruler.hpp"
 #include "ruler_helper.hpp"
 
-#include "../drape/batcher.hpp"
-#include "../drape/render_bucket.hpp"
+#include "drape/batcher.hpp"
+#include "drape/render_bucket.hpp"
 
-#include "../base/stl_add.hpp"
+#include "base/stl_add.hpp"
 
-#include "../std/bind.hpp"
+#include "std/bind.hpp"
 
 namespace gui
 {
