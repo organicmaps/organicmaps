@@ -65,7 +65,7 @@ public:
 
   void operator() (FeatureType const & f) const
   {
-    TEST(is_drawable(f), ());
+    TEST(is_drawable(f), (m_scale, f));
     add(f);
   }
 };
