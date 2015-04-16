@@ -139,7 +139,7 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
   if (fc.m_speed <= 0.0)
     return;
 
-  ASSERT_GREATER_OR_EQUAL(numPoints, 2, ("Incorrect road - only", fc.m_points.size(), "point(s)."));
+  ASSERT_GREATER_OR_EQUAL(fc.m_points.size(), 2, ("Incorrect road - only", fc.m_points.size(), "point(s)."));
 
   m2::PointD const point = fc.m_points[pos.GetSegStartPointId()];
 
