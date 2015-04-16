@@ -144,7 +144,7 @@ END
 END
 EOPOLY
   fi
-  $GENERATOR_TOOL --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
+  $GENERATOR_TOOL --make_routing=true --osrm_file_name="$OSRM" --data_path="$TARGET" --output="$BASE_NAME"
   if [ -n "${POLY_DIR-}" ]; then
     # remove fake poly
     rm "$POLY"
