@@ -70,7 +70,7 @@ namespace qt
     KillPressTask();
 
     m_framework->PrepareToShutdown();
-    m_contextFactory.Destroy();
+    m_contextFactory.reset();
   }
 
   void DrawWidget::SetScaleControl(QScaleSlider * pScale)
@@ -183,7 +183,8 @@ namespace qt
 
   void DrawWidget::CreateEngine()
   {
-    m_framework->CreateDrapeEngine(m_contextFactory.GetRefPointer(), m_ratio, m_ratio * width(), m_ratio * height());
+    m_framework->CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_contextFactory), m_ratio,
+                                   m_ratio * width(), m_ratio * height());
   }
 
   void DrawWidget::exposeEvent(QExposeEvent * e)
@@ -192,11 +193,10 @@ namespace qt
 
     if (isExposed())
     {
-      if (m_contextFactory.IsNull())
+      if (m_contextFactory == nullptr)
       {
         m_ratio = devicePixelRatio();
-        dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new QtOGLContextFactory(this));
-        m_contextFactory = dp::MasterPointer<dp::OGLContextFactory>(factory);
+        m_contextFactory = move(make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this)));
         CreateEngine();
         LoadState();
         UpdateScaleControl();

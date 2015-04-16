@@ -171,7 +171,7 @@ void ApplyPointFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     TextViewParams params;
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-      m_context.InsertShape(dp::MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
+      m_context.InsertShape(make_unique_dp<TextShape>(m_centerPoint, params));
   }
 
   SymbolRuleProto const * symRule =  pRule->GetSymbol();
@@ -201,18 +201,14 @@ void ApplyPointFeature::Finish()
     params.m_depth = m_circleDepth;
     params.m_color = ToDrapeColor(m_circleRule->color());
     params.m_radius = m_circleRule->radius();
-
-    CircleShape * shape = new CircleShape(m_centerPoint, params);
-    m_context.InsertShape(dp::MovePointer<MapShape>(shape));
+    m_context.InsertShape(make_unique_dp<CircleShape>(m_centerPoint, params));
   }
   else if (m_symbolRule)
   {
     PoiSymbolViewParams params(m_id);
     params.m_depth = m_symbolDepth;
     params.m_symbolName = m_symbolRule->name();
-
-    PoiSymbolShape * shape = new PoiSymbolShape(m_centerPoint, params);
-    m_context.InsertShape(dp::MovePointer<MapShape>(shape));
+    m_context.InsertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params));
   }
 }
 
@@ -250,9 +246,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     AreaViewParams params;
     params.m_depth = depth;
     params.m_color = ToDrapeColor(areaRule->color());
-
-    AreaShape * shape = new AreaShape(move(m_triangles), params);
-    m_context.InsertShape(dp::MovePointer<MapShape>(shape));
+    m_context.InsertShape(make_unique_dp<AreaShape>(move(m_triangles), params));
   }
   else
     TBase::ProcessRule(rule);
@@ -306,7 +300,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
-    m_context.InsertShape(dp::MovePointer<MapShape>(new PathTextShape(m_spline, params)));
+    m_context.InsertShape(make_unique_dp<PathTextShape>(m_spline, params));
   }
 
   if (pLineRule != NULL)
@@ -322,7 +316,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       params.m_step = symRule.step() * mainScale;
       params.m_baseGtoPScale = m_currentScaleGtoP;
 
-      m_context.InsertShape(dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params)));
+      m_context.InsertShape(make_unique_dp<PathSymbolShape>(m_spline, params));
     }
     else
     {
@@ -330,7 +324,7 @@ void ApplyLineFeature::ProcessRule(Stylist::TRuleWrapper const & rule)
       Extract(pLineRule, params);
       params.m_depth = depth;
       params.m_baseGtoPScale = m_currentScaleGtoP;
-      m_context.InsertShape(dp::MovePointer<MapShape>(new LineShape(m_spline, params)));
+      m_context.InsertShape(make_unique_dp<LineShape>(m_spline, params));
     }
   }
 }
@@ -362,7 +356,7 @@ void ApplyLineFeature::Finish()
     m2::Spline::iterator it = m_spline.CreateIterator();
     while (!it.BeginAgain())
     {
-      m_context.InsertShape(dp::MovePointer<MapShape>(new TextShape(it.m_pos, viewParams)));
+      m_context.InsertShape(make_unique_dp<TextShape>(it.m_pos, viewParams));
       it.Advance(splineStep);
     }
   }

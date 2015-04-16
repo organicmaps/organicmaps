@@ -30,29 +30,28 @@ DrapeEngine::DrapeEngine(Params const & params)
 
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.Init(scaleFn, gnLvlFn);
-  guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.GetRaw(), _1));
+  guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, static_cast<StringsBundle*>(params.m_stringsBundle), _1));
   guiSubsystem.SetStorageAccessor(params.m_storageAccessor);
 
-  m_textureManager = dp::MasterPointer<dp::TextureManager>(new dp::TextureManager());
-  m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
-  dp::RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
+  m_textureManager = move(make_unique_dp<dp::TextureManager>());
+  m_threadCommutator = move(make_unique_dp<ThreadsCommutator>());
 
-  m_frontend = dp::MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
-                                                                        params.m_factory,
-                                                                        m_textureManager.GetRefPointer(),
-                                                                        m_viewport));
-  m_backend =  dp::MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
-                                                                      params.m_factory,
-                                                                      m_textureManager.GetRefPointer(),
-                                                                      params.m_model));
+  m_frontend = move(make_unique_dp<FrontendRenderer>(make_ref<ThreadsCommutator>(m_threadCommutator), params.m_factory,
+                                                     make_ref<dp::TextureManager>(m_textureManager), m_viewport));
+
+  m_backend = move(make_unique_dp<BackendRenderer>(make_ref<ThreadsCommutator>(m_threadCommutator), params.m_factory,
+                                                   make_ref<dp::TextureManager>(m_textureManager), params.m_model));
 }
 
 DrapeEngine::~DrapeEngine()
 {
-  m_frontend.Destroy();
-  m_backend.Destroy();
-  m_threadCommutator.Destroy();
-  m_textureManager.Destroy();
+  // reset pointers explicitly! We must wait for threads completion
+  m_frontend.reset();
+  m_backend.reset();
+  m_threadCommutator.reset();
+
+  gui::DrapeGui::Instance().Destroy();
+  m_textureManager->Release();
 }
 
 void DrapeEngine::Resize(int w, int h)
@@ -62,7 +61,7 @@ void DrapeEngine::Resize(int w, int h)
 
   m_viewport.SetViewport(0, 0, w, h);
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
+                                  make_unique_dp<ResizeMessage>(m_viewport),
                                   MessagePriority::High);
 }
 
@@ -74,21 +73,21 @@ void DrapeEngine::UpdateCoverage(ScreenBase const & screen)
 void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new ClearUserMarkLayerMessage(tileKey)),
+                                  make_unique_dp<ClearUserMarkLayerMessage>(tileKey),
                                   MessagePriority::Normal);
 }
 
 void DrapeEngine::ChangeVisibilityUserMarksLayer(TileKey const & tileKey, bool isVisible)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  dp::MovePointer<Message>(new ChangeUserMarkLayerVisibilityMessage(tileKey, isVisible)),
+                                  make_unique_dp<ChangeUserMarkLayerVisibilityMessage>(tileKey, isVisible),
                                   MessagePriority::Normal);
 }
 
 void DrapeEngine::UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  dp::MovePointer<Message>(new UpdateUserMarkLayerMessage(tileKey, provider)),
+                                  make_unique_dp<UpdateUserMarkLayerMessage>(tileKey, provider),
                                   MessagePriority::Normal);
 }
 

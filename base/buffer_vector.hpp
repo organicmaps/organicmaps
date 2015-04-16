@@ -184,9 +184,16 @@ public:
   void clear()
   {
     if (IsDynamic())
+    {
       m_dynamic.clear();
+    }
     else
+    {
+      // here we have to call destructors of objects inside
+      for (size_t i = 0; i < m_size; ++i)
+        m_static[i] = T();
       m_size = 0;
+    }
   }
 
   /// @todo Here is some inconsistencies:

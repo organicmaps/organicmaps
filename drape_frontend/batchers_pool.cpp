@@ -18,9 +18,9 @@ namespace
 void FlushGeometry(BatchersPool::TSendMessageFn const & sendMessage,
                    TileKey const & key,
                    dp::GLState const & state,
-                   dp::TransferPointer<dp::RenderBucket> buffer)
+                   drape_ptr<dp::RenderBucket> && buffer)
 {
-  sendMessage(dp::MovePointer<Message>(new FlushRenderBucketMessage(key, state, buffer)));
+  sendMessage(make_unique_dp<FlushRenderBucketMessage>(key, state, move(buffer)));
 }
 
 } // namespace
@@ -53,11 +53,11 @@ void BatchersPool::ReserveBatcher(TileKey const & key)
   batcher->StartSession(bind(&FlushGeometry, m_sendMessageFn, key, _1, _2));
 }
 
-dp::RefPointer<dp::Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
+ref_ptr<dp::Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
 {
   TIterator it = m_batchs.find(key);
   ASSERT(it != m_batchs.end(), ());
-  return dp::MakeStackRefPointer(it->second.first);
+  return make_ref(it->second.first);
 }
 
 void BatchersPool::ReleaseBatcher(TileKey const & key)

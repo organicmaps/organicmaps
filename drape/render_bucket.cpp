@@ -11,25 +11,23 @@
 namespace dp
 {
 
-RenderBucket::RenderBucket(TransferPointer<VertexArrayBuffer> buffer)
-  : m_buffer(buffer)
+RenderBucket::RenderBucket(drape_ptr<VertexArrayBuffer> && buffer)
+  : m_buffer(move(buffer))
 {
 }
 
 RenderBucket::~RenderBucket()
 {
-  m_buffer.Destroy();
-  (void)GetRangeDeletor(m_overlay, MasterPointerDeleter())();
 }
 
-RefPointer<VertexArrayBuffer> RenderBucket::GetBuffer()
+ref_ptr<VertexArrayBuffer> RenderBucket::GetBuffer()
 {
-  return m_buffer.GetRefPointer();
+  return make_ref<VertexArrayBuffer>(m_buffer);
 }
 
-TransferPointer<VertexArrayBuffer> RenderBucket::MoveBuffer()
+drape_ptr<VertexArrayBuffer> && RenderBucket::MoveBuffer()
 {
-  return m_buffer.Move();
+  return move(m_buffer);
 }
 
 size_t RenderBucket::GetOverlayHandlesCount() const
@@ -37,52 +35,51 @@ size_t RenderBucket::GetOverlayHandlesCount() const
   return m_overlay.size();
 }
 
-TransferPointer<OverlayHandle> RenderBucket::PopOverlayHandle()
+drape_ptr<OverlayHandle> RenderBucket::PopOverlayHandle()
 {
   ASSERT(!m_overlay.empty(), ());
   size_t lastElement = m_overlay.size() - 1;
   swap(m_overlay[0], m_overlay[lastElement]);
-  TransferPointer<OverlayHandle> h = m_overlay[lastElement].Move();
-  m_overlay.resize(lastElement);
+  drape_ptr<OverlayHandle> h = move(m_overlay[lastElement]);
+  m_overlay.pop_back();
   return h;
 }
 
-RefPointer<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index)
+ref_ptr<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index)
 {
-  return m_overlay[index].GetRefPointer();
+  return make_ref<OverlayHandle>(m_overlay[index]);
 }
 
-void RenderBucket::AddOverlayHandle(TransferPointer<OverlayHandle> handle)
+void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
 {
-  m_overlay.push_back(MasterPointer<OverlayHandle>(handle));
+  m_overlay.push_back(move(handle));
 }
 
 void RenderBucket::Update(ScreenBase const & modelView)
 {
-  for_each(m_overlay.begin(), m_overlay.end(), bind(&OverlayHandle::Update,
-                                                    bind(&dp::NonConstGetter<OverlayHandle>, _1),
-                                                    modelView));
+  for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
+    overlayHandle->Update(modelView);
 }
 
-void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
+void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
 {
-  for_each(m_overlay.begin(), m_overlay.end(), bind(&OverlayTree::Add, tree.GetRaw(),
-                                                    bind(&MasterPointer<OverlayHandle>::GetRefPointer, _1)));
+  for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
+    tree->Add(make_ref<OverlayHandle>(overlayHandle));
 }
 
 void RenderBucket::Render(ScreenBase const & screen)
 {
-  ASSERT(!m_buffer.IsNull(), ());
+  ASSERT(m_buffer != nullptr, ());
 
   if (!m_overlay.empty())
   {
     // in simple case when overlay is symbol each element will be contains 6 indexes
     AttributeBufferMutator attributeMutator;
     IndexBufferMutator indexMutator(6 * m_overlay.size());
-    RefPointer<IndexBufferMutator> rfpIndex = MakeStackRefPointer(&indexMutator);
-    RefPointer<AttributeBufferMutator> rfpAttrib = MakeStackRefPointer(&attributeMutator);
+    ref_ptr<IndexBufferMutator> rfpIndex = make_ref(&indexMutator);
+    ref_ptr<AttributeBufferMutator> rfpAttrib = make_ref(&attributeMutator);
 
-    for_each(m_overlay.begin(), m_overlay.end(), [&] (MasterPointer<OverlayHandle> handle)
+    for (drape_ptr<OverlayHandle> const & handle : m_overlay)
     {
       if (handle->IsValid() && handle->IsVisible())
       {
@@ -90,7 +87,7 @@ void RenderBucket::Render(ScreenBase const & screen)
         if (handle->HasDynamicAttributes())
           handle->GetAttributeMutation(rfpAttrib, screen);
       }
-    });
+    }
 
     m_buffer->ApplyMutation(rfpIndex, rfpAttrib);
   }

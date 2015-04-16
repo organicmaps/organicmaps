@@ -37,12 +37,12 @@ public:
 
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const = 0;
 
-  bool IsIntersect(ScreenBase const & screen, OverlayHandle const & h) const;
+  bool IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const;
 
   virtual bool IndexesRequired() const { return true; }
   uint16_t * IndexStorage(uint16_t size);
-  void GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const;
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
+  void GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const;
+  virtual void GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
 
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint16_t offset, uint16_t count);

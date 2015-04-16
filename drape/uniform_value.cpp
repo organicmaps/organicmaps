@@ -230,7 +230,7 @@ void UniformValue::SetMatrix4x4Value(float const * matrixValue)
   memcpy(CastMemory<float>(), matrixValue, 4 * 4 * sizeof(float));
 }
 
-void UniformValue::Apply(RefPointer<GpuProgram> program) const
+void UniformValue::Apply(ref_ptr<GpuProgram> program) const
 {
   ASSERT(program->HasUniform(m_name, GetCorrespondingGLType(), 1),
          ("Failed to find uniform", m_name, GetCorrespondingGLType(), 1));

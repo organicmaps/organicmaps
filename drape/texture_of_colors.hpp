@@ -31,8 +31,8 @@ class ColorPalette
 public:
   ColorPalette(m2::PointU const & canvasSize);
 
-  RefPointer<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
-  void UploadResources(RefPointer<Texture> texture);
+  ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key, bool & newResource);
+  void UploadResources(ref_ptr<Texture> texture);
   glConst GetMinFilter() const;
   glConst GetMagFilter() const;
 
@@ -71,7 +71,7 @@ public:
     params.m_minFilter = gl_const::GLNearest;
     params.m_magFilter = gl_const::GLNearest;
 
-    TBase::Init(MakeStackRefPointer(&m_pallete), params);
+    TBase::Init(make_ref(&m_pallete), params);
   }
 
   ~ColorTexture() { TBase::Reset(); }

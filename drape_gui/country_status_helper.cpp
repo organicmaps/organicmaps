@@ -70,14 +70,14 @@ CountryStatusHelper::CountryStatusHelper()
 {
 }
 
-void CountryStatusHelper::SetStorageAccessor(dp::RefPointer<StorageAccessor> accessor)
+void CountryStatusHelper::SetStorageAccessor(ref_ptr<StorageAccessor> accessor)
 {
   m_accessor = accessor;
 }
 
 void CountryStatusHelper::SetCountryIndex(storage::TIndex const & index)
 {
-  ASSERT(!m_accessor.IsNull(), ());
+  ASSERT(m_accessor != nullptr, ());
   if (m_accessor->GetCountryIndex() == index)
     return;
 

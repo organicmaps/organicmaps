@@ -28,7 +28,6 @@ SOURCES += \
     attribute_provides_tests.cpp \
     compile_shaders_test.cpp \
     batcher_tests.cpp \
-    pointers_tests.cpp \
     bingind_info_tests.cpp \
     stipple_pen_tests.cpp \
     texture_of_colors_tests.cpp \

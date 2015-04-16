@@ -100,18 +100,18 @@ public:
 
 }
 
-dp::TransferPointer<ShapeRenderer> Ruler::Draw(dp::RefPointer<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::TextureManager> tex) const
 {
   ShapeControl control;
   DrawRuler(control, tex);
   DrawText(control, tex);
 
-  dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer);
+  drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   renderer->AddShapeControl(move(control));
-  return renderer.Move();
+  return renderer;
 }
 
-void Ruler::DrawRuler(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex) const
+void Ruler::DrawRuler(ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
 {
   buffer_vector<RulerVertex, 4> data;
 
@@ -143,18 +143,17 @@ void Ruler::DrawRuler(ShapeControl & control, dp::RefPointer<dp::TextureManager>
   state.SetColorTexture(reg.GetTexture());
 
   dp::AttributeProvider provider(1, 4);
-  provider.InitStream(0, GetBindingInfo(), dp::MakeStackRefPointer<void>(data.data()));
+  provider.InitStream(0, GetBindingInfo(), make_ref<void>(data.data()));
 
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
-                                dp::MovePointer<dp::OverlayHandle>(
-                                    new RulerHandle(m_position.m_anchor, m_position.m_pixelPivot)));
+    batcher.InsertTriangleStrip(state, make_ref(&provider),
+                                make_unique_dp<RulerHandle>(m_position.m_anchor, m_position.m_pixelPivot));
   }
 }
 
-void Ruler::DrawText(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex) const
+void Ruler::DrawText(ShapeControl & control, ref_ptr<dp::TextureManager> tex) const
 {
   string alphabet;
   size_t maxTextLength;
@@ -170,7 +169,7 @@ void Ruler::DrawText(ShapeControl & control, dp::RefPointer<dp::TextureManager> 
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0, helper.GetVerticalTextOffset());
   params.m_handleCreator = [](dp::Anchor anchor, m2::PointF const & pivot)
   {
-    return dp::MovePointer<MutableLabelHandle>(new RulerTextHandle(anchor, pivot));
+    return make_unique_dp<RulerTextHandle>(anchor, pivot);
   };
 
   MutableLabelDrawer::Draw(params, tex, bind(&ShapeControl::AddShape, &control, _1, _2));

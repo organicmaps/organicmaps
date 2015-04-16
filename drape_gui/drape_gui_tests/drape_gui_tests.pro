@@ -3,7 +3,7 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_gui coding platform base fribidi expat
+DEPENDENCIES = drape drape_gui coding platform base fribidi expat
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 

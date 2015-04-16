@@ -25,6 +25,7 @@ using std::is_standard_layout;
 using std::is_unsigned;
 using std::make_signed;
 using std::make_unsigned;
+using std::is_void;
 
 /// @todo clang on linux doesn't have is_trivially_copyable.
 #ifndef OMIM_OS_LINUX

@@ -35,40 +35,42 @@ static ShaderMapper s_mapper;
 
 GpuProgramManager::~GpuProgramManager()
 {
-  (void)GetRangeDeletor(m_programs, MasterPointerDeleter())();
-  (void)GetRangeDeletor(m_shaders, MasterPointerDeleter())();
+  m_programs.clear();
+  m_shaders.clear();
 }
 
-RefPointer<GpuProgram> GpuProgramManager::GetProgram(int index)
+ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
 {
   program_map_t::iterator it = m_programs.find(index);
   if (it != m_programs.end())
-    return it->second.GetRefPointer();
+    return make_ref<GpuProgram>(it->second);
 
   gpu::ProgramInfo const & programInfo = s_mapper.GetShaders(index);
-  RefPointer<Shader> vertexShader = GetShader(programInfo.m_vertexIndex,
-                                              programInfo.m_vertexSource,
-                                              Shader::VertexShader);
-  RefPointer<Shader> fragmentShader = GetShader(programInfo.m_fragmentIndex,
-                                                programInfo.m_fragmentSource,
-                                                Shader::FragmentShader);
+  ref_ptr<Shader> vertexShader = GetShader(programInfo.m_vertexIndex,
+                                           programInfo.m_vertexSource,
+                                           Shader::VertexShader);
+  ref_ptr<Shader> fragmentShader = GetShader(programInfo.m_fragmentIndex,
+                                             programInfo.m_fragmentSource,
+                                             Shader::FragmentShader);
 
-  MasterPointer<GpuProgram> & result = m_programs[index];
-  result.Reset(new GpuProgram(vertexShader, fragmentShader));
-  return result.GetRefPointer();
+  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>(vertexShader, fragmentShader);
+  ref_ptr<GpuProgram> result = make_ref<GpuProgram>(program);
+  m_programs.emplace(index, move(program));
+
+  return result;
 }
 
-RefPointer<Shader> GpuProgramManager::GetShader(int index, string const & source, Shader::Type t)
+ref_ptr<Shader> GpuProgramManager::GetShader(int index, string const & source, Shader::Type t)
 {
   shader_map_t::iterator it = m_shaders.find(index);
   if (it == m_shaders.end())
   {
-    MasterPointer<Shader> & shader = m_shaders[index];
-    shader.Reset(new Shader(source, t));
-    return shader.GetRefPointer();
+    drape_ptr<Shader> shader = make_unique_dp<Shader>(source, t);
+    ref_ptr<Shader> result = make_ref<Shader>(shader);
+    m_shaders.emplace(index, move(shader));
+    return result;
   }
-  else
-    return it->second.GetRefPointer();
+  return make_ref<Shader>(it->second);
 }
 
 } // namespace dp

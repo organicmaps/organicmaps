@@ -20,7 +20,7 @@ public:
   };
 
   void RegisterThread(ThreadName name, MessageAcceptor *acceptor);
-  void PostMessage(ThreadName name, dp::TransferPointer<Message> message, MessagePriority priority);
+  void PostMessage(ThreadName name, drape_ptr<Message> && message, MessagePriority priority);
 
 private:
   typedef map<ThreadName, MessageAcceptor *> TAcceptorsMap;

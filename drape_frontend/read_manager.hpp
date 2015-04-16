@@ -27,7 +27,7 @@ class CoverageUpdateDescriptor;
 class ReadManager
 {
 public:
-  ReadManager(dp::RefPointer<ThreadsCommutator> commutator, MapDataProvider & model);
+  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
 
   void UpdateCoverage(ScreenBase const & screen, TTilesCollection const & tiles);
   void Invalidate(TTilesCollection const & keyStorage);
@@ -44,11 +44,11 @@ private:
 
 private:
   MemoryFeatureIndex m_memIndex;
-  dp::RefPointer<ThreadsCommutator> m_commutator;
+  ref_ptr<ThreadsCommutator> m_commutator;
 
   MapDataProvider & m_model;
 
-  dp::MasterPointer<threads::ThreadPool> m_pool;
+  drape_ptr<threads::ThreadPool> m_pool;
 
   ScreenBase m_currentViewport;
 

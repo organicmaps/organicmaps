@@ -11,12 +11,10 @@
 #include "base/string_utils.hpp"
 #endif
 
-#include "base/logging.hpp"
-
 namespace df
 {
 
-EngineContext::EngineContext(TileKey tileKey, dp::RefPointer<ThreadsCommutator> commutator)
+EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator)
   : m_tileKey(tileKey)
   , m_commutator(commutator)
 {
@@ -24,19 +22,19 @@ EngineContext::EngineContext(TileKey tileKey, dp::RefPointer<ThreadsCommutator> 
 
 void EngineContext::BeginReadTile()
 {
-  PostMessage(dp::MovePointer<Message>(new TileReadStartMessage(m_tileKey)));
+  PostMessage(make_unique_dp<TileReadStartMessage>(m_tileKey));
 }
 
-void EngineContext::InsertShape(dp::TransferPointer<MapShape> shape)
+void EngineContext::InsertShape(drape_ptr<MapShape> && shape)
 {
-  m_mapShapes.push_back(dp::MasterPointer<MapShape>(shape));
+  m_mapShapes.push_back(move(shape));
 }
 
 void EngineContext::Flush()
 {
-  list<dp::MasterPointer<MapShape>> shapes;
+  list<drape_ptr<MapShape>> shapes;
   m_mapShapes.swap(shapes);
-  PostMessage(dp::MovePointer<Message>(new MapShapeReadedMessage(m_tileKey, move(shapes))));
+  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
 }
 
 void EngineContext::EndReadTile()
@@ -59,7 +57,7 @@ void EngineContext::EndReadTile()
   p.m_width = 5;
   p.m_join = dp::RoundJoin;
 
-  InsertShape(dp::MovePointer<df::MapShape>(new LineShape(spline, p)));
+  InsertShape(make_unique_dp<LineShape>(spline, p));
 
   df::TextViewParams tp;
   tp.m_anchor = dp::Center;
@@ -70,17 +68,17 @@ void EngineContext::EndReadTile()
 
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
-  InsertShape(dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
+  InsertShape(make_unique_dp<TextShape>(r.Center(), tp));
 
   Flush();
 #endif
 
-  PostMessage(dp::MovePointer<Message>(new TileReadEndMessage(m_tileKey)));
+  PostMessage(make_unique_dp<TileReadEndMessage>(m_tileKey));
 }
 
-void EngineContext::PostMessage(dp::TransferPointer<Message> message)
+void EngineContext::PostMessage(drape_ptr<Message> && message)
 {
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, message,
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message),
                             MessagePriority::Normal);
 }
 

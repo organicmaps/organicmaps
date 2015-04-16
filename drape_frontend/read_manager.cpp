@@ -31,13 +31,13 @@ struct LessCoverageCell
 
 } // namespace
 
-ReadManager::ReadManager(dp::RefPointer<ThreadsCommutator> commutator, MapDataProvider & model)
+ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
   : m_commutator(commutator)
   , m_model(model)
   , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
+  , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
   , m_counter(0)
 {
-  m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
 
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
@@ -58,7 +58,7 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
     if (m_counter == 0)
     {
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new FinishReadingMessage(m_finishedTiles)),
+                                make_unique_dp<FinishReadingMessage>(m_finishedTiles),
                                 MessagePriority::Normal);
       m_finishedTiles.clear();
     }
@@ -128,7 +128,7 @@ void ReadManager::Stop()
   m_tileInfos.clear();
 
   m_pool->Stop();
-  m_pool.Destroy();
+  m_pool.reset();
 }
 
 size_t ReadManager::ReadCount()

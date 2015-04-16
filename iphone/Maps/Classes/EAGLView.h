@@ -15,7 +15,7 @@ namespace dp
 // Note that setting the view non-opaque will only work if the EAGL surface has an alpha channel.
 @interface EAGLView : UIView
 {
-  dp::MasterPointer<dp::OGLContextFactory> m_factory;
+  drape_ptr<dp::OGLContextFactory> m_factory;
   // Do not call onSize from layoutSubViews when real size wasn't changed.
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
   CGRect lastViewSize;

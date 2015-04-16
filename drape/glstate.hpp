@@ -40,11 +40,11 @@ public:
 
   DepthLayer const & GetDepthLayer() const { return m_depthLayer; }
 
-  void SetColorTexture(RefPointer<Texture> tex) { m_colorTexture = tex; }
-  RefPointer<Texture> GetColorTexture() const { return m_colorTexture; }
+  void SetColorTexture(ref_ptr<Texture> tex) { m_colorTexture = tex; }
+  ref_ptr<Texture> GetColorTexture() const { return m_colorTexture; }
 
-  void SetMaskTexture(RefPointer<Texture> tex) { m_maskTexture = tex; }
-  RefPointer<Texture> GetMaskTexture() const { return m_maskTexture; }
+  void SetMaskTexture(ref_ptr<Texture> tex) { m_maskTexture = tex; }
+  ref_ptr<Texture> GetMaskTexture() const { return m_maskTexture; }
 
   void SetBlending(Blending const & blending) { m_blending = blending; }
   Blending const & GetBlending() const { return m_blending; }
@@ -59,11 +59,11 @@ private:
   DepthLayer m_depthLayer;
   Blending m_blending;
 
-  RefPointer<Texture> m_colorTexture;
-  RefPointer<Texture> m_maskTexture;
+  ref_ptr<Texture> m_colorTexture;
+  ref_ptr<Texture> m_maskTexture;
 };
 
-void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program);
-void ApplyState(GLState state, RefPointer<GpuProgram> program);
+void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
+void ApplyState(GLState state, ref_ptr<GpuProgram> program);
 
 } // namespace dp

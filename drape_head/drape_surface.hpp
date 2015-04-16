@@ -22,8 +22,8 @@ private:
   Q_SLOT void sizeChanged(int);
 
 private:
-  typedef dp::MasterPointer<dp::OGLContextFactory> TContextFactoryPtr;
-  typedef dp::MasterPointer<df::TestingEngine> TEnginePrt;
+  typedef drape_ptr<dp::OGLContextFactory> TContextFactoryPtr;
+  typedef drape_ptr<df::TestingEngine> TEnginePrt;
   TContextFactoryPtr m_contextFactory;
   TEnginePrt m_drapeEngine;
 };

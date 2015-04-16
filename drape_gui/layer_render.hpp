@@ -26,18 +26,18 @@ public:
 
   ~LayerRenderer();
 
-  void Build(dp::RefPointer<dp::GpuProgramManager> mng);
-  void Render(dp::RefPointer<dp::GpuProgramManager> mng, ScreenBase const & screen);
-  void Merge(dp::RefPointer<LayerRenderer> other);
+  void Build(ref_ptr<dp::GpuProgramManager> mng);
+  void Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen);
+  void Merge(ref_ptr<LayerRenderer> other);
 
 private:
   void DestroyRenderers();
 
   friend class LayerCacher;
-  void AddShapeRenderer(Skin::ElementName name, dp::TransferPointer<ShapeRenderer> shape);
+  void AddShapeRenderer(Skin::ElementName name, drape_ptr<ShapeRenderer> && shape);
 
 private:
-  typedef map<Skin::ElementName, dp::MasterPointer<ShapeRenderer> > TRenderers;
+  typedef map<Skin::ElementName, drape_ptr<ShapeRenderer> > TRenderers;
   TRenderers m_renderers;
 };
 
@@ -48,8 +48,7 @@ public:
 
   void Resize(int w, int h);
   /// @param names - can be combinations of single flags, or equal AllElements
-  dp::TransferPointer<LayerRenderer> Recache(Skin::ElementName names,
-                                             dp::RefPointer<dp::TextureManager> textures);
+  drape_ptr<LayerRenderer> Recache(Skin::ElementName names, ref_ptr<dp::TextureManager> textures);
 
 private:
   Position GetPos(Skin::ElementName name);

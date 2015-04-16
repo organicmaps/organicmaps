@@ -140,7 +140,7 @@ void TriangleBatch::SetVertexStride(uint8_t vertexStride)
   m_vertexStride = vertexStride;
 }
 
-void TriangleBatch::FlushData(RefPointer<AttributeProvider> streams, uint16_t vertexVount) const
+void TriangleBatch::FlushData(ref_ptr<AttributeProvider> streams, uint16_t vertexVount) const
 {
   for (uint8_t i = 0; i < streams->GetStreamCount(); ++i)
     FlushData(streams->GetBindingInfo(i), streams->GetRawPointer(i), vertexVount);
@@ -189,7 +189,7 @@ uint8_t TriangleBatch::GetVertexStride() const
 
 TriangleListBatch::TriangleListBatch(BatchCallbacks const & callbacks) : TBase(callbacks) {}
 
-void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
+void TriangleListBatch::BatchData(ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
@@ -314,7 +314,7 @@ TriangleStripBatch::TriangleStripBatch(BatchCallbacks const & callbacks)
 {
 }
 
-void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
+void TriangleStripBatch::BatchData(ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
@@ -354,7 +354,7 @@ TriangleFanBatch::TriangleFanBatch(BatchCallbacks const & callbacks) : TBase(cal
  * second part of data. But to avoid 2 separate call of glBufferSubData we at first do a copy of
  * data from params to cpuBuffer and than copy continuous block of memory from cpuBuffer
  */
-void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
+void TriangleFanBatch::BatchData(ref_ptr<AttributeProvider> streams)
 {
   vector<CPUBuffer> cpuBuffers;
   while (streams->IsDataExists())
@@ -443,7 +443,7 @@ TriangleListOfStripBatch::TriangleListOfStripBatch(BatchCallbacks const & callba
 {
 }
 
-void TriangleListOfStripBatch::BatchData(RefPointer<AttributeProvider> streams)
+void TriangleListOfStripBatch::BatchData(ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {

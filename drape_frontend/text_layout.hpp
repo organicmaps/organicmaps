@@ -31,7 +31,7 @@ class TextLayout
 public:
   virtual ~TextLayout() {}
 
-  dp::RefPointer<dp::Texture> GetMaskTexture() const;
+  ref_ptr<dp::Texture> GetMaskTexture() const;
 
   uint32_t GetGlyphCount() const;
 
@@ -41,7 +41,7 @@ public:
 protected:
   void Init(strings::UniString const & text,
             float fontSize,
-            dp::RefPointer<dp::TextureManager> textures);
+            ref_ptr<dp::TextureManager> textures);
 
 protected:
   typedef dp::TextureManager::GlyphRegion GlyphRegion;
@@ -56,7 +56,7 @@ class StraightTextLayout : public TextLayout
 public:
   StraightTextLayout(strings::UniString const & text,
                      float fontSize,
-                     dp::RefPointer<dp::TextureManager> textures,
+                     ref_ptr<dp::TextureManager> textures,
                      dp::Anchor anchor);
 
   void Cache(glsl::vec3 const & pivot, glsl::vec2 const & pixelOffset,
@@ -77,7 +77,7 @@ class PathTextLayout : public TextLayout
   typedef TextLayout TBase;
 public:
   PathTextLayout(strings::UniString const & text,
-                 float fontSize, dp::RefPointer<dp::TextureManager> textures);
+                 float fontSize, ref_ptr<dp::TextureManager> textures);
 
   void CacheStaticGeometry(glsl::vec3 const & pivot,
                            dp::TextureManager::ColorRegion const & colorRegion,

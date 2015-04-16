@@ -63,12 +63,12 @@ namespace
   {
     typedef GlyphIndex TBase;
   public:
-    DummyGlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
+    DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
       : TBase(size, mng)
     {
     }
 
-    RefPointer<Texture::ResourceInfo> MapResource(GlyphKey const & key)
+    ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key)
     {
       bool dummy = false;
       return TBase::MapResource(key, dummy);
@@ -93,15 +93,15 @@ UNIT_TEST(UploadingGlyphs)
   GetPlatform().GetFontNames(args.m_fonts);
 
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(64, 64), MakeStackRefPointer(&mng));
+  DummyGlyphIndex index(m2::PointU(64, 64), make_ref(&mng));
   index.MapResource(GlyphKey(0x58));
   index.MapResource(GlyphKey(0x59));
   index.MapResource(GlyphKey(0x61));
 
   DummyTexture tex;
-  tex.Create(64, 64, dp::ALPHA, MakeStackRefPointer<void>(nullptr));
+  tex.Create(64, 64, dp::ALPHA, make_ref<void>(nullptr));
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
-  index.UploadResources(MakeStackRefPointer<Texture>(&tex));
+  index.UploadResources(make_ref<Texture>(&tex));
 
   index.MapResource(GlyphKey(0x68));
   index.MapResource(GlyphKey(0x30));
@@ -111,7 +111,7 @@ UNIT_TEST(UploadingGlyphs)
   index.MapResource(GlyphKey(0x401));
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
-  index.UploadResources(MakeStackRefPointer<Texture>(&tex));
+  index.UploadResources(make_ref<Texture>(&tex));
 
   RunTestLoop("UploadingGlyphs", bind(&UploadedRender::Render, &r, _1));
 }

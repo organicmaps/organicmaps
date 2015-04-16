@@ -52,6 +52,8 @@ bool Blending::operator == (Blending const & other) const
 GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
+  , m_colorTexture(make_ref<Texture>(nullptr))
+  , m_maskTexture(make_ref<Texture>(nullptr))
 {
 }
 
@@ -63,10 +65,10 @@ bool GLState::operator<(GLState const & other) const
     return m_blending < other.m_blending;
   if (m_gpuProgramIndex != other.m_gpuProgramIndex)
     return m_gpuProgramIndex < other.m_gpuProgramIndex;
-  if (m_colorTexture.GetRaw() != other.m_colorTexture.GetRaw())
-    return m_colorTexture.GetRaw() < other.m_colorTexture.GetRaw();
+  if (m_colorTexture != other.m_colorTexture)
+    return m_colorTexture < other.m_colorTexture;
 
-  return m_maskTexture.GetRaw() < other.m_maskTexture.GetRaw();
+  return m_maskTexture < other.m_maskTexture;
 }
 
 bool GLState::operator==(GLState const & other) const
@@ -80,21 +82,21 @@ bool GLState::operator==(GLState const & other) const
 
 namespace
 {
-  void ApplyUniformValue(UniformValue const & value, RefPointer<GpuProgram> program)
+  void ApplyUniformValue(UniformValue const & value, ref_ptr<GpuProgram> program)
   {
     value.Apply(program);
   }
 }
 
-void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program)
+void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program)
 {
   uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
 }
 
-void ApplyState(GLState state, RefPointer<GpuProgram> program)
+void ApplyState(GLState state, ref_ptr<GpuProgram> program)
 {
-  RefPointer<Texture> tex = state.GetColorTexture();
-  if (!tex.IsNull())
+  ref_ptr<Texture> tex = state.GetColorTexture();
+  if (tex != nullptr)
   {
     int8_t const colorTexLoc = program->GetUniformLocation("u_colorTex");
     GLFunctions::glActiveTexture(gl_const::GLTexture0);
@@ -103,7 +105,7 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program)
   }
 
   tex = state.GetMaskTexture();
-  if (!tex.IsNull())
+  if (tex != nullptr)
   {
     int8_t const maskTexLoc = program->GetUniformLocation("u_maskTex");
     GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);

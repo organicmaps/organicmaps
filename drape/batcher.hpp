@@ -34,34 +34,34 @@ public:
   void SetIndexBufferSize(uint32_t indexBufferSize) { m_indexBufferSize = indexBufferSize; }
   void SetVertexBufferSize(uint32_t vertexBufferSize) { m_vertexBufferSize = vertexBufferSize; }
 
-  void InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params);
-  IndicesRange InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
-                                  TransferPointer<OverlayHandle> handle);
+  IndicesRange InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
+                                  drape_ptr<OverlayHandle> && handle);
 
-  void InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params);
-  IndicesRange InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                                   TransferPointer<OverlayHandle> handle);
+  IndicesRange InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                   drape_ptr<OverlayHandle> && handle);
 
-  void InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params);
-  IndicesRange InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
-                                 TransferPointer<OverlayHandle> handle);
+  IndicesRange InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
+                                 drape_ptr<OverlayHandle> && handle);
 
-  void InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride);
-  IndicesRange InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                                 TransferPointer<OverlayHandle> handle, uint8_t vertexStride);
+  IndicesRange InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params, uint8_t vertexStride);
+  IndicesRange InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                 drape_ptr<OverlayHandle> && handle, uint8_t vertexStride);
 
-  typedef function<void (GLState const &, TransferPointer<RenderBucket> )> TFlushFn;
+  typedef function<void (GLState const &, drape_ptr<RenderBucket> &&)> TFlushFn;
   void StartSession(TFlushFn const & flusher);
   void EndSession();
 
 private:
   template<typename TBacher>
-  IndicesRange InsertTriangles(GLState const & state, RefPointer<AttributeProvider> params,
-                               TransferPointer<OverlayHandle> handle, uint8_t vertexStride = 0);
+  IndicesRange InsertTriangles(GLState const & state, ref_ptr<AttributeProvider> params,
+                               drape_ptr<OverlayHandle> && handle, uint8_t vertexStride = 0);
 
   class CallbacksWrapper;
-  void ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer);
-  RefPointer<RenderBucket> GetBucket(GLState const & state);
+  void ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper, bool checkFilledBuffer);
+  ref_ptr<RenderBucket> GetBucket(GLState const & state);
 
   void FinalizeBucket(GLState const & state);
   void Flush();
@@ -70,7 +70,7 @@ private:
   TFlushFn m_flushInterface;
 
 private:
-  using TBuckets = map<GLState, MasterPointer<RenderBucket>>;
+  using TBuckets = map<GLState, drape_ptr<RenderBucket>>;
   TBuckets m_buckets;
 
   uint32_t m_indexBufferSize;

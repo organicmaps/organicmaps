@@ -12,7 +12,7 @@ DEPENDENCIES = map drape_frontend routing search storage drape indexer platform 
 DEPENDENCIES *= opening_hours
 
 drape {
-  DEPENDENCIES *= drape_frontend drape
+  DEPENDENCIES *= drape_frontend drape_gui drape
 }
 
 include($$ROOT_DIR/common.pri)

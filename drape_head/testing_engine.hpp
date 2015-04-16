@@ -21,7 +21,7 @@ namespace df
 class TestingEngine : public QObject
 {
 public:
-  TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+  TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
                 Viewport const & viewport,
                 double vs);
   ~TestingEngine();
@@ -39,17 +39,17 @@ private:
   void DrawRects();
   void ModelViewInit();
   void ProjectionInit();
-  void OnFlushData(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> vao);
+  void OnFlushData(dp::GLState const & state, drape_ptr<dp::RenderBucket> && vao);
   void ClearScene();
 
 private:
-  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
-  dp::MasterPointer<dp::Batcher> m_batcher;
-  dp::MasterPointer<dp::GpuProgramManager> m_programManager;
-  dp::MasterPointer<dp::TextureManager> m_textures;
+  ref_ptr<dp::OGLContextFactory> m_contextFactory;
+  drape_ptr<dp::Batcher> m_batcher;
+  drape_ptr<dp::GpuProgramManager> m_programManager;
+  drape_ptr<dp::TextureManager> m_textures;
   df::Viewport m_viewport;
 
-  typedef map<dp::GLState, vector<dp::MasterPointer<dp::RenderBucket> > > TScene;
+  typedef map<dp::GLState, vector<drape_ptr<dp::RenderBucket> > > TScene;
   TScene m_scene;
   ScreenBase m_modelView;
   float m_angle = 0.0;

@@ -31,12 +31,12 @@ namespace
 
 struct VAOAcceptor
 {
-  virtual void FlushFullBucket(GLState const & /*state*/, TransferPointer<RenderBucket> bucket)
+  virtual void FlushFullBucket(GLState const & /*state*/, drape_ptr<RenderBucket> && bucket)
   {
-    m_vao.push_back(MasterPointer<RenderBucket>(bucket));
+    m_vao.push_back(move(bucket));
   }
 
-  vector<MasterPointer<RenderBucket> > m_vao;
+  vector<drape_ptr<RenderBucket> > m_vao;
 };
 
 class BatcherExpectations
@@ -70,18 +70,18 @@ public:
     decl.m_stride = 0;
 
     AttributeProvider provider(1, vertexCount);
-    provider.InitStream(0, binding, MakeStackRefPointer(vertexes));
+    provider.InitStream(0, binding, make_ref(vertexes));
 
     VAOAcceptor vaoAcceptor;
     Batcher batcher;
     batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
-    fn(&batcher, state, MakeStackRefPointer(&provider));
+    fn(&batcher, state, make_ref(&provider));
     batcher.EndSession();
 
     ExpectBufferDeletion();
 
     for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
-      vaoAcceptor.m_vao[i].Destroy();
+      vaoAcceptor.m_vao[i].reset();
   }
 
   void ExpectBufferCreation(uint16_t vertexCount, uint16_t indexCount,
@@ -134,7 +134,7 @@ UNIT_TEST(BatchLists_Test)
     indexes[i] = i;
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
   {
     batcher->InsertTriangleList(state, p);
   };
@@ -154,7 +154,7 @@ UNIT_TEST(BatchListOfStript_4stride)
     { 0, 1, 2, 1, 3, 2, 4, 5, 6, 5, 7, 6, 8, 9, 10, 9, 11, 10};
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
   {
     batcher->InsertListOfStrip(state, p, dp::Batcher::VertexPerQuad);
   };
@@ -183,7 +183,7 @@ UNIT_TEST(BatchListOfStript_5stride)
       12, 13, 14 };
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
   {
     batcher->InsertListOfStrip(state, p, 5);
   };
@@ -214,7 +214,7 @@ UNIT_TEST(BatchListOfStript_6stride)
       15, 17, 16};
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, GLState const & state, RefPointer<AttributeProvider> p)
+  auto fn = [](Batcher * batcher, GLState const & state, ref_ptr<AttributeProvider> p)
   {
     batcher->InsertListOfStrip(state, p, 6);
   };
@@ -368,15 +368,15 @@ UNIT_TEST(BatchListOfStript_partial)
     decl.m_stride = 0;
 
     AttributeProvider provider(1, VertexCount);
-    provider.InitStream(0, binding, MakeStackRefPointer(vertexData));
+    provider.InitStream(0, binding, make_ref(vertexData));
 
     VAOAcceptor vaoAcceptor;
     Batcher batcher(srcData[i].first, srcData[i].second);
     batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
-    batcher.InsertListOfStrip(state, MakeStackRefPointer(&provider), 4);
+    batcher.InsertListOfStrip(state, make_ref(&provider), 4);
     batcher.EndSession();
 
     for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
-      vaoAcceptor.m_vao[i].Destroy();
+      vaoAcceptor.m_vao[i].reset();
   }
 }

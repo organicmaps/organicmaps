@@ -48,7 +48,7 @@ namespace
   };
 }
 
-dp::TransferPointer<ShapeRenderer> Compass::Draw(dp::RefPointer<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::TextureManager> tex) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("compass-image", region);
@@ -84,18 +84,17 @@ dp::TransferPointer<ShapeRenderer> Compass::Draw(dp::RefPointer<dp::TextureManag
   texDecl.m_offset = sizeof(glsl::vec2);
   texDecl.m_stride = posDecl.m_stride;
 
-  provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes));
+  provider.InitStream(0, info, make_ref<void>(&vertexes));
 
   m2::PointF compassSize = region.GetPixelSize();
-  dp::MasterPointer<dp::OverlayHandle> handle(
-      new CompassHandle(m_position.m_pixelPivot, compassSize));
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize);
 
-  dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer());
+  drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2));
-  batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider), handle.Move());
+  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, static_cast<ShapeRenderer*>(make_ref(renderer)), _1, _2));
+  batcher.InsertTriangleStrip(state, make_ref(&provider), move(handle));
 
-  return renderer.Move();
+  return renderer;
 }
 
 }

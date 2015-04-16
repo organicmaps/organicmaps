@@ -54,6 +54,12 @@ void DrapeGui::Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const
   m_impl->m_gnLvlFn = gnLvlFn;
 }
 
+void DrapeGui::Destroy()
+{
+  ASSERT(m_impl != nullptr, ());
+  m_impl.reset();
+}
+
 void DrapeGui::SetLocalizator(const DrapeGui::TLocalizeStringFn & fn)
 {
   ASSERT(m_impl != nullptr, ());
@@ -97,7 +103,7 @@ string DrapeGui::GetLocalizedString(string const & stringID) const
   return m_impl->m_localizeFn(stringID);
 }
 
-void DrapeGui::SetStorageAccessor(dp::RefPointer<StorageAccessor> accessor)
+void DrapeGui::SetStorageAccessor(ref_ptr<StorageAccessor> accessor)
 {
   ASSERT(m_impl != nullptr, ());
   accessor->SetStatusChangedCallback([this]

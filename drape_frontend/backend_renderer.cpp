@@ -21,22 +21,21 @@
 namespace df
 {
 
-BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
-                                 dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                                 dp::RefPointer<dp::TextureManager> textureManager,
+BackendRenderer::BackendRenderer(ref_ptr<ThreadsCommutator> commutator,
+                                 ref_ptr<dp::OGLContextFactory> oglcontextfactory,
+                                 ref_ptr<dp::TextureManager> textureManager,
                                  MapDataProvider const & model)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, commutator, oglcontextfactory)
   , m_model(model)
+  , m_batchersPool(make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)))
+  , m_readManager(make_unique_dp<ReadManager>(commutator, m_model))
   , m_texturesManager(textureManager)
   , m_guiCacher("default")
 {
-  m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
-  m_readManager.Reset(new ReadManager(commutator, m_model));
-
   gui::DrapeGui::Instance().SetRecacheSlot([this](gui::Skin::ElementName elements)
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              dp::MovePointer<Message>(new GuiRecacheMessage(elements)),
+                              make_unique_dp<GuiRecacheMessage>(elements),
                               MessagePriority::High);
   });
 
@@ -56,22 +55,21 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
 
 void BackendRenderer::RecacheGui(gui::Skin::ElementName elements)
 {
-  using TLayerRenderer = dp::TransferPointer<gui::LayerRenderer>;
-  TLayerRenderer layerRenderer = m_guiCacher.Recache(elements, m_texturesManager);
-  dp::TransferPointer<Message> outputMsg = dp::MovePointer<Message>(new GuiLayerRecachedMessage(layerRenderer));
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, outputMsg, MessagePriority::High);
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(elements, m_texturesManager);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
 }
 
 /////////////////////////////////////////
 //           MessageAcceptor           //
 /////////////////////////////////////////
-void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
+void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
   switch (message->GetType())
   {
   case Message::UpdateReadManager:
     {
-      UpdateReadManagerMessage * msg = df::CastMessage<UpdateReadManagerMessage>(message);
+      ref_ptr<UpdateReadManagerMessage> msg = df::CastMessage<UpdateReadManagerMessage>(message);
       ScreenBase const & screen = msg->GetScreen();
       TTilesCollection const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
@@ -84,7 +82,7 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     }
   case Message::Resize:
     {
-      ResizeMessage * msg = df::CastMessage<ResizeMessage>(message);
+      ref_ptr<ResizeMessage> msg = df::CastMessage<ResizeMessage>(message);
       df::Viewport const & v = msg->GetViewport();
       m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
       RecacheGui(gui::Skin::AllElements);
@@ -106,33 +104,33 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     }
   case Message::TileReadEnded:
     {
-      TileReadEndMessage * msg = df::CastMessage<TileReadEndMessage>(message);
+      ref_ptr<TileReadEndMessage> msg = df::CastMessage<TileReadEndMessage>(message);
       m_batchersPool->ReleaseBatcher(msg->GetKey());
       break;
     }
   case Message::FinishReading:
     {
-      FinishReadingMessage * msg = df::CastMessage<FinishReadingMessage>(message);
+      ref_ptr<FinishReadingMessage> msg = df::CastMessage<FinishReadingMessage>(message);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                dp::MovePointer<df::Message>(new FinishReadingMessage(move(msg->MoveTiles()))),
+                                make_unique_dp<FinishReadingMessage>(move(msg->MoveTiles())),
                                 MessagePriority::Normal);
       break;
     }
   case Message::MapShapeReaded:
     {
-      MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);
-      dp::RefPointer<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
-      for (dp::MasterPointer<MapShape> const & shape : msg->GetShapes())
+      ref_ptr<MapShapeReadedMessage> msg = df::CastMessage<MapShapeReadedMessage>(message);
+      ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
+      for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         shape->Draw(batcher, m_texturesManager);
       break;
     }
   case Message::UpdateUserMarkLayer:
     {
-      UpdateUserMarkLayerMessage * msg = df::CastMessage<UpdateUserMarkLayerMessage>(message);
+      ref_ptr<UpdateUserMarkLayerMessage> msg = df::CastMessage<UpdateUserMarkLayerMessage>(message);
       TileKey const & key = msg->GetKey();
 
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                dp::MovePointer<Message>(new ClearUserMarkLayerMessage(key)),
+                                make_unique_dp<ClearUserMarkLayerMessage>(key),
                                 MessagePriority::Normal);
 
       m_batchersPool->ReserveBatcher(key);
@@ -162,8 +160,8 @@ void BackendRenderer::ReleaseResources()
 {
   m_readManager->Stop();
 
-  m_readManager.Destroy();
-  m_batchersPool.Destroy();
+  m_readManager.reset();
+  m_batchersPool.reset();
 
   m_texturesManager->Release();
 }
@@ -197,16 +195,16 @@ void BackendRenderer::InitGLDependentResource()
 
   m_texturesManager->Init(params);
 
-  dp::MasterPointer<MyPosition> position(new MyPosition(m_texturesManager));
+  drape_ptr<MyPosition> position = make_unique_dp<MyPosition>(m_texturesManager);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            dp::MovePointer<Message>(new MyPositionShapeMessage(position.Move())),
+                            make_unique_dp<MyPositionShapeMessage>(move(position)),
                             MessagePriority::High);
 }
 
-void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)
+void BackendRenderer::FlushGeometry(drape_ptr<Message> && message)
 {
   GLFunctions::glFlush();
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, message, MessagePriority::Normal);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(message), MessagePriority::Normal);
 }
 
 } // namespace df

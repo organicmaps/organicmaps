@@ -17,8 +17,8 @@ public:
   ~MessageQueue();
 
   /// if queue is empty then return NULL
-  dp::TransferPointer<Message> PopMessage(unsigned maxTimeWait);
-  void PushMessage(dp::TransferPointer<Message> message, MessagePriority priority);
+  drape_ptr<Message> PopMessage(unsigned maxTimeWait);
+  void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
 
@@ -27,7 +27,7 @@ private:
 
 private:
   threads::Condition m_condition;
-  deque<dp::MasterPointer<Message> > m_messages;
+  deque<drape_ptr<Message> > m_messages;
 };
 
 } // namespace df

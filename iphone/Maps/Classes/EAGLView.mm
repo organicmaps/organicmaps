@@ -93,8 +93,7 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
     // Correct retina display support in opengl renderbuffer
     self.contentScaleFactor = [self correctContentScale];
 
-    dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new iosOGLContextFactory(eaglLayer));
-    m_factory.Reset(factory);
+    m_factory = move(make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer)));
   }
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -106,7 +105,7 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
   NSLog(@"EAGLView initRenderPolicy Started");
 
   CGRect frameRect = [UIScreen mainScreen].applicationFrame;
-  GetFramework().CreateDrapeEngine(m_factory.GetRefPointer(), self.contentScaleFactor, frameRect.size.width, frameRect.size.height);
+  GetFramework().CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_factory), self.contentScaleFactor, frameRect.size.width, frameRect.size.height);
 
   NSLog(@"EAGLView initRenderPolicy Ended");
 }
@@ -156,7 +155,7 @@ graphics::EDensity getDensityType(int exactDensityDPI, double scale)
 - (void)deallocateNative
 {
   GetFramework().PrepareToShutdown();
-  m_factory.Destroy();
+  m_factory.reset();
 }
 
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt

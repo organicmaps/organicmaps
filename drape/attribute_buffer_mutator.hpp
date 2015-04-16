@@ -23,7 +23,7 @@ struct MutateRegion
 struct MutateNode
 {
   MutateRegion m_region;
-  RefPointer<void> m_data;
+  ref_ptr<void> m_data;
 };
 
 class AttributeBufferMutator

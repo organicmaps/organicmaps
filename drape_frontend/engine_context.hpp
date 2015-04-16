@@ -14,25 +14,24 @@ class Message;
 class EngineContext
 {
 public:
-  EngineContext(TileKey tileKey, dp::RefPointer<ThreadsCommutator> commutator);
+  EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator);
 
   TileKey const & GetTileKey() const { return m_tileKey; }
 
   void BeginReadTile();
   /// If you call this method, you may forget about shape.
   /// It will be proccessed and delete later
-  void InsertShape(dp::TransferPointer<MapShape> shape);
+  void InsertShape(drape_ptr<MapShape> && shape);
   void Flush();
   void EndReadTile();
 
 private:
-  void PostMessage(dp::TransferPointer<Message> message);
+  void PostMessage(drape_ptr<Message> && message);
 
 private:
   TileKey m_tileKey;
-  dp::RefPointer<ThreadsCommutator> m_commutator;
-
-  list<dp::MasterPointer<MapShape>> m_mapShapes;
+  ref_ptr<ThreadsCommutator> m_commutator;
+  list<drape_ptr<MapShape>> m_mapShapes;
 };
 
 } // namespace df

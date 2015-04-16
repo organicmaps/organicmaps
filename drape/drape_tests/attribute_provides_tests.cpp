@@ -31,7 +31,7 @@ UNIT_TEST(InitStreamsTest)
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, zeroStreamBinding, MakeStackRefPointer(positions));
+    provider.InitStream(0, zeroStreamBinding, make_ref(positions));
   }
 
   {
@@ -42,7 +42,7 @@ UNIT_TEST(InitStreamsTest)
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, firstStreamBinding, MakeStackRefPointer(depth));
+    provider.InitStream(1, firstStreamBinding, make_ref(depth));
   }
 
   {
@@ -53,7 +53,7 @@ UNIT_TEST(InitStreamsTest)
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(2, secondStreamBinding, MakeStackRefPointer(normals));
+    provider.InitStream(2, secondStreamBinding, make_ref(normals));
   }
 
   TEST_EQUAL(provider.IsDataExists(), true, ());
@@ -116,7 +116,7 @@ UNIT_TEST(InterleavedStreamTest)
     decl.m_stride = 5 * sizeof(float);
   }
 
-  provider.InitStream(0, binding, MakeStackRefPointer(data));
+  provider.InitStream(0, binding, make_ref(data));
 
   TEST_EQUAL(provider.IsDataExists(), true, ());
   TEST_EQUAL(provider.GetVertexCount(), 10, ());
@@ -169,7 +169,7 @@ UNIT_TEST(MixedStreamsTest)
       decl.m_stride = 3 * sizeof(float);
     }
 
-    provider.InitStream(0, binding, MakeStackRefPointer(position));
+    provider.InitStream(0, binding, make_ref(position));
   }
 
   {
@@ -180,7 +180,7 @@ UNIT_TEST(MixedStreamsTest)
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, binding, MakeStackRefPointer(normal));
+    provider.InitStream(1, binding, make_ref(normal));
   }
 
   TEST_EQUAL(provider.IsDataExists(), true, ());

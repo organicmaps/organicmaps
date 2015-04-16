@@ -41,11 +41,11 @@ public:
   ~RenderGroup();
 
   void Update(ScreenBase const & modelView);
-  void CollectOverlay(dp::RefPointer<dp::OverlayTree> tree);
+  void CollectOverlay(ref_ptr<dp::OverlayTree> tree);
   void Render(ScreenBase const & screen);
 
   void PrepareForAdd(size_t countForAdd);
-  void AddBucket(dp::TransferPointer<dp::RenderBucket> bucket);
+  void AddBucket(drape_ptr<dp::RenderBucket> && bucket);
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }
   void DeleteLater() const { m_pendingOnDelete = true; }
@@ -54,7 +54,7 @@ public:
   bool IsLess(RenderGroup const & other) const;
 
 private:
-  vector<dp::MasterPointer<dp::RenderBucket> > m_renderBuckets;
+  vector<drape_ptr<dp::RenderBucket> > m_renderBuckets;
 
   mutable bool m_pendingOnDelete;
 
@@ -82,13 +82,13 @@ class UserMarkRenderGroup : public BaseRenderGroup
 
 public:
   UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey,
-                      dp::TransferPointer<dp::RenderBucket> bucket);
+                      drape_ptr<dp::RenderBucket> && bucket);
   ~UserMarkRenderGroup();
 
   void Render(ScreenBase const & screen);
 
 private:
-  dp::MasterPointer<dp::RenderBucket> m_renderBucket;
+  drape_ptr<dp::RenderBucket> m_renderBucket;
 };
 
 } // namespace df

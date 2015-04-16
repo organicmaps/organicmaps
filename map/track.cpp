@@ -18,7 +18,7 @@ string const & Track::GetName() const
   return m_params.m_name;
 }
 
-m2::RectD const & Track::GetLimitRect() const
+m2::RectD Track::GetLimitRect() const
 {
   return m_polyline.GetLimitRect();
 }

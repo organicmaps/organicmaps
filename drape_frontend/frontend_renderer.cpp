@@ -36,9 +36,9 @@ const double VSyncInterval = 0.014;
 
 } // namespace
 
-FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
-                                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                                   dp::RefPointer<dp::TextureManager> textureManager,
+FrontendRenderer::FrontendRenderer(ref_ptr<ThreadsCommutator> commutator,
+                                   ref_ptr<dp::OGLContextFactory> oglcontextfactory,
+                                   ref_ptr<dp::TextureManager> textureManager,
                                    Viewport viewport)
   : BaseRenderer(ThreadsCommutator::RenderThread, commutator, oglcontextfactory)
   , m_textureManager(textureManager)
@@ -102,39 +102,36 @@ void FrontendRenderer::AfterDrawFrame()
 }
 #endif
 
-void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
+void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
   switch (message->GetType())
   {
   case Message::FlushTile:
     {
-      FlushRenderBucketMessage * msg = df::CastMessage<FlushRenderBucketMessage>(message);
+      ref_ptr<FlushRenderBucketMessage> msg = df::CastMessage<FlushRenderBucketMessage>(message);
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
-      dp::MasterPointer<dp::RenderBucket> bucket(msg->AcceptBuffer());
-      dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      drape_ptr<dp::RenderBucket> bucket = move(msg->AcceptBuffer());
+      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
       program->Bind();
       bucket->GetBuffer()->Build(program);
       if (!IsUserMarkLayer(key))
-      {
-        if (!m_tileTree->ProcessTile(key, GetCurrentZoomLevel(), state, bucket))
-          bucket.Destroy();
-      }
+        m_tileTree->ProcessTile(key, GetCurrentZoomLevel(), state, move(bucket));
       else
-        m_userMarkRenderGroups.emplace_back(new UserMarkRenderGroup(state, key, bucket.Move()));
+        m_userMarkRenderGroups.emplace_back(new UserMarkRenderGroup(state, key, move(bucket)));
       break;
     }
 
   case Message::FinishReading:
     {
-      FinishReadingMessage * msg = df::CastMessage<FinishReadingMessage>(message);
+      ref_ptr<FinishReadingMessage> msg = df::CastMessage<FinishReadingMessage>(message);
       m_tileTree->FinishTiles(msg->GetTiles(), GetCurrentZoomLevel());
       break;
     }
 
   case Message::Resize:
     {
-      ResizeMessage * rszMsg = df::CastMessage<ResizeMessage>(message);
+      ref_ptr<ResizeMessage> rszMsg = df::CastMessage<ResizeMessage>(message);
       m_viewport = rszMsg->GetViewport();
       m_view.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
                     m_viewport.GetWidth(), m_viewport.GetHeight());
@@ -147,10 +144,10 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
       m_tileTree->GetTilesCollection(tiles, GetCurrentZoomLevel());
 
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new ResizeMessage(m_viewport)),
+                                make_unique_dp<ResizeMessage>(m_viewport),
                                 MessagePriority::Normal);
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, move(tiles))),
+                                make_unique_dp<UpdateReadManagerMessage>(m_view, move(tiles)),
                                 MessagePriority::Normal);
       break;
     }
@@ -189,7 +186,7 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     }
   case Message::ChangeUserMarkLayerVisibility:
     {
-      ChangeUserMarkLayerVisibilityMessage * m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
+      ref_ptr<ChangeUserMarkLayerVisibilityMessage> m = df::CastMessage<ChangeUserMarkLayerVisibilityMessage>(message);
       TileKey const & key = m->GetKey();
       if (m->IsVisible())
         m_userMarkVisibility.insert(key);
@@ -199,14 +196,13 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     }
   case Message::GuiLayerRecached:
     {
-      GuiLayerRecachedMessage * msg = df::CastMessage<GuiLayerRecachedMessage>(message);
-      dp::MasterPointer<gui::LayerRenderer> renderer = msg->AcceptRenderer();
-      renderer->Build(m_gpuProgramManager.GetRefPointer());
-      if (m_guiRenderer.IsNull())
-        m_guiRenderer = dp::MasterPointer<gui::LayerRenderer>(renderer.Move());
+      ref_ptr<GuiLayerRecachedMessage> msg = df::CastMessage<GuiLayerRecachedMessage>(message);
+      drape_ptr<gui::LayerRenderer> renderer = move(msg->AcceptRenderer());
+      renderer->Build(make_ref<dp::GpuProgramManager>(m_gpuProgramManager));
+      if (m_guiRenderer == nullptr)
+        m_guiRenderer = move(renderer);
       else
-        m_guiRenderer->Merge(renderer.GetRefPointer());
-      renderer.Destroy();
+        m_guiRenderer->Merge(make_ref<gui::LayerRenderer>(renderer));
       break;
     }
   case Message::StopRendering:
@@ -226,24 +222,24 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 
 void FrontendRenderer::AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
                                         dp::GLState const & state,
-                                        dp::MasterPointer<dp::RenderBucket> & renderBucket,
+                                        drape_ptr<dp::RenderBucket> && renderBucket,
                                         TileKey const & newTile)
 {
   unique_ptr<RenderGroup> group(new RenderGroup(state, newTile));
-  group->AddBucket(renderBucket.Move());
+  group->AddBucket(move(renderBucket));
   groups.push_back(move(group));
 }
 
 void FrontendRenderer::OnAddRenderGroup(TileKey const & tileKey, dp::GLState const & state,
-                                        dp::MasterPointer<dp::RenderBucket> & renderBucket)
+                                        drape_ptr<dp::RenderBucket> && renderBucket)
 {
-  AddToRenderGroup(m_renderGroups, state, renderBucket, tileKey);
+  AddToRenderGroup(m_renderGroups, state, move(renderBucket), tileKey);
 }
 
 void FrontendRenderer::OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
-                                          dp::MasterPointer<dp::RenderBucket> & renderBucket)
+                                          drape_ptr<dp::RenderBucket> && renderBucket)
 {
-  AddToRenderGroup(m_deferredRenderGroups, state, renderBucket, tileKey);
+  AddToRenderGroup(m_deferredRenderGroups, state, move(renderBucket), tileKey);
 }
 
 void FrontendRenderer::OnActivateTile(TileKey const & tileKey)
@@ -307,7 +303,7 @@ void FrontendRenderer::RenderScene()
     switch (group->GetState().GetDepthLayer())
     {
     case dp::GLState::OverlayLayer:
-      group->CollectOverlay(dp::MakeStackRefPointer(&m_overlayTree));
+      group->CollectOverlay(make_ref(&m_overlayTree));
       break;
     case dp::GLState::DynamicGeometry:
       group->Update(m_view);
@@ -330,14 +326,14 @@ void FrontendRenderer::RenderScene()
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
     {
       GLFunctions::glClearDepth();
-      if (!m_myPositionMark.IsNull())
-        m_myPositionMark->Render(m_view, m_gpuProgramManager.GetRefPointer(), m_generalUniforms);
+      if (m_myPositionMark != nullptr)
+        m_myPositionMark->Render(m_view, make_ref<dp::GpuProgramManager>(m_gpuProgramManager), m_generalUniforms);
     }
 
     prevLayer = layer;
     ASSERT_LESS_OR_EQUAL(prevLayer, layer, ());
 
-    dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+    ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
     program->Bind();
     ApplyUniforms(m_generalUniforms, program);
     ApplyState(state, program);
@@ -353,7 +349,7 @@ void FrontendRenderer::RenderScene()
     if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
     {
       dp::GLState const & state = group->GetState();
-      dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
       program->Bind();
       ApplyUniforms(m_generalUniforms, program);
       ApplyState(state, program);
@@ -362,8 +358,8 @@ void FrontendRenderer::RenderScene()
   }
 
   GLFunctions::glClearDepth();
-  if (!m_guiRenderer.IsNull())
-    m_guiRenderer->Render(m_gpuProgramManager.GetRefPointer(), m_view);
+  if (m_guiRenderer != nullptr)
+    m_guiRenderer->Render(make_ref<dp::GpuProgramManager>(m_gpuProgramManager), m_view);
 
 #ifdef DRAW_INFO
   AfterDrawFrame();
@@ -489,16 +485,14 @@ void FrontendRenderer::Routine::Do()
 
 void FrontendRenderer::ReleaseResources()
 {
-  DeleteRenderData();
-  m_gpuProgramManager.Destroy();
-}
-
-void FrontendRenderer::DeleteRenderData()
-{
   m_tileTree.reset();
   m_renderGroups.clear();
   m_deferredRenderGroups.clear();
   m_userMarkRenderGroups.clear();
+  m_guiRenderer.reset();
+  m_myPositionMark.reset();
+
+  m_gpuProgramManager.reset();
 }
 
 void FrontendRenderer::SetModelView(ScreenBase const & screen)
@@ -520,7 +514,7 @@ void FrontendRenderer::UpdateScene()
     m_tileTree->GetTilesCollection(tiles, GetCurrentZoomLevel());
 
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, move(tiles))),
+                              make_unique_dp<UpdateReadManagerMessage>(m_view, move(tiles)),
                               MessagePriority::Normal);
   }
 }

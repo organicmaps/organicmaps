@@ -51,7 +51,7 @@ public:
 
   static void CacheStaticText(string const & text, char const * delim,
                               dp::Anchor anchor, dp::FontDecl const & font,
-                              dp::RefPointer<dp::TextureManager> mng, LabelResult & result);
+                              ref_ptr<dp::TextureManager> mng, LabelResult & result);
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,14 +115,14 @@ public:
   };
 
   void Precache(PrecacheParams const & params, PrecacheResult & result,
-                dp::RefPointer<dp::TextureManager> mng);
+                ref_ptr<dp::TextureManager> mng);
 
   void SetText(LabelResult & result, string text) const;
   m2::PointF GetAvarageSize() const;
 
 private:
   void SetMaxLength(uint16_t maxLength);
-  dp::RefPointer<dp::Texture> SetAlphabet(string const & alphabet, dp::RefPointer<dp::TextureManager> mng);
+  ref_ptr<dp::Texture> SetAlphabet(string const & alphabet, ref_ptr<dp::TextureManager> mng);
 
 private:
   dp::Anchor m_anchor;
@@ -142,10 +142,10 @@ public:
   MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot);
   ~MutableLabelHandle();
 
-  void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator,
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                             ScreenBase const & screen) const override;
 
-  dp::RefPointer<MutableLabel> GetTextView();
+  ref_ptr<MutableLabel> GetTextView();
   void UpdateSize(m2::PointF const & size);
 
 protected:
@@ -153,7 +153,7 @@ protected:
   void SetContent(string const & content);
 
 private:
-  dp::MasterPointer<MutableLabel> m_textView;
+  drape_ptr<MutableLabel> m_textView;
   mutable bool m_isContentDirty;
   string m_content;
 };
@@ -161,7 +161,7 @@ private:
 class MutableLabelDrawer
 {
 public:
-  using TCreatoreResult = dp::TransferPointer<MutableLabelHandle>;
+  using TCreatoreResult = drape_ptr<MutableLabelHandle>;
   using THandleCreator = function<TCreatoreResult(dp::Anchor, m2::PointF const & /*pivot*/)>;
 
   struct Params
@@ -174,7 +174,7 @@ public:
     THandleCreator m_handleCreator;
   };
 
-  static void Draw(Params const & params, dp::RefPointer<dp::TextureManager> mng,
+  static void Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
                    dp::Batcher::TFlushFn const & flushFn);
 };
 }

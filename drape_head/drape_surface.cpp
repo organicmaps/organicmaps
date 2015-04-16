@@ -15,8 +15,6 @@ DrapeSurface::DrapeSurface()
 
 DrapeSurface::~DrapeSurface()
 {
-  m_drapeEngine.Destroy();
-  m_contextFactory.Destroy();
 }
 
 void DrapeSurface::exposeEvent(QExposeEvent *e)
@@ -25,10 +23,9 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
 
   if (isExposed())
   {
-    if (m_contextFactory.IsNull())
+    if (m_contextFactory == nullptr)
     {
-      dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new QtOGLContextFactory(this), false);
-      m_contextFactory = dp::MasterPointer<dp::OGLContextFactory>(factory);
+      m_contextFactory = move(make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this), false));
       CreateEngine();
     }
   }
@@ -36,16 +33,16 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
 
 void DrapeSurface::CreateEngine()
 {
-  dp::RefPointer<dp::OGLContextFactory> f(m_contextFactory.GetRefPointer());
+  ref_ptr<dp::OGLContextFactory> f = make_ref<dp::OGLContextFactory>(m_contextFactory);
 
   float const pixelRatio = devicePixelRatio();
 
-  m_drapeEngine = TEnginePrt(new df::TestingEngine(f, df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()), pixelRatio));
+  m_drapeEngine = move(make_unique_dp<df::TestingEngine>(f, df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()), pixelRatio));
 }
 
 void DrapeSurface::sizeChanged(int)
 {
-  if (!m_drapeEngine.IsNull())
+  if (m_drapeEngine != nullptr)
   {
     float const vs = devicePixelRatio();
     int const w = width() * vs;

@@ -79,7 +79,7 @@ namespace
       }
     }
 
-    void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
+    void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
     {
       ASSERT(IsValid(), ());
 
@@ -92,7 +92,7 @@ namespace
       memcpy(buffer, m_normals.data(), byteCount);
       dp::MutateNode mutateNode;
       mutateNode.m_region = node.second;
-      mutateNode.m_data = dp::MakeStackRefPointer(buffer);
+      mutateNode.m_data = make_ref(buffer);
       mutator->AddMutation(node.first, mutateNode);
     }
 
@@ -115,7 +115,7 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
 {
 }
 
-void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   PathTextLayout * layout = new PathTextLayout(strings::MakeUniString(m_params.m_text),
                                                m_params.m_textFont.m_size,
@@ -205,11 +205,11 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
     dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
 
     dp::AttributeProvider provider(2, staticBuffer.size());
-    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(staticBuffer.data()));
-    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynBuffer.data()));
+    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref<void>(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref<void>(dynBuffer.data()));
 
-    dp::OverlayHandle * handle = new PathTextHandle(m_spline, layoutPtr, offset, m_params.m_depth);
-    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
+    drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset, m_params.m_depth);
+    batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
   }
 }
 

@@ -21,7 +21,7 @@ PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
 {
 }
 
-void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
@@ -62,8 +62,8 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, buffer.size());
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(buffer.data()));
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(buffer.data()));
+  batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 }
 
 }

@@ -22,8 +22,8 @@ namespace dp
 class GpuProgram
 {
 public:
-  GpuProgram(RefPointer<Shader> vertexShader,
-             RefPointer<Shader> fragmentShader);
+  GpuProgram(ref_ptr<Shader> vertexShader,
+             ref_ptr<Shader> fragmentShader);
   ~GpuProgram();
 
   void Bind();

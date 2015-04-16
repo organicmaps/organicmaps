@@ -52,7 +52,7 @@ public:
   {
   }
 
-  RefPointer<Texture::ResourceInfo> MapResource(ColorKey const & key)
+  ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key)
   {
     bool dummy = false;
     return TBase::MapResource(key, dummy);
@@ -65,12 +65,12 @@ UNIT_TEST(ColorPalleteMappingTests)
 {
   DummyColorPallete cp(m2::PointU(32, 16));
 
-  RefPointer<Texture::ResourceInfo> info1 = cp.MapResource(dp::Color(0, 0, 0, 0));
-  RefPointer<Texture::ResourceInfo> info2 = cp.MapResource(dp::Color(1, 1, 1, 1));
-  RefPointer<Texture::ResourceInfo> info3 = cp.MapResource(dp::Color(0, 0, 0, 0));
+  ref_ptr<Texture::ResourceInfo> info1 = cp.MapResource(dp::Color(0, 0, 0, 0));
+  ref_ptr<Texture::ResourceInfo> info2 = cp.MapResource(dp::Color(1, 1, 1, 1));
+  ref_ptr<Texture::ResourceInfo> info3 = cp.MapResource(dp::Color(0, 0, 0, 0));
 
-  TEST_NOT_EQUAL(info1.GetRaw(), info2.GetRaw(), ());
-  TEST_EQUAL(info1.GetRaw(), info3.GetRaw(), ());
+  TEST_NOT_EQUAL(info1, info2, ());
+  TEST_EQUAL(info1, info3, ());
   TestRects(info1->GetTexRect(), m2::RectF(1.0f / 32.0f, 1.0f / 16,
                                            1.0f / 32.0f, 1.0f / 16));
   TestRects(info2->GetTexRect(), m2::RectF(3.0f / 32.0f, 1.0f / 16,
@@ -94,7 +94,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
   DummyTexture texture;
   texture.Create(width, height, dp::RGBA8);
   DummyColorPallete cp(m2::PointU(width, height));
-  cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+  cp.UploadResources(make_ref<Texture>(&texture));
 
   {
     cp.MapResource(dp::Color(0xFF, 0, 0, 0));
@@ -119,7 +119,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     EXPECTGL(glTexSubImage2D(0, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+    cp.UploadResources(make_ref<Texture>(&texture));
   }
 
   {
@@ -145,7 +145,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     EXPECTGL(glTexSubImage2D(10, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+    cp.UploadResources(make_ref<Texture>(&texture));
   }
 
   EXPECTGL(glDeleteTexture(1));
@@ -186,7 +186,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     EXPECTGL(glTexSubImage2D(0, 0, 12, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+    cp.UploadResources(make_ref<Texture>(&texture));
   }
 
   {
@@ -219,7 +219,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     EXPECTGL(glTexSubImage2D(0, 2, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+    cp.UploadResources(make_ref<Texture>(&texture));
   }
 
 
@@ -253,7 +253,7 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
     EXPECTGL(glTexSubImage2D(0, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+    cp.UploadResources(make_ref<Texture>(&texture));
   }
 
   {
@@ -297,7 +297,7 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
     EXPECTGL(glTexSubImage2D(0, 2, 8, 4, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
+    cp.UploadResources(make_ref<Texture>(&texture));
   }
 
   EXPECTGL(glDeleteTexture(1));

@@ -58,15 +58,15 @@ private:
   CountryStatusHelper::ECountryState m_state;
 };
 
-dp::TransferPointer<dp::OverlayHandle> CreateHandle(CountryStatusHelper::ECountryState const state,
-                                                    dp::Anchor anchor,
-                                                    m2::PointF const & size)
+drape_ptr<dp::OverlayHandle> CreateHandle(CountryStatusHelper::ECountryState const state,
+                                          dp::Anchor anchor,
+                                          m2::PointF const & size)
 {
-  return dp::MovePointer<dp::OverlayHandle>(new CountryStatusHandle(state, anchor, size));
+  return make_unique_dp<CountryStatusHandle>(state, anchor, size);
 }
 
 void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
-                      dp::RefPointer<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
+                      ref_ptr<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
 {
   StaticLabel::LabelResult result;
   StaticLabel::CacheStaticText(text, "\n", anchor, dp::FontDecl(dp::Color::Black(), 18), mng,
@@ -77,18 +77,18 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
 
   dp::AttributeProvider provider(1 /*stream count*/, vertexCount);
   provider.InitStream(0 /*stream index*/, StaticLabel::Vertex::GetBindingInfo(),
-                      dp::MakeStackRefPointer<void>(result.m_buffer.data()));
+                      make_ref<void>(result.m_buffer.data()));
 
   dp::Batcher batcher(indexCount, vertexCount);
   dp::SessionGuard guard(batcher, flushFn);
   m2::PointF size(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  dp::MasterPointer<dp::OverlayHandle> handle(new CountryStatusHandle(state, anchor, size));
-  batcher.InsertListOfStrip(result.m_state, dp::MakeStackRefPointer(&provider), handle.Move(),
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusHandle>(state, anchor, size);
+  batcher.InsertListOfStrip(result.m_state, make_ref(&provider), move(handle),
                             dp::Batcher::VertexPerQuad);
 }
 
 void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
-                         dp::RefPointer<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
+                         ref_ptr<dp::TextureManager> mng, CountryStatusHelper::ECountryState state)
 {
   MutableLabelDrawer::Params params;
   CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
@@ -99,24 +99,24 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
   params.m_font = dp::FontDecl(dp::Color::Black(), 18);
   params.m_handleCreator = [state](dp::Anchor anchor, m2::PointF const & /*pivot*/)
   {
-    return dp::MovePointer<MutableLabelHandle>(new CountryProgressHandle(anchor, state));
+    return make_unique_dp<CountryProgressHandle>(anchor, state);
   };
 
   MutableLabelDrawer::Draw(params, mng, flushFn);
 }
 }
 
-dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) const
 {
   CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
   if (helper.GetComponentCount() == 0)
-    return dp::MovePointer<ShapeRenderer>(nullptr);
+    return drape_ptr<ShapeRenderer>();
 
   CountryStatusHelper::ECountryState const state = helper.GetState();
   ASSERT(state != CountryStatusHelper::COUNTRY_STATE_LOADED, ());
 
-  dp::MasterPointer<ShapeRenderer> renderer(new ShapeRenderer());
-  dp::Batcher::TFlushFn flushFn = bind(&ShapeRenderer::AddShape, renderer.GetRaw(), _1, _2);
+  drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
+  dp::Batcher::TFlushFn flushFn = bind(&ShapeRenderer::AddShape, static_cast<ShapeRenderer*>(make_ref(renderer)), _1, _2);
 
   for (size_t i = 0; i < helper.GetComponentCount(); ++i)
   {
@@ -156,7 +156,7 @@ dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::Textur
   buffer_vector<float, 4> heights;
   float totalHeight = 0.0f;
 
-  ArrangeShapes(renderer.GetRefPointer(), [&heights, &totalHeight](ShapeControl & shape)
+  ArrangeShapes(make_ref<ShapeRenderer>(renderer), [&heights, &totalHeight](ShapeControl & shape)
   {
     float height = 0.0f;
     for (ShapeControl::ShapeInfo & info : shape.m_shapesInfo)
@@ -174,7 +174,7 @@ dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::Textur
   glsl::vec2 pen(m_position.m_pixelPivot.x, m_position.m_pixelPivot.y - halfHeight);
   size_t controlIndex = 0;
 
-  ArrangeShapes(renderer.GetRefPointer(), [&](ShapeControl & shape)
+  ArrangeShapes(make_ref<ShapeRenderer>(renderer), [&](ShapeControl & shape)
   {
     float const h = heights[controlIndex];
     float const halfH = h * 0.5f;
@@ -186,7 +186,7 @@ dp::TransferPointer<ShapeRenderer> CountryStatus::Draw(dp::RefPointer<dp::Textur
     pen.y += (h + controlMargin);
   });
 
-  return renderer.Move();
+  return renderer;
 }
 
 }  // namespace gui

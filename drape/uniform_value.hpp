@@ -48,7 +48,7 @@ public:
 
   void SetMatrix4x4Value(float const * matrixValue);
 
-  void Apply(RefPointer<GpuProgram> program) const;
+  void Apply(ref_ptr<GpuProgram> program) const;
 
   bool operator<(UniformValue const & other) const
   {

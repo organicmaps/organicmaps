@@ -31,7 +31,7 @@ struct IndicesRange
 
 class VertexArrayBuffer
 {
-  typedef map<BindingInfo, MasterPointer<DataBuffer> > TBuffersMap;
+  typedef map<BindingInfo, drape_ptr<DataBuffer> > TBuffersMap;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
@@ -45,7 +45,7 @@ public:
   /// by this reason Build/Bind and Render must be called only on Frontendrendere thread
   void Render();
   void RenderRange(IndicesRange const & range);
-  void Build(RefPointer<GpuProgram> program);
+  void Build(ref_ptr<GpuProgram> program);
   ///@}
 
   uint16_t GetAvailableVertexCount() const;
@@ -58,23 +58,22 @@ public:
   void UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count);
   void UploadIndexes(uint16_t const * data, uint16_t count);
 
-  void ApplyMutation(RefPointer<IndexBufferMutator> indexMutator,
-                     RefPointer<AttributeBufferMutator> attrMutator);
+  void ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
+                     ref_ptr<AttributeBufferMutator> attrMutator);
 
 private:
-  RefPointer<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);
-  RefPointer<DataBuffer> GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo);
-  RefPointer<DataBuffer> GetDynamicBuffer(BindingInfo const & bindingInfo) const;
+  ref_ptr<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);
+  ref_ptr<DataBuffer> GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo);
+  ref_ptr<DataBuffer> GetDynamicBuffer(BindingInfo const & bindingInfo) const;
 
-  RefPointer<DataBuffer> GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic);
-  RefPointer<DataBuffer> GetBuffer(BindingInfo const & bindingInfo, bool isDynamic) const;
+  ref_ptr<DataBuffer> GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic);
+  ref_ptr<DataBuffer> GetBuffer(BindingInfo const & bindingInfo, bool isDynamic) const;
   void Bind() const;
   void BindStaticBuffers() const;
   void BindDynamicBuffers() const;
   void BindBuffers(TBuffersMap const & buffers) const;
 
-  DataBufferBase & GetIndexBuffer();
-  DataBufferBase const & GetIndexBuffer() const;
+  ref_ptr<DataBufferBase> GetIndexBuffer() const;
 
 private:
   /// m_VAO - VertexArrayObject name/identificator
@@ -82,10 +81,10 @@ private:
   TBuffersMap m_staticBuffers;
   TBuffersMap m_dynamicBuffers;
 
-  MasterPointer<IndexBuffer> m_indexBuffer;
+  drape_ptr<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;
 
-  RefPointer<GpuProgram> m_program;
+  ref_ptr<GpuProgram> m_program;
 };
 
 } // namespace dp

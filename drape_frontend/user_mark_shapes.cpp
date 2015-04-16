@@ -74,8 +74,8 @@ void AlignVertical(float halfHeight, dp::Anchor anchor,
 }
 
 void CacheUserPoints(UserMarksProvider const * provider,
-                     dp::RefPointer<dp::Batcher> batcher,
-                     dp::RefPointer<dp::TextureManager> textures)
+                     ref_ptr<dp::Batcher> batcher,
+                     ref_ptr<dp::TextureManager> textures)
 {
   size_t markCount = provider->GetUserPointCount();
   if (markCount == 0)
@@ -120,14 +120,14 @@ void CacheUserPoints(UserMarksProvider const * provider,
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider attribProvider(1, buffer.size());
-  attribProvider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(buffer.data()));
+  attribProvider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(buffer.data()));
 
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&attribProvider), dp::Batcher::VertexPerQuad);
+  batcher->InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
 }
 
 void CacheUserLines(UserMarksProvider const * provider,
-                    dp::RefPointer<dp::Batcher> batcher,
-                    dp::RefPointer<dp::TextureManager> textures)
+                    ref_ptr<dp::Batcher> batcher,
+                    ref_ptr<dp::TextureManager> textures)
 {
   for (size_t i = 0; i < provider->GetUserLineCount(); ++i)
   {
@@ -159,8 +159,8 @@ void CacheUserLines(UserMarksProvider const * provider,
 } // namespace
 
 void CacheUserMarks(UserMarksProvider const * provider,
-                    dp::RefPointer<dp::Batcher> batcher,
-                    dp::RefPointer<dp::TextureManager> textures)
+                    ref_ptr<dp::Batcher> batcher,
+                    ref_ptr<dp::TextureManager> textures)
 {
   CacheUserPoints(provider, batcher, textures);
   CacheUserLines(provider, batcher, textures);

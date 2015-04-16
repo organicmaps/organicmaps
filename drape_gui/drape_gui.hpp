@@ -55,7 +55,8 @@ public:
 
   void Init(TScaleFactorFn const & scaleFn, TGeneralizationLevelFn const & gnLvlFn);
   void SetLocalizator(TLocalizeStringFn const & fn);
-  void SetStorageAccessor(dp::RefPointer<gui::StorageAccessor> accessor);
+  void SetStorageAccessor(ref_ptr<gui::StorageAccessor> accessor);
+  void Destroy();
 
   void SetCountryIndex(storage::TIndex const & index);
 

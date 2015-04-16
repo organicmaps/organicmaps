@@ -21,7 +21,7 @@ AreaShape::AreaShape(vector<m2::PointF> && triangleList, AreaViewParams const & 
 {
 }
 
-void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
@@ -40,8 +40,8 @@ void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, m_vertexes.size());
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(vertexes.data()));
-  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider));
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes.data()));
+  batcher->InsertTriangleList(state, make_ref(&provider));
 }
 
 } // namespace df

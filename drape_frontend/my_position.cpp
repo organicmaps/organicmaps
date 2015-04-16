@@ -49,7 +49,7 @@ dp::BindingInfo GetBindingInfo()
 
 } // namespace
 
-MyPosition::MyPosition(dp::RefPointer<dp::TextureManager> mng)
+MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointF::Zero())
   , m_azimut(0.0f)
   , m_accuracy(0.0f)
@@ -82,7 +82,7 @@ void MyPosition::SetIsVisible(bool isVisible)
 }
 
 void MyPosition::Render(ScreenBase const & screen,
-                        dp::RefPointer<dp::GpuProgramManager> mng,
+                        ref_ptr<dp::GpuProgramManager> mng,
                         dp::UniformValuesStorage const & commonUniforms)
 {
   if (!m_isVisible)
@@ -105,7 +105,7 @@ void MyPosition::Render(ScreenBase const & screen,
   }
 }
 
-void MyPosition::CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng)
+void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
 {
   int const TriangleCount = 40;
   int const VertexCount = TriangleCount + 2;
@@ -131,26 +131,24 @@ void MyPosition::CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng)
 
   {
     dp::Batcher batcher(TriangleCount * dp::Batcher::IndexPerTriangle, VertexCount);
-    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> b)
+    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
-      dp::MasterPointer<dp::RenderBucket> bucket(b);
+      drape_ptr<dp::RenderBucket> bucket = move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
 
       m_nodes.emplace_back(state, bucket->MoveBuffer());
       m_parts[MY_POSITION_ACCURACY].second = m_nodes.size() - 1;
-      bucket.Destroy();
     });
 
     dp::AttributeProvider provider(1 /*stream count*/, VertexCount);
-    provider.InitStream(0 /*stream index*/, GetBindingInfo(), dp::StackVoidRef(buffer.data()));
+    provider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(buffer.data()));
 
-    m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleFan(state, dp::MakeStackRefPointer(&provider),
-                                                                    dp::MovePointer<dp::OverlayHandle>(nullptr));
+    m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleFan(state, make_ref(&provider), nullptr);
     ASSERT(m_parts[MY_POSITION_ACCURACY].first.IsValid(), ());
   }
 }
 
-void MyPosition::CachePointPosition(dp::RefPointer<dp::TextureManager> mng)
+void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 {
   dp::TextureManager::SymbolRegion pointSymbol, arrowSymbol;
   mng->GetSymbolRegion("current-position", pointSymbol);
@@ -184,40 +182,37 @@ void MyPosition::CachePointPosition(dp::RefPointer<dp::TextureManager> mng)
 
   {
     dp::Batcher batcher(2 * dp::Batcher::IndexPerQuad, 2 * dp::Batcher::VertexPerQuad);
-    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> b)
+    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
-      dp::MasterPointer<dp::RenderBucket> bucket(b);
+      drape_ptr<dp::RenderBucket> bucket = move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
 
-      m_nodes.emplace_back(state, bucket->MoveBuffer());
-      bucket.Destroy();
+      m_nodes.emplace_back(state, move(bucket->MoveBuffer()));
     });
 
     dp::AttributeProvider pointProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
-    pointProvider.InitStream(0 /*stream index*/, GetBindingInfo(), dp::StackVoidRef(pointData));
+    pointProvider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(pointData));
 
     dp::AttributeProvider arrowProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);
-    arrowProvider.InitStream(0 /*stream index*/, GetBindingInfo(), dp::StackVoidRef(arrowData));
+    arrowProvider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(arrowData));
 
     m_parts[MY_POSITION_POINT].second = m_nodes.size();
     m_parts[MY_POSITION_ARROW].second = m_nodes.size();
-    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&pointProvider),
-                                                                   dp::MovePointer<dp::OverlayHandle>(nullptr));
+    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleFan(state, make_ref(&pointProvider), nullptr);
     ASSERT(m_parts[MY_POSITION_POINT].first.IsValid(), ());
-    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&arrowProvider),
-                                                                   dp::MovePointer<dp::OverlayHandle>(nullptr));
+    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleFan(state, make_ref(&arrowProvider), nullptr);
     ASSERT(m_parts[MY_POSITION_ARROW].first.IsValid(), ());
   }
 }
 
-void MyPosition::RenderPart(dp::RefPointer<dp::GpuProgramManager> mng,
+void MyPosition::RenderPart(ref_ptr<dp::GpuProgramManager> mng,
                             dp::UniformValuesStorage const & uniforms,
                             MyPosition::EMyPositionPart part)
 {
   TPart const & accuracy = m_parts[part];
   RenderNode & node = m_nodes[accuracy.second];
 
-  dp::RefPointer<dp::GpuProgram> prg = mng->GetProgram(node.m_state.GetProgramIndex());
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(node.m_state.GetProgramIndex());
   prg->Bind();
   if (!node.m_isBuilded)
   {

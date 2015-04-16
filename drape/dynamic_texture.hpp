@@ -12,23 +12,23 @@ class DynamicTexture : public Texture
 public:
   virtual ~DynamicTexture()
   {
-    ASSERT(m_indexer.IsNull(), ());
+    ASSERT(m_indexer == nullptr, ());
   }
 
-  virtual RefPointer<ResourceInfo> FindResource(Key const & key, bool & newResource)
+  virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource)
   {
-    ASSERT(!m_indexer.IsNull(), ());
+    ASSERT(m_indexer != nullptr, ());
     if (key.GetType() != TResourceType)
-      return RefPointer<ResourceInfo>();
+      return ref_ptr<ResourceInfo>();
 
     return m_indexer->MapResource(static_cast<TResourceKey const &>(key), newResource);
   }
 
   virtual void UpdateState()
   {
-    ASSERT(!m_indexer.IsNull(), ());
+    ASSERT(m_indexer != nullptr, ());
     Bind();
-    m_indexer->UploadResources(MakeStackRefPointer<Texture>(this));
+    m_indexer->UploadResources(make_ref<Texture>(this));
   }
 
 protected:
@@ -42,12 +42,12 @@ protected:
     glConst m_magFilter;
   };
 
-  void Init(RefPointer<TIndexer> indexer, TextureParams const & params)
+  void Init(ref_ptr<TIndexer> indexer, TextureParams const & params)
   {
-    Init(indexer, params, MakeStackRefPointer<void>(nullptr));
+    Init(indexer, params, make_ref<void>(nullptr));
   }
 
-  void Init(RefPointer<TIndexer> indexer, TextureParams const & params, RefPointer<void> data)
+  void Init(ref_ptr<TIndexer> indexer, TextureParams const & params, ref_ptr<void> data)
   {
     m_indexer = indexer;
     Create(params.m_size.x, params.m_size.y, params.m_format, data);
@@ -56,11 +56,11 @@ protected:
 
   void Reset()
   {
-    m_indexer = RefPointer<TIndexer>();
+    m_indexer = ref_ptr<TIndexer>();
   }
 
 private:
-  RefPointer<TIndexer> m_indexer;
+  ref_ptr<TIndexer> m_indexer;
 };
 
 }

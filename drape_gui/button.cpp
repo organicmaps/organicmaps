@@ -10,7 +10,7 @@
 namespace gui
 {
 
-void Button::Draw(Params const & params, ShapeControl & control, dp::RefPointer<dp::TextureManager> texture)
+void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texture)
 {
   StaticLabel::LabelResult result;
   StaticLabel::CacheStaticText(params.m_label, StaticLabel::DefaultDelim, params.m_anchor,
@@ -56,13 +56,13 @@ void Button::Draw(Params const & params, ShapeControl & control, dp::RefPointer<
 
     dp::AttributeProvider provider(1 /* stream count */, ARRAY_SIZE(vertexes));
     provider.InitStream(0 /*stream index*/, gpu::SolidTexturingVertex::GetBindingInfo(),
-                        dp::StackVoidRef(vertexes));
+                        make_ref(vertexes));
 
     m2::PointF buttonSize(halfWM + halfWM, halfHM + halfHM);
     ASSERT(params.m_bodyHandleCreator, ());
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider),
+    batcher.InsertTriangleStrip(state, make_ref(&provider),
                                 params.m_bodyHandleCreator(params.m_anchor, buttonSize));
   }
 
@@ -74,14 +74,14 @@ void Button::Draw(Params const & params, ShapeControl & control, dp::RefPointer<
 
     dp::AttributeProvider provider(1 /*stream count*/, vertexCount);
     provider.InitStream(0 /*stream index*/, StaticLabel::Vertex::GetBindingInfo(),
-                        dp::StackVoidRef(result.m_buffer.data()));
+                        make_ref(result.m_buffer.data()));
 
     ASSERT(params.m_labelHandleCreator, ());
     m2::PointF textSize(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-    dp::MasterPointer<dp::OverlayHandle> handle;
+
     dp::Batcher batcher(indexCount, vertexCount);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertListOfStrip(result.m_state, dp::MakeStackRefPointer(&provider),
+    batcher.InsertListOfStrip(result.m_state, make_ref(&provider),
                               params.m_labelHandleCreator(params.m_anchor, textSize),
                               dp::Batcher::VertexPerQuad);
   }

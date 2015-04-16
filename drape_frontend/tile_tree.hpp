@@ -24,7 +24,7 @@ public:
 
   using TTileHandler = function<void(TileKey const &)>;
   using TRenderGroupHandler = function<void(TileKey const &, dp::GLState const &,
-                                            dp::MasterPointer<dp::RenderBucket> &)>;
+                                            drape_ptr<dp::RenderBucket> &&)>;
 
   /// This method sets following handlers:
   /// addRenderGroup is called when render group can be created by a tile and rendered at once,
@@ -44,8 +44,8 @@ public:
   void EndRequesting();
 
   /// This method processes received from BR (backend renderer) tile.
-  bool ProcessTile(TileKey const & tileKey, int const zoomLevel,
-                   dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket);
+  void ProcessTile(TileKey const & tileKey, int const zoomLevel,
+                   dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   /// This method processes a message about finishing reading tiles on BR.
   void FinishTiles(TTilesCollection const & tiles, int const zoomLevel);
 
@@ -74,7 +74,7 @@ private:
   void RemoveTile(TNodePtr const & node);
 
   bool ProcessNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel,
-                   dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket);
+                   dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   bool FinishNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel);
 
   void DeleteTilesBelow(TNodePtr const & node);

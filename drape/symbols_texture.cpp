@@ -113,6 +113,11 @@ Texture::ResourceType SymbolsTexture::SymbolInfo::GetType() const
   return Symbol;
 }
 
+SymbolsTexture::SymbolsTexture(string const & skinPathName)
+{
+  Load(skinPathName);
+}
+
 void SymbolsTexture::Load(string const & skinPathName)
 {
   vector<unsigned char> rawData;
@@ -154,31 +159,31 @@ void SymbolsTexture::Load(string const & skinPathName)
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
 
   if (width == w && height == h)
-    Create(width, height, RGBA8, MakeStackRefPointer<void>(data));
+    Create(width, height, RGBA8, make_ref<void>(data));
   else
     Fail();
 
   stbi_image_free(data);
 }
 
-RefPointer<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
+ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
   newResource = false;
   if (key.GetType() != Texture::Symbol)
-    return RefPointer<ResourceInfo>();
+    return ref_ptr<ResourceInfo>();
 
   string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
   TSymDefinition::iterator it = m_definition.find(symbolName);
   ASSERT(it != m_definition.end(), ());
-  return MakeStackRefPointer<ResourceInfo>(&it->second);
+  return make_ref<ResourceInfo>(&it->second);
 }
 
 void SymbolsTexture::Fail()
 {
   m_definition.clear();
   int32_t alfaTexture = 0;
-  Create(1, 1, RGBA8, MakeStackRefPointer(&alfaTexture));
+  Create(1, 1, RGBA8, make_ref(&alfaTexture));
 }
 
 } // namespace dp

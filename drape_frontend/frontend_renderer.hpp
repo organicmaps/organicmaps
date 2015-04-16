@@ -37,9 +37,9 @@ namespace df
 class FrontendRenderer : public BaseRenderer
 {
 public:
-  FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
-                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                   dp::RefPointer<dp::TextureManager> textureManager,
+  FrontendRenderer(ref_ptr<ThreadsCommutator> commutator,
+                   ref_ptr<dp::OGLContextFactory> oglcontextfactory,
+                   ref_ptr<dp::TextureManager> textureManager,
                    Viewport viewport);
 
   ~FrontendRenderer() override;
@@ -60,7 +60,7 @@ public:
   void SetModelView(ScreenBase const & screen);
 
 protected:
-  virtual void AcceptMessage(dp::RefPointer<Message> message);
+  virtual void AcceptMessage(ref_ptr<Message> message);
   unique_ptr<threads::IRoutine> CreateRoutine() override;
 
 private:
@@ -88,26 +88,24 @@ private:
   void ReleaseResources();
 
 private:
-  void DeleteRenderData();
-
   // it applies new model-view matrix to the scene (this matrix will be used on next frame)
   void UpdateScene();
 
   void AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
                         dp::GLState const & state,
-                        dp::MasterPointer<dp::RenderBucket> & renderBucket,
+                        drape_ptr<dp::RenderBucket> && renderBucket,
                         TileKey const & newTile);
   void OnAddRenderGroup(TileKey const & tileKey, dp::GLState const & state,
-                        dp::MasterPointer<dp::RenderBucket> & renderBucket);
+                        drape_ptr<dp::RenderBucket> && renderBucket);
   void OnDeferRenderGroup(TileKey const & tileKey, dp::GLState const & state,
-                          dp::MasterPointer<dp::RenderBucket> & renderBucket);
+                          drape_ptr<dp::RenderBucket> && renderBucket);
 
   void OnActivateTile(TileKey const & tileKey);
   void OnRemoveTile(TileKey const & tileKey);
 
 private:
-  dp::RefPointer<dp::TextureManager> m_textureManager;
-  dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
+  ref_ptr<dp::TextureManager> m_textureManager;
+  drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
 private:
   vector<unique_ptr<RenderGroup>> m_renderGroups;
@@ -115,8 +113,8 @@ private:
   vector<unique_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
   set<TileKey> m_userMarkVisibility;
 
-  dp::MasterPointer<gui::LayerRenderer> m_guiRenderer;
-  dp::MasterPointer<MyPosition> m_myPositionMark;
+  drape_ptr<gui::LayerRenderer> m_guiRenderer;
+  drape_ptr<MyPosition> m_myPositionMark;
 
   dp::UniformValuesStorage m_generalUniforms;
 

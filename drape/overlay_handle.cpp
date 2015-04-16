@@ -44,13 +44,13 @@ void OverlayHandle::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
-bool OverlayHandle::IsIntersect(ScreenBase const & screen, OverlayHandle const & h) const
+bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const
 {
   Rects ar1;
   Rects ar2;
 
   GetPixelShape(screen, ar1);
-  h.GetPixelShape(screen, ar2);
+  h->GetPixelShape(screen, ar2);
 
   for (size_t i = 0; i < ar1.size(); ++i)
     for (size_t j = 0; j < ar2.size(); ++j)
@@ -66,13 +66,13 @@ uint16_t * OverlayHandle::IndexStorage(uint16_t size)
   return &m_indexes[0];
 }
 
-void OverlayHandle::GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const
+void OverlayHandle::GetElementIndexes(ref_ptr<IndexBufferMutator> mutator) const
 {
   ASSERT_EQUAL(m_isVisible, true, ());
   mutator->AppendIndexes(&m_indexes[0], m_indexes.size());
 }
 
-void OverlayHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, ScreenBase const & screen) const
+void OverlayHandle::GetAttributeMutation(ref_ptr<AttributeBufferMutator> mutator, ScreenBase const & screen) const
 {
   UNUSED_VALUE(mutator);
   UNUSED_VALUE(screen);

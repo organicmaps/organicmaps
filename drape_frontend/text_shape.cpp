@@ -81,7 +81,7 @@ TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params
 {
 }
 
-void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   ASSERT(!m_params.m_primaryText.empty(), ());
   StraightTextLayout primaryLayout(strings::MakeUniString(m_params.m_primaryText),
@@ -116,8 +116,8 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
 void TextShape::DrawSubString(StraightTextLayout const & layout,
                               dp::FontDecl const & font,
                               glsl::vec2 const & baseOffset,
-                              dp::RefPointer<dp::Batcher> batcher,
-                              dp::RefPointer<dp::TextureManager> textures) const
+                              ref_ptr<dp::Batcher> batcher,
+                              ref_ptr<dp::TextureManager> textures) const
 {
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -138,17 +138,17 @@ void TextShape::DrawSubString(StraightTextLayout const & layout,
   state.SetMaskTexture(layout.GetMaskTexture());
 
   m2::PointU const & pixelSize = layout.GetPixelSize();
-  dp::OverlayHandle * handle = new StraightTextHandle(m_params.m_featureID,
-                                                      m_params.m_anchor,
-                                                      glsl::ToVec2(m_basePoint),
-                                                      glsl::vec2(pixelSize.x, pixelSize.y),
-                                                      baseOffset,
-                                                      m_params.m_depth);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(m_params.m_featureID,
+                                                                           m_params.m_anchor,
+                                                                           glsl::ToVec2(m_basePoint),
+                                                                           glsl::vec2(pixelSize.x, pixelSize.y),
+                                                                           baseOffset,
+                                                                           m_params.m_depth);
 
   dp::AttributeProvider provider(2, staticBuffer.size());
-  provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(staticBuffer.data()));
-  provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(dynamicBuffer.data()));
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
+  provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref<void>(staticBuffer.data()));
+  provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref<void>(dynamicBuffer.data()));
+  batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
 }
 
 } //end of df namespace

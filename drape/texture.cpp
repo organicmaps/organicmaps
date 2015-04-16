@@ -42,10 +42,10 @@ Texture::~Texture()
 
 void Texture::Create(uint32_t width, uint32_t height, TextureFormat format)
 {
-  Create(width, height, format, MakeStackRefPointer<void>(NULL));
+  Create(width, height, format, make_ref<void>(NULL));
 }
 
-void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefPointer<void> data)
+void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, ref_ptr<void> data)
 {
   m_format = format;
   m_width = width;
@@ -63,7 +63,7 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefP
   glConst pixelType;
   UnpackFormat(format, layout, pixelType);
 
-  GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, data.GetRaw());
+  GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, static_cast<void*>(data));
   SetFilterParams(gl_const::GLLinear, gl_const::GLLinear);
   SetWrapMode(gl_const::GLClampToEdge, gl_const::GLClampToEdge);
 
@@ -98,7 +98,7 @@ void Texture::SetWrapMode(glConst sMode, glConst tMode)
 }
 
 void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
-                         TextureFormat format, RefPointer<void> data)
+                         TextureFormat format, ref_ptr<void> data)
 {
   ASSERT_ID;
   ASSERT(format == m_format, ());
@@ -107,7 +107,7 @@ void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height
 
   UnpackFormat(format, layout, pixelType);
 
-  GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, data.GetRaw());
+  GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, static_cast<void*>(data));
 }
 
 TextureFormat Texture::GetFormat() const

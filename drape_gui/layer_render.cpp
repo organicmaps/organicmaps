@@ -63,10 +63,10 @@ void LayerCacher::Resize(int w, int h)
   m_skin->Resize(w, h);
 }
 
-dp::TransferPointer<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
-                                                        dp::RefPointer<dp::TextureManager> textures)
+drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
+                                              ref_ptr<dp::TextureManager> textures)
 {
-  dp::MasterPointer<LayerRenderer> renderer(new LayerRenderer());
+  drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 
   if (names & Skin::Compass)
   {
@@ -102,16 +102,17 @@ dp::TransferPointer<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
   params.m_pivot = m2::PointF::Zero();
   params.m_handleCreator = [](dp::Anchor, m2::PointF const &)
   {
-    return dp::MovePointer<MutableLabelHandle>(new ScaleLabelHandle());
+    return make_unique_dp<ScaleLabelHandle>();
   };
 
-  dp::MasterPointer<ShapeRenderer> scaleRenderer(new ShapeRenderer());
-  MutableLabelDrawer::Draw(params, textures, bind(&ShapeRenderer::AddShape, scaleRenderer.GetRaw(), _1, _2));
+  drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
+  MutableLabelDrawer::Draw(params, textures, bind(&ShapeRenderer::AddShape,
+                                                  static_cast<ShapeRenderer*>(make_ref(scaleRenderer)), _1, _2));
 
-  renderer->AddShapeRenderer(Skin::ScaleLabel, scaleRenderer.Move());
+  renderer->AddShapeRenderer(Skin::ScaleLabel, move(scaleRenderer));
 #endif
 
-  return renderer.Move();
+  return renderer;
 }
 
 Position LayerCacher::GetPos(Skin::ElementName name)
@@ -126,27 +127,33 @@ LayerRenderer::~LayerRenderer()
   DestroyRenderers();
 }
 
-void LayerRenderer::Build(dp::RefPointer<dp::GpuProgramManager> mng)
+void LayerRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
 {
   for (TRenderers::value_type & r : m_renderers)
     r.second->Build(mng);
 }
 
-void LayerRenderer::Render(dp::RefPointer<dp::GpuProgramManager> mng, ScreenBase const & screen)
+void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen)
 {
   DrapeGui::Instance().GetRulerHelper().Update(screen);
   for (TRenderers::value_type & r : m_renderers)
     r.second->Render(screen, mng);
 }
 
-void LayerRenderer::Merge(dp::RefPointer<LayerRenderer> other)
+void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)
 {
   for (TRenderers::value_type & r : other->m_renderers)
   {
-    dp::MasterPointer<ShapeRenderer> & guiElement = m_renderers[r.first];
-    if (!guiElement.IsNull())
-      guiElement.Destroy();
-    guiElement = r.second;
+    TRenderers::iterator it = m_renderers.find(r.first);
+    if (it != m_renderers.end())
+    {
+      it->second.reset();
+      it->second = move(r.second);
+    }
+    else
+    {
+      m_renderers.insert(make_pair(r.first, move(r.second)));
+    }
   }
 
   other->m_renderers.clear();
@@ -154,16 +161,15 @@ void LayerRenderer::Merge(dp::RefPointer<LayerRenderer> other)
 
 void LayerRenderer::DestroyRenderers()
 {
-  DeleteRange(m_renderers, dp::MasterPointerDeleter());
+  m_renderers.clear();
 }
 
-void LayerRenderer::AddShapeRenderer(Skin::ElementName name,
-                                     dp::TransferPointer<ShapeRenderer> shape)
+void LayerRenderer::AddShapeRenderer(Skin::ElementName name, drape_ptr<ShapeRenderer> && shape)
 {
-  if (shape.IsNull())
+  if (shape == nullptr)
     return;
 
-  VERIFY(m_renderers.insert(make_pair(name, dp::MasterPointer<ShapeRenderer>(shape))).second, ());
+  VERIFY(m_renderers.insert(make_pair(name, move(shape))).second, ());
 }
 
 }

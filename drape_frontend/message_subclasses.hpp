@@ -64,7 +64,7 @@ public:
   Type GetType() const override { return Message::FinishReading; }
 
   TTilesCollection const & GetTiles() { return m_tiles; }
-  TTilesCollection & MoveTiles() { return m_tiles; }
+  TTilesCollection && MoveTiles() { return move(m_tiles); }
 
 private:
   TTilesCollection m_tiles;
@@ -73,25 +73,20 @@ private:
 class FlushRenderBucketMessage : public BaseTileMessage
 {
 public:
-  FlushRenderBucketMessage(TileKey const & key, dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> buffer)
+  FlushRenderBucketMessage(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
     : BaseTileMessage(key)
     , m_state(state)
-    , m_buffer(buffer)
+    , m_buffer(move(buffer))
   {}
-
-  ~FlushRenderBucketMessage()
-  {
-    m_buffer.Destroy();
-  }
 
   Type GetType() const override { return Message::FlushTile; }
 
   dp::GLState const & GetState() const { return m_state; }
-  dp::MasterPointer<dp::RenderBucket> AcceptBuffer() { return dp::MasterPointer<dp::RenderBucket>(m_buffer); }
+  drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
 
 private:
   dp::GLState m_state;
-  dp::TransferPointer<dp::RenderBucket> m_buffer;
+  drape_ptr<dp::RenderBucket> m_buffer;
 };
 
 class ResizeMessage : public Message
@@ -155,9 +150,9 @@ private:
 };
 
 template <typename T>
-T * CastMessage(dp::RefPointer<Message> msg)
+ref_ptr<T> CastMessage(ref_ptr<Message> msg)
 {
-  return static_cast<T *>(msg.GetRaw());
+  return ref_ptr<T>(static_cast<T*>(msg));
 }
 
 class ClearUserMarkLayerMessage : public BaseTileMessage
@@ -231,23 +226,15 @@ private:
 class GuiLayerRecachedMessage : public Message
 {
 public:
-  GuiLayerRecachedMessage(dp::TransferPointer<gui::LayerRenderer> renderer)
-    : m_renderer(renderer) {}
-
-  ~GuiLayerRecachedMessage()
-  {
-    m_renderer.Destroy();
-  }
+  GuiLayerRecachedMessage(drape_ptr<gui::LayerRenderer> && renderer)
+    : m_renderer(move(renderer)) {}
 
   Type GetType() const override { return Message::GuiLayerRecached; }
 
-  dp::MasterPointer<gui::LayerRenderer> AcceptRenderer()
-  {
-    return dp::MasterPointer<gui::LayerRenderer>(m_renderer);
-  }
+  drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return move(m_renderer); }
 
 private:
-  dp::TransferPointer<gui::LayerRenderer> m_renderer;
+  drape_ptr<gui::LayerRenderer> m_renderer;
 };
 
 class GuiRecacheMessage : public Message
@@ -268,20 +255,16 @@ private:
 class MyPositionShapeMessage : public Message
 {
 public:
-  MyPositionShapeMessage(dp::TransferPointer<MyPosition> shape)
-    : m_shape(shape)
-  {
-  }
+  MyPositionShapeMessage(drape_ptr<MyPosition> && shape)
+    : m_shape(move(shape))
+  {}
 
   Type GetType() const override { return Message::MyPositionShape; }
 
-  dp::MasterPointer<MyPosition> AcceptShape()
-  {
-    return dp::MasterPointer<MyPosition>(m_shape);
-  }
+  drape_ptr<MyPosition> && AcceptShape() { return move(m_shape); }
 
 private:
-  dp::TransferPointer<MyPosition> m_shape;
+  drape_ptr<MyPosition> m_shape;
 };
 
 class StopRenderingMessage : public Message

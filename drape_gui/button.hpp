@@ -10,7 +10,7 @@ namespace gui
 class Button
 {
 public:
-  using TCreatorResult = dp::TransferPointer<dp::OverlayHandle>;
+  using TCreatorResult = drape_ptr<dp::OverlayHandle>;
   using THandleCreator = function<TCreatorResult (dp::Anchor, m2::PointF const & size)>;
 
   struct Params
@@ -26,6 +26,6 @@ public:
     THandleCreator m_labelHandleCreator;
   };
 
-  static void Draw(Params const & params, ShapeControl & control, dp::RefPointer<dp::TextureManager> texture);
+  static void Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texture);
 };
 }

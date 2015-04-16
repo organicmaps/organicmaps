@@ -138,13 +138,13 @@ void StipplePenRasterizator::Rasterize(void * buffer)
   memcpy(pixels + COLUMN_WIDTH, pixels, COLUMN_WIDTH);
 }
 
-RefPointer<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key, bool & newResource)
+ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const & key, bool & newResource)
 {
   newResource = false;
   StipplePenHandle handle(key);
   TResourceMapping::iterator it = m_resourceMapping.find(handle);
   if (it != m_resourceMapping.end())
-    return MakeStackRefPointer<Texture::ResourceInfo>(&it->second);
+    return make_ref<Texture::ResourceInfo>(&it->second);
 
   newResource = true;
 
@@ -159,10 +159,10 @@ RefPointer<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey con
                                                                       resource.GetSize(),
                                                                       resource.GetPatternSize()));
   ASSERT(res.second, ());
-  return MakeStackRefPointer<Texture::ResourceInfo>(&res.first->second);
+  return make_ref<Texture::ResourceInfo>(&res.first->second);
 }
 
-void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
+void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::ALPHA, ());
   if (m_pendingNodes.empty())
@@ -227,7 +227,7 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
 
     rawBuffer = SharedBufferManager::GetRawPointer(ptr);
     texture->UploadData(minX, minY, COLUMN_WIDTH, lineCount,
-                        dp::ALPHA, MakeStackRefPointer<void>(rawBuffer));
+                        dp::ALPHA, make_ref<void>(rawBuffer));
 
     mng.freeSharedBuffer(reserveBufferSize, ptr);
   }

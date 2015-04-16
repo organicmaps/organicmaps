@@ -20,7 +20,7 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
    , m_cursor(m2::PointU::Zero())
 {}
 
-RefPointer<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
+ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, bool & newResource)
 {
   TPalette::iterator itm = m_palette.find(key.m_color);
   newResource = itm == m_palette.end();
@@ -53,10 +53,10 @@ RefPointer<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key
     ASSERT(res.second, ());
     itm = res.first;
   }
-  return MakeStackRefPointer<Texture::ResourceInfo>(&itm->second);
+  return make_ref<Texture::ResourceInfo>(&itm->second);
 }
 
-void ColorPalette::UploadResources(RefPointer<Texture> texture)
+void ColorPalette::UploadResources(ref_ptr<Texture> texture)
 {
   ASSERT(texture->GetFormat() == dp::RGBA8, ());
   if (m_pendingNodes.empty())
@@ -144,7 +144,7 @@ void ColorPalette::UploadResources(RefPointer<Texture> texture)
 
     pointer = SharedBufferManager::GetRawPointer(buffer);
     texture->UploadData(uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
-                        dp::RGBA8, dp::MakeStackRefPointer<void>(pointer));
+                        dp::RGBA8, make_ref<void>(pointer));
   }
 }
 

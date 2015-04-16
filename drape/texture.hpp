@@ -48,14 +48,14 @@ public:
   virtual ~Texture();
 
   void Create(uint32_t width, uint32_t height, TextureFormat format);
-  void Create(uint32_t width, uint32_t height, TextureFormat format, RefPointer<void> data);
+  void Create(uint32_t width, uint32_t height, TextureFormat format, ref_ptr<void> data);
   void SetFilterParams(glConst minFilter, glConst magFilter);
   void SetWrapMode(glConst sMode, glConst tMode);
 
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, TextureFormat format,
-                  RefPointer<void> data);
+                  ref_ptr<void> data);
 
-  virtual RefPointer<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
+  virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState() {}
 
   TextureFormat GetFormat() const;

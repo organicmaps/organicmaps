@@ -9,11 +9,11 @@ class Ruler : public Shape
 {
 public:
   Ruler(gui::Position const & position) : Shape(position) {}
-  dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const override;
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const override;
 
 private:
-  void DrawRuler(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex) const;
-  void DrawText(ShapeControl & control, dp::RefPointer<dp::TextureManager> tex) const;
+  void DrawRuler(ShapeControl & control, ref_ptr<dp::TextureManager> tex) const;
+  void DrawText(ShapeControl & control, ref_ptr<dp::TextureManager> tex) const;
 };
 
 }

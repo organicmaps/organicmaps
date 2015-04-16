@@ -7,8 +7,8 @@ namespace df
 {
 
 BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name,
-                           dp::RefPointer<ThreadsCommutator> commutator,
-                           dp::RefPointer<dp::OGLContextFactory> oglcontextfactory)
+                           ref_ptr<ThreadsCommutator> commutator,
+                           ref_ptr<dp::OGLContextFactory> oglcontextfactory)
   : m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
   , m_threadName(name)
@@ -28,7 +28,7 @@ void BaseRenderer::StopThread()
 {
   // send message to stop rendering in render thread
   m_commutator->PostMessage(m_threadName,
-                            dp::MovePointer<Message>(new StopRenderingMessage()),
+                            make_unique_dp<StopRenderingMessage>(),
                             MessagePriority::High);
 
   // wake up render thread if necessary

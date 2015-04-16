@@ -25,9 +25,9 @@ class ReadManager;
 class BackendRenderer : public BaseRenderer
 {
 public:
-  BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
-                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
-                  dp::RefPointer<dp::TextureManager> textureManager,
+  BackendRenderer(ref_ptr<ThreadsCommutator> commutator,
+                  ref_ptr<dp::OGLContextFactory> oglcontextfactory,
+                  ref_ptr<dp::TextureManager> textureManager,
                   MapDataProvider const & model);
 
   ~BackendRenderer() override;
@@ -40,16 +40,16 @@ private:
 
 private:
   MapDataProvider m_model;
-  dp::MasterPointer<BatchersPool> m_batchersPool;
-  dp::MasterPointer<ReadManager>  m_readManager;
-  dp::RefPointer<dp::TextureManager> m_texturesManager;
+  drape_ptr<BatchersPool> m_batchersPool;
+  drape_ptr<ReadManager> m_readManager;
+  ref_ptr<dp::TextureManager> m_texturesManager;
   gui::LayerCacher m_guiCacher;
 
   /////////////////////////////////////////
   //           MessageAcceptor           //
   /////////////////////////////////////////
 private:
-  void AcceptMessage(dp::RefPointer<Message> message);
+  void AcceptMessage(ref_ptr<Message> message);
 
   /////////////////////////////////////////
   //             ThreadPart              //
@@ -70,7 +70,7 @@ private:
   void ReleaseResources();
 
   void InitGLDependentResource();
-  void FlushGeometry(dp::TransferPointer<Message> message);
+  void FlushGeometry(drape_ptr<Message> && message);
 };
 
 } // namespace df

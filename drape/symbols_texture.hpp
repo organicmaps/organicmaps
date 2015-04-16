@@ -29,13 +29,14 @@ public:
     virtual ResourceType GetType() const;
   };
 
-  void Load(string const & skinPathName);
-  RefPointer<ResourceInfo> FindResource(Key const & key, bool & newResource);
+  SymbolsTexture(string const & skinPathName);
+
+  ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource);
 
 private:
   void Fail();
+  void Load(string const & skinPathName);
 
-private:
   typedef map<string, SymbolInfo> TSymDefinition;
   mutable TSymDefinition m_definition;
 

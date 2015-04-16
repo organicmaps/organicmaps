@@ -255,17 +255,17 @@ void CalculateOffsets(dp::Anchor anchor,
 } // namespace
 
 void TextLayout::Init(strings::UniString const & text, float fontSize,
-                      dp::RefPointer<dp::TextureManager> textures)
+                      ref_ptr<dp::TextureManager> textures)
 {
   m_textSizeRatio = fontSize / BASE_HEIGHT;
   textures->GetGlyphRegions(text, m_metrics);
 }
 
-dp::RefPointer<dp::Texture> TextLayout::GetMaskTexture() const
+ref_ptr<dp::Texture> TextLayout::GetMaskTexture() const
 {
   ASSERT(!m_metrics.empty(), ());
 #ifdef DEBUG
-  dp::RefPointer<dp::Texture> tex = m_metrics[0].GetTexture();
+  ref_ptr<dp::Texture> tex = m_metrics[0].GetTexture();
   for (GlyphRegion const & g : m_metrics)
   {
     ASSERT(g.GetTexture() == tex, ());
@@ -294,7 +294,7 @@ float TextLayout::GetPixelHeight() const
 }
 
 StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fontSize,
-                                       dp::RefPointer<dp::TextureManager> textures, dp::Anchor anchor)
+                                       ref_ptr<dp::TextureManager> textures, dp::Anchor anchor)
 {
   strings::UniString visibleText = fribidi::log2vis(text);
   buffer_vector<size_t, 2> delimIndexes;
@@ -327,7 +327,7 @@ void StraightTextLayout::Cache(glm::vec3 const & pivot, glm::vec2 const & pixelO
 }
 
 PathTextLayout::PathTextLayout(strings::UniString const & text, float fontSize,
-                               dp::RefPointer<dp::TextureManager> textures)
+                               ref_ptr<dp::TextureManager> textures)
 {
   Init(fribidi::log2vis(text), fontSize, textures);
 }

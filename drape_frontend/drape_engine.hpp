@@ -26,9 +26,9 @@ class DrapeEngine
 public:
   struct Params
   {
-    Params(dp::RefPointer<dp::OGLContextFactory> factory,
-           dp::RefPointer<StringsBundle> stringBundle,
-           dp::RefPointer<gui::StorageAccessor> storageAccessor,
+    Params(ref_ptr<dp::OGLContextFactory> factory,
+           ref_ptr<StringsBundle> stringBundle,
+           ref_ptr<gui::StorageAccessor> storageAccessor,
            Viewport const & viewport,
            MapDataProvider const & model,
            double vs)
@@ -41,9 +41,9 @@ public:
     {
     }
 
-    dp::RefPointer<dp::OGLContextFactory> m_factory;
-    dp::RefPointer<StringsBundle> m_stringsBundle;
-    dp::RefPointer<gui::StorageAccessor> m_storageAccessor;
+    ref_ptr<dp::OGLContextFactory> m_factory;
+    ref_ptr<StringsBundle> m_stringsBundle;
+    ref_ptr<gui::StorageAccessor> m_storageAccessor;
     Viewport m_viewport;
     MapDataProvider m_model;
     double m_vs;
@@ -62,10 +62,10 @@ public:
   void SetRenderingEnabled(bool const isEnabled);
 
 private:
-  dp::MasterPointer<FrontendRenderer> m_frontend;
-  dp::MasterPointer<BackendRenderer>  m_backend;
-  dp::MasterPointer<ThreadsCommutator> m_threadCommutator;
-  dp::MasterPointer<dp::TextureManager> m_textureManager;
+  drape_ptr<FrontendRenderer> m_frontend;
+  drape_ptr<BackendRenderer> m_backend;
+  drape_ptr<ThreadsCommutator> m_threadCommutator;
+  drape_ptr<dp::TextureManager> m_textureManager;
 
   Viewport m_viewport;
 };

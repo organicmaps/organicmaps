@@ -25,7 +25,7 @@ public:
 
   void InitStream(uint8_t streamIndex,
                   BindingInfo const & bindingInfo,
-                  RefPointer<void> data);
+                  ref_ptr<void> data);
 
 private:
   int32_t m_vertexCount;
@@ -33,7 +33,7 @@ private:
   struct AttributeStream
   {
     BindingInfo m_binding;
-    RefPointer<void> m_data;
+    ref_ptr<void> m_data;
   };
   vector<AttributeStream> m_streams;
 #ifdef DEBUG

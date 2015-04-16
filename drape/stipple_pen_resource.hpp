@@ -98,8 +98,8 @@ class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
-  RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
-  void UploadResources(RefPointer<Texture> texture);
+  ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
+  void UploadResources(ref_ptr<Texture> texture);
   glConst GetMinFilter() const;
   glConst GetMagFilter() const;
 
@@ -125,7 +125,7 @@ public:
     : m_index(size)
   {
     TBase::TextureParams params{ size, TextureFormat::ALPHA, gl_const::GLNearest, gl_const::GLNearest };
-    TBase::Init(MakeStackRefPointer(&m_index), params);
+    TBase::Init(make_ref(&m_index), params);
   }
 
   ~StipplePenTexture() { TBase::Reset(); }

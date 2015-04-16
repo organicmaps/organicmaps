@@ -5,38 +5,44 @@ namespace dp
 {
 
 DataBuffer::DataBuffer(uint8_t elementSize, uint16_t capacity)
+  : m_impl(make_unique_dp<CpuBufferImpl>(elementSize, capacity))
 {
-  m_impl.Reset(new CpuBufferImpl(elementSize, capacity));
 }
 
 DataBuffer::~DataBuffer()
 {
-  m_impl.Destroy();
 }
 
-dp::RefPointer<DataBufferBase> DataBuffer::GetBuffer() const
+ref_ptr<DataBufferBase> DataBuffer::GetBuffer() const
 {
-  ASSERT(!m_impl.IsNull(), ());
-  return m_impl.GetRefPointer();
+  ASSERT(m_impl != nullptr, ());
+  return make_ref<DataBufferBase>(m_impl);
 }
 
 void DataBuffer::MoveToGPU(GPUBuffer::Target target)
 {
-  dp::MasterPointer<DataBufferBase> newImpl;
-
   // if currentSize is 0 buffer hasn't been filled on preparation stage, let it be filled further
   uint16_t const currentSize = m_impl->GetCurrentSize();
   if (currentSize != 0)
-    newImpl.Reset(new GpuBufferImpl(target, m_impl->Data(), m_impl->GetElementSize(), currentSize));
+  {
+    drape_ptr<DataBufferBase> newImpl = make_unique_dp<GpuBufferImpl>(target, m_impl->Data(),
+                                                                      m_impl->GetElementSize(),
+                                                                      currentSize);
+    m_impl.reset();
+    m_impl = move(newImpl);
+  }
   else
-    newImpl.Reset(new GpuBufferImpl(target, nullptr, m_impl->GetElementSize(), m_impl->GetAvailableSize()));
-
-  m_impl.Destroy();
-  m_impl = newImpl;
+  {
+    drape_ptr<DataBufferBase> newImpl = make_unique_dp<GpuBufferImpl>(target, nullptr,
+                                                                      m_impl->GetElementSize(),
+                                                                      m_impl->GetAvailableSize());
+    m_impl.reset();
+    m_impl = move(newImpl);
+  }
 }
 
 
-DataBufferMapper::DataBufferMapper(RefPointer<DataBuffer> buffer)
+DataBufferMapper::DataBufferMapper(ref_ptr<DataBuffer> buffer)
   : m_buffer(buffer)
 {
   m_buffer->GetBuffer()->Bind();

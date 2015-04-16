@@ -9,7 +9,7 @@ class Compass : public Shape
 {
 public:
   Compass(gui::Position const & position) : Shape(position) {}
-  dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const override;
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const override;
 };
 
 }

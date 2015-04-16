@@ -137,8 +137,8 @@ UserMarksController & UserMarkContainer::RequestController()
 void UserMarkContainer::ReleaseController()
 {
   MY_SCOPE_GUARD(endWriteGuard, [this]{ EndWrite(); });
-  dp::RefPointer<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
-  if (engine.IsNull())
+  ref_ptr<df::DrapeEngine> engine = m_framework.GetDrapeEngine();
+  if (engine == nullptr)
     return;
 
   df::TileKey key = CreateTileKey(this);

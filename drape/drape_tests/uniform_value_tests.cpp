@@ -162,8 +162,8 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDeleteShader(AnyOf(VertexShaderID, FragmentShaderID))).Times(2);
   }
 
-  GpuProgramManager * manager = new GpuProgramManager();
-  RefPointer<GpuProgram> program = manager->GetProgram(gpu::TEXTURING_PROGRAM);
+  drape_ptr<GpuProgramManager> manager = make_unique_dp<GpuProgramManager>();
+  ref_ptr<GpuProgram> program = manager->GetProgram(gpu::TEXTURING_PROGRAM);
 
   program->Bind();
 
@@ -211,7 +211,4 @@ UNIT_TEST(UniformValueTest)
     UniformValue v("viewModel", matrix);
     v.Apply(program);
   }
-
-  program = RefPointer<GpuProgram>();
-  delete manager;
 }

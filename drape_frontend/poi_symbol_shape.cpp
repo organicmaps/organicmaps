@@ -17,7 +17,7 @@ PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParam
 {
 }
 
-void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
@@ -48,15 +48,15 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(vertexes));
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes));
 
-  dp::OverlayHandle * handle = new dp::SquareHandle(m_params.m_id,
-                                                    dp::Center,
-                                                    m_pt,
-                                                    pixelSize,
-                                                    m_params.m_depth);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
+                                                                         dp::Center,
+                                                                         m_pt,
+                                                                         pixelSize,
+                                                                         m_params.m_depth);
 
-  batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
+  batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
 }
 
 } // namespace df

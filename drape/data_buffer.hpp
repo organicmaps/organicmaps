@@ -33,24 +33,24 @@ public:
   DataBuffer(uint8_t elementSize, uint16_t capacity);
   virtual ~DataBuffer();
 
-  dp::RefPointer<DataBufferBase> GetBuffer() const;
+  ref_ptr<DataBufferBase> GetBuffer() const;
   void MoveToGPU(GPUBuffer::Target target);
 
 private:
-  dp::MasterPointer<DataBufferBase> m_impl;
+  drape_ptr<DataBufferBase> m_impl;
 };
 
 
 class DataBufferMapper
 {
 public:
-  DataBufferMapper(RefPointer<DataBuffer> buffer);
+  DataBufferMapper(ref_ptr<DataBuffer> buffer);
   ~DataBufferMapper();
 
   void UpdateData(void const * data, uint16_t elementOffset, uint16_t elementCount);
 
 private:
-  RefPointer<DataBuffer> m_buffer;
+  ref_ptr<DataBuffer> m_buffer;
   void * m_ptr;
 };
 

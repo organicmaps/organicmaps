@@ -16,28 +16,26 @@ RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
 
 RenderGroup::~RenderGroup()
 {
-  DeleteRange(m_renderBuckets, dp::MasterPointerDeleter());
+  m_renderBuckets.clear();
 }
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Update,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1),
-                                                                modelView));
+  for(drape_ptr<dp::RenderBucket> const & renderBucket : m_renderBuckets)
+    renderBucket->Update(modelView);
 }
 
-void RenderGroup::CollectOverlay(dp::RefPointer<dp::OverlayTree> tree)
+void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::CollectOverlayHandles,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1),
-                                                                tree));
+  for(drape_ptr<dp::RenderBucket> const & renderBucket : m_renderBuckets)
+    renderBucket->CollectOverlayHandles(tree);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
 {
   ASSERT(m_pendingOnDelete == false, ());
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Render,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1), screen));
+  for(drape_ptr<dp::RenderBucket> const & renderBucket : m_renderBuckets)
+    renderBucket->Render(screen);
 }
 
 void RenderGroup::PrepareForAdd(size_t countForAdd)
@@ -45,9 +43,9 @@ void RenderGroup::PrepareForAdd(size_t countForAdd)
   m_renderBuckets.reserve(m_renderBuckets.size() + countForAdd);
 }
 
-void RenderGroup::AddBucket(dp::TransferPointer<dp::RenderBucket> bucket)
+void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 {
-  m_renderBuckets.push_back(dp::MasterPointer<dp::RenderBucket>(bucket));
+  m_renderBuckets.push_back(move(bucket));
 }
 
 bool RenderGroup::IsLess(RenderGroup const & other) const
@@ -98,20 +96,19 @@ bool RenderGroupComparator::operator()(unique_ptr<RenderGroup> const & l, unique
 
 UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state,
                                          TileKey const & tileKey,
-                                         dp::TransferPointer<dp::RenderBucket> bucket)
+                                         drape_ptr<dp::RenderBucket> && bucket)
   : TBase(state, tileKey)
-  , m_renderBucket(bucket)
+  , m_renderBucket(move(bucket))
 {
 }
 
 UserMarkRenderGroup::~UserMarkRenderGroup()
 {
-  m_renderBucket.Destroy();
 }
 
 void UserMarkRenderGroup::Render(ScreenBase const & screen)
 {
-  if (!m_renderBucket.IsNull())
+  if (m_renderBucket != nullptr)
     m_renderBucket->Render(screen);
 }
 

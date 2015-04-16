@@ -32,13 +32,13 @@ class TriangleBatch
 public:
   TriangleBatch(BatchCallbacks const & callbacks);
 
-  virtual void BatchData(RefPointer<AttributeProvider> streams) = 0;
+  virtual void BatchData(ref_ptr<AttributeProvider> streams) = 0;
   void SetIsCanDevideStreams(bool canDevide);
   bool IsCanDevideStreams() const;
   void SetVertexStride(uint8_t vertexStride);
 
 protected:
-  void FlushData(RefPointer<AttributeProvider> streams, uint16_t vertexVount) const;
+  void FlushData(ref_ptr<AttributeProvider> streams, uint16_t vertexVount) const;
   void FlushData(BindingInfo const & info, void const * data, uint16_t elementCount) const;
   uint16_t * GetIndexStorage(uint16_t indexCount, uint16_t & startIndex);
   void SubmitIndex();
@@ -61,7 +61,7 @@ class TriangleListBatch : public TriangleBatch
 public:
   TriangleListBatch(BatchCallbacks const & callbacks);
 
-  virtual void BatchData(RefPointer<AttributeProvider> streams);
+  virtual void BatchData(ref_ptr<AttributeProvider> streams);
 };
 
 class FanStripHelper : public TriangleBatch
@@ -94,7 +94,7 @@ class TriangleStripBatch : public FanStripHelper
 public:
   TriangleStripBatch(BatchCallbacks const & callbacks);
 
-  virtual void BatchData(RefPointer<AttributeProvider> streams);
+  virtual void BatchData(ref_ptr<AttributeProvider> streams);
 protected:
   virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 };
@@ -106,7 +106,7 @@ class TriangleFanBatch : public FanStripHelper
 public:
   TriangleFanBatch(BatchCallbacks const & callbacks);
 
-  virtual void BatchData(RefPointer<AttributeProvider> streams);
+  virtual void BatchData(ref_ptr<AttributeProvider> streams);
 protected:
   virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 };
@@ -118,7 +118,7 @@ class TriangleListOfStripBatch : public FanStripHelper
 public:
   TriangleListOfStripBatch(BatchCallbacks const & callbacks);
 
-  virtual void BatchData(RefPointer<AttributeProvider> streams);
+  virtual void BatchData(ref_ptr<AttributeProvider> streams);
 
 protected:
   virtual uint16_t VtoICount(uint16_t vCount) const;

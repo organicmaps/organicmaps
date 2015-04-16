@@ -63,14 +63,12 @@ void TileTree::ClipByRect(m2::RectD const & rect)
   SimplifyTree();
 }
 
-bool TileTree::ProcessTile(TileKey const & tileKey, int const zoomLevel,
-                           dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket)
+void TileTree::ProcessTile(TileKey const & tileKey, int const zoomLevel,
+                           dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
 {
-  bool const result = ProcessNode(m_root, tileKey, zoomLevel, state, bucket);
+  bool const result = ProcessNode(m_root, tileKey, zoomLevel, state, move(bucket));
   if (result)
     SimplifyTree();
-
-  return result;
 }
 
 void TileTree::FinishTiles(TTilesCollection const & tiles, int const zoomLevel)
@@ -244,7 +242,7 @@ void TileTree::RemoveTile(TNodePtr const & node)
 }
 
 bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int const zoomLevel,
-                           dp::GLState const & state, dp::MasterPointer<dp::RenderBucket> & bucket)
+                           dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
 {
   for (TNodePtr const & childNode : node->m_children)
   {
@@ -264,14 +262,14 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int c
       {
         childNode->m_tileStatus = TileStatus::Deferred;
         if (m_deferRenderGroupHandler != nullptr)
-          m_deferRenderGroupHandler(childNode->m_tileKey, state, bucket);
+          m_deferRenderGroupHandler(childNode->m_tileKey, state, move(bucket));
         childNode->m_isRemoved = false;
       }
       else
       {
         childNode->m_tileStatus = TileStatus::Rendered;
         if (m_addRenderGroupHandler != nullptr)
-          m_addRenderGroupHandler(childNode->m_tileKey, state, bucket);
+          m_addRenderGroupHandler(childNode->m_tileKey, state, move(bucket));
         childNode->m_isRemoved = false;
       }
 
@@ -281,7 +279,7 @@ bool TileTree::ProcessNode(TNodePtr const & node, TileKey const & tileKey, int c
       return true;
     }
     else if (IsTileBelow(childNode->m_tileKey, tileKey))
-      return ProcessNode(childNode, tileKey, zoomLevel, state, bucket);
+      return ProcessNode(childNode, tileKey, zoomLevel, state, move(bucket));
   }
   return false;
 }

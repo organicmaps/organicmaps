@@ -92,7 +92,7 @@ LineShape::LineShape(m2::SharedSpline const & spline,
   ASSERT_GREATER(m_spline->GetPath().size(), 1, ());
 }
 
-void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const
+void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
   typedef gpu::LineVertex LV;
   buffer_vector<gpu::LineVertex, 128> geometry;
@@ -295,9 +295,9 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   state.SetMaskTexture(maskRegion.GetTexture());
 
   dp::AttributeProvider provider(1, geometry.size());
-  provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), dp::MakeStackRefPointer<void>(geometry.data()));
+  provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), make_ref<void>(geometry.data()));
 
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
+  batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 }
 
 } // namespace df

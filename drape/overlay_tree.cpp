@@ -12,7 +12,7 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, bool canOverlap
   ASSERT(IsEmpty(), ());
 }
 
-void OverlayTree::Add(RefPointer<OverlayHandle> handle)
+void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 {
   ScreenBase const & modelView = GetModelView();
 
@@ -29,15 +29,15 @@ void OverlayTree::Add(RefPointer<OverlayHandle> handle)
     return;
   }
 
-  typedef buffer_vector<RefPointer<OverlayHandle>, 8> OverlayContainerT;
+  typedef buffer_vector<ref_ptr<OverlayHandle>, 8> OverlayContainerT;
   OverlayContainerT elements;
   /*
    * Find elements that already on OverlayTree and it's pixel rect
    * intersect with handle pixel rect ("Intersected elements")
    */
-  ForEachInRect(pixelRect, [&] (RefPointer<OverlayHandle> r)
+  ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> r)
   {
-    if (handle->IsIntersect(modelView, *r.GetRaw()))
+    if (handle->IsIntersect(modelView, r))
       elements.push_back(r);
   });
 
@@ -60,7 +60,7 @@ void OverlayTree::Add(RefPointer<OverlayHandle> handle)
 
 void OverlayTree::EndOverlayPlacing()
 {
-  ForEach([] (RefPointer<OverlayHandle> handle)
+  ForEach([] (ref_ptr<OverlayHandle> handle)
   {
     handle->SetIsVisible(true);
   });

@@ -50,7 +50,7 @@ public:
 
   CountryStatusHelper();
 
-  void SetStorageAccessor(dp::RefPointer<StorageAccessor> accessor);
+  void SetStorageAccessor(ref_ptr<StorageAccessor> accessor);
   void SetCountryIndex(storage::TIndex const & index);
 
   void SetState(ECountryState state);
@@ -84,7 +84,7 @@ private:
 private:
   atomic<ECountryState> m_state;
   buffer_vector<Control, 4> m_controls;
-  dp::RefPointer<StorageAccessor> m_accessor;
+  ref_ptr<StorageAccessor> m_accessor;
 };
 
 }  // namespace gui

@@ -45,7 +45,7 @@ namespace
     {
     }
 
-    RefPointer<Texture::ResourceInfo> MapResource(StipplePenKey const & key)
+    ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key)
     {
       bool dummy = false;
       return TBase::MapResource(key, dummy);
@@ -420,11 +420,11 @@ UNIT_TEST(StippleMappingTest)
   info.m_pattern.push_back(10);
   info.m_pattern.push_back(10);
 
-  RefPointer<Texture::ResourceInfo> r1 = index.MapResource(info);
+  ref_ptr<Texture::ResourceInfo> r1 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.0f   / width, 1.0f / height,
                                                 241.0f / width, 1.0f / height)), ());
 
-  RefPointer<Texture::ResourceInfo> r2 = index.MapResource(info);
+  ref_ptr<Texture::ResourceInfo> r2 = index.MapResource(info);
   TEST(IsRectsEqual(r1->GetTexRect(), r2->GetTexRect()), ());
 
   info.m_pattern.clear();
@@ -456,12 +456,12 @@ UNIT_TEST(StippleMappingTest)
 
   DummyTexture texture;
   texture.Create(width, height, dp::ALPHA);
-  index.UploadResources(MakeStackRefPointer<Texture>(&texture));
+  index.UploadResources(make_ref<Texture>(&texture));
 
   StipplePenKey secInfo;
   secInfo.m_pattern.push_back(20);
   secInfo.m_pattern.push_back(20);
-  RefPointer<Texture::ResourceInfo> r12 = index.MapResource(secInfo);
+  ref_ptr<Texture::ResourceInfo> r12 = index.MapResource(secInfo);
   TEST(IsRectsEqual(r12->GetTexRect(), m2::RectF(1.0f   / width, 7.0f / height,
                                                  241.0f / width, 7.0f / height)), ());
 
@@ -478,6 +478,6 @@ UNIT_TEST(StippleMappingTest)
   MemoryComparer cmp22(secondUploadSecondPartEtalon, ARRAY_SIZE(secondUploadSecondPartEtalon));
   EXPECTGL(glTexSubImage2D(256, 0, 256, 2, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp22, &MemoryComparer::cmpSubImage));
-  index.UploadResources(MakeStackRefPointer<Texture>(&texture));
+  index.UploadResources(make_ref<Texture>(&texture));
   EXPECTGL(glDeleteTexture(1));
 }

@@ -22,14 +22,14 @@ public:
   using TCompletionHandler = function<void()>;
 
   BaseRenderer(ThreadsCommutator::ThreadName name,
-               dp::RefPointer<ThreadsCommutator> commutator,
-               dp::RefPointer<dp::OGLContextFactory> oglcontextfactory);
+               ref_ptr<ThreadsCommutator> commutator,
+               ref_ptr<dp::OGLContextFactory> oglcontextfactory);
 
   void SetRenderingEnabled(bool const isEnabled);
 
 protected:
-  dp::RefPointer<ThreadsCommutator> m_commutator;
-  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
+  ref_ptr<ThreadsCommutator> m_commutator;
+  ref_ptr<dp::OGLContextFactory> m_contextFactory;
 
   void StartThread();
   void StopThread();

@@ -20,9 +20,10 @@ public:
   class BaseRegion
   {
   public:
-    void SetResourceInfo(RefPointer<Texture::ResourceInfo> info);
-    void SetTexture(RefPointer<Texture> texture);
-    RefPointer<Texture> GetTexture() const { return m_texture; }
+    BaseRegion();
+    void SetResourceInfo(ref_ptr<Texture::ResourceInfo> info);
+    void SetTexture(ref_ptr<Texture> texture);
+    ref_ptr<Texture> GetTexture() const { return m_texture; }
     bool IsValid() const;
 
     m2::PointU GetPixelSize() const;
@@ -30,8 +31,8 @@ public:
     m2::RectF const & GetTexRect() const;
 
   protected:
-    RefPointer<Texture::ResourceInfo> m_info;
-    RefPointer<Texture> m_texture;
+    ref_ptr<Texture::ResourceInfo> m_info;
+    ref_ptr<Texture> m_texture;
   };
 
   class SymbolRegion : public BaseRegion {};
@@ -69,9 +70,9 @@ public:
   };
 
   TextureManager();
+  void Release();
 
   void Init(Params const & params);
-  void Release();
   void GetSymbolRegion(string const & symbolName, SymbolRegion & region);
 
   typedef buffer_vector<uint8_t, 8> TStipplePattern;
@@ -93,27 +94,34 @@ public:
 private:
   struct GlyphGroup
   {
-    GlyphGroup() = default;
+    GlyphGroup()
+      : m_startChar(0), m_endChar(0), m_texture(make_ref<Texture>(nullptr))
+    {}
+
     GlyphGroup(strings::UniChar const & start, strings::UniChar const & end)
-      : m_startChar(start), m_endChar(end) {}
+      : m_startChar(start), m_endChar(end), m_texture(make_ref<Texture>(nullptr))
+    {}
 
-    strings::UniChar m_startChar = 0;
-    strings::UniChar m_endChar = 0;
-
-    MasterPointer<Texture> m_texture;
+    strings::UniChar m_startChar;
+    strings::UniChar m_endChar;
+    ref_ptr<Texture> m_texture;
   };
 
   struct HybridGlyphGroup
   {
+    HybridGlyphGroup()
+      : m_texture(make_ref<Texture>(nullptr))
+    {}
+
     unordered_set<strings::UniChar> m_glyphs;
-    MasterPointer<Texture> m_texture;
+    ref_ptr<Texture> m_texture;
   };
 
   uint32_t m_maxTextureSize;
   uint32_t m_maxGlypsCount;
 
-  MasterPointer<Texture> AllocateGlyphTexture() const;
-  void GetRegionBase(RefPointer<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
+  ref_ptr<Texture> AllocateGlyphTexture();
+  void GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key);
 
   size_t FindGlyphsGroup(strings::UniChar const & c) const;
   size_t FindGlyphsGroup(strings::UniString const & text) const;
@@ -131,15 +139,14 @@ private:
   template<typename TGlyphGroup>
   void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
   {
-    if (group.m_texture.IsNull())
+    if (group.m_texture == nullptr)
       group.m_texture = AllocateGlyphTexture();
 
-    dp::RefPointer<dp::Texture> texture = group.m_texture.GetRefPointer();
     regions.reserve(text.size());
     for (strings::UniChar const & c : text)
     {
       GlyphRegion reg;
-      GetRegionBase(texture, reg, GlyphKey(c));
+      GetRegionBase(group.m_texture, reg, GlyphKey(c));
       regions.push_back(reg);
     }
   }
@@ -185,18 +192,19 @@ private:
   void UpdateGlyphTextures(TGlyphGroups & groups)
   {
     for (auto & g : groups)
-      if (!g.m_texture.IsNull())
+      if (g.m_texture != nullptr)
         g.m_texture->UpdateState();
   }
 
   static constexpr size_t GetInvalidGlyphGroup();
 
 private:
-  MasterPointer<Texture> m_symbolTexture;
-  MasterPointer<Texture> m_stipplePenTexture;
-  MasterPointer<Texture> m_colorTexture;
+  drape_ptr<Texture> m_symbolTexture;
+  drape_ptr<Texture> m_stipplePenTexture;
+  drape_ptr<Texture> m_colorTexture;
+  list<drape_ptr<Texture>> m_glyphTextures;
 
-  MasterPointer<GlyphManager> m_glyphManager;
+  drape_ptr<GlyphManager> m_glyphManager;
 
   buffer_vector<GlyphGroup, 64> m_glyphGroups;
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;

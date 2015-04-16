@@ -12,7 +12,7 @@ MessageQueue::~MessageQueue()
   ClearQuery();
 }
 
-dp::TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
+drape_ptr<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
 {
   threads::ConditionGuard guard(m_condition);
 
@@ -21,14 +21,14 @@ dp::TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
   /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
   /// if application preparing to close and CancelWait been called
   if (m_messages.empty())
-    return dp::MovePointer<Message>(NULL);
+    return drape_ptr<Message>();
 
-  dp::MasterPointer<Message> msg = m_messages.front();
+  drape_ptr<Message> msg = move(m_messages.front());
   m_messages.pop_front();
-  return msg.Move();
+  return msg;
 }
 
-void MessageQueue::PushMessage(dp::TransferPointer<Message> message, MessagePriority priority)
+void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
   threads::ConditionGuard guard(m_condition);
 
@@ -37,12 +37,12 @@ void MessageQueue::PushMessage(dp::TransferPointer<Message> message, MessagePrio
   {
   case MessagePriority::Normal:
     {
-      m_messages.emplace_back(message);
+      m_messages.emplace_back(move(message));
       break;
     }
   case MessagePriority::High:
     {
-      m_messages.emplace_front(message);
+      m_messages.emplace_front(move(message));
       break;
     }
   default:
@@ -66,7 +66,7 @@ void MessageQueue::CancelWait()
 
 void MessageQueue::ClearQuery()
 {
-  DeleteRange(m_messages, dp::MasterPointerDeleter());
+  m_messages.clear();
 }
 
 } // namespace df

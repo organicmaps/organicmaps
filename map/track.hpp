@@ -36,7 +36,7 @@ public:
 
   string const & GetName() const;
   PolylineD const & GetPolyline() const { return m_polyline; }
-  m2::RectD const & GetLimitRect() const;
+  m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
 
   size_t GetLayerCount() const override;

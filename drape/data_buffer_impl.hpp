@@ -3,7 +3,6 @@
 #include "data_buffer.hpp"
 #include "cpu_buffer.hpp"
 #include "gpu_buffer.hpp"
-
 #include "std/utility.hpp"
 
 namespace dp
@@ -15,13 +14,8 @@ class DataBufferImpl : public DataBufferBase
 {
 public:
   template<typename... Args> DataBufferImpl(Args&&... params)
+    : m_buffer(make_unique_dp<TBuffer>(forward<Args>(params)...))
   {
-    m_buffer.Reset(new TBuffer(forward<Args>(params)...));
-  }
-
-  ~DataBufferImpl() override
-  {
-    m_buffer.Destroy();
   }
 
   uint16_t GetCapacity() const override
@@ -50,7 +44,7 @@ public:
   }
 
 protected:
-  dp::MasterPointer<TBuffer> m_buffer;
+  drape_ptr<TBuffer> m_buffer;
 };
 
 /// CPU implementation of data buffer

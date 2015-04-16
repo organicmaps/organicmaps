@@ -76,7 +76,7 @@ m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
 
 bool GlyphPacker::IsFull() const { return m_isFull; }
 
-GlyphIndex::GlyphIndex(m2::PointU size, RefPointer<GlyphManager> mng)
+GlyphIndex::GlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
   : m_packer(size)
   , m_mng(mng)
 {
@@ -94,13 +94,13 @@ GlyphIndex::~GlyphIndex()
   }
 }
 
-RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, bool & newResource)
+ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, bool & newResource)
 {
   newResource = false;
   strings::UniChar uniChar = key.GetUnicodePoint();
   auto it = m_index.find(uniChar);
   if (it != m_index.end())
-    return MakeStackRefPointer<Texture::ResourceInfo>(&it->second);
+    return make_ref<Texture::ResourceInfo>(&it->second);
 
   newResource = true;
 
@@ -109,7 +109,7 @@ RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, 
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
-    return RefPointer<GlyphInfo>();
+    return make_ref<GlyphInfo>(nullptr);
   }
 
   {
@@ -119,10 +119,10 @@ RefPointer<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, 
 
   auto res = m_index.emplace(uniChar, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
   ASSERT(res.second, ());
-  return MakeStackRefPointer<GlyphInfo>(&res.first->second);
+  return make_ref<GlyphInfo>(&res.first->second);
 }
 
-void GlyphIndex::UploadResources(RefPointer<Texture> texture)
+void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
 {
   if (m_pendingNodes.empty())
     return;
@@ -196,7 +196,7 @@ void GlyphIndex::UploadResources(RefPointer<Texture> texture)
       glyph.m_image.Destroy();
     }
 
-    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, dp::ALPHA, MakeStackRefPointer<void>(dstMemory));
+    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, dp::ALPHA, make_ref<void>(dstMemory));
     SharedBufferManager::instance().freeSharedBuffer(byteCount, buffer);
   }
 }

@@ -113,7 +113,7 @@ char const * StaticLabel::DefaultDelim = "\n";
 
 void StaticLabel::CacheStaticText(string const & text, char const * delim,
                              dp::Anchor anchor, dp::FontDecl const & font,
-                             dp::RefPointer<dp::TextureManager> mng, LabelResult & result)
+                             ref_ptr<dp::TextureManager> mng, LabelResult & result)
 {
   ASSERT(!text.empty(), ());
 
@@ -136,11 +136,11 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
     ASSERT_EQUAL(textParts[i].size(), buffers[i].size(), ());
   }
 
-  dp::RefPointer<dp::Texture> texture = buffers[0][0].GetTexture();
+  ref_ptr<dp::Texture> texture = buffers[0][0].GetTexture();
   for (dp::TextureManager::TGlyphsBuffer const & b : buffers)
   {
     for (dp::TextureManager::GlyphRegion const & reg : b)
-      ASSERT(texture.GetRaw() == reg.GetTexture().GetRaw(), ());
+      ASSERT(texture == reg.GetTexture(), ());
   }
 #endif
 
@@ -148,7 +148,7 @@ void StaticLabel::CacheStaticText(string const & text, char const * delim,
   dp::TextureManager::ColorRegion outline;
   mng->GetColorRegion(font.m_color, color);
   mng->GetColorRegion(font.m_outlineColor, outline);
-  ASSERT(color.GetTexture().GetRaw() == outline.GetTexture().GetRaw(), ());
+  ASSERT(color.GetTexture() == outline.GetTexture(), ());
 
   glsl::vec2 colorTex = glsl::ToVec2(color.GetTexRect().Center());
   glsl::vec2 outlineTex = glsl::ToVec2(outline.GetTexRect().Center());
@@ -289,7 +289,7 @@ void MutableLabel::SetMaxLength(uint16_t maxLength)
   m_maxLength = maxLength;
 }
 
-dp::RefPointer<dp::Texture> MutableLabel::SetAlphabet(string const & alphabet, dp::RefPointer<dp::TextureManager> mng)
+ref_ptr<dp::Texture> MutableLabel::SetAlphabet(string const & alphabet, ref_ptr<dp::TextureManager> mng)
 {
   strings::UniString str = strings::MakeUniString(alphabet + ".");
   strings::UniString::iterator it = unique(str.begin(), str.end());
@@ -316,7 +316,7 @@ dp::RefPointer<dp::Texture> MutableLabel::SetAlphabet(string const & alphabet, d
 }
 
 void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & result,
-                            dp::RefPointer<dp::TextureManager> mng)
+                            ref_ptr<dp::TextureManager> mng)
 {
   SetMaxLength(params.m_maxLength);
   result.m_state.SetMaskTexture(SetAlphabet(params.m_alphabet, mng));
@@ -424,13 +424,15 @@ m2::PointF MutableLabel::GetAvarageSize() const
 
 MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, const m2::PointF & pivot)
     : TBase(anchor, pivot, m2::PointF::Zero())
+    , m_textView(make_unique_dp<MutableLabel>(anchor))
 {
-  m_textView.Reset(new MutableLabel(anchor));
 }
 
-MutableLabelHandle::~MutableLabelHandle() { m_textView.Destroy(); }
+MutableLabelHandle::~MutableLabelHandle()
+{
+}
 
-void MutableLabelHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator,
+void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                                               ScreenBase const & screen) const
 {
   UNUSED_VALUE(screen);
@@ -453,14 +455,14 @@ void MutableLabelHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBuffer
   dp::OverlayHandle::TOffsetNode offsetNode = GetOffsetNode(binding.GetID());
 
   dp::MutateNode mutateNode;
-  mutateNode.m_data = dp::MakeStackRefPointer(dataPointer);
+  mutateNode.m_data = make_ref(dataPointer);
   mutateNode.m_region = offsetNode.second;
   mutator->AddMutation(offsetNode.first, mutateNode);
 }
 
-dp::RefPointer<MutableLabel> MutableLabelHandle::GetTextView()
+ref_ptr<MutableLabel> MutableLabelHandle::GetTextView()
 {
-  return m_textView.GetRefPointer();
+  return make_ref<MutableLabel>(m_textView);
 }
 
 void MutableLabelHandle::UpdateSize(m2::PointF const & size) { m_size = size; }
@@ -483,15 +485,14 @@ void MutableLabelHandle::SetContent(string const & content)
   }
 }
 
-void MutableLabelDrawer::Draw(Params const & params, dp::RefPointer<dp::TextureManager> mng,
+void MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
                               dp::Batcher::TFlushFn const & flushFn)
 {
   uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
   uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
 
   ASSERT(params.m_handleCreator != nullptr, ());
-  dp::MasterPointer<MutableLabelHandle> handle(
-      params.m_handleCreator(params.m_anchor, params.m_pivot));
+  drape_ptr<MutableLabelHandle> handle = move(params.m_handleCreator(params.m_anchor, params.m_pivot));
 
   MutableLabel::PrecacheParams preCacheP;
   preCacheP.m_alphabet = params.m_alphabet;
@@ -511,15 +512,14 @@ void MutableLabelDrawer::Draw(Params const & params, dp::RefPointer<dp::TextureM
   dp::BindingInfo const & dBinding = MutableLabel::DynamicVertex::GetBindingInfo();
   dp::AttributeProvider provider(2 /*stream count*/, staticData.m_buffer.size());
   provider.InitStream(0 /*stream index*/, sBinding,
-                      dp::MakeStackRefPointer<void>(staticData.m_buffer.data()));
-  provider.InitStream(1 /*stream index*/, dBinding, dp::MakeStackRefPointer<void>(dynData.data()));
+                      make_ref<void>(staticData.m_buffer.data()));
+  provider.InitStream(1 /*stream index*/, dBinding, make_ref<void>(dynData.data()));
 
   {
     dp::Batcher batcher(indexCount, vertexCount);
     dp::SessionGuard guard(batcher, flushFn);
-    batcher.InsertListOfStrip(staticData.m_state, dp::MakeStackRefPointer(&provider),
-                              dp::MovePointer<dp::OverlayHandle>(handle.Release()),
-                              dp::Batcher::VertexPerQuad);
+    batcher.InsertListOfStrip(staticData.m_state, make_ref(&provider),
+                              move(handle), dp::Batcher::VertexPerQuad);
   }
 }
 

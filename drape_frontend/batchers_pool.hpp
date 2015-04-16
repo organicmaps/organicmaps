@@ -18,13 +18,13 @@ class Message;
 class BatchersPool
 {
 public:
-  typedef function<void (dp::TransferPointer<Message>)> TSendMessageFn;
+  typedef function<void (drape_ptr<Message> &&)> TSendMessageFn;
 
   BatchersPool(int initBatcherCount, TSendMessageFn const & sendMessageFn);
   ~BatchersPool();
 
   void ReserveBatcher(TileKey const & key);
-  dp::RefPointer<dp::Batcher> GetTileBatcher(TileKey const & key);
+  ref_ptr<dp::Batcher> GetTileBatcher(TileKey const & key);
   void ReleaseBatcher(TileKey const & key);
 
 private:

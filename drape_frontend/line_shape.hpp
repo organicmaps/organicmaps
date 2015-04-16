@@ -14,7 +14,7 @@ public:
   LineShape(m2::SharedSpline const & spline,
             LineViewParams const & params);
 
-  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
+  virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const;
 
 private:
   LineViewParams m_params;

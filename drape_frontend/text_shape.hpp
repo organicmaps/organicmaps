@@ -16,11 +16,11 @@ class TextShape : public MapShape
 public:
   TextShape(m2::PointF const & basePoint, TextViewParams const & params);
 
-  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureManager> textures) const;
+  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const;
 private:
   void DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
-                     glsl::vec2 const & baseOffset, dp::RefPointer<dp::Batcher> batcher,
-                     dp::RefPointer<dp::TextureManager> textures) const;
+                     glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                     ref_ptr<dp::TextureManager> textures) const;
 
 private:
   m2::PointF m_basePoint;

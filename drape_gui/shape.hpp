@@ -47,17 +47,17 @@ struct ShapeControl
   struct ShapeInfo
   {
     ShapeInfo() : m_state(0, dp::GLState::Gui) {}
-    ShapeInfo(dp::GLState const & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer,
-              dp::TransferPointer<Handle> handle);
+    ShapeInfo(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer,
+              drape_ptr<Handle> && handle);
 
     void Destroy();
 
     dp::GLState m_state;
-    dp::MasterPointer<dp::VertexArrayBuffer> m_buffer;
-    dp::MasterPointer<Handle> m_handle;
+    drape_ptr<dp::VertexArrayBuffer> m_buffer;
+    drape_ptr<Handle> m_handle;
   };
 
-  void AddShape(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket);
+  void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
 
   vector<ShapeInfo> m_shapesInfo;
 };
@@ -69,13 +69,13 @@ public:
 
   ~ShapeRenderer();
 
-  void Build(dp::RefPointer<dp::GpuProgramManager> mng);
-  void Render(ScreenBase const & screen, dp::RefPointer<dp::GpuProgramManager> mng);
-  void AddShape(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> bucket);
+  void Build(ref_ptr<dp::GpuProgramManager> mng);
+  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
+  void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
 
 private:
-  friend void ArrangeShapes(dp::RefPointer<ShapeRenderer>,
+  friend void ArrangeShapes(ref_ptr<ShapeRenderer>,
                             ShapeRenderer::TShapeControlEditFn const &);
   void ForEachShapeControl(TShapeControlEditFn const & fn);
 
@@ -86,7 +86,7 @@ private:
   vector<ShapeControl> m_shapes;
 };
 
-void ArrangeShapes(dp::RefPointer<ShapeRenderer> renderer,
+void ArrangeShapes(ref_ptr<ShapeRenderer> renderer,
                    ShapeRenderer::TShapeControlEditFn const & fn);
 
 class Shape
@@ -95,7 +95,7 @@ public:
   Shape(gui::Position const & position) : m_position(position) {}
   virtual ~Shape() {}
 
-  virtual dp::TransferPointer<ShapeRenderer> Draw(dp::RefPointer<dp::TextureManager> tex) const = 0;
+  virtual drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const = 0;
 
 protected:
   gui::Position m_position;

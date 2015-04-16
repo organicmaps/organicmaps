@@ -14,7 +14,7 @@ class MessageAcceptor
 protected:
   virtual ~MessageAcceptor(){}
 
-  virtual void AcceptMessage(dp::RefPointer<Message> message) = 0;
+  virtual void AcceptMessage(ref_ptr<Message> message) = 0;
   virtual bool CanReceiveMessage() = 0;
 
   /// Must be called by subclass on message target thread
@@ -27,7 +27,7 @@ protected:
 private:
   friend class ThreadsCommutator;
 
-  void PostMessage(dp::TransferPointer<Message> message, MessagePriority priority);
+  void PostMessage(drape_ptr<Message> && message, MessagePriority priority);
 
 private:
   MessageQueue m_messageQueue;

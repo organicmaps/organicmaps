@@ -14,7 +14,7 @@ namespace df
 class MyPosition
 {
 public:
-  MyPosition(dp::RefPointer<dp::TextureManager> mng);
+  MyPosition(ref_ptr<dp::TextureManager> mng);
 
   ///@param pt = mercator point
   void SetPosition(m2::PointF const & pt);
@@ -23,25 +23,25 @@ public:
   void SetIsVisible(bool isVisible);
 
   void Render(ScreenBase const & screen,
-              dp::RefPointer<dp::GpuProgramManager> mng,
+              ref_ptr<dp::GpuProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
 private:
-  void CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng);
-  void CachePointPosition(dp::RefPointer<dp::TextureManager> mng);
+  void CacheAccuracySector(ref_ptr<dp::TextureManager> mng);
+  void CachePointPosition(ref_ptr<dp::TextureManager> mng);
 
 private:
   struct RenderNode
   {
-    RenderNode(dp::GLState const & state, dp::TransferPointer<dp::VertexArrayBuffer> buffer)
+    RenderNode(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer)
       : m_state(state)
-      , m_buffer(buffer)
+      , m_buffer(move(buffer))
       , m_isBuilded(false)
     {
     }
 
     dp::GLState m_state;
-    dp::MasterPointer<dp::VertexArrayBuffer> m_buffer;
+    drape_ptr<dp::VertexArrayBuffer> m_buffer;
     bool m_isBuilded;
   };
 
@@ -53,7 +53,7 @@ private:
     MY_POSITION_POINT = 2
   };
 
-  void RenderPart(dp::RefPointer<dp::GpuProgramManager> mng,
+  void RenderPart(ref_ptr<dp::GpuProgramManager> mng,
                   dp::UniformValuesStorage const & uniforms,
                   EMyPositionPart part);
 

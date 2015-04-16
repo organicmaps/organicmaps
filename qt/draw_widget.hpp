@@ -22,7 +22,7 @@ namespace qt
   {
     typedef QWindow TBase;
 
-    dp::MasterPointer<dp::OGLContextFactory> m_contextFactory;
+    drape_ptr<dp::OGLContextFactory> m_contextFactory;
     unique_ptr<Framework> m_framework;
 
     bool m_isDrag;
