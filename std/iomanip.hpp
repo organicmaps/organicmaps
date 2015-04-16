@@ -7,12 +7,12 @@
 #endif
 
 #include <iomanip>
-using std::setw;
-using std::setfill;
-using std::hex;
 using std::fixed;
+using std::hex;
+using std::put_time;
+using std::setfill;
 using std::setprecision;
-
+using std::setw;
 
 #ifndef OMIM_OS_LINUX
 using std::get_time;

@@ -1,28 +1,24 @@
-#include "generator/osm_source.hpp"
-
-#include "generator/osm_decl.hpp"
-#include "generator/data_cache_file.hpp"
-
 #include "generator/coastlines_generator.hpp"
-#include "generator/world_map_generator.hpp"
+#include "generator/data_cache_file.hpp"
 #include "generator/feature_generator.hpp"
-#include "generator/polygonizer.hpp"
-
+#include "generator/first_pass_parser.hpp"
+#include "generator/osm_decl.hpp"
+#include "generator/osm_element.hpp"
+#include "generator/osm_source.hpp"
 #include "generator/point_storage.hpp"
-
+#include "generator/polygonizer.hpp"
+#include "generator/source_reader.hpp"
+#include "generator/world_map_generator.hpp"
 #include "generator/xml_element.hpp"
 
-#include "generator/first_pass_parser.hpp"
-#include "generator/osm_element.hpp"
-
-#include "defines.hpp"
-#include "indexer/mercator.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/mercator.hpp"
 
 #include "coding/parse_xml.hpp"
 
 #include "3party/o5mreader/o5mreader.h"
-#include "generator/source_reader.hpp"
+
+#include "defines.hpp"
 
 
 #define DECODE_O5M_COORD(coord) (static_cast<double>(coord) / 1E+7)

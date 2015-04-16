@@ -1,42 +1,44 @@
 #pragma once
 
-#include "std/string.hpp"
 #include "std/cstdio.hpp"
+#include "std/string.hpp"
 
 namespace
 {
-  class SourceReader
+class SourceReader
+{
+  // TODO (@yershov): SourceReader ctor is quite bizarre since it reads data from stdin when
+  // filename is empty or opens file otherwise. There two behaviors are completely different and
+  // should be separated to different methods.
+  string const & m_filename;
+  FILE * m_file;
+
+public:
+  SourceReader(string const & filename) : m_filename(filename)
   {
-    string const &m_filename;
-    FILE * m_file;
-
-  public:
-    SourceReader(string const & filename) : m_filename(filename)
+    if (m_filename.empty())
     {
-      if (m_filename.empty())
-      {
-        LOG(LINFO, ("Read OSM data from stdin..."));
-        m_file = freopen(NULL, "rb", stdin);
-      }
-      else
-      {
-        LOG(LINFO, ("Read OSM data from", filename));
-        m_file = fopen(filename.c_str(), "rb");
-      }
+      LOG(LINFO, ("Reading OSM data from stdin"));
+      m_file = freopen(nullptr, "rb", stdin);
     }
-
-    ~SourceReader()
+    else
     {
-      if (!m_filename.empty())
-        fclose(m_file);
+      LOG(LINFO, ("Reading OSM data from", filename));
+      m_file = fopen(filename.c_str(), "rb");
     }
+  }
 
-    inline FILE * Handle() { return m_file; }
+  ~SourceReader()
+  {
+    if (!m_filename.empty())
+      fclose(m_file);
+  }
 
-    uint64_t Read(char * buffer, uint64_t bufferSize)
-    {
-      return fread(buffer, sizeof(char), bufferSize, m_file);
-    }
-  };
+  inline FILE * Handle() { return m_file; }
+
+  uint64_t Read(char * buffer, uint64_t bufferSize)
+  {
+    return fread(buffer, sizeof(char), bufferSize, m_file);
+  }
+};
 }
-
