@@ -14,10 +14,10 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
   m_algo.SetGraph(graph);
 
   // TODO (@gorshenin): switch to FindPathBidirectional.
-  Algo::Result result = m_algo.FindPath(startPos, finalPos, route);
+  TAlgorithm::Result result = m_algo.FindPath(startPos, finalPos, route);
   switch (result)
   {
-    case Algo::RESULT_OK:
+    case TAlgorithm::Result::OK:
       // Following hack is used because operator== checks for
       // equivalience, not identity, since it doesn't test
       // RoadPos::m_segEndpoint. Thus, start and final positions
@@ -34,9 +34,9 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
           route.back() = fp;
       }
       return IRouter::NoError;
-    case Algo::RESULT_NO_PATH:
+    case TAlgorithm::Result::NoPath:
       return IRouter::RouteNotFound;
-    case Algo::RESULT_CANCELLED:
+    case TAlgorithm::Result::Cancelled:
       return IRouter::Cancelled;
   }
 }

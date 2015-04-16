@@ -19,17 +19,17 @@ struct Edge
   double w;
 };
 
-class MemGraph : public Graph<unsigned, Edge, MemGraph>
+class UndirectedGraph : public Graph<unsigned, Edge, UndirectedGraph>
 {
 public:
-  void AddUndirectedEdge(unsigned u, unsigned v, unsigned w)
+  void AddEdge(unsigned u, unsigned v, unsigned w)
   {
     m_adjs[u].push_back(Edge(v, w));
     m_adjs[v].push_back(Edge(u, w));
   }
 
 private:
-  friend class Graph<unsigned, Edge, MemGraph>;
+  friend class Graph<unsigned, Edge, UndirectedGraph>;
 
   void GetAdjacencyListImpl(unsigned v, vector<Edge> & adj) const
   {
@@ -44,33 +44,33 @@ private:
   map<unsigned, vector<Edge>> m_adjs;
 };
 
-void TestAStar(MemGraph const & graph, vector<unsigned> const & expectedRoute)
+void TestAStar(UndirectedGraph const & graph, vector<unsigned> const & expectedRoute)
 {
-  using Algo = AStarAlgorithm<MemGraph>;
+  using TAlgorithm = AStarAlgorithm<UndirectedGraph>;
 
-  Algo algo;
+  TAlgorithm algo;
   algo.SetGraph(graph);
   vector<unsigned> actualRoute;
-  TEST_EQUAL(Algo::RESULT_OK, algo.FindPath(vector<unsigned>{0}, vector<unsigned>{4}, actualRoute),
-             ());
+  TEST_EQUAL(TAlgorithm::Result::OK,
+             algo.FindPath(vector<unsigned>{0}, vector<unsigned>{4}, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 
   actualRoute.clear();
-  TEST_EQUAL(Algo::RESULT_OK,
+  TEST_EQUAL(TAlgorithm::Result::OK,
              algo.FindPathBidirectional(vector<unsigned>{0}, vector<unsigned>{4}, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 }
 
 UNIT_TEST(AStarAlgorithm_Sample)
 {
-  MemGraph graph;
+  UndirectedGraph graph;
 
   // Inserts edges in a format: <source, target, weight>.
-  graph.AddUndirectedEdge(0, 1, 10);
-  graph.AddUndirectedEdge(1, 2, 5);
-  graph.AddUndirectedEdge(2, 3, 5);
-  graph.AddUndirectedEdge(2, 4, 10);
-  graph.AddUndirectedEdge(3, 4, 3);
+  graph.AddEdge(0, 1, 10);
+  graph.AddEdge(1, 2, 5);
+  graph.AddEdge(2, 3, 5);
+  graph.AddEdge(2, 4, 10);
+  graph.AddEdge(3, 4, 3);
 
   vector<unsigned> expectedRoute = {0, 1, 2, 3, 4};
 

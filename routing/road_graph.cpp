@@ -8,6 +8,15 @@
 
 namespace routing
 {
+namespace
+{
+double TimeBetweenSec(m2::PointD const & v, m2::PointD const & w)
+{
+  static double const kMaxSpeedMPS = 5000.0 / 3600;
+  return MercatorBounds::DistanceOnEarth(v, w) / kMaxSpeedMPS;
+}
+}  // namespace
+
 RoadPos::RoadPos(uint32_t featureId, bool forward, size_t segId, m2::PointD const & p)
     : m_featureId((featureId << 1) + (forward ? 1 : 0)), m_segId(segId), m_segEndpoint(p)
 {
@@ -34,16 +43,13 @@ void RoadGraph::GetAdjacencyListImpl(RoadPos const & v, vector<RoadEdge> & adj) 
   for (PossibleTurn const & turn : turns)
   {
     RoadPos const & w = turn.m_pos;
-    adj.push_back(RoadEdge(w, HeuristicCostEstimate(v, w)));
+    adj.emplace_back(w, TimeBetweenSec(v.GetSegEndpoint(), w.GetSegEndpoint()));
   }
 }
 
 double RoadGraph::HeuristicCostEstimateImpl(RoadPos const & v, RoadPos const & w) const
 {
-  static double const kMaxSpeedMPS = 5000.0 / 3600;
-  m2::PointD const & ve = v.GetSegEndpoint();
-  m2::PointD const & we = w.GetSegEndpoint();
-  return MercatorBounds::DistanceOnEarth(ve, we) / kMaxSpeedMPS;
+  return TimeBetweenSec(v.GetSegEndpoint(), w.GetSegEndpoint());
 }
 
 }  // namespace routing

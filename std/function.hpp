@@ -9,6 +9,7 @@
 
   #include <functional>
   using std::function;
+  using std::greater;
 
 #else
 

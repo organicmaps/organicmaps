@@ -110,7 +110,7 @@ struct RoadEdge
   double const weight;
 };
 
-// A wrapper around IGraph, which make it's possible to use IRoadGraph
+// A wrapper around IGraph, which makes it possible to use IRoadGraph
 // with routing algorithms.
 class RoadGraph : public Graph<RoadPos, RoadEdge, RoadGraph>
 {

@@ -5,6 +5,8 @@
 #include "base/logging.hpp"
 #include "routing/base/graph.hpp"
 #include "std/algorithm.hpp"
+#include "std/functional.hpp"
+#include "std/iostream.hpp"
 #include "std/map.hpp"
 #include "std/queue.hpp"
 #include "std/vector.hpp"
@@ -19,15 +21,33 @@ public:
   using TVertexType = typename TGraphType::TVertexType;
   using TEdgeType = typename TGraphType::TEdgeType;
 
-  static uint32_t const kCancelledPollPeriod = 128;
-  static double constexpr kEpsilon = 1e-6;
+  static uint32_t const kCancelledPollPeriod;
+  static uint32_t const kQueueSwtichPeriod;
+  static double const kEpsilon;
 
-  enum Result
+  enum class Result
   {
-    RESULT_OK,
-    RESULT_NO_PATH,
-    RESULT_CANCELLED
+    OK,
+    NoPath,
+    Cancelled
   };
+
+  friend ostream & operator<<(ostream & os, Result const & result)
+  {
+    switch (result)
+    {
+      case Result::OK:
+        os << "OK";
+        break;
+      case Result::NoPath:
+        os << "NoPath";
+        break;
+      case Result::Cancelled:
+        os << "Cancelled";
+        break;
+    }
+    return os;
+  }
 
   AStarAlgorithm() : m_graph(nullptr) {}
 
@@ -46,7 +66,7 @@ private:
   {
     State(TVertexType const & vertex, double distance) : vertex(vertex), distance(distance) {}
 
-    bool operator<(State const & rhs) const { return distance > rhs.distance; }
+    inline bool operator>(State const & rhs) const { return distance > rhs.distance; }
 
     TVertexType vertex;
     double distance;
@@ -68,9 +88,7 @@ private:
     double TopDistance() const
     {
       ASSERT(!queue.empty(), ());
-      auto it = bestDistance.find(queue.top().vertex);
-      CHECK(it != bestDistance.end(), ());
-      return it->second;
+      return bestDistance.at(queue.top().vertex);
     }
 
     // p_f(v) = 0.5*(π_f(v) - π_r(v)) + 0.5*π_r(t)
@@ -101,7 +119,7 @@ private:
     vector<TVertexType> const & finalPos;
     TGraph const & graph;
 
-    priority_queue<State> queue;
+    priority_queue<State, vector<State>, greater<State>> queue;
     map<TVertexType, double> bestDistance;
     map<TVertexType, TVertexType> parent;
     TVertexType bestVertex;
@@ -118,6 +136,18 @@ private:
 
   TGraphType const * m_graph;
 };
+
+// static
+template <typename TGraph>
+uint32_t const AStarAlgorithm<TGraph>::kCancelledPollPeriod = 128;
+
+// static
+template <typename TGraph>
+uint32_t const AStarAlgorithm<TGraph>::kQueueSwtichPeriod = 128;
+
+// static
+template <typename TGraph>
+double const AStarAlgorithm<TGraph>::kEpsilon = 1e-6;
 
 // This implementation is based on the view that the A* algorithm
 // is equivalent to Dijkstra's algorithm that is run on a reweighted
@@ -139,22 +169,16 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   ASSERT(m_graph, ());
   ASSERT(!startPos.empty(), ());
   ASSERT(!finalPos.empty(), ());
-#if defined(DEBUG)
-  for (auto const & v : startPos)
-    LOG(LDEBUG, ("AStarAlgorithm::FindPath(): startPos:", v));
-  for (auto const & v : finalPos)
-    LOG(LDEBUG, ("AStarAlgorithm::FindPath(): finalPos:", v));
-#endif  // defined(DEBUG)
 
   vector<TVertexType> sortedStartPos(startPos.begin(), startPos.end());
   sort(sortedStartPos.begin(), sortedStartPos.end());
 
   map<TVertexType, double> bestDistance;
-  priority_queue<State> queue;
+  priority_queue<State, vector<State>, greater<State>> queue;
   map<TVertexType, TVertexType> parent;
   for (auto const & rp : finalPos)
   {
-    VERIFY(bestDistance.insert({rp, 0.0}).second, ());
+    VERIFY(bestDistance.emplace(rp, 0.0).second, ());
     queue.push(State(rp, 0.0));
   }
 
@@ -163,11 +187,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   while (!queue.empty())
   {
     ++steps;
-    if (steps % kCancelledPollPeriod == 0)
-    {
-      if (IsCancelled())
-        return RESULT_CANCELLED;
-    }
+    if (steps % kCancelledPollPeriod == 0 && IsCancelled())
+      return Result::Cancelled;
 
     State const stateV = queue.top();
     queue.pop();
@@ -175,13 +196,10 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     if (stateV.distance > bestDistance[stateV.vertex])
       continue;
 
-    /// We need the original start position because it contains the projection point to the road
-    /// feature.
-    auto it = lower_bound(sortedStartPos.begin(), sortedStartPos.end(), stateV.vertex);
-    if (it != sortedStartPos.end() && *it == stateV.vertex)
+    if (binary_search(sortedStartPos.begin(), sortedStartPos.end(), stateV.vertex))
     {
       ReconstructPath(stateV.vertex, parent, path);
-      return RESULT_OK;
+      return Result::OK;
     }
 
     vector<TEdgeType> adj;
@@ -196,7 +214,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, sortedStartPos[0]);
       double const reducedLen = len + piW - piV;
 
-      ASSERT(reducedLen >= -kEpsilon, ("Invariant violation!"));
+      CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
       double const newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
       auto t = bestDistance.find(stateW.vertex);
@@ -210,7 +228,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     }
   }
 
-  return RESULT_NO_PATH;
+  return Result::NoPath;
 }
 
 /// @todo This may work incorrectly if (startPos.size() > 1) or (finalPos.size() > 1).
@@ -221,12 +239,6 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
 {
   ASSERT(!startPos.empty(), ());
   ASSERT(!finalPos.empty(), ());
-#if defined(DEBUG)
-  for (auto const & roadPos : startPos)
-    LOG(LDEBUG, ("AStarAlgorithm::FindPathBidirectional(): startPos:", roadPos));
-  for (auto const & roadPos : finalPos)
-    LOG(LDEBUG, ("AStarAlgorithm::FindPathBidirectional(): finalPos:", roadPos));
-#endif  // defined(DEBUG)
 
   BidirectionalStepContext forward(true /* forward */, startPos, finalPos, *m_graph);
   BidirectionalStepContext backward(false /* forward */, startPos, finalPos, *m_graph);
@@ -236,12 +248,12 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
 
   for (auto const & rp : startPos)
   {
-    VERIFY(forward.bestDistance.insert({rp, 0.0}).second, ());
+    VERIFY(forward.bestDistance.emplace(rp, 0.0).second, ());
     forward.queue.push(State(rp, 0.0 /* distance */));
   }
   for (auto const & rp : finalPos)
   {
-    VERIFY(backward.bestDistance.insert({rp, 0.0}).second, ());
+    VERIFY(backward.bestDistance.emplace(rp, 0.0).second, ());
     backward.queue.push(State(rp, 0.0 /* distance */));
   }
 
@@ -260,16 +272,11 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
   {
     ++steps;
 
-    if (steps % kCancelledPollPeriod == 0)
-    {
-      if (IsCancelled())
-        return RESULT_CANCELLED;
-    }
+    if (steps % kCancelledPollPeriod == 0 && IsCancelled())
+      return Result::Cancelled;
 
-    if (steps % kCancelledPollPeriod == 0)
-    {
+    if (steps % kQueueSwtichPeriod == 0)
       swap(cur, nxt);
-    }
 
     double const curTop = cur->TopDistance();
     double const nxtTop = nxt->TopDistance();
@@ -288,7 +295,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       CHECK(!path.empty(), ());
       if (!cur->forward)
         reverse(path.begin(), path.end());
-      return RESULT_OK;
+      return Result::OK;
     }
 
     State const stateV = cur->queue.top();
@@ -309,7 +316,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       double const pW = cur->ConsistentHeuristic(stateW.vertex);
       double const reducedLen = len + pW - pV;
       double const pRW = nxt->ConsistentHeuristic(stateW.vertex);
-      CHECK(reducedLen >= -kEpsilon, ("Invariant failed:", reducedLen, "<", -kEpsilon));
+      CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
       double newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
       typename map<TVertexType, double>::const_iterator t = cur->bestDistance.find(stateW.vertex);
@@ -340,7 +347,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
     }
   }
 
-  return RESULT_NO_PATH;
+  return Result::NoPath;
 }
 
 // static

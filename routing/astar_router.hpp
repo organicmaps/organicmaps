@@ -8,11 +8,9 @@ namespace routing
 {
 class AStarRouter : public RoadGraphRouter
 {
-  typedef RoadGraphRouter BaseT;
-
 public:
   AStarRouter(Index const * pIndex = 0)
-      : BaseT(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()))
+      : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()))
   {
   }
 
@@ -30,7 +28,7 @@ public:
   bool IsCancelled() const override { return m_algo.IsCancelled(); }
 
 private:
-  using Algo = AStarAlgorithm<RoadGraph>;
-  Algo m_algo;
+  using TAlgorithm = AStarAlgorithm<RoadGraph>;
+  TAlgorithm m_algo;
 };
 }  // namespace routing
