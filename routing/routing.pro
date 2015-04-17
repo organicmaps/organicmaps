@@ -15,7 +15,6 @@ SOURCES += \
     astar_router.cpp \
     async_router.cpp \
     cross_routing_context.cpp \
-    dijkstra_router.cpp \
     features_road_graph.cpp \
     nearest_road_pos_finder.cpp \
     osrm2feature_map.cpp \
@@ -34,7 +33,6 @@ HEADERS += \
     base/astar_algorithm.hpp \
     base/graph.hpp \
     cross_routing_context.hpp \
-    dijkstra_router.hpp \
     features_road_graph.hpp \
     nearest_road_pos_finder.hpp \
     osrm2feature_map.hpp \

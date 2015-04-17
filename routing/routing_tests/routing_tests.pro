@@ -22,7 +22,6 @@ SOURCES += \
   astar_algorithm_test.cpp \
   astar_router_test.cpp \
   cross_routing_tests.cpp \
-  dijkstra_router_test.cpp \
   features_road_graph_test.cpp \
   osrm_router_test.cpp \
   road_graph_builder.cpp \
