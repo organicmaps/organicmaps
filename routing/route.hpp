@@ -36,6 +36,7 @@ public:
 
     uint32_t m_index; // number of point on polyline (number of segment + 1)
     turns::TurnDirection m_turn;
+    vector<vector<routing::turns::Lane>> m_lanes; // lane information on the edge before the turn.
     uint32_t m_exitNum;  // number of exit on roundabout
     string m_srcName;
     string m_trgName;

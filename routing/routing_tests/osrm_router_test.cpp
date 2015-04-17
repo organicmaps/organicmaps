@@ -244,3 +244,132 @@ UNIT_TEST(OsrmFtSegMappingBuilder_Smoke)
     TestMapping(data, nodeIds, ranges);
   }
 }
+
+UNIT_TEST(TestParseLanesToStrings)
+{
+  vector<string> result;
+  routing::turns::ParseLanesToStrings("through|through|through|through;right", '|', result);
+  TEST_EQUAL(result.size(), 4, ());
+  TEST_EQUAL(result[0], "through", ());
+  TEST_EQUAL(result[1], "through", ());
+  TEST_EQUAL(result[2], "through", ());
+  TEST_EQUAL(result[3], "through;right", ());
+
+  routing::turns::ParseLanesToStrings("adsjkddfasui8747&sxdsdlad8\"\'", '|', result);
+  TEST_EQUAL(result.size(), 1, ());
+  TEST_EQUAL(result[0], "adsjkddfasui8747&sxdsdlad8\"\'", ());
+
+  routing::turns::ParseLanesToStrings("|||||||", '|', result);
+  TEST_EQUAL(result.size(), 7, ());
+  TEST_EQUAL(result[0], "", ());
+  TEST_EQUAL(result[1], "", ());
+  TEST_EQUAL(result[2], "", ());
+  TEST_EQUAL(result[3], "", ());
+  TEST_EQUAL(result[4], "", ());
+  TEST_EQUAL(result[5], "", ());
+  TEST_EQUAL(result[6], "", ());
+}
+
+UNIT_TEST(TestParseOneLane)
+{
+  vector<routing::turns::Lane> result;
+  TEST(routing::turns::ParseOneLane("through;right", ';', result), ());
+  TEST_EQUAL(result.size(), 2, ());
+  TEST_EQUAL(result[0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[1], routing::turns::Lane::RIGHT, ());
+
+  TEST(!routing::turns::ParseOneLane("through;Right", ';', result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(!routing::turns::ParseOneLane("through ;right", ';', result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(!routing::turns::ParseOneLane("SD32kk*887;;", ';', result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(!routing::turns::ParseOneLane("Что-то на кириллице", ';', result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(!routing::turns::ParseOneLane("משהו בעברית", ';', result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(routing::turns::ParseOneLane("left;through", ';', result), ());
+  TEST_EQUAL(result.size(), 2, ());
+  TEST_EQUAL(result[0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[1], routing::turns::Lane::THROUGH, ());
+
+  TEST(routing::turns::ParseOneLane("left", ';', result), ());
+  TEST_EQUAL(result.size(), 1, ());
+  TEST_EQUAL(result[0], routing::turns::Lane::LEFT, ());
+}
+
+UNIT_TEST(TestParseLanes)
+{
+  vector<vector<routing::turns::Lane>> result;
+  TEST(routing::turns::ParseLanes("through|through|through|through;right", result), ());
+  TEST_EQUAL(result.size(), 4, ());
+  TEST_EQUAL(result[0].size(), 1, ());
+  TEST_EQUAL(result[3].size(), 2, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[3][0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[3][1], routing::turns::Lane::RIGHT, ());
+
+  TEST(routing::turns::ParseLanes("left|left;through|through|through", result), ());
+  TEST_EQUAL(result.size(), 4, ());
+  TEST_EQUAL(result[0].size(), 1, ());
+  TEST_EQUAL(result[1].size(), 2, ());
+  TEST_EQUAL(result[3].size(), 1, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[1][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[1][1], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[3][0], routing::turns::Lane::THROUGH, ());
+
+  TEST(routing::turns::ParseLanes("left|through|through", result), ());
+  TEST_EQUAL(result.size(), 3, ());
+  TEST_EQUAL(result[0].size(), 1, ());
+  TEST_EQUAL(result[1].size(), 1, ());
+  TEST_EQUAL(result[2].size(), 1, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[1][0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[2][0], routing::turns::Lane::THROUGH, ());
+
+  TEST(routing::turns::ParseLanes("left|le  ft|   through|through   |  right", result), ());
+  TEST_EQUAL(result.size(), 5, ());
+  TEST_EQUAL(result[0].size(), 1, ());
+  TEST_EQUAL(result[4].size(), 1, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[1][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[2][0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[3][0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[4][0], routing::turns::Lane::RIGHT, ());
+
+  TEST(routing::turns::ParseLanes("left|Left|through|througH|right", result), ());
+  TEST_EQUAL(result.size(), 5, ());
+  TEST_EQUAL(result[0].size(), 1, ());
+  TEST_EQUAL(result[4].size(), 1, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[4][0], routing::turns::Lane::RIGHT, ());
+
+  TEST(routing::turns::ParseLanes("left|Left|through|througH|through;right;sharp_rIght", result), ());
+  TEST_EQUAL(result.size(), 5, ());
+  TEST_EQUAL(result[0].size(), 1, ());
+  TEST_EQUAL(result[4].size(), 3, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[4][0], routing::turns::Lane::THROUGH, ());
+  TEST_EQUAL(result[4][1], routing::turns::Lane::RIGHT, ());
+  TEST_EQUAL(result[4][2], routing::turns::Lane::SHARP_RIGHT, ());
+
+  TEST(!routing::turns::ParseLanes("left|Leftt|through|througH|right", result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(!routing::turns::ParseLanes("Что-то на кириллице", result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(!routing::turns::ParseLanes("משהו בעברית", result), ());
+  TEST_EQUAL(result.size(), 0, ());
+
+  TEST(routing::turns::ParseLanes("left |Left|through|througH|right", result), ());
+  TEST_EQUAL(result.size(), 5, ());
+  TEST_EQUAL(result[0][0], routing::turns::Lane::LEFT, ());
+  TEST_EQUAL(result[1][0], routing::turns::Lane::LEFT, ());
+}

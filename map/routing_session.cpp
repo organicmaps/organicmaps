@@ -167,6 +167,13 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_turn = turn.m_turn;
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
+    info.m_trgName = turn.m_trgName;
+    // @todo the distance should depends on the current speed.
+    unsigned int const showLanesDistInMeters = 500;
+    if (dist < showLanesDistInMeters)
+      info.m_lanes = turn.m_lanes;
+    else
+      info.m_lanes.clear();
   }
   else
   {
@@ -174,6 +181,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_turn = turns::NoTurn;
     info.m_exitNum = 0;
     info.m_time = 0;
+    info.m_trgName.clear();
+    info.m_lanes.clear();
   }
 }
 

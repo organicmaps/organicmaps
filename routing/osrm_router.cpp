@@ -21,6 +21,7 @@
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/string.hpp"
 
 #include "3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
 #include "3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
@@ -346,6 +347,15 @@ public:
 
   }
 };
+
+OsrmMappingTypes::FtSeg GetSegment(PathData const & node, RoutingMapping const & routingMapping,
+                function<size_t (pair<size_t, size_t>)> GetIndex)
+{
+  auto nSegs = routingMapping.m_segMapping.GetSegmentsRange(node.node);
+  OsrmMappingTypes::FtSeg seg;
+  routingMapping.m_segMapping.GetSegmentByIndex(GetIndex(nSegs), seg);
+  return seg;
+}
 
 } // namespace
 
@@ -1030,7 +1040,32 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
                          routingResult.m_routePath.unpacked_path_segments[i][j],
                          mapping, t);
         if (t.m_turn != turns::NoTurn)
+        {
+          // adding lane info
+          OsrmMappingTypes::FtSeg seg1 = GetSegment(routingResult.m_routePath.unpacked_path_segments[i][j - 1], *mapping,
+                                          [](pair<size_t, size_t> const & p)
+                                          {
+                                            ASSERT_GREATER(p.second, 0, ());
+                                            return p.second - 1;
+                                          });
+          if (seg1.IsValid())
+          {
+            FeatureType ft1;
+            Index::FeaturesLoaderGuard loader1(*m_pIndex, mapping->GetMwmId());
+            loader1.GetFeature(seg1.m_fid, ft1);
+            ft1.ParseMetadata();
+            string const turnLanes = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES);
+            vector<vector<routing::turns::Lane>> lanes;
+            if (!turnLanes.empty() && routing::turns::ParseLanes(turnLanes, lanes))
+              t.m_lanes = lanes;
+
+            //string const turnLanesForward = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD);
+            //string const turnLanesBackward = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD);
+            //if (!turnLanes.empty() || !turnLanesForward.empty() || !turnLanesBackward.empty())
+            //  LOG(LINFO, ("turnLanes: ", turnLanes, "turnLanesForward: ", turnLanesForward, "turnLanesBackward: ", turnLanesBackward));
+          }
           turnsDir.push_back(t);
+        }
 
         // osrm multiple seconds to 10, so we need to divide it back
         double const sTime = TIME_OVERHEAD * path_data.segment_duration / 10.0;
@@ -1392,26 +1427,25 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   RoutingMappingPtrT const & routingMapping, Route::TurnItem & turn)
 {
   ASSERT(routingMapping.get(), ());
-  auto nSegs1 = routingMapping->m_segMapping.GetSegmentsRange(node1.node);
-  auto nSegs2 = routingMapping->m_segMapping.GetSegmentsRange(node2.node);
+  OsrmMappingTypes::FtSeg seg1 = GetSegment(node1, *routingMapping,
+                                  [] (pair<size_t, size_t> const & p)
+                                  {
+                                    ASSERT_GREATER(p.second, 0, ());
+                                    return p.second - 1;
+                                  });
+  OsrmMappingTypes::FtSeg seg2 = GetSegment(node2, *routingMapping,
+                                  [] (pair<size_t, size_t> const & p) { return p.first; });
 
-  ASSERT_GREATER(nSegs1.second, 0, ());
-
-  OsrmMappingTypes::FtSeg seg1, seg2;
-  routingMapping->m_segMapping.GetSegmentByIndex(nSegs1.second - 1, seg1);
-  routingMapping->m_segMapping.GetSegmentByIndex(nSegs2.first, seg2);
-
-  FeatureType ft1, ft2;
-  Index::FeaturesLoaderGuard loader1(*m_pIndex, routingMapping->GetMwmId());
-  Index::FeaturesLoaderGuard loader2(*m_pIndex, routingMapping->GetMwmId());
-
-  if (!(seg1.IsValid() && seg2.IsValid()))
+  if (!seg1.IsValid() || !seg2.IsValid())
   {
     LOG(LWARNING, ("Some turns can't load geometry"));
     turn.m_turn = turns::NoTurn;
     return;
   }
 
+  FeatureType ft1, ft2;
+  Index::FeaturesLoaderGuard loader1(*m_pIndex, routingMapping->GetMwmId());
+  Index::FeaturesLoaderGuard loader2(*m_pIndex, routingMapping->GetMwmId());
   loader1.GetFeature(seg1.m_fid, ft1);
   loader2.GetFeature(seg2.m_fid, ft2);
 

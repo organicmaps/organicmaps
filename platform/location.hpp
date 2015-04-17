@@ -6,6 +6,7 @@
 
 #include "std/string.hpp"
 #include "std/cmath.hpp"
+#include "std/vector.hpp"
 
 
 namespace location
@@ -107,6 +108,10 @@ namespace location
     uint32_t m_exitNum;
     //@}
     int m_time;
+    // lane information on the edge before the turn.
+    vector<vector<routing::turns::Lane>> m_lanes;
+    // The next street name
+    string m_trgName;
 
     bool IsValid() const { return !m_distToTarget.empty(); }
   };

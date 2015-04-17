@@ -43,6 +43,21 @@ enum TurnDirection
 
 };
 
+enum Lane
+{
+  NONE = 0,
+  REVERSE,
+  SHARP_LEFT,
+  LEFT,
+  SLIGH_LEFT,
+  MERGE_TO_RIGHT,
+  THROUGH,
+  MERGE_TO_LEFT,
+  SLIGHT_RIGHT,
+  RIGHT,
+  SHARP_RIGHT
+};
+
 struct TurnGeom
 {
   TurnGeom(uint32_t indexInRoute, uint32_t turnIndex,
@@ -65,6 +80,16 @@ bool IsRightTurn(TurnDirection t);
 bool IsLeftOrRightTurn(TurnDirection t);
 bool IsStayOnRoad(TurnDirection t);
 bool IsGoStraightOrSlightTurn(TurnDirection t);
+
+/*!
+ * \brief Parse lane information which comes from @lanesString
+ * \param lanesString lane information. Example through|through|through|through;right
+ * \param lanes the result of parsing.
+ * \return true if @lanesString parsed successfully, false otherwise.
+ */
+bool ParseLanes(string const & lanesString, vector<vector<routing::turns::Lane>> & lanes);
+void ParseLanesToStrings(string const & lanesString, char delimiter, vector<string> & lanes);
+bool ParseOneLane(string const & laneString, char delimiter, vector<routing::turns::Lane> & lane);
 
 }
 }
