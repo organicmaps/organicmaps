@@ -113,6 +113,17 @@ void FeaturesRoadGraph::LoadFeature(uint32_t featureId, FeatureType & ft)
 
 void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
 {
+  if (pos.IsStart())
+  {
+    turns.insert(turns.end(), m_startVicinityTurns.begin(), m_startVicinityTurns.end());
+    return;
+  }
+  if (pos.IsFinal())
+  {
+    turns.insert(turns.end(), m_finalVicinityTurns.begin(), m_finalVicinityTurns.end());
+    return;
+  }
+
   uint32_t const featureId = pos.GetFeatureId();
   FeatureType ft;
   RoadInfo const ri = GetCachedRoadInfo(featureId, ft, true);

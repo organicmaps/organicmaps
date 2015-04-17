@@ -51,10 +51,9 @@ public:
 
   AStarAlgorithm() : m_graph(nullptr) {}
 
-  Result FindPath(vector<TVertexType> const & startPos, vector<TVertexType> const & finalPos,
+  Result FindPath(TVertexType const & startVertex, TVertexType const & finalVertex,
                   vector<TVertexType> & path) const;
-  Result FindPathBidirectional(vector<TVertexType> const & startPos,
-                               vector<TVertexType> const & finalPos,
+  Result FindPathBidirectional(TVertexType const & startVertex, TVertexType const & finalVertex,
                                vector<TVertexType> & path) const;
 
   void SetGraph(TGraph const & graph) { m_graph = &graph; }
@@ -77,12 +76,12 @@ private:
   // purpose is to make the code that changes directions more readable.
   struct BidirectionalStepContext
   {
-    BidirectionalStepContext(bool forward, vector<TVertexType> const & startPos,
-                             vector<TVertexType> const & finalPos, TGraphType const & graph)
-        : forward(forward), startPos(startPos), finalPos(finalPos), graph(graph)
+    BidirectionalStepContext(bool forward, TVertexType const & startVertex,
+                             TVertexType const & finalVertex, TGraphType const & graph)
+        : forward(forward), startVertex(startVertex), finalVertex(finalVertex), graph(graph)
     {
-      bestVertex = forward ? startPos[0] : finalPos[0];
-      pS = ConsistentHeuristic(startPos[0]);
+      bestVertex = forward ? startVertex : finalVertex;
+      pS = ConsistentHeuristic(startVertex);
     }
 
     double TopDistance() const
@@ -96,27 +95,27 @@ private:
     // p_r(v) + p_f(v) = const. Note: this condition is called consistence.
     double ConsistentHeuristic(TVertexType const & v) const
     {
-      double piF = graph.HeuristicCostEstimate(v, finalPos[0]);
-      double piR = graph.HeuristicCostEstimate(v, startPos[0]);
-      double const piRT = graph.HeuristicCostEstimate(finalPos[0], startPos[0]);
-      double const piFS = graph.HeuristicCostEstimate(startPos[0], finalPos[0]);
+      double piF = graph.HeuristicCostEstimate(v, finalVertex);
+      double piR = graph.HeuristicCostEstimate(v, startVertex);
+      double const piRT = graph.HeuristicCostEstimate(finalVertex, startVertex);
+      double const piFS = graph.HeuristicCostEstimate(startVertex, finalVertex);
       if (forward)
       {
         /// @todo careful: with this "return" here and below in the Backward case
         /// the heuristic becomes inconsistent but still seems to work.
-        /// return HeuristicCostEstimate(v.pos, finalPos);
+        /// return HeuristicCostEstimate(v, finalVertex);
         return 0.5 * (piF - piR + piRT);
       }
       else
       {
-        // return HeuristicCostEstimate(v.pos, startPos);
+        // return HeuristicCostEstimate(v, startVertex);
         return 0.5 * (piR - piF + piFS);
       }
     }
 
     bool const forward;
-    vector<TVertexType> const & startPos;
-    vector<TVertexType> const & finalPos;
+    TVertexType const & startVertex;
+    TVertexType const & finalVertex;
     TGraph const & graph;
 
     priority_queue<State, vector<State>, greater<State>> queue;
@@ -163,24 +162,17 @@ double const AStarAlgorithm<TGraph>::kEpsilon = 1e-6;
 // The edges of the graph are of type PossibleTurn.
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
-    vector<TVertexType> const & startPos, vector<TVertexType> const & finalPos,
+    TVertexType const & startVertex, TVertexType const & finalVertex,
     vector<TVertexType> & path) const
 {
   ASSERT(m_graph, ());
-  ASSERT(!startPos.empty(), ());
-  ASSERT(!finalPos.empty(), ());
-
-  vector<TVertexType> sortedStartPos(startPos.begin(), startPos.end());
-  sort(sortedStartPos.begin(), sortedStartPos.end());
 
   map<TVertexType, double> bestDistance;
   priority_queue<State, vector<State>, greater<State>> queue;
   map<TVertexType, TVertexType> parent;
-  for (auto const & rp : finalPos)
-  {
-    VERIFY(bestDistance.emplace(rp, 0.0).second, ());
-    queue.push(State(rp, 0.0));
-  }
+
+  bestDistance[finalVertex] = 0.0;
+  queue.push(State(finalVertex, 0.0));
 
   uint32_t steps = 0;
 
@@ -196,7 +188,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     if (stateV.distance > bestDistance[stateV.vertex])
       continue;
 
-    if (binary_search(sortedStartPos.begin(), sortedStartPos.end(), stateV.vertex))
+    if (stateV.vertex == startVertex)
     {
       ReconstructPath(stateV.vertex, parent, path);
       return Result::OK;
@@ -210,8 +202,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       if (stateV.vertex == stateW.vertex)
         continue;
       double const len = edge.GetWeight();
-      double const piV = m_graph->HeuristicCostEstimate(stateV.vertex, sortedStartPos[0]);
-      double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, sortedStartPos[0]);
+      double const piV = m_graph->HeuristicCostEstimate(stateV.vertex, startVertex);
+      double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, startVertex);
       double const reducedLen = len + piW - piV;
 
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
@@ -231,31 +223,22 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   return Result::NoPath;
 }
 
-/// @todo This may work incorrectly if (startPos.size() > 1) or (finalPos.size() > 1).
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirectional(
-    vector<TVertexType> const & startPos, vector<TVertexType> const & finalPos,
+    TVertexType const & startVertex, TVertexType const & finalVertex,
     vector<TVertexType> & path) const
 {
-  ASSERT(!startPos.empty(), ());
-  ASSERT(!finalPos.empty(), ());
-
-  BidirectionalStepContext forward(true /* forward */, startPos, finalPos, *m_graph);
-  BidirectionalStepContext backward(false /* forward */, startPos, finalPos, *m_graph);
+  BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, *m_graph);
+  BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, *m_graph);
 
   bool foundAnyPath = false;
   double bestPathLength = 0.0;
 
-  for (auto const & rp : startPos)
-  {
-    VERIFY(forward.bestDistance.emplace(rp, 0.0).second, ());
-    forward.queue.push(State(rp, 0.0 /* distance */));
-  }
-  for (auto const & rp : finalPos)
-  {
-    VERIFY(backward.bestDistance.emplace(rp, 0.0).second, ());
-    backward.queue.push(State(rp, 0.0 /* distance */));
-  }
+  forward.bestDistance[startVertex] = 0.0;
+  forward.queue.push(State(startVertex, 0.0 /* distance */));
+
+  backward.bestDistance[finalVertex] = 0.0;
+  backward.queue.push(State(finalVertex, 0.0 /* distance */));
 
   // To use the search code both for backward and forward directions
   // we keep the pointers to everything related to the search in the

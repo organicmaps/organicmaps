@@ -16,6 +16,14 @@ class Route;
 class RoadPos
 {
 public:
+  // Our routers (such as a-star) use RoadPos as vertices and we receive PointD from the user.
+  // Every time a route is calculated, we create a fake RoadPos with a fake featureId to
+  // place the real starting point on it (and also do the same for the final point).
+  // The constant here is used as those fake features' ids.
+  /// @todo The constant value is taken to comply with an assert in the constructor
+  ///       that is terrible, wrong and to be rewritten in a separate CL.
+  static constexpr uint32_t FakeFeatureId = 1U << 29;
+
   RoadPos() : m_featureId(0), m_segId(0), m_segEndpoint(0, 0) {}
   RoadPos(uint32_t featureId, bool forward, size_t segId,
           m2::PointD const & p = m2::PointD::Zero());
@@ -26,6 +34,9 @@ public:
   uint32_t GetSegStartPointId() const { return m_segId + (IsForward() ? 0 : 1); }
   uint32_t GetSegEndPointId() const { return m_segId + (IsForward() ? 1 : 0); }
   m2::PointD const & GetSegEndpoint() const { return m_segEndpoint; }
+  bool IsFake() const { return GetFeatureId() == FakeFeatureId; }
+  bool IsStart() const { return IsFake() && GetSegId() == 0; }
+  bool IsFinal() const { return IsFake() && GetSegId() == 1; }
 
   bool operator==(RoadPos const & r) const
   {
@@ -115,14 +126,22 @@ public:
 
   virtual ~IRoadGraph() = default;
 
-  /// Construct route by road positions (doesn't include first and last section).
-  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
-
   /// Finds all nearest feature sections (turns), that route to the
   /// "pos" section.
   virtual void GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns) = 0;
 
   virtual double GetSpeedKMPH(uint32_t featureId) = 0;
+
+  /// Construct route by road positions (doesn't include first and last section).
+  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
+
+  // The way we find edges leading from start/final positions and from all other positions
+  // differ: for start/final we find positions in some vicinity of the starting
+  // point; for other positions we extract turns from the road graph. This non-uniformity
+  // comes from the fact that a start/final position does not necessarily fall on a feature
+  // (i.e. on a road).
+  vector<PossibleTurn> m_startVicinityTurns;
+  vector<PossibleTurn> m_finalVicinityTurns;
 };
 
 // A class which represents an edge used by RoadGraph.

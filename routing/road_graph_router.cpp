@@ -10,17 +10,37 @@
 
 #include "geometry/distance.hpp"
 
+#include "base/assert.hpp"
 #include "base/timer.hpp"
 #include "base/logging.hpp"
 
+namespace routing
+{
 namespace
 {
 size_t const MAX_ROAD_CANDIDATES = 2;
 double const FEATURE_BY_POINT_RADIUS_M = 100.0;
+
+/// @todo Code duplication with road_graph.cpp
+double TimeBetweenSec(m2::PointD const & v, m2::PointD const & w)
+{
+  static double const kMaxSpeedMPS = 5000.0 / 3600;
+  return MercatorBounds::DistanceOnEarth(v, w) / kMaxSpeedMPS;
 }
 
-namespace routing
+void AddFakeTurns(RoadPos const & rp1, vector<RoadPos> const & vicinity,
+                  vector<PossibleTurn> & turns)
 {
+  for (RoadPos const & rp2 : vicinity)
+  {
+    PossibleTurn t;
+    t.m_pos = rp2;
+    /// @todo Do we need other fields? Do we even need m_secondsCovered?
+    t.m_secondsCovered = TimeBetweenSec(rp1.GetSegEndpoint(), rp2.GetSegEndpoint());
+    turns.push_back(t);
+  }
+}
+}  // namespace
 
 RoadGraphRouter::~RoadGraphRouter()
 {
@@ -53,26 +73,40 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
                                                     m2::PointD const & /* startDirection */,
                                                     m2::PointD const & finalPoint, Route & route)
 {
-  vector<RoadPos> finalPos;
-  size_t mwmID = GetRoadPos(finalPoint, finalPos);
-  if (!finalPos.empty() && !IsMyMWM(mwmID))
+  // Despite adding fake notes and calculating their vicinities on the fly
+  // we still need to check that startPoint and finalPoint are in the same MWM
+  // and probably reset the graph. So the checks stay here.
+  vector<RoadPos> finalVicinity;
+  size_t mwmID = GetRoadPos(finalPoint, finalVicinity);
+  if (!finalVicinity.empty() && !IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
   if (!m_roadGraph)
     return EndPointNotFound;
 
-  vector<RoadPos> startPos;
-  mwmID = GetRoadPos(startPoint, startPos);
+  vector<RoadPos> startVicinity;
+  mwmID = GetRoadPos(startPoint, startVicinity);
 
-  if (startPos.empty() || !IsMyMWM(mwmID))
+  if (startVicinity.empty() || !IsMyMWM(mwmID))
     return StartPointNotFound;
 
   my::Timer timer;
   timer.Reset();
 
-  vector<RoadPos> routePos;
+  RoadPos startPos(RoadPos::FakeFeatureId, true /* forward */, 0 /* segId */, startPoint);
+  RoadPos finalPos(RoadPos::FakeFeatureId, true /* forward */, 1 /* segId */, finalPoint);
 
-  IRouter::ResultCode resultCode = CalculateRouteM2M(startPos, finalPos, routePos);
+  AddFakeTurns(startPos, startVicinity, m_roadGraph->m_startVicinityTurns);
+  AddFakeTurns(finalPos, finalVicinity, m_roadGraph->m_finalVicinityTurns);
+
+  vector<RoadPos> routePos;
+  IRouter::ResultCode resultCode = CalculateRouteP2P(startPos, finalPos, routePos);
+
+  /// @todo They have fake feature ids. Can we still draw them?
+  ASSERT(routePos.back() == finalPos, ());
+  routePos.pop_back();
+  ASSERT(routePos.front() == startPos, ());
+  routePos.erase(routePos.begin());
 
   LOG(LINFO, ("Route calculation time:", timer.ElapsedSeconds(), "result code:", resultCode));
 

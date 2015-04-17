@@ -15,7 +15,7 @@
 using namespace routing;
 using namespace routing_test;
 
-void TestAStarRouterMock(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
+void TestAStarRouterMock(RoadPos const & startPos, RoadPos const & finalPos,
                          m2::PolylineD const & expected)
 {
   AStarRouter router;
@@ -25,7 +25,7 @@ void TestAStarRouterMock(vector<RoadPos> const & startPos, vector<RoadPos> const
     router.SetRoadGraph(move(graph));
   }
   vector<RoadPos> result;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRouteM2M(startPos, finalPos, result), ());
+  TEST_EQUAL(IRouter::NoError, router.CalculateRouteP2P(startPos, finalPos, result), ());
 
   Route route(router.GetName());
   router.GetGraph()->ReconstructPath(result, route);
@@ -36,8 +36,8 @@ UNIT_TEST(AStarRouter_Graph2_Simple1)
 {
   classificator::Load();
 
-  vector<RoadPos> startPos = {RoadPos(1, true /* forward */, 0, m2::PointD(0, 0))};
-  vector<RoadPos> finalPos = {RoadPos(7, true /* forward */, 0, m2::PointD(80, 55))};
+  RoadPos startPos(1, true /* forward */, 0, m2::PointD(0, 0));
+  RoadPos finalPos(7, true /* forward */, 0, m2::PointD(80, 55));
 
   m2::PolylineD expected = {m2::PointD(0, 0),   m2::PointD(5, 10),  m2::PointD(5, 40),
                             m2::PointD(18, 55), m2::PointD(39, 55), m2::PointD(80, 55)};
@@ -46,8 +46,8 @@ UNIT_TEST(AStarRouter_Graph2_Simple1)
 
 UNIT_TEST(AStarRouter_Graph2_Simple2)
 {
-  vector<RoadPos> startPos = {RoadPos(7, false /* forward */, 0, m2::PointD(80, 55))};
-  vector<RoadPos> finalPos = {RoadPos(0, true /* forward */, 4, m2::PointD(80, 0))};
+  RoadPos startPos(7, false /* forward */, 0, m2::PointD(80, 55));
+  RoadPos finalPos(0, true /* forward */, 4, m2::PointD(80, 0));
   m2::PolylineD expected = {m2::PointD(80, 55), m2::PointD(39, 55), m2::PointD(37, 30),
                             m2::PointD(70, 30), m2::PointD(70, 10), m2::PointD(70, 0),
                             m2::PointD(80, 0)};

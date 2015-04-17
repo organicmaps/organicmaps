@@ -21,14 +21,15 @@ public:
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, Route & route) override;
-  virtual ResultCode CalculateRouteM2M(vector<RoadPos> const & startPos,
-                                       vector<RoadPos> const & finalPos,
+  virtual ResultCode CalculateRouteP2P(RoadPos const & startPos, RoadPos const & finalPos,
                                        vector<RoadPos> & route) = 0;
   virtual void SetRoadGraph(unique_ptr<IRoadGraph> && roadGraph) { m_roadGraph = move(roadGraph); }
   inline IRoadGraph * GetGraph() { return m_roadGraph.get(); }
 
 protected:
+  /// @todo This method fits better in features_road_graph.
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
+
   bool IsMyMWM(size_t mwmID) const;
 
   unique_ptr<IRoadGraph> m_roadGraph;

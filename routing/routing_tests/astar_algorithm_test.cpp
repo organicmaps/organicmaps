@@ -51,13 +51,11 @@ void TestAStar(UndirectedGraph const & graph, vector<unsigned> const & expectedR
   TAlgorithm algo;
   algo.SetGraph(graph);
   vector<unsigned> actualRoute;
-  TEST_EQUAL(TAlgorithm::Result::OK,
-             algo.FindPath(vector<unsigned>{0}, vector<unsigned>{4}, actualRoute), ());
+  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPath(0u, 4u, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 
   actualRoute.clear();
-  TEST_EQUAL(TAlgorithm::Result::OK,
-             algo.FindPathBidirectional(vector<unsigned>{0}, vector<unsigned>{4}, actualRoute), ());
+  TEST_EQUAL(TAlgorithm::Result::OK, algo.FindPathBidirectional(0u, 4u, actualRoute), ());
   TEST_EQUAL(expectedRoute, actualRoute, ());
 }
 

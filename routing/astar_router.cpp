@@ -6,8 +6,8 @@
 
 namespace routing
 {
-IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & startPos,
-                                                   vector<RoadPos> const & finalPos,
+IRouter::ResultCode AStarRouter::CalculateRouteP2P(RoadPos const & startPos,
+                                                   RoadPos const & finalPos,
                                                    vector<RoadPos> & route)
 {
   RoadGraph graph(*m_roadGraph);
@@ -22,16 +22,10 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
       // RoadPos::m_segEndpoint. Thus, start and final positions
       // returned by algorithm should be replaced by correct start and
       // final positions.
-      for (RoadPos const & sp : startPos)
-      {
-        if (route.front() == sp)
-          route.front() = sp;
-      }
-      for (RoadPos const & fp : finalPos)
-      {
-        if (route.back() == fp)
-          route.back() = fp;
-      }
+      ASSERT_EQUAL(route.front(), startPos, ());
+      route.front() = startPos;
+      ASSERT_EQUAL(route.back(), finalPos, ());
+      route.back() = finalPos;
       return IRouter::NoError;
     case TAlgorithm::Result::NoPath:
       return IRouter::RouteNotFound;

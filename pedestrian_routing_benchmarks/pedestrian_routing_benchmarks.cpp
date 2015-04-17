@@ -44,19 +44,17 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
   pair<m2::PointD, m2::PointD> startBounds =
       GetPointsAroundSeg(index, id, featureIdStart, segIdStart);
 
-  vector<routing::RoadPos> startPos = {{featureIdStart, true, segIdStart, startBounds.second},
-                                       {featureIdStart, false, segIdStart, startBounds.first}};
+  routing::RoadPos startPos(featureIdStart, true, segIdStart, startBounds.first);
 
   pair<m2::PointD, m2::PointD> finalBounds =
       GetPointsAroundSeg(index, id, featureIdFinal, segIdFinal);
-  vector<routing::RoadPos> finalPos = {{featureIdFinal, true, segIdFinal, finalBounds.second},
-                                       {featureIdFinal, false, segIdFinal, finalBounds.first}};
+  routing::RoadPos finalPos(featureIdFinal, true, segIdFinal, finalBounds.first);
 
   vector<routing::RoadPos> route;
 
   my::Timer timer;
   LOG(LINFO, ("Calculating routing..."));
-  routing::IRouter::ResultCode resultCode = router.CalculateRouteM2M(startPos, finalPos, route);
+  routing::IRouter::ResultCode resultCode = router.CalculateRouteP2P(startPos, finalPos, route);
   CHECK_EQUAL(routing::IRouter::NoError, resultCode, ());
   LOG(LINFO, ("Route length:", route.size()));
   LOG(LINFO, ("Elapsed:", timer.ElapsedSeconds(), "seconds"));
