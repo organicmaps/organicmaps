@@ -25,7 +25,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   if (self)
   {
     self.ownerViewController = viewController;
-  }
+
   return self;
 }
 
@@ -115,9 +115,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
   if ([touch.view isKindOfClass:[UIControl class]])
-  {
     [(UIControl *)touch.view sendActionsForControlEvents:UIControlEventTouchUpInside];
-  }
+
   return YES;
 }
 

@@ -15,6 +15,7 @@
 #import "ShareActionSheet.h"
 #import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
+#import "MWMPlacePageViewManager.h"
 
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 #import "../../Common/CustomAlertView.h"
@@ -95,6 +96,8 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 @property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 @property (nonatomic) BOOL disableStandbyOnLocationStateMode;
 @property (nonatomic) BOOL disableStandbyOnRouteFollowing;
+
+@property (nonatomic) MWMPlacePageViewManager *placePageManager;
 
 @property (nonatomic) UserTouchesAction userTouchesAction;
 
@@ -267,16 +270,25 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)dismissPlacePage
 {
-  [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+  [self.placePageManager dismissPlacePage];
+//  self.placePageView.state = MWMPlacePageStateClosed;
+//  [self startAnimatingView:self.placePageView initialVelocity:self.springAnimation.velocity];
+//  [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
 {
-  if (self.searchView.state != SearchViewStateFullscreen)
-  {
-    [self.containerView.placePage showUserMark:std::move(mark)];
-    [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
-  }
+  if (!self.placePageManager)
+    self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
+
+  [self.placePageManager showPlacePageWithUserMark:std::move(mark)];
+//  self.placePageView = [MWMiPhonePortraitPlacePageView placePageViewWithUserMark:std::move(mark)];
+//  [self.placePageView showPlacePageInView:self];
+//  if (self.searchView.state != SearchViewStateFullscreen)
+//  {
+//    [self.containerView.placePage showUserMark:std::move(mark)];
+//    [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
+//  }
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
@@ -518,7 +530,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   return YES; // We support all orientations
 }
 
-- (void)didRotateFromInterfaceOrientation: (UIInterfaceOrientation)fromInterfaceOrientation
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+  [self.placePageManager layoutPlacePage];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
   [self showPopover];
   [self invalidate];
