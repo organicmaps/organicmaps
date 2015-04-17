@@ -356,6 +356,23 @@ void AStarAlgorithm<TGraph>::ReconstructPath(TVertexType const & v,
                                              map<TVertexType, TVertexType> const & parent,
                                              vector<TVertexType> & path)
 {
+#ifdef DEBUG
+  {
+    // Do not add the dependency from std/set.hpp.
+    map<TVertexType, bool> visited;
+    TVertexType cur = v;
+    while (true)
+    {
+      CHECK_EQ(visited.find(cur), visited.end(), ("Parent links form a cycle."));
+      visited[cur] = true;
+      auto it = parent.find(cur);
+      if (it == parent.end())
+        break;
+      cur = it->second;
+    }
+  }
+#endif
+
   path.clear();
   TVertexType cur = v;
   while (true)
