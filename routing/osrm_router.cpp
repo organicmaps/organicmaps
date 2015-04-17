@@ -1,3 +1,4 @@
+#include "routing/online_cross_fetcher.hpp"
 #include "routing/osrm_router.hpp"
 #include "routing/turns_generator.hpp"
 #include "routing/vehicle_model.hpp"
@@ -46,6 +47,41 @@ double const FEATURES_NEAR_TURN_M = 3.0;
 
 namespace
 {
+class AbsentCountryChecker
+{
+public:
+  AbsentCountryChecker(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                       RoutingIndexManager & indexManager, Index const * index, Route & route)
+      : m_route(route),
+        m_index(index),
+        m_indexManager(indexManager),
+        m_fetcher(OSRM_ONLINE_SERVER_URL,
+                  {MercatorBounds::XToLon(startPoint.x), MercatorBounds::YToLat(startPoint.y)},
+                  {MercatorBounds::XToLon(finalPoint.x), MercatorBounds::YToLat(finalPoint.y)})
+  {
+  }
+
+  ~AbsentCountryChecker()
+  {
+    vector<m2::PointD> const & points = m_fetcher.GetMwmPoints();
+    for (m2::PointD const & point : points)
+    {
+      RoutingMappingPtrT mapping = m_indexManager.GetMappingByPoint(point, m_index);
+      if (!mapping->IsValid())
+      {
+        LOG(LINFO, ("Online recomends to download", mapping->GetName()));
+        m_route.AddAbsentCountry(mapping->GetName());
+      }
+    }
+  }
+
+private:
+  Route & m_route;
+  Index const * m_index;
+  RoutingIndexManager & m_indexManager;
+  OnlineCrossFetcher m_fetcher;
+};
+
 class Point2Geometry : private noncopyable
 {
   m2::PointD m_p, m_p1;
@@ -634,6 +670,11 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                                   m2::PointD const & startDirection,
                                                   m2::PointD const & finalPoint, Route & route)
 {
+// Experimental feature
+#if defined(DEBUG)
+  AbsentCountryChecker checker(startPoint, finalPoint, m_indexManager, m_pIndex, route);
+  UNUSED_VALUE(checker);
+#endif
   my::HighResTimer timer(true);
   RoutingMappingPtrT startMapping = m_indexManager.GetMappingByPoint(startPoint, m_pIndex);
   RoutingMappingPtrT targetMapping = m_indexManager.GetMappingByPoint(finalPoint, m_pIndex);

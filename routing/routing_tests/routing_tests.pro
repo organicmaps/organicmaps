@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing indexer platform geometry coding base osrm protobuf tomcrypt succinct
+DEPENDENCIES = routing indexer platform geometry coding base osrm protobuf tomcrypt succinct jansson
 
 macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
@@ -22,6 +22,7 @@ SOURCES += \
   astar_algorithm_test.cpp \
   astar_router_test.cpp \
   cross_routing_tests.cpp \
+  online_cross_fetcher_test.cpp \
   osrm_router_test.cpp \
   road_graph_builder.cpp \
   road_graph_nearest_turns_test.cpp \

@@ -34,6 +34,9 @@
 #define ROUTING_SECRET_UNLOCKING_WORD "?pedestrian"
 #define ROUTING_SECRET_LOCKING_WORD "?vehicle"
 
+// TODO (@ldragunov) change to production server address when we will have one.
+#define OSRM_ONLINE_SERVER_URL "http://osrm.online.dev.server"
+
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"
 #define DOWNLOADING_FILE_EXTENSION ".downloading3"
