@@ -109,6 +109,11 @@ void InitLocalizedStrings()
 #else
   NSString * serverUrl = @"http://localhost:8080/2";
 #endif
+  
+  NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+  if (url != nil)
+    [self checkLaunchURL:url];
+  
   [Alohalytics setup:serverUrl andFirstLaunch:[MapsAppDelegate isFirstAppLaunch] withLaunchOptions:launchOptions];
 
   [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
@@ -354,28 +359,11 @@ void InitLocalizedStrings()
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-  NSString * scheme = url.scheme;
-
-  m_scheme = scheme;
   m_sourceApplication = sourceApplication;
+  
+  if ([self checkLaunchURL:url])
+    return YES;
 
-  // geo scheme support, see http://tools.ietf.org/html/rfc5870
-  if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
-  {
-    m_geoURL = [url absoluteString];
-    return YES;
-  }
-  else if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
-  {
-    m_mwmURL = [url absoluteString];
-    return YES;
-  }
-  else if ([scheme isEqualToString:@"file"])
-  {
-    m_fileURL = [url relativePath];
-    return YES;
-  }
-  NSLog(@"Scheme %@ is not supported", scheme);
   if ([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
     return NO;
   
@@ -392,6 +380,29 @@ void InitLocalizedStrings()
   m_loadingAlertView.delegate = self;
   [m_loadingAlertView show];
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(dismissAlert) userInfo:nil repeats:NO];
+}
+
+- (BOOL)checkLaunchURL:(NSURL *)url
+{
+  NSString *scheme = url.scheme;
+  m_scheme = scheme;
+  if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
+  {
+    m_geoURL = [url absoluteString];
+    return YES;
+  }
+  else if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
+  {
+    m_mwmURL = [url absoluteString];
+    return YES;
+  }
+  else if ([scheme isEqualToString:@"file"])
+  {
+    m_fileURL = [url relativePath];
+    return YES;
+  }
+  NSLog(@"Scheme %@ is not supported", scheme);
+  return NO;
 }
 
 - (void)dismissAlert
