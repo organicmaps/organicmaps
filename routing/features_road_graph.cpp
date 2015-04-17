@@ -27,35 +27,32 @@ uint32_t crossCheck = 0;
 
 /// @todo Factor out vehicle model as a parameter for the features graph.
 FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
-  : m_pIndex(pIndex), m_mwmID(mwmID), m_vehicleModel(new PedestrianModel()), m_cache(FEATURE_CACHE_SIZE),
-    m_cacheMiss(0), m_cacheAccess(0)
+    : m_pIndex(pIndex),
+      m_mwmID(mwmID),
+      m_vehicleModel(new PedestrianModel()),
+      m_cache(FEATURE_CACHE_SIZE),
+      m_cacheMiss(0),
+      m_cacheAccess(0)
 {
 }
 
-uint32_t FeaturesRoadGraph::GetStreetReadScale()
-{
-  return scales::GetUpperScale();
-}
+uint32_t FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(); }
 
 class CrossFeaturesLoader
 {
-  uint32_t m_featureID;
   FeaturesRoadGraph & m_graph;
   m2::PointD m_point;
   IRoadGraph::TurnsVectorT & m_turns;
   size_t m_count;
 
 public:
-  CrossFeaturesLoader(uint32_t fID, FeaturesRoadGraph & graph,
-                      m2::PointD const & pt, IRoadGraph::TurnsVectorT & turns)
-    : m_featureID(fID), m_graph(graph), m_point(pt), m_turns(turns), m_count(0)
+  CrossFeaturesLoader(FeaturesRoadGraph & graph, m2::PointD const & pt,
+                      IRoadGraph::TurnsVectorT & turns)
+      : m_graph(graph), m_point(pt), m_turns(turns), m_count(0)
   {
   }
 
-  size_t GetCount() const
-  {
-    return m_count;
-  }
+  size_t GetCount() const { return m_count; }
 
   void operator()(FeatureType & ft)
   {
@@ -139,12 +136,13 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
   if (fc.m_speed <= 0.0)
     return;
 
-  ASSERT_GREATER_OR_EQUAL(fc.m_points.size(), 2, ("Incorrect road - only", fc.m_points.size(), "point(s)."));
+  ASSERT_GREATER_OR_EQUAL(fc.m_points.size(), 2,
+                          ("Incorrect road - only", fc.m_points.size(), "point(s)."));
 
   m2::PointD const point = fc.m_points[pos.GetSegStartPointId()];
 
   // Find possible turns to startPoint from other features.
-  CrossFeaturesLoader crossLoader(featureId, *this, point, turns);
+  CrossFeaturesLoader crossLoader(*this, point, turns);
   m_pIndex->ForEachInRect(crossLoader,
                           m2::RectD(point.x - READ_CROSS_EPSILON, point.y - READ_CROSS_EPSILON,
                                     point.x + READ_CROSS_EPSILON, point.y + READ_CROSS_EPSILON),
@@ -159,87 +157,60 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
 void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
 {
   LOG(LINFO, ("Cache miss: ", GetCacheMiss() * 100, " Access count: ", m_cacheAccess));
-  LOG(LINFO, ("Index check: ", indexCheck, " Index found: ", indexFound, " (", 100.0 * (double)indexFound / (double)indexCheck, "%)"));
-  LOG(LINFO, ("Cross check: ", crossCheck, " Cross found: ", crossFound, " (", 100.0 * (double)crossFound / (double)crossCheck, "%)"));
+  double const indexCheckRatio =
+      indexCheck == 0 ? 0.0 : static_cast<double>(indexFound) / static_cast<double>(indexCheck);
+  LOG(LINFO, ("Index check: ", indexCheck, " Index found: ", indexFound, " (",
+              100.0 * indexCheckRatio, "%)"));
+  double const crossCheckRatio =
+      crossCheck == 0 ? 0.0 : static_cast<double>(crossFound) / static_cast<double>(crossCheck);
+  LOG(LINFO, ("Cross check: ", crossCheck, " Cross found: ", crossFound, " (",
+              100.0 * crossCheckRatio, "%)"));
 
-  size_t count = positions.size();
-  if (count < 2)
+  if (positions.size() < 2)
+  {
+    LOG(LERROR, ("Not enough positions to reconstruct a path."));
     return;
+  }
 
-  FeatureType ft1;
   vector<m2::PointD> poly;
 
-  double trackTime = 0;
+  FeatureType prevFt;
+  uint32_t prevFtId = positions.front().GetFeatureId();
+  LoadFeature(prevFtId, prevFt);
 
-  // Initialize starting point.
-  LoadFeature(positions.back().GetFeatureId(), ft1);
-
-  m2::PointD prevPoint = positions.back().GetSegEndpoint();
+  double trackTime = 0.0;
+  m2::PointD prevPoint = positions.front().GetSegEndpoint();
   poly.push_back(prevPoint);
-
-  for (size_t i = count-1; i > 0; --i)
+  for (size_t i = 1; i < positions.size(); ++i)
   {
-    RoadPos const & pos1 = positions[i];
-    RoadPos const & pos2 = positions[i-1];
+    m2::PointD curPoint = positions[i].GetSegEndpoint();
+    poly.push_back(curPoint);
 
-    FeatureType ft2;
+    double const lengthM = CalcDistanceMeters(prevPoint, curPoint);
+    trackTime += lengthM / (m_vehicleModel->GetSpeed(prevFt) * KMPH2MPS);
 
-    // Find next connection point
-    m2::PointD lastPt;
-    bool const diffIDs = pos1.GetFeatureId() != pos2.GetFeatureId();
-    if (diffIDs)
+    prevPoint = curPoint;
+    if (positions[i].GetFeatureId() != prevFtId)
     {
-      LoadFeature(pos2.GetFeatureId(), ft2);
-      lastPt = ft2.GetPoint(pos2.GetSegEndPointId());
+      LoadFeature(positions[i].GetFeatureId(), prevFt);
+      prevFtId = positions[i].GetFeatureId();
     }
-    else
-      lastPt = ft1.GetPoint(pos2.GetSegEndPointId());
-
-    // Accumulate points from start point id to pt.
-    int const inc = pos1.IsForward() ? -1 : 1;
-    int ptID = pos1.GetSegStartPointId();
-    m2::PointD curPoint;
-    double segmentLengthM = 0.0;
-    do
-    {
-      curPoint = ft1.GetPoint(ptID);
-      poly.push_back(curPoint);
-      segmentLengthM += CalcDistanceMeters(curPoint, prevPoint);
-      prevPoint = curPoint;
-
-      LOG(LDEBUG, (curPoint, pos1.GetFeatureId(), ptID));
-
-      ptID += inc;
-
-    } while (ptID >= 0 && ptID < ft1.GetPointsCount() && !m2::AlmostEqual(curPoint, lastPt));
-
-    segmentLengthM += CalcDistanceMeters(lastPt, prevPoint);
-    // Calculation total feature time. Seconds.
-    trackTime += segmentLengthM / (m_vehicleModel->GetSpeed(ft1) * KMPH2MPS);
-
-    // Assign current processing feature.
-    if (diffIDs)
-      ft1.SwapGeometry(ft2);
   }
 
-  poly.push_back(positions.front().GetSegEndpoint());
-  trackTime +=
-      CalcDistanceMeters(poly.back(), prevPoint) / (m_vehicleModel->GetSpeed(ft1) * KMPH2MPS);
-
-  ASSERT_GREATER(poly.size(), 1, ("Empty track"));
-
-  if (poly.size() > 1)
+  if (poly.size() <= 1)
   {
-    Route::TurnsT turnsDir;
-    Route::TimesT times;
-
-    times.emplace_back(poly.size() - 1, trackTime);
-    turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
-
-    route.SetGeometry(poly.rbegin(), poly.rend());
-    route.SetTurnInstructions(turnsDir);
-    route.SetSectionTimes(times);
+    ASSERT(false, ("Empty track"));
+    return;
   }
+  Route::TurnsT turnsDir;
+  Route::TimesT times;
+
+  times.emplace_back(poly.size() - 1, trackTime);
+  turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
+
+  route.SetGeometry(poly.begin(), poly.end());
+  route.SetTurnInstructions(turnsDir);
+  route.SetSectionTimes(times);
 }
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
@@ -252,8 +223,9 @@ double FeaturesRoadGraph::GetSpeed(FeatureType const & ft) const
   return m_vehicleModel->GetSpeed(ft);
 }
 
-FeaturesRoadGraph::CachedFeature const & FeaturesRoadGraph::GetCachedFeature(
-    uint32_t const ftId, FeatureType & ft, bool fullLoad)
+FeaturesRoadGraph::CachedFeature const & FeaturesRoadGraph::GetCachedFeature(uint32_t const ftId,
+                                                                             FeatureType & ft,
+                                                                             bool fullLoad)
 {
   bool found = false;
   CachedFeature & f = m_cache.Find(ftId, found);
@@ -274,4 +246,4 @@ FeaturesRoadGraph::CachedFeature const & FeaturesRoadGraph::GetCachedFeature(
 
   return f;
 }
-} // namespace routing
+}  // namespace routing

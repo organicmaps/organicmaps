@@ -13,8 +13,7 @@ IRouter::ResultCode AStarRouter::CalculateRouteM2M(vector<RoadPos> const & start
   RoadGraph graph(*m_roadGraph);
   m_algo.SetGraph(graph);
 
-  // TODO (@gorshenin): switch to FindPathBidirectional.
-  TAlgorithm::Result result = m_algo.FindPath(startPos, finalPos, route);
+  TAlgorithm::Result result = m_algo.FindPathBidirectional(startPos, finalPos, route);
   switch (result)
   {
     case TAlgorithm::Result::OK:
