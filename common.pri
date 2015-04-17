@@ -17,14 +17,16 @@ VERSION_MINOR = 4
 VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 
 # Additional include directories, common to most projects.
-INCLUDEPATH *= $$ROOT_DIR
+# /../omim part is used to avoid qmake issue when whole project
+# recompiles without any modification.
+INCLUDEPATH *= $$ROOT_DIR/../omim
+DEPENDPATH  *= $$ROOT_DIR/../omim
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
 INCLUDEPATH *= $$ROOT_DIR/3party/glm
 
-# hack for Qt5 qmake to make it faster
+# Hack for Qt5 qmake to make it much faster.
+# Turns off any external headers modification check (see DEPENDPATH).
 CONFIG -= depend_includepath
-
-DEPENDPATH *= $$ROOT_DIR
 
 CONFIG *= c++11
 
