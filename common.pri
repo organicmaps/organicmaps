@@ -21,10 +21,10 @@ INCLUDEPATH *= $$ROOT_DIR
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
 INCLUDEPATH *= $$ROOT_DIR/3party/glm
 
-
-
 # hack for Qt5 qmake to make it faster
 CONFIG -= depend_includepath
+
+DEPENDPATH *= $$ROOT_DIR
 
 CONFIG *= c++11
 
