@@ -19,10 +19,12 @@ uint32_t const FEATURE_CACHE_SIZE = 10;
 double const READ_CROSS_EPSILON = 1.0E-4;
 double const KMPH2MPS = 1000.0 / (60 * 60);
 
+#if defined(DEBUG)
 uint32_t indexFound = 0;
 uint32_t indexCheck = 0;
 uint32_t crossFound = 0;
 uint32_t crossCheck = 0;
+#endif  // defined(DEBUG)
 }  // namespace
 
 /// @todo Factor out vehicle model as a parameter for the features graph.
@@ -86,13 +88,17 @@ public:
     {
       m2::PointD const & p = fc.m_points[i];
 
+#if defined(DEBUG)
       crossCheck++;
+#endif  // defined(DEBUG)
 
       /// @todo Is this a correct way to compare?
       if (!m2::AlmostEqual(m_point, p))
         continue;
 
+#if defined(DEBUG)
       crossFound++;
+#endif  // defined(DEBUG)
 
       if (i > 0)
       {
@@ -148,24 +154,28 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
                                     point.x + READ_CROSS_EPSILON, point.y + READ_CROSS_EPSILON),
                           scales::GetUpperScale());
 
+#if defined(DEBUG)
   indexCheck++;
-
   if (crossLoader.GetCount() > 0)
     indexFound++;
+#endif  // defined(DEBUG)
 }
 
 void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
 {
-  LOG(LINFO, ("Cache miss: ", GetCacheMiss() * 100, " Access count: ", m_cacheAccess));
+#if defined(DEBUG)
+  LOG(LDEBUG, ("Cache miss: ", GetCacheMiss() * 100, " Access count: ", m_cacheAccess));
   double const indexCheckRatio =
       indexCheck == 0 ? 0.0 : static_cast<double>(indexFound) / static_cast<double>(indexCheck);
-  LOG(LINFO, ("Index check: ", indexCheck, " Index found: ", indexFound, " (",
-              100.0 * indexCheckRatio, "%)"));
+  LOG(LDEBUG, ("Index check: ", indexCheck, " Index found: ", indexFound, " (",
+               100.0 * indexCheckRatio, "%)"));
   double const crossCheckRatio =
       crossCheck == 0 ? 0.0 : static_cast<double>(crossFound) / static_cast<double>(crossCheck);
-  LOG(LINFO, ("Cross check: ", crossCheck, " Cross found: ", crossFound, " (",
-              100.0 * crossCheckRatio, "%)"));
+  LOG(LDEBUG, ("Cross check: ", crossCheck, " Cross found: ", crossFound, " (",
+               100.0 * crossCheckRatio, "%)"));
+#endif  // defined(DEBUG)
 
+  // TODO: reconstruct a path from only one position.
   if (positions.size() < 2)
   {
     LOG(LERROR, ("Not enough positions to reconstruct a path."));
@@ -173,12 +183,13 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
   }
 
   vector<m2::PointD> poly;
+  poly.reserve(positions.size());
 
   FeatureType prevFt;
   uint32_t prevFtId = positions.front().GetFeatureId();
   LoadFeature(prevFtId, prevFt);
 
-  double trackTime = 0.0;
+  double trackTimeSec = 0.0;
   m2::PointD prevPoint = positions.front().GetSegEndpoint();
   poly.push_back(prevPoint);
   for (size_t i = 1; i < positions.size(); ++i)
@@ -187,7 +198,7 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     poly.push_back(curPoint);
 
     double const lengthM = CalcDistanceMeters(prevPoint, curPoint);
-    trackTime += lengthM / (m_vehicleModel->GetSpeed(prevFt) * KMPH2MPS);
+    trackTimeSec += lengthM / (m_vehicleModel->GetSpeed(prevFt) * KMPH2MPS);
 
     prevPoint = curPoint;
     if (positions[i].GetFeatureId() != prevFtId)
@@ -197,15 +208,14 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
     }
   }
 
-  if (poly.size() <= 1)
-  {
-    ASSERT(false, ("Empty track"));
-    return;
-  }
-  Route::TurnsT turnsDir;
-  Route::TimesT times;
+  ASSERT_EQUAL(positions.size(), poly.size(), ());
 
-  times.emplace_back(poly.size() - 1, trackTime);
+  // TODO: investigate whether it worth to reconstruct detailed turns
+  // and times.
+  Route::TimesT times;
+  times.emplace_back(poly.size() - 1, trackTimeSec);
+
+  Route::TurnsT turnsDir;
   turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
 
   route.SetGeometry(poly.begin(), poly.end());
