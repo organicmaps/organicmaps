@@ -67,7 +67,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_Bookmark_getXY(
        JNIEnv * env, jobject thiz, jint cat, jlong bmk)
   {
-    return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetOrg());
+    return jni::GetNewParcelablePointD(env, getBookmark(cat, bmk)->GetPivot());
   }
 
   JNIEXPORT jdouble JNICALL

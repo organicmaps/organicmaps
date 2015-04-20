@@ -114,7 +114,7 @@ extern "C"
     string formattedLenght;
     MeasurementUtils::FormatDistance(nTrack->GetLengthMeters(), formattedLenght);
 
-    dp::Color nColor = nTrack->GetMainColor();
+    dp::Color nColor = nTrack->GetColor(0);
 
     jint androidColor = shift(nColor.GetAlfa(), 24) +
                         shift(nColor.GetRed(), 16) +

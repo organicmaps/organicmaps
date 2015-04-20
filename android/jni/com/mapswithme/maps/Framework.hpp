@@ -28,7 +28,7 @@ namespace android
                     public storage::ActiveMapsLayout::ActiveMapsListener
   {
   private:
-    dp::MasterPointer<dp::ThreadSafeFactory> m_contextFactory;
+    drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
     ::Framework m_work;
 
     typedef shared_ptr<jobject> TJobject;

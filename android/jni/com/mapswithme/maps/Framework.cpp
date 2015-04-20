@@ -13,6 +13,7 @@
 #include "map/user_mark.hpp"
 
 #include "drape_frontend/visual_params.hpp"
+#include "drape/pointers.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
@@ -148,13 +149,13 @@ float Framework::GetBestDensity(int densityDpi)
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi)
 {
-  m_contextFactory.Reset(new dp::ThreadSafeFactory(new AndroidOGLContextFactory(env, jSurface)));
+  m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new AndroidOGLContextFactory(env, jSurface));
   AndroidOGLContextFactory const * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   if (!factory->IsValid())
     return false;
 
   float visualScale = GetBestDensity(densityDpi);
-  m_work.CreateDrapeEngine(m_contextFactory.GetRefPointer(), visualScale, factory->GetWidth(), factory->GetHeight());
+  m_work.CreateDrapeEngine(make_ref<dp::ThreadSafeFactory>(m_contextFactory), visualScale, factory->GetWidth(), factory->GetHeight());
   m_work.SetUpdatesEnabled(true);
   m_work.EnterForeground();
   LoadState();
@@ -707,7 +708,7 @@ void Framework::InjectMetadata(JNIEnv * env, jclass const clazz, jobject const m
   using feature::Metadata;
 
   Metadata metadata;
-  frm()->FindClosestPOIMetadata(userMark->GetOrg(), metadata);
+  frm()->FindClosestPOIMetadata(userMark->GetPivot(), metadata);
 
   static jmethodID const addId = env->GetMethodID(clazz, "addMetadata", "(ILjava/lang/String;)V");
   ASSERT ( addId, () );
@@ -887,7 +888,7 @@ extern "C"
     case UserMark::Type::POI:
       {
         PoiMarkPoint const * poiMark = CastMark<PoiMarkPoint>(mark);
-        CallOnPoiActivatedListener(obj, mark->GetOrg(), poiMark->GetInfo(), poiMark->GetMetadata());
+        CallOnPoiActivatedListener(obj, mark->GetPivot(), poiMark->GetInfo(), poiMark->GetMetadata());
         break;
       }
 
@@ -895,8 +896,8 @@ extern "C"
       {
         SearchMarkPoint const * searchMark = CastMark<SearchMarkPoint>(mark);
         feature::Metadata metadata;
-        fm->FindClosestPOIMetadata(mark->GetOrg(), metadata);
-        CallOnAdditionalLayerActivatedListener(obj, searchMark->GetOrg(), searchMark->GetInfo(), metadata);
+        fm->FindClosestPOIMetadata(mark->GetPivot(), metadata);
+        CallOnAdditionalLayerActivatedListener(obj, searchMark->GetPivot(), searchMark->GetInfo(), metadata);
         break;
       }
 
@@ -1131,10 +1132,10 @@ extern "C"
     env->SetObjectField(jsearchResult, typeId, jni::ToJavaString(env, info.GetPinType()));
 
     static jfieldID const latId = env->GetFieldID(javaClazz, "mLat", "D");
-    env->SetDoubleField(jsearchResult, latId, MercatorBounds::YToLat(mark->GetOrg().y));
+    env->SetDoubleField(jsearchResult, latId, MercatorBounds::YToLat(mark->GetPivot().y));
 
     static jfieldID const lonId = env->GetFieldID(javaClazz, "mLon", "D");
-    env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(mark->GetOrg().x));
+    env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(mark->GetPivot().x));
 
     g_framework->InjectMetadata(env, javaClazz, jsearchResult, mark);
   }
