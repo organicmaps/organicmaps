@@ -12,6 +12,13 @@ public:
   using TVertexType = TVertex;
   using TEdgeType = TEdge;
 
+  /// TODO (@gorshenin, @pimenov, @ldragunov): for bidirectional
+  /// algorithms this method should be replaced by two:
+  /// GetOutgoingEdges() and GetIngoingEdges(). They should be
+  /// identical for undirected graphs, but may differ on directed. The
+  /// reason is that forward pass of routing algorithms should use
+  /// only GetOutgoingEdges() while backward pass should use only
+  /// GetIngoingEdges().
   void GetAdjacencyList(TVertexType const & v, vector<TEdgeType> & adj) const
   {
     return GetImpl().GetAdjacencyListImpl(v, adj);
