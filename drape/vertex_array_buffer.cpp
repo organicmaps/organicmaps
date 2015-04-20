@@ -50,7 +50,7 @@ void VertexArrayBuffer::Preflush()
 
 void VertexArrayBuffer::Render()
 {
-  RenderRange({ 0, GetIndexBuffer().GetCurrentSize() });
+  RenderRange(IndicesRange(0, GetIndexBuffer().GetCurrentSize()));
 }
 
 void VertexArrayBuffer::RenderRange(IndicesRange const & range)

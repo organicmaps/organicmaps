@@ -17,6 +17,16 @@ struct IndicesRange
 {
   uint16_t m_idxStart;
   uint16_t m_idxCount;
+
+  IndicesRange()
+    : m_idxStart(0), m_idxCount(0)
+  {}
+
+  IndicesRange(uint16_t idxStart, uint16_t idxCount)
+    : m_idxStart(idxStart), m_idxCount(idxCount)
+  {}
+
+  bool IsValid() const { return m_idxCount != 0; }
 };
 
 class VertexArrayBuffer

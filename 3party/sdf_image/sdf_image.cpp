@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "drape/sdf_image.h"
+#include "drape/sdf_image.hpp"
 
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"

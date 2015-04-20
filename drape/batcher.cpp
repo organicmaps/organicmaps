@@ -17,13 +17,19 @@ public:
   CallbacksWrapper(GLState const & state, RefPointer<OverlayHandle> overlay)
     : m_state(state)
     , m_overlay(overlay)
+    , m_vaoChanged(false)
   {
-
   }
 
   void SetVAO(RefPointer<VertexArrayBuffer> buffer)
   {
+    // invocation with non-null VAO will cause to invalid range of indices.
+    // It means that VAO has been changed during batching
+    if (!m_buffer.IsNull())
+      m_vaoChanged = true;
+
     m_buffer = buffer;
+    m_indicesRange.m_idxStart = m_buffer->GetIndexCount();
   }
 
   bool IsVAOFilled() const
@@ -74,11 +80,23 @@ public:
     return m_state;
   }
 
+  IndicesRange const & Finish()
+  {
+    if (!m_vaoChanged)
+      m_indicesRange.m_idxCount = m_buffer->GetIndexCount() - m_indicesRange.m_idxStart;
+    else
+      m_indicesRange = IndicesRange();
+
+    return m_indicesRange;
+  }
+
 private:
   GLState const & m_state;
   RefPointer<VertexArrayBuffer> m_buffer;
-  RefPointer<OverlayHandle>     m_overlay;
-  vector<uint16_t>              m_indexStorage;
+  RefPointer<OverlayHandle> m_overlay;
+  vector<uint16_t> m_indexStorage;
+  IndicesRange m_indicesRange;
+  bool m_vaoChanged;
 };
 
 ////////////////////////////////////////////////////////////////
@@ -203,7 +221,6 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, RefPointer<Attribut
   RefPointer<RenderBucket> bucket = GetBucket(state);
   RefPointer<VertexArrayBuffer> vao = bucket->GetBuffer();
   IndicesRange range;
-  range.m_idxStart = vao->GetIndexCount();
 
   MasterPointer<OverlayHandle> handle(transferHandle);
 
@@ -223,12 +240,13 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, RefPointer<Attribut
     batch.SetIsCanDevideStreams(handle.IsNull());
     batch.SetVertexStride(vertexStride);
     batch.BatchData(params);
+
+    range = wrapper.Finish();
   }
 
   if (!handle.IsNull())
     bucket->AddOverlayHandle(handle.Move());
 
-  range.m_idxCount = vao->GetIndexCount() - range.m_idxStart;
   return range;
 }
 

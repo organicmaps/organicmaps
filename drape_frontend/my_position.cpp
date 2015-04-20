@@ -144,6 +144,7 @@ void MyPosition::CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng)
     provider.InitStream(0 /*stream index*/, GetBindingInfo(), dp::StackVoidRef(buffer.data()));
 
     m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleFan(state, dp::MakeStackRefPointer(&provider));
+    ASSERT(m_parts[MY_POSITION_ACCURACY].first.IsValid(), ());
   }
 }
 
@@ -199,7 +200,9 @@ void MyPosition::CachePointPosition(dp::RefPointer<dp::TextureManager> mng)
     m_parts[MY_POSITION_POINT].second = m_nodes.size();
     m_parts[MY_POSITION_ARROW].second = m_nodes.size();
     m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&pointProvider));
+    ASSERT(m_parts[MY_POSITION_POINT].first.IsValid(), ());
     m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&arrowProvider));
+    ASSERT(m_parts[MY_POSITION_ARROW].first.IsValid(), ());
   }
 }
 
