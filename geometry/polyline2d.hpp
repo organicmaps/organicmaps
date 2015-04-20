@@ -19,7 +19,7 @@ class PolylineT
 
 public:
   PolylineT() {}
-  PolylineT(initializer_list<Point<T> > points) : m_points(points)
+  explicit PolylineT(initializer_list<Point<T> > points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
