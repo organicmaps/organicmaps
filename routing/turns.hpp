@@ -86,6 +86,7 @@ bool IsGoStraightOrSlightTurn(TurnDirection t);
  * \param lanesString lane information. Example through|through|through|through;right
  * \param lanes the result of parsing.
  * \return true if @lanesString parsed successfully, false otherwise.
+ * Note: if @lanesString is empty returns false.
  */
 bool ParseLanes(string const & lanesString, vector<vector<routing::turns::Lane>> & lanes);
 void ParseLanesToStrings(string const & lanesString, char delimiter, vector<string> & lanes);

@@ -115,6 +115,8 @@ bool ParseOneLane(string const & laneString, char delimiter, vector<Lane> & lane
 bool ParseLanes(string const & lanesString, vector<vector<Lane>> & lanes)
 {
   lanes.clear();
+  if (lanesString.empty())
+    return false;
   // convert lanesString to lower case
   string lanesStringLower;
   lanesStringLower.reserve(lanesString.size());

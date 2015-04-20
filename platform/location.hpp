@@ -4,8 +4,8 @@
 
 #include "routing/turns.hpp"
 
-#include "std/string.hpp"
 #include "std/cmath.hpp"
+#include "std/string.hpp"
 #include "std/vector.hpp"
 
 
@@ -108,8 +108,9 @@ namespace location
     uint32_t m_exitNum;
     //@}
     int m_time;
-    // lane information on the edge before the turn.
-    vector<vector<routing::turns::Lane>> m_lanes;
+    // m_lanes contains lane information on the edge before the turn.
+    // Template parameter int is used for passing the information to Android and iOS.
+    vector<vector<int>> m_lanes;
     // The next street name
     string m_trgName;
 

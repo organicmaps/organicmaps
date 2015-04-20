@@ -1305,29 +1305,52 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass thiz)
   {
     ::Framework * fr = frm();
-
     if (fr->IsRoutingActive())
     {
       location::FollowingInfo info;
       fr->GetRouteFollowingInfo(info);
-
       if (info.IsValid())
       {
-        jclass klass = env->FindClass("com/mapswithme/maps/LocationState$RoutingInfo");
+        jclass const klass = env->FindClass("com/mapswithme/maps/LocationState$RoutingInfo");
+        ASSERT(klass, (jni::DescribeException()));
         static jmethodID const methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;"
-            "Ljava/lang/String;Ljava/lang/String;II)V");
+            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II[[I)V");
+        ASSERT(methodID, (jni::DescribeException()));
 
-        return env->NewObject(klass, methodID,
+        vector<vector<int>> const & lanes = info.m_lanes;
+        // A new java two-dimentional array for lane information is allocated here.
+        // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java GC.
+        jclass const myClassArray = env->FindClass("[I");
+        ASSERT(myClassArray, (jni::DescribeException()));
+        size_t const lanesSize = lanes.size();
+        jobjectArray const jLanes = env->NewObjectArray(lanesSize, myClassArray, nullptr);
+        ASSERT(jLanes, (jni::DescribeException()));
+        jintArray jOneLane = nullptr;
+
+        for (size_t j = 0; j < lanesSize; ++j)
+        {
+          size_t const laneSize = lanes[j].size();
+          jOneLane = env->NewIntArray(laneSize);
+          ASSERT(jOneLane, (jni::DescribeException()));
+          env->SetIntArrayRegion(jOneLane, 0, laneSize, lanes[j].data());
+          env->SetObjectArrayElement(jLanes, j, jOneLane); 
+        }
+
+        
+        jobject const result = env->NewObject(klass, methodID,
                               jni::ToJavaString(env, info.m_distToTarget),
                               jni::ToJavaString(env, info.m_targetUnitsSuffix),
                               jni::ToJavaString(env, info.m_distToTurn),
                               jni::ToJavaString(env, info.m_turnUnitsSuffix),
+                              jni::ToJavaString(env, info.m_trgName),
                               static_cast<jint>(info.m_turn),
-                              info.m_time);
-            }
+                              info.m_time, 
+                              jLanes);
+        ASSERT(result, (jni::DescribeException()));
+        return result;
+      }
     }
-
-    return 0;
+    return nullptr;
   }
 
   JNIEXPORT jobject JNICALL

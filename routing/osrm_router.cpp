@@ -1042,7 +1042,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
         if (t.m_turn != turns::NoTurn)
         {
           // adding lane info
-          OsrmMappingTypes::FtSeg seg1 = GetSegment(routingResult.m_routePath.unpacked_path_segments[i][j - 1], *mapping,
+          OsrmMappingTypes::FtSeg const seg1 = GetSegment(routingResult.m_routePath.unpacked_path_segments[i][j - 1], *mapping,
                                           [](pair<size_t, size_t> const & p)
                                           {
                                             ASSERT_GREATER(p.second, 0, ());
@@ -1054,16 +1054,31 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
             Index::FeaturesLoaderGuard loader1(*m_pIndex, mapping->GetMwmId());
             loader1.GetFeature(seg1.m_fid, ft1);
             ft1.ParseMetadata();
-            string const turnLanes = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES);
             vector<vector<routing::turns::Lane>> lanes;
-            if (!turnLanes.empty() && routing::turns::ParseLanes(turnLanes, lanes))
-              t.m_lanes = lanes;
 
-            //string const turnLanesForward = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD);
-            //string const turnLanesBackward = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD);
-            //if (!turnLanes.empty() || !turnLanesForward.empty() || !turnLanesBackward.empty())
-            //  LOG(LINFO, ("turnLanes: ", turnLanes, "turnLanesForward: ", turnLanesForward, "turnLanesBackward: ", turnLanesBackward));
-          }
+            if (seg1.m_pointStart < seg1.m_pointEnd)
+            {
+              // forward direction including oneway streets
+              string const turnLanes = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES);
+              if (routing::turns::ParseLanes(turnLanes, lanes))
+              {
+                t.m_lanes = lanes;
+              }
+              else
+              {
+                string const turnLanesForward = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD);
+                if (routing::turns::ParseLanes(turnLanesForward, lanes))
+                  t.m_lanes = lanes;
+              }
+            }
+            else
+            {
+              // backward direction
+              string const turnLanesBackward = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD);
+              if (routing::turns::ParseLanes(turnLanesBackward, lanes))
+                t.m_lanes = lanes;
+            }
+         }
           turnsDir.push_back(t);
         }
 
@@ -1427,13 +1442,13 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
                                   RoutingMappingPtrT const & routingMapping, Route::TurnItem & turn)
 {
   ASSERT(routingMapping.get(), ());
-  OsrmMappingTypes::FtSeg seg1 = GetSegment(node1, *routingMapping,
+  OsrmMappingTypes::FtSeg const seg1 = GetSegment(node1, *routingMapping,
                                   [] (pair<size_t, size_t> const & p)
                                   {
                                     ASSERT_GREATER(p.second, 0, ());
                                     return p.second - 1;
                                   });
-  OsrmMappingTypes::FtSeg seg2 = GetSegment(node2, *routingMapping,
+  OsrmMappingTypes::FtSeg const seg2 = GetSegment(node2, *routingMapping,
                                   [] (pair<size_t, size_t> const & p) { return p.first; });
 
   if (!seg1.IsValid() || !seg2.IsValid())

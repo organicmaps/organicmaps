@@ -168,10 +168,24 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
     info.m_trgName = turn.m_trgName;
-    // @todo the distance should depends on the current speed.
+    // @todo(VB) the distance should depend on the current speed.
     unsigned int const showLanesDistInMeters = 500;
     if (dist < showLanesDistInMeters)
-      info.m_lanes = turn.m_lanes;
+    {
+      // There are two nested for-loops bellow. Outer one is for lanes and inner one(transform) is for every lane directions.
+      // The meening of the code bellow is info.m_lanes = turn.m_lanes; (vector<vector<int>> = vector<vector<Lane>>).
+      // The size of turn.m_lanes is relatively small. Less then 10 for most cases.
+      info.m_lanes.clear();
+      size_t const lanesSize = turn.m_lanes.size();
+      for (size_t j = 0; j < lanesSize; ++j)
+      {
+        info.m_lanes.push_back(vector<int>());
+        vector<int> & back = info.m_lanes.back();
+        back.reserve(turn.m_lanes[j].size());
+        transform(turn.m_lanes[j].begin(), turn.m_lanes[j].end(), back_inserter(back),
+                  [] (routing::turns::Lane l) { return static_cast<int>(l); });
+      }
+    }
     else
       info.m_lanes.clear();
   }

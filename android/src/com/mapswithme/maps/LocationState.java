@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import android.util.Log;
+
 public enum LocationState
 {
   INSTANCE;
@@ -32,6 +34,9 @@ public enum LocationState
 
     public String mDistToTurn;
     public String mTurnUnitsSuffix;
+
+    // The next street according to the navigation route.
+    public String mTrgName;
 
     public TurnDirection mTurnDirection;
 
@@ -73,12 +78,54 @@ public enum LocationState
       }
     }
 
-    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, int direction, int totalTime)
+    /**
+     * IMPORTANT : Order of enum values MUST BE the same with native Lane enum.
+     * Information for every lane is composed of some number values bellow.
+     * For example, a lane could have THROUGH and RIGHT values.
+     */
+    enum Lane
     {
+      NONE,
+      REVERSE,
+      SHARP_LEFT,
+      LEFT,
+      SLIGH_LEFT,
+      MERGE_TO_RIGHT,
+      THROUGH,
+      MERGE_TO_LEFT,
+      SLIGHT_RIGHT,
+      RIGHT,
+      SHARP_RIGHT
+    };
+
+    private void DumpLanes(int[][] lanes)
+    {
+      for (int j = 0; j < lanes.length; j++)
+      {
+        final int startCapacity = 32;
+        StringBuilder sb = new StringBuilder(startCapacity);
+        sb.append("Lane number ").append(j).append(":");
+        for (int i : lanes[j])
+          sb.append(" ").append(i);
+        Log.d("JNIARRAY", "    " + sb.toString());
+      }
+    }
+
+    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String trgName, int direction, int totalTime
+       , int[][] lanes)
+    {
+      // The size of lanes array is not zero if any lane information is available and should be displayed.
+      // If so, lanes contains values of Lane enum for every lane.
+      // Log.d("JNIARRAY", "RoutingInfo(" + distToTarget + ", " + units + ", " + distTurn + ", ... , " + trgName);
+      // DumpLanes(lanes);
+
+      //@todo use lanes and trgName in java code.
+
       mDistToTarget = distToTarget;
       mUnits = units;
       mTurnUnitsSuffix = turnSuffix;
       mDistToTurn = distTurn;
+      mTrgName = trgName;
       mTotalTimeInSeconds = totalTime;
       mTurnDirection = TurnDirection.values()[direction];
     }
