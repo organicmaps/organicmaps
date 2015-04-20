@@ -1,8 +1,11 @@
 #pragma once
 
-#include "base/string_utils.hpp"
-#include "geometry/point2d.hpp"
 #include "routing/base/graph.hpp"
+
+#include "geometry/point2d.hpp"
+
+#include "base/string_utils.hpp"
+
 #include "std/vector.hpp"
 
 namespace routing

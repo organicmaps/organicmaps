@@ -1,9 +1,13 @@
 #include "routing/road_graph.hpp"
 
-#include "base/assert.hpp"
-#include "geometry/distance_on_sphere.hpp"
-#include "indexer/mercator.hpp"
 #include "routing/route.hpp"
+
+#include "indexer/mercator.hpp"
+
+#include "geometry/distance_on_sphere.hpp"
+
+#include "base/assert.hpp"
+
 #include "std/limits.hpp"
 #include "std/sstream.hpp"
 
@@ -16,8 +20,7 @@ double const MAX_SPEED_MPS = 5000.0 / (60 * 60);
 
 double CalcDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y), MercatorBounds::XToLon(p1.x),
-                             MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
+  return MercatorBounds::DistanceOnEarth(p1, p2);
 }
 
 double TimeBetweenSec(m2::PointD const & p1, m2::PointD const & p2)
@@ -47,12 +50,12 @@ void IRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route
 {
   CHECK(!positions.empty(), ("Can't reconstruct path from an empty list of positions."));
 
-  vector<m2::PointD> poly;
-  poly.reserve(positions.size());
+  vector<m2::PointD> path;
+  path.reserve(positions.size());
 
   double trackTimeSec = 0.0;
   m2::PointD prevPoint = positions[0].GetSegEndpoint();
-  poly.push_back(prevPoint);
+  path.push_back(prevPoint);
   for (size_t i = 1; i < positions.size(); ++i)
   {
     m2::PointD curPoint = positions[i].GetSegEndpoint();
@@ -64,30 +67,30 @@ void IRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route
     if (curPoint == prevPoint)
       continue;
 
-    poly.push_back(curPoint);
+    path.push_back(curPoint);
 
     double const lengthM = CalcDistanceMeters(prevPoint, curPoint);
     trackTimeSec += lengthM / (GetSpeedKMPH(positions[i - 1].GetFeatureId()) * KMPH2MPS);
     prevPoint = curPoint;
   }
 
-  if (poly.size() == 1)
+  if (path.size() == 1)
   {
-    m2::PointD point = poly.front();
-    poly.push_back(point);
+    m2::PointD point = path.front();
+    path.push_back(point);
   }
 
-  ASSERT_GREATER_OR_EQUAL(poly.size(), 2, ());
+  ASSERT_GREATER_OR_EQUAL(path.size(), 2, ());
 
   // TODO: investigate whether it worth to reconstruct detailed turns
   // and times.
   Route::TimesT times;
-  times.emplace_back(poly.size() - 1, trackTimeSec);
+  times.emplace_back(path.size() - 1, trackTimeSec);
 
   Route::TurnsT turnsDir;
-  turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
+  turnsDir.emplace_back(path.size() - 1, turns::ReachedYourDestination);
 
-  route.SetGeometry(poly.begin(), poly.end());
+  route.SetGeometry(path.begin(), path.end());
   route.SetTurnInstructions(turnsDir);
   route.SetSectionTimes(times);
 }
