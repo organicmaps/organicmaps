@@ -258,7 +258,7 @@ bool HTTPClientPlatformWrapper::RunHTTPRequest() {
     CLEAR_AND_RETURN_FALSE_ON_EXCEPTION
   }
 
-  assert(http_method_.empty());
+  assert(!http_method_.empty());
   const static jfieldID httpMethodField =
       env->GetFieldID(g_httpParamsClass, "httpMethod", "Ljava/lang/String;");
   {
