@@ -12,16 +12,11 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-
 using namespace routing;
 using namespace routing_test;
 
-
-// Use mock graph source.
-template <size_t finalPosSize, size_t startPosSize, size_t expectedSize>
-void TestAStarRouterMock(RoadPos (&finalPos)[finalPosSize],
-                            RoadPos (&startPos)[startPosSize],
-                            RoadPos (&expected)[expectedSize])
+void TestAStarRouterMock(vector<RoadPos> const & startPos, vector<RoadPos> const & finalPos,
+                         m2::PolylineD const & expected)
 {
   AStarRouter router;
   {
@@ -30,92 +25,31 @@ void TestAStarRouterMock(RoadPos (&finalPos)[finalPosSize],
     router.SetRoadGraph(move(graph));
   }
   vector<RoadPos> result;
-  IRouter::ResultCode resultCode = router.CalculateRouteM2M(
-      vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)),
-      vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)), result);
-  TEST_EQUAL(IRouter::NoError, resultCode, ());
-  TEST_EQUAL(vector<RoadPos>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), result, ());
-}
-
-// Use mwm features graph source.
-template <size_t finalPosSize, size_t startPosSize, size_t expectedSize>
-void TestAStarRouterMWM(RoadPos(&finalPos)[finalPosSize], RoadPos(&startPos)[startPosSize],
-                        RoadPos(&expected)[expectedSize], size_t pointsCount)
-{
-  FeatureRoadGraphTester tester("route_test2.mwm");
-
-  AStarRouter router;
-  router.SetRoadGraph(tester.StealGraph());
-
-  vector<RoadPos> finalV(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos));
-  tester.Name2FeatureID(finalV);
-
-  vector<RoadPos> startV(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos));
-  tester.Name2FeatureID(startV);
-
-  vector<RoadPos> result;
-  IRouter::ResultCode resultCode = router.CalculateRouteM2M(startV, finalV, result);
-  TEST_EQUAL(IRouter::NoError, resultCode, ());
-  LOG(LDEBUG, (result));
+  TEST_EQUAL(IRouter::NoError, router.CalculateRouteM2M(startPos, finalPos, result), ());
 
   Route route(router.GetName());
   router.GetGraph()->ReconstructPath(result, route);
-  LOG(LDEBUG, (route));
-  TEST_EQUAL(route.GetPoly().GetSize(), pointsCount, ());
-
-  tester.FeatureID2Name(result);
-  TEST_EQUAL(vector<RoadPos>(&expected[0], &expected[0] + ARRAY_SIZE(expected)), result, ());
+  TEST_EQUAL(expected, route.GetPoly(), ());
 }
 
-UNIT_TEST(AStar_Router_City_Simple)
+UNIT_TEST(AStarRouter_Graph2_Simple1)
 {
   classificator::Load();
 
-  // Uncomment to see debug log.
-  //my::g_LogLevel = LDEBUG;
+  vector<RoadPos> startPos = {RoadPos(1, true /* forward */, 0, m2::PointD(0, 0))};
+  vector<RoadPos> finalPos = {RoadPos(7, true /* forward */, 0, m2::PointD(80, 55))};
 
-  RoadPos finalPos[] = { RoadPos(7, true, 0) };
-  RoadPos startPos[] = { RoadPos(1, true, 0) };
-
-  RoadPos expected1[] = { RoadPos(1, true, 0),
-                          RoadPos(1, true, 1),
-                          RoadPos(8, true, 0),
-                          RoadPos(8, true, 1),
-                          RoadPos(7, true, 0) };
-  TestAStarRouterMock(finalPos, startPos, expected1);
-
-  RoadPos expected2[] = { RoadPos(1, true, 0),
-                          RoadPos(1, true, 1),
-                          RoadPos(8, true, 1),
-                          RoadPos(7, true, 0) };
-  TestAStarRouterMWM(finalPos, startPos, expected2, 4);
+  m2::PolylineD expected = {m2::PointD(0, 0),   m2::PointD(5, 10),  m2::PointD(5, 40),
+                            m2::PointD(18, 55), m2::PointD(39, 55), m2::PointD(80, 55)};
+  TestAStarRouterMock(startPos, finalPos, expected);
 }
 
-
-UNIT_TEST(AStar_Router_City_ReallyFunnyLoop)
+UNIT_TEST(AStarRouter_Graph2_Simple2)
 {
-  classificator::Load();
-
-  // Uncomment to see debug log.
-  //my::g_LogLevel = LDEBUG;
-
-  RoadPos finalPos[] = { RoadPos(1, true, 0) };
-  RoadPos startPos[] = { RoadPos(1, true, 1) };
-  RoadPos expected1[] = { RoadPos(1, true, 1),
-                          RoadPos(8, true, 0),
-                          RoadPos(8, true, 1),
-                          RoadPos(8, true, 3), // algorithm skips 8,2 segment
-                          RoadPos(4, false, 0),
-                          RoadPos(0, false, 1),
-                          RoadPos(0, false, 0),
-                          RoadPos(1, true, 0) };
-  TestAStarRouterMock(finalPos, startPos, expected1);
-
-  RoadPos expected2[] = { RoadPos(1, true, 1),
-                          RoadPos(8, true, 4),
-                          RoadPos(2, true, 1),
-                          RoadPos(0, false, 0),
-                          RoadPos(1, true, 0) };
-  TestAStarRouterMWM(finalPos, startPos, expected2, 9);
-
+  vector<RoadPos> startPos = {RoadPos(7, false /* forward */, 0, m2::PointD(80, 55))};
+  vector<RoadPos> finalPos = {RoadPos(0, true /* forward */, 4, m2::PointD(80, 0))};
+  m2::PolylineD expected = {m2::PointD(80, 55), m2::PointD(39, 55), m2::PointD(37, 30),
+                            m2::PointD(70, 30), m2::PointD(70, 10), m2::PointD(70, 0),
+                            m2::PointD(80, 0)};
+  TestAStarRouterMock(startPos, finalPos, expected);
 }

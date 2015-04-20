@@ -49,7 +49,7 @@ public:
 
   // routing::IRoadGraph overrides:
   void GetNearestTurns(routing::RoadPos const & pos, TurnsVectorT & turns) override;
-  void ReconstructPath(RoadPosVectorT const & positions, routing::Route & route) override;
+  double GetSpeedKMPH(uint32_t featureId) override;
 };
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & graphMock);

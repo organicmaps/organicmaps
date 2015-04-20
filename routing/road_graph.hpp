@@ -87,14 +87,16 @@ public:
   typedef vector<RoadPos> RoadPosVectorT;
   typedef vector<m2::PointD> PointsVectorT;
 
-  virtual ~IRoadGraph() {}
+  virtual ~IRoadGraph() = default;
+
+  /// Construct route by road positions (doesn't include first and last section).
+  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
 
   /// Finds all nearest feature sections (turns), that route to the
   /// "pos" section.
   virtual void GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns) = 0;
 
-  /// Construct route by road positions (doesn't include first and last section).
-  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route) = 0;
+  virtual double GetSpeedKMPH(uint32_t featureId) = 0;
 };
 
 // A class which represents an edge used by RoadGraph.

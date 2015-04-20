@@ -3,6 +3,7 @@
 #include "base/assert.hpp"
 #include "geometry/distance_on_sphere.hpp"
 #include "indexer/mercator.hpp"
+#include "routing/route.hpp"
 #include "std/limits.hpp"
 #include "std/sstream.hpp"
 
@@ -10,10 +11,18 @@ namespace routing
 {
 namespace
 {
-double TimeBetweenSec(m2::PointD const & v, m2::PointD const & w)
+double const KMPH2MPS = 1000.0 / (60 * 60);
+double const MAX_SPEED_MPS = 5000.0 / (60 * 60);
+
+double CalcDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
 {
-  static double const kMaxSpeedMPS = 5000.0 / 3600;
-  return MercatorBounds::DistanceOnEarth(v, w) / kMaxSpeedMPS;
+  return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y), MercatorBounds::XToLon(p1.x),
+                             MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
+}
+
+double TimeBetweenSec(m2::PointD const & p1, m2::PointD const & p2)
+{
+  return CalcDistanceMeters(p1, p2) / MAX_SPEED_MPS;
 }
 }  // namespace
 
@@ -30,6 +39,57 @@ string DebugPrint(RoadPos const & r)
   ss << "{ featureId: " << r.GetFeatureId() << ", isForward: " << r.IsForward()
      << ", segId:" << r.m_segId << ", segEndpoint:" << DebugPrint(r.m_segEndpoint) << "}";
   return ss.str();
+}
+
+// IRoadGraph ------------------------------------------------------------------
+
+void IRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
+{
+  CHECK(!positions.empty(), ("Can't reconstruct path from an empty list of positions."));
+
+  vector<m2::PointD> poly;
+  poly.reserve(positions.size());
+
+  double trackTimeSec = 0.0;
+  m2::PointD prevPoint = positions[0].GetSegEndpoint();
+  poly.push_back(prevPoint);
+  for (size_t i = 1; i < positions.size(); ++i)
+  {
+    m2::PointD curPoint = positions[i].GetSegEndpoint();
+
+    // By some reason there're two adjacent positions on a road with
+    // the same end-points. This could happen, for example, when
+    // direction on a road was changed.  But it doesn't matter since
+    // this code reconstructs only geometry of a route.
+    if (curPoint == prevPoint)
+      continue;
+
+    poly.push_back(curPoint);
+
+    double const lengthM = CalcDistanceMeters(prevPoint, curPoint);
+    trackTimeSec += lengthM / (GetSpeedKMPH(positions[i - 1].GetFeatureId()) * KMPH2MPS);
+    prevPoint = curPoint;
+  }
+
+  if (poly.size() == 1)
+  {
+    m2::PointD point = poly.front();
+    poly.push_back(point);
+  }
+
+  ASSERT_GREATER_OR_EQUAL(poly.size(), 2, ());
+
+  // TODO: investigate whether it worth to reconstruct detailed turns
+  // and times.
+  Route::TimesT times;
+  times.emplace_back(poly.size() - 1, trackTimeSec);
+
+  Route::TurnsT turnsDir;
+  turnsDir.emplace_back(poly.size() - 1, turns::ReachedYourDestination);
+
+  route.SetGeometry(poly.begin(), poly.end());
+  route.SetTurnInstructions(turnsDir);
+  route.SetSectionTimes(times);
 }
 
 // RoadGraph -------------------------------------------------------------------

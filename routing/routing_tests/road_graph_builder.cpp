@@ -8,6 +8,8 @@ using namespace routing;
 
 namespace routing_test
 {
+double const MPS2KMPH = (60 * 60) / 1000.0;
+
 void RoadInfo::Swap(RoadInfo & r)
 {
   m_points.swap(r.m_points);
@@ -17,10 +19,10 @@ void RoadInfo::Swap(RoadInfo & r)
 
 void RoadGraphMockSource::AddRoad(RoadInfo & rd)
 {
-  /// @todo Do ASSERT for RoadInfo params.
+  /// @todo Do CHECK for RoadInfo params.
   uint32_t const roadId = m_roads.size();
 
-  ASSERT_GREATER_OR_EQUAL(rd.m_points.size(), 2, ("Empty road"));
+  CHECK_GREATER_OR_EQUAL(rd.m_points.size(), 2, ("Empty road"));
   size_t const numSegments = rd.m_points.size() - 1;
 
   for (size_t segId = 0; segId < numSegments; ++segId)
@@ -45,95 +47,91 @@ void RoadGraphMockSource::AddRoad(RoadInfo & rd)
 
 void RoadGraphMockSource::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
 {
-  uint32_t const fID = pos.GetFeatureId();
-  ASSERT_LESS(fID, m_roads.size(), ());
+  // TODO (@gorshenin): this partially duplicates code in
+  // CrossFeaturesLoader. Possible solution is to make
+  // CrossFeaturesLoader abstract enough to be used here and in
+  // FeaturesRoadGraph.
 
-  vector<m2::PointD> const & points = m_roads[fID].m_points;
+  CHECK_LESS(pos.GetFeatureId(), m_roads.size(), ("Invalid feature id."));
+  RoadInfo const & curRoad = m_roads.at(pos.GetFeatureId());
 
-  int const inc = pos.IsForward() ? -1 : 1;
-  int startID = pos.GetSegId();
-  int const count = static_cast<int>(points.size());
+  CHECK_LESS(pos.GetSegStartPointId(), curRoad.m_points.size(), ("Invalid point id."));
+  m2::PointD const curPoint = curRoad.m_points[pos.GetSegStartPointId()];
 
-  if (!pos.IsForward())
-    ++startID;
-
-  double const speed = m_roads[fID].m_speedMS;
-
-  double distance = 0.0;
-  double time = 0.0;
-  for (int i = startID; i >= 0 && i < count; i += inc)
+  for (size_t featureId = 0; featureId < m_roads.size(); ++featureId)
   {
-    double const len = points[i - inc].Length(points[i]);
-    distance += len;
-    time += len / speed;
-
-    TurnsMapT::const_iterator j = m_turns.find(points[i]);
-    if (j != m_turns.end())
+    RoadInfo const & road = m_roads[featureId];
+    vector<m2::PointD> const & points = road.m_points;
+    if (road.m_speedMS <= 0.0)
+      continue;
+    PossibleTurn turn;
+    turn.m_startPoint = points.front();
+    turn.m_endPoint = points.back();
+    turn.m_speed = road.m_speedMS;
+    for (size_t i = 0; i < points.size(); ++i)
     {
-      vector<PossibleTurn> const & vec = j->second;
-      for (size_t k = 0; k < vec.size(); ++k)
+      m2::PointD point = points[i];
+      if (!m2::AlmostEqual(curPoint, point))
+        continue;
+      if (i > 0)
       {
-        if (vec[k].m_pos.GetFeatureId() != pos.GetFeatureId() ||
-            vec[k].m_pos.IsForward() == pos.IsForward())
-        {
-          PossibleTurn t = vec[k];
+        turn.m_pos = RoadPos(featureId, true /* forward */, i - 1, point);
+        turns.push_back(turn);
+      }
 
-          t.m_metersCovered = distance;
-          t.m_secondsCovered = time;
-          turns.push_back(t);
-        }
+      if (i + 1 < points.size())
+      {
+        turn.m_pos = RoadPos(featureId, false /* forward */, i, point);
+        turns.push_back(turn);
       }
     }
   }
 }
 
-void RoadGraphMockSource::ReconstructPath(RoadPosVectorT const &, routing::Route &) {}
+double RoadGraphMockSource::GetSpeedKMPH(uint32_t featureId)
+{
+  CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
+  return m_roads[featureId].m_speedMS * MPS2KMPH;
+}
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
 {
-  {
-    RoadInfo ri;
-    ri.m_bidirectional = true;
-    ri.m_speedMS = 40;
-    ri.m_points.push_back(m2::PointD(0, 0));
-    ri.m_points.push_back(m2::PointD(5, 0));
-    ri.m_points.push_back(m2::PointD(10, 0));
-    ri.m_points.push_back(m2::PointD(15, 0));
-    ri.m_points.push_back(m2::PointD(20, 0));
-    src.AddRoad(ri);
-  }
+  RoadInfo ri0;
+  ri0.m_bidirectional = true;
+  ri0.m_speedMS = 40;
+  ri0.m_points.push_back(m2::PointD(0, 0));
+  ri0.m_points.push_back(m2::PointD(5, 0));
+  ri0.m_points.push_back(m2::PointD(10, 0));
+  ri0.m_points.push_back(m2::PointD(15, 0));
+  ri0.m_points.push_back(m2::PointD(20, 0));
 
-  {
-    RoadInfo ri;
-    ri.m_bidirectional = true;
-    ri.m_speedMS = 40;
-    ri.m_points.push_back(m2::PointD(10, -10));
-    ri.m_points.push_back(m2::PointD(10, -5));
-    ri.m_points.push_back(m2::PointD(10, 0));
-    ri.m_points.push_back(m2::PointD(10, 5));
-    ri.m_points.push_back(m2::PointD(10, 10));
-    src.AddRoad(ri);
-  }
+  RoadInfo ri1;
+  ri1.m_bidirectional = true;
+  ri1.m_speedMS = 40;
+  ri1.m_points.push_back(m2::PointD(10, -10));
+  ri1.m_points.push_back(m2::PointD(10, -5));
+  ri1.m_points.push_back(m2::PointD(10, 0));
+  ri1.m_points.push_back(m2::PointD(10, 5));
+  ri1.m_points.push_back(m2::PointD(10, 10));
 
-  {
-    RoadInfo ri;
-    ri.m_bidirectional = true;
-    ri.m_speedMS = 40;
-    ri.m_points.push_back(m2::PointD(15, -5));
-    ri.m_points.push_back(m2::PointD(15, 0));
-    src.AddRoad(ri);
-  }
+  RoadInfo ri2;
+  ri2.m_bidirectional = true;
+  ri2.m_speedMS = 40;
+  ri2.m_points.push_back(m2::PointD(15, -5));
+  ri2.m_points.push_back(m2::PointD(15, 0));
 
-  {
-    RoadInfo ri;
-    ri.m_bidirectional = true;
-    ri.m_speedMS = 40;
-    ri.m_points.push_back(m2::PointD(20, 0));
-    ri.m_points.push_back(m2::PointD(25, 5));
-    ri.m_points.push_back(m2::PointD(15, 5));
-    ri.m_points.push_back(m2::PointD(20, 0));
-    src.AddRoad(ri);
-  }
+  RoadInfo ri3;
+  ri3.m_bidirectional = true;
+  ri3.m_speedMS = 40;
+  ri3.m_points.push_back(m2::PointD(20, 0));
+  ri3.m_points.push_back(m2::PointD(25, 5));
+  ri3.m_points.push_back(m2::PointD(15, 5));
+  ri3.m_points.push_back(m2::PointD(20, 0));
+
+  src.AddRoad(ri0);
+  src.AddRoad(ri1);
+  src.AddRoad(ri2);
+  src.AddRoad(ri3);
 }
 
 void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
@@ -149,14 +147,14 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
   ri0.m_points.push_back(m2::PointD(80, 0));
 
   RoadInfo ri1;
-  ri1.m_bidirectional = false;
+  ri1.m_bidirectional = true;
   ri1.m_speedMS = 40;
   ri1.m_points.push_back(m2::PointD(0, 0));
   ri1.m_points.push_back(m2::PointD(5, 10));
   ri1.m_points.push_back(m2::PointD(5, 40));
 
   RoadInfo ri2;
-  ri2.m_bidirectional = false;
+  ri2.m_bidirectional = true;
   ri2.m_speedMS = 40;
   ri2.m_points.push_back(m2::PointD(12, 25));
   ri2.m_points.push_back(m2::PointD(10, 10));
@@ -198,7 +196,7 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
   ri7.m_points.push_back(m2::PointD(80, 55));
 
   RoadInfo ri8;
-  ri8.m_bidirectional = false;
+  ri8.m_bidirectional = true;
   ri8.m_speedMS = 40;
   ri8.m_points.push_back(m2::PointD(5, 40));
   ri8.m_points.push_back(m2::PointD(18, 55));

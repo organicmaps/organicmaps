@@ -37,7 +37,6 @@ public:
 
   // IRoadGraph overrides:
   void GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns) override;
-  void ReconstructPath(RoadPosVectorT const & positions, Route & route) override;
 
   static uint32_t GetStreetReadScale();
 
@@ -54,8 +53,11 @@ private:
   friend class CrossFeaturesLoader;
 
   bool IsOneWay(FeatureType const & ft) const;
-  double GetSpeed(FeatureType const & ft) const;
-  void LoadFeature(uint32_t id, FeatureType & ft);
+
+  double GetSpeedKMPHFromFt(FeatureType const & ft) const;
+  double GetSpeedKMPH(uint32_t featureId) override;
+
+  void LoadFeature(uint32_t featureId, FeatureType & ft);
 
   Index const * m_pIndex;
   size_t m_mwmID;

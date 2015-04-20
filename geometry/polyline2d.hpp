@@ -6,8 +6,8 @@
 
 #include "base/internal/message.hpp"
 
+#include "std/initializer_list.hpp"
 #include "std/vector.hpp"
-
 
 namespace m2
 {
@@ -19,6 +19,10 @@ class PolylineT
 
 public:
   PolylineT() {}
+  PolylineT(initializer_list<Point<T> > points) : m_points(points)
+  {
+    ASSERT_GREATER(m_points.size(), 1, ());
+  }
   explicit PolylineT(vector<Point<T> > const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
@@ -69,6 +73,8 @@ public:
   }
 
   size_t GetSize() const { return m_points.size(); }
+
+  bool operator==(PolylineT<T> const & rhs) const { return m_points == rhs.m_points; }
 
   typedef vector<Point<T> > TContainer;
   typedef typename TContainer::const_iterator TIter;
