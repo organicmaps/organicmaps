@@ -66,19 +66,19 @@ public:
       return;
 
     // load feature from cache
-    FeaturesRoadGraph::CachedFeature const & fc = m_graph.GetCachedFeature(fID.m_offset, ft, false);
-    ASSERT_EQUAL(speed, fc.m_speed, ());
+    IRoadGraph::RoadInfo const & ri = m_graph.GetCachedRoadInfo(fID.m_offset, ft, false);
+    ASSERT_EQUAL(speed, ri.m_speedKMPH, ());
 
-    size_t const count = fc.m_points.size();
+    size_t const count = ri.m_points.size();
 
     PossibleTurn t;
-    t.m_speed = fc.m_speed;
-    t.m_startPoint = fc.m_points[0];
-    t.m_endPoint = fc.m_points[count - 1];
+    t.m_speedKMPH = ri.m_speedKMPH;
+    t.m_startPoint = ri.m_points[0];
+    t.m_endPoint = ri.m_points[count - 1];
 
     for (size_t i = 0; i < count; ++i)
     {
-      m2::PointD const & p = fc.m_points[i];
+      m2::PointD const & p = ri.m_points[i];
 
       /// @todo Is this a correct way to compare?
       if (!m2::AlmostEqual(m_point, p))
@@ -115,15 +115,15 @@ void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn
 {
   uint32_t const featureId = pos.GetFeatureId();
   FeatureType ft;
-  CachedFeature const fc = GetCachedFeature(featureId, ft, true);
+  RoadInfo const ri = GetCachedRoadInfo(featureId, ft, true);
 
-  if (fc.m_speed <= 0.0)
+  if (ri.m_speedKMPH <= 0.0)
     return;
 
-  ASSERT_GREATER_OR_EQUAL(fc.m_points.size(), 2,
-                          ("Incorrect road - only", fc.m_points.size(), "point(s)."));
+  ASSERT_GREATER_OR_EQUAL(ri.m_points.size(), 2,
+                          ("Incorrect road - only", ri.m_points.size(), "point(s)."));
 
-  m2::PointD const point = fc.m_points[pos.GetSegStartPointId()];
+  m2::PointD const point = ri.m_points[pos.GetSegStartPointId()];
 
   // Find possible turns to startPoint from other features.
   CrossFeaturesLoader crossLoader(*this, point, turns);
@@ -150,12 +150,11 @@ double FeaturesRoadGraph::GetSpeedKMPH(uint32_t featureId)
   return GetSpeedKMPHFromFt(ft);
 }
 
-FeaturesRoadGraph::CachedFeature const & FeaturesRoadGraph::GetCachedFeature(uint32_t const ftId,
-                                                                             FeatureType & ft,
-                                                                             bool fullLoad)
+IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(uint32_t const ftId,
+                                                                  FeatureType & ft, bool fullLoad)
 {
   bool found = false;
-  CachedFeature & f = m_cache.Find(ftId, found);
+  RoadInfo & ri = m_cache.Find(ftId, found);
 
   if (!found)
   {
@@ -164,13 +163,13 @@ FeaturesRoadGraph::CachedFeature const & FeaturesRoadGraph::GetCachedFeature(uin
     else
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    f.m_isOneway = IsOneWay(ft);
-    f.m_speed = GetSpeedKMPHFromFt(ft);
-    ft.SwapPoints(f.m_points);
+    ri.m_bidirectional = !IsOneWay(ft);
+    ri.m_speedKMPH = GetSpeedKMPHFromFt(ft);
+    ft.SwapPoints(ri.m_points);
     m_cacheMiss++;
   }
   m_cacheAccess++;
 
-  return f;
+  return ri;
 }
 }  // namespace routing

@@ -4,23 +4,6 @@
 
 namespace routing_test
 {
-/// This struct represents road as a polyline.
-struct RoadInfo
-{
-  /// Points of a polyline representing the road.
-  vector<m2::PointD> m_points;
-
-  /// Speed on the road.
-  double m_speedMS;
-
-  /// Indicates whether the road is bidirectional.
-  bool m_bidirectional;
-
-  RoadInfo() : m_speedMS(0.0), m_bidirectional(false) {}
-
-  void Swap(RoadInfo & r);
-};
-
 class RoadGraphMockSource : public routing::IRoadGraph
 {
   vector<RoadInfo> m_roads;
@@ -45,7 +28,7 @@ class RoadGraphMockSource : public routing::IRoadGraph
   TurnsMapT m_turns;
 
 public:
-  void AddRoad(RoadInfo & rd);
+  void AddRoad(RoadInfo && ri);
 
   // routing::IRoadGraph overrides:
   void GetNearestTurns(routing::RoadPos const & pos, TurnsVectorT & turns) override;

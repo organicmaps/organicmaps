@@ -19,18 +19,9 @@ namespace routing
 {
 class FeaturesRoadGraph : public IRoadGraph
 {
-  struct CachedFeature
-  {
-    CachedFeature() : m_speed(0), m_isOneway(false) {}
-
-    buffer_vector<m2::PointD, 32> m_points;
-    double m_speed;
-    bool m_isOneway;
-  };
-
   // TODO (@gorshenin): ft is not set when feature is not loaded from
   // cache, investigate how to fix this.
-  CachedFeature const & GetCachedFeature(uint32_t const ftId, FeatureType & ft, bool fullLoad);
+  RoadInfo const & GetCachedRoadInfo(uint32_t const ftId, FeatureType & ft, bool fullLoad);
 
 public:
   FeaturesRoadGraph(Index const * pIndex, size_t mwmID);
@@ -62,7 +53,7 @@ private:
   Index const * m_pIndex;
   size_t m_mwmID;
   unique_ptr<IVehicleModel> m_vehicleModel;
-  my::Cache<uint32_t, CachedFeature> m_cache;
+  my::Cache<uint32_t, RoadInfo> m_cache;
 
   uint32_t m_cacheMiss;
   uint32_t m_cacheAccess;

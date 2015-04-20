@@ -72,7 +72,7 @@ struct PossibleTurn
   m2::PointD m_endPoint;
 
   /// Speed on the old road.
-  double m_speed;
+  double m_speedKMPH;
 
   /// Distance and time to get to this turn on old road.
   double m_metersCovered;
@@ -89,6 +89,29 @@ public:
   typedef vector<PossibleTurn> TurnsVectorT;
   typedef vector<RoadPos> RoadPosVectorT;
   typedef vector<m2::PointD> PointsVectorT;
+
+  // This struct contains a part of a feature's metadata which is
+  // relevant for routing.
+  struct RoadInfo
+  {
+    RoadInfo() : m_speedKMPH(0.0), m_bidirectional(false) {}
+
+    RoadInfo(RoadInfo const & ri)
+        : m_points(ri.m_points), m_speedKMPH(ri.m_speedKMPH), m_bidirectional(ri.m_bidirectional)
+    {
+    }
+
+    RoadInfo(RoadInfo && ri)
+        : m_points(move(ri.m_points)),
+          m_speedKMPH(ri.m_speedKMPH),
+          m_bidirectional(ri.m_bidirectional)
+    {
+    }
+
+    buffer_vector<m2::PointD, 32> m_points;
+    double m_speedKMPH;
+    bool m_bidirectional;
+  };
 
   virtual ~IRoadGraph() = default;
 
