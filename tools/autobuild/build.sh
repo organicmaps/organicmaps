@@ -36,7 +36,10 @@ BuildQt() {
 
     mkdir -p "$SHADOW_DIR"
     cd "$SHADOW_DIR"
-    "$QMAKE" CONFIG-=sdk -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$MY_PATH/../../omim.pro"
+    if [ ! -f "$SHADOW_DIR/Makefile" ]; then
+      echo "Launching qmake..."
+      "$QMAKE" CONFIG-=sdk -r "$QMAKE_PARAMS" -spec "$MKSPEC" "$MY_PATH/../../omim.pro"
+    fi
 #    make clean > /dev/null || true
     make -j $(GetCPUCores)
   )
