@@ -48,7 +48,6 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   int zoomLevel = m_context.GetTileKey().m_zoomLevel;
 
-  EngineContextReadFeatureGuard guard(m_context, f.GetID());
   if (s.AreaStyleExists())
   {
     ApplyAreaFeature apply(m_context, f.GetID(), s.GetCaptionDescription());
@@ -79,6 +78,8 @@ void RuleDrawer::operator()(FeatureType const & f)
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
     apply.Finish();
   }
+
+  m_context.Flush();
 }
 
 } // namespace df

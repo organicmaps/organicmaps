@@ -27,23 +27,16 @@ void EngineContext::BeginReadTile()
   PostMessage(dp::MovePointer<Message>(new TileReadStartMessage(m_tileKey)));
 }
 
-void EngineContext::BeginReadFeature(FeatureID const & featureId)
+void EngineContext::InsertShape(dp::TransferPointer<MapShape> shape)
 {
-  ASSERT(m_mapShapeStorage.find(featureId) == m_mapShapeStorage.end(), ());
-  m_mapShapeStorage.insert(make_pair(featureId, list<dp::MasterPointer<MapShape>>()));
+  m_mapShapes.push_back(dp::MasterPointer<MapShape>(shape));
 }
 
-void EngineContext::InsertShape(FeatureID const & featureId, dp::TransferPointer<MapShape> shape)
+void EngineContext::Flush()
 {
-  ASSERT(m_mapShapeStorage.find(featureId) != m_mapShapeStorage.end(), ());
-  m_mapShapeStorage[featureId].push_back(dp::MasterPointer<MapShape>(shape));
-}
-
-void EngineContext::EndReadFeature(FeatureID const & featureId)
-{
-  MapShapeStorage::iterator it = m_mapShapeStorage.find(featureId);
-  ASSERT(it != m_mapShapeStorage.end(), ());
-  PostMessage(dp::MovePointer<Message>(new MapShapeReadedMessage(m_tileKey, move(it->second))));
+  list<dp::MasterPointer<MapShape>> shapes;
+  m_mapShapes.swap(shapes);
+  PostMessage(dp::MovePointer<Message>(new MapShapeReadedMessage(m_tileKey, move(shapes))));
 }
 
 void EngineContext::EndReadTile()
@@ -78,6 +71,8 @@ void EngineContext::EndReadTile()
   tp.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
 
   InsertShape(dp::MovePointer<df::MapShape>(new TextShape(r.Center(), tp)));
+
+  Flush();
 #endif
 
   PostMessage(dp::MovePointer<Message>(new TileReadEndMessage(m_tileKey)));
