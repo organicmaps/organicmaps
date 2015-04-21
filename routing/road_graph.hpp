@@ -101,7 +101,7 @@ public:
   typedef vector<RoadPos> RoadPosVectorT;
   typedef vector<m2::PointD> PointsVectorT;
 
-  // This struct contains a part of a feature's metadata which is
+  // This struct contains the part of a feature's metadata that is
   // relevant for routing.
   struct RoadInfo
   {
