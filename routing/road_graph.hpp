@@ -19,10 +19,11 @@ public:
   // Our routers (such as a-star) use RoadPos as vertices and we receive PointD from the user.
   // Every time a route is calculated, we create a fake RoadPos with a fake featureId to
   // place the real starting point on it (and also do the same for the final point).
-  // The constant here is used as those fake features' ids.
+  // The constants here are used as those fake features' ids.
   /// @todo The constant value is taken to comply with an assert in the constructor
   ///       that is terrible, wrong and to be rewritten in a separate CL.
-  static constexpr uint32_t FakeFeatureId = 1U << 29;
+  static constexpr uint32_t kFakeStartFeatureId = (1U << 30) - 1;
+  static constexpr uint32_t kFakeFinalFeatureId = (1U << 30) - 2;
 
   RoadPos() : m_featureId(0), m_segId(0), m_segEndpoint(0, 0) {}
   RoadPos(uint32_t featureId, bool forward, size_t segId,
@@ -34,9 +35,6 @@ public:
   uint32_t GetSegStartPointId() const { return m_segId + (IsForward() ? 0 : 1); }
   uint32_t GetSegEndPointId() const { return m_segId + (IsForward() ? 1 : 0); }
   m2::PointD const & GetSegEndpoint() const { return m_segEndpoint; }
-  bool IsFake() const { return GetFeatureId() == FakeFeatureId; }
-  bool IsStart() const { return IsFake() && GetSegId() == 0; }
-  bool IsFinal() const { return IsFake() && GetSegId() == 1; }
 
   bool operator==(RoadPos const & r) const
   {

@@ -21,8 +21,8 @@ public:
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, Route & route) override;
-  virtual ResultCode CalculateRouteP2P(RoadPos const & startPos, RoadPos const & finalPos,
-                                       vector<RoadPos> & route) = 0;
+  virtual ResultCode CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
+                                    vector<RoadPos> & route) = 0;
   virtual void SetRoadGraph(unique_ptr<IRoadGraph> && roadGraph) { m_roadGraph = move(roadGraph); }
   inline IRoadGraph * GetGraph() { return m_roadGraph.get(); }
 

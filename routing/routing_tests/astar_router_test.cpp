@@ -25,7 +25,7 @@ void TestAStarRouterMock(RoadPos const & startPos, RoadPos const & finalPos,
     router.SetRoadGraph(move(graph));
   }
   vector<RoadPos> result;
-  TEST_EQUAL(IRouter::NoError, router.CalculateRouteP2P(startPos, finalPos, result), ());
+  TEST_EQUAL(IRouter::NoError, router.CalculateRoute(startPos, finalPos, result), ());
 
   Route route(router.GetName());
   router.GetGraph()->ReconstructPath(result, route);

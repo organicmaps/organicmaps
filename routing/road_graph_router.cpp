@@ -28,15 +28,15 @@ double TimeBetweenSec(m2::PointD const & v, m2::PointD const & w)
   return MercatorBounds::DistanceOnEarth(v, w) / kMaxSpeedMPS;
 }
 
-void AddFakeTurns(RoadPos const & rp1, vector<RoadPos> const & vicinity,
+void AddFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity,
                   vector<PossibleTurn> & turns)
 {
-  for (RoadPos const & rp2 : vicinity)
+  for (RoadPos const & vrp : vicinity)
   {
     PossibleTurn t;
-    t.m_pos = rp2;
+    t.m_pos = vrp;
     /// @todo Do we need other fields? Do we even need m_secondsCovered?
-    t.m_secondsCovered = TimeBetweenSec(rp1.GetSegEndpoint(), rp2.GetSegEndpoint());
+    t.m_secondsCovered = TimeBetweenSec(rp.GetSegEndpoint(), vrp.GetSegEndpoint());
     turns.push_back(t);
   }
 }
@@ -93,14 +93,14 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   my::Timer timer;
   timer.Reset();
 
-  RoadPos startPos(RoadPos::FakeFeatureId, true /* forward */, 0 /* segId */, startPoint);
-  RoadPos finalPos(RoadPos::FakeFeatureId, true /* forward */, 1 /* segId */, finalPoint);
+  RoadPos startPos(RoadPos::kFakeStartFeatureId, true /* forward */, 0 /* segId */, startPoint);
+  RoadPos finalPos(RoadPos::kFakeFinalFeatureId, true /* forward */, 0 /* segId */, finalPoint);
 
   AddFakeTurns(startPos, startVicinity, m_roadGraph->m_startVicinityTurns);
   AddFakeTurns(finalPos, finalVicinity, m_roadGraph->m_finalVicinityTurns);
 
   vector<RoadPos> routePos;
-  IRouter::ResultCode resultCode = CalculateRouteP2P(startPos, finalPos, routePos);
+  IRouter::ResultCode resultCode = CalculateRoute(startPos, finalPos, routePos);
 
   /// @todo They have fake feature ids. Can we still draw them?
   ASSERT(routePos.back() == finalPos, ());

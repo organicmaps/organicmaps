@@ -6,9 +6,8 @@
 
 namespace routing
 {
-IRouter::ResultCode AStarRouter::CalculateRouteP2P(RoadPos const & startPos,
-                                                   RoadPos const & finalPos,
-                                                   vector<RoadPos> & route)
+IRouter::ResultCode AStarRouter::CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
+                                                vector<RoadPos> & route)
 {
   RoadGraph graph(*m_roadGraph);
   m_algo.SetGraph(graph);

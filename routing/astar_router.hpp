@@ -19,8 +19,8 @@ public:
   void ClearState() override { Reset(); }
 
   // RoadGraphRouter overrides:
-  ResultCode CalculateRouteP2P(RoadPos const & startPos, RoadPos const & finalPos,
-                               vector<RoadPos> & route) override;
+  ResultCode CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
+                            vector<RoadPos> & route) override;
 
   // my::Cancellable overrides:
   void Reset() override { m_algo.Reset(); }

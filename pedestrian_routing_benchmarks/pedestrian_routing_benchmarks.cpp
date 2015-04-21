@@ -54,7 +54,7 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
 
   my::Timer timer;
   LOG(LINFO, ("Calculating routing..."));
-  routing::IRouter::ResultCode resultCode = router.CalculateRouteP2P(startPos, finalPos, route);
+  routing::IRouter::ResultCode resultCode = router.CalculateRoute(startPos, finalPos, route);
   CHECK_EQUAL(routing::IRouter::NoError, resultCode, ());
   LOG(LINFO, ("Route length:", route.size()));
   LOG(LINFO, ("Elapsed:", timer.ElapsedSeconds(), "seconds"));

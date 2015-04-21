@@ -17,6 +17,9 @@ namespace
 {
 uint32_t const FEATURE_CACHE_SIZE = 10;
 double const READ_CROSS_EPSILON = 1.0E-4;
+
+bool IsStart(RoadPos const & rp) { return rp.GetFeatureId() == RoadPos::kFakeStartFeatureId; }
+bool IsFinal(RoadPos const & rp) { return rp.GetFeatureId() == RoadPos::kFakeFinalFeatureId; }
 }  // namespace
 
 /// @todo Factor out vehicle model as a parameter for the features graph.
@@ -113,12 +116,12 @@ void FeaturesRoadGraph::LoadFeature(uint32_t featureId, FeatureType & ft)
 
 void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
 {
-  if (pos.IsStart())
+  if (IsStart(pos))
   {
     turns.insert(turns.end(), m_startVicinityTurns.begin(), m_startVicinityTurns.end());
     return;
   }
-  if (pos.IsFinal())
+  if (IsFinal(pos))
   {
     turns.insert(turns.end(), m_finalVicinityTurns.begin(), m_finalVicinityTurns.end());
     return;
