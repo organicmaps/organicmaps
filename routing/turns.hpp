@@ -1,5 +1,6 @@
 #pragma once
 
+#include "std/iostream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -10,13 +11,16 @@ namespace routing
 
 namespace turns
 {
+// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
+// For the time being several separate entities reflect turn information. Like Route::TurnsT or
+// turns::TurnsGeomT
 
 // Do not change the order of right and left turns
 // TurnRight(TurnLeft) must have a minimal value
 // TurnSlightRight(TurnSlightLeft) must have a maximum value
 // to make check TurnRight <= turn <= TurnSlightRight work
 //
-// turnStrings array in cpp file must be synchronized with state of TurnDirection enum.
+// TurnDirection array in cpp file must be synchronized with state of TurnDirection enum in java.
 enum TurnDirection
 {
   NoTurn = 0,
@@ -40,23 +44,26 @@ enum TurnDirection
 
   StartAtEndOfStreet,
   ReachedYourDestination,
-
 };
 
-enum Lane
+// LaneWay array in cpp file must be synchronized with state of LaneWay enum in java.
+enum class LaneWay
 {
-  NONE = 0,
-  REVERSE,
-  SHARP_LEFT,
-  LEFT,
-  SLIGH_LEFT,
-  MERGE_TO_RIGHT,
-  THROUGH,
-  MERGE_TO_LEFT,
-  SLIGHT_RIGHT,
-  RIGHT,
-  SHARP_RIGHT
+  None = 0,
+  Reverse,
+  SharpLeft,
+  Left,
+  SlightLeft,
+  MergeToRight,
+  Through,
+  MergeToLeft,
+  SlightRight,
+  Right,
+  SharpRight,
+  Count  // This value is used for internals only.
 };
+
+string DebugPrint(LaneWay const l);
 
 struct TurnGeom
 {
@@ -66,12 +73,17 @@ struct TurnGeom
   {
   }
 
+  bool operator==(TurnGeom const & other) const;
+
   uint32_t m_indexInRoute;
   uint32_t m_turnIndex;
   vector<m2::PointD> m_points;
 };
 
+string DebugPrint(TurnGeom const & turnGeom);
+
 typedef vector<turns::TurnGeom> TurnsGeomT;
+typedef vector<LaneWay> TSingleLane;
 
 string const & GetTurnString(TurnDirection turn);
 
@@ -86,11 +98,13 @@ bool IsGoStraightOrSlightTurn(TurnDirection t);
  * \param lanesString lane information. Example through|through|through|through;right
  * \param lanes the result of parsing.
  * \return true if @lanesString parsed successfully, false otherwise.
- * Note: if @lanesString is empty returns false.
+ * Note 1: if @lanesString is empty returns false.
+ * Note 2: @laneString is passed by value on purpose. It'll be used(changed) in the method.
  */
-bool ParseLanes(string const & lanesString, vector<vector<routing::turns::Lane>> & lanes);
-void ParseLanesToStrings(string const & lanesString, char delimiter, vector<string> & lanes);
-bool ParseOneLane(string const & laneString, char delimiter, vector<routing::turns::Lane> & lane);
+bool ParseLanes(string lanesString, vector<TSingleLane> & lanes);
+void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes);
+bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane);
 
 }
 }
+

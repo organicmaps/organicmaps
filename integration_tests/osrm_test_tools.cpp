@@ -224,7 +224,7 @@ namespace integration
 
     turns::TurnGeom const & turnGeom = turnsGeom[referenceTurnNumber];
     ASSERT_LESS(turnGeom.m_turnIndex, turnGeom.m_points.size(), ());
-    Route::TurnItem const & turn = turns[referenceTurnNumber];
+    TurnItem const & turn = turns[referenceTurnNumber];
     return TestTurn(turnGeom.m_points[turnGeom.m_turnIndex], turn.m_turn, turn.m_exitNum);
   }
 
@@ -242,7 +242,7 @@ namespace integration
       m2::PointD const turnPnt = turnGeom.m_points[turnGeom.m_turnIndex];
       if (ms::DistanceOnEarth(turnPnt.y, turnPnt.x, referenceTurnPnt.y, referenceTurnPnt.x) <= inaccuracy)
       {
-        Route::TurnItem const & turn = turns[i];
+        TurnItem const & turn = turns[i];
         return TestTurn(turnPnt, turn.m_turn, turn.m_exitNum);
       }
     }

@@ -25,6 +25,7 @@ SOURCES += \
   osrm_router_test.cpp \
   road_graph_builder.cpp \
   road_graph_nearest_turns_test.cpp \
+  turns_generator_test.cpp \
   vehicle_model_test.cpp \
 
 HEADERS += \

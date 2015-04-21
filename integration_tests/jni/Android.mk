@@ -1,4 +1,4 @@
-# @todo(VB) 
+# @todo(vbykoianko) 
 # Probably this file shell be generated with a script based on .pro. 
 # If you do this take into acount: 
 # - the order of libs is important. It solves some linking problems;

@@ -21,6 +21,18 @@ static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
 static double const ON_ROAD_TOLERANCE_M = 50.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
+string DebugPrint(TurnItem const & turnItem)
+{
+  stringstream out;
+  out << "[ TurnItem: m_index = " << turnItem.m_index
+      << ", m_turn = " << turnItem.m_turn
+      << ", m_exitNum = " << turnItem.m_exitNum
+      << ", m_sourceName = " << turnItem.m_sourceName
+      << ", m_targetName = " << turnItem.m_targetName
+      << ", m_keepAnyway = " << turnItem.m_keepAnyway << " ]" << endl;
+  return out.str();
+}
+
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
   : m_router(router), m_poly(points), m_name(name)
@@ -132,14 +144,14 @@ uint32_t Route::GetTime() const
     return (uint32_t)((GetAllTime() - (*it).second));
 }
 
-void Route::GetTurn(double & distance, Route::TurnItem & turn) const
+void Route::GetTurn(double & distance, TurnItem & turn) const
 {
   if (m_segDistance.empty() || m_turns.empty())
   {
     ASSERT(!m_segDistance.empty(), ());
     ASSERT(!m_turns.empty(), ());
     distance = 0;
-    turn = Route::TurnItem();
+    turn = TurnItem();
     return;
   }
 

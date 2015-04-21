@@ -25,6 +25,7 @@ SOURCES += \
     route.cpp \
     routing_mapping.cpp \
     turns.cpp \
+    turns_generator.cpp \
     vehicle_model.cpp \
 
 HEADERS += \
@@ -45,4 +46,5 @@ HEADERS += \
     router.hpp \
     routing_mapping.h \
     turns.hpp \
+    turns_generator.hpp \
     vehicle_model.hpp \

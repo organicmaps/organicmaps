@@ -1,12 +1,39 @@
 #include "routing/turns.hpp"
 
+#include "std/array.hpp"
+
+
+namespace
+{
+using namespace routing::turns;
+// The order is important. Starting with the most frequent tokens according to
+// taginfo.openstreetmap.org to minimize the number of comparisons in ParseSingleLane().
+array<pair<LaneWay, string>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames =
+{{
+  { LaneWay::Through, "through" },
+  { LaneWay::Left, "left" },
+  { LaneWay::Right, "right" },
+  { LaneWay::None, "none" },
+  { LaneWay::SharpLeft, "sharp_left" },
+  { LaneWay::SlightLeft, "slight_left" },
+  { LaneWay::MergeToRight, "merge_to_right" },
+  { LaneWay::MergeToLeft, "merge_to_left" },
+  { LaneWay::SlightRight, "slight_right" },
+  { LaneWay::SharpRight, "sharp_right" },
+  { LaneWay::Reverse, "reverse" }
+}};
+static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count), "Check the size of g_laneWayNames");
+}
 
 namespace routing
 {
-
 namespace turns
 {
-
+bool TurnGeom::operator==(TurnGeom const & other) const
+{
+  return m_indexInRoute == other.m_indexInRoute && m_turnIndex == other.m_turnIndex
+    && m_points == other.m_points;
+}
 
 string turnStrings[] = {
   "NoTurn",
@@ -59,8 +86,7 @@ bool IsGoStraightOrSlightTurn(TurnDirection t)
   return (t == turns::GoStraight || t == turns::TurnSlightLeft || t == turns::TurnSlightRight);
 }
 
-
-void ParseLanesToStrings(string const & lanesString, char delimiter, vector<string> & lanes)
+void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes)
 {
   lanes.clear();
   istringstream lanesStream(lanesString);
@@ -71,65 +97,40 @@ void ParseLanesToStrings(string const & lanesString, char delimiter, vector<stri
   }
 }
 
-bool ParseOneLane(string const & laneString, char delimiter, vector<Lane> & lane)
+bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane)
 {
   lane.clear();
   istringstream laneStream(laneString);
   string token;
   while (getline(laneStream, token, delimiter))
   {
-    Lane l = Lane::NONE;
-    // Staring compare with the most offen tokens according to taginfo.openstreetmap.org to minimize number of comparations.
-    if (token == "through")
-      l = Lane::THROUGH;
-    else if (token == "left")
-      l = Lane::LEFT;
-    else if (token == "right")
-      l = Lane::RIGHT;
-    else if (token == "none")
-      l = Lane::NONE;
-    else if (token == "sharp_left")
-      l = Lane::SHARP_LEFT;
-    else if (token == "slight_left")
-      l = Lane::SLIGH_LEFT;
-    else if (token == "merge_to_right")
-      l = Lane::MERGE_TO_RIGHT;
-    else if (token == "merge_to_left")
-      l = Lane::MERGE_TO_LEFT;
-    else if (token == "slight_right")
-      l = Lane::SLIGHT_RIGHT;
-    else if (token == "sharp_right")
-      l = Lane::SHARP_RIGHT;
-    else if (token == "reverse")
-      l = Lane::REVERSE;
-    else
+    auto const it = find_if(g_laneWayNames.begin(), g_laneWayNames.end(),
+                            [&token](pair<LaneWay, string> const & p)
     {
-      lane.clear();
+        return p.second == token;
+    });
+    if (it == g_laneWayNames.end())
       return false;
-    }
-    lane.push_back(l);
+    lane.push_back(it->first);
   }
   return true;
 }
 
-bool ParseLanes(string const & lanesString, vector<vector<Lane>> & lanes)
+bool ParseLanes(string lanesString, vector<TSingleLane> & lanes)
 {
-  lanes.clear();
   if (lanesString.empty())
     return false;
-  // convert lanesString to lower case
-  string lanesStringLower;
-  lanesStringLower.reserve(lanesString.size());
-  transform(lanesString.begin(), lanesString.end(), back_inserter(lanesStringLower), tolower);
-  // removing all spaces
-  lanesStringLower.erase(remove_if(lanesStringLower.begin(), lanesStringLower.end(), isspace), lanesStringLower.end());
+  lanes.clear();
+  transform(lanesString.begin(), lanesString.end(), lanesString.begin(), tolower);
+  lanesString.erase(remove_if(lanesString.begin(), lanesString.end(), isspace),
+                         lanesString.end());
 
-  vector<string> lanesStrings;
-  vector<Lane> lane;
-  ParseLanesToStrings(lanesStringLower, '|', lanesStrings);
-  for (string const & s : lanesStrings)
+  vector<string> SplitLanesStrings;
+  TSingleLane lane;
+  SplitLanes(lanesString, '|', SplitLanesStrings);
+  for (string const & s : SplitLanesStrings)
   {
-    if (!ParseOneLane(s, ';', lane))
+    if (!ParseSingleLane(s, ';', lane))
     {
       lanes.clear();
       return false;
@@ -137,6 +138,29 @@ bool ParseLanes(string const & lanesString, vector<vector<Lane>> & lanes)
     lanes.push_back(lane);
   }
   return true;
+}
+
+string DebugPrint(routing::turns::TurnGeom const & turnGeom)
+{
+  stringstream out;
+  out << "[ TurnGeom: m_indexInRoute = " << turnGeom.m_indexInRoute
+      << ", m_turnIndex = " << turnGeom.m_turnIndex << " ]" << endl;
+  return out.str();
+}
+
+string DebugPrint(routing::turns::LaneWay const l)
+{
+  stringstream out;
+  auto const it = find_if(g_laneWayNames.begin(), g_laneWayNames.end(),
+                          [&l](pair<LaneWay, string> const & p)
+  {
+    return p.first == l;
+  });
+
+  if (it == g_laneWayNames.end())
+    out << "unknown LaneWay (" << static_cast<int>(l) << ")";
+  out << it->second;
+  return out.str();
 }
 
 }

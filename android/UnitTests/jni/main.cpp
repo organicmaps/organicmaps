@@ -1,4 +1,4 @@
-// @todo(VB) this file should be generated with a script based on tests_list.sh
+// @todo(vbykoianko) this file should be generated with a script based on tests_list.sh
 #include "mock.hpp"
 
 #include "integration_tests/jni/test.hpp"
@@ -15,6 +15,7 @@ void android_main(struct android_app * state)
   integration_tests::test(state);
   indexer_tests::test(state);
 
-  // @todo(VB) you need to write code to leave the activity correctly after all tests are finished. And show a dialog with the results.
-  // @todo(VB) It's nice to show the result of the test on Android screen. Message box or something like that.
+  // @todo(vbykoianko) Take care of correctly leaving the activity after all tests have
+  // finished. It's nice to show the result of the test on Android screen. Message box or
+  // something like that.
 }

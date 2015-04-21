@@ -8,7 +8,6 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
-
 namespace location
 {
   /// @note Do not change values of this constants.
@@ -110,9 +109,9 @@ namespace location
     int m_time;
     // m_lanes contains lane information on the edge before the turn.
     // Template parameter int is used for passing the information to Android and iOS.
-    vector<vector<int>> m_lanes;
+    vector<vector<int8_t>> m_lanes;
     // The next street name
-    string m_trgName;
+    string m_targetName;
 
     bool IsValid() const { return !m_distToTarget.empty(); }
   };

@@ -14,8 +14,9 @@
 
 using namespace my;
 
-// @todo(VB) probably it's worth thinking about output of the function to make the result of the tests more readable
-//  @todo(VB) it's necessary display test name android log
+// @todo(vbykoianko) Probably it's worth thinking about output of the function to make the result of
+// the tests more readable.
+// @todo(vbykoianko) It's necessary display the test name in the android log.
 static void AndroidLogMessage(LogLevel l, SrcPoint const & src, string const & s)
 {
   android_LogPriority pr = ANDROID_LOG_SILENT;

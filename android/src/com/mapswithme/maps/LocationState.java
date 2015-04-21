@@ -36,7 +36,7 @@ public enum LocationState
     public String mTurnUnitsSuffix;
 
     // The next street according to the navigation route.
-    public String mTrgName;
+    public String mTargetName;
 
     public TurnDirection mTurnDirection;
 
@@ -79,17 +79,18 @@ public enum LocationState
     }
 
     /**
-     * IMPORTANT : Order of enum values MUST BE the same with native Lane enum.
-     * Information for every lane is composed of some number values bellow.
-     * For example, a lane could have THROUGH and RIGHT values.
+     * IMPORTANT : Order of enum values MUST BE the same
+     * with native LaneWay enum (see routing/turns.hpp for details).
+     * Information for every lane is composed of some number values below.
+     * For example, a lane may have THROUGH and RIGHT values.
      */
-    enum Lane
+    enum LaneWay
     {
       NONE,
       REVERSE,
       SHARP_LEFT,
       LEFT,
-      SLIGH_LEFT,
+      SLIGHT_LEFT,
       MERGE_TO_RIGHT,
       THROUGH,
       MERGE_TO_LEFT,
@@ -98,7 +99,7 @@ public enum LocationState
       SHARP_RIGHT
     };
 
-    private void DumpLanes(int[][] lanes)
+    private void DumpLanes(byte[][] lanes)
     {
       for (int j = 0; j < lanes.length; j++)
       {
@@ -112,12 +113,15 @@ public enum LocationState
     }
 
     public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String trgName, int direction, int totalTime
-       , int[][] lanes)
+       , byte[][] lanes)
     {
-      // The size of lanes array is not zero if any lane information is available and should be displayed.
+      // lanes is not equal to null if any lane information is available and should be displayed.
       // If so, lanes contains values of Lane enum for every lane.
       // Log.d("JNIARRAY", "RoutingInfo(" + distToTarget + ", " + units + ", " + distTurn + ", ... , " + trgName);
-      // DumpLanes(lanes);
+      // if (lanes == null)
+      //   Log.d("JNIARRAY", "lanes is empty");
+      // else
+      //   DumpLanes(lanes);
 
       //@todo use lanes and trgName in java code.
 
@@ -125,7 +129,7 @@ public enum LocationState
       mUnits = units;
       mTurnUnitsSuffix = turnSuffix;
       mDistToTurn = distTurn;
-      mTrgName = trgName;
+      mTargetName = trgName;
       mTotalTimeInSeconds = totalTime;
       mTurnDirection = TurnDirection.values()[direction];
     }

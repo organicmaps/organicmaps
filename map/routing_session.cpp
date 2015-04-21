@@ -160,34 +160,37 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     formatDistFn(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget, info.m_targetUnitsSuffix);
 
     double dist;
-    Route::TurnItem turn;
+    TurnItem turn;
     m_route.GetTurn(dist, turn);
 
     formatDistFn(dist, info.m_distToTurn, info.m_turnUnitsSuffix);
     info.m_turn = turn.m_turn;
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
-    info.m_trgName = turn.m_trgName;
-    // @todo(VB) the distance should depend on the current speed.
-    unsigned int const showLanesDistInMeters = 500;
-    if (dist < showLanesDistInMeters)
+    info.m_targetName = turn.m_targetName;
+    // @todo(vbykoianko) The distance should depend on the current speed.
+    double const kShowLanesDistInMeters = 500.;
+    if (dist < kShowLanesDistInMeters)
     {
-      // There are two nested for-loops bellow. Outer one is for lanes and inner one(transform) is for every lane directions.
-      // The meening of the code bellow is info.m_lanes = turn.m_lanes; (vector<vector<int>> = vector<vector<Lane>>).
-      // The size of turn.m_lanes is relatively small. Less then 10 for most cases.
+      // There are two nested for-loops below. Outer one is for lanes and inner one (transform) is
+      // for each lane's directions.
+      // The meaning of the code below is info.m_lanes = turn.m_lanes; (vector<vector<int>> =
+      // vector<vector<LaneWay>>).
+      // The size of turn.m_lanes is relatively small. Less than 10 in most cases.
       info.m_lanes.clear();
-      size_t const lanesSize = turn.m_lanes.size();
-      for (size_t j = 0; j < lanesSize; ++j)
+      for (size_t j = 0; j < turn.m_lanes.size(); ++j)
       {
-        info.m_lanes.push_back(vector<int>());
-        vector<int> & back = info.m_lanes.back();
-        back.reserve(turn.m_lanes[j].size());
-        transform(turn.m_lanes[j].begin(), turn.m_lanes[j].end(), back_inserter(back),
-                  [] (routing::turns::Lane l) { return static_cast<int>(l); });
+        vector<int8_t> lane;
+        lane.reserve(turn.m_lanes[j].size());
+        transform(turn.m_lanes[j].begin(), turn.m_lanes[j].end(), back_inserter(lane),
+                  [](routing::turns::LaneWay l) { return static_cast<int8_t>(l); });
+        info.m_lanes.push_back(move(lane));
       }
     }
     else
+    {
       info.m_lanes.clear();
+    }
   }
   else
   {
@@ -195,7 +198,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_turn = turns::NoTurn;
     info.m_exitNum = 0;
     info.m_time = 0;
-    info.m_trgName.clear();
+    info.m_targetName.clear();
     info.m_lanes.clear();
   }
 }

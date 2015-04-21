@@ -216,9 +216,7 @@ private:
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
                         RoutingMappingPtrT const & routingMapping,
-                        Route::TurnItem & turn);
-  void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir, turns::TurnsGeomT & turnsGeom) const;
-  void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir) const;
+                        TurnItem & turn);
   m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                   FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
@@ -228,11 +226,11 @@ private:
   turns::TurnDirection IntermediateDirection(double angle) const;
   void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
                        OsrmRouter::GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
-  bool KeepOnewayOutgoingTurnIncomingEdges(Route::TurnItem const & turn,
+  bool KeepOnewayOutgoingTurnIncomingEdges(TurnItem const & turn,
                               m2::PointD const & p, m2::PointD const & p1, RoutingMappingPtrT const & mapping) const;
   bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2) const;
   turns::TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
-                                           bool hasMultiTurns, Route::TurnItem const & turn) const;
+                                           bool hasMultiTurns) const;
 
   Index const * m_pIndex;
 

@@ -1,4 +1,5 @@
-// @todo(VB) the mercator compilation unit is located in the indexer module for the time being.
+// @todo(vbykoianko) the mercator compilation unit is located in the indexer module for the time
+// being.
 // On the other hand it is not connected with indexer anywhere.
 // The mercator unit is based on base, geometry.
 // I guess indexer is not the best place for this compilation unit.

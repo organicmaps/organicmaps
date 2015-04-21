@@ -9,7 +9,7 @@ APP_STL := c++_static
 
 APP_CPPFLAGS += -Wno-deprecated-register
 
-#@todo(VB) Build tests for android x86 platform
+#@todo(vbykoianko) Build tests for android x86 platform
 #ifeq (x$(NDK_ABI_TO_BUILD), x)
 #  APP_ABI := armeabi-v7a-hard x86
 #else

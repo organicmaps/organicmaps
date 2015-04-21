@@ -1,5 +1,5 @@
 package com.mapswithme.maps.unittests;
-// @todo(VB) This file should be generaged based on tests_list.h
+// @todo(vbykoianko) This file should be generated based on tests_list.h
 
 public class AllTestsActivity extends android.app.NativeActivity {
 
