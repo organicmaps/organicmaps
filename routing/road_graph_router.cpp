@@ -20,26 +20,6 @@ namespace
 {
 size_t const MAX_ROAD_CANDIDATES = 2;
 double const FEATURE_BY_POINT_RADIUS_M = 100.0;
-
-/// @todo Code duplication with road_graph.cpp
-double TimeBetweenSec(m2::PointD const & v, m2::PointD const & w)
-{
-  static double const kMaxSpeedMPS = 5000.0 / 3600;
-  return MercatorBounds::DistanceOnEarth(v, w) / kMaxSpeedMPS;
-}
-
-void AddFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity,
-                  vector<PossibleTurn> & turns)
-{
-  for (RoadPos const & vrp : vicinity)
-  {
-    PossibleTurn t;
-    t.m_pos = vrp;
-    /// @todo Do we need other fields? Do we even need m_secondsCovered?
-    t.m_secondsCovered = TimeBetweenSec(rp.GetSegEndpoint(), vrp.GetSegEndpoint());
-    turns.push_back(t);
-  }
-}
 }  // namespace
 
 RoadGraphRouter::~RoadGraphRouter()
@@ -96,8 +76,8 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   RoadPos startPos(RoadPos::kFakeStartFeatureId, true /* forward */, 0 /* segId */, startPoint);
   RoadPos finalPos(RoadPos::kFakeFinalFeatureId, true /* forward */, 0 /* segId */, finalPoint);
 
-  AddFakeTurns(startPos, startVicinity, m_roadGraph->m_startVicinityTurns);
-  AddFakeTurns(finalPos, finalVicinity, m_roadGraph->m_finalVicinityTurns);
+  m_roadGraph->SetFakeTurns(startPos, startVicinity);
+  m_roadGraph->SetFakeTurns(finalPos, finalVicinity);
 
   vector<RoadPos> routePos;
   IRouter::ResultCode resultCode = CalculateRoute(startPos, finalPos, routePos);

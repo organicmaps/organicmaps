@@ -31,8 +31,10 @@ public:
   void AddRoad(RoadInfo && ri);
 
   // routing::IRoadGraph overrides:
-  void GetNearestTurns(routing::RoadPos const & pos, TurnsVectorT & turns) override;
+  RoadInfo GetRoadInfo(uint32_t featureId) override;
   double GetSpeedKMPH(uint32_t featureId) override;
+  void ForEachClosestToCrossFeature(m2::PointD const & cross,
+                                    CrossTurnsLoader & turnsLoader) override;
 };
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & graphMock);

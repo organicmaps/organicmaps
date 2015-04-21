@@ -26,9 +26,6 @@ class FeaturesRoadGraph : public IRoadGraph
 public:
   FeaturesRoadGraph(Index const * pIndex, size_t mwmID);
 
-  // IRoadGraph overrides:
-  void GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns) override;
-
   static uint32_t GetStreetReadScale();
 
   inline size_t GetMwmID() const { return m_mwmID; }
@@ -40,13 +37,19 @@ public:
     return (double)m_cacheMiss / (double)m_cacheAccess;
   }
 
+protected:
+  // IRoadGraph overrides:
+  RoadInfo GetRoadInfo(uint32_t featureId) override;
+  double GetSpeedKMPH(uint32_t featureId) override;
+  void ForEachClosestToCrossFeature(m2::PointD const & cross,
+                                    CrossTurnsLoader & turnsLoader) override;
+
 private:
   friend class CrossFeaturesLoader;
 
   bool IsOneWay(FeatureType const & ft) const;
 
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
-  double GetSpeedKMPH(uint32_t featureId) override;
 
   void LoadFeature(uint32_t featureId, FeatureType & ft);
 

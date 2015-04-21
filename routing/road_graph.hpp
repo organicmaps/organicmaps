@@ -122,16 +122,41 @@ public:
     bool m_bidirectional;
   };
 
+  class CrossTurnsLoader
+  {
+  public:
+    CrossTurnsLoader(m2::PointD const & cross, TurnsVectorT & turns);
+
+    void operator()(uint32_t featureId, RoadInfo const & roadInfo);
+
+  private:
+    m2::PointD m_cross;
+    TurnsVectorT & m_turns;
+  };
+
   virtual ~IRoadGraph() = default;
+
+  /// Construct route by road positions (doesn't include first and last section).
+  void ReconstructPath(RoadPosVectorT const & positions, Route & route);
 
   /// Finds all nearest feature sections (turns), that route to the
   /// "pos" section.
-  virtual void GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns) = 0;
+  void GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns);
 
+  /// Adds fake turns from fake position rp to real vicinity
+  /// positions.
+  void SetFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity);
+
+protected:
+  // Returns RoadInfo for a road corresponding to featureId.
+  virtual RoadInfo GetRoadInfo(uint32_t featureId) = 0;
+
+  // Returns speed in KM/H for a road corresponding to featureId.
   virtual double GetSpeedKMPH(uint32_t featureId) = 0;
 
-  /// Construct route by road positions (doesn't include first and last section).
-  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
+  // Calls turnsLoader on each feature which is close to cross.
+  virtual void ForEachClosestToCrossFeature(m2::PointD const & cross,
+                                            CrossTurnsLoader & turnsLoader) = 0;
 
   // The way we find edges leading from start/final positions and from all other positions
   // differ: for start/final we find positions in some vicinity of the starting

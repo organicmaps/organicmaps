@@ -17,9 +17,6 @@ namespace
 {
 uint32_t const FEATURE_CACHE_SIZE = 10;
 double const READ_CROSS_EPSILON = 1.0E-4;
-
-bool IsStart(RoadPos const & rp) { return rp.GetFeatureId() == RoadPos::kFakeStartFeatureId; }
-bool IsFinal(RoadPos const & rp) { return rp.GetFeatureId() == RoadPos::kFakeFinalFeatureId; }
 }  // namespace
 
 /// @todo Factor out vehicle model as a parameter for the features graph.
@@ -37,19 +34,12 @@ uint32_t FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(
 
 class CrossFeaturesLoader
 {
-  FeaturesRoadGraph & m_graph;
-  m2::PointD m_point;
-  IRoadGraph::TurnsVectorT & m_turns;
-  size_t m_count;
-
 public:
-  CrossFeaturesLoader(FeaturesRoadGraph & graph, m2::PointD const & pt,
-                      IRoadGraph::TurnsVectorT & turns)
-      : m_graph(graph), m_point(pt), m_turns(turns), m_count(0)
+  CrossFeaturesLoader(FeaturesRoadGraph & graph, m2::PointD const & point,
+                      IRoadGraph::CrossTurnsLoader & turnsLoader)
+      : m_graph(graph), m_point(point), m_turnsLoader(turnsLoader)
   {
   }
-
-  size_t GetCount() const { return m_count; }
 
   void operator()(FeatureType & ft)
   {
@@ -72,36 +62,13 @@ public:
     IRoadGraph::RoadInfo const & ri = m_graph.GetCachedRoadInfo(fID.m_offset, ft, false);
     ASSERT_EQUAL(speed, ri.m_speedKMPH, ());
 
-    size_t const count = ri.m_points.size();
-
-    PossibleTurn t;
-    t.m_speedKMPH = ri.m_speedKMPH;
-    t.m_startPoint = ri.m_points[0];
-    t.m_endPoint = ri.m_points[count - 1];
-
-    for (size_t i = 0; i < count; ++i)
-    {
-      m2::PointD const & p = ri.m_points[i];
-
-      /// @todo Is this a correct way to compare?
-      if (!m2::AlmostEqual(m_point, p))
-        continue;
-
-      if (i > 0)
-      {
-        ++m_count;
-        t.m_pos = RoadPos(fID.m_offset, true, i - 1, p);
-        m_turns.push_back(t);
-      }
-
-      if (i < count - 1)
-      {
-        ++m_count;
-        t.m_pos = RoadPos(fID.m_offset, false, i, p);
-        m_turns.push_back(t);
-      }
-    }
+    m_turnsLoader(fID.m_offset, ri);
   }
+
+private:
+  FeaturesRoadGraph & m_graph;
+  m2::PointD m_point;
+  IRoadGraph::CrossTurnsLoader & m_turnsLoader;
 };
 
 void FeaturesRoadGraph::LoadFeature(uint32_t featureId, FeatureType & ft)
@@ -114,36 +81,26 @@ void FeaturesRoadGraph::LoadFeature(uint32_t featureId, FeatureType & ft)
   ASSERT_GREATER(ft.GetPointsCount(), 1, (featureId));
 }
 
-void FeaturesRoadGraph::GetNearestTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
+IRoadGraph::RoadInfo FeaturesRoadGraph::GetRoadInfo(uint32_t featureId)
 {
-  if (IsStart(pos))
-  {
-    turns.insert(turns.end(), m_startVicinityTurns.begin(), m_startVicinityTurns.end());
-    return;
-  }
-  if (IsFinal(pos))
-  {
-    turns.insert(turns.end(), m_finalVicinityTurns.begin(), m_finalVicinityTurns.end());
-    return;
-  }
-
-  uint32_t const featureId = pos.GetFeatureId();
   FeatureType ft;
-  RoadInfo const ri = GetCachedRoadInfo(featureId, ft, true);
+  return GetCachedRoadInfo(featureId, ft, true);
+}
 
-  if (ri.m_speedKMPH <= 0.0)
-    return;
+double FeaturesRoadGraph::GetSpeedKMPH(uint32_t featureId)
+{
+  FeatureType ft;
+  LoadFeature(featureId, ft);
+  return GetSpeedKMPHFromFt(ft);
+}
 
-  ASSERT_GREATER_OR_EQUAL(ri.m_points.size(), 2,
-                          ("Incorrect road - only", ri.m_points.size(), "point(s)."));
-
-  m2::PointD const point = ri.m_points[pos.GetSegStartPointId()];
-
-  // Find possible turns to startPoint from other features.
-  CrossFeaturesLoader crossLoader(*this, point, turns);
-  m_pIndex->ForEachInRect(crossLoader,
-                          m2::RectD(point.x - READ_CROSS_EPSILON, point.y - READ_CROSS_EPSILON,
-                                    point.x + READ_CROSS_EPSILON, point.y + READ_CROSS_EPSILON),
+void FeaturesRoadGraph::ForEachClosestToCrossFeature(m2::PointD const & cross,
+                                                     CrossTurnsLoader & turnsLoader)
+{
+  CrossFeaturesLoader featuresLoader(*this, cross, turnsLoader);
+  m_pIndex->ForEachInRect(featuresLoader,
+                          m2::RectD(cross.x - READ_CROSS_EPSILON, cross.y - READ_CROSS_EPSILON,
+                                    cross.x + READ_CROSS_EPSILON, cross.y + READ_CROSS_EPSILON),
                           scales::GetUpperScale());
 }
 
@@ -155,13 +112,6 @@ bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
 double FeaturesRoadGraph::GetSpeedKMPHFromFt(FeatureType const & ft) const
 {
   return m_vehicleModel->GetSpeed(ft);
-}
-
-double FeaturesRoadGraph::GetSpeedKMPH(uint32_t featureId)
-{
-  FeatureType ft;
-  LoadFeature(featureId, ft);
-  return GetSpeedKMPHFromFt(ft);
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(uint32_t const ftId,

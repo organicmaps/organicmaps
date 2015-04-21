@@ -35,53 +35,23 @@ void RoadGraphMockSource::AddRoad(RoadInfo && ri)
   m_roads.push_back(move(ri));
 }
 
-void RoadGraphMockSource::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
+IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(uint32_t featureId)
 {
-  // TODO (@gorshenin): this partially duplicates code in
-  // CrossFeaturesLoader. Possible solution is to make
-  // CrossFeaturesLoader abstract enough to be used here and in
-  // FeaturesRoadGraph.
-
-  CHECK_LESS(pos.GetFeatureId(), m_roads.size(), ("Invalid feature id."));
-  RoadInfo const & curRoad = m_roads.at(pos.GetFeatureId());
-
-  CHECK_LESS(pos.GetSegStartPointId(), curRoad.m_points.size(), ("Invalid point id."));
-  m2::PointD const curPoint = curRoad.m_points[pos.GetSegStartPointId()];
-
-  for (size_t featureId = 0; featureId < m_roads.size(); ++featureId)
-  {
-    RoadInfo const & road = m_roads[featureId];
-    auto const & points = road.m_points;
-    if (road.m_speedKMPH <= 0.0)
-      continue;
-    PossibleTurn turn;
-    turn.m_startPoint = points.front();
-    turn.m_endPoint = points.back();
-    turn.m_speedKMPH = road.m_speedKMPH;
-    for (size_t i = 0; i < points.size(); ++i)
-    {
-      m2::PointD point = points[i];
-      if (!m2::AlmostEqual(curPoint, point))
-        continue;
-      if (i > 0)
-      {
-        turn.m_pos = RoadPos(featureId, true /* forward */, i - 1, point);
-        turns.push_back(turn);
-      }
-
-      if (i + 1 < points.size())
-      {
-        turn.m_pos = RoadPos(featureId, false /* forward */, i, point);
-        turns.push_back(turn);
-      }
-    }
-  }
+  CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
+  return m_roads[featureId];
 }
 
 double RoadGraphMockSource::GetSpeedKMPH(uint32_t featureId)
 {
   CHECK_LESS(featureId, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId].m_speedKMPH;
+}
+
+void RoadGraphMockSource::ForEachClosestToCrossFeature(m2::PointD const & /* cross */,
+                                                       CrossTurnsLoader & turnsLoader)
+{
+  for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
+    turnsLoader(roadId, m_roads[roadId]);
 }
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
