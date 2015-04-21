@@ -48,6 +48,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   int zoomLevel = m_context.GetTileKey().m_zoomLevel;
 
+  EngineContextReadFeatureGuard guard(m_context, f.GetID());
   if (s.AreaStyleExists())
   {
     ApplyAreaFeature apply(m_context, f.GetID(), s.GetCaptionDescription());

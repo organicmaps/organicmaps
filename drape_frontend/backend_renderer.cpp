@@ -122,10 +122,8 @@ void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);
       dp::RefPointer<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
-      dp::MasterPointer<MapShape> shape(msg->GetShape());
-      shape->Draw(batcher, m_texturesManager);
-
-      shape.Destroy();
+      for (dp::MasterPointer<MapShape> const & shape : msg->GetShapes())
+        shape->Draw(batcher, m_texturesManager);
       break;
     }
   case Message::UpdateUserMarkLayer:

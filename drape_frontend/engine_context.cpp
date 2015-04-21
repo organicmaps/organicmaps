@@ -11,6 +11,8 @@
 #include "base/string_utils.hpp"
 #endif
 
+#include "base/logging.hpp"
+
 namespace df
 {
 
@@ -25,9 +27,23 @@ void EngineContext::BeginReadTile()
   PostMessage(dp::MovePointer<Message>(new TileReadStartMessage(m_tileKey)));
 }
 
-void EngineContext::InsertShape(dp::TransferPointer<MapShape> shape)
+void EngineContext::BeginReadFeature(FeatureID const & featureId)
 {
-  PostMessage(dp::MovePointer<Message>(new MapShapeReadedMessage(m_tileKey, shape)));
+  ASSERT(m_mapShapeStorage.find(featureId) == m_mapShapeStorage.end(), ());
+  m_mapShapeStorage.insert(make_pair(featureId, list<dp::MasterPointer<MapShape>>()));
+}
+
+void EngineContext::InsertShape(FeatureID const & featureId, dp::TransferPointer<MapShape> shape)
+{
+  ASSERT(m_mapShapeStorage.find(featureId) != m_mapShapeStorage.end(), ());
+  m_mapShapeStorage[featureId].push_back(dp::MasterPointer<MapShape>(shape));
+}
+
+void EngineContext::EndReadFeature(FeatureID const & featureId)
+{
+  MapShapeStorage::iterator it = m_mapShapeStorage.find(featureId);
+  ASSERT(it != m_mapShapeStorage.end(), ());
+  PostMessage(dp::MovePointer<Message>(new MapShapeReadedMessage(m_tileKey, move(it->second))));
 }
 
 void EngineContext::EndReadTile()

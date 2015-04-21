@@ -169,7 +169,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
       cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", L(@"length"), [NSString  stringWithUTF8String:dist.c_str()]];
     else
       cell.detailTextLabel.text = nil;
-    const dp::Color c = tr->GetMainColor();
+    const dp::Color c = tr->GetColor(0);
     cell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[UIColor colorWithRed:c.GetRed()/255.f green:c.GetGreen()/255.f
                                                                                                    blue:c.GetBlue()/255.f alpha:1.f]];
   }
@@ -195,7 +195,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         [m_locationManager getNorthRad:north];
 
         string distance;
-        fr.GetDistanceAndAzimut(bm->GetOrg(), lat, lon, north, distance, azimut);
+        fr.GetDistanceAndAzimut(bm->GetPivot(), lat, lon, north, distance, azimut);
 
         bmCell.bmDistance.text = @(distance.c_str());
       }
@@ -366,7 +366,7 @@ extern NSString * const kBookmarksChangedNotification = @"BookmarksChangedNotifi
         Bookmark const * bm = static_cast<Bookmark const *>(cat->GetUserMark(indexPath.row));
         if (bm)
         {
-          m2::PointD const center = bm->GetOrg();
+          m2::PointD const center = bm->GetPivot();
           double const metres = ms::DistanceOnEarth(info.m_latitude, info.m_longitude,
               MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
           cell.bmDistance.text = [LocationManager formattedDistance:metres];

@@ -24,24 +24,29 @@ public:
 class MapShapeReadedMessage : public Message
 {
 public:
-  MapShapeReadedMessage(TileKey const & key, dp::TransferPointer<MapShape> shape)
-    : m_key(key), m_shape(shape)
+  using MapShapes = list<dp::MasterPointer<MapShape>>;
+
+  MapShapeReadedMessage(TileKey const & key, MapShapes && shapes)
+    : m_key(key), m_shapes(move(shapes))
   {}
 
   Type GetType() const override { return Message::MapShapeReaded; }
 
   ~MapShapeReadedMessage()
   {
-    m_shape.Destroy();
+    for (dp::MasterPointer<MapShape> & shape : m_shapes)
+      shape.Destroy();
+
+    m_shapes.clear();
   }
 
   TileKey const & GetKey() const { return m_key; }
-  /// return non const reference for correct construct MasterPointer
-  dp::TransferPointer<MapShape> & GetShape() { return m_shape; }
+
+  MapShapes const & GetShapes() { return m_shapes; }
 
 private:
   TileKey m_key;
-  dp::TransferPointer<MapShape> m_shape;
+  MapShapes m_shapes;
 };
 
 } // namespace df
