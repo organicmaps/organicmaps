@@ -112,20 +112,20 @@ Batcher::~Batcher()
   DeleteRange(m_buckets, MasterPointerDeleter());
 }
 
-IndicesRange Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params)
 {
-  return InsertTriangleList(state, params, MovePointer<OverlayHandle>(NULL));
+  InsertTriangleList(state, params, MovePointer<OverlayHandle>(NULL));
 }
 
 IndicesRange Batcher::InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
-                                 TransferPointer<OverlayHandle> handle)
+                                         TransferPointer<OverlayHandle> handle)
 {
   return InsertTriangles<TriangleListBatch>(state, params, handle);
 }
 
-IndicesRange Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params)
 {
-  return InsertTriangleStrip(state, params, MovePointer<OverlayHandle>(NULL));
+  InsertTriangleStrip(state, params, MovePointer<OverlayHandle>(NULL));
 }
 
 IndicesRange Batcher::InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
@@ -134,9 +134,9 @@ IndicesRange Batcher::InsertTriangleStrip(GLState const & state, RefPointer<Attr
   return InsertTriangles<TriangleStripBatch>(state, params, handle);
 }
 
-IndicesRange Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params)
+void Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params)
 {
-  return InsertTriangleFan(state, params, MovePointer<OverlayHandle>(NULL));
+  InsertTriangleFan(state, params, MovePointer<OverlayHandle>(NULL));
 }
 
 IndicesRange Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
@@ -145,10 +145,10 @@ IndicesRange Batcher::InsertTriangleFan(GLState const & state, RefPointer<Attrib
   return InsertTriangles<TriangleFanBatch>(state, params, handle);
 }
 
-IndicesRange Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
-                                        uint8_t vertexStride)
+void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                                uint8_t vertexStride)
 {
-  return InsertListOfStrip(state, params, MovePointer<OverlayHandle>(NULL), vertexStride);
+  InsertListOfStrip(state, params, MovePointer<OverlayHandle>(NULL), vertexStride);
 }
 
 IndicesRange Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,

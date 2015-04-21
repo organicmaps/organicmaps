@@ -4,6 +4,7 @@
 #include "drape/depth_constants.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
+#include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/shader_def.hpp"
 
@@ -143,7 +144,8 @@ void MyPosition::CacheAccuracySector(dp::RefPointer<dp::TextureManager> mng)
     dp::AttributeProvider provider(1 /*stream count*/, VertexCount);
     provider.InitStream(0 /*stream index*/, GetBindingInfo(), dp::StackVoidRef(buffer.data()));
 
-    m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleFan(state, dp::MakeStackRefPointer(&provider));
+    m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleFan(state, dp::MakeStackRefPointer(&provider),
+                                                                    dp::MovePointer<dp::OverlayHandle>(nullptr));
     ASSERT(m_parts[MY_POSITION_ACCURACY].first.IsValid(), ());
   }
 }
@@ -199,9 +201,11 @@ void MyPosition::CachePointPosition(dp::RefPointer<dp::TextureManager> mng)
 
     m_parts[MY_POSITION_POINT].second = m_nodes.size();
     m_parts[MY_POSITION_ARROW].second = m_nodes.size();
-    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&pointProvider));
+    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&pointProvider),
+                                                                   dp::MovePointer<dp::OverlayHandle>(nullptr));
     ASSERT(m_parts[MY_POSITION_POINT].first.IsValid(), ());
-    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&arrowProvider));
+    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, dp::MakeStackRefPointer(&arrowProvider),
+                                                                   dp::MovePointer<dp::OverlayHandle>(nullptr));
     ASSERT(m_parts[MY_POSITION_ARROW].first.IsValid(), ());
   }
 }
