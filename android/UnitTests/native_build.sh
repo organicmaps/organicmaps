@@ -7,7 +7,7 @@ source "$MY_PATH/tests_list.sh"
 
 
 NDK_PATH=""
-for line in $(< ../local.properties)
+for line in $(< ./local.properties)
 do
   case $line in
     ndk*)  NDK_PATH=`echo $line| cut -d'=' -f 2` ;;
