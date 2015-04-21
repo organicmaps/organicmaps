@@ -5,6 +5,18 @@ MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 
 source "$MY_PATH/tests_list.sh"
 
+
+NDK_PATH=""
+for line in $(< ../local.properties)
+do
+  case $line in
+    ndk*)  NDK_PATH=`echo $line| cut -d'=' -f 2` ;;
+    *) ;;
+   esac
+done
+
+
+
 declare -r NDK_ABI=armeabi-v7a-hard
 
 declare -r PROP_DEBUG_NDK_FLAGS="-j8 V=1 NDK_DEBUG=1 DEBUG=1 APP_ABI=$NDK_ABI"
@@ -22,7 +34,7 @@ NdkBuild() {
     NDK_PARAMS="--directory=$2 ${PROP_RELEASE_NDK_FLAGS}"
   fi
   echo "ndk-build $NDK_PARAMS"
-  ndk-build $NDK_PARAMS
+  $NDK_PATH/ndk-build $NDK_PARAMS
 }
 
 if [ $# != 1 ]; then
