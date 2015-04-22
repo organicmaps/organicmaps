@@ -76,17 +76,15 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   RoadPos startPos(RoadPos::kFakeStartFeatureId, true /* forward */, 0 /* segId */, startPoint);
   RoadPos finalPos(RoadPos::kFakeFinalFeatureId, true /* forward */, 0 /* segId */, finalPoint);
 
-  m_roadGraph->SetFakeTurns(startPos, startVicinity);
-  m_roadGraph->SetFakeTurns(finalPos, finalVicinity);
+  m_roadGraph->ResetFakeTurns();
+  m_roadGraph->AddFakeTurns(startPos, startVicinity);
+  m_roadGraph->AddFakeTurns(finalPos, finalVicinity);
 
   vector<RoadPos> routePos;
   IRouter::ResultCode resultCode = CalculateRoute(startPos, finalPos, routePos);
 
-  /// @todo They have fake feature ids. Can we still draw them?
   ASSERT(routePos.back() == finalPos, ());
-  routePos.pop_back();
   ASSERT(routePos.front() == startPos, ());
-  routePos.erase(routePos.begin());
 
   LOG(LINFO, ("Route calculation time:", timer.ElapsedSeconds(), "result code:", resultCode));
 

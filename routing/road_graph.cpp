@@ -37,6 +37,12 @@ RoadPos::RoadPos(uint32_t featureId, bool forward, size_t segId, m2::PointD cons
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
 }
 
+// static
+bool RoadPos::IsFakeFeatureId(uint32_t featureId)
+{
+  return featureId == kFakeStartFeatureId || featureId == kFakeFinalFeatureId;
+}
+
 string DebugPrint(RoadPos const & r)
 {
   ostringstream ss;
@@ -110,7 +116,11 @@ void IRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route
     path.push_back(curPoint);
 
     double const lengthM = CalcDistanceMeters(prevPoint, curPoint);
-    trackTimeSec += lengthM / (GetSpeedKMPH(positions[i - 1].GetFeatureId()) * KMPH2MPS);
+    uint32_t const prevFeatureId = positions[i - 1].GetFeatureId();
+    double const speedMPS = RoadPos::IsFakeFeatureId(prevFeatureId)
+                                ? MAX_SPEED_MPS
+                                : GetSpeedKMPH(prevFeatureId) * KMPH2MPS;
+    trackTimeSec += lengthM / speedMPS;
     prevPoint = curPoint;
   }
 
@@ -139,6 +149,8 @@ void IRoadGraph::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
 {
   uint32_t const featureId = pos.GetFeatureId();
 
+  // For fake start and final positions just add vicinity turns as
+  // nearest turns.
   if (featureId == RoadPos::kFakeStartFeatureId)
   {
     turns.insert(turns.end(), m_startVicinityTurns.begin(), m_startVicinityTurns.end());
@@ -162,24 +174,66 @@ void IRoadGraph::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
 
   CrossTurnsLoader loader(cross, turns);
   ForEachFeatureClosestToCross(cross, loader);
+
+  AddFakeTurns(pos, roadInfo, m_startVicinityRoadPoss, turns);
+  AddFakeTurns(pos, roadInfo, m_finalVicinityRoadPoss, turns);
+
+  // It's also possible to move from a start's or final's vicinity
+  // positions to start or final points.
+  for (PossibleTurn const & turn : m_fakeTurns[pos])
+    turns.push_back(turn);
 }
 
-void IRoadGraph::SetFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity)
+void IRoadGraph::AddFakeTurns(RoadPos const & pos, RoadInfo const & roadInfo,
+                              RoadPosVectorT const & vicinity, TurnsVectorT & turns)
+{
+  for (RoadPos const & vpos : vicinity)
+  {
+    if (!vpos.SameRoadSegmentAndDirection(pos))
+      continue;
+
+    // It's also possible to move from a road position to start's or
+    // final's vicinity positions if they're on the same road segment.
+    PossibleTurn turn;
+    turn.m_secondsCovered = TimeBetweenSec(pos.GetSegEndpoint(), vpos.GetSegEndpoint());
+    turn.m_speedKMPH = roadInfo.m_speedKMPH;
+    turn.m_startPoint = roadInfo.m_points.front();
+    turn.m_endPoint = roadInfo.m_points.back();
+    turn.m_pos = vpos;
+    turns.push_back(turn);
+  }
+}
+
+void IRoadGraph::ResetFakeTurns()
+{
+  m_startVicinityTurns.clear();
+  m_startVicinityRoadPoss.clear();
+  m_finalVicinityTurns.clear();
+  m_finalVicinityRoadPoss.clear();
+  m_fakeTurns.clear();
+}
+
+void IRoadGraph::AddFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity)
 {
   vector<PossibleTurn> * turns = nullptr;
+  vector<RoadPos> * roadPoss = nullptr;
   uint32_t const featureId = rp.GetFeatureId();
   switch (featureId)
   {
     case RoadPos::kFakeStartFeatureId:
       turns = &m_startVicinityTurns;
+      roadPoss = &m_startVicinityRoadPoss;
       break;
     case RoadPos::kFakeFinalFeatureId:
       turns = &m_finalVicinityTurns;
+      roadPoss = &m_finalVicinityRoadPoss;
       break;
     default:
       CHECK(false, ("Can't add fake turns from a valid road (featureId ", featureId, ")."));
   }
-  turns->clear();
+
+  roadPoss->insert(roadPoss->end(), vicinity.begin(), vicinity.end());
+
   for (RoadPos const & vrp : vicinity)
   {
     PossibleTurn turn;
@@ -187,6 +241,10 @@ void IRoadGraph::SetFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicini
     /// @todo Do we need other fields? Do we even need m_secondsCovered?
     turn.m_secondsCovered = TimeBetweenSec(rp.GetSegEndpoint(), vrp.GetSegEndpoint());
     turns->push_back(turn);
+
+    /// Add a fake turn from a vicincy road position to a fake point.
+    turn.m_pos = rp;
+    m_fakeTurns[vrp].push_back(turn);
   }
 }
 

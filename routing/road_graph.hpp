@@ -7,6 +7,7 @@
 #include "base/string_utils.hpp"
 
 #include "std/vector.hpp"
+#include "std/map.hpp"
 
 namespace routing
 {
@@ -29,6 +30,8 @@ public:
   RoadPos(uint32_t featureId, bool forward, size_t segId,
           m2::PointD const & p = m2::PointD::Zero());
 
+  static bool IsFakeFeatureId(uint32_t featureId);
+
   uint32_t GetFeatureId() const { return m_featureId >> 1; }
   bool IsForward() const { return (m_featureId & 1) != 0; }
   uint32_t GetSegId() const { return m_segId; }
@@ -36,15 +39,17 @@ public:
   uint32_t GetSegEndPointId() const { return m_segId + (IsForward() ? 1 : 0); }
   m2::PointD const & GetSegEndpoint() const { return m_segEndpoint; }
 
-  bool operator==(RoadPos const & r) const
+  bool SameRoadSegmentAndDirection(RoadPos const & r) const
   {
-    return (m_featureId == r.m_featureId && m_segId == r.m_segId);
+    return m_featureId == r.m_featureId && m_segId == r.m_segId;
   }
 
-  bool operator!=(RoadPos const & r) const
+  bool operator==(RoadPos const & r) const
   {
-    return (m_featureId != r.m_featureId || m_segId != r.m_segId);
+    return m_featureId == r.m_featureId && m_segId == r.m_segId && m_segEndpoint == r.m_segEndpoint;
   }
+
+  bool operator!=(RoadPos const & r) const { return !(*this == r); }
 
   bool operator<(RoadPos const & r) const
   {
@@ -52,6 +57,8 @@ public:
       return m_featureId < r.m_featureId;
     if (m_segId != r.m_segId)
       return m_segId < r.m_segId;
+    if (m_segEndpoint != r.m_segEndpoint)
+      return m_segEndpoint < r.m_segEndpoint;
     return false;
   }
 
@@ -143,9 +150,12 @@ public:
   /// "pos" section.
   void GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns);
 
+  /// Removes all fake turns and vertices from the graph.
+  void ResetFakeTurns();
+
   /// Adds fake turns from fake position rp to real vicinity
   /// positions.
-  void SetFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity);
+  void AddFakeTurns(RoadPos const & rp, RoadPosVectorT const & vicinity);
 
 protected:
   // Returns RoadInfo for a road corresponding to featureId.
@@ -158,13 +168,21 @@ protected:
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                             CrossTurnsLoader & turnsLoader) = 0;
 
+  void AddFakeTurns(RoadPos const & pos, RoadInfo const & roadInfo, RoadPosVectorT const & vicinity,
+                    TurnsVectorT & turns);
+
   // The way we find edges leading from start/final positions and from all other positions
   // differ: for start/final we find positions in some vicinity of the starting
   // point; for other positions we extract turns from the road graph. This non-uniformity
   // comes from the fact that a start/final position does not necessarily fall on a feature
   // (i.e. on a road).
   vector<PossibleTurn> m_startVicinityTurns;
+  vector<RoadPos> m_startVicinityRoadPoss;
+
   vector<PossibleTurn> m_finalVicinityTurns;
+  vector<RoadPos> m_finalVicinityRoadPoss;
+
+  map<RoadPos, TurnsVectorT> m_fakeTurns;
 };
 
 // A class which represents an edge used by RoadGraph.

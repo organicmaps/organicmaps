@@ -22,9 +22,7 @@ IRouter::ResultCode AStarRouter::CalculateRoute(RoadPos const & startPos, RoadPo
       // returned by algorithm should be replaced by correct start and
       // final positions.
       ASSERT_EQUAL(route.front(), startPos, ());
-      route.front() = startPos;
       ASSERT_EQUAL(route.back(), finalPos, ());
-      route.back() = finalPos;
       return IRouter::NoError;
     case TAlgorithm::Result::NoPath:
       return IRouter::RouteNotFound;
