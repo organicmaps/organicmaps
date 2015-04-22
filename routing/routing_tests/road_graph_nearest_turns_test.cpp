@@ -8,13 +8,13 @@ namespace routing
 {
 UNIT_TEST(RoadGraph_NearestTurns)
 {
-  //           2nd road
+  //           1st road
   //        o
   //        |
   //        |
   //        o
   //        |
-  //        |        1st road
+  //        |        0th road
   //  o--o--x--o--o
   //        |
   //        |
@@ -23,11 +23,11 @@ UNIT_TEST(RoadGraph_NearestTurns)
   //        |
   //        o
   //
-  // Just two roads intersecting at (0, 0).
+  // Two roads intersecting at (0, 0).
   routing_test::RoadGraphMockSource graph;
   {
     IRoadGraph::RoadInfo ri0;
-    ri0.m_points.emplace_back(2, 0);
+    ri0.m_points.emplace_back(-2, 0);
     ri0.m_points.emplace_back(-1, 0);
     ri0.m_points.emplace_back(0, 0);
     ri0.m_points.emplace_back(1, 0);
@@ -48,12 +48,12 @@ UNIT_TEST(RoadGraph_NearestTurns)
     graph.AddRoad(move(ri1));
   }
 
-  // We're standing at:
-  // ... x--o ... segment and looking to the right.
+  // We are standing at ... x--o ... segment and are looking to the
+  // right.
   RoadPos const crossPos(0 /* featureId */, true /* forward */, 2 /* segId */, m2::PointD(0, 0));
   IRoadGraph::RoadPosVectorT expected = {
-      // It's possible to get to the standing RoadPos from RoadPos'es on
-      // the first road marked with > and <.
+      // It is possible to get to the RoadPos we are standing at from
+      // RoadPos'es on the first road marked with >> and <<.
       //
       //        ...
       //         |
@@ -64,8 +64,8 @@ UNIT_TEST(RoadGraph_NearestTurns)
       RoadPos(0 /* first road */, true /* forward */, 1 /* segId */, m2::PointD(0, 0)),
       RoadPos(0 /* first road */, false /* forward */, 2 /* segId */, m2::PointD(0, 0)),
 
-      // It's possible to get to the standing RoadPos from RoadPos'es on
-      // the second road marked with v and ^.
+      // It is possible to get to the RoadPos we are standing at from
+      // RoadPos'es on the second road marked with v and ^.
       //
       //     ...
       //      |
