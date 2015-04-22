@@ -14,7 +14,8 @@ enum Format
   v1 = 0,  // April 2011
   v2,      // November 2011 (store type index, instead of raw type in mwm)
   v3,      // March 2013 (store type index, instead of raw type in search data)
-  lastFormat = v3
+  v4,      // April 2015 (distinguish и and й in search index)
+  lastFormat = v4
 };
 
 struct MwmVersion
