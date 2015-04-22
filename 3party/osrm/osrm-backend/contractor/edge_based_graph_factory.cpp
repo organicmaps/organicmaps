@@ -42,6 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 EdgeBasedGraphFactory::EdgeBasedGraphFactory(
     const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph,
+    const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph_origin,
     std::unique_ptr<RestrictionMap> restriction_map,
     std::vector<NodeID> &barrier_node_list,
     std::vector<NodeID> &traffic_light_node_list,
@@ -50,6 +51,7 @@ EdgeBasedGraphFactory::EdgeBasedGraphFactory(
     : speed_profile(speed_profile),
       m_number_of_edge_based_nodes(std::numeric_limits<unsigned>::max()),
       m_node_info_list(node_info_list), m_node_based_graph(node_based_graph),
+      m_node_based_graph_origin(node_based_graph_origin),
       m_restriction_map(std::move(restriction_map)), max_id(0), removed_node_count(0)
 {
     // insert into unordered sets for fast lookup
@@ -75,6 +77,11 @@ void EdgeBasedGraphFactory::GetEdgeBasedNodes(std::vector<EdgeBasedNode> &nodes)
     }
 #endif
     nodes.swap(m_edge_based_node_list);
+}
+
+void EdgeBasedGraphFactory::GetEdgeBasedNodeData(osrm::NodeDataVectorT &data)
+{
+  data.swap(m_edge_based_node_data);
 }
 
 void EdgeBasedGraphFactory::InsertEdgeBasedNode(const NodeID node_u,
@@ -165,6 +172,7 @@ void EdgeBasedGraphFactory::InsertEdgeBasedNode(const NodeID node_u,
 
             // build edges
             m_edge_based_node_list.emplace_back(
+                forward_data.way_id, reverse_data.way_id,
                 forward_data.edgeBasedNodeID, reverse_data.edgeBasedNodeID,
                 current_edge_source_coordinate_id, current_edge_target_coordinate_id,
                 forward_data.nameID, forward_geometry[i].second,
@@ -210,6 +218,7 @@ void EdgeBasedGraphFactory::InsertEdgeBasedNode(const NodeID node_u,
                      reverse_data.edgeBasedNodeID != SPECIAL_NODEID);
 
         m_edge_based_node_list.emplace_back(
+            forward_data.way_id, reverse_data.way_id,
             forward_data.edgeBasedNodeID, reverse_data.edgeBasedNodeID, node_u, node_v,
             forward_data.nameID, forward_data.distance, reverse_data.distance, 0, 0, SPECIAL_EDGEID,
             component_id, 0, forward_data.travel_mode, reverse_data.travel_mode);
@@ -250,6 +259,10 @@ void EdgeBasedGraphFactory::Run(const std::string &original_edge_data_filename,
     GenerateEdgeExpandedEdges(original_edge_data_filename, lua_state);
     TIMER_STOP(generate_edges);
 
+    TIMER_START(generate_node_data);
+    GenerateEdgeBasedNodeData();
+    TIMER_STOP(generate_node_data);
+
     m_geometry_compressor.SerializeInternalVector(geometry_filename);
 
     SimpleLogger().Write() << "Timing statistics for edge-expanded graph:";
@@ -257,6 +270,7 @@ void EdgeBasedGraphFactory::Run(const std::string &original_edge_data_filename,
     SimpleLogger().Write() << "Renumbering edges: " << TIMER_SEC(renumber) << "s";
     SimpleLogger().Write() << "Generating nodes: " << TIMER_SEC(generate_nodes) << "s";
     SimpleLogger().Write() << "Generating edges: " << TIMER_SEC(generate_edges) << "s";
+    SimpleLogger().Write() << "Generating node data: " << TIMER_SEC(generate_node_data) << "s";
 }
 
 void EdgeBasedGraphFactory::CompressGeometry()
@@ -429,6 +443,105 @@ void EdgeBasedGraphFactory::RenumberEdges()
     }
     m_number_of_edge_based_nodes = numbered_edges_count;
 }
+
+void EdgeBasedGraphFactory::GenerateEdgeBasedNodeData()
+{
+  BOOST_ASSERT(m_node_based_graph->GetNumberOfNodes() == m_node_based_graph_origin->GetNumberOfNodes());
+
+  m_edge_based_node_data.resize(m_number_of_edge_based_nodes);
+  std::vector<bool> found;
+  found.resize(m_number_of_edge_based_nodes, false);
+
+  for (NodeID current_node = 0; current_node < m_node_based_graph->GetNumberOfNodes();
+       ++current_node)
+  {
+      for (EdgeID current_edge : m_node_based_graph->GetAdjacentEdgeRange(current_node))
+      {
+          EdgeData & edge_data = m_node_based_graph->GetEdgeData(current_edge);
+          if (!edge_data.forward)
+          {
+              continue;
+          }
+
+          NodeID target = m_node_based_graph->GetTarget(current_edge);
+
+          osrm::NodeData data;
+          if (m_geometry_compressor.HasEntryForID(current_edge))
+          {
+            const std::vector<GeometryCompressor::CompressedNode> & via_nodes = m_geometry_compressor.GetBucketReference(current_edge);
+            assert(via_nodes.size() > 0);
+            std::vector< std::pair< NodeID, FixedPointCoordinate > > nodes;
+            if (via_nodes.front().first != current_node)
+              nodes.emplace_back(current_node, FixedPointCoordinate(m_node_info_list[current_node].lat, m_node_info_list[current_node].lon));
+            for (auto n : via_nodes)
+              nodes.emplace_back(n.first, FixedPointCoordinate(m_node_info_list[n.first].lat, m_node_info_list[n.first].lon));
+            if (via_nodes.back().first != target)
+              nodes.emplace_back(target, FixedPointCoordinate(m_node_info_list[target].lat, m_node_info_list[target].lon));
+
+            for (uint32_t i = 1; i < nodes.size(); ++i)
+            {
+              auto n1 = nodes[i - 1];
+              auto n2 = nodes[i];
+
+              if (n1.first == n2.first)
+              {
+                SimpleLogger().Write() << "Error: Equal values " << n1.first << " and " << n2.first;
+                SimpleLogger().Write() << "i: "<< i << " nodes: " << nodes.size();
+                throw std::exception();
+              }
+
+              EdgeID e = m_node_based_graph_origin->FindEdge(n1.first, n2.first);
+              if (e == SPECIAL_EDGEID)
+              {
+                SimpleLogger().Write() << "Error: Can't find edge between nodes " << n1.first << " and " << n2.first;
+                continue;
+              }
+
+              EdgeData &ed = m_node_based_graph_origin->GetEdgeData(e);
+
+              data.AddSegment(ed.way_id,
+                              m_node_info_list[n1.first].lat / COORDINATE_PRECISION,
+                              m_node_info_list[n1.first].lon / COORDINATE_PRECISION,
+                              m_node_info_list[n2.first].lat / COORDINATE_PRECISION,
+                              m_node_info_list[n2.first].lon / COORDINATE_PRECISION);
+            }
+
+           } else
+          {
+            data.AddSegment(edge_data.way_id,
+                            m_node_info_list[current_node].lat / COORDINATE_PRECISION,
+                            m_node_info_list[current_node].lon / COORDINATE_PRECISION,
+                            m_node_info_list[target].lat / COORDINATE_PRECISION,
+                            m_node_info_list[target].lon / COORDINATE_PRECISION);
+          }
+
+          if (found[edge_data.edgeBasedNodeID])
+          {
+            if (m_edge_based_node_data[edge_data.edgeBasedNodeID] != data)
+            {
+              std::cout << "Error!" << std::endl;
+              throw std::exception();
+            }
+          } else
+          {
+            found[edge_data.edgeBasedNodeID] = true;
+            m_edge_based_node_data[edge_data.edgeBasedNodeID] = data;
+          }
+      }
+  }
+
+ for (auto v : found)
+  {
+    if (!v)
+    {
+      std::cout << "Error2" << std::endl;
+      throw std::exception();
+    }
+  }
+
+  SimpleLogger().Write() << "Edge based node data count: " << m_edge_based_node_data.size();
+}
+
 
 /**
  * Creates the nodes in the edge expanded graph from edges in the node-based graph.

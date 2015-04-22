@@ -52,9 +52,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <boost/filesystem/fstream.hpp>
 #include <boost/thread.hpp>
 
-#include <tbb/parallel_for.h>
-#include <tbb/parallel_sort.h>
-
 #include <variant/variant.hpp>
 
 #include <algorithm>
@@ -360,39 +357,28 @@ class StaticRTree
         HilbertCode get_hilbert_number;
 
         // generate auxiliary vector of hilbert-values
-        tbb::parallel_for(
-            tbb::blocked_range<uint64_t>(0, m_element_count),
-            [&input_data_vector, &input_wrapper_vector, &get_hilbert_number, &coordinate_list](
-                const tbb::blocked_range<uint64_t> &range)
-            {
-                for (uint64_t element_counter = range.begin(); element_counter != range.end();
-                     ++element_counter)
-                {
-                    WrappedInputElement &current_wrapper = input_wrapper_vector[element_counter];
-                    current_wrapper.m_array_index = element_counter;
-
-                    EdgeDataT const &current_element = input_data_vector[element_counter];
-
-                    // Get Hilbert-Value for centroid in mercartor projection
-                    FixedPointCoordinate current_centroid = EdgeDataT::Centroid(
-                        FixedPointCoordinate(coordinate_list.at(current_element.u).lat,
-                                             coordinate_list.at(current_element.u).lon),
-                        FixedPointCoordinate(coordinate_list.at(current_element.v).lat,
-                                             coordinate_list.at(current_element.v).lon));
-                    current_centroid.lat =
-                        COORDINATE_PRECISION *
-                        mercator::lat2y(current_centroid.lat / COORDINATE_PRECISION);
-
-                    current_wrapper.m_hilbert_value = get_hilbert_number(current_centroid);
-                }
-            });
+        for (uint64_t element_counter = 0; element_counter != m_element_count; ++element_counter)
+        {
+            WrappedInputElement &current_wrapper = input_wrapper_vector[element_counter];
+            current_wrapper.m_array_index = element_counter;
+            EdgeDataT const &current_element = input_data_vector[element_counter];
+            // Get Hilbert-Value for centroid in mercartor projection
+            FixedPointCoordinate current_centroid = EdgeDataT::Centroid(
+                FixedPointCoordinate(coordinate_list.at(current_element.u).lat,
+                                     coordinate_list.at(current_element.u).lon),
+                FixedPointCoordinate(coordinate_list.at(current_element.v).lat,
+                                     coordinate_list.at(current_element.v).lon));
+            current_centroid.lat =
+                COORDINATE_PRECISION * mercator::lat2y(current_centroid.lat / COORDINATE_PRECISION);
+            current_wrapper.m_hilbert_value = get_hilbert_number(current_centroid);
+        }
 
         // open leaf file
         boost::filesystem::ofstream leaf_node_file(leaf_node_filename, std::ios::binary);
         leaf_node_file.write((char *)&m_element_count, sizeof(uint64_t));
 
         // sort the hilbert-value representatives
-        tbb::parallel_sort(input_wrapper_vector.begin(), input_wrapper_vector.end());
+        sort(input_wrapper_vector.begin(), input_wrapper_vector.end());
         std::vector<TreeNode> tree_nodes_in_level;
 
         // pack M elements into leaf node and write to leaf file
@@ -473,20 +459,17 @@ class StaticRTree
         std::reverse(m_search_tree.begin(), m_search_tree.end());
 
         uint32_t search_tree_size = m_search_tree.size();
-        tbb::parallel_for(tbb::blocked_range<uint32_t>(0, search_tree_size),
-                          [this, &search_tree_size](const tbb::blocked_range<uint32_t> &range)
-                          {
-                              for (uint32_t i = range.begin(); i != range.end(); ++i)
-                              {
-                                  TreeNode &current_tree_node = this->m_search_tree[i];
-                                  for (uint32_t j = 0; j < current_tree_node.child_count; ++j)
-                                  {
-                                      const uint32_t old_id = current_tree_node.children[j];
-                                      const uint32_t new_id = search_tree_size - old_id - 1;
-                                      current_tree_node.children[j] = new_id;
-                                  }
-                              }
-                          });
+
+        for (uint32_t i = 0; i != search_tree_size; ++i)
+        {
+            TreeNode &current_tree_node = this->m_search_tree[i];
+            for (uint32_t j = 0; j < current_tree_node.child_count; ++j)
+             {
+                const uint32_t old_id = current_tree_node.children[j];
+                const uint32_t new_id = search_tree_size - old_id - 1;
+                current_tree_node.children[j] = new_id;
+             }
+        }
 
         // open tree file
         boost::filesystem::ofstream tree_node_file(tree_node_filename, std::ios::binary);
@@ -660,7 +643,7 @@ class StaticRTree
             input_coordinate.lon / COORDINATE_PRECISION};
 
         // upper bound pruning technique
-        upper_bound<float> pruning_bound(max_number_of_phantom_nodes);
+        osrm_algo::upper_bound<float> pruning_bound(max_number_of_phantom_nodes);
 
         // initialize queue with root element
         std::priority_queue<IncrementalQueryCandidate> traversal_queue;
@@ -816,7 +799,7 @@ class StaticRTree
             input_coordinate.lon / COORDINATE_PRECISION};
 
         // upper bound pruning technique
-        upper_bound<float> pruning_bound(max_number_of_phantom_nodes);
+        osrm_algo::upper_bound<float> pruning_bound(max_number_of_phantom_nodes);
 
         // initialize queue with root element
         std::priority_queue<IncrementalQueryCandidate> traversal_queue;

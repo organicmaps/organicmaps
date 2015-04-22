@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "travel_mode.hpp"
 #include "../typedefs.h"
 
-#include <osrm/coordinate.hpp>
+#include "../include/osrm/coordinate.hpp"
 
 #include <iostream>
 #include <utility>

@@ -137,6 +137,7 @@ void ExtractorCallbacks::ProcessWay(const osmium::Way &input_way, const Extracti
         // SimpleLogger().Write() << "adding edge (" << first_node.ref() << "," <<
         // last_node.ref() << "), fwd speed: " << parsed_way.forward_speed;
         external_memory.all_edges_list.push_back(InternalExtractorEdge(
+            (EdgeID)input_way.id(),
             first_node.ref(), last_node.ref(),
             ((split_edge || TRAVEL_MODE_INACCESSIBLE == parsed_way.backward_travel_mode)
                  ? ExtractionWay::oneway
@@ -181,6 +182,7 @@ void ExtractorCallbacks::ProcessWay(const osmium::Way &input_way, const Extracti
             // SimpleLogger().Write() << "adding edge (" << last_node.ref() << "," <<
             // first_node.ref() << "), bwd speed: " << parsed_way.backward_speed;
             external_memory.all_edges_list.push_back(InternalExtractorEdge(
+                (EdgeID)input_way.id(),
                 last_node.ref(), first_node.ref(), ExtractionWay::oneway, parsed_way.backward_speed,
                 name_id, parsed_way.roundabout, parsed_way.ignore_in_grid,
                 (0 < parsed_way.duration), parsed_way.is_access_restricted,

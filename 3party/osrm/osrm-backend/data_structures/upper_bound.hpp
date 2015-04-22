@@ -38,6 +38,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // if size > k then remove element
 // get() always yields a bound to the k smallest element in the stream
 
+namespace osrm_algo
+{
+
 template <typename key_type> class upper_bound
 {
   private:
@@ -73,5 +76,5 @@ template <typename key_type> class upper_bound
     std::priority_queue<key_type, std::vector<key_type>, std::less<key_type>> queue;
     const std::size_t size;
 };
-
+}
 #endif // LOWER_BOUND_HPP

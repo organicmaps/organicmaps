@@ -27,14 +27,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "coordinate_calculation.hpp"
 
-#ifndef NDEBUG
-#include "../util/simple_logger.hpp"
-#endif
 #include <osrm/coordinate.hpp>
 
-#ifndef NDEBUG
-#include <bitset>
-#endif
 #include <iostream>
 #include <limits>
 
@@ -45,20 +39,6 @@ FixedPointCoordinate::FixedPointCoordinate()
 
 FixedPointCoordinate::FixedPointCoordinate(int lat, int lon) : lat(lat), lon(lon)
 {
-#ifndef NDEBUG
-    if (0 != (std::abs(lat) >> 30))
-    {
-        std::bitset<32> y_coordinate_vector(lat);
-        SimpleLogger().Write(logDEBUG) << "broken lat: " << lat
-                                       << ", bits: " << y_coordinate_vector;
-    }
-    if (0 != (std::abs(lon) >> 30))
-    {
-        std::bitset<32> x_coordinate_vector(lon);
-        SimpleLogger().Write(logDEBUG) << "broken lon: " << lon
-                                       << ", bits: " << x_coordinate_vector;
-    }
-#endif
 }
 
 bool FixedPointCoordinate::is_valid() const

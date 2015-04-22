@@ -335,6 +335,7 @@ void ExtractionContainers::PrepareData(const std::string &output_file_name,
                 const bool yes = true;
                 const bool no = false;
 
+                file_out_stream.write((char *)&edge_iterator->way_id, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->start, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->target, sizeof(unsigned));
                 file_out_stream.write((char *)&integer_distance, sizeof(int));

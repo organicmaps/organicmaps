@@ -41,8 +41,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-#include <tbb/parallel_sort.h>
-
 #include <cmath>
 
 #include <algorithm>
@@ -134,6 +132,7 @@ NodeID read_undirected_osrm_stream(std::istream &input_stream,
     short dir; // direction (0 = open, 1 = forward, 2+ = open)
     bool is_roundabout, ignore_in_grid, is_access_restricted, is_split;
     TravelMode travel_mode;
+    unsigned way_id;
 
     EdgeID m;
     input_stream.read(reinterpret_cast<char *>(&m), sizeof(unsigned));
@@ -142,6 +141,7 @@ NodeID read_undirected_osrm_stream(std::istream &input_stream,
 
     for (EdgeID i = 0; i < m; ++i)
     {
+        input_stream.read(reinterpret_cast<char *>(&way_id), sizeof(unsigned));
         input_stream.read(reinterpret_cast<char *>(&source), sizeof(unsigned));
         input_stream.read(reinterpret_cast<char *>(&target), sizeof(unsigned));
         input_stream.read(reinterpret_cast<char *>(&length), sizeof(int));
@@ -201,7 +201,7 @@ NodeID read_undirected_osrm_stream(std::istream &input_stream,
     }
     ext_to_int_id_map.clear();
 
-    tbb::parallel_sort(edge_list.begin(), edge_list.end());
+    sort(edge_list.begin(), edge_list.end());
 
     // for (unsigned i = 1; i < edge_list.size(); ++i)
     // {
@@ -350,6 +350,7 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
     NodeID source, target;
     unsigned nameID;
     int length;
+    unsigned way_id;
     short dir; // direction (0 = open, 1 = forward, 2+ = open)
     bool is_roundabout, ignore_in_grid, is_access_restricted, is_split;
     TravelMode travel_mode;
@@ -361,6 +362,7 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
 
     for (EdgeID i = 0; i < m; ++i)
     {
+        input_stream.read(reinterpret_cast<char *>(&way_id), sizeof(unsigned));
         input_stream.read(reinterpret_cast<char *>(&source), sizeof(unsigned));
         input_stream.read(reinterpret_cast<char *>(&target), sizeof(unsigned));
         input_stream.read(reinterpret_cast<char *>(&length), sizeof(int));
@@ -416,12 +418,12 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
             std::swap(forward, backward);
         }
 
-        edge_list.emplace_back(source, target, nameID, weight, forward, backward, is_roundabout,
+        edge_list.emplace_back(way_id, source, target, nameID, weight, forward, backward, is_roundabout,
                                ignore_in_grid, is_access_restricted, travel_mode, is_split);
     }
     ext_to_int_id_map.clear();
 
-    tbb::parallel_sort(edge_list.begin(), edge_list.end());
+    std::sort(edge_list.begin(), edge_list.end());
 
     for (unsigned i = 1; i < edge_list.size(); ++i)
     {

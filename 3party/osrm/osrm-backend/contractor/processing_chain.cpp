@@ -117,6 +117,7 @@ int Prepare::Process(int argc, char *argv[])
     graph_out = input_path.string() + ".hsgr";
     rtree_nodes_path = input_path.string() + ".ramIndex";
     rtree_leafs_path = input_path.string() + ".fileIndex";
+    node_data_filename = input_path.string() + ".nodeData";
 
     /*** Setup Scripting Environment ***/
     // Create a new lua state
@@ -135,7 +136,7 @@ int Prepare::Process(int argc, char *argv[])
 #ifdef WIN32
 #pragma message("Memory consumption on Windows can be higher due to different bit packing")
 #else
-    static_assert(sizeof(ImportEdge) == 20,
+    static_assert(sizeof(ImportEdge) == 24,
                   "changing ImportEdge type has influence on memory consumption!");
 #endif
     NodeID number_of_node_based_nodes = readBinaryOSRMGraphFromStream(
@@ -356,9 +357,10 @@ bool Prepare::ParseArguments(int argc, char *argv[])
 
     // hidden options, will be allowed both on command line and in config file, but will not be
     // shown to the user
+    std::string string_input_path;
     boost::program_options::options_description hidden_options("Hidden options");
     hidden_options.add_options()(
-        "input,i", boost::program_options::value<boost::filesystem::path>(&input_path),
+        "input,i", boost::program_options::value<std::string>(&string_input_path),
         "Input file in .osm, .osm.bz2 or .osm.pbf format");
 
     // positional option
@@ -417,6 +419,7 @@ bool Prepare::ParseArguments(int argc, char *argv[])
         return false;
     }
 
+    input_path = boost::filesystem::path(string_input_path);
     return true;
 }
 
@@ -501,8 +504,12 @@ Prepare::BuildEdgeExpandedGraph(lua_State *lua_state,
         NodeBasedDynamicGraphFromImportEdges(number_of_node_based_nodes, edge_list);
     std::unique_ptr<RestrictionMap> restriction_map =
         osrm::make_unique<RestrictionMap>(restriction_list);
+
+   std::shared_ptr<NodeBasedDynamicGraph> node_based_graph_origin =
+        NodeBasedDynamicGraphFromImportEdges(number_of_node_based_nodes, edge_list);
+
     std::shared_ptr<EdgeBasedGraphFactory> edge_based_graph_factory =
-        std::make_shared<EdgeBasedGraphFactory>(node_based_graph, std::move(restriction_map),
+        std::make_shared<EdgeBasedGraphFactory>(node_based_graph, node_based_graph_origin, std::move(restriction_map),
                                                 barrier_node_list, traffic_light_list,
                                                 internal_to_external_node_map, speed_profile);
     edge_list.clear();
@@ -528,6 +535,14 @@ Prepare::BuildEdgeExpandedGraph(lua_State *lua_state,
 
     edge_based_graph_factory->GetEdgeBasedEdges(edge_based_edge_list);
     edge_based_graph_factory->GetEdgeBasedNodes(node_based_edge_list);
+
+    // serialize node data
+    osrm::NodeDataVectorT data;
+    edge_based_graph_factory->GetEdgeBasedNodeData(data);
+
+    SimpleLogger().Write() << "Serialize node data";
+
+    osrm::SaveNodeDataToFile(node_data_filename, data);
 
     edge_based_graph_factory.reset();
     node_based_graph.reset();
@@ -559,9 +574,9 @@ void Prepare::WriteNodeMapping()
 
     Saves info to files: '.ramIndex' and '.fileIndex'.
  */
-void Prepare::BuildRTree(std::vector<EdgeBasedNode> &node_based_edge_list)
+void Prepare::BuildRTree(std::vector<EdgeBasedNode> &node_based_node_list)
 {
     SimpleLogger().Write() << "building r-tree ...";
-    StaticRTree<EdgeBasedNode>(node_based_edge_list, rtree_nodes_path.c_str(),
+    StaticRTree<EdgeBasedNode>(node_based_node_list, rtree_nodes_path.c_str(),
                                rtree_leafs_path.c_str(), internal_to_external_node_map);
 }

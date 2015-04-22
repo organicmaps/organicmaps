@@ -59,9 +59,10 @@ ExtractorOptions::ParseArguments(int argc, char *argv[], ExtractorConfig &extrac
 
     // hidden options, will be allowed both on command line and in config file, but will not be
     // shown to the user
+    std::string string_input_path;
     boost::program_options::options_description hidden_options("Hidden options");
-    hidden_options.add_options()("input,i", boost::program_options::value<boost::filesystem::path>(
-                                                &extractor_config.input_path),
+    hidden_options.add_options()("input,i", boost::program_options::value<std::string>(
+                                                &string_input_path),
                                  "Input file in .osm, .osm.bz2 or .osm.pbf format");
 
     // positional option
@@ -126,6 +127,8 @@ ExtractorOptions::ParseArguments(int argc, char *argv[], ExtractorConfig &extrac
         SimpleLogger().Write(logWARNING) << e.what();
         return return_code::fail;
     }
+
+   extractor_config.input_path = string_input_path;
 
     return return_code::ok;
 }

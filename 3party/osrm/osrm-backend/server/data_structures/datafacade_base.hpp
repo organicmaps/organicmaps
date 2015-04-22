@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../../util/string_util.hpp"
 #include "../../typedefs.h"
 
-#include <osrm/coordinate.hpp>
+#include "../../include/osrm/coordinate.hpp"
 
 #include <string>
 
@@ -63,6 +63,8 @@ template <class EdgeDataT> class BaseDataFacade
     virtual NodeID GetTarget(const EdgeID e) const = 0;
 
     virtual const EdgeDataT &GetEdgeData(const EdgeID e) const = 0;
+
+    virtual EdgeDataT GetEdgeData(const EdgeID e, const NodeID n) = 0;
 
     virtual EdgeID BeginEdges(const NodeID n) const = 0;
 

@@ -17,6 +17,10 @@ QT *= core
 win32* : LIBS *= -lShell32
 
 
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
+               $$ROOT_DIR/3party/osrm/osrm-backend/include \
+               $$ROOT_DIR/3party/osrm/osrm-backend/third_party
+
 SOURCES += \
   ../../testing/testingmain.cpp \
   astar_algorithm_test.cpp \

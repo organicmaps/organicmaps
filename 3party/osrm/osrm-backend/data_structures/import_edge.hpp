@@ -35,7 +35,8 @@ struct NodeBasedEdge
 {
     bool operator<(const NodeBasedEdge &e) const;
 
-    explicit NodeBasedEdge(NodeID source,
+    explicit NodeBasedEdge(unsigned way_id,
+                           NodeID source,
                            NodeID target,
                            NodeID name_id,
                            EdgeWeight weight,
@@ -47,6 +48,7 @@ struct NodeBasedEdge
                            TravelMode travel_mode,
                            bool is_split);
 
+    unsigned way_id;
     NodeID source;
     NodeID target;
     NodeID name_id;

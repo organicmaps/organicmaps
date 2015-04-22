@@ -15,15 +15,13 @@
 #include "std/queue.hpp"
 #include "std/unordered_map.hpp"
 
-#include "3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
-#include "3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
 
 namespace feature { class TypesHolder; }
 
+struct RawRouteData;
 struct PhantomNode;
 struct PathData;
 class FeatureType;
-struct RawRouteData;
 
 namespace routing
 {
@@ -50,12 +48,7 @@ typedef vector<FeatureGraphNode> MultiroutingTaskPointT;
  * \property sourceEdge: iterator to src edge from source vector
  * \property targetEdge: iterator to target edge from target vector
  */
-struct RawRoutingResultT
-{
-  RawRouteData m_routePath;
-  FeatureGraphNode m_sourceEdge;
-  FeatureGraphNode m_targetEdge;
-};
+struct RawRoutingResultT;
 
 typedef vector<RawRoutingResultT> MultipleRoutingResultT;
 

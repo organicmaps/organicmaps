@@ -16,8 +16,10 @@
 #include "3party/succinct/gamma_vector.hpp"
 #include "3party/succinct/rs_bit_vector.hpp"
 #include "3party/succinct/mapper.hpp"
-#include "3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
-#include "3party/osrm/osrm-backend/DataStructures/TravelMode.h"
+
+// TODO (ldragunov) exclude osrm specific headers from here! They causes "coordinate" problem
+#include "3party/osrm/osrm-backend/server/data_structures/datafacade_base.hpp"
+#include "3party/osrm/osrm-backend/data_structures/travel_mode.hpp"
 
 namespace routing
 {
@@ -189,20 +191,36 @@ public:
     return false;
   }
 
-  bool FindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
+  /*bool FindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                     PhantomNode &resulting_phantom_node,
                                     const unsigned zoom_level) override
   {
     return false;
-  }
+  }*/
 
-  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
+  /*bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
                                                std::vector<PhantomNode> &resulting_phantom_node_vector,
                                                const unsigned zoom_level,
                                                const unsigned number_of_results) override
   {
     return false;
-  }
+  }*/
+
+  bool IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
+                                               std::vector<PhantomNode> &resulting_phantom_node_vector,
+                                               const unsigned number_of_results) {return false;}
+
+  bool
+       IncrementalFindPhantomNodeForCoordinate(const FixedPointCoordinate &input_coordinate,
+                                               PhantomNode &resulting_phantom_node) { return false;}
+
+  bool IncrementalFindPhantomNodeForCoordinateWithMaxDistance(
+           const FixedPointCoordinate &input_coordinate,
+           std::vector<std::pair<PhantomNode, double>> &resulting_phantom_node_vector,
+           const double max_distance,
+           const unsigned min_number_of_phantom_nodes,
+           const unsigned max_number_of_phantom_nodes) {return false;}
+
 
   unsigned GetCheckSum() const override
   {
@@ -214,9 +232,12 @@ public:
     return -1;
   }
 
-  void GetName(const unsigned name_id, std::string &result) const override
-  {
-  }
+  //void GetName(const unsigned name_id, std::string &result) const override
+  //{
+  //}
+
+  std::string get_name_for_id(const unsigned name_id) const override
+  {return "";}
 
   std::string GetTimestamp() const override
   {

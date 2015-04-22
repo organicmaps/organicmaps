@@ -33,14 +33,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <boost/assert.hpp>
 
-#include <osrm/coordinate.hpp>
+#include "../include/osrm/coordinate.hpp"
 
 #include <limits>
 
 struct EdgeBasedNode
 {
     EdgeBasedNode()
-        : forward_edge_based_node_id(SPECIAL_NODEID), reverse_edge_based_node_id(SPECIAL_NODEID),
+        : forward_way_id(-1), reverse_way_id(-1), 
+          forward_edge_based_node_id(SPECIAL_NODEID), reverse_edge_based_node_id(SPECIAL_NODEID),
           u(SPECIAL_NODEID), v(SPECIAL_NODEID), name_id(0),
           forward_weight(INVALID_EDGE_WEIGHT >> 1), reverse_weight(INVALID_EDGE_WEIGHT >> 1),
           forward_offset(0), reverse_offset(0), packed_geometry_id(SPECIAL_EDGEID),
@@ -50,7 +51,10 @@ struct EdgeBasedNode
     {
     }
 
-    explicit EdgeBasedNode(NodeID forward_edge_based_node_id,
+    explicit EdgeBasedNode(
+                           unsigned forward_way_id,
+                           unsigned reverse_way_id,
+                           NodeID forward_edge_based_node_id,
                            NodeID reverse_edge_based_node_id,
                            NodeID u,
                            NodeID v,
@@ -64,7 +68,8 @@ struct EdgeBasedNode
                            unsigned short fwd_segment_position,
                            TravelMode forward_travel_mode,
                            TravelMode backward_travel_mode)
-        : forward_edge_based_node_id(forward_edge_based_node_id),
+        : forward_way_id(forward_way_id), reverse_way_id(reverse_way_id),
+          forward_edge_based_node_id(forward_edge_based_node_id),
           reverse_edge_based_node_id(reverse_edge_based_node_id), u(u), v(v), name_id(name_id),
           forward_weight(forward_weight), reverse_weight(reverse_weight),
           forward_offset(forward_offset), reverse_offset(reverse_offset),
@@ -104,6 +109,8 @@ struct EdgeBasedNode
     unsigned short fwd_segment_position; // segment id in a compressed geometry
     TravelMode forward_travel_mode : 4;
     TravelMode backward_travel_mode : 4;
+    unsigned forward_way_id;
+    unsigned reverse_way_id;
 };
 
 #endif // EDGE_BASED_NODE_HPP

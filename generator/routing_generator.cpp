@@ -26,12 +26,14 @@
 
 #include "std/fstream.hpp"
 
-#include "3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
-#include "3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
-#include "3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
+#include "3party/osrm/osrm-backend/data_structures/edge_based_node_data.hpp"
+#include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
+#include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
 namespace routing
 {
+
+using RawRouteResult = InternalRouteResult;
 
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 

@@ -90,6 +90,7 @@ class Prepare
     std::string graph_out;
     std::string rtree_nodes_path;
     std::string rtree_leafs_path;
+    std::string node_data_filename;
 };
 
 #endif // PROCESSING_CHAIN_HPP

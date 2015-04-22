@@ -25,10 +25,12 @@
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
 
-#include "3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
-#include "3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
-#include "3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
-#include "3party/osrm/osrm-backend/RoutingAlgorithms/NToMManyToManyRouting.h"
+#include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
+#include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
+#include "3party/osrm/osrm-backend/data_structures/search_engine_data.hpp"
+#include "3party/osrm/osrm-backend/descriptors/description_factory.hpp"
+#include "3party/osrm/osrm-backend/routing_algorithms/shortest_path.hpp"
+#include "3party/osrm/osrm-backend/routing_algorithms/n_to_m_many_to_many.hpp"
 
 #define INTERRUPT_WHEN_CANCELLED() \
   do                               \
@@ -44,6 +46,16 @@ size_t const MAX_NODE_CANDIDATES = 10;
 double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
 double const TIME_OVERHEAD = 1.4;
 double const FEATURES_NEAR_TURN_M = 3.0;
+
+// TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
+using RawRouteData = InternalRouteResult;
+
+struct RawRoutingResultT
+{
+  RawRouteData m_routePath;
+  FeatureGraphNode m_sourceEdge;
+  FeatureGraphNode m_targetEdge;
+};
 
 namespace
 {

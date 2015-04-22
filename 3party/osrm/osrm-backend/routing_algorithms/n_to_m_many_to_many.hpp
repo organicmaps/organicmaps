@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2014, Project OSRM contributors
+Copyright (c) 2014, Project OSRM, Dennis Luxen, others
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -25,12 +25,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#ifndef MANY_TO_MANY_ROUTING_HPP
-#define MANY_TO_MANY_ROUTING_HPP
+#ifndef NMMANY_TO_MANY_ROUTING_H
+#define NMMANY_TO_MANY_ROUTING_H
 
 #include "routing_base.hpp"
 #include "../data_structures/search_engine_data.hpp"
 #include "../typedefs.h"
+
+#include "many_to_many.hpp"
 
 #include <boost/assert.hpp>
 
@@ -39,11 +41,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unordered_map>
 #include <vector>
 
-template <class DataFacadeT>
-class ManyToManyRouting final
-    : public BasicRoutingInterface<DataFacadeT, ManyToManyRouting<DataFacadeT>>
+template <class DataFacadeT> class NMManyToManyRouting final
+            : public BasicRoutingInterface<DataFacadeT, NMManyToManyRouting<DataFacadeT>>
 {
-    using super = BasicRoutingInterface<DataFacadeT, ManyToManyRouting<DataFacadeT>>;
+    using super = BasicRoutingInterface<DataFacadeT, NMManyToManyRouting<DataFacadeT>>;
     using QueryHeap = SearchEngineData::QueryHeap;
     SearchEngineData &engine_working_data;
 
@@ -59,19 +60,18 @@ class ManyToManyRouting final
     using SearchSpaceWithBuckets = std::unordered_map<NodeID, std::vector<NodeBucket>>;
 
   public:
-    ManyToManyRouting(DataFacadeT *facade, SearchEngineData &engine_working_data)
+    NMManyToManyRouting(DataFacadeT *facade, SearchEngineData &engine_working_data)
         : super(facade), engine_working_data(engine_working_data)
     {
     }
 
-    ~ManyToManyRouting() {}
-
-    std::shared_ptr<std::vector<EdgeWeight>>
-    operator()(const PhantomNodeArray &phantom_nodes_array) const
+    std::shared_ptr<std::vector<EdgeWeight>> operator()(const PhantomNodeArray &phantom_sources_nodes_array,
+                                                        const PhantomNodeArray &phantom_targets_nodes_array) const
     {
-        const auto number_of_locations = phantom_nodes_array.size();
+        const unsigned number_of_sources = static_cast<unsigned>(phantom_sources_nodes_array.size());
+        const unsigned number_of_targets = static_cast<unsigned>(phantom_targets_nodes_array.size());
         std::shared_ptr<std::vector<EdgeWeight>> result_table =
-            std::make_shared<std::vector<EdgeWeight>>(number_of_locations * number_of_locations,
+            std::make_shared<std::vector<EdgeWeight>>(number_of_sources * number_of_targets,
                                                       std::numeric_limits<EdgeWeight>::max());
 
         engine_working_data.InitializeOrClearFirstThreadLocalStorage(
@@ -82,7 +82,7 @@ class ManyToManyRouting final
         SearchSpaceWithBuckets search_space_with_buckets;
 
         unsigned target_id = 0;
-        for (const std::vector<PhantomNode> &phantom_node_vector : phantom_nodes_array)
+        for (const std::vector<PhantomNode> &phantom_node_vector : phantom_targets_nodes_array)
         {
             query_heap.Clear();
             // insert target(s) at distance 0
@@ -108,12 +108,13 @@ class ManyToManyRouting final
             {
                 BackwardRoutingStep(target_id, query_heap, search_space_with_buckets);
             }
+
             ++target_id;
         }
 
         // for each source do forward search
         unsigned source_id = 0;
-        for (const std::vector<PhantomNode> &phantom_node_vector : phantom_nodes_array)
+        for (const std::vector<PhantomNode> &phantom_node_vector : phantom_sources_nodes_array)
         {
             query_heap.Clear();
             for (const PhantomNode &phantom_node : phantom_node_vector)
@@ -136,13 +137,17 @@ class ManyToManyRouting final
             // explore search space
             while (!query_heap.Empty())
             {
-                ForwardRoutingStep(source_id, number_of_locations, query_heap,
-                                   search_space_with_buckets, result_table);
+                ForwardRoutingStep(source_id,
+                                   number_of_targets,
+                                   query_heap,
+                                   search_space_with_buckets,
+                                   result_table);
+
             }
 
             ++source_id;
         }
-        BOOST_ASSERT(source_id == target_id);
+        //BOOST_ASSERT(source_id == target_id);
         return result_table;
     }
 
@@ -236,8 +241,8 @@ class ManyToManyRouting final
 
     // Stalling
     template <bool forward_direction>
-    inline bool
-    StallAtNode(const NodeID node, const EdgeWeight distance, QueryHeap &query_heap) const
+    inline bool StallAtNode(const NodeID node, const EdgeWeight distance, QueryHeap &query_heap)
+        const
     {
         for (auto edge : super::facade->GetAdjacentEdgeRange(node))
         {

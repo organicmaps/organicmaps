@@ -101,7 +101,7 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
         // Stalling
         for (const auto edge : facade->GetAdjacentEdgeRange(node))
         {
-            const EdgeData &data = facade->GetEdgeData(edge);
+            const EdgeData &data = facade->GetEdgeData(edge, node);
             const bool reverse_flag = ((!forward_direction) ? data.forward : data.backward);
             if (reverse_flag)
             {
@@ -122,7 +122,7 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
 
         for (const auto edge : facade->GetAdjacentEdgeRange(node))
         {
-            const EdgeData &data = facade->GetEdgeData(edge);
+            const EdgeData &data = facade->GetEdgeData(edge, node);
             bool forward_directionFlag = (forward_direction ? data.forward : data.backward);
             if (forward_directionFlag)
             {
@@ -153,10 +153,10 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
                     const PhantomNodes &phantom_node_pair,
                     std::vector<PathData> &unpacked_path) const
     {
-        const bool start_traversed_in_reverse =
-            (packed_path.front() != phantom_node_pair.source_phantom.forward_node_id);
-        const bool target_traversed_in_reverse =
-            (packed_path.back() != phantom_node_pair.target_phantom.forward_node_id);
+        //const bool start_traversed_in_reverse =
+        //    (packed_path.front() != phantom_node_pair.source_phantom.forward_node_id);
+        //const bool target_traversed_in_reverse =
+        //    (packed_path.back() != phantom_node_pair.target_phantom.forward_node_id);
 
         const unsigned packed_path_size = static_cast<unsigned>(packed_path.size());
         std::stack<std::pair<NodeID, NodeID>> recursion_stack;
@@ -167,6 +167,7 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             recursion_stack.emplace(packed_path[i - 1], packed_path[i]);
         }
 
+        unpacked_path.emplace_back(packed_path[0], INVALID_EDGE_WEIGHT, TurnInstruction::NoTurn, INVALID_EDGE_WEIGHT, TRAVEL_MODE_INACCESSIBLE);
         std::pair<NodeID, NodeID> edge;
         while (!recursion_stack.empty())
         {
@@ -183,14 +184,17 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             // facade->FindEdge does not suffice here in case of shortcuts.
             // The above explanation unclear? Think!
             EdgeID smaller_edge_id = SPECIAL_EDGEID;
+            NodeID smaller_node_id = SPECIAL_NODEID;
             int edge_weight = std::numeric_limits<EdgeWeight>::max();
             for (const auto edge_id : facade->GetAdjacentEdgeRange(edge.first))
             {
-                const int weight = facade->GetEdgeData(edge_id).distance;
+                auto const & edgeData = facade->GetEdgeData(edge_id, edge.first);
+                const int weight = edgeData.distance;
                 if ((facade->GetTarget(edge_id) == edge.second) && (weight < edge_weight) &&
-                    facade->GetEdgeData(edge_id).forward)
+                    edgeData.forward)
                 {
                     smaller_edge_id = edge_id;
+                    smaller_node_id = edge.first;
                     edge_weight = weight;
                 }
             }
@@ -206,18 +210,20 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             {
                 for (const auto edge_id : facade->GetAdjacentEdgeRange(edge.second))
                 {
-                    const int weight = facade->GetEdgeData(edge_id).distance;
+                    auto const & edgeData = facade->GetEdgeData(edge_id, edge.second);
+                    const int weight = edgeData.distance;
                     if ((facade->GetTarget(edge_id) == edge.first) && (weight < edge_weight) &&
-                        facade->GetEdgeData(edge_id).backward)
+                        edgeData.backward)
                     {
                         smaller_edge_id = edge_id;
                         edge_weight = weight;
+                        smaller_node_id = edge.second;
                     }
                 }
             }
             BOOST_ASSERT_MSG(edge_weight != INVALID_EDGE_WEIGHT, "edge id invalid");
 
-            const EdgeData &ed = facade->GetEdgeData(smaller_edge_id);
+            const EdgeData &ed = facade->GetEdgeData(smaller_edge_id, smaller_node_id);
             if (ed.shortcut)
             { // unpack
                 const NodeID middle_node_id = ed.id;
@@ -227,87 +233,11 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             }
             else
             {
-                BOOST_ASSERT_MSG(!ed.shortcut, "original edge flagged as shortcut");
-                unsigned name_index = facade->GetNameIndexFromEdgeID(ed.id);
-                const TurnInstruction turn_instruction = facade->GetTurnInstructionForEdgeID(ed.id);
                 const TravelMode travel_mode = facade->GetTravelModeForEdgeID(ed.id);
 
-                if (!facade->EdgeIsCompressed(ed.id))
-                {
-                    BOOST_ASSERT(!facade->EdgeIsCompressed(ed.id));
-                    unpacked_path.emplace_back(facade->GetGeometryIndexForEdgeID(ed.id), name_index,
-                                               turn_instruction, ed.distance, travel_mode);
-                }
-                else
-                {
-                    std::vector<unsigned> id_vector;
-                    facade->GetUncompressedGeometry(facade->GetGeometryIndexForEdgeID(ed.id),
-                                                    id_vector);
-
-                    const std::size_t start_index =
-                        (unpacked_path.empty()
-                             ? ((start_traversed_in_reverse)
-                                    ? id_vector.size() -
-                                          phantom_node_pair.source_phantom.fwd_segment_position - 1
-                                    : phantom_node_pair.source_phantom.fwd_segment_position)
-                             : 0);
-                    const std::size_t end_index = id_vector.size();
-
-                    BOOST_ASSERT(start_index >= 0);
-                    BOOST_ASSERT(start_index <= end_index);
-                    for (std::size_t i = start_index; i < end_index; ++i)
-                    {
-                        unpacked_path.emplace_back(id_vector[i], name_index,
-                                                   TurnInstruction::NoTurn, 0, travel_mode);
-                    }
-                    unpacked_path.back().turn_instruction = turn_instruction;
-                    unpacked_path.back().segment_duration = ed.distance;
-                }
-            }
-        }
-        if (SPECIAL_EDGEID != phantom_node_pair.target_phantom.packed_geometry_id)
-        {
-            std::vector<unsigned> id_vector;
-            facade->GetUncompressedGeometry(phantom_node_pair.target_phantom.packed_geometry_id,
-                                            id_vector);
-            const bool is_local_path = (phantom_node_pair.source_phantom.packed_geometry_id ==
-                                        phantom_node_pair.target_phantom.packed_geometry_id) &&
-                                       unpacked_path.empty();
-
-            std::size_t start_index = 0;
-            if (is_local_path)
-            {
-                start_index = phantom_node_pair.source_phantom.fwd_segment_position;
-                if (target_traversed_in_reverse)
-                {
-                    start_index =
-                        id_vector.size() - phantom_node_pair.source_phantom.fwd_segment_position;
-                }
-            }
-
-            std::size_t end_index = phantom_node_pair.target_phantom.fwd_segment_position;
-            if (target_traversed_in_reverse)
-            {
-                std::reverse(id_vector.begin(), id_vector.end());
-                end_index =
-                    id_vector.size() - phantom_node_pair.target_phantom.fwd_segment_position;
-            }
-
-            if (start_index > end_index)
-            {
-                start_index = std::min(start_index, id_vector.size() - 1);
-            }
-
-            for (std::size_t i = start_index; i != end_index; (start_index < end_index ? ++i : --i))
-            {
-                BOOST_ASSERT(i < id_vector.size());
-                BOOST_ASSERT(phantom_node_pair.target_phantom.forward_travel_mode > 0);
-                unpacked_path.emplace_back(
-                    PathData{id_vector[i],
-                             phantom_node_pair.target_phantom.name_id,
+                unpacked_path.emplace_back(edge.second, INVALID_EDGE_WEIGHT,
                              TurnInstruction::NoTurn,
-                             0,
-                             phantom_node_pair.target_phantom.forward_travel_mode});
+                             ed.distance, travel_mode);
             }
         }
 
@@ -344,14 +274,17 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             recursion_stack.pop();
 
             EdgeID smaller_edge_id = SPECIAL_EDGEID;
+            NodeID smaller_node_id = SPECIAL_NODEID;
             int edge_weight = std::numeric_limits<EdgeWeight>::max();
             for (const auto edge_id : facade->GetAdjacentEdgeRange(edge.first))
             {
-                const int weight = facade->GetEdgeData(edge_id).distance;
+                auto const & edgeData = facade->GetEdgeData(edge_id, edge.first);
+                const int weight = edgeData.distance;
                 if ((facade->GetTarget(edge_id) == edge.second) && (weight < edge_weight) &&
-                    facade->GetEdgeData(edge_id).forward)
+                    edgeData.forward)
                 {
                     smaller_edge_id = edge_id;
+                    smaller_node_id = edge.first;
                     edge_weight = weight;
                 }
             }
@@ -360,11 +293,13 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             {
                 for (const auto edge_id : facade->GetAdjacentEdgeRange(edge.second))
                 {
-                    const int weight = facade->GetEdgeData(edge_id).distance;
-                    if ((facade->GetTarget(edge_id) == edge.first) && (weight < edge_weight) &&
-                        facade->GetEdgeData(edge_id).backward)
+                      auto const & edgeData = facade->GetEdgeData(edge_id, edge.second);
+                      const int weight = edgeData.distance;
+                      if ((facade->GetTarget(edge_id) == edge.first) && (weight < edge_weight) &&
+                        edgeData.backward)
                     {
                         smaller_edge_id = edge_id;
+                        smaller_node_id = edge.second;
                         edge_weight = weight;
                     }
                 }
@@ -372,7 +307,7 @@ template <class DataFacadeT, class Derived> class BasicRoutingInterface
             BOOST_ASSERT_MSG(edge_weight != std::numeric_limits<EdgeWeight>::max(),
                              "edge weight invalid");
 
-            const EdgeData &ed = facade->GetEdgeData(smaller_edge_id);
+            const EdgeData &ed = facade->GetEdgeData(smaller_edge_id, smaller_node_id);
             if (ed.shortcut)
             { // unpack
                 const NodeID middle_node_id = ed.id;

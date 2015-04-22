@@ -39,6 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../data_structures/turn_instructions.hpp"
 #include "../data_structures/node_based_graph.hpp"
 #include "../data_structures/restriction_map.hpp"
+#include "../data_structures/edge_based_node_data.hpp"
 
 #include <algorithm>
 #include <iosfwd>
@@ -60,6 +61,7 @@ class EdgeBasedGraphFactory
     struct SpeedProfileProperties;
 
     explicit EdgeBasedGraphFactory(const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph,
+                                   const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph_origin,
                                    std::unique_ptr<RestrictionMap> restricion_map,
                                    std::vector<NodeID> &barrier_node_list,
                                    std::vector<NodeID> &traffic_light_node_list,
@@ -73,6 +75,8 @@ class EdgeBasedGraphFactory
     void GetEdgeBasedEdges(DeallocatingVector<EdgeBasedEdge> &edges);
 
     void GetEdgeBasedNodes(std::vector<EdgeBasedNode> &nodes);
+
+    void GetEdgeBasedNodeData(osrm::NodeDataVectorT &data);
 
     TurnInstruction AnalyzeTurn(const NodeID u, const NodeID v, const NodeID w, const double angle) const;
 
@@ -102,15 +106,18 @@ class EdgeBasedGraphFactory
     DeallocatingVector<EdgeBasedEdge> m_edge_based_edge_list;
 
     std::shared_ptr<NodeBasedDynamicGraph> m_node_based_graph;
+    std::shared_ptr<NodeBasedDynamicGraph> m_node_based_graph_origin;
     std::unordered_set<NodeID> m_barrier_nodes;
     std::unordered_set<NodeID> m_traffic_lights;
 
     std::unique_ptr<RestrictionMap> m_restriction_map;
+    std::vector<osrm::NodeData> m_edge_based_node_data;
 
     GeometryCompressor m_geometry_compressor;
 
     void CompressGeometry();
     void RenumberEdges();
+    void GenerateEdgeBasedNodeData();
     void GenerateEdgeExpandedNodes();
     void GenerateEdgeExpandedEdges(const std::string &original_edge_data_filename,
                                    lua_State *lua_state);

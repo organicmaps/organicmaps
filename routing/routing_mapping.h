@@ -4,10 +4,10 @@
 #include "router.hpp"
 #include "osrm_data_facade.hpp"
 
-#include "../indexer/index.hpp"
+#include "indexer/index.hpp"
 
-#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
-#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
+#include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
+//#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
 
 namespace routing
 {
