@@ -927,7 +927,7 @@ OSMTimeRange & OSMTimeRange::operator () (time_t timestamp)
 
 OSMTimeRange & OSMTimeRange::operator () (std::string const & timestr, char const * timefmt)
 {
-  std::tm when = {0};
+  std::tm when = {};
   std::stringstream ss(timestr);
   ss >> std::get_time(&when, timefmt);
   return this->operator()(std::mktime(&when));
