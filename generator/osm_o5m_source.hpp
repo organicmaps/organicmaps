@@ -600,9 +600,11 @@ public:
     s << EntityType(em.type) << " ID: " << em.id;
     if (em.version)
     {
-      time_t timestamp = em.timestamp;
-      tm stm = *gmtime(&timestamp);
-      s << " Version: " << em.version << " timestamp: " << put_time(&stm, "%FT%TZ");
+//      time_t timestamp = em.timestamp;
+//      tm stm = *gmtime(&timestamp);
+//      s << " Version: " << em.version << " timestamp: " << asctime_r(&stm, "%FT%TZ");
+
+      s << " Version: " << em.version << " timestamp: " << em.timestamp;
       s << " changeset: " << em.changeset << " uid: " << em.uid << " user: " << em.user;
     }
     if (em.type == EntityType::Node)

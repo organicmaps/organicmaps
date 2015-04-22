@@ -9,13 +9,13 @@
 #include <iomanip>
 using std::fixed;
 using std::hex;
-using std::put_time;
 using std::setfill;
 using std::setprecision;
 using std::setw;
 
 #ifndef OMIM_OS_LINUX
 using std::get_time;
+using std::put_time;
 
 #else
 #include <cassert>
