@@ -94,7 +94,7 @@ double FeaturesRoadGraph::GetSpeedKMPH(uint32_t featureId)
   return GetSpeedKMPHFromFt(ft);
 }
 
-void FeaturesRoadGraph::ForEachClosestToCrossFeature(m2::PointD const & cross,
+void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
                                                      CrossTurnsLoader & turnsLoader)
 {
   CrossFeaturesLoader featuresLoader(*this, cross, turnsLoader);

@@ -33,7 +33,7 @@ public:
   // routing::IRoadGraph overrides:
   RoadInfo GetRoadInfo(uint32_t featureId) override;
   double GetSpeedKMPH(uint32_t featureId) override;
-  void ForEachClosestToCrossFeature(m2::PointD const & cross,
+  void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     CrossTurnsLoader & turnsLoader) override;
 };
 

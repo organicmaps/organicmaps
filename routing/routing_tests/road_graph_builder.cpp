@@ -47,7 +47,7 @@ double RoadGraphMockSource::GetSpeedKMPH(uint32_t featureId)
   return m_roads[featureId].m_speedKMPH;
 }
 
-void RoadGraphMockSource::ForEachClosestToCrossFeature(m2::PointD const & /* cross */,
+void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cross */,
                                                        CrossTurnsLoader & turnsLoader)
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)

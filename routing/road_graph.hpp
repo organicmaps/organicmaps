@@ -155,7 +155,7 @@ protected:
   virtual double GetSpeedKMPH(uint32_t featureId) = 0;
 
   // Calls turnsLoader on each feature which is close to cross.
-  virtual void ForEachClosestToCrossFeature(m2::PointD const & cross,
+  virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                             CrossTurnsLoader & turnsLoader) = 0;
 
   // The way we find edges leading from start/final positions and from all other positions

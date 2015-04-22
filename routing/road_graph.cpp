@@ -54,10 +54,10 @@ IRoadGraph::CrossTurnsLoader::CrossTurnsLoader(m2::PointD const & cross, TurnsVe
 
 void IRoadGraph::CrossTurnsLoader::operator()(uint32_t featureId, RoadInfo const & roadInfo)
 {
-  size_t const numPoints = roadInfo.m_points.size();
-
-  if (!numPoints)
+  if (roadInfo.m_points.empty())
     return;
+
+  size_t const numPoints = roadInfo.m_points.size();
 
   PossibleTurn turn;
   turn.m_speedKMPH = roadInfo.m_speedKMPH;
@@ -161,7 +161,7 @@ void IRoadGraph::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
   m2::PointD const & cross = roadInfo.m_points[pos.GetSegStartPointId()];
 
   CrossTurnsLoader loader(cross, turns);
-  ForEachClosestToCrossFeature(cross, loader);
+  ForEachFeatureClosestToCross(cross, loader);
 }
 
 void IRoadGraph::SetFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicinity)
@@ -177,7 +177,7 @@ void IRoadGraph::SetFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicini
       turns = &m_finalVicinityTurns;
       break;
     default:
-      CHECK(false, ("Can't add fake turns from a valid road:", featureId));
+      CHECK(false, ("Can't add fake turns from a valid road (featureId ", featureId, ")."));
   }
   turns->clear();
   for (RoadPos const & vrp : vicinity)
