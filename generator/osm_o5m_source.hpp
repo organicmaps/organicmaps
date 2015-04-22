@@ -9,6 +9,7 @@
 #pragma once
 
 #include "std/algorithm.hpp"
+#include "std/cstring.hpp"
 #include "std/function.hpp"
 #include "std/iomanip.hpp"
 #include "std/iostream.hpp"
