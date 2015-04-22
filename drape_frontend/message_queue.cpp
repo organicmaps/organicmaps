@@ -53,6 +53,12 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
     guard.Signal();
 }
 
+bool MessageQueue::IsEmpty()
+{
+  threads::ConditionGuard guard(m_condition);
+  return m_messages.empty();
+}
+
 void MessageQueue::WaitMessage(unsigned maxTimeWait)
 {
   if (m_messages.empty())

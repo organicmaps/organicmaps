@@ -21,6 +21,7 @@ public:
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();
   void ClearQuery();
+  bool IsEmpty();
 
 private:
   void WaitMessage(unsigned maxTimeWait);

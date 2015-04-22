@@ -89,7 +89,7 @@ private:
 
 private:
   // it applies new model-view matrix to the scene (this matrix will be used on next frame)
-  void UpdateScene();
+  bool UpdateScene();
 
   void AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
                         dp::GLState const & state,

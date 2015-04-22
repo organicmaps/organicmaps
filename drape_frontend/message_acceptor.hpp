@@ -4,6 +4,8 @@
 
 #include "drape/pointers.hpp"
 
+#include "std/atomic.hpp"
+
 namespace df
 {
 
@@ -12,6 +14,7 @@ class Message;
 class MessageAcceptor
 {
 protected:
+  MessageAcceptor();
   virtual ~MessageAcceptor(){}
 
   virtual void AcceptMessage(ref_ptr<Message> message) = 0;
@@ -24,6 +27,9 @@ protected:
 
   void CloseQueue();
 
+  bool IsInInfinityWaiting() const;
+  bool IsQueueEmpty();
+
 private:
   friend class ThreadsCommutator;
 
@@ -31,6 +37,7 @@ private:
 
 private:
   MessageQueue m_messageQueue;
+  atomic<bool> m_infinityWaiting;
 };
 
 } // namespace df

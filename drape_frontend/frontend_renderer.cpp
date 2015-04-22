@@ -458,23 +458,31 @@ void FrontendRenderer::Routine::Do()
     context->setDefaultFramebuffer();
     m_renderer.m_textureManager->UpdateDynamicTextures();
     m_renderer.RenderScene();
-    m_renderer.UpdateScene();
+    bool const viewChanged = m_renderer.UpdateScene();
+    context->present();
 
-    double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
-
-    if (availableTime < 0.0)
-      availableTime = 0.01;
-
-    while (availableTime > 0)
+    if (!viewChanged && m_renderer.IsQueueEmpty())
     {
-      m_renderer.ProcessSingleMessage(availableTime * 1000.0);
-      availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
-      //messageCount++;
+      // process a message or wait for a message
+      m_renderer.ProcessSingleMessage();
+    }
+    else
+    {
+      double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
+
+      if (availableTime < 0.0)
+        availableTime = 0.01;
+
+      while (availableTime > 0)
+      {
+        m_renderer.ProcessSingleMessage(availableTime * 1000.0);
+        availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
+        //messageCount++;
+      }
+
+      //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
     }
 
-    //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
-
-    context->present();
     timer.Reset();
 
     m_renderer.CheckRenderingEnabled();
@@ -499,9 +507,14 @@ void FrontendRenderer::SetModelView(ScreenBase const & screen)
 {
   lock_guard<mutex> lock(m_modelViewMutex);
   m_newView = screen;
+
+  // check if view changed and cancel endless message waiting
+  bool const viewChanged = (m_view != m_newView);
+  if (viewChanged && IsInInfinityWaiting())
+    CancelMessageWaiting();
 }
 
-void FrontendRenderer::UpdateScene()
+bool FrontendRenderer::UpdateScene()
 {
   lock_guard<mutex> lock(m_modelViewMutex);
   if (m_view != m_newView)
@@ -516,7 +529,9 @@ void FrontendRenderer::UpdateScene()
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                               make_unique_dp<UpdateReadManagerMessage>(m_view, move(tiles)),
                               MessagePriority::Normal);
+    return true;
   }
+  return false;
 }
 
 } // namespace df

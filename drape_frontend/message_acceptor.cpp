@@ -5,9 +5,17 @@
 namespace df
 {
 
+MessageAcceptor::MessageAcceptor()
+  : m_infinityWaiting(false)
+{
+}
+
 void MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
 {
+  m_infinityWaiting = (maxTimeWait == -1);
   drape_ptr<Message> message = m_messageQueue.PopMessage(maxTimeWait);
+  m_infinityWaiting = false;
+
   if (message == nullptr)
     return;
 
@@ -29,6 +37,16 @@ void MessageAcceptor::CloseQueue()
 void MessageAcceptor::CancelMessageWaiting()
 {
   m_messageQueue.CancelWait();
+}
+
+bool MessageAcceptor::IsInInfinityWaiting() const
+{
+  return m_infinityWaiting;
+}
+
+bool MessageAcceptor::IsQueueEmpty()
+{
+  return m_messageQueue.IsEmpty();
 }
 
 } // namespace df
