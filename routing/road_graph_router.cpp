@@ -18,6 +18,14 @@ namespace routing
 {
 namespace
 {
+// TODO (@gorshenin, @pimenov, @ldragunov): MAX_ROAD_CANDIDATES == 2
+// means that only one closest feature (in both directions) will be
+// examined when searching for features in the vicinity of start and
+// final points. It is an oversimplification that is not as easily
+// solved as tuning up this constant because if you set it too high
+// you risk to find a feature that you cannot in fact reach because of
+// an obstacle.  Using only the closest feature minimizes (but not
+// eliminates) this risk.
 size_t const MAX_ROAD_CANDIDATES = 2;
 double const FEATURE_BY_POINT_RADIUS_M = 100.0;
 }  // namespace

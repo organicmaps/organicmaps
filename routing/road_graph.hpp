@@ -39,19 +39,19 @@ public:
   uint32_t GetSegEndPointId() const { return m_segId + (IsForward() ? 1 : 0); }
   m2::PointD const & GetSegEndpoint() const { return m_segEndpoint; }
 
-  bool SameRoadSegmentAndDirection(RoadPos const & r) const
+  inline bool SameRoadSegmentAndDirection(RoadPos const & r) const
   {
     return m_featureId == r.m_featureId && m_segId == r.m_segId;
   }
 
-  bool operator==(RoadPos const & r) const
+  inline bool operator==(RoadPos const & r) const
   {
     return m_featureId == r.m_featureId && m_segId == r.m_segId && m_segEndpoint == r.m_segEndpoint;
   }
 
-  bool operator!=(RoadPos const & r) const { return !(*this == r); }
+  inline bool operator!=(RoadPos const & r) const { return !(*this == r); }
 
-  bool operator<(RoadPos const & r) const
+  inline bool operator<(RoadPos const & r) const
   {
     if (m_featureId != r.m_featureId)
       return m_featureId < r.m_featureId;

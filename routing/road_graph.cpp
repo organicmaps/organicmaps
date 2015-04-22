@@ -74,7 +74,7 @@ void IRoadGraph::CrossTurnsLoader::operator()(uint32_t featureId, RoadInfo const
   {
     m2::PointD const & p = roadInfo.m_points[i];
 
-    /// @todo Is this a correct way to compare?
+    // @todo Is this a correct way to compare?
     if (!m2::AlmostEqual(m_cross, p))
       continue;
 
@@ -149,8 +149,8 @@ void IRoadGraph::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
 {
   uint32_t const featureId = pos.GetFeatureId();
 
-  // For fake start and final positions just add vicinity turns as
-  // nearest turns.
+  // For fake start and final positions add vicinity turns as nearest
+  // turns.
   if (featureId == RoadPos::kFakeStartFeatureId)
   {
     turns.insert(turns.end(), m_startVicinityTurns.begin(), m_startVicinityTurns.end());
@@ -178,7 +178,7 @@ void IRoadGraph::GetNearestTurns(RoadPos const & pos, TurnsVectorT & turns)
   AddFakeTurns(pos, roadInfo, m_startVicinityRoadPoss, turns);
   AddFakeTurns(pos, roadInfo, m_finalVicinityRoadPoss, turns);
 
-  // It's also possible to move from a start's or final's vicinity
+  // It is also possible to move from a start's or final's vicinity
   // positions to start or final points.
   for (PossibleTurn const & turn : m_fakeTurns[pos])
     turns.push_back(turn);
@@ -192,7 +192,7 @@ void IRoadGraph::AddFakeTurns(RoadPos const & pos, RoadInfo const & roadInfo,
     if (!vpos.SameRoadSegmentAndDirection(pos))
       continue;
 
-    // It's also possible to move from a road position to start's or
+    // It is also possible to move from a road position to start's or
     // final's vicinity positions if they're on the same road segment.
     PossibleTurn turn;
     turn.m_secondsCovered = TimeBetweenSec(pos.GetSegEndpoint(), vpos.GetSegEndpoint());
@@ -238,11 +238,11 @@ void IRoadGraph::AddFakeTurns(RoadPos const & rp, vector<RoadPos> const & vicini
   {
     PossibleTurn turn;
     turn.m_pos = vrp;
-    /// @todo Do we need other fields? Do we even need m_secondsCovered?
+    // @todo Do we need other fields? Do we even need m_secondsCovered?
     turn.m_secondsCovered = TimeBetweenSec(rp.GetSegEndpoint(), vrp.GetSegEndpoint());
     turns->push_back(turn);
 
-    /// Add a fake turn from a vicincy road position to a fake point.
+    // Add a fake turn from a vicincy road position to a fake point.
     turn.m_pos = rp;
     m_fakeTurns[vrp].push_back(turn);
   }
