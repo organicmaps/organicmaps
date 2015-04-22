@@ -22,9 +22,9 @@ SOURCES += \
   astar_algorithm_test.cpp \
   astar_router_test.cpp \
   cross_routing_tests.cpp \
-  features_road_graph_test.cpp \
   osrm_router_test.cpp \
   road_graph_builder.cpp \
+  road_graph_nearest_turns_test.cpp \
   vehicle_model_test.cpp \
 
 HEADERS += \

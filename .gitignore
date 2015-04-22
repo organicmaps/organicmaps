@@ -87,10 +87,6 @@ data/*.bz2
 data/settings.ini
 !data/minsk-pass.mwm
 !data/minsk-pass.osm.bz2
-!data/route_test1.mwm
-!data/route_test1.osm.bz2
-!data/route_test2.mwm
-!data/route_test2.osm.bz2
 data/index.idx
 data/index.stamp
 # local statistics storage
