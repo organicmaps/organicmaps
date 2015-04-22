@@ -1,0 +1,51 @@
+#-----------------------------------------------------------------------------
+#
+#  Configuration for continuous integration service at travis-ci.org
+#
+#-----------------------------------------------------------------------------
+
+language: cpp
+
+compiler:
+ - gcc
+ - clang
+
+env:
+ - CONFIGURATION=Dev
+ - CONFIGURATION=Release
+
+before_install:
+ # we need at least g++-4.8 for c++11 features
+ - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+ - sudo apt-get update --yes --quiet
+
+install:
+ - cd ..
+ # upgrade compilers
+ - sudo apt-get install --yes gcc-4.8 g++-4.8
+ # make sure 'cpp' is the just installed current one
+ - sudo rm /usr/bin/cpp
+ - sudo ln -s /usr/bin/cpp-4.8 /usr/bin/cpp
+ # upgrade libosmium dependencies
+ - sudo apt-get install --yes make libboost-dev libboost-program-options-dev libsparsehash-dev libprotobuf-dev protobuf-compiler libgeos++-dev libproj-dev libgdal1h libgdal-dev
+ - git clone https://github.com/osmcode/osm-testdata.git
+ # OSMPBF is too old, install from git
+ #- sudo apt-get install --yes libosmpbf-dev
+ - git clone https://github.com/scrosby/OSM-binary.git
+ - cd OSM-binary/src
+ - make
+ - sudo make install
+ - cd ../..
+ - cd libosmium
+
+before_script:
+ - true
+
+script:
+ - if [ "${CXX}" = 'g++' ]; then export CXX=g++-4.8; fi;
+ - mkdir build
+ - cd build
+ - cmake -LA -DCMAKE_BUILD_TYPE=${CONFIGURATION} ..
+ - make VERBOSE=1
+ - ctest --output-on-failure
+

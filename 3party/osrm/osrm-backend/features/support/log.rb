@@ -6,7 +6,7 @@ LOG_FILE = 'fail.log'
 
 def clear_log_files
   Dir.chdir TEST_FOLDER do
-    # emptying existing files, rather than deleting and writing new ones makes it
+    # emptying existing files, rather than deleting and writing new ones makes it 
     # easier to use tail -f from the command line
     `echo '' > #{OSRM_ROUTED_LOG_FILE}`
     `echo '' > #{PREPROCESS_LOG_FILE}`

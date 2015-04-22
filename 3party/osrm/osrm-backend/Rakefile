@@ -158,7 +158,7 @@ task :down do
     Process.kill 'TERM', pid
   else
     puts "Already down."
-  end
+  end 
 end
 
 desc "Kill all osrm-extract, osrm-prepare and osrm-routed processes."
@@ -168,7 +168,7 @@ task :kill do
   each_process('osrm-extract') { |pid,state| Process.kill 'KILL', pid }
   wait_for_shutdown 'osrm-routed'
   wait_for_shutdown 'osrm-prepare'
-  wait_for_shutdown 'osrm-extract'
+  wait_for_shutdown 'osrm-extract'  
 end
 
 desc "Get PIDs of all osrm-extract, osrm-prepare and osrm-routed processes."
@@ -187,3 +187,4 @@ desc "Remove test cache files."
 task :sweep do
   system "rm test/cache/*"
 end
+

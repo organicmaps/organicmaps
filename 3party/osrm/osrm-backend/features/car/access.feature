@@ -93,6 +93,7 @@ Feature: Car - Restricted access
             | private      |       |
             | agricultural |       |
             | forestry     |       |
+            | psv          |       |
             | some_tag     | x     |
 
 
@@ -106,6 +107,7 @@ Feature: Car - Restricted access
             | private      |       |
             | agricultural |       |
             | forestry     |       |
+            | psv          |       |
             | some_tag     | x     |
 
     Scenario: Car - Access tags on both node and way

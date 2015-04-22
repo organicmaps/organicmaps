@@ -53,8 +53,8 @@ function way_function (way)
   end
 
   -- Query PostGIS for industrial areas close to the way, then group by way and sum the areas.
-  -- We take the square root of the area to get a estimate of the length of the side of the area,
-  -- and thus a rough guess of how far we might be travelling along the area.
+  -- We take the square root of the area to get a estimate of the length of the side of the area, 
+  -- and thus a rough guess of how far we might be travelling along the area. 
 
   local sql_query = " " ..
     "SELECT SUM(SQRT(area.area)) AS val " ..
@@ -67,16 +67,16 @@ function way_function (way)
   local row = cursor:fetch( {}, "a" )                   -- fetch first (and only) row
   way.forward_speed = 20.0                                      -- default speed
   if row then
-    local val = tonumber(row.val)                       -- read 'val' from row
+    local val = tonumber(row.val)                       -- read 'val' from row 
     if val > 10 then
-      way.forward_speed = way.forward_speed / math.log10( val )         -- reduce speed by amount of industry close by
+      way.forward_speed = way.forward_speed / math.log10( val )         -- reduce speed by amount of industry close by 
     end
   end
   cursor:close()                                        -- done with this query
 
   -- set other required info for this way
   way.name = way.tags:Find("name")
-  way.direction = Way.bidirectional
+  way.direction = Way.bidirectional 
   way.type = 1
   return 1
 end

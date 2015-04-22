@@ -233,7 +233,7 @@ Feature: Basic Routing
             | d    | a  | abcd  |
             | a    | m  | aeim  |
             | m    | a  | aeim  |
-
+    
     Scenario: Testbot - Triangle challenge
         Given the node map
             |   |   |   | d |

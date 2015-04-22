@@ -1,0 +1,13 @@
+Osmium uses Catch (https://github.com/philsquared/Catch/) for its unit tests.
+
+Only one header file is needed (catch.hpp) which can be downloaded from
+http://builds.catch-lib.net/ and put into the include directory.
+
+Osmium needs a few changes to catch.hpp, they were patched in. To be able to
+compare with the original version, it is stored in include/catch_orig.hpp.
+
+Changes are:
+* Disable more warnings in GCC
+* CATCH_CONFIG_CPP11_NULLPTR must be set for MSVC
+* Problem with test running in loop: https://github.com/philsquared/Catch/issues/271
+

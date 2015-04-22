@@ -6,7 +6,7 @@ Feature: osrm-routed command line options: version
 
     Background:
         Given the profile "testbot"
-
+    
     Scenario: osrm-routed - Version, short
         When I run "osrm-routed --v"
         Then stderr should be empty

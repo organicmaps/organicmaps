@@ -6,7 +6,7 @@ Feature: osrm-extract command line options: version
 
     Background:
         Given the profile "testbot"
-
+    
     Scenario: osrm-extract - Version, short
         When I run "osrm-extract --v"
         Then stderr should be empty

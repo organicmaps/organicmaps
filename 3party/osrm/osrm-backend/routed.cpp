@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2013, Project OSRM, Dennis Luxen, others
+Copyright (c) 2015, Project OSRM contributors
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -25,12 +25,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include "Library/OSRM.h"
-#include "Server/Server.h"
-#include "Util/GitDescription.h"
-#include "Util/ProgramOptions.h"
-#include "Util/simple_logger.hpp"
-#include "Util/FingerPrint.h"
+#include "library/osrm.hpp"
+#include "server/server.hpp"
+#include "util/git_sha.hpp"
+#include "util/routed_options.hpp"
+#include "util/simple_logger.hpp"
 
 #ifdef __linux__
 #include <sys/mman.h>
@@ -41,7 +40,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <signal.h>
 
 #include <chrono>
-#include <functional>
 #include <future>
 #include <iostream>
 #include <thread>
@@ -71,20 +69,16 @@ int main(int argc, const char *argv[])
     {
         LogPolicy::GetInstance().Unmute();
 
-        bool use_shared_memory = false, trial_run = false;
+        bool trial_run = false;
         std::string ip_address;
         int ip_port, requested_thread_num;
 
-        ServerPaths server_paths;
+        libosrm_config lib_config;
 
-        const unsigned init_result = GenerateServerProgramOptions(argc,
-                                                                  argv,
-                                                                  server_paths,
-                                                                  ip_address,
-                                                                  ip_port,
-                                                                  requested_thread_num,
-                                                                  use_shared_memory,
-                                                                  trial_run);
+        const unsigned init_result = GenerateServerProgramOptions(
+            argc, argv, lib_config.server_paths, ip_address, ip_port, requested_thread_num,
+            lib_config.use_shared_memory, trial_run, lib_config.max_locations_distance_table,
+            lib_config.max_locations_map_matching);
         if (init_result == INIT_OK_DO_NOT_START_ENGINE)
         {
             return 0;
@@ -103,7 +97,7 @@ int main(int argc, const char *argv[])
 #endif
         SimpleLogger().Write() << "starting up engines, " << g_GIT_DESCRIPTION;
 
-        if (use_shared_memory)
+        if (lib_config.use_shared_memory)
         {
             SimpleLogger().Write(logDEBUG) << "Loading from shared memory";
         }
@@ -119,9 +113,8 @@ int main(int argc, const char *argv[])
         pthread_sigmask(SIG_BLOCK, &new_mask, &old_mask);
 #endif
 
-        OSRM osrm_lib(server_paths, use_shared_memory);
-        auto routing_server =
-            Server::CreateServer(ip_address, ip_port, requested_thread_num);
+        OSRM osrm_lib(lib_config);
+        auto routing_server = Server::CreateServer(ip_address, ip_port, requested_thread_num);
 
         routing_server->GetRequestHandlerPtr().RegisterRoutingMachine(&osrm_lib);
 
@@ -131,7 +124,11 @@ int main(int argc, const char *argv[])
         }
         else
         {
-            std::packaged_task<int()> server_task([&]()->int{ routing_server->Run(); return 0; });
+            std::packaged_task<int()> server_task([&]() -> int
+                                                  {
+                                                      routing_server->Run();
+                                                      return 0;
+                                                  });
             auto future = server_task.get_future();
             std::thread server_thread(std::move(server_task));
 
@@ -160,7 +157,7 @@ int main(int argc, const char *argv[])
 
             if (status == std::future_status::ready)
             {
-               server_thread.join();
+                server_thread.join();
             }
             else
             {

@@ -24,8 +24,10 @@ Feature: osrm-routed command line options: help
         And stdout should contain "--ip"
         And stdout should contain "--port"
         And stdout should contain "--threads"
-        And stdout should contain "--sharedmemory"
-        And stdout should contain 22 lines
+        And stdout should contain "--shared-memory"
+        And stdout should contain "--max-table-size"
+        And stdout should contain "--max-matching-size"
+        And stdout should contain 26 lines
         And it should exit with code 0
 
     Scenario: osrm-routed - Help, short
@@ -48,8 +50,10 @@ Feature: osrm-routed command line options: help
         And stdout should contain "--ip"
         And stdout should contain "--port"
         And stdout should contain "--threads"
-        And stdout should contain "--sharedmemory"
-        And stdout should contain 22 lines
+        And stdout should contain "--shared-memory"
+        And stdout should contain "--max-table-size"
+        And stdout should contain "--max-matching-size"
+        And stdout should contain 26 lines
         And it should exit with code 0
 
     Scenario: osrm-routed - Help, long
@@ -72,6 +76,8 @@ Feature: osrm-routed command line options: help
         And stdout should contain "--ip"
         And stdout should contain "--port"
         And stdout should contain "--threads"
-        And stdout should contain "--sharedmemory"
-        And stdout should contain 22 lines
+        And stdout should contain "--shared-memory"
+        And stdout should contain "--max-table-size"
+        And stdout should contain "--max-matching-size"
+        And stdout should contain 26 lines
         And it should exit with code 0

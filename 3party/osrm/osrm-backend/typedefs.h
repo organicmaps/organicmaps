@@ -32,6 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Necessary workaround for Windows as VS doesn't implement C99
 #ifdef _MSC_VER
+#define WIN32_LEAN_AND_MEAN
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif

@@ -64,13 +64,13 @@ Feature: Avoid weird loops caused by rounding errors
             |   | d |   |
 
         And the ways
-            | nodes | highway   |
-            | ab    | primary   |
-            | bc    | primary   |
-            | cd    | primary   |
-            | be    | secondary |
-            | ef    | secondary |
-            | cf    | secondary |
+            | nodes | highway     |
+            | ab    | residential |
+            | bc    | residential |
+            | cd    | residential |
+            | be    | primary     |
+            | ef    | primary     |
+            | cf    | primary     |
 
         When I route I should get
             | waypoints | route             | turns                                      |

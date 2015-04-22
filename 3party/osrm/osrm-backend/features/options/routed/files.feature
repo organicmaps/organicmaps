@@ -3,7 +3,7 @@ Feature: osrm-routed command line options: files
 # Normally when launching osrm-routed, it will keep running as a server until it's shut down.
 # For testing program options, the --trial option is used, which causes osrm-routed to quit
 # immediately after initialization. This makes testing easier and faster.
-#
+# 
 # The {prepared_base} part of the options to osrm-routed will be expanded to the actual base path of
 # the prepared input file.
 

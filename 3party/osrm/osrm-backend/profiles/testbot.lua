@@ -45,46 +45,47 @@ function limit_speed(speed, limits)
   return speed
 end
 
-function node_function (node)
-  local traffic_signal = node.tags:Find("highway")
+function node_function (node, result)
+  local traffic_signal = node:get_value_by_key("highway")
 
-  if traffic_signal == "traffic_signals" then
-    node.traffic_light = true;
+  if traffic_signal and traffic_signal == "traffic_signals" then
+    result.traffic_lights = true;
     -- TODO: a way to set the penalty value
   end
-  return 1
 end
 
-function way_function (way)
-  local highway = way.tags:Find("highway")
-  local name = way.tags:Find("name")
-  local oneway = way.tags:Find("oneway")
-  local route = way.tags:Find("route")
-  local duration = way.tags:Find("duration")
-  local maxspeed = tonumber(way.tags:Find ( "maxspeed"))
-  local maxspeed_forward = tonumber(way.tags:Find( "maxspeed:forward"))
-  local maxspeed_backward = tonumber(way.tags:Find( "maxspeed:backward"))
-  local junction = way.tags:Find("junction")
+function way_function (way, result)
+  local highway = way:get_value_by_key("highway")
+  local name = way:get_value_by_key("name")
+  local oneway = way:get_value_by_key("oneway")
+  local route = way:get_value_by_key("route")
+  local duration = way:get_value_by_key("duration")
+  local maxspeed = tonumber(way:get_value_by_key ( "maxspeed"))
+  local maxspeed_forward = tonumber(way:get_value_by_key( "maxspeed:forward"))
+  local maxspeed_backward = tonumber(way:get_value_by_key( "maxspeed:backward"))
+  local junction = way:get_value_by_key("junction")
 
-  way.name = name
+  if name then
+    result.name = name
+  end
 
-  if route ~= nil and durationIsValid(duration) then
-    way.duration = math.max( 1, parseDuration(duration) )
-    way.forward_mode = 2
-    way.backward_mode = 2
+  if duration and durationIsValid(duration) then
+    result.duration = math.max( 1, parseDuration(duration) )
+    result.forward_mode = 2
+    result.backward_mode = 2
   else
     local speed_forw = speed_profile[highway] or speed_profile['default']
     local speed_back = speed_forw
 
     if highway == "river" then
       local temp_speed = speed_forw;
-      way.forward_mode = 3
-      way.backward_mode = 4
+      result.forward_mode = 3
+      result.backward_mode = 4
       speed_forw = temp_speed*1.5
       speed_back = temp_speed/1.5
     elseif highway == "steps" then
-      way.forward_mode = 5
-      way.backward_mode = 6
+      result.forward_mode = 5
+      result.backward_mode = 6
     end
 
     if maxspeed_forward ~= nil and maxspeed_forward > 0 then
@@ -103,19 +104,19 @@ function way_function (way)
       end
     end
 
-    way.forward_speed = speed_forw
-    way.backward_speed = speed_back
+    result.forward_speed = speed_forw
+    result.backward_speed = speed_back
   end
 
   if oneway == "no" or oneway == "0" or oneway == "false" then
     -- nothing to do
   elseif oneway == "-1" then
-    way.forward_mode = 0
+    result.forward_mode = 0
   elseif oneway == "yes" or oneway == "1" or oneway == "true" or junction == "roundabout" then
-    way.backward_mode = 0
+    result.backward_mode = 0
   end
 
   if junction == 'roundabout' then
-    way.roundabout = true
+    result.roundabout = true
   end
 end

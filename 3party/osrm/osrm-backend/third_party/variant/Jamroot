@@ -1,0 +1,75 @@
+local BOOST_DIR = "/opt/boost" ;
+
+#using clang : : ;
+
+lib system : : <name>boost_system <search>$(BOOST_DIR)/lib ;
+lib timer : chrono : <name>boost_timer <search>$(BOOST_DIR)/lib ;
+lib chrono : system : <name>boost_chrono <search>$(BOOST_DIR)/lib ;
+
+exe variant-test
+    :
+    test/bench_variant.cpp
+    .//system
+    .//timer
+    .//chrono
+    :
+    <include>$(BOOST_DIR)/include
+    <include>./
+    <cxxflags>-std=c++11
+    #<define>SINGLE_THREADED
+    <variant>release:<cxxflags>-march=native
+    ;
+
+
+exe binary-visitor-test
+    :
+    test/binary_visitor_test.cpp
+    .//system
+    .//timer
+    .//chrono
+    :
+    <include>$(BOOST_DIR)/include
+    <include>./
+    <cxxflags>-std=c++11
+    <variant>release:<cxxflags>-march=native
+    ;
+
+exe recursive-wrapper-test
+    :
+    test/recursive_wrapper_test.cpp
+    .//system
+    .//timer
+    .//chrono
+    :
+    <include>$(BOOST_DIR)/include
+    <include>./
+    <cxxflags>-std=c++11
+    <variant>release:<cxxflags>-march=native
+    ;
+
+exe unique-ptr-test
+    :
+    test/unique_ptr_test.cpp
+    .//system
+    .//timer
+    .//chrono
+    :
+    <include>$(BOOST_DIR)/include
+    <include>./
+    <cxxflags>-std=c++11
+    <variant>release:<cxxflags>-march=native
+    ;
+
+
+exe reference_wrapper_test
+    :
+    test/reference_wrapper_test.cpp
+    .//system
+    .//timer
+    .//chrono
+    :
+    <include>$(BOOST_DIR)/include
+    <include>./
+    <cxxflags>-std=c++11
+    <variant>release:<cxxflags>-march=native
+    ;

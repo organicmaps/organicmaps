@@ -43,6 +43,11 @@ def request_route waypoints, params={}
   request_path "viaroute", waypoints, defaults.merge(params)
 end
 
+def request_table waypoints, params={}
+  defaults = { 'output' => 'json' }
+  request_path "table", waypoints, defaults.merge(params)
+end
+
 def got_route? response
   if response.code == "200" && !response.body.empty?
     json = JSON.parse response.body

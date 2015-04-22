@@ -73,42 +73,42 @@ function get_exceptions(vector)
 	end
 end
 
-function node_function (node)
-	local barrier = node.tags:Find ("barrier")
+function node_function (node, result)
+	local barrier = node:get_value_by_key("barrier")
 	local access = Access.find_access_tag(node, access_tags_hierachy)
-	local traffic_signal = node.tags:Find("highway")
+	local traffic_signal = node:get_value_by_key("highway")
 
 	-- flag node if it carries a traffic light
-	if traffic_signal == "traffic_signals" then
-		node.traffic_light = true
+	if traffic_signal and traffic_signal == "traffic_signals" then
+		result.traffic_light = true
 	end
 
 	-- parse access and barrier tags
 	if access and access ~= "" then
 		if access_tag_blacklist[access] then
-			node.bollard = true
+			result.barrier = true
 		else
-			node.bollard = false
+			result.barrier = false
 		end
 	elseif barrier and barrier ~= "" then
 		if barrier_whitelist[barrier] then
-			node.bollard = false
+			result.barrier = false
 		else
-			node.bollard = true
+			result.barrier = true
 		end
 	end
 
 	return 1
 end
 
-function way_function (way)
+function way_function (way, result)
 	-- initial routability check, filters out buildings, boundaries, etc
-	local highway = way.tags:Find("highway")
-	local route = way.tags:Find("route")
-	local man_made = way.tags:Find("man_made")
-	local railway = way.tags:Find("railway")
-	local amenity = way.tags:Find("amenity")
-	local public_transport = way.tags:Find("public_transport")
+	local highway = way:get_value_by_key("highway")
+	local route = way:get_value_by_key("route")
+	local man_made = way:get_value_by_key("man_made")
+	local railway = way:get_value_by_key("railway")
+	local amenity = way:get_value_by_key("amenity")
+	local public_transport = way:get_value_by_key("public_transport")
 	if (not highway or highway == '') and
 		(not route or route == '') and
 		(not railway or railway=='') and
@@ -130,82 +130,82 @@ function way_function (way)
 		return
     end
 
-	local name = way.tags:Find("name")
-	local ref = way.tags:Find("ref")
-	local junction = way.tags:Find("junction")
-	local onewayClass = way.tags:Find("oneway:foot")
-	local duration	= way.tags:Find("duration")
-	local service	= way.tags:Find("service")
-	local area = way.tags:Find("area")
-	local foot = way.tags:Find("foot")
-	local surface = way.tags:Find("surface")
+	local name = way:get_value_by_key("name")
+	local ref = way:get_value_by_key("ref")
+	local junction = way:get_value_by_key("junction")
+	local onewayClass = way:get_value_by_key("oneway:foot")
+	local duration	= way:get_value_by_key("duration")
+	local service	= way:get_value_by_key("service")
+	local area = way:get_value_by_key("area")
+	local foot = way:get_value_by_key("foot")
+	local surface = way:get_value_by_key("surface")
 
-	-- name
-	if "" ~= ref and "" ~= name then
-		way.name = name .. ' / ' .. ref
-    elseif "" ~= ref then
-	way.name = ref
-	elseif "" ~= name then
-		way.name = name
-	else
-		way.name = "{highway:"..highway.."}"	-- if no name exists, use way type
+ 	-- name
+	if ref and "" ~= ref and name and "" ~= name then
+		result.name = name .. ' / ' .. ref
+    elseif ref and "" ~= ref then
+    	result.name = ref
+	elseif name and "" ~= name then
+		result.name = name
+	elseif highway then
+		result.name = "{highway:"..highway.."}"	-- if no name exists, use way type
 		                                        -- this encoding scheme is excepted to be a temporary solution
 	end
 
     -- roundabouts
 	if "roundabout" == junction then
-	  way.roundabout = true;
+	  result.roundabout = true;
 	end
 
     -- speed
     if route_speeds[route] then
 		-- ferries (doesn't cover routes tagged using relations)
-		way.ignore_in_grid = true
-		if durationIsValid(duration) then
-			way.duration = math.max( 1, parseDuration(duration) )
+		result.ignore_in_grid = true
+		if duration and durationIsValid(duration) then
+			result.duration = math.max( 1, parseDuration(duration) )
 		else
-			way.forward_speed = route_speeds[route]
-			way.backward_speed = route_speeds[route]
+			result.forward_speed = route_speeds[route]
+			result.backward_speed = route_speeds[route]
 		end
-		way.forward_mode = mode_ferry
-		way.backward_mode = mode_ferry
+		result.forward_mode = mode_ferry
+		result.backward_mode = mode_ferry
 	elseif railway and platform_speeds[railway] then
 		-- railway platforms (old tagging scheme)
-		way.forward_speed = platform_speeds[railway]
-		way.backward_speed = platform_speeds[railway]
+		result.forward_speed = platform_speeds[railway]
+		result.backward_speed = platform_speeds[railway]
 	elseif platform_speeds[public_transport] then
 		-- public_transport platforms (new tagging platform)
-		way.forward_speed = platform_speeds[public_transport]
-		way.backward_speed = platform_speeds[public_transport]
+		result.forward_speed = platform_speeds[public_transport]
+		result.backward_speed = platform_speeds[public_transport]
 	elseif amenity and amenity_speeds[amenity] then
 		-- parking areas
-		way.forward_speed = amenity_speeds[amenity]
-		way.backward_speed = amenity_speeds[amenity]
+		result.forward_speed = amenity_speeds[amenity]
+		result.backward_speed = amenity_speeds[amenity]
 	elseif speeds[highway] then
 		-- regular ways
-		way.forward_speed = speeds[highway]
-		way.backward_speed = speeds[highway]
+		result.forward_speed = speeds[highway]
+		result.backward_speed = speeds[highway]
 	elseif access and access_tag_whitelist[access] then
 	    -- unknown way, but valid access tag
-		way.forward_speed = walking_speed
-		way.backward_speed = walking_speed
+		result.forward_speed = walking_speed
+		result.backward_speed = walking_speed
     end
 
 	-- oneway
 	if onewayClass == "yes" or onewayClass == "1" or onewayClass == "true" then
-		way.backward_mode = 0
+		result.backward_mode = 0
 	elseif onewayClass == "no" or onewayClass == "0" or onewayClass == "false" then
 		-- nothing to do
 	elseif onewayClass == "-1" then
-		way.forward_mode = 0
+		result.forward_mode = 0
     end
 
     -- surfaces
     if surface then
         surface_speed = surface_speeds[surface]
         if surface_speed then
-            way.forward_speed = math.min(way.forward_speed, surface_speed)
-            way.backward_speed  = math.min(way.backward_speed, surface_speed)
+            result.forward_speed = math.min(result.forward_speed, surface_speed)
+            result.backward_speed  = math.min(result.backward_speed, surface_speed)
         end
     end
 end

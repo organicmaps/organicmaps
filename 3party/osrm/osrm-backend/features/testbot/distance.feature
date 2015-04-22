@@ -145,7 +145,7 @@ Feature: Distance calculation
             | a    | h  | abcdefgh | 70m +-14 |
 
     Scenario: Geometric distances
-        Given a grid size of 1000 meters
+        Given a grid size of 100 meters
         Given the node map
             | v | w | y | a | b | c | d |
             | u |   |   |   |   |   | e |
@@ -184,30 +184,30 @@ Feature: Distance calculation
 
         When I route I should get
             | from | to | route | distance  |
-            | x    | a  | xa    | 3000m +-2 |
-            | x    | b  | xb    | 3162m +-2 |
-            | x    | c  | xc    | 3606m +-2 |
-            | x    | d  | xd    | 4243m +-2 |
-            | x    | e  | xe    | 3606m +-2 |
-            | x    | f  | xf    | 3162m +-2 |
-            | x    | g  | xg    | 3000m +-2 |
-            | x    | h  | xh    | 3162m +-2 |
-            | x    | i  | xi    | 3606m +-2 |
-            | x    | j  | xj    | 4243m +-2 |
-            | x    | k  | xk    | 3606m +-2 |
-            | x    | l  | xl    | 3162m +-2 |
-            | x    | m  | xm    | 3000m +-2 |
-            | x    | n  | xn    | 3162m +-2 |
-            | x    | o  | xo    | 3606m +-2 |
-            | x    | p  | xp    | 4243m +-2 |
-            | x    | q  | xq    | 3606m +-2 |
-            | x    | r  | xr    | 3162m +-2 |
-            | x    | s  | xs    | 3000m +-2 |
-            | x    | t  | xt    | 3162m +-2 |
-            | x    | u  | xu    | 3606m +-2 |
-            | x    | v  | xv    | 4243m +-2 |
-            | x    | w  | xw    | 3606m +-2 |
-            | x    | y  | xy    | 3162m +-2 |
+            | x    | a  | xa    | 300m +-2 |
+            | x    | b  | xb    | 316m +-2 |
+            | x    | c  | xc    | 360m +-2 |
+            | x    | d  | xd    | 424m +-2 |
+            | x    | e  | xe    | 360m +-2 |
+            | x    | f  | xf    | 316m +-2 |
+            | x    | g  | xg    | 300m +-2 |
+            | x    | h  | xh    | 316m +-2 |
+            | x    | i  | xi    | 360m +-2 |
+            | x    | j  | xj    | 424m +-2 |
+            | x    | k  | xk    | 360m +-2 |
+            | x    | l  | xl    | 316m +-2 |
+            | x    | m  | xm    | 300m +-2 |
+            | x    | n  | xn    | 316m +-2 |
+            | x    | o  | xo    | 360m +-2 |
+            | x    | p  | xp    | 424m +-2 |
+            | x    | q  | xq    | 360m +-2 |
+            | x    | r  | xr    | 316m +-2 |
+            | x    | s  | xs    | 300m +-2 |
+            | x    | t  | xt    | 316m +-2 |
+            | x    | u  | xu    | 360m +-2 |
+            | x    | v  | xv    | 424m +-2 |
+            | x    | w  | xw    | 360m +-2 |
+            | x    | y  | xy    | 316m +-2 |
 
     @maze
     Scenario: Distance of a maze of short segments

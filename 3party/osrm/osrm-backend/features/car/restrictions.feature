@@ -380,3 +380,4 @@ Feature: Car - Turn restrictions
             | from | to | route    |
             | a    | b  | ax,xy,yb |
             | b    | a  | yb,xy,ax |
+

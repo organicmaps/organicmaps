@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2013, Project OSRM, Dennis Luxen, others
+Copyright (c) 2015, Project OSRM contributors
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -25,24 +25,28 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include "DataStructures/OriginalEdgeData.h"
-#include "DataStructures/RangeTable.h"
-#include "DataStructures/QueryEdge.h"
-#include "DataStructures/SharedMemoryFactory.h"
-#include "DataStructures/SharedMemoryVectorWrapper.h"
-#include "DataStructures/StaticGraph.h"
-#include "DataStructures/StaticRTree.h"
-#include "DataStructures/TurnInstructions.h"
-#include "Server/DataStructures/BaseDataFacade.h"
-#include "Server/DataStructures/SharedDataType.h"
-#include "Server/DataStructures/SharedBarriers.h"
-#include "Util/BoostFileSystemFix.h"
-#include "Util/DataStoreOptions.h"
-#include "Util/simple_logger.hpp"
-#include "Util/FingerPrint.h"
+#include "data_structures/original_edge_data.hpp"
+#include "data_structures/range_table.hpp"
+#include "data_structures/query_edge.hpp"
+#include "data_structures/query_node.hpp"
+#include "data_structures/shared_memory_factory.hpp"
+#include "data_structures/shared_memory_vector_wrapper.hpp"
+#include "data_structures/static_graph.hpp"
+#include "data_structures/static_rtree.hpp"
+#include "data_structures/travel_mode.hpp"
+#include "data_structures/turn_instructions.hpp"
+#include "server/data_structures/datafacade_base.hpp"
+#include "server/data_structures/shared_datatype.hpp"
+#include "server/data_structures/shared_barriers.hpp"
+#include "util/boost_filesystem_2_fix.hpp"
+#include "util/datastore_options.hpp"
+#include "util/simple_logger.hpp"
+#include "util/osrm_exception.hpp"
+#include "util/fingerprint.hpp"
 #include "typedefs.h"
 
-#include <osrm/Coordinate.h>
+#include <osrm/coordinate.hpp>
+#include <osrm/server_paths.hpp>
 
 using RTreeLeaf = BaseDataFacade<QueryEdge::EdgeData>::RTreeLeaf;
 using RTreeNode = StaticRTree<RTreeLeaf, ShM<FixedPointCoordinate, true>::vector, true>::TreeNode;
@@ -102,7 +106,8 @@ int main(const int argc, const char *argv[])
         const bool lock_flags = MCL_CURRENT | MCL_FUTURE;
         if (-1 == mlockall(lock_flags))
         {
-            SimpleLogger().Write(logWARNING) << "Process " << argv[0] << " could not request RAM lock";
+            SimpleLogger().Write(logWARNING) << "Process " << argv[0]
+                                             << " could not request RAM lock";
         }
 #endif
         try
@@ -133,31 +138,31 @@ int main(const int argc, const char *argv[])
 
         if (server_paths.find("hsgrdata") == server_paths.end())
         {
-            throw OSRMException("no hsgr file found");
+            throw osrm::exception("no hsgr file found");
         }
         if (server_paths.find("ramindex") == server_paths.end())
         {
-            throw OSRMException("no ram index file found");
+            throw osrm::exception("no ram index file found");
         }
         if (server_paths.find("fileindex") == server_paths.end())
         {
-            throw OSRMException("no leaf index file found");
+            throw osrm::exception("no leaf index file found");
         }
         if (server_paths.find("nodesdata") == server_paths.end())
         {
-            throw OSRMException("no nodes file found");
+            throw osrm::exception("no nodes file found");
         }
         if (server_paths.find("edgesdata") == server_paths.end())
         {
-            throw OSRMException("no edges file found");
+            throw osrm::exception("no edges file found");
         }
         if (server_paths.find("namesdata") == server_paths.end())
         {
-            throw OSRMException("no names file found");
+            throw osrm::exception("no names file found");
         }
         if (server_paths.find("geometry") == server_paths.end())
         {
-            throw OSRMException("no geometry file found");
+            throw osrm::exception("no geometry file found");
         }
 
         ServerPaths::const_iterator paths_iterator = server_paths.find("hsgrdata");
@@ -339,8 +344,8 @@ int main(const int argc, const char *argv[])
         geometry_input_stream.read((char *)&number_of_geometries_indices, sizeof(unsigned));
         shared_layout_ptr->SetBlockSize<unsigned>(SharedDataLayout::GEOMETRIES_INDEX,
                                                   number_of_geometries_indices);
-        boost::iostreams::seek(
-            geometry_input_stream, number_of_geometries_indices * sizeof(unsigned), BOOST_IOS::cur);
+        boost::iostreams::seek(geometry_input_stream,
+                               number_of_geometries_indices * sizeof(unsigned), BOOST_IOS::cur);
         geometry_input_stream.read((char *)&number_of_compressed_geometries, sizeof(unsigned));
         shared_layout_ptr->SetBlockSize<unsigned>(SharedDataLayout::GEOMETRIES_LIST,
                                                   number_of_compressed_geometries);
@@ -409,9 +414,8 @@ int main(const int argc, const char *argv[])
         unsigned *name_id_ptr = shared_layout_ptr->GetBlockPtr<unsigned, true>(
             shared_memory_ptr, SharedDataLayout::NAME_ID_LIST);
 
-        TravelMode *travel_mode_ptr =
-            shared_layout_ptr->GetBlockPtr<TravelMode, true>(
-                shared_memory_ptr, SharedDataLayout::TRAVEL_MODE);
+        TravelMode *travel_mode_ptr = shared_layout_ptr->GetBlockPtr<TravelMode, true>(
+            shared_memory_ptr, SharedDataLayout::TRAVEL_MODE);
 
         TurnInstruction *turn_instructions_ptr =
             shared_layout_ptr->GetBlockPtr<TurnInstruction, true>(
@@ -481,10 +485,10 @@ int main(const int argc, const char *argv[])
             shared_layout_ptr->GetBlockPtr<FixedPointCoordinate, true>(
                 shared_memory_ptr, SharedDataLayout::COORDINATE_LIST);
 
-        NodeInfo current_node;
+        QueryNode current_node;
         for (unsigned i = 0; i < coordinate_list_size; ++i)
         {
-            nodes_input_stream.read((char *)&current_node, sizeof(NodeInfo));
+            nodes_input_stream.read((char *)&current_node, sizeof(QueryNode));
             coordinates_ptr[i] = FixedPointCoordinate(current_node.lat, current_node.lon);
         }
         nodes_input_stream.close();

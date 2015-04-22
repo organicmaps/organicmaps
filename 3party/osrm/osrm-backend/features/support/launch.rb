@@ -1,5 +1,6 @@
 require 'socket'
 require 'open3'
+require 'json'
 
 # Only one isntance of osrm-routed is ever launched, to avoid collisions.
 # The default is to keep osrm-routed running and load data with datastore.
@@ -117,7 +118,7 @@ class OSRMLoader
 
     def osrm_up
       return if osrm_up?
-      @@pid = Process.spawn("#{BIN_PATH}/osrm-routed --sharedmemory=1 --port #{OSRM_PORT}",:out=>OSRM_ROUTED_LOG_FILE, :err=>OSRM_ROUTED_LOG_FILE)
+      @@pid = Process.spawn("#{BIN_PATH}/osrm-routed --shared-memory=1 --port #{OSRM_PORT}",:out=>OSRM_ROUTED_LOG_FILE, :err=>OSRM_ROUTED_LOG_FILE)
       Process.detach(@@pid)    # avoid zombie processes
     end
   end

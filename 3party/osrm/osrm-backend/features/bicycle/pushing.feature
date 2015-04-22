@@ -32,7 +32,7 @@ Feature: Bike - Accessability of different way types
             | primary    | -1     | foot | bike  |
             | pedestrian | -1     | foot | foot  |
 
-    @square
+    @square    
     Scenario: Bike - Push bikes on pedestrian areas
         Given the node map
             | x |   |
@@ -62,7 +62,7 @@ Feature: Bike - Accessability of different way types
             | motorway | yes  | foot |       |
             | runway   |      |      |       |
             | runway   | yes  | foot | foot  |
-
+    
     @todo
     Scenario: Bike - Pushing bikes on ways with foot=yes in one direction
         Then routability should be
@@ -72,20 +72,20 @@ Feature: Bike - Accessability of different way types
             | motorway |              | yes           |      | foot  |
 
     @construction
-    Scenario: Bike - Don't allow routing on ways still under construction
+    Scenario: Bike - Don't allow routing on ways still under construction 
         Then routability should be
             | highway      | foot | bicycle | bothw |
             | primary      |      |         | x     |
             | construction |      |         |       |
             | construction | yes  |         |       |
             | construction |      | yes     |       |
-
+        
     @roundabout
     Scenario: Bike - Don't push bikes against oneway flow on roundabouts
         Then routability should be
             | junction   | forw | backw |
             | roundabout | x    |       |
-
+ 
     Scenario: Bike - Instructions when pushing bike on oneways
         Given the node map
             | a | b |   |

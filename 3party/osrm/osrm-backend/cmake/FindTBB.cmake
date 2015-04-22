@@ -193,7 +193,7 @@ mark_as_advanced(TBB_INCLUDE_DIR)
 #-- Look for libraries
 # GvdB: $ENV{TBB_ARCH_PLATFORM} is set by the build script tbbvars[.bat|.sh|.csh]
 if (NOT $ENV{TBB_ARCH_PLATFORM} STREQUAL "")
-    set (_TBB_LIBRARY_DIR
+    set (_TBB_LIBRARY_DIR 
          ${_TBB_INSTALL_DIR}/lib/$ENV{TBB_ARCH_PLATFORM}
          ${_TBB_INSTALL_DIR}/$ENV{TBB_ARCH_PLATFORM}/lib
         )

@@ -6,7 +6,7 @@ Feature: osrm-prepare command line options: version
 
     Background:
         Given the profile "testbot"
-
+    
     Scenario: osrm-prepare - Version, short
         When I run "osrm-prepare --v"
         Then stderr should be empty
