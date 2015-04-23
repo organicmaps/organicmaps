@@ -107,7 +107,7 @@ void InitLocalizedStrings()
   [Alohalytics setDebugMode:YES];
   NSString * serverUrl = @"http://localhost:8080/dev";
 #else
-  NSString * serverUrl = @"http://localhost:8080/2";
+  NSString * serverUrl = @"http://localhost:8080/3";
 #endif
   
   NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
