@@ -77,10 +77,10 @@ bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debu
 // TODO(AlexZ): Refactor message queue to make this method private.
 void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
   if (dropped_events) {
-    LOG_IF_DEBUG("Warning:", dropped_events, "were dropped from the queue.");
+    LOG_IF_DEBUG("Warning:", dropped_events, "events were dropped from the queue.");
   }
 
-  if (message.force_upload) {
+  if (message.ForceUpload()) {
     if (upload_url_.empty()) {
       LOG_IF_DEBUG("Warning: Can't upload in-memory events because upload url has not been set.");
       return;
@@ -106,10 +106,10 @@ void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
     }
   } else {
     if (file_storage_queue_) {
-      file_storage_queue_->PushMessage(message.message);
+      file_storage_queue_->PushMessage(message.GetMessage());
     } else {
       auto& container = memory_storage_;
-      container.push_back(message.message);
+      container.push_back(message.GetMessage());
       constexpr size_t kMaxEventsInMemory = 2048;
       if (container.size() > kMaxEventsInMemory) {
         container.pop_front();

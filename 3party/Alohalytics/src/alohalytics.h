@@ -38,11 +38,15 @@ namespace alohalytics {
 
 typedef std::map<std::string, std::string> TStringMap;
 
-struct MQMessage {
-  std::string message;
-  MQMessage(std::string&& msg) : message(msg) {}
-  bool force_upload;
-  explicit MQMessage(bool force_upload = false) : force_upload(force_upload) {}
+class MQMessage {
+  std::string message_;
+  bool force_upload_;
+public:
+  MQMessage(std::string&& msg) : message_(msg), force_upload_(false) {}
+  explicit MQMessage(bool force_upload = false) : force_upload_(force_upload) {}
+  // True for special empty message which should force stats uploading.
+  bool ForceUpload() const { return force_upload_; }
+  std::string const & GetMessage() const { return message_; }
 };
 
 class Stats final {
