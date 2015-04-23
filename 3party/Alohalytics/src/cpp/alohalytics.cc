@@ -27,6 +27,8 @@
 #define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
 #endif
 
+#include <cassert>
+
 #include "../alohalytics.h"
 #include "../http_client.h"
 #include "../logger.h"
@@ -54,6 +56,7 @@ struct NoOpDeleter {
 Stats::Stats() : message_queue_(*this) {}
 
 bool Stats::UploadBuffer(const std::string& url, std::string&& buffer, bool debug_mode) {
+  assert(!url.empty());
   HTTPClientPlatformWrapper request(url);
   request.set_debug_mode(debug_mode);
 
@@ -78,6 +81,10 @@ void Stats::OnMessage(const MQMessage& message, size_t dropped_events) {
   }
 
   if (message.force_upload) {
+    if (upload_url_.empty()) {
+      LOG_IF_DEBUG("Warning: Can't upload in-memory events because upload url has not been set.");
+      return;
+    }
     LOG_IF_DEBUG("Forcing statistics uploading.");
     if (file_storage_queue_) {
       // Upload all data, including 'current' file.
