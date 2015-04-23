@@ -4,9 +4,6 @@
   #define OMIM_OS_ANDROID
   #define OMIM_OS_NAME "android"
   #define OMIM_OS_MOBILE
-  #if __cplusplus <= 199711L
-    #define OMIM_HAS_DEBUG_STL 1
-  #endif
 
 #elif defined(_TIZEN_EMULATOR) || defined(_TIZEN_DEVICE)
   #define OMIM_OS_TIZEN
@@ -31,10 +28,6 @@
     #define OMIM_OS_DESKTOP
   #endif
 
-  #if __cplusplus <= 199711L
-    #define OMIM_HAS_DEBUG_STL 1
-  #endif
-
 #elif defined(_WIN32)
   #define OMIM_OS_WINDOWS
   #define OMIM_OS_NAME "win"
@@ -50,6 +43,4 @@
   #define OMIM_OS_LINUX
   #define OMIM_OS_NAME "linux"
   #define OMIM_OS_DESKTOP
-  #define OMIM_HAS_DEBUG_STL 1
-
 #endif
