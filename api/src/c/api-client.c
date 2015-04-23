@@ -90,7 +90,7 @@ void MapsWithMe_TransformName(char * s)
 // Returns the lenghts of the resulting string in bytes including terminating 0.
 // URL restricted / unsafe / unwise characters are %-encoded.
 // See rfc3986, rfc1738, rfc2396.
-int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
+size_t MapsWithMe_UrlEncodeString(char const * s, size_t size, char ** res)
 {
   *res = malloc(size * 3 + 1);
   char * out = *res;
@@ -146,9 +146,9 @@ int MapsWithMe_UrlEncodeString(char const * s, int size, char ** res)
 }
 
 // Append s to buf (is there is space). Increment *bytesAppended by size.
-void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, int size)
+void MapsWithMe_AppendString(char * buf, int bufSize, int * bytesAppended, char const * s, size_t size)
 {
-  int const bytesAvailable = bufSize - *bytesAppended;
+  size_t const bytesAvailable = bufSize - *bytesAppended;
   if (bytesAvailable > 0)
     memcpy(buf + *bytesAppended, s, size < bytesAvailable ? size : bytesAvailable);
 
@@ -189,7 +189,7 @@ int MapsWithMe_GenShortShowMapUrl(double lat, double lon, double zoom, char cons
     MapsWithMe_TransformName(newName);
 
     char * encName;
-    int const encNameSize = MapsWithMe_UrlEncodeString(newName, strlen(newName), &encName);
+    size_t const encNameSize = MapsWithMe_UrlEncodeString(newName, strlen(newName), &encName);
 
     MapsWithMe_AppendString(buf, bufSize, &fullUrlSize, encName, encNameSize);
 
