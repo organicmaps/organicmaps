@@ -94,7 +94,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
   DummyTexture texture;
   texture.Create(width, height, dp::RGBA8);
   DummyColorPallete cp(m2::PointU(width, height));
-  cp.UploadResources(make_ref<Texture>(&texture));
+  cp.UploadResources(make_ref(&texture));
 
   {
     cp.MapResource(dp::Color(0xFF, 0, 0, 0));
@@ -119,7 +119,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     EXPECTGL(glTexSubImage2D(0, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(make_ref<Texture>(&texture));
+    cp.UploadResources(make_ref(&texture));
   }
 
   {
@@ -145,7 +145,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     EXPECTGL(glTexSubImage2D(10, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(make_ref<Texture>(&texture));
+    cp.UploadResources(make_ref(&texture));
   }
 
   EXPECTGL(glDeleteTexture(1));
@@ -186,7 +186,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     EXPECTGL(glTexSubImage2D(0, 0, 12, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(make_ref<Texture>(&texture));
+    cp.UploadResources(make_ref(&texture));
   }
 
   {
@@ -219,7 +219,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     EXPECTGL(glTexSubImage2D(0, 2, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(make_ref<Texture>(&texture));
+    cp.UploadResources(make_ref(&texture));
   }
 
 
@@ -253,7 +253,7 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
     EXPECTGL(glTexSubImage2D(0, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(make_ref<Texture>(&texture));
+    cp.UploadResources(make_ref(&texture));
   }
 
   {
@@ -297,7 +297,7 @@ UNIT_TEST(ColorPalleteUploadingMultipyRow)
     EXPECTGL(glTexSubImage2D(0, 2, 8, 4, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
         .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
 
-    cp.UploadResources(make_ref<Texture>(&texture));
+    cp.UploadResources(make_ref(&texture));
   }
 
   EXPECTGL(glDeleteTexture(1));

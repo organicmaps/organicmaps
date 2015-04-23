@@ -159,7 +159,7 @@ void SymbolsTexture::Load(string const & skinPathName)
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
 
   if (width == w && height == h)
-    Create(width, height, RGBA8, make_ref<void>(data));
+    Create(width, height, RGBA8, make_ref(data));
   else
     Fail();
 
@@ -170,13 +170,13 @@ ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const &
 {
   newResource = false;
   if (key.GetType() != Texture::Symbol)
-    return ref_ptr<ResourceInfo>();
+    return nullptr;
 
   string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
   TSymDefinition::iterator it = m_definition.find(symbolName);
   ASSERT(it != m_definition.end(), ());
-  return make_ref<ResourceInfo>(&it->second);
+  return make_ref(&it->second);
 }
 
 void SymbolsTexture::Fail()

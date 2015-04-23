@@ -456,7 +456,7 @@ UNIT_TEST(StippleMappingTest)
 
   DummyTexture texture;
   texture.Create(width, height, dp::ALPHA);
-  index.UploadResources(make_ref<Texture>(&texture));
+  index.UploadResources(make_ref(&texture));
 
   StipplePenKey secInfo;
   secInfo.m_pattern.push_back(20);
@@ -478,6 +478,6 @@ UNIT_TEST(StippleMappingTest)
   MemoryComparer cmp22(secondUploadSecondPartEtalon, ARRAY_SIZE(secondUploadSecondPartEtalon));
   EXPECTGL(glTexSubImage2D(256, 0, 256, 2, AnyOf(gl_const::GLAlpha, gl_const::GLAlpha8), gl_const::GL8BitOnChannel, _))
       .WillOnce(Invoke(&cmp22, &MemoryComparer::cmpSubImage));
-  index.UploadResources(make_ref<Texture>(&texture));
+  index.UploadResources(make_ref(&texture));
   EXPECTGL(glDeleteTexture(1));
 }

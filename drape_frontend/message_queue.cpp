@@ -21,7 +21,7 @@ drape_ptr<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
   /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
   /// if application preparing to close and CancelWait been called
   if (m_messages.empty())
-    return drape_ptr<Message>();
+    return nullptr;
 
   drape_ptr<Message> msg = move(m_messages.front());
   m_messages.pop_front();

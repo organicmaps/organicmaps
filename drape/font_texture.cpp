@@ -100,7 +100,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
   strings::UniChar uniChar = key.GetUnicodePoint();
   auto it = m_index.find(uniChar);
   if (it != m_index.end())
-    return make_ref<Texture::ResourceInfo>(&it->second);
+    return make_ref(&it->second);
 
   newResource = true;
 
@@ -109,7 +109,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
   if (!m_packer.PackGlyph(glyph.m_image.m_width, glyph.m_image.m_height, r))
   {
     glyph.m_image.Destroy();
-    return make_ref<GlyphInfo>(nullptr);
+    return nullptr;
   }
 
   {
@@ -119,7 +119,7 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphKey const & key, boo
 
   auto res = m_index.emplace(uniChar, GlyphInfo(m_packer.MapTextureCoords(r), glyph.m_metrics));
   ASSERT(res.second, ());
-  return make_ref<GlyphInfo>(&res.first->second);
+  return make_ref(&res.first->second);
 }
 
 void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
@@ -196,7 +196,7 @@ void GlyphIndex::UploadResources(ref_ptr<Texture> texture)
       glyph.m_image.Destroy();
     }
 
-    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, dp::ALPHA, make_ref<void>(dstMemory));
+    texture->UploadData(zeroPoint.x, zeroPoint.y, width, height, dp::ALPHA, make_ref(dstMemory));
     SharedBufferManager::instance().freeSharedBuffer(byteCount, buffer);
   }
 }

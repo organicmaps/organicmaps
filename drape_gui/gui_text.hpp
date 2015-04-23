@@ -140,7 +140,6 @@ class MutableLabelHandle : public Handle
 
 public:
   MutableLabelHandle(dp::Anchor anchor, m2::PointF const & pivot);
-  ~MutableLabelHandle();
 
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                             ScreenBase const & screen) const override;

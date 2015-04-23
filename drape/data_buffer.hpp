@@ -31,7 +31,6 @@ class DataBuffer
 {
 public:
   DataBuffer(uint8_t elementSize, uint16_t capacity);
-  virtual ~DataBuffer();
 
   ref_ptr<DataBufferBase> GetBuffer() const;
   void MoveToGPU(GPUBuffer::Target target);

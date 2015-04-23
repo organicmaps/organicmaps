@@ -187,7 +187,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
       drape_ptr<dp::RenderBucket> bucket = move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
 
-      m_nodes.emplace_back(state, move(bucket->MoveBuffer()));
+      m_nodes.emplace_back(state, bucket->MoveBuffer());
     });
 
     dp::AttributeProvider pointProvider(1 /*stream count*/, dp::Batcher::VertexPerQuad);

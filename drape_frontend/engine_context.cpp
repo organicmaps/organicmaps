@@ -3,7 +3,6 @@
 //#define DRAW_TILE_NET
 
 #include "drape_frontend/message_subclasses.hpp"
-#include "drape_frontend/map_shape.hpp"
 #ifdef DRAW_TILE_NET
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"

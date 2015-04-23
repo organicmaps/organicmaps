@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/message.hpp"
-#include "drape_frontend/tile_info.hpp"
+#include "drape_frontend/tile_key.hpp"
 
 #include "drape/pointers.hpp"
 

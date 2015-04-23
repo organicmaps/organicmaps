@@ -174,7 +174,7 @@ Framework::Framework()
 {
   m_activeMaps.reset(new ActiveMapsLayout(*this));
   m_globalCntTree = storage::CountryTree(m_activeMaps);
-  m_storageAccessor = move(make_unique_dp<StorageBridge>(m_activeMaps));
+  m_storageAccessor = make_unique_dp<StorageBridge>(m_activeMaps);
 
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
@@ -1389,18 +1389,18 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
-                            make_ref<gui::StorageAccessor>(m_storageAccessor),
+                            make_ref(m_storageAccessor),
                             df::Viewport(0, 0, w, h),
                             df::MapDataProvider(idReadFn, featureReadFn, resolveCountry),
                             vs);
 
-  m_drapeEngine = move(make_unique_dp<df::DrapeEngine>(p));
+  m_drapeEngine = make_unique_dp<df::DrapeEngine>(p);
   OnSize(w, h);
 }
 
 ref_ptr<df::DrapeEngine> Framework::GetDrapeEngine()
 {
-  return make_ref<df::DrapeEngine>(m_drapeEngine);
+  return make_ref(m_drapeEngine);
 }
 
 void Framework::DestroyDrapeEngine()

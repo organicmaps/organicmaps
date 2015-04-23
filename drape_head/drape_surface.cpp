@@ -25,7 +25,7 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
   {
     if (m_contextFactory == nullptr)
     {
-      m_contextFactory = move(make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this), false));
+      m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this), false);
       CreateEngine();
     }
   }
@@ -33,11 +33,10 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
 
 void DrapeSurface::CreateEngine()
 {
-  ref_ptr<dp::OGLContextFactory> f = make_ref<dp::OGLContextFactory>(m_contextFactory);
-
   float const pixelRatio = devicePixelRatio();
-
-  m_drapeEngine = move(make_unique_dp<df::TestingEngine>(f, df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()), pixelRatio));
+  m_drapeEngine = make_unique_dp<df::TestingEngine>(make_ref(m_contextFactory),
+                                                    df::Viewport(0, 0, pixelRatio * width(), pixelRatio * height()),
+                                                    pixelRatio);
 }
 
 void DrapeSurface::sizeChanged(int)

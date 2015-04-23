@@ -84,14 +84,14 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::TextureManager> tex) const
   texDecl.m_offset = sizeof(glsl::vec2);
   texDecl.m_stride = posDecl.m_stride;
 
-  provider.InitStream(0, info, make_ref<void>(&vertexes));
+  provider.InitStream(0, info, make_ref(&vertexes));
 
   m2::PointF compassSize = region.GetPixelSize();
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, static_cast<ShapeRenderer*>(make_ref(renderer)), _1, _2));
+  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertTriangleStrip(state, make_ref(&provider), move(handle));
 
   return renderer;

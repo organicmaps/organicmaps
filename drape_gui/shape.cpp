@@ -78,8 +78,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
           dp::AttributeBufferMutator mutator;
           ref_ptr<dp::AttributeBufferMutator> mutatorRef = make_ref(&mutator);
           info.m_handle->GetAttributeMutation(mutatorRef, screen);
-          info.m_buffer->ApplyMutation(make_ref<dp::IndexBufferMutator>(nullptr),
-                                       mutatorRef);
+          info.m_buffer->ApplyMutation(nullptr, mutatorRef);
         }
 
         info.m_buffer->Render();
@@ -127,13 +126,13 @@ void ShapeControl::AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucke
 {
   ASSERT(bucket->GetOverlayHandlesCount() == 1, ());
 
-  drape_ptr<dp::OverlayHandle> handle = move(bucket->PopOverlayHandle());
+  drape_ptr<dp::OverlayHandle> handle = bucket->PopOverlayHandle();
   ASSERT(dynamic_cast<Handle *>(handle.get()) != nullptr, ());
 
   m_shapesInfo.push_back(ShapeInfo());
   ShapeInfo & info = m_shapesInfo.back();
   info.m_state = state;
-  info.m_buffer = move(bucket->MoveBuffer());
+  info.m_buffer = bucket->MoveBuffer();
   info.m_handle = drape_ptr<Handle>(static_cast<Handle*>(handle.release()));
 }
 

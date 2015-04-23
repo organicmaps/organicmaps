@@ -29,7 +29,7 @@ public:
     virtual ResourceType GetType() const;
   };
 
-  SymbolsTexture(string const & skinPathName);
+  explicit SymbolsTexture(string const & skinPathName);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource);
 

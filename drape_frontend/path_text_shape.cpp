@@ -117,9 +117,8 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
 
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  PathTextLayout * layout = new PathTextLayout(strings::MakeUniString(m_params.m_text),
-                                               m_params.m_textFont.m_size,
-                                               textures);
+  unique_ptr<PathTextLayout> layout = make_unique<PathTextLayout>(strings::MakeUniString(m_params.m_text),
+                                                                  m_params.m_textFont.m_size, textures);
 
   uint32_t glyphCount = layout->GetGlyphCount();
   if (glyphCount == 0)
@@ -191,7 +190,7 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
   ASSERT(!offsets.empty(), ());
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynBuffer;
-  SharedTextLayout layoutPtr(layout);
+  SharedTextLayout layoutPtr(layout.release());
   for (float offset : offsets)
   {
     staticBuffer.clear();
@@ -199,14 +198,14 @@ void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManage
 
     Spline::iterator iter = m_spline.CreateIterator();
     iter.Advance(offset);
-    layout->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
-                                color, outline, staticBuffer);
+    layoutPtr->CacheStaticGeometry(glsl::vec3(glsl::ToVec2(iter.m_pos), m_params.m_depth),
+                                   color, outline, staticBuffer);
 
     dynBuffer.resize(staticBuffer.size(), gpu::TextDynamicVertex(glsl::vec2(0.0, 0.0)));
 
     dp::AttributeProvider provider(2, staticBuffer.size());
-    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref<void>(staticBuffer.data()));
-    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref<void>(dynBuffer.data()));
+    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
 
     drape_ptr<dp::OverlayHandle> handle = make_unique_dp<PathTextHandle>(m_spline, layoutPtr, offset, m_params.m_depth);
     batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);

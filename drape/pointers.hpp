@@ -18,15 +18,7 @@ public:
   template <typename T>
   void RefPtr(T * refPtr)
   {
-    lock_guard<mutex> lock(m_mutex);
-    if (refPtr != nullptr)
-    {
-      auto it = m_alivePointers.find(refPtr);
-      if (it != m_alivePointers.end())
-        it->second.first++;
-      else
-        m_alivePointers.insert(make_pair(refPtr, make_pair(1, typeid(refPtr).name())));
-    }
+    RefPtrNamed(static_cast<void*>(refPtr), typeid(refPtr).name());
   }
 
   void DerefPtr(void * p);
@@ -36,6 +28,8 @@ public:
 private:
   DpPointerTracker() = default;
   ~DpPointerTracker();
+
+  void RefPtrNamed(void * refPtr, string const & name);
 
   typedef map<void *, pair<int, string> > TAlivePointers;
   TAlivePointers m_alivePointers;
@@ -55,8 +49,10 @@ public:
 };
 
 #if defined(TRACK_POINTERS)
-
 template<typename T> using drape_ptr = unique_ptr<T, DpPointerDeleter>;
+#else
+template<typename T> using drape_ptr = unique_ptr<T>;
+#endif
 
 template <typename T, typename... Args>
 drape_ptr<T> make_unique_dp(Args &&... args)
@@ -75,15 +71,19 @@ public:
   ref_ptr(T * ptr, bool isOwnerUnique = false)
     : m_ptr(ptr), m_isOwnerUnique(isOwnerUnique)
   {
+#if defined(TRACK_POINTERS)
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().RefPtr(m_ptr);
+#endif
   }
 
   ref_ptr(ref_ptr const & rhs)
     : m_ptr(rhs.m_ptr), m_isOwnerUnique(rhs.m_isOwnerUnique)
   {
+#if defined(TRACK_POINTERS)
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().RefPtr(m_ptr);
+#endif
   }
 
   ref_ptr(ref_ptr && rhs)
@@ -97,18 +97,14 @@ public:
 
   ~ref_ptr()
   {
+#if defined(TRACK_POINTERS)
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().DerefPtr(m_ptr);
+#endif
     m_ptr = nullptr;
   }
 
   T * operator->() const { return m_ptr; }
-
-  template<typename TResult>
-  operator TResult const *() const { return static_cast<TResult const *>(m_ptr); }
-
-  template<typename TResult>
-  operator TResult *() const { return static_cast<TResult *>(m_ptr); }
 
   template<typename TResult>
   operator ref_ptr<TResult>() const
@@ -139,14 +135,18 @@ public:
     if (this == &rhs)
       return *this;
 
+#if defined(TRACK_POINTERS)
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().DerefPtr(m_ptr);
+#endif
 
     m_ptr = rhs.m_ptr;
     m_isOwnerUnique = rhs.m_isOwnerUnique;
 
+#if defined(TRACK_POINTERS)
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().RefPtr(m_ptr);
+#endif
 
     return *this;
   }
@@ -156,8 +156,10 @@ public:
     if (this == &rhs)
       return *this;
 
+#if defined(TRACK_POINTERS)
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().DerefPtr(m_ptr);
+#endif
 
     m_ptr = rhs.m_ptr;
     rhs.m_ptr = nullptr;
@@ -168,15 +170,20 @@ public:
     return *this;
   }
 
+  T * get() const { return m_ptr; }
+
 private:
   T* m_ptr;
   bool m_isOwnerUnique;
+
+  template <typename TResult>
+  friend inline string DebugPrint(ref_ptr<TResult> const & v);
 };
 
 template <typename T>
 inline string DebugPrint(ref_ptr<T> const & v)
 {
-  return DebugPrint(static_cast<T*>(v));
+  return DebugPrint(v.m_ptr);
 }
 
 template <typename T>
@@ -190,28 +197,3 @@ ref_ptr<T> make_ref(T* ptr)
 {
   return ref_ptr<T>(ptr, false);
 }
-
-#else
-
-template<typename T> using drape_ptr = unique_ptr<T>;
-template<typename T> using ref_ptr = T*;
-
-template <typename T, typename... Args>
-drape_ptr<T> make_unique_dp(Args &&... args)
-{
-  return make_unique<T>(std::forward<Args>(args)...);
-}
-
-template <typename T>
-ref_ptr<T> make_ref(drape_ptr<T> const & drapePtr)
-{
-  return ref_ptr<T>(drapePtr.get());
-}
-
-template <typename T>
-ref_ptr<T> make_ref(T * ptr)
-{
-  return ref_ptr<T>(ptr);
-}
-
-#endif

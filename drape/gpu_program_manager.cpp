@@ -43,7 +43,7 @@ ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
 {
   program_map_t::iterator it = m_programs.find(index);
   if (it != m_programs.end())
-    return make_ref<GpuProgram>(it->second);
+    return make_ref(it->second);
 
   gpu::ProgramInfo const & programInfo = s_mapper.GetShaders(index);
   ref_ptr<Shader> vertexShader = GetShader(programInfo.m_vertexIndex,
@@ -54,7 +54,7 @@ ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
                                              Shader::FragmentShader);
 
   drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>(vertexShader, fragmentShader);
-  ref_ptr<GpuProgram> result = make_ref<GpuProgram>(program);
+  ref_ptr<GpuProgram> result = make_ref(program);
   m_programs.emplace(index, move(program));
 
   return result;
@@ -66,11 +66,11 @@ ref_ptr<Shader> GpuProgramManager::GetShader(int index, string const & source, S
   if (it == m_shaders.end())
   {
     drape_ptr<Shader> shader = make_unique_dp<Shader>(source, t);
-    ref_ptr<Shader> result = make_ref<Shader>(shader);
+    ref_ptr<Shader> result = make_ref(shader);
     m_shaders.emplace(index, move(shader));
     return result;
   }
-  return make_ref<Shader>(it->second);
+  return make_ref(it->second);
 }
 
 } // namespace dp

@@ -34,19 +34,19 @@ public:
   void SetIndexBufferSize(uint32_t indexBufferSize) { m_indexBufferSize = indexBufferSize; }
   void SetVertexBufferSize(uint32_t vertexBufferSize) { m_vertexBufferSize = vertexBufferSize; }
 
-  IndicesRange InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params);
+  void InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
                                   drape_ptr<OverlayHandle> && handle);
 
-  IndicesRange InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params);
+  void InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
                                    drape_ptr<OverlayHandle> && handle);
 
-  IndicesRange InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params);
+  void InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle);
 
-  IndicesRange InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params, uint8_t vertexStride);
+  void InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params, uint8_t vertexStride);
   IndicesRange InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle, uint8_t vertexStride);
 

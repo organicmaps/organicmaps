@@ -48,7 +48,7 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes));
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes));
 
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(m_params.m_id,
                                                                          dp::Center,

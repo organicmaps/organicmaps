@@ -25,7 +25,7 @@ public:
   {
     // invocation with non-null VAO will cause to invalid range of indices.
     // It means that VAO has been changed during batching
-    if (!m_buffer.IsNull())
+    if (m_buffer != nullptr)
       m_vaoChanged = true;
 
     m_buffer = buffer;
@@ -112,9 +112,9 @@ Batcher::~Batcher()
   m_buckets.clear();
 }
 
-IndicesRange Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params)
 {
-  return InsertTriangleList(state, params, drape_ptr<OverlayHandle>(nullptr));
+  InsertTriangleList(state, params, nullptr);
 }
 
 IndicesRange Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
@@ -123,9 +123,9 @@ IndicesRange Batcher::InsertTriangleList(GLState const & state, ref_ptr<Attribut
   return InsertTriangles<TriangleListBatch>(state, params, move(handle));
 }
 
-IndicesRange Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params)
 {
-  return InsertTriangleStrip(state, params, drape_ptr<OverlayHandle>(nullptr));
+  InsertTriangleStrip(state, params, nullptr);
 }
 
 IndicesRange Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
@@ -134,9 +134,9 @@ IndicesRange Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<Attribu
   return InsertTriangles<TriangleStripBatch>(state, params, move(handle));
 }
 
-IndicesRange Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params)
 {
-  return InsertTriangleFan(state, params, drape_ptr<OverlayHandle>(nullptr));
+  InsertTriangleFan(state, params, nullptr);
 }
 
 IndicesRange Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
@@ -145,10 +145,10 @@ IndicesRange Batcher::InsertTriangleFan(GLState const & state, ref_ptr<Attribute
   return InsertTriangles<TriangleFanBatch>(state, params, move(handle));
 }
 
-IndicesRange Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
-                                        uint8_t vertexStride)
+void Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+                                uint8_t vertexStride)
 {
-  return InsertListOfStrip(state, params, drape_ptr<OverlayHandle>(nullptr), vertexStride);
+  InsertListOfStrip(state, params, nullptr, vertexStride);
 }
 
 IndicesRange Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
@@ -184,11 +184,11 @@ ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
 {
   TBuckets::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
-    return make_ref<RenderBucket>(it->second);
+    return make_ref(it->second);
 
   drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize);
   drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(move(vao));
-  ref_ptr<RenderBucket> result = make_ref<RenderBucket>(buffer);
+  ref_ptr<RenderBucket> result = make_ref(buffer);
   m_buckets.emplace(state, move(buffer));
 
   return result;
@@ -228,7 +228,7 @@ IndicesRange Batcher::InsertTriangles(GLState const & state, ref_ptr<AttributePr
   drape_ptr<OverlayHandle> handle = move(transferHandle);
 
   {
-    Batcher::CallbacksWrapper wrapper(state, make_ref<OverlayHandle>(handle));
+    Batcher::CallbacksWrapper wrapper(state, make_ref(handle));
     wrapper.SetVAO(vao);
 
     BatchCallbacks callbacks;

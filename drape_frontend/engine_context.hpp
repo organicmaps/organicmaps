@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
@@ -8,7 +9,6 @@
 namespace df
 {
 
-class MapShape;
 class Message;
 
 class EngineContext

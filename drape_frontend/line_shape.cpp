@@ -295,7 +295,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   state.SetMaskTexture(maskRegion.GetTexture());
 
   dp::AttributeProvider provider(1, geometry.size());
-  provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), make_ref<void>(geometry.data()));
+  provider.InitStream(0, gpu::LineVertex::GetBindingInfo(), make_ref(geometry.data()));
 
   batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 }

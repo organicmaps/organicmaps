@@ -106,8 +106,7 @@ drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
-  MutableLabelDrawer::Draw(params, textures, bind(&ShapeRenderer::AddShape,
-                                                  static_cast<ShapeRenderer*>(make_ref(scaleRenderer)), _1, _2));
+  MutableLabelDrawer::Draw(params, textures, bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
 
   renderer->AddShapeRenderer(Skin::ScaleLabel, move(scaleRenderer));
 #endif
@@ -146,14 +145,9 @@ void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)
   {
     TRenderers::iterator it = m_renderers.find(r.first);
     if (it != m_renderers.end())
-    {
-      it->second.reset();
       it->second = move(r.second);
-    }
     else
-    {
       m_renderers.insert(make_pair(r.first, move(r.second)));
-    }
   }
 
   other->m_renderers.clear();

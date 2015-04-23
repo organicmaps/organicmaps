@@ -75,7 +75,7 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::TextureManager> tex) c
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);
-  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, static_cast<ShapeRenderer*>(make_ref(renderer)), _1, _2));
+  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertListOfStrip(result.m_state, make_ref(&provider),
                             move(handle), dp::Batcher::VertexPerQuad);
 

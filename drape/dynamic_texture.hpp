@@ -19,7 +19,7 @@ public:
   {
     ASSERT(m_indexer != nullptr, ());
     if (key.GetType() != TResourceType)
-      return ref_ptr<ResourceInfo>();
+      return nullptr;
 
     return m_indexer->MapResource(static_cast<TResourceKey const &>(key), newResource);
   }
@@ -28,7 +28,7 @@ public:
   {
     ASSERT(m_indexer != nullptr, ());
     Bind();
-    m_indexer->UploadResources(make_ref<Texture>(this));
+    m_indexer->UploadResources(make_ref(this));
   }
 
 protected:
@@ -44,7 +44,7 @@ protected:
 
   void Init(ref_ptr<TIndexer> indexer, TextureParams const & params)
   {
-    Init(indexer, params, make_ref<void>(nullptr));
+    Init(indexer, params, nullptr);
   }
 
   void Init(ref_ptr<TIndexer> indexer, TextureParams const & params, ref_ptr<void> data)
@@ -56,7 +56,7 @@ protected:
 
   void Reset()
   {
-    m_indexer = ref_ptr<TIndexer>();
+    m_indexer = nullptr;
   }
 
 private:

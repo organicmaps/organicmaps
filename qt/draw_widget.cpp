@@ -183,7 +183,7 @@ namespace qt
 
   void DrawWidget::CreateEngine()
   {
-    m_framework->CreateDrapeEngine(make_ref<dp::OGLContextFactory>(m_contextFactory), m_ratio,
+    m_framework->CreateDrapeEngine(make_ref(m_contextFactory), m_ratio,
                                    m_ratio * width(), m_ratio * height());
   }
 
@@ -196,7 +196,7 @@ namespace qt
       if (m_contextFactory == nullptr)
       {
         m_ratio = devicePixelRatio();
-        m_contextFactory = move(make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this)));
+        m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this));
         CreateEngine();
         LoadState();
         UpdateScaleControl();

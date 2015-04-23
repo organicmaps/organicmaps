@@ -30,17 +30,17 @@ DrapeEngine::DrapeEngine(Params const & params)
 
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.Init(scaleFn, gnLvlFn);
-  guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, static_cast<StringsBundle*>(params.m_stringsBundle), _1));
+  guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
   guiSubsystem.SetStorageAccessor(params.m_storageAccessor);
 
-  m_textureManager = move(make_unique_dp<dp::TextureManager>());
-  m_threadCommutator = move(make_unique_dp<ThreadsCommutator>());
+  m_textureManager = make_unique_dp<dp::TextureManager>();
+  m_threadCommutator = make_unique_dp<ThreadsCommutator>();
 
-  m_frontend = move(make_unique_dp<FrontendRenderer>(make_ref<ThreadsCommutator>(m_threadCommutator), params.m_factory,
-                                                     make_ref<dp::TextureManager>(m_textureManager), m_viewport));
+  m_frontend = make_unique_dp<FrontendRenderer>(make_ref(m_threadCommutator), params.m_factory,
+                                                make_ref(m_textureManager), m_viewport);
 
-  m_backend = move(make_unique_dp<BackendRenderer>(make_ref<ThreadsCommutator>(m_threadCommutator), params.m_factory,
-                                                   make_ref<dp::TextureManager>(m_textureManager), params.m_model));
+  m_backend = make_unique_dp<BackendRenderer>(make_ref(m_threadCommutator), params.m_factory,
+                                              make_ref(m_textureManager), params.m_model);
 }
 
 DrapeEngine::~DrapeEngine()

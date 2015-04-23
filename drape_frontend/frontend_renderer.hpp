@@ -91,7 +91,7 @@ private:
   // it applies new model-view matrix to the scene (this matrix will be used on next frame)
   void UpdateScene();
 
-  void AddToRenderGroup(vector<unique_ptr<RenderGroup>> & groups,
+  void AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
                         dp::GLState const & state,
                         drape_ptr<dp::RenderBucket> && renderBucket,
                         TileKey const & newTile);
@@ -108,9 +108,9 @@ private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
 private:
-  vector<unique_ptr<RenderGroup>> m_renderGroups;
-  vector<unique_ptr<RenderGroup>> m_deferredRenderGroups;
-  vector<unique_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
+  vector<drape_ptr<RenderGroup>> m_renderGroups;
+  vector<drape_ptr<RenderGroup>> m_deferredRenderGroups;
+  vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
   set<TileKey> m_userMarkVisibility;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;

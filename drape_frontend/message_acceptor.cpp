@@ -7,11 +7,11 @@ namespace df
 
 void MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
 {
-  drape_ptr<Message> message = move(m_messageQueue.PopMessage(maxTimeWait));
+  drape_ptr<Message> message = m_messageQueue.PopMessage(maxTimeWait);
   if (message == nullptr)
     return;
 
-  AcceptMessage(make_ref<Message>(message));
+  AcceptMessage(make_ref(message));
 }
 
 void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority priority)

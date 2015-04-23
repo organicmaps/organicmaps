@@ -22,7 +22,7 @@ RenderBucket::~RenderBucket()
 
 ref_ptr<VertexArrayBuffer> RenderBucket::GetBuffer()
 {
-  return make_ref<VertexArrayBuffer>(m_buffer);
+  return make_ref(m_buffer);
 }
 
 drape_ptr<VertexArrayBuffer> && RenderBucket::MoveBuffer()
@@ -47,7 +47,7 @@ drape_ptr<OverlayHandle> RenderBucket::PopOverlayHandle()
 
 ref_ptr<OverlayHandle> RenderBucket::GetOverlayHandle(size_t index)
 {
-  return make_ref<OverlayHandle>(m_overlay[index]);
+  return make_ref(m_overlay[index]);
 }
 
 void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
@@ -57,14 +57,14 @@ void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
 
 void RenderBucket::Update(ScreenBase const & modelView)
 {
-  for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
+  for (drape_ptr<OverlayHandle> & overlayHandle : m_overlay)
     overlayHandle->Update(modelView);
 }
 
 void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
 {
   for (drape_ptr<OverlayHandle> const & overlayHandle : m_overlay)
-    tree->Add(make_ref<OverlayHandle>(overlayHandle));
+    tree->Add(make_ref(overlayHandle));
 }
 
 void RenderBucket::Render(ScreenBase const & screen)

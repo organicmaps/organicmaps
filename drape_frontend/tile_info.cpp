@@ -36,8 +36,8 @@ struct IDsAccumulator
 namespace df
 {
 
-TileInfo::TileInfo(EngineContext const & context)
-  : m_context(context)
+TileInfo::TileInfo(EngineContext && context)
+  : m_context(move(context))
   , m_isCanceled(false)
 {}
 

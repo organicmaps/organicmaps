@@ -97,7 +97,7 @@ public:
     params.m_magFilter = gl_const::GLLinear;
 
     vector<uint8_t> initData(params.m_size.x * params.m_size.y, 0);
-    TBase::Init(make_ref(&m_index), params, make_ref<void>(initData.data()));
+    TBase::Init(make_ref(&m_index), params, make_ref(initData.data()));
   }
 
   ~FontTexture() { TBase::Reset(); }

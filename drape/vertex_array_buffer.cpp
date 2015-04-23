@@ -50,7 +50,7 @@ void VertexArrayBuffer::Preflush()
 
 void VertexArrayBuffer::Render()
 {
-  RenderRange(IndicesRange(0, GetIndexBuffer().GetCurrentSize()));
+  RenderRange(IndicesRange(0, GetIndexBuffer()->GetCurrentSize()));
 }
 
 void VertexArrayBuffer::RenderRange(IndicesRange const & range)
@@ -123,9 +123,9 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo
 
   TBuffersMap::const_iterator it = buffers->find(bindingInfo);
   if (it == buffers->end())
-    return make_ref<DataBuffer>(nullptr);
+    return nullptr;
 
-  return make_ref<DataBuffer>(it->second);
+  return make_ref(it->second);
 }
 
 ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic)
@@ -140,12 +140,12 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bin
   if (it == buffers->end())
   {
     drape_ptr<DataBuffer> dataBuffer = make_unique_dp<DataBuffer>(bindingInfo.GetElementSize(), m_dataBufferSize);
-    ref_ptr<DataBuffer> result = make_ref<DataBuffer>(dataBuffer);
+    ref_ptr<DataBuffer> result = make_ref(dataBuffer);
     (*buffers).insert(make_pair(bindingInfo, move(dataBuffer)));
     return result;
   }
 
-  return make_ref<DataBuffer>(it->second);
+  return make_ref(it->second);
 }
 
 uint16_t VertexArrayBuffer::GetAvailableIndexCount() const
@@ -230,7 +230,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
     {
       MutateNode const & node = nodes[i];
       ASSERT_GREATER(node.m_region.m_count, 0, ());
-      mapper.UpdateData(node.m_data, node.m_region.m_offset, node.m_region.m_count);
+      mapper.UpdateData(node.m_data.get(), node.m_region.m_offset, node.m_region.m_count);
     }
   }
 }
@@ -257,7 +257,7 @@ void VertexArrayBuffer::BindBuffers(TBuffersMap const & buffers) const
   for (; it != buffers.end(); ++it)
   {
     BindingInfo const & binding = it->first;
-    ref_ptr<DataBuffer> buffer = make_ref<DataBuffer>(it->second);
+    ref_ptr<DataBuffer> buffer = make_ref(it->second);
     buffer->GetBuffer()->Bind();
 
     for (uint16_t i = 0; i < binding.GetCount(); ++i)

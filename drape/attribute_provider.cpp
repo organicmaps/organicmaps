@@ -43,7 +43,7 @@ void const * AttributeProvider::GetRawPointer(uint8_t streamIndex)
 {
   ASSERT_LESS(streamIndex, GetStreamCount(), ());
   CHECK_STREAMS;
-  return m_streams[streamIndex].m_data;
+  return m_streams[streamIndex].m_data.get();
 }
 
 BindingInfo const & AttributeProvider::GetBindingInfo(uint8_t streamIndex) const
@@ -64,7 +64,7 @@ void AttributeProvider::Advance(uint16_t vertexCount)
     {
       BindingInfo const & info = m_streams[i].m_binding;
       uint32_t offset = vertexCount * info.GetElementSize();
-      void * rawPointer = m_streams[i].m_data;
+      void * rawPointer = m_streams[i].m_data.get();
       m_streams[i].m_data = make_ref((void *)(((uint8_t *)rawPointer) + offset));
     }
   }

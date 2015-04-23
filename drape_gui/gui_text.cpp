@@ -428,10 +428,6 @@ MutableLabelHandle::MutableLabelHandle(dp::Anchor anchor, const m2::PointF & piv
 {
 }
 
-MutableLabelHandle::~MutableLabelHandle()
-{
-}
-
 void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator,
                                               ScreenBase const & screen) const
 {
@@ -462,7 +458,7 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
 
 ref_ptr<MutableLabel> MutableLabelHandle::GetTextView()
 {
-  return make_ref<MutableLabel>(m_textView);
+  return make_ref(m_textView);
 }
 
 void MutableLabelHandle::UpdateSize(m2::PointF const & size) { m_size = size; }
@@ -492,7 +488,7 @@ void MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager>
   uint32_t indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
 
   ASSERT(params.m_handleCreator != nullptr, ());
-  drape_ptr<MutableLabelHandle> handle = move(params.m_handleCreator(params.m_anchor, params.m_pivot));
+  drape_ptr<MutableLabelHandle> handle = params.m_handleCreator(params.m_anchor, params.m_pivot);
 
   MutableLabel::PrecacheParams preCacheP;
   preCacheP.m_alphabet = params.m_alphabet;
@@ -512,8 +508,8 @@ void MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager>
   dp::BindingInfo const & dBinding = MutableLabel::DynamicVertex::GetBindingInfo();
   dp::AttributeProvider provider(2 /*stream count*/, staticData.m_buffer.size());
   provider.InitStream(0 /*stream index*/, sBinding,
-                      make_ref<void>(staticData.m_buffer.data()));
-  provider.InitStream(1 /*stream index*/, dBinding, make_ref<void>(dynData.data()));
+                      make_ref(staticData.m_buffer.data()));
+  provider.InitStream(1 /*stream index*/, dBinding, make_ref(dynData.data()));
 
   {
     dp::Batcher batcher(indexCount, vertexCount);

@@ -69,7 +69,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::UpdateReadManager:
     {
-      ref_ptr<UpdateReadManagerMessage> msg = df::CastMessage<UpdateReadManagerMessage>(message);
+      ref_ptr<UpdateReadManagerMessage> msg = static_cast<ref_ptr<UpdateReadManagerMessage>>(message);
       ScreenBase const & screen = msg->GetScreen();
       TTilesCollection const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
@@ -82,7 +82,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::Resize:
     {
-      ref_ptr<ResizeMessage> msg = df::CastMessage<ResizeMessage>(message);
+      ref_ptr<ResizeMessage> msg = static_cast<ref_ptr<ResizeMessage>>(message);
       df::Viewport const & v = msg->GetViewport();
       m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
       RecacheGui(gui::Skin::AllElements);
@@ -90,27 +90,27 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::InvalidateReadManagerRect:
     {
-      InvalidateReadManagerRectMessage * msg = df::CastMessage<InvalidateReadManagerRectMessage>(message);
+      ref_ptr<InvalidateReadManagerRectMessage> msg = static_cast<ref_ptr<InvalidateReadManagerRectMessage>>(message);
       m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
     }
   case Message::GuiRecache:
-    RecacheGui(CastMessage<GuiRecacheMessage>(message)->GetElements());
+    RecacheGui(static_cast<ref_ptr<GuiRecacheMessage>>(message)->GetElements());
     break;
   case Message::TileReadStarted:
     {
-      m_batchersPool->ReserveBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
+      m_batchersPool->ReserveBatcher(static_cast<ref_ptr<BaseTileMessage>>(message)->GetKey());
       break;
     }
   case Message::TileReadEnded:
     {
-      ref_ptr<TileReadEndMessage> msg = df::CastMessage<TileReadEndMessage>(message);
+      ref_ptr<TileReadEndMessage> msg = static_cast<ref_ptr<TileReadEndMessage>>(message);
       m_batchersPool->ReleaseBatcher(msg->GetKey());
       break;
     }
   case Message::FinishReading:
     {
-      ref_ptr<FinishReadingMessage> msg = df::CastMessage<FinishReadingMessage>(message);
+      ref_ptr<FinishReadingMessage> msg = static_cast<ref_ptr<FinishReadingMessage>>(message);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FinishReadingMessage>(move(msg->MoveTiles())),
                                 MessagePriority::Normal);
@@ -118,7 +118,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::MapShapeReaded:
     {
-      ref_ptr<MapShapeReadedMessage> msg = df::CastMessage<MapShapeReadedMessage>(message);
+      ref_ptr<MapShapeReadedMessage> msg = static_cast<ref_ptr<MapShapeReadedMessage>>(message);
       ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
       for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         shape->Draw(batcher, m_texturesManager);
@@ -126,7 +126,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::UpdateUserMarkLayer:
     {
-      ref_ptr<UpdateUserMarkLayerMessage> msg = df::CastMessage<UpdateUserMarkLayerMessage>(message);
+      ref_ptr<UpdateUserMarkLayerMessage> msg = static_cast<ref_ptr<UpdateUserMarkLayerMessage>>(message);
       TileKey const & key = msg->GetKey();
 
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,

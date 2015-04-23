@@ -34,7 +34,7 @@ public:
   void ForEachOverlay(ToDo const & todo)
   {
     for (drape_ptr<OverlayHandle> const & h : m_overlay)
-      todo(h);
+      todo(make_ref(h));
   }
 
 private:

@@ -48,8 +48,8 @@ TextureManager::TextureManager()
 }
 
 TextureManager::BaseRegion::BaseRegion()
-  : m_info(make_ref<Texture::ResourceInfo>(nullptr))
-  , m_texture(make_ref<Texture>(nullptr))
+  : m_info(nullptr)
+  , m_texture(nullptr)
 {}
 
 bool TextureManager::BaseRegion::IsValid() const
@@ -93,41 +93,41 @@ TextureManager::GlyphRegion::GlyphRegion()
 float TextureManager::GlyphRegion::GetOffsetX() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  GlyphInfo const * info = static_cast<GlyphInfo const *>(m_info);
+  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
   return info->GetMetrics().m_xOffset;
 }
 
 float TextureManager::GlyphRegion::GetOffsetY() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  GlyphInfo const * info = static_cast<GlyphInfo const *>(m_info);
+  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
   return info->GetMetrics().m_yOffset;
 }
 
 float TextureManager::GlyphRegion::GetAdvanceX() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  GlyphInfo const * info = static_cast<GlyphInfo const *>(m_info);
+  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
   return info->GetMetrics().m_xAdvance;
 }
 
 float TextureManager::GlyphRegion::GetAdvanceY() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  GlyphInfo const * info = static_cast<GlyphInfo const *>(m_info);
+  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
   return info->GetMetrics().m_yAdvance;
 }
 
 uint32_t TextureManager::StippleRegion::GetMaskPixelLength() const
 {
   ASSERT(m_info->GetType() == Texture::StipplePen, ());
-  return static_cast<StipplePenResourceInfo const *>(m_info)->GetMaskPixelLength();
+  return static_cast<ref_ptr<StipplePenResourceInfo>>(m_info)->GetMaskPixelLength();
 }
 
 uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
 {
   ASSERT(m_info->GetType() == Texture::StipplePen, ());
-  return static_cast<StipplePenResourceInfo const *>(m_info)->GetPatternPixelLength();
+  return static_cast<ref_ptr<StipplePenResourceInfo>>(m_info)->GetPatternPixelLength();
 }
 
 void TextureManager::Release()
@@ -156,11 +156,9 @@ void TextureManager::UpdateDynamicTextures()
 
 ref_ptr<Texture> TextureManager::AllocateGlyphTexture()
 {
-  drape_ptr<Texture> tex = make_unique_dp<FontTexture>(m2::PointU(m_maxTextureSize, m_maxTextureSize),
-                                                       make_ref<GlyphManager>(m_glyphManager));
-  ref_ptr<Texture> result = make_ref<Texture>(tex);
-  m_glyphTextures.push_back(move(tex));
-  return result;
+  m2::PointU size(m_maxTextureSize, m_maxTextureSize);
+  m_glyphTextures.push_back(make_unique_dp<FontTexture>(size, make_ref(m_glyphManager)));
+  return make_ref(m_glyphTextures.back());
 }
 
 void TextureManager::GetRegionBase(ref_ptr<Texture> tex, TextureManager::BaseRegion & region, Texture::Key const & key)
@@ -287,12 +285,12 @@ size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text)
 void TextureManager::Init(Params const & params)
 {
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
-  m_symbolTexture = move(make_unique_dp<SymbolsTexture>(my::JoinFoldersToPath(string("resources-") + params.m_resPrefix, "symbols")));
+  m_symbolTexture = make_unique_dp<SymbolsTexture>(my::JoinFoldersToPath(string("resources-") + params.m_resPrefix, "symbols"));
 
-  m_stipplePenTexture = move(make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_SIZE, STIPPLE_TEXTURE_SIZE)));
-  m_colorTexture = move(make_unique_dp<ColorTexture>(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE)));
+  m_stipplePenTexture = make_unique_dp<StipplePenTexture>(m2::PointU(STIPPLE_TEXTURE_SIZE, STIPPLE_TEXTURE_SIZE));
+  m_colorTexture = make_unique_dp<ColorTexture>(m2::PointU(COLOR_TEXTURE_SIZE, COLOR_TEXTURE_SIZE));
 
-  m_glyphManager = move(make_unique_dp<GlyphManager>(params.m_glyphMngParams));
+  m_glyphManager = make_unique_dp<GlyphManager>(params.m_glyphMngParams);
   m_maxTextureSize = min(2048, GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
 
   uint32_t const textureSquare = m_maxTextureSize * m_maxTextureSize;
@@ -321,17 +319,17 @@ void TextureManager::Init(Params const & params)
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region)
 {
-  GetRegionBase(make_ref<Texture>(m_symbolTexture), region, SymbolsTexture::SymbolKey(symbolName));
+  GetRegionBase(make_ref(m_symbolTexture), region, SymbolsTexture::SymbolKey(symbolName));
 }
 
 void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region)
 {
-  GetRegionBase(make_ref<Texture>(m_stipplePenTexture), region, StipplePenKey(pen));
+  GetRegionBase(make_ref(m_stipplePenTexture), region, StipplePenKey(pen));
 }
 
 void TextureManager::GetColorRegion(Color const & color, ColorRegion & region)
 {
-  GetRegionBase(make_ref<Texture>(m_colorTexture), region, ColorKey(color));
+  GetRegionBase(make_ref(m_colorTexture), region, ColorKey(color));
 }
 
 void TextureManager::GetGlyphRegions(TMultilineText const & text, TMultilineGlyphsBuffer & buffers)

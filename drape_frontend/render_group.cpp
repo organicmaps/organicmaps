@@ -21,20 +21,20 @@ RenderGroup::~RenderGroup()
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
-  for(drape_ptr<dp::RenderBucket> const & renderBucket : m_renderBuckets)
+  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
     renderBucket->Update(modelView);
 }
 
 void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
-  for(drape_ptr<dp::RenderBucket> const & renderBucket : m_renderBuckets)
+  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
     renderBucket->CollectOverlayHandles(tree);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
 {
   ASSERT(m_pendingOnDelete == false, ());
-  for(drape_ptr<dp::RenderBucket> const & renderBucket : m_renderBuckets)
+  for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
     renderBucket->Render(screen);
 }
 
@@ -65,7 +65,7 @@ void RenderGroupComparator::ResetInternalState()
   m_needGroupMergeOperation = false;
 }
 
-bool RenderGroupComparator::operator()(unique_ptr<RenderGroup> const & l, unique_ptr<RenderGroup> const & r)
+bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)
 {
   dp::GLState const & lState = l->GetState();
   dp::GLState const & rState = r->GetState();

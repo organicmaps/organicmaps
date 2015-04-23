@@ -14,6 +14,6 @@ public:
 
   virtual ref_ptr<ResourceInfo> FindResource(Key const & /*key*/, bool & /*newResource*/)
   {
-    return make_ref<ResourceInfo>(nullptr);
+    return nullptr;
   }
 };

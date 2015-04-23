@@ -52,8 +52,8 @@ bool Blending::operator == (Blending const & other) const
 GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
-  , m_colorTexture(make_ref<Texture>(nullptr))
-  , m_maskTexture(make_ref<Texture>(nullptr))
+  , m_colorTexture(nullptr)
+  , m_maskTexture(nullptr)
 {
 }
 

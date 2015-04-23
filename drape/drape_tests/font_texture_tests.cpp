@@ -99,9 +99,9 @@ UNIT_TEST(UploadingGlyphs)
   index.MapResource(GlyphKey(0x61));
 
   DummyTexture tex;
-  tex.Create(64, 64, dp::ALPHA, make_ref<void>(nullptr));
+  tex.Create(64, 64, dp::ALPHA, nullptr);
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
-  index.UploadResources(make_ref<Texture>(&tex));
+  index.UploadResources(make_ref(&tex));
 
   index.MapResource(GlyphKey(0x68));
   index.MapResource(GlyphKey(0x30));
@@ -111,7 +111,7 @@ UNIT_TEST(UploadingGlyphs)
   index.MapResource(GlyphKey(0x401));
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage))
                                                 .WillOnce(Invoke(&r, &UploadedRender::glMemoryToQImage));
-  index.UploadResources(make_ref<Texture>(&tex));
+  index.UploadResources(make_ref(&tex));
 
   RunTestLoop("UploadingGlyphs", bind(&UploadedRender::Render, &r, _1));
 }

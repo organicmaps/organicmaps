@@ -155,7 +155,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
     return false;
 
   float visualScale = GetBestDensity(densityDpi);
-  m_work.CreateDrapeEngine(make_ref<dp::ThreadSafeFactory>(m_contextFactory), visualScale, factory->GetWidth(), factory->GetHeight());
+  m_work.CreateDrapeEngine(make_ref(m_contextFactory), visualScale, factory->GetWidth(), factory->GetHeight());
   m_work.SetUpdatesEnabled(true);
   m_work.EnterForeground();
   LoadState();

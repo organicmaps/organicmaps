@@ -149,12 +149,6 @@ private:
   TTilesCollection m_tiles;
 };
 
-template <typename T>
-ref_ptr<T> CastMessage(ref_ptr<Message> msg)
-{
-  return ref_ptr<T>(static_cast<T*>(msg));
-}
-
 class ClearUserMarkLayerMessage : public BaseTileMessage
 {
 public:

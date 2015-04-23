@@ -69,7 +69,7 @@ public:
 
   void ResetInternalState();
 
-  bool operator()(unique_ptr<RenderGroup> const & l, unique_ptr<RenderGroup> const & r);
+  bool operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r);
 
 private:
   bool m_needGroupMergeOperation;

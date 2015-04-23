@@ -143,7 +143,7 @@ void Ruler::DrawRuler(ShapeControl & control, ref_ptr<dp::TextureManager> tex) c
   state.SetColorTexture(reg.GetTexture());
 
   dp::AttributeProvider provider(1, 4);
-  provider.InitStream(0, GetBindingInfo(), make_ref<void>(data.data()));
+  provider.InitStream(0, GetBindingInfo(), make_ref(data.data()));
 
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

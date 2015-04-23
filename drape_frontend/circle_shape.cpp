@@ -57,7 +57,7 @@ void CircleShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager>
                                                                           m_params.m_depth);
 
   dp::AttributeProvider provider(1, TriangleCount + 2);
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes.data()));
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleFan(state, make_ref(&provider), move(overlay));
 }
 

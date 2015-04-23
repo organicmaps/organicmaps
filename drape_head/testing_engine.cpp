@@ -57,7 +57,7 @@ public:
 
     dp::AttributeProvider provider(1 /* streamCount */, result.m_buffer.size());
     provider.InitStream(0 /* streamIndex */, gui::StaticLabel::Vertex::GetBindingInfo(),
-                        make_ref<void>(result.m_buffer.data()));
+                        make_ref(result.m_buffer.data()));
 
     batcher->InsertListOfStrip(result.m_state, make_ref(&provider),
                                4 /* vertexStride */);
@@ -100,9 +100,9 @@ public:
 
     dp::AttributeProvider provider(2, dynResult.m_buffer.size());
     provider.InitStream(0 /* streamIndex */, gui::MutableLabel::StaticVertex::GetBindingInfo(),
-                        make_ref<void>(staticData.m_buffer.data()));
+                        make_ref(staticData.m_buffer.data()));
     provider.InitStream(1 /* streamIndex */, gui::MutableLabel::DynamicVertex::GetBindingInfo(),
-                        make_ref<void>(dynResult.m_buffer.data()));
+                        make_ref(dynResult.m_buffer.data()));
 
     batcher->InsertListOfStrip(staticData.m_state, make_ref(&provider), 4);
   }
@@ -148,7 +148,7 @@ public:
 
 
     dp::AttributeProvider provider(1, 4);
-    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes));
+    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes));
 
     dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(region.GetTexture());
@@ -184,7 +184,7 @@ public:
     };
 
     dp::AttributeProvider provider(1, 4);
-    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes));
+    provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes));
 
     dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
     state.SetColorTexture(region.GetTexture());
@@ -356,11 +356,11 @@ TestingEngine::TestingEngine(ref_ptr<dp::OGLContextFactory> oglcontextfactory,
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
-  m_textures = move(make_unique_dp<dp::TextureManager>());
+  m_textures = make_unique_dp<dp::TextureManager>();
   m_textures->Init(params);
 
-  m_batcher = move(make_unique_dp<dp::Batcher>());
-  m_programManager = move(make_unique_dp<dp::GpuProgramManager>());
+  m_batcher = make_unique_dp<dp::Batcher>();
+  m_programManager = make_unique_dp<dp::GpuProgramManager>();
 
   ModelViewInit();
   ProjectionInit();
@@ -463,7 +463,7 @@ void TestingEngine::DrawImpl()
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Народная Китайская республика";
   TextShape sh1(m2::PointF(82.277071f, 56.9271164f), params);
-  sh1.Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+  sh1.Draw(make_ref(m_batcher), make_ref(m_textures));
 
   vector<m2::PointD> path;
   path.push_back(m2::PointD(92.277071f, 50.9271164f));
@@ -477,7 +477,7 @@ void TestingEngine::DrawImpl()
   ptvp.m_text = "Some text";
   ptvp.m_textFont = dp::FontDecl(dp::Color::Black(), 40, dp::Color::Red());
 
-  PathTextShape(spline, ptvp).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+  PathTextShape(spline, ptvp).Draw(make_ref(m_batcher), make_ref(m_textures));
   LineViewParams lvp;
   lvp.m_baseGtoPScale = ptvp.m_baseGtoPScale;
   lvp.m_depth = 90.0f;
@@ -485,7 +485,7 @@ void TestingEngine::DrawImpl()
   lvp.m_color = dp::Color::Red();
   lvp.m_width = 16.0f;
   lvp.m_join = dp::BevelJoin;
-  LineShape(spline, lvp).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+  LineShape(spline, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
 
   {
     PathSymbolViewParams p;
@@ -494,7 +494,7 @@ void TestingEngine::DrawImpl()
     p.m_offset = 0.0f;
     p.m_step = 60.0f;
     p.m_symbolName = "swimming";
-    PathSymbolShape(spline, p).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    PathSymbolShape(spline, p).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
 
   {
@@ -511,14 +511,14 @@ void TestingEngine::DrawImpl()
     lvp.m_join = dp::RoundJoin;
     lvp.m_cap = dp::RoundCap;
     lvp.m_color = dp::Color::Black();
-    LineShape(spl1, lvp).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    LineShape(spl1, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
 
   {
     PoiSymbolViewParams p(FeatureID(-1, 0));
     p.m_depth = 0.0f;
     p.m_symbolName = "subway-station-l";
-    PoiSymbolShape(m2::PointF(92.27f, 30.0f), p).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    PoiSymbolShape(m2::PointF(92.27f, 30.0f), p).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
 
   {
@@ -526,7 +526,7 @@ void TestingEngine::DrawImpl()
     p.m_color = dp::Color::Red();
     p.m_depth = 0.0f;
     p.m_radius = 28.0f;
-    CircleShape(m2::PointF(94.27f, 30.0f), p).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    CircleShape(m2::PointF(94.27f, 30.0f), p).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
 
   {
@@ -535,7 +535,7 @@ void TestingEngine::DrawImpl()
     AreaViewParams p;
     p.m_color = dp::Color::White();
     p.m_depth = 0.0f;
-    AreaShape(move(trg), p).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    AreaShape(move(trg), p).Draw(make_ref(m_batcher), make_ref(m_textures));
   }
   m_batcher->EndSession();
 
@@ -550,10 +550,10 @@ void TestingEngine::DrawImpl()
     lvpl.m_pattern.clear();
     lvpl.m_depth = -10.0f;
     lvpl.m_width = 2.0f;
-    LineShape(spl, lvpl).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    LineShape(spl, lvpl).Draw(make_ref(m_batcher), make_ref(m_textures));
 
     DummyMutableLabel tt(m2::PointF(120.0f, 30.0f), "200 km");
-    tt.Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    tt.Draw(make_ref(m_batcher), make_ref(m_textures));
   }
   m_batcher->EndSession();
 
@@ -569,17 +569,17 @@ void TestingEngine::DrawImpl()
       lvpl.m_pattern.clear();
       lvpl.m_depth = -10.0f;
       lvpl.m_width = 2.0f;
-      LineShape(spl, lvpl).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+      LineShape(spl, lvpl).Draw(make_ref(m_batcher), make_ref(m_textures));
     }
 
     dp::FontDecl font(dp::Color::Black(), 14);
 
     DummyLabel(m2::PointF(110.0f, 25.0f), "Top\nText", dp::LeftTop, font)
-        .Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+        .Draw(make_ref(m_batcher), make_ref(m_textures));
     DummyLabel(m2::PointF(120.0f, 25.0f), "Center\nText", dp::Center, font)
-        .Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+        .Draw(make_ref(m_batcher), make_ref(m_textures));
     DummyLabel(m2::PointF(130.0f, 25.0f), "Bottom\nText", dp::RightBottom, font)
-        .Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+        .Draw(make_ref(m_batcher), make_ref(m_textures));
   }
   m_batcher->EndSession();
 }
@@ -609,7 +609,7 @@ void TestingEngine::DrawRects()
     };
 
     m2::SharedSpline spline(path);
-    LineShape(spline, lvp).Draw(make_ref<dp::Batcher>(m_batcher), make_ref<dp::TextureManager>(m_textures));
+    LineShape(spline, lvp).Draw(make_ref(m_batcher), make_ref(m_textures));
   };
 
   for (m2::RectD const & r : m_boundRects)

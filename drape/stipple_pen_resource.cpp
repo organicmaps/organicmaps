@@ -144,7 +144,7 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const 
   StipplePenHandle handle(key);
   TResourceMapping::iterator it = m_resourceMapping.find(handle);
   if (it != m_resourceMapping.end())
-    return make_ref<Texture::ResourceInfo>(&it->second);
+    return make_ref(&it->second);
 
   newResource = true;
 
@@ -159,7 +159,7 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::MapResource(StipplePenKey const 
                                                                       resource.GetSize(),
                                                                       resource.GetPatternSize()));
   ASSERT(res.second, ());
-  return make_ref<Texture::ResourceInfo>(&res.first->second);
+  return make_ref(&res.first->second);
 }
 
 void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
@@ -227,7 +227,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
 
     rawBuffer = SharedBufferManager::GetRawPointer(ptr);
     texture->UploadData(minX, minY, COLUMN_WIDTH, lineCount,
-                        dp::ALPHA, make_ref<void>(rawBuffer));
+                        dp::ALPHA, make_ref(rawBuffer));
 
     mng.freeSharedBuffer(reserveBufferSize, ptr);
   }

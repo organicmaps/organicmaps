@@ -120,7 +120,7 @@ void CacheUserPoints(UserMarksProvider const * provider,
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider attribProvider(1, buffer.size());
-  attribProvider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(buffer.data()));
+  attribProvider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
 
   batcher->InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
 }

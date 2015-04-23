@@ -53,7 +53,7 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::MapResource(ColorKey const & key, b
     ASSERT(res.second, ());
     itm = res.first;
   }
-  return make_ref<Texture::ResourceInfo>(&itm->second);
+  return make_ref(&itm->second);
 }
 
 void ColorPalette::UploadResources(ref_ptr<Texture> texture)
@@ -144,7 +144,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
 
     pointer = SharedBufferManager::GetRawPointer(buffer);
     texture->UploadData(uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
-                        dp::RGBA8, make_ref<void>(pointer));
+                        dp::RGBA8, make_ref(pointer));
   }
 }
 

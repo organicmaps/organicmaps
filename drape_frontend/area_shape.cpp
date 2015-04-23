@@ -40,7 +40,7 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, m_vertexes.size());
-  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref<void>(vertexes.data()));
+  provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleList(state, make_ref(&provider));
 }
 

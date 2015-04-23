@@ -25,7 +25,7 @@ class TileInfo : private noncopyable
 public:
   DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
-  TileInfo(EngineContext const & context);
+  TileInfo(EngineContext && context);
 
   void ReadFeatures(MapDataProvider const & model,
                     MemoryFeatureIndex & memIndex);

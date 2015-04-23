@@ -95,11 +95,11 @@ private:
   struct GlyphGroup
   {
     GlyphGroup()
-      : m_startChar(0), m_endChar(0), m_texture(make_ref<Texture>(nullptr))
+      : m_startChar(0), m_endChar(0), m_texture(nullptr)
     {}
 
     GlyphGroup(strings::UniChar const & start, strings::UniChar const & end)
-      : m_startChar(start), m_endChar(end), m_texture(make_ref<Texture>(nullptr))
+      : m_startChar(start), m_endChar(end), m_texture(nullptr)
     {}
 
     strings::UniChar m_startChar;
@@ -110,7 +110,7 @@ private:
   struct HybridGlyphGroup
   {
     HybridGlyphGroup()
-      : m_texture(make_ref<Texture>(nullptr))
+      : m_texture(nullptr)
     {}
 
     unordered_set<strings::UniChar> m_glyphs;
