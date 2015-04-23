@@ -176,23 +176,10 @@ void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, 
 
   FilesContainerW routingCont(fPath, FileWriter::OP_WRITE_EXISTING);
 
-  {
-    // Write version for routing file that is equal to correspondent mwm file.
-    FilesContainerR mwmCont(mwmFile);
-
-    FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
-    ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));
-    rw::ReadAndWrite(src, w);
-    w.WritePaddingByEnd(4);
-  }
-
   FileWriter w = routingCont.GetWriter(ROUTING_CROSS_CONTEXT_TAG);
   size_t const start_size = w.Pos();
   crossContext.Save(w);
-  w.WritePaddingByEnd(4);
   LOG(LINFO, ("Have written routing info, bytes written:", w.Pos() - start_size, "bytes"));
-
-  routingCont.Finish();
 }
 
 void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
