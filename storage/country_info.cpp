@@ -90,7 +90,7 @@ namespace storage
   vector<m2::RegionD> const & CountryInfoGetter::GetRegions(size_t id) const
   {
     bool isFound = false;
-    vector<m2::RegionD> & rgnV = m_cache.Find(id, isFound);
+    vector<m2::RegionD> & rgnV = m_cache.Find(static_cast<uint32_t>(id), isFound);
 
     if (!isFound)
     {

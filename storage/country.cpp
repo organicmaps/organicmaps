@@ -116,8 +116,9 @@ void LoadGroupImpl(int depth, json_t * group, ToDo & toDo)
 
     char const * flag = json_string_value(json_object_get(j, "c"));
     toDo(name, file, flag ? flag : "",
-         json_integer_value(json_object_get(j, "s")),
-         json_integer_value(json_object_get(j, "rs")),
+         // We expect what mwm and routing files should be less 2Gb 
+         static_cast<uint32_t>(json_integer_value(json_object_get(j, "s"))),
+         static_cast<uint32_t>(json_integer_value(json_object_get(j, "rs"))),
          depth);
 
     json_t * children = json_object_get(j, "g");

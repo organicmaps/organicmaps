@@ -559,17 +559,17 @@ namespace storage
     for (size_t i = 0; i < m_countries.SiblingsCount(); ++i)
     {
       if (isEqualFileName(m_countries[i]))
-        return TIndex(i);
+        return TIndex(static_cast<int>(i));
 
       for (size_t j = 0; j < m_countries[i].SiblingsCount(); ++j)
       {
         if (isEqualFileName(m_countries[i][j]))
-          return TIndex(i, j);
+          return TIndex(static_cast<int>(i), static_cast<int>(j));
 
         for (size_t k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
         {
           if (isEqualFileName(m_countries[i][j][k]))
-            return TIndex(i, j, k);
+            return TIndex(static_cast<int>(i), static_cast<int>(j), static_cast<int>(k));
         }
       }
     }
