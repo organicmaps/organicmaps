@@ -6,7 +6,7 @@
 #undef new
 #endif
 
-#ifdef OMIM_HAS_DEBUG_STL
+#ifdef OMIM_USE_DEBUG_STL
   #include <debug/set>
 #else
   #include <set>
