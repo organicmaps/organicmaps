@@ -153,7 +153,7 @@ ParsedNumber::ParsedNumber(string const & number, bool american) : m_fullN(numbe
           size_t start = curr;
           try
           {
-            int const x = stoi(number.substr(curr), &curr, 10);
+            int const x = stoi(number.substr(start), &curr, 10);
             curr += start;
             m_endN = x;
             ASSERT_GREATER_OR_EQUAL(m_endN, 0, (number));
@@ -161,7 +161,7 @@ ParsedNumber::ParsedNumber(string const & number, bool american) : m_fullN(numbe
           }
           catch (exception & e)
           {
-            // Expected case, we need to do nothig
+            // Expected case - stoi haven't parsed anything.
           }
         }
         curr = 0;
