@@ -144,4 +144,9 @@ uint64_t HighResTimer::ElapsedNano() const
   return duration_cast<nanoseconds>(high_resolution_clock::now() - m_start).count();
 }
 
+double HighResTimer::ElapsedSeconds() const
+{
+  return duration_cast<duration<double>>(high_resolution_clock::now() - m_start).count();
+}
+
 }

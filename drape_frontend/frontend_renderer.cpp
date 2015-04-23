@@ -449,22 +449,24 @@ void FrontendRenderer::Routine::Do()
   GLFunctions::glCullFace(gl_const::GLBack);
   GLFunctions::glEnable(gl_const::GLCullFace);
 
-  my::Timer timer;
+  my::HighResTimer timer;
   //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 
   timer.Reset();
+  bool isInactiveLastFrame = false;
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
     m_renderer.m_textureManager->UpdateDynamicTextures();
     m_renderer.RenderScene();
     bool const viewChanged = m_renderer.UpdateScene();
-    context->present();
+    bool const isInactiveCurrentFrame = (!viewChanged && m_renderer.IsQueueEmpty());
 
-    if (!viewChanged && m_renderer.IsQueueEmpty())
+    if (isInactiveLastFrame && isInactiveCurrentFrame)
     {
       // process a message or wait for a message
       m_renderer.ProcessSingleMessage();
+      isInactiveLastFrame = false;
     }
     else
     {
@@ -481,8 +483,10 @@ void FrontendRenderer::Routine::Do()
       }
 
       //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
+      isInactiveLastFrame = isInactiveCurrentFrame;
     }
 
+    context->present();
     timer.Reset();
 
     m_renderer.CheckRenderingEnabled();
