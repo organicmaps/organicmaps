@@ -13,8 +13,9 @@
 #endif
 
 using std::basic_string;
-using std::string;
 using std::getline;
+using std::stoi;
+using std::string;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

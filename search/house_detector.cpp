@@ -2,26 +2,27 @@
 #include "search/house_detector.hpp"
 #include "search/search_common.hpp"
 
-#include "indexer/feature_impl.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/feature_impl.hpp"
 
-#include "geometry/distance.hpp"
 #include "geometry/angles.hpp"
+#include "geometry/distance.hpp"
 
+#include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"
 #include "base/stl_iterator.hpp"
-#include "base/limited_priority_queue.hpp"
 
 #include "std/bind.hpp"
 #include "std/numeric.hpp"
 #include "std/set.hpp"
+#include "std/string.hpp"
 #include "std/transform_iterator.hpp"
 
 #ifdef DEBUG
 #include "platform/platform.hpp"
 
-#include "std/iostream.hpp"
 #include "std/fstream.hpp"
+#include "std/iostream.hpp"
 #endif
 
 
@@ -117,39 +118,52 @@ public:
 
 }
 
-ParsedNumber::ParsedNumber(string const & number, bool american)
-  : m_fullN(number)
+ParsedNumber::ParsedNumber(string const & number, bool american) : m_fullN(number)
 {
   strings::MakeLowerCaseInplace(m_fullN);
 
-  char * curr;
-  m_startN = strtol(number.c_str(), &curr, 10);
+  size_t curr = 0;
+  m_startN = stoi(number, &curr, 10);
   m_endN = -1;
   ASSERT_GREATER_OR_EQUAL(m_startN, 0, (number));
 
   bool hasMinus = false;
   bool hasComma = false;
-  while (curr && *curr != 0)
+  while (curr && curr < number.size())
   {
-    switch (*curr)
+    switch (number[curr])
     {
-    case ' ': case '\t': ++curr; break;
-    case ',': case ';': ++curr; hasComma = true; break;
-    case '-': ++curr; hasMinus = true; break;
-    default:
+      case ' ':
+      case '\t':
+        ++curr;
+        break;
+      case ',':
+      case ';':
+        ++curr;
+        hasComma = true;
+        break;
+      case '-':
+        ++curr;
+        hasMinus = true;
+        break;
+      default:
       {
         if (hasComma || hasMinus)
         {
-          char const * start = curr;
-          long const x = strtol(start, &curr, 10);
-          if (curr != start)
+          size_t start = curr;
+          try
           {
+            int const x = stoi(number.substr(curr), &curr, 10);
+            curr += start;
             m_endN = x;
             ASSERT_GREATER_OR_EQUAL(m_endN, 0, (number));
             break;
           }
+          catch (exception & e)
+          {
+            // Expected case, we need to do nothig
+          }
         }
-
         curr = 0;
         break;
       }
@@ -165,7 +179,7 @@ ParsedNumber::ParsedNumber(string const & number, bool american)
     }
     else
     {
-      if (abs(m_endN - m_startN) >= 2*HN_NEARBY_DISTANCE)
+      if (abs(m_endN - m_startN) >= 2 * HN_NEARBY_DISTANCE)
         m_endN = -1;
       else
       {
@@ -1093,10 +1107,10 @@ void GetBestHouseFromChains(vector<HouseChain> & houseChains, ResultAccumulator 
 
 struct Competitiors
 {
-  int m_candidateIndex;
-  int m_chainIndex;
+  uint32_t m_candidateIndex;
+  uint32_t m_chainIndex;
   double m_score;
-  Competitiors(int candidateIndex, int chainIndex, double score)
+  Competitiors(uint32_t candidateIndex, uint32_t chainIndex, double score)
     : m_candidateIndex(candidateIndex), m_chainIndex(chainIndex), m_score(score)
   {}
   bool operator<(Competitiors const & c) const
@@ -1136,8 +1150,10 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
     {
       int candidateHouseNumber = houseNumbersToCheck.front();
       houseNumbersToCheck.pop();
-      vector <int> candidates;
-      for (size_t i = 0; i < used.size(); ++i)
+      vector <uint32_t> candidates;
+      ASSERT_LESS(used.size(), numeric_limits<uint32_t>::max(), ());
+      uint32_t const count = static_cast<uint32_t>(used.size());
+      for (uint32_t i = 0; i < count; ++i)
         if (!used[i] && st[i]->m_house->GetIntNumber() == candidateHouseNumber)
           candidates.push_back(i);
 
@@ -1147,6 +1163,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
       for (size_t i = 0; i < candidates.size(); ++i)
       {
         string num = st[candidates[i]]->m_house->GetNumber();
+        ASSERT_LESS(houseChains.size(), numeric_limits<uint32_t>::max(), ());
         for (size_t j = 0; j < houseChains.size(); ++j)
         {
           if (!houseChains[j].Find(num))
@@ -1158,7 +1175,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
                 dist = min(dist, GetDistanceMeters(houseChains[j].houses[k]->m_house->GetPosition(), st[candidates[i]]->m_house->GetPosition()));
             }
             if (dist < HN_MAX_CONNECTION_DIST_M)
-              comp.push_back(Competitiors(candidates[i], j, dist));
+              comp.push_back(Competitiors(candidates[i], static_cast<uint32_t>(j), dist));
           }
         }
       }

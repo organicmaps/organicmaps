@@ -47,7 +47,7 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
   {
     bool bMatched = false;
 
-    for (size_t i = 0; i < pIter->m_edge.size(); ++i)
+    for (uint32_t i = 0; i < pIter->m_edge.size(); ++i)
     {
       size_t const szEdge = pIter->m_edge[i].m_str.size();
 
@@ -162,7 +162,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
       f(pIter->m_value[i]);
 
-    for (size_t i = 0; i < pIter->m_edge.size(); ++i)
+    for (uint32_t i = 0; i < pIter->m_edge.size(); ++i)
       trieQueue.push_back(pIter->GoToEdge(i));
   }
 }

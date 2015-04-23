@@ -1908,7 +1908,9 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
                                      trie::ValueReader(cp),
                                      trie::EdgeValueReader()));
 
-  for (size_t i = 0; i < pTrieRoot->m_edge.size(); ++i)
+  ASSERT_LESS(pTrieRoot->m_edge.size(), numeric_limits<uint32_t>::max(), ());
+  uint32_t const count = static_cast<uint32_t>(pTrieRoot->m_edge.size());
+  for (uint32_t i = 0; i < count; ++i)
   {
     TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
 
@@ -2045,8 +2047,9 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
   typedef TrieIterator::Edge::EdgeStrT EdgeT;
   EdgeT categoriesEdge;
 
-  size_t const count = pTrieRoot->m_edge.size();
-  for (size_t i = 0; i < count; ++i)
+  ASSERT_LESS(pTrieRoot->m_edge.size(), numeric_limits<uint32_t>::max(), ());
+  uint32_t const count = static_cast<uint32_t>(pTrieRoot->m_edge.size());
+  for (uint32_t i = 0; i < count; ++i)
   {
     EdgeT const & edge = pTrieRoot->m_edge[i].m_str;
     ASSERT_GREATER_OR_EQUAL(edge.size(), 1, ());
@@ -2098,8 +2101,10 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
 
       // Match tokens to feature for each language - iterate through first edges.
       impl::FeatureLoader emitter(*this, mwmId, vID);
-      size_t const count = pTrieRoot->m_edge.size();
-      for (size_t i = 0; i < count; ++i)
+
+      ASSERT_LESS(pTrieRoot->m_edge.size(), numeric_limits<uint32_t>::max(), ());
+      uint32_t const count = static_cast<uint32_t>(pTrieRoot->m_edge.size());
+      for (uint32_t i = 0; i < count; ++i)
       {
         TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
         int8_t const lang = static_cast<int8_t>(edge[0]);
