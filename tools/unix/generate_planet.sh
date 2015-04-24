@@ -73,6 +73,7 @@ while getopts ":cuwrh" opt; do
       ;;
     U)
       OPT_DOWNLOAD=1
+      OPT_UPDATE=1
       ;;
     r)
       OPT_ROUTING=1
