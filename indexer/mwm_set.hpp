@@ -37,6 +37,7 @@ public:
   uint8_t m_minScale;             ///< Min zoom level of mwm.
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
   uint8_t m_lockCount;            ///< Number of locks.
+  string m_fileName;              ///< Path to the mwm file.
   version::MwmVersion m_version;  ///< Mwm file version.
 
   inline bool IsRegistered() const
@@ -200,8 +201,6 @@ protected:
   virtual void UpdateMwmInfo(MwmId id);
 
   vector<MwmInfo> m_info;
-
-  vector<string> m_name;
 
   mutex m_lock;
 };

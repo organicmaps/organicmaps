@@ -97,8 +97,8 @@ void MwmSet::Cleanup()
   {
     if (m_info[i].IsUpToDate())
     {
-      ASSERT_EQUAL(m_info[i].m_lockCount, 0, (i, m_name[i]));
-      ASSERT_NOT_EQUAL(m_name[i], string(), (i));
+      ASSERT_EQUAL(m_info[i].m_lockCount, 0, (i, m_info[i].m_fileName));
+      ASSERT(!m_info[i].m_fileName.empty(), (i));
     }
   }
 #endif
@@ -120,19 +120,18 @@ MwmSet::MwmId MwmSet::GetFreeId()
   }
 
   m_info.push_back(MwmInfo());
-  m_name.push_back(string());
   return size;
 }
 
 MwmSet::MwmId MwmSet::GetIdByName(string const & name)
 {
-  ASSERT ( !name.empty(), () );
+  ASSERT(!name.empty(), ());
 
   for (MwmId i = 0; i < m_info.size(); ++i)
   {
     UpdateMwmInfo(i);
 
-    if (m_name[i] == name)
+    if (m_info[i].m_fileName == name)
     {
       ASSERT_NOT_EQUAL(m_info[i].GetStatus(), MwmInfo::STATUS_DEREGISTERED, ());
       return i;
@@ -167,9 +166,9 @@ pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(string const & fileName)
     return make_pair(MwmLock(), false);
 
   info.SetStatus(MwmInfo::STATUS_UP_TO_DATE);
+  info.m_fileName = fileName;
 
   MwmId const id = GetFreeId();
-  m_name[id] = fileName;
   m_info[id] = info;
 
   return make_pair(GetLock(id), true);
@@ -179,15 +178,12 @@ bool MwmSet::DeregisterImpl(MwmId id)
 {
   if (m_info[id].m_lockCount == 0)
   {
-    m_name[id].clear();
+    m_info[id].m_fileName.clear();
     m_info[id].SetStatus(MwmInfo::STATUS_DEREGISTERED);
     return true;
   }
-  else
-  {
-    m_info[id].SetStatus(MwmInfo::STATUS_MARKED_TO_DEREGISTER);
-    return false;
-  }
+  m_info[id].SetStatus(MwmInfo::STATUS_MARKED_TO_DEREGISTER);
+  return false;
 }
 
 void MwmSet::Deregister(string const & fileName)
@@ -277,7 +273,7 @@ MwmSet::MwmValueBase * MwmSet::LockValueImpl(MwmId id)
       return result;
     }
   }
-  return CreateValue(m_name[id]);
+  return CreateValue(m_info[id].m_fileName);
 }
 
 void MwmSet::UnlockValue(MwmId id, MwmValueBase * p)

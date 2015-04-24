@@ -124,7 +124,7 @@ bool Index::DeleteMap(string const & fileName)
     if (!DeregisterImpl(fileName))
       return false;
 
-    DeleteMapFiles(GetFullPath(fileName), true);
+    DeleteMapFiles(GetFullPath(fileName), true /* deleteReady */);
   }
   m_observers.ForEach(&Observer::OnMapDeleted, fileName);
   return true;
@@ -174,10 +174,10 @@ void Index::UpdateMwmInfo(MwmId id)
     case MwmInfo::STATUS_MARKED_TO_DEREGISTER:
       if (m_info[id].m_lockCount == 0)
       {
-        string const name = m_name[id];
-        DeleteMapFiles(name, true);
+        string const fileName = m_info[id].m_fileName;
+        DeleteMapFiles(fileName, true /* deleteReady */);
         CHECK(DeregisterImpl(id), ());
-        m_observers.ForEach(&Observer::OnMapDeleted, name);
+        m_observers.ForEach(&Observer::OnMapDeleted, fileName);
       }
       break;
 
@@ -185,9 +185,9 @@ void Index::UpdateMwmInfo(MwmId id)
       if (m_info[id].m_lockCount == 0)
       {
         ClearCache(id);
-        ReplaceFileWithReady(m_name[id]);
+        ReplaceFileWithReady(m_info[id].m_fileName);
         m_info[id].SetStatus(MwmInfo::STATUS_UP_TO_DATE);
-        m_observers.ForEach(&Observer::OnMapUpdated, m_name[id]);
+        m_observers.ForEach(&Observer::OnMapUpdated, m_info[id].m_fileName);
       }
       break;
 
