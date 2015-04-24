@@ -40,7 +40,7 @@ if [ "$1" == "prepare" ]; then
   echo "threads = $OSRM_THREADS" > "$EXTRACT_CFG"
   echo "memory = $OSRM_MEMORY" > "$PREPARE_CFG"
   echo "threads = $OSRM_THREADS" >> "$PREPARE_CFG"
-  PROFILE="$OSRM_PATH/profiles/car.lua"
+  PROFILE="${PROFILE:-$OSRM_PATH/profiles/car.lua}"
   [ $# -gt 1 ] && PROFILE="$2"
   [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
 
