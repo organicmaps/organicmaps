@@ -45,6 +45,12 @@ public:
       if (!value.empty())
         m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_STARS, value);
     }
+    else if (k == "addr:postcode")
+    {
+      string const & value = ValidateAndFormat_postcode(v);
+      if (!value.empty())
+        m_params.GetMetadata().Add(feature::FeatureMetadata::FMD_POSTCODE, value);
+    }
     else if (k == "url")
     {
       string const & value = ValidateAndFormat_url(v);
@@ -170,6 +176,10 @@ protected:
     return v;
   }
   string ValidateAndFormat_email(string const & v) const
+  {
+    return v;
+  }
+  string ValidateAndFormat_postcode(string const & v) const
   {
     return v;
   }

@@ -31,7 +31,8 @@ namespace feature
       FMD_TURN_LANES = 11,
       FMD_TURN_LANES_FORWARD = 12,
       FMD_TURN_LANES_BACKWARD = 13,
-      FMD_EMAIL = 14
+      FMD_EMAIL = 14,
+      FMD_POSTCODE = 15
     };
 
     bool Add(EMetadataType type, string const & s)
