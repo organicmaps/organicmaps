@@ -104,6 +104,22 @@ bool renderFrame(bool allocateIfNeeded)
   return true;
 }
 
+namespace
+{
+
+const int32_t TIMEOUT_FOREGROUND_IN_FOCUS = 1; // msec
+const int32_t TIMEOUT_FOREGROUND_NOT_IN_FOCUS = 100; // msec
+
+int32_t GetEventQueueTimeout(bool isAppInBackground)
+{
+  if (isAppInBackground)
+    return NV_EVENT_WAIT_FOREVER;
+  else
+    return (NVEventStatusIsFocused() ? TIMEOUT_FOREGROUND_IN_FOCUS : TIMEOUT_FOREGROUND_NOT_IN_FOCUS);
+}
+
+} // namespace
+
 // Add any initialization that requires the app Java classes
 // to be accessible (such as nv_shader_init, NvAPKInit, etc,
 // as listed in the docs)
@@ -116,13 +132,15 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 {
   s_glesLoaded = false;
 
+  bool isAppInBackground = true;
+
   NVDEBUG("Application entering main loop");
 
   while (NVEventStatusIsRunning())
   {
     const NVEvent* ev = NULL;
     while (NVEventStatusIsRunning() &&
-          (ev = NVEventGetNextEvent(NVEventStatusIsFocused() ? 1 : 100)))
+          (ev = NVEventGetNextEvent(GetEventQueueTimeout(isAppInBackground))))
     {
       switch (ev->m_type)
       {
@@ -211,14 +229,21 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
 
           // As per Google's recommendation, we release GLES resources here
           ShutdownGLESResources();
+          isAppInBackground = true;
           break;
+
         case NV_EVENT_QUIT:
           NVDEBUG("Quit event");
 
           break;
-        case NV_EVENT_ACCEL:
+
         case NV_EVENT_START:
         case NV_EVENT_RESTART:
+          NVDEBUG("Start/restart event: %s", NVEventGetEventStr(ev->m_type));
+          isAppInBackground = false;
+          break;
+
+        case NV_EVENT_ACCEL:
         case NV_EVENT_RESUME:
         case NV_EVENT_FOCUS_GAINED:
           NVDEBUG("%s event: no specific app action", NVEventGetEventStr(ev->m_type));
