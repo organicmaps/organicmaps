@@ -118,29 +118,11 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
   }
 }
 
-void LoadRoutingFacade(string const & osrmFile, OsrmRawDataFacade<QueryEdge::EdgeData> & facade)
+void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutingContextWriter & crossContext)
 {
-  ReaderSource<ModelReaderPtr> edgeSource(new FileReader(osrmFile + "." + ROUTING_EDGEDATA_FILE_TAG));
-  vector<char> edgeBuffer(static_cast<size_t>(edgeSource.Size()));
-  edgeSource.Read(&edgeBuffer[0], edgeSource.Size());
-
-  ReaderSource<ModelReaderPtr> edgeIdsSource(new FileReader(osrmFile + "." + ROUTING_EDGEID_FILE_TAG));
-  vector<char> edgeIdsBuffer(static_cast<size_t>(edgeIdsSource.Size()));
-  edgeIdsSource.Read(&edgeIdsBuffer[0], edgeIdsSource.Size());
-
-  ReaderSource<ModelReaderPtr> shortcutsSource(new FileReader(osrmFile + "." + ROUTING_SHORTCUTS_FILE_TAG));
-  vector<char> shortcutsBuffer(static_cast<size_t>(shortcutsSource.Size()));
-  shortcutsSource.Read(&shortcutsBuffer[0], shortcutsSource.Size());
-
-  ReaderSource<ModelReaderPtr> matrixSource(new FileReader(osrmFile + "." + ROUTING_MATRIX_FILE_TAG));
-  vector<char> matrixBuffer(static_cast<size_t>(matrixSource.Size()));
-  matrixSource.Read(&matrixBuffer[0], matrixSource.Size());
-
-  facade.LoadRawData(edgeBuffer.data(), edgeIdsBuffer.data(), shortcutsBuffer.data(), matrixBuffer.data());
-}
-
-void CalculateCrossAdjacency(OsrmRawDataFacade<QueryEdge::EdgeData> & facade, routing::CrossRoutingContextWriter & crossContext)
-{
+  OsrmDataFacade<QueryEdge::EdgeData> facade;
+  FilesMappingContainer routingCont(mwmRoutingPath);
+  facade.Load(routingCont);
   LOG(LINFO, ("Calculating weight map between outgoing nodes"));
   crossContext.reserveAdjacencyMatrix();
   auto const & in = crossContext.GetIngoingIterators();
@@ -169,12 +151,11 @@ void CalculateCrossAdjacency(OsrmRawDataFacade<QueryEdge::EdgeData> & facade, ro
   LOG(LINFO, ("Calculation of weight map between outgoing nodes DONE"));
 }
 
-void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, string const & mwmFile)
+void WriteCrossSection(routing::CrossRoutingContextWriter const & crossContext, string const & mwmRoutingPath)
 {
   LOG(LINFO, ("Collect all data into one file..."));
-  string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
 
-  FilesContainerW routingCont(fPath, FileWriter::OP_WRITE_EXISTING);
+  FilesContainerW routingCont(mwmRoutingPath, FileWriter::OP_WRITE_EXISTING);
 
   FileWriter w = routingCont.GetWriter(ROUTING_CROSS_CONTEXT_TAG);
   size_t const start_size = w.Pos();
@@ -199,12 +180,10 @@ void BuildCrossRoutingIndex(string const & baseDir, string const & countryName, 
 
   FindCrossNodes(nodeData, osm2ft, m_countries, countryName, crossContext);
 
-  // Load routing facade
-  OsrmRawDataFacade<QueryEdge::EdgeData> facade;
-  LoadRoutingFacade(osrmFile, facade);
-  CalculateCrossAdjacency(facade, crossContext);
+  string const mwmRoutingPath = mwmFile + ROUTING_FILE_EXTENSION;
 
-  WriteCrossSection(crossContext, mwmFile);
+  CalculateCrossAdjacency(mwmRoutingPath, crossContext);
+  WriteCrossSection(crossContext, mwmRoutingPath);
 }
 
 void BuildRoutingIndex(string const & baseDir, string const & countryName, string const & osrmFile)
