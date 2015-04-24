@@ -42,7 +42,7 @@ class MQMessage {
   std::string message_;
   bool force_upload_;
 public:
-  MQMessage(std::string&& msg) : message_(msg), force_upload_(false) {}
+  MQMessage(std::string&& msg) : message_(std::move(msg)), force_upload_(false) {}
   explicit MQMessage(bool force_upload = false) : force_upload_(force_upload) {}
   // True for special empty message which should force stats uploading.
   bool ForceUpload() const { return force_upload_; }
