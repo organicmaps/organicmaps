@@ -95,6 +95,8 @@ struct EdgeBasedNode
 
     bool is_in_tiny_cc() const { return 0 != component_id; }
 
+    unsigned forward_way_id;
+    unsigned reverse_way_id;
     NodeID forward_edge_based_node_id; // needed for edge-expanded graph
     NodeID reverse_edge_based_node_id; // needed for edge-expanded graph
     NodeID u;                          // indices into the coordinates array
@@ -109,8 +111,6 @@ struct EdgeBasedNode
     unsigned short fwd_segment_position; // segment id in a compressed geometry
     TravelMode forward_travel_mode : 4;
     TravelMode backward_travel_mode : 4;
-    unsigned forward_way_id;
-    unsigned reverse_way_id;
 };
 
 #endif // EDGE_BASED_NODE_HPP

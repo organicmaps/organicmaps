@@ -1,23 +1,6 @@
 #pragma once
 
 #include "plugin_base.hpp"
-
-/*
-#include "../algorithms/object_encoder.h"
-#include "../DataStructures/EdgeBasedNodeData.h"
-#include "../DataStructures/JSONContainer.h"
-#include "../DataStructures/QueryEdge.h"
-#include "../DataStructures/SearchEngine.h"
-#include "../Descriptors/BaseDescriptor.h"
-#include "../Util/make_unique.hpp"
-#include "../Util/StringUtil.h"
-#include "../Util/TimingUtil.h"
-#include <algorithm>
-#include <memory>
-#include <unordered_map>
-#include <string>
-#include <vector>
-
 #include "../../../../base/string_utils.hpp"
 #include "../../../../coding/file_container.hpp"
 #include "../../../../coding/read_write_utils.hpp"
@@ -27,6 +10,25 @@
 #include "../../../../indexer/mercator.hpp"
 #include "../../../../storage/country_decl.hpp"
 #include "../../../../storage/country_polygon.hpp"
+#include "../../../../base/logging.hpp"
+
+#include "../algorithms/object_encoder.hpp"
+#include "../data_structures/search_engine.hpp"
+#include "../data_structures/edge_based_node_data.hpp"
+#include "../descriptors/descriptor_base.hpp"
+#include "../descriptors/gpx_descriptor.hpp"
+#include "../descriptors/json_descriptor.hpp"
+#include "../util/integer_range.hpp"
+#include "../util/json_renderer.hpp"
+#include "../util/make_unique.hpp"
+#include "../util/simple_logger.hpp"
+
+#include <algorithm>
+#include <memory>
+#include <unordered_map>
+#include <string>
+#include <vector>
+
 
 template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 {
@@ -57,7 +59,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
         }
     };
 
-  public:
+public:
     explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir, std::string const & nodeDataFile)
         : m_descriptorString("mapsme"), m_facade(facade),
           m_reader(baseDir + '/' + PACKED_POLYGONS_FILE)
@@ -97,63 +99,99 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 
     virtual ~MapsMePlugin() {}
 
-    const std::string GetDescriptor() const final { return m_descriptorString; }
+    const std::string GetDescriptor() const override final { return m_descriptorString; }
 
-    void HandleRequest(const RouteParameters &route_parameters, http::Reply &reply) final
+    int HandleRequest(const RouteParameters &route_parameters, osrm::json::Object &reply) override final
     {
-        // check number of parameters
-        if (2 > route_parameters.coordinates.size())
+        //We process only two points case
+        if (route_parameters.coordinates.size() != 2)
+            return 400;
+
+        if (!check_all_coordinates(route_parameters.coordinates))
         {
-            reply = http::Reply::StockReply(http::Reply::badRequest);
-            return;
+            return 400;
         }
 
-        RawRouteData raw_route;
-        raw_route.check_sum = m_facade->GetCheckSum();
+        std::vector<phantom_node_pair> phantom_node_pair_list(route_parameters.coordinates.size());
 
-        if (std::any_of(begin(route_parameters.coordinates), end(route_parameters.coordinates),
-                        [&](FixedPointCoordinate coordinate)
-                        {
-                return !coordinate.isValid();
-            }))
+        for (const auto i : osrm::irange<std::size_t>(0, route_parameters.coordinates.size()))
         {
-            reply = http::Reply::StockReply(http::Reply::badRequest);
-            return;
+            std::vector<PhantomNode> phantom_node_vector;
+            //FixedPointCoordinate &coordinate = route_parameters.coordinates[i];
+            if (m_facade->IncrementalFindPhantomNodeForCoordinate(route_parameters.coordinates[i],
+                                                                phantom_node_vector, 1))
+            {
+        LOG(LINFO, ("FOUND", route_parameters.coordinates[i], phantom_node_vector));
+                BOOST_ASSERT(!phantom_node_vector.empty());
+                phantom_node_pair_list[i].first = phantom_node_vector.front();
+                if (phantom_node_vector.size() > 1)
+                {
+                    phantom_node_pair_list[i].second = phantom_node_vector.back();
+                }
+            }
         }
 
-        for (const FixedPointCoordinate &coordinate : route_parameters.coordinates)
+        auto check_component_id_is_tiny = [](const phantom_node_pair &phantom_pair)
         {
-            raw_route.raw_via_node_coordinates.emplace_back(coordinate);
+            return phantom_pair.first.component_id != 0;
+        };
+
+        const bool every_phantom_is_in_tiny_cc =
+                std::all_of(std::begin(phantom_node_pair_list), std::end(phantom_node_pair_list),
+                            check_component_id_is_tiny);
+
+        // are all phantoms from a tiny cc?
+        const auto component_id = phantom_node_pair_list.front().first.component_id;
+
+        auto check_component_id_is_equal = [component_id](const phantom_node_pair &phantom_pair)
+        {
+            return component_id == phantom_pair.first.component_id;
+        };
+
+        const bool every_phantom_has_equal_id =
+                std::all_of(std::begin(phantom_node_pair_list), std::end(phantom_node_pair_list),
+                            check_component_id_is_equal);
+
+        auto swap_phantom_from_big_cc_into_front = [](phantom_node_pair &phantom_pair)
+        {
+            if (0 != phantom_pair.first.component_id)
+            {
+                using namespace std;
+                swap(phantom_pair.first, phantom_pair.second);
+            }
+        };
+
+        // this case is true if we take phantoms from the big CC
+        if (!every_phantom_is_in_tiny_cc || !every_phantom_has_equal_id)
+        {
+            std::for_each(std::begin(phantom_node_pair_list), std::end(phantom_node_pair_list),
+                          swap_phantom_from_big_cc_into_front);
         }
 
-        std::vector<PhantomNode> phantom_node_vector(raw_route.raw_via_node_coordinates.size());
-        const bool checksum_OK = (route_parameters.check_sum == raw_route.check_sum);
+        LOG(LINFO, ("A"));
 
-        for (unsigned i = 0; i < raw_route.raw_via_node_coordinates.size(); ++i)
+        InternalRouteResult raw_route;
+        auto build_phantom_pairs =
+           [&raw_route](const phantom_node_pair &first_pair, const phantom_node_pair &second_pair)
         {
-            m_facade->FindPhantomNodeForCoordinate(raw_route.raw_via_node_coordinates[i],
-                                                 phantom_node_vector[i],
-                                                 route_parameters.zoom_level);
-        }
+            raw_route.segment_end_coordinates.emplace_back(
+                PhantomNodes{first_pair.first, second_pair.first});
+        };
+       
+        LOG(LINFO, ("B"));
+        osrm::for_each_pair(phantom_node_pair_list, build_phantom_pairs);
 
-        PhantomNodes current_phantom_node_pair;
-        for (unsigned i = 0; i < phantom_node_vector.size() - 1; ++i)
-        {
-            current_phantom_node_pair.source_phantom = phantom_node_vector[i];
-            current_phantom_node_pair.target_phantom = phantom_node_vector[i + 1];
-            raw_route.segment_end_coordinates.emplace_back(current_phantom_node_pair);
-        }
-
+        LOG(LINFO, ("B1", raw_route.segment_end_coordinates.front()));
         m_searchEngine->alternative_path(raw_route.segment_end_coordinates.front(), raw_route);
 
+        LOG(LINFO, ("B2"));
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)
         {
             SimpleLogger().Write(logDEBUG) << "Error occurred, single path not found";
         }
-        reply.status = http::Reply::ok;
-
+        LOG(LINFO, ("C"));
         // Get mwm names
-        set<string> usedMwms;
+        vector<pair<string, m2::PointD>> usedMwms;
 
         for (auto i : osrm::irange<std::size_t>(0, raw_route.unpacked_path_segments.size()))
         {
@@ -170,15 +208,30 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
                 ForEachCountry(pt, doGet);
 
                 if (doGet.m_res != -1)
-                    usedMwms.insert(m_countries[doGet.m_res].m_name);
+                    usedMwms.emplace_back(make_pair(m_countries[doGet.m_res].m_name, pt));
             }
         }
 
-        JSON::Object json_object;
-        JSON::Array json_array;
-        json_array.values.insert(json_array.values.begin(), usedMwms.begin(), usedMwms.end());
-        json_object.values["used_mwms"] = json_array;
-        JSON::render(reply.content, json_object);
+        auto const it = std::unique(usedMwms.begin(), usedMwms.end(), [&](pair<string, m2::PointD> const & a, pair<string, m2::PointD> const & b) {return a.first == b.first;});
+        usedMwms.erase(it, usedMwms.end());
+
+        osrm::json::Array json_array;
+        for (auto & mwm : usedMwms)
+        {
+            osrm::json::Array pointArray;
+            pointArray.values.push_back(mwm.second.x);
+            pointArray.values.push_back(mwm.second.y);
+            pointArray.values.push_back(mwm.first);
+            json_array.values.push_back(pointArray);
+        }
+        reply.values["used_mwms"] = json_array;
+
+        //std::unique_ptr<BaseDescriptor<DataFacadeT>> descriptor = osrm::make_unique<JSONDescriptor<DataFacadeT>>(facade);
+        //descriptor->SetConfig(route_parameters);
+        //descriptor->Run(raw_route, rely);
+
+        //JSON::render(reply.content, json_object);
+        return 200;
     }
 
   private:
@@ -189,5 +242,5 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
     DataFacadeT * m_facade;
     FilesContainerR m_reader;
     osrm::NodeDataVectorT m_nodeData;
-};*/
+};
 
