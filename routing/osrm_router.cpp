@@ -367,7 +367,7 @@ RoutingMappingPtrT RoutingIndexManager::GetMappingByName(string const & fName, I
   return new_mapping;
 }
 
-OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
+OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn, RoutingVisualizerFn /* routingVisualization */)
     : m_pIndex(index), m_indexManager(fn)
 {
 }

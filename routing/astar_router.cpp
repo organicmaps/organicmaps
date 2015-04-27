@@ -6,13 +6,23 @@
 
 namespace routing
 {
+AStarRouter::AStarRouter(Index const * pIndex, RoutingVisualizerFn routingVisualizer)
+    : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()))
+    , m_routingVisualizer(routingVisualizer)
+{
+}
+
 IRouter::ResultCode AStarRouter::CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
                                                 vector<RoadPos> & route)
 {
   RoadGraph graph(*m_roadGraph);
   m_algo.SetGraph(graph);
 
-  TAlgorithm::Result result = m_algo.FindPathBidirectional(startPos, finalPos, route);
+  TAlgorithm::OnVisitedVertexCallback onVisitedVertexCallback = nullptr;
+  if (nullptr != m_routingVisualizer)
+    onVisitedVertexCallback = [this](RoadPos const & roadPos) { m_routingVisualizer(roadPos.GetSegEndpoint()); };
+
+  TAlgorithm::Result const result = m_algo.FindPathBidirectional(startPos, finalPos, route, onVisitedVertexCallback);
   switch (result)
   {
     case TAlgorithm::Result::OK:

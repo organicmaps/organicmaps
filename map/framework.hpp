@@ -26,6 +26,7 @@
 #include "map/country_tree.hpp"
 
 #include "indexer/data_header.hpp"
+#include "indexer/map_style.hpp"
 
 #include "search/search_engine.hpp"
 
@@ -41,8 +42,6 @@
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
-
-#include "indexer/map_style.hpp"
 
 #include "base/strings_bundle.hpp"
 
@@ -442,6 +441,7 @@ public:
 
 private:
   void CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const;
+
 public:
   void StartScale(ScaleEvent const & e);
   void DoScale(ScaleEvent const & e);

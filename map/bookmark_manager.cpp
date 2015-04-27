@@ -25,9 +25,10 @@ BookmarkManager::BookmarkManager(Framework & f)
   , m_cache(NULL)
   , m_selection(f)
 {
-  m_userMarkLayers.reserve(2);
+  m_userMarkLayers.reserve(3);
   m_userMarkLayers.push_back(new SearchUserMarkContainer(graphics::activePinDepth, m_framework));
   m_userMarkLayers.push_back(new ApiUserMarkContainer(graphics::activePinDepth, m_framework));
+  m_userMarkLayers.push_back(new DebugUserMarkContainer(graphics::debugDepth, m_framework));
   UserMarkContainer::InitStaticMarks(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
 }
 

@@ -3,16 +3,14 @@
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/road_graph_router.hpp"
+#include "std/function.hpp"
 
 namespace routing
 {
 class AStarRouter : public RoadGraphRouter
 {
 public:
-  AStarRouter(Index const * pIndex = 0)
-      : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()))
-  {
-  }
+  AStarRouter(Index const * pIndex = nullptr, RoutingVisualizerFn routingVisualizer = nullptr);
 
   // IRouter overrides:
   string GetName() const override { return "astar-pedestrian"; }
@@ -30,5 +28,6 @@ public:
 private:
   using TAlgorithm = AStarAlgorithm<RoadGraph>;
   TAlgorithm m_algo;
+  RoutingVisualizerFn m_routingVisualizer;
 };
 }  // namespace routing

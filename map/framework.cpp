@@ -2127,17 +2127,32 @@ void Framework::FollowRoute()
 
 void Framework::SetRouter(RouterType type)
 {
+#ifdef DEBUG
+  RoutingVisualizerFn const routingVisualizer = [this](m2::PointD const & pt)
+  {
+    GetPlatform().RunOnGuiThread([this,pt]()
+    {
+      m_bmManager.UserMarksGetController(UserMarkContainer::DEBUG_MARK).CreateUserMark(pt);
+      Invalidate();
+    });
+  };
+#else
+  RoutingVisualizerFn const routingVisualizer = nullptr;
+#endif
+
   if (type == RouterType::Pedestrian)
-    m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex())));
+    m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter(&m_model.GetIndex(), routingVisualizer)));
   else
     m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this] (m2::PointD const & pt)
     {
       return GetSearchEngine()->GetCountryFile(pt);
-    })));
+    }, routingVisualizer)));
 }
 
 void Framework::RemoveRoute()
 {
+  m_bmManager.UserMarksClear(UserMarkContainer::DEBUG_MARK);
+
   m_bmManager.ResetRouteTrack();
 }
 

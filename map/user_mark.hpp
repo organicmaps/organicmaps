@@ -32,7 +32,8 @@ public:
     SEARCH,
     POI,
     BOOKMARK,
-    MY_POSITION
+    MY_POSITION,
+    DEBUG_MARK
   };
 
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
@@ -131,6 +132,28 @@ public:
 private:
   string m_name;
   string m_id;
+};
+
+class DebugMarkPoint : public UserMark
+{
+public:
+  DebugMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
+    : UserMark(ptOrg, container)
+  {
+  }
+
+  UserMark::Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
+
+  unique_ptr<UserMarkCopy> Copy() const override
+  {
+    return unique_ptr<UserMarkCopy>(new UserMarkCopy(new DebugMarkPoint(m_ptOrg, m_container)));
+  }
+
+  virtual void FillLogEvent(TEventContainer & details) const override
+  {
+    UserMark::FillLogEvent(details);
+    details.emplace("markType", "DEBUG");
+  }
 };
 
 class SearchMarkPoint : public UserMark

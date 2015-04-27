@@ -285,6 +285,29 @@ UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 }
 
 
+DebugUserMarkContainer::DebugUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, framework)
+{
+}
+
+string DebugUserMarkContainer::GetTypeName() const
+{
+  // api-result.png is reused for debug markers
+  return "api-result";
+}
+
+string DebugUserMarkContainer::GetActiveTypeName() const
+{
+  // api-result.png is reused for debug markers
+  return "api-result";
+}
+
+UserMark * DebugUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new DebugMarkPoint(ptOrg, this);
+}
+
+
 SelectionContainer::SelectionContainer(Framework & fm)
   : m_container(NULL)
   , m_fm(fm)

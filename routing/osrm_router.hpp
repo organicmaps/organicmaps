@@ -107,7 +107,7 @@ public:
 
   typedef vector<double> GeomTurnCandidateT;
 
-  OsrmRouter(Index const * index, CountryFileFnT const & fn);
+  OsrmRouter(Index const * index, CountryFileFnT const & fn, RoutingVisualizerFn routingVisualization = nullptr);
 
   virtual string GetName() const;
 

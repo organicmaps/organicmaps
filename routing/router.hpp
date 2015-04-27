@@ -59,4 +59,6 @@ public:
                                     m2::PointD const & finalPoint, Route & route) = 0;
 };
 
+typedef function<void(m2::PointD const &)> RoutingVisualizerFn;
+
 }

@@ -23,6 +23,7 @@ public:
 
   static uint32_t const kCancelledPollPeriod;
   static uint32_t const kQueueSwitchPeriod;
+  static uint32_t const kVisitedVerticesPeriod;
   static double const kEpsilon;
 
   enum class Result
@@ -51,10 +52,15 @@ public:
 
   AStarAlgorithm() : m_graph(nullptr) {}
 
+  using OnVisitedVertexCallback = std::function<void(TVertexType const&)>;
+
   Result FindPath(TVertexType const & startVertex, TVertexType const & finalVertex,
-                  vector<TVertexType> & path) const;
+                  vector<TVertexType> & path,
+                  OnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
+
   Result FindPathBidirectional(TVertexType const & startVertex, TVertexType const & finalVertex,
-                               vector<TVertexType> & path) const;
+                               vector<TVertexType> & path,
+                               OnVisitedVertexCallback onVisitedVertexCallback = nullptr) const;
 
   void SetGraph(TGraph const & graph) { m_graph = &graph; }
 
@@ -146,6 +152,10 @@ uint32_t const AStarAlgorithm<TGraph>::kQueueSwitchPeriod = 128;
 
 // static
 template <typename TGraph>
+uint32_t const AStarAlgorithm<TGraph>::kVisitedVerticesPeriod = 4;
+
+// static
+template <typename TGraph>
 double const AStarAlgorithm<TGraph>::kEpsilon = 1e-6;
 
 // This implementation is based on the view that the A* algorithm
@@ -163,9 +173,13 @@ double const AStarAlgorithm<TGraph>::kEpsilon = 1e-6;
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     TVertexType const & startVertex, TVertexType const & finalVertex,
-    vector<TVertexType> & path) const
+    vector<TVertexType> & path,
+    OnVisitedVertexCallback onVisitedVertexCallback) const
 {
   ASSERT(m_graph, ());
+
+  if (nullptr == onVisitedVertexCallback)
+    onVisitedVertexCallback = [](TVertexType const &){};
 
   map<TVertexType, double> bestDistance;
   priority_queue<State, vector<State>, greater<State>> queue;
@@ -179,6 +193,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   while (!queue.empty())
   {
     ++steps;
+
     if (steps % kCancelledPollPeriod == 0 && IsCancelled())
       return Result::Cancelled;
 
@@ -187,6 +202,9 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 
     if (stateV.distance > bestDistance[stateV.vertex])
       continue;
+
+    if (steps % kVisitedVerticesPeriod == 0)
+      onVisitedVertexCallback(stateV.vertex);
 
     if (stateV.vertex == startVertex)
     {
@@ -201,6 +219,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       State stateW(edge.GetTarget(), 0.0);
       if (stateV.vertex == stateW.vertex)
         continue;
+
       double const len = edge.GetWeight();
       double const piV = m_graph->HeuristicCostEstimate(stateV.vertex, startVertex);
       double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, startVertex);
@@ -209,7 +228,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
       double const newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
-      auto t = bestDistance.find(stateW.vertex);
+      auto const t = bestDistance.find(stateW.vertex);
       if (t != bestDistance.end() && newReducedDist >= t->second - kEpsilon)
         continue;
 
@@ -226,8 +245,14 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
 template <typename TGraph>
 typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirectional(
     TVertexType const & startVertex, TVertexType const & finalVertex,
-    vector<TVertexType> & path) const
+    vector<TVertexType> & path,
+    OnVisitedVertexCallback onVisitedVertexCallback) const
 {
+  ASSERT(m_graph, ());
+
+  if (nullptr == onVisitedVertexCallback)
+    onVisitedVertexCallback = [](TVertexType const &){};
+
   BidirectionalStepContext forward(true /* forward */, startVertex, finalVertex, *m_graph);
   BidirectionalStepContext backward(false /* forward */, startVertex, finalVertex, *m_graph);
 
@@ -287,6 +312,9 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
     if (stateV.distance > cur->bestDistance[stateV.vertex])
       continue;
 
+    if (steps % kVisitedVerticesPeriod == 0)
+      onVisitedVertexCallback(stateV.vertex);
+
     vector<TEdgeType> adj;
     m_graph->GetAdjacencyList(stateV.vertex, adj);
     for (auto const & edge : adj)
@@ -294,15 +322,16 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       State stateW(edge.GetTarget(), 0.0);
       if (stateV.vertex == stateW.vertex)
         continue;
+
       double const len = edge.GetWeight();
       double const pV = cur->ConsistentHeuristic(stateV.vertex);
       double const pW = cur->ConsistentHeuristic(stateW.vertex);
       double const reducedLen = len + pW - pV;
       double const pRW = nxt->ConsistentHeuristic(stateW.vertex);
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
-      double newReducedDist = stateV.distance + max(reducedLen, 0.0);
+      double const newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
-      auto it = cur->bestDistance.find(stateW.vertex);
+      auto const it = cur->bestDistance.find(stateW.vertex);
       if (it != cur->bestDistance.end() && newReducedDist >= it->second - kEpsilon)
         continue;
 
