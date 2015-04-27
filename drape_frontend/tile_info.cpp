@@ -36,7 +36,7 @@ struct IDsAccumulator
 namespace df
 {
 
-TileInfo::TileInfo(EngineContext && context)
+TileInfo::TileInfo(drape_ptr<EngineContext> && context)
   : m_context(move(context))
   , m_isCanceled(false)
 {}
@@ -61,10 +61,10 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 void TileInfo::ReadFeatures(MapDataProvider const & model,
                             MemoryFeatureIndex & memIndex)
 {
-  m_context.BeginReadTile();
+  m_context->BeginReadTile();
 
   // Reading can be interrupted by exception throwing
-  MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, &m_context));
+  MY_SCOPE_GUARD(ReleaseReadTile, bind(&EngineContext::EndReadTile, m_context.get()));
 
   ReadFeatureIndex(model);
 
@@ -77,8 +77,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model,
     vector<FeatureID> featuresToRead;
     for_each(indexes.begin(), indexes.end(), IDsAccumulator(featuresToRead, m_featureInfo));
 
-    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), m_context);
-    model.ReadFeatures(ref(drawer), featuresToRead);
+    RuleDrawer drawer(bind(&TileInfo::InitStylist, this, _1 ,_2), make_ref(m_context));
+    model.ReadFeatures(bind<void>(ref(drawer), _1), featuresToRead);
   }
 }
 
@@ -98,7 +98,7 @@ void TileInfo::ProcessID(FeatureID const & id)
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
-  //TODO(@kuznetsov): m_context.GetTileKey().m_zoomLevel?
+  //TODO(@kuznetsov): m_context->GetTileKey().m_zoomLevel?
   df::InitStylist(f, GetZoomLevel(), s);
 }
 
@@ -124,7 +124,7 @@ void TileInfo::CheckCanceled() const
 int TileInfo::GetZoomLevel() const
 {
   int const upperScale = scales::GetUpperScale();
-  int const zoomLevel = m_context.GetTileKey().m_zoomLevel;
+  int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
   return (zoomLevel <= upperScale ? zoomLevel : upperScale);
 }
 

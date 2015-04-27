@@ -145,7 +145,7 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
 
 void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
 {
-  shared_ptr<TileInfo> tileInfo(new TileInfo(EngineContext(tileKey, m_commutator)));
+  shared_ptr<TileInfo> tileInfo(new TileInfo(make_unique_dp<EngineContext>(tileKey, m_commutator)));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = myPool.Get();
   task->Init(tileInfo);

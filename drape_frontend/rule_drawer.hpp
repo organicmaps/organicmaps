@@ -2,6 +2,8 @@
 
 #include "drape_frontend/tile_key.hpp"
 
+#include "drape/pointers.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -22,13 +24,13 @@ class RuleDrawer
 public:
   using TDrawerCallback = function<void (FeatureType const &, Stylist &)>;
   RuleDrawer(TDrawerCallback const & fn,
-             EngineContext & context);
+             ref_ptr<EngineContext> context);
 
   void operator() (FeatureType const & f);
 
 private:
   TDrawerCallback m_callback;
-  EngineContext & m_context;
+  ref_ptr<EngineContext> m_context;
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
   double m_currentScaleGtoP;

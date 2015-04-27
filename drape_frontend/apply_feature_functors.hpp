@@ -3,6 +3,8 @@
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
 
+#include "drape/pointers.hpp"
+
 #include "indexer/point_to_int64.hpp"
 
 #include "geometry/point2d.hpp"
@@ -21,7 +23,7 @@ class EngineContext;
 class BaseApplyFeature
 {
 public:
-  BaseApplyFeature(EngineContext & context, FeatureID const & id,
+  BaseApplyFeature(ref_ptr<EngineContext> context, FeatureID const & id,
                    CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() {}
@@ -32,7 +34,7 @@ protected:
                             double depth,
                             TextViewParams & params) const;
 
-  EngineContext & m_context;
+  ref_ptr<EngineContext> m_context;
   FeatureID m_id;
   CaptionDescription const & m_captions;
 };
@@ -41,7 +43,7 @@ class ApplyPointFeature : public BaseApplyFeature
 {
   typedef BaseApplyFeature TBase;
 public:
-  ApplyPointFeature(EngineContext & context, FeatureID const & id,
+  ApplyPointFeature(ref_ptr<EngineContext> context, FeatureID const & id,
                     CaptionDescription const & captions);
 
   void operator()(m2::PointD const & point);
@@ -61,7 +63,7 @@ class ApplyAreaFeature : public ApplyPointFeature
 {
   typedef ApplyPointFeature TBase;
 public:
-  ApplyAreaFeature(EngineContext & context, FeatureID const & id,
+  ApplyAreaFeature(ref_ptr<EngineContext> context, FeatureID const & id,
                    CaptionDescription const & captions);
 
   using TBase::operator ();
@@ -77,7 +79,7 @@ class ApplyLineFeature : public BaseApplyFeature
 {
   typedef BaseApplyFeature TBase;
 public:
-  ApplyLineFeature(EngineContext & context, FeatureID const & id,
+  ApplyLineFeature(ref_ptr<EngineContext> context, FeatureID const & id,
                    CaptionDescription const & captions,
                    double currentScaleGtoP);
 

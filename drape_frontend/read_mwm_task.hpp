@@ -13,8 +13,6 @@
 namespace df
 {
 
-class EngineContext;
-
 class ReadMWMTask : public threads::IRoutine
 {
 public:

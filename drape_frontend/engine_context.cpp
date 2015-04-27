@@ -26,14 +26,14 @@ void EngineContext::BeginReadTile()
 
 void EngineContext::InsertShape(drape_ptr<MapShape> && shape)
 {
+  lock_guard<mutex> lock(m_mutex);
   m_mapShapes.push_back(move(shape));
 }
 
 void EngineContext::Flush()
 {
-  list<drape_ptr<MapShape>> shapes;
-  m_mapShapes.swap(shapes);
-  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
+  lock_guard<mutex> lock(m_mutex);
+  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(m_mapShapes)));
 }
 
 void EngineContext::EndReadTile()

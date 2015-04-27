@@ -31,6 +31,8 @@ private:
 private:
   TileKey m_tileKey;
   ref_ptr<ThreadsCommutator> m_commutator;
+
+  mutex m_mutex;
   list<drape_ptr<MapShape>> m_mapShapes;
 };
 

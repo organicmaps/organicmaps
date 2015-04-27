@@ -13,11 +13,11 @@
 namespace df
 {
 
-RuleDrawer::RuleDrawer(TDrawerCallback const & fn, EngineContext & context)
+RuleDrawer::RuleDrawer(TDrawerCallback const & fn, ref_ptr<EngineContext> context)
   : m_callback(fn)
   , m_context(context)
 {
-  m_globalRect = context.GetTileKey().GetGlobalRect();
+  m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
   int32_t tileSize = df::VisualParams::Instance().GetTileSize();
   m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
@@ -46,7 +46,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
 #endif
 
-  int zoomLevel = m_context.GetTileKey().m_zoomLevel;
+  int zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
   if (s.AreaStyleExists())
   {
@@ -79,7 +79,7 @@ void RuleDrawer::operator()(FeatureType const & f)
     apply.Finish();
   }
 
-  m_context.Flush();
+  m_context->Flush();
 }
 
 } // namespace df

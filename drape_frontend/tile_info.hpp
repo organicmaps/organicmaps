@@ -25,14 +25,14 @@ class TileInfo : private noncopyable
 public:
   DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
-  TileInfo(EngineContext && context);
+  TileInfo(drape_ptr<EngineContext> && context);
 
   void ReadFeatures(MapDataProvider const & model,
                     MemoryFeatureIndex & memIndex);
   void Cancel(MemoryFeatureIndex & memIndex);
 
   m2::RectD GetGlobalRect() const;
-  TileKey const & GetTileKey() const { return m_context.GetTileKey(); }
+  TileKey const & GetTileKey() const { return m_context->GetTileKey(); }
   bool operator <(TileInfo const & other) const { return GetTileKey() < other.GetTileKey(); }
 
 private:
@@ -46,7 +46,7 @@ private:
   int GetZoomLevel() const;
 
 private:
-  EngineContext m_context;
+  drape_ptr<EngineContext> m_context;
   vector<FeatureInfo> m_featureInfo;
 
   atomic<bool> m_isCanceled;
