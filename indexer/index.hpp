@@ -38,7 +38,7 @@ class Index : public MwmSet
 protected:
   // MwmSet overrides:
   bool GetVersion(string const & name, MwmInfo & info) const override;
-  shared_ptr<MwmValueBase> CreateValue(string const & name) const override;
+  TMwmValueBasePtr CreateValue(string const & name) const override;
   void UpdateMwmInfo(MwmId id) override;
 
 public:

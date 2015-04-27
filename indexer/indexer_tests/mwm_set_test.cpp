@@ -22,9 +22,9 @@ namespace
       return true;
     }
 
-    shared_ptr<MwmValueBase> CreateValue(string const &) const override
+    TMwmValueBasePtr CreateValue(string const &) const override
     {
-      return shared_ptr<MwmValueBase>(new MwmValue());
+      return TMwmValueBasePtr(new MwmValue());
     }
 
   public:

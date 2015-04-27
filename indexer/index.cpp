@@ -47,10 +47,10 @@ bool Index::GetVersion(string const & name, MwmInfo & info) const
   return true;
 }
 
-shared_ptr<MwmSet::MwmValueBase> Index::CreateValue(string const & name) const
+MwmSet::TMwmValueBasePtr Index::CreateValue(string const & name) const
 {
-  shared_ptr<MwmValue> p(new MwmValue(name));
-  ASSERT(p->GetHeader().IsMWMSuitable(), ());
+  TMwmValueBasePtr p(new MwmValue(name));
+  ASSERT(static_cast<MwmValue &>(*p.get()).GetHeader().IsMWMSuitable(), ());
   return p;
 }
 

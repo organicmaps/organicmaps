@@ -42,7 +42,7 @@ MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, string const & fileName)
     m_value = m_mwmSet->LockValueImpl(m_mwmId);
 }
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, shared_ptr<MwmValueBase> value)
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, TMwmValueBasePtr value)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
 {
 }
@@ -50,6 +50,7 @@ MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, shared_ptr<MwmValueBase> 
 MwmSet::MwmLock::MwmLock(MwmLock && lock)
     : m_mwmSet(lock.m_mwmSet), m_mwmId(lock.m_mwmId), m_value(move(lock.m_value))
 {
+  lock.m_mwmSet = nullptr;
   lock.m_mwmId = MwmSet::INVALID_MWM_ID;
 }
 
@@ -243,17 +244,17 @@ MwmInfo const & MwmSet::GetMwmInfo(MwmId id) const
   return m_info[id];
 }
 
-shared_ptr<MwmSet::MwmValueBase> MwmSet::LockValue(MwmId id)
+MwmSet::TMwmValueBasePtr MwmSet::LockValue(MwmId id)
 {
   lock_guard<mutex> lock(m_lock);
   return LockValueImpl(id);
 }
 
-shared_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId id)
+MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId id)
 {
   ASSERT_LESS(id, m_info.size(), ());
   if (id >= m_info.size())
-    return shared_ptr<MwmValueBase>();
+    return TMwmValueBasePtr();
 
   UpdateMwmInfo(id);
   if (!m_info[id].IsUpToDate())
@@ -266,7 +267,7 @@ shared_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId id)
   {
     if (it->first == id)
     {
-      shared_ptr<MwmValueBase> result = it->second;
+      TMwmValueBasePtr result = it->second;
       m_cache.erase(it);
       return result;
     }
@@ -274,17 +275,17 @@ shared_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId id)
   return CreateValue(m_info[id].m_fileName);
 }
 
-void MwmSet::UnlockValue(MwmId id, shared_ptr<MwmValueBase> p)
+void MwmSet::UnlockValue(MwmId id, TMwmValueBasePtr p)
 {
   lock_guard<mutex> lock(m_lock);
   UnlockValueImpl(id, p);
 }
 
-void MwmSet::UnlockValueImpl(MwmId id, shared_ptr<MwmValueBase> p)
+void MwmSet::UnlockValueImpl(MwmId id, TMwmValueBasePtr p)
 {
   ASSERT(p, (id));
   ASSERT_LESS(id, m_info.size(), ());
-  if (id >= m_info.size() || !p.get())
+  if (id >= m_info.size() || p.get() == nullptr)
     return;
 
   ASSERT_GREATER(m_info[id].m_lockCount, 0, ());
@@ -323,7 +324,7 @@ namespace
 
     explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
 
-    bool operator()(pair<MwmSet::MwmId, shared_ptr<MwmSet::MwmValueBase>> const & p) const
+    bool operator()(pair<MwmSet::MwmId, MwmSet::TMwmValueBasePtr> const & p) const
     {
       return p.first == m_id;
     }

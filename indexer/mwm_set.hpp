@@ -74,15 +74,17 @@ public:
     virtual ~MwmValueBase() {}
   };
 
+  using TMwmValueBasePtr = shared_ptr<MwmValueBase>;
+
   // Mwm lock, which is used to lock mwm when its FileContainer is used.
-  class MwmLock
+  class MwmLock final
   {
   public:
     MwmLock();
     MwmLock(MwmSet & mwmSet, MwmId mwmId);
     MwmLock(MwmSet & mwmSet, string const & fileName);
     MwmLock(MwmLock && lock);
-    virtual ~MwmLock();
+    ~MwmLock();
 
     // Returns a non-owning ptr.
     template <typename T>
@@ -99,11 +101,11 @@ public:
   private:
     friend class MwmSet;
 
-    MwmLock(MwmSet & mwmSet, MwmId mwmId, shared_ptr<MwmValueBase> value);
+    MwmLock(MwmSet & mwmSet, MwmId mwmId, TMwmValueBasePtr value);
 
     MwmSet * m_mwmSet;
     MwmId m_mwmId;
-    shared_ptr<MwmValueBase> m_value;
+    TMwmValueBasePtr m_value;
 
     NONCOPYABLE(MwmLock);
   };
@@ -161,17 +163,17 @@ protected:
   /// @return True when it's possible to get file format version - in
   ///         this case version is set to the file format version.
   virtual bool GetVersion(string const & name, MwmInfo & info) const = 0;
-  virtual shared_ptr<MwmValueBase> CreateValue(string const & name) const = 0;
+  virtual TMwmValueBasePtr CreateValue(string const & name) const = 0;
 
   void Cleanup();
 
 private:
-  typedef deque<pair<MwmId, shared_ptr<MwmValueBase>>> CacheType;
+  typedef deque<pair<MwmId, TMwmValueBasePtr>> CacheType;
 
-  shared_ptr<MwmValueBase> LockValue(MwmId id);
-  shared_ptr<MwmValueBase> LockValueImpl(MwmId id);
-  void UnlockValue(MwmId id, shared_ptr<MwmValueBase> p);
-  void UnlockValueImpl(MwmId id, shared_ptr<MwmValueBase> p);
+  TMwmValueBasePtr LockValue(MwmId id);
+  TMwmValueBasePtr LockValueImpl(MwmId id);
+  void UnlockValue(MwmId id, TMwmValueBasePtr p);
+  void UnlockValueImpl(MwmId id, TMwmValueBasePtr p);
 
   /// Find first removed mwm or add a new one.
   /// @precondition This function is always called under mutex m_lock.
