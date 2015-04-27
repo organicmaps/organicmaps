@@ -162,13 +162,10 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
     unique_ptr<search::TrieIterator> const pIter(trieQueue.back());
     trieQueue.pop_back();
 
-    ASSERT_LESS(pIter->m_edge.size(), std::numeric_limits<uint32_t>::max(), ());
-    uint32_t const edgeCount = static_cast<uint32_t>(pIter->m_edge.size());
-
-    for (uint32_t i = 0; i < edgeCount; ++i)
+    for (size_t i = 0; i < pIter->m_value.size(); ++i)
       f(pIter->m_value[i]);
 
-    for (uint32_t i = 0; i < edgeCount; ++i)
+    for (size_t i = 0; i < pIter->m_edge.size(); ++i)
       trieQueue.push_back(pIter->GoToEdge(i));
   }
 }
