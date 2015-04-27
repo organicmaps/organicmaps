@@ -93,41 +93,37 @@ TextureManager::GlyphRegion::GlyphRegion()
 float TextureManager::GlyphRegion::GetOffsetX() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
-  return info->GetMetrics().m_xOffset;
+  return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_xOffset;
 }
 
 float TextureManager::GlyphRegion::GetOffsetY() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
-  return info->GetMetrics().m_yOffset;
+  return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_yOffset;
 }
 
 float TextureManager::GlyphRegion::GetAdvanceX() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
-  return info->GetMetrics().m_xAdvance;
+  return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_xAdvance;
 }
 
 float TextureManager::GlyphRegion::GetAdvanceY() const
 {
   ASSERT(m_info->GetType() == Texture::Glyph, ());
-  ref_ptr<GlyphInfo> info = static_cast<ref_ptr<GlyphInfo>>(m_info);
-  return info->GetMetrics().m_yAdvance;
+  return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_yAdvance;
 }
 
 uint32_t TextureManager::StippleRegion::GetMaskPixelLength() const
 {
   ASSERT(m_info->GetType() == Texture::StipplePen, ());
-  return static_cast<ref_ptr<StipplePenResourceInfo>>(m_info)->GetMaskPixelLength();
+  return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelLength();
 }
 
 uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
 {
   ASSERT(m_info->GetType() == Texture::StipplePen, ());
-  return static_cast<ref_ptr<StipplePenResourceInfo>>(m_info)->GetPatternPixelLength();
+  return ref_ptr<StipplePenResourceInfo>(m_info)->GetPatternPixelLength();
 }
 
 void TextureManager::Release()

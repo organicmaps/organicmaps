@@ -108,7 +108,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::FlushTile:
     {
-      ref_ptr<FlushRenderBucketMessage> msg = static_cast<ref_ptr<FlushRenderBucketMessage>>(message);
+      ref_ptr<FlushRenderBucketMessage> msg = message;
       dp::GLState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
       drape_ptr<dp::RenderBucket> bucket = msg->AcceptBuffer();
@@ -124,14 +124,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::FinishReading:
     {
-      ref_ptr<FinishReadingMessage> msg = static_cast<ref_ptr<FinishReadingMessage>>(message);
+      ref_ptr<FinishReadingMessage> msg = message;
       m_tileTree->FinishTiles(msg->GetTiles(), GetCurrentZoomLevel());
       break;
     }
 
   case Message::Resize:
     {
-      ref_ptr<ResizeMessage> rszMsg = static_cast<ref_ptr<ResizeMessage>>(message);
+      ref_ptr<ResizeMessage> rszMsg = message;
       m_viewport = rszMsg->GetViewport();
       m_view.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
                     m_viewport.GetWidth(), m_viewport.GetHeight());
@@ -153,14 +153,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
 
   case Message::MyPositionShape:
-    m_myPositionMark = static_cast<ref_ptr<MyPositionShapeMessage>>(message)->AcceptShape();
+    m_myPositionMark = ref_ptr<MyPositionShapeMessage>(message)->AcceptShape();
     break;
 
   case Message::InvalidateRect:
     {
       // TODO(@kuznetsov): implement invalidation
 
-      //InvalidateRectMessage * m = static_cast<ref_ptr<InvalidateRectMessage>>(message);
+      //ref_ptr<InvalidateRectMessage> m = message;
       //TTilesCollection keyStorage;
       //Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
       //m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -171,7 +171,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::ClearUserMarkLayer:
     {
-      TileKey const & tileKey = static_cast<ref_ptr<ClearUserMarkLayerMessage>>(message)->GetKey();
+      TileKey const & tileKey = ref_ptr<ClearUserMarkLayerMessage>(message)->GetKey();
       auto const functor = [&tileKey](drape_ptr<UserMarkRenderGroup> const & g)
       {
         return g->GetTileKey() == tileKey;
@@ -186,7 +186,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::ChangeUserMarkLayerVisibility:
     {
-      ref_ptr<ChangeUserMarkLayerVisibilityMessage> m = static_cast<ref_ptr<ChangeUserMarkLayerVisibilityMessage>>(message);
+      ref_ptr<ChangeUserMarkLayerVisibilityMessage> m = message;
       TileKey const & key = m->GetKey();
       if (m->IsVisible())
         m_userMarkVisibility.insert(key);
@@ -196,7 +196,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::GuiLayerRecached:
     {
-      ref_ptr<GuiLayerRecachedMessage> msg = static_cast<ref_ptr<GuiLayerRecachedMessage>>(message);
+      ref_ptr<GuiLayerRecachedMessage> msg = message;
       drape_ptr<gui::LayerRenderer> renderer = move(msg->AcceptRenderer());
       renderer->Build(make_ref(m_gpuProgramManager));
       if (m_guiRenderer == nullptr)
