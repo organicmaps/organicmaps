@@ -774,7 +774,7 @@ void State::SetFixedZoom()
 void State::DragStarted()
 {
   m_dragModeInfo = m_modeInfo;
-  m_afterPendingMode = NotFollow;
+  m_afterPendingMode = Follow;
   StopLocationFollow();
 }
 

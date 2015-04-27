@@ -3,7 +3,6 @@
 #import "ViewController.h"
 #import "LocationManager.h"
 #import "LocationButton.h"
-#import "BottomMenu.h"
 #import "SearchView.h"
 #import "LocationPredictor.h"
 
@@ -12,6 +11,9 @@
 #include "../../indexer/map_style.hpp"
 
 namespace search { struct AddressInfo; }
+
+@class MWMMapViewControlsManager;
+@class ShareActionSheet;
 
 @interface MapViewController : ViewController <LocationObserver, UIAlertViewDelegate, UIPopoverControllerDelegate>
 {
@@ -47,11 +49,11 @@ namespace search { struct AddressInfo; }
 
 - (void)setMapStyle:(MapStyle)mapStyle;
 
-@property (nonatomic) UIView * zoomButtonsView;
-@property (nonatomic, strong) UIPopoverController * popoverVC;
-@property (nonatomic) BottomMenu * bottomMenu;
+@property (nonatomic) UIPopoverController * popoverVC;
 @property (nonatomic, readonly) BOOL apiMode;
 @property (nonatomic) SearchView * searchView;
+@property (nonatomic) ShareActionSheet * shareActionSheet;
 - (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
+@property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
 
 @end

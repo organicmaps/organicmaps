@@ -9,9 +9,12 @@ typedef NS_ENUM(NSUInteger, SearchViewState) {
   SearchViewStateFullscreen,
 };
 
+@class MWMMapViewControlsManager;
+
 @interface SearchView : UIView
 
 @property (nonatomic) SearchBar * searchBar;
+@property (weak, nonatomic) MWMMapViewControlsManager * controlsManager;
 
 - (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback;
 @property (readonly, nonatomic) SearchViewState state;

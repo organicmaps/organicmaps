@@ -12,6 +12,7 @@
 #import "MapsAppDelegate.h"
 #import "Framework.h"
 #import "Statistics.h"
+#import "MWMMapViewControlsManager.h"
 
 typedef NS_ENUM(NSUInteger, Section)
 {
@@ -130,7 +131,7 @@ typedef NS_ENUM(NSUInteger, Section)
   else if (indexPath.section == SectionZoomButtons)
   {
     Settings::Set("ZoomButtonsEnabled", (bool)value);
-    [MapsAppDelegate theApp].m_mapViewController.zoomButtonsView.hidden = !value;
+    [MapsAppDelegate theApp].m_mapViewController.controlsManager.zoomHidden = !value;
   }
   else if (indexPath.section == SectionCalibration)
   {

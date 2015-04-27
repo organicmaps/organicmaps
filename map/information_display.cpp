@@ -29,8 +29,8 @@ namespace
   static int const RULLER_X_OFFSET = 6;
   static int const RULLER_Y_OFFSET = 42;
   static int const FONT_SIZE = 14;
-  static int const COMPASS_X_OFFSET = 27;
-  static int const COMPASS_Y_OFFSET = 57;
+  static int const COMPASS_X_OFFSET = 8;
+  static int const COMPASS_Y_OFFSET = 65;
 #ifdef OMIM_OS_ANDROID
   static double const RULLER_X_OFFSET_L = 70.4;
   static double const RULLER_Y_OFFSET_L = 10.5;

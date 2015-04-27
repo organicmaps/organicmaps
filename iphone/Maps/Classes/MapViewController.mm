@@ -1,23 +1,19 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
-#import "BookmarksRootVC.h"
 #import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 #import "ShareActionSheet.h"
 #import "AppInfo.h"
 #import "ContainerView.h"
-#import "ToolbarView.h"
 #import "SelectSetVC.h"
 #import "BookmarkDescriptionVC.h"
 #import "BookmarkNameVC.h"
-#import "SettingsAndMoreVC.h"
 #import "RouteView.h"
-#import "CountryTreeVC.h"
 #import "Reachability.h"
 #import "MWMAlertViewController.h"
+#import "MWMMapViewControlsManager.h"
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
-
 #import "../../Common/CustomAlertView.h"
 
 #include "Framework.h"
@@ -73,18 +69,16 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 @end
 
-@interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate>
+@interface MapViewController () <PlacePageViewDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate>
 
-@property (nonatomic) ShareActionSheet * shareActionSheet;
-@property (nonatomic) ToolbarView * toolbarView;
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
+@property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 
 @end
-
 
 @implementation MapViewController
 
@@ -123,7 +117,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
     default:
       break;
   }
-  [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 }
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
@@ -228,37 +221,19 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
         [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
       else
         [placePage setState:placePage.state animated:YES withCallback:YES];
-      
-      self.toolbarView.locationButton.selected = NO;
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
       break;
     }
     case location::State::PendingPosition:
-    {
-      self.toolbarView.locationButton.selected = YES;
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSearch"] forState:UIControlStateSelected];
-      [self.toolbarView.locationButton setSearching];
-      
       [[MapsAppDelegate theApp] disableStandby];
       [[MapsAppDelegate theApp].m_locationManager start:self];
       [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
-
       break;
-    }
     case location::State::NotFollow:
     case location::State::Follow:
-    {
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
-      self.toolbarView.locationButton.selected = YES;
       break;
-    }
     case location::State::RotateAndFollow:
-    {
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
-      self.toolbarView.locationButton.selected = YES;
       [UIApplication sharedApplication].idleTimerDisabled = YES;
       break;
-    }
   }
 }
 
@@ -283,25 +258,21 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   GetFramework().GetLocationState()->SwitchToNextMode();
 }
 
-- (IBAction)zoomInPressed:(id)sender
-{
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
-  GetFramework().Scale(2.0);
-}
-
-- (IBAction)zoomOutPressed:(id)sender
-{
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
-  GetFramework().Scale(0.5);
-}
-
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
 {
   CGFloat const scaleFactor = self.view.contentScaleFactor;
   m2::PointD const pxClicked(point.x * scaleFactor, point.y * scaleFactor);
 
   Framework & f = GetFramework();
-  f.GetBalloonManager().OnShowMark(f.GetUserMark(pxClicked, isLongClick));
+  UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
+  if (f.HasActiveUserMark() == false)
+  {
+    if (userMark == nullptr)
+      self.controlsManager.hidden = !self.controlsManager.hidden;
+    else
+      self.controlsManager.hidden = NO;
+  }
+  f.GetBalloonManager().OnShowMark(userMark);
 }
 
 - (void)onSingleTap:(NSValueWrapper *)point
@@ -594,27 +565,16 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   [super viewDidLoad];
 
-  [self.view addSubview:self.zoomButtonsView];
-  self.zoomButtonsView.minY = IPAD ? 560 : 176;
-  self.zoomButtonsView.maxX = self.zoomButtonsView.superview.width;
-  bool zoomButtonsEnabled;
-  if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
-    zoomButtonsEnabled = false;
-  self.zoomButtonsView.hidden = !zoomButtonsEnabled;
-
   self.view.clipsToBounds = YES;
 
-  [self.view addSubview:self.toolbarView];
-  self.toolbarView.maxY = self.toolbarView.superview.height;
-
+  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
+  
   [self.view addSubview:self.routeViewWrapper];
 
   [self.view addSubview:self.searchView];
 
   [self.view addSubview:self.containerView];
-
-  [self.view addSubview:self.bottomMenu];
-
+  
   [self showRoutingFeatureDialog];
 }
 
@@ -634,13 +594,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   GetFramework().SetUpdatesEnabled(false);
 
   [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-  [super viewDidDisappear:animated];
-  if (!self.bottomMenu.menuHidden)
-    [self.bottomMenu setMenuHidden:YES animated:NO];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -834,90 +787,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [alert presentAlert:type];
 }
 
-#pragma mark - Getters
-
-- (BottomMenu *)bottomMenu
-{
-  if (!_bottomMenu)
-  {
-    _bottomMenu = [[BottomMenu alloc] initWithFrame:self.view.bounds];
-    _bottomMenu.delegate = self;
-  }
-  return _bottomMenu;
-}
-
-- (ToolbarView *)toolbarView
-{
-  if (!_toolbarView)
-  {
-    _toolbarView = [[ToolbarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
-    _toolbarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    _toolbarView.delegate = self;
-  }
-  return _toolbarView;
-}
-
-- (UIView *)zoomButtonsView
-{
-  if (!_zoomButtonsView)
-  {
-    _zoomButtonsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 48, 88)];
-    _zoomButtonsView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-
-    UIButton * zoomIn = [self zoomInButton];
-    [_zoomButtonsView addSubview:zoomIn];
-    zoomIn.midX = zoomIn.superview.width / 2.0;
-
-    UIButton * zoomOut = [self zoomOutButton];
-    [_zoomButtonsView addSubview:zoomOut];
-    zoomOut.midX = zoomOut.superview.width / 2.0;
-    zoomOut.minY = zoomIn.maxY;
-  }
-  return _zoomButtonsView;
-}
-
-- (UIButton *)zoomInButton
-{
-
-  UIFont * font = [UIFont fontWithName:@"HelveticaNeue" size:26];
-
-  UIButton * zoomInButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-  zoomInButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-  UIImage * backgroundImage = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-  [zoomInButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-
-  zoomInButton.alpha = 0.65;
-  zoomInButton.titleLabel.font = font;
-  zoomInButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 3, 0);
-  [zoomInButton setTitle:@"+" forState:UIControlStateNormal];
-  [zoomInButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-  [zoomInButton addTarget:self action:@selector(zoomInPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-  return zoomInButton;
-}
-
-- (UIButton *)zoomOutButton
-{
-
-  UIFont * font = [UIFont fontWithName:@"HelveticaNeue" size:26];
-
-  UIButton * zoomOutButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-  zoomOutButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-  UIImage * backgroundImage = [[UIImage imageNamed:@"RoutingButtonBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-  [zoomOutButton setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-
-  zoomOutButton.alpha = 0.65;
-  zoomOutButton.titleLabel.font = font;
-  zoomOutButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 3, 0);
-  [zoomOutButton setTitle:@"–" forState:UIControlStateNormal];
-  [zoomOutButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-  [zoomOutButton addTarget:self action:@selector(zoomOutPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-  return zoomOutButton;
-}
-
 - (UIView *)routeViewWrapper
 {
   if (!_routeViewWrapper)
@@ -948,6 +817,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
     _searchView = [[SearchView alloc] initWithFrame:self.view.bounds];
     _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_searchView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    _searchView.controlsManager = self.controlsManager;
   }
   return _searchView;
 }
@@ -1029,32 +899,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [[UIApplication sharedApplication] openURL:url];
 }
 
-#pragma mark - ToolbarView delegate
-
-- (void)toolbar:(ToolbarView *)toolbar didPressItemWithName:(NSString *)itemName
-{
-  if ([itemName isEqualToString:@"Location"])
-  {
-    [self onMyPositionClicked:nil];
-  }
-  else if ([itemName isEqualToString:@"Search"])
-  {
-     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
-    [self.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
-  }
-  else if ([itemName isEqualToString:@"Bookmarks"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
-    BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-  }
-  else if ([itemName isEqualToString:@"Menu"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
-    [self.bottomMenu setMenuHidden:NO animated:YES];
-  }
-}
-
 #pragma mark - Routing
 
 - (void)tryToBuildRoute
@@ -1068,7 +912,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   [UIApplication sharedApplication].idleTimerDisabled = YES;
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
-  self.zoomButtonsView.hidden = NO;
+  self.controlsManager.zoomHidden = NO;
   GetFramework().FollowRoute();
 }
 
@@ -1081,10 +925,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   [UIApplication sharedApplication].idleTimerDisabled = NO;
   GetFramework().CloseRouting();
-  bool zoomButtonsEnabled;
-  if (!Settings::Get("ZoomButtonsEnabled", zoomButtonsEnabled))
-    zoomButtonsEnabled = false;
-  self.zoomButtonsView.hidden = !zoomButtonsEnabled;
+  [self.controlsManager resetZoomButtonsVisibility];
   [self.routeView setState:RouteViewStateHidden animated:YES];
 }
 
@@ -1157,52 +998,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
-#pragma mark - BottomMenuDelegate
-
-- (void)bottomMenu:(BottomMenu *)menu didPressItemWithName:(NSString *)itemName appURL:(NSString *)appURL webURL:(NSString *)webURL
-{
-  if ([itemName isEqualToString:@"Maps"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-    CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
-    [self.navigationController pushViewController:vc animated:YES];
-  }
-  else if ([itemName isEqualToString:@"Settings"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
-    SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
-  }
-  else if ([itemName isEqualToString:@"Share"])
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
-    CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
-    if (location)
-    {
-      double gX = MercatorBounds::LonToX(location.coordinate.longitude);
-      double gY = MercatorBounds::LatToY(location.coordinate.latitude);
-      ShareInfo * info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
-      self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
-      [self.shareActionSheet showFromRect:CGRectMake(menu.midX, self.view.height - 40, 0, 0)];
-    }
-    else
-    {
-      [[[UIAlertView alloc] initWithTitle:L(@"unknown_current_position") message:nil delegate:nil cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
-    }
-  }
-  else
-  {
-    [menu setMenuHidden:YES animated:YES];
-    [[Statistics instance] logEvent:@"Bottom menu item clicked" withParameters:@{@"Item" : itemName, @"Country": [AppInfo sharedInfo].countryCode}];
-    UIApplication * application = [UIApplication sharedApplication];
-    NSURL * url = [NSURL URLWithString:appURL];
-    if ([application canOpenURL:url])
-      [application openURL:url];
-    else
-      [application openURL:[NSURL URLWithString:webURL]];
-  }
-}
-
 #pragma mark - UIKitViews delegates
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -1244,7 +1039,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
         GetFramework().GetBalloonManager().RemovePin();
 
         [UIView animateWithDuration:0.3 animations:^{
-          self.toolbarView.maxY = self.view.height;
           if (GetFramework().IsRoutingActive())
           {
             if (self.searchView.state == SearchViewStateResults)
@@ -1270,10 +1064,11 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
           if (CGRectContainsPoint(self.view.bounds, viewPinPoint))
           {
-            CGFloat const minOffset = 40;
+            CGFloat const minOffset = 40.0;
+            CGFloat const bottomOffset = 44.0;
             viewPinPoint.x = MIN(self.view.width - minOffset, viewPinPoint.x);
             viewPinPoint.x = MAX(minOffset, viewPinPoint.x);
-            viewPinPoint.y = MIN(self.view.height - minOffset - self.toolbarView.height, viewPinPoint.y);
+            viewPinPoint.y = MIN(self.view.height - minOffset - bottomOffset, viewPinPoint.y);
             viewPinPoint.y = MAX(minOffset + self.containerView.placePage.maxY, viewPinPoint.y);
 
             CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:viewPinPoint];
@@ -1283,7 +1078,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
           }
         }
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-          self.toolbarView.maxY = self.view.height;
           if (GetFramework().IsRoutingActive())
           {
             self.routeView.alpha = 1;
@@ -1295,7 +1089,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
     case PlacePageStateOpened:
       {
         [UIView animateWithDuration:0.3 animations:^{
-          self.toolbarView.minY = self.view.height;
           self.routeView.alpha = 0;
         }];
       }
@@ -1364,7 +1157,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [self dismissPopover];
   [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:YES];
   [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
-  [self.bottomMenu setMenuHidden:YES animated:YES];
 
   _apiMode = apiMode;
 

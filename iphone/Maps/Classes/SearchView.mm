@@ -11,6 +11,7 @@
 #import "SearchResultCell.h"
 #import "SearchShowOnMapCell.h"
 #import "SearchCategoryCell.h"
+#import "MWMMapViewControlsManager.h"
 
 #include "Framework.h"
 
@@ -187,6 +188,7 @@ static BOOL keyboardLoaded = NO;
 
   if (state == SearchViewStateFullscreen)
   {
+    self.controlsManager.hidden = YES;
     [[MapsAppDelegate theApp].m_locationManager start:self];
 
     double latitude;
@@ -242,6 +244,7 @@ static BOOL keyboardLoaded = NO;
   }
   else if (state == SearchViewStateHidden)
   {
+    self.controlsManager.hidden = NO;
     [self.searchBar.textField resignFirstResponder];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.searchBar.cancelButton.alpha = 1;
