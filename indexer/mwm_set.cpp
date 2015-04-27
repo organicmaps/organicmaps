@@ -42,17 +42,15 @@ MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, string const & fileName)
     m_value = m_mwmSet->LockValueImpl(m_mwmId);
 }
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, MwmValueBase * value)
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, shared_ptr<MwmValueBase> value)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
 {
 }
 
 MwmSet::MwmLock::MwmLock(MwmLock && lock)
-    : m_mwmSet(lock.m_mwmSet), m_mwmId(lock.m_mwmId), m_value(lock.m_value)
+    : m_mwmSet(lock.m_mwmSet), m_mwmId(lock.m_mwmId), m_value(move(lock.m_value))
 {
-  lock.m_mwmId = 0;
   lock.m_mwmId = MwmSet::INVALID_MWM_ID;
-  lock.m_value = 0;
 }
 
 MwmSet::MwmLock::~MwmLock()
@@ -245,17 +243,17 @@ MwmInfo const & MwmSet::GetMwmInfo(MwmId id) const
   return m_info[id];
 }
 
-MwmSet::MwmValueBase * MwmSet::LockValue(MwmId id)
+shared_ptr<MwmSet::MwmValueBase> MwmSet::LockValue(MwmId id)
 {
   lock_guard<mutex> lock(m_lock);
   return LockValueImpl(id);
 }
 
-MwmSet::MwmValueBase * MwmSet::LockValueImpl(MwmId id)
+shared_ptr<MwmSet::MwmValueBase> MwmSet::LockValueImpl(MwmId id)
 {
   ASSERT_LESS(id, m_info.size(), ());
   if (id >= m_info.size())
-    return nullptr;
+    return shared_ptr<MwmValueBase>();
 
   UpdateMwmInfo(id);
   if (!m_info[id].IsUpToDate())
@@ -268,7 +266,7 @@ MwmSet::MwmValueBase * MwmSet::LockValueImpl(MwmId id)
   {
     if (it->first == id)
     {
-      MwmValueBase * result = it->second;
+      shared_ptr<MwmValueBase> result = it->second;
       m_cache.erase(it);
       return result;
     }
@@ -276,17 +274,17 @@ MwmSet::MwmValueBase * MwmSet::LockValueImpl(MwmId id)
   return CreateValue(m_info[id].m_fileName);
 }
 
-void MwmSet::UnlockValue(MwmId id, MwmValueBase * p)
+void MwmSet::UnlockValue(MwmId id, shared_ptr<MwmValueBase> p)
 {
   lock_guard<mutex> lock(m_lock);
   UnlockValueImpl(id, p);
 }
 
-void MwmSet::UnlockValueImpl(MwmId id, MwmValueBase * p)
+void MwmSet::UnlockValueImpl(MwmId id, shared_ptr<MwmValueBase> p)
 {
   ASSERT(p, (id));
   ASSERT_LESS(id, m_info.size(), ());
-  if (id >= m_info.size() || p == 0)
+  if (id >= m_info.size() || !p.get())
     return;
 
   ASSERT_GREATER(m_info[id].m_lockCount, 0, ());
@@ -300,12 +298,9 @@ void MwmSet::UnlockValueImpl(MwmId id, MwmValueBase * p)
     if (m_cache.size() > m_cacheSize)
     {
       ASSERT_EQUAL(m_cache.size(), m_cacheSize + 1, ());
-      delete m_cache.front().second;
       m_cache.pop_front();
     }
   }
-  else
-    delete p;
 }
 
 void MwmSet::ClearCache()
@@ -317,8 +312,6 @@ void MwmSet::ClearCache()
 
 void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
 {
-  for (CacheType::iterator it = beg; it != end; ++it)
-    delete it->second;
   m_cache.erase(beg, end);
 }
 
@@ -327,10 +320,12 @@ namespace
   struct MwmIdIsEqualTo
   {
     MwmSet::MwmId m_id;
+
     explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
-    bool operator() (pair<MwmSet::MwmId, MwmSet::MwmValueBase *> const & p) const
+
+    bool operator()(pair<MwmSet::MwmId, shared_ptr<MwmSet::MwmValueBase>> const & p) const
     {
-      return (p.first == m_id);
+      return p.first == m_id;
     }
   };
 }

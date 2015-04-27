@@ -8,6 +8,7 @@
 
 #include "std/deque.hpp"
 #include "std/mutex.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -83,12 +84,13 @@ public:
     MwmLock(MwmLock && lock);
     virtual ~MwmLock();
 
+    // Returns a non-owning ptr.
     template <typename T>
     inline T * GetValue() const
     {
-      return static_cast<T *>(m_value);
+      return static_cast<T *>(m_value.get());
     }
-    inline bool IsLocked() const { return m_value; }
+    inline bool IsLocked() const { return m_value.get() != nullptr; }
     inline MwmId GetId() const { return m_mwmId; }
     MwmInfo const & GetInfo() const;
 
@@ -97,11 +99,11 @@ public:
   private:
     friend class MwmSet;
 
-    MwmLock(MwmSet & mwmSet, MwmId mwmId, MwmValueBase * value);
+    MwmLock(MwmSet & mwmSet, MwmId mwmId, shared_ptr<MwmValueBase> value);
 
     MwmSet * m_mwmSet;
     MwmId m_mwmId;
-    MwmValueBase * m_value;
+    shared_ptr<MwmValueBase> m_value;
 
     NONCOPYABLE(MwmLock);
   };
@@ -159,17 +161,17 @@ protected:
   /// @return True when it's possible to get file format version - in
   ///         this case version is set to the file format version.
   virtual bool GetVersion(string const & name, MwmInfo & info) const = 0;
-  virtual MwmValueBase * CreateValue(string const & name) const = 0;
+  virtual shared_ptr<MwmValueBase> CreateValue(string const & name) const = 0;
 
   void Cleanup();
 
 private:
-  typedef deque<pair<MwmId, MwmValueBase *> > CacheType;
+  typedef deque<pair<MwmId, shared_ptr<MwmValueBase>>> CacheType;
 
-  MwmValueBase * LockValue(MwmId id);
-  MwmValueBase * LockValueImpl(MwmId id);
-  void UnlockValue(MwmId id, MwmValueBase * p);
-  void UnlockValueImpl(MwmId id, MwmValueBase * p);
+  shared_ptr<MwmValueBase> LockValue(MwmId id);
+  shared_ptr<MwmValueBase> LockValueImpl(MwmId id);
+  void UnlockValue(MwmId id, shared_ptr<MwmValueBase> p);
+  void UnlockValueImpl(MwmId id, shared_ptr<MwmValueBase> p);
 
   /// Find first removed mwm or add a new one.
   /// @precondition This function is always called under mutex m_lock.

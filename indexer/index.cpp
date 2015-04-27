@@ -47,9 +47,9 @@ bool Index::GetVersion(string const & name, MwmInfo & info) const
   return true;
 }
 
-MwmValue * Index::CreateValue(string const & name) const
+shared_ptr<MwmSet::MwmValueBase> Index::CreateValue(string const & name) const
 {
-  MwmValue * p = new MwmValue(name);
+  shared_ptr<MwmValue> p(new MwmValue(name));
   ASSERT(p->GetHeader().IsMWMSuitable(), ());
   return p;
 }

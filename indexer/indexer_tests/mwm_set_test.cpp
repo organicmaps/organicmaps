@@ -22,7 +22,10 @@ namespace
       return true;
     }
 
-    MwmValue * CreateValue(string const &) const override { return new MwmValue(); }
+    shared_ptr<MwmValueBase> CreateValue(string const &) const override
+    {
+      return shared_ptr<MwmValueBase>(new MwmValue());
+    }
 
   public:
     ~TestMwmSet()
