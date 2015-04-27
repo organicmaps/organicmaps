@@ -22,7 +22,7 @@ class FeatureLoader
   Index const * m_pIndex;
   Index::FeaturesLoaderGuard * m_pGuard;
 
-  void CreateLoader(size_t mwmID);
+  void CreateLoader(MwmSet::MwmId const & mwmId);
 
 public:
   FeatureLoader(Index const * pIndex);

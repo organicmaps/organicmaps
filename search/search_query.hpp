@@ -162,12 +162,12 @@ private:
   int GetCategoryLocales(int8_t (&arr) [3]) const;
   template <class ToDo> void ForEachCategoryTypes(ToDo toDo) const;
 
-  typedef vector<MwmInfo> MWMVectorT;
-  typedef vector<vector<uint32_t> > OffsetsVectorT;
+  typedef vector<shared_ptr<MwmInfo>> MWMVectorT;
+  typedef map<MwmSet::MwmId, vector<uint32_t>> OffsetsVectorT;
   typedef feature::DataHeader FHeaderT;
 
-  void SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & viewport, size_t idx);
-  void UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & rect,
+  void SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport, size_t idx);
+  void UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const & rect,
                              OffsetsVectorT & offsets);
   void ClearCache(size_t ind);
 
@@ -179,7 +179,8 @@ private:
     COUNT_V = 3   // Should always be the last
   };
 
-  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID vID = DEFAULT_V);
+  void AddResultFromTrie(TrieValueT const & val, MwmSet::MwmId const & mwmID,
+                         ViewportID vID = DEFAULT_V);
 
   template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets);
   void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
@@ -204,7 +205,7 @@ private:
   /// If ind == -1, don't do any matching with features in viewport (@see m_offsetsInViewport).
   //@{
   /// Do search in all maps from mwmInfo.
-  void SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, ViewportID vID);
+  void SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, ViewportID vID);
   /// Do search in particular map (mwmLock).
   void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, ViewportID vID = DEFAULT_V);
   //@}

@@ -192,11 +192,13 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
   Index index;
-  if (!index.Register(mwmFile).second)
+  pair<MwmSet::MwmLock, bool> p = index.Register(mwmFile);
+  if (!p.second)
   {
     LOG(LCRITICAL, ("MWM file not found"));
     return;
   }
+  ASSERT(p.first.IsLocked(), ());
 
   osrm::NodeDataVectorT nodeData;
   gen::OsmID2FeatureID osm2ft;
@@ -227,7 +229,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
       }
 
       FeatureType ft;
-      Index::FeaturesLoaderGuard loader(index, 0);
+      Index::FeaturesLoaderGuard loader(index, p.first.GetId());
       loader.GetFeature(fID, ft);
 
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

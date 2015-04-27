@@ -46,7 +46,7 @@ pair<MwmSet::MwmLock, bool> FeaturesFetcher::RegisterMap(string const & file)
     }
     MwmSet::MwmLock & lock = p.first;
     ASSERT(lock.IsLocked(), ("Mwm lock invariant violation."));
-    m_rect.Add(lock.GetInfo().m_limitRect);
+    m_rect.Add(lock.GetInfo()->m_limitRect);
     return p;
   }
   catch (RootException const & e)

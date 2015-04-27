@@ -14,6 +14,7 @@
 #include "base/observer_list.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/limits.hpp"
 #include "std/unordered_set.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -39,7 +40,8 @@ protected:
   // MwmSet overrides:
   bool GetVersion(string const & name, MwmInfo & info) const override;
   TMwmValueBasePtr CreateValue(string const & name) const override;
-  void UpdateMwmInfo(MwmId id) override;
+  void OnMwmDeleted(shared_ptr<MwmInfo> const & info) override;
+  void OnMwmReadyForUpdate(shared_ptr<MwmInfo> const & info) override;
 
 public:
   enum UpdateStatus
@@ -189,7 +191,7 @@ private:
 
       void operator() (uint32_t offset)
       {
-        ASSERT(m_id != -1, ());
+        ASSERT(m_id.IsAlive(), ());
         if (m_offsets.insert(offset).second)
           m_f(FeatureID(m_id, offset));
       }
@@ -289,24 +291,17 @@ public:
 
   MwmId GetMwmIdByName(string const & name) const
   {
-    // const_cast<> is used here and in some other methods not only
-    // to lock/unlock mutex, which can be circumvented by marking
-    // the mutex as mutable, but also to call MwmSet::GetIdByName()
-    // method which is non-constant by design, because it updates
-    // MWM info for all registered MWMs.
-    //
-    // TODO (y@): probably a better design is possible, investigate it.
-    Index * p = const_cast<Index *>(this);
-    lock_guard<mutex> lock(p->m_lock);
+    lock_guard<mutex> lock(m_lock);
 
-    ASSERT(p->GetIdByName(name) != INVALID_MWM_ID, ("Can't get mwm identifier"));
-    return p->GetIdByName(name);
+    MwmId const id = GetIdByName(name);
+    ASSERT(id.IsAlive(), ("Can't get an mwm's identifier."));
+    return id;
   }
 
   template <typename F>
   void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const id) const
   {
-    if (id != INVALID_MWM_ID)
+    if (id.IsAlive())
     {
       MwmLock const lock(const_cast<Index &>(*this), id);
       if (lock.IsLocked())
@@ -319,20 +314,19 @@ public:
   }
 
 private:
-
   // "features" must be sorted using FeatureID::operator< as predicate
   template <typename F>
   size_t ReadFeatureRange(F & f, vector<FeatureID> const & features, size_t index) const
   {
     ASSERT_LESS(index, features.size(), ());
     size_t result = index;
-    MwmId id = features[index].m_mwm;
+    MwmId id = features[index].m_mwmId;
     MwmLock const lock(const_cast<Index &>(*this), id);
     MwmValue * const pValue = lock.GetValue<MwmValue>();
     if (pValue)
     {
       FeaturesVector featureReader(pValue->m_cont, pValue->GetHeader());
-      while (result < features.size() && id == features[result].m_mwm)
+      while (result < features.size() && id == features[result].m_mwmId)
       {
         FeatureID const & featureId = features[result];
         FeatureType featureType;
@@ -346,57 +340,61 @@ private:
     }
     else
     {
-      result = distance(features.begin(),
-                        lower_bound(features.begin(), features.end(), FeatureID(id + 1, 0)));
+      // Fake feature identifier which is used to determine the right
+      // bound of all features in an mwm corresponding to id, because
+      // it's greater than any other feature in the mwm in accordance
+      // with FeatureID::operator<().
+      FeatureID fakeID(id, numeric_limits<uint32_t>::max());
+      result = distance(features.begin(), upper_bound(features.begin(), features.end(), fakeID));
     }
 
     return result;
   }
 
   template <typename F>
-  void ForEachInIntervals(F & f, covering::CoveringMode mode,
-                          m2::RectD const & rect, uint32_t scale) const
+  void ForEachInIntervals(F & f, covering::CoveringMode mode, m2::RectD const & rect,
+                          uint32_t scale) const
   {
-    vector<MwmInfo> mwm;
-    GetMwmInfo(mwm);
+    vector<shared_ptr<MwmInfo>> mwms;
+    GetMwmsInfo(mwms);
 
     covering::CoveringGetter cov(rect, mode);
 
-    size_t const count = mwm.size();
-    MwmId worldID[2] = { count, count };
+    MwmId worldID[2];
 
-    for (MwmId id = 0; id < count; ++id)
+    for (shared_ptr<MwmInfo> const & info : mwms)
     {
-      if ((mwm[id].m_minScale <= scale && scale <= mwm[id].m_maxScale) &&
-          rect.IsIntersect(mwm[id].m_limitRect))
+      if (info->m_minScale <= scale && scale <= info->m_maxScale &&
+          rect.IsIntersect(info->m_limitRect))
       {
-        switch (mwm[id].GetType())
+        MwmId id(info);
+        switch (info->GetType())
         {
-        case MwmInfo::COUNTRY:
+          case MwmInfo::COUNTRY:
           {
             MwmLock const lock(const_cast<Index &>(*this), id);
             f(lock, cov, scale);
           }
           break;
 
-        case MwmInfo::COASTS:
-          worldID[0] = id;
-          break;
+          case MwmInfo::COASTS:
+            worldID[0] = id;
+            break;
 
-        case MwmInfo::WORLD:
-          worldID[1] = id;
-          break;
+          case MwmInfo::WORLD:
+            worldID[1] = id;
+            break;
         }
       }
     }
 
-    if (worldID[0] < count)
+    if (worldID[0].IsAlive())
     {
       MwmLock const lock(const_cast<Index &>(*this), worldID[0]);
       f(lock, cov, scale);
     }
 
-    if (worldID[1] < count)
+    if (worldID[1].IsAlive())
     {
       MwmLock const lock(const_cast<Index &>(*this), worldID[1]);
       f(lock, cov, scale);

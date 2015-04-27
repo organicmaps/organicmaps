@@ -139,13 +139,13 @@ class Point2PhantomNode : private noncopyable
   m2::PointD const m_direction;
   OsrmFtSegMapping const & m_mapping;
   buffer_vector<Candidate, 128> m_candidates;
-  uint32_t m_mwmId;
+  MwmSet::MwmId m_mwmId;
   Index const * m_pIndex;
 
 public:
-  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex, m2::PointD const & direction)
-    : m_direction(direction), m_mapping(mapping),
-      m_mwmId(numeric_limits<uint32_t>::max()), m_pIndex(pIndex)
+  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex,
+                    m2::PointD const & direction)
+      : m_direction(direction), m_mapping(mapping), m_pIndex(pIndex)
   {
   }
 
@@ -186,9 +186,9 @@ public:
         res.m_segIdx = i - 1;
         res.m_point = pt;
 
-        if (m_mwmId == numeric_limits<uint32_t>::max())
-          m_mwmId = ft.GetID().m_mwm;
-        ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwm, ());
+        if (!m_mwmId.IsAlive())
+          m_mwmId = ft.GetID().m_mwmId;
+        ASSERT_EQUAL(m_mwmId, ft.GetID().m_mwmId, ());
       }
     }
 
@@ -304,7 +304,7 @@ public:
 
   void MakeResult(FeatureGraphNodeVecT & res, size_t maxCount)
   {
-    if (m_mwmId == numeric_limits<uint32_t>::max())
+    if (!m_mwmId.IsAlive())
       return;
 
     vector<OsrmMappingTypes::FtSeg> segments;

@@ -34,9 +34,9 @@ void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
       res.m_segId = i - 1;
       res.m_point = pt;
       res.m_isOneway = m_vehicleModel->IsOneWay(ft);
-      if (m_mwmId == MwmSet::INVALID_MWM_ID)
-        m_mwmId = ft.GetID().m_mwm;
-      ASSERT_EQUAL(ft.GetID().m_mwm, m_mwmId, ());
+      if (!m_mwmId.IsAlive())
+        m_mwmId = ft.GetID().m_mwmId;
+      ASSERT_EQUAL(ft.GetID().m_mwmId, m_mwmId, ());
     }
   }
 
@@ -46,7 +46,7 @@ void NearestRoadPosFinder::AddInformationSource(const FeatureType & ft)
 
 void NearestRoadPosFinder::MakeResult(vector<RoadPos> & res, const size_t maxCount)
 {
-  if (m_mwmId == MwmSet::INVALID_MWM_ID)
+  if (!m_mwmId.IsAlive())
     return;
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {

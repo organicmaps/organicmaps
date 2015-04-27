@@ -38,8 +38,8 @@ UNIT_TEST(LocalityFinder)
   TEST(p.second, ());
   MwmSet::MwmLock const & lock = p.first;
   TEST(lock.IsLocked(), ());
-  MwmInfo const & info = index.GetMwmInfo(lock.GetId());
-  m2::RectD const & rect = info.m_limitRect;
+  shared_ptr<MwmInfo> info = lock.GetId().GetInfo();
+  m2::RectD const & rect = info->m_limitRect;
 
   search::LocalityFinder finder(&index);
   finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));

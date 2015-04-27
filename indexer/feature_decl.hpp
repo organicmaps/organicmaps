@@ -1,8 +1,9 @@
 #pragma once
 
+#include "indexer/mwm_set.hpp"
+
 #include "std/stdint.hpp"
 #include "std/string.hpp"
-
 
 namespace feature
 {
@@ -20,25 +21,25 @@ enum EGeomType
 
 struct FeatureID
 {
-  size_t m_mwm;
+  MwmSet::MwmId m_mwmId;
   uint32_t m_offset;
 
-  FeatureID() : m_mwm(-1) {}
-  FeatureID(size_t mwm, uint32_t offset) : m_mwm(mwm), m_offset(offset) {}
+  FeatureID() = default;
+  FeatureID(MwmSet::MwmId const & mwmId, uint32_t offset) : m_mwmId(mwmId), m_offset(offset) {}
 
-  bool IsValid() const { return m_mwm != -1; }
+  bool IsValid() const { return m_mwmId.IsAlive(); }
 
   inline bool operator < (FeatureID const & r) const
   {
-    if (m_mwm == r.m_mwm)
+    if (m_mwmId == r.m_mwmId)
       return m_offset < r.m_offset;
     else
-      return m_mwm < r.m_mwm;
+      return m_mwmId < r.m_mwmId;
   }
 
   inline bool operator == (FeatureID const & r) const
   {
-    return (m_mwm == r.m_mwm && m_offset == r.m_offset);
+    return m_mwmId == r.m_mwmId && m_offset == r.m_offset;
   }
 
   inline bool operator != (FeatureID const & r) const

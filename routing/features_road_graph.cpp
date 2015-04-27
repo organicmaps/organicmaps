@@ -20,7 +20,7 @@ double const READ_CROSS_EPSILON = 1.0E-4;
 }  // namespace
 
 /// @todo Factor out vehicle model as a parameter for the features graph.
-FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
+FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, MwmSet::MwmId const & mwmID)
     : m_pIndex(pIndex),
       m_mwmID(mwmID),
       m_vehicleModel(new PedestrianModel()),
@@ -44,7 +44,7 @@ public:
   void operator()(FeatureType & ft)
   {
     FeatureID const fID = ft.GetID();
-    if (fID.m_mwm != m_graph.GetMwmID())
+    if (fID.m_mwmId != m_graph.GetMwmID())
       return;
 
     /// @todo remove overhead with type and speed checks (now speed loads in cache creation)

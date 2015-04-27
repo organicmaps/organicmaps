@@ -45,7 +45,7 @@ bool RunTest(string const & fileName, int lowS, int highS)
   MwmSet::MwmLock const & lock = p.first;
   ASSERT(lock.IsLocked(), ());
 
-  version::Format const version = lock.GetInfo().m_version.format;
+  version::Format const version = lock.GetInfo()->m_version.format;
   if (version == version::unknownFormat)
     return false;
 

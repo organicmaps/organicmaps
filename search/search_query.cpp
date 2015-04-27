@@ -146,14 +146,14 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
 
   m_cancel = false;
 
-  MWMVectorT mwmInfo;
-  m_pIndex->GetMwmInfo(mwmInfo);
+  MWMVectorT mwmsInfo;
+  m_pIndex->GetMwmsInfo(mwmsInfo);
 
   for (size_t i = 0; i < count; ++i)
-    SetViewportByIndex(mwmInfo, viewport[i], i);
+    SetViewportByIndex(mwmsInfo, viewport[i], i);
 }
 
-void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & viewport, size_t idx)
+void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport, size_t idx)
 {
   ASSERT(idx < COUNT_V, (idx));
 
@@ -163,7 +163,7 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & vie
     if (!m_viewport[idx].IsValid() || !IsEqualMercator(m_viewport[idx], viewport, 10.0))
     {
       m_viewport[idx] = viewport;
-      UpdateViewportOffsets(mwmInfo, viewport, m_offsetsInViewport[idx]);
+      UpdateViewportOffsets(mwmsInfo, viewport, m_offsetsInViewport[idx]);
 
 #ifdef FIND_LOCALITY_TEST
       m_locality.SetViewportByIndex(viewport, idx);
@@ -249,20 +249,20 @@ void Query::ClearCache(size_t ind)
   m_viewport[ind].MakeEmpty();
 }
 
-void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & rect,
+void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const & rect,
                                   OffsetsVectorT & offsets)
 {
   offsets.clear();
-  offsets.resize(mwmInfo.size());
 
   int const viewScale = scales::GetScaleLevel(rect);
   covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
 
-  for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
+  for (shared_ptr<MwmInfo> const & info : mwmsInfo)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (rect.IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (rect.IsIntersect(info->m_limitRect))
     {
+      MwmSet::MwmId mwmId(info);
       Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
       if (MwmValue * const pMwm = mwmLock.GetValue<MwmValue>())
       {
@@ -291,12 +291,16 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 
 #ifdef DEBUG
   size_t offsetsCached = 0;
-  for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
-    offsetsCached += offsets[mwmId].size();
+  for (shared_ptr<MwmInfo> const & info : mwmsInfo)
+  {
+    MwmSet::MwmId mwmId(info);
+    auto const it = offsets.find(mwmId);
+    if (it != offsets.end())
+      offsetsCached += it->second.size();
+  }
 
-  LOG(LDEBUG, ("For search in viewport cached ",
-              "mwms:", mwmInfo.size(),
-              "offsets:", offsetsCached));
+  LOG(LDEBUG,
+      ("For search in viewport cached ", "mwms:", mwmsInfo.size(), "offsets:", offsetsCached));
 #endif
 }
 
@@ -575,8 +579,8 @@ namespace impl
     // For the best performance, incoming id's should be sorted by id.first (mwm file id).
     void LoadFeature(FeatureID const & id, FeatureType & f, string & name, string & country)
     {
-      if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwm)
-        m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.m_mwm));
+      if (m_pFV.get() == 0 || m_pFV->GetId() != id.m_mwmId)
+        m_pFV.reset(new Index::FeaturesLoaderGuard(*m_query.m_pIndex, id.m_mwmId));
 
       m_pFV->GetFeature(id.m_offset, f);
       f.SetID(id);
@@ -938,7 +942,8 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
   }
 }
 
-void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID vID /*= DEFAULT_V*/)
+void Query::AddResultFromTrie(TrieValueT const & val, MwmSet::MwmId const & mwmID,
+                              ViewportID vID /*= DEFAULT_V*/)
 {
   impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank, val.m_pt,
                        GetPosition(vID), GetViewport(vID), vID);
@@ -1071,31 +1076,31 @@ void Query::MakeResultHighlight(Result & res) const
 
 namespace impl
 {
-
 class FeatureLoader
 {
   Query & m_query;
-  size_t m_mwmID, m_count;
+  MwmSet::MwmId m_mwmID;
+  size_t m_count;
   Query::ViewportID m_viewportID;
 
 public:
-  FeatureLoader(Query & query, size_t mwmID, Query::ViewportID viewportID)
-    : m_query(query), m_mwmID(mwmID), m_count(0), m_viewportID(viewportID)
+  FeatureLoader(Query & query, MwmSet::MwmId const & mwmID, Query::ViewportID viewportID)
+      : m_query(query), m_mwmID(mwmID), m_count(0), m_viewportID(viewportID)
   {
     if (query.m_sortByViewport)
       m_viewportID = Query::CURRENT_V;
   }
 
-  void operator() (Query::TrieValueT const & value)
+  void operator()(Query::TrieValueT const & value)
   {
     ++m_count;
     m_query.AddResultFromTrie(value, m_mwmID, m_viewportID);
   }
 
   size_t GetCount() const { return m_count; }
+
   void Reset() { m_count = 0; }
 };
-
 }
 
 namespace
@@ -1608,11 +1613,12 @@ namespace impl
 void Query::SearchAddress(Results & res)
 {
   // Find World.mwm and do special search there.
-  MWMVectorT mwmInfo;
-  m_pIndex->GetMwmInfo(mwmInfo);
+  MWMVectorT mwmsInfo;
+  m_pIndex->GetMwmsInfo(mwmsInfo);
 
-  for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
+  for (shared_ptr<MwmInfo> & info : mwmsInfo)
   {
+    MwmSet::MwmId mwmId(info);
     Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
     MwmValue * const pMwm = mwmLock.GetValue<MwmValue>();
     if (pMwm &&
@@ -1638,12 +1644,12 @@ void Query::SearchAddress(Results & res)
           params.ProcessAddressTokens();
 
           m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(city.m_value.m_pt, city.m_radius);
-          SetViewportByIndex(mwmInfo, rect, LOCALITY_V);
+          SetViewportByIndex(mwmsInfo, rect, LOCALITY_V);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;
           m_worldSearch = false;
-          SearchFeatures(params, mwmInfo, LOCALITY_V);
+          SearchFeatures(params, mwmsInfo, LOCALITY_V);
           m_worldSearch = b;
         }
         else
@@ -1664,8 +1670,9 @@ void Query::SearchAddress(Results & res)
 
         if (!params.IsEmpty())
         {
-          for (MwmSet::MwmId id = 0; id < mwmInfo.size(); ++id)
+          for (shared_ptr<MwmInfo> & info : mwmsInfo)
           {
+            MwmSet::MwmId id(info);
             Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), id);
             string fileName;
             if (mwmLock.IsLocked())
@@ -1955,8 +1962,8 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
 
 void Query::SearchFeatures()
 {
-  MWMVectorT mwmInfo;
-  m_pIndex->GetMwmInfo(mwmInfo);
+  MWMVectorT mwmsInfo;
+  m_pIndex->GetMwmsInfo(mwmsInfo);
 
   Params params(*this);
 
@@ -1964,7 +1971,7 @@ void Query::SearchFeatures()
   for (int i = 0; i < LOCALITY_V; ++i)
   {
     if (m_viewport[i].IsValid())
-      SearchFeatures(params, mwmInfo, static_cast<ViewportID>(i));
+      SearchFeatures(params, mwmsInfo, static_cast<ViewportID>(i));
   }
 }
 
@@ -2024,14 +2031,14 @@ namespace
   };
 }
 
-void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, ViewportID vID)
+void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmsInfo, ViewportID vID)
 {
-  for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
+  for (shared_ptr<MwmInfo> const & info : mwmsInfo)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewport[vID].IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (m_viewport[vID].IsIntersect(info->m_limitRect))
     {
-      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
       SearchInMWM(mwmLock, params, vID);
     }
   }
@@ -2203,10 +2210,10 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
   // Get feature's offsets in viewport.
   OffsetsVectorT offsets;
   {
-    MWMVectorT mwmInfo;
-    m_pIndex->GetMwmInfo(mwmInfo);
+    MWMVectorT mwmsInfo;
+    m_pIndex->GetMwmsInfo(mwmsInfo);
 
-    UpdateViewportOffsets(mwmInfo, viewport, offsets);
+    UpdateViewportOffsets(mwmsInfo, viewport, offsets);
   }
 
   vector<shared_ptr<impl::PreResult2> > indV;
@@ -2214,19 +2221,20 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
   impl::PreResult2Maker maker(*this);
 
   // load results
-  for (size_t i = 0; i < offsets.size(); ++i)
+  for (auto it = offsets.begin(); it != offsets.end(); ++it)
   {
-    if (m_cancel) break;
+    if (m_cancel)
+      break;
 
-    for (size_t j = 0; j < offsets[i].size(); ++j)
+    MwmSet::MwmId const & mwmId = it->first;
+    for (size_t offset : it->second)
     {
-      if (m_cancel) break;
+      if (m_cancel)
+        break;
 
-      impl::PreResult2 * p = maker(FeatureID(i, offsets[i][j]));
-      if (p && !IsResultExists(p, indV))
-        indV.push_back(shared_ptr<impl::PreResult2>(p));
-      else
-        delete p;
+      shared_ptr<impl::PreResult2> p(maker(FeatureID(mwmId, offset)));
+      if (p.get() != nullptr && !IsResultExists(p.get(), indV))
+        indV.push_back(p);
     }
   }
 
@@ -2271,14 +2279,14 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t
 
   if (!(name[0].empty() && name[1].empty()))
   {
-    MWMVectorT mwmInfo;
-    m_pIndex->GetMwmInfo(mwmInfo);
+    MWMVectorT mwmsInfo;
+    m_pIndex->GetMwmsInfo(mwmsInfo);
 
     Params params(*this);
 
-    for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
+    for (shared_ptr<MwmInfo> const & info : mwmsInfo)
     {
-      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
+      Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
       string fileName;
       if (mwmLock.IsLocked())
         fileName = mwmLock.GetValue<MwmValue>()->GetFileName();

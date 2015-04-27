@@ -3,6 +3,7 @@
 #include "routing/vehicle_model.hpp"
 
 #include "indexer/feature_data.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -23,11 +24,11 @@ class FeaturesRoadGraph : public IRoadGraph
   RoadInfo const & GetCachedRoadInfo(uint32_t const ftId, FeatureType & ft, bool fullLoad);
 
 public:
-  FeaturesRoadGraph(Index const * pIndex, size_t mwmID);
+  FeaturesRoadGraph(Index const * pIndex, MwmSet::MwmId const & mwmID);
 
   static uint32_t GetStreetReadScale();
 
-  inline size_t GetMwmID() const { return m_mwmID; }
+  inline MwmSet::MwmId GetMwmID() const { return m_mwmID; }
 
   double GetCacheMiss() const
   {
@@ -53,7 +54,7 @@ private:
   void LoadFeature(uint32_t featureId, FeatureType & ft);
 
   Index const * m_pIndex;
-  size_t m_mwmID;
+  MwmSet::MwmId m_mwmID;
   unique_ptr<IVehicleModel> m_vehicleModel;
   my::Cache<uint32_t, RoadInfo> m_cache;
 

@@ -4,6 +4,8 @@
 #include "routing/router.hpp"
 #include "routing/vehicle_model.hpp"
 
+#include "indexer/mwm_set.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "std/unique_ptr.hpp"
@@ -28,9 +30,9 @@ public:
 
 protected:
   /// @todo This method fits better in features_road_graph.
-  size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
+  MwmSet::MwmId GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
 
-  bool IsMyMWM(size_t mwmID) const;
+  bool IsMyMWM(MwmSet::MwmId const & mwmID) const;
 
   unique_ptr<IRoadGraph> m_roadGraph;
   unique_ptr<IVehicleModel> const m_vehicleModel;

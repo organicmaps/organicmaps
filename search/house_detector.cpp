@@ -230,18 +230,18 @@ FeatureLoader::~FeatureLoader()
   Free();
 }
 
-void FeatureLoader::CreateLoader(size_t mwmID)
+void FeatureLoader::CreateLoader(MwmSet::MwmId const & mwmId)
 {
-  if (m_pGuard == 0 || mwmID != m_pGuard->GetId())
+  if (m_pGuard == nullptr || mwmId != m_pGuard->GetId())
   {
     delete m_pGuard;
-    m_pGuard = new Index::FeaturesLoaderGuard(*m_pIndex, mwmID);
+    m_pGuard = new Index::FeaturesLoaderGuard(*m_pIndex, mwmId);
   }
 }
 
 void FeatureLoader::Load(FeatureID const & id, FeatureType & f)
 {
-  CreateLoader(id.m_mwm);
+  CreateLoader(id.m_mwmId);
   m_pGuard->GetFeature(id.m_offset, f);
 }
 

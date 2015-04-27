@@ -115,17 +115,18 @@ void LocalityFinder::CorrectMinimalRect(m2::RectD & rect) const
 
 void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
 {
-  vector<MwmInfo> mwmInfo;
-  m_pIndex->GetMwmInfo(mwmInfo);
+  vector<shared_ptr<MwmInfo>> mwmsInfo;
+  m_pIndex->GetMwmsInfo(mwmsInfo);
 
   cache.Clear();
 
   CorrectMinimalRect(rect);
   covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
 
-  for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
+  for (shared_ptr<MwmInfo> & info : mwmsInfo)
   {
     typedef feature::DataHeader HeaderT;
+    MwmSet::MwmId mwmId(info);
     Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmId);
     MwmValue * const pMwm = mwmLock.GetValue<MwmValue>();
     if (pMwm && pMwm->GetHeader().GetType() == HeaderT::world)

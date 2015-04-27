@@ -7,6 +7,8 @@
 #include "base/macros.hpp"
 
 #include "std/deque.hpp"
+#include "std/iostream.hpp"
+#include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
@@ -17,6 +19,9 @@
 class MwmInfo
 {
 public:
+  friend class MwmSet;
+  friend class Index;
+
   enum MwmTypeT
   {
     COUNTRY,
@@ -37,9 +42,9 @@ public:
   m2::RectD m_limitRect;          ///< Limit rect of mwm.
   uint8_t m_minScale;             ///< Min zoom level of mwm.
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
-  uint8_t m_lockCount;            ///< Number of locks.
-  string m_fileName;              ///< Path to the mwm file.
   version::MwmVersion m_version;  ///< Mwm file version.
+
+  inline Status GetStatus() const { return m_status; }
 
   inline bool IsRegistered() const
   {
@@ -48,23 +53,58 @@ public:
 
   inline bool IsUpToDate() const { return m_status == STATUS_UP_TO_DATE; }
 
+  inline string const & GetFileName() const { return m_fileName; }
+
   MwmTypeT GetType() const;
 
+private:
   inline void SetStatus(Status status) { m_status = status; }
 
-  inline Status GetStatus() const { return m_status; }
-
-private:
-  Status m_status;  ///< Current country status.
+  string m_fileName;    ///< Path to the mwm file.
+  Status m_status;      ///< Current country status.
+  uint8_t m_lockCount;  ///< Number of locks.
 };
 
 class MwmSet
 {
 public:
-  typedef size_t MwmId;
+  using TMwmFileName = string;
+  using TMwmInfoTable = map<TMwmFileName, shared_ptr<MwmInfo>>;
 
-  static const MwmId INVALID_MWM_ID;
+  struct MwmId
+  {
+  public:
+    friend class MwmSet;
 
+    MwmId() = default;
+    MwmId(MwmId const & id) : m_info(id.m_info) {}
+    MwmId(shared_ptr<MwmInfo> const & info) : m_info(info) {}
+
+    void Reset() { m_info.reset(); }
+    bool IsAlive() const
+    {
+      return m_info.get() != nullptr && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED;
+    }
+    shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
+
+    inline bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
+    inline bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
+    inline bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
+
+    friend ostream & operator<<(ostream & os, MwmId const & id)
+    {
+      if (id.m_info.get())
+        os << "MwmId[" << id.m_info->GetFileName() << "]";
+      else
+        os << "MwmId[invalid]";
+      return os;
+    }
+
+  private:
+    shared_ptr<MwmInfo> m_info;
+  };
+
+public:
   explicit MwmSet(size_t cacheSize = 5);
   virtual ~MwmSet() = 0;
 
@@ -81,8 +121,8 @@ public:
   {
   public:
     MwmLock();
-    MwmLock(MwmSet & mwmSet, MwmId mwmId);
-    MwmLock(MwmSet & mwmSet, string const & fileName);
+    MwmLock(MwmSet & mwmSet, MwmId const & mwmId);
+    MwmLock(MwmSet & mwmSet, TMwmFileName const & fileName);
     MwmLock(MwmLock && lock);
     ~MwmLock();
 
@@ -92,16 +132,17 @@ public:
     {
       return static_cast<T *>(m_value.get());
     }
+
     inline bool IsLocked() const { return m_value.get() != nullptr; }
-    inline MwmId GetId() const { return m_mwmId; }
-    MwmInfo const & GetInfo() const;
+    inline MwmId const & GetId() const { return m_mwmId; }
+    shared_ptr<MwmInfo> const & GetInfo() const;
 
     MwmLock & operator=(MwmLock && lock);
 
   private:
     friend class MwmSet;
 
-    MwmLock(MwmSet & mwmSet, MwmId mwmId, TMwmValueBasePtr value);
+    MwmLock(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value);
 
     MwmSet * m_mwmSet;
     MwmId m_mwmId;
@@ -122,10 +163,10 @@ public:
   ///         * the map can't be registered - returns inactive lock and unset flag
   //@{
 protected:
-  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterImpl(string const & fileName);
+  WARN_UNUSED_RESULT pair<MwmLock, bool> RegisterImpl(TMwmFileName const & fileName);
 
 public:
-  WARN_UNUSED_RESULT pair<MwmLock, bool> Register(string const & fileName);
+  WARN_UNUSED_RESULT pair<MwmLock, bool> Register(TMwmFileName const & fileName);
   //@}
 
   /// @name Remove mwm.
@@ -136,25 +177,21 @@ protected:
   ///
   /// @return true when the map was deregistered.
   //@{
-  bool DeregisterImpl(MwmId id);
-  bool DeregisterImpl(string const & fileName);
+  bool DeregisterImpl(MwmId const & id);
+  bool DeregisterImpl(TMwmFileName const & ofileName);
   //@}
 
 public:
-  void Deregister(string const & fileName);
+  bool Deregister(TMwmFileName const & fileName);
   void DeregisterAll();
   //@}
 
   /// @param[in] file File name without extension.
-  bool IsLoaded(string const & file) const;
+  bool IsLoaded(TMwmFileName const & fileName) const;
 
   /// Get ids of all mwms. Some of them may be with not active status.
   /// In that case, LockValue returns NULL.
-  void GetMwmInfo(vector<MwmInfo> & info) const;
-
-  /// \return A reference to an MwmInfo corresponding to id.  Id must
-  ///         be a valid Mwm id.
-  MwmInfo const & GetMwmInfo(MwmId id) const;
+  void GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const;
 
   // Clear caches.
   void ClearCache();
@@ -162,7 +199,7 @@ public:
 protected:
   /// @return True when it's possible to get file format version - in
   ///         this case version is set to the file format version.
-  virtual bool GetVersion(string const & name, MwmInfo & info) const = 0;
+  virtual bool GetVersion(TMwmFileName const & fileName, MwmInfo & info) const = 0;
   virtual TMwmValueBasePtr CreateValue(string const & name) const = 0;
 
   void Cleanup();
@@ -170,41 +207,40 @@ protected:
 private:
   typedef deque<pair<MwmId, TMwmValueBasePtr>> CacheType;
 
-  TMwmValueBasePtr LockValue(MwmId id);
-  TMwmValueBasePtr LockValueImpl(MwmId id);
-  void UnlockValue(MwmId id, TMwmValueBasePtr p);
-  void UnlockValueImpl(MwmId id, TMwmValueBasePtr p);
-
-  /// Find first removed mwm or add a new one.
-  /// @precondition This function is always called under mutex m_lock.
-  MwmId GetFreeId();
+  TMwmValueBasePtr LockValue(MwmId const & id);
+  TMwmValueBasePtr LockValueImpl(MwmId const & id);
+  void UnlockValue(MwmId const & id, TMwmValueBasePtr p);
+  void UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p);
 
   /// Do the cleaning for [beg, end) without acquiring the mutex.
   /// @precondition This function is always called under mutex m_lock.
   void ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end);
 
   CacheType m_cache;
-  size_t m_cacheSize;
+  size_t const m_cacheSize;
 
 protected:
   /// Find mwm with a given name.
   /// @precondition This function is always called under mutex m_lock.
-  MwmId GetIdByName(string const & name);
+  MwmId GetIdByName(TMwmFileName const & fileName) const;
 
   /// @precondition This function is always called under mutex m_lock.
-  void ClearCache(MwmId id);
+  void ClearCache(MwmId const & id);
 
   /// @precondition This function is always called under mutex m_lock.
-  WARN_UNUSED_RESULT inline MwmLock GetLock(MwmId id)
+  WARN_UNUSED_RESULT inline MwmLock GetLock(MwmId const & id)
   {
     return MwmLock(*this, id, LockValueImpl(id));
   }
 
-  /// Update given MwmInfo.
-  /// @precondition This function is always called under mutex m_lock.
-  virtual void UpdateMwmInfo(MwmId id);
+  // This method is called under m_lock when mwm is removed from a
+  // registry.
+  virtual void OnMwmDeleted(shared_ptr<MwmInfo> const & info) {}
 
-  vector<MwmInfo> m_info;
+  // This method is called under m_lock when mwm is ready for update.
+  virtual void OnMwmReadyForUpdate(shared_ptr<MwmInfo> const & info) {}
 
-  mutex m_lock;
+  TMwmInfoTable m_info;
+
+  mutable mutex m_lock;
 };

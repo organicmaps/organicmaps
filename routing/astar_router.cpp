@@ -39,5 +39,6 @@ IRouter::ResultCode AStarRouter::CalculateRoute(RoadPos const & startPos, RoadPo
     case TAlgorithm::Result::Cancelled:
       return IRouter::Cancelled;
   }
+  return IRouter::RouteNotFound;
 }
 }  // namespace routing

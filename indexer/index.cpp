@@ -143,9 +143,10 @@ pair<MwmSet::MwmLock, Index::UpdateStatus> Index::UpdateMap(string const & fileN
     lock_guard<mutex> lock(m_lock);
 
     MwmId const id = GetIdByName(fileName);
-    if (id != INVALID_MWM_ID && m_info[id].m_lockCount > 0)
+    shared_ptr<MwmInfo> info = id.GetInfo();
+    if (id.IsAlive() && info->m_lockCount > 0)
     {
-      m_info[id].SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
+      info->SetStatus(MwmInfo::STATUS_PENDING_UPDATE);
       result.first = GetLock(id);
       result.second = UPDATE_STATUS_UPDATE_DELAYED;
     }
@@ -167,33 +168,19 @@ pair<MwmSet::MwmLock, Index::UpdateStatus> Index::UpdateMap(string const & fileN
   return result;
 }
 
-void Index::UpdateMwmInfo(MwmId id)
+void Index::OnMwmDeleted(shared_ptr<MwmInfo> const & info)
 {
-  switch (m_info[id].GetStatus())
-  {
-    case MwmInfo::STATUS_MARKED_TO_DEREGISTER:
-      if (m_info[id].m_lockCount == 0)
-      {
-        string const fileName = m_info[id].m_fileName;
-        DeleteMapFiles(fileName, true /* deleteReady */);
-        CHECK(DeregisterImpl(id), ());
-        m_observers.ForEach(&Observer::OnMapDeleted, fileName);
-      }
-      break;
+  string const & fileName = info->m_fileName;
+  DeleteMapFiles(fileName, true /* deleteReady */);
+  m_observers.ForEach(&Observer::OnMapDeleted, fileName);
+}
 
-    case MwmInfo::STATUS_PENDING_UPDATE:
-      if (m_info[id].m_lockCount == 0)
-      {
-        ClearCache(id);
-        ReplaceFileWithReady(m_info[id].m_fileName);
-        m_info[id].SetStatus(MwmInfo::STATUS_UP_TO_DATE);
-        m_observers.ForEach(&Observer::OnMapUpdated, m_info[id].m_fileName);
-      }
-      break;
-
-    default:
-      break;
-  }
+void Index::OnMwmReadyForUpdate(shared_ptr<MwmInfo> const & info)
+{
+  ClearCache(MwmId(info));
+  ReplaceFileWithReady(info->m_fileName);
+  info->SetStatus(MwmInfo::STATUS_UP_TO_DATE);
+  m_observers.ForEach(&Observer::OnMapUpdated, info->m_fileName);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

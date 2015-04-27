@@ -97,9 +97,9 @@ pair<MwmSet::MwmLock, bool> Framework::RegisterMap(string const & file)
   MwmSet::MwmLock const & lock = p.first;
   ASSERT(lock.IsLocked(), ());
 
-  MwmInfo const & info = lock.GetInfo();
+  shared_ptr<MwmInfo> info = lock.GetInfo();
 
-  if (info.m_version.format == version::v1)
+  if (info->m_version.format == version::v1)
   {
     // Now we do force delete of old (April 2011) maps.
     LOG(LINFO, ("Deleting old map:", file));
@@ -391,7 +391,7 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
     {
       MwmSet::MwmLock const & lock = p.first;
       ASSERT(lock.IsLocked(), ());
-      InvalidateRect(lock.GetInfo().m_limitRect, true);
+      InvalidateRect(lock.GetInfo()->m_limitRect, true);
     }
 
     GetSearchEngine()->ClearViewportsCache();
@@ -427,7 +427,7 @@ void Framework::RegisterAllMaps()
     {
       MwmSet::MwmLock const & lock = p.first;
       ASSERT(lock.IsLocked(), ());
-      minVersion = min(minVersion, static_cast<int>(lock.GetInfo().m_version.format));
+      minVersion = min(minVersion, static_cast<int>(lock.GetInfo()->m_version.format));
     }
   });
 
@@ -1294,7 +1294,7 @@ void Framework::ShowSearchResult(search::Result const & res)
     case Result::RESULT_FEATURE:
     {
       FeatureID const id = res.GetFeatureID();
-      Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwm);
+      Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
 
       FeatureType ft;
       guard.GetFeature(id.m_offset, ft);
@@ -1818,7 +1818,7 @@ public:
     if (!m_id.IsValid())
       return;
 
-    Index::FeaturesLoaderGuard guard(model.GetIndex(), m_id.m_mwm);
+    Index::FeaturesLoaderGuard guard(model.GetIndex(), m_id.m_mwmId);
 
     FeatureType ft;
     guard.GetFeature(m_id.m_offset, ft);

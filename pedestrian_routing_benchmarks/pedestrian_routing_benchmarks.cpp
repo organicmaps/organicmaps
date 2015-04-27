@@ -37,7 +37,7 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
   UNUSED_VALUE(index.RegisterMap(kMapName + DATA_FILE_EXTENSION));
   TEST(index.IsLoaded(kMapName), ());
   MwmSet::MwmId id = index.GetMwmIdByName(kMapName + DATA_FILE_EXTENSION);
-  TEST_NOT_EQUAL(static_cast<size_t>(-1), id, ());
+  TEST(id.IsAlive(), ());
 
   router.SetRoadGraph(make_unique<routing::FeaturesRoadGraph>(&index, id));
 

@@ -9,40 +9,35 @@
 
 #include "std/algorithm.hpp"
 
-// static
-MwmSet::MwmId const MwmSet::INVALID_MWM_ID = static_cast<MwmSet::MwmId>(-1);
-
-MwmInfo::MwmInfo() : m_lockCount(0), m_status(STATUS_DEREGISTERED)
-{
-  // Important: STATUS_DEREGISTERED - is the default value.
-  // Apply STATUS_UP_TO_DATE before adding to maps container.
-}
+MwmInfo::MwmInfo() : m_minScale(0), m_maxScale(0), m_status(STATUS_DEREGISTERED), m_lockCount(0) {}
 
 MwmInfo::MwmTypeT MwmInfo::GetType() const
 {
-  if (m_minScale > 0) return COUNTRY;
-  if (m_maxScale == scales::GetUpperWorldScale()) return WORLD;
+  if (m_minScale > 0)
+    return COUNTRY;
+  if (m_maxScale == scales::GetUpperWorldScale())
+    return WORLD;
   ASSERT_EQUAL(m_maxScale, scales::GetUpperScale(), ());
   return COASTS;
 }
 
-MwmSet::MwmLock::MwmLock() : m_mwmSet(nullptr), m_mwmId(MwmSet::INVALID_MWM_ID), m_value(nullptr) {}
+MwmSet::MwmLock::MwmLock() : m_mwmSet(nullptr), m_mwmId(), m_value(nullptr) {}
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId)
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId const & mwmId)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(m_mwmSet->LockValue(m_mwmId))
 {
 }
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, string const & fileName)
-    : m_mwmSet(&mwmSet), m_mwmId(MwmSet::INVALID_MWM_ID), m_value(nullptr)
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, TMwmFileName const & fileName)
+    : m_mwmSet(&mwmSet), m_mwmId(), m_value(nullptr)
 {
   lock_guard<mutex> lock(m_mwmSet->m_lock);
   m_mwmId = m_mwmSet->GetIdByName(fileName);
-  if (m_mwmId != MwmSet::INVALID_MWM_ID)
+  if (m_mwmId.IsAlive())
     m_value = m_mwmSet->LockValueImpl(m_mwmId);
 }
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId mwmId, TMwmValueBasePtr value)
+MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
 {
 }
@@ -51,7 +46,7 @@ MwmSet::MwmLock::MwmLock(MwmLock && lock)
     : m_mwmSet(lock.m_mwmSet), m_mwmId(lock.m_mwmId), m_value(move(lock.m_value))
 {
   lock.m_mwmSet = nullptr;
-  lock.m_mwmId = MwmSet::INVALID_MWM_ID;
+  lock.m_mwmId.Reset();
 }
 
 MwmSet::MwmLock::~MwmLock()
@@ -60,10 +55,10 @@ MwmSet::MwmLock::~MwmLock()
     m_mwmSet->UnlockValue(m_mwmId, m_value);
 }
 
-MwmInfo const & MwmSet::MwmLock::GetInfo() const
+shared_ptr<MwmInfo> const & MwmSet::MwmLock::GetInfo() const
 {
   ASSERT(IsLocked(), ("MwmLock is not active."));
-  return m_mwmSet->GetMwmInfo(m_mwmId);
+  return m_mwmId.GetInfo();
 }
 
 MwmSet::MwmLock & MwmSet::MwmLock::operator=(MwmLock && lock)
@@ -82,7 +77,7 @@ MwmSet::MwmSet(size_t cacheSize)
 MwmSet::~MwmSet()
 {
   // Need do call Cleanup() in derived class.
-  ASSERT ( m_cache.empty(), () );
+  ASSERT(m_cache.empty(), ());
 }
 
 void MwmSet::Cleanup()
@@ -92,175 +87,133 @@ void MwmSet::Cleanup()
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 
 #ifdef DEBUG
-  for (MwmId i = 0; i < m_info.size(); ++i)
+  for (auto it = m_info.begin(); it != m_info.end(); ++it)
   {
-    if (m_info[i].IsUpToDate())
+    MwmInfo const & info = *it->second;
+    if (info.IsUpToDate())
     {
-      ASSERT_EQUAL(m_info[i].m_lockCount, 0, (i, m_info[i].m_fileName));
-      ASSERT(!m_info[i].m_fileName.empty(), (i));
+      ASSERT_EQUAL(info.m_lockCount, 0, (info.m_fileName));
+      ASSERT(!info.m_fileName.empty(), ());
     }
   }
 #endif
 }
 
-void MwmSet::UpdateMwmInfo(MwmId id)
-{
-  if (m_info[id].GetStatus() == MwmInfo::STATUS_MARKED_TO_DEREGISTER)
-    (void)DeregisterImpl(id);
-}
-
-MwmSet::MwmId MwmSet::GetFreeId()
-{
-  MwmId const size = m_info.size();
-  for (MwmId i = 0; i < size; ++i)
-  {
-    if (m_info[i].GetStatus() == MwmInfo::STATUS_DEREGISTERED)
-      return i;
-  }
-
-  m_info.push_back(MwmInfo());
-  return size;
-}
-
-MwmSet::MwmId MwmSet::GetIdByName(string const & name)
+MwmSet::MwmId MwmSet::GetIdByName(TMwmFileName const & name) const
 {
   ASSERT(!name.empty(), ());
-
-  for (MwmId i = 0; i < m_info.size(); ++i)
-  {
-    UpdateMwmInfo(i);
-
-    if (m_info[i].m_fileName == name)
-    {
-      ASSERT_NOT_EQUAL(m_info[i].GetStatus(), MwmInfo::STATUS_DEREGISTERED, ());
-      return i;
-    }
-  }
-
-  return INVALID_MWM_ID;
+  auto const it = m_info.find(name);
+  if (it == m_info.end())
+    return MwmId();
+  return MwmId(it->second);
 }
 
-pair<MwmSet::MwmLock, bool> MwmSet::Register(string const & fileName)
+pair<MwmSet::MwmLock, bool> MwmSet::Register(TMwmFileName const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
 
   MwmId const id = GetIdByName(fileName);
-  if (id != INVALID_MWM_ID)
-  {
-    if (m_info[id].IsRegistered())
-      LOG(LWARNING, ("Trying to add already registered map", fileName));
-    else
-      m_info[id].SetStatus(MwmInfo::STATUS_UP_TO_DATE);
-    return make_pair(GetLock(id), false);
-  }
-
-  return RegisterImpl(fileName);
+  if (!id.IsAlive())
+    return RegisterImpl(fileName);
+  shared_ptr<MwmInfo> info = id.GetInfo();
+  if (info->IsRegistered())
+    LOG(LWARNING, ("Trying to add already registered map", fileName));
+  else
+    info->SetStatus(MwmInfo::STATUS_UP_TO_DATE);
+  return make_pair(GetLock(id), false);
 }
 
-pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(string const & fileName)
+pair<MwmSet::MwmLock, bool> MwmSet::RegisterImpl(TMwmFileName const & fileName)
 {
-  // this function can throw an exception for bad mwm file
-  MwmInfo info;
-  if (!GetVersion(fileName, info))
+  shared_ptr<MwmInfo> info(new MwmInfo());
+
+  // This function can throw an exception for a bad mwm file.
+  if (!GetVersion(fileName, *info))
     return make_pair(MwmLock(), false);
+  info->SetStatus(MwmInfo::STATUS_UP_TO_DATE);
+  info->m_fileName = fileName;
+  m_info[fileName] = info;
 
-  info.SetStatus(MwmInfo::STATUS_UP_TO_DATE);
-  info.m_fileName = fileName;
-
-  MwmId const id = GetFreeId();
-  m_info[id] = info;
-
-  return make_pair(GetLock(id), true);
+  return make_pair(GetLock(MwmId(info)), true);
 }
 
-bool MwmSet::DeregisterImpl(MwmId id)
+bool MwmSet::DeregisterImpl(MwmId const & id)
 {
-  if (m_info[id].m_lockCount == 0)
+  if (!id.IsAlive())
+    return false;
+  shared_ptr<MwmInfo> const & info = id.GetInfo();
+  if (info->m_lockCount == 0)
   {
-    m_info[id].m_fileName.clear();
-    m_info[id].SetStatus(MwmInfo::STATUS_DEREGISTERED);
+    info->SetStatus(MwmInfo::STATUS_DEREGISTERED);
+    m_info.erase(info->m_fileName);
+    OnMwmDeleted(info);
     return true;
   }
-  m_info[id].SetStatus(MwmInfo::STATUS_MARKED_TO_DEREGISTER);
+  info->SetStatus(MwmInfo::STATUS_MARKED_TO_DEREGISTER);
   return false;
 }
 
-void MwmSet::Deregister(string const & fileName)
+bool MwmSet::Deregister(TMwmFileName const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
-  (void)DeregisterImpl(fileName);
+  return DeregisterImpl(fileName);
 }
 
-bool MwmSet::DeregisterImpl(string const & fileName)
+bool MwmSet::DeregisterImpl(TMwmFileName const & fileName)
 {
-  bool ret = true;
-
   MwmId const id = GetIdByName(fileName);
-  if (id != INVALID_MWM_ID)
-  {
-    ret = DeregisterImpl(id);
-
-    ClearCache(id);
-  }
-
-  return ret;
+  if (!id.IsAlive())
+    return false;
+  bool const deregistered = DeregisterImpl(id);
+  ClearCache(id);
+  return deregistered;
 }
 
 void MwmSet::DeregisterAll()
 {
   lock_guard<mutex> lock(m_lock);
 
-  for (MwmId i = 0; i < m_info.size(); ++i)
-    (void)DeregisterImpl(i);
+  for (auto it = m_info.begin(); it != m_info.end();)
+  {
+    auto cur = it++;
+    DeregisterImpl(MwmId(cur->second));
+  }
 
-  // do not call ClearCache - it's under mutex lock
+  // Do not call ClearCache - it's under mutex lock.
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
-bool MwmSet::IsLoaded(string const & file) const
+bool MwmSet::IsLoaded(TMwmFileName const & fileName) const
 {
-  MwmSet * const p = const_cast<MwmSet *>(this);
-  lock_guard<mutex> lock(p->m_lock);
+  lock_guard<mutex> lock(m_lock);
 
-  MwmId const id = p->GetIdByName(file + DATA_FILE_EXTENSION);
-  return (id != INVALID_MWM_ID && m_info[id].IsRegistered());
+  MwmId const id = GetIdByName(fileName + DATA_FILE_EXTENSION);
+  return id.IsAlive() && id.GetInfo()->IsRegistered();
 }
 
-void MwmSet::GetMwmInfo(vector<MwmInfo> & info) const
+void MwmSet::GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const
 {
-  MwmSet * const p = const_cast<MwmSet *>(this);
-  lock_guard<mutex> lock(p->m_lock);
-
-  for (MwmId i = 0; i < m_info.size(); ++i)
-    p->UpdateMwmInfo(i);
-
-  info = m_info;
+  lock_guard<mutex> lock(m_lock);
+  info.clear();
+  info.reserve(m_info.size());
+  for (auto const & p : m_info)
+    info.push_back(p.second);
 }
 
-MwmInfo const & MwmSet::GetMwmInfo(MwmId id) const
-{
-  MwmSet * p = const_cast<MwmSet *>(this);
-  lock_guard<mutex> lock(p->m_lock);
-  return m_info[id];
-}
-
-MwmSet::TMwmValueBasePtr MwmSet::LockValue(MwmId id)
+MwmSet::TMwmValueBasePtr MwmSet::LockValue(MwmId const & id)
 {
   lock_guard<mutex> lock(m_lock);
   return LockValueImpl(id);
 }
 
-MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId id)
+MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId const & id)
 {
-  ASSERT_LESS(id, m_info.size(), ());
-  if (id >= m_info.size())
+  CHECK(id.IsAlive(), (id));
+  shared_ptr<MwmInfo> info = id.GetInfo();
+  if (!info->IsUpToDate())
     return TMwmValueBasePtr();
 
-  UpdateMwmInfo(id);
-  if (!m_info[id].IsUpToDate())
-    return nullptr;
-
-  ++m_info[id].m_lockCount;
+  ++info->m_lockCount;
 
   // Search in cache.
   for (CacheType::iterator it = m_cache.begin(); it != m_cache.end(); ++it)
@@ -272,28 +225,41 @@ MwmSet::TMwmValueBasePtr MwmSet::LockValueImpl(MwmId id)
       return result;
     }
   }
-  return CreateValue(m_info[id].m_fileName);
+  return CreateValue(info->m_fileName);
 }
 
-void MwmSet::UnlockValue(MwmId id, TMwmValueBasePtr p)
+void MwmSet::UnlockValue(MwmId const & id, TMwmValueBasePtr p)
 {
   lock_guard<mutex> lock(m_lock);
   UnlockValueImpl(id, p);
 }
 
-void MwmSet::UnlockValueImpl(MwmId id, TMwmValueBasePtr p)
+void MwmSet::UnlockValueImpl(MwmId const & id, TMwmValueBasePtr p)
 {
-  ASSERT(p, (id));
-  ASSERT_LESS(id, m_info.size(), ());
-  if (id >= m_info.size() || p.get() == nullptr)
+  ASSERT(id.IsAlive(), ());
+  ASSERT(p.get() != nullptr, (id));
+  if (!id.IsAlive() || p.get() == nullptr)
     return;
 
-  ASSERT_GREATER(m_info[id].m_lockCount, 0, ());
-  if (m_info[id].m_lockCount > 0)
-    --m_info[id].m_lockCount;
-  UpdateMwmInfo(id);
+  shared_ptr<MwmInfo> const & info = id.GetInfo();
+  CHECK_GREATER(info->m_lockCount, 0, ());
+  --info->m_lockCount;
+  if (info->m_lockCount == 0)
+  {
+    switch (info->GetStatus())
+    {
+      case MwmInfo::STATUS_MARKED_TO_DEREGISTER:
+        CHECK(DeregisterImpl(id), ());
+        break;
+      case MwmInfo::STATUS_PENDING_UPDATE:
+        OnMwmReadyForUpdate(info);
+        break;
+      default:
+        break;
+    }
+  }
 
-  if (m_info[id].IsUpToDate())
+  if (info->IsUpToDate())
   {
     m_cache.push_back(make_pair(id, p));
     if (m_cache.size() > m_cacheSize)
@@ -307,7 +273,6 @@ void MwmSet::UnlockValueImpl(MwmId id, TMwmValueBasePtr p)
 void MwmSet::ClearCache()
 {
   lock_guard<mutex> lock(m_lock);
-
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 }
 
@@ -322,7 +287,7 @@ namespace
   {
     MwmSet::MwmId m_id;
 
-    explicit MwmIdIsEqualTo(MwmSet::MwmId id) : m_id(id) {}
+    explicit MwmIdIsEqualTo(MwmSet::MwmId const & id) : m_id(id) {}
 
     bool operator()(pair<MwmSet::MwmId, MwmSet::TMwmValueBasePtr> const & p) const
     {
@@ -331,7 +296,7 @@ namespace
   };
 }
 
-void MwmSet::ClearCache(MwmId id)
+void MwmSet::ClearCache(MwmId const & id)
 {
   ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), MwmIdIsEqualTo(id)), m_cache.end());
 }

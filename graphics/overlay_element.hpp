@@ -3,6 +3,8 @@
 #include "graphics/defines.hpp"
 #include "graphics/color.hpp"
 
+#include "indexer/mwm_set.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/any_rect2d.hpp"
 
@@ -21,11 +23,11 @@ namespace graphics
   public:
     struct UserInfo
     {
-      size_t m_mwmID;
+      MwmSet::MwmId m_mwmID;
       uint32_t m_offset;
 
-      UserInfo() : m_mwmID(size_t(-1)) {}
-      inline bool IsValid() const { return (m_mwmID != size_t(-1)); }
+      UserInfo() = default;
+      inline bool IsValid() const { return m_mwmID.IsAlive(); }
       inline bool operator== (UserInfo const & a) const
       {
         return IsValid() && (a.m_mwmID == m_mwmID) && (a.m_offset == m_offset);

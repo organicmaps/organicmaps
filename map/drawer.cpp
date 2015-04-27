@@ -98,7 +98,7 @@ void Drawer::drawCircle(m2::PointD const & pt,
   params.m_position = pos;
   params.m_pivot = pt;
   params.m_ci = ci;
-  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_mwmID = id.m_mwmId;
   params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawCircle(params);
@@ -118,7 +118,7 @@ void Drawer::drawSymbol(m2::PointD const & pt,
   params.m_pivot = pt;
   params.m_info = info;
   params.m_renderer = m_pScreen.get();
-  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_mwmID = id.m_mwmId;
   params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawSymbol(params);
@@ -142,7 +142,7 @@ void Drawer::drawCircledSymbol(m2::PointD const & pt,
   symParams.m_pivot = pt;
   symParams.m_info = info;
   symParams.m_renderer = m_pScreen.get();
-  symParams.m_userInfo.m_mwmID = id.m_mwm;
+  symParams.m_userInfo.m_mwmID = id.m_mwmId;
   symParams.m_userInfo.m_offset = id.m_offset;
 
   graphics::CircleElement::Params circleParams;
@@ -150,7 +150,7 @@ void Drawer::drawCircledSymbol(m2::PointD const & pt,
   circleParams.m_position = pos;
   circleParams.m_pivot = pt;
   circleParams.m_ci = ci;
-  circleParams.m_userInfo.m_mwmID = id.m_mwm;
+  circleParams.m_userInfo.m_mwmID = id.m_mwmId;
   circleParams.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawCircledSymbol(symParams, circleParams);
@@ -256,7 +256,7 @@ void Drawer::drawText(m2::PointD const & pt,
   params.m_auxLogText = strings::MakeUniString(fs.m_secondaryText);
   params.m_doSplit = true;
   params.m_useAllParts = false;
-  params.m_userInfo.m_mwmID = id.m_mwm;
+  params.m_userInfo.m_mwmID = id.m_mwmId;
   params.m_userInfo.m_offset = id.m_offset;
 
   m_pScreen->drawTextEx(params);

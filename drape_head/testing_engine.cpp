@@ -234,7 +234,7 @@ private:
 
   MapShape * CreateCircle(json_t * object)
   {
-    CircleViewParams params(FeatureID(-1, 0));
+    CircleViewParams params(FeatureID(MwmSet::MwmId(), 0));
     params.m_depth = json_real_value(json_object_get(object, "depth"));
     params.m_color = ParseColor(json_object_get(object, "color"));
     params.m_radius = json_real_value(json_object_get(object, "radius"));
@@ -368,7 +368,7 @@ void TestingEngine::DrawImpl()
   auxFd.m_size = 20.0f;
 
   TextViewParams params;
-  params.m_featureID = FeatureID(23, 567);
+  params.m_featureID = FeatureID(MwmSet::MwmId(), 567);
   params.m_depth = 10.0f;
   params.m_anchor = dp::Center;
   params.m_primaryText = "People's republic of China";

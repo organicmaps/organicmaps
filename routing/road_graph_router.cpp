@@ -37,7 +37,7 @@ RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel>
 {
 }
 
-size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
+MwmSet::MwmId RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
   NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, m_vehicleModel);
   auto f = [&finder](FeatureType & ft)
@@ -52,7 +52,7 @@ size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
   return finder.GetMwmId();
 }
 
-bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
+bool RoadGraphRouter::IsMyMWM(MwmSet::MwmId const & mwmID) const
 {
   return m_roadGraph &&
          dynamic_cast<FeaturesRoadGraph const *>(m_roadGraph.get())->GetMwmID() == mwmID;
@@ -66,7 +66,7 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   // we still need to check that startPoint and finalPoint are in the same MWM
   // and probably reset the graph. So the checks stay here.
   vector<RoadPos> finalVicinity;
-  size_t mwmID = GetRoadPos(finalPoint, finalVicinity);
+  MwmSet::MwmId mwmID = GetRoadPos(finalPoint, finalVicinity);
   if (!finalVicinity.empty() && !IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
