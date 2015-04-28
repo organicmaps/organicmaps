@@ -46,7 +46,7 @@ class NearestRoadPosFinder
 
 public:
   NearestRoadPosFinder(m2::PointD const & point, m2::PointD const & direction,
-                unique_ptr<IVehicleModel> const & vehicleModel)
+                       unique_ptr<IVehicleModel> const & vehicleModel)
       : m_point(point),
         m_direction(direction),
         m_vehicleModel(vehicleModel),

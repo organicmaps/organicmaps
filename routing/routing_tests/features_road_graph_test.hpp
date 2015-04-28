@@ -6,10 +6,8 @@
 
 #include "std/scoped_ptr.hpp"
 
-
 namespace routing_test
 {
-
 class Name2IdMapping
 {
   map<string, uint32_t> m_name2Id;
@@ -43,7 +41,6 @@ public:
   void GetPossibleTurns(routing::RoadPos const & pos, routing::IRoadGraph::TurnsVectorT & vec);
 
   template <size_t N>
-  void ReconstructPath(routing::RoadPos (&arr)[N], vector<m2::PointD> & vec);
+  void ReconstructPath(routing::RoadPos(&arr)[N], vector<m2::PointD> & vec);
 };
-
 }

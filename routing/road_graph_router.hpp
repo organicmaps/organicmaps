@@ -37,4 +37,4 @@ protected:
   Index const * m_pIndex;  // non-owning ptr
 };
 
-} // namespace routing
+}  // namespace routing

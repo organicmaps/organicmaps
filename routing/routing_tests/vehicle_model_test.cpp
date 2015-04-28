@@ -11,13 +11,11 @@
 
 namespace
 {
-
-routing::VehicleModel::InitListT const s_testLimits =
-{
-  { {"highway", "trunk"},          150 },
-  { {"highway", "primary"},        120 },
-  { {"highway", "secondary"},      80 },
-  { {"highway", "residential"},    50 },
+routing::VehicleModel::InitListT const s_testLimits = {
+    {{"highway", "trunk"}, 150},
+    {{"highway", "primary"}, 120},
+    {{"highway", "secondary"}, 80},
+    {{"highway", "residential"}, 50},
 };
 
 class TestVehicleModel : public routing::VehicleModel
@@ -70,14 +68,14 @@ UNIT_TEST(VehicleModel_MaxSpeed)
 
 UNIT_TEST(VehicleModel_Speed)
 {
-  CheckSpeed({ GetType("highway", "secondary", "bridge") }, 80.0);
-  CheckSpeed({ GetType("highway", "secondary", "tunnel") }, 80.0);
-  CheckSpeed({ GetType("highway", "secondary") }, 80.0);
-  CheckSpeed({ GetType("highway") }, 0.0);
+  CheckSpeed({GetType("highway", "secondary", "bridge")}, 80.0);
+  CheckSpeed({GetType("highway", "secondary", "tunnel")}, 80.0);
+  CheckSpeed({GetType("highway", "secondary")}, 80.0);
+  CheckSpeed({GetType("highway")}, 0.0);
 
-  CheckSpeed({ GetType("highway", "trunk") }, 150.0);
-  CheckSpeed({ GetType("highway", "primary") }, 120.0);
-  CheckSpeed({ GetType("highway", "residential") }, 50.0);
+  CheckSpeed({GetType("highway", "trunk")}, 150.0);
+  CheckSpeed({GetType("highway", "primary")}, 120.0);
+  CheckSpeed({GetType("highway", "residential")}, 50.0);
 }
 
 UNIT_TEST(VehicleModel_Speed_MultiTypes)
@@ -86,10 +84,10 @@ UNIT_TEST(VehicleModel_Speed_MultiTypes)
   uint32_t const typeSecondary = GetType("highway", "secondary");
   uint32_t const typeHighway = GetType("highway");
 
-  CheckSpeed({ typeTunnel, typeSecondary }, 80.0);
-  CheckSpeed({ typeTunnel, typeHighway }, 80.0);
-  CheckSpeed({ typeHighway, typeTunnel }, 80.0);
-  CheckSpeed({ typeHighway, typeHighway }, 0.0);
+  CheckSpeed({typeTunnel, typeSecondary}, 80.0);
+  CheckSpeed({typeTunnel, typeHighway}, 80.0);
+  CheckSpeed({typeHighway, typeTunnel}, 80.0);
+  CheckSpeed({typeHighway, typeHighway}, 0.0);
 }
 
 UNIT_TEST(VehicleModel_OneWay)
@@ -97,13 +95,13 @@ UNIT_TEST(VehicleModel_OneWay)
   uint32_t const typeBridge = GetType("highway", "secondary", "bridge");
   uint32_t const typeOneway = GetOnewayType();
 
-  CheckSpeed({ typeBridge, typeOneway }, 80.0);
-  CheckOneWay({ typeBridge, typeOneway }, true);
-  CheckSpeed({ typeOneway, typeBridge }, 80.0);
-  CheckOneWay({ typeOneway, typeBridge }, true);
+  CheckSpeed({typeBridge, typeOneway}, 80.0);
+  CheckOneWay({typeBridge, typeOneway}, true);
+  CheckSpeed({typeOneway, typeBridge}, 80.0);
+  CheckOneWay({typeOneway, typeBridge}, true);
 
-  CheckSpeed({ typeOneway }, 0.0);
-  CheckOneWay({ typeOneway }, true);
+  CheckSpeed({typeOneway}, 0.0);
+  CheckOneWay({typeOneway}, true);
 }
 
 UNIT_TEST(VehicleModel_DifferentSpeeds)
@@ -112,9 +110,9 @@ UNIT_TEST(VehicleModel_DifferentSpeeds)
   uint32_t const typePrimary = GetType("highway", "primary");
   uint32_t const typeOneway = GetOnewayType();
 
-  CheckSpeed({ typeSecondary, typePrimary }, 80.0);
-  CheckSpeed({ typePrimary, typeSecondary }, 80.0);
+  CheckSpeed({typeSecondary, typePrimary}, 80.0);
+  CheckSpeed({typePrimary, typeSecondary}, 80.0);
 
-  CheckSpeed({ typePrimary, typeOneway, typeSecondary }, 80.0);
-  CheckOneWay({ typePrimary, typeOneway, typeSecondary }, true);
+  CheckSpeed({typePrimary, typeOneway, typeSecondary}, 80.0);
+  CheckOneWay({typePrimary, typeOneway, typeSecondary}, true);
 }

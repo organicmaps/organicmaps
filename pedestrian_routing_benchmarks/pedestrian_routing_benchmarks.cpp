@@ -87,4 +87,3 @@ UNIT_TEST(PedestrianRouting_UK_Short1) { TestTwoPoints(3038057, 0, 3032688, 3); 
 UNIT_TEST(PedestrianRouting_UK_Short2) { TestTwoPoints(2947484, 2, 44889742, 0); }
 
 UNIT_TEST(PedestrianRouting_UK_Short3) { TestTwoPoints(2931545, 0, 2969395, 0); }
-

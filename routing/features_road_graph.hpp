@@ -11,7 +11,6 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-
 class Index;
 class FeatureType;
 
@@ -61,4 +60,4 @@ private:
   uint32_t m_cacheMiss;
   uint32_t m_cacheAccess;
 };
-} // namespace routing
+}  // namespace routing

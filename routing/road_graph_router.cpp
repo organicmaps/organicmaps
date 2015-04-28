@@ -30,9 +30,7 @@ size_t const MAX_ROAD_CANDIDATES = 2;
 double const FEATURE_BY_POINT_RADIUS_M = 100.0;
 }  // namespace
 
-RoadGraphRouter::~RoadGraphRouter()
-{
-}
+RoadGraphRouter::~RoadGraphRouter() {}
 
 RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel)
     : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex)
@@ -42,7 +40,10 @@ RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel>
 size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
   NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, m_vehicleModel);
-  auto f = [&finder](FeatureType & ft) { finder.AddInformationSource(ft); };
+  auto f = [&finder](FeatureType & ft)
+  {
+    finder.AddInformationSource(ft);
+  };
   m_pIndex->ForEachInRect(
       f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
       FeaturesRoadGraph::GetStreetReadScale());
@@ -100,4 +101,4 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   return resultCode;
 }
 
-} // namespace routing
+}  // namespace routing

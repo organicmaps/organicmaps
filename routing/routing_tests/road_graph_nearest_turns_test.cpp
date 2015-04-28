@@ -87,7 +87,8 @@ UNIT_TEST(RoadGraph_NearestTurns)
   graph.GetNearestTurns(crossPos, turns);
 
   IRoadGraph::RoadPosVectorT actual;
-  for (PossibleTurn const & turn : turns) {
+  for (PossibleTurn const & turn : turns)
+  {
     actual.push_back(turn.m_pos);
     TEST_EQUAL(5, turn.m_speedKMPH, ());
     TEST_EQUAL(0, turn.m_metersCovered, ());
