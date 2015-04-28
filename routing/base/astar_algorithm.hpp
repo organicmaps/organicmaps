@@ -22,7 +22,7 @@ public:
   using TEdgeType = typename TGraphType::TEdgeType;
 
   static uint32_t const kCancelledPollPeriod;
-  static uint32_t const kQueueSwtichPeriod;
+  static uint32_t const kQueueSwitchPeriod;
   static double const kEpsilon;
 
   enum class Result
@@ -142,7 +142,7 @@ uint32_t const AStarAlgorithm<TGraph>::kCancelledPollPeriod = 128;
 
 // static
 template <typename TGraph>
-uint32_t const AStarAlgorithm<TGraph>::kQueueSwtichPeriod = 128;
+uint32_t const AStarAlgorithm<TGraph>::kQueueSwitchPeriod = 128;
 
 // static
 template <typename TGraph>
@@ -258,7 +258,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
     if (steps % kCancelledPollPeriod == 0 && IsCancelled())
       return Result::Cancelled;
 
-    if (steps % kQueueSwtichPeriod == 0)
+    if (steps % kQueueSwitchPeriod == 0)
       swap(cur, nxt);
 
     double const curTop = cur->TopDistance();
@@ -302,8 +302,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
       double newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
-      typename map<TVertexType, double>::const_iterator t = cur->bestDistance.find(stateW.vertex);
-      if (t != cur->bestDistance.end() && newReducedDist >= t->second - kEpsilon)
+      auto it = cur->bestDistance.find(stateW.vertex);
+      if (it != cur->bestDistance.end() && newReducedDist >= it->second - kEpsilon)
         continue;
 
       if (nxt->bestDistance.find(stateW.vertex) != nxt->bestDistance.end())

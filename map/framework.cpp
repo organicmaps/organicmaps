@@ -2100,11 +2100,6 @@ void Framework::BuildRoute(m2::PointD const & destination)
       vector<storage::TIndex> absentFiles;
       if (code == IRouter::NoError)
       {
-        if (route.GetPoly().GetSize() < 2)
-        {
-          LOG(LWARNING, ("Invalid track - only", route.GetPoly().GetSize(), "point(s)."));
-          return;
-        }
         InsertRoute(route);
         GetLocationState()->RouteBuilded();
         ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
@@ -2156,6 +2151,12 @@ void Framework::CloseRouting()
 
 void Framework::InsertRoute(Route const & route)
 {
+  if (route.GetPoly().GetSize() < 2)
+  {
+    LOG(LWARNING, ("Invalid track - only", route.GetPoly().GetSize(), "point(s)."));
+    return;
+  }
+
   float const visScale = GetVisualScale();
 
   RouteTrack track(route.GetPoly());
@@ -2186,14 +2187,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     m_routingSession.RebuildRoute(position, [this] (Route const & route, IRouter::ResultCode code)
     {
       if (code == IRouter::NoError)
-      {
-        if (route.GetPoly().GetSize() < 2)
-        {
-          LOG(LWARNING, ("Invalid track - only", route.GetPoly().GetSize(), "point(s)."));
-          return;
-        }
         InsertRoute(route);
-      }
     });
   }
 }
