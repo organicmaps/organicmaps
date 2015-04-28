@@ -4,9 +4,11 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_frontend drape_gui coding platform drape base expat
+DEPENDENCIES = drape_frontend drape_gui drape indexer coding platform base expat
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
+
+QT *= opengl
 
 macx-* {
   LIBS *= "-framework CoreLocation" "-framework Foundation" "-framework CoreWLAN" \
@@ -17,4 +19,6 @@ SOURCES += \
   ../../testing/testingmain.cpp \
   memory_feature_index_tests.cpp \
   object_pool_tests.cpp \
+  tile_tree_tests.cpp \
   tile_utils_tests.cpp \
+

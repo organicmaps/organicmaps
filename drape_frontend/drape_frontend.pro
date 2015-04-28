@@ -37,6 +37,7 @@ SOURCES += \
     tile_info.cpp \
     tile_key.cpp \
     tile_tree.cpp \
+    tile_tree_builder.cpp \
     tile_utils.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
@@ -78,6 +79,7 @@ HEADERS += \
     tile_info.hpp \
     tile_key.hpp \
     tile_tree.hpp \
+    tile_tree_builder.hpp \
     tile_utils.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \

@@ -98,6 +98,10 @@ private:
     Node(TileKey const & key, TileStatus status)
       : m_tileKey(key), m_tileStatus(status)
     {}
+
+    Node(TileKey const & key, TileStatus status, bool isRemoved)
+      : m_tileKey(key), m_tileStatus(status), m_isRemoved(isRemoved)
+    {}
   };
 
   TNodePtr m_root;
@@ -108,6 +112,9 @@ private:
 
   friend void DebugPrintNode(TileTree::TNodePtr const & node, ostringstream & out, string const & offset);
   friend string DebugPrint(TileTree const & tileTree);
+
+  friend class TileTreeBuilder;
+  friend class TileTreeComparer;
 };
 
 } // namespace df
