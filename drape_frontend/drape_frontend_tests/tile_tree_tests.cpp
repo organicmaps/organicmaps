@@ -169,7 +169,7 @@ UNIT_TEST(TileTree_MapMagnification)
                                                                                  .Node(TileKey(0, -1, 5), TileStatus::Requested)
                                                                                  .Node(TileKey(1, -1, 5), TileStatus::Requested))
                                              .Node(TileKey(-1, 0, 4),
-                                                   TileStatus::Rendered).Children(Node(TileKey(-2, -0, 5), TileStatus::Requested)
+                                                   TileStatus::Rendered).Children(Node(TileKey(-2, 0, 5), TileStatus::Requested)
                                                                                  .Node(TileKey(-1, 0, 5), TileStatus::Requested)
                                                                                  .Node(TileKey(-2, 1, 5), TileStatus::Requested)
                                                                                  .Node(TileKey(-1, 1, 5), TileStatus::Requested))
@@ -199,7 +199,7 @@ UNIT_TEST(TileTree_MapMagnification)
                                                             .Node(TileKey(0, -1, 5), TileStatus::Deferred)
                                                             .Node(TileKey(1, -1, 5), TileStatus::Requested))
                         .Node(TileKey(-1, 0, 4),
-                              TileStatus::Rendered).Children(Node(TileKey(-2, -0, 5), TileStatus::Requested)
+                              TileStatus::Rendered).Children(Node(TileKey(-2, 0, 5), TileStatus::Requested)
                                                             .Node(TileKey(-1, 0, 5), TileStatus::Requested)
                                                             .Node(TileKey(-2, 1, 5), TileStatus::Deferred)
                                                             .Node(TileKey(-1, 1, 5), TileStatus::Requested))
@@ -226,7 +226,7 @@ UNIT_TEST(TileTree_MapMagnification)
                                                             .Node(TileKey(0, -1, 5), TileStatus::Deferred)
                                                             .Node(TileKey(1, -1, 5), TileStatus::Requested))
                         .Node(TileKey(-1, 0, 4),
-                              TileStatus::Rendered).Children(Node(TileKey(-2, -0, 5), TileStatus::Requested)
+                              TileStatus::Rendered).Children(Node(TileKey(-2, 0, 5), TileStatus::Requested)
                                                             .Node(TileKey(-1, 0, 5), TileStatus::Requested)
                                                             .Node(TileKey(-2, 1, 5), TileStatus::Deferred)
                                                             .Node(TileKey(-1, 1, 5), TileStatus::Requested))
@@ -258,7 +258,7 @@ UNIT_TEST(TileTree_MapMagnification)
                                                             .Node(TileKey(0, -1, 5), TileStatus::Deferred)
                                                             .Node(TileKey(1, -1, 5), TileStatus::Requested))
                         .Node(TileKey(-1, 0, 4),
-                              TileStatus::Rendered).Children(Node(TileKey(-2, -0, 5), TileStatus::Requested)
+                              TileStatus::Rendered).Children(Node(TileKey(-2, 0, 5), TileStatus::Requested)
                                                             .Node(TileKey(-1, 0, 5), TileStatus::Requested)
                                                             .Node(TileKey(-2, 1, 5), TileStatus::Deferred)
                                                             .Node(TileKey(-1, 1, 5), TileStatus::Requested))
@@ -271,7 +271,7 @@ UNIT_TEST(TileTree_MapMagnification)
   TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
 
   treeTester.FlushTile(5, TileKey(1, -1, 5));
-  treeTester.FlushTile(5, TileKey(-2, -0, 5));
+  treeTester.FlushTile(5, TileKey(-2, 0, 5));
   treeTester.FlushTile(5, TileKey(-1, 0, 5));
   treeTester.FlushTile(5, TileKey(-1, 1, 5));
   treeTester.FlushTile(5, TileKey(0, 0, 5));
@@ -285,7 +285,7 @@ UNIT_TEST(TileTree_MapMagnification)
                         .Node(TileKey(1, -2, 5), TileStatus::Rendered)
                         .Node(TileKey(0, -1, 5), TileStatus::Rendered)
                         .Node(TileKey(1, -1, 5), TileStatus::Rendered)
-                        .Node(TileKey(-2, -0, 5), TileStatus::Rendered)
+                        .Node(TileKey(-2, 0, 5), TileStatus::Rendered)
                         .Node(TileKey(-1, 0, 5), TileStatus::Rendered)
                         .Node(TileKey(-2, 1, 5), TileStatus::Rendered)
                         .Node(TileKey(-1, 1, 5), TileStatus::Rendered)
@@ -296,5 +296,198 @@ UNIT_TEST(TileTree_MapMagnification)
 
   TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
 }
+
+UNIT_TEST(TileTree_MapMinification)
+{
+  using namespace df;
+
+  TileTreeBuilder builder;
+  TileTreeComparer comparer;
+  TileTreeTester treeTester;
+
+  treeTester.RequestTiles(5, m2::RectD(-20, -20, 20, 20));
+  TTilesCollection tiles = { TileKey(-2, -2, 5), TileKey(-1, -2, 5), TileKey(-2, -1, 5), TileKey(-1, -1, 5),
+                             TileKey(0, -2, 5), TileKey(1, -2, 5), TileKey(0, -1, 5), TileKey(1, -1, 5),
+                             TileKey(-2, 0, 5), TileKey(-1, 0, 5), TileKey(-2, 1, 5), TileKey(-1, 1, 5),
+                             TileKey(0, 0, 5), TileKey(1, 0, 5), TileKey(0, 1, 5), TileKey(1, 1, 5) };
+  treeTester.FinishTiles(5, tiles);
+
+  unique_ptr<TileTree> result = builder.Build(Node(TileKey(-2, -2, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-1, -2, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-2, -1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-1, -1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(0, -2, 5), TileStatus::Rendered)
+                                             .Node(TileKey(1, -2, 5), TileStatus::Rendered)
+                                             .Node(TileKey(0, -1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(1, -1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-2, 0, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-1, 0, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-2, 1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(-1, 1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(0, 0, 5), TileStatus::Rendered)
+                                             .Node(TileKey(1, 0, 5), TileStatus::Rendered)
+                                             .Node(TileKey(0, 1, 5), TileStatus::Rendered)
+                                             .Node(TileKey(1, 1, 5), TileStatus::Rendered));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+
+  treeTester.RequestTiles(4, m2::RectD(-20, -20, 20, 20));
+
+  result = builder.Build(Node(TileKey(-1, -1, 4),
+                              TileStatus::Requested).Children(Node(TileKey(-2, -2, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-1, -2, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-2, -1, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-1, -1, 5), TileStatus::Rendered))
+                        .Node(TileKey(0, -1, 4),
+                              TileStatus::Requested).Children(Node(TileKey(0, -2, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(1, -2, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(0, -1, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(1, -1, 5), TileStatus::Rendered))
+                        .Node(TileKey(-1, 0, 4),
+                              TileStatus::Requested).Children(Node(TileKey(-2, 0, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-1, 0, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-2, 1, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-1, 1, 5), TileStatus::Rendered))
+                        .Node(TileKey(0, 0, 4),
+                              TileStatus::Requested).Children(Node(TileKey(0, 0, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(1, 0, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(0, 1, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(1, 1, 5), TileStatus::Rendered)));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+
+  treeTester.FlushTile(4, TileKey(0, -1, 4));
+  treeTester.FlushTile(4, TileKey(-1, 0, 4));
+
+  result = builder.Build(Node(TileKey(-1, -1, 4),
+                              TileStatus::Requested).Children(Node(TileKey(-2, -2, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-1, -2, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-2, -1, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(-1, -1, 5), TileStatus::Rendered))
+                        .Node(TileKey(0, -1, 4),
+                              TileStatus::Rendered)
+                        .Node(TileKey(-1, 0, 4),
+                              TileStatus::Rendered)
+                        .Node(TileKey(0, 0, 4),
+                              TileStatus::Requested).Children(Node(TileKey(0, 0, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(1, 0, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(0, 1, 5), TileStatus::Rendered)
+                                                             .Node(TileKey(1, 1, 5), TileStatus::Rendered)));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+
+  treeTester.FlushTile(4, TileKey(-1, -1, 4));
+  treeTester.FlushTile(4, TileKey(0, 0, 4));
+
+  result = builder.Build(Node(TileKey(-1, -1, 4), TileStatus::Rendered)
+                        .Node(TileKey(0, -1, 4), TileStatus::Rendered)
+                        .Node(TileKey(-1, 0, 4), TileStatus::Rendered)
+                        .Node(TileKey(0, 0, 4), TileStatus::Rendered));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+}
+
+UNIT_TEST(TileTree_MapMagMin)
+{
+  using namespace df;
+
+  TileTreeBuilder builder;
+  TileTreeComparer comparer;
+  TileTreeTester treeTester;
+
+  treeTester.RequestTiles(5, m2::RectD(-20, -20, 20, 20));
+  TTilesCollection tiles = { TileKey(-2, -2, 5), TileKey(-1, -2, 5), TileKey(-2, -1, 5), TileKey(-1, -1, 5),
+                             TileKey(0, -2, 5), TileKey(1, -2, 5), TileKey(0, -1, 5), TileKey(1, -1, 5),
+                             TileKey(-2, -0, 5), TileKey(-1, 0, 5), TileKey(-2, 1, 5), TileKey(-1, 1, 5),
+                             TileKey(0, 0, 5), TileKey(1, 0, 5), TileKey(0, 1, 5), TileKey(1, 1, 5) };
+  treeTester.FinishTiles(5, tiles);
+  treeTester.RequestTiles(4, m2::RectD(-20, -20, 20, 20));
+  treeTester.FlushTile(4, TileKey(0, -1, 4));
+  treeTester.FlushTile(4, TileKey(-1, 0, 4));
+  // Zoom in 5th level again
+  treeTester.RequestTiles(5, m2::RectD(-20, -20, 20, 20));
+
+  unique_ptr<TileTree> result = builder.Build(Node(TileKey(-1, -1, 4),
+                                                   TileStatus::Unknown).Children(Node(TileKey(-2, -2, 5), TileStatus::Rendered)
+                                                                                .Node(TileKey(-1, -2, 5), TileStatus::Rendered)
+                                                                                .Node(TileKey(-2, -1, 5), TileStatus::Rendered)
+                                                                                .Node(TileKey(-1, -1, 5), TileStatus::Rendered))
+                                             .Node(TileKey(0, -1, 4),
+                                                   TileStatus::Rendered).Children(Node(TileKey(0, -2, 5), TileStatus::Requested)
+                                                                                 .Node(TileKey(1, -2, 5), TileStatus::Requested)
+                                                                                 .Node(TileKey(0, -1, 5), TileStatus::Requested)
+                                                                                 .Node(TileKey(1, -1, 5), TileStatus::Requested))
+                                             .Node(TileKey(-1, 0, 4),
+                                                   TileStatus::Rendered).Children(Node(TileKey(-2, 0, 5), TileStatus::Requested)
+                                                                                 .Node(TileKey(-1, 0, 5), TileStatus::Requested)
+                                                                                 .Node(TileKey(-2, 1, 5), TileStatus::Requested)
+                                                                                 .Node(TileKey(-1, 1, 5), TileStatus::Requested))
+                                             .Node(TileKey(0, 0, 4),
+                                                   TileStatus::Unknown).Children(Node(TileKey(0, 0, 5), TileStatus::Rendered)
+                                                                                .Node(TileKey(1, 0, 5), TileStatus::Rendered)
+                                                                                .Node(TileKey(0, 1, 5), TileStatus::Rendered)
+                                                                                .Node(TileKey(1, 1, 5), TileStatus::Rendered)));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+
+  // current zoom level = 5, but tile (-1, -1, 4) is requested to flush
+  treeTester.FlushTile(5, TileKey(-1, -1, 4));
+  // the tree must be the same
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+
+  treeTester.FlushTile(5, TileKey(0, -2, 5));
+  treeTester.FlushTile(5, TileKey(1, -2, 5));
+  treeTester.FlushTile(5, TileKey(0, -1, 5));
+  treeTester.FlushTile(5, TileKey(1, -1, 5));
+  treeTester.FlushTile(5, TileKey(-1, 0, 5));
+
+  result = builder.Build(Node(TileKey(-1, -1, 4),
+                              TileStatus::Unknown).Children(Node(TileKey(-2, -2, 5), TileStatus::Rendered)
+                                                           .Node(TileKey(-1, -2, 5), TileStatus::Rendered)
+                                                           .Node(TileKey(-2, -1, 5), TileStatus::Rendered)
+                                                           .Node(TileKey(-1, -1, 5), TileStatus::Rendered))
+                        .Node(TileKey(0, -1, 4),
+                              TileStatus::Unknown,
+                              true /* isRemoved */).Children(Node(TileKey(0, -2, 5), TileStatus::Rendered)
+                                                            .Node(TileKey(1, -2, 5), TileStatus::Rendered)
+                                                            .Node(TileKey(0, -1, 5), TileStatus::Rendered)
+                                                            .Node(TileKey(1, -1, 5), TileStatus::Rendered))
+                        .Node(TileKey(-1, 0, 4),
+                              TileStatus::Rendered).Children(Node(TileKey(-2, 0, 5), TileStatus::Requested)
+                                                            .Node(TileKey(-1, 0, 5), TileStatus::Deferred)
+                                                            .Node(TileKey(-2, 1, 5), TileStatus::Requested)
+                                                            .Node(TileKey(-1, 1, 5), TileStatus::Requested))
+                        .Node(TileKey(0, 0, 4),
+                              TileStatus::Unknown).Children(Node(TileKey(0, 0, 5), TileStatus::Rendered)
+                                                           .Node(TileKey(1, 0, 5), TileStatus::Rendered)
+                                                           .Node(TileKey(0, 1, 5), TileStatus::Rendered)
+                                                           .Node(TileKey(1, 1, 5), TileStatus::Rendered)));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+
+  treeTester.FlushTile(5, TileKey(-2, 0, 5));
+  treeTester.FlushTile(5, TileKey(-2, 1, 5));
+  treeTester.FlushTile(5, TileKey(-1, 1, 5));
+
+  result = builder.Build(Node(TileKey(-2, -2, 5), TileStatus::Rendered)
+                        .Node(TileKey(-1, -2, 5), TileStatus::Rendered)
+                        .Node(TileKey(-2, -1, 5), TileStatus::Rendered)
+                        .Node(TileKey(-1, -1, 5), TileStatus::Rendered)
+                        .Node(TileKey(0, -2, 5), TileStatus::Rendered)
+                        .Node(TileKey(1, -2, 5), TileStatus::Rendered)
+                        .Node(TileKey(0, -1, 5), TileStatus::Rendered)
+                        .Node(TileKey(1, -1, 5), TileStatus::Rendered)
+                        .Node(TileKey(-2, 0, 5), TileStatus::Rendered)
+                        .Node(TileKey(-1, 0, 5), TileStatus::Rendered)
+                        .Node(TileKey(-2, 1, 5), TileStatus::Rendered)
+                        .Node(TileKey(-1, 1, 5), TileStatus::Rendered)
+                        .Node(TileKey(0, 0, 5), TileStatus::Rendered)
+                        .Node(TileKey(1, 0, 5), TileStatus::Rendered)
+                        .Node(TileKey(0, 1, 5), TileStatus::Rendered)
+                        .Node(TileKey(1, 1, 5), TileStatus::Rendered));
+
+  TEST(comparer.IsEqual(treeTester.GetTree(), result), ("Tree = ", treeTester.GetTree(), "Result = ", result));
+}
+
 
 }
