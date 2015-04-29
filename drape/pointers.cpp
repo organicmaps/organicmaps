@@ -55,3 +55,8 @@ void DpPointerTracker::DerefPtr(void * p)
     }
   }
 }
+
+DpPointerTracker::TAlivePointers const & DpPointerTracker::GetAlivePointers() const
+{
+  return m_alivePointers;
+}

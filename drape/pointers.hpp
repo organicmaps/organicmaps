@@ -13,6 +13,8 @@
 class DpPointerTracker
 {
 public:
+  typedef map<void *, pair<int, string> > TAlivePointers;
+
   static DpPointerTracker & Instance();
 
   template <typename T>
@@ -25,13 +27,14 @@ public:
 
   void DestroyPtr(void * p);
 
+  TAlivePointers const & GetAlivePointers() const;
+
 private:
   DpPointerTracker() = default;
   ~DpPointerTracker();
 
   void RefPtrNamed(void * refPtr, string const & name);
 
-  typedef map<void *, pair<int, string> > TAlivePointers;
   TAlivePointers m_alivePointers;
   mutex m_mutex;
 };
