@@ -1,6 +1,8 @@
 #include "testing/testing.hpp"
 #include "drape/pointers.hpp"
 
+#include "base/base.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/string.hpp"
 
@@ -11,6 +13,12 @@ namespace
   public:
     Tester() = default;
   };
+
+  bool g_assertRaised = false;
+  void OnAssertRaised(my::SrcPoint const & srcPoint, string const & msg)
+  {
+    g_assertRaised = true;
+  }
 }
 
 UNIT_TEST(PointersTrackingTest)
@@ -63,6 +71,25 @@ UNIT_TEST(PointersTrackingTest)
   // create another reference
   ref_ptr<Tester> refPtr5 = make_ref(ptr);
   TEST_EQUAL(found->second.first, 3, ());
+
+#endif
+}
+
+UNIT_TEST(RefPointerExpiringTest)
+{
+#if defined(TRACK_POINTERS)
+
+  g_assertRaised = false;
+  my::AssertFailedFn prevFn = my::SetAssertFunction(OnAssertRaised);
+
+  drape_ptr<Tester> ptr = make_unique_dp<Tester>();
+  ref_ptr<Tester> refPtr1 = make_ref(ptr);
+  ref_ptr<Tester> refPtr2 = make_ref(ptr);
+  ptr.reset();
+
+  my::SetAssertFunction(prevFn);
+
+  TEST(g_assertRaised, ());
 
 #endif
 }
