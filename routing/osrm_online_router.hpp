@@ -18,8 +18,9 @@ class OsrmOnlineRouter : public AsyncRouter
 
 public:
   virtual string GetName() const;
-  virtual void SetFinalPoint(m2::PointD const & finalPt);
-  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction = m2::PointD::Zero());
+  // AsyncRouter overrides:
+  void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & /* direction */,
+                      m2::PointD const & /* finalPoint */, ReadyCallback const & callback) override;
 };
 
 } // namespace routing

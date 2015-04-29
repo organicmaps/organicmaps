@@ -24,18 +24,14 @@ string OsrmOnlineRouter::GetName() const
   return "osrm-online";
 }
 
-void OsrmOnlineRouter::SetFinalPoint(m2::PointD const & finalPt)
-{
-  m_finalPt = finalPt;
-}
-
-void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback, m2::PointD const & direction)
+void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & /* direction */,
+                                      m2::PointD const & /* finalPoint */, ReadyCallback const & callback)
 {
   // Construct OSRM url request to get the route
   string url = OSRM_CAR_ROUTING_URL;
   using strings::to_string;
-  url += "loc=" + to_string(MercatorBounds::YToLat(startingPt.y)) + "," + to_string(MercatorBounds::XToLon(startingPt.x))
-      + "&loc=" + to_string(MercatorBounds::YToLat(m_finalPt.y))   + "," + to_string(MercatorBounds::XToLon(m_finalPt.x));
+  url += "loc=" + to_string(MercatorBounds::YToLat(startPoint.y)) + "," + to_string(MercatorBounds::XToLon(startPoint.x))
+      + "&loc=" + to_string(MercatorBounds::YToLat(m_finalPt.y)) + "," + to_string(MercatorBounds::XToLon(m_finalPt.x));
 
   // Request will be deleted in the callback
   downloader::HttpRequest::Get(url, bind(&OsrmOnlineRouter::OnRouteReceived, this, _1, callback));
