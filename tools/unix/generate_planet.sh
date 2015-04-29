@@ -91,7 +91,7 @@ set -u # Fail on undefined variables
 set -x # Echo every script line
 
 # Initialize everything. For variables with X="${X:-...}" you can override a default value
-PLANET="${PLANET:-~/planet/planet-latest.o5m}"
+PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
 [ ! -r "$PLANET" -a -z "$OPT_DOWNLOAD" ] && fail "Please put planet file into $PLANET, use -U, or specify correct PLANET variable"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="$OMIM_PATH/data"
@@ -99,7 +99,7 @@ DATA_PATH="$OMIM_PATH/data"
 TARGET="${TARGET:-$DATA_PATH}"
 mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
-OSMCTOOLS="${OSMCTOOLS:-~/osmctools}"
+OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
 MERGE_COASTS_DELAY=2400 # in seconds
 # set to "mem" if there is more than 64 GB of memory

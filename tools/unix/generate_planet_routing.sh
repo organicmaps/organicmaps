@@ -25,11 +25,11 @@ OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
 
 if [ "$1" == "prepare" ]; then
   rm -f "$OSRM_FLAG"
-  PLANET="${PLANET:-~/planet/planet-latest.o5m}"
+  PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
-  OSMCTOOLS="${OSMCTOOLS:-~/osmctools}"
+  OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
   [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
   [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
 
@@ -46,7 +46,7 @@ if [ "$1" == "prepare" ]; then
 
   REGIONS=${REGIONS:-$(ls $BORDERS_PATH/*.poly | xargs -I % basename % .poly)}
   [ -z "$REGIONS" ] && fail "No regions to create routing files for"
-  echo "$REGIONS" | xargs -P $NUM_PROCESSES -I % "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B=$BORDERS_PATH/%.poly --complex-ways --out-pbf -o=$INTDIR/%.pbf &>~/split_planet_osmconvert.log
+  echo "$REGIONS" | xargs -P $NUM_PROCESSES -I % "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B=$BORDERS_PATH/%.poly --complex-ways --out-pbf -o=$INTDIR/%.pbf
 
   export STXXLCFG=~/.stxxl
   echo "$REGIONS" | while read REGION ; do

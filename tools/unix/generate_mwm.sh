@@ -95,7 +95,7 @@ elif [ "$MODE" == "routing" ]; then
   OSRM="$INTDIR/tmp.osrm"
   export STXXLCFG=~/.stxxl
   # just a guess
-  OSMCONVERT="${OSMCONVERT:-~/osmctools/osmconvert}"
+  OSMCONVERT="${OSMCONVERT:-$HOME/osmctools/osmconvert}"
   if [ ! -x "$OSMCONVERT" ]; then
     OSMCONVERT="$INTDIR/osmconvert"
     wget -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o $OSMCONVERT
