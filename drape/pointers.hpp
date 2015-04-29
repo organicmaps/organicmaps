@@ -4,6 +4,7 @@
 #include "base/mutex.hpp"
 
 #include "std/map.hpp"
+#include "std/typeinfo.hpp"
 
 namespace dp
 {
