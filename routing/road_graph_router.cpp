@@ -90,14 +90,18 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   m_roadGraph->AddFakeTurns(finalPos, finalVicinity);
 
   vector<RoadPos> routePos;
-  IRouter::ResultCode resultCode = CalculateRoute(startPos, finalPos, routePos);
-
-  ASSERT(routePos.back() == finalPos, ());
-  ASSERT(routePos.front() == startPos, ());
+  IRouter::ResultCode const resultCode = CalculateRoute(startPos, finalPos, routePos);
 
   LOG(LINFO, ("Route calculation time:", timer.ElapsedSeconds(), "result code:", resultCode));
 
-  m_roadGraph->ReconstructPath(routePos, route);
+  if (IRouter::NoError == resultCode)
+  {
+    ASSERT(routePos.back() == finalPos, ());
+    ASSERT(routePos.front() == startPos, ());
+
+    m_roadGraph->ReconstructPath(routePos, route);
+  }
+
   return resultCode;
 }
 
