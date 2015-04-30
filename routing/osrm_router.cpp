@@ -69,7 +69,7 @@ public:
       RoutingMappingPtrT mapping = m_indexManager.GetMappingByPoint(point, m_index);
       if (!mapping->IsValid())
       {
-        LOG(LINFO, ("Online recomends to download", mapping->GetName()));
+        LOG(LINFO, ("Online recomends to download: ", mapping->GetName()));
         m_route.AddAbsentCountry(mapping->GetName());
       }
     }

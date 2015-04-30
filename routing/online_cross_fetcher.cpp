@@ -17,7 +17,7 @@ bool ParseResponse(const string & serverResponse, vector<m2::PointD> & outPoints
   {
     my::Json parser(serverResponse.c_str());
 
-    json_t * countries = json_object_get(parser.get(), "used_mwms");
+    json_t const * countries = json_object_get(parser.get(), "used_mwms");
     size_t pointsCount = json_array_size(countries);
     outPoints.reserve(pointsCount);
     for (size_t i = 0; i < pointsCount; ++i)
@@ -28,7 +28,7 @@ bool ParseResponse(const string & serverResponse, vector<m2::PointD> & outPoints
     }
     return !outPoints.empty();
   }
-  catch (my::Json::Exception)
+  catch (my::Json::Exception&)
   {
     return false;
   }
@@ -53,7 +53,7 @@ OnlineCrossFetcher::OnlineCrossFetcher(string const & serverURL, m2::PointD cons
 vector<m2::PointD> const & OnlineCrossFetcher::GetMwmPoints()
 {
   m_mwmPoints.clear();
-  if (!m_request.RunHTTPRequest())
+  if (m_request.RunHTTPRequest())
     ParseResponse(m_request.server_response(), m_mwmPoints);
   return m_mwmPoints;
 }

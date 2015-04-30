@@ -36,7 +36,7 @@ public:
   OnlineCrossFetcher(string const & serverURL, m2::PointD const & startPoint,
                      m2::PointD const & finalPoint);
 
-  /// \brief getMwmNames Waits for a server response, and returns mwm names list.
+  /// \brief getMwmPoints Waits for a server response, and returns mwm representation points list.
   /// \return Mwm names to build route from startPt to finishPt. Empty list if there were errors.
   /// \warning Can take a long time while waits a server response.
   vector<m2::PointD> const & GetMwmPoints();
