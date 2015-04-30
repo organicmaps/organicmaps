@@ -44,6 +44,7 @@ enum TurnDirection
 
   StartAtEndOfStreet,
   ReachedYourDestination,
+  Count  // This value is used for internals only.
 };
 
 // LaneWay array in cpp file must be synchronized with state of LaneWay enum in java.

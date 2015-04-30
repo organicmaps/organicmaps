@@ -112,24 +112,24 @@ public enum LocationState
       }
     }
 
-    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String trgName, int direction, int totalTime
+    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String targetName, int direction, int totalTime
        , byte[][] lanes)
     {
       // lanes is not equal to null if any lane information is available and should be displayed.
       // If so, lanes contains values of Lane enum for every lane.
-      // Log.d("JNIARRAY", "RoutingInfo(" + distToTarget + ", " + units + ", " + distTurn + ", ... , " + trgName);
+      // Log.d("JNIARRAY", "RoutingInfo(" + distToTarget + ", " + units + ", " + distTurn + ", ... , " + targetName);
       // if (lanes == null)
       //   Log.d("JNIARRAY", "lanes is empty");
       // else
       //   DumpLanes(lanes);
 
-      //@todo use lanes and trgName in java code.
+      //@todo use lanes and targetName in java code.
 
       mDistToTarget = distToTarget;
       mUnits = units;
       mTurnUnitsSuffix = turnSuffix;
       mDistToTurn = distTurn;
-      mTargetName = trgName;
+      mTargetName = targetName;
       mTotalTimeInSeconds = totalTime;
       mTurnDirection = TurnDirection.values()[direction];
     }

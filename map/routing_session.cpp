@@ -151,6 +151,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     suffix = value.substr(delim + 1);
     value.erase(delim);
   };
+  // @todo(vbykoianko) The distance should depend on the current speed.
+  double const kShowLanesDistInMeters = 500.;
 
   threads::MutexGuard guard(m_routeSessionMutex);
   UNUSED_VALUE(guard);
@@ -168,8 +170,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_exitNum = turn.m_exitNum;
     info.m_time = m_route.GetTime();
     info.m_targetName = turn.m_targetName;
-    // @todo(vbykoianko) The distance should depend on the current speed.
-    double const kShowLanesDistInMeters = 500.;
+
     if (dist < kShowLanesDistInMeters)
     {
       // There are two nested for-loops below. Outer one is for lanes and inner one (transform) is

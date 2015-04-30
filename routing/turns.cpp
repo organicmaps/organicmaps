@@ -35,7 +35,7 @@ bool TurnGeom::operator==(TurnGeom const & other) const
     && m_points == other.m_points;
 }
 
-string turnStrings[] = {
+string const turnStrings[] = {
   "NoTurn",
   "GoStraight",
   "TurnRight",
@@ -58,6 +58,8 @@ string turnStrings[] = {
 
 string const & GetTurnString(TurnDirection turn)
 {
+  ASSERT_LESS_OR_EQUAL(0, turn, ());
+  ASSERT_LESS(turn, Count, ());
   return turnStrings[turn];
 }
 
