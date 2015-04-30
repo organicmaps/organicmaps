@@ -39,31 +39,36 @@ VehicleModel::InitListT const s_carLimits =
   //{ {"highway", "construction"},   40 },
 };
 
-static int const kPedestrianSpeedKMpH = 5;
+static int const kPedestrianSpeedVerySlowKMpH = 2;
+static int const kPedestrianSpeedSlowKMpH = 3;
+static int const kPedestrianSpeedBelowNormalKMpH = 4;
+static int const kPedestrianSpeedNormalKMpH = 5;
 
 VehicleModel::InitListT const s_pedestrianLimits =
 {
-  { {"highway", "motorway"},       kPedestrianSpeedKMpH },
-  { {"highway", "trunk"},          kPedestrianSpeedKMpH },
-  { {"highway", "motorway_link"},  kPedestrianSpeedKMpH },
-  { {"highway", "trunk_link"},     kPedestrianSpeedKMpH },
-  { {"highway", "primary"},        kPedestrianSpeedKMpH },
-  { {"highway", "primary_link"},   kPedestrianSpeedKMpH },
-  { {"highway", "secondary"},      kPedestrianSpeedKMpH },
-  { {"highway", "secondary_link"}, kPedestrianSpeedKMpH },
-  { {"highway", "tertiary"},       kPedestrianSpeedKMpH },
-  { {"highway", "tertiary_link"},  kPedestrianSpeedKMpH },
-  { {"highway", "residential"},    kPedestrianSpeedKMpH },
-  { {"highway", "pedestrian"},     kPedestrianSpeedKMpH },
-  { {"highway", "unclassified"},   kPedestrianSpeedKMpH },
-  { {"highway", "service"},        kPedestrianSpeedKMpH },
-  { {"highway", "living_street"},  kPedestrianSpeedKMpH },
-  { {"highway", "road"},           kPedestrianSpeedKMpH },
-  { {"highway", "track"},          kPedestrianSpeedKMpH },
-  { {"highway", "path"},           kPedestrianSpeedKMpH },
-  { {"highway", "steps"},          kPedestrianSpeedKMpH },
-  { {"highway", "pedestrian"},     kPedestrianSpeedKMpH },
-  { {"highway", "footway"},        kPedestrianSpeedKMpH },
+  // see road pictures here - http://wiki.openstreetmap.org/wiki/Key:highway
+  { {"highway", "motorway"},       kPedestrianSpeedVerySlowKMpH },
+  { {"highway", "trunk"},          kPedestrianSpeedSlowKMpH },
+  { {"highway", "motorway_link"},  kPedestrianSpeedVerySlowKMpH },
+  { {"highway", "trunk_link"},     kPedestrianSpeedSlowKMpH },
+  { {"highway", "primary"},        kPedestrianSpeedSlowKMpH },
+  { {"highway", "primary_link"},   kPedestrianSpeedSlowKMpH },
+  { {"highway", "secondary"},      kPedestrianSpeedSlowKMpH },
+  { {"highway", "secondary_link"}, kPedestrianSpeedSlowKMpH },
+  { {"highway", "tertiary"},       kPedestrianSpeedSlowKMpH },
+  { {"highway", "tertiary_link"},  kPedestrianSpeedSlowKMpH },
+  { {"highway", "residential"},    kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "pedestrian"},     kPedestrianSpeedNormalKMpH },
+  { {"highway", "unclassified"},   kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "service"},        kPedestrianSpeedSlowKMpH },
+  { {"highway", "living_street"},  kPedestrianSpeedNormalKMpH },
+  { {"highway", "road"},           kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "track"},          kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "path"},           kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "steps"},          kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "pedestrian"},     kPedestrianSpeedNormalKMpH },
+  { {"highway", "footway"},        kPedestrianSpeedNormalKMpH },
+  // all other are restricted
 };
 
 
