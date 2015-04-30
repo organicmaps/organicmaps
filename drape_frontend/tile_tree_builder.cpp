@@ -6,40 +6,40 @@ namespace df
 {
 
 TileTreeBuilderNode::TileTreeBuilderNode()
-  : m_tileStatus(TileStatus::Unknown)
+  : m_prevBrother(nullptr)
+  , m_tileStatus(TileStatus::Unknown)
   , m_isRemoved(false)
-  , m_prev(nullptr)
 {
 }
 
 TileTreeBuilderNode::TileTreeBuilderNode(TileKey const & tileKey, TileStatus tileStatus, bool isRemoved)
-  : m_tileKey(tileKey)
+  : m_prevBrother(nullptr)
+  , m_tileKey(tileKey)
   , m_tileStatus(tileStatus)
   , m_isRemoved(isRemoved)
-  , m_prev(nullptr)
 {
 }
 
 TileTreeBuilderNode::TileTreeBuilderNode(TileTreeBuilderNode & node)
-  : m_next(move(node.m_next))
-  , m_firstChild(move(node.m_firstChild))
+  : m_prevBrother(node.m_prevBrother)
+  , m_nextBrother(move(node.m_nextBrother))
+  , m_child(move(node.m_child))
   , m_tileKey(node.m_tileKey)
   , m_tileStatus(node.m_tileStatus)
   , m_isRemoved(node.m_isRemoved)
-  , m_prev(node.m_prev)
 {
 }
 
 TileTreeBuilderNode & TileTreeBuilderNode::Node(TileKey const & tileKey, TileStatus tileStatus, bool isRemoved)
 {
-  m_next.reset(new TileTreeBuilderNode(tileKey, tileStatus, isRemoved));
-  m_next->m_prev = this;
-  return *m_next.get();
+  m_nextBrother.reset(new TileTreeBuilderNode(tileKey, tileStatus, isRemoved));
+  m_nextBrother->m_prevBrother = this;
+  return *m_nextBrother.get();
 }
 
 TileTreeBuilderNode & TileTreeBuilderNode::Children(TileTreeBuilderNode & node)
 {
-  m_firstChild.reset(new TileTreeBuilderNode(node));
+  m_child.reset(new TileTreeBuilderNode(node));
   return *this;
 }
 
@@ -58,26 +58,31 @@ unique_ptr<TileTree> TileTreeBuilder::Build(TileTreeBuilderNode const & root)
 
 void TileTreeBuilder::InsertIntoNode(TileTree::TNodePtr & node, TileTreeBuilderNode const & builderNode)
 {
-  node->m_children.push_back(unique_ptr<TileTree::Node>(new TileTree::Node(builderNode.m_tileKey, builderNode.m_tileStatus, builderNode.m_isRemoved)));
-  if (builderNode.m_firstChild != nullptr)
-    InsertIntoNode(node->m_children.back(), *builderNode.m_firstChild.get());
+  node->m_children.push_back(CreateNode(& builderNode));
+  if (builderNode.m_child != nullptr)
+    InsertIntoNode(node->m_children.back(), *builderNode.m_child.get());
 
-  TileTreeBuilderNode * n = builderNode.m_prev;
+  TileTreeBuilderNode * n = builderNode.m_prevBrother;
   while (n != nullptr)
   {
-    node->m_children.push_back(unique_ptr<TileTree::Node>(new TileTree::Node(n->m_tileKey, n->m_tileStatus, n->m_isRemoved)));
-    if (n->m_firstChild != nullptr)
-      InsertIntoNode(node->m_children.back(), *n->m_firstChild.get());
-    n = n->m_prev;
+    node->m_children.push_back(CreateNode(n));
+    if (n->m_child != nullptr)
+      InsertIntoNode(node->m_children.back(), *n->m_child.get());
+    n = n->m_prevBrother;
   }
 }
 
-bool TileTreeComparer::IsEqual(unique_ptr<TileTree> const & tree1, unique_ptr<TileTree> const & tree2)
+unique_ptr<TileTree::Node> TileTreeBuilder::CreateNode(TileTreeBuilderNode const * node)
+{
+  return make_unique<TileTree::Node>(node->m_tileKey, node->m_tileStatus, node->m_isRemoved);
+}
+
+bool TileTreeComparer::IsEqual(unique_ptr<TileTree> const & tree1, unique_ptr<TileTree> const & tree2) const
 {
   return CompareSubtree(tree1->m_root, tree2->m_root);
 }
 
-bool TileTreeComparer::CompareSubtree(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2)
+bool TileTreeComparer::CompareSubtree(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2) const
 {
   if (!CompareNodes(node1, node2))
     return false;
@@ -103,7 +108,7 @@ bool TileTreeComparer::CompareSubtree(TileTree::TNodePtr const & node1, TileTree
   return true;
 }
 
-bool TileTreeComparer::CompareNodes(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2)
+bool TileTreeComparer::CompareNodes(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2) const
 {
   if (!(node1->m_tileKey == node2->m_tileKey) || node1->m_tileStatus != node2->m_tileStatus ||
       node1->m_isRemoved != node2->m_isRemoved || node1->m_children.size() != node2->m_children.size())

@@ -22,9 +22,9 @@ private:
   TileTreeBuilderNode(TileKey const & tileKey, TileStatus tileStatus, bool isRemoved);
   TileTreeBuilderNode(TileTreeBuilderNode & node);
 
-  TileTreeBuilderNode * m_prev;
-  unique_ptr<TileTreeBuilderNode> m_next;
-  unique_ptr<TileTreeBuilderNode> m_firstChild;
+  TileTreeBuilderNode * m_prevBrother;
+  unique_ptr<TileTreeBuilderNode> m_nextBrother;
+  unique_ptr<TileTreeBuilderNode> m_child;
 
   TileKey m_tileKey;
   TileStatus m_tileStatus;
@@ -42,16 +42,17 @@ public:
 
 private:
   void InsertIntoNode(TileTree::TNodePtr & node, TileTreeBuilderNode const & builderNode);
+  unique_ptr<TileTree::Node> CreateNode(TileTreeBuilderNode const * node);
 };
 
 class TileTreeComparer
 {
 public:
-  bool IsEqual(unique_ptr<TileTree> const & tree1, unique_ptr<TileTree> const & tree2);
+  bool IsEqual(unique_ptr<TileTree> const & tree1, unique_ptr<TileTree> const & tree2) const;
 
 private:
-  bool CompareSubtree(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2);
-  bool CompareNodes(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2);
+  bool CompareSubtree(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2) const;
+  bool CompareNodes(TileTree::TNodePtr const & node1, TileTree::TNodePtr const & node2) const;
 };
 
 } // namespace df
