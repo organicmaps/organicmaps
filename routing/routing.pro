@@ -17,7 +17,7 @@ SOURCES += \
     async_router.cpp \
     cross_routing_context.cpp \
     features_road_graph.cpp \
-    nearest_road_pos_finder.cpp \
+    nearest_edge_finder.cpp \
     online_cross_fetcher.cpp \
     osrm2feature_map.cpp \
     osrm_online_router.cpp \
@@ -37,7 +37,7 @@ HEADERS += \
     base/graph.hpp \
     cross_routing_context.hpp \
     features_road_graph.hpp \
-    nearest_road_pos_finder.hpp \
+    nearest_edge_finder.hpp \
     online_cross_fetcher.hpp \
     osrm2feature_map.hpp \
     osrm_data_facade.hpp \

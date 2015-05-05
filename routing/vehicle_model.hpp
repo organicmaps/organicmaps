@@ -96,4 +96,4 @@ public:
   //@}
 };
 
-}
+}  // namespace routing

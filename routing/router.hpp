@@ -61,4 +61,4 @@ public:
 
 typedef function<void(m2::PointD const &)> RoutingVisualizerFn;
 
-}
+}  // namespace routing

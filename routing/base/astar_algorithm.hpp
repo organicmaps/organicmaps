@@ -13,6 +13,7 @@
 
 namespace routing
 {
+
 template <typename TGraph>
 class AStarAlgorithm : public my::Cancellable
 {
@@ -119,6 +120,14 @@ private:
       }
     }
 
+    void GetAdjacencyList(TVertexType const & v, vector<TEdgeType> & adj)
+    {
+      if (forward)
+        graph.GetOutgoingEdgesList(v, adj);
+      else
+        graph.GetIngoingEdgesList(v, adj);
+    }
+
     bool const forward;
     TVertexType const & startVertex;
     TVertexType const & finalVertex;
@@ -188,8 +197,9 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   bestDistance[finalVertex] = 0.0;
   queue.push(State(finalVertex, 0.0));
 
-  uint32_t steps = 0;
+  vector<TEdgeType> adj;
 
+  uint32_t steps = 0;
   while (!queue.empty())
   {
     ++steps;
@@ -212,8 +222,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
       return Result::OK;
     }
 
-    vector<TEdgeType> adj;
-    m_graph->GetAdjacencyList(stateV.vertex, adj);
+    m_graph->GetIngoingEdgesList(stateV.vertex, adj);
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), 0.0);
@@ -272,6 +281,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
   BidirectionalStepContext * cur = &forward;
   BidirectionalStepContext * nxt = &backward;
 
+  vector<TEdgeType> adj;
+
   // It is not necessary to check emptiness for both queues here
   // because if we have not found a path by the time one of the
   // queues is exhausted, we never will.
@@ -315,8 +326,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
     if (steps % kVisitedVerticesPeriod == 0)
       onVisitedVertexCallback(stateV.vertex);
 
-    vector<TEdgeType> adj;
-    m_graph->GetAdjacencyList(stateV.vertex, adj);
+    cur->GetAdjacencyList(stateV.vertex, adj);
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), 0.0);
@@ -331,13 +341,14 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
       double const newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
-      auto const it = cur->bestDistance.find(stateW.vertex);
-      if (it != cur->bestDistance.end() && newReducedDist >= it->second - kEpsilon)
+      auto const itCur = cur->bestDistance.find(stateW.vertex);
+      if (itCur != cur->bestDistance.end() && newReducedDist >= itCur->second - kEpsilon)
         continue;
 
-      if (nxt->bestDistance.find(stateW.vertex) != nxt->bestDistance.end())
+      auto const itNxt = nxt->bestDistance.find(stateW.vertex);
+      if (itNxt != nxt->bestDistance.end())
       {
-        double const distW = nxt->bestDistance[stateW.vertex];
+        double const distW = itNxt->second;
         // Length that the path we've just found has in the original graph:
         // find the length of the path's parts in the reduced forward and backward
         // graphs and remove the heuristic adjustments.
@@ -390,7 +401,10 @@ void AStarAlgorithm<TGraph>::ReconstructPathBidirectional(
   ReconstructPath(v, parentV, pathV);
   vector<TVertexType> pathW;
   ReconstructPath(w, parentW, pathW);
+  path.clear();
+  path.reserve(pathV.size() + pathW.size());
   path.insert(path.end(), pathV.rbegin(), pathV.rend());
   path.insert(path.end(), pathW.begin(), pathW.end());
 }
+
 }  // namespace routing

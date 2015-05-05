@@ -6,8 +6,11 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-namespace routing
+namespace routing_test
 {
+
+using namespace  routing;
+
 struct Edge
 {
   Edge(unsigned v, double w) : v(v), w(w) {}
@@ -33,10 +36,20 @@ private:
 
   void GetAdjacencyListImpl(unsigned v, vector<Edge> & adj) const
   {
-    auto it = m_adjs.find(v);
-    if (it == m_adjs.end())
-      return;
-    adj.assign(it->second.begin(), it->second.end());
+    adj.clear();
+    auto const it = m_adjs.find(v);
+    if (it != m_adjs.end())
+      adj = it->second;
+  }
+
+  void GetIngoingEdgesListImpl(unsigned v, vector<Edge> & adj) const
+  {
+    GetAdjacencyListImpl(v, adj);
+  }
+
+  void GetOutgoingEdgesListImpl(unsigned v, vector<Edge> & adj) const
+  {
+    GetAdjacencyListImpl(v, adj);
   }
 
   double HeuristicCostEstimateImpl(unsigned v, unsigned w) const { return 0; }
@@ -70,8 +83,9 @@ UNIT_TEST(AStarAlgorithm_Sample)
   graph.AddEdge(2, 4, 10);
   graph.AddEdge(3, 4, 3);
 
-  vector<unsigned> expectedRoute = {0, 1, 2, 3, 4};
+  vector<unsigned> const expectedRoute = {0, 1, 2, 3, 4};
 
   TestAStar(graph, expectedRoute);
 }
-}  // namespace routing
+
+}  // namespace routing_test

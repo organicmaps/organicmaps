@@ -10,14 +10,15 @@
 
 #include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
 #include "std/vector.hpp"
-
-class FeatureType;
 
 namespace routing
 {
-/// Helper functor class to filter nearest RoadPos'es to the given starting point.
-class NearestRoadPosFinder
+
+/// Helper functor class to filter nearest roads to the given starting point.
+/// Class returns pairs of outgoing edge and projection point on the edge
+class NearestEdgeFinder
 {
   static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
 
@@ -25,38 +26,28 @@ class NearestRoadPosFinder
   {
     double m_dist;
     uint32_t m_segId;
+    m2::PointD m_segStart;
+    m2::PointD m_segEnd;
     m2::PointD m_point;
     uint32_t m_fid;
-    bool m_isOneway;
 
-    Candidate()
-        : m_dist(numeric_limits<double>::max()),
-          m_segId(0),
-          m_point(m2::PointD::Zero()),
-          m_fid(INVALID_FID),
-          m_isOneway(false)
-    {
-    }
+    Candidate();
 
     inline bool IsValid() const { return m_fid != INVALID_FID; }
   };
 
-  m2::PointD m_point;
-  m2::PointD m_direction;
-  vector<Candidate> m_candidates;
+  m2::PointD const m_point;
   IRoadGraph & m_roadGraph;
+  vector<Candidate> m_candidates;
 
 public:
-  NearestRoadPosFinder(m2::PointD const & point, m2::PointD const & direction,
-                       IRoadGraph & roadGraph)
-      : m_point(point), m_direction(direction), m_roadGraph(roadGraph)
-  {
-  }
+  NearestEdgeFinder(m2::PointD const & point, IRoadGraph & roadGraph);
 
   inline bool HasCandidates() const { return !m_candidates.empty(); }
 
   void AddInformationSource(uint32_t featureId);
 
-  void MakeResult(vector<RoadPos> & res, size_t const maxCount);
+  void MakeResult(vector<pair<Edge, m2::PointD>> & res, size_t const maxCountFeatures);
 };
-}
+
+}  // namespace routing

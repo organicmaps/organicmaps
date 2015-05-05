@@ -6,6 +6,7 @@
 
 namespace routing
 {
+
 AsyncRouter::AsyncRouter(unique_ptr<IRouter> && router) : m_router(move(router))
 {
   m_isReadyThread.clear();
@@ -97,4 +98,5 @@ void AsyncRouter::CalculateRouteImpl(ReadyCallback const & callback)
 
   GetPlatform().RunOnGuiThread(bind(callback, route, code));
 }
-}
+
+}  // namespace routing

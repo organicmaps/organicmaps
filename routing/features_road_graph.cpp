@@ -13,17 +13,17 @@
 
 namespace routing
 {
+
 namespace
 {
 uint32_t const FEATURE_CACHE_SIZE = 10;
 double const READ_CROSS_EPSILON = 1.0E-4;
-}  // namespace
+} // namespace
 
-/// @todo Factor out vehicle model as a parameter for the features graph.
-FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, MwmSet::MwmId const & mwmID)
+FeaturesRoadGraph::FeaturesRoadGraph(IVehicleModel const * vehicleModel, Index const * pIndex, MwmSet::MwmId const & mwmID)
     : m_pIndex(pIndex),
       m_mwmID(mwmID),
-      m_vehicleModel(new PedestrianModel()),
+      m_vehicleModel(vehicleModel),
       m_cache(FEATURE_CACHE_SIZE),
       m_cacheMiss(0),
       m_cacheAccess(0)
@@ -35,11 +35,10 @@ uint32_t FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(
 class CrossFeaturesLoader
 {
 public:
-  CrossFeaturesLoader(FeaturesRoadGraph & graph, m2::PointD const & point,
-                      IRoadGraph::CrossTurnsLoader & turnsLoader)
-      : m_graph(graph), m_point(point), m_turnsLoader(turnsLoader)
-  {
-  }
+  CrossFeaturesLoader(FeaturesRoadGraph & graph,
+                      IRoadGraph::CrossEdgesLoader & edgesLoader)
+      : m_graph(graph), m_edgesLoader(edgesLoader)
+  {}
 
   void operator()(FeatureType & ft)
   {
@@ -62,13 +61,12 @@ public:
     IRoadGraph::RoadInfo const & ri = m_graph.GetCachedRoadInfo(fID.m_offset, ft, false);
     ASSERT_EQUAL(speed, ri.m_speedKMPH, ());
 
-    m_turnsLoader(fID.m_offset, ri);
+    m_edgesLoader(fID.m_offset, ri);
   }
 
 private:
   FeaturesRoadGraph & m_graph;
-  m2::PointD m_point;
-  IRoadGraph::CrossTurnsLoader & m_turnsLoader;
+  IRoadGraph::CrossEdgesLoader & m_edgesLoader;
 };
 
 void FeaturesRoadGraph::LoadFeature(uint32_t featureId, FeatureType & ft)
@@ -90,14 +88,18 @@ IRoadGraph::RoadInfo FeaturesRoadGraph::GetRoadInfo(uint32_t featureId)
 double FeaturesRoadGraph::GetSpeedKMPH(uint32_t featureId)
 {
   FeatureType ft;
-  LoadFeature(featureId, ft);
-  return GetSpeedKMPHFromFt(ft);
+  return GetCachedRoadInfo(featureId, ft, true).m_speedKMPH;
+}
+
+double FeaturesRoadGraph::GetMaxSpeedKMPH()
+{
+  return m_vehicleModel->GetMaxSpeed();
 }
 
 void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                                     CrossTurnsLoader & turnsLoader)
+                                                     CrossEdgesLoader & edgesLoader)
 {
-  CrossFeaturesLoader featuresLoader(*this, cross, turnsLoader);
+  CrossFeaturesLoader featuresLoader(*this, edgesLoader);
   m_pIndex->ForEachInRect(featuresLoader,
                           m2::RectD(cross.x - READ_CROSS_EPSILON, cross.y - READ_CROSS_EPSILON,
                                     cross.x + READ_CROSS_EPSILON, cross.y + READ_CROSS_EPSILON),
@@ -136,4 +138,5 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(uint32_t const
 
   return ri;
 }
+
 }  // namespace routing

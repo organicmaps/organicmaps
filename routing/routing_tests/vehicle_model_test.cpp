@@ -11,6 +11,7 @@
 
 namespace
 {
+
 routing::VehicleModel::InitListT const s_testLimits = {
     {{"highway", "trunk"}, 150},
     {{"highway", "primary"}, 120},
@@ -56,7 +57,7 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   TEST_EQUAL(vehicleModel.IsOneWay(h), expectedValue, ());
 }
 
-}
+}  // namespace
 
 UNIT_TEST(VehicleModel_MaxSpeed)
 {

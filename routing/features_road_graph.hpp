@@ -17,6 +17,7 @@ class FeatureType;
 
 namespace routing
 {
+
 class FeaturesRoadGraph : public IRoadGraph
 {
   // TODO (@gorshenin): ft is not set when feature is not loaded from
@@ -24,7 +25,7 @@ class FeaturesRoadGraph : public IRoadGraph
   RoadInfo const & GetCachedRoadInfo(uint32_t const ftId, FeatureType & ft, bool fullLoad);
 
 public:
-  FeaturesRoadGraph(Index const * pIndex, MwmSet::MwmId const & mwmID);
+  FeaturesRoadGraph(IVehicleModel const * vehicleModel, Index const * pIndex, MwmSet::MwmId const & mwmID);
 
   static uint32_t GetStreetReadScale();
 
@@ -41,24 +42,24 @@ protected:
   // IRoadGraph overrides:
   RoadInfo GetRoadInfo(uint32_t featureId) override;
   double GetSpeedKMPH(uint32_t featureId) override;
+  double GetMaxSpeedKMPH() override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
-                                    CrossTurnsLoader & turnsLoader) override;
+                                    CrossEdgesLoader & edgesLoader) override;
 
 private:
   friend class CrossFeaturesLoader;
 
   bool IsOneWay(FeatureType const & ft) const;
-
   double GetSpeedKMPHFromFt(FeatureType const & ft) const;
-
   void LoadFeature(uint32_t featureId, FeatureType & ft);
 
-  Index const * m_pIndex;
-  MwmSet::MwmId m_mwmID;
-  unique_ptr<IVehicleModel> m_vehicleModel;
+  Index const * const m_pIndex;
+  MwmSet::MwmId const m_mwmID;
+  IVehicleModel const * const m_vehicleModel;
+  
   my::Cache<uint32_t, RoadInfo> m_cache;
-
   uint32_t m_cacheMiss;
   uint32_t m_cacheAccess;
 };
+
 }  // namespace routing

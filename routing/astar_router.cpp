@@ -6,32 +6,27 @@
 
 namespace routing
 {
-AStarRouter::AStarRouter(TMwmFileByPointFn const & fn, Index const * pIndex,
-                         RoutingVisualizerFn routingVisualizer)
-    : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()), fn),
-      m_routingVisualizer(routingVisualizer)
+
+AStarRouter::AStarRouter(TMwmFileByPointFn const & fn, Index const * pIndex, RoutingVisualizerFn routingVisualizer)
+    : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()), fn)
+    , m_routingVisualizer(routingVisualizer)
 {
 }
 
-IRouter::ResultCode AStarRouter::CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
-                                                vector<RoadPos> & route)
+IRouter::ResultCode AStarRouter::CalculateRoute(Junction const & startPos, Junction const & finalPos,
+                                                vector<Junction> & route)
 {
-  RoadGraph graph(*m_roadGraph);
-  m_algo.SetGraph(graph);
+  RoadGraph const roadGraph(*GetGraph());
+  m_algo.SetGraph(roadGraph);
 
   TAlgorithm::OnVisitedVertexCallback onVisitedVertexCallback = nullptr;
   if (nullptr != m_routingVisualizer)
-    onVisitedVertexCallback = [this](RoadPos const & roadPos) { m_routingVisualizer(roadPos.GetSegEndpoint()); };
+    onVisitedVertexCallback = [this](Junction const & junction) { m_routingVisualizer(junction.GetPoint()); };
 
   TAlgorithm::Result const result = m_algo.FindPathBidirectional(startPos, finalPos, route, onVisitedVertexCallback);
   switch (result)
   {
     case TAlgorithm::Result::OK:
-      // Following hack is used because operator== checks for
-      // equivalience, not identity, since it doesn't test
-      // RoadPos::m_segEndpoint. Thus, start and final positions
-      // returned by algorithm should be replaced by correct start and
-      // final positions.
       ASSERT_EQUAL(route.front(), startPos, ());
       ASSERT_EQUAL(route.back(), finalPos, ());
       return IRouter::NoError;
@@ -42,4 +37,5 @@ IRouter::ResultCode AStarRouter::CalculateRoute(RoadPos const & startPos, RoadPo
   }
   return IRouter::RouteNotFound;
 }
+
 }  // namespace routing

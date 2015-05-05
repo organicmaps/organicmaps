@@ -17,6 +17,7 @@ class Index;
 
 namespace routing
 {
+
 class RoadGraphRouter : public IRouter
 {
 public:
@@ -28,20 +29,24 @@ public:
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
                             m2::PointD const & finalPoint, Route & route) override;
-  virtual ResultCode CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
-                                    vector<RoadPos> & route) = 0;
+
   virtual void SetRoadGraph(unique_ptr<IRoadGraph> && roadGraph) { m_roadGraph = move(roadGraph); }
   inline IRoadGraph * GetGraph() { return m_roadGraph.get(); }
 
 protected:
+  virtual ResultCode CalculateRoute(Junction const & startPos, Junction const & finalPos,
+                                    vector<Junction> & route) = 0;
+
+private:
   /// @todo This method fits better in features_road_graph.
-  void GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
+  void GetClosestEdges(m2::PointD const & pt, vector<pair<Edge, m2::PointD>> & edges);
 
   bool IsMyMWM(MwmSet::MwmId const & mwmID) const;
 
   unique_ptr<IRoadGraph> m_roadGraph;
   unique_ptr<IVehicleModel> const m_vehicleModel;
-  Index const * m_pIndex;  // non-owning ptr
-  TMwmFileByPointFn m_countryFileFn;
+  Index const * const m_pIndex; // non-owning ptr
+  TMwmFileByPointFn const m_countryFileFn;
 };
+  
 }  // namespace routing

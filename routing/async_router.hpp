@@ -9,6 +9,7 @@
 
 namespace routing
 {
+
 /// Callback takes ownership of passed route.
 typedef function<void(Route &, IRouter::ResultCode)> ReadyCallback;
 
@@ -47,6 +48,7 @@ private:
   m2::PointD m_finalPoint;
   m2::PointD m_startDirection;
 
-  unique_ptr<IRouter> m_router;
+  unique_ptr<IRouter> const m_router;
 };
-}
+
+}  // namespace routing

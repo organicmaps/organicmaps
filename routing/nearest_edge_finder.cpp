@@ -1,4 +1,4 @@
-#include "routing/nearest_road_pos_finder.hpp"
+#include "routing/nearest_edge_finder.hpp"
 
 #include "geometry/distance.hpp"
 
@@ -8,7 +8,23 @@
 
 namespace routing
 {
-void NearestRoadPosFinder::AddInformationSource(uint32_t featureId)
+
+NearestEdgeFinder::Candidate::Candidate()
+    : m_dist(numeric_limits<double>::max()),
+      m_segId(0),
+      m_segStart(m2::PointD::Zero()),
+      m_segEnd(m2::PointD::Zero()),
+      m_point(m2::PointD::Zero()),
+      m_fid(INVALID_FID)
+{
+}
+
+NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point, IRoadGraph & roadGraph)
+    : m_point(point), m_roadGraph(roadGraph)
+{
+}
+
+void NearestEdgeFinder::AddInformationSource(uint32_t featureId)
 {
   Candidate res;
 
@@ -28,8 +44,9 @@ void NearestRoadPosFinder::AddInformationSource(uint32_t featureId)
       res.m_dist = d;
       res.m_fid = featureId;
       res.m_segId = i - 1;
+      res.m_segStart = info.m_points[i - 1];
+      res.m_segEnd = info.m_points[i];
       res.m_point = pt;
-      res.m_isOneway = !info.m_bidirectional;
     }
   }
 
@@ -37,7 +54,7 @@ void NearestRoadPosFinder::AddInformationSource(uint32_t featureId)
     m_candidates.push_back(res);
 }
 
-void NearestRoadPosFinder::MakeResult(vector<RoadPos> & res, const size_t maxCount)
+void NearestEdgeFinder::MakeResult(vector<pair<Edge, m2::PointD>> & res, size_t const maxCountFeatures)
 {
   sort(m_candidates.begin(), m_candidates.end(), [](Candidate const & r1, Candidate const & r2)
   {
@@ -45,18 +62,15 @@ void NearestRoadPosFinder::MakeResult(vector<RoadPos> & res, const size_t maxCou
   });
 
   res.clear();
-  res.reserve(maxCount);
+  res.reserve(maxCountFeatures);
 
+  size_t i = 0;
   for (Candidate const & candidate : m_candidates)
   {
-    if (res.size() == maxCount)
+    res.emplace_back(Edge(candidate.m_fid, true /* forward */, candidate.m_segId, candidate.m_segStart, candidate.m_segEnd), candidate.m_point);
+    ++i;
+    if (i == maxCountFeatures)
       break;
-    res.push_back(RoadPos(candidate.m_fid, true, candidate.m_segId, candidate.m_point));
-    if (res.size() == maxCount)
-      break;
-    if (candidate.m_isOneway)
-      continue;
-    res.push_back(RoadPos(candidate.m_fid, false, candidate.m_segId, candidate.m_point));
   }
 }
 

@@ -170,9 +170,9 @@ double PedestrianModel::GetSpeed(FeatureType const & f) const
   feature::TypesHolder types(f);
 
   if (IsFoot(types) && IsRoad(types))
-    return m_maxSpeedKMpH;
+    return VehicleModel::GetSpeed(f);
   else
     return 0.0;
 }
 
-}
+}  // namespace routing

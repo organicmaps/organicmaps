@@ -7,6 +7,7 @@
 
 namespace routing
 {
+
 class AStarRouter : public RoadGraphRouter
 {
 public:
@@ -18,8 +19,8 @@ public:
   void ClearState() override { Reset(); }
 
   // RoadGraphRouter overrides:
-  ResultCode CalculateRoute(RoadPos const & startPos, RoadPos const & finalPos,
-                            vector<RoadPos> & route) override;
+  ResultCode CalculateRoute(Junction const & startPos, Junction const & finalPos,
+                            vector<Junction> & route) override;
 
   // my::Cancellable overrides:
   void Reset() override { m_algo.Reset(); }
@@ -29,6 +30,7 @@ public:
 private:
   using TAlgorithm = AStarAlgorithm<RoadGraph>;
   TAlgorithm m_algo;
-  RoutingVisualizerFn m_routingVisualizer;
+  RoutingVisualizerFn const m_routingVisualizer;
 };
+
 }  // namespace routing
