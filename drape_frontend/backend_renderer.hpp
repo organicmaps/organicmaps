@@ -25,10 +25,19 @@ class ReadManager;
 class BackendRenderer : public BaseRenderer
 {
 public:
-  BackendRenderer(ref_ptr<ThreadsCommutator> commutator,
-                  ref_ptr<dp::OGLContextFactory> oglcontextfactory,
-                  ref_ptr<dp::TextureManager> textureManager,
-                  MapDataProvider const & model);
+  struct Params : BaseRenderer::Params
+  {
+    Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
+           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model)
+      : BaseRenderer::Params(commutator, factory, texMng)
+      , m_model(model)
+    {
+    }
+
+    MapDataProvider const & m_model;
+  };
+
+  BackendRenderer(Params const & params);
 
   ~BackendRenderer() override;
 
@@ -42,7 +51,6 @@ private:
   MapDataProvider m_model;
   drape_ptr<BatchersPool> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
-  ref_ptr<dp::TextureManager> m_texturesManager;
   gui::LayerCacher m_guiCacher;
 
   /////////////////////////////////////////

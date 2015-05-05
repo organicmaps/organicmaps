@@ -1,5 +1,4 @@
 #include "map/location_state.hpp"
-#include "map/navigator.hpp"
 #include "map/framework.hpp"
 #include "map/move_screen_task.hpp"
 
@@ -66,12 +65,13 @@ public:
     : m_fw(fw)
     , m_hasPendingAnimation(false)
   {
-    m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 1.0));
-    m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 1.0));
-    m2::PointD const srcInverted = InvertPxBinding(srcPixelBinding);
-    m2::PointD const dstInverted = InvertPxBinding(dstPixelbinding);
-    m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(srcInverted, dstInverted,
-                                                             m_fw->GetNavigator().ComputeMoveSpeed(srcInverted, dstInverted)));
+    //@TODO UVR
+//    m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 1.0));
+//    m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 1.0));
+//    m2::PointD const srcInverted = InvertPxBinding(srcPixelBinding);
+//    m2::PointD const dstInverted = InvertPxBinding(dstPixelbinding);
+//    m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(srcInverted, dstInverted,
+//                                                             m_fw->GetNavigator().ComputeMoveSpeed(srcInverted, dstInverted)));
   }
 
   void SetDestinationParams(m2::PointD const & dstPos, double dstAngle)
@@ -177,22 +177,23 @@ private:
     rotateVector *= offset;
     //@}
 
-    m_fw->SetViewportCenter(currentPosition + rotateVector);
-    m_fw->GetNavigator().SetAngle(currentAngle);
     ///@TODO UVR
+//    m_fw->SetViewportCenter(currentPosition + rotateVector);
+//    m_fw->GetNavigator().SetAngle(currentAngle);
     //m_fw->Invalidate();
   }
 
   void SetParams(m2::PointD const & dstPos, double dstAngle)
   {
-    double const angleDist = fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle));
-    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) && angleDist < ANGLE_TOLERANCE)
-      return;
+    ///@TODO UVR
+//    double const angleDist = fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle));
+//    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) && angleDist < ANGLE_TOLERANCE)
+//      return;
 
-    double const posSpeed = 2 * m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
-    double const angleSpeed = angleDist < 1.0 ? 1.5 : m_fw->GetAnimator().GetRotationSpeed();
-    m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
-    m_posAnim->ResetDestParams(dstPos, posSpeed);
+//    double const posSpeed = 2 * m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
+//    double const angleSpeed = angleDist < 1.0 ? 1.5 : m_fw->GetAnimator().GetRotationSpeed();
+//    m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
+//    m_posAnim->ResetDestParams(dstPos, posSpeed);
   }
 
   bool OnStep(anim::Task * task, double ts)
@@ -223,7 +224,9 @@ private:
 
   m2::RectD const & GetPixelRect() const
   {
-    return m_fw->GetNavigator().Screen().PixelRect();
+    ///@TODO UVR
+    return m2::RectD();
+    //return m_fw->GetNavigator().Screen().PixelRect();
   }
 
 private:
@@ -544,17 +547,17 @@ bool State::FollowCompass()
 
 void State::CreateAnimTask()
 {
-  CreateAnimTask(m_framework->GtoP(Position()),
-                 GetModeDefaultPixelBinding(GetMode()));
+//  CreateAnimTask(m_framework->GtoP(Position()),
+//                 GetModeDefaultPixelBinding(GetMode()));
 }
 
 void State::CreateAnimTask(const m2::PointD & srcPx, const m2::PointD & dstPx)
 {
-  EndAnimation();
-  m_animTask.reset(new RotateAndFollowAnim(m_framework, Position(),
-                                           GetModelView().GetAngle(),
-                                           srcPx, dstPx));
-  m_framework->GetAnimController()->AddTask(m_animTask);
+//  EndAnimation();
+//  m_animTask.reset(new RotateAndFollowAnim(m_framework, Position(),
+//                                           GetModelView().GetAngle(),
+//                                           srcPx, dstPx));
+//  m_framework->GetAnimController()->AddTask(m_animTask);
 }
 
 void State::EndAnimation()
@@ -586,16 +589,18 @@ void State::SetModeInfo(uint16_t modeInfo, bool callListeners)
 
 void State::StopAllAnimations()
 {
-  EndAnimation();
-  Animator & animator = m_framework->GetAnimator();
-  animator.StopRotation();
-  animator.StopChangeViewport();
-  animator.StopMoveScreen();
+//  EndAnimation();
+//  Animator & animator = m_framework->GetAnimator();
+//  animator.StopRotation();
+//  animator.StopChangeViewport();
+//  animator.StopMoveScreen();
 }
 
 ScreenBase const & State::GetModelView() const
 {
-  return m_framework->GetNavigator().Screen();
+  ///@TODO UVR
+  return ScreenBase();
+  //return m_framework->GetNavigator().Screen();
 }
 
 m2::PointD const State::GetRaFModeDefaultPxBind() const
@@ -726,8 +731,8 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
     if (!TestModeBit(m_modeInfo, FixedZoomBit))
     {
       m2::PointD const size(m_errorRadius, m_errorRadius);
-      m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
-                                          scales::GetUpperComfortScale());
+      m_framework->ShowRect(m2::RectD(m_position - size, m_position + size),
+                            scales::GetUpperComfortScale());
     }
   }
   else if (newMode == RotateAndFollow)
@@ -759,14 +764,15 @@ void State::AnimateFollow()
 
   if (!FollowCompass())
   {
-    if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
-      m_framework->SetViewportCenterAnimated(m_position);
+    ///@TODO UVR
+//    if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
+//      m_framework->SetViewportCenterAnimated(m_position);
   }
 }
 
 void State::RotateOnNorth()
 {
-  m_framework->GetAnimator().RotateScreen(GetModelView().GetAngle(), 0.0);
+  //m_framework->GetAnimator().RotateScreen(GetModelView().GetAngle(), 0.0);
 }
 
 void State::Assign(location::GpsInfo const & info, bool isNavigable)

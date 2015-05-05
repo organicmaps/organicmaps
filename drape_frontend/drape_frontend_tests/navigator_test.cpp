@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "map/navigator.hpp"
+#include "drape_frontend/navigator.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -30,24 +30,24 @@
 
 UNIT_TEST(Navigator_Scale2Points)
 {
-  Navigator navigator;
+  df::Navigator navigator;
 
-  navigator.OnSize(0, 0, 200, 100);
+  navigator.OnSize(200, 100);
   navigator.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
 
   ScreenBase const & screen = navigator.Screen();
   TEST_EQUAL(screen.ClipRect(), m2::RectD(0, 0, 8, 4), ());
 
   navigator.StartScale(screen.GtoP(m2::PointD(1, 1)),
-                       screen.GtoP(m2::PointD(7, 1)), 0);
+                       screen.GtoP(m2::PointD(7, 1)));
   navigator.StopScale(screen.GtoP(m2::PointD(1, 1)),
-                      screen.GtoP(m2::PointD(4, 1)), 1);
+                      screen.GtoP(m2::PointD(4, 1)));
   TEST_EQUAL(screen.ClipRect(), m2::RectD(-1, -1, 15, 7), ());
 }
 
 namespace
 {
-  void CheckNavigator(Navigator const & nav)
+  void CheckNavigator(df::Navigator const & nav)
   {
     typedef m2::PointD P;
     m2::RectD clipR = nav.Screen().ClipRect();
@@ -68,21 +68,19 @@ namespace
 
 UNIT_TEST(Navigator_G2P_P2G)
 {
-  Navigator navigator;
+  df::Navigator navigator;
 
   // Initialize.
-  navigator.OnSize(0, 0, 200, 100);
+  navigator.OnSize(200, 100);
+  m2::PointD center = navigator.Screen().PixelRect().Center();
   navigator.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
   TEST_EQUAL(navigator.Screen().ClipRect(), m2::RectD(0, 0, 8, 4), ());
 
   CheckNavigator(navigator);
 
-  navigator.Scale(3.0);
+  navigator.Scale(center, 3.0);
   CheckNavigator(navigator);
 
-  navigator.Move(math::pi / 4.0, 3.0);
-  CheckNavigator(navigator);
-
-  navigator.Scale(1/3.0);
+  navigator.Scale(center, 1/3.0);
   CheckNavigator(navigator);
 }

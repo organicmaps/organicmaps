@@ -56,6 +56,7 @@
 #include "base/scope_guard.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/target_os.hpp"
 #include "std/vector.hpp"
 
@@ -150,6 +151,12 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   //GetLocationState()->OnCompassUpdate(rInfo);
 }
 
+void Framework::CallDrapeFunction(TDrapeFunction const & fn)
+{
+  if (m_drapeEngine)
+    fn(m_drapeEngine.get());
+}
+
 void Framework::StopLocationFollow()
 {
   ///@TODO UVR
@@ -162,8 +169,7 @@ InformationDisplay & Framework::GetInformationDisplay()
 }
 
 Framework::Framework()
-  : m_animator(this),
-    m_queryMaxScaleMode(false),
+  : m_queryMaxScaleMode(false),
     m_width(0),
     m_height(0),
     m_animController(new anim::Controller),
@@ -414,7 +420,7 @@ void Framework::ShowCountry(TIndex const & index)
 {
   StopLocationFollow();
 
-  ShowRectEx(GetCountryBounds(index));
+  ShowRect(GetCountryBounds(index));
 }
 
 void Framework::UpdateLatestCountryFile(LocalCountryFile const & localFile)
@@ -544,7 +550,7 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
 void Framework::ShowTrack(Track const & track)
 {
   StopLocationFollow();
-  ShowRectEx(track.GetLimitRect());
+  ShowRect(track.GetLimitRect());
 }
 
 namespace
@@ -572,7 +578,7 @@ string const GenerateValidAndUniqueFilePathForKML(string const & fileName)
   return filePath;
 }
 
-}
+} // namespace
 
 bool Framework::AddBookmarksFile(string const & filePath)
 {
@@ -628,38 +634,87 @@ void Framework::PrepareToShutdown()
   DestroyDrapeEngine();
 }
 
-void Framework::SetMaxWorldRect()
-{
-  m_navigator.SetFromRect(m2::AnyRectD(m_model.GetWorldRect()));
-}
-
 void Framework::SaveState()
 {
-  Settings::Set("ScreenClipRect", m_navigator.Screen().GlobalRect());
+  Settings::Set("ScreenClipRect", m_currentMovelView.GlobalRect());
 }
 
-bool Framework::LoadState()
+void Framework::LoadState()
 {
-  bool r = m_navigator.LoadState();
-  LOG(LINFO, ("Navigator state loaded = ", r, " Rect = ", m_navigator.Screen().ClipRect()));
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-  return r;
+  m2::AnyRectD rect;
+  if (Settings::Get("ScreenClipRect", rect) &&
+      df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+  {
+    ShowRect(rect);
+  }
+  else
+    ShowAll();
 }
-//@}
 
+void Framework::ShowAll()
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, m2::AnyRectD(m_model.GetWorldRect())));
+}
+
+m2::PointD Framework::GetPixelCenter() const
+{
+  return m_currentMovelView.PixelRect().Center();
+}
+
+m2::PointD const & Framework::GetViewportCenter() const
+{
+  return m_currentMovelView.GetOrg();
+}
+
+void Framework::SetViewportCenter(m2::PointD const & pt)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, pt, -1));
+}
+
+m2::RectD Framework::GetCurrentViewport() const
+{
+  return m_currentMovelView.ClipRect();
+}
+
+void Framework::ShowRect(double lat, double lon, double zoom)
+{
+  m2::PointD center(MercatorBounds::FromLatLon(lat, lon));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, zoom));
+}
+
+void Framework::ShowRect(m2::RectD const & rect, int maxScale)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewRect, _1, rect, true, maxScale));
+}
+
+void Framework::ShowRect(m2::AnyRectD const & rect)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect));
+}
+
+void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)
+{
+  m_currentMovelView.GetTouchRect(center, static_cast<double>(pxRadius), rect);
+}
+
+int Framework::AddViewportListener(TViewportChanged const & fn)
+{
+  ASSERT(m_drapeEngine, ());
+  return m_drapeEngine->AddModelViewListener(fn);
+}
+
+void Framework::RemoveViewportListener(int slotID)
+{
+  ASSERT(m_drapeEngine, ());
+  m_drapeEngine->RemoveModeViewListener(slotID);
+}
 
 void Framework::OnSize(int w, int h)
 {
   if (w < 2) w = 2;
   if (h < 2) h = 2;
 
-  if (m_drapeEngine != nullptr)
-  {
-    m_navigator.OnSize(0, 0, w, h);
-    m_drapeEngine->Resize(w, h);
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-  }
+  CallDrapeFunction(bind(&df::DrapeEngine::Resize, _1, w, h));
 
   m_width = w;
   m_height = h;
@@ -667,14 +722,45 @@ void Framework::OnSize(int w, int h)
   //GetLocationState()->OnSize();
 }
 
-bool Framework::SetUpdatesEnabled(bool doEnable)
+namespace
 {
-    return false;
+
+double ScaleModeToFactor(Framework::EScaleMode mode)
+{
+  double factors[] = { 2.0, 1.5, 0.5, 0.67};
+  return factors[mode];
+}
+
+} // namespace
+
+void Framework::Scale(EScaleMode mode)
+{
+  Scale(ScaleModeToFactor(mode));
+}
+
+void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint)
+{
+  Scale(ScaleModeToFactor(mode), pxPoint);
+}
+
+void Framework::Scale(double factor)
+{
+  Scale(factor, m_currentMovelView.PixelRect().Center());
+}
+
+void Framework::Scale(double factor, m2::PointD const & pxPoint)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::Scale, _1, factor, pxPoint));
+}
+
+void Framework::TouchEvent(df::TouchEvent const & touch)
+{
+  m_drapeEngine->AddTouchEvent(touch);
 }
 
 int Framework::GetDrawScale() const
 {
-  return m_navigator.GetDrawScale();
+  return df::GetDrawTileScale(m_currentMovelView);
 }
 
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const
@@ -725,105 +811,6 @@ bool Framework::IsCountryLoaded(m2::PointD const & pt) const
 //  m_guiController->UpdateElements();
 //  m_guiController->DrawFrame(pScreen);
 //}
-
-m2::PointD const & Framework::GetViewportCenter() const
-{
-  return m_navigator.Screen().GetOrg();
-}
-
-void Framework::SetViewportCenter(m2::PointD const & pt)
-{
-  m_navigator.CenterViewport(pt);
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
-
-shared_ptr<MoveScreenTask> Framework::SetViewportCenterAnimated(m2::PointD const & endPt)
-{
-  anim::Controller::Guard guard(GetAnimController());
-  m2::PointD const & startPt = GetViewportCenter();
-  return m_animator.MoveScreen(startPt, endPt, m_navigator.ComputeMoveSpeed(startPt, endPt));
-}
-
-void Framework::CheckMinGlobalRect(m2::RectD & rect) const
-{
-  m2::RectD const minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center());
-  if (minRect.IsRectInside(rect))
-    rect = minRect;
-}
-
-void Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/) const
-{
-  CheckMinGlobalRect(rect);
-
-  m2::PointD const c = rect.Center();
-  int const worldS = scales::GetUpperWorldScale();
-
-  int scale = df::GetDrawTileScale(rect);
-  if (scale > worldS && !IsCountryLoaded(c))
-  {
-    // country is not loaded - limit on world scale
-    rect = df::GetRectForDrawScale(worldS, c);
-    scale = worldS;
-  }
-
-  if (maxScale != -1 && scale > maxScale)
-  {
-    // limit on passed maximal scale
-    rect = df::GetRectForDrawScale(maxScale, c);
-  }
-}
-
-void Framework::ShowRect(double lat, double lon, double zoom)
-{
-  m2::PointD center(MercatorBounds::FromLatLon(lat, lon));
-  ShowRectEx(df::GetRectForDrawScale(zoom, center));
-}
-
-void Framework::ShowRect(m2::RectD rect)
-{
-  CheckMinGlobalRect(rect);
-
-  m_navigator.SetFromRect(m2::AnyRectD(rect));
-  UpdateEngineViewport();
-}
-
-void Framework::ShowRectEx(m2::RectD rect)
-{
-  CheckMinGlobalRect(rect);
-
-  ShowRectFixed(rect);
-}
-
-void Framework::ShowRectExVisibleScale(m2::RectD rect, int maxScale/* = -1*/)
-{
-  CheckMinMaxVisibleScale(rect, maxScale);
-
-  ShowRectFixed(rect);
-}
-
-void Framework::ShowRectFixed(m2::RectD const & rect)
-{
-  ShowRectFixedAR(navi::ToRotated(rect, m_navigator));
-}
-
-void Framework::ShowRectFixedAR(m2::AnyRectD const & rect)
-{
-  double const halfSize = df::VisualParams::Instance().GetTileSize() / 2.0;
-  m2::RectD etalonRect(-halfSize, -halfSize, halfSize, halfSize);
-
-  m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
-  etalonRect.Offset(pxCenter);
-
-  m_navigator.SetFromRects(rect, etalonRect);
-  UpdateEngineViewport();
-}
-
-void Framework::UpdateEngineViewport()
-{
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
 
 void Framework::StartInteractiveSearch(search::SearchParams const & params)
 {
@@ -905,175 +892,89 @@ void Framework::EnterForeground()
     m_drapeEngine->SetRenderingEnabled(true);
 }
 
-void Framework::ShowAll()
-{
-  SetMaxWorldRect();
-  UpdateEngineViewport();
-}
-
 /// @name Drag implementation.
 //@{
-m2::PointD Framework::GetPixelCenter() const
-{
-  return m_navigator.Screen().PixelRect().Center();
-}
 
-void Framework::StartDrag(DragEvent const & e)
-{
-  m_navigator.StartDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
-  ///@TODO UVR
-  //m_informationDisplay.locationState()->DragStarted();
+//void Framework::StartDrag(DragEvent const & e)
+//{
+//  m_navigator.StartDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
+//  ///@TODO UVR
+//  //m_informationDisplay.locationState()->DragStarted();
+//}
 
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
+//void Framework::DoDrag(DragEvent const & e)
+//{
+//  m_navigator.DoDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
+//}
 
-void Framework::DoDrag(DragEvent const & e)
-{
-  m_navigator.DoDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds());
+//void Framework::StopDrag(DragEvent const & e)
+//{
+//  m_navigator.StopDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds(), true);
+//  ///@TODO UVR
+//  //m_informationDisplay.locationState()->DragEnded();
+//}
 
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
-
-void Framework::StopDrag(DragEvent const & e)
-{
-  m_navigator.StopDrag(m_navigator.ShiftPoint(e.Pos()), ElapsedSeconds(), true);
-  ///@TODO UVR
-  //m_informationDisplay.locationState()->DragEnded();
-
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
-
-void Framework::StartRotate(RotateEvent const & e)
-{
-  m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-
-  ///@TODO UVR
-  //GetLocationState()->ScaleStarted();
-}
-
-void Framework::DoRotate(RotateEvent const & e)
-{
-  m_navigator.DoRotate(e.Angle(), ElapsedSeconds());
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
-
-void Framework::StopRotate(RotateEvent const & e)
-{
-  m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
-  ///@TODO UVR
-  //GetLocationState()->Rotated();
-  //GetLocationState()->ScaleEnded();
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-
-  UpdateUserViewportChanged();
-}
-
-void Framework::Move(double azDir, double factor)
-{
-  m_navigator.Move(azDir, factor);
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-}
 //@}
 
 /// @name Scaling.
 //@{
-void Framework::ScaleToPoint(ScaleToPointEvent const & e, bool anim)
-{
-  m2::PointD pt = m_navigator.ShiftPoint(e.Pt());
+//void Framework::ScaleToPoint(ScaleToPointEvent const & e, bool anim)
+//{
+  //m2::PointD pt = m_navigator.ShiftPoint(e.Pt());
   ///@TODO UVR
   //GetLocationState()->CorrectScalePoint(pt);
+  //m_navigator.ScaleToPoint(pt, e.ScaleFactor(), 0);
+//  UpdateUserViewportChanged();
+//}
 
-  if (anim)
-    m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
-  else
-    m_navigator.ScaleToPoint(pt, e.ScaleFactor(), 0);
+//void Framework::ScaleDefault(bool enlarge)
+//{
+//  Scale(enlarge ? 1.5 : 2.0/3.0);
+//}
 
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-
-  UpdateUserViewportChanged();
-}
-
-void Framework::ScaleDefault(bool enlarge)
-{
-  Scale(enlarge ? 1.5 : 2.0/3.0);
-}
-
-void Framework::Scale(double scale)
-{
-  m2::PointD center = GetPixelCenter();
+//void Framework::Scale(double scale)
+//{
+  //m2::PointD center = GetPixelCenter();
   ///@TODO UVR
   //GetLocationState()->CorrectScalePoint(center);
-  ///@TODO UVR
-  //m_animController->AddTask(m_navigator.ScaleToPointAnim(center, scale, 0.25));
-  m_navigator.ScaleToPoint(center, scale, 0.0);
+  //m_navigator.ScaleToPoint(center, scale, 0.0);
 
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+//  UpdateUserViewportChanged();
+//}
 
-  UpdateUserViewportChanged();
-}
-
-void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const
-{
-  pt1 = m_navigator.ShiftPoint(e.Pt1());
-  pt2 = m_navigator.ShiftPoint(e.Pt2());
-
-  ///@TODO UVR
-  //m_informationDisplay.locationState()->CorrectScalePoint(pt1, pt2);
-}
-void Framework::StartScale(ScaleEvent const & e)
-{
-  m2::PointD pt1, pt2;
-  CalcScalePoints(e, pt1, pt2);
+//void Framework::StartScale(ScaleEvent const & e)
+//{
+//  m2::PointD pt1, pt2;
+//  CalcScalePoints(e, pt1, pt2);
 
   ///@TODO UVR
   //GetLocationState()->ScaleStarted();
-  m_navigator.StartScale(pt1, pt2, ElapsedSeconds());
+  //m_navigator.StartScale(pt1, pt2, ElapsedSeconds());
+//}
 
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+//void Framework::DoScale(ScaleEvent const & e)
+//{
+//  m2::PointD pt1, pt2;
+//  CalcScalePoints(e, pt1, pt2);
 
-}
-
-void Framework::DoScale(ScaleEvent const & e)
-{
-  m2::PointD pt1, pt2;
-  CalcScalePoints(e, pt1, pt2);
-
-  m_navigator.DoScale(pt1, pt2, ElapsedSeconds());
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
+  //m_navigator.DoScale(pt1, pt2, ElapsedSeconds());
 
   ///@TODO UVR
 //  if (m_navigator.IsRotatingDuringScale())
 //    GetLocationState()->Rotated();
-}
+//}
 
-void Framework::StopScale(ScaleEvent const & e)
-{
-  m2::PointD pt1, pt2;
-  CalcScalePoints(e, pt1, pt2);
+//void Framework::StopScale(ScaleEvent const & e)
+//{
+  //m2::PointD pt1, pt2;
+  //CalcScalePoints(e, pt1, pt2);
 
-  m_navigator.StopScale(pt1, pt2, ElapsedSeconds());
-
-  if (m_drapeEngine != nullptr)
-  {
-    m_drapeEngine->UpdateCoverage(m_navigator.Screen());
-    UpdateUserViewportChanged();
-  }
+  //m_navigator.StopScale(pt1, pt2, ElapsedSeconds());
+  //UpdateUserViewportChanged();
 
   ///@TODO UVR
   //GetLocationState()->ScaleEnded();
-}
+//}
 //@}
 
 void Framework::InitCountryInfoGetter()
@@ -1225,7 +1126,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   }
 
   StopLocationFollow();
-  ShowRectExVisibleScale(df::GetRectForDrawScale(scale, center));
+  ShowRect(df::GetRectForDrawScale(scale, center));
 
   search::AddressInfo info;
   info.MakeFrom(res);
@@ -1264,7 +1165,7 @@ size_t Framework::ShowAllSearchResults(search::Results const & results)
   //shared_ptr<State> state = GetLocationState();
   //state->SetFixedZoom();
   // Setup viewport according to results.
-  m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
+  m2::AnyRectD viewport = m_currentMovelView.GlobalRect();
   m2::PointD const center = viewport.Center();
 
   double minDistance = numeric_limits<double>::max();
@@ -1290,7 +1191,7 @@ size_t Framework::ShowAllSearchResults(search::Results const & results)
     {
       viewport.SetSizesToIncludePoint(pt);
 
-      ShowRectFixedAR(viewport);
+      ShowRect(viewport);
       ///@TODO UVR
       //StopLocationFollow();
     }
@@ -1371,6 +1272,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   using TReadIDsFn = df::MapDataProvider::TReadIDsFn;
   using TReadFeaturesFn = df::MapDataProvider::TReadFeaturesFn;
   using TResolveCountryFn = df::MapDataProvider::TResolveCountryFn;
+  using TIsCountryLoadedFn = df::MapDataProvider::TIsCountryLoadedFn;
 
   TReadIDsFn idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) -> void
   {
@@ -1387,14 +1289,20 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     return GetCountryIndex(m2::PointD(pt));
   };
 
+  TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
+
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             make_ref(m_storageAccessor),
                             df::Viewport(0, 0, w, h),
-                            df::MapDataProvider(idReadFn, featureReadFn, resolveCountry),
+                            df::MapDataProvider(idReadFn, featureReadFn, resolveCountry,isCountryLoadedFn),
                             vs);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(p);
+  AddViewportListener([this](ScreenBase const & screen)
+  {
+    m_currentMovelView = screen;
+  });
   OnSize(w, h);
 }
 
@@ -1441,11 +1349,6 @@ string Framework::GetCountryCode(m2::PointD const & pt) const
   storage::CountryInfo info;
   m_infoGetter->GetRegionInfo(pt, info);
   return info.m_flag;
-}
-
-anim::Controller * Framework::GetAnimController() const
-{
-  return m_animController.get();
 }
 
 bool Framework::ShowMapForURL(string const & url)
@@ -1513,7 +1416,7 @@ bool Framework::ShowMapForURL(string const & url)
   {
     // set viewport and stop follow mode if any
     StopLocationFollow();
-    ShowRectExVisibleScale(rect);
+    ShowRect(rect);
 
     if (result != NO_NEED_CLICK)
     {
@@ -1543,12 +1446,6 @@ bool Framework::ShowMapForURL(string const & url)
     return false;
 }
 
-void Framework::SetViewPortASync(m2::RectD const & r)
-{
-  m2::AnyRectD const aRect(r);
-  m_animator.ChangeViewport(aRect, aRect, 0.0);
-}
-
 void Framework::UpdateSelectedMyPosition(m2::PointD const & pt)
 {
   MyPositionMarkPoint * myPositionMark = UserMarkContainer::UserMarkForMyPostion();
@@ -1564,11 +1461,6 @@ void Framework::DisconnectMyPositionUpdate()
     //GetLocationState()->RemovePositionChangedListener(m_locationChangedSlotID);
     m_locationChangedSlotID = -1;
   }
-}
-
-m2::RectD Framework::GetCurrentViewport() const
-{
-  return m_navigator.Screen().ClipRect();
 }
 
 namespace
@@ -1707,16 +1599,6 @@ void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata 
   doFind.LoadMetadata(m_model, metadata);
 }
 
-Animator & Framework::GetAnimator()
-{
-  return m_animator;
-}
-
-Navigator & Framework::GetNavigator()
-{
-  return m_navigator;
-}
-
 //shared_ptr<State> const & Framework::GetLocationState() const
 //{
 //  return m_informationDisplay.locationState();
@@ -1753,7 +1635,7 @@ UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint
   DisconnectMyPositionUpdate();
   m2::AnyRectD rect;
   double vs = df::VisualParams::Instance().GetVisualScale();
-  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * vs, rect);
+  m_currentMovelView.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * vs, rect);
 
   ///@TODO UVR
   //shared_ptr<State> const & locationState = GetLocationState();
@@ -1775,10 +1657,11 @@ UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint
   m2::AnyRectD bmSearchRect;
   double const pxWidth  =  TOUCH_PIXEL_RADIUS * vs;
   double const pxHeight = (TOUCH_PIXEL_RADIUS + BM_TOUCH_PIXEL_INCREASE) * vs;
-  m_navigator.GetTouchRect(pxPoint + m2::PointD(0, BM_TOUCH_PIXEL_INCREASE), pxWidth, pxHeight, bmSearchRect);
+  m_currentMovelView.GetTouchRect(pxPoint + m2::PointD(0, BM_TOUCH_PIXEL_INCREASE),
+                                  pxWidth, pxHeight, bmSearchRect);
 
   UserMark const * mark = m_bmManager.FindNearestUserMark(
-        [&rect, &bmSearchRect](UserMarkContainer::Type type) -> m2::AnyRectD const &
+        [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
         {
           return (type == UserMarkContainer::BOOKMARK_MARK ? bmSearchRect : rect);
         });
@@ -1801,7 +1684,7 @@ UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint
     if (needMark)
     {
       PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-      poiMark->SetPtOrg(m_navigator.PtoG(pxPivot));
+      poiMark->SetPtOrg(m_currentMovelView.PtoG(pxPivot));
       poiMark->SetInfo(info);
       poiMark->SetMetadata(move(metadata));
       mark = poiMark;

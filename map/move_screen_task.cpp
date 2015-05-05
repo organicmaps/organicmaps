@@ -17,15 +17,15 @@ void MoveScreenTask::OnStep(double ts)
 {
   m2::PointD oldPt = m_outPt;
   anim::SegmentInterpolation::OnStep(ts);
-  Navigator & nav = m_framework->GetNavigator();
-  nav.SetOrg(nav.Screen().GetOrg() + m_outPt - oldPt);
+//  Navigator & nav = m_framework->GetNavigator();
+//  nav.SetOrg(nav.Screen().GetOrg() + m_outPt - oldPt);
 }
 
 void MoveScreenTask::OnEnd(double ts)
 {
   anim::SegmentInterpolation::OnEnd(ts);
-  Navigator & nav = m_framework->GetNavigator();
-  nav.SetOrg(m_outPt);
+//  Navigator & nav = m_framework->GetNavigator();
+//  nav.SetOrg(m_outPt);
   m_framework->UpdateUserViewportChanged();
 }
 

@@ -36,14 +36,12 @@ const double VSyncInterval = 0.014;
 
 } // namespace
 
-FrontendRenderer::FrontendRenderer(ref_ptr<ThreadsCommutator> commutator,
-                                   ref_ptr<dp::OGLContextFactory> oglcontextfactory,
-                                   ref_ptr<dp::TextureManager> textureManager,
-                                   Viewport viewport)
-  : BaseRenderer(ThreadsCommutator::RenderThread, commutator, oglcontextfactory)
-  , m_textureManager(textureManager)
+FrontendRenderer::FrontendRenderer(Params const & params)
+  : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
-  , m_viewport(viewport)
+  , m_viewport(params.m_viewport)
+  , m_userEventStream(params.m_isCountryLoadedFn)
+  , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tileTree(new TileTree())
 {
 #ifdef DRAW_INFO
@@ -51,13 +49,6 @@ FrontendRenderer::FrontendRenderer(ref_ptr<ThreadsCommutator> commutator,
   m_fps = 0.0;
 #endif
 
-  RefreshProjection();
-  RefreshModelView();
-
-  m_tileTree->SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, this, _1, _2, _3),
-                          bind(&FrontendRenderer::OnDeferRenderGroup, this, _1, _2, _3),
-                          bind(&FrontendRenderer::OnActivateTile, this, _1),
-                          bind(&FrontendRenderer::OnRemoveTile, this, _1));
   StartThread();
 }
 
@@ -100,6 +91,7 @@ void FrontendRenderer::AfterDrawFrame()
 #endif
   }
 }
+
 #endif
 
 void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
@@ -126,29 +118,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FinishReadingMessage> msg = message;
       m_tileTree->FinishTiles(msg->GetTiles(), GetCurrentZoomLevel());
-      break;
-    }
-
-  case Message::Resize:
-    {
-      ref_ptr<ResizeMessage> rszMsg = message;
-      m_viewport = rszMsg->GetViewport();
-      m_view.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
-                    m_viewport.GetWidth(), m_viewport.GetHeight());
-      m_contextFactory->getDrawContext()->resize(m_viewport.GetWidth(), m_viewport.GetHeight());
-      RefreshProjection();
-      RefreshModelView();
-      ResolveTileKeys();
-
-      TTilesCollection tiles;
-      m_tileTree->GetTilesCollection(tiles, GetCurrentZoomLevel());
-
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<ResizeMessage>(m_viewport),
-                                MessagePriority::Normal);
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<UpdateReadManagerMessage>(m_view, move(tiles)),
-                                MessagePriority::Normal);
       break;
     }
 
@@ -220,6 +189,17 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
   return make_unique<Routine>(*this);
 }
 
+void FrontendRenderer::OnResize(ScreenBase const & screen)
+{
+  m_viewport.SetViewport(0, 0, screen.GetWidth(), screen.GetHeight());
+  m_contextFactory->getDrawContext()->resize(m_viewport.GetWidth(), m_viewport.GetHeight());
+  RefreshProjection();
+
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                            make_unique_dp<ResizeMessage>(m_viewport),
+                            MessagePriority::High);
+}
+
 void FrontendRenderer::AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
                                         dp::GLState const & state,
                                         drape_ptr<dp::RenderBucket> && renderBucket,
@@ -276,7 +256,7 @@ void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
                                m_deferredRenderGroups.end());
 }
 
-void FrontendRenderer::RenderScene()
+void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 {
 #ifdef DRAW_INFO
   BeforeDrawFrame();
@@ -285,7 +265,8 @@ void FrontendRenderer::RenderScene()
   RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
 
-  m_overlayTree.StartOverlayPlacing(m_view);
+  dp::OverlayTree overlayTree;
+  overlayTree.StartOverlayPlacing(modelView);
   size_t eraseCount = 0;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
@@ -303,16 +284,16 @@ void FrontendRenderer::RenderScene()
     switch (group->GetState().GetDepthLayer())
     {
     case dp::GLState::OverlayLayer:
-      group->CollectOverlay(make_ref(&m_overlayTree));
+      group->CollectOverlay(make_ref(&overlayTree));
       break;
     case dp::GLState::DynamicGeometry:
-      group->Update(m_view);
+      group->Update(modelView);
       break;
     default:
       break;
     }
   }
-  m_overlayTree.EndOverlayPlacing();
+  overlayTree.EndOverlayPlacing();
   m_renderGroups.resize(m_renderGroups.size() - eraseCount);
 
   m_viewport.Apply();
@@ -327,7 +308,7 @@ void FrontendRenderer::RenderScene()
     {
       GLFunctions::glClearDepth();
       if (m_myPositionMark != nullptr)
-        m_myPositionMark->Render(m_view, make_ref(m_gpuProgramManager), m_generalUniforms);
+        m_myPositionMark->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
     }
 
     prevLayer = layer;
@@ -338,7 +319,7 @@ void FrontendRenderer::RenderScene()
     ApplyUniforms(m_generalUniforms, program);
     ApplyState(state, program);
 
-    group->Render(m_view);
+    group->Render(modelView);
   }
 
   GLFunctions::glClearDepth();
@@ -353,13 +334,13 @@ void FrontendRenderer::RenderScene()
       program->Bind();
       ApplyUniforms(m_generalUniforms, program);
       ApplyState(state, program);
-      group->Render(m_view);
+      group->Render(modelView);
     }
   }
 
   GLFunctions::glClearDepth();
   if (m_guiRenderer != nullptr)
-    m_guiRenderer->Render(make_ref(m_gpuProgramManager), m_view);
+    m_guiRenderer->Render(make_ref(m_gpuProgramManager), modelView);
 
 #ifdef DRAW_INFO
   AfterDrawFrame();
@@ -374,9 +355,9 @@ void FrontendRenderer::RefreshProjection()
   m_generalUniforms.SetMatrix4x4Value("projection", m.data());
 }
 
-void FrontendRenderer::RefreshModelView()
+void FrontendRenderer::RefreshModelView(ScreenBase const & screen)
 {
-  ScreenBase::MatrixT const & m = m_view.GtoPMatrix();
+  ScreenBase::MatrixT const & m = screen.GtoPMatrix();
   math::Matrix<float, 4, 4> mv;
 
   /// preparing ModelView matrix
@@ -391,24 +372,36 @@ void FrontendRenderer::RefreshModelView()
 
 int FrontendRenderer::GetCurrentZoomLevel() const
 {
+  return m_currentZoomLevel;
+}
+
+void FrontendRenderer::ResolveZoomLevel(const ScreenBase & screen)
+{
   //TODO(@kuznetsov): revise it
   int const upperScale = scales::GetUpperScale();
-  int const zoomLevel = GetDrawTileScale(m_view);
-  return(zoomLevel <= upperScale ? zoomLevel : upperScale);
+  int const zoomLevel = GetDrawTileScale(screen);
+  m_currentZoomLevel = (zoomLevel <= upperScale ? zoomLevel : upperScale);
 }
 
-void FrontendRenderer::ResolveTileKeys()
+void FrontendRenderer::TapDetected(m2::PointD const & pt, bool isLongTap)
 {
-  ResolveTileKeys(GetCurrentZoomLevel());
+  LOG(LINFO, ("Tap detected. Is long = ", isLongTap));
 }
 
-void FrontendRenderer::ResolveTileKeys(int tileScale)
+bool FrontendRenderer::SingleTouchFiltration(m2::PointD const & pt, TouchEvent::ETouchType type)
+{
+  LOG(LINFO, ("Single Touch"));
+  return false;
+}
+
+void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles)
 {
   // equal for x and y
+  int const tileScale = GetCurrentZoomLevel();
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
   double const rectSize = range / (1 << tileScale);
 
-  m2::RectD const & clipRect = m_view.ClipRect();
+  m2::RectD const & clipRect = screen.ClipRect();
 
   int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
   int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
@@ -423,7 +416,10 @@ void FrontendRenderer::ResolveTileKeys(int tileScale)
     {
       TileKey key(tileX, tileY, tileScale);
       if (clipRect.IsIntersect(key.GetGlobalRect()))
+      {
+        tiles.insert(key);
         m_tileTree->RequestTile(key);
+      }
     }
   }
   m_tileTree->EndRequesting();
@@ -433,6 +429,14 @@ FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(ren
 
 void FrontendRenderer::Routine::Do()
 {
+  m_renderer.m_tileTree->SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, &m_renderer, _1, _2, _3),
+                                     bind(&FrontendRenderer::OnDeferRenderGroup, &m_renderer, _1, _2, _3),
+                                     bind(&FrontendRenderer::OnActivateTile, &m_renderer, _1),
+                                     bind(&FrontendRenderer::OnRemoveTile, &m_renderer, _1));
+
+  m_renderer.m_userEventStream.SetTapListener(bind(&FrontendRenderer::TapDetected, &m_renderer, _1, _2),
+                                              bind(&FrontendRenderer::SingleTouchFiltration, &m_renderer, _1, _2));
+
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
   context->makeCurrent();
   GLFunctions::Init();
@@ -454,12 +458,15 @@ void FrontendRenderer::Routine::Do()
 
   timer.Reset();
   bool isInactiveLastFrame = false;
+  bool viewChanged = true;
+  ScreenBase modelView = m_renderer.UpdateScene(viewChanged);
   while (!IsCancelled())
   {
     context->setDefaultFramebuffer();
-    m_renderer.m_textureManager->UpdateDynamicTextures();
-    m_renderer.RenderScene();
-    bool const viewChanged = m_renderer.UpdateScene();
+    m_renderer.m_texMng->UpdateDynamicTextures();
+    m_renderer.RenderScene(modelView);
+    modelView = m_renderer.UpdateScene(viewChanged);
+
     bool const isInactiveCurrentFrame = (!viewChanged && m_renderer.IsQueueEmpty());
 
     if (isInactiveLastFrame && isInactiveCurrentFrame)
@@ -507,35 +514,40 @@ void FrontendRenderer::ReleaseResources()
   m_gpuProgramManager.reset();
 }
 
-void FrontendRenderer::SetModelView(ScreenBase const & screen)
+void FrontendRenderer::AddUserEvent(UserEvent const & event)
 {
-  lock_guard<mutex> lock(m_modelViewMutex);
-  m_newView = screen;
-
-  // check if view changed and cancel endless message waiting
-  bool const viewChanged = (m_view != m_newView);
-  if (viewChanged && IsInInfinityWaiting())
+  m_userEventStream.AddEvent(event);
+  if (IsInInfinityWaiting())
     CancelMessageWaiting();
 }
 
-bool FrontendRenderer::UpdateScene()
+ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)
 {
-  lock_guard<mutex> lock(m_modelViewMutex);
-  if (m_view != m_newView)
-  {
-    m_view = m_newView;
-    RefreshModelView();
-    ResolveTileKeys();
+  bool viewportChanged;
+  ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
+  if (viewportChanged)
+    OnResize(modelView);
 
+  if (modelViewChanged)
+  {
+    ResolveZoomLevel(modelView);
     TTilesCollection tiles;
-    m_tileTree->GetTilesCollection(tiles, GetCurrentZoomLevel());
+    ResolveTileKeys(modelView, tiles);
 
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<UpdateReadManagerMessage>(m_view, move(tiles)),
-                              MessagePriority::Normal);
-    return true;
+                              make_unique_dp<UpdateReadManagerMessage>(modelView, move(tiles)),
+                              MessagePriority::High);
+
+    RefreshModelView(modelView);
+    EmitModelViewChanged(modelView);
   }
-  return false;
+
+  return modelView;
+}
+
+void FrontendRenderer::EmitModelViewChanged(ScreenBase const & modelView) const
+{
+  m_modelViewChangedFn(modelView);
 }
 
 } // namespace df

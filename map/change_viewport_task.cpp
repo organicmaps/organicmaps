@@ -12,14 +12,14 @@ ChangeViewportTask::ChangeViewportTask(m2::AnyRectD const & startRect,
 
 void ChangeViewportTask::OnStep(double ts)
 {
-  BaseT::OnStep(ts);
-  m_framework->ShowRectExVisibleScale(m_outRect.GetGlobalRect());
+//  BaseT::OnStep(ts);
+//  m_framework->ShowRectEx(m_outRect.GetGlobalRect());
 }
 
 void ChangeViewportTask::OnEnd(double ts)
 {
-  BaseT::OnEnd(ts);
-  m_framework->ShowRectExVisibleScale(m_outRect.GetGlobalRect());
+//  BaseT::OnEnd(ts);
+//  m_framework->ShowRectEx(m_outRect.GetGlobalRect());
 }
 
 bool ChangeViewportTask::IsVisual() const

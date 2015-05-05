@@ -4,45 +4,72 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "render/render_policy.hpp"
-#include "render/frame_image.hpp"
-
 #include "search/result.hpp"
 
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "std/chrono.hpp"
-
-#include <QtCore/QDateTime>
-#include <QtCore/QLocale>
 #include <QtGui/QMouseEvent>
+#include <QtGui/QGuiApplication>
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QApplication>
-  #include <QtGui/QDesktopWidget>
-  #include <QtGui/QMenu>
-#else
-  #include <QtWidgets/QApplication>
-  #include <QtWidgets/QDesktopWidget>
-  #include <QtWidgets/QMenu>
-#endif
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
+
+#include <QtCore/QLocale>
+#include <QtCore/QDateTime>
 
 namespace qt
 {
-  const unsigned LONG_TOUCH_MS = 1000;
-  const unsigned SHORT_TOUCH_MS = 250;
+
+namespace
+{
+
+bool IsLeftButton(Qt::MouseButtons buttons)
+{
+  return buttons & Qt::LeftButton;
+}
+
+bool IsLeftButton(QMouseEvent * e)
+{
+  return IsLeftButton(e->button()) || IsLeftButton(e->buttons());
+}
+
+bool IsRightButton(Qt::MouseButtons buttons)
+{
+  return buttons & Qt::RightButton;
+}
+
+bool IsRightButton(QMouseEvent * e)
+{
+  return IsRightButton(e->button()) || IsRightButton(e->buttons());
+}
+
+bool IsRotation(QMouseEvent * e)
+{
+  return e->modifiers() & Qt::ControlModifier;
+}
+
+bool IsRouting(QMouseEvent * e)
+{
+  return e->modifiers() & Qt::ShiftModifier;
+}
+
+bool IsLocationEmulation(QMouseEvent * e)
+{
+  return e->modifiers() & Qt::AltModifier;
+}
+
+} // namespace
 
   void DummyDismiss() {}
 
-  DrawWidget::DrawWidget(QWidget * pParent)
+  DrawWidget::DrawWidget()
     : m_contextFactory(nullptr),
       m_framework(new Framework()),
-      m_isDrag(false),
-      m_isRotate(false),
       m_ratio(1.0),
-      m_pScale(0),
+      m_pScale(nullptr),
       m_emulatingLocation(false)
   {
     setSurfaceType(QSurface::OpenGLSurface);
@@ -65,19 +92,17 @@ namespace qt
     m_framework.reset();
   }
 
-  void DrawWidget::PrepareShutdown()
-  {
-    KillPressTask();
-
-    m_framework->PrepareToShutdown();
-    m_contextFactory.reset();
-  }
-
   void DrawWidget::SetScaleControl(QScaleSlider * pScale)
   {
     m_pScale = pScale;
 
     connect(m_pScale, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
+  }
+
+  void DrawWidget::PrepareShutdown()
+  {
+    m_framework->PrepareToShutdown();
+    m_contextFactory.reset();
   }
 
   void DrawWidget::UpdateAfterSettingsChanged()
@@ -87,12 +112,8 @@ namespace qt
 
   void DrawWidget::LoadState()
   {
+    m_framework->LoadState();
     m_framework->LoadBookmarks();
-
-    if (!m_framework->LoadState())
-      ShowAll();
-    else
-      UpdateScaleControl();
   }
 
   void DrawWidget::SaveState()
@@ -100,54 +121,29 @@ namespace qt
     m_framework->SaveState();
   }
 
-  void DrawWidget::MoveLeft()
-  {
-    m_framework->Move(math::pi, 0.5);
-  }
-
-  void DrawWidget::MoveRight()
-  {
-    m_framework->Move(0.0, 0.5);
-  }
-
-  void DrawWidget::MoveUp()
-  {
-    m_framework->Move(math::pi/2.0, 0.5);
-  }
-
-  void DrawWidget::MoveDown()
-  {
-    m_framework->Move(-math::pi/2.0, 0.5);
-  }
-
   void DrawWidget::ScalePlus()
   {
-    m_framework->Scale(2.0);
-    UpdateScaleControl();
+    m_framework->Scale(Framework::SCALE_MAG);
   }
 
   void DrawWidget::ScaleMinus()
   {
-    m_framework->Scale(0.5);
-    UpdateScaleControl();
+    m_framework->Scale(Framework::SCALE_MIN);
   }
 
   void DrawWidget::ScalePlusLight()
   {
-    m_framework->Scale(1.5);
-    UpdateScaleControl();
+    m_framework->Scale(Framework::SCALE_MAG_LIGHT);
   }
 
   void DrawWidget::ScaleMinusLight()
   {
-    m_framework->Scale(2.0/3.0);
-    UpdateScaleControl();
+    m_framework->Scale(Framework::SCALE_MIN_LIGHT);
   }
 
   void DrawWidget::ShowAll()
   {
     m_framework->ShowAll();
-    UpdateScaleControl();
   }
 
   void DrawWidget::ScaleChanged(int action)
@@ -160,21 +156,6 @@ namespace qt
     }
   }
 
-  void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
-  {
-    KillPressTask();
-    m_deferredTask.reset(
-        new DeferredTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), milliseconds(ms)));
-  }
-
-  void DrawWidget::KillPressTask() { m_deferredTask.reset(); }
-
-  void DrawWidget::OnPressTaskEvent(m2::PointD const & pt, unsigned ms)
-  {
-    m_wasLongClick = (ms == LONG_TOUCH_MS);
-    GetBalloonManager().OnShowMark(m_framework->GetUserMark(pt, m_wasLongClick));
-  }
-
   void DrawWidget::OnActivateMark(unique_ptr<UserMarkCopy> pCopy)
   {
     UserMark const * pMark = pCopy->GetUserMark();
@@ -185,6 +166,7 @@ namespace qt
   {
     m_framework->CreateDrapeEngine(make_ref(m_contextFactory), m_ratio,
                                    m_ratio * width(), m_ratio * height());
+    m_framework->AddViewportListener(bind(&DrawWidget::OnViewportChanged, this, _1));
   }
 
   void DrawWidget::exposeEvent(QExposeEvent * e)
@@ -199,33 +181,7 @@ namespace qt
         m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this));
         CreateEngine();
         LoadState();
-        UpdateScaleControl();
       }
-    }
-  }
-
-  m2::PointD DrawWidget::GetDevicePoint(QMouseEvent * e) const
-  {
-    return m2::PointD(L2D(e->x()), L2D(e->y()));
-  }
-
-  DragEvent DrawWidget::GetDragEvent(QMouseEvent * e) const
-  {
-    return DragEvent(L2D(e->x()), L2D(e->y()));
-  }
-
-  RotateEvent DrawWidget::GetRotateEvent(QPoint const & pt) const
-  {
-    QPoint const center = geometry().center();
-    return RotateEvent(L2D(center.x()), L2D(center.y()),
-                       L2D(pt.x()), L2D(pt.y()));
-  }
-
-  namespace
-  {
-    void add_string(QMenu & menu, string const & s)
-    {
-      (void)menu.addAction(QString::fromUtf8(s.c_str()));
     }
   }
 
@@ -233,231 +189,83 @@ namespace qt
   {
     TBase::mousePressEvent(e);
 
-    KillPressTask();
-
     m2::PointD const pt = GetDevicePoint(e);
 
-    if (e->button() == Qt::LeftButton)
+    if (IsLeftButton(e))
     {
-      ///@TODO UVR
-//      if (m_framework->GetGuiController()->OnTapStarted(pt))
-//        return;
-
-      if (e->modifiers() & Qt::ControlModifier)
-      {
-        // starting rotation
-        m_framework->StartRotate(GetRotateEvent(e->pos()));
-
-        setCursor(Qt::CrossCursor);
-        m_isRotate = true;
-      }
-      else if (e->modifiers() & Qt::ShiftModifier)
-      {
-        if (m_framework->IsRoutingActive())
-          m_framework->CloseRouting();
-        else
-        {
-          auto const & state = m_framework->GetLocationState();
-          if (state->IsModeHasPosition())
-            m_framework->BuildRoute(state->Position(), m_framework->PtoG(pt), 0 /* timeoutSec */);
-          else
-            return;
-        }
-      }
-      if (e->modifiers() & Qt::AltModifier)
-      {
-        m_emulatingLocation = true;
-        m2::PointD const point = m_framework->PtoG(pt);
-
-        location::GpsInfo info;
-        info.m_latitude = MercatorBounds::YToLat(point.y);
-        info.m_longitude = MercatorBounds::XToLon(point.x);
-        info.m_horizontalAccuracy = 10.0;
-        info.m_timestamp = QDateTime::currentMSecsSinceEpoch() / 1000.0;
-
-        m_framework->OnLocationUpdate(info);
-
-        if (m_framework->IsRoutingActive())
-        {
-          location::FollowingInfo loc;
-          m_framework->GetRouteFollowingInfo(loc);
-          LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
-                       "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix,
-                       ") Roundabout exit number:", loc.m_exitNum));
-        }
-      }
+      if (IsRouting(e))
+        SubmitRoutingPoint(pt);
+      else if (IsLocationEmulation(e))
+        SubmitFakeLocationPoint(pt);
       else
       {
-        // init press task params
-        m_taskPoint = pt;
-        m_wasLongClick = false;
-        m_isCleanSingleClick = true;
-
-        StartPressTask(pt, LONG_TOUCH_MS);
-
-        // starting drag
-        m_framework->StartDrag(GetDragEvent(e));
-
+        m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_DOWN));
         setCursor(Qt::CrossCursor);
-        m_isDrag = true;
       }
     }
-    else if (e->button() == Qt::RightButton)
-    {
-      // show feature types
-      QMenu menu;
-
-      // Get POI under cursor or nearest address by point.
-      m2::PointD dummy;
-      search::AddressInfo info;
-      feature::Metadata metadata;
-      if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
-        add_string(menu, "POI");
-      else
-        m_framework->GetAddressInfoForPixelPoint(pt, info);
-
-      // Get feature types under cursor.
-      vector<string> types;
-      m_framework->GetFeatureTypes(pt, types);
-      for (size_t i = 0; i < types.size(); ++i)
-        add_string(menu, types[i]);
-
-      (void)menu.addSeparator();
-
-      // Format address and types.
-      if (!info.m_name.empty())
-        add_string(menu, info.m_name);
-      add_string(menu, info.FormatAddress());
-      add_string(menu, info.FormatTypes());
-
-      menu.exec(e->pos());
-    }
+    else if (IsRightButton(e))
+      ShowInfoPopup(pt);
   }
 
   void DrawWidget::mouseDoubleClickEvent(QMouseEvent * e)
   {
     TBase::mouseDoubleClickEvent(e);
-
-    KillPressTask();
-    m_isCleanSingleClick = false;
-
-    if (e->button() == Qt::LeftButton)
-    {
-      StopDragging(e);
-
-      m_framework->ScaleToPoint(ScaleToPointEvent(L2D(e->x()), L2D(e->y()), 1.5));
-
-      UpdateScaleControl();
-    }
+    if (IsLeftButton(e))
+      m_framework->Scale(Framework::SCALE_MAG_LIGHT, GetDevicePoint(e));
   }
 
   void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   {
     TBase::mouseMoveEvent(e);
-
-    m2::PointD const pt = GetDevicePoint(e);
-    if (!pt.EqualDxDy(m_taskPoint, m_ratio * 10.0))
-    {
-      // moved far from start point - do not show balloon
-      m_isCleanSingleClick = false;
-      KillPressTask();
-    }
-
-    ///@TODO UVR
-//    if (m_framework->GetGuiController()->OnTapMoved(pt))
-//      return;
-
-    if (m_isDrag)
-      m_framework->DoDrag(GetDragEvent(e));
-
-    if (m_isRotate)
-      m_framework->DoRotate(GetRotateEvent(e->pos()));
+    if (IsLeftButton(e))
+      m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
   }
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     TBase::mouseReleaseEvent(e);
+    if (IsLeftButton(e))
+      m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
+  }
 
-    m2::PointD const pt = GetDevicePoint(e);
-    ///@TODO UVR
-//    if (m_framework->GetGuiController()->OnTapEnded(pt))
-//      return;
-
-    if (!m_wasLongClick && m_isCleanSingleClick)
+  void DrawWidget::keyPressEvent(QKeyEvent * e)
+  {
+    TBase::keyPressEvent(e);
+    if (IsLeftButton(QGuiApplication::mouseButtons()) &&
+        e->key() == Qt::Key_Control)
     {
-      m_framework->GetBalloonManager().RemovePin();
+      df::TouchEvent event;
+      event.m_type = df::TouchEvent::TOUCH_DOWN;
+      event.m_touches[0].m_id = 0;
+      event.m_touches[0].m_location = m2::PointD(L2D(QCursor::pos().x()), L2D(QCursor::pos().y()));
+      event.m_touches[1] = GetSymmetrical(event.m_touches[0]);
 
-      StartPressTask(pt, SHORT_TOUCH_MS);
+      m_framework->TouchEvent(event);
     }
-    else
-      m_wasLongClick = false;
-
-    StopDragging(e);
-    StopRotating(e);
   }
 
   void DrawWidget::keyReleaseEvent(QKeyEvent * e)
   {
     TBase::keyReleaseEvent(e);
 
-    StopRotating(e);
+    if (IsLeftButton(QGuiApplication::mouseButtons()) &&
+        e->key() == Qt::Key_Control)
+    {
+      df::TouchEvent event;
+      event.m_type = df::TouchEvent::TOUCH_UP;
+      event.m_touches[0].m_id = 0;
+      event.m_touches[0].m_location = m2::PointD(L2D(QCursor::pos().x()), L2D(QCursor::pos().y()));
+      event.m_touches[1] = GetSymmetrical(event.m_touches[0]);
 
-    if (e->key() == Qt::Key_Alt)
+      m_framework->TouchEvent(event);
+    }
+    else if (e->key() == Qt::Key_Alt)
       m_emulatingLocation = false;
-  }
-
-  void DrawWidget::sizeChanged(int)
-  {
-    m_framework->OnSize(m_ratio * width(), m_ratio * height());
-
-    UpdateScaleControl();
-  }
-
-  void DrawWidget::StopRotating(QMouseEvent * e)
-  {
-    if (m_isRotate && (e->button() == Qt::LeftButton))
-    {
-      m_framework->StopRotate(GetRotateEvent(e->pos()));
-
-      setCursor(Qt::ArrowCursor);
-      m_isRotate = false;
-    }
-  }
-
-  void DrawWidget::StopRotating(QKeyEvent * e)
-  {
-    if (m_isRotate && (e->key() == Qt::Key_Control))
-      m_framework->StopRotate(GetRotateEvent(mapFromGlobal(QCursor::pos())));
-  }
-
-  void DrawWidget::StopDragging(QMouseEvent * e)
-  {
-    if (m_isDrag && e->button() == Qt::LeftButton)
-    {
-      m_framework->StopDrag(GetDragEvent(e));
-
-      setCursor(Qt::ArrowCursor);
-      m_isDrag = false;
-    }
   }
 
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
-    if (!m_isDrag && !m_isRotate)
-    {
-      m_framework->ScaleToPoint(ScaleToPointEvent(L2D(e->x()), L2D(e->y()), exp(e->delta() / 360.0)));
-
-      UpdateScaleControl();
-    }
-  }
-
-  void DrawWidget::UpdateScaleControl()
-  {
-    if (m_pScale && isExposed())
-    {
-      // don't send ScaleChanged
-      m_pScale->SetPosWithBlockedSignals(m_framework->GetDrawScale());
-    }
+    m_framework->Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())));
   }
 
   bool DrawWidget::Search(search::SearchParams params)
@@ -484,14 +292,6 @@ namespace qt
   void DrawWidget::ShowSearchResult(search::Result const & res)
   {
     m_framework->ShowSearchResult(res);
-
-    UpdateScaleControl();
-  }
-
-  void DrawWidget::CloseSearch()
-  {
-    ///@TODO UVR
-    //setFocus();
   }
 
   void DrawWidget::OnLocationUpdate(location::GpsInfo const & info)
@@ -502,7 +302,128 @@ namespace qt
 
   void DrawWidget::SetMapStyle(MapStyle mapStyle)
   {
-	//@TODO UVR
+    //@TODO UVR
+  }
+
+  void DrawWidget::sizeChanged(int)
+  {
+    m_framework->OnSize(m_ratio * width(), m_ratio * height());
+  }
+
+  void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
+  {
+    m_emulatingLocation = true;
+    m2::PointD const point = m_framework->PtoG(pt);
+
+    location::GpsInfo info;
+    info.m_latitude = MercatorBounds::YToLat(point.y);
+    info.m_longitude = MercatorBounds::XToLon(point.x);
+    info.m_horizontalAccuracy = 10.0;
+    info.m_timestamp = QDateTime::currentMSecsSinceEpoch() / 1000.0;
+
+    m_framework->OnLocationUpdate(info);
+
+    if (m_framework->IsRoutingActive())
+    {
+      location::FollowingInfo loc;
+      m_framework->GetRouteFollowingInfo(loc);
+      LOG(LDEBUG, ("Distance:", loc.m_distToTarget, loc.m_targetUnitsSuffix, "Time:", loc.m_time,
+                   "Turn:", routing::turns::GetTurnString(loc.m_turn), "(", loc.m_distToTurn, loc.m_turnUnitsSuffix,
+                   ") Roundabout exit number:", loc.m_exitNum));
+    }
+  }
+
+  void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt)
+  {
+    if (m_framework->IsRoutingActive())
+      m_framework->CloseRouting();
+    else
+      m_framework->BuildRoute(m_framework->PtoG(pt));
+  }
+
+  void DrawWidget::ShowInfoPopup(m2::PointD const & pt)
+  {
+    // show feature types
+    QMenu menu;
+    auto const addStringFn = [&menu](string const & s)
+    {
+      menu.addAction(QString::fromUtf8(s.c_str()));
+    };
+
+    // Get POI under cursor or nearest address by point.
+    m2::PointD dummy;
+    search::AddressInfo info;
+    feature::FeatureMetadata metadata;
+    if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
+      addStringFn("POI");
+    else
+      m_framework->GetAddressInfoForPixelPoint(pt, info);
+
+    // Get feature types under cursor.
+    vector<string> types;
+    m_framework->GetFeatureTypes(pt, types);
+    for (size_t i = 0; i < types.size(); ++i)
+      addStringFn(types[i]);
+
+    menu.addSeparator();
+
+    // Format address and types.
+    if (!info.m_name.empty())
+      addStringFn(info.m_name);
+    addStringFn(info.FormatAddress());
+    addStringFn(info.FormatTypes());
+
+    menu.exec();
+  }
+
+  void DrawWidget::OnViewportChanged(ScreenBase const & screen)
+  {
+    UpdateScaleControl();
+  }
+
+  void DrawWidget::UpdateScaleControl()
+  {
+    if (m_pScale && isExposed())
+    {
+      // don't send ScaleChanged
+      m_pScale->SetPosWithBlockedSignals(m_framework->GetDrawScale());
+    }
+  }
+
+  df::Touch DrawWidget::GetTouch(QMouseEvent * e)
+  {
+    df::Touch touch;
+    touch.m_id = 0;
+    touch.m_location = GetDevicePoint(e);
+    return touch;
+  }
+
+  df::Touch DrawWidget::GetSymmetrical(df::Touch const & touch)
+  {
+    m2::PointD pixelCenter = m_framework->GetPixelCenter();
+    m2::PointD symmetricalLocation = pixelCenter + (pixelCenter - touch.m_location);
+
+    df::Touch result;
+    result.m_id = touch.m_id + 1;
+    result.m_location = symmetricalLocation;
+
+    return result;
+  }
+
+  df::TouchEvent DrawWidget::GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchType type)
+  {
+    df::TouchEvent event;
+    event.m_type = type;
+    event.m_touches[0] = GetTouch(e);
+    if (IsRotation(e))
+      event.m_touches[1] = GetSymmetrical(event.m_touches[0]);
+
+    return event;
+  }
+
+  m2::PointD DrawWidget::GetDevicePoint(QMouseEvent * e) const
+  {
+    return m2::PointD(L2D(e->x()), L2D(e->y()));
   }
 
   void DrawWidget::SetRouter(routing::RouterType routerType)

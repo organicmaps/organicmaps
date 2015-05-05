@@ -218,7 +218,7 @@ namespace
   UserMark const * GetMark(Framework & fm, m2::PointD const & pt)
   {
     m2::AnyRectD rect;
-    fm.GetNavigator().GetTouchRect(fm.GtoP(pt), 20, rect);
+    fm.GetTouchRect(fm.GtoP(pt), 20, rect);
 
     return fm.GetBookmarkManager().FindNearestUserMark(rect);
   }

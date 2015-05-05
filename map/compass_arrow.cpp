@@ -95,15 +95,15 @@ float CompassArrow::GetCurrentAlfa() const
 
 void CompassArrow::CreateAnim(double startAlfa, double endAlfa, double timeInterval, double timeOffset, bool isVisibleAtEnd)
 {
-  if (m_framework->GetAnimController() == NULL)
-    return;
+//  if (m_framework->GetAnimController() == NULL)
+//    return;
 
-  if (m_animTask)
-    m_animTask->Cancel();
+//  if (m_animTask)
+//    m_animTask->Cancel();
 
-  m_animTask.reset(new AlfaAnimationTask(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
-  m_animTask->AddCallback(anim::Task::EEnded, bind(&CompassArrow::AlfaAnimEnded, this, isVisibleAtEnd));
-  m_framework->GetAnimController()->AddTask(m_animTask);
+//  m_animTask.reset(new AlfaAnimationTask(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
+//  m_animTask->AddCallback(anim::Task::EEnded, bind(&CompassArrow::AlfaAnimEnded, this, isVisibleAtEnd));
+//  m_framework->GetAnimController()->AddTask(m_animTask);
 }
 
 void CompassArrow::cache()

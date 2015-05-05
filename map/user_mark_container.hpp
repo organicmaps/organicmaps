@@ -1,12 +1,12 @@
 #pragma once
 
-#include "map/events.hpp"
 #include "map/user_mark.hpp"
 
 #include "drape_frontend/user_marks_provider.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/any_rect2d.hpp"
 
 #include "std/deque.hpp"
 #include "std/bitset.hpp"

@@ -21,15 +21,11 @@
 namespace df
 {
 
-BackendRenderer::BackendRenderer(ref_ptr<ThreadsCommutator> commutator,
-                                 ref_ptr<dp::OGLContextFactory> oglcontextfactory,
-                                 ref_ptr<dp::TextureManager> textureManager,
-                                 MapDataProvider const & model)
-  : BaseRenderer(ThreadsCommutator::ResourceUploadThread, commutator, oglcontextfactory)
-  , m_model(model)
+BackendRenderer::BackendRenderer(Params const & params)
+  : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
+  , m_model(params.m_model)
   , m_batchersPool(make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)))
-  , m_readManager(make_unique_dp<ReadManager>(commutator, m_model))
-  , m_texturesManager(textureManager)
+  , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
   , m_guiCacher("default")
 {
   gui::DrapeGui::Instance().SetRecacheSlot([this](gui::Skin::ElementName elements)
@@ -55,7 +51,7 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
 
 void BackendRenderer::RecacheGui(gui::Skin::ElementName elements)
 {
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(elements, m_texturesManager);
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(elements, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
 }
@@ -121,7 +117,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<MapShapeReadedMessage> msg = static_cast<ref_ptr<MapShapeReadedMessage>>(message);
       ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
       for (drape_ptr<MapShape> const & shape : msg->GetShapes())
-        shape->Draw(batcher, m_texturesManager);
+        shape->Draw(batcher, m_texMng);
       break;
     }
   case Message::UpdateUserMarkLayer:
@@ -137,7 +133,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       UserMarksProvider const * marksProvider = msg->StartProcess();
       if (marksProvider->IsDirty())
-        CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texturesManager);
+        CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texMng);
       msg->EndProcess();
       m_batchersPool->ReleaseBatcher(key);
       break;
@@ -163,7 +159,7 @@ void BackendRenderer::ReleaseResources()
   m_readManager.reset();
   m_batchersPool.reset();
 
-  m_texturesManager->Release();
+  m_texMng->Release();
 }
 
 BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}
@@ -193,9 +189,9 @@ void BackendRenderer::InitGLDependentResource()
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
-  m_texturesManager->Init(params);
+  m_texMng->Init(params);
 
-  drape_ptr<MyPosition> position = make_unique_dp<MyPosition>(m_texturesManager);
+  drape_ptr<MyPosition> position = make_unique_dp<MyPosition>(m_texMng);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<MyPositionShapeMessage>(move(position)),
                             MessagePriority::High);

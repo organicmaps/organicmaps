@@ -6,11 +6,10 @@
 namespace df
 {
 
-BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name,
-                           ref_ptr<ThreadsCommutator> commutator,
-                           ref_ptr<dp::OGLContextFactory> oglcontextfactory)
-  : m_commutator(commutator)
-  , m_contextFactory(oglcontextfactory)
+BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params)
+  : m_commutator(params.m_commutator)
+  , m_contextFactory(params.m_oglContextFactory)
+  , m_texMng(params.m_texMng)
   , m_threadName(name)
   , m_isEnabled(true)
   , m_renderingEnablingCompletionHandler(nullptr)

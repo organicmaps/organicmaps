@@ -7,9 +7,9 @@
 
 #include "drape/texture_manager.hpp"
 
+#include "platform/platform.hpp"
+
 #include "std/bind.hpp"
-#include "std/condition_variable.hpp"
-#include "std/mutex.hpp"
 
 namespace df
 {
@@ -36,11 +36,16 @@ DrapeEngine::DrapeEngine(Params const & params)
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
 
-  m_frontend = make_unique_dp<FrontendRenderer>(make_ref(m_threadCommutator), params.m_factory,
-                                                make_ref(m_textureManager), m_viewport);
+  FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
+                                    make_ref(m_textureManager), m_viewport,
+                                    bind(&DrapeEngine::ModelViewChanged, this, _1),
+                                    params.m_model.GetIsCountryLoadedFn());
 
-  m_backend = make_unique_dp<BackendRenderer>(make_ref(m_threadCommutator), params.m_factory,
-                                              make_ref(m_textureManager), params.m_model);
+  m_frontend = make_unique_dp<FrontendRenderer>(frParams);
+
+  BackendRenderer::Params brParams(frParams.m_commutator, frParams.m_oglContextFactory,
+                                   frParams.m_texMng, params.m_model);
+  m_backend = make_unique_dp<BackendRenderer>(brParams);
 }
 
 DrapeEngine::~DrapeEngine()
@@ -60,14 +65,44 @@ void DrapeEngine::Resize(int w, int h)
     return;
 
   m_viewport.SetViewport(0, 0, w, h);
-  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ResizeMessage>(m_viewport),
-                                  MessagePriority::High);
+  AddUserEvent(ResizeEvent(w, h));
 }
 
-void DrapeEngine::UpdateCoverage(ScreenBase const & screen)
+void DrapeEngine::AddTouchEvent(TouchEvent const & event)
 {
-  m_frontend->SetModelView(screen);
+  AddUserEvent(event);
+}
+
+void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint)
+{
+  AddUserEvent(ScaleEvent(factor, pxPoint));
+}
+
+void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom)
+{
+  AddUserEvent(SetCenterEvent(centerPt, zoom));
+}
+
+void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom)
+{
+  AddUserEvent(SetRectEvent(rect, applyRotation, zoom));
+}
+
+void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect)
+{
+  AddUserEvent(SetAnyRectEvent(rect));
+}
+
+int DrapeEngine::AddModelViewListener(TModelViewListenerFn const & listener)
+{
+  static int currentSlotID = 0;
+  VERIFY(m_listeners.insert(make_pair(++currentSlotID, listener)).second, ());
+  return currentSlotID;
+}
+
+void DrapeEngine::RemoveModeViewListener(int slotID)
+{
+  m_listeners.erase(slotID);
 }
 
 void DrapeEngine::ClearUserMarksLayer(df::TileKey const & tileKey)
@@ -97,6 +132,23 @@ void DrapeEngine::SetRenderingEnabled(bool const isEnabled)
   m_backend->SetRenderingEnabled(isEnabled);
 
   LOG(LDEBUG, (isEnabled ? "Rendering enabled" : "Rendering disabled"));
+}
+
+void DrapeEngine::AddUserEvent(UserEvent const & e)
+{
+  m_frontend->AddUserEvent(e);
+}
+
+void DrapeEngine::ModelViewChanged(ScreenBase const & screen)
+{
+  Platform & pl = GetPlatform();
+  pl.RunOnGuiThread(bind(&DrapeEngine::ModelViewChangedGuiThread, this, screen));
+}
+
+void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
+{
+  for (pair<int, TModelViewListenerFn> const & p : m_listeners)
+    p.second(screen);
 }
 
 } // namespace df

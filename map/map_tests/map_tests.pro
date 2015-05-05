@@ -33,8 +33,7 @@ SOURCES += \
   geourl_test.cpp \
   kmz_unarchive_test.cpp \
   mwm_url_tests.cpp \
-  navigator_test.cpp \
-  mwm_set_test.cpp \
+  tracks_tests.cpp  \
 
 !linux* {
   SOURCES += working_time_tests.cpp \

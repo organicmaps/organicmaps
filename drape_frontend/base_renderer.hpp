@@ -5,6 +5,7 @@
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/oglcontextfactory.hpp"
+#include "drape/texture_manager.hpp"
 
 #include "base/thread.hpp"
 
@@ -19,17 +20,30 @@ namespace df
 class BaseRenderer : public MessageAcceptor
 {
 public:
-  using TCompletionHandler = function<void()>;
+  struct Params
+  {
+    Params(ref_ptr<ThreadsCommutator> commutator,
+           ref_ptr<dp::OGLContextFactory> factory,
+           ref_ptr<dp::TextureManager> texMng)
+      : m_commutator(commutator)
+      , m_oglContextFactory(factory)
+      , m_texMng(texMng)
+    {
+    }
 
-  BaseRenderer(ThreadsCommutator::ThreadName name,
-               ref_ptr<ThreadsCommutator> commutator,
-               ref_ptr<dp::OGLContextFactory> oglcontextfactory);
+    ref_ptr<ThreadsCommutator> m_commutator;
+    ref_ptr<dp::OGLContextFactory> m_oglContextFactory;
+    ref_ptr<dp::TextureManager> m_texMng;
+  };
+
+  BaseRenderer(ThreadsCommutator::ThreadName name, Params const & params);
 
   void SetRenderingEnabled(bool const isEnabled);
 
 protected:
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::OGLContextFactory> m_contextFactory;
+  ref_ptr<dp::TextureManager> m_texMng;
 
   void StartThread();
   void StopThread();
@@ -41,6 +55,8 @@ protected:
 
 private:
   bool CanReceiveMessage() override;
+
+  using TCompletionHandler = function<void()>;
 
 private:
   threads::Thread m_selfThread;

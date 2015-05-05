@@ -57,7 +57,7 @@ void Animator::RotateScreen(double startAngle, double endAngle)
                                                     endAngle,
                                                     GetRotationSpeed()));
 
-      m_framework->GetAnimController()->AddTask(m_rotateScreenTask);
+      //m_framework->GetAnimController()->AddTask(m_rotateScreenTask);
       return;
     }
   }
@@ -83,7 +83,7 @@ shared_ptr<MoveScreenTask> const & Animator::MoveScreen(m2::PointD const & start
                                             endPt,
                                             speed));
 
-  m_framework->GetAnimController()->AddTask(m_moveScreenTask);
+  //m_framework->GetAnimController()->AddTask(m_moveScreenTask);
 
   return m_moveScreenTask;
 }
@@ -105,7 +105,7 @@ shared_ptr<ChangeViewportTask> const & Animator::ChangeViewport(m2::AnyRectD con
                                                     rotationSpeed,
                                                     m_framework));
 
-  m_framework->GetAnimController()->AddTask(m_changeViewportTask);
+  //m_framework->GetAnimController()->AddTask(m_changeViewportTask);
 
   return m_changeViewportTask;
 }

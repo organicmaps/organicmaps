@@ -34,8 +34,8 @@ struct LessCoverageCell
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
   : m_commutator(commutator)
   , m_model(model)
-  , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
   , m_pool(make_unique_dp<threads::ThreadPool>(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)))
+  , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model))
   , m_counter(0)
 {
 }

@@ -1,5 +1,4 @@
-#include "map/navigator.hpp"
-
+#include "drape_frontend/navigator.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
@@ -16,16 +15,20 @@
 #include "std/function.hpp"
 #include "std/bind.hpp"
 
-
 namespace
 {
-  /// @todo Review this logic in future.
-  /// Fix bug with floating point calculations (before Android release).
-  void ReduceRectHack(m2::RectD & r)
-  {
-    r.Inflate(-1.0E-9, -1.0E-9);
-  }
+
+/// @todo Review this logic in future.
+/// Fix bug with floating point calculations (before Android release).
+void ReduceRectHack(m2::RectD & r)
+{
+  r.Inflate(-1.0E-9, -1.0E-9);
 }
+
+} // namespace
+
+namespace df
+{
 
 Navigator::Navigator()
   : m_InAction(false)
@@ -74,43 +77,44 @@ void Navigator::CenterViewport(m2::PointD const & p)
     m_StartScreen.SetOrg(pt);
 }
 
-double Navigator::ComputeMoveSpeed(m2::PointD const & /*p0*/, m2::PointD const & /*p1*/) const
+void Navigator::SaveState()
 {
-  // we think that with fixed time interval will be better
-  return 0.2;//max(0.5, min(0.5, 0.5 * GtoP(p0).Length(GtoP(p1)) / 50.0));
+  Settings::Set("ScreenClipRect", m_Screen.GlobalRect());
 }
 
-void Navigator::OnSize(int x0, int y0, int w, int h)
+bool Navigator::LoadState()
+{
+  m2::AnyRectD rect;
+  if (!Settings::Get("ScreenClipRect", rect))
+    return false;
+
+  // additional check for valid rect
+  if (!df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+    return false;
+
+  SetFromRect(rect);
+  return true;
+}
+
+void Navigator::OnSize(int w, int h)
 {
   m2::RectD const & worldR = df::GetWorldRect();
 
-  m_Screen.OnSize(x0, y0, w, h);
+  m_Screen.OnSize(0, 0, w, h);
   m_Screen = ShrinkAndScaleInto(m_Screen, worldR);
 
-  m_StartScreen.OnSize(x0, y0, w, h);
+  m_StartScreen.OnSize(0, 0, w, h);
   m_StartScreen = ShrinkAndScaleInto(m_StartScreen, worldR);
 }
 
 m2::PointD Navigator::GtoP(m2::PointD const & pt) const
 {
-  return m_Screen.GtoP(pt) - ShiftPoint(m2::PointD(0.0, 0.0));
+  return m_Screen.GtoP(pt);
 }
 
 m2::PointD Navigator::PtoG(m2::PointD const & pt) const
 {
-  return m_Screen.PtoG(ShiftPoint(pt));
-}
-
-void Navigator::GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const
-{
-  m_Screen.GetTouchRect(ShiftPoint(pixPoint), pixRadius, glbRect);
-}
-
-void Navigator::GetTouchRect(m2::PointD const & pixPoint,
-                             double pxWidth, double pxHeight,
-                             m2::AnyRectD & glbRect) const
-{
-  m_Screen.GetTouchRect(ShiftPoint(pixPoint), pxWidth, pxHeight, glbRect);
+  return m_Screen.PtoG(pt);
 }
 
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
@@ -266,42 +270,14 @@ ScreenBase const Navigator::ShrinkAndScaleInto(ScreenBase const & screen, m2::Re
   return res;
 }
 
-void Navigator::StartRotate(double a, double /*timeInSec*/)
-{
-  m_StartAngle = a;
-  m_StartScreen = m_Screen;
-  m_InAction = true;
-}
-
-void Navigator::DoRotate(double a, double /*timeInSec*/)
-{
-  ScreenBase tmp = m_StartScreen;
-  tmp.Rotate(a - m_StartAngle);
-  m_StartAngle = a;
-  m_Screen = tmp;
-  m_StartScreen = tmp;
-}
-
-void Navigator::StopRotate(double a, double timeInSec)
-{
-  DoRotate(a, timeInSec);
-  m_InAction = false;
-}
-
-m2::PointD Navigator::ShiftPoint(m2::PointD const & pt) const
-{
-  m2::RectD const & pxRect = m_Screen.PixelRect();
-  return pt + m2::PointD(pxRect.minX(), pxRect.minY());
-}
-
-void Navigator::StartDrag(m2::PointD const & pt, double /*timeInSec*/)
+void Navigator::StartDrag(m2::PointD const & pt)
 {
   m_StartPt1 = m_LastPt1 = pt;
   m_StartScreen = m_Screen;
   m_InAction = true;
 }
 
-void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
+void Navigator::DoDrag(m2::PointD const & pt)
 {
   if (m_LastPt1 == pt)
     return;
@@ -333,9 +309,9 @@ void Navigator::DoDrag(m2::PointD const & pt, double /*timeInSec*/)
   }
 }
 
-void Navigator::StopDrag(m2::PointD const & pt, double timeInSec, bool /*animate*/)
+void Navigator::StopDrag(m2::PointD const & pt)
 {
-  DoDrag(pt, timeInSec);
+  DoDrag(pt);
   m_InAction = false;
 }
 
@@ -344,7 +320,7 @@ bool Navigator::InAction() const
   return m_InAction;
 }
 
-void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
+void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2)
 {
   m_StartScreen = m_Screen;
   m_StartPt1 = m_LastPt1 = pt1;
@@ -388,88 +364,77 @@ namespace
   }
 }
 
-void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*timeInSec*/)
+void Navigator::Scale(m2::PointD const & pt, double factor)
 {
   m2::PointD startPt, endPt;
   CalcScalePoints(pt, factor, m_Screen.PixelRect(), startPt, endPt);
   ScaleImpl(pt, endPt, pt, startPt, factor > 1, false);
 }
 
-namespace
-{
-  class ZoomAnim : public anim::Task
-  {
-  public:
-    typedef function<bool (m2::PointD const &, m2::PointD const &,
-                           m2::PointD const &, m2::PointD const &)> TScaleImplFn;
-    ZoomAnim(m2::PointD const & startPt, m2::PointD const & endPt,
-             m2::PointD const & target, TScaleImplFn const & fn, double deltaTime)
-      : m_fn(fn)
-      , m_startTime(0.0)
-      , m_deltaTime(deltaTime)
-    {
-      m_finger1Start = target + (startPt - target);
-      m_prevPt1 = m_finger1Start;
-      m_deltaFinger1 = (endPt - startPt);
+//namespace
+//{
+//  class ZoomAnim : public anim::Task
+//  {
+//  public:
+//    typedef function<bool (m2::PointD const &, m2::PointD const &,
+//                           m2::PointD const &, m2::PointD const &)> TScaleImplFn;
+//    ZoomAnim(m2::PointD const & startPt, m2::PointD const & endPt,
+//             m2::PointD const & target, TScaleImplFn const & fn, double deltaTime)
+//      : m_fn(fn)
+//      , m_startTime(0.0)
+//      , m_deltaTime(deltaTime)
+//    {
+//      m_finger1Start = target + (startPt - target);
+//      m_prevPt1 = m_finger1Start;
+//      m_deltaFinger1 = (endPt - startPt);
 
-      m_finger2Start = target - (startPt - target);
-      m_prevPt2 = m_finger2Start;
-      m_deltaFinger2 = -(endPt - startPt);
-    }
+//      m_finger2Start = target - (startPt - target);
+//      m_prevPt2 = m_finger2Start;
+//      m_deltaFinger2 = -(endPt - startPt);
+//    }
 
-    virtual bool IsVisual() const { return true; }
+//    virtual bool IsVisual() const { return true; }
 
-    void OnStart(double ts)
-    {
-      m_startTime = ts;
-    }
+//    void OnStart(double ts)
+//    {
+//      m_startTime = ts;
+//    }
 
-    void OnStep(double ts)
-    {
-      double elapsed = ts - m_startTime;
-      if (my::AlmostEqualULPs(elapsed, 0.0))
-        return;
-      
-      double t = elapsed / m_deltaTime;
-      if (t > 1.0 || my::AlmostEqualULPs(t, 1.0))
-      {
-        m_fn(m_finger1Start + m_deltaFinger1, m_finger2Start + m_deltaFinger2, m_prevPt1, m_prevPt2);
-        End();
-        return;
-      }
+//    void OnStep(double ts)
+//    {
+//      double elapsed = ts - m_startTime;
+//      if (my::AlmostEqual(elapsed, 0.0))
+//        return;
 
-      m2::PointD const current1 = m_finger1Start + m_deltaFinger1 * t;
-      m2::PointD const current2 = m_finger2Start + m_deltaFinger2 * t;
-      m_fn(current1, current2, m_prevPt1, m_prevPt2);
-      m_prevPt1 = current1;
-      m_prevPt2 = current2;
-    }
+//      double t = elapsed / m_deltaTime;
+//      if (t > 1.0 || my::AlmostEqual(t, 1.0))
+//      {
+//        m_fn(m_finger1Start + m_deltaFinger1, m_finger2Start + m_deltaFinger2, m_prevPt1, m_prevPt2);
+//        End();
+//        return;
+//      }
 
-  private:
-    m2::PointD m_prevPt1;
-    m2::PointD m_prevPt2;
+//      m2::PointD const current1 = m_finger1Start + m_deltaFinger1 * t;
+//      m2::PointD const current2 = m_finger2Start + m_deltaFinger2 * t;
+//      m_fn(current1, current2, m_prevPt1, m_prevPt2);
+//      m_prevPt1 = current1;
+//      m_prevPt2 = current2;
+//    }
 
-    m2::PointD m_finger1Start;
-    m2::PointD m_deltaFinger1;
-    m2::PointD m_finger2Start;
-    m2::PointD m_deltaFinger2;
+//  private:
+//    m2::PointD m_prevPt1;
+//    m2::PointD m_prevPt2;
 
-    TScaleImplFn m_fn;
-    double m_startTime;
-    double m_deltaTime;
-  };
-}
+//    m2::PointD m_finger1Start;
+//    m2::PointD m_deltaFinger1;
+//    m2::PointD m_finger2Start;
+//    m2::PointD m_deltaFinger2;
 
-shared_ptr<anim::Task> Navigator::ScaleToPointAnim(m2::PointD const & pt, double factor, double timeInSec)
-{
-  m2::PointD startPt, endPt;
-  CalcScalePoints(pt, factor, m_Screen.PixelRect(), startPt, endPt);
-  ZoomAnim * anim = new ZoomAnim(startPt, endPt, pt,
-                                 bind(&Navigator::ScaleImpl, this, _1, _2, _3, _4, factor > 1, false),
-                                 timeInSec);
-
-  return shared_ptr<anim::Task>(anim);
-}
+//    TScaleImplFn m_fn;
+//    double m_startTime;
+//    double m_deltaTime;
+//  };
+//}
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
 {
@@ -529,7 +494,7 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
   return true;
 }
 
-void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
+void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2)
 {
   if (m_LastPt1 == pt1 && m_LastPt2 == pt2)
     return;
@@ -580,9 +545,9 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /
   m_LastPt2 = pt2;
 }
 
-void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec)
+void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2)
 {
-  DoScale(pt1, pt2, timeInSec);
+  DoScale(pt1, pt2);
 
   ASSERT_EQUAL(m_LastPt1, pt1, ());
   ASSERT_EQUAL(m_LastPt2, pt2, ());
@@ -595,47 +560,43 @@ bool Navigator::IsRotatingDuringScale() const
   return m_IsRotatingDuringScale;
 }
 
-void Navigator::Scale(double scale)
+m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
 {
-  ScaleToPoint(m_Screen.PixelRect().Center(), scale, 0);
+  double const dx = rect.SizeX();
+  double const dy = rect.SizeY();
+
+  return m2::AnyRectD(rect.Center(),
+                      navigator.Screen().GetAngle(),
+                      m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
 }
 
-shared_ptr<anim::Task> Navigator::ScaleAnim(double scale)
+void CheckMinGlobalRect(m2::RectD & rect)
 {
-  return ScaleToPointAnim(m_Screen.PixelRect().Center() + m2::PointD(0.0, 300.0), scale, 0.3);
+  m2::RectD const minRect = df::GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center());
+  if (minRect.IsRectInside(rect))
+    rect = minRect;
 }
 
-void Navigator::Rotate(double angle)
+void CheckMinMaxVisibleScale(TIsCountryLoaded const & fn, m2::RectD & rect, int maxScale)
 {
-  m_Screen.Rotate(angle);
+  CheckMinGlobalRect(rect);
+
+  m2::PointD const c = rect.Center();
+  int const worldS = scales::GetUpperWorldScale();
+
+  int scale = df::GetDrawTileScale(rect);
+  if (scale > worldS && !fn(c))
+  {
+    // country is not loaded - limit on world scale
+    rect = df::GetRectForDrawScale(worldS, c);
+    scale = worldS;
+  }
+
+  if (maxScale != -1 && scale > maxScale)
+  {
+    // limit on passed maximal scale
+    rect = df::GetRectForDrawScale(maxScale, c);
+  }
 }
 
-void Navigator::SetAngle(double angle)
-{
-  m_Screen.SetAngle(angle);
-}
-
-void Navigator::SetOrg(m2::PointD const & org)
-{
-  ScreenBase tmp = m_Screen;
-  tmp.SetOrg(org);
-  if (CheckBorders(tmp))
-    m_Screen = tmp;
-}
-
-void Navigator::Move(double azDir, double factor)
-{
-  m2::RectD const r = m_Screen.ClipRect();
-  m_Screen.MoveG(m2::PointD(r.SizeX() * factor * cos(azDir), r.SizeY() * factor * sin(azDir)));
-}
-
-bool Navigator::Update(double timeInSec)
-{
-  m_LastUpdateTimeInSec = timeInSec;
-  return false;
-}
-
-int Navigator::GetDrawScale() const
-{
-  return df::GetDrawTileScale(m_Screen);
-}
+} // namespace df

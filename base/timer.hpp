@@ -67,6 +67,7 @@ public:
 
   void Reset();
   uint64_t ElapsedNano() const;
+  uint64_t ElapsedMillis() const;
   double ElapsedSeconds() const;
 };
 

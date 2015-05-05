@@ -55,7 +55,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   QDesktopWidget const * desktop(QApplication::desktop());
   setGeometry(desktop->screenGeometry(desktop->primaryScreen()));
 
-  m_pDrawWidget = new DrawWidget(this);
+  m_pDrawWidget = new DrawWidget();
   QSurfaceFormat format = m_pDrawWidget->requestedFormat();
 
   format.setMajorVersion(3);

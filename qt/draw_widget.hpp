@@ -3,16 +3,12 @@
 #include "qt/qtoglcontextfactory.hpp"
 
 #include "map/framework.hpp"
-#include "map/navigator.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
-
-#include "base/deferred_task.hpp"
 
 #include "std/unique_ptr.hpp"
 
 #include <QtGui/QWindow>
-
 
 namespace qt
 {
@@ -25,24 +21,11 @@ namespace qt
     drape_ptr<dp::OGLContextFactory> m_contextFactory;
     unique_ptr<Framework> m_framework;
 
-    bool m_isDrag;
-    bool m_isRotate;
-
     qreal m_ratio;
-
-    inline int L2D(int px) const { return px * m_ratio; }
-    inline m2::PointD GetDevicePoint(QMouseEvent * e) const;
-    DragEvent GetDragEvent(QMouseEvent * e) const;
-    RotateEvent GetRotateEvent(QPoint const & pt) const;
 
     Q_OBJECT
 
   public Q_SLOTS:
-    void MoveLeft();
-    void MoveRight();
-    void MoveUp();
-    void MoveDown();
-
     void ScalePlus();
     void ScaleMinus();
     void ScalePlusLight();
@@ -52,7 +35,7 @@ namespace qt
     void ScaleChanged(int action);
 
   public:
-    DrawWidget(QWidget * pParent);
+    DrawWidget();
     ~DrawWidget();
 
     void SetScaleControl(QScaleSlider * pScale);
@@ -60,7 +43,6 @@ namespace qt
     bool Search(search::SearchParams params);
     string GetDistance(search::Result const & res) const;
     void ShowSearchResult(search::Result const & res);
-    void CloseSearch();
 
     void OnLocationUpdate(location::GpsInfo const & info);
 
@@ -78,9 +60,6 @@ namespace qt
     void SetRouter(routing::RouterType routerType);
 
   protected:
-    void StartPressTask(m2::PointD const & pt, unsigned ms);
-    void KillPressTask();
-    void OnPressTaskEvent(m2::PointD const & pt, unsigned ms);
     void OnActivateMark(unique_ptr<UserMarkCopy> pCopy);
 
     void CreateEngine();
@@ -88,28 +67,33 @@ namespace qt
   protected:
     /// @name Overriden from QWidget.
     //@{
-    virtual void exposeEvent(QExposeEvent * e);
-    virtual void mousePressEvent(QMouseEvent * e);
-    virtual void mouseDoubleClickEvent(QMouseEvent * e);
-    virtual void mouseMoveEvent(QMouseEvent * e);
-    virtual void mouseReleaseEvent(QMouseEvent * e);
-    virtual void wheelEvent(QWheelEvent * e);
-    virtual void keyReleaseEvent(QKeyEvent * e);
+    void exposeEvent(QExposeEvent * e) override;
+    void mousePressEvent(QMouseEvent * e) override;
+    void mouseDoubleClickEvent(QMouseEvent * e) override;
+    void mouseMoveEvent(QMouseEvent * e) override;
+    void mouseReleaseEvent(QMouseEvent * e) override;
+    void wheelEvent(QWheelEvent * e) override;
+    void keyPressEvent(QKeyEvent * e) override;
+    void keyReleaseEvent(QKeyEvent * e) override;
     //@}
 
     Q_SLOT void sizeChanged(int);
 
   private:
+    void SubmitFakeLocationPoint(m2::PointD const & pt);
+    void SubmitRoutingPoint(m2::PointD const & pt);
+    void ShowInfoPopup(m2::PointD const & pt);
+
+    void OnViewportChanged(ScreenBase const & screen);
     void UpdateScaleControl();
-    void StopDragging(QMouseEvent * e);
-    void StopRotating(QMouseEvent * e);
-    void StopRotating(QKeyEvent * e);
+    df::Touch GetTouch(QMouseEvent * e);
+    df::Touch GetSymmetrical(const df::Touch & touch);
+    df::TouchEvent GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchType type);
+
+    inline int L2D(int px) const { return px * m_ratio; }
+    m2::PointD GetDevicePoint(QMouseEvent * e) const;
 
     QScaleSlider * m_pScale;
-
-    unique_ptr<DeferredTask> m_deferredTask;
-    m2::PointD m_taskPoint;
-    bool m_wasLongClick, m_isCleanSingleClick;
 
     bool m_emulatingLocation;
 
