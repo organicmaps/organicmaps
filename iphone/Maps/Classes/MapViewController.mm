@@ -160,9 +160,9 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
       routeInfo[@"turnMetrics"] = [NSString stringWithUTF8String:res.m_turnUnitsSuffix.c_str()];
       routeInfo[@"turnType"] = [self turnTypeToImage:res.m_turn];
       static NSNumber * turnTypeValue;
-      if (res.m_turn == routing::turns::EnterRoundAbout)
+      if (res.m_turn == routing::turns::TurnDirection::EnterRoundAbout)
         turnTypeValue = @(res.m_exitNum);
-      else if (res.m_turn != routing::turns::StayOnRoundAbout)
+      else if (res.m_turn != routing::turns::TurnDirection::StayOnRoundAbout)
         turnTypeValue = nil;
       if (turnTypeValue) {
         [routeInfo setObject:turnTypeValue forKey:@"turnTypeValue"];
@@ -178,19 +178,19 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   using namespace routing::turns;
   switch (type)
   {
-    case TurnSlightRight: return @"right-1";
-    case TurnRight: return @"right-2";
-    case TurnSharpRight: return @"right-3";
+    case TurnDirection::TurnSlightRight: return @"right-1";
+    case TurnDirection::TurnRight: return @"right-2";
+    case TurnDirection::TurnSharpRight: return @"right-3";
       
-    case TurnSlightLeft: return @"left-1";
-    case TurnLeft: return @"left-2";
-    case TurnSharpLeft: return @"left-3";
+    case TurnDirection::TurnSlightLeft: return @"left-1";
+    case TurnDirection::TurnLeft: return @"left-2";
+    case TurnDirection::TurnSharpLeft: return @"left-3";
       
-    case UTurn: return @"turn-around";
+    case TurnDirection::UTurn: return @"turn-around";
       
-    case LeaveRoundAbout:
-    case StayOnRoundAbout:
-    case EnterRoundAbout: return @"circle";
+    case TurnDirection::LeaveRoundAbout:
+    case TurnDirection::StayOnRoundAbout:
+    case TurnDirection::EnterRoundAbout: return @"circle";
       
     default: return @"straight";
   }

@@ -1089,7 +1089,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
         GetTurnDirection(routingResult.m_routePath.unpacked_path_segments[i][j - 1],
                          routingResult.m_routePath.unpacked_path_segments[i][j],
                          mapping, t);
-        if (t.m_turn != turns::NoTurn)
+        if (t.m_turn != turns::TurnDirection::NoTurn)
         {
           // adding lane info
           t.m_lanes =
@@ -1194,7 +1194,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResultT const & 
 
   times.push_back(Route::TimeItemT(points.size() - 1, estimateTime));
   if (routingResult.m_targetEdge.m_seg.IsValid())
-    turnsDir.push_back(TurnItem(points.size() - 1, turns::ReachedYourDestination));
+    turnsDir.push_back(TurnItem(points.size() - 1, turns::TurnDirection::ReachedYourDestination));
   turns::FixupTurns(points, turnsDir);
 
   turns::CalculateTurnGeometry(points, turnsDir, turnsGeom);
@@ -1335,18 +1335,18 @@ turns::TurnDirection OsrmRouter::InvertDirection(turns::TurnDirection dir) const
 {
   switch (dir)
   {
-  case turns::TurnSharpRight:
-    return turns::TurnSharpLeft;
-  case turns::TurnRight:
-    return turns::TurnLeft;
-  case turns::TurnSlightRight:
-    return turns::TurnSlightLeft;
-  case turns::TurnSlightLeft:
-    return turns::TurnSlightRight;
-  case turns::TurnLeft:
-    return turns::TurnRight;
-  case turns::TurnSharpLeft:
-    return turns::TurnSharpRight;
+  case turns::TurnDirection::TurnSharpRight:
+    return turns::TurnDirection::TurnSharpLeft;
+  case turns::TurnDirection::TurnRight:
+    return turns::TurnDirection::TurnLeft;
+  case turns::TurnDirection::TurnSlightRight:
+    return turns::TurnDirection::TurnSlightLeft;
+  case turns::TurnDirection::TurnSlightLeft:
+    return turns::TurnDirection::TurnSlightRight;
+  case turns::TurnDirection::TurnLeft:
+    return turns::TurnDirection::TurnRight;
+  case turns::TurnDirection::TurnSharpLeft:
+    return turns::TurnDirection::TurnSharpRight;
   default:
     return dir;
   };
@@ -1363,18 +1363,18 @@ turns::TurnDirection OsrmRouter::MostRightDirection(const double angle) const
   double const upperLeftBound = 336.;
 
   if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
-    return turns::TurnSharpRight;
+    return turns::TurnDirection::TurnSharpRight;
   else if (angle >= upperSharpRightBound && angle < upperRightBound)
-    return  turns::TurnRight;
+    return  turns::TurnDirection::TurnRight;
   else if (angle >= upperRightBound && angle < upperSlightRight)
-    return turns::TurnSlightRight;
+    return turns::TurnDirection::TurnSlightRight;
   else if (angle >= upperSlightRight && angle < upperGoStraitBound)
-    return  turns::GoStraight;
+    return  turns::TurnDirection::GoStraight;
   else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
-    return  turns::TurnSlightLeft;
+    return  turns::TurnDirection::TurnSlightLeft;
   else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
-    return  turns::TurnLeft;
-  return turns::NoTurn;
+    return  turns::TurnDirection::TurnLeft;
+  return turns::TurnDirection::NoTurn;
 }
 
 turns::TurnDirection OsrmRouter::MostLeftDirection(const double angle) const
@@ -1394,20 +1394,20 @@ turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
   double const upperSharpLeftBound = 336.;
 
   if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
-    return turns::TurnSharpRight;
+    return turns::TurnDirection::TurnSharpRight;
   else if (angle >= upperSharpRightBound && angle < upperRightBound)
-    return  turns::TurnRight;
+    return  turns::TurnDirection::TurnRight;
   else if (angle >= upperRightBound && angle < upperSlightRight)
-    return turns::TurnSlightRight;
+    return turns::TurnDirection::TurnSlightRight;
   else if (angle >= upperSlightRight && angle < upperGoStraitBound)
-    return  turns::GoStraight;
+    return  turns::TurnDirection::GoStraight;
   else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
-    return  turns::TurnSlightLeft;
+    return  turns::TurnDirection::TurnSlightLeft;
   else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
-    return  turns::TurnLeft;
+    return  turns::TurnDirection::TurnLeft;
   else if (angle >= upperLeftBound && angle < upperSharpLeftBound)
-    return turns::TurnSharpLeft;
-  return turns::NoTurn;
+    return turns::TurnDirection::TurnSharpLeft;
+  return turns::TurnDirection::NoTurn;
 }
 
 bool OsrmRouter::KeepOnewayOutgoingTurnIncomingEdges(TurnItem const & turn,
@@ -1439,19 +1439,19 @@ turns::TurnDirection OsrmRouter::RoundaboutDirection(bool isRound1, bool isRound
   if (isRound1 && isRound2)
   {
     if (hasMultiTurns)
-      return turns::StayOnRoundAbout;
+      return turns::TurnDirection::StayOnRoundAbout;
     else
-      return turns::NoTurn;
+      return turns::TurnDirection::NoTurn;
   }
 
   if (!isRound1 && isRound2)
-    return turns::EnterRoundAbout;
+    return turns::TurnDirection::EnterRoundAbout;
 
   if (isRound1 && !isRound2)
-    return turns::LeaveRoundAbout;
+    return turns::TurnDirection::LeaveRoundAbout;
 
   ASSERT(false, ());
-  return turns::NoTurn;
+  return turns::TurnDirection::NoTurn;
 }
 
 // @todo(vbykoianko) Move this method and all dependencies to turns_generator.cpp
@@ -1471,7 +1471,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   if (!seg1.IsValid() || !seg2.IsValid())
   {
     LOG(LWARNING, ("Some turns can't load geometry"));
-    turn.m_turn = turns::NoTurn;
+    turn.m_turn = turns::TurnDirection::NoTurn;
     return;
   }
 
@@ -1503,7 +1503,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   TurnCandidatesT nodes;
   GetPossibleTurns(node1.node, p1OneSeg, p, routingMapping, nodes);
 
-  turn.m_turn = turns::NoTurn;
+  turn.m_turn = turns::TurnDirection::NoTurn;
   size_t const nodesSz = nodes.size();
   bool const hasMultiTurns = (nodesSz >= 2);
 
@@ -1546,7 +1546,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   if (!turn.m_keepAnyway
       && ((!name1.empty() && name1 == name2) || (!road1.empty() && road1 == road2)))
   {
-    turn.m_turn = turns::NoTurn;
+    turn.m_turn = turns::TurnDirection::NoTurn;
     return;
   }
 
@@ -1554,20 +1554,20 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
       && !KeepOnewayOutgoingTurnIncomingEdges(turn, p, p1OneSeg, routingMapping)
       && !KeepOnewayOutgoingTurnRoundabout(isRound1, isRound2))
   {
-    turn.m_turn = turns::NoTurn;
+    turn.m_turn = turns::TurnDirection::NoTurn;
     return;
   }
 
-  if (turn.m_turn == turns::GoStraight)
+  if (turn.m_turn == turns::TurnDirection::GoStraight)
   {
     if (!hasMultiTurns)
-      turn.m_turn = turns::NoTurn;
+      turn.m_turn = turns::TurnDirection::NoTurn;
 
     return;
   }
 
-  if (turn.m_turn == turns::NoTurn)
-    turn.m_turn = turns::UTurn;
+  if (turn.m_turn == turns::TurnDirection::NoTurn)
+    turn.m_turn = turns::TurnDirection::UTurn;
 }
 
 IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,

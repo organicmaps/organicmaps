@@ -23,6 +23,26 @@ array<pair<LaneWay, string>, static_cast<size_t>(LaneWay::Count)> const g_laneWa
   { LaneWay::Reverse, "reverse" }
 }};
 static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count), "Check the size of g_laneWayNames");
+
+array<pair<TurnDirection, string>, static_cast<size_t>(TurnDirection::Count)> const g_turnNames =
+{{
+  { TurnDirection::NoTurn, "NoTurn" },
+  { TurnDirection::GoStraight, "GoStraight" },
+  { TurnDirection::TurnRight, "TurnRight" },
+  { TurnDirection::TurnSharpRight, "TurnSharpRight" },
+  { TurnDirection::TurnSlightRight, "TurnSlightRight" },
+  { TurnDirection::TurnLeft, "TurnLeft" },
+  { TurnDirection::TurnSharpLeft, "TurnSharpLeft" },
+  { TurnDirection::TurnSlightLeft, "TurnSlightLeft" },
+  { TurnDirection::UTurn, "UTurn" },
+  { TurnDirection::TakeTheExit, "TakeTheExit" },
+  { TurnDirection::EnterRoundAbout, "EnterRoundAbout" },
+  { TurnDirection::LeaveRoundAbout, "LeaveRoundAbout" },
+  { TurnDirection::StayOnRoundAbout, "StayOnRoundAbout" },
+  { TurnDirection::StartAtEndOfStreet, "StartAtEndOfStreet" },
+  { TurnDirection::ReachedYourDestination, "ReachedYourDestination" }
+}};
+static_assert(g_turnNames.size() == static_cast<size_t>(TurnDirection::Count), "Check the size of g_turnNames");
 }
 
 namespace routing
@@ -35,42 +55,29 @@ bool TurnGeom::operator==(TurnGeom const & other) const
     && m_points == other.m_points;
 }
 
-string const turnStrings[] = {
-  "NoTurn",
-  "GoStraight",
-  "TurnRight",
-  "TurnSharpRight",
-  "TurnSlightRight",
-  "TurnLeft",
-  "TurnSharpLeft",
-  "TurnSlightLeft",
-  "UTurn",
-
-  "TakeTheExit",
-
-  "EnterRoundAbout",
-  "LeaveRoundAbout",
-  "StayOnRoundAbout",
-
-  "StartAtEndOfStreet",
-  "ReachedYourDestination"
-};
-
-string const & GetTurnString(TurnDirection turn)
+string const GetTurnString(TurnDirection turn)
 {
-  ASSERT_LESS_OR_EQUAL(0, turn, ());
-  ASSERT_LESS(turn, Count, ());
-  return turnStrings[turn];
+  stringstream out;
+  auto const it = find_if(g_turnNames.begin(), g_turnNames.end(),
+                          [&turn](pair<TurnDirection, string> const & p)
+  {
+    return p.first == turn;
+  });
+
+  if (it == g_turnNames.end())
+    out << "unknown TurnDirection (" << static_cast<int>(turn) << ")";
+  out << it->second;
+  return out.str();
 }
 
 bool IsLeftTurn(TurnDirection t)
 {
-  return (t >= turns::TurnLeft && t <= turns::TurnSlightLeft);
+  return (t >= TurnDirection::TurnLeft && t <= TurnDirection::TurnSlightLeft);
 }
 
 bool IsRightTurn(TurnDirection t)
 {
-  return (t >= turns::TurnRight && t <= turns::TurnSlightRight);
+  return (t >= TurnDirection::TurnRight && t <= TurnDirection::TurnSlightRight);
 }
 
 bool IsLeftOrRightTurn(TurnDirection t)
@@ -80,12 +87,12 @@ bool IsLeftOrRightTurn(TurnDirection t)
 
 bool IsStayOnRoad(TurnDirection t)
 {
-  return (t == turns::GoStraight || t == turns::StayOnRoundAbout);
+  return (t == TurnDirection::GoStraight || t == TurnDirection::StayOnRoundAbout);
 }
 
 bool IsGoStraightOrSlightTurn(TurnDirection t)
 {
-  return (t == turns::GoStraight || t == turns::TurnSlightLeft || t == turns::TurnSlightRight);
+  return (t == TurnDirection::GoStraight || t == TurnDirection::TurnSlightLeft || t == TurnDirection::TurnSlightRight);
 }
 
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes)
@@ -142,7 +149,7 @@ bool ParseLanes(string lanesString, vector<TSingleLane> & lanes)
   return true;
 }
 
-string DebugPrint(routing::turns::TurnGeom const & turnGeom)
+string DebugPrint(TurnGeom const & turnGeom)
 {
   stringstream out;
   out << "[ TurnGeom: m_indexInRoute = " << turnGeom.m_indexInRoute
@@ -150,7 +157,7 @@ string DebugPrint(routing::turns::TurnGeom const & turnGeom)
   return out.str();
 }
 
-string DebugPrint(routing::turns::LaneWay const l)
+string DebugPrint(LaneWay const l)
 {
   stringstream out;
   auto const it = find_if(g_laneWayNames.begin(), g_laneWayNames.end(),
@@ -162,6 +169,13 @@ string DebugPrint(routing::turns::LaneWay const l)
   if (it == g_laneWayNames.end())
     out << "unknown LaneWay (" << static_cast<int>(l) << ")";
   out << it->second;
+  return out.str();
+}
+
+string DebugPrint(TurnDirection const turn)
+{
+  stringstream out;
+  out << "[ " << GetTurnString(turn) << " ]";
   return out.str();
 }
 

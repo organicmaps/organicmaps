@@ -113,23 +113,24 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
   for (size_t idx = 0; idx < turnsDir.size(); )
   {
     TurnItem & t = turnsDir[idx];
-    if (roundabout && t.m_turn != turns::StayOnRoundAbout && t.m_turn != turns::LeaveRoundAbout)
+    if (roundabout && t.m_turn != turns::TurnDirection::StayOnRoundAbout
+        && t.m_turn != turns::TurnDirection::LeaveRoundAbout)
     {
       exitNum = 0;
       roundabout = nullptr;
     }
-    else if (t.m_turn == turns::EnterRoundAbout)
+    else if (t.m_turn == turns::TurnDirection::EnterRoundAbout)
     {
       ASSERT(!roundabout, ());
       roundabout = &t;
     }
-    else if (t.m_turn == turns::StayOnRoundAbout)
+    else if (t.m_turn == turns::TurnDirection::StayOnRoundAbout)
     {
       ++exitNum;
       turnsDir.erase(turnsDir.begin() + idx);
       continue;
     }
-    else if (roundabout && t.m_turn == turns::LeaveRoundAbout)
+    else if (roundabout && t.m_turn == turns::TurnDirection::LeaveRoundAbout)
     {
       roundabout->m_exitNum = exitNum + 1;
       roundabout = nullptr;

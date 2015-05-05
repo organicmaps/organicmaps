@@ -21,7 +21,7 @@ struct TurnItem
 {
   TurnItem()
     : m_index(numeric_limits<uint32_t>::max())
-    , m_turn(turns::NoTurn), m_exitNum(0), m_keepAnyway(false)
+    , m_turn(turns::TurnDirection::NoTurn), m_exitNum(0), m_keepAnyway(false)
   {
   }
 

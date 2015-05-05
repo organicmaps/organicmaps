@@ -138,7 +138,7 @@ void IRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route
   times.emplace_back(path.size() - 1, trackTimeSec);
 
   Route::TurnsT turnsDir;
-  turnsDir.emplace_back(path.size() - 1, turns::ReachedYourDestination);
+  turnsDir.emplace_back(path.size() - 1, turns::TurnDirection::ReachedYourDestination);
 
   route.SetGeometry(path.begin(), path.end());
   route.SetTurnInstructions(turnsDir);

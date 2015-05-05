@@ -196,7 +196,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   else
   {
     // nothing should be displayed on the screen about turns if these lines are executed
-    info.m_turn = turns::NoTurn;
+    info.m_turn = turns::TurnDirection::NoTurn;
     info.m_exitNum = 0;
     info.m_time = 0;
     info.m_targetName.clear();

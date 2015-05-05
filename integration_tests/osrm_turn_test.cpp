@@ -6,6 +6,7 @@
 
 
 using namespace routing;
+using namespace routing::turns;
 
 UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 {
@@ -19,12 +20,12 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   TEST_EQUAL(result, OsrmRouter::NoError, ());
 
   integration::GetNthTurn(route, 0).TestValid().TestPoint({37.545981835916507, 67.530713137468041})
-      .TestOneOfDirections({turns::TurnSlightLeft , turns::TurnLeft});
-  integration::GetNthTurn(route, 1).TestValid().TestPoint({37.546738218864334, 67.531659957257347}).TestDirection(turns::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestPoint({37.539925407915746, 67.537083383925875}).TestDirection(turns::TurnRight);
+      .TestOneOfDirections({TurnDirection::TurnSlightLeft , TurnDirection::TurnLeft});
+  integration::GetNthTurn(route, 1).TestValid().TestPoint({37.546738218864334, 67.531659957257347}).TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestPoint({37.539925407915746, 67.537083383925875}).TestDirection(TurnDirection::TurnRight);
 
   integration::GetTurnByPoint(route, {37., 67.}).TestNotValid();
-  integration::GetTurnByPoint(route, {37.546738218864334, 67.531659957257347}).TestValid().TestDirection(turns::TurnLeft);
+  integration::GetTurnByPoint(route, {37.546738218864334, 67.531659957257347}).TestValid().TestDirection(TurnDirection::TurnLeft);
 
   integration::TestRouteLength(route, 2033.);
 }
@@ -40,10 +41,10 @@ UNIT_TEST(RussiaMoscowSalameiNerisUturnTurnTest)
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 4);
   integration::GetNthTurn(route, 0).TestValid().TestPoint({37.388482521388539, 67.633382734905041}, 5.)
-      .TestDirection(turns::TurnSlightRight);
-  integration::GetNthTurn(route, 1).TestValid().TestPoint({37.387117276989784, 67.633369323859881}).TestDirection(turns::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestPoint({37.387380133475205, 67.632781920081243}).TestDirection(turns::TurnLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestPoint({37.390526364673121, 67.633106467374461}).TestDirection(turns::TurnRight);
+      .TestDirection(TurnDirection::TurnSlightRight);
+  integration::GetNthTurn(route, 1).TestValid().TestPoint({37.387117276989784, 67.633369323859881}).TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestPoint({37.387380133475205, 67.632781920081243}).TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 3).TestValid().TestPoint({37.390526364673121, 67.633106467374461}).TestDirection(TurnDirection::TurnRight);
 
   integration::TestRouteLength(route, 1637.);
 }
@@ -59,8 +60,8 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 2);
 
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(turns::EnterRoundAbout).TestRoundAboutExitNum(2);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(turns::LeaveRoundAbout);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::EnterRoundAbout).TestRoundAboutExitNum(2);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::LeaveRoundAbout);
 
   integration::TestRouteLength(route, 387.);
 }
@@ -75,7 +76,7 @@ UNIT_TEST(RussiaMoscowPlanetnaiTurnTest)
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 1);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(turns::TurnLeft);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
 
   integration::TestRouteLength(route, 214.);
 }
@@ -91,7 +92,7 @@ UNIT_TEST(RussiaMoscowNoTurnsOnMKADTurnTest)
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestPoint({37.682761085650043, 67.140620702062705})
-      .TestOneOfDirections({turns::TurnSlightRight, turns::TurnRight});
+      .TestOneOfDirections({TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 
   integration::TestRouteLength(route, 43233.7);
 }
@@ -107,9 +108,9 @@ UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 2);
   /// Checking turn in case going from not link to link
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections({turns::TurnSlightRight, turns::TurnRight});
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections({TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
   /// Checking turn in case of ingoing edge(s)
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections({turns::TurnSlightRight, turns::TurnRight});
+  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections({TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 }
 
 UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
@@ -122,7 +123,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 1);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(turns::TurnRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnRight);
 }
 
 UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
@@ -135,7 +136,7 @@ UNIT_TEST(RussiaMoscowMKADPutilkovskeShosseTurnTest)
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 1);
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections({turns::TurnSlightRight, turns::TurnRight});
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections({TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 }
 
 UNIT_TEST(RussiaMoscowPetushkovaShodniaReverTurnTest)
@@ -160,8 +161,8 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 2);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(turns::EnterRoundAbout).TestRoundAboutExitNum(5);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(turns::LeaveRoundAbout).TestRoundAboutExitNum(0);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::EnterRoundAbout).TestRoundAboutExitNum(5);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(TurnDirection::LeaveRoundAbout).TestRoundAboutExitNum(0);
 }
 
 UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
@@ -174,5 +175,5 @@ UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 1);
-  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections({turns::TurnSlightRight, turns::TurnRight});
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections({TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 }

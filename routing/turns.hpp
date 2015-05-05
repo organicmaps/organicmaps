@@ -21,7 +21,7 @@ namespace turns
 // to make check TurnRight <= turn <= TurnSlightRight work
 //
 // TurnDirection array in cpp file must be synchronized with state of TurnDirection enum in java.
-enum TurnDirection
+enum class TurnDirection
 {
   NoTurn = 0,
   GoStraight,
@@ -46,6 +46,8 @@ enum TurnDirection
   ReachedYourDestination,
   Count  // This value is used for internals only.
 };
+
+string DebugPrint(TurnDirection const l);
 
 // LaneWay array in cpp file must be synchronized with state of LaneWay enum in java.
 enum class LaneWay
@@ -86,7 +88,7 @@ string DebugPrint(TurnGeom const & turnGeom);
 typedef vector<turns::TurnGeom> TurnsGeomT;
 typedef vector<LaneWay> TSingleLane;
 
-string const & GetTurnString(TurnDirection turn);
+string const GetTurnString(TurnDirection turn);
 
 bool IsLeftTurn(TurnDirection t);
 bool IsRightTurn(TurnDirection t);

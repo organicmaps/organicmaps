@@ -30,8 +30,10 @@
  *    could be changes for one dataset (osrm version) to another one.
  *    The shorter route the less chance it'll be changed.
  */
+using namespace routing;
+using namespace turns;
 
-typedef pair<shared_ptr<routing::Route>, routing::OsrmRouter::ResultCode> RouteResultT;
+typedef pair<shared_ptr<Route>, OsrmRouter::ResultCode> RouteResultT;
 
 namespace integration
 {
@@ -46,42 +48,42 @@ namespace integration
   RouteResultT CalculateRoute(shared_ptr<OsrmRouterComponents> routerComponents,
                               m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt);
 
-  void TestTurnCount(shared_ptr<routing::Route> const route, uint32_t referenceTurnCount);
+  void TestTurnCount(shared_ptr<Route> const route, uint32_t referenceTurnCount);
 
   /// Testing route length.
   /// It is used for checking if routes have reference(sample) length.
   /// The a created route will pass the test iff
   /// referenceRouteLength - referenceRouteLength * routeLenInaccuracy  <= route->GetDistance()
   /// && referenceRouteLength + referenceRouteLength * routeLenInaccuracy >= route->GetDistance()
-  void TestRouteLength(shared_ptr<routing::Route> const route, double referenceRouteLength, double routeLenInaccuracy = 0.01);
+  void TestRouteLength(shared_ptr<Route> const route, double referenceRouteLength, double routeLenInaccuracy = 0.01);
   void CalculateRouteAndTestRouteLength(shared_ptr<OsrmRouterComponents> routerComponents, m2::PointD const & startPt,
                                         m2::PointD const & startDr, m2::PointD const & finalPt, double referenceRouteLength,
                                         double routeLenInaccuracy = 0.07);
 
   class TestTurn
   {
-    friend TestTurn GetNthTurn(shared_ptr<routing::Route> const route, uint32_t turnNumber);
-    friend TestTurn GetTurnByPoint(shared_ptr<routing::Route> const route, m2::PointD const & turnPnt, double inaccuracy);
+    friend TestTurn GetNthTurn(shared_ptr<Route> const route, uint32_t turnNumber);
+    friend TestTurn GetTurnByPoint(shared_ptr<Route> const route, m2::PointD const & turnPnt, double inaccuracy);
 
     m2::PointD const m_pnt;
-    routing::turns::TurnDirection const m_direction;
+    TurnDirection const m_direction;
     uint32_t const m_roundAboutExitNum;
     bool const m_isValid;
 
-    TestTurn() : m_pnt({0., 0.}), m_direction(routing::turns::NoTurn), m_roundAboutExitNum(0), m_isValid(false) {}
-    TestTurn(m2::PointD  const & pnt, routing::turns::TurnDirection direction, uint32_t roundAboutExitNum) :
+    TestTurn() : m_pnt({0., 0.}), m_direction(TurnDirection::NoTurn), m_roundAboutExitNum(0), m_isValid(false) {}
+    TestTurn(m2::PointD  const & pnt, TurnDirection direction, uint32_t roundAboutExitNum) :
       m_pnt(pnt), m_direction(direction), m_roundAboutExitNum(roundAboutExitNum), m_isValid(true) {}
   public:
     const TestTurn & TestValid() const;
     const TestTurn & TestNotValid() const;
     const TestTurn & TestPoint(m2::PointD  const & referencePnt, double inaccuracy = 3.) const;
-    const TestTurn & TestDirection(routing::turns::TurnDirection referenceDirection) const;
-    const TestTurn & TestOneOfDirections(set<routing::turns::TurnDirection> referenceDirections) const;
+    const TestTurn & TestDirection(TurnDirection referenceDirection) const;
+    const TestTurn & TestOneOfDirections(set<TurnDirection> referenceDirections) const;
     const TestTurn & TestRoundAboutExitNum(uint32_t referenceRoundAboutExitNum) const;
   };
 
   /// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
   /// inaccuracy is set in meters.
-  TestTurn GetNthTurn(shared_ptr<routing::Route> const route, uint32_t turnNumber);
-  TestTurn GetTurnByPoint(shared_ptr<routing::Route> const route, m2::PointD const & turnPnt, double inaccuracy = 3.);
+  TestTurn GetNthTurn(shared_ptr<Route> const route, uint32_t turnNumber);
+  TestTurn GetTurnByPoint(shared_ptr<Route> const route, m2::PointD const & turnPnt, double inaccuracy = 3.);
 }
