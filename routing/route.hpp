@@ -40,7 +40,7 @@ struct TurnItem
 
   uint32_t m_index; // Index of point on polyline (number of segment + 1).
   turns::TurnDirection m_turn;
-  vector<turns::TSingleLane> m_lanes;  // Lane information on the edge before the turn.
+  vector<turns::SingleLaneInfo> m_lanes;  // Lane information on the edge before the turn.
   uint32_t m_exitNum;  // Number of exit on roundabout.
   string m_sourceName;
   string m_targetName;

@@ -93,6 +93,19 @@ namespace location
   class FollowingInfo
   {
   public:
+    struct SingleLaneInfoOuter
+    {
+      vector<int8_t> m_lane;
+      bool m_isActive;
+      SingleLaneInfoOuter(routing::turns::SingleLaneInfo singleLaneInfo) : m_isActive(singleLaneInfo.m_isActive)
+      {
+        routing::turns::TSingleLane const & lane = singleLaneInfo.m_lane;
+        m_lane.resize(lane.size());
+        transform(lane.begin(), lane.end(), m_lane.begin(),
+                  [] (routing::turns::LaneWay l) { return static_cast<int8_t>(l); });
+      }
+    };
+
     /// @name Formatted covered distance with measurement units suffix.
     //@{
     string m_distToTarget;
@@ -108,8 +121,7 @@ namespace location
     //@}
     int m_time;
     // m_lanes contains lane information on the edge before the turn.
-    // Template parameter int is used for passing the information to Android and iOS.
-    vector<vector<int8_t>> m_lanes;
+    vector<SingleLaneInfoOuter> m_lanes;
     // The next street name
     string m_targetName;
 

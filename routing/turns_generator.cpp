@@ -8,6 +8,31 @@
 #include "std/numeric.hpp"
 #include "std/string.hpp"
 
+namespace
+{
+using namespace routing::turns;
+
+bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes, function<bool (LaneWay l, TurnDirection t)> checker)
+{
+  bool isLaneConformed = false;
+  // There are two hidden nested loops below (transform and find_if).
+  // But the number of calls of the body of inner one (lambda in find_if) is relatively small.
+  // Less than 10 in most cases.
+  transform(lanes.begin(), lanes.end(), lanes.begin(),
+            [&isLaneConformed, turn, checker] (SingleLaneInfo & singleLane)
+  {
+    if (find_if(singleLane.m_lane.cbegin(), singleLane.m_lane.cend(),
+                [turn, checker] (LaneWay l) { return checker(l, turn); }) != singleLane.m_lane.cend())
+    {
+      singleLane.m_isActive = true;
+      isLaneConformed = true;
+    }
+    return singleLane;
+  });
+  return isLaneConformed;
+}
+} // namespace
+
 namespace routing
 {
 namespace turns
@@ -21,13 +46,13 @@ OsrmMappingTypes::FtSeg GetSegment(PathData const & node, RoutingMapping const &
   return seg;
 }
 
-vector<routing::turns::TSingleLane> GetLanesInfo(PathData const & node,
+vector<SingleLaneInfo> GetLanesInfo(PathData const & node,
                                                  RoutingMapping const & routingMapping,
                                                  TGetIndexFunction GetIndex, Index const & index)
 {
   // seg1 is the last segment before a point of bifurcation (before turn)
   OsrmMappingTypes::FtSeg const seg1 = GetSegment(node, routingMapping, GetIndex);
-  vector<routing::turns::TSingleLane> lanes;
+  vector<SingleLaneInfo> lanes;
   if (seg1.IsValid())
   {
     FeatureType ft1;
@@ -38,7 +63,7 @@ vector<routing::turns::TSingleLane> GetLanesInfo(PathData const & node,
     if (ftypes::IsOneWayChecker::Instance()(ft1))
     {
       string const turnLanes = ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES);
-      routing::turns::ParseLanes(turnLanes, lanes);
+      ParseLanes(turnLanes, lanes);
       return lanes;
     }
     // two way roads
@@ -47,20 +72,20 @@ vector<routing::turns::TSingleLane> GetLanesInfo(PathData const & node,
       // forward direction
       string const turnLanesForward =
           ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_FORWARD);
-      routing::turns::ParseLanes(turnLanesForward, lanes);
+      ParseLanes(turnLanesForward, lanes);
       return lanes;
     }
     // backward direction
     string const turnLanesBackward =
         ft1.GetMetadata().Get(feature::FeatureMetadata::FMD_TURN_LANES_BACKWARD);
-    routing::turns::ParseLanes(turnLanesBackward, lanes);
+    ParseLanes(turnLanesBackward, lanes);
     return lanes;
   }
   return lanes;
 }
 
 void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir,
-                           turns::TurnsGeomT & turnsGeom)
+                           TurnsGeomT & turnsGeom)
 {
   size_t const kNumPoints = points.size();
   /// "Pivot point" is a point of bifurcation (a point of a turn).
@@ -113,24 +138,24 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
   for (size_t idx = 0; idx < turnsDir.size(); )
   {
     TurnItem & t = turnsDir[idx];
-    if (roundabout && t.m_turn != turns::TurnDirection::StayOnRoundAbout
-        && t.m_turn != turns::TurnDirection::LeaveRoundAbout)
+    if (roundabout && t.m_turn != TurnDirection::StayOnRoundAbout
+        && t.m_turn != TurnDirection::LeaveRoundAbout)
     {
       exitNum = 0;
       roundabout = nullptr;
     }
-    else if (t.m_turn == turns::TurnDirection::EnterRoundAbout)
+    else if (t.m_turn == TurnDirection::EnterRoundAbout)
     {
       ASSERT(!roundabout, ());
       roundabout = &t;
     }
-    else if (t.m_turn == turns::TurnDirection::StayOnRoundAbout)
+    else if (t.m_turn == TurnDirection::StayOnRoundAbout)
     {
       ++exitNum;
       turnsDir.erase(turnsDir.begin() + idx);
       continue;
     }
-    else if (roundabout && t.m_turn == turns::TurnDirection::LeaveRoundAbout)
+    else if (roundabout && t.m_turn == TurnDirection::LeaveRoundAbout)
     {
       roundabout->m_exitNum = exitNum + 1;
       roundabout = nullptr;
@@ -142,8 +167,8 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
     // means the distance in meters between the former turn (idx - 1)
     // and the current turn (idx).
     if (idx > 0 &&
-        turns::IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
-        turns::IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
+        IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
+        IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
         routeDistanceMeters(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters)
     {
       turnsDir.erase(turnsDir.begin() + idx - 1);
@@ -151,7 +176,7 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
     }
 
     if (!t.m_keepAnyway
-        && turns::IsGoStraightOrSlightTurn(t.m_turn)
+        && IsGoStraightOrSlightTurn(t.m_turn)
         && !t.m_sourceName.empty()
         && strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
     {
@@ -161,7 +186,23 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
 
     ++idx;
   }
+  AddingActiveLaneInformation(turnsDir);
   return;
 }
+
+void AddingActiveLaneInformation(Route::TurnsT & turnsDir)
+{
+  for (auto & t : turnsDir)
+  {
+    vector<turns::SingleLaneInfo> & lanes = t.m_lanes;
+    if (lanes.empty())
+      continue;
+    TurnDirection const turn = t.m_turn;
+    if (FixupLaneSet(turn, lanes, IsLaneWayConformedTurnDirection))
+      continue;
+    FixupLaneSet(turn, lanes, IsLaneWayConformedTurnDirectionApproximately);
+  }
+}
+
 }
 }

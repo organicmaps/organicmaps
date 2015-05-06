@@ -22,14 +22,16 @@ typedef function<size_t(pair<size_t, size_t>)> TGetIndexFunction;
 
 OsrmMappingTypes::FtSeg GetSegment(PathData const & node, RoutingMapping const & routingMapping,
                                    TGetIndexFunction GetIndex);
-vector<routing::turns::TSingleLane> GetLanesInfo(PathData const & node,
+vector<SingleLaneInfo> GetLanesInfo(PathData const & node,
                                                  RoutingMapping const & routingMapping,
                                                  TGetIndexFunction GetIndex, Index const & index);
 /// CalculateTurnGeometry calculates geometry for all the turns. That means that for every turn
 /// CalculateTurnGeometry calculates a sequence of points which will be used
 /// for displaying arrows on the route.
 void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir,
-                           turns::TurnsGeomT & turnsGeom);
+                           TurnsGeomT & turnsGeom);
+// Selects lanes which are recommended for the end user.
+void AddingActiveLaneInformation(Route::TurnsT & turnsDir);
 void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir);
 }
 }

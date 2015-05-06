@@ -1315,39 +1315,45 @@ extern "C"
     
     jclass const klass = env->FindClass("com/mapswithme/maps/LocationState$RoutingInfo");
     ASSERT(klass, (jni::DescribeException()));
-    static jmethodID const methodID =
-        env->GetMethodID(klass, "<init>",
-                         "(Ljava/lang/String;Ljava/lang/String;"
-                         "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II[[B)V");
-    ASSERT(methodID, (jni::DescribeException()));
+    static jmethodID const ctorRouteInfoID = env->GetMethodID(klass, "<init>",
+        "(Ljava/lang/String;Ljava/lang/String;"
+        "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;II"
+        "[Lcom/mapswithme/maps/LocationState$SingleLaneInfo;)V");
+    ASSERT(ctorRouteInfoID, (jni::DescribeException()));
 
-    vector<vector<int8_t>> const & lanes = info.m_lanes;
+    vector<location::FollowingInfo::SingleLaneInfoOuter> const & lanes = info.m_lanes;
     jobjectArray jLanes = nullptr;
     if (!lanes.empty())
     {
-      // A new java two-dimensional array for lane information is allocated here.
-      // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java
-      // GC.
-      jclass const myClassArray = env->FindClass("[B");
+      // A new java array of SingleLaneInfo classes for lane information is allocated here.
+      // Then it will be saved in com.mapswithme.maps.LocationState, and then removed by java GC.
+      jclass const myClassArray = env->FindClass("com/mapswithme/maps/LocationState$SingleLaneInfo");
       ASSERT(myClassArray, (jni::DescribeException()));
       size_t const lanesSize = lanes.size();
       jLanes = env->NewObjectArray(lanesSize, myClassArray, nullptr);
       ASSERT(jLanes, (jni::DescribeException()));
-      jbyteArray jOneLane = nullptr;
+      static jmethodID const ctorSingleLaneInfoID = env->GetMethodID(myClassArray, "<init>", "([BZ)V");
+      ASSERT(ctorSingleLaneInfoID, (jni::DescribeException()));
+
+      jbyteArray singleLane = nullptr;
+      jobject singleLaneInfo = nullptr;
 
       for (size_t j = 0; j < lanesSize; ++j)
       {
-        size_t const laneSize = lanes[j].size();
-        jOneLane = env->NewByteArray(laneSize);
-        ASSERT(jOneLane, (jni::DescribeException()));
-        env->SetByteArrayRegion(jOneLane, 0, laneSize, lanes[j].data());
-        env->SetObjectArrayElement(jLanes, j, jOneLane);
-        env->DeleteLocalRef(jOneLane);
+        size_t const laneSize = lanes[j].m_lane.size();
+        singleLane = env->NewByteArray(laneSize);
+        ASSERT(singleLane, (jni::DescribeException()));
+        env->SetByteArrayRegion(singleLane, 0, laneSize, lanes[j].m_lane.data());
+        singleLaneInfo = env->NewObject(myClassArray, ctorSingleLaneInfoID, singleLane, lanes[j].m_isActive);
+        ASSERT(singleLaneInfo, (jni::DescribeException()));
+        env->SetObjectArrayElement(jLanes, j, singleLaneInfo);
+        env->DeleteLocalRef(singleLaneInfo);
+        env->DeleteLocalRef(singleLane);
       }
     }
 
     jobject const result = env->NewObject(
-        klass, methodID, jni::ToJavaString(env, info.m_distToTarget),
+        klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
         jni::ToJavaString(env, info.m_targetUnitsSuffix),
         jni::ToJavaString(env, info.m_distToTurn),
         jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_targetName),

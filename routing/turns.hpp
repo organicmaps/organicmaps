@@ -1,5 +1,6 @@
 #pragma once
 
+#include "std/initializer_list.hpp"
 #include "std/iostream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
@@ -88,6 +89,18 @@ string DebugPrint(TurnGeom const & turnGeom);
 typedef vector<turns::TurnGeom> TurnsGeomT;
 typedef vector<LaneWay> TSingleLane;
 
+struct SingleLaneInfo
+{
+  SingleLaneInfo(initializer_list<LaneWay> const & l = {}) : m_lane(l), m_isActive(false) {}
+
+  TSingleLane m_lane;
+  bool m_isActive;
+
+  bool operator==(SingleLaneInfo const & other) const;
+};
+
+string DebugPrint(SingleLaneInfo const & singleLaneInfo);
+
 string const GetTurnString(TurnDirection turn);
 
 bool IsLeftTurn(TurnDirection t);
@@ -95,6 +108,9 @@ bool IsRightTurn(TurnDirection t);
 bool IsLeftOrRightTurn(TurnDirection t);
 bool IsStayOnRoad(TurnDirection t);
 bool IsGoStraightOrSlightTurn(TurnDirection t);
+
+bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t);
+bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
 
 /*!
  * \brief Parse lane information which comes from @lanesString
@@ -104,7 +120,7 @@ bool IsGoStraightOrSlightTurn(TurnDirection t);
  * Note 1: if @lanesString is empty returns false.
  * Note 2: @laneString is passed by value on purpose. It'll be used(changed) in the method.
  */
-bool ParseLanes(string lanesString, vector<TSingleLane> & lanes);
+bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes);
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes);
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane);
 

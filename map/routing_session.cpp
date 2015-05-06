@@ -173,19 +173,12 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
     if (dist < kShowLanesDistInMeters)
     {
-      // There are two nested for-loops below. Outer one is for lanes and inner one (transform) is
-      // for each lane's directions.
-      // The meaning of the code below is info.m_lanes = turn.m_lanes; (vector<vector<int>> =
-      // vector<vector<LaneWay>>).
-      // The size of turn.m_lanes is relatively small. Less than 10 in most cases.
+      // There are two nested loops below. Outer one is for lanes and inner one (ctor of SingleLaneInfo) is
+      // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in most cases.
       info.m_lanes.clear();
       for (size_t j = 0; j < turn.m_lanes.size(); ++j)
       {
-        vector<int8_t> lane;
-        lane.reserve(turn.m_lanes[j].size());
-        transform(turn.m_lanes[j].begin(), turn.m_lanes[j].end(), back_inserter(lane),
-                  [](routing::turns::LaneWay l) { return static_cast<int8_t>(l); });
-        info.m_lanes.push_back(move(lane));
+        info.m_lanes.push_back(move(FollowingInfo::SingleLaneInfoOuter(turn.m_lanes[j])));
       }
     }
     else

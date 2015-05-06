@@ -37,7 +37,7 @@ UNIT_TEST(TestParseSingleLane)
 {
   TSingleLane result;
   TEST(ParseSingleLane("through;right", ';', result), ());
-  vector<LaneWay> expected1 = {LaneWay::Through, LaneWay::Right};
+  TSingleLane expected1 = {LaneWay::Through, LaneWay::Right};
   TEST_EQUAL(result, expected1, ());
 
   TEST(!ParseSingleLane("through;Right", ';', result), ());
@@ -55,7 +55,7 @@ UNIT_TEST(TestParseSingleLane)
   TEST_EQUAL(result.size(), 0, ());
 
   TEST(ParseSingleLane("left;through", ';', result), ());
-  vector<LaneWay> expected2 = {LaneWay::Left, LaneWay::Through};
+  TSingleLane expected2 = {LaneWay::Left, LaneWay::Through};
   TEST_EQUAL(result, expected2, ());
 
   TEST(ParseSingleLane("left", ';', result), ());
@@ -65,59 +65,59 @@ UNIT_TEST(TestParseSingleLane)
 
 UNIT_TEST(TestParseLanes)
 {
-  vector<TSingleLane> result;
+  vector<SingleLaneInfo> result;
   TEST(ParseLanes("through|through|through|through;right", result), ());
   TEST_EQUAL(result.size(), 4, ());
-  TEST_EQUAL(result[0].size(), 1, ());
-  TEST_EQUAL(result[3].size(), 2, ());
-  TEST_EQUAL(result[0][0], LaneWay::Through, ());
-  TEST_EQUAL(result[3][0], LaneWay::Through, ());
-  TEST_EQUAL(result[3][1], LaneWay::Right, ());
+  TEST_EQUAL(result[0].m_lane.size(), 1, ());
+  TEST_EQUAL(result[3].m_lane.size(), 2, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Through, ());
+  TEST_EQUAL(result[3].m_lane[0], LaneWay::Through, ());
+  TEST_EQUAL(result[3].m_lane[1], LaneWay::Right, ());
 
   TEST(ParseLanes("left|left;through|through|through", result), ());
   TEST_EQUAL(result.size(), 4, ());
-  TEST_EQUAL(result[0].size(), 1, ());
-  TEST_EQUAL(result[1].size(), 2, ());
-  TEST_EQUAL(result[3].size(), 1, ());
-  TEST_EQUAL(result[0][0], LaneWay::Left, ());
-  TEST_EQUAL(result[1][0], LaneWay::Left, ());
-  TEST_EQUAL(result[1][1], LaneWay::Through, ());
-  TEST_EQUAL(result[3][0], LaneWay::Through, ());
+  TEST_EQUAL(result[0].m_lane.size(), 1, ());
+  TEST_EQUAL(result[1].m_lane.size(), 2, ());
+  TEST_EQUAL(result[3].m_lane.size(), 1, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[1].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[1].m_lane[1], LaneWay::Through, ());
+  TEST_EQUAL(result[3].m_lane[0], LaneWay::Through, ());
 
   TEST(ParseLanes("left|through|through", result), ());
   TEST_EQUAL(result.size(), 3, ());
-  TEST_EQUAL(result[0].size(), 1, ());
-  TEST_EQUAL(result[1].size(), 1, ());
-  TEST_EQUAL(result[2].size(), 1, ());
-  TEST_EQUAL(result[0][0], LaneWay::Left, ());
-  TEST_EQUAL(result[1][0], LaneWay::Through, ());
-  TEST_EQUAL(result[2][0], LaneWay::Through, ());
+  TEST_EQUAL(result[0].m_lane.size(), 1, ());
+  TEST_EQUAL(result[1].m_lane.size(), 1, ());
+  TEST_EQUAL(result[2].m_lane.size(), 1, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[1].m_lane[0], LaneWay::Through, ());
+  TEST_EQUAL(result[2].m_lane[0], LaneWay::Through, ());
 
   TEST(ParseLanes("left|le  ft|   through|through   |  right", result), ());
   TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].size(), 1, ());
-  TEST_EQUAL(result[4].size(), 1, ());
-  TEST_EQUAL(result[0][0], LaneWay::Left, ());
-  TEST_EQUAL(result[1][0], LaneWay::Left, ());
-  TEST_EQUAL(result[2][0], LaneWay::Through, ());
-  TEST_EQUAL(result[3][0], LaneWay::Through, ());
-  TEST_EQUAL(result[4][0], LaneWay::Right, ());
+  TEST_EQUAL(result[0].m_lane.size(), 1, ());
+  TEST_EQUAL(result[4].m_lane.size(), 1, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[1].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[2].m_lane[0], LaneWay::Through, ());
+  TEST_EQUAL(result[3].m_lane[0], LaneWay::Through, ());
+  TEST_EQUAL(result[4].m_lane[0], LaneWay::Right, ());
 
   TEST(ParseLanes("left|Left|through|througH|right", result), ());
   TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].size(), 1, ());
-  TEST_EQUAL(result[4].size(), 1, ());
-  TEST_EQUAL(result[0][0], LaneWay::Left, ());
-  TEST_EQUAL(result[4][0], LaneWay::Right, ());
+  TEST_EQUAL(result[0].m_lane.size(), 1, ());
+  TEST_EQUAL(result[4].m_lane.size(), 1, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[4].m_lane[0], LaneWay::Right, ());
 
   TEST(ParseLanes("left|Left|through|througH|through;right;sharp_rIght", result), ());
   TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].size(), 1, ());
-  TEST_EQUAL(result[4].size(), 3, ());
-  TEST_EQUAL(result[0][0], LaneWay::Left, ());
-  TEST_EQUAL(result[4][0], LaneWay::Through, ());
-  TEST_EQUAL(result[4][1], LaneWay::Right, ());
-  TEST_EQUAL(result[4][2], LaneWay::SharpRight, ());
+  TEST_EQUAL(result[0].m_lane.size(), 1, ());
+  TEST_EQUAL(result[4].m_lane.size(), 3, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[4].m_lane[0], LaneWay::Through, ());
+  TEST_EQUAL(result[4].m_lane[1], LaneWay::Right, ());
+  TEST_EQUAL(result[4].m_lane[2], LaneWay::SharpRight, ());
 
   TEST(!ParseLanes("left|Leftt|through|througH|right", result), ());
   TEST_EQUAL(result.size(), 0, ());
@@ -130,8 +130,8 @@ UNIT_TEST(TestParseLanes)
 
   TEST(ParseLanes("left |Left|through|througH|right", result), ());
   TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0][0], LaneWay::Left, ());
-  TEST_EQUAL(result[1][0], LaneWay::Left, ());
+  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
+  TEST_EQUAL(result[1].m_lane[0], LaneWay::Left, ());
 }
 
 UNIT_TEST(TestFixupTurns)
@@ -270,4 +270,60 @@ UNIT_TEST(TestCalculateTurnGeometry)
                                                  turnsGeom3[0].m_points[3]) - kSquareSideMeters),
                                                  kErrorMeters, ());
 }
+
+UNIT_TEST(TestIsLaneWayConformedTurnDirection)
+{
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Left, TurnDirection::TurnLeft), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Right, TurnDirection::TurnRight), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, TurnDirection::TurnSlightLeft), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::SharpRight, TurnDirection::TurnSharpRight), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Reverse, TurnDirection::UTurn), ());
+  TEST(IsLaneWayConformedTurnDirection(LaneWay::Through, TurnDirection::GoStraight), ());
+
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Left, TurnDirection::TurnSlightLeft), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Right, TurnDirection::TurnSharpRight), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SlightLeft, TurnDirection::GoStraight), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::SharpRight, TurnDirection::NoTurn), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Reverse, TurnDirection::TurnLeft), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::None, TurnDirection::ReachedYourDestination), ());
 }
+
+UNIT_TEST(TestIsLaneWayConformedTurnDirectionApproximately)
+{
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Left, TurnDirection::TurnSharpLeft), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Left, TurnDirection::TurnSlightLeft), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Right, TurnDirection::TurnSharpRight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Right, TurnDirection::TurnRight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::Reverse, TurnDirection::UTurn), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightLeft, TurnDirection::GoStraight), ());
+  TEST(IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight, TurnDirection::GoStraight), ());
+
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpLeft, TurnDirection::UTurn), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpRight, TurnDirection::UTurn), ());
+  TEST(!IsLaneWayConformedTurnDirection(LaneWay::Through, TurnDirection::ReachedYourDestination), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::Through, TurnDirection::TurnRight), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight, TurnDirection::TurnSharpLeft), ());
+}
+
+UNIT_TEST(TestAddingActiveLaneInformation)
+{
+  Route::TurnsT turns = {{0, TurnDirection::GoStraight},
+                         {1, TurnDirection::TurnLeft},
+                         {2, TurnDirection::ReachedYourDestination}};
+  turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
+  turns[0].m_lanes.push_back({LaneWay::Right});
+
+  turns[1].m_lanes.push_back({LaneWay::SlightLeft});
+  turns[1].m_lanes.push_back({LaneWay::Through});
+  turns[1].m_lanes.push_back({LaneWay::Through});
+
+  AddingActiveLaneInformation(turns);
+
+  TEST(turns[0].m_lanes[0].m_isActive, ());
+  TEST(!turns[0].m_lanes[1].m_isActive, ());
+
+  TEST(turns[1].m_lanes[0].m_isActive, ());
+  TEST(!turns[1].m_lanes[1].m_isActive, ());
+  TEST(!turns[1].m_lanes[1].m_isActive, ());
+}
+} // namespace

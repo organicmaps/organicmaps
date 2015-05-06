@@ -26,6 +26,28 @@ public enum LocationState
 
   public native void invalidatePosition();
 
+  public static class SingleLaneInfo
+  {
+    byte[] mLane;
+    boolean mIsActive;
+
+    SingleLaneInfo(byte[] lane, boolean isActive)
+    {
+      mLane = lane;
+      mIsActive = isActive;
+    }
+
+    private String DumpString()
+    {
+      final int startCapacity = 32;
+      StringBuilder sb = new StringBuilder(startCapacity);
+      sb.append("Is lane active? ").append(mIsActive).append(":");
+      for (byte i : mLane)
+        sb.append(" ").append(i);
+      return sb.toString();
+    }
+  }
+
   public static class RoutingInfo
   {
     public String mDistToTarget;
@@ -99,21 +121,19 @@ public enum LocationState
       SHARP_RIGHT
     };
 
-    private void DumpLanes(byte[][] lanes)
+    private void DumpLanes(SingleLaneInfo[] lanes)
     {
       for (int j = 0; j < lanes.length; j++)
       {
         final int startCapacity = 32;
         StringBuilder sb = new StringBuilder(startCapacity);
-        sb.append("Lane number ").append(j).append(":");
-        for (int i : lanes[j])
-          sb.append(" ").append(i);
+        sb.append("Lane number ").append(j).append(":").append(lanes[j].DumpString());
         Log.d("JNIARRAY", "    " + sb.toString());
       }
     }
 
-    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, String targetName, int direction, int totalTime
-       , byte[][] lanes)
+    public RoutingInfo(String distToTarget, String units, String distTurn, String turnSuffix, 
+                       String targetName, int direction, int totalTime, SingleLaneInfo[] lanes)
     {
       // lanes is not equal to null if any lane information is available and should be displayed.
       // If so, lanes contains values of Lane enum for every lane.

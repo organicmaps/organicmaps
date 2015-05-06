@@ -1,5 +1,7 @@
 #include "routing/turns.hpp"
 
+#include "base/internal/message.hpp"
+
 #include "std/array.hpp"
 
 
@@ -55,6 +57,11 @@ bool TurnGeom::operator==(TurnGeom const & other) const
     && m_points == other.m_points;
 }
 
+bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
+{
+  return m_lane == other.m_lane && m_isActive == other.m_isActive;
+}
+
 string const GetTurnString(TurnDirection turn)
 {
   stringstream out;
@@ -95,6 +102,70 @@ bool IsGoStraightOrSlightTurn(TurnDirection t)
   return (t == TurnDirection::GoStraight || t == TurnDirection::TurnSlightLeft || t == TurnDirection::TurnSlightRight);
 }
 
+bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t)
+{
+  switch(t)
+  {
+  case TurnDirection::NoTurn:
+  case TurnDirection::TakeTheExit:
+  case TurnDirection::EnterRoundAbout:
+  case TurnDirection::LeaveRoundAbout:
+  case TurnDirection::StayOnRoundAbout:
+  case TurnDirection::StartAtEndOfStreet:
+  case TurnDirection::ReachedYourDestination:
+  default:
+    return false;
+  case TurnDirection::GoStraight:
+    return l == LaneWay::Through;
+  case TurnDirection::TurnRight:
+    return l == LaneWay::Right;
+  case TurnDirection::TurnSharpRight:
+    return l == LaneWay::SharpRight;
+  case TurnDirection::TurnSlightRight:
+    return l == LaneWay::SlightRight;
+  case TurnDirection::TurnLeft:
+    return l == LaneWay::Left;
+  case TurnDirection::TurnSharpLeft:
+    return l == LaneWay::SharpLeft;
+  case TurnDirection::TurnSlightLeft:
+    return l == LaneWay::SlightLeft;
+  case TurnDirection::UTurn:
+    return l == LaneWay::Reverse;
+  }
+}
+
+bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t)
+{
+  switch(t)
+  {
+  case TurnDirection::NoTurn:
+  case TurnDirection::TakeTheExit:
+  case TurnDirection::EnterRoundAbout:
+  case TurnDirection::LeaveRoundAbout:
+  case TurnDirection::StayOnRoundAbout:
+  case TurnDirection::StartAtEndOfStreet:
+  case TurnDirection::ReachedYourDestination:
+  default:
+    return false;
+  case TurnDirection::GoStraight:
+    return l == LaneWay::Through || l == LaneWay::SlightRight ||  l == LaneWay::SlightLeft;
+  case TurnDirection::TurnRight:
+    return l == LaneWay::Right || l == LaneWay::SharpRight || l == LaneWay::SlightRight;
+  case TurnDirection::TurnSharpRight:
+    return l == LaneWay::SharpRight || l == LaneWay::Right;
+  case TurnDirection::TurnSlightRight:
+    return l == LaneWay::SlightRight || l == LaneWay::Through || l == LaneWay::Right;
+  case TurnDirection::TurnLeft:
+    return l == LaneWay::Left || l == LaneWay::SlightLeft || l == LaneWay::SharpLeft;
+  case TurnDirection::TurnSharpLeft:
+    return l == LaneWay::SharpLeft || l == LaneWay::Left;
+  case TurnDirection::TurnSlightLeft:
+    return l == LaneWay::SlightLeft || l == LaneWay::Through || l == LaneWay::Left;
+  case TurnDirection::UTurn:
+    return l == LaneWay::Reverse;
+  }
+}
+
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes)
 {
   lanes.clear();
@@ -125,7 +196,7 @@ bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & la
   return true;
 }
 
-bool ParseLanes(string lanesString, vector<TSingleLane> & lanes)
+bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes)
 {
   if (lanesString.empty())
     return false;
@@ -135,11 +206,11 @@ bool ParseLanes(string lanesString, vector<TSingleLane> & lanes)
                          lanesString.end());
 
   vector<string> SplitLanesStrings;
-  TSingleLane lane;
+  SingleLaneInfo lane;
   SplitLanes(lanesString, '|', SplitLanesStrings);
   for (string const & s : SplitLanesStrings)
   {
-    if (!ParseSingleLane(s, ';', lane))
+    if (!ParseSingleLane(s, ';', lane.m_lane))
     {
       lanes.clear();
       return false;
@@ -176,6 +247,14 @@ string DebugPrint(TurnDirection const turn)
 {
   stringstream out;
   out << "[ " << GetTurnString(turn) << " ]";
+  return out.str();
+}
+
+string DebugPrint(SingleLaneInfo const & singleLaneInfo)
+{
+  stringstream out;
+  out << "[ m_isActive == " << singleLaneInfo.m_isActive << ". m_lane == "
+      << ::DebugPrint(singleLaneInfo.m_lane) << " ]" << endl;
   return out.str();
 }
 
