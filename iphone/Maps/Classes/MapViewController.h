@@ -15,13 +15,6 @@ namespace search { struct AddressInfo; }
 
 @interface MapViewController : ViewController <LocationObserver, UIPopoverControllerDelegate>
 {
-	bool m_isSticking;
-	size_t m_StickyThreshold;
-	m2::PointD m_Pt1, m_Pt2;
-
-  /// Temporary solution to improve long touch detection.
-  m2::PointD m_touchDownPoint;
-
   CGPoint m_popoverPos;
   
   LocationPredictor * m_predictor;

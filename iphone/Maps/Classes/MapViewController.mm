@@ -24,6 +24,8 @@
 
 #include "map/user_mark.hpp"
 
+#include "drape_frontend/user_event_stream.hpp"
+
 #include "platform/file_logging.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -232,14 +234,22 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   f.GetBalloonManager().OnShowMark(userMark);
 }
 
-- (void)onSingleTap:(NSValueWrapper *)point
+- (void)onMyPositionClicked:(id)sender
 {
-  [self processMapClickAtPoint:[[point getInnerValue] CGPointValue] longClick:NO];
+  ///@TODO UVR
+  //GetFramework().GetLocationState()->SwitchToNextMode();
 }
 
-- (void)onLongTap:(NSValueWrapper *)point
+- (IBAction)zoomInPressed:(id)sender
 {
-  [self processMapClickAtPoint:[[point getInnerValue] CGPointValue] longClick:YES];
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
+  GetFramework().Scale(Framework::SCALE_MAG);
+}
+
+- (IBAction)zoomOutPressed:(id)sender
+{
+  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
+  GetFramework().Scale(Framework::SCALE_MIN);
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
@@ -248,35 +258,31 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   [self invalidate];
 }
 
-- (void)updatePointsFromEvent:(UIEvent *)event
+- (void)sendTouchType:(df::TouchEvent::ETouchType)type withEvent:(UIEvent *)event
 {
-  NSSet * allTouches = [event allTouches];
+  NSArray * allTouches = [[[event allTouches] allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
+  if ([allTouches count] < 1)
+    return;
 
   UIView * v = self.view;
   CGFloat const scaleFactor = v.contentScaleFactor;
 
-  // 0 touches are possible from touchesCancelled.
-  switch ([allTouches count])
+  df::TouchEvent e;
+  UITouch * touch = [allTouches objectAtIndex:0];
+  CGPoint const pt = [touch locationInView:v];
+  e.m_touches[0].m_id = reinterpret_cast<int>(touch);
+  e.m_touches[0].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
+  if (allTouches.count > 1)
   {
-    case 0:
-      break;
-    case 1:
-    {
-      CGPoint const pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:v];
-      m_Pt1 = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
-      break;
-    }
-    default:
-    {
-      NSArray * sortedTouches = [[allTouches allObjects] sortedArrayUsingFunction:compareAddress context:NULL];
-      CGPoint const pt1 = [[sortedTouches objectAtIndex:0] locationInView:v];
-      CGPoint const pt2 = [[sortedTouches objectAtIndex:1] locationInView:v];
-
-      m_Pt1 = m2::PointD(pt1.x * scaleFactor, pt1.y * scaleFactor);
-      m_Pt2 = m2::PointD(pt2.x * scaleFactor, pt2.y * scaleFactor);
-      break;
-    }
+    UITouch * touch = [allTouches objectAtIndex:1];
+    CGPoint const pt = [touch locationInView:v];
+    e.m_touches[1].m_id = reinterpret_cast<int>(touch);
+    e.m_touches[1].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   }
+  e.m_type = type;
+
+  Framework & f = GetFramework();
+  f.TouchEvent(e);
 }
 
 - (BOOL)hasForceTouch
@@ -286,181 +292,24 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
 }
 
--(void)preformLongTapSelector:(NSValue *)object
-{
-  if (![self hasForceTouch])
-    [self performSelector:@selector(onLongTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:1.0];
-}
-
--(void)performSingleTapSelector:(NSValue *)object
-{
-  [self performSelector:@selector(onSingleTap:) withObject:[[NSValueWrapper alloc] initWithValue:object] afterDelay:0.3];
-}
-
--(void)cancelLongTap
-{
-  if (![self hasForceTouch])
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onLongTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
-}
-
--(void)cancelSingleTap
-{
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(onSingleTap:) object:[[NSValueWrapper alloc] initWithValue:nil]];
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  // To cancel single tap timer
-  UITouch * theTouch = (UITouch *)[touches anyObject];
-  if (theTouch.tapCount > 1)
-    [self cancelSingleTap];
-
-  [self updatePointsFromEvent:event];
-
-  Framework & f = GetFramework();
-
-  if ([event allTouches].count == 1)
-  {
-    //if (f.GetGuiController()->OnTapStarted(m_Pt1))
-    //  return;
-    self.userTouchesAction = UserTouchesActionDrag;
-
-    // Start long-tap timer
-    [self preformLongTapSelector:[NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
-    // Temporary solution to filter long touch
-    m_touchDownPoint = m_Pt1;
-  }
-  else
-  {
-    self.userTouchesAction = UserTouchesActionScale;
-  }
-
-  m_isSticking = true;
+  [self sendTouchType:df::TouchEvent::TOUCH_DOWN withEvent:event];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  if (!self.skipForceTouch && [self hasForceTouch])
-  {
-    UITouch * theTouch = (UITouch *)[touches anyObject];
-    if (theTouch.force >= theTouch.maximumPossibleForce)
-    {
-      self.skipForceTouch = YES;
-      [self processMapClickAtPoint:[theTouch locationInView:self.view] longClick:YES];
-    }
-  }
-
-  m2::PointD const TempPt1 = m_Pt1;
-  m2::PointD const TempPt2 = m_Pt2;
-
-  [self updatePointsFromEvent:event];
-
-  // Cancel long-touch timer
-  if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
-    [self cancelLongTap];
-
-  Framework & f = GetFramework();
-
-  ///@TODO UVR
-//  if (f.GetGuiController()->OnTapMoved(m_Pt1))
-//    return;
-
-  if (m_isSticking)
-  {
-    if ((TempPt1.Length(m_Pt1) > m_StickyThreshold) || (TempPt2.Length(m_Pt2) > m_StickyThreshold))
-    {
-      m_isSticking = false;
-    }
-    else
-    {
-      // Still stickying. Restoring old points and return.
-      m_Pt1 = TempPt1;
-      m_Pt2 = TempPt2;
-      return;
-    }
-  }
-
-  NSUInteger const touchesCount = [event allTouches].count;
-  switch (self.userTouchesAction)
-  {
-    case UserTouchesActionNone:
-      if (touchesCount == 1)
-        self.userTouchesAction = UserTouchesActionDrag;
-      else
-        self.userTouchesAction = UserTouchesActionScale;
-      break;
-    case UserTouchesActionDrag:
-      if (touchesCount == 1)
-        f.DoDrag(DragEvent(m_Pt1.x, m_Pt1.y));
-      else
-        self.userTouchesAction = UserTouchesActionNone;
-      break;
-    case UserTouchesActionScale:
-      if (touchesCount == 2)
-        f.DoScale(ScaleEvent(m_Pt1.x, m_Pt1.y, m_Pt2.x, m_Pt2.y));
-      else
-        self.userTouchesAction = UserTouchesActionNone;
-      break;
-  }
+  [self sendTouchType:df::TouchEvent::TOUCH_MOVE withEvent:event];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  [self updatePointsFromEvent:event];
-  self.userTouchesAction = UserTouchesActionNone;
-
-  UITouch * theTouch = (UITouch *)[touches anyObject];
-  NSUInteger const tapCount = theTouch.tapCount;
-  NSUInteger const touchesCount = [event allTouches].count;
-
-  Framework & f = GetFramework();
-
-  if (touchesCount == 1)
-  {
-    // Cancel long-touch timer
-    [self cancelLongTap];
-
-    // TapCount could be zero if it was a single long (or moving) tap.
-    if (tapCount < 2)
-    {
-      ///@TODO UVR
-//      if (f.GetGuiController()->OnTapEnded(m_Pt1))
-//        return;
-    }
-
-    if (tapCount == 1)
-    {
-      // Launch single tap timer
-      if (m_isSticking && !self.skipForceTouch)
-        [self performSingleTapSelector: [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]];
-    }
-    else if (tapCount == 2 && m_isSticking)
-    {
-      f.ScaleToPoint(ScaleToPointEvent(m_Pt1.x, m_Pt1.y, 2.0));
-    }
-  }
-
-  if (touchesCount == 2 && tapCount == 1 && m_isSticking)
-  {
-    f.Scale(0.5);
-    if (!m_touchDownPoint.EqualDxDy(m_Pt1, 9))
-    {
-      [self cancelLongTap];
-      [self cancelSingleTap];
-    }
-    m_isSticking = NO;
-  }
-  self.skipForceTouch = NO;
+  [self sendTouchType:df::TouchEvent::TOUCH_UP withEvent:event];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  self.skipForceTouch = NO;
-  [self cancelLongTap];
-  [self cancelSingleTap];
-
-  [self updatePointsFromEvent:event];
-  self.userTouchesAction = UserTouchesActionNone;
+  [self sendTouchType:df::TouchEvent::TOUCH_CANCEL withEvent:event];
 }
 
 #pragma mark - ViewController lifecycle
@@ -515,7 +364,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
   Framework & f = GetFramework();
   f.SaveState();
-  f.SetUpdatesEnabled(false);
   f.EnterBackground();
 }
 
@@ -584,7 +432,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 {
   [super viewWillDisappear:animated];
   self.menuRestoreState = self.controlsManager.menuState;
-  GetFramework().SetUpdatesEnabled(false);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
@@ -656,16 +503,15 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
     m_StickyThreshold = 10;
 
+    EAGLView * v = (EAGLView *)self.view;
+    [v initRenderPolicy];
+
     self.forceRoutingStateChange = ForceRoutingStateChangeNone;
     self.userTouchesAction = UserTouchesActionNone;
     self.menuRestoreState = MWMBottomMenuStateInactive;
 
     // restore previous screen position
-    if (!f.LoadState())
-      f.SetMaxWorldRect();
-
-    ///@TODO UVR
-    //f.Invalidate();
+    f.LoadState();
     f.LoadBookmarks();
 
 	///@TODO UVR
