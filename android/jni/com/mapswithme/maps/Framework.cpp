@@ -13,6 +13,7 @@
 #include "map/user_mark.hpp"
 
 #include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/user_event_stream.hpp"
 #include "drape/pointers.hpp"
 
 #include "coding/file_container.hpp"
@@ -31,15 +32,6 @@
 
 #include "base/math.hpp"
 #include "base/logging.hpp"
-
-#include "std/chrono.hpp"
-
-namespace
-{
-const unsigned LONG_TOUCH_MS = 1000;
-const unsigned SHORT_TOUCH_MS = 250;
-const double DOUBLE_TOUCH_S = SHORT_TOUCH_MS / 1000.0;
-}
 
 android::Framework * g_framework = 0;
 
@@ -69,11 +61,8 @@ enum MultiTouchAction
 };
 
 Framework::Framework()
- : m_mask(0),
-   m_isCleanSingleClick(false),
-   m_doLoadState(true),
-   m_lastCompass(0.0),
-   m_wasLongClick(false)
+ : m_doLoadState(true),
+   m_lastCompass(0.0)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
@@ -151,7 +140,6 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
 
   float visualScale = GetBestDensity(densityDpi);
   m_work.CreateDrapeEngine(make_ref(m_contextFactory), visualScale, factory->GetWidth(), factory->GetHeight());
-  m_work.SetUpdatesEnabled(true);
   m_work.EnterForeground();
   LoadState();
   m_work.LoadBookmarks();
@@ -201,209 +189,48 @@ TStatus Framework::GetCountryStatus(TIndex const & idx) const
   return m_work.GetCountryStatus(idx);
 }
 
-void Framework::Move(int mode, double x, double y)
-{
-  DragEvent e(x, y);
-  switch (mode)
-  {
-  case 0: m_work.StartDrag(e); break;
-  case 1: m_work.DoDrag(e); break;
-  case 2: m_work.StopDrag(e); break;
-  }
-}
-
-void Framework::Zoom(int mode, double x1, double y1, double x2, double y2)
-{
-  ScaleEvent e(x1, y1, x2, y2);
-  switch (mode)
-  {
-  case 0: m_work.StartScale(e); break;
-  case 1: m_work.DoScale(e); break;
-  case 2: m_work.StopScale(e); break;
-  }
-}
-
-void Framework::StartTouchTask(double x, double y, unsigned ms)
-{
-  KillTouchTask();
-  m_deferredTask.reset(new DeferredTask(
-      bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), milliseconds(ms)));
-}
-
-void Framework::KillTouchTask() { m_deferredTask.reset(); }
-
 /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
 void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
 {
+  if (mask == 0)
+    return;
+
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
+  df::TouchEvent event;
 
-  // Check if we touch is canceled or we get coordinates NOT from the first pointer.
-  if ((mask != 0x1) || (eventType == MULTITOUCH_CANCEL))
+  switch(eventType)
   {
-    ///@TODO UVR
-    //if (mask == 0x1)
-    //  m_work.GetGuiController()->OnTapCancelled(m2::PointD(x1, y1));
-
-    m_isCleanSingleClick = false;
-    KillTouchTask();
-  }
-  else
-  {
-    ASSERT_EQUAL(mask, 0x1, ());
-
-    if (eventType == MULTITOUCH_DOWN)
-    {
-      KillTouchTask();
-
-      m_wasLongClick = false;
-      m_isCleanSingleClick = true;
-      m_lastX1 = x1;
-      m_lastY1 = y1;
-
-      ///@TODO UVR
-      //if (m_work.GetGuiController()->OnTapStarted(m2::PointD(x1, y1)))
-      //  return;
-
-      StartTouchTask(x1, y1, LONG_TOUCH_MS);
-    }
-
-    if (eventType == MULTITOUCH_MOVE)
-    {
-      double const minDist = df::VisualParams::Instance().GetVisualScale() * 10.0;
-      if ((fabs(x1 - m_lastX1) > minDist) || (fabs(y1 - m_lastY1) > minDist))
-      {
-        m_isCleanSingleClick = false;
-        KillTouchTask();
-      }
-
-      ///@TODO UVR
-      //if (m_work.GetGuiController()->OnTapMoved(m2::PointD(x1, y1)))
-      //  return;
-    }
-
-    if (eventType == MULTITOUCH_UP)
-    {
-      KillTouchTask();
-
-      ///@TODO UVR
-      //if (m_work.GetGuiController()->OnTapEnded(m2::PointD(x1, y1)))
-      //  return;
-
-      if (!m_wasLongClick && m_isCleanSingleClick)
-      {
-        if (m_doubleClickTimer.ElapsedSeconds() <= DOUBLE_TOUCH_S)
-        {
-          // performing double-click
-          m_work.ScaleToPoint(ScaleToPointEvent(x1, y1, 1.5));
-        }
-        else
-        {
-          // starting single touch task
-          StartTouchTask(x1, y1, SHORT_TOUCH_MS);
-
-          // starting double click
-          m_doubleClickTimer.Reset();
-        }
-      }
-      else
-        m_wasLongClick = false;
-    }
+  case MULTITOUCH_DOWN:
+    event.m_type = df::TouchEvent::TOUCH_DOWN;
+    break;
+  case MULTITOUCH_MOVE:
+    event.m_type = df::TouchEvent::TOUCH_MOVE;
+    break;
+  case MULTITOUCH_UP:
+    event.m_type = df::TouchEvent::TOUCH_UP;
+    break;
+  case MULTITOUCH_CANCEL:
+    event.m_type = df::TouchEvent::TOUCH_CANCEL;
+    break;
+  default:
+    return;
   }
 
-  // general case processing
-  if (m_mask != mask)
+  if (mask == 0x2)
   {
-    if (m_mask == 0x0)
-    {
-      if (mask == 0x1)
-        m_work.StartDrag(DragEvent(x1, y1));
-
-      if (mask == 0x2)
-        m_work.StartDrag(DragEvent(x2, y2));
-
-      if (mask == 0x3)
-        m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
-    }
-
-    if (m_mask == 0x1)
-    {
-      m_work.StopDrag(DragEvent(x1, y1));
-
-      if (mask == 0x0)
-      {
-        if ((eventType != MULTITOUCH_UP) && (eventType != MULTITOUCH_CANCEL))
-          LOG(LWARNING, ("should be MULTITOUCH_UP or MULTITOUCH_CANCEL"));
-      }
-
-      if (m_mask == 0x2)
-        m_work.StartDrag(DragEvent(x2, y2));
-
-      if (mask == 0x3)
-        m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
-    }
-
-    if (m_mask == 0x2)
-    {
-      m_work.StopDrag(DragEvent(x2, y2));
-
-      if (mask == 0x0)
-      {
-        if ((eventType != MULTITOUCH_UP) && (eventType != MULTITOUCH_CANCEL))
-          LOG(LWARNING, ("should be MULTITOUCH_UP or MULTITOUCH_CANCEL"));
-      }
-
-      if (mask == 0x1)
-        m_work.StartDrag(DragEvent(x1, y1));
-
-      if (mask == 0x3)
-        m_work.StartScale(ScaleEvent(x1, y1, x2, y2));
-    }
-
-    if (m_mask == 0x3)
-    {
-      m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
-
-      if (eventType == MULTITOUCH_MOVE)
-      {
-        if (mask == 0x1)
-          m_work.StartDrag(DragEvent(x1, y1));
-
-        if (mask == 0x2)
-          m_work.StartDrag(DragEvent(x2, y2));
-      }
-      else
-        mask = 0;
-    }
-  }
-  else
-  {
-    if (eventType == MULTITOUCH_MOVE)
-    {
-      if (m_mask == 0x1)
-        m_work.DoDrag(DragEvent(x1, y1));
-      if (m_mask == 0x2)
-        m_work.DoDrag(DragEvent(x2, y2));
-      if (m_mask == 0x3)
-        m_work.DoScale(ScaleEvent(x1, y1, x2, y2));
-    }
-
-    if ((eventType == MULTITOUCH_CANCEL) || (eventType == MULTITOUCH_UP))
-    {
-      if (m_mask == 0x1)
-        m_work.StopDrag(DragEvent(x1, y1));
-      if (m_mask == 0x2)
-        m_work.StopDrag(DragEvent(x2, y2));
-      if (m_mask == 0x3)
-        m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
-      mask = 0;
-    }
+    x1 = x2;
+    y1 = y2;
   }
 
-  m_x1 = x1;
-  m_y1 = y1;
-  m_x2 = x2;
-  m_y2 = y2;
-  m_mask = mask;
+  event.m_touches[0].m_location = m2::PointD(x1, y1);
+  event.m_touches[0].m_id = 0;
+  if (mask == 0x3)
+  {
+    event.m_touches[1].m_location = m2::PointD(x2, y2);
+    event.m_touches[1].m_id = 1;
+  }
+
+  m_work.TouchEvent(event);
 }
 
 void Framework::ShowSearchResult(search::Result const & r)
@@ -418,6 +245,46 @@ void Framework::ShowAllSearchResults()
   m_work.ShowAllSearchResults();
 }
 
+TIndex Framework::GetCountryIndex(double lat, double lon) const
+{
+  return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
+}
+
+string Framework::GetCountryCode(double lat, double lon) const
+{
+  return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
+}
+
+string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
+{
+  TIndex const idx = m_work.GetCountryIndex(pt);
+  TStatus const status = m_work.GetCountryStatus(idx);
+  if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
+    return m_work.GetCountryName(idx);
+  else
+    return string();
+}
+
+m2::PointD Framework::GetViewportCenter() const
+{
+  return m_work.GetViewportCenter();
+}
+
+void Framework::AddString(string const & name, string const & value)
+{
+  m_work.AddString(name, value);
+}
+
+void Framework::Scale(double k)
+{
+  m_work.Scale(k);
+}
+
+::Framework * Framework::NativeFramework()
+{
+  return &m_work;
+}
+
 bool Framework::Search(search::SearchParams const & params)
 {
   m_searchQuery = params.m_query;
@@ -426,19 +293,12 @@ bool Framework::Search(search::SearchParams const & params)
 
 void Framework::LoadState()
 {
-  if (!m_work.LoadState())
-    m_work.ShowAll();
+  m_work.LoadState();
 }
 
 void Framework::SaveState()
 {
   m_work.SaveState();
-}
-
-void Framework::Invalidate()
-{
-  ///@TODO UVR
-  //m_work.Invalidate();
 }
 
 void Framework::SetupMeasurementSystem()
@@ -491,52 +351,6 @@ void Framework::GetMapsWithoutSearch(vector<string> & out) const
       LOG(LWARNING, ("Bad mwm file:", countryFile.GetNameWithoutExt(), "Error:", ex.Msg()));
     }
   }
-}
-
-TIndex Framework::GetCountryIndex(double lat, double lon) const
-{
-  return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
-}
-
-string Framework::GetCountryCode(double lat, double lon) const
-{
-  return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
-}
-
-string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
-{
-  TIndex const idx = m_work.GetCountryIndex(pt);
-  TStatus const status = m_work.GetCountryStatus(idx);
-  if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
-    return m_work.GetCountryName(idx);
-  else
-    return string();
-}
-
-m2::PointD Framework::GetViewportCenter() const
-{
-  return m_work.GetViewportCenter();
-}
-
-void Framework::AddString(string const & name, string const & value)
-{
-  m_work.AddString(name, value);
-}
-
-void Framework::Scale(double k)
-{
-  m_work.Scale(k);
-}
-
-::Framework * Framework::NativeFramework()
-{
-  return &m_work;
-}
-
-void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
-{
-  m_wasLongClick = (ms == LONG_TOUCH_MS);
-  GetPinClickManager().OnShowMark(m_work.GetUserMark(m2::PointD(x, y), m_wasLongClick));
 }
 
 BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkData & bm)
@@ -1133,12 +947,6 @@ extern "C"
     env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(mark->GetPivot().x));
 
     g_framework->InjectMetadata(env, javaClazz, jsearchResult, mark);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_invalidate(JNIEnv * env, jclass clazz)
-  {
-    g_framework->Invalidate();
   }
 
   JNIEXPORT jstring JNICALL

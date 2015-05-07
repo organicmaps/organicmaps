@@ -39,22 +39,7 @@ namespace android
     int m_currentSlotID;
 
     int m_activeMapsConnectionID;
-
-    double m_x1;
-    double m_y1;
-    double m_x2;
-    double m_y2;
-    int m_mask;
-
     bool m_doLoadState;
-
-    /// @name Single click processing parameters.
-    //@{
-    my::Timer m_doubleClickTimer;
-    bool m_isCleanSingleClick;
-    double m_lastX1;
-    double m_lastY1;
-    //@}
 
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
@@ -65,10 +50,6 @@ namespace android
     int m_densityDpi;
     int m_screenWidth;
     int m_screenHeight;
-
-    void StartTouchTask(double x, double y, unsigned ms);
-    void KillTouchTask();
-    void OnProcessTouchTask(double x, double y, unsigned ms);
 
     string m_searchQuery;
 
@@ -105,9 +86,6 @@ namespace android
     routing::RouterType GetLastUsedRouter() const { return m_work.GetLastUsedRouter(); }
 
     void Resize(int w, int h);
-
-    void Move(int mode, double x, double y);
-    void Zoom(int mode, double x1, double y1, double x2, double y2);
     void Touch(int action, int mask, double x1, double y1, double x2, double y2);
 
     /// Show rect from another activity. Ensure that no LoadState will be called,
