@@ -4,6 +4,12 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#ifdef DEBUG
+#define TEST_CALL(action) if (m_testFn) m_testFn(action)
+#else
+#define TEST_CALL(action)
+#endif
+
 namespace df
 {
 
@@ -13,6 +19,22 @@ namespace
 uint64_t const LONG_TOUCH_MS = 1000;
 
 } // namespace
+
+#ifdef DEBUG
+char const * UserEventStream::BEGIN_DRAG = "BeginDrag";
+char const * UserEventStream::DRAG = "Drag";
+char const * UserEventStream::END_DRAG = "EndDrag";
+char const * UserEventStream::BEGIN_SCALE = "BeginScale";
+char const * UserEventStream::SCALE = "Scale";
+char const * UserEventStream::END_SCALE = "EndScale";
+char const * UserEventStream::BEGIN_TAP_DETECTOR = "BeginTap";
+char const * UserEventStream::LONG_TAP_DETECTED = "LongTap";
+char const * UserEventStream::SHORT_TAP_DETECTED = "ShortTap";
+char const * UserEventStream::CANCEL_TAP_DETECTOR = "CancelTap";
+char const * UserEventStream::TRY_FILTER = "TryFilter";
+char const * UserEventStream::END_FILTER = "EndFilter";
+char const * UserEventStream::CANCEL_FILTER = "CancelFilter";
+#endif
 
 UserEventStream::UserEventStream(TIsCountryLoaded const & fn)
   : m_isCountryLoaded(fn)
@@ -299,6 +321,7 @@ size_t UserEventStream::GetValidTouchesCount(array<Touch, 2> const & touches) co
 
 void UserEventStream::BeginDrag(Touch const & t)
 {
+  TEST_CALL(BEGIN_DRAG);
   ASSERT(m_state == STATE_EMPTY, ());
   m_state = STATE_DRAG;
   m_navigator.StartDrag(t.m_location);
@@ -306,12 +329,14 @@ void UserEventStream::BeginDrag(Touch const & t)
 
 void UserEventStream::Drag(Touch const & t)
 {
+  TEST_CALL(DRAG);
   ASSERT(m_state == STATE_DRAG, ());
   m_navigator.DoDrag(t.m_location);
 }
 
 void UserEventStream::EndDrag(Touch const & t)
 {
+  TEST_CALL(END_DRAG);
   ASSERT(m_state == STATE_DRAG, ());
   m_state = STATE_EMPTY;
   m_navigator.StopDrag(t.m_location);
@@ -319,6 +344,7 @@ void UserEventStream::EndDrag(Touch const & t)
 
 void UserEventStream::BeginScale(Touch const & t1, Touch const & t2)
 {
+  TEST_CALL(BEGIN_SCALE);
   ASSERT(m_state == STATE_EMPTY, ());
   m_state = STATE_SCALE;
   m_navigator.StartScale(t1.m_location, t2.m_location);
@@ -326,12 +352,14 @@ void UserEventStream::BeginScale(Touch const & t1, Touch const & t2)
 
 void UserEventStream::Scale(Touch const & t1, Touch const & t2)
 {
+  TEST_CALL(SCALE);
   ASSERT(m_state == STATE_SCALE, ());
   m_navigator.DoScale(t1.m_location, t2.m_location);
 }
 
 void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
 {
+  TEST_CALL(END_SCALE);
   ASSERT(m_state == STATE_SCALE, ());
   m_state = STATE_EMPTY;
   m_navigator.StopScale(t1.m_location, t2.m_location);
@@ -339,6 +367,7 @@ void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
 
 void UserEventStream::BeginTapDetector()
 {
+  TEST_CALL(BEGIN_TAP_DETECTOR);
   ASSERT(m_state == STATE_EMPTY, ());
   m_state = STATE_TAP_DETECTION;
   m_touchTimer.Reset();
@@ -349,6 +378,7 @@ void UserEventStream::DetectLongTap(Touch const & touch)
   ASSERT(m_state == STATE_TAP_DETECTION, ());
   if (m_touchTimer.ElapsedMillis() > LONG_TOUCH_MS)
   {
+    TEST_CALL(LONG_TAP_DETECTED);
     m_state = STATE_EMPTY;
     m_tapDetectedFn(touch.m_location, true);
   }
@@ -356,6 +386,7 @@ void UserEventStream::DetectLongTap(Touch const & touch)
 
 void UserEventStream::EndTapDetector(Touch const & touch)
 {
+  TEST_CALL(SHORT_TAP_DETECTED);
   ASSERT(m_state == STATE_TAP_DETECTION, ());
   m_state = STATE_EMPTY;
   m_tapDetectedFn(touch.m_location, false);
@@ -363,12 +394,14 @@ void UserEventStream::EndTapDetector(Touch const & touch)
 
 void UserEventStream::CancelTapDetector()
 {
+  TEST_CALL(CANCEL_TAP_DETECTOR);
   ASSERT(m_state == STATE_TAP_DETECTION, ());
   m_state = STATE_EMPTY;
 }
 
 bool UserEventStream::TryBeginFilter(Touch const & t)
 {
+  TEST_CALL(TRY_FILTER);
   ASSERT(m_state == STATE_EMPTY, ());
   if (m_filterFn(t.m_location, TouchEvent::TOUCH_DOWN))
   {
@@ -381,6 +414,7 @@ bool UserEventStream::TryBeginFilter(Touch const & t)
 
 void UserEventStream::EndFilter(const Touch & t)
 {
+  TEST_CALL(END_FILTER);
   ASSERT(m_state == STATE_FILTER, ());
   m_state = STATE_EMPTY;
   m_filterFn(t.m_location, TouchEvent::TOUCH_UP);
@@ -388,6 +422,7 @@ void UserEventStream::EndFilter(const Touch & t)
 
 void UserEventStream::CancelFilter(Touch const & t)
 {
+  TEST_CALL(CANCEL_FILTER);
   ASSERT(m_state == STATE_FILTER, ());
   m_state = STATE_EMPTY;
   m_filterFn(t.m_location, TouchEvent::TOUCH_CANCEL);

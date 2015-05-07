@@ -137,6 +137,25 @@ public:
   using TSingleTouchFilterFn = function<bool (m2::PointD const &, TouchEvent::ETouchType type)>;
   void SetTapListener(TTapDetectedFn const & tapCallback, TSingleTouchFilterFn const & filterFn);
 
+#ifdef DEBUG
+  static char const * BEGIN_DRAG;
+  static char const * DRAG;
+  static char const * END_DRAG;
+  static char const * BEGIN_SCALE;
+  static char const * SCALE;
+  static char const * END_SCALE;
+  static char const * BEGIN_TAP_DETECTOR;
+  static char const * LONG_TAP_DETECTED;
+  static char const * SHORT_TAP_DETECTED;
+  static char const * CANCEL_TAP_DETECTOR;
+  static char const * TRY_FILTER;
+  static char const * END_FILTER;
+  static char const * CANCEL_FILTER;
+
+  using TTestBridge = function<void (char const * action)>;
+  void SetTestBridge(TTestBridge const & fn) { m_testFn = fn; }
+#endif
+
 private:
   void Clear();
   void SetCenter(m2::PointD const & center, int zoom);
@@ -190,6 +209,10 @@ private:
 
   array<Touch, 2> m_touches;
   size_t m_validPointersCount;
+
+#ifdef DEBUG
+  TTestBridge m_testFn;
+#endif
 };
 
 }

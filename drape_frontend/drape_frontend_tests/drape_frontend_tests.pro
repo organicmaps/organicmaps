@@ -23,4 +23,5 @@ SOURCES += \
   object_pool_tests.cpp \
   tile_tree_tests.cpp \
   tile_utils_tests.cpp \
+  user_event_stream_tests.cpp \
 

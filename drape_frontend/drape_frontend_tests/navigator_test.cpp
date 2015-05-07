@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "drape_frontend/navigator.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -30,6 +31,7 @@
 
 UNIT_TEST(Navigator_Scale2Points)
 {
+  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
 
   navigator.OnSize(200, 100);
@@ -68,6 +70,7 @@ namespace
 
 UNIT_TEST(Navigator_G2P_P2G)
 {
+  df::VisualParams::Init(1.0, 1024);
   df::Navigator navigator;
 
   // Initialize.
