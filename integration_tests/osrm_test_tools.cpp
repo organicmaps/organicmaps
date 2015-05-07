@@ -130,49 +130,51 @@ namespace integration
     return LoadMaps(maps);
   }
 
-  shared_ptr<OsrmRouterComponents> GetAllMaps()
+  OsrmRouterComponents const & GetAllMaps()
   {
-    static shared_ptr<OsrmRouterComponents> inst = LoadAllMaps();
+    static shared_ptr<OsrmRouterComponents> const inst = LoadAllMaps();
     ASSERT(inst, ());
-    return inst;
+    return *inst;
   }
 
-  RouteResultT CalculateRoute(shared_ptr<OsrmRouterComponents> routerComponents,
-                              m2::PointD const & startPt, m2::PointD const & startDr, m2::PointD const & finalPt)
+  TRouteResult CalculateRoute(OsrmRouterComponents const & routerComponents,
+                              m2::PointD const & startPoint, m2::PointD const & startDirection,
+                              m2::PointD const & finalPoint)
   {
-    ASSERT(routerComponents, ());
-    OsrmRouter * osrmRouter = routerComponents->GetOsrmRouter();
+    OsrmRouter * osrmRouter = routerComponents.GetOsrmRouter();
     ASSERT(osrmRouter, ());
     shared_ptr<Route> route(new Route("mapsme"));
     OsrmRouter::ResultCode result =
-        osrmRouter->CalculateRoute(startPt, startDr, finalPt, *route.get());
-    return RouteResultT(route, result);
-  }
-
-  void TestTurnCount(shared_ptr<routing::Route> const route, uint32_t referenceTurnCount)
-  {
+        osrmRouter->CalculateRoute(startPoint, startDirection, finalPoint, *route.get());
     ASSERT(route, ());
-    TEST_EQUAL(route->GetTurnsGeometry().size(), referenceTurnCount, ());
+    return TRouteResult(route, result);
   }
 
-  void TestRouteLength(shared_ptr<Route> const route, double referenceRouteLength, double routeLenInaccuracy)
+  void TestTurnCount(routing::Route const & route, uint32_t expectedTurnCount)
   {
-    ASSERT(route, ());
-    double const delta = referenceRouteLength * routeLenInaccuracy;
-    double const routeLength = route->GetDistance();
-    TEST_LESS_OR_EQUAL(routeLength - delta, referenceRouteLength, ());
-    TEST_GREATER_OR_EQUAL(routeLength + delta, referenceRouteLength, ());
+    TEST_EQUAL(route.GetTurnsGeometry().size(), expectedTurnCount, ());
   }
 
-  void CalculateRouteAndTestRouteLength(shared_ptr<OsrmRouterComponents> routerComponents, m2::PointD const & startPt,
-                                        m2::PointD const & startDr, m2::PointD const & finalPt, double referenceRouteLength,
-                                        double routeLenInaccuracy)
+  void TestRouteLength(Route const & route, double expectedRouteLength,
+                       double relativeError)
   {
-    RouteResultT routeResult = CalculateRoute(routerComponents, startPt, startDr, finalPt);
-    shared_ptr<Route> const route = routeResult.first;
+    double const delta = expectedRouteLength * relativeError;
+    double const routeLength = route.GetDistance();
+    TEST_LESS_OR_EQUAL(routeLength - delta, expectedRouteLength, ());
+    TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteLength, ());
+  }
+
+  void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
+                                        m2::PointD const & startPoint,
+                                        m2::PointD const & startDirection,
+                                        m2::PointD const & finalPoint, double expectedRouteLength,
+                                        double relativeError)
+  {
+    TRouteResult routeResult =
+        CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
     OsrmRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, OsrmRouter::NoError, ());
-    TestRouteLength(route, referenceRouteLength, routeLenInaccuracy);
+    TestRouteLength(*routeResult.first, expectedRouteLength, relativeError);
   }
 
   const TestTurn & TestTurn::TestValid() const
@@ -187,65 +189,65 @@ namespace integration
     return *this;
   }
 
-  const TestTurn & TestTurn::TestPoint(m2::PointD const & referencePnt, double inaccuracy) const
+  const TestTurn & TestTurn::TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters) const
   {
-    double const dist = ms::DistanceOnEarth(referencePnt.y, referencePnt.x, m_pnt.y, m_pnt.x);
-    TEST_LESS(dist, inaccuracy, ());
+    double const dist = ms::DistanceOnEarth(expectedPoint.y, expectedPoint.x, m_point.y, m_point.x);
+    TEST_LESS(dist, inaccuracyMeters, ());
     return *this;
   }
 
-  const TestTurn & TestTurn::TestDirection(routing::turns::TurnDirection referenceDirection) const
+  const TestTurn & TestTurn::TestDirection(routing::turns::TurnDirection expectedDirection) const
   {
-    TEST_EQUAL(m_direction, referenceDirection, ());
+    TEST_EQUAL(m_direction, expectedDirection, ());
     return *this;
   }
 
-  const TestTurn & TestTurn::TestOneOfDirections(set<routing::turns::TurnDirection> referenceDirections) const
+  const TestTurn & TestTurn::TestOneOfDirections(
+      set<routing::turns::TurnDirection> const & expectedDirections) const
   {
-    TEST(referenceDirections.find(m_direction) != referenceDirections.end(), ());
+    TEST(expectedDirections.find(m_direction) != expectedDirections.cend(), ());
     return *this;
   }
 
-  const TestTurn & TestTurn::TestRoundAboutExitNum(uint32_t referenceRoundAboutExitNum) const
+  const TestTurn & TestTurn::TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const
   {
-    TEST_EQUAL(m_roundAboutExitNum, referenceRoundAboutExitNum, ());
+    TEST_EQUAL(m_roundAboutExitNum, expectedRoundAboutExitNum, ());
     return *this;
   }
 
-  TestTurn GetNthTurn(shared_ptr<routing::Route> const route, uint32_t referenceTurnNumber)
+  TestTurn GetNthTurn(routing::Route const & route, uint32_t expectedTurnNumber)
   {
-    ASSERT(route, ());
-
-    turns::TurnsGeomT const & turnsGeom = route->GetTurnsGeometry();
-    if (referenceTurnNumber >= turnsGeom.size())
+    turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
+    if (expectedTurnNumber >= turnsGeom.size())
       return TestTurn();
 
-    Route::TurnsT const & turns = route->GetTurns();
-    if (referenceTurnNumber >= turns.size())
+    Route::TurnsT const & turns = route.GetTurns();
+    if (expectedTurnNumber >= turns.size())
       return TestTurn();
 
-    turns::TurnGeom const & turnGeom = turnsGeom[referenceTurnNumber];
+    turns::TurnGeom const & turnGeom = turnsGeom[expectedTurnNumber];
     ASSERT_LESS(turnGeom.m_turnIndex, turnGeom.m_points.size(), ());
-    TurnItem const & turn = turns[referenceTurnNumber];
+    TurnItem const & turn = turns[expectedTurnNumber];
     return TestTurn(turnGeom.m_points[turnGeom.m_turnIndex], turn.m_turn, turn.m_exitNum);
   }
 
-  TestTurn GetTurnByPoint(shared_ptr<routing::Route> const route, m2::PointD const & referenceTurnPnt, double inaccuracy)
+  TestTurn GetTurnByPoint(routing::Route const & route, m2::PointD const & expectedTurnPoint,
+                          double inaccuracyMeters)
   {
-    ASSERT(route, ());
-    turns::TurnsGeomT const & turnsGeom = route->GetTurnsGeometry();
-    Route::TurnsT const & turns = route->GetTurns();
+    turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
+    Route::TurnsT const & turns = route.GetTurns();
     ASSERT_EQUAL(turnsGeom.size() + 1, turns.size(), ());
 
     for (int i = 0; i != turnsGeom.size(); ++i)
     {
       turns::TurnGeom const & turnGeom = turnsGeom[i];
       ASSERT_LESS(turnGeom.m_turnIndex, turnGeom.m_points.size(), ());
-      m2::PointD const turnPnt = turnGeom.m_points[turnGeom.m_turnIndex];
-      if (ms::DistanceOnEarth(turnPnt.y, turnPnt.x, referenceTurnPnt.y, referenceTurnPnt.x) <= inaccuracy)
+      m2::PointD const turnPoint = turnGeom.m_points[turnGeom.m_turnIndex];
+      if (ms::DistanceOnEarth(turnPoint.y, turnPoint.x, expectedTurnPoint.y, expectedTurnPoint.x) <=
+          inaccuracyMeters)
       {
         TurnItem const & turn = turns[i];
-        return TestTurn(turnPnt, turn.m_turn, turn.m_exitNum);
+        return TestTurn(turnPoint, turn.m_turn, turn.m_exitNum);
       }
     }
     return TestTurn();

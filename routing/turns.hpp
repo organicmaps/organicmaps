@@ -91,11 +91,10 @@ typedef vector<LaneWay> TSingleLane;
 
 struct SingleLaneInfo
 {
-  SingleLaneInfo(initializer_list<LaneWay> const & l = {}) : m_lane(l), m_isActive(false) {}
-
   TSingleLane m_lane;
-  bool m_isActive;
+  bool m_isRecommended;
 
+  SingleLaneInfo(initializer_list<LaneWay> const & l = {}) : m_lane(l), m_isRecommended(false) {}
   bool operator==(SingleLaneInfo const & other) const;
 };
 
@@ -109,7 +108,18 @@ bool IsLeftOrRightTurn(TurnDirection t);
 bool IsStayOnRoad(TurnDirection t);
 bool IsGoStraightOrSlightTurn(TurnDirection t);
 
+/*
+ * \return True if l corresponds with t exactly. For example it returns true
+ * when |l| equals to LaneWay::Right and |t| equals to TurnDirection::TurnRight.
+ * Otherwise it returns false.
+ */
 bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t);
+
+/*
+ * \return True if l corresponds with t approximately. For example it returns true
+ * when |l| equals to LaneWay::Right and |t| equals to TurnDirection::TurnSlightRight.
+ * Otherwise it returns false.
+ */
 bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
 
 /*!

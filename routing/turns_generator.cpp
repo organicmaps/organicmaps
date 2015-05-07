@@ -12,26 +12,24 @@ namespace
 {
 using namespace routing::turns;
 
-bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes, function<bool (LaneWay l, TurnDirection t)> checker)
+bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
+                  function<bool(LaneWay l, TurnDirection t)> checker)
 {
   bool isLaneConformed = false;
   // There are two hidden nested loops below (transform and find_if).
   // But the number of calls of the body of inner one (lambda in find_if) is relatively small.
   // Less than 10 in most cases.
-  transform(lanes.begin(), lanes.end(), lanes.begin(),
-            [&isLaneConformed, turn, checker] (SingleLaneInfo & singleLane)
-  {
-    if (find_if(singleLane.m_lane.cbegin(), singleLane.m_lane.cend(),
-                [turn, checker] (LaneWay l) { return checker(l, turn); }) != singleLane.m_lane.cend())
-    {
-      singleLane.m_isActive = true;
-      isLaneConformed = true;
-    }
-    return singleLane;
-  });
+  for (auto & singleLane : lanes)
+    for (LaneWay laneWay : singleLane.m_lane)
+      if (checker(laneWay, turn))
+      {
+        singleLane.m_isRecommended = true;
+        isLaneConformed = true;
+        break;
+      }
   return isLaneConformed;
 }
-} // namespace
+}  // namespace
 
 namespace routing
 {
@@ -46,9 +44,8 @@ OsrmMappingTypes::FtSeg GetSegment(PathData const & node, RoutingMapping const &
   return seg;
 }
 
-vector<SingleLaneInfo> GetLanesInfo(PathData const & node,
-                                                 RoutingMapping const & routingMapping,
-                                                 TGetIndexFunction GetIndex, Index const & index)
+vector<SingleLaneInfo> GetLanesInfo(PathData const & node, RoutingMapping const & routingMapping,
+                                    TGetIndexFunction GetIndex, Index const & index)
 {
   // seg1 is the last segment before a point of bifurcation (before turn)
   OsrmMappingTypes::FtSeg const seg1 = GetSegment(node, routingMapping, GetIndex);
@@ -138,8 +135,8 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
   for (size_t idx = 0; idx < turnsDir.size(); )
   {
     TurnItem & t = turnsDir[idx];
-    if (roundabout && t.m_turn != TurnDirection::StayOnRoundAbout
-        && t.m_turn != TurnDirection::LeaveRoundAbout)
+    if (roundabout && t.m_turn != TurnDirection::StayOnRoundAbout &&
+        t.m_turn != TurnDirection::LeaveRoundAbout)
     {
       exitNum = 0;
       roundabout = nullptr;
@@ -166,8 +163,7 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
     // distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters
     // means the distance in meters between the former turn (idx - 1)
     // and the current turn (idx).
-    if (idx > 0 &&
-        IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
+    if (idx > 0 && IsStayOnRoad(turnsDir[idx - 1].m_turn) &&
         IsLeftOrRightTurn(turnsDir[idx].m_turn) &&
         routeDistanceMeters(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters)
     {
@@ -175,10 +171,8 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
       continue;
     }
 
-    if (!t.m_keepAnyway
-        && IsGoStraightOrSlightTurn(t.m_turn)
-        && !t.m_sourceName.empty()
-        && strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
+    if (!t.m_keepAnyway && IsGoStraightOrSlightTurn(t.m_turn) && !t.m_sourceName.empty() &&
+        strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
     {
       turnsDir.erase(turnsDir.begin() + idx);
       continue;
@@ -186,11 +180,11 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
 
     ++idx;
   }
-  AddingActiveLaneInformation(turnsDir);
+  SelectRecommendedLanes(turnsDir);
   return;
 }
 
-void AddingActiveLaneInformation(Route::TurnsT & turnsDir)
+void SelectRecommendedLanes(Route::TurnsT & turnsDir)
 {
   for (auto & t : turnsDir)
   {
@@ -198,11 +192,14 @@ void AddingActiveLaneInformation(Route::TurnsT & turnsDir)
     if (lanes.empty())
       continue;
     TurnDirection const turn = t.m_turn;
-    if (FixupLaneSet(turn, lanes, IsLaneWayConformedTurnDirection))
+    // Checking if threre are elements in lanes which correspond with the turn exactly.
+    // If so fixing up all the elements in lanes which correspond with the turn.
+    if (FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirection))
       continue;
-    FixupLaneSet(turn, lanes, IsLaneWayConformedTurnDirectionApproximately);
+    // If not checking if there are elements in lanes which corresponds with the turn
+    // approximately. If so fixing up all these elements.
+    FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
   }
 }
-
 }
 }

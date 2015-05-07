@@ -21,12 +21,11 @@ UNIT_TEST(TestSplitLanes)
 {
   vector<string> result;
   SplitLanes("through|through|through|through;right", '|', result);
-  vector<string> expected1 = {"through", "through", "through", "through;right"};
+  vector<string> const expected1 = {"through", "through", "through", "through;right"};
   TEST_EQUAL(result, expected1, ());
 
   SplitLanes("adsjkddfasui8747&sxdsdlad8\"\'", '|', result);
-  TEST_EQUAL(result.size(), 1, ());
-  TEST_EQUAL(result[0], "adsjkddfasui8747&sxdsdlad8\"\'", ());
+  TEST_EQUAL(result, vector<string>({"adsjkddfasui8747&sxdsdlad8\"\'"}), ());
 
   SplitLanes("|||||||", '|', result);
   vector<string> expected2 = {"", "", "", "", "", "", ""};
@@ -37,7 +36,7 @@ UNIT_TEST(TestParseSingleLane)
 {
   TSingleLane result;
   TEST(ParseSingleLane("through;right", ';', result), ());
-  TSingleLane expected1 = {LaneWay::Through, LaneWay::Right};
+  TSingleLane const expected1 = {LaneWay::Through, LaneWay::Right};
   TEST_EQUAL(result, expected1, ());
 
   TEST(!ParseSingleLane("through;Right", ';', result), ());
@@ -67,57 +66,40 @@ UNIT_TEST(TestParseLanes)
 {
   vector<SingleLaneInfo> result;
   TEST(ParseLanes("through|through|through|through;right", result), ());
-  TEST_EQUAL(result.size(), 4, ());
-  TEST_EQUAL(result[0].m_lane.size(), 1, ());
-  TEST_EQUAL(result[3].m_lane.size(), 2, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Through, ());
-  TEST_EQUAL(result[3].m_lane[0], LaneWay::Through, ());
-  TEST_EQUAL(result[3].m_lane[1], LaneWay::Right, ());
+  vector<SingleLaneInfo> const expected1 = {{LaneWay::Through},
+                                            {LaneWay::Through},
+                                            {LaneWay::Through},
+                                            {LaneWay::Through, LaneWay::Right}};
+  TEST_EQUAL(result, expected1, ());
 
   TEST(ParseLanes("left|left;through|through|through", result), ());
-  TEST_EQUAL(result.size(), 4, ());
-  TEST_EQUAL(result[0].m_lane.size(), 1, ());
-  TEST_EQUAL(result[1].m_lane.size(), 2, ());
-  TEST_EQUAL(result[3].m_lane.size(), 1, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[1].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[1].m_lane[1], LaneWay::Through, ());
-  TEST_EQUAL(result[3].m_lane[0], LaneWay::Through, ());
+  vector<SingleLaneInfo> const expected2 = {
+      {LaneWay::Left}, {LaneWay::Left, LaneWay::Through}, {LaneWay::Through}, {LaneWay::Through}};
+  TEST_EQUAL(result, expected2, ());
 
   TEST(ParseLanes("left|through|through", result), ());
-  TEST_EQUAL(result.size(), 3, ());
-  TEST_EQUAL(result[0].m_lane.size(), 1, ());
-  TEST_EQUAL(result[1].m_lane.size(), 1, ());
-  TEST_EQUAL(result[2].m_lane.size(), 1, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[1].m_lane[0], LaneWay::Through, ());
-  TEST_EQUAL(result[2].m_lane[0], LaneWay::Through, ());
+  vector<SingleLaneInfo> const expected3 = {
+      {LaneWay::Left}, {LaneWay::Through}, {LaneWay::Through}};
+  TEST_EQUAL(result, expected3, ());
 
   TEST(ParseLanes("left|le  ft|   through|through   |  right", result), ());
-  TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].m_lane.size(), 1, ());
-  TEST_EQUAL(result[4].m_lane.size(), 1, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[1].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[2].m_lane[0], LaneWay::Through, ());
-  TEST_EQUAL(result[3].m_lane[0], LaneWay::Through, ());
-  TEST_EQUAL(result[4].m_lane[0], LaneWay::Right, ());
+  vector<SingleLaneInfo> const expected4 = {
+      {LaneWay::Left}, {LaneWay::Left}, {LaneWay::Through}, {LaneWay::Through}, {LaneWay::Right}};
+  TEST_EQUAL(result, expected4, ());
 
   TEST(ParseLanes("left|Left|through|througH|right", result), ());
-  TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].m_lane.size(), 1, ());
-  TEST_EQUAL(result[4].m_lane.size(), 1, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[4].m_lane[0], LaneWay::Right, ());
+  vector<SingleLaneInfo> const expected5 = {
+      {LaneWay::Left}, {LaneWay::Left}, {LaneWay::Through}, {LaneWay::Through}, {LaneWay::Right}};
+  TEST_EQUAL(result, expected5, ());
 
   TEST(ParseLanes("left|Left|through|througH|through;right;sharp_rIght", result), ());
-  TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].m_lane.size(), 1, ());
-  TEST_EQUAL(result[4].m_lane.size(), 3, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[4].m_lane[0], LaneWay::Through, ());
-  TEST_EQUAL(result[4].m_lane[1], LaneWay::Right, ());
-  TEST_EQUAL(result[4].m_lane[2], LaneWay::SharpRight, ());
+  vector<SingleLaneInfo> const expected6 = {
+      {LaneWay::Left},
+      {LaneWay::Left},
+      {LaneWay::Through},
+      {LaneWay::Through},
+      {LaneWay::Through, LaneWay::Right, LaneWay::SharpRight}};
+  TEST_EQUAL(result, expected6, ());
 
   TEST(!ParseLanes("left|Leftt|through|througH|right", result), ());
   TEST_EQUAL(result.size(), 0, ());
@@ -129,9 +111,9 @@ UNIT_TEST(TestParseLanes)
   TEST_EQUAL(result.size(), 0, ());
 
   TEST(ParseLanes("left |Left|through|througH|right", result), ());
-  TEST_EQUAL(result.size(), 5, ());
-  TEST_EQUAL(result[0].m_lane[0], LaneWay::Left, ());
-  TEST_EQUAL(result[1].m_lane[0], LaneWay::Left, ());
+  vector<SingleLaneInfo> const expected7 = {
+      {LaneWay::Left}, {LaneWay::Left}, {LaneWay::Through}, {LaneWay::Through}, {LaneWay::Right}};
+  TEST_EQUAL(result, expected7, ());
 }
 
 UNIT_TEST(TestFixupTurns)
@@ -149,19 +131,15 @@ UNIT_TEST(TestFixupTurns)
   };
   // The constructor TurnItem(uint32_t idx, TurnDirection t, uint32_t exitNum = 0)
   // is used for initialization of vector<TurnItem> below.
-  Route::TurnsT turnsDir1 = {
-    { 0, TurnDirection::EnterRoundAbout },
-    { 1, TurnDirection::StayOnRoundAbout },
-    { 2, TurnDirection::LeaveRoundAbout },
-    { 3, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT turnsDir1 = {{0, TurnDirection::EnterRoundAbout},
+                             {1, TurnDirection::StayOnRoundAbout},
+                             {2, TurnDirection::LeaveRoundAbout},
+                             {3, TurnDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc1, turnsDir1);
-  Route::TurnsT expectedTurnDir1 = {
-    { 0, TurnDirection::EnterRoundAbout, 2 },
-    { 2, TurnDirection::LeaveRoundAbout },
-    { 3, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT const expectedTurnDir1 = {{0, TurnDirection::EnterRoundAbout, 2},
+                                          {2, TurnDirection::LeaveRoundAbout},
+                                          {3, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir1, expectedTurnDir1, ());
 
   // Merging turns which are close to each other.
@@ -169,17 +147,13 @@ UNIT_TEST(TestFixupTurns)
     { kSquareNearZero.minX(), kSquareNearZero.minY()},
     { kSquareCenterLonLat.x, kSquareCenterLonLat.y },
     { kSquareNearZero.maxX(), kSquareNearZero.maxY() }};
-  Route::TurnsT turnsDir2 = {
-    { 0, TurnDirection::GoStraight },
-    { 1, TurnDirection::TurnLeft },
-    { 2, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT turnsDir2 = {{0, TurnDirection::GoStraight},
+                             {1, TurnDirection::TurnLeft},
+                             {2, TurnDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc2, turnsDir2);
-  Route::TurnsT expectedTurnDir2 = {
-    { 1, TurnDirection::TurnLeft },
-    { 2, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT const expectedTurnDir2 = {{1, TurnDirection::TurnLeft},
+                                          {2, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir2, expectedTurnDir2, ());
 
   // No turn is removed.
@@ -187,16 +161,12 @@ UNIT_TEST(TestFixupTurns)
     { kSquareNearZero.minX(), kSquareNearZero.minY()},
     { kSquareNearZero.minX(), kSquareNearZero.maxY() },
     { kSquareNearZero.maxX(), kSquareNearZero.maxY() }};
-  Route::TurnsT turnsDir3 = {
-    { 1, TurnDirection::TurnRight },
-    { 2, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT turnsDir3 = {{1, TurnDirection::TurnRight},
+                             {2, TurnDirection::ReachedYourDestination}};
 
   FixupTurns(pointsMerc3, turnsDir3);
-  Route::TurnsT expectedTurnDir3 = {
-    { 1, TurnDirection::TurnRight },
-    { 2, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT const expectedTurnDir3 = {{1, TurnDirection::TurnRight},
+                                          {2, TurnDirection::ReachedYourDestination}};
   TEST_EQUAL(turnsDir3, expectedTurnDir3, ());
 }
 
@@ -222,10 +192,8 @@ UNIT_TEST(TestCalculateTurnGeometry)
     { kSquareNearZero.maxX(), kSquareNearZero.maxY() },
     { kSquareNearZero.minX(), kSquareNearZero.maxY() }
   };
-  Route::TurnsT const turnsDir2 = {
-    { 1, TurnDirection::TurnLeft },
-    { 2, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT const turnsDir2 = {{1, TurnDirection::TurnLeft},
+                                   {2, TurnDirection::ReachedYourDestination}};
   TurnsGeomT turnsGeom2;
 
   CalculateTurnGeometry(points2, turnsDir2, turnsGeom2);
@@ -251,11 +219,9 @@ UNIT_TEST(TestCalculateTurnGeometry)
     { kSquareNearZero.maxX(), kSquareNearZero.minY() },
     { kSquareCenterLonLat.x, kSquareCenterLonLat.y }
   };
-  Route::TurnsT const turnsDir3 = {
-    { 0, TurnDirection::GoStraight },
-    { 3, TurnDirection::TurnSharpRight },
-    { 4, TurnDirection::ReachedYourDestination }
-  };
+  Route::TurnsT const turnsDir3 = {{0, TurnDirection::GoStraight},
+                                   {3, TurnDirection::TurnSharpRight},
+                                   {4, TurnDirection::ReachedYourDestination}};
   TurnsGeomT turnsGeom3;
 
   CalculateTurnGeometry(points3, turnsDir3, turnsGeom3);
@@ -302,7 +268,8 @@ UNIT_TEST(TestIsLaneWayConformedTurnDirectionApproximately)
   TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SharpRight, TurnDirection::UTurn), ());
   TEST(!IsLaneWayConformedTurnDirection(LaneWay::Through, TurnDirection::ReachedYourDestination), ());
   TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::Through, TurnDirection::TurnRight), ());
-  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight, TurnDirection::TurnSharpLeft), ());
+  TEST(!IsLaneWayConformedTurnDirectionApproximately(LaneWay::SlightRight,
+                                                     TurnDirection::TurnSharpLeft), ());
 }
 
 UNIT_TEST(TestAddingActiveLaneInformation)
@@ -317,13 +284,13 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   turns[1].m_lanes.push_back({LaneWay::Through});
   turns[1].m_lanes.push_back({LaneWay::Through});
 
-  AddingActiveLaneInformation(turns);
+  SelectRecommendedLanes(turns);
 
-  TEST(turns[0].m_lanes[0].m_isActive, ());
-  TEST(!turns[0].m_lanes[1].m_isActive, ());
+  TEST(turns[0].m_lanes[0].m_isRecommended, ());
+  TEST(!turns[0].m_lanes[1].m_isRecommended, ());
 
-  TEST(turns[1].m_lanes[0].m_isActive, ());
-  TEST(!turns[1].m_lanes[1].m_isActive, ());
-  TEST(!turns[1].m_lanes[1].m_isActive, ());
+  TEST(turns[1].m_lanes[0].m_isRecommended, ());
+  TEST(!turns[1].m_lanes[1].m_isRecommended, ());
+  TEST(!turns[1].m_lanes[1].m_isRecommended, ());
 }
-} // namespace
+}  // namespace

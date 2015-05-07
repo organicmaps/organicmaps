@@ -93,16 +93,22 @@ namespace location
   class FollowingInfo
   {
   public:
-    struct SingleLaneInfoOuter
+    // SingleLaneInfoClient is used for passing information about a lane to client platforms such as
+    // Android, iOS and so on.
+    struct SingleLaneInfoClient
     {
-      vector<int8_t> m_lane;
-      bool m_isActive;
-      SingleLaneInfoOuter(routing::turns::SingleLaneInfo singleLaneInfo) : m_isActive(singleLaneInfo.m_isActive)
+      vector<int8_t> m_lane;  // Possible directions for the lane.
+      bool m_isRecommended;   // m_isRecommended is true if the lane is recommended for a user.
+
+      SingleLaneInfoClient(routing::turns::SingleLaneInfo const & singleLaneInfo)
+          : m_isRecommended(singleLaneInfo.m_isRecommended)
       {
         routing::turns::TSingleLane const & lane = singleLaneInfo.m_lane;
         m_lane.resize(lane.size());
-        transform(lane.begin(), lane.end(), m_lane.begin(),
-                  [] (routing::turns::LaneWay l) { return static_cast<int8_t>(l); });
+        transform(lane.cbegin(), lane.cend(), m_lane.begin(), [](routing::turns::LaneWay l)
+        {
+          return static_cast<int8_t>(l);
+        });
       }
     };
 
@@ -121,7 +127,7 @@ namespace location
     //@}
     int m_time;
     // m_lanes contains lane information on the edge before the turn.
-    vector<SingleLaneInfoOuter> m_lanes;
+    vector<SingleLaneInfoClient> m_lanes;
     // The next street name
     string m_targetName;
 

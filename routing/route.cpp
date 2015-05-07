@@ -26,8 +26,7 @@ string DebugPrint(TurnItem const & turnItem)
   stringstream out;
   out << "[ TurnItem: m_index = " << turnItem.m_index
       << ", m_turn = " << DebugPrint(turnItem.m_turn)
-      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes)
-      << ", m_exitNum = " << turnItem.m_exitNum
+      << ", m_lanes = " << ::DebugPrint(turnItem.m_lanes) << ", m_exitNum = " << turnItem.m_exitNum
       << ", m_sourceName = " << turnItem.m_sourceName
       << ", m_targetName = " << turnItem.m_targetName
       << ", m_keepAnyway = " << turnItem.m_keepAnyway << " ]" << endl;

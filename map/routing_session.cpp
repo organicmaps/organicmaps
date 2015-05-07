@@ -173,12 +173,14 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
     if (dist < kShowLanesDistInMeters)
     {
-      // There are two nested loops below. Outer one is for lanes and inner one (ctor of SingleLaneInfo) is
-      // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in most cases.
+      // There are two nested loops below. Outer one is for lanes and inner one (ctor of
+      // SingleLaneInfo) is
+      // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in
+      // most cases.
       info.m_lanes.clear();
       for (size_t j = 0; j < turn.m_lanes.size(); ++j)
       {
-        info.m_lanes.push_back(move(FollowingInfo::SingleLaneInfoOuter(turn.m_lanes[j])));
+        info.m_lanes.emplace_back(turn.m_lanes[j]);
       }
     }
     else

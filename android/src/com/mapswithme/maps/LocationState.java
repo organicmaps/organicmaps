@@ -37,11 +37,12 @@ public enum LocationState
       mIsActive = isActive;
     }
 
-    private String DumpString()
+    @Override
+    public String toString() 
     {
-      final int startCapacity = 32;
-      StringBuilder sb = new StringBuilder(startCapacity);
-      sb.append("Is lane active? ").append(mIsActive).append(":");
+      final int initialCapacity = 32;
+      StringBuilder sb = new StringBuilder(initialCapacity);
+      sb.append("Is the lane active? ").append(mIsActive).append(". The lane directions IDs are");
       for (byte i : mLane)
         sb.append(" ").append(i);
       return sb.toString();
@@ -125,9 +126,9 @@ public enum LocationState
     {
       for (int j = 0; j < lanes.length; j++)
       {
-        final int startCapacity = 32;
-        StringBuilder sb = new StringBuilder(startCapacity);
-        sb.append("Lane number ").append(j).append(":").append(lanes[j].DumpString());
+        final int initialCapacity = 32;
+        StringBuilder sb = new StringBuilder(initialCapacity);
+        sb.append("Lane number ").append(j).append(". ").append(lanes[j]);
         Log.d("JNIARRAY", "    " + sb.toString());
       }
     }

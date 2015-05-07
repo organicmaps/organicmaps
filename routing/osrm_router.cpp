@@ -1335,18 +1335,18 @@ turns::TurnDirection OsrmRouter::InvertDirection(turns::TurnDirection dir) const
 {
   switch (dir)
   {
-  case turns::TurnDirection::TurnSharpRight:
-    return turns::TurnDirection::TurnSharpLeft;
-  case turns::TurnDirection::TurnRight:
-    return turns::TurnDirection::TurnLeft;
-  case turns::TurnDirection::TurnSlightRight:
-    return turns::TurnDirection::TurnSlightLeft;
-  case turns::TurnDirection::TurnSlightLeft:
-    return turns::TurnDirection::TurnSlightRight;
-  case turns::TurnDirection::TurnLeft:
-    return turns::TurnDirection::TurnRight;
-  case turns::TurnDirection::TurnSharpLeft:
-    return turns::TurnDirection::TurnSharpRight;
+    case turns::TurnDirection::TurnSlightRight:
+      return turns::TurnDirection::TurnSlightLeft;
+    case turns::TurnDirection::TurnRight:
+      return turns::TurnDirection::TurnLeft;
+    case turns::TurnDirection::TurnSharpRight:
+      return turns::TurnDirection::TurnSharpLeft;
+    case turns::TurnDirection::TurnSlightLeft:
+      return turns::TurnDirection::TurnSlightRight;
+    case turns::TurnDirection::TurnLeft:
+      return turns::TurnDirection::TurnRight;
+    case turns::TurnDirection::TurnSharpLeft:
+      return turns::TurnDirection::TurnSharpRight;
   default:
     return dir;
   };
@@ -1365,15 +1365,15 @@ turns::TurnDirection OsrmRouter::MostRightDirection(const double angle) const
   if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
     return turns::TurnDirection::TurnSharpRight;
   else if (angle >= upperSharpRightBound && angle < upperRightBound)
-    return  turns::TurnDirection::TurnRight;
+    return turns::TurnDirection::TurnRight;
   else if (angle >= upperRightBound && angle < upperSlightRight)
     return turns::TurnDirection::TurnSlightRight;
   else if (angle >= upperSlightRight && angle < upperGoStraitBound)
-    return  turns::TurnDirection::GoStraight;
+    return turns::TurnDirection::GoStraight;
   else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
-    return  turns::TurnDirection::TurnSlightLeft;
+    return turns::TurnDirection::TurnSlightLeft;
   else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
-    return  turns::TurnDirection::TurnLeft;
+    return turns::TurnDirection::TurnLeft;
   return turns::TurnDirection::NoTurn;
 }
 
@@ -1396,15 +1396,15 @@ turns::TurnDirection OsrmRouter::IntermediateDirection(const double angle) const
   if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
     return turns::TurnDirection::TurnSharpRight;
   else if (angle >= upperSharpRightBound && angle < upperRightBound)
-    return  turns::TurnDirection::TurnRight;
+    return turns::TurnDirection::TurnRight;
   else if (angle >= upperRightBound && angle < upperSlightRight)
     return turns::TurnDirection::TurnSlightRight;
   else if (angle >= upperSlightRight && angle < upperGoStraitBound)
-    return  turns::TurnDirection::GoStraight;
+    return turns::TurnDirection::GoStraight;
   else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
-    return  turns::TurnDirection::TurnSlightLeft;
+    return turns::TurnDirection::TurnSlightLeft;
   else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
-    return  turns::TurnDirection::TurnLeft;
+    return turns::TurnDirection::TurnLeft;
   else if (angle >= upperLeftBound && angle < upperSharpLeftBound)
     return turns::TurnDirection::TurnSharpLeft;
   return turns::TurnDirection::NoTurn;

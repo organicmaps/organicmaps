@@ -178,20 +178,28 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   using namespace routing::turns;
   switch (type)
   {
-    case TurnDirection::TurnSlightRight: return @"right-1";
-    case TurnDirection::TurnRight: return @"right-2";
-    case TurnDirection::TurnSharpRight: return @"right-3";
-      
-    case TurnDirection::TurnSlightLeft: return @"left-1";
-    case TurnDirection::TurnLeft: return @"left-2";
-    case TurnDirection::TurnSharpLeft: return @"left-3";
-      
-    case TurnDirection::UTurn: return @"turn-around";
-      
+    case TurnDirection::TurnSlightRight:
+      return @"right-1";
+    case TurnDirection::TurnRight:
+      return @"right-2";
+    case TurnDirection::TurnSharpRight:
+      return @"right-3";
+
+    case TurnDirection::TurnSlightLeft:
+      return @"left-1";
+    case TurnDirection::TurnLeft:
+      return @"left-2";
+    case TurnDirection::TurnSharpLeft:
+      return @"left-3";
+
+    case TurnDirection::UTurn:
+      return @"turn-around";
+
     case TurnDirection::LeaveRoundAbout:
     case TurnDirection::StayOnRoundAbout:
-    case TurnDirection::EnterRoundAbout: return @"circle";
-      
+    case TurnDirection::EnterRoundAbout:
+      return @"circle";
+
     default: return @"straight";
   }
 }
