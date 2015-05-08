@@ -125,3 +125,20 @@ UNIT_TEST(IsTunnelChecker)
   TEST(ftypes::IsTunnelChecker::Instance()(GetBridgeAndTunnelTypes()), ());
   TEST(!ftypes::IsTunnelChecker::Instance()(GetBridgeTypes()), ());
 }
+
+UNIT_TEST(GetHighwayClassTest)
+{
+  Classificator const & c = classif();
+
+  feature::TypesHolder types1;
+  types1(c.GetTypeByPath({"highway", "motorway_link", "tunnel"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types1), ftypes::HighwayClass::Trunk, ());
+
+  feature::TypesHolder types2;
+  types2(c.GetTypeByPath({"highway", "unclassified"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types2), ftypes::HighwayClass::LivingStreet, ());
+
+  feature::TypesHolder types3;
+  types3(c.GetTypeByPath({"highway"}));
+  TEST_EQUAL(ftypes::GetHighwayClass(types3), ftypes::HighwayClass::None, ());
+}

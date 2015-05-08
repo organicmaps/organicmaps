@@ -137,5 +137,21 @@ uint32_t GetPopulationByRadius(double r);
 /// The root name ("world") is ignored
 bool IsTypeConformed(uint32_t type, vector<string> const & path);
 
+enum class HighwayClass
+{
+  None = 0,
+  Trunk,
+  Primary,
+  Secondary,
+  Tertiary,
+  LivingStreet,
+  Service,
+  Count  // This value is used for internals only.
+};
+string DebugPrint(HighwayClass const cls);
+
+HighwayClass GetHighwayClass(feature::TypesHolder const & types);
+HighwayClass GetHighwayClass(FeatureType const & ft);
+
 //@}
 }
