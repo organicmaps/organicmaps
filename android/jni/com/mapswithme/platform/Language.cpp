@@ -8,7 +8,6 @@
 
 #include "std/string.hpp"
 
-
 string ReplaceDeprecatedLanguageCode(string const & lang)
 {
   // in* -> id

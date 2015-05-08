@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -41,6 +42,9 @@ public class MwmApplication extends Application
 
   private boolean mAreCountersInitialized;
   private boolean mIsFrameworkInitialized;
+
+  private boolean mAreStatsInitialised;
+  private Handler mMainLoopHandler;
 
   public MwmApplication()
   {
@@ -93,6 +97,7 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
+    mMainLoopHandler = new Handler(getMainLooper());
 
     initPaths();
     nativeInitPlatform(getApkPath(), getDataStoragePath(), getTempPath(), getObbGooglePath(),
@@ -183,6 +188,18 @@ public class MwmApplication extends Application
     System.loadLibrary("mapswithme");
   }
 
+  public void runNativeFunctorOnUIThread(final long functionPointer)
+  {
+    mMainLoopHandler.post(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        nativeCallOnUIThread(functionPointer);
+      }
+    });
+  }
+
   /**
    * Initializes native Platform with paths. Should be called before usage of any other native components.
    */
@@ -191,8 +208,7 @@ public class MwmApplication extends Application
 
   private native void nativeInitFramework();
 
-  public native boolean nativeIsBenchmarking();
-
+  private native void nativeCallOnUIThread(long functorPointer);
   private native void nativeAddLocalization(String name, String value);
 
   /*

@@ -70,7 +70,7 @@ string Platform::GetMemoryInfo() const
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  android::Platform::RunOnGuiThreadImpl(fn);
+  android::Platform::Instance().RunOnGuiThread(fn);
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()
@@ -90,6 +90,11 @@ Platform::EConnectionType Platform::ConnectionStatus()
 
 namespace android
 {
+  Platform::Platform()
+    : m_runOnUI("runNativeFunctorOnUIThread", "(J)V")
+  {
+  }
+
   void Platform::Initialize(JNIEnv * env,
                             jstring apkPath, jstring storagePath,
                             jstring tmpPath, jstring obbGooglePath,
@@ -140,6 +145,22 @@ namespace android
     (void) ConnectionStatus();
   }
 
+  void Platform::InitAppMethodRefs(JNIEnv * env, jobject appObject)
+  {
+    m_runOnUI.Init(env, appObject);
+  }
+
+  void Platform::CallNativeFunctor(jlong functionPointer)
+  {
+    TFunctor * fn = reinterpret_cast<TFunctor *>(functionPointer);
+    (*fn)();
+    delete fn;
+  }
+
+  void Platform::OnExternalStorageStatusChanged(bool isAvailable)
+  {
+  }
+
   string Platform::GetStoragePathPrefix() const
   {
     size_t const count = m_writableDir.size();
@@ -168,10 +189,9 @@ namespace android
     return platform;
   }
 
-  void Platform::RunOnGuiThreadImpl(TFunctor const & fn, bool blocking)
+  void Platform::RunOnGuiThread(TFunctor const & fn)
   {
-    ///@TODO
-    //postMWMEvent(new TFunctor(fn), blocking);
+    m_runOnUI.CallVoid(reinterpret_cast<jlong>(new TFunctor(fn)));
   }
 }
 

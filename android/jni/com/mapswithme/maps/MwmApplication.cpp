@@ -27,11 +27,10 @@ extern "C"
       g_framework = new android::Framework();
   }
 
-  JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeIsBenchmarking(JNIEnv * env, jobject thiz)
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MWMApplication_nativeCallOnUIThread(JNIEnv * env, jobject thiz, jlong functorPointer)
   {
-    ///@TODO UVR
-    return JNI_FALSE; //static_cast<jboolean>(g_framework->NativeFramework()->IsBenchmarking());
+    android::Platform::Instance().CallNativeFunctor(functorPointer);
   }
 
   JNIEXPORT jboolean JNICALL
