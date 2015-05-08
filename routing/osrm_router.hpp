@@ -25,7 +25,6 @@ class FeatureType;
 
 namespace routing
 {
-
 typedef function<string (m2::PointD const &)> CountryFileFnT;
 typedef OsrmRawDataFacade<QueryEdge::EdgeData> RawDataFacadeT;
 typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
@@ -83,21 +82,7 @@ public:
 class OsrmRouter : public IRouter
 {
 public:
-
-  struct TurnCandidate
-  {
-    double m_angle;
-    NodeID m_node;
-
-    TurnCandidate(double a, NodeID n)
-      : m_angle(a), m_node(n)
-    {
-    }
-  };
-  typedef vector<TurnCandidate> TurnCandidatesT;
-
   typedef vector<size_t> NodeIdVectorT;
-
   typedef vector<double> GeomTurnCandidateT;
 
   OsrmRouter(Index const * index, CountryFileFnT const & fn, RoutingVisualizerFn routingVisualization = nullptr);
@@ -205,7 +190,7 @@ private:
                         m2::PointD const & p1,
                         m2::PointD const & p,
                         RoutingMappingPtrT const & routingMapping,
-                        TurnCandidatesT & candidates);
+                        turns::TurnCandidatesT & candidates);
   void GetTurnDirection(PathData const & node1,
                         PathData const & node2,
                         RoutingMappingPtrT const & routingMapping,
@@ -213,17 +198,11 @@ private:
   m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                   FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
-  turns::TurnDirection InvertDirection(turns::TurnDirection dir) const;
-  turns::TurnDirection MostRightDirection(double angle) const;
-  turns::TurnDirection MostLeftDirection(double angle) const;
-  turns::TurnDirection IntermediateDirection(double angle) const;
-  void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
-                       OsrmRouter::GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
   bool KeepOnewayOutgoingTurnIncomingEdges(TurnItem const & turn,
-                              m2::PointD const & p, m2::PointD const & p1, RoutingMappingPtrT const & mapping) const;
-  bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2) const;
-  turns::TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
-                                           bool hasMultiTurns) const;
+                              m2::PointD const & p, m2::PointD const & p1, RoutingMappingPtrT const & mapping);
+  void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
+                       GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
+
 
   Index const * m_pIndex;
 
@@ -237,5 +216,4 @@ private:
   m2::PointD m_startPt, m_finalPt, m_startDr;
   FeatureGraphNodeVecT m_cachedFinalNodes;
 };
-
-}
+} // namespace routing

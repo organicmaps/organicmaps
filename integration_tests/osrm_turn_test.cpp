@@ -78,7 +78,7 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
   OsrmRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
-  integration::TestTurnCount(route, 2);
+  integration::TestTurnCount(route, 3);
 
   integration::GetNthTurn(route, 0)
       .TestValid()

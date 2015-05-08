@@ -137,6 +137,8 @@ uint32_t GetPopulationByRadius(double r);
 /// The root name ("world") is ignored
 bool IsTypeConformed(uint32_t type, vector<string> const & path);
 
+// Highway class. The order is important.
+// The enum values follow from the biggest roads (Trunk) to the smallest ones (Service).
 enum class HighwayClass
 {
   None = 0,
@@ -154,4 +156,4 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 HighwayClass GetHighwayClass(FeatureType const & ft);
 
 //@}
-}
+} // namespace ftypes

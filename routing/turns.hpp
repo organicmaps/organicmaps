@@ -1,11 +1,13 @@
 #pragma once
 
+#include "geometry/point2d.hpp"
+
+#include "3party/osrm/osrm-backend/typedefs.h"
+
 #include "std/initializer_list.hpp"
 #include "std/iostream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-
-#include "geometry/point2d.hpp"
 
 namespace routing
 {
@@ -99,6 +101,18 @@ struct SingleLaneInfo
 };
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo);
+
+struct TurnCandidate
+{
+  double m_angle;
+  NodeID m_node;
+
+  TurnCandidate(double a, NodeID n)
+    : m_angle(a), m_node(n)
+  {
+  }
+};
+typedef vector<TurnCandidate> TurnCandidatesT;
 
 string const GetTurnString(TurnDirection turn);
 

@@ -39,16 +39,21 @@ namespace routing
 {
 namespace turns
 {
-OsrmMappingTypes::FtSeg GetSegment(PathData const & node, RoutingMapping const & routingMapping,
+size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p)
+{
+  return p.first;
+}
+
+OsrmMappingTypes::FtSeg GetSegment(NodeID node, RoutingMapping const & routingMapping,
                                    TGetIndexFunction GetIndex)
 {
-  auto const segmentsRange = routingMapping.m_segMapping.GetSegmentsRange(node.node);
+  auto const segmentsRange = routingMapping.m_segMapping.GetSegmentsRange(node);
   OsrmMappingTypes::FtSeg seg;
   routingMapping.m_segMapping.GetSegmentByIndex(GetIndex(segmentsRange), seg);
   return seg;
 }
 
-vector<SingleLaneInfo> GetLanesInfo(PathData const & node, RoutingMapping const & routingMapping,
+vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingMapping,
                                     TGetIndexFunction GetIndex, Index const & index)
 {
   // seg1 is the last segment before a point of bifurcation (before turn)
@@ -192,7 +197,7 @@ void SelectRecommendedLanes(Route::TurnsT & turnsDir)
 {
   for (auto & t : turnsDir)
   {
-    vector<turns::SingleLaneInfo> & lanes = t.m_lanes;
+    vector<SingleLaneInfo> & lanes = t.m_lanes;
     if (lanes.empty())
       continue;
     TurnDirection const turn = t.m_turn;
@@ -205,5 +210,169 @@ void SelectRecommendedLanes(Route::TurnsT & turnsDir)
     FixupLaneSet(turn, lanes, &IsLaneWayConformedTurnDirectionApproximately);
   }
 }
+
+ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
+                                             RoutingMapping const & routingMapping,
+                                             Index const & index)
+{
+  OsrmMappingTypes::FtSeg const seg =
+      GetSegment(outgoingNode, routingMapping, GetFirstSegmentPointIndex);
+  if (!seg.IsValid())
+    return ftypes::HighwayClass::None;
+  Index::FeaturesLoaderGuard loader(index, routingMapping.GetMwmId());
+  FeatureType ft;
+  loader.GetFeature(seg.m_fid, ft);
+  return ftypes::GetHighwayClass(ft);
 }
+
+bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
+                                    NodeID outgoingNode, TurnDirection turn,
+                                    TurnCandidatesT const & possibleTurns,
+                                    RoutingMapping const & routingMapping, Index const & index)
+{
+  if (!IsGoStraightOrSlightTurn(turn))
+    return true; // The road significantly changes the direction here. Leaves this turn.
+
+  if (possibleTurns.size() == 1 /* There's only one exit from this vertex. NodeID of it is outgoingNode */)
+    return true;
+
+  ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::None;
+  for (auto const & t : possibleTurns)
+  {
+    if (t.m_node == outgoingNode)
+      continue;
+    ftypes::HighwayClass const highwayClass = GetOutgoingHighwayClass(t.m_node, routingMapping, index);
+    if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
+      maxClassForPossibleTurns = highwayClass;
+  }
+  if (maxClassForPossibleTurns == ftypes::HighwayClass::None)
+  {
+    ASSERT(false, ("The route contains undefined HighwayClass."));
+    return true;
+  }
+
+  ftypes::HighwayClass const minClassForTheRoute =
+      static_cast<ftypes::HighwayClass>(min(static_cast<int>(ingoingClass),
+                                            static_cast<int>(outgoingClass)));
+  if (minClassForTheRoute == ftypes::HighwayClass::None)
+  {
+    ASSERT(false, ("The route contains undefined HighwayClass."));
+    return false;
+  }
+
+  int const maxHighwayClassDiffToKeepTheTurn = 2;
+  if (static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute) >=
+      maxHighwayClassDiffToKeepTheTurn)
+  {
+    // The turn shall be removed if the route passes near small roads with out changing the direction.
+    return false;
+  }
+  return true;
 }
+
+bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2)
+{
+  return !isRound1 && isRound2;
+}
+
+TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
+                                                     bool hasMultiTurns)
+{
+  if (isRound1 && isRound2)
+  {
+    if (hasMultiTurns)
+      return TurnDirection::StayOnRoundAbout;
+    else
+      return TurnDirection::NoTurn;
+  }
+
+  if (!isRound1 && isRound2)
+    return TurnDirection::EnterRoundAbout;
+
+  if (isRound1 && !isRound2)
+    return TurnDirection::LeaveRoundAbout;
+
+  ASSERT(false, ());
+  return TurnDirection::NoTurn;
+}
+
+TurnDirection InvertDirection(TurnDirection dir)
+{
+  switch (dir)
+  {
+    case TurnDirection::TurnSlightRight:
+      return TurnDirection::TurnSlightLeft;
+    case TurnDirection::TurnRight:
+      return TurnDirection::TurnLeft;
+    case TurnDirection::TurnSharpRight:
+      return TurnDirection::TurnSharpLeft;
+    case TurnDirection::TurnSlightLeft:
+      return TurnDirection::TurnSlightRight;
+    case TurnDirection::TurnLeft:
+      return TurnDirection::TurnRight;
+    case TurnDirection::TurnSharpLeft:
+      return TurnDirection::TurnSharpRight;
+  default:
+    return dir;
+  };
+}
+
+TurnDirection MostRightDirection(const double angle)
+{
+  double const lowerSharpRightBound = 23.;
+  double const upperSharpRightBound = 67.;
+  double const upperRightBound = 140.;
+  double const upperSlightRight = 195.;
+  double const upperGoStraitBound = 205.;
+  double const upperSlightLeftBound = 240.;
+  double const upperLeftBound = 336.;
+
+  if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
+    return TurnDirection::TurnSharpRight;
+  else if (angle >= upperSharpRightBound && angle < upperRightBound)
+    return TurnDirection::TurnRight;
+  else if (angle >= upperRightBound && angle < upperSlightRight)
+    return TurnDirection::TurnSlightRight;
+  else if (angle >= upperSlightRight && angle < upperGoStraitBound)
+    return TurnDirection::GoStraight;
+  else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
+    return TurnDirection::TurnSlightLeft;
+  else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
+    return TurnDirection::TurnLeft;
+  return TurnDirection::NoTurn;
+}
+
+TurnDirection MostLeftDirection(const double angle)
+{
+  return InvertDirection(MostRightDirection(360. - angle));
+}
+
+TurnDirection IntermediateDirection(const double angle)
+{
+  double const lowerSharpRightBound = 23.;
+  double const upperSharpRightBound = 67.;
+  double const upperRightBound = 130.;
+  double const upperSlightRight = 170.;
+  double const upperGoStraitBound = 190.;
+  double const upperSlightLeftBound = 230.;
+  double const upperLeftBound = 292.;
+  double const upperSharpLeftBound = 336.;
+
+  if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
+    return TurnDirection::TurnSharpRight;
+  else if (angle >= upperSharpRightBound && angle < upperRightBound)
+    return TurnDirection::TurnRight;
+  else if (angle >= upperRightBound && angle < upperSlightRight)
+    return TurnDirection::TurnSlightRight;
+  else if (angle >= upperSlightRight && angle < upperGoStraitBound)
+    return TurnDirection::GoStraight;
+  else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
+    return TurnDirection::TurnSlightLeft;
+  else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
+    return TurnDirection::TurnLeft;
+  else if (angle >= upperLeftBound && angle < upperSharpLeftBound)
+    return TurnDirection::TurnSharpLeft;
+  return TurnDirection::NoTurn;
+}
+} // namespace turns
+} // namespace routing
