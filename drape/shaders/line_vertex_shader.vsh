@@ -15,12 +15,15 @@ void main(void)
 {
   float halfWidth = length(a_normal);
   vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
-  vec4 glbShiftPos = vec4(a_position.xy + a_normal, 0.0, 1.0);
-  vec2 shiftPos = (glbShiftPos * modelView).xy;
-  vec2 pxNormal = normalize(shiftPos - transformedAxisPos);
+  if (halfWidth != 0.0)
+  {
+    vec4 glbShiftPos = vec4(a_position.xy + a_normal, 0.0, 1.0);
+    vec2 shiftPos = (glbShiftPos * modelView).xy;
+    transformedAxisPos = transformedAxisPos + normalize(shiftPos - transformedAxisPos) * halfWidth;
+  }
 
   v_colorTexCoord = a_colorTexCoord;
   v_maskTexCoord = a_maskTexCoord;
   v_dxdy = a_dxdy;
-  gl_Position = vec4(transformedAxisPos + pxNormal * halfWidth, a_position.z, 1.0) * projection;
+  gl_Position = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
 }
