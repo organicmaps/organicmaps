@@ -64,11 +64,6 @@ public:
   }
 
 private:
-
-#ifdef DEBUG
-  glConst GetCorrespondingGLType() const;
-#endif
-
   void Allocate(size_t byteCount);
 
   template <typename T>

@@ -632,8 +632,8 @@ void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
                                      int32_t * uniformSize, glConst * type, string & name)
 {
   ASSERT(glGetActiveUniformFn != nullptr, ());
-  char buff[256];
-  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, 256, nullptr, uniformSize, type, buff));
+  GLchar buff[256];
+  GLCHECK(glGetActiveUniformFn(programID, uniformIndex, ARRAY_SIZE(buff), nullptr, uniformSize, type, buff));
   name = buff;
 }
 

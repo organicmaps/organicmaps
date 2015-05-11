@@ -232,11 +232,12 @@ void UniformValue::SetMatrix4x4Value(float const * matrixValue)
 
 void UniformValue::Apply(ref_ptr<GpuProgram> program) const
 {
-  ASSERT(program->HasUniform(m_name, GetCorrespondingGLType(), 1),
-         ("Failed to find uniform", m_name, GetCorrespondingGLType(), 1));
+  int8_t location = program->GetUniformLocation(m_name);
+  if (location == -1)
+    return;
 
-  uint8_t location = program->GetUniformLocation(m_name);
-  switch (m_type) {
+  switch (m_type)
+  {
   case Int:
     ApplyInt(location, CastMemory<int32_t>(), m_componentCount);
     break;
@@ -250,41 +251,6 @@ void UniformValue::Apply(ref_ptr<GpuProgram> program) const
     ASSERT(false, ());
   }
 }
-
-#ifdef DEBUG
-glConst UniformValue::GetCorrespondingGLType() const
-{
-  if (Int == m_type)
-  {
-    static glConst intTypes[4] = {
-      gl_const::GLIntType,
-      gl_const::GLIntVec2,
-      gl_const::GLIntVec3,
-      gl_const::GLIntVec4
-    };
-    return intTypes[m_componentCount - 1];
-  }
-  else if (Float == m_type)
-  {
-    static glConst floatTypes[4] = {
-      gl_const::GLFloatType,
-      gl_const::GLFloatVec2,
-      gl_const::GLFloatVec3,
-      gl_const::GLFloatVec4
-    };
-    return floatTypes[m_componentCount - 1];
-  }
-  else if (Matrix4x4 == m_type)
-  {
-    return gl_const::GLFloatMat4;
-  }
-  else
-  {
-    ASSERT(false, ());
-    return -1;
-  }
-}
-#endif
 
 void UniformValue::Allocate(size_t byteCount)
 {

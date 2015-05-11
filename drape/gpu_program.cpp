@@ -11,48 +11,6 @@
 namespace dp
 {
 
-#ifdef DEBUG
-  class UniformValidator
-  {
-  private:
-    uint32_t m_programID;
-    map<string, UniformTypeAndSize> m_uniformsMap;
-
-  public:
-    UniformValidator(uint32_t programId)
-      : m_programID(programId)
-    {
-      int32_t numberOfUnis = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
-      for (size_t unIndex = 0; unIndex < numberOfUnis; ++unIndex)
-      {
-        string name;
-        glConst type;
-        UniformSize size;
-        GLCHECK(GLFunctions::glGetActiveUniform(m_programID, unIndex, &size, &type, name));
-        m_uniformsMap[name] = make_pair(type, size);
-      }
-    }
-
-    bool HasValidTypeAndSizeForName(string const & name, glConst type, UniformSize size)
-    {
-      map<string, UniformTypeAndSize>::iterator it = m_uniformsMap.find(name);
-      if (it != m_uniformsMap.end())
-      {
-        UniformTypeAndSize actualParams = (*it).second;
-        return type == actualParams.first && size == actualParams.second;
-      }
-      else
-        return false;
-    }
-  };
-
-  bool GpuProgram::HasUniform(string const & name, glConst type, UniformSize size)
-  {
-    return m_validator->HasValidTypeAndSizeForName(name, type, size);
-  }
-#endif // UniformValidator
-
-
 GpuProgram::GpuProgram(ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
 {
   m_programID = GLFunctions::glCreateProgram();
@@ -61,15 +19,14 @@ GpuProgram::GpuProgram(ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentSha
 
   string errorLog;
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
-    LOG(LINFO, ("Program ", m_programID, " link error = ", errorLog));
+    LOG(LERROR, ("Program ", m_programID, " link error = ", errorLog));
+
+  // originaly i detached shaders there, but then i try it on Tegra3 device.
+  // on Tegra3, glGetActiveUniform will not work if you detach shaders after linking
+  LoadUniformLocations();
 
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
-
-
-#ifdef DEBUG
-  m_validator.reset(new UniformValidator(m_programID));
-#endif
 }
 
 GpuProgram::~GpuProgram()
@@ -95,7 +52,24 @@ int8_t GpuProgram::GetAttributeLocation(string const & attributeName) const
 
 int8_t GpuProgram::GetUniformLocation(string const & uniformName) const
 {
-  return GLFunctions::glGetUniformLocation(m_programID, uniformName);
+  auto const it = m_uniforms.find(uniformName);
+  if (it == m_uniforms.end())
+    return -1;
+
+  return it->second;
+}
+
+void GpuProgram::LoadUniformLocations()
+{
+  int32_t uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
+  for (int32_t i = 0; i < uniformsCount; ++i)
+  {
+    int32_t size = 0;
+    glConst type = gl_const::GLFloatVec4;
+    string name;
+    GLFunctions::glGetActiveUniform(m_programID, i, &size, &type, name);
+    m_uniforms[name] = GLFunctions::glGetUniformLocation(m_programID, name);
+  }
 }
 
 } // namespace dp
