@@ -8,7 +8,7 @@ public:
   MethodRef(char const * name, char const * signature);
   ~MethodRef();
 
-  void Init(JNIEnv * env, jobject obj);
+  void Init(jobject obj);
   void CallVoid(jlong arg);
 
 private:

@@ -18,7 +18,7 @@ namespace android
                     jstring flavorName, jstring buildType,
                     bool isYota, bool isTablet);
 
-    void InitAppMethodRefs(JNIEnv * env, jobject appObject);
+    void InitAppMethodRefs(jobject appObject);
     void CallNativeFunctor(jlong functionPointer);
 
     void OnExternalStorageStatusChanged(bool isAvailable);

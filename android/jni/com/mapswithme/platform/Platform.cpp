@@ -91,7 +91,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
 namespace android
 {
   Platform::Platform()
-    : m_runOnUI("runNativeFunctorOnUIThread", "(J)V")
+    : m_runOnUI("runNativeFunctorOnUiThread", "(J)V")
   {
   }
 
@@ -145,9 +145,9 @@ namespace android
     (void) ConnectionStatus();
   }
 
-  void Platform::InitAppMethodRefs(JNIEnv * env, jobject appObject)
+  void Platform::InitAppMethodRefs(jobject appObject)
   {
-    m_runOnUI.Init(env, appObject);
+    m_runOnUI.Init(appObject);
   }
 
   void Platform::CallNativeFunctor(jlong functionPointer)

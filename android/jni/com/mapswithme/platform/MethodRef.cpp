@@ -18,10 +18,11 @@ MethodRef::~MethodRef()
     jni::GetEnv()->DeleteGlobalRef(m_object);
 }
 
-void MethodRef::Init(JNIEnv * env, jobject obj)
+void MethodRef::Init(jobject obj)
 {
+  JNIEnv * env = jni::GetEnv();
   m_object = env->NewGlobalRef(obj);
-  jclass k = env->GetObjectClass(m_object);
+  jclass const k = env->GetObjectClass(m_object);
   m_methodID = env->GetMethodID(k, m_name, m_signature);
   ASSERT(m_object != nullptr, ());
   ASSERT(m_methodID != nullptr, ());
@@ -33,5 +34,5 @@ void MethodRef::CallVoid(jlong arg)
   ASSERT(jniEnv != nullptr, ());
   ASSERT(m_object != nullptr, ());
   ASSERT(m_methodID != nullptr, ());
-  jniEnv->CallVoidMethod(m_object, m_methodID, static_cast<jlong>(arg));
+  jniEnv->CallVoidMethod(m_object, m_methodID, arg);
 }

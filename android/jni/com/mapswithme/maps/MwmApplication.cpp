@@ -28,7 +28,7 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMApplication_nativeCallOnUIThread(JNIEnv * env, jobject thiz, jlong functorPointer)
+  Java_com_mapswithme_maps_MWMApplication_runNativeFunctor(JNIEnv * env, jobject thiz, jlong functorPointer)
   {
     android::Platform::Instance().CallNativeFunctor(functorPointer);
   }
