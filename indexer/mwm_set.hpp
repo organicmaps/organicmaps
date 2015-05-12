@@ -122,7 +122,6 @@ public:
   public:
     MwmLock();
     MwmLock(MwmSet & mwmSet, MwmId const & mwmId);
-    MwmLock(MwmSet & mwmSet, TMwmFileName const & fileName);
     MwmLock(MwmLock && lock);
     ~MwmLock();
 
@@ -193,8 +192,14 @@ public:
   /// In that case, LockValue returns NULL.
   void GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const;
 
-  // Clear caches.
+  /// Clears caches.
   void ClearCache();
+
+  /// Finds an mwm with a given name.
+  MwmId GetMwmIdByFileName(TMwmFileName const & fileName) const;
+
+  /// Returns a lock for an mwm with a given name.
+  MwmLock GetMwmLockByFileName(TMwmFileName const & fileName);
 
 protected:
   /// @return True when file format version was successfully read to MwmInfo.
@@ -219,12 +224,12 @@ private:
   size_t const m_cacheSize;
 
 protected:
-  /// Find mwm with a given name.
-  /// @precondition This function is always called under mutex m_lock.
-  MwmId GetIdByName(TMwmFileName const & fileName) const;
-
   /// @precondition This function is always called under mutex m_lock.
   void ClearCache(MwmId const & id);
+
+  /// Find mwm with a given name.
+  /// @precondition This function is always called under mutex m_lock.
+  MwmId GetMwmIdByFileNameImpl(TMwmFileName const & fileName) const;
 
   /// @precondition This function is always called under mutex m_lock.
   WARN_UNUSED_RESULT inline MwmLock GetLock(MwmId const & id)

@@ -55,7 +55,7 @@ RoutingMapping::RoutingMapping(string const & fName, Index const * pIndex)
     }
   }
 
-  m_mwmId = pIndex->GetMwmIdByName(mwmName);
+  m_mwmId = pIndex->GetMwmIdByFileName(mwmName);
 }
 
 RoutingMapping::~RoutingMapping()

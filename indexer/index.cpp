@@ -142,7 +142,7 @@ pair<MwmSet::MwmLock, Index::UpdateStatus> Index::UpdateMap(string const & fileN
   {
     lock_guard<mutex> lock(m_lock);
 
-    MwmId const id = GetIdByName(fileName);
+    MwmId const id = GetMwmIdByFileNameImpl(fileName);
     shared_ptr<MwmInfo> info = id.GetInfo();
     if (id.IsAlive() && info->m_lockCount > 0)
     {

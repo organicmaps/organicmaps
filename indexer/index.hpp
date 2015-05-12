@@ -289,15 +289,6 @@ public:
     FeaturesVector m_vector;
   };
 
-  MwmId GetMwmIdByName(string const & name) const
-  {
-    lock_guard<mutex> lock(m_lock);
-
-    MwmId const id = GetIdByName(name);
-    ASSERT(id.IsAlive(), ("Can't get an mwm's (", name, ") identifier."));
-    return id;
-  }
-
   template <typename F>
   void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, MwmId const id) const
   {

@@ -134,7 +134,7 @@ UNIT_TEST(Index_MwmStatusNotifications)
   // Tries to delete map in presence of active lock. Map should be
   // marked "to be removed" but can't be deleted.
   {
-    MwmSet::MwmLock const lock(index, testMapName);
+    MwmSet::MwmLock const lock = index.GetMwmLockByFileName(testMapName);
     TEST(lock.IsLocked(), ());
 
     TEST(!index.DeleteMap(testMapName), ());

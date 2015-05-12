@@ -28,15 +28,6 @@ MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId const & mwmId)
 {
 }
 
-MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, TMwmFileName const & fileName)
-    : m_mwmSet(&mwmSet), m_mwmId(), m_value(nullptr)
-{
-  lock_guard<mutex> lock(m_mwmSet->m_lock);
-  m_mwmId = m_mwmSet->GetIdByName(fileName);
-  if (m_mwmId.IsAlive())
-    m_value = m_mwmSet->LockValueImpl(m_mwmId);
-}
-
 MwmSet::MwmLock::MwmLock(MwmSet & mwmSet, MwmId const & mwmId, TMwmValueBasePtr value)
     : m_mwmSet(&mwmSet), m_mwmId(mwmId), m_value(value)
 {
@@ -99,7 +90,7 @@ void MwmSet::Cleanup()
 #endif
 }
 
-MwmSet::MwmId MwmSet::GetIdByName(TMwmFileName const & name) const
+MwmSet::MwmId MwmSet::GetMwmIdByFileNameImpl(TMwmFileName const & name) const
 {
   ASSERT(!name.empty(), ());
   auto const it = m_info.find(name);
@@ -112,7 +103,7 @@ pair<MwmSet::MwmLock, bool> MwmSet::Register(TMwmFileName const & fileName)
 {
   lock_guard<mutex> lock(m_lock);
 
-  MwmId const id = GetIdByName(fileName);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
   if (!id.IsAlive())
     return RegisterImpl(fileName);
   shared_ptr<MwmInfo> info = id.GetInfo();
@@ -161,7 +152,7 @@ bool MwmSet::Deregister(TMwmFileName const & fileName)
 
 bool MwmSet::DeregisterImpl(TMwmFileName const & fileName)
 {
-  MwmId const id = GetIdByName(fileName);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
   if (!id.IsAlive())
     return false;
   bool const deregistered = DeregisterImpl(id);
@@ -187,7 +178,7 @@ bool MwmSet::IsLoaded(TMwmFileName const & fileName) const
 {
   lock_guard<mutex> lock(m_lock);
 
-  MwmId const id = GetIdByName(fileName + DATA_FILE_EXTENSION);
+  MwmId const id = GetMwmIdByFileNameImpl(fileName + DATA_FILE_EXTENSION);
   return id.IsAlive() && id.GetInfo()->IsRegistered();
 }
 
@@ -274,6 +265,26 @@ void MwmSet::ClearCache()
 {
   lock_guard<mutex> lock(m_lock);
   ClearCacheImpl(m_cache.begin(), m_cache.end());
+}
+
+MwmSet::MwmId MwmSet::GetMwmIdByFileName(TMwmFileName const & fileName) const
+{
+  lock_guard<mutex> lock(m_lock);
+
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
+  ASSERT(id.IsAlive(), ("Can't get an mwm's (", fileName, ") identifier."));
+  return id;
+}
+
+MwmSet::MwmLock MwmSet::GetMwmLockByFileName(TMwmFileName const & fileName)
+{
+  lock_guard<mutex> lock(m_lock);
+
+  MwmId const id = GetMwmIdByFileNameImpl(fileName);
+  TMwmValueBasePtr value(nullptr);
+  if (id.IsAlive())
+    value = LockValueImpl(id);
+  return MwmLock(*this, id, value);
 }
 
 void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
