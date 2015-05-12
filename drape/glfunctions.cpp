@@ -5,6 +5,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/macros.hpp"
 #include "base/mutex.hpp"
 
 #ifdef DEBUG
