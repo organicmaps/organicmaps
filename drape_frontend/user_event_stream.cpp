@@ -97,7 +97,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     }
   }
 
-  if (m_state == STATE_TAP_DETECTION && m_validPointersCount == 1)
+  if (m_state == STATE_TAP_DETECTION && m_validTouchesCount == 1)
     DetectLongTap(m_touches[0]);
 
   return m_navigator.Screen();
@@ -107,11 +107,6 @@ void UserEventStream::SetTapListener(TTapDetectedFn const & tapCallback, TSingle
 {
   m_tapDetectedFn = tapCallback;
   m_filterFn = filterFn;
-}
-
-void UserEventStream::Clear()
-{
-  m_events.clear();
 }
 
 void UserEventStream::SetCenter(m2::PointD const & center, int zoom)
@@ -299,7 +294,7 @@ void UserEventStream::TouchUp(array<Touch, 2> const & touches)
 void UserEventStream::UpdateTouches(array<Touch, 2> const & touches, size_t validCount)
 {
   m_touches = touches;
-  m_validPointersCount = validCount;
+  m_validTouchesCount = validCount;
 #ifdef DEBUG
   if (validCount > 0)
     ASSERT(m_touches[0].m_id != -1, ());

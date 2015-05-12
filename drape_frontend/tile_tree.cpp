@@ -51,11 +51,6 @@ void TileTree::EndRequesting()
   SimplifyTree();
 }
 
-void TileTree::GetTilesCollection(TTilesCollection & tiles, int const zoomLevel) const
-{
-  FillTilesCollection(m_root, tiles, zoomLevel);
-}
-
 void TileTree::ClipByRect(m2::RectD const & rect)
 {
   ClipNode(m_root, rect);
@@ -199,17 +194,6 @@ void TileTree::AbortTiles(TNodePtr const & node, int const zoomLevel)
     }
 
     AbortTiles(childNode, zoomLevel);
-  }
-}
-
-void TileTree::FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel) const
-{
-  for (TNodePtr const & childNode : node->m_children)
-  {
-    if (childNode->m_tileStatus != TileStatus::Unknown && childNode->m_tileKey.m_zoomLevel == zoomLevel)
-      tiles.insert(childNode->m_tileKey);
-
-    FillTilesCollection(childNode, tiles, zoomLevel);
   }
 }
 

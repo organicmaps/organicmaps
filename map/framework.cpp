@@ -727,7 +727,7 @@ namespace
 
 double ScaleModeToFactor(Framework::EScaleMode mode)
 {
-  double factors[] = { 2.0, 1.5, 0.5, 0.67};
+  double factors[] = { 2.0, 1.5, 0.5, 0.67 };
   return factors[mode];
 }
 

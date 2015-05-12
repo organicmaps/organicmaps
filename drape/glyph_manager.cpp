@@ -263,9 +263,6 @@ struct UnicodeBlock
 
   int GetFontOffset(int idx) const
   {
-    if (m_fontsWeight.empty())
-      return -1;
-
     ASSERT(!m_fontsWeight.empty(), ());
     int maxWight = 0;
     int upperBoundWeight = numeric_limits<int>::max();

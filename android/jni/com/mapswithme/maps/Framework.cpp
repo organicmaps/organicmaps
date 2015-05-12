@@ -190,9 +190,18 @@ TStatus Framework::GetCountryStatus(TIndex const & idx) const
 }
 
 /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
+
+namespace
+{
+  int const MASK_NO_TOUCHES = 0x0;
+  int const MASK_FIRST_TOUCH = 0x1;
+  int const MASK_SECOND_TOUCH = 0x2;
+  int const MASK_BOTH_TOUCHES = 0x3;
+} // namespace
+
 void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)
 {
-  if (mask == 0)
+  if (mask == MASK_NO_TOUCHES)
     return;
 
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
@@ -216,7 +225,7 @@ void Framework::Touch(int action, int mask, double x1, double y1, double x2, dou
     return;
   }
 
-  if (mask == 0x2)
+  if (mask == MASK_SECOND_TOUCH)
   {
     x1 = x2;
     y1 = y2;
@@ -224,7 +233,7 @@ void Framework::Touch(int action, int mask, double x1, double y1, double x2, dou
 
   event.m_touches[0].m_location = m2::PointD(x1, y1);
   event.m_touches[0].m_id = 0;
-  if (mask == 0x3)
+  if (mask == MASK_BOTH_TOUCHES)
   {
     event.m_touches[1].m_location = m2::PointD(x2, y2);
     event.m_touches[1].m_id = 1;

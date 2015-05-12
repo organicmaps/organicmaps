@@ -20,7 +20,7 @@ namespace df
 struct Touch
 {
   m2::PointF m_location = m2::PointF::Zero();
-  int m_id = -1; // if id == -1 than touch invalid
+  int m_id = -1; // if id == -1 then touch invalid
 };
 
 struct TouchEvent
@@ -157,7 +157,6 @@ public:
 #endif
 
 private:
-  void Clear();
   void SetCenter(m2::PointD const & center, int zoom);
   void SetRect(m2::RectD rect, int zoom, bool applyRotation);
   void SetRect(m2::AnyRectD const & rect);
@@ -208,7 +207,7 @@ private:
   } m_state;
 
   array<Touch, 2> m_touches;
-  size_t m_validPointersCount;
+  size_t m_validTouchesCount;
 
 #ifdef DEBUG
   TTestBridge m_testFn;

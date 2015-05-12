@@ -49,9 +49,6 @@ public:
   /// This method processes a message about finishing reading tiles on BR.
   void FinishTiles(TTilesCollection const & tiles, int const zoomLevel);
 
-  /// It returns actual tile collection to send to BR.
-  void GetTilesCollection(TTilesCollection & tiles, int const zoomLevel) const;
-
 private:
   struct Node;
   using TNodePtr = unique_ptr<Node>;
@@ -65,8 +62,6 @@ private:
   void AbortTiles(TNodePtr const & node, int const zoomLevel);
 
   void ClipByRect(m2::RectD const & rect);
-
-  void FillTilesCollection(TNodePtr const & node, TTilesCollection & tiles, int const zoomLevel) const;
 
   void ClipNode(TNodePtr const & node, m2::RectD const & rect);
   void CheckDeferredTiles(TNodePtr const & node);
