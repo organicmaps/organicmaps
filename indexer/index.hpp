@@ -294,7 +294,7 @@ public:
     lock_guard<mutex> lock(m_lock);
 
     MwmId const id = GetIdByName(name);
-    ASSERT(id.IsAlive(), ("Can't get an mwm's identifier."));
+    ASSERT(id.IsAlive(), ("Can't get an mwm's (", name, ") identifier."));
     return id;
   }
 
@@ -344,8 +344,8 @@ private:
       // bound of all features in an mwm corresponding to id, because
       // it's greater than any other feature in the mwm in accordance
       // with FeatureID::operator<().
-      FeatureID fakeID(id, numeric_limits<uint32_t>::max());
-      result = distance(features.begin(), upper_bound(features.begin(), features.end(), fakeID));
+      FeatureID const fakeID(id, numeric_limits<uint32_t>::max());
+      result = distance(features.cbegin(), upper_bound(features.cbegin(), features.cend(), fakeID));
     }
 
     return result;

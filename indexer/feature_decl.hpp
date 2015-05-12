@@ -7,7 +7,6 @@
 
 namespace feature
 {
-
 enum EGeomType
 {
   GEOM_UNDEFINED = -1,
@@ -16,7 +15,6 @@ enum EGeomType
   GEOM_LINE = 1,
   GEOM_AREA = 2
 };
-
 }
 
 struct FeatureID
@@ -24,12 +22,12 @@ struct FeatureID
   MwmSet::MwmId m_mwmId;
   uint32_t m_offset;
 
-  FeatureID() = default;
+  FeatureID() : m_offset(0) {}
   FeatureID(MwmSet::MwmId const & mwmId, uint32_t offset) : m_mwmId(mwmId), m_offset(offset) {}
 
   bool IsValid() const { return m_mwmId.IsAlive(); }
 
-  inline bool operator < (FeatureID const & r) const
+  inline bool operator<(FeatureID const & r) const
   {
     if (m_mwmId == r.m_mwmId)
       return m_offset < r.m_offset;
@@ -37,15 +35,12 @@ struct FeatureID
       return m_mwmId < r.m_mwmId;
   }
 
-  inline bool operator == (FeatureID const & r) const
+  inline bool operator==(FeatureID const & r) const
   {
     return m_mwmId == r.m_mwmId && m_offset == r.m_offset;
   }
 
-  inline bool operator != (FeatureID const & r) const
-  {
-    return !(*this == r);
-  }
+  inline bool operator!=(FeatureID const & r) const { return !(*this == r); }
 
   friend string DebugPrint(FeatureID const & id);
 };

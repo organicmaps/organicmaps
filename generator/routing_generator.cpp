@@ -192,7 +192,7 @@ void BuildRoutingIndex(string const & baseDir, string const & countryName, strin
 
   string const mwmFile = baseDir + countryName + DATA_FILE_EXTENSION;
   Index index;
-  pair<MwmSet::MwmLock, bool> p = index.Register(mwmFile);
+  pair<MwmSet::MwmLock, bool> const p = index.Register(mwmFile);
   if (!p.second)
   {
     LOG(LCRITICAL, ("MWM file not found"));

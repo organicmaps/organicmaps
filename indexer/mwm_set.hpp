@@ -77,7 +77,7 @@ public:
     friend class MwmSet;
 
     MwmId() = default;
-    MwmId(MwmId const & id) : m_info(id.m_info) {}
+    MwmId(MwmId const & id) = default;
     MwmId(shared_ptr<MwmInfo> const & info) : m_info(info) {}
 
     void Reset() { m_info.reset(); }
@@ -197,8 +197,7 @@ public:
   void ClearCache();
 
 protected:
-  /// @return True when it's possible to get file format version - in
-  ///         this case version is set to the file format version.
+  /// @return True when file format version was successfully read to MwmInfo.
   virtual bool GetVersion(TMwmFileName const & fileName, MwmInfo & info) const = 0;
   virtual TMwmValueBasePtr CreateValue(string const & name) const = 0;
 

@@ -26,7 +26,7 @@ namespace graphics
       MwmSet::MwmId m_mwmID;
       uint32_t m_offset;
 
-      UserInfo() = default;
+      UserInfo() : m_offset(0) {}
       inline bool IsValid() const { return m_mwmID.IsAlive(); }
       inline bool operator== (UserInfo const & a) const
       {

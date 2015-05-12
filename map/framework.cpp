@@ -98,6 +98,7 @@ pair<MwmSet::MwmLock, bool> Framework::RegisterMap(string const & file)
   ASSERT(lock.IsLocked(), ());
 
   shared_ptr<MwmInfo> info = lock.GetInfo();
+  ASSERT(info, ());
 
   if (info->m_version.format == version::v1)
   {

@@ -18,7 +18,7 @@ class TestMwmSet : public MwmSet
 protected:
   bool GetVersion(string const & path, MwmInfo & info) const override
   {
-    int n = path[0] - '0';
+    int const n = path[0] - '0';
     info.m_maxScale = n;
     info.m_limitRect = m2::RectD(0, 0, 1, 1);
     info.m_version.format = version::lastFormat;
@@ -72,8 +72,8 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST_EQUAL(mwmsInfo["0"]->m_maxScale, 0, ());
   TEST(mwmsInfo["2"]->IsUpToDate(), ());
   {
-    MwmSet::MwmLock lock0(mwmSet, "0");
-    MwmSet::MwmLock lock1(mwmSet, "1");
+    MwmSet::MwmLock const lock0(mwmSet, "0");
+    MwmSet::MwmLock const lock1(mwmSet, "1");
     TEST(lock0.IsLocked(), ());
     TEST(!lock1.IsLocked(), ());
   }
@@ -91,7 +91,7 @@ UNIT_TEST(MwmSetSmokeTest)
   TEST_EQUAL(mwmsInfo["3"]->m_maxScale, 3, ());
 
   {
-    MwmSet::MwmLock lock1(mwmSet, "1");
+    MwmSet::MwmLock const lock1(mwmSet, "1");
     TEST(!lock1.IsLocked(), ());
     mwmSet.Deregister("3");
     UNUSED_VALUE(mwmSet.Register("4"));
@@ -128,8 +128,8 @@ UNIT_TEST(MwmSetIdTest)
   TestMwmSet mwmSet;
   TEST(mwmSet.Register("3").second, ());
 
-  MwmSet::MwmId id0 = MwmSet::MwmLock(mwmSet, "3").GetId();
-  MwmSet::MwmId id1 = MwmSet::MwmLock(mwmSet, "3").GetId();
+  MwmSet::MwmId const id0 = MwmSet::MwmLock(mwmSet, "3").GetId();
+  MwmSet::MwmId const id1 = MwmSet::MwmLock(mwmSet, "3").GetId();
 
   TEST(id0.IsAlive(), ());
   TEST(id1.IsAlive(), ());
@@ -151,9 +151,9 @@ UNIT_TEST(MwmSetLockAndIdTest)
   MwmSet::MwmId id;
 
   {
-    pair<MwmSet::MwmLock, bool> lockFlag = mwmSet.Register("4");
-    MwmSet::MwmLock & lock = lockFlag.first;
-    bool success = lockFlag.second;
+    pair<MwmSet::MwmLock, bool> const lockFlag = mwmSet.Register("4");
+    MwmSet::MwmLock const & lock = lockFlag.first;
+    bool const success = lockFlag.second;
     TEST(lock.IsLocked(), ());
     TEST(success, ("Can't register test mwm 4"));
     TEST_EQUAL(MwmInfo::STATUS_UP_TO_DATE, lock.GetInfo()->GetStatus(), ());
@@ -170,8 +170,8 @@ UNIT_TEST(MwmSetLockAndIdTest)
   TEST_EQUAL(MwmInfo::STATUS_DEREGISTERED, id.GetInfo()->GetStatus(), ());
   TEST_EQUAL(4, id.GetInfo()->m_maxScale, ());
 
-  // It's not possible to lock mwm 4 because it's already deleted, and
-  // it's not possible to get to it's info from mwmSet.
+  // It is not possible to lock mwm 4 because it is already deleted,
+  // and it is not possible to get to it's info from mwmSet.
   MwmSet::MwmLock lock(mwmSet, "4");
   TEST(!lock.IsLocked(), ());
   TEST(!lock.GetId().IsAlive(), ());

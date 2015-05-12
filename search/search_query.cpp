@@ -2227,7 +2227,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
       break;
 
     MwmSet::MwmId const & mwmId = it->first;
-    for (size_t offset : it->second)
+    for (size_t const offset : it->second)
     {
       if (m_cancel)
         break;

@@ -87,9 +87,9 @@ void MwmSet::Cleanup()
   ClearCacheImpl(m_cache.begin(), m_cache.end());
 
 #ifdef DEBUG
-  for (auto it = m_info.begin(); it != m_info.end(); ++it)
+  for (auto const & p : m_info)
   {
-    MwmInfo const & info = *it->second;
+    MwmInfo const & info = *p.second;
     if (info.IsUpToDate())
     {
       ASSERT_EQUAL(info.m_lockCount, 0, (info.m_fileName));
@@ -103,7 +103,7 @@ MwmSet::MwmId MwmSet::GetIdByName(TMwmFileName const & name) const
 {
   ASSERT(!name.empty(), ());
   auto const it = m_info.find(name);
-  if (it == m_info.end())
+  if (it == m_info.cend())
     return MwmId();
   return MwmId(it->second);
 }
@@ -117,7 +117,7 @@ pair<MwmSet::MwmLock, bool> MwmSet::Register(TMwmFileName const & fileName)
     return RegisterImpl(fileName);
   shared_ptr<MwmInfo> info = id.GetInfo();
   if (info->IsRegistered())
-    LOG(LWARNING, ("Trying to add already registered map", fileName));
+    LOG(LWARNING, ("Trying to add already registered mwm:", fileName));
   else
     info->SetStatus(MwmInfo::STATUS_UP_TO_DATE);
   return make_pair(GetLock(id), false);
