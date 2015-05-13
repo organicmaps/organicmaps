@@ -157,13 +157,13 @@ public:
   /// positions.
   void AddFakeTurns(RoadPos const & rp, RoadPosVectorT const & vicinity);
 
-protected:
   // Returns RoadInfo for a road corresponding to featureId.
   virtual RoadInfo GetRoadInfo(uint32_t featureId) = 0;
 
   // Returns speed in KM/H for a road corresponding to featureId.
   virtual double GetSpeedKMPH(uint32_t featureId) = 0;
 
+protected:
   // Calls turnsLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                             CrossTurnsLoader & turnsLoader) = 0;

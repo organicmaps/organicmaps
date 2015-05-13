@@ -18,7 +18,7 @@ namespace routing
 /// Helper functor class to filter nearest RoadPos'es to the given starting point.
 class NearestRoadPosFinder
 {
-  static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::infinity();
+  static constexpr uint32_t INVALID_FID = numeric_limits<uint32_t>::max();
 
   struct Candidate
   {
@@ -36,27 +36,28 @@ class NearestRoadPosFinder
           m_isOneway(false)
     {
     }
+
+    bool Valid() {return m_fid != INVALID_FID;}
   };
 
   m2::PointD m_point;
   m2::PointD m_direction;
-  unique_ptr<IVehicleModel> const & m_vehicleModel;
   vector<Candidate> m_candidates;
-  MwmSet::MwmId m_mwmId;
+  IRoadGraph * m_roadGraph;
 
 public:
   NearestRoadPosFinder(m2::PointD const & point, m2::PointD const & direction,
-                       unique_ptr<IVehicleModel> const & vehicleModel)
-      : m_point(point), m_direction(direction), m_vehicleModel(vehicleModel)
+                       IRoadGraph * roadGraph)
+      : m_point(point),
+        m_direction(direction),
+        m_roadGraph(roadGraph)
   {
   }
 
   inline bool HasCandidates() const { return !m_candidates.empty(); }
 
-  void AddInformationSource(FeatureType const & ft);
+  void AddInformationSource(uint32_t featureId);
 
   void MakeResult(vector<RoadPos> & res, size_t const maxCount);
-
-  inline MwmSet::MwmId GetMwmId() const { return m_mwmId; }
 };
 }

@@ -6,8 +6,8 @@
 
 namespace routing
 {
-AStarRouter::AStarRouter(Index const * pIndex, RoutingVisualizerFn routingVisualizer)
-    : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()))
+AStarRouter::AStarRouter(CountryFileFnT const & fn,Index const * pIndex,  RoutingVisualizerFn routingVisualizer)
+    : RoadGraphRouter(pIndex, unique_ptr<IVehicleModel>(new PedestrianModel()), fn)
     , m_routingVisualizer(routingVisualizer)
 {
 }

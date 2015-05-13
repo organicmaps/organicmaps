@@ -8,6 +8,7 @@
 
 #include "geometry/point2d.hpp"
 
+#include "std/function.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
@@ -15,10 +16,12 @@ class Index;
 
 namespace routing
 {
+typedef function<string (m2::PointD const &)> CountryFileFnT;
+
 class RoadGraphRouter : public IRouter
 {
 public:
-  RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel);
+  RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel, CountryFileFnT const & fn);
   ~RoadGraphRouter();
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
@@ -30,13 +33,14 @@ public:
 
 protected:
   /// @todo This method fits better in features_road_graph.
-  MwmSet::MwmId GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
+  void GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
 
   bool IsMyMWM(MwmSet::MwmId const & mwmID) const;
 
   unique_ptr<IRoadGraph> m_roadGraph;
   unique_ptr<IVehicleModel> const m_vehicleModel;
   Index const * m_pIndex;  // non-owning ptr
+  CountryFileFnT m_countryFileFn;
 };
 
 }  // namespace routing

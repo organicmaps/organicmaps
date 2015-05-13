@@ -32,7 +32,10 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
   string const kMapName = "UK_England";
   classificator::Load();
   Index index;
-  routing::AStarRouter router(&index);
+  routing::AStarRouter router([&kMapName] (m2::PointD const & /*point*/)
+  {
+    return kMapName;
+  }, &index);
 
   UNUSED_VALUE(index.RegisterMap(kMapName + DATA_FILE_EXTENSION));
   TEST(index.IsLoaded(kMapName), ());

@@ -32,24 +32,25 @@ double const FEATURE_BY_POINT_RADIUS_M = 100.0;
 
 RoadGraphRouter::~RoadGraphRouter() {}
 
-RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel)
-    : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex)
+RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel, CountryFileFnT const & fn)
+    : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex), m_countryFileFn(fn)
 {
 }
 
-MwmSet::MwmId RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
+void RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
-  NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, m_vehicleModel);
-  auto f = [&finder](FeatureType & ft)
+  NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, m_roadGraph.get());
+  auto f = [&finder, this](FeatureType & ft)
   {
-    finder.AddInformationSource(ft);
+    if (ft.GetFeatureType() != feature::GEOM_LINE || m_vehicleModel->GetSpeed(ft) == 0.0)
+        return;
+    finder.AddInformationSource(ft.GetID().m_offset);
   };
   m_pIndex->ForEachInRect(
       f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
       FeaturesRoadGraph::GetStreetReadScale());
 
   finder.MakeResult(pos, MAX_ROAD_CANDIDATES);
-  return finder.GetMwmId();
 }
 
 bool RoadGraphRouter::IsMyMWM(MwmSet::MwmId const & mwmID) const
@@ -66,17 +67,27 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   // we still need to check that startPoint and finalPoint are in the same MWM
   // and probably reset the graph. So the checks stay here.
   vector<RoadPos> finalVicinity;
-  MwmSet::MwmId mwmID = GetRoadPos(finalPoint, finalVicinity);
-  if (!finalVicinity.empty() && !IsMyMWM(mwmID))
+  string mwmName = m_countryFileFn(finalPoint);
+  size_t mwmID = m_pIndex->GetMwmIdByName(mwmName + DATA_FILE_EXTENSION);
+  if (!IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
   if (!m_roadGraph)
     return EndPointNotFound;
 
-  vector<RoadPos> startVicinity;
-  mwmID = GetRoadPos(startPoint, startVicinity);
+  GetRoadPos(finalPoint, finalVicinity);
 
-  if (startVicinity.empty() || !IsMyMWM(mwmID))
+  if (finalVicinity.empty())
+    return EndPointNotFound;
+
+  mwmName = m_countryFileFn(startPoint);
+  if (m_pIndex->GetMwmIdByName(mwmName + DATA_FILE_EXTENSION) != mwmID)
+    return StartPointNotFound;
+
+  vector<RoadPos> startVicinity;
+  GetRoadPos(startPoint, startVicinity);
+
+  if (startVicinity.empty())
     return StartPointNotFound;
 
   my::Timer timer;

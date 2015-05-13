@@ -26,6 +26,7 @@ SOURCES += \
   astar_algorithm_test.cpp \
   astar_router_test.cpp \
   cross_routing_tests.cpp \
+  nearest_road_pos_finder_tests.cpp \
   online_cross_fetcher_test.cpp \
   osrm_router_test.cpp \
   road_graph_builder.cpp \
