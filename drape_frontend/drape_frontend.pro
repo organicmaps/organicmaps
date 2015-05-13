@@ -9,6 +9,10 @@ INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 DEFINES += DRAW_INFO
 
 SOURCES += \
+    animation/base_interpolator.cpp \
+    animation/modelview_center_animation.cpp \
+    animation/interpolation_holder.cpp \
+    animation/interpolations.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
     backend_renderer.cpp \
@@ -45,9 +49,14 @@ SOURCES += \
     viewport.cpp \
     visual_params.cpp \
     my_position.cpp \
-    user_event_stream.cpp
+    user_event_stream.cpp \
 
 HEADERS += \
+    animation/base_viewport_animation.hpp \
+    animation/modelview_center_animation.hpp \
+    animation/interpolation_holder.hpp \
+    animation/interpolations.hpp \
+    animation/base_interpolator.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     backend_renderer.hpp \
@@ -89,4 +98,4 @@ HEADERS += \
     viewport.hpp \
     visual_params.hpp \
     my_position.hpp \
-    user_event_stream.hpp
+    user_event_stream.hpp \

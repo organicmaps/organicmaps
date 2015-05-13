@@ -1,3 +1,4 @@
+#include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -457,6 +458,7 @@ void FrontendRenderer::Routine::Do()
   //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 
   timer.Reset();
+  double frameTime = 0.0;
   bool isInactiveLastFrame = false;
   bool viewChanged = true;
   ScreenBase modelView = m_renderer.UpdateScene(viewChanged);
@@ -465,9 +467,10 @@ void FrontendRenderer::Routine::Do()
     context->setDefaultFramebuffer();
     m_renderer.m_texMng->UpdateDynamicTextures();
     m_renderer.RenderScene(modelView);
+    bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 
-    bool const isInactiveCurrentFrame = (!viewChanged && m_renderer.IsQueueEmpty());
+    bool const isInactiveCurrentFrame = (!viewChanged && m_renderer.IsQueueEmpty() && !animActive);
 
     if (isInactiveLastFrame && isInactiveCurrentFrame)
     {
@@ -494,6 +497,7 @@ void FrontendRenderer::Routine::Do()
     }
 
     context->present();
+    frameTime = timer.ElapsedSeconds();
     timer.Reset();
 
     m_renderer.CheckRenderingEnabled();
