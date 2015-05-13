@@ -3,7 +3,7 @@
 ROOT_DIR = ../..
 DEPENDENCIES = generator routing storage indexer platform geometry coding base \
                osrm gflags expat sgitess jansson protobuf tomcrypt o5mreader \
-               succinct
+               succinct stats_client
 
 include($$ROOT_DIR/common.pri)
 
