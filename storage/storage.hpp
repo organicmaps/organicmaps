@@ -35,7 +35,6 @@ namespace storage
       TMapOptions m_init, m_left, m_current;
 
     public:
-      explicit QueuedCountry(TIndex const & index) : m_index(index), m_pFile(0) {}
       QueuedCountry(Storage const & storage, TIndex const & index, TMapOptions opt);
 
       void AddOptions(TMapOptions opt);

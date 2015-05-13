@@ -50,17 +50,21 @@ namespace storage
   }
   */
 
-  Storage::QueuedCountry::QueuedCountry(Storage const & storage, TIndex const & index, TMapOptions opt)
+  Storage::QueuedCountry::QueuedCountry(Storage const & storage, TIndex const & index,
+                                        TMapOptions opt)
     : m_index(index), m_init(opt), m_left(opt)
   {
     m_pFile = &(storage.CountryByIndex(index).GetFile());
 
     // Don't queue files with 0-size on server (empty or absent).
-    // Downloader has lots of assertions about it.
-    if ((m_init & TMapOptions::ECarRouting) && (m_pFile->GetRemoteSize(TMapOptions::ECarRouting) > 0))
+    // Downloader has lots of assertions about it.  If car routing was
+    // requested for downloading, try download it first.
+    if ((m_init & TMapOptions::ECarRouting) &&
+        (m_pFile->GetRemoteSize(TMapOptions::ECarRouting) > 0)) {
       m_current = TMapOptions::ECarRouting;
-    else
+    } else {
       m_init = m_current = m_left = TMapOptions::EMapOnly;
+    }
   }
 
   void Storage::QueuedCountry::AddOptions(TMapOptions opt)
