@@ -24,6 +24,7 @@ win32* : LIBS *= -lShell32
 
 SOURCES += \
   ../testing/testingmain.cpp \
+  online_cross_tests.cpp \
   osrm_route_test.cpp \
   osrm_turn_test.cpp \
   osrm_test_tools.cpp \

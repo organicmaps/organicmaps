@@ -6,6 +6,7 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "routing/online_cross_fetcher.hpp"
 #include "routing/route.hpp"
 
 #include "map/feature_vec_model.hpp"
@@ -97,6 +98,7 @@ namespace integration
         m_searchEngine(CreateSearchEngine(m_featuresFetcher)),
         m_osrmRouter(CreateOsrmRouter(m_featuresFetcher, m_searchEngine)) {}
     OsrmRouter * GetOsrmRouter() const { return m_osrmRouter.get(); }
+    search::Engine * GetSearchEngine() const { return m_searchEngine.get(); }
 
   private:
     shared_ptr<model::FeaturesFetcher> m_featuresFetcher;
@@ -247,5 +249,19 @@ namespace integration
       }
     }
     return TestTurn();
+  }
+
+  void TestOnlineCrosses(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                         vector<string> const & expected,
+                         shared_ptr<OsrmRouterComponents> & routerComponents)
+  {
+    routing::OnlineCrossFetcher fetcher(OSRM_ONLINE_SERVER_URL, startPoint, finalPoint);
+    vector<m2::PointD> const & points = fetcher.GetMwmPoints();
+    TEST_EQUAL(points.size(), expected.size(), ());
+    for (m2::PointD const & point : points)
+    {
+      string const mwmName = routerComponents->GetSearchEngine()->GetCountryFile(point);
+      TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(), ());
+    }
   }
 }

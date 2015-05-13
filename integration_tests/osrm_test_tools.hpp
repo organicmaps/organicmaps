@@ -37,6 +37,10 @@ namespace integration
 {
   class OsrmRouterComponents;
 
+  void TestOnlineCrosses(m2::PointD const & startPoint, m2::PointD const & finalPoint,
+                         vector<string> const & expected,
+                         shared_ptr<OsrmRouterComponents> & routerComponents);
+
   shared_ptr<OsrmRouterComponents> GetAllMaps();
   shared_ptr<OsrmRouterComponents> LoadMaps(vector<string> const & mapNames);
   RouteResultT CalculateRoute(shared_ptr<OsrmRouterComponents> routerComponents,
