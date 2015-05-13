@@ -192,13 +192,10 @@ public:
   /// In that case, LockValue returns NULL.
   void GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const;
 
-  /// Clears caches.
   void ClearCache();
 
-  /// Finds an mwm with a given name.
   MwmId GetMwmIdByFileName(TMwmFileName const & fileName) const;
 
-  /// Returns a lock for an mwm with a given name.
   MwmLock GetMwmLockByFileName(TMwmFileName const & fileName);
 
 protected:
