@@ -32,7 +32,7 @@ fail() {
 
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
-BASE_NAME="${SOURCE_FILE%%.*}"
+BASE_NAME="$(basename "${SOURCE_FILE%%.*}")"
 TARGET="${TARGET:-$(dirname "$SOURCE_FILE")}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
