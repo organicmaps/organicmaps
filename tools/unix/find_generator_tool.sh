@@ -9,7 +9,6 @@
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 
 if [ -z "${GENERATOR_TOOL-}" ]; then
-  # find generator_tool. Supply your own priority dir if needed
   IT_PATHS_ARRAY=()
   for i in ${BUILD_PATH-} $OMIM_PATH $OMIM_PATH/../*omim*elease* $OMIM_PATH/../*omim*ebug; do
     if [ -d "$i/out" ]; then
