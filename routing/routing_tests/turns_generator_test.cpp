@@ -293,4 +293,55 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   TEST(!turns[1].m_lanes[1].m_isRecommended, ());
   TEST(!turns[1].m_lanes[1].m_isRecommended, ());
 }
+
+UNIT_TEST(TestRoundaboutDirection)
+{
+  TEST_EQUAL(RoundaboutDirection(true, true, true), TurnDirection::StayOnRoundAbout, ());
+  TEST_EQUAL(RoundaboutDirection(true, true, false), TurnDirection::NoTurn, ());
+  TEST_EQUAL(RoundaboutDirection(false, true, false), TurnDirection::EnterRoundAbout, ());
+  TEST_EQUAL(RoundaboutDirection(true, false, false), TurnDirection::LeaveRoundAbout, ());
+}
+
+UNIT_TEST(TestKeepOnewayOutgoingTurnRoundabout)
+{
+  TEST(!KeepOnewayOutgoingTurnRoundabout(true, true), ());
+  TEST(!KeepOnewayOutgoingTurnRoundabout(false, false), ());
+  TEST(!KeepOnewayOutgoingTurnRoundabout(true, false), ());
+  TEST(KeepOnewayOutgoingTurnRoundabout(false, true), ());
+}
+
+UNIT_TEST(TestInvertDirection)
+{
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnSlightRight), TurnDirection::TurnSlightLeft, ());
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnRight), TurnDirection::TurnLeft, ());
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnSharpRight), TurnDirection::TurnSharpLeft, ());
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnSlightLeft), TurnDirection::TurnSlightRight, ());
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnSlightRight), TurnDirection::TurnSlightLeft, ());
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnLeft), TurnDirection::TurnRight, ());
+  TEST_EQUAL(InvertDirection(TurnDirection::TurnSharpLeft), TurnDirection::TurnSharpRight, ());
+}
+
+UNIT_TEST(TestMostRightDirection)
+{
+  TEST_EQUAL(MostRightDirection(0.), TurnDirection::NoTurn, ());
+  TEST_EQUAL(MostRightDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(MostRightDirection(180.), TurnDirection::TurnSlightRight, ());
+  TEST_EQUAL(MostRightDirection(270.), TurnDirection::TurnLeft, ());
+}
+
+UNIT_TEST(TestMostLeftDirection)
+{
+  TEST_EQUAL(MostLeftDirection(0.), TurnDirection::NoTurn, ());
+  TEST_EQUAL(MostLeftDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(MostLeftDirection(180.), TurnDirection::TurnSlightLeft, ());
+  TEST_EQUAL(MostLeftDirection(270.), TurnDirection::TurnLeft, ());
+}
+
+UNIT_TEST(TestIntermediateDirection)
+{
+  TEST_EQUAL(IntermediateDirection(0.), TurnDirection::NoTurn, ());
+  TEST_EQUAL(IntermediateDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(IntermediateDirection(180.), TurnDirection::GoStraight, ());
+  TEST_EQUAL(IntermediateDirection(270.), TurnDirection::TurnLeft, ());
+}
 }  // namespace

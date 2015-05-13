@@ -180,6 +180,15 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
       continue;
     }
 
+    // @todo(vbykoianko) The sieve below is made for filtering unnecessary turns on Moscow's MKAD
+    // and roads like it. It's quick fix but it's possible to do better.
+    // The better solution is to remove all "slight" turns if the route goes form one not-link road
+    // to another not-link road and other possible turns are links. But it's not possible to implement quickly.
+    // To do that you need to calculate FeatureType for most possible turns. But it is already made once in
+    // KeepMultiTurnClassHighwayClass(GetOutgoingHighwayClass). So it's a good idea to keep
+    // FeatureType for outgoing turns in TurnCandidatesT (if them have been calculated).
+    // For the time being I decided to postpone the implementation of the feature but
+    // it worth implementing it in the future.
     if (!t.m_keepAnyway && IsGoStraightOrSlightTurn(t.m_turn) && !t.m_sourceName.empty() &&
         strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
     {
