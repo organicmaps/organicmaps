@@ -40,12 +40,11 @@ RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel>
 
 void RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
-  NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, m_roadGraph.get());
+  NearestRoadPosFinder finder(pt, m2::PointD::Zero() /* undirected */, *m_roadGraph.get());
   auto f = [&finder, this](FeatureType & ft)
   {
-    if (ft.GetFeatureType() != feature::GEOM_LINE || m_vehicleModel->GetSpeed(ft) == 0.0)
-      return;
-    finder.AddInformationSource(ft.GetID().m_offset);
+    if (ft.GetFeatureType() == feature::GEOM_LINE && m_vehicleModel->GetSpeed(ft) > 0.0)
+      finder.AddInformationSource(ft.GetID().m_offset);
   };
   m_pIndex->ForEachInRect(
       f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
@@ -69,11 +68,11 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   // and probably reset the graph. So the checks stay here.
   vector<RoadPos> finalVicinity;
   string const mwmName = m_countryFileFn(finalPoint);
-  MwmSet::MwmId mwmID = m_pIndex->GetMwmIdByName(mwmName);
-  if (!mwmID.IsAlive())
+  MwmSet::MwmLock const mwmLock = const_cast<Index &>(*m_pIndex).GetMwmLockByFileName(mwmName);
+  if (!mwmLock.IsLocked())
     return EndPointNotFound;
-  Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmID);
-  UNUSED_VALUE(mwmLock);
+  MwmSet::MwmId mwmID = mwmLock.GetId();
+
   if (!IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 

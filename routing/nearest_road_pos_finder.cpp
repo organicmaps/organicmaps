@@ -12,7 +12,7 @@ void NearestRoadPosFinder::AddInformationSource(uint32_t featureId)
 {
   Candidate res;
 
-  IRoadGraph::RoadInfo info = m_roadGraph->GetRoadInfo(featureId);
+  IRoadGraph::RoadInfo info = m_roadGraph.GetRoadInfo(featureId);
   size_t const count = info.m_points.size();
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
@@ -33,7 +33,7 @@ void NearestRoadPosFinder::AddInformationSource(uint32_t featureId)
     }
   }
 
-  if (res.Valid())
+  if (res.IsValid())
     m_candidates.push_back(res);
 }
 

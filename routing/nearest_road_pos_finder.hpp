@@ -38,17 +38,17 @@ class NearestRoadPosFinder
     {
     }
 
-    inline bool Valid() const { return m_fid != INVALID_FID; }
+    inline bool IsValid() const { return m_fid != INVALID_FID; }
   };
 
   m2::PointD m_point;
   m2::PointD m_direction;
   vector<Candidate> m_candidates;
-  IRoadGraph * m_roadGraph;
+  IRoadGraph & m_roadGraph;
 
 public:
   NearestRoadPosFinder(m2::PointD const & point, m2::PointD const & direction,
-                       IRoadGraph * roadGraph)
+                       IRoadGraph & roadGraph)
       : m_point(point), m_direction(direction), m_roadGraph(roadGraph)
   {
   }
