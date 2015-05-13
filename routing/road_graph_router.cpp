@@ -69,7 +69,9 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   // and probably reset the graph. So the checks stay here.
   vector<RoadPos> finalVicinity;
   string mwmName = m_countryFileFn(finalPoint);
-  size_t mwmID = m_pIndex->GetMwmIdByName(mwmName + DATA_FILE_EXTENSION);
+  MwmSet::MwmId mwmID = m_pIndex->GetMwmIdByName(mwmName + DATA_FILE_EXTENSION);
+  if (!mwmID.IsAlive())
+    return EndPointNotFound;
   if (!IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 

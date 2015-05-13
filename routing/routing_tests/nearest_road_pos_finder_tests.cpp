@@ -34,7 +34,7 @@ UNIT_TEST(StarterPosAtBorder)
 
 UNIT_TEST(MiddleEdgeTest)
 {
-  RoadPos pos1(0, false /* forward */, 0, m2::PointD(3, 0));
+  RoadPos pos1(0, false /* backward */, 0, m2::PointD(3, 0));
   RoadPos pos2(0, true /* forward */, 0, m2::PointD(3, 0));
   vector<RoadPos> expected = {pos1, pos2};
   TestNearestMock(m2::PointD(3, 3), 2, expected);
@@ -42,9 +42,9 @@ UNIT_TEST(MiddleEdgeTest)
 
 UNIT_TEST(MiddleSegmentTest)
 {
-  RoadPos pos1(0, false /* forward */, 2, m2::PointD(13, 0));
+  RoadPos pos1(0, false /* backward */, 2, m2::PointD(13, 0));
   RoadPos pos2(0, true /* forward */, 2, m2::PointD(13, 0));
-  RoadPos pos3(3, false /* forward */, 1, m2::PointD(15, 5));
+  RoadPos pos3(3, false /* backward */, 1, m2::PointD(15, 5));
   RoadPos pos4(3, true /* forward */, 1, m2::PointD(15, 5));
   vector<RoadPos> expected = {pos1, pos2, pos3, pos4};
   TestNearestMock(m2::PointD(13, 3), 4, expected);
