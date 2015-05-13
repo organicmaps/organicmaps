@@ -85,7 +85,7 @@ while getopts ":cuwrh" opt; do
   esac
 done
 
-EXIT_ON_ERROR=1
+EXIT_ON_ERROR=${EXIT_ON_ERROR-1}
 [ -n "${EXIT_ON_ERROR-}" ] && set -e # Exit when any of commands fail
 set -u # Fail on undefined variables
 set -x # Echo every script line
@@ -101,21 +101,21 @@ mkdir -p "$TARGET"
 INTDIR="${INTDIR:-$TARGET/intermediate_data}"
 OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-MERGE_COASTS_DELAY=2400 # in seconds
+MERGE_COASTS_DELAY_SEC=2400
 # set to "mem" if there is more than 64 GB of memory
 NODE_STORAGE=${NODE_STORAGE:-${NS:-map}}
 NUM_PROCESSES=${NUM_PROCESSES:-$(expr $(nproc || echo 8) - 1)}
 
 STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
-SCRIPT_PATH="$(dirname $0)"
-ROUTING_SCRIPT="$SCRIPT_PATH/generate_planet_routing.sh"
+SCRIPTS_PATH="$(dirname $0)"
+ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 GENERATOR_LOG="$TARGET/planet_generator.log"
 ROUTING_LOG="$TARGET/planet_routing.log"
 date +%Y-%m-%d\ %H:%M:%S > "$GENERATOR_LOG"
 
 # Run external script to find generator_tool
-source "$SCRIPT_PATH/find_generator_tool.sh"
+source "$SCRIPTS_PATH/find_generator_tool.sh"
 
 # Prepare borders
 [ -n "${EXIT_ON_ERROR-}" ] && set +e # Grep returns non-zero status
@@ -127,7 +127,7 @@ if [ -n "${REGIONS:-}" ]; then
     BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
     mkdir -p "$BORDERS_BACKUP_PATH"
     log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
-    echo "$PREV_BORDERS" | xargs -I % mv "$TARGET/borders/%" "$BORDERS_BACKUP_PATH/"
+    ( cd "$TARGET/borders"; mv *.poly "$BORDERS_BACKUP_PATH/" )
   fi
   echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
 elif [ -z "$PREV_BORDERS" ]; then
@@ -137,7 +137,7 @@ elif [ -z "$PREV_BORDERS" ]; then
 fi
 [ -z "$(ls "$TARGET/borders" | grep \.poly)" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
 [ -n "${EXIT_ON_ERROR-}" ] && set -e
-ULIMIT_REQ=$(expr 4 \* $(ls "$TARGET/borders" | grep \.poly | wc -l))
+ULIMIT_REQ=$(expr 3 \* $(ls "$TARGET/borders" | grep \.poly | wc -l))
 [ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ"
 
 # These variables are used by external script(s), namely generate_planet_routing.sh
@@ -191,9 +191,10 @@ if [ "$MODE" == "coast" ]; then
     if [ -n "$OPT_UPDATE" ]; then
       log "STATUS" "Step 1: Updating the planet file $PLANET"
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
-      pushd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
-      ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
-      popd
+      (
+        cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
+        ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
+      )
       mv "$PLANET.new.o5m" "$PLANET"
     fi
 
@@ -217,8 +218,8 @@ if [ "$MODE" == "coast" ]; then
         log "TIMEMARK" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
           date -u
-          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY seconds..."
-          sleep $MERGE_COASTS_DELAY
+          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY_SEC seconds..."
+          sleep $MERGE_COASTS_DELAY_SEC
           TRY_AGAIN=1
         else
           fail
@@ -254,6 +255,7 @@ if [ "$MODE" == "features" ]; then
   # 2nd pass - paralleled in the code
   PARAMS_SPLIT="-split_by_polygons -generate_features"
   [ -n "$OPT_WORLD" ] && PARAMS_SPLIT="$PARAMS_SPLIT -generate_world -emit_coasts"
+  [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && log "WARNING: generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
     --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$GENERATOR_LOG"
   MODE=mwm
