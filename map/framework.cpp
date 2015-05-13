@@ -2145,7 +2145,7 @@ void Framework::SetRouter(RouterType type)
     m_routingSession.SetRouter(
         unique_ptr<IRouter>(new AStarRouter([this](m2::PointD const & pt)
                                             {
-                                              return GetSearchEngine()->GetCountryFile(pt);
+                                              return GetSearchEngine()->GetCountryFile(pt) + DATA_FILE_EXTENSION;
                                             },
                                             &m_model.GetIndex(), routingVisualizer)));
   else

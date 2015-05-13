@@ -10,7 +10,7 @@ namespace routing
 class AStarRouter : public RoadGraphRouter
 {
 public:
-  AStarRouter(CountryFileFnT const & fn, Index const * pIndex = nullptr,
+  AStarRouter(TMwmFileByPointFn const & fn, Index const * pIndex = nullptr,
               RoutingVisualizerFn routingVisualizer = nullptr);
 
   // IRouter overrides:

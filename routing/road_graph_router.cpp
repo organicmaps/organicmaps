@@ -33,7 +33,7 @@ double const FEATURE_BY_POINT_RADIUS_M = 100.0;
 RoadGraphRouter::~RoadGraphRouter() {}
 
 RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel,
-                                 CountryFileFnT const & fn)
+                                 TMwmFileByPointFn const & fn)
     : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex), m_countryFileFn(fn)
 {
 }
@@ -68,10 +68,12 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   // we still need to check that startPoint and finalPoint are in the same MWM
   // and probably reset the graph. So the checks stay here.
   vector<RoadPos> finalVicinity;
-  string mwmName = m_countryFileFn(finalPoint);
-  MwmSet::MwmId mwmID = m_pIndex->GetMwmIdByName(mwmName + DATA_FILE_EXTENSION);
+  string const mwmName = m_countryFileFn(finalPoint);
+  MwmSet::MwmId mwmID = m_pIndex->GetMwmIdByName(mwmName);
   if (!mwmID.IsAlive())
     return EndPointNotFound;
+  Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), mwmID);
+  UNUSED_VALUE(mwmLock);
   if (!IsMyMWM(mwmID))
     m_roadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
@@ -83,9 +85,8 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (finalVicinity.empty())
     return EndPointNotFound;
 
-  mwmName = m_countryFileFn(startPoint);
-  if (m_pIndex->GetMwmIdByName(mwmName + DATA_FILE_EXTENSION) != mwmID)
-    return StartPointNotFound;
+  if (m_countryFileFn(startPoint) != mwmName)
+    return PointsInDifferentMWM;
 
   vector<RoadPos> startVicinity;
   GetRoadPos(startPoint, startVicinity);

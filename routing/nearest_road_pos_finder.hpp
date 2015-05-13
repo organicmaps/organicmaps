@@ -8,6 +8,7 @@
 #include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "std/limits.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
@@ -37,7 +38,7 @@ class NearestRoadPosFinder
     {
     }
 
-    bool Valid() { return m_fid != INVALID_FID; }
+    inline bool Valid() const { return m_fid != INVALID_FID; }
   };
 
   m2::PointD m_point;
