@@ -82,12 +82,14 @@ public abstract class RenderActivity extends MWMFragmentActivity
     if (count == 0)
       return super.onTouchEvent(event);
 
-    int action = event.getAction();
+    int action = event.getActionMasked();
     switch (action)
     {
+    case MotionEvent.ACTION_POINTER_UP:
     case MotionEvent.ACTION_UP:
       action = NATIVE_ACTION_UP;
       break;
+    case MotionEvent.ACTION_POINTER_DOWN:
     case MotionEvent.ACTION_DOWN:
       action = NATIVE_ACTION_DOWN;
       break;
@@ -102,27 +104,27 @@ public abstract class RenderActivity extends MWMFragmentActivity
     switch (count)
     {
     case 1:
-    {
-      mLastPointerId = event.getPointerId(0);
+      {
+        mLastPointerId = event.getPointerId(0);
 
-      final float x0 = event.getX();
-      final float y0 = event.getY();
+        final float x0 = event.getX();
+        final float y0 = event.getY();
 
-      return OnTouch(action, true, false, x0, y0, 0, 0);
-    }
+        return OnTouch(action, true, false, x0, y0, 0, 0);
+      }
     default:
-    {
-      final float x0 = event.getX(0);
-      final float y0 = event.getY(0);
+      {
+        final float x0 = event.getX(0);
+        final float y0 = event.getY(0);
 
-      final float x1 = event.getX(1);
-      final float y1 = event.getY(1);
+        final float x1 = event.getX(1);
+        final float y1 = event.getY(1);
 
-      if (event.getPointerId(0) == mLastPointerId)
-        return OnTouch(action, true, true, x0, y0, x1, y1);
-      else
-        return OnTouch(action, true, true, x1, y1, x0, y0);
-    }
+        if (event.getPointerId(0) == mLastPointerId)
+          return OnTouch(action, true, true, x0, y0, x1, y1);
+        else
+          return OnTouch(action, true, true, x1, y1, x0, y0);
+      }
     }
   }
 

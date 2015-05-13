@@ -61,9 +61,6 @@ DrapeEngine::~DrapeEngine()
 
 void DrapeEngine::Resize(int w, int h)
 {
-  if (m_viewport.GetWidth() == w && m_viewport.GetHeight() == h)
-    return;
-
   m_viewport.SetViewport(0, 0, w, h);
   AddUserEvent(ResizeEvent(w, h));
 }
