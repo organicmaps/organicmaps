@@ -10,7 +10,8 @@ namespace routing
 class AStarRouter : public RoadGraphRouter
 {
 public:
-  AStarRouter( CountryFileFnT const & fn, Index const * pIndex = nullptr, RoutingVisualizerFn routingVisualizer = nullptr);
+  AStarRouter(CountryFileFnT const & fn, Index const * pIndex = nullptr,
+              RoutingVisualizerFn routingVisualizer = nullptr);
 
   // IRouter overrides:
   string GetName() const override { return "astar-pedestrian"; }

@@ -8,9 +8,8 @@
 using namespace routing;
 using namespace routing_test;
 
-void TestNearestMock(m2::PointD const & point,
-                         size_t const candidatesCount,
-                         vector<RoadPos> const & expected)
+void TestNearestMock(m2::PointD const & point, size_t const candidatesCount,
+                     vector<RoadPos> const & expected)
 {
   unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
   InitRoadGraphMockSourceWithTest1(*graph);
@@ -32,7 +31,6 @@ UNIT_TEST(StarterPosAtBorder)
   vector<RoadPos> expected = {pos1, pos2};
   TestNearestMock(m2::PointD(0, 0), 2, expected);
 }
-
 
 UNIT_TEST(MiddleEdgeTest)
 {

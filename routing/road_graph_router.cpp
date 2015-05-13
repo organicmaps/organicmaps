@@ -32,7 +32,8 @@ double const FEATURE_BY_POINT_RADIUS_M = 100.0;
 
 RoadGraphRouter::~RoadGraphRouter() {}
 
-RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel, CountryFileFnT const & fn)
+RoadGraphRouter::RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel,
+                                 CountryFileFnT const & fn)
     : m_vehicleModel(move(vehicleModel)), m_pIndex(pIndex), m_countryFileFn(fn)
 {
 }
@@ -43,7 +44,7 @@ void RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
   auto f = [&finder, this](FeatureType & ft)
   {
     if (ft.GetFeatureType() != feature::GEOM_LINE || m_vehicleModel->GetSpeed(ft) == 0.0)
-        return;
+      return;
     finder.AddInformationSource(ft.GetID().m_offset);
   };
   m_pIndex->ForEachInRect(

@@ -2142,10 +2142,12 @@ void Framework::SetRouter(RouterType type)
 #endif
 
   if (type == RouterType::Pedestrian)
-    m_routingSession.SetRouter(unique_ptr<IRouter>(new AStarRouter([this] (m2::PointD const & pt)
-    {
-      return GetSearchEngine()->GetCountryFile(pt);
-    },&m_model.GetIndex(),  routingVisualizer)));
+    m_routingSession.SetRouter(
+        unique_ptr<IRouter>(new AStarRouter([this](m2::PointD const & pt)
+                                            {
+                                              return GetSearchEngine()->GetCountryFile(pt);
+                                            },
+                                            &m_model.GetIndex(), routingVisualizer)));
   else
     m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this] (m2::PointD const & pt)
     {

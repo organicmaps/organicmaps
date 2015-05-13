@@ -18,11 +18,10 @@ using namespace routing_test;
 void TestAStarRouterMock(RoadPos const & startPos, RoadPos const & finalPos,
                          m2::PolylineD const & expected)
 {
-  AStarRouter router(
-        [] (m2::PointD const & /*point*/)
-  {
-    return "Dummy_map.mwm";
-  });
+  AStarRouter router([](m2::PointD const & /*point*/)
+                     {
+                       return "Dummy_map.mwm";
+                     });
   {
     unique_ptr<RoadGraphMockSource> graph(new RoadGraphMockSource());
     InitRoadGraphMockSourceWithTest2(*graph);

@@ -16,12 +16,13 @@ class Index;
 
 namespace routing
 {
-typedef function<string (m2::PointD const &)> CountryFileFnT;
+typedef function<string(m2::PointD const &)> CountryFileFnT;
 
 class RoadGraphRouter : public IRouter
 {
 public:
-  RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel, CountryFileFnT const & fn);
+  RoadGraphRouter(Index const * pIndex, unique_ptr<IVehicleModel> && vehicleModel,
+                  CountryFileFnT const & fn);
   ~RoadGraphRouter();
 
   ResultCode CalculateRoute(m2::PointD const & startPoint, m2::PointD const & startDirection,
