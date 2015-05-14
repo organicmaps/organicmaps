@@ -20,6 +20,7 @@ SOURCES += \
 #    Contractor/TemporaryStorage.cpp \
 #    datastore.cpp \
      osrm-backend/data_structures/coordinate.cpp \
+     osrm-backend/data_structures/coordinate_calculation.cpp \
 #    DataStructures/HilbertValue.cpp \
 #    DataStructures/ImportEdge.cpp \
 #    DataStructures/ImportNode.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 #    osrm-backend/DataStructures/RouteParameters.cpp \
     osrm-backend/data_structures/search_engine_data.cpp \
     osrm-backend/data_structures/phantom_node.cpp \
+    osrm-backend/util/mercator.cpp \
 #    osrm-backend/Descriptors/DescriptionFactory.cpp \
 #    osrm-backend/Util/FingerPrint.cpp \
 #    Extractor/BaseParser.cpp \
@@ -54,6 +56,8 @@ SOURCES += \
 
 HEADERS += \
     osrm-backend/osrm/include/coordinate.h \
+    osrm-backend/data_structures/coordinate_calculation.hpp \
+    osrm-backend/util/mercator.hpp \
 #    osrm-backend/DataStructures/SearchEngineData.h \
 #    osrm-backend/DataStructures/RouteParameters.h \
 #    osrm-backend/Algorithms/DouglasPeucker.h \
