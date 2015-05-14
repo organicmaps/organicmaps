@@ -11,7 +11,7 @@
 /*
  * These tests are developed to simplify routing integration tests writing.
  * You can use the interface bellow however you want but there are some hints.
- * 1. Most likely you want to use GetAllMaps() to get ref to OsrmRouterComponents.
+ * 1. Most likely you want to use GetAllMaps() to get a reference to OsrmRouterComponents.
  *    It loads all the maps from directories Platform::WritableDir()
  *    and Platform::ResourcesDir() only once and then reuse it.
  *    Use LoadMaps() only if you want to test something on a special map set.
