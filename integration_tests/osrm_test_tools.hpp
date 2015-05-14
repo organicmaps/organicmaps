@@ -45,7 +45,7 @@ namespace integration
                          vector<string> const & expected,
                          OsrmRouterComponents & routerComponents);
 
-  OsrmRouterComponents const & GetAllMaps();
+  OsrmRouterComponents & GetAllMaps();
   shared_ptr<OsrmRouterComponents> LoadMaps(vector<string> const & mapNames);
   TRouteResult CalculateRoute(OsrmRouterComponents const & routerComponents,
                               m2::PointD const & startPoint, m2::PointD const & startDirection,
