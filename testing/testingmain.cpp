@@ -1,14 +1,15 @@
-#include "testing/testregister.hpp"
 #include "testing/testing.hpp"
+#include "testing/testregister.hpp"
 
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 #include "base/regexp.hpp"
+#include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "std/iostream.hpp"
+#include "std/target_os.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-#include "std/target_os.hpp"
 
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
@@ -94,8 +95,10 @@ int main(int argc, char * argv[])
 
     try
     {
+      my::HighResTimer timer(true);
       // Run the test.
       pTest->m_Fn();
+      uint64_t const elapsed = timer.ElapsedNano();
 
       if (g_bLastTestOK)
       {
@@ -108,6 +111,7 @@ int main(int argc, char * argv[])
         testResults[iTest] = false;
         ++numFailedTests;
       }
+      LOG(LINFO, ("Test took", elapsed, "ns"));
 
     }
     catch (TestFailureException const & )

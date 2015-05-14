@@ -29,7 +29,7 @@ win32*|linux* {
 SOURCES += \
     ../../testing/testingmain.cpp \
     apk_test.cpp \
-#    downloader_test.cpp \
+    downloader_test.cpp \
     jansson_test.cpp \
     language_test.cpp \
     location_test.cpp \

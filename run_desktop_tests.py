@@ -17,17 +17,24 @@ be found, i.e. the tests that were specified in the skip list, but do not exist.
 """
 
 from __future__ import print_function
+
+import getopt
 from os import listdir
 from os.path import isfile, join
+import os
+import socket
 import subprocess
 import sys
-import getopt
+import testserver
+import urllib2
 
 
 tests_path = ""
-workspace_path = "./omim-build-release"
+workspace_path = "./omim-build-release/out/release"
 skiplist = []
+logfile = "testlog.log"
 
+PORT = 34568
 
 def print_pretty(result, tests):
     if len(tests) == 0:
@@ -50,48 +57,63 @@ Possbile options:
 
 -e --exclude: list of tests to exclude, comma separated, no spaces allowed
 
+-o --output : resulting log file. Default testlog.log
+
 
 Example
 
-./run_desktop_tests.py -f /Users/Jenkins/Home/jobs/Multiplatform/workspace/omim-build-release -e drape_tests,some_other_tests
+./run_desktop_tests.py -f /Users/Jenkins/Home/jobs/Multiplatform/workspace/omim-build-release/out/release -e drape_tests,some_other_tests -o my_log_file.log
 """)
 
 
 def set_global_vars():
     try:
-        opts, args = getopt.getopt(
-            sys.argv[1:],
-            "he:f:",
-            ["help", "exclude=", "folder="])
+        opts, args = getopt.getopt(sys.argv[1:], "he:f:o:",
+                                   ["help", "exclude=", "folder=", "output="])
     except getopt.GetoptError as err:
         print(str(err))
         usage()
         sys.exit(2)
 
-    for o, a in opts:
-        if o in ("-h", "--help"):
+    for option, argument in opts:
+        if option in ("-h", "--help"):
             usage()
             sys.exit()
-        elif o in ("-e", "--exclude"):
-            exclude_tests = a.split(",")
+        if option in ("-o", "--output"):
+            global logfile
+            logfile = argument
+        elif option in ("-e", "--exclude"):
+            exclude_tests = argument.split(",")
             for exclude_test in exclude_tests:
                 global skiplist
                 skiplist.append(exclude_test)
-        elif o in ("-f", "--folder"):
+        elif option in ("-f", "--folder"):
             global workspace_path
-            workspace_path = a
+            workspace_path = argument
         else:
             assert False, "unhandled option"
 
 
+def start_server():
+    server = testserver.TestServer()
+    server.start_serving()
+
+
+def stop_server():
+    try:
+        urllib2.urlopen('http://localhost:{port}/kill'.format(port=PORT), timeout=5)
+    except (urllib2.URLError, socket.timeout):
+        print("Failed to stop the server...")
+
+
 def run_tests():
-    tests_path = "{workspace_path}/out/release".format(
-        workspace_path=workspace_path)
+    tests_path = "{workspace_path}".format(workspace_path=workspace_path)
 
     failed = []
     passed = []
     skipped = []
 
+    server = None
     for file in listdir(tests_path):
 
         if not file.endswith("_tests"):
@@ -101,13 +123,19 @@ def run_tests():
             skipped.append(file)
             continue
 
-        process = subprocess.Popen(
-            tests_path +
-            "/" +
-            file,
+        if file == "platform_tests":
+            start_server()
+        
+        process = subprocess.Popen("{tests_path}/{file} 2>> {logfile}".
+                                   format(tests_path=tests_path, file=file, logfile=logfile),
             shell=True,
             stdout=subprocess.PIPE)
+
         process.wait()
+
+        if file == "platform_tests":
+            stop_server()
+
         if process.returncode > 0:
             failed.append(file)
         else:
@@ -116,9 +144,18 @@ def run_tests():
     return {"failed": failed, "passed": passed, "skipped": skipped}
 
 
+def rm_log_file():
+    try:
+        os.remove(logfile)
+    except OSError:
+        pass
+
+
 def main():
     set_global_vars()
 
+    rm_log_file()
+    
     results = run_tests()
 
     print_pretty("failed", results["failed"])
