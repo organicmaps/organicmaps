@@ -408,7 +408,6 @@ public class SearchFragment extends BaseMwmListFragment implements View.OnClickL
       mSearchEt.setText(null);
       SearchController.getInstance().cancelApiCall();
       SearchController.getInstance().cancelSearch();
-      InputUtils.hideKeyboard(mSearchEt);
       break;
     case R.id.search_voice_input:
       final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
