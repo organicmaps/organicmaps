@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/animation/base_viewport_animation.hpp"
+#include "drape_frontend/animation/base_modelview_animation.hpp"
 
 namespace df
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/navigator.hpp"
-#include "drape_frontend/animation/base_viewport_animation.hpp"
+#include "drape_frontend/animation/base_modelview_animation.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -210,7 +210,7 @@ private:
   array<Touch, 2> m_touches;
   size_t m_validTouchesCount;
 
-  unique_ptr<BaseViewportAnimation> m_animation;
+  unique_ptr<BaseModeViewAnimation> m_animation;
 
 #ifdef DEBUG
   TTestBridge m_testFn;

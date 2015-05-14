@@ -4,7 +4,7 @@ namespace df
 {
 
 ModelViewAngleAnimation::ModelViewAngleAnimation(double startAngle, double endAngle, double duration)
-  : BaseViewportAnimation(duration)
+  : BaseModeViewAnimation(duration)
   , m_angle(startAngle, endAngle)
 {
 }

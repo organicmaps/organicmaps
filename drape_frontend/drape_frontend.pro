@@ -10,6 +10,7 @@ DEFINES += DRAW_INFO
 
 SOURCES += \
     animation/base_interpolator.cpp \
+    animation/modelview_angle_animation.cpp \
     animation/modelview_center_animation.cpp \
     animation/interpolation_holder.cpp \
     animation/interpolations.cpp \
@@ -50,10 +51,10 @@ SOURCES += \
     visual_params.cpp \
     my_position.cpp \
     user_event_stream.cpp \
-    animation/modelview_angle_animation.cpp
 
 HEADERS += \
-    animation/base_viewport_animation.hpp \
+    animation/base_modelview_animation.hpp \
+    animation/modelview_angle_animation.hpp \
     animation/modelview_center_animation.hpp \
     animation/interpolation_holder.hpp \
     animation/interpolations.hpp \
@@ -100,4 +101,3 @@ HEADERS += \
     visual_params.hpp \
     my_position.hpp \
     user_event_stream.hpp \
-    animation/modelview_angle_animation.hpp
