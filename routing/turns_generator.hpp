@@ -17,7 +17,7 @@ struct RoutingMapping;
 
 namespace turns
 {
-// Returns a segment index by STL-like range [s, e) of segments indices for passed node.
+/// Returns a segment index by STL-like range [s, e) of segments indices for passed node.
 typedef function<size_t(pair<size_t, size_t>)> TGetIndexFunction;
 
 OsrmMappingTypes::FtSeg GetSegment(PathData const & node, RoutingMapping const & routingMapping,
@@ -29,7 +29,7 @@ vector<SingleLaneInfo> GetLanesInfo(PathData const & node, RoutingMapping const 
 /// for displaying arrows on the route.
 void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir,
                            TurnsGeomT & turnsGeom);
-// Selects lanes which are recommended for the end user.
+/// Selects lanes which are recommended for the end user.
 void SelectRecommendedLanes(Route::TurnsT & turnsDir);
 void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir);
 }

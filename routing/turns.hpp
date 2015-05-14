@@ -108,16 +108,20 @@ bool IsLeftOrRightTurn(TurnDirection t);
 bool IsStayOnRoad(TurnDirection t);
 bool IsGoStraightOrSlightTurn(TurnDirection t);
 
-/*
- * \return True if l corresponds with t exactly. For example it returns true
- * when |l| equals to LaneWay::Right and |t| equals to TurnDirection::TurnRight.
+/*!
+ * \param l A variant of going along a lane.
+ * \param t A turn direction.
+ * \return True if @l corresponds with @t exactly. For example it returns true
+ * when @l equals to LaneWay::Right and @t equals to TurnDirection::TurnRight.
  * Otherwise it returns false.
  */
 bool IsLaneWayConformedTurnDirection(LaneWay l, TurnDirection t);
 
-/*
- * \return True if l corresponds with t approximately. For example it returns true
- * when |l| equals to LaneWay::Right and |t| equals to TurnDirection::TurnSlightRight.
+/*!
+ * \param l A variant of going along a lane.
+ * \param t A turn direction.
+ * \return True if @l corresponds with @t approximately. For example it returns true
+ * when @l equals to LaneWay::Right and @t equals to TurnDirection::TurnSlightRight.
  * Otherwise it returns false.
  */
 bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
