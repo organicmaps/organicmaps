@@ -13,8 +13,12 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/function.hpp"
+
 namespace dp
 {
+
+using TOverlayHandler = function<void ()>;
 
 class OverlayHandle
 {
@@ -34,8 +38,14 @@ public:
 
   virtual void Update(ScreenBase const & /*screen*/) {}
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
-
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const = 0;
+
+  virtual bool IsTapped(m2::PointD const & pt) const { return false; }
+  virtual void OnTapBegin(){}
+  virtual void OnTap(){}
+  virtual void OnTapEnd(){}
+
+  void FinishTapEvent(bool executeAction);
 
   bool IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle> const h) const;
 

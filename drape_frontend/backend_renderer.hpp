@@ -25,16 +25,19 @@ class ReadManager;
 class BackendRenderer : public BaseRenderer
 {
 public:
+
   struct Params : BaseRenderer::Params
   {
     Params(ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::OGLContextFactory> factory,
-           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model)
+           ref_ptr<dp::TextureManager> texMng, MapDataProvider const & model,
+           gui::Handlers const & guiHandlers)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_model(model)
-    {
-    }
+      , m_guiHandlers(guiHandlers)
+    {}
 
     MapDataProvider const & m_model;
+    gui::Handlers m_guiHandlers;
   };
 
   BackendRenderer(Params const & params);
@@ -52,6 +55,7 @@ private:
   drape_ptr<BatchersPool> m_batchersPool;
   drape_ptr<ReadManager> m_readManager;
   gui::LayerCacher m_guiCacher;
+  gui::Handlers m_guiHandlers;
 
   /////////////////////////////////////////
   //           MessageAcceptor           //

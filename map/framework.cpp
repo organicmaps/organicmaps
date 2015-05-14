@@ -1291,12 +1291,31 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
 
+  gui::Handlers guiHandlers;
+  guiHandlers.m_onCompassTapped = [this]()
+  {
+    LOG(LINFO, ("Compass tapped!"));
+    //m_informationDisplay.locationState()->OnCompassTaped();
+  };
+  guiHandlers.m_onDownloadMapTapped = [this]()
+  {
+    LOG(LINFO, ("Download map tapped!"));
+  };
+  guiHandlers.m_onDownloadMapRoutingTapped = [this]()
+  {
+    LOG(LINFO, ("Download map and routing tapped!"));
+  };
+  guiHandlers.m_onTryAgainTapped = [this]()
+  {
+    LOG(LINFO, ("Try again tapped!"));
+  };
+
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
                             make_ref(m_storageAccessor),
                             df::Viewport(0, 0, w, h),
                             df::MapDataProvider(idReadFn, featureReadFn, resolveCountry,isCountryLoadedFn),
-                            vs);
+                            vs, guiHandlers);
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(p);
   AddViewportListener([this](ScreenBase const & screen)

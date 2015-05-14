@@ -42,6 +42,7 @@ class FrontendRenderer : public BaseRenderer
 public:
   using TModelViewChanged = function<void (ScreenBase const & screen)>;
   using TIsCountryLoaded = TIsCountryLoaded;
+
   struct Params : BaseRenderer::Params
   {
     Params(ref_ptr<ThreadsCommutator> commutator,
@@ -54,8 +55,7 @@ public:
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
       , m_isCountryLoadedFn(isCountryLoaded)
-    {
-    }
+    {}
 
     Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
@@ -139,6 +139,7 @@ private:
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPosition> m_myPositionMark;
+  ref_ptr<dp::OverlayHandle> m_activeOverlay;
 
   dp::UniformValuesStorage m_generalUniforms;
 

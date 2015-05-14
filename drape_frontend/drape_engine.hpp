@@ -5,6 +5,7 @@
 #include "drape_frontend/threads_commutator.hpp"
 
 #include "drape/pointers.hpp"
+#include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -34,15 +35,16 @@ public:
            ref_ptr<gui::StorageAccessor> storageAccessor,
            Viewport const & viewport,
            MapDataProvider const & model,
-           double vs)
+           double vs,
+           gui::Handlers const & guiHandlers)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
       , m_storageAccessor(storageAccessor)
       , m_viewport(viewport)
       , m_model(model)
       , m_vs(vs)
-    {
-    }
+      , m_guiHandlers(guiHandlers)
+    {}
 
     ref_ptr<dp::OGLContextFactory> m_factory;
     ref_ptr<StringsBundle> m_stringsBundle;
@@ -50,6 +52,8 @@ public:
     Viewport m_viewport;
     MapDataProvider m_model;
     double m_vs;
+
+    gui::Handlers m_guiHandlers;
   };
 
   DrapeEngine(Params const & params);

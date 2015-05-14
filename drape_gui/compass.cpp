@@ -23,15 +23,14 @@ namespace
     glsl::vec2 m_texCoord;
   };
 
-  class CompassHandle : public Handle
+  class CompassHandle : public TappableHandle
   {
   public:
-    CompassHandle(m2::PointF const & pivot, m2::PointF const & size)
-        : Handle(dp::Center, pivot, size)
-    {
-    }
+    CompassHandle(m2::PointF const & pivot, m2::PointF const & size, dp::TOverlayHandler const & tapHandler)
+      : TappableHandle(dp::Center, pivot, size, tapHandler)
+    {}
 
-    virtual void Update(ScreenBase const & screen) override
+    void Update(ScreenBase const & screen) override
     {
       float angle = ang::AngleIn2PI(screen.GetAngle());
       if (angle < my::DegToRad(5.0) || angle > my::DegToRad(355.0))
@@ -87,7 +86,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::TextureManager> tex) const
   provider.InitStream(0, info, make_ref(&vertexes));
 
   m2::PointF compassSize = region.GetPixelSize();
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize, m_tapHandler);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

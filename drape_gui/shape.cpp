@@ -3,6 +3,8 @@
 #include "drape/glsl_func.hpp"
 #include "drape/utils/projection.hpp"
 
+#include "base/logging.hpp"
+
 namespace gui
 {
 Handle::Handle(dp::Anchor anchor, const m2::PointF & pivot, const m2::PointF & size)
@@ -33,6 +35,31 @@ void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects &
 {
   UNUSED_VALUE(screen);
   UNUSED_VALUE(rects);
+}
+
+bool TappableHandle::IsTapped(m2::PointD const & pt) const
+{
+  if (!IsVisible() || !IsValid())
+    return false;
+
+  if (m_anchor == dp::Anchor::Center)
+  {
+    m2::RectD rect(m_pivot.x - m_size.x * 0.5, m_pivot.y - m_size.y * 0.5,
+                   m_pivot.x + m_size.x * 0.5, m_pivot.y + m_size.y * 0.5);
+    return rect.IsPointInside(pt);
+  }
+  else
+  {
+    LOG(LWARNING, ("Tapping on an overlay is not supported. Anchor type = ", m_anchor));
+  }
+
+  return false;
+}
+
+void TappableHandle::OnTap()
+{
+  if (m_tapHandler != nullptr)
+    m_tapHandler();
 }
 
 ShapeRenderer::~ShapeRenderer()
@@ -107,6 +134,24 @@ void ShapeRenderer::ForEachShapeInfo(ShapeRenderer::TShapeInfoEditFn const & fn)
                       {
                         for_each(shape.m_shapesInfo.begin(), shape.m_shapesInfo.end(), fn);
                       });
+}
+
+ref_ptr<dp::OverlayHandle> ShapeRenderer::ProcessTapEvent(m2::PointD const & pt)
+{
+  ref_ptr<dp::OverlayHandle> resultHandle = nullptr;
+  ForEachShapeInfo([&resultHandle, &pt](ShapeControl::ShapeInfo & shapeInfo)
+                   {
+                     if (shapeInfo.m_handle->IsTapped(pt))
+                     {
+                       ASSERT(resultHandle == nullptr, ("Overlays cannot be intersected"));
+                       resultHandle = make_ref(shapeInfo.m_handle);
+                     }
+                   });
+
+  if (resultHandle != nullptr)
+    resultHandle->OnTapBegin();
+
+  return resultHandle;
 }
 
 ShapeControl::ShapeInfo::ShapeInfo(dp::GLState const & state,

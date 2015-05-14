@@ -35,6 +35,21 @@ protected:
   mutable m2::PointF m_size;
 };
 
+class TappableHandle : public Handle
+{
+public:
+  TappableHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size, dp::TOverlayHandler const & tapHandler)
+    : Handle(anchor, pivot, size)
+    , m_tapHandler(tapHandler)
+  {}
+
+  bool IsTapped(m2::PointD const & pt) const override;
+  void OnTap() override;
+
+private:
+  dp::TOverlayHandler m_tapHandler;
+};
+
 struct ShapeControl
 {
   ShapeControl() = default;
@@ -73,6 +88,8 @@ public:
   void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
   void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
+
+  ref_ptr<dp::OverlayHandle> ProcessTapEvent(m2::PointD const & pt);
 
 private:
   friend void ArrangeShapes(ref_ptr<ShapeRenderer>,

@@ -14,15 +14,41 @@ namespace gui
 {
 namespace
 {
-class CountryStatusHandle : public Handle
+
+class CountryStatusButtonHandle : public ButtonHandle
 {
-  typedef Handle TBase;
+  using TBase = ButtonHandle;
 
 public:
-  CountryStatusHandle(CountryStatusHelper::ECountryState const state, dp::Anchor anchor, m2::PointF const & size)
-      : Handle(anchor, m2::PointF::Zero(), size), m_state(state)
+  CountryStatusButtonHandle(CountryStatusHelper::ECountryState const state,
+                            dp::Anchor anchor, m2::PointF const & size,
+                            dp::TextureManager::ColorRegion const & normalColor,
+                            dp::TextureManager::ColorRegion const & pressedColor,
+                            dp::TOverlayHandler const & tapHandler)
+      : TBase(anchor, size, normalColor, pressedColor, tapHandler)
+      , m_state(state)
+  {}
+
+  void Update(ScreenBase const & screen) override
   {
+    SetIsVisible(DrapeGui::GetCountryStatusHelper().IsVisibleForState(m_state));
+    TBase::Update(screen);
   }
+
+private:
+  CountryStatusHelper::ECountryState m_state;
+};
+
+class CountryStatusLabelHandle : public Handle
+{
+  using TBase = Handle;
+
+public:
+  CountryStatusLabelHandle(CountryStatusHelper::ECountryState const state,
+                           dp::Anchor anchor, m2::PointF const & size)
+      : TBase(anchor, m2::PointF::Zero(), size)
+      , m_state(state)
+  {}
 
   void Update(ScreenBase const & screen) override
   {
@@ -40,9 +66,8 @@ class CountryProgressHandle : public MutableLabelHandle
 
 public:
   CountryProgressHandle(dp::Anchor anchor, CountryStatusHelper::ECountryState const state)
-      : MutableLabelHandle(anchor, m2::PointF::Zero()), m_state(state)
-  {
-  }
+    : TBase(anchor, m2::PointF::Zero()), m_state(state)
+  {}
 
   void Update(ScreenBase const & screen) override
   {
@@ -58,11 +83,21 @@ private:
   CountryStatusHelper::ECountryState m_state;
 };
 
-drape_ptr<dp::OverlayHandle> CreateHandle(CountryStatusHelper::ECountryState const state,
-                                          dp::Anchor anchor,
-                                          m2::PointF const & size)
+drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountryState const state,
+                                                dp::Anchor anchor,
+                                                m2::PointF const & size,
+                                                dp::TextureManager::ColorRegion const & normalColor,
+                                                dp::TextureManager::ColorRegion const & pressedColor,
+                                                dp::TOverlayHandler const & tapHandler)
 {
-  return make_unique_dp<CountryStatusHandle>(state, anchor, size);
+  return make_unique_dp<CountryStatusButtonHandle>(state, anchor, size, normalColor, pressedColor, tapHandler);
+}
+
+drape_ptr<dp::OverlayHandle> CreateLabelHandle(CountryStatusHelper::ECountryState const state,
+                                               dp::Anchor anchor,
+                                               m2::PointF const & size)
+{
+  return make_unique_dp<CountryStatusLabelHandle>(state, anchor, size);
 }
 
 void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlushFn const & flushFn,
@@ -82,7 +117,7 @@ void DrawLabelControl(string const & text, dp::Anchor anchor, dp::Batcher::TFlus
   dp::Batcher batcher(indexCount, vertexCount);
   dp::SessionGuard guard(batcher, flushFn);
   m2::PointF size(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusHandle>(state, anchor, size);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CountryStatusLabelHandle>(state, anchor, size);
   batcher.InsertListOfStrip(result.m_state, make_ref(&provider), move(handle),
                             dp::Batcher::VertexPerQuad);
 }
@@ -104,6 +139,7 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
 
   MutableLabelDrawer::Draw(params, mng, flushFn);
 }
+
 }
 
 drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) const
@@ -125,7 +161,36 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) co
     {
     case CountryStatusHelper::CONTROL_TYPE_BUTTON:
       {
-        Button::THandleCreator handleCreator = bind(&CreateHandle, state, _1, _2);
+        CountryStatusHelper::EButtonType buttonType = control.m_buttonType;
+        auto buttonHandleCreator = [this, buttonType, state](dp::Anchor anchor, m2::PointF const & size,
+                                                             dp::TextureManager::ColorRegion const & normalColor,
+                                                             dp::TextureManager::ColorRegion const & pressedColor)
+                                                             -> drape_ptr<dp::OverlayHandle>
+        {
+          switch(buttonType)
+          {
+            case CountryStatusHelper::BUTTON_TYPE_MAP:
+              return CreateButtonHandle(state, anchor, size,
+                                        normalColor, pressedColor,
+                                        m_downloadMapHandler);
+
+            case CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING:
+              return CreateButtonHandle(state, anchor, size,
+                                        normalColor, pressedColor,
+                                        m_downloadMapRoutingHandler);
+
+            case CountryStatusHelper::BUTTON_TRY_AGAIN:
+              return CreateButtonHandle(state, anchor, size,
+                                        normalColor, pressedColor,
+                                        m_tryAgainHandler);
+            default:
+              ASSERT(false, ());
+          }
+          return nullptr;
+        };
+
+        auto labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
+
         ShapeControl shapeControl;
         Button::Params params;
         params.m_anchor = m_position.m_anchor;
@@ -134,8 +199,8 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) co
         params.m_minWidth = 300;
         params.m_maxWidth = 600;
         params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
-        params.m_bodyHandleCreator = handleCreator;
-        params.m_labelHandleCreator = handleCreator;
+        params.m_bodyHandleCreator = buttonHandleCreator;
+        params.m_labelHandleCreator = labelHandleCreator;
 
         Button::Draw(params, shapeControl, tex);
         renderer->AddShapeControl(move(shapeControl));
