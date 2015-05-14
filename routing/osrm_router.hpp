@@ -198,8 +198,9 @@ private:
   m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                   FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
-  bool KeepOnewayOutgoingTurnIncomingEdges(TurnItem const & turn,
-                              m2::PointD const & p, m2::PointD const & p1, RoutingMappingPtrT const & mapping);
+  bool KeepOnewayOutgoingTurnIncomingEdges(turns::TurnDirection intermediateTurnDirection,
+                                           m2::PointD const & p, m2::PointD const & p1,
+                                           RoutingMappingPtrT const & mapping);
   void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
                        GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
 

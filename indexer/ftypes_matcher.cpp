@@ -314,7 +314,7 @@ string DebugPrint(HighwayClass const cls)
   case HighwayClass::LivingStreet: out << "LivingStreet";
   case HighwayClass::Service: out << "Service";
   case HighwayClass::Count: out << "Count";
-  default: out <<"Unknown value of HighwayClass: " << static_cast<int>(cls);
+  default: out << "Unknown value of HighwayClass: " << static_cast<int>(cls);
   }
   out << " ]";
   return out.str();
@@ -345,10 +345,11 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
   for (auto t : types)
   {
     ftype::TruncValue(t, kTruncLevel);
-    auto const it = find_if(kHighwayClasses.cbegin(), kHighwayClasses.cend(),
-                [t](pair<HighwayClass, uint32_t> const & p){ return p.second == t; });
-    if (it != kHighwayClasses.cend())
-      return it->first;
+    for (auto const & cls : kHighwayClasses)
+    {
+      if (cls.second == t)
+        return cls.first;
+    }
   }
 
   return HighwayClass::None;

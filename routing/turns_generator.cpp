@@ -181,12 +181,12 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
     }
 
     // @todo(vbykoianko) The sieve below is made for filtering unnecessary turns on Moscow's MKAD
-    // and roads like it. It's quick fix but it's possible to do better.
+    // and roads like it. It's a quick fix but it's possible to do better.
     // The better solution is to remove all "slight" turns if the route goes form one not-link road
-    // to another not-link road and other possible turns are links. But it's not possible to implement quickly.
+    // to another not-link road and other possible turns are links. But it's not possible to implement it quickly.
     // To do that you need to calculate FeatureType for most possible turns. But it is already made once in
     // KeepMultiTurnClassHighwayClass(GetOutgoingHighwayClass). So it's a good idea to keep
-    // FeatureType for outgoing turns in TurnCandidatesT (if them have been calculated).
+    // FeatureType for outgoing turns in TurnCandidatesT (if they have been calculated).
     // For the time being I decided to postpone the implementation of the feature but
     // it worth implementing it in the future.
     if (!t.m_keepAnyway && IsGoStraightOrSlightTurn(t.m_turn) && !t.m_sourceName.empty() &&
@@ -240,9 +240,9 @@ bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::H
                                     RoutingMapping const & routingMapping, Index const & index)
 {
   if (!IsGoStraightOrSlightTurn(turn))
-    return true; // The road significantly changes the direction here. Leaves this turn.
+    return true; // The road significantly changes its direction here. So this turn shall be kept.
 
-  if (possibleTurns.size() == 1 /* There's only one exit from this vertex. NodeID of it is outgoingNode */)
+  if (possibleTurns.size() == 1 /* There's only one exit from this vertex. NodeID of the exit is outgoingNode */)
     return true;
 
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::None;
@@ -256,7 +256,7 @@ bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::H
   }
   if (maxClassForPossibleTurns == ftypes::HighwayClass::None)
   {
-    ASSERT(false, ("The route contains undefined HighwayClass."));
+    ASSERT(false, ("One of possible turns follows along an undefined HighwayClass."));
     return true;
   }
 
@@ -273,7 +273,7 @@ bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::H
   if (static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute) >=
       maxHighwayClassDiffToKeepTheTurn)
   {
-    // The turn shall be removed if the route passes near small roads with out changing the direction.
+    // The turn shall be removed if the route goes near small roads without changing the direction.
     return false;
   }
   return true;
@@ -291,8 +291,7 @@ TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
   {
     if (hasMultiTurns)
       return TurnDirection::StayOnRoundAbout;
-    else
-      return TurnDirection::NoTurn;
+    return TurnDirection::NoTurn;
   }
 
   if (!isRound1 && isRound2)

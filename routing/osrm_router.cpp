@@ -1331,24 +1331,20 @@ void OsrmRouter::GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
                                 scales::GetUpperScale(), mapping->GetMwmId());
 }
 
-bool OsrmRouter::KeepOnewayOutgoingTurnIncomingEdges(TurnItem const & turn,
+bool OsrmRouter::KeepOnewayOutgoingTurnIncomingEdges(turns::TurnDirection intermediateTurnDirection,
                                                      m2::PointD const & p, m2::PointD const & p1OneSeg,
                                                      RoutingMappingPtrT const & mapping)
 {
   ASSERT(mapping.get(), ());
   size_t const outgoingNotesCount = 1;
-  if (turns::IsGoStraightOrSlightTurn(turn.m_turn))
-  {
+  if (turns::IsGoStraightOrSlightTurn(intermediateTurnDirection))
     return false;
-  }
-  else
-  {
-    GeomTurnCandidateT geoNodes;
-    GetTurnGeometry(p, p1OneSeg, geoNodes, mapping);
-    if (geoNodes.size() <= outgoingNotesCount)
-      return false;
-    return true;
-  }
+
+  GeomTurnCandidateT geoNodes;
+  GetTurnGeometry(p, p1OneSeg, geoNodes, mapping);
+  if (geoNodes.size() <= outgoingNotesCount)
+    return false;
+  return true;
 }
 
 // @todo(vbykoianko) Move this method and all dependencies to turns_generator.cpp
@@ -1433,17 +1429,7 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
     search::GetStreetNameAsKey(turn.m_sourceName, name1);
     search::GetStreetNameAsKey(turn.m_targetName, name2);
   }
-/*
-  string road1 = ft1.GetRoadNumber();
-  string road2 = ft2.GetRoadNumber();
 
-  if (!turn.m_keepAnyway
-      && ((!name1.empty() && name1 == name2) || (!road1.empty() && road1 == road2)))
-  {
-    turn.m_turn = turns::TurnDirection::NoTurn;
-    return;
-  }
-*/
   ftypes::HighwayClass const highwayClass1 = ftypes::GetHighwayClass(ft1);
   ftypes::HighwayClass const highwayClass2 = ftypes::GetHighwayClass(ft2);
   if (!turn.m_keepAnyway
@@ -1456,7 +1442,9 @@ void OsrmRouter::GetTurnDirection(PathData const & node1,
   }
 
   if (!hasMultiTurns
-      && !KeepOnewayOutgoingTurnIncomingEdges(turn, p, p1OneSeg, routingMapping)
+      && !KeepOnewayOutgoingTurnIncomingEdges(turns::IntermediateDirection(
+                                                  my::RadToDeg(ang::TwoVectorsAngle(p, p1OneSeg, p2))),
+                                              p, p1OneSeg, routingMapping)
       && !turns::KeepOnewayOutgoingTurnRoundabout(isRound1, isRound2))
   {
     turn.m_turn = turns::TurnDirection::NoTurn;

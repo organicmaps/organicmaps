@@ -44,9 +44,9 @@ TurnDirection MostLeftDirection(double angle);
 TurnDirection IntermediateDirection(double angle);
 
 bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2);
-// Returns false (that means it removes the turn between ingoingClass and outgoingClass)
-// if the route goes from one big road to another and the other possible turn(s) are to small roads
-// in case of slight turns (that means turn is GoStraight or TurnSlight*)
+/// Returns false (that means it removes the turn between ingoingClass and outgoingClass)
+/// if (1) the route leads from one big road to another one; (2) the other possible turns lead to small roads;
+/// and (2) turn is GoStraight or TurnSlight*.
 bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
                                     NodeID outgoingNode, TurnDirection turn,
                                     TurnCandidatesT const & possibleTurns,

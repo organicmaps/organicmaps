@@ -18,21 +18,15 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   OsrmRouter::ResultCode const result = routeResult.second;
   TEST_EQUAL(result, OsrmRouter::NoError, ());
 
+  integration::TestTurnCount(route, 3);
+
   integration::GetNthTurn(route, 0)
       .TestValid()
-      .TestPoint({37.545981835916507, 67.530713137468041})
       .TestOneOfDirections({TurnDirection::TurnSlightLeft, TurnDirection::TurnLeft});
   integration::GetNthTurn(route, 1)
       .TestValid()
-      .TestPoint({37.546738218864334, 67.531659957257347})
-      .TestDirection(TurnDirection::TurnLeft);
-  integration::GetNthTurn(route, 2)
-      .TestValid()
-      .TestPoint({37.539925407915746, 67.537083383925875})
       .TestDirection(TurnDirection::TurnRight);
-
-  integration::GetTurnByPoint(route, {37., 67.}).TestNotValid();
-  integration::GetTurnByPoint(route, {37.546738218864334, 67.531659957257347})
+  integration::GetNthTurn(route, 2)
       .TestValid()
       .TestDirection(TurnDirection::TurnLeft);
 
@@ -78,7 +72,7 @@ UNIT_TEST(RussiaMoscowTrikotagniAndPohodniRoundaboutTurnTest)
   OsrmRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
-  integration::TestTurnCount(route, 3);
+  integration::TestTurnCount(route, 2);
 
   integration::GetNthTurn(route, 0)
       .TestValid()
@@ -131,12 +125,9 @@ UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
   OsrmRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
-  integration::TestTurnCount(route, 2);
-  /// Checking turn in case going from not link to link
+  integration::TestTurnCount(route, 1);
+  // Checking a turn in case going from not a link to a link
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
-      {TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
-  /// Checking turn in case of ingoing edge(s)
-  integration::GetNthTurn(route, 1).TestValid().TestOneOfDirections(
       {TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 }
 
@@ -192,7 +183,7 @@ UNIT_TEST(RussiaHugeRoundaboutTurnTest)
   integration::GetNthTurn(route, 0)
       .TestValid()
       .TestDirection(TurnDirection::EnterRoundAbout)
-      .TestRoundAboutExitNum(5);
+      .TestRoundAboutExitNum(4);
   integration::GetNthTurn(route, 1)
       .TestValid()
       .TestDirection(TurnDirection::LeaveRoundAbout)
@@ -211,4 +202,61 @@ UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
   integration::TestTurnCount(route, 1);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
       {TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
+}
+
+// Test case: turning form one street to another one with the same name.
+// An end user shall be informed about this manoeuvre.
+UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetAllMaps(), {37.405555547431582, 67.606396877452852}, {0., 0.},
+      {37.404889653177761, 67.607659749718096});
+  Route const & route = *routeResult.first;
+  OsrmRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, OsrmRouter::NoError, ());
+  integration::TestTurnCount(route, 1);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
+}
+
+// Test case: a route goes straightly along a unnamed big link road when joined a small road.
+// An end user shall not be informed about such manoeuvres.
+UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetAllMaps(), {37.438582086802406, 67.683581448033891}, {0., 0.},
+      {37.448852064651611, 67.681148387254225});
+  Route const & route = *routeResult.first;
+  OsrmRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, OsrmRouter::NoError, ());
+  integration::TestTurnCount(route, 1);
+}
+
+UNIT_TEST(BelarusMKADShosseinai)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetAllMaps(), {29.431229709918465, 66.684863888688056}, {0., 0.},
+      {29.426264439664614, 66.686867924003238});
+  Route const & route = *routeResult.first;
+  OsrmRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, OsrmRouter::NoError, ());
+  integration::TestTurnCount(route, 1);
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {TurnDirection::GoStraight, TurnDirection::TurnSlightRight});
+}
+
+// Test case: a route goes straightly along a unnamed big road when joined small road.
+// An end user shall not be informed about such manoeuvres.
+UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
+{
+  TRouteResult const routeResult = integration::CalculateRoute(
+      integration::GetAllMaps(), {98.369368627299635, 7.9432901571200318}, {0., 0.},
+      {98.367845572071232, 7.9324732487227401});
+  Route const & route = *routeResult.first;
+  OsrmRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, OsrmRouter::NoError, ());
+  integration::TestTurnCount(route, 0);
 }
