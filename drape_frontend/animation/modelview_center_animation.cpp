@@ -7,7 +7,7 @@ namespace df
 ModelViewCenterAnimation::ModelViewCenterAnimation(m2::PointD const & start,
                                                  m2::PointD const & end,
                                                  double duration)
-  : BaseViewportAnimation(duration)
+  : BaseModeViewAnimation(duration)
   , m_startPt(start)
   , m_endPt(end)
 {
@@ -15,7 +15,7 @@ ModelViewCenterAnimation::ModelViewCenterAnimation(m2::PointD const & start,
 
 void ModelViewCenterAnimation::Apply(Navigator & navigator)
 {
-  m2::PointD center = Interpolate(m_startPt, m_endPt, GetT());
+  m2::PointD center = InterpolatePoint(m_startPt, m_endPt, GetT());
   navigator.CenterViewport(center);
 }
 

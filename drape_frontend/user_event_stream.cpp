@@ -1,4 +1,3 @@
-#include "drape_frontend/animation/modelview_center_animation.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 

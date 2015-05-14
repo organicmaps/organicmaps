@@ -5,7 +5,7 @@
 namespace df
 {
 
-class ModelViewCenterAnimation : public BaseViewportAnimation
+class ModelViewCenterAnimation : public BaseModeViewAnimation
 {
 public:
   ModelViewCenterAnimation(m2::PointD const & start, m2::PointD const & end, double duration);

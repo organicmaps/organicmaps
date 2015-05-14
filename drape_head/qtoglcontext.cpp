@@ -45,5 +45,5 @@ void QtOGLContext::present()
 
 void QtOGLContext::setDefaultFramebuffer()
 {
-  GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, m_nativeContext->defaultFramebufferObject());
 }

@@ -6,10 +6,10 @@
 namespace df
 {
 
-class BaseViewportAnimation : public BaseInterpolator
+class BaseModeViewAnimation : public BaseInterpolator
 {
 public:
-  BaseViewportAnimation(double duration) : BaseInterpolator(duration) {}
+  BaseModeViewAnimation(double duration) : BaseInterpolator(duration) {}
   virtual void Apply(Navigator & navigator) = 0;
 };
 
