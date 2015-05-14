@@ -3,7 +3,7 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
+#include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
 
 #include "std/numeric.hpp"
 #include "std/string.hpp"
