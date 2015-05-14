@@ -263,7 +263,7 @@ namespace integration
     for (m2::PointD const & point : points)
     {
       string const mwmName = routerComponents.GetSearchEngine()->GetCountryFile(point);
-      TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(), ());
+      TEST(find(expected.begin(), expected.end(), mwmName) != expected.end(), ("Can't find ", mwmName));
     }
   }
 }
