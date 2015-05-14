@@ -1,6 +1,10 @@
 #!/bin/bash
+############################################
+# Builds routing indices for given regions #
+############################################
 
-set -u -x
+set -u # Fail on undefined variables
+#set -x # Echo every script line
 
 if [ $# -lt 1 ]; then
   echo ''

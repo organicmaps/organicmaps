@@ -24,7 +24,7 @@ usage() {
   echo -e "TARGET\tWhere to put resulting files"
   echo -e "REGIONS\tNewline-separated list of border polygons to use. Example usage:"
   echo -e "\tREGIONS=\$(ls ../../data/A*.poly) $0"
-  echo -e "NS\tNode storage; use \"mem\" when you have more than 64 GB of memory"
+  echo -e "NS\tNode storage; use \"map\" when you have less than 64 GB of memory"
   echo
 }
 
@@ -88,7 +88,7 @@ done
 EXIT_ON_ERROR=${EXIT_ON_ERROR-1}
 [ -n "${EXIT_ON_ERROR-}" ] && set -e # Exit when any of commands fail
 set -u # Fail on undefined variables
-set -x # Echo every script line
+#set -x # Echo every script line
 
 # Initialize everything. For variables with X="${X:-...}" you can override a default value
 PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
@@ -103,7 +103,7 @@ OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
 MERGE_COASTS_DELAY_SEC=2400
 # set to "mem" if there is more than 64 GB of memory
-NODE_STORAGE=${NODE_STORAGE:-${NS:-map}}
+NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
 NUM_PROCESSES=${NUM_PROCESSES:-$(expr $(nproc || echo 8) - 1)}
 
 STATUS_FILE="$INTDIR/status"
@@ -112,7 +112,7 @@ SCRIPTS_PATH="$(dirname $0)"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 GENERATOR_LOG="$TARGET/planet_generator.log"
 ROUTING_LOG="$TARGET/planet_routing.log"
-date +%Y-%m-%d\ %H:%M:%S > "$GENERATOR_LOG"
+log "STATUS" "Start"
 
 # Run external script to find generator_tool
 source "$SCRIPTS_PATH/find_generator_tool.sh"
@@ -329,3 +329,4 @@ fi
 
 # Cleaning up temporary directories
 rm -r "$INTDIR"
+log "STATUS" "Done"
