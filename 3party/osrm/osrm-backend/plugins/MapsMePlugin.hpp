@@ -10,7 +10,6 @@
 #include "../../../../indexer/mercator.hpp"
 #include "../../../../storage/country_decl.hpp"
 #include "../../../../storage/country_polygon.hpp"
-#include "../../../../base/logging.hpp"
 
 #include "../algorithms/object_encoder.hpp"
 #include "../data_structures/search_engine.hpp"
@@ -121,7 +120,6 @@ public:
             if (m_facade->IncrementalFindPhantomNodeForCoordinate(route_parameters.coordinates[i],
                                                                 phantom_node_vector, 1))
             {
-        LOG(LINFO, ("FOUND", route_parameters.coordinates[i], phantom_node_vector));
                 BOOST_ASSERT(!phantom_node_vector.empty());
                 phantom_node_pair_list[i].first = phantom_node_vector.front();
                 if (phantom_node_vector.size() > 1)
@@ -168,8 +166,6 @@ public:
                           swap_phantom_from_big_cc_into_front);
         }
 
-        LOG(LINFO, ("A"));
-
         InternalRouteResult raw_route;
         auto build_phantom_pairs =
            [&raw_route](const phantom_node_pair &first_pair, const phantom_node_pair &second_pair)
@@ -178,18 +174,14 @@ public:
                 PhantomNodes{first_pair.first, second_pair.first});
         };
        
-        LOG(LINFO, ("B"));
         osrm::for_each_pair(phantom_node_pair_list, build_phantom_pairs);
 
-        LOG(LINFO, ("B1", raw_route.segment_end_coordinates.front()));
         m_searchEngine->alternative_path(raw_route.segment_end_coordinates.front(), raw_route);
 
-        LOG(LINFO, ("B2"));
         if (INVALID_EDGE_WEIGHT == raw_route.shortest_path_length)
         {
             SimpleLogger().Write(logDEBUG) << "Error occurred, single path not found";
         }
-        LOG(LINFO, ("C"));
         // Get mwm names
         vector<pair<string, m2::PointD>> usedMwms;
 
@@ -212,7 +204,11 @@ public:
             }
         }
 
-        auto const it = std::unique(usedMwms.begin(), usedMwms.end(), [&](pair<string, m2::PointD> const & a, pair<string, m2::PointD> const & b) {return a.first == b.first;});
+        auto const it = std::unique(usedMwms.begin(), usedMwms.end(), [&]
+                                    (pair<string, m2::PointD> const & a, pair<string, m2::PointD> const & b)
+                                    {
+                                        return a.first == b.first;
+                                    });
         usedMwms.erase(it, usedMwms.end());
 
         osrm::json::Array json_array;
@@ -226,11 +222,6 @@ public:
         }
         reply.values["used_mwms"] = json_array;
 
-        //std::unique_ptr<BaseDescriptor<DataFacadeT>> descriptor = osrm::make_unique<JSONDescriptor<DataFacadeT>>(facade);
-        //descriptor->SetConfig(route_parameters);
-        //descriptor->Run(raw_route, rely);
-
-        //JSON::render(reply.content, json_object);
         return 200;
     }
 
@@ -243,4 +234,3 @@ public:
     FilesContainerR m_reader;
     osrm::NodeDataVectorT m_nodeData;
 };
-
