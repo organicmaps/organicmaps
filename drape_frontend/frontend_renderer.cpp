@@ -391,19 +391,21 @@ void FrontendRenderer::TapDetected(m2::PointD const & pt, bool isLongTap)
 
 bool FrontendRenderer::SingleTouchFiltration(m2::PointD const & pt, TouchEvent::ETouchType type)
 {
-  if (type == TouchEvent::ETouchType::TOUCH_DOWN)
+  switch(type)
   {
-    ASSERT(m_activeOverlay == nullptr, ());
-    m_activeOverlay = m_guiRenderer->ProcessTapEvent(pt);
-    return true; // enable filtration
-  }
-  else
-  {
-    if (m_activeOverlay != nullptr)
-    {
-      m_activeOverlay->FinishTapEvent(type == TouchEvent::ETouchType::TOUCH_UP);
-      m_activeOverlay = nullptr;
-    }
+  case TouchEvent::ETouchType::TOUCH_DOWN:
+    return m_guiRenderer->OnTouchDown(pt);
+
+  case TouchEvent::ETouchType::TOUCH_UP:
+    m_guiRenderer->OnTouchUp(pt);
+    return false;
+
+  case TouchEvent::ETouchType::TOUCH_CANCEL:
+    m_guiRenderer->OnTouchCancel(pt);
+    return false;
+
+  case TouchEvent::ETouchType::TOUCH_MOVE:
+    return false;
   }
 
   return false;

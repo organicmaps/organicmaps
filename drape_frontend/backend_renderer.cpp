@@ -24,7 +24,6 @@ namespace df
 BackendRenderer::BackendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
-  , m_guiHandlers(params.m_guiHandlers)
   , m_batchersPool(make_unique_dp<BatchersPool>(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)))
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model))
   , m_guiCacher("default")
@@ -42,8 +41,6 @@ BackendRenderer::BackendRenderer(Params const & params)
 BackendRenderer::~BackendRenderer()
 {
   gui::DrapeGui::Instance().ClearRecacheSlot();
-  m_guiHandlers.Reset();
-
   StopThread();
 }
 
@@ -54,7 +51,7 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
 
 void BackendRenderer::RecacheGui(gui::Skin::ElementName elements)
 {
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(elements, m_texMng, m_guiHandlers);
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.Recache(elements, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer));
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::High);
 }

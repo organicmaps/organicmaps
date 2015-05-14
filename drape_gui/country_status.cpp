@@ -21,13 +21,31 @@ class CountryStatusButtonHandle : public ButtonHandle
 
 public:
   CountryStatusButtonHandle(CountryStatusHelper::ECountryState const state,
-                            dp::Anchor anchor, m2::PointF const & size,
-                            dp::TextureManager::ColorRegion const & normalColor,
-                            dp::TextureManager::ColorRegion const & pressedColor,
-                            dp::TOverlayHandler const & tapHandler)
-      : TBase(anchor, size, normalColor, pressedColor, tapHandler)
-      , m_state(state)
+                            CountryStatusHelper::EButtonType const buttonType,
+                            dp::Anchor anchor, m2::PointF const & size)
+    : TBase(anchor, size)
+    , m_state(state)
+    , m_buttonType(buttonType)
   {}
+
+  void OnTap() override
+  {
+    //TODO(@kuznetsov) implement
+    switch(m_buttonType)
+    {
+    case CountryStatusHelper::BUTTON_TYPE_MAP:
+      break;
+
+    case CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING:
+      break;
+
+    case CountryStatusHelper::BUTTON_TRY_AGAIN:
+      break;
+
+    default:
+      ASSERT(false, ());
+    }
+  }
 
   void Update(ScreenBase const & screen) override
   {
@@ -37,6 +55,7 @@ public:
 
 private:
   CountryStatusHelper::ECountryState m_state;
+  CountryStatusHelper::EButtonType m_buttonType;
 };
 
 class CountryStatusLabelHandle : public Handle
@@ -46,8 +65,8 @@ class CountryStatusLabelHandle : public Handle
 public:
   CountryStatusLabelHandle(CountryStatusHelper::ECountryState const state,
                            dp::Anchor anchor, m2::PointF const & size)
-      : TBase(anchor, m2::PointF::Zero(), size)
-      , m_state(state)
+    : TBase(anchor, m2::PointF::Zero(), size)
+    , m_state(state)
   {}
 
   void Update(ScreenBase const & screen) override
@@ -84,13 +103,10 @@ private:
 };
 
 drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountryState const state,
-                                                dp::Anchor anchor,
-                                                m2::PointF const & size,
-                                                dp::TextureManager::ColorRegion const & normalColor,
-                                                dp::TextureManager::ColorRegion const & pressedColor,
-                                                dp::TOverlayHandler const & tapHandler)
+                                                CountryStatusHelper::EButtonType const buttonType,
+                                                dp::Anchor anchor, m2::PointF const & size)
 {
-  return make_unique_dp<CountryStatusButtonHandle>(state, anchor, size, normalColor, pressedColor, tapHandler);
+  return make_unique_dp<CountryStatusButtonHandle>(state, buttonType, anchor, size);
 }
 
 drape_ptr<dp::OverlayHandle> CreateLabelHandle(CountryStatusHelper::ECountryState const state,
@@ -162,34 +178,8 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) co
     case CountryStatusHelper::CONTROL_TYPE_BUTTON:
       {
         CountryStatusHelper::EButtonType buttonType = control.m_buttonType;
-        auto buttonHandleCreator = [this, buttonType, state](dp::Anchor anchor, m2::PointF const & size,
-                                                             dp::TextureManager::ColorRegion const & normalColor,
-                                                             dp::TextureManager::ColorRegion const & pressedColor)
-                                                             -> drape_ptr<dp::OverlayHandle>
-        {
-          switch(buttonType)
-          {
-            case CountryStatusHelper::BUTTON_TYPE_MAP:
-              return CreateButtonHandle(state, anchor, size,
-                                        normalColor, pressedColor,
-                                        m_downloadMapHandler);
-
-            case CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING:
-              return CreateButtonHandle(state, anchor, size,
-                                        normalColor, pressedColor,
-                                        m_downloadMapRoutingHandler);
-
-            case CountryStatusHelper::BUTTON_TRY_AGAIN:
-              return CreateButtonHandle(state, anchor, size,
-                                        normalColor, pressedColor,
-                                        m_tryAgainHandler);
-            default:
-              ASSERT(false, ());
-          }
-          return nullptr;
-        };
-
-        auto labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
+        Button::THandleCreator buttonHandleCreator = bind(&CreateButtonHandle, state, buttonType, _1, _2);
+        Button::THandleCreator labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
 
         ShapeControl shapeControl;
         Button::Params params;

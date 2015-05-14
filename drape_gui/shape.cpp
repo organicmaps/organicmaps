@@ -56,12 +56,6 @@ bool TappableHandle::IsTapped(m2::PointD const & pt) const
   return false;
 }
 
-void TappableHandle::OnTap()
-{
-  if (m_tapHandler != nullptr)
-    m_tapHandler();
-}
-
 ShapeRenderer::~ShapeRenderer()
 {
   ForEachShapeInfo([](ShapeControl::ShapeInfo & info)
@@ -136,9 +130,9 @@ void ShapeRenderer::ForEachShapeInfo(ShapeRenderer::TShapeInfoEditFn const & fn)
                       });
 }
 
-ref_ptr<dp::OverlayHandle> ShapeRenderer::ProcessTapEvent(m2::PointD const & pt)
+ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::PointD const & pt)
 {
-  ref_ptr<dp::OverlayHandle> resultHandle = nullptr;
+  ref_ptr<Handle> resultHandle = nullptr;
   ForEachShapeInfo([&resultHandle, &pt](ShapeControl::ShapeInfo & shapeInfo)
                    {
                      if (shapeInfo.m_handle->IsTapped(pt))
@@ -147,9 +141,6 @@ ref_ptr<dp::OverlayHandle> ShapeRenderer::ProcessTapEvent(m2::PointD const & pt)
                        resultHandle = make_ref(shapeInfo.m_handle);
                      }
                    });
-
-  if (resultHandle != nullptr)
-    resultHandle->OnTapBegin();
 
   return resultHandle;
 }

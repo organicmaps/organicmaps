@@ -8,14 +8,11 @@ namespace gui
 class Compass : public Shape
 {
 public:
-  Compass(gui::Position const & position, dp::TOverlayHandler const & tapHandler)
+  Compass(gui::Position const & position)
     : Shape(position)
-    , m_tapHandler(tapHandler)
   {}
-  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const override;
 
-private:
-  dp::TOverlayHandler m_tapHandler;
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const override;
 };
 
 }

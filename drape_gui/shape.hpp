@@ -22,6 +22,11 @@ public:
 
   void Update(ScreenBase const & screen) override;
 
+  virtual bool IsTapped(m2::PointD const & pt) const { return false; }
+  virtual void OnTapBegin(){}
+  virtual void OnTap(){}
+  virtual void OnTapEnd(){}
+
   virtual bool IndexesRequired() const override;
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const override;
   virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const override;
@@ -38,16 +43,11 @@ protected:
 class TappableHandle : public Handle
 {
 public:
-  TappableHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size, dp::TOverlayHandler const & tapHandler)
+  TappableHandle(dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
     : Handle(anchor, pivot, size)
-    , m_tapHandler(tapHandler)
   {}
 
   bool IsTapped(m2::PointD const & pt) const override;
-  void OnTap() override;
-
-private:
-  dp::TOverlayHandler m_tapHandler;
 };
 
 struct ShapeControl
@@ -89,7 +89,7 @@ public:
   void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
 
-  ref_ptr<dp::OverlayHandle> ProcessTapEvent(m2::PointD const & pt);
+  ref_ptr<Handle> ProcessTapEvent(m2::PointD const & pt);
 
 private:
   friend void ArrangeShapes(ref_ptr<ShapeRenderer>,

@@ -107,14 +107,6 @@ OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID
   return *it;
 }
 
-void OverlayHandle::FinishTapEvent(bool executeAction)
-{
-  if (executeAction)
-    OnTap();
-
-  OnTapEnd();
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 
 SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,

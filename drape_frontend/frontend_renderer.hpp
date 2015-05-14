@@ -139,7 +139,6 @@ private:
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPosition> m_myPositionMark;
-  ref_ptr<dp::OverlayHandle> m_activeOverlay;
 
   dp::UniformValuesStorage m_generalUniforms;
 

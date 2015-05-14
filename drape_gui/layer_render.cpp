@@ -64,15 +64,14 @@ void LayerCacher::Resize(int w, int h)
 }
 
 drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
-                                              ref_ptr<dp::TextureManager> textures,
-                                              Handlers const & handlers)
+                                              ref_ptr<dp::TextureManager> textures)
 {
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 
   if (names & Skin::Compass)
   {
     renderer->AddShapeRenderer(Skin::Compass,
-                               Compass(GetPos(Skin::Compass), handlers.m_onCompassTapped).Draw(textures));
+                               Compass(GetPos(Skin::Compass)).Draw(textures));
   }
 
   if (names & Skin::Ruler)
@@ -84,10 +83,7 @@ drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
   if (names & Skin::CountryStatus)
   {
     renderer->AddShapeRenderer(Skin::CountryStatus,
-                               CountryStatus(GetPos(Skin::CountryStatus),
-                                             handlers.m_onDownloadMapTapped,
-                                             handlers.m_onDownloadMapRoutingTapped,
-                                             handlers.m_onTryAgainTapped).Draw(textures));
+                               CountryStatus(GetPos(Skin::CountryStatus)).Draw(textures));
   }
 
   if (DrapeGui::Instance().IsCopyrightActive() && (names & Skin::Copyright))
@@ -121,14 +117,6 @@ drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
 Position LayerCacher::GetPos(Skin::ElementName name)
 {
   return m_skin->ResolvePosition(name);
-}
-
-void Handlers::Reset()
-{
-  m_onCompassTapped = nullptr;
-  m_onDownloadMapTapped = nullptr;
-  m_onDownloadMapRoutingTapped = nullptr;
-  m_onTryAgainTapped = nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -165,18 +153,6 @@ void LayerRenderer::Merge(ref_ptr<LayerRenderer> other)
   other->m_renderers.clear();
 }
 
-ref_ptr<dp::OverlayHandle> LayerRenderer::ProcessTapEvent(m2::PointD const & pt)
-{
-  for (TRenderers::value_type & r : m_renderers)
-  {
-    ref_ptr<dp::OverlayHandle> handle = r.second->ProcessTapEvent(pt);
-    if (handle != nullptr)
-      return handle;
-  }
-
-  return nullptr;
-}
-
 void LayerRenderer::DestroyRenderers()
 {
   m_renderers.clear();
@@ -188,6 +164,43 @@ void LayerRenderer::AddShapeRenderer(Skin::ElementName name, drape_ptr<ShapeRend
     return;
 
   VERIFY(m_renderers.insert(make_pair(name, move(shape))).second, ());
+}
+
+bool LayerRenderer::OnTouchDown(m2::PointD const & pt)
+{
+  for (TRenderers::value_type & r : m_renderers)
+  {
+    m_activeOverlay = r.second->ProcessTapEvent(pt);
+    if (m_activeOverlay != nullptr)
+    {
+      m_activeOverlay->OnTapBegin();
+      return true;
+    }
+  }
+
+  return false;
+}
+
+void LayerRenderer::OnTouchUp(m2::PointD const & pt)
+{
+  if (m_activeOverlay != nullptr)
+  {
+    if (m_activeOverlay->IsTapped(pt))
+      m_activeOverlay->OnTap();
+
+    m_activeOverlay->OnTapEnd();
+    m_activeOverlay = nullptr;
+  }
+}
+
+void LayerRenderer::OnTouchCancel(m2::PointD const & pt)
+{
+  UNUSED_VALUE(pt);
+  if (m_activeOverlay != nullptr)
+  {
+    m_activeOverlay->OnTapEnd();
+    m_activeOverlay = nullptr;
+  }
 }
 
 }
