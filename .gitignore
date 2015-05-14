@@ -91,6 +91,10 @@ data/index.idx
 data/index.stamp
 # local statistics storage
 data/stats
+# generated routing indices
+data/*/*.bftsegbits
+data/*/*.bftsegnodes
+data/*/*.offsets
 
 # benchmark results
 data/benchmarks/*.trace
