@@ -11,11 +11,15 @@
 #import "UIKitCategories.h"
 #import <FBSDKShareKit/FBSDKShareKit.h>
 
+#import "Statistics.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 static NSString * const kFacebookAlertNibName = @"MWMFacebookAlert";
 static NSString * const kFacebookAppName = @"https://fb.me/918866338157497";
 static NSString * const kFacebookURL = @"http://www.facebook.com/MapsWithMe";
 static NSString * const kFacebookScheme = @"fb://profile/111923085594432";
 static NSString * const kFacebookAlertPreviewImage = @"http://ru3.mapswithme.com/fb-1.png";
+static NSString * const kFacebookInviteEventName = @"facebookInviteEvent";
 extern NSString * const kUDAlreadySharedKey;
 
 @interface MWMFacebookAlert ()
@@ -40,11 +44,14 @@ extern NSString * const kUDAlreadySharedKey;
 
 - (IBAction)shareButtonTap:(id)sender
 {
+  [Alohalytics logEvent:kFacebookInviteEventName withValue:@"shareTap"];
+  [[Statistics instance] logEvent:[NSString stringWithFormat:@"%@ShareTap", kFacebookInviteEventName]];
   [self.alertController closeAlert];
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadySharedKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
   
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+  // We are use iOS8 only for showing native Facebook invite message because iOS7 crashes periodically with FBSDK 4.0.1.
+  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 8)
   {
     NSString * url = [NSString stringWithFormat:kFacebookScheme];
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]])
@@ -62,6 +69,8 @@ extern NSString * const kUDAlreadySharedKey;
 
 - (IBAction)notNowButtonTap:(id)sender
 {
+  [Alohalytics logEvent:kFacebookInviteEventName withValue:@"notNowTap"];
+  [[Statistics instance] logEvent:[NSString stringWithFormat:@"%@NotNowTap", kFacebookInviteEventName]];
   [self.alertController closeAlert];
 }
 

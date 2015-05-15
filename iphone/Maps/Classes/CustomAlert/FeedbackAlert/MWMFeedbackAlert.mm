@@ -11,8 +11,9 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "UIKitCategories.h"
 #import <sys/utsname.h>
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "../../platform/platform.hpp"
+#include "platform/platform.hpp"
 
 @interface MWMFeedbackAlert () <MFMailComposeViewControllerDelegate>
 
@@ -31,6 +32,7 @@ static NSString * const kRateEmail = @"rating@maps.me";
 extern NSDictionary * const deviceNames;
 extern UIColor * const kActiveDownloaderViewColor;
 extern NSString * const kLocaleUsedInSupportEmails;
+extern NSString * const kRateAlertEventName;
 
 @implementation MWMFeedbackAlert
 
@@ -44,10 +46,12 @@ extern NSString * const kLocaleUsedInSupportEmails;
 #pragma mark - Actions
 
 - (IBAction)notNowButtonTap:(id)sender {
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"feedbackNotNowTap"];
   [self.alertController closeAlert];
 }
 
 - (IBAction)writeFeedbackButtonTap:(id)sender {
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"feedbackWriteTap"];
   [UIView animateWithDuration:0.2f animations:^{
     self.specsView.backgroundColor = kActiveDownloaderViewColor;
   } completion:^(BOOL finished) {

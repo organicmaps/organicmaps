@@ -9,10 +9,12 @@
 #import "MWMRateAlert.h"
 #import "MWMAlertViewController.h"
 #import "UIKitCategories.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "../../../../../map/dialog_settings.hpp"
+#include "map/dialog_settings.hpp"
 
 extern NSString * const kUDAlreadyRatedKey;
+extern NSString * const kRateAlertEventName = @"rateAlertEvent";
 
 @interface MWMRateAlert ()
 
@@ -118,6 +120,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 }
 
 - (IBAction)fiveStarTap:(UILongPressGestureRecognizer *)sender {
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
   [self starButtonLongTap:sender withBegan:^{
     [UIView animateWithDuration:0.35f animations:^{
       self.fiveStarPushImageView.alpha = 1.;
@@ -140,6 +143,7 @@ static NSString * const kRateAlertNibName = @"MWMRateAlert";
 }
 
 - (IBAction)notNowTap:(UILongPressGestureRecognizer *)sender {
+  [Alohalytics logEvent:kRateAlertEventName withValue:@"notNowTap"];
   [self.alertController closeAlert];
 }
 
