@@ -121,7 +121,7 @@
     /// terminate program (though this situation is unreal :) )
   }
 
-  frameBuffer = renderPolicy->GetDrawer()->screen()->frameBuffer();
+  frameBuffer = renderPolicy->GetDrawer()->Screen()->frameBuffer();
 
   Framework & f = GetFramework();
   f.SetRenderPolicy(renderPolicy);
@@ -170,7 +170,7 @@
 #ifndef USE_DRAPE
   frameBuffer->onSize(width, height);
   
-  graphics::Screen * screen = renderPolicy->GetDrawer()->screen();
+  graphics::Screen * screen = renderPolicy->GetDrawer()->Screen();
 
   /// free old render buffer, as we would not create a new one.
   screen->resetRenderTarget();

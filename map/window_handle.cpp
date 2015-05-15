@@ -5,6 +5,7 @@ WindowHandle::WindowHandle() :
   m_hasPendingUpdates(false),
   m_isUpdatesEnabled(true),
   m_needRedraw(true),
+  m_videoTimer(nullptr),
   m_stallsCount(0)
 {
 }
@@ -17,8 +18,11 @@ void WindowHandle::setRenderPolicy(RenderPolicy * renderPolicy)
 void WindowHandle::setVideoTimer(VideoTimer * videoTimer)
 {
   m_videoTimer = videoTimer;
-  m_frameFn = videoTimer->frameFn();
-  m_videoTimer->setFrameFn(bind(&WindowHandle::checkedFrameFn, this));
+  if (m_videoTimer != nullptr)
+  {
+    m_frameFn = videoTimer->frameFn();
+    m_videoTimer->setFrameFn(bind(&WindowHandle::checkedFrameFn, this));
+  }
   m_stallsCount = 0;
 }
 
@@ -31,17 +35,24 @@ void WindowHandle::checkedFrameFn()
 
   if (m_stallsCount >= 60)
   {
-//    LOG(LINFO, ("PausedDOWN"));
-    m_videoTimer->pause();
+    //LOG(LINFO, ("PausedDOWN"));
+    if (m_videoTimer != nullptr)
+      m_videoTimer->pause();
   }
   else
-    m_frameFn();
+  {
+    if (m_frameFn != nullptr)
+      m_frameFn();
+  }
 }
 
 WindowHandle::~WindowHandle()
 {
-  m_videoTimer->stop();
-  m_videoTimer->setFrameFn(m_frameFn);
+  if (m_videoTimer != nullptr)
+  {
+    m_videoTimer->stop();
+    m_videoTimer->setFrameFn(m_frameFn);
+  }
 }
 
 bool WindowHandle::needRedraw() const
@@ -51,13 +62,16 @@ bool WindowHandle::needRedraw() const
 
 void WindowHandle::checkTimer()
 {
+  if (m_videoTimer == nullptr)
+    return;
+
   switch (m_videoTimer->state())
   {
   case VideoTimer::EStopped:
     m_videoTimer->start();
     break;
   case VideoTimer::EPaused:
-//    LOG(LINFO, ("WokenUP"));
+    //LOG(LINFO, ("WokenUP"));
     m_videoTimer->resume();
     break;
   default:

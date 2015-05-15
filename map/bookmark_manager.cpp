@@ -138,8 +138,7 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEve
   Navigator const & navigator = m_framework.GetNavigator();
   ScreenBase const & screen = navigator.Screen();
 
-  Drawer * pDrawer = e.GetDrawer();
-  graphics::Screen * pScreen = pDrawer->screen();
+  graphics::Screen * pScreen = GPUDrawer::GetScreen(e.GetDrawer());
 
   LazyMatrixCalc matrix(screen, m_lastScale);
 
@@ -254,7 +253,7 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
   return (m_categories.size()-1);
 }
 
-void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
+void BookmarkManager::DrawItems(Drawer * drawer) const
 {
 #ifndef USE_DRAPE
   ASSERT(m_cache != NULL, ());
@@ -300,10 +299,10 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
     dlUpdateFn(cat);
   }
 
-  graphics::Screen * pScreen = e->drawer()->screen();
+  graphics::Screen * pScreen = GPUDrawer::GetScreen(drawer);
   pScreen->beginFrame();
 
-  PaintOverlayEvent event(e->drawer(), screen);
+  PaintOverlayEvent event(drawer, screen);
   for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
   for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
   if (m_routeTrack != nullptr)

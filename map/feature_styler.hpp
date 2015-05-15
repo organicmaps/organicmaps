@@ -22,7 +22,7 @@ namespace di
     drule::BaseRule const * m_rule;
     double m_depth;
 
-    DrawRule() : m_rule(0) {}
+    DrawRule() : m_rule(0), m_depth(0.0) {}
     DrawRule(drule::BaseRule const * p,
              double d)
       : m_rule(p),
@@ -35,6 +35,7 @@ namespace di
 
   struct FeatureStyler
   {
+    FeatureStyler() = default;
     FeatureStyler(FeatureType const & f,
                   int const zoom,
                   double const visualScale,

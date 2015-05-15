@@ -19,6 +19,10 @@
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
 
+#define UNICODE_BLOCK_FILE "unicode_blocks.txt"
+#define WHITE_LIST_FILE "fonts_whitelist.txt"
+#define BLACK_LIST_FILE "fonts_blacklist.txt"
+
 RenderPolicy::~RenderPolicy()
 {
   LOG(LDEBUG, ("clearing cached drawing rules"));
@@ -65,7 +69,7 @@ void RenderPolicy::OnSize(int w, int h)
 {
   if (m_cacheScreen)
     m_cacheScreen->onSize(w, h);
-  m_drawer->onSize(w, h);
+  m_drawer->OnSize(w, h);
 }
 
 void RenderPolicy::StartDrag()
@@ -143,7 +147,7 @@ bool RenderPolicy::IsTiling() const
   return false;
 }
 
-shared_ptr<Drawer> const & RenderPolicy::GetDrawer() const
+shared_ptr<GPUDrawer> const & RenderPolicy::GetDrawer() const
 {
   return m_drawer;
 }
@@ -252,22 +256,24 @@ void RenderPolicy::InitWindowsHandle(VideoTimer * timer, shared_ptr<graphics::Re
   m_windowHandle->setRenderContext(context);
 }
 
-Drawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
-                                    shared_ptr<graphics::RenderContext> context,
-                                    graphics::EStorageType storageType,
-                                    graphics::ETextureType textureType)
+GPUDrawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
+                                       shared_ptr<graphics::RenderContext> context,
+                                       graphics::EStorageType storageType,
+                                       graphics::ETextureType textureType,
+                                       uint32_t pipelineCount)
 {
-  Drawer::Params dp;
+  GPUDrawer::Params dp;
 
-  dp.m_frameBuffer = make_shared<graphics::gl::FrameBuffer>(isDefaultFB);
-  dp.m_resourceManager = m_resourceManager;
-  dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_visualScale = VisualScale();
-  dp.m_storageType = storageType;
-  dp.m_textureType = textureType;
-  dp.m_renderContext = context;
+  dp.m_screenParams.m_frameBuffer = make_shared<graphics::gl::FrameBuffer>(isDefaultFB);
+  dp.m_screenParams.m_resourceManager = m_resourceManager;
+  dp.m_screenParams.m_threadSlot = m_resourceManager->guiThreadSlot();
+  dp.m_screenParams.m_storageType = storageType;
+  dp.m_screenParams.m_textureType = textureType;
+  dp.m_screenParams.m_pipelineCount = pipelineCount;
+  dp.m_screenParams.m_renderContext = context;
 
-  return new Drawer(dp);
+  return new GPUDrawer(dp);
 }
 
 size_t RenderPolicy::GetLargeTextureSize(bool useNpot)
@@ -327,4 +333,25 @@ RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 #ifdef OMIM_OS_DESKTOP
   return new TilingRenderPolicyST(params);
 #endif
+}
+
+
+graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize)
+{
+  return graphics::GlyphCache::Params(UNICODE_BLOCK_FILE,
+                                      WHITE_LIST_FILE,
+                                      BLACK_LIST_FILE,
+                                      cacheMaxSize,
+                                      density,
+                                      false);
+}
+
+
+graphics::ResourceManager::GlyphCacheParams GetResourceGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize)
+{
+  return graphics::ResourceManager::GlyphCacheParams(UNICODE_BLOCK_FILE,
+                                                     WHITE_LIST_FILE,
+                                                     BLACK_LIST_FILE,
+                                                     cacheMaxSize,
+                                                     density);
 }

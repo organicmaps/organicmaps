@@ -30,11 +30,7 @@ TilingRenderPolicyMT::TilingRenderPolicyMT(Params const & p)
   rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 4000, 5, ESmallStorage);
   rmp.m_storageParams[ETinyStorage]         = GetStorageParam(100, 200, 5, ETinyStorage);
 
-  rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                       "fonts_whitelist.txt",
-                                                                       "fonts_blacklist.txt",
-                                                                       2 * 1024 * 1024,
-                                                                       Density());
+  rmp.m_glyphCacheParams = GetResourceGlyphCacheParams(Density());
 
   rmp.m_threadSlotsCount = cpuCores + 2;
   rmp.m_renderThreadsCount = cpuCores;

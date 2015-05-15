@@ -1,115 +1,87 @@
 #pragma once
 
-#include "map/feature_info.hpp"
+#include "graphics/defines.hpp"
+#include "graphics/font_desc.hpp"
 
-#include "graphics/color.hpp"
-#include "graphics/screen.hpp"
+#include "indexer/feature_decl.hpp"
 
-#include "std/list.hpp"
-#include "std/string.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/map.hpp"
+#include "geometry/point2d.hpp"
 
-class ScreenBase;
+#include "std/function.hpp"
 
-namespace drule
+namespace di
 {
-  class BaseRule;
+  struct DrawRule;
+  class PathInfo;
+  class AreaInfo;
+  struct FeatureStyler;
+  struct FeatureInfo;
 }
 
-namespace graphics
-{
-  namespace gl
-  {
-    class FrameBuffer;
-    class BaseTexture;
-  }
-
-  class ResourceManager;
-}
-
+namespace graphics { class GlyphCache; }
 
 class Drawer
 {
   double m_visualScale;
   int m_level;
-
-  unique_ptr<graphics::Screen> const m_pScreen;
-
-  static void ClearResourceCache(size_t threadSlot, uint8_t pipelineID);
+  FeatureID m_currentFeatureID;
 
 protected:
 
-  void drawSymbol(m2::PointD const & pt,
-                  graphics::EPosition pos,
-                  di::DrawRule const & rule,
-                  FeatureID const & id);
+  virtual void DrawSymbol(m2::PointD const & pt,
+                          graphics::EPosition pos,
+                          di::DrawRule const & rule) = 0;
 
-  void drawCircle(m2::PointD const & pt,
-                  graphics::EPosition pos,
-                  di::DrawRule const & rule,
-                  FeatureID const & id);
+  virtual void DrawCircle(m2::PointD const & pt,
+                          graphics::EPosition pos,
+                          di::DrawRule const & rule) = 0;
 
-  void drawCircledSymbol(m2::PointD const & pt,
-                         graphics::EPosition pos,
-                         di::DrawRule const & symbolRule,
-                         di::DrawRule const & circleRule,
-                         FeatureID const & id);
+  virtual void DrawCircledSymbol(m2::PointD const & pt,
+                                 graphics::EPosition pos,
+                                 di::DrawRule const & symbolRule,
+                                 di::DrawRule const & circleRule) = 0;
 
-  void drawPath(di::PathInfo const & path,
-                di::DrawRule const * rules,
-                size_t count);
+  virtual void DrawPath(di::PathInfo const & path,
+                        di::DrawRule const * rules,
+                        size_t count) = 0;
 
-  void drawArea(di::AreaInfo const & area,
-                di::DrawRule const & rule);
+  virtual void DrawArea(di::AreaInfo const & area,
+                        di::DrawRule const & rule) = 0;
 
-  void drawText(m2::PointD const & pt,
-                graphics::EPosition pos,
-                di::FeatureStyler const & fs,
-                di::DrawRule const & rule,
-                FeatureID const & id);
+  virtual void DrawText(m2::PointD const & pt,
+                        graphics::EPosition pos,
+                        di::FeatureStyler const & fs,
+                        di::DrawRule const & rule) = 0;
 
-  void drawPathText(di::PathInfo const & info,
-                    di::FeatureStyler const & fs,
-                    di::DrawRule const & rule);
+  virtual void DrawPathText(di::PathInfo const & info,
+                            di::FeatureStyler const & fs,
+                            di::DrawRule const & rule) = 0;
 
-  void drawPathNumber(di::PathInfo const & path,
-                      di::FeatureStyler const & fs);
+  virtual void DrawPathNumber(di::PathInfo const & path,
+                              di::FeatureStyler const & fs) = 0;
 
-  typedef shared_ptr<graphics::gl::BaseTexture> texture_t;
-  typedef shared_ptr<graphics::gl::FrameBuffer> frame_buffer_t;
+  void DrawFeatureStart(FeatureID const & id);
+  void DrawFeatureEnd(FeatureID const & id);
+  FeatureID const & GetCurrentFeatureID() const;
+
+  using TRoadNumberCallbackFn = function<void (m2::PointD const & pt, graphics::FontDesc const & font, string const & text)>;
+  void GenerateRoadNumbers(di::PathInfo const & path, di::FeatureStyler const & fs, TRoadNumberCallbackFn const & fn);
 
 public:
 
-  struct Params : graphics::Screen::Params
+  struct Params
   {
     double m_visualScale;
     Params();
   };
 
   Drawer(Params const & params = Params());
+  virtual ~Drawer() {}
 
   double VisualScale() const;
   void SetScale(int level);
 
-  int ThreadSlot() const;
-
-  graphics::Screen * screen() const;
-
-  void drawSymbol(m2::PointD const & pt,
-                  string const & symbolName,
-                  graphics::EPosition pos,
-                  double depth);
-
-  void beginFrame();
-  void endFrame();
-
-  void clear(graphics::Color const & c = graphics::Color(187, 187, 187, 255),
-             bool clearRT = true,
-             float depth = 1.0f,
-             bool clearDepth = true);
-
-  void onSize(int w, int h);
+  virtual graphics::GlyphCache * GetGlyphCache() = 0;
 
   void Draw(di::FeatureInfo const & fi);
 };

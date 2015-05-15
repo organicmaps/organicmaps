@@ -81,7 +81,7 @@ namespace
   {
 #ifndef USE_DRAPE
     ScreenBase const & modelView = event.GetModelView();
-    graphics::Screen * screen = event.GetDrawer()->screen();
+    graphics::Screen * screen = GPUDrawer::GetScreen(event.GetDrawer());
     m2::PointD pxPoint = modelView.GtoP(ptOrg);
     pxPoint += (pixelOfsset * visualScale);
     math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),

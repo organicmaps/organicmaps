@@ -4,7 +4,7 @@
 #include "map/tiler.hpp"
 #include "map/tile_cache.hpp"
 #include "map/tile_set.hpp"
-#include "map/drawer.hpp"
+#include "map/gpu_drawer.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -39,8 +39,8 @@ protected:
 
   struct ThreadData
   {
-    Drawer * m_drawer;
-    Drawer::Params m_drawerParams;
+    GPUDrawer * m_drawer;
+    GPUDrawer::Params m_drawerParams;
     unsigned m_threadSlot;
     shared_ptr<graphics::RenderContext> m_renderContext;
     shared_ptr<graphics::gl::RenderBuffer> m_colorBuffer;

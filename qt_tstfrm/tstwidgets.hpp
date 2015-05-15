@@ -2,10 +2,12 @@
 
 #include "graphics/opengl/texture.hpp"
 #include "graphics/opengl/renderbuffer.hpp"
+#include "graphics/opengl/framebuffer.hpp"
+
+#include "graphics/screen.hpp"
 
 #include "graphics/resource_manager.hpp"
 
-#include "map/drawer.hpp"
 #include "map/qgl_render_context.hpp"
 
 #include "std/shared_ptr.hpp"

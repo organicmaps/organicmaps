@@ -1,5 +1,7 @@
 #include "qt_tstfrm/tstwidgets.hpp"
 
+#include "map/render_policy.hpp"
+
 #include "graphics/screen.hpp"
 #include "graphics/resource_manager.hpp"
 
@@ -103,11 +105,7 @@ namespace tst
     rmp.m_textureParams[graphics::ESmallTexture] = tpp;
 
 
-    rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                         "fonts_whitelist.txt",
-                                                                         "fonts_blacklist.txt",
-                                                                         2 * 1024 * 1024,
-                                                                         graphics::EDensityMDPI);
+    rmp.m_glyphCacheParams = GetResourceGlyphCacheParams(graphics::EDensityMDPI);
 
     rmp.m_threadSlotsCount = 1;
     rmp.m_renderThreadsCount = 0;
@@ -123,7 +121,7 @@ namespace tst
     GetPlatform().GetFontNames(fonts);
     m_resourceManager->addFonts(fonts);
 
-    Drawer::Params params;
+    graphics::Screen::Params params;
 
     m_primaryFrameBuffer.reset(new graphics::gl::FrameBuffer(true));
 

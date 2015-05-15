@@ -67,6 +67,7 @@ public:
   void setVisualScale(double visualScale);
 
   bool isCopyrightActive() const;
+  void enableCopyright(bool doEnable);
 
   void enableRuler(bool doEnable);
   bool isRulerEnabled() const;

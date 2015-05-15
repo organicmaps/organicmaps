@@ -197,6 +197,12 @@ bool InformationDisplay::isCopyrightActive() const
   return m_copyrightLabel != nullptr;
 }
 
+void InformationDisplay::enableCopyright(bool doEnable)
+{
+  if (m_copyrightLabel != nullptr)
+    m_copyrightLabel->setIsVisible(doEnable);
+}
+
 void InformationDisplay::enableRuler(bool doEnable)
 {
   if (doEnable)

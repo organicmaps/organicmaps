@@ -78,20 +78,20 @@ TileRenderer::TileRenderer(
     if (!packetsQueues)
       m_threadData[i].m_renderContext.reset(primaryRC->createShared());
 
-    Drawer::Params params;
+    GPUDrawer::Params params;
 
-    params.m_resourceManager = m_resourceManager;
-    params.m_frameBuffer = make_shared<graphics::gl::FrameBuffer>();
+    params.m_screenParams.m_resourceManager = m_resourceManager;
+    params.m_screenParams.m_frameBuffer = make_shared<graphics::gl::FrameBuffer>();
 
-    params.m_threadSlot = m_resourceManager->renderThreadSlot(i);
+    params.m_screenParams.m_threadSlot = m_resourceManager->renderThreadSlot(i);
     params.m_visualScale = visualScale;
     if (packetsQueues != 0)
-      params.m_renderQueue = packetsQueues[i];
-    params.m_renderContext = m_threadData[i].m_renderContext;
+      params.m_screenParams.m_renderQueue = packetsQueues[i];
+    params.m_screenParams.m_renderContext = m_threadData[i].m_renderContext;
 
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
-    m_threadData[i].m_threadSlot = params.m_threadSlot;
+    m_threadData[i].m_threadSlot = params.m_screenParams.m_threadSlot;
     m_threadData[i].m_colorBuffer = make_shared<graphics::gl::RenderBuffer>(tileSz.first, tileSz.second, false,
                                                                             m_resourceManager->params().m_rgba4RenderBuffer);
     m_threadData[i].m_depthBuffer = make_shared<graphics::gl::RenderBuffer>(tileSz.first, tileSz.second, true);
@@ -132,10 +132,10 @@ void TileRenderer::InitializeThreadGL(core::CommandsQueue::Environment const & e
     threadData.m_renderContext->makeCurrent();
     threadData.m_renderContext->startThreadDrawing(threadData.m_threadSlot);
   }
-  threadData.m_drawer = new Drawer(threadData.m_drawerParams);
-  threadData.m_drawer->onSize(tileSz.first, tileSz.second);
-  threadData.m_drawer->screen()->setRenderTarget(threadData.m_colorBuffer);
-  threadData.m_drawer->screen()->setDepthBuffer(threadData.m_depthBuffer);
+  threadData.m_drawer = new GPUDrawer(threadData.m_drawerParams);
+  threadData.m_drawer->OnSize(tileSz.first, tileSz.second);
+  threadData.m_drawer->Screen()->setRenderTarget(threadData.m_colorBuffer);
+  threadData.m_drawer->Screen()->setDepthBuffer(threadData.m_depthBuffer);
 }
 
 void TileRenderer::FinalizeThreadGL(core::CommandsQueue::Environment const & env)
@@ -163,9 +163,9 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   ThreadData & threadData = m_threadData[env.threadNum()];
 
-  graphics::PacketsQueue * glQueue = threadData.m_drawerParams.m_renderQueue;
+  graphics::PacketsQueue * glQueue = threadData.m_drawerParams.m_screenParams.m_renderQueue;
 
-  Drawer * drawer = threadData.m_drawer;
+  GPUDrawer * drawer = threadData.m_drawer;
 
   ScreenBase frameScreen;
 
@@ -186,18 +186,20 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   shared_ptr<graphics::OverlayStorage> tileOverlay(new graphics::OverlayStorage(m2::RectD(renderRect)));
 
-  drawer->screen()->setOverlay(tileOverlay);
-  drawer->beginFrame();
-  drawer->screen()->setClipRect(renderRect);
-  drawer->clear(m_bgColor);
+  graphics::Screen * pScreen = drawer->Screen();
+
+  pScreen->setOverlay(tileOverlay);
+  pScreen->beginFrame();
+  pScreen->setClipRect(renderRect);
+  pScreen->clear(m_bgColor);
 
   frameScreen.SetFromRect(m2::AnyRectD(rectInfo.m_rect));
 
   m_renderFn(paintEvent, frameScreen, m2::RectD(renderRect), rectInfo.m_tileScale);
 
-  drawer->endFrame();
-  drawer->screen()->resetOverlay();
-  drawer->screen()->copyFramebufferToImage(tileTarget);
+  pScreen->endFrame();
+  pScreen->resetOverlay();
+  pScreen->copyFramebufferToImage(tileTarget);
 
   if (!env.IsCancelled())
   {
@@ -306,10 +308,7 @@ void TileRenderer::AddActiveTile(Tile const & tile)
   if (m_tileSet.HasTile(key) || m_tileCache.HasTile(key))
     m_resourceManager->texturePool(graphics::ERenderTargetTexture)->Free(tile.m_renderTarget);
   else
-  {
-    //LOG(LDEBUG, ("UVRLOG : Add tile to set s=", key.m_tileScale, " x=", key.m_x, " y=", key.m_y, " m_SequenceID=", m_sequenceID));
     m_tileSet.AddTile(tile);
-  }
 }
 
 void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo, int sequenceID)
@@ -319,7 +318,6 @@ void TileRenderer::RemoveActiveTile(Tiler::RectInfo const & rectInfo, int sequen
   if (m_tileSet.HasTile(rectInfo) && m_tileSet.GetTileSequenceID(rectInfo) <= sequenceID)
   {
     ASSERT(!m_tileCache.HasTile(rectInfo), ("Tile cannot be in tileSet and tileCache at the same time"));
-    //LOG(LDEBUG, ("UVRLOG : Remove tile from set s=", rectInfo.m_tileScale, " x=", rectInfo.m_x, " y=", rectInfo.m_y, " m_SequenceID=", m_sequenceID));
     m_resourceManager->texturePool(graphics::ERenderTargetTexture)->Free(m_tileSet.GetTile(rectInfo).m_renderTarget);
     m_tileSet.RemoveTile(rectInfo);
   }

@@ -78,6 +78,8 @@ namespace location
     /// @return GPS center point in mercator
     m2::PointD const & Position() const;
     double GetErrorRadius() const;
+    double GetDirection() const { return m_drawDirection; }
+    bool IsDirectionKnown() const;
 
     Mode GetMode() const;
     bool IsModeChangeViewport() const;
@@ -125,6 +127,7 @@ namespace location
 
     RouteMatchingInfo const & GetRouteMatchingInfo() const { return m_routeMatchingInfo; }
     void ResetRouteMatchingInfo() { m_routeMatchingInfo.Reset(); }
+    void ResetDirection();
 
     /// @name Override from graphics::OverlayElement and gui::Element.
     //@{
@@ -156,7 +159,6 @@ namespace location
 #endif // USE_DRAPE
 
     bool IsRotationActive() const;
-    bool IsDirectionKnown() const;
     bool IsInRouting() const;
 
     m2::PointD const GetModeDefaultPixelBinding(Mode mode) const;

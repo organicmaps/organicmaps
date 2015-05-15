@@ -62,6 +62,8 @@ namespace anim { class Controller; }
 
 class CountryStatusDisplay;
 class BenchmarkEngine;
+struct FrameImage;
+class CPUDrawer;
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -110,6 +112,8 @@ protected:
   dp::MasterPointer<df::DrapeEngine> m_drapeEngine;
 #endif
 
+  unique_ptr<CPUDrawer> m_cpuDrawer;
+
   double m_StartForegroundTime;
 
   bool m_queryMaxScaleMode;
@@ -157,6 +161,31 @@ protected:
 public:
   Framework();
   virtual ~Framework();
+
+  struct SingleFrameSymbols
+  {
+    m2::PointD m_searchResult;
+    bool m_showSearchResult = false;
+    int m_bottomZoom = -1;
+  };
+
+  /// @param density - for Retina Display you must use EDensityXHDPI
+  void InitSingleFrameRenderer(graphics::EDensity density);
+  /// @param center - map center in ercator
+  /// @param zoomModifier - result zoom calculate like "base zoom" + zoomModifier
+  ///                       if we are have search result "base zoom" calculate that my position and search result
+  ///                       will be see with some bottom clamp.
+  ///                       if we are't have search result "base zoom" == scales::GetUpperComfortScale() - 1
+  /// @param pxWidth - result image width.
+  ///                  It must be equal render buffer width. For retina it's equal 2.0 * displayWidth
+  /// @param pxHeight - result image height.
+  ///                   It must be equal render buffer height. For retina it's equal 2.0 * displayHeight
+  /// @param image [out] - result image
+  void DrawSingleFrame(m2::PointD const & center, int zoomModifier,
+                       uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
+                       SingleFrameSymbols const & symbols);
+  void ReleaseSingleFrameRenderer();
+  bool IsSingleFrameRendererInited() const;
 
   /// @name Process storage connecting/disconnecting.
   //@{
@@ -251,6 +280,7 @@ public:
 
   InformationDisplay & GetInformationDisplay();
   CountryStatusDisplay * GetCountryStatusDisplay() const;
+  ScalesProcessor & GetScalesProcessor() { return m_scales; }
 
   /// Safe function to get current visual scale.
   /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
@@ -391,13 +421,13 @@ private:
   /// Check for minimal draw scale and maximal logical scale (country is not loaded).
   void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale = -1) const;
 
-  m2::AnyRectD ToRotated(m2::RectD const & rect) const;
   void ShowRectFixed(m2::RectD const & rect);
   void ShowRectFixedAR(m2::AnyRectD const & rect);
 
 public:
   /// Show rect for point and needed draw scale.
   void ShowRect(double lat, double lon, double zoom);
+  void ShowRect(m2::PointD const & pt, double zoom);
 
   /// Set navigator viewport by rect as-is (rect should be in screen viewport).
   void ShowRect(m2::RectD rect);
@@ -533,5 +563,15 @@ private:
   string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
+  //@}
+
+public:
+  /// @name Watch mode
+  //@{
+  bool IsWatchModeEnabled() const;
+  void SetWatchModeEnabled(bool enabled);
+
+private:
+  bool m_isWatchModeEnabled;
   //@}
 };

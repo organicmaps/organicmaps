@@ -929,6 +929,11 @@ void State::SetDirection(double bearing)
   SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
 }
 
+void State::ResetDirection()
+{
+  SetModeInfo(ExcludeModeBit(m_modeInfo, KnownDirectionBit));
+}
+
 m2::PointD const State::GetPositionForDraw() const
 {
   if (m_animTask != nullptr)

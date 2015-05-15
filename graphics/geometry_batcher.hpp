@@ -46,6 +46,8 @@ namespace graphics
     {
       EStorageType m_storageType;
       ETextureType m_textureType;
+      uint32_t m_pipelineCount;
+
       Params();
     };
 

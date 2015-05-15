@@ -81,19 +81,18 @@ void BasicTilingRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e, Screen
 
   /// rendering current coverage
 
-  Drawer * pDrawer = e->drawer();
+  graphics::Screen * pScreen = GPUDrawer::GetScreen(e->drawer());
 
-  pDrawer->beginFrame();
-
-  pDrawer->screen()->clear(m_bgColor);
+  pScreen->beginFrame();
+  pScreen->clear(m_bgColor);
 
   FrameLock();
 
-  m_CoverageGenerator->Draw(pDrawer->screen(), s);
+  m_CoverageGenerator->Draw(pScreen, s);
 
   m_IsEmptyModel = m_CoverageGenerator->IsEmptyDrawing();
 
-  pDrawer->endFrame();
+  pScreen->endFrame();
 #endif // USE_DRAPE
 }
 

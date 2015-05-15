@@ -32,11 +32,7 @@ SimpleRenderPolicy::SimpleRenderPolicy(Params const & p)
   rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 6000, 10, ESmallStorage);
   rmp.m_storageParams[ETinyStorage]         = GetStorageParam(100, 200, 1, ETinyStorage);
 
-  rmp.m_glyphCacheParams = graphics::ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                                 "fonts_whitelist.txt",
-                                                                 "fonts_blacklist.txt",
-                                                                 2 * 1024 * 1024,
-                                                                 Density());
+  rmp.m_glyphCacheParams = GetResourceGlyphCacheParams(Density());
 
   rmp.m_renderThreadsCount = 0;
   rmp.m_threadSlotsCount = 1;
@@ -65,8 +61,7 @@ void SimpleRenderPolicy::DrawFrame(shared_ptr<PaintEvent> const & e,
 #ifndef USE_DRAPE
   shared_ptr<graphics::OverlayStorage> storage(new graphics::OverlayStorage());
 
-  Drawer * pDrawer = e->drawer();
-  graphics::Screen * pScreen = pDrawer->screen();
+  graphics::Screen * pScreen = GPUDrawer::GetScreen(e->drawer());
 
   pScreen->setOverlay(storage);
   pScreen->beginFrame();

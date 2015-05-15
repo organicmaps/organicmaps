@@ -102,11 +102,7 @@ YopmeRP::YopmeRP(RenderPolicy::Params const & p)
   rmp.m_storageParams[ESmallStorage]        = GetStorageParam(2000, 6000, 1, ESmallStorage);
   rmp.m_storageParams[ETinyStorage]         = GetStorageParam(100, 200, 1, ETinyStorage);
 
-  rmp.m_glyphCacheParams = ResourceManager::GlyphCacheParams("unicode_blocks.txt",
-                                                             "fonts_whitelist.txt",
-                                                             "fonts_blacklist.txt",
-                                                             2 * 1024 * 1024,
-                                                             Density());
+  rmp.m_glyphCacheParams = GetResourceGlyphCacheParams(Density());
 
   rmp.m_renderThreadsCount = 0;
   rmp.m_threadSlotsCount = 1;
@@ -190,18 +186,18 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 #ifndef USE_DRAPE
   shared_ptr<gl::BaseTexture> renderTarget;
 
-  int width = m_offscreenDrawer->screen()->width();
-  int height = m_offscreenDrawer->screen()->height();
+  int width = m_offscreenDrawer->Screen()->width();
+  int height = m_offscreenDrawer->Screen()->height();
 
-  ASSERT(width == GetDrawer()->screen()->width(), ());
-  ASSERT(height == GetDrawer()->screen()->height(), ());
+  ASSERT(width == GetDrawer()->Screen()->width(), ());
+  ASSERT(height == GetDrawer()->Screen()->height(), ());
 
   shared_ptr<OverlayStorage> overlay(new OverlayStorage(m2::RectD(0, 0, width, height)));
 
   { // offscreen rendering
     m2::RectI renderRect(0, 0, width, height);
 
-    Screen * pScreen = m_offscreenDrawer->screen();
+    Screen * pScreen = m_offscreenDrawer->Screen();
     renderTarget = m_resourceManager->createRenderTarget(width, height);
 
     pScreen->setOverlay(overlay);
@@ -235,7 +231,7 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 
   {
     // on screen rendering
-    Screen * pScreen = GetDrawer()->screen();
+    Screen * pScreen = GetDrawer()->Screen();
     BlitInfo info;
     info.m_srcSurface = renderTarget;
     info.m_srcRect = m2::RectI(0, 0, width, height);
@@ -261,9 +257,9 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
 void YopmeRP::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);
-  m_offscreenDrawer->onSize(w, h);
-  m_offscreenDrawer->screen()->setDepthBuffer(make_shared<gl::RenderBuffer>(w, h, true));
-  m_offscreenDrawer->screen()->setRenderTarget(make_shared<gl::RenderBuffer>(w, h, false));
+  m_offscreenDrawer->OnSize(w, h);
+  m_offscreenDrawer->Screen()->setDepthBuffer(make_shared<gl::RenderBuffer>(w, h, true));
+  m_offscreenDrawer->Screen()->setRenderTarget(make_shared<gl::RenderBuffer>(w, h, false));
 }
 
 void YopmeRP::SetDrawingApiPin(bool isNeed, m2::PointD const & point)

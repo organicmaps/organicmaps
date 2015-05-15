@@ -42,7 +42,7 @@ namespace fwork
       m_paintEvent(e),
       m_zoom(scaleLevel),
       m_hasNonCoast(false),
-      m_glyphCache(e->drawer()->screen()->glyphCache())
+      m_glyphCache(e->drawer()->GetGlyphCache())
   {
     GetDrawer()->SetScale(m_zoom);
   }

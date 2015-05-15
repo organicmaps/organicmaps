@@ -9,8 +9,11 @@
 #include "map/benchmark_provider.hpp"
 #include "map/benchmark_engine.hpp"
 #include "map/geourl_process.hpp"
+#include "map/gpu_drawer.hpp"
+#include "map/navigator_utils.hpp"
 #include "map/dialog_settings.hpp"
 #include "map/ge0_parser.hpp"
+#include "map/cpu_drawer.hpp"
 
 #include "defines.hpp"
 
@@ -22,6 +25,7 @@
 #include "search/result.hpp"
 
 #include "indexer/categories_holder.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/mwm_version.hpp"
 #include "indexer/scales.hpp"
@@ -46,6 +50,7 @@
 #include "coding/zip_reader.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/png_memory_encoder.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/distance_on_sphere.hpp"
@@ -220,7 +225,8 @@ Framework::Framework()
     m_bmManager(*this),
     m_balloonManager(*this),
     m_fixedSearchResults(0),
-    m_locationChangedSlotID(-1)
+    m_locationChangedSlotID(-1),
+    m_isWatchModeEnabled(false)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
@@ -290,6 +296,86 @@ Framework::Framework()
 Framework::~Framework()
 {
   delete m_benchmarkEngine;
+}
+
+void Framework::DrawSingleFrame(m2::PointD const & center, int zoomModifier,
+                                uint32_t pxWidth, uint32_t pxHeight, FrameImage & image,
+                                SingleFrameSymbols const & symbols)
+{
+  ASSERT(IsSingleFrameRendererInited(), ());
+  Navigator frameNavigator = m_navigator;
+  frameNavigator.OnSize(0, 0, pxWidth, pxHeight);
+  frameNavigator.SetAngle(0);
+
+  m2::RectD rect = m_scales.GetRectForDrawScale(scales::GetUpperComfortScale() - 1, center);
+  if (symbols.m_showSearchResult && !rect.IsPointInside(symbols.m_searchResult))
+  {
+    double const kScaleFactor = 1.3;
+    m2::PointD oldCenter = rect.Center();
+    rect.Add(symbols.m_searchResult);
+    double const centersDiff = 2 * (rect.Center() - oldCenter).Length();
+
+    m2::RectD resultRect;
+    resultRect.SetSizes(rect.SizeX() + centersDiff, rect.SizeY() + centersDiff);
+    resultRect.SetCenter(center);
+    resultRect.Scale(kScaleFactor);
+    rect = resultRect;
+    ASSERT(rect.IsPointInside(symbols.m_searchResult), ());
+  }
+
+
+  int baseZoom = m_scales.GetDrawTileScale(rect);
+  int resultZoom = baseZoom + zoomModifier;
+  int const minZoom = symbols.m_bottomZoom == -1 ? resultZoom : symbols.m_bottomZoom;
+  resultZoom = my::clamp(resultZoom, minZoom, scales::GetUpperScale());
+  rect = m_scales.GetRectForDrawScale(resultZoom, rect.Center());
+
+  CheckMinGlobalRect(rect);
+  CheckMinMaxVisibleScale(rect);
+  frameNavigator.SetFromRect(m2::AnyRectD(rect));
+
+  m_cpuDrawer->BeginFrame(pxWidth, pxHeight);
+
+  ScreenBase const & s = frameNavigator.Screen();
+  shared_ptr<PaintEvent> event = make_shared<PaintEvent>(m_cpuDrawer.get());
+  DrawModel(event, s, m2::RectD(0, 0, pxWidth, pxHeight), m_scales.GetTileScaleBase(s), false);
+
+  m_cpuDrawer->Flush();
+  m_cpuDrawer->DrawMyPosition(frameNavigator.GtoP(center));
+
+  if (symbols.m_showSearchResult)
+  {
+    if (!frameNavigator.Screen().PixelRect().IsPointInside(frameNavigator.GtoP(symbols.m_searchResult)))
+      m_cpuDrawer->DrawSearchArrow(ang::AngleTo(rect.Center(), symbols.m_searchResult));
+    else
+      m_cpuDrawer->DrawSearchResult(frameNavigator.GtoP(symbols.m_searchResult));
+  }
+
+  m_cpuDrawer->EndFrame(image);
+}
+
+void Framework::InitSingleFrameRenderer(graphics::EDensity density)
+{
+  ASSERT(!IsSingleFrameRendererInited(), ());
+  if (m_cpuDrawer == nullptr)
+  {
+    CPUDrawer::Params params(GetGlyphCacheParams(density));
+    params.m_visualScale = graphics::visualScale(density);
+    params.m_density = density;
+
+    m_cpuDrawer.reset(new CPUDrawer(params));
+  }
+}
+
+void Framework::ReleaseSingleFrameRenderer()
+{
+  if (IsSingleFrameRendererInited())
+    m_cpuDrawer.reset();
+}
+
+bool Framework::IsSingleFrameRendererInited() const
+{
+  return m_cpuDrawer != nullptr;
 }
 
 double Framework::GetVisualScale() const
@@ -694,6 +780,9 @@ void Framework::OnSize(int w, int h)
   m_navigator.OnSize(0, 0, w, h);
   if (m_renderPolicy)
   {
+    // if gui controller not initialized, than we work in mode "Without gui"
+    // and no need to set gui layout. We will not render it.
+    if (m_guiController->GetCacheScreen())
     m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
     m_renderPolicy->OnSize(w, h);
   }
@@ -798,11 +887,13 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   // m_informationDisplay is set and drawn after the m_renderPolicy
   ASSERT ( m_renderPolicy, () );
 
-  Drawer * pDrawer = e->drawer();
-  graphics::Screen * pScreen = pDrawer->screen();
+  graphics::Screen * pScreen = GPUDrawer::GetScreen(e->drawer());
 
   pScreen->beginFrame();
 
+  int const drawScale = GetDrawScale();
+  if (!m_isWatchModeEnabled)
+  {
   bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
 
   if (isEmptyModel)
@@ -816,14 +907,16 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.enableCompassArrow(isCompassEnabled || isCompasActionEnabled);
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
-  int const drawScale = GetDrawScale();
-  m_informationDisplay.setDebugInfo(0, drawScale);
-
   m_informationDisplay.enableRuler(drawScale > 4 && !m_informationDisplay.isCopyrightActive());
-
+  }
+  else
+  {
+    m_informationDisplay.enableCopyright(false);
+  }
+  m_informationDisplay.setDebugInfo(0, drawScale);
   pScreen->endFrame();
 
-  m_bmManager.DrawItems(e);
+  m_bmManager.DrawItems(e->drawer());
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }
@@ -859,16 +952,6 @@ shared_ptr<MoveScreenTask> Framework::SetViewportCenterAnimated(m2::PointD const
   return m_animator.MoveScreen(startPt, endPt, m_navigator.ComputeMoveSpeed(startPt, endPt));
 }
 
-m2::AnyRectD Framework::ToRotated(m2::RectD const & rect) const
-{
-  double const dx = rect.SizeX();
-  double const dy = rect.SizeY();
-
-  return m2::AnyRectD(rect.Center(),
-                      m_navigator.Screen().GetAngle(),
-                      m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
-}
-
 void Framework::CheckMinGlobalRect(m2::RectD & rect) const
 {
   m2::RectD const minRect = m_scales.GetRectForDrawScale(scales::GetUpperStyleScale(), rect.Center());
@@ -901,7 +984,12 @@ void Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/)
 void Framework::ShowRect(double lat, double lon, double zoom)
 {
   m2::PointD center(MercatorBounds::FromLatLon(lat, lon));
-  ShowRectEx(m_scales.GetRectForDrawScale(zoom, center));
+  ShowRect(center, zoom);
+}
+
+void Framework::ShowRect(m2::PointD const & pt, double zoom)
+{
+  ShowRectEx(m_scales.GetRectForDrawScale(zoom, pt));
 }
 
 void Framework::ShowRect(m2::RectD rect)
@@ -928,19 +1016,12 @@ void Framework::ShowRectExVisibleScale(m2::RectD rect, int maxScale/* = -1*/)
 
 void Framework::ShowRectFixed(m2::RectD const & rect)
 {
-  ShowRectFixedAR(ToRotated(rect));
+  ShowRectFixedAR(navi::ToRotated(rect, m_navigator));
 }
 
 void Framework::ShowRectFixedAR(m2::AnyRectD const & rect)
 {
-  double const halfSize = m_scales.GetTileSize() / 2.0;
-  m2::RectD etalonRect(-halfSize, -halfSize, halfSize, halfSize);
-
-  m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
-  etalonRect.Offset(pxCenter);
-
-  m_navigator.SetFromRects(rect, etalonRect);
-
+  navi::SetRectFixedAR(rect, m_scales, m_navigator);
   Invalidate();
 }
 
@@ -2284,4 +2365,14 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
 void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const
 {
   m_routingSession.GetRouteFollowingInfo(info);
+}
+
+bool Framework::IsWatchModeEnabled() const
+{
+  return m_isWatchModeEnabled;
+}
+
+void Framework::SetWatchModeEnabled(bool enabled)
+{
+  m_isWatchModeEnabled = enabled;
 }

@@ -6,11 +6,12 @@ CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 
-INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/expat/lib
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/expat/lib $$ROOT_DIR/3party/freetype/include
 
 include($$ROOT_DIR/common.pri)
 
 HEADERS += \
+    temp_text/text_engine.h \
     framework.hpp \
     feature_vec_model.hpp \
     events.hpp \
@@ -66,8 +67,15 @@ HEADERS += \
     country_tree.hpp \
     active_maps_layout.hpp \
     route_track.hpp \
+    navigator_utils.hpp \
+    software_renderer.hpp \
+    gpu_drawer.hpp \
+    cpu_drawer.hpp \
+    frame_image.hpp \
 
 SOURCES += \
+    temp_text/text_engine.cpp \
+    temp_text/default_font.cpp \
     feature_vec_model.cpp \
     framework.cpp \
     navigator.cpp \
@@ -122,6 +130,11 @@ SOURCES += \
     country_tree.cpp \
     active_maps_layout.cpp \
     route_track.cpp \
+    navigator_utils.cpp \
+    software_renderer.cpp \
+    gpu_drawer.cpp \
+    cpu_drawer.cpp \
+    agg_curves.cpp \
 
 !iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp

@@ -30,8 +30,9 @@ namespace graphics
   }
 
   GeometryBatcher::Params::Params()
-    : m_storageType(ELargeStorage),
-      m_textureType(ELargeTexture)
+    : m_storageType(ELargeStorage)
+    , m_textureType(ELargeTexture)
+    , m_pipelineCount(2)
   {
     CheckPointLayout<float>();
     CheckPointLayout<double>();
@@ -43,15 +44,15 @@ namespace graphics
   {
     base_t::applyStates();
 
-    vector<shared_ptr<ResourceCache> > caches;
-    ResourceManager::loadSkin(resourceManager(), caches);
+    shared_ptr<ResourceCache> cache;
+    ResourceManager::loadSkin(resourceManager(), cache);
 
-    m_staticPagesCount = caches.size();
-    m_startStaticPage = reservePipelines(caches,
+    m_staticPagesCount = 1;
+    m_startStaticPage = reservePipelines({ cache },
                                          EMediumStorage,
                                          gl::Vertex::getVertexDecl());
 
-    m_dynamicPagesCount = 2;
+    m_dynamicPagesCount = p.m_pipelineCount;
     m_startDynamicPage = reservePipelines(m_dynamicPagesCount,
                                           p.m_textureType,
                                           p.m_storageType,

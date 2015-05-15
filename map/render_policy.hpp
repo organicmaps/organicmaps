@@ -1,8 +1,10 @@
 #pragma once
 
-#include "map/drawer.hpp"
+#include "map/gpu_drawer.hpp"
 
 #include "graphics/color.hpp"
+#include "graphics/resource_manager.hpp"
+#include "graphics/screen.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -26,6 +28,7 @@ namespace graphics
   class Skin;
   class GlyphCache;
   class ResourceManager;
+  class Overlay;
 }
 
 namespace anim
@@ -53,7 +56,7 @@ protected:
   shared_ptr<graphics::Screen> m_cacheScreen;
   shared_ptr<graphics::RenderContext> m_primaryRC;
   shared_ptr<WindowHandle> m_windowHandle;
-  shared_ptr<Drawer> m_drawer;
+  shared_ptr<GPUDrawer> m_drawer;
   TRenderFn m_renderFn;
   bool m_doForceUpdate;
   m2::AnyRectD m_invalidRect;
@@ -61,7 +64,6 @@ protected:
   double m_visualScale;
   string m_skinName;
   anim::Controller * m_controller;
-  shared_ptr<graphics::Overlay> m_overlay;
 
   void InitCacheScreen();
 
@@ -127,7 +129,7 @@ public:
   void SetInvalidRect(m2::AnyRectD const & glbRect);
   m2::AnyRectD const & GetInvalidRect() const;
 
-  shared_ptr<Drawer> const & GetDrawer() const;
+  shared_ptr<GPUDrawer> const & GetDrawer() const;
   shared_ptr<WindowHandle> const & GetWindowHandle() const;
   graphics::GlyphCache * GetGlyphCache() const;
 
@@ -165,10 +167,11 @@ public:
 
 protected:
   void InitWindowsHandle(VideoTimer * timer, shared_ptr<graphics::RenderContext> context);
-  Drawer * CreateDrawer(bool isDefaultFB,
-                        shared_ptr<graphics::RenderContext> context,
-                        graphics::EStorageType storageType,
-                        graphics::ETextureType textureType);
+  GPUDrawer * CreateDrawer(bool isDefaultFB,
+                           shared_ptr<graphics::RenderContext> context,
+                           graphics::EStorageType storageType,
+                           graphics::ETextureType textureType,
+                           uint32_t pipelineCount = 2);
 
   size_t GetLargeTextureSize(bool useNpot);
   size_t GetMediumTextureSize(bool useNpot);
@@ -185,3 +188,6 @@ protected:
 };
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params);
+
+graphics::GlyphCache::Params GetGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize = 2 * 1024 * 1024);
+graphics::ResourceManager::GlyphCacheParams GetResourceGlyphCacheParams(graphics::EDensity density, size_t cacheMaxSize = 2 * 1024 * 1024);
