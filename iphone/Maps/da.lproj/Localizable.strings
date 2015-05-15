@@ -315,48 +315,48 @@
 "search_mode_viewport" = "På skærmen";
 
 /* Search Suggestion */
-"food" = "mad";
+"food" = "Mad";
 
 /* Search Suggestion */
-"transport" = "transport";
+"transport" = "Transport";
 
 /* Search Suggestion */
-"fuel" = "benzin";
+"fuel" = "Benzin";
 
 /* Search Suggestion */
-"parking" = "parkering";
+"parking" = "Parkering";
 
 /* Search Suggestion */
-"shop" = "butik";
+"shop" = "Butik";
 
-"hotel" = "hotel";
-
-/* Search Suggestion */
-"tourism" = "seværdigheder";
+"hotel" = "Hotel";
 
 /* Search Suggestion */
-"entertainment" = "underholdning";
+"tourism" = "Seværdigheder";
 
 /* Search Suggestion */
-"atm" = "hæveautomat";
+"entertainment" = "Underholdning";
 
 /* Search Suggestion */
-"bank" = "bank";
+"atm" = "Hæveautomat";
 
 /* Search Suggestion */
-"pharmacy" = "apotek";
+"bank" = "Bank";
 
 /* Search Suggestion */
-"hospital" = "hospital";
+"pharmacy" = "Apotek";
 
 /* Search Suggestion */
-"toilet" = "toilet";
+"hospital" = "Hospital";
 
 /* Search Suggestion */
-"post" = "post";
+"toilet" = "Toilet";
 
 /* Search Suggestion */
-"police" = "politi";
+"post" = "Post";
+
+/* Search Suggestion */
+"police" = "Politi";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Ingen resultater";
@@ -674,7 +674,7 @@
 "routing_failed_dst_point_not_found" = "Kan ikke beregne ruten. Ingen veje nær din destination.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort.";
+"routing_failed_cross_mwm_building" = "Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort";
 
 /* RouteNotFound */
 "routing_failed_route_not_found" = "Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "bogmærke";
+
+/* map is not downloaded */
+"not_found_map" = "Kortet for dit område er ikke downloadet";
+
+/* location service disabled */
+"enable_location_service" = "Aktiver venligst lokationstjenester";
+
+/* download map */
+"download_map" = "Download kortet for dit område";
+
+/* download map on iPhone */
+"download_map_iphone" = "Download kortet for din placering til din iPhone";
+
+/* clear pin */
+"nearby" = "I nærheden";
+
+/* clear pin */
+"clear_pin" = "Slet nål";
+
+/* location is undefined */
+"undefined_location" = "Den nuværende placering er ikke defineret.";
+
+/* download country of your location */
+"download_country" = "Download landet bestemt ud fra din nuværende lokation";
+
+/* try again */
+"try_again" = "Prøv igen";
+
+/* download failed */
+"download_failed" = "download mislykkedes";
+
+/* get the map */
+"get_the_map" = "Få kort";

@@ -315,48 +315,48 @@
 "search_mode_viewport" = "A képernyőn";
 
 /* Search Suggestion */
-"food" = "élelmiszer";
+"food" = "Élelmiszer";
 
 /* Search Suggestion */
-"transport" = "közlekedés";
+"transport" = "Közlekedés";
 
 /* Search Suggestion */
-"fuel" = "benzinkút";
+"fuel" = "Benzinkút";
 
 /* Search Suggestion */
-"parking" = "parkoló";
+"parking" = "Parkoló";
 
 /* Search Suggestion */
-"shop" = "bolt";
+"shop" = "Bolt";
 
-"hotel" = "szálloda";
-
-/* Search Suggestion */
-"tourism" = "látnivaló";
+"hotel" = "Szálloda";
 
 /* Search Suggestion */
-"entertainment" = "szórakozás";
+"tourism" = "Látnivaló";
 
 /* Search Suggestion */
-"atm" = "pénzautomata";
+"entertainment" = "Szórakozás";
 
 /* Search Suggestion */
-"bank" = "bank";
+"atm" = "Pénzautomata";
 
 /* Search Suggestion */
-"pharmacy" = "gyógyszertár";
+"bank" = "Bank";
 
 /* Search Suggestion */
-"hospital" = "kórház";
+"pharmacy" = "Gyógyszertár";
 
 /* Search Suggestion */
-"toilet" = "mosdó";
+"hospital" = "Kórház";
 
 /* Search Suggestion */
-"post" = "posta";
+"toilet" = "Mosdó";
 
 /* Search Suggestion */
-"police" = "rendőrség";
+"post" = "Posta";
+
+/* Search Suggestion */
+"police" = "Rendőrség";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Nincs keresési találat";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "könyvjelző";
+
+/* map is not downloaded */
+"not_found_map" = "A helyszínéhez tartozó térképet letöltöttük";
+
+/* location service disabled */
+"enable_location_service" = "Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást";
+
+/* download map */
+"download_map" = "Töltse le a térképet a helyszínéhez";
+
+/* download map on iPhone */
+"download_map_iphone" = "Töltse le a térképet iPhone-jára jelenlegi helyzetének meghatározásához";
+
+/* clear pin */
+"nearby" = "A közelben";
+
+/* clear pin */
+"clear_pin" = "Pin törlése";
+
+/* location is undefined */
+"undefined_location" = "Nem meghatározott a jelenlegi helyszín.";
+
+/* download country of your location */
+"download_country" = "Töltse le az aktuális helyzet országát";
+
+/* try again */
+"try_again" = "Újrapróbálkozás";
+
+/* download failed */
+"download_failed" = "letöltése sikertelen";
+
+/* get the map */
+"get_the_map" = "Térkép megszerzése";

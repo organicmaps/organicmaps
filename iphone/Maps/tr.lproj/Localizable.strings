@@ -315,48 +315,48 @@
 "search_mode_viewport" = "Ekranda";
 
 /* Search Suggestion */
-"food" = "yemek";
+"food" = "Yemek";
 
 /* Search Suggestion */
-"transport" = "ulaşım";
+"transport" = "Ulaşım";
 
 /* Search Suggestion */
-"fuel" = "benzin";
+"fuel" = "Benzin";
 
 /* Search Suggestion */
-"parking" = "otopark";
+"parking" = "Otopark";
 
 /* Search Suggestion */
-"shop" = "mağaza";
+"shop" = "Mağaza";
 
-"hotel" = "otel";
-
-/* Search Suggestion */
-"tourism" = "görülecek yerler";
+"hotel" = "Otel";
 
 /* Search Suggestion */
-"entertainment" = "eğlence";
+"tourism" = "Görülecek yerler";
 
 /* Search Suggestion */
-"atm" = "bankamatik";
+"entertainment" = "Eğlence";
 
 /* Search Suggestion */
-"bank" = "banka";
+"atm" = "Bankamatik";
 
 /* Search Suggestion */
-"pharmacy" = "eczane";
+"bank" = "Banka";
 
 /* Search Suggestion */
-"hospital" = "hastane";
+"pharmacy" = "Eczane";
 
 /* Search Suggestion */
-"toilet" = "tuvalet";
+"hospital" = "Hastane";
 
 /* Search Suggestion */
-"post" = "posta";
+"toilet" = "Tuvalet";
 
 /* Search Suggestion */
-"police" = "polis";
+"post" = "Posta";
+
+/* Search Suggestion */
+"police" = "Polis";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Sonuç bulunamadı";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "yer i̇mi";
+
+/* map is not downloaded */
+"not_found_map" = "Konum haritası bulunamadı";
+
+/* location service disabled */
+"enable_location_service" = "Lütfen Yer Hizmetlerini etkinleştirin";
+
+/* download map */
+"download_map" = "Konumunuz için haritayı indirin";
+
+/* download map on iPhone */
+"download_map_iphone" = "Mevcut konum için iPhone'nunuza haritayı indirin";
+
+/* clear pin */
+"nearby" = "Yakında";
+
+/* clear pin */
+"clear_pin" = "İğneyi Temizle";
+
+/* location is undefined */
+"undefined_location" = "Geçerli konum tanımlı değil.";
+
+/* download country of your location */
+"download_country" = "Geçerli konumuzun ülkesini indirin";
+
+/* try again */
+"try_again" = "Tekrar Deneyin";
+
+/* download failed */
+"download_failed" = "indirme işlemi başarısız oldu";
+
+/* get the map */
+"get_the_map" = "Harita alın";

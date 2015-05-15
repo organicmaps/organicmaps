@@ -315,48 +315,48 @@
 "search_mode_viewport" = "На екрані";
 
 /* Search Suggestion */
-"food" = "їжа";
+"food" = "Їжа";
 
 /* Search Suggestion */
-"transport" = "транспорт";
+"transport" = "Транспорт";
 
 /* Search Suggestion */
-"fuel" = "заправка";
+"fuel" = "Заправка";
 
 /* Search Suggestion */
-"parking" = "парковка";
+"parking" = "Парковка";
 
 /* Search Suggestion */
-"shop" = "крамниця";
+"shop" = "Крамниця";
 
-"hotel" = "готель";
-
-/* Search Suggestion */
-"tourism" = "пам’ятні місця";
+"hotel" = "Готель";
 
 /* Search Suggestion */
-"entertainment" = "розваги";
+"tourism" = "Пам’ятні місця";
 
 /* Search Suggestion */
-"atm" = "банкомат";
+"entertainment" = "Розваги";
 
 /* Search Suggestion */
-"bank" = "банк";
+"atm" = "Банкомат";
 
 /* Search Suggestion */
-"pharmacy" = "аптека";
+"bank" = "Банк";
 
 /* Search Suggestion */
-"hospital" = "лікарня";
+"pharmacy" = "Аптека";
 
 /* Search Suggestion */
-"toilet" = "туалет";
+"hospital" = "Лікарня";
 
 /* Search Suggestion */
-"post" = "пошта";
+"toilet" = "Туалет";
 
 /* Search Suggestion */
-"police" = "міліція";
+"post" = "Пошта";
+
+/* Search Suggestion */
+"police" = "Міліція";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Результатів не знайдено";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "мітка";
+
+/* map is not downloaded */
+"not_found_map" = "Карту місця, де ви знаходитеся, не завантажено";
+
+/* location service disabled */
+"enable_location_service" = "Будь ласка, увімкніть геолокацію";
+
+/* download map */
+"download_map" = "Завантажуйте карту тієї місцевості, де ви знаходитесь";
+
+/* download map on iPhone */
+"download_map_iphone" = "Завантажити карту вашого місця розташування на iPhone";
+
+/* clear pin */
+"nearby" = "Поруч";
+
+/* clear pin */
+"clear_pin" = "Очисти мітку";
+
+/* location is undefined */
+"undefined_location" = "Не визначено поточне місцезнаходження.";
+
+/* download country of your location */
+"download_country" = "Завантажити країну вашого місця розташування";
+
+/* try again */
+"try_again" = "Спробуйте ще раз";
+
+/* download failed */
+"download_failed" = "Не вдалося завантажити";
+
+/* get the map */
+"get_the_map" = "Отримати карту";

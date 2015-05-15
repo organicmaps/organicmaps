@@ -338,7 +338,7 @@
 "entertainment" = "엔터테인먼트";
 
 /* Search Suggestion */
-"atm" = "atm";
+"atm" = "ATM";
 
 /* Search Suggestion */
 "bank" = "은행";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "북마크";
+
+/* map is not downloaded */
+"not_found_map" = "위치에 대한 지도가 다운로드되지 않음";
+
+/* location service disabled */
+"enable_location_service" = "위치 서비스를 작동시켜 주십시요.";
+
+/* download map */
+"download_map" = "위치에 대한 지도 다운로드";
+
+/* download map on iPhone */
+"download_map_iphone" = "아이폰에서 현재 위치의 지도 다운로드";
+
+/* clear pin */
+"nearby" = "근처에";
+
+/* clear pin */
+"clear_pin" = "핀 지우기";
+
+/* location is undefined */
+"undefined_location" = "현재 위치는 정의되지 않습니다.";
+
+/* download country of your location */
+"download_country" = "귀하께서 현재 계신 국가인 을(를) 다운로드";
+
+/* try again */
+"try_again" = "다시 시도";
+
+/* download failed */
+"download_failed" = "다운로드가 실패했습니다";
+
+/* get the map */
+"get_the_map" = "지도 가져오기";

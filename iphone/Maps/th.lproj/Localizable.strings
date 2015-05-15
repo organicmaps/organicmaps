@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "บุ๊กมาร์ก";
+
+/* map is not downloaded */
+"not_found_map" = "ไม่พบแผนที่ของตำแหน่งของคุณ";
+
+/* location service disabled */
+"enable_location_service" = "โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง";
+
+/* download map */
+"download_map" = "ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่";
+
+/* download map on iPhone */
+"download_map_iphone" = "ดาวน์โหลดแผนที่สำหรับตำแหน่งปัจจุบันบน iPhone ของคุณ";
+
+/* clear pin */
+"nearby" = "ใกล้เคียง";
+
+/* clear pin */
+"clear_pin" = "ล้างปักหมุด";
+
+/* location is undefined */
+"undefined_location" = "ไม่มีการกำหนดสถานที่ปัจจุบัน";
+
+/* download country of your location */
+"download_country" = "ดาวน์โหลด ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ";
+
+/* try again */
+"try_again" = "ลองอีกครั้ง";
+
+/* download failed */
+"download_failed" = "การดาวน์โหลด  ล้มเหลว";
+
+/* get the map */
+"get_the_map" = "รับแผนที่";

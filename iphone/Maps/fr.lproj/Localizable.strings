@@ -315,48 +315,48 @@
 "search_mode_viewport" = "À l'écran";
 
 /* Search Suggestion */
-"food" = "nourriture";
+"food" = "Nourriture";
 
 /* Search Suggestion */
-"transport" = "transport";
+"transport" = "Transport";
 
 /* Search Suggestion */
-"fuel" = "essence";
+"fuel" = "Essence";
 
 /* Search Suggestion */
-"parking" = "stationnement";
+"parking" = "Stationnement";
 
 /* Search Suggestion */
-"shop" = "magasin";
+"shop" = "Magasin";
 
-"hotel" = "hôtel";
-
-/* Search Suggestion */
-"tourism" = "site touristique";
+"hotel" = "Hôtel";
 
 /* Search Suggestion */
-"entertainment" = "divertissement";
+"tourism" = "Site touristique";
+
+/* Search Suggestion */
+"entertainment" = "Divertissement";
 
 /* Search Suggestion */
 "atm" = "GAB";
 
 /* Search Suggestion */
-"bank" = "banque";
+"bank" = "Banque";
 
 /* Search Suggestion */
-"pharmacy" = "pharmacie";
+"pharmacy" = "Pharmacie";
 
 /* Search Suggestion */
-"hospital" = "hôpital/clinique";
+"hospital" = "Hôpital/clinique";
 
 /* Search Suggestion */
-"toilet" = "toilettes";
+"toilet" = "Toilettes";
 
 /* Search Suggestion */
-"post" = "poste";
+"post" = "Poste";
 
 /* Search Suggestion */
-"police" = "police/gendarmerie";
+"police" = "Police/gendarmerie";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Aucun résultat trouvé";
@@ -677,7 +677,7 @@
 "routing_failed_cross_mwm_building" = "Les itinéraires entièrement contenus sur une seule carte peuvent être créés.";
 
 /* RouteNotFound */
-"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisies. Veuillez sélectionner un point de départ ou d'arrivée différent.";
+"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisies . Veuillez sélectionner un point de départ ou d'arrivée différent.";
 
 /* InternalError */
 "routing_failed_internal_error" = "Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "signet";
+
+/* map is not downloaded */
+"not_found_map" = "La carte pour votre emplacement n'est pas téléchargée";
+
+/* location service disabled */
+"enable_location_service" = "Veuillez activer les services de localisation";
+
+/* download map */
+"download_map" = "Télécharger la carte de l'endroit où vous êtes";
+
+/* download map on iPhone */
+"download_map_iphone" = "Téléchargez la carte de l'endroit où vous vous trouvez sur votre iPhone";
+
+/* clear pin */
+"nearby" = "À proximité";
+
+/* clear pin */
+"clear_pin" = "Effacer Pin";
+
+/* location is undefined */
+"undefined_location" = "L'emplacement actuel n'est pas défini.";
+
+/* download country of your location */
+"download_country" = "Téléchargez la carte pour votre emplacement";
+
+/* try again */
+"try_again" = "Ressayer";
+
+/* download failed */
+"download_failed" = "échec lors du téléchargement";
+
+/* get the map */
+"get_the_map" = "Téléchargez des cartes";

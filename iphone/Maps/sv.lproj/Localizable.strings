@@ -315,48 +315,48 @@
 "search_mode_viewport" = "På skärmen";
 
 /* Search Suggestion */
-"food" = "mat";
+"food" = "Mat";
 
 /* Search Suggestion */
-"transport" = "transport";
+"transport" = "Transport";
 
 /* Search Suggestion */
-"fuel" = "bensin";
+"fuel" = "Bensin";
 
 /* Search Suggestion */
-"parking" = "parkering";
+"parking" = "Parkering";
 
 /* Search Suggestion */
-"shop" = "butik";
+"shop" = "Butik";
 
-"hotel" = "hotell";
-
-/* Search Suggestion */
-"tourism" = "sevärdheter";
+"hotel" = "Hotell";
 
 /* Search Suggestion */
-"entertainment" = "underhållning";
+"tourism" = "Sevärdheter";
 
 /* Search Suggestion */
-"atm" = "bankomat";
+"entertainment" = "Underhållning";
 
 /* Search Suggestion */
-"bank" = "bank";
+"atm" = "Bankomat";
 
 /* Search Suggestion */
-"pharmacy" = "apotek";
+"bank" = "Bank";
 
 /* Search Suggestion */
-"hospital" = "sjukhus";
+"pharmacy" = "Apotek";
 
 /* Search Suggestion */
-"toilet" = "toalett";
+"hospital" = "Sjukhus";
 
 /* Search Suggestion */
-"post" = "post";
+"toilet" = "Toalett";
 
 /* Search Suggestion */
-"police" = "polis";
+"post" = "Post";
+
+/* Search Suggestion */
+"police" = "Polis";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Inga resultat";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "bokmärke";
+
+/* map is not downloaded */
+"not_found_map" = "Kartan för din plats hittas inte";
+
+/* location service disabled */
+"enable_location_service" = "Vänligen aktivera platstjänster";
+
+/* download map */
+"download_map" = "Ladda ner kartan över din nuvarande plats";
+
+/* download map on iPhone */
+"download_map_iphone" = "Ladda ner kartan för aktuell plats på din iPhone";
+
+/* clear pin */
+"nearby" = "I närheten";
+
+/* clear pin */
+"clear_pin" = "Rensa PIN";
+
+/* location is undefined */
+"undefined_location" = "Nuvarande plats är inte definierad.";
+
+/* download country of your location */
+"download_country" = "Ladda ner landet vid din nuvarande position";
+
+/* try again */
+"try_again" = "Försök igen";
+
+/* download failed */
+"download_failed" = "nedladdning misslyckades";
+
+/* get the map */
+"get_the_map" = "Hämta karta";

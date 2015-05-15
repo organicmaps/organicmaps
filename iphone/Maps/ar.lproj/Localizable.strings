@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "إشارة مرجعية";
+
+/* map is not downloaded */
+"not_found_map" = "الخريطة الخاصة بالمكان الذي تتواجد فيه لا يتم تنزيلها";
+
+/* location service disabled */
+"enable_location_service" = "الرجاء تفعيل خدمة تحديد المواقع";
+
+/* download map */
+"download_map" = "قم بتنزيل الخريطة الخاصة بموقعك";
+
+/* download map on iPhone */
+"download_map_iphone" = "قم بتنزيل خريطة الموقع الحالي على جهاز آيفون الخاص بك";
+
+/* clear pin */
+"nearby" = "قريب";
+
+/* clear pin */
+"clear_pin" = "مسح الرقم السري";
+
+/* location is undefined */
+"undefined_location" = "الموقع الحالي غير مُعَرّف";
+
+/* download country of your location */
+"download_country" = "تنزيل دولة موقعك الحالي";
+
+/* try again */
+"try_again" = "محاولة مرة أخرى";
+
+/* download failed */
+"download_failed" = "فشلت عملية تنزيل";
+
+/* get the map */
+"get_the_map" = "احصل على الخريطة";

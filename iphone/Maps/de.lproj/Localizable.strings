@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "lesezeichen";
+
+/* map is not downloaded */
+"not_found_map" = "Es gibt keine Karte für Ihren Standort";
+
+/* location service disabled */
+"enable_location_service" = "Aktivieren Sie bitte Ortungsdienste in den Einstellungen";
+
+/* download map */
+"download_map" = "Laden Sie die Karte für Ihren Standort herunter";
+
+/* download map on iPhone */
+"download_map_iphone" = "Laden Sie eine Karte für Ihre aktuelle Position auf Ihrem iPhone herunter";
+
+/* clear pin */
+"nearby" = "In der Nähe";
+
+/* clear pin */
+"clear_pin" = "Pin löschen";
+
+/* location is undefined */
+"undefined_location" = "Der aktuelle Standort ist nicht definiert.";
+
+/* download country of your location */
+"download_country" = "Land Ihres derzeitigen Standorts herunterladen";
+
+/* try again */
+"try_again" = "Nochmals versuchen";
+
+/* download failed */
+"download_failed" = "herunterladen fehlgeschlagen";
+
+/* get the map */
+"get_the_map" = "Karte abrufen";

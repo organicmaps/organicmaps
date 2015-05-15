@@ -315,48 +315,48 @@
 "search_mode_viewport" = "En la pantalla";
 
 /* Search Suggestion */
-"food" = "comer";
+"food" = "Comer";
 
 /* Search Suggestion */
-"transport" = "transporte";
+"transport" = "Transporte";
 
 /* Search Suggestion */
-"fuel" = "gasolinera";
+"fuel" = "Gasolinera";
 
 /* Search Suggestion */
-"parking" = "estacionamiento";
+"parking" = "Estacionamiento";
 
 /* Search Suggestion */
-"shop" = "tienda";
+"shop" = "Tienda";
 
-"hotel" = "hotel";
-
-/* Search Suggestion */
-"tourism" = "turismo";
+"hotel" = "Hotel";
 
 /* Search Suggestion */
-"entertainment" = "entretenimiento";
+"tourism" = "Turismo";
 
 /* Search Suggestion */
-"atm" = "atm";
+"entertainment" = "Entretenimiento";
 
 /* Search Suggestion */
-"bank" = "banco";
+"atm" = "ATM";
 
 /* Search Suggestion */
-"pharmacy" = "farmacia";
+"bank" = "Banco";
 
 /* Search Suggestion */
-"hospital" = "hospital";
+"pharmacy" = "Farmacia";
 
 /* Search Suggestion */
-"toilet" = "servicios sanitario";
+"hospital" = "Hospital";
 
 /* Search Suggestion */
-"post" = "oficina de correos";
+"toilet" = "Servicios sanitario";
 
 /* Search Suggestion */
-"police" = "policía";
+"post" = "Oficina de correos";
+
+/* Search Suggestion */
+"police" = "Policía";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "No se han encontrado resultados";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "marcador";
+
+/* map is not downloaded */
+"not_found_map" = "El mapa de tu ubicación no se ha descargado";
+
+/* location service disabled */
+"enable_location_service" = "Por favor, permite los servicios de localización";
+
+/* download map */
+"download_map" = "Descarga el mapa de tu ubicación";
+
+/* download map on iPhone */
+"download_map_iphone" = "Descarga el mapa para la ubicación actual en tu iPhone";
+
+/* clear pin */
+"nearby" = "Cerca";
+
+/* clear pin */
+"clear_pin" = "Borrar alfiler";
+
+/* location is undefined */
+"undefined_location" = "La ubicación actual no está definida.";
+
+/* download country of your location */
+"download_country" = "Descargar país de tu ubicación actual";
+
+/* try again */
+"try_again" = "Intentarla otra vez";
+
+/* download failed */
+"download_failed" = "la descarga ha fallado";
+
+/* get the map */
+"get_the_map" = "Obtén el mapa";

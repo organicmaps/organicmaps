@@ -315,48 +315,48 @@
 "search_mode_viewport" = "Op het scherm";
 
 /* Search Suggestion */
-"food" = "eten";
+"food" = "Eten";
 
 /* Search Suggestion */
-"transport" = "transport";
+"transport" = "Transport";
 
 /* Search Suggestion */
-"fuel" = "benzine";
+"fuel" = "Benzine";
 
 /* Search Suggestion */
-"parking" = "parkeerplaats";
+"parking" = "Parkeerplaats";
 
 /* Search Suggestion */
-"shop" = "winkel";
+"shop" = "Winkel";
 
-"hotel" = "hotel";
-
-/* Search Suggestion */
-"tourism" = "toerisme";
+"hotel" = "Hotel";
 
 /* Search Suggestion */
-"entertainment" = "uitgaan";
+"tourism" = "Toerisme";
 
 /* Search Suggestion */
-"atm" = "geldautomaat";
+"entertainment" = "Uitgaan";
 
 /* Search Suggestion */
-"bank" = "bank";
+"atm" = "Geldautomaat";
 
 /* Search Suggestion */
-"pharmacy" = "apotheek";
+"bank" = "Bank";
 
 /* Search Suggestion */
-"hospital" = "ziekenhuis";
+"pharmacy" = "Apotheek";
 
 /* Search Suggestion */
-"toilet" = "toilet";
+"hospital" = "Ziekenhuis";
 
 /* Search Suggestion */
-"post" = "post";
+"toilet" = "Toilet";
 
 /* Search Suggestion */
-"police" = "politie";
+"post" = "Post";
+
+/* Search Suggestion */
+"police" = "Politie";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Geen resultaten gevonden";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "markeren";
+
+/* map is not downloaded */
+"not_found_map" = "De kaart voor uw locatie is niet gedownload";
+
+/* location service disabled */
+"enable_location_service" = "Schakel Locatie Services in";
+
+/* download map */
+"download_map" = "Download de kaart voor uw locatie";
+
+/* download map on iPhone */
+"download_map_iphone" = "Download de kaart van uw huidige lokatie op uw iPhone";
+
+/* clear pin */
+"nearby" = "In de buurt";
+
+/* clear pin */
+"clear_pin" = "Speld wissen";
+
+/* location is undefined */
+"undefined_location" = "Huidige locatie is niet gedefinieerd.";
+
+/* download country of your location */
+"download_country" = "Download land waar je nu bent";
+
+/* try again */
+"try_again" = "Probeer opnieuw";
+
+/* download failed */
+"download_failed" = "download is afgebroken";
+
+/* get the map */
+"get_the_map" = "Krijg kaart";

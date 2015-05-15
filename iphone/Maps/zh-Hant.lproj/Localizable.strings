@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "書籤";
+
+/* map is not downloaded */
+"not_found_map" = "您地點的地圖沒有被下載";
+
+/* location service disabled */
+"enable_location_service" = "請啟動位置服務";
+
+/* download map */
+"download_map" = "為您的地點下載地圖";
+
+/* download map on iPhone */
+"download_map_iphone" = "在您的iPhone上下載當前位置的地圖";
+
+/* clear pin */
+"nearby" = "附近的";
+
+/* clear pin */
+"clear_pin" = "清除針";
+
+/* location is undefined */
+"undefined_location" = "當前地點未定。";
+
+/* download country of your location */
+"download_country" = "下載您目前所在位置的國家 地圖";
+
+/* try again */
+"try_again" = "再試一次";
+
+/* download failed */
+"download_failed" = "下載失敗";
+
+/* get the map */
+"get_the_map" = "獲取地圖";

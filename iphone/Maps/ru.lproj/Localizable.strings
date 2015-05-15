@@ -315,48 +315,48 @@
 "search_mode_viewport" = "На экране";
 
 /* Search Suggestion */
-"food" = "еда";
+"food" = "Еда";
 
 /* Search Suggestion */
-"transport" = "транспорт";
+"transport" = "Транспорт";
 
 /* Search Suggestion */
-"fuel" = "заправка";
+"fuel" = "Заправка";
 
 /* Search Suggestion */
-"parking" = "парковка";
+"parking" = "Парковка";
 
 /* Search Suggestion */
-"shop" = "магазин";
+"shop" = "Магазин";
 
-"hotel" = "гостиница";
-
-/* Search Suggestion */
-"tourism" = "достопримечательность";
+"hotel" = "Гостиница";
 
 /* Search Suggestion */
-"entertainment" = "развлечения";
+"tourism" = "Достопримечательность";
 
 /* Search Suggestion */
-"atm" = "банкомат";
+"entertainment" = "Развлечения";
 
 /* Search Suggestion */
-"bank" = "банк";
+"atm" = "Банкомат";
 
 /* Search Suggestion */
-"pharmacy" = "аптека";
+"bank" = "Банк";
 
 /* Search Suggestion */
-"hospital" = "больница";
+"pharmacy" = "Аптека";
 
 /* Search Suggestion */
-"toilet" = "туалет";
+"hospital" = "Больница";
 
 /* Search Suggestion */
-"post" = "почта";
+"toilet" = "Туалет";
 
 /* Search Suggestion */
-"police" = "полиция";
+"post" = "Почта";
+
+/* Search Suggestion */
+"police" = "Полиция";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Нет результатов поиска";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "метка";
+
+/* map is not downloaded */
+"not_found_map" = "Карта вашего местоположения не загружена";
+
+/* location service disabled */
+"enable_location_service" = "Пожалуйста, включите геолокацию";
+
+/* download map */
+"download_map" = "Скачайте карту места, где вы находитесь";
+
+/* download map on iPhone */
+"download_map_iphone" = "Скачайте на вашем iPhone карту места, где вы находитесь";
+
+/* clear pin */
+"nearby" = "поблизости";
+
+/* clear pin */
+"clear_pin" = "убрать метку";
+
+/* location is undefined */
+"undefined_location" = "Не определено текущее местоположение.";
+
+/* download country of your location */
+"download_country" = "Скачайте страну вашего местоположения";
+
+/* try again */
+"try_again" = "Попробуйте еще раз";
+
+/* download failed */
+"download_failed" = "Не удалось загрузить";
+
+/* get the map */
+"get_the_map" = "Загрузить карту";

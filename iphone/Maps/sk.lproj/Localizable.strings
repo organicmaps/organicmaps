@@ -315,48 +315,48 @@
 "search_mode_viewport" = "Na obrazovke";
 
 /* Search Suggestion */
-"food" = "jedlo";
+"food" = "Jedlo";
 
 /* Search Suggestion */
-"transport" = "doprava";
+"transport" = "Doprava";
 
 /* Search Suggestion */
-"fuel" = "čerpacia stanica";
+"fuel" = "Čerpacia stanica";
 
 /* Search Suggestion */
-"parking" = "parkovisko";
+"parking" = "Parkovisko";
 
 /* Search Suggestion */
-"shop" = "obchod";
+"shop" = "Obchod";
 
-"hotel" = "hotel";
-
-/* Search Suggestion */
-"tourism" = "pamätihodnosť";
+"hotel" = "Hotel";
 
 /* Search Suggestion */
-"entertainment" = "zábava";
+"tourism" = "Pamätihodnosť";
 
 /* Search Suggestion */
-"atm" = "bankomat";
+"entertainment" = "Zábava";
 
 /* Search Suggestion */
-"bank" = "banka";
+"atm" = "Bankomat";
 
 /* Search Suggestion */
-"pharmacy" = "lekáreň";
+"bank" = "Banka";
 
 /* Search Suggestion */
-"hospital" = "nemocnica";
+"pharmacy" = "Lekáreň";
 
 /* Search Suggestion */
-"toilet" = "záchody";
+"hospital" = "Nemocnica";
 
 /* Search Suggestion */
-"post" = "pošta";
+"toilet" = "Záchody";
 
 /* Search Suggestion */
-"police" = "polícia";
+"post" = "Pošta";
+
+/* Search Suggestion */
+"police" = "Polícia";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "Žiadne výsledky";
@@ -1044,3 +1044,36 @@
 
 /* bookmark button text */
 "bookmark" = "záložka";
+
+/* map is not downloaded */
+"not_found_map" = "Mapa vašej polohy nebola nájdená";
+
+/* location service disabled */
+"enable_location_service" = "Prosím, povoľte Služby určovania polohy";
+
+/* download map */
+"download_map" = "Stiahnite si mapu miesta, kde sa práve nachádzate";
+
+/* download map on iPhone */
+"download_map_iphone" = "Stiahnite si mapu pre aktuálnu polohu na vašom iPhone";
+
+/* clear pin */
+"nearby" = "V blízkosti";
+
+/* clear pin */
+"clear_pin" = "Vymazať špendlík";
+
+/* location is undefined */
+"undefined_location" = "Aktuálna lokácia nie je definovaná.";
+
+/* download country of your location */
+"download_country" = "Sťahovanie krajiny vašej aktuálnej polohy";
+
+/* try again */
+"try_again" = "Skúsiť znova";
+
+/* download failed */
+"download_failed" = "Sťahovanie zlyhalo";
+
+/* get the map */
+"get_the_map" = "Stiahnuť mapu";
