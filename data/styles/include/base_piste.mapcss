@@ -1,0 +1,338 @@
+line|z13[piste:type=sled]
+{
+  color: #f0e0dc;
+  width: 1.25;
+}
+line|z13[piste:type=nordic]
+{
+  color: #c00000;
+  width: 0.5;
+  dashes: 1.5,0.25;
+  linecap: butt;
+}
+line|z13[piste:type=downhill]
+{
+  color: #505050;
+  width: 2.5;
+}
+line|z13[piste:type=downhill][piste:difficulty=freeride]
+{
+  color: #f6dd0a;
+  width: 2.5;
+}
+node|z13[aerialway=station]
+{
+  symbol-shape: circle;
+  symbol-fill-color: #202020;
+  symbol-size: 2;
+}
+line|z13[piste:type=downhill][piste:difficulty=intermediate]
+{
+  color: #ff4040;
+  width: 2.5;
+}
+line|z13[piste:type=downhill][piste:difficulty=advanced]
+{
+  color: #202020;
+  width: 2.5;
+}
+line|z13[piste:type=downhill][piste:difficulty=easy]
+{
+  color: blue;
+  width: 2.5;
+}
+line|z13[piste:type=downhill][piste:difficulty=novice]
+{
+  color: #40ff40;
+  width: 2.5;
+}
+line|z13[piste:type=downhill][piste:difficulty=expert]
+{
+  color: #f6800a;
+  width: 2.5;
+}
+node|z16-[aerialway=station]
+{
+  font-size: 12;
+  text-halo-radius: 2;
+  text: name;
+  text-color: #3050d8;
+  text-halo-color: white;
+}
+line|z14[piste:lift=platter]::d1p2
+{
+  color: #202020;
+  width: 0.4;
+}
+line|z14[piste:lift=j-bar]::d2p2
+{
+  color: #202020;
+  width: 0.4;
+}
+line|z14-[piste:type=downhill]
+{
+  color: #505050;
+  width: 5;
+}
+line|z14-[piste:type=downhill][piste:difficulty=easy]
+{
+  color: blue;
+  width: 5;
+}
+line|z14-[piste:type=downhill][piste:difficulty=advanced]
+{
+  color: #202020;
+  width: 5;
+}
+line|z14[piste:type=sled]
+{
+  color: #f0e0dc;
+  width: 2.5;
+}
+line|z14-[piste:type=downhill][piste:difficulty=intermediate]
+{
+  color: #ff4040;
+  width: 5;
+}
+line|z14-[piste:type=downhill][piste:difficulty=expert]
+{
+  color: #f6800a;
+  width: 5;
+}
+line|z14[piste:lift=platter]::d1p3
+{
+  color: #202020;
+  width: 4;
+  dashes: 0.4,20;
+  linecap: butt;
+}
+line|z14[piste:lift=j-bar]::d2p3
+{
+  color: #202020;
+  width: 4;
+  dashes: 0.4,20;
+  linecap: butt;
+}
+line|z14-[piste:type=downhill][piste:difficulty=freeride]
+{
+  color: #f6dd0a;
+  width: 5;
+}
+line|z14[piste:lift=t-bar]::d2p2
+{
+  color: #202020;
+  width: 0.4;
+}
+line|z14-[piste:type=downhill][piste:difficulty=novice]
+{
+  color: #40ff40;
+  width: 5;
+}
+line|z14[piste:lift=t-bar]::d2p3
+{
+  color: #202020;
+  width: 4;
+  dashes: 0.4,20;
+  linecap: butt;
+}
+node|z14[aerialway=station]
+{
+  symbol-shape: circle;
+  symbol-fill-color: #3050d8;
+  symbol-size: 2;
+}
+line|z14[piste:type=nordic]
+{
+  color: #c00000;
+  width: 1;
+  dashes: 3,0.5;
+  linecap: butt;
+}
+node|z15[aerialway=station]
+{
+  symbol-shape: circle;
+  symbol-fill-color: #3050d8;
+  symbol-size: 3;
+}
+line|z15[piste:lift=magic_carpet]
+{
+  color: #101010;
+  width: 1.6;
+}
+line|z15-[piste:lift=j-bar]
+{
+  color: #202020;
+  width: 0.8;
+}
+line|z15-[piste:lift=t-bar]
+{
+  color: #202020;
+  width: 0.8;
+}
+line|z15-[piste:lift=t-bar]::d2p2
+{
+  color: #202020;
+  width: 8;
+  dashes: 0.8,40;
+  linecap: butt;
+}
+line|z15-[piste:lift=platter]
+{
+  color: #202020;
+  width: 0.8;
+}
+line|z15-[piste:type=nordic]
+{
+  color: #c00000;
+  width: 2;
+  dashes: 6,1;
+  linecap: butt;
+}
+line|z15-[piste:lift=j-bar]::d2p2
+{
+  color: #202020;
+  width: 8;
+  z-index: 605;
+  dashes: 0.8,40;
+  linecap: butt;
+}
+line|z15[aerialway=gondola]
+{
+  color: #202020;
+  width: 0.8;
+  z-index: 610;
+}
+line|z15[piste:lift=rope_tow]
+{
+  color: #d8d8c4;
+  width: 1;
+  z-index: 607;
+  dashes: 2,2;
+  linecap: butt;
+}
+line|z15[aerialway=chair_lift]
+{
+  color: #202020;
+  width: 0.8;
+  z-index: 612;
+}
+line|z15[aerialway=mixed_lift]
+{
+  color: #202020;
+  width: 0.8;
+  z-index: 613;
+}
+line|z15[aerialway=cable_car]
+{
+  color: #202020;
+  width: 0.8;
+  z-index: 609;
+}
+line|z15-[piste:lift=platter]::d1p2
+{
+  color: #202020;
+  width: 8;
+  dashes: 1,40;
+  linecap: butt;
+}
+line|z15[piste:type=sled]
+{
+  color: #f0e0dc;
+  width: 5;
+}
+line|z16[aerialway=chair_lift]
+{
+  color: #202020;
+  width: 1.6;
+  z-index: 852;
+}
+line|z16[piste:type=sled]
+{
+  color: #f0e0dc;
+  width: 10;
+  z-index: 840;
+}
+area|z16[aerialway=station],
+node|z16[aerialway=station]
+{
+  symbol-shape: circle;
+  symbol-fill-color: #3050d8;
+  symbol-size: 4;
+}
+line|z16[piste:lift=rope_tow]
+{
+  color: #d8d8c4;
+  width: 2;
+  dashes: 4,4;
+  linecap: butt;
+}
+line|z16[aerialway=cable_car]
+{
+  color: #202020;
+  width: 1.6;
+  z-index: 850;
+}
+line|z16[piste:lift=magic_carpet]
+{
+  color: #101010;
+  width: 3.2;
+}
+line|z16[aerialway=mixed_lift]
+{
+  color: #202020;
+  width: 1.6;
+  z-index: 853;
+}
+line|z16[aerialway=gondola]
+{
+  color: #202020;
+  width: 1.6;
+  z-index: 851;
+}
+line|z17-[piste:lift=magic_carpet]
+{
+  color: #101010;
+  width: 6.4;
+}
+line|z17-[aerialway=cable_car]
+{
+  color: #202020;
+  width: 3.2;
+  z-index: 909;
+}
+line|z17-[aerialway=mixed_lift]
+{
+  color: #202020;
+  width: 3.2;
+  z-index: 912;
+}
+line|z17-[aerialway=chair_lift]
+{
+  color: #202020;
+  width: 3.2;
+}
+line|z17-[piste:lift=rope_tow]
+{
+  color: #d8d8c4;
+  width: 4;
+  dashes: 8,8;
+  linecap: butt;
+}
+area|z17-[aerialway=station],
+node|z17-[aerialway=station]
+{
+  symbol-shape: circle;
+  symbol-fill-color: #3050d8;
+  symbol-size: 3.2;
+}
+line|z17-[aerialway=gondola]
+{
+  color: #202020;
+  width: 3.2;
+  z-index: 910;
+}
+line|z17-[piste:type=sled]
+{
+  color: #f0e0dc;
+  width: 20;
+}
