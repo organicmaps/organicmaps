@@ -40,6 +40,7 @@ namespace graphics
     bool isReverse() const;
 
     PathPoint const offsetPoint(PathPoint const & pp, double offset) const;
+    void copyWithOffset(double offset, vector<m2::PointD> & path) const;
     PivotPoint findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym) const;
 
     PathPoint const front() const;

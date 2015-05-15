@@ -115,6 +115,13 @@ namespace graphics
     return m_pv.offsetPoint(pp, offset);
   }
 
+  void TextPath::copyWithOffset(double offset, vector<m2::PointD> & path) const
+  {
+    PathPoint pt = m_pv.offsetPoint(front(), m_pathOffset + offset);
+    path.push_back(pt.m_pt);
+    path.insert(path.end(), m_arr.begin() + pt.m_i, m_arr.end());
+  }
+
   PivotPoint TextPath::findPivotPoint(PathPoint const & pp, GlyphMetrics const & sym) const
   {
     const PivotPoint ptStart = m_pv.findPivotPoint(pp, sym.m_xOffset - sym.m_width);
