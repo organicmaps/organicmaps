@@ -662,10 +662,10 @@ bool Framework::LoadState()
     return false;
 
   // additional check for valid rect
-  if (!m_scales.GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+  m2::RectD r = rect.GetGlobalRect();
+  if (!m_scales.GetWorldRect().IsRectInside(r))
     return false;
 
-  m2::RectD r = rect.GetGlobalRect();
   CheckMinMaxVisibleScale(r);
 
   double const dx = r.SizeX();
