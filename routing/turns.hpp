@@ -107,10 +107,7 @@ struct TurnCandidate
   double m_angle;
   NodeID m_node;
 
-  TurnCandidate(double a, NodeID n)
-    : m_angle(a), m_node(n)
-  {
-  }
+  TurnCandidate(double a, NodeID n) : m_angle(a), m_node(n) {}
 };
 typedef vector<TurnCandidate> TurnCandidatesT;
 

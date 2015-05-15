@@ -186,9 +186,7 @@ private:
   ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
 
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
-  void GetPossibleTurns(NodeID node,
-                        m2::PointD const & p1,
-                        m2::PointD const & p,
+  void GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD const & p,
                         RoutingMappingPtrT const & routingMapping,
                         turns::TurnCandidatesT & candidates);
   void GetTurnDirection(PathData const & node1,
@@ -201,9 +199,8 @@ private:
   bool KeepOnewayOutgoingTurnIncomingEdges(turns::TurnDirection intermediateTurnDirection,
                                            m2::PointD const & p, m2::PointD const & p1,
                                            RoutingMappingPtrT const & mapping);
-  void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1,
-                       GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
-
+  void GetTurnGeometry(m2::PointD const & p, m2::PointD const & p1, GeomTurnCandidateT & candidates,
+                       RoutingMappingPtrT const & mapping) const;
 
   Index const * m_pIndex;
 
@@ -217,4 +214,4 @@ private:
   m2::PointD m_startPt, m_finalPt, m_startDr;
   FeatureGraphNodeVecT m_cachedFinalNodes;
 };
-} // namespace routing
+}  // namespace routing

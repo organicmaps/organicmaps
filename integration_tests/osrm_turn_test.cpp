@@ -26,9 +26,7 @@ UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
   integration::GetNthTurn(route, 1)
       .TestValid()
       .TestDirection(TurnDirection::TurnRight);
-  integration::GetNthTurn(route, 2)
-      .TestValid()
-      .TestDirection(TurnDirection::TurnLeft);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(TurnDirection::TurnLeft);
 
   integration::TestRouteLength(route, 2033.);
 }

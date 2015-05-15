@@ -156,4 +156,4 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 HighwayClass GetHighwayClass(FeatureType const & ft);
 
 //@}
-} // namespace ftypes
+}  // namespace ftypes

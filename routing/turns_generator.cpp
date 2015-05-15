@@ -39,10 +39,7 @@ namespace routing
 {
 namespace turns
 {
-size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p)
-{
-  return p.first;
-}
+size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p) { return p.first; }
 
 OsrmMappingTypes::FtSeg GetSegment(NodeID node, RoutingMapping const & routingMapping,
                                    TGetIndexFunction GetIndex)
@@ -183,12 +180,12 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
     // @todo(vbykoianko) The sieve below is made for filtering unnecessary turns on Moscow's MKAD
     // and roads like it. It's a quick fix but it's possible to do better.
     // The better solution is to remove all "slight" turns if the route goes form one not-link road
-    // to another not-link road and other possible turns are links. But it's not possible to implement it quickly.
-    // To do that you need to calculate FeatureType for most possible turns. But it is already made once in
-    // KeepMultiTurnClassHighwayClass(GetOutgoingHighwayClass). So it's a good idea to keep
-    // FeatureType for outgoing turns in TurnCandidatesT (if they have been calculated).
-    // For the time being I decided to postpone the implementation of the feature but
-    // it worth implementing it in the future.
+    // to another not-link road and other possible turns are links. But it's not possible to
+    // implement it quickly. To do that you need to calculate FeatureType for most possible turns.
+    // But it is already made once in  KeepMultiTurnClassHighwayClass(GetOutgoingHighwayClass).
+    // So it's a good idea to keep FeatureType for outgoing turns in TurnCandidatesT
+    // (if they have been calculated). For the time being I decided to postpone the implementation
+    // of the feature but it worth implementing it in the future.
     if (!t.m_keepAnyway && IsGoStraightOrSlightTurn(t.m_turn) && !t.m_sourceName.empty() &&
         strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
     {
@@ -234,15 +231,16 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
   return ftypes::GetHighwayClass(ft);
 }
 
-bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
-                                    NodeID outgoingNode, TurnDirection turn,
-                                    TurnCandidatesT const & possibleTurns,
+bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass,
+                                    ftypes::HighwayClass outgoingClass, NodeID outgoingNode,
+                                    TurnDirection turn, TurnCandidatesT const & possibleTurns,
                                     RoutingMapping const & routingMapping, Index const & index)
 {
   if (!IsGoStraightOrSlightTurn(turn))
-    return true; // The road significantly changes its direction here. So this turn shall be kept.
+    return true;  // The road significantly changes its direction here. So this turn shall be kept.
 
-  if (possibleTurns.size() == 1 /* There's only one exit from this vertex. NodeID of the exit is outgoingNode */)
+  if (possibleTurns.size() ==
+      1 /* There's only one exit from this vertex. NodeID of the exit is outgoingNode */)
     return true;
 
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::None;
@@ -250,7 +248,8 @@ bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::H
   {
     if (t.m_node == outgoingNode)
       continue;
-    ftypes::HighwayClass const highwayClass = GetOutgoingHighwayClass(t.m_node, routingMapping, index);
+    ftypes::HighwayClass const highwayClass =
+        GetOutgoingHighwayClass(t.m_node, routingMapping, index);
     if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
       maxClassForPossibleTurns = highwayClass;
   }
@@ -260,9 +259,8 @@ bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::H
     return true;
   }
 
-  ftypes::HighwayClass const minClassForTheRoute =
-      static_cast<ftypes::HighwayClass>(min(static_cast<int>(ingoingClass),
-                                            static_cast<int>(outgoingClass)));
+  ftypes::HighwayClass const minClassForTheRoute = static_cast<ftypes::HighwayClass>(
+      min(static_cast<int>(ingoingClass), static_cast<int>(outgoingClass)));
   if (minClassForTheRoute == ftypes::HighwayClass::None)
   {
     ASSERT(false, ("The route contains undefined HighwayClass."));
@@ -284,8 +282,7 @@ bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2)
   return !isRound1 && isRound2;
 }
 
-TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
-                                                     bool hasMultiTurns)
+TurnDirection RoundaboutDirection(bool isRound1, bool isRound2, bool hasMultiTurns)
 {
   if (isRound1 && isRound2)
   {
@@ -320,8 +317,8 @@ TurnDirection InvertDirection(TurnDirection dir)
       return TurnDirection::TurnRight;
     case TurnDirection::TurnSharpLeft:
       return TurnDirection::TurnSharpRight;
-  default:
-    return dir;
+    default:
+      return dir;
   };
 }
 
@@ -382,5 +379,5 @@ TurnDirection IntermediateDirection(const double angle)
     return TurnDirection::TurnSharpLeft;
   return TurnDirection::NoTurn;
 }
-} // namespace turns
-} // namespace routing
+}  // namespace turns
+}  // namespace routing

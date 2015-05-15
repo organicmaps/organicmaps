@@ -35,8 +35,7 @@ void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT cons
 /// Selects lanes which are recommended for an end user.
 void SelectRecommendedLanes(Route::TurnsT & turnsDir);
 void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir);
-ftypes::HighwayClass GetOutgoingHighwayClass(NodeID node,
-                                             RoutingMapping const & routingMapping,
+ftypes::HighwayClass GetOutgoingHighwayClass(NodeID node, RoutingMapping const & routingMapping,
                                              Index const & index);
 TurnDirection InvertDirection(TurnDirection dir);
 TurnDirection MostRightDirection(double angle);
@@ -45,13 +44,12 @@ TurnDirection IntermediateDirection(double angle);
 
 bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2);
 /// Returns false (that means it removes the turn between ingoingClass and outgoingClass)
-/// if (1) the route leads from one big road to another one; (2) the other possible turns lead to small roads;
-/// and (2) turn is GoStraight or TurnSlight*.
-bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
-                                    NodeID outgoingNode, TurnDirection turn,
-                                    TurnCandidatesT const & possibleTurns,
+/// if (1) the route leads from one big road to another one; (2) the other possible turns lead to
+/// small roads; and (2) turn is GoStraight or TurnSlight*.
+bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass,
+                                    ftypes::HighwayClass outgoingClass, NodeID outgoingNode,
+                                    TurnDirection turn, TurnCandidatesT const & possibleTurns,
                                     RoutingMapping const & routingMapping, Index const & index);
-TurnDirection RoundaboutDirection(bool isRound1, bool isRound2,
-                                         bool hasMultiTurns);
-} // namespace routing
-} // namespace turns
+TurnDirection RoundaboutDirection(bool isRound1, bool isRound2, bool hasMultiTurns);
+}  // namespace routing
+}  // namespace turns
