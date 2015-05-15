@@ -35,12 +35,10 @@ DrapeSurface::DrapeSurface()
   for_each(maps.begin(), maps.end(), bind(&model::FeaturesFetcher::RegisterMap, &m_model, _1));
   ///}
   ///
-  m_navigator.LoadState();
 }
 
 DrapeSurface::~DrapeSurface()
 {
-  m_navigator.SaveState();
   m_drapeEngine.Destroy();
   m_contextFactory.Destroy();
 }

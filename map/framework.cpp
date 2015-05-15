@@ -652,17 +652,33 @@ void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
 
 void Framework::SaveState()
 {
-  m_navigator.SaveState();
+  Settings::Set("ScreenClipRect", m_navigator.Screen().GlobalRect());
 }
 
 bool Framework::LoadState()
 {
-  bool r = m_navigator.LoadState();
+  m2::AnyRectD rect;
+  if (!Settings::Get("ScreenClipRect", rect))
+    return false;
+
+  // additional check for valid rect
+  if (!m_scales.GetWorldRect().IsRectInside(rect.GetGlobalRect()))
+    return false;
+
+  m2::RectD r = rect.GetGlobalRect();
+  CheckMinMaxVisibleScale(r);
+
+  double const dx = r.SizeX();
+  double const dy = r.SizeY();
+
+  m2::AnyRectD safeRect(r.Center(), rect.Angle(), m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
+  m_navigator.SetFromRect(safeRect);
+
 #ifdef USE_DRAPE
   if (!m_drapeEngine.IsNull())
     m_drapeEngine->UpdateCoverage(m_navigator.Screen());
 #endif
-  return r;
+  return true;
 }
 //@}
 

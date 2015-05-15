@@ -79,25 +79,6 @@ double Navigator::ComputeMoveSpeed(m2::PointD const & /*p0*/, m2::PointD const &
   return 0.2;//max(0.5, min(0.5, 0.5 * GtoP(p0).Length(GtoP(p1)) / 50.0));
 }
 
-void Navigator::SaveState()
-{
-  Settings::Set("ScreenClipRect", m_Screen.GlobalRect());
-}
-
-bool Navigator::LoadState()
-{
-  m2::AnyRectD rect;
-  if (!Settings::Get("ScreenClipRect", rect))
-    return false;
-
-  // additional check for valid rect
-  if (!m_scales.GetWorldRect().IsRectInside(rect.GetGlobalRect()))
-    return false;
-
-  SetFromRect(rect);
-  return true;
-}
-
 void Navigator::OnSize(int x0, int y0, int w, int h)
 {
   m2::RectD const & worldR = m_scales.GetWorldRect();

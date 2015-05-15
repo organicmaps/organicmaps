@@ -22,10 +22,6 @@ public:
 
   double ComputeMoveSpeed(m2::PointD const & p0, m2::PointD const & p1) const;
 
-  void SaveState();
-  /// @return false if can't load previously saved values
-  bool LoadState();
-
   void OnSize(int x0, int y0, int w, int h);
 
   ScreenBase const & Screen() const { return m_Screen; }
