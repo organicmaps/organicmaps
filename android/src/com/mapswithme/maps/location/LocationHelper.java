@@ -62,7 +62,7 @@ public enum LocationHelper implements SensorEventListener
   private final float[] mI = new float[9];
   private final float[] mOrientation = new float[3];
 
-  private LocationHelper()
+  LocationHelper()
   {
     mLogger = SimpleLogger.get(LocationHelper.class.getName());
     initLocationProvider(false);

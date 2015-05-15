@@ -23,7 +23,7 @@ dependencies {
   compile libGmsLocation, libGmsPlus, libGmsAnalytics
   // 3-party
   compile libNineOldAndroids, libFacebookSdk
-  compile fileTree(dir: '3rd_party', include: '*.jar', exclude: 'mrgsmanifest.jar')
+  compile fileTree(dir: '3rd_party', include: '*.jar')
 }
 
 def getDate() {

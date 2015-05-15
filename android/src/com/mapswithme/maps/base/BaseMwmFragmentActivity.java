@@ -3,7 +3,7 @@ package com.mapswithme.maps.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
@@ -11,9 +11,7 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-import ru.mail.mrgservice.MRGService;
-
-public class BaseMwmFragmentActivity extends AppCompatActivity
+public class BaseMwmFragmentActivity extends ActionBarActivity
 {
   @Override
   protected void onCreate(Bundle arg0)
@@ -28,6 +26,7 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
 
     MWMApplication.get().initStats();
     final ActionBar bar = getSupportActionBar();
+    // TODO move this functionality to styles.xml
     if (bar != null)
       bar.setDisplayHomeAsUpEnabled(true);
   }
@@ -37,8 +36,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onStart();
     Statistics.INSTANCE.startActivity(this);
-
-    MRGService.instance().onStart(this);
   }
 
   @Override
@@ -46,8 +43,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     Statistics.INSTANCE.stopActivity(this);
     super.onStop();
-
-    MRGService.instance().onStop(this);
   }
 
   @Override

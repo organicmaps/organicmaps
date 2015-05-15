@@ -240,34 +240,6 @@
         android:exported="false">
     </service>
 
-    <!-- needed for MRGS -->
-    <activity
-        android:name="ru.mail.mrgservice.MRGSGCMActivity"
-        android:configChanges="keyboardHidden|orientation"
-        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
-
-    <receiver
-        android:name="ru.mail.mrgservice.MRGSBroadcastReceiver"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER"/>
-      </intent-filter>
-    </receiver>
-
-    <receiver android:name="ru.mail.mrgservice.MRGSPackageRemoveReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-        <data android:scheme="package"/>
-      </intent-filter>
-    </receiver>
-    <receiver android:name="ru.mail.mrgservice.MRGSLocalPushBroadcastReceiver"/>
-    <receiver android:name="ru.mail.mrgservice.MRGSLocalPushAutoStartReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"/>
-      </intent-filter>
-    </receiver>
-    <receiver android:name="ru.mail.mrgservice.MRGSNotificationDeleteReceiver"/>
-
     <!-- Used to automatically upload Alohalytics statistics using WiFi. -->
     <receiver
         android:name="org.alohalytics.ConnectivityChangedReceiver"

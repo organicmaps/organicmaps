@@ -2,7 +2,6 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -20,12 +19,6 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
-import java.util.Date;
-
-import ru.mail.mrgservice.MRGSApplication;
-import ru.mail.mrgservice.MRGSMap;
-import ru.mail.mrgservice.MRGSServerData;
-import ru.mail.mrgservice.MRGService;
 
 public class MWMApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
@@ -133,24 +126,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
     BookmarkManager.INSTANCE.getIcons();
   }
 
-  private void initMrgs()
-  {
-    MRGService.setAppContext(this);
-    final Bundle options = new Bundle();
-    options.putBoolean("locations", false);
-    MRGService.service(this, new MRGSServerData.MRGSServerDataDelegate()
-    {
-      @Override
-      public void loadServerDataDidFinished(MRGSMap mrgsMap) {}
-
-      @Override
-      public void loadPromoBannersDidFinished(MRGSMap mrgsMap) {}
-    }, getString(R.string.mrgs_id), getString(R.string.mrgs_key), options);
-
-    if (getLaunchesNumber() == 1)
-      MRGSApplication.instance().markAsUpdated(new Date());
-  }
-
   public String getApkPath()
   {
     try
@@ -242,7 +217,6 @@ public class MWMApplication extends android.app.Application implements ActiveCou
       mAreStatsInitialised = true;
       updateLaunchNumbers();
       updateSessionsNumber();
-      initMrgs();
       PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
       org.alohalytics.Statistics.setDebugMode(BuildConfig.DEBUG);
