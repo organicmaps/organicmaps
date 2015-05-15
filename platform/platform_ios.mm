@@ -1,4 +1,4 @@
-#include "platform/platform.hpp"
+#include "platform/platform_ios.hpp"
 #include "platform/platform_unix_impl.hpp"
 #include "platform/constants.hpp"
 
@@ -19,6 +19,8 @@
   #define IFT_ETHER 0x6 /* Ethernet CSMACD */
 #endif
 
+#import "../iphone/Maps/Classes/Common.h"
+
 #import <Foundation/NSAutoreleasePool.h>
 #import <Foundation/NSBundle.h>
 #import <Foundation/NSPathUtilities.h>
@@ -28,30 +30,8 @@
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIScreenMode.h>
 
-
 Platform::Platform()
 {
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-  NSBundle * bundle = [NSBundle mainBundle];
-  NSString * path = [bundle resourcePath];
-  m_resourcesDir = [path UTF8String];
-  m_resourcesDir += "/";
-
-  NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString * docsDir = [dirPaths objectAtIndex:0];
-  m_writableDir = [docsDir UTF8String];
-  m_writableDir += "/";
-  m_settingsDir = m_writableDir;
-  m_tmpDir = [NSHomeDirectory() UTF8String];
-  m_tmpDir += "/tmp/";
-
-  NSString * appID = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
-
-  UIDevice * device = [UIDevice currentDevice];
-  NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
-
-  [pool release];
 }
 
 Platform::EError Platform::MkDir(string const & dirName) const
@@ -189,9 +169,98 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
   dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
 }
 
+CustomIOSPlatform::CustomIOSPlatform()
+{
+  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+  NSBundle * bundle = [NSBundle mainBundle];
+  NSString * path = [bundle resourcePath];
+  m_resourcesDir = [path UTF8String];
+  m_resourcesDir += "/";
+
+  NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString * docsDir = [dirPaths firstObject];
+  m_writableDir = [docsDir UTF8String];
+
+  // This check is needed for Apple Watch support only on 8.2+ devices.
+  if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0 && [[[NSUserDefaults alloc] initWithSuiteName:kApplicationGroupIdentifier()] boolForKey:kHaveAppleWatch])
+  {
+    NSURL * sharedURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:kApplicationGroupIdentifier()];
+    if (sharedURL)
+      m_writableDir = [sharedURL.path UTF8String];
+  }
+  m_writableDir += "/";
+  m_settingsDir = m_writableDir;
+
+  NSString * tmpDir = NSTemporaryDirectory();
+  if (tmpDir)
+    m_tmpDir = [tmpDir UTF8String];
+  else
+  {
+    m_tmpDir = [NSHomeDirectory() UTF8String];
+    m_tmpDir += "/tmp/";
+  }
+
+  NSString * appID = [[bundle infoDictionary] objectForKey:@"CFBundleIdentifier"];
+
+  UIDevice * device = [UIDevice currentDevice];
+  NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName, device.systemVersion);
+
+  [pool release];
+}
+
+void migrate()
+{
+  NSArray * excludeFiles = @[@"com-facebook-sdk-AppEventsPersistedEvents.json",
+                             @"Inbox",
+                             @"MRGService"];
+
+  NSFileManager * fileManager = [NSFileManager defaultManager];
+  NSURL * privateURL = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+  NSURL * sharedURL = [fileManager containerURLForSecurityApplicationGroupIdentifier:kApplicationGroupIdentifier()];
+
+  NSDirectoryEnumerator * dirEnum = [fileManager enumeratorAtURL:privateURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants | NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsHiddenFiles errorHandler:nil];
+
+  NSURL * sourceURL = nil;
+  while ((sourceURL = [dirEnum nextObject]))
+  {
+    NSString * fileName = [sourceURL lastPathComponent];
+    if (![excludeFiles containsObject:fileName])
+    {
+      NSURL * destinationURL = [sharedURL URLByAppendingPathComponent:fileName];
+      NSError * error = nil;
+      [fileManager moveItemAtURL:sourceURL toURL:destinationURL error:&error];
+      if (error && [error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteFileExistsError)
+      {
+        [fileManager removeItemAtURL:destinationURL error:nil];
+        [fileManager moveItemAtURL:sourceURL toURL:destinationURL error:nil];
+      }
+    }
+  }
+}
+
+// This method should be called ONLY from the Watch code (iOS 8.2+).
+void CustomIOSPlatform::MigrateWritableDirForAppleWatch()
+{
+  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+  NSURL * sharedURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:kApplicationGroupIdentifier()];
+  if (sharedURL)
+  {
+    migrate();
+
+    NSString * path = sharedURL.path;
+    m_writableDir = [path UTF8String];
+    m_writableDir += "/";
+    m_settingsDir = m_writableDir;
+  }
+
+  [pool release];
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {
-  static Platform platform;
+  static CustomIOSPlatform platform;
   return platform;
 }
