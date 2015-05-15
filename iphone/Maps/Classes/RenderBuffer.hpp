@@ -6,33 +6,34 @@
 
 @class CAEAGLLayer;
 
-namespace	iphone
+namespace iphone
 {
-	class RenderBuffer : public graphics::RenderTarget
-	{
-	private:
 
-		unsigned int m_id;
-		shared_ptr<RenderContext> m_renderContext;
-		int m_width;
-		int m_height;
+class RenderBuffer : public graphics::RenderTarget
+{
+private:
+  unsigned int m_id;
+  shared_ptr<RenderContext> m_renderContext;
+  int m_width;
+  int m_height;
 
-	public:
+public:
+  RenderBuffer(shared_ptr<RenderContext> renderContext, CAEAGLLayer * layer);
+  RenderBuffer(shared_ptr<RenderContext> renderContext, int width, int height);
+  ~RenderBuffer();
 
-		RenderBuffer(shared_ptr<RenderContext> renderContext, CAEAGLLayer * layer);
-		~RenderBuffer();
+  void makeCurrent();
 
-		void makeCurrent();
+  unsigned int id() const;
 
-		unsigned int id() const;
+  void present();
 
-		void present();
+  unsigned width() const;
+  unsigned height() const;
 
-		unsigned width() const;
-		unsigned height() const;
+  void attachToFrameBuffer();
+  void detachFromFrameBuffer();
+  void coordMatrix(math::Matrix<float, 4, 4> & m);
+};
 
-		void attachToFrameBuffer();
-    void detachFromFrameBuffer();
-    void coordMatrix(math::Matrix<float, 4, 4> & m);
-	};
 }
