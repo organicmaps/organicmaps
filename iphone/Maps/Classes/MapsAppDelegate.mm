@@ -8,20 +8,25 @@
 #import "LocalNotificationManager.h"
 #import "MWMAlertViewController.h"
 #import "Reachability.h"
+#import "MWMWatchEventInfo.h"
+#import "Common.h"
 
 #include <sys/xattr.h>
 
-#import <MRGService/MRGService.h>
+#import "MRMyTracker.h"
+#import "MRTrackerParams.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-#include "../../../storage/storage_defines.hpp"
+#include "storage/storage_defines.hpp"
 
-#include "../../../platform/settings.hpp"
-#include "../../../platform/platform.hpp"
-#include "../../../platform/preferred_languages.hpp"
+#import "platform/http_thread_apple.h"
 
-#import "../../../3party/Alohalytics/src/alohalytics_objc.h"
+#include "platform/settings.hpp"
+#include "platform/platform_ios.hpp"
+#include "platform/preferred_languages.hpp"
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
@@ -32,6 +37,9 @@ static NSString * const kUDFirstVersionKey = @"FirstVersion";
 static NSString * const kUDLastRateRequestDate = @"LastRateRequestDate";
 extern NSString * const kUDAlreadySharedKey = @"UserAlreadyShared";
 static NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
+static NSString * const kNewWatchUserEventKey = @"NewWatchUser";
+static NSString * const kOldWatchUserEventKey = @"OldWatchUser";
+static NSString * const kUDWatchEventAlreadyTracked = @"WatchEventAlreadyTracked";
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -82,22 +90,17 @@ void InitLocalizedStrings()
   return [[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY];
 }
 
-- (void)initMRGService
+- (void)initMyTrackerService
 {
-  NSInteger appId = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceAppID"] integerValue];
-  NSString * secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MRGServiceClientKey"];
+  static NSString * const kMyTrackerAppId = @"***REMOVED***";
+  [MRMyTracker createTracker:kMyTrackerAppId];
   
-  // MRGService settings
-  MRGServiceParams * mrgsParams = [[MRGServiceParams alloc] initWithAppId:appId andSecret:secret];
 #ifdef DEBUG
-  mrgsParams.debug = YES;
+  [MRMyTracker setDebugMode:YES];
 #endif
-  mrgsParams.shouldResetBadge = NO;
-  mrgsParams.crashReportEnabled = YES;
-  mrgsParams.allowPushNotificationHooks = YES;
   
-  [MRGServiceInit startWithServiceParams:mrgsParams externalSDKParams:@[] delegate:nil];
-  [[MRGSApplication currentApplication] markAsUpdatedWithRegistrationDate:NSDate.date];
+  MRMyTracker.getTrackerParams.trackAppLaunch = YES;
+  [MRMyTracker setupTracker];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -114,9 +117,13 @@ void InitLocalizedStrings()
   if (url != nil)
     [self checkLaunchURL:url];
   
+  [HttpThread setDownloadIndicatorProtocol:[MapsAppDelegate theApp]];
+
   [Alohalytics setup:serverUrl andFirstLaunch:[MapsAppDelegate isFirstAppLaunch] withLaunchOptions:launchOptions];
 
   [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
+
+  [self trackWatchUser];
 
   [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
   if ([AppInfo sharedInfo].advertisingId)
@@ -142,7 +149,7 @@ void InitLocalizedStrings()
 
   [self customizeAppearance];
 
-  [self initMRGService];
+  [self initMyTrackerService];
 
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
@@ -220,8 +227,6 @@ void InitLocalizedStrings()
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   [Alohalytics logEvent:@"$applicationDidBecomeActive"];
-  if (self.isIOS7OrLater)
-    [FBSDKAppEvents activateApp];
 
   Framework & f = GetFramework();
   if (m_geoURL)
@@ -270,13 +275,17 @@ void InitLocalizedStrings()
   m_mwmURL = nil;
   m_fileURL = nil;
 
-  if (!self.isIOS7OrLater)
+  f.GetLocationState()->InvalidatePosition();
+
+  if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 8)
+  {
+    [FBSDKAppEvents activateApp];
+  }
+  else
   {
     [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
     [FBAppEvents activateApp];
   }
-
-  f.GetLocationState()->InvalidatePosition();
 }
 
 - (void)dealloc
@@ -360,11 +369,11 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
   m_sourceApplication = sourceApplication;
-  
+
   if ([self checkLaunchURL:url])
     return YES;
 
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
+  if (!self.isIOS7OrLater)
     return NO;
   
   return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
@@ -454,6 +463,45 @@ void InitLocalizedStrings()
     return NO;
     
   return YES;
+}
+
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
+{
+  switch (userInfo.watchEventInfoRequest)
+  {
+    case MWMWatchEventInfoRequestMoveWritableDir:
+      static_cast<CustomIOSPlatform &>(GetPlatform()).MigrateWritableDirForAppleWatch();
+      reply([NSDictionary dictionary]);
+      break;
+  }
+  NSUserDefaults * settings = [[NSUserDefaults alloc] initWithSuiteName:kApplicationGroupIdentifier()];
+  [settings setBool:YES forKey:kHaveAppleWatch];
+  [settings synchronize];
+}
+
+- (void)trackWatchUser
+{
+  if ([[[UIDevice currentDevice] systemName] integerValue] < 8)
+    return;
+
+  NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
+  BOOL const userLaunchAppleWatch = [[[NSUserDefaults alloc] initWithSuiteName:kApplicationGroupIdentifier()] boolForKey:kHaveAppleWatch];
+  BOOL const appleWatchLaunchingEventAlreadyTracked = [standartDefaults boolForKey:kUDWatchEventAlreadyTracked];
+  if (userLaunchAppleWatch && !appleWatchLaunchingEventAlreadyTracked)
+  {
+    if (self.userIsNew)
+    {
+      [Alohalytics logEvent:kNewWatchUserEventKey];
+      [[Statistics instance] logEvent:kNewWatchUserEventKey];
+    }
+    else
+    {
+      [Alohalytics logEvent:kOldWatchUserEventKey];
+      [[Statistics instance] logEvent:kOldWatchUserEventKey];
+    }
+    [standartDefaults setBool:YES forKey:kUDWatchEventAlreadyTracked];
+    [standartDefaults synchronize];
+  }
 }
 
 #pragma mark - Alert logic

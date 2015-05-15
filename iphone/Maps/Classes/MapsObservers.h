@@ -22,11 +22,13 @@ using namespace storage;
 
 @end
 
+@class MWMWatchNotification;
 
 class ActiveMapsObserver : public ActiveMapsLayout::ActiveMapsListener
 {
 public:
   ActiveMapsObserver(id<ActiveMapsObserverProtocol> delegateObject);
+  virtual ~ActiveMapsObserver();
 
   virtual void CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
                                    ActiveMapsLayout::TGroup const & newGroup, int newPosition);
@@ -38,6 +40,7 @@ public:
 
 private:
   id<ActiveMapsObserverProtocol> m_delegateObject;
+  MWMWatchNotification * m_notificationCenter;
 };
 
 

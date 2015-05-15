@@ -25,12 +25,60 @@
 		34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC721F1B0DECAE0012A34B /* MWMZoomButtonsView.m */; };
 		34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */; };
 		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
+		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
+		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
+		343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
+		345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */; };
+		345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
+		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */; };
+		345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */; };
+		34A742FE1AE5461A00CE15EB /* index.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FD1AE5461A00CE15EB /* index.cpp */; };
+		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
+		34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */; };
+		454040621AD2D75E007A9B12 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
+		454040631AD2D83A007A9B12 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
+		454040641AD2D862007A9B12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		454040661AD2D88A007A9B12 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511031A1101F600A61AA4 /* CoreData.framework */; };
+		454040671AD2D897007A9B12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		4540406A1AD2D8FD007A9B12 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00511051A1101FC00A61AA4 /* CoreMedia.framework */; };
+		4540406B1AD2D919007A9B12 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
+		4540406C1AD2D92D007A9B12 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
+		4540406D1AD2D958007A9B12 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; };
+		4540406F1AD2D9C5007A9B12 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540406E1AD2D9C5007A9B12 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		454040701AD2DB30007A9B12 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
+		454040761AD2DD73007A9B12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
+		4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
+		4579C8971AD2F9A1001D6B90 /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
+		4579C8981AD2F9A2001D6B90 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
+		4579C8991AD2F9A2001D6B90 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
+		4579C89A1AD2F9A2001D6B90 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
+		4579C89B1AD2F9A2001D6B90 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
+		4579C89C1AD2F9A2001D6B90 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
+		4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
+		4579C89E1AD2F9E6001D6B90 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
+		4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
+		4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
+		4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
+		4579C8A21AD2FAB1001D6B90 /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */; };
+		4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
+		4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
+		4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
+		4579C8A61AD2FAB1001D6B90 /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
+		45FE96831AD315EF00CB7560 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		4A00DBDF1AB704C400113624 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */; };
-		6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BBD66B21A695722005FF58D /* MRGService.framework */; };
 		6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */; };
+		6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */; };
+		6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
+		6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */; };
+		6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
+		6C47C8C51AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */; };
+		6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */; };
+		6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */; };
+		6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.m */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
@@ -135,13 +183,23 @@
 		F64F19A11AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19921AB81A00006EAF7E /* MWMDownloadAllMapsAlert.xib */; };
 		F64F19A31AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */; };
 		F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */; };
+		F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F672A6B61AD423A7009060C3 /* Images.xcassets */; };
 		F6775ECE1ACC1B8800A377EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */; };
 		F67BBB571AC54A7800D162C7 /* MWMFeedbackAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BBB551AC54A7800D162C7 /* MWMFeedbackAlert.mm */; };
 		F67BBB581AC54A7800D162C7 /* MWMFeedbackAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */; };
+		F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
+		F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F69A16A21AF24A3300EF43F0 /* libMyTracker.a */; };
+		F6BACD021AD946C3004E99B1 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
+		F6BACD031AD946C3004E99B1 /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F6BC1E521ACBF98600EF0360 /* MWMFacebookAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */; };
 		F6BC1E541ACBF9AB00EF0360 /* MWMFacebookAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */; };
+		F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */; };
+		F6D4344E1AD2AB96007C7728 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6D4344D1AD2AB96007C7728 /* Images.xcassets */; };
+		F6D434521AD2AB96007C7728 /* maps.me WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = F6D434511AD2AB96007C7728 /* maps.me WatchKit App.app */; };
+		F6D4345A1AD2AB96007C7728 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6D434581AD2AB96007C7728 /* Interface.storyboard */; };
+		F6D4345F1AD2AB96007C7728 /* maps.me WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F6D434461AD2AB96007C7728 /* maps.me WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F6DBF9B61AA8779300F2EC2C /* CALayer+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */; };
@@ -202,6 +260,37 @@
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F6D434531AD2AB96007C7728 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6D434501AD2AB96007C7728;
+			remoteInfo = "maps.me beta WatchKit App";
+		};
+		F6D4345D1AD2AB96007C7728 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6D434451AD2AB96007C7728;
+			remoteInfo = "maps.me beta WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F6D434721AD2AB97007C7728 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F6D4345F1AD2AB96007C7728 /* maps.me WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1003EAD917170741005EBDAE /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -213,6 +302,22 @@
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
+		343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkUtils.h; sourceTree = "<group>"; };
+		343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkUtils.mm; sourceTree = "<group>"; };
+		343F262F1AEFDB1A00388A6D /* Framework.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Framework.cpp; path = ../../Classes/Framework.cpp; sourceTree = "<group>"; };
+		345C31681AE7860600EA0CC2 /* MWMWatchLocationTrackerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMWatchLocationTrackerDelegate.h; sourceTree = "<group>"; };
+		345C316D1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCategoriesInterfaceCell.h; sourceTree = "<group>"; };
+		345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMCategoriesInterfaceCell.m; sourceTree = "<group>"; };
+		345C316F1AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCategoriesInterfaceController.h; sourceTree = "<group>"; };
+		345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCategoriesInterfaceController.mm; sourceTree = "<group>"; };
+		345C31741AE799B600EA0CC2 /* MWMSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchResultCell.h; sourceTree = "<group>"; };
+		345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMSearchResultCell.m; sourceTree = "<group>"; };
+		345C31761AE799B600EA0CC2 /* MWMSearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMSearchResultController.h; sourceTree = "<group>"; };
+		345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchResultController.mm; sourceTree = "<group>"; };
+		34A742FD1AE5461A00CE15EB /* index.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = index.cpp; path = ../../../storage/index.cpp; sourceTree = "<group>"; };
+		34A742FF1AE5468200CE15EB /* storage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = storage.cpp; path = ../../../storage/storage.cpp; sourceTree = "<group>"; };
+		34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWKInterfaceController.h; sourceTree = "<group>"; };
+		34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWKInterfaceController.mm; sourceTree = "<group>"; };
 		34BC720B1B0DECAE0012A34B /* MWMLocationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationButton.h; sourceTree = "<group>"; };
 		34BC720C1B0DECAE0012A34B /* MWMLocationButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationButton.mm; sourceTree = "<group>"; };
 		34BC720D1B0DECAE0012A34B /* MWMLocationButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationButtonView.h; sourceTree = "<group>"; };
@@ -235,6 +340,10 @@
 		34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMZoomButtonsView.xib; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45159BF81B0CA2D5009BFA85 /* resources-6plus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus"; path = "../../data/resources-6plus"; sourceTree = "<group>"; };
+		454040681AD2D8D2007A9B12 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		4540406E1AD2D9C5007A9B12 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
+		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
+
 		46F26C7210F61FD600ECCA39 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -242,8 +351,19 @@
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
 		6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppsFlyerLib.a; path = Statistics/MRGService/ExternalLibs/AppsFlyer/libAppsFlyerLib.a; sourceTree = "<group>"; };
-		6BBD66B21A695722005FF58D /* MRGService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MRGService.framework; path = Statistics/MRGService/MRGService.framework; sourceTree = "<group>"; };
 		6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.0.0.a; path = Statistics/libFlurry_6.0.0.a; sourceTree = "<group>"; };
+		6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchEventInfo.h; sourceTree = "<group>"; };
+		6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchEventInfo.mm; sourceTree = "<group>"; };
+		6C47C8C31AD6C78A000C52C1 /* MWMNoLocationInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoLocationInterfaceController.h; sourceTree = "<group>"; };
+		6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoLocationInterfaceController.mm; sourceTree = "<group>"; };
+		6C47C8C71AD6C825000C52C1 /* MWMNoMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMNoMapInterfaceController.h; sourceTree = "<group>"; };
+		6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNoMapInterfaceController.mm; sourceTree = "<group>"; };
+		6C5BA1B61AD53B99006138AB /* maps.me dbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "maps.me dbg.entitlements"; sourceTree = "<group>"; };
+		6C5BA1B71AD53BA3006138AB /* maps.me WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "maps.me WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		6C93FAEA1AD8063900A2C4AE /* MWMWatchNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchNotification.h; sourceTree = "<group>"; };
+		6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMWatchNotification.m; sourceTree = "<group>"; };
+		6CFBB8751AD84E1C009845A3 /* MWMFinishInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFinishInterfaceController.h; sourceTree = "<group>"; };
+		6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMFinishInterfaceController.m; sourceTree = "<group>"; };
 		772923C9184E0440008C1EDC /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7794829519A4E66A005F57B9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -423,17 +543,37 @@
 		F64F19961AB81A00006EAF7E /* MWMDownloadTransitMapAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMDownloadTransitMapAlert.h; sourceTree = "<group>"; };
 		F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloadTransitMapAlert.mm; sourceTree = "<group>"; };
 		F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadTransitMapAlert.xib; sourceTree = "<group>"; };
+		F672A6B61AD423A7009060C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F673E9151AD2B65B0064EB7F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
 		F67BBB541AC54A7800D162C7 /* MWMFeedbackAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFeedbackAlert.h; sourceTree = "<group>"; };
 		F67BBB551AC54A7800D162C7 /* MWMFeedbackAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFeedbackAlert.mm; sourceTree = "<group>"; };
 		F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMFeedbackAlert.xib; sourceTree = "<group>"; };
+		F68CEF721AD8852A00563FBA /* MWMMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapController.h; sourceTree = "<group>"; };
+		F68CEF731AD8852A00563FBA /* MWMMapController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapController.mm; sourceTree = "<group>"; };
+		F69A16A21AF24A3300EF43F0 /* libMyTracker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMyTracker.a; path = MyTracker/libMyTracker.a; sourceTree = "<group>"; };
+		F69A16A51AF24A9000EF43F0 /* MRAbstractDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRAbstractDataProvider.h; path = MyTracker/MRAbstractDataProvider.h; sourceTree = "<group>"; };
+		F69A16A61AF24A9000EF43F0 /* MRCustomParamsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRCustomParamsProvider.h; path = MyTracker/MRCustomParamsProvider.h; sourceTree = "<group>"; };
+		F69A16A71AF24A9000EF43F0 /* MRMyTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRMyTracker.h; path = MyTracker/MRMyTracker.h; sourceTree = "<group>"; };
+		F69A16A81AF24A9000EF43F0 /* MRTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRTracker.h; path = MyTracker/MRTracker.h; sourceTree = "<group>"; };
+		F69A16A91AF24A9000EF43F0 /* MRTrackerParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MRTrackerParams.h; path = MyTracker/MRTrackerParams.h; sourceTree = "<group>"; };
+		F69A16AA1AF24A9000EF43F0 /* MRTrackerParams+Corp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MRTrackerParams+Corp.h"; path = "MyTracker/MRTrackerParams+Corp.h"; sourceTree = "<group>"; };
 		F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = Statistics/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = Statistics/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		F6BC1E501ACBF98600EF0360 /* MWMFacebookAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFacebookAlert.h; sourceTree = "<group>"; };
 		F6BC1E511ACBF98600EF0360 /* MWMFacebookAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFacebookAlert.mm; sourceTree = "<group>"; };
 		F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMFacebookAlert.xib; sourceTree = "<group>"; };
+		F6C6FE1E1AD6BEA0009FDED7 /* MWMWatchLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWatchLocationTracker.h; sourceTree = "<group>"; };
+		F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWatchLocationTracker.mm; sourceTree = "<group>"; };
+		F6D434461AD2AB96007C7728 /* maps.me WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "maps.me WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D434491AD2AB96007C7728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6D4344D1AD2AB96007C7728 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F6D434511AD2AB96007C7728 /* maps.me WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D434571AD2AB96007C7728 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6D434591AD2AB96007C7728 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		F6DBF9B41AA8779300F2EC2C /* CALayer+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		F6DBF9B51AA8779300F2EC2C /* CALayer+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+RuntimeAttributes.m"; sourceTree = "<group>"; };
+		F6F9BD221AD3C3A600308C33 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Macros.h; path = ../Macros.h; sourceTree = "<group>"; };
 		F785EB3E16386FC4003A38A8 /* BookmarkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BookmarkCell.h; path = Bookmarks/BookmarkCell.h; sourceTree = SOURCE_ROOT; };
 		F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BookmarkCell.mm; path = Bookmarks/BookmarkCell.mm; sourceTree = SOURCE_ROOT; };
 		F7B90CD11521E6D100C054EE /* CustomNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationView.h; sourceTree = "<group>"; };
@@ -526,12 +666,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */,
 				F6775ECE1ACC1B8800A377EC /* FacebookSDK.framework in Frameworks */,
 				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
-				6BBD66B41A695722005FF58D /* MRGService.framework in Frameworks */,
 				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
@@ -554,12 +694,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6D434431AD2AB96007C7728 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				454040761AD2DD73007A9B12 /* UIKit.framework in Frameworks */,
+				4540406F1AD2D9C5007A9B12 /* WatchKit.framework in Frameworks */,
+				4540406D1AD2D958007A9B12 /* AdSupport.framework in Frameworks */,
+				4540406C1AD2D92D007A9B12 /* iAd.framework in Frameworks */,
+				4540406B1AD2D919007A9B12 /* QuartzCore.framework in Frameworks */,
+				454040661AD2D88A007A9B12 /* CoreData.framework in Frameworks */,
+				4540406A1AD2D8FD007A9B12 /* CoreMedia.framework in Frameworks */,
+				454040671AD2D897007A9B12 /* CoreGraphics.framework in Frameworks */,
+				454040641AD2D862007A9B12 /* Foundation.framework in Frameworks */,
+				454040631AD2D83A007A9B12 /* AVFoundation.framework in Frameworks */,
+				454040621AD2D75E007A9B12 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F62A73A71AD8950900175470 /* WatchEventHandler */,
 				F64F195F1AB8125C006EAF7E /* CustomAlert */,
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
@@ -588,6 +747,8 @@
 				97DEA09018D706C300C5F963 /* Common.h */,
 				A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */,
 				A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */,
+				458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */,
+				F6F9BD221AD3C3A600308C33 /* Macros.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -596,6 +757,8 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* maps.me dbg.app */,
+				F6D434461AD2AB96007C7728 /* maps.me WatchKit Extension.appex */,
+				F6D434511AD2AB96007C7728 /* maps.me WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -603,6 +766,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				6C5BA1B61AD53B99006138AB /* maps.me dbg.entitlements */,
 				CB252D6816FF82C8001E41E9 /* Statistics */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
@@ -615,6 +779,8 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				FA065FEB128614C300FEA989 /* Resources-iPad */,
 				FA065FC61286143F00FEA989 /* External Resources */,
+				F6D434471AD2AB96007C7728 /* maps.me WatchKit Extension */,
+				F6D434551AD2AB96007C7728 /* maps.me WatchKit App */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				8D1107310486CEB800E47090 /* MAPSME.plist */,
@@ -627,6 +793,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F69A16AB1AF24A9400EF43F0 /* MyTracker */,
 				28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.mm */,
 			);
@@ -649,11 +816,14 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F69A16A21AF24A3300EF43F0 /* libMyTracker.a */,
+				4540406E1AD2D9C5007A9B12 /* WatchKit.framework */,
+				454040681AD2D8D2007A9B12 /* CoreVideo.framework */,
+				F673E9151AD2B65B0064EB7F /* GLKit.framework */,
 				F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */,
 				F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */,
 				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
 				6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */,
-				6BBD66B21A695722005FF58D /* MRGService.framework */,
 				6B948E1B1A25533C00229BD5 /* libAppsFlyerLib.a */,
 				B00511051A1101FC00A61AA4 /* CoreMedia.framework */,
 				B00511031A1101F600A61AA4 /* CoreData.framework */,
@@ -734,6 +904,79 @@
 				34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */,
 			);
 			path = ZoomButtons;
+			sourceTree = "<group>";
+		};
+		343F262B1AEFC4A300388A6D /* FrameworkUtils */ = {
+			isa = PBXGroup;
+			children = (
+				343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */,
+				343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */,
+			);
+			path = FrameworkUtils;
+			sourceTree = "<group>";
+		};
+		345C316A1AE7939B00EA0CC2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F62A73A41AD8947400175470 /* Finish */,
+				F62A739E1AD893F300175470 /* Map */,
+				6C47C8C61AD6C7E6000C52C1 /* MapDownload */,
+				6C47C8C21AD6C76A000C52C1 /* Location */,
+				345C316B1AE798A700EA0CC2 /* Search */,
+				34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */,
+				34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */,
+				343F262F1AEFDB1A00388A6D /* Framework.cpp */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		345C316B1AE798A700EA0CC2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				345C31731AE799B600EA0CC2 /* SearchResult */,
+				345C316C1AE798DD00EA0CC2 /* Categories */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		345C316C1AE798DD00EA0CC2 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				345C316D1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.h */,
+				345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */,
+				345C316F1AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.h */,
+				345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		345C31731AE799B600EA0CC2 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				345C31741AE799B600EA0CC2 /* MWMSearchResultCell.h */,
+				345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */,
+				345C31761AE799B600EA0CC2 /* MWMSearchResultController.h */,
+				345C31771AE799B600EA0CC2 /* MWMSearchResultController.mm */,
+			);
+			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		6C47C8C21AD6C76A000C52C1 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				6C47C8C31AD6C78A000C52C1 /* MWMNoLocationInterfaceController.h */,
+				6C47C8C41AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		6C47C8C61AD6C7E6000C52C1 /* MapDownload */ = {
+			isa = PBXGroup;
+			children = (
+				6C47C8C71AD6C825000C52C1 /* MWMNoMapInterfaceController.h */,
+				6C47C8C81AD6C825000C52C1 /* MWMNoMapInterfaceController.mm */,
+			);
+			path = MapDownload;
 			sourceTree = "<group>";
 		};
 		97354B6B196EDCE200352536 /* Login & sharing */ = {
@@ -923,6 +1166,45 @@
 			path = RateAlert;
 			sourceTree = "<group>";
 		};
+		F62A739E1AD893F300175470 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F68CEF721AD8852A00563FBA /* MWMMapController.h */,
+				F68CEF731AD8852A00563FBA /* MWMMapController.mm */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		F62A73A11AD8945200175470 /* LocationTracker */ = {
+			isa = PBXGroup;
+			children = (
+				F6C6FE1E1AD6BEA0009FDED7 /* MWMWatchLocationTracker.h */,
+				F6C6FE1F1AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm */,
+				345C31681AE7860600EA0CC2 /* MWMWatchLocationTrackerDelegate.h */,
+			);
+			path = LocationTracker;
+			sourceTree = "<group>";
+		};
+		F62A73A41AD8947400175470 /* Finish */ = {
+			isa = PBXGroup;
+			children = (
+				6CFBB8751AD84E1C009845A3 /* MWMFinishInterfaceController.h */,
+				6CFBB8761AD84E1C009845A3 /* MWMFinishInterfaceController.m */,
+			);
+			path = Finish;
+			sourceTree = "<group>";
+		};
+		F62A73A71AD8950900175470 /* WatchEventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				6C24A3B01AD7D65500A47B99 /* MWMWatchEventInfo.h */,
+				6C24A3B11AD7D65500A47B99 /* MWMWatchEventInfo.mm */,
+				6C93FAEA1AD8063900A2C4AE /* MWMWatchNotification.h */,
+				6C93FAEB1AD8063900A2C4AE /* MWMWatchNotification.m */,
+			);
+			path = WatchEventHandler;
+			sourceTree = "<group>";
+		};
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,6 +1279,19 @@
 			path = FeedbackAlert;
 			sourceTree = "<group>";
 		};
+		F69A16AB1AF24A9400EF43F0 /* MyTracker */ = {
+			isa = PBXGroup;
+			children = (
+				F69A16A51AF24A9000EF43F0 /* MRAbstractDataProvider.h */,
+				F69A16A61AF24A9000EF43F0 /* MRCustomParamsProvider.h */,
+				F69A16A71AF24A9000EF43F0 /* MRMyTracker.h */,
+				F69A16A81AF24A9000EF43F0 /* MRTracker.h */,
+				F69A16A91AF24A9000EF43F0 /* MRTrackerParams.h */,
+				F69A16AA1AF24A9000EF43F0 /* MRTrackerParams+Corp.h */,
+			);
+			name = MyTracker;
+			sourceTree = "<group>";
+		};
 		F6BC1E4F1ACBF97000EF0360 /* FacebookAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -1005,6 +1300,47 @@
 				F6BC1E531ACBF9AB00EF0360 /* MWMFacebookAlert.xib */,
 			);
 			path = FacebookAlert;
+			sourceTree = "<group>";
+		};
+		F6D434471AD2AB96007C7728 /* maps.me WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F62A73A11AD8945200175470 /* LocationTracker */,
+				343F262B1AEFC4A300388A6D /* FrameworkUtils */,
+				345C316A1AE7939B00EA0CC2 /* Controllers */,
+				6C5BA1B71AD53BA3006138AB /* maps.me WatchKit Extension.entitlements */,
+				F6D4344D1AD2AB96007C7728 /* Images.xcassets */,
+				F6D434481AD2AB96007C7728 /* Supporting Files */,
+			);
+			path = "maps.me WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		F6D434481AD2AB96007C7728 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				34A742FD1AE5461A00CE15EB /* index.cpp */,
+				34A742FF1AE5468200CE15EB /* storage.cpp */,
+				F6D434491AD2AB96007C7728 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F6D434551AD2AB96007C7728 /* maps.me WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				F6D434581AD2AB96007C7728 /* Interface.storyboard */,
+				F672A6B61AD423A7009060C3 /* Images.xcassets */,
+				F6D434561AD2AB96007C7728 /* Supporting Files */,
+			);
+			path = "maps.me WatchKit App";
+			sourceTree = "<group>";
+		};
+		F6D434561AD2AB96007C7728 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F6D434571AD2AB96007C7728 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		FA065FC61286143F00FEA989 /* External Resources */ = {
@@ -1172,15 +1508,51 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				F6D434721AD2AB97007C7728 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F6D4345E1AD2AB96007C7728 /* PBXTargetDependency */,
 			);
 			name = MAPS.ME;
 			productName = Maps;
 			productReference = 1D6058910D05DD3D006BFB54 /* maps.me dbg.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F6D434451AD2AB96007C7728 /* maps.me WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6D434711AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit Extension" */;
+			buildPhases = (
+				45AD93611AD2F2470009C01B /* ShellScript */,
+				F6D434421AD2AB96007C7728 /* Sources */,
+				F6D434431AD2AB96007C7728 /* Frameworks */,
+				F6D434441AD2AB96007C7728 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6D434541AD2AB96007C7728 /* PBXTargetDependency */,
+			);
+			name = "maps.me WatchKit Extension";
+			productName = "maps.me beta WatchKit Extension";
+			productReference = F6D434461AD2AB96007C7728 /* maps.me WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		F6D434501AD2AB96007C7728 /* maps.me WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6D434701AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit App" */;
+			buildPhases = (
+				F6D4344F1AD2AB96007C7728 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "maps.me WatchKit App";
+			productName = "maps.me beta WatchKit App";
+			productReference = F6D434511AD2AB96007C7728 /* maps.me WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
 		};
 /* End PBXNativeTarget section */
 
@@ -1194,10 +1566,26 @@
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = XMK5825GXK;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 						};
+					};
+					F6D434451AD2AB96007C7728 = {
+						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = XMK5825GXK;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					F6D434501AD2AB96007C7728 = {
+						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = XMK5825GXK;
 					};
 				};
 			};
@@ -1233,12 +1621,15 @@
 				tr,
 				sk,
 				sv,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* MAPS.ME */,
+				F6D434451AD2AB96007C7728 /* maps.me WatchKit Extension */,
+				F6D434501AD2AB96007C7728 /* maps.me WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -1329,9 +1720,62 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6D434441AD2AB96007C7728 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */,
+				F6BACD021AD946C3004E99B1 /* World.mwm in Resources */,
+				F6BACD031AD946C3004E99B1 /* WorldCoasts.mwm in Resources */,
+				6C47C8BF1AD6C47E000C52C1 /* Localizable.strings in Resources */,
+				4579C8A01AD2FAB1001D6B90 /* 00_roboto_regular.ttf in Resources */,
+				4579C8A11AD2FAB1001D6B90 /* 01_dejavusans.ttf in Resources */,
+				4579C8A21AD2FAB1001D6B90 /* 02_wqy-microhei.ttf in Resources */,
+				4579C8A31AD2FAB1001D6B90 /* 03_jomolhari-id-a3d.ttf in Resources */,
+				4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */,
+				4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */,
+				4579C8A61AD2FAB1001D6B90 /* 06_code2000.ttf in Resources */,
+				4579C89F1AD2FA36001D6B90 /* packed_polygons.bin in Resources */,
+				4579C89D1AD2F9E6001D6B90 /* drules_proto_dark.bin in Resources */,
+				4579C89E1AD2F9E6001D6B90 /* drules_proto.bin in Resources */,
+				4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */,
+				4579C8971AD2F9A1001D6B90 /* types.txt in Resources */,
+				4579C8981AD2F9A2001D6B90 /* fonts_blacklist.txt in Resources */,
+				4579C8991AD2F9A2001D6B90 /* fonts_whitelist.txt in Resources */,
+				4579C89A1AD2F9A2001D6B90 /* unicode_blocks.txt in Resources */,
+				4579C89B1AD2F9A2001D6B90 /* countries.txt in Resources */,
+				4579C89C1AD2F9A2001D6B90 /* classificator.txt in Resources */,
+				4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */,
+				F6D4344E1AD2AB96007C7728 /* Images.xcassets in Resources */,
+				F6D434521AD2AB96007C7728 /* maps.me WatchKit App.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6D4344F1AD2AB96007C7728 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6D4345A1AD2AB96007C7728 /* Interface.storyboard in Resources */,
+				F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		45AD93611AD2F2470009C01B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "LOWERED_CONFIG=`echo $CONFIGURATION | tr [A-Z] [a-z]`\nCONF=\"simulator\"\nDRAPE_CONF=\"old_renderer\"\nif [[ \"$LOWERED_CONFIG\" == *production* || \"$LOWERED_CONFIG\" == *adhoc* ]]; then\nCONF=\"production\"\nelif [[ \"$LOWERED_CONFIG\" == *debug* ]]; then\nCONF=\"debug\"\nelif [[ \"$LOWERED_CONFIG\" == *release* ]]; then\nif [[ \"$LOWERED_CONFIG\" == *simulator* ]]; then\nCONF=\"simulator-release\"\nelse\nCONF=\"release\"\nfi\nfi\n\nif [[ \"$LOWERED_CONFIG\" == *drape* ]]; then\necho \"Drape renderer building\"\nDRAPE_CONF=\"drape\"\nfi\n\necho \"Building $CONF configuration\"\nbash \"$SRCROOT/../../tools/autobuild/ios.sh\" $CONF $DRAPE_CONF";
+		};
 		FA3A60E715AD5BBD00F40D20 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1372,6 +1816,7 @@
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
+				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */,
 				F62404FB1AAF3DB200B58DB6 /* UILabel+RuntimeAttributes.m in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				34BC72291B0DECAE0012A34B /* MWMZoomButtons.mm in Sources */,
@@ -1442,11 +1887,50 @@
 				9778E9A1191A663700AD850A /* BookmarkNameVC.mm in Sources */,
 				34BC72261B0DECAE0012A34B /* MWMSideMenuManager.mm in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
+				6C24A3B21AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */,
 				ED48BBBA17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6D434421AD2AB96007C7728 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */,
+				34A743001AE5468200CE15EB /* storage.cpp in Sources */,
+				34A742FE1AE5461A00CE15EB /* index.cpp in Sources */,
+				6C93FAED1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */,
+				345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m in Sources */,
+				6CFBB8771AD84E1C009845A3 /* MWMFinishInterfaceController.m in Sources */,
+				6C24A3AD1AD7CA1000A47B99 /* MWMNoMapInterfaceController.mm in Sources */,
+				F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */,
+				6C47C8C51AD6C78A000C52C1 /* MWMNoLocationInterfaceController.mm in Sources */,
+				6C24A3B31AD7D65500A47B99 /* MWMWatchEventInfo.mm in Sources */,
+				345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */,
+				F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */,
+				34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */,
+				343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */,
+				45FE96831AD315EF00CB7560 /* RenderBuffer.mm in Sources */,
+				454040701AD2DB30007A9B12 /* RenderContext.mm in Sources */,
+				345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */,
+				345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F6D434541AD2AB96007C7728 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6D434501AD2AB96007C7728 /* maps.me WatchKit App */;
+			targetProxy = F6D434531AD2AB96007C7728 /* PBXContainerItemProxy */;
+		};
+		F6D4345E1AD2AB96007C7728 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6D434451AD2AB96007C7728 /* maps.me WatchKit Extension */;
+			targetProxy = F6D4345D1AD2AB96007C7728 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B0DFE62F1A1B78A200B6C35E /* LocalNotifications.plist */ = {
@@ -1455,6 +1939,14 @@
 				B0DFE6301A1B78A200B6C35E /* en */,
 			);
 			name = LocalNotifications.plist;
+			sourceTree = "<group>";
+		};
+		F6D434581AD2AB96007C7728 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6D434591AD2AB96007C7728 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		FA99CB71147089B100689A9A /* Localizable.strings */ = {
@@ -1500,7 +1992,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1520,7 +2012,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-drape-$(CURRENT_ARCH)/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -1563,7 +2055,6 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Drape Release";
@@ -1573,6 +2064,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1587,6 +2079,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -1630,7 +2123,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1647,7 +2140,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-drape-$(CURRENT_ARCH)/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -1690,7 +2183,6 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Drape Debug";
@@ -1700,6 +2192,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1714,22 +2207,671 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Drape Debug";
 		};
+		F6D434601AD2AB97007C7728 /* Simulator */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Simulator;
+		};
+		F6D434611AD2AB97007C7728 /* Simulator Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Simulator Release";
+		};
+		F6D434621AD2AB97007C7728 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F6D434631AD2AB97007C7728 /* Drape Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Drape Debug";
+		};
+		F6D434641AD2AB97007C7728 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AdHoc;
+		};
+		F6D434651AD2AB97007C7728 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F6D434661AD2AB97007C7728 /* Drape Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Drape Release";
+		};
+		F6D434671AD2AB97007C7728 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/maps.me WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Statistics/MRGService",
+					"$(PROJECT_DIR)/Statistics",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Production Full";
+		};
+		F6D434681AD2AB97007C7728 /* Simulator */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Simulator;
+		};
+		F6D434691AD2AB97007C7728 /* Simulator Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Simulator Release";
+		};
+		F6D4346A1AD2AB97007C7728 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		F6D4346B1AD2AB97007C7728 /* Drape Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Drape Debug";
+		};
+		F6D4346C1AD2AB97007C7728 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AdHoc;
+		};
+		F6D4346D1AD2AB97007C7728 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F6D4346E1AD2AB97007C7728 /* Drape Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Drape Release";
+		};
+		F6D4346F1AD2AB97007C7728 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBSC_MODULE = maps_me_beta_WatchKit_Extension;
+				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Production Full";
+		};
 		FAAB4119149BA83500C245B1 /* Simulator */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.simulator;
+				BUNDLE_IDENTIFIER = me.maps.simulator;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1746,7 +2888,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-i386/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -1794,6 +2936,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1808,6 +2951,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -1817,14 +2961,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.debug;
+				BUNDLE_IDENTIFIER = me.maps.debug;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1841,7 +2985,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-debug-$(CURRENT_ARCH)/out/debug\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -1879,7 +3023,6 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1889,6 +3032,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1903,6 +3047,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -1937,14 +3082,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.beta;
+				BUNDLE_IDENTIFIER = me.maps.beta;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -1965,7 +3110,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2003,7 +3148,6 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = AdHoc;
@@ -2013,6 +3157,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2027,6 +3172,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2043,7 +3189,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -2064,7 +3210,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-production-$(CURRENT_ARCH)/out/production\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2102,7 +3248,6 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7s armv7";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Production Full";
@@ -2112,6 +3257,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2126,6 +3272,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2135,14 +3282,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.release;
+				BUNDLE_IDENTIFIER = me.maps.release;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -2162,7 +3309,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-$(CURRENT_ARCH)/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2200,7 +3347,6 @@
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -2210,6 +3356,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2224,6 +3371,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2233,13 +3381,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_IDENTIFIER = com.mapswithme.full.simulator.release;
+				BUNDLE_IDENTIFIER = me.maps.simulator;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 4.4;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_FAST_MATH = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -2259,7 +3407,7 @@
 					../../,
 				);
 				INFOPLIST_FILE = MAPSME.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../omim-iphone-release-i386/out/release\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2307,6 +3455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2321,6 +3470,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Statistics",
+					"$(PROJECT_DIR)/MyTracker",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -2355,6 +3505,36 @@
 				FABB561E149CD957006969C0 /* Release */,
 				A32B6D4E1A14A7B700E54A65 /* Drape Release */,
 				FAAB411F149BA86000C245B1 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = AdHoc;
+		};
+		F6D434701AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6D434681AD2AB97007C7728 /* Simulator */,
+				F6D434691AD2AB97007C7728 /* Simulator Release */,
+				F6D4346A1AD2AB97007C7728 /* Debug */,
+				F6D4346B1AD2AB97007C7728 /* Drape Debug */,
+				F6D4346C1AD2AB97007C7728 /* AdHoc */,
+				F6D4346D1AD2AB97007C7728 /* Release */,
+				F6D4346E1AD2AB97007C7728 /* Drape Release */,
+				F6D4346F1AD2AB97007C7728 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = AdHoc;
+		};
+		F6D434711AD2AB97007C7728 /* Build configuration list for PBXNativeTarget "maps.me WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6D434601AD2AB97007C7728 /* Simulator */,
+				F6D434611AD2AB97007C7728 /* Simulator Release */,
+				F6D434621AD2AB97007C7728 /* Debug */,
+				F6D434631AD2AB97007C7728 /* Drape Debug */,
+				F6D434641AD2AB97007C7728 /* AdHoc */,
+				F6D434651AD2AB97007C7728 /* Release */,
+				F6D434661AD2AB97007C7728 /* Drape Release */,
+				F6D434671AD2AB97007C7728 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = AdHoc;

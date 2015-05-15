@@ -4,12 +4,6 @@
 <dict>
 	<key>AdmanTrackerAppID</key>
 	<string>***REMOVED***</string>
-	<key>MRGServiceClientKey</key>
-	<string>***REMOVED***</string>
-	<key>MRGServiceAppID</key>
-	<integer>148</integer>
-	<key>LocalNotificationsFileName</key>
-	<string>LocalNotifications</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -88,10 +82,14 @@
 	<string>***REMOVED***</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LocalNotificationsFileName</key>
+	<string>LocalNotifications</string>
 	<key>MobileAppTrackerAdvertiserId</key>
 	<string>14130</string>
 	<key>MobileAppTrackerConversionKey</key>
 	<string>***REMOVED***</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
@@ -162,7 +160,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
 </dict>
 </plist>
