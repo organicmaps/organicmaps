@@ -62,19 +62,15 @@ bool SingleLaneInfo::operator==(SingleLaneInfo const & other) const
 
 string const GetTurnString(TurnDirection turn)
 {
-  auto const it = find_if(g_turnNames.cbegin(), g_turnNames.cend(),
-                          [&turn](pair<TurnDirection, string> const & p)
+  for (auto const & p : g_turnNames)
   {
-    return p.first == turn;
-  });
-
-  if (it == g_turnNames.end())
-  {
-    stringstream out;
-    out << "unknown TurnDirection (" << static_cast<int>(turn) << ")";
-    return out.str();
+    if (p.first == turn)
+      return p.second;
   }
-  return it->second;
+
+  stringstream out;
+  out << "unknown TurnDirection (" << static_cast<int>(turn) << ")";
+  return out.str();
 }
 
 bool IsLeftTurn(TurnDirection t)

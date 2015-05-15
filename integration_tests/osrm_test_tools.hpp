@@ -69,7 +69,7 @@ namespace integration
   class TestTurn
   {
     friend TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
-    friend TestTurn GetTurnByPoint(Route const & route, m2::PointD const & expectedTurnPoint,
+    friend TestTurn GetTurnByPoint(Route const & route, m2::PointD const & approximateTurnPoint,
                                    double inaccuracy);
 
     m2::PointD const m_point;
@@ -104,6 +104,6 @@ namespace integration
   /// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.
   /// inaccuracy is set in meters.
   TestTurn GetNthTurn(Route const & route, uint32_t turnNumber);
-  TestTurn GetTurnByPoint(Route const & route, m2::PointD const & expectedTurnPoint,
+  TestTurn GetTurnByPoint(Route const & route, m2::PointD const & approximateTurnPoint,
                           double inaccuracyMeters = 3.);
 }
