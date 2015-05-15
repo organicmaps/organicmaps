@@ -56,7 +56,7 @@ namespace graphics
     /// that are using this skin_page
     uint32_t m_activeCommands;
 
-    friend class SkinLoader;
+    friend class ResourceManager;
 
   public:
 

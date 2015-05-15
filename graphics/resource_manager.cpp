@@ -7,6 +7,9 @@
 #include "graphics/opengl/texture.hpp"
 #include "graphics/opengl/buffer_object.hpp"
 
+#include "graphics/resource_manager.hpp"
+#include "graphics/resource_cache.hpp"
+#include "graphics/icon.hpp"
 #include "graphics/skin_loader.hpp"
 
 #include "coding/file_reader.hpp"
@@ -403,9 +406,17 @@ namespace
   }
 
   void ResourceManager::loadSkin(shared_ptr<ResourceManager> const & rm,
-                                 vector<shared_ptr<ResourceCache> > & caches)
+                                 shared_ptr<ResourceCache> & cache)
   {
-    SkinLoader loader(rm, caches);
+    SkinLoader loader([&rm, &cache](m2::RectU const & rect, string const & symbolName,
+                      int32_t id, string const & fileName)
+    {
+      if (cache == nullptr)
+        cache.reset(new ResourceCache(rm, fileName, 0));
+      Icon * icon = new Icon(rect, 0, Icon::Info(symbolName));
+      cache->m_resources[id] = shared_ptr<Resource>(icon);
+      cache->m_infos[&icon->m_info] = id;
+    });
 
     ReaderSource<MemReader> source(MemReader(rm->m_skinBuffer.c_str(), rm->m_skinBuffer.size()));
     if (!ParseXML(source, loader))

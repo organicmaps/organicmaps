@@ -255,7 +255,7 @@ namespace graphics
     /// Use like static function with shared_ptr instead of this.
     /// @todo Check if we can remove shared_ptrs from this logic.
     static void loadSkin(shared_ptr<ResourceManager> const & rm,
-                         vector<shared_ptr<ResourceCache> > & caches);
+                         shared_ptr<ResourceCache> & cache);
 
     void initThreadSlots(Params const & p);
 
