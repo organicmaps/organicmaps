@@ -27,9 +27,9 @@ void PinClickManager::Hide()
 
 void PinClickManager::OnShowMark(UserMark const * mark)
 {
-  if (mark != NULL)
+  if (mark != nullptr && m_userMarkListener != nullptr)
     m_userMarkListener(mark->Copy());
-  SetBalloonVisible(mark != NULL);
+  SetBalloonVisible(mark != nullptr);
 }
 
 void PinClickManager::SetBalloonVisible(bool isVisible)
