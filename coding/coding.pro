@@ -37,6 +37,7 @@ SOURCES += \
     compressed_bit_vector.cpp \
 #    compressed_varnum_vector.cpp \
     bit_streams.cpp \
+    png_memory_encoder.cpp \
 
 HEADERS += \
     internal/xmlparser.hpp \
@@ -104,3 +105,4 @@ HEADERS += \
 #    compressed_varnum_vector.hpp \
     varint_misc.hpp \
     bit_streams.hpp \
+    png_memory_encoder.hpp \
