@@ -8,6 +8,8 @@
 #include "std/bind.hpp"
 #include "std/unique_ptr.hpp"
 
+//#define ALLOCATED_COUNT
+
 struct BasePoolElemFactory
 {
   string m_resName;
@@ -175,17 +177,23 @@ struct AllocateOnDemandMultiThreadedPoolTraits : TBase
   typedef typename base_t::elem_t elem_t;
   typedef AllocateOnDemandMultiThreadedPoolTraits<TElemFactory, base_t> self_t;
 
+#if defined(ALLOCATED_COUNT)
   size_t m_poolSize;
+#endif
   AllocateOnDemandMultiThreadedPoolTraits(TElemFactory const & factory, size_t )
-    : base_t(factory),
-      m_poolSize(0)
+    : base_t(factory)
+#if defined(ALLOCATED_COUNT)
+    , m_poolSize(0)
+#endif
   {}
 
   void AllocateIfNeeded(list<elem_t> & l)
   {
     if (l.empty())
     {
-      m_poolSize += base_t::m_factory.ElemSize() * base_t::m_factory.BatchSize();
+#if defined(ALLOCATED_COUNT)
+      m_poolSize += base_t::m_factory.BatchSize();
+#endif
       for (unsigned i = 0; i < base_t::m_factory.BatchSize(); ++i)
         l.push_back(base_t::m_factory.Create());
     }
@@ -215,10 +223,15 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
   typedef typename TBase::elem_t elem_t;
   typedef AllocateOnDemandSingleThreadedPoolTraits<TElemFactory, TBase> self_t;
 
+#if defined(ALLOCATED_COUNT)
   size_t m_poolSize;
+#endif
+
   AllocateOnDemandSingleThreadedPoolTraits(TElemFactory const & factory, size_t )
-    : base_t(factory),
-      m_poolSize(0)
+    : base_t(factory)
+#if defined(ALLOCATED_COUNT)
+    , m_poolSize(0)
+#endif
   {}
 
   void Init()
@@ -228,7 +241,9 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
   {
     if (l.empty())
     {
-      m_poolSize += base_t::m_factory.ElemSize() * base_t::m_factory.BatchSize();
+#if defined(ALLOCATED_COUNT)
+      m_poolSize += base_t::m_factory.BatchSize();
+#endif
       for (unsigned i = 0; i < base_t::m_factory.BatchSize(); ++i)
         l.push_back(base_t::m_factory.Create());
     }
