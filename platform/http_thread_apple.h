@@ -6,6 +6,10 @@
 
 namespace downloader { class IHttpThreadCallback; }
 
+#ifdef OMIM_OS_IPHONE
+#import "../iphone/Maps/Classes/DownloadIndicatorProtocol.h"
+#endif
+
 @interface HttpThread : NSObject
 {
   downloader::IHttpThreadCallback * m_callback;
@@ -19,4 +23,9 @@ namespace downloader { class IHttpThreadCallback; }
        endRange:(int64_t)end expectedSize:(int64_t)size postBody:(string const &)pb;
 
 - (void) cancel;
+
+#ifdef OMIM_OS_IPHONE
++ (void)setDownloadIndicatorProtocol:(id<DownloadIndicatorProtocol>)indicator;
+#endif
+
 @end

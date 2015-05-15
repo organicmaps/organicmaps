@@ -6,13 +6,18 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#ifdef OMIM_OS_IPHONE
-  #include "../iphone/Maps/Classes/MapsAppDelegate.h"
-#endif
-
 #define TIMEOUT_IN_SECONDS 60.0
 
 @implementation HttpThread
+
+#ifdef OMIM_OS_IPHONE
+static id<DownloadIndicatorProtocol> downloadIndicator = nil;
+
++ (void)setDownloadIndicatorProtocol:(id<DownloadIndicatorProtocol>)indicator
+{
+  downloadIndicator = indicator;
+}
+#endif
 
 - (void) dealloc
 {
@@ -20,8 +25,8 @@
   [m_connection cancel];
   [m_connection release];
 #ifdef OMIM_OS_IPHONE
-  [[MapsAppDelegate theApp] enableStandby];
-  [[MapsAppDelegate theApp] disableDownloadIndicator];
+  [downloadIndicator enableStandby];
+  [downloadIndicator disableDownloadIndicator];
 #endif
   [super dealloc];
 }
@@ -79,8 +84,8 @@
 	}
 
 #ifdef OMIM_OS_IPHONE
-  [[MapsAppDelegate theApp] disableStandby];
-  [[MapsAppDelegate theApp] enableDownloadIndicator];
+  [downloadIndicator disableStandby];
+  [downloadIndicator enableDownloadIndicator];
 #endif
 
 	// create the connection with the request and start loading the data
