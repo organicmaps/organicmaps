@@ -179,9 +179,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
       // most cases.
       info.m_lanes.clear();
       for (size_t j = 0; j < turn.m_lanes.size(); ++j)
-      {
         info.m_lanes.emplace_back(turn.m_lanes[j]);
-      }
     }
     else
     {

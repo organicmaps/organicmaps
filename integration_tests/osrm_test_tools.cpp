@@ -191,8 +191,8 @@ namespace integration
 
   const TestTurn & TestTurn::TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters) const
   {
-    double const dist = ms::DistanceOnEarth(expectedPoint.y, expectedPoint.x, m_point.y, m_point.x);
-    TEST_LESS(dist, inaccuracyMeters, ());
+    double const distanceMeters = ms::DistanceOnEarth(expectedPoint.y, expectedPoint.x, m_point.y, m_point.x);
+    TEST_LESS(distanceMeters, inaccuracyMeters, ());
     return *this;
   }
 
@@ -215,19 +215,19 @@ namespace integration
     return *this;
   }
 
-  TestTurn GetNthTurn(routing::Route const & route, uint32_t expectedTurnNumber)
+  TestTurn GetNthTurn(routing::Route const & route, uint32_t turnNumber)
   {
     turns::TurnsGeomT const & turnsGeom = route.GetTurnsGeometry();
-    if (expectedTurnNumber >= turnsGeom.size())
+    if (turnNumber >= turnsGeom.size())
       return TestTurn();
 
     Route::TurnsT const & turns = route.GetTurns();
-    if (expectedTurnNumber >= turns.size())
+    if (turnNumber >= turns.size())
       return TestTurn();
 
-    turns::TurnGeom const & turnGeom = turnsGeom[expectedTurnNumber];
+    turns::TurnGeom const & turnGeom = turnsGeom[turnNumber];
     ASSERT_LESS(turnGeom.m_turnIndex, turnGeom.m_points.size(), ());
-    TurnItem const & turn = turns[expectedTurnNumber];
+    TurnItem const & turn = turns[turnNumber];
     return TestTurn(turnGeom.m_points[turnGeom.m_turnIndex], turn.m_turn, turn.m_exitNum);
   }
 

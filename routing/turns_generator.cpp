@@ -20,13 +20,17 @@ bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
   // But the number of calls of the body of inner one (lambda in find_if) is relatively small.
   // Less than 10 in most cases.
   for (auto & singleLane : lanes)
+  {
     for (LaneWay laneWay : singleLane.m_lane)
+    {
       if (checker(laneWay, turn))
       {
         singleLane.m_isRecommended = true;
         isLaneConformed = true;
         break;
       }
+    }
+  }
   return isLaneConformed;
 }
 }  // namespace

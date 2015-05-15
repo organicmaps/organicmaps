@@ -242,7 +242,7 @@ string DebugPrint(TurnDirection const turn)
 string DebugPrint(SingleLaneInfo const & singleLaneInfo)
 {
   stringstream out;
-  out << "[ m_isRecommended == " << singleLaneInfo.m_isRecommended
+  out << "SingleLaneInfo [ m_isRecommended == " << singleLaneInfo.m_isRecommended
       << ", m_lane == " << ::DebugPrint(singleLaneInfo.m_lane) << " ]" << endl;
   return out.str();
 }
