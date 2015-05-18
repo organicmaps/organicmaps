@@ -37,9 +37,9 @@ namespace
     void RenderGlyphs(QPaintDevice * device)
     {
       vector<dp::GlyphManager::Glyph> glyphs;
-      glyphs.push_back(m_mng->GetGlyph(0x58));
+      glyphs.push_back(m_mng->GetGlyph(0xC0));
       glyphs.push_back(m_mng->GetGlyph(0x79));
-      glyphs.push_back(m_mng->GetGlyph(0x439));
+      glyphs.push_back(m_mng->GetGlyph(0x122));
 
       QPainter painter(device);
       painter.fillRect(QRectF(0.0, 0.0, device->width(), device->height()), Qt::white);
