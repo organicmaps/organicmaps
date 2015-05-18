@@ -33,7 +33,7 @@
 
   <EditText
       android:id="@+id/et__bookmark_name"
-      style="@style/PlaceEditableParam"
+      style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__bookmark_title"
@@ -125,7 +125,7 @@
 
   <EditText
       android:id="@+id/et__bookmark_notes"
-      style="@style/PlaceEditableParam"
+      style="@style/MwmWidget.PlacePage.EditText"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__bookmark_notes_title"

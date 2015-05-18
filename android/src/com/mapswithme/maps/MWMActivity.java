@@ -48,8 +48,8 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -1540,14 +1540,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     if (resultCode == RESULT_OK)
     {
-      if (requestCode == BookmarkActivity.REQUEST_CODE_EDIT_BOOKMARK)
+      if (requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_EDIT_BOOKMARK)
       {
-        final Point bmk = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+        final Point bmk = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.PIN)).getPoint();
         onBookmarkActivated(bmk.x, bmk.y);
       }
-      else if (requestCode == BookmarkActivity.REQUEST_CODE_SET)
+      else if (requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_SET)
       {
-        final Point pin = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+        final Point pin = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.PIN)).getPoint();
         final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(pin.x, pin.y);
         mPlacePage.setMapObject(bookmark);
       }

@@ -31,14 +31,14 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/text_primary" />
+            android:textColor="@color/text_dark" />
 
         <TextView
             android:id="@+id/pi_distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/text_seconadary" />
+            android:textColor="@color/text_dark_subtitle" />
     </LinearLayout>
 
 </RelativeLayout>

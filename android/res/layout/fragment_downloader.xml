@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -9,8 +8,7 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MwmToolbar">
+      android:theme="@style/MwmWidget.Toolbar">
 
     <TextView
         android:id="@+id/tv__update_all"

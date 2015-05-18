@@ -27,12 +27,12 @@
         android:paddingLeft="@dimen/margin_large_and_half"
         android:text="@string/download_maps"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_menu"/>
+        android:textColor="@color/text_dark"/>
 
   </RelativeLayout>
 
   <View
-      style="@style/DrawerSeparatorMediumPadded"/>
+      style="@style/MwmWidget.DividerMediumPadded"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -55,12 +55,12 @@
         android:paddingLeft="@dimen/margin_large_and_half"
         android:text="@string/settings_and_more"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_menu"/>
+        android:textColor="@color/text_dark"/>
 
   </RelativeLayout>
 
   <View
-      style="@style/DrawerSeparatorMediumPadded"/>
+      style="@style/MwmWidget.DividerMediumPadded"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -83,7 +83,7 @@
         android:paddingLeft="@dimen/margin_large_and_half"
         android:text="@string/share_my_location"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_menu"/>
+        android:textColor="@color/text_dark"/>
 
   </RelativeLayout>
 </LinearLayout>

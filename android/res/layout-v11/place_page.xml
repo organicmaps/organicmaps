@@ -36,9 +36,9 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
-      android:background="@color/base_green"
+      android:background="@color/text_green"
       android:visibility="gone"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MwmToolbar"/>
+      app:theme="@style/MwmWidget.Toolbar"/>
 
 </merge>

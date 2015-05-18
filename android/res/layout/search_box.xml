@@ -24,7 +24,7 @@
       android:padding="@dimen/margin_tiny"
       android:singleLine="true"
       android:textColor="@color/text_search_box"
-      android:textColorHint="@color/text_hint_search_box"/>
+      android:textColorHint="@color/text_search_box_hint"/>
 
   <ProgressBar
       android:id="@+id/search_progress"

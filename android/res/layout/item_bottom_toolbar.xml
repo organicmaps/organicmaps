@@ -22,7 +22,7 @@
       android:textColor="@android:color/white"/>
 
   <View
-      style="@style/DrawerSeparatorMediumPadded"
+      style="@style/MwmWidget.DividerMediumPadded"
       android:layout_below="@id/tv__bottom_item_text"/>
 
 </RelativeLayout>

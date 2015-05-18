@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <style name="MwmBase" parent="Theme.AppCompat.Light">
+  <style name="MwmTheme" parent="Theme.AppCompat.Light">
     <item name="colorPrimary">@color/base_green</item>
-    <item name="colorPrimaryDark">@color/text_search_item_greyed</item>
-    <item name="colorAccent">@color/downloader_blue</item>
-    <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-    <item name="android:listViewStyle">@style/MwmList</item>
-    <item name="android:textViewStyle">@style/MwmText</item>
+    <!-- 'theme' attribute for actionbar -->
+    <item name="theme">@style/MwmWidget.Toolbar</item>
+    <item name="android:displayOptions">homeAsUp|showHome|showTitle</item>
+    <item name="displayOptions">homeAsUp|showHome|showTitle</item>
+    <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
+    <item name="homeAsUpIndicator">@drawable/ic_back</item>
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
   </style>
 
-  <style name="MwmMain" parent="MwmBase">
+  <style name="MwmTheme.Main">
     <item name="clickableBackground">@drawable/default_selector</item>
   </style>
 
-  <style name="MwmMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="MwmTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="clickableBackground">@drawable/default_selector</item>
-    <item name="android:listViewStyle">@style/MwmList</item>
-    <item name="android:textViewStyle">@style/MwmText</item>
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
   </style>
 
-  <style name="MwmSearch" parent="MwmMain">
+  <style name="MwmTheme.Main.Search">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowBackground">@color/semitransparent_black</item>
@@ -30,7 +33,7 @@
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
   </style>
 
-  <style name="MwmMain.Dialog.Light" parent="MwmMain">
+  <style name="MwmTheme.Main.Light">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFrame">@null</item>
     <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title</item>
@@ -46,20 +49,17 @@
     <item name="listPreferredItemPaddingRight">16dip</item>
   </style>
 
-  <style name="MwmMain.Dialog.DialogFragment" parent="Theme.AppCompat.Light">
-    <item name="android:windowBackground">@null</item>
-    <item name="android:windowIsFloating">true</item>
-    <item name="android:listViewStyle">@style/MwmList</item>
-    <item name="android:textViewStyle">@style/MwmText</item>
-  </style>
-
   <style name="MwmMain.Dialog.DialogFragment.Fullscreen" parent="Theme.AppCompat">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowIsFloating">false</item>
     <item name="android:windowBackground">@color/semitransparent_black</item>
   </style>
 
-  <style name="Widget.MapButtonZoom" parent="android:Widget.ImageButton">
+  <style name="MwmWidget"/>
+
+  <style name="MwmWidget.MapButton" parent="android:Widget.ImageButton"/>
+
+  <style name="MwmWidget.MapButton.Zoom">
     <item name="android:background">@drawable/bg_btn_zoom</item>
     <item name="android:scaleType">center</item>
     <item name="android:layout_marginRight">@dimen/margin_small</item>
@@ -67,68 +67,31 @@
     <item name="android:padding">0dp</item>
   </style>
 
-  <style name="Widget.MapButtonBottom" parent="android:Widget.ImageButton">
+  <style name="MwmWidget.MapButton.Bottom">
     <item name="android:background">@drawable/bg_toolbar_button</item>
   </style>
 
-  <style name="InfoItem" parent="TextAppearance.AppCompat.Large">
-    <item name="android:textSize">@dimen/place_page_title</item>
-    <item name="android:textColor">@color/text_place_page</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
-  </style>
-
-  <style name="InfoItemLight" parent="InfoItem">
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
-  </style>
-
-  <style name="LabelGreen" parent="android:Widget.TextView">
-    <item name="android:textColor">@color/text_label_bookmarks_green</item>
-    <item name="android:textSize">@dimen/sp_x_3</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="PlaceEditableParam" parent="Widget.AppCompat.EditText">
+  <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
   </style>
 
-  <style name="DrawerSeparatorNoPadding">
-    <item name="android:layout_height">1px</item>
+  <style name="MwmWidget.DividerMediumPadded">
+    <item name="android:layout_height">1px</item> ho
     <item name="android:layout_width">match_parent</item>
-    <item name="android:background">@android:color/black</item>
-  </style>
-
-  <style name="DrawerSeparator" parent="DrawerSeparatorNoPadding">
-    <item name="android:layout_marginRight">@dimen/dp_x_2</item>
-    <item name="android:layout_marginLeft">@dimen/dp_x_2</item>
-  </style>
-
-  <style name="DrawerSeparatorMediumPadded" parent="DrawerSeparator">
     <item name="android:layout_marginRight">0dp</item>
     <item name="android:layout_marginLeft">0dp</item>
     <item name="android:background">@drawable/divider_medium_padded</item>
   </style>
 
-  <style name="Widget.Button.Toggle" parent="android:Widget">
-    <item name="android:disabledAlpha">?android:attr/disabledAlpha</item>
-  </style>
-
-  <style name="BookmarkToggleButton" parent="Widget.AppCompat.CompoundButton.Switch">
-    <item name="android:paddingTop">14dp</item>
-    <item name="android:drawableTop">@drawable/ic_bookmarks_selector</item>
-    <item name="android:layout_width">@dimen/place_page_button_size</item>
-    <item name="android:layout_height">@dimen/place_page_button_size</item>
-    <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
-    <item name="android:textOn"/>
-    <item name="android:textOff"/>
-    <item name="android:background">?attr/clickableBackground</item>
-  </style>
-
-  <style name="MwmToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+  <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">@color/base_green</item>
+    <item name="android:displayOptions">homeAsUp|showHome|showTitle</item>
+    <item name="displayOptions">homeAsUp|showHome|showTitle</item>
+    <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
+    <item name="homeAsUpIndicator">@drawable/ic_back</item>
   </style>
 
-  <style name="MwmList" parent="android:Widget.ListView">
+  <style name="MwmWidget.ListView" parent="android:Widget.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@drawable/divider_medium_padded</item>
     <item name="android:dividerHeight">1px</item>
@@ -138,36 +101,35 @@
     <item name="android:cacheColorHint">@android:color/transparent</item>
   </style>
 
-  <style name="MwmText" parent="android:Widget.TextView">
+  <style name="MwmWidget.TextView" parent="android:Widget.TextView">
     <item name="android:fontFamily">@string/robotoRegular</item>
     <item name="android:background">@android:color/transparent</item>
   </style>
 
-  <style name="MwmLightShadow">
-    <item name="android:paddingLeft">4dp</item>
-    <item name="android:paddingRight">4dp</item>
-    <item name="android:paddingBottom">5dp</item>
-    <item name="android:paddingTop">3dp</item>
-    <item name="android:background">@drawable/ic_bg_light</item>
-  </style>
-
-  <style name="MwmPanelShadow">
-    <item name="android:paddingLeft">4dp</item>
-    <item name="android:paddingRight">4dp</item>
-    <item name="android:paddingTop">3dp</item>
-    <item name="android:background">@color/bg_top_panels</item>
-  </style>
-
-  <style name="MwmRatingBar" parent="android:Widget.RatingBar">
-    <item name="android:progressDrawable">@drawable/rating_bar</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
-  </style>
-
-  <style name="DirectionTitle" parent="android:Widget.TextView">
-    <item name="android:fontFamily">@string/robotoRegular</item>
+  <style name="MwmWidget.TextView.Direction">
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
     <item name="android:textSize">@dimen/place_page_title_big</item>
+  </style>
+
+  <style name="MwmWidget.Shadow">
+    <item name="android:paddingLeft">4dp</item>
+    <item name="android:paddingRight">4dp</item>
+    <item name="android:paddingTop">3dp</item>
+  </style>
+
+  <style name="MwmWidget.Shadow.Light">
+    <item name="android:paddingBottom">5dp</item>
+    <item name="android:background">@drawable/ic_bg_light</item>
+  </style>
+
+  <style name="MwmWidget.Shadow.Panel">
+    <item name="android:background">@color/bg_top_panels</item>
+  </style>
+
+  <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
+    <item name="android:progressDrawable">@drawable/rating_bar</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
   </style>
 
 </resources>

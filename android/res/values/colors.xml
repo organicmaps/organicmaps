@@ -1,57 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <color name="background_placepage">#ECECEC</color>
-  <color name="base_green">#21b876</color>
-  <color name="text_primary">#333333</color>
-  <color name="text_seconadary">#999999</color>
-  <color name="drawer_green">#4CD964</color>
-  <color name="drawer_text_active">#FFF</color>
-  <color name="drawer_text_inacative">#FFF</color>
-  <color name="drawer_text_disabled">#999999</color>
+  <!-- general text colors -->
+  <color name="text_dark">#DE000000</color>
+  <color name="text_dark_subtitle">#8A000000</color>
+  <color name="text_dark_hint">#42000000</color>
+  <color name="text_light">#DEFFFFFF</color>
+  <color name="text_light_subtitle">#8AFFFFFF</color>
+  <color name="text_light_hint">#42FFFFFF</color>
+  <color name="text_green">#DE1F9952</color>
+  <color name="text_green_subtitle">#8A1F9952</color>
+  <color name="text_green_hint">#421F9952</color>
 
-  <drawable name="semitransparent_white">#30FFFFFF</drawable>
+  <!-- base colors -->
+  <color name="base_green">#1F9952</color>
 
+
+  <!-- TODO change all colors below, remove old ones-->
   <color name="semitransparent_white">#99FFFFFF</color>
   <color name="semitransparent_black">#60000000</color>
   <color name="semitransparent_black_dark">#BB000000</color>
 
-  <color name="search_background_gray">#efeff4</color>
-
-  <color name="red">#F00</color>
-  <color name="green">#0F0</color>
-  <color name="blue">#00F</color>
-
-  <color name="bg_menu">#e61D1F29</color>
-  <color name="text_menu">#1D1F29</color>
   <color name="bg_bottom_toolbar">@android:color/white</color>
-  <color name="bg_bottom_toolbar_pressed">#15d081</color>
   <color name="divider_standard">#1E4A4B53</color>
+  <!-- TODO end of unfinished colors-->
 
   <!-- search -->
-  <color name="text_search_box">@android:color/white</color>
-  <color name="text_hint_search_box">#bdffffff</color>
-  <color name="text_search_item">@android:color/black</color>
-  <color name="text_search_item_subtitle">#8A000000</color>
-  <color name="text_search_item_greyed">@android:color/darker_gray</color>
-  <color name="text_search_category">@android:color/black</color>
-  <color name="bg_search_green">#1F9F7E</color>
-  <color name="bg_search_green_pressed">#68BEA8</color>
+  <color name="text_search_box">@color/text_light</color>
+  <color name="text_search_box_hint">@color/text_light_hint</color>
+  <color name="text_search_item">@color/text_dark</color>
+  <color name="text_search_item_subtitle">@color/text_dark_subtitle</color>
+  <color name="text_search_item_greyed">@color/text_dark_hint</color>
+  <color name="text_search_category">@color/text_dark</color>
+  <!-- TODO change all colors below, remove old ones-->
   <color name="bg_search_suggestion">#f7f5f0</color>
   <color name="bg_search_suggestion_pressed">#68BEA8</color>
+  <!-- TODO end of unfinished colors-->
 
   <!-- place page -->
-  <color name="text_place_page">#212121</color>
-  <color name="text_place_page_subtitle">#9E9E9E</color>
-  <color name="text_place_page_buttons">#189E4E</color>
+  <color name="text_place_page">@color/text_dark</color>
+  <color name="text_place_page_subtitle">@color/text_dark_subtitle</color>
+  <color name="text_place_page_buttons">@color/text_green</color>
+
+  <!-- TODO change all colors below, remove old ones-->
+
   <color name="text_place_page_blue">#0288D1</color>
   <color name="bg_top_panels">#f4ffffff</color>
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">@android:color/white</color>
-
-  <!-- bookmarks -->
-  <color name="text_label_bookmarks_green">#1BBB78</color>
-  <color name="ab_bookmarks">#15D180</color>
 
   <!-- downloader -->
   <color name="downloader_green">#179E4D</color>
@@ -64,8 +60,6 @@
   <!-- routing-->
   <color name="text_turn_blue">#2291d1</color>
 
-  <!-- global black fonts -->
-  <color name="text_black_title">#dd000000</color>
-  <color name="text_black_subtitle">#89000000</color>
+  <!-- TODO end of unfinished colors-->
 
 </resources>

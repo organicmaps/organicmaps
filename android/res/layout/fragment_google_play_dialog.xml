@@ -14,7 +14,7 @@
       android:layout_marginTop="@dimen/margin_medium_and_half"
       android:fontFamily="@string/robotoMedium"
       android:text="@string/rating_do_like_maps"
-      android:textColor="@color/text_black_title"
+      android:textColor="@color/text_dark"
       android:textSize="20sp"
       android:textStyle="bold"/>
 
@@ -27,7 +27,7 @@
       android:layout_marginRight="@dimen/margin_medium_and_half"
       android:fontFamily="@string/robotoRegular"
       android:text="@string/rating_tap_star"
-      android:textColor="@color/text_black_subtitle"
+      android:textColor="@color/text_dark_subtitle"
       android:textSize="14sp"/>
 
   <RelativeLayout
@@ -36,7 +36,7 @@
 
     <RatingBar
         android:id="@+id/rb__play_rate"
-        style="@style/MwmRatingBar"
+        style="@style/MwmWidget.RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -61,7 +61,7 @@
         android:gravity="center_vertical"
         android:padding="@dimen/margin_medium"
         android:text="@string/rating_send_feedback"
-        android:textColor="@color/text_black_title"
+        android:textColor="@color/text_dark"
         android:visibility="gone"/>
 
 

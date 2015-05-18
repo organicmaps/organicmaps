@@ -32,7 +32,7 @@
 
       <TextView
           android:id="@+id/tv__title"
-          style="@style/DirectionTitle"
+          style="@style/MwmWidget.TextView.Direction"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/margin_direction_small"
@@ -40,7 +40,7 @@
 
       <TextView
           android:id="@+id/tv__subtitle"
-          style="@style/DirectionTitle"
+          style="@style/MwmWidget.TextView.Direction"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textColor="@color/semitransparent_white"
@@ -48,7 +48,7 @@
 
       <TextView
           android:id="@+id/tv__straight_distance"
-          style="@style/DirectionTitle"
+          style="@style/MwmWidget.TextView.Direction"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_direction_mid"

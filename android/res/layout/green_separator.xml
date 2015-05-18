@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<View xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/text_label_bookmarks_green"
-    android:layout_marginBottom="@dimen/dp_x_2" />

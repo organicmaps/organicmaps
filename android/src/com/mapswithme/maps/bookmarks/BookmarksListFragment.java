@@ -69,7 +69,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
     super.onCreate(savedInstanceState);
 
     // Initialize with passed edited set.
-    mIndex = getArguments().getInt(BookmarkActivity.PIN_SET, -1);
+    mIndex = getArguments().getInt(ChooseBookmarkCategoryActivity.PIN_SET, -1);
     mEditedSet = BookmarkManager.INSTANCE.getCategoryById(mIndex);
   }
 
@@ -202,8 +202,8 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
   private void startPinActivity(int cat, int bmk)
   {
-    startActivity(new Intent(getActivity(), BookmarkActivity.class)
-        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
+    startActivity(new Intent(getActivity(), ChooseBookmarkCategoryActivity.class)
+        .putExtra(ChooseBookmarkCategoryActivity.PIN, new ParcelablePoint(cat, bmk)));
   }
 
   @Override

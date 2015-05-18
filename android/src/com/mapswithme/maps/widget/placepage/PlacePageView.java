@@ -38,7 +38,6 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
-import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -722,9 +721,9 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final Activity activity = (Activity) getContext();
     final Bookmark bookmark = (Bookmark) mMapObject;
     final Intent intent = new Intent(activity, ChooseBookmarkCategoryActivity.class)
-        .putExtra(BookmarkActivity.PIN_SET, bookmark.getCategoryId())
-        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
-    activity.startActivityForResult(intent, BookmarkActivity.REQUEST_CODE_SET);
+        .putExtra(ChooseBookmarkCategoryActivity.PIN_SET, bookmark.getCategoryId())
+        .putExtra(ChooseBookmarkCategoryActivity.PIN, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+    activity.startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_SET);
   }
 
   private void selectBookmarkColor()

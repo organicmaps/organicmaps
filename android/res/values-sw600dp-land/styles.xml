@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="Widget.MapButtonBottom" parent="android:Widget.ImageButton">
+  <style name="MwmWidget.MapButton.Bottom" parent="android:Widget.ImageButton">
     <item name="android:background">@drawable/bg_toolbar_button_vert</item>
   </style>
 </resources>

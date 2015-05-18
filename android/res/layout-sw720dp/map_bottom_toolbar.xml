@@ -9,7 +9,7 @@
 
   <ImageButton
       android:id="@+id/btn__more"
-      style="@style/Widget.MapButtonBottom"
+      style="@style/MwmWidget.MapButton.Bottom"
       android:layout_width="@dimen/bottom_button_width"
       android:layout_height="@dimen/bottom_panel_height"
       android:layout_gravity="center"
@@ -17,7 +17,7 @@
 
   <ImageButton
       android:id="@+id/btn__bookmarks"
-      style="@style/Widget.MapButtonBottom"
+      style="@style/MwmWidget.MapButton.Bottom"
       android:layout_width="@dimen/bottom_button_width"
       android:layout_height="@dimen/bottom_panel_height"
       android:layout_gravity="center"
@@ -25,7 +25,7 @@
 
   <ImageButton
       android:id="@+id/btn__search"
-      style="@style/Widget.MapButtonBottom"
+      style="@style/MwmWidget.MapButton.Bottom"
       android:layout_width="@dimen/bottom_button_width"
       android:layout_height="@dimen/bottom_panel_height"
       android:layout_gravity="center"
@@ -33,7 +33,7 @@
 
   <ImageButton
       android:id="@+id/btn__myposition"
-      style="@style/Widget.MapButtonBottom"
+      style="@style/MwmWidget.MapButton.Bottom"
       android:layout_width="@dimen/bottom_button_width"
       android:layout_height="@dimen/bottom_panel_height"
       android:layout_gravity="center"

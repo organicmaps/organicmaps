@@ -34,7 +34,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment
     final ListView listView = getListView();
     mFooterHelper = new FooterHelper(listView);
     // Set adapter only after FooterHandler is initialized and added into layout.
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), getArguments().getInt(BookmarkActivity.PIN_SET, 0));
+    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), getArguments().getInt(ChooseBookmarkCategoryActivity.PIN_SET, 0));
     setListAdapter(mAdapter);
     registerForContextMenu(listView);
   }
@@ -47,7 +47,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment
 
     final Bookmark bmk = getBookmarkFromIntent();
     bmk.setCategoryId(position);
-    getActivity().getIntent().putExtra(BookmarkActivity.PIN,
+    getActivity().getIntent().putExtra(ChooseBookmarkCategoryActivity.PIN,
         new ParcelablePoint(bmk.getCategoryId(), bmk.getBookmarkId()));
 
     getActivity().onBackPressed();
@@ -57,7 +57,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment
   {
     // Note that Point result from the intent is actually a pair
     // of (category index, bookmark index in category).
-    final Point cab = ((ParcelablePoint) getArguments().getParcelable(BookmarkActivity.PIN)).getPoint();
+    final Point cab = ((ParcelablePoint) getArguments().getParcelable(ChooseBookmarkCategoryActivity.PIN)).getPoint();
     return BookmarkManager.INSTANCE.getBookmark(cab.x, cab.y);
   }
 
@@ -113,11 +113,11 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmListFragment
       final int category = BookmarkManager.INSTANCE.createCategory(name);
       getBookmarkFromIntent().setCategoryId(category);
 
-      getActivity().getIntent().putExtra(BookmarkActivity.PIN_SET, category)
-          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, 0));
+      getActivity().getIntent().putExtra(ChooseBookmarkCategoryActivity.PIN_SET, category)
+          .putExtra(ChooseBookmarkCategoryActivity.PIN, new ParcelablePoint(category, 0));
 
-      getArguments().putInt(BookmarkActivity.PIN_SET, category);
-      getArguments().putParcelable(BookmarkActivity.PIN, new ParcelablePoint(category, 0));
+      getArguments().putInt(ChooseBookmarkCategoryActivity.PIN_SET, category);
+      getArguments().putParcelable(ChooseBookmarkCategoryActivity.PIN, new ParcelablePoint(category, 0));
 
       switchToAddButton();
 

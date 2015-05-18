@@ -2,20 +2,20 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
            xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="MwmMain" parent="MwmBase">
+  <style name="MwmTheme.Main" parent="MwmTheme">
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
-  <style name="MwmMain.NoBar" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="MwmTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
-    <item name="android:listViewStyle">@style/MwmList</item>
-    <item name="android:textViewStyle">@style/MwmText</item>
+    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
+    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
   </style>
 
-  <style name="MwmSearch" parent="MwmBase">
+  <style name="MwmTheme.Main.Search" parent="MwmTheme">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowBackground">@color/semitransparent_black</item>
@@ -25,7 +25,7 @@
     <item name="clickableBackground">?android:attr/selectableItemBackground</item>
   </style>
 
-  <style name="MwmList" parent="android:Widget.Holo.ListView">
+  <style name="MwmWidget.ListView" parent="android:Widget.Holo.ListView">
     <item name="android:fadingEdge">none</item>
     <item name="android:divider">@drawable/divider_medium_padded</item>
     <item name="android:dividerHeight">1px</item>
@@ -35,7 +35,7 @@
     <item name="android:cacheColorHint">@android:color/transparent</item>
   </style>
 
-  <style name="MwmText" parent="android:Widget.Holo.TextView">
+  <style name="MwmWidget.TextView" parent="android:Widget.Holo.TextView">
     <item name="android:fontFamily">@string/robotoRegular</item>
     <item name="android:background">@android:color/transparent</item>
   </style>

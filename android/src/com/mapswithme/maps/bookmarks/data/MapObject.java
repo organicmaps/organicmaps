@@ -163,7 +163,7 @@ public abstract class MapObject implements Parcelable
     mMetadata = source.readParcelable(Metadata.class.getClassLoader());
   }
 
-  public static enum MapObjectType
+  public enum MapObjectType
   {
     POI,
     API_POINT,

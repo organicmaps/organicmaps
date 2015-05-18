@@ -9,7 +9,7 @@
 
   <ImageButton
       android:id="@+id/yop_it"
-      style="@style/Widget.MapButtonZoom"
+      style="@style/MwmWidget.MapButton.Zoom"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
@@ -18,7 +18,7 @@
 
   <ImageButton
       android:id="@+id/map_button_plus"
-      style="@style/Widget.MapButtonZoom"
+      style="@style/MwmWidget.MapButton.Zoom"
       android:layout_width="@dimen/zoom_buttom_size"
       android:layout_height="@dimen/zoom_buttom_size"
       android:layout_above="@+id/map_button_minus"
@@ -27,7 +27,7 @@
 
   <ImageButton
       android:id="@+id/map_button_minus"
-      style="@style/Widget.MapButtonZoom"
+      style="@style/MwmWidget.MapButton.Zoom"
       android:layout_width="@dimen/zoom_buttom_size"
       android:layout_height="@dimen/zoom_buttom_size"
       android:layout_alignParentBottom="true"

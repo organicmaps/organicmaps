@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/navigation_buttons_container"
-    style="@style/MwmPanelShadow"
+    style="@style/MwmWidget.Shadow.Panel"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/routing_pp_height">

@@ -26,7 +26,7 @@
         android:layout_toRightOf="@id/pi_pin_color"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_primary" />
+        android:textColor="@color/text_dark" />
 
     <TextView
         android:id="@+id/pi_distance"
@@ -36,6 +36,6 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_x_4"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_seconadary" />
+        android:textColor="@color/text_dark_subtitle" />
 
 </RelativeLayout>
