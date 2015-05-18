@@ -127,6 +127,7 @@ tizen/*/.*
 
 3party/osrm/osrm-backend/util/fingerprint_impl.hpp
 3party/osrm/osrm-backend/util/git_sha.cpp
+3party/osrm/osrm-backend/build/
 
 tizen/*/crash-info/*
 .idea/*
