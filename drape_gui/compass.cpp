@@ -26,7 +26,7 @@ namespace
   class CompassHandle : public TappableHandle
   {
   public:
-    CompassHandle(m2::PointF const & pivot, m2::PointF const & size, Compass::TTapHandler const & tapHandler)
+    CompassHandle(m2::PointF const & pivot, m2::PointF const & size, Shape::TTapHandler const & tapHandler)
       : TappableHandle(dp::Center, pivot, size)
       , m_tapHandler(tapHandler)
     {}
@@ -53,7 +53,7 @@ namespace
     }
 
   private:
-    Compass::TTapHandler m_tapHandler;
+    Shape::TTapHandler m_tapHandler;
   };
 }
 

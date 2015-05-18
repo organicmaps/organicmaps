@@ -20,7 +20,7 @@ class CountryStatusButtonHandle : public ButtonHandle
 
 public:
   CountryStatusButtonHandle(CountryStatusHelper::ECountryState const state,
-                            CountryStatus::TTapHandler const & tapHandler,
+                            Shape::TTapHandler const & tapHandler,
                             dp::Anchor anchor, m2::PointF const & size)
     : TBase(anchor, size)
     , m_state(state)
@@ -41,7 +41,7 @@ public:
 
 private:
   CountryStatusHelper::ECountryState m_state;
-  CountryStatus::TTapHandler m_tapHandler;
+  Shape::TTapHandler m_tapHandler;
 };
 
 class CountryStatusLabelHandle : public Handle
@@ -89,7 +89,7 @@ private:
 };
 
 drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountryState const state,
-                                                CountryStatus::TTapHandler const & tapHandler,
+                                                Shape::TTapHandler const & tapHandler,
                                                 dp::Anchor anchor, m2::PointF const & size)
 {
   return make_unique_dp<CountryStatusButtonHandle>(state, tapHandler, anchor, size);
@@ -165,7 +165,7 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
     case CountryStatusHelper::CONTROL_TYPE_BUTTON:
       {
         TButtonHandlers::const_iterator buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
-        CountryStatus::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
+        Shape::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
         Button::THandleCreator buttonHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, _1, _2);
         Button::THandleCreator labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
 

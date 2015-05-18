@@ -110,6 +110,7 @@ class Shape
 {
 public:
   Shape(gui::Position const & position) : m_position(position) {}
+  using TTapHandler = function<void()>;
 
 protected:
   gui::Position m_position;

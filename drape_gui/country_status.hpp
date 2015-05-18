@@ -12,7 +12,6 @@ public:
     : Shape(position)
   {}
 
-  using TTapHandler = function<void()>;
   using TButtonHandlers = map<CountryStatusHelper::EButtonType, TTapHandler>;
 
   drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex,

@@ -73,9 +73,9 @@ public:
   bool IsCopyrightActive() const { return m_isCopyrightActive; }
   void DeactivateCopyright() { m_isCopyrightActive = false; }
 
-  void ConnectOnCompassTappedHandler(Compass::TTapHandler const & handler);
+  void ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler);
   void ConnectOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType,
-                                     CountryStatus::TTapHandler const & handler);
+                                     Shape::TTapHandler const & handler);
   void CallOnCompassTappedHandler();
   void CallOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType);
 
@@ -88,7 +88,7 @@ private:
   unique_ptr<Impl> m_impl;
   bool m_isCopyrightActive = true;
 
-  Compass::TTapHandler m_onCompassTappedHandler;
+  Shape::TTapHandler m_onCompassTappedHandler;
   CountryStatus::TButtonHandlers m_buttonHandlers;
 };
 

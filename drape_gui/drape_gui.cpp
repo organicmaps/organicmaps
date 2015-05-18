@@ -132,13 +132,13 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelperImpl()
   return m_impl->m_countryHelper;
 }
 
-void DrapeGui::ConnectOnCompassTappedHandler(Compass::TTapHandler const & handler)
+void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler)
 {
   m_onCompassTappedHandler = handler;
 }
 
 void DrapeGui::ConnectOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType,
-                                             CountryStatus::TTapHandler const & handler)
+                                             Shape::TTapHandler const & handler)
 {
   m_buttonHandlers[buttonType] = handler;
 }

@@ -51,6 +51,13 @@ private:
   int m_scale;
 };
 
+void RegisterButtonHandler(CountryStatus::TButtonHandlers & handlers,
+                           CountryStatusHelper::EButtonType buttonType)
+{
+  handlers[buttonType] = bind(&DrapeGui::CallOnButtonPressedHandler,
+                              &DrapeGui::Instance(), buttonType);
+}
+
 }
 
 LayerCacher::LayerCacher(string const & deviceType)
@@ -86,17 +93,9 @@ drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
     CountryStatus countryStatus = CountryStatus(GetPos(Skin::CountryStatus));
 
     CountryStatus::TButtonHandlers handlers;
-    handlers[CountryStatusHelper::BUTTON_TYPE_MAP] = bind(&DrapeGui::CallOnButtonPressedHandler,
-                                                          &DrapeGui::Instance(),
-                                                          CountryStatusHelper::BUTTON_TYPE_MAP);
-
-    handlers[CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING] = bind(&DrapeGui::CallOnButtonPressedHandler,
-                                                                  &DrapeGui::Instance(),
-                                                                  CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING);
-
-    handlers[CountryStatusHelper::BUTTON_TRY_AGAIN] = bind(&DrapeGui::CallOnButtonPressedHandler,
-                                                           &DrapeGui::Instance(),
-                                                           CountryStatusHelper::BUTTON_TRY_AGAIN);
+    RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP);
+    RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING);
+    RegisterButtonHandler(handlers, CountryStatusHelper::BUTTON_TRY_AGAIN);
 
     renderer->AddShapeRenderer(Skin::CountryStatus, countryStatus.Draw(textures, handlers));
   }
