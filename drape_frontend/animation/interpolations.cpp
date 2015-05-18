@@ -20,10 +20,10 @@ m2::RectD InterpolateRect(m2::RectD const & startRect, m2::RectD const & endRect
 {
   m2::PointD center = InterpolatePoint(startRect.Center(), endRect.Center(), t);
   double halfSizeX = 0.5 * InterpolateDouble(startRect.SizeX(), endRect.SizeX(), t);
-  double haldSizeY = 0.5 * InterpolateDouble(startRect.SizeY(), endRect.SizeY(), t);
+  double halfSizeY = 0.5 * InterpolateDouble(startRect.SizeY(), endRect.SizeY(), t);
 
-  return m2::RectD(center.x - halfSizeX, center.y - haldSizeY,
-                   center.x + halfSizeX, center.y + haldSizeY);
+  return m2::RectD(center.x - halfSizeX, center.y - halfSizeY,
+                   center.x + halfSizeX, center.y + halfSizeY);
 }
 
 InerpolateAngle::InerpolateAngle(double startAngle, double endAngle)
@@ -32,7 +32,7 @@ InerpolateAngle::InerpolateAngle(double startAngle, double endAngle)
   m_delta = ang::GetShortestDistance(m_startAngle, ang::AngleIn2PI(endAngle));
 }
 
-double InerpolateAngle::Interpolate(double t)
+double InerpolateAngle::Interpolate(double t) const
 {
   return m_startAngle + m_delta * t;
 }
@@ -46,7 +46,7 @@ InterpolateAnyRect::InterpolateAnyRect(m2::AnyRectD const & startRect, m2::AnyRe
 {
 }
 
-m2::AnyRectD InterpolateAnyRect::Interpolate(double t)
+m2::AnyRectD InterpolateAnyRect::Interpolate(double t) const
 {
   double angle = m_angleInterpolator.Interpolate(t);
   m2::PointD zero = InterpolatePoint(m_startZero, m_endZero, t);

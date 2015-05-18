@@ -18,6 +18,7 @@ macx-* {
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  anyrect_interpolation_tests.cpp \
   memory_feature_index_tests.cpp \
   navigator_test.cpp \
   object_pool_tests.cpp \

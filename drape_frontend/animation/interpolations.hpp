@@ -15,7 +15,7 @@ class InerpolateAngle
 {
 public:
   InerpolateAngle(double startAngle, double endAngle);
-  double Interpolate(double t);
+  double Interpolate(double t) const;
 
 private:
   double m_startAngle;
@@ -26,7 +26,7 @@ class InterpolateAnyRect
 {
 public:
   InterpolateAnyRect(m2::AnyRectD const & startRect, m2::AnyRectD const & endRect);
-  m2::AnyRectD Interpolate(double  t);
+  m2::AnyRectD Interpolate(double t) const;
 
 private:
   m2::PointD m_startZero, m_endZero;
