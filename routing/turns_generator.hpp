@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/osrm2feature_map.hpp"
+#include "routing/osrm_engine.hpp"
 #include "routing/route.hpp"
 #include "routing/turns.hpp"
 

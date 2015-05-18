@@ -6,7 +6,7 @@
 
 #include "routing/osrm2feature_map.hpp"
 #include "routing/osrm_data_facade.hpp"
-#include "routing/osrm_router.hpp"
+#include "routing/osrm_engine.hpp"
 #include "routing/cross_routing_context.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -160,19 +160,19 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   crossContext.reserveAdjacencyMatrix();
   auto const & in = crossContext.GetIngoingIterators();
   auto const & out = crossContext.GetOutgoingIterators();
-  MultiroutingTaskPointT sources(distance(in.first, in.second)), targets(distance(out.first, out.second));
-  size_t index = 0;
+  RoutingNodesT sources, targets;
+  sources.reserve(distance(in.first, in.second));
+  targets.reserve(distance(out.first, out.second));
   // Fill sources and targets with start node task for ingoing (true) and target node task
   // (false) for outgoing nodes
-  for (auto i = in.first; i != in.second; ++i, ++index)
-    OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, true, sources[index]);
+  for (auto i = in.first; i != in.second; ++i)
+    sources.emplace_back(FeatureGraphNode(i->m_nodeId, true));
 
-  index = 0;
-  for (auto i = out.first; i != out.second; ++i, ++index)
-    OsrmRouter::GenerateRoutingTaskFromNodeId(i->m_nodeId, false, targets[index]);
+  for (auto i = out.first; i != out.second; ++i)
+    targets.emplace_back(i->m_nodeId, false);
 
   vector<EdgeWeight> costs;
-  OsrmRouter::FindWeightsMatrix(sources, targets, facade, costs);
+  FindWeightsMatrix(sources, targets, facade, costs);
   auto res = costs.begin();
   for (auto i = in.first; i != in.second; ++i)
     for (auto j = out.first; j != out.second; ++j)
