@@ -863,29 +863,14 @@ void Framework::OnDownloadMapCallback(storage::TIndex const & countryIndex)
   m_activeMaps->DownloadMap(countryIndex, TMapOptions::EMapOnly);
 }
 
-void Framework::OnDownloadMapCallbackUI(storage::TIndex const & countryIndex)
-{
-  GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryIndex));
-}
-
 void Framework::OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex)
 {
   m_activeMaps->DownloadMap(countryIndex, TMapOptions::EMapWithCarRouting);
 }
 
-void Framework::OnDownloadMapRoutingCallbackUI(storage::TIndex const & countryIndex)
-{
-  GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapRoutingCallback, this, countryIndex));
-}
-
 void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
 {
   m_activeMaps->RetryDownloading(countryIndex);
-}
-
-void Framework::OnDownloadRetryCallbackUI(storage::TIndex const & countryIndex)
-{
-  GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryIndex));
 }
 
 void Framework::MemoryWarning()
@@ -1322,9 +1307,20 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
 
-  TDownloadFn downloadMapFn = bind(&Framework::OnDownloadMapCallbackUI, this, _1);
-  TDownloadFn downloadMapRoutingFn = bind(&Framework::OnDownloadMapRoutingCallbackUI, this, _1);
-  TDownloadFn downloadRetryFn = bind(&Framework::OnDownloadRetryCallbackUI, this, _1);
+  TDownloadFn downloadMapFn = [this](storage::TIndex const & countryIndex)
+  {
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapCallback, this, countryIndex));
+  };
+
+  TDownloadFn downloadMapRoutingFn = [this](storage::TIndex const & countryIndex)
+  {
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadMapRoutingCallback, this, countryIndex));
+  };
+
+  TDownloadFn downloadRetryFn = [this](storage::TIndex const & countryIndex)
+  {
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnDownloadRetryCallback, this, countryIndex));
+  };
 
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
