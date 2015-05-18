@@ -996,6 +996,9 @@ extern "C"
         CallOnMyPositionActivatedListener(obj, lat, lon);
         break;
       }
+    case UserMark::Type::DEBUG_MARK:
+      // Ignore clicks to debug marks.
+      break;
     }
   }
 
