@@ -1,4 +1,5 @@
-#include "map/software_renderer.hpp"
+#include "software_renderer.hpp"
+#include "proto_to_styles.hpp"
 
 #include "graphics/defines.hpp"
 #include "graphics/skin_loader.hpp"
@@ -7,26 +8,26 @@
 
 #include "coding/lodepng_io.hpp"
 #include "coding/png_memory_encoder.hpp"
-#include "indexer/drawing_rules.hpp"
-#include "proto_to_styles.hpp"
-
 #include "coding/parse_xml.hpp"
+
+#include "indexer/drawing_rules.hpp"
+
 #include "base/logging.hpp"
-#include <3party/agg/agg_rasterizer_scanline_aa.h>
-#include <3party/agg/agg_scanline_p.h>
-#include <3party/agg/agg_path_storage.h>
-#include <3party/agg/agg_conv_stroke.h>
-#include <3party/agg/agg_conv_dash.h>
-#include <3party/agg/agg_ellipse.h>
-#include <3party/agg/agg_conv_curve.h>
-#include <3party/agg/agg_conv_stroke.h>
-#include <3party/agg/agg_conv_contour.h>
-#include <3party/agg/agg_bounding_rect.h>
 
-#include <3party/agg/agg_vcgen_stroke.cpp>
-#include <3party/agg/agg_vcgen_dash.cpp>
+#include "3party/agg/agg_rasterizer_scanline_aa.h"
+#include "3party/agg/agg_scanline_p.h"
+#include "3party/agg/agg_path_storage.h"
+#include "3party/agg/agg_conv_stroke.h"
+#include "3party/agg/agg_conv_dash.h"
+#include "3party/agg/agg_ellipse.h"
+#include "3party/agg/agg_conv_curve.h"
+#include "3party/agg/agg_conv_stroke.h"
+#include "3party/agg/agg_conv_contour.h"
+#include "3party/agg/agg_bounding_rect.h"
 
-#include <iostream>
+#include "3party/agg/agg_vcgen_stroke.cpp"
+#include "3party/agg/agg_vcgen_dash.cpp"
+
 
 #define BLENDER_TYPE agg::comp_op_src_over
 
@@ -39,7 +40,7 @@ class agg_symbol_renderer : public ml::text_renderer
 public:
   agg_symbol_renderer(SoftwareRenderer::TBaseRenderer & baserenderer,
                       graphics::Color const & color, graphics::Color const & colorMask)
-      : m_baserenderer(baserenderer), m_color(color), m_colorMask(colorMask)
+      : m_color(color), m_colorMask(colorMask), m_baserenderer(baserenderer)
   {
     m_outline = false;
   }
@@ -63,59 +64,41 @@ void AlignText(ml::text_options & opt, graphics::EPosition anchor)
 {
   switch (anchor)
   {
-    case graphics::EPosCenter:
-    {
-      opt.horizontal_align(ml::text::align_center);
-      opt.vertical_align(ml::text::align_center);
-    }
+  case graphics::EPosCenter:
+    opt.horizontal_align(ml::text::align_center);
+    opt.vertical_align(ml::text::align_center);
     break;
-    case graphics::EPosAbove:
-    {
-      opt.horizontal_align(ml::text::align_center);
-      opt.vertical_align(ml::text::align_top);
-    }
+  case graphics::EPosAbove:
+    opt.horizontal_align(ml::text::align_center);
+    opt.vertical_align(ml::text::align_top);
     break;
-    case graphics::EPosUnder:
-    {
-      opt.horizontal_align(ml::text::align_center);
-      opt.vertical_align(ml::text::align_bottom);
-    }
+  case graphics::EPosUnder:
+    opt.horizontal_align(ml::text::align_center);
+    opt.vertical_align(ml::text::align_bottom);
     break;
-    case graphics::EPosLeft:
-    {
-      opt.horizontal_align(ml::text::align_left);
-      opt.vertical_align(ml::text::align_center);
-    }
+  case graphics::EPosLeft:
+    opt.horizontal_align(ml::text::align_left);
+    opt.vertical_align(ml::text::align_center);
     break;
-    case graphics::EPosRight:
-    {
-      opt.horizontal_align(ml::text::align_right);
-      opt.vertical_align(ml::text::align_center);
-    }
+  case graphics::EPosRight:
+    opt.horizontal_align(ml::text::align_right);
+    opt.vertical_align(ml::text::align_center);
     break;
-    case graphics::EPosAboveLeft:
-    {
-      opt.horizontal_align(ml::text::align_left);
-      opt.vertical_align(ml::text::align_top);
-    }
+  case graphics::EPosAboveLeft:
+    opt.horizontal_align(ml::text::align_left);
+    opt.vertical_align(ml::text::align_top);
     break;
-    case graphics::EPosAboveRight:
-    {
-      opt.horizontal_align(ml::text::align_right);
-      opt.vertical_align(ml::text::align_top);
-    }
+  case graphics::EPosAboveRight:
+    opt.horizontal_align(ml::text::align_right);
+    opt.vertical_align(ml::text::align_top);
     break;
-    case graphics::EPosUnderLeft:
-    {
-      opt.horizontal_align(ml::text::align_left);
-      opt.vertical_align(ml::text::align_bottom);
-    }
+  case graphics::EPosUnderLeft:
+    opt.horizontal_align(ml::text::align_left);
+    opt.vertical_align(ml::text::align_bottom);
     break;
-    case graphics::EPosUnderRight:
-    {
-      opt.horizontal_align(ml::text::align_right);
-      opt.vertical_align(ml::text::align_bottom);
-    }
+  case graphics::EPosUnderRight:
+    opt.horizontal_align(ml::text::align_right);
+    opt.vertical_align(ml::text::align_bottom);
     break;
   }
 }
@@ -124,54 +107,35 @@ void AlignImage(m2::PointD & pt, graphics::EPosition anchor, size_t width, size_
 {
   switch (anchor)
   {
-    case graphics::EPosCenter:
-    {
-      return;
-    }
+  case graphics::EPosCenter:
+    return;
+  case graphics::EPosAbove:
+    pt.y -= height / 2;
     break;
-    case graphics::EPosAbove:
-    {
-      pt.y -= height / 2;
-    }
+  case graphics::EPosUnder:
+    pt.y += height / 2;
     break;
-    case graphics::EPosUnder:
-    {
-      pt.y += height / 2;
-    }
+  case graphics::EPosLeft:
+    pt.x -= width / 2;
     break;
-    case graphics::EPosLeft:
-    {
-      pt.x -= width / 2;
-    }
+  case graphics::EPosRight:
+    pt.x += width / 2;
     break;
-    case graphics::EPosRight:
-    {
-      pt.x += width / 2;
-    }
+  case graphics::EPosAboveLeft:
+    pt.y -= height / 2;
+    pt.x -= width / 2;
     break;
-    case graphics::EPosAboveLeft:
-    {
-      pt.y -= height / 2;
-      pt.x -= width / 2;
-    }
+  case graphics::EPosAboveRight:
+    pt.y -= height / 2;
+    pt.x += width / 2;
     break;
-    case graphics::EPosAboveRight:
-    {
-      pt.y -= height / 2;
-      pt.x += width / 2;
-    }
+  case graphics::EPosUnderLeft:
+    pt.y += height / 2;
+    pt.x -= width / 2;
     break;
-    case graphics::EPosUnderLeft:
-    {
-      pt.y += height / 2;
-      pt.x -= width / 2;
-    }
-    break;
-    case graphics::EPosUnderRight:
-    {
-      pt.y += height / 2;
-      pt.x += width / 2;
-    }
+  case graphics::EPosUnderRight:
+    pt.y += height / 2;
+    pt.x += width / 2;
     break;
   }
 }
@@ -317,7 +281,7 @@ void SoftwareRenderer::DrawPath(di::PathInfo const & geometry, graphics::Pen::In
   //@TODO (yershov) implement it
   agg::rasterizer_scanline_aa<> rasterizer;
   rasterizer.clip_box(0, 0, m_frameWidth, m_frameHeight);
-  typedef agg::poly_container_adaptor<std::vector<m2::PointD>> path_t;
+  typedef agg::poly_container_adaptor<vector<m2::PointD>> path_t;
   path_t path_adaptor(geometry.m_path, false);
   typedef agg::conv_stroke<path_t> stroke_t;
 
@@ -393,7 +357,7 @@ void SoftwareRenderer::DrawText(m2::PointD const & pt, graphics::EPosition ancho
   l.apply_font(face);
 
   ml::rect_d bounds = l.calc_bounds(face);
-  std::vector<ml::point_d> base;
+  vector<ml::point_d> base;
   base.push_back(ml::point_d(pt.x - bounds.width() / 2, pt.y));
   base.push_back(ml::point_d(pt.x + bounds.width() / 2, pt.y));
 
@@ -421,7 +385,7 @@ void SoftwareRenderer::DrawText(m2::PointD const & pt, graphics::EPosition ancho
   prim.apply_font(primFace);
 
   ml::rect_d bounds = prim.calc_bounds(primFace);
-  std::vector<ml::point_d> base;
+  vector<ml::point_d> base;
   base.push_back(ml::point_d(pt.x - bounds.width() / 2, pt.y));
   base.push_back(ml::point_d(pt.x + bounds.width() / 2, pt.y));
 
@@ -495,7 +459,7 @@ void SoftwareRenderer::CalculateTextMetric(m2::PointD const & pt, graphics::EPos
   l.apply_font(face);
 
   ml::rect_d bounds = l.calc_bounds(face);
-  std::vector<ml::point_d> base;
+  vector<ml::point_d> base;
   base.push_back(ml::point_d(pt.x - bounds.width() / 2, pt.y));
   base.push_back(ml::point_d(pt.x + bounds.width() / 2, pt.y));
 
@@ -517,7 +481,7 @@ void SoftwareRenderer::CalculateTextMetric(m2::PointD const & pt, graphics::EPos
   prim.apply_font(primFace);
 
   ml::rect_d bounds = prim.calc_bounds(primFace);
-  std::vector<ml::point_d> base;
+  vector<ml::point_d> base;
   base.push_back(ml::point_d(pt.x - bounds.width() / 2, pt.y));
   base.push_back(ml::point_d(pt.x + bounds.width() / 2, pt.y));
 
@@ -552,7 +516,7 @@ void SoftwareRenderer::CalculateTextMetric(di::PathInfo const & geometry, graphi
   ml::face & face = m_textEngine.get_face(0, "default", font.m_size);
   l.apply_font(face);
 
-  std::vector<ml::point_d> base(geometry.m_path.size());
+  vector<ml::point_d> base(geometry.m_path.size());
   size_t i = 0;
   for (auto const & p : geometry.m_path)
   {
@@ -573,13 +537,11 @@ void SoftwareRenderer::CalculateTextMetric(di::PathInfo const & geometry, graphi
 void SoftwareRenderer::DrawPathText(di::PathInfo const & geometry, graphics::FontDesc const & font,
                                     strings::UniString const & text)
 {
-  //@TODO (yershov) implement it
   ml::text l(text);
   ml::face & face = m_textEngine.get_face(0, "default", font.m_size);
   l.apply_font(face);
 
-  std::cout << "Label path: " << geometry.m_path.size() << std::endl;
-  std::vector<ml::point_d> base(geometry.m_path.size());
+  vector<ml::point_d> base(geometry.m_path.size());
   size_t i = 0;
   for (auto const & p : geometry.m_path)
   {
@@ -622,28 +584,28 @@ m2::RectD SoftwareRenderer::FrameRect() const
 
 ////////////////////////////////////////////////////////////////////////////////
 
-template<class VertexSource> class conv_count
+template <class VertexSource> class conv_count
 {
 public:
-    conv_count(VertexSource & vs)
-      : m_source(&vs)
-      , m_count(0)
-    {
-    }
+  conv_count(VertexSource & vs)
+    : m_source(&vs)
+    , m_count(0)
+  {
+  }
 
-    void count(unsigned n) { m_count = n; }
-    unsigned count() const { return m_count; }
+  void count(unsigned n) { m_count = n; }
+  unsigned count() const { return m_count; }
 
-    void rewind(unsigned path_id) { m_source->rewind(path_id); }
-    unsigned vertex(double* x, double* y)
-    {
-        ++m_count;
-        return m_source->vertex(x, y);
-    }
+  void rewind(unsigned path_id) { m_source->rewind(path_id); }
+  unsigned vertex(double* x, double* y)
+  {
+    ++m_count;
+    return m_source->vertex(x, y);
+  }
 
 private:
-    VertexSource * m_source;
-    unsigned m_count;
+  VertexSource * m_source;
+  unsigned m_count;
 };
 
 void PathWrapper::MoveTo(m2::PointD const & pt)

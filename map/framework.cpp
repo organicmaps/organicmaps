@@ -225,8 +225,7 @@ Framework::Framework()
     m_bmManager(*this),
     m_balloonManager(*this),
     m_fixedSearchResults(0),
-    m_locationChangedSlotID(-1),
-    m_isWatchModeEnabled(false)
+    m_locationChangedSlotID(-1)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
@@ -783,7 +782,7 @@ void Framework::OnSize(int w, int h)
     // if gui controller not initialized, than we work in mode "Without gui"
     // and no need to set gui layout. We will not render it.
     if (m_guiController->GetCacheScreen())
-    m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
+      m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
     m_renderPolicy->OnSize(w, h);
   }
 #else
@@ -892,8 +891,6 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   pScreen->beginFrame();
 
   int const drawScale = GetDrawScale();
-  if (!m_isWatchModeEnabled)
-  {
   bool const isEmptyModel = m_renderPolicy->IsEmptyModel();
 
   if (isEmptyModel)
@@ -908,11 +905,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
   m_informationDisplay.enableRuler(drawScale > 4 && !m_informationDisplay.isCopyrightActive());
-  }
-  else
-  {
-    m_informationDisplay.enableCopyright(false);
-  }
+
   m_informationDisplay.setDebugInfo(0, drawScale);
   pScreen->endFrame();
 
@@ -2365,14 +2358,4 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
 void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const
 {
   m_routingSession.GetRouteFollowingInfo(info);
-}
-
-bool Framework::IsWatchModeEnabled() const
-{
-  return m_isWatchModeEnabled;
-}
-
-void Framework::SetWatchModeEnabled(bool enabled)
-{
-  m_isWatchModeEnabled = enabled;
 }

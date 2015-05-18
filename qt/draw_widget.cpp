@@ -465,66 +465,33 @@ namespace qt
     }
     else if (e->button() == Qt::RightButton)
     {
-      if (e->modifiers() & Qt::ShiftModifier)
-      {
-        if (!m_framework->IsSingleFrameRendererInited())
-          m_framework->InitSingleFrameRenderer(graphics::EDensityXHDPI);
-        // Watch emulation on desktop
-        m2::PointD pt = GetDevicePoint(e);
-        Framework::SingleFrameSymbols symbols;
-        symbols.m_searchResult = m_framework->PtoG(pt) + m2::PointD(0.05, 0.03);
-        symbols.m_showSearchResult = true;
-        symbols.m_bottomZoom = 11;
+      // show feature types
+      QMenu menu;
 
-        {
-          FrameImage img;
-          m_framework->DrawSingleFrame(m_framework->PtoG(pt), 0, 320, 320, img, symbols);
-          FileWriter writer(GetPlatform().WritablePathForFile("cpu-rendered-image.png"));
-          writer.Write(img.m_data.data(), img.m_data.size());
-        }
-        {
-          FrameImage img;
-          m_framework->DrawSingleFrame(m_framework->PtoG(pt), -2, 320, 320, img, symbols);
-          FileWriter writer(GetPlatform().WritablePathForFile("cpu-rendered-image-1.png"));
-          writer.Write(img.m_data.data(), img.m_data.size());
-        }
-        {
-          FrameImage img;
-          m_framework->DrawSingleFrame(m_framework->PtoG(pt), 2, 320, 320, img, symbols);
-          FileWriter writer(GetPlatform().WritablePathForFile("cpu-rendered-image+1.png"));
-          writer.Write(img.m_data.data(), img.m_data.size());
-        }
-      }
+      // Get POI under cursor or nearest address by point.
+      m2::PointD dummy;
+      search::AddressInfo info;
+      feature::FeatureMetadata metadata;
+      if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
+        add_string(menu, "POI");
       else
-      {
-        // show feature types
-        QMenu menu;
+        m_framework->GetAddressInfoForPixelPoint(pt, info);
 
-        // Get POI under cursor or nearest address by point.
-        m2::PointD dummy;
-        search::AddressInfo info;
-        feature::FeatureMetadata metadata;
-        if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
-          add_string(menu, "POI");
-        else
-          m_framework->GetAddressInfoForPixelPoint(pt, info);
+      // Get feature types under cursor.
+      vector<string> types;
+      m_framework->GetFeatureTypes(pt, types);
+      for (size_t i = 0; i < types.size(); ++i)
+        add_string(menu, types[i]);
 
-        // Get feature types under cursor.
-        vector<string> types;
-        m_framework->GetFeatureTypes(pt, types);
-        for (size_t i = 0; i < types.size(); ++i)
-          add_string(menu, types[i]);
+      (void)menu.addSeparator();
 
-        (void)menu.addSeparator();
+      // Format address and types.
+      if (!info.m_name.empty())
+        add_string(menu, info.m_name);
+      add_string(menu, info.FormatAddress());
+      add_string(menu, info.FormatTypes());
 
-        // Format address and types.
-        if (!info.m_name.empty())
-          add_string(menu, info.m_name);
-        add_string(menu, info.FormatAddress());
-        add_string(menu, info.FormatTypes());
-
-        menu.exec(e->pos());
-      }
+      menu.exec(e->pos());
     }
   }
 

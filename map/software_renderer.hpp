@@ -15,18 +15,20 @@
 
 #include "base/string_utils.hpp"
 
-#include <3party/agg/agg_rendering_buffer.h>
-#include <3party/agg/agg_pixfmt_rgba.h>
-#include <3party/agg/agg_renderer_scanline.h>
-#include <3party/agg/agg_renderer_primitives.h>
-#include <3party/agg/agg_path_storage.h>
+#include "3party/agg/agg_rendering_buffer.h"
+#include "3party/agg/agg_pixfmt_rgba.h"
+#include "3party/agg/agg_renderer_scanline.h"
+#include "3party/agg/agg_renderer_primitives.h"
+#include "3party/agg/agg_path_storage.h"
 
 #include "std/stdint.hpp"
 #include "std/unique_ptr.hpp"
 
 #include "temp_text/text_engine.h"
 
+
 class PathWrapper;
+
 class SoftwareRenderer
 {
 public:

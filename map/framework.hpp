@@ -564,14 +564,4 @@ private:
 
   TRouteBuildingCallback m_routingCallback;
   //@}
-
-public:
-  /// @name Watch mode
-  //@{
-  bool IsWatchModeEnabled() const;
-  void SetWatchModeEnabled(bool enabled);
-
-private:
-  bool m_isWatchModeEnabled;
-  //@}
 };

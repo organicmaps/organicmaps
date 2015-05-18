@@ -78,7 +78,6 @@ public:
   virtual void operator()(ml::point_d const & pt, size_t width, size_t height,
                           unsigned char const * data)
   {
-    std::cout << "ml::text_renderer()\n";
   }
   bool outline() const { return m_outline; }
   void outline(bool f) { m_outline = f; }

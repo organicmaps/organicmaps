@@ -32,7 +32,6 @@ namespace graphics
   GeometryBatcher::Params::Params()
     : m_storageType(ELargeStorage)
     , m_textureType(ELargeTexture)
-    , m_pipelineCount(2)
   {
     CheckPointLayout<float>();
     CheckPointLayout<double>();
@@ -52,7 +51,7 @@ namespace graphics
                                          EMediumStorage,
                                          gl::Vertex::getVertexDecl());
 
-    m_dynamicPagesCount = p.m_pipelineCount;
+    m_dynamicPagesCount = 2;
     m_startDynamicPage = reservePipelines(m_dynamicPagesCount,
                                           p.m_textureType,
                                           p.m_storageType,

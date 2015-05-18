@@ -259,8 +259,7 @@ void RenderPolicy::InitWindowsHandle(VideoTimer * timer, shared_ptr<graphics::Re
 GPUDrawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
                                        shared_ptr<graphics::RenderContext> context,
                                        graphics::EStorageType storageType,
-                                       graphics::ETextureType textureType,
-                                       uint32_t pipelineCount)
+                                       graphics::ETextureType textureType)
 {
   GPUDrawer::Params dp;
 
@@ -270,7 +269,6 @@ GPUDrawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
   dp.m_screenParams.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_screenParams.m_storageType = storageType;
   dp.m_screenParams.m_textureType = textureType;
-  dp.m_screenParams.m_pipelineCount = pipelineCount;
   dp.m_screenParams.m_renderContext = context;
 
   return new GPUDrawer(dp);

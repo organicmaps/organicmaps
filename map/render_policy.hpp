@@ -170,8 +170,7 @@ protected:
   GPUDrawer * CreateDrawer(bool isDefaultFB,
                            shared_ptr<graphics::RenderContext> context,
                            graphics::EStorageType storageType,
-                           graphics::ETextureType textureType,
-                           uint32_t pipelineCount = 2);
+                           graphics::ETextureType textureType);
 
   size_t GetLargeTextureSize(bool useNpot);
   size_t GetMediumTextureSize(bool useNpot);
