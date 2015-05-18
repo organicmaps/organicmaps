@@ -34,24 +34,15 @@ public:
   void OnTouchUp(m2::PointD const & pt);
   void OnTouchCancel(m2::PointD const & pt);
 
-  using TCompassTapedFn = function<void ()>;
-  int ConnectOnCompassTap(TCompassTapedFn const & fn);
-  void DisconnectOnCompassTap(int slotID);
-
 private:
   void DestroyRenderers();
 
   friend class LayerCacher;
   void AddShapeRenderer(Skin::ElementName name, drape_ptr<ShapeRenderer> && shape);
 
-  void OnCompassTap();
-
 private:
   typedef map<Skin::ElementName, drape_ptr<ShapeRenderer> > TRenderers;
   TRenderers m_renderers;
-
-  using TCompassSlotMap = map<int, TCompassTapedFn>;
-  TCompassSlotMap m_compasSlot;
 
   ref_ptr<gui::Handle> m_activeOverlay;
 };
