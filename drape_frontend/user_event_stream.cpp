@@ -1,3 +1,4 @@
+#include "drape_frontend/animation/modelview_complex_animation.hpp"
 #include "drape_frontend/animation/modelview_angle_animation.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -93,7 +94,13 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       ProcessTouch(e.m_touchEvent);
       break;
     case UserEvent::EVENT_ROTATE:
-      m_animation.reset(new ModelViewAngleAnimation(m_navigator.Screen().GetAngle(), e.m_rotate.m_targetAzimut));
+      {
+        m2::AnyRectD rect = m_navigator.Screen().GlobalRect();
+        m2::AnyRectD dstRect = rect;
+        dstRect.SetAngle(e.m_rotate.m_targetAzimut);
+        double duration = ModelViewAngleAnimation::GetStandardDuration(rect.Angle().val(), dstRect.Angle().val());
+        m_animation.reset(new ModelViewComplexAnimation(rect, dstRect, duration));
+      }
       break;
     default:
       ASSERT(false, ());

@@ -12,6 +12,7 @@ SOURCES += \
     animation/base_interpolator.cpp \
     animation/modelview_angle_animation.cpp \
     animation/modelview_center_animation.cpp \
+    animation/modelview_complex_animation.cpp \
     animation/interpolation_holder.cpp \
     animation/interpolations.cpp \
     apply_feature_functors.cpp \
@@ -56,6 +57,7 @@ HEADERS += \
     animation/base_modelview_animation.hpp \
     animation/modelview_angle_animation.hpp \
     animation/modelview_center_animation.hpp \
+    animation/modelview_complex_animation.hpp \
     animation/interpolation_holder.hpp \
     animation/interpolations.hpp \
     animation/base_interpolator.hpp \
