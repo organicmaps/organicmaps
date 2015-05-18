@@ -128,6 +128,8 @@ private:
   void OnActivateTile(TileKey const & tileKey);
   void OnRemoveTile(TileKey const & tileKey);
 
+  void OnCompassTapped();
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 

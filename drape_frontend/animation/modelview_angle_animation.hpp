@@ -9,8 +9,11 @@ namespace df
 class ModelViewAngleAnimation : public BaseModeViewAnimation
 {
 public:
+  ModelViewAngleAnimation(double startAngle, double endAngle);
   ModelViewAngleAnimation(double startAngle, double endAngle, double duration);
   void Apply(Navigator & navigator) override;
+
+  static double GetStandardDuration(double startAngle, double endAngle);
 
 private:
   InerpolateAngle m_angle;

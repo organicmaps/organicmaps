@@ -1,3 +1,4 @@
+#include "drape_frontend/animation/modelview_angle_animation.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -90,6 +91,9 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
       break;
     case UserEvent::EVENT_TOUCH:
       ProcessTouch(e.m_touchEvent);
+      break;
+    case UserEvent::EVENT_ROTATE:
+      m_animation.reset(new ModelViewAngleAnimation(m_navigator.Screen().GetAngle(), e.m_rotate.m_targetAzimut));
       break;
     default:
       ASSERT(false, ());

@@ -14,11 +14,13 @@ namespace
     Tester() = default;
   };
 
+#if defined(TRACK_POINTERS)
   bool g_assertRaised = false;
-  void OnAssertRaised(my::SrcPoint const & srcPoint, string const & msg)
+  void OnAssertRaised(my::SrcPoint const & /*srcPoint*/, string const & /*msg*/)
   {
     g_assertRaised = true;
   }
+#endif
 }
 
 UNIT_TEST(PointersTrackingTest)

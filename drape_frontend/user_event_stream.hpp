@@ -88,6 +88,13 @@ struct SetAnyRectEvent
   m2::AnyRectD m_rect;  // destination mercator rect
 };
 
+struct RotateEvent
+{
+  RotateEvent(double targetAzimut) : m_targetAzimut(targetAzimut) {}
+
+  double m_targetAzimut;
+};
+
 struct ResizeEvent
 {
   ResizeEvent(uint32_t w, uint32_t h) : m_width(w), m_height(h) {}
@@ -105,7 +112,8 @@ struct UserEvent
     EVENT_SET_CENTER,
     EVENT_SET_RECT,
     EVENT_SET_ANY_RECT,
-    EVENT_RESIZE
+    EVENT_RESIZE,
+    EVENT_ROTATE
   };
 
   UserEvent(TouchEvent const & e) : m_type(EVENT_TOUCH) { m_touchEvent = e; }
@@ -114,6 +122,7 @@ struct UserEvent
   UserEvent(SetRectEvent const & e) : m_type(EVENT_SET_RECT) { m_rectEvent = e; }
   UserEvent(SetAnyRectEvent const & e) : m_type(EVENT_SET_ANY_RECT) { m_anyRect = e; }
   UserEvent(ResizeEvent const & e) : m_type(EVENT_RESIZE) { m_resize = e; }
+  UserEvent(RotateEvent const & e) : m_type(EVENT_ROTATE) { m_rotate = e; }
 
   EEventType m_type;
   union
@@ -124,6 +133,7 @@ struct UserEvent
     SetRectEvent m_rectEvent;
     SetAnyRectEvent m_anyRect;
     ResizeEvent m_resize;
+    RotateEvent m_rotate;
   };
 };
 

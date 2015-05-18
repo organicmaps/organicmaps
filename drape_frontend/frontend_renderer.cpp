@@ -4,6 +4,8 @@
 #include "drape_frontend/visual_params.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape_gui/drape_gui.hpp"
+
 #include "drape/utils/glyph_usage_tracker.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/projection.hpp"
@@ -257,6 +259,11 @@ void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
                                m_deferredRenderGroups.end());
 }
 
+void FrontendRenderer::OnCompassTapped()
+{
+  m_userEventStream.AddEvent(RotateEvent(0.0));
+}
+
 void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 {
 #ifdef DRAW_INFO
@@ -446,6 +453,8 @@ FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(ren
 
 void FrontendRenderer::Routine::Do()
 {
+  gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
+
   m_renderer.m_tileTree->SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, &m_renderer, _1, _2, _3),
                                      bind(&FrontendRenderer::OnDeferRenderGroup, &m_renderer, _1, _2, _3),
                                      bind(&FrontendRenderer::OnActivateTile, &m_renderer, _1),
