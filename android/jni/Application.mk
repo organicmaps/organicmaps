@@ -1,4 +1,4 @@
-NDK_TOOLCHAIN_VERSION := clang3.5
+NDK_TOOLCHAIN_VERSION := clang3.6
 APP_PLATFORM := android-9
 APP_STL := c++_static
 
