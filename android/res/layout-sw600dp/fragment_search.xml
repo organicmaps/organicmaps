@@ -11,7 +11,7 @@
       android:layout_height="?attr/actionBarSize"/>
 
   <FrameLayout
-      style="@style/MwmWidget.Shadow.Light"
+      style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 

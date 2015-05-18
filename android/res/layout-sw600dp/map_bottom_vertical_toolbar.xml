@@ -7,12 +7,10 @@
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:layout_gravity="center_vertical"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MwmWidget.Toolbar"/>
+      android:theme="@style/MwmWidget.Toolbar"/>
 
   <LinearLayout
       style="@style/MwmWidget.Shadow.Light"

@@ -22,8 +22,6 @@ public class ChooseBookmarkCategoryActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(arg0);
 
-    getSupportActionBar().hide();
-
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     Fragment fragment = Fragment.instantiate(this, ChooseBookmarkCategoryFragment.class.getName(), getIntent().getExtras());
     transaction.replace(android.R.id.content, fragment, "fragment");

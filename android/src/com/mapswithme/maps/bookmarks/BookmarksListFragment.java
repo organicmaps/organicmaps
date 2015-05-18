@@ -2,10 +2,10 @@ package com.mapswithme.maps.bookmarks;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -41,6 +41,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   private int mSelectedPosition;
   private BookmarkListAdapter mPinAdapter;
   private int mIndex;
+  private ActionBar mActionBar;
 
   // Menu routines
   static final int ID_SEND_BY_EMAIL = 0x01;
@@ -61,6 +62,8 @@ public class BookmarksListFragment extends BaseMwmListFragment
     createListAdapter();
     registerForContextMenu(getListView());
     setHasOptionsMenu(true);
+    if (getActivity() instanceof AppCompatActivity)
+      mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
   }
 
   @Override
@@ -120,10 +123,10 @@ public class BookmarksListFragment extends BaseMwmListFragment
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count)
       {
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(s.toString());
-
         // Note! Do not set actual name here - saving process may be too long
         // see assignCategoryParams() instead.
+        if (mActionBar != null)
+          mActionBar.setTitle(s);
       }
 
       @Override
@@ -265,14 +268,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    final MenuItem menuItem = menu.add(Menu.NONE,
-        ID_SEND_BY_EMAIL,
-        ID_SEND_BY_EMAIL,
-        R.string.share_by_email);
-
-    menuItem.setIcon(R.drawable.ic_share_bookmark);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-      menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//
   }
 
   @Override

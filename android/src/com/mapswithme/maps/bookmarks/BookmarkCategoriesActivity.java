@@ -3,9 +3,11 @@ package com.mapswithme.maps.bookmarks;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.util.UiUtils;
 
 public class BookmarkCategoriesActivity extends BaseMwmFragmentActivity
 {
@@ -14,11 +16,16 @@ public class BookmarkCategoriesActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    setTitle(getString(R.string.bookmarks));
+    setContentView(R.layout.activity_fragment_and_toolbar);
+    final Toolbar toolbar = getToolbar();
+    toolbar.setTitle(R.string.bookmarks);
+    toolbar.inflateMenu(R.menu.bookmark_categories_context_menu);
+    UiUtils.showHomeUpButton(toolbar);
+    displayToolbarAsActionBar();
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     Fragment fragment = Fragment.instantiate(this, BookmarkCategoriesFragment.class.getName(), getIntent().getExtras());
-    transaction.replace(android.R.id.content, fragment, "fragment");
+    transaction.replace(R.id.fragment_container, fragment, "fragment");
     transaction.commit();
   }
 }

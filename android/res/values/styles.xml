@@ -1,39 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="MwmTheme" parent="Theme.AppCompat.Light">
+  <style name="MwmTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/base_green</item>
-    <!-- 'theme' attribute for actionbar -->
-    <item name="theme">@style/MwmWidget.Toolbar</item>
-    <item name="android:displayOptions">homeAsUp|showHome|showTitle</item>
-    <item name="displayOptions">homeAsUp|showHome|showTitle</item>
-    <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
-    <item name="homeAsUpIndicator">@drawable/ic_back</item>
+    <item name="clickableBackground">?attr/selectableItemBackground</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-  </style>
-
-  <style name="MwmTheme.Main">
-    <item name="clickableBackground">@drawable/default_selector</item>
-  </style>
-
-  <style name="MwmTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="clickableBackground">@drawable/default_selector</item>
-    <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
-    <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-  </style>
-
-  <style name="MwmTheme.Main.Search">
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowContentOverlay">@null</item>
-    <item name="android:windowBackground">@color/semitransparent_black</item>
+    <item name="android:windowBackground">@android:color/white</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:windowIsTranslucent">true</item>
-    <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
   </style>
 
-  <style name="MwmTheme.Main.Light">
+  <style name="MwmTheme.Search">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+  </style>
+
+  <style name="MwmTheme.Light">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFrame">@null</item>
     <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title</item>
@@ -76,7 +61,7 @@
   </style>
 
   <style name="MwmWidget.DividerMediumPadded">
-    <item name="android:layout_height">1px</item> ho
+    <item name="android:layout_height">1px</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_marginRight">0dp</item>
     <item name="android:layout_marginLeft">0dp</item>
@@ -84,11 +69,10 @@
   </style>
 
   <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="android:background">@color/base_green</item>
-    <item name="android:displayOptions">homeAsUp|showHome|showTitle</item>
-    <item name="displayOptions">homeAsUp|showHome|showTitle</item>
-    <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
-    <item name="homeAsUpIndicator">@drawable/ic_back</item>
+    <item name="android:background">?colorPrimary</item>
+    <item name="android:elevation">4dp</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:displayOptions">homeAsUp|showTitle</item>
   </style>
 
   <style name="MwmWidget.ListView" parent="android:Widget.ListView">
@@ -110,6 +94,12 @@
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
     <item name="android:textSize">@dimen/place_page_title_big</item>
+  </style>
+
+  <style name="MwmWidget.FrameLayout"/>
+
+  <style name="MwmWidget.FrameLayout.Elevation">
+    <item name="android:foreground">@drawable/bottom_shadow</item>
   </style>
 
   <style name="MwmWidget.Shadow">

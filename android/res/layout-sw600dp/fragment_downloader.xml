@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@android:color/transparent"
@@ -11,8 +10,7 @@
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:gravity="center_vertical"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/MwmWidget.Toolbar">
+      android:theme="@style/MwmWidget.Toolbar">
 
     <TextView
         android:id="@+id/tv__update_all"
@@ -29,7 +27,7 @@
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout
-      style="@style/MwmWidget.Shadow.Light"
+      style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 

@@ -13,8 +13,19 @@
   <color name="text_green_hint">#421F9952</color>
 
   <!-- base colors -->
-  <color name="base_green">#1F9952</color>
-
+  <!-- green tints -->
+  <color name="base_green">#209952</color>
+  <color name="base_green_darker">#188044</color>
+  <color name="base_green_darkest">#146636</color>
+  <color name="base_green_light">#24B460</color>
+  <color name="base_green_lightest">#28CC6C</color>
+  <!-- black tints -->
+  <color name="base_black">#DE000000</color>
+  <color name="base_black_divider">#8A000000</color>
+  <!-- other colors -->
+  <color name="base_blue">#000000</color>
+  <color name="base_red">#000000</color>
+  <color name="base_yellow">#000000</color>
 
   <!-- TODO change all colors below, remove old ones-->
   <color name="semitransparent_white">#99FFFFFF</color>

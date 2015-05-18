@@ -16,4 +16,6 @@
     <item name="android:background">@android:color/transparent</item>
   </style>
 
+  <style name="MwmWidget.FrameLayout.Elevation"/>
+
 </resources>

@@ -160,7 +160,7 @@
             android:label="@string/search_map"
             android:noHistory="true"
             android:screenOrientation="behind"
-            android:theme="@style/MwmTheme.Main.Search"
+            android:theme="@style/MwmTheme.Search"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity

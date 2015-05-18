@@ -14,7 +14,7 @@
         android:id="@+id/tv__update_all"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical|right"
+        android:layout_gravity="right"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/margin_small"
         android:text="@string/downloader_update_all"
@@ -23,8 +23,16 @@
         android:textSize="18sp"/>
   </android.support.v7.widget.Toolbar>
 
-  <ListView
-      android:id="@android:id/list"
+  <FrameLayout
+      style="@style/MwmWidget.FrameLayout.Elevation"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_height="match_parent">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+  </FrameLayout>
+
 </LinearLayout>

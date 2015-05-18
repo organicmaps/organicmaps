@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
-
 public class SearchActivity extends BaseMwmFragmentActivity
 {
   public static final String EXTRA_QUERY = "search_query";
@@ -17,8 +16,6 @@ public class SearchActivity extends BaseMwmFragmentActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
-    getSupportActionBar().hide();
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     Fragment fragment = Fragment.instantiate(this, SearchFragment.class.getName(), getIntent().getExtras());
@@ -39,5 +36,4 @@ public class SearchActivity extends BaseMwmFragmentActivity
     i.putExtra(EXTRA_QUERY, query);
     context.startActivity(i);
   }
-
 }

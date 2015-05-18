@@ -14,7 +14,7 @@ public class StoragePathActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    setTitle(getString(R.string.maps_storage));
+    getToolbar().setTitle(R.string.maps_storage);
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     Fragment fragment = Fragment.instantiate(this, StoragePathFragment.class.getName(), getIntent().getExtras());

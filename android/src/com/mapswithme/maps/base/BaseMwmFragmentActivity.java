@@ -2,12 +2,13 @@ package com.mapswithme.maps.base;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -25,9 +26,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
     super.onCreate(arg0);
 
     MWMApplication.get().initStats();
-    final ActionBar bar = getSupportActionBar();
-    if (bar != null)
-      bar.setDisplayHomeAsUpEnabled(true);
   }
 
   @Override
@@ -71,5 +69,15 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     super.onPause();
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
+  }
+
+  protected Toolbar getToolbar()
+  {
+    return (Toolbar) findViewById(R.id.toolbar);
+  }
+
+  protected void displayToolbarAsActionBar()
+  {
+    setSupportActionBar(getToolbar());
   }
 }

@@ -11,7 +11,8 @@
 
   <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="displayOptions">showHome|homeAsUp|showTitle</item>
-    <item name="android:background">@drawable/ic_bg_toolbar</item>
+    <!-- FIXME -->
+    <item name="background">@drawable/ic_bg_toolbar</item>
   </style>
 
 </resources>

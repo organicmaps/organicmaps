@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/set_delete" android:title="@string/delete"></item>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:id="@+id/set_delete"
+      android:title="@string/delete"/>
 </menu>
