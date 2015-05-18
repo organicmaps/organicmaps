@@ -837,30 +837,33 @@ T const * CastMark(UserMark const * data)
  *             \/
  */
 
+namespace
+{
+pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::FeatureMetadata const & metadata)
+{
+  const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
+  // FIXME arrays, allocated through New<Type>Array should be deleted manually in the method.
+  // refactor that to delete refs locally or pass arrays from outside context
+  const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
+  jint * arr = env->GetIntArrayElements(j_metaTypes, 0);
+  const jobjectArray j_metaValues = env->NewObjectArray(metadata.Size(), jni::GetStringClass(env), 0);
+
+  for (size_t i = 0; i < metaTypes.size(); i++)
+  {
+    arr[i] = metaTypes[i];
+    feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
+    jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
+    env->SetObjectArrayElement(j_metaValues, i, metaString);
+    env->DeleteLocalRef(metaString);
+  }
+  env->ReleaseIntArrayElements(j_metaTypes, arr, 0);
+
+  return make_pair(j_metaTypes, j_metaValues);
+}
+} // namespace
+
 extern "C"
 {
-  pair<jintArray, jobjectArray> NativeMetadataToJavaMetadata(JNIEnv * env, feature::FeatureMetadata const & metadata)
-  {
-    const vector<feature::FeatureMetadata::EMetadataType> metaTypes = metadata.GetPresentTypes();
-    // FIXME arrays, allocated through New<Type>Array should be deleted manually in the method.
-    // refactor that to delete refs locally or pass arrays from outside context
-    const jintArray j_metaTypes = env->NewIntArray(metadata.Size());
-    jint * arr = env->GetIntArrayElements(j_metaTypes, 0);
-    const jobjectArray j_metaValues = env->NewObjectArray(metadata.Size(), jni::GetStringClass(env), 0);
-
-    for (size_t i = 0; i < metaTypes.size(); i++)
-    {
-      arr[i] = metaTypes[i];
-      feature::FeatureMetadata::EMetadataType metaType = static_cast<feature::FeatureMetadata::EMetadataType>(metaTypes[i]);
-      jstring metaString = jni::ToJavaString(env, metadata.Get(metaType));
-      env->SetObjectArrayElement(j_metaValues, i, metaString);
-      env->DeleteLocalRef(metaString);
-    }
-    env->ReleaseIntArrayElements(j_metaTypes, arr, 0);
-
-    return make_pair(j_metaTypes, j_metaValues);
-  }
-
   // API
   void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, ApiMarkPoint const * data, double lat, double lon)
   {
