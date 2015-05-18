@@ -150,6 +150,7 @@ enum class HighwayClass
   Service,
   Count  // This value is used for internals only.
 };
+
 string DebugPrint(HighwayClass const cls);
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);

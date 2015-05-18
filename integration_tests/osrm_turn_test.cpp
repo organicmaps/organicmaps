@@ -124,7 +124,7 @@ UNIT_TEST(RussiaMoscowTTKKashirskoeShosseOutTurnTest)
 
   TEST_EQUAL(result, OsrmRouter::NoError, ());
   integration::TestTurnCount(route, 1);
-  // Checking a turn in case going from not a link to a link
+  // Checking a turn in case going from a not-link to a link
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
       {TurnDirection::TurnSlightRight, TurnDirection::TurnRight});
 }
@@ -207,8 +207,7 @@ UNIT_TEST(BelarusMiskProspNezavisimostiMKADTurnTest)
 UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetAllMaps(), {37.405555547431582, 67.606396877452852}, {0., 0.},
-      {37.404889653177761, 67.607659749718096});
+      integration::GetAllMaps(), {37.40555, 67.60640}, {0., 0.}, {37.40489, 67.60766});
   Route const & route = *routeResult.first;
   OsrmRouter::ResultCode const result = routeResult.second;
 
@@ -217,13 +216,12 @@ UNIT_TEST(RussiaMoscowPetushkovaPetushkovaTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(TurnDirection::TurnLeft);
 }
 
-// Test case: a route goes straightly along a unnamed big link road when joined a small road.
+// Test case: a route goes straight along a unnamed big link road when joined a small road.
 // An end user shall not be informed about such manoeuvres.
 UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetAllMaps(), {37.438582086802406, 67.683581448033891}, {0., 0.},
-      {37.448852064651611, 67.681148387254225});
+      integration::GetAllMaps(), {37.43858, 67.68358}, {0., 0.}, {37.44885, 67.68115});
   Route const & route = *routeResult.first;
   OsrmRouter::ResultCode const result = routeResult.second;
 
@@ -234,8 +232,7 @@ UNIT_TEST(RussiaMoscowMKADLeningradkaTest)
 UNIT_TEST(BelarusMKADShosseinai)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetAllMaps(), {29.431229709918465, 66.684863888688056}, {0., 0.},
-      {29.426264439664614, 66.686867924003238});
+      integration::GetAllMaps(), {29.43123, 66.68486}, {0., 0.}, {29.42626, 66.68687});
   Route const & route = *routeResult.first;
   OsrmRouter::ResultCode const result = routeResult.second;
 
@@ -245,13 +242,12 @@ UNIT_TEST(BelarusMKADShosseinai)
       {TurnDirection::GoStraight, TurnDirection::TurnSlightRight});
 }
 
-// Test case: a route goes straightly along a unnamed big road when joined small road.
+// Test case: a route goes straight along a unnamed big road when joined small road.
 // An end user shall not be informed about such manoeuvres.
 UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
-      integration::GetAllMaps(), {98.369368627299635, 7.9432901571200318}, {0., 0.},
-      {98.367845572071232, 7.9324732487227401});
+      integration::GetAllMaps(), {98.36937, 7.94330}, {0., 0.}, {98.36785, 7.93247});
   Route const & route = *routeResult.first;
   OsrmRouter::ResultCode const result = routeResult.second;
 

@@ -33,6 +33,33 @@ bool FixupLaneSet(TurnDirection turn, vector<SingleLaneInfo> & lanes,
   }
   return isLaneConformed;
 }
+
+// Converts a turn angle (double) into a turn direction (TurnDirection).
+// upperBounds is a table of pairs: an angle and a direction.
+// upperBounds shall be sorted by the first parameter (angle) from small angles to big angles.
+// These angles should be measured in degrees and should belong to the range [0; 360].
+// The second paramer (angle) shall be greater than or equal to zero and is measured in degrees.
+TurnDirection FindDirectionByAngle(vector<pair<double, TurnDirection>> const & upperBounds,
+                                   double angle)
+{
+  ASSERT_GREATER_OR_EQUAL(angle, 0., (angle));
+  ASSERT_LESS_OR_EQUAL(angle, 360., (angle));
+  ASSERT_GREATER(upperBounds.size(), 0, ());
+  ASSERT(is_sorted(upperBounds.cbegin(), upperBounds.cend(),
+             [](pair<double, TurnDirection> const & p1, pair<double, TurnDirection> const & p2)
+         {
+           return p1.first < p2.first;
+         }), ());
+
+  for (auto const & upper : upperBounds)
+  {
+    if (angle <= upper.first)
+      return upper.second;
+  }
+
+  ASSERT(false, ("The angle is not covered by the table. angle = ", angle));
+  return TurnDirection::NoTurn;
+}
 }  // namespace
 
 namespace routing
@@ -182,10 +209,10 @@ void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir)
     // The better solution is to remove all "slight" turns if the route goes form one not-link road
     // to another not-link road and other possible turns are links. But it's not possible to
     // implement it quickly. To do that you need to calculate FeatureType for most possible turns.
-    // But it is already made once in  KeepMultiTurnClassHighwayClass(GetOutgoingHighwayClass).
-    // So it's a good idea to keep FeatureType for outgoing turns in TurnCandidatesT
+    // But it is already made once in  HighwayClassFilter(GetOutgoingHighwayClass).
+    // So it's a good idea to keep FeatureType for outgoing turns in TTurnCandidates
     // (if they have been calculated). For the time being I decided to postpone the implementation
-    // of the feature but it worth implementing it in the future.
+    // of the feature but it is worth implementing it in the future.
     if (!t.m_keepAnyway && IsGoStraightOrSlightTurn(t.m_turn) && !t.m_sourceName.empty() &&
         strings::AlmostEqual(t.m_sourceName, t.m_targetName, 2 /* mismatched symbols count */))
     {
@@ -231,16 +258,16 @@ ftypes::HighwayClass GetOutgoingHighwayClass(NodeID outgoingNode,
   return ftypes::GetHighwayClass(ft);
 }
 
-bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass,
-                                    ftypes::HighwayClass outgoingClass, NodeID outgoingNode,
-                                    TurnDirection turn, TurnCandidatesT const & possibleTurns,
-                                    RoutingMapping const & routingMapping, Index const & index)
+bool HighwayClassFilter(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
+                        NodeID outgoingNode, TurnDirection turn,
+                        TTurnCandidates const & possibleTurns,
+                        RoutingMapping const & routingMapping, Index const & index)
 {
   if (!IsGoStraightOrSlightTurn(turn))
     return true;  // The road significantly changes its direction here. So this turn shall be kept.
 
-  if (possibleTurns.size() ==
-      1 /* There's only one exit from this vertex. NodeID of the exit is outgoingNode */)
+  // There's only one exit from this junction. NodeID of the exit is outgoingNode.
+  if (possibleTurns.size() == 1)
     return true;
 
   ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::None;
@@ -277,24 +304,25 @@ bool KeepMultiTurnClassHighwayClass(ftypes::HighwayClass ingoingClass,
   return true;
 }
 
-bool KeepOnewayOutgoingTurnRoundabout(bool isRound1, bool isRound2)
+bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
 {
-  return !isRound1 && isRound2;
+  return !isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout;
 }
 
-TurnDirection RoundaboutDirection(bool isRound1, bool isRound2, bool hasMultiTurns)
+TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
+                                     bool isJunctionOfSeveralTurns)
 {
-  if (isRound1 && isRound2)
+  if (isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout)
   {
-    if (hasMultiTurns)
+    if (isJunctionOfSeveralTurns)
       return TurnDirection::StayOnRoundAbout;
     return TurnDirection::NoTurn;
   }
 
-  if (!isRound1 && isRound2)
+  if (!isIngoingEdgeRoundabout && isOutgoingEdgeRoundabout)
     return TurnDirection::EnterRoundAbout;
 
-  if (isRound1 && !isRound2)
+  if (isIngoingEdgeRoundabout && !isOutgoingEdgeRoundabout)
     return TurnDirection::LeaveRoundAbout;
 
   ASSERT(false, ());
@@ -324,27 +352,17 @@ TurnDirection InvertDirection(TurnDirection dir)
 
 TurnDirection MostRightDirection(const double angle)
 {
-  double const lowerSharpRightBound = 23.;
-  double const upperSharpRightBound = 67.;
-  double const upperRightBound = 140.;
-  double const upperSlightRight = 195.;
-  double const upperGoStraitBound = 205.;
-  double const upperSlightLeftBound = 240.;
-  double const upperLeftBound = 336.;
+  static vector<pair<double, TurnDirection>> const kUpperBounds = {
+      {23., TurnDirection::NoTurn},
+      {67., TurnDirection::TurnSharpRight},
+      {140., TurnDirection::TurnRight},
+      {195., TurnDirection::TurnSlightRight},
+      {205., TurnDirection::GoStraight},
+      {240., TurnDirection::TurnSlightLeft},
+      {336., TurnDirection::TurnLeft},
+      {360., TurnDirection::NoTurn}};
 
-  if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
-    return TurnDirection::TurnSharpRight;
-  else if (angle >= upperSharpRightBound && angle < upperRightBound)
-    return TurnDirection::TurnRight;
-  else if (angle >= upperRightBound && angle < upperSlightRight)
-    return TurnDirection::TurnSlightRight;
-  else if (angle >= upperSlightRight && angle < upperGoStraitBound)
-    return TurnDirection::GoStraight;
-  else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
-    return TurnDirection::TurnSlightLeft;
-  else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
-    return TurnDirection::TurnLeft;
-  return TurnDirection::NoTurn;
+  return FindDirectionByAngle(kUpperBounds, angle);
 }
 
 TurnDirection MostLeftDirection(const double angle)
@@ -354,30 +372,18 @@ TurnDirection MostLeftDirection(const double angle)
 
 TurnDirection IntermediateDirection(const double angle)
 {
-  double const lowerSharpRightBound = 23.;
-  double const upperSharpRightBound = 67.;
-  double const upperRightBound = 130.;
-  double const upperSlightRight = 170.;
-  double const upperGoStraitBound = 190.;
-  double const upperSlightLeftBound = 230.;
-  double const upperLeftBound = 292.;
-  double const upperSharpLeftBound = 336.;
+  static vector<pair<double, TurnDirection>> const kUpperBounds = {
+      {23., TurnDirection::NoTurn},
+      {67., TurnDirection::TurnSharpRight},
+      {130., TurnDirection::TurnRight},
+      {170., TurnDirection::TurnSlightRight},
+      {190., TurnDirection::GoStraight},
+      {230., TurnDirection::TurnSlightLeft},
+      {292., TurnDirection::TurnLeft},
+      {336., TurnDirection::TurnSharpLeft},
+      {360., TurnDirection::NoTurn}};
 
-  if (angle >= lowerSharpRightBound && angle < upperSharpRightBound)
-    return TurnDirection::TurnSharpRight;
-  else if (angle >= upperSharpRightBound && angle < upperRightBound)
-    return TurnDirection::TurnRight;
-  else if (angle >= upperRightBound && angle < upperSlightRight)
-    return TurnDirection::TurnSlightRight;
-  else if (angle >= upperSlightRight && angle < upperGoStraitBound)
-    return TurnDirection::GoStraight;
-  else if (angle >= upperGoStraitBound && angle < upperSlightLeftBound)
-    return TurnDirection::TurnSlightLeft;
-  else if (angle >= upperSlightLeftBound && angle < upperLeftBound)
-    return TurnDirection::TurnLeft;
-  else if (angle >= upperLeftBound && angle < upperSharpLeftBound)
-    return TurnDirection::TurnSharpLeft;
-  return TurnDirection::NoTurn;
+  return FindDirectionByAngle(kUpperBounds, angle);
 }
 }  // namespace turns
 }  // namespace routing

@@ -109,7 +109,7 @@ struct TurnCandidate
 
   TurnCandidate(double a, NodeID n) : m_angle(a), m_node(n) {}
 };
-typedef vector<TurnCandidate> TurnCandidatesT;
+typedef vector<TurnCandidate> TTurnCandidates;
 
 string const GetTurnString(TurnDirection turn);
 

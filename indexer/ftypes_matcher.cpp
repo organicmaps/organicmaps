@@ -4,6 +4,8 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/classificator.hpp"
 
+#include "std/sstream.hpp"
+#include "std/utility.hpp"
 
 namespace ftypes
 {
@@ -332,7 +334,7 @@ string DebugPrint(HighwayClass const cls)
 HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 {
   Classificator const & c = classif();
-  vector<pair<HighwayClass, uint32_t>> const kHighwayClasses = {
+  static pair<HighwayClass, uint32_t> const kHighwayClasses[] = {
       {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway"})},
       {HighwayClass::Trunk, c.GetTypeByPath({"highway", "motorway_link"})},
       {HighwayClass::Trunk, c.GetTypeByPath({"highway", "trunk"})},

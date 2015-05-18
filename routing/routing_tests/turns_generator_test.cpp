@@ -294,20 +294,25 @@ UNIT_TEST(TestAddingActiveLaneInformation)
   TEST(!turns[1].m_lanes[1].m_isRecommended, ());
 }
 
-UNIT_TEST(TestRoundaboutDirection)
+UNIT_TEST(TestGetRoundaboutDirection)
 {
-  TEST_EQUAL(RoundaboutDirection(true, true, true), TurnDirection::StayOnRoundAbout, ());
-  TEST_EQUAL(RoundaboutDirection(true, true, false), TurnDirection::NoTurn, ());
-  TEST_EQUAL(RoundaboutDirection(false, true, false), TurnDirection::EnterRoundAbout, ());
-  TEST_EQUAL(RoundaboutDirection(true, false, false), TurnDirection::LeaveRoundAbout, ());
+  // The signature of GetRoundaboutDirection function is
+  // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout, bool
+  // isJunctionOfSeveralTurns)
+  TEST_EQUAL(GetRoundaboutDirection(true, true, true), TurnDirection::StayOnRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, true, false), TurnDirection::NoTurn, ());
+  TEST_EQUAL(GetRoundaboutDirection(false, true, false), TurnDirection::EnterRoundAbout, ());
+  TEST_EQUAL(GetRoundaboutDirection(true, false, false), TurnDirection::LeaveRoundAbout, ());
 }
 
-UNIT_TEST(TestKeepOnewayOutgoingTurnRoundabout)
+UNIT_TEST(TestCheckRoundaboutEntrance)
 {
-  TEST(!KeepOnewayOutgoingTurnRoundabout(true, true), ());
-  TEST(!KeepOnewayOutgoingTurnRoundabout(false, false), ());
-  TEST(!KeepOnewayOutgoingTurnRoundabout(true, false), ());
-  TEST(KeepOnewayOutgoingTurnRoundabout(false, true), ());
+  // The signature of GetRoundaboutDirection function is
+  // CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout)
+  TEST(!CheckRoundaboutEntrance(true, true), ());
+  TEST(!CheckRoundaboutEntrance(false, false), ());
+  TEST(!CheckRoundaboutEntrance(true, false), ());
+  TEST(CheckRoundaboutEntrance(false, true), ());
 }
 
 UNIT_TEST(TestInvertDirection)
@@ -324,24 +329,36 @@ UNIT_TEST(TestInvertDirection)
 UNIT_TEST(TestMostRightDirection)
 {
   TEST_EQUAL(MostRightDirection(0.), TurnDirection::NoTurn, ());
+  TEST_EQUAL(MostRightDirection(10.), TurnDirection::NoTurn, ());
   TEST_EQUAL(MostRightDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(MostRightDirection(135.), TurnDirection::TurnRight, ());
   TEST_EQUAL(MostRightDirection(180.), TurnDirection::TurnSlightRight, ());
+  TEST_EQUAL(MostRightDirection(200.), TurnDirection::GoStraight, ());
   TEST_EQUAL(MostRightDirection(270.), TurnDirection::TurnLeft, ());
+  TEST_EQUAL(MostRightDirection(350.), TurnDirection::NoTurn, ());
 }
 
 UNIT_TEST(TestMostLeftDirection)
 {
   TEST_EQUAL(MostLeftDirection(0.), TurnDirection::NoTurn, ());
+  TEST_EQUAL(MostLeftDirection(10.), TurnDirection::NoTurn, ());
   TEST_EQUAL(MostLeftDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(MostLeftDirection(135.), TurnDirection::TurnSlightRight, ());
   TEST_EQUAL(MostLeftDirection(180.), TurnDirection::TurnSlightLeft, ());
+  TEST_EQUAL(MostLeftDirection(200.), TurnDirection::TurnSlightLeft, ());
   TEST_EQUAL(MostLeftDirection(270.), TurnDirection::TurnLeft, ());
+  TEST_EQUAL(MostLeftDirection(350.), TurnDirection::NoTurn, ());
 }
 
 UNIT_TEST(TestIntermediateDirection)
 {
   TEST_EQUAL(IntermediateDirection(0.), TurnDirection::NoTurn, ());
+  TEST_EQUAL(IntermediateDirection(10.), TurnDirection::NoTurn, ());
   TEST_EQUAL(IntermediateDirection(90.), TurnDirection::TurnRight, ());
+  TEST_EQUAL(IntermediateDirection(135.), TurnDirection::TurnSlightRight, ());
   TEST_EQUAL(IntermediateDirection(180.), TurnDirection::GoStraight, ());
+  TEST_EQUAL(IntermediateDirection(200.), TurnDirection::TurnSlightLeft, ());
   TEST_EQUAL(IntermediateDirection(270.), TurnDirection::TurnLeft, ());
+  TEST_EQUAL(IntermediateDirection(350.), TurnDirection::NoTurn, ());
 }
 }  // namespace
