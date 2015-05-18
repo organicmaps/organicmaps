@@ -105,6 +105,12 @@ void CountryStatusHelper::SetCountryIndex(storage::TIndex const & index)
   SetState(state);
 }
 
+storage::TIndex CountryStatusHelper::GetCountryIndex() const
+{
+  ASSERT(m_accessor != nullptr, ());
+  return m_accessor->GetCountryIndex();
+}
+
 void CountryStatusHelper::SetState(ECountryState state)
 {
   m_state = state;

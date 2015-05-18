@@ -14,6 +14,23 @@
 namespace df
 {
 
+namespace
+{
+
+void ConnectDownloadFn(gui::CountryStatusHelper::EButtonType buttonType, MapDataProvider::TDownloadFn downloadFn)
+{
+  gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
+  guiSubsystem.ConnectOnButtonPressedHandler(buttonType, [downloadFn, &guiSubsystem]()
+  {
+    storage::TIndex countryIndex = guiSubsystem.GetCountryStatusHelper().GetCountryIndex();
+    ASSERT(countryIndex != storage::TIndex::INVALID, ());
+    if (downloadFn != nullptr)
+      downloadFn(countryIndex);
+  });
+}
+
+}
+
 DrapeEngine::DrapeEngine(Params const & params)
   : m_viewport(params.m_viewport)
 {
@@ -32,6 +49,10 @@ DrapeEngine::DrapeEngine(Params const & params)
   guiSubsystem.Init(scaleFn, gnLvlFn);
   guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
   guiSubsystem.SetStorageAccessor(params.m_storageAccessor);
+
+  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP, params.m_model.GetDownloadMapHandler());
+  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING, params.m_model.GetDownloadMapRoutingHandler());
+  ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TRY_AGAIN, params.m_model.GetDownloadRetryHandler());
 
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();

@@ -52,6 +52,7 @@ public:
 
   void SetStorageAccessor(ref_ptr<StorageAccessor> accessor);
   void SetCountryIndex(storage::TIndex const & index);
+  storage::TIndex GetCountryIndex() const;
 
   void SetState(ECountryState state);
   ECountryState GetState() const;

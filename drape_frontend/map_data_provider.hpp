@@ -19,11 +19,15 @@ public:
   using TReadIDsFn = function<void (TReadCallback<FeatureID> const & , m2::RectD const &, int)>;
   using TResolveCountryFn = function<storage::TIndex (m2::PointF const &)>;
   using TIsCountryLoadedFn = function<bool (m2::PointD const & pt)>;
+  using TDownloadFn = function<void (storage::TIndex const & countryIndex)>;
 
   MapDataProvider(TReadIDsFn const & idsReader,
                   TReadFeaturesFn const & featureReader,
                   TResolveCountryFn const & countryResolver,
-                  TIsCountryLoadedFn const & isCountryLoadedFn);
+                  TIsCountryLoadedFn const & isCountryLoadedFn,
+                  TDownloadFn const & downloadMapHandler,
+                  TDownloadFn const & downloadMapRoutingHandler,
+                  TDownloadFn const & downloadRetryHandler);
 
   void ReadFeaturesID(TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) const;
@@ -31,11 +35,18 @@ public:
   storage::TIndex FindCountry(m2::PointF const & pt);
   TIsCountryLoadedFn const & GetIsCountryLoadedFn() const;
 
+  TDownloadFn const & GetDownloadMapHandler() const;
+  TDownloadFn const & GetDownloadMapRoutingHandler() const;
+  TDownloadFn const & GetDownloadRetryHandler() const;
+
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
   TResolveCountryFn m_countryResolver;
   TIsCountryLoadedFn m_isCountryLoadedFn;
+  TDownloadFn m_downloadMapHandler;
+  TDownloadFn m_downloadMapRoutingHandler;
+  TDownloadFn m_downloadRetryHandler;
 };
 
 }
