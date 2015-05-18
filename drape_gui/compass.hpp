@@ -12,7 +12,8 @@ public:
     : Shape(position)
   {}
 
-  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const override;
+  using TTapHandler = function<void()>;
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex, TTapHandler const & tapHandler) const;
 };
 
 }

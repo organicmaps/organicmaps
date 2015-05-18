@@ -1,6 +1,5 @@
 #include "button.hpp"
 #include "country_status.hpp"
-#include "country_status_helper.hpp"
 #include "drape_gui.hpp"
 #include "gui_text.hpp"
 
@@ -21,30 +20,17 @@ class CountryStatusButtonHandle : public ButtonHandle
 
 public:
   CountryStatusButtonHandle(CountryStatusHelper::ECountryState const state,
-                            CountryStatusHelper::EButtonType const buttonType,
+                            CountryStatus::TTapHandler const & tapHandler,
                             dp::Anchor anchor, m2::PointF const & size)
     : TBase(anchor, size)
     , m_state(state)
-    , m_buttonType(buttonType)
+    , m_tapHandler(tapHandler)
   {}
 
   void OnTap() override
   {
-    //TODO(@kuznetsov) implement
-    switch(m_buttonType)
-    {
-    case CountryStatusHelper::BUTTON_TYPE_MAP:
-      break;
-
-    case CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING:
-      break;
-
-    case CountryStatusHelper::BUTTON_TRY_AGAIN:
-      break;
-
-    default:
-      ASSERT(false, ());
-    }
+    if (m_tapHandler != nullptr)
+      m_tapHandler();
   }
 
   void Update(ScreenBase const & screen) override
@@ -55,7 +41,7 @@ public:
 
 private:
   CountryStatusHelper::ECountryState m_state;
-  CountryStatusHelper::EButtonType m_buttonType;
+  CountryStatus::TTapHandler m_tapHandler;
 };
 
 class CountryStatusLabelHandle : public Handle
@@ -103,10 +89,10 @@ private:
 };
 
 drape_ptr<dp::OverlayHandle> CreateButtonHandle(CountryStatusHelper::ECountryState const state,
-                                                CountryStatusHelper::EButtonType const buttonType,
+                                                CountryStatus::TTapHandler const & tapHandler,
                                                 dp::Anchor anchor, m2::PointF const & size)
 {
-  return make_unique_dp<CountryStatusButtonHandle>(state, buttonType, anchor, size);
+  return make_unique_dp<CountryStatusButtonHandle>(state, tapHandler, anchor, size);
 }
 
 drape_ptr<dp::OverlayHandle> CreateLabelHandle(CountryStatusHelper::ECountryState const state,
@@ -158,7 +144,8 @@ void DrawProgressControl(dp::Anchor anchor, dp::Batcher::TFlushFn const & flushF
 
 }
 
-drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
+                                             TButtonHandlers const & buttonHandlers) const
 {
   CountryStatusHelper & helper = DrapeGui::GetCountryStatusHelper();
   if (helper.GetComponentCount() == 0)
@@ -177,8 +164,9 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex) co
     {
     case CountryStatusHelper::CONTROL_TYPE_BUTTON:
       {
-        CountryStatusHelper::EButtonType buttonType = control.m_buttonType;
-        Button::THandleCreator buttonHandleCreator = bind(&CreateButtonHandle, state, buttonType, _1, _2);
+        TButtonHandlers::const_iterator buttonHandlerIt = buttonHandlers.find(control.m_buttonType);
+        CountryStatus::TTapHandler buttonHandler = (buttonHandlerIt != buttonHandlers.end() ? buttonHandlerIt->second : nullptr);
+        Button::THandleCreator buttonHandleCreator = bind(&CreateButtonHandle, state, buttonHandler, _1, _2);
         Button::THandleCreator labelHandleCreator = bind(&CreateLabelHandle, state, _1, _2);
 
         ShapeControl shapeControl;

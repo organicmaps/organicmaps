@@ -26,13 +26,15 @@ namespace
   class CompassHandle : public TappableHandle
   {
   public:
-    CompassHandle(m2::PointF const & pivot, m2::PointF const & size)
+    CompassHandle(m2::PointF const & pivot, m2::PointF const & size, Compass::TTapHandler const & tapHandler)
       : TappableHandle(dp::Center, pivot, size)
+      , m_tapHandler(tapHandler)
     {}
 
     void OnTap() override
     {
-      //TODO(@kuznetsov) implement
+      if (m_tapHandler != nullptr)
+        m_tapHandler();
     }
 
     void Update(ScreenBase const & screen) override
@@ -49,10 +51,13 @@ namespace
         m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
       }
     }
+
+  private:
+    Compass::TTapHandler m_tapHandler;
   };
 }
 
-drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::TextureManager> tex, TTapHandler const & tapHandler) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("compass-image", region);
@@ -91,7 +96,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::TextureManager> tex) const
   provider.InitStream(0, info, make_ref(&vertexes));
 
   m2::PointF compassSize = region.GetPixelSize();
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(m_position.m_pixelPivot, compassSize, tapHandler);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

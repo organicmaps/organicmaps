@@ -1,6 +1,7 @@
 #pragma once
 
 #include "shape.hpp"
+#include "country_status_helper.hpp"
 
 namespace gui
 {
@@ -11,7 +12,11 @@ public:
     : Shape(position)
   {}
 
-  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const override;
+  using TTapHandler = function<void()>;
+  using TButtonHandlers = map<CountryStatusHelper::EButtonType, TTapHandler>;
+
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex,
+                                TButtonHandlers const & buttonHandlers) const;
 };
 
 }  // namespace gui

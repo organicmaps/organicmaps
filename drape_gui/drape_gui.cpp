@@ -132,4 +132,28 @@ CountryStatusHelper & DrapeGui::GetCountryStatusHelperImpl()
   return m_impl->m_countryHelper;
 }
 
+void DrapeGui::ConnectOnCompassTappedHandler(Compass::TTapHandler const & handler)
+{
+  m_onCompassTappedHandler = handler;
+}
+
+void DrapeGui::ConnectOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType,
+                                             CountryStatus::TTapHandler const & handler)
+{
+  m_buttonHandlers[buttonType] = handler;
+}
+
+void DrapeGui::CallOnCompassTappedHandler()
+{
+  if(m_onCompassTappedHandler != nullptr)
+    m_onCompassTappedHandler();
+}
+
+void DrapeGui::CallOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType)
+{
+  auto it = m_buttonHandlers.find(buttonType);
+  if (it != m_buttonHandlers.end() && it->second != nullptr)
+    it->second();
+}
+
 }

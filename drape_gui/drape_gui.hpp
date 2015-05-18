@@ -1,6 +1,8 @@
 #pragma once
 
 #include "skin.hpp"
+#include "compass.hpp"
+#include "country_status.hpp"
 
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
@@ -71,6 +73,12 @@ public:
   bool IsCopyrightActive() const { return m_isCopyrightActive; }
   void DeactivateCopyright() { m_isCopyrightActive = false; }
 
+  void ConnectOnCompassTappedHandler(Compass::TTapHandler const & handler);
+  void ConnectOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType,
+                                     CountryStatus::TTapHandler const & handler);
+  void CallOnCompassTappedHandler();
+  void CallOnButtonPressedHandler(CountryStatusHelper::EButtonType buttonType);
+
 private:
   RulerHelper & GetRulerHelperImpl();
   CountryStatusHelper & GetCountryStatusHelperImpl();
@@ -79,6 +87,9 @@ private:
   struct Impl;
   unique_ptr<Impl> m_impl;
   bool m_isCopyrightActive = true;
+
+  Compass::TTapHandler m_onCompassTappedHandler;
+  CountryStatus::TButtonHandlers m_buttonHandlers;
 };
 
 }

@@ -70,8 +70,9 @@ drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
 
   if (names & Skin::Compass)
   {
-    renderer->AddShapeRenderer(Skin::Compass,
-                               Compass(GetPos(Skin::Compass)).Draw(textures));
+    Compass compass = Compass(GetPos(Skin::Compass));
+    renderer->AddShapeRenderer(Skin::Compass, compass.Draw(textures, bind(&DrapeGui::CallOnCompassTappedHandler,
+                                                                          &DrapeGui::Instance())));
   }
 
   if (names & Skin::Ruler)
@@ -82,8 +83,22 @@ drape_ptr<LayerRenderer> LayerCacher::Recache(Skin::ElementName names,
 
   if (names & Skin::CountryStatus)
   {
-    renderer->AddShapeRenderer(Skin::CountryStatus,
-                               CountryStatus(GetPos(Skin::CountryStatus)).Draw(textures));
+    CountryStatus countryStatus = CountryStatus(GetPos(Skin::CountryStatus));
+
+    CountryStatus::TButtonHandlers handlers;
+    handlers[CountryStatusHelper::BUTTON_TYPE_MAP] = bind(&DrapeGui::CallOnButtonPressedHandler,
+                                                          &DrapeGui::Instance(),
+                                                          CountryStatusHelper::BUTTON_TYPE_MAP);
+
+    handlers[CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING] = bind(&DrapeGui::CallOnButtonPressedHandler,
+                                                                  &DrapeGui::Instance(),
+                                                                  CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING);
+
+    handlers[CountryStatusHelper::BUTTON_TRY_AGAIN] = bind(&DrapeGui::CallOnButtonPressedHandler,
+                                                           &DrapeGui::Instance(),
+                                                           CountryStatusHelper::BUTTON_TRY_AGAIN);
+
+    renderer->AddShapeRenderer(Skin::CountryStatus, countryStatus.Draw(textures, handlers));
   }
 
   if (DrapeGui::Instance().IsCopyrightActive() && (names & Skin::Copyright))

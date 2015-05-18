@@ -110,9 +110,6 @@ class Shape
 {
 public:
   Shape(gui::Position const & position) : m_position(position) {}
-  virtual ~Shape() {}
-
-  virtual drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const = 0;
 
 protected:
   gui::Position m_position;
