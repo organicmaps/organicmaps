@@ -645,7 +645,7 @@ void Framework::LoadState()
   if (Settings::Get("ScreenClipRect", rect) &&
       df::GetWorldRect().IsRectInside(rect.GetGlobalRect()))
   {
-    ShowRect(rect);
+    CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect, false));
   }
   else
     ShowAll();
@@ -653,7 +653,7 @@ void Framework::LoadState()
 
 void Framework::ShowAll()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, m2::AnyRectD(m_model.GetWorldRect())));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, m2::AnyRectD(m_model.GetWorldRect()), false));
 }
 
 m2::PointD Framework::GetPixelCenter() const
@@ -668,7 +668,7 @@ m2::PointD const & Framework::GetViewportCenter() const
 
 void Framework::SetViewportCenter(m2::PointD const & pt)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, pt, -1));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, pt, -1, true));
 }
 
 m2::RectD Framework::GetCurrentViewport() const
@@ -679,17 +679,17 @@ m2::RectD Framework::GetCurrentViewport() const
 void Framework::ShowRect(double lat, double lon, double zoom)
 {
   m2::PointD center(MercatorBounds::FromLatLon(lat, lon));
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, zoom));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, center, zoom, true));
 }
 
 void Framework::ShowRect(m2::RectD const & rect, int maxScale)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewRect, _1, rect, true, maxScale));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewRect, _1, rect, true, maxScale, true));
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect));
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewAnyRect, _1, rect, true));
 }
 
 void Framework::GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect)
@@ -740,17 +740,17 @@ void Framework::Scale(EScaleMode mode)
 
 void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint)
 {
-  Scale(ScaleModeToFactor(mode), pxPoint);
+  Scale(ScaleModeToFactor(mode), pxPoint, true);
 }
 
 void Framework::Scale(double factor)
 {
-  Scale(factor, m_currentMovelView.PixelRect().Center());
+  Scale(factor, m_currentMovelView.PixelRect().Center(), true);
 }
 
-void Framework::Scale(double factor, m2::PointD const & pxPoint)
+void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::Scale, _1, factor, pxPoint));
+  CallDrapeFunction(bind(&df::DrapeEngine::Scale, _1, factor, pxPoint, isAnim));
 }
 
 void Framework::TouchEvent(df::TouchEvent const & touch)

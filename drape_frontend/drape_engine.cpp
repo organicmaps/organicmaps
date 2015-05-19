@@ -91,24 +91,24 @@ void DrapeEngine::AddTouchEvent(TouchEvent const & event)
   AddUserEvent(event);
 }
 
-void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint)
+void DrapeEngine::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)
 {
-  AddUserEvent(ScaleEvent(factor, pxPoint));
+  AddUserEvent(ScaleEvent(factor, pxPoint, isAnim));
 }
 
-void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom)
+void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim)
 {
-  AddUserEvent(SetCenterEvent(centerPt, zoom));
+  AddUserEvent(SetCenterEvent(centerPt, zoom, isAnim));
 }
 
-void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom)
+void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim)
 {
-  AddUserEvent(SetRectEvent(rect, applyRotation, zoom));
+  AddUserEvent(SetRectEvent(rect, applyRotation, zoom, isAnim));
 }
 
-void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect)
+void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
 {
-  AddUserEvent(SetAnyRectEvent(rect));
+  AddUserEvent(SetAnyRectEvent(rect, isAnim));
 }
 
 int DrapeEngine::AddModelViewListener(TModelViewListenerFn const & listener)

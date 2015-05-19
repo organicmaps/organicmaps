@@ -33,7 +33,7 @@ public:
 
   void SetRect(m2::RectD const & r)
   {
-    m_stream.AddEvent(df::SetRectEvent(r, false, -1));
+    m_stream.AddEvent(df::SetRectEvent(r, false, -1, false));
   }
 
   void AddExpectation(char const * action)

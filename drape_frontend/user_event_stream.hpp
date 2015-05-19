@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/navigator.hpp"
-#include "drape_frontend/animation/base_modelview_animation.hpp"
+#include "drape_frontend/animation/model_view_animation.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -45,47 +45,57 @@ struct TouchEvent
 
 struct ScaleEvent
 {
-  ScaleEvent(double factor, m2::PointD const & pxPoint)
+  ScaleEvent(double factor, m2::PointD const & pxPoint, bool isAnim)
     : m_factor(factor)
     , m_pxPoint(pxPoint)
+    , m_isAnim(isAnim)
   {
   }
 
   double m_factor;
   m2::PointD m_pxPoint;
+  bool m_isAnim;
 };
 
 struct SetCenterEvent
 {
-  SetCenterEvent(m2::PointD const & center, int zoom)
+  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim)
     : m_center(center)
     , m_zoom(zoom)
+    , m_isAnim(isAnim)
   {
   }
 
   m2::PointD m_center; // center point in mercator
   int m_zoom; // if zoom == -1, then zoom level will'n change
+  bool m_isAnim;
 };
 
 struct SetRectEvent
 {
-  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom)
+  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
+    , m_isAnim(isAnim)
   {
   }
 
   m2::RectD m_rect; // destination mercator rect
   bool m_applyRotation; // if true, current rotation will be apply to m_rect
   int m_zoom; // if zoom == -1, then zoom level will'n change
+  bool m_isAnim;
 };
 
 struct SetAnyRectEvent
 {
-  SetAnyRectEvent(m2::AnyRectD const & rect) : m_rect(rect) {}
+  SetAnyRectEvent(m2::AnyRectD const & rect, bool isAnim)
+    : m_rect(rect)
+    , m_isAnim(isAnim)
+  {}
 
   m2::AnyRectD m_rect;  // destination mercator rect
+  bool m_isAnim;
 };
 
 struct RotateEvent
@@ -168,16 +178,20 @@ public:
 #endif
 
 private:
-  void SetCenter(m2::PointD const & center, int zoom);
-  void SetRect(m2::RectD rect, int zoom, bool applyRotation);
-  void SetRect(m2::AnyRectD const & rect);
+  bool Scale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
+  bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
+  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
+  bool SetRect(m2::AnyRectD const & rect, bool isAnim);
 
-  void ProcessTouch(TouchEvent const & touch);
+  m2::AnyRectD GetCurrentRect() const;
+  m2::AnyRectD GetTargetRect() const;
 
-  void TouchDown(array<Touch, 2> const  & touches);
-  void TouchMove(array<Touch, 2> const  & touches);
-  void TouchCancel(array<Touch, 2> const  & touches);
-  void TouchUp(array<Touch, 2> const  & touches);
+  bool ProcessTouch(TouchEvent const & touch);
+
+  bool TouchDown(array<Touch, 2> const  & touches);
+  bool TouchMove(array<Touch, 2> const  & touches);
+  bool TouchCancel(array<Touch, 2> const  & touches);
+  bool TouchUp(array<Touch, 2> const  & touches);
   void UpdateTouches(array<Touch, 2> const  & touches, size_t validCount);
   size_t GetValidTouchesCount(array<Touch, 2> const  & touches) const;
 
@@ -220,7 +234,7 @@ private:
   array<Touch, 2> m_touches;
   size_t m_validTouchesCount;
 
-  unique_ptr<BaseModeViewAnimation> m_animation;
+  unique_ptr<ModelViewAnimation> m_animation;
 
 #ifdef DEBUG
   TTestBridge m_testFn;

@@ -10,11 +10,9 @@ DEFINES += DRAW_INFO
 
 SOURCES += \
     animation/base_interpolator.cpp \
-    animation/modelview_angle_animation.cpp \
-    animation/modelview_center_animation.cpp \
-    animation/modelview_complex_animation.cpp \
     animation/interpolation_holder.cpp \
     animation/interpolations.cpp \
+    animation/model_view_animation.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
     backend_renderer.cpp \
@@ -54,13 +52,10 @@ SOURCES += \
     user_event_stream.cpp \
 
 HEADERS += \
-    animation/base_modelview_animation.hpp \
-    animation/modelview_angle_animation.hpp \
-    animation/modelview_center_animation.hpp \
-    animation/modelview_complex_animation.hpp \
+    animation/base_interpolator.hpp \
     animation/interpolation_holder.hpp \
     animation/interpolations.hpp \
-    animation/base_interpolator.hpp \
+    animation/model_view_animation.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     backend_renderer.hpp \

@@ -58,12 +58,12 @@ public:
   void Resize(int w, int h);
 
   void AddTouchEvent(TouchEvent const & event);
-  void Scale(double  factor, m2::PointD const & pxPoint);
+  void Scale(double  factor, m2::PointD const & pxPoint, bool isAnim);
 
   /// if zoom == -1, then current zoom will not change
-  void SetModelViewCenter(m2::PointD const & centerPt, int zoom);
-  void SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom);
-  void SetModelViewAnyRect(m2::AnyRectD const & rect);
+  void SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim);
+  void SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim);
+  void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim);
 
   using TModelViewListenerFn = FrontendRenderer::TModelViewChanged;
   int AddModelViewListener(TModelViewListenerFn const & listener);

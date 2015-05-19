@@ -265,7 +265,7 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::wheelEvent(QWheelEvent * e)
   {
-    m_framework->Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())));
+    m_framework->Scale(exp(e->delta() / 360.0), m2::PointD(L2D(e->x()), L2D(e->y())), false);
   }
 
   bool DrawWidget::Search(search::SearchParams params)
