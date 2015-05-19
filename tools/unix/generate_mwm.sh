@@ -110,5 +110,12 @@ elif [ "$MODE" == "routing" ]; then
   rm "$PBF"
   "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM" || fail
   "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM" || fail
-  $GENERATOR_TOOL --make_routing=true --osrm_file_name="$OSRM" --data_path="$TARGET" --output="$BASE_NAME"
+  if [ -n "${BORDERS_PATH-}" -a ! -d "$TARGET/borders" ]; then
+    [ ! -e "$BORDERS_PATH/$BASE_NAME.poly" ] && fail "You should have a polygon for processed file: $BORDERS_PATH/$BASE_NAME.poly"
+    CROSS_MWM="--make_cross_section"
+    mkdir "$TARGET/borders"
+    cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
+  fi
+  $GENERATOR_TOOL --make_routing=true ${CROSS_MWM-} --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$BASE_NAME"
+  [ -n "${CROSS_MWM-}" ] && rm -r "$TARGET/borders"
 fi

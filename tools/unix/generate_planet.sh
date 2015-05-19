@@ -87,6 +87,7 @@ done
 
 EXIT_ON_ERROR=${EXIT_ON_ERROR-1}
 [ -n "${EXIT_ON_ERROR-}" ] && set -e # Exit when any of commands fail
+set -o pipefail # Capture all errors in command chains
 set -u # Fail on undefined variables
 #set -x # Echo every script line
 
@@ -210,7 +211,7 @@ if [ "$MODE" == "coast" ]; then
       # Generate temporary coastlines file in the coasts intermediate dir
       log "TIMEMARK" "Generate coastlines"
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>> "$GENERATOR_LOG"
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee "$GENERATOR_LOG"
       EXIT_CODE=$?
       [ -n "${EXIT_ON_ERROR-}" ] && set -e
 
