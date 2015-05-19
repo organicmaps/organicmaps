@@ -733,14 +733,15 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     // Load source data
     auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
     MultiroutingTaskPointT sources(1), targets;
+    size_t const outSize = distance(mwmOutsIter.first, mwmOutsIter.second);
+    targets.reserve(outSize);
 
-    if (targets.empty())
+    if (!outSize)
     {
       route.AddAbsentCountry(startMapping->GetName());
       return RouteFileNotExist;
     }
 
-    targets.reserve(distance(mwmOutsIter.first, mwmOutsIter.second));
     for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
       targets.emplace_back(FeatureGraphNode(j->m_nodeId, false));
     vector<EdgeWeight> weights;
