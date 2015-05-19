@@ -11,7 +11,6 @@
 
 namespace routing
 {
-
 /// Single graph node representation for routing task
 struct FeatureGraphNode
 {
@@ -19,12 +18,12 @@ struct FeatureGraphNode
   OsrmMappingTypes::FtSeg m_seg;
   m2::PointD m_segPt;
 
-   /*!
-   * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
-   * \param nodeId osrm node idetifier
-   * \param isStartNode true if this node will first in the path
-   * \param taskNode output point task for router
-   */
+  /*!
+  * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
+  * \param nodeId osrm node idetifier
+  * \param isStartNode true if this node will first in the path
+  * \param taskNode output point task for router
+  */
   FeatureGraphNode(NodeID const nodeId, bool const isStartNode);
 
   /// \brief Invalid graph node constructor
@@ -37,22 +36,19 @@ struct FeatureGraphNode
  */
 struct RawPathData
 {
-    RawPathData()
-        : node(SPECIAL_NODEID), segment_duration(INVALID_EDGE_WEIGHT)
-    {
-    }
+  RawPathData() : node(SPECIAL_NODEID), segment_duration(INVALID_EDGE_WEIGHT) {}
 
-    RawPathData(NodeID node,
-             EdgeWeight segment_duration)
-        : node(node), segment_duration(segment_duration)
-    {
-    }
-    NodeID node;
-    EdgeWeight segment_duration;
+  RawPathData(NodeID node, EdgeWeight segment_duration)
+      : node(node), segment_duration(segment_duration)
+  {
+  }
+  NodeID node;
+  EdgeWeight segment_duration;
 };
 
 /*!
- * \brief The OSRM routing result struct. Contains the routing result, it's cost and source and target edges.
+ * \brief The OSRM routing result struct. Contains the routing result, it's cost and source and
+ * target edges.
  * \property m_shortestPathLength Length of a founded route.
  * \property m_unpackedPathSegments Segments of a founded route.
  * \property sourceEdge Source graph node of a route.
@@ -70,17 +66,20 @@ struct RawRoutingResult
 using RoutingNodesT = vector<FeatureGraphNode>;
 using RawDataFacadeT = OsrmRawDataFacade<QueryEdge::EdgeData>;
 
-
 /*!
-   * \brief FindWeightsMatrix Find weights matrix from sources to targets. WARNING it finds only weights, not pathes.
-   * \param sources Sources graph nodes vector. Each source is the representation of a start OSRM node.
-   * \param targets Targets graph nodes vector. Each target is the representation of a finish OSRM node.
+   * \brief FindWeightsMatrix Find weights matrix from sources to targets. WARNING it finds only
+ * weights, not pathes.
+   * \param sources Sources graph nodes vector. Each source is the representation of a start OSRM
+ * node.
+   * \param targets Targets graph nodes vector. Each target is the representation of a finish OSRM
+ * node.
    * \param facade Osrm data facade reference.
    * \param packed Result vector with weights. Source nodes are rows.
-   * cost(source1 -> target1) cost(source1 -> target2) cost(source2 -> target1) cost(source2 -> target2)
+   * cost(source1 -> target1) cost(source1 -> target2) cost(source2 -> target1) cost(source2 ->
+ * target2)
    */
 void FindWeightsMatrix(RoutingNodesT const & sources, RoutingNodesT const & targets,
-                                    RawDataFacadeT & facade, vector<EdgeWeight> & result);
+                       RawDataFacadeT & facade, vector<EdgeWeight> & result);
 
 /*! Find single shortest path in a single MWM between 2 OSRM nodes
    * \param source Source OSRM graph node to make path.
@@ -89,7 +88,7 @@ void FindWeightsMatrix(RoutingNodesT const & sources, RoutingNodesT const & targ
    * \param rawRoutingResult Routing result structure.
    * \return true when path exists, false otherwise.
    */
-bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & target, RawDataFacadeT & facade,
-                                 RawRoutingResult & rawRoutingResult);
+bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                     RawDataFacadeT & facade, RawRoutingResult & rawRoutingResult);
 
-} // namespace routing
+}  // namespace routing

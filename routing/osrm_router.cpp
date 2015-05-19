@@ -27,9 +27,7 @@
 
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 #include "3party/osrm/osrm-backend/data_structures/internal_route_result.hpp"
-
 #include "3party/osrm/osrm-backend/descriptors/description_factory.hpp"
-
 
 #define INTERRUPT_WHEN_CANCELLED() \
   do                               \
@@ -48,8 +46,6 @@ double const FEATURES_NEAR_TURN_M = 3.0;
 
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
 using RawRouteData = InternalRouteResult;
-
-
 
 namespace
 {
@@ -425,8 +421,9 @@ void OsrmRouter::ClearState()
   m_indexManager.Clear();
 }
 
-bool OsrmRouter::FindRouteFromCases(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
-                                 RawRoutingResult & rawRoutingResult)
+bool OsrmRouter::FindRouteFromCases(FeatureGraphNodeVecT const & source,
+                                    FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+                                    RawRoutingResult & rawRoutingResult)
 {
   /// @todo (ldargunov) make more complex nearest edge turnaround
   for (auto targetEdge = target.cbegin(); targetEdge != target.cend(); ++targetEdge)
@@ -479,7 +476,8 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(CheckedPathT const &
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
-    if (!FindSingleRoute(cross.startNode, cross.targetNode, mwmMapping->m_dataFacade, routingResult))
+    if (!FindSingleRoute(cross.startNode, cross.targetNode, mwmMapping->m_dataFacade,
+                         routingResult))
     {
       return OsrmRouter::RouteNotFound;
     }
@@ -666,7 +664,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
                                   {
                                     indexPair.second->FreeCrossContext();
                                   });
-    if (!FindRouteFromCases(startTask, m_CachedTargetTask, startMapping->m_dataFacade, routingResult))
+    if (!FindRouteFromCases(startTask, m_CachedTargetTask, startMapping->m_dataFacade,
+                            routingResult))
     {
       return RouteNotFound;
     }
@@ -992,14 +991,12 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
         t.m_index = points.size() - 1;
 
         GetTurnDirection(routingResult.unpacked_path_segments[i][j - 1],
-                         routingResult.unpacked_path_segments[i][j],
-                         mapping, t);
+                         routingResult.unpacked_path_segments[i][j], mapping, t);
         if (t.m_turn != turns::TurnDirection::NoTurn)
         {
           // adding lane info
-          t.m_lanes =
-              turns::GetLanesInfo(routingResult.unpacked_path_segments[i][j - 1].node,
-                                  *mapping, GetLastSegmentPointIndex, *m_pIndex);
+          t.m_lanes = turns::GetLanesInfo(routingResult.unpacked_path_segments[i][j - 1].node, *mapping,
+                                          GetLastSegmentPointIndex, *m_pIndex);
           turnsDir.push_back(move(t));
         }
 
@@ -1251,8 +1248,7 @@ size_t OsrmRouter::NumberOfIngoingAndOutgoingSegments(m2::PointD const & junctio
 }
 
 // @todo(vbykoianko) Move this method and all dependencies to turns_generator.cpp
-void OsrmRouter::GetTurnDirection(RawPathData const & node1,
-                                  RawPathData const & node2,
+void OsrmRouter::GetTurnDirection(RawPathData const & node1, RawPathData const & node2,
                                   RoutingMappingPtrT const & routingMapping, TurnItem & turn)
 {
   ASSERT(routingMapping.get(), ());

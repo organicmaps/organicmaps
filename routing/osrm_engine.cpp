@@ -11,16 +11,14 @@
 
 namespace routing
 {
-
 bool IsRouteExist(InternalRouteResult const & r)
 {
-  return !(INVALID_EDGE_WEIGHT == r.shortest_path_length ||
-          r.segment_end_coordinates.empty() ||
-          r.source_traversed_in_reverse.empty());
+  return !(INVALID_EDGE_WEIGHT == r.shortest_path_length || r.segment_end_coordinates.empty() ||
+           r.source_traversed_in_reverse.empty());
 }
 
 void GenerateRoutingTaskFromNodeId(NodeID const nodeId, bool const isStartNode,
-                                               PhantomNode & taskNode)
+                                   PhantomNode & taskNode)
 {
   taskNode.forward_node_id = isStartNode ? nodeId : INVALID_NODE_ID;
   taskNode.reverse_node_id = isStartNode ? INVALID_NODE_ID : nodeId;
@@ -31,7 +29,8 @@ void GenerateRoutingTaskFromNodeId(NodeID const nodeId, bool const isStartNode,
   taskNode.name_id = 1;
 }
 
-void FindWeightsMatrix(const RoutingNodesT &sources, const RoutingNodesT &targets, RawDataFacadeT &facade, vector<EdgeWeight> &result)
+void FindWeightsMatrix(const RoutingNodesT & sources, const RoutingNodesT & targets,
+                       RawDataFacadeT & facade, vector<EdgeWeight> & result)
 {
   SearchEngineData engineData;
   NMManyToManyRouting<RawDataFacadeT> pathFinder(&facade, engineData);
@@ -51,7 +50,8 @@ void FindWeightsMatrix(const RoutingNodesT &sources, const RoutingNodesT &target
   result.swap(*resultTable);
 }
 
-bool FindSingleRoute(const FeatureGraphNode &source, const FeatureGraphNode &target, RawDataFacadeT &facade, RawRoutingResult &rawRoutingResult)
+bool FindSingleRoute(const FeatureGraphNode & source, const FeatureGraphNode & target,
+                     RawDataFacadeT & facade, RawRoutingResult & rawRoutingResult)
 {
   SearchEngineData engineData;
   InternalRouteResult result;
@@ -74,7 +74,7 @@ bool FindSingleRoute(const FeatureGraphNode &source, const FeatureGraphNode &tar
     rawRoutingResult.m_sourceEdge = source;
     rawRoutingResult.m_targetEdge = target;
     rawRoutingResult.m_shortestPathLength = result.shortest_path_length;
-    for (auto const & path: result.unpacked_path_segments)
+    for (auto const & path : result.unpacked_path_segments)
     {
       vector<RawPathData> data;
       data.reserve(path.size());
@@ -116,4 +116,4 @@ FeatureGraphNode::FeatureGraphNode()
   m_segPt = m2::PointD::Zero();
 }
 
-} // namespace routing
+}  // namespace routing

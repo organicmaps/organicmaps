@@ -86,8 +86,9 @@ public:
      * \param rawRoutingResult: routing result store
      * \return true when path exists, false otherwise.
      */
-  static bool FindRouteFromCases(FeatureGraphNodeVecT const & source, FeatureGraphNodeVecT const & target, DataFacadeT & facade,
-                       RawRoutingResult & rawRoutingResult);
+  static bool FindRouteFromCases(FeatureGraphNodeVecT const & source,
+                                 FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+                                 RawRoutingResult & rawRoutingResult);
 
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point,
@@ -154,10 +155,8 @@ private:
   void GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD const & p,
                         RoutingMappingPtrT const & routingMapping,
                         turns::TTurnCandidates & candidates);
-  void GetTurnDirection(RawPathData const & node1,
-                        RawPathData const & node2,
-                        RoutingMappingPtrT const & routingMapping,
-                        TurnItem & turn);
+  void GetTurnDirection(RawPathData const & node1, RawPathData const & node2,
+                        RoutingMappingPtrT const & routingMapping, TurnItem & turn);
   m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                   FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
