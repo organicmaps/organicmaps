@@ -40,7 +40,7 @@ public:
     return new LeafIterator0<ValueReaderT, EdgeValueT>(*this);
   }
 
-  Iterator<ValueType, EdgeValueType> * GoToEdge(uint32_t i) const
+  Iterator<ValueType, EdgeValueType> * GoToEdge(size_t i) const
   {
     ASSERT(false, (i));
     UNUSED_VALUE(i);
@@ -86,7 +86,7 @@ public:
     return new Iterator0<ReaderT, ValueReaderT, EdgeValueReaderT>(*this);
   }
 
-  Iterator<ValueType, EdgeValueType> * GoToEdge(uint32_t i) const
+  Iterator<ValueType, EdgeValueType> * GoToEdge(size_t i) const
   {
     ASSERT_LESS(i, this->m_edge.size(), ());
     uint32_t const offset = m_edgeInfo[i].m_offset;
