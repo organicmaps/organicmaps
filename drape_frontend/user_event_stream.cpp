@@ -140,11 +140,9 @@ bool UserEventStream::Scale(m2::PointD const & pxScaleCenter, double factor, boo
     sizeRect.Scale(1.0 / factor);
     return SetRect(m2::AnyRectD(glbCenter, rect.Angle(), sizeRect), true);
   }
-  else
-  {
-    m_navigator.Scale(pxScaleCenter, factor);
-    return true;
-  }
+
+  m_navigator.Scale(pxScaleCenter, factor);
+  return true;
 }
 
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
@@ -170,11 +168,9 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
     m_animation.reset(new ModelViewAnimation(startRect, rect, duration));
     return false;
   }
-  else
-  {
-    m_navigator.SetFromRect(rect);
-    return true;
-  }
+
+  m_navigator.SetFromRect(rect);
+  return true;
 }
 
 m2::AnyRectD UserEventStream::GetCurrentRect() const

@@ -188,12 +188,12 @@ private:
 
   bool ProcessTouch(TouchEvent const & touch);
 
-  bool TouchDown(array<Touch, 2> const  & touches);
-  bool TouchMove(array<Touch, 2> const  & touches);
-  bool TouchCancel(array<Touch, 2> const  & touches);
-  bool TouchUp(array<Touch, 2> const  & touches);
-  void UpdateTouches(array<Touch, 2> const  & touches, size_t validCount);
-  size_t GetValidTouchesCount(array<Touch, 2> const  & touches) const;
+  bool TouchDown(array<Touch, 2> const & touches);
+  bool TouchMove(array<Touch, 2> const & touches);
+  bool TouchCancel(array<Touch, 2> const & touches);
+  bool TouchUp(array<Touch, 2> const & touches);
+  void UpdateTouches(array<Touch, 2> const & touches, size_t validCount);
+  size_t GetValidTouchesCount(array<Touch, 2> const & touches) const;
 
   void BeginDrag(Touch const & t);
   void Drag(Touch const & t);
