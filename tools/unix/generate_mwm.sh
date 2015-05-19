@@ -32,7 +32,8 @@ fail() {
 
 SOURCE_FILE="$1"
 SOURCE_TYPE="${1##*.}"
-BASE_NAME="$(basename "${SOURCE_FILE%%.*}")"
+BASE_NAME="$(basename "$SOURCE_FILE")"
+BASE_NAME="${BASE_NAME%%.*}"
 TARGET="${TARGET:-$(dirname "$SOURCE_FILE")}"
 [ ! -d "$TARGET" ] && fail "$TARGET should be a writable folder"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
@@ -93,7 +94,7 @@ elif [ "$MODE" == "routing" ]; then
 
   PBF="$INTDIR/tmp.pbf"
   OSRM="$INTDIR/tmp.osrm"
-  export STXXLCFG=~/.stxxl
+  export STXXLCFG="$HOME/.stxxl"
   # just a guess
   OSMCONVERT="${OSMCONVERT:-$HOME/osmctools/osmconvert}"
   if [ ! -x "$OSMCONVERT" ]; then
@@ -109,29 +110,5 @@ elif [ "$MODE" == "routing" ]; then
   rm "$PBF"
   "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM" || fail
   "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM" || fail
-  # create fake poly file
-  POLY="$TARGET/borders/$BASE_NAME.poly"
-  if [ ! -r "$POLY" ]; then
-    POLY_DIR="$(dirname "$POLY")"
-    mkdir -p "$POLY_DIR"
-    cat > "$POLY" <<EOPOLY
-fake
-1
-	-180.0	-90.0
-	-180.0	90.0
-	180.0	90.0
-	180.0	-90.0
-	-180.0	-90.0
-END
-END
-EOPOLY
-  fi
   $GENERATOR_TOOL --make_routing=true --osrm_file_name="$OSRM" --data_path="$TARGET" --output="$BASE_NAME"
-  if [ -n "${POLY_DIR-}" ]; then
-    # remove fake poly
-    rm "$POLY"
-    if [ -z "$(ls -A "$POLY_DIR")" ]; then
-      rmdir "$POLY_DIR"
-    fi
-  fi
 fi
