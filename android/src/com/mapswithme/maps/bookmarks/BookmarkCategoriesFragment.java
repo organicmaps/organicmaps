@@ -17,6 +17,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 public class BookmarkCategoriesFragment extends BaseMwmListFragment
 {
   private int mSelectedPosition;
+  private BookmarkCategoriesAdapter mAdapter;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -29,8 +30,21 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    setListAdapter(new BookmarkCategoriesAdapter(getActivity()));
+    initAdapter();
+    setListAdapter(mAdapter);
     registerForContextMenu(getListView());
+  }
+
+  private void initAdapter()
+  {
+    mAdapter = new BookmarkCategoriesAdapter(getActivity());
+  }
+
+  @Override
+  public void onResume()
+  {
+    super.onResume();
+    mAdapter.notifyDataSetChanged();
   }
 
   @Override

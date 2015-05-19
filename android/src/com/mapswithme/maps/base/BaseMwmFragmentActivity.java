@@ -1,11 +1,9 @@
 package com.mapswithme.maps.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
@@ -47,8 +45,6 @@ public class BaseMwmFragmentActivity extends AppCompatActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
-      final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-      imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
       onBackPressed();
       return true;
     }

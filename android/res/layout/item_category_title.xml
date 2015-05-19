@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/text"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_oneline"
+    android:gravity="left|center_vertical"
+    android:paddingLeft="@dimen/margin_medium"
+    android:paddingTop="@dimen/margin_small"
+    android:text="@string/bookmarks"/>

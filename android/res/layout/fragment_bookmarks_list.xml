@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-  <!-- This view'll take focus. And user will not see keyboard when open this screen. -->
-
-  <View
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:focusable="true"
-      android:focusableInTouchMode="true"/>
-
-  <include
-      layout="@layout/edit_bookmark_set"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"/>
-
-  <ListView
-      android:id="@android:id/list"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:animationCache="false"
-      android:scrollingCache="false"/>
-</LinearLayout>
+<ListView
+    android:id="@android:id/list"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@null"/>

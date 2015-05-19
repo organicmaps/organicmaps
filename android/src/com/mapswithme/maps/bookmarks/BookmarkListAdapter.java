@@ -20,9 +20,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class BookmarkListAdapter extends BaseAdapter
@@ -31,8 +29,13 @@ public class BookmarkListAdapter extends BaseAdapter
   private final Activity mActivity;
   private final BookmarkCategory mCategory;
 
-  // reuse drawables
-  private final Map<String, Drawable> mBmkToCircle = new HashMap<String, Drawable>(8);
+  // view types
+  static final int TYPE_TRACK = 0;
+  static final int TYPE_BOOKMARK = 1;
+  static final int TYPE_SECTION = 2;
+
+  private static final int SECTION_TRACKS = 0;
+  private static final int SECTION_BMKS = 1;
 
   public BookmarkListAdapter(Activity activity, BookmarkCategory cat)
   {
@@ -56,10 +59,6 @@ public class BookmarkListAdapter extends BaseAdapter
     return 3; // bookmark + track + section
   }
 
-  final static int TYPE_TRACK = 0;
-  final static int TYPE_BMK = 1;
-  final static int TYPE_SECTION = 2;
-
   @Override
   public int getItemViewType(int position)
   {
@@ -70,11 +69,17 @@ public class BookmarkListAdapter extends BaseAdapter
       return TYPE_SECTION;
 
     if (position > bmkPos && !isSectionEmpty(SECTION_BMKS))
-      return TYPE_BMK;
+      return TYPE_BOOKMARK;
     else if (position > trackPos && !isSectionEmpty(SECTION_TRACKS))
       return TYPE_TRACK;
 
     throw new IllegalArgumentException("Position not found: " + position);
+  }
+
+  @Override
+  public boolean isEnabled(int position)
+  {
+    return getItemViewType(position) != TYPE_SECTION;
   }
 
   @Override
@@ -84,35 +89,27 @@ public class BookmarkListAdapter extends BaseAdapter
 
     if (type == TYPE_SECTION)
     {
-      View sectionView = null;
-      TextView sectionName = null;
+      TextView sectionView;
 
       if (convertView == null)
-      {
-        sectionView = LayoutInflater.from(mActivity).inflate(R.layout.list_separator_base, null);
-        sectionName = (TextView) sectionView.findViewById(R.id.text);
-        sectionView.setTag(sectionName);
-      }
+        sectionView = (TextView) LayoutInflater.from(mActivity).inflate(R.layout.item_category_title, parent, false);
       else
-      {
-        sectionView = convertView;
-        sectionName = (TextView) sectionView.getTag();
-      }
+        sectionView = (TextView) convertView;
 
       final int sectionIndex = getSectionForPosition(position);
-      sectionName.setText(getSections().get(sectionIndex));
+      sectionView.setText(getSections().get(sectionIndex));
       return sectionView;
     }
 
     if (convertView == null)
     {
-      final int id = (type == TYPE_BMK) ? R.layout.list_item_bookmark : R.layout.list_item_track;
-      convertView = LayoutInflater.from(mActivity).inflate(id, null);
+      final int id = (type == TYPE_BOOKMARK) ? R.layout.item_bookmark : R.layout.item_track;
+      convertView = LayoutInflater.from(mActivity).inflate(id, parent, false);
       convertView.setTag(new PinHolder(convertView));
     }
 
     final PinHolder holder = (PinHolder) convertView.getTag();
-    if (type == TYPE_BMK)
+    if (type == TYPE_BOOKMARK)
       holder.set((Bookmark) getItem(position));
     else
       holder.set((Track) getItem(position));
@@ -169,9 +166,9 @@ public class BookmarkListAdapter extends BaseAdapter
 
     public PinHolder(View convertView)
     {
-      icon = (ImageView) convertView.findViewById(R.id.pi_pin_color);
-      name = (TextView) convertView.findViewById(R.id.pi_name);
-      distance = (TextView) convertView.findViewById(R.id.pi_distance);
+      icon = (ImageView) convertView.findViewById(R.id.iv__bookmark_color);
+      name = (TextView) convertView.findViewById(R.id.tv__bookmark_name);
+      distance = (TextView) convertView.findViewById(R.id.tv__bookmark_distance);
     }
 
     void setName(Bookmark bmk)
@@ -201,22 +198,9 @@ public class BookmarkListAdapter extends BaseAdapter
       distance.setText(mActivity.getString(R.string.length) + " " + trk.getLengthString());
     }
 
-    void setIcon(Bookmark bmk)
+    void setIcon(Bookmark bookmark)
     {
-      final String key = bmk.getIcon().getType();
-      Drawable circle = null;
-
-      if (!mBmkToCircle.containsKey(key))
-      {
-        final Resources res = mActivity.getResources();
-        final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
-        circle = UiUtils.drawCircleForPin(key, circleSize, res);
-        mBmkToCircle.put(key, circle);
-      }
-      else
-        circle = mBmkToCircle.get(key);
-
-      icon.setImageDrawable(circle);
+      icon.setImageResource(bookmark.getIcon().getSelectedResId());
     }
 
     void setIcon(Track trk)
@@ -242,9 +226,6 @@ public class BookmarkListAdapter extends BaseAdapter
       setIcon(track);
     }
   }
-
-  private final static int SECTION_TRACKS = 0;
-  private final static int SECTION_BMKS = 1;
 
   private int getTracksSectionPosition()
   {

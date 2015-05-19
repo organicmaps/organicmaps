@@ -12,6 +12,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_weight="0"
+      android:background="@null"
       android:button="@drawable/btn_bookmark_visibility"
       android:focusable="false"/>
 

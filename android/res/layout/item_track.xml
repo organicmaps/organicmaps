@@ -7,7 +7,7 @@
     android:paddingRight="3dp" >
 
     <ImageView
-        android:id="@+id/pi_pin_color"
+        android:id="@+id/iv__bookmark_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -21,12 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/pi_pin_color"
+        android:layout_toRightOf="@+id/iv__bookmark_color"
         android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/pi_name"
+            android:id="@+id/tv__bookmark_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -34,7 +34,7 @@
             android:textColor="@color/text_dark" />
 
         <TextView
-            android:id="@+id/pi_distance"
+            android:id="@+id/tv__bookmark_distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
