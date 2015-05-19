@@ -20,8 +20,8 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     super(context);
   }
 
-  private final static int ITEM = 0;
-  private final static int HELP = 1;
+  private final static int TYPE_ITEM = 0;
+  private final static int TYPE_HELP = 1;
 
   @Override
   public int getCount()
@@ -32,7 +32,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   @Override
   public int getItemViewType(int position)
   {
-    return (position == getCount() - 1) ? HELP : ITEM;
+    return (position == getCount() - 1) ? TYPE_HELP : TYPE_ITEM;
   }
 
   @Override
@@ -44,62 +44,55 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
   @Override
   public boolean isEnabled(int position)
   {
-    return getItemViewType(position) != HELP;
+    return getItemViewType(position) != TYPE_HELP;
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent)
+  public View getView(final int position, View convertView, ViewGroup parent)
   {
-    if (getItemViewType(position) == HELP)
+    if (getItemViewType(position) == TYPE_HELP)
     {
-      final View hintView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_hint, parent, false);
+      final TextView hintView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_hint, parent, false);
       if (super.getCount() > 0)
-        ((TextView) hintView.findViewById(R.id.bookmarks_usage_hint)).setText(R.string.bookmarks_usage_hint_import_only);
+        hintView.setText(R.string.bookmarks_usage_hint_import_only);
       return hintView;
     }
 
     if (convertView == null)
     {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_category, parent, false);
-      final PinSetHolder holder = new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name),
-          (CheckBox) convertView.findViewById(R.id.pin_set_visible));
+      final ViewHolder holder = new ViewHolder(convertView);
       convertView.setTag(holder);
       holder.visibilityCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
       {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
-          BookmarkManager.INSTANCE
-              .getCategoryById(holder.categoryId)
-              .setVisibility(isChecked);
+          BookmarkManager.INSTANCE.getCategoryById(position).setVisibility(isChecked);
         }
       });
     }
 
-    final PinSetHolder psh = (PinSetHolder) convertView.getTag();
+    final ViewHolder holder = (ViewHolder) convertView.getTag();
     final BookmarkCategory set = getItem(position);
-    // category ID
-    psh.categoryId = position;
-    // name
-    psh.name.setText(set.getName() + " (" + String.valueOf(set.getSize()) + ")");
-    // visibility
-    psh.visibilityCheckBox.setChecked(set.isVisible());
+    holder.name.setText(set.getName());
+    holder.size.setText(String.valueOf(set.getSize()));
+    holder.visibilityCheckBox.setChecked(set.isVisible());
 
     return convertView;
   }
 
-  static class PinSetHolder
+  static class ViewHolder
   {
     TextView name;
     CheckBox visibilityCheckBox;
+    TextView size;
 
-    // Data
-    int categoryId;
-
-    public PinSetHolder(TextView name, CheckBox visibilityCheckBox)
+    public ViewHolder(View root)
     {
-      this.name = name;
-      this.visibilityCheckBox = visibilityCheckBox;
+      name = (TextView) root.findViewById(R.id.tv__set_name);
+      visibilityCheckBox = (CheckBox) root.findViewById(R.id.chb__set_visible);
+      size = (TextView) root.findViewById(R.id.tv__set_size);
     }
   }
 }

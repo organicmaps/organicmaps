@@ -564,7 +564,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.map);
+    setContentView(R.layout.activity_map);
     initViews();
 
     // Log app start events - successful installation means that user has passed DownloadResourcesActivity
@@ -1542,12 +1542,12 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       if (requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_EDIT_BOOKMARK)
       {
-        final Point bmk = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.PIN)).getPoint();
+        final Point bmk = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
         onBookmarkActivated(bmk.x, bmk.y);
       }
       else if (requestCode == ChooseBookmarkCategoryActivity.REQUEST_CODE_SET)
       {
-        final Point pin = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.PIN)).getPoint();
+        final Point pin = ((ParcelablePoint) data.getParcelableExtra(ChooseBookmarkCategoryActivity.BOOKMARK)).getPoint();
         final Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(pin.x, pin.y);
         mPlacePage.setMapObject(bookmark);
       }

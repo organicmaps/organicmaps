@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView
+    android:id="@+id/tv__bookmarks_usage"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:id="@+id/bookmarks_usage_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="@dimen/dp_x_3"
-        android:paddingLeft="@dimen/dp_x_8"
-        android:paddingRight="@dimen/dp_x_8"
-        android:paddingTop="@dimen/dp_x_3"
-        android:text="@string/bookmarks_usage_hint"
-        android:textSize="@dimen/sp_x_3" />
-
-</FrameLayout>
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="@dimen/dp_x_3"
+    android:paddingLeft="@dimen/dp_x_8"
+    android:paddingRight="@dimen/dp_x_8"
+    android:paddingTop="@dimen/dp_x_3"
+    android:text="@string/bookmarks_usage_hint"
+    android:textAppearance="@style/MwmTextAppearance.Body2"/>

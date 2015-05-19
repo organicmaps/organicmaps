@@ -33,7 +33,7 @@
       android:textColor="@android:color/white"/>
 
   <ImageView
-      android:id="@+id/disclosure_image"
+      android:id="@+id/tv__set_size"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"

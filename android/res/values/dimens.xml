@@ -88,4 +88,6 @@
   <dimen name="text_direction_subtitle">22sp</dimen>
   <dimen name="text_direction_title">58sp</dimen>
 
+  <dimen name="height_item_oneline">56dp</dimen>
+
 </resources>

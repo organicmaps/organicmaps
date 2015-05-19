@@ -3,36 +3,34 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
-              android:paddingBottom="@dimen/margin_medium"
-              android:paddingLeft="@dimen/margin_tiny_and_half"
-              android:paddingRight="@dimen/margin_tiny_and_half"
-              android:paddingTop="@dimen/margin_medium">
+              android:minHeight="@dimen/height_item_oneline"
+              android:paddingLeft="@dimen/margin_medium"
+              android:paddingRight="@dimen/margin_medium">
 
   <CheckBox
-      android:id="@+id/pin_set_visible"
+      android:id="@+id/chb__set_visible"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_weight="0"
-      android:button="@drawable/eye"
-      android:focusable="false"
-      android:layout_marginLeft="@dimen/margin_tiny"
-      android:padding="@dimen/margin_tiny_and_half"/>
+      android:button="@drawable/btn_bookmark_visibility"
+      android:focusable="false"/>
 
   <TextView
-      android:id="@+id/psi_name"
+      android:id="@+id/tv__set_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/margin_tiny_and_half"
+      android:layout_marginLeft="@dimen/margin_medium"
       android:layout_weight="1"
       android:ellipsize="marquee"
       android:singleLine="true"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
-  <ImageView
-      android:id="@+id/disclosure_image"
-      android:layout_width="wrap_content"
+  <TextView
+      android:id="@+id/tv__set_size"
+      android:layout_width="48dp"
       android:layout_height="wrap_content"
       android:layout_weight="0"
-      android:src="@drawable/ic_next_item"/>
+      android:gravity="right"
+      android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
 </LinearLayout>

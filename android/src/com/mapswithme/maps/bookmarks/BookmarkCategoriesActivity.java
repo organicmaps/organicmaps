@@ -19,7 +19,8 @@ public class BookmarkCategoriesActivity extends BaseMwmFragmentActivity
     setContentView(R.layout.activity_fragment_and_toolbar);
     final Toolbar toolbar = getToolbar();
     toolbar.setTitle(R.string.bookmarks);
-    toolbar.inflateMenu(R.menu.bookmark_categories_context_menu);
+    // TODO add menu with search
+//    toolbar.inflateMenu(R.menu.bookmark_categories_context_menu);
     UiUtils.showHomeUpButton(toolbar);
     displayToolbarAsActionBar();
 

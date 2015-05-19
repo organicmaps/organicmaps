@@ -14,7 +14,7 @@
 
   <!-- base colors -->
   <!-- green tints -->
-  <color name="base_green">#209952</color>
+  <color name="base_green">#209852</color>
   <color name="base_green_darker">#188044</color>
   <color name="base_green_darkest">#146636</color>
   <color name="base_green_light">#24B460</color>

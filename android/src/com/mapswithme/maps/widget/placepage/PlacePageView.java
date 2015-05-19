@@ -721,8 +721,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     final Activity activity = (Activity) getContext();
     final Bookmark bookmark = (Bookmark) mMapObject;
     final Intent intent = new Intent(activity, ChooseBookmarkCategoryActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.PIN_SET, bookmark.getCategoryId())
-        .putExtra(ChooseBookmarkCategoryActivity.PIN, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_SET, bookmark.getCategoryId())
+        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK, new ParcelablePoint(bookmark.getCategoryId(), bookmark.getBookmarkId()));
     activity.startActivityForResult(intent, ChooseBookmarkCategoryActivity.REQUEST_CODE_SET);
   }
 

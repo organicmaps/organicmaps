@@ -37,13 +37,14 @@ public class BookmarkCategoriesFragment extends BaseMwmListFragment
   public void onListItemClick(ListView l, View v, int position, long id)
   {
     startActivity(new Intent(getActivity(), BookmarkListActivity.class)
-        .putExtra(ChooseBookmarkCategoryActivity.PIN_SET, position));
+        .putExtra(ChooseBookmarkCategoryActivity.BOOKMARK_SET, position));
   }
 
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
   {
     mSelectedPosition = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
+
     getActivity().getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);
     menu.setHeaderTitle(BookmarkManager.INSTANCE.getCategoryById(mSelectedPosition).getName());
   }
