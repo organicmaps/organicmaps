@@ -266,6 +266,13 @@ static alohalytics::TStringMap ParseLaunchOptions(NSDictionary * options) {
   }
   return parsed;
 }
+
+// ********* Objective-C implementation part. *********
+// We process all events on a non-main thread.
+static dispatch_queue_t sBackgroundThreadQueue = nil;
+// Need it to effectively upload data when app goes into the background.
+static UIBackgroundTaskIdentifier sBackgroundTaskId = UIBackgroundTaskInvalid;
+
 #endif  // TARGET_OS_IPHONE
 } // namespace
 
@@ -280,6 +287,18 @@ static alohalytics::TStringMap ParseLaunchOptions(NSDictionary * options) {
 }
 
 + (void)setup:(NSString *)serverUrl andFirstLaunch:(BOOL)isFirstLaunch withLaunchOptions:(NSDictionary *)options {
+
+#if (TARGET_OS_IPHONE > 0)
+  // Subscribe to basic app lifecycle events.
+  sBackgroundThreadQueue = ::dispatch_queue_create([serverUrl UTF8String], DISPATCH_QUEUE_SERIAL);
+  NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+  Class cls = [Alohalytics class];
+  [nc addObserver:cls selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+  [nc addObserver:cls selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+  [nc addObserver:cls selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+  [nc addObserver:cls selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+  [nc addObserver:cls selector:@selector(applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+#endif // TARGET_OS_IPHONE
   const auto installationId = InstallationId();
   Stats & instance = Stats::Instance();
   instance.SetClientId(installationId.first)
@@ -366,4 +385,49 @@ static alohalytics::TStringMap ParseLaunchOptions(NSDictionary * options) {
   Stats::Instance().LogEvent(ToStdString(event), ToStringMap(dictionary), ExtractLocation(location));
 }
 
+#pragma mark App lifecycle notifications used to calculate basic metrics.
+#if (TARGET_OS_IPHONE > 0)
++ (void)applicationDidBecomeActive:(NSNotification *)notification {
+  Stats::Instance().LogEvent("$applicationDidBecomeActive");
+}
+
++ (void)applicationWillResignActive:(NSNotification *)notification {
+  Stats::Instance().LogEvent("$applicationWillResignActive");
+}
+
++ (void)endBackgroundTask {
+  [[UIApplication sharedApplication] endBackgroundTask:sBackgroundTaskId];
+  sBackgroundTaskId = UIBackgroundTaskInvalid;
+}
+
++ (void)applicationWillEnterForeground:(NSNotificationCenter *)notification {
+  Stats::Instance().LogEvent("$applicationWillEnterForeground");
+
+  ::dispatch_async(sBackgroundThreadQueue, ^{
+    if (sBackgroundTaskId != UIBackgroundTaskInvalid) {
+      [Alohalytics endBackgroundTask];
+    }
+  });
+}
+
++ (void)applicationDidEnterBackground:(NSNotification *)notification {
+  Stats::Instance().LogEvent("$applicationDidEnterBackground");
+
+  sBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+    [Alohalytics endBackgroundTask];
+  }];
+
+  ::dispatch_async(sBackgroundThreadQueue, ^{
+    // TODO: Here upload should be refactored and called synchronously to work correctly.
+    //alohalytics::Stats::Instance().Upload();
+    if (sBackgroundTaskId != UIBackgroundTaskInvalid) {
+      [Alohalytics endBackgroundTask];
+    }
+  });
+}
+
++ (void)applicationWillTerminate:(NSNotification *)notification {
+  Stats::Instance().LogEvent("$applicationWillTerminate");
+}
+#endif // TARGET_OS_IPHONE
 @end
