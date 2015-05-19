@@ -1,0 +1,402 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 47;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		67B52BE91AD42B3800664C17 /* featurechangeset_upload.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE21AD42B3800664C17 /* featurechangeset_upload.cpp */; };
+		67B52BEA1AD42B3800664C17 /* featurechangeset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE31AD42B3800664C17 /* featurechangeset.cpp */; };
+		67B52BEB1AD42B3800664C17 /* featurechangeset.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67B52BE41AD42B3800664C17 /* featurechangeset.hpp */; };
+		67B52BEC1AD42B3800664C17 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE51AD42B3800664C17 /* sqlite3.c */; };
+		67B52BED1AD42B3800664C17 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 67B52BE61AD42B3800664C17 /* sqlite3.h */; };
+		67B52BEE1AD42B3800664C17 /* sqlite3ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 67B52BE71AD42B3800664C17 /* sqlite3ext.h */; };
+		67B52BFA1AD42B6600664C17 /* feature_changeset_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE11AD42B3800664C17 /* feature_changeset_tests.cpp */; };
+		67B52BFB1AD42B6600664C17 /* featurechangeset_upload.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE21AD42B3800664C17 /* featurechangeset_upload.cpp */; };
+		67B52BFC1AD42B6600664C17 /* featurechangeset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE31AD42B3800664C17 /* featurechangeset.cpp */; };
+		67B52BFD1AD42B7200664C17 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BE51AD42B3800664C17 /* sqlite3.c */; };
+		67B52BFF1AD42BED00664C17 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52BFE1AD42BED00664C17 /* testingmain.cpp */; };
+		67B52C011AD42C0A00664C17 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B52C001AD42C0A00664C17 /* libbase.a */; };
+		67B52C041AD6B28A00664C17 /* osm_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67B52C021AD6B28A00664C17 /* osm_entity.cpp */; };
+		67B52C051AD6B28A00664C17 /* osm_entity.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67B52C031AD6B28A00664C17 /* osm_entity.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		67B52BF11AD42B5000664C17 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		674BFF241AD6BC2400D77536 /* osm_entity_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osm_entity_tests.cpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/feature_changeset_tests/osm_entity_tests.cpp; sourceTree = "<group>"; };
+		674BFF331AD6BD2600D77536 /* libexpat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexpat.dylib; path = usr/lib/libexpat.dylib; sourceTree = SDKROOT; };
+		67B52BD31AD42B0D00664C17 /* libfeature_changeset.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libfeature_changeset.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		67B52BE11AD42B3800664C17 /* feature_changeset_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = feature_changeset_tests.cpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/feature_changeset_tests/feature_changeset_tests.cpp; sourceTree = "<group>"; };
+		67B52BE21AD42B3800664C17 /* featurechangeset_upload.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = featurechangeset_upload.cpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/featurechangeset_upload.cpp; sourceTree = "<group>"; };
+		67B52BE31AD42B3800664C17 /* featurechangeset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = featurechangeset.cpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/featurechangeset.cpp; sourceTree = "<group>"; };
+		67B52BE41AD42B3800664C17 /* featurechangeset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = featurechangeset.hpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/featurechangeset.hpp; sourceTree = "<group>"; };
+		67B52BE51AD42B3800664C17 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/sqlite3.c; sourceTree = "<group>"; };
+		67B52BE61AD42B3800664C17 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/sqlite3.h; sourceTree = "<group>"; };
+		67B52BE71AD42B3800664C17 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3ext.h; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/sqlite3ext.h; sourceTree = "<group>"; };
+		67B52BF31AD42B5000664C17 /* feature_changeset_tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = feature_changeset_tests; sourceTree = BUILT_PRODUCTS_DIR; };
+		67B52BF51AD42B5000664C17 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		67B52BFE1AD42BED00664C17 /* testingmain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../../../Volumes/AltHD/omim/testing/testingmain.cpp; sourceTree = "<group>"; };
+		67B52C001AD42C0A00664C17 /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = ../../../../../Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug/libbase.a; sourceTree = "<group>"; };
+		67B52C021AD6B28A00664C17 /* osm_entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osm_entity.cpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/osm_entity.cpp; sourceTree = "<group>"; };
+		67B52C031AD6B28A00664C17 /* osm_entity.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = osm_entity.hpp; path = ../../../../../../Volumes/AltHD/omim/feature_changeset/osm_entity.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67B52BD01AD42B0D00664C17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67B52BF01AD42B5000664C17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67B52C011AD42C0A00664C17 /* libbase.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67B52BCA1AD42B0D00664C17 = {
+			isa = PBXGroup;
+			children = (
+				674BFF331AD6BD2600D77536 /* libexpat.dylib */,
+				67B52C001AD42C0A00664C17 /* libbase.a */,
+				67B52BFE1AD42BED00664C17 /* testingmain.cpp */,
+				67B52BD51AD42B0D00664C17 /* feature_changeset */,
+				67B52BF41AD42B5000664C17 /* feature_changeset_tests */,
+				67B52BD41AD42B0D00664C17 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67B52BD41AD42B0D00664C17 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67B52BD31AD42B0D00664C17 /* libfeature_changeset.a */,
+				67B52BF31AD42B5000664C17 /* feature_changeset_tests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67B52BD51AD42B0D00664C17 /* feature_changeset */ = {
+			isa = PBXGroup;
+			children = (
+				67B52BE11AD42B3800664C17 /* feature_changeset_tests.cpp */,
+				674BFF241AD6BC2400D77536 /* osm_entity_tests.cpp */,
+				67B52BE21AD42B3800664C17 /* featurechangeset_upload.cpp */,
+				67B52BE31AD42B3800664C17 /* featurechangeset.cpp */,
+				67B52BE41AD42B3800664C17 /* featurechangeset.hpp */,
+				67B52BE51AD42B3800664C17 /* sqlite3.c */,
+				67B52BE61AD42B3800664C17 /* sqlite3.h */,
+				67B52BE71AD42B3800664C17 /* sqlite3ext.h */,
+				67B52C021AD6B28A00664C17 /* osm_entity.cpp */,
+				67B52C031AD6B28A00664C17 /* osm_entity.hpp */,
+			);
+			path = feature_changeset;
+			sourceTree = "<group>";
+		};
+		67B52BF41AD42B5000664C17 /* feature_changeset_tests */ = {
+			isa = PBXGroup;
+			children = (
+				67B52BF51AD42B5000664C17 /* main.cpp */,
+			);
+			path = feature_changeset_tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		67B52BD11AD42B0D00664C17 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67B52BED1AD42B3800664C17 /* sqlite3.h in Headers */,
+				67B52C051AD6B28A00664C17 /* osm_entity.hpp in Headers */,
+				67B52BEB1AD42B3800664C17 /* featurechangeset.hpp in Headers */,
+				67B52BEE1AD42B3800664C17 /* sqlite3ext.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		67B52BD21AD42B0D00664C17 /* feature_changeset */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67B52BDE1AD42B0D00664C17 /* Build configuration list for PBXNativeTarget "feature_changeset" */;
+			buildPhases = (
+				67B52BCF1AD42B0D00664C17 /* Sources */,
+				67B52BD01AD42B0D00664C17 /* Frameworks */,
+				67B52BD11AD42B0D00664C17 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = feature_changeset;
+			productName = feature_changeset;
+			productReference = 67B52BD31AD42B0D00664C17 /* libfeature_changeset.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		67B52BF21AD42B5000664C17 /* feature_changeset_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67B52BF71AD42B5000664C17 /* Build configuration list for PBXNativeTarget "feature_changeset_tests" */;
+			buildPhases = (
+				67B52BEF1AD42B5000664C17 /* Sources */,
+				67B52BF01AD42B5000664C17 /* Frameworks */,
+				67B52BF11AD42B5000664C17 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = feature_changeset_tests;
+			productName = feature_changeset_tests;
+			productReference = 67B52BF31AD42B5000664C17 /* feature_changeset_tests */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67B52BCB1AD42B0D00664C17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					67B52BD21AD42B0D00664C17 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					67B52BF21AD42B5000664C17 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = 67B52BCE1AD42B0D00664C17 /* Build configuration list for PBXProject "feature_changeset" */;
+			compatibilityVersion = "Xcode 6.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 67B52BCA1AD42B0D00664C17;
+			productRefGroup = 67B52BD41AD42B0D00664C17 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67B52BD21AD42B0D00664C17 /* feature_changeset */,
+				67B52BF21AD42B5000664C17 /* feature_changeset_tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67B52BCF1AD42B0D00664C17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67B52BE91AD42B3800664C17 /* featurechangeset_upload.cpp in Sources */,
+				67B52BEA1AD42B3800664C17 /* featurechangeset.cpp in Sources */,
+				67B52C041AD6B28A00664C17 /* osm_entity.cpp in Sources */,
+				67B52BEC1AD42B3800664C17 /* sqlite3.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67B52BEF1AD42B5000664C17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67B52BFF1AD42BED00664C17 /* testingmain.cpp in Sources */,
+				67B52BFD1AD42B7200664C17 /* sqlite3.c in Sources */,
+				67B52BFA1AD42B6600664C17 /* feature_changeset_tests.cpp in Sources */,
+				67B52BFB1AD42B6600664C17 /* featurechangeset_upload.cpp in Sources */,
+				67B52BFC1AD42B6600664C17 /* featurechangeset.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		67B52BDC1AD42B0D00664C17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"~/omim",
+					/usr/local/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		67B52BDD1AD42B0D00664C17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"~/omim",
+					/usr/local/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		67B52BDF1AD42B0D00664C17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67B52BE01AD42B0D00664C17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		67B52BF81AD42B5000664C17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67B52BF91AD42B5000664C17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Volumes/AltHD/Xcode/DerivedData/Build/Products/Debug,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67B52BCE1AD42B0D00664C17 /* Build configuration list for PBXProject "feature_changeset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67B52BDC1AD42B0D00664C17 /* Debug */,
+				67B52BDD1AD42B0D00664C17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67B52BDE1AD42B0D00664C17 /* Build configuration list for PBXNativeTarget "feature_changeset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67B52BDF1AD42B0D00664C17 /* Debug */,
+				67B52BE01AD42B0D00664C17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67B52BF71AD42B5000664C17 /* Build configuration list for PBXNativeTarget "feature_changeset_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67B52BF81AD42B5000664C17 /* Debug */,
+				67B52BF91AD42B5000664C17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67B52BCB1AD42B0D00664C17 /* Project object */;
+}

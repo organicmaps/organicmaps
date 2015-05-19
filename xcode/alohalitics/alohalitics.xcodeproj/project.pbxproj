@@ -1,0 +1,274 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 47;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		670D04A31B0B7E460013A7AC /* alohalytics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 670D04A21B0B7E460013A7AC /* alohalytics.cc */; };
+		67D1C7F71AE50DDF00A239E3 /* alohalytics_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */; };
+		67D1C7F81AE50DDF00A239E3 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */; };
+		67D1C7FB1AE50DFB00A239E3 /* alohalytics_objc.h in Headers */ = {isa = PBXBuildFile; fileRef = 67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */; };
+		67D1C7FC1AE50DFB00A239E3 /* alohalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 67D1C7FA1AE50DFB00A239E3 /* alohalytics.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		670D04A21B0B7E460013A7AC /* alohalytics.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = alohalytics.cc; path = src/cpp/alohalytics.cc; sourceTree = "<group>"; };
+		670D05B91B0E0CAD0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		67D1C7DF1AE507D700A239E3 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = alohalytics_objc.mm; path = src/apple/alohalytics_objc.mm; sourceTree = "<group>"; };
+		67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = http_client_apple.mm; path = src/apple/http_client_apple.mm; sourceTree = "<group>"; };
+		67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alohalytics_objc.h; path = src/alohalytics_objc.h; sourceTree = "<group>"; };
+		67D1C7FA1AE50DFB00A239E3 /* alohalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alohalytics.h; path = src/alohalytics.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67D1C7DC1AE507D700A239E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67D1C7D61AE507D700A239E3 = {
+			isa = PBXGroup;
+			children = (
+				670D05B91B0E0CAD0013A7AC /* defaults.xcconfig */,
+				67D1C7E11AE507D700A239E3 /* alohalitics */,
+				67D1C7E01AE507D700A239E3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67D1C7E01AE507D700A239E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67D1C7DF1AE507D700A239E3 /* libalohalitics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67D1C7E11AE507D700A239E3 /* alohalitics */ = {
+			isa = PBXGroup;
+			children = (
+				670D04A21B0B7E460013A7AC /* alohalytics.cc */,
+				67D1C7F91AE50DFB00A239E3 /* alohalytics_objc.h */,
+				67D1C7FA1AE50DFB00A239E3 /* alohalytics.h */,
+				67D1C7F51AE50DDF00A239E3 /* alohalytics_objc.mm */,
+				67D1C7F61AE50DDF00A239E3 /* http_client_apple.mm */,
+			);
+			name = alohalitics;
+			path = ../../3party/Alohalytics;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		67D1C7DD1AE507D700A239E3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67D1C7FC1AE50DFB00A239E3 /* alohalytics.h in Headers */,
+				67D1C7FB1AE50DFB00A239E3 /* alohalytics_objc.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		67D1C7DE1AE507D700A239E3 /* alohalitics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67D1C7EA1AE507D700A239E3 /* Build configuration list for PBXNativeTarget "alohalitics" */;
+			buildPhases = (
+				67D1C7DB1AE507D700A239E3 /* Sources */,
+				67D1C7DC1AE507D700A239E3 /* Frameworks */,
+				67D1C7DD1AE507D700A239E3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = alohalitics;
+			productName = alohalitics;
+			productReference = 67D1C7DF1AE507D700A239E3 /* libalohalitics.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67D1C7D71AE507D700A239E3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					67D1C7DE1AE507D700A239E3 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = 67D1C7DA1AE507D700A239E3 /* Build configuration list for PBXProject "alohalitics" */;
+			compatibilityVersion = "Xcode 6.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 67D1C7D61AE507D700A239E3;
+			productRefGroup = 67D1C7E01AE507D700A239E3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67D1C7DE1AE507D700A239E3 /* alohalitics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67D1C7DB1AE507D700A239E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				670D04A31B0B7E460013A7AC /* alohalytics.cc in Sources */,
+				67D1C7F71AE50DDF00A239E3 /* alohalytics_objc.mm in Sources */,
+				67D1C7F81AE50DDF00A239E3 /* http_client_apple.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		67D1C7E81AE507D700A239E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05B91B0E0CAD0013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		67D1C7E91AE507D700A239E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05B91B0E0CAD0013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		67D1C7EB1AE507D700A239E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67D1C7EC1AE507D700A239E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67D1C7DA1AE507D700A239E3 /* Build configuration list for PBXProject "alohalitics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67D1C7E81AE507D700A239E3 /* Debug */,
+				67D1C7E91AE507D700A239E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67D1C7EA1AE507D700A239E3 /* Build configuration list for PBXNativeTarget "alohalitics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67D1C7EB1AE507D700A239E3 /* Debug */,
+				67D1C7EC1AE507D700A239E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67D1C7D71AE507D700A239E3 /* Project object */;
+}

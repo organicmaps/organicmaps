@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:defaults.xcconfig">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "3party">
+      <FileRef
+         location = "container:sgitess/sgitess.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:gflags/gflags.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:jansson/jansson.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:tomcrypt/tomcrypt.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:freetype/freetype.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:fribidi/fribidi.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:zlib/zlib.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:osrm/osrm.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:o5mreader/o5mreader.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:opening_hours/opening_hours.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:succinct/succinct.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:alohalitics/alohalitics.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:protobuf/protobuf.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "container:expat/expat.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "container:anim/anim.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:api/api.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:base/base.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:coding/coding.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:drape/drape.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:geometry/geometry.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:generator/generator.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:graphics/graphics.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:gui/gui.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:indexer/indexer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:map/map.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:platform/platform.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:routing/routing.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:search/search.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:storage/storage.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:generator_tool/generator_tool.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:MapsMe/MapsMe.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "experemental">
+      <FileRef
+         location = "group:feature_changeset/feature_changeset.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:TestsOnDevice/TestsOnDevice.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>

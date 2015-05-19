@@ -1,0 +1,248 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		670B84B21A8A7A6700CE4492 /* o5mreader.c in Sources */ = {isa = PBXBuildFile; fileRef = 670B84B01A8A7A6700CE4492 /* o5mreader.c */; };
+		670B84B31A8A7A6700CE4492 /* o5mreader.h in Headers */ = {isa = PBXBuildFile; fileRef = 670B84B11A8A7A6700CE4492 /* o5mreader.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		670B84A91A8A7A4D00CE4492 /* libo5mreader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libo5mreader.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		670B84B01A8A7A6700CE4492 /* o5mreader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = o5mreader.c; path = ../../3party/o5mreader/o5mreader.c; sourceTree = "<group>"; };
+		670B84B11A8A7A6700CE4492 /* o5mreader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = o5mreader.h; path = ../../3party/o5mreader/o5mreader.h; sourceTree = "<group>"; };
+		670D05B61B0E0BFC0013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		670B84A61A8A7A4D00CE4492 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		670B84A01A8A7A4D00CE4492 = {
+			isa = PBXGroup;
+			children = (
+				670D05B61B0E0BFC0013A7AC /* defaults.xcconfig */,
+				670B84B01A8A7A6700CE4492 /* o5mreader.c */,
+				670B84B11A8A7A6700CE4492 /* o5mreader.h */,
+				670B84AA1A8A7A4D00CE4492 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		670B84AA1A8A7A4D00CE4492 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				670B84A91A8A7A4D00CE4492 /* libo5mreader.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		670B84A71A8A7A4D00CE4492 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				670B84B31A8A7A6700CE4492 /* o5mreader.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		670B84A81A8A7A4D00CE4492 /* o5mreader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 670B84AD1A8A7A4D00CE4492 /* Build configuration list for PBXNativeTarget "o5mreader" */;
+			buildPhases = (
+				670B84A51A8A7A4D00CE4492 /* Sources */,
+				670B84A61A8A7A4D00CE4492 /* Frameworks */,
+				670B84A71A8A7A4D00CE4492 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = o5mreader;
+			productName = o5mreader;
+			productReference = 670B84A91A8A7A4D00CE4492 /* libo5mreader.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		670B84A11A8A7A4D00CE4492 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					670B84A81A8A7A4D00CE4492 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 670B84A41A8A7A4D00CE4492 /* Build configuration list for PBXProject "o5mreader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 670B84A01A8A7A4D00CE4492;
+			productRefGroup = 670B84AA1A8A7A4D00CE4492 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				670B84A81A8A7A4D00CE4492 /* o5mreader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		670B84A51A8A7A4D00CE4492 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				670B84B21A8A7A6700CE4492 /* o5mreader.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		670B84AB1A8A7A4D00CE4492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05B61B0E0BFC0013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		670B84AC1A8A7A4D00CE4492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05B61B0E0BFC0013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		670B84AE1A8A7A4D00CE4492 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu89;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		670B84AF1A8A7A4D00CE4492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu89;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		670B84A41A8A7A4D00CE4492 /* Build configuration list for PBXProject "o5mreader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				670B84AB1A8A7A4D00CE4492 /* Debug */,
+				670B84AC1A8A7A4D00CE4492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		670B84AD1A8A7A4D00CE4492 /* Build configuration list for PBXNativeTarget "o5mreader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				670B84AE1A8A7A4D00CE4492 /* Debug */,
+				670B84AF1A8A7A4D00CE4492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 670B84A11A8A7A4D00CE4492 /* Project object */;
+}

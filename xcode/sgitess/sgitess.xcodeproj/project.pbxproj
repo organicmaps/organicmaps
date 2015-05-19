@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		675343521A3F5C3000A0A8C3 /* dict-list.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343351A3F5C3000A0A8C3 /* dict-list.h */; };
+		675343531A3F5C3000A0A8C3 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 675343361A3F5C3000A0A8C3 /* dict.c */; };
+		675343541A3F5C3000A0A8C3 /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343371A3F5C3000A0A8C3 /* dict.h */; };
+		675343551A3F5C3000A0A8C3 /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = 675343381A3F5C3000A0A8C3 /* geom.c */; };
+		675343561A3F5C3000A0A8C3 /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343391A3F5C3000A0A8C3 /* geom.h */; };
+		675343571A3F5C3000A0A8C3 /* gluos.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753433B1A3F5C3000A0A8C3 /* gluos.h */; };
+		675343581A3F5C3000A0A8C3 /* interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753433C1A3F5C3000A0A8C3 /* interface.cpp */; };
+		675343591A3F5C3000A0A8C3 /* interface.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753433D1A3F5C3000A0A8C3 /* interface.h */; };
+		6753435A1A3F5C3000A0A8C3 /* memalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753433E1A3F5C3000A0A8C3 /* memalloc.c */; };
+		6753435B1A3F5C3000A0A8C3 /* memalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753433F1A3F5C3000A0A8C3 /* memalloc.h */; };
+		6753435C1A3F5C3000A0A8C3 /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 675343401A3F5C3000A0A8C3 /* mesh.c */; };
+		6753435D1A3F5C3000A0A8C3 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343411A3F5C3000A0A8C3 /* mesh.h */; };
+		6753435E1A3F5C3000A0A8C3 /* normal.c in Sources */ = {isa = PBXBuildFile; fileRef = 675343421A3F5C3000A0A8C3 /* normal.c */; };
+		6753435F1A3F5C3000A0A8C3 /* normal.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343431A3F5C3000A0A8C3 /* normal.h */; };
+		675343621A3F5C3000A0A8C3 /* priorityq-sort.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343461A3F5C3000A0A8C3 /* priorityq-sort.h */; };
+		675343631A3F5C3000A0A8C3 /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 675343471A3F5C3000A0A8C3 /* priorityq.c */; };
+		675343641A3F5C3000A0A8C3 /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343481A3F5C3000A0A8C3 /* priorityq.h */; };
+		675343651A3F5C3000A0A8C3 /* render.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753434A1A3F5C3000A0A8C3 /* render.c */; };
+		675343661A3F5C3000A0A8C3 /* render.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753434B1A3F5C3000A0A8C3 /* render.h */; };
+		675343671A3F5C3000A0A8C3 /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753434C1A3F5C3000A0A8C3 /* sweep.c */; };
+		675343681A3F5C3000A0A8C3 /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753434D1A3F5C3000A0A8C3 /* sweep.h */; };
+		675343691A3F5C3000A0A8C3 /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 6753434E1A3F5C3000A0A8C3 /* tess.c */; };
+		6753436A1A3F5C3000A0A8C3 /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 6753434F1A3F5C3000A0A8C3 /* tess.h */; };
+		6753436B1A3F5C3000A0A8C3 /* tessmono.c in Sources */ = {isa = PBXBuildFile; fileRef = 675343501A3F5C3000A0A8C3 /* tessmono.c */; };
+		6753436C1A3F5C3000A0A8C3 /* tessmono.h in Headers */ = {isa = PBXBuildFile; fileRef = 675343511A3F5C3000A0A8C3 /* tessmono.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		670D05AE1B0E09690013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		675343271A3F5BFE00A0A8C3 /* libsgitess.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsgitess.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		675343351A3F5C3000A0A8C3 /* dict-list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dict-list.h"; sourceTree = "<group>"; };
+		675343361A3F5C3000A0A8C3 /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
+		675343371A3F5C3000A0A8C3 /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
+		675343381A3F5C3000A0A8C3 /* geom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = geom.c; sourceTree = "<group>"; };
+		675343391A3F5C3000A0A8C3 /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geom.h; sourceTree = "<group>"; };
+		6753433B1A3F5C3000A0A8C3 /* gluos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gluos.h; sourceTree = "<group>"; };
+		6753433C1A3F5C3000A0A8C3 /* interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
+		6753433D1A3F5C3000A0A8C3 /* interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
+		6753433E1A3F5C3000A0A8C3 /* memalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memalloc.c; sourceTree = "<group>"; };
+		6753433F1A3F5C3000A0A8C3 /* memalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memalloc.h; sourceTree = "<group>"; };
+		675343401A3F5C3000A0A8C3 /* mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mesh.c; sourceTree = "<group>"; };
+		675343411A3F5C3000A0A8C3 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		675343421A3F5C3000A0A8C3 /* normal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = normal.c; sourceTree = "<group>"; };
+		675343431A3F5C3000A0A8C3 /* normal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = normal.h; sourceTree = "<group>"; };
+		675343461A3F5C3000A0A8C3 /* priorityq-sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "priorityq-sort.h"; sourceTree = "<group>"; };
+		675343471A3F5C3000A0A8C3 /* priorityq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = priorityq.c; sourceTree = "<group>"; };
+		675343481A3F5C3000A0A8C3 /* priorityq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priorityq.h; sourceTree = "<group>"; };
+		6753434A1A3F5C3000A0A8C3 /* render.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render.c; sourceTree = "<group>"; };
+		6753434B1A3F5C3000A0A8C3 /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
+		6753434C1A3F5C3000A0A8C3 /* sweep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sweep.c; sourceTree = "<group>"; };
+		6753434D1A3F5C3000A0A8C3 /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
+		6753434E1A3F5C3000A0A8C3 /* tess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tess.c; sourceTree = "<group>"; };
+		6753434F1A3F5C3000A0A8C3 /* tess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tess.h; sourceTree = "<group>"; };
+		675343501A3F5C3000A0A8C3 /* tessmono.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tessmono.c; sourceTree = "<group>"; };
+		675343511A3F5C3000A0A8C3 /* tessmono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tessmono.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		675343241A3F5BFE00A0A8C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6753431E1A3F5BFE00A0A8C3 = {
+			isa = PBXGroup;
+			children = (
+				670D05AE1B0E09690013A7AC /* defaults.xcconfig */,
+				675343291A3F5BFE00A0A8C3 /* sgitess */,
+				675343281A3F5BFE00A0A8C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		675343281A3F5BFE00A0A8C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				675343271A3F5BFE00A0A8C3 /* libsgitess.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		675343291A3F5BFE00A0A8C3 /* sgitess */ = {
+			isa = PBXGroup;
+			children = (
+				675343351A3F5C3000A0A8C3 /* dict-list.h */,
+				675343361A3F5C3000A0A8C3 /* dict.c */,
+				675343371A3F5C3000A0A8C3 /* dict.h */,
+				675343381A3F5C3000A0A8C3 /* geom.c */,
+				675343391A3F5C3000A0A8C3 /* geom.h */,
+				6753433B1A3F5C3000A0A8C3 /* gluos.h */,
+				6753433C1A3F5C3000A0A8C3 /* interface.cpp */,
+				6753433D1A3F5C3000A0A8C3 /* interface.h */,
+				6753433E1A3F5C3000A0A8C3 /* memalloc.c */,
+				6753433F1A3F5C3000A0A8C3 /* memalloc.h */,
+				675343401A3F5C3000A0A8C3 /* mesh.c */,
+				675343411A3F5C3000A0A8C3 /* mesh.h */,
+				675343421A3F5C3000A0A8C3 /* normal.c */,
+				675343431A3F5C3000A0A8C3 /* normal.h */,
+				675343461A3F5C3000A0A8C3 /* priorityq-sort.h */,
+				675343471A3F5C3000A0A8C3 /* priorityq.c */,
+				675343481A3F5C3000A0A8C3 /* priorityq.h */,
+				6753434A1A3F5C3000A0A8C3 /* render.c */,
+				6753434B1A3F5C3000A0A8C3 /* render.h */,
+				6753434C1A3F5C3000A0A8C3 /* sweep.c */,
+				6753434D1A3F5C3000A0A8C3 /* sweep.h */,
+				6753434E1A3F5C3000A0A8C3 /* tess.c */,
+				6753434F1A3F5C3000A0A8C3 /* tess.h */,
+				675343501A3F5C3000A0A8C3 /* tessmono.c */,
+				675343511A3F5C3000A0A8C3 /* tessmono.h */,
+			);
+			name = sgitess;
+			path = ../../3party/sgitess;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		675343251A3F5BFE00A0A8C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675343591A3F5C3000A0A8C3 /* interface.h in Headers */,
+				675343561A3F5C3000A0A8C3 /* geom.h in Headers */,
+				675343661A3F5C3000A0A8C3 /* render.h in Headers */,
+				6753436C1A3F5C3000A0A8C3 /* tessmono.h in Headers */,
+				6753436A1A3F5C3000A0A8C3 /* tess.h in Headers */,
+				675343541A3F5C3000A0A8C3 /* dict.h in Headers */,
+				675343521A3F5C3000A0A8C3 /* dict-list.h in Headers */,
+				675343641A3F5C3000A0A8C3 /* priorityq.h in Headers */,
+				675343621A3F5C3000A0A8C3 /* priorityq-sort.h in Headers */,
+				6753435B1A3F5C3000A0A8C3 /* memalloc.h in Headers */,
+				675343571A3F5C3000A0A8C3 /* gluos.h in Headers */,
+				6753435D1A3F5C3000A0A8C3 /* mesh.h in Headers */,
+				675343681A3F5C3000A0A8C3 /* sweep.h in Headers */,
+				6753435F1A3F5C3000A0A8C3 /* normal.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		675343261A3F5BFE00A0A8C3 /* sgitess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675343321A3F5BFE00A0A8C3 /* Build configuration list for PBXNativeTarget "sgitess" */;
+			buildPhases = (
+				675343231A3F5BFE00A0A8C3 /* Sources */,
+				675343241A3F5BFE00A0A8C3 /* Frameworks */,
+				675343251A3F5BFE00A0A8C3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sgitess;
+			productName = sgitess;
+			productReference = 675343271A3F5BFE00A0A8C3 /* libsgitess.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6753431F1A3F5BFE00A0A8C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					675343261A3F5BFE00A0A8C3 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 675343221A3F5BFE00A0A8C3 /* Build configuration list for PBXProject "sgitess" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6753431E1A3F5BFE00A0A8C3;
+			productRefGroup = 675343281A3F5BFE00A0A8C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				675343261A3F5BFE00A0A8C3 /* sgitess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		675343231A3F5BFE00A0A8C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6753435E1A3F5C3000A0A8C3 /* normal.c in Sources */,
+				6753435C1A3F5C3000A0A8C3 /* mesh.c in Sources */,
+				675343531A3F5C3000A0A8C3 /* dict.c in Sources */,
+				675343671A3F5C3000A0A8C3 /* sweep.c in Sources */,
+				675343651A3F5C3000A0A8C3 /* render.c in Sources */,
+				675343691A3F5C3000A0A8C3 /* tess.c in Sources */,
+				6753435A1A3F5C3000A0A8C3 /* memalloc.c in Sources */,
+				675343551A3F5C3000A0A8C3 /* geom.c in Sources */,
+				675343581A3F5C3000A0A8C3 /* interface.cpp in Sources */,
+				675343631A3F5C3000A0A8C3 /* priorityq.c in Sources */,
+				6753436B1A3F5C3000A0A8C3 /* tessmono.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		675343301A3F5BFE00A0A8C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05AE1B0E09690013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		675343311A3F5BFE00A0A8C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05AE1B0E09690013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		675343331A3F5BFE00A0A8C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-w";
+			};
+			name = Debug;
+		};
+		675343341A3F5BFE00A0A8C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-w";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		675343221A3F5BFE00A0A8C3 /* Build configuration list for PBXProject "sgitess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675343301A3F5BFE00A0A8C3 /* Debug */,
+				675343311A3F5BFE00A0A8C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		675343321A3F5BFE00A0A8C3 /* Build configuration list for PBXNativeTarget "sgitess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675343331A3F5BFE00A0A8C3 /* Debug */,
+				675343341A3F5BFE00A0A8C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6753431F1A3F5BFE00A0A8C3 /* Project object */;
+}

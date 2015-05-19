@@ -1,0 +1,400 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */; };
+		670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */; };
+		670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670C62111AC5A15700C38A8C /* routing_mapping.cpp */; };
+		670C62141AC5A15700C38A8C /* routing_mapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 670C62121AC5A15700C38A8C /* routing_mapping.h */; };
+		670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */; };
+		670D049F1B0B4A970013A7AC /* nearest_edge_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */; };
+		674F9BC81B0A580E00704FFA /* astar_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BB81B0A580E00704FFA /* astar_router.cpp */; };
+		674F9BC91B0A580E00704FFA /* astar_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BB91B0A580E00704FFA /* astar_router.hpp */; };
+		674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBA1B0A580E00704FFA /* async_router.cpp */; };
+		674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BBB1B0A580E00704FFA /* async_router.hpp */; };
+		674F9BCC1B0A580E00704FFA /* features_road_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BBC1B0A580E00704FFA /* features_road_graph.cpp */; };
+		674F9BCD1B0A580E00704FFA /* features_road_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BBD1B0A580E00704FFA /* features_road_graph.hpp */; };
+		674F9BD01B0A580E00704FFA /* online_cross_fetcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BC01B0A580E00704FFA /* online_cross_fetcher.cpp */; };
+		674F9BD11B0A580E00704FFA /* online_cross_fetcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BC11B0A580E00704FFA /* online_cross_fetcher.hpp */; };
+		674F9BD21B0A580E00704FFA /* road_graph_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BC21B0A580E00704FFA /* road_graph_router.cpp */; };
+		674F9BD31B0A580E00704FFA /* road_graph_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BC31B0A580E00704FFA /* road_graph_router.hpp */; };
+		674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BC41B0A580E00704FFA /* road_graph.cpp */; };
+		674F9BD51B0A580E00704FFA /* road_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BC51B0A580E00704FFA /* road_graph.hpp */; };
+		674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674F9BC61B0A580E00704FFA /* turns_generator.cpp */; };
+		674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 674F9BC71B0A580E00704FFA /* turns_generator.hpp */; };
+		675344141A3F644F00A0A8C3 /* osrm_data_facade.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */; };
+		675344151A3F644F00A0A8C3 /* osrm_online_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344071A3F644F00A0A8C3 /* osrm_online_router.cpp */; };
+		675344161A3F644F00A0A8C3 /* osrm_online_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344081A3F644F00A0A8C3 /* osrm_online_router.hpp */; };
+		675344171A3F644F00A0A8C3 /* osrm_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344091A3F644F00A0A8C3 /* osrm_router.cpp */; };
+		675344181A3F644F00A0A8C3 /* osrm_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440A1A3F644F00A0A8C3 /* osrm_router.hpp */; };
+		675344191A3F644F00A0A8C3 /* osrm2feature_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753440B1A3F644F00A0A8C3 /* osrm2feature_map.cpp */; };
+		6753441A1A3F644F00A0A8C3 /* osrm2feature_map.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440C1A3F644F00A0A8C3 /* osrm2feature_map.hpp */; };
+		6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753440D1A3F644F00A0A8C3 /* route.cpp */; };
+		6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440E1A3F644F00A0A8C3 /* route.hpp */; };
+		6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6753440F1A3F644F00A0A8C3 /* router.hpp */; };
+		6753441E1A3F644F00A0A8C3 /* turns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344101A3F644F00A0A8C3 /* turns.cpp */; };
+		6753441F1A3F644F00A0A8C3 /* turns.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344111A3F644F00A0A8C3 /* turns.hpp */; };
+		675344201A3F644F00A0A8C3 /* vehicle_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344121A3F644F00A0A8C3 /* vehicle_model.cpp */; };
+		675344211A3F644F00A0A8C3 /* vehicle_model.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344131A3F644F00A0A8C3 /* vehicle_model.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cross_routing_context.cpp; sourceTree = "<group>"; };
+		670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cross_routing_context.hpp; sourceTree = "<group>"; };
+		670C62111AC5A15700C38A8C /* routing_mapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_mapping.cpp; sourceTree = "<group>"; };
+		670C62121AC5A15700C38A8C /* routing_mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = routing_mapping.h; sourceTree = "<group>"; };
+		670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nearest_edge_finder.cpp; sourceTree = "<group>"; };
+		670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nearest_edge_finder.hpp; sourceTree = "<group>"; };
+		670D05A61B0E02560013A7AC /* defaults.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = defaults.xcconfig; path = ../defaults.xcconfig; sourceTree = "<group>"; };
+		674F9BB81B0A580E00704FFA /* astar_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_router.cpp; sourceTree = "<group>"; };
+		674F9BB91B0A580E00704FFA /* astar_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_router.hpp; sourceTree = "<group>"; };
+		674F9BBA1B0A580E00704FFA /* async_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = async_router.cpp; sourceTree = "<group>"; };
+		674F9BBB1B0A580E00704FFA /* async_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_router.hpp; sourceTree = "<group>"; };
+		674F9BBC1B0A580E00704FFA /* features_road_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_road_graph.cpp; sourceTree = "<group>"; };
+		674F9BBD1B0A580E00704FFA /* features_road_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = features_road_graph.hpp; sourceTree = "<group>"; };
+		674F9BC01B0A580E00704FFA /* online_cross_fetcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = online_cross_fetcher.cpp; sourceTree = "<group>"; };
+		674F9BC11B0A580E00704FFA /* online_cross_fetcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = online_cross_fetcher.hpp; sourceTree = "<group>"; };
+		674F9BC21B0A580E00704FFA /* road_graph_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_router.cpp; sourceTree = "<group>"; };
+		674F9BC31B0A580E00704FFA /* road_graph_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_graph_router.hpp; sourceTree = "<group>"; };
+		674F9BC41B0A580E00704FFA /* road_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph.cpp; sourceTree = "<group>"; };
+		674F9BC51B0A580E00704FFA /* road_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = road_graph.hpp; sourceTree = "<group>"; };
+		674F9BC61B0A580E00704FFA /* turns_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator.cpp; sourceTree = "<group>"; };
+		674F9BC71B0A580E00704FFA /* turns_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns_generator.hpp; sourceTree = "<group>"; };
+		675343F81A3F640D00A0A8C3 /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_data_facade.hpp; sourceTree = "<group>"; };
+		675344071A3F644F00A0A8C3 /* osrm_online_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_online_router.cpp; sourceTree = "<group>"; };
+		675344081A3F644F00A0A8C3 /* osrm_online_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_online_router.hpp; sourceTree = "<group>"; };
+		675344091A3F644F00A0A8C3 /* osrm_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm_router.cpp; sourceTree = "<group>"; };
+		6753440A1A3F644F00A0A8C3 /* osrm_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm_router.hpp; sourceTree = "<group>"; };
+		6753440B1A3F644F00A0A8C3 /* osrm2feature_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osrm2feature_map.cpp; sourceTree = "<group>"; };
+		6753440C1A3F644F00A0A8C3 /* osrm2feature_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osrm2feature_map.hpp; sourceTree = "<group>"; };
+		6753440D1A3F644F00A0A8C3 /* route.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route.cpp; sourceTree = "<group>"; };
+		6753440E1A3F644F00A0A8C3 /* route.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route.hpp; sourceTree = "<group>"; };
+		6753440F1A3F644F00A0A8C3 /* router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = router.hpp; sourceTree = "<group>"; };
+		675344101A3F644F00A0A8C3 /* turns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns.cpp; sourceTree = "<group>"; };
+		675344111A3F644F00A0A8C3 /* turns.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turns.hpp; sourceTree = "<group>"; };
+		675344121A3F644F00A0A8C3 /* vehicle_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_model.cpp; sourceTree = "<group>"; };
+		675344131A3F644F00A0A8C3 /* vehicle_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vehicle_model.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		675343F51A3F640D00A0A8C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		675343EF1A3F640D00A0A8C3 = {
+			isa = PBXGroup;
+			children = (
+				670D05A61B0E02560013A7AC /* defaults.xcconfig */,
+				675343FA1A3F640D00A0A8C3 /* routing */,
+				675343F91A3F640D00A0A8C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		675343F91A3F640D00A0A8C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				675343F81A3F640D00A0A8C3 /* librouting.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		675343FA1A3F640D00A0A8C3 /* routing */ = {
+			isa = PBXGroup;
+			children = (
+				670D049C1B0B4A970013A7AC /* nearest_edge_finder.cpp */,
+				670D049D1B0B4A970013A7AC /* nearest_edge_finder.hpp */,
+				674F9BB81B0A580E00704FFA /* astar_router.cpp */,
+				674F9BB91B0A580E00704FFA /* astar_router.hpp */,
+				674F9BBA1B0A580E00704FFA /* async_router.cpp */,
+				674F9BBB1B0A580E00704FFA /* async_router.hpp */,
+				674F9BBC1B0A580E00704FFA /* features_road_graph.cpp */,
+				674F9BBD1B0A580E00704FFA /* features_road_graph.hpp */,
+				674F9BC01B0A580E00704FFA /* online_cross_fetcher.cpp */,
+				674F9BC11B0A580E00704FFA /* online_cross_fetcher.hpp */,
+				674F9BC21B0A580E00704FFA /* road_graph_router.cpp */,
+				674F9BC31B0A580E00704FFA /* road_graph_router.hpp */,
+				674F9BC41B0A580E00704FFA /* road_graph.cpp */,
+				674F9BC51B0A580E00704FFA /* road_graph.hpp */,
+				674F9BC61B0A580E00704FFA /* turns_generator.cpp */,
+				674F9BC71B0A580E00704FFA /* turns_generator.hpp */,
+				670C62111AC5A15700C38A8C /* routing_mapping.cpp */,
+				670C62121AC5A15700C38A8C /* routing_mapping.h */,
+				670B84BE1A9381D900CE4492 /* cross_routing_context.cpp */,
+				670B84BF1A9381D900CE4492 /* cross_routing_context.hpp */,
+				675344061A3F644F00A0A8C3 /* osrm_data_facade.hpp */,
+				675344071A3F644F00A0A8C3 /* osrm_online_router.cpp */,
+				675344081A3F644F00A0A8C3 /* osrm_online_router.hpp */,
+				675344091A3F644F00A0A8C3 /* osrm_router.cpp */,
+				6753440A1A3F644F00A0A8C3 /* osrm_router.hpp */,
+				6753440B1A3F644F00A0A8C3 /* osrm2feature_map.cpp */,
+				6753440C1A3F644F00A0A8C3 /* osrm2feature_map.hpp */,
+				6753440D1A3F644F00A0A8C3 /* route.cpp */,
+				6753440E1A3F644F00A0A8C3 /* route.hpp */,
+				6753440F1A3F644F00A0A8C3 /* router.hpp */,
+				675344101A3F644F00A0A8C3 /* turns.cpp */,
+				675344111A3F644F00A0A8C3 /* turns.hpp */,
+				675344121A3F644F00A0A8C3 /* vehicle_model.cpp */,
+				675344131A3F644F00A0A8C3 /* vehicle_model.hpp */,
+			);
+			name = routing;
+			path = ../../routing;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		675343F61A3F640D00A0A8C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */,
+				674F9BD11B0A580E00704FFA /* online_cross_fetcher.hpp in Headers */,
+				674F9BD31B0A580E00704FFA /* road_graph_router.hpp in Headers */,
+				675344181A3F644F00A0A8C3 /* osrm_router.hpp in Headers */,
+				675344141A3F644F00A0A8C3 /* osrm_data_facade.hpp in Headers */,
+				6753441F1A3F644F00A0A8C3 /* turns.hpp in Headers */,
+				674F9BC91B0A580E00704FFA /* astar_router.hpp in Headers */,
+				6753441A1A3F644F00A0A8C3 /* osrm2feature_map.hpp in Headers */,
+				674F9BD71B0A580E00704FFA /* turns_generator.hpp in Headers */,
+				670C62141AC5A15700C38A8C /* routing_mapping.h in Headers */,
+				6753441C1A3F644F00A0A8C3 /* route.hpp in Headers */,
+				675344161A3F644F00A0A8C3 /* osrm_online_router.hpp in Headers */,
+				674F9BCD1B0A580E00704FFA /* features_road_graph.hpp in Headers */,
+				6753441D1A3F644F00A0A8C3 /* router.hpp in Headers */,
+				670D049F1B0B4A970013A7AC /* nearest_edge_finder.hpp in Headers */,
+				674F9BD51B0A580E00704FFA /* road_graph.hpp in Headers */,
+				675344211A3F644F00A0A8C3 /* vehicle_model.hpp in Headers */,
+				670B84C11A9381D900CE4492 /* cross_routing_context.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		675343F71A3F640D00A0A8C3 /* routing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 675344031A3F640D00A0A8C3 /* Build configuration list for PBXNativeTarget "routing" */;
+			buildPhases = (
+				675343F41A3F640D00A0A8C3 /* Sources */,
+				675343F51A3F640D00A0A8C3 /* Frameworks */,
+				675343F61A3F640D00A0A8C3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = routing;
+			productName = routing;
+			productReference = 675343F81A3F640D00A0A8C3 /* librouting.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		675343F01A3F640D00A0A8C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = maps.me;
+				TargetAttributes = {
+					675343F71A3F640D00A0A8C3 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 675343F31A3F640D00A0A8C3 /* Build configuration list for PBXProject "routing" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 675343EF1A3F640D00A0A8C3;
+			productRefGroup = 675343F91A3F640D00A0A8C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				675343F71A3F640D00A0A8C3 /* routing */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		675343F41A3F640D00A0A8C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				675344201A3F644F00A0A8C3 /* vehicle_model.cpp in Sources */,
+				675344151A3F644F00A0A8C3 /* osrm_online_router.cpp in Sources */,
+				6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */,
+				674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */,
+				675344191A3F644F00A0A8C3 /* osrm2feature_map.cpp in Sources */,
+				670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */,
+				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,
+				675344171A3F644F00A0A8C3 /* osrm_router.cpp in Sources */,
+				674F9BD21B0A580E00704FFA /* road_graph_router.cpp in Sources */,
+				674F9BD41B0A580E00704FFA /* road_graph.cpp in Sources */,
+				6753441E1A3F644F00A0A8C3 /* turns.cpp in Sources */,
+				670B84C01A9381D900CE4492 /* cross_routing_context.cpp in Sources */,
+				674F9BCC1B0A580E00704FFA /* features_road_graph.cpp in Sources */,
+				674F9BD01B0A580E00704FFA /* online_cross_fetcher.cpp in Sources */,
+				674F9BC81B0A580E00704FFA /* astar_router.cpp in Sources */,
+				670C62131AC5A15700C38A8C /* routing_mapping.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		675344011A3F640D00A0A8C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05A61B0E02560013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		675344021A3F640D00A0A8C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 670D05A61B0E02560013A7AC /* defaults.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		675344041A3F640D00A0A8C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		675344051A3F640D00A0A8C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		675343F31A3F640D00A0A8C3 /* Build configuration list for PBXProject "routing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675344011A3F640D00A0A8C3 /* Debug */,
+				675344021A3F640D00A0A8C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		675344031A3F640D00A0A8C3 /* Build configuration list for PBXNativeTarget "routing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				675344041A3F640D00A0A8C3 /* Debug */,
+				675344051A3F640D00A0A8C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 675343F01A3F640D00A0A8C3 /* Project object */;
+}

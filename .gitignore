@@ -55,6 +55,8 @@ iphone/*/*.xcodeproj/*.perspectivev3
 iphone/*/*.xcodeproj/project.xcworkspace/*
 iphone/*/*.xcodeproj/xcuserdata/*
 iphone/*/build/*
+xcode/**/xcuserdata
+xcode/**/xcshareddata
 tools/emacsmode/build
 
 # GeneratedFiles
