@@ -48,7 +48,6 @@ DrapeEngine::DrapeEngine(Params const & params)
   gui::DrapeGui & guiSubsystem = gui::DrapeGui::Instance();
   guiSubsystem.Init(scaleFn, gnLvlFn);
   guiSubsystem.SetLocalizator(bind(&StringsBundle::GetString, params.m_stringsBundle.get(), _1));
-  guiSubsystem.SetStorageAccessor(params.m_storageAccessor);
 
   ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP, params.m_model.GetDownloadMapHandler());
   ConnectDownloadFn(gui::CountryStatusHelper::BUTTON_TYPE_MAP_ROUTING, params.m_model.GetDownloadMapRoutingHandler());
@@ -167,6 +166,13 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
 {
   for (pair<int, TModelViewListenerFn> const & p : m_listeners)
     p.second(screen);
+}
+
+void DrapeEngine::SetStorageInfo(gui::StorageInfo const & info, bool isCurrentCountry)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<StorageInfoUpdatedMessage>(info, isCurrentCountry),
+                                  MessagePriority::Normal);
 }
 
 } // namespace df

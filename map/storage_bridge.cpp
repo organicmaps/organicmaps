@@ -2,53 +2,17 @@
 
 using namespace storage;
 
-StorageBridge::StorageBridge(shared_ptr<storage::ActiveMapsLayout> activeMaps)
+StorageBridge::StorageBridge(shared_ptr<storage::ActiveMapsLayout> activeMaps, TOnChangedHandler const & handler)
   : m_activeMaps(activeMaps)
+  , m_handler(handler)
 {
+  ASSERT(m_activeMaps != nullptr, ());
+  m_slot = m_activeMaps->AddListener(this);
 }
 
-string StorageBridge::GetCurrentCountryName() const
+StorageBridge::~StorageBridge()
 {
-  ASSERT(m_currentIndex != TIndex(), ());
-  return m_activeMaps->GetFormatedCountryName(m_currentIndex);
-}
-
-size_t StorageBridge::GetMapSize() const
-{
-  ASSERT(m_currentIndex != TIndex(), ());
-  return m_activeMaps->GetRemoteCountrySizes(m_currentIndex).first;
-}
-
-size_t StorageBridge::GetRoutingSize() const
-{
-  ASSERT(m_currentIndex != TIndex(), ());
-  return m_activeMaps->GetRemoteCountrySizes(m_currentIndex).second;
-}
-
-size_t StorageBridge::GetDownloadProgress() const
-{
-  if (m_progress.second == 0)
-    return 0;
-
-  return m_progress.first * 100 / m_progress.second;
-}
-
-void StorageBridge::SetCountryIndex(storage::TIndex const & index)
-{
-  m_currentIndex = index;
-}
-
-storage::TIndex StorageBridge::GetCountryIndex() const
-{
-  return m_currentIndex;
-}
-
-storage::TStatus StorageBridge::GetCountryStatus() const
-{
-  if (m_currentIndex == TIndex())
-    return TStatus::EOnDisk;
-
-  return m_activeMaps->GetCountryStatus(m_currentIndex);
+  m_activeMaps->RemoveListener(m_slot);
 }
 
 void StorageBridge::CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
@@ -65,8 +29,7 @@ void StorageBridge::CountryStatusChanged(ActiveMapsLayout::TGroup const & group,
 {
   UNUSED_VALUE(oldStatus);
   UNUSED_VALUE(newStatus);
-  if (m_activeMaps->GetCoreIndex(group, position) == m_currentIndex && m_statusChanged)
-    m_statusChanged();
+  ReportChanges(group, position);
 }
 
 void StorageBridge::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position,
@@ -81,6 +44,15 @@ void StorageBridge::CountryOptionsChanged(ActiveMapsLayout::TGroup const & group
 void StorageBridge::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position,
                                               LocalAndRemoteSizeT const & progress)
 {
-  if (m_activeMaps->GetCoreIndex(group, position) == m_currentIndex)
-    m_progress = progress;
+  UNUSED_VALUE(progress);
+  ReportChanges(group, position);
+}
+
+void StorageBridge::ReportChanges(ActiveMapsLayout::TGroup const & group, int position)
+{
+  storage::TIndex countryIndex = m_activeMaps->GetCoreIndex(group, position);
+
+  // here we can not be sure if the country is current, so let check it later
+  if (m_handler != nullptr)
+    m_handler(countryIndex, false /* isCurrentCountry */);
 }

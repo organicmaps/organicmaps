@@ -1,8 +1,6 @@
 #include "country_status_helper.hpp"
 #include "drape_gui.hpp"
 
-#include "storage/index.hpp"
-
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 #include "base/string_format.hpp"
@@ -70,20 +68,12 @@ CountryStatusHelper::CountryStatusHelper()
 {
 }
 
-void CountryStatusHelper::SetStorageAccessor(ref_ptr<StorageAccessor> accessor)
+void CountryStatusHelper::SetStorageInfo(StorageInfo const & storageInfo)
 {
-  m_accessor = accessor;
-}
-
-void CountryStatusHelper::SetCountryIndex(storage::TIndex const & index)
-{
-  ASSERT(m_accessor != nullptr, ());
-  if (m_accessor->GetCountryIndex() == index)
-    return;
+  m_storageInfo = storageInfo;
 
   CountryStatusHelper::ECountryState state = CountryStatusHelper::COUNTRY_STATE_LOADED;
-  m_accessor->SetCountryIndex(index);
-  switch(m_accessor->GetCountryStatus())
+  switch(m_storageInfo.m_countryStatus)
   {
   case storage::TStatus::ENotDownloaded:
     state = CountryStatusHelper::COUNTRY_STATE_EMPTY;
@@ -105,10 +95,15 @@ void CountryStatusHelper::SetCountryIndex(storage::TIndex const & index)
   SetState(state);
 }
 
+void CountryStatusHelper::Clear()
+{
+  m_storageInfo = StorageInfo();
+  SetState(COUNTRY_STATE_LOADED);
+}
+
 storage::TIndex CountryStatusHelper::GetCountryIndex() const
 {
-  ASSERT(m_accessor != nullptr, ());
-  return m_accessor->GetCountryIndex();
+  return m_storageInfo.m_countryIndex;
 }
 
 void CountryStatusHelper::SetState(ECountryState state)
@@ -148,7 +143,7 @@ void CountryStatusHelper::GetProgressInfo(string & alphabet, size_t & maxLength)
 
 string CountryStatusHelper::GetProgressValue() const
 {
-  return strings::to_string(m_accessor->GetDownloadProgress()) + "%";
+  return strings::to_string(m_storageInfo.m_downloadProgress) + "%";
 }
 
 void CountryStatusHelper::FillControlsForState()
@@ -177,7 +172,7 @@ void CountryStatusHelper::FillControlsForState()
 void CountryStatusHelper::FillControlsForEmpty()
 {
   ASSERT(m_controls.empty(), ());
-  m_controls.push_back(MakeLabel(m_accessor->GetCurrentCountryName()));
+  m_controls.push_back(MakeLabel(m_storageInfo.m_currentCountryName));
   m_controls.push_back(MakeButton(FormatDownloadMap(), BUTTON_TYPE_MAP));
   m_controls.push_back(MakeButton(FormatDownloadMapRouting(), BUTTON_TYPE_MAP_ROUTING));
 }
@@ -198,7 +193,7 @@ void CountryStatusHelper::FillControlsForLoading()
     m_controls.push_back(MakeLabel(firstLabel));
   }
 
-  m_controls.push_back(MakeLabel(m_accessor->GetCurrentCountryName()));
+  m_controls.push_back(MakeLabel(m_storageInfo.m_currentCountryName));
   m_controls.push_back(MakeProgress());
 
   if (secondPos + 1 < text.size())
@@ -226,7 +221,7 @@ string CountryStatusHelper::FormatDownloadMap()
 {
   size_t size;
   string units;
-  FormatMapSize(m_accessor->GetMapSize(), units, size);
+  FormatMapSize(m_storageInfo.m_mapSize, units, size);
   return strings::Format(GetLocalizedString(DownloadMapButtonID), size, units);
 }
 
@@ -234,18 +229,18 @@ string CountryStatusHelper::FormatDownloadMapRouting()
 {
   size_t size;
   string units;
-  FormatMapSize(m_accessor->GetMapSize() + m_accessor->GetRoutingSize(), units, size);
+  FormatMapSize(m_storageInfo.m_mapSize + m_storageInfo.m_routingSize, units, size);
   return strings::Format(GetLocalizedString(DownloadMapRoutingButtonID), size, units);
 }
 
 string CountryStatusHelper::FormatInQueueMap()
 {
-  return strings::Format(GetLocalizedString(InQueueID), m_accessor->GetCurrentCountryName());
+  return strings::Format(GetLocalizedString(InQueueID), m_storageInfo.m_currentCountryName);
 }
 
 string CountryStatusHelper::FormatFailed()
 {
-  return strings::Format(GetLocalizedString(DownloadingFailedID), m_accessor->GetCurrentCountryName());
+  return strings::Format(GetLocalizedString(DownloadingFailedID), m_storageInfo.m_currentCountryName);
 }
 
 string CountryStatusHelper::FormatTryAgain()

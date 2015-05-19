@@ -7,6 +7,8 @@
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
 
+#include "drape_gui/country_status_helper.hpp"
+
 #include "geometry/screenbase.hpp"
 
 #include "base/strings_bundle.hpp"
@@ -15,7 +17,6 @@
 #include "std/mutex.hpp"
 
 namespace dp { class OGLContextFactory; }
-namespace gui { class StorageAccessor; }
 
 namespace df
 {
@@ -31,13 +32,11 @@ public:
   {
     Params(ref_ptr<dp::OGLContextFactory> factory,
            ref_ptr<StringsBundle> stringBundle,
-           ref_ptr<gui::StorageAccessor> storageAccessor,
            Viewport const & viewport,
            MapDataProvider const & model,
            double vs)
       : m_factory(factory)
       , m_stringsBundle(stringBundle)
-      , m_storageAccessor(storageAccessor)
       , m_viewport(viewport)
       , m_model(model)
       , m_vs(vs)
@@ -46,7 +45,6 @@ public:
 
     ref_ptr<dp::OGLContextFactory> m_factory;
     ref_ptr<StringsBundle> m_stringsBundle;
-    ref_ptr<gui::StorageAccessor> m_storageAccessor;
     Viewport m_viewport;
     MapDataProvider m_model;
     double m_vs;
@@ -74,6 +72,8 @@ public:
   void UpdateUserMarksLayer(TileKey const & tileKey, UserMarksProvider * provider);
 
   void SetRenderingEnabled(bool const isEnabled);
+
+  void SetStorageInfo(gui::StorageInfo const & info, bool isCurrentCountry);
 
 private:
   void AddUserEvent(UserEvent const & e);

@@ -2,17 +2,26 @@
 
 #include "drape/pointers.hpp"
 
+#include "storage/index.hpp"
+#include "storage/storage_defines.hpp"
+
 #include "base/buffer_vector.hpp"
 
 #include "std/atomic.hpp"
 #include "std/string.hpp"
 
-namespace storage { struct TIndex; }
-
 namespace gui
 {
 
-class StorageAccessor;
+struct StorageInfo
+{
+  storage::TIndex m_countryIndex = storage::TIndex::INVALID;
+  storage::TStatus m_countryStatus = storage::TStatus::EUnknown;
+  string m_currentCountryName;
+  size_t m_mapSize = 0;
+  size_t m_routingSize = 0;
+  size_t m_downloadProgress = 0;
+};
 
 class CountryStatusHelper
 {
@@ -50,11 +59,10 @@ public:
 
   CountryStatusHelper();
 
-  void SetStorageAccessor(ref_ptr<StorageAccessor> accessor);
-  void SetCountryIndex(storage::TIndex const & index);
-  storage::TIndex GetCountryIndex() const;
+  void SetStorageInfo(StorageInfo const & storageInfo);
+  void Clear();
 
-  void SetState(ECountryState state);
+  storage::TIndex GetCountryIndex() const;
   ECountryState GetState() const;
   /// CountryStatusHandle work on FrontendRenderer and call this function to check "is visible"
   /// or state has already changed.
@@ -82,10 +90,11 @@ private:
   string FormatFailed();
   string FormatTryAgain();
 
-private:
-  atomic<ECountryState> m_state;
+  void SetState(ECountryState state);
+
+  ECountryState m_state;
   buffer_vector<Control, 4> m_controls;
-  ref_ptr<StorageAccessor> m_accessor;
+  StorageInfo m_storageInfo;
 };
 
 }  // namespace gui

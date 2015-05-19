@@ -5,14 +5,14 @@ namespace df
 
 MapDataProvider::MapDataProvider(TReadIDsFn const & idsReader,
                                  TReadFeaturesFn const & featureReader,
-                                 TResolveCountryFn const & countryResolver,
+                                 TUpdateCountryIndexFn const & countryIndexUpdater,
                                  TIsCountryLoadedFn const & isCountryLoadedFn,
                                  TDownloadFn const & downloadMapHandler,
                                  TDownloadFn const & downloadMapRoutingHandler,
                                  TDownloadFn const & downloadRetryHandler)
   : m_featureReader(featureReader)
   , m_idsReader(idsReader)
-  , m_countryResolver(countryResolver)
+  , m_countryIndexUpdater(countryIndexUpdater)
   , m_isCountryLoadedFn(isCountryLoadedFn)
   , m_downloadMapHandler(downloadMapHandler)
   , m_downloadMapRoutingHandler(downloadMapRoutingHandler)
@@ -30,9 +30,9 @@ void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, vector
   m_featureReader(fn, ids);
 }
 
-storage::TIndex MapDataProvider::FindCountry(m2::PointF const & pt)
+void MapDataProvider::UpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt)
 {
-  return m_countryResolver(pt);
+  m_countryIndexUpdater(currentIndex, pt);
 }
 
 MapDataProvider::TIsCountryLoadedFn const & MapDataProvider::GetIsCountryLoadedFn() const

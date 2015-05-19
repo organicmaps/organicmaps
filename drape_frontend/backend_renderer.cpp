@@ -69,11 +69,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ScreenBase const & screen = msg->GetScreen();
       TTilesCollection const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
-      storage::TIndex cnt;
-      if (!tiles.empty() && (*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
-        cnt = m_model.FindCountry(screen.ClipRect().Center());
 
-      gui::DrapeGui::Instance().SetCountryIndex(cnt);
+      gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
+      if (!tiles.empty() && (*tiles.begin()).m_zoomLevel > scales::GetUpperWorldScale())
+        m_model.UpdateCountryIndex(helper.GetCountryIndex(), screen.ClipRect().Center());
+      else
+        helper.Clear();
+
       break;
     }
   case Message::Resize:
@@ -136,6 +138,22 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         CacheUserMarks(marksProvider, m_batchersPool->GetTileBatcher(key), m_texMng);
       msg->EndProcess();
       m_batchersPool->ReleaseBatcher(key);
+      break;
+    }
+  case Message::StorageInfoUpdated:
+    {
+      ref_ptr<StorageInfoUpdatedMessage> msg = static_cast<ref_ptr<StorageInfoUpdatedMessage>>(message);
+      gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
+      if (msg->IsCurrentCountry())
+      {
+        helper.SetStorageInfo(msg->GetStorageInfo());
+      }
+      else
+      {
+        // check if country is current
+        if (helper.GetCountryIndex() == msg->GetStorageInfo().m_countryIndex)
+          helper.SetStorageInfo(msg->GetStorageInfo());
+      }
       break;
     }
   case Message::StopRendering:

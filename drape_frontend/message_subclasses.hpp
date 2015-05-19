@@ -9,6 +9,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "drape_gui/country_status_helper.hpp"
 #include "drape_gui/layer_render.hpp"
 #include "drape_gui/skin.hpp"
 
@@ -244,6 +245,23 @@ public:
 
 private:
   gui::Skin::ElementName m_elements;
+};
+
+class StorageInfoUpdatedMessage : public Message
+{
+public:
+  StorageInfoUpdatedMessage(gui::StorageInfo const & info, bool isCurrentCountry)
+    : m_storageInfo(info)
+    , m_isCurrentCountry(isCurrentCountry)
+  {}
+
+  Type GetType() const override { return Message::StorageInfoUpdated;}
+  gui::StorageInfo const & GetStorageInfo() const { return m_storageInfo; }
+  bool IsCurrentCountry() const { return m_isCurrentCountry; }
+
+private:
+  gui::StorageInfo m_storageInfo;
+  bool m_isCurrentCountry;
 };
 
 class MyPositionShapeMessage : public Message

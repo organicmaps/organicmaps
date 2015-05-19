@@ -7,11 +7,6 @@
 namespace gui
 {
 
-void StorageAccessor::SetStatusChangedCallback(TSlotFn const & fn)
-{
-  m_statusChanged = fn;
-}
-
 struct DrapeGui::Impl
 {
   DrapeGui::TScaleFactorFn m_scaleFn;
@@ -101,23 +96,6 @@ string DrapeGui::GetLocalizedString(string const & stringID) const
   ASSERT(m_impl != nullptr, ());
   ASSERT(m_impl->m_localizeFn != nullptr, ());
   return m_impl->m_localizeFn(stringID);
-}
-
-void DrapeGui::SetStorageAccessor(ref_ptr<StorageAccessor> accessor)
-{
-  ASSERT(m_impl != nullptr, ());
-  accessor->SetStatusChangedCallback([this]
-  {
-    EmitRecacheSignal(Skin::CountryStatus);
-  });
-
-  CountryStatusHelper & cntHelpet = GetCountryStatusHelperImpl();
-  cntHelpet.SetStorageAccessor(accessor);
-}
-
-void DrapeGui::SetCountryIndex(storage::TIndex const & index)
-{
-  GetCountryStatusHelperImpl().SetCountryIndex(index);
 }
 
 RulerHelper & DrapeGui::GetRulerHelperImpl()

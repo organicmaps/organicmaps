@@ -7,21 +7,13 @@
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
 
-/// Provide access to Storage in DrapeGui subsystem. Need to CountryStatus buttons
-class StorageBridge : public gui::StorageAccessor
-                    , public storage::ActiveMapsLayout::ActiveMapsListener
+class StorageBridge : public storage::ActiveMapsLayout::ActiveMapsListener
 {
 public:
-  StorageBridge(shared_ptr<storage::ActiveMapsLayout> activeMaps);
+  using TOnChangedHandler = function<void(storage::TIndex const & /*countryIndex*/, bool /*isCurrentCountry*/)>;
 
-  string GetCurrentCountryName() const override;
-  size_t GetMapSize() const override;
-  size_t GetRoutingSize() const override;
-  size_t GetDownloadProgress() const override;
-
-  void SetCountryIndex(storage::TIndex const & index) override;
-  storage::TIndex GetCountryIndex() const override;
-  storage::TStatus GetCountryStatus() const override;
+  StorageBridge(shared_ptr<storage::ActiveMapsLayout> activeMaps, TOnChangedHandler const & handler);
+  ~StorageBridge() override;
 
   void CountryGroupChanged(storage::ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
                            storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition) override;
@@ -33,7 +25,10 @@ public:
                                  storage::LocalAndRemoteSizeT const & progress) override;
 
 private:
-  storage::TIndex m_currentIndex;
   shared_ptr<storage::ActiveMapsLayout> m_activeMaps;
-  storage::LocalAndRemoteSizeT m_progress;
+  TOnChangedHandler m_handler;
+  int m_slot;
+
+  void ReportChanges(storage::ActiveMapsLayout::TGroup const & group, int position);
 };
+

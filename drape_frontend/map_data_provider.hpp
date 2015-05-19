@@ -17,13 +17,13 @@ public:
   template <typename T> using TReadCallback = function<void (T const &)>;
   using TReadFeaturesFn = function<void (TReadCallback<FeatureType> const & , vector<FeatureID> const &)>;
   using TReadIDsFn = function<void (TReadCallback<FeatureID> const & , m2::RectD const &, int)>;
-  using TResolveCountryFn = function<storage::TIndex (m2::PointF const &)>;
+  using TUpdateCountryIndexFn = function<void (storage::TIndex const & , m2::PointF const &)>;
   using TIsCountryLoadedFn = function<bool (m2::PointD const & pt)>;
   using TDownloadFn = function<void (storage::TIndex const & countryIndex)>;
 
   MapDataProvider(TReadIDsFn const & idsReader,
                   TReadFeaturesFn const & featureReader,
-                  TResolveCountryFn const & countryResolver,
+                  TUpdateCountryIndexFn const & countryIndexUpdater,
                   TIsCountryLoadedFn const & isCountryLoadedFn,
                   TDownloadFn const & downloadMapHandler,
                   TDownloadFn const & downloadMapRoutingHandler,
@@ -32,7 +32,7 @@ public:
   void ReadFeaturesID(TReadCallback<FeatureID> const & fn, m2::RectD const & r, int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) const;
 
-  storage::TIndex FindCountry(m2::PointF const & pt);
+  void UpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
   TIsCountryLoadedFn const & GetIsCountryLoadedFn() const;
 
   TDownloadFn const & GetDownloadMapHandler() const;
@@ -42,7 +42,7 @@ public:
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
-  TResolveCountryFn m_countryResolver;
+  TUpdateCountryIndexFn m_countryIndexUpdater;
   TIsCountryLoadedFn m_isCountryLoadedFn;
   TDownloadFn m_downloadMapHandler;
   TDownloadFn m_downloadMapRoutingHandler;

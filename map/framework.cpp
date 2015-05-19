@@ -180,7 +180,7 @@ Framework::Framework()
 {
   m_activeMaps.reset(new ActiveMapsLayout(*this));
   m_globalCntTree = storage::CountryTree(m_activeMaps);
-  m_storageAccessor = make_unique_dp<StorageBridge>(m_activeMaps);
+  m_storageBridge = make_unique_dp<StorageBridge>(m_activeMaps, bind(&Framework::UpdateStorageInfo, this, _1, _2));
 
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
@@ -273,11 +273,10 @@ Framework::Framework()
 
 Framework::~Framework()
 {
-  // m_drapeEngine must be destroyed before m_storageAccessor
   m_drapeEngine.reset();
 
+  m_storageBridge.reset();
   m_activeMaps.reset();
-  m_storageAccessor.reset();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 }
 
@@ -873,6 +872,34 @@ void Framework::OnDownloadRetryCallback(storage::TIndex const & countryIndex)
   m_activeMaps->RetryDownloading(countryIndex);
 }
 
+void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt)
+{
+  storage::TIndex newCountryIndex = GetCountryIndex(m2::PointD(pt));
+  if (currentIndex != newCountryIndex)
+    UpdateStorageInfo(newCountryIndex, true /* isCurrentCountry */);
+}
+
+void Framework::UpdateStorageInfo(storage::TIndex const & countryIndex, bool isCurrentCountry)
+{
+  ASSERT(m_activeMaps != nullptr, ());
+  ASSERT(m_drapeEngine != nullptr, ());
+
+  gui::StorageInfo storageInfo;
+
+  storageInfo.m_countryIndex = countryIndex;
+  storageInfo.m_currentCountryName = m_activeMaps->GetFormatedCountryName(countryIndex);
+  storageInfo.m_mapSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).first;
+  storageInfo.m_routingSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).second;
+  storageInfo.m_countryStatus = m_activeMaps->GetCountryStatus(countryIndex);
+  if (storageInfo.m_countryStatus == storage::TStatus::EDownloading)
+  {
+    storage::LocalAndRemoteSizeT progress = m_activeMaps->GetDownloadableCountrySize(countryIndex);
+    storageInfo.m_downloadProgress = progress.first * 100 / progress.second;
+  }
+
+  m_drapeEngine->SetStorageInfo(storageInfo, isCurrentCountry);
+}
+
 void Framework::MemoryWarning()
 {
   LOG(LINFO, ("MemoryWarning"));
@@ -1286,7 +1313,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 {
   using TReadIDsFn = df::MapDataProvider::TReadIDsFn;
   using TReadFeaturesFn = df::MapDataProvider::TReadFeaturesFn;
-  using TResolveCountryFn = df::MapDataProvider::TResolveCountryFn;
+  using TUpdateCountryIndexFn = df::MapDataProvider::TUpdateCountryIndexFn;
   using TIsCountryLoadedFn = df::MapDataProvider::TIsCountryLoadedFn;
   using TDownloadFn = df::MapDataProvider::TDownloadFn;
 
@@ -1300,9 +1327,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     m_model.ReadFeatures(fn, ids);
   };
 
-  TResolveCountryFn resolveCountry = [this](m2::PointF const & pt) -> TIndex
+  TUpdateCountryIndexFn updateCountryIndex = [this](storage::TIndex const & currentIndex, m2::PointF const & pt)
   {
-    return GetCountryIndex(m2::PointD(pt));
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnUpdateCountryIndex, this, currentIndex, pt));
   };
 
   TIsCountryLoadedFn isCountryLoadedFn = bind(&Framework::IsCountryLoaded, this, _1);
@@ -1324,9 +1351,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   df::DrapeEngine::Params p(contextFactory,
                             make_ref(&m_stringsBundle),
-                            make_ref(m_storageAccessor),
                             df::Viewport(0, 0, w, h),
-                            df::MapDataProvider(idReadFn, featureReadFn, resolveCountry, isCountryLoadedFn,
+                            df::MapDataProvider(idReadFn, featureReadFn, updateCountryIndex, isCountryLoadedFn,
                                                 downloadMapFn, downloadMapRoutingFn, downloadRetryFn),
                             vs);
 

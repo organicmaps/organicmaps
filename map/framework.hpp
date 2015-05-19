@@ -57,7 +57,7 @@ class CountryInfoGetter;
 namespace anim { class Controller; }
 namespace routing { namespace turns{ class Settings; } }
 
-namespace gui { class StorageAccessor; }
+class StorageBridge;
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -87,8 +87,6 @@ class Framework
 #endif
 
 protected:
-  friend class BenchmarkEngine;
-
   StringsBundle m_stringsBundle;
 
   // The order matters here: storage::CountryInfoGetter must be
@@ -104,7 +102,7 @@ protected:
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-  drape_ptr<gui::StorageAccessor> m_storageAccessor;
+  drape_ptr<StorageBridge> m_storageBridge;
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
   using TDrapeFunction = function<void (df::DrapeEngine *)>;
@@ -122,7 +120,6 @@ protected:
   storage::Storage m_storage;
   shared_ptr<storage::ActiveMapsLayout> m_activeMaps;
   storage::CountryTree m_globalCntTree;
-  unique_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
   /// How many pixels around touch point are used to get bookmark or POI
@@ -301,6 +298,9 @@ private:
   void OnDownloadMapCallback(storage::TIndex const & countryIndex);
   void OnDownloadMapRoutingCallback(storage::TIndex const & countryIndex);
   void OnDownloadRetryCallback(storage::TIndex const & countryIndex);
+
+  void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
+  void UpdateStorageInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;

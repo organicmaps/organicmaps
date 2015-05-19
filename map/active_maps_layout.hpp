@@ -35,6 +35,7 @@ public:
   class ActiveMapsListener
   {
   public:
+    virtual ~ActiveMapsListener(){}
     /// if some country been inserted than oldGroup == newGroup, and oldPosition == -1
     /// if some country been deleted than oldGroup == newGroup, and newPosition == -1
     /// if group of country been changed. than oldGroup != newGroup, oldPosition >= 0 and newPosition >= 0
