@@ -52,7 +52,6 @@ void StorageBridge::ReportChanges(ActiveMapsLayout::TGroup const & group, int po
 {
   storage::TIndex countryIndex = m_activeMaps->GetCoreIndex(group, position);
 
-  // here we can not be sure if the country is current, so let check it later
   if (m_handler != nullptr)
-    m_handler(countryIndex, false /* isCurrentCountry */);
+    m_handler(countryIndex);
 }

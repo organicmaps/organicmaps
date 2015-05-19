@@ -3,6 +3,7 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape_gui/country_status_helper.hpp"
 #include "drape_gui/drape_gui.hpp"
 
 #include "drape/texture_manager.hpp"
@@ -168,10 +169,10 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
     p.second(screen);
 }
 
-void DrapeEngine::SetStorageInfo(gui::StorageInfo const & info, bool isCurrentCountry)
+void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<StorageInfoUpdatedMessage>(info, isCurrentCountry),
+                                  make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry),
                                   MessagePriority::Normal);
 }
 

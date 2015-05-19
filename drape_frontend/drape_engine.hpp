@@ -7,8 +7,6 @@
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "drape_gui/country_status_helper.hpp"
-
 #include "geometry/screenbase.hpp"
 
 #include "base/strings_bundle.hpp"
@@ -17,6 +15,7 @@
 #include "std/mutex.hpp"
 
 namespace dp { class OGLContextFactory; }
+namespace gui { struct CountryInfo; }
 
 namespace df
 {
@@ -73,7 +72,7 @@ public:
 
   void SetRenderingEnabled(bool const isEnabled);
 
-  void SetStorageInfo(gui::StorageInfo const & info, bool isCurrentCountry);
+  void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry);
 
 private:
   void AddUserEvent(UserEvent const & e);

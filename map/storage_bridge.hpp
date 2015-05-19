@@ -10,7 +10,7 @@
 class StorageBridge : public storage::ActiveMapsLayout::ActiveMapsListener
 {
 public:
-  using TOnChangedHandler = function<void(storage::TIndex const & /*countryIndex*/, bool /*isCurrentCountry*/)>;
+  using TOnChangedHandler = function<void(storage::TIndex const & /*countryIndex*/)>;
 
   StorageBridge(shared_ptr<storage::ActiveMapsLayout> activeMaps, TOnChangedHandler const & handler);
   ~StorageBridge() override;

@@ -65,7 +65,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::UpdateReadManager:
     {
-      ref_ptr<UpdateReadManagerMessage> msg = static_cast<ref_ptr<UpdateReadManagerMessage>>(message);
+      ref_ptr<UpdateReadManagerMessage> msg = message;
       ScreenBase const & screen = msg->GetScreen();
       TTilesCollection const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
@@ -80,7 +80,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::Resize:
     {
-      ref_ptr<ResizeMessage> msg = static_cast<ref_ptr<ResizeMessage>>(message);
+      ref_ptr<ResizeMessage> msg = message;
       df::Viewport const & v = msg->GetViewport();
       m_guiCacher.Resize(v.GetWidth(), v.GetHeight());
       RecacheGui(gui::Skin::AllElements);
@@ -88,7 +88,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::InvalidateReadManagerRect:
     {
-      ref_ptr<InvalidateReadManagerRectMessage> msg = static_cast<ref_ptr<InvalidateReadManagerRectMessage>>(message);
+      ref_ptr<InvalidateReadManagerRectMessage> msg = message;
       m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
     }
@@ -102,13 +102,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::TileReadEnded:
     {
-      ref_ptr<TileReadEndMessage> msg = static_cast<ref_ptr<TileReadEndMessage>>(message);
+      ref_ptr<TileReadEndMessage> msg = message;
       m_batchersPool->ReleaseBatcher(msg->GetKey());
       break;
     }
   case Message::FinishReading:
     {
-      ref_ptr<FinishReadingMessage> msg = static_cast<ref_ptr<FinishReadingMessage>>(message);
+      ref_ptr<FinishReadingMessage> msg = message;
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FinishReadingMessage>(move(msg->MoveTiles())),
                                 MessagePriority::Normal);
@@ -116,7 +116,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::MapShapeReaded:
     {
-      ref_ptr<MapShapeReadedMessage> msg = static_cast<ref_ptr<MapShapeReadedMessage>>(message);
+      ref_ptr<MapShapeReadedMessage> msg = message;
       ref_ptr<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
       for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         shape->Draw(batcher, m_texMng);
@@ -124,7 +124,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
   case Message::UpdateUserMarkLayer:
     {
-      ref_ptr<UpdateUserMarkLayerMessage> msg = static_cast<ref_ptr<UpdateUserMarkLayerMessage>>(message);
+      ref_ptr<UpdateUserMarkLayerMessage> msg = message;
       TileKey const & key = msg->GetKey();
 
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -140,19 +140,19 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_batchersPool->ReleaseBatcher(key);
       break;
     }
-  case Message::StorageInfoUpdated:
+  case Message::CountryInfoUpdate:
     {
-      ref_ptr<StorageInfoUpdatedMessage> msg = static_cast<ref_ptr<StorageInfoUpdatedMessage>>(message);
+      ref_ptr<CountryInfoUpdateMessage> msg = message;
       gui::CountryStatusHelper & helper = gui::DrapeGui::Instance().GetCountryStatusHelper();
       if (msg->IsCurrentCountry())
       {
-        helper.SetStorageInfo(msg->GetStorageInfo());
+        helper.SetCountryInfo(msg->GetCountryInfo());
       }
       else
       {
         // check if country is current
-        if (helper.GetCountryIndex() == msg->GetStorageInfo().m_countryIndex)
-          helper.SetStorageInfo(msg->GetStorageInfo());
+        if (helper.GetCountryIndex() == msg->GetCountryInfo().m_countryIndex)
+          helper.SetCountryInfo(msg->GetCountryInfo());
       }
       break;
     }

@@ -300,7 +300,7 @@ private:
   void OnDownloadRetryCallback(storage::TIndex const & countryIndex);
 
   void OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::PointF const & pt);
-  void UpdateStorageInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
+  void UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry);
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;

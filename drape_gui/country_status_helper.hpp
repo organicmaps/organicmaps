@@ -13,7 +13,7 @@
 namespace gui
 {
 
-struct StorageInfo
+struct CountryInfo
 {
   storage::TIndex m_countryIndex = storage::TIndex::INVALID;
   storage::TStatus m_countryStatus = storage::TStatus::EUnknown;
@@ -59,7 +59,7 @@ public:
 
   CountryStatusHelper();
 
-  void SetStorageInfo(StorageInfo const & storageInfo);
+  void SetCountryInfo(CountryInfo const & countryInfo);
   void Clear();
 
   storage::TIndex GetCountryIndex() const;
@@ -94,7 +94,7 @@ private:
 
   ECountryState m_state;
   buffer_vector<Control, 4> m_controls;
-  StorageInfo m_storageInfo;
+  CountryInfo m_countryInfo;
 };
 
 }  // namespace gui

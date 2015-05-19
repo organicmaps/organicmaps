@@ -68,12 +68,12 @@ CountryStatusHelper::CountryStatusHelper()
 {
 }
 
-void CountryStatusHelper::SetStorageInfo(StorageInfo const & storageInfo)
+void CountryStatusHelper::SetCountryInfo(CountryInfo const & countryInfo)
 {
-  m_storageInfo = storageInfo;
+  m_countryInfo = countryInfo;
 
   CountryStatusHelper::ECountryState state = CountryStatusHelper::COUNTRY_STATE_LOADED;
-  switch(m_storageInfo.m_countryStatus)
+  switch(m_countryInfo.m_countryStatus)
   {
   case storage::TStatus::ENotDownloaded:
     state = CountryStatusHelper::COUNTRY_STATE_EMPTY;
@@ -97,13 +97,13 @@ void CountryStatusHelper::SetStorageInfo(StorageInfo const & storageInfo)
 
 void CountryStatusHelper::Clear()
 {
-  m_storageInfo = StorageInfo();
+  m_countryInfo = CountryInfo();
   SetState(COUNTRY_STATE_LOADED);
 }
 
 storage::TIndex CountryStatusHelper::GetCountryIndex() const
 {
-  return m_storageInfo.m_countryIndex;
+  return m_countryInfo.m_countryIndex;
 }
 
 void CountryStatusHelper::SetState(ECountryState state)
@@ -143,7 +143,7 @@ void CountryStatusHelper::GetProgressInfo(string & alphabet, size_t & maxLength)
 
 string CountryStatusHelper::GetProgressValue() const
 {
-  return strings::to_string(m_storageInfo.m_downloadProgress) + "%";
+  return strings::to_string(m_countryInfo.m_downloadProgress) + "%";
 }
 
 void CountryStatusHelper::FillControlsForState()
@@ -172,7 +172,7 @@ void CountryStatusHelper::FillControlsForState()
 void CountryStatusHelper::FillControlsForEmpty()
 {
   ASSERT(m_controls.empty(), ());
-  m_controls.push_back(MakeLabel(m_storageInfo.m_currentCountryName));
+  m_controls.push_back(MakeLabel(m_countryInfo.m_currentCountryName));
   m_controls.push_back(MakeButton(FormatDownloadMap(), BUTTON_TYPE_MAP));
   m_controls.push_back(MakeButton(FormatDownloadMapRouting(), BUTTON_TYPE_MAP_ROUTING));
 }
@@ -193,7 +193,7 @@ void CountryStatusHelper::FillControlsForLoading()
     m_controls.push_back(MakeLabel(firstLabel));
   }
 
-  m_controls.push_back(MakeLabel(m_storageInfo.m_currentCountryName));
+  m_controls.push_back(MakeLabel(m_countryInfo.m_currentCountryName));
   m_controls.push_back(MakeProgress());
 
   if (secondPos + 1 < text.size())
@@ -221,7 +221,7 @@ string CountryStatusHelper::FormatDownloadMap()
 {
   size_t size;
   string units;
-  FormatMapSize(m_storageInfo.m_mapSize, units, size);
+  FormatMapSize(m_countryInfo.m_mapSize, units, size);
   return strings::Format(GetLocalizedString(DownloadMapButtonID), size, units);
 }
 
@@ -229,18 +229,18 @@ string CountryStatusHelper::FormatDownloadMapRouting()
 {
   size_t size;
   string units;
-  FormatMapSize(m_storageInfo.m_mapSize + m_storageInfo.m_routingSize, units, size);
+  FormatMapSize(m_countryInfo.m_mapSize + m_countryInfo.m_routingSize, units, size);
   return strings::Format(GetLocalizedString(DownloadMapRoutingButtonID), size, units);
 }
 
 string CountryStatusHelper::FormatInQueueMap()
 {
-  return strings::Format(GetLocalizedString(InQueueID), m_storageInfo.m_currentCountryName);
+  return strings::Format(GetLocalizedString(InQueueID), m_countryInfo.m_currentCountryName);
 }
 
 string CountryStatusHelper::FormatFailed()
 {
-  return strings::Format(GetLocalizedString(DownloadingFailedID), m_storageInfo.m_currentCountryName);
+  return strings::Format(GetLocalizedString(DownloadingFailedID), m_countryInfo.m_currentCountryName);
 }
 
 string CountryStatusHelper::FormatTryAgain()

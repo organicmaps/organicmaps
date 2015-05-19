@@ -24,7 +24,7 @@ public:
     GuiLayerRecached,
     GuiRecache,
     MyPositionShape,
-    StorageInfoUpdated,
+    CountryInfoUpdate,
     StopRendering
   };
 

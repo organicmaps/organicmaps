@@ -247,20 +247,20 @@ private:
   gui::Skin::ElementName m_elements;
 };
 
-class StorageInfoUpdatedMessage : public Message
+class CountryInfoUpdateMessage : public Message
 {
 public:
-  StorageInfoUpdatedMessage(gui::StorageInfo const & info, bool isCurrentCountry)
-    : m_storageInfo(info)
+  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry)
+    : m_countryInfo(info)
     , m_isCurrentCountry(isCurrentCountry)
   {}
 
-  Type GetType() const override { return Message::StorageInfoUpdated;}
-  gui::StorageInfo const & GetStorageInfo() const { return m_storageInfo; }
+  Type GetType() const override { return Message::CountryInfoUpdate;}
+  gui::CountryInfo const & GetCountryInfo() const { return m_countryInfo; }
   bool IsCurrentCountry() const { return m_isCurrentCountry; }
 
 private:
-  gui::StorageInfo m_storageInfo;
+  gui::CountryInfo m_countryInfo;
   bool m_isCurrentCountry;
 };
 

@@ -180,7 +180,7 @@ Framework::Framework()
 {
   m_activeMaps.reset(new ActiveMapsLayout(*this));
   m_globalCntTree = storage::CountryTree(m_activeMaps);
-  m_storageBridge = make_unique_dp<StorageBridge>(m_activeMaps, bind(&Framework::UpdateStorageInfo, this, _1, _2));
+  m_storageBridge = make_unique_dp<StorageBridge>(m_activeMaps, bind(&Framework::UpdateCountryInfo, this, _1, false));
 
   // Restore map style before classificator loading
   int mapStyle = MapStyleLight;
@@ -876,28 +876,28 @@ void Framework::OnUpdateCountryIndex(storage::TIndex const & currentIndex, m2::P
 {
   storage::TIndex newCountryIndex = GetCountryIndex(m2::PointD(pt));
   if (currentIndex != newCountryIndex)
-    UpdateStorageInfo(newCountryIndex, true /* isCurrentCountry */);
+    UpdateCountryInfo(newCountryIndex, true /* isCurrentCountry */);
 }
 
-void Framework::UpdateStorageInfo(storage::TIndex const & countryIndex, bool isCurrentCountry)
+void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isCurrentCountry)
 {
   ASSERT(m_activeMaps != nullptr, ());
   ASSERT(m_drapeEngine != nullptr, ());
 
-  gui::StorageInfo storageInfo;
+  gui::CountryInfo countryInfo;
 
-  storageInfo.m_countryIndex = countryIndex;
-  storageInfo.m_currentCountryName = m_activeMaps->GetFormatedCountryName(countryIndex);
-  storageInfo.m_mapSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).first;
-  storageInfo.m_routingSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).second;
-  storageInfo.m_countryStatus = m_activeMaps->GetCountryStatus(countryIndex);
-  if (storageInfo.m_countryStatus == storage::TStatus::EDownloading)
+  countryInfo.m_countryIndex = countryIndex;
+  countryInfo.m_currentCountryName = m_activeMaps->GetFormatedCountryName(countryIndex);
+  countryInfo.m_mapSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).first;
+  countryInfo.m_routingSize = m_activeMaps->GetRemoteCountrySizes(countryIndex).second;
+  countryInfo.m_countryStatus = m_activeMaps->GetCountryStatus(countryIndex);
+  if (countryInfo.m_countryStatus == storage::TStatus::EDownloading)
   {
     storage::LocalAndRemoteSizeT progress = m_activeMaps->GetDownloadableCountrySize(countryIndex);
-    storageInfo.m_downloadProgress = progress.first * 100 / progress.second;
+    countryInfo.m_downloadProgress = progress.first * 100 / progress.second;
   }
 
-  m_drapeEngine->SetStorageInfo(storageInfo, isCurrentCountry);
+  m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
 }
 
 void Framework::MemoryWarning()
