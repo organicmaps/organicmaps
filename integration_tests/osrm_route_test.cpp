@@ -133,4 +133,28 @@ namespace
         integration::GetAllMaps(), MercatorBounds::FromLatLon(45.36078, 36.60866), {0., 0.},
         MercatorBounds::FromLatLon(45.38053, 36.73226), 15600.);
   }
-}
+
+  UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
+  {
+    TRouteResult const routeResult = integration::CalculateRoute(
+        integration::GetAllMaps(), {32.05489, 65.78463}, {0., 0.}, {37.60169, 67.45807});
+
+    Route const & route = *routeResult.first;
+    OsrmRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, OsrmRouter::NoError, ());
+
+    integration::TestRouteTime(route, 20237.);
+  }
+
+  UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
+  {
+    TRouteResult const routeResult = integration::CalculateRoute(
+        integration::GetAllMaps(), {37.53804, 67.53647}, {0., 0.}, {37.40990, 67.64474});
+
+    Route const & route = *routeResult.first;
+    OsrmRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, OsrmRouter::NoError, ());
+
+    integration::TestRouteTime(route, 1092.);
+  }
+}  // namespace

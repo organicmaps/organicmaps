@@ -5,8 +5,6 @@
 #include "routing/route.hpp"
 #include "routing/turns.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
-
 #include "std/function.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
@@ -14,48 +12,81 @@
 struct PathData;
 class Index;
 
+namespace ftypes
+{
+enum class HighwayClass;
+}
+
 namespace routing
 {
 struct RoutingMapping;
 
 namespace turns
 {
-// Returns a segment index by STL-like range [s, e) of segments indices for the passed node.
+/*!
+ * \brief Returns a segment index by STL-like range [s, e) of segments indices for the passed node.
+ */
 typedef function<size_t(pair<size_t, size_t>)> TGetIndexFunction;
 
-size_t GetFirstSegmentPointIndex(pair<size_t, size_t> const & p);
-OsrmMappingTypes::FtSeg GetSegment(NodeID node, RoutingMapping const & routingMapping,
-                                   TGetIndexFunction GetIndex);
+/*!
+ * \brief The TurnInfo struct is an accumulator for all junction information.
+ * During a junction (a turn) analysis a different subsets of fields in the structure
+ * may be calculated. The main purpose of TurnInfo is to prevent recalculation the same fields.
+ * The idea is if a field is required to check whether a field has been calculated.
+ * If yes, just use it. If not, the field should be calculated, kept in the structure
+ * and used.
+ */
+struct TurnInfo
+{
+  RoutingMapping & m_routeMapping;
+
+  NodeID m_ingoingNodeID;
+  OsrmMappingTypes::FtSeg m_ingoingSegment;
+  ftypes::HighwayClass m_ingoingHighwayClass;
+
+  NodeID m_outgoingNodeID;
+  OsrmMappingTypes::FtSeg m_outgoingSegment;
+  ftypes::HighwayClass m_outgoingHighwayClass;
+
+  TurnInfo(RoutingMapping & routeMapping, NodeID ingoingNodeID, NodeID outgoingNodeID);
+  ~TurnInfo();
+
+  bool IsSegmentsValid() const;
+};
+
+size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p);
 vector<SingleLaneInfo> GetLanesInfo(NodeID node, RoutingMapping const & routingMapping,
                                     TGetIndexFunction GetIndex, Index const & index);
-// Returns geometry for all the turns. That means that for every turn CalculateTurnGeometry calculates
-// a sequence of points.
+
+/*!
+ * \brief Returns geometry for all the turns. It means that for every turn CalculateTurnGeometry
+ * calculates a sequence of points.
+ */
 void CalculateTurnGeometry(vector<m2::PointD> const & points, Route::TurnsT const & turnsDir,
                            TurnsGeomT & turnsGeom);
-// Selects lanes which are recommended for an end user.
+/*!
+ * \brief Selects lanes which are recommended for an end user.
+ */
 void SelectRecommendedLanes(Route::TurnsT & turnsDir);
 void FixupTurns(vector<m2::PointD> const & points, Route::TurnsT & turnsDir);
-ftypes::HighwayClass GetOutgoingHighwayClass(NodeID node, RoutingMapping const & routingMapping,
-                                             Index const & index);
+
 TurnDirection InvertDirection(TurnDirection dir);
 TurnDirection MostRightDirection(double angle);
 TurnDirection MostLeftDirection(double angle);
 TurnDirection IntermediateDirection(double angle);
 
-// Returns true if the route enters a roundabout.
-// That means isIngoingEdgeRoundabout is false and isOutgoingEdgeRoundabout is true.
+/*!
+ * \return Returns true if the route enters a roundabout.
+ * That means isIngoingEdgeRoundabout is false and isOutgoingEdgeRoundabout is true.
+ */
 bool CheckRoundaboutEntrance(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout);
-// Returns a turn instruction if an ingoing edge or (and) outgoing edge belongs to a roundabout.
+/*!
+ * \return Returns a turn instruction if an ingoing edge or (and) outgoing edge belongs to a roundabout.
+ */
 TurnDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout,
-                                     bool isJunctionOfSeveralTurns);
+                                     bool isMultiTurnJunction);
 
-// Returns false when
-// * the route leads from one big road to another one;
-// * and the other possible turns lead to small roads;
-// * and the turn is GoStraight or TurnSlight*.
-bool HighwayClassFilter(ftypes::HighwayClass ingoingClass, ftypes::HighwayClass outgoingClass,
-                        NodeID outgoingNode, TurnDirection turn,
-                        TTurnCandidates const & possibleTurns,
-                        RoutingMapping const & routingMapping, Index const & index);
+void GetTurnDirection(Index const & index, turns::TurnInfo & turnInfo, TurnItem & turn);
+
 }  // namespace routing
 }  // namespace turns

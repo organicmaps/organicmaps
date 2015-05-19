@@ -8,8 +8,8 @@
 namespace
 {
 using namespace routing::turns;
-// The order is important. Starting with the most frequent tokens according to
-// taginfo.openstreetmap.org to minimize the number of comparisons in ParseSingleLane().
+/// The order is important. Starting with the most frequent tokens according to
+/// taginfo.openstreetmap.org we minimize the number of the comparisons in ParseSingleLane().
 array<pair<LaneWay, string>, static_cast<size_t>(LaneWay::Count)> const g_laneWayNames = {
     {{LaneWay::Through, "through"},
      {LaneWay::Left, "left"},

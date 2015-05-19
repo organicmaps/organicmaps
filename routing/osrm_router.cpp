@@ -14,7 +14,6 @@
 #include "indexer/mercator.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scales.hpp"
-#include "indexer/search_string_utils.hpp"
 
 #include "coding/reader_wrapper.hpp"
 
@@ -41,7 +40,6 @@ namespace routing
 {
 size_t constexpr kMaxNodeCandidatesCount = 10;
 double constexpr kFeatureFindingRectSideRadiusMeters = 1000.0;
-double constexpr kTimeOverhead = 1.;
 double constexpr kFeaturesNearTurnM = 3.0;
 
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
@@ -382,12 +380,6 @@ public:
                         res.end());
   }
 };
-
-size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p)
-{
-  ASSERT_GREATER(p.second, 0, ());
-  return p.second - 1;
-}
 } // namespace
 
 OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & fn,
@@ -535,9 +527,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   {
     if (finalPoint != m_CachedTargetPoint)
     {
-      ResultCode const code =
-          FindPhantomNodes(finalPoint, m2::PointD::Zero(),
-                           m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
+      ResultCode const code = FindPhantomNodes(finalPoint, m2::PointD::Zero(),
+          m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
       m_CachedTargetPoint = finalPoint;
@@ -608,32 +599,31 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   }
 }
 
-m2::PointD OsrmRouter::GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
-                                            FeatureType const & ft, m2::PointD const & turnPnt,
-                                            size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const
+IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
+                                                 m2::PointD const & direction,
+                                                 TFeatureGraphNodeVec & res, size_t maxCount,
+                                                 TRoutingMappingPtr const & mapping)
 {
-  const size_t maxPntsNum = 7;
-  const double maxDistMeter = 300.f;
-  double curDist = 0.f;
-  m2::PointD pnt = turnPnt, nextPnt;
+  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
+  getter.SetPoint(point);
 
-  const size_t segDist = abs(seg.m_pointEnd - seg.m_pointStart);
-  ASSERT_LESS(segDist, ft.GetPointsCount(), ());
-  const size_t usedFtPntNum = min(maxPntsNum, segDist);
+  m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
+                                            point, kFeatureFindingRectSideRadiusMeters),
+                                scales::GetUpperScale(), mapping->GetMwmId());
 
-  for (size_t i = 1; i <= usedFtPntNum; ++i)
-  {
-    nextPnt = ft.GetPoint(GetPndInd(seg.m_pointStart, seg.m_pointEnd, i));
-    curDist += MercatorBounds::DistanceOnEarth(pnt, nextPnt);
-    if (curDist > maxDistMeter)
-    {
-      return nextPnt;
-    }
-    pnt = nextPnt;
-  }
-  return nextPnt;
+  if (!getter.HasCandidates())
+    return RouteNotFound;
+
+  getter.MakeResult(res, maxCount, mapping->GetName());
+  return NoError;
 }
 
+// @todo(vbykoianko) This method shall to be refactored. It shall be split into several
+// methods. All the functionality shall be moved to the turns_generator unit.
+
+// @todo(vbykoianko) For the time being MakeTurnAnnotation generates the turn annotation
+// and the route polyline at the same time. It is better to generate it separately
+// to be able to use the route without turn annotation.
 OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & routingResult,
                                                       TRoutingMappingPtr const & mapping,
                                                       vector<m2::PointD> & points,
@@ -641,9 +631,11 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
                                                       Route::TimesT & times,
                                                       turns::TurnsGeomT & turnsGeom)
 {
-  typedef OsrmMappingTypes::FtSeg SegT;
-  SegT const & segBegin = routingResult.sourceEdge.segment;
-  SegT const & segEnd = routingResult.targetEdge.segment;
+  ASSERT(mapping, ());
+
+  typedef OsrmMappingTypes::FtSeg TSeg;
+  TSeg const & segBegin = routingResult.sourceEdge.segment;
+  TSeg const & segEnd = routingResult.targetEdge.segment;
 
   double estimateTime = 0;
 
@@ -654,7 +646,9 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 #ifdef _DEBUG
   size_t lastIdx = 0;
 #endif
+
   for (auto const & segment : routingResult.unpackedPathSegments)
+  //for (auto i : osrm::irange<size_t>(0, routingResult.m_routePath.unpacked_path_segments.size()))
   {
     INTERRUPT_WHEN_CANCELLED();
 
@@ -669,33 +663,40 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
         TurnItem t;
         t.m_index = points.size() - 1;
 
-        GetTurnDirection(segment[j - 1],
-                         segment[j], mapping, t);
-        if (t.m_turn != turns::TurnDirection::NoTurn)
-        {
-          // adding lane info
-          t.m_lanes = turns::GetLanesInfo(segment[j - 1].node, *mapping,
-                                          GetLastSegmentPointIndex, *m_pIndex);
-          turnsDir.push_back(move(t));
-        }
+        turns::TurnInfo turnInfo(*mapping,
+                                 segment[j - 1].node,
+                                 segment[j].node);
+        turns::GetTurnDirection(*m_pIndex, turnInfo, t);
 
-        // osrm multiple seconds to 10, so we need to divide it back
-        double const sTime = kTimeOverhead * path_data.segmentWeight / 10.0;
+        // ETA information.
+        // Osrm multiples seconds to 10, so we need to divide it back.
+        double const nodeTimeSeconds = path_data.segmentWeight / 10.0;
+
 #ifdef _DEBUG
         double dist = 0.0;
         for (size_t l = lastIdx + 1; l < points.size(); ++l)
           dist += MercatorBounds::DistanceOnEarth(points[l - 1], points[l]);
-        LOG(LDEBUG, ("Speed:", 3.6 * dist / sTime, "kmph; Dist:", dist, "Time:", sTime, "s", lastIdx, "e", points.size()));
+        LOG(LDEBUG, ("Speed:", 3.6 * dist / nodeTimeSeconds, "kmph; Dist:", dist, "Time:",
+                     nodeTimeSeconds, "s", lastIdx, "e", points.size()));
         lastIdx = points.size();
 #endif
-        estimateTime += sTime;
+        estimateTime += nodeTimeSeconds;
         times.push_back(Route::TimeItemT(points.size(), estimateTime));
+
+        //  Lane information.
+        if (t.m_turn != turns::TurnDirection::NoTurn)
+        {
+          t.m_lanes =
+              turns::GetLanesInfo(segment[j - 1].node,
+                                  *mapping, turns::GetLastSegmentPointIndex, *m_pIndex);
+          turnsDir.push_back(move(t));
+        }
       }
 
-      buffer_vector<SegT, 8> buffer;
+      buffer_vector<TSeg, 8> buffer;
       mapping->m_segMapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
 
-      auto FindIntersectingSeg = [&buffer] (SegT const & seg) -> size_t
+      auto FindIntersectingSeg = [&buffer] (TSeg const & seg) -> size_t
       {
         ASSERT(seg.IsValid(), ());
         auto const it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmMappingTypes::FtSeg const & s)
@@ -726,7 +727,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 
       for (size_t k = startK; k < endK; ++k)
       {
-        SegT const & seg = buffer[k];
+        TSeg const & seg = buffer[k];
 
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(*m_pIndex, mapping->GetMwmId());
@@ -804,269 +805,4 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
   LOG(LDEBUG, ("Estimate time:", estimateTime, "s"));
   return OsrmRouter::NoError;
 }
-
-NodeID OsrmRouter::GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, TRoutingMappingPtr const & routingMapping)
-{
-  ASSERT_NOT_EQUAL(src, SPECIAL_NODEID, ());
-  ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
-  if (!edgeData.shortcut)
-    return trg;
-
-  ASSERT_LESS(edgeData.id, routingMapping->m_dataFacade.GetNumberOfNodes(), ());
-  EdgeID edge = SPECIAL_EDGEID;
-  QueryEdge::EdgeData d;
-  for (EdgeID e : routingMapping->m_dataFacade.GetAdjacentEdgeRange(edgeData.id))
-  {
-    if (routingMapping->m_dataFacade.GetTarget(e) == src )
-    {
-      d = routingMapping->m_dataFacade.GetEdgeData(e, edgeData.id);
-      if (d.backward)
-      {
-        edge = e;
-        break;
-      }
-    }
-  }
-
-  if (edge == SPECIAL_EDGEID)
-  {
-    for (EdgeID e : routingMapping->m_dataFacade.GetAdjacentEdgeRange(src))
-    {
-      if (routingMapping->m_dataFacade.GetTarget(e) == edgeData.id)
-      {
-        d = routingMapping->m_dataFacade.GetEdgeData(e, src);
-        if (d.forward)
-        {
-          edge = e;
-          break;
-        }
-      }
-    }
-  }
-  ASSERT_NOT_EQUAL(edge, SPECIAL_EDGEID, ());
-
-  if (d.shortcut)
-    return GetTurnTargetNode(src, edgeData.id, d, routingMapping);
-
-  return edgeData.id;
-}
-
-void OsrmRouter::GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD const & p,
-                                  TRoutingMappingPtr const & routingMapping,
-                                  turns::TTurnCandidates & candidates)
-{
-  ASSERT(routingMapping.get(), ());
-  for (EdgeID e : routingMapping->m_dataFacade.GetAdjacentEdgeRange(node))
-  {
-    QueryEdge::EdgeData const data = routingMapping->m_dataFacade.GetEdgeData(e, node);
-    if (!data.forward)
-      continue;
-
-    NodeID trg = GetTurnTargetNode(node, routingMapping->m_dataFacade.GetTarget(e), data, routingMapping);
-    ASSERT_NOT_EQUAL(trg, SPECIAL_NODEID, ());
-
-    auto const range = routingMapping->m_segMapping.GetSegmentsRange(trg);
-    OsrmMappingTypes::FtSeg seg;
-    routingMapping->m_segMapping.GetSegmentByIndex(range.first, seg);
-    if (!seg.IsValid())
-      continue;
-
-    FeatureType ft;
-    Index::FeaturesLoaderGuard loader(*m_pIndex, routingMapping->GetMwmId());
-    loader.GetFeature(seg.m_fid, ft);
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-    m2::PointD const p2 = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
-    ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(seg.m_pointStart)),
-                kFeaturesNearTurnM, ());
-
-    double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
-
-    candidates.emplace_back(a, trg);
-  }
-
-  sort(candidates.begin(), candidates.end(),
-       [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
-  {
-    return t1.m_node < t2.m_node;
-  });
-
-  auto const last = unique(candidates.begin(), candidates.end(),
-                     [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
-  {
-    return t1.m_node == t2.m_node;
-  });
-  candidates.erase(last, candidates.end());
-
-  sort(candidates.begin(), candidates.end(),
-       [](turns::TurnCandidate const & t1, turns::TurnCandidate const & t2)
-  {
-    return t1.m_angle < t2.m_angle;
-  });
-}
-
-void OsrmRouter::GetTurnGeometry(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
-                                 GeomTurnCandidateT & candidates,
-                                 TRoutingMappingPtr const & mapping) const
-{
-  ASSERT(mapping.get(), ());
-  Point2Geometry getter(junctionPoint, ingoingPoint, candidates);
-  m_pIndex->ForEachInRectForMWM(
-      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(junctionPoint, kFeaturesNearTurnM),
-      scales::GetUpperScale(), mapping->GetMwmId());
-}
-
-size_t OsrmRouter::NumberOfIngoingAndOutgoingSegments(m2::PointD const & junctionPoint,
-                                                      m2::PointD const & ingoingPointOneSegment,
-                                                      TRoutingMappingPtr const & mapping) const
-{
-  ASSERT(mapping.get(), ());
-
-  GeomTurnCandidateT geoNodes;
-  GetTurnGeometry(junctionPoint, ingoingPointOneSegment, geoNodes, mapping);
-  return geoNodes.size();
-}
-
-// @todo(vbykoianko) Move this method and all dependencies to turns_generator.cpp
-void OsrmRouter::GetTurnDirection(RawPathData const & node1, RawPathData const & node2,
-                                  TRoutingMappingPtr const & routingMapping, TurnItem & turn)
-{
-  ASSERT(routingMapping.get(), ());
-  OsrmMappingTypes::FtSeg const seg1 =
-      turns::GetSegment(node1.node, *routingMapping, GetLastSegmentPointIndex);
-  OsrmMappingTypes::FtSeg const seg2 =
-      turns::GetSegment(node2.node, *routingMapping, turns::GetFirstSegmentPointIndex);
-
-  if (!seg1.IsValid() || !seg2.IsValid())
-  {
-    LOG(LWARNING, ("Some turns can't load geometry"));
-    turn.m_turn = turns::TurnDirection::NoTurn;
-    return;
-  }
-
-  FeatureType ft1, ft2;
-  Index::FeaturesLoaderGuard loader1(*m_pIndex, routingMapping->GetMwmId());
-  Index::FeaturesLoaderGuard loader2(*m_pIndex, routingMapping->GetMwmId());
-  loader1.GetFeature(seg1.m_fid, ft1);
-  loader2.GetFeature(seg2.m_fid, ft2);
-
-  ft1.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  ft2.ParseGeometry(FeatureType::BEST_GEOMETRY);
-
-  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd),
-                                              ft2.GetPoint(seg2.m_pointStart)),
-              kFeaturesNearTurnM, ());
-
-  m2::PointD const p = ft1.GetPoint(seg1.m_pointEnd);
-  m2::PointD const p1 = GetPointForTurnAngle(seg1, ft1, p,
-                    [](const size_t start, const size_t end, const size_t i)
-                    {
-                      return end > start ? end - i : end + i;
-                    });
-  m2::PointD const p2 = GetPointForTurnAngle(seg2, ft2, p,
-                    [](const size_t start, const size_t end, const size_t i)
-                    {
-                      return end > start ? start + i : start - i;
-                    });
-  double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
-
-  m2::PointD const p1OneSeg = ft1.GetPoint(seg1.m_pointStart < seg1.m_pointEnd ? seg1.m_pointEnd - 1 : seg1.m_pointEnd + 1);
-  turns::TTurnCandidates nodes;
-  GetPossibleTurns(node1.node, p1OneSeg, p, routingMapping, nodes);
-
-  turn.m_turn = turns::TurnDirection::NoTurn;
-  size_t const nodesSz = nodes.size();
-  bool const hasMultiTurns = (nodesSz >= 2);
-
-  if (nodesSz == 0)
-  {
-    return;
-  }
-
-  if (nodes.front().m_node == node2.node)
-    turn.m_turn = turns::MostRightDirection(a);
-  else if (nodes.back().m_node == node2.node)
-    turn.m_turn = turns::MostLeftDirection(a);
-  else
-    turn.m_turn = turns::IntermediateDirection(a);
-
-  bool const isIngoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft1);
-  bool const isOutgoingEdgeRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft2);
-
-  if (isIngoingEdgeRoundabout || isOutgoingEdgeRoundabout)
-  {
-    turn.m_turn = turns::GetRoundaboutDirection(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout,
-                                                hasMultiTurns);
-    return;
-  }
-
-  turn.m_keepAnyway = (!ftypes::IsLinkChecker::Instance()(ft1)
-                       && ftypes::IsLinkChecker::Instance()(ft2));
-
-  // get names
-  string name1, name2;
-  {
-    ft1.GetName(FeatureType::DEFAULT_LANG, turn.m_sourceName);
-    ft2.GetName(FeatureType::DEFAULT_LANG, turn.m_targetName);
-
-    search::GetStreetNameAsKey(turn.m_sourceName, name1);
-    search::GetStreetNameAsKey(turn.m_targetName, name2);
-  }
-
-  ftypes::HighwayClass const highwayClass1 = ftypes::GetHighwayClass(ft1);
-  ftypes::HighwayClass const highwayClass2 = ftypes::GetHighwayClass(ft2);
-  if (!turn.m_keepAnyway &&
-      !turns::HighwayClassFilter(highwayClass1, highwayClass2, node2.node, turn.m_turn, nodes,
-                                 *routingMapping, *m_pIndex))
-  {
-    turn.m_turn = turns::TurnDirection::NoTurn;
-    return;
-  }
-
-  bool const isGoStraightOrSlightTurn =
-      turns::IsGoStraightOrSlightTurn(turns::IntermediateDirection(my::RadToDeg(ang::TwoVectorsAngle(p,p1OneSeg, p2))));
-  // The code below is resposible for cases when there is only one way to leave the junction.
-  // Such junction has to be kept as a turn when
-  // * it's not a slight turn and it has ingoing edges (one or more);
-  // * it's an entrance to a roundabout;
-  if (!hasMultiTurns &&
-      (isGoStraightOrSlightTurn || NumberOfIngoingAndOutgoingSegments(p, p1OneSeg, routingMapping) <= 2) &&
-      !turns::CheckRoundaboutEntrance(isIngoingEdgeRoundabout, isOutgoingEdgeRoundabout))
-  {
-    turn.m_turn = turns::TurnDirection::NoTurn;
-    return;
-  }
-
-  if (turn.m_turn == turns::TurnDirection::GoStraight)
-  {
-    if (!hasMultiTurns)
-      turn.m_turn = turns::TurnDirection::NoTurn;
-
-    return;
-  }
-
-  // @todo(vbykoianko) Checking if it's a uturn or not shall be moved to FindDirectionByAngle.
-  if (turn.m_turn == turns::TurnDirection::NoTurn)
-    turn.m_turn = turns::TurnDirection::UTurn;
-}
-
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(m2::PointD const & point,
-                                                 m2::PointD const & direction,
-                                                 TFeatureGraphNodeVec & res, size_t maxCount,
-                                                 TRoutingMappingPtr const & mapping)
-{
-  Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
-  getter.SetPoint(point);
-
-  m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(
-                                            point, kFeatureFindingRectSideRadiusMeters),
-                                scales::GetUpperScale(), mapping->GetMwmId());
-
-  if (!getter.HasCandidates())
-    return RouteNotFound;
-
-  getter.MakeResult(res, maxCount, mapping->GetName());
-  return NoError;
-}
-
-}
+}  // namespace routing

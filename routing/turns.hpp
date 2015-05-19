@@ -5,25 +5,24 @@
 #include "3party/osrm/osrm-backend/typedefs.h"
 
 #include "std/initializer_list.hpp"
-#include "std/iostream.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
 namespace routing
 {
-
 namespace turns
 {
-// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
-// For the time being several separate entities reflect turn information. Like Route::TurnsT or
-// turns::TurnsGeomT
+/// @todo(vbykoianko) It's a good idea to gather all the turns information into one entity.
+/// For the time being several separate entities reflect the turn information. Like Route::TurnsT or
+/// turns::TurnsGeomT
 
-// Do not change the order of right and left turns
-// TurnRight(TurnLeft) must have a minimal value
-// TurnSlightRight(TurnSlightLeft) must have a maximum value
-// to make check TurnRight <= turn <= TurnSlightRight work
-//
-// TurnDirection array in cpp file must be synchronized with state of TurnDirection enum in java.
+/*!
+ * \warning The order of values below shall not be changed.
+ * TurnRight(TurnLeft) must have a minimal value and
+ * TurnSlightRight(TurnSlightLeft) must have a maximum value
+ * \warning The values of TurnDirection shall be synchronized with values of TurnDirection enum in
+ * java.
+ */
 enum class TurnDirection
 {
   NoTurn = 0,
@@ -47,12 +46,14 @@ enum class TurnDirection
 
   StartAtEndOfStreet,
   ReachedYourDestination,
-  Count  // This value is used for internals only.
+  Count  /// This value is used for internals only.
 };
 
 string DebugPrint(TurnDirection const l);
 
-// LaneWay array in cpp file must be synchronized with state of LaneWay enum in java.
+/*!
+ * \warning The values of LaneWay shall be synchronized with values of LaneWay enum in java.
+ */
 enum class LaneWay
 {
   None = 0,
@@ -66,7 +67,7 @@ enum class LaneWay
   SlightRight,
   Right,
   SharpRight,
-  Count  // This value is used for internals only.
+  Count  /// This value is used for internals only.
 };
 
 string DebugPrint(LaneWay const l);
@@ -101,15 +102,6 @@ struct SingleLaneInfo
 };
 
 string DebugPrint(SingleLaneInfo const & singleLaneInfo);
-
-struct TurnCandidate
-{
-  double m_angle;
-  NodeID m_node;
-
-  TurnCandidate(double a, NodeID n) : m_angle(a), m_node(n) {}
-};
-typedef vector<TurnCandidate> TTurnCandidates;
 
 string const GetTurnString(TurnDirection turn);
 
@@ -148,7 +140,5 @@ bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, TurnDirection t);
 bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes);
 void SplitLanes(string const & lanesString, char delimiter, vector<string> & lanes);
 bool ParseSingleLane(string const & laneString, char delimiter, TSingleLane & lane);
-
-}
-}
-
+}  // namespace turns
+}  // namespace routing

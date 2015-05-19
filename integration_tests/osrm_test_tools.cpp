@@ -164,6 +164,14 @@ namespace integration
     TEST_GREATER_OR_EQUAL(routeLength + delta, expectedRouteLength, ("Route length test failed. Expected:", expectedRouteLength, "have:", routeLength));
   }
 
+  void TestRouteTime(Route const & route, double expectedRouteTimeSeconds, double relativeError)
+  {
+    double const delta = expectedRouteTimeSeconds * relativeError;
+    double const routeTime = route.GetAllTime();
+    TEST_LESS_OR_EQUAL(routeTime - delta, expectedRouteTimeSeconds, ());
+    TEST_GREATER_OR_EQUAL(routeTime + delta, expectedRouteTimeSeconds, ());
+  }
+
   void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
                                         m2::PointD const & startPoint,
                                         m2::PointD const & startDirection,

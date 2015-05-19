@@ -60,6 +60,8 @@ namespace integration
   /// && expectedRouteLength + expectedRouteLength * relativeError >= route->GetDistance()
   void TestRouteLength(Route const & route, double expectedRouteLength,
                        double relativeError = 0.01);
+  void TestRouteTime(Route const & route, double expectedRouteTimeSeconds,
+                     double relativeError = 0.01);
   void CalculateRouteAndTestRouteLength(OsrmRouterComponents const & routerComponents,
                                         m2::PointD const & startPoint,
                                         m2::PointD const & startDirection,

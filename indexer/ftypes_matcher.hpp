@@ -141,7 +141,8 @@ bool IsTypeConformed(uint32_t type, vector<string> const & path);
 // The enum values follow from the biggest roads (Trunk) to the smallest ones (Service).
 enum class HighwayClass
 {
-  None = 0,
+  Undefined = 0,  // There has not been any attempt of calculating HighwayClass.
+  None,           // There was an attempt of calculating HighwayClass but it was not successful.
   Trunk,
   Primary,
   Secondary,

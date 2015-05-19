@@ -87,6 +87,7 @@ double Route::GetCurrentDistanceFromBegin() const
 double Route::GetCurrentDistanceToEnd() const
 {
   ASSERT(m_current.IsValid(), ());
+  ASSERT_LESS(m_current.m_ind, m_segDistance.size(), ());
 
   return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
           MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));

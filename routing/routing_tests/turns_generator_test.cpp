@@ -298,7 +298,7 @@ UNIT_TEST(TestGetRoundaboutDirection)
 {
   // The signature of GetRoundaboutDirection function is
   // GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoingEdgeRoundabout, bool
-  // isJunctionOfSeveralTurns)
+  // isMultiTurnJunction)
   TEST_EQUAL(GetRoundaboutDirection(true, true, true), TurnDirection::StayOnRoundAbout, ());
   TEST_EQUAL(GetRoundaboutDirection(true, true, false), TurnDirection::NoTurn, ());
   TEST_EQUAL(GetRoundaboutDirection(false, true, false), TurnDirection::EnterRoundAbout, ());

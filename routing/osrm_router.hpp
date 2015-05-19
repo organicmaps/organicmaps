@@ -39,6 +39,7 @@ class OsrmRouter : public IRouter
 {
 public:
   typedef vector<double> GeomTurnCandidateT;
+  typedef vector<size_t> NodeIdVectorT;
 
   OsrmRouter(Index const * index, TCountryFileFn const & fn, TRoutingVisualizerFn routingVisualization = nullptr);
 
@@ -100,39 +101,6 @@ private:
    * \return NoError or error code
    */
   ResultCode MakeRouteFromCrossesPath(TCheckedPath const & path, Route & route);
-
-  NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, TRoutingMappingPtr const & routingMapping);
-  void GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD const & p,
-                        TRoutingMappingPtr const & routingMapping,
-                        turns::TTurnCandidates & candidates);
-  void GetTurnDirection(RawPathData const & node1, RawPathData const & node2,
-                        TRoutingMappingPtr const & routingMapping, TurnItem & turn);
-  m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
-                                  FeatureType const & ft, m2::PointD const & turnPnt,
-                                  size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
-  /*!
-   * \param junctionPoint is a point of the junction.
-   * \param ingoingPointOneSegment is a point one segment before the junction along the route.
-   * \param mapping is a route mapping.
-   * \return number of all the segments which joins junctionPoint. That means
-   * the number of ingoing segments plus the number of outgoing segments.
-   * \warning NumberOfIngoingAndOutgoingSegments should be used carefully because
-   * it's a time-consuming function.
-   * \warning In multilevel crossroads there is an insignificant possibility that the returned value
-   * contains redundant segments of roads of different levels.
-   */
-  size_t NumberOfIngoingAndOutgoingSegments(m2::PointD const & junctionPoint,
-                                            m2::PointD const & ingoingPointOneSegment,
-                                            TRoutingMappingPtr const & mapping) const;
-  /*!
-   * \brief GetTurnGeometry looks for all the road network edges near ingoingPoint.
-   * GetTurnGeometry fills candidates with angles of all the incoming and outgoint segments.
-   * \warning GetTurnGeometry should be used carefully because it's a time-consuming function.
-   * \warning In multilevel crossroads there is an insignificant possibility that candidates
-   * is filled with redundant segments of roads of different levels.
-   */
-  void GetTurnGeometry(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
-                       GeomTurnCandidateT & candidates, TRoutingMappingPtr const & mapping) const;
 
   Index const * m_pIndex;
 
