@@ -239,7 +239,8 @@ if [ -n "$OPT_ROUTING" ]; then
   if [ -e "$OSRM_FLAG" ]; then
     log "start_routing(): OSRM files have been already created, no need to repeat"
   else
-    ( bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG" ) &
+    putmode "Starting OSRM files generation"
+    ( bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG" )
   fi
 fi
 

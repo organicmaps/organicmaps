@@ -51,6 +51,7 @@ if [ "$1" == "prepare" ]; then
   REGIONS=${REGIONS:-$(ls $BORDERS_PATH/*.poly | xargs -I % basename % .poly)}
   [ -z "$REGIONS" ] && fail "No regions to create routing files for"
   echo "$REGIONS" | xargs -P $NUM_PROCESSES -I % "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B=$BORDERS_PATH/%.poly --complex-ways --out-pbf -o=$INTDIR/%.pbf
+  [ $? != 0 ] && fail "Failed to process all the regions"
 
   export STXXLCFG="$HOME/.stxxl"
   echo "$REGIONS" | while read REGION ; do
