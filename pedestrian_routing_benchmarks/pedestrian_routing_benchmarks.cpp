@@ -5,7 +5,9 @@
 
 #include "routing/astar_router.hpp"
 #include "routing/features_road_graph.hpp"
+#include "routing/nearest_edge_finder.hpp"
 #include "routing/route.hpp"
+#include "routing/vehicle_model.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -21,16 +23,32 @@ namespace
 string const MAP_NAME = "UK_England";
 string const MAP_FILE = MAP_NAME + DATA_FILE_EXTENSION;
 
-pair<m2::PointD, m2::PointD> GetPointsAroundSeg(Index & index, MwmSet::MwmId id, uint32_t featureId,
-                                                uint32_t segId)
+m2::PointD GetPointOnEdge(routing::Edge & e, double posAlong)
 {
-  FeatureType ft;
-  Index::FeaturesLoaderGuard loader(index, id);
-  loader.GetFeature(featureId, ft);
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  CHECK_LESS(segId + 1, ft.GetPointsCount(),
-             ("Wrong segment id:", segId, "for a feature with", ft.GetPointsCount(), "points"));
-  return make_pair(ft.GetPoint(segId), ft.GetPoint(segId + 1));
+  if (posAlong <= 0.0)
+    return e.GetStartJunction().GetPoint();
+  if (posAlong >= 1.0)
+    return e.GetEndJunction().GetPoint();
+  m2::PointD const d = e.GetEndJunction().GetPoint() - e.GetStartJunction().GetPoint();
+  return e.GetStartJunction().GetPoint() + d * posAlong;
+}
+
+void GetNearestEdges(Index & index, routing::IRoadGraph & graph, routing::IVehicleModel const & vehicleModel,
+                     m2::PointD const & pt, vector<pair<routing::Edge, m2::PointD>> & edges)
+{
+  routing::NearestEdgeFinder finder(pt, graph);
+
+  auto const f = [&finder, &vehicleModel](FeatureType & ft)
+  {
+    if (ft.GetFeatureType() == feature::GEOM_LINE && vehicleModel.GetSpeed(ft) > 0.0)
+      finder.AddInformationSource(ft.GetID().m_offset);
+  };
+
+  index.ForEachInRect(
+      f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 100.0 /* radiusM */),
+      routing::FeaturesRoadGraph::GetStreetReadScale());
+
+  finder.MakeResult(edges, 1 /* maxCount */);
 }
 
 void TestTwoPoints(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos)
@@ -47,15 +65,7 @@ void TestTwoPoints(routing::IRouter & router, m2::PointD const & startPos, m2::P
   LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
 }
 
-void TestTwoPoints(Index & index, m2::PointD const & startPos, m2::PointD const & finalPos)
-{
-  routing::AStarRouter router([](m2::PointD const & /* point */) { return MAP_FILE; },
-                              &index);
-  TestTwoPoints(router, startPos, finalPos);
-}
-
-void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featureIdFinal,
-                   uint32_t segIdFinal)
+void TestTwoPointsOnFeature(m2::PointD const & startPos, m2::PointD const & finalPos)
 {
   classificator::Load();
 
@@ -65,13 +75,22 @@ void TestTwoPoints(uint32_t featureIdStart, uint32_t segIdStart, uint32_t featur
   MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
   TEST(id.IsAlive(), ());
 
-  pair<m2::PointD, m2::PointD> const startBounds = GetPointsAroundSeg(index, id, featureIdStart, segIdStart);
-  pair<m2::PointD, m2::PointD> const finalBounds = GetPointsAroundSeg(index, id, featureIdFinal, segIdFinal);
+  routing::PedestrianModel const vehicleModel;
+  routing::FeaturesRoadGraph roadGraph(&vehicleModel, &index, id);
 
-  m2::PointD const startPos = startBounds.first;
-  m2::PointD const finalPos = finalBounds.first;
+  vector<pair<routing::Edge, m2::PointD>> startEdges;
+  GetNearestEdges(index, roadGraph, vehicleModel, startPos, startEdges);
+  TEST(!startEdges.empty(), ());
 
-  TestTwoPoints(index, startPos, finalPos);
+  vector<pair<routing::Edge, m2::PointD>> finalEdges;
+  GetNearestEdges(index, roadGraph, vehicleModel, finalPos, finalEdges);
+  TEST(!finalEdges.empty(), ());
+
+  m2::PointD const startPosOnFeature = GetPointOnEdge(startEdges.front().first, 0.0 /* the start point of the feature */ );
+  m2::PointD const finalPosOnFeature = GetPointOnEdge(finalEdges.front().first, 1.0 /* the end point of the feature */ );
+
+  routing::AStarRouter router([](m2::PointD const & /* point */) { return MAP_FILE; }, &index);
+  TestTwoPoints(router, startPosOnFeature, finalPosOnFeature);
 }
 
 void TestTwoPoints(m2::PointD const & startPos, m2::PointD const & finalPos)
@@ -81,226 +100,285 @@ void TestTwoPoints(m2::PointD const & startPos, m2::PointD const & finalPos)
   Index index;
   UNUSED_VALUE(index.RegisterMap(MAP_FILE));
   TEST(index.IsLoaded(MAP_NAME), ());
+  MwmSet::MwmId const id = index.GetMwmIdByFileName(MAP_FILE);
+  TEST(id.IsAlive(), ());
 
-  TestTwoPoints(index, startPos, finalPos);
+  routing::AStarRouter router([](m2::PointD const & /* point */) { return MAP_FILE; }, &index);
+  TestTwoPoints(router, startPos, finalPos);
 }
 
 }  // namespace
 
 // Tests on features
 
-UNIT_TEST(PedestrianRouting_UK_Long1) { TestTwoPoints(59231052, 8, 49334376, 0); }
+UNIT_TEST(PedestrianRouting_UK_Long1)
+{
+  TestTwoPointsOnFeature(m2::PointD(-1.88798, 61.90292),
+                         m2::PointD(-2.06025, 61.82824));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Long2) { TestTwoPoints(2909201, 1, 86420951, 1); }
+UNIT_TEST(PedestrianRouting_UK_Long2)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.20434, 60.27445),
+                         m2::PointD( 0.06962, 60.33909));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Long3) { TestTwoPoints(46185185, 1, 44584579, 4); }
+UNIT_TEST(PedestrianRouting_UK_Long3)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.07706, 60.42876),
+                         m2::PointD(-0.11058, 60.20991));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Long4) { TestTwoPoints(42085288, 2, 52107406, 6); }
+UNIT_TEST(PedestrianRouting_UK_Long4)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.48574, 60.05082),
+                         m2::PointD(-0.45973, 60.56715));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Long5) { TestTwoPoints(25581618, 31, 24932741, 3); }
+UNIT_TEST(PedestrianRouting_UK_Long5)
+{
+  TestTwoPointsOnFeature(m2::PointD(0.11332, 60.57062),
+                         m2::PointD(0.05767, 59.93019));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Long6) { TestTwoPoints(87984202, 3, 84929880, 0); }
+UNIT_TEST(PedestrianRouting_UK_Long6)
+{
+  TestTwoPointsOnFeature(m2::PointD(0.02771, 60.49348),
+                         m2::PointD(0.06533, 59.93155));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Medium1) { TestTwoPoints(3038057, 0, 45899679, 3); }
+UNIT_TEST(PedestrianRouting_UK_Medium1)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.10461, 60.29721),
+                         m2::PointD(-0.07532, 60.35180));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Medium2) { TestTwoPoints(42689385, 1, 14350838, 5); }
+UNIT_TEST(PedestrianRouting_UK_Medium2)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.17925, 60.06331),
+                         m2::PointD(-0.09959, 60.06880));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Medium3) { TestTwoPoints(43922917, 7, 44173940, 1); }
+UNIT_TEST(PedestrianRouting_UK_Medium3)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.26440, 60.16831),
+                         m2::PointD(-0.20113, 60.20884));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Medium4) { TestTwoPoints(45414223, 1, 46093762, 2); }
+UNIT_TEST(PedestrianRouting_UK_Medium4)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.25296, 60.46539),
+                         m2::PointD(-0.10975, 60.43955));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Medium5) { TestTwoPoints(45862427, 4, 4449317, 7); }
+UNIT_TEST(PedestrianRouting_UK_Medium5)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.03115, 60.31819),
+                         m2::PointD( 0.07400, 60.33662));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Short1) { TestTwoPoints(3038057, 0, 3032688, 3); }
+UNIT_TEST(PedestrianRouting_UK_Short1)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.10461, 60.29721),
+                         m2::PointD(-0.11905, 60.29747));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Short2) { TestTwoPoints(2947484, 2, 44889742, 0); }
+UNIT_TEST(PedestrianRouting_UK_Short2)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.11092, 60.27172),
+                         m2::PointD(-0.08159, 60.27623));
+}
 
-UNIT_TEST(PedestrianRouting_UK_Short3) { TestTwoPoints(2931545, 0, 2969395, 0); }
+UNIT_TEST(PedestrianRouting_UK_Short3)
+{
+  TestTwoPointsOnFeature(m2::PointD(-0.09449, 60.25051),
+                         m2::PointD(-0.06520, 60.26647));
+}
 
 // Tests on points
 
 UNIT_TEST(PedestrianRouting_UK_Test1)
 {
-  TestTwoPoints(m2::PointD(-0.23371357519479166176, 60.188217037454911917),
-                m2::PointD(-0.27958780433409546884, 60.251555957343796877));
+  TestTwoPoints(m2::PointD(-0.23371, 60.18821),
+                m2::PointD(-0.27958, 60.25155));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test2)
 {
-  TestTwoPoints(m2::PointD(-0.23204233496629894651, 60.220733702351964212),
-                m2::PointD(-0.25325265780566397211, 60.343129850040341466));
+  TestTwoPoints(m2::PointD(-0.23204, 60.22073),
+                m2::PointD(-0.25325, 60.34312));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test3)
 {
-  TestTwoPoints(m2::PointD(-0.13493810466972872009, 60.213290963151536062),
-                m2::PointD(-0.075021485248326899575, 60.386990007024301974));
+  TestTwoPoints(m2::PointD(-0.13493, 60.21329),
+                m2::PointD(-0.07502, 60.38699));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test4)
 {
-  TestTwoPoints(m2::PointD(0.073624712333011516074, 60.249651023717902376),
-                m2::PointD(0.062623007653576381881, 60.305363026945343563));
+  TestTwoPoints(m2::PointD(0.07362, 60.24965),
+                m2::PointD(0.06262, 60.30536));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test5)
 {
-  TestTwoPoints(m2::PointD(0.073624712333011516074, 60.249651023717902376),
-                m2::PointD(0.062623007653576381881, 60.305363026945343563));
+  TestTwoPoints(m2::PointD(0.07362, 60.24965),
+                m2::PointD(0.06262, 60.30536));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test6)
 {
-  TestTwoPoints(m2::PointD(0.12973003099584515252, 60.286986176872751741),
-                m2::PointD(0.16166505598152342005, 60.329896866615413842));
+  TestTwoPoints(m2::PointD(0.12973, 60.28698),
+                m2::PointD(0.16166, 60.32989));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test7)
 {
-  TestTwoPoints(m2::PointD(0.24339008846246840134, 60.221936300171577727),
-                m2::PointD(0.30297476080828561473, 60.472352430858123284));
+  TestTwoPoints(m2::PointD(0.24339, 60.22193),
+                m2::PointD(0.30297, 60.47235));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test8)
 {
-  TestTwoPoints(m2::PointD(-0.090078418419228770131, 59.938877740935481597),
-                m2::PointD(-0.36591832729336593033, 60.383060825937320715));
+  TestTwoPoints(m2::PointD(-0.09007, 59.93887),
+                m2::PointD(-0.36591, 60.38306));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test9)
 {
-  TestTwoPoints(m2::PointD(0.013909241828589231221, 60.248524891536746395),
-                m2::PointD(-0.011025824403098606619, 60.293190853881299063));
+  TestTwoPoints(m2::PointD( 0.01390, 60.24852),
+                m2::PointD(-0.01102, 60.29319));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test10)
 {
-  TestTwoPoints(m2::PointD(-1.2608451895615837568, 60.688400774771103841),
-                m2::PointD(-1.3402756985196870865, 60.378654240852370094));
+  TestTwoPoints(m2::PointD(-1.26084, 60.68840),
+                m2::PointD(-1.34027, 60.37865));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test11)
 {
-  TestTwoPoints(m2::PointD(-1.2608451895615837568, 60.688400774771103841),
-                m2::PointD(-1.3402756985196870865, 60.378654240852370094));
+  TestTwoPoints(m2::PointD(-1.26084, 60.68840),
+                m2::PointD(-1.34027, 60.37865));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test12)
 {
-  TestTwoPoints(m2::PointD(-0.41581758334591578663, 60.055074253917027249),
-                m2::PointD(-0.0049981648490620023823, 60.559216972985538519));
+  TestTwoPoints(m2::PointD(-0.41581, 60.05507),
+                m2::PointD(-0.00499, 60.55921));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test13)
 {
-  TestTwoPoints(m2::PointD(-0.0084726671967171318656, 60.175004410845247094),
-                m2::PointD(-0.38290269805087756572, 60.484353263782054455));
+  TestTwoPoints(m2::PointD(-0.00847, 60.17501),
+                m2::PointD(-0.38291, 60.48435));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test14)
 {
-  TestTwoPoints(m2::PointD(-0.49920524882713435133, 60.500939921180034275),
-                m2::PointD(-0.4253928261485126483, 60.460210120242891207));
+  TestTwoPoints(m2::PointD(-0.49921, 60.50093),
+                m2::PointD(-0.42539, 60.46021));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test15)
 {
-  TestTwoPoints(m2::PointD(-0.35293312317744285345, 60.38324360888867659),
-                m2::PointD(-0.27232356277650499043, 60.485946731323195991));
+  TestTwoPoints(m2::PointD(-0.35293, 60.38324),
+                m2::PointD(-0.27232, 60.48594));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test16)
 {
-  TestTwoPoints(m2::PointD(-0.2452144979288601867, 60.417717669797063706),
-                m2::PointD(0.052673435877072988243, 60.48102832828819686));
+  TestTwoPoints(m2::PointD(-0.24521, 60.41771),
+                m2::PointD(0.052673, 60.48102));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test17)
 {
-  TestTwoPoints(m2::PointD(0.60492089858687592141, 60.365652323287299907),
-                m2::PointD(0.59411588825676053816, 60.315295907170423106));
+  TestTwoPoints(m2::PointD(0.60492, 60.36565),
+                m2::PointD(0.59411, 60.31529));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test18)
 {
-  TestTwoPoints(m2::PointD(0.57712031437541466694, 60.311563537302561144),
-                m2::PointD(-1.0991154539409491164, 59.24340383025300838));
+  TestTwoPoints(m2::PointD( 0.57712, 60.31156),
+                m2::PointD(-1.09911, 59.24341));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test19)
 {
-  TestTwoPoints(m2::PointD(-0.42410951183471667925, 60.225100494175073607),
-                m2::PointD(-0.4417841749541066565, 60.377963804987665242));
+  TestTwoPoints(m2::PointD(-0.42411, 60.22511),
+                m2::PointD(-0.44178, 60.37796));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test20)
 {
-  TestTwoPoints(m2::PointD(0.087765601941695303712, 60.054331215788280929),
-                m2::PointD(0.19336133919110590207, 60.383987006527995334));
+  TestTwoPoints(m2::PointD(0.08776, 60.05433),
+                m2::PointD(0.19336, 60.38398));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test21)
 {
-  TestTwoPoints(m2::PointD(0.23038165654281794748, 60.438464644310201379),
-                m2::PointD(0.18335075596080072091, 60.466925517864886785));
+  TestTwoPoints(m2::PointD(0.23038, 60.43846),
+                m2::PointD(0.18335, 60.46692));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test22)
 {
-  TestTwoPoints(m2::PointD(-0.33907208409976324903, 60.691735528482595896),
-                m2::PointD(-0.17824228031321673327, 60.478512208248780269));
+  TestTwoPoints(m2::PointD(-0.33907, 60.691735),
+                m2::PointD(-0.17824, 60.478512));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test23)
 {
-  TestTwoPoints(m2::PointD(-0.0255750943822493082, 60.413717422909641641),
-                m2::PointD(0.059727476276875829386, 60.314137951796560344));
+  TestTwoPoints(m2::PointD(-0.02557, 60.41371),
+                m2::PointD( 0.05972, 60.31413));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test24)
 {
-  TestTwoPoints(m2::PointD(-0.1251022759281295027, 60.238139790774681614),
-                m2::PointD(-0.27656544081449146999, 60.05896703409919013));
+  TestTwoPoints(m2::PointD(-0.12511, 60.23813),
+                m2::PointD(-0.27656, 60.05896));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test25)
 {
-  TestTwoPoints(m2::PointD(-0.1251022759281295027, 60.238139790774681614),
-                m2::PointD(-0.27656544081449146999, 60.05896703409919013));
+  TestTwoPoints(m2::PointD(-0.12511, 60.23813),
+                m2::PointD(-0.27656, 60.05896));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test26)
 {
-  TestTwoPoints(m2::PointD(-3.0453848423988452154, 63.444289157178360483),
-                m2::PointD(-2.9888705955481791321, 63.475820316921343078));
+  TestTwoPoints(m2::PointD(-3.04538, 63.44428),
+                m2::PointD(-2.98887, 63.47582));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test27)
 {
-  TestTwoPoints(m2::PointD(-2.9465302867103040363, 63.61187786025546842),
-                m2::PointD(-2.8321504085699609199, 63.515257402251123153));
+  TestTwoPoints(m2::PointD(-2.94653, 63.61187),
+                m2::PointD(-2.83215, 63.51525));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test28)
 {
-  TestTwoPoints(m2::PointD(-2.8527592513387749484, 63.424788250610269813),
-                m2::PointD(-2.8824557029010167142, 63.389320899559180589));
+  TestTwoPoints(m2::PointD(-2.85275, 63.42478),
+                m2::PointD(-2.88245, 63.38932));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test29)
 {
-  TestTwoPoints(m2::PointD(-2.3526647292757063568, 63.599798938870364395),
-                m2::PointD(-2.29857574370878881, 63.546779173754892156));
+  TestTwoPoints(m2::PointD(-2.35266, 63.59979),
+                m2::PointD(-2.29857, 63.54677));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test30)
 {
-  TestTwoPoints(m2::PointD(-2.2204371931102926396, 63.410664672405502529),
-                m2::PointD(-2.2961918002218593138, 63.653059523966334154));
+  TestTwoPoints(m2::PointD(-2.22043, 63.41066),
+                m2::PointD(-2.29619, 63.65305));
 }
 
 UNIT_TEST(PedestrianRouting_UK_Test31)
 {
-  TestTwoPoints(m2::PointD(-2.2807869696804585757, 63.6673587499283542),
-                m2::PointD(-2.2537861498623481538, 63.627449392852028609));
+  TestTwoPoints(m2::PointD(-2.28078, 63.66735),
+                m2::PointD(-2.25378, 63.62744));
 }
