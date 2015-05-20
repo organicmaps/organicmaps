@@ -7,7 +7,7 @@ way::*
 
 *::*
 {
-  text-halo-color: white;
+  text-halo-color: @white;
   text-anchor-horizontal: center;
   text-anchor-vertical: center;
   icon-width: 16;
@@ -64,11 +64,11 @@ node|z12-[aeroway=aerodrome]
 }
 area|z11-[aeroway=aerodrome]
 {
-  fill-color: #d8dcce;
+  fill-color: @aerodrome;
 }
 line|z10-11[route=ferry]
 {
-  color: #98b8e8;
+  color: @ferry_line;
   width: 1;
   z-index: 147;
   dashes: 3,2;
@@ -86,43 +86,43 @@ area|z12-[tourism=caravan_site],
 area|z12-[tourism=picnic_site],
 area|z12-[tourism=zoo]
 {
-  fill-color: #cfecb7;
+  fill-color: @park_green;
 }
 area|z13-[amenity=college],
 area|z13-[amenity=kindergarten],
 area|z13-[amenity=school],
 area|z13-[amenity=university]
 {
-  fill-color: #f0e0dc;
+  fill-color: @school_fill;
 }
 area|z15-[amenity=parking][!access],
 area|z15-[amenity=parking][access?]
 {
-  fill-color: #f8f8d8;
+  fill-color: @parking;
   fill-position: background;
 }
 line|z12[aeroway=runway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 2;
   z-index: 230;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 0.5;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 line|z12[man_made=cutline]
 {
-  color: #f1eee8;
+  color: @background;
   width: 1;
   z-index: 184;
   linecap: butt;
 }
 line|z13[man_made=cutline]
 {
-  color: #f1eee8;
+  color: @background;
   width: 2;
   z-index: 184;
   linecap: butt;
@@ -131,14 +131,14 @@ line|z13[man_made=cutline]
 line|z12[aeroway=taxiway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 0.5;
   z-index: 231;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 0.12;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 area|z13-[amenity=college],
 area|z13-[amenity=kindergarten],
@@ -149,7 +149,7 @@ area|z13-[amenity=university]
 }
 line|z12[route=ferry]
 {
-  color: #98b8e8;
+  color: @ferry_line;
   width: 1;
   z-index: 389;
   dashes: 3,2;
@@ -162,7 +162,7 @@ node|z12-[natural=volcano]
 }
 area|z12-[aeroway=terminal]
 {
-  fill-color: #d4c894;
+  fill-color: @aero_terminal;
 }
 area|z12-13[natural=peak],
 node|z12-13[natural=peak],
@@ -179,11 +179,11 @@ node|z13[aeroway=aerodrome]
   text-offset: 10;
   text: name;
   font-size: 12;
-  text-color: grey;
+  text-color: @gray;
 }
 line|z13[route=ferry]
 {
-  color: #98b8e8;
+  color: @ferry_line;
   width: 1;
   z-index: 411;
   dashes: 3,2;
@@ -192,14 +192,14 @@ line|z13[route=ferry]
 line|z13[aeroway=runway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 2.5;
   z-index: 240;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 0.5;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 area|z13-15[natural=peak],
 node|z13-15[natural=peak],
@@ -211,19 +211,19 @@ node|z13-15[natural=bare_rock],
   text-offset: 10;
   text: name;
   font-size: 12;
-  text-color: #404040;
+  text-color: @dark_gray_40;
 }
 line|z13[aeroway=taxiway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 1;
   z-index: 241;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 0.25;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 area|z17-[amenity=shelter],
 area|z17-[amenity=school],
@@ -234,8 +234,8 @@ node|z17-[amenity=school]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: white;
+  text-color: @dark_gray_40;
+  text-halo-color: @white;
 }
 node|z13-[highway=motorway_junction]
 {
@@ -247,22 +247,22 @@ area|z17-[leisure=park]::int_name
   font-size: 11;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #404040;
-  text-halo-color: white;
+  text-color: @dark_gray_40;
+  text-halo-color: @white;
 }
 area|z13-14[leisure=park],
 node|z13-14[leisure=park]
 {
   text: name;
   font-size: 12;
-  text-color: #5ca800;
+  text-color: @park_name;
 }
 area|z13-14[leisure=park]::int_name,
 node|z13-14[leisure=park]::int_name
 {
   text: int_name;
   font-size: 11;
-  text-color: #5ca800;
+  text-color: @park_name;
 }
 area|z14-15[natural=volcano],
 node|z14-15[natural=volcano],
@@ -274,7 +274,7 @@ area|z14-15[natural=cape],
   text-offset: 10;
   text: name;
   font-size: 12;
-  text-color: #202020;
+  text-color: @dark_gray_20;
 }
 area|z14-[natural=peak],
 node|z14-[natural=peak],
@@ -287,7 +287,7 @@ node|z14-[natural=bare_rock],
 }
 area|z14-[man_made=pier]
 {
-  fill-color: #f1eee8;
+  fill-color: @background;
   z-index: 488;
 }
 area|z16-[amenity=ferry_terminal],
@@ -297,7 +297,7 @@ node|z16-[amenity=ferry_terminal]
 }
 line|z14[man_made=pier]::d1p3
 {
-  color: #e4e4e4;
+  color: @graye4;
   width: 0.6;
   z-index: 488;
 }
@@ -319,18 +319,18 @@ node|z14-[earthquake:damage=spontaneous_camp]
 line|z14[aeroway=runway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 10;
   z-index: 314;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 2;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 line|z14[route=ferry]
 {
-  color: #98b8e8;
+  color: @ferry_line;
   width: 1;
   z-index: 499;
   dashes: 3,2;
@@ -344,12 +344,12 @@ node|z14-[tourism=alpine_hut],
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: white;
+  text-color: @dark_gray_40;
+  text-halo-color: @white;
 }
 line|z14[man_made=cutline]
 {
-  color: #f1eee8;
+  color: @background;
   width: 4;
   z-index: 247;
   linecap: butt;
@@ -366,7 +366,7 @@ node|z14-[power=generator]
 }
 line|z12-[mapswithme=grid]
 {
-  color: #202020;
+  color: @dark_gray_20;
   width: 4;
   dashes: 1,1;
   linecap: butt;
@@ -376,11 +376,11 @@ area|z14-[power=station],
 area|z14-[power=sub_station],
 node|z14-[power=generator]
 {
-  fill-color: #bebebe;
+  fill-color: @power_fill;
 }
 line|z14[man_made=pier]
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 0.8;
 }
 area|z12-[aeroway=airport],
@@ -391,8 +391,8 @@ node|z12-[aeroway=aerodrome]
   font-size: 10;
   text-halo-radius: 2;
   text: name;
-  text-color: #005BE2;
-  text-halo-color: white;
+  text-color: @airport_name;
+  text-halo-color: @white;
   text-offset: 10;
   text-position: point;
 }
@@ -404,8 +404,8 @@ node|z12-[aeroway=aerodrome]::int_name,
   font-size: 9;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #005BE2;
-  text-halo-color: white;
+  text-color: @airport_name;
+  text-halo-color: @white;
   text-offset: 10;
 }
 area|z13-14[aeroway=airport],
@@ -455,18 +455,18 @@ node|z14-[power=generator][power_source=wind]::d2p2
 line|z14[aeroway=taxiway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 4;
   z-index: 315;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 1;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 line|z14[man_made=pier]
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 0.1;
   z-index: 486;
 }
@@ -475,13 +475,13 @@ node|z16-[highway=motorway_junction]::d1p1
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #202020;
-  text-halo-color: white;
+  text-color: @dark_gray_20;
+  text-halo-color: @white;
   text-position: center;
 }
 line|z15-16[man_made=cutline]
 {
-  color: #f1eee8;
+  color: @background;
   width: 5;
 }
 area|z16[building],
@@ -491,12 +491,12 @@ node|z16[addr:housenumber][addr:street]
 {
   text: "addr:housenumber";
   font-size: 10;
-  text-color: #808070;
+  text-color: @addr_z16;
   text-position: center;
 }
 line|z15[route=ferry]
 {
-  color: #98b8e8;
+  color: @ferry_line;
   width: 1;
   z-index: 643;
   dashes: 7,5;
@@ -529,21 +529,21 @@ node|z15-[tourism=artwork],
 line|z15-[aeroway=runway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 20;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 4;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 node|z15-[tourism=attraction]
 {
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #303030;
-  text-halo-color: white;
+  text-color: @hw_primary_trunk;
+  text-halo-color: @white;
 }
 area|z15-[aeroway=helipad],
 node|z15-[aeroway=helipad]
@@ -556,8 +556,8 @@ node|z15-[leisure=park]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #5ca800;
-  text-halo-color: white;
+  text-color: @park_name;
+  text-halo-color: @white;
 }
 area|z15-[leisure=park]::int_name,
 node|z15-[leisure=park]::int_name
@@ -565,36 +565,36 @@ node|z15-[leisure=park]::int_name
   font-size: 11;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #5ca800;
-  text-halo-color: white;
+  text-color: @park_name;
+  text-halo-color: @white;
 }
 line|z15-[aeroway=taxiway]
 {
   casing-linecap: butt;
-  color: #d4dcbd;
+  color: @aeroway;
   linecap: butt;
   width: 8;
   z-index: 415;
   linejoin: bevel;
   casing-linejoin: bevel;
   casing-width: 2;
-  casing-color: #202020;
+  casing-color: @dark_gray_20;
 }
 line|z15[man_made=pier]
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 0.2;
   z-index: 630;
 }
 line|z15[man_made=pier]
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 1.6;
   z-index: 631;
 }
 line|z15[man_made=pier]::d1p3
 {
-  color: #e4e4e4;
+  color: @graye4;
   width: 1.2;
   z-index: 632;
 }
@@ -623,11 +623,11 @@ node|z15-[leisure=nature_reserve]
 area|z15-[building],
 node|z15-[building]
 {
-  fill-color: #cdcdb4;
+  fill-color: @building_fill;
 }
 line|z16[communication=line]
 {
-  color: #f080f0;
+  color: @comm_line;
   width: 0.4;
   z-index: 873;
   dashes: 8,4;
@@ -640,7 +640,7 @@ node|z16-[amenity=bureau_de_change]
 }
 line|z16[man_made=pipeline][location=overground]
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 0.8;
   z-index: 875;
   dashes: 8,4;
@@ -653,7 +653,7 @@ node|z16-[amenity=restaurant]
 }
 line|z16[man_made=pier]::d1p3
 {
-  color: #e4e4e4;
+  color: @graye4;
   width: 2.4;
   z-index: 857;
 }
@@ -673,9 +673,9 @@ node|z17-[internet_access],
   font-size: 11;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
+  text-color: @dark_gray_40;
   text-offset: 10;
-  text-halo-color: white;
+  text-halo-color: @white;
   z-index: 1;
 }
 
@@ -701,7 +701,7 @@ node|z16[building]::int_name
 {
   text: int_name;
   font-size: 11;
-  text-color: #808070;
+  text-color: @addr_z16;
 }
 area|z16-[amenity=fast_food],
 node|z16-[amenity=fast_food]
@@ -729,11 +729,11 @@ node|z16-[natural=bare_rock],
   text-offset: 10;
   text: name;
   font-size: 16;
-  text-color: #404040;
+  text-color: @dark_gray_40;
 }
 line|z16[route=ferry]
 {
-  color: #a8c8d8;
+  color: @ferry_z16;
   width: 2;
   z-index: 877;
   dashes: 12,8;
@@ -746,7 +746,7 @@ node|z16-[amenity=bicycle_rental]
 }
 line|z16[power=minor_line]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 862;
   opacity: 0.5;
@@ -790,7 +790,7 @@ area|z16-[natural=cape],
   text-offset: 10;
   text: name;
   font-size: 16;
-  text-color: #202020;
+  text-color: @dark_gray_20;
 }
 line|z16[barrier=bollard],
 node|z16[barrier=block],
@@ -799,12 +799,12 @@ node|z16[barrier=stile],
 node|z16[barrier=toll_booth]
 {
   symbol-shape: circle;
-  symbol-fill-color: #707070;
+  symbol-fill-color: @gray70;
   symbol-size: 1.2;
 }
 line|z16[communication=line][location=underground]
 {
-  color: #f080f0;
+  color: @comm_line;
   width: 0.4;
   z-index: 871;
   dashes: 1.2,2,1.2,2,1.2,4.4;
@@ -812,7 +812,7 @@ line|z16[communication=line][location=underground]
 }
 line|z16[man_made=pipeline]::d1p2
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 0.8;
   z-index: 876;
   dashes: 1.2,2,1.2,2,1.2,4.4;
@@ -820,7 +820,7 @@ line|z16[man_made=pipeline]::d1p2
 }
 line|z16[power=minor_line]::d1p2
 {
-  color: grey;
+  color: @gray;
   width: 0.8;
   z-index: 863;
   dashes: 1.2,2,1.2,2,1.2,4.4;
@@ -841,7 +841,7 @@ node|z17-[amenity=taxi]
 }
 line|z16[power=minor_line]::d1p3
 {
-  color: grey;
+  color: @gray;
   width: 0.8;
   z-index: 864;
   dashes: 8,4;
@@ -859,7 +859,7 @@ line|z16-[barrier=fence],
 line|z16-[barrier=hedge],
 line|z16-[historic=citywalls],
 {
-  color: #b0b0b0;
+  color: @grayb0;
   width: 1;
   z-index: 950;
 }
@@ -889,7 +889,7 @@ node|z16-[amenity=place_of_worship]
 }
 line|z16[communication=line]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 870;
   opacity: 0.5;
@@ -913,7 +913,7 @@ node|z16-[historic=ruins]
 }
 line|z16[man_made=pier]
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 0.4;
   z-index: 855;
 }
@@ -931,7 +931,7 @@ node|z16-[historic=monument]
 }
 line|z16[man_made=pier]::d1p2
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 3.2;
 }
 area|z16-[historic=castle],
@@ -961,7 +961,7 @@ node|z16-[amenity=cafe]
 }
 line|z16[man_made=pipeline]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 874;
   opacity: 0.5;
@@ -998,14 +998,14 @@ node|z16-[amenity=library],
 
 line|z14-[power=line]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 858;
   opacity: 0.5;
 }
 line|z14-[power=line]::d1p2
 {
-  color: grey;
+  color: @gray;
   width: 0.8;
   z-index: 861;
   dashes: 16,8;
@@ -1018,7 +1018,7 @@ line|z14-15[power=line][location=underground]::*
 }
 line|z16-[power=line][location=underground]
 {
-  color: grey;
+  color: @gray;
   width: 0.8;
   z-index: 859;
   dashes: 2.4,4,2.4,4;
@@ -1026,14 +1026,14 @@ line|z16-[power=line][location=underground]
 }
 line|z17-[man_made=pipeline]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 947;
   opacity: 0.5;
 }
 line|z17-[communication=line]::d1p2
 {
-  color: #f080f0;
+  color: @comm_line;
   width: 0.8;
   z-index: 933;
   dashes: 8,4;
@@ -1046,12 +1046,12 @@ node|z17-[addr:housenumber][addr:street]
 {
   text: "addr:housenumber";
   font-size: 11;
-  text-color: #404040;
+  text-color: @dark_gray_40;
   text-position: center;
 }
 line|z17-[man_made=pipeline]::d1p2
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 0.8;
   z-index: 949;
   dashes: 1.2,2,1.2,2,1.2,4.4;
@@ -1059,7 +1059,7 @@ line|z17-[man_made=pipeline]::d1p2
 }
 line|z17-[man_made=pipeline][location=overground]
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 0.8;
   z-index: 948;
   dashes: 8,4;
@@ -1067,7 +1067,7 @@ line|z17-[man_made=pipeline][location=overground]
 }
 line|z17-[power=minor_line]::d1p3
 {
-  color: grey;
+  color: @gray;
   width: 0.8;
   z-index: 923;
   dashes: 8,4;
@@ -1097,14 +1097,14 @@ node|z17-[power=generator]::d1p3
 }
 line|z17-[communication=line]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 930;
   opacity: 0.5;
 }
 line|z17-[man_made=pier]
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 0.4;
   z-index: 914;
 }
@@ -1118,7 +1118,7 @@ node|z17-[amenity=university]
 node|z17-[man_made=cairn]
 {
   symbol-shape: circle;
-  symbol-fill-color: white;
+  symbol-fill-color: @white;
   symbol-size: 3.2;
 }
 area|z17-[amenity=parking][location=underground],
@@ -1149,7 +1149,7 @@ node|z16-[amenity=parking][fee?]
 }
 line|z17-[communication=line][location=underground]
 {
-  color: #f080f0;
+  color: @comm_line;
   width: 0.8;
   z-index: 931;
   dashes: 1.2,2,1.2,2,1.2,4.4;
@@ -1167,7 +1167,7 @@ node|z17-[amenity=kindergarten]
 }
 line|z17-[route=ferry]
 {
-  color: #a8c8d8;
+  color: @ferry_z16;
   width: 2;
   z-index: 950;
   dashes: 12,8;
@@ -1175,13 +1175,13 @@ line|z17-[route=ferry]
 }
 line|z17-[man_made=cutline]
 {
-  color: #f1eee8;
+  color: @background;
   width: 6;
   z-index: 276;
 }
 line|z17-[man_made=pier]::d1p3
 {
-  color: #e4e4e4;
+  color: @graye4;
   width: 2.4;
   z-index: 916;
 }
@@ -1197,7 +1197,7 @@ node|z17-[barrier=stile],
 node|z17-[barrier=toll_booth]
 {
   symbol-shape: circle;
-  symbol-fill-color: #707070;
+  symbol-fill-color: @gray70;
   symbol-size: 1.6;
 }
 area|z17-[building]::int_name,
@@ -1205,30 +1205,30 @@ node|z17-[building]::int_name
 {
   text: int_name;
   font-size: 11;
-  text-color: #404040;
+  text-color: @dark_gray_40;
 }
 area|z15-[historic=ship]
 {
-  fill-color: #cdcdb4;
+  fill-color: @building_fill;
   text: name;
   font-size: 11;
 }
 line|z17-[man_made=pier]::d1p2
 {
-  color: #d0d0d0;
+  color: @hw_construction;
   width: 3.2;
   z-index: 915;
 }
 line|z17-[power=minor_line]::d1p2
 {
-  color: grey;
+  color: @gray;
   width: 0.8;
   dashes: 1.2,2,1.2,2,1.2,4.4;
   linecap: butt;
 }
 line|z17-[power=minor_line]
 {
-  color: white;
+  color: @white;
   width: 1.6;
   z-index: 921;
   opacity: 0.5;
@@ -1237,7 +1237,7 @@ line|z17-[power=minor_line]
 node|z17-[entrance]
 {
   symbol-shape: circle;
-  symbol-fill-color: #202020;
+  symbol-fill-color: @dark_gray_20;
   symbol-size: 2;
   font-size: 9;
   text: ref;
@@ -1325,21 +1325,21 @@ line|z15-[tunnel?]::tunnelwhite,
   z-index: 30;
   casing-width: eval(prop("width")/2+4);
   casing-linecap: butt;
-  casing-color: white;
+  casing-color: @white;
 }
 line|z15-[bridge?]::bridgeblack
 {
   z-index: 25;
   casing-width: eval(prop("width")/2+5);
   casing-linecap: butt;
-  casing-color: #707070;
+  casing-color: @gray70;
 }
 line|z15-[tunnel?]::tunnelblack
 {
   z-index: 25;
   casing-width: eval(prop("width")/2+5);
   casing-linecap: butt;
-  casing-color: #707070;
+  casing-color: @gray70;
   casing-dashes: 5,5;
 }
 
@@ -1357,7 +1357,7 @@ line|z16-[hwtag=oneway]::arrows
 line|z18-[hwtag=lit]::lit
 {
   width: 0.3;
-  color: yellow;
+  color: @border_state;
 }
 */
 
@@ -1366,7 +1366,7 @@ line|z18-[hwtag=lit]::lit
 line|z15-[hwtag=private]::private
 {
   width: 2;
-  color: red;
+  color: @red;
   z-index: 990;
   dashes: 5,15;
   linecap: butt;

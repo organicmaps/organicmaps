@@ -9,9 +9,9 @@ node|z17-[shop][shop!=no],
   font-size: 11;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
+  text-color: @dark_gray_40;
   text-offset: 10;
-  text-halo-color: white;
+  text-halo-color: @white;
   z-index: 1;
 }
 

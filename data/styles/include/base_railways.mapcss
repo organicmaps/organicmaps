@@ -1,143 +1,143 @@
 line|z10-11[railway=rail]
 {
-  color: silver;
+  color: @rail_z12;
   width: 1;
   z-index: 136;
 }
 line|z12[railway=yard]
 {
-  color: #404040;
+  color: @dark_gray_40;
   width: 0.5;
   z-index: 228;
 }
 line|z12[railway=narrow_gauge]
 {
-  color: silver;
+  color: @rail_z12;
   width: 1;
   z-index: 222;
 }
 line|z12[railway=light_rail]
 {
-  color: #90d090;
+  color: @light_rail_z12;
   width: 1;
   z-index: 668;
 }
 line|z12[railway=preserved]
 {
-  color: silver;
+  color: @rail_z12;
   width: 1;
   z-index: 223;
 }
 
 line|z12[railway=abandoned]
 {
-  color: #b2b2b2;
+  color: @abandoned_rail;
   width: 0.25;
   z-index: 219;
   opacity: 0.3;
 }
 line|z12[railway=monorail]
 {
-  color: #d08080;
+  color: @monorail_z12;
   width: 1;
   z-index: 226;
 }
 line|z12[railway=rail]
 {
-  color: silver;
+  color: @rail_z12;
   width: 1;
   z-index: 221;
 }
 line|z12[railway=funicular]
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 1;
   z-index: 225;
 }
 line|z12[railway=disused]
 {
-  color: grey;
+  color: @gray;
   width: 0.5;
   z-index: 218;
   opacity: 0.5;
 }
 line|z13[railway=siding]
 {
-  color: #b0b0b0;
+  color: @grayb0;
   width: 1;
   z-index: 239;
 }
 line|z13[railway=funicular]
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 1;
   z-index: 235;
 }
 line|z13[railway=preserved]
 {
-  color: #b0b0b0;
+  color: @grayb0;
   width: 1.35;
   z-index: 231;
 }
 line|z13[railway=abandoned]
 {
-  color: #b2b2b2;
+  color: @abandoned_rail;
   width: 0.55;
   z-index: 227;
   opacity: 0.3;
 }
 line|z13[railway=disused]
 {
-  color: grey;
+  color: @gray;
   width: 0.85;
   z-index: 226;
   opacity: 0.5;
 }
 line|z13[railway=monorail]
 {
-  color: #d08080;
+  color: @monorail_z12;
   width: 1;
 }
 line|z13[railway=narrow_gauge]
 {
-  color: #a0a0a0;
+  color: @light_gray;
   width: 1;
   z-index: 230;
 }
 line|z13[railway=light_rail]
 {
-  color: #90d090;
+  color: @light_rail_z12;
   width: 1;
   z-index: 687;
 }
 line|z13[railway=rail]
 {
-  color: #b0b0b0;
+  color: @grayb0;
   width: 1.85;
   z-index: 229;
 }
 line|z13[railway=yard]
 {
-  color: #404040;
+  color: @dark_gray_40;
   width: 0.85;
   z-index: 238;
 }
 line|z14[railway=spur]::d1p2
 {
-  color: #909090;
+  color: @gray90;
   width: 1;
   z-index: 293;
 }
 line|z14[railway=yard]
 {
-  color: #404040;
+  color: @dark_gray_40;
   width: 1.6;
   z-index: 208;
 }
 line|z14[railway=abandoned]::d1p3
 {
   opacity: 0.4;
-  color: #b2b2b2;
+  color: @abandoned_rail;
   linecap: butt;
   width: 1;
   z-index: 300;
@@ -145,7 +145,7 @@ line|z14[railway=abandoned]::d1p3
 }
 line|z14[railway=narrow_gauge]::d1p3
 {
-  color: #404040;
+  color: @dark_gray_40;
   width: 1.7;
   z-index: 303;
   dashes: 5.5,5.5;
@@ -153,13 +153,13 @@ line|z14[railway=narrow_gauge]::d1p3
 }
 line|z14[railway=monorail]::d1p2
 {
-  color: #d08080;
+  color: @monorail_z12;
   width: 1.7;
   z-index: 556;
 }
 line|z14[railway=light_rail]
 {
-  color: #095909;
+  color: @light_rail_z14;
   width: 2.4;
   z-index: 668;
 }
@@ -168,30 +168,30 @@ line|z14-[railway=rail]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #3050d8;
-  text-halo-color: white;
+  text-color: @station_name;
+  text-halo-color: @white;
 }
 line|z14[railway=spur]
 {
-  color: #b0b0b0;
+  color: @grayb0;
   width: 1.6;
   z-index: 207;
 }
 line|z14[railway=narrow_gauge]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.7;
   z-index: 286;
 }
 line|z14[railway=rail],
 {
-  color: #888888;
+  color: @rail_z14;
   z-index: 198;
   width: 3;
 }
 line|z14[railway=preserved]::d1p3
 {
-  color: #505050;
+  color: @gray50;
   width: 1.7;
   z-index: 304;
   dashes: 4.5,4.5;
@@ -199,13 +199,13 @@ line|z14[railway=preserved]::d1p3
 }
 line|z14[railway=siding]
 {
-  color: #909090;
+  color: @gray90;
   width: 1.6;
   z-index: 209;
 }
 line|z14[railway=monorail]::raildash
 {
-  color: #590959;
+  color: @tram_monorail_dash;
   width: 1.7;
   z-index: 557;
   dashes: 3.6,5.4;
@@ -213,32 +213,32 @@ line|z14[railway=monorail]::raildash
 }
 line|z14[railway=monorail]::railborder
 {
-  color: #590959;
+  color: @tram_monorail_dash;
   width: 2;
   z-index: 555;
 }
 line|z14[railway=disused]
 {
-  color: grey;
+  color: @gray;
   width: 1.6;
   z-index: 196;
   opacity: 0.7;
 }
 line|z14[railway=funicular]::d1p3
 {
-  color: #590909;
+  color: @funicular_z14;
   width: 0.4;
   z-index: 309;
 }
 line|z14[railway=yard]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1;
   z-index: 294;
 }
 line|z14[railway=rail]::d1p5
 {
-  color: #888888;
+  color: @rail_z14;
   width: 1.8;
   z-index: 302;
   dashes: 4.5,4.5;
@@ -246,20 +246,20 @@ line|z14[railway=rail]::d1p5
 }
 line|z14[railway=rail]::d1p4
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.8;
   z-index: 285;
 }
 line|z14[railway=abandoned]::d1p2
 {
-  color: white;
+  color: @white;
   width: 1;
   z-index: 283;
   opacity: 0.4;
 }
 line|z14[railway=siding]::d1p3
 {
-  color: #404040;
+  color: @dark_gray_40;
   width: 1;
   z-index: 313;
   dashes: 3,6;
@@ -267,31 +267,31 @@ line|z14[railway=siding]::d1p3
 }
 line|z14[railway=preserved]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.7;
 }
 line|z14[railway=siding]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1;
   z-index: 295;
 }
 line|z14[railway=disused]::d1p2
 {
-  color: #f2f2f2;
+  color: @disused_rail;
   width: 1;
   z-index: 282;
   opacity: 0.7;
 }
 line|z14[railway=preserved]
 {
-  color: #909090;
+  color: @gray90;
   width: 2.4;
   z-index: 200;
 }
 line|z14[railway=light_rail]::d1p3
 {
-  color: #095909;
+  color: @light_rail_z14;
   width: 1.7;
   z-index: 687;
   dashes: 3.8,5.4;
@@ -299,7 +299,7 @@ line|z14[railway=light_rail]::d1p3
 }
 line|z14[railway=yard]::d1p3
 {
-  color: #404040;
+  color: @dark_gray_40;
   width: 1;
   z-index: 312;
   dashes: 3,6;
@@ -307,14 +307,14 @@ line|z14[railway=yard]::d1p3
 }
 line|z14[railway=narrow_gauge]
 {
-  color: #606060;
+  color: @gray60;
   width: 2.4;
   z-index: 199;
 }
 line|z14[railway=disused]::d1p3
 {
   opacity: 0.7;
-  color: grey;
+  color: @gray;
   linecap: butt;
   width: 1;
   z-index: 299;
@@ -322,26 +322,26 @@ line|z14[railway=disused]::d1p3
 }
 line|z14[railway=abandoned]
 {
-  color: #b2b2b2;
+  color: @abandoned_rail;
   width: 1.6;
   z-index: 197;
   opacity: 0.4;
 }
 line|z14[railway=light_rail]::d1p2
 {
-  color: #b7e6e6;
+  color: @light_rail;
   width: 1.7;
   z-index: 677;
 }
 line|z14[railway=funicular]
 {
-  color: #590909;
+  color: @funicular_z14;
   width: 2.4;
   z-index: 205;
 }
 line|z14[railway=spur]::d1p3
 {
-  color: #ececec;
+  color: @railway_spur_z14;
   width: 1;
   z-index: 311;
   dashes: 3,6;
@@ -349,7 +349,7 @@ line|z14[railway=spur]::d1p3
 }
 line|z14[railway=funicular]::d1p2
 {
-  color: #e6b7b7;
+  color: @funicular;
   width: 1.7;
   z-index: 291;
   dashes: 3.6,5.4;
@@ -357,7 +357,7 @@ line|z14[railway=funicular]::d1p2
 }
 line|z15[railway=spur]::d1p3
 {
-  color: #606060;
+  color: @gray60;
   width: 1.4;
   z-index: 411;
   dashes: 6,12;
@@ -365,27 +365,27 @@ line|z15[railway=spur]::d1p3
 }
 line|z15[railway=disused]
 {
-  color: grey;
+  color: @gray;
   width: 3.2;
   z-index: 284;
   opacity: 0.7;
 }
 line|z15[railway=preserved]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2;
   z-index: 388;
 }
 line|z15[railway=abandoned]
 {
-  color: #b2b2b2;
+  color: @abandoned_rail;
   width: 3.2;
   z-index: 285;
   opacity: 0.4;
 }
 line|z15[railway=siding]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.4;
   z-index: 413;
   dashes: 6,12;
@@ -393,37 +393,37 @@ line|z15[railway=siding]::d1p3
 }
 line|z15[railway=siding]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.4;
   z-index: 396;
 }
 
 line|z15[railway=preserved]
 {
-  color: #909090;
+  color: @gray90;
   width: 3.2;
   z-index: 289;
 }
 line|z15[railway=yard]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
 }
 line|z15[railway=spur]
 {
-  color: #606060;
+  color: @gray60;
   width: 2.4;
   z-index: 295;
 }
 line|z15[railway=rail]
 {
-  color: #666666;
+  color: @rail_z15_base;
   z-index: 287;
   width: 4;
 }
 line|z15[railway=rail]::d1p5
 {
-  color: #666666;
+  color: @rail_z15_base;
   width: 2.4;
   dashes: 9,9;
   linecap: butt;
@@ -431,37 +431,37 @@ line|z15[railway=rail]::d1p5
 }
 line|z15[railway=rail]::d1p4
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2.4;
   z-index: 386;
 }
 line|z15[railway=narrow_gauge]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2;
   z-index: 387;
 }
 line|z15[railway=yard]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.4;
   z-index: 395;
 }
 line|z15-16[railway=light_rail]::d1p2
 {
-  color: #b7e6e6;
+  color: @light_rail;
   width: 2;
   z-index: 677;
 }
 line|z15-16[railway=light_rail]
 {
-  color: #0f4c0f;
+  color: @light_rail_z15;
   width: 3.2;
   z-index: 668;
 }
 line|z15[railway=preserved]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2;
   z-index: 405;
   dashes: 9,9;
@@ -469,7 +469,7 @@ line|z15[railway=preserved]::d1p3
 }
 line|z15[railway=light_rail]::d1p3
 {
-  color: #0f4c0f;
+  color: @light_rail_z15;
   width: 2;
   z-index: 687;
   dashes: 7.6,10.8;
@@ -477,7 +477,7 @@ line|z15[railway=light_rail]::d1p3
 }
 line|z15[railway=funicular]::d1p2
 {
-  color: #e6b7b7;
+  color: @funicular;
   width: 2;
   z-index: 392;
   dashes: 7.2,10.8;
@@ -485,13 +485,13 @@ line|z15[railway=funicular]::d1p2
 }
 line|z15[railway=spur]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.4;
   z-index: 394;
 }
 line|z15[railway=monorail]::d1p3
 {
-  color: #4c0f4c;
+  color: @monorail_line;
   width: 2;
   z-index: 566;
   dashes: 7.2,10.8;
@@ -499,20 +499,20 @@ line|z15[railway=monorail]::d1p3
 }
 line|z15[railway=abandoned]::d1p2
 {
-  color: white;
+  color: @white;
   width: 2;
   z-index: 384;
   opacity: 0.4;
 }
 line|z15-[railway=monorail]
 {
-  color: #4c0f4c;
+  color: @monorail_line;
   width: 3.2;
   z-index: 556;
 }
 line|z15[railway=narrow_gauge]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2;
   z-index: 404;
   dashes: 11,11;
@@ -520,13 +520,13 @@ line|z15[railway=narrow_gauge]::d1p3
 }
 line|z15[railway=funicular]
 {
-  color: #4c0f0f;
+  color: @funicular_z15;
   width: 3.2;
   z-index: 293;
 }
 line|z15[railway=yard]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.4;
   z-index: 412;
   dashes: 6,12;
@@ -534,7 +534,7 @@ line|z15[railway=yard]::d1p3
 }
 line|z15[railway=disused]::d1p2
 {
-  color: #f2f2f2;
+  color: @disused_rail;
   width: 2;
   z-index: 383;
   opacity: 0.7;
@@ -542,7 +542,7 @@ line|z15[railway=disused]::d1p2
 line|z15[railway=disused]::d1p3
 {
   opacity: 0.7;
-  color: grey;
+  color: @gray;
   linecap: butt;
   width: 2;
   z-index: 400;
@@ -551,7 +551,7 @@ line|z15[railway=disused]::d1p3
 line|z15[railway=abandoned]::d1p3
 {
   opacity: 0.4;
-  color: #b2b2b2;
+  color: @abandoned_rail;
   linecap: butt;
   width: 2;
   z-index: 401;
@@ -559,31 +559,31 @@ line|z15[railway=abandoned]::d1p3
 }
 line|z15-[railway=monorail]::d1p2
 {
-  color: #d08080;
+  color: @monorail_z12;
   width: 2;
   z-index: 561;
 }
 line|z15[railway=narrow_gauge]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 3.2;
   z-index: 288;
 }
 line|z15[railway=siding]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
   z-index: 297;
 }
 line|z15[railway=funicular]::d1p3
 {
-  color: #4c0f0f;
+  color: @funicular_z15;
   width: 0.5;
   z-index: 410;
 }
 line|z16[railway=narrow_gauge]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2;
   z-index: 647;
   dashes: 14,14;
@@ -591,26 +591,26 @@ line|z16[railway=narrow_gauge]::d1p3
 }
 line|z16[railway=spur]
 {
-  color: #606060;
+  color: @gray60;
   width: 2.4;
   z-index: 547;
 }
 line|z16[railway=funicular]
 {
-  color: #4c0f0f;
+  color: @funicular_z15;
   width: 3.2;
   z-index: 546;
 }
 line|z16[railway=disused]
 {
-  color: grey;
+  color: @gray;
   width: 3.2;
   z-index: 540;
   opacity: 0.7;
 }
 line|z16[railway=light_rail]::d1p3
 {
-  color: #0f4c0f;
+  color: @light_rail_z15;
   width: 2;
   z-index: 687;
   dashes: 9.6,14.4;
@@ -618,13 +618,13 @@ line|z16[railway=light_rail]::d1p3
 }
 line|z16[railway=spur]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.2;
   z-index: 638;
 }
 line|z16[railway=spur]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.2;
   z-index: 652;
   dashes: 8,16;
@@ -633,7 +633,7 @@ line|z16[railway=spur]::d1p3
 line|z16[railway=razed]
 {
   opacity: 0.3;
-  color: #c2c2c2;
+  color: @razed_rail;
   linecap: butt;
   width: 3.2;
   z-index: 541;
@@ -641,20 +641,20 @@ line|z16[railway=razed]
 }
 line|z16[railway=abandoned]
 {
-  color: #b2b2b2;
+  color: @abandoned_rail;
   width: 3.2;
   z-index: 542;
   opacity: 0.4;
 }
 line|z16[railway=rail]::d1p3
 {
-  color: #666666;
+  color: @rail_z15_base;
   z-index: 543;
   width: 4;
 }
 line|z16-[railway=monorail]::d1p3
 {
-  color: #4c0f4c;
+  color: @monorail_line;
   width: 2;
   z-index: 566;
   dashes: 9.6,14.4;
@@ -662,13 +662,13 @@ line|z16-[railway=monorail]::d1p3
 }
 line|z16[railway=rail]
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2.4;
   z-index: 631;
 }
 line|z16[railway=narrow_gauge]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2;
   z-index: 632;
 }
@@ -679,14 +679,14 @@ node|z16-[railway=level_crossing]
 }
 line|z16[railway=preserved]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2;
   z-index: 633;
 }
 line|z16[railway=abandoned]::d1p3
 {
   opacity: 0.4;
-  color: #b2b2b2;
+  color: @abandoned_rail;
   linecap: butt;
   width: 2.4;
   z-index: 645;
@@ -695,7 +695,7 @@ line|z16[railway=abandoned]::d1p3
 line|z16[railway=disused]::d1p3
 {
   opacity: 0.7;
-  color: grey;
+  color: @gray;
   linecap: butt;
   width: 2.4;
   z-index: 643;
@@ -703,7 +703,7 @@ line|z16[railway=disused]::d1p3
 }
 line|z16[railway=funicular]::d1p2
 {
-  color: #e6b7b7;
+  color: @funicular;
   width: 2;
   z-index: 636;
   dashes: 9.6,14.4;
@@ -711,7 +711,7 @@ line|z16[railway=funicular]::d1p2
 }
 line|z16[railway=preserved]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2;
   z-index: 648;
   dashes: 12,12;
@@ -719,38 +719,38 @@ line|z16[railway=preserved]::d1p3
 }
 line|z16[railway=narrow_gauge]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 3.2;
   z-index: 544;
 }
 line|z16[railway=siding]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
   z-index: 549;
 }
 line|z16[railway=siding]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.2;
   z-index: 640;
 }
 line|z16[railway=funicular]::d1p3
 {
-  color: #4c0f0f;
+  color: @funicular_z15;
   width: 0.6;
   z-index: 651;
 }
 area|z16[railway=platform],
 line|z16[railway=platform]
 {
-  color: #bbbbbb;
+  color: @railway_platform;
   width: 4;
   z-index: 580;
 }
 line|z16[railway=disused]::d1p2
 {
-  color: #f2f2f2;
+  color: @disused_rail;
   width: 2.4;
   z-index: 627;
   opacity: 0.7;
@@ -762,7 +762,7 @@ node|z16-[railway=crossing]
 }
 line|z16[railway=rail]::d1p5
 {
-  color: #666666;
+  color: @rail_z15_base;
   width: 2.4;
   z-index: 646;
   dashes: 12,12;
@@ -771,11 +771,11 @@ line|z16[railway=rail]::d1p5
 area|z16-[railway=platform],
 line|z16-[railway=platform]
 {
-  fill-color: #bbbbbb;
+  fill-color: @railway_platform;
 }
 line|z16[railway=razed]::d1p2
 {
-  color: white;
+  color: @white;
   width: 2.4;
   z-index: 628;
   opacity: 0.3;
@@ -783,7 +783,7 @@ line|z16[railway=razed]::d1p2
 line|z16[railway=razed]::d1p3
 {
   opacity: 0.3;
-  color: #c2c2c2;
+  color: @razed_rail;
   linecap: butt;
   width: 2.4;
   z-index: 644;
@@ -791,19 +791,19 @@ line|z16[railway=razed]::d1p3
 }
 line|z16[railway=abandoned]::d1p2
 {
-  color: white;
+  color: @white;
   width: 2.4;
   z-index: 629;
   opacity: 0.4;
 }
 line|z16[railway=preserved]
 {
-  color: #909090;
+  color: @gray90;
   width: 3.2;
 }
 line|z16[railway=siding]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.2;
   z-index: 654;
   dashes: 8,16;
@@ -811,19 +811,19 @@ line|z16[railway=siding]::d1p3
 }
 line|z16[railway=yard]::railfill
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.2;
   z-index: 639;
 }
 line|z16[railway=yard]::railborder
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
   z-index: 548;
 }
 line|z16[railway=yard]::raildash
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.2;
   z-index: 653;
   dashes: 8,16;
@@ -831,14 +831,14 @@ line|z16[railway=yard]::raildash
 }
 line|z17-[railway=rail]
 {
-  color: #666666;
+  color: @rail_z15_base;
   z-index: 568;
   width: 4.4;
 }
 line|z17-[railway=razed]::d1p3
 {
   opacity: 0.3;
-  color: #c2c2c2;
+  color: @razed_rail;
   linecap: butt;
   width: 2;
   z-index: 678;
@@ -846,37 +846,37 @@ line|z17-[railway=razed]::d1p3
 }
 line|z17-[railway=narrow_gauge]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 3.2;
   z-index: 569;
 }
 line|z17-[railway=narrow_gauge]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2;
   z-index: 665;
 }
 line|z17-[railway=light_rail]
 {
-  color: #0f4c0f;
+  color: @light_rail_z15;
   width: 3.2;
   z-index: 571;
 }
 line|z17-[railway=yard]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.36;
   z-index: 672;
 }
 line|z17-[railway=yard]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
   z-index: 577;
 }
 line|z17-[railway=rail]::d1p5
 {
-  color: #666666;
+  color: @rail_z15_base;
   width: 3.2;
   z-index: 681;
   dashes: 12,12;
@@ -884,20 +884,20 @@ line|z17-[railway=rail]::d1p5
 }
 line|z17-[railway=spur]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.36;
   z-index: 671;
 }
 line|z17-[railway=preserved]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 2;
   z-index: 666;
 }
 line|z17-[railway=disused]::d1p3
 {
   opacity: 0.7;
-  color: grey;
+  color: @gray;
   linecap: butt;
   width: 2;
   z-index: 677;
@@ -906,12 +906,12 @@ line|z17-[railway=disused]::d1p3
 area|z17-[railway=platform],
 line|z17-[railway=platform]
 {
-  color: #bbbbbb;
+  color: @railway_platform;
   width: 8;
 }
 line|z17-[railway=siding]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.36;
   z-index: 692;
   dashes: 7.2,16.8;
@@ -919,34 +919,34 @@ line|z17-[railway=siding]::d1p3
 }
 line|z17-[railway=siding]::d1p2
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 1.36;
   z-index: 673;
 }
 line|z17-[railway=razed]::d1p2
 {
-  color: white;
+  color: @white;
   width: 2;
   z-index: 662;
   opacity: 0.3;
 }
 line|z17-[railway=abandoned]
 {
-  color: #b2b2b2;
+  color: @abandoned_rail;
   width: 3.2;
   z-index: 565;
   opacity: 0.4;
 }
 line|z17-[railway=disused]
 {
-  color: grey;
+  color: @gray;
   width: 3.2;
   z-index: 564;
   opacity: 0.7;
 }
 line|z17-[railway=light_rail]::d1p3
 {
-  color: #0f4c0f;
+  color: @light_rail_z15;
   width: 2;
   z-index: 684;
   dashes: 9.6,14.4;
@@ -954,25 +954,25 @@ line|z17-[railway=light_rail]::d1p3
 }
 line|z17-[railway=rail]::d1p4
 {
-  color: #e6e6e6;
+  color: @rail_z14_base;
   width: 3.2;
   z-index: 664;
 }
 line|z17-[railway=spur]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
   z-index: 576;
 }
 line|z17-[railway=siding]
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2.4;
   z-index: 578;
 }
 line|z17-[railway=disused]::d1p2
 {
-  color: #f2f2f2;
+  color: @disused_rail;
   width: 2;
   z-index: 661;
   opacity: 0.7;
@@ -980,7 +980,7 @@ line|z17-[railway=disused]::d1p2
 line|z17-[railway=razed]
 {
   opacity: 0.3;
-  color: #c2c2c2;
+  color: @razed_rail;
   linecap: butt;
   width: 3.2;
   z-index: 567;
@@ -988,14 +988,14 @@ line|z17-[railway=razed]
 }
 line|z17-[railway=funicular]
 {
-  color: #4c0f0f;
+  color: @funicular_z15;
   width: 3.2;
   z-index: 574;
 }
 line|z17-[railway=abandoned]::d1p3
 {
   opacity: 0.4;
-  color: #b2b2b2;
+  color: @abandoned_rail;
   linecap: butt;
   width: 2;
   z-index: 679;
@@ -1003,13 +1003,13 @@ line|z17-[railway=abandoned]::d1p3
 }
 line|z17-[railway=light_rail]::d1p2
 {
-  color: #b7e6e6;
+  color: @light_rail;
   width: 2;
   z-index: 667;
 }
 line|z17-[railway=funicular]::d1p2
 {
-  color: #e6b7b7;
+  color: @funicular;
   width: 2;
   z-index: 670;
   dashes: 9.6,14.4;
@@ -1017,13 +1017,13 @@ line|z17-[railway=funicular]::d1p2
 }
 line|z17-[railway=preserved]
 {
-  color: #909090;
+  color: @gray90;
   width: 3.2;
   z-index: 570;
 }
 line|z17-[railway=preserved]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2;
   z-index: 683;
   dashes: 12,12;
@@ -1031,20 +1031,20 @@ line|z17-[railway=preserved]::d1p3
 }
 line|z17-[railway=funicular]::d1p3
 {
-  color: #4c0f0f;
+  color: @funicular_z15;
   width: 0.64;
   z-index: 688;
 }
 line|z17-[railway=abandoned]::d1p2
 {
-  color: white;
+  color: @white;
   width: 2;
   z-index: 663;
   opacity: 0.4;
 }
 line|z17-[railway=yard]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.36;
   z-index: 691;
   dashes: 7.2,16.8;
@@ -1052,7 +1052,7 @@ line|z17-[railway=yard]::d1p3
 }
 line|z17-[railway=spur]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 1.36;
   z-index: 690;
   dashes: 7.2,16.8;
@@ -1060,7 +1060,7 @@ line|z17-[railway=spur]::d1p3
 }
 line|z17-[railway=narrow_gauge]::d1p3
 {
-  color: #333333;
+  color: @rail_z15;
   width: 2;
   z-index: 682;
   dashes: 14.4,14.4;
@@ -1074,9 +1074,9 @@ area|z15-[railway=halt],
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #3050d8;
+  text-color: @station_name;
   text-offset: 10;
-  text-halo-color: #f8fcff;
+  text-halo-color: @station_name_halo;
   z-index: 170;
 }
 

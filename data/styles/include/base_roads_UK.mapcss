@@ -2,34 +2,34 @@
 *[highway=motorway_link],
 area[area:highway=motorway]
 {
-  fill-color: #8AC;
-  color: #8AC;
-  text-halo-color: #8AC;
+  fill-color: @uk_motorway;
+  color: @uk_motorway;
+  text-halo-color: @uk_motorway;
 }
 
 *[highway=trunk],
 *[highway=trunk_link],
 area[area:highway=trunk]
 {
-  fill-color: #9D9;
-  color: #9D9;
-  text-halo-color: #9D9;
+  fill-color: @uk_trunk;
+  color: @uk_trunk;
+  text-halo-color: @uk_trunk;
 }
 
 *[highway=primary],
 *[highway=primary_link],
 area[area:highway=primary]
 {
-  fill-color: #D99;
-  color: #D99;
-  text-halo-color: #D99;
+  fill-color: @uk_primary;
+  color: @uk_primary;
+  text-halo-color: @uk_primary;
 }
 
 *[highway=secondary],
 *[highway=secondary_link],
 area[area:highway=secondary]
 {
-  fill-color: #FDA;
-  color: #FDA;
-  text-halo-color: #FDA;
+  fill-color: @uk_secondary;
+  color: @uk_secondary;
+  text-halo-color: @uk_secondary;
 }

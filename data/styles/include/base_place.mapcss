@@ -10,26 +10,26 @@ node|z15-[place=island]
 {
   text: name;
   font-size: 16;
-  text-color: #505050;
+  text-color: @gray50;
 }
 node|z-2[place=continent]
 {
   text: name;
   font-size: 18;
-  text-color: #808078;
+  text-color: @continent_name;
 }
 node|z3[place=country]
 {
   text: name;
   font-size: 12;
-  text-color: #404040;
+  text-color: @dark_gray_40;
 }
 area|z3[place=country]::int_name,
 node|z3[place=country]::int_name
 {
   text: int_name;
   font-size: 12;
-  text-color: #606060;
+  text-color: @gray60;
 }
 
 node|z4[place=city][capital?]::int_name
@@ -37,16 +37,16 @@ node|z4[place=city][capital?]::int_name
   font-size: 10;
   text-halo-radius: 2;
   text: int_name;
-  text-color: grey;
-  text-halo-color: #eeeedd;
+  text-color: @gray;
+  text-halo-color: @light_yellow;
 }
 node|z8[place=town]
 {
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: #eeeedd;
+  text-color: @dark_gray_40;
+  text-halo-color: @light_yellow;
 }
 node|z4[place=country],
 node|z9[place=town]
@@ -54,14 +54,14 @@ node|z9[place=town]
   font-size: 14;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: #eeeedd;
+  text-color: @dark_gray_40;
+  text-halo-color: @light_yellow;
 }
 node|z4[place=state]
 {
   text: name;
   font-size: 11;
-  text-color: #c0c0b0;
+  text-color: @state_name;
   z-index: -10;
 }
 node|z4[place=city][capital?]
@@ -69,8 +69,8 @@ node|z4[place=city][capital?]
   font-size: 11;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z4-5[place=country]::int_name,
 node|z13-14[place=village]::int_name
@@ -78,8 +78,8 @@ node|z13-14[place=village]::int_name
   font-size: 12;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 
 node|z5[place=city][capital?]
@@ -87,38 +87,38 @@ node|z5[place=city][capital?]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z5[place=city][capital?]::int_name
 {
   font-size: 11;
   text-halo-radius: 2;
   text: int_name;
-  text-color: grey;
-  text-halo-color: #eeeedd;
+  text-color: @gray;
+  text-halo-color: @light_yellow;
 }
 node|z5[place=country]
 {
   font-size: 16;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: #eeeedd;
+  text-color: @dark_gray_40;
+  text-halo-color: @light_yellow;
 }
 node|z5[place=city]
 {
   font-size: 11;
   text-halo-radius: 2;
   text: name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 node|z5[place=state]
 {
   text: name;
   font-size: 12;
-  text-color: #c0c0b0;
+  text-color: @state_name;
   z-index: -10;
 }
 node|z5[place=city]::int_name
@@ -126,8 +126,8 @@ node|z5[place=city]::int_name
   font-size: 10;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #909090;
-  text-halo-color: #eeeedd;
+  text-color: @gray90;
+  text-halo-color: @light_yellow;
 }
 node|z7-8[place=city]::int_name,
 node|z9[place=town]::int_name,
@@ -137,23 +137,23 @@ node|z6-9[place=city][capital?]::int_name
   font-size: 12;
   text-halo-radius: 2;
   text: int_name;
-  text-color: grey;
-  text-halo-color: #eeeedd;
+  text-color: @gray;
+  text-halo-color: @light_yellow;
 }
 node|z6[place=city][capital?]
 {
   font-size: 14;
   text-halo-radius: 2;
   text: name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 
 node|z6[place=country]
 {
   text: name;
   font-size: 18;
-  text-color: grey;
+  text-color: @gray;
 }
 node|z6[place=city],
 node|z15[place=locality],
@@ -163,55 +163,55 @@ node|z12-13[place=village],
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 node|z6[place=state]
 {
   text: name;
   font-size: 13;
-  text-color: #c0c0b0;
+  text-color: @state_name;
   z-index: -10;
 }
 node|z6[place=country]::int_name
 {
   text: int_name;
   font-size: 12;
-  text-color: #a0a090;
+  text-color: @country_name;
 }
 node|z6[place=city]::int_name
 {
   font-size: 11;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #909090;
-  text-halo-color: #eeeedd;
+  text-color: @gray90;
+  text-halo-color: @light_yellow;
 }
 node|z7[place=country]
 {
   text: name;
   font-size: 26;
-  text-color: #909080;
+  text-color: @country_name_z7;
 }
 node|z7-8[place=city]
 {
   font-size: 14;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z7[place=country]::d1p3
 {
   text: int_name;
   font-size: 14;
-  text-color: #a0a090;
+  text-color: @country_name;
 }
 node|z7[place=state]
 {
   text: name;
   font-size: 14;
-  text-color: #c0c0b0;
+  text-color: @state_name;
   z-index: -10;
 }
 node|z8[place=state]
@@ -219,8 +219,8 @@ node|z8[place=state]
   font-size: 14;
   text-halo-radius: 2;
   text: name;
-  text-color: #b0b0a8;
-  text-halo-color: #eeeedd;
+  text-color: @state_name_z8;
+  text-halo-color: @light_yellow;
   z-index: -10;
 }
 area|z15-[place=farm],
@@ -232,7 +232,7 @@ node|z8-9[place=region],
 {
   text: name;
   font-size: 12;
-  text-color: #606060;
+  text-color: @gray60;
 }
 node|z8-9[place=city][capital?],
 node|z16[place=locality],
@@ -242,36 +242,36 @@ node|z16[place=isolated_dwelling],
   font-size: 16;
   text-halo-radius: 2;
   text: name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 area|z10-14[place=island],
 node|z10-14[place=island]
 {
   text: name;
   font-size: 12;
-  text-color: #505050;
+  text-color: @gray50;
 }
 node|z8-9[place=country]
 {
   text: name;
   font-size: 28;
-  text-color: #a0a090;
+  text-color: @country_name;
 }
 area|z8-9[place=country]::int_name,
 node|z8-9[place=country]::int_name
 {
   text: int_name;
   font-size: 14;
-  text-color: #b0b0a0;
+  text-color: @country_name_z8;
 }
 node|z9[place=state]
 {
   font-size: 14;
   text-halo-radius: 2;
   text: name;
-  text-color: #c0c0b0;
-  text-halo-color: #eeeedd;
+  text-color: @state_name;
+  text-halo-color: @light_yellow;
   z-index: -10;
 }
 node|z9[place=city]
@@ -279,14 +279,14 @@ node|z9[place=city]
   font-size: 17;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z9[place=county]
 {
   text: name;
   font-size: 14;
-  text-color: #a0a0a0;
+  text-color: @light_gray;
 }
 node|z9-11[place=city]::int_name,
 node|z10-11[place=town]::int_name,
@@ -296,16 +296,16 @@ node|z10-11[place=city][capital?]::int_name
   font-size: 14;
   text-halo-radius: 2;
   text: int_name;
-  text-color: grey;
-  text-halo-color: #eeeedd;
+  text-color: @gray;
+  text-halo-color: @light_yellow;
 }
 node|z10-11[place=town]
 {
   font-size: 16;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z10-11[place=city],
 node|z12[place=town]
@@ -313,16 +313,16 @@ node|z12[place=town]
   font-size: 18;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z10-11[place=city][capital?]
 {
   font-size: 18;
   text-halo-radius: 2;
   text: name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 area|z10[place=county],
 node|z10[place=county]
@@ -330,8 +330,8 @@ node|z10[place=county]
   font-size: 14;
   text-halo-radius: 2;
   text: name;
-  text-color: #a0a0a0;
-  text-halo-color: #eeeedd;
+  text-color: @light_gray;
+  text-halo-color: @light_yellow;
 }
 area|z11-12[place=county],
 node|z11-12[place=county]
@@ -339,14 +339,14 @@ node|z11-12[place=county]
   font-size: 16;
   text-halo-radius: 2;
   text: name;
-  text-color: #a0a090;
-  text-halo-color: #eeeedd;
+  text-color: @country_name;
+  text-halo-color: @light_yellow;
 }
 node|z12[place=city]::int_name
 {
   text: int_name;
   font-size: 16;
-  text-color: grey;
+  text-color: @gray;
 }
 node|z13-15[place=city]::int_name,
 node|z12[place=city][capital?]::int_name
@@ -354,15 +354,15 @@ node|z12[place=city][capital?]::int_name
   font-size: 16;
   text-halo-radius: 2;
   text: int_name;
-  text-color: grey;
-  text-halo-color: #eeeedd;
+  text-color: @gray;
+  text-halo-color: @light_yellow;
 }
 area|z12-16[place=suburb]::int_name,
 node|z12-16[place=suburb]::int_name
 {
   text: int_name;
   font-size: 12;
-  text-color: #a0a0a0;
+  text-color: @light_gray;
   z-index: 20;
 }
 node|z12[place=city],
@@ -371,23 +371,23 @@ node|z13[place=town]
   font-size: 20;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 node|z12[place=city][capital?]
 {
   font-size: 22;
   text-halo-radius: 2;
   text: name;
-  text-color: #606060;
-  text-halo-color: #eeeedd;
+  text-color: @gray60;
+  text-halo-color: @light_yellow;
 }
 area|z12[place=suburb],
 node|z12[place=suburb]
 {
   text: name;
   font-size: 12;
-  text-color: #909090;
+  text-color: @gray90;
   z-index: 20;
 }
 node|z13[place=city][capital?]::int_name
@@ -395,8 +395,8 @@ node|z13[place=city][capital?]::int_name
   font-size: 18;
   text-halo-radius: 2;
   text: int_name;
-  text-color: grey;
-  text-halo-color: #eeeedd;
+  text-color: @gray;
+  text-halo-color: @light_yellow;
 }
 area|z14[place=farm],
 area|z13-15[place=islet],
@@ -404,33 +404,33 @@ area|z17-[place=islet]
 {
   text: name;
   font-size: 12;
-  text-color: #202020;
+  text-color: @dark_gray_20;
 }
 area|z14-[place=hamlet],
 area|z11-[place=village]
 {
-  fill-color: #dddac9;
+  fill-color: @village_fill;
 }
 node|z13[place=city][capital?]
 {
   text: name;
   font-size: 24;
-  text-color: grey;
+  text-color: @gray;
 }
 node|z13[place=city]
 {
   font-size: 20;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: #eeeedd;
+  text-color: @dark_gray_40;
+  text-halo-color: @light_yellow;
 }
 area|z13[place=suburb],
 node|z13[place=suburb]
 {
   text: name;
   font-size: 14;
-  text-color: #909090;
+  text-color: @gray90;
   z-index: 20;
 }
 area|z14[place=town],
@@ -439,15 +439,15 @@ node|z14[place=town]
   font-size: 22;
   text-halo-radius: 2;
   text: name;
-  text-color: #505050;
-  text-halo-color: #eeeedd;
+  text-color: @gray50;
+  text-halo-color: @light_yellow;
 }
 area|z14-16[place=suburb],
 node|z14-16[place=suburb]
 {
   text: name;
   font-size: 18;
-  text-color: #909090;
+  text-color: @gray90;
   z-index: 20;
 }
 node|z14-15[place=city]
@@ -455,8 +455,8 @@ node|z14-15[place=city]
   font-size: 22;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: #eeeedd;
+  text-color: @dark_gray_40;
+  text-halo-color: @light_yellow;
 }
 area|z14[place=village],
 node|z14[place=village]
@@ -464,8 +464,8 @@ node|z14[place=village]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: #eeeedd;
+  text-color: @dark_gray_40;
+  text-halo-color: @light_yellow;
 }
 area|z14-16[place=locality]::int_name,
 node|z14-16[place=locality]::int_name,
@@ -477,15 +477,15 @@ node|z16[place=isolated_dwelling]::int_name,
 {
   text: int_name;
   font-size: 12;
-  text-color: #909090;
+  text-color: @gray90;
 }
 node|z15-[place=village]::int_name
 {
   font-size: 12;
   text-halo-radius: 2;
   text: int_name;
-  text-color: #909090;
-  text-halo-color: #eeeedd;
+  text-color: @gray90;
+  text-halo-color: @light_yellow;
 }
 area|z15-16[place=village],
 node|z15-16[place=village]
@@ -493,29 +493,29 @@ node|z15-16[place=village]
   font-size: 16;
   text-halo-radius: 2;
   text: name;
-  text-color: #707070;
-  text-halo-color: #eeeedd;
+  text-color: @gray70;
+  text-halo-color: @light_yellow;
 }
 area|z16[place=islet],
 node|z16[place=islet]
 {
   text: name;
   font-size: 16;
-  text-color: #202020;
+  text-color: @dark_gray_20;
 }
 area|z16-[place=hamlet],
 node|z16-[place=hamlet]
 {
   text: name;
   font-size: 16;
-  text-color: #606060;
+  text-color: @gray60;
 }
 area|z17-[place=suburb],
 node|z17-[place=suburb]
 {
   text: name;
   font-size: 20;
-  text-color: #909090;
+  text-color: @gray90;
   z-index: 20;
 }
 area|z17-[place=village],
@@ -524,8 +524,8 @@ node|z17-[place=village]
   font-size: 18;
   text-halo-radius: 2;
   text: name;
-  text-color: #707070;
-  text-halo-color: #eeeedd;
+  text-color: @gray70;
+  text-halo-color: @light_yellow;
 }
 area|z17-[place=locality],
 node|z17-[place=locality],
@@ -536,13 +536,13 @@ node|z17-[place=isolated_dwelling],
 {
   text: name;
   font-size: 16;
-  text-color: #404040;
+  text-color: @dark_gray_40;
 }
 area|z17-[place=suburb]::int_name,
 node|z17-[place=suburb]::int_name
 {
   text: int_name;
   font-size: 14;
-  text-color: #a0a0a0;
+  text-color: @light_gray;
   z-index: 20;
 }

@@ -7,25 +7,25 @@ area[leisure],
 
 area[natural=coastline]
 {
-  fill-color: #B9D4D4;
+  fill-color: @water;
   z-index: -10;
 }
 
 area|z6-11[natural=land]
 {
-  fill-color: #EEEEDD;
+  fill-color: @light_yellow;
   z-index: -9;
 }
 area|z12-[natural=land]
 {
-  fill-color: #EEEEDD;
+  fill-color: @light_yellow;
   z-index: -9;
 }
 
 area|z12-[landuse=farm],
 area|z12-[landuse=farmland]
 {
-  fill-color: #DFDF97;
+  fill-color: @farm;
 }
 area|z13-[amenity=grave_yard],
 area|z12-[landuse=allotments],
@@ -39,12 +39,12 @@ area|z12-[landuse=village_green],
 area|z12-[natural=scrub],
 area|z12-[natural=grassland],
 {
-  fill-color: #d0e8c4;
+  fill-color: @greenfill;
 }
 area|z10-[natural=wood],
 area|z10-[landuse=forest],
 {
-  fill-color: #B2D6A5;
+  fill-color: @forest;
 }
 area|z11-[aeroway=apron],
 area|z12-[landuse=brownfield],
@@ -56,64 +56,64 @@ area|z12-[landuse=industrial],
 area|z12-[landuse=quarry],
 area|z12-[landuse=railway],
 {
-  fill-color: #DDDDCC;
+  fill-color: @industrial;
   z-index: 1;
 }
 area|z12-[landuse=commercial],
 area|z12-[natural=heath]
 {
-  fill-color: #f8f8d8;
+  fill-color: @parking;
   z-index: 2;
 }
 area|z12-[landuse=military]
 {
-  fill-color: #d0d050;
+  fill-color: @military;
   z-index: 10;
 }
 area|z12-[landuse=conservation]
 {
-  fill-color: #cfeca8;
+  fill-color: @conservation;
   z-index: 1;
 }
 area|z12-[landuse=residential]
 {
-  fill-color: #ede8d2;
+  fill-color: @residential_generic;
   z-index: -2;
 }
 area|z12-[landuse=residential][residential=urban]
 {
-  fill-color: #eeeeee;
+  fill-color: @residential_urban;
   z-index: -1;
 }
 area|z12-[landuse=residential][residential=rural]
 {
-  fill-color: #FFFFCC;
+  fill-color: @residential_rural;
   z-index: -1;
 }
 area|z12-[landuse=retail]
 {
-  fill-color: #f8ecec;
+  fill-color: @retail;
   z-index: 3;
 }
 area|z13-[landuse=farmyard]
 {
-  fill-color: #e4e4e4;
+  fill-color: @graye4;
   z-index: 1;
 }
 area|z13-[landuse=landfill],
 area|z13-[landuse=quarry]
 {
-  fill-color: #e9dd72;
+  fill-color: @landfill;
   z-index: 1;
 }
 area|z13-[landuse=vineyard]
 {
-  fill-color: #d1ead1;
+  fill-color: @vineyard;
   z-index: 2;
 }
 area|z15-[landuse=garages]
 {
-  fill-color: #e1e1e5;
+  fill-color: @garages;
   z-index: 4;
 }
 area|z15-16[landuse=construction],
@@ -121,14 +121,14 @@ node|z15-16[landuse=construction]
 {
   text: name;
   font-size: 12;
-  text-color: #808070;
+  text-color: @addr_z16;
 }
 area|z17-[landuse=construction],
 node|z17-[landuse=construction]
 {
   text: name;
   font-size: 14;
-  text-color: #404040;
+  text-color: @dark_gray_40;
 }
 area|z17-[aeroway=gate],
 node|z17-[aeroway=gate],
@@ -172,7 +172,7 @@ area|z15[natural=wood],
 {
   text: name;
   font-size: 12;
-  text-color: #202020;
+  text-color: @dark_gray_20;
 }
 
 area|z16-[landuse=forest],
@@ -190,8 +190,8 @@ node|z16-[amenity=townhall],
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: white;
+  text-color: @dark_gray_40;
+  text-halo-color: @white;
 }
 
 area|z16-[landuse=allotments],
@@ -265,20 +265,20 @@ node|z16-[natural=wood],
 {
   text: name;
   font-size: 16;
-  text-color: #202020;
+  text-color: @dark_gray_20;
 }
 
 area|z10-[natural=glacier]
 {
-  fill-color: lightblue;
+  fill-color: @glacier;
 }
 
 area|z14-[natural=beach]
 {
-  fill-color: #eecc55;
+  fill-color: @beach;
   text: name;
   font-size: 11;
-  text-color: #202020;
+  text-color: @dark_gray_20;
   text-halo-radius: 1;
-  text-halo-color: #eecc55;
+  text-halo-color: @beach;
 }

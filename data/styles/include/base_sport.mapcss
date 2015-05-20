@@ -7,7 +7,7 @@ area|z12-[leisure=sports_centre],
 area|z12-[leisure=stadium],
 area|z12-[leisure=track]
 {
-  fill-color: #d0e8c4;
+  fill-color: @greenfill;
 }
 
 area|z17-[leisure=sports_centre],
@@ -18,8 +18,8 @@ node|z17-[leisure=sports_centre]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: #404040;
-  text-halo-color: white;
+  text-color: @dark_gray_40;
+  text-halo-color: @white;
 }
 
 area|z13-[leisure=dog_park][sport=tennis],
@@ -27,7 +27,7 @@ area|z13-[leisure=pitch][sport=tennis],
 area|z13-[leisure=playground][sport=tennis],
 area|z13-[leisure=playing_fields][sport=tennis]
 {
-  fill-color: #ddb298;
+  fill-color: @pitch_fill;
 }
 
 area|z17-[sport=gymnastics],
@@ -135,7 +135,7 @@ node|z17-[sport=basketball]
 line|z15-[marking=sport]
 {
   width: 0.5;
-  color: white;
+  color: @white;
 }
 line|z15-[marking=sport][colour?]
 {
