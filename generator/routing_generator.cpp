@@ -52,6 +52,32 @@ bool LoadIndexes(string const & mwmFile, string const & osrmFile, osrm::NodeData
   return true;
 }
 
+bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & data)
+{
+  double minLon = numeric_limits<double>::max();
+  double minLat = numeric_limits<double>::max();
+  double maxLon = numeric_limits<double>::min();
+  double maxLat = numeric_limits<double>::min();
+  for (auto const & segment : data.m_segments)
+  {
+    minLon = min(minLon, segment.lon1);
+    maxLon = min(maxLon, segment.lon1);
+    minLat = min(minLat, segment.lat1);
+    maxLat = max(maxLat, segment.lat1);
+    minLon = min(minLon, segment.lon2);
+    maxLon = min(maxLon, segment.lon2);
+    minLat = min(minLat, segment.lat2);
+    maxLat = max(maxLat, segment.lat2);
+  }
+  bool const leftUp = border.Contains(MercatorBounds::FromLatLon(minLat, minLon));
+  bool const rightUp = border.Contains(MercatorBounds::FromLatLon(minLat, maxLon));
+  bool const leftDown = border.Contains(MercatorBounds::FromLatLon(maxLat, minLon));
+  bool const rightDown = border.Contains(MercatorBounds::FromLatLon(maxLat, maxLon));
+
+  return !((leftUp && rightUp && leftDown && rightDown) ==
+           (leftUp || rightUp || leftDown || rightDown));
+}
+
 void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft, borders::CountriesContainerT const & m_countries, string const & countryName, routing::CrossRoutingContextWriter & crossContext)
 {
   vector<m2::RegionD> regionBorders;
@@ -79,40 +105,47 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
         // Check mwm borders crossing.
         for (m2::RegionD const & border: regionBorders)
         {
-          bool const outStart = border.Contains(MercatorBounds::FromLatLon(startSeg.lat1, startSeg.lon1));
-          bool const outEnd = border.Contains(MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2));
-          if (outStart == outEnd)
-            continue;
-          m2::PointD intersection = m2::PointD::Zero();
-          for (auto const & segment : data.m_segments)
-            if (border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1), MercatorBounds::FromLatLon(segment.lat2, segment.lon2), intersection))
-              break;
-          if (intersection == m2::PointD::Zero())
+          if (!CheckBBoxCrossingBorder(border, data))
             continue;
 
-          // for old format compatibility
-          intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
-          if (!outStart && outEnd)
-            crossContext.addIngoingNode(nodeId, intersection);
-          else if (outStart && !outEnd)
+          m2::PointD intersection = m2::PointD::Zero();
+          for (auto const & segment : data.m_segments)
           {
-            string mwmName;
-            m2::PointD const & mercatorPoint = MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2);
-            m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
+            bool const outStart =
+                border.Contains(MercatorBounds::FromLatLon(segment.lat1, segment.lon1));
+            bool const outEnd =
+                border.Contains(MercatorBounds::FromLatLon(segment.lat2, segment.lon2));
+            if (outStart == outEnd)
+              continue;
+
+            border.FindIntersection(MercatorBounds::FromLatLon(segment.lat1, segment.lon1),
+                                    MercatorBounds::FromLatLon(segment.lat2, segment.lon2),
+                                    intersection);
+
+            // for old format compatibility
+            intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
+            if (!outStart && outEnd)
+              crossContext.addIngoingNode(nodeId, intersection);
+            else if (outStart && !outEnd)
             {
-              if (c.m_name == countryName)
-                return;
-              c.m_regions.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](m2::RegionD const & region)
+              string mwmName;
+              m2::PointD const & mercatorPoint = MercatorBounds::FromLatLon(endSeg.lat2, endSeg.lon2);
+              m_countries.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](borders::CountryPolygons const & c)
               {
-                // Sometimes Contains make errors for cases near the border.
-                if (region.Contains(mercatorPoint) || region.AtBorder(mercatorPoint, 0.01 /*Near border accuracy. In mercator.*/))
-                  mwmName = c.m_name;
+                if (c.m_name == countryName)
+                  return;
+                c.m_regions.ForEachInRect(m2::RectD(mercatorPoint, mercatorPoint), [&](m2::RegionD const & region)
+                {
+                  // Sometimes Contains make errors for cases near the border.
+                  if (region.Contains(mercatorPoint) || region.AtBorder(mercatorPoint, 0.01 /*Near border accuracy. In mercator.*/))
+                    mwmName = c.m_name;
+                });
               });
-            });
-            if (!mwmName.empty())
-              crossContext.addOutgoingNode(nodeId, mwmName, intersection);
-            else
-              LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
+              if (!mwmName.empty())
+                crossContext.addOutgoingNode(nodeId, mwmName, intersection);
+              else
+                LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
+            }
           }
         }
       }

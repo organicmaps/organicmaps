@@ -65,4 +65,18 @@ namespace
         integration::GetAllMaps(), MercatorBounds::FromLatLon(45.356971, 35.369712), {0., 0.},
         MercatorBounds::FromLatLon(46.152324, 34.804955), 105000.);
   }
+
+  UNIT_TEST(AlbaniaToMonteregoCrossTest)
+  {
+    // Road from Albania to Chernogoria. Test turnaround finding at border (when start/stop OSRM
+    // points are inside borders and one of segments has outside points).
+    // Forward
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(42.01535, 19.40044), {0., 0.},
+        MercatorBounds::FromLatLon(42.01201, 19.36286), 3674.);
+    // And backward case
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(42.01201, 19.36286), {0., 0.},
+        MercatorBounds::FromLatLon(42.01535, 19.40044), 3674.);
+  }
 }
