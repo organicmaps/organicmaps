@@ -59,7 +59,6 @@ uint32_t BuildCorner(vector<Button::ButtonVertex> & vertices,
   double const sector = (angleFinish - angleStart) / static_cast<double>(trianglesCount);
   m2::PointD startNormal(0.0f, radius);
 
-  uint32_t indicesCount = 0;
   for (size_t i = 0; i < trianglesCount; ++i)
   {
     m2::PointD normal = m2::Rotate(startNormal, angleStart + i * sector);
@@ -68,11 +67,9 @@ uint32_t BuildCorner(vector<Button::ButtonVertex> & vertices,
     vertices.push_back(Button::ButtonVertex(position, pt));
     vertices.push_back(Button::ButtonVertex(position, pt - glsl::ToVec2(normal)));
     vertices.push_back(Button::ButtonVertex(position, pt - glsl::ToVec2(nextNormal)));
-
-    indicesCount += dp::Batcher::IndexPerTriangle;
   }
 
-  return indicesCount;
+  return trianglesCount * dp::Batcher::IndexPerTriangle;
 }
 
 }
