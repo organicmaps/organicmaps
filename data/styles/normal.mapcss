@@ -9,6 +9,7 @@
 @import("include/base_boundaries.mapcss");
 @import("include/base_railways.mapcss");
 @import("include/base_piste.mapcss");
+@import("include/base_publictransport.mapcss");
 @import("include/base_other.mapcss");
 
 canvas

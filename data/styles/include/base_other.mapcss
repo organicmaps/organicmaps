@@ -1315,8 +1315,6 @@ line|z16-[natural=tree_row]
   pattern-spacing: 100;
 }
 
-@import("include/base_publictransport.mapcss");
-
 /* Process bridge and tunnel */
 
 line|z15-[bridge?]::bridgewhite,
