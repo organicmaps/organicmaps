@@ -6,9 +6,76 @@
 #include "drape/utils/vertex_decl.hpp"
 
 #include "std/bind.hpp"
+#include "std/vector.hpp"
 
 namespace gui
 {
+
+namespace
+{
+
+void ApplyAnchor(dp::Anchor anchor, vector<Button::ButtonVertex> & vertices, float halfWidth, float halfHeight)
+{
+  glsl::vec2 normalOffset(0.0f, 0.0f);
+  if (anchor & dp::Left)
+    normalOffset.x = halfWidth;
+  else if (anchor & dp::Right)
+    normalOffset.x = -halfWidth;
+
+  if (anchor & dp::Top)
+    normalOffset.x = halfHeight;
+  else if (anchor & dp::Bottom)
+    normalOffset.x = -halfHeight;
+
+  for (Button::ButtonVertex & v : vertices)
+    v.m_normal = v.m_normal + normalOffset;
+}
+
+uint32_t BuildRect(vector<Button::ButtonVertex> & vertices,
+                   glsl::vec2 const & v1, glsl::vec2 const & v2,
+                   glsl::vec2 const & v3, glsl::vec2 const & v4)
+
+{
+  glsl::vec3 const position(0.0f, 0.0f, 0.0f);
+
+  vertices.push_back(Button::ButtonVertex(position, v1));
+  vertices.push_back(Button::ButtonVertex(position, v2));
+  vertices.push_back(Button::ButtonVertex(position, v3));
+
+  vertices.push_back(Button::ButtonVertex(position, v3));
+  vertices.push_back(Button::ButtonVertex(position, v2));
+  vertices.push_back(Button::ButtonVertex(position, v4));
+
+  return dp::Batcher::IndexPerQuad;
+}
+
+uint32_t BuildCorner(vector<Button::ButtonVertex> & vertices,
+                     glsl::vec2 const & pt, double radius,
+                     double angleStart, double angleFinish)
+{
+  glsl::vec3 const position(0.0f, 0.0f, 0.0f);
+
+  int const trianglesCount = 8;
+  double const sector = (angleFinish - angleStart) / static_cast<double>(trianglesCount);
+  m2::PointD startNormal(0.0f, radius);
+
+  uint32_t indicesCount = 0;
+  for (size_t i = 0; i < trianglesCount; ++i)
+  {
+    m2::PointD normal = m2::Rotate(startNormal, angleStart + i * sector);
+    m2::PointD nextNormal = m2::Rotate(startNormal, angleStart + (i + 1) * sector);
+
+    vertices.push_back(Button::ButtonVertex(position, pt));
+    vertices.push_back(Button::ButtonVertex(position, pt - glsl::ToVec2(normal)));
+    vertices.push_back(Button::ButtonVertex(position, pt - glsl::ToVec2(nextNormal)));
+
+    indicesCount += dp::Batcher::IndexPerTriangle;
+  }
+
+  return indicesCount;
+}
+
+}
 
 ButtonHandle::ButtonHandle(dp::Anchor anchor, m2::PointF const & size)
   : TBase(anchor, m2::PointF::Zero(), size)
@@ -33,11 +100,6 @@ void ButtonHandle::Update(ScreenBase const & screen)
   TBase::Update(screen);
 }
 
-constexpr int Button::VerticesCount()
-{
-  return dp::Batcher::VertexPerQuad;
-}
-
 void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::TextureManager> texMgr)
 {
   StaticLabel::LabelResult result;
@@ -54,41 +116,48 @@ void Button::Draw(Params const & params, ShapeControl & control, ref_ptr<dp::Tex
   {
     dp::GLState state(gpu::BUTTON_PROGRAM, dp::GLState::Gui);
 
-    glsl::vec3 position(0.0f, 0.0f, 0.0f);
+    float w = halfWM - params.m_facet;
+    float h = halfHM - params.m_facet;
 
-    int const verticesCount = VerticesCount();
-    ButtonVertex vertexes[verticesCount]
-    {
-        ButtonVertex(position, glsl::vec2(-halfWM, halfHM)),
-        ButtonVertex(position, glsl::vec2(-halfWM, -halfHM)),
-        ButtonVertex(position, glsl::vec2(halfWM, halfHM)),
-        ButtonVertex(position, glsl::vec2(halfWM, -halfHM))
-    };
+    vector<ButtonVertex> vertexes;
+    vertexes.reserve(114);
 
-    glsl::vec2 normalOffset(0.0f, 0.0f);
-    if (params.m_anchor & dp::Left)
-      normalOffset.x = halfWidth;
-    else if (params.m_anchor & dp::Right)
-      normalOffset.x = -halfWidth;
+    uint32_t indicesCount = 0;
 
-    if (params.m_anchor & dp::Top)
-      normalOffset.x = halfHeight;
-    else if (params.m_anchor & dp::Bottom)
-      normalOffset.x = -halfHeight;
+    indicesCount += BuildRect(vertexes, glsl::vec2(-w, halfHM), glsl::vec2(-w, -halfHM),
+                                        glsl::vec2(w, halfHM), glsl::vec2(w, -halfHM));
 
-    for (ButtonVertex & v : vertexes)
-      v.m_normal = v.m_normal + normalOffset;
+    indicesCount += BuildRect(vertexes, glsl::vec2(-halfWM, h), glsl::vec2(-halfWM, -h),
+                                        glsl::vec2(-w, h), glsl::vec2(-w, -h));
 
+    indicesCount += BuildRect(vertexes, glsl::vec2(w, h), glsl::vec2(w, -h),
+                                        glsl::vec2(halfWM, h), glsl::vec2(halfWM, -h));
+
+    indicesCount += BuildCorner(vertexes, glsl::vec2(-w, h), params.m_facet,
+                                math::pi, 1.5 * math::pi);
+
+    indicesCount += BuildCorner(vertexes, glsl::vec2(-w, -h), params.m_facet,
+                                1.5 * math::pi, 2 * math::pi);
+
+    indicesCount += BuildCorner(vertexes, glsl::vec2(w, h), params.m_facet,
+                                0.5 * math::pi, math::pi);
+
+    indicesCount += BuildCorner(vertexes, glsl::vec2(w, -h), params.m_facet,
+                                0.0, 0.5 * math::pi);
+
+    ApplyAnchor(params.m_anchor, vertexes, halfWidth, halfHeight);
+
+    uint16_t const verticesCount = (uint16_t)vertexes.size();
     dp::AttributeProvider provider(1 /* stream count */, verticesCount);
     provider.InitStream(0 /*stream index*/, ButtonVertex::GetBindingInfo(),
-                        make_ref(vertexes));
+                        make_ref(vertexes.data()));
 
     m2::PointF buttonSize(halfWM + halfWM, halfHM + halfHM);
     ASSERT(params.m_bodyHandleCreator, ());
-    dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+    dp::Batcher batcher(indicesCount, verticesCount);
     dp::SessionGuard guard(batcher, bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertTriangleStrip(state, make_ref(&provider),
-                                params.m_bodyHandleCreator(params.m_anchor, buttonSize));
+    batcher.InsertTriangleList(state, make_ref(&provider),
+                               params.m_bodyHandleCreator(params.m_anchor, buttonSize));
   }
 
   // Cache text

@@ -41,8 +41,6 @@ public:
     glsl::vec2 m_normal;
   };
 
-  static constexpr int VerticesCount();
-
   using TCreatorResult = drape_ptr<dp::OverlayHandle>;
   using THandleCreator = function<TCreatorResult (dp::Anchor, m2::PointF const &)>;
 
@@ -55,6 +53,7 @@ public:
     float m_minWidth = 0.0f;
     float m_maxWidth = 0.0f;
     float m_margin = 0.0f;
+    float m_facet = 0.0f;
     THandleCreator m_bodyHandleCreator;
     THandleCreator m_labelHandleCreator;
   };

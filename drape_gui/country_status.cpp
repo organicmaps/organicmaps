@@ -177,6 +177,7 @@ drape_ptr<ShapeRenderer> CountryStatus::Draw(ref_ptr<dp::TextureManager> tex,
         params.m_minWidth = 300;
         params.m_maxWidth = 600;
         params.m_margin = 5.0f * DrapeGui::Instance().GetScaleFactor();
+        params.m_facet = 8.0f * DrapeGui::Instance().GetScaleFactor();
         params.m_bodyHandleCreator = buttonHandleCreator;
         params.m_labelHandleCreator = labelHandleCreator;
 
