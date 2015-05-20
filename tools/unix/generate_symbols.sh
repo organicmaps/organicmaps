@@ -50,3 +50,10 @@ ln -s "$STYLES_PATH/xxhdpi" $PNG_PATH
     --skinName "$DATA_PATH/resources-xxhdpi/basic" --skinSuffix=""
 
 rm -r $PNG_PATH || true
+ln -s "$STYLES_PATH/6plus" $PNG_PATH
+
+"$BINARY_PATH" --symbolWidth 38 --symbolHeight 38 \
+    --symbolsDir "$DATA_PATH/styles/symbols" \
+    --skinName "$DATA_PATH/resources-6plus/basic" --skinSuffix=""
+
+rm -r $PNG_PATH || true

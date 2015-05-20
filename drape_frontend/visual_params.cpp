@@ -71,7 +71,8 @@ string const & VisualParams::GetResourcePostfix() const
     make_pair("mdpi", 1.0),
     make_pair("hdpi", 1.5),
     make_pair("xhdpi", 2.0),
-    make_pair("xxhdpi",  3.0)
+    make_pair("xxhdpi", 3.0),
+    make_pair("6plus", 2.4),
   };
 
   static string specifixPostfixes[] =

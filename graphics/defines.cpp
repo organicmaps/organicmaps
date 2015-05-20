@@ -64,7 +64,7 @@ namespace graphics
     {EDensityHDPI, "hdpi"},
     {EDensityXHDPI, "xhdpi"},
     {EDensityXXHDPI, "xxhdpi"},
-    {EDensityIPhone6Plus, "xhdpi"}
+    {EDensityIPhone6Plus, "6plus"}
   };
 
   char const * convert(EDensity density)
