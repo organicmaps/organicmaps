@@ -152,15 +152,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
       else
       {
-        if (msg->IsCurrentCountry())
+        gui::CountryInfo const & info = msg->GetCountryInfo();
+        if (msg->IsCurrentCountry() || helper.GetCountryIndex() == info.m_countryIndex)
         {
-          helper.SetCountryInfo(msg->GetCountryInfo());
-        }
-        else
-        {
-          // check if country is current
-          if (helper.GetCountryIndex() == msg->GetCountryInfo().m_countryIndex)
-            helper.SetCountryInfo(msg->GetCountryInfo());
+          helper.SetCountryInfo(info);
         }
       }
       break;
