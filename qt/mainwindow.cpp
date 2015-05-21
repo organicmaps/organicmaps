@@ -78,12 +78,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   w->setMouseTracking(true);
   setCentralWidget(w);
 
-  ///@TODO UVR
-//  shared_ptr<location::State> locState = m_pDrawWidget->GetFramework().GetLocationState();
-//  locState->AddStateModeListener([this] (location::State::Mode mode)
-//                                 {
-//                                    LocationStateModeChanged(mode);
-//                                 });
+  QObject::connect(m_pDrawWidget, SIGNAL(EngineCreated()), this, SLOT(OnEngineCreated()));
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
@@ -154,8 +149,6 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 #endif // NO_DOWNLOADER
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
-  ///@TODO UVR
-  //locState->InvalidatePosition();
 }
 
 #if defined(Q_WS_WIN)
@@ -200,9 +193,9 @@ void MainWindow::LoadState()
   showMaximized();
 }
 
-void MainWindow::LocationStateModeChanged(location::State::Mode mode)
+void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {
-  if (mode == location::State::PendingPosition)
+  if (mode == location::MODE_PENDING_POSITION)
   {
     m_locationService->Start();
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
@@ -210,7 +203,7 @@ void MainWindow::LocationStateModeChanged(location::State::Mode mode)
     return;
   }
 
-  if (mode == location::State::UnknownPosition)
+  if (mode == location::MODE_UNKNOWN_POSITION)
     m_locationService->Stop();
 
   m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
@@ -253,16 +246,11 @@ void MainWindow::CreateNavigationBar()
   {
     // add navigation hot keys
     hotkey_t arr[] = {
-      { Qt::Key_Left, SLOT(MoveLeft()) },
-      { Qt::Key_Right, SLOT(MoveRight()) },
-      { Qt::Key_Up, SLOT(MoveUp()) },
-      { Qt::Key_Down, SLOT(MoveDown()) },
       { Qt::Key_Equal, SLOT(ScalePlus()) },
       { Qt::Key_Minus, SLOT(ScaleMinus()) },
       { Qt::ALT + Qt::Key_Equal, SLOT(ScalePlusLight()) },
       { Qt::ALT + Qt::Key_Minus, SLOT(ScaleMinusLight()) },
-      { Qt::Key_A, SLOT(ShowAll()) },
-      { Qt::Key_S, SLOT(QueryMaxScaleMode()) }
+      { Qt::Key_A, SLOT(ShowAll()) }
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
@@ -365,9 +353,8 @@ void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 
 void MainWindow::OnMyPosition()
 {
-  ///@TODO UVR
-  //if (m_pMyPositionAction->isEnabled())
-  //  m_pDrawWidget->GetFramework().GetLocationState()->SwitchToNextMode();
+  if (m_pMyPositionAction->isEnabled())
+    m_pDrawWidget->GetFramework().SwitchMyPositionNextMode();
 }
 
 void MainWindow::OnSearchButtonClicked()
@@ -382,6 +369,16 @@ void MainWindow::OnSearchButtonClicked()
   {
     m_Docks[0]->hide();
   }
+}
+
+void MainWindow::OnEngineCreated()
+{
+  m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode)
+  {
+    LocationStateModeChanged(mode);
+  });
+
+  m_pDrawWidget->GetFramework().InvalidateMyPosition();
 }
 
 void MainWindow::OnPreferences()

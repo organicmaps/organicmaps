@@ -181,6 +181,8 @@ bool IsLocationEmulation(QMouseEvent * e)
         m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new QtOGLContextFactory(this));
         CreateEngine();
         LoadState();
+
+        emit EngineCreated();
       }
     }
   }
@@ -318,7 +320,7 @@ bool IsLocationEmulation(QMouseEvent * e)
     location::GpsInfo info;
     info.m_latitude = MercatorBounds::YToLat(point.y);
     info.m_longitude = MercatorBounds::XToLon(point.x);
-    info.m_horizontalAccuracy = 10.0;
+    info.m_horizontalAccuracy = 10;
     info.m_timestamp = QDateTime::currentMSecsSinceEpoch() / 1000.0;
 
     m_framework->OnLocationUpdate(info);

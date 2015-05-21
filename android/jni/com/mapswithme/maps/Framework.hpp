@@ -10,6 +10,7 @@
 #include "drape/oglcontextfactory.hpp"
 
 #include "platform/country_defines.hpp"
+#include "platform/location.hpp"
 
 #include "geometry/avg_vector.hpp"
 
@@ -55,7 +56,10 @@ namespace android
 
     float GetBestDensity(int densityDpi);
 
-    bool InitRenderPolicyImpl(int densityDpi, int screenWidth, int screenHeight);
+    void MyPositionModeChanged(location::EMyPositionMode mode);
+
+    location::TMyPositionModeChanged m_myPositionModeSignal;
+    location::EMyPositionMode m_currentMode;
 
   public:
     Framework();
@@ -137,6 +141,9 @@ namespace android
 
     int AddActiveMapsListener(shared_ptr<jobject> obj);
     void RemoveActiveMapsListener(int slotID);
+
+    void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
+    location::EMyPositionMode GetMyPositionMode();
 
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);

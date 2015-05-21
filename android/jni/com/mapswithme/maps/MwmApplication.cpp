@@ -4,10 +4,6 @@
 
 #include "../platform/Platform.hpp"
 
-#include "map/information_display.hpp"
-#include "map/location_state.hpp"
-
-
 extern "C"
 {
   JNIEXPORT void JNICALL

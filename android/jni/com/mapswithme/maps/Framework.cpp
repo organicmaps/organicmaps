@@ -61,8 +61,9 @@ enum MultiTouchAction
 };
 
 Framework::Framework()
- : m_doLoadState(true),
-   m_lastCompass(0.0)
+ : m_doLoadState(true)
+ , m_lastCompass(0.0)
+ , m_currentMode(location::MODE_UNKNOWN_POSITION)
 {
   ASSERT_EQUAL ( g_framework, 0, () );
   g_framework = this;
@@ -131,6 +132,12 @@ float Framework::GetBestDensity(int densityDpi)
   return dens[bestRangeIndex].second;
 }
 
+void Framework::MyPositionModeChanged(location::EMyPositionMode mode)
+{
+  if (m_myPositionModeSignal != nullptr)
+    m_myPositionModeSignal(mode);
+}
+
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi)
 {
   m_contextFactory = make_unique_dp<dp::ThreadSafeFactory>(new AndroidOGLContextFactory(env, jSurface));
@@ -143,6 +150,7 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   m_work.EnterForeground();
   LoadState();
   m_work.LoadBookmarks();
+  m_work.SetMyPositionModeListener(bind(&Framework::MyPositionModeChanged, this, _1));
 
   return true;
 }
@@ -433,6 +441,16 @@ int Framework::AddActiveMapsListener(shared_ptr<jobject> obj)
 void Framework::RemoveActiveMapsListener(int slotID)
 {
   m_javaActiveMapListeners.erase(slotID);
+}
+
+void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
+{
+  m_myPositionModeSignal = fn;
+}
+
+location::EMyPositionMode Framework::GetMyPositionMode()
+{
+  return m_currentMode;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

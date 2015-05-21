@@ -4,8 +4,6 @@
 
 #include "base/timer.hpp"
 
-#include "map/location_state.hpp"
-
 namespace
 {
   NSTimeInterval const PREDICTION_INTERVAL = 0.2; // in seconds
@@ -33,24 +31,18 @@ namespace
     m_timer = nil;
     m_gpsInfoIsValid = false;
     m_generatePredictions = false;
-
-    //@TODO UVR
-    //m_connectionSlot = GetFramework().GetLocationState()->AddStateModeListener([self](location::State::Mode mode)
-    //{
-    //  m_generatePredictions = (mode == location::State::RotateAndFollow);
-    //  if (mode < location::State::NotFollow)
-    //    m_gpsInfoIsValid = false;
-
-    //  [self resetTimer];
-    //});
   }
   
   return self;
 }
 
--(void)dealloc
+-(void)setMode:(location::EMyPositionMode) mode
 {
-  //GetFramework().GetLocationState()->RemoveStateModeListener(m_connectionSlot);
+  m_generatePredictions = (mode == location::MODE_ROTATE_AND_FOLLOW);
+  if (mode < location::MODE_NOT_FOLLOW)
+    m_gpsInfoIsValid = false;
+
+  [self resetTimer];
 }
 
 -(void)reset:(location::GpsInfo const &)info

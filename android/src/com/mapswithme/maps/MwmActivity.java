@@ -117,7 +117,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PanelAnimator mPanelAnimator;
   private MytargetHelper mMytargetHelper;
 
-  private int mLocationStateModeListenerId = LocationState.SLOT_UNDEFINED;
+  private boolean mNeedCheckUpdate = true;
+
+  // These flags are initialized to the invalid combination to force update on the first check
+  // after launching.
+  // These flags are static because the MwmActivity is recreated while screen orientation changing
+  // but they shall not be reinitialized on screen orientation changing.
+  private static boolean sStorageAvailable = false;
+  private static boolean sStorageWritable = true;
 
   private FadeView mFadeView;
 
@@ -164,6 +171,54 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     return new Intent(MwmApplication.get(), MwmActivity.class)
         .putExtra(EXTRA_UPDATE_COUNTRIES, true);
+  }
+
+  private void pauseLocation()
+  {
+    LocationHelper.INSTANCE.removeLocationListener(this);
+    // Enable automatic turning screen off while app is idle
+    Utils.keepScreenOn(false, getWindow());
+    mLocationPredictor.pause();
+  }
+
+  private void listenLocationUpdates()
+  {
+    LocationHelper.INSTANCE.addLocationListener(this);
+    // Do not turn off the screen while displaying position
+    Utils.keepScreenOn(true, getWindow());
+    mLocationPredictor.resume();
+  }
+
+  /**
+   * Invalidates location state in core.
+   * Updates location button accordingly.
+   */
+  public void invalidateLocationState()
+  {
+    onMyPositionModeChangedCallback(LocationState.INSTANCE.getLocationStateMode());
+    LocationState.INSTANCE.invalidatePosition();
+  }
+
+  private void checkUserMarkActivation()
+  {
+    final Intent intent = getIntent();
+    if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
+    {
+      final String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
+      if (value.equals(SCREENSHOTS_TASK_PPP))
+      {
+        final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
+        final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
+        mFadeView.getHandler().postDelayed(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            Framework.nativeActivateUserMark(lat, lon);
+          }
+        }, 1000);
+      }
+    }
   }
 
   @Override
@@ -685,6 +740,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Toast.makeText(this, R.string.gps_is_disabled_long_text, Toast.LENGTH_LONG).show();
     }
   }
+  }
 
   @Override
   public void onLocationUpdated(final Location location)
@@ -728,22 +784,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   // Callback from native location state mode element processing.
   @SuppressWarnings("unused")
-  public void onLocationStateModeChangedCallback(final int newMode)
+  public void onMyPositionModeChangedCallback(final int newMode)
   {
-    runOnUiThread(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        refreshLocationState(newMode);
-      }
-    });
-  }
-
-  private void refreshLocationState(int newMode)
-  {
+    mLocationPredictor.myPositionModeChanged(newMode);
     mMainMenu.getMyPositionButton().update(newMode);
-
     switch (newMode)
     {
     case LocationState.UNKNOWN_POSITION:
