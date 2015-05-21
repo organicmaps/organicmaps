@@ -54,10 +54,11 @@ bool LoadIndexes(string const & mwmFile, string const & osrmFile, osrm::NodeData
 
 bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & data)
 {
-  double minLon = numeric_limits<double>::max();
-  double minLat = numeric_limits<double>::max();
-  double maxLon = numeric_limits<double>::min();
-  double maxLat = numeric_limits<double>::min();
+  ASSERT(data.m_segments.size(), ());
+  double minLon = data.m_segments[0].lon1;
+  double minLat = data.m_segments[0].lat1;
+  double maxLon = data.m_segments[0].lon1;
+  double maxLat = data.m_segments[0].lat1;
   for (auto const & segment : data.m_segments)
   {
     minLon = min(minLon, min(segment.lon1, segment.lon2));

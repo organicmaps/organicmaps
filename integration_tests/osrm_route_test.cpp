@@ -79,4 +79,16 @@ namespace
         integration::GetAllMaps(), MercatorBounds::FromLatLon(42.01201, 19.36286), {0., 0.},
         MercatorBounds::FromLatLon(42.01535, 19.40044), 3674.);
   }
+
+  UNIT_TEST(CanadaBridgeCrossToEdwardIsland)
+  {
+    // Forward
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(46.13418, -63.84656), {0., 0.},
+        MercatorBounds::FromLatLon(46.26739,-63.63907), 23000.);
+    // And backward case
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(46.26739, -63.63907), {0., 0.},
+        MercatorBounds::FromLatLon(46.13418, -63.84656), 23000.);
+  }
 }
