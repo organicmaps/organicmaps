@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/backend_renderer.hpp"
+#include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 
 #include "drape/pointers.hpp"

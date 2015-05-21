@@ -30,7 +30,7 @@ public:
   void SetFixedZoom();
 
   void NextMode();
-  void TurnOf();
+  void TurnOff();
   void Invalidate();
 
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable);
@@ -80,7 +80,7 @@ private:
   double m_errorRadius;   //< error radius in mercator
   m2::PointD m_position;  //< position in mercator
   double m_drawDirection;
-  my::Timer m_lastGPSBearing;
+  my::HighResTimer m_lastGPSBearing;
 
   bool m_isVisible;
 };

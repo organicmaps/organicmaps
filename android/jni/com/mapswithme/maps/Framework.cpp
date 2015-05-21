@@ -448,7 +448,7 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
   m_myPositionModeSignal = fn;
 }
 
-location::EMyPositionMode Framework::GetMyPositionMode()
+location::EMyPositionMode Framework::GetMyPositionMode() const
 {
   return m_currentMode;
 }

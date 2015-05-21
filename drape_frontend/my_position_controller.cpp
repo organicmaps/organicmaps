@@ -10,19 +10,20 @@ namespace df
 namespace
 {
 
-static const double GPS_BEARING_LIFETIME_S = 5.0;
+double const GPS_BEARING_LIFETIME_S = 5.0;
+double const MIN_SPEED_THRESHOLD_MPS = 1.0;
 
-uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
+uint16_t SetModeBit(uint16_t mode, uint16_t bit)
 {
   return mode | bit;
 }
 
-//uint16_t ExcludeModeBit(uint16_t mode, uint16_t bit)
+//uint16_t ResetModeBit(uint16_t mode, uint16_t bit)
 //{
 //  return mode & (~bit);
 //}
 
-location::EMyPositionMode ExcludeAllBits(uint16_t mode)
+location::EMyPositionMode ResetAllModeBits(uint16_t mode)
 {
   return (location::EMyPositionMode)(mode & 0xF);
 }
@@ -81,7 +82,7 @@ void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
 
 void MyPositionController::SetFixedZoom()
 {
-  SetModeInfo(IncludeModeBit(m_modeInfo, FixedZoomBit));
+  SetModeInfo(SetModeBit(m_modeInfo, FixedZoomBit));
 }
 
 void MyPositionController::NextMode()
@@ -125,12 +126,14 @@ void MyPositionController::NextMode()
     }
   }
   else
+  {
     newMode = IsRotationActive() ? location::MODE_ROTATE_AND_FOLLOW : location::MODE_FOLLOW;
+  }
 
   SetModeInfo(ChangeMode(m_modeInfo, newMode));
 }
 
-void MyPositionController::TurnOf()
+void MyPositionController::TurnOff()
 {
   StopLocationFollow();
   SetModeInfo(location::MODE_UNKNOWN_POSITION);
@@ -166,7 +169,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_afterPendingMode = location::MODE_FOLLOW;
   }
   else
+  {
     AnimateFollow();
+  }
 }
 
 void MyPositionController::OnCompassUpdate(location::CompassInfo const & info)
@@ -187,8 +192,8 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
   if (m_shape != nullptr && IsVisible() && GetMode() > location::MODE_PENDING_POSITION)
   {
     m_shape->SetPosition(m_position);
-    m_shape->SetAzimut(m_drawDirection);
-    m_shape->SetIsValidAzimut(IsRotationActive());
+    m_shape->SetAzimuth(m_drawDirection);
+    m_shape->SetIsValidAzimuth(IsRotationActive());
     m_shape->SetAccuracy(m_errorRadius);
     m_shape->Render(screen, mng, commonUniforms);
   }
@@ -196,12 +201,12 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
 
 void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode)
 {
-
+  //TODO UVR (rakhuba) restore viewport animation logic
 }
 
 void MyPositionController::AnimateFollow()
 {
-
+  //TODO UVR (rakhuba) restore viewport animation logic
 }
 
 void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigable)
@@ -213,8 +218,8 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
   m_errorRadius = rect.SizeX() / 2;
 
   bool const hasBearing = info.HasBearing();
-  if ((isNavigable && hasBearing)
-      || (!isNavigable && hasBearing && info.HasSpeed() && info.m_speed > 1.0))
+  if ((isNavigable && hasBearing) ||
+      (!isNavigable && hasBearing && info.HasSpeed() && info.m_speed > MIN_SPEED_THRESHOLD_MPS))
   {
     SetDirection(my::DegToRad(info.m_bearing));
     m_lastGPSBearing.Reset();
@@ -225,7 +230,9 @@ bool MyPositionController::Assign(location::CompassInfo const & info)
 {
   if ((IsInRouting() && GetMode() >= location::MODE_FOLLOW) ||
       (m_lastGPSBearing.ElapsedSeconds() < GPS_BEARING_LIFETIME_S))
+  {
     return false;
+  }
 
   SetDirection(info.m_bearing);
   return true;
@@ -234,12 +241,12 @@ bool MyPositionController::Assign(location::CompassInfo const & info)
 void MyPositionController::SetDirection(double bearing)
 {
   m_drawDirection = bearing;
-  SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
+  SetModeInfo(SetModeBit(m_modeInfo, KnownDirectionBit));
 }
 
 void MyPositionController::SetModeInfo(uint16_t modeInfo, bool force)
 {
-  location::EMyPositionMode const newMode = ExcludeAllBits(modeInfo);
+  location::EMyPositionMode const newMode = ResetAllModeBits(modeInfo);
   location::EMyPositionMode const oldMode = GetMode();
   m_modeInfo = modeInfo;
   if (newMode != oldMode || force)
@@ -251,13 +258,13 @@ void MyPositionController::SetModeInfo(uint16_t modeInfo, bool force)
 
 location::EMyPositionMode MyPositionController::GetMode() const
 {
-  return ExcludeAllBits(m_modeInfo);
+  return ResetAllModeBits(m_modeInfo);
 }
 
 void MyPositionController::CallModeListener(uint16_t mode)
 {
   if (m_modeChangeCallback != nullptr)
-    m_modeChangeCallback(ExcludeAllBits(mode));
+    m_modeChangeCallback(ResetAllModeBits(mode));
 }
 
 bool MyPositionController::IsInRouting() const

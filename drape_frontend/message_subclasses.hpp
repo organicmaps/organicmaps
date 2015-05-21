@@ -302,7 +302,7 @@ public:
     TYPE_INVALIDATE
   };
 
-  ChangeMyPositionModeMessage(EChangeType changeType)
+  explicit ChangeMyPositionModeMessage(EChangeType changeType)
     : m_changeType(changeType)
   {
   }
@@ -311,7 +311,7 @@ public:
   Type GetType() const override { return Message::ChangeMyPostitionMode; }
 
 private:
-  EChangeType m_changeType;
+  EChangeType const m_changeType;
 };
 
 class CompassInfoMessage : public Message
@@ -325,7 +325,7 @@ public:
   location::CompassInfo const & GetInfo() const { return m_info; }
 
 private:
-  location::CompassInfo m_info;
+  location::CompassInfo const m_info;
 };
 
 class GpsInfoMessage : public Message
@@ -343,9 +343,9 @@ public:
   location::RouteMatchingInfo const & GetRouteInfo() const { return m_routeInfo; }
 
 private:
-  location::GpsInfo m_info;
-  bool m_isNavigable;
-  location::RouteMatchingInfo m_routeInfo;
+  location::GpsInfo const m_info;
+  bool const m_isNavigable;
+  location::RouteMatchingInfo const m_routeInfo;
 };
 
 } // namespace df

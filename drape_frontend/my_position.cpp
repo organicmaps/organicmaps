@@ -51,9 +51,9 @@ dp::BindingInfo GetBindingInfo()
 
 MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointF::Zero())
-  , m_azimut(0.0f)
+  , m_azimuth(0.0f)
   , m_accuracy(0.0f)
-  , m_showAzimut(false)
+  , m_showAzimuth(false)
 {
   m_parts.resize(3);
   CacheAccuracySector(mng);
@@ -65,14 +65,14 @@ void MyPosition::SetPosition(m2::PointF const & pt)
   m_position = pt;
 }
 
-void MyPosition::SetAzimut(float azimut)
+void MyPosition::SetAzimuth(float azimut)
 {
-  m_azimut = azimut;
+  m_azimuth = azimut;
 }
 
-void MyPosition::SetIsValidAzimut(bool isValid)
+void MyPosition::SetIsValidAzimuth(bool isValid)
 {
-  m_showAzimut = isValid;
+  m_showAzimuth = isValid;
 }
 
 void MyPosition::SetAccuracy(float accuracy)
@@ -98,8 +98,8 @@ void MyPosition::Render(ScreenBase const & screen,
   {
     dp::UniformValuesStorage arrowUniforms = uniforms;
     arrowUniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
-    arrowUniforms.SetFloatValue("u_azimut", -(m_azimut + screen.GetAngle()));
-    RenderPart(mng, arrowUniforms, (m_showAzimut == true) ? MY_POSITION_ARROW : MY_POSITION_POINT);
+    arrowUniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
+    RenderPart(mng, arrowUniforms, (m_showAzimuth == true) ? MY_POSITION_ARROW : MY_POSITION_POINT);
   }
 }
 

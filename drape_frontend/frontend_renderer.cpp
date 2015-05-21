@@ -202,10 +202,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_myPositionController->Invalidate();
         break;
       case ChangeMyPositionModeMessage::TYPE_CANCEL:
-        m_myPositionController->TurnOf();
+        m_myPositionController->TurnOff();
         break;
       default:
-        ASSERT(false, ());
+        ASSERT(false, ("Unknown change type:", static_cast<int>(msg->GetChangeType())));
         break;
       }
       break;

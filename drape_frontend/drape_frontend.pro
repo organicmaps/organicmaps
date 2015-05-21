@@ -27,6 +27,8 @@ SOURCES += \
     memory_feature_index.cpp \
     message_acceptor.cpp \
     message_queue.cpp \
+    my_position.cpp \
+    my_position_controller.cpp \
     navigator.cpp \
     path_symbol_shape.cpp \
     path_text_shape.cpp \
@@ -44,13 +46,11 @@ SOURCES += \
     tile_tree.cpp \
     tile_tree_builder.cpp \
     tile_utils.cpp \
+    user_event_stream.cpp \
     user_mark_shapes.cpp \
     user_marks_provider.cpp \
     viewport.cpp \
     visual_params.cpp \
-    my_position.cpp \
-    user_event_stream.cpp \
-    my_position_controller.cpp
 
 HEADERS += \
     animation/base_interpolator.hpp \
@@ -75,6 +75,8 @@ HEADERS += \
     message_acceptor.hpp \
     message_queue.hpp \
     message_subclasses.hpp \
+    my_position.hpp \
+    my_position_controller.hpp \
     navigator.hpp \
     path_symbol_shape.hpp \
     path_text_shape.hpp \
@@ -93,10 +95,8 @@ HEADERS += \
     tile_tree.hpp \
     tile_tree_builder.hpp \
     tile_utils.hpp \
+    user_event_stream.hpp \
     user_mark_shapes.hpp \
     user_marks_provider.hpp \
     viewport.hpp \
     visual_params.hpp \
-    my_position.hpp \
-    user_event_stream.hpp \
-    my_position_controller.hpp

@@ -143,7 +143,7 @@ namespace android
     void RemoveActiveMapsListener(int slotID);
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
-    location::EMyPositionMode GetMyPositionMode();
+    location::EMyPositionMode GetMyPositionMode() const;
 
     // Fills mapobject's metadata from UserMark
     void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, UserMark const * userMark);

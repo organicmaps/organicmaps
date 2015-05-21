@@ -18,8 +18,8 @@ public:
 
   ///@param pt = mercator point
   void SetPosition(m2::PointF const & pt);
-  void SetAzimut(float azimut);
-  void SetIsValidAzimut(bool isValid);
+  void SetAzimuth(float azimut);
+  void SetIsValidAzimuth(bool isValid);
   void SetAccuracy(float accuracy);
 
   void Render(ScreenBase const & screen,
@@ -59,9 +59,9 @@ private:
 
 private:
   m2::PointF m_position;
-  float m_azimut;
+  float m_azimuth;
   float m_accuracy;
-  bool m_showAzimut;
+  bool m_showAzimuth;
 
   using TPart = pair<dp::IndicesRange, size_t>;
 
