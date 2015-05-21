@@ -9,26 +9,26 @@ import java.util.Map;
 
 public class LocationButtonImageSetter
 {
-  private final static Map<Integer, Integer> STATE_TO_RES = new HashMap<>();
+  private final static Map<Integer, Integer> STATE_TO_RES_MAP = new HashMap<>();
 
   static
   {
-    STATE_TO_RES.put(LocationState.UNKNOWN_POSITION, R.drawable.btn_white_noposition);
-    STATE_TO_RES.put(LocationState.NOT_FOLLOW, R.drawable.btn_white_target_off_1);
-    STATE_TO_RES.put(LocationState.FOLLOW, R.drawable.btn_white_follow);
-    STATE_TO_RES.put(LocationState.ROTATE_AND_FOLLOW, R.drawable.btn_white_direction);
-    STATE_TO_RES.put(LocationState.PENDING_POSITION, R.drawable.btn_white_loading_6);
+    STATE_TO_RES_MAP.put(LocationState.UNKNOWN_POSITION, R.drawable.btn_white_noposition);
+    STATE_TO_RES_MAP.put(LocationState.NOT_FOLLOW, R.drawable.btn_white_target_off_1);
+    STATE_TO_RES_MAP.put(LocationState.FOLLOW, R.drawable.btn_white_follow);
+    STATE_TO_RES_MAP.put(LocationState.ROTATE_AND_FOLLOW, R.drawable.btn_white_direction);
+    STATE_TO_RES_MAP.put(LocationState.PENDING_POSITION, R.drawable.anim_myposition_pending);
   }
 
   @SuppressWarnings("deprecation")
   public static void setButtonViewFromState(int state, ImageButton button)
   {
-    final int id = STATE_TO_RES.get(state);
-    final Drawable draw = button.getResources().getDrawable(id);
+    final int id = STATE_TO_RES_MAP.get(state);
+    final Drawable drawable = button.getResources().getDrawable(id);
 
-    button.setImageDrawable(draw);
+    button.setImageDrawable(drawable);
 
-    if (draw instanceof AnimationDrawable)
-      ((AnimationDrawable) draw).start();
+    if (drawable instanceof AnimationDrawable)
+      ((AnimationDrawable) drawable).start();
   }
 }
