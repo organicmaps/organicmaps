@@ -8,6 +8,8 @@
 
 #include "drape/texture_manager.hpp"
 
+#include "platform/settings.hpp"
+
 #include "platform/platform.hpp"
 
 #include "std/bind.hpp"
@@ -29,6 +31,8 @@ void ConnectDownloadFn(gui::CountryStatusHelper::EButtonType buttonType, MapData
       downloadFn(countryIndex);
   });
 }
+
+string const LocationStateMode = "LastLocationStateMode";
 
 }
 
@@ -57,10 +61,16 @@ DrapeEngine::DrapeEngine(Params const & params)
   m_textureManager = make_unique_dp<dp::TextureManager>();
   m_threadCommutator = make_unique_dp<ThreadsCommutator>();
 
+  int modeValue = 0;
+  if (!Settings::Get(LocationStateMode, modeValue))
+    modeValue = location::MODE_FOLLOW;
+
   FrontendRenderer::Params frParams(make_ref(m_threadCommutator), params.m_factory,
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
-                                    params.m_model.GetIsCountryLoadedFn());
+                                    params.m_model.GetIsCountryLoadedFn(),
+                                    bind(&DrapeEngine::MyPositionModeChanged, this, _1),
+                                    static_cast<location::EMyPositionMode>(modeValue));
 
   m_frontend = make_unique_dp<FrontendRenderer>(frParams);
 
@@ -169,11 +179,61 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
     p.second(screen);
 }
 
+void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode)
+{
+  GetPlatform().RunOnGuiThread([this, mode]()
+  {
+    Settings::Set(LocationStateMode, static_cast<int>(mode));
+    if (m_myPositionModeChanged != nullptr)
+      m_myPositionModeChanged(mode);
+  });
+}
+
 void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry, isCountryLoaded),
                                   MessagePriority::Normal);
+}
+
+void DrapeEngine::SetCompassInfo(location::CompassInfo const & info)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<CompassInfoMessage>(info),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::SetGpsInfo(location::GpsInfo const & info, bool isNavigable, const location::RouteMatchingInfo & routeInfo)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<GpsInfoMessage>(info, isNavigable, routeInfo),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::MyPositionNextMode()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_NEXT),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::CancelMyPosition()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_CANCEL),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::InvalidateMyPosition()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_INVALIDATE),
+                                  MessagePriority::High);
+}
+
+void DrapeEngine::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
+{
+  m_myPositionModeChanged = fn;
 }
 
 } // namespace df

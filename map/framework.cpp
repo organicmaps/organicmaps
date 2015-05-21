@@ -33,8 +33,6 @@
 
 #include "storage/country_info_getter.hpp"
 
-#include "anim/controller.hpp"
-
 #include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/mwm_version.hpp"
@@ -99,7 +97,10 @@ pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
   return m_model.RegisterMap(localFile);
 }
 
-void Framework::OnLocationError(TLocationError /*error*/) {}
+void Framework::OnLocationError(TLocationError /*error*/)
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::CancelMyPosition, _1));
+}
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
 {
@@ -130,12 +131,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   double distanceFromBegin = 0.0;
   MatchLocationToRoute(rInfo, routeMatchingInfo, hasDistanceFromBegin, distanceFromBegin);
 
-  ///@TODO UVR
-  //shared_ptr<State> const & state = GetLocationState();
-  //state->OnLocationUpdate(rInfo, m_routingSession.IsNavigable());
-
-  //if (state->IsModeChangeViewport())
-  //  UpdateUserViewportChanged();
+  CallDrapeFunction(bind(&df::DrapeEngine::SetGpsInfo, _1, rInfo, m_routingSession.IsNavigable(), routeMatchingInfo));
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -147,8 +143,24 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
   CompassInfo const & rInfo = info;
 #endif
 
-  ///@TODO UVR
-  //GetLocationState()->OnCompassUpdate(rInfo);
+  CallDrapeFunction(bind(&df::DrapeEngine::SetCompassInfo, _1, rInfo));
+}
+
+void Framework::SwitchMyPositionNextMode()
+{
+  CallDrapeFunction(bind(&df::DrapeEngine::MyPositionNextMode, _1));
+}
+
+void Framework::InvalidateMyPosition()
+{
+  ASSERT(m_drapeEngine != nullptr, ());
+  CallDrapeFunction(bind(&df::DrapeEngine::InvalidateMyPosition, _1));
+}
+
+void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
+{
+  ASSERT(m_drapeEngine != nullptr, ());
+  CallDrapeFunction(bind(&df::DrapeEngine::SetMyPositionModeListener, _1, fn));
 }
 
 void Framework::CallDrapeFunction(TDrapeFunction const & fn)
@@ -159,21 +171,11 @@ void Framework::CallDrapeFunction(TDrapeFunction const & fn)
 
 void Framework::StopLocationFollow()
 {
-  ///@TODO UVR
-  //GetLocationState()->StopLocationFollow();
-}
-
-InformationDisplay & Framework::GetInformationDisplay()
-{
-  return m_informationDisplay;
+  CallDrapeFunction(bind(&df::DrapeEngine::CancelMyPosition, _1));
 }
 
 Framework::Framework()
-  : m_queryMaxScaleMode(false),
-    m_width(0),
-    m_height(0),
-    m_animController(new anim::Controller),
-    m_bmManager(*this),
+  : m_bmManager(*this),
     m_balloonManager(*this),
     m_fixedSearchResults(0),
     m_locationChangedSlotID(-1)
@@ -710,15 +712,7 @@ void Framework::RemoveViewportListener(int slotID)
 
 void Framework::OnSize(int w, int h)
 {
-  if (w < 2) w = 2;
-  if (h < 2) h = 2;
-
-  CallDrapeFunction(bind(&df::DrapeEngine::Resize, _1, w, h));
-
-  m_width = w;
-  m_height = h;
-  ///@TODO UVR
-  //GetLocationState()->OnSize();
+  CallDrapeFunction(bind(&df::DrapeEngine::Resize, _1, max(w, 2), max(h, 2)));
 }
 
 namespace
@@ -1399,7 +1393,9 @@ void Framework::SetupMeasurementSystem()
   Settings::Get("Units", units);
 
   m_routingSession.SetTurnNotificationsUnits(units);
-  m_informationDisplay.measurementSystemChanged();
+
+
+  //m_informationDisplay.measurementSystemChanged();
   ///@TODO UVR
   //Invalidate();
 }

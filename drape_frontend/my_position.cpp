@@ -54,7 +54,6 @@ MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   , m_azimut(0.0f)
   , m_accuracy(0.0f)
   , m_showAzimut(false)
-  , m_isVisible(false)
 {
   m_parts.resize(3);
   CacheAccuracySector(mng);
@@ -71,36 +70,35 @@ void MyPosition::SetAzimut(float azimut)
   m_azimut = azimut;
 }
 
+void MyPosition::SetIsValidAzimut(bool isValid)
+{
+  m_showAzimut = isValid;
+}
+
 void MyPosition::SetAccuracy(float accuracy)
 {
   m_accuracy = accuracy;
-}
-
-void MyPosition::SetIsVisible(bool isVisible)
-{
-  m_isVisible = isVisible;
 }
 
 void MyPosition::Render(ScreenBase const & screen,
                         ref_ptr<dp::GpuProgramManager> mng,
                         dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!m_isVisible)
-    return;
-
   dp::UniformValuesStorage uniforms = commonUniforms;
 
   {
+    m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
+    float pixelAccuracy = (screen.GtoP(accuracyPoint) - screen.GtoP(m_position)).Length();
     dp::UniformValuesStorage accuracyUniforms = uniforms;
     accuracyUniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::POSITION_ACCURACY);
-    accuracyUniforms.SetFloatValue("u_accuracy", m_accuracy);
+    accuracyUniforms.SetFloatValue("u_accuracy", pixelAccuracy);
     RenderPart(mng, accuracyUniforms, MY_POSITION_ACCURACY);
   }
 
   {
     dp::UniformValuesStorage arrowUniforms = uniforms;
     arrowUniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
-    arrowUniforms.SetFloatValue("u_azimut", m_azimut - screen.GetAngle());
+    arrowUniforms.SetFloatValue("u_azimut", -(m_azimut + screen.GetAngle()));
     RenderPart(mng, arrowUniforms, (m_showAzimut == true) ? MY_POSITION_ARROW : MY_POSITION_POINT);
   }
 }
@@ -108,7 +106,7 @@ void MyPosition::Render(ScreenBase const & screen,
 void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
 {
   int const TriangleCount = 40;
-  int const VertexCount = TriangleCount + 2;
+  int const VertexCount = 3 * TriangleCount;
   float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
 
   dp::TextureManager::ColorRegion color;
@@ -116,14 +114,18 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
   buffer_vector<Vertex, TriangleCount> buffer;
-  buffer.emplace_back(glsl::vec2(0.0f, 0.0f), colorCoord);
+  //buffer.emplace_back(glsl::vec2(0.0f, 0.0f), colorCoord);
 
   glsl::vec2 startNormal(0.0f, 1.0f);
 
   for (size_t i = 0; i < TriangleCount + 1; ++i)
   {
-    glsl::vec2 rotatedNormal = glsl::rotate(startNormal, -(i * etalonSector));
-    buffer.emplace_back(rotatedNormal, colorCoord);
+    glsl::vec2 normal = glsl::rotate(startNormal, i * etalonSector);
+    glsl::vec2 nextNormal = glsl::rotate(startNormal, (i + 1) * etalonSector);
+
+    buffer.emplace_back(startNormal, colorCoord);
+    buffer.emplace_back(normal, colorCoord);
+    buffer.emplace_back(nextNormal, colorCoord);
   }
 
   dp::GLState state(gpu::ACCURACY_PROGRAM, dp::GLState::OverlayLayer);
@@ -143,7 +145,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
     dp::AttributeProvider provider(1 /*stream count*/, VertexCount);
     provider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(buffer.data()));
 
-    m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleFan(state, make_ref(&provider), nullptr);
+    m_parts[MY_POSITION_ACCURACY].first = batcher.InsertTriangleList(state, make_ref(&provider), nullptr);
     ASSERT(m_parts[MY_POSITION_ACCURACY].first.IsValid(), ());
   }
 }
@@ -198,9 +200,9 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 
     m_parts[MY_POSITION_POINT].second = m_nodes.size();
     m_parts[MY_POSITION_ARROW].second = m_nodes.size();
-    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleFan(state, make_ref(&pointProvider), nullptr);
+    m_parts[MY_POSITION_POINT].first = batcher.InsertTriangleStrip(state, make_ref(&pointProvider), nullptr);
     ASSERT(m_parts[MY_POSITION_POINT].first.IsValid(), ());
-    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleFan(state, make_ref(&arrowProvider), nullptr);
+    m_parts[MY_POSITION_ARROW].first = batcher.InsertTriangleStrip(state, make_ref(&arrowProvider), nullptr);
     ASSERT(m_parts[MY_POSITION_ARROW].first.IsValid(), ());
   }
 }

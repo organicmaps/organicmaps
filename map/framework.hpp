@@ -1,14 +1,10 @@
 #pragma once
 
 #include "map/active_maps_layout.hpp"
-#include "map/animator.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/country_tree.hpp"
 #include "map/feature_vec_model.hpp"
-#include "map/information_display.hpp"
-#include "map/location_state.hpp"
-#include "map/move_screen_task.hpp"
 #include "map/mwm_url.hpp"
 #include "map/pin_click_manager.hpp"
 #include "map/routing_session.hpp"
@@ -54,7 +50,6 @@ namespace storage
 class CountryInfoGetter;
 }
 
-namespace anim { class Controller; }
 namespace routing { namespace turns{ class Settings; } }
 
 class StorageBridge;
@@ -110,17 +105,11 @@ protected:
 
   double m_startForegroundTime;
 
-  bool m_queryMaxScaleMode;
-
-  int m_width;
-  int m_height;
-
   void StopLocationFollow();
 
   storage::Storage m_storage;
   shared_ptr<storage::ActiveMapsLayout> m_activeMaps;
   storage::CountryTree m_globalCntTree;
-  InformationDisplay m_informationDisplay;
 
   /// How many pixels around touch point are used to get bookmark or POI
   static const int TOUCH_PIXEL_RADIUS = 20;
@@ -131,16 +120,6 @@ protected:
 
   /// This function is called by m_model when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
-
-  //my::Timer m_timer;
-  inline double ElapsedSeconds() const
-  {
-    //return m_timer.ElapsedSeconds();
-    return 0.0;
-  }
-
-  ///@TODO UVR
-  ///void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
 
   BookmarkManager m_bmManager;
   PinClickManager m_balloonManager;
@@ -271,6 +250,9 @@ public:
   void OnLocationError(location::TLocationError error);
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
+  void SwitchMyPositionNextMode();
+  void InvalidateMyPosition();
+  void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
   //@}
 
   void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, float vs, int w, int h);
@@ -279,8 +261,6 @@ public:
 
   void SetMapStyle(MapStyle mapStyle);
   MapStyle GetMapStyle() const;
-
-  InformationDisplay & GetInformationDisplay();
 
   void PrepareToShutdown();
 
@@ -423,9 +403,6 @@ public:
   StringsBundle const & GetStringsBundle();
 
   PinClickManager & GetBalloonManager() { return m_balloonManager; }
-
-  ///@TODO UVR
-  //shared_ptr<location::State> const & GetLocationState() const;
 
   /// [in] lat, lon - last known location
   /// [out] lat, lon - predicted location

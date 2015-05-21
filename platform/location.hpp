@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/point2d.hpp"
+
 #include "base/base.hpp"
 
 #include "geometry/latlon.hpp"
@@ -8,6 +10,7 @@
 #include "routing/turns_sound_settings.hpp"
 
 #include "std/cmath.hpp"
+#include "std/function.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
@@ -189,4 +192,17 @@ namespace location
     size_t GetIndexInRoute() const { return m_indexInRoute; }
     m2::PointD GetPosition() const { return m_matchedPosition; }
   };
+
+  // Do not change the order and values
+  enum EMyPositionMode
+  {
+    MODE_UNKNOWN_POSITION = 0x0,
+    MODE_PENDING_POSITION = 0x1,
+    MODE_NOT_FOLLOW = 0x2,
+    MODE_FOLLOW = 0x3,
+    MODE_ROTATE_AND_FOLLOW = 0x4,
+  };
+
+  using TMyPositionModeChanged = function<void (location::EMyPositionMode)>;
+
 } // namespace location

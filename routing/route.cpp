@@ -12,9 +12,6 @@
 #include "base/logging.hpp"
 
 #include "std/numeric.hpp"
-#include "std/utility.hpp"
-#include "std/algorithm.hpp"
-
 
 namespace routing
 {

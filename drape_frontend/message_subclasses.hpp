@@ -17,6 +17,8 @@
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 
+#include "platform/location.hpp"
+
 #include "std/shared_ptr.hpp"
 #include "std/set.hpp"
 #include "std/function.hpp"
@@ -288,6 +290,62 @@ class StopRenderingMessage : public Message
 public:
   StopRenderingMessage(){}
   Type GetType() const override { return Message::StopRendering; }
+};
+
+class ChangeMyPositionModeMessage : public Message
+{
+public:
+  enum EChangeType
+  {
+    TYPE_NEXT,
+    TYPE_CANCEL,
+    TYPE_INVALIDATE
+  };
+
+  ChangeMyPositionModeMessage(EChangeType changeType)
+    : m_changeType(changeType)
+  {
+  }
+
+  EChangeType GetChangeType() const { return m_changeType; }
+  Type GetType() const override { return Message::ChangeMyPostitionMode; }
+
+private:
+  EChangeType m_changeType;
+};
+
+class CompassInfoMessage : public Message
+{
+public:
+  CompassInfoMessage(location::CompassInfo const & info)
+    : m_info(info)
+  {}
+
+  Type GetType() const override { return Message::CompassInfo; }
+  location::CompassInfo const & GetInfo() const { return m_info; }
+
+private:
+  location::CompassInfo m_info;
+};
+
+class GpsInfoMessage : public Message
+{
+public:
+  GpsInfoMessage(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo)
+    : m_info(info)
+    , m_isNavigable(isNavigable)
+    , m_routeInfo(routeInfo)
+  {}
+
+  Type GetType() const override { return Message::GpsInfo; }
+  location::GpsInfo const & GetInfo() const { return m_info; }
+  bool IsNavigable() const { return m_isNavigable; }
+  location::RouteMatchingInfo const & GetRouteInfo() const { return m_routeInfo; }
+
+private:
+  location::GpsInfo m_info;
+  bool m_isNavigable;
+  location::RouteMatchingInfo m_routeInfo;
 };
 
 } // namespace df

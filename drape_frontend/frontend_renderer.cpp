@@ -52,6 +52,9 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   m_fps = 0.0;
 #endif
 
+  m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode));
+  m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
+
   StartThread();
 }
 
@@ -124,9 +127,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::MyPositionShape:
-    m_myPositionMark = ref_ptr<MyPositionShapeMessage>(message)->AcceptShape();
-    break;
 
   case Message::InvalidateRect:
     {
@@ -156,6 +156,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_userMarkRenderGroups.erase(iter, m_userMarkRenderGroups.end());
       break;
     }
+
   case Message::ChangeUserMarkLayerVisibility:
     {
       ref_ptr<ChangeUserMarkLayerVisibilityMessage> m = message;
@@ -166,6 +167,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_userMarkVisibility.erase(key);
       break;
     }
+
   case Message::GuiLayerRecached:
     {
       ref_ptr<GuiLayerRecachedMessage> msg = message;
@@ -177,11 +179,52 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_guiRenderer->Merge(make_ref(renderer));
       break;
     }
+
   case Message::StopRendering:
     {
       ProcessStopRenderingMessage();
       break;
     }
+
+  case Message::MyPositionShape:
+    m_myPositionController->SetRenderShape(ref_ptr<MyPositionShapeMessage>(message)->AcceptShape());
+    break;
+
+  case Message::ChangeMyPostitionMode:
+    {
+      ref_ptr<ChangeMyPositionModeMessage> msg = message;
+      switch (msg->GetChangeType())
+      {
+      case ChangeMyPositionModeMessage::TYPE_NEXT:
+        m_myPositionController->NextMode();
+        break;
+      case ChangeMyPositionModeMessage::TYPE_INVALIDATE:
+        m_myPositionController->Invalidate();
+        break;
+      case ChangeMyPositionModeMessage::TYPE_CANCEL:
+        m_myPositionController->TurnOf();
+        break;
+      default:
+        ASSERT(false, ());
+        break;
+      }
+      break;
+    }
+
+  case Message::CompassInfo:
+    {
+      ref_ptr<CompassInfoMessage> msg = message;
+      m_myPositionController->OnCompassUpdate(msg->GetInfo());
+      break;
+    }
+
+  case Message::GpsInfo:
+    {
+      ref_ptr<GpsInfoMessage> msg = message;
+      m_myPositionController->OnLocationUpdate(msg->GetInfo(), msg->IsNavigable());
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }
@@ -315,8 +358,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
     {
       GLFunctions::glClearDepth();
-      if (m_myPositionMark != nullptr)
-        m_myPositionMark->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+      m_myPositionController->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
     }
 
     prevLayer = layer;
@@ -538,7 +580,7 @@ void FrontendRenderer::ReleaseResources()
   m_deferredRenderGroups.clear();
   m_userMarkRenderGroups.clear();
   m_guiRenderer.reset();
-  m_myPositionMark.reset();
+  m_myPositionController.reset();
 
   m_gpuProgramManager.reset();
 }

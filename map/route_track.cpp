@@ -1,7 +1,5 @@
 #include "map/route_track.hpp"
 
-#include "map/location_state.hpp"
-
 #include "indexer/scales.hpp"
 
 #include "std/array.hpp"

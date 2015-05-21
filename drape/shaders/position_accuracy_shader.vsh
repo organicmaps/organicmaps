@@ -11,8 +11,9 @@ varying vec2 v_colorTexCoords;
 
 void main(void)
 {
-  vec4 position = vec4(u_position.xy + normalize(a_normal) * u_accuracy, u_position.z, 1);
-  gl_Position = position * modelView * projection;
+  vec4 position = vec4(u_position, 1.0) * modelView;
+  vec4 normal = vec4(normalize(a_normal) * u_accuracy, 0.0, 0.0);
+  gl_Position = (position + normal) * projection;
 
   v_colorTexCoords = a_colorTexCoords;
 }

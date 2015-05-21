@@ -7,6 +7,8 @@
 #include "drape/pointers.hpp"
 #include "drape/texture_manager.hpp"
 
+#include "platform/location.hpp"
+
 #include "geometry/screenbase.hpp"
 
 #include "base/strings_bundle.hpp"
@@ -73,11 +75,19 @@ public:
   void SetRenderingEnabled(bool const isEnabled);
 
   void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
+  void SetCompassInfo(location::CompassInfo const & info);
+  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
+  void MyPositionNextMode();
+  void CancelMyPosition();
+  void InvalidateMyPosition();
+  void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
 
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
   void ModelViewChangedGuiThread(ScreenBase const & screen);
+
+  void MyPositionModeChanged(location::EMyPositionMode mode);
 
 private:
   drape_ptr<FrontendRenderer> m_frontend;
@@ -89,6 +99,8 @@ private:
 
   using TListenerMap = map<int, TModelViewListenerFn>;
   TListenerMap m_listeners;
+
+  location::TMyPositionModeChanged m_myPositionModeChanged;
 };
 
 } // namespace df

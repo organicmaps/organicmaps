@@ -14,7 +14,7 @@
 #include "drape_frontend/tile_tree.hpp"
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/render_group.hpp"
-#include "drape_frontend/my_position.hpp"
+#include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
@@ -26,6 +26,8 @@
 #include "drape/gpu_program_manager.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/uniform_values_storage.hpp"
+
+#include "platform/location.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -50,16 +52,22 @@ public:
            ref_ptr<dp::TextureManager> texMng,
            Viewport viewport,
            TModelViewChanged const & modelViewChangedFn,
-           TIsCountryLoaded const & isCountryLoaded)
+           TIsCountryLoaded const & isCountryLoaded,
+           location::TMyPositionModeChanged myPositionModeCallback,
+           location::EMyPositionMode initMode)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
       , m_isCountryLoadedFn(isCountryLoaded)
+      , m_myPositionModeCallback(myPositionModeCallback)
+      , m_initMyPositionMode(initMode)
     {}
 
     Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
     TIsCountryLoaded m_isCountryLoadedFn;
+    location::TMyPositionModeChanged m_myPositionModeCallback;
+    location::EMyPositionMode m_initMyPositionMode;
   };
 
   FrontendRenderer(Params const & params);
@@ -140,7 +148,7 @@ private:
   set<TileKey> m_userMarkVisibility;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
-  drape_ptr<MyPosition> m_myPositionMark;
+  drape_ptr<MyPositionController> m_myPositionController;
 
   dp::UniformValuesStorage m_generalUniforms;
 

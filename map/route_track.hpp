@@ -2,6 +2,8 @@
 
 #include "map/track.hpp"
 
+#include "platform/location.hpp"
+
 #include "routing/turns.hpp"
 #include "drape/drape_global.hpp"
 

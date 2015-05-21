@@ -25,7 +25,10 @@ public:
     GuiRecache,
     MyPositionShape,
     CountryInfoUpdate,
-    StopRendering
+    StopRendering,
+    ChangeMyPostitionMode,
+    CompassInfo,
+    GpsInfo
   };
 
   virtual ~Message() {}

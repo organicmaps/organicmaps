@@ -19,8 +19,8 @@ public:
   ///@param pt = mercator point
   void SetPosition(m2::PointF const & pt);
   void SetAzimut(float azimut);
+  void SetIsValidAzimut(bool isValid);
   void SetAccuracy(float accuracy);
-  void SetIsVisible(bool isVisible);
 
   void Render(ScreenBase const & screen,
               ref_ptr<dp::GpuProgramManager> mng,
@@ -62,7 +62,6 @@ private:
   float m_azimut;
   float m_accuracy;
   bool m_showAzimut;
-  bool m_isVisible;
 
   using TPart = pair<dp::IndicesRange, size_t>;
 
