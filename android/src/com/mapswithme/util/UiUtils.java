@@ -1,6 +1,5 @@
 package com.mapswithme.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -25,7 +23,6 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,22 +30,10 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.nineoldandroids.animation.Animator;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.mapswithme.util.Utils.checkNotNull;
 
 public final class UiUtils
 {
-
-  public static Drawable setCompoundDrawableBounds(Drawable d, int dimenId, Resources res)
-  {
-    final int dimension = (int) res.getDimension(dimenId);
-    final float aspect = (float) d.getIntrinsicWidth() / d.getIntrinsicHeight();
-    d.setBounds(0, 0, (int) (aspect * dimension), dimension);
-    return d;
-  }
-
   public static void hide(View... views)
   {
     for (final View v : views)
@@ -75,84 +60,20 @@ public final class UiUtils
       hide(views);
   }
 
-  public static TranslateAnimation generateRelativeSlideAnimation(float fromX, float toX, float fromY, float toY)
+  public static Drawable drawCircle(int color, int sizeResId, Resources res)
   {
-    return new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, fromX,
-        Animation.RELATIVE_TO_SELF, toX,
-        Animation.RELATIVE_TO_SELF, fromY,
-        Animation.RELATIVE_TO_SELF, toY);
-  }
-
-  public static TranslateAnimation generateAbsoluteSlideAnimation(float fromX, float toX, float fromY, float toY)
-  {
-    return new TranslateAnimation(
-        Animation.ABSOLUTE, fromX,
-        Animation.ABSOLUTE, toX,
-        Animation.ABSOLUTE, fromY,
-        Animation.ABSOLUTE, toY);
-  }
-
-  public static Drawable setCompoundDrawableBounds(int drawableId, int dimenId, Resources res)
-  {
-    return setCompoundDrawableBounds(res.getDrawable(drawableId), dimenId, res);
-  }
-
-  public static Drawable drawCircleForPin(String type, int size, Resources res)
-  {
-    // detect color by pin name
-    int color = Color.BLACK;
-    try
-    {
-      final String[] parts = type.split("-");
-      final String colorString = parts[parts.length - 1];
-      color = colorByName(colorString, Color.BLACK);
-    } catch (final Exception e)
-    {
-      e.printStackTrace();
-      // We do nothing in this case
-      // Just use RED
-    }
-
-    return drawCircle(color, size, res);
-  }
-
-  public static Drawable drawCircle(int color, int size, Resources res)
-  {
+    final int size = res.getDimensionPixelSize(sizeResId);
     final Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
-    final Paint paint = new Paint();
 
+    final Paint paint = new Paint();
     paint.setColor(color);
     paint.setAntiAlias(true);
 
     final Canvas c = new Canvas(bmp);
-    final float dim = size / 2.0f;
-    c.drawCircle(dim, dim, dim, paint);
+    final float radius = size / 2.0f;
+    c.drawCircle(radius, radius, radius, paint);
 
     return new BitmapDrawable(res, bmp);
-  }
-
-  @SuppressLint("DefaultLocale")
-  public static int colorByName(String name, int defColor)
-  {
-    if (COLOR_MAP.containsKey(name.trim().toLowerCase()))
-      return COLOR_MAP.get(name);
-    else
-      return defColor;
-  }
-
-  private static final Map<String, Integer> COLOR_MAP = new HashMap<>();
-
-  static
-  {
-    COLOR_MAP.put("blue", Color.parseColor("#33ccff"));
-    COLOR_MAP.put("brown", Color.parseColor("#663300"));
-    COLOR_MAP.put("green", Color.parseColor("#66ff33"));
-    COLOR_MAP.put("orange", Color.parseColor("#ff6600"));
-    COLOR_MAP.put("pink", Color.parseColor("#ff33ff"));
-    COLOR_MAP.put("purple", Color.parseColor("#9933ff"));
-    COLOR_MAP.put("red", Color.parseColor("#ff3333"));
-    COLOR_MAP.put("yellow", Color.parseColor("#ffff33"));
   }
 
   public static class SimpleAnimationListener implements AnimationListener

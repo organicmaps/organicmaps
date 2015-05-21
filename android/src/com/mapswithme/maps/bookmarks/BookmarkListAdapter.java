@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.view.LayoutInflater;
@@ -205,10 +204,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setIcon(Track trk)
     {
-      final Resources res = mActivity.getResources();
-      final int circleSize = (int) (res.getDimension(R.dimen.circle_size) + .5);
-      // colors could be different, so don't use cache
-      final Drawable circle = UiUtils.drawCircle(trk.getColor(), circleSize, res);
+      final Drawable circle = UiUtils.drawCircle(trk.getColor(), R.dimen.track_circle_size, mActivity.getResources());
       icon.setImageDrawable(circle);
     }
 

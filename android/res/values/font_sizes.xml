@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <!-- BASE TEXT SIZES -->
+
   <!-- we use slightly greater font sizes, then in default material styles -->
   <dimen name="text_size_display_3">64sp</dimen>
   <dimen name="text_size_display_2">48sp</dimen>
@@ -13,5 +15,28 @@
   <dimen name="text_size_caption">14sp</dimen>
   <dimen name="text_size_icon_title">10sp</dimen>
   <dimen name="text_size_button">16sp</dimen>
+
+  <!-- BASE TEXT SIZES -->
+
+  <!-- -->
+
+  <!-- direction fragment -->
+
+  <dimen name="text_direction_dist">52sp</dimen>
+  <dimen name="text_direction_subtitle">22sp</dimen>
+  <dimen name="text_direction_title">58sp</dimen>
+
+  <!-- direction fragment -->
+
+  <!-- -->
+
+  <!-- TODO remove all that dimens -->
+  <dimen name="sp_x_1">5sp</dimen>
+  <dimen name="sp_x_2">10sp</dimen>
+  <dimen name="sp_x_3">15sp</dimen>
+  <dimen name="sp_x_4">20sp</dimen>
+  <dimen name="sp_x_5">25sp</dimen>
+  <dimen name="place_page_subtitle">16sp</dimen>
+  <dimen name="place_page_sub_subtitle">12sp</dimen>
 
 </resources>

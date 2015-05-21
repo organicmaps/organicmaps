@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <dimen name="drawer_width">300dp</dimen>
-  <dimen name="drawer_grad_left">297dp</dimen>
-  <dimen name="drawer_item_height">56dp</dimen>
-  <dimen name="drawer_top_padding">60dp</dimen>
-  <dimen name="icon_size">24dp</dimen>
-  <dimen name="circle_size">16dp</dimen>
+  <dimen name="track_circle_size">40dp</dimen>
 
   <dimen name="margin_micro">2dp</dimen>
   <dimen name="margin_tiny">4dp</dimen>
@@ -26,6 +21,7 @@
   <dimen name="neg_margin_medium">-16dp</dimen>
   <dimen name="neg_margin_large">-32dp</dimen>
 
+  <!-- TODO remove all that dimens -->
   <dimen name="dp_x_1">4dp</dimen>
   <dimen name="dp_x_2">8dp</dimen>
   <dimen name="dp_x_3">12dp</dimen>
@@ -38,33 +34,16 @@
   <dimen name="dp_x_16">64dp</dimen>
   <dimen name="dp_x_20">80dp</dimen>
 
-  <dimen name="sp_x_1">5dp</dimen>
-  <dimen name="sp_x_2">10sp</dimen>
-  <dimen name="sp_x_3">15sp</dimen>
-  <dimen name="sp_x_4">20sp</dimen>
-  <dimen name="sp_x_5">25sp</dimen>
-
-  <dimen name="color_chooser_radius">24dp</dimen>
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="zoom_buttom_size">56dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
 
-  <dimen name="place_page_height">51dp</dimen>
-  <dimen name="place_page_button_height">55dp</dimen>
-  <dimen name="place_page_title_big">32sp</dimen>
-  <dimen name="place_page_title">28sp</dimen>
-  <dimen name="place_page_subtitle">16sp</dimen>
-  <dimen name="place_page_sub_subtitle">12sp</dimen>
-  <dimen name="place_page_button_size">47dp</dimen>
-  <dimen name="place_page_button_size_small">42dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
 
   <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="bottom_button_width">113dp</dimen>
   <dimen name="bottom_item_height">46dp</dimen>
-
-  <item name="alpha_edit_button" format="float" type="dimen">0.75</item>
 
   <dimen name="progress_wheel_width">48dp</dimen>
   <dimen name="progress_wheel_height">40dp</dimen>
@@ -84,9 +63,6 @@
   <dimen name="margin_direction_top">40dp</dimen>
   <dimen name="margin_direction_mid">24dp</dimen>
   <dimen name="margin_direction_around_center">20dp</dimen>
-  <dimen name="text_direction_dist">52sp</dimen>
-  <dimen name="text_direction_subtitle">22sp</dimen>
-  <dimen name="text_direction_title">58sp</dimen>
 
   <dimen name="height_item_oneline">56dp</dimen>
 

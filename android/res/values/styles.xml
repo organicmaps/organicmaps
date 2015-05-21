@@ -107,7 +107,7 @@
   <style name="MwmWidget.TextView.Direction">
     <item name="android:maxLines">3</item>
     <item name="android:textColor">@android:color/white</item>
-    <item name="android:textSize">@dimen/place_page_title_big</item>
+    <item name="android:textSize">@dimen/text_size_headline</item>
   </style>
 
   <style name="MwmWidget.FrameLayout"/>

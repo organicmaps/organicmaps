@@ -13,7 +13,7 @@
         android:ellipsize="end"
         android:maxLines="@integer/pp_title_lines"
         android:textColor="@color/text_place_page"
-        android:textSize="@dimen/place_page_title"/>
+        android:textSize="@dimen/text_size_headline"/>
 
     <TextView
         android:id="@+id/tv__subtitle"

@@ -13,14 +13,14 @@ public enum BookmarkManager
   INSTANCE;
 
   private static Icon[] sIcons = {
-      new Icon("placemark-red", "placemark-red", R.drawable.color_picker_red_off, R.drawable.color_picker_red_on),
-      new Icon("placemark-blue", "placemark-blue", R.drawable.color_picker_blue_off, R.drawable.color_picker_blue_on),
-      new Icon("placemark-purple", "placemark-purple", R.drawable.color_picker_purple_off, R.drawable.color_picker_purple_on),
-      new Icon("placemark-yellow", "placemark-yellow", R.drawable.color_picker_yellow_off, R.drawable.color_picker_yellow_on),
-      new Icon("placemark-pink", "placemark-pink", R.drawable.color_picker_pink_off, R.drawable.color_picker_pink_on),
-      new Icon("placemark-brown", "placemark-brown", R.drawable.color_picker_brown_off, R.drawable.color_picker_brown_on),
-      new Icon("placemark-green", "placemark-green", R.drawable.color_picker_green_off, R.drawable.color_picker_green_on),
-      new Icon("placemark-orange", "placemark-orange", R.drawable.color_picker_orange_off, R.drawable.color_picker_orange_on)
+      new Icon("placemark-red", "placemark-red", R.drawable.color_picker_red_off, R.drawable.icon_bookmark_red),
+      new Icon("placemark-blue", "placemark-blue", R.drawable.color_picker_blue_off, R.drawable.icon_bookmark_blue),
+      new Icon("placemark-purple", "placemark-purple", R.drawable.color_picker_purple_off, R.drawable.icon_bookmark_purple),
+      new Icon("placemark-yellow", "placemark-yellow", R.drawable.color_picker_yellow_off, R.drawable.icon_bookmark_yellow),
+      new Icon("placemark-pink", "placemark-pink", R.drawable.color_picker_pink_off, R.drawable.icon_bookmark_pink),
+      new Icon("placemark-brown", "placemark-brown", R.drawable.color_picker_brown_off, R.drawable.icon_bookmark_brown),
+      new Icon("placemark-green", "placemark-green", R.drawable.color_picker_green_off, R.drawable.icon_bookmark_green),
+      new Icon("placemark-orange", "placemark-orange", R.drawable.color_picker_orange_off, R.drawable.icon_bookmark_orange)
   };
 
   BookmarkManager()
