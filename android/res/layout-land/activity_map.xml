@@ -48,8 +48,8 @@
       android:visibility="gone"/>
 
   <include
-      android:id="@+id/map_bottom_toolbar"
-      layout="@layout/map_bottom_toolbar"
+      android:id="@+id/map_bottom_buttons"
+      layout="@layout/map_bottom_buttons"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
       android:layout_alignParentBottom="true"/>

@@ -55,8 +55,8 @@
       android:layout_margin="@dimen/margin_medium"/>
 
   <include
-      android:id="@+id/map_bottom_toolbar"
-      layout="@layout/map_bottom_toolbar"
+      android:id="@+id/map_bottom_buttons"
+      layout="@layout/map_bottom_buttons"
       android:layout_width="@dimen/bottom_panel_width"
       android:layout_height="280dp"
       android:layout_alignParentBottom="true"

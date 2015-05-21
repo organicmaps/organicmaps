@@ -5,10 +5,8 @@
           android:exitFadeDuration="200"
           tools:ignore="UnusedAttribute">
 
-  <item android:state_pressed="true">
-    <bitmap android:gravity="center"
-            android:src="@drawable/ic_toolbar_active"/>
-  </item>
-  <item android:drawable="@android:color/transparent"/>
+  <item android:drawable="@drawable/btn_white_normal"
+        android:state_pressed="true"/>
 
+  <item android:drawable="@drawable/btn_white_pressed"/>
 </selector>

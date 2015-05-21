@@ -5,7 +5,8 @@
           android:exitFadeDuration="200"
           tools:ignore="UnusedAttribute">
 
-  <item android:drawable="@drawable/ic_bg_zoom_pressed" android:state_pressed="true"/>
-  <item android:drawable="@drawable/ic_bg_zoom_normal"/>
+  <item android:drawable="@drawable/btn_green_pressed"
+        android:state_pressed="true"/>
 
+  <item android:drawable="@drawable/btn_green_normal"/>
 </selector>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_small">
+
+  <ImageButton
+      android:id="@+id/btn__bookmarks"
+      style="@style/MwmWidget.MapButton.Green"
+      android:layout_above="@+id/btn__download_maps"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/btn_green_bookmarks"/>
+
+  <ImageButton
+      android:id="@+id/btn__download_maps"
+      style="@style/MwmWidget.MapButton.Green"
+      android:layout_above="@+id/btn__settings"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/btn_green_download"/>
+
+  <ImageButton
+      android:id="@+id/btn__settings"
+      style="@style/MwmWidget.MapButton.Green"
+      android:layout_above="@+id/btn__share"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/btn_green_settings"/>
+
+  <ImageButton
+      android:id="@+id/btn__share"
+      style="@style/MwmWidget.MapButton.Green"
+      android:layout_above="@+id/btn__search"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/btn_green_share"/>
+
+  <ImageButton
+      android:id="@+id/btn__search"
+      style="@style/MwmWidget.MapButton.Green"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/btn_green_search"/>
+
+</RelativeLayout>

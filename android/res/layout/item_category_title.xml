@@ -7,4 +7,5 @@
     android:gravity="left|center_vertical"
     android:paddingLeft="@dimen/margin_medium"
     android:paddingTop="@dimen/margin_small"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
     android:text="@string/bookmarks"/>

@@ -29,6 +29,6 @@
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
       android:layout_marginRight="@dimen/dp_x_4"
-      android:textAppearance="@style/MwmTextAppearance.Body3"/>
+      android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
 </RelativeLayout>

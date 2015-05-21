@@ -18,7 +18,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
@@ -115,7 +114,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private ImageButton mLocationButton;
   // map
   private MapFragment mMapFragment;
-  private View mNavigationButtons;
   // Place page
   private PlacePageView mPlacePage;
   private View mRlStartRouting;
@@ -139,10 +137,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private boolean mStorageWritable = true;
   // toolbars
   private static final long VERT_TOOLBAR_ANIM_DURATION = 250;
-  private ViewGroup mVerticalToolbar;
-  private ViewGroup mBottomToolbar;
-  private Animation mVerticalToolbarAnimation;
   private static final float FADE_VIEW_ALPHA = 0.5f;
+  private ViewGroup mBottomToolbar;
   private View mFadeView;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
@@ -401,7 +397,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       if (getSupportFragmentManager().findFragmentByTag(SearchFragment.class.getName()) != null) // search is already shown
         return;
-      setVerticalToolbarVisible(false);
       hidePlacePage();
       Framework.deactivatePopup();
       popFragment();
@@ -416,69 +411,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
     else
       startActivity(new Intent(this, SearchActivity.class));
-  }
-
-  private void setVerticalToolbarVisible(boolean showVerticalToolbar)
-  {
-    if (mVerticalToolbarAnimation != null ||
-        (mVerticalToolbar.getVisibility() == View.VISIBLE && showVerticalToolbar) ||
-        (mVerticalToolbar.getVisibility() != View.VISIBLE && !showVerticalToolbar))
-      return;
-
-    hidePlacePage();
-    Framework.deactivatePopup();
-    popFragment();
-
-    int fromY, toY;
-    Animation.AnimationListener listener;
-    float fromAlpha, toAlpha;
-    if (showVerticalToolbar)
-    {
-      fromY = 1;
-      toY = 0;
-      fromAlpha = 0.0f;
-      toAlpha = FADE_VIEW_ALPHA;
-
-      listener = new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationStart(Animation animation)
-        {
-          UiUtils.show(mVerticalToolbar);
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          mVerticalToolbarAnimation = null;
-        }
-      };
-    }
-    else
-    {
-      fromY = 0;
-      toY = 1;
-      fromAlpha = FADE_VIEW_ALPHA;
-      toAlpha = 0.0f;
-
-      listener = new UiUtils.SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          UiUtils.invisible(mVerticalToolbar);
-          mVerticalToolbarAnimation = null;
-        }
-      };
-    }
-
-    mVerticalToolbarAnimation = UiUtils.generateRelativeSlideAnimation(0, 0, fromY, toY);
-    mVerticalToolbarAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
-    mVerticalToolbarAnimation.setAnimationListener(listener);
-    mVerticalToolbar.startAnimation(mVerticalToolbarAnimation);
-
-    // fade map
-    fadeMap(fromAlpha, toAlpha);
   }
 
   private void fadeMap(float fromAlpha, final float toAlpha)
@@ -535,7 +467,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
       if (getSupportFragmentManager().findFragmentByTag(DownloadFragment.class.getName()) != null) // downloader is already shown
         return;
-      setVerticalToolbarVisible(false);
       popFragment();
       hidePlacePage();
       SearchController.getInstance().cancelSearch();
@@ -647,6 +578,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void setupMap()
   {
+    mFadeView = findViewById(R.id.fade_view);
     mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.FRAGMENT_TAG);
     if (mMapFragment == null)
     {
@@ -659,39 +591,17 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void setupToolbars()
   {
-    mBottomToolbar = (ViewGroup) findViewById(R.id.map_bottom_toolbar);
-    mBottomToolbar.findViewById(R.id.btn__more).setOnClickListener(this);
+    mBottomToolbar = (ViewGroup) findViewById(R.id.map_bottom_buttons);
     mBottomToolbar.findViewById(R.id.btn__search).setOnClickListener(this);
     mBottomToolbar.findViewById(R.id.btn__bookmarks).setOnClickListener(this);
-    mLocationButton = (ImageButton) mBottomToolbar.findViewById(R.id.btn__myposition);
+    mBottomToolbar.findViewById(R.id.btn__download_maps).setOnClickListener(this);
+    mBottomToolbar.findViewById(R.id.btn__share).setOnClickListener(this);
+    mBottomToolbar.findViewById(R.id.btn__settings).setOnClickListener(this);
+
+    findViewById(R.id.map_button_plus).setOnClickListener(this);
+    findViewById(R.id.map_button_minus).setOnClickListener(this);
+    mLocationButton = (ImageButton) findViewById(R.id.btn__myposition);
     mLocationButton.setOnClickListener(this);
-    mVerticalToolbar = (ViewGroup) findViewById(R.id.map_bottom_vertical_toolbar);
-    mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
-    mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
-    mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
-
-    UiUtils.invisible(mVerticalToolbar);
-
-    mFadeView = findViewById(R.id.fade_view);
-
-    final Toolbar toolbar = (Toolbar) mVerticalToolbar.findViewById(R.id.toolbar);
-    if (toolbar != null)
-    {
-      UiUtils.showHomeUpButton(toolbar);
-      toolbar.setTitle(getString(R.string.toolbar_application_menu));
-      toolbar.setNavigationOnClickListener(new OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          onBackPressed();
-        }
-      });
-    }
-
-    mNavigationButtons = findViewById(R.id.navigation_buttons_container_ref);
-    mNavigationButtons.findViewById(R.id.map_button_plus).setOnClickListener(this);
-    mNavigationButtons.findViewById(R.id.map_button_minus).setOnClickListener(this);
   }
 
   private void setupPlacePage()
@@ -749,8 +659,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       outState.putBoolean(STATE_PP_OPENED, true);
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
-    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-      outState.putBoolean(STATE_MENU_OPENED, true);
+//    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
+//      outState.putBoolean(STATE_MENU_OPENED, true);
 
     super.onSaveInstanceState(outState);
   }
@@ -763,8 +673,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
       mPlacePage.setState(State.PREVIEW);
     }
-    else if (savedInstanceState.getBoolean(STATE_MENU_OPENED))
-      setVerticalToolbarVisible(true);
+//    else if (savedInstanceState.getBoolean(STATE_MENU_OPENED))
+//      setVerticalToolbarVisible(true);
 
     super.onRestoreInstanceState(savedInstanceState);
   }
@@ -1127,8 +1037,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       hidePlacePage();
       Framework.deactivatePopup();
     }
-    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-      setVerticalToolbarVisible(false);
+//    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
+//      setVerticalToolbarVisible(false);
     else if (canFragmentInterceptBackPress())
       return;
     else if (popFragment())
@@ -1164,7 +1074,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (count < 1) // first fragment is dummy and shouldn't be removed
       return false;
 
-    InputUtils.hideKeyboard(mVerticalToolbar);
     Fragment fragment = manager.findFragmentByTag(SearchFragment.class.getName());
     if (fragment != null)
     {
@@ -1309,7 +1218,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-    setVerticalToolbarVisible(false);
     if (!isVisible)
     {
       Framework.deactivatePopup();
@@ -1318,7 +1226,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
     if (previewIntersectsBottomMenu())
       mBottomToolbar.setVisibility(isVisible ? View.GONE : View.VISIBLE);
     if (previewIntersectsZoomButtons())
-      mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+      showNavigationButtons(isVisible);
+  }
+
+  private void showNavigationButtons(boolean isVisible)
+  {
+    // TODO toggle zoom buttons and location. with animation.
+//    mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
   }
 
   private boolean previewIntersectsBottomMenu()
@@ -1335,9 +1249,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
     AlohaHelper.logClick(AlohaHelper.PP_OPEN);
-    setVerticalToolbarVisible(false);
     if (placePageIntersectsZoomButtons())
-      mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+      showNavigationButtons(isVisible);
   }
 
   private boolean placePageIntersectsZoomButtons()
@@ -1352,17 +1265,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
     {
     case R.id.btn_share:
       AlohaHelper.logClick(AlohaHelper.MENU_SHARE);
-      setVerticalToolbarVisible(false);
       shareMyLocation();
       break;
     case R.id.btn_settings:
       AlohaHelper.logClick(AlohaHelper.MENU_SETTINGS);
-      setVerticalToolbarVisible(false);
       startActivity(new Intent(this, SettingsActivity.class));
       break;
     case R.id.btn_download_maps:
       AlohaHelper.logClick(AlohaHelper.MENU_DOWNLOADER);
-      setVerticalToolbarVisible(false);
       showDownloader(false);
       break;
     case R.id.rl__route:
@@ -1391,7 +1301,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
       break;
     case R.id.btn__more:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
-      setVerticalToolbarVisible(true);
       break;
     case R.id.btn__search:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
@@ -1509,11 +1418,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     boolean result = false;
     // if vertical toolbar is visible - hide it and ignore touch
-    if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-    {
-      setVerticalToolbarVisible(false);
-      result = true;
-    }
+//    if (mVerticalToolbar.getVisibility() == View.VISIBLE)
+//    {
+//      setVerticalToolbarVisible(false);
+//      result = true;
+//    }
     if (mPlacePage.getState() == State.DETAILS || mPlacePage.getState() == State.BOOKMARK)
     {
       Framework.deactivatePopup();
@@ -1529,7 +1438,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     if (keyCode == KeyEvent.KEYCODE_MENU)
     {
-      setVerticalToolbarVisible(true);
+      // TODO toggle menu
       return true;
     }
     return super.onKeyUp(keyCode, event);

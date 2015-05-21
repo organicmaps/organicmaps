@@ -32,6 +32,6 @@
       android:layout_height="wrap_content"
       android:layout_weight="0"
       android:gravity="right"
-      android:textAppearance="@style/MwmTextAppearance.Body3"/>
+      android:textAppearance="@style/MwmTextAppearance.Body2"/>
 
 </LinearLayout>

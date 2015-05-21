@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:placePage="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom">
+                android:layout_height="match_parent">
 
   <FrameLayout
       android:id="@+id/map_fragment_container"
@@ -42,30 +41,22 @@
   </FrameLayout>
 
   <include
-      android:id="@+id/navigation_buttons_container_ref"
+      android:id="@+id/navigation_buttons"
       layout="@layout/map_navigation_buttons"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_below="@id/fl__routing"/>
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
 
-  <ImageView
+  <View
       android:id="@+id/fade_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:src="@android:color/black"
+      android:background="@android:color/black"
       android:visibility="gone"/>
 
   <include
-      android:id="@+id/map_bottom_toolbar"
-      layout="@layout/map_bottom_toolbar"
+      android:id="@+id/map_bottom_buttons"
+      layout="@layout/map_bottom_buttons"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_alignParentBottom="true"/>
-
-  <include
-      android:id="@+id/map_bottom_vertical_toolbar"
-      layout="@layout/map_bottom_vertical_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:layout_alignParentBottom="true"/>
 </RelativeLayout>

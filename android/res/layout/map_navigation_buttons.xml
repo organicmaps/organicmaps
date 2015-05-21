@@ -1,45 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/navigation_buttons_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:gravity="top"
-    android:orientation="vertical">
+    android:padding="@dimen/margin_small">
+
+  <ImageButton
+      android:id="@+id/btn__myposition"
+      style="@style/MwmWidget.MapButton.White"
+      android:layout_alignParentBottom="true"
+      android:src="@drawable/bg_btn_white"/>
 
   <ImageButton
       android:id="@+id/yop_it"
-      style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      style="@style/MwmWidget.MapButton.White"
       android:layout_alignParentRight="true"
-      android:layout_marginRight="@dimen/margin_tiny"
       android:src="@drawable/ic_btn_yota_ptb"/>
 
   <View
       android:id="@+id/anchor_center"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_centerVertical="true"
-      android:layout_marginBottom="-30dp"
-      android:layout_marginRight="@dimen/margin_tiny"/>
+      android:layout_centerVertical="true"/>
 
   <ImageButton
       android:id="@+id/map_button_plus"
-      style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_width="@dimen/zoom_buttom_size"
-      android:layout_height="@dimen/zoom_buttom_size"
+      style="@style/MwmWidget.MapButton.White"
       android:layout_alignParentRight="true"
       android:layout_below="@id/anchor_center"
-      android:src="@drawable/ic_zoom_in"/>
+      android:src="@drawable/btn_white_zoom_in"/>
 
   <ImageButton
       android:id="@+id/map_button_minus"
-      style="@style/MwmWidget.MapButton.Zoom"
-      android:layout_width="@dimen/zoom_buttom_size"
-      android:layout_height="@dimen/zoom_buttom_size"
+      style="@style/MwmWidget.MapButton.White"
       android:layout_alignParentRight="true"
       android:layout_below="@+id/map_button_plus"
-      android:src="@drawable/ic_zoom_out"/>
+      android:src="@drawable/btn_white_zoom_out"/>
 
 </RelativeLayout>
