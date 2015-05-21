@@ -88,7 +88,7 @@ private:
         : forward(forward), startVertex(startVertex), finalVertex(finalVertex), graph(graph)
     {
       bestVertex = forward ? startVertex : finalVertex;
-      pS = ConsistentHeuristic(startVertex);
+      pS = ConsistentHeuristic(bestVertex);
     }
 
     double TopDistance() const
@@ -102,8 +102,8 @@ private:
     // p_r(v) + p_f(v) = const. Note: this condition is called consistence.
     double ConsistentHeuristic(TVertexType const & v) const
     {
-      double piF = graph.HeuristicCostEstimate(v, finalVertex);
-      double piR = graph.HeuristicCostEstimate(v, startVertex);
+      double const piF = graph.HeuristicCostEstimate(v, finalVertex);
+      double const piR = graph.HeuristicCostEstimate(v, startVertex);
       double const piRT = graph.HeuristicCostEstimate(finalVertex, startVertex);
       double const piFS = graph.HeuristicCostEstimate(startVertex, finalVertex);
       if (forward)
@@ -337,7 +337,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       double const pV = cur->ConsistentHeuristic(stateV.vertex);
       double const pW = cur->ConsistentHeuristic(stateW.vertex);
       double const reducedLen = len + pW - pV;
-      double const pRW = nxt->ConsistentHeuristic(stateW.vertex);
+
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
       double const newReducedDist = stateV.distance + max(reducedLen, 0.0);
 
@@ -348,6 +348,7 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPathBidirect
       auto const itNxt = nxt->bestDistance.find(stateW.vertex);
       if (itNxt != nxt->bestDistance.end())
       {
+        double const pRW = nxt->ConsistentHeuristic(stateW.vertex);
         double const distW = itNxt->second;
         // Length that the path we've just found has in the original graph:
         // find the length of the path's parts in the reduced forward and backward
