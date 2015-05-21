@@ -60,22 +60,19 @@ bool CheckBBoxCrossingBorder(m2::RegionD const & border, osrm::NodeData const & 
   double maxLat = numeric_limits<double>::min();
   for (auto const & segment : data.m_segments)
   {
-    minLon = min(minLon, segment.lon1);
-    maxLon = min(maxLon, segment.lon1);
-    minLat = min(minLat, segment.lat1);
-    maxLat = max(maxLat, segment.lat1);
-    minLon = min(minLon, segment.lon2);
-    maxLon = min(maxLon, segment.lon2);
-    minLat = min(minLat, segment.lat2);
-    maxLat = max(maxLat, segment.lat2);
+    minLon = min(minLon, min(segment.lon1, segment.lon2));
+    maxLon = max(maxLon, max(segment.lon1, segment.lon2));
+    minLat = min(minLat, min(segment.lat1, segment.lat2));
+    maxLat = max(maxLat, max(segment.lat1, segment.lat2));
   }
-  bool const leftUp = border.Contains(MercatorBounds::FromLatLon(minLat, minLon));
-  bool const rightUp = border.Contains(MercatorBounds::FromLatLon(minLat, maxLon));
-  bool const leftDown = border.Contains(MercatorBounds::FromLatLon(maxLat, minLon));
-  bool const rightDown = border.Contains(MercatorBounds::FromLatLon(maxLat, maxLon));
+  bool const upLeft = border.Contains(MercatorBounds::FromLatLon(minLat, minLon));
+  bool const upRight = border.Contains(MercatorBounds::FromLatLon(minLat, maxLon));
+  bool const downLeft = border.Contains(MercatorBounds::FromLatLon(maxLat, minLon));
+  bool const downRight = border.Contains(MercatorBounds::FromLatLon(maxLat, maxLon));
 
-  return !((leftUp && rightUp && leftDown && rightDown) ==
-           (leftUp || rightUp || leftDown || rightDown));
+  bool const all = upLeft && upRight && downLeft && downRight;
+  bool const any = upLeft || upRight || downLeft || downRight;
+  return any && !all;
 }
 
 void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID const & osm2ft, borders::CountriesContainerT const & m_countries, string const & countryName, routing::CrossRoutingContextWriter & crossContext)

@@ -66,9 +66,9 @@ namespace
         MercatorBounds::FromLatLon(46.152324, 34.804955), 105000.);
   }
 
-  UNIT_TEST(AlbaniaToMonteregoCrossTest)
+  UNIT_TEST(AlbaniaToMontenegroCrossTest)
   {
-    // Road from Albania to Chernogoria. Test turnaround finding at border (when start/stop OSRM
+    // Road from Albania to Montenegro. Test turnaround finding at border (when start/stop OSRM
     // points are inside borders and one of segments has outside points).
     // Forward
     integration::CalculateRouteAndTestRouteLength(
