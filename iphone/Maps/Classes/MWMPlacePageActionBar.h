@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class MWMBasePlacePageView;
+@class MWMPlacePage;
 
 @interface MWMPlacePageActionBar : UIView
 
-+ (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMBasePlacePageView *)placePage;
++ (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage;
+
+- (instancetype)init __attribute__((unavailable("init is unavailable, call actionBarForPlacePage: instead")));
+- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("initWithCoder: is unavailable, call actionBarForPlacePage: instead")));
+- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame: is unavailable, call actionBarForPlacePage: instead")));
 
 @end

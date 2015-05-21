@@ -9,7 +9,7 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMPlacePageActionBar">
             <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jtm-w6-q1e">
                     <rect key="frame" x="47" y="12" width="24" height="23"/>
@@ -21,9 +21,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66j-hn-azO">
                     <rect key="frame" x="148" y="12" width="24" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_bookmark_off">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <state key="normal" title="" image="ic_bookmark_off"/>
                     <state key="selected" image="ic_bookmark_on"/>
                     <connections>
                         <action selector="bookmarkTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="9DU-IP-Xms"/>

@@ -84,8 +84,8 @@ static NSArray * const kTypesArray = @[@"Coisine", @"OpenHours", @"PhoneNumber",
   feature::FeatureMetadata const & metadata = poiMark->GetMetadata();
   vector<feature::FeatureMetadata::EMetadataType> presentTypes = metadata.GetPresentTypes();
 
-  NSMutableArray *keys = [NSMutableArray array];
-  NSMutableArray *values = [NSMutableArray array];
+  NSMutableArray * keys = [NSMutableArray array];
+  NSMutableArray * values = [NSMutableArray array];
 
   for (auto const & type : presentTypes)
   {

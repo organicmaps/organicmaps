@@ -11,15 +11,15 @@
 
 @interface MWMPlacePageBookmarkCell () <UITextViewDelegate>
 
-@property (weak, nonatomic, readwrite) IBOutlet UITextView *title;
-@property (weak, nonatomic, readwrite) IBOutlet UIButton *categoryButton;
-@property (weak, nonatomic, readwrite) IBOutlet UIButton *markButton;
-@property (weak, nonatomic, readwrite) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic, readwrite) IBOutlet UITextView * title;
+@property (weak, nonatomic, readwrite) IBOutlet UIButton * categoryButton;
+@property (weak, nonatomic, readwrite) IBOutlet UIButton * markButton;
+@property (weak, nonatomic, readwrite) IBOutlet UITextView * descriptionTextView;
 
-@property (weak, nonatomic) IBOutlet UIView *firstSeparatorView;
-@property (weak, nonatomic) IBOutlet UIView *secondSeparatorView;
+@property (weak, nonatomic) IBOutlet UIView * firstSeparatorView;
+@property (weak, nonatomic) IBOutlet UIView * secondSeparatorView;
 
-@property (nonatomic) UITextView *activeTextView;
+@property (nonatomic) UITextView * activeTextView;
 
 @end
 
@@ -36,7 +36,7 @@
                                                name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification
+- (void)keyboardWasShown:(NSNotification *)aNotification
 {
   NSDictionary const * info = [aNotification userInfo];
   CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -51,7 +51,7 @@
     [self.ownerTableView scrollRectToVisible:self.activeTextView.frame animated:YES];
 }
 
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+- (void)keyboardWillBeHidden:(NSNotification *)aNotification
 {
   UIEdgeInsets const contentInsets = UIEdgeInsetsZero;
   self.ownerTableView.contentInset = contentInsets;

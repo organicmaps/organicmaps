@@ -12,10 +12,10 @@
 
 @interface MWMPlacePageEntity : NSObject
 
-@property (copy, nonatomic) NSString *title;
-@property (copy, nonatomic) NSString *category;
-@property (copy, nonatomic) NSString *distance;
-@property (copy, nonatomic) NSDictionary *metadata;
+@property (copy, nonatomic) NSString * title;
+@property (copy, nonatomic) NSString * category;
+@property (copy, nonatomic) NSString * distance;
+@property (copy, nonatomic) NSDictionary * metadata;
 
 - (instancetype)initWithUserMark:(UserMark const *)mark;
 

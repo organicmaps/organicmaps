@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "bg_placepage_tablet_w.png"
+      "filename" : "bg_placepage_tablet_normal.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "bg_placepage_tablet_w@2x.png"
+      "filename" : "bg_placepage_tablet_normal@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "bg_placepage_tablet_w@3x.png"
+      "filename" : "bg_placepage_tablet_normal@3x.png"
     }
   ],
   "info" : {

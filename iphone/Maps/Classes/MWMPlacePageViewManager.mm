@@ -10,14 +10,26 @@
 #import "MWMBasePlacePageView.h"
 #import "UIKitCategories.h"
 #import "MWMPlacePageEntity.h"
+#import "MWMPlacePage.h"
+#import "MWMiPhoneLandscapePlacePage.h"
+#import "MWMiPhonePortraitPlacePage.h"
+#import "MWMiPadPlacePage.h"
+#import "MWMPlacePageActionBar.h"
 
 #include "Framework.h"
+
+typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
+{
+  MWMPlacePageManagerStateClosed,
+  MWMPlacePageManagerStateOpen
+};
 
 @interface MWMPlacePageViewManager ()
 
 @property (weak, nonatomic) UIViewController *ownerViewController;
-@property (nonatomic) MWMPlacePageEntity *entity;
-@property (nonatomic) MWMBasePlacePageView *placePageView;
+@property (nonatomic, readwrite) MWMPlacePageEntity *entity;
+@property (nonatomic) MWMPlacePage *placePage;
+@property (nonatomic) MWMPlacePageManagerState state;
 
 @end
 
@@ -27,78 +39,78 @@
 {
   self = [super init];
   if (self)
+  {
     self.ownerViewController = viewController;
-
+    self.state = MWMPlacePageManagerStateClosed;
+  }
+  
   return self;
 }
 
 - (void)dismissPlacePage
 {
-  [self.placePageView dismiss];
-  self.placePageView = nil;
+  self.state = MWMPlacePageManagerStateClosed;
+  [self.placePage dismiss];
+  self.placePage = nil;
 }
 
 - (void)showPlacePageWithUserMark:(std::unique_ptr<UserMarkCopy>)userMark
 {
   UserMark const * mark = userMark->GetUserMark();
   self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:mark];
-
-  /*
-   1. Determine if this iPad or iPhone
-   2. Get current place page (check, if current place page already exist)
-      2.1 If yes - configure with existed entity
-      2.2 If no - create
-   3. Show
-   */
-
-  if (self.placePageView == nil)
-  {
-    self.placePageView = [[MWMBasePlacePageView alloc] init];
-    [self.placePageView configureWithEntity:self.entity];
-    self.placePageView.placePageManager = self;
-    [self.placePageView show];
-  }
-  else
-  {
-    [self.placePageView configureWithEntity:self.entity];
-  }
-
-  //TODO (Vlad): Implement setState: method.
+  self.state = MWMPlacePageManagerStateOpen;
+  
   if (IPAD)
-  {
-
-  }
+    [self presentPlacePageForiPad];
   else
-  {
-    [self.placePageView didTap:nil];
-  }
+    [self presentPlacePageForiPhoneWithOrientation:self.ownerViewController.interfaceOrientation];
 }
 
-- (void)layoutPlacePage
+- (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation
 {
-  [self dismissPlacePage];
+  [self.placePage.extendedPlacePageView removeFromSuperview];
+  [self.placePage.actionBar removeFromSuperview];
+  [self presentPlacePageForiPhoneWithOrientation:orientation];
 }
 
-- (MWMBasePlacePageView *)presentPlacePageForiPhone
+- (void)presentPlacePageForiPad { }
+
+- (void)presentPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
 {
-  MWMBasePlacePageView * placePage;
-  switch (self.ownerViewController.interfaceOrientation)
+  if (self.state == MWMPlacePageManagerStateClosed)
+    return;
+
+  switch (orientation)
   {
     case UIInterfaceOrientationLandscapeLeft:
     case UIInterfaceOrientationLandscapeRight:
+      
+      if ([self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
+        [self.placePage configure];
+      else
+        self.placePage = [[MWMiPhoneLandscapePlacePage alloc] initWithManager:self];
+
+      [self.placePage show];
 
       break;
-
+      
     case UIInterfaceOrientationPortrait:
     case UIInterfaceOrientationPortraitUpsideDown:
+      
+      if ([self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
+        [self.placePage configure];
+      else
+        self.placePage = [[MWMiPhonePortraitPlacePage alloc] initWithManager:self];
+
+      [self.placePage show];
 
       break;
-
+      
     case UIInterfaceOrientationUnknown:
-
+      
       break;
   }
-  return placePage;
+
 }
 
 @end

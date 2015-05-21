@@ -10,13 +10,18 @@
 
 #include "map/user_mark.hpp"
 
+@class MWMPlacePageEntity;
+
 @interface MWMPlacePageViewManager : NSObject
 
 @property (weak, nonatomic, readonly) UIViewController *ownerViewController;
+@property (nonatomic, readonly) MWMPlacePageEntity *entity;
 
 - (instancetype)initWithViewController:(UIViewController *)viewController;
 - (void)showPlacePageWithUserMark:(std::unique_ptr<UserMarkCopy>)userMark;
 - (void)dismissPlacePage;
-- (void)layoutPlacePage;
+- (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation;
+
+- (instancetype)init __attribute__((unavailable("init is unavailable, call initWithViewController: instead")));
 
 @end

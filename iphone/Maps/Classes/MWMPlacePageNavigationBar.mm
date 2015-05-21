@@ -7,38 +7,39 @@
 //
 
 #import "MWMPlacePageNavigationBar.h"
-#import "MWMiPhonePortraitPlacePageView.h"
+#import "MWMiPhonePortraitPlacePage.h"
 #import "MWMPlacePageViewManager.h"
+#import "MWMBasePlacePageView.h"
 #import "UIKitCategories.h"
 
 static NSString * const kPlacePageNavigationBarNibName = @"PlacePageNavigationBar";
 
 @interface MWMPlacePageNavigationBar ()
 
-@property (weak, nonatomic, readwrite) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) MWMiPhonePortraitPlacePageView *placePage;
+@property (weak, nonatomic, readwrite) IBOutlet UILabel * titleLabel;
+@property (weak, nonatomic) MWMiPhonePortraitPlacePage * placePage;
 
 @end
 
 @implementation MWMPlacePageNavigationBar
 
-+ (instancetype)navigationBarWithPlacePage:(MWMiPhonePortraitPlacePageView *)placePage
++ (instancetype)navigationBarWithPlacePage:(MWMiPhonePortraitPlacePage *)placePage
 {
-  MWMPlacePageNavigationBar *navBar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageNavigationBarNibName owner:nil options:nil] firstObject];
+  MWMPlacePageNavigationBar * navBar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageNavigationBarNibName owner:nil options:nil] firstObject];
   navBar.placePage = placePage;
-  navBar.width = placePage.bounds.size.width;
-  navBar.titleLabel.text = placePage.titleLabel.text;
-  navBar.center = CGPointMake(placePage.superview.origin.x + navBar.width / 2., placePage.superview.origin.y - navBar.height / 2.);
-  [placePage.superview addSubview:navBar];
+  navBar.width = placePage.extendedPlacePageView.bounds.size.width;
+  navBar.titleLabel.text = placePage.basePlacePageView.titleLabel.text;
+  navBar.center = CGPointMake(placePage.extendedPlacePageView.superview.origin.x + navBar.width / 2., placePage.extendedPlacePageView.superview.origin.y - navBar.height / 2.);
+  [placePage.extendedPlacePageView.superview addSubview:navBar];
   return navBar;
 }
 
 - (IBAction)backTap:(id)sender
 {
-  [self.placePage.placePageManager dismissPlacePage];
-  [UIView animateWithDuration:.3 animations:^
+  [self.placePage.manager dismissPlacePage];
+  [UIView animateWithDuration:.25f animations:^
   {
-    self.transform = CGAffineTransformMakeTranslation(0., -self.height);
+    self.transform = CGAffineTransformMakeTranslation(0., - self.height);
   }
   completion:^(BOOL finished)
   {

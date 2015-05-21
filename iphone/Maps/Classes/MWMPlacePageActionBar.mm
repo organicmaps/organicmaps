@@ -7,24 +7,26 @@
 //
 
 #import "MWMPlacePageActionBar.h"
-#import "MWMBasePlacePageView.h"
+#import "MWMPlacePage.h"
 #import "UIKitCategories.h"
+#import "MWMBasePlacePageView.h"
 
 static NSString * const kPlacePageActionBarNibName = @"PlacePageActionBar";
 
 @interface MWMPlacePageActionBar ()
 
-@property (weak, nonatomic) MWMBasePlacePageView *placePage;
+@property (weak, nonatomic) MWMPlacePage * placePage;
 
 @end
 
 @implementation MWMPlacePageActionBar
 
-+ (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMBasePlacePageView *)placePage
++ (MWMPlacePageActionBar *)actionBarForPlacePage:(MWMPlacePage *)placePage
 {
-  MWMPlacePageActionBar *bar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageActionBarNibName owner:self options:nil] firstObject];
+  MWMPlacePageActionBar * bar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageActionBarNibName owner:self options:nil] firstObject];
   bar.placePage = placePage;
-  bar.width = placePage.width;
+  bar.width = placePage.extendedPlacePageView.width;
+  bar.autoresizingMask = UIViewAutoresizingNone;
   return bar;
 }
 

@@ -10,12 +10,12 @@
 
 @interface MWMPlacePageBookmarkCell : UITableViewCell
 
-@property (weak, nonatomic, readonly) IBOutlet UITextView *title;
-@property (weak, nonatomic, readonly) IBOutlet UIButton *categoryButton;
-@property (weak, nonatomic, readonly) IBOutlet UIButton *markButton;
-@property (weak, nonatomic, readonly) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic, readonly) IBOutlet UITextView * title;
+@property (weak, nonatomic, readonly) IBOutlet UIButton * categoryButton;
+@property (weak, nonatomic, readonly) IBOutlet UIButton * markButton;
+@property (weak, nonatomic, readonly) IBOutlet UITextView * descriptionTextView;
 
-@property (weak, nonatomic) UITableView *ownerTableView;
+@property (weak, nonatomic) UITableView * ownerTableView;
 @property (nonatomic) CGFloat actualHeight;
 
 - (void)configure;

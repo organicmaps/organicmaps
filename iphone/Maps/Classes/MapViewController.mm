@@ -270,10 +270,9 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)dismissPlacePage
 {
+  GetFramework().GetBalloonManager().RemovePin();
   [self.placePageManager dismissPlacePage];
-//  self.placePageView.state = MWMPlacePageStateClosed;
-//  [self startAnimatingView:self.placePageView initialVelocity:self.springAnimation.velocity];
-//  [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+  self.placePageManager = nil;
 }
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
@@ -282,13 +281,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
 
   [self.placePageManager showPlacePageWithUserMark:std::move(mark)];
-//  self.placePageView = [MWMiPhonePortraitPlacePageView placePageViewWithUserMark:std::move(mark)];
-//  [self.placePageView showPlacePageInView:self];
-//  if (self.searchView.state != SearchViewStateFullscreen)
-//  {
-//    [self.containerView.placePage showUserMark:std::move(mark)];
-//    [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
-//  }
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
@@ -532,7 +524,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-  [self.placePageManager layoutPlacePage];
+  [self.placePageManager layoutPlacePageToOrientation:toInterfaceOrientation];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation

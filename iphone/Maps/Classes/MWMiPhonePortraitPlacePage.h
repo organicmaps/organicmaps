@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 MapsWithMe. All rights reserved.
 //
 
-#import "MWMBasePlacePageView.h"
+#import "MWMPlacePage.h"
 
-@interface MWMiPhonePortraitPlacePageView : MWMBasePlacePageView
+@interface MWMiPhonePortraitPlacePage : MWMPlacePage
 
 @end

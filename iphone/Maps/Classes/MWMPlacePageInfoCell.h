@@ -12,7 +12,7 @@
 
 - (void)configureWithIconTitle:(NSString *)title info:(NSString *)info;
 
-@property (weak, nonatomic, readonly) IBOutlet UIImageView *icon;
+@property (weak, nonatomic, readonly) IBOutlet UIImageView * icon;
 @property (weak, nonatomic, readonly) IBOutlet id textContainer;
 
 @end

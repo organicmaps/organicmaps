@@ -11,7 +11,7 @@
 
 @interface MWMPlacePageInfoCell () <UITextViewDelegate>
 
-@property (weak, nonatomic, readwrite) IBOutlet UIImageView *icon;
+@property (weak, nonatomic, readwrite) IBOutlet UIImageView * icon;
 @property (weak, nonatomic, readwrite) IBOutlet id textContainer;
 
 @end
@@ -23,7 +23,8 @@
   [self.imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"ic_%@", title]]];
   [self.textContainer setText:info];
 
-  [(UIView *)self.textContainer setWidth:self.bounds.size.width * 0.7f];
+#warning TODO(Vlad): change 0.7f to computational constant.
+  [(UIView *)self.textContainer setWidth:self.bounds.size.width * .7f];
 
   if ([self.textContainer respondsToSelector:@selector(sizeToFit)])
       [self.textContainer sizeToFit];
