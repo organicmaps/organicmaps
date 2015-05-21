@@ -897,7 +897,9 @@ void Framework::UpdateCountryInfo(storage::TIndex const & countryIndex, bool isC
     countryInfo.m_downloadProgress = progress.first * 100 / progress.second;
   }
 
-  m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry);
+  string const & fileName = m_storage.CountryByIndex(countryIndex).GetFile().GetFileWithoutExt();
+  bool const isLoaded = m_model.IsLoaded(fileName);
+  m_drapeEngine->SetCountryInfo(countryInfo, isCurrentCountry, isLoaded);
 }
 
 void Framework::MemoryWarning()

@@ -72,7 +72,7 @@ public:
 
   void SetRenderingEnabled(bool const isEnabled);
 
-  void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry);
+  void SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded);
 
 private:
   void AddUserEvent(UserEvent const & e);

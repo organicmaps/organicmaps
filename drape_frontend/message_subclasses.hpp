@@ -250,18 +250,22 @@ private:
 class CountryInfoUpdateMessage : public Message
 {
 public:
-  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry)
+  CountryInfoUpdateMessage(gui::CountryInfo const & info, bool isCurrentCountry,
+                           bool isCountryLoaded)
     : m_countryInfo(info)
     , m_isCurrentCountry(isCurrentCountry)
+    , m_isCountryLoaded(isCountryLoaded)
   {}
 
   Type GetType() const override { return Message::CountryInfoUpdate;}
   gui::CountryInfo const & GetCountryInfo() const { return m_countryInfo; }
   bool IsCurrentCountry() const { return m_isCurrentCountry; }
+  bool IsCountryLoaded() const { return m_isCountryLoaded; }
 
 private:
   gui::CountryInfo m_countryInfo;
   bool m_isCurrentCountry;
+  bool m_isCountryLoaded;
 };
 
 class MyPositionShapeMessage : public Message

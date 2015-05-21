@@ -7,6 +7,8 @@
 #include "std/bind.hpp"
 #include "std/list.hpp"
 
+#ifdef DEBUG
+
 namespace
 {
 
@@ -161,3 +163,5 @@ UNIT_TEST(SimpleScale)
   test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_UP));
   test.RunTest();
 }
+
+#endif

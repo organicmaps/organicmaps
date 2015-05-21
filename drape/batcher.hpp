@@ -26,7 +26,7 @@ public:
   static uint32_t const IndexPerQuad = 6;
   static uint32_t const VertexPerQuad = 4;
 
-  Batcher(uint32_t indexBufferSize = 9000, uint32_t vertexBufferSize = 10000);
+  Batcher(uint32_t indexBufferSize = 65000, uint32_t vertexBufferSize = 65000);
   ~Batcher();
 
   uint32_t GetIndexBufferSize() const { return m_indexBufferSize; }

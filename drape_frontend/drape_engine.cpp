@@ -169,10 +169,10 @@ void DrapeEngine::ModelViewChangedGuiThread(ScreenBase const & screen)
     p.second(screen);
 }
 
-void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry)
+void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry),
+                                  make_unique_dp<CountryInfoUpdateMessage>(info, isCurrentCountry, isCountryLoaded),
                                   MessagePriority::Normal);
 }
 
