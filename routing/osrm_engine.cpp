@@ -1,5 +1,5 @@
-#include "routing/osrm_engine.hpp"
-#include "routing/osrm2feature_map.hpp"
+#include "osrm_engine.hpp"
+#include "osrm2feature_map.hpp"
 
 #include "base/logging.hpp"
 #include "base/timer.hpp"
@@ -36,9 +36,9 @@ void FindWeightsMatrix(const RoutingNodesT & sources, const RoutingNodesT & targ
   NMManyToManyRouting<RawDataFacadeT> pathFinder(&facade, engineData);
   PhantomNodeArray sourcesTaskVector(sources.size());
   PhantomNodeArray targetsTaskVector(targets.size());
-  for (int i = 0; i < sources.size(); ++i)
+  for (size_t i = 0; i < sources.size(); ++i)
     sourcesTaskVector[i].push_back(sources[i].m_node);
-  for (int i = 0; i < targets.size(); ++i)
+  for (size_t i = 0; i < targets.size(); ++i)
     targetsTaskVector[i].push_back(targets[i].m_node);
 
   // Calculate time consumption of a NtoM path finding.
@@ -80,7 +80,7 @@ bool FindSingleRoute(const FeatureGraphNode & source, const FeatureGraphNode & t
       data.reserve(path.size());
       for (auto const & element : path)
       {
-        data.emplace_back(RawPathData(element.node, element.segment_duration));
+        data.emplace_back(element.node, element.segment_duration);
       }
       rawRoutingResult.unpacked_path_segments.emplace_back(move(data));
     }

@@ -547,7 +547,7 @@ public:
     auto income_iterators = m_targetContext.GetIngoingIterators();
     m_sources.reserve(distance(income_iterators.first, income_iterators.second));
     for (auto i = income_iterators.first; i < income_iterators.second; ++i)
-      m_sources.emplace_back(FeatureGraphNode(i->m_nodeId, true));
+      m_sources.emplace_back(i->m_nodeId, true);
 
     vector<EdgeWeight> weights;
     for (FeatureGraphNode const & t : targetTask)
@@ -743,7 +743,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     }
 
     for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
-      targets.emplace_back(FeatureGraphNode(j->m_nodeId, false));
+      targets.emplace_back(j->m_nodeId, false);
     vector<EdgeWeight> weights;
     for (auto const & t : startTask)
     {
@@ -976,7 +976,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
 #ifdef _DEBUG
   size_t lastIdx = 0;
 #endif
-  for (auto i : osrm::irange<size_t>(0, routingResult.unpacked_path_segments.size()))
+  for (size_t i = 0; i < routingResult.unpacked_path_segments.size(); ++i)
   {
     INTERRUPT_WHEN_CANCELLED();
 

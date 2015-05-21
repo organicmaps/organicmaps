@@ -166,7 +166,7 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   // Fill sources and targets with start node task for ingoing (true) and target node task
   // (false) for outgoing nodes
   for (auto i = in.first; i != in.second; ++i)
-    sources.emplace_back(FeatureGraphNode(i->m_nodeId, true));
+    sources.emplace_back(i->m_nodeId, true);
 
   for (auto i = out.first; i != out.second; ++i)
     targets.emplace_back(i->m_nodeId, false);
