@@ -1,19 +1,10 @@
 #pragma once
 
-#include "map/events.hpp"
-#ifndef USE_DRAPE
-  #include "render_policy.hpp"
-  #include "window_handle.hpp"
-#else
-  #include "drape/oglcontextfactory.hpp"
-  #include "drape_frontend/drape_engine.hpp"
-#endif // USE_DRAPE
 #include "map/feature_vec_model.hpp"
 #include "map/information_display.hpp"
 #include "map/location_state.hpp"
 #include "map/navigator.hpp"
 #include "map/animator.hpp"
-#include "map/scales_processor.hpp"
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
@@ -24,6 +15,16 @@
 #include "map/track.hpp"
 #include "map/routing_session.hpp"
 #include "map/country_tree.hpp"
+
+#include "render/events.hpp"
+#include "render/scales_processor.hpp"
+#ifndef USE_DRAPE
+  #include "render/render_policy.hpp"
+  #include "render/window_handle.hpp"
+#else
+  #include "drape/oglcontextfactory.hpp"
+  #include "drape_frontend/drape_engine.hpp"
+#endif // USE_DRAPE
 
 #include "indexer/data_header.hpp"
 #include "indexer/map_style.hpp"

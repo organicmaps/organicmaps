@@ -18,7 +18,7 @@
   #import "../Platform/opengl/iosOGLContextFactory.h"
 #endif
 
-#include "../../map/render_policy.hpp"
+#include "../../render/render_policy.hpp"
 
 #include "../../platform/platform.hpp"
 #include "../../platform/video_timer.hpp"

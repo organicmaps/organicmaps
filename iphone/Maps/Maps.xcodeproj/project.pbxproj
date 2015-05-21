@@ -2027,6 +2027,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-ldrape_frontend",
@@ -2084,6 +2085,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-ldrape_frontend",
@@ -2155,6 +2157,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-ldrape_frontend",
 					"-ldrape",
 					"-lsearch",
@@ -2900,6 +2903,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",
@@ -2997,6 +3001,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",
@@ -3052,6 +3057,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",
@@ -3122,6 +3128,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",
@@ -3222,6 +3229,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",
@@ -3321,6 +3329,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",
@@ -3419,6 +3428,7 @@
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
+					"-lrender",
 					"-lsearch",
 					"-lgui",
 					"-lgraphics",

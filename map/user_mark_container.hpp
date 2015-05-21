@@ -1,8 +1,9 @@
 #pragma once
 
-#include "map/events.hpp"
-#include "map/user_mark.hpp"
-#include "map/user_mark_dl_cache.hpp"
+#include "user_mark.hpp"
+#include "user_mark_dl_cache.hpp"
+
+#include "render/events.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"

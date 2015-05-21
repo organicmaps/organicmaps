@@ -1,10 +1,11 @@
 #include "map/information_display.hpp"
-#include "map/drawer.hpp"
 #include "map/country_status_display.hpp"
 #include "map/compass_arrow.hpp"
 #include "map/framework.hpp"
 #include "map/ruler.hpp"
 #include "map/alfa_animation_task.hpp"
+
+#include "render/drawer.hpp"
 
 #include "anim/task.hpp"
 #include "anim/controller.hpp"

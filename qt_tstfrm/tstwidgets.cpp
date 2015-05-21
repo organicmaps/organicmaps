@@ -1,6 +1,6 @@
 #include "qt_tstfrm/tstwidgets.hpp"
 
-#include "map/render_policy.hpp"
+#include "render/render_policy.hpp"
 
 #include "graphics/screen.hpp"
 #include "graphics/resource_manager.hpp"

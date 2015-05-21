@@ -8,12 +8,15 @@
 
 #import "MWMFrameworkUtils.h"
 #import "MWMWatchLocationTracker.h"
-
 #include "Framework.h"
+
+#include "render/frame_image.hpp"
+
 #include "indexer/scales.hpp"
-#include "platform/location.hpp"
 #include "indexer/mercator.hpp"
-#include "map/frame_image.hpp"
+
+#include "platform/location.hpp"
+
 
 extern NSString * const kSearchResultTitleKey;
 extern NSString * const kSearchResultCategoryKey;

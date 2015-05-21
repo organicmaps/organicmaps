@@ -4,7 +4,8 @@
 
 #include "map/feature_vec_model.hpp"
 #include "map/navigator.hpp"
-#include "map/scales_processor.hpp"
+
+#include "render/scales_processor.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/gpu_program_manager.hpp"

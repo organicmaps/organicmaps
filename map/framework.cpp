@@ -1,19 +1,20 @@
-#include "map/framework.hpp"
+#include "framework.hpp"
+#include "benchmark_provider.hpp"
+#include "benchmark_engine.hpp"
+#include "geourl_process.hpp"
+#include "navigator_utils.hpp"
+#include "dialog_settings.hpp"
+#include "ge0_parser.hpp"
+
+#include "render/cpu_drawer.hpp"
+#include "render/gpu_drawer.hpp"
+
 #ifndef USE_DRAPE
-  #include "feature_processor.hpp"
-  #include "drawer.hpp"
+  #include "render/feature_processor.hpp"
+  #include "render/drawer.hpp"
 #else
   #include "../drape_frontend/visual_params.hpp"
 #endif // USE_DRAPE
-
-#include "map/benchmark_provider.hpp"
-#include "map/benchmark_engine.hpp"
-#include "map/geourl_process.hpp"
-#include "map/gpu_drawer.hpp"
-#include "map/navigator_utils.hpp"
-#include "map/dialog_settings.hpp"
-#include "map/ge0_parser.hpp"
-#include "map/cpu_drawer.hpp"
 
 #include "defines.hpp"
 

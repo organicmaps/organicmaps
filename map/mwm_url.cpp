@@ -1,5 +1,6 @@
-#include "map/mwm_url.hpp"
-#include "map/scales_processor.hpp"
+#include "mwm_url.hpp"
+
+#include "render/scales_processor.hpp"
 
 #include "indexer/mercator.hpp"
 #include "indexer/scales.hpp"

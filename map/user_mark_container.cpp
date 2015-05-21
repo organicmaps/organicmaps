@@ -1,8 +1,8 @@
-#include "map/user_mark_container.hpp"
+#include "user_mark_container.hpp"
+#include "framework.hpp"
+#include "anim_phase_chain.hpp"
 
-#include "map/drawer.hpp"
-#include "map/framework.hpp"
-#include "map/anim_phase_chain.hpp"
+#include "render/drawer.hpp"
 
 #include "graphics/display_list.hpp"
 #include "graphics/screen.hpp"

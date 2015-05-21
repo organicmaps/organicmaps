@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map gui routing search storage graphics indexer platform anim geometry coding base \
+DEPENDENCIES = map render gui routing search storage graphics indexer platform anim geometry coding base \
                freetype fribidi expat protobuf tomcrypt jansson osrm stats_client zlib succinct
 
 drape {
@@ -30,7 +30,6 @@ macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 SOURCES += \
   ../../testing/testingmain.cpp \
   bookmarks_test.cpp \
-  feature_processor_test.cpp \
   ge0_parser_tests.cpp  \
   geourl_test.cpp \
   kmz_unarchive_test.cpp \

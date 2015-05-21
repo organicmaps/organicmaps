@@ -1,5 +1,5 @@
 #pragma once
-#include "map/scales_processor.hpp"
+#include "render/scales_processor.hpp"
 
 #include "anim/task.hpp"
 

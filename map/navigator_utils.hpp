@@ -1,7 +1,8 @@
 #pragma once
 
-#include "map/navigator.hpp"
-#include "map/scales_processor.hpp"
+#include "navigator.hpp"
+
+#include "render/scales_processor.hpp"
 
 #include "geometry/any_rect2d.hpp"
 

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "map/window_handle.hpp"
 #include "map/framework.hpp"
 #include "map/navigator.hpp"
 #include "map/qgl_render_context.hpp"
+
+#include "render/window_handle.hpp"
 
 #include "base/scheduled_task.hpp"
 

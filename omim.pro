@@ -32,6 +32,7 @@ SUBDIRS = 3party \
           drape/drape_tests \
           graphics \
           gui \
+          render render/render_tests \
           storage storage/storage_tests \
           search search/search_tests \
           drape_frontend drape_frontend/drape_frontend_tests \
@@ -60,6 +61,7 @@ SUBDIRS = 3party \
             storage \
             graphics \
             gui \
+            render \
             search \
             drape_frontend \
             map \
@@ -77,6 +79,7 @@ SUBDIRS = 3party \
             storage \
             graphics \
             gui \
+            render \
             search \
             map \
             stats \

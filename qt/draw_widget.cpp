@@ -1,9 +1,10 @@
 #include "qt/draw_widget.hpp"
 #include "qt/slider_ctrl.hpp"
 
-#include "map/render_policy.hpp"
 #include "map/country_status_display.hpp"
-#include "map/frame_image.hpp"
+
+#include "render/render_policy.hpp"
+#include "render/frame_image.hpp"
 
 #include "search/result.hpp"
 

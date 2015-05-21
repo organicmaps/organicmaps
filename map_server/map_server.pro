@@ -5,7 +5,7 @@ TEMPLATE = app
 
 DEFINES += QJSONRPC_BUILD
 
-DEPENDENCIES = map gui routing search storage indexer graphics platform anim geometry coding base \
+DEPENDENCIES = map render gui routing search storage indexer graphics platform anim geometry coding base \
                osrm bzip2 freetype expat fribidi tomcrypt jansson protobuf qjsonrpc gflags stats_client zlib succinct
 
 drape {

@@ -5,9 +5,10 @@
 
 #include "indexer/mercator.hpp"
 
-#include "map/render_policy.hpp"
-#include "map/simple_render_policy.hpp"
 #include "map/framework.hpp"
+
+#include "render/render_policy.hpp"
+#include "render/simple_render_policy.hpp"
 
 #include "gui/controller.hpp"
 

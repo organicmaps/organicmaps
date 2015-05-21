@@ -1,7 +1,9 @@
 #include "map_server/render_context.hpp"
 
-#include "map/render_policy.hpp"
 #include "map/framework.hpp"
+
+#include "render/render_policy.hpp"
+
 #include "platform/video_timer.hpp"
 
 #include <qjsonrpcservice.h>
