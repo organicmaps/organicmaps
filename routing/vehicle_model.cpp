@@ -39,33 +39,33 @@ VehicleModel::InitListT const s_carLimits =
   //{ {"highway", "construction"},   40 },
 };
 
-static int const kPedestrianSpeedVerySlowKMpH = 2;
-static int const kPedestrianSpeedSlowKMpH = 3;
-static int const kPedestrianSpeedBelowNormalKMpH = 4;
-static int const kPedestrianSpeedNormalKMpH = 5;
+
+static double const kPedestrianSpeedVerySlowKMpH = 4.25;
+static double const kPedestrianSpeedSlowKMpH = 4.5;
+static double const kPedestrianSpeedBelowNormalKMpH = 5;
+static double const kPedestrianSpeedNormalKMpH = 5;
 
 VehicleModel::InitListT const s_pedestrianLimits =
 {
   // see road pictures here - http://wiki.openstreetmap.org/wiki/Key:highway
   { {"highway", "motorway"},       kPedestrianSpeedVerySlowKMpH },
-  { {"highway", "trunk"},          kPedestrianSpeedSlowKMpH },
+  { {"highway", "trunk"},          kPedestrianSpeedVerySlowKMpH },
   { {"highway", "motorway_link"},  kPedestrianSpeedVerySlowKMpH },
-  { {"highway", "trunk_link"},     kPedestrianSpeedSlowKMpH },
+  { {"highway", "trunk_link"},     kPedestrianSpeedVerySlowKMpH },
   { {"highway", "primary"},        kPedestrianSpeedSlowKMpH },
   { {"highway", "primary_link"},   kPedestrianSpeedSlowKMpH },
   { {"highway", "secondary"},      kPedestrianSpeedSlowKMpH },
   { {"highway", "secondary_link"}, kPedestrianSpeedSlowKMpH },
   { {"highway", "tertiary"},       kPedestrianSpeedSlowKMpH },
   { {"highway", "tertiary_link"},  kPedestrianSpeedSlowKMpH },
-  { {"highway", "residential"},    kPedestrianSpeedBelowNormalKMpH },
-  { {"highway", "pedestrian"},     kPedestrianSpeedNormalKMpH },
-  { {"highway", "unclassified"},   kPedestrianSpeedBelowNormalKMpH },
   { {"highway", "service"},        kPedestrianSpeedSlowKMpH },
-  { {"highway", "living_street"},  kPedestrianSpeedNormalKMpH },
+  { {"highway", "unclassified"},   kPedestrianSpeedBelowNormalKMpH },
   { {"highway", "road"},           kPedestrianSpeedBelowNormalKMpH },
   { {"highway", "track"},          kPedestrianSpeedBelowNormalKMpH },
   { {"highway", "path"},           kPedestrianSpeedBelowNormalKMpH },
-  { {"highway", "steps"},          kPedestrianSpeedBelowNormalKMpH },
+  { {"highway", "residential"},    kPedestrianSpeedNormalKMpH },
+  { {"highway", "living_street"},  kPedestrianSpeedNormalKMpH },
+  { {"highway", "steps"},          kPedestrianSpeedNormalKMpH },
   { {"highway", "pedestrian"},     kPedestrianSpeedNormalKMpH },
   { {"highway", "footway"},        kPedestrianSpeedNormalKMpH },
   // all other are restricted
