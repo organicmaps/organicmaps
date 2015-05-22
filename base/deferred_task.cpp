@@ -1,4 +1,4 @@
-#include "base/scheduled_task.hpp"
+#include "base/deferred_task.hpp"
 
 #include "base/timer.hpp"
 #include "base/logging.hpp"
@@ -6,12 +6,12 @@
 #include "std/algorithm.hpp"
 #include "std/mutex.hpp"
 
-ScheduledTask::Routine::Routine(fn_t const & fn, milliseconds delay, atomic<bool> & started)
-    : m_fn(fn), m_delay(delay), m_started(started)
+DeferredTask::Routine::Routine(TTask const & task, milliseconds delay, atomic<bool> & started)
+    : m_task(task), m_delay(delay), m_started(started)
 {
 }
 
-void ScheduledTask::Routine::Do()
+void DeferredTask::Routine::Do()
 {
   mutex mu;
   unique_lock<mutex> lock(mu);
@@ -31,34 +31,34 @@ void ScheduledTask::Routine::Do()
   if (!IsCancelled())
   {
     m_started = true;
-    m_fn();
+    m_task();
   }
 }
 
-void ScheduledTask::Routine::Cancel()
+void DeferredTask::Routine::Cancel()
 {
   threads::IRoutine::Cancel();
   m_cv.notify_one();
 }
 
-ScheduledTask::ScheduledTask(fn_t const & fn, milliseconds ms) : m_started(false)
+DeferredTask::DeferredTask(TTask const & task, milliseconds ms) : m_started(false)
 {
-  m_thread.Create(make_unique<Routine>(fn, ms, m_started));
+  m_thread.Create(make_unique<Routine>(task, ms, m_started));
 }
 
-ScheduledTask::~ScheduledTask()
+DeferredTask::~DeferredTask()
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   m_thread.Cancel();
 }
 
-bool ScheduledTask::WasStarted() const
+bool DeferredTask::WasStarted() const
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   return m_started;
 }
 
-void ScheduledTask::CancelNoBlocking()
+void DeferredTask::Cancel()
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   threads::IRoutine * routine = m_thread.GetRoutine();
@@ -66,7 +66,7 @@ void ScheduledTask::CancelNoBlocking()
   routine->Cancel();
 }
 
-void ScheduledTask::WaitForCompletion()
+void DeferredTask::WaitForCompletion()
 {
   CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   m_thread.Join();

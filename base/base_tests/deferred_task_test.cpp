@@ -1,13 +1,16 @@
 #include "testing/testing.hpp"
 
-#include "base/scheduled_task.hpp"
+#include "base/deferred_task.hpp"
 
 #include "std/atomic.hpp"
 #include "std/bind.hpp"
 
 namespace
 {
-milliseconds const kTimeInaccuracy(1);
+steady_clock::duration kSteadyClockResolution(1);
+
+milliseconds const kTimeInaccuracy =
+    std::max(milliseconds(1), duration_cast<milliseconds>(kSteadyClockResolution));
 
 void AddInt(atomic<int> & value, int a) { value += a; }
 
@@ -19,18 +22,18 @@ void MulInt(atomic<int> & value, int m)
 }
 }  // namespace
 
-// ScheduledTask start (stop) is a memory barrier because it starts
+// DeferredTask start (stop) is a memory barrier because it starts
 // (stops) a thread. That's why it's ok to create time points before
-// ScheduledTask creation and after ScheduledTask completion. Also,
+// DeferredTask creation and after DeferredTask completion. Also,
 // we're assuming that steady_clocks are consistent between CPU cores.
-UNIT_TEST(ScheduledTask_SimpleAdd)
+UNIT_TEST(DeferredTask_SimpleAdd)
 {
   steady_clock::time_point const start = steady_clock::now();
   milliseconds const delay(1000);
 
   atomic<int> value(0);
-  ScheduledTask task1(bind(&AddInt, ref(value), 1), delay);
-  ScheduledTask task2(bind(&AddInt, ref(value), 2), delay);
+  DeferredTask task1(bind(&AddInt, ref(value), 1), delay);
+  DeferredTask task2(bind(&AddInt, ref(value), 2), delay);
   task1.WaitForCompletion();
   task2.WaitForCompletion();
   TEST_EQUAL(value, 3, ());
@@ -40,14 +43,14 @@ UNIT_TEST(ScheduledTask_SimpleAdd)
   TEST(elapsed >= delay - kTimeInaccuracy, (elapsed.count(), delay.count()));
 }
 
-UNIT_TEST(ScheduledTask_SimpleMul)
+UNIT_TEST(DeferredTask_SimpleMul)
 {
   steady_clock::time_point const start = steady_clock::now();
   milliseconds const delay(1500);
 
   atomic<int> value(1);
-  ScheduledTask task1(bind(&MulInt, ref(value), 2), delay);
-  ScheduledTask task2(bind(&MulInt, ref(value), 3), delay);
+  DeferredTask task1(bind(&MulInt, ref(value), 2), delay);
+  DeferredTask task2(bind(&MulInt, ref(value), 3), delay);
   task1.WaitForCompletion();
   task2.WaitForCompletion();
   TEST_EQUAL(value, 6, ());
@@ -57,15 +60,15 @@ UNIT_TEST(ScheduledTask_SimpleMul)
   TEST(elapsed >= delay - kTimeInaccuracy, (elapsed.count(), delay.count()));
 }
 
-UNIT_TEST(ScheduledTask_CancelNoBlocking)
+UNIT_TEST(DeferredTask_CancelNoBlocking)
 {
   steady_clock::time_point const start = steady_clock::now();
   milliseconds const delay(1500);
 
   atomic<int> value(0);
-  ScheduledTask task(bind(&AddInt, ref(value), 1), delay);
+  DeferredTask task(bind(&AddInt, ref(value), 1), delay);
 
-  task.CancelNoBlocking();
+  task.Cancel();
   task.WaitForCompletion();
 
   if (task.WasStarted())

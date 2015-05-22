@@ -11,6 +11,7 @@ SOURCES += \
     base.cpp \
     commands_queue.cpp \
     condition.cpp \
+    deferred_task.cpp \
     exception.cpp \
     fence_manager.cpp \
     internal/message.cpp \
@@ -21,7 +22,6 @@ SOURCES += \
     pseudo_random.cpp \
     resource_pool.cpp \
     runner.cpp \
-    scheduled_task.cpp \
     shared_buffer_manager.cpp \
     src_point.cpp \
     string_format.cpp \
@@ -45,6 +45,7 @@ HEADERS += \
     commands_queue.hpp \
     condition.hpp \
     const_helper.hpp \
+    deferred_task.hpp \
     exception.hpp \
     fence_manager.hpp \
     internal/message.hpp \
@@ -63,7 +64,6 @@ HEADERS += \
     resource_pool.hpp \
     rolling_hash.hpp \
     runner.hpp \
-    scheduled_task.hpp \
     scope_guard.hpp \
     set_operations.hpp \
     shared_buffer_manager.hpp \

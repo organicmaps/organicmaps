@@ -22,6 +22,7 @@ SOURCES += \
   condition_test.cpp \
   const_helper.cpp \
   containers_test.cpp \
+  deferred_task_test.cpp \
   fence_manager_test.cpp \
   logging_test.cpp \
   math_test.cpp \
@@ -31,7 +32,6 @@ SOURCES += \
   observer_list_test.cpp \
   regexp_test.cpp \
   rolling_hash_test.cpp \
-  scheduled_task_test.cpp \
   scope_guard_test.cpp \
   stl_add_test.cpp \
   string_format_test.cpp \

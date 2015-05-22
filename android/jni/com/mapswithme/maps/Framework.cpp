@@ -302,11 +302,11 @@ namespace android
   void Framework::StartTouchTask(double x, double y, unsigned ms)
   {
     KillTouchTask();
-    m_scheduledTask.reset(new ScheduledTask(
+    m_deferredTask.reset(new DeferredTask(
         bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), milliseconds(ms)));
   }
 
-  void Framework::KillTouchTask() { m_scheduledTask.reset(); }
+  void Framework::KillTouchTask() { m_deferredTask.reset(); }
 
   /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)

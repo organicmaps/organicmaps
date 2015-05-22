@@ -8,9 +8,9 @@
 
 #include "../../../../../geometry/avg_vector.hpp"
 
-#include "../../../../../base/timer.hpp"
-#include "../../../../../base/scheduled_task.hpp"
+#include "../../../../../base/deferred_task.hpp"
 #include "../../../../../base/strings_bundle.hpp"
+#include "../../../../../base/timer.hpp"
 
 #include "../../../../../indexer/map_style.hpp"
 
@@ -61,7 +61,7 @@ namespace android
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
 
-    unique_ptr<ScheduledTask> m_scheduledTask;
+    unique_ptr<DeferredTask> m_deferredTask;
     bool m_wasLongClick;
 
     int m_densityDpi;

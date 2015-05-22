@@ -1,4 +1,5 @@
 #include "qt/draw_widget.hpp"
+
 #include "qt/slider_ctrl.hpp"
 
 #include "map/country_status_display.hpp"
@@ -13,24 +14,23 @@
 #include "graphics/opengl/opengl.hpp"
 #include "graphics/depth_constants.hpp"
 
-#include "platform/settings.hpp"
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "std/chrono.hpp"
 
-#include <QtCore/QLocale>
-
-#include <QtGui/QMouseEvent>
 #include <QtCore/QDateTime>
+#include <QtCore/QLocale>
+#include <QtGui/QMouseEvent>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QMenu>
   #include <QtGui/QApplication>
   #include <QtGui/QDesktopWidget>
+  #include <QtGui/QMenu>
 #else
-  #include <QtWidgets/QMenu>
   #include <QtWidgets/QApplication>
   #include <QtWidgets/QDesktopWidget>
+  #include <QtWidgets/QMenu>
 #endif
 
 namespace qt
@@ -345,11 +345,11 @@ namespace qt
   void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
   {
     KillPressTask();
-    m_scheduledTask.reset(
-        new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), milliseconds(ms)));
+    m_deferredTask.reset(
+        new DeferredTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), milliseconds(ms)));
   }
 
-  void DrawWidget::KillPressTask() { m_scheduledTask.reset(); }
+  void DrawWidget::KillPressTask() { m_deferredTask.reset(); }
 
   void DrawWidget::OnPressTaskEvent(m2::PointD const & pt, unsigned ms)
   {

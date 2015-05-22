@@ -6,9 +6,9 @@
 
 #include "render/window_handle.hpp"
 
-#include "base/scheduled_task.hpp"
-
 #include "platform/video_timer.hpp"
+
+#include "base/deferred_task.hpp"
 
 #include "std/unique_ptr.hpp"
 
@@ -145,7 +145,7 @@ namespace qt
 
     QScaleSlider * m_pScale;
 
-    unique_ptr<ScheduledTask> m_scheduledTask;
+    unique_ptr<DeferredTask> m_deferredTask;
     m2::PointD m_taskPoint;
     bool m_wasLongClick, m_isCleanSingleClick;
 
