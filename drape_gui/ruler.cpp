@@ -85,17 +85,24 @@ class RulerTextHandle : public MutableLabelHandle
 public:
   RulerTextHandle(dp::Anchor anchor, m2::PointF const & pivot)
     : MutableLabelHandle(anchor, pivot)
+    , m_firstUpdate(true)
   {
   }
 
   void Update(ScreenBase const & screen) override
   {
     SetIsVisible(DrapeGui::GetRulerHelper().IsVisible(screen));
-    if (IsVisible() && DrapeGui::GetRulerHelper().IsTextDirty())
+    if ((IsVisible() && DrapeGui::GetRulerHelper().IsTextDirty()) || m_firstUpdate)
+    {
       SetContent(DrapeGui::GetRulerHelper().GetRulerText());
+      m_firstUpdate = false;
+    }
 
     TBase::Update(screen);
   }
+
+private:
+  bool m_firstUpdate;
 };
 
 }

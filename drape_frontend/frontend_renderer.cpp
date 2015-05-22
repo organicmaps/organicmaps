@@ -527,7 +527,7 @@ void FrontendRenderer::Routine::Do()
 
   timer.Reset();
   double frameTime = 0.0;
-  bool isInactiveLastFrame = false;
+  int inactiveFrameCount = 0;
   bool viewChanged = true;
   ScreenBase modelView = m_renderer.UpdateScene(viewChanged);
   while (!IsCancelled())
@@ -538,13 +538,16 @@ void FrontendRenderer::Routine::Do()
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 
-    bool const isInactiveCurrentFrame = (!viewChanged && m_renderer.IsQueueEmpty() && !animActive);
+    if (!viewChanged && m_renderer.IsQueueEmpty() && !animActive)
+      ++inactiveFrameCount;
+    else
+      inactiveFrameCount = 0;
 
-    if (isInactiveLastFrame && isInactiveCurrentFrame)
+    if (inactiveFrameCount > 60)
     {
       // process a message or wait for a message
       m_renderer.ProcessSingleMessage();
-      isInactiveLastFrame = false;
+      inactiveFrameCount = 0;
     }
     else
     {
@@ -561,7 +564,6 @@ void FrontendRenderer::Routine::Do()
       }
 
       //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
-      isInactiveLastFrame = isInactiveCurrentFrame;
     }
 
     context->present();
