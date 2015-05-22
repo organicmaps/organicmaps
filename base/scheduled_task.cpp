@@ -1,64 +1,73 @@
 #include "base/scheduled_task.hpp"
+
 #include "base/timer.hpp"
+#include "base/logging.hpp"
 
-#include "../base/logging.hpp"
+#include "std/algorithm.hpp"
+#include "std/mutex.hpp"
 
-#include "../std/algorithm.hpp"
-#include "../std/chrono.hpp"
-
-ScheduledTask::Routine::Routine(fn_t const & fn,
-                                unsigned ms,
-                                condition_variable & condVar)
-  : m_fn(fn),
-    m_ms(ms),
-    m_condVar(condVar)
-{}
+ScheduledTask::Routine::Routine(fn_t const & fn, milliseconds delay, atomic<bool> & started)
+    : m_fn(fn), m_delay(delay), m_started(started)
+{
+}
 
 void ScheduledTask::Routine::Do()
 {
-  unique_lock<mutex> lock(m_mutex);
+  mutex mu;
+  unique_lock<mutex> lock(mu);
 
-  milliseconds timeLeft(m_ms);
-  while (!IsCancelled() && timeLeft != milliseconds::zero())
+  steady_clock::time_point const end = steady_clock::now() + m_delay;
+  while (!IsCancelled())
   {
-    my::Timer t;
-    m_condVar.wait_for(lock, timeLeft, [this]()
-                       {
-                         return IsCancelled();
-                       });
-    milliseconds timeElapsed(static_cast<unsigned>(t.ElapsedSeconds() * 1000));
-    timeLeft -= min(timeLeft, timeElapsed);
+    steady_clock::time_point const current = steady_clock::now();
+    if (current >= end)
+      break;
+    m_cv.wait_for(lock, end - current, [this]()
+    {
+      return IsCancelled();
+    });
   }
 
   if (!IsCancelled())
+  {
+    m_started = true;
     m_fn();
+  }
 }
 
 void ScheduledTask::Routine::Cancel()
 {
   threads::IRoutine::Cancel();
-  m_condVar.notify_one();
+  m_cv.notify_one();
 }
 
-ScheduledTask::ScheduledTask(fn_t const & fn, unsigned ms)
+ScheduledTask::ScheduledTask(fn_t const & fn, milliseconds ms) : m_started(false)
 {
-  m_thread.Create(make_unique<Routine>(fn, ms, m_condVar));
+  m_thread.Create(make_unique<Routine>(fn, ms, m_started));
 }
 
 ScheduledTask::~ScheduledTask()
 {
-  CancelBlocking();
-}
-
-bool ScheduledTask::CancelNoBlocking()
-{
-  if (!m_thread.GetRoutine())
-    return false;
-  m_thread.GetRoutine()->Cancel();
-  return true;
-}
-
-void ScheduledTask::CancelBlocking()
-{
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
   m_thread.Cancel();
+}
+
+bool ScheduledTask::WasStarted() const
+{
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  return m_started;
+}
+
+void ScheduledTask::CancelNoBlocking()
+{
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  threads::IRoutine * routine = m_thread.GetRoutine();
+  CHECK(routine, ());
+  routine->Cancel();
+}
+
+void ScheduledTask::WaitForCompletion()
+{
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  m_thread.Join();
 }

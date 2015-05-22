@@ -5,77 +5,74 @@
 #include "std/atomic.hpp"
 #include "std/bind.hpp"
 
-
 namespace
 {
-void add_int(atomic<int> & val, int a) { val += a; }
+milliseconds const kTimeInaccuracy(1);
 
-void mul_int(atomic<int> & val, int b)
+void AddInt(atomic<int> & value, int a) { value += a; }
+
+void MulInt(atomic<int> & value, int m)
 {
-  int value = val;
-  while (!val.compare_exchange_weak(value, value * b))
+  int v = value;
+  while (!value.compare_exchange_weak(v, v * m))
     ;
 }
 }  // namespace
 
-/// @todo Next tests are based on assumptions that some delays are suitable for
-/// performing needed checks, before a task will fire.
-
-UNIT_TEST(ScheduledTask_Smoke)
+// ScheduledTask start (stop) is a memory barrier because it starts
+// (stops) a thread. That's why it's ok to create time points before
+// ScheduledTask creation and after ScheduledTask completion. Also,
+// we're assuming that steady_clocks are consistent between CPU cores.
+UNIT_TEST(ScheduledTask_SimpleAdd)
 {
-  atomic<int> val(0);
+  steady_clock::time_point const start = steady_clock::now();
+  milliseconds const delay(1000);
 
-  ScheduledTask t(bind(&add_int, ref(val), 10), 1000);
+  atomic<int> value(0);
+  ScheduledTask task1(bind(&AddInt, ref(value), 1), delay);
+  ScheduledTask task2(bind(&AddInt, ref(value), 2), delay);
+  task1.WaitForCompletion();
+  task2.WaitForCompletion();
+  TEST_EQUAL(value, 3, ());
 
-  // Assume that t thread isn't fired yet.
-  TEST_EQUAL(val, 0, ());
-
-  threads::Sleep(1100);
-
-  TEST_EQUAL(val, 10, ());
+  steady_clock::time_point const end = steady_clock::now();
+  milliseconds const elapsed = duration_cast<milliseconds>(end - start);
+  TEST(elapsed >= delay - kTimeInaccuracy, (elapsed.count(), delay.count()));
 }
 
-UNIT_TEST(ScheduledTask_CancelInfinite)
+UNIT_TEST(ScheduledTask_SimpleMul)
 {
-  atomic<int> val(2);
+  steady_clock::time_point const start = steady_clock::now();
+  milliseconds const delay(1500);
 
-  ScheduledTask t0(bind(&add_int, ref(val), 10), static_cast<unsigned>(-1));
+  atomic<int> value(1);
+  ScheduledTask task1(bind(&MulInt, ref(value), 2), delay);
+  ScheduledTask task2(bind(&MulInt, ref(value), 3), delay);
+  task1.WaitForCompletion();
+  task2.WaitForCompletion();
+  TEST_EQUAL(value, 6, ());
 
-  t0.CancelBlocking();
-
-  TEST_EQUAL(val, 2, ());
+  steady_clock::time_point const end = steady_clock::now();
+  milliseconds const elapsed = duration_cast<milliseconds>(end - start);
+  TEST(elapsed >= delay - kTimeInaccuracy, (elapsed.count(), delay.count()));
 }
 
-UNIT_TEST(ScheduledTask_Cancel)
+UNIT_TEST(ScheduledTask_CancelNoBlocking)
 {
-  atomic<int> val(2);
+  steady_clock::time_point const start = steady_clock::now();
+  milliseconds const delay(1500);
 
-  ScheduledTask t0(bind(&add_int, ref(val), 10), 500);
-  ScheduledTask t1(bind(&mul_int, ref(val), 2), 1000);
+  atomic<int> value(0);
+  ScheduledTask task(bind(&AddInt, ref(value), 1), delay);
 
-  TEST_EQUAL(val, 2, ());
+  task.CancelNoBlocking();
+  task.WaitForCompletion();
 
-  // Assume that t0 thread isn't fired yet.
-  t0.CancelBlocking();
-
-  threads::Sleep(1100);
-
-  TEST_EQUAL(val, 4, ());
-}
-
-UNIT_TEST(ScheduledTask_NoWaitInCancel)
-{
-  atomic<int> val(2);
-
-  ScheduledTask t0(bind(&add_int, ref(val), 10), 1000);
-  ScheduledTask t1(bind(&mul_int, ref(val), 3), 500);
-
-  t0.CancelBlocking();
-
-  // Assume that t1 thread isn't fired yet.
-  val += 3;
-
-  threads::Sleep(600);
-
-  TEST_EQUAL(val, 15, ());
+  if (task.WasStarted())
+  {
+    TEST_EQUAL(value, 1, ());
+    steady_clock::time_point const end = steady_clock::now();
+    milliseconds const elapsed = duration_cast<milliseconds>(end - start);
+    TEST(elapsed >= delay - kTimeInaccuracy, (elapsed.count(), delay.count()));
+  }
 }

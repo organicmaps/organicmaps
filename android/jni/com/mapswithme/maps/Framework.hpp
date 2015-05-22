@@ -69,7 +69,7 @@ namespace android
     int m_screenHeight;
 
     void StartTouchTask(double x, double y, unsigned ms);
-    bool KillTouchTask();
+    void KillTouchTask();
     void OnProcessTouchTask(double x, double y, unsigned ms);
 
     string m_searchQuery;

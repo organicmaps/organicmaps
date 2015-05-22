@@ -16,6 +16,8 @@
 #include "platform/settings.hpp"
 #include "platform/platform.hpp"
 
+#include "std/chrono.hpp"
+
 #include <QtCore/QLocale>
 
 #include <QtGui/QMouseEvent>
@@ -342,24 +344,12 @@ namespace qt
 
   void DrawWidget::StartPressTask(m2::PointD const & pt, unsigned ms)
   {
-    if (KillPressTask())
-      m_scheduledTask.reset(new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), ms));
+    KillPressTask();
+    m_scheduledTask.reset(
+        new ScheduledTask(bind(&DrawWidget::OnPressTaskEvent, this, pt, ms), milliseconds(ms)));
   }
 
-  bool DrawWidget::KillPressTask()
-  {
-    if (m_scheduledTask)
-    {
-      if (!m_scheduledTask->CancelNoBlocking())
-      {
-        // The task is already running - skip new task.
-        return false;
-      }
-
-      m_scheduledTask.reset();
-    }
-    return true;
-  }
+  void DrawWidget::KillPressTask() { m_scheduledTask.reset(); }
 
   void DrawWidget::OnPressTaskEvent(m2::PointD const & pt, unsigned ms)
   {

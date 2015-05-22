@@ -32,6 +32,8 @@
 #include "base/math.hpp"
 #include "base/logging.hpp"
 
+#include "std/chrono.hpp"
+
 namespace
 {
 const unsigned LONG_TOUCH_MS = 1000;
@@ -299,24 +301,12 @@ namespace android
 
   void Framework::StartTouchTask(double x, double y, unsigned ms)
   {
-    if (KillTouchTask())
-      m_scheduledTask.reset(new ScheduledTask(bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), ms));
+    KillTouchTask();
+    m_scheduledTask.reset(new ScheduledTask(
+        bind(&android::Framework::OnProcessTouchTask, this, x, y, ms), milliseconds(ms)));
   }
 
-  bool Framework::KillTouchTask()
-  {
-    if (m_scheduledTask)
-    {
-      if (!m_scheduledTask->CancelNoBlocking())
-      {
-        // The task is already running - skip new task.
-        return false;
-      }
-
-      m_scheduledTask.reset();
-    }
-    return true;
-  }
+  void Framework::KillTouchTask() { m_scheduledTask.reset(); }
 
   /// @param[in] mask Active pointers bits : 0x0 - no, 0x1 - (x1, y1), 0x2 - (x2, y2), 0x3 - (x1, y1)(x2, y2).
   void Framework::Touch(int action, int mask, double x1, double y1, double x2, double y2)

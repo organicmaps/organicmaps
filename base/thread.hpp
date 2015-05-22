@@ -31,7 +31,7 @@ public:
 ///
 /// Thread class manages lifetime of a running IRoutine and guarantees
 /// that it will be possible to access the IRoutine after
-/// Thread::Create()call until destruction of a Thread object.  In the
+/// Thread::Create() call until cancellation or destruction.  In the
 /// latter case, system thread will be responsible for deletion of a
 /// IRoutine.
 class Thread
