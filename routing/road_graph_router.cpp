@@ -11,8 +11,6 @@
 #include "geometry/distance.hpp"
 
 #include "base/assert.hpp"
-#include "base/timer.hpp"
-#include "base/logging.hpp"
 
 namespace routing
 {
@@ -70,8 +68,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   // we still need to check that startPoint and finalPoint are in the same MWM
   // and probably reset the graph. So the checks stay here.
 
-  LOG(LDEBUG, ("Calculate route from", startPoint, "to", finalPoint));
-  
   string const mwmName = m_countryFileFn(finalPoint);
   if (m_countryFileFn(startPoint) != mwmName)
     return PointsInDifferentMWM;
@@ -96,9 +92,6 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   if (startVicinity.empty())
     return StartPointNotFound;
 
-  my::Timer timer;
-  timer.Reset();
-
   Junction const startPos(startPoint);
   Junction const finalPos(finalPoint);
 
@@ -107,11 +100,9 @@ IRouter::ResultCode RoadGraphRouter::CalculateRoute(m2::PointD const & startPoin
   m_roadGraph->AddFakeEdges(finalPos, finalVicinity);
 
   vector<Junction> routePos;
-  IRouter::ResultCode const resultCode = CalculateRoute(startPos, finalPos, routePos);
+  ResultCode const resultCode = CalculateRoute(startPos, finalPos, routePos);
 
   m_roadGraph->ResetFakes();
-
-  LOG(LINFO, ("Route calculation time:", timer.ElapsedSeconds(), "result code:", resultCode));
 
   if (IRouter::NoError == resultCode)
   {

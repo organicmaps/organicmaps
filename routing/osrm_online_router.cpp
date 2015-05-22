@@ -25,7 +25,7 @@ string OsrmOnlineRouter::GetName() const
 }
 
 void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & /* direction */,
-                                      m2::PointD const & /* finalPoint */, ReadyCallback const & callback)
+                                      m2::PointD const & /* finalPoint */, TReadyCallback const & callback)
 {
   // Construct OSRM url request to get the route
   string url = OSRM_CAR_ROUTING_URL;
@@ -37,7 +37,7 @@ void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD 
   downloader::HttpRequest::Get(url, bind(&OsrmOnlineRouter::OnRouteReceived, this, _1, callback));
 }
 
-void OsrmOnlineRouter::OnRouteReceived(downloader::HttpRequest & request, ReadyCallback callback)
+void OsrmOnlineRouter::OnRouteReceived(downloader::HttpRequest & request, TReadyCallback callback)
 {
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {

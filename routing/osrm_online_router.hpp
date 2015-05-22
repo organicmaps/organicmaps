@@ -14,13 +14,13 @@ class OsrmOnlineRouter : public AsyncRouter
   m2::PointD m_finalPt;
 
   /// Http callback from the server
-  void OnRouteReceived(downloader::HttpRequest & request, ReadyCallback callback);
+  void OnRouteReceived(downloader::HttpRequest & request, TReadyCallback callback);
 
 public:
   virtual string GetName() const;
   // AsyncRouter overrides:
   void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & /* direction */,
-                      m2::PointD const & /* finalPoint */, ReadyCallback const & callback) override;
+                      m2::PointD const & /* finalPoint */, TReadyCallback const & callback) override;
 };
 
 } // namespace routing

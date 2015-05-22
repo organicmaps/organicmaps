@@ -45,10 +45,14 @@ public:
    * RouteFinished -> RouteNotReady       // start new route
    */
 
-  RoutingSession();
-  void SetRouter(unique_ptr<IRouter> && router);
+  typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
 
   typedef function<void (Route const &, IRouter::ResultCode)> TReadyCallbackFn;
+
+  RoutingSession();
+
+  void SetRouter(unique_ptr<IRouter> && router,
+                 TRoutingStatisticsCallback const & routingStatisticsFn);
 
   /// @param[in] startPoint and endPoint in mercator
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint, TReadyCallbackFn const & callback);

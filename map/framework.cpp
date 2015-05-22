@@ -2230,7 +2230,7 @@ void Framework::FollowRoute()
 void Framework::SetRouter(RouterType type)
 {
 #ifdef DEBUG
-  RoutingVisualizerFn const routingVisualizer = [this](m2::PointD const & pt)
+  RoutingVisualizerFn const routingVisualizerFn = [this](m2::PointD const & pt)
   {
     GetPlatform().RunOnGuiThread([this,pt]()
     {
@@ -2239,25 +2239,33 @@ void Framework::SetRouter(RouterType type)
     });
   };
 #else
-  RoutingVisualizerFn const routingVisualizer = nullptr;
+  RoutingVisualizerFn const routingVisualizerFn = nullptr;
 #endif
 
+  auto const routingStatisticsFn = [](map<string, string> const & statistics)
+  {
+    alohalytics::LogEvent("Routing_CalculatingRoute", statistics);
+  };
+
+  unique_ptr<IRouter> router;
   if (type == RouterType::Pedestrian)
   {
-    m_routingSession.SetRouter(
-        unique_ptr<IRouter>(new AStarRouter([this](m2::PointD const & pt)
-                                            {
-                                              return GetSearchEngine()->GetCountryFile(pt) + DATA_FILE_EXTENSION;
-                                            },
-                                            &m_model.GetIndex(), routingVisualizer)));
+    auto const countryFileFn = [this](m2::PointD const & pt)
+    {
+      return GetSearchEngine()->GetCountryFile(pt) + DATA_FILE_EXTENSION;
+    };
+    router.reset(new AStarRouter(countryFileFn, &m_model.GetIndex(), routingVisualizerFn));
   }
   else
   {
-    m_routingSession.SetRouter(unique_ptr<IRouter>(new OsrmRouter(&m_model.GetIndex(), [this] (m2::PointD const & pt)
+    auto const countryFileFn = [this](m2::PointD const & pt)
     {
       return GetSearchEngine()->GetCountryFile(pt);
-    }, routingVisualizer)));
+    };
+    router.reset(new OsrmRouter(&m_model.GetIndex(), countryFileFn, routingVisualizerFn));
   }
+
+  m_routingSession.SetRouter(move(router), routingStatisticsFn);
 }
 
 void Framework::RemoveRoute()

@@ -4,22 +4,28 @@
 #include "routing/router.hpp"
 
 #include "std/atomic.hpp"
+#include "std/map.hpp"
 #include "std/mutex.hpp"
+#include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 
 namespace routing
 {
 
-/// Callback takes ownership of passed route.
-typedef function<void(Route &, IRouter::ResultCode)> ReadyCallback;
-
 class AsyncRouter
 {
 public:
+  /// Callback takes ownership of passed route.
+  typedef function<void(Route &, IRouter::ResultCode)> TReadyCallback;
+
+  /// Callback on routing statistics
+  typedef function<void(map<string, string> const &)> TRoutingStatisticsCallback;
+
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
   /// @param router pointer to the router implementation. AsyncRouter will take ownership over
   /// router.
-  AsyncRouter(unique_ptr<IRouter> && router);
+  AsyncRouter(unique_ptr<IRouter> && router,
+              TRoutingStatisticsCallback const & routingStatisticsFn);
 
   virtual ~AsyncRouter();
 
@@ -31,14 +37,23 @@ public:
   /// @param finalPoint target point for route
   /// @param callback function to return routing result
   virtual void CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
-                              m2::PointD const & finalPoint, ReadyCallback const & callback);
+                              m2::PointD const & finalPoint, TReadyCallback const & callback);
 
   /// Interrupt routing and clear buffers
   virtual void ClearState();
 
 private:
   /// This function is called in async mode
-  void CalculateRouteImpl(ReadyCallback const & callback);
+  void CalculateRouteImpl(TReadyCallback const & callback);
+
+  /// These functions are called to send statistics about the routing
+  void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                      m2::PointD const & finalPoint,
+                      IRouter::ResultCode resultCode,
+                      double elapsedSec);
+  void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                      m2::PointD const & finalPoint,
+                      string const & exceptionMessage);
 
   mutex m_paramsMutex;
   mutex m_routeMutex;
@@ -49,6 +64,7 @@ private:
   m2::PointD m_startDirection;
 
   unique_ptr<IRouter> const m_router;
+  TRoutingStatisticsCallback const m_routingStatisticsFn;
 };
 
 }  // namespace routing
