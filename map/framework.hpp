@@ -358,9 +358,9 @@ public:
     SCALE_MIN_LIGHT
   };
 
-  void Scale(EScaleMode mode);
-  void Scale(EScaleMode mode, m2::PointD const & pxPoint);
-  void Scale(double factor);
+  void Scale(EScaleMode mode, bool isAnim);
+  void Scale(EScaleMode mode, m2::PointD const & pxPoint, bool isAnim);
+  void Scale(double factor, bool isAnim);
   void Scale(double factor, m2::PointD const & pxPoint, bool isAnim);
 
   void TouchEvent(df::TouchEvent const & touch);

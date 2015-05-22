@@ -33,6 +33,8 @@ namespace qt
 
     void ShowAll();
     void ScaleChanged(int action);
+    void SliderPressed();
+    void SliderReleased();
 
   public:
     DrawWidget();
@@ -95,6 +97,7 @@ namespace qt
     m2::PointD GetDevicePoint(QMouseEvent * e) const;
 
     QScaleSlider * m_pScale;
+    bool m_enableScaleUpdate;
 
     bool m_emulatingLocation;
 

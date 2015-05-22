@@ -61,12 +61,12 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
   format.setMajorVersion(3);
   format.setMinorVersion(2);
 
-  format.setAlphaBufferSize(8);
+  format.setAlphaBufferSize(0);
   format.setBlueBufferSize(8);
   format.setGreenBufferSize(8);
   format.setRedBufferSize(8);
   format.setStencilBufferSize(0);
-  format.setSamples(8);
+  format.setSamples(0);
   format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
   format.setSwapInterval(1);
   format.setDepthBufferSize(16);

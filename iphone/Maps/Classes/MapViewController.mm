@@ -244,13 +244,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (IBAction)zoomInPressed:(id)sender
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"+"];
-  GetFramework().Scale(Framework::SCALE_MAG);
+  GetFramework().Scale(Framework::SCALE_MAG, true);
 }
 
 - (IBAction)zoomOutPressed:(id)sender
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"-"];
-  GetFramework().Scale(Framework::SCALE_MIN);
+  GetFramework().Scale(Framework::SCALE_MIN, true);
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController

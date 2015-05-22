@@ -13,6 +13,7 @@ SOURCES += \
     animation/interpolation_holder.cpp \
     animation/interpolations.cpp \
     animation/model_view_animation.cpp \
+    animation/opacity_animation.cpp \
     apply_feature_functors.cpp \
     area_shape.cpp \
     backend_renderer.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     animation/interpolation_holder.hpp \
     animation/interpolations.hpp \
     animation/model_view_animation.hpp \
+    animation/opacity_animation.hpp \
     apply_feature_functors.hpp \
     area_shape.hpp \
     backend_renderer.hpp \

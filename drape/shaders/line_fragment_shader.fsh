@@ -4,6 +4,7 @@ varying vec2 v_dxdy;
 
 uniform sampler2D u_colorTex;
 uniform sampler2D u_maskTex;
+uniform float u_opacity;
 
 void main(void)
 {
@@ -15,5 +16,6 @@ void main(void)
   if (mask < 0.1 || domen > 1.0)
     discard;
 
+  color.a *= u_opacity;
   gl_FragColor = color;
 }

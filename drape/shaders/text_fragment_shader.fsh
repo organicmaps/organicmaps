@@ -5,6 +5,7 @@ varying vec2 v_maskTexCoord;
 
 uniform sampler2D u_colorTex;
 uniform sampler2D u_maskTex;
+uniform float u_opacity;
 
 const lowp float OUTLINE_MIN_VALUE0 = 0.41;
 const lowp float OUTLINE_MIN_VALUE1 = 0.565;
@@ -56,5 +57,6 @@ void main (void)
   else
     finalColor = without_outline(base, 1.0 - alpha);
 
+  finalColor.a *= u_opacity;
   gl_FragColor = finalColor;
 }

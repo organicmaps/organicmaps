@@ -80,6 +80,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
 
   dp::UniformValuesStorage uniformStorage;
   uniformStorage.SetMatrix4x4Value("projection", m.data());
+  uniformStorage.SetFloatValue("u_opacity", 1.0);
 
   ForEachShapeInfo(
       [&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable

@@ -10,7 +10,7 @@ public:
   virtual ~BaseInterpolator();
 
   bool IsFinished() const;
-  void Advance(double elapsedSeconds);
+  virtual void Advance(double elapsedSeconds);
 
 protected:
   double GetT() const;

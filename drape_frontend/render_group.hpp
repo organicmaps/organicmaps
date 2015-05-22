@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/animation/opacity_animation.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/pointers.hpp"
@@ -25,9 +26,18 @@ public:
 
   dp::GLState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
+  dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
+
+  double GetOpacity() const;
+  void UpdateAnimation();
+  bool IsAnimating() const;
+
+  void Disappear();
 
 protected:
   dp::GLState m_state;
+  dp::UniformValuesStorage m_uniforms;
+  unique_ptr<OpacityAnimation> m_disappearAnimation;
 
 private:
   TileKey m_tileKey;
@@ -49,7 +59,7 @@ public:
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }
   void DeleteLater() const { m_pendingOnDelete = true; }
-  bool IsPendingOnDelete() const { return m_pendingOnDelete; }
+  bool IsPendingOnDelete() const { return m_pendingOnDelete && !IsAnimating(); }
 
   bool IsLess(RenderGroup const & other) const;
 
@@ -65,15 +75,7 @@ private:
 class RenderGroupComparator
 {
 public:
-  RenderGroupComparator();
-
-  void ResetInternalState();
-
   bool operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r);
-
-private:
-  bool m_needGroupMergeOperation;
-  bool m_needBucketsMergeOperation;
 };
 
 class UserMarkRenderGroup : public BaseRenderGroup

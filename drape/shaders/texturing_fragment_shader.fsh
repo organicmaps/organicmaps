@@ -1,4 +1,5 @@
 uniform sampler2D u_colorTex;
+uniform float u_opacity;
 
 varying vec2 v_colorTexCoords;
 
@@ -8,5 +9,6 @@ void main(void)
   if (finalColor.a < 0.1)
     discard;
 
+  finalColor.a *= u_opacity;
   gl_FragColor = finalColor;
 }

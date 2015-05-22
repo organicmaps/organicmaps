@@ -1,9 +1,12 @@
 uniform vec4 u_color;
+uniform float u_opacity;
 
 void main(void)
 {
-  if (u_color.a < 0.1)
+  vec4 color = u_color;
+  if (color.a < 0.1)
     discard;
 
-  gl_FragColor = u_color;
+  color.a *= u_opacity;
+  gl_FragColor = color;
 }

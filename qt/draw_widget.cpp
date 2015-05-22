@@ -70,7 +70,8 @@ bool IsLocationEmulation(QMouseEvent * e)
       m_framework(new Framework()),
       m_ratio(1.0),
       m_pScale(nullptr),
-      m_emulatingLocation(false)
+      m_emulatingLocation(false),
+      m_enableScaleUpdate(true)
   {
     setSurfaceType(QSurface::OpenGLSurface);
 
@@ -97,6 +98,8 @@ bool IsLocationEmulation(QMouseEvent * e)
     m_pScale = pScale;
 
     connect(m_pScale, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
+    connect(m_pScale, SIGNAL(sliderPressed()), this, SLOT(SliderPressed()));
+    connect(m_pScale, SIGNAL(sliderReleased()), this, SLOT(SliderReleased()));
   }
 
   void DrawWidget::PrepareShutdown()
@@ -123,22 +126,22 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::ScalePlus()
   {
-    m_framework->Scale(Framework::SCALE_MAG);
+    m_framework->Scale(Framework::SCALE_MAG, true);
   }
 
   void DrawWidget::ScaleMinus()
   {
-    m_framework->Scale(Framework::SCALE_MIN);
+    m_framework->Scale(Framework::SCALE_MIN, true);
   }
 
   void DrawWidget::ScalePlusLight()
   {
-    m_framework->Scale(Framework::SCALE_MAG_LIGHT);
+    m_framework->Scale(Framework::SCALE_MAG_LIGHT, true);
   }
 
   void DrawWidget::ScaleMinusLight()
   {
-    m_framework->Scale(Framework::SCALE_MIN_LIGHT);
+    m_framework->Scale(Framework::SCALE_MIN_LIGHT, true);
   }
 
   void DrawWidget::ShowAll()
@@ -152,8 +155,18 @@ bool IsLocationEmulation(QMouseEvent * e)
     {
       double const factor = m_pScale->GetScaleFactor();
       if (factor != 1.0)
-        m_framework->Scale(factor);
+        m_framework->Scale(factor, false);
     }
+  }
+
+  void DrawWidget::SliderPressed()
+  {
+    m_enableScaleUpdate = false;
+  }
+
+  void DrawWidget::SliderReleased()
+  {
+    m_enableScaleUpdate = true;
   }
 
   void DrawWidget::OnActivateMark(unique_ptr<UserMarkCopy> pCopy)
@@ -213,7 +226,7 @@ bool IsLocationEmulation(QMouseEvent * e)
   {
     TBase::mouseDoubleClickEvent(e);
     if (IsLeftButton(e))
-      m_framework->Scale(Framework::SCALE_MAG_LIGHT, GetDevicePoint(e));
+      m_framework->Scale(Framework::SCALE_MAG_LIGHT, GetDevicePoint(e), true);
   }
 
   void DrawWidget::mouseMoveEvent(QMouseEvent * e)
@@ -385,7 +398,7 @@ bool IsLocationEmulation(QMouseEvent * e)
 
   void DrawWidget::UpdateScaleControl()
   {
-    if (m_pScale && isExposed())
+    if (m_pScale && isExposed() && m_enableScaleUpdate)
     {
       // don't send ScaleChanged
       m_pScale->SetPosWithBlockedSignals(m_framework->GetDrawScale());

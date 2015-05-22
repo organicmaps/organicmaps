@@ -724,19 +724,19 @@ double ScaleModeToFactor(Framework::EScaleMode mode)
 
 } // namespace
 
-void Framework::Scale(EScaleMode mode)
+void Framework::Scale(EScaleMode mode, bool isAnim)
 {
-  Scale(ScaleModeToFactor(mode));
+  Scale(ScaleModeToFactor(mode), isAnim);
 }
 
-void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint)
+void Framework::Scale(Framework::EScaleMode mode, m2::PointD const & pxPoint, bool isAnim)
 {
-  Scale(ScaleModeToFactor(mode), pxPoint, true);
+  Scale(ScaleModeToFactor(mode), pxPoint, isAnim);
 }
 
-void Framework::Scale(double factor)
+void Framework::Scale(double factor, bool isAnim)
 {
-  Scale(factor, m_currentMovelView.PixelRect().Center(), true);
+  Scale(factor, m_currentMovelView.PixelRect().Center(), isAnim);
 }
 
 void Framework::Scale(double factor, m2::PointD const & pxPoint, bool isAnim)

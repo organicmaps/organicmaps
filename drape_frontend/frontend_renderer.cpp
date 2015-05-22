@@ -289,7 +289,10 @@ void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
   for(auto const & group : m_renderGroups)
   {
     if (group->GetTileKey() == tileKey)
+    {
       group->DeleteLater();
+      group->Disappear();
+    }
   }
 
   auto removePredicate = [&tileKey](drape_ptr<RenderGroup> const & group)
@@ -353,6 +356,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
   for (drape_ptr<RenderGroup> const & group : m_renderGroups)
   {
+    group->UpdateAnimation();
     dp::GLState const & state = group->GetState();
     dp::GLState::DepthLayer layer = state.GetDepthLayer();
     if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
@@ -367,6 +371,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
     program->Bind();
     ApplyUniforms(m_generalUniforms, program);
+    ApplyUniforms(group->GetUniforms(), program);
     ApplyState(state, program);
 
     group->Render(modelView);
@@ -377,12 +382,14 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   for (drape_ptr<UserMarkRenderGroup> const & group : m_userMarkRenderGroups)
   {
     ASSERT(group.get() != nullptr, ());
+    group->UpdateAnimation();
     if (m_userMarkVisibility.find(group->GetTileKey()) != m_userMarkVisibility.end())
     {
       dp::GLState const & state = group->GetState();
       ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
       program->Bind();
       ApplyUniforms(m_generalUniforms, program);
+      ApplyUniforms(group->GetUniforms(), program);
       ApplyState(state, program);
       group->Render(modelView);
     }

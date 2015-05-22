@@ -8,6 +8,38 @@
 namespace df
 {
 
+void BaseRenderGroup::UpdateAnimation()
+{
+  double opactity = 1.0;
+  if (m_disappearAnimation != nullptr)
+    opactity = m_disappearAnimation->GetOpacity();
+
+  m_uniforms.SetFloatValue("u_opacity", opactity);
+}
+
+double BaseRenderGroup::GetOpacity() const
+{
+  if (m_disappearAnimation != nullptr)
+    return m_disappearAnimation->GetOpacity();
+
+  return 1.0;
+}
+
+bool BaseRenderGroup::IsAnimating() const
+{
+  if (m_disappearAnimation == nullptr || m_disappearAnimation->IsFinished())
+    return false;
+
+  return true;
+}
+
+void BaseRenderGroup::Disappear()
+{
+  m_disappearAnimation = make_unique<OpacityAnimation>(0.25 /* duration */,
+                                                       1.0 /* startOpacity */,
+                                                       0.0 /* endOpacity */);
+}
+
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
@@ -33,7 +65,6 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 
 void RenderGroup::Render(ScreenBase const & screen)
 {
-  ASSERT(m_pendingOnDelete == false, ());
   for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
     renderBucket->Render(screen);
 }
@@ -53,25 +84,10 @@ bool RenderGroup::IsLess(RenderGroup const & other) const
   return m_state < other.m_state;
 }
 
-RenderGroupComparator::RenderGroupComparator()
-  : m_needGroupMergeOperation(false)
-  , m_needBucketsMergeOperation(false)
-{
-}
-
-void RenderGroupComparator::ResetInternalState()
-{
-  m_needBucketsMergeOperation = false;
-  m_needGroupMergeOperation = false;
-}
-
 bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_ptr<RenderGroup> const & r)
 {
   dp::GLState const & lState = l->GetState();
   dp::GLState const & rState = r->GetState();
-
-  TileKey const & lKey = l->GetTileKey();
-  TileKey const & rKey = r->GetTileKey();
 
   if (!l->IsPendingOnDelete() && l->IsEmpty())
     l->DeleteLater();
@@ -82,11 +98,13 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
   bool lPendingOnDelete = l->IsPendingOnDelete();
   bool rPendingOnDelete = r->IsPendingOnDelete();
 
-  if (lState == rState && lKey == rKey && !lPendingOnDelete)
-    m_needGroupMergeOperation = true;
-
   if (rPendingOnDelete == lPendingOnDelete)
-    return lState < rState;
+  {
+    if (l->GetOpacity() == r->GetOpacity())
+      return lState < rState;
+    else
+      return l->GetOpacity() > r->GetOpacity();
+  }
 
   if (rPendingOnDelete)
     return true;
