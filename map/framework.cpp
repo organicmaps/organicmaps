@@ -535,17 +535,15 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
   StopLocationFollow();
 
   // show ballon above
-  Bookmark const * bmk = static_cast<Bookmark const *>(m_bmManager.GetBmCategory(bnc.first)->GetUserMark(bnc.second));
+  Bookmark const * mark = static_cast<Bookmark const *>(GetBmCategory(bnc.first)->GetUserMark(bnc.second));
 
-  double scale = bmk->GetScale();
+  double scale = mark->GetScale();
   if (scale == -1.0)
     scale = scales::GetUpperComfortScale();
 
-  ///@TODO UVR
-//  ShowRectExVisibleScale(df::GetRectForDrawScale(scale, bmk->GetOrg()));
-//  Bookmark * mark = GetBmCategory(bnc.first)->GetBookmark(bnc.second);
-//  ActivateUserMark(mark);
-//  m_balloonManager.OnShowMark(mark);
+  CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, mark->GetPivot(), scale, true));
+  ActivateUserMark(mark);
+  m_balloonManager.OnShowMark(mark);
 }
 
 void Framework::ShowTrack(Track const & track)
