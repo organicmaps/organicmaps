@@ -4,6 +4,8 @@
 #import "CustomAlertView.h"
 #import "Statistics.h"
 
+extern NSString * const MapsStatusChangedNotification;
+
 @interface CountryTreeVC () <CountryTreeObserverProtocol>
 
 @end
@@ -35,6 +37,12 @@
   self.tree.SetListener(m_treeObserver);
 
   return self;
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -127,7 +135,7 @@
   return [NSString stringWithUTF8String:self.tree.GetChildName(self.selectedPosition).c_str()];
 }
 
-- (size_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
+- (uint64_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
 {
   return self.tree.GetLeafSize(self.selectedPosition, options).second;
 }
@@ -214,7 +222,7 @@
   }
   else
   {
-    int const position = indexPath.row;
+    int const position = static_cast<int>(indexPath.row);
     bool const isLeaf = self.tree.IsLeaf(position);
     NSInteger const numberOfRows = [self tableView:tableView numberOfRowsInSection:indexPath.section];
     BOOL const isLast = (indexPath.row == numberOfRows - 1);
@@ -248,7 +256,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  int const position = indexPath.row;
+  int const position = static_cast<int>(indexPath.row);
   if (self.tree.IsLeaf(position))
   {
     TStatus const status = self.tree.GetLeafStatus(position);
@@ -261,7 +269,7 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
-    int const position = indexPath.row;
+    int const position = static_cast<int>(indexPath.row);
     self.tree.DeleteCountry(position, self.tree.GetLeafOptions(position));
     [tableView setEditing:NO animated:YES];
   }
@@ -277,7 +285,7 @@
   }
   else
   {
-    self.selectedPosition = indexPath.row;
+    self.selectedPosition = static_cast<int>(indexPath.row);
     if (self.tree.IsLeaf(self.selectedPosition))
     {
       MapCell * cell = [self cellAtPositionInNode:self.selectedPosition];
@@ -302,7 +310,7 @@
 
 - (void)mapCellDidStartDownloading:(MapCell *)cell
 {
-  self.selectedPosition = [self.tableView indexPathForCell:cell].row;
+  self.selectedPosition = static_cast<int>([self.tableView indexPathForCell:cell].row);
   TStatus const status = [self selectedMapStatus];
   if (status == TStatus::EDownloadFailed || status == TStatus::EOutOfMemFailed)
     if ([self canDownloadSelectedMap])
@@ -311,7 +319,7 @@
 
 - (void)mapCellDidCancelDownloading:(MapCell *)cell
 {
-  self.selectedPosition = [self.tableView indexPathForCell:cell].row;
+  self.selectedPosition = static_cast<int>([self.tableView indexPathForCell:cell].row);
   [[self actionSheetToCancelDownloadingSelectedMap] showFromRect:cell.frame inView:cell.superview animated:YES];
 }
 

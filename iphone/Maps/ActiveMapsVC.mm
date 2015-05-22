@@ -5,6 +5,8 @@
 #import "MapCell.h"
 #import "BadgeView.h"
 
+extern NSString * const MapsStatusChangedNotification;
+
 @interface ActiveMapsVC () <ActiveMapsObserverProtocol>
 
 @property (nonatomic) BadgeView * outOfDateBadge;
@@ -29,6 +31,12 @@
   m_mapsObserverSlotId = self.mapsLayout.AddListener(m_mapsObserver);
 
   return self;
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,7 +128,7 @@
   return [NSString stringWithUTF8String:self.mapsLayout.GetCountryName(self.selectedGroup, self.selectedPosition).c_str()];
 }
 
-- (size_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
+- (uint64_t)selectedMapSizeWithOptions:(storage::TMapOptions)options
 {
   return self.mapsLayout.GetCountrySize(self.selectedGroup, self.selectedPosition, options).second;
 }

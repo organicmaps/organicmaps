@@ -71,12 +71,12 @@
 {
 #ifdef DEBUG
   return NO;
-#endif
-
+#else
   bool statisticsEnabled = true;
   Settings::Get("StatisticsEnabled", statisticsEnabled);
 
   return statisticsEnabled;
+#endif
 }
 
 + (Statistics *)instance

@@ -669,7 +669,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
       else
       {
         LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(idx);
-        size_t sizeToDownload = sizes.first;
+        uint64_t sizeToDownload = sizes.first;
         TMapOptions options = static_cast<TMapOptions>(opt);
         if(options & TMapOptions::ECarRouting)
           sizeToDownload += sizes.second;

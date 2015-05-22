@@ -65,11 +65,11 @@ static NSUInteger const kProgressImagesStep = kMaxPercent / kProgressImagesCount
   self.progress = NSUIntegerMax;
   self.updateUITimer = [NSTimer scheduledTimerWithTimeInterval:kUpdateUIInterval target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
   // Handle retain cycle: self -> notificationCenter -> block -> self
-  __weak typeof (self) weakSelf = self;
+  __weak MWMNoMapInterfaceController * weakSelf = self;
   self.notificationCenter = [[MWMWatchNotification alloc] init];
   [self.notificationCenter listenForMessageWithIdentifier:kDownloadingProgressUpdateNotificationId listener:^(NSNumber *progress)
   {
-    __strong typeof (weakSelf) self = weakSelf;
+    __strong MWMNoMapInterfaceController * self = weakSelf;
     [self configUIForDownload];
     self.progress = MIN(kMaxPercent, MAX(0, kMaxPercent * progress.floatValue));
   }];

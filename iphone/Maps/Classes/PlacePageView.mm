@@ -163,12 +163,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)onCompassUpdate:(location::CompassInfo const &)info
 {
   double lat, lon;
-  if (!m_mark || ![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+  if (m_mark == nullptr)
     return;
-
-  PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
-
-  cell.compassView.angle = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), [self pinPoint]) + info.m_bearing;
+  if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+  {
+    PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
+    cell.compassView.angle = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), [self pinPoint]) + info.m_bearing;
+  }
 }
 
 - (CellRow)cellRowForIndexPath:(NSIndexPath *)indexPath

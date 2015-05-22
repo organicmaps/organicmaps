@@ -11,6 +11,12 @@
 
 extern NSString * const kNoLocationControllerIdentifier;
 
+@interface MWMWKInterfaceController()
+
+@property (nonatomic) BOOL haveLocation;
+
+@end
+
 @implementation MWMWKInterfaceController
 
 - (void)willActivate
@@ -22,7 +28,7 @@ extern NSString * const kNoLocationControllerIdentifier;
 - (void)checkLocationService
 {
   MWMWatchLocationTracker *tracker = [MWMWatchLocationTracker sharedLocationTracker];
-  _haveLocation = tracker.locationServiceEnabled;
+  self.haveLocation = tracker.locationServiceEnabled;
   if (self.haveLocation)
     tracker.delegate = self;
   else
@@ -31,7 +37,7 @@ extern NSString * const kNoLocationControllerIdentifier;
 
 - (void)pushControllerWithName:(NSString *)name context:(id)context
 {
-  _haveLocation = NO;
+  self.haveLocation = NO;
   [MWMWatchLocationTracker sharedLocationTracker].delegate = nil;
   [super pushControllerWithName:name context:context];
 }

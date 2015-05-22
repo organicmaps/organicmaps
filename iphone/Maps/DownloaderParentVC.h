@@ -25,7 +25,7 @@ using namespace storage;
 
 @interface DownloaderParentVC : ViewController <MapCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-- (NSString *)formattedMapSize:(size_t)size;
+- (NSString *)formattedMapSize:(uint64_t)size;
 
 - (BOOL)canDownloadSelectedMap;
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap;
@@ -33,7 +33,8 @@ using namespace storage;
 
 @property (nonatomic) UITableView * tableView;
 
-@property (nonatomic) NSInteger selectedPosition;
+// CountryTree methods accept int. It should be enough to store all countries.
+@property (nonatomic) int selectedPosition;
 
 @property (nonatomic) TMapOptions selectedInActionSheetOptions;
 @property (nonatomic) NSMutableDictionary * actionSheetActions;
@@ -41,7 +42,7 @@ using namespace storage;
 // virtual
 - (NSString *)parentTitle;
 - (NSString *)selectedMapName;
-- (size_t)selectedMapSizeWithOptions:(TMapOptions)options;
+- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options;
 - (TStatus)selectedMapStatus;
 - (TMapOptions)selectedMapOptions;
 - (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check;

@@ -9,8 +9,6 @@
 @class MapViewController;
 @class LocationManager;
 
-extern NSString * const MapsStatusChangedNotification;
-
 @interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate, ActiveMapsObserverProtocol, DownloadIndicatorProtocol>
 {
   NSInteger m_standbyCounter;

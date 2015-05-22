@@ -4,11 +4,6 @@
 #import "DiskFreeSpace.h"
 #import "Statistics.h"
 #import "Reachability.h"
-#import "MapsAppDelegate.h"
-
-@interface DownloaderParentVC ()
-
-@end
 
 @implementation DownloaderParentVC
 
@@ -16,10 +11,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   [self.view addSubview:self.tableView];
-
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
 }
 
 - (UITableView *)tableView
@@ -57,7 +49,7 @@
 - (void)performAction:(DownloaderAction)action withSizeCheck:(BOOL)check {}
 - (NSString *)parentTitle { return nil; }
 - (NSString *)selectedMapName { return nil; }
-- (size_t)selectedMapSizeWithOptions:(TMapOptions)options { return 0; }
+- (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options { return 0; }
 - (TStatus)selectedMapStatus { return TStatus::EUnknown; }
 - (TMapOptions)selectedMapOptions { return TMapOptions::EMapOnly; }
 
@@ -70,19 +62,19 @@
 
 #define MB (1024 * 1024)
 
-- (NSString *)formattedMapSize:(size_t)size
+- (NSString *)formattedMapSize:(uint64_t)size
 {
   NSString * sizeString;
   if (size > MB)
-    sizeString = [NSString stringWithFormat:@"%ld %@", (size + 512 * 1024) / MB, L(@"mb")];
+    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 512 * 1024) / MB, L(@"mb")];
   else
-    sizeString = [NSString stringWithFormat:@"%ld %@", (size + 1023) / 1024, L(@"kb")];
+    sizeString = [NSString stringWithFormat:@"%llu %@", (size + 1023) / 1024, L(@"kb")];
   return [sizeString uppercaseString];
 }
 
 - (BOOL)canDownloadSelectedMap
 {
-  size_t const size = [self selectedMapSizeWithOptions:self.selectedInActionSheetOptions];
+  uint64_t const size = [self selectedMapSizeWithOptions:self.selectedInActionSheetOptions];
   NSString * name = [self selectedMapName];
 
   Reachability * reachability = [Reachability reachabilityForInternetConnection];

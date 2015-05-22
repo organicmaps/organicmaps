@@ -28,7 +28,7 @@
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
+extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
 static NSString * const kUDLastLaunchDateKey = @"LastLaunchDate";
 extern NSString * const kUDAlreadyRatedKey = @"UserAlreadyRatedApp";
@@ -92,7 +92,7 @@ void InitLocalizedStrings()
 
 - (void)initMyTrackerService
 {
-  static NSString * const kMyTrackerAppId = @"***REMOVED***";
+  NSString * const kMyTrackerAppId = @"***REMOVED***";
   [MRMyTracker createTracker:kMyTrackerAppId];
   
 #ifdef DEBUG
@@ -243,7 +243,7 @@ void InitLocalizedStrings()
   }
   else if (m_mwmURL)
   {
-    if (f.ShowMapForURL([m_mwmURL UTF8String]));
+    if (f.ShowMapForURL([m_mwmURL UTF8String]))
     {
       [self.m_mapViewController setApiMode:YES animated:NO];
       [[Statistics instance] logApiUsage:m_sourceApplication];
