@@ -283,6 +283,22 @@ public:
   CountryStatusDisplay * GetCountryStatusDisplay() const;
   ScalesProcessor & GetScalesProcessor() { return m_scales; }
 
+  /*!
+   * \brief SetWidgetPivot() places widgets on the screen.
+   * \param widget is a widget ID.
+   * \param pivot is a pivot point of a widget in framebuffer coordinates.
+   * That means pivot points are measured in pixels.
+   * \note The default pivot points of the widgets on the map are set by
+   * InformationDisplay::SetWidgetPivotsByDefault() method. If you decide
+   * to change the default behavior by calling the method
+   * you should take into account that SetWidgetPivot() shall be called:
+   * - on the start of the program;
+   * - when the screen orientation is changed;
+   * - when the screen size is changed;
+   * A caller of Framework::OnSize() is a good place for it.
+   */
+  void SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD const & pivot);
+
   /// Safe function to get current visual scale.
   /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).
   /// @return 1.0 if m_renderPolicy == 0 (possible for Android).

@@ -186,6 +186,11 @@ CountryStatusDisplay * Framework::GetCountryStatusDisplay() const
   return m_informationDisplay.countryStatusDisplay().get();
 }
 
+void Framework::SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD const & pivot)
+{
+  m_informationDisplay.SetWidgetPivot(widget, pivot);
+}
+
 void Framework::GetMaps(vector<string> & maps) const
 {
   Platform & pl = GetPlatform();
@@ -783,7 +788,7 @@ void Framework::OnSize(int w, int h)
     // if gui controller not initialized, than we work in mode "Without gui"
     // and no need to set gui layout. We will not render it.
     if (m_guiController->GetCacheScreen())
-      m_informationDisplay.setDisplayRect(m2::RectI(0, 0, w, h));
+      m_informationDisplay.SetWidgetPivotsByDefault(w, h);
     m_renderPolicy->OnSize(w, h);
   }
 #else

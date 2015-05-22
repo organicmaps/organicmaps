@@ -157,12 +157,14 @@ void InformationDisplay::setController(gui::Controller * controller)
   m_framework->GetAnimController()->AddTask(task);
 }
 
-void InformationDisplay::setDisplayRect(m2::RectI const & rect)
+void InformationDisplay::SetWidgetPivotsByDefault(int screenWidth, int screenHeight)
 {
   double rulerOffsX = RULLER_X_OFFSET;
   double rulerOffsY = RULLER_Y_OFFSET;
   double compassOffsX = COMPASS_X_OFFSET;
   double compassOffsY = COMPASS_Y_OFFSET;
+  m2::RectI const rect = m2::RectI(0, 0, screenWidth, screenHeight);
+
 #ifdef OMIM_OS_ANDROID
   if (GetPlatform().IsTablet())
   {
@@ -281,4 +283,34 @@ void InformationDisplay::measurementSystemChanged()
 void InformationDisplay::ResetRouteMatchingInfo()
 {
   m_locationState->ResetRouteMatchingInfo();
+}
+
+void InformationDisplay::SetWidgetPivot(WidgetType widget, m2::PointD const & pivot)
+{
+  ASSERT(m_ruler, ());
+  switch(widget)
+  {
+  case WidgetType::Ruler:
+    if (m_ruler)
+      m_ruler->setPivot(pivot);
+    return;
+  case WidgetType::CopyrightLabel:
+    if (m_copyrightLabel)
+      m_copyrightLabel->setPivot(pivot);
+    return;
+  case WidgetType::CountryStatusDisplay:
+    if (m_countryStatusDisplay)
+      m_countryStatusDisplay->setPivot(pivot);
+    return;
+  case WidgetType::CompassArrow:
+    if (m_compassArrow)
+      m_compassArrow->setPivot(pivot);
+    return;
+  case WidgetType::DebugLable:
+    if (m_debugLabel)
+      m_debugLabel->setPivot(pivot);
+    return;
+  default:
+    ASSERT(false, ());
+  }
 }

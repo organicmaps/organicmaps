@@ -58,12 +58,23 @@ class InformationDisplay
   void InitCopyright(Framework * fw);
 
 public:
+  enum class WidgetType {
+    Ruler = 0,
+    CopyrightLabel,
+    CountryStatusDisplay,
+    CompassArrow,
+    DebugLable
+  };
 
   InformationDisplay(Framework * framework);
 
   void setController(gui::Controller * controller);
-
-  void setDisplayRect(m2::RectI const & rect);
+  /*!
+   * \brief SetWidgetPivotsByDefault sets the default pivot points for all the widgets on the map.
+   * The pivot points can be overridden by a call of SetWidgetPivot()
+   * after Framework::OnSize() call.
+   */
+  void SetWidgetPivotsByDefault(int screenWidth, int screenHeight);
   void setVisualScale(double visualScale);
 
   bool isCopyrightActive() const;
@@ -88,4 +99,6 @@ public:
   shared_ptr<CountryStatusDisplay> const & countryStatusDisplay() const;
 
   void ResetRouteMatchingInfo();
+
+  void SetWidgetPivot(WidgetType widget, m2::PointD const & pivot);
 };
