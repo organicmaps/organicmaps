@@ -219,14 +219,14 @@ bool IsLocationEmulation(QMouseEvent * e)
   void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   {
     TBase::mouseMoveEvent(e);
-    if (IsLeftButton(e))
+    if (IsLeftButton(e) && !IsLocationEmulation(e))
       m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
   }
 
   void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     TBase::mouseReleaseEvent(e);
-    if (IsLeftButton(e))
+    if (IsLeftButton(e) && !IsLocationEmulation(e))
       m_framework->TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
 

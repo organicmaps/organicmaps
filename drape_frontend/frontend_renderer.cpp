@@ -496,6 +496,7 @@ FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(ren
 void FrontendRenderer::Routine::Do()
 {
   gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
+  m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));
 
   m_renderer.m_tileTree->SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, &m_renderer, _1, _2, _3),
                                      bind(&FrontendRenderer::OnDeferRenderGroup, &m_renderer, _1, _2, _3),
@@ -590,6 +591,32 @@ void FrontendRenderer::AddUserEvent(UserEvent const & event)
   m_userEventStream.AddEvent(event);
   if (IsInInfinityWaiting())
     CancelMessageWaiting();
+}
+
+void FrontendRenderer::ChangeModelView(m2::PointD const & center)
+{
+  AddUserEvent(SetCenterEvent(center, -1, true));
+}
+
+void FrontendRenderer::ChangeModelView(double azimuth)
+{
+  AddUserEvent(RotateEvent(azimuth));
+}
+
+void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
+{
+  AddUserEvent(SetRectEvent(rect, true, scales::GetUpperComfortScale(), true));
+}
+
+void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
+                                       m2::PointD const & pxZero, ScreenBase const & screen)
+{
+  double offset = (screen.PtoG(screen.PixelRect().Center()) - screen.PtoG(pxZero)).Length();
+  m2::PointD viewVector = userPos.Move(1.0, -azimuth + math::pi2) - userPos;
+  viewVector.Normalize();
+
+  AddUserEvent(SetAnyRectEvent(m2::AnyRectD(userPos + (viewVector * offset), -azimuth,
+                                            screen.GlobalRect().GetLocalRect()), true /* animate */));
 }
 
 ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)

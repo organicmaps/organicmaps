@@ -40,6 +40,7 @@ namespace df
 {
 
 class FrontendRenderer : public BaseRenderer
+                       , public MyPositionController::Listener
 {
 public:
   using TModelViewChanged = function<void (ScreenBase const & screen)>;
@@ -87,6 +88,13 @@ public:
 #endif
 
   void AddUserEvent(UserEvent const & event);
+
+  /// MyPositionController::Listener
+  void ChangeModelView(m2::PointD const & center) override;
+  void ChangeModelView(double azimuth) override;
+  void ChangeModelView(m2::RectD const & rect) override;
+  void ChangeModelView(m2::PointD const & userPos, double azimuth,
+                       m2::PointD const & pxZero, ScreenBase const & screen) override;
 
 protected:
   virtual void AcceptMessage(ref_ptr<Message> message);

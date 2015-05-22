@@ -1,4 +1,5 @@
 #include "my_position_controller.hpp"
+#include "visual_params.hpp"
 
 #include "indexer/mercator.hpp"
 
@@ -10,6 +11,7 @@ namespace df
 namespace
 {
 
+int const POSITION_Y_OFFSET = 120;
 double const GPS_BEARING_LIFETIME_S = 5.0;
 double const MIN_SPEED_THRESHOLD_MPS = 1.0;
 
@@ -48,11 +50,17 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
   , m_drawDirection(0.0)
   , m_lastGPSBearing(false)
   , m_isVisible(false)
+  , m_isDirtyViewport(false)
 {
   if (initMode > location::MODE_UNKNOWN_POSITION)
     m_afterPendingMode = initMode;
   else
     m_modeInfo = location::MODE_UNKNOWN_POSITION;
+}
+
+void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
+{
+  m_listener = listener;
 }
 
 m2::PointD const & MyPositionController::Position() const
@@ -168,16 +176,11 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     SetModeInfo(ChangeMode(m_modeInfo, m_afterPendingMode));
     m_afterPendingMode = location::MODE_FOLLOW;
   }
-  else
-  {
-    AnimateFollow();
-  }
 }
 
 void MyPositionController::OnCompassUpdate(location::CompassInfo const & info)
 {
-  if (Assign(info))
-    AnimateFollow();
+  Assign(info);
 }
 
 void MyPositionController::SetModeListener(location::TMyPositionModeChanged const & fn)
@@ -189,8 +192,25 @@ void MyPositionController::SetModeListener(location::TMyPositionModeChanged cons
 void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
                                   dp::UniformValuesStorage const  & commonUniforms)
 {
-  if (m_shape != nullptr && IsVisible() && GetMode() > location::MODE_PENDING_POSITION)
+  location::EMyPositionMode currentMode = GetMode();
+  if (m_shape != nullptr && IsVisible() && currentMode > location::MODE_PENDING_POSITION)
   {
+    if (m_isDirtyViewport)
+    {
+      if (currentMode == location::MODE_FOLLOW)
+      {
+        ChangeModelView(m_position);
+      }
+      else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
+      {
+        m2::RectD const & pixelRect = screen.PixelRect();
+        m2::PointD pxZero(pixelRect.Center().x,
+                          pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
+        ChangeModelView(m_position, m_drawDirection, pxZero, screen);
+      }
+      m_isDirtyViewport = false;
+    }
+
     m_shape->SetPosition(m_position);
     m_shape->SetAzimuth(m_drawDirection);
     m_shape->SetIsValidAzimuth(IsRotationActive());
@@ -201,12 +221,18 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
 
 void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldMode, location::EMyPositionMode newMode)
 {
-  //TODO UVR (rakhuba) restore viewport animation logic
-}
-
-void MyPositionController::AnimateFollow()
-{
-  //TODO UVR (rakhuba) restore viewport animation logic
+  if (oldMode == location::MODE_PENDING_POSITION && newMode == location::MODE_FOLLOW)
+  {
+    if (!TestModeBit(m_modeInfo, FixedZoomBit))
+    {
+      m2::PointD const size(m_errorRadius, m_errorRadius);
+      ChangeModelView(m2::RectD(m_position - size, m_position + size));
+    }
+  }
+  else if (oldMode == location::MODE_ROTATE_AND_FOLLOW && newMode == location::MODE_UNKNOWN_POSITION)
+  {
+    ChangeModelView(0.0);
+  }
 }
 
 void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigable)
@@ -224,18 +250,20 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
     SetDirection(my::DegToRad(info.m_bearing));
     m_lastGPSBearing.Reset();
   }
+
+  m_isDirtyViewport = true;
 }
 
-bool MyPositionController::Assign(location::CompassInfo const & info)
+void MyPositionController::Assign(location::CompassInfo const & info)
 {
   if ((IsInRouting() && GetMode() >= location::MODE_FOLLOW) ||
       (m_lastGPSBearing.ElapsedSeconds() < GPS_BEARING_LIFETIME_S))
   {
-    return false;
+    return;
   }
 
   SetDirection(info.m_bearing);
-  return true;
+  m_isDirtyViewport = true;
 }
 
 void MyPositionController::SetDirection(double bearing)
@@ -281,15 +309,9 @@ void MyPositionController::StopLocationFollow()
 {
   location::EMyPositionMode currentMode = GetMode();
   if (currentMode > location::MODE_NOT_FOLLOW)
-  {
-    StopAllAnimations();
     SetModeInfo(ChangeMode(m_modeInfo, location::MODE_NOT_FOLLOW));
-  }
   else if (currentMode == location::MODE_PENDING_POSITION)
-  {
-    StopAllAnimations();
     m_afterPendingMode = location::MODE_NOT_FOLLOW;
-  }
 }
 
 void MyPositionController::StopCompassFollow()
@@ -297,13 +319,32 @@ void MyPositionController::StopCompassFollow()
   if (GetMode() != location::MODE_ROTATE_AND_FOLLOW)
     return;
 
-  StopAllAnimations();
   SetModeInfo(ChangeMode(m_modeInfo, location::MODE_FOLLOW));
 }
 
-void MyPositionController::StopAllAnimations()
+void MyPositionController::ChangeModelView(m2::PointD const & center)
 {
-  // TODO
+  if (m_listener)
+    m_listener->ChangeModelView(center);
+}
+
+void MyPositionController::ChangeModelView(double azimuth)
+{
+  if (m_listener)
+    m_listener->ChangeModelView(azimuth);
+}
+
+void MyPositionController::ChangeModelView(m2::RectD const & rect)
+{
+  if (m_listener)
+    m_listener->ChangeModelView(rect);
+}
+
+void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
+                                           m2::PointD const & pxZero, ScreenBase const & screen)
+{
+  if (m_listener)
+    m_listener->ChangeModelView(userPos, azimuth, pxZero, screen);
 }
 
 }

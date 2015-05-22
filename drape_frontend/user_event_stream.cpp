@@ -147,8 +147,13 @@ bool UserEventStream::Scale(m2::PointD const & pxScaleCenter, double factor, boo
 
 bool UserEventStream::SetCenter(m2::PointD const & center, int zoom, bool isAnim)
 {
-  m2::RectD rect = df::GetRectForDrawScale(zoom, center);
-  return SetRect(rect, zoom, true, isAnim);
+  if (zoom == -1)
+  {
+    m2::AnyRectD r = GetTargetRect();
+    return SetRect(m2::AnyRectD(center, r.Angle(), r.GetLocalRect()), isAnim);
+  }
+
+  return SetRect(df::GetRectForDrawScale(zoom, center), zoom, true, isAnim);
 }
 
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim)
@@ -163,7 +168,7 @@ bool UserEventStream::SetRect(m2::AnyRectD const & rect, bool isAnim)
 {
   if (isAnim)
   {
-    m2::AnyRectD startRect = m_navigator.Screen().GlobalRect();
+    m2::AnyRectD startRect = GetCurrentRect();
     double const duration = ModelViewAnimation::GetDuration(startRect, rect, m_navigator.Screen());
     m_animation.reset(new ModelViewAnimation(startRect, rect, duration));
     return false;
