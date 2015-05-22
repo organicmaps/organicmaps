@@ -101,14 +101,4 @@
    <FileRef
       location = "container:MapsMe/MapsMe.xcodeproj">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "experemental">
-      <FileRef
-         location = "group:feature_changeset/feature_changeset.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:TestsOnDevice/TestsOnDevice.xcodeproj">
-      </FileRef>
-   </Group>
 </Workspace>
