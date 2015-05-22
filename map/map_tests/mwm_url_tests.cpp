@@ -48,7 +48,7 @@ namespace
     {
       double tLat, tLon;
       GetMark(index)->GetLatLon(tLat, tLon);
-      return my::AlmostEqual(tLat, lat) && my::AlmostEqual(tLon, lon);
+      return my::AlmostEqualULPs(tLat, lat) && my::AlmostEqualULPs(tLon, lon);
     }
 
     bool TestName(int index, string const & name)

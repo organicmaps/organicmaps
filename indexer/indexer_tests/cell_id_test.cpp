@@ -31,7 +31,7 @@ UNIT_TEST(CommonCell)
 namespace
 {
   template <typename T1, typename T2>
-  bool PairsAlmostEqual(pair<T1, T1> const & p1, pair<T2, T2> const & p2)
+  bool PairsAlmostEqualULPs(pair<T1, T1> const & p1, pair<T2, T2> const & p2)
   {
     return fabs(p1.first - p2.first) + fabs(p1.second - p2.second) < 0.00001;
   }

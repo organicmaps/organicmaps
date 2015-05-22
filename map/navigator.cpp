@@ -440,11 +440,11 @@ namespace
     void OnStep(double ts)
     {
       double elapsed = ts - m_startTime;
-      if (my::AlmostEqual(elapsed, 0.0))
+      if (my::AlmostEqualULPs(elapsed, 0.0))
         return;
       
       double t = elapsed / m_deltaTime;
-      if (t > 1.0 || my::AlmostEqual(t, 1.0))
+      if (t > 1.0 || my::AlmostEqualULPs(t, 1.0))
       {
         m_fn(m_finger1Start + m_deltaFinger1, m_finger2Start + m_deltaFinger2, m_prevPt1, m_prevPt2);
         End();

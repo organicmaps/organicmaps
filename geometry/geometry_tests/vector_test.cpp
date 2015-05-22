@@ -8,7 +8,7 @@ namespace
 template <class T, size_t N> bool EqualArrays(T (&a1)[N], T (&a2)[N])
   {
     for (size_t i = 0; i < N; ++i)
-      if (!my::AlmostEqual(a1[i], a2[i]))
+      if (!my::AlmostEqualULPs(a1[i], a2[i]))
         return false;
     return true;
   }

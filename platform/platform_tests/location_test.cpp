@@ -23,18 +23,18 @@ UNIT_TEST(IsLonValid)
 
 UNIT_TEST(AngleToBearing)
 {
-  TEST_ALMOST_EQUAL(location::AngleToBearing(0.), 90., ());
-  TEST_ALMOST_EQUAL(location::AngleToBearing(30.), 60., ());
-  TEST_ALMOST_EQUAL(location::AngleToBearing(100.), 350., ());
-  TEST_ALMOST_EQUAL(location::AngleToBearing(370.), 80., ());
-  TEST_ALMOST_EQUAL(location::AngleToBearing(-370.), 100., ());
+  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(0.), 90., ());
+  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(30.), 60., ());
+  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(100.), 350., ());
+  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(370.), 80., ());
+  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(-370.), 100., ());
 }
 
 UNIT_TEST(BearingToAngle)
 {
-  TEST_ALMOST_EQUAL(location::BearingToAngle(0.), 90., ());
-  TEST_ALMOST_EQUAL(location::BearingToAngle(30.), 60., ());
-  TEST_ALMOST_EQUAL(location::BearingToAngle(100.), 350., ());
-  TEST_ALMOST_EQUAL(location::BearingToAngle(370.), 80., ());
-  TEST_ALMOST_EQUAL(location::AngleToBearing(-370.), 100., ());
+  TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(0.), 90., ());
+  TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(30.), 60., ());
+  TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(100.), 350., ());
+  TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(370.), 80., ());
+  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(-370.), 100., ());
 }

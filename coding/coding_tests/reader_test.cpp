@@ -125,7 +125,7 @@ UNIT_TEST(ReaderStreamBuf)
 
     TEST_EQUAL(str, "hey!", ());
     TEST_EQUAL(i, 1, ());
-    TEST_ALMOST_EQUAL(d, 3.14, ());
+    TEST_ALMOST_EQUAL_ULPS(d, 3.14, ());
     TEST_EQUAL(ull, 0x0102030405060708ull, ());
   }
 

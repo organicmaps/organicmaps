@@ -276,7 +276,7 @@ void CPUDrawer::DrawSearchArrow(double azimut)
   }
 
   double cosa = cos(azIn2Pi);
-  if (!my::AlmostEqual(cosa, 0.0))
+  if (!my::AlmostEqualULPs(cosa, 0.0))
     length = length / fabs(cosa);
 
   m2::PointD offsetPoint(length - 0.65 * symbolRect.SizeY(), 0.0);

@@ -53,11 +53,11 @@ namespace my
   ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST("#X" >= "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
-#define TEST_ALMOST_EQUAL(X, Y, msg) { if (::my::AlmostEqual(X, Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(my::AlmostEqual("#X", "#Y")", \
+#define TEST_ALMOST_EQUAL_ULPS(X, Y, msg) { if (::my::AlmostEqualULPs(X, Y)) {} else { \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(my::AlmostEqualULPs("#X", "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}
-#define TEST_NOT_ALMOST_EQUAL(X, Y, msg) { if (!::my::AlmostEqual(X, Y)) {} else { \
-  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(!my::AlmostEqual("#X", "#Y")", \
+#define TEST_NOT_ALMOST_EQUAL_ULPS(X, Y, msg) { if (!::my::AlmostEqualULPs(X, Y)) {} else { \
+  ::my::OnTestFailed(SRC(), ::my::impl::Message("TEST(!my::AlmostEqualULPs("#X", "#Y")", \
                                                  ::my::impl::Message(X, Y), \
                                                  ::my::impl::Message msg));}}

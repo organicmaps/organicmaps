@@ -134,7 +134,7 @@ uint32_t Route::GetTime() const
   ASSERT_LESS_OR_EQUAL(m_times[idx].first, m_poly.GetSize(), ());
   double const dist = distFn(idx > 0 ? m_times[idx - 1].first : 0, m_times[idx].first + 1);
 
-  if (!my::AlmostEqual(dist, 0.))
+  if (!my::AlmostEqualULPs(dist, 0.))
   {
     double const distRemain = distFn(m_current.m_ind, m_times[idx].first + 1) -
                         MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind));
@@ -219,7 +219,7 @@ double Route::GetPolySegAngle(size_t ind) const
   {
     p2 = m_poly.GetPoint(i);
   }
-  while (m2::AlmostEqual(p1, p2) && ++i < polySz);
+  while (m2::AlmostEqualULPs(p1, p2) && ++i < polySz);
   return (i == polySz) ? 0 : my::RadToDeg(ang::AngleTo(p1, p2));
 }
 

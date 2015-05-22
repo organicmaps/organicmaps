@@ -45,9 +45,9 @@ UNIT_TEST(CellID_CheckRectPoints)
       TId neibour = TId::FromXY(xy.first - r, xy.second, level);
       TConverter::GetCellBounds(neibour, minX_, minY_, maxX_, maxY_);
 
-      TEST_ALMOST_EQUAL(minX, maxX_, ());
-      TEST_ALMOST_EQUAL(minY, minY_, ());
-      TEST_ALMOST_EQUAL(maxY, maxY_, ());
+      TEST_ALMOST_EQUAL_ULPS(minX, maxX_, ());
+      TEST_ALMOST_EQUAL_ULPS(minY, minY_, ());
+      TEST_ALMOST_EQUAL_ULPS(maxY, maxY_, ());
 
       TEST_EQUAL(D2I(minX, minY), D2I(maxX_, minY_), ());
       TEST_EQUAL(D2I(minX, maxY), D2I(maxX_, maxY_), ());
@@ -58,9 +58,9 @@ UNIT_TEST(CellID_CheckRectPoints)
       TId neibour = TId::FromXY(xy.first + r, xy.second, level);
       TConverter::GetCellBounds(neibour, minX_, minY_, maxX_, maxY_);
 
-      TEST_ALMOST_EQUAL(maxX, minX_, ());
-      TEST_ALMOST_EQUAL(minY, minY_, ());
-      TEST_ALMOST_EQUAL(maxY, maxY_, ());
+      TEST_ALMOST_EQUAL_ULPS(maxX, minX_, ());
+      TEST_ALMOST_EQUAL_ULPS(minY, minY_, ());
+      TEST_ALMOST_EQUAL_ULPS(maxY, maxY_, ());
 
       TEST_EQUAL(D2I(maxX, minY), D2I(minX_, minY_), ());
       TEST_EQUAL(D2I(maxX, maxY), D2I(minX_, maxY_), ());
@@ -71,9 +71,9 @@ UNIT_TEST(CellID_CheckRectPoints)
       TId neibour = TId::FromXY(xy.first, xy.second - r, level);
       TConverter::GetCellBounds(neibour, minX_, minY_, maxX_, maxY_);
 
-      TEST_ALMOST_EQUAL(minY, maxY_, ());
-      TEST_ALMOST_EQUAL(minX, minX_, ());
-      TEST_ALMOST_EQUAL(maxX, maxX_, ());
+      TEST_ALMOST_EQUAL_ULPS(minY, maxY_, ());
+      TEST_ALMOST_EQUAL_ULPS(minX, minX_, ());
+      TEST_ALMOST_EQUAL_ULPS(maxX, maxX_, ());
 
       TEST_EQUAL(D2I(minX, minY), D2I(minX_, maxY_), ());
       TEST_EQUAL(D2I(maxX, minY), D2I(maxX_, maxY_), ());
@@ -84,9 +84,9 @@ UNIT_TEST(CellID_CheckRectPoints)
       TId neibour = TId::FromXY(xy.first, xy.second + r, level);
       TConverter::GetCellBounds(neibour, minX_, minY_, maxX_, maxY_);
 
-      TEST_ALMOST_EQUAL(maxY, minY_, ());
-      TEST_ALMOST_EQUAL(minX, minX_, ());
-      TEST_ALMOST_EQUAL(maxX, maxX_, ());
+      TEST_ALMOST_EQUAL_ULPS(maxY, minY_, ());
+      TEST_ALMOST_EQUAL_ULPS(minX, minX_, ());
+      TEST_ALMOST_EQUAL_ULPS(maxX, maxX_, ());
 
       TEST_EQUAL(D2I(minX, maxY), D2I(minX_, minY_), ());
       TEST_EQUAL(D2I(maxX, maxY), D2I(maxX_, minY_), ());

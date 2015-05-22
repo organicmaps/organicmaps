@@ -21,11 +21,11 @@ UNIT_TEST(Mercator_Grid)
       double const lon1 = MercatorBounds::XToLon(x);
 
       // Normal assumption for any projection.
-      TEST_ALMOST_EQUAL(static_cast<double>(lat), lat1, ());
-      TEST_ALMOST_EQUAL(static_cast<double>(lon), lon1, ());
+      TEST_ALMOST_EQUAL_ULPS(static_cast<double>(lat), lat1, ());
+      TEST_ALMOST_EQUAL_ULPS(static_cast<double>(lon), lon1, ());
 
       // x is actually lon unmodified.
-      TEST_ALMOST_EQUAL(x, static_cast<double>(lon), ());
+      TEST_ALMOST_EQUAL_ULPS(x, static_cast<double>(lon), ());
     }
   }
 }

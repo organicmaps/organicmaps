@@ -121,7 +121,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
     double const dist = m_route.GetCurrentSqDistance(position);
-    if (dist > m_lastDistance || my::AlmostEqual(dist, m_lastDistance, 1 << 16))
+    if (dist > m_lastDistance || my::AlmostEqualULPs(dist, m_lastDistance, 1 << 16))
     {
       ++m_moveAwayCounter;
       m_lastDistance = dist;

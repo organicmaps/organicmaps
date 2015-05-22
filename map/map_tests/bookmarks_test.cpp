@@ -136,8 +136,8 @@ char const * kmlString =
 
     bm = cat.GetBookmark(1);
     m2::PointD org = bm->GetOrg();
-    TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.566765, ());
-    TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.900047, ());
+    TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.566765, ());
+    TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.900047, ());
     TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
     TEST_EQUAL(bm->GetType(), "placemark-blue", ());
     TEST_EQUAL(bm->GetDescription(), "", ());
@@ -145,8 +145,8 @@ char const * kmlString =
 
     bm = cat.GetBookmark(0);
     org = bm->GetOrg();
-    TEST_ALMOST_EQUAL(MercatorBounds::XToLon(org.x), 27.551532, ());
-    TEST_ALMOST_EQUAL(MercatorBounds::YToLat(org.y), 53.89306, ());
+    TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.551532, ());
+    TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.89306, ());
     TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
     TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
     TEST_EQUAL(bm->GetTimeStamp(), my::INVALID_TIME_STAMP, ());
@@ -313,7 +313,7 @@ UNIT_TEST(Bookmarks_Getting)
   fm.ShowRect(m2::RectD(0, 0, 80, 40));
 
   // This is not correct because Framework::OnSize doesn't work until SetRenderPolicy is called.
-  //TEST(m2::AlmostEqual(m2::PointD(400, 200), pixC), (pixC));
+  //TEST(m2::AlmostEqualULPs(m2::PointD(400, 200), pixC), (pixC));
 
   char const * arrCat[] = { "cat1", "cat2", "cat3" };
   for (int i = 0; i < 3; ++i)
@@ -605,9 +605,9 @@ char const * kmlString3 =
       return false;
     if (b1.GetType() != b2.GetType())
       return false;
-    if (!m2::AlmostEqual(b1.GetOrg(), b2.GetOrg()))
+    if (!m2::AlmostEqualULPs(b1.GetOrg(), b2.GetOrg()))
       return false;
-    if (!my::AlmostEqual(b1.GetScale(), b2.GetScale()))
+    if (!my::AlmostEqualULPs(b1.GetScale(), b2.GetScale()))
       return false;
 
     // do not check timestamp
@@ -639,7 +639,7 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
 
 namespace
 {
-bool AlmostEqual(double const & a, double const & b)
+bool AlmostEqualULPs(double const & a, double const & b)
 {
   if (fabs(a - b) <= 1e-6)
     return true;
@@ -666,7 +666,7 @@ UNIT_TEST(TrackParsingTest_1)
   {
     Track const * track = cat->GetTrack(i);
     TEST_EQUAL(names[i], track->GetName(), ());
-    TEST(AlmostEqual(track->GetLengthMeters(), length[i]), (track->GetLengthMeters(), length[i]));
+    TEST(AlmostEqualULPs(track->GetLengthMeters(), length[i]), (track->GetLengthMeters(), length[i]));
     TEST_EQUAL(col[i], track->GetMainColor(), ());
   }
 }

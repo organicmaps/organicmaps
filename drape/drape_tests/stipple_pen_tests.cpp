@@ -30,10 +30,10 @@ namespace
 
   bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
   {
-    return my::AlmostEqual(r1.minX(), r2.minX()) &&
-           my::AlmostEqual(r1.minY(), r2.minY()) &&
-           my::AlmostEqual(r1.maxX(), r2.maxX()) &&
-           my::AlmostEqual(r1.maxY(), r2.maxY());
+    return my::AlmostEqualULPs(r1.minX(), r2.minX()) &&
+           my::AlmostEqualULPs(r1.minY(), r2.minY()) &&
+           my::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
+           my::AlmostEqualULPs(r1.maxY(), r2.maxY());
   }
 }
 

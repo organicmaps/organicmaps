@@ -49,7 +49,7 @@ size_t FindSingleStrip(size_t n, IsVisibleF isVisible)
 template <typename IterT> bool TestPolygonPreconditions(IterT beg, IterT end)
 {
   ASSERT_GREATER ( distance(beg, end), 2, () );
-  ASSERT ( !AlmostEqual(*beg, *(--end)), () );
+  ASSERT ( !AlmostEqualULPs(*beg, *(--end)), () );
   return true;
 }
 #endif

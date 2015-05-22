@@ -17,7 +17,7 @@ namespace
 {
   bool is_equal(double d1, double d2)
   {
-    //return my::AlmostEqual(d1, d2, 100000000);
+    //return my::AlmostEqualULPs(d1, d2, 100000000);
     return (fabs(d1 - d2) < MercatorBounds::GetCellID2PointAbsEpsilon());
   }
 

@@ -25,7 +25,7 @@ namespace feature
   template <>
   inline bool are_points_equal<m2::PointD>(m2::PointD const & p1, m2::PointD const & p2)
   {
-    return AlmostEqual(p1, p2);
+    return AlmostEqualULPs(p1, p2);
   }
 
   class BoundsDistance : public m2::DistanceToLineSquare<m2::PointD>

@@ -182,7 +182,7 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & vi
 
 void Query::SetPosition(m2::PointD const & pos)
 {
-  if (!m2::AlmostEqual(pos, m_position))
+  if (!m2::AlmostEqualULPs(pos, m_position))
   {
     storage::CountryInfo ci;
     m_pInfoGetter->GetRegionInfo(pos, ci);

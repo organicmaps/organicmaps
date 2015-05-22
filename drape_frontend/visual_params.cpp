@@ -30,7 +30,7 @@ struct VisualScaleFinder
 
   bool operator()(visual_scale_t const & node)
   {
-    return my::AlmostEqual(node.second, m_vs);
+    return my::AlmostEqualULPs(node.second, m_vs);
   }
 
   double m_vs;

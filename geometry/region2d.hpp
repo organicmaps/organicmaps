@@ -18,12 +18,12 @@ namespace m2
       template <class PointT>
       bool EqualPoints(PointT const & p1, PointT const & p2) const
       {
-        return m2::AlmostEqual(p1, p2);
+        return m2::AlmostEqualULPs(p1, p2);
       }
       template <class CoordT>
       bool EqualZero(CoordT val, CoordT exp) const
       {
-        return my::AlmostEqual(val + exp, exp);
+        return my::AlmostEqualULPs(val + exp, exp);
       }
     };
 

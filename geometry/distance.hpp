@@ -27,7 +27,7 @@ public:
     m_D = m_P1 - m_P0;
     m_D2 = Length(m_D);
 
-    if (my::AlmostEqual(m_D2, 0.0))
+    if (my::AlmostEqualULPs(m_D2, 0.0))
     {
       // make zero vector - then all DotProduct will be equal to zero
       m_D = m2::PointD::Zero();

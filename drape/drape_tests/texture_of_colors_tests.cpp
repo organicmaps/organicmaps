@@ -24,10 +24,10 @@ namespace
 
 void TestRects(m2::RectF const & a, m2::RectF const & b)
 {
-  TEST_ALMOST_EQUAL(a.minX(), b.minX(), ());
-  TEST_ALMOST_EQUAL(a.maxX(), b.maxX(), ());
-  TEST_ALMOST_EQUAL(a.minY(), b.minY(), ());
-  TEST_ALMOST_EQUAL(a.maxY(), b.maxY(), ());
+  TEST_ALMOST_EQUAL_ULPS(a.minX(), b.minX(), ());
+  TEST_ALMOST_EQUAL_ULPS(a.maxX(), b.maxX(), ());
+  TEST_ALMOST_EQUAL_ULPS(a.minY(), b.minY(), ());
+  TEST_ALMOST_EQUAL_ULPS(a.maxY(), b.maxY(), ());
 }
 
 void InitOpenGLTextures(int const w, int const h)

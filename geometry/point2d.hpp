@@ -43,7 +43,7 @@ namespace m2
 
     bool IsAlmostZero() const
     {
-      return AlmostEqual(*this, Point<T>(0,0));
+      return AlmostEqualULPs(*this, Point<T>(0,0));
     }
 
     Point<T> Move(T len, T ang) const
@@ -276,7 +276,7 @@ namespace m2
     PointT const edgeR = vNext - v;
     double const cpLR = CrossProduct(edgeR, edgeL);
 
-    if (my::AlmostEqual(cpLR,  0.0))
+    if (my::AlmostEqualULPs(cpLR,  0.0))
     {
       // Points vPrev, v, vNext placed on one line;
       // use property that polygon has CCW orientation.
@@ -315,9 +315,9 @@ namespace m2
   }
 
   template <typename T>
-  bool AlmostEqual(m2::Point<T> const & a, m2::Point<T> const & b, unsigned int maxULPs = 256)
+  bool AlmostEqualULPs(m2::Point<T> const & a, m2::Point<T> const & b, unsigned int maxULPs = 256)
   {
-    return my::AlmostEqual(a.x, b.x, maxULPs) && my::AlmostEqual(a.y, b.y, maxULPs);
+    return my::AlmostEqualULPs(a.x, b.x, maxULPs) && my::AlmostEqualULPs(a.y, b.y, maxULPs);
   }
 
   /// Calculate three points of a triangle (p1, p2 and p3) which give an arrow that
@@ -327,7 +327,7 @@ namespace m2
   template <typename T, typename TT, typename PointT = Point<T>>
   void GetArrowPoints(PointT const & b, PointT const & e, T w, T l, array<Point<TT>, 3> & arrPnts)
   {
-    ASSERT(!m2::AlmostEqual(b, e), ());
+    ASSERT(!m2::AlmostEqualULPs(b, e), ());
 
     PointT const beVec = e - b;
     PointT beNormalizedVec = beVec.Normalize();
@@ -385,9 +385,9 @@ namespace my
 {
 
 template <typename T>
-bool AlmostEqual(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned int maxULPs = 256)
+bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned int maxULPs = 256)
 {
-  return m2::AlmostEqual(p1, p2, maxULPs);
+  return m2::AlmostEqualULPs(p1, p2, maxULPs);
 }
 
 }

@@ -278,17 +278,17 @@ UNIT_TEST(HS_FindHouseSmoke)
 
   {
     vector<string> streetName(1, "Московская улица");
-    TEST_ALMOST_EQUAL(FindHouse(index, streetName, "7", 100),
+    TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "7", 100),
                       m2::PointD(27.539850827603416406, 64.222406776416349317), ());
   }
   {
     vector<string> streetName(1, "проспект Независимости");
-    TEST_ALMOST_EQUAL(FindHouse(index, streetName, "10", 40),
+    TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "10", 40),
                       m2::PointD(27.551358845467561309, 64.234708728154814139), ());
   }
   {
     vector<string> streetName(1, "улица Ленина");
-    TEST_ALMOST_EQUAL(FindHouse(index, streetName, "9", 50),
+    TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "9", 50),
                       m2::PointD(27.560341563525355468, 64.240918042070561), ());
   }
 }

@@ -19,15 +19,15 @@ UNIT_TEST(Jansson_Smoke)
 
   json_t * lat = json_object_get(location, "latitude");
   TEST(json_is_real(lat), ());
-  TEST_ALMOST_EQUAL(json_real_value(lat), 47.3345141, ());
+  TEST_ALMOST_EQUAL_ULPS(json_real_value(lat), 47.3345141, ());
 
   json_t * lon = json_object_get(location, "longitude");
   TEST(json_is_real(lon), ());
-  TEST_ALMOST_EQUAL(json_real_value(lon), 8.5312839, ());
+  TEST_ALMOST_EQUAL_ULPS(json_real_value(lon), 8.5312839, ());
 
   json_t * acc = json_object_get(location, "accuracy");
   TEST(json_is_real(acc), ());
-  TEST_ALMOST_EQUAL(json_real_value(acc), 22.0, ());
+  TEST_ALMOST_EQUAL_ULPS(json_real_value(acc), 22.0, ());
 
   bool wasException = false;
   try

@@ -27,7 +27,7 @@ public:
     {
       if (m_name != other.m_name)
         return m_name < other.m_name;
-      if (!my::AlmostEqual(m_depthLayer, other.m_depthLayer))
+      if (!my::AlmostEqualULPs(m_depthLayer, other.m_depthLayer))
         return m_depthLayer < other.m_depthLayer;
 
       return m_anchor < other.m_anchor;

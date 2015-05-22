@@ -92,7 +92,7 @@ string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac
 
   // This condition is too heavy for production purposes (but more correct).
   //if (my::rounds(value * 3600.0 * pow(10, dac)) != 0)
-  if (!AlmostEqual(value, 0.0))
+  if (!AlmostEqualULPs(value, 0.0))
   {
     char postfix = positive;
     if (value < 0.0)

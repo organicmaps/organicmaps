@@ -48,7 +48,7 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
     len += vLen;
     i += 1;
   }
-  if (my::AlmostEqual(vLen, 0.))
+  if (my::AlmostEqualULPs(vLen, 0.))
     return false;
 
   double lenForArrow = len - afterTurn;
@@ -63,15 +63,15 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
     j += 1;
   }
   ASSERT_GREATER(j, 0, ());
-  if (m2::AlmostEqual(ptsTurn[j - 1], ptsTurn[j]))
+  if (m2::AlmostEqualULPs(ptsTurn[j - 1], ptsTurn[j]))
     return false;
   m2::PointD arrowEnd = m2::PointAtSegment(ptsTurn[j - 1], ptsTurn[j], vLenForArrow - (lenForArrow - arrowLength));
 
-  if (my::AlmostEqual(len, afterTurn))
+  if (my::AlmostEqualULPs(len, afterTurn))
     ptsTurn.resize(i + 1);
   else
   {
-    if (!m2::AlmostEqual(ptsTurn[i], ptsTurn[i - 1]))
+    if (!m2::AlmostEqualULPs(ptsTurn[i], ptsTurn[i - 1]))
     {
       m2::PointD const p = m2::PointAtSegment(ptsTurn[i - 1], ptsTurn[i], vLen - (len - afterTurn));
       ptsTurn[i] = p;
@@ -97,10 +97,10 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
     len += vLen;
     i -= 1;
   }
-  if (my::AlmostEqual(vLen, 0.))
+  if (my::AlmostEqualULPs(vLen, 0.))
     return false;
 
-  if (my::AlmostEqual(len, beforeTurn))
+  if (my::AlmostEqualULPs(len, beforeTurn))
   {
     if (i != 0)
     {
@@ -110,7 +110,7 @@ bool ClipArrowBodyAndGetArrowDirection(vector<m2::PointD> & ptsTurn, pair<m2::Po
   }
   else
   {
-    if (!m2::AlmostEqual(ptsTurn[i], ptsTurn[i + 1]))
+    if (!m2::AlmostEqualULPs(ptsTurn[i], ptsTurn[i + 1]))
     {
       m2::PointD const p = m2::PointAtSegment(ptsTurn[i + 1], ptsTurn[i], vLen - (len - beforeTurn));
       ptsTurn[i] = p;
@@ -164,7 +164,7 @@ bool MergeArrows(vector<m2::PointD> & ptsCurrentTurn, vector<m2::PointD> const &
     auto const currentTurnBeforeEnd = ptsCurrentTurn.end() - 1;
     for (auto t = ptsCurrentTurn.begin() + 1; t != currentTurnBeforeEnd; ++t)
     {
-      if (m2::AlmostEqual(*t, pivotPnt))
+      if (m2::AlmostEqualULPs(*t, pivotPnt))
       {
         ptsCurrentTurn.erase(t + 1, ptsCurrentTurn.end());
         return true;

@@ -11,7 +11,7 @@ double AngleIn2PI(double ang)
   if (ang < 0.0)
     ang += period;
   
-  if (my::AlmostEqual(period, ang))
+  if (my::AlmostEqualULPs(period, ang))
     return 0.0;
 
   return ang;

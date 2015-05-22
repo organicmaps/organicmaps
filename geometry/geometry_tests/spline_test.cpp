@@ -10,8 +10,8 @@ void TestPointDDir(PointD const & dst, PointD const & src)
 {
   double len1 = dst.Length();
   double len2 = src.Length();
-  TEST_ALMOST_EQUAL(dst.x/len1, src.x/len2, ());
-  TEST_ALMOST_EQUAL(dst.y/len1, src.y/len2, ());
+  TEST_ALMOST_EQUAL_ULPS(dst.x/len1, src.x/len2, ());
+  TEST_ALMOST_EQUAL_ULPS(dst.y/len1, src.y/len2, ());
 }
 
 UNIT_TEST(SmoothedDirections)
@@ -202,6 +202,6 @@ UNIT_TEST(Length)
   double l3 = p3.Length(p4);
   double l4 = p4.Length(p5);
   double len2 = l1 + l2 + l3 + l4;
-  TEST_ALMOST_EQUAL(len1, len2, ());
+  TEST_ALMOST_EQUAL_ULPS(len1, len2, ());
 }
 

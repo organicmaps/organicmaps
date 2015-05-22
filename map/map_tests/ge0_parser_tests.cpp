@@ -55,7 +55,7 @@ void TestSuccess(char const * s, double lat, double lon, double zoom, char const
 
   TEST(fabs(apiPoint.m_lat - lat) <= latEps, (s, zoom, lat, lon, name));
   TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (s, zoom, lat, lon, name));
-  TEST_ALMOST_EQUAL(parsedZoomLevel, zoom, (s, zoom, lat, lon, name));
+  TEST_ALMOST_EQUAL_ULPS(parsedZoomLevel, zoom, (s, zoom, lat, lon, name));
 }
 
 void TestFailure(char const * s)

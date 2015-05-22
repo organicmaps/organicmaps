@@ -31,12 +31,12 @@ UNIT_TEST(Atan)
 
 UNIT_TEST(Atan2)
 {
-  TEST_ALMOST_EQUAL(atan2(1, 0), pi/2.0, ());
-  TEST_ALMOST_EQUAL(atan2(-1, 0), -pi/2.0, ());
-  TEST_ALMOST_EQUAL(atan2(0, 1), 0.0, ());
-  TEST_ALMOST_EQUAL(atan2(0, -1), pi, ());
+  TEST_ALMOST_EQUAL_ULPS(atan2(1, 0), pi/2.0, ());
+  TEST_ALMOST_EQUAL_ULPS(atan2(-1, 0), -pi/2.0, ());
+  TEST_ALMOST_EQUAL_ULPS(atan2(0, 1), 0.0, ());
+  TEST_ALMOST_EQUAL_ULPS(atan2(0, -1), pi, ());
 
-  TEST_ALMOST_EQUAL(atan2(1, 1), pi/4.0, ());
+  TEST_ALMOST_EQUAL_ULPS(atan2(1, 1), pi/4.0, ());
 }
 
 namespace
@@ -67,16 +67,16 @@ UNIT_TEST(Average)
 
 UNIT_TEST(ShortestDistance)
 {
-  TEST_ALMOST_EQUAL(ang::GetShortestDistance(0, math::pi), math::pi, ());
-  TEST_ALMOST_EQUAL(ang::GetShortestDistance(0, math::pi + 1), -math::pi + 1, ());
+  TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(0, math::pi), math::pi, ());
+  TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(0, math::pi + 1), -math::pi + 1, ());
 
-  TEST_ALMOST_EQUAL(ang::GetShortestDistance(math::pi - 1, 0), -math::pi + 1, ());
-  TEST_ALMOST_EQUAL(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, ());
+  TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(math::pi - 1, 0), -math::pi + 1, ());
+  TEST_ALMOST_EQUAL_ULPS(ang::GetShortestDistance(math::pi + 1, 0), math::pi - 1, ());
 }
 
 UNIT_TEST(TwoVectorsAngle){
-  TEST_ALMOST_EQUAL(ang::TwoVectorsAngle(m2::Point<double>({0, 0}),
+  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>({0, 0}),
                                          m2::Point<double>({0, 1}), m2::Point<double>(1, 0)), 3 * math::pi2, ());
-  TEST_ALMOST_EQUAL(ang::TwoVectorsAngle(m2::Point<double>({1, 1}),
+  TEST_ALMOST_EQUAL_ULPS(ang::TwoVectorsAngle(m2::Point<double>({1, 1}),
                                          m2::Point<double>({2, 2}), m2::Point<double>(1, 2)), math::pi4, ());
 }

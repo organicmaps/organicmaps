@@ -54,7 +54,7 @@ namespace gp
         }
         else
         {
-          if (my::AlmostEqual(m_intervals->back(), clipStart))
+          if (my::AlmostEqualULPs(m_intervals->back(), clipStart))
             m_intervals->back() = clipEnd;
           else
           {

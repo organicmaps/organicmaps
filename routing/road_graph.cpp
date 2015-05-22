@@ -35,7 +35,7 @@ inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double sp
   return TimeBetweenSec(j1.GetPoint(), j2.GetPoint(), speedMPS);
 }
 
-inline bool PointsAlmostEqual(const m2::PointD & pt1, const m2::PointD & pt2)
+inline bool PointsAlmostEqualULPs(const m2::PointD & pt1, const m2::PointD & pt2)
 {
   double constexpr EPSILON = 1e-6;
   if ((pt2.x < (pt1.x - EPSILON)) || (pt2.x > (pt1.x + EPSILON)))
@@ -156,7 +156,7 @@ void IRoadGraph::CrossEdgesLoader::operator()(uint32_t featureId, RoadInfo const
   {
     m2::PointD const & p = roadInfo.m_points[i];
 
-    if (!PointsAlmostEqual(m_cross, p))
+    if (!PointsAlmostEqualULPs(m_cross, p))
       continue;
 
     if (i > 0)

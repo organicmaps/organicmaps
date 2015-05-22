@@ -139,23 +139,23 @@ UNIT_TEST(to_double)
 
   s = "0.123";
   TEST(strings::to_double(s, d), ());
-  TEST_ALMOST_EQUAL(0.123, d, ());
+  TEST_ALMOST_EQUAL_ULPS(0.123, d, ());
 
   s = "1.";
   TEST(strings::to_double(s, d), ());
-  TEST_ALMOST_EQUAL(1.0, d, ());
+  TEST_ALMOST_EQUAL_ULPS(1.0, d, ());
 
   s = "0";
   TEST(strings::to_double(s, d), ());
-  TEST_ALMOST_EQUAL(0., d, ());
+  TEST_ALMOST_EQUAL_ULPS(0., d, ());
 
   s = "5.6843418860808e-14";
   TEST(strings::to_double(s, d), ());
-  TEST_ALMOST_EQUAL(5.6843418860808e-14, d, ());
+  TEST_ALMOST_EQUAL_ULPS(5.6843418860808e-14, d, ());
 
   s = "-2";
   TEST(strings::to_double(s, d), ());
-  TEST_ALMOST_EQUAL(-2.0, d, ());
+  TEST_ALMOST_EQUAL_ULPS(-2.0, d, ());
 
   s = "labuda";
   TEST(!strings::to_double(s, d), ());
