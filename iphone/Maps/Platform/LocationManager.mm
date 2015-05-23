@@ -1,12 +1,16 @@
 #import "LocationManager.h"
-
-#include "../../platform/measurement_utils.hpp"
-#include "../../platform/settings.hpp"
-
-#include "../../base/math.hpp"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
+#include "base/math.hpp"
+
+static CLAuthorizationStatus const kRequestAuthStatus = kCLAuthorizationStatusAuthorizedAlways;
+static NSString * const kAlohalyticsLocationRequestAlwaysFailed = @"$locationAlwaysRequestErrorDenied";
 
 @implementation LocationManager
 
@@ -60,7 +64,7 @@
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways:
         case kCLAuthorizationStatusNotDetermined:
-          if ([m_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+          if (kRequestAuthStatus == kCLAuthorizationStatusAuthorizedAlways && [m_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
             [m_locationManager requestAlwaysAuthorization];
           [m_locationManager startUpdatingLocation];
           if ([CLLocationManager headingAvailable])
@@ -196,6 +200,8 @@
   NSLog(@"locationManager failed with error: %ld, %@", (long)error.code, error.description);
   if (error.code == kCLErrorDenied)
   {
+    if (kRequestAuthStatus == kCLAuthorizationStatusAuthorizedAlways && [m_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+      [Alohalytics logEvent:kAlohalyticsLocationRequestAlwaysFailed];
     for (id observer in m_observers)
       [observer onLocationError:location::EDenied];
   }
