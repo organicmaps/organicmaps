@@ -29,11 +29,11 @@ void GenerateRoutingTaskFromNodeId(NodeID const nodeId, bool const isStartNode,
   taskNode.name_id = 1;
 }
 
-void FindWeightsMatrix(const RoutingNodesT & sources, const RoutingNodesT & targets,
-                       RawDataFacadeT & facade, vector<EdgeWeight> & result)
+void FindWeightsMatrix(TRoutingNodes const & sources, TRoutingNodes const & targets,
+                       TRawDataFacade & facade, vector<EdgeWeight> & result)
 {
   SearchEngineData engineData;
-  NMManyToManyRouting<RawDataFacadeT> pathFinder(&facade, engineData);
+  NMManyToManyRouting<TRawDataFacade> pathFinder(&facade, engineData);
   PhantomNodeArray sourcesTaskVector(sources.size());
   PhantomNodeArray targetsTaskVector(targets.size());
   for (size_t i = 0; i < sources.size(); ++i)
@@ -50,12 +50,12 @@ void FindWeightsMatrix(const RoutingNodesT & sources, const RoutingNodesT & targ
   result.swap(*resultTable);
 }
 
-bool FindSingleRoute(const FeatureGraphNode & source, const FeatureGraphNode & target,
-                     RawDataFacadeT & facade, RawRoutingResult & rawRoutingResult)
+bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
+                     TRawDataFacade & facade, RawRoutingResult & rawRoutingResult)
 {
   SearchEngineData engineData;
   InternalRouteResult result;
-  ShortestPathRouting<RawDataFacadeT> pathFinder(&facade, engineData);
+  ShortestPathRouting<TRawDataFacade> pathFinder(&facade, engineData);
   PhantomNodes nodes;
   nodes.source_phantom = source.m_node;
   nodes.target_phantom = target.m_node;
@@ -82,7 +82,7 @@ bool FindSingleRoute(const FeatureGraphNode & source, const FeatureGraphNode & t
       {
         data.emplace_back(element.node, element.segment_duration);
       }
-      rawRoutingResult.unpacked_path_segments.emplace_back(move(data));
+      rawRoutingResult.m_unpackedPathSegments.emplace_back(move(data));
     }
     return true;
   }
@@ -90,7 +90,7 @@ bool FindSingleRoute(const FeatureGraphNode & source, const FeatureGraphNode & t
   return false;
 }
 
-FeatureGraphNode::FeatureGraphNode(const NodeID nodeId, const bool isStartNode)
+FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode)
 {
   m_node.forward_node_id = isStartNode ? nodeId : INVALID_NODE_ID;
   m_node.reverse_node_id = isStartNode ? INVALID_NODE_ID : nodeId;

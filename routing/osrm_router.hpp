@@ -26,31 +26,27 @@ class FeatureType;
 
 namespace routing
 {
-typedef function<string (m2::PointD const &)> CountryFileFnT;
-typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
+typedef function<string (m2::PointD const &)> TCountryFileFn;
+typedef OsrmDataFacade<QueryEdge::EdgeData> TDataFacade;
 
 /// All edges available for start route while routing
-typedef vector<FeatureGraphNode> FeatureGraphNodeVecT;
-/// Points vector to calculate several routes
-typedef vector<FeatureGraphNode> MultiroutingTaskPointT;
-
-typedef vector<RawRoutingResult> MultipleRoutingResultT;
+typedef vector<FeatureGraphNode> TFeatureGraphNodeVec;
 
 /*! Manager for loading, cashing and building routing indexes.
  * Builds and shares special routing contexts.
 */
 class RoutingIndexManager
 {
-  CountryFileFnT m_countryFn;
+  TCountryFileFn m_countryFn;
 
-  unordered_map<string, RoutingMappingPtrT> m_mapping;
+  unordered_map<string, TRoutingMappingPtr> m_mapping;
 
 public:
-  RoutingIndexManager(CountryFileFnT const & fn): m_countryFn(fn) {}
+  RoutingIndexManager(TCountryFileFn const & fn): m_countryFn(fn) {}
 
-  RoutingMappingPtrT GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
+  TRoutingMappingPtr GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
 
-  RoutingMappingPtrT GetMappingByName(string const & fName, Index const * pIndex);
+  TRoutingMappingPtr GetMappingByName(string const & fName, Index const * pIndex);
 
   template <class TFunctor>
   void ForEachMapping(TFunctor toDo)
@@ -70,7 +66,7 @@ public:
   typedef vector<size_t> NodeIdVectorT;
   typedef vector<double> GeomTurnCandidateT;
 
-  OsrmRouter(Index const * index, CountryFileFnT const & fn, RoutingVisualizerFn routingVisualization = nullptr);
+  OsrmRouter(Index const * index, TCountryFileFn const & fn, RoutingVisualizerFn routingVisualization = nullptr);
 
   virtual string GetName() const;
 
@@ -86,16 +82,16 @@ public:
      * \param rawRoutingResult: routing result store
      * \return true when path exists, false otherwise.
      */
-  static bool FindRouteFromCases(FeatureGraphNodeVecT const & source,
-                                 FeatureGraphNodeVecT const & target, DataFacadeT & facade,
+  static bool FindRouteFromCases(TFeatureGraphNodeVec const & source,
+                                 TFeatureGraphNodeVec const & target, TDataFacade & facade,
                                  RawRoutingResult & rawRoutingResult);
 
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point,
-                                       m2::PointD const & direction, FeatureGraphNodeVecT & res,
-                                       size_t maxCount, RoutingMappingPtrT const & mapping);
+                                       m2::PointD const & direction, TFeatureGraphNodeVec & res,
+                                       size_t maxCount, TRoutingMappingPtr const & mapping);
 
-  size_t FindNextMwmNode(OutgoingCrossNode const & startNode, RoutingMappingPtrT const & targetMapping);
+  size_t FindNextMwmNode(OutgoingCrossNode const & startNode, TRoutingMappingPtr const & targetMapping);
 
   /*!
    * \brief Compute turn and time estimation structs for OSRM raw route.
@@ -109,7 +105,7 @@ protected:
    * \return OSRM routing errors if any
    */
   ResultCode MakeTurnAnnotation(RawRoutingResult const & routingResult,
-                                RoutingMappingPtrT const & mapping, vector<m2::PointD> & points,
+                                TRoutingMappingPtr const & mapping, vector<m2::PointD> & points,
                                 Route::TurnsT & turnsDir, Route::TimesT & times,
                                 turns::TurnsGeomT & turnsGeom);
 
@@ -151,12 +147,12 @@ private:
    */
   ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
 
-  NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, RoutingMappingPtrT const & routingMapping);
+  NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, TRoutingMappingPtr const & routingMapping);
   void GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD const & p,
-                        RoutingMappingPtrT const & routingMapping,
+                        TRoutingMappingPtr const & routingMapping,
                         turns::TTurnCandidates & candidates);
   void GetTurnDirection(RawPathData const & node1, RawPathData const & node2,
-                        RoutingMappingPtrT const & routingMapping, TurnItem & turn);
+                        TRoutingMappingPtr const & routingMapping, TurnItem & turn);
   m2::PointD GetPointForTurnAngle(OsrmMappingTypes::FtSeg const & seg,
                                   FeatureType const & ft, m2::PointD const & turnPnt,
                                   size_t (*GetPndInd)(const size_t, const size_t, const size_t)) const;
@@ -173,7 +169,7 @@ private:
    */
   size_t NumberOfIngoingAndOutgoingSegments(m2::PointD const & junctionPoint,
                                             m2::PointD const & ingoingPointOneSegment,
-                                            RoutingMappingPtrT const & mapping) const;
+                                            TRoutingMappingPtr const & mapping) const;
   /*!
    * \brief GetTurnGeometry looks for all the road network edges near ingoingPoint.
    * GetTurnGeometry fills candidates with angles of all the incoming and outgoint segments.
@@ -182,18 +178,18 @@ private:
    * is filled with redundant segments of roads of different levels.
    */
   void GetTurnGeometry(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
-                       GeomTurnCandidateT & candidates, RoutingMappingPtrT const & mapping) const;
+                       GeomTurnCandidateT & candidates, TRoutingMappingPtr const & mapping) const;
 
   Index const * m_pIndex;
 
-  FeatureGraphNodeVecT graphNodes;
+  TFeatureGraphNodeVec graphNodes;
 
-  FeatureGraphNodeVecT m_CachedTargetTask;
+  TFeatureGraphNodeVec m_CachedTargetTask;
   m2::PointD m_CachedTargetPoint;
 
   RoutingIndexManager m_indexManager;
 
   m2::PointD m_startPt, m_finalPt, m_startDr;
-  FeatureGraphNodeVecT m_cachedFinalNodes;
+  TFeatureGraphNodeVec m_cachedFinalNodes;
 };
 }  // namespace routing

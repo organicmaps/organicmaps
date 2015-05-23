@@ -11,12 +11,12 @@
 
 namespace routing
 {
-typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
+typedef OsrmDataFacade<QueryEdge::EdgeData> TDataFacade;
 
 /// Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping
 {
-  DataFacadeT m_dataFacade;
+  TDataFacade m_dataFacade;
   OsrmFtSegMapping m_segMapping;
   CrossRoutingContextReader m_crossContext;
 
@@ -56,15 +56,15 @@ private:
   IRouter::ResultCode m_error;
 };
 
-typedef shared_ptr<RoutingMapping> RoutingMappingPtrT;
+typedef shared_ptr<RoutingMapping> TRoutingMappingPtr;
 
 //! \brief The MappingGuard struct. Asks mapping to load all data on construction and free it on destruction
 class MappingGuard
 {
-  RoutingMappingPtrT const m_mapping;
+  TRoutingMappingPtr const m_mapping;
 
 public:
-  MappingGuard(RoutingMappingPtrT const mapping): m_mapping(mapping)
+  MappingGuard(TRoutingMappingPtr const mapping): m_mapping(mapping)
   {
     m_mapping->Map();
     m_mapping->LoadFacade();

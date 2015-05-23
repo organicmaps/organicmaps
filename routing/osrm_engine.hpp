@@ -36,14 +36,15 @@ struct FeatureGraphNode
  */
 struct RawPathData
 {
+  NodeID node;
+  EdgeWeight segment_duration;
+
   RawPathData() : node(SPECIAL_NODEID), segment_duration(INVALID_EDGE_WEIGHT) {}
 
   RawPathData(NodeID node, EdgeWeight segment_duration)
       : node(node), segment_duration(segment_duration)
   {
   }
-  NodeID node;
-  EdgeWeight segment_duration;
 };
 
 /*!
@@ -51,20 +52,20 @@ struct RawPathData
  * target edges.
  * \property m_shortestPathLength Length of a founded route.
  * \property m_unpackedPathSegments Segments of a founded route.
- * \property sourceEdge Source graph node of a route.
- * \property targetEdge Target graph node of a route.
+ * \property m_sourceEdge Source graph node of a route.
+ * \property m_targetEdge Target graph node of a route.
  */
 struct RawRoutingResult
 {
   int m_shortestPathLength;
-  vector<vector<RawPathData>> unpacked_path_segments;
+  vector<vector<RawPathData>> m_unpackedPathSegments;
   FeatureGraphNode m_sourceEdge;
   FeatureGraphNode m_targetEdge;
 };
 
-//@todo (dragunov) make proper name and replace FeatureGraphNode with it
-using RoutingNodesT = vector<FeatureGraphNode>;
-using RawDataFacadeT = OsrmRawDataFacade<QueryEdge::EdgeData>;
+//@todo (dragunov) make proper name
+using TRoutingNodes = vector<FeatureGraphNode>;
+using TRawDataFacade = OsrmRawDataFacade<QueryEdge::EdgeData>;
 
 /*!
    * \brief FindWeightsMatrix Find weights matrix from sources to targets. WARNING it finds only
@@ -78,8 +79,8 @@ using RawDataFacadeT = OsrmRawDataFacade<QueryEdge::EdgeData>;
    * cost(source1 -> target1) cost(source1 -> target2) cost(source2 -> target1) cost(source2 ->
  * target2)
    */
-void FindWeightsMatrix(RoutingNodesT const & sources, RoutingNodesT const & targets,
-                       RawDataFacadeT & facade, vector<EdgeWeight> & result);
+void FindWeightsMatrix(TRoutingNodes const & sources, TRoutingNodes const & targets,
+                       TRawDataFacade & facade, vector<EdgeWeight> & result);
 
 /*! Find single shortest path in a single MWM between 2 OSRM nodes
    * \param source Source OSRM graph node to make path.
@@ -89,6 +90,6 @@ void FindWeightsMatrix(RoutingNodesT const & sources, RoutingNodesT const & targ
    * \return true when path exists, false otherwise.
    */
 bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & target,
-                     RawDataFacadeT & facade, RawRoutingResult & rawRoutingResult);
+                     TRawDataFacade & facade, RawRoutingResult & rawRoutingResult);
 
 }  // namespace routing

@@ -160,7 +160,7 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   crossContext.reserveAdjacencyMatrix();
   auto const & in = crossContext.GetIngoingIterators();
   auto const & out = crossContext.GetOutgoingIterators();
-  RoutingNodesT sources, targets;
+  TRoutingNodes sources, targets;
   sources.reserve(distance(in.first, in.second));
   targets.reserve(distance(out.first, out.second));
   // Fill sources and targets with start node task for ingoing (true) and target node task
