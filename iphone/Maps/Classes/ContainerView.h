@@ -1,9 +1,9 @@
 
 #import <UIKit/UIKit.h>
-#import "PlacePageView.h"
+//#import "PlacePageView.h"
 
 @interface ContainerView : UIView
 
-@property (nonatomic) PlacePageView * placePage;
+//@property (nonatomic) PlacePageView * placePage;
 
 @end

@@ -49,6 +49,7 @@
 
 - (NSString *)distance
 {
+#warning тут про локацию
   CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
   if (location)
   {

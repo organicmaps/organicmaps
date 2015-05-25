@@ -16,12 +16,13 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DT5-2i-vCG">
                         <rect key="frame" x="16" y="14" width="16" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" id="T5l-Sb-Hfo">
-                        <rect key="frame" x="40" y="3" width="256" height="35"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <rect key="frame" x="40" y="4" width="256" height="35"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <inset key="contentInset" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -30,6 +31,11 @@
                             <outlet property="delegate" destination="DKh-ne-anv" id="KQo-Mn-gqx"/>
                         </connections>
                     </textView>
+                    <view contentMode="scaleToFill" id="ZSw-Rd-B64">
+                        <rect key="frame" x="40" y="43" width="280" height="1"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>

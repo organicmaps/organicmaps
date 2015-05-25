@@ -11,40 +11,116 @@
 #import "MWMPlacePageViewManager.h"
 #import "MWMBasePlacePageView.h"
 #import "UIKitCategories.h"
+#import "MWMPlacePageEntity.h"
+#import <objc/runtime.h>
 
 static NSString * const kPlacePageNavigationBarNibName = @"PlacePageNavigationBar";
+static int kNavigationBarKey;
+
+static CGFloat const kHeight = 64.;
+
+static CGPoint const openCenter(CGFloat xPosition)
+{
+  return CGPointMake(xPosition, kHeight / 2.);
+}
+
+static CGPoint const dismissCenter(CGFloat xPosition)
+{
+  return CGPointMake(xPosition, - kHeight / 2.);
+}
 
 @interface MWMPlacePageNavigationBar ()
 
-@property (weak, nonatomic, readwrite) IBOutlet UILabel * titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) MWMiPhonePortraitPlacePage * placePage;
 
 @end
 
 @implementation MWMPlacePageNavigationBar
 
++ (void)remove
+{
+  UIScreen * screen = [UIScreen mainScreen];
+  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, &kNavigationBarKey);
+  if (!navBar)
+    return;
+
+  [navBar removeFromSuperview];
+  objc_setAssociatedObject(screen, &kNavigationBarKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
++ (void)showNavigationBarForPlacePage:(MWMiPhonePortraitPlacePage *)placePage
+{
+  UIView const * superview = placePage.manager.ownerViewController.view;
+
+  UIScreen * screen = [UIScreen mainScreen];
+  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, &kNavigationBarKey);
+  if (!navBar)
+  {
+    navBar = [self navigationBarWithPlacePage:placePage];
+    objc_setAssociatedObject(screen, &kNavigationBarKey, navBar, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [superview addSubview:navBar];
+  }
+
+  navBar.placePage = placePage;
+  MWMPlacePageEntity * entity = placePage.manager.entity;
+  navBar.titleLabel.text = entity.type == MWMPlacePageEntityTypeBookmark ? entity.bookmarkTitle : entity.title;
+  [navBar show];
+}
+
++ (void)dismissNavigationBar
+{
+  UIScreen * screen = [UIScreen mainScreen];
+  MWMPlacePageNavigationBar * navBar = objc_getAssociatedObject(screen, &kNavigationBarKey);
+
+  if (!navBar)
+    return;
+
+  [navBar dismiss];
+}
+
+- (void)dismiss
+{
+  [UIView animateWithDuration:.3f animations:^
+  {
+    self.center = dismissCenter(self.center.x);
+  }];
+}
+
+- (void)show
+{
+  [UIView animateWithDuration:.3f animations:^
+  {
+    self.center = openCenter(self.center.x);
+  }];
+}
+
 + (instancetype)navigationBarWithPlacePage:(MWMiPhonePortraitPlacePage *)placePage
 {
   MWMPlacePageNavigationBar * navBar = [[[NSBundle mainBundle] loadNibNamed:kPlacePageNavigationBarNibName owner:nil options:nil] firstObject];
   navBar.placePage = placePage;
-  navBar.width = placePage.extendedPlacePageView.bounds.size.width;
-  navBar.titleLabel.text = placePage.basePlacePageView.titleLabel.text;
-  navBar.center = CGPointMake(placePage.extendedPlacePageView.superview.origin.x + navBar.width / 2., placePage.extendedPlacePageView.superview.origin.y - navBar.height / 2.);
-  [placePage.extendedPlacePageView.superview addSubview:navBar];
+  navBar.autoresizingMask = UIViewAutoresizingNone;
+  UIView const * superview = placePage.manager.ownerViewController.view;
+  navBar.center = dismissCenter(superview.center.x);
+  CGSize const size = [[UIScreen mainScreen] bounds].size;
+  BOOL const isLandscape = size.width > size.height;
+  CGFloat const width = isLandscape ? size.height : size.width;
+  navBar.width = width;
   return navBar;
 }
 
 - (IBAction)backTap:(id)sender
 {
+  [self dismiss];
   [self.placePage.manager dismissPlacePage];
-  [UIView animateWithDuration:.25f animations:^
-  {
-    self.transform = CGAffineTransformMakeTranslation(0., - self.height);
-  }
-  completion:^(BOOL finished)
-  {
-    [self removeFromSuperview];
-  }];
 }
+
+- (void)layoutSubviews
+{
+  if (self)
+    self.origin = CGPointMake(0., 0.);
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { }
 
 @end

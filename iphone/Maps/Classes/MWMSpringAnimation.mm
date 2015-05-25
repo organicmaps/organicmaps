@@ -59,7 +59,6 @@ static inline CGFloat CGPointLength(CGPoint point)
 {
   static CGFloat const frictionConstant = 25.;
   static CGFloat const springConstant = 300.;
-  CGFloat const time = (CGFloat) dt;
 
   // friction force = velocity * friction constant
   CGPoint const frictionForce = CGPointMultiply(self.velocity, frictionConstant);
@@ -68,9 +67,9 @@ static inline CGFloat CGPointLength(CGPoint point)
   // force = spring force - friction force
   CGPoint const force = CGPointSubtract(springForce, frictionForce);
   // velocity = current velocity + force * time / mass
-  self.velocity = CGPointAdd(self.velocity, CGPointMultiply(force, time));
+  self.velocity = CGPointAdd(self.velocity, CGPointMultiply(force, dt));
   // position = current position + velocity * time
-  self.view.center = CGPointAdd(self.view.center, CGPointMultiply(self.velocity, time));
+  self.view.center = CGPointAdd(self.view.center, CGPointMultiply(self.velocity, dt));
 
   CGFloat const speed = CGPointLength(self.velocity);
   CGFloat const distanceToGoal = CGPointLength(CGPointSubtract(self.targetPoint, self.view.center));

@@ -1,19 +1,13 @@
 
 #import <UIKit/UIKit.h>
 #import "TableViewController.h"
-#include "../../map/bookmark.hpp"
 
-@class SelectSetVC;
-@protocol SelectSetVCDelegate <NSObject>
-
-- (void)selectSetVC:(SelectSetVC *)vc didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory;
-
-@end
+@class MWMPlacePageViewManager;
 
 @interface SelectSetVC : TableViewController
 
-- (id)initWithBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory;
+- (instancetype)initWithPlacePageManager:(MWMPlacePageViewManager *)manager;
 
-@property (nonatomic, weak) id <SelectSetVCDelegate> delegate;
+@property (weak, nonatomic) UINavigationController * ownerNavigationController;
 
 @end

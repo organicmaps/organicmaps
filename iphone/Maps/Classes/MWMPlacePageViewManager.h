@@ -14,13 +14,19 @@
 
 @interface MWMPlacePageViewManager : NSObject
 
-@property (weak, nonatomic, readonly) UIViewController *ownerViewController;
-@property (nonatomic, readonly) MWMPlacePageEntity *entity;
+@property (weak, nonatomic, readonly) UIViewController * ownerViewController;
+@property (nonatomic, readonly) MWMPlacePageEntity * entity;
 
 - (instancetype)initWithViewController:(UIViewController *)viewController;
-- (void)showPlacePageWithUserMark:(std::unique_ptr<UserMarkCopy>)userMark;
+- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark;
 - (void)dismissPlacePage;
+- (void)buildRoute;
+- (void)stopBuildingRoute;
+- (void)share;
+- (void)addBookmark;
+- (void)removeBookmark;
 - (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation;
+- (void)reloadBookmark;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call initWithViewController: instead")));
 

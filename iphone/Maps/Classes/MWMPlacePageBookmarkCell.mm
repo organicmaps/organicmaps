@@ -7,19 +7,24 @@
 //
 
 #import "MWMPlacePageBookmarkCell.h"
+#import "MWMPlacePageEntity.h"
 #import "UIKitCategories.h"
+#import "MWMPlacePage.h"
+#import "MWMPlacePageViewManager.h"
+#import "MWMBasePlacePageView.h"
+#import "MWMTextView.h"
 
-@interface MWMPlacePageBookmarkCell () <UITextViewDelegate>
+extern NSString * const kBookmarkCellWebViewDidFinishLoadContetnNotification = @"WebViewDidFifishLoadContent";
 
-@property (weak, nonatomic, readwrite) IBOutlet UITextView * title;
+@interface MWMPlacePageBookmarkCell () <UITextFieldDelegate, UIWebViewDelegate>
+
+@property (weak, nonatomic, readwrite) IBOutlet UITextField * title;
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * categoryButton;
 @property (weak, nonatomic, readwrite) IBOutlet UIButton * markButton;
-@property (weak, nonatomic, readwrite) IBOutlet UITextView * descriptionTextView;
+@property (weak, nonatomic, readwrite) IBOutlet UILabel * descriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UIView * firstSeparatorView;
 @property (weak, nonatomic) IBOutlet UIView * secondSeparatorView;
-
-@property (nonatomic) UITextView * activeTextView;
 
 @end
 
@@ -27,55 +32,82 @@
 
 - (void)configure
 {
+  MWMPlacePageEntity const * entity = self.placePage.manager.entity;
+  self.title.text = entity.bookmarkTitle;
+  [self.categoryButton setTitle:[NSString stringWithFormat:@"%@ >", entity.bookmarkCategory] forState:UIControlStateNormal];
+  [self.markButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@-on", entity.bookmarkColor]] forState:UIControlStateNormal];
   [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(keyboardWasShown:)
-                                               name:UIKeyboardDidShowNotification object:nil];
+                                           selector:@selector(keyboardWillShown:)
+                                               name:UIKeyboardWillShowNotification object:nil];
 
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWillBeHidden:)
                                                name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)keyboardWasShown:(NSNotification *)aNotification
+- (void)keyboardWillShown:(NSNotification *)aNotification
 {
+
   NSDictionary const * info = [aNotification userInfo];
   CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-
-  UIEdgeInsets const contentInsets = UIEdgeInsetsMake(0., 0., kbSize.height, 0.);
-  self.ownerTableView.contentInset = contentInsets;
-  self.ownerTableView.scrollIndicatorInsets = contentInsets;
-
-  CGRect aRect = self.ownerTableView.superview.frame;
-  aRect.size.height -= kbSize.height;
-  if (!CGRectContainsPoint(aRect, self.activeTextView.frame.origin))
-    [self.ownerTableView scrollRectToVisible:self.activeTextView.frame animated:YES];
+  [self.placePage willStartEditingBookmarkTitle:kbSize.height];
+  
+//  UIEdgeInsets const contentInsets = UIEdgeInsetsMake(0., 0., kbSize.height, 0.);
+//  self.ownerTableView.contentInset = contentInsets;
+//  self.ownerTableView.scrollIndicatorInsets = contentInsets;
+//
+//  CGRect aRect = self.ownerTableView.superview.frame;
+//  aRect.size.height -= kbSize.height;
+//  if (!CGRectContainsPoint(aRect, self.title.frame.origin))
+//    [self.ownerTableView scrollRectToVisible:aRect animated:YES];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)aNotification
 {
-  UIEdgeInsets const contentInsets = UIEdgeInsetsZero;
-  self.ownerTableView.contentInset = contentInsets;
-  self.ownerTableView.scrollIndicatorInsets = contentInsets;
+  NSDictionary const * info = [aNotification userInfo];
+  CGSize const kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+  [self.placePage willFinishEditingBookmarkTitle:kbSize.height];
+//  UIEdgeInsets const contentInsets = UIEdgeInsetsZero;
+//  self.ownerTableView.contentInset = contentInsets;
+//  self.ownerTableView.scrollIndicatorInsets = contentInsets;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
-  self.activeTextView = textView;
+  MWMPlacePageEntity * entity = self.placePage.manager.entity;
+  entity.bookmarkTitle = textField.text;
+  [entity synchronize];
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
+- (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-  self.activeTextView = nil;
+  return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  [textView scrollRangeToVisible:[textView selectedRange]];
+  [textField resignFirstResponder];
+  return YES;
 }
 
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (IBAction)colorPickerButtonTap:(id)sender
+{
+  [self.placePage changeBookmarkColor];
+}
+
+- (IBAction)categoryButtonTap:(id)sender
+{
+  [self.placePage changeBookmarkCategory];
+}
+
+- (IBAction)editTap:(id)sender
+{
+  [self.placePage changeBookmarkDescription];
 }
 
 @end

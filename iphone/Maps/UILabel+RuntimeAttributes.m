@@ -34,3 +34,31 @@
 }
 
 @end
+
+@implementation UITextField (RuntimeAttributes)
+
+- (void)setLocalizedPlaceholder:(NSString *)placeholder
+{
+  self.placeholder = L(placeholder);
+}
+
+- (NSString *)localizedPlaceholder
+{
+  return L(self.placeholder);
+}
+
+@end
+
+@implementation MWMTextView (RuntimeAttributes)
+
+- (void)setLocalizedPlaceholder:(NSString *)localizedPlaceholder
+{
+  self.placeholder = L(localizedPlaceholder);
+}
+
+- (NSString *)localizedPlaceholder
+{
+  return L(self.placeholder);
+}
+
+@end

@@ -13,15 +13,21 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="KWK-Ky-ZkL">
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="KWK-Ky-ZkL" customClass="MWMExtendedPlacePageView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="498"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_placepage_tablet_normal" id="a4c-bA-qa5">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
-                <view contentMode="scaleToFill" id="8RI-YR-2UD" customClass="MWMBasePlacePageView">
+                <view contentMode="scaleToFill" id="1m8-Jf-cgf">
+                    <rect key="frame" x="0.0" y="22" width="320" height="477"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="8RI-YR-2UD" customClass="MWMBasePlacePageView">
                     <rect key="frame" x="0.0" y="22" width="320" height="468"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -39,22 +45,11 @@
                             <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction" id="w6w-zO-6d8">
-                            <rect key="frame" x="272" y="0.0" width="32" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500 mi" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kGT-CI-UsC">
-                            <rect key="frame" x="207" y="5" width="57" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                            <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hZM-Gs-BbS">
                             <rect key="frame" x="0.0" y="60" width="320" height="408"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
@@ -62,12 +57,41 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </tableView>
+                        <view contentMode="scaleToFill" id="Spo-tb-t0A">
+                            <rect key="frame" x="0.0" y="52" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500 mi" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kGT-CI-UsC">
+                            <rect key="frame" x="214" y="7" width="57" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                            <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction" id="ExH-ug-j1j">
+                            <rect key="frame" x="279" y="5" width="25" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X4O-iK-cA2">
+                            <rect key="frame" x="260" y="0.0" width="60" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="directionButtonTap:" destination="8RI-YR-2UD" eventType="touchUpInside" id="cAw-3M-BpH"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="directionArrow" destination="w6w-zO-6d8" id="1xb-GP-etA"/>
+                        <outlet property="directionArrow" destination="ExH-ug-j1j" id="3iY-1E-PNI"/>
+                        <outlet property="directionButton" destination="X4O-iK-cA2" id="JA4-dy-K6g"/>
                         <outlet property="distanceLabel" destination="kGT-CI-UsC" id="xLt-R1-jy2"/>
                         <outlet property="featureTable" destination="hZM-Gs-BbS" id="iBU-Iq-8go"/>
+                        <outlet property="ownerPlacePage" destination="-1" id="ptD-bf-NPp"/>
+                        <outlet property="separatorView" destination="Spo-tb-t0A" id="y6P-TK-Wws"/>
                         <outlet property="titleLabel" destination="T1Y-Oq-6fg" id="ifK-nU-q7x"/>
                         <outlet property="typeLabel" destination="TNu-JO-vJi" id="mWV-cH-KMk"/>
                     </connections>

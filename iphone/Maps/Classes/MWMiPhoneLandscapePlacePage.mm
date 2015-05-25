@@ -17,6 +17,7 @@
 #include "Framework.h"
 
 static CGFloat const kMaximumPlacePageWidth = 360.;
+extern CGFloat const kBookmarkCellHeight;
 
 typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 {
@@ -36,42 +37,37 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
 - (void)configure
 {
   [super configure];
-  UIView const * view = self.manager.ownerViewController.view;
-  if ([view.subviews containsObject:self.extendedPlacePageView] && self.state != MWMiPhoneLandscapePlacePageStateClosed)
-    return;
 
   CGSize const size = UIScreen.mainScreen.bounds.size;
   CGFloat const height = size.width > size.height ? size.height : size.width;
   CGFloat const offset = height > kMaximumPlacePageWidth ? kMaximumPlacePageWidth : height;
 
-  self.extendedPlacePageView.frame = CGRectMake(-offset, 0, offset, height);
+  UIView const * view = self.manager.ownerViewController.view;
+  if ([view.subviews containsObject:self.extendedPlacePageView] && self.state != MWMiPhoneLandscapePlacePageStateClosed)
+    return;
+  
+  self.extendedPlacePageView.frame = CGRectMake(0., 0, offset, height);
+  
+  self.anchorImageView.backgroundColor = [UIColor whiteColor];
   self.anchorImageView.image = nil;
-  self.anchorImageView.backgroundColor = self.basePlacePageView.backgroundColor;
-  self.actionBar = [MWMPlacePageActionBar actionBarForPlacePage:self];
-
-#warning TODO (Vlad): Change 35. to computational constant.
-  self.basePlacePageView.featureTable.contentInset = UIEdgeInsetsMake(0., 0., self.actionBar.height + 35., 0.);
-
+  CGFloat const headerViewHeight = self.basePlacePageView.height - self.basePlacePageView.featureTable.height;
+  CGFloat const tableContentHeight = self.basePlacePageView.featureTable.contentSize.height;
+  self.basePlacePageView.featureTable.contentInset = UIEdgeInsetsMake(0., 0., self.actionBar.height+ (tableContentHeight - height - headerViewHeight + self.anchorImageView.height), 0.);
   [view addSubview:self.extendedPlacePageView];
+  self.actionBar.width = offset;
   self.actionBar.center = CGPointMake(self.actionBar.width / 2., height - self.actionBar.height / 2.);
   [self.extendedPlacePageView addSubview:self.actionBar];
 }
 
 - (void)show
 {
-  if (self.state != MWMiPhoneLandscapePlacePageStateOpen)
-    self.state = MWMiPhoneLandscapePlacePageStateOpen;
-}
-
-- (void)dismiss
-{
-  self.state =  MWMiPhoneLandscapePlacePageStateClosed;
-  [super dismiss];
+  self.state = MWMiPhoneLandscapePlacePageStateOpen;
 }
 
 - (void)addBookmark
 {
-  [self.basePlacePageView addBookmark];
+  [super addBookmark];
+
 }
 
 - (void)setState:(MWMiPhoneLandscapePlacePageState)state
@@ -113,7 +109,7 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   if (sender.state == UIGestureRecognizerStateEnded)
   {
     CGPoint velocity = [sender velocityInView:self.extendedPlacePageView.superview];
-    velocity.y = 20;
+    velocity.y = 20.;
     self.state = velocity.x < 0. ? MWMiPhoneLandscapePlacePageStateClosed : MWMiPhoneLandscapePlacePageStateOpen;
     [self startAnimatingPlacePage:self initialVelocity:velocity];
     if (self.state == MWMiPhoneLandscapePlacePageStateClosed)
@@ -123,6 +119,30 @@ typedef NS_ENUM(NSUInteger, MWMiPhoneLandscapePlacePageState)
   {
     [self cancelSpringAnimation];
   }
+}
+
+- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight
+{
+  CGFloat const statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+  MWMBasePlacePageView const * basePlacePageView = self.basePlacePageView;
+  UITableView const * tableView = basePlacePageView.featureTable;
+  CGFloat const baseViewHeight = basePlacePageView.height;
+  CGFloat const tableHeight = tableView.contentSize.height;
+  CGFloat const headerViewHeight = baseViewHeight - tableHeight;
+  CGFloat const titleOriginY = tableHeight - kBookmarkCellHeight - tableView.contentOffset.y;
+
+  [UIView animateWithDuration:0.3f animations:^
+  {
+    self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., statusBarHeight - headerViewHeight - titleOriginY);
+  }];
+}
+
+- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight
+{
+  [UIView animateWithDuration:0.3f animations:^
+  {
+    self.basePlacePageView.transform = CGAffineTransformMakeTranslation(0., 0.);
+  }];
 }
 
 @end

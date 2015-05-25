@@ -22,7 +22,24 @@
 - (void)show;
 - (void)dismiss;
 - (void)configure;
+
+#pragma mark - Actions
 - (void)addBookmark;
+- (void)removeBookmark;
+- (void)changeBookmarkColor;
+- (void)changeBookmarkCategory;
+- (void)changeBookmarkDescription;
+- (void)share;
+- (void)route;
+- (void)stopBuildingRoute;
+- (void)reloadBookmark;
+- (void)willStartEditingBookmarkTitle:(CGFloat)keyboardHeight;
+- (void)willFinishEditingBookmarkTitle:(CGFloat)keyboardHeight;
+
+- (IBAction)didTap:(UITapGestureRecognizer *)sender;
+
+- (void)setArrowAngle:(CGFloat)angle;
+- (void)setDistance:(NSString *)distance;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call initWithManager: instead")));
 

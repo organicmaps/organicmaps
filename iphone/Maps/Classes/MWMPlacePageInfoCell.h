@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class MWMPlacePageEntity;
+
 @interface MWMPlacePageInfoCell : UITableViewCell
 
 - (void)configureWithIconTitle:(NSString *)title info:(NSString *)info;
 
 @property (weak, nonatomic, readonly) IBOutlet UIImageView * icon;
 @property (weak, nonatomic, readonly) IBOutlet id textContainer;
+@property (nonatomic) MWMPlacePageEntity * currentEntity;
 
 @end

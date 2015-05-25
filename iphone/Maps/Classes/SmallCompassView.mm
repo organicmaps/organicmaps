@@ -24,6 +24,7 @@
 
 - (void)setAngle:(CGFloat)angle
 {
+#warning тут про стрелку
   self.arrow.transform = CGAffineTransformIdentity;
   self.arrow.transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   _angle = angle;

@@ -15,6 +15,10 @@
 #import "MWMiPhonePortraitPlacePage.h"
 #import "MWMiPadPlacePage.h"
 #import "MWMPlacePageActionBar.h"
+#import "MapsAppDelegate.h"
+#import "LocationManager.h"
+#import "ShareActionSheet.h"
+#import "Common.h"
 
 #include "Framework.h"
 
@@ -24,12 +28,16 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
   MWMPlacePageManagerStateOpen
 };
 
-@interface MWMPlacePageViewManager ()
+@interface MWMPlacePageViewManager () <LocationObserver>
+{
+  shared_ptr<UserMark const *> m_userMark;
+}
 
 @property (weak, nonatomic) UIViewController *ownerViewController;
 @property (nonatomic, readwrite) MWMPlacePageEntity *entity;
 @property (nonatomic) MWMPlacePage *placePage;
 @property (nonatomic) MWMPlacePageManagerState state;
+@property (nonatomic) ShareActionSheet * actionSheet;
 
 @end
 
@@ -43,7 +51,6 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     self.ownerViewController = viewController;
     self.state = MWMPlacePageManagerStateClosed;
   }
-  
   return self;
 }
 
@@ -51,13 +58,17 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 {
   self.state = MWMPlacePageManagerStateClosed;
   [self.placePage dismiss];
-  self.placePage = nil;
+  GetFramework().GetBalloonManager().RemovePin();
+  self.entity = nil;
 }
 
-- (void)showPlacePageWithUserMark:(std::unique_ptr<UserMarkCopy>)userMark
+- (void)showPlacePageWithUserMark:(unique_ptr<UserMarkCopy>)userMark
 {
-  UserMark const * mark = userMark->GetUserMark();
-  self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:mark];
+  if (userMark != nullptr)
+    m_userMark = make_shared<UserMark const *>(userMark->GetUserMark());
+
+  [[MapsAppDelegate theApp].m_locationManager start:self];
+  self.entity = [[MWMPlacePageEntity alloc] initWithUserMark:*m_userMark];
   self.state = MWMPlacePageManagerStateOpen;
   
   if (IPAD)
@@ -68,12 +79,19 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
 
 - (void)layoutPlacePageToOrientation:(UIInterfaceOrientation)orientation
 {
-  [self.placePage.extendedPlacePageView removeFromSuperview];
-  [self.placePage.actionBar removeFromSuperview];
+  if (IPAD)
+    return;
+
+  [self.placePage dismiss];
   [self presentPlacePageForiPhoneWithOrientation:orientation];
 }
 
-- (void)presentPlacePageForiPad { }
+- (void)presentPlacePageForiPad {
+  [self.placePage dismiss];
+  self.placePage = [[MWMiPadPlacePage alloc] initWithManager:self];
+  [self.placePage configure];
+  [self.placePage show];
+}
 
 - (void)presentPlacePageForiPhoneWithOrientation:(UIInterfaceOrientation)orientation
 {
@@ -85,11 +103,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     case UIInterfaceOrientationLandscapeLeft:
     case UIInterfaceOrientationLandscapeRight:
       
-      if ([self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
-        [self.placePage configure];
-      else
+      if (![self.placePage isKindOfClass:[MWMiPhoneLandscapePlacePage class]])
         self.placePage = [[MWMiPhoneLandscapePlacePage alloc] initWithManager:self];
 
+      [self.placePage configure];
       [self.placePage show];
 
       break;
@@ -97,11 +114,10 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
     case UIInterfaceOrientationPortrait:
     case UIInterfaceOrientationPortraitUpsideDown:
       
-      if ([self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
-        [self.placePage configure];
-      else
+      if (![self.placePage isKindOfClass:[MWMiPhonePortraitPlacePage class]])
         self.placePage = [[MWMiPhonePortraitPlacePage alloc] initWithManager:self];
 
+      [self.placePage configure];
       [self.placePage show];
 
       break;
@@ -110,7 +126,116 @@ typedef NS_ENUM(NSUInteger, MWMPlacePageManagerState)
       
       break;
   }
+}
 
+- (void)buildRoute
+{
+  GetFramework().BuildRoute((*m_userMark)->GetOrg());
+}
+
+- (void)stopBuildingRoute
+{
+  [self.placePage stopBuildingRoute];
+}
+
+- (void)share
+{
+  MWMPlacePageEntity * entity = self.entity;
+  ShareInfo * info = [[ShareInfo alloc] initWithText:entity.title gX:entity.point.x gY:entity.point.y myPosition:NO];
+
+  self.actionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.ownerViewController];
+  [self.actionSheet showFromRect:CGRectNull];
+}
+
+- (void)addBookmark
+{
+  Framework & f = GetFramework();
+  BookmarkData data = BookmarkData(self.entity.title.UTF8String, f.LastEditedBMType());
+  size_t const categoryIndex = f.LastEditedBMCategory();
+  size_t const bookmarkIndex = f.GetBookmarkManager().AddBookmark(categoryIndex, (*m_userMark)->GetOrg(), data);
+  self.entity.bac = make_pair(categoryIndex, bookmarkIndex);
+  self.entity.type = MWMPlacePageEntityTypeBookmark;
+  BookmarkCategory const * category = f.GetBmCategory(categoryIndex);
+  m_userMark = make_shared<UserMark const *>(category->GetBookmark(bookmarkIndex));
+  f.ActivateUserMark(*m_userMark);
+  f.Invalidate();
+}
+
+- (void)removeBookmark
+{
+  Framework & f = GetFramework();
+  UserMark const * mark = *m_userMark;
+  BookmarkAndCategory bookmarkAndCategory = f.FindBookmark(mark);
+  self.entity.type = MWMPlacePageEntityTypeRegular;
+  BookmarkCategory * category = f.GetBmCategory(bookmarkAndCategory.first);
+  PoiMarkPoint const * m = f.GetAddressMark(mark->GetOrg());
+  m_userMark = make_shared<UserMark const *>(m);
+  f.ActivateUserMark(*m_userMark);
+  if (category)
+  {
+    category->DeleteBookmark(bookmarkAndCategory.second);
+    category->SaveToKMLFile();
+  }
+  f.Invalidate();
+}
+
+- (void)reloadBookmark
+{
+  [self.entity synchronize];
+  [self.placePage reloadBookmark];
+}
+
+- (void)startMonitoringLocation:(NSNotification *)notification
+{
+  [[MapsAppDelegate theApp].m_locationManager start:self];
+}
+
+- (void)onLocationError:(location::TLocationError)errorCode
+{
+  NSLog(@"Location error %i in %@", errorCode, [[self class] className]);
+}
+
+- (void)onLocationUpdate:(location::GpsInfo const &)info
+{
+  if (m_userMark == nullptr)
+    return;
+  
+  [self.placePage setDistance:self.distance];
+}
+- (NSString *)distance
+{
+  CLLocation const * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
+
+  if (!location)
+    return @"";
+
+  double const userLatitude = location.coordinate.latitude;
+  double const userLongitude = location.coordinate.longitude;
+  double azimut = -1;
+  double north = -1;
+
+  [[MapsAppDelegate theApp].m_locationManager getNorthRad:north];
+
+  string distance;
+  GetFramework().GetDistanceAndAzimut((*m_userMark)->GetOrg(), userLatitude, userLongitude, north, distance, azimut);
+  return [NSString stringWithUTF8String:distance.c_str()];
+}
+
+- (void)onCompassUpdate:(location::CompassInfo const &)info
+{
+  if (m_userMark == nullptr)
+    return;
+
+  double lat, lon;
+
+  if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+    [self.placePage setArrowAngle:ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), (*m_userMark)->GetOrg()) + info.m_bearing];
+
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -12,9 +12,9 @@
 
 @interface MWMPlacePageNavigationBar : UIView
 
-@property (weak, nonatomic, readonly) IBOutlet UILabel * titleLabel;
-
-+ (instancetype)navigationBarWithPlacePage:(MWMiPhonePortraitPlacePage *)placePage;
++ (void)dismissNavigationBar;
++ (void)showNavigationBarForPlacePage:(MWMiPhonePortraitPlacePage *)placePage;
++ (void)remove;
 
 - (instancetype)init __attribute__((unavailable("init is unavailable, call navigationBarWithPlacePage: instead")));
 - (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable("initWithCoder: is unavailable, call navigationBarWithPlacePage: instead")));

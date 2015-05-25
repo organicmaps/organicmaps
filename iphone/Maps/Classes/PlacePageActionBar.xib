@@ -9,34 +9,30 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMPlacePageActionBar">
             <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
-            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jtm-w6-q1e">
-                    <rect key="frame" x="47" y="12" width="24" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="18" y="0.0" width="83" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                     <state key="normal" image="ic_share">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="shareTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="MEA-aQ-UTU"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="66j-hn-azO">
-                    <rect key="frame" x="148" y="12" width="24" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="118" y="0.0" width="83" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                     <state key="normal" title="" image="ic_bookmark_off"/>
                     <state key="selected" image="ic_bookmark_on"/>
                     <connections>
                         <action selector="bookmarkTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="9DU-IP-Xms"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6cp-1o-ehc">
-                    <rect key="frame" x="250" y="12" width="24" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="ic_route">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hy-ie-rSK">
                     <rect key="frame" x="22" y="38" width="75" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.094117647058823528" green="0.61960784313725492" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -45,18 +41,18 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookmark" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="niS-Il-TNU">
-                    <rect key="frame" x="123" y="37" width="75" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="122" y="37" width="75" height="13"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.094117647060000004" green="0.61960784310000006" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="bookmark"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="dropped_pin"/>
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OOE-NW-gUw">
                     <rect key="frame" x="225" y="37" width="75" height="13"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="0.094117647060000004" green="0.61960784310000006" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -69,9 +65,27 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6cp-1o-ehc">
+                    <rect key="frame" x="221" y="0.0" width="83" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                    <state key="normal" image="ic_route">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="routeTap:" destination="iN0-l3-epB" eventType="touchUpInside" id="MNc-Va-OZm"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bookmarkButton" destination="66j-hn-azO" id="uBJ-zf-YgW"/>
+                <outlet property="bookmarkLabel" destination="niS-Il-TNU" id="q0I-39-OWe"/>
+                <outlet property="routeButton" destination="6cp-1o-ehc" id="qSO-u1-8px"/>
+                <outlet property="routeLabel" destination="OOE-NW-gUw" id="hLC-Td-pdV"/>
+                <outlet property="shareButton" destination="Jtm-w6-q1e" id="Bu8-eV-KhG"/>
+                <outlet property="shareLabel" destination="4Hy-ie-rSK" id="b5p-nj-j5J"/>
+            </connections>
             <point key="canvasLocation" x="335" y="266"/>
         </view>
     </objects>

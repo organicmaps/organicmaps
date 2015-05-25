@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWMTextView.h"
 
 @interface UILabel (RuntimeAttributes)
-@property (nonatomic, copy) NSString *localizedText;
+@property (copy, nonatomic) NSString * localizedText;
 @end
 
 @interface UIButton (RuntimeAttributes)
-@property (nonatomic, copy) NSString *localizedText;
+@property (copy, nonatomic) NSString * localizedText;
+@end
+
+@interface MWMTextView (RuntimeAttributes)
+@property (copy, nonatomic) NSString * localizedPlaceholder;
+@end
+
+@interface UITextField (RuntimeAttributes)
+@property (copy, nonatomic) NSString * localizedPlaceholder;
 @end

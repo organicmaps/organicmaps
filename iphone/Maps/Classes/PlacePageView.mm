@@ -415,13 +415,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)setState:(PlacePageState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
 {
-  if (withCallback)
-    [self willChangeValueForKey:@"state"];
-
-  [self applyState:state animated:animated];
-
-  if (withCallback)
-    [self didChangeValueForKey:@"state"];
+//  if (withCallback)
+//    [self willChangeValueForKey:@"state"];
+//
+//  [self applyState:state animated:animated];
+//
+//  if (withCallback)
+//    [self didChangeValueForKey:@"state"];
 }
 
 - (void)applyState:(PlacePageState)state animated:(BOOL)animated
@@ -722,7 +722,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   UserMark const * mark = [self userMark];
   BookmarkData newData = static_cast<Bookmark const *>(mark)->GetData();
   newData.SetType([[ColorPickerView colorName:colorIndex] UTF8String]);
-  
   BookmarkAndCategory bookmarkAndCategory = framework.FindBookmark(mark);
   framework.ReplaceBookmark(bookmarkAndCategory.first, bookmarkAndCategory.second, newData);
   framework.ActivateUserMark(mark);

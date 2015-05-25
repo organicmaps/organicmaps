@@ -6,14 +6,15 @@
 
 - (void)showBackButton
 {
-  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 44)];
-  [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-  [backButton setImage:[UIImage imageNamed:@"NavigationBarBackButton"] forState:UIControlStateNormal];
-
-  UIBarButtonItem * space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-  space.width = isIOSVersionLessThan(7) ? -8 : -16;
-  UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-  self.navigationItem.leftBarButtonItems = @[space, item];
+//  UIButton * backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 56, 44)];
+//  [backButton addTarget:self action:@selector(backButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//  [backButton setImage:[UIImage imageNamed:@"NavigationBarBackButton"] forState:UIControlStateNormal];
+//
+//  UIBarButtonItem * space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//  space.width = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -8 : -16;
+  UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationBarBackButton"] style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed:)];
+//  UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+  self.navigationItem.leftBarButtonItem = leftItem;
 }
 
 - (void)backButtonPressed:(id)sender

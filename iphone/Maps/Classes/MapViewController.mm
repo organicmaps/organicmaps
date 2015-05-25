@@ -1,8 +1,5 @@
 #import "AppInfo.h"
-#import "BookmarkDescriptionVC.h"
-#import "BookmarkNameVC.h"
 #import "Common.h"
-#import "ContainerView.h"
 #import "EAGLView.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
@@ -11,7 +8,6 @@
 #import "Reachability.h"
 #import "RouteState.h"
 #import "RouteView.h"
-#import "SelectSetVC.h"
 #import "ShareActionSheet.h"
 #import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
@@ -84,11 +80,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 @end
 
-@interface MapViewController () <PlacePageViewDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate, SearchViewDelegate>
+@interface MapViewController () <RouteViewDelegate, SearchViewDelegate>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
-@property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
@@ -235,18 +230,12 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     {
       self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager stop:self];
-      PlacePageView * placePage = self.containerView.placePage;
-      [[MapsAppDelegate theApp].m_locationManager stop:placePage];
-      if ([placePage isMyPosition])
-        [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
-      else
-        [placePage setState:placePage.state animated:YES withCallback:YES];
       break;
     }
     case location::State::PendingPosition:
       self.disableStandbyOnLocationStateMode = NO;
       [[MapsAppDelegate theApp].m_locationManager start:self];
-      [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
+      self.placePageManager = [[MWMPlacePageViewManager alloc] initWithViewController:self];
       break;
     case location::State::NotFollow:
       self.disableStandbyOnLocationStateMode = NO;
@@ -270,9 +259,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)dismissPlacePage
 {
-  GetFramework().GetBalloonManager().RemovePin();
   [self.placePageManager dismissPlacePage];
-  self.placePageManager = nil;
 }
 
 - (void)onUserMarkClicked:(unique_ptr<UserMarkCopy>)mark
@@ -369,7 +356,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  //  [NSValue valueWithCGPoint:[theTouch locationInView:self.view]]
   // To cancel single tap timer
   UITouch * theTouch = (UITouch *)[touches anyObject];
   if (theTouch.tapCount > 1)
@@ -578,16 +564,10 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   self.view.clipsToBounds = YES;
-
   [self.view addSubview:self.routeViewWrapper];
-
   self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
-
   [self.view addSubview:self.searchView];
-
-  [self.view addSubview:self.containerView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -619,8 +599,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     UIStatusBarStyle style = UIStatusBarStyleDefault;
     if (self.searchView.state != SearchViewStateHidden || self.controlsManager.menuState == MWMSideMenuStateActive)
       style = UIStatusBarStyleLightContent;
-    if (self.containerView.placePage.state != PlacePageStateHidden)
-      style = UIStatusBarStyleDefault;
     return style;
   }
 }
@@ -729,15 +707,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
     f.SetRouteBuildingListener([self, &f](routing::IRouter::ResultCode code, vector<storage::TIndex> const & absentCountries)
     {
-      [self.containerView.placePage showBuildingRoutingActivity:NO];
-
+      [self.placePageManager stopBuildingRoute];
       switch (code)
       {
         case routing::IRouter::ResultCode::NoError:
         {
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
-          [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
           [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
           [self performAfterDelay:0.3 block:^
            {
@@ -784,13 +760,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 #pragma mark - ShowDialog callback
 
-- (void)showDialogWithMessageID:(string const &)message
-{
-  [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:L(@"ok") otherButtonTitles:nil] show];
-}
-
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries
-{
+- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)type countries:(vector<storage::TIndex> const&)countries {
   if (countries.size())
   {
     MWMAlertViewController *alert = [[MWMAlertViewController alloc] initWithViewController:self];
@@ -841,17 +811,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [_searchView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return _searchView;
-}
-
-- (ContainerView *)containerView
-{
-  if (!_containerView)
-  {
-    _containerView = [[ContainerView alloc] initWithFrame:self.view.bounds];
-    _containerView.placePage.delegate = self;
-    [_containerView.placePage addObserver:self forKeyPath:@"state" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:nil];
-  }
-  return _containerView;
 }
 
 - (UIImageView *)apiBar
@@ -922,13 +881,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 #pragma mark - Routing
 
-- (void)tryToBuildRoute
-{
-  [self.routeView updateWithInfo:nil];
-  [self.containerView.placePage showBuildingRoutingActivity:YES];
-  GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
-}
-
 - (void)dismissRouting
 {
   GetFramework().CloseRouting();
@@ -966,80 +918,6 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   self.controlsManager.hidden = (state == SearchViewStateFullscreen);
 }
 
-#pragma mark - PlacePageViewDelegate
-
-- (void)placePageViewDidStartRouting:(PlacePageView *)placePage
-{
-  [self tryToBuildRoute];
-}
-
-- (void)placePageView:(PlacePageView *)placePage willShareText:(NSString *)text point:(m2::PointD)point
-{
-  ShareInfo * info = [[ShareInfo alloc] initWithText:text gX:point.x gY:point.y myPosition:NO];
-  self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
-  [self.shareActionSheet showFromRect:CGRectMake(placePage.midX, placePage.maxY, 0, 0)];
-}
-
-- (void)placePageView:(PlacePageView *)placePage willEditProperty:(NSString *)propertyName inBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  if ([propertyName isEqualToString:@"Set"])
-  {
-    SelectSetVC * vc = [[SelectSetVC alloc] initWithBookmarkAndCategory:bookmarkAndCategory];
-    vc.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
-  }
-  else if ([propertyName isEqualToString:@"Description"])
-  {
-    BookmarkDescriptionVC * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[BookmarkDescriptionVC className]];
-    vc.delegate = self;
-    vc.bookmarkAndCategory = bookmarkAndCategory;
-    [self.navigationController pushViewController:vc animated:YES];
-  }
-  else if ([propertyName isEqualToString:@"Name"])
-  {
-    BookmarkNameVC * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[BookmarkNameVC className]];
-    vc.delegate = self;
-    vc.temporaryName = placePage.temporaryTitle;
-    vc.bookmarkAndCategory = bookmarkAndCategory;
-    [self.navigationController pushViewController:vc animated:YES];
-  }
-}
-
-- (void)selectSetVC:(SelectSetVC *)vc didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  [self updatePlacePageWithBookmarkAndCategory:bookmarkAndCategory];
-}
-
-- (void)bookmarkDescriptionVC:(BookmarkDescriptionVC *)vc didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  [self updatePlacePageWithBookmarkAndCategory:bookmarkAndCategory];
-}
-
-- (void)bookmarkNameVC:(BookmarkNameVC *)vc didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  [self updatePlacePageWithBookmarkAndCategory:bookmarkAndCategory];
-}
-
-- (void)updatePlacePageWithBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
-  Bookmark const * bookmark = category->GetBookmark(bookmarkAndCategory.second);
-
-  [self.containerView.placePage showUserMark:bookmark->Copy()];
-  [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
-}
-
-- (void)placePageView:(PlacePageView *)placePage willShareApiPoint:(ApiMarkPoint const *)point
-{
-  NSString * urlString = [NSString stringWithUTF8String:GetFramework().GenerateApiBackUrl(*point).c_str()];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-}
-
-- (void)placePageViewWillEnterState:(PlacePageState)state
-{
-  [self.controlsManager moveButton:MWMMapViewControlsButtonZoom toDefaultPosition:(state == PlacePageStateHidden)];
-}
-
 #pragma mark - UIKitViews delegates
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -1059,85 +937,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-  if (object == self.containerView.placePage && [keyPath isEqualToString:@"state"])
+  if (object == self.searchView && [keyPath isEqualToString:@"state"])
   {
-    [self updateStatusBarStyle];
-    switch (self.containerView.placePage.state)
-    {
-      case PlacePageStateHidden:
-      {
-        if (self.searchView.state == SearchViewStateAlpha)
-          [self.searchView setState:SearchViewStateResults animated:YES withCallback:NO];
-
-        GetFramework().GetBalloonManager().RemovePin();
-
-        [UIView animateWithDuration:0.3 animations:^
-        {
-          if (GetFramework().IsRoutingActive())
-          {
-            if (self.searchView.state == SearchViewStateResults)
-            {
-              [self observeValueForKeyPath:@"state" ofObject:self.searchView change:nil context:nil];
-            }
-            else
-            {
-              self.routeView.alpha = 1;
-              self.routeView.minY = 0;
-            }
-          }
-        }];
-        break;
-      }
-      case PlacePageStatePreview:
-      {
-        if (self.searchView.state == SearchViewStateResults)
-          [self.searchView setState:SearchViewStateAlpha animated:YES withCallback:NO];
-
-        if ([change[@"old"] integerValue] == PlacePageStatePreview || [change[@"old"] integerValue] == PlacePageStateHidden)
-        {
-          m2::PointD const pinPoint = [self.containerView.placePage pinPoint];
-          CGPoint viewPinPoint = [(EAGLView *)self.view globalPoint2ViewPoint:CGPointMake(pinPoint.x, pinPoint.y)];
-
-          if (CGRectContainsPoint(self.view.bounds, viewPinPoint))
-          {
-            CGFloat const minOffset = 40.0;
-            CGFloat const bottomOffset = 44.0;
-            viewPinPoint.x = MIN(self.view.width - minOffset, viewPinPoint.x);
-            viewPinPoint.x = MAX(minOffset, viewPinPoint.x);
-            viewPinPoint.y = MIN(self.view.height - minOffset - bottomOffset, viewPinPoint.y);
-            viewPinPoint.y = MAX(minOffset + self.containerView.placePage.maxY, viewPinPoint.y);
-
-            CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:viewPinPoint];
-            m2::PointD const offset = [self.containerView.placePage pinPoint] - m2::PointD(center.x, center.y);
-            Framework & framework = GetFramework();
-            framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
-          }
-        }
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
-        {
-          if (GetFramework().IsRoutingActive())
-            self.routeView.alpha = 1;
-        }
-        completion:nil];
-        break;
-      }
-      case PlacePageStateOpened:
-      {
-        [UIView animateWithDuration:0.3 animations:^
-        {
-          self.routeView.alpha = 0;
-        }];
-        break;
-      }
-    }
-  }
-  else if (object == self.searchView && [keyPath isEqualToString:@"state"])
-  {
-    [self updateStatusBarStyle];
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+      [self setNeedsStatusBarAppearanceUpdate];
     if (self.searchView.state == SearchViewStateFullscreen)
     {
       GetFramework().ActivateUserMark(NULL);
-      [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:NO];
     }
     else if (self.searchView.state == SearchViewStateResults)
     {
@@ -1169,13 +975,11 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
     {
       self.apiBar.minY = 0;
-      self.containerView.frame = CGRectMake(0, self.apiBar.maxY, self.view.width, self.view.height - self.apiBar.maxY);
       self.routeViewWrapper.minY = self.apiBar.maxY;
     }
     completion:nil];
 
     [self.view insertSubview:self.searchView aboveSubview:self.apiBar];
-    self.containerView.placePage.statusBarIncluded = NO;
 
     self.apiTitleLabel.text = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
   }
@@ -1184,20 +988,15 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
     [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
     {
       self.apiBar.maxY = 0;
-      self.containerView.frame = self.view.bounds;
       self.routeViewWrapper.minY = self.apiBar.maxY;
     }
     completion:^(BOOL finished)
     {
       [self.apiBar removeFromSuperview];
     }];
-
-    [self.view insertSubview:self.searchView belowSubview:self.containerView];
-    self.containerView.placePage.statusBarIncluded = YES;
   }
 
   [self dismissPopover];
-  [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:YES];
   [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
 
   _apiMode = apiMode;

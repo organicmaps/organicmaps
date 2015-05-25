@@ -16,24 +16,40 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xwC-DR-6Il">
                         <rect key="frame" x="16" y="14" width="16" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="viE-zJ-wsl">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="viE-zJ-wsl" customClass="CopyLabel">
                         <rect key="frame" x="44" y="14" width="256" height="18"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" id="CNm-TR-GPW">
+                        <rect key="frame" x="40" y="43" width="280" height="1"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="calibratedRGB"/>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vu9-VL-9jn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <state key="normal">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="cellTap:" destination="VAd-kw-ZEC" eventType="touchUpInside" id="ztB-CS-FOm"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <inset key="separatorInset" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="icon" destination="xwC-DR-6Il" id="vcm-nJ-D7N"/>
                 <outlet property="textContainer" destination="viE-zJ-wsl" id="0bz-b0-s3h"/>
+                <outlet property="upperButton" destination="vu9-VL-9jn" id="mrL-f3-DXh"/>
             </connections>
             <point key="canvasLocation" x="120" y="300"/>
         </tableViewCell>

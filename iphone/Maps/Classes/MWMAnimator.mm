@@ -13,8 +13,8 @@ static int kScreenAnimationKey;
 
 @interface MWMAnimator ()
 
-@property (nonatomic) CADisplayLink *displayLink;
-@property (nonatomic) NSMutableSet *animations;
+@property (nonatomic) CADisplayLink * displayLink;
+@property (nonatomic) NSMutableSet * animations;
 
 @end
 
@@ -25,7 +25,7 @@ static int kScreenAnimationKey;
   if (!screen)
     screen = [UIScreen mainScreen];
 
-  MWMAnimator *animator = objc_getAssociatedObject(screen, &kScreenAnimationKey);
+  MWMAnimator * animator = objc_getAssociatedObject(screen, &kScreenAnimationKey);
   if (!animator)
   {
     animator = [[self alloc] initWithScreen:screen];

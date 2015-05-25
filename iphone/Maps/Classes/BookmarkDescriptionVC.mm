@@ -14,7 +14,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   self.title = L(@"description");
 
   BookmarkCategory const * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
