@@ -20,7 +20,7 @@
   <android.support.v4.widget.Space
       android:id="@+id/space_bottom"
       android:layout_width="0dp"
-      android:layout_height="250dp"
+      android:layout_height="@dimen/margin_bottom_zoom_buttons"
       android:layout_alignParentBottom="true"/>
 
   <ImageButton

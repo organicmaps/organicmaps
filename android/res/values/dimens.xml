@@ -65,5 +65,6 @@
   <dimen name="margin_direction_around_center">20dp</dimen>
 
   <dimen name="height_item_oneline">56dp</dimen>
+  <dimen name="margin_bottom_zoom_buttons">250dp</dimen>
 
 </resources>

@@ -84,7 +84,7 @@
   </style>
 
   <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-    <item name="android:background">?colorPrimary</item>
+    <item name="android:background">?attr/colorPrimary</item>
     <item name="android:elevation">4dp</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>

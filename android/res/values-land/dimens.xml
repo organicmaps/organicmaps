@@ -3,5 +3,6 @@
 
     <dimen name="zoom_plus_top_margin">-10dp</dimen>
     <dimen name="drawer_top_padding">12dp</dimen>
+    <dimen name="margin_bottom_zoom_buttons">180dp</dimen>
 
 </resources>
