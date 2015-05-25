@@ -63,7 +63,7 @@ public:
     CopyrightLabel,
     CountryStatusDisplay,
     CompassArrow,
-    DebugLable
+    DebugLabel
   };
 
   InformationDisplay(Framework * framework);

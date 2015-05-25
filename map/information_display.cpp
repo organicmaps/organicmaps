@@ -287,28 +287,28 @@ void InformationDisplay::ResetRouteMatchingInfo()
 
 void InformationDisplay::SetWidgetPivot(WidgetType widget, m2::PointD const & pivot)
 {
-  ASSERT(m_ruler, ());
+  auto const setPivotFn = [](shared_ptr<gui::Element> e, m2::PointD const & point)
+  {
+    if (e)
+      e->setPivot(point);
+  };
+
   switch(widget)
   {
   case WidgetType::Ruler:
-    if (m_ruler)
-      m_ruler->setPivot(pivot);
+    setPivotFn(m_ruler, pivot);
     return;
   case WidgetType::CopyrightLabel:
-    if (m_copyrightLabel)
-      m_copyrightLabel->setPivot(pivot);
+    setPivotFn(m_copyrightLabel, pivot);
     return;
   case WidgetType::CountryStatusDisplay:
-    if (m_countryStatusDisplay)
-      m_countryStatusDisplay->setPivot(pivot);
+    setPivotFn(m_countryStatusDisplay, pivot);
     return;
   case WidgetType::CompassArrow:
-    if (m_compassArrow)
-      m_compassArrow->setPivot(pivot);
+    setPivotFn(m_compassArrow, pivot);
     return;
-  case WidgetType::DebugLable:
-    if (m_debugLabel)
-      m_debugLabel->setPivot(pivot);
+  case WidgetType::DebugLabel:
+    setPivotFn(m_debugLabel, pivot);
     return;
   default:
     ASSERT(false, ());
@@ -321,11 +321,13 @@ m2::PointD InformationDisplay::GetWidgetSize(WidgetType widget) const
   switch(widget)
   {
   case WidgetType::Ruler:
-    boundRect = m_ruler->GetBoundRect();
+    if (m_ruler)
+      boundRect = m_ruler->GetBoundRect();
     break;
   case WidgetType::CompassArrow:
-    return m_compassArrow->GetPixelSize();
-  case WidgetType::DebugLable:
+    if (m_compassArrow)
+      return m_compassArrow->GetPixelSize();
+  case WidgetType::DebugLabel:
   case WidgetType::CountryStatusDisplay:
   case WidgetType::CopyrightLabel:
   default:

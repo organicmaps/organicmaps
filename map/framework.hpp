@@ -296,6 +296,8 @@ public:
    * - when the screen orientation is changed;
    * - when the screen size is changed;
    * A caller of Framework::OnSize() is a good place for it.
+   * \note SetWidgetPivot() shall be called only after RenderPolicy is created
+   * and set to the Framework.
    */
   void SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD const & pivot);
   m2::PointD GetWidgetSize(InformationDisplay::WidgetType widget) const;
