@@ -39,7 +39,7 @@ public class SearchAdapter extends BaseAdapter
       R.drawable.ic_hotel,
       R.drawable.ic_tourism,
       R.drawable.ic_transport,
-      R.drawable.ic_fuel,
+      R.drawable.ic_gas,
       R.drawable.ic_shop,
       R.drawable.ic_entertainment,
       R.drawable.ic_atm,

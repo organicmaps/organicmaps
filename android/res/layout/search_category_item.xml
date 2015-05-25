@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="@dimen/search_item_height"
               android:gravity="center_vertical"
-              android:minHeight="@dimen/search_item_height"
               android:orientation="horizontal"
-              android:padding="@dimen/margin_medium">
+              android:paddingLeft="@dimen/margin_medium"
+              android:paddingRight="@dimen/margin_medium">
 
   <ImageView
       android:id="@+id/iv__search_category"
