@@ -30,9 +30,9 @@ public:
   void Render(ref_ptr<dp::GpuProgramManager> mng, ScreenBase const & screen);
   void Merge(ref_ptr<LayerRenderer> other);
 
-  bool OnTouchDown(m2::PointD const & pt);
-  void OnTouchUp(m2::PointD const & pt);
-  void OnTouchCancel(m2::PointD const & pt);
+  bool OnTouchDown(m2::RectD const & touchArea);
+  void OnTouchUp(m2::RectD const & touchArea);
+  void OnTouchCancel(m2::RectD const & touchArea);
 
 private:
   void DestroyRenderers();

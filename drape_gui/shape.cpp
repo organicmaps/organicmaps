@@ -37,7 +37,7 @@ void Handle::GetPixelShape(const ScreenBase & screen, dp::OverlayHandle::Rects &
   UNUSED_VALUE(rects);
 }
 
-bool TappableHandle::IsTapped(m2::PointD const & pt) const
+bool TappableHandle::IsTapped(m2::RectD const & touchArea) const
 {
   if (!IsVisible() || !IsValid())
     return false;
@@ -46,7 +46,7 @@ bool TappableHandle::IsTapped(m2::PointD const & pt) const
   {
     m2::RectD rect(m_pivot.x - m_size.x * 0.5, m_pivot.y - m_size.y * 0.5,
                    m_pivot.x + m_size.x * 0.5, m_pivot.y + m_size.y * 0.5);
-    return rect.IsPointInside(pt);
+    return rect.Intersect(touchArea);
   }
   else
   {
@@ -131,12 +131,12 @@ void ShapeRenderer::ForEachShapeInfo(ShapeRenderer::TShapeInfoEditFn const & fn)
                       });
 }
 
-ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::PointD const & pt)
+ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::RectD const & touchArea)
 {
   ref_ptr<Handle> resultHandle = nullptr;
-  ForEachShapeInfo([&resultHandle, &pt](ShapeControl::ShapeInfo & shapeInfo)
+  ForEachShapeInfo([&resultHandle, &touchArea](ShapeControl::ShapeInfo & shapeInfo)
                    {
-                     if (shapeInfo.m_handle->IsTapped(pt))
+                     if (shapeInfo.m_handle->IsTapped(touchArea))
                      {
                        ASSERT(resultHandle == nullptr, ("Overlays cannot be intersected"));
                        resultHandle = make_ref(shapeInfo.m_handle);

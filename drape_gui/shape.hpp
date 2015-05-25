@@ -22,7 +22,7 @@ public:
 
   void Update(ScreenBase const & screen) override;
 
-  virtual bool IsTapped(m2::PointD const & pt) const { return false; }
+  virtual bool IsTapped(m2::RectD const & touchArea) const { return false; }
   virtual void OnTapBegin(){}
   virtual void OnTap(){}
   virtual void OnTapEnd(){}
@@ -47,7 +47,7 @@ public:
     : Handle(anchor, pivot, size)
   {}
 
-  bool IsTapped(m2::PointD const & pt) const override;
+  bool IsTapped(m2::RectD const & touchArea) const override;
 };
 
 struct ShapeControl
@@ -89,7 +89,7 @@ public:
   void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
 
-  ref_ptr<Handle> ProcessTapEvent(m2::PointD const & pt);
+  ref_ptr<Handle> ProcessTapEvent(m2::RectD const & touchArea);
 
 private:
   friend void ArrangeShapes(ref_ptr<ShapeRenderer>,

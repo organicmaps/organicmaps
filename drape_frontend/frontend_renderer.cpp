@@ -452,17 +452,21 @@ void FrontendRenderer::TapDetected(m2::PointD const & pt, bool isLongTap)
 
 bool FrontendRenderer::SingleTouchFiltration(m2::PointD const & pt, TouchEvent::ETouchType type)
 {
+  float const rectHalfSize = 5;
+  m2::RectD r(-rectHalfSize, -rectHalfSize, rectHalfSize, rectHalfSize);
+  r.SetCenter(pt);
+
   switch(type)
   {
   case TouchEvent::ETouchType::TOUCH_DOWN:
-    return m_guiRenderer->OnTouchDown(pt);
+    return m_guiRenderer->OnTouchDown(r);
 
   case TouchEvent::ETouchType::TOUCH_UP:
-    m_guiRenderer->OnTouchUp(pt);
+    m_guiRenderer->OnTouchUp(r);
     return false;
 
   case TouchEvent::ETouchType::TOUCH_CANCEL:
-    m_guiRenderer->OnTouchCancel(pt);
+    m_guiRenderer->OnTouchCancel(r);
     return false;
 
   case TouchEvent::ETouchType::TOUCH_MOVE:

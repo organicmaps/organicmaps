@@ -180,11 +180,11 @@ void LayerRenderer::AddShapeRenderer(Skin::ElementName name, drape_ptr<ShapeRend
   VERIFY(m_renderers.insert(make_pair(name, move(shape))).second, ());
 }
 
-bool LayerRenderer::OnTouchDown(m2::PointD const & pt)
+bool LayerRenderer::OnTouchDown(m2::RectD const & touchArea)
 {
   for (TRenderers::value_type & r : m_renderers)
   {
-    m_activeOverlay = r.second->ProcessTapEvent(pt);
+    m_activeOverlay = r.second->ProcessTapEvent(touchArea);
     if (m_activeOverlay != nullptr)
     {
       m_activeOverlay->OnTapBegin();
@@ -195,11 +195,11 @@ bool LayerRenderer::OnTouchDown(m2::PointD const & pt)
   return false;
 }
 
-void LayerRenderer::OnTouchUp(m2::PointD const & pt)
+void LayerRenderer::OnTouchUp(m2::RectD const & touchArea)
 {
   if (m_activeOverlay != nullptr)
   {
-    if (m_activeOverlay->IsTapped(pt))
+    if (m_activeOverlay->IsTapped(touchArea))
       m_activeOverlay->OnTap();
 
     m_activeOverlay->OnTapEnd();
@@ -207,9 +207,9 @@ void LayerRenderer::OnTouchUp(m2::PointD const & pt)
   }
 }
 
-void LayerRenderer::OnTouchCancel(m2::PointD const & pt)
+void LayerRenderer::OnTouchCancel(m2::RectD const & touchArea)
 {
-  UNUSED_VALUE(pt);
+  UNUSED_VALUE(touchArea);
   if (m_activeOverlay != nullptr)
   {
     m_activeOverlay->OnTapEnd();
