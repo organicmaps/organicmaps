@@ -66,4 +66,12 @@
  */
 - (BOOL)isEqualToSharePhoto:(FBSDKSharePhoto *)photo;
 
+/*!
+ @abstract The user generated caption for the photo. Note that the 'caption' must come from
+ * the user, as pre-filled content is forbidden by the Platform Policies (2.3).
+ @return the Photo's caption if exists else returns null.
+ */
+@property (nonatomic, copy) NSString *caption;
+
+
 @end

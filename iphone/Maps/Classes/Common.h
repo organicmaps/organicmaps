@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 static NSString * const FIRST_LAUNCH_KEY = @"FIRST_LAUNCH_KEY";
 
@@ -28,4 +29,9 @@ static inline NSString * const kApplicationGroupIdentifier()
   if ([bundleIdentifier isEqualToString:productionAppBundleIdentifier] || [bundleIdentifier isEqualToString:productionExtBundleIdentifier])
     return productionGroupIdentifier;
   return developerGroupIdentifier;
+}
+
+static inline BOOL isIOSVersionLessThan(NSInteger version)
+{
+  return [UIDevice currentDevice].systemName.integerValue < version;
 }

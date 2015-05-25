@@ -32,10 +32,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   [super viewDidLoad];
   // Need only for iOS 5.
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 6)
-  {
+  if (isIOSVersionLessThan(6))
     self.tap.delegate = self;
-  }
 }
 
 #pragma mark - Actions

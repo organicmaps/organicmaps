@@ -26,12 +26,6 @@
 @interface FBSDKAppInviteContent : NSObject <FBSDKCopying, NSSecureCoding>
 
 /*!
- @abstract Initializes a new instance
- @param appLinkURL the required URL that will be used as a target when the user accepts the invite.
- */
-- (instancetype)initWithAppLinkURL:(NSURL *)appLinkURL NS_DESIGNATED_INITIALIZER;
-
-/*!
  @abstract An app link target that will be used as a target when the user accept the invite.
 
  @discussion This is a requirement.

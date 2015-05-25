@@ -16,7 +16,8 @@
 #import "MRMyTracker.h"
 #import "MRTrackerParams.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FacebookSDK/FacebookSDK.h>
+#import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 #include "storage/storage_defines.hpp"
 
@@ -103,6 +104,38 @@ void InitLocalizedStrings()
   [MRMyTracker setupTracker];
 }
 
+#pragma mark - Notifications
+
+- (void)registerNotifications:(UIApplication *)application launchOptions:(NSDictionary *)launchOptions
+{
+  [Parse enableLocalDatastore];
+  [Parse setApplicationId:@"***REMOVED***" clientKey:@"***REMOVED***"];
+  [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+  UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
+  if ([application respondsToSelector: @selector(registerUserNotificationSettings:)])
+  {
+    UIUserNotificationSettings * const settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+    [application registerUserNotificationSettings:settings];
+    [application registerForRemoteNotifications];
+  }
+  else
+  {
+    [application registerForRemoteNotificationTypes:userNotificationTypes];
+  }
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+  PFInstallation * const currentInstallation = [PFInstallation currentInstallation];
+  [currentInstallation setDeviceTokenFromData:deviceToken];
+  [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+  [PFPush handlePush:userInfo];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // Initialize Alohalytics statistics engine.
@@ -154,11 +187,8 @@ void InitLocalizedStrings()
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
 
-  if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
-  {
-    UIUserNotificationSettings * settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-  }
+  [self registerNotifications:application launchOptions:launchOptions];
+
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
     [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey] onLaunch:YES];
@@ -177,9 +207,9 @@ void InitLocalizedStrings()
   [[NSUserDefaults standardUserDefaults] synchronize];
   
 
-  [UIApplication sharedApplication].applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
+  application.applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   
-  if (!self.isIOS7OrLater)
+  if (isIOSVersionLessThan(7))
     return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
  
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
@@ -277,15 +307,8 @@ void InitLocalizedStrings()
 
   f.GetLocationState()->InvalidatePosition();
 
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 8)
-  {
+  if (!isIOSVersionLessThan(7))
     [FBSDKAppEvents activateApp];
-  }
-  else
-  {
-    [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
-    [FBAppEvents activateApp];
-  }
 }
 
 - (void)dealloc
@@ -373,7 +396,7 @@ void InitLocalizedStrings()
   if ([self checkLaunchURL:url])
     return YES;
 
-  if (!self.isIOS7OrLater)
+  if (isIOSVersionLessThan(7))
     return NO;
   
   return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
@@ -457,14 +480,6 @@ void InitLocalizedStrings()
   return m_window;
 }
 
-- (BOOL)isIOS7OrLater
-{
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 7)
-    return NO;
-    
-  return YES;
-}
-
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
 {
   switch (userInfo.watchEventInfoRequest)
@@ -481,7 +496,7 @@ void InitLocalizedStrings()
 
 - (void)trackWatchUser
 {
-  if ([[[UIDevice currentDevice] systemName] integerValue] < 8)
+  if (isIOSVersionLessThan(8))
     return;
 
   NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
@@ -537,7 +552,7 @@ void InitLocalizedStrings()
 
 - (void)showFacebookAlert
 {
-  if (!Reachability.reachabilityForInternetConnection.isReachable)
+  if (isIOSVersionLessThan(7) || !Reachability.reachabilityForInternetConnection.isReachable)
     return;
   
   UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];

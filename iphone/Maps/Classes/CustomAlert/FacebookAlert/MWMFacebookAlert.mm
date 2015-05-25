@@ -49,22 +49,11 @@ extern NSString * const kUDAlreadySharedKey;
   [self.alertController closeAlert];
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadySharedKey];
   [[NSUserDefaults standardUserDefaults] synchronize];
-  
-  // We are use iOS8 only for showing native Facebook invite message because iOS7 crashes periodically with FBSDK 4.0.1.
-  if ([[[UIDevice currentDevice] systemVersion] integerValue] < 8)
-  {
-    NSString * url = [NSString stringWithFormat:kFacebookScheme];
-    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]])
-      url = [NSString stringWithFormat:kFacebookURL];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-  }
-  else
-  {
-    FBSDKAppInviteContent *content =
-    [[FBSDKAppInviteContent alloc] initWithAppLinkURL:[NSURL URLWithString:kFacebookAppName]];
-    content.previewImageURL = [NSURL URLWithString:kFacebookAlertPreviewImage];
-    [FBSDKAppInviteDialog showWithContent:content delegate:nil];
-  }
+
+  FBSDKAppInviteContent * const content = [[FBSDKAppInviteContent alloc] init];
+  content.appLinkURL = [NSURL URLWithString:kFacebookAppName];
+  content.previewImageURL = [NSURL URLWithString:kFacebookAlertPreviewImage];
+  [FBSDKAppInviteDialog showWithContent:content delegate:nil];
 }
 
 - (IBAction)notNowButtonTap:(id)sender

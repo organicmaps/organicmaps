@@ -16,6 +16,14 @@
 		343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */; };
 		343F26301AEFDB1A00388A6D /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 343F262F1AEFDB1A00388A6D /* Framework.cpp */; };
 		343F26311AEFDF3E00388A6D /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */; };
+		34570A361B13217C00E6D4FD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A331B13217C00E6D4FD /* Bolts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A371B13217C00E6D4FD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A341B13217C00E6D4FD /* Parse.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A381B13217C00E6D4FD /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A351B13217C00E6D4FD /* ParseFacebookUtilsV4.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A391B13219600E6D4FD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98653186C5F0500AF7E9E /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3A1B13222600E6D4FD /* libz.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A3D1B13223000E6D4FD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3C1B13223000E6D4FD /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A3E1B13225500E6D4FD /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		345C31711AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */; };
 		345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345C31701AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm */; };
 		345C31781AE799B600EA0CC2 /* MWMSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 345C31751AE799B600EA0CC2 /* MWMSearchResultCell.m */; };
@@ -188,7 +196,6 @@
 		F64F19A31AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64F19971AB81A00006EAF7E /* MWMDownloadTransitMapAlert.mm */; };
 		F64F19A41AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */; };
 		F672A6B71AD423A7009060C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F672A6B61AD423A7009060C3 /* Images.xcassets */; };
-		F6775ECE1ACC1B8800A377EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */; };
 		F67BBB571AC54A7800D162C7 /* MWMFeedbackAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F67BBB551AC54A7800D162C7 /* MWMFeedbackAlert.mm */; };
 		F67BBB581AC54A7800D162C7 /* MWMFeedbackAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */; };
 		F68CEF741AD8852A00563FBA /* MWMMapController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F68CEF731AD8852A00563FBA /* MWMMapController.mm */; };
@@ -308,6 +315,13 @@
 		343F262C1AEFC4A300388A6D /* MWMFrameworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkUtils.h; sourceTree = "<group>"; };
 		343F262D1AEFC4A300388A6D /* MWMFrameworkUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkUtils.mm; sourceTree = "<group>"; };
 		343F262F1AEFDB1A00388A6D /* Framework.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Framework.cpp; path = ../../Classes/Framework.cpp; sourceTree = "<group>"; };
+		34570A331B13217C00E6D4FD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = PushNotifications/Bolts.framework; sourceTree = "<group>"; };
+		34570A341B13217C00E6D4FD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = PushNotifications/Parse.framework; sourceTree = "<group>"; };
+		34570A351B13217C00E6D4FD /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = PushNotifications/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		34570A3A1B13222600E6D4FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		34570A3C1B13223000E6D4FD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		34570A3E1B13225500E6D4FD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = Statistics/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		345C31681AE7860600EA0CC2 /* MWMWatchLocationTrackerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMWatchLocationTrackerDelegate.h; sourceTree = "<group>"; };
 		345C316D1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMCategoriesInterfaceCell.h; sourceTree = "<group>"; };
 		345C316E1AE798DD00EA0CC2 /* MWMCategoriesInterfaceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMCategoriesInterfaceCell.m; sourceTree = "<group>"; };
@@ -550,7 +564,6 @@
 		F64F19981AB81A00006EAF7E /* MWMDownloadTransitMapAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMDownloadTransitMapAlert.xib; sourceTree = "<group>"; };
 		F672A6B61AD423A7009060C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F673E9151AD2B65B0064EB7F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Statistics/FacebookSDK.framework; sourceTree = "<group>"; };
 		F67BBB541AC54A7800D162C7 /* MWMFeedbackAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFeedbackAlert.h; sourceTree = "<group>"; };
 		F67BBB551AC54A7800D162C7 /* MWMFeedbackAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFeedbackAlert.mm; sourceTree = "<group>"; };
 		F67BBB561AC54A7800D162C7 /* MWMFeedbackAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMFeedbackAlert.xib; sourceTree = "<group>"; };
@@ -669,13 +682,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34570A411B13229300E6D4FD /* FBSDKLoginKit.framework in Frameworks */,
+				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
+				34570A3F1B13225500E6D4FD /* Accounts.framework in Frameworks */,
+				34570A3D1B13223000E6D4FD /* libsqlite3.dylib in Frameworks */,
+				34570A3B1B13222600E6D4FD /* libz.dylib in Frameworks */,
+				34570A391B13219600E6D4FD /* AudioToolbox.framework in Frameworks */,
+				34570A361B13217C00E6D4FD /* Bolts.framework in Frameworks */,
+				34570A371B13217C00E6D4FD /* Parse.framework in Frameworks */,
+				34570A381B13217C00E6D4FD /* ParseFacebookUtilsV4.framework in Frameworks */,
 				F69A16A31AF24A3300EF43F0 /* libMyTracker.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				6BDCBF491AA758FE004DAE48 /* libFlurry_6.0.0.a in Frameworks */,
-				F6775ECE1ACC1B8800A377EC /* FacebookSDK.framework in Frameworks */,
 				F6BC1E4D1ACBE96100EF0360 /* FBSDKCoreKit.framework in Frameworks */,
 				F6BC1E4E1ACBE96100EF0360 /* FBSDKShareKit.framework in Frameworks */,
-				B08AA8D61A25E58C00810B1C /* Social.framework in Frameworks */,
 				B08AA8D51A25E58500810B1C /* PassKit.framework in Frameworks */,
 				B00511061A1101FC00A61AA4 /* CoreMedia.framework in Frameworks */,
 				B00511041A1101F600A61AA4 /* CoreData.framework in Frameworks */,
@@ -819,11 +839,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34570A401B13229300E6D4FD /* FBSDKLoginKit.framework */,
+				34570A3E1B13225500E6D4FD /* Accounts.framework */,
+				34570A3C1B13223000E6D4FD /* libsqlite3.dylib */,
+				34570A3A1B13222600E6D4FD /* libz.dylib */,
+				34570A331B13217C00E6D4FD /* Bolts.framework */,
+				34570A341B13217C00E6D4FD /* Parse.framework */,
+				34570A351B13217C00E6D4FD /* ParseFacebookUtilsV4.framework */,
 				F69A16A21AF24A3300EF43F0 /* libMyTracker.a */,
 				4540406E1AD2D9C5007A9B12 /* WatchKit.framework */,
 				454040681AD2D8D2007A9B12 /* CoreVideo.framework */,
 				F673E9151AD2B65B0064EB7F /* GLKit.framework */,
-				F6775ECD1ACC1B8800A377EC /* FacebookSDK.framework */,
 				F6BC1E4B1ACBE96100EF0360 /* FBSDKCoreKit.framework */,
 				F6BC1E4C1ACBE96100EF0360 /* FBSDKShareKit.framework */,
 				6BDCBF481AA758FE004DAE48 /* libFlurry_6.0.0.a */,
@@ -2116,6 +2142,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = "Drape Release";
@@ -2221,6 +2252,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = "Drape Debug";
@@ -2704,6 +2740,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = Simulator;
@@ -2806,6 +2847,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = Debug;
@@ -2914,6 +2960,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.production.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = AdHoc;
@@ -3022,6 +3073,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.production.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = "Production Full";
@@ -3127,6 +3183,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = Release;
@@ -3230,6 +3291,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PushNotifications",
+					"$(PROJECT_DIR)/Statistics",
+				);
 				INFOPLIST_FILE = MAPSME.plist;
 			};
 			name = "Simulator Release";

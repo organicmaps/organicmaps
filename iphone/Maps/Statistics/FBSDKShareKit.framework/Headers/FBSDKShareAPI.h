@@ -41,6 +41,11 @@
 @property (nonatomic, assign) BOOL createObjectsWithClientToken;
 
 /*!
+ @abstract The message the person has provided through the custom dialog that will accompany the share content.
+ */
+@property (nonatomic, copy) NSString *message;
+
+/*!
  @abstract A Boolean value that indicates whether the receiver can send the share.
  @discussion May return NO if the appropriate Facebook app is not installed and is required or an access token is
  required but not available.  This method does not validate the content on the receiver, so this can be checked before

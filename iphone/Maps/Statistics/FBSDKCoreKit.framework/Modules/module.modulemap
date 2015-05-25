@@ -1,0 +1,26 @@
+framework module FBSDKCoreKit {
+    umbrella header "FBSDKCoreKit.h"
+
+    export *
+    module * { export * }
+
+    explicit module FBSDKButton {
+        header "FBSDKButton.h"
+        export *
+    }
+
+    explicit module FBSDKAppLinkResolver {
+        header "FBSDKAppLinkResolver.h"
+        export *
+    }
+
+    explicit module FBSDKGraphErrorRecoveryProcessor {
+        header "FBSDKGraphErrorRecoveryProcessor.h"
+        export *
+    }
+
+    explicit module FBSDKGraphRequestDataAttachment {
+        header "FBSDKGraphRequestDataAttachment.h"
+        export *
+    }
+}

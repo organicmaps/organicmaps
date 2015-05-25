@@ -19,6 +19,7 @@
 #import <Foundation/Foundation.h>
 
 #import <FBSDKCoreKit/FBSDKCopying.h>
+#import <FBSDKCoreKit/FBSDKGraphRequestConnection.h>
 #import <FBSDKCoreKit/FBSDKMacros.h>
 
 /*!
@@ -143,5 +144,16 @@ NS_DESIGNATED_INITIALIZER;
  @discussion This will broadcast a notification and save the token to the app keychain.
  */
 + (void)setCurrentAccessToken:(FBSDKAccessToken *)token;
+
+/*!
+ @abstract Refresh the current access token's permission state and extend the token's expiration date,
+  if possible.
+ @param completionHandler an optional callback handler that can surface any errors related to permission refreshing.
+ @discussion On a successful refresh, the currentAccessToken will be updated so you typically only need to
+  observe the `FBSDKAccessTokenDidChangeNotification` notification.
+
+ If a token is already expired, it cannot be refreshed.
+ */
++ (void)refreshCurrentAccessToken:(FBSDKGraphRequestHandler)completionHandler;
 
 @end

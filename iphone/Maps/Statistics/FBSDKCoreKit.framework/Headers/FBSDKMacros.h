@@ -26,7 +26,14 @@
 
 #define FBSDK_STATIC_INLINE static inline
 
-#define FBSDK_NOT_DESIGNATED_INITIALIZER \
+#define FBSDK_NO_DESIGNATED_INITIALIZER() \
 @throw [NSException exceptionWithName:NSInvalidArgumentException \
                                reason:[NSString stringWithFormat:@"unrecognized selector sent to instance %p", self] \
-                             userInfo:nil];
+                             userInfo:nil]
+
+#define FBSDK_NOT_DESIGNATED_INITIALIZER(DESIGNATED_INITIALIZER) \
+@throw [NSException exceptionWithName:NSInvalidArgumentException \
+                               reason:[NSString stringWithFormat:@"Please use the designated initializer [%p %@]", \
+                                       self, \
+                                       NSStringFromSelector(@selector(DESIGNATED_INITIALIZER))] \
+                             userInfo:nil]
