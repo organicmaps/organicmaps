@@ -29,6 +29,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -140,6 +142,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private boolean mStorageWritable = true;
   // Buttons
   private static final long BUTTONS_ANIM_DURATION = 100;
+  private static final long BUTTONS_ANIM_DURATION_LONG = 110;
   private static final long BUTTON_ANIM_DELAY = 50;
   private ViewGroup mBottomButtons;
   private ImageView mBtnBookmarks;
@@ -591,7 +594,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       @Override
       public void onFadeOut()
       {
-        toggleMenuButtons();
+        if (areBottomButtonsVisible())
+          toggleMenuButtons();
       }
 
       @Override
@@ -705,7 +709,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       outState.putBoolean(STATE_PP_OPENED, true);
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
-    else if (mBottomButtons.getVisibility() == View.VISIBLE)
+    else if (areBottomButtonsVisible())
       outState.putBoolean(STATE_BUTTONS_OPENED, true);
 
     super.onSaveInstanceState(outState);
@@ -721,7 +725,10 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
 
     if (savedInstanceState.getBoolean(STATE_BUTTONS_OPENED))
+    {
+      mFadeView.fadeIn();
       showBottomButtons();
+    }
     else
       hideBottomButtons();
 
@@ -1095,10 +1102,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
       hidePlacePage();
       Framework.deactivatePopup();
     }
-    else if (mBtnMenu.getVisibility() == View.GONE)
-      slideSlideButtonsOut();
+    else if (areBottomButtonsVisible())
+    {
+      mFadeView.fadeOut();
+      toggleMenuButtons();
+    }
     else if (canFragmentInterceptBackPress())
-      // TODO
+      // TODO close menu & fragments accordingly
       return;
     else if (popFragment())
     {
@@ -1318,6 +1328,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private Animator generateMenuAnimator(@NonNull final View layout, @NonNull final View button, @NonNull final View textView, final float width)
   {
+    final AnimatorSet result = new AnimatorSet();
     ValueAnimator animator = ObjectAnimator.ofFloat(button, "translationX", width, 0);
     animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
@@ -1325,15 +1336,24 @@ public class MWMActivity extends BaseMwmFragmentActivity
       public void onAnimationStart(Animator animation)
       {
         layout.setVisibility(View.VISIBLE);
+        button.setAlpha(0);
         textView.setAlpha(0);
       }
     });
     animator.setInterpolator(new OvershootInterpolator());
     animator.setDuration(BUTTONS_ANIM_DURATION);
-    final AnimatorSet result = new AnimatorSet();
     result.play(animator);
+
+    animator = ObjectAnimator.ofFloat(button, "alpha", 0, 1);
+    animator.setDuration(BUTTONS_ANIM_DURATION_LONG);
+    animator.setInterpolator(new AccelerateInterpolator());
+    result.play(animator);
+
     animator = ObjectAnimator.ofFloat(textView, "alpha", 0, 1);
+    animator.setDuration(BUTTONS_ANIM_DURATION / 2);
+    animator.setInterpolator(new DecelerateInterpolator());
     result.play(animator).after(BUTTONS_ANIM_DURATION / 2);
+
     return result;
   }
 
@@ -1444,18 +1464,23 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void toggleMenuButtons()
   {
-    if (mLlSearch.getVisibility() == View.GONE)
-    {
-      mBtnMenu.setImageDrawable(mAnimMenu);
-      mAnimMenu.start();
-      slideBottomButtonsIn();
-    }
-    else
+    if (areBottomButtonsVisible())
     {
       mBtnMenu.setImageDrawable(mAnimMenuReversed);
       mAnimMenuReversed.start();
       slideSlideButtonsOut();
     }
+    else
+    {
+      mBtnMenu.setImageDrawable(mAnimMenu);
+      mAnimMenu.start();
+      slideBottomButtonsIn();
+    }
+  }
+
+  private boolean areBottomButtonsVisible()
+  {
+    return mLlSearch.getVisibility() == View.VISIBLE;
   }
 
   private void followRoute()
@@ -1559,7 +1584,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     if (keyCode == KeyEvent.KEYCODE_MENU)
     {
-      // TODO toggle menu
+      toggleMenuButtons();
       return true;
     }
     return super.onKeyUp(keyCode, event);

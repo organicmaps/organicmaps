@@ -42,9 +42,7 @@
 
   <include
       android:id="@+id/navigation_buttons"
-      layout="@layout/map_navigation_buttons"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      layout="@layout/map_navigation_buttons"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
@@ -55,8 +53,5 @@
 
   <include
       android:id="@+id/map_bottom_buttons"
-      layout="@layout/map_bottom_buttons"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_alignParentBottom="true"/>
+      layout="@layout/map_bottom_buttons"/>
 </RelativeLayout>

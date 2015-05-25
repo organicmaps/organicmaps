@@ -34,11 +34,8 @@
   </FrameLayout>
 
   <include
-      android:id="@+id/navigation_buttons_container_ref"
-      layout="@layout/map_navigation_buttons"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_below="@id/fl__routing"/>
+      android:id="@+id/navigation_buttons"
+      layout="@layout/map_navigation_buttons"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
@@ -49,15 +46,6 @@
 
   <include
       android:id="@+id/map_bottom_buttons"
-      layout="@layout/map_bottom_buttons"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_alignParentBottom="true"/>
+      layout="@layout/map_bottom_buttons"/>
 
-  <include
-      android:id="@+id/map_bottom_vertical_toolbar"
-      layout="@layout/map_bottom_vertical_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"/>
 </RelativeLayout>

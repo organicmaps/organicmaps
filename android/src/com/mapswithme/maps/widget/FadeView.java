@@ -13,7 +13,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class FadeView extends FrameLayout
 {
-  private static final float ALPHA_VALUE = 0.5f;
+  private static final float FADE_ALPHA_VALUE = 0.8f;
   private static final String PROPERTY_ALPHA = "alpha";
 
   private ObjectAnimator mFadeInAnimation;
@@ -76,14 +76,14 @@ public class FadeView extends FrameLayout
   public void fadeIn()
   {
     setVisibility(View.VISIBLE);
-    mFadeInAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, 0f, ALPHA_VALUE);
+    mFadeInAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, 0f, FADE_ALPHA_VALUE);
     mFadeInAnimation.addListener(mFadeInListener);
     mFadeInAnimation.start();
   }
 
   public void fadeOut()
   {
-    mFadeOutAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, ALPHA_VALUE, 0f);
+    mFadeOutAnimation = ObjectAnimator.ofFloat(this, PROPERTY_ALPHA, FADE_ALPHA_VALUE, 0f);
     mFadeOutAnimation.addListener(mFadeOutListener);
     mFadeOutAnimation.start();
   }

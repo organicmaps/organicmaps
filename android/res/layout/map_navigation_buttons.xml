@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/margin_small">
 
@@ -17,19 +17,24 @@
       android:layout_alignParentRight="true"
       android:src="@drawable/ic_btn_yota_ptb"/>
 
-  <ImageButton
-      android:id="@+id/map_button_plus"
-      style="@style/MwmWidget.MapButton.White"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentRight="true"
-      android:layout_marginBottom="250dp"
-      android:src="@drawable/btn_white_zoom_in"/>
+  <android.support.v4.widget.Space
+      android:id="@+id/space_bottom"
+      android:layout_width="0dp"
+      android:layout_height="250dp"
+      android:layout_alignParentBottom="true"/>
 
   <ImageButton
       android:id="@+id/map_button_minus"
-      style="@style/MwmWidget.MapButton.White"
+      style="@style/MwmWidget.MapButton.Zoom"
+      android:layout_above="@id/space_bottom"
       android:layout_alignParentRight="true"
-      android:layout_below="@+id/map_button_plus"
       android:src="@drawable/btn_white_zoom_out"/>
+
+  <ImageButton
+      android:id="@+id/map_button_plus"
+      style="@style/MwmWidget.MapButton.Zoom"
+      android:layout_above="@id/map_button_minus"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/btn_white_zoom_in"/>
 
 </RelativeLayout>
