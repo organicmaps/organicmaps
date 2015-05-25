@@ -7,6 +7,12 @@
     android:orientation="vertical">
 
   <ImageButton
+      android:id="@+id/btn__myposition"
+      style="@style/MwmWidget.MapButton.White"
+      android:layout_alignParentBottom="true"
+      android:src="@drawable/bg_btn_white"/>
+
+  <ImageButton
       android:id="@+id/yop_it"
       style="@style/MwmWidget.MapButton.White"
       android:layout_width="wrap_content"
