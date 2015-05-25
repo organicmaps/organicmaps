@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,8 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -64,6 +64,7 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.maps.settings.UnitLocale;
+import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
@@ -77,7 +78,9 @@ import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.io.Serializable;
@@ -105,13 +108,13 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private static final String STATE_ROUTE_FOLLOWED = "RouteFollowed";
   private static final String STATE_PP_OPENED = "PpOpened";
   private static final String STATE_MAP_OBJECT = "MapObject";
-  private static final String STATE_MENU_OPENED = "MenuOpened";
+  private static final String STATE_BUTTONS_OPENED = "ButtonsOpened";
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
   private BroadcastReceiver mExternalStorageReceiver;
   private StoragePathManager mPathManager = new StoragePathManager();
   private AlertDialog mStorageDisconnectedDialog;
-  private ImageButton mLocationButton;
+  private ImageButton mBtnLocation;
   // map
   private MapFragment mMapFragment;
   // Place page
@@ -135,11 +138,35 @@ public class MWMActivity extends BaseMwmFragmentActivity
   // Initialized to invalid combination to force update on the first check
   private boolean mStorageAvailable = false;
   private boolean mStorageWritable = true;
-  // toolbars
-  private static final long VERT_TOOLBAR_ANIM_DURATION = 250;
-  private static final float FADE_VIEW_ALPHA = 0.5f;
-  private ViewGroup mBottomToolbar;
-  private View mFadeView;
+  // Buttons
+  private static final long BUTTONS_ANIM_DURATION = 100;
+  private static final long BUTTON_ANIM_DELAY = 50;
+  private ViewGroup mBottomButtons;
+  private ImageView mBtnBookmarks;
+  private ImageView mBtnSearch;
+  private ImageView mBtnDownloader;
+  private ImageView mBtnShare;
+  private ImageView mBtnSettings;
+  private ImageButton mBtnMenu;
+  private View mLlBookmarks;
+  private View mLlSearch;
+  private View mLlDownloader;
+  private View mLlShare;
+  private View mLlSettings;
+  private View mTvShare;
+  private View mTvBookmarks;
+  private View mTvDownloader;
+  private View mTvSettings;
+  private View mTvSearch;
+
+  private AnimationDrawable mAnimMenu;
+  private AnimationDrawable mAnimMenuReversed;
+
+  private FadeView mFadeView;
+
+  private ViewGroup mNavigationButtons;
+  private ImageButton mBtnZoomIn;
+  private ImageButton mBtnZoomOut;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
@@ -150,7 +177,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private LocationPredictor mLocationPredictor;
   private LikesManager mLikesManager;
-
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -227,7 +253,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       {
         final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
         final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
-        mBottomToolbar.getHandler().postDelayed(new Runnable()
+        mBottomButtons.getHandler().postDelayed(new Runnable()
         {
           @Override
           public void run()
@@ -413,25 +439,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
       startActivity(new Intent(this, SearchActivity.class));
   }
 
-  private void fadeMap(float fromAlpha, final float toAlpha)
-  {
-    Animation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
-    alphaAnimation.setFillBefore(true);
-    alphaAnimation.setFillAfter(true);
-    alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
-    alphaAnimation.setAnimationListener(new UiUtils.SimpleAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animation animation)
-      {
-        if (toAlpha == 0)
-          mFadeView.setVisibility(View.GONE);
-      }
-    });
-    mFadeView.setVisibility(View.VISIBLE);
-    mFadeView.startAnimation(alphaAnimation);
-  }
-
   private void shareMyLocation()
   {
     final Location loc = LocationHelper.INSTANCE.getLastLocation();
@@ -481,7 +488,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       transaction.add(R.id.fragment_container, fragment, fragment.getClass().getName());
       transaction.addToBackStack(null).commit();
 
-      fadeMap(0, FADE_VIEW_ALPHA);
+      mFadeView.fadeIn();
     }
     else
     {
@@ -560,11 +567,11 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void initViews()
   {
-    setupMap();
-    setupYota();
-    setupPlacePage();
-    setupRoutingBox();
-    setupToolbars();
+    initMap();
+    initYota();
+    initPlacePage();
+    initRoutingBox();
+    initNavigationButtons();
     if (findViewById(R.id.fragment_container) != null)
     {
       mIsFragmentContainer = true;
@@ -576,9 +583,23 @@ public class MWMActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void setupMap()
+  private void initMap()
   {
-    mFadeView = findViewById(R.id.fade_view);
+    mFadeView = (FadeView) findViewById(R.id.fade_view);
+    mFadeView.setFadeListener(new FadeView.FadeListener()
+    {
+      @Override
+      public void onFadeOut()
+      {
+        toggleMenuButtons();
+      }
+
+      @Override
+      public void onFadeIn()
+      {
+
+      }
+    });
     mMapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.FRAGMENT_TAG);
     if (mMapFragment == null)
     {
@@ -589,22 +610,47 @@ public class MWMActivity extends BaseMwmFragmentActivity
     findViewById(R.id.map_fragment_container).setOnTouchListener(this);
   }
 
-  private void setupToolbars()
+  @SuppressWarnings("deprecation")
+  private void initNavigationButtons()
   {
-    mBottomToolbar = (ViewGroup) findViewById(R.id.map_bottom_buttons);
-    mBottomToolbar.findViewById(R.id.btn__search).setOnClickListener(this);
-    mBottomToolbar.findViewById(R.id.btn__bookmarks).setOnClickListener(this);
-    mBottomToolbar.findViewById(R.id.btn__download_maps).setOnClickListener(this);
-    mBottomToolbar.findViewById(R.id.btn__share).setOnClickListener(this);
-    mBottomToolbar.findViewById(R.id.btn__settings).setOnClickListener(this);
+    mBottomButtons = (ViewGroup) findViewById(R.id.map_bottom_buttons);
+    mBtnBookmarks = (ImageView) mBottomButtons.findViewById(R.id.btn__bookmarks);
+    mLlBookmarks = mBottomButtons.findViewById(R.id.ll__bookmarks);
+    mLlBookmarks.setOnClickListener(this);
+    mTvBookmarks = mBottomButtons.findViewById(R.id.tv__bookmarks);
+    mBtnSearch = (ImageView) mBottomButtons.findViewById(R.id.btn__search);
+    mLlSearch = mBottomButtons.findViewById(R.id.ll__search);
+    mLlSearch.setOnClickListener(this);
+    mTvSearch = mBottomButtons.findViewById(R.id.tv__search);
+    mLlDownloader = mBottomButtons.findViewById(R.id.ll__download_maps);
+    mLlDownloader.setOnClickListener(this);
+    mBtnDownloader = (ImageView) mBottomButtons.findViewById(R.id.btn__download_maps);
+    mTvDownloader = mBottomButtons.findViewById(R.id.tv__download_maps);
+    mBtnShare = (ImageView) mBottomButtons.findViewById(R.id.btn__share);
+    mLlShare = mBottomButtons.findViewById(R.id.ll__share);
+    mLlShare.setOnClickListener(this);
+    mTvShare = mBottomButtons.findViewById(R.id.tv__share);
+    mBtnSettings = (ImageView) mBottomButtons.findViewById(R.id.btn__settings);
+    mLlSettings = mBottomButtons.findViewById(R.id.ll__settings);
+    mLlSettings.setOnClickListener(this);
+    mTvSettings = mBottomButtons.findViewById(R.id.tv__settings);
 
-    findViewById(R.id.map_button_plus).setOnClickListener(this);
-    findViewById(R.id.map_button_minus).setOnClickListener(this);
-    mLocationButton = (ImageButton) findViewById(R.id.btn__myposition);
-    mLocationButton.setOnClickListener(this);
+    mBtnMenu = (ImageButton) mBottomButtons.findViewById(R.id.btn__open_menu);
+    mBtnMenu.setOnClickListener(this);
+    mAnimMenu = (AnimationDrawable) getResources().getDrawable(R.drawable.anim_menu);
+    mAnimMenuReversed = (AnimationDrawable) getResources().getDrawable(R.drawable.anim_menu_reversed);
+    hideBottomButtons();
+
+    mNavigationButtons = (ViewGroup) findViewById(R.id.navigation_buttons);
+    mBtnZoomIn = (ImageButton) mNavigationButtons.findViewById(R.id.map_button_plus);
+    mBtnZoomIn.setOnClickListener(this);
+    mBtnZoomOut = (ImageButton) mNavigationButtons.findViewById(R.id.map_button_minus);
+    mBtnZoomOut.setOnClickListener(this);
+    mBtnLocation = (ImageButton) mNavigationButtons.findViewById(R.id.btn__myposition);
+    mBtnLocation.setOnClickListener(this);
   }
 
-  private void setupPlacePage()
+  private void initPlacePage()
   {
     mPlacePage = (PlacePageView) findViewById(R.id.info_box);
     mPlacePage.setOnVisibilityChangedListener(this);
@@ -615,7 +661,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mPbRoutingProgress = (ProgressBar) mRlStartRouting.findViewById(R.id.pb__routing_progress);
   }
 
-  private void setupRoutingBox()
+  private void initRoutingBox()
   {
     mRlRoutingBox = (RelativeLayout) findViewById(R.id.rl__routing_box);
     mRlRoutingBox.setVisibility(View.GONE);
@@ -632,7 +678,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
     mRlTurnByTurnBox.findViewById(R.id.btn__close).setOnClickListener(this);
   }
 
-  private void setupYota()
+  private void initYota()
   {
     final View yopmeButton = findViewById(R.id.yop_it);
     if (Yota.isFirstYota())
@@ -659,8 +705,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       outState.putBoolean(STATE_PP_OPENED, true);
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
     }
-//    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-//      outState.putBoolean(STATE_MENU_OPENED, true);
+    else if (mBottomButtons.getVisibility() == View.VISIBLE)
+      outState.putBoolean(STATE_BUTTONS_OPENED, true);
 
     super.onSaveInstanceState(outState);
   }
@@ -673,10 +719,23 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mPlacePage.setMapObject((MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT));
       mPlacePage.setState(State.PREVIEW);
     }
-//    else if (savedInstanceState.getBoolean(STATE_MENU_OPENED))
-//      setVerticalToolbarVisible(true);
+
+    if (savedInstanceState.getBoolean(STATE_BUTTONS_OPENED))
+      showBottomButtons();
+    else
+      hideBottomButtons();
 
     super.onRestoreInstanceState(savedInstanceState);
+  }
+
+  private void showBottomButtons()
+  {
+    UiUtils.show(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
+  }
+
+  private void hideBottomButtons()
+  {
+    UiUtils.hide(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
   }
 
   @Override
@@ -684,7 +743,6 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     super.onNewIntent(intent);
 
-    fadeMap(0, 0);
     if (intent != null)
     {
       if (intent.hasExtra(EXTRA_TASK))
@@ -894,7 +952,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
 
   private void refreshLocationState(int newMode)
   {
-    LocationButtonImageSetter.setButtonViewFromState(newMode, mLocationButton);
+    LocationButtonImageSetter.setButtonViewFromState(newMode, mBtnLocation);
     switch (newMode)
     {
     case LocationState.UNKNOWN_POSITION:
@@ -1037,15 +1095,15 @@ public class MWMActivity extends BaseMwmFragmentActivity
       hidePlacePage();
       Framework.deactivatePopup();
     }
-//    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-//      setVerticalToolbarVisible(false);
+    else if (mBtnMenu.getVisibility() == View.GONE)
+      slideSlideButtonsOut();
     else if (canFragmentInterceptBackPress())
+      // TODO
       return;
     else if (popFragment())
     {
-      InputUtils.hideKeyboard(mBottomToolbar);
-      if (isMapFaded())
-        fadeMap(FADE_VIEW_ALPHA, 0.0f);
+      InputUtils.hideKeyboard(mBottomButtons);
+      mFadeView.fadeOut();
     }
     else
       super.onBackPressed();
@@ -1188,7 +1246,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mIvStartRouting.setVisibility(View.VISIBLE);
       mPbRoutingProgress.setVisibility(View.GONE);
       if (popFragment() && isMapFaded())
-        fadeMap(FADE_VIEW_ALPHA, 0);
+        mFadeView.fadeOut();
     }
   }
 
@@ -1224,15 +1282,59 @@ public class MWMActivity extends BaseMwmFragmentActivity
       mPlacePage.setMapObject(null);
     }
     if (previewIntersectsBottomMenu())
-      mBottomToolbar.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+      mBottomButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
     if (previewIntersectsZoomButtons())
-      showNavigationButtons(isVisible);
+    {
+      // TODO hide zoom buttons?
+    }
   }
 
-  private void showNavigationButtons(boolean isVisible)
+  private void slideBottomButtonsIn()
   {
-    // TODO toggle zoom buttons and location. with animation.
-//    mNavigationButtons.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+    final AnimatorSet animatorSet = new AnimatorSet();
+    mLlSearch.setVisibility(View.VISIBLE);
+    animatorSet.play(generateMenuAnimator(mLlShare, mBtnShare, mTvShare, mBtnShare.getWidth()));
+    animatorSet.play(generateMenuAnimator(mLlSettings, mBtnSettings, mTvSettings, mBtnSettings.getWidth())).after(BUTTON_ANIM_DELAY);
+    animatorSet.play(generateMenuAnimator(mLlDownloader, mBtnDownloader, mTvDownloader, mBtnDownloader.getWidth())).after(BUTTON_ANIM_DELAY * 2);
+    animatorSet.play(generateMenuAnimator(mLlBookmarks, mBtnBookmarks, mTvBookmarks, mBtnBookmarks.getWidth())).after(BUTTON_ANIM_DELAY * 3);
+    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mBtnMenu.setVisibility(View.GONE);
+      }
+    });
+    animatorSet.start();
+  }
+
+  private void slideSlideButtonsOut()
+  {
+    mBtnMenu.setVisibility(View.VISIBLE);
+    mBtnMenu.bringToFront();
+
+    hideBottomButtons();
+  }
+
+  private Animator generateMenuAnimator(@NonNull final View layout, @NonNull final View button, @NonNull final View textView, final float width)
+  {
+    ValueAnimator animator = ObjectAnimator.ofFloat(button, "translationX", width, 0);
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationStart(Animator animation)
+      {
+        layout.setVisibility(View.VISIBLE);
+        textView.setAlpha(0);
+      }
+    });
+    animator.setInterpolator(new OvershootInterpolator());
+    animator.setDuration(BUTTONS_ANIM_DURATION);
+    final AnimatorSet result = new AnimatorSet();
+    result.play(animator);
+    animator = ObjectAnimator.ofFloat(textView, "alpha", 0, 1);
+    result.play(animator).after(BUTTONS_ANIM_DURATION / 2);
+    return result;
   }
 
   private boolean previewIntersectsBottomMenu()
@@ -1250,7 +1352,9 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     AlohaHelper.logClick(AlohaHelper.PP_OPEN);
     if (placePageIntersectsZoomButtons())
-      showNavigationButtons(isVisible);
+    {
+      // TODO hide zoom buttons?
+    }
   }
 
   private boolean placePageIntersectsZoomButtons()
@@ -1263,15 +1367,18 @@ public class MWMActivity extends BaseMwmFragmentActivity
   {
     switch (v.getId())
     {
-    case R.id.btn_share:
+    case R.id.btn__share:
+    case R.id.ll__share:
       AlohaHelper.logClick(AlohaHelper.MENU_SHARE);
       shareMyLocation();
       break;
-    case R.id.btn_settings:
+    case R.id.btn__settings:
+    case R.id.ll__settings:
       AlohaHelper.logClick(AlohaHelper.MENU_SETTINGS);
       startActivity(new Intent(this, SettingsActivity.class));
       break;
-    case R.id.btn_download_maps:
+    case R.id.btn__download_maps:
+    case R.id.ll__download_maps:
       AlohaHelper.logClick(AlohaHelper.MENU_DOWNLOADER);
       showDownloader(false);
       break;
@@ -1299,14 +1406,18 @@ public class MWMActivity extends BaseMwmFragmentActivity
       AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
       mMapFragment.nativeScale(2 / 3.0);
       break;
-    case R.id.btn__more:
+    case R.id.btn__open_menu:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
+      mFadeView.fadeIn();
+      toggleMenuButtons();
       break;
     case R.id.btn__search:
+    case R.id.ll__search:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
       showSearchIfUpdated();
       break;
     case R.id.btn__bookmarks:
+    case R.id.ll__bookmarks:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_BOOKMARKS);
       showBookmarks();
       break;
@@ -1328,6 +1439,22 @@ public class MWMActivity extends BaseMwmFragmentActivity
       break;
     default:
       break;
+    }
+  }
+
+  private void toggleMenuButtons()
+  {
+    if (mLlSearch.getVisibility() == View.GONE)
+    {
+      mBtnMenu.setImageDrawable(mAnimMenu);
+      mAnimMenu.start();
+      slideBottomButtonsIn();
+    }
+    else
+    {
+      mBtnMenu.setImageDrawable(mAnimMenuReversed);
+      mAnimMenuReversed.start();
+      slideSlideButtonsOut();
     }
   }
 
@@ -1417,20 +1544,14 @@ public class MWMActivity extends BaseMwmFragmentActivity
   public boolean onTouch(View view, MotionEvent event)
   {
     boolean result = false;
-    // if vertical toolbar is visible - hide it and ignore touch
-//    if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-//    {
-//      setVerticalToolbarVisible(false);
-//      result = true;
-//    }
     if (mPlacePage.getState() == State.DETAILS || mPlacePage.getState() == State.BOOKMARK)
     {
       Framework.deactivatePopup();
       hidePlacePage();
       result = true;
     }
-    result |= mMapFragment.onTouch(view, event);
-    return result;
+
+    return result || mMapFragment.onTouch(view, event);
   }
 
   @Override
@@ -1479,7 +1600,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
           mLayoutRoutingGo.setVisibility(View.VISIBLE);
 
           Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 0, 1);
-          animator.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+          animator.setDuration(BUTTONS_ANIM_DURATION);
           animator.start();
 
           mRlRoutingBox.setVisibility(View.VISIBLE);

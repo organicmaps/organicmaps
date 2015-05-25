@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          android:enterFadeDuration="200"
-          android:exitFadeDuration="200"
           tools:ignore="UnusedAttribute">
 
   <item android:drawable="@drawable/btn_white_normal"

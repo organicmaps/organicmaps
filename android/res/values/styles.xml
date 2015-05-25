@@ -63,6 +63,10 @@
     <item name="android:background">@drawable/bg_btn_white</item>
   </style>
 
+  <style name="MwmWidget.MapButton.Zoom">
+    <item name="android:background">@drawable/bg_btn_zoom</item>
+  </style>
+
   <style name="MwmWidget.MapButton.Green">
     <item name="android:background">@drawable/bg_btn_green</item>
   </style>
@@ -177,6 +181,10 @@
     <item name="android:textSize">@dimen/text_size_body_1</item>
     <item name="android:textColor">@color/text_dark</item>
     <item name="android:fontFamily">@string/robotoRegular</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body1.Light">
+    <item name="android:textColor">@color/text_light</item>
   </style>
 
   <style name="MwmTextAppearance.Body2">

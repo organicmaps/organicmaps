@@ -34,11 +34,11 @@
       android:layout_width="wrap_content"
       android:layout_height="match_parent"/>
 
-  <ImageView
+  <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:src="@android:color/black"
+      android:background="@android:color/black"
       android:visibility="gone"/>
 
   <FrameLayout

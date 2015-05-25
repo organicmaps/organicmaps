@@ -46,7 +46,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 
-  <View
+  <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
