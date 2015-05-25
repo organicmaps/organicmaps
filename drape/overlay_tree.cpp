@@ -37,7 +37,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
    */
   ForEachInRect(pixelRect, [&] (detail::OverlayInfo const & info)
   {
-    if (handle->IsIntersect(modelView, info.m_handle) && isTransparent == info.m_isTransparent)
+    if (isTransparent == info.m_isTransparent && handle->IsIntersect(modelView, info.m_handle))
       elements.push_back(info);
   });
 
@@ -49,7 +49,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
    * But if some of already inserted elements more priority than we don't insert "handle"
    */
   for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)
-    if (inputPriority < (*it).m_handle->GetPriority())
+    if (inputPriority < it->m_handle->GetPriority())
       return;
 
   for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)

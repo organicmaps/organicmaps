@@ -6,7 +6,7 @@ namespace df
 
 OpacityAnimation::OpacityAnimation(double duration, double startOpacity, double endOpacity)
   : BaseInterpolator(duration)
-  , m_opacity(1.0)
+  , m_opacity(startOpacity)
   , m_startOpacity(startOpacity)
   , m_endOpacity(endOpacity)
 {

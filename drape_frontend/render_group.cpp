@@ -60,7 +60,7 @@ void RenderGroup::Update(ScreenBase const & modelView)
 void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
   for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-    renderBucket->CollectOverlayHandles(tree, GetOpacity() != 1.0);
+    renderBucket->CollectOverlayHandles(tree, GetOpacity() < 1.0);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
@@ -100,7 +100,7 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
 
   if (rPendingOnDelete == lPendingOnDelete)
   {
-    if (l->GetOpacity() == r->GetOpacity())
+    if (my::AlmostEqual(l->GetOpacity(), r->GetOpacity()))
       return lState < rState;
     else
       return l->GetOpacity() > r->GetOpacity();
