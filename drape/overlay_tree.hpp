@@ -12,25 +12,42 @@ namespace dp
 namespace detail
 {
 
+struct OverlayInfo
+{
+  ref_ptr<OverlayHandle> m_handle;
+  bool m_isTransparent = false;
+
+  OverlayInfo() = default;
+  OverlayInfo(ref_ptr<OverlayHandle> handle, bool isTransparent)
+    : m_handle(handle)
+    , m_isTransparent(isTransparent)
+  {}
+
+  bool operator==(OverlayInfo const & rhs) const
+  {
+    return m_handle == rhs.m_handle && m_isTransparent == rhs.m_isTransparent;
+  }
+};
+
 struct OverlayTraits
 {
   ScreenBase m_modelView;
 
-  inline m2::RectD const LimitRect(ref_ptr<OverlayHandle> handle)
+  inline m2::RectD const LimitRect(OverlayInfo const & info)
   {
-    return handle->GetPixelRect(m_modelView);
+    return info.m_handle->GetPixelRect(m_modelView);
   }
 };
 
 }
 
-class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits>
+class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
 {
-  typedef m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits> BaseT;
+  typedef m4::Tree<detail::OverlayInfo, detail::OverlayTraits> BaseT;
 
 public:
   void StartOverlayPlacing(ScreenBase const & screen, bool canOverlap = false);
-  void Add(ref_ptr<OverlayHandle> handle);
+  void Add(ref_ptr<OverlayHandle> handle, bool isTransparent);
   void EndOverlayPlacing();
 
 private:

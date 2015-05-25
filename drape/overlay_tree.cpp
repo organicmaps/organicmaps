@@ -12,7 +12,7 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, bool canOverlap
   ASSERT(IsEmpty(), ());
 }
 
-void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
+void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
 {
   ScreenBase const & modelView = GetModelView();
 
@@ -29,16 +29,16 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
     return;
   }
 
-  typedef buffer_vector<ref_ptr<OverlayHandle>, 8> OverlayContainerT;
+  typedef buffer_vector<detail::OverlayInfo, 8> OverlayContainerT;
   OverlayContainerT elements;
   /*
    * Find elements that already on OverlayTree and it's pixel rect
    * intersect with handle pixel rect ("Intersected elements")
    */
-  ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> r)
+  ForEachInRect(pixelRect, [&] (detail::OverlayInfo const & info)
   {
-    if (handle->IsIntersect(modelView, r))
-      elements.push_back(r);
+    if (handle->IsIntersect(modelView, info.m_handle) && isTransparent == info.m_isTransparent)
+      elements.push_back(info);
   });
 
   double const inputPriority = handle->GetPriority();
@@ -49,20 +49,20 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
    * But if some of already inserted elements more priority than we don't insert "handle"
    */
   for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)
-    if (inputPriority < (*it)->GetPriority())
+    if (inputPriority < (*it).m_handle->GetPriority())
       return;
 
   for (OverlayContainerT::const_iterator it = elements.begin(); it != elements.end(); ++it)
     Erase(*it);
 
-  BaseT::Add(handle, pixelRect);
+  BaseT::Add(detail::OverlayInfo(handle, isTransparent), pixelRect);
 }
 
 void OverlayTree::EndOverlayPlacing()
 {
-  ForEach([] (ref_ptr<OverlayHandle> handle)
+  ForEach([] (detail::OverlayInfo const & info)
   {
-    handle->SetIsVisible(true);
+    info.m_handle->SetIsVisible(true);
   });
 
   Clear();

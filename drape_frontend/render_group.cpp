@@ -60,7 +60,7 @@ void RenderGroup::Update(ScreenBase const & modelView)
 void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 {
   for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-    renderBucket->CollectOverlayHandles(tree);
+    renderBucket->CollectOverlayHandles(tree, GetOpacity() != 1.0);
 }
 
 void RenderGroup::Render(ScreenBase const & screen)
