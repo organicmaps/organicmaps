@@ -191,6 +191,11 @@ void Framework::SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD
   m_informationDisplay.SetWidgetPivot(widget, pivot);
 }
 
+m2::PointD Framework::GetWidgetSize(InformationDisplay::WidgetType widget) const
+{
+  return m_informationDisplay.GetWidgetSize(widget);
+}
+
 void Framework::GetMaps(vector<string> & maps) const
 {
   Platform & pl = GetPlatform();

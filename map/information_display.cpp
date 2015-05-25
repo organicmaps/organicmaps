@@ -314,3 +314,22 @@ void InformationDisplay::SetWidgetPivot(WidgetType widget, m2::PointD const & pi
     ASSERT(false, ());
   }
 }
+
+m2::PointD InformationDisplay::GetWidgetSize(WidgetType widget) const
+{
+  m2::RectD boundRect;
+  switch(widget)
+  {
+  case WidgetType::Ruler:
+    boundRect = m_ruler->GetBoundRect();
+    break;
+  case WidgetType::CompassArrow:
+    return m_compassArrow->GetPixelSize();
+  case WidgetType::DebugLable:
+  case WidgetType::CountryStatusDisplay:
+  case WidgetType::CopyrightLabel:
+  default:
+    ASSERT(false, ());
+  }
+  return m2::PointD(boundRect.SizeX(), boundRect.SizeY());
+}

@@ -298,6 +298,7 @@ public:
    * A caller of Framework::OnSize() is a good place for it.
    */
   void SetWidgetPivot(InformationDisplay::WidgetType widget, m2::PointD const & pivot);
+  m2::PointD GetWidgetSize(InformationDisplay::WidgetType widget) const;
 
   /// Safe function to get current visual scale.
   /// Call it when you need do calculate pixel rect (not matter if m_renderPolicy == 0).

@@ -101,4 +101,5 @@ public:
   void ResetRouteMatchingInfo();
 
   void SetWidgetPivot(WidgetType widget, m2::PointD const & pivot);
+  m2::PointD GetWidgetSize(WidgetType widget) const;
 };
