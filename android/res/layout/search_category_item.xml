@@ -5,23 +5,22 @@
               android:gravity="center_vertical"
               android:minHeight="@dimen/search_item_height"
               android:orientation="horizontal"
-              android:paddingLeft="@dimen/margin_medium"
-              android:paddingRight="@dimen/margin_medium">
+              android:padding="@dimen/margin_medium">
 
   <ImageView
-      android:id="@+id/iv_search_category"
+      android:id="@+id/iv__search_category"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_weight="0"/>
+      android:layout_weight="0"
+      android:contentDescription="@null"
+      android:scaleType="center"/>
 
   <TextView
-      android:id="@+id/tv_search_item_title"
+      android:id="@+id/tv__search_category"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/margin_medium"
       android:layout_weight="1"
-      android:fontFamily="@string/robotoLight"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-      android:textColor="@color/text_search_category"/>
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
 </LinearLayout>

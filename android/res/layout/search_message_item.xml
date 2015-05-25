@@ -5,20 +5,19 @@
               android:gravity="center_vertical"
               android:minHeight="@dimen/search_item_height"
               android:orientation="horizontal"
-              android:paddingLeft="@dimen/margin_medium"
-              android:paddingRight="@dimen/margin_medium">
+              android:padding="@dimen/margin_medium">
 
   <ImageView
-      android:id="@+id/iv_search_image"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
-
-  <TextView
-      android:id="@+id/tv_search_item_title"
+      android:id="@+id/iv__search_image"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:fontFamily="@string/robotoLight"
-      android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-      android:textColor="@color/text_search_item"/>
+      android:contentDescription="@null"/>
+
+  <TextView
+      android:id="@+id/tv__search_category"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/text_green"
+      android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
 </LinearLayout>

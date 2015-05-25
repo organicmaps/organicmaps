@@ -19,7 +19,17 @@ public abstract class BaseMwmListFragment extends ListFragment
 
     mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
     if (mToolbar != null)
+    {
       UiUtils.showHomeUpButton(mToolbar);
+      mToolbar.setNavigationOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          getActivity().onBackPressed();
+        }
+      });
+    }
   }
 
   public Toolbar getToolbar()

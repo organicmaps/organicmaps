@@ -19,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
@@ -1336,8 +1337,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       public void onAnimationStart(Animator animation)
       {
         layout.setVisibility(View.VISIBLE);
-        ViewHelper.setAlpha(button, 0);
-        ViewHelper.setAlpha(textView, 0);
+        ViewCompat.setAlpha(button, 0);
+        ViewCompat.setAlpha(textView, 0);
       }
     });
     animator.setInterpolator(new OvershootInterpolator());

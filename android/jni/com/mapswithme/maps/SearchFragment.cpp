@@ -18,8 +18,8 @@ class SearchAdapter
 
   threads::Mutex m_updateMutex;
 
-  /// Last saved activity to run update UI.
-  jobject m_activity;
+  /// Last saved fragment to run update UI.
+  jobject m_fragment;
 
   // This function may be called several times for one queryID.
   // In that case we should increment m_storeID to distinguish different results.
@@ -41,9 +41,9 @@ class SearchAdapter
     {
       threads::MutexGuard guard(m_updateMutex);
 
-      if (m_activity == 0)
+      if (m_fragment == 0)
       {
-        // In case when activity is destroyed, but search thread passed any results.
+        // In case when fragment is destroyed, but search thread passed any results.
         return;
       }
 
@@ -67,8 +67,8 @@ class SearchAdapter
     JNIEnv * env = jni::GetEnv();
 
     // post message to update ListView in UI thread
-    jmethodID const id = jni::GetJavaMethodID(env, m_activity, "updateData", "(II)V");
-    env->CallVoidMethod(m_activity, id,
+    jmethodID const id = jni::GetJavaMethodID(env, m_fragment, "updateData", "(II)V");
+    env->CallVoidMethod(m_fragment, id,
                           static_cast<jint>(m_storeResults.GetCount()),
                           static_cast<jint>(m_storeID));
   }
@@ -103,29 +103,29 @@ class SearchAdapter
   }
 
   SearchAdapter()
-    : m_ID(0), m_storeID(0), m_activity(0)
+    : m_ID(0), m_storeID(0), m_fragment(0)
   {
   }
 
-  void Connect(JNIEnv * env, jobject activity)
+  void Connect(JNIEnv * env, jobject fragment)
   {
     threads::MutexGuard guard(m_updateMutex);
 
-    if (m_activity != 0)
-      env->DeleteGlobalRef(m_activity);
-    m_activity = env->NewGlobalRef(activity);
+    if (m_fragment != 0)
+      env->DeleteGlobalRef(m_fragment);
+    m_fragment = env->NewGlobalRef(fragment);
 
     m_storeID = m_ID = 0;
   }
 
   void Disconnect(JNIEnv * env)
   {
-    if (m_activity != 0)
+    if (m_fragment != 0)
     {
       threads::MutexGuard guard(m_updateMutex);
 
-      env->DeleteGlobalRef(m_activity);
-      m_activity = 0;
+      env->DeleteGlobalRef(m_fragment);
+      m_fragment = 0;
     }
   }
 
@@ -134,12 +134,12 @@ class SearchAdapter
 public:
   /// @name Instance lifetime functions.
   //@{
-  static void ConnectInstance(JNIEnv * env, jobject activity)
+  static void ConnectInstance(JNIEnv * env, jobject fragment)
   {
     if (s_pInstance == 0)
       s_pInstance = new SearchAdapter();
 
-    s_pInstance->Connect(env, activity);
+    s_pInstance->Connect(env, fragment);
   }
 
   static void DisconnectInstance(JNIEnv * env)
@@ -206,14 +206,12 @@ Java_com_mapswithme_maps_search_SearchFragment_nativeDisconnect(JNIEnv * env, jo
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_search_SearchFragment_nativeRunSearch(
     JNIEnv * env, jobject thiz, jstring s, jstring lang,
-    jdouble lat, jdouble lon, jint flags, jint searchMode, jint queryID)
+    jdouble lat, jdouble lon, jint flags, jint queryID)
 {
   search::SearchParams params;
 
   params.m_query = jni::ToNativeString(env, s);
   params.SetInputLocale(jni::ToNativeString(env, lang));
-
-  params.SetSearchMode(searchMode);
 
   /// @note These magic numbers should be equal with NOT_FIRST_QUERY and HAS_POSITION
   /// from SearchFragment.java

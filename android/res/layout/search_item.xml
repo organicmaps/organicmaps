@@ -7,16 +7,17 @@
     android:gravity="top"
     android:minHeight="@dimen/search_item_height"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/margin_small"
+    android:paddingBottom="@dimen/margin_medium"
     android:paddingLeft="@dimen/margin_medium"
     android:paddingRight="@dimen/margin_medium"
-    android:paddingTop="@dimen/margin_small">
+    android:paddingTop="@dimen/margin_medium">
 
   <ImageView
-      android:id="@+id/iv_search_image"
+      android:id="@+id/iv__search_image"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/margin_small"/>
+      android:layout_marginRight="@dimen/margin_medium"
+      android:contentDescription="@null"/>
 
   <LinearLayout
       android:layout_width="0dp"
@@ -26,22 +27,17 @@
       android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_search_item_title"
+        android:id="@+id/tv__search_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@string/robotoLight"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_search_item"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     <TextView
         android:id="@+id/tv_search_item_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="@string/robotoRegular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/text_search_item_subtitle"
-        android:textSize="13sp"/>
+        android:textAppearance="@style/MwmTextAppearance.Body3"/>
   </LinearLayout>
 
   <LinearLayout
@@ -49,28 +45,21 @@
       android:layout_height="match_parent"
       android:layout_weight="0"
       android:gravity="right"
-      android:orientation="vertical"
-      android:paddingTop="6dp">
+      android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_search_item_type"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fontFamily="@string/robotoRegular"
         android:gravity="top"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_search_item_greyed"
-        android:textSize="12sp"/>
+        android:textAppearance="@style/MwmTextAppearance.Body3"/>
 
     <TextView
         android:id="@+id/tv_search_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@string/robotoRegular"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_search_item"
-        android:textSize="13sp"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
   </LinearLayout>
 

@@ -75,19 +75,12 @@
     <item name="android:imeOptions">actionDone</item>
   </style>
 
-  <style name="MwmWidget.DividerMediumPadded">
-    <item name="android:layout_height">1px</item>
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_marginRight">0dp</item>
-    <item name="android:layout_marginLeft">0dp</item>
-    <item name="android:background">@drawable/divider_medium_padded</item>
-  </style>
-
   <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     <item name="android:background">?attr/colorPrimary</item>
     <item name="android:elevation">4dp</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:displayOptions">homeAsUp|showTitle</item>
+    <item name="colorAccent">@android:color/white</item>
     <item name="contentInsetStart">72dp</item>
     <item name="contentInsetLeft">72dp</item>
     <item name="android:contentInsetStart">72dp</item>
@@ -96,7 +89,7 @@
 
   <style name="MwmWidget.ListView" parent="android:Widget.ListView">
     <item name="android:fadingEdge">none</item>
-    <item name="android:divider">@drawable/divider_medium_padded</item>
+    <item name="android:divider">@color/base_black_divider</item>
     <item name="android:dividerHeight">1px</item>
     <item name="android:background">@android:color/white</item>
     <item name="android:animationCache">false</item>

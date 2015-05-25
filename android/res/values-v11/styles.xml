@@ -3,7 +3,7 @@
 
   <style name="MwmWidget.ListView" parent="android:Widget.Holo.ListView">
     <item name="android:fadingEdge">none</item>
-    <item name="android:divider">@drawable/divider_medium_padded</item>
+    <item name="android:divider">@color/base_black_divider</item>
     <item name="android:dividerHeight">1px</item>
     <item name="android:background">@android:color/white</item>
     <item name="android:animationCache">false</item>

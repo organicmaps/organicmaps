@@ -10,30 +10,29 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 public class SearchAdapter extends BaseAdapter
 {
-  private static final String mCategories[] = {
-      "food",
-      "hotel",
-      "tourism",
-      "transport",
-      "fuel",
-      "shop",
-      "entertainment",
-      "atm",
-      "bank",
-      "parking",
-      "toilet",
-      "pharmacy",
-      "hospital",
-      "post",
-      "police",
-      "wifi"
+  private static final int mCategoriesIds[] = {
+      R.string.food,
+      R.string.hotel,
+      R.string.tourism,
+      R.string.transport,
+      R.string.fuel,
+      R.string.shop,
+      R.string.entertainment,
+      R.string.atm,
+      R.string.bank,
+      R.string.parking,
+      R.string.toilet,
+      R.string.pharmacy,
+      R.string.hospital,
+      R.string.post,
+      R.string.police,
+      R.string.wifi
   };
   private static final int mIcons[] = {
       R.drawable.ic_food,
@@ -98,7 +97,7 @@ public class SearchAdapter extends BaseAdapter
   public int getCount()
   {
     if (mSearchFragment.doShowCategories())
-      return mCategories.length;
+      return mCategoriesIds.length;
     else if (mCount < 0)
       return 0;
     else if (doShowSearchOnMapButton())
@@ -137,14 +136,6 @@ public class SearchAdapter extends BaseAdapter
     return position;
   }
 
-  private String getCategoryName(String strID)
-  {
-    final int id = mResources.getIdentifier(strID, "string", BuildConfig.APPLICATION_ID);
-    if (id > 0)
-      return mSearchFragment.getString(id);
-    return null;
-  }
-
   @Override
   public View getView(int position, View convertView, ViewGroup parent)
   {
@@ -180,7 +171,7 @@ public class SearchAdapter extends BaseAdapter
       bindResultView(holder, getPositionInResults(position));
       break;
     case MESSAGE_TYPE:
-      bindMessageView(holder, position);
+      bindMessageView(holder);
       break;
     }
 
@@ -195,6 +186,7 @@ public class SearchAdapter extends BaseAdapter
       String country = null;
       String dist = null;
       Spanned s;
+      // TODO replace completely html text with spannable builders
       if (r.mType == SearchResult.TYPE_FEATURE)
       {
         if (r.mHighlightRanges.length > 0)
@@ -208,7 +200,7 @@ public class SearchAdapter extends BaseAdapter
             int len = r.mHighlightRanges[j++];
 
             builder.append(r.mName.substring(pos, start));
-            builder.append("<font color=\"green\">");
+            builder.append("<font color=\"#1F9952\">");
             builder.append(r.mName.substring(start, start + len));
             builder.append("</font>");
 
@@ -226,10 +218,7 @@ public class SearchAdapter extends BaseAdapter
         holder.mView.setBackgroundResource(0);
       }
       else
-      {
-        s = Html.fromHtml(r.mName);
-        holder.mView.setBackgroundResource(R.drawable.bg_search_suggestion_selector);
-      }
+        s = Html.fromHtml("<font color=\"#1F9952\">" + r.mName + "</font>");
 
       UiUtils.setTextAndShow(holder.mName, s);
       UiUtils.setTextAndHideIfEmpty(holder.mCountry, country);
@@ -240,17 +229,18 @@ public class SearchAdapter extends BaseAdapter
 
   private void bindCategoryView(ViewHolder holder, int position)
   {
-    UiUtils.setTextAndShow(holder.mName, getCategoryName(mCategories[position]));
+    UiUtils.setTextAndShow(holder.mName, mResources.getString(mCategoriesIds[position]));
     holder.mImageLeft.setImageResource(mIcons[position]);
   }
 
-  private void bindMessageView(ViewHolder holder, int position)
+  private void bindMessageView(ViewHolder holder)
   {
-    UiUtils.setTextAndShow(holder.mName, mSearchFragment.getString(R.string.search_on_map));
+    UiUtils.setTextAndShow(holder.mName, mResources.getString(R.string.search_on_map));
   }
 
   /**
    * Update list data.
+   *
    * @param count
    * @param resultId
    */
@@ -262,15 +252,10 @@ public class SearchAdapter extends BaseAdapter
     notifyDataSetChanged();
   }
 
-  public void updateData()
-  {
-    notifyDataSetChanged();
-  }
-
   public void updateCategories()
   {
     mCount = -1;
-    updateData();
+    notifyDataSetChanged();
   }
 
   /**
@@ -305,9 +290,9 @@ public class SearchAdapter extends BaseAdapter
       }
       break;
     case CATEGORY_TYPE:
-      Statistics.INSTANCE.trackSearchCategoryClicked(mCategories[position]);
+      Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoriesIds[position]));
 
-      return getCategoryName(mCategories[position]) + ' ';
+      return mResources.getString(mCategoriesIds[position]) + ' ';
     }
 
     return null;
@@ -325,21 +310,21 @@ public class SearchAdapter extends BaseAdapter
     public ViewHolder(View v, int type)
     {
       mView = v;
-      mName = (TextView) v.findViewById(R.id.tv_search_item_title);
+      mName = (TextView) v.findViewById(R.id.tv__search_category);
 
       switch (type)
       {
       case CATEGORY_TYPE:
-        mImageLeft = (ImageView) v.findViewById(R.id.iv_search_category);
+        mImageLeft = (ImageView) v.findViewById(R.id.iv__search_category);
         break;
       case RESULT_TYPE:
-        mImageLeft = (ImageView) v.findViewById(R.id.iv_search_image);
+        mImageLeft = (ImageView) v.findViewById(R.id.iv__search_image);
         mDistance = (TextView) v.findViewById(R.id.tv_search_distance);
         mCountry = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
         mItemType = (TextView) v.findViewById(R.id.tv_search_item_type);
         break;
       case MESSAGE_TYPE:
-        mImageLeft = (ImageView) v.findViewById(R.id.iv_search_image);
+        mImageLeft = (ImageView) v.findViewById(R.id.iv__search_image);
         mCountry = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
         break;
       }

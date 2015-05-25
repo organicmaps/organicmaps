@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
+    style="@style/MwmWidget.Toolbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:gravity="center_vertical"
     android:theme="@style/MwmWidget.Toolbar">
+    <!-- style is needed, too, because some attrs(insets, eg) are not supported in theme-->
 
   <include
       android:id="@+id/search_box"
-      layout="@layout/search_box"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/search_box_height"/>
+      layout="@layout/search_box"/>
 </android.support.v7.widget.Toolbar>
