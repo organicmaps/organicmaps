@@ -10,13 +10,12 @@
 #include "generator/source_reader.hpp"
 #include "generator/world_map_generator.hpp"
 #include "generator/xml_element.hpp"
+#include "generator/osm_o5m_source.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/mercator.hpp"
 
 #include "coding/parse_xml.hpp"
-
-#include "3party/o5mreader/o5mreader.h"
 
 #include "defines.hpp"
 
@@ -341,141 +340,127 @@ namespace
 template <typename HolderT>
 void BuildIntermediateDataFromO5M(SourceReader & stream, HolderT & holder)
 {
-  O5mreader * reader;
-  O5mreaderRet rc;
+  using TType = osm::O5MSourceReader::EntityType;
 
-  if ((rc = o5mreader_open(&reader, stream.Handle())) != O5MREADER_RET_OK)
+  osm::O5MSourceReader dataset([&stream](uint8_t * buffer, size_t size)
   {
-    LOG(LCRITICAL, ("O5M Open error:", o5mreader_strerror(rc)));
-    exit(1);  
-  }
+   return stream.Read(reinterpret_cast<char *>(buffer), size);
+  });
 
-  O5mreaderDataset ds;
-  O5mreaderIterateRet ret;
-  while ((ret = o5mreader_iterateDataSet(reader, &ds)) == O5MREADER_ITERATE_RET_NEXT)
+  for (auto const & em : dataset)
   {
-    O5mreaderIterateRet ret2;
-    switch (ds.type)
+    switch (em.type)
     {
-      case O5MREADER_DS_NODE:
+      case TType::Node:
       {
-        // Could do something with ds.id, ds.lon, ds.lat here, lon and lat are ints in 1E+7 * degree units
+        // Could do something with em.id, em.lon, em.lat here, lon and lat are ints in 1E+7 * degree units
         // convert to mercator
-        double const lat = MercatorBounds::LatToY(DECODE_O5M_COORD(ds.lat));
-        double const lng = MercatorBounds::LonToX(DECODE_O5M_COORD(ds.lon));
-        holder.AddNode(ds.id, lat, lng);
-      } break;
-
-      case O5MREADER_DS_WAY:
+        double const lat = MercatorBounds::LatToY(DECODE_O5M_COORD(em.lat));
+        double const lng = MercatorBounds::LonToX(DECODE_O5M_COORD(em.lon));
+        holder.AddNode(em.id, lat, lng);
+        break;
+      }
+      case TType::Way:
       {
         // store way
-        WayElement way(ds.id);
-        uint64_t nodeId = 0;
-        while ((ret2 = o5mreader_iterateNds(reader, &nodeId)) == O5MREADER_ITERATE_RET_NEXT)
-          way.nodes.push_back(nodeId);
+        WayElement way(em.id);
+        for (uint64_t nd : em.Nodes())
+          way.nodes.push_back(nd);
 
         if (way.IsValid())
-          holder.AddWay(ds.id, way);
-      } break;
-
-      case O5MREADER_DS_REL:
+          holder.AddWay(em.id, way);
+        break;
+      }
+      case TType::Relation:
       {
         // store relation
         RelationElement relation;
-        uint64_t refId = 0;
-        uint8_t type = 0;
-        char * role = nullptr;
-        while ((ret2 = o5mreader_iterateRefs(reader, &refId, &type, &role)) == O5MREADER_ITERATE_RET_NEXT)
+        for (auto const & member : em.Members())
         {
-          // Could do something with refId (way or node or rel id depends on type), type and role
-          if (type == O5MREADER_DS_NODE)
-            relation.nodes.emplace_back(make_pair(refId, string(role)));
-          else if (type == O5MREADER_DS_WAY)
-            relation.ways.emplace_back(make_pair(refId, string(role)));
+          // Could do something with member ref (way or node or rel id depends on type), type and role
+          if (member.type == TType::Node)
+            relation.nodes.emplace_back(make_pair(member.ref, string(member.role)));
+          else if (member.type == TType::Way)
+            relation.ways.emplace_back(make_pair(member.ref, string(member.role)));
           // we just ignore type == "relation"
         }
 
-        char * key = nullptr;
-        char * val = nullptr;
-        while ((ret2 = o5mreader_iterateTags(reader, &key, &val)) == O5MREADER_ITERATE_RET_NEXT)
-          relation.tags.emplace(make_pair(string(key), string(val)));
+        for (auto const & tag : em.Tags())
+          relation.tags.emplace(make_pair(string(tag.key), string(tag.value)));
 
         if (relation.IsValid())
-          holder.AddRelation(ds.id, relation);
-      } break;
+          holder.AddRelation(em.id, relation);
+
+        break;
+      }
+      default:
+        break;
     }
   }
 }
 
 void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser)
 {
-  O5mreader * reader;
-  O5mreaderRet rc;
+  using TType = osm::O5MSourceReader::EntityType;
 
-  if ((rc = o5mreader_open(&reader, stream.Handle())) != O5MREADER_RET_OK)
+  osm::O5MSourceReader dataset([&stream](uint8_t * buffer, size_t size)
   {
-    LOG(LCRITICAL, ("O5M Open error:", o5mreader_strerror(rc)));
-    exit(1);
-  }
+   return stream.Read(reinterpret_cast<char *>(buffer), size);
+  });
 
-  O5mreaderDataset ds;
-  O5mreaderIterateRet ret;
-  while ((ret = o5mreader_iterateDataSet(reader, &ds)) == O5MREADER_ITERATE_RET_NEXT)
+  for (auto const & em : dataset)
   {
     XMLElement p;
-    p.id = ds.id;
+    p.id = em.id;
 
-    O5mreaderIterateRet ret2;
-    char * key = nullptr;
-    char * val = nullptr;
-    switch (ds.type)
+    switch (em.type)
     {
-      case O5MREADER_DS_NODE:
+      case TType::Node:
       {
         p.tagKey = XMLElement::ET_NODE;
-        p.lat = DECODE_O5M_COORD(ds.lat);
-        p.lng = DECODE_O5M_COORD(ds.lon);
-      } break;
-
-      case O5MREADER_DS_WAY:
+        p.lat = DECODE_O5M_COORD(em.lat);
+        p.lng = DECODE_O5M_COORD(em.lon);
+        break;
+      }
+      case TType::Way:
       {
         p.tagKey = XMLElement::ET_WAY;
-        uint64_t nodeId = 0;
-        while ((ret2 = o5mreader_iterateNds(reader, &nodeId)) == O5MREADER_ITERATE_RET_NEXT)
-          p.AddND(nodeId);
-      } break;
-
-      case O5MREADER_DS_REL:
+        for (uint64_t nd : em.Nodes())
+          p.AddND(nd);
+        break;
+      }
+      case TType::Relation:
       {
         p.tagKey = XMLElement::ET_RELATION;
-        uint64_t refId = 0;
-        uint8_t type = 0;
-        char * role = nullptr;
-        while ((ret2 = o5mreader_iterateRefs(reader, &refId, &type, &role)) == O5MREADER_ITERATE_RET_NEXT)
+        for (auto const & member : em.Members())
         {
           string strType;
-          switch (type)
+          switch (member.type)
           {
-            case O5MREADER_DS_NODE:
+            case TType::Node:
               strType = "node";
               break;
-            case O5MREADER_DS_WAY:
+            case TType::Way:
               strType = "way";
               break;
-            case O5MREADER_DS_REL:
+            case TType::Relation:
               strType = "relation";
               break;
 
             default:
               break;
           }
-          p.AddMEMBER(refId, strType, role);
+          p.AddMEMBER(member.ref, strType, member.role);
         }
-      } break;
+        break;
+      }
+      default:
+        break;
     }
 
-    while ((ret2 = o5mreader_iterateTags(reader, &key, &val)) == O5MREADER_ITERATE_RET_NEXT)
-      p.AddKV(key, val);
+    for (auto const & tag : em.Tags())
+      p.AddKV(tag.key, tag.value);
+
     parser.EmitElement(&p);
   }
 }
@@ -518,6 +503,8 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, string const &osmFileTyp
       LOG(LERROR, ("Unknown source type:", osmFileType));
       return false;
     }
+
+    LOG(LINFO, ("Processing", osmFileType, "file done."));
 
     parser.Finish();
 

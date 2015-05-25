@@ -383,8 +383,11 @@ public:
     {
       // lookup table
       if (kv)
-        *kv = KeyValue(m_stringTable[m_stringCurrentIndex - key].key,
-                       m_stringTable[m_stringCurrentIndex - key].value);
+      {
+        size_t const idx = (m_stringCurrentIndex + m_stringTable.size() - key) % m_stringTable.size();
+        *kv = KeyValue(m_stringTable[idx].key,
+                       m_stringTable[idx].value);
+      }
       return this;
     }
 
@@ -409,6 +412,7 @@ public:
       memmove(m_stringTable[m_stringCurrentIndex].value, m_stringBuffer.data() + sizes[0],
               min(sizes[1], static_cast<size_t>(StringTableRecord::MaxEntrySize)));
       size_t const key = m_stringCurrentIndex++;
+      m_stringCurrentIndex = (m_stringCurrentIndex == m_stringTable.size()) ? 0 : m_stringCurrentIndex;
       if (kv)
         *kv = KeyValue(m_stringTable[key].key, m_stringTable[key].value);
       return this;
@@ -573,7 +577,7 @@ public:
   Iterator const begin() { return Iterator(this); }
   Iterator const end() { return Iterator(); }
 
-  O5MSource(TReader const & reader) : m_buffer(reader, 10000 /* buffer size */)
+  O5MSource(TReader const & reader) : m_buffer(reader, 60000 /* buffer size */)
   {
     if (EntityType::Reset != EntityType(m_buffer.Get()))
     {
