@@ -93,8 +93,7 @@ public:
   void ChangeModelView(m2::PointD const & center) override;
   void ChangeModelView(double azimuth) override;
   void ChangeModelView(m2::RectD const & rect) override;
-  void ChangeModelView(m2::PointD const & userPos, double azimuth,
-                       m2::PointD const & pxZero, ScreenBase const & screen) override;
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero) override;
 
 protected:
   virtual void AcceptMessage(ref_ptr<Message> message);

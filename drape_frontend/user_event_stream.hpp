@@ -153,6 +153,7 @@ public:
   UserEventStream(TIsCountryLoaded const & fn);
   void AddEvent(UserEvent const & event);
   ScreenBase const & ProcessEvents(bool & modelViewChange, bool & viewportChanged);
+  ScreenBase const & GetCurrentScreen() const;
 
   using TTapDetectedFn = function<void (m2::PointD const & pt, bool isLong)>;
   using TSingleTouchFilterFn = function<bool (m2::PointD const &, TouchEvent::ETouchType type)>;

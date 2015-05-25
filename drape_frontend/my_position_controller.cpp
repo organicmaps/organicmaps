@@ -58,6 +58,12 @@ MyPositionController::MyPositionController(location::EMyPositionMode initMode)
     m_modeInfo = location::MODE_UNKNOWN_POSITION;
 }
 
+void MyPositionController::SetPixelRect(m2::RectD const & pixelRect)
+{
+  m_pixelRect = pixelRect;
+  Follow();
+}
+
 void MyPositionController::SetListener(ref_ptr<MyPositionController::Listener> listener)
 {
   m_listener = listener;
@@ -197,17 +203,7 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
   {
     if (m_isDirtyViewport)
     {
-      if (currentMode == location::MODE_FOLLOW)
-      {
-        ChangeModelView(m_position);
-      }
-      else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
-      {
-        m2::RectD const & pixelRect = screen.PixelRect();
-        m2::PointD pxZero(pixelRect.Center().x,
-                          pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
-        ChangeModelView(m_position, m_drawDirection, pxZero, screen);
-      }
+      Follow();
       m_isDirtyViewport = false;
     }
 
@@ -229,9 +225,14 @@ void MyPositionController::AnimateStateTransition(location::EMyPositionMode oldM
       ChangeModelView(m2::RectD(m_position - size, m_position + size));
     }
   }
+  else if (newMode == location::MODE_ROTATE_AND_FOLLOW)
+  {
+    Follow();
+  }
   else if (oldMode == location::MODE_ROTATE_AND_FOLLOW && newMode == location::MODE_UNKNOWN_POSITION)
   {
     ChangeModelView(0.0);
+    ChangeModelView(m_position);
   }
 }
 
@@ -341,10 +342,25 @@ void MyPositionController::ChangeModelView(m2::RectD const & rect)
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                           m2::PointD const & pxZero, ScreenBase const & screen)
+                                           m2::PointD const & pxZero)
 {
   if (m_listener)
-    m_listener->ChangeModelView(userPos, azimuth, pxZero, screen);
+    m_listener->ChangeModelView(userPos, azimuth, pxZero);
+}
+
+void MyPositionController::Follow()
+{
+  location::EMyPositionMode currentMode = GetMode();
+  if (currentMode == location::MODE_FOLLOW)
+  {
+    ChangeModelView(m_position);
+  }
+  else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
+  {
+    m2::PointD pxZero(m_pixelRect.Center().x,
+                      m_pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
+    ChangeModelView(m_position, m_drawDirection, pxZero);
+  }
 }
 
 }

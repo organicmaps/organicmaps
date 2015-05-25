@@ -222,6 +222,13 @@ void DrapeEngine::CancelMyPosition()
                                   MessagePriority::High);
 }
 
+void DrapeEngine::StopLocationFollow()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<ChangeMyPositionModeMessage>(ChangeMyPositionModeMessage::TYPE_STOP_FOLLOW),
+                                  MessagePriority::High);
+}
+
 void DrapeEngine::InvalidateMyPosition()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,

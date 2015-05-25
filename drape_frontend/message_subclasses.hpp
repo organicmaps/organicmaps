@@ -299,6 +299,7 @@ public:
   {
     TYPE_NEXT,
     TYPE_CANCEL,
+    TYPE_STOP_FOLLOW,
     TYPE_INVALIDATE
   };
 

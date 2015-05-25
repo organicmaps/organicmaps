@@ -171,7 +171,7 @@ void Framework::CallDrapeFunction(TDrapeFunction const & fn)
 
 void Framework::StopLocationFollow()
 {
-  CallDrapeFunction(bind(&df::DrapeEngine::CancelMyPosition, _1));
+  CallDrapeFunction(bind(&df::DrapeEngine::StopLocationFollow, _1));
 }
 
 Framework::Framework()
@@ -219,10 +219,6 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("routing_failed_cross_mwm_building", "Routes can only be created that are fully contained within a single map.");
   m_stringsBundle.SetDefaultString("routing_failed_route_not_found", "There is no route found between the selected origin and destination.Please select a different start or end point.");
   m_stringsBundle.SetDefaultString("routing_failed_internal_error", "Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.");
-
-  // Init information display.
-  ///@TODO UVR
-  //m_informationDisplay.setController(m_guiController.get());
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);

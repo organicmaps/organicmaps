@@ -198,6 +198,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       case ChangeMyPositionModeMessage::TYPE_NEXT:
         m_myPositionController->NextMode();
         break;
+      case ChangeMyPositionModeMessage::TYPE_STOP_FOLLOW:
+        m_myPositionController->StopLocationFollow();
+        break;
       case ChangeMyPositionModeMessage::TYPE_INVALIDATE:
         m_myPositionController->Invalidate();
         break;
@@ -238,6 +241,7 @@ unique_ptr<threads::IRoutine> FrontendRenderer::CreateRoutine()
 void FrontendRenderer::OnResize(ScreenBase const & screen)
 {
   m_viewport.SetViewport(0, 0, screen.GetWidth(), screen.GetHeight());
+  m_myPositionController->SetPixelRect(screen.PixelRect());
   m_contextFactory->getDrawContext()->resize(m_viewport.GetWidth(), m_viewport.GetHeight());
   RefreshProjection();
 
@@ -307,6 +311,7 @@ void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
 
 void FrontendRenderer::OnCompassTapped()
 {
+  m_myPositionController->StopCompassFollow();
   m_userEventStream.AddEvent(RotateEvent(0.0));
 }
 
@@ -617,9 +622,9 @@ void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
   AddUserEvent(SetRectEvent(rect, true, scales::GetUpperComfortScale(), true));
 }
 
-void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth,
-                                       m2::PointD const & pxZero, ScreenBase const & screen)
+void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
 {
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
   double offset = (screen.PtoG(screen.PixelRect().Center()) - screen.PtoG(pxZero)).Length();
   m2::PointD viewVector = userPos.Move(1.0, -azimuth + math::pi2) - userPos;
   viewVector.Normalize();

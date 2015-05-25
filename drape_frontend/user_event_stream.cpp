@@ -124,6 +124,11 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
   return m_navigator.Screen();
 }
 
+ScreenBase const & UserEventStream::GetCurrentScreen() const
+{
+  return m_navigator.Screen();
+}
+
 void UserEventStream::SetTapListener(TTapDetectedFn const & tapCallback, TSingleTouchFilterFn const & filterFn)
 {
   m_tapDetectedFn = tapCallback;

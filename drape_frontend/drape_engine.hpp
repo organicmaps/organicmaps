@@ -79,6 +79,7 @@ public:
   void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
   void MyPositionNextMode();
   void CancelMyPosition();
+  void StopLocationFollow();
   void InvalidateMyPosition();
   void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
 
