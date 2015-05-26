@@ -156,7 +156,7 @@ protected:
 
   struct StringTableRecord
   {
-    enum { MaxEntrySize = 256 };
+    enum { MaxEntrySize = 252 };
 
     char key[MaxEntrySize];
     char value[MaxEntrySize];
@@ -405,12 +405,10 @@ public:
     m_remainder -= rb;
     m_middlePartSize -= rb;
 
-    if (sizes[0] < StringTableRecord::MaxEntrySize && sizes[1] < StringTableRecord::MaxEntrySize)
+    if (sizes[0] + (single ? 0 : sizes[1]) <= StringTableRecord::MaxEntrySize)
     {
-      memmove(m_stringTable[m_stringCurrentIndex].key, m_stringBuffer.data(),
-              min(sizes[0], static_cast<size_t>(StringTableRecord::MaxEntrySize)));
-      memmove(m_stringTable[m_stringCurrentIndex].value, m_stringBuffer.data() + sizes[0],
-              min(sizes[1], static_cast<size_t>(StringTableRecord::MaxEntrySize)));
+      memmove(m_stringTable[m_stringCurrentIndex].key, m_stringBuffer.data(), sizes[0]);
+      memmove(m_stringTable[m_stringCurrentIndex].value, m_stringBuffer.data() + sizes[0], sizes[1]);
       size_t const key = m_stringCurrentIndex++;
       m_stringCurrentIndex = (m_stringCurrentIndex == m_stringTable.size()) ? 0 : m_stringCurrentIndex;
       if (kv)
