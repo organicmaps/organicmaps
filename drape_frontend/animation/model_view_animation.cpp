@@ -8,7 +8,7 @@ namespace
 
 double GetMoveDuration(m2::PointD const & startPx, m2::PointD const & endPt, int minDisplaySize)
 {
-  return max(0.5, min(0.5, 0.5 * startPx.Length(endPt) / 50.0));
+  return min(0.5, 0.5 * startPx.Length(endPt) / 50.0);
 }
 
 double GetRotateDuration(double const & startAngle, double const & endAngle)

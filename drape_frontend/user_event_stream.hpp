@@ -155,6 +155,8 @@ public:
   class Listener
   {
   public:
+    virtual ~Listener() {}
+
     virtual void OnTap(m2::PointD const & pt, bool isLong) = 0;
     virtual bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) = 0;
     virtual void OnDragStarted() = 0;
