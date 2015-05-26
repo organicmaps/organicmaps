@@ -12,21 +12,26 @@
 namespace
 {
 
-class UserEventStreamTest
+class UserEventStreamTest : df::UserEventStream::Listener
 {
 public:
   UserEventStreamTest(bool filtrateTouches)
     : m_stream([](m2::PointD const &) { return true; })
+    , m_filtrate(filtrateTouches)
   {
-    auto const tapDetectedFn = [](m2::PointD const &, bool isLong) {};
-    auto const filtrateFn = [&filtrateTouches](m2::PointD const &, df::TouchEvent::ETouchType)
-    {
-      return filtrateTouches;
-    };
-
-    m_stream.SetTapListener(tapDetectedFn, filtrateFn);
     m_stream.SetTestBridge(bind(&UserEventStreamTest::TestBridge, this, _1));
   }
+
+  void OnTap(const m2::PointD & pt, bool isLong) override {}
+  bool OnSingleTouchFiltrate(m2::PointD const & pt, df::TouchEvent::ETouchType type) override { return m_filtrate; }
+  void OnDragStarted() override {}
+  void OnDragEnded(m2::PointD const & /*distance*/) override {}
+  void OnRotated() override {}
+
+  void OnScaleStarted() override {}
+  void CorrectScalePoint(m2::PointD & pt) const override {}
+  void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override {}
+  void OnScaleEnded() override {}
 
   void AddUserEvent(df::TouchEvent const & event)
   {
@@ -62,6 +67,7 @@ private:
 private:
   df::UserEventStream m_stream;
   list<char const *> m_expectation;
+  bool m_filtrate;
 };
 
 df::TouchEvent MakeTouchEvent(m2::PointD const & pt1, m2::PointD const & pt2, df::TouchEvent::ETouchType type)

@@ -3,6 +3,8 @@
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/animation/model_view_animation.hpp"
 
+#include "drape/pointers.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 #include "geometry/any_rect2d.hpp"
@@ -150,14 +152,29 @@ struct UserEvent
 class UserEventStream
 {
 public:
+  class Listener
+  {
+  public:
+    virtual void OnTap(m2::PointD const & pt, bool isLong) = 0;
+    virtual bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) = 0;
+    virtual void OnDragStarted() = 0;
+    virtual void OnDragEnded(m2::PointD const & distance) = 0;
+
+    virtual void OnScaleStarted() = 0;
+    virtual void OnRotated() = 0;
+    virtual void CorrectScalePoint(m2::PointD & pt) const = 0;
+    virtual void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const = 0;
+    virtual void OnScaleEnded() = 0;
+  };
+
   UserEventStream(TIsCountryLoaded const & fn);
   void AddEvent(UserEvent const & event);
   ScreenBase const & ProcessEvents(bool & modelViewChange, bool & viewportChanged);
   ScreenBase const & GetCurrentScreen() const;
 
-  using TTapDetectedFn = function<void (m2::PointD const & pt, bool isLong)>;
-  using TSingleTouchFilterFn = function<bool (m2::PointD const &, TouchEvent::ETouchType type)>;
-  void SetTapListener(TTapDetectedFn const & tapCallback, TSingleTouchFilterFn const & filterFn);
+  m2::AnyRectD GetTargetRect() const;
+
+  void SetListener(ref_ptr<Listener> listener) { m_listener = listener; }
 
 #ifdef DEBUG
   static char const * BEGIN_DRAG;
@@ -179,13 +196,12 @@ public:
 #endif
 
 private:
-  bool Scale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
+  bool SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim);
   bool SetCenter(m2::PointD const & center, int zoom, bool isAnim);
   bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim);
   bool SetRect(m2::AnyRectD const & rect, bool isAnim);
 
   m2::AnyRectD GetCurrentRect() const;
-  m2::AnyRectD GetTargetRect() const;
 
   bool ProcessTouch(TouchEvent const & touch);
 
@@ -215,8 +231,6 @@ private:
 
 private:
   TIsCountryLoaded m_isCountryLoaded;
-  TTapDetectedFn m_tapDetectedFn;
-  TSingleTouchFilterFn m_filterFn;
 
   list<UserEvent> m_events;
   mutable mutex m_lock;
@@ -236,10 +250,12 @@ private:
   size_t m_validTouchesCount;
 
   unique_ptr<ModelViewAnimation> m_animation;
+  ref_ptr<Listener> m_listener;
 
 #ifdef DEBUG
   TTestBridge m_testFn;
 #endif
+  m2::PointD m_startDragOrg;
 };
 
 }

@@ -41,6 +41,7 @@ namespace df
 
 class FrontendRenderer : public BaseRenderer
                        , public MyPositionController::Listener
+                       , public UserEventStream::Listener
 {
 public:
   using TModelViewChanged = function<void (ScreenBase const & screen)>;
@@ -112,8 +113,16 @@ private:
   int GetCurrentZoomLevel() const;
   void ResolveZoomLevel(ScreenBase const & screen);
 
-  void TapDetected(const m2::PointD & pt, bool isLongTap);
-  bool SingleTouchFiltration(m2::PointD const & pt, TouchEvent::ETouchType type);
+  void OnTap(m2::PointD const & pt, bool isLong) override;
+  bool OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type) override;
+  void OnDragStarted() override;
+  void OnDragEnded(m2::PointD const & distance) override;
+
+  void OnScaleStarted() override;
+  void OnRotated() override;
+  void CorrectScalePoint(m2::PointD & pt) const override;
+  void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
+  void OnScaleEnded() override;
 
 private:
   class Routine : public threads::IRoutine

@@ -15,27 +15,27 @@ int const POSITION_Y_OFFSET = 120;
 double const GPS_BEARING_LIFETIME_S = 5.0;
 double const MIN_SPEED_THRESHOLD_MPS = 1.0;
 
-uint16_t SetModeBit(uint16_t mode, uint16_t bit)
+uint16_t SetModeBit(uint32_t mode, uint32_t bit)
 {
   return mode | bit;
 }
 
-//uint16_t ResetModeBit(uint16_t mode, uint16_t bit)
-//{
-//  return mode & (~bit);
-//}
+uint16_t ResetModeBit(uint32_t mode, uint32_t bit)
+{
+  return mode & (~bit);
+}
 
-location::EMyPositionMode ResetAllModeBits(uint16_t mode)
+location::EMyPositionMode ResetAllModeBits(uint32_t mode)
 {
   return (location::EMyPositionMode)(mode & 0xF);
 }
 
-uint16_t ChangeMode(uint16_t mode, location::EMyPositionMode newMode)
+uint16_t ChangeMode(uint32_t mode, location::EMyPositionMode newMode)
 {
   return (mode & 0xF0) | newMode;
 }
 
-bool TestModeBit(uint16_t mode, uint16_t bit)
+bool TestModeBit(uint32_t mode, uint32_t bit)
 {
   return (mode & bit) != 0;
 }
@@ -87,6 +87,59 @@ bool MyPositionController::IsModeChangeViewport() const
 bool MyPositionController::IsModeHasPosition() const
 {
   return GetMode() >= location::MODE_NOT_FOLLOW;
+}
+
+void MyPositionController::DragStarted()
+{
+  SetModeInfo(SetModeBit(m_modeInfo, BlockAnimation));
+}
+
+void MyPositionController::DragEnded(m2::PointD const & distance)
+{
+  SetModeInfo(ResetModeBit(m_modeInfo, BlockAnimation));
+  if (distance.Length() > 0.2 * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
+    StopLocationFollow();
+
+  Follow();
+}
+
+void MyPositionController::ScaleStarted()
+{
+  SetModeInfo(SetModeBit(m_modeInfo, BlockAnimation));
+}
+
+void MyPositionController::Rotated()
+{
+  location::EMyPositionMode mode = GetMode();
+  if (mode == location::MODE_ROTATE_AND_FOLLOW)
+    SetModeInfo(SetModeBit(m_modeInfo, StopFollowOnActionEnd));
+}
+
+void MyPositionController::CorrectScalePoint(m2::PointD & pt) const
+{
+  if (IsModeChangeViewport())
+    pt = GetCurrentPixelBinding();
+}
+
+void MyPositionController::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const
+{
+  if (IsModeChangeViewport())
+  {
+    m2::PointD const ptDiff = GetCurrentPixelBinding() - (pt1 + (pt2 - pt1) * 0.5);
+    pt1 += ptDiff;
+    pt2 += ptDiff;
+  }
+}
+
+void MyPositionController::ScaleEnded()
+{
+  SetModeInfo(ResetModeBit(m_modeInfo, BlockAnimation));
+  if (TestModeBit(m_modeInfo, StopFollowOnActionEnd))
+  {
+    SetModeInfo(ResetModeBit(m_modeInfo, StopFollowOnActionEnd));
+    StopLocationFollow();
+  }
+  Follow();
 }
 
 void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
@@ -145,6 +198,7 @@ void MyPositionController::NextMode()
   }
 
   SetModeInfo(ChangeMode(m_modeInfo, newMode));
+  Follow();
 }
 
 void MyPositionController::TurnOff()
@@ -201,7 +255,7 @@ void MyPositionController::Render(ScreenBase const & screen, ref_ptr<dp::GpuProg
   location::EMyPositionMode currentMode = GetMode();
   if (m_shape != nullptr && IsVisible() && currentMode > location::MODE_PENDING_POSITION)
   {
-    if (m_isDirtyViewport)
+    if (m_isDirtyViewport && !TestModeBit(m_modeInfo, BlockAnimation))
     {
       Follow();
       m_isDirtyViewport = false;
@@ -273,7 +327,7 @@ void MyPositionController::SetDirection(double bearing)
   SetModeInfo(SetModeBit(m_modeInfo, KnownDirectionBit));
 }
 
-void MyPositionController::SetModeInfo(uint16_t modeInfo, bool force)
+void MyPositionController::SetModeInfo(uint32_t modeInfo, bool force)
 {
   location::EMyPositionMode const newMode = ResetAllModeBits(modeInfo);
   location::EMyPositionMode const oldMode = GetMode();
@@ -290,7 +344,7 @@ location::EMyPositionMode MyPositionController::GetMode() const
   return ResetAllModeBits(m_modeInfo);
 }
 
-void MyPositionController::CallModeListener(uint16_t mode)
+void MyPositionController::CallModeListener(uint32_t mode)
 {
   if (m_modeChangeCallback != nullptr)
     m_modeChangeCallback(ResetAllModeBits(mode));
@@ -321,6 +375,7 @@ void MyPositionController::StopCompassFollow()
     return;
 
   SetModeInfo(ChangeMode(m_modeInfo, location::MODE_FOLLOW));
+  Follow();
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & center)
@@ -352,15 +407,28 @@ void MyPositionController::Follow()
 {
   location::EMyPositionMode currentMode = GetMode();
   if (currentMode == location::MODE_FOLLOW)
-  {
     ChangeModelView(m_position);
-  }
   else if (currentMode == location::MODE_ROTATE_AND_FOLLOW)
-  {
-    m2::PointD pxZero(m_pixelRect.Center().x,
-                      m_pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
-    ChangeModelView(m_position, m_drawDirection, pxZero);
-  }
+    ChangeModelView(m_position, m_drawDirection, GetRaFPixelBinding());
+}
+
+m2::PointD MyPositionController::GetRaFPixelBinding() const
+{
+  return m2::PointD (m_pixelRect.Center().x,
+                     m_pixelRect.maxY() - POSITION_Y_OFFSET * VisualParams::Instance().GetVisualScale());
+}
+
+m2::PointD MyPositionController::GetCurrentPixelBinding() const
+{
+  location::EMyPositionMode mode = GetMode();
+  if (mode == location::MODE_FOLLOW)
+    return m_pixelRect.Center();
+  else if (mode == location::MODE_ROTATE_AND_FOLLOW)
+    return GetRaFPixelBinding();
+  else
+    ASSERT(false, ());
+
+  return m2::PointD::Zero();
 }
 
 }

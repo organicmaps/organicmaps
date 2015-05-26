@@ -39,6 +39,8 @@ char const * UserEventStream::CANCEL_FILTER = "CancelFilter";
 UserEventStream::UserEventStream(TIsCountryLoaded const & fn)
   : m_isCountryLoaded(fn)
   , m_state(STATE_EMPTY)
+  , m_validTouchesCount(0)
+  , m_startDragOrg(m2::PointD::Zero())
 {
 }
 
@@ -69,7 +71,7 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChange, bool &
     switch (e.m_type)
     {
     case UserEvent::EVENT_SCALE:
-      breakAnim = Scale(e.m_scaleEvent.m_pxPoint, e.m_scaleEvent.m_factor, e.m_scaleEvent.m_isAnim);
+      breakAnim = SetScale(e.m_scaleEvent.m_pxPoint, e.m_scaleEvent.m_factor, e.m_scaleEvent.m_isAnim);
       TouchCancel(m_touches);
       break;
     case UserEvent::EVENT_RESIZE:
@@ -129,24 +131,22 @@ ScreenBase const & UserEventStream::GetCurrentScreen() const
   return m_navigator.Screen();
 }
 
-void UserEventStream::SetTapListener(TTapDetectedFn const & tapCallback, TSingleTouchFilterFn const & filterFn)
+bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, bool isAnim)
 {
-  m_tapDetectedFn = tapCallback;
-  m_filterFn = filterFn;
-}
+  m2::PointD scaleCenter = pxScaleCenter;
+  if (m_listener)
+    m_listener->CorrectScalePoint(scaleCenter);
 
-bool UserEventStream::Scale(m2::PointD const & pxScaleCenter, double factor, bool isAnim)
-{
   if (isAnim)
   {
-    m2::PointD glbCenter = m_navigator.PtoG(pxScaleCenter);
+    m2::PointD glbCenter = m_navigator.PtoG(scaleCenter);
     m2::AnyRectD rect = GetTargetRect();
     m2::RectD sizeRect = rect.GetLocalRect();
     sizeRect.Scale(1.0 / factor);
     return SetRect(m2::AnyRectD(glbCenter, rect.Angle(), sizeRect), true);
   }
 
-  m_navigator.Scale(pxScaleCenter, factor);
+  m_navigator.Scale(scaleCenter, factor);
   return true;
 }
 
@@ -396,6 +396,9 @@ void UserEventStream::BeginDrag(Touch const & t)
   TEST_CALL(BEGIN_DRAG);
   ASSERT(m_state == STATE_EMPTY, ());
   m_state = STATE_DRAG;
+  m_startDragOrg = m_navigator.Screen().GetOrg();
+  if (m_listener)
+    m_listener->OnDragStarted();
   m_navigator.StartDrag(t.m_location);
 }
 
@@ -411,6 +414,10 @@ void UserEventStream::EndDrag(Touch const & t)
   TEST_CALL(END_DRAG);
   ASSERT(m_state == STATE_DRAG, ());
   m_state = STATE_EMPTY;
+  if (m_listener)
+    m_listener->OnDragEnded(m_navigator.GtoP(m_navigator.Screen().GetOrg()) - m_navigator.GtoP(m_startDragOrg));
+
+  m_startDragOrg = m2::PointD::Zero();
   m_navigator.StopDrag(t.m_location);
 }
 
@@ -419,14 +426,35 @@ void UserEventStream::BeginScale(Touch const & t1, Touch const & t2)
   TEST_CALL(BEGIN_SCALE);
   ASSERT(m_state == STATE_EMPTY, ());
   m_state = STATE_SCALE;
-  m_navigator.StartScale(t1.m_location, t2.m_location);
+  m2::PointD touch1 = t1.m_location;
+  m2::PointD touch2 = t2.m_location;
+
+  if (m_listener)
+  {
+    m_listener->OnScaleStarted();
+    m_listener->CorrectScalePoint(touch1, touch2);
+  }
+
+  m_navigator.StartScale(touch1, touch2);
 }
 
 void UserEventStream::Scale(Touch const & t1, Touch const & t2)
 {
   TEST_CALL(SCALE);
   ASSERT(m_state == STATE_SCALE, ());
-  m_navigator.DoScale(t1.m_location, t2.m_location);
+
+  m2::PointD touch1 = t1.m_location;
+  m2::PointD touch2 = t2.m_location;
+
+  if (m_listener)
+  {
+    if (m_navigator.IsRotatingDuringScale())
+      m_listener->OnRotated();
+
+    m_listener->CorrectScalePoint(touch1, touch2);
+  }
+
+  m_navigator.DoScale(touch1, touch2);
 }
 
 void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
@@ -434,7 +462,17 @@ void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
   TEST_CALL(END_SCALE);
   ASSERT(m_state == STATE_SCALE, ());
   m_state = STATE_EMPTY;
-  m_navigator.StopScale(t1.m_location, t2.m_location);
+
+  m2::PointD touch1 = t1.m_location;
+  m2::PointD touch2 = t2.m_location;
+
+  if (m_listener)
+  {
+    m_listener->CorrectScalePoint(touch1, touch2);
+    m_listener->OnScaleEnded();
+  }
+
+  m_navigator.StopScale(touch1, touch2);
 }
 
 void UserEventStream::BeginTapDetector()
@@ -452,7 +490,8 @@ void UserEventStream::DetectLongTap(Touch const & touch)
   {
     TEST_CALL(LONG_TAP_DETECTED);
     m_state = STATE_EMPTY;
-    m_tapDetectedFn(touch.m_location, true);
+    if (m_listener)
+      m_listener->OnTap(touch.m_location, true);
   }
 }
 
@@ -461,7 +500,8 @@ void UserEventStream::EndTapDetector(Touch const & touch)
   TEST_CALL(SHORT_TAP_DETECTED);
   ASSERT(m_state == STATE_TAP_DETECTION, ());
   m_state = STATE_EMPTY;
-  m_tapDetectedFn(touch.m_location, false);
+  if (m_listener)
+    m_listener->OnTap(touch.m_location, false);
 }
 
 void UserEventStream::CancelTapDetector()
@@ -475,7 +515,7 @@ bool UserEventStream::TryBeginFilter(Touch const & t)
 {
   TEST_CALL(TRY_FILTER);
   ASSERT(m_state == STATE_EMPTY, ());
-  if (m_filterFn(t.m_location, TouchEvent::TOUCH_DOWN))
+  if (m_listener && m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_DOWN))
   {
     m_state = STATE_FILTER;
     return true;
@@ -489,7 +529,8 @@ void UserEventStream::EndFilter(const Touch & t)
   TEST_CALL(END_FILTER);
   ASSERT(m_state == STATE_FILTER, ());
   m_state = STATE_EMPTY;
-  m_filterFn(t.m_location, TouchEvent::TOUCH_UP);
+  if (m_listener)
+    m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_UP);
 }
 
 void UserEventStream::CancelFilter(Touch const & t)
@@ -497,7 +538,8 @@ void UserEventStream::CancelFilter(Touch const & t)
   TEST_CALL(CANCEL_FILTER);
   ASSERT(m_state == STATE_FILTER, ());
   m_state = STATE_EMPTY;
-  m_filterFn(t.m_location, TouchEvent::TOUCH_CANCEL);
+  if (m_listener)
+    m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_CANCEL);
 }
 
 }

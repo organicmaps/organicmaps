@@ -42,6 +42,15 @@ public:
   bool IsModeChangeViewport() const;
   bool IsModeHasPosition() const;
 
+  void DragStarted();
+  void DragEnded(m2::PointD const & distance);
+
+  void ScaleStarted();
+  void Rotated();
+  void CorrectScalePoint(m2::PointD & pt) const;
+  void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
+  void ScaleEnded();
+
   void SetRenderShape(drape_ptr<MyPosition> && shape);
 
   void SetFixedZoom();
@@ -67,9 +76,9 @@ private:
   void Assign(location::CompassInfo const & info);
   void SetDirection(double bearing);
 
-  void SetModeInfo(uint16_t modeInfo, bool force = false);
+  void SetModeInfo(uint32_t modeInfo, bool force = false);
   location::EMyPositionMode GetMode() const;
-  void CallModeListener(uint16_t mode);
+  void CallModeListener(uint32_t mode);
 
   bool IsInRouting() const;
   bool IsRotationActive() const;
@@ -83,16 +92,20 @@ private:
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
 
   void Follow();
+  m2::PointD GetRaFPixelBinding() const;
+  m2::PointD GetCurrentPixelBinding() const;
 
 private:
   // Mode bits
   // {
-  static uint16_t const FixedZoomBit = 0x20;
-  static uint16_t const RoutingSessionBit = 0x40;
-  static uint16_t const KnownDirectionBit = 0x80;
+  static uint32_t const FixedZoomBit = 0x20;
+  static uint32_t const RoutingSessionBit = 0x40;
+  static uint32_t const KnownDirectionBit = 0x80;
+  static uint32_t const BlockAnimation = 0x100;
+  static uint32_t const StopFollowOnActionEnd = 0x200;
   // }
 
-  uint16_t m_modeInfo; // combination of Mode enum and "Mode bits"
+  uint32_t m_modeInfo; // combination of Mode enum and "Mode bits"
   location::EMyPositionMode m_afterPendingMode;
 
   location::TMyPositionModeChanged m_modeChangeCallback;

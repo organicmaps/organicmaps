@@ -100,6 +100,11 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
 
   if (rPendingOnDelete == lPendingOnDelete)
   {
+    dp::GLState::DepthLayer lDepth = lState.GetDepthLayer();
+    dp::GLState::DepthLayer rDepth = rState.GetDepthLayer();
+    if (lDepth != rDepth)
+      return lDepth < rDepth;
+
     if (my::AlmostEqual(l->GetOpacity(), r->GetOpacity()))
       return lState < rState;
     else

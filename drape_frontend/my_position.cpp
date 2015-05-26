@@ -92,6 +92,7 @@ void MyPosition::Render(ScreenBase const & screen,
     dp::UniformValuesStorage accuracyUniforms = uniforms;
     accuracyUniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::POSITION_ACCURACY);
     accuracyUniforms.SetFloatValue("u_accuracy", pixelAccuracy);
+    accuracyUniforms.SetFloatValue("u_opacity", 1.0);
     RenderPart(mng, accuracyUniforms, MY_POSITION_ACCURACY);
   }
 
@@ -99,6 +100,7 @@ void MyPosition::Render(ScreenBase const & screen,
     dp::UniformValuesStorage arrowUniforms = uniforms;
     arrowUniforms.SetFloatValue("u_position", m_position.x, m_position.y, dp::depth::MY_POSITION_MARK);
     arrowUniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
+    arrowUniforms.SetFloatValue("u_opacity", 1.0);
     RenderPart(mng, arrowUniforms, (m_showAzimuth == true) ? MY_POSITION_ARROW : MY_POSITION_POINT);
   }
 }

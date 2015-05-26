@@ -445,12 +445,12 @@ void FrontendRenderer::ResolveZoomLevel(const ScreenBase & screen)
   m_currentZoomLevel = (zoomLevel <= upperScale ? zoomLevel : upperScale);
 }
 
-void FrontendRenderer::TapDetected(m2::PointD const & pt, bool isLongTap)
+void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 {
   LOG(LINFO, ("Tap detected. Is long = ", isLongTap));
 }
 
-bool FrontendRenderer::SingleTouchFiltration(m2::PointD const & pt, TouchEvent::ETouchType type)
+bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type)
 {
   float const rectHalfSize = 5 * df::VisualParams::Instance().GetVisualScale();
   m2::RectD r(-rectHalfSize, -rectHalfSize, rectHalfSize, rectHalfSize);
@@ -460,20 +460,52 @@ bool FrontendRenderer::SingleTouchFiltration(m2::PointD const & pt, TouchEvent::
   {
   case TouchEvent::ETouchType::TOUCH_DOWN:
     return m_guiRenderer->OnTouchDown(r);
-
   case TouchEvent::ETouchType::TOUCH_UP:
     m_guiRenderer->OnTouchUp(r);
     return false;
-
   case TouchEvent::ETouchType::TOUCH_CANCEL:
     m_guiRenderer->OnTouchCancel(r);
     return false;
-
   case TouchEvent::ETouchType::TOUCH_MOVE:
     return false;
   }
 
   return false;
+}
+
+void FrontendRenderer::OnDragStarted()
+{
+  m_myPositionController->DragStarted();
+}
+
+void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
+{
+  m_myPositionController->DragEnded(distance);
+}
+
+void FrontendRenderer::OnScaleStarted()
+{
+  m_myPositionController->ScaleStarted();
+}
+
+void FrontendRenderer::OnRotated()
+{
+  m_myPositionController->Rotated();
+}
+
+void FrontendRenderer::CorrectScalePoint(m2::PointD & pt) const
+{
+  m_myPositionController->CorrectScalePoint(pt);
+}
+
+void FrontendRenderer::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const
+{
+  m_myPositionController->CorrectScalePoint(pt1, pt2);
+}
+
+void FrontendRenderer::OnScaleEnded()
+{
+  m_myPositionController->ScaleEnded();
 }
 
 void FrontendRenderer::ResolveTileKeys(ScreenBase const & screen, TTilesCollection & tiles)
@@ -513,14 +545,12 @@ void FrontendRenderer::Routine::Do()
 {
   gui::DrapeGui::Instance().ConnectOnCompassTappedHandler(bind(&FrontendRenderer::OnCompassTapped, &m_renderer));
   m_renderer.m_myPositionController->SetListener(ref_ptr<MyPositionController::Listener>(&m_renderer));
+  m_renderer.m_userEventStream.SetListener(ref_ptr<UserEventStream::Listener>(&m_renderer));
 
   m_renderer.m_tileTree->SetHandlers(bind(&FrontendRenderer::OnAddRenderGroup, &m_renderer, _1, _2, _3),
                                      bind(&FrontendRenderer::OnDeferRenderGroup, &m_renderer, _1, _2, _3),
                                      bind(&FrontendRenderer::OnActivateTile, &m_renderer, _1),
                                      bind(&FrontendRenderer::OnRemoveTile, &m_renderer, _1));
-
-  m_renderer.m_userEventStream.SetTapListener(bind(&FrontendRenderer::TapDetected, &m_renderer, _1, _2),
-                                              bind(&FrontendRenderer::SingleTouchFiltration, &m_renderer, _1, _2));
 
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
   context->makeCurrent();
@@ -634,7 +664,7 @@ void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimut
   viewVector.Normalize();
 
   AddUserEvent(SetAnyRectEvent(m2::AnyRectD(userPos + (viewVector * offset), -azimuth,
-                                            screen.GlobalRect().GetLocalRect()), true /* animate */));
+                                            m_userEventStream.GetTargetRect().GetLocalRect()), true /* animate */));
 }
 
 ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)
