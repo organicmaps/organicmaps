@@ -2097,7 +2097,6 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DUSE_DRAPE",
-					"-mno-thumb",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -2206,7 +2205,6 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DUSE_DRAPE",
-					"-mno-thumb",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -2792,10 +2790,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = "-Wall";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-mno-thumb",
-				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
@@ -2903,10 +2898,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = "-Wall";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-mno-thumb",
-				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
@@ -3015,10 +3007,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = "-Wall";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-mno-thumb",
-				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
@@ -3125,10 +3114,7 @@
 					"$(PROJECT_DIR)/Statistics",
 				);
 				OTHER_CFLAGS = "-Wall";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-mno-thumb",
-				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-lstats_client",
 					"-lmap",
