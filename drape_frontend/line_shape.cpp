@@ -18,21 +18,12 @@ namespace
   float const CAP = 1.0f;
   float const LEFT_WIDTH = 1.0f;
   float const RIGHT_WIDTH = -1.0f;
-  size_t const TEX_BEG_IDX = 0;
-  size_t const TEX_END_IDX = 1;
-
-  struct TexDescription
-  {
-    float m_globalLength;
-    glsl::vec2 m_texCoord;
-  };
 
   class TextureCoordGenerator
   {
   public:
     TextureCoordGenerator(float const baseGtoPScale)
       : m_baseGtoPScale(baseGtoPScale)
-      , m_basePtoGScale(1.0f / baseGtoPScale)
     {
     }
 
@@ -41,46 +32,37 @@ namespace
       m_isSolid = isSolid;
       m_region = region;
       if (!m_isSolid)
-      {
         m_maskLength = static_cast<float>(m_region.GetMaskPixelLength());
-        m_patternLength = static_cast<float>(m_region.GetPatternPixelLength());
-      }
     }
 
-    bool GetTexCoords(TexDescription & desc)
+    float GetUvOffsetByDistance(float distance) const
     {
-      if (m_isSolid)
-      {
-        desc.m_texCoord = glsl::ToVec2(m_region.GetTexRect().Center());
-        return true;
-      }
-
-      float const pxLength = desc.m_globalLength * m_baseGtoPScale;
-      float const maskRest = m_maskLength - m_pxCursor;
-
-      m2::RectF const & texRect = m_region.GetTexRect();
-      if (maskRest < pxLength)
-      {
-        desc.m_globalLength = maskRest * m_basePtoGScale;
-        desc.m_texCoord = glsl::vec2(texRect.maxX(), texRect.Center().y);
-        return false;
-      }
-
-      float texX = texRect.minX() + ((m_pxCursor + pxLength) / m_maskLength) * texRect.SizeX();
-      m_pxCursor = fmodf(m_pxCursor + pxLength, m_patternLength);
-
-      desc.m_texCoord = glsl::vec2(texX, texRect.Center().y);
-      return true;
+      return m_isSolid ? 1.0 : (distance * m_baseGtoPScale / m_maskLength);
     }
+
+    glsl::vec2 GetTexCoordsByDistance(float distance) const
+    {
+      float normalizedOffset = min(GetUvOffsetByDistance(distance), 1.0f);
+      return GetTexCoords(normalizedOffset);
+    }
+
+    glsl::vec2 GetTexCoords(float normalizedOffset) const
+    {
+      m2::RectF const & texRect = m_region.GetTexRect();
+      if (m_isSolid)
+        return glsl::ToVec2(texRect.Center());
+
+      return glsl::vec2(texRect.minX() + normalizedOffset * texRect.SizeX(), texRect.Center().y);
+    }
+
+    float GetMaskLength() const { return m_maskLength; }
+    bool IsSolid() const { return m_isSolid; }
 
   private:
     float const m_baseGtoPScale;
-    float const m_basePtoGScale;
     dp::TextureManager::StippleRegion m_region;
     float m_maskLength = 0.0f;
-    float m_patternLength = 0.0f;
     bool m_isSolid = true;
-    float m_pxCursor = 0.0f;
   };
 }
 
@@ -128,8 +110,6 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   glsl::vec2 leftSegment(SEGMENT, LEFT_WIDTH);
   glsl::vec2 rightSegment(SEGMENT, RIGHT_WIDTH);
 
-  TexDescription texCoords[2];
-
   if (generateCap)
   {
     glsl::vec2 startPoint = glsl::ToVec2(path[0]);
@@ -141,17 +121,13 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     glsl::vec3 pivot = glsl::vec3(startPoint, m_params.m_depth);
     glsl::vec2 leftCap(capType, LEFT_WIDTH);
     glsl::vec2 rightCap(capType, RIGHT_WIDTH);
+    glsl::vec2 const uvStart = texCoordGen.GetTexCoordsByDistance(0.0);
+    glsl::vec2 const uvEnd = texCoordGen.GetTexCoordsByDistance(glbHalfWidth);
 
-    texCoords[TEX_BEG_IDX].m_globalLength = 0.0;
-    texCoords[TEX_END_IDX].m_globalLength = glbHalfWidth;
-
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
-
-    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftCap));
-    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightCap));
-    geometry.push_back(LV(pivot, leftNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(pivot, rightNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightSegment));
+    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, uvStart, leftCap));
+    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, uvStart, rightCap));
+    geometry.push_back(LV(pivot, leftNormal, colorCoord, uvEnd, leftSegment));
+    geometry.push_back(LV(pivot, rightNormal, colorCoord, uvEnd, rightSegment));
   }
 
   glsl::vec2 prevPoint;
@@ -166,7 +142,6 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
 
     glsl::vec3 startPivot = glsl::vec3(startPoint, m_params.m_depth);
-    glsl::vec3 endPivot = glsl::vec3(endPoint, m_params.m_depth);
 
     // Create join beetween current segment and previous
     if (i > 1)
@@ -184,41 +159,36 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
         nextForming = rightNormal;
       }
 
+      float const distance = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
+      float const endUv = texCoordGen.GetUvOffsetByDistance(distance);
+      glsl::vec2 const uvStart = texCoordGen.GetTexCoords(0.0f);
+      glsl::vec2 const uvEnd = texCoordGen.GetTexCoords(endUv);
+
       if (m_params.m_join == dp::BevelJoin)
       {
-        texCoords[TEX_BEG_IDX].m_globalLength = 0.0f;
-        texCoords[TEX_END_IDX].m_globalLength = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
-
-        geometry.push_back(LV(startPivot, prevForming, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-        geometry.push_back(LV(startPivot, zeroNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-        geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-        geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
+        geometry.push_back(LV(startPivot, prevForming, colorCoord, uvStart, leftSegment));
+        geometry.push_back(LV(startPivot, zeroNormal, colorCoord, uvStart, leftSegment));
+        geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, leftSegment));
+        geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, leftSegment));
       }
       else
       {
         glsl::vec2 middleForming = glsl::normalize(prevForming + nextForming);
         glsl::vec2 zeroDxDy(0.0, 0.0);
 
-        texCoords[TEX_BEG_IDX].m_globalLength = 0.0f;
-        texCoords[TEX_END_IDX].m_globalLength = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
-        TexDescription middle;
-        middle.m_globalLength = texCoords[TEX_END_IDX].m_globalLength / 2.0f;
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-        VERIFY(texCoordGen.GetTexCoords(middle), ());
-        VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
+        float const middleUv = 0.5f * endUv;
+        glsl::vec2 const uvMiddle = texCoordGen.GetTexCoords(middleUv);
 
         if (m_params.m_join == dp::MiterJoin)
         {
-          float const b = glsl::length(prevForming - nextForming) / 2.0;
+          float const b = 0.5f * glsl::length(prevForming - nextForming);
           float const a = glsl::length(prevForming);
           middleForming *= static_cast<float>(sqrt(a * a + b * b));
 
-          geometry.push_back(LV(startPivot, prevForming, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, middleForming, colorCoord, middle.m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, zeroDxDy));
+          geometry.push_back(LV(startPivot, prevForming, colorCoord, uvStart, zeroDxDy));
+          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, uvStart, zeroDxDy));
+          geometry.push_back(LV(startPivot, middleForming, colorCoord, uvMiddle, zeroDxDy));
+          geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, zeroDxDy));
         }
         else
         {
@@ -227,40 +197,56 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
           glsl::vec2 dxdyLeft(0.0, -1.0);
           glsl::vec2 dxdyRight(0.0, -1.0);
           glsl::vec2 dxdyMiddle(1.0, 1.0);
-          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, zeroDxDy));
-          geometry.push_back(LV(startPivot, prevForming, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, dxdyLeft));
-          geometry.push_back(LV(startPivot, nextForming, colorCoord, texCoords[TEX_END_IDX].m_texCoord, dxdyRight));
-          geometry.push_back(LV(startPivot, middleForming, colorCoord, middle.m_texCoord, dxdyMiddle));
+          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, uvStart, zeroDxDy));
+          geometry.push_back(LV(startPivot, prevForming, colorCoord, uvStart, dxdyLeft));
+          geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, dxdyRight));
+          geometry.push_back(LV(startPivot, middleForming, colorCoord, uvMiddle, dxdyMiddle));
         }
       }
     }
 
-    texCoords[TEX_BEG_IDX].m_globalLength = 0.0;
-    texCoords[TEX_END_IDX].m_globalLength = glsl::length(endPoint - startPoint);
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-    while (!texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]))
+    float initialGlobalLength = glsl::length(endPoint - startPoint);
+    float pixelLen = initialGlobalLength * m_params.m_baseGtoPScale;
+    int steps = 1;
+    float maskSize = initialGlobalLength;
+    if (!texCoordGen.IsSolid())
     {
-      glsl::vec2 newEndPoint = startPoint + tangent * texCoords[TEX_END_IDX].m_globalLength;
-      glsl::vec3 newEndPivot = glsl::vec3(newEndPoint, m_params.m_depth);
-
-      geometry.push_back(LV(startPivot, leftNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-      geometry.push_back(LV(startPivot, rightNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightSegment));
-      geometry.push_back(LV(newEndPivot, leftNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-      geometry.push_back(LV(newEndPivot, rightNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightSegment));
-
-      startPoint = newEndPoint;
-      startPivot = newEndPivot;
-
-      VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-      texCoords[TEX_END_IDX].m_globalLength = glsl::length(endPoint - startPoint);
+      maskSize = texCoordGen.GetMaskLength() / m_params.m_baseGtoPScale;
+      steps = static_cast<int>(pixelLen / texCoordGen.GetMaskLength()) + 1;
     }
 
-    geometry.push_back(LV(startPivot, leftNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(startPivot, rightNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightSegment));
-    geometry.push_back(LV(endPivot, leftNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(endPivot, rightNormal, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightSegment));
+    float currentSize = 0;
+    glsl::vec3 currentStartPivot = startPivot;
+    for (int i = 0; i < steps; i++)
+    {
+      currentSize += maskSize;
 
-    prevPoint = startPoint;
+      bool isLastPoint = false;
+      float endOffset = 1.0f;
+      if (currentSize >= initialGlobalLength)
+      {
+        endOffset = (initialGlobalLength - currentSize + maskSize) / maskSize;
+        currentSize = initialGlobalLength;
+        isLastPoint = true;
+      }
+
+      glsl::vec2 const newPoint = startPoint + tangent * currentSize;
+      glsl::vec3 const newPivot = glsl::vec3(newPoint, m_params.m_depth);
+      glsl::vec2 const uvStart = texCoordGen.GetTexCoords(0.0f);
+      glsl::vec2 const uvEnd = texCoordGen.GetTexCoords(endOffset);
+
+      geometry.push_back(LV(currentStartPivot, leftNormal, colorCoord, uvStart, leftSegment));
+      geometry.push_back(LV(currentStartPivot, rightNormal, colorCoord, uvStart, rightSegment));
+      geometry.push_back(LV(newPivot, leftNormal, colorCoord, uvEnd, leftSegment));
+      geometry.push_back(LV(newPivot, rightNormal, colorCoord, uvEnd, rightSegment));
+
+      currentStartPivot = newPivot;
+
+      if (isLastPoint)
+        break;
+    }
+
+    prevPoint = currentStartPivot.xy();
     prevLeftNormal = leftNormal;
     prevRightNormal = rightNormal;
   }
@@ -277,17 +263,13 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     glsl::vec3 pivot = glsl::vec3(endPoint, m_params.m_depth);
     glsl::vec2 leftCap(capType, LEFT_WIDTH);
     glsl::vec2 rightCap(capType, RIGHT_WIDTH);
+    glsl::vec2 const uvStart = texCoordGen.GetTexCoordsByDistance(0.0);
+    glsl::vec2 const uvEnd = texCoordGen.GetTexCoordsByDistance(glbHalfWidth);
 
-    texCoords[TEX_BEG_IDX].m_globalLength = 0.0;
-    texCoords[TEX_END_IDX].m_globalLength = glbHalfWidth;
-
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_BEG_IDX]), ());
-    VERIFY(texCoordGen.GetTexCoords(texCoords[TEX_END_IDX]), ());
-
-    geometry.push_back(LV(pivot, leftNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, leftSegment));
-    geometry.push_back(LV(pivot, rightNormal, colorCoord, texCoords[TEX_BEG_IDX].m_texCoord, rightSegment));
-    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, texCoords[TEX_END_IDX].m_texCoord, leftCap));
-    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, texCoords[TEX_END_IDX].m_texCoord, rightCap));
+    geometry.push_back(LV(pivot, leftNormal, colorCoord, uvStart, leftSegment));
+    geometry.push_back(LV(pivot, rightNormal, colorCoord, uvStart, rightSegment));
+    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, uvEnd, leftCap));
+    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, uvEnd, rightCap));
   }
 
   dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);

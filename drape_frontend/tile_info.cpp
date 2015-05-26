@@ -98,8 +98,7 @@ void TileInfo::ProcessID(FeatureID const & id)
 void TileInfo::InitStylist(FeatureType const & f, Stylist & s)
 {
   CheckCanceled();
-  //TODO(@kuznetsov): m_context->GetTileKey().m_zoomLevel?
-  df::InitStylist(f, GetZoomLevel(), s);
+  df::InitStylist(f, m_context->GetTileKey().m_zoomLevel, s);
 }
 
 //====================================================//

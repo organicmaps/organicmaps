@@ -439,10 +439,7 @@ int FrontendRenderer::GetCurrentZoomLevel() const
 
 void FrontendRenderer::ResolveZoomLevel(const ScreenBase & screen)
 {
-  //TODO(@kuznetsov): revise it
-  int const upperScale = scales::GetUpperScale();
-  int const zoomLevel = GetDrawTileScale(screen);
-  m_currentZoomLevel = (zoomLevel <= upperScale ? zoomLevel : upperScale);
+  m_currentZoomLevel = GetDrawTileScale(screen);
 }
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
