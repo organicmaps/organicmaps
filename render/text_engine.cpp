@@ -367,14 +367,14 @@ face::face()
     : m_height(0),
       m_ascender(0),
       m_descender(0),
-      m_engine((*(ml::text_engine *)NULL)),
-      m_flip_y(false)
+      m_flip_y(false),
+      m_engine((*(ml::text_engine *)NULL))
 {
   throw ml::text_engine_exception("No cache entry");
 }
 
 face::face(ml::text_engine & e, std::string const & name, size_t size)
-    : m_engine(e), m_face_name(name), m_face_size(size), m_flip_y(false)
+    : m_face_name(name), m_face_size(size), m_flip_y(false), m_engine(e)
 {
   m_face = e.current_face();
   FT_Size_Metrics metrics = m_face->size->metrics;

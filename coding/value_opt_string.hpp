@@ -5,6 +5,7 @@
 #include "base/string_utils.hpp"
 #include "base/assert.hpp"
 
+#include "std/limits.hpp"
 #include "std/string.hpp"
 
 
@@ -67,7 +68,8 @@ public:
     else
     {
       sz = (sz >> 1) + 1;
-      m_s.resize(sz);
+      ASSERT_LESS_OR_EQUAL(sz, numeric_limits<size_t>::max(), ("sz is out of platform's range."));
+      m_s.resize(static_cast<size_t>(sz));
       src.Read(&m_s[0], sz);
     }
   }

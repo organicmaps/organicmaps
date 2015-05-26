@@ -135,8 +135,8 @@ public:
     float angle;
     unsigned int charcode;
 
-    symbol_holder() : angle(0.0), charcode(0), advance(0) {}
-    symbol_holder(unsigned int code) : angle(0.0), charcode(code), advance(0) {}
+    symbol_holder() : advance(0), angle(0.0), charcode(0) {}
+    symbol_holder(unsigned int code) : advance(0), angle(0.0), charcode(code) {}
     ml::rect_d const & bounds() const { return m_bounds; }
   };
 
