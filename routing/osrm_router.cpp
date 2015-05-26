@@ -44,7 +44,7 @@ namespace routing
 
 size_t const MAX_NODE_CANDIDATES = 10;
 double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
-double const TIME_OVERHEAD = 1.4;
+double const TIME_OVERHEAD = 1.;
 double const FEATURES_NEAR_TURN_M = 3.0;
 
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
