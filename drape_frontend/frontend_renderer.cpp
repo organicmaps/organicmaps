@@ -452,7 +452,7 @@ void FrontendRenderer::TapDetected(m2::PointD const & pt, bool isLongTap)
 
 bool FrontendRenderer::SingleTouchFiltration(m2::PointD const & pt, TouchEvent::ETouchType type)
 {
-  float const rectHalfSize = 5;
+  float const rectHalfSize = 5 * df::VisualParams::Instance().GetVisualScale();
   m2::RectD r(-rectHalfSize, -rectHalfSize, rectHalfSize, rectHalfSize);
   r.SetCenter(pt);
 

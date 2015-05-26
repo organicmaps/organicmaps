@@ -672,9 +672,9 @@ void TestingEngine::OnFlushData(dp::GLState const & state, drape_ptr<dp::RenderB
   drape_ptr<dp::RenderBucket> bucket = move(vao);
   bucket->GetBuffer()->Build(m_programManager->GetProgram(state.GetProgramIndex()));
   m_scene[state].push_back(move(bucket));
-  for (size_t i = 0; i < bucket->GetOverlayHandlesCount(); ++i)
+  for (size_t i = 0; i < m_scene[state].back()->GetOverlayHandlesCount(); ++i)
   {
-    ref_ptr<dp::OverlayHandle> handle = bucket->GetOverlayHandle(i);
+    ref_ptr<dp::OverlayHandle> handle = m_scene[state].back()->GetOverlayHandle(i);
     handle->Update(m_modelView);
     if (handle->IsValid())
     {
