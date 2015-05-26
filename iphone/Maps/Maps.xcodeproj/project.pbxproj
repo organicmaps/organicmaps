@@ -2306,7 +2306,7 @@
 		F6D434641AD2AB97007C7728 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.production.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "maps.me WatchKit Extension/Entitlements/me.maps.watchkitextension.entitlements";
 				INFOPLIST_FILE = "$(SRCROOT)/maps.me WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				PRODUCT_NAME = "$(TARGET_NAME) WatchKit Extension";
@@ -2947,7 +2947,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.production.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Entitlements/me.maps.entitlements;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PushNotifications",
