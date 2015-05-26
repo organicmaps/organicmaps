@@ -41,7 +41,10 @@ SOFTWARE.
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIApplication.h>
+#import <UiKit/UIWebView.h>
 #import <AdSupport/ASIdentifierManager.h>
+// Export user agent for HTTP module.
+NSString * gBrowserUserAgent = nil;
 #endif  // TARGET_OS_IPHONE
 
 using namespace alohalytics;
@@ -287,8 +290,11 @@ static UIBackgroundTaskIdentifier sBackgroundTaskId = UIBackgroundTaskInvalid;
 }
 
 + (void)setup:(NSString *)serverUrl andFirstLaunch:(BOOL)isFirstLaunch withLaunchOptions:(NSDictionary *)options {
-
 #if (TARGET_OS_IPHONE > 0)
+  // Initialize User Agent later, as it takes significant time at startup.
+  dispatch_async(dispatch_get_main_queue(), ^(void) {
+    gBrowserUserAgent = [[[UIWebView alloc] initWithFrame:CGRectZero] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+  });
   // Subscribe to basic app lifecycle events.
   sBackgroundThreadQueue = ::dispatch_queue_create([serverUrl UTF8String], DISPATCH_QUEUE_SERIAL);
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
