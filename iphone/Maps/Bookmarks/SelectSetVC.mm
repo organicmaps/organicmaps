@@ -69,7 +69,7 @@
   return cell;
 }
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(size_t)setIndex
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(int)setIndex
 {
   [self moveBookmarkToSetWithIndex:setIndex];
 
@@ -77,9 +77,9 @@
   [self.delegate selectSetVC:self didUpdateBookmarkAndCategory:m_bookmarkAndCategory];
 }
 
-- (void)moveBookmarkToSetWithIndex:(size_t)setIndex
+- (void)moveBookmarkToSetWithIndex:(int)setIndex
 {
-  m_bookmarkAndCategory.second = GetFramework().MoveBookmark(m_bookmarkAndCategory.second, m_bookmarkAndCategory.first, setIndex);
+  m_bookmarkAndCategory.second = static_cast<int>(GetFramework().MoveBookmark(m_bookmarkAndCategory.second, m_bookmarkAndCategory.first, setIndex));
   m_bookmarkAndCategory.first = setIndex;
 }
 
@@ -96,7 +96,7 @@
   }
   else
   {
-    [self moveBookmarkToSetWithIndex:indexPath.row];
+    [self moveBookmarkToSetWithIndex:static_cast<int>(indexPath.row)];
     [self.delegate selectSetVC:self didUpdateBookmarkAndCategory:m_bookmarkAndCategory];
     [self.navigationController popViewControllerAnimated:YES];
   }

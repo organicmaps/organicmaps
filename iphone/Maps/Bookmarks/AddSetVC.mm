@@ -30,7 +30,7 @@
   NSString * text = textField.text;
   if (text.length)
   {
-    [self.delegate addSetVC:self didAddSetWithIndex:GetFramework().AddCategory([text UTF8String])];
+    [self.delegate addSetVC:self didAddSetWithIndex:static_cast<int>(GetFramework().AddCategory([text UTF8String]))];
     [self.navigationController popViewControllerAnimated:YES];
   }
 }

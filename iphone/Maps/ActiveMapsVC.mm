@@ -99,7 +99,7 @@ extern NSString * const MapsStatusChangedNotification;
 
 - (void)markSelectedMapIndexPath:(NSIndexPath *)indexPath
 {
-  self.selectedPosition = indexPath.row;
+  self.selectedPosition = static_cast<int>(indexPath.row);
   self.selectedGroup = [self groupWithSection:indexPath.section];
 }
 
@@ -237,7 +237,7 @@ extern NSString * const MapsStatusChangedNotification;
   if (!cell)
     cell = [[MapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[MapCell className]];
 
-  int const position = indexPath.row;
+  int const position = static_cast<int const>(indexPath.row);
   ActiveMapsLayout::TGroup const group = [self groupWithSection:indexPath.section];
   TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
   TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
@@ -293,7 +293,7 @@ extern NSString * const MapsStatusChangedNotification;
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  TStatus const status = self.mapsLayout.GetCountryStatus([self groupWithSection:indexPath.section], indexPath.row);
+  TStatus const status = self.mapsLayout.GetCountryStatus([self groupWithSection:indexPath.section], static_cast<int>(indexPath.row));
   return status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate;
 }
 
@@ -301,7 +301,7 @@ extern NSString * const MapsStatusChangedNotification;
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
-    int const position = indexPath.row;
+    int const position = static_cast<int const>(indexPath.row);
     ActiveMapsLayout::TGroup const group = [self groupWithSection:indexPath.section];
     TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
     self.mapsLayout.DeleteMap(group, position, options);
@@ -340,7 +340,7 @@ extern NSString * const MapsStatusChangedNotification;
 - (void)mapCellDidCancelDownloading:(MapCell *)cell
 {
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-  self.selectedPosition = indexPath.row;
+  self.selectedPosition = static_cast<int>(indexPath.row);
   self.selectedGroup = [self groupWithSection:indexPath.section];
 
   [[self actionSheetToCancelDownloadingSelectedMap] showFromRect:cell.frame inView:cell.superview animated:YES];

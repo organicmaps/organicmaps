@@ -4,7 +4,7 @@
 @class AddSetVC;
 @protocol AddSetVCDelegate <NSObject>
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(size_t)setIndex;
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(int)setIndex;
 
 @end
 

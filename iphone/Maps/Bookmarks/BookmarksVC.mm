@@ -438,7 +438,7 @@
 
 - (void)calculateSections
 {
-  size_t index = 1;
+  int index = 1;
   BookmarkCategory * cat = GetFramework().GetBmCategory(m_categoryIndex);
   if (cat->GetTracksCount())
     m_trackSection = index++;
