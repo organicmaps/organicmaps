@@ -15,6 +15,7 @@
 #import "MWMMapViewControlsManager.h"
 #import "../../../3party/Alohalytics/src/alohalytics_objc.h"
 #import "../../Common/CustomAlertView.h"
+#import "RouteState.h"
 
 #include "Framework.h"
 #include "RenderContext.hpp"
@@ -35,6 +36,13 @@
 #define ALERT_VIEW_ROUTING_DISCLAIMER 7
 
 extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
+
+typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
+{
+  ForceRoutingStateChangeNone,
+  ForceRoutingStateChangeRestoreRoute,
+  ForceRoutingStateChangeStartFollowing
+};
 
 @interface NSValueWrapper : NSObject
 
@@ -77,6 +85,8 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
 @property (nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
+
+@property (nonatomic) ForceRoutingStateChange forceRoutingStateChange;
 
 @end
 
@@ -132,6 +142,9 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
     [self showPopover];
     [self updateRoutingInfo];
+    
+    if (self.forceRoutingStateChange == ForceRoutingStateChangeRestoreRoute)
+      [self restoreRoute];
   }
 }
 
@@ -231,6 +244,14 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   }
 }
 
+#pragma mark - Restore route
+
+- (void)restoreRoute
+{
+  GetFramework().BuildRoute(self.restoreRouteDestination);
+  self.forceRoutingStateChange = ForceRoutingStateChangeStartFollowing;
+}
+
 #pragma mark - Map Navigation
 
 - (void)dismissPlacePage
@@ -245,11 +266,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
     [self.containerView.placePage showUserMark:std::move(mark)];
     [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
   }
-}
-
-- (void)onMyPositionClicked:(id)sender
-{
-  GetFramework().GetLocationState()->SwitchToNextMode();
 }
 
 - (void)processMapClickAtPoint:(CGPoint)point longClick:(BOOL)isLongClick
@@ -647,6 +663,8 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
     EAGLView * v = (EAGLView *)self.view;
     [v initRenderPolicy];
+    
+    self.forceRoutingStateChange = ForceRoutingStateChangeNone;
 
     // restore previous screen position
     if (!f.LoadState())
@@ -700,14 +718,20 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
     {
       [self.containerView.placePage showBuildingRoutingActivity:NO];
       
-      switch (code) {
-        case routing::IRouter::ResultCode::NoError: {
+      switch (code)
+      {
+        case routing::IRouter::ResultCode::NoError:
+        {
           f.GetBalloonManager().RemovePin();
           f.GetBalloonManager().Dismiss();
           [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
           [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
-          [self performAfterDelay:0.3 block:^{
-            [self.routeView setState:RouteViewStateInfo animated:YES];
+          [self performAfterDelay:0.3 block:^
+          {
+            if (self.forceRoutingStateChange == ForceRoutingStateChangeStartFollowing)
+              [self routeViewDidStartFollowing:self.routeView];
+            else
+              [self.routeView setState:RouteViewStateInfo animated:YES];
             [self updateRoutingInfo];
           }];
           
@@ -717,7 +741,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
           {
             NSString * title;
             NSString * message;
-            if (SYSTEM_VERSION_IS_LESS_THAN(@"7.0"))
+            if (isIOSVersionLessThan(7))
               message = L(@"routing_disclaimer");
             else
               title = L(@"routing_disclaimer");
@@ -907,6 +931,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
   self.controlsManager.zoomHidden = NO;
   GetFramework().FollowRoute();
+  [RouteState save];
 }
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView
@@ -924,6 +949,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   GetFramework().CloseRouting();
   [self.controlsManager resetZoomButtonsVisibility];
   [self.routeView setState:RouteViewStateHidden animated:YES];
+  [RouteState remove];
 }
 
 #pragma mark - PlacePageViewDelegate
@@ -1217,6 +1243,14 @@ NSInteger compareAddress(id l, id r, void * context)
   [self.popoverVC dismissPopoverAnimated:YES];
   [self destroyPopover];
   [self invalidate];
+}
+
+#pragma mark - Properties
+
+- (void)setRestoreRouteDestination:(m2::PointD)restoreRouteDestination
+{
+  _restoreRouteDestination = restoreRouteDestination;
+  self.forceRoutingStateChange = ForceRoutingStateChangeRestoreRoute;
 }
 
 @end

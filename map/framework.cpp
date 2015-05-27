@@ -2174,16 +2174,6 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-bool Framework::IsRoutingActive() const
-{
-  return m_routingSession.IsActive();
-}
-
-bool Framework::IsRouteBuilt() const
-{
-  return m_routingSession.IsBuilt();
-}
-
 void Framework::BuildRoute(m2::PointD const & destination)
 {
   shared_ptr<State> const & state = GetLocationState();
@@ -2215,16 +2205,6 @@ void Framework::BuildRoute(m2::PointD const & destination)
       }
       CallRouteBuilded(code, absentFiles);
     });
-}
-
-void Framework::SetRouteBuildingListener(TRouteBuildingCallback const & callback)
-{
-  m_routingCallback = callback;
-}
-
-void Framework::FollowRoute()
-{
-  GetLocationState()->StartRouteFollow();
 }
 
 void Framework::SetRouter(RouterType type)
@@ -2372,9 +2352,4 @@ string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
   }
 
   return m_stringsBundle.GetString(messageID);
-}
-
-void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const
-{
-  m_routingSession.GetRouteFollowingInfo(info);
 }

@@ -564,14 +564,15 @@ public:
 public:
   /// @name Routing mode
   //@{
-  bool IsRoutingActive() const;
-  bool IsRouteBuilt() const;
+  bool IsRoutingActive() const { return m_routingSession.IsActive(); }
+  bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   void BuildRoute(m2::PointD const & destination);
   typedef function<void (routing::IRouter::ResultCode, vector<storage::TIndex> const &)> TRouteBuildingCallback;
-  void SetRouteBuildingListener(TRouteBuildingCallback const & callback);
-  void FollowRoute();
+  void SetRouteBuildingListener(TRouteBuildingCallback const & callback) { m_routingCallback = callback; }
+  void FollowRoute() { GetLocationState()->StartRouteFollow(); }
   void CloseRouting();
-  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
+  m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
 
 private:
   void SetRouter(routing::RouterType type);

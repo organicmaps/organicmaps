@@ -58,9 +58,10 @@ public:
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint, TReadyCallbackFn const & callback);
   void RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback);
 
-  bool IsActive() const;
-  bool IsNavigable() const;
-  bool IsBuilt() const;
+  m2::PointD GetEndPoint() const { return m_endPoint; }
+  bool IsActive() const { return (m_state != RoutingNotActive); }
+  bool IsNavigable() const { return (m_state == RouteNotStarted || m_state == OnRoute); }
+  bool IsBuilt() const { return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished); }
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);

@@ -43,8 +43,6 @@ namespace search { struct AddressInfo; }
 - (void)onEnterForeground;
 - (void)onEnterBackground;
 
-- (IBAction)onMyPositionClicked:(id)sender;
-
 - (void)dismissPopover;
 
 - (void)setMapStyle:(MapStyle)mapStyle;
@@ -55,5 +53,6 @@ namespace search { struct AddressInfo; }
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 - (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
 @property (nonatomic, readonly) MWMMapViewControlsManager * controlsManager;
+@property (nonatomic) m2::PointD restoreRouteDestination;
 
 @end

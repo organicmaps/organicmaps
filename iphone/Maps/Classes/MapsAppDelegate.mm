@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "MWMWatchEventInfo.h"
 #import "Common.h"
+#import "RouteState.h"
 
 #include <sys/xattr.h>
 
@@ -240,6 +241,11 @@ void InitLocalizedStrings()
   }
 }
 
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+  [RouteState save];
+}
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
   [self.m_locationManager orientationChanged];
@@ -297,6 +303,8 @@ void InitLocalizedStrings()
 
   if (!isIOSVersionLessThan(7))
     [FBSDKAppEvents activateApp];
+  
+  [self restoreRouteState];
 }
 
 - (void)dealloc
@@ -489,6 +497,19 @@ void InitLocalizedStrings()
     [standartDefaults setBool:YES forKey:kUDWatchEventAlreadyTracked];
     [standartDefaults synchronize];
   }
+}
+
+#pragma mark - Route state
+
+- (void)restoreRouteState
+{
+  if (GetFramework().IsRoutingActive())
+    return;
+  RouteState const * const state = [RouteState savedState];
+  if (state.hasActualRoute)
+    self.m_mapViewController.restoreRouteDestination = state.endPoint;
+  else
+    [RouteState remove];
 }
 
 #pragma mark - Alert logic

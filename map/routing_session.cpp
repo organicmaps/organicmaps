@@ -58,21 +58,6 @@ void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::Result
   m_callback(m_rs.m_route, e);
 }
 
-bool RoutingSession::IsActive() const
-{
-  return (m_state != RoutingNotActive);
-}
-
-bool RoutingSession::IsNavigable() const
-{
-  return (m_state == RouteNotStarted || m_state == OnRoute);
-}
-
-bool RoutingSession::IsBuilt() const
-{
-  return (IsNavigable() || m_state == RouteNeedRebuild || m_state == RouteFinished);
-}
-
 void RoutingSession::Reset()
 {
   m_state = RoutingNotActive;
