@@ -156,6 +156,8 @@ protected:
 
   struct StringTableRecord
   {
+    // This important value got from documentation on O5M format
+    // If change it all will be broken
     enum { MaxEntrySize = 252 };
 
     char key[MaxEntrySize];
@@ -409,10 +411,10 @@ public:
     {
       memmove(m_stringTable[m_stringCurrentIndex].key, m_stringBuffer.data(), sizes[0]);
       memmove(m_stringTable[m_stringCurrentIndex].value, m_stringBuffer.data() + sizes[0], sizes[1]);
-      size_t const key = m_stringCurrentIndex++;
-      m_stringCurrentIndex = (m_stringCurrentIndex == m_stringTable.size()) ? 0 : m_stringCurrentIndex;
       if (kv)
-        *kv = KeyValue(m_stringTable[key].key, m_stringTable[key].value);
+        *kv = KeyValue(m_stringTable[m_stringCurrentIndex].key, m_stringTable[m_stringCurrentIndex].value);
+      if (++m_stringCurrentIndex == m_stringTable.size())
+        m_stringCurrentIndex = 0;
       return this;
     }
 
