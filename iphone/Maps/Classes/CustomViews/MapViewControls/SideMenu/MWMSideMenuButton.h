@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWMSideMenuDelegate.h"
 
 @interface MWMSideMenuButton : UIButton
+
+@property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol> delegate;
 
 - (void)addSelfToView:(UIView *)parentView;
 - (void)addSelfHiddenToView:(UIView *)parentView;

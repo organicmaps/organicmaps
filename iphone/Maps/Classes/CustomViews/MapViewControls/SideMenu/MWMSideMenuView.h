@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWMSideMenuDelegate.h"
 
 @interface MWMSideMenuView : UIView
 
 @property (weak, nonatomic, readonly) IBOutlet UIView * dimBackground;
+@property (weak, nonatomic) id<MWMSideMenuInformationDisplayProtocol> delegate;
+@property (nonatomic) NSUInteger outOfDateCount;
 
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
 - (instancetype)init __attribute__((unavailable("init is not available")));

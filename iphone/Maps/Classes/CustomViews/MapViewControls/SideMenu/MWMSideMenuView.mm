@@ -9,7 +9,6 @@
 #import "MWMSideMenuView.h"
 #import "UIKitCategories.h"
 #import "MWMMapViewControlsCommon.h"
-#import "Framework.h"
 
 static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 
@@ -159,6 +158,11 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   self.downloadCount.maxX = self.downloadMapsButton.maxX;
   self.downloadBadge.minY = self.downloadMapsButton.minY;
   self.downloadCount.minY = self.downloadMapsButton.minY;
+  
+  CGFloat const contentScaleFactor = self.superview.contentScaleFactor;
+  m2::PointD const pivot(self.searchButton.minX * contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.searchButton.maxY * contentScaleFactor - kViewControlsOffsetToBounds);
+  [self.delegate setRulerPivot:pivot];
+  [self.delegate setCopyrightLabelPivot:pivot];
 }
 
 #pragma mark - Animations
@@ -181,8 +185,7 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 
 - (void)updateMenuOutOfDateBadge
 {
-  int const outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
-  if (outOfDateCount == 0)
+  if (self.outOfDateCount == 0)
     return;
   CATransform3D const zeroScale = CATransform3DScale(CATransform3DIdentity, 0.0, 0.0, 1.0);
   self.downloadBadge.layer.transform = zeroScale;
@@ -191,7 +194,7 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   self.downloadCount.alpha = 0.0;
   self.downloadBadge.hidden = NO;
   self.downloadCount.hidden = NO;
-  self.downloadCount.text = @(outOfDateCount).stringValue;
+  self.downloadCount.text = @(self.outOfDateCount).stringValue;
   [UIView animateWithDuration:framesDuration(4) animations:^
   {
     self.downloadBadge.layer.transform = CATransform3DIdentity;

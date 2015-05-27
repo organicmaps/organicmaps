@@ -68,8 +68,8 @@
 {
   [super layoutSubviews];
   self.bounds = self.defaultBounds;
-  [self layoutXPosition:self.hidden];
   self.maxY = self.superview.height - 2.0 * kViewControlsOffsetToBounds;
+  [self layoutXPosition:self.hidden];
 }
 
 - (void)layoutXPosition:(BOOL)hidden
@@ -78,6 +78,11 @@
     self.minX = self.superview.width;
   else
     self.maxX = self.superview.width - 2.0 * kViewControlsOffsetToBounds;
+  
+  CGFloat const contentScaleFactor = self.superview.contentScaleFactor;
+  m2::PointD const pivot(self.minX * contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.maxY * contentScaleFactor - kViewControlsOffsetToBounds);
+  [self.delegate setRulerPivot:pivot];
+  [self.delegate setCopyrightLabelPivot:pivot];
 }
 
 #pragma mark - Properties

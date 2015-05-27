@@ -7,6 +7,7 @@
 //
 
 #import "MWMSideMenuManager.h"
+#import "MWMSideMenuDelegate.h"
 #import "MWMSideMenuButton.h"
 #import "MWMSideMenuView.h"
 #import "BookmarksRootVC.h"
@@ -17,13 +18,17 @@
 #import "ShareActionSheet.h"
 #import "MapViewController.h"
 #import "MWMMapViewControlsManager.h"
+#import "Framework.h"
+
 #import "3party/Alohalytics/src/alohalytics_objc.h"
+
+#include "map/information_display.hpp"
 
 static NSString * const kMWMSideMenuViewsNibName = @"MWMSideMenuViews";
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMSideMenuManager()
+@interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol>
 
 @property (weak, nonatomic) MapViewController * parentController;
 @property (nonatomic) IBOutlet MWMSideMenuButton * menuButton;
@@ -40,6 +45,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     self.parentController = controller;
     [[NSBundle mainBundle] loadNibNamed:kMWMSideMenuViewsNibName owner:self options:nil];
+    self.menuButton.delegate = self;
+    self.sideMenu.delegate = self;
+    self.sideMenu.outOfDateCount = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
     [self addCloseMenuWithTap];
     self.state = MWMSideMenuStateInactive;
   }
@@ -110,6 +118,18 @@ extern NSString * const kAlohalyticsTapEventKey;
     self.state = MWMSideMenuStateInactive;
   else if (self.state == MWMSideMenuStateInactive)
     self.state = MWMSideMenuStateActive;
+}
+
+#pragma mark - MWMSideMenuInformationDisplayProtocol
+
+- (void)setRulerPivot:(m2::PointD)pivot
+{
+  GetFramework().GetInformationDisplay().SetWidgetPivot(InformationDisplay::WidgetType::Ruler, pivot);
+}
+
+- (void)setCopyrightLabelPivot:(m2::PointD)pivot
+{
+  GetFramework().GetInformationDisplay().SetWidgetPivot(InformationDisplay::WidgetType::CopyrightLabel, pivot);  
 }
 
 #pragma mark - Properties
