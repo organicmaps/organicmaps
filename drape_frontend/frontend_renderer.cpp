@@ -46,6 +46,9 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tileTree(new TileTree())
+  , m_overlayTree(new dp::OverlayTree())
+  , m_overlayTreeIsUpdating(true)
+  , m_overlayTreeTime(0)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -315,7 +318,38 @@ void FrontendRenderer::OnCompassTapped()
   m_userEventStream.AddEvent(RotateEvent(0.0));
 }
 
-void FrontendRenderer::RenderScene(ScreenBase const & modelView)
+void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView, double frameTime)
+{
+  double const updatePeriod = 0.2;
+
+  m_overlayTreeTime += frameTime;
+  if (m_overlayTreeTime > updatePeriod)
+  {
+    m_overlayTreeTime = 0.0;
+    m_overlayTreeIsUpdating = true;
+  }
+
+  if (m_overlayTreeIsUpdating)
+    m_overlayTree->StartOverlayPlacing(modelView);
+}
+
+void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup)
+{
+  if (m_overlayTreeIsUpdating)
+    renderGroup->CollectOverlay(make_ref(m_overlayTree));
+  else
+    renderGroup->Update(modelView);
+}
+
+void FrontendRenderer::EndUpdateOverlayTree()
+{
+  if (m_overlayTreeIsUpdating)
+    m_overlayTree->EndOverlayPlacing();
+
+  m_overlayTreeIsUpdating = false;
+}
+
+void FrontendRenderer::RenderScene(ScreenBase const & modelView, double frameTime)
 {
 #ifdef DRAW_INFO
   BeforeDrawFrame();
@@ -324,8 +358,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
 
-  dp::OverlayTree overlayTree;
-  overlayTree.StartOverlayPlacing(modelView);
+  BeginUpdateOverlayTree(modelView, frameTime);
   size_t eraseCount = 0;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
@@ -343,7 +376,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     switch (group->GetState().GetDepthLayer())
     {
     case dp::GLState::OverlayLayer:
-      group->CollectOverlay(make_ref(&overlayTree));
+      UpdateOverlayTree(modelView, group);
       break;
     case dp::GLState::DynamicGeometry:
       group->Update(modelView);
@@ -352,7 +385,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       break;
     }
   }
-  overlayTree.EndOverlayPlacing();
+  EndUpdateOverlayTree();
   m_renderGroups.resize(m_renderGroups.size() - eraseCount);
 
   m_viewport.Apply();
@@ -577,7 +610,7 @@ void FrontendRenderer::Routine::Do()
   {
     context->setDefaultFramebuffer();
     m_renderer.m_texMng->UpdateDynamicTextures();
-    m_renderer.RenderScene(modelView);
+    m_renderer.RenderScene(modelView, frameTime);
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 

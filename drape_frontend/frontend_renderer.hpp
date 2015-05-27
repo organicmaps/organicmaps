@@ -34,7 +34,11 @@
 #include "std/function.hpp"
 #include "std/map.hpp"
 
-namespace dp { class RenderBucket; }
+namespace dp
+{
+  class RenderBucket;
+  class OverlayTree;
+}
 
 namespace df
 {
@@ -102,7 +106,7 @@ protected:
 
 private:
   void OnResize(ScreenBase const & screen);
-  void RenderScene(ScreenBase const & modelView);
+  void RenderScene(ScreenBase const & modelView, double frameTime);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
   ScreenBase const & UpdateScene(bool & modelViewChanged);
@@ -124,7 +128,6 @@ private:
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
   void OnScaleEnded() override;
 
-private:
   class Routine : public threads::IRoutine
   {
    public:
@@ -139,7 +142,10 @@ private:
 
   void ReleaseResources();
 
-private:
+  void BeginUpdateOverlayTree(ScreenBase const & modelView, double frameTime);
+  void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
+  void EndUpdateOverlayTree();
+
   void AddToRenderGroup(vector<drape_ptr<RenderGroup>> & groups,
                         dp::GLState const & state,
                         drape_ptr<dp::RenderBucket> && renderBucket,
@@ -157,7 +163,6 @@ private:
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
-private:
   vector<drape_ptr<RenderGroup>> m_renderGroups;
   vector<drape_ptr<RenderGroup>> m_deferredRenderGroups;
   vector<drape_ptr<UserMarkRenderGroup>> m_userMarkRenderGroups;
@@ -165,6 +170,10 @@ private:
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   drape_ptr<MyPositionController> m_myPositionController;
+
+  drape_ptr<dp::OverlayTree> m_overlayTree;
+  bool m_overlayTreeIsUpdating;
+  double m_overlayTreeTime;
 
   dp::UniformValuesStorage m_generalUniforms;
 
