@@ -1,4 +1,4 @@
-@import("colors_normal.mapcss");
+@import("colors_light.mapcss");
 @import("include/base_roads.mapcss");
 /* @import("include/base_roads_UK.mapcss"); */
 @import("include/base_shop.mapcss");
