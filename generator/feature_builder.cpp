@@ -37,7 +37,8 @@ bool FeatureBuilder1::IsGeometryClosed() const
 
 m2::PointD FeatureBuilder1::GetGeometryCenter() const
 {
-//  ASSERT ( IsGeometryClosed(), () );
+  //TODO(govako): Check reqirements in this assert
+  //ASSERT ( IsGeometryClosed(), () );
   m2::PointD ret(0.0, 0.0);
 
   points_t const & poly = GetGeometry();

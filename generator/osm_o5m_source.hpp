@@ -156,8 +156,9 @@ protected:
 
   struct StringTableRecord
   {
-    // This important value got from documentation on O5M format
-    // If change it all will be broken
+    // This important value got from
+    // documentation ( http://wiki.openstreetmap.org/wiki/O5m#Strings ) on O5M format.
+    // If change it all will be broken.
     enum { MaxEntrySize = 252 };
 
     char key[MaxEntrySize];
