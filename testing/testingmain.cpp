@@ -93,12 +93,12 @@ int main(int argc, char * argv[])
       return 5;
     }
 
+    my::HighResTimer timer(true);
+
     try
     {
-      my::HighResTimer timer(true);
       // Run the test.
       pTest->m_Fn();
-      uint64_t const elapsed = timer.ElapsedNano();
 
       if (g_bLastTestOK)
       {
@@ -111,7 +111,6 @@ int main(int argc, char * argv[])
         testResults[iTest] = false;
         ++numFailedTests;
       }
-      LOG(LINFO, ("Test took", elapsed, "ns"));
 
     }
     catch (TestFailureException const & )
@@ -132,6 +131,9 @@ int main(int argc, char * argv[])
       ++numFailedTests;
     }
     g_bLastTestOK = true;
+
+    uint64_t const elapsed = timer.ElapsedNano();
+    LOG(LINFO, ("Test took", elapsed / 1000000, "ms"));
   }
 
   if (numFailedTests == 0)

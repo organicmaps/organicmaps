@@ -56,8 +56,8 @@ class TestInfo:
             ElementTree.SubElement(d, "failure")
         return d
 
-    def set_duration(self, nanos):
-        self.test_duration = float(nanos) / 1000000000
+    def set_duration(self, milis):
+        self.test_duration = float(milis) 
 
 
 class Parser:
@@ -87,7 +87,7 @@ class Parser:
 
                         test_info = None
 
-                elif line == "OK" or line == "FAILED":
+                elif line == "OK" or line.startswith("FAILED"):
                     if test_info is not None:
                         test_info.test_result = line
 

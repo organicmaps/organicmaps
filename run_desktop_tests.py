@@ -166,9 +166,6 @@ def main():
 
     print_pretty("not found", not_found)
 
-    if len(results["failed"]) > 0:
-        exit(1)
-
 
 if (__name__ == "__main__"):
     main()
