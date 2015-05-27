@@ -58,7 +58,10 @@ void RenderBucket::AddOverlayHandle(drape_ptr<OverlayHandle> && handle)
 void RenderBucket::Update(ScreenBase const & modelView)
 {
   for (drape_ptr<OverlayHandle> & overlayHandle : m_overlay)
-    overlayHandle->Update(modelView);
+  {
+    if (overlayHandle->IsVisible())
+      overlayHandle->Update(modelView);
+  }
 }
 
 void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree, bool isTransparent)
