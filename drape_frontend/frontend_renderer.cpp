@@ -48,7 +48,6 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   , m_tileTree(new TileTree())
   , m_overlayTree(new dp::OverlayTree())
   , m_overlayTreeIsUpdating(true)
-  , m_overlayTreeTime(0)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;
@@ -318,14 +317,15 @@ void FrontendRenderer::OnCompassTapped()
   m_userEventStream.AddEvent(RotateEvent(0.0));
 }
 
-void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView, double frameTime)
+void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
 {
-  double const updatePeriod = 0.2;
+  static int framesCounter = 0;
+  int const updatePeriod = 10;
 
-  m_overlayTreeTime += frameTime;
-  if (m_overlayTreeTime > updatePeriod)
+  framesCounter++;
+  if (framesCounter % updatePeriod == 0)
   {
-    m_overlayTreeTime = 0.0;
+    framesCounter = 0;
     m_overlayTreeIsUpdating = true;
   }
 
@@ -349,7 +349,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
   m_overlayTreeIsUpdating = false;
 }
 
-void FrontendRenderer::RenderScene(ScreenBase const & modelView, double frameTime)
+void FrontendRenderer::RenderScene(ScreenBase const & modelView)
 {
 #ifdef DRAW_INFO
   BeforeDrawFrame();
@@ -358,7 +358,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, double frameTim
   RenderGroupComparator comparator;
   sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderGroupComparator::operator (), &comparator, _1, _2));
 
-  BeginUpdateOverlayTree(modelView, frameTime);
+  BeginUpdateOverlayTree(modelView);
   size_t eraseCount = 0;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
@@ -610,7 +610,7 @@ void FrontendRenderer::Routine::Do()
   {
     context->setDefaultFramebuffer();
     m_renderer.m_texMng->UpdateDynamicTextures();
-    m_renderer.RenderScene(modelView, frameTime);
+    m_renderer.RenderScene(modelView);
     bool const animActive = InterpolationHolder::Instance().Advance(frameTime);
     modelView = m_renderer.UpdateScene(viewChanged);
 

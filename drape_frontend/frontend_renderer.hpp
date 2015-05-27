@@ -106,7 +106,7 @@ protected:
 
 private:
   void OnResize(ScreenBase const & screen);
-  void RenderScene(ScreenBase const & modelView, double frameTime);
+  void RenderScene(ScreenBase const & modelView);
   void RefreshProjection();
   void RefreshModelView(ScreenBase const & screen);
   ScreenBase const & UpdateScene(bool & modelViewChanged);
@@ -142,7 +142,7 @@ private:
 
   void ReleaseResources();
 
-  void BeginUpdateOverlayTree(ScreenBase const & modelView, double frameTime);
+  void BeginUpdateOverlayTree(ScreenBase const & modelView);
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
   void EndUpdateOverlayTree();
 
@@ -173,7 +173,6 @@ private:
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
   bool m_overlayTreeIsUpdating;
-  double m_overlayTreeTime;
 
   dp::UniformValuesStorage m_generalUniforms;
 
