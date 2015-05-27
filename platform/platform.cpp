@@ -7,6 +7,23 @@
 
 #include "base/logging.hpp"
 
+#include <errno.h>
+
+// static
+Platform::EError Platform::ErrnoToError()
+{
+  switch (errno)
+  {
+    case ENOENT:
+      return ERR_FILE_DOES_NOT_EXIST;
+    case EACCES:
+      return ERR_ACCESS_FAILED;
+    case ENOTEMPTY:
+      return ERR_DIRECTORY_NOT_EMPTY;
+    default:
+      return ERR_UNKNOWN;
+  }
+}
 
 string Platform::ReadPathForFile(string const & file, string searchScope) const
 {
@@ -89,6 +106,21 @@ void Platform::GetFilesByExt(string const & directory, string const & ext, Files
   ASSERT_EQUAL ( ext[0], '.' , () );
 
   GetFilesByRegExp(directory, '\\' + ext + '$', outFiles);
+}
+
+// static
+void Platform::GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles)
+{
+  FilesList allFiles;
+  GetFilesByRegExp(directory, ".*", allFiles);
+  for (string const & file : allFiles)
+  {
+    EFileType type;
+    if (GetFileType(my::JoinFoldersToPath(directory, file), type) != ERR_OK)
+      continue;
+    if (typeMask & type)
+      outFiles.push_back(file);
+  }
 }
 
 string Platform::DeviceName() const

@@ -8,7 +8,10 @@
 #include "std/windows.hpp"
 #include "std/bind.hpp"
 
+#include <direct.h>
 #include <shlobj.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 static bool GetUserWritableDir(string & outDir)
 {
@@ -89,6 +92,29 @@ Platform::Platform()
 bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   return ::GetFileAttributesA(filePath.c_str()) != INVALID_FILE_ATTRIBUTES;
+}
+
+// static
+Platform::EError Platform::RmDir(string const & dirName)
+{
+  if (_rmdir(dirName.c_str()) != 0)
+    return ErrnoToError();
+  return ERR_OK;
+}
+
+// static
+Platform::EError Platform::GetFileType(string const & path, EFileType & type)
+{
+  struct _stat32 stats;
+  if (_stat32(path.c_str(), &stats) != 0)
+    return ErrnoToError();
+  if (stats.st_mode & _S_IFREG)
+    type = FILE_TYPE_REGULAR;
+  else if (stats.st_mode & _S_IFDIR)
+    type = FILE_TYPE_DIRECTORY;
+  else
+    type = FILE_TYPE_UNKNOWN;
+  return ERR_OK;
 }
 
 int Platform::CpuCores() const

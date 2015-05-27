@@ -22,7 +22,10 @@ public:
   enum EError
   {
     ERR_OK = 0,
-    ERR_UNKNOWN = 1
+    ERR_FILE_DOES_NOT_EXIST,
+    ERR_ACCESS_FAILED,
+    ERR_DIRECTORY_NOT_EMPTY,
+    ERR_UNKNOWN
   };
 
   enum EFileType
@@ -62,6 +65,9 @@ protected:
 
   /// Hash some unique string into uniform format.
   static string HashUniqueID(string const & s);
+
+  /// Returns last system call error as EError.
+  static EError ErrnoToError();
 
 public:
   Platform();
@@ -120,7 +126,7 @@ public:
   static void GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles);
   //@}
 
-  static EError GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles);
+  static void GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles);
 
   static EError GetFileType(string const & path, EFileType & type);
 

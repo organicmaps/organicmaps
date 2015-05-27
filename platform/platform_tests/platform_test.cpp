@@ -23,13 +23,10 @@ void CheckFilesPresence(string const & baseDir, unsigned typeMask,
                         initializer_list<pair<string, size_t>> const & files)
 {
   Platform::FilesList filesList;
-  TEST_EQUAL(Platform::GetFilesByType(baseDir, typeMask, filesList), Platform::ERR_OK,
-             ("Can't get files from", baseDir));
+  Platform::GetFilesByType(baseDir, typeMask, filesList);
   multiset<string> filesSet(filesList.begin(), filesList.end());
   for (auto const & file : files)
     TEST_EQUAL(filesSet.count(file.first), file.second, (file.first, file.second));
-  TEST_EQUAL(0, filesSet.count("."), ());
-  TEST_EQUAL(0, filesSet.count(".."), ());
 }
 }  // namespace
 
