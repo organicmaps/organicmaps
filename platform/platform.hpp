@@ -24,7 +24,14 @@ public:
     ERR_OK = 0,
     ERR_UNKNOWN = 1
   };
-  
+
+  enum EFileType
+  {
+    FILE_TYPE_UNKNOWN = 0x1,
+    FILE_TYPE_REGULAR = 0x2,
+    FILE_TYPE_DIRECTORY = 0x4
+  };
+
 protected:
   /// Usually read-only directory for application resources
   string m_resourcesDir;
@@ -79,6 +86,9 @@ public:
   /// Creates directory at filesystem
   EError MkDir(string const & dirName) const;
 
+  /// Removes empty directory from the filesystem.
+  static EError RmDir(string const & dirName);
+
   /// @TODO create join method for string concatenation
 
   /// @return path for directory with temporary files with slash at the end
@@ -109,6 +119,10 @@ public:
   static void GetFilesByExt(string const & directory, string const & ext, FilesList & outFiles);
   static void GetFilesByRegExp(string const & directory, string const & regexp, FilesList & outFiles);
   //@}
+
+  static EError GetFilesByType(string const & directory, unsigned typeMask, FilesList & outFiles);
+
+  static EError GetFileType(string const & path, EFileType & type);
 
   /// @return false if file is not exist
   /// @note Check files in Writable dir first, and in ReadDir if not exist in Writable dir

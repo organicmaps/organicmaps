@@ -11,6 +11,7 @@
 #else
   #include <set>
 #endif
+using std::multiset;
 using std::set;
 
 #ifdef DEBUG_NEW

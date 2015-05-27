@@ -1,12 +1,19 @@
 #include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "base/logging.hpp"
 #include "base/regexp.hpp"
+#include "base/scope_guard.hpp"
+
+#include "std/algorithm.hpp"
+#include "std/bind.hpp"
+#include "std/cstring.hpp"
 
 #include <dirent.h>
 #include <sys/stat.h>
-#include "std/algorithm.hpp"
+#include <unistd.h>
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   #include <sys/mount.h>
@@ -100,10 +107,56 @@ void Platform::GetSystemFontNames(FilesList & res) const
 #endif
 }
 
+// static
+Platform::EError Platform::GetFilesByType(string const & directory, unsigned typeMask,
+                                          FilesList & outFiles)
+{
+  DIR * dir = opendir(directory.c_str());
+  if (!dir)
+    return ERR_UNKNOWN;
+  MY_SCOPE_GUARD(closeDirGuard, bind(&closedir, dir));
+  while (struct dirent * entry = readdir(dir))
+  {
+    char const * const name = entry->d_name;
+    if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0)
+      continue;
+
+    string const path = my::JoinFoldersToPath(directory, name);
+
+    EFileType type;
+    if (GetFileType(path, type) != ERR_OK)
+      continue;
+    if (typeMask & type)
+      outFiles.push_back(name);
+  }
+  return ERR_OK;
+}
+
+// static
+Platform::EError Platform::GetFileType(string const & path, EFileType & type)
+{
+  struct stat stats;
+  if (stat(path.c_str(), &stats) != 0)
+    return ERR_UNKNOWN;
+  if (S_ISREG(stats.st_mode))
+    type = FILE_TYPE_REGULAR;
+  else if (S_ISDIR(stats.st_mode))
+    type = FILE_TYPE_DIRECTORY;
+  else
+    type = FILE_TYPE_UNKNOWN;
+  return ERR_OK;
+}
+
 bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
   return stat(filePath.c_str(), &s) == 0;
+}
+
+// static
+Platform::EError Platform::RmDir(string const & dirName)
+{
+  return rmdir(dirName.c_str()) == 0 ? ERR_OK : ERR_UNKNOWN;
 }
 
 bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)

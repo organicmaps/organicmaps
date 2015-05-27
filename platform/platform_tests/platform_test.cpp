@@ -4,13 +4,34 @@
 
 #include "defines.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
+#include "std/bind.hpp"
+#include "std/initializer_list.hpp"
+#include "std/set.hpp"
 
+namespace
+{
 char const * TEST_FILE_NAME = "some_temporary_unit_test_file.tmp";
+
+void CheckFilesPresence(string const & baseDir, unsigned typeMask,
+                        initializer_list<pair<string, size_t>> const & files)
+{
+  Platform::FilesList filesList;
+  TEST_EQUAL(Platform::GetFilesByType(baseDir, typeMask, filesList), Platform::ERR_OK,
+             ("Can't get files from", baseDir));
+  multiset<string> filesSet(filesList.begin(), filesList.end());
+  for (auto const & file : files)
+    TEST_EQUAL(filesSet.count(file.first), file.second, (file.first, file.second));
+  TEST_EQUAL(0, filesSet.count("."), ());
+  TEST_EQUAL(0, filesSet.count(".."), ());
+}
+}  // namespace
 
 UNIT_TEST(WritableDir)
 {
@@ -81,6 +102,64 @@ UNIT_TEST(GetFilesInDir_Smoke)
   files1.clear();
   pl.GetFilesByExt(dir, ".dsa", files1);
   TEST_EQUAL(files1.size(), 0, ());
+}
+
+UNIT_TEST(DirsRoutines)
+{
+  Platform & platform = GetPlatform();
+  string const baseDir = platform.WritableDir();
+  string const testDir = my::JoinFoldersToPath(baseDir, "test-dir");
+
+  TEST(!Platform::IsFileExistsByFullPath(testDir), ());
+  TEST_EQUAL(platform.MkDir(testDir), Platform::ERR_OK, ());
+
+  TEST(Platform::IsFileExistsByFullPath(testDir), ());
+  TEST_EQUAL(Platform::RmDir(testDir), Platform::ERR_OK, ());
+
+  TEST(!Platform::IsFileExistsByFullPath(testDir), ());
+}
+
+UNIT_TEST(GetFilesByType)
+{
+  string const kTestDirBaseName = "test-dir";
+  string const kTestFileBaseName = "test-file";
+
+  Platform & platform = GetPlatform();
+  string const baseDir = platform.WritableDir();
+
+  string const testDir = my::JoinFoldersToPath(baseDir, kTestDirBaseName);
+  TEST_EQUAL(platform.MkDir(testDir), Platform::ERR_OK, ());
+  MY_SCOPE_GUARD(removeTestDir, bind(&Platform::RmDir, testDir));
+
+  string const testFile = my::JoinFoldersToPath(baseDir, kTestFileBaseName);
+  TEST(!Platform::IsFileExistsByFullPath(testFile), ());
+  {
+    FileWriter writer(testFile);
+  }
+  TEST(Platform::IsFileExistsByFullPath(testFile), ());
+  MY_SCOPE_GUARD(removeTestFile, bind(FileWriter::DeleteFileX, testFile));
+
+  CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY,
+                     {{
+                       kTestDirBaseName, 1 /* present */
+                      },
+                      {
+                       kTestFileBaseName, 0 /* not present */
+                      }});
+  CheckFilesPresence(baseDir, Platform::FILE_TYPE_REGULAR,
+                     {{
+                       kTestDirBaseName, 0 /* not present */
+                      },
+                      {
+                       kTestFileBaseName, 1 /* present */
+                      }});
+  CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY | Platform::FILE_TYPE_REGULAR,
+                     {{
+                       kTestDirBaseName, 1 /* present */
+                      },
+                      {
+                       kTestFileBaseName, 1 /* present */
+                      }});
 }
 
 UNIT_TEST(GetFileSize)
