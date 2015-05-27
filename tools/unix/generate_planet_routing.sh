@@ -8,7 +8,10 @@ set -u # Fail on undefined variables
 
 if [ $# -lt 1 ]; then
   echo ''
-  echo "Usage: $0 {prepare|mwm}"
+  echo "Usage:"
+  echo "  $0 pbf"
+  echo "  $0 prepare"
+  echo "  $0 mwm"
   echo ''
   exit 1
 fi
@@ -27,15 +30,33 @@ mkdir -p "$INTDIR"
 NUM_PROCESSES=${NUM_PROCESSES:-8}
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
 
-if [ "$1" == "prepare" ]; then
+if [ "$1" == "pbf" ]; then
   rm -f "$OSRM_FLAG"
   PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
+  OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
+  [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
+  # The patch increases number of nodes for osmconvert to avoid overflow crash
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
+
+  TMPBORDERS="$INTDIR/tmpborders"
+  mkdir "$TMPBORDERS"
+  if [ -z "${REGIONS-}" ]; then
+    cp "$BORDERS_PATH"/*.poly "$TMPBORDERS"
+  else
+    echo "$REGIONS" | xargs -I % cp "$BORDERS_PATH/%.poly" "$TMPBORDERS"
+  fi
+  [ -z "$(ls "$TMPBORDERS"/*.poly)" ] && fail "No regions to create routing files for"
+  find "$TMPBORDERS" -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
+    sh -c 'POLY="%"; "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B="$POLY" --complex-ways --out-pbf -o="$INTDIR/$(basename "$POLY" .poly).pbf"'
+  [ $? != 0 ] && fail "Failed to process all the regions"
+  rm -r "$TMPBORDERS"
+
+elif [ "$1" == "prepare" ]; then
+  rm -f "$OSRM_FLAG"
+  [ -z "$(ls "$INTDIR"/*.pbf)" ] && fail "Please build PBF files first"
   OSRM_PATH="${OSRM_PATH:-$OMIM_PATH/3party/osrm/osrm-backend}"
   OSRM_BUILD_PATH="${OSRM_BUILD_PATH:-$OSRM_PATH/build}"
   [ ! -x "$OSRM_BUILD_PATH/osrm-extract" ] && fail "Please compile OSRM binaries to $OSRM_BUILD_PATH"
-  OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
-  [ ! -d "$OSMCTOOLS" ] && OSMCTOOLS="$INTDIR"
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
 
   OSRM_THREADS=${OSRM_THREADS:-15}
   OSRM_MEMORY=${OSRM_MEMORY:-50}
@@ -48,17 +69,12 @@ if [ "$1" == "prepare" ]; then
   [ $# -gt 1 ] && PROFILE="$2"
   [ ! -r "$PROFILE" ] && fail "Lua profile $PROFILE is not found"
 
-  REGIONS=${REGIONS:-$(ls $BORDERS_PATH/*.poly | xargs -I % basename % .poly)}
-  [ -z "$REGIONS" ] && fail "No regions to create routing files for"
-  echo "$REGIONS" | xargs -P $NUM_PROCESSES -I % "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B=$BORDERS_PATH/%.poly --complex-ways --out-pbf -o=$INTDIR/%.pbf
-  [ $? != 0 ] && fail "Failed to process all the regions"
-
   export STXXLCFG="$HOME/.stxxl"
-  echo "$REGIONS" | while read REGION ; do
-    OSRM_FILE="$INTDIR/$REGION.osrm"
+  for PBF in "$INTDIR"/*.pbf; do
+    OSRM_FILE="${PBF%.*}.osrm"
     rm -f "$OSRM_FILE"
-    "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$INTDIR/$REGION.pbf"
-    rm -f "$INTDIR/$REGION.pbf"
+    "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
+    rm -f "$PBF"
     "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
     "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE"
     [ ! -f "$OSRM_FILE" ] && echo "Failed to create $OSRM_FILE"
@@ -77,8 +93,8 @@ elif [ "$1" == "mwm" ]; then
   fi
 
   DATA_PATH="$OMIM_PATH/data/"
-  echo "${REGIONS:-$(ls $INTDIR/*.osrm | xargs -I % basename % .osrm)}" | xargs -P $NUM_PROCESSES -I % \
-    $GENERATOR_TOOL --make_routing --make_cross_section --osrm_file_name="$INTDIR/%.osrm" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="%"
+  find "$INTDIR" -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
+    sh -c 'OSRM="%"; $GENERATOR_TOOL --make_routing --make_cross_section --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "$OSRM" .osrm)"'
 
   if [ -n "${POLY_DIR-}" ]; then
     # delete temporary polygons

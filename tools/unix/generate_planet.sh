@@ -86,7 +86,7 @@ while getopts ":cuwrh" opt; do
 done
 
 EXIT_ON_ERROR=${EXIT_ON_ERROR-1}
-[ -n "${EXIT_ON_ERROR-}" ] && set -e # Exit when any of commands fail
+[ -n "$EXIT_ON_ERROR" ] && set -e # Exit when any of commands fail
 set -o pipefail # Capture all errors in command chains
 set -u # Fail on undefined variables
 #set -x # Echo every script line
@@ -105,6 +105,7 @@ OSMCTOOLS="${OSMCTOOLS:-$HOME/osmctools}"
 MERGE_COASTS_DELAY_SEC=2400
 # set to "mem" if there is more than 64 GB of memory
 NODE_STORAGE=${NODE_STORAGE:-${NS:-mem}}
+ASYNC_PBF=${ASYNC_PBF-}
 NUM_PROCESSES=${NUM_PROCESSES:-$(expr $(nproc || echo 8) - 1)}
 
 STATUS_FILE="$INTDIR/status"
@@ -119,7 +120,7 @@ log "STATUS" "Start"
 source "$SCRIPTS_PATH/find_generator_tool.sh"
 
 # Prepare borders
-[ -n "${EXIT_ON_ERROR-}" ] && set +e # Grep returns non-zero status
+[ -n "$EXIT_ON_ERROR" ] && set +e # Grep returns non-zero status
 mkdir -p "$TARGET/borders"
 PREV_BORDERS="$(ls "$TARGET/borders" | grep \.poly)"
 if [ -n "${REGIONS:-}" ]; then
@@ -137,7 +138,7 @@ elif [ -z "$PREV_BORDERS" ]; then
   cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
 fi
 [ -z "$(ls "$TARGET/borders" | grep \.poly)" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
-[ -n "${EXIT_ON_ERROR-}" ] && set -e
+[ -n "$EXIT_ON_ERROR" ] && set -e
 ULIMIT_REQ=$(expr 3 \* $(ls "$TARGET/borders" | grep \.poly | wc -l))
 [ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ"
 
@@ -172,7 +173,8 @@ fi
 
 if [ "$MODE" == "coast" ]; then
   putmode
-  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
+  # The patch increases number of nodes for osmconvert to avoid overflow crash
+  [ ! -x "$OSMCTOOLS/osmconvert" ] && wget -q -O - http://m.m.i24.cc/osmconvert.c | sed 's/60004/600004/' | cc -x c - -lz -O3 -o "$OSMCTOOLS/osmconvert"
   [ ! -x "$OSMCTOOLS/osmupdate"  ] && wget -q -O - http://m.m.i24.cc/osmupdate.c  | cc -x c - -o "$OSMCTOOLS/osmupdate"
   [ ! -x "$OSMCTOOLS/osmfilter"  ] && wget -q -O - http://m.m.i24.cc/osmfilter.c  | cc -x c - -O3 -o "$OSMCTOOLS/osmfilter"
   if [ -n "$OPT_DOWNLOAD" ]; then
@@ -205,7 +207,7 @@ if [ "$MODE" == "coast" ]; then
       "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" -o=$COASTS
       # Preprocess coastlines to separate intermediate directory
       log "TIMEMARK" "Generate coastlines intermediate"
-      [ -n "${EXIT_ON_ERROR-}" ] && set +e # Temporary disable to read error code
+      [ -n "$EXIT_ON_ERROR" ] && set +e # Temporary disable to read error code
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
         -preprocess 2>> "$GENERATOR_LOG"
       # Generate temporary coastlines file in the coasts intermediate dir
@@ -213,7 +215,7 @@ if [ "$MODE" == "coast" ]; then
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
         --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee "$GENERATOR_LOG"
       EXIT_CODE=$?
-      [ -n "${EXIT_ON_ERROR-}" ] && set -e
+      [ -n "$EXIT_ON_ERROR" ] && set -e
 
       if [ $EXIT_CODE != 0 ]; then
         log "TIMEMARK" "Coastline merge failed"
@@ -239,8 +241,17 @@ if [ -n "$OPT_ROUTING" ]; then
   if [ -e "$OSRM_FLAG" ]; then
     log "start_routing(): OSRM files have been already created, no need to repeat"
   else
-    putmode "Starting OSRM files generation"
-    ( bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG" )
+    putmode "Step R: Starting OSRM files generation"
+    if [ -n "$ASYNC_PBF" ]; then
+      (
+        bash "$ROUTING_SCRIPT" pbf &> "$ROUTING_LOG";
+        bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG"
+      ) &
+    else
+      # Osmconvert takes too much memory: it makes sense to not extract pbfs asyncronously
+      bash "$ROUTING_SCRIPT" pbf &> "$ROUTING_LOG"
+      ( bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG" ) &
+    fi
   fi
 fi
 
