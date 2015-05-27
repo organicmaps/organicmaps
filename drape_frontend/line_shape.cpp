@@ -160,7 +160,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
       }
 
       float const distance = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
-      float const endUv = texCoordGen.GetUvOffsetByDistance(distance);
+      float const endUv = min(1.0f, texCoordGen.GetUvOffsetByDistance(distance));
       glsl::vec2 const uvStart = texCoordGen.GetTexCoords(0.0f);
       glsl::vec2 const uvEnd = texCoordGen.GetTexCoords(endUv);
 
@@ -212,7 +212,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     if (!texCoordGen.IsSolid())
     {
       maskSize = texCoordGen.GetMaskLength() / m_params.m_baseGtoPScale;
-      steps = static_cast<int>(pixelLen / texCoordGen.GetMaskLength()) + 1;
+      steps = static_cast<int>((pixelLen + texCoordGen.GetMaskLength() - 1) / texCoordGen.GetMaskLength());
     }
 
     float currentSize = 0;
@@ -221,13 +221,11 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     {
       currentSize += maskSize;
 
-      bool isLastPoint = false;
       float endOffset = 1.0f;
       if (currentSize >= initialGlobalLength)
       {
         endOffset = (initialGlobalLength - currentSize + maskSize) / maskSize;
         currentSize = initialGlobalLength;
-        isLastPoint = true;
       }
 
       glsl::vec2 const newPoint = startPoint + tangent * currentSize;
@@ -241,9 +239,6 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
       geometry.push_back(LV(newPivot, rightNormal, colorCoord, uvEnd, rightSegment));
 
       currentStartPivot = newPivot;
-
-      if (isLastPoint)
-        break;
     }
 
     prevPoint = currentStartPivot.xy();
