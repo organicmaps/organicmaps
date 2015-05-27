@@ -205,13 +205,14 @@ void InitLocalizedStrings()
     [self shouldShowFacebookAlert];
   }
   [[NSUserDefaults standardUserDefaults] synchronize];
-  
 
-  application.applicationIconBadgeNumber = GetFramework().GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
+  Framework & f = GetFramework();
+  application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
+  f.GetLocationState()->InvalidatePosition();
   
   if (isIOSVersionLessThan(7))
     return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
- 
+
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -304,8 +305,6 @@ void InitLocalizedStrings()
   m_geoURL = nil;
   m_mwmURL = nil;
   m_fileURL = nil;
-
-  f.GetLocationState()->InvalidatePosition();
 
   if (!isIOSVersionLessThan(7))
     [FBSDKAppEvents activateApp];
