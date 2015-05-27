@@ -90,7 +90,7 @@ bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & t
   return false;
 }
 
-FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode)
+FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode, string const & mwmName): segmentPoint(m2::PointD::Zero()), mwmName(mwmName)
 {
   node.forward_node_id = isStartNode ? nodeId : INVALID_NODE_ID;
   node.reverse_node_id = isStartNode ? INVALID_NODE_ID : nodeId;
@@ -100,7 +100,6 @@ FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode)
   node.reverse_offset = 0;
   node.name_id = 1;
   segment.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
-  segmentPoint = m2::PointD::Zero();
 }
 
 FeatureGraphNode::FeatureGraphNode()

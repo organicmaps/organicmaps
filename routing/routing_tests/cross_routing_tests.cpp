@@ -33,10 +33,10 @@ UNIT_TEST(TestContextSerialization)
   auto outs = newContext.GetOutgoingIterators();
   TEST_EQUAL(distance(outs.first,outs.second), 2, ());
   TEST_EQUAL(outs.first->m_nodeId, 3, ());
-  TEST_EQUAL(newContext.getOutgoingMwmName(outs.first->m_outgoingIndex), string("foo"), ());
+  TEST_EQUAL(newContext.getOutgoingMwmName(*outs.first), string("foo"), ());
   ++outs.first;
   TEST_EQUAL(outs.first->m_nodeId, 4, ());
-  TEST_EQUAL(newContext.getOutgoingMwmName(outs.first->m_outgoingIndex), string("bar"), ());
+  TEST_EQUAL(newContext.getOutgoingMwmName(*outs.first), string("bar"), ());
 }
 
 UNIT_TEST(TestAdjacencyMatrix)

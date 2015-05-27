@@ -30,6 +30,8 @@ SOURCES += \
     turns.cpp \
     turns_generator.cpp \
     vehicle_model.cpp \
+    cross_mwm_router.cpp \
+    cross_mwm_road_graph.cpp
 
 HEADERS += \
     astar_router.hpp \
@@ -53,3 +55,5 @@ HEADERS += \
     turns.hpp \
     turns_generator.hpp \
     vehicle_model.hpp \
+    cross_mwm_router.hpp \
+    cross_mwm_road_graph.hpp

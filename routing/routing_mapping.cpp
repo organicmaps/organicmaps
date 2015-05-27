@@ -113,4 +113,22 @@ void RoutingMapping::FreeCrossContext()
   m_crossContext = CrossRoutingContextReader();
 }
 
+TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & point)
+{
+  return GetMappingByName(m_countryFn(point));
 }
+
+TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & fName)
+{
+  // Check if we have already load this file
+  auto mapIter = m_mapping.find(fName);
+  if (mapIter != m_mapping.end())
+    return mapIter->second;
+
+  // Or load and check file
+  TRoutingMappingPtr new_mapping = make_shared<RoutingMapping>(fName, m_index);
+  m_mapping.insert(make_pair(fName, new_mapping));
+  return new_mapping;
+}
+
+}  // namespace routing

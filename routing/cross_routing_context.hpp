@@ -58,7 +58,7 @@ class CrossRoutingContextReader
 public:  
   void Load(Reader const & r);
 
-  const string & getOutgoingMwmName(size_t mwmIndex) const;
+  const string & getOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
 
   pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> GetIngoingIterators() const;
 

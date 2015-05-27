@@ -26,7 +26,7 @@ namespace
 // an obstacle.  Using only the closest feature minimizes (but not
 // eliminates) this risk.
 size_t const MAX_ROAD_CANDIDATES = 1;
-double const FEATURE_BY_POINT_RADIUS_M = 100.0;
+double const kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 } // namespace
 
 RoadGraphRouter::~RoadGraphRouter() {}
@@ -48,7 +48,7 @@ void RoadGraphRouter::GetClosestEdges(m2::PointD const & pt, vector<pair<Edge, m
   };
 
   m_pIndex->ForEachInRect(
-      f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, FEATURE_BY_POINT_RADIUS_M),
+      f, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, kMwmCrossingNodeEqualityRadiusMeters),
       FeaturesRoadGraph::GetStreetReadScale());
 
   finder.MakeResult(edges, MAX_ROAD_CANDIDATES);

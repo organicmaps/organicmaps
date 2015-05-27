@@ -1,17 +1,19 @@
 #pragma once
 
 #include "osrm2feature_map.hpp"
-#include "router.hpp"
 #include "osrm_data_facade.hpp"
+#include "router.hpp"
 
 #include "indexer/index.hpp"
 
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
-//#include "../3party/osrm/osrm-backend/DataStructures/RawRouteData.h"
+
+#include "std/unordered_map.hpp"
 
 namespace routing
 {
-typedef OsrmDataFacade<QueryEdge::EdgeData> TDataFacade;
+using TDataFacade = OsrmDataFacade<QueryEdge::EdgeData>;
+using TCountryFileFn = function<string (m2::PointD const &)>;
 
 /// Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping
@@ -76,4 +78,37 @@ public:
     m_mapping->FreeFacade();
   }
 };
-}
+
+/*! Manager for loading, cashing and building routing indexes.
+ * Builds and shares special routing contexts.
+*/
+class RoutingIndexManager
+{
+public:
+  RoutingIndexManager(TCountryFileFn const & fn, Index const * index): m_countryFn(fn), m_index(index)
+  {
+    ASSERT(index, ());
+  }
+
+  TRoutingMappingPtr GetMappingByPoint(m2::PointD const & point);
+
+  TRoutingMappingPtr GetMappingByName(string const & fName);
+
+  template <class TFunctor>
+  void ForEachMapping(TFunctor toDo)
+  {
+    for_each(m_mapping.begin(), m_mapping.end(), toDo);
+  }
+
+  void Clear()
+  {
+    m_mapping.clear();
+  }
+
+private:
+  TCountryFileFn m_countryFn;
+  Index const * m_index;
+  unordered_map<string, TRoutingMappingPtr> m_mapping;
+};
+
+} // namespace routing

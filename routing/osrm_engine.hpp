@@ -17,13 +17,15 @@ struct FeatureGraphNode
   PhantomNode node;
   OsrmMappingTypes::FtSeg segment;
   m2::PointD segmentPoint;
+  string mwmName;
 
   /*!
-  * \brief fill FeatureGraphNode with values
-  * \param nodeId osrm node idetifier
-  * \param isStartNode true if this node will first in the path
+  * \brief fill FeatureGraphNode with values.
+  * \param nodeId osrm node idetifier.
+  * \param isStartNode true if this node will first in the path.
+  * \param mwmName @nodeId refers node on the graph of this map.
   */
-  FeatureGraphNode(NodeID const nodeId, bool const isStartNode);
+  FeatureGraphNode(NodeID const nodeId, bool const isStartNode, string const & mwmName);
 
   /// \brief Invalid graph node constructor
   FeatureGraphNode();

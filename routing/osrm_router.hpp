@@ -14,7 +14,6 @@
 #include "std/function.hpp"
 #include "std/numeric.hpp"
 #include "std/queue.hpp"
-#include "std/unordered_map.hpp"
 
 
 namespace feature { class TypesHolder; }
@@ -26,39 +25,15 @@ class FeatureType;
 
 namespace routing
 {
-typedef function<string (m2::PointD const &)> TCountryFileFn;
+struct RoutePathCross;
+using TCheckedPath = vector<RoutePathCross>;
+
 typedef OsrmDataFacade<QueryEdge::EdgeData> TDataFacade;
 
 /// All edges available for start route while routing
 typedef vector<FeatureGraphNode> TFeatureGraphNodeVec;
 
-/*! Manager for loading, cashing and building routing indexes.
- * Builds and shares special routing contexts.
-*/
-class RoutingIndexManager
-{
-  TCountryFileFn m_countryFn;
 
-  unordered_map<string, TRoutingMappingPtr> m_mapping;
-
-public:
-  RoutingIndexManager(TCountryFileFn const & fn): m_countryFn(fn) {}
-
-  TRoutingMappingPtr GetMappingByPoint(m2::PointD const & point, Index const * pIndex);
-
-  TRoutingMappingPtr GetMappingByName(string const & fName, Index const * pIndex);
-
-  template <class TFunctor>
-  void ForEachMapping(TFunctor toDo)
-  {
-    for_each(m_mapping.begin(), m_mapping.end(), toDo);
-  }
-
-  void Clear()
-  {
-    m_mapping.clear();
-  }
-};
 
 class OsrmRouter : public IRouter
 {
@@ -90,8 +65,6 @@ protected:
                                        m2::PointD const & direction, TFeatureGraphNodeVec & res,
                                        size_t maxCount, TRoutingMappingPtr const & mapping);
 
-  size_t FindNextMwmNode(OutgoingCrossNode const & startNode, TRoutingMappingPtr const & targetMapping);
-
   /*!
    * \brief Compute turn and time estimation structs for OSRM raw route.
    * \param routingResult OSRM routing result structure to annotate.
@@ -108,42 +81,14 @@ protected:
                                 turns::TurnsGeomT & turnsGeom);
 
 private:
-  typedef pair<size_t,string> MwmOutT;
-  typedef set<MwmOutT> CheckedOutsT;
-
-  struct RoutePathCross
-  {
-    string mwmName;
-    FeatureGraphNode startNode;
-    FeatureGraphNode targetNode;
-    EdgeWeight weight;
-  };
-  typedef vector<RoutePathCross> CheckedPathT;
-  class LastCrossFinder;
-
-  static EdgeWeight getPathWeight(CheckedPathT const & path)
-  {
-    return accumulate(path.begin(), path.end(), 0, [](EdgeWeight sum, RoutePathCross const & elem){return sum+elem.weight;});
-  }
-
-  struct PathChecker
-  {
-    bool operator() (CheckedPathT const & a, CheckedPathT const & b) const {
-      // Backward sorting order
-      return getPathWeight(b)<getPathWeight(a);
-    }
-  };
-
-  typedef priority_queue<CheckedPathT, vector<CheckedPathT>, PathChecker> RoutingTaskQueueT;
-
   /*!
-   * \brief Makes route (points turns and other annotations) and submits it to @route class
+   * \brief Makes route (points turns and other annotations) from the map cross structs and submits them to @route class
    * \warning monitors m_requestCancel flag for process interrupting.
    * \param path vector of pathes through mwms
    * \param route class to render final route
    * \return NoError or error code
    */
-  ResultCode MakeRouteFromCrossesPath(CheckedPathT const & path, Route & route);
+  ResultCode MakeRouteFromCrossesPath(TCheckedPath const & path, Route & route);
 
   NodeID GetTurnTargetNode(NodeID src, NodeID trg, QueryEdge::EdgeData const & edgeData, TRoutingMappingPtr const & routingMapping);
   void GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD const & p,
@@ -184,5 +129,6 @@ private:
   m2::PointD m_CachedTargetPoint;
 
   RoutingIndexManager m_indexManager;
+  RoutingVisualizerFn m_routingVisualization;
 };
 }  // namespace routing

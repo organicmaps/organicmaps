@@ -194,8 +194,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
   priority_queue<State, vector<State>, greater<State>> queue;
   map<TVertexType, TVertexType> parent;
 
-  bestDistance[finalVertex] = 0.0;
-  queue.push(State(finalVertex, 0.0));
+  bestDistance[startVertex] = 0.0;
+  queue.push(State(startVertex, 0.0));
 
   vector<TEdgeType> adj;
 
@@ -216,13 +216,13 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
     if (steps % kVisitedVerticesPeriod == 0)
       onVisitedVertexCallback(stateV.vertex);
 
-    if (stateV.vertex == startVertex)
+    if (stateV.vertex == finalVertex)
     {
       ReconstructPath(stateV.vertex, parent, path);
       return Result::OK;
     }
 
-    m_graph->GetIngoingEdgesList(stateV.vertex, adj);
+    m_graph->GetOutgoingEdgesList(stateV.vertex, adj);
     for (auto const & edge : adj)
     {
       State stateW(edge.GetTarget(), 0.0);
@@ -230,8 +230,8 @@ typename AStarAlgorithm<TGraph>::Result AStarAlgorithm<TGraph>::FindPath(
         continue;
 
       double const len = edge.GetWeight();
-      double const piV = m_graph->HeuristicCostEstimate(stateV.vertex, startVertex);
-      double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, startVertex);
+      double const piV = m_graph->HeuristicCostEstimate(stateV.vertex, finalVertex);
+      double const piW = m_graph->HeuristicCostEstimate(stateW.vertex, finalVertex);
       double const reducedLen = len + piW - piV;
 
       CHECK(reducedLen >= -kEpsilon, ("Invariant violated:", reducedLen, "<", -kEpsilon));
@@ -381,15 +381,18 @@ void AStarAlgorithm<TGraph>::ReconstructPath(TVertexType const & v,
                                              vector<TVertexType> & path)
 {
   path.clear();
+  vector<TVertexType> tmpPath;
   TVertexType cur = v;
   while (true)
   {
-    path.push_back(cur);
+    tmpPath.push_back(cur);
     auto it = parent.find(cur);
     if (it == parent.end())
       break;
     cur = it->second;
   }
+  // Reverse path to proper order.
+  path.assign(tmpPath.rbegin(), tmpPath.rend());
 }
 
 // static
