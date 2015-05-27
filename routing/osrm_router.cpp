@@ -288,13 +288,13 @@ public:
 
   void CalculateOffsets(FeatureGraphNode & node) const
   {
-    CalculateOffset(node.m_seg, node.m_segPt, node.m_node.forward_node_id, node.m_node.forward_offset, true);
-    CalculateOffset(node.m_seg, node.m_segPt, node.m_node.reverse_node_id, node.m_node.reverse_offset, false);
+    CalculateOffset(node.segment, node.segmentPoint, node.node.forward_node_id, node.node.forward_offset, true);
+    CalculateOffset(node.segment, node.segmentPoint, node.node.reverse_node_id, node.node.reverse_offset, false);
 
     // need to initialize weights for correct work of PhantomNode::GetForwardWeightPlusOffset
     // and PhantomNode::GetReverseWeightPlusOffset
-    node.m_node.forward_weight = 0;
-    node.m_node.reverse_weight = 0;
+    node.node.forward_weight = 0;
+    node.node.reverse_weight = 0;
   }
 
   void MakeResult(TFeatureGraphNodeVec & res, size_t maxCount)
@@ -356,23 +356,23 @@ public:
         bool const sameDirection = (m2::DotProduct(featureDirection, m_direction) / (featureDirection.Length() * m_direction.Length()) > 0);
         if (sameDirection)
         {
-          node.m_node.forward_node_id = it->second.first;
-          node.m_node.reverse_node_id = INVALID_NODE_ID;
+          node.node.forward_node_id = it->second.first;
+          node.node.reverse_node_id = INVALID_NODE_ID;
         }
         else
         {
-          node.m_node.forward_node_id = INVALID_NODE_ID;
-          node.m_node.reverse_node_id = it->second.second;
+          node.node.forward_node_id = INVALID_NODE_ID;
+          node.node.reverse_node_id = it->second.second;
         }
       }
       else
       {
-        node.m_node.forward_node_id = it->second.first;
-        node.m_node.reverse_node_id = it->second.second;
+        node.node.forward_node_id = it->second.first;
+        node.node.reverse_node_id = it->second.second;
       }
 
-      node.m_seg = segments[idx];
-      node.m_segPt = m_candidates[j].m_point;
+      node.segment = segments[idx];
+      node.segmentPoint = m_candidates[j].m_point;
 
       CalculateOffsets(node);
     }
@@ -417,7 +417,7 @@ string OsrmRouter::GetName() const
 
 void OsrmRouter::ClearState()
 {
-  m_cachedFinalNodes.clear();
+  m_CachedTargetTask.clear();
   m_indexManager.Clear();
 }
 
@@ -437,8 +437,8 @@ size_t OsrmRouter::FindNextMwmNode(OutgoingCrossNode const & startNode, TRouting
 {
   m2::PointD const startPoint = startNode.m_point;
 
-  auto income_iters = targetMapping->m_crossContext.GetIngoingIterators();
-  for (auto i = income_iters.first; i < income_iters.second; ++i)
+  auto incomeIters = targetMapping->m_crossContext.GetIngoingIterators();
+  for (auto i = incomeIters.first; i < incomeIters.second; ++i)
   {
     m2::PointD const targetPoint = i->m_point;
     if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) < FEATURE_BY_POINT_RADIUS_M)
@@ -528,9 +528,9 @@ public:
     : m_targetContext(mapping->m_crossContext),
       m_mwmName(mapping->GetName())
   {
-    auto income_iterators = m_targetContext.GetIngoingIterators();
-    m_sources.reserve(distance(income_iterators.first, income_iterators.second));
-    for (auto i = income_iterators.first; i < income_iterators.second; ++i)
+    auto incomeIterators = m_targetContext.GetIngoingIterators();
+    m_sources.reserve(distance(incomeIterators.first, incomeIterators.second));
+    for (auto i = incomeIterators.first; i < incomeIterators.second; ++i)
       m_sources.emplace_back(i->m_nodeId, true);
 
     vector<EdgeWeight> weights;
@@ -793,7 +793,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
         auto iit = current_in_iterators.first;
         while (iit < current_in_iterators.second)
         {
-          if (iit->m_nodeId == cross.startNode.m_node.forward_node_id)
+          if (iit->m_nodeId == cross.startNode.node.forward_node_id)
             break;
           ++iit;
         }
@@ -912,19 +912,19 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
                                                       turns::TurnsGeomT & turnsGeom)
 {
   typedef OsrmMappingTypes::FtSeg SegT;
-  SegT const & segBegin = routingResult.m_sourceEdge.m_seg;
-  SegT const & segEnd = routingResult.m_targetEdge.m_seg;
+  SegT const & segBegin = routingResult.sourceEdge.segment;
+  SegT const & segEnd = routingResult.targetEdge.segment;
 
   double estimateTime = 0;
 
-  LOG(LDEBUG, ("Shortest path length:", routingResult.m_shortestPathLength));
+  LOG(LDEBUG, ("Shortest path length:", routingResult.shortestPathLength));
 
   //! @todo: Improve last segment time calculation
   CarModel carModel;
 #ifdef _DEBUG
   size_t lastIdx = 0;
 #endif
-  for (auto const & segment : routingResult.m_unpackedPathSegments)
+  for (auto const & segment : routingResult.unpackedPathSegments)
   {
     INTERRUPT_WHEN_CANCELLED();
 
@@ -950,7 +950,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
         }
 
         // osrm multiple seconds to 10, so we need to divide it back
-        double const sTime = TIME_OVERHEAD * path_data.segment_duration / 10.0;
+        double const sTime = TIME_OVERHEAD * path_data.segmentWeight / 10.0;
 #ifdef _DEBUG
         double dist = 0.0;
         for (size_t l = lastIdx + 1; l < points.size(); ++l)
@@ -1038,13 +1038,13 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
   if (points.size() < 2)
     return RouteNotFound;
 
-  if (routingResult.m_sourceEdge.m_seg.IsValid())
-    points.front() = routingResult.m_sourceEdge.m_segPt;
-  if (routingResult.m_targetEdge.m_seg.IsValid())
-    points.back() = routingResult.m_targetEdge.m_segPt;
+  if (routingResult.sourceEdge.segment.IsValid())
+    points.front() = routingResult.sourceEdge.segmentPoint;
+  if (routingResult.targetEdge.segment.IsValid())
+    points.back() = routingResult.targetEdge.segmentPoint;
 
   times.push_back(Route::TimeItemT(points.size() - 1, estimateTime));
-  if (routingResult.m_targetEdge.m_seg.IsValid())
+  if (routingResult.targetEdge.segment.IsValid())
     turnsDir.push_back(TurnItem(points.size() - 1, turns::TurnDirection::ReachedYourDestination));
   turns::FixupTurns(points, turnsDir);
 

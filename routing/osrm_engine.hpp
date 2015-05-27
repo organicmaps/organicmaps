@@ -14,15 +14,14 @@ namespace routing
 /// Single graph node representation for routing task
 struct FeatureGraphNode
 {
-  PhantomNode m_node;
-  OsrmMappingTypes::FtSeg m_seg;
-  m2::PointD m_segPt;
+  PhantomNode node;
+  OsrmMappingTypes::FtSeg segment;
+  m2::PointD segmentPoint;
 
   /*!
-  * \brief GenerateRoutingTaskFromNodeId fill taskNode with values for making route
+  * \brief fill FeatureGraphNode with values
   * \param nodeId osrm node idetifier
   * \param isStartNode true if this node will first in the path
-  * \param taskNode output point task for router
   */
   FeatureGraphNode(NodeID const nodeId, bool const isStartNode);
 
@@ -37,12 +36,12 @@ struct FeatureGraphNode
 struct RawPathData
 {
   NodeID node;
-  EdgeWeight segment_duration;
+  EdgeWeight segmentWeight;
 
-  RawPathData() : node(SPECIAL_NODEID), segment_duration(INVALID_EDGE_WEIGHT) {}
+  RawPathData() : node(SPECIAL_NODEID), segmentWeight(INVALID_EDGE_WEIGHT) {}
 
-  RawPathData(NodeID node, EdgeWeight segment_duration)
-      : node(node), segment_duration(segment_duration)
+  RawPathData(NodeID node, EdgeWeight segmentWeight)
+      : node(node), segmentWeight(segmentWeight)
   {
   }
 };
@@ -50,17 +49,17 @@ struct RawPathData
 /*!
  * \brief The OSRM routing result struct. Contains the routing result, it's cost and source and
  * target edges.
- * \property m_shortestPathLength Length of a founded route.
- * \property m_unpackedPathSegments Segments of a founded route.
- * \property m_sourceEdge Source graph node of a route.
- * \property m_targetEdge Target graph node of a route.
+ * \property shortestPathLength Length of a founded route.
+ * \property unpackedPathSegments Segments of a founded route.
+ * \property sourceEdge Source graph node of a route.
+ * \property targetEdge Target graph node of a route.
  */
 struct RawRoutingResult
 {
-  int m_shortestPathLength;
-  vector<vector<RawPathData>> m_unpackedPathSegments;
-  FeatureGraphNode m_sourceEdge;
-  FeatureGraphNode m_targetEdge;
+  int shortestPathLength;
+  vector<vector<RawPathData>> unpackedPathSegments;
+  FeatureGraphNode sourceEdge;
+  FeatureGraphNode targetEdge;
 };
 
 //@todo (dragunov) make proper name

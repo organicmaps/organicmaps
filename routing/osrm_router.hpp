@@ -63,7 +63,6 @@ public:
 class OsrmRouter : public IRouter
 {
 public:
-  typedef vector<size_t> NodeIdVectorT;
   typedef vector<double> GeomTurnCandidateT;
 
   OsrmRouter(Index const * index, TCountryFileFn const & fn, RoutingVisualizerFn routingVisualization = nullptr);
@@ -95,14 +94,13 @@ protected:
 
   /*!
    * \brief Compute turn and time estimation structs for OSRM raw route.
-   * \param routingResult OSRM routing result structure to annotate
-   * \param mapping Feature mappings
-   * \param points Unpacked point pathes
-   * \param requestCancel flag to stop calculation
-   * \param turnsDir output turns annotation storage
-   * \param times output times annotation storage
-   * \param turnsGeom output turns geometry
-   * \return OSRM routing errors if any
+   * \param routingResult OSRM routing result structure to annotate.
+   * \param mapping Feature mappings.
+   * \param points Storage for unpacked points of the path.
+   * \param turnsDir output turns annotation storage.
+   * \param times output times annotation storage.
+   * \param turnsGeom output turns geometry.
+   * \return routing operation result code.
    */
   ResultCode MakeTurnAnnotation(RawRoutingResult const & routingResult,
                                 TRoutingMappingPtr const & mapping, vector<m2::PointD> & points,
@@ -182,14 +180,9 @@ private:
 
   Index const * m_pIndex;
 
-  TFeatureGraphNodeVec graphNodes;
-
   TFeatureGraphNodeVec m_CachedTargetTask;
   m2::PointD m_CachedTargetPoint;
 
   RoutingIndexManager m_indexManager;
-
-  m2::PointD m_startPt, m_finalPt, m_startDr;
-  TFeatureGraphNodeVec m_cachedFinalNodes;
 };
 }  // namespace routing

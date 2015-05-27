@@ -37,9 +37,9 @@ void FindWeightsMatrix(TRoutingNodes const & sources, TRoutingNodes const & targ
   PhantomNodeArray sourcesTaskVector(sources.size());
   PhantomNodeArray targetsTaskVector(targets.size());
   for (size_t i = 0; i < sources.size(); ++i)
-    sourcesTaskVector[i].push_back(sources[i].m_node);
+    sourcesTaskVector[i].push_back(sources[i].node);
   for (size_t i = 0; i < targets.size(); ++i)
-    targetsTaskVector[i].push_back(targets[i].m_node);
+    targetsTaskVector[i].push_back(targets[i].node);
 
   // Calculate time consumption of a NtoM path finding.
   my::HighResTimer timer(true);
@@ -57,8 +57,8 @@ bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & t
   InternalRouteResult result;
   ShortestPathRouting<TRawDataFacade> pathFinder(&facade, engineData);
   PhantomNodes nodes;
-  nodes.source_phantom = source.m_node;
-  nodes.target_phantom = target.m_node;
+  nodes.source_phantom = source.node;
+  nodes.target_phantom = target.node;
 
   if ((nodes.source_phantom.forward_node_id != INVALID_NODE_ID ||
        nodes.source_phantom.reverse_node_id != INVALID_NODE_ID) &&
@@ -71,9 +71,9 @@ bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & t
 
   if (IsRouteExist(result))
   {
-    rawRoutingResult.m_sourceEdge = source;
-    rawRoutingResult.m_targetEdge = target;
-    rawRoutingResult.m_shortestPathLength = result.shortest_path_length;
+    rawRoutingResult.sourceEdge = source;
+    rawRoutingResult.targetEdge = target;
+    rawRoutingResult.shortestPathLength = result.shortest_path_length;
     for (auto const & path : result.unpacked_path_segments)
     {
       vector<RawPathData> data;
@@ -82,7 +82,7 @@ bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & t
       {
         data.emplace_back(element.node, element.segment_duration);
       }
-      rawRoutingResult.m_unpackedPathSegments.emplace_back(move(data));
+      rawRoutingResult.unpackedPathSegments.emplace_back(move(data));
     }
     return true;
   }
@@ -92,28 +92,28 @@ bool FindSingleRoute(FeatureGraphNode const & source, FeatureGraphNode const & t
 
 FeatureGraphNode::FeatureGraphNode(NodeID const nodeId, bool const isStartNode)
 {
-  m_node.forward_node_id = isStartNode ? nodeId : INVALID_NODE_ID;
-  m_node.reverse_node_id = isStartNode ? INVALID_NODE_ID : nodeId;
-  m_node.forward_weight = 0;
-  m_node.reverse_weight = 0;
-  m_node.forward_offset = 0;
-  m_node.reverse_offset = 0;
-  m_node.name_id = 1;
-  m_seg.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
-  m_segPt = m2::PointD::Zero();
+  node.forward_node_id = isStartNode ? nodeId : INVALID_NODE_ID;
+  node.reverse_node_id = isStartNode ? INVALID_NODE_ID : nodeId;
+  node.forward_weight = 0;
+  node.reverse_weight = 0;
+  node.forward_offset = 0;
+  node.reverse_offset = 0;
+  node.name_id = 1;
+  segment.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
+  segmentPoint = m2::PointD::Zero();
 }
 
 FeatureGraphNode::FeatureGraphNode()
 {
-  m_node.forward_node_id = INVALID_NODE_ID;
-  m_node.reverse_node_id = INVALID_NODE_ID;
-  m_node.forward_weight = 0;
-  m_node.reverse_weight = 0;
-  m_node.forward_offset = 0;
-  m_node.reverse_offset = 0;
-  m_node.name_id = 1;
-  m_seg.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
-  m_segPt = m2::PointD::Zero();
+  node.forward_node_id = INVALID_NODE_ID;
+  node.reverse_node_id = INVALID_NODE_ID;
+  node.forward_weight = 0;
+  node.reverse_weight = 0;
+  node.forward_offset = 0;
+  node.reverse_offset = 0;
+  node.name_id = 1;
+  segment.m_fid = OsrmMappingTypes::FtSeg::INVALID_FID;
+  segmentPoint = m2::PointD::Zero();
 }
 
 }  // namespace routing
