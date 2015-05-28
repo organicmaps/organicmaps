@@ -186,14 +186,15 @@ static BOOL keyboardLoaded = NO;
   CGFloat const textFieldBackgroundWidth = cancelButtonMinX - self.searchBar.fieldBackgroundView.minX - 8;
   CGFloat const textFieldWidth = textFieldBackgroundWidth - 60;
 
+  LocationManager const * const locationManager = [MapsAppDelegate theApp].m_locationManager;
   if (state == SearchViewStateFullscreen)
   {
     self.controlsManager.hidden = YES;
-    [[MapsAppDelegate theApp].m_locationManager start:self];
+    [locationManager start:self];
 
     double latitude;
     double longitude;
-    bool const hasPt = [[MapsAppDelegate theApp].m_locationManager getLat:latitude Lon:longitude];
+    bool const hasPt = [locationManager getLat:latitude Lon:longitude];
     GetFramework().PrepareSearch(hasPt, latitude, longitude);
 
     if (keyboardLoaded)
@@ -245,6 +246,7 @@ static BOOL keyboardLoaded = NO;
   else if (state == SearchViewStateHidden)
   {
     self.controlsManager.hidden = NO;
+    [locationManager stop:self];
     [self.searchBar.textField resignFirstResponder];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.searchBar.cancelButton.alpha = 1;
