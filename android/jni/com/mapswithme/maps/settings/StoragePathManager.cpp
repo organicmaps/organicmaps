@@ -1,5 +1,5 @@
-#include "../core/jni_helper.hpp"
-#include "../platform/Platform.hpp"
+#include "../../core/jni_helper.hpp"
+#include "../../platform/Platform.hpp"
 
 #include "map/bookmark.hpp"
 #include "std/string.hpp"

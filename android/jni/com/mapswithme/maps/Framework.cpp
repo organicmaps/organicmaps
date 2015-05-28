@@ -643,11 +643,6 @@ namespace android
     return AddBookmark(newCat, pt, bm).second;
   }
 
-  bool Framework::IsDownloadingActive()
-  {
-    return m_work.Storage().IsDownloadInProgress();
-  }
-
   bool Framework::ShowMapForURL(string const & url)
   {
     /// @todo this is weird hack, we should reconsider Android lifecycle handling design
