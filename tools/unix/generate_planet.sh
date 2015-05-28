@@ -140,7 +140,7 @@ fi
 [ -z "$(ls "$TARGET/borders" | grep \.poly)" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
 [ -n "$EXIT_ON_ERROR" ] && set -e
 ULIMIT_REQ=$(expr 3 \* $(ls "$TARGET/borders" | grep \.poly | wc -l))
-[ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ"
+[ $(ulimit -n) -lt $ULIMIT_REQ ] && fail "Ulimit is too small, you need at least $ULIMIT_REQ (e.g. ulimit -n 4000)"
 
 # These variables are used by external script(s), namely generate_planet_routing.sh
 export GENERATOR_TOOL
