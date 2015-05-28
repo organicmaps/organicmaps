@@ -226,3 +226,25 @@ void MyPositionMarkPoint::FillLogEvent(UserMark::TEventContainer & details) cons
   PoiMarkPoint::FillLogEvent(details);
   details.emplace("markType", "MY_POSITION");
 }
+
+
+DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
+  : UserMark(ptOrg, container)
+{
+}
+
+string DebugMarkPoint::GetSymbolName() const
+{
+  return "api-result";
+}
+
+unique_ptr<UserMarkCopy> DebugMarkPoint::Copy() const
+{
+  return unique_ptr<UserMarkCopy>(new UserMarkCopy(new DebugMarkPoint(m_ptOrg, m_container)));
+}
+
+void DebugMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
+{
+  UserMark::FillLogEvent(details);
+  details.emplace("markType", "DEBUG");
+}

@@ -32,10 +32,6 @@ OverlayHandle::OverlayHandle(FeatureID const & id,
 
 bool OverlayHandle::IsVisible() const
 {
-#ifdef DEBUG
-  if (m_isVisible)
-    ASSERT(m_isValid, ());
-#endif
   return m_isVisible;
 }
 

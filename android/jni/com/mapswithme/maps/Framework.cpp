@@ -292,9 +292,9 @@ void Framework::AddString(string const & name, string const & value)
   m_work.AddString(name, value);
 }
 
-void Framework::Scale(double k)
+void Framework::Scale(::Framework::EScaleMode mode)
 {
-  m_work.Scale(k);
+  m_work.Scale(mode, true);
 }
 
 ::Framework * Framework::NativeFramework()

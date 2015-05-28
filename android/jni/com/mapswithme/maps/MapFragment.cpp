@@ -125,9 +125,29 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapFragment_nativeScale(JNIEnv * env, jobject thiz, jdouble k)
+  Java_com_mapswithme_maps_MapFragment_nativeStorageConnected(JNIEnv * env, jobject thiz)
   {
-    g_framework->Scale(static_cast<double>(k));
+    android::Platform::Instance().OnExternalStorageStatusChanged(true);
+    g_framework->AddLocalMaps();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapFragment_nativeStorageDisconnected(JNIEnv * env, jobject thiz)
+  {
+    android::Platform::Instance().OnExternalStorageStatusChanged(false);
+    g_framework->RemoveLocalMaps();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapFragment_nativeScalePlus(JNIEnv * env, jobject thiz)
+  {
+    g_framework->Scale(::Framework::SCALE_MAG);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_MapFragment_nativeScaleMinus(JNIEnv * env, jobject thiz)
+  {
+    g_framework->Scale(::Framework::SCALE_MIN);
   }
 
   JNIEXPORT jboolean JNICALL

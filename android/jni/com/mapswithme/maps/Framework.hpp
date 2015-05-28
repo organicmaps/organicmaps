@@ -117,7 +117,7 @@ namespace android
 
     void AddString(string const & name, string const & value);
 
-    void Scale(double k);
+    void Scale(::Framework::EScaleMode mode);
 
     BookmarkAndCategory AddBookmark(size_t category, m2::PointD const & pt, BookmarkData & bm);
     void ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm);

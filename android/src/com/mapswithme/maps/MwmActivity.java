@@ -1153,12 +1153,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     case R.id.map_button_plus:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
-      mMapFragment.nativeScale(3.0 / 2);
+      mMapFragment.nativeScalePlus();
       break;
     case R.id.map_button_minus:
       Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_OUT);
       AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
-      mMapFragment.nativeScale(2 / 3.0);
+      mMapFragment.nativeScaleMinus();
       break;
     }
   }

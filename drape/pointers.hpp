@@ -5,6 +5,7 @@
 
 #include "std/map.hpp"
 #include "std/mutex.hpp"
+#include "std/type_traits.hpp"
 #include "std/typeinfo.hpp"
 
 //#define TRACK_POINTERS

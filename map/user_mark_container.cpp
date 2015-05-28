@@ -256,28 +256,6 @@ bool UserMarkContainer::IsDrawableFlagDirty()
   return m_flags[DrawableDirtyFlag];
 }
 
-DebugUserMarkContainer::DebugUserMarkContainer(double layerDepth, Framework & framework)
-  : UserMarkContainer(layerDepth, framework)
-{
-}
-
-string DebugUserMarkContainer::GetTypeName() const
-{
-  // api-result.png is reused for debug markers
-  return "api-result";
-}
-
-string DebugUserMarkContainer::GetActiveTypeName() const
-{
-  // api-result.png is reused for debug markers
-  return "api-result";
-}
-
-UserMark * DebugUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
-{
-  return new DebugMarkPoint(ptOrg, this);
-}
-
 namespace
 {
 
@@ -324,4 +302,14 @@ ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framew
 UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 {
   return new ApiMarkPoint(ptOrg, this);
+}
+
+DebugUserMarkContainer::DebugUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, UserMarkType::DEBUG_MARK, framework)
+{
+}
+
+UserMark * DebugUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new DebugMarkPoint(ptOrg, this);
 }

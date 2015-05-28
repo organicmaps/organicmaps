@@ -134,7 +134,6 @@
 		4540406C1AD2D92D007A9B12 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
 		4540406D1AD2D958007A9B12 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; };
 		4540406F1AD2D9C5007A9B12 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540406E1AD2D9C5007A9B12 /* WatchKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		454040701AD2DB30007A9B12 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		454040761AD2DD73007A9B12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		4579C8951AD2F98B001D6B90 /* synonyms.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAEA7D0161BD26600CCD661 /* synonyms.txt */; };
 		4579C8961AD2F9A1001D6B90 /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
@@ -153,7 +152,6 @@
 		4579C8A41AD2FAB1001D6B90 /* 04_padauk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E8134C4968003A9827 /* 04_padauk.ttf */; };
 		4579C8A51AD2FAB1001D6B90 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
 		4579C8A61AD2FAB1001D6B90 /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
-		45FE96831AD315EF00CB7560 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
@@ -3713,8 +3711,6 @@
 				F6C6FE201AD6BEA0009FDED7 /* MWMWatchLocationTracker.mm in Sources */,
 				34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */,
 				343F262E1AEFC4A300388A6D /* MWMFrameworkUtils.mm in Sources */,
-				45FE96831AD315EF00CB7560 /* RenderBuffer.mm in Sources */,
-				454040701AD2DB30007A9B12 /* RenderContext.mm in Sources */,
 				345C31791AE799B600EA0CC2 /* MWMSearchResultController.mm in Sources */,
 				345C31721AE798DD00EA0CC2 /* MWMCategoriesInterfaceController.mm in Sources */,
 			);
@@ -4744,7 +4740,6 @@
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -4866,7 +4861,6 @@
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -4990,7 +4984,6 @@
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5115,7 +5108,6 @@
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5239,7 +5231,6 @@
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5361,7 +5352,6 @@
 					"-lstorage",
 					"-lrouting",
 					"-lindexer",
-					"-lanim",
 					"-lplatform",
 					"-lgeometry",
 					"-lcoding",
@@ -5486,10 +5476,8 @@
 				F6D434681AD2AB97007C7728 /* Simulator */,
 				F6D434691AD2AB97007C7728 /* Simulator Release */,
 				F6D4346A1AD2AB97007C7728 /* Debug */,
-				F6D4346B1AD2AB97007C7728 /* Drape Debug */,
 				F6D4346C1AD2AB97007C7728 /* AdHoc */,
 				F6D4346D1AD2AB97007C7728 /* Release */,
-				F6D4346E1AD2AB97007C7728 /* Drape Release */,
 				F6D4346F1AD2AB97007C7728 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -5501,10 +5489,8 @@
 				F6D434601AD2AB97007C7728 /* Simulator */,
 				F6D434611AD2AB97007C7728 /* Simulator Release */,
 				F6D434621AD2AB97007C7728 /* Debug */,
-				F6D434631AD2AB97007C7728 /* Drape Debug */,
 				F6D434641AD2AB97007C7728 /* AdHoc */,
 				F6D434651AD2AB97007C7728 /* Release */,
-				F6D434661AD2AB97007C7728 /* Drape Release */,
 				F6D434671AD2AB97007C7728 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;

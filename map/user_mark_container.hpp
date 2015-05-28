@@ -111,7 +111,7 @@ public:
   SearchUserMarkContainer(double layerDepth, Framework & framework);
 
 protected:
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
 class ApiUserMarkContainer : public UserMarkContainer
@@ -120,7 +120,7 @@ public:
   ApiUserMarkContainer(double layerDepth, Framework & framework);
 
 protected:
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };
 
 class DebugUserMarkContainer : public UserMarkContainer
@@ -128,10 +128,6 @@ class DebugUserMarkContainer : public UserMarkContainer
 public:
   DebugUserMarkContainer(double layerDepth, Framework & framework);
 
-  virtual Type GetType() const { return DEBUG_MARK; }
-
-  virtual string GetActiveTypeName() const;
 protected:
-  virtual string GetTypeName() const;
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
 };

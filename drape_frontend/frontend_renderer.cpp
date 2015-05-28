@@ -42,12 +42,12 @@ const double VSyncInterval = 0.014;
 FrontendRenderer::FrontendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
+  , m_overlayTree(new dp::OverlayTree())
+  , m_overlayTreeIsUpdating(true)
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
   , m_tileTree(new TileTree())
-  , m_overlayTree(new dp::OverlayTree())
-  , m_overlayTreeIsUpdating(true)
 {
 #ifdef DRAW_INFO
   m_tpf = 0,0;

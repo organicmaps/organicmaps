@@ -12,13 +12,8 @@ include($$ROOT_DIR/common.pri)
 
 HEADERS += \
     active_maps_layout.hpp \
-    alfa_animation_task.hpp \
-    anim_phase_chain.hpp \
-    animator.hpp \
     bookmark.hpp \
     bookmark_manager.hpp \
-    change_viewport_task.hpp \
-    compass_arrow.hpp \
     country_tree.hpp \
     feature_vec_model.hpp \
     framework.hpp \
@@ -37,13 +32,8 @@ SOURCES += \
    ../api/src/c/api-client.c \
     active_maps_layout.cpp \
     address_finder.cpp \
-    alfa_animation_task.cpp \
-    anim_phase_chain.cpp \
-    animator.cpp \
     bookmark.cpp \
     bookmark_manager.cpp \
-    change_viewport_task.cpp \
-    compass_arrow.cpp \
     country_tree.cpp \
     feature_vec_model.cpp \
     framework.cpp \

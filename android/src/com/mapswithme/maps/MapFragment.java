@@ -31,7 +31,8 @@ public class MapFragment extends NvEventQueueFragment
 
   protected native void nativeCompassUpdated(double magneticNorth, double trueNorth, boolean force);
 
-  protected native void nativeScale(double k);
+  protected native void nativeScalePlus();
+  protected native void nativeScaleMinus();
 
   public native boolean showMapForUrl(String url);
 

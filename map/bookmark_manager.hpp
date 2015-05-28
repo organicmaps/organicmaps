@@ -56,7 +56,6 @@ public:
   BookmarkCategory * GetBmCategory(size_t index) const;
 
   size_t CreateBmCategory(string const & name);
-  void DrawItems(Drawer * drawer) const;
 
   /// @name Delete bookmarks category with all bookmarks.
   /// @return true if category was deleted

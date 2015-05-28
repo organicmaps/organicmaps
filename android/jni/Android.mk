@@ -25,7 +25,7 @@ define add_prebuild_static_lib
   include $(PREBUILT_STATIC_LIBRARY)
 endef
 
-prebuild_static_libs := osrm protobuf tomcrypt jansson minizip fribidi freetype expat base coding geometry anim platform drape indexer storage search routing drape_frontend map stats_client succinct opening_hours
+prebuild_static_libs := osrm protobuf tomcrypt jansson minizip fribidi freetype expat base coding geometry platform indexer storage search routing drape drape_frontend map stats_client succinct opening_hours
 
 $(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 
@@ -40,7 +40,7 @@ LOCAL_CPP_FEATURES += exceptions rtti
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := map drape_frontend routing search storage indexer drape platform anim geometry coding base expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours
+LOCAL_STATIC_LIBRARIES := map drape_frontend routing search storage indexer drape platform geometry coding base expat freetype fribidi minizip jansson tomcrypt protobuf osrm stats_client succinct opening_hours
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)

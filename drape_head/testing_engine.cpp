@@ -515,21 +515,6 @@ void TestingEngine::DrawImpl()
   }
 
   {
-    PoiSymbolViewParams p(FeatureID(-1, 0));
-    p.m_depth = 0.0f;
-    p.m_symbolName = "subway-station-l";
-    PoiSymbolShape(m2::PointF(92.27f, 30.0f), p).Draw(make_ref(m_batcher), make_ref(m_textures));
-  }
-
-  {
-    CircleViewParams p(FeatureID(-1, 0));
-    p.m_color = dp::Color::Red();
-    p.m_depth = 0.0f;
-    p.m_radius = 28.0f;
-    CircleShape(m2::PointF(94.27f, 30.0f), p).Draw(make_ref(m_batcher), make_ref(m_textures));
-  }
-
-  {
     vector<m2::PointF> trg{ m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 30.0f), m2::PointD(112.0f, 28.0f),
                             m2::PointD(110.0f, 30.0f), m2::PointD(112.0f, 28.0f), m2::PointD(110.0f, 28.0f) };
     AreaViewParams p;

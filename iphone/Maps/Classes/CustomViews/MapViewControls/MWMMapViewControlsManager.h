@@ -45,5 +45,6 @@
 - (void)routingNavigation;
 - (void)handleRoutingError;
 - (void)setRouteBuildingProgress:(CGFloat)progress;
+- (void)setMyPositionMode:(location::EMyPositionMode)mode;
 
 @end

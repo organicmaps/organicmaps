@@ -1,6 +1,5 @@
 #include "map/bookmark.hpp"
 #include "map/track.hpp"
-#include "map/anim_phase_chain.hpp"
 
 #include "map/framework.hpp"
 

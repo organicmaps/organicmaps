@@ -172,6 +172,7 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
 - (void)onLocationStateModeChanged:(location::EMyPositionMode)newMode
 {
   [m_predictor setMode:newMode];
+  [self.controlsManager setMyPositionMode:newMode];
 
   switch (newMode)
   {
@@ -271,13 +272,13 @@ typedef NS_ENUM(NSUInteger, UserTouchesAction)
   df::TouchEvent e;
   UITouch * touch = [allTouches objectAtIndex:0];
   CGPoint const pt = [touch locationInView:v];
-  e.m_touches[0].m_id = reinterpret_cast<int>(touch);
+  e.m_touches[0].m_id = reinterpret_cast<int64_t>(touch);
   e.m_touches[0].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   if (allTouches.count > 1)
   {
     UITouch * touch = [allTouches objectAtIndex:1];
     CGPoint const pt = [touch locationInView:v];
-    e.m_touches[1].m_id = reinterpret_cast<int>(touch);
+    e.m_touches[1].m_id = reinterpret_cast<int64_t>(touch);
     e.m_touches[1].m_location = m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor);
   }
   e.m_type = type;

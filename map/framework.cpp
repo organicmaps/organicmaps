@@ -1956,8 +1956,8 @@ void Framework::RemoveRoute()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ("RemoveRoute"));
 
-  m_bmManager.UserMarksClear(UserMarkContainer::DEBUG_MARK);
-
+  UserMarkControllerGuard g(m_bmManager, UserMarkType::DEBUG_MARK);
+  g.m_controller.Clear();
   m_bmManager.ResetRouteTrack();
 }
 
@@ -1984,8 +1984,6 @@ void Framework::CloseRouting()
   //GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
   RemoveRoute();
-  ///@TODO UVR
-  //Invalidate();
 }
 
 void Framework::InsertRoute(Route const & route)

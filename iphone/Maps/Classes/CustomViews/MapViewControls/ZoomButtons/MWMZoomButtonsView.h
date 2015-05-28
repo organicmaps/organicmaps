@@ -5,6 +5,8 @@
 @property (nonatomic) CGFloat topBound;
 @property (nonatomic) CGFloat bottomBound;
 
+@property (nonatomic) location::EMyPositionMode myPositionMode;
+
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("initWithFrame is not available")));
 - (instancetype)init __attribute__((unavailable("init is not available")));
 

@@ -23,7 +23,7 @@ namespace df
 struct Touch
 {
   m2::PointF m_location = m2::PointF::Zero();
-  int m_id = -1; // if id == -1 then touch invalid
+  int64_t m_id = -1; // if id == -1 then touch invalid
 };
 
 struct TouchEvent
