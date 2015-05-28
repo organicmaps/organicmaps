@@ -2,8 +2,6 @@ package com.mapswithme.util;
 
 import android.content.Context;
 
-import com.facebook.AppEventsLogger;
-import com.mapswithme.maps.R;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
@@ -19,7 +17,7 @@ public class FbUtil
       return;
 
     mLogger.d("ACTIVATING");
-    AppEventsLogger.activateApp(context, context.getString(R.string.fb_app_id));
+//    AppEventsLogger.activateApp(context, context.getString(R.string.fb_app_id));
   }
 
   private FbUtil() {}

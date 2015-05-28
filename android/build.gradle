@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath libGradleAndroidPlugin
+    classpath 'com.android.tools.build:gradle:1.2.3'
   }
 }
 
@@ -18,11 +18,17 @@ apply plugin: 'com.android.application'
 
 dependencies {
   // android support libs
-  compile libSupportV4, libSupportV7, libSupportCardView, libSupportRecyclerView
+  compile 'com.android.support:support-v4:22.1.1'
+  compile 'com.android.support:appcompat-v7:22.1.1'
+  compile 'com.android.support:cardview-v7:22.1.1'
+  compile 'com.android.support:recyclerview-v7:22.1.1'
   // google play services
-  compile libGmsLocation, libGmsPlus, libGmsAnalytics
+  compile 'com.google.android.gms:play-services-location:7.3.0'
+  compile 'com.google.android.gms:play-services-analytics:7.3.0'
+  compile 'com.google.android.gms:play-services-plus:7.3.0'
   // 3-party
-  compile libNineOldAndroids, libFacebookSdk
+  compile 'com.nineoldandroids:library:2.4.0'
+  compile 'com.facebook.android:facebook-android-sdk:4.1.2'
   compile fileTree(dir: '3rd_party', include: '*.jar')
 }
 

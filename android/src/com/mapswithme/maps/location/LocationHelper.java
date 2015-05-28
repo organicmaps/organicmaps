@@ -14,7 +14,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
@@ -102,7 +102,7 @@ public enum LocationHelper implements SensorEventListener
 
     if (isLocationTurnedOn &&
         !forceNativeProvider &&
-        GooglePlayServicesUtil.isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS &&
+        GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(application) == ConnectionResult.SUCCESS &&
         PreferenceManager.getDefaultSharedPreferences(application).getBoolean(application.getString(R.string.pref_play_services), false))
     {
       mLogger.d("Use fused provider.");

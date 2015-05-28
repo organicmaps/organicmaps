@@ -25,7 +25,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
@@ -78,7 +79,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     enableZoomButtons.setChecked(MWMApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
     enableZoomButtons.setOnPreferenceChangeListener(this);
 
-    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(MWMApplication.get()) != ConnectionResult.SUCCESS)
+    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MWMApplication.get()) != ConnectionResult.SUCCESS)
     {
       ((PreferenceScreen) findPreference(getString(R.string.pref_settings))).
           removePreference(findPreference(getString(R.string.pref_play_services)));
@@ -296,8 +297,6 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
         .show();
   }
 
-  private native boolean isDownloadingActive();
-
   @Override
   public boolean onPreferenceClick(Preference preference)
   {
@@ -370,7 +369,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     }
     else if (key.equals(getString(R.string.pref_storage_activity)))
     {
-      if (isDownloadingActive())
+      if (ActiveCountryTree.isDownloadingActive())
       {
         new AlertDialog.Builder(SettingsActivity.this)
             .setTitle(getString(R.string.downloading_is_active))
