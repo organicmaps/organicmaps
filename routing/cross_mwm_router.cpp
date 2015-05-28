@@ -2,22 +2,27 @@
 #include "cross_mwm_road_graph.hpp"
 #include "base/astar_algorithm.hpp"
 
-namespace routing {
-
+namespace routing
+{
 using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
 /// Function to run AStar Algorythm from the base.
-IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const & finalPos, CrossMwmGraph const & roadGraph,
-                          vector<TCrossPair> & route, RoutingVisualizerFn const & routingVisualizer)
+IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const & finalPos,
+                                   CrossMwmGraph const & roadGraph, vector<TCrossPair> & route,
+                                   RoutingVisualizerFn const & routingVisualizer)
 {
   TAlgorithm m_algo;
   m_algo.SetGraph(roadGraph);
 
   TAlgorithm::OnVisitedVertexCallback onVisitedVertexCallback = nullptr;
   if (nullptr != routingVisualizer)
-    onVisitedVertexCallback = [routingVisualizer](TCrossPair const & cross) { routingVisualizer(cross.first.point); };
+    onVisitedVertexCallback = [routingVisualizer](TCrossPair const & cross)
+    {
+      routingVisualizer(cross.first.point);
+    };
 
-  TAlgorithm::Result const result = m_algo.FindPath(startPos, finalPos, route, onVisitedVertexCallback);
+  TAlgorithm::Result const result =
+      m_algo.FindPath(startPos, finalPos, route, onVisitedVertexCallback);
   switch (result)
   {
     case TAlgorithm::Result::OK:
@@ -67,12 +72,14 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   if (code != IRouter::NoError)
     return IRouter::EndPointNotFound;
   vector<TCrossPair> tempRoad;
-  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad, routingVisualizer);
+  code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
+                        routingVisualizer);
   if (code != IRouter::NoError)
     return code;
   for (size_t i = 0; i < tempRoad.size() - 1; ++i)
   {
-    route.emplace_back(tempRoad[i].second.node, tempRoad[i + 1].first.node, tempRoad[i].second.mwmName);
+    route.emplace_back(tempRoad[i].second.node, tempRoad[i + 1].first.node,
+                       tempRoad[i].second.mwmName);
   }
   if (!route.empty())
   {
@@ -84,4 +91,4 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   return IRouter::NoError;
 }
 
-} // namespace routing
+}  // namespace routing

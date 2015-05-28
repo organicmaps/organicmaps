@@ -388,7 +388,8 @@ size_t GetLastSegmentPointIndex(pair<size_t, size_t> const & p)
 }
 } // namespace
 
-OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & fn, RoutingVisualizerFn routingVisualization)
+OsrmRouter::OsrmRouter(Index const * index, TCountryFileFn const & fn,
+                       RoutingVisualizerFn routingVisualization)
     : m_pIndex(index), m_indexManager(fn, index), m_routingVisualization(routingVisualization)
 {
 }
@@ -416,7 +417,7 @@ bool OsrmRouter::FindRouteFromCases(TFeatureGraphNodeVec const & source,
   return false;
 }
 
-//TODO (ldragunov) move this function to cross mwm router
+// TODO (ldragunov) move this function to cross mwm router
 OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const & path,
                                                             Route & route)
 {
@@ -432,8 +433,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeRouteFromCrossesPath(TCheckedPath const &
     ASSERT(mwmMapping->IsValid(), ());
     MappingGuard mwmMappingGuard(mwmMapping);
     UNUSED_VALUE(mwmMappingGuard);
-    if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade,
-                         routingResult))
+    if (!FindSingleRoute(cross.startNode, cross.finalNode, mwmMapping->m_dataFacade, routingResult))
       return OsrmRouter::RouteNotFound;
 
     // Get annotated route
@@ -584,7 +584,8 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
   {
     LOG(LINFO, ("Multiple mwm routing case"));
     TCheckedPath finalPath;
-    ResultCode code = CalculateCrossMwmPath(startTask, m_CachedTargetTask, m_indexManager, m_routingVisualization, finalPath);
+    ResultCode code = CalculateCrossMwmPath(startTask, m_CachedTargetTask, m_indexManager,
+                                            m_routingVisualization, finalPath);
     timer.Reset();
 
     // 5. Make generate answer
@@ -1049,9 +1050,9 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
   Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
   getter.SetPoint(point);
 
-  m_pIndex->ForEachInRectForMWM(getter,
-    MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideMeters),
-    scales::GetUpperScale(), mapping->GetMwmId());
+  m_pIndex->ForEachInRectForMWM(
+      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideMeters),
+      scales::GetUpperScale(), mapping->GetMwmId());
 
   if (!getter.HasCandidates())
     return StartPointNotFound;

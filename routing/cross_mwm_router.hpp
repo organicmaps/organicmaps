@@ -7,8 +7,8 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
-namespace routing {
-
+namespace routing
+{
 /*!
  * \brief The RoutePathCross struct contains information neaded to describe path inside single map.
  */
@@ -17,7 +17,11 @@ struct RoutePathCross
   FeatureGraphNode startNode; /**< start graph node representation */
   FeatureGraphNode finalNode; /**< end graph node representation */
 
-  RoutePathCross(NodeID const startNode, NodeID const finalNode, string const & name) : startNode(startNode, true /* isStartNode */, name), finalNode(finalNode, false /* isStartNode*/, name) {}
+  RoutePathCross(NodeID const startNode, NodeID const finalNode, string const & name)
+      : startNode(startNode, true /* isStartNode */, name),
+        finalNode(finalNode, false /* isStartNode*/, name)
+  {
+  }
 };
 
 using TCheckedPath = vector<RoutePathCross>;
@@ -37,4 +41,4 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           RoutingVisualizerFn const & RoutingVisualizerFn,
                                           TCheckedPath & route);
 
-} // namespace routing
+}  // namespace routing

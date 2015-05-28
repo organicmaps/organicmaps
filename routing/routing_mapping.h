@@ -13,7 +13,7 @@
 namespace routing
 {
 using TDataFacade = OsrmDataFacade<QueryEdge::EdgeData>;
-using TCountryFileFn = function<string (m2::PointD const &)>;
+using TCountryFileFn = function<string(m2::PointD const &)>;
 
 /// Datamapping and facade for single MWM and MWM.routing file
 struct RoutingMapping
@@ -85,7 +85,8 @@ public:
 class RoutingIndexManager
 {
 public:
-  RoutingIndexManager(TCountryFileFn const & fn, Index const * index): m_countryFn(fn), m_index(index)
+  RoutingIndexManager(TCountryFileFn const & fn, Index const * index)
+      : m_countryFn(fn), m_index(index)
   {
     ASSERT(index, ());
   }
@@ -100,10 +101,7 @@ public:
     for_each(m_mapping.begin(), m_mapping.end(), toDo);
   }
 
-  void Clear()
-  {
-    m_mapping.clear();
-  }
+  void Clear() { m_mapping.clear(); }
 
 private:
   TCountryFileFn m_countryFn;
@@ -111,4 +109,4 @@ private:
   unordered_map<string, TRoutingMappingPtr> m_mapping;
 };
 
-} // namespace routing
+}  // namespace routing

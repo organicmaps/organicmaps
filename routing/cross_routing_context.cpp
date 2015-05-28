@@ -91,9 +91,12 @@ void CrossRoutingContextReader::Load(Reader const & r)
   }
 }
 
-const string & CrossRoutingContextReader::getOutgoingMwmName(OutgoingCrossNode const & outgoingNode) const
+const string & CrossRoutingContextReader::getOutgoingMwmName(
+    OutgoingCrossNode const & outgoingNode) const
 {
-  ASSERT(outgoingNode.m_outgoingIndex < m_neighborMwmList.size(), ("Routing context out of size mwm name index:", outgoingNode.m_outgoingIndex, m_neighborMwmList.size()));
+  ASSERT(outgoingNode.m_outgoingIndex < m_neighborMwmList.size(),
+         ("Routing context out of size mwm name index:", outgoingNode.m_outgoingIndex,
+          m_neighborMwmList.size()));
   return m_neighborMwmList[outgoingNode.m_outgoingIndex];
 }
 

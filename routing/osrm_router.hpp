@@ -82,7 +82,8 @@ protected:
 
 private:
   /*!
-   * \brief Makes route (points turns and other annotations) from the map cross structs and submits them to @route class
+   * \brief Makes route (points turns and other annotations) from the map cross structs and submits
+   * them to @route class
    * \warning monitors m_requestCancel flag for process interrupting.
    * \param path vector of pathes through mwms
    * \param route class to render final route

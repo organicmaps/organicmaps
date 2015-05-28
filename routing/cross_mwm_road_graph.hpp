@@ -17,18 +17,21 @@ struct CrossNode
   string mwmName;
   m2::PointD point;
 
-  CrossNode(NodeID node, string const & mwmName, m2::PointD const & point): node(node), mwmName(mwmName), point(point) {}
+  CrossNode(NodeID node, string const & mwmName, m2::PointD const & point)
+      : node(node), mwmName(mwmName), point(point)
+  {
+  }
   CrossNode() : node(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
 };
 
-bool operator == (CrossNode const & a, CrossNode const & b)
+bool operator==(CrossNode const & a, CrossNode const & b)
 {
   return a.node == b.node && a.mwmName == b.mwmName;
 }
 
-bool operator < (CrossNode const & a, CrossNode const & b)
+bool operator<(CrossNode const & a, CrossNode const & b)
 {
   if (a.node < b.node)
     return true;
@@ -47,15 +50,9 @@ inline string DebugPrint(CrossNode const & t)
 /// Representation of border crossing. Contains node on previous map and node on next map.
 using TCrossPair = pair<CrossNode, CrossNode>;
 
-bool operator == (TCrossPair const & a, TCrossPair const & b)
-{
-  return a.first == b.first;
-}
+bool operator==(TCrossPair const & a, TCrossPair const & b) { return a.first == b.first; }
 
-bool operator < (TCrossPair const & a, TCrossPair const & b)
-{
-  return a.first < b.first;
-}
+bool operator<(TCrossPair const & a, TCrossPair const & b) { return a.first < b.first; }
 
 inline string DebugPrint(TCrossPair const & t)
 {
@@ -89,19 +86,23 @@ public:
 private:
   friend class Graph<TCrossPair, CrossWeightedEdge, CrossMwmGraph>;
 
-  TCrossPair FindNextMwmNode(OutgoingCrossNode const & startNode, TRoutingMappingPtr const & currentMapping) const;
+  TCrossPair FindNextMwmNode(OutgoingCrossNode const & startNode,
+                             TRoutingMappingPtr const & currentMapping) const;
 
   // Graph<CrossNode, CrossWeightedEdge, CrossMwmGraph> implementation:
   void GetOutgoingEdgesListImpl(TCrossPair const & v, vector<CrossWeightedEdge> & adj) const;
-  void GetIngoingEdgesListImpl(TCrossPair const & v, vector<CrossWeightedEdge> & adj) const {ASSERT(!"IMPL", ());}
+  void GetIngoingEdgesListImpl(TCrossPair const & v, vector<CrossWeightedEdge> & adj) const
+  {
+    ASSERT(!"IMPL", ());
+  }
 
   double HeuristicCostEstimateImpl(TCrossPair const & v, TCrossPair const & w) const
   {
-    //TODO return some average values
+    // TODO return some average values
     return 0.0;
   }
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;
 };
-} // namespace routing
+}  // namespace routing
