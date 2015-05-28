@@ -407,8 +407,8 @@ void AStarAlgorithm<TGraph>::ReconstructPathBidirectional(
   ReconstructPath(w, parentW, pathW);
   path.clear();
   path.reserve(pathV.size() + pathW.size());
-  path.insert(path.end(), pathV.rbegin(), pathV.rend());
-  path.insert(path.end(), pathW.begin(), pathW.end());
+  path.insert(path.end(), pathV.begin(), pathV.end());
+  path.insert(path.end(), pathW.rbegin(), pathW.rend());
 }
 
 }  // namespace routing
