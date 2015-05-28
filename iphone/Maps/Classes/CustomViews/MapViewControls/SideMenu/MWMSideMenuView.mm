@@ -32,6 +32,9 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 @property (weak, nonatomic) IBOutlet UIImageView * downloadBadge;
 @property (weak, nonatomic) IBOutlet UILabel * downloadCount;
 
+@property (nonatomic) NSArray * buttons;
+@property (nonatomic) NSArray * labels;
+
 @end
 
 @implementation MWMSideMenuView
@@ -39,9 +42,17 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
   self = [super initWithCoder:aDecoder];
-  if (self)
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  if (!self)
+    return nil;
+  self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   return self;
+}
+
+- (void)awakeFromNib
+{
+  [super awakeFromNib];
+  self.buttons = @[self.bookmarksButton, self.downloadMapsButton, self.settingsButton, self.shareLocationButton, self.searchButton];
+  self.labels = @[self.bookmarksLabel, self.downloadMapsLabel, self.settingsLabel, self.shareLocationLabel, self.searchLabel];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -91,23 +102,29 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   }];
 }
 
+- (CGFloat)offsetBetweenButtons
+{
+  CGFloat offset = 66.0;
+  CGFloat const buttonWidth = self.size.width;
+  CGFloat const buttonHeight = self.size.height;
+  if (buttonWidth > buttonHeight)
+  {
+    NSUInteger const buttonsCount = self.buttons.count;
+    CGFloat const buttonCenterOffsetToBounds = 0.5 * self.searchButton.height + 2.0 * kViewControlsOffsetToBounds;
+    offset = MIN(offset, (buttonHeight - 2.0 * (buttonCenterOffsetToBounds - 0.5 * buttonHeight) - buttonsCount*buttonHeight) / (buttonsCount - 1) + buttonHeight);
+  }
+  return offset;
+}
+
 - (void)layoutSubviews
 {
   self.frame = self.superview.frame;
   self.dimBackground.frame = self.frame;
   
   CGSize const boundsSize = self.size;
-  NSUInteger const buttonsCount = 5;
-  CGFloat offsetBetweenButtons = 66.0;
+  CGFloat const offsetBetweenButtons = [self offsetBetweenButtons];
   CGFloat const offsetLabelToButton = 10.0;
   CGFloat const buttonCenterOffsetToBounds = 0.5 * self.searchButton.height + 2.0 * kViewControlsOffsetToBounds;
-  
-  if (boundsSize.width > boundsSize.height)
-  {
-    CGFloat const buttonHeight = boundsSize.height;
-    offsetBetweenButtons = MIN(offsetBetweenButtons, (boundsSize.height - 2.0 * (buttonCenterOffsetToBounds - 0.5 * buttonHeight) - buttonsCount*buttonHeight) / (buttonsCount - 1) + buttonHeight);
-  }
-  
   CGPoint buttonCenter = CGPointMake(boundsSize.width - buttonCenterOffsetToBounds, boundsSize.height - buttonCenterOffsetToBounds);
   
   self.searchButton.center = buttonCenter;
@@ -158,12 +175,7 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 
 - (void)updateMenuUI
 {
-  [self showItem:self.searchLabel button:nil delay:framesDuration(0)];
-  [self showItem:self.shareLocationLabel button:self.shareLocationButton delay:framesDuration(1.5)];
-  [self showItem:self.settingsLabel button:self.settingsButton delay:framesDuration(3)];
-  [self showItem:self.downloadMapsLabel button:self.downloadMapsButton delay:framesDuration(4.5)];
-  [self showItem:self.bookmarksLabel button:self.bookmarksButton delay:framesDuration(6)];
-  
+  [self showAnimation];
   [self performSelector:@selector(updateMenuOutOfDateBadge) withObject:nil afterDelay:framesDuration(10)];
 }
 
@@ -189,30 +201,55 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   }];
 }
 
-- (void)showItem:(UIButton *)label button:(UIButton *)button delay:(NSTimeInterval)delay
+- (void)showAnimation
 {
-  label.alpha = 0.0;
-  [UIView animateWithDuration:framesDuration(5) delay:framesDuration(3) + delay options:UIViewAnimationOptionCurveLinear animations:^
+  [self.labels enumerateObjectsUsingBlock:^(UIButton * label, NSUInteger idx, BOOL *stop)
+   {
+     label.alpha = 0.0;
+   }];
+
+  [self.buttons enumerateObjectsUsingBlock:^(UIButton * button, NSUInteger idx, BOOL *stop)
   {
-    label.alpha = 1.0;
-  } completion:nil];
-  
-  if (button == nil)
+    button.alpha = 0.0;
+  }];
+  [self showAnimationStepWithLabels:[self.labels mutableCopy] buttons:[self.buttons mutableCopy]];
+}
+
+- (void)showAnimationStepWithLabels:(NSMutableArray *)labels buttons:(NSMutableArray *)buttons
+{
+  if (buttons.count == 0 || labels.count == 0)
     return;
 
-  button.alpha = 0.0;
-  [UIView animateWithDuration:framesDuration(6) delay:framesDuration(3) + delay options:UIViewAnimationOptionCurveLinear animations:^
-  {
-    button.alpha = 1.0;
-  } completion:nil];
+  UIButton const * const label = [labels lastObject];
+  [labels removeLastObject];
+  label.alpha = 1.0;
 
-  CABasicAnimation * translationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
-  translationAnimation.timingFunction = [CAMediaTimingFunction functionWithControlPoints:0.55 :0.0 :0.4 :1.4];
-  translationAnimation.duration = framesDuration(7);
-  translationAnimation.beginTime = CACurrentMediaTime() + delay;
-  translationAnimation.fromValue = @(2.0 * kViewControlsOffsetToBounds + button.size.width);
-  translationAnimation.toValue = @0.0;
-  [button.layer addAnimation:translationAnimation forKey:@"translationAnimation"];
+  UIButton const * const button = [buttons lastObject];
+  [buttons removeLastObject];
+  button.alpha = 1.0;
+
+  [CATransaction begin];
+  [CATransaction setAnimationDuration:framesDuration(1.0)];
+  [CATransaction setCompletionBlock:^
+  {
+    [self showAnimationStepWithLabels:labels buttons:buttons];
+  }];
+  CFTimeInterval const beginTime = CACurrentMediaTime();
+  CABasicAnimation * alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+  alphaAnimation.beginTime = beginTime;
+  alphaAnimation.fromValue = @0.0;
+  alphaAnimation.toValue = @1.0;
+  [label.layer addAnimation:alphaAnimation forKey:@"alphaAnimation"];
+
+  if (![button isEqual:self.searchButton])
+  {
+    CABasicAnimation * translationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
+    translationAnimation.beginTime = beginTime;
+    translationAnimation.fromValue = @([self offsetBetweenButtons]);
+    translationAnimation.toValue = @0.0;
+    [button.layer addAnimation:translationAnimation forKey:@"translationAnimation"];
+  }
+  [CATransaction commit];
 }
 
 @end
