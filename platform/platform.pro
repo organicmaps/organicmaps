@@ -64,9 +64,13 @@ macx-*|iphone* {
 HEADERS += \
     chunks_download_strategy.hpp \
     constants.hpp \
+    country_defines.hpp \
+    country_file.hpp \
     file_logging.hpp \
     http_request.hpp \
     http_thread_callback.hpp \
+    local_country_file.hpp \
+    local_country_file_utils.hpp \
     location.hpp \
     measurement_utils.hpp \
     platform.hpp \
@@ -77,8 +81,12 @@ HEADERS += \
 
 SOURCES += \
     chunks_download_strategy.cpp \
+    country_defines.cpp \
+    country_file.cpp \
     file_logging.cpp \
     http_request.cpp \
+    local_country_file.cpp \
+    local_country_file_utils.cpp \
     measurement_utils.cpp \
     platform.cpp \
     preferred_languages.cpp \
