@@ -1,10 +1,10 @@
 #pragma once
-#include "search/intermediate_result.hpp"
-#include "search/keyword_lang_matcher.hpp"
+#include "intermediate_result.hpp"
+#include "keyword_lang_matcher.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_trie.hpp"
-#include "../indexer/index.hpp"   // for Index::MwmLock
+#include "indexer/index.hpp"   // for Index::MwmLock
 
 #include "geometry/rect2d.hpp"
 
@@ -52,9 +52,6 @@ namespace impl
 class Query
 {
 public:
-  static int const SCALE_SEARCH_DEPTH = 7;
-  static int const ADDRESS_SCALE = 10;
-
   struct SuggestT
   {
     strings::UniString m_name;
@@ -80,15 +77,11 @@ public:
 
   void Init(bool viewportPoints);
 
-  void SetViewport(m2::RectD viewport[], size_t count);
-
-  static const int empty_pos_value = -1000;
-  void SetPosition(m2::PointD const & pos);
-  void NullPosition();
-  inline string const & GetPositionRegion() const { return m_region; }
+  void SetViewport(m2::RectD const & viewport);
+  void SetRankPivot(m2::PointD const & pivot);
+  inline string const & GetPivotRegion() const { return m_region; }
 
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
-  inline void SetSortByViewport(bool b) { m_sortByViewport = b; }
 
   /// Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode, m_currentLocaleCode;
@@ -104,7 +97,7 @@ public:
   void SearchCoordinates(string const & query, Results & res) const;
   void Search(Results & res, size_t resCount);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
-  void SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t resCount);
+  void SearchAdditional(Results & res, size_t resCount);
 
   void SearchViewportPoints(Results & res);
   //@}
@@ -171,12 +164,12 @@ private:
                              OffsetsVectorT & offsets);
   void ClearCache(size_t ind);
 
-  enum ViewportID {
+  enum ViewportID
+  {
     DEFAULT_V = -1,
     CURRENT_V = 0,
-    POSITION_V = 1,
-    LOCALITY_V = 2,
-    COUNT_V = 3   // Should always be the last
+    LOCALITY_V = 1,
+    COUNT_V = 2     // Should always be the last
   };
 
   void AddResultFromTrie(TrieValueT const & val, MwmSet::MwmId const & mwmID,
@@ -244,7 +237,8 @@ private:
   static int const MAX_SUGGESTS_COUNT = 5;
 
   m2::RectD m_viewport[COUNT_V];
-  bool m_worldSearch, m_sortByViewport;
+  m2::PointD m_pivot;
+  bool m_worldSearch;
 
   /// @name Get ranking params.
   //@{
@@ -253,9 +247,6 @@ private:
   /// @return Control point for distance-to calculation.
   m2::PointD GetPosition(ViewportID vID = DEFAULT_V) const;
   //@}
-
-  m2::PointD m_position;
-  bool IsValidPosition() const;
 
   void SetLanguage(int id, int8_t lang);
   int8_t GetLanguage(int id) const;
@@ -284,11 +275,10 @@ private:
   typedef my::limited_priority_queue<impl::PreResult1, QueueCompareT> QueueT;
 
 public:
-  enum { QUEUES_COUNT = 3 };
+  enum { QUEUES_COUNT = 2 };
 private:
-  // 0 - LessRank
-  // 1 - LessViewportDistance
-  // 2 - LessDistance
+  // 0 - LessDistance
+  // 1 - LessRank
   QueueT m_results[QUEUES_COUNT];
   size_t m_queuesCount;
 };

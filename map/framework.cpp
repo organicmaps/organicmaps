@@ -1035,10 +1035,10 @@ void Framework::UpdateUserViewportChanged()
   {
     (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
     m_lastSearch.m_callback = bind(&Framework::OnSearchResultsCallback, this, _1);
-    m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT);
+    m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT_ONLY);
     m_lastSearch.SetForceSearch(false);
 
-    (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport(), true);
+    (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport());
   }
 }
 
@@ -1327,9 +1327,9 @@ string Framework::GetCountryName(string const & id) const
   return GetSearchEngine()->GetCountryName(id);
 }
 
-void Framework::PrepareSearch(bool hasPt, double lat, double lon)
+void Framework::PrepareSearch()
 {
-  GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
+  GetSearchEngine()->PrepareSearch(GetCurrentViewport());
 }
 
 bool Framework::Search(search::SearchParams const & params)
@@ -1346,6 +1346,7 @@ bool Framework::Search(search::SearchParams const & params)
     SetRouter(RouterType::Vehicle);
     return false;
   }
+
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
   if (params.IsValidPosition())

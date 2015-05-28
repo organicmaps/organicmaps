@@ -192,10 +192,7 @@ static BOOL keyboardLoaded = NO;
   {
     [locationManager start:self];
 
-    double latitude;
-    double longitude;
-    bool const hasPt = [locationManager getLat:latitude Lon:longitude];
-    GetFramework().PrepareSearch(hasPt, latitude, longitude);
+    GetFramework().PrepareSearch();
 
     if (keyboardLoaded)
       [self.searchBar.textField becomeFirstResponder];
@@ -319,7 +316,6 @@ static BOOL keyboardLoaded = NO;
 
 - (void)updateSearchParametersWithForce:(BOOL)force outParams:(search::SearchParams &)sp andQuery:(NSString *)newQuery
 {
-  sp.SetSearchMode(search::SearchParams::ALL);
   sp.m_query = [[newQuery precomposedStringWithCompatibilityMapping] UTF8String];
   sp.m_callback = bind(&onSearchResultCallback, _1);
   sp.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);

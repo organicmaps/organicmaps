@@ -1,7 +1,7 @@
 #pragma once
 
-#include "search/params.hpp"
-#include "search/result.hpp"
+#include "params.hpp"
+#include "result.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -12,6 +12,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/string.hpp"
 #include "std/function.hpp"
+#include "std/atomic.hpp"
 
 
 class Index;
@@ -39,9 +40,8 @@ public:
 
   void SupportOldFormat(bool b);
 
-  void PrepareSearch(m2::RectD const & viewport,
-                     bool hasPt, double lat, double lon);
-  bool Search(SearchParams const & params, m2::RectD const & viewport, bool viewportPoints = false);
+  void PrepareSearch(m2::RectD const & viewport);
+  bool Search(SearchParams const & params, m2::RectD const & viewport);
 
   void GetResults(Results & res);
 
@@ -66,14 +66,14 @@ public:
 private:
   static const int RESULTS_COUNT = 30;
 
-  void SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby);
-  void SearchAsync(bool viewportPoints);
+  void SetRankPivot(SearchParams const & params, m2::RectD const & viewport);
+  void SetViewportAsync(m2::RectD const & viewport);
+  void SearchAsync();
 
   void EmitResults(SearchParams const & params, Results & res);
 
-  threads::Mutex m_searchMutex, m_updateMutex, m_readyMutex;
-
-  volatile bool m_readyThread;
+  threads::Mutex m_searchMutex, m_updateMutex;
+  atomic_flag m_isReadyThread;
 
   SearchParams m_params;
   m2::RectD m_viewport;

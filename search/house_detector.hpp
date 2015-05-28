@@ -202,7 +202,7 @@ inline void swap(MergedStreet & s1, MergedStreet & s2)
   s1.Swap(s2);
 }
 
-struct HouseResult : public IndexedValueBase<2>
+struct HouseResult : public IndexedValueBase<1>
 {
   House const * m_house;
   MergedStreet const * m_street;

@@ -7,8 +7,13 @@
 namespace search
 {
 
+// Distance between 2 mercator points in meters.
 double PointDistance(m2::PointD const & a, m2::PointD const & b);
-
-uint8_t ViewportDistance(m2::RectD const & viewport, m2::PointD const & p);
+// Test for equal rects with epsilon in meters.
+bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double epsMeters);
+// Get inflated viewport rect for search query.
+m2::RectD GetInflatedViewport(m2::RectD const & viewport);
+// Get scale level to make geometry index query for current viewport.
+int GetQueryIndexScale(m2::RectD const & viewport);
 
 }

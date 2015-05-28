@@ -1,5 +1,5 @@
 #pragma once
-#include "search/result.hpp"
+#include "result.hpp"
 
 #include "indexer/feature_data.hpp"
 
@@ -19,7 +19,6 @@ namespace impl
 {
 
 template <class T> bool LessRankT(T const & r1, T const & r2);
-template <class T> bool LessViewportDistanceT(T const & r1, T const & r2);
 template <class T> bool LessDistanceT(T const & r1, T const & r2);
 
 /// First pass results class. Objects are creating during search in trie.
@@ -28,26 +27,23 @@ class PreResult1
 {
   friend class PreResult2;
   template <class T> friend bool LessRankT(T const & r1, T const & r2);
-  template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);
   template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   FeatureID m_id;
   m2::PointD m_center;
-  double m_distance, m_distanceFromViewportCenter;
-  uint8_t m_viewportDistance;
+  double m_distance;
   uint8_t m_rank;
   int8_t m_viewportID;
 
-  void CalcParams(m2::RectD const & viewport, m2::PointD const & pos);
+  void CalcParams(m2::PointD const & pivot);
 
 public:
   PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
-             m2::PointD const & pos, m2::RectD const & viewport, int8_t viewportID);
-  PreResult1(m2::PointD const & center, m2::PointD const & pos, m2::RectD const & viewport);
+             m2::PointD const & pivot, int8_t viewportID);
+  PreResult1(m2::PointD const & center, m2::PointD const & pivot);
 
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
-  static bool LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
@@ -63,7 +59,7 @@ class PreResult2
 {
   friend class PreResult2Maker;
 
-  void CalcParams(m2::RectD const & viewport, m2::PointD const & pos);
+  void CalcParams(m2::PointD const & pivot);
 
 public:
   enum ResultType
@@ -74,8 +70,7 @@ public:
   };
 
   /// For RESULT_FEATURE.
-  PreResult2(FeatureType const & f, PreResult1 const * p,
-             m2::RectD const & viewport, m2::PointD const & pos,
+  PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
              string const & displayName, string const & fileName);
 
   /// For RESULT_LATLON.
@@ -99,7 +94,6 @@ public:
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
-  static bool LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2);
 
   /// Filter equal features for different mwm's.
   class StrictEqualF
@@ -133,7 +127,6 @@ public:
 
 private:
   template <class T> friend bool LessRankT(T const & r1, T const & r2);
-  template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);
   template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
 
   bool IsEqualCommon(PreResult2 const & r) const;
@@ -166,10 +159,9 @@ private:
 
   m2::PointD GetCenter() const { return m_region.m_point; }
 
-  double m_distance, m_distanceFromViewportCenter;
+  double m_distance;
   ResultType m_resultType;
-  uint16_t m_rank;
-  uint8_t m_viewportDistance;
+  uint8_t m_rank;
   feature::EGeomType m_geomType;
 };
 

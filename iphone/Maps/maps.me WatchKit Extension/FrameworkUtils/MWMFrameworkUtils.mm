@@ -106,7 +106,7 @@ extern NSString * const kSearchResultPointKey;
 {
   [MWMFrameworkUtils prepareFramework];
   search::SearchParams params;
-  params.SetSearchMode(search::SearchParams::AROUND_POSITION);
+  params.SetSearchRadius(10000.0);
   CLLocationCoordinate2D coordinate = [MWMWatchLocationTracker sharedLocationTracker].currentCoordinate;
   params.SetPosition(coordinate.latitude, coordinate.longitude);
   params.m_query = query.UTF8String;

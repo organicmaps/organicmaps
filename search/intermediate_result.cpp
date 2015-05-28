@@ -1,5 +1,5 @@
-#include "search/intermediate_result.hpp"
-#include "search/geometry_utils.hpp"
+#include "intermediate_result.hpp"
+#include "geometry_utils.hpp"
 
 #include "storage/country_info.hpp"
 
@@ -27,29 +27,12 @@ double const DIST_SAME_STREET = 5000.0;
 namespace impl
 {
 
-template <class T> bool LessViewportDistanceT(T const & r1, T const & r2)
-{
-  if (r1.m_viewportDistance != r2.m_viewportDistance)
-    return (r1.m_viewportDistance < r2.m_viewportDistance);
-
-  if (r1.m_rank != r2.m_rank)
-    return (r1.m_rank > r2.m_rank);
-
-  return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
-}
-
 template <class T> bool LessRankT(T const & r1, T const & r2)
 {
   if (r1.m_rank != r2.m_rank)
     return (r1.m_rank > r2.m_rank);
 
-  if (r1.m_viewportDistance != r2.m_viewportDistance)
-    return (r1.m_viewportDistance < r2.m_viewportDistance);
-
-  if (r1.m_distance != r2.m_distance)
-    return (r1.m_distance < r2.m_distance);
-
-  return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
+  return (r1.m_distance < r2.m_distance);
 }
 
 template <class T> bool LessDistanceT(T const & r1, T const & r2)
@@ -57,14 +40,11 @@ template <class T> bool LessDistanceT(T const & r1, T const & r2)
   if (r1.m_distance != r2.m_distance)
     return (r1.m_distance < r2.m_distance);
 
-  if (r1.m_rank != r2.m_rank)
-    return (r1.m_rank > r2.m_rank);
-
-  return (r1.m_distanceFromViewportCenter < r2.m_distanceFromViewportCenter);
+  return (r1.m_rank > r2.m_rank);
 }
 
 PreResult1::PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & center,
-                       m2::PointD const & pos, m2::RectD const & viewport, int8_t viewportID)
+                       m2::PointD const & pivot, int8_t viewportID)
   : m_id(fID),
     m_center(center),
     m_rank(rank),
@@ -72,13 +52,13 @@ PreResult1::PreResult1(FeatureID const & fID, uint8_t rank, m2::PointD const & c
 {
   ASSERT(m_id.IsValid(), ());
 
-  CalcParams(viewport, pos);
+  CalcParams(pivot);
 }
 
-PreResult1::PreResult1(m2::PointD const & center, m2::PointD const & pos, m2::RectD const & viewport)
+PreResult1::PreResult1(m2::PointD const & center, m2::PointD const & pivot)
   : m_center(center)
 {
-  CalcParams(viewport, pos);
+  CalcParams(pivot);
 }
 
 namespace
@@ -92,24 +72,10 @@ void AssertValid(m2::PointD const & p)
 
 }
 
-void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
+void PreResult1::CalcParams(m2::PointD const & pivot)
 {
   AssertValid(m_center);
-
-  // Check if point is valid (see Query::empty_pos_value).
-  if (pos.x > -500 && pos.y > -500)
-  {
-    AssertValid(pos);
-    m_distance = PointDistance(m_center, pos);
-  }
-  else
-  {
-    // empty distance
-    m_distance = -1.0;
-  }
-
-  m_viewportDistance = ViewportDistance(viewport, m_center);
-  m_distanceFromViewportCenter = PointDistance(m_center, viewport.Center());
+  m_distance = PointDistance(m_center, pivot);
 }
 
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
@@ -122,28 +88,17 @@ bool PreResult1::LessDistance(PreResult1 const & r1, PreResult1 const & r2)
   return LessDistanceT(r1, r2);
 }
 
-bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2)
-{
-  return LessViewportDistanceT(r1, r2);
-}
-
 bool PreResult1::LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2)
 {
   return r1.m_id < r2.m_id;
 }
 
-void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
+void PreResult2::CalcParams(m2::PointD const & pivot)
 {
-  // dummy object to avoid copy-paste
-  PreResult1 res(GetCenter(), pos, viewport);
-
-  m_distance = res.m_distance;
-  m_distanceFromViewportCenter = res.m_distanceFromViewportCenter;
-  m_viewportDistance = res.m_viewportDistance;
+  m_distance = PointDistance(GetCenter(), pivot);
 }
 
-PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
-                       m2::RectD const & viewport, m2::PointD const & pos,
+PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p, m2::PointD const & pivot,
                        string const & displayName, string const & fileName)
   : m_id(f.GetID()),
     m_types(f),
@@ -168,7 +123,7 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
     fCenter = f.GetLimitRect(FeatureType::WORST_GEOMETRY).Center();
 
   m_region.SetParams(fileName, fCenter);
-  CalcParams(viewport, pos);
+  CalcParams(pivot);
 }
 
 PreResult2::PreResult2(double lat, double lon)
@@ -236,7 +191,7 @@ Result PreResult2::GenerateFinalResult(
   case RESULT_FEATURE:
     return Result(m_id, GetCenter(), m_str, info.m_name, ReadableFeatureType(pCat, pTypes, locale)
               #ifdef DEBUG
-                  + ' ' + strings::to_string(static_cast<int>(m_rank))
+                  + ' ' + strings::to_string(int(m_rank))
               #endif
                   , type);
 
@@ -267,11 +222,6 @@ bool PreResult2::LessDistance(PreResult2 const & r1, PreResult2 const & r2)
   return LessDistanceT(r1, r2);
 }
 
-bool PreResult2::LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2)
-{
-  return LessViewportDistanceT(r1, r2);
-}
-
 bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
 {
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
@@ -297,8 +247,6 @@ bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2
     return (t1 < t2);
 
   // Should stay the best feature, after unique, so add this criteria:
-  if (r1.m_viewportDistance != r2.m_viewportDistance)
-    return (r1.m_viewportDistance < r2.m_viewportDistance);
   return (r1.m_distance < r2.m_distance);
 }
 
@@ -326,13 +274,13 @@ bool PreResult2::IsStreet() const
 
 string PreResult2::DebugPrint() const
 {
-  string res("IntermediateResult: ");
-  res += "Name: " + m_str;
-  res += "; Type: " + ::DebugPrint(GetBestType());
-  res += "; Rank: " + ::DebugPrint(m_rank);
-  res += "; Viewport distance: " + ::DebugPrint(m_viewportDistance);
-  res += "; Distance: " + ::DebugPrint(m_distance);
-  return res;
+  stringstream ss;
+  ss << "{ IntermediateResult: " <<
+        "Name: " << m_str <<
+        "; Type: " << GetBestType() <<
+        "; Rank: " << int(m_rank) <<
+        "; Distance: " << m_distance << " }";
+  return ss.str();
 }
 
 uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const

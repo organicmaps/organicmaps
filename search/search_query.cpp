@@ -1,10 +1,10 @@
-#include "search/search_query.hpp"
-#include "search/feature_offset_match.hpp"
-#include "search/latlon_match.hpp"
-#include "search/search_common.hpp"
-#include "search/indexed_value.hpp"
-#include "search/geometry_utils.hpp"
-#include "search/search_string_intersection.hpp"
+#include "search_query.hpp"
+#include "feature_offset_match.hpp"
+#include "latlon_match.hpp"
+#include "search_common.hpp"
+#include "indexed_value.hpp"
+#include "geometry_utils.hpp"
+#include "search_string_intersection.hpp"
 
 #include "storage/country_info.hpp"
 
@@ -40,16 +40,14 @@ namespace
 
   CompareFunctionT1 g_arrCompare1[] =
   {
+    &impl::PreResult1::LessDistance,
     &impl::PreResult1::LessRank,
-    &impl::PreResult1::LessViewportDistance,
-    &impl::PreResult1::LessDistance
   };
 
   CompareFunctionT2 g_arrCompare2[] =
   {
+    &impl::PreResult2::LessDistance,
     &impl::PreResult2::LessRank,
-    &impl::PreResult2::LessViewportDistance,
-    &impl::PreResult2::LessDistance
   };
 
   /// This indexes should match the initialization routine below.
@@ -86,9 +84,7 @@ Query::Query(Index const * pIndex,
 #ifdef FIND_LOCALITY_TEST
     m_locality(pIndex),
 #endif
-    m_worldSearch(true),
-    m_sortByViewport(false),
-    m_position(empty_pos_value, empty_pos_value)
+    m_worldSearch(true)
 {
   // m_viewport is initialized as empty rects
 
@@ -131,26 +127,14 @@ int8_t Query::GetLanguage(int id) const
   return m_keywordsScorer.GetLanguage(GetLangIndex(id));
 }
 
-namespace
+void Query::SetViewport(m2::RectD const & viewport)
 {
-  inline bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double epsMeters)
-  {
-    double const eps = epsMeters * MercatorBounds::degreeInMetres;
-    return m2::IsEqual(r1, r2, eps, eps);
-  }
-}
-
-void Query::SetViewport(m2::RectD viewport[], size_t count)
-{
-  ASSERT(count < COUNT_V, (count));
-
   m_cancel = false;
 
   MWMVectorT mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
 
-  for (size_t i = 0; i < count; ++i)
-    SetViewportByIndex(mwmsInfo, viewport[i], i);
+  SetViewportByIndex(mwmsInfo, viewport, CURRENT_V);
 }
 
 void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport, size_t idx)
@@ -180,22 +164,16 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & vi
   }
 }
 
-void Query::SetPosition(m2::PointD const & pos)
+void Query::SetRankPivot(m2::PointD const & pivot)
 {
-  if (!m2::AlmostEqualULPs(pos, m_position))
+  if (!m2::AlmostEqualULPs(pivot, m_pivot))
   {
     storage::CountryInfo ci;
-    m_pInfoGetter->GetRegionInfo(pos, ci);
+    m_pInfoGetter->GetRegionInfo(pivot, ci);
     m_region.swap(ci.m_name);
   }
 
-  m_position = pos;
-}
-
-void Query::NullPosition()
-{
-  m_position = m2::PointD(empty_pos_value, empty_pos_value);
-  m_region.clear();
+  m_pivot = pivot;
 }
 
 void Query::SetPreferredLocale(string const & locale)
@@ -254,7 +232,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
 {
   offsets.clear();
 
-  int const viewScale = scales::GetScaleLevel(rect);
+  int const queryScale = GetQueryIndexScale(rect);
   covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
 
   for (shared_ptr<MwmInfo> const & info : mwmsInfo)
@@ -270,7 +248,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
         if (header.GetType() == FHeaderT::country)
         {
           pair<int, int> const scaleR = header.GetScaleRange();
-          int const scale = min(max(viewScale + SCALE_SEARCH_DEPTH, scaleR.first), scaleR.second);
+          int const scale = min(max(queryScale, scaleR.first), scaleR.second);
 
           covering::IntervalsT const & interval = cov.Get(header.GetLastScale());
 
@@ -320,13 +298,16 @@ void Query::Init(bool viewportPoints)
 
   if (viewportPoints)
   {
+    // Special case to change comparator in viewport search
+    // (more uniform results distribution on the map).
+
     m_queuesCount = 1;
     m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(&impl::PreResult1::LessPointsForViewport));
   }
   else
   {
-    m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[0]));
     m_queuesCount = QUEUES_COUNT;
+    m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[0]));
   }
 }
 
@@ -524,7 +505,7 @@ namespace
       }
     };
 
-    static size_t const SIZE = 3;
+    static size_t const SIZE = 2;
 
     CompT Get(size_t i) { return CompT(g_arrCompare2[i]); }
   };
@@ -607,7 +588,7 @@ namespace impl
 
       Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res.GetViewportID());
       impl::PreResult2 * res2 = new impl::PreResult2(feature, &res,
-                                                     m_query.GetViewport(viewportID), m_query.GetPosition(viewportID),
+                                                     m_query.GetPosition(viewportID),
                                                      name, country);
 
       /// @todo: add exluding of states (without USA states), continents
@@ -626,7 +607,7 @@ namespace impl
         {
           storage::CountryInfo ci;
           res2->m_region.GetRegion(m_query.m_pInfoGetter, ci);
-          if (ci.IsNotEmpty() && ci.m_name == m_query.GetPositionRegion())
+          if (ci.IsNotEmpty() && ci.m_name == m_query.GetPivotRegion())
             res2->m_rank *= 1.7;
         }
         break;
@@ -647,11 +628,7 @@ namespace impl
       LoadFeature(id, feature, name, country);
 
       if (!name.empty() && !country.empty())
-      {
-        return new impl::PreResult2(feature, 0,
-                                    m_query.GetViewport(), m_query.GetPosition(),
-                                    name, country);
-      }
+        return new impl::PreResult2(feature, 0, m_query.GetPosition(), name, country);
       else
         return 0;
     }
@@ -661,25 +638,10 @@ namespace impl
   {
     Query const & m_query;
 
-    bool LessViewport(HouseResult const & r1, HouseResult const & r2) const
-    {
-      m2::RectD const & v = m_query.GetViewport();
-
-      uint8_t const d1 = ViewportDistance(v, r1.GetOrg());
-      uint8_t const d2 = ViewportDistance(v, r2.GetOrg());
-
-      return (d1 != d2 ? d1 < d2 : LessDistance(r1, r2));
-    }
-
     bool LessDistance(HouseResult const & r1, HouseResult const & r2) const
     {
-      if (m_query.IsValidPosition())
-      {
-        return (PointDistance(m_query.m_position, r1.GetOrg()) <
-                PointDistance(m_query.m_position, r2.GetOrg()));
-      }
-      else
-        return false;
+      return (PointDistance(m_query.m_pivot, r1.GetOrg()) <
+              PointDistance(m_query.m_pivot, r2.GetOrg()));
     }
 
   public:
@@ -688,21 +650,17 @@ namespace impl
     struct CompT
     {
       HouseCompFactory const * m_parent;
-      size_t m_alg;
 
-      CompT(HouseCompFactory const * parent, size_t alg) : m_parent(parent), m_alg(alg) {}
+      CompT(HouseCompFactory const * parent) : m_parent(parent) {}
       bool operator() (HouseResult const & r1, HouseResult const & r2) const
       {
-        if (m_alg == 0)
-          return m_parent->LessViewport(r1, r2);
-        else
-          return m_parent->LessDistance(r1, r2);
+        return m_parent->LessDistance(r1, r2);
       }
     };
 
-    static size_t const SIZE = 2;
+    static size_t const SIZE = 1;
 
-    CompT Get(size_t i) { return CompT(this, i); }
+    CompT Get(size_t) { return CompT(this); }
   };
 }
 
@@ -945,8 +903,8 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
 void Query::AddResultFromTrie(TrieValueT const & val, MwmSet::MwmId const & mwmID,
                               ViewportID vID /*= DEFAULT_V*/)
 {
-  impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank, val.m_pt,
-                       GetPosition(vID), GetViewport(vID), vID);
+  impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank,
+                       val.m_pt, GetPosition(vID), vID);
 
   for (size_t i = 0; i < m_queuesCount; ++i)
   {
@@ -1087,8 +1045,6 @@ public:
   FeatureLoader(Query & query, MwmSet::MwmId const & mwmID, Query::ViewportID viewportID)
       : m_query(query), m_mwmID(mwmID), m_count(0), m_viewportID(viewportID)
   {
-    if (query.m_sortByViewport)
-      m_viewportID = Query::CURRENT_V;
   }
 
   void operator()(Query::TrieValueT const & value)
@@ -1562,12 +1518,13 @@ namespace impl
 
   string DebugPrint(Locality const & l)
   {
-    string res("Locality: ");
-    res += "Name: " + l.m_name;
-    res += "; Name English: " + l.m_enName;
-    res += "; Rank: " + ::DebugPrint(l.m_value.m_rank);
-    res += "; Matched: " + ::DebugPrint(l.m_matchedTokens.size());
-    return res;
+    stringstream ss;
+    ss << "{ Locality: " <<
+          "Name = " + l.m_name <<
+          "; Name English = " << l.m_enName <<
+          "; Rank = " << int(l.m_value.m_rank) <<
+          "; Matched: " << l.m_matchedTokens.size() << " }";
+    return ss.str();
   }
 
   struct Region
@@ -2177,14 +2134,8 @@ m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
     return m_viewport[vID];
   }
 
-  // return first valid actual viewport
-  if (m_viewport[0].IsValid())
-    return m_viewport[0];
-  else
-  {
-    ASSERT ( m_viewport[1].IsValid(), () );
-    return m_viewport[1];
-  }
+  ASSERT(m_viewport[CURRENT_V].IsValid(), ());
+  return m_viewport[CURRENT_V];
 }
 
 m2::PointD Query::GetPosition(ViewportID vID /*= DEFAULT_V*/) const
@@ -2193,13 +2144,8 @@ m2::PointD Query::GetPosition(ViewportID vID /*= DEFAULT_V*/) const
   {
   case LOCALITY_V:      // center of the founded locality
     return m_viewport[vID].Center();
-
-  case CURRENT_V:       // center of viewport for special sort mode
-    if (m_sortByViewport)
-      return m_viewport[vID].Center();
-
   default:
-    return m_position;
+    return m_pivot;
   }
 }
 
@@ -2256,29 +2202,15 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
   }
 }
 
-bool Query::IsValidPosition() const
-{
-  return (m_position.x > empty_pos_value && m_position.y > empty_pos_value);
-}
-
-void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t resCount)
+void Query::SearchAdditional(Results & res, size_t resCount)
 {
   ClearQueues();
 
-  string name[2];
-
-  // search in mwm with position ...
-  if (nearMe && IsValidPosition())
-    name[0] = m_pInfoGetter->GetRegionFile(m_position);
-
-  // ... and in mwm with viewport
-  if (inViewport)
-    name[1] = m_pInfoGetter->GetRegionFile(GetViewport().Center());
-
-  LOG(LDEBUG, ("Additional MWM search: ", name[0], name[1]));
-
-  if (!(name[0].empty() && name[1].empty()))
+  string const fileName = m_pInfoGetter->GetRegionFile(m_pivot);
+  if (!fileName.empty())
   {
+    LOG(LDEBUG, ("Additional MWM search: ", fileName));
+
     MWMVectorT mwmsInfo;
     m_pIndex->GetMwmsInfo(mwmsInfo);
 
@@ -2287,10 +2219,7 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t
     for (shared_ptr<MwmInfo> const & info : mwmsInfo)
     {
       Index::MwmLock const mwmLock(const_cast<Index &>(*m_pIndex), MwmSet::MwmId(info));
-      string fileName;
-      if (mwmLock.IsLocked())
-        fileName = mwmLock.GetValue<MwmValue>()->GetFileName();
-      if (fileName == name[0] || fileName == name[1])
+      if (mwmLock.IsLocked() && mwmLock.GetValue<MwmValue>()->GetFileName() == fileName)
         SearchInMWM(mwmLock, params);
     }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "std/function.hpp"
 #include "std/string.hpp"
@@ -26,20 +27,25 @@ namespace search
     //@{
     enum SearchModeT
     {
-      AROUND_POSITION = 1,
-      IN_VIEWPORT = 2,
-      SEARCH_WORLD = 4,
-      SEARCH_ADDRESS = 8,
-      ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD | SEARCH_ADDRESS
+      IN_VIEWPORT_ONLY = 1,
+      SEARCH_WORLD = 2,
+      SEARCH_ADDRESS = 4,
+      ALL = SEARCH_WORLD | SEARCH_ADDRESS
     };
 
     inline void SetSearchMode(int mode) { m_searchMode = mode; }
-    inline bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
-    inline bool IsSortByViewport() const { return m_searchMode == IN_VIEWPORT; }
+    inline bool HasSearchMode(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
     //@}
 
     void SetPosition(double lat, double lon);
     bool IsValidPosition() const { return m_validPos; }
+    bool IsSearchAroundPosition() const
+    {
+      return (m_searchRadiusM > 0 && IsValidPosition());
+    }
+
+    void SetSearchRadius(double radiusM) { m_searchRadiusM = radiusM; }
+    bool GetSearchRect(m2::RectD & rect) const;
 
     /// @param[in] locale can be "fr", "en-US", "ru_RU" etc.
     void SetInputLocale(string const & locale) { m_inputLocale = locale; }
@@ -59,6 +65,7 @@ namespace search
     friend string DebugPrint(SearchParams const & params);
 
   private:
+    double m_searchRadiusM;
     int m_searchMode;
     bool m_forceSearch, m_validPos;
   };

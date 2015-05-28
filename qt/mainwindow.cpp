@@ -369,7 +369,7 @@ void MainWindow::OnSearchButtonClicked()
 {
   if (m_pSearchAction->isChecked())
   {
-    m_pDrawWidget->GetFramework().PrepareSearch(false);
+    m_pDrawWidget->GetFramework().PrepareSearch();
 
     m_Docks[0]->show();
   }

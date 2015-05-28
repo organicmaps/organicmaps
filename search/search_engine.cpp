@@ -1,5 +1,6 @@
-#include "search/search_engine.hpp"
-#include "search/search_query.hpp"
+#include "search_engine.hpp"
+#include "search_query.hpp"
+#include "geometry_utils.hpp"
 
 #include "storage/country_info.hpp"
 
@@ -24,6 +25,8 @@
 
 namespace search
 {
+
+double const DIST_EQUAL_QUERY = 100.0;
 
 typedef vector<Query::SuggestT> SuggestsContainerT;
 
@@ -75,9 +78,10 @@ public:
 Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                ModelReaderPtr polyR, ModelReaderPtr countryR,
                string const & locale)
-  : m_readyThread(false),
-    m_pData(new EngineData(pCategoriesR, polyR, countryR))
+  : m_pData(new EngineData(pCategoriesR, polyR, countryR))
 {
+  m_isReadyThread.clear();
+
   InitSuggestions doInit;
   m_pData->m_categories.ForEachName(bind<void>(ref(doInit), _1));
   doInit.GetSuggests(m_pData->m_stringsToSuggest);
@@ -98,66 +102,32 @@ void Engine::SupportOldFormat(bool b)
   m_pQuery->SupportOldFormat(b);
 }
 
-namespace
+void Engine::PrepareSearch(m2::RectD const & viewport)
 {
-  m2::PointD GetViewportXY(double lat, double lon)
-  {
-    return MercatorBounds::FromLatLon(lat, lon);
-  }
-  m2::RectD GetViewportRect(double lat, double lon, double radius = 20000)
-  {
-    return MercatorBounds::MetresToXY(lon, lat, radius);
-  }
-
-  enum { VIEWPORT_RECT = 0, NEARME_RECT = 1 };
-
-  // X metres in mercator (lon, lat) units.
-  double const epsEqualRects = 100.0 * MercatorBounds::degreeInMetres;
-
-  /// Check rects for optimal search (avoid duplicating).
-  void AnalyzeRects(m2::RectD arrRects[2])
-  {
-    if (arrRects[NEARME_RECT].IsRectInside(arrRects[VIEWPORT_RECT]) &&
-        arrRects[NEARME_RECT].Center().EqualDxDy(arrRects[VIEWPORT_RECT].Center(), epsEqualRects))
-    {
-      arrRects[VIEWPORT_RECT].MakeEmpty();
-    }
-    else
-    {
-      if (arrRects[VIEWPORT_RECT].IsRectInside(arrRects[NEARME_RECT]) &&
-          (scales::GetScaleLevel(arrRects[VIEWPORT_RECT]) + Query::SCALE_SEARCH_DEPTH >= scales::GetUpperScale()))
-      {
-        arrRects[NEARME_RECT].MakeEmpty();
-      }
-    }
-  }
-}
-
-void Engine::PrepareSearch(m2::RectD const & viewport,
-                           bool hasPt, double lat, double lon)
-{
-  m2::RectD const nearby = (hasPt ? GetViewportRect(lat, lon) : m2::RectD());
-
   // bind does copy of all rects
-  GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, viewport, nearby));
+  GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, viewport));
 }
 
-bool Engine::Search(SearchParams const & params, m2::RectD const & viewport, bool viewportPoints/* = false*/)
+bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 {
   // Check for equal query.
-  // There is no need to put synch here for reading m_params,
+  // There is no need to synchronize here for reading m_params,
   // because this function is always called from main thread (one-by-one for queries).
 
   if (!params.IsForceSearch() &&
       m_params.IsEqualCommon(params) &&
-      m2::IsEqual(m_viewport, viewport, epsEqualRects, epsEqualRects))
+      (m_viewport.IsValid() && IsEqualMercator(m_viewport, viewport, DIST_EQUAL_QUERY)))
   {
-    if (!m_params.IsValidPosition())
+    if (m_params.IsSearchAroundPosition() &&
+        ms::DistanceOnEarth(m_params.m_lat, m_params.m_lon, params.m_lat, params.m_lon) > DIST_EQUAL_QUERY)
+    {
+      // Go forward only if we search around position and it's changed significantly.
+    }
+    else
+    {
+      // Skip this query in all other cases.
       return false;
-
-    // Check distance between previous and current user's position.
-    if (ms::DistanceOnEarth(m_params.m_lat, m_params.m_lon, params.m_lat, params.m_lon) < 500.0)
-      return false;
+    }
   }
 
   {
@@ -169,7 +139,7 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport, boo
   }
 
   // Run task.
-  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this, viewportPoints));
+  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
 
   return true;
 }
@@ -180,7 +150,7 @@ void Engine::GetResults(Results & res)
   res = m_searchResults;
 }
 
-void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby)
+void Engine::SetViewportAsync(m2::RectD const & viewport)
 {
   // First of all - cancel previous query.
   m_pQuery->DoCancel();
@@ -188,62 +158,39 @@ void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & near
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
 
-  m2::RectD arrRects[] = { viewport, nearby };
-  AnalyzeRects(arrRects);
-
-  m_pQuery->SetViewport(arrRects, ARRAY_SIZE(arrRects));
+  m_pQuery->SetViewport(GetInflatedViewport(viewport));
 }
-
-/*
-namespace
-{
-  bool LessByDistance(Result const & r1, Result const & r2)
-  {
-    bool const isSuggest1 = r1.GetResultType() == Result::RESULT_SUGGESTION;
-    bool const isNotSuggest2 = r2.GetResultType() != Result::RESULT_SUGGESTION;
-
-    if (isSuggest1)
-    {
-      // suggestions should always be on top
-      return isNotSuggest2;
-    }
-    else if (isNotSuggest2)
-    {
-      // we can't call GetDistance for suggestions
-      return (r1.GetDistance() < r2.GetDistance());
-    }
-    else
-      return false;
-  }
-}
-*/
 
 void Engine::EmitResults(SearchParams const & params, Results & res)
 {
-//  if (params.IsValidPosition() &&
-//      params.NeedSearch(SearchParams::AROUND_POSITION) &&
-//      !params.NeedSearch(SearchParams::IN_VIEWPORT) &&
-//      !params.NeedSearch(SearchParams::SEARCH_WORLD))
-//  {
-//    res.Sort(&LessByDistance);
-//  }
-
   m_searchResults = res;
+
   // Basic test of our statistics engine.
   alohalytics::LogEvent("searchEmitResults",
                         alohalytics::TStringMap({{params.m_query, strings::to_string(res.GetCount())}}));
+
   params.m_callback(res);
 }
 
-void Engine::SearchAsync(bool viewportPoints)
+void Engine::SetRankPivot(SearchParams const & params, m2::RectD const & viewport)
 {
+  if (!params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY) && params.IsValidPosition())
   {
-    // Avoid many threads waiting in search mutex. One is enough.
-    threads::MutexGuard readyGuard(m_readyMutex);
-    if (m_readyThread)
+    m2::PointD const pos = MercatorBounds::FromLatLon(params.m_lat, params.m_lon);
+    if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
+    {
+      m_pQuery->SetRankPivot(pos);
       return;
-    m_readyThread = true;
+    }
   }
+
+  m_pQuery->SetRankPivot(viewport.Center());
+}
+
+void Engine::SearchAsync()
+{
+  if (m_isReadyThread.test_and_set())
+    return;
 
   // First of all - cancel previous query.
   m_pQuery->DoCancel();
@@ -251,46 +198,36 @@ void Engine::SearchAsync(bool viewportPoints)
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
 
-  {
-    threads::MutexGuard readyGuard(m_readyMutex);
-    m_readyThread = false;
-  }
+  m_isReadyThread.clear();
 
   // Get current search params.
   SearchParams params;
-  m2::RectD arrRects[2];
+  m2::RectD viewport;
+  bool viewportPoints;
 
   {
     threads::MutexGuard updateGuard(m_updateMutex);
     params = m_params;
-    arrRects[VIEWPORT_RECT] = m_viewport;
+
+    viewportPoints = params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY);
+
+    if (!params.GetSearchRect(viewport))
+    {
+      if (viewportPoints)
+        viewport = m_viewport;
+      else
+        viewport = GetInflatedViewport(m_viewport);
+    }
   }
 
   // Initialize query.
   m_pQuery->Init(viewportPoints);
 
-  // Set search viewports according to search params.
-  if (params.IsValidPosition())
-  {
-    if (params.NeedSearch(SearchParams::AROUND_POSITION))
-    {
-      m_pQuery->SetPosition(GetViewportXY(params.m_lat, params.m_lon));
-      arrRects[NEARME_RECT] = GetViewportRect(params.m_lat, params.m_lon);
-    }
-  }
-  else
-    m_pQuery->NullPosition();
+  SetRankPivot(params, viewport);
 
-  if (!params.NeedSearch(SearchParams::IN_VIEWPORT))
-    arrRects[VIEWPORT_RECT].MakeEmpty();
+  m_pQuery->SetViewport(viewport);
 
-  if (arrRects[NEARME_RECT].IsValid() && arrRects[VIEWPORT_RECT].IsValid())
-    AnalyzeRects(arrRects);
-
-  m_pQuery->SetViewport(arrRects, 2);
-
-  m_pQuery->SetSearchInWorld(params.NeedSearch(SearchParams::SEARCH_WORLD));
-  m_pQuery->SetSortByViewport(params.IsSortByViewport());
+  m_pQuery->SetSearchInWorld(params.HasSearchMode(SearchParams::SEARCH_WORLD));
 
   // Language validity is checked inside
   m_pQuery->SetInputLocale(params.m_inputLocale);
@@ -307,34 +244,13 @@ void Engine::SearchAsync(bool viewportPoints)
 
   try
   {
-    /*
-    if (emptyQuery)
-    {
-      // Search for empty query only around viewport.
-      if (params.IsValidPosition())
-      {
-        double arrR[] = { 500, 1000, 2000 };
-        for (size_t i = 0; i < ARRAY_SIZE(arrR); ++i)
-        {
-          res.Clear();
-          m_pQuery->SearchAllInViewport(GetViewportRect(params.m_lat, params.m_lon, arrR[i]),
-                                        res, 3*RESULTS_COUNT);
+    // Do search for address in all modes.
+    // params.HasSearchMode(SearchParams::SEARCH_ADDRESS)
 
-          if (m_pQuery->IsCanceled() || res.GetCount() >= 2*RESULTS_COUNT)
-            break;
-        }
-      }
-    }
+    if (viewportPoints)
+      m_pQuery->SearchViewportPoints(res);
     else
-    */
-    {
-      // Do search for address in all modes.
-      // params.NeedSearch(SearchParams::SEARCH_ADDRESS)
-      if (viewportPoints)
-        m_pQuery->SearchViewportPoints(res);
-      else
-        m_pQuery->Search(res, RESULTS_COUNT);
-    }
+      m_pQuery->Search(res, RESULTS_COUNT);
   }
   catch (Query::CancelException const &)
   {
@@ -350,10 +266,7 @@ void Engine::SearchAsync(bool viewportPoints)
   {
     try
     {
-      m_pQuery->SearchAdditional(res,
-                                 params.NeedSearch(SearchParams::AROUND_POSITION),
-                                 params.NeedSearch(SearchParams::IN_VIEWPORT),
-                                 RESULTS_COUNT);
+      m_pQuery->SearchAdditional(res, RESULTS_COUNT);
     }
     catch (Query::CancelException const &)
     {
