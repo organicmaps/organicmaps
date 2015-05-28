@@ -13,7 +13,7 @@ double GetMoveDuration(m2::PointD const & startPx, m2::PointD const & endPt, int
 
 double GetRotateDuration(double const & startAngle, double const & endAngle)
 {
-  return fabs(ang::GetShortestDistance(startAngle, endAngle) / math::twicePi * 2.0);
+  return 0.5 * fabs(ang::GetShortestDistance(startAngle, endAngle) / math::twicePi);
 }
 
 double GetScaleDuration(m2::RectD const & startRect, m2::RectD const & endRect)

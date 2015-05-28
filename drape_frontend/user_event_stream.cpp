@@ -139,11 +139,16 @@ bool UserEventStream::SetScale(m2::PointD const & pxScaleCenter, double factor, 
 
   if (isAnim)
   {
-    m2::PointD glbCenter = m_navigator.PtoG(scaleCenter);
     m2::AnyRectD rect = GetTargetRect();
+    m2::PointD currentCenter = rect.GlobalZero();
+    m2::PointD const glbScaleCenter = m_navigator.PtoG(scaleCenter);
+    m2::PointD const centerMove = (currentCenter - glbScaleCenter) / factor;
+
+    currentCenter = glbScaleCenter + centerMove;
+
     m2::RectD sizeRect = rect.GetLocalRect();
     sizeRect.Scale(1.0 / factor);
-    return SetRect(m2::AnyRectD(glbCenter, rect.Angle(), sizeRect), true);
+    return SetRect(m2::AnyRectD(currentCenter, rect.Angle(), sizeRect), true);
   }
 
   m_navigator.Scale(scaleCenter, factor);

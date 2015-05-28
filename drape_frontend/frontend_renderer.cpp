@@ -689,12 +689,21 @@ void FrontendRenderer::ChangeModelView(m2::RectD const & rect)
 void FrontendRenderer::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero)
 {
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
-  double offset = (screen.PtoG(screen.PixelRect().Center()) - screen.PtoG(pxZero)).Length();
+  m2::RectD const & pixelRect = screen.PixelRect();
+
+  m2::PointD formingVector = pixelRect.Center() - pxZero;
+  formingVector.x /= pixelRect.SizeX();
+  formingVector.y /= pixelRect.SizeY();
+
+  m2::AnyRectD targetRect = m_userEventStream.GetTargetRect();
+  formingVector.x *= targetRect.GetLocalRect().SizeX();
+  formingVector.y *= targetRect.GetLocalRect().SizeY();
+
   m2::PointD viewVector = userPos.Move(1.0, -azimuth + math::pi2) - userPos;
   viewVector.Normalize();
 
-  AddUserEvent(SetAnyRectEvent(m2::AnyRectD(userPos + (viewVector * offset), -azimuth,
-                                            m_userEventStream.GetTargetRect().GetLocalRect()), true /* animate */));
+  AddUserEvent(SetAnyRectEvent(m2::AnyRectD(userPos + (viewVector * formingVector.Length()), -azimuth,
+                                            targetRect.GetLocalRect()), true /* animate */));
 }
 
 ScreenBase const & FrontendRenderer::UpdateScene(bool & modelViewChanged)

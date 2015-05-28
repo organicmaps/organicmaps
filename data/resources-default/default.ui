@@ -3,36 +3,36 @@
     <portrait>
       <anchor vertical="center" horizontal="right"/>
       <relative vertical="bottom" horizontal="right"/>
-      <offset x="6" y="42"/>
+      <offset x="70" y="10"/>
     </portrait>
     <landscape>
       <anchor vertical="center" horizontal="right"/>
       <relative vertical="bottom" horizontal="right"/>
-      <offset x="6" y="42"/>
+      <offset x="70" y="10"/>
     </landscape>
   </ruler>
   <compass>
     <portrait>
       <anchor vertical="center" horizontal="center"/>
       <relative vertical="bottom" horizontal="left"/>
-      <offset x="27" y="57"/>
+      <offset x="35" y="90"/>
     </portrait>
     <landscape>
       <anchor vertical="center" horizontal="center"/>
       <relative vertical="bottom" horizontal="left"/>
-      <offset x="27" y="57"/>
+      <offset x="35" y="90"/>
     </landscape>
   </compass>
   <copyright>
     <portrait>
-      <anchor vertical="center" horizontal="right"/>
-      <relative vertical="bottom" horizontal="right"/>
-      <offset x="6" y="42"/>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="top" horizontal="center"/>
+      <offset x="0" y="30"/>
     </portrait>
     <landscape>
-      <anchor vertical="center" horizontal="right"/>
-      <relative vertical="bottom" horizontal="right"/>
-      <offset x="6" y="42"/>
+      <anchor vertical="center" horizontal="center"/>
+      <relative vertical="top" horizontal="center"/>
+      <offset x="0" y="30"/>
     </landscape>
   </copyright>
   <country_status>

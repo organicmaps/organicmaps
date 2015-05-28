@@ -603,7 +603,7 @@
 		9DF04B241B71010E00DACAF1 /* 02_droidsans-fallback.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */; };
 		A32B6D4C1A14980500E54A65 /* iosOGLContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D491A14980500E54A65 /* iosOGLContext.mm */; };
 		A32B6D4D1A14980500E54A65 /* iosOGLContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */; };
-		A3A65D511A9DD45B0057362E /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A3A65D501A9DD45B0057362E /* resources-default */; };
+		A367C93B1B17334800E2B6E7 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = A367C93A1B17334800E2B6E7 /* resources-default */; };
 		A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */; };
 		B00510FB1A11015900A61AA4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		B00511021A1101E000A61AA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
@@ -1146,7 +1146,7 @@
 		A32B6D491A14980500E54A65 /* iosOGLContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContext.mm; path = Platform/opengl/iosOGLContext.mm; sourceTree = "<group>"; };
 		A32B6D4A1A14980500E54A65 /* iosOGLContextFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosOGLContextFactory.h; path = Platform/opengl/iosOGLContextFactory.h; sourceTree = "<group>"; };
 		A32B6D4B1A14980500E54A65 /* iosOGLContextFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iosOGLContextFactory.mm; path = Platform/opengl/iosOGLContextFactory.mm; sourceTree = "<group>"; };
-		A3A65D501A9DD45B0057362E /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-default"; sourceTree = "<group>"; };
+		A367C93A1B17334800E2B6E7 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-default"; path = "../../data/resources-default"; sourceTree = "<group>"; };
 		A3CC2CD21A1C723900B832E1 /* LocationPredictor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationPredictor.mm; sourceTree = "<group>"; };
 		A3CC2CD31A1C723900B832E1 /* LocationPredictor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPredictor.h; sourceTree = "<group>"; };
 		B00511031A1101F600A61AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -2713,13 +2713,13 @@
 				F607C1841C032A8800B53A87 /* resources-hdpi_dark */,
 				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
 				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
+				A367C93A1B17334800E2B6E7 /* resources-default */,
 				45159BF81B0CA2D5009BFA85 /* resources-6plus */,
 				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
 				97A5967E19B9CD47007A963F /* copyright.html */,
 				978D4A30199A11E600D72CA7 /* faq.html */,
 				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
 				F7FDD822147F30CC005900FA /* drules_proto.bin */,
-				A3A65D501A9DD45B0057362E /* resources-default */,
 				97FC99D919C1A2CD00C1CF98 /* resources-mdpi */,
 				F607C1821C032A8800B53A87 /* resources-hdpi */,
 				97FC99DA19C1A2CD00C1CF98 /* resources-xhdpi */,
@@ -3033,7 +3033,6 @@
 				34CC4C0F1B82069C00E44C1F /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				FA46DA2C12D4166E00968C36 /* countries.txt in Resources */,
 				4A23D15C1B8B4DD700D4EB6F /* resources-6plus_clear in Resources */,
-				A3A65D511A9DD45B0057362E /* resources-default in Resources */,
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
 				4A23D15F1B8B4DD700D4EB6F /* resources-xxhdpi_clear in Resources */,
@@ -3052,6 +3051,7 @@
 				EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */,
 				347274731B0F4EE000756B37 /* me.maps.entitlements in Resources */,
 				3476B8E01BFDD33A00874594 /* tts-how-to-set-up-voice-img in Resources */,
+				A367C93B1B17334800E2B6E7 /* resources-default in Resources */,
 				EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */,
 				FAAFD697139D9BE2000AE70C /* categories.txt in Resources */,
 				FA64D9A913F975AD00350ECF /* types.txt in Resources */,
