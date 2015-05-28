@@ -60,7 +60,7 @@ OPT_WORLD=
 OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
-while getopts ":cuwrh" opt; do
+while getopts ":cuUwrh" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
