@@ -21,6 +21,7 @@ namespace Settings
 
     bool GetValue(string const & key, string & outValue);
     void SetValue(string const & key, string const & value);
+    void DeleteKeyAndValue(string const & key);
   };
 
   /// Retrieve setting
@@ -35,6 +36,11 @@ namespace Settings
   template <class ValueT> void Set(string const & key, ValueT const & value)
   {
     StringStorage::Instance().SetValue(key, ToString(value));
+  }
+
+  void Delete(string const & key)
+  {
+    StringStorage::Instance().DeleteKeyAndValue(key);
   }
 
   enum Units { Metric = 0, Yard, Foot };

@@ -56,22 +56,22 @@ namespace Settings
 
   void StringStorage::Save() const
   {
-    /// @todo Add mutex.
+    // @TODO(AlexZ): Should we use mutex here?
     try
     {
       FileWriter file(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME));
-      for (ContainerT::const_iterator it = m_values.begin(); it != m_values.end(); ++it)
+      for (auto const & value : m_values)
       {
-        string line(it->first);
+        string line(value.first);
         line += DELIM_CHAR;
-        line += it->second;
+        line += value.second;
         line += "\n";
         file.Write(line.data(), line.size());
       }
     }
     catch (RootException const & ex)
     {
-      // Ignore all settings saving exceptions
+      // Ignore all settings saving exceptions.
       LOG(LWARNING, (ex.Msg()));
     }
   }
@@ -84,7 +84,7 @@ namespace Settings
 
   bool StringStorage::GetValue(string const & key, string & outValue)
   {
-    ContainerT::const_iterator found = m_values.find(key);
+    auto const found = m_values.find(key);
     if (found == m_values.end())
       return false;
 
@@ -96,6 +96,16 @@ namespace Settings
   {
     m_values[key] = value;
     Save();
+  }
+
+  void StringStorage::DeleteKeyAndValue(string const & key)
+  {
+    auto const found = m_values.find(key);
+    if (found != m_values.end())
+    {
+      m_values.erase(found);
+      Save();
+    }
   }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
