@@ -49,7 +49,8 @@
     case MWMMapViewControlsButtonZoom:
       [self.zoomButtons moveToDefaultPosition:defaultPosition];
       break;
-    default:
+    case MWMMapViewControlsButtonMenu:
+    case MWMMapViewControlsButtonLocation:
       break;
   }
 }

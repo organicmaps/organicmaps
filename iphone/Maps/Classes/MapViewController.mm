@@ -259,7 +259,7 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
   Framework & f = GetFramework();
   UserMark const * userMark = f.GetUserMark(pxClicked, isLongClick);
-  if (f.HasActiveUserMark() == false)
+  if (f.HasActiveUserMark() == false && self.searchView.state == SearchViewStateHidden)
   {
     if (userMark == nullptr)
       self.controlsManager.hidden = !self.controlsManager.hidden;
