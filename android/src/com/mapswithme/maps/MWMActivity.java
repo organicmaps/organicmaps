@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
@@ -1622,7 +1623,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
         if (resultCode == RoutingResultCodes.NO_ERROR)
         {
           mRlTurnByTurnBox.setVisibility(View.GONE);
-          ViewHelper.setAlpha(mLayoutRoutingGo, 1);
+          ViewCompat.setAlpha(mLayoutRoutingGo, 1);
           mLayoutRoutingGo.setVisibility(View.VISIBLE);
 
           Animator animator = ObjectAnimator.ofFloat(mRlRoutingBox, "alpha", 0, 1);

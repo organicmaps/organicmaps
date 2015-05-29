@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -66,6 +67,22 @@ public class MapFragment extends NvEventQueueFragment
   {
     super.onStop();
     mIsRenderingInitialized = false;
+  }
+
+  @Override
+  protected void applyWidgetPivots(final int mapHeight, final int mapWidth)
+  {
+    final Resources resources = getResources();
+    // TODO need a delay here to make call work
+    getView().postDelayed(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        Framework.setWidgetPivot(Framework.MAP_WIDGET_RULER, mapWidth - resources.getDimensionPixelOffset(R.dimen.margin_right_ruler), mapHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_ruler));
+        Framework.setWidgetPivot(Framework.MAP_WIDGET_COMPASS, resources.getDimensionPixelOffset(R.dimen.margin_left_compass), mapHeight - resources.getDimensionPixelOffset(R.dimen.margin_bottom_compass));
+      }
+    }, 300);
   }
 
   public boolean isRenderingInitialized()

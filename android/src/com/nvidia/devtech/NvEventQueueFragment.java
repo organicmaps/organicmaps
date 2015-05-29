@@ -103,6 +103,7 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
       {
         mCachedSurfaceHolder = holder;
         onSurfaceCreatedNative(mSurfaceWidth, mSurfaceHeight, mDisplayDensity);
+        applyWidgetPivots(mSurfaceHeight, mSurfaceWidth);
       }
 
       @Override
@@ -112,6 +113,7 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
         mSurfaceWidth = width;
         mSurfaceHeight = height;
         onSurfaceChangedNative(mSurfaceWidth, mSurfaceHeight, mDisplayDensity);
+        applyWidgetPivots(mSurfaceHeight, mSurfaceWidth);
       }
 
       @Override
@@ -122,6 +124,8 @@ public abstract class NvEventQueueFragment extends BaseMwmFragment implements Vi
       }
     });
   }
+
+  protected abstract void applyWidgetPivots(final int mapHeight, final int mapWidth);
 
   @Override
   public void onStart()
