@@ -58,13 +58,13 @@ class CrossRoutingContextReader
 public:  
   void Load(Reader const & r);
 
-  const string & getOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
+  const string & GetOutgoingMwmName(OutgoingCrossNode const & mwmIndex) const;
 
   pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> GetIngoingIterators() const;
 
   pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> GetOutgoingIterators() const;
 
-  WritedEdgeWeightT getAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
+  WritedEdgeWeightT GetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const;
 };
 
 /// Helper class to generate cross context section in mwm.routing file
@@ -80,13 +80,13 @@ class CrossRoutingContextWriter
 public:
   void Save(Writer & w) const;
 
-  void addIngoingNode(size_t const nodeId, m2::PointD const & point);
+  void AddIngoingNode(size_t const nodeId, m2::PointD const & point);
 
-  void addOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point);
+  void AddOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point);
 
-  void reserveAdjacencyMatrix();
+  void ReserveAdjacencyMatrix();
 
-  void setAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin, WritedEdgeWeightT value);
+  void SetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin, WritedEdgeWeightT value);
 
   pair<IngoingEdgeIteratorT, IngoingEdgeIteratorT> GetIngoingIterators() const;
 

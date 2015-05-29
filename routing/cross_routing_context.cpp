@@ -91,7 +91,7 @@ void CrossRoutingContextReader::Load(Reader const & r)
   }
 }
 
-const string & CrossRoutingContextReader::getOutgoingMwmName(
+const string & CrossRoutingContextReader::GetOutgoingMwmName(
     OutgoingCrossNode const & outgoingNode) const
 {
   ASSERT(outgoingNode.m_outgoingIndex < m_neighborMwmList.size(),
@@ -110,7 +110,7 @@ pair<OutgoingEdgeIteratorT, OutgoingEdgeIteratorT> CrossRoutingContextReader::Ge
   return make_pair(m_outgoingNodes.cbegin(), m_outgoingNodes.cend());
 }
 
-WritedEdgeWeightT CrossRoutingContextReader::getAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
+WritedEdgeWeightT CrossRoutingContextReader::GetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoing) const
 {
   if (!mp_reader)
     return INVALID_CONTEXT_EDGE_WEIGHT;
@@ -154,12 +154,12 @@ void CrossRoutingContextWriter::Save(Writer & w) const
   }
 }
 
-void CrossRoutingContextWriter::addIngoingNode(size_t const nodeId, m2::PointD const & point)
+void CrossRoutingContextWriter::AddIngoingNode(size_t const nodeId, m2::PointD const & point)
 {
   m_ingoingNodes.push_back(IngoingCrossNode(nodeId, point));
 }
 
-void CrossRoutingContextWriter::addOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point)
+void CrossRoutingContextWriter::AddOutgoingNode(size_t const nodeId, string const & targetMwm, m2::PointD const & point)
 {
   auto it = find(m_neighborMwmList.begin(), m_neighborMwmList.end(), targetMwm);
   if (it == m_neighborMwmList.end())
@@ -167,12 +167,12 @@ void CrossRoutingContextWriter::addOutgoingNode(size_t const nodeId, string cons
   m_outgoingNodes.push_back(OutgoingCrossNode(nodeId, distance(m_neighborMwmList.begin(), it), point));
 }
 
-void CrossRoutingContextWriter::reserveAdjacencyMatrix()
+void CrossRoutingContextWriter::ReserveAdjacencyMatrix()
 {
   m_adjacencyMatrix.resize(m_ingoingNodes.size() * m_outgoingNodes.size(), INVALID_CONTEXT_EDGE_WEIGHT);
 }
 
-void CrossRoutingContextWriter::setAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin, WritedEdgeWeightT value)
+void CrossRoutingContextWriter::SetAdjacencyCost(IngoingEdgeIteratorT ingoing, OutgoingEdgeIteratorT outgoin, WritedEdgeWeightT value)
 {
   m_adjacencyMatrix[GetIndexInAdjMatrix(ingoing, outgoin)] = value;
 }

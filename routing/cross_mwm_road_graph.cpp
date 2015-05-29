@@ -5,7 +5,8 @@
 namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
-double const kMwmCrossingNodeEqualityRadiusMeters = 1000.0;
+
+double constexpr kMwmCrossingNodeEqualityRadiusMeters = 1000.0;
 double constexpr kMediumSpeedMPS = 120.0 * 1000.0 / (60 * 60);
 }
 
@@ -13,21 +14,21 @@ namespace routing
 {
 IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
 {
-  ASSERT(startNode.mwmName.length(), ());
-  // TODO make cancellation
+  ASSERT(!startNode.mwmName.empty(), ());
+  // TODO (ldragunov) make cancellation if necessary
   TRoutingMappingPtr startMapping = m_indexManager.GetMappingByName(startNode.mwmName);
   MappingGuard startMappingGuard(startMapping);
   UNUSED_VALUE(startMappingGuard);
   startMapping->LoadCrossContext();
 
-  // Load source data
+  // Load source data.
   auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
-  // Generate routing task from one source to several targets
+  // Generate routing task from one source to several targets.
   TRoutingNodes sources(1), targets;
   size_t const outSize = distance(mwmOutsIter.first, mwmOutsIter.second);
   targets.reserve(outSize);
 
-  // If there is no routes outside source map
+  // If there is no routes outside source map.
   if (!outSize)
     return IRouter::RouteNotFound;
 
@@ -62,14 +63,14 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   UNUSED_VALUE(finalMappingGuard);
   finalMapping->LoadCrossContext();
 
-  // Load source data
+  // Load source data.
   auto const mwmIngoingIter = finalMapping->m_crossContext.GetIngoingIterators();
-  // Generate routing task from one source to several targets
+  // Generate routing task from one source to several targets.
   TRoutingNodes sources, targets(1);
   size_t const ingoingSize = distance(mwmIngoingIter.first, mwmIngoingIter.second);
   sources.reserve(ingoingSize);
 
-  // If there is no routes inside target map
+  // If there is no routes inside target map.
   if (!ingoingSize)
     return IRouter::RouteNotFound;
 
@@ -101,10 +102,10 @@ TCrossPair CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
 {
   m2::PointD const & startPoint = startNode.m_point;
 
-  string const & nextMwm = currentMapping->m_crossContext.getOutgoingMwmName(startNode);
+  string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);
   TRoutingMappingPtr nextMapping;
   nextMapping = m_indexManager.GetMappingByName(nextMwm);
-  // If we haven't this routing file, we skip this path
+  // If we haven't this routing file, we skip this path.
   if (!nextMapping->IsValid())
     return TCrossPair();
   nextMapping->LoadCrossContext();
@@ -126,7 +127,7 @@ TCrossPair CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
 void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
                                              vector<CrossWeightedEdge> & adj) const
 {
-  // Check for virtual edges
+  // Check for virtual edges.
   adj.clear();
   auto const it = m_virtualEdges.find(v.second);
   if (it != m_virtualEdges.end())
@@ -156,7 +157,7 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
   // Find outs. Generate adjacency list.
   for (auto oit = outRange.first; oit != outRange.second; ++oit)
   {
-    EdgeWeight const outWeight = currentContext.getAdjacencyCost(iit, oit);
+    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(iit, oit);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
     {
       TCrossPair target = FindNextMwmNode(*oit, currentMapping);

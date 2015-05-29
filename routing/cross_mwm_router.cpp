@@ -16,10 +16,12 @@ IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const
 
   TAlgorithm::OnVisitedVertexCallback onVisitedVertex = nullptr;
   if (routingVisualizer)
+  {
     onVisitedVertex = [&routingVisualizer](TCrossPair const & cross)
     {
       routingVisualizer(cross.first.point);
     };
+  }
 
   TAlgorithm::Result const result =m_algo.FindPath(startPos, finalPos, route, onVisitedVertex);
   switch (result)
@@ -45,7 +47,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   CrossMwmGraph roadGraph(indexManager);
   FeatureGraphNode startGraphNode, finalGraphNode;
   CrossNode startNode, finalNode;
-  IRouter::ResultCode code;
+  IRouter::ResultCode code = IRouter::StartPointNotFound;
 
   // Finding start node.
   for (FeatureGraphNode const & start : startGraphNodes)
@@ -62,6 +64,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
     return IRouter::StartPointNotFound;
 
   // Finding final node.
+  code = IRouter::EndPointNotFound;
   for (FeatureGraphNode const & final : finalGraphNodes)
   {
     finalNode = CrossNode(final.node.reverse_node_id, final.mwmName, final.segmentPoint);

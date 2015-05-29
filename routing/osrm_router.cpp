@@ -509,7 +509,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     startMapping->LoadCrossContext();
     auto out_iterators = startMapping->m_crossContext.GetOutgoingIterators();
     for (auto i = out_iterators.first; i != out_iterators.second; ++i)
-      if (startMapping->m_crossContext.getOutgoingMwmName(*i) == targetMapping->GetName())
+      if (startMapping->m_crossContext.GetOutgoingMwmName(*i) == targetMapping->GetName())
       {
         route.AddAbsentCountry(targetMapping->GetName());
         return targetMapping->GetError();

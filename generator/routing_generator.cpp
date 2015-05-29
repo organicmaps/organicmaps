@@ -123,7 +123,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
             // for old format compatibility
             intersection = m2::PointD(MercatorBounds::XToLon(intersection.x), MercatorBounds::YToLat(intersection.y));
             if (!outStart && outEnd)
-              crossContext.addIngoingNode(nodeId, intersection);
+              crossContext.AddIngoingNode(nodeId, intersection);
             else if (outStart && !outEnd)
             {
               string mwmName;
@@ -140,7 +140,7 @@ void FindCrossNodes(osrm::NodeDataVectorT const & nodeData, gen::OsmID2FeatureID
                 });
               });
               if (!mwmName.empty())
-                crossContext.addOutgoingNode(nodeId, mwmName, intersection);
+                crossContext.AddOutgoingNode(nodeId, mwmName, intersection);
               else
                 LOG(LINFO, ("Unknowing outgoing edge", endSeg.lat2, endSeg.lon2, startSeg.lat1, startSeg.lon1));
             }
@@ -157,7 +157,7 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   FilesMappingContainer routingCont(mwmRoutingPath);
   facade.Load(routingCont);
   LOG(LINFO, ("Calculating weight map between outgoing nodes"));
-  crossContext.reserveAdjacencyMatrix();
+  crossContext.ReserveAdjacencyMatrix();
   auto const & in = crossContext.GetIngoingIterators();
   auto const & out = crossContext.GetOutgoingIterators();
   TRoutingNodes sources, targets;
@@ -166,10 +166,10 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
   // Fill sources and targets with start node task for ingoing (true) and target node task
   // (false) for outgoing nodes
   for (auto i = in.first; i != in.second; ++i)
-    sources.emplace_back(i->m_nodeId, true, mwmRoutingPath);
+    sources.emplace_back(i->m_nodeId, true /* isStartNode */, mwmRoutingPath);
 
   for (auto i = out.first; i != out.second; ++i)
-    targets.emplace_back(i->m_nodeId, false, mwmRoutingPath);
+    targets.emplace_back(i->m_nodeId, false /* isStartNode */, mwmRoutingPath);
 
   vector<EdgeWeight> costs;
   FindWeightsMatrix(sources, targets, facade, costs);
@@ -179,7 +179,7 @@ void CalculateCrossAdjacency(string const & mwmRoutingPath, routing::CrossRoutin
     {
       EdgeWeight const & edgeWeigth = *(res++);
       if (edgeWeigth != INVALID_EDGE_WEIGHT && edgeWeigth > 0)
-        crossContext.setAdjacencyCost(i, j, edgeWeigth);
+        crossContext.SetAdjacencyCost(i, j, edgeWeigth);
     }
   LOG(LINFO, ("Calculation of weight map between outgoing nodes DONE"));
 }

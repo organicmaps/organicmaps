@@ -75,7 +75,7 @@ private:
   double weight;
 };
 
-/// A graph representation for cross mwm routing
+/// A graph used for cross mwm routing.
 class CrossMwmGraph : public Graph<TCrossPair, CrossWeightedEdge, CrossMwmGraph>
 {
 public:
