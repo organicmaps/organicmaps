@@ -1095,8 +1095,3 @@ node|z16-[railway=station]
 {
   icon-image: railway-station.svg;
 }
-
-line[railway]
-{
-  text-position: line;
-}

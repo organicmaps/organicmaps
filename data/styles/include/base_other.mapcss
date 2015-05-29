@@ -1,3 +1,8 @@
+line[railway]
+{
+  text-position: line;
+}
+
 line[highway=motorway_junction]
 {
   casing-width: 0;
