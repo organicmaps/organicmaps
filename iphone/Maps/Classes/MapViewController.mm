@@ -560,15 +560,15 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [super viewDidLoad];
 
   self.view.clipsToBounds = YES;
-
-  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
   
   [self.view addSubview:self.routeViewWrapper];
 
   [self.view addSubview:self.searchView];
 
   [self.view addSubview:self.containerView];
-  
+
+  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
+
   [self showRoutingFeatureDialog];
 }
 
@@ -914,6 +914,11 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
   [self dismissRouting];
 }
 
+- (void)routeViewWillEnterState:(RouteViewState)state
+{
+  [self.controlsManager moveButton:MWMMapViewControlsButtonZoom toDefaultPosition:(state == RouteViewStateHidden)];
+}
+
 - (void)dismissRouting
 {
   GetFramework().CloseRouting();
@@ -988,6 +993,11 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 {
   NSString * urlString = [NSString stringWithUTF8String:GetFramework().GenerateApiBackUrl(*point).c_str()];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+- (void)placePageViewWillEnterState:(PlacePageState)state
+{
+  [self.controlsManager moveButton:MWMMapViewControlsButtonZoom toDefaultPosition:(state == PlacePageStateHidden)];
 }
 
 #pragma mark - UIKitViews delegates

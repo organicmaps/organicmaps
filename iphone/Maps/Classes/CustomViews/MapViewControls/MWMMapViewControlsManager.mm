@@ -42,6 +42,23 @@
   [self.zoomButtons resetVisibility];
 }
 
+- (void)moveButton:(MWMMapViewControlsButton)button toDefaultPosition:(BOOL)defaultPosition
+{
+  switch (button)
+  {
+    case MWMMapViewControlsButtonZoom:
+      [self.zoomButtons moveToDefaultPosition:defaultPosition];
+      break;
+    default:
+      break;
+  }
+}
+
+- (void)setBottomBound:(CGFloat)bound
+{
+  [self.zoomButtons setBottomBound:bound];
+}
+
 #pragma mark - Properties
 
 - (void)setHidden:(BOOL)hidden

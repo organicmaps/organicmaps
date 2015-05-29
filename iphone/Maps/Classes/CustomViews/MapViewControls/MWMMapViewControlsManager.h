@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, MWMMapViewControlsButton)
+{
+  MWMMapViewControlsButtonZoom,
+  MWMMapViewControlsButtonMenu,
+  MWMMapViewControlsButtonLocation
+};
+
 @class MapViewController;
 
 @interface MWMMapViewControlsManager : NSObject
@@ -19,5 +26,7 @@
 
 - (instancetype)initWithParentController:(MapViewController *)controller;
 - (void)resetZoomButtonsVisibility;
+- (void)moveButton:(MWMMapViewControlsButton)button toDefaultPosition:(BOOL)defaultPosition;
+- (void)setBottomBound:(CGFloat)bound;
 
 @end

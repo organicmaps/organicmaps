@@ -424,6 +424,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)applyState:(PlacePageState)state animated:(BOOL)animated
 {
+  [self.delegate placePageViewWillEnterState:state];
   _state = state;
   [self updateBookmarkStateAnimated:NO];
   [self updateBookmarkViewsAlpha:animated];

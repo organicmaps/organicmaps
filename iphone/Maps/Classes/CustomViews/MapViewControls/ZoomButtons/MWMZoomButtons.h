@@ -14,5 +14,7 @@
 
 - (instancetype)initWithParentView:(UIView *)view;
 - (void)resetVisibility;
+- (void)moveToDefaultPosition:(BOOL)defaultPosition;
+- (void)setBottomBound:(CGFloat)bound;
 
 @end

@@ -21,6 +21,8 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 
 - (void)placePageViewDidStartRouting:(PlacePageView *)placePage;
 
+- (void)placePageViewWillEnterState:(PlacePageState)state;
+
 @end
 
 
