@@ -1077,3 +1077,6 @@
 
 /* get the map */
 "get_the_map" = "รับแผนที่";
+
+/* location mode off */
+"location_mode_off" = "โหมดการวางตำแหน่งที่ตั้ง: ปิด";

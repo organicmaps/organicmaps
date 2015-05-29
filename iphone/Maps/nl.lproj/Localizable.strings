@@ -1077,3 +1077,6 @@
 
 /* get the map */
 "get_the_map" = "Krijg kaart";
+
+/* location mode off */
+"location_mode_off" = "Modus locatie positioneren: uit";

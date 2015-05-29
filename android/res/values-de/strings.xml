@@ -667,4 +667,28 @@
 	<string name="cuisine_tea">Tee</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">lesezeichen</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Es gibt keine Karte für Ihren Standort</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Aktivieren Sie bitte Ortungsdienste in den Einstellungen</string>
+	<!-- download map -->
+	<string name="download_map">Laden Sie die Karte für Ihren Standort herunter</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Laden Sie eine Karte für Ihre aktuelle Position auf Ihrem iPhone herunter</string>
+	<!-- clear pin -->
+	<string name="nearby">In der Nähe</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Pin löschen</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Der aktuelle Standort ist nicht definiert.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Land Ihres derzeitigen Standorts herunterladen</string>
+	<!-- try again -->
+	<string name="try_again">Nochmals versuchen</string>
+	<!-- download failed -->
+	<string name="download_failed">herunterladen fehlgeschlagen</string>
+	<!-- get the map -->
+	<string name="get_the_map">Karte abrufen</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Standortpositionierungsmodus: Aus</string>
 </resources>

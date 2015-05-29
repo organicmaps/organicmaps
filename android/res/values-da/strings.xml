@@ -197,34 +197,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">På skærmen</string>
 	<!-- Search Suggestion -->
-	<string name="food">mad</string>
+	<string name="food">Mad</string>
 	<!-- Search Suggestion -->
-	<string name="transport">transport</string>
+	<string name="transport">Transport</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">benzin</string>
+	<string name="fuel">Benzin</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parkering</string>
+	<string name="parking">Parkering</string>
 	<!-- Search Suggestion -->
-	<string name="shop">butik</string>
-	<string name="hotel">hotel</string>
+	<string name="shop">Butik</string>
+	<string name="hotel">Hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">seværdigheder</string>
+	<string name="tourism">Seværdigheder</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">underholdning</string>
+	<string name="entertainment">Underholdning</string>
 	<!-- Search Suggestion -->
-	<string name="atm">hæveautomat</string>
+	<string name="atm">Hæveautomat</string>
 	<!-- Search Suggestion -->
-	<string name="bank">bank</string>
+	<string name="bank">Bank</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">apotek</string>
+	<string name="pharmacy">Apotek</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">hospital</string>
+	<string name="hospital">Hospital</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">toilet</string>
+	<string name="toilet">Toilet</string>
 	<!-- Search Suggestion -->
-	<string name="post">post</string>
+	<string name="post">Post</string>
 	<!-- Search Suggestion -->
-	<string name="police">politi</string>
+	<string name="police">Politi</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Ingen resultater</string>
 	<!-- Notes field in Bookmarks view -->
@@ -672,4 +672,28 @@
 	<string name="cuisine_tea">te</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">bogmærke</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Kortet for dit område er ikke downloadet</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Aktiver venligst lokationstjenester</string>
+	<!-- download map -->
+	<string name="download_map">Download kortet for dit område</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Download kortet for din placering til din iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">I nærheden</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Slet nål</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Den nuværende placering er ikke defineret.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Download landet bestemt ud fra din nuværende lokation</string>
+	<!-- try again -->
+	<string name="try_again">Prøv igen</string>
+	<!-- download failed -->
+	<string name="download_failed">download mislykkedes</string>
+	<!-- get the map -->
+	<string name="get_the_map">Få kort</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Positionsbestemmelses-tilstand: Fra</string>
 </resources>

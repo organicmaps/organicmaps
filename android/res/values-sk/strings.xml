@@ -196,34 +196,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na obrazovke</string>
 	<!-- Search Suggestion -->
-	<string name="food">jedlo</string>
+	<string name="food">Jedlo</string>
 	<!-- Search Suggestion -->
-	<string name="transport">doprava</string>
+	<string name="transport">Doprava</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">čerpacia stanica</string>
+	<string name="fuel">Čerpacia stanica</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parkovisko</string>
+	<string name="parking">Parkovisko</string>
 	<!-- Search Suggestion -->
-	<string name="shop">obchod</string>
-	<string name="hotel">hotel</string>
+	<string name="shop">Obchod</string>
+	<string name="hotel">Hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">pamätihodnosť</string>
+	<string name="tourism">Pamätihodnosť</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">zábava</string>
+	<string name="entertainment">Zábava</string>
 	<!-- Search Suggestion -->
-	<string name="atm">bankomat</string>
+	<string name="atm">Bankomat</string>
 	<!-- Search Suggestion -->
-	<string name="bank">banka</string>
+	<string name="bank">Banka</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">lekáreň</string>
+	<string name="pharmacy">Lekáreň</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">nemocnica</string>
+	<string name="hospital">Nemocnica</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">záchody</string>
+	<string name="toilet">Záchody</string>
 	<!-- Search Suggestion -->
-	<string name="post">pošta</string>
+	<string name="post">Pošta</string>
 	<!-- Search Suggestion -->
-	<string name="police">polícia</string>
+	<string name="police">Polícia</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Žiadne výsledky</string>
 	<!-- Notes field in Bookmarks view -->
@@ -675,4 +675,28 @@
 	<string name="cuisine_tea">čaj</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">záložka</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Mapa vašej polohy nebola nájdená</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Prosím, povoľte Služby určovania polohy</string>
+	<!-- download map -->
+	<string name="download_map">Stiahnite si mapu miesta, kde sa práve nachádzate</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Stiahnite si mapu pre aktuálnu polohu na vašom iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">V blízkosti</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Vymazať špendlík</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Aktuálna lokácia nie je definovaná.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Sťahovanie krajiny vašej aktuálnej polohy</string>
+	<!-- try again -->
+	<string name="try_again">Skúsiť znova</string>
+	<!-- download failed -->
+	<string name="download_failed">Sťahovanie zlyhalo</string>
+	<!-- get the map -->
+	<string name="get_the_map">Stiahnuť mapu</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Režim zacieľovania polohy: vypnutý</string>
 </resources>

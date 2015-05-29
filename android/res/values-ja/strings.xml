@@ -669,4 +669,28 @@
 	<string name="cuisine_tea">紅茶</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">お気に入り</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">現在地の地図が見つかりません</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">位置情報サービスを有効化してください</string>
+	<!-- download map -->
+	<string name="download_map">あなたがいる場所のマップをダウンロードしよう</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">iPhoneに現在位置の地図をダウンロード</string>
+	<!-- clear pin -->
+	<string name="nearby">近くに</string>
+	<!-- clear pin -->
+	<string name="clear_pin">ピンをクリア</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">現在地が設定されていません。</string>
+	<!-- download country of your location -->
+	<string name="download_country">現在の地域をダウンロード</string>
+	<!-- try again -->
+	<string name="try_again">再実行</string>
+	<!-- download failed -->
+	<string name="download_failed">のダウンロードが失敗しました</string>
+	<!-- get the map -->
+	<string name="get_the_map">地図を入手</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">位置測位モード：オフ</string>
 </resources>

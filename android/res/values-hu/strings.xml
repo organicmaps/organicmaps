@@ -196,34 +196,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">A képernyőn</string>
 	<!-- Search Suggestion -->
-	<string name="food">élelmiszer</string>
+	<string name="food">Élelmiszer</string>
 	<!-- Search Suggestion -->
-	<string name="transport">közlekedés</string>
+	<string name="transport">Közlekedés</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">benzinkút</string>
+	<string name="fuel">Benzinkút</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parkoló</string>
+	<string name="parking">Parkoló</string>
 	<!-- Search Suggestion -->
-	<string name="shop">bolt</string>
-	<string name="hotel">szálloda</string>
+	<string name="shop">Bolt</string>
+	<string name="hotel">Szálloda</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">látnivaló</string>
+	<string name="tourism">Látnivaló</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">szórakozás</string>
+	<string name="entertainment">Szórakozás</string>
 	<!-- Search Suggestion -->
-	<string name="atm">pénzautomata</string>
+	<string name="atm">Pénzautomata</string>
 	<!-- Search Suggestion -->
-	<string name="bank">bank</string>
+	<string name="bank">Bank</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">gyógyszertár</string>
+	<string name="pharmacy">Gyógyszertár</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">kórház</string>
+	<string name="hospital">Kórház</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">mosdó</string>
+	<string name="toilet">Mosdó</string>
 	<!-- Search Suggestion -->
-	<string name="post">posta</string>
+	<string name="post">Posta</string>
 	<!-- Search Suggestion -->
-	<string name="police">rendőrség</string>
+	<string name="police">Rendőrség</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Nincs keresési találat</string>
 	<!-- Notes field in Bookmarks view -->
@@ -673,4 +673,28 @@
 	<string name="cuisine_tea">tea</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">könyvjelző</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">A helyszínéhez tartozó térképet letöltöttük</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást</string>
+	<!-- download map -->
+	<string name="download_map">Töltse le a térképet a helyszínéhez</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Töltse le a térképet iPhone-jára jelenlegi helyzetének meghatározásához</string>
+	<!-- clear pin -->
+	<string name="nearby">A közelben</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Pin törlése</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Nem meghatározott a jelenlegi helyszín.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Töltse le az aktuális helyzet országát</string>
+	<!-- try again -->
+	<string name="try_again">Újrapróbálkozás</string>
+	<!-- download failed -->
+	<string name="download_failed">letöltése sikertelen</string>
+	<!-- get the map -->
+	<string name="get_the_map">Térkép megszerzése</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Helypozicionáló mód: ki</string>
 </resources>

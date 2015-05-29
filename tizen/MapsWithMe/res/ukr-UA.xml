@@ -43,34 +43,34 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Використовувати милі чи кілометри</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FOOD">їжа</text>
+	<text id="IDS_FOOD">Їжа</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TRANSPORT">транспорт</text>
+	<text id="IDS_TRANSPORT">Транспорт</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FUEL">заправка</text>
+	<text id="IDS_FUEL">Заправка</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_PARKING">парковка</text>
+	<text id="IDS_PARKING">Парковка</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_SHOP">крамниця</text>
-	<text id="IDS_HOTEL">готель</text>
+	<text id="IDS_SHOP">Крамниця</text>
+	<text id="IDS_HOTEL">Готель</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TOURISM">пам’ятні місця</text>
+	<text id="IDS_TOURISM">Пам’ятні місця</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_ENTERTAINMENT">розваги</text>
+	<text id="IDS_ENTERTAINMENT">Розваги</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_ATM">банкомат</text>
+	<text id="IDS_ATM">Банкомат</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_BANK">банк</text>
+	<text id="IDS_BANK">Банк</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_PHARMACY">аптека</text>
+	<text id="IDS_PHARMACY">Аптека</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_HOSPITAL">лікарня</text>
+	<text id="IDS_HOSPITAL">Лікарня</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TOILET">туалет</text>
+	<text id="IDS_TOILET">Туалет</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_POST">пошта</text>
+	<text id="IDS_POST">Пошта</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_POLICE">міліція</text>
+	<text id="IDS_POLICE">Міліція</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Результатів не знайдено</text>
 	<!-- resource for context menu -->

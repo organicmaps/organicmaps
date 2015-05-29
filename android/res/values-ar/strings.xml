@@ -676,4 +676,26 @@
 	<string name="cuisine_tea">شاي</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">إشارة مرجعية</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">الخريطة الخاصة بالمكان الذي تتواجد فيه لا يتم تنزيلها</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">الرجاء تفعيل خدمة تحديد المواقع</string>
+	<!-- download map -->
+	<string name="download_map">قم بتنزيل الخريطة الخاصة بموقعك</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">قم بتنزيل خريطة الموقع الحالي على جهاز آيفون الخاص بك</string>
+	<!-- clear pin -->
+	<string name="nearby">قريب</string>
+	<!-- clear pin -->
+	<string name="clear_pin">مسح الرقم السري</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">الموقع الحالي غير مُعَرّف</string>
+	<!-- download country of your location -->
+	<string name="download_country">تنزيل دولة موقعك الحالي</string>
+	<!-- try again -->
+	<string name="try_again">محاولة مرة أخرى</string>
+	<!-- download failed -->
+	<string name="download_failed">فشلت عملية تنزيل</string>
+	<!-- get the map -->
+	<string name="get_the_map">احصل على الخريطة</string>
 </resources>

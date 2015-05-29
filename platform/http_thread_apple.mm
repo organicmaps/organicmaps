@@ -25,7 +25,6 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   [m_connection cancel];
   [m_connection release];
 #ifdef OMIM_OS_IPHONE
-  [downloadIndicator enableStandby];
   [downloadIndicator disableDownloadIndicator];
 #endif
   [super dealloc];
@@ -84,7 +83,6 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
 	}
 
 #ifdef OMIM_OS_IPHONE
-  [downloadIndicator disableStandby];
   [downloadIndicator enableDownloadIndicator];
 #endif
 

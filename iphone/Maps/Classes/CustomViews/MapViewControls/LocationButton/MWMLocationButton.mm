@@ -8,14 +8,16 @@
 
 #import "MWMLocationButton.h"
 #import "MWMLocationButtonView.h"
+#import "MWMLocationButtonStatusLabel.h"
 
 #include "Framework.h"
 
-static NSString * const kMWMLocationButtonViewNibName = @"MWMLocationButtonView";
+static NSString * const kMWMLocationButtonViewNibName = @"MWMLocationButton";
 
 @interface MWMLocationButton()
 
 @property (nonatomic) IBOutlet MWMLocationButtonView * button;
+@property (nonatomic) IBOutlet MWMLocationButtonStatusLabel * statusLabel;
 
 @end
 
@@ -28,6 +30,7 @@ static NSString * const kMWMLocationButtonViewNibName = @"MWMLocationButtonView"
   {
     [[NSBundle mainBundle] loadNibNamed:kMWMLocationButtonViewNibName owner:self options:nil];
     [view addSubview:self.button];
+    [view addSubview:self.statusLabel];
     [self configLocationListener];
   }
   return self;
@@ -45,6 +48,8 @@ static NSString * const kMWMLocationButtonViewNibName = @"MWMLocationButtonView"
 - (void)onLocationStateModeChanged:(location::State::Mode)state
 {
   self.button.locationState = state;
+  if (state == location::State::Mode::UnknownPosition)
+    [self.statusLabel show];
 }
 
 - (IBAction)buttonPressed:(id)sender

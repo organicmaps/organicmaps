@@ -674,4 +674,28 @@
 	<string name="cuisine_tea">ชา</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">บุ๊กมาร์ก</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">ไม่พบแผนที่ของตำแหน่งของคุณ</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
+	<!-- download map -->
+	<string name="download_map">ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">ดาวน์โหลดแผนที่สำหรับตำแหน่งปัจจุบันบน iPhone ของคุณ</string>
+	<!-- clear pin -->
+	<string name="nearby">ใกล้เคียง</string>
+	<!-- clear pin -->
+	<string name="clear_pin">ล้างปักหมุด</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">ไม่มีการกำหนดสถานที่ปัจจุบัน</string>
+	<!-- download country of your location -->
+	<string name="download_country">ดาวน์โหลด ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ</string>
+	<!-- try again -->
+	<string name="try_again">ลองอีกครั้ง</string>
+	<!-- download failed -->
+	<string name="download_failed">การดาวน์โหลด  ล้มเหลว</string>
+	<!-- get the map -->
+	<string name="get_the_map">รับแผนที่</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">โหมดการวางตำแหน่งที่ตั้ง: ปิด</string>
 </resources>

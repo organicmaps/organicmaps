@@ -658,4 +658,28 @@
 	<string name="cuisine_tea">茶</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">書籤</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">您地點的地圖沒有被下載</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">請啟動位置服務</string>
+	<!-- download map -->
+	<string name="download_map">為您的地點下載地圖</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">在您的iPhone上下載當前位置的地圖</string>
+	<!-- clear pin -->
+	<string name="nearby">附近的</string>
+	<!-- clear pin -->
+	<string name="clear_pin">清除針</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">當前地點未定。</string>
+	<!-- download country of your location -->
+	<string name="download_country">下載您目前所在位置的國家 地圖</string>
+	<!-- try again -->
+	<string name="try_again">再試一次</string>
+	<!-- download failed -->
+	<string name="download_failed">下載失敗</string>
+	<!-- get the map -->
+	<string name="get_the_map">獲取地圖</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">位置定位模式：關</string>
 </resources>

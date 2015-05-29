@@ -677,7 +677,7 @@
 "routing_failed_cross_mwm_building" = "Routes can only be created that are fully contained within a single map.";
 
 /* RouteNotFound */
-"routing_failed_route_not_found" = "There is no route found between the selected origin and destination.Please select a different start or end point.";
+"routing_failed_route_not_found" = "There is no route found between the selected origin and destination. Please select a different start or end point.";
 
 /* InternalError */
 "routing_failed_internal_error" = "Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.";
@@ -1077,3 +1077,6 @@
 
 /* get the map */
 "get_the_map" = "Get the map";
+
+/* location mode off */
+"location_mode_off" = "Location positioning mode: off";

@@ -206,7 +206,7 @@
 	<!-- Search Suggestion -->
 	<string name="entertainment">엔터테인먼트</string>
 	<!-- Search Suggestion -->
-	<string name="atm">atm</string>
+	<string name="atm">ATM</string>
 	<!-- Search Suggestion -->
 	<string name="bank">은행</string>
 	<!-- Search Suggestion -->
@@ -660,4 +660,28 @@
 	<string name="cuisine_tea">차</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">북마크</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">위치에 대한 지도가 다운로드되지 않음</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">위치 서비스를 작동시켜 주십시요.</string>
+	<!-- download map -->
+	<string name="download_map">위치에 대한 지도 다운로드</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">아이폰에서 현재 위치의 지도 다운로드</string>
+	<!-- clear pin -->
+	<string name="nearby">근처에</string>
+	<!-- clear pin -->
+	<string name="clear_pin">핀 지우기</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">현재 위치는 정의되지 않습니다.</string>
+	<!-- download country of your location -->
+	<string name="download_country">귀하께서 현재 계신 국가인 을(를) 다운로드</string>
+	<!-- try again -->
+	<string name="try_again">다시 시도</string>
+	<!-- download failed -->
+	<string name="download_failed">다운로드가 실패했습니다</string>
+	<!-- get the map -->
+	<string name="get_the_map">지도 가져오기</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">위치 지정 모드 : 끄기</string>
 </resources>

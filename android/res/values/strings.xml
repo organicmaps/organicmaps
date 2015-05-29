@@ -202,34 +202,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">On the Screen</string>
 	<!-- Search Suggestion -->
-	<string name="food">food</string>
+	<string name="food">Food</string>
 	<!-- Search Suggestion -->
-	<string name="transport">transport</string>
+	<string name="transport">Transport</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">gas</string>
+	<string name="fuel">Gas</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parking</string>
+	<string name="parking">Parking</string>
 	<!-- Search Suggestion -->
-	<string name="shop">shop</string>
-	<string name="hotel">hotel</string>
+	<string name="shop">Shop</string>
+	<string name="hotel">Hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">sights</string>
+	<string name="tourism">Sights</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">entertainment</string>
+	<string name="entertainment">Entertainment</string>
 	<!-- Search Suggestion -->
-	<string name="atm">atm</string>
+	<string name="atm">ATM</string>
 	<!-- Search Suggestion -->
-	<string name="bank">bank</string>
+	<string name="bank">Bank</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">pharmacy</string>
+	<string name="pharmacy">Pharmacy</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">hospital</string>
+	<string name="hospital">Hospital</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">toilet</string>
+	<string name="toilet">Toilet</string>
 	<!-- Search Suggestion -->
-	<string name="post">post</string>
+	<string name="post">Post</string>
 	<!-- Search Suggestion -->
-	<string name="police">police</string>
+	<string name="police">Police</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">No results found</string>
 	<!-- Notes field in Bookmarks view -->
@@ -685,4 +685,28 @@
 	<string name="cuisine_tea">tea</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">bookmark</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">The map for your location is not downloaded</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Please enable Location Services</string>
+	<!-- download map -->
+	<string name="download_map">Download the map for your location</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Download a current location map on your iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">Nearby</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Clear Pin</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Current location is undefined.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Download the country of your current location</string>
+	<!-- try again -->
+	<string name="try_again">Try Again</string>
+	<!-- download failed -->
+	<string name="download_failed">download has failed</string>
+	<!-- get the map -->
+	<string name="get_the_map">Get the map</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Location positioning mode: off</string>
 </resources>

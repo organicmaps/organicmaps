@@ -41,34 +41,34 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Vyber si míle nebo kilometry</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FOOD">jídlo</text>
+	<text id="IDS_FOOD">Jídlo</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TRANSPORT">doprava</text>
+	<text id="IDS_TRANSPORT">Doprava</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FUEL">čerpací stanice</text>
+	<text id="IDS_FUEL">Čerpací stanice</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_PARKING">parkoviště</text>
+	<text id="IDS_PARKING">Parkoviště</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_SHOP">obchod</text>
-	<text id="IDS_HOTEL">hotel</text>
+	<text id="IDS_SHOP">Obchod</text>
+	<text id="IDS_HOTEL">Hotel</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TOURISM">pamětihodnost</text>
+	<text id="IDS_TOURISM">Pamětihodnost</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_ENTERTAINMENT">zábava</text>
+	<text id="IDS_ENTERTAINMENT">Zábava</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_ATM">bankomat</text>
+	<text id="IDS_ATM">Bankomat</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_BANK">banka</text>
+	<text id="IDS_BANK">Banka</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_PHARMACY">lékárna</text>
+	<text id="IDS_PHARMACY">Lékárna</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_HOSPITAL">nemocnice</text>
+	<text id="IDS_HOSPITAL">Nemocnice</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TOILET">záchody</text>
+	<text id="IDS_TOILET">Záchody</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_POST">pošta</text>
+	<text id="IDS_POST">Pošta</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_POLICE">policie</text>
+	<text id="IDS_POLICE">Policie</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Žádné výsledky</text>
 	<!-- resource for context menu -->

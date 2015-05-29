@@ -192,34 +192,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Nella schermata</string>
 	<!-- Search Suggestion -->
-	<string name="food">mangiare</string>
+	<string name="food">Mangiare</string>
 	<!-- Search Suggestion -->
-	<string name="transport">transporto</string>
+	<string name="transport">Transporto</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">stazione di rifornimento</string>
+	<string name="fuel">Stazione di rifornimento</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parcheggio</string>
+	<string name="parking">Parcheggio</string>
 	<!-- Search Suggestion -->
-	<string name="shop">negozio</string>
-	<string name="hotel">hôtel</string>
+	<string name="shop">Negozio</string>
+	<string name="hotel">Hôtel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">turistico</string>
+	<string name="tourism">Turistico</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">divertimento</string>
+	<string name="entertainment">Divertimento</string>
 	<!-- Search Suggestion -->
-	<string name="atm">bancomat</string>
+	<string name="atm">Bancomat</string>
 	<!-- Search Suggestion -->
-	<string name="bank">banca</string>
+	<string name="bank">Banca</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">farmacia</string>
+	<string name="pharmacy">Farmacia</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">ospedale</string>
+	<string name="hospital">Ospedale</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">toilette</string>
+	<string name="toilet">Toilette</string>
 	<!-- Search Suggestion -->
-	<string name="post">posta</string>
+	<string name="post">Posta</string>
 	<!-- Search Suggestion -->
-	<string name="police">posto di polizia</string>
+	<string name="police">Posto di polizia</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Nessun risultato trovato</string>
 	<!-- Notes field in Bookmarks view -->
@@ -669,4 +669,28 @@
 	<string name="cuisine_tea">tè</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">segnalibro</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">La mappa del tuo posto non è stata trovata</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Cortesemente abilita i servizi di localizzazione</string>
+	<!-- download map -->
+	<string name="download_map">Scarica la mappa per il tuo paese</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Scarica la mappa per la tua posizione corrente sul tuo iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">Nelle vicinanze</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Annulla pin</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">La posizione attuale non è definita.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Scarica il paese della tua posizione attuale</string>
+	<!-- try again -->
+	<string name="try_again">Riprova</string>
+	<!-- download failed -->
+	<string name="download_failed">Il trasferimento di non è riuscito</string>
+	<!-- get the map -->
+	<string name="get_the_map">Scarica la mappa</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Modalità posizionamento luogo: off</string>
 </resources>

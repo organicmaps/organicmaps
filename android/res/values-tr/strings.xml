@@ -199,34 +199,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Ekranda</string>
 	<!-- Search Suggestion -->
-	<string name="food">yemek</string>
+	<string name="food">Yemek</string>
 	<!-- Search Suggestion -->
-	<string name="transport">ulaşım</string>
+	<string name="transport">Ulaşım</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">benzin</string>
+	<string name="fuel">Benzin</string>
 	<!-- Search Suggestion -->
-	<string name="parking">otopark</string>
+	<string name="parking">Otopark</string>
 	<!-- Search Suggestion -->
-	<string name="shop">mağaza</string>
-	<string name="hotel">otel</string>
+	<string name="shop">Mağaza</string>
+	<string name="hotel">Otel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">görülecek yerler</string>
+	<string name="tourism">Görülecek yerler</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">eğlence</string>
+	<string name="entertainment">Eğlence</string>
 	<!-- Search Suggestion -->
-	<string name="atm">bankamatik</string>
+	<string name="atm">Bankamatik</string>
 	<!-- Search Suggestion -->
-	<string name="bank">banka</string>
+	<string name="bank">Banka</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">eczane</string>
+	<string name="pharmacy">Eczane</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">hastane</string>
+	<string name="hospital">Hastane</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">tuvalet</string>
+	<string name="toilet">Tuvalet</string>
 	<!-- Search Suggestion -->
-	<string name="post">posta</string>
+	<string name="post">Posta</string>
 	<!-- Search Suggestion -->
-	<string name="police">polis</string>
+	<string name="police">Polis</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Sonuç bulunamadı</string>
 	<!-- Notes field in Bookmarks view -->
@@ -676,4 +676,28 @@
 	<string name="cuisine_tea">çay</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">yer i̇mi</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Konum haritası bulunamadı</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Lütfen Yer Hizmetlerini etkinleştirin</string>
+	<!-- download map -->
+	<string name="download_map">Konumunuz için haritayı indirin</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Mevcut konum için iPhone\&#39;nunuza haritayı indirin</string>
+	<!-- clear pin -->
+	<string name="nearby">Yakında</string>
+	<!-- clear pin -->
+	<string name="clear_pin">İğneyi Temizle</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Geçerli konum tanımlı değil.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Geçerli konumuzun ülkesini indirin</string>
+	<!-- try again -->
+	<string name="try_again">Tekrar Deneyin</string>
+	<!-- download failed -->
+	<string name="download_failed">indirme işlemi başarısız oldu</string>
+	<!-- get the map -->
+	<string name="get_the_map">Harita alın</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Konum ayarlama modu: kapalı</string>
 </resources>

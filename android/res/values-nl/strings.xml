@@ -189,34 +189,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Op het scherm</string>
 	<!-- Search Suggestion -->
-	<string name="food">eten</string>
+	<string name="food">Eten</string>
 	<!-- Search Suggestion -->
-	<string name="transport">transport</string>
+	<string name="transport">Transport</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">benzine</string>
+	<string name="fuel">Benzine</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parkeerplaats</string>
+	<string name="parking">Parkeerplaats</string>
 	<!-- Search Suggestion -->
-	<string name="shop">winkel</string>
-	<string name="hotel">hotel</string>
+	<string name="shop">Winkel</string>
+	<string name="hotel">Hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">toerisme</string>
+	<string name="tourism">Toerisme</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">uitgaan</string>
+	<string name="entertainment">Uitgaan</string>
 	<!-- Search Suggestion -->
-	<string name="atm">geldautomaat</string>
+	<string name="atm">Geldautomaat</string>
 	<!-- Search Suggestion -->
-	<string name="bank">bank</string>
+	<string name="bank">Bank</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">apotheek</string>
+	<string name="pharmacy">Apotheek</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">ziekenhuis</string>
+	<string name="hospital">Ziekenhuis</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">toilet</string>
+	<string name="toilet">Toilet</string>
 	<!-- Search Suggestion -->
-	<string name="post">post</string>
+	<string name="post">Post</string>
 	<!-- Search Suggestion -->
-	<string name="police">politie</string>
+	<string name="police">Politie</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Geen resultaten gevonden</string>
 	<!-- Notes field in Bookmarks view -->
@@ -662,4 +662,28 @@
 	<string name="cuisine_tea">thee</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">markeren</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">De kaart voor uw locatie is niet gedownload</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Schakel Locatie Services in</string>
+	<!-- download map -->
+	<string name="download_map">Download de kaart voor uw locatie</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Download de kaart van uw huidige lokatie op uw iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">In de buurt</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Speld wissen</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Huidige locatie is niet gedefinieerd.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Download land waar je nu bent</string>
+	<!-- try again -->
+	<string name="try_again">Probeer opnieuw</string>
+	<!-- download failed -->
+	<string name="download_failed">download is afgebroken</string>
+	<!-- get the map -->
+	<string name="get_the_map">Krijg kaart</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Modus locatie positioneren: uit</string>
 </resources>

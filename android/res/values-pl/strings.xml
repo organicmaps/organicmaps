@@ -196,34 +196,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na ekranie</string>
 	<!-- Search Suggestion -->
-	<string name="food">jedzenie</string>
+	<string name="food">Jedzenie</string>
 	<!-- Search Suggestion -->
-	<string name="transport">transport</string>
+	<string name="transport">Transport</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">stacja benzynowa</string>
+	<string name="fuel">Stacja benzynowa</string>
 	<!-- Search Suggestion -->
-	<string name="parking">parking</string>
+	<string name="parking">Parking</string>
 	<!-- Search Suggestion -->
-	<string name="shop">sklep</string>
-	<string name="hotel">hotel</string>
+	<string name="shop">Sklep</string>
+	<string name="hotel">Hotel</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">osobliwości miasta</string>
+	<string name="tourism">Osobliwości miasta</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">rozrywka</string>
+	<string name="entertainment">Rozrywka</string>
 	<!-- Search Suggestion -->
-	<string name="atm">bankomat</string>
+	<string name="atm">Bankomat</string>
 	<!-- Search Suggestion -->
-	<string name="bank">bank</string>
+	<string name="bank">Bank</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">apteka</string>
+	<string name="pharmacy">Apteka</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">szpital</string>
+	<string name="hospital">Szpital</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">toaleta</string>
+	<string name="toilet">Toaleta</string>
 	<!-- Search Suggestion -->
-	<string name="post">poczta</string>
+	<string name="post">Poczta</string>
 	<!-- Search Suggestion -->
-	<string name="police">policja</string>
+	<string name="police">Policja</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Nie znaleziono</string>
 	<!-- Notes field in Bookmarks view -->
@@ -673,4 +673,28 @@
 	<string name="cuisine_tea">herbaciarnia</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">zakładka</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Nie znaleziono mapy Twojej lokalizacji</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Proszę włączyć usługi lokalizacji</string>
+	<!-- download map -->
+	<string name="download_map">Pobierz mapę dla swojej lokalizacji</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Pobierz na swojego iPhone\&#39;a mapę dla bieżącej lokalizacji</string>
+	<!-- clear pin -->
+	<string name="nearby">W pobliżu</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Wyczyść pinezkę</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Bieżąca lokalizacja nie została zdefiniowana.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Pobierz mapę kraju, w którym aktualnie przebywasz</string>
+	<!-- try again -->
+	<string name="try_again">Spróbuj ponownie</string>
+	<!-- download failed -->
+	<string name="download_failed">pobieranie nie powiodło się</string>
+	<!-- get the map -->
+	<string name="get_the_map">Pobierz mapę</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Tryb umiejscawiania lokalizacji: wył.</string>
 </resources>

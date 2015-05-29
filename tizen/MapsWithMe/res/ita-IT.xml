@@ -41,34 +41,34 @@
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Scegli tra miglia e chilometri</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FOOD">mangiare</text>
+	<text id="IDS_FOOD">Mangiare</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TRANSPORT">transporto</text>
+	<text id="IDS_TRANSPORT">Transporto</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_FUEL">stazione di rifornimento</text>
+	<text id="IDS_FUEL">Stazione di rifornimento</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_PARKING">parcheggio</text>
+	<text id="IDS_PARKING">Parcheggio</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_SHOP">negozio</text>
-	<text id="IDS_HOTEL">hôtel</text>
+	<text id="IDS_SHOP">Negozio</text>
+	<text id="IDS_HOTEL">Hôtel</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TOURISM">turistico</text>
+	<text id="IDS_TOURISM">Turistico</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_ENTERTAINMENT">divertimento</text>
+	<text id="IDS_ENTERTAINMENT">Divertimento</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_ATM">bancomat</text>
+	<text id="IDS_ATM">Bancomat</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_BANK">banca</text>
+	<text id="IDS_BANK">Banca</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_PHARMACY">farmacia</text>
+	<text id="IDS_PHARMACY">Farmacia</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_HOSPITAL">ospedale</text>
+	<text id="IDS_HOSPITAL">Ospedale</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_TOILET">toilette</text>
+	<text id="IDS_TOILET">Toilette</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_POST">posta</text>
+	<text id="IDS_POST">Posta</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_POLICE">posto di polizia</text>
+	<text id="IDS_POLICE">Posto di polizia</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Nessun risultato trovato</text>
 	<!-- resource for context menu -->

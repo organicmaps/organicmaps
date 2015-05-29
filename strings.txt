@@ -10212,3 +10212,28 @@
     da = Få kort
     tr = Harita alın
     sv = Hämta karta
+
+  [location_mode_off]
+    tags = android, ios
+    comment = location mode off
+    en = Location positioning mode: off
+    cs = Režim zjišťování pozice: vypnut
+    sk = Režim zacieľovania polohy: vypnutý
+    de = Standortpositionierungsmodus: Aus
+    es = Modo posicionamiento de ubicación: desactivado
+    fr = Mode positionnement de l'emplacement : désactivé
+    it = Modalità posizionamento luogo: off
+    ja = 位置測位モード：オフ
+    ko = 위치 지정 모드 : 끄기
+    nl = Modus locatie positioneren: uit
+    ru = Режим определения местоположения: выкл
+    uk = Режим "Місце розташування": викл
+    zh-Hant = 位置定位模式：關
+    pl = Tryb umiejscawiania lokalizacji: wył.
+    pt = Localização do modo de posicionamento: desligado
+    hu = Helypozicionáló mód: ki
+    th = โหมดการวางตำแหน่งที่ตั้ง: ปิด
+    zh-Hans = 位置定位模式：关
+    sv= Platspositioneringsläge: av 
+    tr = Konum ayarlama modu: kapalı
+    da = Positionsbestemmelses-tilstand: Fra

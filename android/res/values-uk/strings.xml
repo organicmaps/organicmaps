@@ -200,34 +200,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На екрані</string>
 	<!-- Search Suggestion -->
-	<string name="food">їжа</string>
+	<string name="food">Їжа</string>
 	<!-- Search Suggestion -->
-	<string name="transport">транспорт</string>
+	<string name="transport">Транспорт</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">заправка</string>
+	<string name="fuel">Заправка</string>
 	<!-- Search Suggestion -->
-	<string name="parking">парковка</string>
+	<string name="parking">Парковка</string>
 	<!-- Search Suggestion -->
-	<string name="shop">крамниця</string>
-	<string name="hotel">готель</string>
+	<string name="shop">Крамниця</string>
+	<string name="hotel">Готель</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">пам’ятні місця</string>
+	<string name="tourism">Пам’ятні місця</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">розваги</string>
+	<string name="entertainment">Розваги</string>
 	<!-- Search Suggestion -->
-	<string name="atm">банкомат</string>
+	<string name="atm">Банкомат</string>
 	<!-- Search Suggestion -->
-	<string name="bank">банк</string>
+	<string name="bank">Банк</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">аптека</string>
+	<string name="pharmacy">Аптека</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">лікарня</string>
+	<string name="hospital">Лікарня</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">туалет</string>
+	<string name="toilet">Туалет</string>
 	<!-- Search Suggestion -->
-	<string name="post">пошта</string>
+	<string name="post">Пошта</string>
 	<!-- Search Suggestion -->
-	<string name="police">міліція</string>
+	<string name="police">Міліція</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Результатів не знайдено</string>
 	<!-- Notes field in Bookmarks view -->
@@ -677,4 +677,28 @@
 	<string name="cuisine_tea">чайна</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">мітка</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Карту місця, де ви знаходитеся, не завантажено</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Будь ласка, увімкніть геолокацію</string>
+	<!-- download map -->
+	<string name="download_map">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Завантажити карту вашого місця розташування на iPhone</string>
+	<!-- clear pin -->
+	<string name="nearby">Поруч</string>
+	<!-- clear pin -->
+	<string name="clear_pin">Очисти мітку</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Не визначено поточне місцезнаходження.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Завантажити країну вашого місця розташування</string>
+	<!-- try again -->
+	<string name="try_again">Спробуйте ще раз</string>
+	<!-- download failed -->
+	<string name="download_failed">Не вдалося завантажити</string>
+	<!-- get the map -->
+	<string name="get_the_map">Отримати карту</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Режим \&quot;Місце розташування\&quot;: викл</string>
 </resources>

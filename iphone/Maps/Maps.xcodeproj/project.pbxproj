@@ -37,7 +37,7 @@
 		34A743001AE5468200CE15EB /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34A742FF1AE5468200CE15EB /* storage.cpp */; };
 		34BC72211B0DECAE0012A34B /* MWMLocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC720C1B0DECAE0012A34B /* MWMLocationButton.mm */; };
 		34BC72221B0DECAE0012A34B /* MWMLocationButtonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC720E1B0DECAE0012A34B /* MWMLocationButtonView.mm */; };
-		34BC72231B0DECAE0012A34B /* MWMLocationButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BC720F1B0DECAE0012A34B /* MWMLocationButtonView.xib */; };
+		34BC72231B0DECAE0012A34B /* MWMLocationButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BC720F1B0DECAE0012A34B /* MWMLocationButton.xib */; };
 		34BC72241B0DECAE0012A34B /* MWMMapViewControlsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */; };
 		34BC72251B0DECAE0012A34B /* MWMSideMenuButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72151B0DECAE0012A34B /* MWMSideMenuButton.mm */; };
 		34BC72261B0DECAE0012A34B /* MWMSideMenuManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34BC72171B0DECAE0012A34B /* MWMSideMenuManager.mm */; };
@@ -47,6 +47,7 @@
 		34BC722A1B0DECAE0012A34B /* MWMZoomButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BC721F1B0DECAE0012A34B /* MWMZoomButtonsView.m */; };
 		34BC722B1B0DECAE0012A34B /* MWMZoomButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */; };
 		34DF4D111AE77B9F0012702D /* MWMWKInterfaceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */; };
+		34F209691B18BCEE005744D6 /* MWMLocationButtonStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F209681B18BCEE005744D6 /* MWMLocationButtonStatusLabel.m */; };
 		45159BF91B0CA2D5009BFA85 /* resources-6plus in Resources */ = {isa = PBXBuildFile; fileRef = 45159BF81B0CA2D5009BFA85 /* resources-6plus */; };
 		454040621AD2D75E007A9B12 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		454040631AD2D83A007A9B12 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
@@ -345,7 +346,7 @@
 		34BC720C1B0DECAE0012A34B /* MWMLocationButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationButton.mm; sourceTree = "<group>"; };
 		34BC720D1B0DECAE0012A34B /* MWMLocationButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationButtonView.h; sourceTree = "<group>"; };
 		34BC720E1B0DECAE0012A34B /* MWMLocationButtonView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMLocationButtonView.mm; sourceTree = "<group>"; };
-		34BC720F1B0DECAE0012A34B /* MWMLocationButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMLocationButtonView.xib; sourceTree = "<group>"; };
+		34BC720F1B0DECAE0012A34B /* MWMLocationButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMLocationButton.xib; sourceTree = "<group>"; };
 		34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewControlsManager.h; sourceTree = "<group>"; };
 		34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapViewControlsManager.mm; sourceTree = "<group>"; };
 		34BC72131B0DECAE0012A34B /* MWMMapViewControlsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapViewControlsCommon.h; sourceTree = "<group>"; };
@@ -363,6 +364,8 @@
 		34BC72201B0DECAE0012A34B /* MWMZoomButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMZoomButtonsView.xib; sourceTree = "<group>"; };
 		34DF4D0F1AE77B9F0012702D /* MWMWKInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMWKInterfaceController.h; sourceTree = "<group>"; };
 		34DF4D101AE77B9F0012702D /* MWMWKInterfaceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMWKInterfaceController.mm; sourceTree = "<group>"; };
+		34F209671B18BCEE005744D6 /* MWMLocationButtonStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationButtonStatusLabel.h; sourceTree = "<group>"; };
+		34F209681B18BCEE005744D6 /* MWMLocationButtonStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMLocationButtonStatusLabel.m; sourceTree = "<group>"; };
 		3D443C9C19E421EE0025C2FC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45159BF81B0CA2D5009BFA85 /* resources-6plus */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus"; path = "../../data/resources-6plus"; sourceTree = "<group>"; };
 		454040681AD2D8D2007A9B12 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -983,9 +986,11 @@
 			children = (
 				34BC720B1B0DECAE0012A34B /* MWMLocationButton.h */,
 				34BC720C1B0DECAE0012A34B /* MWMLocationButton.mm */,
+				34BC720F1B0DECAE0012A34B /* MWMLocationButton.xib */,
 				34BC720D1B0DECAE0012A34B /* MWMLocationButtonView.h */,
 				34BC720E1B0DECAE0012A34B /* MWMLocationButtonView.mm */,
-				34BC720F1B0DECAE0012A34B /* MWMLocationButtonView.xib */,
+				34F209671B18BCEE005744D6 /* MWMLocationButtonStatusLabel.h */,
+				34F209681B18BCEE005744D6 /* MWMLocationButtonStatusLabel.m */,
 			);
 			path = LocationButton;
 			sourceTree = "<group>";
@@ -1740,7 +1745,7 @@
 				F7E7BA221672328F00B4492E /* atm.png in Resources */,
 				F7E7BA231672328F00B4492E /* atm@2x.png in Resources */,
 				F7E7BA241672328F00B4492E /* bank.png in Resources */,
-				34BC72231B0DECAE0012A34B /* MWMLocationButtonView.xib in Resources */,
+				34BC72231B0DECAE0012A34B /* MWMLocationButton.xib in Resources */,
 				F7E7BA251672328F00B4492E /* bank@2x.png in Resources */,
 				F7E7BA261672328F00B4492E /* entertainment.png in Resources */,
 				F7E7BA271672328F00B4492E /* entertainment@2x.png in Resources */,
@@ -1873,6 +1878,7 @@
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
 				F61579341AC2CE9A0032D8E9 /* MWMRateAlert.mm in Sources */,
+				34F209691B18BCEE005744D6 /* MWMLocationButtonStatusLabel.m in Sources */,
 				A3CC2CD41A1C723900B832E1 /* LocationPredictor.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				6C93FAEC1AD8063900A2C4AE /* MWMWatchNotification.m in Sources */,

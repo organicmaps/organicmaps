@@ -677,7 +677,7 @@
 "routing_failed_cross_mwm_building" = "Les itinéraires entièrement contenus sur une seule carte peuvent être créés.";
 
 /* RouteNotFound */
-"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisies . Veuillez sélectionner un point de départ ou d'arrivée différent.";
+"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisies. Veuillez sélectionner un point de départ ou d'arrivée différent.";
 
 /* InternalError */
 "routing_failed_internal_error" = "Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.";
@@ -1077,3 +1077,6 @@
 
 /* get the map */
 "get_the_map" = "Téléchargez des cartes";
+
+/* location mode off */
+"location_mode_off" = "Mode positionnement de l'emplacement : désactivé";

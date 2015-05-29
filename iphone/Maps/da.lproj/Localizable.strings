@@ -674,7 +674,7 @@
 "routing_failed_dst_point_not_found" = "Kan ikke beregne ruten. Ingen veje nær din destination.";
 
 /* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort";
+"routing_failed_cross_mwm_building" = "Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort.";
 
 /* RouteNotFound */
 "routing_failed_route_not_found" = "Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.";
@@ -1077,3 +1077,6 @@
 
 /* get the map */
 "get_the_map" = "Få kort";
+
+/* location mode off */
+"location_mode_off" = "Positionsbestemmelses-tilstand: Fra";

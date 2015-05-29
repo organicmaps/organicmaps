@@ -200,34 +200,34 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На экране</string>
 	<!-- Search Suggestion -->
-	<string name="food">еда</string>
+	<string name="food">Еда</string>
 	<!-- Search Suggestion -->
-	<string name="transport">транспорт</string>
+	<string name="transport">Транспорт</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">заправка</string>
+	<string name="fuel">Заправка</string>
 	<!-- Search Suggestion -->
-	<string name="parking">парковка</string>
+	<string name="parking">Парковка</string>
 	<!-- Search Suggestion -->
-	<string name="shop">магазин</string>
-	<string name="hotel">гостиница</string>
+	<string name="shop">Магазин</string>
+	<string name="hotel">Гостиница</string>
 	<!-- Search Suggestion -->
-	<string name="tourism">достопримечательность</string>
+	<string name="tourism">Достопримечательность</string>
 	<!-- Search Suggestion -->
-	<string name="entertainment">развлечения</string>
+	<string name="entertainment">Развлечения</string>
 	<!-- Search Suggestion -->
-	<string name="atm">банкомат</string>
+	<string name="atm">Банкомат</string>
 	<!-- Search Suggestion -->
-	<string name="bank">банк</string>
+	<string name="bank">Банк</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">аптека</string>
+	<string name="pharmacy">Аптека</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">больница</string>
+	<string name="hospital">Больница</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">туалет</string>
+	<string name="toilet">Туалет</string>
 	<!-- Search Suggestion -->
-	<string name="post">почта</string>
+	<string name="post">Почта</string>
 	<!-- Search Suggestion -->
-	<string name="police">полиция</string>
+	<string name="police">Полиция</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Нет результатов поиска</string>
 	<!-- Notes field in Bookmarks view -->
@@ -683,4 +683,28 @@
 	<string name="cuisine_tea">чайная</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">метка</string>
+	<!-- map is not downloaded -->
+	<string name="not_found_map">Карта вашего местоположения не загружена</string>
+	<!-- location service disabled -->
+	<string name="enable_location_service">Пожалуйста, включите геолокацию</string>
+	<!-- download map -->
+	<string name="download_map">Скачайте карту места, где вы находитесь</string>
+	<!-- download map on iPhone -->
+	<string name="download_map_iphone">Скачайте на вашем iPhone карту места, где вы находитесь</string>
+	<!-- clear pin -->
+	<string name="nearby">поблизости</string>
+	<!-- clear pin -->
+	<string name="clear_pin">убрать метку</string>
+	<!-- location is undefined -->
+	<string name="undefined_location">Не определено текущее местоположение.</string>
+	<!-- download country of your location -->
+	<string name="download_country">Скачайте страну вашего местоположения</string>
+	<!-- try again -->
+	<string name="try_again">Попробуйте еще раз</string>
+	<!-- download failed -->
+	<string name="download_failed">Не удалось загрузить</string>
+	<!-- get the map -->
+	<string name="get_the_map">Загрузить карту</string>
+	<!-- location mode off -->
+	<string name="location_mode_off">Режим определения местоположения: выкл</string>
 </resources>
