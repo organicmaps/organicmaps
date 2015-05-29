@@ -6,6 +6,7 @@ namespace
 {
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
 double const kMwmCrossingNodeEqualityRadiusMeters = 1000.0;
+double constexpr kMediumSpeedMPS = 120.0 * 1000.0 / (60 * 60);
 }
 
 namespace routing
@@ -31,10 +32,10 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
     return IRouter::RouteNotFound;
 
   for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
-    targets.emplace_back(j->m_nodeId, false, startNode.mwmName);
+    targets.emplace_back(j->m_nodeId, false /* isStartNode */, startNode.mwmName);
   vector<EdgeWeight> weights;
 
-  sources[0] = FeatureGraphNode(startNode.node, true, startNode.mwmName);
+  sources[0] = FeatureGraphNode(startNode.node, true /* isStartNode */, startNode.mwmName);
   FindWeightsMatrix(sources, targets, startMapping->m_dataFacade, weights);
   if (find_if(weights.begin(), weights.end(), &IsValidEdgeWeight) == weights.end())
     return IRouter::StartPointNotFound;
@@ -72,14 +73,14 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
   if (!ingoingSize)
     return IRouter::RouteNotFound;
 
-  for (auto j = mwmIngoingIter.first; j < mwmIngoingIter.second; ++j)
-    sources.emplace_back(j->m_nodeId, true, finalNode.mwmName);
+  for (auto j = mwmIngoingIter.first; j != mwmIngoingIter.second; ++j)
+    sources.emplace_back(j->m_nodeId, true /* isStartNode */, finalNode.mwmName);
   vector<EdgeWeight> weights;
 
-  targets[0] = FeatureGraphNode(finalNode.node, false, finalNode.mwmName);
+  targets[0] = FeatureGraphNode(finalNode.node, false /* isStartNode */, finalNode.mwmName);
   FindWeightsMatrix(sources, targets, finalMapping->m_dataFacade, weights);
   if (find_if(weights.begin(), weights.end(), &IsValidEdgeWeight) == weights.end())
-    return IRouter::StartPointNotFound;
+    return IRouter::EndPointNotFound;
   for (size_t i = 0; i < ingoingSize; ++i)
   {
     if (IsValidEdgeWeight(weights[i]))
@@ -130,11 +131,7 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
   auto const it = m_virtualEdges.find(v.second);
   if (it != m_virtualEdges.end())
   {
-    for (auto const & a : it->second)
-    {
-      ASSERT(a.GetTarget().first.IsValid(), ());
-      adj.push_back(a);
-    }
+    adj.insert(adj.end(), it->second.begin(), it->second.end());
     return;
   }
 
@@ -149,13 +146,13 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
 
   // Find income node.
   auto iit = current_in_iterators.first;
-  while (iit < current_in_iterators.second)
+  while (iit != current_in_iterators.second)
   {
     if (iit->m_nodeId == v.second.node)
       break;
     ++iit;
   }
-  ASSERT(iit != current_in_iterators.second, ());
+  CHECK(iit != current_in_iterators.second, ());
   // Find outs. Generate adjacency list.
   for (auto oit = current_out_iterators.first; oit != current_out_iterators.second; ++oit)
   {
@@ -167,6 +164,11 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
         adj.emplace_back(target, outWeight);
     }
   }
+}
+
+double CrossMwmGraph::HeuristicCostEstimateImpl(const TCrossPair &v, const TCrossPair &w) const
+{
+  return ms::DistanceOnEarth(v.second.point.y, v.second.point.x, w.second.point.y, w.second.point.x) / kMediumSpeedMPS;
 }
 
 }  // namespace routing

@@ -120,7 +120,7 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & poi
 
 TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & fName)
 {
-  // Check if we have already load this file
+  // Check if we have already loaded this file
   auto mapIter = m_mapping.find(fName);
   if (mapIter != m_mapping.end())
     return mapIter->second;

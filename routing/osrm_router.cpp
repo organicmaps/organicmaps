@@ -41,7 +41,7 @@ namespace routing
 {
 
 size_t const MAX_NODE_CANDIDATES = 10;
-double const kFeatureFindingRectSideMeters = 1000.0;
+double const kFeatureFindingRectSideRadius = 1000.0;
 double const TIME_OVERHEAD = 1.;
 double const FEATURES_NEAR_TURN_M = 3.0;
 
@@ -377,7 +377,10 @@ public:
 
       CalculateOffsets(node);
     }
-
+    res.erase(remove_if(res.begin(),
+                        res.end(),
+                        [](FeatureGraphNode const & f) {return f.mwmName.empty();}),
+              res.end());
   }
 };
 
@@ -1051,7 +1054,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
   getter.SetPoint(point);
 
   m_pIndex->ForEachInRectForMWM(
-      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideMeters),
+      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideRadius),
       scales::GetUpperScale(), mapping->GetMwmId());
 
   if (!getter.HasCandidates())

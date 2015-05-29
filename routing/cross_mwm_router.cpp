@@ -6,7 +6,7 @@ namespace routing
 {
 using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
-/// Function to run AStar Algorythm from the base.
+/// Function to run AStar Algorithm from the base.
 IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const & finalPos,
                                    CrossMwmGraph const & roadGraph, vector<TCrossPair> & route,
                                    RoutingVisualizerFn const & routingVisualizer)

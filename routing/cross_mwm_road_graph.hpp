@@ -69,9 +69,8 @@ struct CrossWeightedEdge
   inline TCrossPair const & GetTarget() const { return target; }
   inline double GetWeight() const { return weight; }
 
-  CrossNode const source;
-  TCrossPair const target;
-  double const weight;
+  TCrossPair target;
+  double weight;
 };
 
 /// A graph representation for cross mwm routing
@@ -96,11 +95,7 @@ private:
     ASSERT(!"IMPL", ());
   }
 
-  double HeuristicCostEstimateImpl(TCrossPair const & v, TCrossPair const & w) const
-  {
-    // TODO return some average values
-    return 0.0;
-  }
+  double HeuristicCostEstimateImpl(TCrossPair const & v, TCrossPair const & w) const;
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;

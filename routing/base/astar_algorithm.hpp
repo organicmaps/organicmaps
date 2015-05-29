@@ -381,18 +381,16 @@ void AStarAlgorithm<TGraph>::ReconstructPath(TVertexType const & v,
                                              vector<TVertexType> & path)
 {
   path.clear();
-  vector<TVertexType> tmpPath;
   TVertexType cur = v;
   while (true)
   {
-    tmpPath.push_back(cur);
+    path.push_back(cur);
     auto it = parent.find(cur);
     if (it == parent.end())
       break;
     cur = it->second;
   }
-  // Reverse path to proper order.
-  path.assign(tmpPath.rbegin(), tmpPath.rend());
+  reverse(path.begin(), path.end());
 }
 
 // static
