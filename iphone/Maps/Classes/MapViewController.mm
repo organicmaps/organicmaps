@@ -206,13 +206,10 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 - (void)onLocationStateModeChanged:(location::State::Mode)newMode
 {
-  [UIApplication sharedApplication].idleTimerDisabled = NO;
-
   switch (newMode)
   {
     case location::State::UnknownPosition:
     {
-      [[MapsAppDelegate theApp] enableStandby];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
       
       PlacePageView * placePage = self.containerView.placePage;
@@ -224,15 +221,12 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
       break;
     }
     case location::State::PendingPosition:
-      [[MapsAppDelegate theApp] disableStandby];
       [[MapsAppDelegate theApp].m_locationManager start:self];
       [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
       break;
     case location::State::NotFollow:
     case location::State::Follow:
-      break;
     case location::State::RotateAndFollow:
-      [UIApplication sharedApplication].idleTimerDisabled = YES;
       break;
   }
 }
@@ -910,7 +904,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
 {
-  [UIApplication sharedApplication].idleTimerDisabled = YES;
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
   self.controlsManager.zoomHidden = NO;
   GetFramework().FollowRoute();
@@ -923,7 +916,6 @@ extern NSString * const kAlohalyticsTapEventKey = @"$onClick";
 
 - (void)dismissRouting
 {
-  [UIApplication sharedApplication].idleTimerDisabled = NO;
   GetFramework().CloseRouting();
   [self.controlsManager resetZoomButtonsVisibility];
   [self.routeView setState:RouteViewStateHidden animated:YES];

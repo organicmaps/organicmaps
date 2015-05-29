@@ -205,6 +205,8 @@ void InitLocalizedStrings()
     [self shouldShowFacebookAlert];
   }
   [[NSUserDefaults standardUserDefaults] synchronize];
+  
+  application.idleTimerDisabled = YES;
 
   Framework & f = GetFramework();
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
@@ -302,22 +304,6 @@ void InitLocalizedStrings()
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   // Global cleanup
   DeleteFramework();
-}
-
-- (void)disableStandby
-{
-  ++m_standbyCounter;
-  [UIApplication sharedApplication].idleTimerDisabled = YES;
-}
-
-- (void)enableStandby
-{
-  --m_standbyCounter;
-  if (m_standbyCounter <= 0)
-  {
-    [UIApplication sharedApplication].idleTimerDisabled = NO;
-    m_standbyCounter = 0;
-  }
 }
 
 - (void)disableDownloadIndicator

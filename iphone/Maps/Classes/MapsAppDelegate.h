@@ -11,7 +11,6 @@
 
 @interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate, ActiveMapsObserverProtocol, DownloadIndicatorProtocol>
 {
-  NSInteger m_standbyCounter;
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
   NavigationController * m_navController;
@@ -23,9 +22,6 @@
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;
-
-- (void)disableStandby;
-- (void)enableStandby;
 
 - (void)disableDownloadIndicator;
 - (void)enableDownloadIndicator;
