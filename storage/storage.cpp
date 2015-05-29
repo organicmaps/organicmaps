@@ -20,6 +20,7 @@
 #include "std/bind.hpp"
 #include "std/sstream.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace downloader;
 
@@ -468,7 +469,23 @@ namespace storage
     QueuedCountry & cnt = m_queue.front();
     TIndex const index = cnt.GetIndex();
 
-    if (request.Status() == HttpRequest::EFailed)
+    bool const downloadHasFailed = (request.Status() == HttpRequest::EFailed);
+    {
+      string optionName;
+      switch (cnt.GetInitOptions())
+      {
+      case TMapOptions::EMapOnly: optionName = "Map"; break;
+      case TMapOptions::ECarRouting: optionName = "CarRouting"; break;
+      case TMapOptions::EMapWithCarRouting: optionName = "MapWithCarRouting"; break;
+      }
+      alohalytics::LogEvent("$OnMapDownloadFinished",
+                            alohalytics::TStringMap({{"name", cnt.GetMapFileName()},
+                                                     {"status", downloadHasFailed ? "failed" : "ok"},
+                                                     {"version", strings::to_string(GetCurrentDataVersion())},
+                                                     {"option", optionName}}));
+    }
+
+    if (downloadHasFailed)
     {
       // add to failed countries set
       m_failedCountries.insert(index);
