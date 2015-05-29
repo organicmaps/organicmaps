@@ -141,20 +141,20 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
   currentMapping->LoadCrossContext();
 
   CrossRoutingContextReader const & currentContext = currentMapping->m_crossContext;
-  auto current_in_iterators = currentContext.GetIngoingIterators();
-  auto current_out_iterators = currentContext.GetOutgoingIterators();
+  auto inRange = currentContext.GetIngoingIterators();
+  auto outRange = currentContext.GetOutgoingIterators();
 
   // Find income node.
-  auto iit = current_in_iterators.first;
-  while (iit != current_in_iterators.second)
+  auto iit = inRange.first;
+  while (iit != inRange.second)
   {
     if (iit->m_nodeId == v.second.node)
       break;
     ++iit;
   }
-  CHECK(iit != current_in_iterators.second, ());
+  CHECK(iit != inRange.second, ());
   // Find outs. Generate adjacency list.
-  for (auto oit = current_out_iterators.first; oit != current_out_iterators.second; ++oit)
+  for (auto oit = outRange.first; oit != outRange.second; ++oit)
   {
     EdgeWeight const outWeight = currentContext.getAdjacencyCost(iit, oit);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
@@ -166,9 +166,10 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
   }
 }
 
-double CrossMwmGraph::HeuristicCostEstimateImpl(const TCrossPair &v, const TCrossPair &w) const
+double CrossMwmGraph::HeuristicCostEstimateImpl(TCrossPair const & v, TCrossPair const & w) const
 {
-  return ms::DistanceOnEarth(v.second.point.y, v.second.point.x, w.second.point.y, w.second.point.x) / kMediumSpeedMPS;
+  return ms::DistanceOnEarth(v.second.point.y, v.second.point.x,
+                             w.second.point.y, w.second.point.x) / kMediumSpeedMPS;
 }
 
 }  // namespace routing

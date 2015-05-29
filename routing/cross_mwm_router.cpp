@@ -14,15 +14,14 @@ IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const
   TAlgorithm m_algo;
   m_algo.SetGraph(roadGraph);
 
-  TAlgorithm::OnVisitedVertexCallback onVisitedVertexCallback = nullptr;
-  if (nullptr != routingVisualizer)
-    onVisitedVertexCallback = [routingVisualizer](TCrossPair const & cross)
+  TAlgorithm::OnVisitedVertexCallback onVisitedVertex = nullptr;
+  if (routingVisualizer)
+    onVisitedVertex = [&routingVisualizer](TCrossPair const & cross)
     {
       routingVisualizer(cross.first.point);
     };
 
-  TAlgorithm::Result const result =
-      m_algo.FindPath(startPos, finalPos, route, onVisitedVertexCallback);
+  TAlgorithm::Result const result =m_algo.FindPath(startPos, finalPos, route, onVisitedVertex);
   switch (result)
   {
     case TAlgorithm::Result::OK:
@@ -47,6 +46,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   FeatureGraphNode startGraphNode, finalGraphNode;
   CrossNode startNode, finalNode;
   IRouter::ResultCode code;
+
+  // Finding start node.
   for (FeatureGraphNode const & start : startGraphNodes)
   {
     startNode = CrossNode(start.node.forward_node_id, start.mwmName, start.segmentPoint);
@@ -59,6 +60,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   }
   if (code != IRouter::NoError)
     return IRouter::StartPointNotFound;
+
+  // Finding final node.
   for (FeatureGraphNode const & final : finalGraphNodes)
   {
     finalNode = CrossNode(final.node.reverse_node_id, final.mwmName, final.segmentPoint);
@@ -71,24 +74,28 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   }
   if (code != IRouter::NoError)
     return IRouter::EndPointNotFound;
+
+  // Finding path through maps.
   vector<TCrossPair> tempRoad;
   code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
                         routingVisualizer);
   if (code != IRouter::NoError)
     return code;
+
+  // Final path conversion to output type.
   for (size_t i = 0; i < tempRoad.size() - 1; ++i)
   {
     route.emplace_back(tempRoad[i].second.node, tempRoad[i + 1].first.node,
                        tempRoad[i].second.mwmName);
   }
+
   if (!route.empty())
   {
     route.front().startNode = startGraphNode;
     route.back().finalNode = finalGraphNode;
+    return IRouter::NoError;
   }
-  else
-    return IRouter::RouteNotFound;
-  return IRouter::NoError;
+  return IRouter::RouteNotFound;
 }
 
 }  // namespace routing

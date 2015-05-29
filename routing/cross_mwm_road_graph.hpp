@@ -26,12 +26,12 @@ struct CrossNode
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
 };
 
-bool operator==(CrossNode const & a, CrossNode const & b)
+inline bool operator==(CrossNode const & a, CrossNode const & b)
 {
   return a.node == b.node && a.mwmName == b.mwmName;
 }
 
-bool operator<(CrossNode const & a, CrossNode const & b)
+inline bool operator<(CrossNode const & a, CrossNode const & b)
 {
   if (a.node < b.node)
     return true;
@@ -50,9 +50,9 @@ inline string DebugPrint(CrossNode const & t)
 /// Representation of border crossing. Contains node on previous map and node on next map.
 using TCrossPair = pair<CrossNode, CrossNode>;
 
-bool operator==(TCrossPair const & a, TCrossPair const & b) { return a.first == b.first; }
+inline bool operator==(TCrossPair const & a, TCrossPair const & b) { return a.first == b.first; }
 
-bool operator<(TCrossPair const & a, TCrossPair const & b) { return a.first < b.first; }
+inline bool operator<(TCrossPair const & a, TCrossPair const & b) { return a.first < b.first; }
 
 inline string DebugPrint(TCrossPair const & t)
 {
@@ -62,13 +62,15 @@ inline string DebugPrint(TCrossPair const & t)
 }
 
 /// A class which represents an cross mwm weighted edge used by CrossMwmGraph.
-struct CrossWeightedEdge
+class CrossWeightedEdge
 {
-  CrossWeightedEdge(TCrossPair const & target, double weight) : target(target), weight(weight) {}
+public:
+  explicit CrossWeightedEdge(TCrossPair const & target, double weight) : target(target), weight(weight) {}
 
   inline TCrossPair const & GetTarget() const { return target; }
   inline double GetWeight() const { return weight; }
 
+private:
   TCrossPair target;
   double weight;
 };
@@ -77,7 +79,7 @@ struct CrossWeightedEdge
 class CrossMwmGraph : public Graph<TCrossPair, CrossWeightedEdge, CrossMwmGraph>
 {
 public:
-  CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
+  explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
 
   IRouter::ResultCode SetStartNode(CrossNode const & startNode);
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
