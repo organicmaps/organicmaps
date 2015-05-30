@@ -4,6 +4,7 @@ import android.graphics.Point;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// TODO consider removal and usage of platform PointF
 public class ParcelablePointD implements Parcelable
 {
   public double x;

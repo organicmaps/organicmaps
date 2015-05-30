@@ -11,7 +11,7 @@ public class Bookmark extends MapObject
 {
   private final Icon mIcon;
   private int mCategoryId;
-  private int mBookmark;
+  private int mBookmarkId;
   private double mMerX;
   private double mMerY;
 
@@ -20,7 +20,7 @@ public class Bookmark extends MapObject
     super(name, 0, 0, "");
 
     mCategoryId = categoryId;
-    mBookmark = bookmarkId;
+    mBookmarkId = bookmarkId;
     mName = name;
     mIcon = getIconInternal();
     getXY();
@@ -31,7 +31,7 @@ public class Bookmark extends MapObject
   {
     dest.writeString(getType().toString());
     dest.writeInt(mCategoryId);
-    dest.writeInt(mBookmark);
+    dest.writeInt(mBookmarkId);
     dest.writeString(mName);
   }
 
@@ -40,35 +40,33 @@ public class Bookmark extends MapObject
     this(source.readInt(), source.readInt(), source.readString());
   }
 
-  private native ParcelablePointD getXY(int c, long b);
+  private native ParcelablePointD getXY(int catId, long bookmarkId);
 
-  private native String getIcon(int c, long b);
+  private native String getIcon(int catId, long bookmarkId);
 
-  private native double getScale(int category, long bookmark);
+  private native double getScale(int catId, long bookmarkId);
 
-  private native String encode2Ge0Url(int category, long bookmark, boolean addName);
+  private native String encode2Ge0Url(int catId, long bookmarkId, boolean addName);
 
-  private native void setBookmarkParams(int c, long b, String name, String type, String descr);
+  private native void setBookmarkParams(int catId, long bookmarkId, String name, String type, String descr);
 
-  private native int changeCategory(int oldCat, int newCat, long bmk);
+  private native int changeCategory(int oldCatId, int newCatId, long bookmarkId);
 
-  private native String getBookmarkDescription(int categoryId, long bookmark);
+  private native String getBookmarkDescription(int categoryId, long bookmarkId);
 
   @Override
   public double getScale()
   {
-    return getScale(mCategoryId, mBookmark);
+    return getScale(mCategoryId, mBookmarkId);
   }
 
   private void getXY()
   {
-    final ParcelablePointD ll = getXY(mCategoryId, mBookmark);
+    final ParcelablePointD ll = getXY(mCategoryId, mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
 
-    final double yRad = ll.y * Math.PI / 180.0;
-    final double lat = (180.0 / Math.PI) * (2.0 * Math.atan(Math.exp(yRad)) - Math.PI / 2.0);
-    mLat = lat;
+    mLat = Math.toDegrees(2.0 * Math.atan(Math.exp(Math.toRadians(ll.y))) - Math.PI / 2.0);
     mLon = ll.x;
   }
 
@@ -85,7 +83,7 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.INSTANCE.getIconByType((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmark) : "");
+    return BookmarkManager.INSTANCE.getIconByType((mCategoryId >= 0) ? getIcon(mCategoryId, mBookmarkId) : "");
   }
 
   public Icon getIcon()
@@ -116,7 +114,7 @@ public class Bookmark extends MapObject
   {
     if (catId != mCategoryId)
     {
-      mBookmark = changeCategory(mCategoryId, catId, mBookmark);
+      mBookmarkId = changeCategory(mCategoryId, catId, mBookmarkId);
       mCategoryId = catId;
     }
   }
@@ -128,7 +126,7 @@ public class Bookmark extends MapObject
 
     if (!name.equals(getName()) || icon != mIcon || !descr.equals(getBookmarkDescription()))
     {
-      setBookmarkParams(mCategoryId, mBookmark, name, icon.getType(), descr);
+      setBookmarkParams(mCategoryId, mBookmarkId, name, icon.getType(), descr);
       mName = name;
     }
   }
@@ -140,17 +138,17 @@ public class Bookmark extends MapObject
 
   public int getBookmarkId()
   {
-    return mBookmark;
+    return mBookmarkId;
   }
 
   public String getBookmarkDescription()
   {
-    return getBookmarkDescription(mCategoryId, mBookmark);
+    return getBookmarkDescription(mCategoryId, mBookmarkId);
   }
 
   public String getGe0Url(boolean addName)
   {
-    return encode2Ge0Url(mCategoryId, mBookmark, addName);
+    return encode2Ge0Url(mCategoryId, mBookmarkId, addName);
   }
 
   public String getHttpGe0Url(boolean addName)
