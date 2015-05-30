@@ -243,11 +243,7 @@ namespace m2
         return false;
 
       const double squareDelta = delta*delta;
-
       size_t const numPoints = m_points.size();
-
-      typedef typename TraitsT::BigType BigCoordT;
-      typedef Point<BigCoordT> BigPointT;
 
       PointT prev = m_points[numPoints - 1];
       DistanceToLineSquare<PointT> distance;
