@@ -134,23 +134,19 @@ public class WorkerService extends IntentService
     {
       final SharedPreferences prefs = getApplicationContext().
           getSharedPreferences(getApplicationContext().getString(R.string.pref_file_name), Context.MODE_PRIVATE);
-      final String lastNotification = prefs.getString(country, "");
-      boolean shouldPlaceNotification = false; // should place notification only if it wasnt displayed for 180 days at least
-      if (lastNotification.equals(""))
-        shouldPlaceNotification = true;
-      else
+      final String lastNotification = prefs.getString(country, null);
+      if (lastNotification != null)
       {
+        // Do not place notification if it was displayed less than 180 days ago.
         final long timeStamp = Long.valueOf(lastNotification);
-        final long outdatedMillis = 180L * 24 * 60 * 60 * 1000; // half of year
-        if (System.currentTimeMillis() - timeStamp > outdatedMillis)
-          shouldPlaceNotification = true;
+        final long outdatedMillis = 180L * 24 * 60 * 60 * 1000;
+        if (System.currentTimeMillis() - timeStamp < outdatedMillis)
+          return;
       }
-      if (shouldPlaceNotification)
-      {
-        Notifier.placeDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
-            Framework.nativeGetCountryIndex(l.getLatitude(), l.getLongitude()));
-        prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
-      }
+
+      Notifier.placeDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
+          Framework.nativeGetCountryIndex(l.getLatitude(), l.getLongitude()));
+      prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
     }
   }
 }

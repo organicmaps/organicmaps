@@ -25,13 +25,9 @@ public class Event
   @Override
   public String toString()
   {
-    final StringBuilder sb = new StringBuilder(getClass().getSimpleName());
-    sb.append("[name = ")
-        .append(getName())
-        .append(", params: ")
-        .append(Utils.mapPrettyPrint(getParams()))
-        .append("]");
-    return sb.toString();
+    return (getClass().getSimpleName() +
+            "[name = " + getName() +
+            ", params: " + Utils.mapPrettyPrint(getParams()) +
+            "]");
   }
-
 }
