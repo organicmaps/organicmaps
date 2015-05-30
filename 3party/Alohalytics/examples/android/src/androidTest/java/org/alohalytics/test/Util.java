@@ -33,10 +33,16 @@ public class Util {
 
   public static String ReadFileAsUtf8String(String filePath) throws IOException {
     final File file = new File(filePath);
-    final byte[] buffer = new byte[(int) file.length()];
+    final long fileLength = file.length();
+    if (fileLength > Integer.MAX_VALUE) {
+      throw new IOException(filePath + " size is too large: " + fileLength);
+    }
+    final byte[] buffer = new byte[(int) fileLength];
     final FileInputStream istream = new FileInputStream(file);
     try {
-      istream.read(buffer);
+      if (fileLength != istream.read(buffer)) {
+        throw new IOException("Error while reading contents of " + filePath);
+      }
     } finally {
       istream.close();
     }

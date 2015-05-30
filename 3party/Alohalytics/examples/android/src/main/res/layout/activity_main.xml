@@ -18,6 +18,7 @@
       android:hint="@string/test_event_hint"
       android:inputType="textUri"
       android:layout_toLeftOf="@+id/button"
+      android:layout_toStartOf="@+id/button"
       android:layout_alignParentTop="true"
       android:layout_alignParentLeft="true"
       android:layout_alignParentStart="true"/>

@@ -42,7 +42,7 @@ public class HttpTransport {
 
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
-  private final static String TAG = "Alohalytics-HttpTransport";
+  private final static String TAG = "Alohalytics-Http";
   // Globally accessible for faster unit-testing
   public static int TIMEOUT_IN_MILLISECONDS = 30000;
 
@@ -148,7 +148,7 @@ public class HttpTransport {
         }
         istream.close(); // IOException
         ostream.close(); // IOException
-        if (ostream.getClass().equals(ByteArrayOutputStream.class)) {
+        if (ostream instanceof ByteArrayOutputStream) {
           p.data = ((ByteArrayOutputStream) ostream).toByteArray();
         }
       }

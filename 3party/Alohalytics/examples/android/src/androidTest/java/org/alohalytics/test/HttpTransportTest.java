@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 // <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+@SuppressWarnings("ConstantConditions")
 public class HttpTransportTest extends InstrumentationTestCase {
 
   static {

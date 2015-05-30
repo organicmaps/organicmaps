@@ -22,8 +22,8 @@ dependencies {
 }
 
 android {
-  compileSdkVersion 21
-  buildToolsVersion '22'
+  compileSdkVersion 22
+  buildToolsVersion '22.0.1'
 
   defaultConfig {
     applicationId 'org.alohalytics.demoapp'
