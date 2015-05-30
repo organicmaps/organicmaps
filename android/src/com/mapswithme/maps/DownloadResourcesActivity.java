@@ -92,12 +92,10 @@ public class DownloadResourcesActivity extends BaseMwmFragmentActivity
 
     if (bytesToDownload < Constants.MB)
       mMsgView.setText(String.format(getString(R.string.download_resources),
-          (float) bytesToDownload / Constants.KB,
-          getString(R.string.kb)));
+          (float) bytesToDownload / Constants.KB, getString(R.string.kb)));
     else
-      mMsgView.setText(String.format(getString(R.string.download_resources,
-          (float) bytesToDownload / Constants.MB,
-          getString(R.string.mb))));
+      mMsgView.setText(String.format(getString(R.string.download_resources),
+          (float) bytesToDownload / Constants.MB, getString(R.string.mb)));
 
   }
 

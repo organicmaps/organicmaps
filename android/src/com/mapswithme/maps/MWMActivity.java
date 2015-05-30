@@ -1336,8 +1336,8 @@ public class MWMActivity extends BaseMwmFragmentActivity
       public void onAnimationStart(Animator animation)
       {
         layout.setVisibility(View.VISIBLE);
-        button.setAlpha(0);
-        textView.setAlpha(0);
+        ViewHelper.setAlpha(button, 0);
+        ViewHelper.setAlpha(textView, 0);
       }
     });
     animator.setInterpolator(new OvershootInterpolator());

@@ -54,7 +54,7 @@ public class CountryItem
 
   public void setOptions(int options)
   {
-    options = options;
+    mOptions = options;
   }
 
   public int getTextColor()
