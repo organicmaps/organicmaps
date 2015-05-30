@@ -63,11 +63,6 @@ public class FadeView extends FrameLayout
     super(context, attrs, defStyleAttr);
   }
 
-  public FadeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-  {
-    super(context, attrs, defStyleAttr, defStyleRes);
-  }
-
   public void setFadeListener(FadeListener listener)
   {
     mFadeListener = listener;

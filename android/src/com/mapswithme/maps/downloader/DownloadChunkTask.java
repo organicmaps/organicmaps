@@ -231,10 +231,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       if (urlConnection != null)
         urlConnection.disconnect();
       else
-      {
         mHttpErrorCode = IO_ERROR;
-        return false;
-      }
     }
   }
 
