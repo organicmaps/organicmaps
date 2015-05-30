@@ -43,7 +43,7 @@ inline bool operator<(CrossNode const & a, CrossNode const & b)
 inline string DebugPrint(CrossNode const & t)
 {
   ostringstream out;
-  out << t.mwmName << " " << t.node;
+  out << "CrossNode [ node: " << t.node << ", map: " << t.mwmName << " ]";
   return out.str();
 }
 
@@ -57,7 +57,7 @@ inline bool operator<(TCrossPair const & a, TCrossPair const & b) { return a.fir
 inline string DebugPrint(TCrossPair const & t)
 {
   ostringstream out;
-  out << DebugPrint(t.first) << " to " << DebugPrint(t.second) << "\n";
+  out << "Border cross form: " << DebugPrint(t.first) << " to: " << DebugPrint(t.second) << "\n";
   return out.str();
 }
 

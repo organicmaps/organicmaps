@@ -8,6 +8,7 @@
 
 #include "3party/osrm/osrm-backend/data_structures/query_edge.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/unordered_map.hpp"
 
 namespace routing

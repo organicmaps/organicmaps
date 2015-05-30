@@ -40,10 +40,10 @@
 namespace routing
 {
 
-size_t const MAX_NODE_CANDIDATES = 10;
-double const kFeatureFindingRectSideRadius = 1000.0;
-double const TIME_OVERHEAD = 1.;
-double const FEATURES_NEAR_TURN_M = 3.0;
+size_t constexpr kMaxNodeCandidatesCount = 10;
+double constexpr kFeatureFindingRectSideRadiusMeters = 1000.0;
+double constexpr kTimeOverhead = 1.;
+double constexpr kFeaturesNearTurnM = 3.0;
 
 // TODO (ldragunov) Switch all RawRouteData and incapsulate to own omim types.
 using RawRouteData = InternalRouteResult;
@@ -105,7 +105,7 @@ public:
 
     for (size_t i = 0; i < count; ++i)
     {
-      if (MercatorBounds::DistanceOnEarth(m_p, ft.GetPoint(i)) < FEATURES_NEAR_TURN_M)
+      if (MercatorBounds::DistanceOnEarth(m_p, ft.GetPoint(i)) < kFeaturesNearTurnM)
       {
         if (i > 0)
           m_candidates.push_back(my::RadToDeg(ang::TwoVectorsAngle(m_p, m_p1, ft.GetPoint(i - 1))));
@@ -372,7 +372,6 @@ public:
 
       node.segment = segments[idx];
       node.segmentPoint = m_candidates[j].m_point;
-
       node.mwmName = mwmName;
 
       CalculateOffsets(node);
@@ -529,7 +528,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
 
   {
     ResultCode const code = FindPhantomNodes(startMapping->GetName(), startPoint, startDirection,
-                                             startTask, MAX_NODE_CANDIDATES, startMapping);
+                                             startTask, kMaxNodeCandidatesCount, startMapping);
     if (code != NoError)
       return code;
   }
@@ -538,7 +537,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRoute(m2::PointD const & startPoint,
     {
       ResultCode const code =
           FindPhantomNodes(targetMapping->GetName(), finalPoint, m2::PointD::Zero(),
-                           m_CachedTargetTask, MAX_NODE_CANDIDATES, targetMapping);
+                           m_CachedTargetTask, kMaxNodeCandidatesCount, targetMapping);
       if (code != NoError)
         return code;
       m_CachedTargetPoint = finalPoint;
@@ -680,7 +679,7 @@ OsrmRouter::ResultCode OsrmRouter::MakeTurnAnnotation(RawRoutingResult const & r
         }
 
         // osrm multiple seconds to 10, so we need to divide it back
-        double const sTime = TIME_OVERHEAD * path_data.segmentWeight / 10.0;
+        double const sTime = kTimeOverhead * path_data.segmentWeight / 10.0;
 #ifdef _DEBUG
         double dist = 0.0;
         for (size_t l = lastIdx + 1; l < points.size(); ++l)
@@ -877,7 +876,7 @@ void OsrmRouter::GetPossibleTurns(NodeID node, m2::PointD const & p1, m2::PointD
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     m2::PointD const p2 = ft.GetPoint(seg.m_pointStart < seg.m_pointEnd ? seg.m_pointStart + 1 : seg.m_pointStart - 1);
-    ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(seg.m_pointStart)), FEATURES_NEAR_TURN_M, ());
+    ASSERT_LESS(MercatorBounds::DistanceOnEarth(p, ft.GetPoint(seg.m_pointStart)), kFeaturesNearTurnM, ());
 
     double const a = my::RadToDeg(ang::TwoVectorsAngle(p, p1, p2));
 
@@ -911,7 +910,7 @@ void OsrmRouter::GetTurnGeometry(m2::PointD const & junctionPoint, m2::PointD co
   ASSERT(mapping.get(), ());
   Point2Geometry getter(junctionPoint, ingoingPoint, candidates);
   m_pIndex->ForEachInRectForMWM(
-      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(junctionPoint, FEATURES_NEAR_TURN_M),
+      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(junctionPoint, kFeaturesNearTurnM),
       scales::GetUpperScale(), mapping->GetMwmId());
 }
 
@@ -952,7 +951,7 @@ void OsrmRouter::GetTurnDirection(RawPathData const & node1, RawPathData const &
   ft1.ParseGeometry(FeatureType::BEST_GEOMETRY);
   ft2.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), FEATURES_NEAR_TURN_M, ());
+  ASSERT_LESS(MercatorBounds::DistanceOnEarth(ft1.GetPoint(seg1.m_pointEnd), ft2.GetPoint(seg2.m_pointStart)), kFeaturesNearTurnM, ());
 
   m2::PointD const p = ft1.GetPoint(seg1.m_pointEnd);
   m2::PointD const p1 = GetPointForTurnAngle(seg1, ft1, p,
@@ -1054,7 +1053,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
   getter.SetPoint(point);
 
   m_pIndex->ForEachInRectForMWM(
-      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideRadius),
+      getter, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kFeatureFindingRectSideRadiusMeters),
       scales::GetUpperScale(), mapping->GetMwmId());
 
   if (!getter.HasCandidates())
