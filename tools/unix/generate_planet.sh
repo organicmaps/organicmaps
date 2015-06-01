@@ -339,6 +339,11 @@ if [ "$MODE" == "resources" ]; then
   $GENERATOR_TOOL --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$GENERATOR_LOG"
   # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
   [ -e "$DATA_PATH/countries.txt.updated" ] && mv "$DATA_PATH/countries.txt.updated" "$TARGET/countries.txt"
+  # A quick fix: chmodding to a+rw all generated files
+  for file in "$TARGET"/*.mwm*; do
+    chmod 0666 "$file"
+  done
+  chmod 0666 "$TARGET/countries.txt"
 
   if [ -n "$OPT_WORLD" ]; then
     # Update external resources
@@ -349,6 +354,7 @@ if [ "$MODE" == "resources" ]; then
       # This line works only on Linux. OSX equivalent: stat -f "%N %z"
       stat -c "%n %s" "$file" | sed 's#^.*/##' >> "$EXT_RES"
     done
+    chmod 0666 "$EXT_RES"
   fi
 fi
 
