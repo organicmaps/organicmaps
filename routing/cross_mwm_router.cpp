@@ -7,8 +7,8 @@ namespace routing
 using TAlgorithm = AStarAlgorithm<CrossMwmGraph>;
 
 /// Function to run AStar Algorithm from the base.
-IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const & finalPos,
-                                   CrossMwmGraph const & roadGraph, vector<TCrossPair> & route,
+IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross const & finalPos,
+                                   CrossMwmGraph const & roadGraph, vector<BorderCross> & route,
                                    RoutingVisualizerFn const & routingVisualizer)
 {
   TAlgorithm m_algo;
@@ -17,9 +17,9 @@ IRouter::ResultCode CalculateRoute(TCrossPair const & startPos, TCrossPair const
   TAlgorithm::OnVisitedVertexCallback onVisitedVertex = nullptr;
   if (routingVisualizer)
   {
-    onVisitedVertex = [&routingVisualizer](TCrossPair const & cross)
+    onVisitedVertex = [&routingVisualizer](BorderCross const & cross)
     {
-      routingVisualizer(cross.first.point);
+      routingVisualizer(cross.fromNode.point);
     };
   }
 
@@ -79,7 +79,7 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
     return IRouter::EndPointNotFound;
 
   // Finding path through maps.
-  vector<TCrossPair> tempRoad;
+  vector<BorderCross> tempRoad;
   code = CalculateRoute({startNode, startNode}, {finalNode, finalNode}, roadGraph, tempRoad,
                         routingVisualizer);
   if (code != IRouter::NoError)
@@ -88,8 +88,8 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   // Final path conversion to output type.
   for (size_t i = 0; i < tempRoad.size() - 1; ++i)
   {
-    route.emplace_back(tempRoad[i].second.node, tempRoad[i + 1].first.node,
-                       tempRoad[i].second.mwmName);
+    route.emplace_back(tempRoad[i].toNode.node, tempRoad[i + 1].fromNode.node,
+                       tempRoad[i].toNode.mwmName);
   }
 
   if (!route.empty())

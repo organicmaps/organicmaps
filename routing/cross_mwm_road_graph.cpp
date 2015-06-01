@@ -23,20 +23,19 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
 
   // Load source data.
   auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
-  // Generate routing task from one source to several targets.
-  TRoutingNodes sources(1), targets;
   size_t const outSize = distance(mwmOutsIter.first, mwmOutsIter.second);
-  targets.reserve(outSize);
-
-  // If there is no routes outside source map.
+  // Can't find the route if there is no routes outside source map.
   if (!outSize)
     return IRouter::RouteNotFound;
 
+  // Generate routing task from one source to several targets.
+  TRoutingNodes sources(1), targets;
+  targets.reserve(outSize);
   for (auto j = mwmOutsIter.first; j < mwmOutsIter.second; ++j)
     targets.emplace_back(j->m_nodeId, false /* isStartNode */, startNode.mwmName);
-  vector<EdgeWeight> weights;
-
   sources[0] = FeatureGraphNode(startNode.node, true /* isStartNode */, startNode.mwmName);
+
+  vector<EdgeWeight> weights;
   FindWeightsMatrix(sources, targets, startMapping->m_dataFacade, weights);
   if (find_if(weights.begin(), weights.end(), &IsValidEdgeWeight) == weights.end())
     return IRouter::StartPointNotFound;
@@ -45,8 +44,8 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   {
     if (IsValidEdgeWeight(weights[i]))
     {
-      TCrossPair nextNode = FindNextMwmNode(*(mwmOutsIter.first + i), startMapping);
-      if (nextNode.second.IsValid())
+      BorderCross nextNode = FindNextMwmNode(*(mwmOutsIter.first + i), startMapping);
+      if (nextNode.toNode.IsValid())
         dummyEdges.emplace_back(nextNode, weights[i]);
     }
   }
@@ -90,14 +89,14 @@ IRouter::ResultCode CrossMwmGraph::SetFinalNode(CrossNode const & finalNode)
       CrossNode start(iNode.m_nodeId, finalNode.mwmName,
                       MercatorBounds::FromLatLon(iNode.m_point.y, iNode.m_point.x));
       vector<CrossWeightedEdge> dummyEdges;
-      dummyEdges.emplace_back(make_pair(finalNode, finalNode), weights[i]);
+      dummyEdges.emplace_back(BorderCross(finalNode, finalNode), weights[i]);
       m_virtualEdges.insert(make_pair(start, dummyEdges));
     }
   }
   return IRouter::NoError;
 }
 
-TCrossPair CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
+BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
                                           TRoutingMappingPtr const & currentMapping) const
 {
   m2::PointD const & startPoint = startNode.m_point;
@@ -107,37 +106,39 @@ TCrossPair CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
   nextMapping = m_indexManager.GetMappingByName(nextMwm);
   // If we haven't this routing file, we skip this path.
   if (!nextMapping->IsValid())
-    return TCrossPair();
+    return BorderCross();
   nextMapping->LoadCrossContext();
 
-  auto income_iters = nextMapping->m_crossContext.GetIngoingIterators();
-  for (auto i = income_iters.first; i < income_iters.second; ++i)
+  auto incomeIters = nextMapping->m_crossContext.GetIngoingIterators();
+  for (auto i = incomeIters.first; i < incomeIters.second; ++i)
   {
     m2::PointD const & targetPoint = i->m_point;
     if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) <
         kMwmCrossingNodeEqualityRadiusMeters)
-      return make_pair(CrossNode(startNode.m_nodeId, currentMapping->GetName(),
-                                 MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
-                       CrossNode(i->m_nodeId, nextMwm,
-                                 MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+    {
+      return BorderCross(CrossNode(startNode.m_nodeId, currentMapping->GetName(),
+                                   MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
+                         CrossNode(i->m_nodeId, nextMwm,
+                                   MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+    }
   }
-  return TCrossPair();
+  return BorderCross();
 }
 
-void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
+void CrossMwmGraph::GetOutgoingEdgesListImpl(BorderCross const & v,
                                              vector<CrossWeightedEdge> & adj) const
 {
   // Check for virtual edges.
   adj.clear();
-  auto const it = m_virtualEdges.find(v.second);
+  auto const it = m_virtualEdges.find(v.toNode);
   if (it != m_virtualEdges.end())
   {
     adj.insert(adj.end(), it->second.begin(), it->second.end());
     return;
   }
 
-  // Loading cross roating section.
-  TRoutingMappingPtr currentMapping = m_indexManager.GetMappingByName(v.second.mwmName);
+  // Loading cross routing section.
+  TRoutingMappingPtr currentMapping = m_indexManager.GetMappingByName(v.toNode.mwmName);
   ASSERT(currentMapping->IsValid(), ());
   currentMapping->LoadCrossContext();
 
@@ -146,31 +147,31 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(TCrossPair const & v,
   auto outRange = currentContext.GetOutgoingIterators();
 
   // Find income node.
-  auto iit = inRange.first;
-  while (iit != inRange.second)
+  auto inIt = inRange.first;
+  while (inIt != inRange.second)
   {
-    if (iit->m_nodeId == v.second.node)
+    if (inIt->m_nodeId == v.toNode.node)
       break;
-    ++iit;
+    ++inIt;
   }
-  CHECK(iit != inRange.second, ());
+  CHECK(inIt != inRange.second, ());
   // Find outs. Generate adjacency list.
-  for (auto oit = outRange.first; oit != outRange.second; ++oit)
+  for (auto oitIt = outRange.first; oitIt != outRange.second; ++oitIt)
   {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(iit, oit);
+    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(inIt, oitIt);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
     {
-      TCrossPair target = FindNextMwmNode(*oit, currentMapping);
-      if (target.second.IsValid())
+      BorderCross target = FindNextMwmNode(*oitIt, currentMapping);
+      if (target.toNode.IsValid())
         adj.emplace_back(target, outWeight);
     }
   }
 }
 
-double CrossMwmGraph::HeuristicCostEstimateImpl(TCrossPair const & v, TCrossPair const & w) const
+double CrossMwmGraph::HeuristicCostEstimateImpl(BorderCross const & v, BorderCross const & w) const
 {
-  return ms::DistanceOnEarth(v.second.point.y, v.second.point.x,
-                             w.second.point.y, w.second.point.x) / kMediumSpeedMPS;
+  return ms::DistanceOnEarth(v.toNode.point.y, v.toNode.point.x,
+                             w.toNode.point.y, w.toNode.point.x) / kMediumSpeedMPS;
 }
 
 }  // namespace routing

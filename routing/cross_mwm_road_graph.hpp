@@ -4,9 +4,9 @@
 #include "osrm_router.hpp"
 #include "router.hpp"
 
-#include "base/graph.hpp"
-
 #include "indexer/index.hpp"
+
+#include "base/graph.hpp"
 
 namespace routing
 {
@@ -21,6 +21,7 @@ struct CrossNode
       : node(node), mwmName(mwmName), point(point)
   {
   }
+
   CrossNode() : node(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
@@ -33,11 +34,9 @@ inline bool operator==(CrossNode const & a, CrossNode const & b)
 
 inline bool operator<(CrossNode const & a, CrossNode const & b)
 {
-  if (a.node < b.node)
-    return true;
-  else if (a.node == b.node)
-    return a.mwmName < b.mwmName;
-  return false;
+  if (a.node != b.node)
+    return a.node < b.node;
+  return a.mwmName < b.mwmName;
 }
 
 inline string DebugPrint(CrossNode const & t)
@@ -48,16 +47,23 @@ inline string DebugPrint(CrossNode const & t)
 }
 
 /// Representation of border crossing. Contains node on previous map and node on next map.
-using TCrossPair = pair<CrossNode, CrossNode>;
+struct BorderCross
+{
+  CrossNode fromNode;
+  CrossNode toNode;
 
-inline bool operator==(TCrossPair const & a, TCrossPair const & b) { return a.first == b.first; }
+  BorderCross(CrossNode const & from, CrossNode const & to) : fromNode(from), toNode(to) {}
+  BorderCross() : fromNode(), toNode() {}
+};
 
-inline bool operator<(TCrossPair const & a, TCrossPair const & b) { return a.first < b.first; }
+inline bool operator==(BorderCross const & a, BorderCross const & b) { return a.toNode == b.toNode; }
 
-inline string DebugPrint(TCrossPair const & t)
+inline bool operator<(BorderCross const & a, BorderCross const & b) { return a.toNode < b.toNode; }
+
+inline string DebugPrint(BorderCross const & t)
 {
   ostringstream out;
-  out << "Border cross form: " << DebugPrint(t.first) << " to: " << DebugPrint(t.second) << "\n";
+  out << "Border cross from: " << DebugPrint(t.fromNode) << " to: " << DebugPrint(t.toNode) << "\n";
   return out.str();
 }
 
@@ -65,18 +71,18 @@ inline string DebugPrint(TCrossPair const & t)
 class CrossWeightedEdge
 {
 public:
-  explicit CrossWeightedEdge(TCrossPair const & target, double weight) : target(target), weight(weight) {}
+  CrossWeightedEdge(BorderCross const & target, double weight) : target(target), weight(weight) {}
 
-  inline TCrossPair const & GetTarget() const { return target; }
+  inline BorderCross const & GetTarget() const { return target; }
   inline double GetWeight() const { return weight; }
 
 private:
-  TCrossPair target;
+  BorderCross target;
   double weight;
 };
 
 /// A graph used for cross mwm routing.
-class CrossMwmGraph : public Graph<TCrossPair, CrossWeightedEdge, CrossMwmGraph>
+class CrossMwmGraph : public Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph>
 {
 public:
   explicit CrossMwmGraph(RoutingIndexManager & indexManager) : m_indexManager(indexManager) {}
@@ -85,19 +91,19 @@ public:
   IRouter::ResultCode SetFinalNode(CrossNode const & finalNode);
 
 private:
-  friend class Graph<TCrossPair, CrossWeightedEdge, CrossMwmGraph>;
+  friend class Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph>;
 
-  TCrossPair FindNextMwmNode(OutgoingCrossNode const & startNode,
+  BorderCross FindNextMwmNode(OutgoingCrossNode const & startNode,
                              TRoutingMappingPtr const & currentMapping) const;
 
-  // Graph<CrossNode, CrossWeightedEdge, CrossMwmGraph> implementation:
-  void GetOutgoingEdgesListImpl(TCrossPair const & v, vector<CrossWeightedEdge> & adj) const;
-  void GetIngoingEdgesListImpl(TCrossPair const & v, vector<CrossWeightedEdge> & adj) const
+  // Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph> implementation:
+  void GetOutgoingEdgesListImpl(BorderCross const & v, vector<CrossWeightedEdge> & adj) const;
+  void GetIngoingEdgesListImpl(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
   {
     ASSERT(!"IMPL", ());
   }
 
-  double HeuristicCostEstimateImpl(TCrossPair const & v, TCrossPair const & w) const;
+  double HeuristicCostEstimateImpl(BorderCross const & v, BorderCross const & w) const;
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;
