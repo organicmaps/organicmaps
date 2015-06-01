@@ -18,14 +18,16 @@
 #include "std/type_traits.hpp"
 #include "std/vector.hpp"
 
+using TReadFunc = function<size_t(uint8_t *, size_t)>;
+
 namespace
 {
-template <typename TReader>
+
 class StreamBuffer
 {
   using TBuffer = vector<uint8_t>;
 
-  TReader const & m_reader;
+  TReadFunc m_reader;
   TBuffer m_buffer;
   size_t const m_maxBufferSize;
   size_t m_recap; // recap read bytes
@@ -33,8 +35,8 @@ class StreamBuffer
   TBuffer::const_iterator m_position;
 
 public:
-  StreamBuffer(TReader const & reader, size_t bufferSize)
-  : m_reader(reader), m_buffer(bufferSize), m_maxBufferSize(bufferSize), m_recap(0)
+  StreamBuffer(TReadFunc reader, size_t readBufferSizeInBytes)
+  : m_reader(reader), m_buffer(readBufferSizeInBytes), m_maxBufferSize(readBufferSizeInBytes), m_recap(0)
   {
     Refill();
   }
@@ -63,7 +65,7 @@ public:
 
   void Skip(size_t size = 1)
   {
-    size_t const bytesLeft = distance(m_position, m_buffer.end());
+    size_t const bytesLeft = distance(m_position, m_buffer.cend());
     if (size >= bytesLeft)
     {
       size -= bytesLeft;
@@ -114,7 +116,7 @@ private:
 
 namespace osm
 {
-template <typename TReader>
+
 class O5MSource
 {
 public:
@@ -184,7 +186,7 @@ protected:
   vector<StringTableRecord> m_stringTable;
   vector<char> m_stringBuffer;
   size_t m_stringCurrentIndex;
-  StreamBuffer<TReader> m_buffer;
+  StreamBuffer m_buffer;
   size_t m_remainder;
   int64_t m_currentNodeRef = 0;
   int64_t m_currentWayRef = 0;
@@ -578,7 +580,7 @@ public:
   Iterator const begin() { return Iterator(this); }
   Iterator const end() { return Iterator(); }
 
-  O5MSource(TReader const & reader) : m_buffer(reader, 60000 /* buffer size */)
+  O5MSource(TReadFunc reader, size_t readBufferSizeInBytes = 60000) : m_buffer(reader, readBufferSizeInBytes)
   {
     if (EntityType::Reset != EntityType(m_buffer.Get()))
     {
@@ -620,8 +622,5 @@ public:
     return s;
   }
 };
-
-using TReadFunc = function<size_t(uint8_t *, size_t)>;
-typedef O5MSource<TReadFunc> O5MSourceReader;
 
 }  // namespace osm

@@ -340,9 +340,9 @@ namespace
 template <typename HolderT>
 void BuildIntermediateDataFromO5M(SourceReader & stream, HolderT & holder)
 {
-  using TType = osm::O5MSourceReader::EntityType;
+  using TType = osm::O5MSource::EntityType;
 
-  osm::O5MSourceReader dataset([&stream](uint8_t * buffer, size_t size)
+  osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
   {
    return stream.Read(reinterpret_cast<char *>(buffer), size);
   });
@@ -401,9 +401,9 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, HolderT & holder)
 
 void BuildFeaturesFromO5M(SourceReader & stream, BaseOSMParser & parser)
 {
-  using TType = osm::O5MSourceReader::EntityType;
+  using TType = osm::O5MSource::EntityType;
 
-  osm::O5MSourceReader dataset([&stream](uint8_t * buffer, size_t size)
+  osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
   {
    return stream.Read(reinterpret_cast<char *>(buffer), size);
   });

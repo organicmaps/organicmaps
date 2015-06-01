@@ -167,13 +167,13 @@ UNIT_TEST(OSM_O5M_Source_Node_read_test)
   string data(begin(node2_o5m_data), end(node2_o5m_data));
   stringstream ss(data);
 
-  osm::O5MSourceReader dataset([&ss](uint8_t * buffer, size_t size)
+  osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
   {
     return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
-  });
+  }, 10 /* buffer size */);
 
-  osm::O5MSourceReader::Iterator it = dataset.begin();
-  osm::O5MSourceReader::Entity const & em = *it;
+  osm::O5MSource::Iterator it = dataset.begin();
+  osm::O5MSource::Entity const & em = *it;
 
   CHECK_EQUAL(em.id, 513709898, ());
   CHECK_EQUAL(em.user, string("Xmypblu"), ());
@@ -200,10 +200,10 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
   string data(begin(way_o5m_data), end(way_o5m_data));
   stringstream ss(data);
 
-  osm::O5MSourceReader dataset([&ss](uint8_t * buffer, size_t size)
+  osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
   {
     return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
-  });
+  }, 10 /* buffer size */);
 
   set<int64_t> nodes;
 
@@ -214,7 +214,7 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
   {
     switch (em.type)
     {
-      case osm::O5MSourceReader::EntityType::Node:
+      case osm::O5MSource::EntityType::Node:
       {
         nodes.insert(em.id);
         for (auto const & tag : em.Tags())
@@ -223,7 +223,7 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
         }
         break;
       }
-      case osm::O5MSourceReader::EntityType::Way:
+      case osm::O5MSource::EntityType::Way:
       {
         size_t ndCounter = 0;
         size_t tagCounter = 0;
@@ -253,10 +253,10 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
   string data(begin(relation_o5m_data), end(relation_o5m_data));
   stringstream ss(data);
 
-  osm::O5MSourceReader dataset([&ss](uint8_t * buffer, size_t size)
+  osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
   {
     return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
-  });
+  }, 10 /* buffer size */);
 
   set<int64_t> nodes;
   set<int64_t> entities;
@@ -270,7 +270,7 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
     , {"place", "town"}
     , {"type", "multipolygon"}};
 
-  using TType = osm::O5MSourceReader::EntityType;
+  using TType = osm::O5MSource::EntityType;
   vector<pair<TType, string>> const relationMembers = {
       {TType::Way, "outer"}
     , {TType::Node, ""}};
