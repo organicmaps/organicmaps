@@ -38,7 +38,7 @@ namespace Settings
     StringStorage::Instance().SetValue(key, ToString(value));
   }
 
-  void Delete(string const & key)
+  inline void Delete(string const & key)
   {
     StringStorage::Instance().DeleteKeyAndValue(key);
   }
