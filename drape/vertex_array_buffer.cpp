@@ -193,11 +193,6 @@ uint16_t VertexArrayBuffer::GetIndexCount() const
   return GetIndexBuffer()->GetCurrentSize();
 }
 
-bool VertexArrayBuffer::IsFilled() const
-{
-  return GetAvailableIndexCount() < 3 || GetAvailableVertexCount() < 3;
-}
-
 void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
 {
   ASSERT(count <= GetIndexBuffer()->GetAvailableSize(), ());

@@ -53,7 +53,6 @@ public:
   uint16_t GetStartIndexValue() const;
   uint16_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
   uint16_t GetIndexCount() const;
-  bool IsFilled() const;
 
   void UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count);
   void UploadIndexes(uint16_t const * data, uint16_t count);

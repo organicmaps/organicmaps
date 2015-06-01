@@ -60,7 +60,7 @@ private:
                                drape_ptr<OverlayHandle> && handle, uint8_t vertexStride = 0);
 
   class CallbacksWrapper;
-  void ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper, bool checkFilledBuffer);
+  void ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper);
   ref_ptr<RenderBucket> GetBucket(GLState const & state);
 
   void FinalizeBucket(GLState const & state);

@@ -17,7 +17,7 @@ public:
   typedef function<uint16_t * (uint16_t, uint16_t &)> TGetIndexStorageFn;
   typedef function<void ()> TSubmitIndexFn;
   typedef function<uint16_t ()> TGetAvailableFn;
-  typedef function<void (bool)> ChangeBufferFn;
+  typedef function<void ()> ChangeBufferFn;
 
   TFlushVertexFn      m_flushVertex;
   TGetIndexStorageFn m_getIndexStorage;
@@ -31,6 +31,7 @@ class TriangleBatch
 {
 public:
   TriangleBatch(BatchCallbacks const & callbacks);
+  virtual ~TriangleBatch(){}
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams) = 0;
   void SetIsCanDevideStreams(bool canDevide);
@@ -44,9 +45,10 @@ protected:
   void SubmitIndex();
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
-  void ChangeBuffer(bool checkFilled) const;
+  void ChangeBuffer() const;
   uint8_t GetVertexStride() const;
 
+  virtual bool IsBufferFilled(uint16_t availableVerticesCount, uint16_t availableIndicesCount) const;
 
 private:
   BatchCallbacks m_callbacks;
@@ -121,9 +123,11 @@ public:
   virtual void BatchData(ref_ptr<AttributeProvider> streams);
 
 protected:
+  virtual bool IsBufferFilled(uint16_t availableVerticesCount, uint16_t availableIndicesCount) const;
   virtual uint16_t VtoICount(uint16_t vCount) const;
   virtual uint16_t ItoVCount(uint16_t iCount) const;
   virtual uint16_t AlignVCount(uint16_t vCount) const;
+  virtual uint16_t AlignICount(uint16_t iCount) const;
   virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 };
 
