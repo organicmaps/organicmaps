@@ -225,7 +225,7 @@ if [ "$MODE" == "coast" ]; then
       # Generate temporary coastlines file in the coasts intermediate dir
       log "TIMEMARK" "Generate coastlines"
       "$GENERATOR_TOOL" --intermediate_data_path="$INTCOASTSDIR/" --node_storage=map --osm_file_type=o5m --osm_file_name="$COASTS" \
-        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee "$GENERATOR_LOG"
+        --user_resource_path="$DATA_PATH/" -make_coasts -fail_on_coasts 2>&1 | tee -a "$GENERATOR_LOG"
       EXIT_CODE=$?
       [ -n "$EXIT_ON_ERROR" ] && set -e
 
@@ -233,8 +233,8 @@ if [ "$MODE" == "coast" ]; then
         log "TIMEMARK" "Coastline merge failed"
         if [ -n "$OPT_UPDATE" ]; then
           date -u
-          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY_SEC seconds..."
-          sleep $MERGE_COASTS_DELAY_SEC
+          echo "Will try fresh coasts again in $MERGE_COASTS_DELAY_SEC seconds, or press a key..."
+          read -rs -n 1 -t $MERGE_COASTS_DELAY_SEC
           TRY_AGAIN=1
         else
           fail
