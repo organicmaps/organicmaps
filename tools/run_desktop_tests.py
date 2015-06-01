@@ -30,8 +30,9 @@ import urllib2
 
 
 tests_path = ""
-workspace_path = "./omim-build-release/out/release"
+workspace_path = "omim-build-release/out/release"
 skiplist = []
+runlist = []
 logfile = "testlog.log"
 
 PORT = 34568
@@ -44,7 +45,7 @@ def print_pretty(result, tests):
     print(result.upper())
 
     for test in tests:
-        print("- {}".format(test))
+        print("- {test}".format(test=test))
 
 
 def usage():
@@ -57,6 +58,8 @@ Possbile options:
 
 -e --exclude: list of tests to exclude, comma separated, no spaces allowed
 
+-i --include: list of tests to be run, overrides -e
+
 -o --output : resulting log file. Default testlog.log
 
 
@@ -68,8 +71,8 @@ Example
 
 def set_global_vars():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "he:f:o:",
-                                   ["help", "exclude=", "folder=", "output="])
+        opts, args = getopt.getopt(sys.argv[1:], "he:f:o:i:",
+                                   ["help", "exclude=", "include=", "folder=", "output="])
     except getopt.GetoptError as err:
         print(str(err))
         usage()
@@ -87,6 +90,12 @@ def set_global_vars():
             for exclude_test in exclude_tests:
                 global skiplist
                 skiplist.append(exclude_test)
+        elif option in ("-i", "--include"):
+            print("-i option found, -e option will be ignored!")
+            include_tests = argument.split(",")
+            for include_test in include_tests:
+                global runlist
+                runlist.append(include_test)
         elif option in ("-f", "--folder"):
             global workspace_path
             workspace_path = argument
@@ -112,6 +121,11 @@ def run_tests():
     failed = []
     passed = []
     skipped = []
+    not_found = list(runlist)
+    
+    if len(runlist) != 0:
+        global skiplist
+        skiplist = [] 
 
     server = None
     for file in listdir(tests_path):
@@ -119,9 +133,14 @@ def run_tests():
         if not file.endswith("_tests"):
             continue
         if file in skiplist:
-            print("===== Skipping {} =====".format(file))
-            skipped.append(file)
+            skipped.append(skiplist.pop(skiplist.index(file)))
             continue
+
+        if len(runlist) > 0 and (file not in runlist):
+            continue
+        
+        if len(not_found) > 0:
+            not_found.pop(not_found.index(file))
 
         if file == "platform_tests":
             start_server()
@@ -140,8 +159,10 @@ def run_tests():
             failed.append(file)
         else:
             passed.append(file)
+            
+    not_found.extend(skiplist)
 
-    return {"failed": failed, "passed": passed, "skipped": skipped}
+    return {"failed": failed, "passed": passed, "skipped": skipped, "not_found": not_found}
 
 
 def rm_log_file():
@@ -153,18 +174,14 @@ def rm_log_file():
 
 def main():
     set_global_vars()
-
     rm_log_file()
-    
+
     results = run_tests()
 
     print_pretty("failed", results["failed"])
     print_pretty("skipped", results["skipped"])
     print_pretty("passed", results["passed"])
-
-    not_found = filter(lambda x: x not in results["skipped"], skiplist)
-
-    print_pretty("not found", not_found)
+    print_pretty("not found", results["not_found"])
 
 
 if (__name__ == "__main__"):

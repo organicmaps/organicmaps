@@ -43,7 +43,7 @@ class TestInfo:
         local_comment = ""
         if self.test_comment is not None:
             local_comment = self.test_comment
-        return "{}::{}: {} -> {}\n".format(self.test_suite, self.test_name, local_comment, self.test_result)
+        return "{suite}::{name}: {comment} -> {result}\n".format(suite=self.test_suite, name=self.test_name, comment=local_comment, result=self.test_result)
 
 
     def xml(self):
@@ -90,6 +90,8 @@ class Parser:
                 elif line == "OK" or line.startswith("FAILED"):
                     if test_info is not None:
                         test_info.test_result = line
+                        if line.startswith("FAILED"):
+                            test_info.append_comment(line[len("FAILED"):])
 
                 else:
                     if test_info is not None:
@@ -97,7 +99,7 @@ class Parser:
                         
 
     def write_xml_file(self):
-        print(">>> Self xml file: {}".format(self.xml_file))
+        print(">>> Self xml file: {xml_file}".format(xml_file=self.xml_file))
 
         ElementTree.ElementTree(self.root).write(self.xml_file, encoding="UTF-8", xml_declaration=True)
                         

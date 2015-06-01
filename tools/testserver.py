@@ -143,7 +143,7 @@ class TestServer:
                               filter(lambda x: my_name in x, output)))
         
         if len(siblings) > 0:
-            command = "kill {}".format(" ".join(siblings)) 
+            command = "kill {siblings}".format(siblings=" ".join(siblings)) 
             exec_command(command)
         else:
             print("The process has no siblings")
