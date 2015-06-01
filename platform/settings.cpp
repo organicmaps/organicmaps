@@ -1,8 +1,7 @@
-#include "platform/settings.hpp"
+#include "settings.hpp"
+#include "platform.hpp"
 
 #include "defines.hpp"
-
-#include "base/logging.hpp"
 
 #include "coding/reader_streambuf.hpp"
 #include "coding/file_writer.hpp"
@@ -11,11 +10,11 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/any_rect2d.hpp"
 
-#include "platform/platform.hpp"
+#include "base/logging.hpp"
 
-#include "std/sstream.hpp"
-#include "std/iostream.hpp"
 #include "std/cmath.hpp"
+#include "std/iostream.hpp"
+#include "std/sstream.hpp"
 
 
 #define FIRST_LAUNCH_KEY "FirstLaunchOnDate"
@@ -26,6 +25,8 @@ namespace Settings
 {
   StringStorage::StringStorage()
   {
+    lock_guard<mutex> guard(m_mutex);
+
     try
     {
       ReaderStreamBuf buffer(new FileReader(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME)));
@@ -56,7 +57,6 @@ namespace Settings
 
   void StringStorage::Save() const
   {
-    // @TODO(AlexZ): Should we use mutex here?
     try
     {
       FileWriter file(GetPlatform().SettingsPathForFile(SETTINGS_FILE_NAME));
@@ -82,8 +82,10 @@ namespace Settings
     return inst;
   }
 
-  bool StringStorage::GetValue(string const & key, string & outValue)
+  bool StringStorage::GetValue(string const & key, string & outValue) const
   {
+    lock_guard<mutex> guard(m_mutex);
+
     auto const found = m_values.find(key);
     if (found == m_values.end())
       return false;
@@ -92,14 +94,18 @@ namespace Settings
     return true;
   }
 
-  void StringStorage::SetValue(string const & key, string const & value)
+  void StringStorage::SetValue(string const & key, string && value)
   {
-    m_values[key] = value;
+    lock_guard<mutex> guard(m_mutex);
+
+    m_values[key] = move(value);
     Save();
   }
 
   void StringStorage::DeleteKeyAndValue(string const & key)
   {
+    lock_guard<mutex> guard(m_mutex);
+
     auto const found = m_values.find(key);
     if (found != m_values.end())
     {

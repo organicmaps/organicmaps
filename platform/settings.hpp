@@ -2,6 +2,7 @@
 
 #include "std/string.hpp"
 #include "std/map.hpp"
+#include "std/mutex.hpp"
 
 namespace Settings
 {
@@ -13,14 +14,16 @@ namespace Settings
     typedef map<string, string> ContainerT;
     ContainerT m_values;
 
+    mutable mutex m_mutex;
+
     StringStorage();
     void Save() const;
 
   public:
     static StringStorage & Instance();
 
-    bool GetValue(string const & key, string & outValue);
-    void SetValue(string const & key, string const & value);
+    bool GetValue(string const & key, string & outValue) const;
+    void SetValue(string const & key, string && value);
     void DeleteKeyAndValue(string const & key);
   };
 
