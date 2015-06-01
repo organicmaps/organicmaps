@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = storage indexer platform geometry coding base jansson tomcrypt
+DEPENDENCIES = storage indexer platform geometry coding base jansson tomcrypt stats_client zlib
 
 include($$ROOT_DIR/common.pri)
 
