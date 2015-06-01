@@ -6,13 +6,15 @@
 # Displayed when there are unknown options
 usage() {
   echo ''
-  echo "Usage: $0 [-c] [-u] [-w] [-r] [-h]"
+  echo "Usage: $0 [-c] [-u] [-w] [-r]"
   echo
   echo -e "-u\tUpdate planet until coastline is not broken"
   echo -e "-U\tDownload planet when it is missing"
   echo -e "-w\tGenerate World and WorldCoasts"
   echo -e "-r\tGenerate routing files"
+  echo -e "-a\tEquivalent to -uwr"
   echo -e "-c\tClean last pass results if there was an error, and start anew"
+  echo -e "-v\tPrint all commands executed"
   echo -e "-h\tThis help message"
   echo
   echo -e "\tIf there is unfinished job, continues it, ignoring all arguments."
@@ -25,6 +27,7 @@ usage() {
   echo -e "REGIONS\tNewline-separated list of border polygons to use. Example usage:"
   echo -e "\tREGIONS=\$(ls ../../data/A*.poly) $0"
   echo -e "NS\tNode storage; use \"map\" when you have less than 64 GB of memory"
+  echo -e "ASYNC_PBF\tGenerate PBF files asynchronously, not in a separate step"
   echo
 }
 
@@ -54,13 +57,15 @@ putmode() {
   echo "$MFLAGS$MODE" > "$STATUS_FILE"
 }
 
+# Do not start processing when there are no arguments
+[ $# -eq 0 ] && usage && fail
 # Parse command line parameters
 OPT_CLEAN=
 OPT_WORLD=
 OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
-while getopts ":cuUwrh" opt; do
+while getopts ":cuUwravh" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
@@ -78,6 +83,14 @@ while getopts ":cuUwrh" opt; do
     r)
       OPT_ROUTING=1
       ;;
+    a)
+      OPT_WORLD=1
+      OPT_UPDATE=1
+      OPT_ROUTING=1
+      ;;
+    v)
+      set -x
+      ;;
     *)
       usage
       fail
@@ -89,7 +102,6 @@ EXIT_ON_ERROR=${EXIT_ON_ERROR-1}
 [ -n "$EXIT_ON_ERROR" ] && set -e # Exit when any of commands fail
 set -o pipefail # Capture all errors in command chains
 set -u # Fail on undefined variables
-#set -x # Echo every script line
 
 # Initialize everything. For variables with X="${X:-...}" you can override a default value
 PLANET="${PLANET:-$HOME/planet/planet-latest.o5m}"
