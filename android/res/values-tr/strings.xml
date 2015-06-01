@@ -692,8 +692,6 @@
 	<string name="undefined_location">Geçerli konum tanımlı değil.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Geçerli konumuzun ülkesini indirin</string>
-	<!-- try again -->
-	<string name="try_again">Tekrar Deneyin</string>
 	<!-- download failed -->
 	<string name="download_failed">indirme işlemi başarısız oldu</string>
 	<!-- get the map -->

@@ -691,8 +691,6 @@
 	<string name="undefined_location">Aktuálna lokácia nie je definovaná.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Sťahovanie krajiny vašej aktuálnej polohy</string>
-	<!-- try again -->
-	<string name="try_again">Skúsiť znova</string>
 	<!-- download failed -->
 	<string name="download_failed">Sťahovanie zlyhalo</string>
 	<!-- get the map -->

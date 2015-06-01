@@ -685,8 +685,6 @@
 	<string name="undefined_location">A localização atual não foi definida.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Descarregue o país da sua localização atual</string>
-	<!-- try again -->
-	<string name="try_again">Tente de novo</string>
 	<!-- download failed -->
 	<string name="download_failed">descarga falhou</string>
 	<!-- get the map -->

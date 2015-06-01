@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Geçerli konumuzun ülkesini indirin";
 
-/* try again */
-"try_again" = "Tekrar Deneyin";
-
 /* download failed */
 "download_failed" = "indirme işlemi başarısız oldu";
 

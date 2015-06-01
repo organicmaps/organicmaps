@@ -699,8 +699,6 @@
 	<string name="undefined_location">L\&#39;emplacement actuel n\&#39;est pas défini.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Téléchargez la carte pour votre emplacement</string>
-	<!-- try again -->
-	<string name="try_again">Ressayer</string>
 	<!-- download failed -->
 	<string name="download_failed">échec lors du téléchargement</string>
 	<!-- get the map -->

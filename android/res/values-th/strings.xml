@@ -690,8 +690,6 @@
 	<string name="undefined_location">ไม่มีการกำหนดสถานที่ปัจจุบัน</string>
 	<!-- download country of your location -->
 	<string name="download_country">ดาวน์โหลด ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ</string>
-	<!-- try again -->
-	<string name="try_again">ลองอีกครั้ง</string>
 	<!-- download failed -->
 	<string name="download_failed">การดาวน์โหลด  ล้มเหลว</string>
 	<!-- get the map -->

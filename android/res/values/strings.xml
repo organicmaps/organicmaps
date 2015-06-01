@@ -701,8 +701,6 @@
 	<string name="undefined_location">Current location is undefined.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Download the country of your current location</string>
-	<!-- try again -->
-	<string name="try_again">Try Again</string>
 	<!-- download failed -->
 	<string name="download_failed">download has failed</string>
 	<!-- get the map -->

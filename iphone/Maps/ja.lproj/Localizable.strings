@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "現在の地域をダウンロード";
 
-/* try again */
-"try_again" = "再実行";
-
 /* download failed */
 "download_failed" = "のダウンロードが失敗しました";
 

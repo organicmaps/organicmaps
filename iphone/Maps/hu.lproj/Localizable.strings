@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Töltse le az aktuális helyzet országát";
 
-/* try again */
-"try_again" = "Újrapróbálkozás";
-
 /* download failed */
 "download_failed" = "letöltése sikertelen";
 

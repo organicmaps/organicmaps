@@ -688,8 +688,6 @@
 	<string name="undefined_location">Den nuværende placering er ikke defineret.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Download landet bestemt ud fra din nuværende lokation</string>
-	<!-- try again -->
-	<string name="try_again">Prøv igen</string>
 	<!-- download failed -->
 	<string name="download_failed">download mislykkedes</string>
 	<!-- get the map -->

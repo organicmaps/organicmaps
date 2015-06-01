@@ -1227,8 +1227,9 @@
     sv = Downloading\n^har misslyckats
 
   [try_again]
-    en = Try Again
+    tags = android, ios
     comment = Button text for the button under the country_status_download_failed message
+    en = Try Again
     cs = Zkusit znovu
     sk = Skúsiť znova
     de = Nochmals versuchen
@@ -10134,32 +10135,6 @@
     da = Download landet bestemt ud fra din nuværende lokation
     tr = Geçerli konumuzun ülkesini indirin
     sv = Ladda ner landet vid din nuvarande position
-
-  [try_again]
-    tags = android, ios
-    comment = try again
-    en = Try Again
-    cs = Zkusit znovu
-    sk = Skúsiť znova
-    de = Nochmals versuchen
-    es = Intentarla otra vez
-    fr = Ressayer
-    it = Riprova
-    ja = 再実行
-    ko = 다시 시도
-    nl = Probeer opnieuw
-    ru = Попробуйте еще раз
-    uk = Спробуйте ще раз
-    zh-Hant = 再試一次
-    pl = Spróbuj ponownie
-    pt = Tente de novo
-    hu = Újrapróbálkozás
-    th = ลองอีกครั้ง
-    zh-Hans = 重试
-    ar = محاولة مرة أخرى
-    da = Prøv igen
-    tr = Tekrar Deneyin
-    sv = Försök igen
 
   [download_failed]
     tags = android, ios

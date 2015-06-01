@@ -688,8 +688,6 @@
 	<string name="undefined_location">Nuvarande plats är inte definierad.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Ladda ner landet vid din nuvarande position</string>
-	<!-- try again -->
-	<string name="try_again">Försök igen</string>
 	<!-- download failed -->
 	<string name="download_failed">nedladdning misslyckades</string>
 	<!-- get the map -->

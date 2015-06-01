@@ -699,8 +699,6 @@
 	<string name="undefined_location">Не определено текущее местоположение.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Скачайте страну вашего местоположения</string>
-	<!-- try again -->
-	<string name="try_again">Попробуйте еще раз</string>
 	<!-- download failed -->
 	<string name="download_failed">Не удалось загрузить</string>
 	<!-- get the map -->

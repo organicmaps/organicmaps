@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Téléchargez la carte pour votre emplacement";
 
-/* try again */
-"try_again" = "Ressayer";
-
 /* download failed */
 "download_failed" = "échec lors du téléchargement";
 

@@ -678,8 +678,6 @@
 	<string name="undefined_location">Huidige locatie is niet gedefinieerd.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Download land waar je nu bent</string>
-	<!-- try again -->
-	<string name="try_again">Probeer opnieuw</string>
 	<!-- download failed -->
 	<string name="download_failed">download is afgebroken</string>
 	<!-- get the map -->

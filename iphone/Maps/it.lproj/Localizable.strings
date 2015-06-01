@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Scarica il paese della tua posizione attuale";
 
-/* try again */
-"try_again" = "Riprova";
-
 /* download failed */
 "download_failed" = "Il trasferimento di non è riuscito";
 

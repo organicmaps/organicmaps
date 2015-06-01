@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "下載您目前所在位置的國家 地圖";
 
-/* try again */
-"try_again" = "再試一次";
-
 /* download failed */
 "download_failed" = "下載失敗";
 

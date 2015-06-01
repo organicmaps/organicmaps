@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Pobierz mapę kraju, w którym aktualnie przebywasz";
 
-/* try again */
-"try_again" = "Spróbuj ponownie";
-
 /* download failed */
 "download_failed" = "pobieranie nie powiodło się";
 

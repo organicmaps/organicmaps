@@ -685,8 +685,6 @@
 	<string name="undefined_location">現在地が設定されていません。</string>
 	<!-- download country of your location -->
 	<string name="download_country">現在の地域をダウンロード</string>
-	<!-- try again -->
-	<string name="try_again">再実行</string>
 	<!-- download failed -->
 	<string name="download_failed">のダウンロードが失敗しました</string>
 	<!-- get the map -->

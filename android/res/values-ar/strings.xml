@@ -692,8 +692,6 @@
 	<string name="undefined_location">الموقع الحالي غير مُعَرّف</string>
 	<!-- download country of your location -->
 	<string name="download_country">تنزيل دولة موقعك الحالي</string>
-	<!-- try again -->
-	<string name="try_again">محاولة مرة أخرى</string>
 	<!-- download failed -->
 	<string name="download_failed">فشلت عملية تنزيل</string>
 	<!-- get the map -->

@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Sťahovanie krajiny vašej aktuálnej polohy";
 
-/* try again */
-"try_again" = "Skúsiť znova";
-
 /* download failed */
 "download_failed" = "Sťahovanie zlyhalo";
 

@@ -692,8 +692,6 @@
 	<string name="undefined_location">当前地点未定。</string>
 	<!-- download country of your location -->
 	<string name="download_country">下载您所在位置的国家</string>
-	<!-- try again -->
-	<string name="try_again">重试</string>
 	<!-- download failed -->
 	<string name="download_failed">下载失败</string>
 	<!-- get the map -->

@@ -695,8 +695,6 @@
 	<string name="undefined_location">Aktuální poloha nebyla zatím zjištěna.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Stahování země tvé aktuální polohy</string>
-	<!-- try again -->
-	<string name="try_again">Zkusit znovu</string>
 	<!-- download failed -->
 	<string name="download_failed">Stahování selhalo</string>
 	<!-- get the map -->

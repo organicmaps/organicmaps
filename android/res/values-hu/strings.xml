@@ -689,8 +689,6 @@
 	<string name="undefined_location">Nem meghatározott a jelenlegi helyszín.</string>
 	<!-- download country of your location -->
 	<string name="download_country">Töltse le az aktuális helyzet országát</string>
-	<!-- try again -->
-	<string name="try_again">Újrapróbálkozás</string>
 	<!-- download failed -->
 	<string name="download_failed">letöltése sikertelen</string>
 	<!-- get the map -->

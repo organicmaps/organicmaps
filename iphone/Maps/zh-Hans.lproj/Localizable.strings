@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "下载您所在位置的国家";
 
-/* try again */
-"try_again" = "重试";
-
 /* download failed */
 "download_failed" = "下载失败";
 

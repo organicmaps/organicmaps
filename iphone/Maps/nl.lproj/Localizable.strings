@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Download land waar je nu bent";
 
-/* try again */
-"try_again" = "Probeer opnieuw";
-
 /* download failed */
 "download_failed" = "download is afgebroken";
 

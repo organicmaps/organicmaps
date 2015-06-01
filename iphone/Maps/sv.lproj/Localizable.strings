@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "Ladda ner landet vid din nuvarande position";
 
-/* try again */
-"try_again" = "Försök igen";
-
 /* download failed */
 "download_failed" = "nedladdning misslyckades";
 

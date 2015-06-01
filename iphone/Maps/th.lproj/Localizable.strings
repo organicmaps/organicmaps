@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "ดาวน์โหลด ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ";
 
-/* try again */
-"try_again" = "ลองอีกครั้ง";
-
 /* download failed */
 "download_failed" = "การดาวน์โหลด  ล้มเหลว";
 

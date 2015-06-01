@@ -1069,9 +1069,6 @@
 /* download country of your location */
 "download_country" = "귀하께서 현재 계신 국가인 을(를) 다운로드";
 
-/* try again */
-"try_again" = "다시 시도";
-
 /* download failed */
 "download_failed" = "다운로드가 실패했습니다";
 
