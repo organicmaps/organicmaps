@@ -122,7 +122,7 @@ NUM_PROCESSES=${NUM_PROCESSES:-$(expr $(nproc || echo 8) - 1)}
 
 STATUS_FILE="$INTDIR/status"
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
-SCRIPTS_PATH="$(dirname $0)"
+SCRIPTS_PATH="$(dirname "$0")"
 ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 GENERATOR_LOG="$TARGET/planet_generator.log"
 ROUTING_LOG="$TARGET/planet_routing.log"
@@ -193,7 +193,7 @@ if [ "$MODE" == "coast" ]; then
     # Planet download is requested
     PLANET_PBF="$(dirname "$PLANET")/planet-latest.osm.pbf"
     wget -O "$PLANET_PBF" http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
-    "$OSMCTOOLS/osmconvert" "$PLANET_PBF" --drop-author --drop-version --out-o5m -o=$PLANET
+    "$OSMCTOOLS/osmconvert" "$PLANET_PBF" --drop-author --drop-version --out-o5m "-o=$PLANET"
     rm "$PLANET_PBF"
   fi
   [ ! -r "$PLANET" ] && fail "Planet file $PLANET is not found"
@@ -216,7 +216,7 @@ if [ "$MODE" == "coast" ]; then
     if [ -n "$OPT_WORLD" ]; then
       log "STATUS" "Step 2: Creating and processing new coastline in $COASTS"
       # Strip coastlines from the planet to speed up the process
-      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" -o=$COASTS
+      "$OSMCTOOLS/osmfilter" "$PLANET" --keep= --keep-ways="natural=coastline" "-o=$COASTS"
       # Preprocess coastlines to separate intermediate directory
       log "TIMEMARK" "Generate coastlines intermediate"
       [ -n "$EXIT_ON_ERROR" ] && set +e # Temporary disable to read error code
@@ -298,7 +298,7 @@ if [ "$MODE" == "mwm" ]; then
   fi
 
   PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
-  for file in $TARGET/*.mwm.tmp; do
+  for file in "$TARGET"/*.mwm.tmp; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
       filename="$(basename "$file")"
       filename="${filename%.*.*}"
@@ -309,7 +309,7 @@ if [ "$MODE" == "mwm" ]; then
 
   if [ -n "$OPT_WORLD" ]; then
     log "TIMEMARK" "Generate world search index"
-    $GENERATOR_TOOL --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$GENERATOR_LOG"
+    "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$GENERATOR_LOG"
   fi
 
   if [ -n "$OPT_ROUTING" ]; then
@@ -336,7 +336,7 @@ if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
   # Update countries list
   [ ! -e "$TARGET/countries.txt" ] && cp "$DATA_PATH/countries.txt" "$TARGET/countries.txt"
-  $GENERATOR_TOOL --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$GENERATOR_LOG"
+  "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_update 2>> "$GENERATOR_LOG"
   # We have no means of finding the resulting file, so let's assume it was magically placed in DATA_PATH
   [ -e "$DATA_PATH/countries.txt.updated" ] && mv "$DATA_PATH/countries.txt.updated" "$TARGET/countries.txt"
   # A quick fix: chmodding to a+rw all generated files
