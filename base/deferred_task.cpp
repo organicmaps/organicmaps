@@ -48,19 +48,19 @@ DeferredTask::DeferredTask(TTask const & task, milliseconds ms) : m_started(fals
 
 DeferredTask::~DeferredTask()
 {
-  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
   m_thread.Cancel();
 }
 
 bool DeferredTask::WasStarted() const
 {
-  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
   return m_started;
 }
 
 void DeferredTask::Cancel()
 {
-  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
   threads::IRoutine * routine = m_thread.GetRoutine();
   CHECK(routine, ());
   routine->Cancel();
@@ -68,6 +68,6 @@ void DeferredTask::Cancel()
 
 void DeferredTask::WaitForCompletion()
 {
-  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
   m_thread.Join();
 }

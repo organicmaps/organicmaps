@@ -53,7 +53,9 @@ private:
   /// is used by routine that will be executed on m_thread.
   atomic<bool> m_started;
   threads::Thread m_thread;
+#ifdef DEBUG
   ThreadChecker m_threadChecker;
+#endif
 
   DISALLOW_COPY_AND_MOVE(DeferredTask);
 };

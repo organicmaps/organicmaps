@@ -24,7 +24,7 @@ public:
   }
 
   ~WorkerThread() {
-    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     if (IsRunning())
       RunUntilIdleAndStop();
     CHECK(!IsRunning(), ());
@@ -36,7 +36,7 @@ public:
   /// \param task A callable object that will be called by worker thread.
   void Push(shared_ptr<Task> task)
   {
-    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     CHECK(IsRunning(), ());
     unique_lock<mutex> lock(m_mutex);
     m_condNotFull.wait(lock, [this]()
@@ -51,7 +51,7 @@ public:
   /// terminates worker thread.
   void RunUntilIdleAndStop()
   {
-    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     CHECK(IsRunning(), ());
     {
       lock_guard<mutex> lock(m_mutex);
@@ -63,7 +63,7 @@ public:
 
   /// \return True if worker thread is running, false otherwise.
   inline bool IsRunning() const {
-    CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+    ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     return m_workerThread.joinable();
   }
 
@@ -101,9 +101,9 @@ private:
   condition_variable m_condNotFull;
   condition_variable m_condNonEmpty;
   thread m_workerThread;
-
+#ifdef DEBUG
   ThreadChecker m_threadChecker;
-
+#endif
   DISALLOW_COPY_AND_MOVE(WorkerThread);
 };  // class WorkerThread
 }  // namespace my
