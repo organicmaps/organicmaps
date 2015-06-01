@@ -27,7 +27,7 @@ public:
     ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     if (IsRunning())
       RunUntilIdleAndStop();
-    CHECK(!IsRunning(), ());
+    ASSERT(!IsRunning(), ());
   }
 
   /// Pushes new task into worker thread's queue. If the queue is
@@ -37,7 +37,7 @@ public:
   void Push(shared_ptr<Task> task)
   {
     ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
-    CHECK(IsRunning(), ());
+    ASSERT(IsRunning(), ());
     unique_lock<mutex> lock(m_mutex);
     m_condNotFull.wait(lock, [this]()
                        {
@@ -52,7 +52,7 @@ public:
   void RunUntilIdleAndStop()
   {
     ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
-    CHECK(IsRunning(), ());
+    ASSERT(IsRunning(), ());
     {
       lock_guard<mutex> lock(m_mutex);
       m_shouldFinish = true;
