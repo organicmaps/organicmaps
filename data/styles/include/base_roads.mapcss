@@ -473,7 +473,7 @@ line|z15-[highway=pedestrian]
 area|z15-[highway=pedestrian][area?],
 area|z15-[area:highway=pedestrian],
 {
-  fill-color: @highway_pedestrian;
+  fill-color: @highway_pedestrian_area;
 }
 line|z15[highway=pedestrian]
 {

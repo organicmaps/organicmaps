@@ -496,7 +496,7 @@ node|z15-[tourism=attraction]
   font-size: 12;
   text-halo-radius: 2;
   text: name;
-  text-color: @hw_primary_trunk;
+  text-color: @dark_gray_20;
   text-halo-color: @white;
 }
 area|z15-[aeroway=helipad],

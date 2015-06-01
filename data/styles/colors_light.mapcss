@@ -56,6 +56,7 @@
 @highway_motorway_z8: #ef9721;
 @highway_path: #d79331;
 @highway_pedestrian: #b9ba95;
+@highway_pedestrian_area: #b9ba95;
 @highway_primary: #fde066;
 @highway_raceway: #e8e4d4;
 @highway_secondary: #fffb80;
