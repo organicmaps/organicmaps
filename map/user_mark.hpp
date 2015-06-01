@@ -59,8 +59,8 @@ public:
   {
     double lat, lon;
     GetLatLon(lat, lon);
-    details.emplace("lat", strings::to_string(lat));
-    details.emplace("lon", strings::to_string(lon));
+    details["lat"] = strings::to_string(lat);
+    details["lon"] = strings::to_string(lon);
   }
 
 protected:
@@ -125,8 +125,8 @@ public:
   virtual void FillLogEvent(TEventContainer & details) const override
   {
     UserMark::FillLogEvent(details);
-    details.emplace("markType", "API");
-    details.emplace("name", GetName());
+    details["markType"] = "API";
+    details["name"] = GetName();
   }
 
 private:
@@ -152,7 +152,7 @@ public:
   virtual void FillLogEvent(TEventContainer & details) const override
   {
     UserMark::FillLogEvent(details);
-    details.emplace("markType", "DEBUG");
+    details["markType"] = "DEBUG";
   }
 };
 
@@ -189,10 +189,10 @@ public:
   virtual void FillLogEvent(TEventContainer & details) const override
   {
     UserMark::FillLogEvent(details);
-    details.emplace("markType", "SEARCH");
-    details.emplace("name", m_info.GetPinName());
-    details.emplace("type", m_info.GetPinType());
-    details.emplace("metaData", m_metadata.Empty() ? "0" : "1");
+    details["markType"] = "SEARCH";
+    details["name"] = m_info.GetPinName();
+    details["type"] = m_info.GetPinType();
+    details["metaData"] = m_metadata.Empty() ? "0" : "1";
   }
 
 protected:
@@ -214,7 +214,7 @@ public:
   virtual void FillLogEvent(TEventContainer & details) const override
   {
     SearchMarkPoint::FillLogEvent(details);
-    details.emplace("markType", "POI");
+    details["markType"] = "POI";
   }
 
   void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
@@ -230,7 +230,7 @@ public:
   virtual void FillLogEvent(TEventContainer & details) const override
   {
     PoiMarkPoint::FillLogEvent(details);
-    details.emplace("markType", "MY_POSITION");
+    details["markType"] = "MY_POSITION";
   }
 };
 
