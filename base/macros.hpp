@@ -73,6 +73,8 @@ private:                                             \
   className & operator=(const className &) = delete; \
   className & operator=(className &&) = delete;
 
+#define NOTIMPLEMENTED() ASSERT(false, ("Function", __func__, "is not implemented!"));
+
 #if defined(__GNUC__)
 #define WARN_UNUSED_RESULT __attribute__((warn_unused_result))
 #else

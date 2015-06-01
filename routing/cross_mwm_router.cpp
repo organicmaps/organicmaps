@@ -1,6 +1,7 @@
 #include "cross_mwm_router.hpp"
 #include "cross_mwm_road_graph.hpp"
 #include "base/astar_algorithm.hpp"
+#include "base/timer.hpp"
 
 namespace routing
 {
@@ -23,7 +24,9 @@ IRouter::ResultCode CalculateRoute(BorderCross const & startPos, BorderCross con
     };
   }
 
+  my::HighResTimer timer(true);
   TAlgorithm::Result const result =m_algo.FindPath(startPos, finalPos, route, onVisitedVertex);
+  LOG(LINFO, ("Duration of the cross MWM path finding", timer.ElapsedNano()));
   switch (result)
   {
     case TAlgorithm::Result::OK:
@@ -47,9 +50,9 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
   CrossMwmGraph roadGraph(indexManager);
   FeatureGraphNode startGraphNode, finalGraphNode;
   CrossNode startNode, finalNode;
-  IRouter::ResultCode code = IRouter::StartPointNotFound;
 
   // Finding start node.
+  IRouter::ResultCode code = IRouter::StartPointNotFound;
   for (FeatureGraphNode const & start : startGraphNodes)
   {
     startNode = CrossNode(start.node.forward_node_id, start.mwmName, start.segmentPoint);

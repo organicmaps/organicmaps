@@ -1046,7 +1046,7 @@ void OsrmRouter::GetTurnDirection(RawPathData const & node1, RawPathData const &
     turn.m_turn = turns::TurnDirection::UTurn;
 }
 
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & point, m2::PointD const & direction,
+IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & mapName, m2::PointD const & point, m2::PointD const & direction,
                                                  TFeatureGraphNodeVec & res, size_t maxCount, TRoutingMappingPtr const & mapping)
 {
   Point2PhantomNode getter(mapping->m_segMapping, m_pIndex, direction);
@@ -1059,7 +1059,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
   if (!getter.HasCandidates())
     return StartPointNotFound;
 
-  getter.MakeResult(res, maxCount, fName);
+  getter.MakeResult(res, maxCount, mapName);
   return NoError;
 }
 

@@ -118,16 +118,16 @@ TRoutingMappingPtr RoutingIndexManager::GetMappingByPoint(m2::PointD const & poi
   return GetMappingByName(m_countryFn(point));
 }
 
-TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & fName)
+TRoutingMappingPtr RoutingIndexManager::GetMappingByName(string const & mapName)
 {
   // Check if we have already loaded this file.
-  auto mapIter = m_mapping.find(fName);
+  auto mapIter = m_mapping.find(mapName);
   if (mapIter != m_mapping.end())
     return mapIter->second;
 
   // Or load and check file.
-  TRoutingMappingPtr new_mapping = make_shared<RoutingMapping>(fName, m_index);
-  m_mapping.insert(make_pair(fName, new_mapping));
+  TRoutingMappingPtr new_mapping = make_shared<RoutingMapping>(mapName, m_index);
+  m_mapping.insert(make_pair(mapName, new_mapping));
   return new_mapping;
 }
 

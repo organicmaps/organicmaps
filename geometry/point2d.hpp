@@ -4,11 +4,12 @@
 #include "base/base.hpp"
 #include "base/math.hpp"
 #include "base/matrix.hpp"
+
+#include "std/array.hpp"
 #include "std/cmath.hpp"
 #include "std/sstream.hpp"
 #include "std/typeinfo.hpp"
-#include "std/array.hpp"
-
+#include "std/unordered_map.hpp"
 
 namespace m2
 {
@@ -390,4 +391,16 @@ bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned 
   return m2::AlmostEqualULPs(p1, p2, maxULPs);
 }
 
+}
+
+//hash function for unordered map realisation.
+namespace boost{
+template <>
+struct hash<m2::PointD>
+{
+  size_t operator()(m2::PointD const & p) const
+  {
+    return (hash<double>()(p.x) ^ (hash<double>()(p.y) >> 1));
+  }
+};
 }

@@ -6,7 +6,12 @@
 
 #include "indexer/index.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/graph.hpp"
+#include "base/macros.hpp"
+
+#include "std/unordered_map.hpp"
 
 namespace routing
 {
@@ -25,19 +30,18 @@ struct CrossNode
   CrossNode() : node(INVALID_NODE_ID), point(m2::PointD::Zero()) {}
 
   inline bool IsValid() const { return node != INVALID_NODE_ID; }
+  inline bool operator==(CrossNode const & a) const
+  {
+    return node == a.node && mwmName == a.mwmName;
+  }
+
+  inline bool operator<(CrossNode const & a) const
+  {
+    if (a.node != node)
+      return node < a.node;
+    return mwmName < a.mwmName;
+  }
 };
-
-inline bool operator==(CrossNode const & a, CrossNode const & b)
-{
-  return a.node == b.node && a.mwmName == b.mwmName;
-}
-
-inline bool operator<(CrossNode const & a, CrossNode const & b)
-{
-  if (a.node != b.node)
-    return a.node < b.node;
-  return a.mwmName < b.mwmName;
-}
 
 inline string DebugPrint(CrossNode const & t)
 {
@@ -53,12 +57,11 @@ struct BorderCross
   CrossNode toNode;
 
   BorderCross(CrossNode const & from, CrossNode const & to) : fromNode(from), toNode(to) {}
-  BorderCross() : fromNode(), toNode() {}
+  BorderCross() = default;
+
+  inline bool operator==(BorderCross const & a) const { return toNode == a.toNode; }
+  inline bool operator<(BorderCross const & a) const { return toNode < a.toNode; }
 };
-
-inline bool operator==(BorderCross const & a, BorderCross const & b) { return a.toNode == b.toNode; }
-
-inline bool operator<(BorderCross const & a, BorderCross const & b) { return a.toNode < b.toNode; }
 
 inline string DebugPrint(BorderCross const & t)
 {
@@ -98,14 +101,15 @@ private:
 
   // Graph<BorderCross, CrossWeightedEdge, CrossMwmGraph> implementation:
   void GetOutgoingEdgesListImpl(BorderCross const & v, vector<CrossWeightedEdge> & adj) const;
-  void GetIngoingEdgesListImpl(BorderCross const & v, vector<CrossWeightedEdge> & adj) const
+  void GetIngoingEdgesListImpl(BorderCross const & /* v */, vector<CrossWeightedEdge> & /* adj */) const
   {
-    ASSERT(!"IMPL", ());
+    NOTIMPLEMENTED();
   }
 
   double HeuristicCostEstimateImpl(BorderCross const & v, BorderCross const & w) const;
 
   map<CrossNode, vector<CrossWeightedEdge> > m_virtualEdges;
   mutable RoutingIndexManager m_indexManager;
+  mutable unordered_map<m2::PointD, BorderCross> m_cachedNextNodes;
 };
 }  // namespace routing

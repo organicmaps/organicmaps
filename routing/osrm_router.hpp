@@ -61,7 +61,7 @@ public:
                                  RawRoutingResult & rawRoutingResult);
 
 protected:
-  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & point,
+  IRouter::ResultCode FindPhantomNodes(string const & mapName, m2::PointD const & point,
                                        m2::PointD const & direction, TFeatureGraphNodeVec & res,
                                        size_t maxCount, TRoutingMappingPtr const & mapping);
 

@@ -94,7 +94,7 @@ public:
 
   TRoutingMappingPtr GetMappingByPoint(m2::PointD const & point);
 
-  TRoutingMappingPtr GetMappingByName(string const & fName);
+  TRoutingMappingPtr GetMappingByName(string const & mapName);
 
   template <class TFunctor>
   void ForEachMapping(TFunctor toDo)

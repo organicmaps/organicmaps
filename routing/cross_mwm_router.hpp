@@ -40,5 +40,4 @@ IRouter::ResultCode CalculateCrossMwmPath(TRoutingNodes const & startGraphNodes,
                                           RoutingIndexManager & indexManager,
                                           RoutingVisualizerFn const & routingVisualizer,
                                           TCheckedPath & route);
-
 }  // namespace routing

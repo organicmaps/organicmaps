@@ -7,7 +7,6 @@ namespace
 inline bool IsValidEdgeWeight(EdgeWeight const & w) { return w != INVALID_EDGE_WEIGHT; }
 
 double constexpr kMwmCrossingNodeEqualityRadiusMeters = 1000.0;
-double constexpr kMediumSpeedMPS = 120.0 * 1000.0 / (60 * 60);
 }
 
 namespace routing
@@ -24,7 +23,7 @@ IRouter::ResultCode CrossMwmGraph::SetStartNode(CrossNode const & startNode)
   // Load source data.
   auto const mwmOutsIter = startMapping->m_crossContext.GetOutgoingIterators();
   size_t const outSize = distance(mwmOutsIter.first, mwmOutsIter.second);
-  // Can't find the route if there is no routes outside source map.
+  // Can't find the route if there are no routes outside source map.
   if (!outSize)
     return IRouter::RouteNotFound;
 
@@ -101,6 +100,13 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
 {
   m2::PointD const & startPoint = startNode.m_point;
 
+  //Check cached crosses.
+  auto const it = m_cachedNextNodes.find(startPoint);
+  if (it != m_cachedNextNodes.end())
+  {
+    return it->second;
+  }
+
   string const & nextMwm = currentMapping->m_crossContext.GetOutgoingMwmName(startNode);
   TRoutingMappingPtr nextMapping;
   nextMapping = m_indexManager.GetMappingByName(nextMwm);
@@ -116,10 +122,12 @@ BorderCross CrossMwmGraph::FindNextMwmNode(OutgoingCrossNode const & startNode,
     if (ms::DistanceOnEarth(startPoint.y, startPoint.x, targetPoint.y, targetPoint.x) <
         kMwmCrossingNodeEqualityRadiusMeters)
     {
-      return BorderCross(CrossNode(startNode.m_nodeId, currentMapping->GetName(),
+      BorderCross const cross(CrossNode(startNode.m_nodeId, currentMapping->GetName(),
                                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)),
-                         CrossNode(i->m_nodeId, nextMwm,
+                              CrossNode(i->m_nodeId, nextMwm,
                                    MercatorBounds::FromLatLon(targetPoint.y, targetPoint.x)));
+      m_cachedNextNodes.insert(make_pair(startPoint, cross));
+      return cross;
     }
   }
   return BorderCross();
@@ -156,12 +164,12 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(BorderCross const & v,
   }
   CHECK(inIt != inRange.second, ());
   // Find outs. Generate adjacency list.
-  for (auto oitIt = outRange.first; oitIt != outRange.second; ++oitIt)
+  for (auto outIt = outRange.first; outIt != outRange.second; ++outIt)
   {
-    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(inIt, oitIt);
+    EdgeWeight const outWeight = currentContext.GetAdjacencyCost(inIt, outIt);
     if (outWeight != INVALID_CONTEXT_EDGE_WEIGHT && outWeight != 0)
     {
-      BorderCross target = FindNextMwmNode(*oitIt, currentMapping);
+      BorderCross target = FindNextMwmNode(*outIt, currentMapping);
       if (target.toNode.IsValid())
         adj.emplace_back(target, outWeight);
     }
@@ -170,8 +178,9 @@ void CrossMwmGraph::GetOutgoingEdgesListImpl(BorderCross const & v,
 
 double CrossMwmGraph::HeuristicCostEstimateImpl(BorderCross const & v, BorderCross const & w) const
 {
-  return ms::DistanceOnEarth(v.toNode.point.y, v.toNode.point.x,
-                             w.toNode.point.y, w.toNode.point.x) / kMediumSpeedMPS;
+  // Simple travel time heuristic works worse than simple Dijkstra's algorithm, represented by
+  // always 0 heyristics estimation.
+  return 0;
 }
 
 }  // namespace routing
