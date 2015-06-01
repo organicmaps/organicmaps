@@ -236,7 +236,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">تم مشاركة اشارات MAPS.ME المرجعية معك</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!</string>
+	<string name="share_bookmarks_email_body">مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">تحميل الإشارات المرجعية</string>
 	<!-- Kmz file successful loading -->
@@ -260,9 +260,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">لا، شكرا</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">هاي، تفقد الدبوس الخاص بي على MAPS.ME!  %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get</string>
+	<string name="bookmark_share_sms">هاي، تفقد الدبوس الخاص بي على MAPS.ME! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">هاي، تفقد الموقع الخاص بي على MAPS.ME!  %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get</string>
+	<string name="my_position_share_sms">هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$s أو %2$s. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -270,7 +270,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">مرحبا،\n\nأنا هنا الآن: %1$s  . انقر على هذا الرابط %2$s أو ذلك الرابط %3$s لمشاهدة المكان على الخريطة.\n\nشكرا لك.</string>
+	<string name="my_position_share_email">مرحبا،\n\nأنا هنا الآن: %1$s. انقر على هذا الرابط %2$s أو ذلك الرابط %3$s لمشاهدة المكان على الخريطة.\n\nشكرا لك.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">مشاركة بواسطة رسالة</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

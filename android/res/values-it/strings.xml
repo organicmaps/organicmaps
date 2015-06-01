@@ -81,7 +81,7 @@
 	<!-- Choose measurement on first launch alert - title -->
 	<string name="which_measurement_system">Quale sistema di misura preferisci?</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione.  Cortesemente abilitali nelle Impostazioni.</string>
+	<string name="location_is_disabled_long_text">Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione. Cortesemente abilitali nelle Impostazioni.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Il tuo dispositivo non supporta i servizi di localizzazione</string>
 	<!-- View and button titles for accessibility -->

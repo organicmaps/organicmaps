@@ -129,7 +129,7 @@
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">당신은 검색 기능에 대한 업데이트된지도 필요</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트 :</string>
+	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
@@ -395,7 +395,7 @@
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다 :\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
+	<string name="routing_disclaimer">MAPS.ME 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">만료됨</string>
 	<!-- Up to date maps category -->
@@ -681,5 +681,5 @@
 	<!-- get the map -->
 	<string name="get_the_map">지도 가져오기</string>
 	<!-- location mode off -->
-	<string name="location_mode_off">위치 지정 모드 : 끄기</string>
+	<string name="location_mode_off">위치 지정 모드: 끄기</string>
 </resources>

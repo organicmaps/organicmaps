@@ -271,7 +271,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на карті MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s.  Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</string>
+	<string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Подiлитися за допомогою повідомлення</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

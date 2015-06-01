@@ -88,7 +88,7 @@
 	<!-- Subject for emailed position -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Поглянь на моє поточне місцезнаходження на карті MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL">Привіт,\n\nЯ зараз тут: %1$s.  Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Подiлитись</text>
 	<!-- iOS share by Message button text (including SMS) -->

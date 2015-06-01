@@ -371,7 +371,7 @@
 "share_bookmarks_email_subject" = "تم مشاركة اشارات MAPS.ME المرجعية معك";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!";
+"share_bookmarks_email_body" = "مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "تحميل الإشارات المرجعية";
@@ -407,10 +407,10 @@
 "no_thanks" = "لا، شكرا";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get";
+"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get";
+"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على MAPS.ME! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!";
@@ -422,7 +422,7 @@
 "my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "مرحبا،\n\nأنا هنا الآن: %1$@  . انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.";
+"my_position_share_email" = "مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "مشاركة بواسطة رسالة";

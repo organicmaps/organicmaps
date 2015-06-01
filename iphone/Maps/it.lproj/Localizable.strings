@@ -133,7 +133,7 @@
 "which_measurement_system" = "Quale sistema di misura preferisci?";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione.  Cortesemente abilitali nelle Impostazioni.";
+"location_is_disabled_long_text" = "Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione. Cortesemente abilitali nelle Impostazioni.";
 
 /* Location Services are not available on the device alert - message */
 "device_doesnot_support_location_services" = "Il tuo dispositivo non supporta i servizi di localizzazione";

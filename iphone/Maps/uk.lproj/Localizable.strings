@@ -422,7 +422,7 @@
 "my_position_share_email_subject" = "Поглянь на моє поточне місцезнаходження на карті MAPS.ME";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті.\n\nДякую.";
+"my_position_share_email" = "Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті.\n\nДякую.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Подiлитися за допомогою повідомлення";

@@ -78,9 +78,9 @@
 	<!-- Warning message when doing search around current position -->
 	<text id="IDS_UNKNOWN_CURRENT_POSITION">Votre position n\&#39;a pas encore été déterminée</text>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_BOOKMARK_SHARE_SMS">Hé, regarde mon épingle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</text>
+	<text id="IDS_BOOKMARK_SHARE_SMS">Hé, regarde mon épingle sur MAPS.ME! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées? Les télécharger ici: http://maps.me/get</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_MY_POSITION_SHARE_SMS">Hé, regarde ma position actuelle sur MAPS.ME ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get</text>
+	<text id="IDS_MY_POSITION_SHARE_SMS">Hé, regarde ma position actuelle sur MAPS.ME! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées? Les télécharger ici: http://maps.me/get</text>
 	<!-- Subject for emailed bookmark -->
 	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Hé, regarde mon épingle sur la carte MAPS.ME !</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -102,7 +102,7 @@
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Version : %s</text>
 	<!-- Confirmation in downloading countries dialog -->
-	<text id="IDS_ARE_YOU_SURE">Êtes-vous certain de vouloir continuer ?</text>
+	<text id="IDS_ARE_YOU_SURE">Êtes-vous certain de vouloir continuer?</text>
 	<text id="IDS_SHARE_MY_LOCATION">Partager ma position</text>
 	<text id="IDS_BECOME_A_PRO">Mettre à niveau</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Boutons de zoom</text>
@@ -132,7 +132,7 @@
 	<!-- Country queued for download -->
 	<text id="IDS_DOWNLOADER_QUEUED">en file d\&#39;attente</text>
 	<!-- Disclaimer message -->
-	<text id="IDS_ROUTING_DISCLAIMER">Quand vous créez des itinéraires sur l\&#39;application MAPS.ME, veuillez garder à l\&#39;esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu\&#39;une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.</text>
+	<text id="IDS_ROUTING_DISCLAIMER">Quand vous créez des itinéraires sur l\&#39;application MAPS.ME, veuillez garder à l\&#39;esprit les points suivants:\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu\&#39;une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.</text>
 	<!-- Outdated maps category -->
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Dépassé</text>
 	<!-- Up to date maps category -->
