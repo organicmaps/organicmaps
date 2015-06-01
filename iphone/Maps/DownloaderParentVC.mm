@@ -30,7 +30,7 @@
 {
   if (buttonIndex != alertView.cancelButtonIndex)
   {
-    if (self.selectedInActionSheetOptions == TMapOptions::EMapOnly)
+    if (self.selectedInActionSheetOptions == TMapOptions::EMap)
       [self performAction:DownloaderActionDownloadMap withSizeCheck:NO];
     else if (self.selectedInActionSheetOptions == TMapOptions::ECarRouting)
       [self performAction:DownloaderActionDownloadCarRouting withSizeCheck:NO];
@@ -51,7 +51,7 @@
 - (NSString *)selectedMapName { return nil; }
 - (uint64_t)selectedMapSizeWithOptions:(TMapOptions)options { return 0; }
 - (TStatus)selectedMapStatus { return TStatus::EUnknown; }
-- (TMapOptions)selectedMapOptions { return TMapOptions::EMapOnly; }
+- (TMapOptions)selectedMapOptions { return TMapOptions::EMap; }
 
 #pragma mark - Virtual table view methods
 
@@ -117,7 +117,7 @@
 
   if (status == TStatus::ENotDownloaded || status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed)
   {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapOnly]];
+    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMap]];
     NSString * title;
     if ([self allButtonsInActionSheetAreAboutDownloading:status])
       title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_map_only"), size];
@@ -145,16 +145,16 @@
     [self addButtonWithTitle:title action:DownloaderActionDownloadAll toActionSheet:actionSheet];
   }
 
-  if (status == TStatus::EOnDisk && options == TMapOptions::EMapOnly)
+  if (status == TStatus::EOnDisk && options == TMapOptions::EMap)
   {
     NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::ECarRouting]];
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_download_routing"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadCarRouting toActionSheet:actionSheet];
   }
 
-  if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMapOnly)
+  if (status == TStatus::EOnDiskOutOfDate && options == TMapOptions::EMap)
   {
-    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapOnly]];
+    NSString * size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMap]];
     NSString * title = [NSString stringWithFormat:@"%@, %@", L(@"downloader_update_map"), size];
     [self addButtonWithTitle:title action:DownloaderActionDownloadMap toActionSheet:actionSheet];
     size = [self formattedMapSize:[self selectedMapSizeWithOptions:TMapOptions::EMapWithCarRouting]];
@@ -224,7 +224,7 @@
 
       case DownloaderActionDownloadMap:
       case DownloaderActionDeleteMap:
-        self.selectedInActionSheetOptions = TMapOptions::EMapOnly;
+        self.selectedInActionSheetOptions = TMapOptions::EMap;
         break;
 
       case DownloaderActionDownloadCarRouting:

@@ -1434,7 +1434,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::EMapOnly);
+    storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::EMap);
   }
 
   JNIEXPORT void JNICALL

@@ -447,7 +447,7 @@ void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
 {
   ASSERT(m_countryIdx.IsValid(), ());
 
-  TMapOptions options = TMapOptions::EMapOnly;
+  TMapOptions options = TMapOptions::EMap;
   if (button == m_secondaryButton.get())
     options |= TMapOptions::ECarRouting;
 

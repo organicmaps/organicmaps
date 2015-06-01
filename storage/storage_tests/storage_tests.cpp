@@ -14,7 +14,7 @@ UNIT_TEST(StorageTest_Smoke)
 
   TIndex const i1 = st.FindIndexByFile("USA_Georgia");
   TEST(i1.IsValid(), ());
-  TEST_EQUAL(st.CountryFileName(i1, TMapOptions::EMapOnly), "USA_Georgia" DATA_FILE_EXTENSION, ());
+  TEST_EQUAL(st.CountryFileName(i1, TMapOptions::EMap), "USA_Georgia" DATA_FILE_EXTENSION, ());
 
   TIndex const i2 = st.FindIndexByFile("Georgia");
   TEST(i2.IsValid(), ());

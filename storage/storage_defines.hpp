@@ -23,7 +23,7 @@ namespace storage
   ENUM_FLAGS(TMapOptions)
   enum class TMapOptions
   {
-    EMapOnly = 0x1,
+    EMap = 0x1,
     ECarRouting = 0x2,
     EMapWithCarRouting = 0x3
   };

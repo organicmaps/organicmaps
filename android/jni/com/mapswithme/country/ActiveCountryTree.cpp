@@ -61,7 +61,7 @@ extern "C"
     LocalAndRemoteSizeT sizes = layout.GetRemoteCountrySizes(coreGroup, pos);
     switch (opt)
     {
-      case TMapOptions::EMapOnly:
+      case TMapOptions::EMap:
         return sizes.first;
       case TMapOptions::ECarRouting:
         return sizes.second;

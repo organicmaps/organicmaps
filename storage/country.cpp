@@ -14,7 +14,7 @@ string CountryFile::GetFileWithExt(TMapOptions opt) const
 {
   switch (opt)
   {
-  case TMapOptions::EMapOnly: return m_fileName + DATA_FILE_EXTENSION;
+  case TMapOptions::EMap: return m_fileName + DATA_FILE_EXTENSION;
   case TMapOptions::ECarRouting: return m_fileName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
 
   case TMapOptions::EMapWithCarRouting:
@@ -41,7 +41,7 @@ uint32_t CountryFile::GetRemoteSize(TMapOptions opt) const
 {
   switch (opt)
   {
-  case TMapOptions::EMapOnly: return m_mapSize;
+  case TMapOptions::EMap: return m_mapSize;
   case TMapOptions::ECarRouting: return m_routingSize;
   case TMapOptions::EMapWithCarRouting : return m_mapSize + m_routingSize;
   }
@@ -274,7 +274,7 @@ void SaveImpl(T const & v, json_t * jParent)
       string const & strFile = file.GetFileWithoutExt();
       if (strFile != strName)
         json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));
-      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(TMapOptions::EMapOnly)));
+      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(TMapOptions::EMap)));
       json_object_set_new(jCountry.get(), "rs", json_integer(file.GetRemoteSize(TMapOptions::ECarRouting)));
     }
 

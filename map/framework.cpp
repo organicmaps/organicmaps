@@ -395,16 +395,16 @@ double Framework::GetVisualScale() const
 
 void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 {
-  if (opt & TMapOptions::EMapOnly)
+  if (opt & TMapOptions::EMap)
     opt = TMapOptions::EMapWithCarRouting;
 
   if (!m_storage.DeleteFromDownloader(index))
   {
     CountryFile const & file = m_storage.CountryByIndex(index).GetFile();
 
-    if (opt & TMapOptions::EMapOnly)
+    if (opt & TMapOptions::EMap)
     {
-      if (m_model.DeleteMap(file.GetFileWithExt(TMapOptions::EMapOnly)))
+      if (m_model.DeleteMap(file.GetFileWithExt(TMapOptions::EMap)))
         InvalidateRect(GetCountryBounds(file.GetFileWithoutExt()), true);
     }
 
@@ -469,7 +469,7 @@ void Framework::ShowCountry(TIndex const & index)
 
 void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 {
-  if (opt & TMapOptions::EMapOnly)
+  if (opt & TMapOptions::EMap)
   {
     // Delete old (splitted) map files, if any.
     char const * arr[] = { "Japan", "Brazil" };

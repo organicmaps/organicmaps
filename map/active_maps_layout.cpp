@@ -225,7 +225,7 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TGroup const &
 LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const & index) const
 {
   CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
-  size_t const mapSize = c.GetRemoteSize(TMapOptions::EMapOnly);
+  size_t const mapSize = c.GetRemoteSize(TMapOptions::EMap);
   return { mapSize, c.GetRemoteSize(TMapOptions::ECarRouting) };
 }
 
@@ -348,7 +348,7 @@ Storage & ActiveMapsLayout::GetStorage()
 void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 {
   TStatus newStatus = TStatus::EUnknown;
-  TMapOptions options = TMapOptions::EMapOnly;
+  TMapOptions options = TMapOptions::EMap;
   GetStorage().CountryStatusEx(index, newStatus, options);
 
   TGroup group = TGroup::ENewMap;
@@ -632,12 +632,12 @@ void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position,
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDownload(TMapOptions const & options)
 {
-  return options | TMapOptions::EMapOnly;
+  return options | TMapOptions::EMap;
 }
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDelete(TMapOptions const & options)
 {
-  if (options & TMapOptions::EMapOnly)
+  if (options & TMapOptions::EMap)
     return options | TMapOptions::ECarRouting;
   return options;
 }

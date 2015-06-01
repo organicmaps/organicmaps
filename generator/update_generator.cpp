@@ -49,7 +49,7 @@ namespace update
       string const fName = cnt.GetFileWithExt(opt);
       if (!GetPlatform().GetFileSizeByFullPath(m_dataDir + fName, sz))
       {
-        LOG(opt == TMapOptions::EMapOnly ? LCRITICAL : LWARNING, ("File was not found:", fName));
+        LOG(opt == TMapOptions::EMap ? LCRITICAL : LWARNING, ("File was not found:", fName));
         return 0;
       }
 
@@ -78,7 +78,7 @@ namespace update
 
         ++m_processedFiles;
 
-        cnt.AssignSizes(GetFileSize(cnt, TMapOptions::EMapOnly),
+        cnt.AssignSizes(GetFileSize(cnt, TMapOptions::EMap),
                         GetFileSize(cnt, TMapOptions::ECarRouting));
 
         string const fName = cnt.GetFileWithoutExt() + DATA_FILE_EXTENSION;
