@@ -11,6 +11,7 @@
       android:id="@+id/iv__search_category"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:background="@drawable/bg_circle_search_category"
       android:layout_weight="0"
       android:contentDescription="@null"
       android:scaleType="center"/>

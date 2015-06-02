@@ -27,6 +27,7 @@
   <color name="base_blue">#000000</color>
   <color name="base_red">#000000</color>
   <color name="base_yellow">#000000</color>
+  <color name="base_bg_secondary">#F5F5F5</color>
 
   <!-- TODO change all colors below, remove old ones-->
   <color name="semitransparent_white">#99FFFFFF</color>

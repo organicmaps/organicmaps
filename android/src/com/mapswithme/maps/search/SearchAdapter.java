@@ -146,13 +146,13 @@ public class SearchAdapter extends BaseAdapter
       switch (viewType)
       {
       case CATEGORY_TYPE:
-        convertView = mInflater.inflate(R.layout.search_category_item, parent, false);
+        convertView = mInflater.inflate(R.layout.item_search_category, parent, false);
         break;
       case RESULT_TYPE:
-        convertView = mInflater.inflate(R.layout.search_item, parent, false);
+        convertView = mInflater.inflate(R.layout.item_search, parent, false);
         break;
       case MESSAGE_TYPE:
-        convertView = mInflater.inflate(R.layout.search_message_item, parent, false);
+        convertView = mInflater.inflate(R.layout.item_search_message, parent, false);
         break;
       }
       holder = new ViewHolder(convertView, viewType);
