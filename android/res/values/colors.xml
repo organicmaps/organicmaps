@@ -38,14 +38,6 @@
   <color name="divider_standard">#1E4A4B53</color>
   <!-- TODO end of unfinished colors-->
 
-  <!-- search -->
-  <color name="text_search_box">@color/text_light</color>
-  <color name="text_search_box_hint">@color/text_light_hint</color>
-  <color name="text_search_item">@color/text_dark</color>
-  <color name="text_search_item_subtitle">@color/text_dark_subtitle</color>
-  <color name="text_search_item_greyed">@color/text_dark_hint</color>
-  <color name="text_search_category">@color/text_dark</color>
-
   <!-- place page -->
   <color name="text_place_page">@color/text_dark</color>
   <color name="text_place_page_subtitle">@color/text_dark_subtitle</color>

@@ -11,20 +11,17 @@
 
   <EditText
       android:id="@+id/search_text_query"
-      style="@style/TextAppearance.AppCompat.Large"
+      style="@style/MwmTextAppearance.Toolbar"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_weight="1"
       android:background="@null"
-      android:fontFamily="@string/robotoLight"
       android:hint="@string/search"
       android:imeOptions="actionSearch|flagNoExtractUi"
       android:inputType="text"
       android:padding="@dimen/margin_tiny"
-      android:singleLine="true"
-      android:textColor="@color/text_search_box"
-      android:textColorHint="@color/text_search_box_hint"/>
+      android:singleLine="true"/>
 
   <ProgressBar
       android:id="@+id/search_progress"
