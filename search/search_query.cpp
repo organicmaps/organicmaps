@@ -127,32 +127,50 @@ int8_t Query::GetLanguage(int id) const
   return m_keywordsScorer.GetLanguage(GetLangIndex(id));
 }
 
-void Query::SetViewport(m2::RectD const & viewport)
+void Query::SetViewport(m2::RectD const & viewport, bool forceUpdate)
 {
   m_cancel = false;
 
   MWMVectorT mwmsInfo;
   m_pIndex->GetMwmsInfo(mwmsInfo);
 
-  SetViewportByIndex(mwmsInfo, viewport, CURRENT_V);
+  SetViewportByIndex(mwmsInfo, viewport, CURRENT_V, forceUpdate);
 }
 
-void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport, size_t idx)
+void Query::SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport,
+                               size_t idx, bool forceUpdate)
 {
   ASSERT(idx < COUNT_V, (idx));
 
   if (viewport.IsValid())
   {
-    // Check if viewports are equal (10 meters).
-    if (!m_viewport[idx].IsValid() || !IsEqualMercator(m_viewport[idx], viewport, 10.0))
+    // Check if we can skip this cache query.
+    if (m_viewport[idx].IsValid())
     {
-      m_viewport[idx] = viewport;
-      UpdateViewportOffsets(mwmsInfo, viewport, m_offsetsInViewport[idx]);
+      if (forceUpdate)
+      {
+        // skip if rects are equal with 10 meters tolerance
+        if (IsEqualMercator(m_viewport[idx], viewport, 10.0))
+          return;
+      }
+      else
+      {
+        // skip if new viewport is inside the old one
+        m2::RectD r(m_viewport[idx]);
+        constexpr long double eps = 5.0 * MercatorBounds::degreeInMetres;
+        r.Inflate(eps, eps);
+
+        if (r.IsRectInside(viewport))
+          return;
+      }
+    }
+
+    m_viewport[idx] = viewport;
+    UpdateViewportOffsets(mwmsInfo, viewport, m_offsetsInViewport[idx]);
 
 #ifdef FIND_LOCALITY_TEST
-      m_locality.SetViewportByIndex(viewport, idx);
+    m_locality.SetViewportByIndex(viewport, idx);
 #endif
-    }
   }
   else
   {
@@ -1598,7 +1616,7 @@ void Query::SearchAddress(Results & res)
 
           m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
                 city.m_value.m_pt, city.m_radius);
-          SetViewportByIndex(mwmsInfo, rect, LOCALITY_V);
+          SetViewportByIndex(mwmsInfo, rect, LOCALITY_V, false);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;

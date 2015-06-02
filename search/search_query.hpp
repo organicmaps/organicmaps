@@ -77,7 +77,9 @@ public:
 
   void Init(bool viewportSearch);
 
-  void SetViewport(m2::RectD const & viewport);
+  /// @param[in]  forceUpdate Pass true (default) to recache feature's ids even
+  /// if viewport is a part of the old cached rect.
+  void SetViewport(m2::RectD const & viewport, bool forceUpdate);
   void SetRankPivot(m2::PointD const & pivot);
   inline string const & GetPivotRegion() const { return m_region; }
 
@@ -158,7 +160,8 @@ private:
   typedef map<MwmSet::MwmId, vector<uint32_t>> OffsetsVectorT;
   typedef feature::DataHeader FHeaderT;
 
-  void SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport, size_t idx);
+  void SetViewportByIndex(MWMVectorT const & mwmsInfo, m2::RectD const & viewport,
+                          size_t idx, bool forceUpdate);
   void UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const & rect,
                              OffsetsVectorT & offsets);
   void ClearCache(size_t ind);

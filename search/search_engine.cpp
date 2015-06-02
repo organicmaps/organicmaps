@@ -160,7 +160,7 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
 
   m2::RectD r(viewport);
   (void)GetInflatedViewport(r);
-  m_pQuery->SetViewport(r);
+  m_pQuery->SetViewport(r, true);
 }
 
 void Engine::EmitResults(SearchParams const & params, Results & res)
@@ -247,7 +247,7 @@ void Engine::SearchAsync()
 
     if (viewportSearch)
     {
-      m_pQuery->SetViewport(viewport);
+      m_pQuery->SetViewport(viewport, true);
       m_pQuery->SearchViewportPoints(res);
 
       if (res.GetCount() > 0)
@@ -260,7 +260,7 @@ void Engine::SearchAsync()
         bool const isInflated = GetInflatedViewport(viewport);
         size_t const oldCount = res.GetCount();
 
-        m_pQuery->SetViewport(viewport);
+        m_pQuery->SetViewport(viewport, oneTimeSearch);
         m_pQuery->Search(res, RESULTS_COUNT);
 
         size_t const newCount = res.GetCount();
