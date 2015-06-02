@@ -66,7 +66,8 @@ public:
 private:
   static const int RESULTS_COUNT = 30;
 
-  void SetRankPivot(SearchParams const & params, m2::RectD const & viewport);
+  void SetRankPivot(SearchParams const & params,
+                    m2::RectD const & viewport, bool viewportSearch);
   void SetViewportAsync(m2::RectD const & viewport);
   void SearchAsync();
 

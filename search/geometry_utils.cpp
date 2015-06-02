@@ -18,17 +18,18 @@ bool IsEqualMercator(m2::RectD const & r1, m2::RectD const & r2, double epsMeter
   return m2::IsEqual(r1, r2, eps, eps);
 }
 
-// 12.5 - lower bound for rect when we need to inflate it
+// 11.5 - lower bound for rect when we need to inflate it
 // 1.5 - inflate delta for viewport scale
 // 7 - query scale depth to cache viewport features
 
-m2::RectD GetInflatedViewport(m2::RectD const & viewport)
+bool GetInflatedViewport(m2::RectD & viewport)
 {
   double const level = scales::GetScaleLevelD(viewport);
-  if (level < 12.5)
-    return viewport;
+  if (level < 11.5)
+    return false;
 
-  return scales::GetRectForLevel(level - 1.5, viewport.Center());
+  viewport = scales::GetRectForLevel(level - 1.5, viewport.Center());
+  return true;
 }
 
 int GetQueryIndexScale(m2::RectD const & viewport)

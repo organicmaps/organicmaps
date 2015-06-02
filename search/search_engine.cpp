@@ -158,7 +158,9 @@ void Engine::SetViewportAsync(m2::RectD const & viewport)
   // Enter to run new search.
   threads::MutexGuard searchGuard(m_searchMutex);
 
-  m_pQuery->SetViewport(GetInflatedViewport(viewport));
+  m2::RectD r(viewport);
+  (void)GetInflatedViewport(r);
+  m_pQuery->SetViewport(r);
 }
 
 void Engine::EmitResults(SearchParams const & params, Results & res)
@@ -172,9 +174,10 @@ void Engine::EmitResults(SearchParams const & params, Results & res)
   params.m_callback(res);
 }
 
-void Engine::SetRankPivot(SearchParams const & params, m2::RectD const & viewport)
+void Engine::SetRankPivot(SearchParams const & params,
+                          m2::RectD const & viewport, bool viewportSearch)
 {
-  if (!params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY) && params.IsValidPosition())
+  if (!viewportSearch && params.IsValidPosition())
   {
     m2::PointD const pos = MercatorBounds::FromLatLon(params.m_lat, params.m_lon);
     if (m2::Inflate(viewport, viewport.SizeX() / 4.0, viewport.SizeY() / 4.0).IsPointInside(pos))
@@ -203,37 +206,32 @@ void Engine::SearchAsync()
   // Get current search params.
   SearchParams params;
   m2::RectD viewport;
-  bool viewportPoints;
+  bool oneTimeSearch = false;
 
   {
     threads::MutexGuard updateGuard(m_updateMutex);
     params = m_params;
 
-    viewportPoints = params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY);
-
-    if (!params.GetSearchRect(viewport))
-    {
-      if (viewportPoints)
-        viewport = m_viewport;
-      else
-        viewport = GetInflatedViewport(m_viewport);
-    }
+    if (params.GetSearchRect(viewport))
+      oneTimeSearch = true;
+    else
+      viewport = m_viewport;
   }
 
+  bool const viewportSearch = params.HasSearchMode(SearchParams::IN_VIEWPORT_ONLY);
+
   // Initialize query.
-  m_pQuery->Init(viewportPoints);
+  m_pQuery->Init(viewportSearch);
 
-  SetRankPivot(params, viewport);
-
-  m_pQuery->SetViewport(viewport);
+  SetRankPivot(params, viewport, viewportSearch);
 
   m_pQuery->SetSearchInWorld(params.HasSearchMode(SearchParams::SEARCH_WORLD));
 
   // Language validity is checked inside
   m_pQuery->SetInputLocale(params.m_inputLocale);
 
+  ASSERT(!params.m_query.empty(), ());
   m_pQuery->SetQuery(params.m_query);
-  bool const emptyQuery = m_pQuery->IsEmptyQuery();
 
   Results res;
 
@@ -247,22 +245,42 @@ void Engine::SearchAsync()
     // Do search for address in all modes.
     // params.HasSearchMode(SearchParams::SEARCH_ADDRESS)
 
-    if (viewportPoints)
+    if (viewportSearch)
+    {
+      m_pQuery->SetViewport(viewport);
       m_pQuery->SearchViewportPoints(res);
+
+      if (res.GetCount() > 0)
+        EmitResults(params, res);
+    }
     else
-      m_pQuery->Search(res, RESULTS_COUNT);
+    {
+      while (!m_pQuery->IsCanceled())
+      {
+        bool const isInflated = GetInflatedViewport(viewport);
+        size_t const oldCount = res.GetCount();
+
+        m_pQuery->SetViewport(viewport);
+        m_pQuery->Search(res, RESULTS_COUNT);
+
+        size_t const newCount = res.GetCount();
+        bool const exit = (oneTimeSearch || !isInflated || newCount >= RESULTS_COUNT);
+
+        if (exit || oldCount != newCount)
+          EmitResults(params, res);
+
+        if (exit)
+          break;
+      }
+    }
   }
   catch (Query::CancelException const &)
   {
   }
 
-  // Emit results even if search was canceled and we have something.
-  size_t const count = res.GetCount();
-  if (!m_pQuery->IsCanceled() || count > 0)
-    EmitResults(params, res);
-
   // Make additional search in whole mwm when not enough results (only for non-empty query).
-  if (!viewportPoints && !emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
+  size_t const count = res.GetCount();
+  if (!viewportSearch && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
   {
     try
     {

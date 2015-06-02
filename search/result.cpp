@@ -1,5 +1,6 @@
-#include "search/result.hpp"
-#include "search/geometry_utils.hpp"
+#include "result.hpp"
+#include "geometry_utils.hpp"
+#include "search_common.hpp"
 
 
 namespace search
@@ -46,7 +47,10 @@ Result::ResultType Result::GetResultType() const
   if (!m_suggestionStr.empty())
     return (idValid ? RESULT_SUGGEST_FROM_FEATURE : RESULT_SUGGEST_PURE);
 
-  return (idValid ? RESULT_FEATURE : RESULT_LATLON);
+  if (idValid)
+    return RESULT_FEATURE;
+  else
+    return (m_type.empty() ? RESULT_LATLON : RESULT_ADDRESS);
 }
 
 bool Result::IsSuggest() const
@@ -77,28 +81,35 @@ char const * Result::GetSuggestionString() const
   return m_suggestionStr.c_str();
 }
 
-bool Result::operator== (Result const & r) const
+bool Result::IsEqualSuggest(Result const & r) const
+{
+  return (m_suggestionStr == r.m_suggestionStr);
+}
+
+bool Result::IsEqualFeature(Result const & r) const
 {
   ResultType const type = GetResultType();
-  if (type == r.GetResultType())
+  if (type != r.GetResultType())
+    return false;
+
+  if (type == RESULT_ADDRESS)
+    return (PointDistance(m_center, r.m_center) < 50.0);
+  else
   {
-    if (IsSuggest())
-    {
-      ASSERT(r.IsSuggest(), ());
-      return (m_suggestionStr == r.m_suggestionStr);
-    }
-    else
-    {
-      // This function is used to filter duplicate results in cases:
-      // - emitted World.mwm and Country.mwm
-      // - after additional search in all mwm
-      // so it's suitable here to test for 500m
-      return (m_str == r.m_str && m_region == r.m_region &&
-              m_featureType == r.m_featureType &&
-              PointDistance(m_center, r.m_center) < 500.0);
-    }
+    ASSERT_EQUAL(type, Result::RESULT_FEATURE, ());
+
+    ASSERT(m_id.IsValid() && r.m_id.IsValid(), ());
+    if (m_id == r.m_id)
+      return true;
+
+    // This function is used to filter duplicate results in cases:
+    // - emitted World.mwm and Country.mwm
+    // - after additional search in all mwm
+    // so it's suitable here to test for 500m
+    return (m_str == r.m_str && m_region == r.m_region &&
+            m_featureType == r.m_featureType &&
+            PointDistance(m_center, r.m_center) < 500.0);
   }
-  return false;
 }
 
 void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
@@ -123,15 +134,42 @@ void Result::AppendCity(string const & name)
     m_region += (", " + name);
 }
 
-bool Results::AddResultCheckExisting(Result const & r)
+bool Results::AddResult(Result && res)
 {
-  if (find(m_vec.begin(), m_vec.end(), r) == m_vec.end())
+  // Find first feature result.
+  auto it = find_if(m_vec.begin(), m_vec.end(), [](Result const & r)
   {
-    AddResult(r);
-    return true;
+    switch (r.GetResultType())
+    {
+    case Result::RESULT_FEATURE:
+    case Result::RESULT_ADDRESS:
+      return true;
+    default:
+      return false;
+    }
+  });
+
+  if (res.IsSuggest())
+  {
+    if (distance(m_vec.begin(), it) >= MAX_SUGGESTS_COUNT)
+      return false;
+
+    for (auto i = m_vec.begin(); i != it; ++i)
+      if (res.IsEqualSuggest(*i))
+        return false;
+
+    m_vec.insert(it, move(res));
   }
   else
-    return false;
+  {
+    for (; it != m_vec.end(); ++it)
+      if (res.IsEqualFeature(*it))
+        return false;
+
+    m_vec.push_back(move(res));
+  }
+
+  return true;
 }
 
 size_t Results::GetSuggestsCount() const

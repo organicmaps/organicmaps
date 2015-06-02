@@ -1408,6 +1408,7 @@ void Framework::ShowSearchResult(search::Result const & res)
     }
 
     case Result::RESULT_LATLON:
+    case Result::RESULT_ADDRESS:
       scale = scales::GetUpperComfortScale();
       center = res.GetFeatureCenter();
       break;

@@ -282,7 +282,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
 #endif
 }
 
-void Query::Init(bool viewportPoints)
+void Query::Init(bool viewportSearch)
 {
   m_cancel = false;
 
@@ -296,7 +296,7 @@ void Query::Init(bool viewportPoints)
 
   ClearQueues();
 
-  if (viewportPoints)
+  if (viewportSearch)
   {
     // Special case to change comparator in viewport search
     // (more uniform results distribution on the map).
@@ -419,8 +419,8 @@ void Query::SearchCoordinates(string const & query, Results & res) const
   double lat, lon;
   if (MatchLatLonDegree(query, lat, lon))
   {
-    //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-    res.AddResult(MakeResult(impl::PreResult2(lat, lon)));
+    ASSERT_EQUAL(res.GetCount(), 0, ());
+    res.AddResultNoChecks(MakeResult(impl::PreResult2(lat, lon)));
   }
 }
 
@@ -713,14 +713,10 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
     if (!allMWMs)
       count = min(count, size_t(5));
 
-    bool (Results::*addFn)(Result const &) = allMWMs ?
-          &Results::AddResultCheckExisting :
-          &Results::AddResult;
-
     for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
-      (res.*addFn)(MakeResult(impl::PreResult2(h->GetPosition(),
+      res.AddResult(MakeResult(impl::PreResult2(h->GetPosition(),
                                                h->GetNumber() + ", " + houses[i].m_street->GetName(),
                                                ftypes::IsBuildingChecker::Instance().GetMainType())));
     }
@@ -745,10 +741,6 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
   if (!allMWMs)
     ProcessSuggestions(indV, res);
 
-  bool (Results::*addFn)(Result const &) = allMWMs ?
-        &Results::AddResultCheckExisting :
-        &Results::AddResult;
-
 #ifdef HOUSE_SEARCH_TEST
   FlushHouses(res, allMWMs, streets);
 #endif
@@ -761,7 +753,7 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
     LOG(LDEBUG, (indV[i]));
 
-    if ((res.*addFn)(MakeResult(*(indV[i]))))
+    if (res.AddResult(MakeResult(*(indV[i]))))
       ++count;
   }
 }
@@ -792,7 +784,7 @@ void Query::SearchViewportPoints(Results & res)
   {
     if (m_cancel) break;
 
-    res.AddResult((*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, m_currentLocaleCode));
+    res.AddResultNoChecks((*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, m_currentLocaleCode));
   }
 }
 
@@ -888,8 +880,7 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
       GetSuggestion(r.GetName(), suggest);
       if (!suggest.empty() && added < MAX_SUGGESTS_COUNT)
       {
-        Result rr(MakeResult(r), suggest);
-        if (res.AddResultCheckExisting(rr))
+        if (res.AddResult((Result(MakeResult(r), suggest))))
           ++added;
 
         i = vec.erase(i);
@@ -2107,21 +2098,21 @@ void Query::SuggestStrings(Results & res)
   }
 }
 
-void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res)
+void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale,
+                                    string const & prolog, Results & res)
 {
-  StringsToSuggestVectorT::const_iterator it = m_pStringsToSuggest->begin();
-  for (; it != m_pStringsToSuggest->end(); ++it)
+  for (SuggestT const & suggest : *m_pStringsToSuggest)
   {
-    strings::UniString const & s = it->m_name;
-    if ((it->m_prefixLength <= token.size()) &&
-        (token != s) &&          // do not push suggestion if it already equals to token
-        (it->m_locale == locale) &&  // push suggestions only for needed language
+    strings::UniString const & s = suggest.m_name;
+    if ((suggest.m_prefixLength <= token.size()) &&
+        (token != s) &&                   // do not push suggestion if it already equals to token
+        (suggest.m_locale == locale) &&   // push suggestions only for needed language
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prolog + utf8Str + " ");
       MakeResultHighlight(r);
-      res.AddResultCheckExisting(r);
+      res.AddResult(move(r));
     }
   }
 }

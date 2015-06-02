@@ -75,7 +75,7 @@ public:
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
-  void Init(bool viewportPoints);
+  void Init(bool viewportSearch);
 
   void SetViewport(m2::RectD const & viewport);
   void SetRankPivot(m2::PointD const & pivot);
@@ -233,8 +233,6 @@ private:
 #ifdef FIND_LOCALITY_TEST
   LocalityFinder m_locality;
 #endif
-
-  static int const MAX_SUGGESTS_COUNT = 5;
 
   m2::RectD m_viewport[COUNT_V];
   m2::PointD m_pivot;

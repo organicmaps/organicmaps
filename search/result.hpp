@@ -20,6 +20,7 @@ public:
   {
     RESULT_FEATURE,
     RESULT_LATLON,
+    RESULT_ADDRESS,
     RESULT_SUGGEST_PURE,
     RESULT_SUGGEST_FROM_FEATURE
   };
@@ -32,7 +33,7 @@ public:
   /// Used for point-like results on the map.
   Result(m2::PointD const & pt, string const & str, string const & type);
 
-  /// @param[in] type Pass 0 - for RESULT_LATLON or building type for building address.
+  /// @param[in] type Empty string - RESULT_LATLON, building address otherwise.
   Result(m2::PointD const & pt, string const & str,
          string const & region, string const & type);
 
@@ -67,7 +68,8 @@ public:
   /// @precondition IsSuggest() == true
   char const * GetSuggestionString() const;
 
-  bool operator== (Result const & r) const;
+  bool IsEqualSuggest(Result const & r) const;
+  bool IsEqualFeature(Result const & r) const;
 
   void AddHighlightRange(pair<uint16_t, uint16_t> const & range);
   pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
@@ -110,12 +112,13 @@ public:
   bool IsEndedNormal() const { return (m_status == ENDED); }
   //@}
 
-  inline bool AddResult(Result const & r)
+  bool AddResult(Result && res);
+  /// Fast function that don't do any duplicates checks.
+  /// Used in viewport search only.
+  void AddResultNoChecks(Result && res)
   {
-    m_vec.push_back(r);
-    return true;
+    m_vec.push_back(move(res));
   }
-  bool AddResultCheckExisting(Result const & r);
 
   inline void Clear() { m_vec.clear(); }
 
@@ -135,11 +138,6 @@ public:
   inline void Swap(Results & rhs)
   {
     m_vec.swap(rhs.m_vec);
-  }
-
-  template <class LessT> void Sort(LessT lessFn)
-  {
-    sort(m_vec.begin(), m_vec.end(), lessFn);
   }
 };
 
