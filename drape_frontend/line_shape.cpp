@@ -259,7 +259,7 @@ namespace
     glsl::vec2 const v2 = newPoint - startPoint;
     float const squareLen = glsl::dot(v1, v1);
     float const proj = glsl::dot(v1, v2) / squareLen;
-    return sqrt(squareLen) * max(min(proj, 1.0f), 0.0f);
+    return sqrt(squareLen) * my::clamp(proj, 0.0f, 1.0f);
   }
 
   void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
