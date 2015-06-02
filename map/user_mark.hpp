@@ -130,7 +130,6 @@ public:
   PoiMarkPoint(UserMarkContainer * container);
   UserMark::Type GetMarkType() const override;
   unique_ptr<UserMarkCopy> Copy() const override;
-  virtual void FillLogEvent(TEventContainer & details) const override;
 
   void SetPtOrg(m2::PointD const & ptOrg);
   void SetName(string const & name);
@@ -142,18 +141,15 @@ public:
   MyPositionMarkPoint(UserMarkContainer * container);
 
   UserMark::Type GetMarkType() const override;
-  void FillLogEvent(TEventContainer & details) const override;
 };
 
 class DebugMarkPoint : public UserMark
 {
 public:
   DebugMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
-;
+
   string GetSymbolName() const override;
 
   Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
   unique_ptr<UserMarkCopy> Copy() const override;
-
-  void FillLogEvent(TEventContainer & details) const override;
 };

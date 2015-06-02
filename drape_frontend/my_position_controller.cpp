@@ -306,6 +306,9 @@ void MyPositionController::Assign(location::GpsInfo const & info, bool isNavigab
     m_lastGPSBearing.Reset();
   }
 
+  if (m_listener)
+    m_listener->PositionChanged(Position());
+
   m_isDirtyViewport = true;
 }
 

@@ -98,6 +98,11 @@ uint32_t VisualParams::GetTileSize() const
   return m_tileSize;
 }
 
+uint32_t VisualParams::GetTouchRectRadius() const
+{
+  return 20 * GetVisualScale();
+}
+
 VisualParams::VisualParams()
   : m_tileSize(0)
   , m_visualScale(0.0)

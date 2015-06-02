@@ -14,8 +14,6 @@ PinClickManager::PinClickManager(Framework & f)
 
 void PinClickManager::Hide()
 {
-  ///@TODO UVR
-  //m_f.Invalidate();
 }
 
 void PinClickManager::OnShowMark(UserMark const * mark)
@@ -27,18 +25,13 @@ void PinClickManager::OnShowMark(UserMark const * mark)
 
 void PinClickManager::SetBalloonVisible(bool isVisible)
 {
-  if (!isVisible && m_f.HasActiveUserMark())
+  if (!isVisible)
     OnDismiss();
-
-  ///@TODO UVR
-  //m_f.Invalidate();
 }
 
 void PinClickManager::RemovePin()
 {
-  m_f.ActivateUserMark(NULL);
-  ///@TODO UVR
-  //m_f.Invalidate();
+  ///@TODO
 }
 
 void PinClickManager::Dismiss()

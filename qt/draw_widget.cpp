@@ -80,7 +80,7 @@ bool IsLocationEmulation(QMouseEvent * e)
 
     // Initialize with some stubs for test.
     PinClickManager & manager = GetBalloonManager();
-    manager.ConnectUserMarkListener(bind(&DrawWidget::OnActivateMark, this, _1));
+    manager.ConnectUserMarkListener([](unique_ptr<UserMarkCopy>) {});
     manager.ConnectDismissListener(&DummyDismiss);
 
     m_framework->SetRouteBuildingListener([] (routing::IRouter::ResultCode, vector<storage::TIndex> const &)
@@ -167,12 +167,6 @@ bool IsLocationEmulation(QMouseEvent * e)
   void DrawWidget::SliderReleased()
   {
     m_enableScaleUpdate = true;
-  }
-
-  void DrawWidget::OnActivateMark(unique_ptr<UserMarkCopy> pCopy)
-  {
-    UserMark const * pMark = pCopy->GetUserMark();
-    m_framework->ActivateUserMark(pMark);
   }
 
   void DrawWidget::CreateEngine()
@@ -365,14 +359,8 @@ bool IsLocationEmulation(QMouseEvent * e)
       menu.addAction(QString::fromUtf8(s.c_str()));
     };
 
-    // Get POI under cursor or nearest address by point.
-    m2::PointD dummy;
     search::AddressInfo info;
-    feature::FeatureMetadata metadata;
-    if (m_framework->GetVisiblePOI(pt, dummy, info, metadata))
-      addStringFn("POI");
-    else
-      m_framework->GetAddressInfoForPixelPoint(pt, info);
+    m_framework->GetAddressInfoForPixelPoint(pt, info);
 
     // Get feature types under cursor.
     vector<string> types;

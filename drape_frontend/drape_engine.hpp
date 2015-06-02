@@ -83,12 +83,21 @@ public:
   void InvalidateMyPosition();
   void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
 
+  using TTapEventInfoFn = FrontendRenderer::TTapEventInfoFn;
+  void SetTapEventInfoListener(TTapEventInfoFn const & fn);
+  using TUserPositionChangedFn = FrontendRenderer::TUserPositionChangedFn;
+  void SetUserPositionListener(TUserPositionChangedFn const & fn);
+
+  FeatureID GetVisiblePOI(m2::PointD const & glbPoint);
+
 private:
   void AddUserEvent(UserEvent const & e);
   void ModelViewChanged(ScreenBase const & screen);
   void ModelViewChangedGuiThread(ScreenBase const & screen);
 
   void MyPositionModeChanged(location::EMyPositionMode mode);
+  void TapEvent(m2::PointD const & pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature);
+  void UserPositionChanged(m2::PointD const & position);
 
 private:
   drape_ptr<FrontendRenderer> m_frontend;
@@ -102,6 +111,8 @@ private:
   TListenerMap m_listeners;
 
   location::TMyPositionModeChanged m_myPositionModeChanged;
+  TTapEventInfoFn m_tapListener;
+  TUserPositionChangedFn m_userPositionChangedFn;
 };
 
 } // namespace df

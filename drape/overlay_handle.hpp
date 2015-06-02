@@ -32,6 +32,8 @@ public:
 
   bool IsValid() const { return m_isValid; }
 
+  m2::PointD GetPivot(ScreenBase const & screen) const;
+
   virtual void Update(ScreenBase const & /*screen*/) {}
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
 

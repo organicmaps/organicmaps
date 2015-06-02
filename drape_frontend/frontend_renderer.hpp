@@ -43,6 +43,15 @@ namespace dp
 namespace df
 {
 
+struct TapInfo
+{
+  m2::PointD const m_pixelPoint;
+  bool m_isLong;
+
+  bool m_isMyPositionTapped;
+  FeatureID m_featureTapped;
+};
+
 class FrontendRenderer : public BaseRenderer
                        , public MyPositionController::Listener
                        , public UserEventStream::Listener
@@ -50,6 +59,8 @@ class FrontendRenderer : public BaseRenderer
 public:
   using TModelViewChanged = function<void (ScreenBase const & screen)>;
   using TIsCountryLoaded = TIsCountryLoaded;
+  using TTapEventInfoFn = function<void (m2::PointD const & pxPoint, bool isLong, bool isMyPosition, FeatureID const & id)>;
+  using TUserPositionChangedFn = function<void (m2::PointD const & pt)>;
 
   struct Params : BaseRenderer::Params
   {
@@ -59,12 +70,16 @@ public:
            Viewport viewport,
            TModelViewChanged const & modelViewChangedFn,
            TIsCountryLoaded const & isCountryLoaded,
+           TTapEventInfoFn const & tapEventFn,
+           TUserPositionChangedFn const & positionChangedFn,
            location::TMyPositionModeChanged myPositionModeCallback,
            location::EMyPositionMode initMode)
       : BaseRenderer::Params(commutator, factory, texMng)
       , m_viewport(viewport)
       , m_modelViewChangedFn(modelViewChangedFn)
       , m_isCountryLoadedFn(isCountryLoaded)
+      , m_tapEventFn(tapEventFn)
+      , m_positionChangedFn(positionChangedFn)
       , m_myPositionModeCallback(myPositionModeCallback)
       , m_initMyPositionMode(initMode)
     {}
@@ -72,6 +87,8 @@ public:
     Viewport m_viewport;
     TModelViewChanged m_modelViewChangedFn;
     TIsCountryLoaded m_isCountryLoadedFn;
+    TTapEventInfoFn m_tapEventFn;
+    TUserPositionChangedFn m_positionChangedFn;
     location::TMyPositionModeChanged m_myPositionModeCallback;
     location::EMyPositionMode m_initMyPositionMode;
   };
@@ -95,6 +112,7 @@ public:
   void AddUserEvent(UserEvent const & event);
 
   /// MyPositionController::Listener
+  void PositionChanged(m2::PointD const & position) override;
   void ChangeModelView(m2::PointD const & center) override;
   void ChangeModelView(double azimuth) override;
   void ChangeModelView(m2::RectD const & rect) override;
@@ -160,6 +178,9 @@ private:
 
   void OnCompassTapped();
 
+  FeatureID GetVisiblePOI(m2::PointD const & pixelPoint) const;
+  FeatureID GetVisiblePOI(m2::RectD const & pixelRect) const;
+
 private:
   drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
 
@@ -172,13 +193,14 @@ private:
   drape_ptr<MyPositionController> m_myPositionController;
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
-  bool m_overlayTreeIsUpdating;
 
   dp::UniformValuesStorage m_generalUniforms;
 
   Viewport m_viewport;
   UserEventStream m_userEventStream;
   TModelViewChanged m_modelViewChangedFn;
+  TTapEventInfoFn m_tapEventInfoFn;
+  TUserPositionChangedFn m_userPositionChangedFn;
 
   unique_ptr<TileTree> m_tileTree;
   int m_currentZoomLevel = -1;

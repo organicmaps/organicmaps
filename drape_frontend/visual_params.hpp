@@ -24,6 +24,9 @@ public:
   double GetVisualScale() const;
   uint32_t GetTileSize() const;
 
+  /// How many pixels around touch point are used to get bookmark or POI in consideration of visual scale
+  uint32_t GetTouchRectRadius() const;
+
 private:
   int m_tileSize;
   double m_visualScale;

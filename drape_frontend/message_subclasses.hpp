@@ -19,6 +19,7 @@
 
 #include "platform/location.hpp"
 
+#include "std/condition_variable.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/set.hpp"
 #include "std/function.hpp"
@@ -347,6 +348,70 @@ private:
   location::GpsInfo const m_info;
   bool const m_isNavigable;
   location::RouteMatchingInfo const m_routeInfo;
+};
+
+class BaseBlockingMessage : public Message
+{
+public:
+  struct Blocker
+  {
+    void Wait()
+    {
+      unique_lock<mutex> lock(m_lock);
+      m_signal.wait(lock, [this]{return !m_blocked;} );
+    }
+
+  private:
+    friend class BaseBlockingMessage;
+
+    void Signal()
+    {
+      lock_guard<mutex> lock(m_lock);
+      m_blocked = false;
+      m_signal.notify_one();
+    }
+
+  private:
+    mutex m_lock;
+    condition_variable m_signal;
+    bool m_blocked = true;
+  };
+
+  BaseBlockingMessage(Blocker & blocker)
+    : m_blocker(blocker)
+  {
+  }
+
+  ~BaseBlockingMessage()
+  {
+    m_blocker.Signal();
+  }
+
+private:
+  Blocker & m_blocker;
+};
+
+class FindVisiblePOIMessage : public BaseBlockingMessage
+{
+public:
+  FindVisiblePOIMessage(Blocker & blocker, m2::PointD const & glbPt, FeatureID & featureID)
+    : BaseBlockingMessage(blocker)
+    , m_pt(glbPt)
+    , m_featureID(featureID)
+  {
+  }
+
+  Type GetType() const override { return FindVisiblePOI; }
+
+  m2::PointD const & GetPoint() const { return m_pt; }
+  void SetFeatureID(FeatureID const & id)
+  {
+    m_featureID = id;
+  }
+
+private:
+  m2::PointD m_pt;
+  FeatureID & m_featureID;
 };
 
 } // namespace df

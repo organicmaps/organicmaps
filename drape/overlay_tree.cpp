@@ -5,11 +5,32 @@
 namespace dp
 {
 
+int const FRAME_UPDATE_PERIOD = 10;
+
+void OverlayTree::Frame()
+{
+  m_frameCounter++;
+  if (m_frameCounter >= FRAME_UPDATE_PERIOD)
+    m_frameCounter = -1;
+}
+
+bool OverlayTree::IsNeedUpdate() const
+{
+  return m_frameCounter == -1;
+}
+
+void OverlayTree::ForceUpdate()
+{
+  Clear();
+  m_frameCounter = -1;
+}
+
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, bool canOverlap)
 {
+  ASSERT(IsNeedUpdate(), ());
+  Clear();
   m_traits.m_modelView = screen;
   m_canOverlap = canOverlap;
-  ASSERT(IsEmpty(), ());
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle, bool isTransparent)
@@ -64,8 +85,29 @@ void OverlayTree::EndOverlayPlacing()
   {
     info.m_handle->SetIsVisible(true);
   });
+}
 
-  Clear();
+void OverlayTree::Select(m2::RectD const & rect, TSelectResult & result) const
+{
+  ScreenBase screen = m_traits.m_modelView;
+  ForEachInRect(rect, [&](detail::OverlayInfo const & info)
+  {
+    if (info.m_handle->IsValid() &&
+        info.m_handle->IsVisible() &&
+        info.m_handle->GetFeatureID().IsValid())
+    {
+      OverlayHandle::Rects shape;
+      info.m_handle->GetPixelShape(screen, shape);
+      for (m2::RectF const & rShape : shape)
+      {
+        if (rShape.IsIntersect(m2::RectF(rect)))
+        {
+          result.push_back(info.m_handle);
+          break;
+        }
+      }
+    }
+  });
 }
 
 } // namespace dp

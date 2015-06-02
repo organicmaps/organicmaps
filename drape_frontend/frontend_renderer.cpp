@@ -43,10 +43,11 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_overlayTree(new dp::OverlayTree())
-  , m_overlayTreeIsUpdating(true)
   , m_viewport(params.m_viewport)
   , m_userEventStream(params.m_isCountryLoadedFn)
   , m_modelViewChangedFn(params.m_modelViewChangedFn)
+  , m_tapEventInfoFn(params.m_tapEventFn)
+  , m_userPositionChangedFn(params.m_positionChangedFn)
   , m_tileTree(new TileTree())
 {
 #ifdef DRAW_INFO
@@ -230,6 +231,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::FindVisiblePOI:
+    {
+      ref_ptr<FindVisiblePOIMessage> msg = message;
+      msg->SetFeatureID(GetVisiblePOI(m_userEventStream.GetCurrentScreen().GtoP(msg->GetPoint())));
+      break;
+    }
+
   default:
     ASSERT(false, ());
   }
@@ -292,6 +300,7 @@ void FrontendRenderer::OnActivateTile(TileKey const & tileKey)
 
 void FrontendRenderer::OnRemoveTile(TileKey const & tileKey)
 {
+  m_overlayTree->ForceUpdate();
   for(auto const & group : m_renderGroups)
   {
     if (group->GetTileKey() == tileKey)
@@ -317,25 +326,48 @@ void FrontendRenderer::OnCompassTapped()
   m_userEventStream.AddEvent(RotateEvent(0.0));
 }
 
-void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
+FeatureID FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint) const
 {
-  static int framesCounter = 0;
-  int const updatePeriod = 10;
+  double halfSize = VisualParams::Instance().GetTouchRectRadius();
+  m2::PointD sizePoint(halfSize, halfSize);
+  m2::RectD selectRect(pixelPoint - sizePoint, pixelPoint + sizePoint);
+  return GetVisiblePOI(selectRect);
+}
 
-  framesCounter++;
-  if (framesCounter % updatePeriod == 0)
+FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect) const
+{
+  m2::PointD pt = pixelRect.Center();
+  dp::OverlayTree::TSelectResult selectResult;
+  m_overlayTree->Select(pixelRect, selectResult);
+
+  double dist = numeric_limits<double>::max();
+  FeatureID featureID;
+
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
-    framesCounter = 0;
-    m_overlayTreeIsUpdating = true;
+    double const  curDist = pt.SquareLength(handle->GetPivot(screen));
+    if (curDist < dist)
+    {
+      dist = curDist;
+      featureID = handle->GetFeatureID();
+    }
   }
 
-  if (m_overlayTreeIsUpdating)
+  return featureID;
+}
+
+void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
+{
+  m_overlayTree->Frame();
+
+  if (m_overlayTree->IsNeedUpdate())
     m_overlayTree->StartOverlayPlacing(modelView);
 }
 
 void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup)
 {
-  if (m_overlayTreeIsUpdating)
+  if (m_overlayTree->IsNeedUpdate())
     renderGroup->CollectOverlay(make_ref(m_overlayTree));
   else
     renderGroup->Update(modelView);
@@ -343,10 +375,8 @@ void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr
 
 void FrontendRenderer::EndUpdateOverlayTree()
 {
-  if (m_overlayTreeIsUpdating)
+  if (m_overlayTree->IsNeedUpdate())
     m_overlayTree->EndOverlayPlacing();
-
-  m_overlayTreeIsUpdating = false;
 }
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView)
@@ -477,7 +507,16 @@ void FrontendRenderer::ResolveZoomLevel(const ScreenBase & screen)
 
 void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
 {
-  LOG(LINFO, ("Tap detected. Is long = ", isLongTap));
+  double halfSize = VisualParams::Instance().GetTouchRectRadius();
+  m2::PointD sizePoint(halfSize, halfSize);
+  m2::RectD selectRect(pt - sizePoint, pt + sizePoint);
+
+  ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
+  bool isMyPosition = false;
+  if (m_myPositionController->IsModeHasPosition())
+    isMyPosition = selectRect.IsPointInside(screen.GtoP(m_myPositionController->Position()));
+
+  m_tapEventInfoFn(pt, isLongTap, isMyPosition, GetVisiblePOI(selectRect));
 }
 
 bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::ETouchType type)
@@ -669,6 +708,11 @@ void FrontendRenderer::AddUserEvent(UserEvent const & event)
   m_userEventStream.AddEvent(event);
   if (IsInInfinityWaiting())
     CancelMessageWaiting();
+}
+
+void FrontendRenderer::PositionChanged(m2::PointD const & position)
+{
+  m_userPositionChangedFn(position);
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center)

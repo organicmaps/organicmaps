@@ -62,9 +62,6 @@ namespace qt
     void SetRouter(routing::RouterType routerType);
     Q_SIGNAL void EngineCreated();
 
-  protected:
-    void OnActivateMark(unique_ptr<UserMarkCopy> pCopy);
-
     void CreateEngine();
 
   protected:

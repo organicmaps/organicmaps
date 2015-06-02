@@ -163,6 +163,12 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
   CallDrapeFunction(bind(&df::DrapeEngine::SetMyPositionModeListener, _1, fn));
 }
 
+void Framework::OnUserPositionChanged(m2::PointD const & position)
+{
+  MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
+  myPostition->SetPtOrg(position);
+}
+
 void Framework::CallDrapeFunction(TDrapeFunction const & fn)
 {
   if (m_drapeEngine)
@@ -538,7 +544,7 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
     scale = scales::GetUpperComfortScale();
 
   CallDrapeFunction(bind(&df::DrapeEngine::SetModelViewCenter, _1, mark->GetPivot(), scale, true));
-  ActivateUserMark(mark);
+  ActivateUserMark(mark, true);
   m_balloonManager.OnShowMark(mark);
 }
 
@@ -1351,6 +1357,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   {
     m_currentMovelView = screen;
   });
+  m_drapeEngine->SetTapEventInfoListener(bind(&Framework::OnTapEvent, this, _1, _2, _3, _4));
+  m_drapeEngine->SetUserPositionListener(bind(&Framework::OnUserPositionChanged, this, _1));
   OnSize(w, h);
 }
 
@@ -1513,82 +1521,34 @@ void Framework::DisconnectMyPositionUpdate()
   }
 }
 
-namespace
+bool Framework::GetVisiblePOI(m2::PointD const & glbPoint, search::AddressInfo & info, feature::Metadata & metadata) const
 {
+  ASSERT(m_drapeEngine != nullptr, ());
+  FeatureID id = m_drapeEngine->GetVisiblePOI(glbPoint);
+  if (!id.IsValid())
+    return false;
 
-///@TODO UVR
-//OEPointerT GetClosestToPivot(list<OEPointerT> const & l, m2::PointD const & pxPoint)
-//{
-//  double dist = numeric_limits<double>::max();
-//  OEPointerT res;
-
-//  for (list<OEPointerT>::const_iterator it = l.begin(); it != l.end(); ++it)
-//  {
-//    double const curDist = pxPoint.SquareLength((*it)->pivot());
-//    if (curDist < dist)
-//    {
-//      dist = curDist;
-//      res = *it;
-//    }
-//  }
-
-//  return res;
-//}
-
+  GetVisiblePOI(id, info, metadata);
+  return true;
 }
 
-bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
-                              search::AddressInfo & info, feature::Metadata & metadata) const
+m2::PointD Framework::GetVisiblePOI(FeatureID id, search::AddressInfo & info, feature::Metadata & metadata) const
 {
-///@TODO UVR
-//  graphics::OverlayElement::UserInfo ui;
+  ASSERT(id.IsValid(), ());
+  Index::FeaturesLoaderGuard guard(m_model.GetIndex(), id.m_mwmId);
 
-//  {
-//    // It seems like we don't need to lock frame here.
-//    // Overlay locking and storing items as shared_ptr is enough here.
-//    //m_renderPolicy->FrameLock();
+  FeatureType ft;
+  guard.GetFeature(id.m_offset, ft);
 
-//    m2::PointD const pt = m_navigator.ShiftPoint(pxPoint);
-//    double const halfSize = TOUCH_PIXEL_RADIUS * GetVisualScale();
+  ft.ParseMetadata();
+  metadata = ft.GetMetadata();
 
-//    list<OEPointerT> candidates;
-//    m2::RectD const rect(pt.x - halfSize, pt.y - halfSize,
-//                         pt.x + halfSize, pt.y + halfSize);
+  ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
+  m2::PointD const center = feature::GetCenter(ft);
 
-//    graphics::Overlay * frameOverlay = m_renderPolicy->FrameOverlay();
-//    frameOverlay->lock();
-//    frameOverlay->selectOverlayElements(rect, candidates);
-//    frameOverlay->unlock();
+  GetAddressInfo(ft, center, info);
 
-//    OEPointerT elem = GetClosestToPivot(candidates, pt);
-
-//    if (elem)
-//      ui = elem->userInfo();
-
-//    //m_renderPolicy->FrameUnlock();
-//  }
-
-  //if (ui.IsValid())
-  //{
-    //Index::FeaturesLoaderGuard guard(m_model.GetIndex(), ui.m_featureID.m_mwmId);
-
-    //FeatureType ft;
-    //guard.GetFeatureByIndex(ui.m_featureID.m_index, ft);
-
-    //ft.ParseMetadata();
-    //metadata = ft.GetMetadata();
-
-    // @TODO experiment with other pivots
-    //ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
-    //m2::PointD const center = feature::GetCenter(ft);
-
-//    GetAddressInfo(ft, center, info);
-
-//    pxPivot = GtoP(center);
-//    return true;
-//  }
-
-  return false;
+  return GtoP(center);
 }
 
 namespace
@@ -1649,111 +1609,6 @@ void Framework::FindClosestPOIMetadata(m2::PointD const & pt, feature::Metadata 
   doFind.LoadMetadata(m_model, metadata);
 }
 
-//shared_ptr<State> const & Framework::GetLocationState() const
-//{
-//  return m_informationDisplay.locationState();
-//}
-
-void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
-{
-  ///@TODO UVR
-//  if (mark != UserMarkContainer::UserMarkForMyPostion())
-//    DisconnectMyPositionUpdate();
-//  m_bmManager.ActivateMark(mark, needAnim);
-}
-
-bool Framework::HasActiveUserMark() const
-{
-  return false;
-  ///@TODO UVR
-  //return m_bmManager.UserMarkHasActive();
-}
-
-UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
-{
-  // The main idea is to calculate POI rank based on the frequency users are clicking them.
-  UserMark const * mark = GetUserMarkWithoutLogging(pxPoint, isLongPress);
-  alohalytics::TStringMap details {{"isLongPress", isLongPress ? "1" : "0"}};
-  if (mark)
-    mark->FillLogEvent(details);
-  alohalytics::Stats::Instance().LogEvent("$GetUserMark", details);
-  return mark;
-}
-
-UserMark const * Framework::GetUserMarkWithoutLogging(m2::PointD const & pxPoint, bool isLongPress)
-{
-  DisconnectMyPositionUpdate();
-  m2::AnyRectD rect;
-  double vs = df::VisualParams::Instance().GetVisualScale();
-  m_currentMovelView.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * vs, rect);
-
-  ///@TODO UVR
-  //shared_ptr<State> const & locationState = GetLocationState();
-//  if (locationState->IsModeHasPosition())
-//  {
-//    m2::PointD const & glPivot = locationState->Position();
-//    if (rect.IsPointInside(glPivot))
-//    {
-//      search::AddressInfo info;
-//      info.m_name = m_stringsBundle.GetString("my_position");
-//      MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
-//      m_locationChangedSlotID = locationState->AddPositionChangedListener(bind(&Framework::UpdateSelectedMyPosition, this, _1));
-//      myPostition->SetPtOrg(glPivot);
-//      myPostition->SetInfo(info);
-//      return myPostition;
-//    }
-//  }
-
-  m2::AnyRectD bmSearchRect;
-  double const pxWidth  =  TOUCH_PIXEL_RADIUS * vs;
-  double const pxHeight = (TOUCH_PIXEL_RADIUS + BM_TOUCH_PIXEL_INCREASE) * vs;
-  m_currentMovelView.GetTouchRect(pxPoint + m2::PointD(0, BM_TOUCH_PIXEL_INCREASE),
-                                  pxWidth, pxHeight, bmSearchRect);
-
-  UserMark const * mark = m_bmManager.FindNearestUserMark(
-        [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
-        {
-          return (type == UserMarkContainer::BOOKMARK_MARK ? bmSearchRect : rect);
-        });
-
-  if (mark == NULL)
-  {
-    bool needMark = false;
-    m2::PointD pxPivot;
-    search::AddressInfo info;
-    feature::Metadata metadata;
-    if (GetVisiblePOI(pxPoint, pxPivot, info, metadata))
-      needMark = true;
-    else if (isLongPress)
-    {
-      GetAddressInfoForPixelPoint(pxPoint, info);
-      pxPivot = pxPoint;
-      needMark = true;
-    }
-
-    if (needMark)
-    {
-      PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-      poiMark->SetPtOrg(m_currentMovelView.PtoG(pxPivot));
-      poiMark->SetInfo(info);
-      poiMark->SetMetadata(move(metadata));
-      mark = poiMark;
-    }
-  }
-
-  return mark;
-}
-
-PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
-{
-  search::AddressInfo info;
-  GetAddressInfoForGlobalPoint(globalPoint, info);
-  PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
-  mark->SetPtOrg(globalPoint);
-  mark->SetInfo(info);
-  return mark;
-}
-
 BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
   BookmarkAndCategory empty = MakeEmptyBookmarkAndCategory();
@@ -1780,6 +1635,97 @@ BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 
   ASSERT(result != empty, ());
   return result;
+}
+
+PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
+{
+  search::AddressInfo info;
+  GetAddressInfoForGlobalPoint(globalPoint, info);
+  PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
+  mark->SetPtOrg(globalPoint);
+  mark->SetInfo(info);
+  return mark;
+}
+
+void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
+{
+  m_balloonManager.OnShowMark(mark);
+}
+
+void Framework::OnTapEvent(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)
+{
+  UserMark const * mark = OnTapEventImpl(pxPoint, isLong, isMyPosition, feature);
+
+  {
+    alohalytics::TStringMap details {{"isLongPress", isLong ? "1" : "0"}};
+    if (mark)
+      mark->FillLogEvent(details);
+    alohalytics::Stats::Instance().LogEvent("$GetUserMark", details);
+  }
+
+  ActivateUserMark(mark, true);
+}
+
+UserMark const * Framework::OnTapEventImpl(m2::PointD pxPoint, bool isLong, bool isMyPosition, FeatureID feature)
+{
+  if (isMyPosition)
+  {
+    search::AddressInfo info;
+    info.m_name = m_stringsBundle.GetString("my_position");
+    MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
+    myPostition->SetInfo(info);
+
+    return myPostition;
+  }
+
+  df::VisualParams const & vp = df::VisualParams::Instance();
+
+  m2::AnyRectD rect;
+  uint32_t const touchRadius = vp.GetTouchRectRadius();
+  m_currentMovelView.GetTouchRect(pxPoint, touchRadius, rect);
+
+  m2::AnyRectD bmSearchRect;
+  double const bmAddition = BM_TOUCH_PIXEL_INCREASE * vp.GetVisualScale();
+  double const pxWidth  =  touchRadius;
+  double const pxHeight = touchRadius + bmAddition;
+  m_currentMovelView.GetTouchRect(pxPoint + m2::PointD(0, bmAddition),
+                                  pxWidth, pxHeight, bmSearchRect);
+  UserMark const * mark = m_bmManager.FindNearestUserMark(
+        [&rect, &bmSearchRect](UserMarkType type) -> m2::AnyRectD const &
+        {
+          return (type == UserMarkContainer::BOOKMARK_MARK ? bmSearchRect : rect);
+        });
+
+  if (mark != nullptr)
+    return mark;
+
+  bool needMark = false;
+  m2::PointD pxPivot;
+  search::AddressInfo info;
+  feature::Metadata metadata;
+
+  if (feature.IsValid())
+  {
+    pxPivot = GetVisiblePOI(feature, info, metadata);
+    needMark = true;
+  }
+  else if (isLong)
+  {
+    GetAddressInfoForPixelPoint(pxPoint, info);
+    pxPivot = pxPoint;
+    needMark = true;
+  }
+
+  if (needMark)
+  {
+    PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
+    poiMark->SetPtOrg(m_currentMovelView.PtoG(pxPivot));
+    poiMark->SetInfo(info);
+    poiMark->SetMetadata(metadata);
+    return poiMark;
+  }
+
+  return nullptr;
 }
 
 void Framework::PredictLocation(double & lat, double & lon, double accuracy,

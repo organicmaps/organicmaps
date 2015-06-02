@@ -1,6 +1,23 @@
 #include "user_mark.hpp"
 #include "user_mark_container.hpp"
 
+namespace
+{
+
+string ToString(UserMark::Type t)
+{
+  switch (t)
+  {
+  case UserMark::Type::BOOKMARK: return "BOOKMARK";
+  case UserMark::Type::API: return "API";
+  case UserMark::Type::MY_POSITION: return "MY_POSITION";
+  case UserMark::Type::POI: return "POI";
+  case UserMark::Type::SEARCH: return "SEARCH";
+  case UserMark::Type::DEBUG_MARK: return "DEBUG";
+  }
+}
+
+}
 
 UserMark::UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
   : m_ptOrg(ptOrg), m_container(container)
@@ -40,6 +57,7 @@ void UserMark::FillLogEvent(UserMark::TEventContainer & details) const
   GetLatLon(lat, lon);
   details.emplace("lat", strings::to_string(lat));
   details.emplace("lon", strings::to_string(lon));
+  details.emplace("markType", ToString(GetMarkType()));
 }
 
 ////////////////////////////////////////////////////////////////
@@ -115,7 +133,6 @@ unique_ptr<UserMarkCopy> ApiMarkPoint::Copy() const
 void ApiMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
 {
   UserMark::FillLogEvent(details);
-  details.emplace("markType", "API");
   details.emplace("name", GetName());
 }
 
@@ -172,7 +189,6 @@ unique_ptr<UserMarkCopy> SearchMarkPoint::Copy() const
 void SearchMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
 {
   UserMark::FillLogEvent(details);
-  details.emplace("markType", "SEARCH");
   details.emplace("name", m_info.GetPinName());
   details.emplace("type", m_info.GetPinType());
   details.emplace("metaData", m_metadata.Empty() ? "0" : "1");
@@ -192,13 +208,6 @@ unique_ptr<UserMarkCopy> PoiMarkPoint::Copy() const
 {
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(this, false));
 }
-
-void PoiMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
-{
-  SearchMarkPoint::FillLogEvent(details);
-  details.emplace("markType", "POI");
-}
-
 void PoiMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
   m_ptOrg = ptOrg;
@@ -221,13 +230,6 @@ UserMark::Type MyPositionMarkPoint::GetMarkType() const
   return UserMark::Type::MY_POSITION;
 }
 
-void MyPositionMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
-{
-  PoiMarkPoint::FillLogEvent(details);
-  details.emplace("markType", "MY_POSITION");
-}
-
-
 DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
   : UserMark(ptOrg, container)
 {
@@ -241,10 +243,4 @@ string DebugMarkPoint::GetSymbolName() const
 unique_ptr<UserMarkCopy> DebugMarkPoint::Copy() const
 {
   return unique_ptr<UserMarkCopy>(new UserMarkCopy(new DebugMarkPoint(m_ptOrg, m_container)));
-}
-
-void DebugMarkPoint::FillLogEvent(UserMark::TEventContainer & details) const
-{
-  UserMark::FillLogEvent(details);
-  details.emplace("markType", "DEBUG");
 }

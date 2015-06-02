@@ -5,6 +5,7 @@
 #include "geometry/screenbase.hpp"
 #include "geometry/tree4d.hpp"
 
+#include "base/buffer_vector.hpp"
 
 namespace dp
 {
@@ -46,15 +47,23 @@ class OverlayTree : public m4::Tree<detail::OverlayInfo, detail::OverlayTraits>
   typedef m4::Tree<detail::OverlayInfo, detail::OverlayTraits> BaseT;
 
 public:
+  void Frame();
+  bool IsNeedUpdate() const;
+  void ForceUpdate();
+
   void StartOverlayPlacing(ScreenBase const & screen, bool canOverlap = false);
   void Add(ref_ptr<OverlayHandle> handle, bool isTransparent);
   void EndOverlayPlacing();
+
+  using TSelectResult = buffer_vector<ref_ptr<OverlayHandle>, 8>;
+  void Select(m2::RectD const & rect, TSelectResult & result) const;
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.m_modelView; }
 
 private:
-  bool m_canOverlap;
+  bool m_canOverlap = false;
+  int m_frameCounter = -1;
 };
 
 } // namespace dp

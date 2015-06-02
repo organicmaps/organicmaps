@@ -21,6 +21,7 @@ public:
   {
   public:
     virtual ~Listener() {}
+    virtual void PositionChanged(m2::PointD const & position) = 0;
     /// Show map with center in "center" point and current zoom
     virtual void ChangeModelView(m2::PointD const & center) = 0;
     /// Change azimuth of current ModelView

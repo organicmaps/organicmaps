@@ -28,7 +28,8 @@ public:
     StopRendering,
     ChangeMyPostitionMode,
     CompassInfo,
-    GpsInfo
+    GpsInfo,
+    FindVisiblePOI
   };
 
   virtual ~Message() {}

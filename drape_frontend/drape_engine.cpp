@@ -67,6 +67,8 @@ DrapeEngine::DrapeEngine(Params const & params)
                                     make_ref(m_textureManager), m_viewport,
                                     bind(&DrapeEngine::ModelViewChanged, this, _1),
                                     params.m_model.GetIsCountryLoadedFn(),
+                                    bind(&DrapeEngine::TapEvent, this, _1, _2, _3, _4),
+                                    bind(&DrapeEngine::UserPositionChanged, this, _1),
                                     bind(&DrapeEngine::MyPositionModeChanged, this, _1),
                                     static_cast<location::EMyPositionMode>(modeValue));
 
@@ -187,6 +189,24 @@ void DrapeEngine::MyPositionModeChanged(location::EMyPositionMode mode)
   });
 }
 
+void DrapeEngine::TapEvent(m2::PointD const & pxPoint, bool isLong, bool isMyPosition, FeatureID const & feature)
+{
+  GetPlatform().RunOnGuiThread([=]()
+  {
+    if (m_tapListener)
+      m_tapListener(pxPoint, isLong, isMyPosition, feature);
+  });
+}
+
+void DrapeEngine::UserPositionChanged(m2::PointD const & position)
+{
+  GetPlatform().RunOnGuiThread([this, position]()
+  {
+    if (m_userPositionChangedFn)
+      m_userPositionChangedFn(position);
+  });
+}
+
 void DrapeEngine::SetCountryInfo(gui::CountryInfo const & info, bool isCurrentCountry, bool isCountryLoaded)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
@@ -239,6 +259,28 @@ void DrapeEngine::InvalidateMyPosition()
 void DrapeEngine::SetMyPositionModeListener(location::TMyPositionModeChanged const & fn)
 {
   m_myPositionModeChanged = fn;
+}
+
+void DrapeEngine::SetTapEventInfoListener(TTapEventInfoFn const & fn)
+{
+  m_tapListener = fn;
+}
+
+void DrapeEngine::SetUserPositionListener(DrapeEngine::TUserPositionChangedFn const & fn)
+{
+  m_userPositionChangedFn = fn;
+}
+
+FeatureID DrapeEngine::GetVisiblePOI(m2::PointD const & glbPoint)
+{
+  FeatureID result;
+  BaseBlockingMessage::Blocker blocker;
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<FindVisiblePOIMessage>(blocker, glbPoint, result),
+                                  MessagePriority::High);
+
+  blocker.Wait();
+  return result;
 }
 
 } // namespace df
