@@ -745,6 +745,7 @@ public class MWMActivity extends BaseMwmFragmentActivity
   private void hideBottomButtons()
   {
     UiUtils.hide(mLlBookmarks, mLlDownloader, mLlSettings, mLlShare, mLlSearch);
+    mBtnMenu.setVisibility(View.VISIBLE);
   }
 
   @Override
@@ -1393,16 +1394,22 @@ public class MWMActivity extends BaseMwmFragmentActivity
     case R.id.ll__share:
       AlohaHelper.logClick(AlohaHelper.MENU_SHARE);
       shareMyLocation();
+      hideBottomButtons();
+      mFadeView.setVisibility(View.GONE);
       break;
     case R.id.btn__settings:
     case R.id.ll__settings:
       AlohaHelper.logClick(AlohaHelper.MENU_SETTINGS);
       startActivity(new Intent(this, SettingsActivity.class));
+      hideBottomButtons();
+      mFadeView.setVisibility(View.GONE);
       break;
     case R.id.btn__download_maps:
     case R.id.ll__download_maps:
       AlohaHelper.logClick(AlohaHelper.MENU_DOWNLOADER);
       showDownloader(false);
+      hideBottomButtons();
+      mFadeView.setVisibility(View.GONE);
       break;
     case R.id.rl__route:
       AlohaHelper.logClick(AlohaHelper.PP_ROUTE);
@@ -1437,11 +1444,15 @@ public class MWMActivity extends BaseMwmFragmentActivity
     case R.id.ll__search:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_SEARCH);
       showSearchIfUpdated();
+      hideBottomButtons();
+      mFadeView.setVisibility(View.GONE);
       break;
     case R.id.btn__bookmarks:
     case R.id.ll__bookmarks:
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_BOOKMARKS);
       showBookmarks();
+      hideBottomButtons();
+      mFadeView.setVisibility(View.GONE);
       break;
     case R.id.btn__myposition:
       switchNextLocationState();
