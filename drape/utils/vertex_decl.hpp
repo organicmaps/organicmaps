@@ -63,14 +63,12 @@ struct LineVertex : BaseVertex
 {
   LineVertex();
   LineVertex(TPosition const & position, TNormal const & normal,
-             TTexCoord const & color, TTexCoord const & mask,
-             TNormal const & dxdy);
+             TTexCoord const & color, TTexCoord const & mask);
 
   TPosition m_position;
   TNormal m_normal;
   TTexCoord m_colorTexCoord;
   TTexCoord m_maskTexCoord;
-  TNormal m_dxdy;
 
   static dp::BindingInfo const & GetBindingInfo();
 };

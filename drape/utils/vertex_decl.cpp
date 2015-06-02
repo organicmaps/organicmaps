@@ -110,9 +110,10 @@ dp::BindingInfo TextDynamicBindingInit()
 dp::BindingInfo LineBindingInit()
 {
   static_assert(sizeof(LineVertex) == sizeof(LineVertex::TPosition) +
-                                      2 * sizeof(LineVertex::TNormal) +
+                                      sizeof(LineVertex::TNormal) +
                                       2 * sizeof(LineVertex::TTexCoord), "");
-  dp::BindingInfo info(5);
+  dp::BindingInfo info(4);
+>
 
   dp::BindingDecl & posDecl = info.GetBindingDecl(0);
   posDecl.m_attributeName = "a_position";
@@ -141,13 +142,6 @@ dp::BindingInfo LineBindingInit()
   maskDecl.m_componentType = gl_const::GLFloatType;
   maskDecl.m_offset = colorDecl.m_offset + sizeof(LineVertex::TTexCoord);
   maskDecl.m_stride = posDecl.m_stride;
-
-  dp::BindingDecl & dxdyDecl = info.GetBindingDecl(4);
-  dxdyDecl.m_attributeName = "a_dxdy";
-  dxdyDecl.m_componentCount = glsl::GetComponentCount<LineVertex::TNormal>();
-  dxdyDecl.m_componentType = gl_const::GLFloatType;
-  dxdyDecl.m_offset = maskDecl.m_offset + sizeof(LineVertex::TNormal);
-  dxdyDecl.m_stride = posDecl.m_stride;
 
   return info;
 }
@@ -242,18 +236,15 @@ LineVertex::LineVertex()
   , m_normal(0.0, 0.0)
   , m_colorTexCoord(0.0, 0.0)
   , m_maskTexCoord(0.0, 0.0)
-  , m_dxdy(0.0, 0.0)
 {
 }
 
 LineVertex::LineVertex(TPosition const & position, TNormal const & normal,
-                       TTexCoord const & color, TTexCoord const & mask,
-                       TNormal const & dxdy)
+                       TTexCoord const & color, TTexCoord const & mask)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(color)
   , m_maskTexCoord(mask)
-  , m_dxdy(dxdy)
 {
 }
 

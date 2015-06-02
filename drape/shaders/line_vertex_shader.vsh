@@ -2,14 +2,12 @@ attribute vec3 a_position;
 attribute vec2 a_normal;
 attribute vec2 a_colorTexCoord;
 attribute vec2 a_maskTexCoord;
-attribute vec2 a_dxdy;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 
 varying vec2 v_colorTexCoord;
 varying vec2 v_maskTexCoord;
-varying vec2 v_dxdy;
 
 void main(void)
 {
@@ -24,6 +22,5 @@ void main(void)
 
   v_colorTexCoord = a_colorTexCoord;
   v_maskTexCoord = a_maskTexCoord;
-  v_dxdy = a_dxdy;
   gl_Position = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
 }

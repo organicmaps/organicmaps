@@ -16,10 +16,8 @@ namespace df
 
 namespace
 {
-  float const SEGMENT = 0.0f;
-  float const CAP = 1.0f;
-  float const LEFT_WIDTH = 1.0f;
-  float const RIGHT_WIDTH = -1.0f;
+  using LV = gpu::LineVertex;
+  using TGeometryBuffer = buffer_vector<gpu::LineVertex, 128>;
 
   class TextureCoordGenerator
   {
@@ -89,14 +87,14 @@ namespace
     glsl::vec2 m_leftNormals[PointsCount];
     glsl::vec2 m_rightBaseNormal;
     glsl::vec2 m_rightNormals[PointsCount];
-    float m_leftWidthScalar[PointsCount];
-    float m_rightWidthScalar[PointsCount];
+    glsl::vec2 m_leftWidthScalar[PointsCount];
+    glsl::vec2 m_rightWidthScalar[PointsCount];
     bool m_hasLeftJoin[PointsCount];
 
     LineSegment()
     {
-      m_leftWidthScalar[StartPoint] = m_leftWidthScalar[EndPoint] = 1.0f;
-      m_rightWidthScalar[StartPoint] = m_rightWidthScalar[EndPoint] = 1.0f;
+      m_leftWidthScalar[StartPoint] = m_leftWidthScalar[EndPoint] = glsl::vec2(1.0f, 0.0f);
+      m_rightWidthScalar[StartPoint] = m_rightWidthScalar[EndPoint] = glsl::vec2(1.0f, 0.0f);
       m_hasLeftJoin[StartPoint] = m_hasLeftJoin[EndPoint] = true;
     }
   };
@@ -130,7 +128,8 @@ namespace
       segment2->m_rightNormals[StartPoint] = averageNormal;
 
       float const cosAngle = glsl::dot(segment1->m_tangent, averageNormal);
-      segment1->m_rightWidthScalar[EndPoint] = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+      segment1->m_rightWidthScalar[EndPoint].x = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+      segment1->m_rightWidthScalar[EndPoint].y = segment1->m_rightWidthScalar[EndPoint].x * cosAngle;
       segment2->m_rightWidthScalar[StartPoint] = segment1->m_rightWidthScalar[EndPoint];
     }
     else
@@ -145,7 +144,8 @@ namespace
       segment2->m_leftNormals[StartPoint] = averageNormal;
 
       float const cosAngle = glsl::dot(segment1->m_tangent, averageNormal);
-      segment1->m_leftWidthScalar[EndPoint] = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+      segment1->m_leftWidthScalar[EndPoint].x = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
+      segment1->m_leftWidthScalar[EndPoint].y = segment1->m_leftWidthScalar[EndPoint].x * cosAngle;
       segment2->m_leftWidthScalar[StartPoint] = segment1->m_leftWidthScalar[EndPoint];
     }
   }
@@ -160,24 +160,6 @@ namespace
     if (nextSegment != nullptr)
       UpdateNormalBetweenSegments(segment, nextSegment);
   }
-
-  /*uint32_t BuildRect(vector<Button::ButtonVertex> & vertices,
-                     glsl::vec2 const & v1, glsl::vec2 const & v2,
-                     glsl::vec2 const & v3, glsl::vec2 const & v4)
-
-  {
-    glsl::vec3 const position(0.0f, 0.0f, 0.0f);
-
-    vertices.push_back(Button::ButtonVertex(position, v1));
-    vertices.push_back(Button::ButtonVertex(position, v2));
-    vertices.push_back(Button::ButtonVertex(position, v3));
-
-    vertices.push_back(Button::ButtonVertex(position, v3));
-    vertices.push_back(Button::ButtonVertex(position, v2));
-    vertices.push_back(Button::ButtonVertex(position, v4));
-
-    return dp::Batcher::IndexPerQuad;
-  }*/
 
   void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
                            float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals)
@@ -269,6 +251,35 @@ namespace
       }
     }
   }
+
+  float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint,
+                            glsl::vec2 const & endPoint)
+  {
+    glsl::vec2 const v1 = endPoint - startPoint;
+    glsl::vec2 const v2 = newPoint - startPoint;
+    float const squareLen = glsl::dot(v1, v1);
+    float const proj = glsl::dot(v1, v2) / squareLen;
+    return sqrt(squareLen) * max(min(proj, 1.0f), 0.0f);
+  }
+
+  void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
+                                  glsl::vec2 & tangent, glsl::vec2 & leftNormal,
+                                  glsl::vec2 & rightNormal)
+  {
+    tangent = glsl::normalize(pt1 - pt0);
+    leftNormal = glsl::vec2(-tangent.y, tangent.x);
+    rightNormal = -leftNormal;
+  }
+
+  glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType normalType)
+  {
+    if (normalType == BaseNormal)
+      return isLeft ? segment.m_leftBaseNormal : segment.m_rightBaseNormal;
+
+    int const index = (normalType == StartNormal) ? StartPoint : EndPoint;
+    return isLeft ? segment.m_leftWidthScalar[index].x * segment.m_leftNormals[index]:
+                    segment.m_rightWidthScalar[index].x  * segment.m_rightNormals[index];
+  }
 }
 
 LineShape::LineShape(m2::SharedSpline const & spline,
@@ -281,12 +292,12 @@ LineShape::LineShape(m2::SharedSpline const & spline,
 
 void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  typedef gpu::LineVertex LV;
-  buffer_vector<gpu::LineVertex, 128> geometry;
-  buffer_vector<gpu::LineVertex, 128> joinsGeometry;
+  TGeometryBuffer geometry;
+  TGeometryBuffer joinsGeometry;
   vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT(path.size() > 1, ());
 
+  // set up uv-generator
   dp::TextureManager::ColorRegion colorRegion;
   textures->GetColorRegion(m_params.m_color, colorRegion);
   glsl::vec2 colorCoord(glsl::ToVec2(colorRegion.GetTexRect().Center()));
@@ -299,53 +310,31 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     textures->GetStippleRegion(m_params.m_pattern, maskRegion);
 
   texCoordGen.SetRegion(maskRegion, m_params.m_pattern.empty());
+
   float const halfWidth = m_params.m_width / 2.0f;
   float const glbHalfWidth = halfWidth / m_params.m_baseGtoPScale;
-  bool generateCap = m_params.m_cap != dp::ButtCap;
 
-  auto const calcTangentAndNormals = [](glsl::vec2 const & pt0, glsl::vec2 const & pt1,
-                                        glsl::vec2 & tangent, glsl::vec2 & leftNormal,
-                                        glsl::vec2 & rightNormal)
+  auto const getLineVertex = [&](LineSegment const & segment, glsl::vec3 const & pivot,
+                                 glsl::vec2 const & normal, float offsetFromStart)
   {
-    tangent = glsl::normalize(pt1 - pt0);
-    leftNormal = glsl::vec2(-tangent.y, tangent.x);
-    rightNormal = -leftNormal;
+    float distance = GetProjectionLength(pivot.xy() + glbHalfWidth * normal,
+                                         segment.m_points[StartPoint],
+                                         segment.m_points[EndPoint]) - offsetFromStart;
+
+    return LV(pivot, halfWidth * normal, colorCoord, texCoordGen.GetTexCoordsByDistance(distance));
   };
 
-  auto const getNormal = [&halfWidth](LineSegment const & segment, bool isLeft, ENormalType normalType)
+  auto const generateTriangles = [&](glsl::vec3 const & pivot, vector<glsl::vec2> const & normals)
   {
-    if (normalType == BaseNormal)
-      return halfWidth * (isLeft ? segment.m_leftBaseNormal : segment.m_rightBaseNormal);
-
-    int const index = (normalType == StartNormal) ? StartPoint : EndPoint;
-    return halfWidth * (isLeft ? segment.m_leftWidthScalar[index] * segment.m_leftNormals[index] :
-                                    segment.m_rightWidthScalar[index] * segment.m_rightNormals[index]);
+    size_t const trianglesCount = normals.size() / 3;
+    for (int j = 0; j < trianglesCount; j++)
+    {
+      glsl::vec2 const uv = texCoordGen.GetTexCoords(0.0f);
+      joinsGeometry.push_back(LV(pivot, normals[3 * j], colorCoord, uv));
+      joinsGeometry.push_back(LV(pivot, normals[3 * j + 1], colorCoord, uv));
+      joinsGeometry.push_back(LV(pivot, normals[3 * j + 2], colorCoord, uv));
+    }
   };
-
-  float capType = m_params.m_cap == dp::RoundCap ? CAP : SEGMENT;
-
-  glsl::vec2 leftSegment(SEGMENT, LEFT_WIDTH);
-  glsl::vec2 rightSegment(SEGMENT, RIGHT_WIDTH);
-
-  /*if (generateCap)
-  {
-    glsl::vec2 startPoint = glsl::ToVec2(path[0]);
-    glsl::vec2 endPoint = glsl::ToVec2(path[1]);
-    glsl::vec2 tangent, leftNormal, rightNormal;
-    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
-    tangent = -halfWidth * tangent;
-
-    glsl::vec3 pivot = glsl::vec3(startPoint, m_params.m_depth);
-    glsl::vec2 leftCap(capType, LEFT_WIDTH);
-    glsl::vec2 rightCap(capType, RIGHT_WIDTH);
-    glsl::vec2 const uvStart = texCoordGen.GetTexCoordsByDistance(0.0);
-    glsl::vec2 const uvEnd = texCoordGen.GetTexCoordsByDistance(glbHalfWidth);
-
-    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, uvStart, leftCap));
-    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, uvStart, rightCap));
-    geometry.push_back(LV(pivot, leftNormal, colorCoord, uvEnd, leftSegment));
-    geometry.push_back(LV(pivot, rightNormal, colorCoord, uvEnd, rightSegment));
-  }*/
 
   // constuct segments
   vector<LineSegment> segments;
@@ -355,8 +344,8 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     LineSegment segment;
     segment.m_points[StartPoint] = glsl::ToVec2(path[i - 1]);
     segment.m_points[EndPoint] = glsl::ToVec2(path[i]);
-    calcTangentAndNormals(segment.m_points[StartPoint], segment.m_points[EndPoint], segment.m_tangent,
-                          segment.m_leftBaseNormal, segment.m_rightBaseNormal);
+    CalculateTangentAndNormals(segment.m_points[StartPoint], segment.m_points[EndPoint], segment.m_tangent,
+                               segment.m_leftBaseNormal, segment.m_rightBaseNormal);
 
     segment.m_leftNormals[StartPoint] = segment.m_leftNormals[EndPoint] = segment.m_leftBaseNormal;
     segment.m_rightNormals[StartPoint] = segment.m_rightNormals[EndPoint] = segment.m_rightBaseNormal;
@@ -370,14 +359,23 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
                  (i < segments.size() - 1) ? &segments[i + 1] : nullptr);
 
+    // calculate number of steps to cover line segment
     float const initialGlobalLength = glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
-    float const pixelLen = initialGlobalLength * m_params.m_baseGtoPScale;
     int steps = 1;
     float maskSize = initialGlobalLength;
     if (!texCoordGen.IsSolid())
     {
-      maskSize = texCoordGen.GetMaskLength() / m_params.m_baseGtoPScale;
-      steps = static_cast<int>((pixelLen + texCoordGen.GetMaskLength() - 1) / texCoordGen.GetMaskLength());
+      float const leftWidth = glbHalfWidth * max(segments[i].m_leftWidthScalar[StartPoint].y,
+                                                 segments[i].m_rightWidthScalar[StartPoint].y);
+      float const rightWidth = glbHalfWidth * max(segments[i].m_leftWidthScalar[EndPoint].y,
+                                                  segments[i].m_rightWidthScalar[EndPoint].y);
+      float const effectiveLength = initialGlobalLength - leftWidth - rightWidth;
+      if (effectiveLength > 0)
+      {
+        float const pixelLen = effectiveLength * m_params.m_baseGtoPScale;
+        steps = static_cast<int>((pixelLen + texCoordGen.GetMaskLength() - 1) / texCoordGen.GetMaskLength());
+        maskSize = effectiveLength / steps;
+      }
     }
 
     // generate main geometry
@@ -385,37 +383,29 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     glsl::vec3 currentStartPivot = glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth);
     for (int step = 0; step < steps; step++)
     {
+      float const offsetFromStart = currentSize;
       currentSize += maskSize;
-
-      float endOffset = 1.0f;
-      if (currentSize >= initialGlobalLength)
-      {
-        endOffset = (initialGlobalLength - currentSize + maskSize) / maskSize;
-        currentSize = initialGlobalLength;
-      }
 
       glsl::vec2 const newPoint = segments[i].m_points[StartPoint] + segments[i].m_tangent * currentSize;
       glsl::vec3 const newPivot = glsl::vec3(newPoint, m_params.m_depth);
-      glsl::vec2 const uvStart = texCoordGen.GetTexCoords(0.0f);
-      glsl::vec2 const uvEnd = texCoordGen.GetTexCoords(endOffset);
 
       ENormalType normalType1 = (step == 0) ? StartNormal : BaseNormal;
       ENormalType normalType2 = (step == steps - 1) ? EndNormal : BaseNormal;
 
-      glsl::vec2 const leftNormal1 = getNormal(segments[i], true /* isLeft */, normalType1);
-      glsl::vec2 const rightNormal1 = getNormal(segments[i], false /* isLeft */, normalType1);
-      glsl::vec2 const leftNormal2 = getNormal(segments[i], true /* isLeft */, normalType2);
-      glsl::vec2 const rightNormal2 = getNormal(segments[i], false /* isLeft */, normalType2);
+      glsl::vec2 const leftNormal1 = GetNormal(segments[i], true /* isLeft */, normalType1);
+      glsl::vec2 const rightNormal1 = GetNormal(segments[i], false /* isLeft */, normalType1);
+      glsl::vec2 const leftNormal2 = GetNormal(segments[i], true /* isLeft */, normalType2);
+      glsl::vec2 const rightNormal2 = GetNormal(segments[i], false /* isLeft */, normalType2);
 
-      geometry.push_back(LV(currentStartPivot, glsl::vec2(0, 0), colorCoord, uvStart, rightSegment));
-      geometry.push_back(LV(currentStartPivot, leftNormal1, colorCoord, uvStart, leftSegment));
-      geometry.push_back(LV(newPivot, glsl::vec2(0, 0), colorCoord, uvEnd, rightSegment));
-      geometry.push_back(LV(newPivot, leftNormal2, colorCoord, uvEnd, leftSegment));
+      geometry.push_back(getLineVertex(segments[i], currentStartPivot, glsl::vec2(0, 0), offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], currentStartPivot, leftNormal1, offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], newPivot, glsl::vec2(0, 0), offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], newPivot, leftNormal2, offsetFromStart));
 
-      geometry.push_back(LV(currentStartPivot, rightNormal1, colorCoord, uvStart, rightSegment));
-      geometry.push_back(LV(currentStartPivot, glsl::vec2(0, 0), colorCoord, uvStart, leftSegment));
-      geometry.push_back(LV(newPivot, rightNormal2, colorCoord, uvEnd, rightSegment));
-      geometry.push_back(LV(newPivot, glsl::vec2(0, 0), colorCoord, uvEnd, leftSegment));
+      geometry.push_back(getLineVertex(segments[i], currentStartPivot, rightNormal1, offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], currentStartPivot, glsl::vec2(0, 0), offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], newPivot, rightNormal2, offsetFromStart));
+      geometry.push_back(getLineVertex(segments[i], newPivot, glsl::vec2(0, 0), offsetFromStart));
 
       currentStartPivot = newPivot;
     }
@@ -428,25 +418,15 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
       glsl::vec2 n2 = segments[i + 1].m_hasLeftJoin[StartPoint] ? segments[i + 1].m_leftNormals[StartPoint] :
                                                                   segments[i + 1].m_rightNormals[StartPoint];
 
-      float widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint] :
-                                                                segments[i].m_leftWidthScalar[EndPoint];
+      float widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint].x :
+                                                                segments[i].m_leftWidthScalar[EndPoint].x;
 
       vector<glsl::vec2> normals;
       normals.reserve(24);
       GenerateJoinNormals(m_params.m_join, n1, n2, halfWidth, segments[i].m_hasLeftJoin[EndPoint],
                           widthScalar, normals);
 
-      glsl::vec3 const joinPivot = glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth);
-
-      size_t const trianglesCount = normals.size() / 3;
-      for (int j = 0; j < trianglesCount; j++)
-      {
-        glsl::vec2 const uv = texCoordGen.GetTexCoords(0.0f); //TODO
-
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j], colorCoord, uv, leftSegment));
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j + 1], colorCoord, uv, rightSegment));
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j + 2], colorCoord, uv, leftSegment));
-      }
+      generateTriangles(glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth), normals);
     }
 
     // generate caps
@@ -458,17 +438,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
                          segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent,
                          halfWidth, true /* isStart */, normals);
 
-      glsl::vec3 const joinPivot = glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth);
-
-      size_t const trianglesCount = normals.size() / 3;
-      for (int j = 0; j < trianglesCount; j++)
-      {
-        glsl::vec2 const uv = texCoordGen.GetTexCoords(0.0f); //TODO
-
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j], colorCoord, uv, leftSegment));
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j + 1], colorCoord, uv, rightSegment));
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j + 2], colorCoord, uv, leftSegment));
-      }
+      generateTriangles(glsl::vec3(segments[i].m_points[StartPoint], m_params.m_depth), normals);
     }
 
     if (i == segments.size() - 1)
@@ -479,156 +449,9 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
                          segments[i].m_rightNormals[EndPoint], segments[i].m_tangent,
                          halfWidth, false /* isStart */, normals);
 
-      glsl::vec3 const joinPivot = glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth);
-
-      size_t const trianglesCount = normals.size() / 3;
-      for (int j = 0; j < trianglesCount; j++)
-      {
-        glsl::vec2 const uv = texCoordGen.GetTexCoords(0.0f); //TODO
-
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j], colorCoord, uv, leftSegment));
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j + 1], colorCoord, uv, rightSegment));
-        joinsGeometry.push_back(LV(joinPivot, normals[3 * j + 2], colorCoord, uv, leftSegment));
-      }
+      generateTriangles(glsl::vec3(segments[i].m_points[EndPoint], m_params.m_depth), normals);
     }
   }
-
-  //glsl::vec2 prevPoint;
-  //glsl::vec2 prevLeftNormal;
-  //glsl::vec2 prevRightNormal;
-
-  /*for (size_t i = 1; i < path.size(); ++i)
-  {
-    glsl::vec2 startPoint = glsl::ToVec2(path[i - 1]);
-    glsl::vec2 endPoint = glsl::ToVec2(path[i]);
-    glsl::vec2 tangent, leftNormal, rightNormal;
-    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
-
-    glsl::vec3 startPivot = glsl::vec3(startPoint, m_params.m_depth);
-
-    // Create join beetween current segment and previous
-    if (i > 1)
-    {
-      glsl::vec2 zeroNormal(0.0, 0.0);
-      glsl::vec2 prevForming, nextForming;
-      if (glsl::dot(prevLeftNormal, tangent) < 0)
-      {
-        prevForming = prevLeftNormal;
-        nextForming = leftNormal;
-      }
-      else
-      {
-        prevForming = prevRightNormal;
-        nextForming = rightNormal;
-      }
-
-      float const distance = glsl::length(nextForming - prevForming) / m_params.m_baseGtoPScale;
-      float const endUv = min(1.0f, texCoordGen.GetUvOffsetByDistance(distance));
-      glsl::vec2 const uvStart = texCoordGen.GetTexCoords(0.0f);
-      glsl::vec2 const uvEnd = texCoordGen.GetTexCoords(endUv);
-
-      if (m_params.m_join == dp::BevelJoin)
-      {
-        geometry.push_back(LV(startPivot, prevForming, colorCoord, uvStart, leftSegment));
-        geometry.push_back(LV(startPivot, zeroNormal, colorCoord, uvStart, leftSegment));
-        geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, leftSegment));
-        geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, leftSegment));
-      }
-      else
-      {
-        glsl::vec2 middleForming = glsl::normalize(prevForming + nextForming);
-        glsl::vec2 zeroDxDy(0.0, 0.0);
-
-        float const middleUv = 0.5f * endUv;
-        glsl::vec2 const uvMiddle = texCoordGen.GetTexCoords(middleUv);
-
-        if (m_params.m_join == dp::MiterJoin)
-        {
-          float const b = 0.5f * glsl::length(prevForming - nextForming);
-          float const a = glsl::length(prevForming);
-          middleForming *= static_cast<float>(sqrt(a * a + b * b));
-
-          geometry.push_back(LV(startPivot, prevForming, colorCoord, uvStart, zeroDxDy));
-          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, uvStart, zeroDxDy));
-          geometry.push_back(LV(startPivot, middleForming, colorCoord, uvMiddle, zeroDxDy));
-          geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, zeroDxDy));
-        }
-        else
-        {
-          middleForming *= glsl::length(prevForming);
-
-          glsl::vec2 dxdyLeft(0.0, -1.0);
-          glsl::vec2 dxdyRight(0.0, -1.0);
-          glsl::vec2 dxdyMiddle(1.0, 1.0);
-          geometry.push_back(LV(startPivot, zeroNormal, colorCoord, uvStart, zeroDxDy));
-          geometry.push_back(LV(startPivot, prevForming, colorCoord, uvStart, dxdyLeft));
-          geometry.push_back(LV(startPivot, nextForming, colorCoord, uvEnd, dxdyRight));
-          geometry.push_back(LV(startPivot, middleForming, colorCoord, uvMiddle, dxdyMiddle));
-        }
-      }
-    }
-
-    float initialGlobalLength = glsl::length(endPoint - startPoint);
-    float pixelLen = initialGlobalLength * m_params.m_baseGtoPScale;
-    int steps = 1;
-    float maskSize = initialGlobalLength;
-    if (!texCoordGen.IsSolid())
-    {
-      maskSize = texCoordGen.GetMaskLength() / m_params.m_baseGtoPScale;
-      steps = static_cast<int>((pixelLen + texCoordGen.GetMaskLength() - 1) / texCoordGen.GetMaskLength());
-    }
-
-    float currentSize = 0;
-    glsl::vec3 currentStartPivot = startPivot;
-    for (int i = 0; i < steps; i++)
-    {
-      currentSize += maskSize;
-
-      float endOffset = 1.0f;
-      if (currentSize >= initialGlobalLength)
-      {
-        endOffset = (initialGlobalLength - currentSize + maskSize) / maskSize;
-        currentSize = initialGlobalLength;
-      }
-
-      glsl::vec2 const newPoint = startPoint + tangent * currentSize;
-      glsl::vec3 const newPivot = glsl::vec3(newPoint, m_params.m_depth);
-      glsl::vec2 const uvStart = texCoordGen.GetTexCoords(0.0f);
-      glsl::vec2 const uvEnd = texCoordGen.GetTexCoords(endOffset);
-
-      geometry.push_back(LV(currentStartPivot, leftNormal, colorCoord, uvStart, leftSegment));
-      geometry.push_back(LV(currentStartPivot, rightNormal, colorCoord, uvStart, rightSegment));
-      geometry.push_back(LV(newPivot, leftNormal, colorCoord, uvEnd, leftSegment));
-      geometry.push_back(LV(newPivot, rightNormal, colorCoord, uvEnd, rightSegment));
-
-      currentStartPivot = newPivot;
-    }
-
-    prevPoint = currentStartPivot.xy();
-    prevLeftNormal = leftNormal;
-    prevRightNormal = rightNormal;
-  }*/
-
-  /*if (generateCap)
-  {
-    size_t lastPointIndex = path.size() - 1;
-    glsl::vec2 startPoint = glsl::ToVec2(path[lastPointIndex - 1]);
-    glsl::vec2 endPoint = glsl::ToVec2(path[lastPointIndex]);
-    glsl::vec2 tangent, leftNormal, rightNormal;
-    calcTangentAndNormals(startPoint, endPoint, tangent, leftNormal, rightNormal);
-    tangent = halfWidth * tangent;
-
-    glsl::vec3 pivot = glsl::vec3(endPoint, m_params.m_depth);
-    glsl::vec2 leftCap(capType, LEFT_WIDTH);
-    glsl::vec2 rightCap(capType, RIGHT_WIDTH);
-    glsl::vec2 const uvStart = texCoordGen.GetTexCoordsByDistance(0.0);
-    glsl::vec2 const uvEnd = texCoordGen.GetTexCoordsByDistance(glbHalfWidth);
-
-    geometry.push_back(LV(pivot, leftNormal, colorCoord, uvStart, leftSegment));
-    geometry.push_back(LV(pivot, rightNormal, colorCoord, uvStart, rightSegment));
-    geometry.push_back(LV(pivot, leftNormal + tangent, colorCoord, uvEnd, leftCap));
-    geometry.push_back(LV(pivot, rightNormal + tangent, colorCoord, uvEnd, rightCap));
-  }*/
 
   dp::GLState state(gpu::LINE_PROGRAM, dp::GLState::GeometryLayer);
   state.SetColorTexture(colorRegion.GetTexture());
