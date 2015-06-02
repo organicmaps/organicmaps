@@ -31,12 +31,9 @@
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"/>
 
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="@color/text_green"
-      android:theme="@style/MwmWidget.Toolbar"
+  <include
+      android:id="@+id/toolbar_layout"
+      layout="@layout/toolbar_elevated"
       android:visibility="gone"/>
 
 </merge>

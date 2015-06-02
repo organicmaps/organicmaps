@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/MwmWidget.Toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:theme="@style/MwmWidget.Toolbar"/>
+
+  <FrameLayout
+      android:id="@+id/fl__elevation"
+      style="@style/MwmWidget.FrameLayout.Elevation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+  <!-- style is needed, too, because some attrs(insets, eg) are not supported in theme-->
+</LinearLayout>

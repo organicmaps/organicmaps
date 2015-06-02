@@ -16,13 +16,6 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/search_box_height"/>
 
-  <com.mapswithme.maps.widget.placepage.PlacePageView
-      android:id="@+id/info_box"
-      android:layout_width="360dp"
-      android:layout_height="match_parent"
-      android:layout_below="@+id/fl__routing"
-      placePage:animationType="leftFull"/>
-
   <FrameLayout
       android:id="@+id/fl__routing"
       android:layout_width="match_parent"
@@ -36,6 +29,13 @@
   <include
       android:id="@+id/navigation_buttons"
       layout="@layout/map_navigation_buttons"/>
+
+  <com.mapswithme.maps.widget.placepage.PlacePageView
+      android:id="@+id/info_box"
+      android:layout_width="360dp"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/fl__routing"
+      placePage:animationType="leftFull"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"

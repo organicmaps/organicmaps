@@ -9,13 +9,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 
-  <com.mapswithme.maps.widget.placepage.PlacePageView
-      android:id="@+id/info_box"
-      android:layout_width="@dimen/panel_width"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/margin_medium"
-      placePage:animationType="leftTop"/>
-
   <FrameLayout
       android:id="@+id/fl__routing"
       android:layout_width="@dimen/panel_width"
@@ -30,6 +23,13 @@
   <include
       android:id="@+id/navigation_buttons"
       layout="@layout/map_navigation_buttons"/>
+
+  <com.mapswithme.maps.widget.placepage.PlacePageView
+      android:id="@+id/info_box"
+      android:layout_width="@dimen/panel_width"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_medium"
+      placePage:animationType="leftTop"/>
 
   <com.mapswithme.maps.widget.FadeView
       android:id="@+id/fade_view"

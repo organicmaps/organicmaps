@@ -6,9 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.LinearLayout;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -20,17 +22,18 @@ import com.nineoldandroids.view.ViewHelper;
 public class BottomPlacePageAnimationController extends BasePlacePageAnimationController implements View.OnLayoutChangeListener
 {
   private final View mViewBottomHack;
-  private final Toolbar mToolbar;
+  private final ViewGroup mLayoutToolbar;
 
   public BottomPlacePageAnimationController(@NonNull PlacePageView placePage)
   {
     super(placePage);
     mViewBottomHack = mPlacePage.findViewById(R.id.view_bottom_white);
-    mToolbar = (Toolbar) mPlacePage.findViewById(R.id.toolbar);
-    if (mToolbar != null)
+    mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
+    final Toolbar toolbar = (Toolbar) mLayoutToolbar.findViewById(R.id.toolbar);
+    if (toolbar != null)
     {
-      UiUtils.showHomeUpButton(mToolbar);
-      mToolbar.setNavigationOnClickListener(new View.OnClickListener()
+      UiUtils.showHomeUpButton(toolbar);
+      toolbar.setNavigationOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -151,8 +154,8 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
     mPlacePage.setVisibility(View.VISIBLE);
     mPreview.setVisibility(View.VISIBLE);
     mDetails.addOnLayoutChangeListener(this);
-    if (mToolbar != null)
-      mToolbar.setVisibility(View.GONE);
+    if (mLayoutToolbar != null)
+      mLayoutToolbar.setVisibility(View.GONE);
 
     ValueAnimator animator;
     Interpolator interpolator;
@@ -295,14 +298,14 @@ public class BottomPlacePageAnimationController extends BasePlacePageAnimationCo
 
   private void refreshToolbarVisibility()
   {
-    if (mToolbar != null)
-      mToolbar.setVisibility(ViewHelper.getY(mDetails) < mPreview.getHeight() ? View.VISIBLE : View.GONE);
+    if (mLayoutToolbar != null)
+      mLayoutToolbar.setVisibility(ViewHelper.getY(mDetails) < mPreview.getHeight() ? View.VISIBLE : View.GONE);
   }
 
   protected void hidePlacePage()
   {
-    if (mToolbar != null)
-      mToolbar.setVisibility(View.GONE);
+    if (mLayoutToolbar != null)
+      mLayoutToolbar.setVisibility(View.GONE);
 
     mDetails.removeOnLayoutChangeListener(this);
     final float animHeight = mPlacePage.getHeight() - mPreview.getTop() - ViewHelper.getTranslationY(mPreview);
