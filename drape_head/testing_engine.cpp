@@ -443,6 +443,8 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 
 void TestingEngine::DrawImpl()
 {
+  m_generalUniforms.SetFloatValue("u_opacity", 1.0f);
+
   dp::Batcher::TFlushFn flushFn = bind(&df::TestingEngine::OnFlushData, this, _1, _2);
   m_batcher->StartSession(flushFn);
   dp::FontDecl fd;
@@ -462,7 +464,7 @@ void TestingEngine::DrawImpl()
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Народная Китайская республика";
-  TextShape sh1(m2::PointF(82.277071f, 56.9271164f), params);
+  TextShape sh1(m2::PointF(82.277071f, 46.9271164f), params);
   sh1.Draw(make_ref(m_batcher), make_ref(m_textures));
 
   vector<m2::PointD> path;
@@ -499,12 +501,17 @@ void TestingEngine::DrawImpl()
 
   {
     vector<m2::PointD> path1;
+    path1.push_back(m2::PointD(92.277071f, 47.9271164f));
     path1.push_back(m2::PointD(92.277071f, 45.9271164f));
     path1.push_back(m2::PointD(98.277071f, 45.9271164f));
     path1.push_back(m2::PointD(98.277071f, 40.9271164f));
-    path1.push_back(m2::PointD(100.277071f, 38.9271164f));
+    path1.push_back(m2::PointD(100.277071f, 42.9271164f));
     path1.push_back(m2::PointD(101.277071f, 49.9271164f));
     path1.push_back(m2::PointD(102.277071f, 40.9271164f));
+    path1.push_back(m2::PointD(105.277071f, 40.9271164f));
+    path1.push_back(m2::PointD(101.277071f, 35.9271164f));
+    path1.push_back(m2::PointD(90.277071f, 35.9271164f));
+    path1.push_back(m2::PointD(89.277071f, 33.9271164f));
     m2::SharedSpline spl1(path1);
 
     lvp.m_pattern = dp::TextureManager::TStipplePattern{8, 8};
@@ -614,7 +621,7 @@ void TestingEngine::ModelViewInit()
   math::Matrix<double, 3, 3> m
   {   34.1554f,      0.0f, 0.0f,
           0.0f, -34.1554f, 0.0f,
-     -2639.46f,  2080.99f, 1.0f};
+     -2639.46f,  1800.99f, 1.0f};
 
 //  math::Matrix<double, 3, 3> m = math::Inverse(math::Shift(
 //                                                 math::Rotate(
