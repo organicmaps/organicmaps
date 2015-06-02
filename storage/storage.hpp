@@ -1,10 +1,9 @@
 #pragma once
 
-#include "storage/storage_defines.hpp"
 #include "storage/country.hpp"
 #include "storage/index.hpp"
-
-#include "platform/http_request.hpp"
+#include "storage/map_files_downloader.hpp"
+#include "storage/storage_defines.hpp"
 
 #include "std/vector.hpp"
 #include "std/list.hpp"
@@ -20,7 +19,7 @@ namespace storage
   class Storage
   {
     /// We support only one simultaneous request at the moment
-    unique_ptr<downloader::HttpRequest> m_request;
+    unique_ptr<MapFilesDownloader> m_downloader;
 
     /// stores timestamp for update checks
     int64_t m_currentVersion;
@@ -67,7 +66,7 @@ namespace storage
 
     /// used to correctly calculate total country download progress with more than 1 file
     /// <current, total>
-    downloader::HttpRequest::ProgressT m_countryProgress;
+    MapFilesDownloader::TProgress m_countryProgress;
 
     /// @name Communicate with GUI
     //@{
@@ -101,9 +100,9 @@ namespace storage
 
     /// @name
     //@{
-    void OnServerListDownloaded(downloader::HttpRequest & request);
-    void OnMapDownloadFinished(downloader::HttpRequest & request);
-    void OnMapDownloadProgress(downloader::HttpRequest & request);
+    void OnServerListDownloaded(vector<string> const & urls);
+    void OnMapDownloadFinished(bool success, MapFilesDownloader::TProgress const & progress);
+    void OnMapDownloadProgress(MapFilesDownloader::TProgress const & progress);
     void DownloadNextFile(QueuedCountry const & cnt);
     //@}
 
@@ -154,6 +153,8 @@ namespace storage
     void GetOutdatedCountries(vector<Country const *> & res) const;
 
     int64_t GetCurrentDataVersion() const { return m_currentVersion; }
+
+    void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
 
   private:
     TStatus CountryStatusWithoutFailed(TIndex const & index) const;

@@ -17,10 +17,15 @@ linux*|win32-msvc*: QT *= network
 
 QT *= core
 
-HEADERS +=
+HEADERS += \
+  fake_map_files_downloader.hpp \
+  message_loop.hpp \
+
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  simple_tree_test.cpp \
   country_info_test.cpp \
+  fake_map_files_downloader.cpp \
+  message_loop.cpp \
+  simple_tree_test.cpp \
   storage_tests.cpp \

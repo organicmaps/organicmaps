@@ -3,6 +3,7 @@
 #include "3party/enum_flags.hpp"
 
 #include "std/stdint.hpp"
+#include "std/string.hpp"
 #include "std/utility.hpp"
 
 namespace storage
@@ -19,6 +20,8 @@ namespace storage
     EOnDiskOutOfDate,
     EOutOfMemFailed  // EDownloadFailed because not enough memory
   };
+
+  string DebugPrint(TStatus status);
 
   ENUM_FLAGS(TMapOptions)
   enum class TMapOptions

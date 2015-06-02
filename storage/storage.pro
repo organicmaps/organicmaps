@@ -12,17 +12,21 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 HEADERS += \
   country.hpp \
+  country_decl.hpp \
+  country_info.hpp \
+  country_polygon.hpp \
+  http_map_files_downloader.hpp \
+  index.hpp \
+  map_files_downloader.hpp \
   simple_tree.hpp \
   storage.hpp \
-  country_polygon.hpp \
-  country_info.hpp \
-  country_decl.hpp \
-  index.hpp \
   storage_defines.hpp \
 
 SOURCES += \
   country.cpp \
-  storage.cpp \
-  country_info.cpp \
   country_decl.cpp \
+  country_info.cpp \
+  http_map_files_downloader.cpp \
   index.cpp \
+  storage.cpp \
+  storage_defines.cpp \

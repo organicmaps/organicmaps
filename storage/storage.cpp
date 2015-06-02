@@ -1,5 +1,7 @@
 #include "storage/storage.hpp"
 
+#include "storage/http_map_files_downloader.hpp"
+
 #include "defines.hpp"
 
 #include "platform/platform.hpp"
@@ -173,7 +175,7 @@ namespace storage
   }
 
 
-  Storage::Storage() : m_currentSlotId(0)
+  Storage::Storage() : m_downloader(new HttpMapFilesDownloader()), m_currentSlotId(0)
   {
     LoadCountriesFile(false);
 
@@ -266,8 +268,8 @@ namespace storage
     if (found != m_queue.end())
     {
       sizes.second = cnt.GetFullRemoteSize();
-      if (m_request != nullptr && m_queue.front().GetIndex() == index)
-        sizes.first = m_request->Progress().first + m_countryProgress.first;
+      if (!m_downloader->IsIdle() && m_queue.front().GetIndex() == index)
+        sizes.first = m_downloader->GetDownloadingProgress().first + m_countryProgress.first;
     }
     else
       sizes = cnt.GetFullSize();
@@ -371,9 +373,8 @@ namespace storage
   void Storage::DownloadNextFile(QueuedCountry const & cnt)
   {
     // send Country name for statistics
-    m_request.reset(HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
-            cnt.GetFileName(),
-            bind(&Storage::OnServerListDownloaded, this, _1)));
+    m_downloader->GetServersList(cnt.GetFileName(),
+                                 bind(&Storage::OnServerListDownloaded, this, _1));
   }
 
   /*
@@ -393,7 +394,7 @@ namespace storage
       if (found == m_queue.begin())
       {
         // stop download
-        m_request.reset();
+        m_downloader->Reset();
         // remove from the queue
         m_queue.erase(found);
         // start another download if the queue is not empty
@@ -458,7 +459,7 @@ namespace storage
     }
   }
 
-  void Storage::OnMapDownloadFinished(HttpRequest & request)
+  void Storage::OnMapDownloadFinished(bool success, MapFilesDownloader::TProgress const & progress)
   {
     if (m_queue.empty())
     {
@@ -469,7 +470,7 @@ namespace storage
     QueuedCountry & cnt = m_queue.front();
     TIndex const index = cnt.GetIndex();
 
-    bool const downloadHasFailed = (request.Status() == HttpRequest::EFailed);
+    bool const downloadHasFailed = !success;
     {
       string optionName;
       switch (cnt.GetInitOptions())
@@ -492,11 +493,10 @@ namespace storage
     }
     else
     {
-      HttpRequest::ProgressT const & p = request.Progress();
-      ASSERT_EQUAL(p.first, p.second, ());
-      ASSERT_EQUAL(p.first, cnt.GetDownloadSize(), ());
+      ASSERT_EQUAL(progress.first, progress.second, ());
+      ASSERT_EQUAL(progress.first, cnt.GetDownloadSize(), ());
 
-      m_countryProgress.first += p.first;
+      m_countryProgress.first += progress.first;
       if (cnt.MoveNextFile())
       {
         DownloadNextFile(cnt);
@@ -511,7 +511,7 @@ namespace storage
 
     NotifyStatusChanged(index);
 
-    m_request.reset();
+    m_downloader->Reset();
     DownloadNextCountryFromQueue();
   }
 
@@ -521,7 +521,7 @@ namespace storage
       o.m_progressFn(idx, p);
   }
 
-  void Storage::OnMapDownloadProgress(HttpRequest & request)
+  void Storage::OnMapDownloadProgress(MapFilesDownloader::TProgress const & progress)
   {
     if (m_queue.empty())
     {
@@ -531,7 +531,7 @@ namespace storage
 
     if (!m_observers.empty())
     {
-      HttpRequest::ProgressT p = request.Progress();
+      MapFilesDownloader::TProgress p = progress;
       p.first += m_countryProgress.first;
       p.second = m_countryProgress.second;
 
@@ -539,7 +539,7 @@ namespace storage
     }
   }
 
-  void Storage::OnServerListDownloaded(HttpRequest & request)
+  void Storage::OnServerListDownloaded(vector<string> const & urls)
   {
     if (m_queue.empty())
     {
@@ -549,19 +549,16 @@ namespace storage
 
     QueuedCountry const & cnt = m_queue.front();
 
-    vector<string> urls;
-    GetServerListFromRequest(request, urls);
-
+    vector<string> fileUrls(urls.size());
     // append actual version and file name
     string const fileName = cnt.GetFileName();
     for (size_t i = 0; i < urls.size(); ++i)
-      urls[i] = GetFileDownloadUrl(urls[i], fileName);
+      fileUrls[i] = GetFileDownloadUrl(urls[i], fileName);
 
     string const filePath = GetPlatform().WritablePathForFile(fileName + READY_FILE_EXTENSION);
-    m_request.reset(HttpRequest::GetFile(urls, filePath, cnt.GetDownloadSize(),
-                                         bind(&Storage::OnMapDownloadFinished, this, _1),
-                                         bind(&Storage::OnMapDownloadProgress, this, _1)));
-    ASSERT ( m_request, () );
+    m_downloader->DownloadMapFile(fileUrls, filePath, cnt.GetDownloadSize(),
+                                  bind(&Storage::OnMapDownloadFinished, this, _1, _2),
+                                  bind(&Storage::OnMapDownloadProgress, this, _1));
   }
 
   string Storage::GetFileDownloadUrl(string const & baseUrl, string const & fName) const
@@ -658,6 +655,11 @@ namespace storage
 
     for (size_t i = 0; i < fList.size(); ++i)
       res.push_back(&CountryByIndex(FindIndexByFile(fList[i])));
+  }
+
+  void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader)
+  {
+    m_downloader = move(downloader);
   }
 
   TStatus Storage::CountryStatusWithoutFailed(TIndex const & index) const
