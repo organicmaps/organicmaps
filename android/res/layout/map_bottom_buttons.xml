@@ -23,7 +23,7 @@
         android:layout_marginRight="@dimen/margin_small"
         android:text="@string/bookmarks"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
 
     <ImageView
         android:id="@+id/btn__bookmarks"
@@ -51,7 +51,7 @@
         android:layout_marginRight="@dimen/margin_small"
         android:text="@string/download_maps"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
 
     <ImageView
         android:id="@+id/btn__download_maps"
@@ -79,7 +79,7 @@
         android:layout_marginRight="@dimen/margin_small"
         android:text="@string/settings"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
 
     <ImageView
         android:id="@+id/btn__settings"
@@ -107,7 +107,7 @@
         android:layout_marginRight="@dimen/margin_small"
         android:text="@string/share_my_location"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
 
     <ImageView
         android:id="@+id/btn__share"
@@ -134,7 +134,7 @@
         android:layout_marginRight="@dimen/margin_small"
         android:text="@string/search"
         android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
 
     <ImageView
         android:id="@+id/btn__search"

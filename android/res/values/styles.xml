@@ -180,6 +180,10 @@
     <item name="android:textColor">@color/text_light</item>
   </style>
 
+  <style name="MwmTextAppearance.Body1.Light.Clickable">
+    <item name="android:textColor">@color/color_menu_text</item>
+  </style>
+
   <style name="MwmTextAppearance.Body2">
     <item name="android:textSize">@dimen/text_size_body_2</item>
     <item name="android:textColor">@color/text_dark_subtitle</item>
