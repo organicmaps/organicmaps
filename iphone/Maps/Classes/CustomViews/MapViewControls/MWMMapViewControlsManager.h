@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, MWMMapViewControlsButton)
 @property (nonatomic) BOOL menuHidden;
 @property (nonatomic) BOOL locationHidden;
 
+- (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentController:(MapViewController *)controller;
 - (void)resetZoomButtonsVisibility;
 - (void)moveButton:(MWMMapViewControlsButton)button toDefaultPosition:(BOOL)defaultPosition;

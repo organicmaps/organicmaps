@@ -10,6 +10,7 @@
 #import "MWMSideMenuManager.h"
 #import "MWMZoomButtons.h"
 #import "MWMLocationButton.h"
+#import "MWMMapViewControlsWrapper.h"
 #import "MapViewController.h"
 
 #include "Framework.h"
@@ -20,22 +21,28 @@
 @property (nonatomic) MWMZoomButtons * zoomButtons;
 @property (nonatomic) MWMLocationButton * locationButton;
 
+@property (nonatomic) MWMMapViewControlsWrapper * viewWrapper;
+
 @end
 
 @implementation MWMMapViewControlsManager
 
 - (instancetype)initWithParentController:(MapViewController *)controller
 {
+  if (!controller)
+    return nil;
   self = [super init];
-  if (self && controller)
-  {
-    self.menuManager = [[MWMSideMenuManager alloc] initWithParentController:controller];
-    self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:controller.view];
-    self.locationButton = [[MWMLocationButton alloc] initWithParentView:controller.view];
-    self.hidden = NO;
-    self.zoomHidden = NO;
-    self.menuHidden = NO;
-  }
+  if (!self)
+    return nil;
+  self.viewWrapper = [[MWMMapViewControlsWrapper alloc] initWithParentView:controller.view];
+  if (!self.viewWrapper)
+    return nil;
+  self.menuManager = [[MWMSideMenuManager alloc] initWithParentView:self.viewWrapper andController:controller];
+  self.zoomButtons = [[MWMZoomButtons alloc] initWithParentView:self.viewWrapper];
+  self.locationButton = [[MWMLocationButton alloc] initWithParentView:self.viewWrapper];
+  self.hidden = NO;
+  self.zoomHidden = NO;
+  self.menuHidden = NO;
   return self;
 }
 

@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, MWMSideMenuState)
 
 @property (nonatomic) MWMSideMenuState state;
 
-- (instancetype)initWithParentController:(MapViewController *)controller;
+- (instancetype)init __attribute__((unavailable("init is not available")));
+- (instancetype)initWithParentView:(UIView *)parentView andController:(MapViewController *)controller;
 
 @end

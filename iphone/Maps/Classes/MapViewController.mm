@@ -77,7 +77,7 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
 
 @end
 
-@interface MapViewController () <PlacePageViewDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate>
+@interface MapViewController () <PlacePageViewDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate, SearchViewDelegate>
 
 @property (nonatomic) UIView * routeViewWrapper;
 @property (nonatomic) RouteView * routeView;
@@ -584,12 +584,12 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   self.view.clipsToBounds = YES;
   
   [self.view addSubview:self.routeViewWrapper];
+  
+  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 
   [self.view addSubview:self.searchView];
 
   [self.view addSubview:self.containerView];
-
-  self.controlsManager = [[MWMMapViewControlsManager alloc] initWithParentController:self];
 
   [self showRoutingFeatureDialog];
 }
@@ -839,9 +839,9 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   if (!_searchView)
   {
     _searchView = [[SearchView alloc] initWithFrame:self.view.bounds];
+    _searchView.delegate = self;
     _searchView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_searchView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-    _searchView.controlsManager = self.controlsManager;
   }
   return _searchView;
 }
@@ -932,6 +932,17 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   GetFramework().BuildRoute([self.containerView.placePage pinPoint]);
 }
 
+- (void)dismissRouting
+{
+  GetFramework().CloseRouting();
+  [self.controlsManager resetZoomButtonsVisibility];
+  [self.routeView setState:RouteViewStateHidden animated:YES];
+  self.disableStandbyOnRouteFollowing = NO;
+  [RouteState remove];
+}
+
+#pragma mark - RouteViewDelegate
+
 - (void)routeViewDidStartFollowing:(RouteView *)routeView
 {
   [routeView setState:RouteViewStateTurnInstructions animated:YES];
@@ -951,13 +962,11 @@ typedef NS_ENUM(NSUInteger, ForceRoutingStateChange)
   [self.controlsManager moveButton:MWMMapViewControlsButtonZoom toDefaultPosition:(state == RouteViewStateHidden)];
 }
 
-- (void)dismissRouting
+#pragma mark - SearchViewDelegate
+
+- (void)searchViewWillEnterState:(SearchViewState)state
 {
-  GetFramework().CloseRouting();
-  [self.controlsManager resetZoomButtonsVisibility];
-  [self.routeView setState:RouteViewStateHidden animated:YES];
-  self.disableStandbyOnRouteFollowing = NO;
-  [RouteState remove];
+  self.controlsManager.hidden = (state != SearchViewStateHidden);
 }
 
 #pragma mark - PlacePageViewDelegate

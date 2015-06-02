@@ -62,6 +62,9 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 
 - (void)setup
 {
+  self.contentScaleFactor = self.superview.contentScaleFactor;
+  self.frame = self.superview.bounds;
+  self.alpha = 1.0;
   UIImageView const * const animationIV = self.searchButton.imageView;
   NSString const * const imageName = @"btn_green_menu_";
   static NSUInteger const animationImagesCount = 4;
@@ -72,6 +75,10 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   animationIV.animationDuration = framesDuration(animationIV.animationImages.count);
   animationIV.animationRepeatCount = 1;
   [animationIV startAnimating];
+  self.downloadBadge.hidden = YES;
+  self.downloadCount.hidden = YES;
+  [self updateMenuBackground];
+  [self updateMenuUI];
   [self setNeedsLayout];
 }
 
@@ -79,14 +86,8 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 {
   if (self.superview == parentView)
     return;
-  [self setup];
   [parentView addSubview:self];
-  self.frame = parentView.bounds;
-  self.alpha = 1.0;
-  self.downloadBadge.hidden = YES;
-  self.downloadCount.hidden = YES;
-  [self updateMenuBackground];
-  [self updateMenuUI];
+  [self setup];
 }
 
 - (void)removeFromSuperviewAnimated
@@ -117,6 +118,7 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
 
 - (void)layoutSubviews
 {
+  [super layoutSubviews];
   self.frame = self.superview.frame;
   self.dimBackground.frame = self.frame;
   
@@ -159,8 +161,7 @@ static CGSize const kBadgeSize = CGSizeMake(24.0, 24.0);
   self.downloadBadge.minY = self.downloadMapsButton.minY;
   self.downloadCount.minY = self.downloadMapsButton.minY;
   
-  CGFloat const contentScaleFactor = self.superview.contentScaleFactor;
-  m2::PointD const pivot(self.searchButton.minX * contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.searchButton.maxY * contentScaleFactor - kViewControlsOffsetToBounds);
+  m2::PointD const pivot(self.searchButton.minX * self.contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.searchButton.maxY * self.contentScaleFactor - kViewControlsOffsetToBounds);
   [self.delegate setRulerPivot:pivot];
   [self.delegate setCopyrightLabelPivot:pivot];
 }

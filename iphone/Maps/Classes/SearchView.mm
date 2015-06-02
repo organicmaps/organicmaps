@@ -173,6 +173,7 @@ static BOOL keyboardLoaded = NO;
 
 - (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
 {
+  [self.delegate searchViewWillEnterState:state];
   // Clear search results on the map when clear in the search bar on the map is pressed or when we reopen search dialog
   if ((_state == SearchViewStateResults && state == SearchViewStateHidden) || state == SearchViewStateFullscreen)
     [self clearSearchResultsMode];
@@ -189,7 +190,6 @@ static BOOL keyboardLoaded = NO;
   LocationManager const * const locationManager = [MapsAppDelegate theApp].m_locationManager;
   if (state == SearchViewStateFullscreen)
   {
-    self.controlsManager.hidden = YES;
     [locationManager start:self];
 
     double latitude;
@@ -245,7 +245,6 @@ static BOOL keyboardLoaded = NO;
   }
   else if (state == SearchViewStateHidden)
   {
-    self.controlsManager.hidden = NO;
     [locationManager stop:self];
     [self.searchBar.textField resignFirstResponder];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{

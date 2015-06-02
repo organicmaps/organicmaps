@@ -30,7 +30,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMSideMenuManager() <MWMSideMenuInformationDisplayProtocol>
 
-@property (weak, nonatomic) MapViewController * parentController;
+@property (weak, nonatomic) MapViewController * controller;
+@property (weak, nonatomic) UIView * parentView;
 @property (nonatomic) IBOutlet MWMSideMenuButton * menuButton;
 @property (nonatomic) IBOutlet MWMSideMenuView * sideMenu;
 
@@ -38,12 +39,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @implementation MWMSideMenuManager
 
-- (instancetype)initWithParentController:(MapViewController *)controller
+- (instancetype)initWithParentView:(UIView *)parentView andController:(MapViewController *)controller
 {
   self = [super init];
   if (self)
   {
-    self.parentController = controller;
+    self.parentView = parentView;
+    self.controller = controller;
     [[NSBundle mainBundle] loadNibNamed:kMWMSideMenuViewsNibName owner:self options:nil];
     self.menuButton.delegate = self;
     self.sideMenu.delegate = self;
@@ -67,7 +69,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   BookmarksRootVC * const vc = [[BookmarksRootVC alloc] init];
-  [self.parentController.navigationController pushViewController:vc animated:YES];
+  [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)menuActionDownloadMaps
@@ -75,7 +77,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
   CountryTreeVC * const vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
-  [self.parentController.navigationController pushViewController:vc animated:YES];
+  [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)menuActionOpenSettings
@@ -83,7 +85,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   self.state = MWMSideMenuStateInactive;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   SettingsAndMoreVC * const vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
-  [self.parentController.navigationController pushViewController:vc animated:YES];
+  [self.controller.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)menuActionShareLocation
@@ -100,16 +102,16 @@ extern NSString * const kAlohalyticsTapEventKey;
   double const gX = MercatorBounds::LonToX(coord.longitude);
   double const gY = MercatorBounds::LatToY(coord.latitude);
   ShareInfo * const info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
-  self.parentController.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.parentController];
-  UIView const * const parentView = self.parentController.view;
-  [self.parentController.shareActionSheet showFromRect:CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0)];
+  self.controller.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self.controller];
+  UIView const * const parentView = self.parentView;
+  [self.controller.shareActionSheet showFromRect:CGRectMake(parentView.midX, parentView.height - 40.0, 0.0, 0.0)];
 }
 
 - (IBAction)menuActionOpenSearch
 {
-  self.parentController.controlsManager.hidden = YES;
+  self.controller.controlsManager.hidden = YES;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
-  [self.parentController.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
+  [self.controller.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
 }
 
 - (IBAction)toggleMenu
@@ -124,12 +126,20 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)setRulerPivot:(m2::PointD)pivot
 {
-  GetFramework().GetInformationDisplay().SetWidgetPivot(InformationDisplay::WidgetType::Ruler, pivot);
+  // Workaround for old ios when layoutSubviews are called in undefined order.
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    GetFramework().GetInformationDisplay().SetWidgetPivot(InformationDisplay::WidgetType::Ruler, pivot);
+  });
 }
 
 - (void)setCopyrightLabelPivot:(m2::PointD)pivot
 {
-  GetFramework().GetInformationDisplay().SetWidgetPivot(InformationDisplay::WidgetType::CopyrightLabel, pivot);  
+  // Workaround for old ios when layoutSubviews are called in undefined order.
+  dispatch_async(dispatch_get_main_queue(), ^
+  {
+    GetFramework().GetInformationDisplay().SetWidgetPivot(InformationDisplay::WidgetType::CopyrightLabel, pivot);
+  });
 }
 
 #pragma mark - Properties
@@ -141,15 +151,15 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     case MWMSideMenuStateActive:
       [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"menu"];
-      [self.sideMenu addSelfToView:self.parentController.view];
+      [self.sideMenu addSelfToView:self.parentView];
       [self.menuButton removeFromSuperview];
       break;
     case MWMSideMenuStateInactive:
-      [self.menuButton addSelfToView:self.parentController.view];
+      [self.menuButton addSelfToView:self.parentView];
       [self.sideMenu removeFromSuperviewAnimated];
       break;
     case MWMSideMenuStateHidden:
-      [self.menuButton addSelfHiddenToView:self.parentController.view];
+      [self.menuButton addSelfHiddenToView:self.parentView];
       [self.sideMenu removeFromSuperview];
       break;
   }

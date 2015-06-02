@@ -31,6 +31,12 @@
 
 - (void)setup
 {
+  self.contentScaleFactor = self.superview.contentScaleFactor;
+  self.alpha = 0.0;
+  [UIView animateWithDuration:framesDuration(3) animations:^
+  {
+    self.alpha = 1.0;
+  }];
   UIImageView const * const animationIV = self.imageView;
   NSString const * const imageName = @"btn_green_menu_";
   [self setImage:[UIImage imageNamed:[imageName stringByAppendingString:@"1"]] forState:UIControlStateNormal];
@@ -42,6 +48,7 @@
   animationIV.animationDuration = framesDuration(animationIV.animationImages.count);
   animationIV.animationRepeatCount = 1;
   [animationIV startAnimating];
+  [self setNeedsLayout];
 }
 
 - (void)addSelfToView:(UIView *)parentView
@@ -49,19 +56,15 @@
   self.hidden = NO;
   if (self.superview == parentView)
     return;
-  [self setup];
   [parentView addSubview:self];
-  self.alpha = 0.0;
-  [UIView animateWithDuration:framesDuration(3) animations:^
-  {
-    self.alpha = 1.0;
-  }];
+  [self setup];
 }
 
 - (void)addSelfHiddenToView:(UIView *)parentView
 {
   super.hidden = YES;
   [parentView addSubview:self];
+  [self setup];
 }
 
 - (void)layoutSubviews
@@ -79,8 +82,7 @@
   else
     self.maxX = self.superview.width - 2.0 * kViewControlsOffsetToBounds;
   
-  CGFloat const contentScaleFactor = self.superview.contentScaleFactor;
-  m2::PointD const pivot(self.minX * contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.maxY * contentScaleFactor - kViewControlsOffsetToBounds);
+  m2::PointD const pivot(self.minX * self.contentScaleFactor - 2.0 * kViewControlsOffsetToBounds, self.maxY * self.contentScaleFactor - kViewControlsOffsetToBounds);
   [self.delegate setRulerPivot:pivot];
   [self.delegate setCopyrightLabelPivot:pivot];
 }

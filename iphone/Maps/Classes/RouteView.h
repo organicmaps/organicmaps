@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, RouteViewState) {
 
 - (void)updateWithInfo:(NSDictionary *)info;
 
-@property (nonatomic, weak) id <RouteViewDelegate> delegate;
+@property (weak, nonatomic) id <RouteViewDelegate> delegate;
 @property (nonatomic, readonly) RouteViewState state;
 
 @end
