@@ -277,8 +277,8 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmsInfo, m2::RectD const &
       offsetsCached += it->second.size();
   }
 
-  LOG(LDEBUG,
-      ("For search in viewport cached ", "mwms:", mwmsInfo.size(), "offsets:", offsetsCached));
+  LOG(LDEBUG, ("For search in viewport cached mwms:", mwmsInfo.size(),
+               "offsets:", offsetsCached));
 #endif
 }
 
@@ -678,9 +678,9 @@ template <class T> void Query::MakePreResult2(vector<T> & cont, vector<FeatureID
 
   // make PreResult2 vector
   impl::PreResult2Maker maker(*this);
-  for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
+  for (auto const & r : theSet)
   {
-    impl::PreResult2 * p = maker(*i);
+    impl::PreResult2 * p = maker(r);
     if (p == 0)
       continue;
 
@@ -784,7 +784,9 @@ void Query::SearchViewportPoints(Results & res)
   {
     if (m_cancel) break;
 
-    res.AddResultNoChecks((*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, m_currentLocaleCode));
+    res.AddResultNoChecks((*(indV[i])).GeneratePointResult(m_pCategories,
+                                                           &m_prefferedTypes,
+                                                           m_currentLocaleCode));
   }
 }
 
@@ -939,7 +941,7 @@ void Query::GetBestMatchName(FeatureType const & f, string & name) const
   (void)f.ForEachNameRef(bestNameFinder);
 }
 
-
+/// Makes continuous range for tokens and prefix.
 template <class IterT, class ValueT> class CombinedIter
 {
   IterT m_i, m_end;
@@ -999,7 +1001,8 @@ public:
 
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  Result res = r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, m_currentLocaleCode);
+  Result res = r.GenerateFinalResult(m_pInfoGetter, m_pCategories,
+                                     &m_prefferedTypes, m_currentLocaleCode);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST
@@ -1017,8 +1020,10 @@ Result Query::MakeResult(impl::PreResult2 const & r) const
 void Query::MakeResultHighlight(Result & res) const
 {
   typedef buffer_vector<strings::UniString, 32>::const_iterator IterT;
-  CombinedIter<IterT, strings::UniString> beg(m_tokens.begin(), m_tokens.end(), m_prefix.empty() ? 0 : &m_prefix);
-  CombinedIter<IterT, strings::UniString> end(m_tokens.end(), m_tokens.end(), 0);
+  typedef CombinedIter<IterT, strings::UniString> CombinedIterT;
+
+  CombinedIterT beg(m_tokens.begin(), m_tokens.end(), m_prefix.empty() ? 0 : &m_prefix);
+  CombinedIterT end(m_tokens.end(), m_tokens.end(), 0);
 
   SearchStringTokensIntersectionRanges(res.GetString(), beg, end, AssignHighlightRange(res));
 }
@@ -1591,7 +1596,8 @@ void Query::SearchAddress(Results & res)
         {
           params.ProcessAddressTokens();
 
-          m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(city.m_value.m_pt, city.m_radius);
+          m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(
+                city.m_value.m_pt, city.m_radius);
           SetViewportByIndex(mwmsInfo, rect, LOCALITY_V);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
@@ -1686,8 +1692,7 @@ namespace impl
 
           if (!FeatureName2FileNamePrefix(l.m_enName, "usa", arrUSA, ARRAY_SIZE(arrUSA)))
             if (!FeatureName2FileNamePrefix(l.m_enName, "uk", arrUK, ARRAY_SIZE(arrUK)))
-
-          return;
+              return;
         }
     }
     //@}
@@ -1696,7 +1701,7 @@ namespace impl
     {
       // fill regions vector in priority order
       vector<Locality> const & arr = m_localities[index];
-      for (vector<Locality>::const_reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
+      for (auto i = arr.rbegin(); i != arr.rend(); ++i)
       {
         // no need to check region with empty english name (can't match for polygon)
         if (!i->m_enName.empty() && i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
@@ -1761,8 +1766,7 @@ namespace impl
       // find locality in current results
       for (size_t i = 0; i < 3; ++i)
       {
-        vector<Locality>::iterator it = find_if(m_localities[i].begin(), m_localities[i].end(),
-                                                EqualID(v.m_featureId));
+        auto it = find_if(m_localities[i].begin(), m_localities[i].end(), EqualID(v.m_featureId));
         if (it != m_localities[i].end())
         {
           it->m_matchedTokens.push_back(m_index);
@@ -1817,7 +1821,7 @@ namespace impl
       vector<Locality> & arr = m_localities[ftypes::CITY];
 
       // Interate in reverse order from better to generic locality.
-      for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
+      for (auto i = arr.rbegin(); i != arr.rend(); ++i)
       {
         if (!i->IsSuitable(m_query.m_tokens, m_query.m_prefix))
           continue;
@@ -1834,7 +1838,8 @@ namespace impl
         {
           // splice locality info with region info
           i->m_matchedTokens.insert(i->m_matchedTokens.end(),
-                                    belongs[j]->m_matchedTokens.begin(), belongs[j]->m_matchedTokens.end());
+                                    belongs[j]->m_matchedTokens.begin(),
+                                    belongs[j]->m_matchedTokens.end());
           // we need to store sorted range of token indexies
           sort(i->m_matchedTokens.begin(), i->m_matchedTokens.end());
 
@@ -2137,59 +2142,6 @@ m2::PointD Query::GetPosition(ViewportID vID /*= DEFAULT_V*/) const
     return m_viewport[vID].Center();
   default:
     return m_pivot;
-  }
-}
-
-void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded)
-{
-  ASSERT ( viewport.IsValid(), () );
-
-  // Get feature's offsets in viewport.
-  OffsetsVectorT offsets;
-  {
-    MWMVectorT mwmsInfo;
-    m_pIndex->GetMwmsInfo(mwmsInfo);
-
-    UpdateViewportOffsets(mwmsInfo, viewport, offsets);
-  }
-
-  vector<shared_ptr<impl::PreResult2> > indV;
-
-  impl::PreResult2Maker maker(*this);
-
-  // load results
-  for (auto it = offsets.begin(); it != offsets.end(); ++it)
-  {
-    if (m_cancel)
-      break;
-
-    MwmSet::MwmId const & mwmId = it->first;
-    for (uint32_t const offset : it->second)
-    {
-      if (m_cancel)
-        break;
-
-      shared_ptr<impl::PreResult2> p(maker(FeatureID(mwmId, offset)));
-      if (p.get() != nullptr && !IsResultExists(p.get(), indV))
-        indV.push_back(p);
-    }
-  }
-
-  if (!m_cancel)
-  {
-    RemoveDuplicatingLinear(indV);
-
-    // sort by distance from m_position
-    sort(indV.begin(), indV.end(), CompFactory2::CompT(&impl::PreResult2::LessDistance));
-
-    // emit results
-    size_t const count = min(indV.size(), static_cast<size_t>(resultsNeeded));
-    for (size_t i = 0; i < count; ++i)
-    {
-      if (m_cancel) break;
-
-      res.AddResult(MakeResult(*(indV[i])));
-    }
   }
 }
 

@@ -96,7 +96,6 @@ public:
   //@{
   void SearchCoordinates(string const & query, Results & res) const;
   void Search(Results & res, size_t resCount);
-  void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
   void SearchAdditional(Results & res, size_t resCount);
 
   void SearchViewportPoints(Results & res);
