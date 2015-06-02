@@ -165,8 +165,10 @@ void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cach
 
 void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 {
+  // Recently added marks stored in the head of list
+  // (@see CreateUserMark). Leave tail here.
   if (skipCount < m_userMarks.size())
-    m_userMarks.erase(m_userMarks.begin() + skipCount, m_userMarks.end());
+    m_userMarks.erase(m_userMarks.begin(), m_userMarks.end() - skipCount);
 }
 
 namespace
@@ -198,6 +200,7 @@ MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
 
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
+  // Push new marks to the head of list.
   m_userMarks.push_front(unique_ptr<UserMark>(AllocateUserMark(ptOrg)));
   return m_userMarks.front().get();
 }
