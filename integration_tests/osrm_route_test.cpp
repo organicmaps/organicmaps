@@ -91,4 +91,16 @@ namespace
         integration::GetAllMaps(), MercatorBounds::FromLatLon(46.26739, -63.63907), {0., 0.},
         MercatorBounds::FromLatLon(46.13418, -63.84656), 23000.);
   }
+
+  UNIT_TEST(RussiaFerryToCrimea)
+  {
+    // Forward
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(45.38053, 36.73226), {0., 0.},
+        MercatorBounds::FromLatLon(45.36078, 36.60866), 13000.);
+    // And backward case
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetAllMaps(), MercatorBounds::FromLatLon(45.36078, 36.60866), {0., 0.},
+        MercatorBounds::FromLatLon(45.38053, 36.73226), 13000.);
+  }
 }
