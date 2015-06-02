@@ -1,7 +1,6 @@
 package com.mapswithme.maps.settings;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
@@ -46,6 +46,7 @@ public class StoragePathManager
 
     void moveFilesFailed(int errorCode);
   }
+
   public static final int NO_ERROR = 0;
   public static final int UNKNOWN_LITE_PRO_ERROR = 1;
   public static final int IOEXCEPTION_ERROR = 2;

@@ -1,7 +1,6 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -297,10 +297,18 @@ public final class UiUtils
     String rotation = activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? "|" : "-";
     switch (activity.getWindowManager().getDefaultDisplay().getRotation())
     {
-    case Surface.ROTATION_0: rotation += "0"; break;
-    case Surface.ROTATION_90: rotation += "90"; break;
-    case Surface.ROTATION_180: rotation += "180"; break;
-    case Surface.ROTATION_270: rotation += "270"; break;
+    case Surface.ROTATION_0:
+      rotation += "0";
+      break;
+    case Surface.ROTATION_90:
+      rotation += "90";
+      break;
+    case Surface.ROTATION_180:
+      rotation += "180";
+      break;
+    case Surface.ROTATION_270:
+      rotation += "270";
+      break;
     }
     return rotation;
   }

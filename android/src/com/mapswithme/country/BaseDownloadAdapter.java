@@ -1,11 +1,11 @@
 package com.mapswithme.country;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
