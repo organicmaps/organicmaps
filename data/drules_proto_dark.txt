@@ -32976,28 +32976,28 @@ cont {
   element {
     scale: 12
     area {
-      color: 2237030
+      color: 2236962
       priority: -16056
     }
   }
   element {
     scale: 13
     area {
-      color: 2237030
+      color: 2236962
       priority: -16057
     }
   }
   element {
     scale: 14
     area {
-      color: 2237030
+      color: 2236962
       priority: -16058
     }
   }
   element {
     scale: 15
     area {
-      color: 2237030
+      color: 2236962
       priority: -16059
     }
     caption {
@@ -33011,7 +33011,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 2237030
+      color: 2236962
       priority: -16060
     }
     caption {
@@ -33025,7 +33025,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 2237030
+      color: 2236962
       priority: -16061
     }
     caption {
@@ -33039,7 +33039,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2237030
+      color: 2236962
       priority: -16062
     }
     caption {
@@ -33053,7 +33053,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2237030
+      color: 2236962
       priority: -16063
     }
     caption {
@@ -33070,28 +33070,28 @@ cont {
   element {
     scale: 12
     area {
-      color: 2237030
+      color: 2236962
       priority: -16064
     }
   }
   element {
     scale: 13
     area {
-      color: 2237030
+      color: 2236962
       priority: -16065
     }
   }
   element {
     scale: 14
     area {
-      color: 2237030
+      color: 2236962
       priority: -16066
     }
   }
   element {
     scale: 15
     area {
-      color: 2237030
+      color: 2236962
       priority: -16067
     }
     caption {
@@ -33105,7 +33105,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 2237030
+      color: 2236962
       priority: -16068
     }
     caption {
@@ -33119,7 +33119,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 2237030
+      color: 2236962
       priority: -16069
     }
     caption {
@@ -33133,7 +33133,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 2237030
+      color: 2236962
       priority: -16070
     }
     caption {
@@ -33147,7 +33147,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 2237030
+      color: 2236962
       priority: -16071
     }
     caption {
