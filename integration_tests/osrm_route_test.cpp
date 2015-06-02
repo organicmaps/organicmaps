@@ -48,8 +48,8 @@ namespace
   {
     //@todo put down a correct route length when router is fixed
     integration::CalculateRouteAndTestRouteLength(
-        integration::GetAllMaps(), {37.537543510152318, 67.536217686389165}, {0., 0.},
-        {18.542688617866236, -36.095015335418523}, 1000.);
+        integration::GetAllMaps(), {37.53754, 67.53622}, {0., 0.},
+        {18.54269, -36.09501}, 17873000.);
   }
 
   UNIT_TEST(ArbatBaliCrimeanForwardCrossMwmTest)
