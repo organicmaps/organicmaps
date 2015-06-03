@@ -51,7 +51,7 @@ if [ "$1" == "pbf" ]; then
   export PLANET
   export INTDIR
   find "$TMPBORDERS" -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c 'POLY="%"; "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 -B="$POLY" --complex-ways --out-pbf -o="$INTDIR/$(basename "$POLY" .poly).pbf"'
+    sh -c '"$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 -B="%" --complex-ways --out-pbf -o="$INTDIR/$(basename "%" .poly).pbf"'
   [ $? != 0 ] && fail "Failed to process all the regions"
   rm -r "$TMPBORDERS"
 
@@ -100,7 +100,7 @@ elif [ "$1" == "mwm" ]; then
   export TARGET
   export DATA_PATH="$OMIM_PATH/data/"
   find "$INTDIR" -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c 'OSRM="%"; "$GENERATOR_TOOL" --make_routing --make_cross_section --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "$OSRM" .osrm)"'
+    sh -c '"$GENERATOR_TOOL" --make_routing --make_cross_section --osrm_file_name="%" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "%" .osrm)"'
 
   if [ -n "${POLY_DIR-}" ]; then
     # delete temporary polygons
