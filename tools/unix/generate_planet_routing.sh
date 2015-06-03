@@ -78,11 +78,16 @@ elif [ "$1" == "prepare" ]; then
     OSRM_FILE="${PBF%.*}.osrm"
     rm -f "$OSRM_FILE"
     "$OSRM_BUILD_PATH/osrm-extract" --config "$EXTRACT_CFG" --profile "$PROFILE" "$PBF"
-    rm -f "$PBF"
     "$OSRM_BUILD_PATH/osrm-prepare" --config "$PREPARE_CFG" --profile "$PROFILE" "$OSRM_FILE"
     "$OSRM_BUILD_PATH/osrm-mapsme" -i "$OSRM_FILE"
-    [ ! -f "$OSRM_FILE" ] && echo "Failed to create $OSRM_FILE"
+    if [ -s "$OSRM_FILE" ]; then
+      rm -f "$PBF"
+      ONE_OSRM_READY=1
+    else
+      echo "Failed to create $OSRM_FILE"
+    fi
   done
+  [ -z "${ONE_OSRM_READY-}" ] && fail "No osrm files were prepared"
   touch "$OSRM_FLAG"
 
 elif [ "$1" == "mwm" ]; then
