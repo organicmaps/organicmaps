@@ -41,8 +41,10 @@ import sys
 import thread
 from threading import Timer
 import threading
+import time
 import types
 import urllib2
+from scipy.stats.stats import trim_mean
 
 
 PORT = 34568
@@ -108,6 +110,7 @@ class TestServer:
             except socket.error:
                 print("Killing siblings")
                 self.kill_siblings()
+                time.sleep(1)
                 self.init_server()
 
 
@@ -155,30 +158,46 @@ def gen_to_list(generator):
         l.append(i)
     return l
             
+
+BIG_FILE_SIZE = 47684
             
 class PostHandler(BaseHTTPRequestHandler):
+    
+    def init_vars(self):
+        self.byterange = None
+        self.is_chunked = False
+        self.response_code = 200
+    
 
     def do_POST(self):
+        self.init_vars()
         self.server.reset_selfdestruct_timer()
         print("URL is: " + self.path)
         ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+        
+#         print ("My ctype == {}".format(ctype))
         if ctype == 'multipart/form-data':
             self.send_response(500)
             self.end_headers()
 
-        elif ctype == 'application/x-www-form-urlencoded':
+        elif ctype == 'application/json':
 
             length = int(self.headers.getheader('content-length'))
             data = self.rfile.read(length)
 
             self.send_response(200)
-            self.send_header("Content-Length", length + 1)
+            self.send_header("Content-Length", length)
             self.end_headers()
 
-            self.wfile.write(data + "\n")
+            self.wfile.write(data)
+            
+#         print("\n\n~~~\n\n")
 
     
     def do_GET(self):
+        self.init_vars()
+        self.chunk_requested()
+        
         self.server.reset_selfdestruct_timer()
         switch = {"/unit_tests/1.txt": self.test1,
                   "/unit_tests/notexisting_unittest": self.test_404,
@@ -188,36 +207,46 @@ class PostHandler(BaseHTTPRequestHandler):
                   "/kill": self.kill,
         }
         switch[self.path]()
-        return
+#         print("\n\n~~~\n\n")
+#         return
 
+
+    def chunk_requested(self):
+        
+        the_range = self.headers.get('Range')
+        if the_range is not None:
+            self.is_chunked = True
+            self.response_code = 206
+            meaningful_string = the_range[6:]
+            first, last = meaningful_string.split("-")
+            self.byterange = (int(first), int(last))
+        
+#         print("My headers are: {0}".format( self.headers))
+
+    def trim_message(self, message):
+        if not self.is_chunked:
+            return message
+        m = message[self.byterange[0]: self.byterange[1] + 1]
+        return m
 
     def pong(self):
         self.server.clients += 1
-        self.send_200()
+        self.send_response(200)
+        self.end_headers()
         self.wfile.write("pong")
 
 
     def test1(self):
         message = "Test1"
+        message = self.trim_message(message)
         
-        the_range = self.headers.get('Range')
-        if the_range is not None:
-            print("The range is not none")
-            print(the_range)
-            meaningful_string = the_range[6:]
-            first, last = meaningful_string.split("-")
-            message = message[int(first): int(last)]
-            print ("The message is: " + message)
         
-        self.send_response(200)
+#         print("This is what TEST1 is about to write: {}; {};".format(message, self.response_code))
+        
+        self.send_response(self.response_code)
         self.send_header("Content-Length", len(message))
         self.end_headers()
         self.wfile.write(message)
-
-
-    def send_200(self):
-        self.send_response(200)
-        self.end_headers()
 
         
     def test_404(self):
@@ -232,11 +261,25 @@ class PostHandler(BaseHTTPRequestHandler):
 
 
     def test_47_kb(self):
-        self.send_response(200)
-        self.send_header("Content-Length", 47 * 1024)
+        self.send_response(self.response_code)
+        length = BIG_FILE_SIZE
+        if self.byterange is not None:
+            length = min([length, self.byterange[1] - self.byterange[0] + 1])
+            
+#         print ("The length of message to return is: {0}".format(length))
+        
+        self.send_header("Content-Length", length)
+        if self.byterange is not None:
+            self.send_header("Content-Range", "bytes {start}-{end}/{out_of}".format(start=self.byterange[0], end=self.byterange[1], out_of=BIG_FILE_SIZE))
         self.end_headers()
-        for i in range(1, 47 * 1024):
+        for i in range(0, length + 1):
+#             try:
             self.wfile.write(255)
+#             except IOError, e:
+#                 if e.errno == errno.EPIPE:
+#                     print("This is indeed a broken pipe")
+                    
+        # EPIPE error
             
             
     def kill(self):
