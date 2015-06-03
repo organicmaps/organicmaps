@@ -55,6 +55,9 @@ FrontendRenderer::FrontendRenderer(Params const & params)
   m_fps = 0.0;
 #endif
 
+  ASSERT(m_tapEventInfoFn, ());
+  ASSERT(m_userPositionChangedFn, ());
+
   m_myPositionController.reset(new MyPositionController(params.m_initMyPositionMode));
   m_myPositionController->SetModeListener(params.m_myPositionModeCallback);
 
