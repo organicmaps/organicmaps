@@ -73,6 +73,8 @@
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
     <item name="android:imeOptions">actionDone</item>
+    <item name="android:lineSpacingMultiplier">1.43</item>
+    <item name="android:textColor">@color/text_place_page</item>
   </style>
 
   <style name="MwmWidget.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

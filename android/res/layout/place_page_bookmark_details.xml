@@ -20,38 +20,29 @@
       android:layout_marginTop="@dimen/margin_medium"
       android:src="@drawable/ic_text_bookmark"/>
 
-  <TextView
-      android:id="@+id/tv__bookmark_title"
+  <com.mapswithme.maps.widget.CustomTextInputLayout
+      android:id="@+id/layout__bookmark_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignTop="@id/iv__bookmark"
-      android:layout_toRightOf="@id/iv__bookmark"
-      android:lineSpacingMultiplier="1.67"
-      android:text="@string/name"
-      android:textColor="@color/text_place_page_subtitle"
-      android:textSize="@dimen/place_page_sub_subtitle"/>
+      android:layout_toRightOf="@id/iv__bookmark">
 
-  <EditText
-      android:id="@+id/et__bookmark_name"
-      style="@style/MwmWidget.PlacePage.EditText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/tv__bookmark_title"
-      android:layout_marginTop="@dimen/margin_tiny"
-      android:layout_toRightOf="@id/iv__bookmark"
-      android:hint="@string/name"
-      android:inputType="textCapWords"
-      android:lineSpacingMultiplier="1.43"
-      android:paddingLeft="0dp"
-      android:paddingRight="0dp"
-      android:singleLine="true"
-      android:textColor="@color/text_place_page"
-      android:textSize="@dimen/place_page_subtitle"/>
+    <EditText
+        android:id="@+id/et__bookmark_name"
+        style="@style/MwmWidget.PlacePage.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        android:inputType="textCapWords"
+        android:singleLine="true"
+        android:textSize="@dimen/place_page_subtitle"/>
+
+  </com.mapswithme.maps.widget.CustomTextInputLayout>
 
   <View
       android:layout_width="match_parent"
       android:layout_height="1px"
-      android:layout_below="@id/et__bookmark_name"
+      android:layout_below="@id/layout__bookmark_name"
       android:layout_marginTop="@dimen/margin_small"
       android:background="?attr/dividerHorizontal"/>
 
@@ -59,7 +50,7 @@
       android:id="@+id/tv__bookmark_group_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/et__bookmark_name"
+      android:layout_below="@id/layout__bookmark_name"
       android:layout_marginTop="@dimen/margin_medium_and_half"
       android:layout_toRightOf="@id/iv__bookmark"
       android:lineSpacingMultiplier="1.67"
@@ -111,29 +102,24 @@
         android:src="@drawable/color_picker_red_on"/>
   </RelativeLayout>
 
-  <TextView
-      android:id="@+id/tv__bookmark_notes_title"
+  <com.mapswithme.maps.widget.CustomTextInputLayout
+      android:id="@+id/layout__bookmark_notes"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/ll__group"
       android:layout_marginTop="@dimen/margin_medium"
-      android:layout_toRightOf="@id/iv__bookmark"
-      android:lineSpacingMultiplier="1.67"
-      android:text="@string/description"
-      android:textColor="@color/text_place_page_subtitle"
-      android:textSize="@dimen/place_page_sub_subtitle"/>
+      android:layout_toRightOf="@id/iv__bookmark">
 
-  <EditText
-      android:id="@+id/et__bookmark_notes"
-      style="@style/MwmWidget.PlacePage.EditText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/tv__bookmark_notes_title"
-      android:layout_marginBottom="@dimen/margin_medium"
-      android:layout_marginTop="@dimen/margin_tiny"
-      android:layout_toRightOf="@id/iv__bookmark"
-      android:inputType="textMultiLine"
-      android:lineSpacingMultiplier="1.43"
-      android:textColor="@color/text_place_page"
-      android:textSize="@dimen/place_page_subtitle"/>
+    <EditText
+        android:id="@+id/et__bookmark_notes"
+        style="@style/MwmWidget.PlacePage.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description"
+        android:inputType="textMultiLine"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/place_page_subtitle"/>
+
+  </com.mapswithme.maps.widget.CustomTextInputLayout>
+
 </RelativeLayout>

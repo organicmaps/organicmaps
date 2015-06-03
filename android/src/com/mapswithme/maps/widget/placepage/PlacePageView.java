@@ -14,10 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -92,7 +90,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
   // Bookmark
   private ImageView mIvColor;
   private EditText mEtBookmarkName;
-  private TextView mTvBookmarkNotes;
   private EditText mEtBookmarkNotes;
   private TextView mTvBookmarkGroup;
   // Place page buttons
@@ -189,28 +186,8 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
     }
 
     mEtBookmarkName = (EditText) mPpDetails.findViewById(R.id.et__bookmark_name);
-    mTvBookmarkNotes = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_notes_title);
     mEtBookmarkNotes = (EditText) mPpDetails.findViewById(R.id.et__bookmark_notes);
-    mEtBookmarkNotes.addTextChangedListener(new TextWatcher()
-    {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after)
-      {
 
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        mTvBookmarkNotes.setVisibility(s.length() == 0 ? View.VISIBLE : View.INVISIBLE);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s)
-      {
-
-      }
-    });
     mTvBookmarkGroup = (TextView) mPpDetails.findViewById(R.id.tv__bookmark_group);
     mTvBookmarkGroup.setOnClickListener(this);
 
@@ -362,7 +339,6 @@ public class PlacePageView extends RelativeLayout implements View.OnClickListene
       final String notes = bookmark.getBookmarkDescription();
       mEtBookmarkNotes.setText(Html.fromHtml(notes));
       mEtBookmarkNotes.setMovementMethod(LinkMovementMethod.getInstance());
-      mTvBookmarkNotes.setVisibility(notes.isEmpty() ? View.VISIBLE : View.INVISIBLE);
       mTvBookmarkGroup.setText(bookmark.getCategoryName(getContext()));
       mIvColor.setImageResource(bookmark.getIcon().getSelectedResId());
       mIvBookmark.setImageResource(R.drawable.ic_bookmark_on);
