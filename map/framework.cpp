@@ -915,7 +915,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.enableCompassArrow(isCompassEnabled || isCompasActionEnabled);
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
-  m_informationDisplay.enableRuler(drawScale > 4 && !m_informationDisplay.isCopyrightActive());
+  m_informationDisplay.enableRuler(!m_isFullScreenMode && (drawScale > 4 && !m_informationDisplay.isCopyrightActive()));
 
   m_informationDisplay.setDebugInfo(0, drawScale);
   pScreen->endFrame();

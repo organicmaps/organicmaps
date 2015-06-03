@@ -12,6 +12,8 @@
 #import "MWMLocationButton.h"
 #import "MapViewController.h"
 
+#include "Framework.h"
+
 @interface MWMMapViewControlsManager()
 
 @property (nonatomic) MWMSideMenuManager * menuManager;
@@ -64,13 +66,13 @@
 
 - (void)setHidden:(BOOL)hidden
 {
-  if (_hidden != hidden)
-  {
-    _hidden = hidden;
-    self.zoomHidden = _zoomHidden;
-    self.menuHidden = _menuHidden;
-    self.locationHidden = _locationHidden;
-  }
+  if (_hidden == hidden)
+    return;
+  _hidden = hidden;
+  self.zoomHidden = _zoomHidden;
+  self.menuHidden = _menuHidden;
+  self.locationHidden = _locationHidden;
+  GetFramework().SetFullScreenMode(hidden);
 }
 
 - (void)setZoomHidden:(BOOL)zoomHidden

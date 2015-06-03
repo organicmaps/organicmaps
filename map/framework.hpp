@@ -585,4 +585,12 @@ private:
 
   TRouteBuildingCallback m_routingCallback;
   //@}
+
+public:
+  /// @name Full screen mode
+  //@{
+  void SetFullScreenMode(bool enable) { m_isFullScreenMode = enable; }
+private:
+  bool m_isFullScreenMode = false;
+  //@}
 };
