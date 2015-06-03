@@ -503,12 +503,12 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (CGFloat)defaultSearchBarMinY
 {
-  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 3 : 20;
+  return isIOSVersionLessThan(@"7") ? 3 : 20;
 }
 
 - (CGFloat)defaultTopBackgroundHeight
 {
-  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 44 : 64;
+  return isIOSVersionLessThan(@"7") ? 44 : 64;
 }
 
 - (BOOL)iPhoneInLandscape

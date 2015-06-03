@@ -8,8 +8,6 @@
 
 #define IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
-#define SYSTEM_VERSION_IS_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-
 #define L(str) NSLocalizedString(str, nil)
 
 #define INTEGRAL(f) ([UIScreen mainScreen].scale == 1 ? floor(f) : f)

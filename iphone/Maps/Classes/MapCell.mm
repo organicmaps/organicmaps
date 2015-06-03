@@ -173,9 +173,8 @@
   self.separatorBottom.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleTopMargin;
 
   // On iOS6 and lower table view looks different, we won't show separators there.
-  if (SYSTEM_VERSION_IS_LESS_THAN(@"7.0")) {
+  if (isIOSVersionLessThan(@"7.0"))
     self.separatorTop.alpha  = self.separator.alpha = self.separatorBottom.alpha = 0.0;
-  }
 }
 
 - (void)prepareForReuse

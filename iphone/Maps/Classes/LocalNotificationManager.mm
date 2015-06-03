@@ -106,7 +106,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     UIImage * shareImage = [UIImage imageNamed:notificationInfo[@"NotifiicationShareImage"]];
     LocalNotificationInfoProvider * infoProvider = [[LocalNotificationInfoProvider alloc] initWithDictionary:notificationInfo];
 
-    if (SYSTEM_VERSION_IS_LESS_THAN(@"6.0"))
+    if (isIOSVersionLessThan(@"6.0"))
     {
       UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
       pasteboard.URL = link;
@@ -122,7 +122,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
       
       UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
       NSMutableArray * excludedActivityTypes = [@[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll] mutableCopy];
-      if (!SYSTEM_VERSION_IS_LESS_THAN(@"7.0"))
+      if (!isIOSVersionLessThan(@"7.0"))
         [excludedActivityTypes addObject:UIActivityTypeAirDrop];
       activityVC.excludedActivityTypes = excludedActivityTypes;
       UIWindow * window = [[UIApplication sharedApplication].windows firstObject];

@@ -472,7 +472,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CGFloat)viewMinY
 {
-  return self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
+  return self.statusBarIncluded ? (isIOSVersionLessThan(@"7") ? -20 : 0) : -20;
 }
 
 - (CGFloat)arrowMinYForHeaderWithHeight:(CGFloat)headerHeight
@@ -1183,7 +1183,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    if (SYSTEM_VERSION_IS_LESS_THAN(@"6"))
+    if (isIOSVersionLessThan(@"6"))
     {
       UIView * touchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _headerView.width - 64, _headerView.height)];
       [_headerView addSubview:touchView];

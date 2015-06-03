@@ -11,7 +11,7 @@
   [backButton setImage:[UIImage imageNamed:@"NavigationBarBackButton"] forState:UIControlStateNormal];
 
   UIBarButtonItem * space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-  space.width = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -8 : -16;
+  space.width = isIOSVersionLessThan(@"7") ? -8 : -16;
   UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:backButton];
   self.navigationItem.leftBarButtonItems = @[space, item];
 }

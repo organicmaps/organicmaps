@@ -31,7 +31,25 @@ static inline NSString * const kApplicationGroupIdentifier()
   return developerGroupIdentifier;
 }
 
-static inline BOOL isIOSVersionLessThan(NSInteger version)
+static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
 {
-  return [UIDevice currentDevice].systemName.integerValue < version;
+  NSArray const * const f = [first componentsSeparatedByString:@"."];
+  NSArray const * const s = [second componentsSeparatedByString:@"."];
+  NSUInteger iter = 0;
+  while (f.count > iter && s.count > iter)
+  {
+    NSInteger fiv = ((NSString *)f[iter]).integerValue;
+    NSInteger siv = ((NSString *)s[iter]).integerValue;
+
+    if (fiv == siv)
+      iter++;
+    else
+      return fiv < siv;
+  }
+  return f.count < s.count;
+}
+
+static inline BOOL isIOSVersionLessThan(NSString * version)
+{
+  return firstVersionIsLessThanSecond([UIDevice currentDevice].systemVersion, version);
 }

@@ -190,7 +190,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (CGFloat)viewMinY
 {
-  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0;
+  return isIOSVersionLessThan(@"7") ? -20 : 0;
 }
 
 - (UIView *)phoneIdiomView

@@ -213,7 +213,7 @@ void InitLocalizedStrings()
   application.applicationIconBadgeNumber = f.GetCountryTree().GetActiveMapLayout().GetOutOfDateCount();
   f.GetLocationState()->InvalidatePosition();
   
-  if (isIOSVersionLessThan(7))
+  if (isIOSVersionLessThan(@"7"))
     return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
@@ -301,7 +301,7 @@ void InitLocalizedStrings()
   m_mwmURL = nil;
   m_fileURL = nil;
 
-  if (!isIOSVersionLessThan(7))
+  if (!isIOSVersionLessThan(@"7"))
     [FBSDKAppEvents activateApp];
   
   [self restoreRouteState];
@@ -348,7 +348,7 @@ void InitLocalizedStrings()
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
   [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
 
-  if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
+  if (!isIOSVersionLessThan(@"7"))
   {
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
 
@@ -376,7 +376,7 @@ void InitLocalizedStrings()
   if ([self checkLaunchURL:url])
     return YES;
 
-  if (isIOSVersionLessThan(7))
+  if (isIOSVersionLessThan(@"7"))
     return NO;
   
   return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
@@ -476,7 +476,7 @@ void InitLocalizedStrings()
 
 - (void)trackWatchUser
 {
-  if (isIOSVersionLessThan(8))
+  if (isIOSVersionLessThan(@"8"))
     return;
 
   NSUserDefaults *standartDefaults = [NSUserDefaults standardUserDefaults];
@@ -545,7 +545,7 @@ void InitLocalizedStrings()
 
 - (void)showFacebookAlert
 {
-  if (isIOSVersionLessThan(7) || !Reachability.reachabilityForInternetConnection.isReachable)
+  if (isIOSVersionLessThan(@"7") || !Reachability.reachabilityForInternetConnection.isReachable)
     return;
   
   UIViewController *topViewController = [(UINavigationController*)m_window.rootViewController visibleViewController];
@@ -632,25 +632,10 @@ void InitLocalizedStrings()
 {
   NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
   NSString *firstVersion = [[NSUserDefaults standardUserDefaults] stringForKey:kUDFirstVersionKey];
-  if (!firstVersion.length || [self version:currentVersion greaterThanVersion:firstVersion])
+  if (!firstVersion.length || firstVersionIsLessThanSecond(firstVersion, currentVersion))
     return NO;
   
   return YES;
-}
-
-- (BOOL)version:(NSString *)first greaterThanVersion:(NSString *)second
-{
-  NSArray *f = [first componentsSeparatedByString:@"."];
-  NSArray *s = [second componentsSeparatedByString:@"."];
-  NSUInteger iter = 0;
-  while (f.count > iter && s.count > iter)
-  {
-    if ([(NSString*)f[iter] integerValue] == [(NSString*)s[iter] integerValue])
-      iter++;
-    else
-      return [(NSString*)f[iter] integerValue] > [(NSString*)s[iter] integerValue];
-  }
-  return f.count > s.count;
 }
 
 + (NSInteger)daysBetweenNowAndDate:(NSDate*)fromDate
