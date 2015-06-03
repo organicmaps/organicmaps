@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/thread_checker.hpp"
 
@@ -8,6 +9,7 @@
 #include "std/queue.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/thread.hpp"
+
 
 namespace my
 {
@@ -23,7 +25,8 @@ public:
   {
   }
 
-  ~WorkerThread() {
+  ~WorkerThread()
+  {
     ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     if (IsRunning())
       RunUntilIdleAndStop();
@@ -62,7 +65,8 @@ public:
   }
 
   /// \return True if worker thread is running, false otherwise.
-  inline bool IsRunning() const {
+  inline bool IsRunning() const
+  {
     ASSERT(m_threadChecker.CalledOnOriginalThread(), ());
     return m_workerThread.joinable();
   }
