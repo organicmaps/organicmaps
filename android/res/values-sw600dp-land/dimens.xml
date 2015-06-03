@@ -3,5 +3,6 @@
     <dimen name="bottom_panel_height">70dp</dimen>
     <dimen name="bottom_button_width">60dp</dimen>
     <dimen name="zoom_plus_top_margin">50dp</dimen>
+    <dimen name="margin_bottom_zoom_buttons">250dp</dimen>
 
 </resources>

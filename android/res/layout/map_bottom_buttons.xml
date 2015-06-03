@@ -18,12 +18,9 @@
 
     <TextView
         android:id="@+id/tv__bookmarks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_small"
+        style="@style/MwmWidget.TextView.BottomMenu"
         android:text="@string/bookmarks"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
     <ImageView
         android:id="@+id/btn__bookmarks"
@@ -46,12 +43,9 @@
 
     <TextView
         android:id="@+id/tv__download_maps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_small"
+        style="@style/MwmWidget.TextView.BottomMenu"
         android:text="@string/download_maps"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
     <ImageView
         android:id="@+id/btn__download_maps"
@@ -74,12 +68,9 @@
 
     <TextView
         android:id="@+id/tv__settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_small"
+        style="@style/MwmWidget.TextView.BottomMenu"
         android:text="@string/settings"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
     <ImageView
         android:id="@+id/btn__settings"
@@ -102,12 +93,9 @@
 
     <TextView
         android:id="@+id/tv__share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_small"
+        style="@style/MwmWidget.TextView.BottomMenu"
         android:text="@string/share_my_location"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
     <ImageView
         android:id="@+id/btn__share"
@@ -129,12 +117,9 @@
 
     <TextView
         android:id="@+id/tv__search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_small"
+        style="@style/MwmWidget.TextView.BottomMenu"
         android:text="@string/search"
-        android:textAllCaps="true"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light.Clickable"/>
+        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
     <ImageView
         android:id="@+id/btn__search"

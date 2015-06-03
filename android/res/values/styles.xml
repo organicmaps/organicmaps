@@ -107,6 +107,18 @@
     <item name="android:textSize">@dimen/text_size_headline</item>
   </style>
 
+  <style name="MwmWidget.TextView.BottomMenu">
+    <item name="android:maxLines">2</item>
+    <item name="android:textColor">@color/color_menu_text</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:maxWidth">200dp</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_marginRight">@dimen/margin_small</item>
+    <item name="android:gravity">right</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
   <style name="MwmWidget.FrameLayout"/>
 
   <style name="MwmWidget.FrameLayout.Elevation">
@@ -184,10 +196,6 @@
 
   <style name="MwmTextAppearance.Body1.Light">
     <item name="android:textColor">@color/text_light</item>
-  </style>
-
-  <style name="MwmTextAppearance.Body1.Light.Clickable">
-    <item name="android:textColor">@color/color_menu_text</item>
   </style>
 
   <style name="MwmTextAppearance.Body2">
