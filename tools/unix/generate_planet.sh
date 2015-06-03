@@ -256,13 +256,13 @@ if [ -n "$OPT_ROUTING" ]; then
     putmode "Step R: Starting OSRM files generation"
     if [ -n "$ASYNC_PBF" ]; then
       (
-        bash "$ROUTING_SCRIPT" pbf &> "$ROUTING_LOG";
-        bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG"
+        bash "$ROUTING_SCRIPT" pbf >> "$ROUTING_LOG" 2>&1
+        bash "$ROUTING_SCRIPT" prepare >> "$ROUTING_LOG" 2>&1
       ) &
     else
       # Osmconvert takes too much memory: it makes sense to not extract pbfs asyncronously
-      bash "$ROUTING_SCRIPT" pbf &> "$ROUTING_LOG"
-      ( bash "$ROUTING_SCRIPT" prepare &> "$ROUTING_LOG" ) &
+      bash "$ROUTING_SCRIPT" pbf >> "$ROUTING_LOG" 2>&1
+      ( bash "$ROUTING_SCRIPT" prepare >> "$ROUTING_LOG" 2>&1 ) &
     fi
   fi
 fi
@@ -327,7 +327,7 @@ if [ "$MODE" == "routing" ]; then
   if [ ! -e "$OSRM_FLAG" ]; then
     log "OSRM files are missing, skipping routing step."
   else
-    bash "$ROUTING_SCRIPT" mwm &> "$ROUTING_LOG"
+    bash "$ROUTING_SCRIPT" mwm >> "$ROUTING_LOG" 2>&1
   fi
   MODE=resources
 fi

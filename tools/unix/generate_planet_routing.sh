@@ -29,6 +29,7 @@ INTDIR="${INTDIR:-$TARGET/intermediate_data}"
 mkdir -p "$INTDIR"
 NUM_PROCESSES=${NUM_PROCESSES:-8}
 OSRM_FLAG="${OSRM_FLAG:-$INTDIR/osrm_done}"
+echo "[$(date +%Y/%m/%d\ %H:%M:%S)] $0 $1"
 
 if [ "$1" == "pbf" ]; then
   rm -f "$OSRM_FLAG"
@@ -46,6 +47,9 @@ if [ "$1" == "pbf" ]; then
     echo "$REGIONS" | xargs -I % cp "$BORDERS_PATH/%.poly" "$TMPBORDERS"
   fi
   [ -z "$(ls "$TMPBORDERS"/*.poly)" ] && fail "No regions to create routing files for"
+  export OSMCTOOLS
+  export PLANET
+  export INTDIR
   find "$TMPBORDERS" -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
     sh -c 'POLY="%"; "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B="$POLY" --complex-ways --out-pbf -o="$INTDIR/$(basename "$POLY" .poly).pbf"'
   [ $? != 0 ] && fail "Failed to process all the regions"
@@ -92,7 +96,8 @@ elif [ "$1" == "mwm" ]; then
     cp $BORDERS_PATH/*.poly $POLY_DIR/
   fi
 
-  DATA_PATH="$OMIM_PATH/data/"
+  export TARGET
+  export DATA_PATH="$OMIM_PATH/data/"
   find "$INTDIR" -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
     sh -c 'OSRM="%"; $GENERATOR_TOOL --make_routing --make_cross_section --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "$OSRM" .osrm)"'
 
