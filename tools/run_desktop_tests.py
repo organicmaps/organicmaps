@@ -135,11 +135,11 @@ def categorize_tests():
 
     if len(runlist) == 0:
         local_skiplist = filter(on_disk, skiplist)
-        not_found = filter(not_on_disk, local_skiplist)
+        not_found = filter(not_on_disk, skiplist)
         tests_to_run = filter(lambda x: x not in local_skiplist, test_files_in_dir)
     else:
         tests_to_run = filter(on_disk, runlist)
-        not_found = filter(not_on_disk, tests_to_run)
+        not_found = filter(not_on_disk, runlist)
 
     return {TO_RUN:tests_to_run, SKIP:local_skiplist, NOT_FOUND:not_found}        
         
