@@ -51,7 +51,7 @@ if [ "$1" == "pbf" ]; then
   export PLANET
   export INTDIR
   find "$TMPBORDERS" -name '*.poly' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c 'POLY="%"; "$OSMCTOOLS/osmconvert" $PLANET --hash-memory=2000 -B="$POLY" --complex-ways --out-pbf -o="$INTDIR/$(basename "$POLY" .poly).pbf"'
+    sh -c 'POLY="%"; "$OSMCTOOLS/osmconvert" "$PLANET" --hash-memory=2000 -B="$POLY" --complex-ways --out-pbf -o="$INTDIR/$(basename "$POLY" .poly).pbf"'
   [ $? != 0 ] && fail "Failed to process all the regions"
   rm -r "$TMPBORDERS"
 
@@ -92,18 +92,19 @@ elif [ "$1" == "mwm" ]; then
   if [ ! -d "$TARGET/borders" -o -z "$(ls "$TARGET/borders" | grep \.poly)" ]; then
     # copy polygons to a temporary directory
     POLY_DIR="$TARGET/borders"
-    mkdir -p $POLY_DIR
-    cp $BORDERS_PATH/*.poly $POLY_DIR/
+    mkdir -p "$POLY_DIR"
+    cp "$BORDERS_PATH"/*.poly "$POLY_DIR/"
   fi
 
+  export GENERATOR_TOOL
   export TARGET
   export DATA_PATH="$OMIM_PATH/data/"
   find "$INTDIR" -name '*.osrm' -print0 | xargs -0 -P $NUM_PROCESSES -I % \
-    sh -c 'OSRM="%"; $GENERATOR_TOOL --make_routing --make_cross_section --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "$OSRM" .osrm)"'
+    sh -c 'OSRM="%"; "$GENERATOR_TOOL" --make_routing --make_cross_section --osrm_file_name="$OSRM" --data_path="$TARGET" --user_resource_path="$DATA_PATH" --output="$(basename "$OSRM" .osrm)"'
 
   if [ -n "${POLY_DIR-}" ]; then
     # delete temporary polygons
-    rm $POLY_DIR/*.poly
+    rm "$POLY_DIR"/*.poly
     if [ -z "$(ls -A "$POLY_DIR")" ]; then
       rmdir "$POLY_DIR"
     fi
