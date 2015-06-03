@@ -1,12 +1,13 @@
 #pragma once
 
+#include "indexer/data_header.hpp"
 #include "indexer/scale_index_builder.hpp"
+
 
 namespace indexer
 {
   template <class FeaturesVectorT, typename WriterT>
-  void BuildIndex(uint32_t bucketsCount,
-                  int codingScale,
+  void BuildIndex(feature::DataHeader const & header,
                   FeaturesVectorT const & featuresVector,
                   WriterT & writer,
                   string const & tmpFilePrefix)
@@ -15,7 +16,7 @@ namespace indexer
     uint64_t indexSize;
     {
       SubWriter<WriterT> subWriter(writer);
-      IndexScales(bucketsCount, codingScale, featuresVector, subWriter, tmpFilePrefix);
+      covering::IndexScales(header, featuresVector, subWriter, tmpFilePrefix);
       indexSize = subWriter.Size();
     }
     LOG(LINFO, ("Built scale index. Size =", indexSize));

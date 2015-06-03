@@ -7,12 +7,9 @@
 #include "std/type_traits.hpp"
 #include "std/iterator_facade.hpp"
 
-
-template <
-    typename T,
-    class TReader,
-    typename TSize = uint32_t
-    > class DDVector
+// Disk-driven vector.
+template <typename T, class TReader, typename TSize = uint32_t>
+class DDVector
 {
 public:
   typedef T value_type;
@@ -166,7 +163,7 @@ private:
   {
     uint64_t const sz = m_reader.Size();
     if ((sz % sizeof(T)) != 0)
-      MYTHROW(OpenException, (sz, sizeof(T)));
+      MYTHROW(OpenException, ("Element size", sizeof(T), "does not divide total size", sz));
 
     m_Size = static_cast<size_type>(sz / sizeof(T));
   }

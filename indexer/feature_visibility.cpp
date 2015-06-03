@@ -335,6 +335,7 @@ int GetMinDrawableScale(FeatureBase const & f)
     if (IsDrawableForIndex(f, level))
       return level;
 
+  ASSERT(false, ("Feature is never visible."));
   return -1;
 }
 

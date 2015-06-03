@@ -22,7 +22,7 @@ namespace indexer
         FeaturesVector featuresVector(readCont, header);
         FileWriter writer(idxFileName);
 
-        BuildIndex(header.GetLastScale() + 1, header.GetLastScale(), featuresVector, writer, tmpFile);
+        BuildIndex(header, featuresVector, writer, tmpFile);
       }
 
       FilesContainerW(datFile, FileWriter::OP_WRITE_EXISTING).Write(idxFileName, INDEX_FILE_TAG);
